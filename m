@@ -2,58 +2,104 @@ Return-Path: <SRS0=52DL=OY=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E5FFC433EF
-	for <openbmc@archiver.kernel.org>; Mon,  4 Oct 2021 21:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3D40C433EF
+	for <openbmc@archiver.kernel.org>; Mon,  4 Oct 2021 22:09:25 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 645E1613D2
-	for <openbmc@archiver.kernel.org>; Mon,  4 Oct 2021 21:54:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 645E1613D2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sandelman.ca
+	by mail.kernel.org (Postfix) with ESMTPS id 3B66D61458
+	for <openbmc@archiver.kernel.org>; Mon,  4 Oct 2021 22:09:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3B66D61458
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HNZHh0qt1z2yws
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 08:54:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=sandelman.ca (client-ip=2607:f0b0:f:3:216:3eff:fe7c:d1f3;
- helo=tuna.sandelman.ca; envelope-from=mcr@sandelman.ca; receiver=<UNKNOWN>)
-X-Greylist: delayed 341 seconds by postgrey-1.36 at boromir;
- Tue, 05 Oct 2021 08:53:57 AEDT
-Received: from tuna.sandelman.ca (tuna.sandelman.ca
- [IPv6:2607:f0b0:f:3:216:3eff:fe7c:d1f3])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HNZcz4dZLz2ywM
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 09:09:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Qvjzf1lo;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=bruce.mitchell@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=Qvjzf1lo; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HNZH93Dj4z2yMD
- for <openbmc@lists.ozlabs.org>; Tue,  5 Oct 2021 08:53:56 +1100 (AEDT)
-Received: from localhost (localhost [127.0.0.1])
- by tuna.sandelman.ca (Postfix) with ESMTP id C162E1825F
- for <openbmc@lists.ozlabs.org>; Mon,  4 Oct 2021 17:56:05 -0400 (EDT)
-Received: from tuna.sandelman.ca ([127.0.0.1])
- by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id HliF5Xwyj5aE for <openbmc@lists.ozlabs.org>;
- Mon,  4 Oct 2021 17:55:57 -0400 (EDT)
-Received: from sandelman.ca (obiwan.sandelman.ca [IPv6:2607:f0b0:f:2::247])
- by tuna.sandelman.ca (Postfix) with ESMTP id BD2CD180C7
- for <openbmc@lists.ozlabs.org>; Mon,  4 Oct 2021 17:55:57 -0400 (EDT)
-Received: from localhost (localhost [IPv6:::1])
- by sandelman.ca (Postfix) with ESMTP id 35C2B58B
- for <openbmc@lists.ozlabs.org>; Mon,  4 Oct 2021 17:47:55 -0400 (EDT)
-From: Michael Richardson <mcr@sandelman.ca>
-To: openbmc <openbmc@lists.ozlabs.org>
-Subject: SPAKE, DTLS and passwords
-In-Reply-To: <e6dbbca0-e4f7-2e0f-146b-e57008a788e9@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HNZc80RWqz2yR8
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Oct 2021 09:08:39 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 194KaSqJ004167; 
+ Mon, 4 Oct 2021 18:08:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pp1;
+ bh=ZDWI0d/pOdyeoKVHAu4s5pikvyaVWjW/Q+lom922+Mo=;
+ b=Qvjzf1lopGiWMrceNKVSvKMU06NVVn803+TVTkzmsk96Dj8L2H5fWeVHFpThculR5jWn
+ dZlnvPK+8mWuuwn5HXC0c2fH/1eevvmDVDc59WEzlgvG8Anx8LD4LW5TtyctrDY4gbwx
+ hGhKHlT/yShyH4U8CKC1YR+hu9FsYDCt17v67Ym6wLdAWLWLbBArWwR8wrMNUOmFx9gW
+ UF0P7I+ixlw3PH9Q6BnGOksIU6Xi9GqMMPfMMaUmJcijoySdcSqFzIO4mNYvDgszulIy
+ Zr5vlYYfzzRqbmnFcGwsdYSXpVYcqF9MZhIo2lXa8E6CSUsIuv31qtsKaG2Xg4T7Bxas 6Q== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3bg7dh3skg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Oct 2021 18:08:36 -0400
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 194M4OMJ001151;
+ Mon, 4 Oct 2021 22:08:35 GMT
+Received: from b03cxnp07028.gho.boulder.ibm.com
+ (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
+ by ppma02dal.us.ibm.com with ESMTP id 3bef2b0xg1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Oct 2021 22:08:35 +0000
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 194M8Xgi459476
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 4 Oct 2021 22:08:34 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D8931BE053;
+ Mon,  4 Oct 2021 22:08:33 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9F9D1BE04F;
+ Mon,  4 Oct 2021 22:08:33 +0000 (GMT)
+Received: from [9.211.95.54] (unknown [9.211.95.54])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon,  4 Oct 2021 22:08:33 +0000 (GMT)
+Message-ID: <f5c98d79-d78c-bada-592e-fb997e7ecaf7@linux.vnet.ibm.com>
+Date: Mon, 4 Oct 2021 15:08:33 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.1.2
+Subject: Re: Security Working Group meeting - Wednesday September 29
+Content-Language: en-US
+To: Michael Richardson <mcr@sandelman.ca>, Joseph Reynolds <jrey@linux.ibm.com>
 References: <bb3c031e-cbe3-36c5-0db6-d1ef454300fd@linux.ibm.com>
  <e6dbbca0-e4f7-2e0f-146b-e57008a788e9@linux.ibm.com>
-X-Mailer: MH-E 8.6+git; nmh 1.7+dev; GNU Emacs 26.1
-X-Face: $\n1pF)h^`}$H>Hk{L"x@)JS7<%Az}5RyS@k9X%29-lHB$Ti.V>2bi.~ehC0;
- <'$9xN5Ub#
- z!G,p`nR&p7Fz@^UXIn156S8.~^@MJ*mMsD7=QFeq%AL4m<nPbLgmtKK-5dC@#:k
+ <17785.1633384198@localhost>
+From: Bruce Mitchell <bruce.mitchell@linux.vnet.ibm.com>
+In-Reply-To: <17785.1633384198@localhost>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: vcpOx_xD24dS9Rp2oAcsLdBJPjw4jaKe
+X-Proofpoint-GUID: vcpOx_xD24dS9Rp2oAcsLdBJPjw4jaKe
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 04 Oct 2021 17:47:55 -0400
-Message-ID: <17277.1633384075@localhost>
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-04_05,2021-10-04_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0
+ spamscore=0 clxscore=1011 phishscore=0 mlxlogscore=977 impostorscore=0
+ mlxscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110040147
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,110 +111,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On 10/4/2021 14:49, Michael Richardson wrote:
+> 
+> Joseph Reynolds <jrey@linux.ibm.com> wrote:
+>      > Can we use consider SRP (dropped in OpenSSL 3.0 -- why?) or other
+>      > implementations such as GnuTLS?
+> 
+> I meant to add/ask:
+> 
+> I assume OpenSSL is part of the build process today.
+> Would switching to GnuTLS, WolfTLS or MbedTLS really be possible?
+> 
+> --
+> ]               Never tell me the odds!                 | ipv6 mesh networks [
+> ]   Michael Richardson, Sandelman Software Works        |    IoT architect   [
+> ]     mcr@sandelman.ca  http://www.sandelman.ca/        |   ruby on rails    [
+> 
+Or LibreSSL https://www.libressl.org/
 
-
-Joseph Reynolds <jrey@linux.ibm.com> wrote:
-    > The planned IPMI over DLTS function will have certificate-based
-    > authuentication.=C2=A0
-
-Do you mean that the server will be authenticated with a certificate, or th=
-at
-it will use mutual authentication?
-
-    > For our use cases, we would like to add password-based
-    > authentication, and we want to do so as securely as possible, meaning=
- what
-    > protocol we should use.=C2=A0 In particular, we want to know if we sh=
-ould avoid
-    > sending a =E2=80=9Ccleartext=E2=80=9D password (tunneled over DTLS) t=
-o the server.
-
-If it can be avoided, yes.
-
-https://www.rfc-editor.org/rfc/rfc8125.html#section-3.1 suggests that all
-the PAKE candidates (whether balanced or augmented) satisfy this.
-I strongly suggest that a PAKE be used.
-The CHIP/MATTER IoT people are using
-   https://datatracker.ietf.org/doc/draft-bar-cfrg-spake2plus/
-although the IRTF CFRG hasn't adopted that document yet.  I don't know
-exactly where they are with it.  But, I expect you will find many libraries
-going forward.
-
-    > However note the Redfish password authentication passes in the cleart=
-ext
-    > password to the Redfish/HTTP server (tunneled over HTTPS). Does not n=
-eed the
-    > existing ipmi_pass file, or will at least store the password securely=
- in it.
-
-When the password is set, it can be set into two different hashed forms if =
-necessary.
-
-There are two concerns that I think this description deals with.
-
-The first is:
-  a) possibility that a cleartext password will be intercepted via
-     Onpath active attack to the connection. (a "MITM")
-
-The second is:
-  b) possibility that a cleartext password will be recovered from the
-     target system's authentication database.
-
-
-Whether or not (a) is likely depends very much on whether or not the BMC wi=
-ll
-be provisioned or onboarded with useful certificates that the clients can
-actually validate.   If the operational uses of IPMI-DTLS and HTTPS APIs
-are regularly skipping certificate validation, then it's probably important
-that this does not result in a password capture.
-
-{I said in summer 2020 that I would be writing a BRSKI, RFC8995 client for
-BMC. Sometime in fall 2020... but now I'm actually close to saying Winter
-2022.  I have many questions about testing this that I'll come back to}
-
-(b) wouldn't be a huge problem if all the passwords are unique.
-Afterwall, if an attacker can get a password out of the system, then the
-attacker already has access to that system.  If the passwords are unique,
-then retrieving that password gets the attacker nothing.
-
-Now, if none of the mechanisms require that a cleartext password be stored =
-on
-the system, then (b) is moot.
-
-Best is if no passwords are used, even if they are never transmitted,
-but many seem to find this operationally difficult to do.
-
-=2D-
-]               Never tell me the odds!                 | ipv6 mesh network=
-s [
-]   Michael Richardson, Sandelman Software Works        |    IoT architect =
-  [
-]     mcr@sandelman.ca  http://www.sandelman.ca/        |   ruby on rails  =
-  [
-
-
-
-
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEbsyLEzg/qUTA43uogItw+93Q3WUFAmFbdooACgkQgItw+93Q
-3WWvVAf/b7CSf2KLxtROzDm08yHL9wwyWGmw3/Mw2V/MbdQXA+dFcPqg9eI2SZqB
-3VmL6Y/bsJvsBAUy6PZ04LJ/5+GoynUpNklulUK/yJPbqfnZZnNczQmkKzq07DaQ
-4JpqkiyPIdzDnMYYno1t4loF6JY4w2pbi6dcNKT24yFs5b7iGDiWbfYwBXqTveSl
-R58FH/s24gjWb3oI9klR/5UF7mabNaVKv+1QiQmCqfTPpb0X81wUWCnf0crPqK/K
-j9WvtoA+yD1XBqDXPxE7/29P3eozsXxHwypeyYsUcl8ws9fWc/SJsavm/vAA+rbK
-JP95Kc1YwCW5DgTqopGGFVJlGwZGvg==
-=Zj/K
------END PGP SIGNATURE-----
---=-=-=--
