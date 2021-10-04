@@ -2,62 +2,62 @@ Return-Path: <SRS0=YtMA=OZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B615C433F5
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F65DC433EF
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:57 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6387C60F43
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6387C60F43
+	by mail.kernel.org (Postfix) with ESMTPS id 771B0610C8
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 771B0610C8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HNdKf5z3wz2yV6
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 11:11:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HNdLL6TP0z2yNr
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 11:11:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=dkim header.b=EKdSCXKP;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=dkim header.b=hB1AzTSs;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=alien8.de (client-ip=5.9.137.197; helo=mail.skyhub.de;
- envelope-from=bp@alien8.de; receiver=<UNKNOWN>)
+ smtp.mailfrom=alien8.de (client-ip=2a01:4f8:190:11c2::b:1457;
+ helo=mail.skyhub.de; envelope-from=bp@alien8.de; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256
- header.s=dkim header.b=EKdSCXKP; dkim-atps=neutral
-X-Greylist: delayed 257 seconds by postgrey-1.36 at boromir;
- Tue, 05 Oct 2021 06:08:24 AEDT
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ header.s=dkim header.b=hB1AzTSs; dkim-atps=neutral
+X-Greylist: delayed 561 seconds by postgrey-1.36 at boromir;
+ Tue, 05 Oct 2021 06:13:37 AEDT
+Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HNVc81qKgz2xY1;
- Tue,  5 Oct 2021 06:08:24 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HNVk94GmTz2yNn;
+ Tue,  5 Oct 2021 06:13:37 +1100 (AEDT)
 Received: from zn.tnic (p200300ec2f0fe4009c23c25c98857304.dip0.t-ipconnect.de
  [IPv6:2003:ec:2f0f:e400:9c23:c25c:9885:7304])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A06841EC03FE;
- Mon,  4 Oct 2021 21:08:21 +0200 (CEST)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 774201EC03D2;
+ Mon,  4 Oct 2021 21:03:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1633374501;
+ t=1633374238;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=i6PxikJNA1V7HfDVyLAobLqaSjOebbk6J6n8Zlv5QfE=;
- b=EKdSCXKP0dFy4SUcN7yE1/LTYYr7g50Rq74dwqthJVY7HnSsWQ0haYRQBlHM9qpvT/ZewA
- L/dhM/XkdJucHyEk/QoP7sLQggGOKhbB/la4UEPn7+C8g2QJ/yp32xgC5HZdOGksGMh1OO
- gOfqpItzsrx/A1wmMvUKtArbVnZHUQM=
-Date: Mon, 4 Oct 2021 21:08:22 +0200
+ bh=0Nms4auAY3J/VUVtMgcFZcZpc069CLLUqzM+bdeYLVk=;
+ b=hB1AzTSsB1cgjjLDziTXH0QngoL3aO0oKRg7k+c5hPO68B1wguz1yl6+QrOaVKi3NLEbrh
+ joloXjbwL8oGdS5mMnbNgevjUzDOetUYM2ffcG/crFVIlxNq94ibITOrm89OrC30+oHyJW
+ th69nz+SBcfqNS7StlH4IeV54nrlyNI=
+Date: Mon, 4 Oct 2021 21:03:55 +0200
 From: Borislav Petkov <bp@alien8.de>
 To: Iwona Winiarska <iwona.winiarska@intel.com>
-Subject: Re: [PATCH v2 02/15] x86/cpu: Extract cpuid helpers to
- arch-independent
-Message-ID: <YVtRJiYD9EqGh7TM@zn.tnic>
+Subject: Re: [PATCH v2 01/15] x86/cpu: Move intel-family to arch-independent
+ headers
+Message-ID: <YVtQG+idmwKn0qLe@zn.tnic>
 References: <20210803113134.2262882-1-iwona.winiarska@intel.com>
- <20210803113134.2262882-3-iwona.winiarska@intel.com>
+ <20210803113134.2262882-2-iwona.winiarska@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20210803113134.2262882-3-iwona.winiarska@intel.com>
+In-Reply-To: <20210803113134.2262882-2-iwona.winiarska@intel.com>
 X-Mailman-Approved-At: Tue, 05 Oct 2021 11:10:42 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -90,7 +90,7 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Aug 03, 2021 at 01:31:21PM +0200, Iwona Winiarska wrote:
+On Tue, Aug 03, 2021 at 01:31:20PM +0200, Iwona Winiarska wrote:
 > Baseboard management controllers (BMC) often run Linux but are usually
 > implemented with non-X86 processors. They can use PECI to access package
 > config space (PCS) registers on the host CPU and since some information,
@@ -98,40 +98,27 @@ On Tue, Aug 03, 2021 at 01:31:21PM +0200, Iwona Winiarska wrote:
 > registers on different CPU generations, they need to decode the family
 > and model.
 > 
-> The format of Package Identifier PCS register that describes CPUID
-> information has the same layout as CPUID_1.EAX, so let's allow to reuse
-> cpuid helpers by making it available for other architectures as well.
+> Move the data from arch/x86/include/asm/intel-family.h into a new file
+> include/linux/x86/intel-family.h so that it can be used by other
+> architectures.
 > 
 > Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
 > Reviewed-by: Tony Luck <tony.luck@intel.com>
 > Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 > ---
->  MAINTAINERS                      | 1 +
->  arch/x86/Kconfig                 | 1 +
->  arch/x86/include/asm/cpu.h       | 3 ---
->  arch/x86/include/asm/microcode.h | 2 +-
->  arch/x86/kvm/cpuid.h             | 3 ++-
->  arch/x86/lib/Makefile            | 2 +-
->  drivers/edac/mce_amd.c           | 3 +--
->  include/linux/x86/cpu.h          | 9 +++++++++
->  lib/Kconfig                      | 4 ++++
->  lib/Makefile                     | 2 ++
->  lib/x86/Makefile                 | 3 +++
->  {arch/x86/lib => lib/x86}/cpu.c  | 2 +-
->  12 files changed, 26 insertions(+), 9 deletions(-)
->  create mode 100644 include/linux/x86/cpu.h
->  create mode 100644 lib/x86/Makefile
->  rename {arch/x86/lib => lib/x86}/cpu.c (95%)
+> To limit tree-wide changes and help people that were expecting
+> intel-family defines in arch/x86 to find it more easily without going
+> through git history, we're not removing the original header
+> completely, we're keeping it as a "stub" that includes the new one.
+> If there is a consensus that the tree-wide option is better,
+> we can choose this approach.
 
-AFAICT, all that churn is done for x86_family() and x86_model() which
-are used *exactly* *once* and which are almost trivial anyway.
+Why can't the linux/ namespace header include the x86 one so that
+nothing changes for arch/x86/?
 
-What's wrong with simply computing the family and model "by hand", so to
-speak, in peci_device_info_init() and do away with that diffstat
-
- 12 files changed, 26 insertions(+), 9 deletions(-)
-
-?
+And if it is really only a handful of families you need, you might just
+as well copy them into the peci headers and slap a comment above it
+saying where they come from and save yourself all that churn...
 
 -- 
 Regards/Gruss,
