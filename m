@@ -2,70 +2,63 @@ Return-Path: <SRS0=YtMA=OZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD125C433F5
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B615C433F5
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D61D6124D
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D61D6124D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 6387C60F43
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:11:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6387C60F43
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HNd7S6qLzz2yp2
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 11:02:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HNdKf5z3wz2yV6
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 11:11:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=SsItuKSy;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=dkim header.b=EKdSCXKP;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::729;
- helo=mail-qk1-x729.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=alien8.de (client-ip=5.9.137.197; helo=mail.skyhub.de;
+ envelope-from=bp@alien8.de; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=SsItuKSy; dkim-atps=neutral
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [IPv6:2607:f8b0:4864:20::729])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256
+ header.s=dkim header.b=EKdSCXKP; dkim-atps=neutral
+X-Greylist: delayed 257 seconds by postgrey-1.36 at boromir;
+ Tue, 05 Oct 2021 06:08:24 AEDT
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HNd621KDJz2xrp
- for <openbmc@lists.ozlabs.org>; Tue,  5 Oct 2021 11:01:13 +1100 (AEDT)
-Received: by mail-qk1-x729.google.com with SMTP id m7so1409381qke.8
- for <openbmc@lists.ozlabs.org>; Mon, 04 Oct 2021 17:01:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=x78zZyWp/ruHj6HNDXOa1ppyYEbzDh0K20fO3tOUWRg=;
- b=SsItuKSyCvigpj02ewQ04e5QA4MZyFihYRbXm8WYKIEc+BdvLVHcgd+XB8aWucycBj
- d0w6ALB/JpbPTg36dqve2dmv668e9XDqLfVmKFbh5FU4Qbp0mCFcA5KJjcFHXZP7nYp7
- Ve8YzYAGXdQYbsHLc0Vk92qVZMDEMo8g5/Plo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=x78zZyWp/ruHj6HNDXOa1ppyYEbzDh0K20fO3tOUWRg=;
- b=5GJjwAHTQSKJCD1biZgsDMmgavCv4lFW7a8Ei4TZYzPhaSkBDtYwxSvXGP2nypNChN
- B2czZ5XLUwHWx1zggD0wttXgOTjE8ET023ppLjjJMOk09D+pYLBMUj4+9bf/VcwOXo9G
- oqc/jodiKYf3nbQBLeia2KIjVolleGMlYYFOJmySEXo0B+eH/1VKYOGDyaU3XFihRsfl
- FSQl/J3tBXPFIz76B86UwDaSq1jw/uZs+8I/AnXbUbymjYmaP6hsQowOtX9NnkCkykUu
- wd+zL6N76xDhgKVph4snFTcWPBPLB0p+JECBq3o6Y5dRmk12mUOdZ+ktlVQGpxTLnoj9
- NWOA==
-X-Gm-Message-State: AOAM530g/E2bIJAEujMGbLW7T4LqsIDH407VdhWJe3xSALMhWrfwe6uG
- W1RmnwuLGtVqDsrH4bt4Fy44pF26jBv2zp9J4p0=
-X-Google-Smtp-Source: ABdhPJywbM3uJ+FjRkU5nr4VhA9NHWhLut2wTqtV7yPwyqFbAzF72AsCjhbWGI9RcCd3ipwgaOHCFfUO14/OrBLU5co=
-X-Received: by 2002:a37:aa8f:: with SMTP id
- t137mr11986511qke.381.1633392069331; 
- Mon, 04 Oct 2021 17:01:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HNVc81qKgz2xY1;
+ Tue,  5 Oct 2021 06:08:24 +1100 (AEDT)
+Received: from zn.tnic (p200300ec2f0fe4009c23c25c98857304.dip0.t-ipconnect.de
+ [IPv6:2003:ec:2f0f:e400:9c23:c25c:9885:7304])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A06841EC03FE;
+ Mon,  4 Oct 2021 21:08:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+ t=1633374501;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+ bh=i6PxikJNA1V7HfDVyLAobLqaSjOebbk6J6n8Zlv5QfE=;
+ b=EKdSCXKP0dFy4SUcN7yE1/LTYYr7g50Rq74dwqthJVY7HnSsWQ0haYRQBlHM9qpvT/ZewA
+ L/dhM/XkdJucHyEk/QoP7sLQggGOKhbB/la4UEPn7+C8g2QJ/yp32xgC5HZdOGksGMh1OO
+ gOfqpItzsrx/A1wmMvUKtArbVnZHUQM=
+Date: Mon, 4 Oct 2021 21:08:22 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Iwona Winiarska <iwona.winiarska@intel.com>
+Subject: Re: [PATCH v2 02/15] x86/cpu: Extract cpuid helpers to
+ arch-independent
+Message-ID: <YVtRJiYD9EqGh7TM@zn.tnic>
+References: <20210803113134.2262882-1-iwona.winiarska@intel.com>
+ <20210803113134.2262882-3-iwona.winiarska@intel.com>
 MIME-Version: 1.0
-References: <YVtJTrgm3b3W4PY9@heinlein>
-In-Reply-To: <YVtJTrgm3b3W4PY9@heinlein>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 5 Oct 2021 00:00:56 +0000
-Message-ID: <CACPK8XdsJFZYR6qiFxPPjOJdgye4agkuW9fw1RY0cdyYX7z9hw@mail.gmail.com>
-Subject: Re: aspeed-adc driver kpanic
-To: Patrick Williams <patrick@stwcx.xyz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20210803113134.2262882-3-iwona.winiarska@intel.com>
+X-Mailman-Approved-At: Tue, 05 Oct 2021 11:10:42 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,54 +70,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Billy Tsai <billy_tsai@aspeedtech.com>,
- OpenBMC List <openbmc@lists.ozlabs.org>
+Cc: linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Dan Williams <dan.j.williams@intel.com>, Zev Weiss <zweiss@equinix.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jonathan Corbet <corbet@lwn.net>, openbmc@lists.ozlabs.org, x86@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh+dt@kernel.org>,
+ Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ Yazen Ghannam <yazen.ghannam@amd.com>, Olof Johansson <olof@lixom.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 4 Oct 2021 at 18:35, Patrick Williams <patrick@stwcx.xyz> wrote:
->
-> Hi Billy,
->
-> When I run the latest linux-5.14 on QEMU with the Witherspoon config, I end up
-> with a kernel panic[1].  I think there is an ordering problem in the aspeed_adc
-> driver.
->
-> See [2,3].  The code registers with devm a pointer to the prescaler object which
-> is not yet created.  I think it is possible that the struct value contains
-> uninitialized data as well.  Can you please take a look at this?
+On Tue, Aug 03, 2021 at 01:31:21PM +0200, Iwona Winiarska wrote:
+> Baseboard management controllers (BMC) often run Linux but are usually
+> implemented with non-X86 processors. They can use PECI to access package
+> config space (PCS) registers on the host CPU and since some information,
+> e.g. figuring out the core count, can be obtained using different
+> registers on different CPU generations, they need to decode the family
+> and model.
+> 
+> The format of Package Identifier PCS register that describes CPUID
+> information has the same layout as CPUID_1.EAX, so let's allow to reuse
+> cpuid helpers by making it available for other architectures as well.
+> 
+> Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
+> Reviewed-by: Tony Luck <tony.luck@intel.com>
+> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+> ---
+>  MAINTAINERS                      | 1 +
+>  arch/x86/Kconfig                 | 1 +
+>  arch/x86/include/asm/cpu.h       | 3 ---
+>  arch/x86/include/asm/microcode.h | 2 +-
+>  arch/x86/kvm/cpuid.h             | 3 ++-
+>  arch/x86/lib/Makefile            | 2 +-
+>  drivers/edac/mce_amd.c           | 3 +--
+>  include/linux/x86/cpu.h          | 9 +++++++++
+>  lib/Kconfig                      | 4 ++++
+>  lib/Makefile                     | 2 ++
+>  lib/x86/Makefile                 | 3 +++
+>  {arch/x86/lib => lib/x86}/cpu.c  | 2 +-
+>  12 files changed, 26 insertions(+), 9 deletions(-)
+>  create mode 100644 include/linux/x86/cpu.h
+>  create mode 100644 lib/x86/Makefile
+>  rename {arch/x86/lib => lib/x86}/cpu.c (95%)
 
-I merged v6 of Billy's patches, but he sent a v7 version that
-contained a fix this issue:
+AFAICT, all that churn is done for x86_family() and x86_model() which
+are used *exactly* *once* and which are almost trivial anyway.
 
---- a/drivers/iio/adc/aspeed_adc.c
-+++ b/drivers/iio/adc/aspeed_adc.c
-@@ -492,8 +492,8 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+What's wrong with simply computing the family and model "by hand", so to
+speak, in peci_device_info_init() and do away with that diffstat
 
-        data = iio_priv(indio_dev);
-        data->dev = &pdev->dev;
--       data->model_data = of_device_get_match_data(&pdev->dev);
-        platform_set_drvdata(pdev, indio_dev);
-+       data->model_data = of_device_get_match_data(&pdev->dev);
+ 12 files changed, 26 insertions(+), 9 deletions(-)
 
-        data->base = devm_platform_ioremap_resource(pdev, 0);
-        if (IS_ERR(data->base))
-@@ -512,7 +512,7 @@ static int aspeed_adc_probe(struct platform_device *pdev)
+?
 
-        ret = devm_add_action_or_reset(data->dev,
-                                       aspeed_adc_unregister_fixed_divider,
--                                      data->clk_prescaler);
-+                                      data->fixed_div_clk);
-        if (ret)
-                return ret;
-        snprintf(clk_parent_name, ARRAY_SIZE(clk_parent_name), clk_name);
+-- 
+Regards/Gruss,
+    Boris.
 
-
->
-> 1. https://gist.github.com/williamspatrick/4a0f0d1e0ca6f54816461a8df09e6cb8
-> 2. https://github.com/openbmc/linux/blob/dev-5.14/drivers/iio/adc/aspeed_adc.c#L513
-> 3. https://github.com/openbmc/linux/blob/dev-5.14/drivers/iio/adc/aspeed_adc.c#L527
->
-> --
-> Patrick Williams
+https://people.kernel.org/tglx/notes-about-netiquette
