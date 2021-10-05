@@ -2,70 +2,109 @@ Return-Path: <SRS0=YtMA=OZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F3A1C433F5
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E669AC433F5
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 06:45:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B30B610C8
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 00:12:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5B30B610C8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=inventec.com
+	by mail.kernel.org (Postfix) with ESMTPS id 01B986137F
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 06:45:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 01B986137F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=us.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HNdLr0Ngxz2ynw
-	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 11:12:20 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HNp4t1llHz2yYl
+	for <openbmc@archiver.kernel.org>; Tue,  5 Oct 2021 17:45:50 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sJSJVKM0;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=inventec.com (client-ip=218.32.67.185; helo=mail.inventec.com;
- envelope-from=lin.tommysc@inventec.com; receiver=<UNKNOWN>)
-Received: from mail.inventec.com (unknown [218.32.67.185])
- (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=us.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=sJSJVKM0; dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HKb3q6F8tz2xY6
- for <openbmc@lists.ozlabs.org>; Thu, 30 Sep 2021 11:18:46 +1000 (AEST)
-Received: from IEC1-EX2016-04.iec.inventec (10.1.254.222) by
- IEC1-EX2016-03.iec.inventec (10.15.2.59) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.14; Thu, 30 Sep 2021 09:18:35 +0800
-Received: from IEC1-MSE-FE2.inventec.com (10.1.254.204) by
- IEC1-EX2016-04.iec.inventec (10.1.254.222) with Microsoft SMTP Server id
- 15.1.2308.14 via Frontend Transport; Thu, 30 Sep 2021 09:18:35 +0800
-Received: from IEC1-EX2016-02.iec.inventec (iec1-ex2016-02.iec.inventec
- [10.1.254.221])
- by IEC1-MSE-FE2.inventec.com with ESMTP id 18U1IUSn068235;
- Thu, 30 Sep 2021 09:18:30 +0800 (GMT-8)
- (envelope-from Lin.TommySC@inventec.com)
-Received: from IEC1-EX2016-01.iec.inventec (10.15.2.58) by
- IEC1-EX2016-02.iec.inventec (10.1.254.221) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.14; Thu, 30 Sep 2021 09:18:30 +0800
-Received: from IEC1-EX2016-01.iec.inventec ([fe80::44f0:5c98:dc89:7007]) by
- IEC1-EX2016-01.iec.inventec ([fe80::44f0:5c98:dc89:7007%8]) with mapi id
- 15.01.2308.014; Thu, 30 Sep 2021 09:18:30 +0800
-From: =?utf-8?B?TGluLlRvbW15U0Mg5p6X5LiW5qy9IFRBTw==?=
- <Lin.TommySC@inventec.com>
-To: Joel Stanley <joel@jms.id.au>
-Subject: RE: [PATCH] ARM: dts: aspeed: Adding Inventec Transformers BMC
-Thread-Topic: [PATCH] ARM: dts: aspeed: Adding Inventec Transformers BMC
-Thread-Index: AdeZffCe3FTiFR09TPmVfTNzFwE6kP//0zWA//6RBqD//R/wgIAFU/WA/8ikBlA=
-Date: Thu, 30 Sep 2021 01:18:30 +0000
-Message-ID: <b65afcf4d8224325861fd1ac285d0132@inventec.com>
-References: <aab1dd3f9c034bc3a1eef34306149833@inventec.com>
- <CACPK8Xf7iYijTAfcDUOH3bs-gGdM9Yton4isuuLc2w-mosapig@mail.gmail.com>
- <89f94a107b4f48328f865c5d40a15a23@inventec.com>
- <CACPK8XfvpZB-88+4ZHt1THmGc1c93prOv_eZmN5DwtXLcCVFog@mail.gmail.com>
-In-Reply-To: <CACPK8XfvpZB-88+4ZHt1THmGc1c93prOv_eZmN5DwtXLcCVFog@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.6.177.156]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HNp3z6gLtz2yPT
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Oct 2021 17:45:03 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1956C0Nh003700; 
+ Tue, 5 Oct 2021 02:44:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=in-reply-to : from : to
+ : cc : date : message-id : content-type : references :
+ content-transfer-encoding : mime-version : subject; s=pp1;
+ bh=pPNWkNRfEsRJAAVYmHmXPa0lB82wL+NbFspwM37jvaQ=;
+ b=sJSJVKM0feq+rxyH9DwjBCnItFv8fO/V3/12Ss8dQwbev7R/04OKAK21erOrs76AjB4g
+ 6Woi6p0OQDqRkmSS7Y2VXyatzLoaVtYQeXKaeaLIWFVroRNswdWRiXHd034ZvbUZvp50
+ 3F30ZY2qhdxrVeatN8Kcg+HoeivKpbLevopI6LuN1BzksG483siT/6QbJK9IXuGt1fjE
+ Nse8vtgcnTA6rxZgyLT5lhtFTDy27sfJW4A3P4U/ZRP6iM/N19kaRt/ANkNwPVxMQFZf
+ Medi3UQs5KST2Im1NJWG0WdJkdcUA38BFZVUqxGwFRKCGBo11aSNomcNPw1nmaZLg07s Ag== 
+Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
+ [169.55.91.170])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3bgh7j8kpe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Oct 2021 02:44:56 -0400
+Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
+ by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 1956bE30020060;
+ Tue, 5 Oct 2021 06:44:55 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma02wdc.us.ibm.com with ESMTP id 3bef2adcss-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 05 Oct 2021 06:44:55 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 1956isNK36438486
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 5 Oct 2021 06:44:54 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2540B6E059;
+ Tue,  5 Oct 2021 06:44:54 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 11BC66E058;
+ Tue,  5 Oct 2021 06:44:53 +0000 (GMT)
+Received: from mww0332.dal12m.mail.ibm.com (unknown [9.208.69.80])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS;
+ Tue,  5 Oct 2021 06:44:53 +0000 (GMT)
+In-Reply-To: <cb9dedaf242264f76eca18e94934703300be5a7e.camel@yadro.com>
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: "Ivan Mikhaylov" <i.mikhaylov@yadro.com>
+Date: Tue, 5 Oct 2021 06:44:52 +0000
+Message-ID: <OF8E108F72.39D22E89-ON00258765.001E46EB-00258765.00251157@ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <cb9dedaf242264f76eca18e94934703300be5a7e.camel@yadro.com>,
+ <20210830171806.119857-2-i.mikhaylov@yadro.com>
+ <OF2487FB9E.ECED277D-ON00258741.006BEF89-00258744.001FE4C0@ibm.com>
+X-Mailer: Lotus Domino Web Server Release 11.0.1FP2HF114   September 2, 2021
+X-MIMETrack: Serialize by http on MWW0332/03/M/IBM at 10/05/2021 06:44:52,
+ Serialize complete at 10/05/2021 06:44:52
+X-Disclaimed: 11143
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: j5JPjlJWzfLnVUmGLkRIH9-0XOo268Ag
+X-Proofpoint-ORIG-GUID: j5JPjlJWzfLnVUmGLkRIH9-0XOo268Ag
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-X-MAIL: IEC1-MSE-FE2.inventec.com 18U1IUSn068235
-X-TM-SNTS-SMTP: 253E7D71319EF616F3CCDD039EDF2A74A14147540CB8187BE76F0CF38027B9222000:8
-X-Mailman-Approved-At: Tue, 05 Oct 2021 11:10:55 +1100
+Subject: RE: [PATCH 1/1] net/ncsi: add get MAC address command to get Intel
+ i210 MAC address
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-04_05,2021-10-04_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 phishscore=0
+ spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 clxscore=1011 bulkscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110050035
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,33 +116,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: =?utf-8?B?WWUuVmljIOiRieWuh+a4hSBUQU8=?= <ye.vic@inventec.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "Mohammed.Habeeb ISV" <mohammed.habeeb@inventec.com>,
- =?utf-8?B?S3VvLk1hcmNlbCDpg63lo6vlvrcgSVNW?= <kuo.marcel@inventec.com>
+Cc: devicetree@vger.kernel.org, Brad Ho <Brad_Ho@phoenix.com>,
+ Paul Fertser <fercerpav@gmail.com>, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Ricardo
+ Del Pozo Gonzalez <ricardopozo@es.ibm.com>, Jakub Kicinski <kuba@kernel.org>,
+ Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-SGkgSm9lbCwNCg0KSSd2ZSBzZW50IG15IHBhdGNoIGFnYWluIHVzaW5nICJnaXQgaW1hcC1zZW5k
-IiBidXQgd2l0aG91dCBhbnkgZmVlZGJhY2suIFdvdWxkIHlvdSBtaW5kIGNoZWNraW5nIHRoaXMg
-bGluaz8NCmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8yMDIxLUF1
-Z3VzdC8wMjczODMuaHRtbA0KDQpUaGFua3MNClRvbW15DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tDQpGcm9tOiBKb2VsIFN0YW5sZXkgW21haWx0bzpqb2VsQGptcy5pZC5hdV0gDQpTZW50
-OiBUaHVyc2RheSwgQXVndXN0IDI2LCAyMDIxIDExOjQ3IEFNDQpUbzogTGluLlRvbW15U0Mg5p6X
-5LiW5qy9IFRBTyA8TGluLlRvbW15U0NAaW52ZW50ZWMuY29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMu
-b3psYWJzLm9yZzsgWWUuVmljIOiRieWuh+a4hSBUQU8gPHllLnZpY0BpbnZlbnRlYy5jb20+OyBN
-b2hhbW1lZC5IYWJlZWIgSVNWIDxtb2hhbW1lZC5oYWJlZWJAaW52ZW50ZWMuY29tPjsgS3VvLk1h
-cmNlbCDpg63lo6vlvrcgSVNWIDxrdW8ubWFyY2VsQGludmVudGVjLmNvbT4NClN1YmplY3Q6IFJl
-OiBbUEFUQ0hdIEFSTTogZHRzOiBhc3BlZWQ6IEFkZGluZyBJbnZlbnRlYyBUcmFuc2Zvcm1lcnMg
-Qk1DDQoNCk9uIFRodSwgMjYgQXVnIDIwMjEgYXQgMDI6MTgsIExpbi5Ub21teVNDIOael+S4luas
-vSBUQU8gPExpbi5Ub21teVNDQGludmVudGVjLmNvbT4gd3JvdGU6DQo+DQo+IEhpIEpvZWwsDQo+
-DQo+IFNvcnJ5IGZvciBteSB0eXBvLiBJIG1lYW4gaXQgc2VlbXMgdGhhdCBnaXQtc2VuZC1lbWFp
-bCBjb21tYW5kIHN1cHBvcnRzIG9ubHkgU01UUC4gQW5kIG91ciBtYWlsIHNlcnZlciBzdXBwb3J0
-cyBvbmx5IFBPUCBhbmQgSU1BUC4gU28gZG8geW91IGFjY2VwdCB0aGF0IEkgcmVzZW5kIG15IG1h
-aWwgd2l0aCBpbmxpbmUgZGlmZiBwYXRjaD8NCg0KVGhlIHByb2JsZW0gd2l0aCBwYXN0aW5nIHRo
-ZSBwYXRjaCBpbnRvIHlvdXIgZW1haWwgY2xpZW50IGlzIGl0IG9mdGVuIG1vZGlmaWVzIHRoZSB3
-aGl0ZXNwYWNlLCBjYXVzaW5nIHRoZSBwYXRjaCB0byBiZSBjb3JydXB0LiBZb3UgY2FuIHRyeSB0
-aG91Z2guDQoNCkEgY29tbW9uIHdvcmthcm91bmQgaXMgdG8gdXNlIGEgZGlmZmVyZW50IGFkZHJl
-c3MgZm9yIHlvdXIgb3BlbiBzb3VyY2Ugd29yaywgc3VjaCBhcyBhIGdtYWlsLmNvbSBhY2NvdW50
-Lg0KDQpDaGVlcnMsDQoNCkpvZWwNCg==
+On September 2, 2021, Ivan Mikhaylov wrote:
+
+>On Thu, 2021-09-02 at 05:48 +0000, Milton Miller II wrote:
+>> On August 30, 2021, Ivan Mikhaylov" <i.mikhaylov@yadro.com> wrote:
+>> > This patch adds OEM Intel GMA command and response handler for
+>it.
+>> >=20
+>> > /* Get Link Status */
+>> > struct ncsi_rsp_gls_pkt {
+>> >         struct ncsi_rsp_pkt_hdr rsp;        /* Response header
+>*/
+>> > diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+>> > index d48374894817..6447a09932f5 100644
+>> > --- a/net/ncsi/ncsi-rsp.c
+>> > +++ b/net/ncsi/ncsi-rsp.c
+>> > @@ -699,9 +699,51 @@ static int ncsi_rsp_handler_oem_bcm(struct
+>> > ncsi_request *nr)
+>> >         return 0;
+>> > }
+>> >=20
+>> > +/* Response handler for Intel command Get Mac Address */
+>> > +static int ncsi_rsp_handler_oem_intel_gma(struct ncsi_request
+>*nr)
+>> > +{
+>> > +       struct ncsi_dev_priv *ndp =3D nr->ndp;
+>> > +       struct net_device *ndev =3D ndp->ndev.dev;
+>> > +       const struct net_device_ops *ops =3D ndev->netdev_ops;
+>> > +       struct ncsi_rsp_oem_pkt *rsp;
+>> > +       struct sockaddr saddr;
+>> > +       int ret =3D 0;
+>> > +
+>> > +       /* Get the response header */
+>> > +       rsp =3D (struct ncsi_rsp_oem_pkt
+>*)skb_network_header(nr->rsp);
+>> > +
+>> > +       saddr.sa_family =3D ndev->type;
+>> > +       ndev->priv_flags |=3D IFF_LIVE_ADDR_CHANGE;
+>> > +       memcpy(saddr.sa_data, &rsp->data[INTEL_MAC_ADDR_OFFSET],
+>ETH_ALEN);
+>> > +       /* Increase mac address by 1 for BMC's address */
+>> > +       eth_addr_inc((u8 *)saddr.sa_data);
+>> > +       if (!is_valid_ether_addr((const u8 *)saddr.sa_data))
+>> > +               return -ENXIO;
+>>=20
+>> The Intel GMA retireves the MAC address of the host, and the
+>datasheet
+>> anticipates the BMC will "share" the MAC by stealing specific TCP
+>and=20
+>> UDP port traffic destined to the host.
+>>=20
+>> This "add one" allocation of the MAC is therefore a policy, and one
+>that=20
+>> is beyond the data sheet.
+>>=20
+>> While this +1 policy may work for some OEM boards, there are other
+>boards=20
+>> where the MAC address assigned to the BMC does not follow this
+>pattern,=20
+>> but instead the MAC is stored in some platform dependent location
+>obtained=20
+>> in a platform specific manner.
+>>=20
+>> I suggest this BMC =3D ether_addr_inc(GMA) be opt in via a device
+>tree
+>> property.=20=20
+>>=20
+>> as it appears it would be generic to more than one vendor.
+>>=20
+>> Unfortunately, we missed this when we added the broadcom and
+>mellanox
+>> handlers.
+>>=20
+>>=20
+>>=20
+>
+>Milton,
+>
+>maybe something like "mac_addr_inc" or "ncsi,mac_addr_inc"? Also
+>those 3(intel,
+>mellanox, broadcom) functions even with handlers similar to each
+>other, they
+>could be unified on idea, difference in addresses, payload lengths,
+>ids only as
+>I see. Joel proposed in the past about dts option for Intel OEM
+>keep_phy option,
+>maybe that's the right time to reorganize all OEM related parts to
+>fit in one
+>direction with dts options for ethernet interface without Kconfig
+>options?
+
+I was hopping to get some feed back from device tree maintainers.=20
+I hope we can get something decided before we have to ask for a=20
+revert.=20=20
+
+Since the existing properties are mac-address and local-mac-address,=20
+I feel the new property should build upon the former like the later.=20=20
+I think the most general would be to have an offset that could be=20
+positive or negative.  I don't think we necessarily need the full=20
+range of address offset as I expect the upper bytes would be remain=20
+the assigned block but maybe some would want a large offset in the=20
+administrativly set address space?  or buy 2 ranges and assign one=20
+from each?
+
+Anyways, I propose one of
+
+mac-address-host-offset
+host-mac-address-offset
+
+how do we make it clear its the offset from the host to the BMC not=20
+from the BMC to the host?   Is the description in the binding enough?
+
+Do we need more than 3 bytes offset?  How should we represent a=20
+decrement vs an increment?  sign extend a u32?  two cells for u64?
+treat the first byte as add or subtract and the rest the offset?  Do=20
+we need a separate property name to subtract?
+
+My system stores the MAC for the BMC elsewhere but we need a=20
+way to opt out of using an offset from the host, hence the need of
+at least some property to opt in.
+
+
+
+
+
+Some background for Rob (and others):
+
+DTMF spec DSP0222 NC-SI (network controller sideband interface)
+is a method to provide a BMC (Baseboard management controller) shared
+access to an external ethernet port for comunication to the management
+network in the outside world.  The protocol describes ethernet packets=20
+that control selective bridging implemented in a host network controller
+to share its phy.  Various NIC OEMs have added a query to find out the=20
+address the host is using, and some vendors have added code to query host
+nic and set the BMC mac to a fixed offset (current hard coded +1 from
+the host value).  If this is compiled in the kernel, the NIC OEM is=20
+recognised and the BMC doesn't miss the NIC response the address is set
+once each time the NCSI stack reinitializes.  This mechanism overrides
+any mac-address or local-mac-address or other assignment.
+
+DSP0222 https://www.dmtf.org/documents/pmci/network-controller-sideband-int=
+erface-nc-si-specification-110
+
+milton
+
