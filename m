@@ -2,97 +2,70 @@ Return-Path: <SRS0=fEQp=O2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 726CEC433F5
-	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 00:26:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1487C433F5
+	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 01:28:04 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD48061186
-	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 00:26:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD48061186
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 33CA061165
+	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 01:28:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 33CA061165
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HPFd205FYz2yYl
-	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 11:26:46 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HPGzk3qTxz2yQ8
+	for <openbmc@archiver.kernel.org>; Wed,  6 Oct 2021 12:28:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=ABHrqi84;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=Kcv/HvWd;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=ckdJ1ofQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.27;
- helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82f;
+ helo=mail-qt1-x82f.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm1 header.b=ABHrqi84; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=Kcv/HvWd; 
- dkim-atps=neutral
-X-Greylist: delayed 532 seconds by postgrey-1.36 at boromir;
- Wed, 06 Oct 2021 11:25:57 AEDT
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=ckdJ1ofQ; dkim-atps=neutral
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HPFc50dc9z2yHX
- for <openbmc@lists.ozlabs.org>; Wed,  6 Oct 2021 11:25:56 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 674C45C0342;
- Tue,  5 Oct 2021 20:17:01 -0400 (EDT)
-Received: from imap43 ([10.202.2.93])
- by compute2.internal (MEProxy); Tue, 05 Oct 2021 20:17:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm1; bh=k/IQwRv8qfE1mjLc6Al2MngjYok6Ej9
- +iWZ9VCxwt78=; b=ABHrqi8424IaQ2UcpLb0SMbtye348GIuYoS8jRaBINURbfL
- U3u8DcfJ/F2mwqE1g1YKMx4FS/KE0degGGNhCfEVi0nHb/FUtNdNpEFmITl6P4Ex
- lkrp1Mn5CHCFdQ7bKn5aypmEANh31VFHHy1ywt3bnwt9y3Jge2nd+L5skK9BMWUa
- 0gj22OY0Iod8YtCGPbuFX1Sjq64pr0hcEPTyj9apvvvGJ0XQmVEtzK11GQaTYoaz
- REVUnzCaF0ACQEqK90uR2uGduz9NOVzVvNRfWG2oW6uxR7EsQQS23TFoWc9cPUBn
- aIuqK8ml19l7AxWFkQIJTWnTtFWKLi5UxQYPiaQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=k/IQwR
- v8qfE1mjLc6Al2MngjYok6Ej9+iWZ9VCxwt78=; b=Kcv/HvWdmm2lm6veRma7if
- BQosclN390HtKKCUjDN3cgqEmIIMgjnNQjTFW+EiQ1n7c1ZX+T3k//ahBZDWj73H
- C7owdCrHxGw6omk+Dg3F/hsCsuDUwrnVsKr1OGNKgfv7bWv9NYAGD6YUmJ0up7Mn
- WzZLd2glI8+LfJGeoC1HHs8G/tCMMZ0xm/Wv3OOmlr4zCI7b4Fz9cBy7BaBr0BnB
- qdhJDZiZ+OLiTo8IXZ0xAcRPcYWaWKlV2s6gEk5C+QSGQ8UAg0r5WK8cmzZXWij/
- EOCLB8sMaOPjWMKo5kt14FgRiJ4L8I2+hcJiAdk0udMWR/sO47UQ/JgDYiAQahxg
- ==
-X-ME-Sender: <xms:_OpcYXrIh79T8_33jM5LWZWj3bYxew6iuZ05DB6t9FIk22s_0EvO-w>
- <xme:_OpcYRoUXG-E_5G9XLIjV9bJrBo0MjTmpeq2FL_xQSGLiVhv-nAYRJRV5THUN01L1
- dHBYs64lujrUTvbMA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudelhedgfedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
- grthhtvghrnhephefhfeekgfekudevheffheeihedujeefjeevjeefudfgfeeutdeuvdeh
- hfevueffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- eprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:_OpcYUNDnC9JpTJqXeLKTmOQDDEA4CCU_HMLQQpGDVeuo4ZGOEb9jg>
- <xmx:_OpcYa5BngrIlUqmIciiDkKJGuTsbAaANZ5nQzyKWVBJdDX3lLT9Xw>
- <xmx:_OpcYW4PEGGrcRSTwk5onhqcn_V7WWrwB3_oYWjapAgwnR8ygH5wCw>
- <xmx:_epcYR2_OUoULj0bSQvcSywk8uuFRaecqJUYiHomfBrPivzpsk5tqg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 9EADCAC0380; Tue,  5 Oct 2021 20:17:00 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-1322-g921842b88a-fm-20210929.001-g921842b8
-Mime-Version: 1.0
-Message-Id: <ef4d5ac6-49e8-40d6-9e6b-1fe030f3909a@www.fastmail.com>
-In-Reply-To: <PS2PR02MB26959672C7002D26EB5F4A4691AF9@PS2PR02MB2695.apcprd02.prod.outlook.com>
-References: <PS2PR02MB26959672C7002D26EB5F4A4691AF9@PS2PR02MB2695.apcprd02.prod.outlook.com>
-Date: Wed, 06 Oct 2021 10:46:40 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "naveen moses" <naveen.moses@hotmail.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: support for gpio  as ipmb sensor 
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HPGyy0GGJz2xvP
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Oct 2021 12:27:19 +1100 (AEDT)
+Received: by mail-qt1-x82f.google.com with SMTP id x9so1105639qtv.0
+ for <openbmc@lists.ozlabs.org>; Tue, 05 Oct 2021 18:27:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=b5V/CYpZDaox8A4m9HczsKoqQ1wtwSA/29fW/9YWuUg=;
+ b=ckdJ1ofQolakb9qYLOXHqOqdztVHWt7OPkn5cdwwXmel359jJcqZjM5QS2fP3IQWc9
+ mzNzz6vXC5HJHEt62VeDnV2joYMh7KNS7oB0lCnSzS+DrCR/OojyFMQdi3v357pl20su
+ wZ4xIyCFjQjoM1HpZ80aRqkhfDZBO5kIdrswE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=b5V/CYpZDaox8A4m9HczsKoqQ1wtwSA/29fW/9YWuUg=;
+ b=6V2KvP20abG3sjV/VEM68bDAifOPEamymQxg4WlDGDvqNGOC3mSRrbM+jNWFVo0MZL
+ uX1apofbwrAVz6WCk9P+cLB0Z1FMok4iWr5YdBtPCU6epkc7fcgbx1S/L+gTXmUUWnlD
+ YTOx2plVXqykCa7y/6PvdisSG4N12x7vLY13QX6iDQNf7jW5Kuz6nP1i8xIo+Wa05WFA
+ pUBJmVCkZ8mP4Uad6UDZZ4OkfCZUqSmwqzHkKHiUiP3Jp1XjQ0+ngqGCLtsVzbhurXrh
+ 09tc0qyPAS93ATaecI5CtbpJh9hmp14XsGn3ghhL7kiPrBTPbZnlhJiVRKYCwTLBd2ej
+ v+TQ==
+X-Gm-Message-State: AOAM530a8o1hheNONac2qwvaZ+R4aQWNlFTh58s/q00HqW2H5NVha3ip
+ JoJJaJNkoZRAwqCyZYMvpMSt+kEOunf4slhT48Y=
+X-Google-Smtp-Source: ABdhPJzT1l9b+M36cXq5gGZEJbZS03Kabud0GqWeHScKREcFXttNa38KaP4Cr1WMWpPTL8ttV2cmwm4KjdbM2pdUGQM=
+X-Received: by 2002:a05:622a:45:: with SMTP id
+ y5mr23214853qtw.145.1633483634594; 
+ Tue, 05 Oct 2021 18:27:14 -0700 (PDT)
+MIME-Version: 1.0
+References: <20210910073619.26095-1-neal_liu@aspeedtech.com>
+In-Reply-To: <20210910073619.26095-1-neal_liu@aspeedtech.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 6 Oct 2021 01:27:02 +0000
+Message-ID: <CACPK8Xf40cfnFFeeAzkdXk6ikbfBhWOOt6U8Oq3iCaxe5v5=_w@mail.gmail.com>
+Subject: Re: [PATCH v4] usb: ehci: handshake CMD_RUN instead of STS_HALT
+To: Neal Liu <neal_liu@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,40 +77,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zhikui Ren <zhikui.ren@intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Ed Tanous <ed@tanous.net>,
- naveen moses <naveen.moses@outlook.com>
+Cc: BMC-SW <BMC-SW@aspeedtech.com>, Bruce Mitchell <Bruce.Mitchell@ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-usb@vger.kernel.org,
+ Eddie James <eajames@linux.ibm.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Tony Prisk <linux@prisktech.co.nz>, Alan Stern <stern@rowland.harvard.edu>,
+ Tao Ren <rentao.bupt@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Naveen,
+Hi Greg,
 
-On Tue, 5 Oct 2021, at 23:46, naveen moses wrote:
-> Hi All,
+On Fri, 10 Sept 2021 at 07:38, Neal Liu <neal_liu@aspeedtech.com> wrote:
 >
-> we have a couple of gpios ( input ) accessed via ipmb commands in our platform.
-> which cannot be directly monitored using gpio monitor.
-
-What do you mean when you say "cannot be directly monitored using gpio 
-monitor"?
-
+> For Aspeed, HCHalted status depends on not only Run/Stop but also
+> ASS/PSS status.
+> Handshake CMD_RUN on startup instead.
 >
-> our idea is to expose them as ipmb sensors which has gpio state as 
-> property which is updated based
-> on the current state of the gpio.
->
-> at present there is no compatible interface under 
-> xyz/openbmc_project/sensors for gpio as sensor.
->
-> So is this acceptable to create a new interface for gpio state under 
-> xyz/openbmc_project/sensors :
-> interface name : gpioState
-> which has a property named value whose possible values are boolean 
-> (true or false).
+> Signed-off-by: Neal Liu <neal_liu@aspeedtech.com>
+> Acked-by: Alan Stern <stern@rowland.harvard.edu>
+> Reviewed-by: Tao Ren <rentao.bupt@gmail.com>
+> Tested-by: Tao Ren <rentao.bupt@gmail.com>
 
-What about modelling the behaviour the GPIO state represents rather 
-than just providing a DBus interface to the GPIO values?
+Has this one gone in? If not, here's some tags:
 
-Andrew
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+
+It also needs to go to stable:
+
+Cc: stable@vger.kernel.org
+Fixes: 280a9045bb18 ("ehci: fix EHCI host controller initialization sequence")
+
+Cheers,
+
+Joel
+
+> ---
+>  drivers/usb/host/ehci-hcd.c      | 11 ++++++++++-
+>  drivers/usb/host/ehci-platform.c |  6 ++++++
+>  drivers/usb/host/ehci.h          |  1 +
+>  3 files changed, 17 insertions(+), 1 deletion(-)
+>
+> ---
+> Fix STS_HALT handshake failure for Aspeed 2500/2600 platform.
+>
+> Change since v3:
+> - Add more description.
+>
+> Change since v2:
+> - Use my "real" name for both the Signed-off-by: line and the From: line.
+>
+> Change since v1:
+> - Handshake CMD_RUN status on startup instead of easily skip it.
+> ---
+>
+> diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
+> index 6bdc6d6bf74d..55f92d25336b 100644
+> --- a/drivers/usb/host/ehci-hcd.c
+> +++ b/drivers/usb/host/ehci-hcd.c
+> @@ -634,7 +634,16 @@ static int ehci_run (struct usb_hcd *hcd)
+>         /* Wait until HC become operational */
+>         ehci_readl(ehci, &ehci->regs->command); /* unblock posted writes */
+>         msleep(5);
+> -       rc = ehci_handshake(ehci, &ehci->regs->status, STS_HALT, 0, 100 * 1000);
+> +
+> +       /* For Aspeed, STS_HALT also depends on ASS/PSS status.
+> +        * Check CMD_RUN instead.
+> +        */
+> +       if (ehci->is_aspeed)
+> +               rc = ehci_handshake(ehci, &ehci->regs->command, CMD_RUN,
+> +                                   1, 100 * 1000);
+> +       else
+> +               rc = ehci_handshake(ehci, &ehci->regs->status, STS_HALT,
+> +                                   0, 100 * 1000);
+>
+>         up_write(&ehci_cf_port_reset_rwsem);
+>
+> diff --git a/drivers/usb/host/ehci-platform.c b/drivers/usb/host/ehci-platform.c
+> index c70f2d0b4aaf..c3dc906274d9 100644
+> --- a/drivers/usb/host/ehci-platform.c
+> +++ b/drivers/usb/host/ehci-platform.c
+> @@ -297,6 +297,12 @@ static int ehci_platform_probe(struct platform_device *dev)
+>                                           "has-transaction-translator"))
+>                         hcd->has_tt = 1;
+>
+> +               if (of_device_is_compatible(dev->dev.of_node,
+> +                                           "aspeed,ast2500-ehci") ||
+> +                   of_device_is_compatible(dev->dev.of_node,
+> +                                           "aspeed,ast2600-ehci"))
+> +                       ehci->is_aspeed = 1;
+> +
+>                 if (soc_device_match(quirk_poll_match))
+>                         priv->quirk_poll = true;
+>
+> diff --git a/drivers/usb/host/ehci.h b/drivers/usb/host/ehci.h
+> index 80bb823aa9fe..fdd073cc053b 100644
+> --- a/drivers/usb/host/ehci.h
+> +++ b/drivers/usb/host/ehci.h
+> @@ -219,6 +219,7 @@ struct ehci_hcd {                   /* one per controller */
+>         unsigned                need_oc_pp_cycle:1; /* MPC834X port power */
+>         unsigned                imx28_write_fix:1; /* For Freescale i.MX28 */
+>         unsigned                spurious_oc:1;
+> +       unsigned                is_aspeed:1;
+>
+>         /* required for usb32 quirk */
+>         #define OHCI_CTRL_HCFS          (3 << 6)
+> --
+> 2.25.1
+>
