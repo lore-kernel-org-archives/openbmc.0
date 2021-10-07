@@ -2,21 +2,21 @@ Return-Path: <SRS0=jVBI=O3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B82F6C4332F
-	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 00:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11C67C433F5
+	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 00:13:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1E656101E
-	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 00:12:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1E656101E
+	by mail.kernel.org (Postfix) with ESMTPS id 92DA861177
+	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 00:13:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 92DA861177
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HPsFy50xbz3054
-	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 11:12:22 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HPsGg1hSPz3bhj
+	for <openbmc@archiver.kernel.org>; Thu,  7 Oct 2021 11:12:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=CzSq95tb;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=Z2Snd7k8;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
@@ -24,34 +24,34 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=CzSq95tb; 
+ header.a=rsa-sha256 header.s=thorn header.b=Z2Snd7k8; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HPsCQ6Ss4z306R
- for <openbmc@lists.ozlabs.org>; Thu,  7 Oct 2021 11:10:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HPsCS1DRHz2yxm
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Oct 2021 11:10:12 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (71-212-29-146.tukw.qwest.net
  [71.212.29.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 71073631;
- Wed,  6 Oct 2021 17:10:06 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 0A7C772E;
+ Wed,  6 Oct 2021 17:10:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1633565406;
- bh=4NkVLqGg/KjNptjTQZ/atTM1MYPT1i0umkxcy4BLe98=;
+ s=thorn; t=1633565410;
+ bh=UaP+I3aEfwYCqu+AhNqB3qb/bc06VjyurZYTcvpHLj0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CzSq95tbOSKIzT6diFAHOJsgLiMCNcj5ajO00p1C5HcInWN9ksZR/bd0WjLe6dBGX
- RNX+QqLt7veMKgWlTCog4xgySxQadL7iZVufNPu5ud8/4AvocYLbQN4JOaS3PFXKKk
- EY0IrOBtNn5Rng7h8pEcUZnxxX46TLGLyPNWAP6Y=
+ b=Z2Snd7k88x1gsHrzmMujLVxsaywkIr7HTLXrlaC7srgZaYPg+pJzqHfMo8wsy70ol
+ QTU/iO/cgyzOYdcdlwjGmERFA8qiXXqzWLEeSr8mSCyCf4SKYh6Q7Mx0WWfHjxQdTh
+ K+3X9qVLMl59O+YXwafMJQJ4Wq3nArSYPK+JNRJw=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/9] sysfs: add sysfs_remove_bin_file_self() function
-Date: Wed,  6 Oct 2021 17:09:46 -0700
-Message-Id: <20211007000954.30621-2-zev@bewilderbeest.net>
+Subject: [PATCH 3/9] lib/string: add sysfs_buf_streq()
+Date: Wed,  6 Oct 2021 17:09:48 -0700
+Message-Id: <20211007000954.30621-4-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20211007000954.30621-1-zev@bewilderbeest.net>
 References: <20211007000954.30621-1-zev@bewilderbeest.net>
@@ -68,61 +68,91 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>, Rob Herring <robh+dt@kernel.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
- Jeremy Kerr <jk@codeconstruct.com.au>, Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Zev Weiss <zev@bewilderbeest.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Jeremy Kerr <jk@codeconstruct.com.au>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Andrey Konovalov <andreyknvl@gmail.com>,
+ Francis Laniel <laniel_francis@privacyrequired.com>,
+ Alexey Dobriyan <adobriyan@gmail.com>, Daniel Axtens <dja@axtens.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is simply the bin_attribute analog to sysfs_remove_file_self().
+This is intended for use with mutable device-tree string properties.
+As with sysfs_streq(), it accepts a trailing linefeed for convenient
+shell access (e.g. 'echo foo > /sys/firmware/devicetree/...'), but
+also accepts a trailing NUL terminator to match how DT string
+properties are presented when read (so that we don't reject userspace
+writing back exactly what it had previously read from the file).
 
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 ---
- fs/sysfs/file.c       | 13 +++++++++++++
- include/linux/sysfs.h |  1 +
- 2 files changed, 14 insertions(+)
+ include/linux/string.h |  1 +
+ lib/string.c           | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/fs/sysfs/file.c b/fs/sysfs/file.c
-index d019d6ac6ad0..b2b85be95adf 100644
---- a/fs/sysfs/file.c
-+++ b/fs/sysfs/file.c
-@@ -572,6 +572,19 @@ void sysfs_remove_bin_file(struct kobject *kobj,
+diff --git a/include/linux/string.h b/include/linux/string.h
+index 5e96d656be7a..d066ff82d1ec 100644
+--- a/include/linux/string.h
++++ b/include/linux/string.h
+@@ -183,6 +183,7 @@ extern char **argv_split(gfp_t gfp, const char *str, int *argcp);
+ extern void argv_free(char **argv);
+ 
+ extern bool sysfs_streq(const char *s1, const char *s2);
++extern bool sysfs_buf_streq(const void *buf, size_t blen, const char *str);
+ int match_string(const char * const *array, size_t n, const char *string);
+ int __sysfs_match_string(const char * const *array, size_t n, const char *s);
+ 
+diff --git a/lib/string.c b/lib/string.c
+index b2de45a581f4..aab5cadb6b98 100644
+--- a/lib/string.c
++++ b/lib/string.c
+@@ -715,6 +715,40 @@ bool sysfs_streq(const char *s1, const char *s2)
  }
- EXPORT_SYMBOL_GPL(sysfs_remove_bin_file);
+ EXPORT_SYMBOL(sysfs_streq);
  
 +/**
-+ * sysfs_remove_file_self - remove binary object attribute from its own method
-+ * @kobj: object to operate on
-+ * @attr: binary attribute descriptor
++ * sysfs_buf_streq - check if a buffer matches a string, modulo trailing \n or \0
++ * @buf: pointer to the buffer to check
++ * @blen: length of the buffer to check
++ * @str: string to compare against
 + *
-+ * See kernfs_remove_self() for details.
++ * This routine returns true iff the buffer equals the string, treating a
++ * trailing \n or \0 on the buffer as an accepted terminator, the length of
++ * which (aside from the optional terminator) must match the length of the
++ * string.  It's geared for use with sysfs bin_attribute inputs, which may
++ * terminate with newlines or NULs (the latter to match how device-tree string
++ * properties in particular are presented on read).
 + */
-+bool sysfs_remove_bin_file_self(struct kobject *kobj, const struct bin_attribute *attr)
++bool sysfs_buf_streq(const void *buf, size_t blen, const char *str)
 +{
-+	return sysfs_remove_file_self(kobj, &attr->attr);
-+}
-+EXPORT_SYMBOL_GPL(sysfs_remove_bin_file_self);
++	const char *p = buf;
++	size_t slen = strlen(str);
++	if (blen < slen)
++		return false;
 +
- static int internal_change_owner(struct kernfs_node *kn, kuid_t kuid,
- 				 kgid_t kgid)
- {
-diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
-index e3f1e8ac1f85..49de5189cf88 100644
---- a/include/linux/sysfs.h
-+++ b/include/linux/sysfs.h
-@@ -273,6 +273,7 @@ int __must_check sysfs_create_bin_file(struct kobject *kobj,
- 				       const struct bin_attribute *attr);
- void sysfs_remove_bin_file(struct kobject *kobj,
- 			   const struct bin_attribute *attr);
-+bool sysfs_remove_bin_file_self(struct kobject *kobj, const struct bin_attribute *attr);
- 
- int __must_check sysfs_create_link(struct kobject *kobj, struct kobject *target,
- 				   const char *name);
++	if (memcmp(p, str, slen))
++		return false;
++
++	switch (blen - slen) {
++	case 0:
++		return true;
++	case 1:
++		return p[slen] == '\n' || p[slen] == '\0';
++	default:
++		return false;
++	}
++}
++EXPORT_SYMBOL(sysfs_buf_streq);
++
+ /**
+  * match_string - matches given string in an array
+  * @array:	array of strings
 -- 
 2.33.0
 
