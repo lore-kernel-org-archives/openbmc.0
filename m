@@ -2,102 +2,106 @@ Return-Path: <SRS0=JvdF=PB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1DA0C433F5
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 18:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7F33C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:43 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BEE92610CE
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 18:40:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BEE92610CE
+	by mail.kernel.org (Postfix) with ESMTPS id 50C6E61152
+	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 50C6E61152
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HV1YS6FdGz2yWR
-	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 05:40:12 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HV4c52Czhz2yQK
+	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 07:57:41 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZxlDFzr3;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=r+9L38BZ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=ZxlDFzr3; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ header.s=pp1 header.b=r+9L38BZ; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HV1Xd2WbSz2yPG
- for <openbmc@lists.ozlabs.org>; Thu, 14 Oct 2021 05:39:28 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DGZMlG022152
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 14:39:25 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HV4bC4xRnz2xtP
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Oct 2021 07:56:55 +1100 (AEDT)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DJTVh0030993
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:52 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : from : to :
- references : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=r6FiT2KbKk2mv5VAzPWCAe2bZwBXuCeeqiLJnNOHFKM=;
- b=ZxlDFzr3OQPsFqRouzvkTvmkv25nXJ5Mx9khBBxfDGf4j4JUytpaKhgVo+34U3oLeKFZ
- 4g+xw7L2P/nkvSiF6KK/KXq7FmFIpCcwpot5mL74qYHk/HK5r/K4ziRfEF8AgUQYwIzA
- tL4CAuRDjxqAmRRBkghJJB4EuARQZlKmz1yg9LLjKxn2FS31HyozcWyHlFPx3GmWZ5XV
- p7ZMYiApfNVL0pVJICV99ln8WOToVwc5SoHWmM1V/mbM5QBVKsAikywR66YviqcizKOu
- 0WlIYRSiLcNZj29pyRKtS/IjJ8RuGzaZ34OM0pUHCunB9PGtEb8uuk1z0kESelmfMsZ4 +Q== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3bns3fhfy9-1
+ h=from : to : subject :
+ message-id : date : content-type : content-transfer-encoding :
+ mime-version; s=pp1; bh=R2LVGTxbqbD9SP4oUxWojDUklfOaZEJUolvPP1AVPgk=;
+ b=r+9L38BZvRm4tScl75LW+LaOiA2uNJL8EKggAMPHDFaXaKqixeycc/4HuysoAZYOOdwR
+ ES++Gjpo/YxmV4kLMk/dY4B+HPmQGDPaoeXKUlAhhW9PLV2nAIxzjjWLSLZUBxNA8eI+
+ su3YKQKbteYIwSRRiH2Di2F/r+VSSbuq1RdaGDXHVYvO6yNlOUkxy/5ITHtwZ4/FeDrD
+ SKjUIxjPbop0HZ8Yj5zFal+6TxzWab632S6jP2XC/AXm7xeECb7oawHJ5GrRSgejWuKQ
+ 0rJEE/qz6V9ma4hl31aCgFcsBDgrKuGuOa8Kx6tC9m0c9hVsNo73oA/bfB5Wyr5AVLe1 gQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3bnm419exx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 14:39:25 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 19DIYSZV003869
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:24 GMT
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:51 -0400
+Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 19DKumPZ012870
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:51 -0400
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3bnm419ext-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Oct 2021 16:56:51 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 19DKlTdW025997;
+ Wed, 13 Oct 2021 20:56:50 GMT
 Received: from b03cxnp08027.gho.boulder.ibm.com
  (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma02dal.us.ibm.com with ESMTP id 3bnm2dwym2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:24 +0000
+ by ppma01dal.us.ibm.com with ESMTP id 3bnm3asfug-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Oct 2021 20:56:50 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
  by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 19DIdNq014352876
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:23 GMT
+ 19DKunvV19726808
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 13 Oct 2021 20:56:49 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 310D16A051
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:23 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 558D76A08D;
+ Wed, 13 Oct 2021 20:56:49 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EEB0D6A047
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:22 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 070176A0AE;
+ Wed, 13 Oct 2021 20:56:48 +0000 (GMT)
 Received: from demeter.local (unknown [9.160.18.190])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 18:39:22 +0000 (GMT)
-Subject: Re: Security Working Group meeting - Wednesday October 13 - results
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTPS;
+ Wed, 13 Oct 2021 20:56:48 +0000 (GMT)
 From: Joseph Reynolds <jrey@linux.ibm.com>
-To: openbmc <openbmc@lists.ozlabs.org>
-References: <941f901c-dd49-5048-18d0-ace26e0978d8@linux.ibm.com>
-Message-ID: <5e0f20df-c761-eff3-bde8-92aeded66ddb@linux.ibm.com>
-Date: Wed, 13 Oct 2021 13:39:21 -0500
+To: openbmc <openbmc@lists.ozlabs.org>, Andrew Geissler <geissonator@gmail.com>
+Subject: Start using github security advisories
+Message-ID: <62b15edd-110a-3574-66c5-d11299bbd38c@linux.ibm.com>
+Date: Wed, 13 Oct 2021 15:56:47 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
  Gecko/20100101 Thunderbird/78.14.0
-In-Reply-To: <941f901c-dd49-5048-18d0-ace26e0978d8@linux.ibm.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: rjPCnU-2q8NaAmDwp5IGMiVvwOxEvFP0
-X-Proofpoint-ORIG-GUID: rjPCnU-2q8NaAmDwp5IGMiVvwOxEvFP0
+X-Proofpoint-ORIG-GUID: by3pqzvrD73LEftJv9AQ1gQUYJP0WjjY
+X-Proofpoint-GUID: fbiTShmFAShO44JT02CvdABlPyiWHhGg
 Content-Transfer-Encoding: 8bit
 X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-13_06,2021-10-13_02,2020-04-07_01
+ definitions=2021-10-13_08,2021-10-13_02,2020-04-07_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 mlxscore=0
- mlxlogscore=999 spamscore=0 bulkscore=0 phishscore=0 adultscore=0
- clxscore=1015 impostorscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2109230001 definitions=main-2110130113
+ mlxlogscore=905 phishscore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0 adultscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
+ definitions=main-2110130123
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,99 +118,19 @@ Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
+Per today's Security working group meeting, we want to start using 
+[GitHub security advisories][].  I think we need someone with admin 
+permissions to github.com/openbmc/openbmc to create new advisories. Then 
+we'll want a group (team? perhaps security-response-team) with the 
+current OpenBMC [security response team][] members.  (I have that list.)
 
-On 10/13/21 8:11 AM, Joseph Reynolds wrote:
-> This is a reminder of the OpenBMC Security Working Group meeting 
-> scheduled for this Wednesday October 13 at 10:00am PDT.
->
-> We'll discuss the following items on the agenda 
-> <https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI>, 
-> and anything else that comes up:
->
-> 1.
-There were no topics when the meeting started.  We discussed 5 items:
+How do we get started?  Who has admin authority?
 
-Attended: Joseph Reynolds, Bruce Mitchell, Vernon Mauery, mbhavsar, 
-Jiang Zhang, pravisash, James Mihm
-
-1 CVE-2021-39296 is already publicly disclosed.  OpenBMC is ready to 
-disclose.
-Here are the existing public disclosures:
-* http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-39296  
-* https://www.ibm.com/support/pages/node/6495437  
-IBM PSIRT - https://www.ibm.com/trust/security-psirt
-ASPEED Linux kernel patches are made regularly.
-We discussed the desire to improve the OpenBMC Securty Response Team’s 
-(SRT) coordinated disclosure.  Specifically, OpenBMC disclosed first, 
-then whatever products which are built on OpenBMC disclosure the saem 
-day and refers to the OpenBMC disclosure.
-
-We agreed to publish advisories on 
-https://github.com/openbmc/openbmc/security/advisories
-TODO: Joseph to make this work, and look into creating the 
-https://github.com/openbmc SRT team
-
-2 Question about ipmi suite 3. This was removed: see notes 2020-04-29 below.
-Existing ipmitool users can adapt in one of two ways: invoke ipmitool to 
-use cipher suite 17 (`ipmitool -C 17 ...`) or use the latest ipmitool.
-Was this change in the release notes?  Yes, here: 
-https://github.com/openbmc/docs/blob/master/release/release-notes.md#security-audit-results-1 
-
-The link to the latest ipmitool source is here: 
-https://github.com/ipmitool/ipmitool/ sha 
-7772254b62826b894ca629df8c597030a98f4f72 April 2018
-
-3 We discussed “password over IPMI over DTLS” from before.
-Email excerpt Oct 5, 2021 “SPAKE, DTLS and passwords + aPAKE and SCRAM”:
-
-    Weakness of SRP (Secure Remote Password):
-      - Server spoofing, there is nothing that prevents a server from
-    being spoofed.
-      - Widely adopted with very little proof of being cryptographically
-    secure and has been shown vulnerable to pre-computation attacks 
-      - No feasible way to check for password complexity in the protocol
-    (true for most aPAKE - asymmetric Password Authenticated Key Exchange)
-      - Some debate over if actually provides forward secrecy.
-
-    Recommendation to look at at OPAQUE aPAKE:
-    https://blog.cloudflare.com/opaque-oblivious-passwords/
-
-    Suggestion to use SCRAM
-    https://en.wikipedia.org/wiki/Salted_Challenge_Response_Authentication_Mechanism
+Joseph
 
 
-
-The SRP Server spoofing weakness is fully compensated for by the IPMI 
-protocol which prevents spoofing, so is not an issue.  The other items 
-apply.  We’ll continue to study this.
-
-4 https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39756 BMCWeb 
-“Fix authorization rules” was mentioned in passing
-
-5. USB control was continued from the previous meeting
-Use case: UPS power supply plugged into USB port, uses RS-232 protocol.
-Threat: Physically present attacker plugs in a USB device which says it 
-is a UPS which lost power and will drop immediately so the BMC can do an 
-orderly shutdown.  [Never mind that same attacker can just hit the power 
-button.]
-In this case, do we want to (1) ignore the signals from the UPS, or (2) 
-read and log the signals but take no action.
-In a hypothetical BMC systemd service to serve a UPS, if we wanted to 
-disable it, would we (1) stop the service, or (2) reconfigure the 
-service to continue to log signals but not take action.  Which approach 
-is better?
-
-BMC hardware SuperIO provides USB port capability.  Are there any other 
-use cases within the OpenBMC community for BMC USB ports?  Is this an 
-IBM-only use case?
-
-
->
->
->
-> Access, agenda and notes are in the wiki:
-> https://github.com/openbmc/openbmc/wiki/Security-working-group 
-> <https://github.com/openbmc/openbmc/wiki/Security-working-group>
->
-> - Joseph
+[GitHub security advisories]: 
+https://docs.github.com/en/code-security/security-advisories/about-github-security-advisories
+[security response team]: 
+https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team-guidelines.md
 
