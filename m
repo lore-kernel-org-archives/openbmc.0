@@ -2,106 +2,53 @@ Return-Path: <SRS0=JvdF=PB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7F33C433F5
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CC0EC433F5
+	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:59:47 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 50C6E61152
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:57:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 50C6E61152
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id A73DC61139
+	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 20:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A73DC61139
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HV4c52Czhz2yQK
-	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 07:57:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HV4fT2WJcz3089
+	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 07:59:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=r+9L38BZ;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=r+9L38BZ; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HV4bC4xRnz2xtP
- for <openbmc@lists.ozlabs.org>; Thu, 14 Oct 2021 07:56:55 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19DJTVh0030993
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : subject :
- message-id : date : content-type : content-transfer-encoding :
- mime-version; s=pp1; bh=R2LVGTxbqbD9SP4oUxWojDUklfOaZEJUolvPP1AVPgk=;
- b=r+9L38BZvRm4tScl75LW+LaOiA2uNJL8EKggAMPHDFaXaKqixeycc/4HuysoAZYOOdwR
- ES++Gjpo/YxmV4kLMk/dY4B+HPmQGDPaoeXKUlAhhW9PLV2nAIxzjjWLSLZUBxNA8eI+
- su3YKQKbteYIwSRRiH2Di2F/r+VSSbuq1RdaGDXHVYvO6yNlOUkxy/5ITHtwZ4/FeDrD
- SKjUIxjPbop0HZ8Yj5zFal+6TxzWab632S6jP2XC/AXm7xeECb7oawHJ5GrRSgejWuKQ
- 0rJEE/qz6V9ma4hl31aCgFcsBDgrKuGuOa8Kx6tC9m0c9hVsNo73oA/bfB5Wyr5AVLe1 gQ== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3bnm419exx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:51 -0400
-Received: from m0098419.ppops.net (m0098419.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 19DKumPZ012870
- for <openbmc@lists.ozlabs.org>; Wed, 13 Oct 2021 16:56:51 -0400
-Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
- [169.63.214.131])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3bnm419ext-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Oct 2021 16:56:51 -0400
-Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
- by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 19DKlTdW025997;
- Wed, 13 Oct 2021 20:56:50 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma01dal.us.ibm.com with ESMTP id 3bnm3asfug-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Oct 2021 20:56:50 +0000
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 19DKunvV19726808
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 13 Oct 2021 20:56:49 GMT
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 558D76A08D;
- Wed, 13 Oct 2021 20:56:49 +0000 (GMT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 070176A0AE;
- Wed, 13 Oct 2021 20:56:48 +0000 (GMT)
-Received: from demeter.local (unknown [9.160.18.190])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTPS;
- Wed, 13 Oct 2021 20:56:48 +0000 (GMT)
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: openbmc <openbmc@lists.ozlabs.org>, Andrew Geissler <geissonator@gmail.com>
-Subject: Start using github security advisories
-Message-ID: <62b15edd-110a-3574-66c5-d11299bbd38c@linux.ibm.com>
-Date: Wed, 13 Oct 2021 15:56:47 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.14.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: by3pqzvrD73LEftJv9AQ1gQUYJP0WjjY
-X-Proofpoint-GUID: fbiTShmFAShO44JT02CvdABlPyiWHhGg
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HV4dz5wDJz2yPP
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Oct 2021 07:59:19 +1100 (AEDT)
+X-IronPort-AV: E=McAfee;i="6200,9189,10136"; a="250962392"
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="250962392"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 13:51:20 -0700
+X-IronPort-AV: E=Sophos;i="5.85,371,1624345200"; d="scan'208";a="442438437"
+Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
+ ([10.7.150.62])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2021 13:51:19 -0700
+Date: Wed, 13 Oct 2021 13:51:18 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Joseph Reynolds <jrey@linux.ibm.com>
+Subject: Re: SPAKE, DTLS and passwords + aPAKE and SCRAM
+Message-ID: <20211013205118.GB2951@mauery.jf.intel.com>
+References: <bb3c031e-cbe3-36c5-0db6-d1ef454300fd@linux.ibm.com>
+ <e6dbbca0-e4f7-2e0f-146b-e57008a788e9@linux.ibm.com>
+ <17277.1633384075@localhost>
+ <a9a07a2a-c093-affa-9d90-bb04d82b9b05@linux.ibm.com>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-13_08,2021-10-13_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=905 phishscore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0 adultscore=0
- priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
- definitions=main-2110130123
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <a9a07a2a-c093-affa-9d90-bb04d82b9b05@linux.ibm.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,24 +60,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc <openbmc@lists.ozlabs.org>, Michael Richardson <mcr@sandelman.ca>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On 05-Oct-2021 10:24 AM, Joseph Reynolds wrote:
+>On 10/4/21 4:47 PM, Michael Richardson wrote:
+>>Joseph Reynolds <jrey@linux.ibm.com> wrote:
+>>     > The planned IPMI over DLTS function will have certificate-based
+>>     > authuentication.
+>>
+>>Do you mean that the server will be authenticated with a certificate, or =
+that
+>>it will use mutual authentication?
+>>
+>>     > For our use cases, we would like to add password-based
+>>     > authentication, and we want to do so as securely as possible, mean=
+ing what
+>>     > protocol we should use.=C2=A0 In particular, we want to know if we=
+ should avoid
+>>     > sending a =E2=80=9Ccleartext=E2=80=9D password (tunneled over DTLS=
+) to the server.
+>>
+>>If it can be avoided, yes.
+>>
+>>https://www.rfc-editor.org/rfc/rfc8125.html#section-3.1 suggests that all
+>>the PAKE candidates (whether balanced or augmented) satisfy this.
+>>I strongly suggest that a PAKE be used.
+>>The CHIP/MATTER IoT people are using
+>>    https://datatracker.ietf.org/doc/draft-bar-cfrg-spake2plus/
+>>although the IRTF CFRG hasn't adopted that document yet.  I don't know
+>>exactly where they are with it.  But, I expect you will find many librari=
+es
+>>going forward.
+>>
+>Michael, thanks for your reply.=C2=A0 I got feedback from my people (but m=
+y=20
+>skillset is too weak to interpret it):
+>
+>Weakness of SRP (Secure Remote Password):
+>=C2=A0- Server spoofing, there is nothing that prevents a server from bein=
+g=20
+>spoofed.
+>=C2=A0- Widely adopted with very little proof of being cryptographically=
+=20
+>secure and has been shown vulnerable to=C2=A0pre-computation attacks=E2=80=
+=A8
+>=C2=A0- No feasible way to check for password complexity in the protocol=
+=20
+>(true for most aPAKE - asymmetric Password Authenticated Key Exchange)
+>=C2=A0- Some debate over if actually provides forward secrecy.
+>
+>Recommendation to look at at OPAQUE aPAKE:=20
+>https://blog.cloudflare.com/opaque-oblivious-passwords/
+>
+>Suggestion to use SCRAM https://en.wikipedia.org/wiki/Salted_Challenge_Res=
+ponse_Authentication_Mechanism
 
-Per today's Security working group meeting, we want to start using 
-[GitHub security advisories][].  I think we need someone with admin 
-permissions to github.com/openbmc/openbmc to create new advisories. Then 
-we'll want a group (team? perhaps security-response-team) with the 
-current OpenBMC [security response team][] members.  (I have that list.)
+I will add SCRAM and PAKE to my list of things to investigate.
 
-How do we get started?  Who has admin authority?
-
-Joseph
-
-
-[GitHub security advisories]: 
-https://docs.github.com/en/code-security/security-advisories/about-github-security-advisories
-[security response team]: 
-https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team-guidelines.md
-
+--Vernon
