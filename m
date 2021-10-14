@@ -1,65 +1,54 @@
-Return-Path: <SRS0=JvdF=PB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=OGlS=PC=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DB24C433FE
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 21:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98BE1C433EF
+	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 03:49:23 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A410B61175
-	for <openbmc@archiver.kernel.org>; Wed, 13 Oct 2021 21:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A410B61175
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=alien8.de
+	by mail.kernel.org (Postfix) with ESMTPS id ED1DC6101E
+	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 03:49:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org ED1DC6101E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HV59b1lVpz3054
-	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 08:23:15 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=dkim header.b=VlLM3hqi;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HVFl51yR2z2ysq
+	for <openbmc@archiver.kernel.org>; Thu, 14 Oct 2021 14:49:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=alien8.de (client-ip=2a01:4f8:190:11c2::b:1457;
- helo=mail.skyhub.de; envelope-from=bp@alien8.de; receiver=<UNKNOWN>)
-Received: from mail.skyhub.de (mail.skyhub.de [IPv6:2a01:4f8:190:11c2::b:1457])
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
+ receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HTjdD43qJz2xX6;
- Wed, 13 Oct 2021 17:42:20 +1100 (AEDT)
-Received: from zn.tnic (p200300ec2f0ce200d6cfbc8b4a6526d3.dip0.t-ipconnect.de
- [IPv6:2003:ec:2f0c:e200:d6cf:bc8b:4a65:26d3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 076361EC01A9;
- Wed, 13 Oct 2021 08:42:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
- t=1634107329;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
- bh=RJHwoQ0GRj7G38aIyE/+JmuKk5oLW3/IXloYTjGdLPM=;
- b=VlLM3hqiRjov/ZUPpeKCNRCnjNajATN4ZcYXc7ZzMcDIFNKZhMuLyvbwbTV4hNSh7eWHn8
- fPCgRIXxmKE32JTk43eOePcvO+B1Oj286a3oFYZbzrSJQIMJqxSZjpWKlE/Z9g/IFEvVXX
- VMGzYr69ythLmV1z4a+M8jVC9oRwEZg=
-Date: Wed, 13 Oct 2021 08:42:06 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: "Winiarska, Iwona" <iwona.winiarska@intel.com>
-Subject: Re: [PATCH v2 01/15] x86/cpu: Move intel-family to arch-independent
- headers
-Message-ID: <YWZ/vqHXibwOWtDu@zn.tnic>
-References: <20210803113134.2262882-1-iwona.winiarska@intel.com>
- <20210803113134.2262882-2-iwona.winiarska@intel.com>
- <YVtQG+idmwKn0qLe@zn.tnic>
- <58ef4107e9b2c60a2605aac0d2fb6670a95bc9e0.camel@intel.com>
- <YWSZTq8NWWcCMXtA@zn.tnic>
- <337b6332312ea63862aedd09279417c9e1c7e11f.camel@intel.com>
- <YWStQSrRJQ09KXVY@zn.tnic>
- <15d81463b631e03b00a7031510304d5598fc246c.camel@intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HVFkX64F4z2xsv;
+ Thu, 14 Oct 2021 14:48:51 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 19E3Qb9M006360;
+ Thu, 14 Oct 2021 11:26:37 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Thu, 14 Oct 2021 11:48:16 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
+ <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/6] add aspeed-jpeg support for aspeed-video
+Date: Thu, 14 Oct 2021 11:48:13 +0800
+Message-ID: <20211014034819.2283-1-jammy_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <15d81463b631e03b00a7031510304d5598fc246c.camel@intel.com>
-X-Mailman-Approved-At: Thu, 14 Oct 2021 08:21:53 +1100
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 19E3Qb9M006360
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,48 +60,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "Williams,
- Dan J" <dan.j.williams@intel.com>, "zweiss@equinix.com" <zweiss@equinix.com>,
- "jae.hyun.yoo@linux.intel.com" <jae.hyun.yoo@linux.intel.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "x86@kernel.org" <x86@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "linux@roeck-us.net" <linux@roeck-us.net>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "jdelvare@suse.com" <jdelvare@suse.com>, "arnd@arndb.de" <arnd@arndb.de>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>, "Lutomirski,
- Andy" <luto@kernel.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, "Luck,
- Tony" <tony.luck@intel.com>, "andrew@aj.id.au" <andrew@aj.id.au>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "rdunlap@infradead.org" <rdunlap@infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "yazen.ghannam@amd.com" <yazen.ghannam@amd.com>,
- "olof@lixom.net" <olof@lixom.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Oct 12, 2021 at 11:15:00PM +0000, Winiarska, Iwona wrote:
-> We (OpenBMC) do have PECI HW, so that shouldn't be a problem.
+The aim of this series is to add aspeed-jpeg support for aspeed-video
+driver.
 
-Yeah, don't take it personally, but asking people to test stuff for you
-doesn't really work, in practice.
+To achieve this major goal some refactors are included. In addition,
+dprintk is added to more detailedly categorize the log.
 
-> Both CPUID.EAX=1 decoding and definitions in intel-family are pretty "well-
-> defined".
+In the last, debugfs information is also updated per this change.
 
-Sure, they are "well-defined" until we change them for whatever reason.
-Then they will be "well-defined" again. But different.
+Jammy Huang (6):
+  media: aspeed: move err-handling together to the bottom
+  media: aspeed: add dprintk for more detailed log control
+  media: aspeed: refine to centerize format/compress settings
+  media: aspeed: Support aspeed mode to reduce compressed data
+  media: aspeed: add comments and macro
+  media: aspeed: richer debugfs
+
+ drivers/media/platform/aspeed-video.c | 443 +++++++++++++++++++++-----
+ 1 file changed, 366 insertions(+), 77 deletions(-)
 
 -- 
-Regards/Gruss,
-    Boris.
+2.25.1
 
-https://people.kernel.org/tglx/notes-about-netiquette
