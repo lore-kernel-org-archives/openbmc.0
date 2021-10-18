@@ -2,21 +2,21 @@ Return-Path: <SRS0=dhqT=PG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E754C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 23:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 620BEC433FE
+	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 23:21:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B72C46108E
-	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 23:21:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B72C46108E
+	by mail.kernel.org (Postfix) with ESMTPS id 0A84E6108E
+	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 23:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0A84E6108E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HYCY83B1Rz3cB7
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 10:21:00 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HYCYq52Yhz3cBp
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 10:21:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=llOcT7Pq;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=nuP8mGsQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
@@ -24,36 +24,36 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=llOcT7Pq; 
+ header.a=rsa-sha256 header.s=thorn header.b=nuP8mGsQ; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HYCT752G2z3cBc
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HYCT74yCmz3cBT
  for <openbmc@lists.ozlabs.org>; Tue, 19 Oct 2021 10:17:31 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (71-212-29-146.tukw.qwest.net
  [71.212.29.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 7BB9EB60;
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id E731EC6F;
  Mon, 18 Oct 2021 16:17:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1634599044;
- bh=pbMXjKV/yu83ApDHEM8yOgk08myjS8K3IA/vMQW187w=;
+ s=thorn; t=1634599045;
+ bh=WaF9gJodRdoHNcB9teERq9D+XR40laS8cqkXaRJTY4o=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=llOcT7PqMbb/l9v9Sy6iHOj5Qr8f9foy6x751dkBg0YIpfGje1M7RUjFJ3HrkY+60
- xVTj62wPo5QQu/XtUq3GIQ+bKbMr+sjibS7pKMzur5YkZSyBcfRGHO3aYhAa+ujzqU
- 9FvO21v74u9AQCzaENH1LQ6MYKmHuyB6YFKaG0UQ=
+ b=nuP8mGsQYEKMy96md0sRNxHbMd1T/98j6bKZs/Zc8B46d0NSMUt0lN5I/aEHnXTX9
+ CDux8jkBhVgxJnmP39zsSjWgL+YAfphfncwgUv1W9ArkFtzh39Ztsv7kDiXE6draqZ
+ DZee7qkhgxInY6QBNOVjEbSkwAkaHGFCdVqhD33E=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: openbmc@lists.ozlabs.org,
 	joel@jms.id.au
-Subject: [PATCH linux dev-5.14 5/8] hwmon: (pmbus/lm25066) Mark lm25066_coeff
- array const
-Date: Mon, 18 Oct 2021 16:17:11 -0700
-Message-Id: <20211018231714.19054-6-zev@bewilderbeest.net>
+Subject: [PATCH linux dev-5.14 8/8] dt-bindings: hwmon/pmbus: Add ti,
+ lm25066 power-management IC
+Date: Mon, 18 Oct 2021 16:17:14 -0700
+Message-Id: <20211018231714.19054-9-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211018231714.19054-1-zev@bewilderbeest.net>
 References: <20211018231714.19054-1-zev@bewilderbeest.net>
@@ -74,38 +74,75 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-lm25066_coeff is read-only. Mark it as such.
-
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Link: https://lore.kernel.org/r/20210928092242.30036-6-zev@bewilderbeest.net
-[groeck: Added description]
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20210928092242.30036-9-zev@bewilderbeest.net
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/pmbus/lm25066.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../bindings/hwmon/pmbus/ti,lm25066.yaml      | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
 
-diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
-index 1ff5407b6977..dbbf8571c437 100644
---- a/drivers/hwmon/pmbus/lm25066.c
-+++ b/drivers/hwmon/pmbus/lm25066.c
-@@ -51,7 +51,7 @@ struct __coeff {
- #define PSC_CURRENT_IN_L	(PSC_NUM_CLASSES)
- #define PSC_POWER_L		(PSC_NUM_CLASSES + 1)
- 
--static struct __coeff lm25066_coeff[][PSC_NUM_CLASSES + 2] = {
-+static const struct __coeff lm25066_coeff[][PSC_NUM_CLASSES + 2] = {
- 	[lm25056] = {
- 		[PSC_VOLTAGE_IN] = {
- 			.m = 16296,
-@@ -449,7 +449,7 @@ static int lm25066_probe(struct i2c_client *client)
- 	int config;
- 	struct lm25066_data *data;
- 	struct pmbus_driver_info *info;
--	struct __coeff *coeff;
-+	const struct __coeff *coeff;
- 
- 	if (!i2c_check_functionality(client->adapter,
- 				     I2C_FUNC_SMBUS_READ_BYTE_DATA))
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+new file mode 100644
+index 000000000000..da8292bc32f5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: http://devicetree.org/schemas/hwmon/pmbus/ti,lm25066.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: National Semiconductor/Texas Instruments LM250x6/LM506x power-management ICs
++
++maintainers:
++  - Zev Weiss <zev@bewilderbeest.net>
++
++description: |
++  The LM25066 family of power-management ICs (a.k.a. hot-swap
++  controllers or eFuses in various contexts) are PMBus devices that
++  offer temperature, current, voltage, and power monitoring.
++
++  Datasheet: https://www.ti.com/lit/ds/symlink/lm25066.pdf
++
++properties:
++  compatible:
++    enum:
++      - ti,lm25056
++      - ti,lm25066
++      - ti,lm5064
++      - ti,lm5066
++      - ti,lm5066i
++
++  reg:
++    maxItems: 1
++
++  shunt-resistor-micro-ohms:
++    description:
++      Shunt (sense) resistor value in micro-Ohms
++    default: 1000
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@40 {
++            compatible = "ti,lm25066";
++            reg = <0x40>;
++            shunt-resistor-micro-ohms = <675>;
++        };
++    };
 -- 
 2.33.1
 
