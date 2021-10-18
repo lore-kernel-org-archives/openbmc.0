@@ -2,55 +2,52 @@ Return-Path: <SRS0=dhqT=PG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33CA8C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 09:26:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBB25C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 09:34:47 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE94B6126A
-	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 09:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BE94B6126A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id AFED761027
+	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 09:34:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AFED761027
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HXs2T3N6Cz3cMy
-	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 20:26:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HXsCn2Q0Gz2yMx
+	for <openbmc@archiver.kernel.org>; Mon, 18 Oct 2021 20:34:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
- receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=molgen.mpg.de (client-ip=141.14.17.11; helo=mx1.molgen.mpg.de;
+ envelope-from=pmenzel@molgen.mpg.de; receiver=<UNKNOWN>)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HXryS355Bz3bjW;
- Mon, 18 Oct 2021 20:23:12 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 19I90Ga3071202;
- Mon, 18 Oct 2021 17:00:17 +0800 (GMT-8)
- (envelope-from jammy_huang@aspeedtech.com)
-Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 18 Oct 2021 17:22:11 +0800
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
- <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 6/7] media: aspeed: add comments and macro
-Date: Mon, 18 Oct 2021 17:22:06 +0800
-Message-ID: <20211018092207.13336-7-jammy_huang@aspeedtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211018092207.13336-1-jammy_huang@aspeedtech.com>
-References: <20211018092207.13336-1-jammy_huang@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HXsCB3TdVz2xtL;
+ Mon, 18 Oct 2021 20:34:13 +1100 (AEDT)
+Received: from [192.168.0.2] (ip5f5aef76.dynamic.kabel-deutschland.de
+ [95.90.239.118])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id DC0C361E5FE33;
+ Mon, 18 Oct 2021 11:34:06 +0200 (CEST)
+Subject: Re: [PATCH 4/6] media: aspeed: Support aspeed mode to reduce
+ compressed data
+To: Jammy Huang <jammy_huang@aspeedtech.com>
+References: <20211014034819.2283-1-jammy_huang@aspeedtech.com>
+ <20211014034819.2283-5-jammy_huang@aspeedtech.com>
+ <ddb1e6dc-6b4f-4f67-9122-dae3dab1ae65@molgen.mpg.de>
+ <5675befe-48df-9f09-f30f-d407538ad070@aspeedtech.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <5466798e-32c1-81f5-3428-7bbfe31cdea7@molgen.mpg.de>
+Date: Mon, 18 Oct 2021 11:34:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
+In-Reply-To: <5675befe-48df-9f09-f30f-d407538ad070@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.115]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 19I90Ga3071202
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,104 +59,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ andrew@aj.id.au, openbmc@lists.ozlabs.org, eajames@linux.ibm.com,
+ linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add comments to describe video-stat and 'struct aspeed_video'.
-Add macro, ASPEED_VIDEO_V4L2_MIN_BUF_REQ, to describe the buffers
-needed.
 
-Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
----
- drivers/media/platform/aspeed-video.c | 39 ++++++++++++++++++++++++---
- 1 file changed, 36 insertions(+), 3 deletions(-)
+Dear Jammy,
 
-diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index a4fc31c93bde..070654a8419b 100644
---- a/drivers/media/platform/aspeed-video.c
-+++ b/drivers/media/platform/aspeed-video.c
-@@ -38,6 +38,8 @@
- #define V4L2_CID_ASPEED_HQ_MODE			(ASPEED_CID_CUSTOM_BASE  + 3)
- #define V4L2_CID_ASPEED_HQ_JPEG_QUALITY		(ASPEED_CID_CUSTOM_BASE  + 4)
- 
-+#define ASPEED_VIDEO_V4L2_MIN_BUF_REQ 3
-+
- #define DEVICE_NAME			"aspeed-video"
- 
- #define ASPEED_VIDEO_JPEG_NUM_QUALITIES	12
-@@ -202,6 +204,15 @@
- #define VE_MEM_RESTRICT_START		0x310
- #define VE_MEM_RESTRICT_END		0x314
- 
-+/*
-+ * @VIDEO_MODE_DETECT_DONE:	a flag raised if signal lock
-+ * @VIDEO_RES_CHANGE:		a flag raised if res_change work on-going
-+ * @VIDEO_RES_DETECT:		a flag raised if res. detection on-going
-+ * @VIDEO_STREAMING:		a flag raised if user requires stream-on
-+ * @VIDEO_FRAME_INPRG:		a flag raised if hw working on a frame
-+ * @VIDEO_STOPPED:		a flag raised if device release
-+ * @VIDEO_CLOCKS_ON:		a flag raised if clk is on
-+ */
- enum {
- 	VIDEO_MODE_DETECT_DONE,
- 	VIDEO_RES_CHANGE,
-@@ -234,6 +245,28 @@ struct aspeed_video_perf {
- #define to_aspeed_video_buffer(x) \
- 	container_of((x), struct aspeed_video_buffer, vb)
- 
-+/**
-+ * struct aspeed_video - driver data
-+ *
-+ * @flags:		holds the state of video
-+ * @sequence:		holds the last number of frame completed
-+ * @max_compressed_size:holds max compressed stream's size
-+ * @srcs:		holds the buffer information for srcs
-+ * @jpeg:		holds the buffer information for jpeg header
-+ * @bcd:		holds the buffer information for bcd work
-+ * @yuv420:		a flag raised if JPEG subsampling is 420
-+ * @partial_jpeg:	a flag raised if JPEG supports partial capture
-+ * @hq_mode:		a flag raised if HQ is enabled. Only for partial_jpeg
-+ * @frame_rate:		holds the frame_rate
-+ * @jpeg_quality:	holds jpeq's quality (0~11)
-+ * @jpeg_hq_quality:	holds hq's quality (0~11) only if hq_mode enabled
-+ * @compression_mode:	holds jpeg compression mode
-+ * @frame_bottom:	end position of video data in vertical direction
-+ * @frame_left:		start position of video data in horizontal direction
-+ * @frame_right:	end position of video data in horizontal direction
-+ * @frame_top:		start position of video data in vertical direction
-+ * @perf:		holds the statistics primary for debugfs
-+ */
- struct aspeed_video {
- 	void __iomem *base;
- 	struct clk *eclk;
-@@ -1244,7 +1277,7 @@ static int aspeed_video_get_parm(struct file *file, void *fh,
- 	struct aspeed_video *video = video_drvdata(file);
- 
- 	a->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
--	a->parm.capture.readbuffers = 3;
-+	a->parm.capture.readbuffers = ASPEED_VIDEO_V4L2_MIN_BUF_REQ;
- 	a->parm.capture.timeperframe.numerator = 1;
- 	if (!video->frame_rate)
- 		a->parm.capture.timeperframe.denominator = MAX_FRAME_RATE;
-@@ -1261,7 +1294,7 @@ static int aspeed_video_set_parm(struct file *file, void *fh,
- 	struct aspeed_video *video = video_drvdata(file);
- 
- 	a->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
--	a->parm.capture.readbuffers = 3;
-+	a->parm.capture.readbuffers = ASPEED_VIDEO_V4L2_MIN_BUF_REQ;
- 
- 	if (a->parm.capture.timeperframe.numerator)
- 		frame_rate = a->parm.capture.timeperframe.denominator /
-@@ -1864,7 +1897,7 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
- 	vbq->drv_priv = video;
- 	vbq->buf_struct_size = sizeof(struct aspeed_video_buffer);
- 	vbq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
--	vbq->min_buffers_needed = 3;
-+	vbq->min_buffers_needed = ASPEED_VIDEO_V4L2_MIN_BUF_REQ;
- 
- 	rc = vb2_queue_init(vbq);
- 	if (rc) {
--- 
-2.25.1
 
+Am 18.10.21 um 10:51 schrieb Jammy Huang:
+
+> On 2021/10/14 下午 02:47, Paul Menzel wrote:
+
+>> Am 14.10.21 um 05:48 schrieb Jammy Huang:
+>>> aspeed support differential jpeg format which only compress the parts
+>> support*s*
+>>
+>>> which are changed. In this way, it reduces both the amount of data to be
+>>> transferred by network and those to be decoded on the client side.
+>> Please mention the datasheet name and revision and section, where this
+>> functionality is described.
+> 
+> Sorry but our datasheet is confidential. The basic idea of this
+> feature is that we can just compress the blocks which is different
+> with previous frame rather than full frame. This idea is similar to
+> the I & P frame in multimedia.
+It’s still good to have the name and revision of the datasheet, the code 
+was developed against documented. (Public datasheets would be even 
+better, also for review.)
+
+>> Which chips support it?
+> AST2400/2500/2600 all support it.
+>>
+>>> 4 new ctrls are added:
+>>> *Aspeed JPEG Format: to control aspeed's partial jpeg on/off
+>>> *Aspeed Compression Mode: to control aspeed's compression mode
+>>> *Aspeed HQ Mode: to control aspeed's HQ mode on/off
+>>> *Aspeed HQ Quality: to control the quality of aspeed's HQ mode
+>> Please add a space after the bullet points.
+>>
+>> Excuse my ignorance, how can these options be controlled?
+> 
+> * Aspeed JPEG Format: to control jpeg format
+>    0: standard jpeg, 1: aspeed jpeg
+> * Aspeed Compression Mode: to control aspeed's compression mode
+>    0: DCT Only, 1: DCT VQ mix 2-color, 2: DCT VQ mix 4-color
+>    This is AST2400 only. It will adapt JPEG or VQ encoding method according
+>    to the context automatically.
+> * Aspeed HQ Mode: to control aspeed's HQ mode on/off
+>    0: disabled, 1: enabled
+> * Aspeed HQ Quality: to control the quality(0~11) of aspeed's HQ mode,
+>    only usefull if Aspeed HQ mode is enabled
+
+Thank you. So some sysfs file?
+
+>>> Aspeed JPEG Format requires an additional buffer, called bcd, to store
+>>> the information that which macro block in the new frame is different
+>> s/that which/which/
+>>
+>>> from the old one.
+>>>
+>>> To have bcd correctly working, we need to swap the buffers for src0/1 to
+>>> make src1 refer to previous frame and src0 to the coming new frame.
+>> How did you test it? What do the clients need to support?
+>>
+>> Did you test, how much bandwidth is saved? Some numbers would be nice.
+> I tested it by aspeed's kvm client which support decoding the aspeed
+> format. Currently, I am porting this feature to novnc to have openbmc
+> support it.
+Nice.
+> The bandwidth saved is variant. It depends on how many blocks is
+> different between new and old frame.If the new frame is identical
+> with the previous one, the compressed frame only needs 12 Bytes.
+
+Thank you for the explanation.
+
+
+Kind regards,
+
+Paul
