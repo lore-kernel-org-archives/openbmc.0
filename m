@@ -2,51 +2,51 @@ Return-Path: <SRS0=codv=PH=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 653B1C433F5
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 14:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0BF85C433EF
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 19:08:16 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E76E96138D
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 14:53:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E76E96138D
+	by mail.kernel.org (Postfix) with ESMTPS id 48E0B6128B
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 19:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 48E0B6128B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HYcF52xmZz307g
-	for <openbmc@archiver.kernel.org>; Wed, 20 Oct 2021 01:53:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HYjv15MCGz3c8K
+	for <openbmc@archiver.kernel.org>; Wed, 20 Oct 2021 06:08:13 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eeGlT0cO;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Lv4ZuE2d;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
  envelope-from=kuba@kernel.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=eeGlT0cO; 
+ header.s=k20201202 header.b=Lv4ZuE2d; 
  dkim-atps=neutral
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HYcDF2p8yz2yZ6;
- Wed, 20 Oct 2021 01:52:45 +1100 (AEDT)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 333116137D;
- Tue, 19 Oct 2021 14:52:42 +0000 (UTC)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HYjt83Hm7z2ypT;
+ Wed, 20 Oct 2021 06:07:28 +1100 (AEDT)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3A4D76101A;
+ Tue, 19 Oct 2021 19:07:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1634655162;
- bh=nL3J2VL9zWYo/wi24YajKfhHZQktfPjrSciiqbNy07s=;
+ s=k20201202; t=1634670445;
+ bh=HaUgFa7ZDveIyObp/cXpK7mjo1xVVWIUnROJaQjyCDk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eeGlT0cOTfvNAjBhOZ74NFgUXq/5n41xtAXXR6sa4MBgyX3mPo14mJm7/QssMQkTl
- UbOjSAaFRZYDcLZLxn644OZceFsnm17mNPR+VRmSE6lH0Q6SJLTSjPQKBmPTFZ5HTL
- yshGnvfFJXF7TN14FUSUQqJ7MCkmx2qALNpev43YAYPmIMxhCNSukfMZ+nh8+5VVoU
- 7e+wFysZWMkihrVq7Fa5n3LWvK1iTF6mo3D287cFLUDycWERCvhgm0KMDo4Y7LphUU
- PFI+mI5Tg1QDhmI5BwicnYiXat1ykvSLlTm+McprR0A7njT7MfnezwolSryuEK2FxW
- /gJTgZYWvDTEw==
-Date: Tue, 19 Oct 2021 07:52:41 -0700
+ b=Lv4ZuE2dNjZ7BhmzM/CwPcZ1HTJZ0DpCuwSRiGqEfX9gBxoo3yXHirGGg34++hx54
+ VL5nIzqRGK+AmEcTwDp9sr+jn/dlNSjjaA3RMXtl16t0rzryHftQHAGSX0D74ktK4D
+ cdF0AQAyStQHXno4+ecCMwMW7sgWDyVfW7PGc1U6f9k3pAPpAUJEjPYYCSZkyn36SK
+ jwxSvhlZljt0fO4urkF7uZFVkJ2DHpaFt5qCo26PX2RlEiAfjgH/nNlE3AnlyRZLgX
+ Aa7qD2G0M8HK1evEUL4qHTMkIMuiCpqoAZrURiZ2G6txLyOKIL+mxkrihNlmiz2BDN
+ VMkYKI+Zbz5KQ==
+Date: Tue, 19 Oct 2021 12:07:24 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Kumar Thangavel <kumarthangavel.hcl@gmail.com>
 Subject: Re: [PATCH v2] Add payload to be 32-bit aligned to fix dropped packets
-Message-ID: <20211019075241.7ba9fd0a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+Message-ID: <20211019120724.50776b81@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
 In-Reply-To: <20211019144127.GA12978@gmail.com>
 References: <20211019144127.GA12978@gmail.com>
 MIME-Version: 1.0
@@ -72,18 +72,6 @@ Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 On Tue, 19 Oct 2021 20:11:27 +0530 Kumar Thangavel wrote:
->  	len += sizeof(struct ncsi_cmd_pkt_hdr) + 4;
-> -	if (nca->payload < 26)
 > +	payload = ALIGN(nca->payload, 4)
-> +	if (payload < 26)
->  		len += 26;
->  	else
-> -		len += nca->payload;
-> +		len += payload;
 
-You round up to 4 and then add 26 if the result is smaller.  26 is not
-a multiple of 4. Is this intentional?
-
-Also you can write this on one line:
-
-	len += max(payload, 26);
+This is missing a semicolon.
