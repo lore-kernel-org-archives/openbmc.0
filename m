@@ -2,43 +2,43 @@ Return-Path: <SRS0=codv=PH=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00B96C433F5
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 06:19:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25429C433EF
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 06:20:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81B7E61177
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 06:19:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 81B7E61177
+	by mail.kernel.org (Postfix) with ESMTPS id 3C5666115B
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 06:20:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3C5666115B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=os.amperecomputing.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HYNqs118xz2y7V
-	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 17:19:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HYNs64w35z2y8R
+	for <openbmc@archiver.kernel.org>; Tue, 19 Oct 2021 17:20:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=AWUFF8Nu;
+	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=Vo2/tuhD;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=os.amperecomputing.com (client-ip=40.107.244.107;
+ smtp.mailfrom=os.amperecomputing.com (client-ip=40.107.244.137;
  helo=nam12-mw2-obe.outbound.protection.outlook.com;
  envelope-from=quan@os.amperecomputing.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com
- header.a=rsa-sha256 header.s=selector2 header.b=AWUFF8Nu; 
+ header.a=rsa-sha256 header.s=selector2 header.b=Vo2/tuhD; 
  dkim-atps=neutral
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2107.outbound.protection.outlook.com [40.107.244.107])
+ (mail-mw2nam12on2137.outbound.protection.outlook.com [40.107.244.137])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HYNp75hK5z2ynr;
- Tue, 19 Oct 2021 17:17:51 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HYNq869Bhz3cMQ;
+ Tue, 19 Oct 2021 17:18:44 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h/d7nBWtC6zkYZ730TtIHCaOZdcQYsc3UeMdbFi5XCO6T3oELP9havpouwrrrew+vfgGcZjs0KR28ECbt/guR4dOq0ZPRBQXvWNr48Fypn08iljbzuznA1WCiYqdkHAs+ZNi3VZ00g3G+t5GPLZdKk9pmqYl5NPM/U5MFHjN8e/22hZa4Zzzfs9Dx1mdJXB9LQpOG9Q2G2k5IJHx4OMa20E4DbFO/5oTSr9ADTgRHfhY3DWQn9Aw4ml+jur4c7Cvm9r/bj9jND60gv1EHBYRN+YbFvouYN7oGSa7bVahJcp7zyWayGaCEK9IHOFEVOShSyHi+kKu10uJZqfH1BQfzA==
+ b=QLsNn+3aJXpi5De3l5K7lMLu4IzAlFoa39vF0JZeKB90n8OvdOdB2rfwP0duqrFReUSgDFQiMuULnWRcfL+mxwsNGBNtMMCTqKb86w6w2v0fC9Br5HSisk35X6r6rFYLueuQfOVGvXNn5CGmpxZAmqcd9Eend64QzWGLGyK3fu7AEqnNuV51q2/pwlxze68zEKcPNchxGxEKWqC4WhfJR6KBAfmC5IRq37p1ZDsZYM4hlHWXGAEwjvm6wjHxXmIgZg+zOLNmimjmJEXvrGenU64jhFASh2+3JHu/YqvfVfP+5hFM0rcD363Ae9Pzq7a2aokLWgdL0B+8Op/8dlAT1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hDtbPCDHO0b7VTSOjTvs0tCslLIwqtqh0EI7JIMAG3g=;
- b=Gg2ONJWd19Zq+LA14D7JeoUejcxyWuQNn+FdjnRqrMuoAzl0XGxQfpaV4wV0KMTLtr9HwJMHOqnnfPYe3ASswlMT4oBTTBXtcod26Obi3IY6zIf9qXA3b4NOb6KJEBahZMq88/5VGeRdS1UGqkUXPpm185rRrcWS9Iql8cj/tR5KCbAJUi8rn3zy+35vlRk1ap7dJoxC+NRjXQb/Ab7LVxcwzdiGgLlHcXwWaNpimZGBhWk5Apaio8ulpinErikXoHAH6n35BrxK7BvUZexEHKzvcPoFbgrnu9MUpcmQtmjy1JdyAYWQvWvkd6cJ+1EFOAmXKnt6/9qinaMedIKAcw==
+ bh=Z+pHeM5v9LBmTpc1CWSZ0bvBn8uFwJmBmWPVsn0LOSE=;
+ b=Xo5eSRoKY7m/DnGySKjkh1IcCsPfyR/CHFO17tfMfWLO+U74mBGCJVoLEM1k4jRPbLBrtJdItBKvOvEOcSxWDsG5b+sWPKp7yyQHgj1Bccu/Wwve6yQaqMBInGlh5d2w7v6e9Wi3fn2wuPzaUNYq3p/smrhtjCxwpM44t+ZZgUhwejTYMUPZdRu/r12MWmTnfuyjXfmYsaogWOGOKUDkcjhhSGLAfzGKzhMQyYfphncOau0W7dwr6WarGStY/lGSl12RsNOvxGgUZeqcUVYEhOesomXJla+aHpt9n3Bos0K2wQqkdHRw9dkAqYMxi3eDuOYr86dC9j8Zz42X87Hpkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
  header.from=os.amperecomputing.com; dkim=pass
@@ -46,8 +46,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=os.amperecomputing.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hDtbPCDHO0b7VTSOjTvs0tCslLIwqtqh0EI7JIMAG3g=;
- b=AWUFF8NuFN0e7pJsl4stuYk+uPxpzi0LqeWYqz8SnAe/4kSRUrzfoZUT73Ui+2u8HMG0a5zS98c3IxzjtboWLFydUTJd3f4uDvL/IweN89VtcBxMNFCF9BBOhi5izWmefX8yI7UCHpfx2ziueAP9wJjdTfZmaFJUuixg6fF/ITY=
+ bh=Z+pHeM5v9LBmTpc1CWSZ0bvBn8uFwJmBmWPVsn0LOSE=;
+ b=Vo2/tuhD3JU+kGqjmMFgjdPOfH9GzTZCDl1boDEfda3fBpN6fBtOxWC13r+VzKe/1MkWqUuTJcfu6l+dUCEWim1oRfhwN+3v9NzKVAS61uK0qlVf6zGndvFyAap8kddkcnJ3ODuspFMa0UVqSX0ZBEOnPMG2gbfRs2FW2pETcew=
 Authentication-Results: kernel.org; dkim=none (message not signed)
  header.d=none;kernel.org; dmarc=none action=none
  header.from=os.amperecomputing.com;
@@ -55,19 +55,19 @@ Received: from SJ0PR01MB7282.prod.exchangelabs.com (2603:10b6:a03:3f2::24) by
  BYAPR01MB5062.prod.exchangelabs.com (2603:10b6:a03:7f::18) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.17; Tue, 19 Oct 2021 06:02:24 +0000
+ 15.20.4608.17; Tue, 19 Oct 2021 06:02:18 +0000
 Received: from SJ0PR01MB7282.prod.exchangelabs.com
  ([fe80::f14d:21a9:9ebf:2924]) by SJ0PR01MB7282.prod.exchangelabs.com
  ([fe80::f14d:21a9:9ebf:2924%9]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 06:02:24 +0000
+ 06:02:18 +0000
 From: Quan Nguyen <quan@os.amperecomputing.com>
 To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: [PATCH v2 3/3] ARM: dts: aspeed: mtjade: Add uefi partition
-Date: Tue, 19 Oct 2021 13:01:55 +0700
-Message-Id: <20211019060155.945-4-quan@os.amperecomputing.com>
+Subject: [PATCH v2 1/3] ARM: dts: aspeed: mtjade: Add some gpios
+Date: Tue, 19 Oct 2021 13:01:53 +0700
+Message-Id: <20211019060155.945-2-quan@os.amperecomputing.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20211019060155.945-1-quan@os.amperecomputing.com>
 References: <20211019060155.945-1-quan@os.amperecomputing.com>
@@ -81,54 +81,54 @@ Received: from hcm-sw-17.amperecomputing.com (118.69.219.201) by
  HK0PR01CA0059.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18 via Frontend
- Transport; Tue, 19 Oct 2021 06:02:21 +0000
+ Transport; Tue, 19 Oct 2021 06:02:15 +0000
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4a1c02a3-da44-4b4b-262c-08d992c60566
+X-MS-Office365-Filtering-Correlation-Id: f555f56f-5ba4-4007-e86d-08d992c601d8
 X-MS-TrafficTypeDiagnostic: BYAPR01MB5062:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR01MB50620844B1E457751911F61FF2BD9@BYAPR01MB5062.prod.exchangelabs.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-Microsoft-Antispam-PRVS: <BYAPR01MB5062904F616B30D5345DD6C8F2BD9@BYAPR01MB5062.prod.exchangelabs.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:785;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FSkTQxg8haEGJoiHX79XguMrtC5lhNiUoDPFgPi9mnqfzqG0B5k2T/jSvkw/V+jzbRxoPTZtiOhX+xXyv4nmmGkk+up59XD6rLNGQ3+uqoyKVmp469y3SYwBpFfzVDiIMq+xliZQ7lRlBKvS/9deSXWfZ8RIHUsVst6wADqoZjIYq42JQ5c4dIHL0ynlCyH9CVCNmsnF2BU0hH6GzQ/502DQ88wlwGyEDtWu3FC0/HoEYN9qe+CxQ5GyBxGnhPbv+3y70w1CC8MIqLGQnm72tuzJhf7qWBp8j8L/A0n5T36ylyZSM+ivrNi0G9jEaUHKmeRVdno0lsltEsDpGpEQj1/s0pJUo35EyL348cPEFRCeiC4cgX5hkIO+GSPjUSpzAoyWl4Ce3K8O6n2X02ByT47f9dYe1BQrwiQ7B3BQYA02k1ttqy3tW8iRXbxGMEBReka0DnedVLzWcGxKTu9yBBHGwXpN0Gobq/6YA1EFCKs4UB2gTr1LGlVXb1NKuyprvRHJiPihePhxGMW4DtZvVWVdl81Yjl5X8PUGlpo4Sh+vy0YvWByivtBL0eqIsAW9XN7GF80PqpaA+rhfmSBy2TINnpTYmzAsR71YXCr6cs4TAg0kD94bzadynaGnCc6tXYS6o5xA7vyDbgMmha88xt5lz21HbG0q/08FolDNEdZTaR60QsLb5STc/T1nr8mXE3cAcyD500/mJN1r9UoMfQ==
+X-Microsoft-Antispam-Message-Info: lhYl7qgwBiN2UuPB+4qjV7Pg9fE4mWm/xTVxRWH62AzNflpPLN9RmpNYeMs0aqR6HIh16juZYnNUXAIG+zUTolgGfAUNb01Ze5zr4IHY16Z3I8C1xqb3SnRtY1YvcWIoKdTu/A3p1hL+M3+y8KQped7LZfYmmwc5II7ga49dA2M8ouuYszFTYG49Sjylkl+VGKzE/f7+H1IAauuROnukj0njSOOnoXohkkDgczcerMxiNrmgHeEER71v5LPueR3hN+vMyobGxmDellZgZlqki0pF38zuqMUTmqOYIC30OvRmUZz2MXShuZVJn0S2NZS9BikPIOE7hjOX9J9MJgGjIcX7Ms+dv5SfGz1kgbmPzH6id8cTMm+falE+RzDt7Tkyugjdvbc6AZImSzSKyLBU2FSnS3K+YSzaUITfHGWCFimx9Pyw7hqDvDRURShGCfiRRoaNyPlqid5hTZ/8YQ9jpEVGUqC71OB86582m4IqfKVHfkz98ZaypEGGRiq2sRnbYtRQstl37SIa2mS4TMM9W4OL8j0Rym0e4YpdvTCfsf/XpxUUxbRkOkn4+fz9fgWoSQEjfQ7H9pBbeJggpXuq7ctVCVgmQ7fyiTyq1cKoNtiT28B+OViS1GVD+qkIFQOf4ZlzvQl0Bzifdq0bWqH9qQx1XYa1RDdrBdMkyXcTeVkfDWHddGbgTSJdg5Bw5ZW/gkNhA8KxXuAOEAxEBP0bIQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR01MB7282.prod.exchangelabs.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(54906003)(6512007)(110136005)(956004)(2616005)(508600001)(66946007)(5660300002)(107886003)(66556008)(6666004)(316002)(8936002)(2906002)(52116002)(38350700002)(6506007)(38100700002)(4744005)(86362001)(6486002)(8676002)(186003)(66476007)(4326008)(1076003)(26005);
+ SFS:(4636009)(366004)(54906003)(6512007)(110136005)(956004)(2616005)(508600001)(66946007)(5660300002)(107886003)(66556008)(6666004)(316002)(8936002)(2906002)(52116002)(38350700002)(6506007)(38100700002)(86362001)(6486002)(83380400001)(8676002)(186003)(66476007)(4326008)(1076003)(26005);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Yd0rJsGLJa/u3DAKbrErJxI3B5G4A4VINACpWpc5nyPs3e8eUaIJu2OdPARJ?=
- =?us-ascii?Q?IP6pyWkcK/yBB0yBtXwNXUYigM+oZIpzWdWkIFXGrkatZl2HF1s00BJS9U6f?=
- =?us-ascii?Q?ZuM2SzAEzFo/4HQjW2Y2XRe//BUcLZpfk0D6cFgfX0589Uyu7carRnBzvn44?=
- =?us-ascii?Q?uRsZtgL8q2QKMR0rB7fdSFOlGFxEn4NZCMgNAxAL7Zki6iNrMQuOnsWk72rQ?=
- =?us-ascii?Q?cv8LqOVgi4hg79Ljv/pCh6Q45fZQC8Krn8U9Vf5zn4kQPP+WsOJMMUC+NRZV?=
- =?us-ascii?Q?XKhBC5Sll//9hgC74dBFGbUvSYEa6J2tS8Ao5WajvUo8NbvHEl4L4LfkRl1T?=
- =?us-ascii?Q?87Wjvanyv+dBFK7pbYsVb9LH1x4kPXjh7xDSkI3SuujKVFKBROWI92UClKlT?=
- =?us-ascii?Q?iu5Kwbk7ZGAB0fgicPSQy8NfrCS4z0iWzYbALStMWBB/wTusLdR7WAWLoC11?=
- =?us-ascii?Q?+ISFrXJi/tNQmZXnNv1hIouyEEhrVLFu5Zxfaf8eDK7Qj+VaNnHZtfr2nudh?=
- =?us-ascii?Q?4YAf+zV9hD+56opfDa9DeBDvyJ5NDEi/lhVcyFgMwHjH5fzjSJKbYBEHIeHj?=
- =?us-ascii?Q?WybtkCJ83GYjkA+QJMd4VqnJGW5ysQhw+MytLi5vwFfW88tiYyWfuNcuFGhl?=
- =?us-ascii?Q?fepf0/aqSAHr80Mug3MxcNu8UfPYYMYnZ9KW3/QcfbQLvYtRqXb32wfTKqXa?=
- =?us-ascii?Q?7XVxRy8sq8Xw3mAcK+fvv1DiHdrhWWIg4ocJ8oL8lKfJ88vzd/SBXZWzXUbu?=
- =?us-ascii?Q?iJI10LwEVLqDBdLXsZsPW2azlMyyFP4+nZHTUR6Qkh0l972/qZMAlvt+BcaR?=
- =?us-ascii?Q?6j09rkGnhAvuovcGrUxjBz6IMP6iqE3+Po99ORMXP94HjDBSlIj7BACEQg4o?=
- =?us-ascii?Q?V/sSV25l7PiQn3gj6doeuT3vnSFCBesynXs32qhZy3xDGgLDk6AHJjfcdm9w?=
- =?us-ascii?Q?shW/Zm4pTbftt4mr6/vZXtlZbkmvNVBqFoXFMgRCtubKbBzDrgKHCnZ++zfh?=
- =?us-ascii?Q?j9g7lJWXBOrU+wpHXgKbTgyPMxTngp9EQJSAeDg1DaBjRzz/8NqsxmFKJqmo?=
- =?us-ascii?Q?1m6wIQ0Wkq/ZIm1Zlj8sFxQ8IfONB0IoIVRa8gJlyX28kUtTwIGICpDVeXMH?=
- =?us-ascii?Q?a0fnLaim/K5aw1iwGoCQGhqFxld5BsQrKVFHY8BDBwsGP9vtn8q8LHciKlTX?=
- =?us-ascii?Q?PuabSuchKxfdMAgVXbg6ru8ZGfP9BodgaVQJziur4+o6HGQRNExmhvvqN8DK?=
- =?us-ascii?Q?BPvrPu23N+Zw9moGqjae1RexNfrqDGxncNriDewp6vOmTDFYK+YKp/HQiNVB?=
- =?us-ascii?Q?eBtsXBpSPX49ftAhuCm3zinn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?HXNDnYBZS/a0rXqdRdq5gz0mrvS8XVOGzokDM1pmXpPXXwfStUmUttd3Sd8J?=
+ =?us-ascii?Q?ma6cUApj2deSnOGkD3h+1PMml4aAzHeqJX71/cEh9a/8DiFyMLr3OBeb3VbG?=
+ =?us-ascii?Q?M2DwNmHu5zP7vXymG1EIrpLMvVM2cOJQmwuh2xLAhMiIkl2qyPmZUPpncBIL?=
+ =?us-ascii?Q?KCwXMQjo9nybWbxlfRxZOzhtLUkk2l/aRG59b6D6sjGtsgbPzizZvHip9LoN?=
+ =?us-ascii?Q?2PYWM8bBXhwxvHKS15AuUSxQg/49V2zsi4wDLP+sjnte9QmeXwaw/clR04wg?=
+ =?us-ascii?Q?jV9xTn8bVrxw+KJDabgUFRcez0ZWdtz5s/9eVnpW6cfPQj/cdxmBU4pN58j4?=
+ =?us-ascii?Q?XJ1SG1QM/wBHzym6kfqEFkwnMv0bzscMdn5n+65YiV7i9Kxnc083bY5+0sd/?=
+ =?us-ascii?Q?8HTf8AJt6vQChbzo6S3JGDv6kYkDh2kq2Zwd85fgUtLRPv289T+WvAIWjGqo?=
+ =?us-ascii?Q?dGHLhIoEd7GdZhMiSbcy2mJnVePX3r0aaPBkg9JWvRz5Yp/q1mBE0AuYtakX?=
+ =?us-ascii?Q?+qK6FFMekdxpPvhI5pKg8fnR/mkSsPBfgBQCOYTaSev1BK0vx3IlWmEEwUHT?=
+ =?us-ascii?Q?Fvt6zJqFdyo8RffxA7TM//qZXHl6VJWnw30aDV838IrwkEhiYZ1i0HhEmtEK?=
+ =?us-ascii?Q?Ztm9i4Lqr46DdF5RhRRMJ/1VIrTDhRWQhYn7nfj/761xhDSkmp/RI3uelg0Q?=
+ =?us-ascii?Q?olHU/jIBxGJazyefwN0uyE/X4klnlLKunV+uZzrlWhm135iG52djz9YOSpBm?=
+ =?us-ascii?Q?at9T8a+q1URKRhfr2uLqFFjzXbrVK8UbfcD4xNXe8PkoX1/1xr5xKJy/MVts?=
+ =?us-ascii?Q?QDrZ4fdRBuA0t1/N2WL0PUlVQonl0a8PVDec2cKuWufRTSuHBiou9fFQpr6u?=
+ =?us-ascii?Q?djXjRNiX6BEUwg3aY8f64ES6cKWKEQDIP8UhSqQk0vaylR4XSORRisVxTt0C?=
+ =?us-ascii?Q?i/EpClpSuono/cg9vbA1x07X+OPkXEWf90Vgjh+ll6zVchQ4BYwKDcvivHla?=
+ =?us-ascii?Q?whJW1iU554o3i5oDg3CeZUN80awN756GFGtkqU51NdMHM7pZMkbiyhuVrOq0?=
+ =?us-ascii?Q?2jCBtENb46hwuXTVfgyZSPQpUqZr2etaj+87dQ/ly+sVVnslfc93Z1vbyrUB?=
+ =?us-ascii?Q?3kU7YAqKVFkd/VsLtNHYssyKza78VABgQrjRpfE8sd0XF6PBVgwW1XzOy9eO?=
+ =?us-ascii?Q?1vC6T63aq5nuuTen+ILJlzHRMoI3B2fsTFNIkXV6Zy2t8lgnl8wRVW78zGPY?=
+ =?us-ascii?Q?lTZGzKz668E7O887RUVFwOxO02cKCd8oNLFojuqoiTCtR62hXlXiqpPdomKj?=
+ =?us-ascii?Q?grn4B5tfFE9xDyY0K4rwi+1E?=
 X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a1c02a3-da44-4b4b-262c-08d992c60566
+X-MS-Exchange-CrossTenant-Network-Message-Id: f555f56f-5ba4-4007-e86d-08d992c601d8
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR01MB7282.prod.exchangelabs.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 06:02:24.5259 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 06:02:18.4237 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: llPh7biSL41yEwdxLbQ8I6nZOBlI17ffcigarhlgJu1E77ElhSFmjRUjeNX7n9z6ox75TkgfY7+iY3MpsuKlHZMHi+xkwoiXSFWCIXqYrzE=
+X-MS-Exchange-CrossTenant-UserPrincipalName: TShy+pGIHUJ8wUxB8zqbaQ5CBMNASVyMbFII3PqXK1nDwCYH/6fNg/N3l7x1cNP8l4sKV22AhF9HDLBy3tfhMxzC0Z2geqjWxTWm1Ms0Fqc=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR01MB5062
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -148,37 +148,66 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add SPI NOR partition for uefi.
+Add S0_SCP_AUTH_FAIL, S1_SCP_AUTH_FAIL gpios to indicates firmware
+authentication fail on each socket.
 
-Signed-off-by: Thang Q. Nguyen <thang@os.amperecomputing.com>
+Add gpio RTC_BAT_SEN_EN to enable RTC battery adc sensor.
+
+Add BMC_I2C4_O_EN gpio to go high at boot to enable access to I2C4 bus.
+
 Signed-off-by: Quan Nguyen <quan@os.amperecomputing.com>
+Signed-off-by: Thang Nguyen <thang@os.amperecomputing.com>
 ---
 v2:
-  + Introdued in v2
+  - None
 
- arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../arm/boot/dts/aspeed-bmc-ampere-mtjade.dts | 21 ++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
-index 723c7063c223..4c3c3f1a12ea 100644
+index 57b0c45a2298..3515d55bd312 100644
 --- a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
 +++ b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
-@@ -374,6 +374,15 @@ flash@0 {
- 		m25p,fast-read;
- 		label = "pnor";
- 		/* spi-max-frequency = <100000000>; */
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			uefi@400000 {
-+				reg = <0x400000 0x1C00000>;
-+				label = "pnor-uefi";
-+			};
-+		};
- 	};
- };
+@@ -86,6 +86,18 @@ S0_cpu_fault {
+ 			linux,code = <ASPEED_GPIO(J, 1)>;
+ 		};
  
++		S0_scp_auth_fail {
++			label = "S0_SCP_AUTH_FAIL";
++			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(J, 2)>;
++		};
++
++		S1_scp_auth_fail {
++			label = "S1_SCP_AUTH_FAIL";
++			gpios = <&gpio ASPEED_GPIO(Z, 5) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(Z, 5)>;
++		};
++
+ 		S1_overtemp {
+ 			label = "S1_OVERTEMP";
+ 			gpios = <&gpio ASPEED_GPIO(Z, 6) GPIO_ACTIVE_LOW>;
+@@ -590,7 +602,7 @@ &gpio {
+ 	/*Q0-Q7*/	"","","","","","UID_BUTTON","","",
+ 	/*R0-R7*/	"","","BMC_EXT_HIGHTEMP_L","OCP_AUX_PWREN",
+ 			"OCP_MAIN_PWREN","RESET_BUTTON","","",
+-	/*S0-S7*/	"","","","","","","","",
++	/*S0-S7*/	"","","","","RTC_BAT_SEN_EN","","","",
+ 	/*T0-T7*/	"","","","","","","","",
+ 	/*U0-U7*/	"","","","","","","","",
+ 	/*V0-V7*/	"","","","","","","","",
+@@ -604,4 +616,11 @@ &gpio {
+ 			"S1_BMC_DDR_ADR","","","","",
+ 	/*AC0-AC7*/	"SYS_PWR_GD","","","","","BMC_READY","SLAVE_PRESENT_L",
+ 			"BMC_OCP_PG";
++
++	i2c4_o_en {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_I2C4_O_EN";
++	};
+ };
 -- 
 2.28.0
 
