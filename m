@@ -2,21 +2,21 @@ Return-Path: <SRS0=K+4f=PK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 260ABC4332F
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AE18C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:02:05 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 616296136F
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:01:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 616296136F
+	by mail.kernel.org (Postfix) with ESMTPS id 758486044F
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 758486044F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hb6yw3Hj5z3c98
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 13:01:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hb6zb1Hcfz3cBN
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 13:02:03 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=lmMMOt0e;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=DU7tY17F;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
@@ -24,36 +24,36 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=lmMMOt0e; 
+ header.a=rsa-sha256 header.s=thorn header.b=DU7tY17F; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hb6y91fcCz2y7X
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hb6y92NXtz2yHl
  for <openbmc@lists.ozlabs.org>; Fri, 22 Oct 2021 13:00:48 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (71-212-29-146.tukw.qwest.net
  [71.212.29.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 30DFA6E4;
- Thu, 21 Oct 2021 19:00:44 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 522BE98D;
+ Thu, 21 Oct 2021 19:00:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1634868044;
- bh=GVLa29qKQGMmS8DeLPvKZ38U2JRDGIV1ZE7yFTt1GH0=;
+ s=thorn; t=1634868046;
+ bh=a/XGFUg4+nH0ms1nAfRWPYozspJBU8EaTQ2O/BYzSYY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lmMMOt0e5ljaeEO5ZFy+7po0VxP4S8djGW9aJ5CR70BF/LwC3M8mbRV98+aRsl/4l
- C4bQA3K1HiyYKkgHR7gsrDdALj3WR/Koc4mZuAtjI1XW5yeEoxfJJj5mFRlLeMp9uL
- SJ+0xzgeYTZUSSnMFoJ7+rZo0mWiXC4Nxyuz9ljg=
+ b=DU7tY17FDr71jzgG2hHBqWK+HF30qVROqxkfhxnQd4PDWnwinchH8Eh1DnqGi11YN
+ /VClEF+jolOai9moi6TK4ZrEIYJXVXlUP5HASzggFly1c8liUuj/4HOyA5ioxADpyJ
+ cxLsXUTLz1Pyma9BF3JnMuTEhXLXcfmeksgLzRl4=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Frank Rowand <frowand.list@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH 1/5] of: base: add function to check for status = "reserved"
-Date: Thu, 21 Oct 2021 19:00:28 -0700
-Message-Id: <20211022020032.26980-2-zev@bewilderbeest.net>
+Subject: [PATCH 3/5] of: property: add support for fwnode_device_is_reserved()
+Date: Thu, 21 Oct 2021 19:00:30 -0700
+Message-Id: <20211022020032.26980-4-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211022020032.26980-1-zev@bewilderbeest.net>
 References: <20211022020032.26980-1-zev@bewilderbeest.net>
@@ -77,145 +77,37 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Per v0.3 of the Devicetree Specification [0]:
-
-  Indicates that the device is operational, but should not be used.
-  Typically this is used for devices that are controlled by another
-  software component, such as platform firmware.
-
-One use-case for this is in OpenBMC, where certain devices (such as a
-BIOS flash chip) may be shared by the host and the BMC, but cannot be
-accessed by the BMC during its usual boot-time device probing, because
-they require additional (potentially elaborate) coordination with the
-host to arbitrate which processor is controlling the device.
-
-Devices marked with this status should thus be instantiated, but not
-have a driver bound to them or be otherwise touched.
-
-[0] https://github.com/devicetree-org/devicetree-specification/releases/download/v0.3/devicetree-specification-v0.3.pdf
+This is just a simple pass-through to of_device_is_reserved().
 
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 ---
- drivers/of/base.c  | 56 +++++++++++++++++++++++++++++++++++++++-------
- include/linux/of.h |  6 +++++
- 2 files changed, 54 insertions(+), 8 deletions(-)
+ drivers/of/property.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 0ac17256258d..3bd7c5b8a2cc 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -580,14 +580,16 @@ int of_machine_is_compatible(const char *compat)
- EXPORT_SYMBOL(of_machine_is_compatible);
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index a3483484a5a2..67a8cb7ac462 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -872,6 +872,11 @@ static bool of_fwnode_device_is_available(const struct fwnode_handle *fwnode)
+ 	return of_device_is_available(to_of_node(fwnode));
+ }
  
- /**
-- *  __of_device_is_available - check if a device is available for use
-+ * __of_device_check_status - check if a device's status matches a particular string
-  *
-- *  @device: Node to check for availability, with locks already held
-+ * @device: Node to check status of, with locks already held
-+ * @val: Status string to check for, or NULL for "okay"/"ok"
-  *
-- *  Return: True if the status property is absent or set to "okay" or "ok",
-- *  false otherwise
-+ * Return: True if status property exists and matches @val, or either "okay"
-+ * or "ok" if @val is NULL, or if status property is absent and @val is
-+ * "okay", "ok", or NULL.  False otherwise.
-  */
--static bool __of_device_is_available(const struct device_node *device)
-+static bool __of_device_check_status(const struct device_node *device, const char *val)
++static bool of_fwnode_device_is_reserved(const struct fwnode_handle *fwnode)
++{
++	return of_device_is_reserved(to_of_node(fwnode));
++}
++
+ static bool of_fwnode_property_present(const struct fwnode_handle *fwnode,
+ 				       const char *propname)
  {
- 	const char *status;
- 	int statlen;
-@@ -596,17 +598,35 @@ static bool __of_device_is_available(const struct device_node *device)
- 		return false;
- 
- 	status = __of_get_property(device, "status", &statlen);
--	if (status == NULL)
--		return true;
-+	if (!status) {
-+		/* a missing status property is treated as "okay" */
-+		status = "okay";
-+		statlen = strlen(status) + 1; /* property lengths include the NUL terminator */
-+	}
- 
- 	if (statlen > 0) {
--		if (!strcmp(status, "okay") || !strcmp(status, "ok"))
-+		if (!val && (!strcmp(status, "okay") || !strcmp(status, "ok")))
-+			return true;
-+		else if (val && !strcmp(status, val))
- 			return true;
- 	}
- 
- 	return false;
- }
- 
-+/**
-+ * __of_device_is_available - check if a device is available for use
-+ *
-+ * @device: Node to check for availability, with locks already held
-+ *
-+ * Return: True if the status property is absent or set to "okay" or "ok",
-+ * false otherwise
-+ */
-+static bool __of_device_is_available(const struct device_node *device)
-+{
-+	return __of_device_check_status(device, NULL);
-+}
-+
- /**
-  *  of_device_is_available - check if a device is available for use
-  *
-@@ -628,6 +648,26 @@ bool of_device_is_available(const struct device_node *device)
- }
- EXPORT_SYMBOL(of_device_is_available);
- 
-+/**
-+ * of_device_is_reserved - check if a device is marked as reserved
-+ *
-+ * @device: Node to check for reservation
-+ *
-+ * Return: True if the status property is set to "reserved", false otherwise
-+ */
-+bool of_device_is_reserved(const struct device_node *device)
-+{
-+	unsigned long flags;
-+	bool res;
-+
-+	raw_spin_lock_irqsave(&devtree_lock, flags);
-+	res = __of_device_check_status(device, "reserved");
-+	raw_spin_unlock_irqrestore(&devtree_lock, flags);
-+
-+	return res;
-+}
-+EXPORT_SYMBOL(of_device_is_reserved);
-+
- /**
-  *  of_device_is_big_endian - check if a device has BE registers
-  *
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 6f1c41f109bb..aa9762da5e7c 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -345,6 +345,7 @@ extern int of_device_is_compatible(const struct device_node *device,
- extern int of_device_compatible_match(struct device_node *device,
- 				      const char *const *compat);
- extern bool of_device_is_available(const struct device_node *device);
-+extern bool of_device_is_reserved(const struct device_node *device);
- extern bool of_device_is_big_endian(const struct device_node *device);
- extern const void *of_get_property(const struct device_node *node,
- 				const char *name,
-@@ -707,6 +708,11 @@ static inline bool of_device_is_available(const struct device_node *device)
- 	return false;
- }
- 
-+static inline bool of_device_is_reserved(const struct device_node *device)
-+{
-+	return false;
-+}
-+
- static inline bool of_device_is_big_endian(const struct device_node *device)
- {
- 	return false;
+@@ -1458,6 +1463,7 @@ const struct fwnode_operations of_fwnode_ops = {
+ 	.get = of_fwnode_get,
+ 	.put = of_fwnode_put,
+ 	.device_is_available = of_fwnode_device_is_available,
++	.device_is_reserved = of_fwnode_device_is_reserved,
+ 	.device_get_match_data = of_fwnode_device_get_match_data,
+ 	.property_present = of_fwnode_property_present,
+ 	.property_read_int_array = of_fwnode_property_read_int_array,
 -- 
 2.33.1
 
