@@ -2,62 +2,59 @@ Return-Path: <SRS0=K+4f=PK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F24A3C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:02:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32B0BC433F5
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:03:14 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9685C61163
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9685C61163
+	by mail.kernel.org (Postfix) with ESMTPS id 784CE61183
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 02:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 784CE61183
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hb70D1xcCz3cD3
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 13:02:36 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hb70w0kbZz3cD4
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 13:03:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=d32Nc7aV;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=k4bnVBQ2;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
+ smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
  helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=d32Nc7aV; 
+ header.a=rsa-sha256 header.s=thorn header.b=k4bnVBQ2; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [71.19.156.171])
+ [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hb6yB1JMDz2ymg
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hb6yB1vlTz2ymy
  for <openbmc@lists.ozlabs.org>; Fri, 22 Oct 2021 13:00:49 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (71-212-29-146.tukw.qwest.net
  [71.212.29.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id AC68DB49;
- Thu, 21 Oct 2021 19:00:47 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id A2C083F5;
+ Thu, 21 Oct 2021 19:00:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1634868048;
- bh=7bg47D2PUr63KTjRLOr3QPGPVQLLJR5F+XwJqWsUVxg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d32Nc7aVCto4w6Kfipr6ZiL8YdmnB5OWrXB2lhs04vNQPWK+6EyeHSmMros6UlQlu
- 3k3pSDbEuMoaMFI/V5OYe4FmeEtp3HfKObSMowHvvQjJ69rKZdSeBuAH9jlxfoxGYg
- mnUgrPoj2bSp1jM/i2Ypqq2xmph608ytcAVaee8w=
+ s=thorn; t=1634868043;
+ bh=XDRI9VXF3XUMlk9dBAFOebvTKFOvX1a0hcD6J+beiGI=;
+ h=From:To:Cc:Subject:Date:From;
+ b=k4bnVBQ2vAkqjjfhOAVZFHNciPr+g7dZimlgQ5PfQyVTDPYhZfE6nK2zxM0pxcdS7
+ v7n1RsSbK3OLYgC03sCYSDXOy9BE/bAlRSPE2DA+aJYWKmMpYZlEXRwHVoy0TbQkIx
+ ecMEQttwPGrHb8XG6id1cLWBi291qhq79pb9buRg=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Frank Rowand <frowand.list@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Rob Herring <robh+dt@kernel.org>
-Subject: [PATCH 4/5] driver core: inhibit automatic driver binding on reserved
- devices
-Date: Thu, 21 Oct 2021 19:00:31 -0700
-Message-Id: <20211022020032.26980-5-zev@bewilderbeest.net>
+Subject: [PATCH 0/5] driver core, of: support for reserved devices
+Date: Thu, 21 Oct 2021 19:00:27 -0700
+Message-Id: <20211022020032.26980-1-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211022020032.26980-1-zev@bewilderbeest.net>
-References: <20211022020032.26980-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -71,174 +68,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zev Weiss <zev@bewilderbeest.net>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Kirti Wankhede <kwankhede@nvidia.com>, Jeremy Kerr <jk@codeconstruct.com.au>,
- Rajat Jain <rajatja@google.com>, Jianxiong Gao <jxgao@google.com>,
- Dave Jiang <dave.jiang@intel.com>, kvm@vger.kernel.org,
- Saravana Kannan <saravanak@google.com>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Bhaskar Chowdhury <unixbhaskar@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Andrew Jeffery <andrew@aj.id.au>, Cornelia Huck <cohuck@redhat.com>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- dmaengine@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>,
+ Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Jeremy Kerr <jk@codeconstruct.com.au>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Devices whose fwnodes are marked as reserved are instantiated, but
-will not have a driver bound to them unless userspace explicitly
-requests it by writing to a 'bind' sysfs file.  This is to enable
-devices that may require special (userspace-mediated) preparation
-before a driver can safely probe them.
+Hello all,
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
+This series is another incarnation of a couple other patchsets I've
+posted recently [0, 1], but again different enough in overall
+structure that I'm not sure it's exactly a v2 (or v3).
+
+As compared to [1], it abandons the writable binary sysfs files and at
+Frank's suggestion returns to an approach more akin to [0], though
+without any driver-specific (aspeed-smc) changes, which I figure might
+as well be done later in a separate series once appropriate
+infrastructure is in place.
+
+The basic idea is to implement support for a status property value
+that's documented in the DT spec [2], but thus far not used at all in
+the kernel (or anywhere else I'm aware of): "reserved".  According to
+the spec (section 2.3.4, Table 2.4), this status:
+
+  Indicates that the device is operational, but should not be used.
+  Typically this is used for devices that are controlled by another
+  software component, such as platform firmware.
+
+With these changes, devices marked as reserved are (at least in some
+cases, more on this later) instantiated, but will not have drivers
+bound to them unless and until userspace explicitly requests it by
+writing the device's name to the driver's sysfs 'bind' file.  This
+enables appropriate handling of hardware arrangements that can arise
+in contexts like OpenBMC, where a device may be shared with another
+external controller not under the kernel's control (for example, the
+flash chip storing the host CPU's firmware, shared by the BMC and the
+host CPU and exclusively under the control of the latter by default).
+Such a device can be marked as reserved so that the kernel refrains
+from touching it until appropriate preparatory steps have been taken
+(e.g. BMC userspace coordinating with the host CPU to arbitrate which
+processor has control of the firmware flash).
+
+Patches 1-3 provide some basic plumbing for checking the "reserved"
+status of a device, patch 4 is the main driver-core change, and patch
+5 tweaks the OF platform code to not skip reserved devices so that
+they can actually be instantiated.
+
+One shortcoming of this series is that it doesn't automatically apply
+universally across all busses and drivers -- patch 5 enables support
+for platform devices, but similar changes would be required for
+support in other busses (e.g. in of_register_spi_devices(),
+of_i2c_register_devices(), etc.) and drivers that instantiate DT
+devices.  Since at present a "reserved" status is treated as
+equivalent to "disabled" and this series preserves that status quo in
+those cases I'd hope this wouldn't be considered a deal-breaker, but
+a thing to be aware of at least.
+
+Greg: I know on [1] you had commented nack-ing the addition of boolean
+function parameters; patch 4 adds a flags mask instead in an analogous
+situation.  I'm not certain how much of an improvement you'd consider
+that (hopefully at least slightly better, in that the arguments passed
+at the call site are more self-explanatory); if that's still
+unsatisfactory I'd welcome any suggested alternatives.
+
+
+Thanks,
+Zev
+
+[0] https://lore.kernel.org/openbmc/20210929115409.21254-1-zev@bewilderbeest.net/
+[1] https://lore.kernel.org/openbmc/20211007000954.30621-1-zev@bewilderbeest.net/
+[2] https://github.com/devicetree-org/devicetree-specification/releases/download/v0.3/devicetree-specification-v0.3.pdf
+
+Zev Weiss (5):
+  of: base: add function to check for status = "reserved"
+  device property: add fwnode_device_is_reserved()
+  of: property: add support for fwnode_device_is_reserved()
+  driver core: inhibit automatic driver binding on reserved devices
+  of: platform: instantiate reserved devices
+
  drivers/base/bus.c            |  2 +-
- drivers/base/dd.c             | 13 ++++++++-----
+ drivers/base/dd.c             | 13 ++++++----
+ drivers/base/property.c       | 16 +++++++++++++
  drivers/dma/idxd/compat.c     |  3 +--
+ drivers/of/base.c             | 56 ++++++++++++++++++++++++++++++++++++-------
+ drivers/of/platform.c         |  2 +-
+ drivers/of/property.c         |  6 +++++
  drivers/vfio/mdev/mdev_core.c |  2 +-
- include/linux/device.h        | 14 +++++++++++++-
- 5 files changed, 24 insertions(+), 10 deletions(-)
+ include/linux/device.h        | 14 ++++++++++-
+ include/linux/fwnode.h        |  2 ++
+ include/linux/of.h            |  6 +++++
+ include/linux/property.h      |  1 +
+ 12 files changed, 104 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index bdc98c5713d5..8a30f9a02de0 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -211,7 +211,7 @@ static ssize_t bind_store(struct device_driver *drv, const char *buf,
- 
- 	dev = bus_find_device_by_name(bus, NULL, buf);
- 	if (dev && driver_match_device(drv, dev)) {
--		err = device_driver_attach(drv, dev);
-+		err = device_driver_attach(drv, dev, DRV_BIND_EXPLICIT);
- 		if (!err) {
- 			/* success */
- 			err = count;
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index 68ea1f949daa..ee64740a63d9 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -22,6 +22,7 @@
- #include <linux/dma-map-ops.h>
- #include <linux/init.h>
- #include <linux/module.h>
-+#include <linux/property.h>
- #include <linux/kthread.h>
- #include <linux/wait.h>
- #include <linux/async.h>
-@@ -727,13 +728,14 @@ void wait_for_device_probe(void)
- }
- EXPORT_SYMBOL_GPL(wait_for_device_probe);
- 
--static int __driver_probe_device(struct device_driver *drv, struct device *dev)
-+static int __driver_probe_device(struct device_driver *drv, struct device *dev, u32 flags)
- {
- 	int ret = 0;
- 
- 	if (dev->p->dead || !device_is_registered(dev))
- 		return -ENODEV;
--	if (dev->driver)
-+	if (dev->driver ||
-+	    (fwnode_device_is_reserved(dev->fwnode) && !(flags & DRV_BIND_EXPLICIT)))
- 		return -EBUSY;
- 
- 	dev->can_match = true;
-@@ -778,7 +780,7 @@ static int driver_probe_device(struct device_driver *drv, struct device *dev)
- 	int ret;
- 
- 	atomic_inc(&probe_count);
--	ret = __driver_probe_device(drv, dev);
-+	ret = __driver_probe_device(drv, dev, DRV_BIND_DEFAULT);
- 	if (ret == -EPROBE_DEFER || ret == EPROBE_DEFER) {
- 		driver_deferred_probe_add(dev);
- 
-@@ -1052,16 +1054,17 @@ static void __device_driver_unlock(struct device *dev, struct device *parent)
-  * device_driver_attach - attach a specific driver to a specific device
-  * @drv: Driver to attach
-  * @dev: Device to attach it to
-+ * @flags: Bitmask of DRV_BIND_* flags
-  *
-  * Manually attach driver to a device. Will acquire both @dev lock and
-  * @dev->parent lock if needed. Returns 0 on success, -ERR on failure.
-  */
--int device_driver_attach(struct device_driver *drv, struct device *dev)
-+int device_driver_attach(struct device_driver *drv, struct device *dev, u32 flags)
- {
- 	int ret;
- 
- 	__device_driver_lock(dev, dev->parent);
--	ret = __driver_probe_device(drv, dev);
-+	ret = __driver_probe_device(drv, dev, flags);
- 	__device_driver_unlock(dev, dev->parent);
- 
- 	/* also return probe errors as normal negative errnos */
-diff --git a/drivers/dma/idxd/compat.c b/drivers/dma/idxd/compat.c
-index 3df21615f888..51df38dea15a 100644
---- a/drivers/dma/idxd/compat.c
-+++ b/drivers/dma/idxd/compat.c
-@@ -7,7 +7,6 @@
- #include <linux/device/bus.h>
- #include "idxd.h"
- 
--extern int device_driver_attach(struct device_driver *drv, struct device *dev);
- extern void device_driver_detach(struct device *dev);
- 
- #define DRIVER_ATTR_IGNORE_LOCKDEP(_name, _mode, _show, _store)	\
-@@ -56,7 +55,7 @@ static ssize_t bind_store(struct device_driver *drv, const char *buf, size_t cou
- 	if (!alt_drv)
- 		return -ENODEV;
- 
--	rc = device_driver_attach(alt_drv, dev);
-+	rc = device_driver_attach(alt_drv, dev, DRV_BIND_EXPLICIT);
- 	if (rc < 0)
- 		return rc;
- 
-diff --git a/drivers/vfio/mdev/mdev_core.c b/drivers/vfio/mdev/mdev_core.c
-index b314101237fe..f42c6ec543c8 100644
---- a/drivers/vfio/mdev/mdev_core.c
-+++ b/drivers/vfio/mdev/mdev_core.c
-@@ -309,7 +309,7 @@ int mdev_device_create(struct mdev_type *type, const guid_t *uuid)
- 
- 	if (!drv)
- 		drv = &vfio_mdev_driver;
--	ret = device_driver_attach(&drv->driver, &mdev->dev);
-+	ret = device_driver_attach(&drv->driver, &mdev->dev, DRV_BIND_DEFAULT);
- 	if (ret)
- 		goto out_del;
- 
-diff --git a/include/linux/device.h b/include/linux/device.h
-index e270cb740b9e..1ada1093799b 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -876,12 +876,24 @@ static inline void *dev_get_platdata(const struct device *dev)
- 	return dev->platform_data;
- }
- 
-+/*
-+ * Driver-binding flags (for passing to device_driver_attach())
-+ *
-+ * DRV_BIND_DEFAULT: a default, automatic bind, e.g. as a result of a device
-+ *                   being added for which we already have a driver, or vice
-+ *                   versa.
-+ * DRV_BIND_EXPLICIT: an explicit, userspace-requested driver bind, e.g. as a
-+ *                    result of a write to /sys/bus/.../drivers/.../bind
-+ */
-+#define DRV_BIND_DEFAULT	0
-+#define DRV_BIND_EXPLICIT	BIT(0)
-+
- /*
-  * Manual binding of a device to driver. See drivers/base/bus.c
-  * for information on use.
-  */
- int __must_check device_driver_attach(struct device_driver *drv,
--				      struct device *dev);
-+				      struct device *dev, u32 flags);
- int __must_check device_bind_driver(struct device *dev);
- void device_release_driver(struct device *dev);
- int  __must_check device_attach(struct device *dev);
 -- 
 2.33.1
 
