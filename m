@@ -2,55 +2,55 @@ Return-Path: <SRS0=K+4f=PK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D1C4C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 06:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51115C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 06:56:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCDF060FC4
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 06:52:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DCDF060FC4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linuxfoundation.org
+	by mail.kernel.org (Postfix) with ESMTPS id F3C2660FC4
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 06:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F3C2660FC4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HbFQT3D5jz3cZT
-	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 17:52:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NgXMtZQs;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HbFWF4n0Sz3cP0
+	for <openbmc@archiver.kernel.org>; Fri, 22 Oct 2021 17:56:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linuxfoundation.org (client-ip=198.145.29.99;
- helo=mail.kernel.org; envelope-from=gregkh@linuxfoundation.org;
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=NgXMtZQs; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HbFP02wBSz3cCw
- for <openbmc@lists.ozlabs.org>; Fri, 22 Oct 2021 17:51:00 +1100 (AEDT)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C9B9B60EE3;
- Fri, 22 Oct 2021 06:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1634885458;
- bh=OSgVZt2dBvOr1icobnDe4jE2cavapX8RlBuovn8t5PE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NgXMtZQs3fJHPo4bNQ4kon5k41VWKK1ySFMtTdq8J3NopVZxu4dOkxqHj4dE77CWl
- wYBIBvv/RVeZsUX7j4pF9BA+sxFDRaLea8dS1dcQOh5QVRz8h/l6c6KbZZzl92azYH
- viR6p2Wy8LOOkaYYU8TyH7R3x5W33gnPO6XE/RO0=
-Date: Fri, 22 Oct 2021 08:50:53 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Rob Herring <robh+dt@kernel.org>
-Subject: Re: [PATCH 0/5] driver core, of: support for reserved devices
-Message-ID: <YXJfTbSuoNITD4gj@kroah.com>
-References: <20211022020032.26980-1-zev@bewilderbeest.net>
- <CAL_JsqLmonXoV2qJ4zY1wfDTRuQAYQuymXEB2kTpUmkKWwPGjg@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HbFVj19cnz2xYJ;
+ Fri, 22 Oct 2021 17:55:55 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 19M6XFVn087034;
+ Fri, 22 Oct 2021 14:33:15 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Fri, 22 Oct 2021 14:55:22 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
+ <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 2/7] media: aspeed: use v4l2_info/v4l2_warn/v4l2_dbg for log
+Date: Fri, 22 Oct 2021 14:55:34 +0800
+Message-ID: <20211022065539.12392-3-jammy_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211022065539.12392-1-jammy_huang@aspeedtech.com>
+References: <20211022065539.12392-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAL_JsqLmonXoV2qJ4zY1wfDTRuQAYQuymXEB2kTpUmkKWwPGjg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 19M6XFVn087034
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,82 +62,174 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>,
- Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Jeremy Kerr <jk@codeconstruct.com.au>, Frank Rowand <frowand.list@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Oct 21, 2021 at 09:58:46PM -0500, Rob Herring wrote:
-> On Thu, Oct 21, 2021 at 9:00 PM Zev Weiss <zev@bewilderbeest.net> wrote:
-> >
-> > Hello all,
-> >
-> > This series is another incarnation of a couple other patchsets I've
-> > posted recently [0, 1], but again different enough in overall
-> > structure that I'm not sure it's exactly a v2 (or v3).
-> >
-> > As compared to [1], it abandons the writable binary sysfs files and at
-> > Frank's suggestion returns to an approach more akin to [0], though
-> > without any driver-specific (aspeed-smc) changes, which I figure might
-> > as well be done later in a separate series once appropriate
-> > infrastructure is in place.
-> 
-> I skimmed this, and overall I like the approach.
-> 
-> > The basic idea is to implement support for a status property value
-> > that's documented in the DT spec [2], but thus far not used at all in
-> > the kernel (or anywhere else I'm aware of): "reserved".  According to
-> > the spec (section 2.3.4, Table 2.4), this status:
-> >
-> >   Indicates that the device is operational, but should not be used.
-> >   Typically this is used for devices that are controlled by another
-> >   software component, such as platform firmware.
-> >
-> > With these changes, devices marked as reserved are (at least in some
-> > cases, more on this later) instantiated, but will not have drivers
-> > bound to them unless and until userspace explicitly requests it by
-> > writing the device's name to the driver's sysfs 'bind' file.  This
-> > enables appropriate handling of hardware arrangements that can arise
-> > in contexts like OpenBMC, where a device may be shared with another
-> > external controller not under the kernel's control (for example, the
-> > flash chip storing the host CPU's firmware, shared by the BMC and the
-> > host CPU and exclusively under the control of the latter by default).
-> > Such a device can be marked as reserved so that the kernel refrains
-> > from touching it until appropriate preparatory steps have been taken
-> > (e.g. BMC userspace coordinating with the host CPU to arbitrate which
-> > processor has control of the firmware flash).
-> >
-> > Patches 1-3 provide some basic plumbing for checking the "reserved"
-> > status of a device, patch 4 is the main driver-core change, and patch
-> > 5 tweaks the OF platform code to not skip reserved devices so that
-> > they can actually be instantiated.
-> >
-> > One shortcoming of this series is that it doesn't automatically apply
-> > universally across all busses and drivers -- patch 5 enables support
-> > for platform devices, but similar changes would be required for
-> > support in other busses (e.g. in of_register_spi_devices(),
-> > of_i2c_register_devices(), etc.) and drivers that instantiate DT
-> > devices.  Since at present a "reserved" status is treated as
-> > equivalent to "disabled" and this series preserves that status quo in
-> > those cases I'd hope this wouldn't be considered a deal-breaker, but
-> > a thing to be aware of at least.
-> >
-> > Greg: I know on [1] you had commented nack-ing the addition of boolean
-> > function parameters; patch 4 adds a flags mask instead in an analogous
-> > situation.  I'm not certain how much of an improvement you'd consider
-> > that (hopefully at least slightly better, in that the arguments passed
-> > at the call site are more self-explanatory); if that's still
-> > unsatisfactory I'd welcome any suggested alternatives.
-> 
-> Can't we add a flag bit in struct device to reflect manual binding?
-> bind will set it and unbind clears it.
+The debug log level, 0~3, is controlled by module_param, debug.
+The higher the value, the more the information.
+  0: off
+  1: info
+  2: debug
+  3: register operations
 
-The driver core does not "know" the difference betwen manual and not
-manual binding, nor should it.  That's up to the bus.
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+ drivers/media/platform/aspeed-video.c | 40 +++++++++++++++------------
+ 1 file changed, 23 insertions(+), 17 deletions(-)
 
-thanks,
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 6259cf17a7cc..789adc86d1af 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -30,6 +30,7 @@
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-ioctl.h>
+ #include <media/videobuf2-dma-contig.h>
++#include <linux/videodev2.h>
+ 
+ #define DEVICE_NAME			"aspeed-video"
+ 
+@@ -390,6 +391,8 @@ static const struct v4l2_dv_timings_cap aspeed_video_timings_cap = {
+ 	},
+ };
+ 
++static unsigned int debug;
++
+ static void aspeed_video_init_jpeg_table(u32 *table, bool yuv420)
+ {
+ 	int i;
+@@ -437,23 +440,23 @@ static void aspeed_video_update(struct aspeed_video *video, u32 reg, u32 clear,
+ 	t &= ~clear;
+ 	t |= bits;
+ 	writel(t, video->base + reg);
+-	dev_dbg(video->dev, "update %03x[%08x -> %08x]\n", reg, before,
+-		readl(video->base + reg));
++	v4l2_dbg(3, debug, &video->v4l2_dev, "update %03x[%08x -> %08x]\n",
++		 reg, before, readl(video->base + reg));
+ }
+ 
+ static u32 aspeed_video_read(struct aspeed_video *video, u32 reg)
+ {
+ 	u32 t = readl(video->base + reg);
+ 
+-	dev_dbg(video->dev, "read %03x[%08x]\n", reg, t);
++	v4l2_dbg(3, debug, &video->v4l2_dev, "read %03x[%08x]\n", reg, t);
+ 	return t;
+ }
+ 
+ static void aspeed_video_write(struct aspeed_video *video, u32 reg, u32 val)
+ {
+ 	writel(val, video->base + reg);
+-	dev_dbg(video->dev, "write %03x[%08x]\n", reg,
+-		readl(video->base + reg));
++	v4l2_dbg(3, debug, &video->v4l2_dev, "write %03x[%08x]\n", reg,
++		 readl(video->base + reg));
+ }
+ 
+ static void update_perf(struct aspeed_video_perf *p)
+@@ -474,13 +477,13 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
+ 	u32 seq_ctrl = aspeed_video_read(video, VE_SEQ_CTRL);
+ 
+ 	if (video->v4l2_input_status) {
+-		dev_dbg(video->dev, "No signal; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "No signal; don't start frame\n");
+ 		return 0;
+ 	}
+ 
+ 	if (!(seq_ctrl & VE_SEQ_CTRL_COMP_BUSY) ||
+ 	    !(seq_ctrl & VE_SEQ_CTRL_CAP_BUSY)) {
+-		dev_dbg(video->dev, "Engine busy; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "Engine busy; don't start frame\n");
+ 		return -EBUSY;
+ 	}
+ 
+@@ -489,7 +492,7 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
+ 				       struct aspeed_video_buffer, link);
+ 	if (!buf) {
+ 		spin_unlock_irqrestore(&video->lock, flags);
+-		dev_dbg(video->dev, "No buffers; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "No buffers; don't start frame\n");
+ 		return -EPROTO;
+ 	}
+ 
+@@ -565,7 +568,7 @@ static void aspeed_video_bufs_done(struct aspeed_video *video,
+ 
+ static void aspeed_video_irq_res_change(struct aspeed_video *video, ulong delay)
+ {
+-	dev_dbg(video->dev, "Resolution changed; resetting\n");
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Resolution changed; resetting\n");
+ 
+ 	set_bit(VIDEO_RES_CHANGE, &video->flags);
+ 	clear_bit(VIDEO_FRAME_INPRG, &video->flags);
+@@ -766,8 +769,8 @@ static void aspeed_video_calc_compressed_size(struct aspeed_video *video,
+ 	aspeed_video_write(video, VE_STREAM_BUF_SIZE,
+ 			   compression_buffer_size_reg);
+ 
+-	dev_dbg(video->dev, "Max compressed size: %x\n",
+-		video->max_compressed_size);
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Max compressed size: %#x\n",
++		 video->max_compressed_size);
+ }
+ 
+ #define res_check(v) test_and_clear_bit(VIDEO_MODE_DETECT_DONE, &(v)->flags)
+@@ -804,7 +807,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      res_check(video),
+ 						      MODE_DETECT_TIMEOUT);
+ 		if (!rc) {
+-			dev_dbg(video->dev, "Timed out; first mode detect\n");
++			v4l2_warn(&video->v4l2_dev, "Timed out; first mode detect\n");
+ 			clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 			return;
+ 		}
+@@ -822,7 +825,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      MODE_DETECT_TIMEOUT);
+ 		clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 		if (!rc) {
+-			dev_dbg(video->dev, "Timed out; second mode detect\n");
++			v4l2_warn(&video->v4l2_dev, "Timed out; second mode detect\n");
+ 			return;
+ 		}
+ 
+@@ -856,7 +859,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 	} while (invalid_resolution && (tries++ < INVALID_RESOLUTION_RETRIES));
+ 
+ 	if (invalid_resolution) {
+-		dev_dbg(video->dev, "Invalid resolution detected\n");
++		v4l2_warn(&video->v4l2_dev, "Invalid resolution detected\n");
+ 		return;
+ 	}
+ 
+@@ -873,8 +876,8 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 	aspeed_video_update(video, VE_SEQ_CTRL, 0,
+ 			    VE_SEQ_CTRL_AUTO_COMP | VE_SEQ_CTRL_EN_WATCHDOG);
+ 
+-	dev_dbg(video->dev, "Got resolution: %dx%d\n", det->width,
+-		det->height);
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Got resolution: %dx%d\n",
++		 det->width, det->height);
+ }
+ 
+ static void aspeed_video_set_resolution(struct aspeed_video *video)
+@@ -1501,7 +1504,7 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
+ 				!test_bit(VIDEO_FRAME_INPRG, &video->flags),
+ 				STOP_TIMEOUT);
+ 	if (!rc) {
+-		dev_dbg(video->dev, "Timed out when stopping streaming\n");
++		v4l2_warn(&video->v4l2_dev, "Timed out when stopping streaming\n");
+ 
+ 		/*
+ 		 * Need to force stop any DMA and try and get HW into a good
+@@ -1856,6 +1859,9 @@ static struct platform_driver aspeed_video_driver = {
+ 
+ module_platform_driver(aspeed_video_driver);
+ 
++module_param(debug, int, 0644);
++MODULE_PARM_DESC(debug, "Debug level (0=off,1=info,2=debug,3=reg ops)");
++
+ MODULE_DESCRIPTION("ASPEED Video Engine Driver");
+ MODULE_AUTHOR("Eddie James");
+ MODULE_LICENSE("GPL v2");
+-- 
+2.25.1
 
-greg k-h
