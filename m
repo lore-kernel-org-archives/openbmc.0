@@ -2,19 +2,19 @@ Return-Path: <SRS0=KhbC=PL=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CF53C433EF
-	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 05:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6B05C433EF
+	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 05:16:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EB08560FE7
-	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 05:15:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EB08560FE7
+	by mail.kernel.org (Postfix) with ESMTPS id A3F356101C
+	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 05:16:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A3F356101C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HbqDQ5tRTz3cBt
-	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 16:15:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HbqFx2427z2ynw
+	for <openbmc@archiver.kernel.org>; Sat, 23 Oct 2021 16:16:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=molgen.mpg.de (client-ip=141.14.17.11; helo=mx1.molgen.mpg.de;
  envelope-from=pmenzel@molgen.mpg.de; receiver=<UNKNOWN>)
@@ -22,28 +22,28 @@ Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HbqCx6h7dz2y7H
- for <openbmc@lists.ozlabs.org>; Sat, 23 Oct 2021 16:15:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HbqFS3v4wz2y7H
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Oct 2021 16:16:28 +1100 (AEDT)
 Received: from [192.168.0.2] (ip5f5aef6e.dynamic.kabel-deutschland.de
  [95.90.239.110])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 6CACF61EA191B;
- Sat, 23 Oct 2021 07:14:58 +0200 (CEST)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id B81F061EA191B;
+ Sat, 23 Oct 2021 07:16:24 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
 Subject: Re: [RFC PATCH] ARM: aspeed: Add secure boot controller support
 To: Joel Stanley <joel@jms.id.au>
 References: <20211019080608.283324-1-joel@jms.id.au>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Message-ID: <8d1631a9-710e-c2c3-228c-d9a942e64aa5@molgen.mpg.de>
-Date: Sat, 23 Oct 2021 07:14:57 +0200
+Message-ID: <ba48d527-a073-181b-f072-c35505cd1d1f@molgen.mpg.de>
+Date: Sat, 23 Oct 2021 07:16:24 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
 In-Reply-To: <20211019080608.283324-1-joel@jms.id.au>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,11 +55,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.u>, openbmc@lists.ozlabs.org,
- Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@aj.id.us>, Ryan Chen <ryan_chen@aspeedtech.com>,
+ openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
+
+[Resent with typo fixed Andrew’s address]
 
 Dear Joel,
 
