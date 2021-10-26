@@ -2,151 +2,166 @@ Return-Path: <SRS0=gkvK=PO=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2ADE7C433EF
-	for <openbmc@archiver.kernel.org>; Tue, 26 Oct 2021 18:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B86FC433EF
+	for <openbmc@archiver.kernel.org>; Tue, 26 Oct 2021 18:38:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 66C6F60240
-	for <openbmc@archiver.kernel.org>; Tue, 26 Oct 2021 18:02:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 66C6F60240
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=keysight.com
+	by mail.kernel.org (Postfix) with ESMTPS id A2EBA60F9B
+	for <openbmc@archiver.kernel.org>; Tue, 26 Oct 2021 18:38:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A2EBA60F9B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hf05f0XPfz2yZx
-	for <openbmc@archiver.kernel.org>; Wed, 27 Oct 2021 05:02:14 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hf0vb2BKLz2xth
+	for <openbmc@archiver.kernel.org>; Wed, 27 Oct 2021 05:38:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=keysight.com header.i=@keysight.com header.a=rsa-sha256 header.s=selector1 header.b=SFMlYYx1;
+	dkim=pass (1024-bit key; unprotected) header.d=intel.onmicrosoft.com header.i=@intel.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-intel-onmicrosoft-com header.b=E2Rq7CBX;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=keysight.com (client-ip=205.220.173.93;
- helo=mx0b-003cac01.pphosted.com; envelope-from=mahesh.kurapati@keysight.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=intel.com (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=keysight.com header.i=@keysight.com header.a=rsa-sha256
- header.s=selector1 header.b=SFMlYYx1; 
- dkim-atps=neutral
-X-Greylist: delayed 492 seconds by postgrey-1.36 at boromir;
- Wed, 27 Oct 2021 05:01:31 AEDT
-Received: from mx0b-003cac01.pphosted.com (mx0b-003cac01.pphosted.com
- [205.220.173.93])
+ unprotected) header.d=intel.onmicrosoft.com header.i=@intel.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-intel-onmicrosoft-com
+ header.b=E2Rq7CBX; dkim-atps=neutral
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hf04q6ZYSz2xth
- for <openbmc@lists.ozlabs.org>; Wed, 27 Oct 2021 05:01:30 +1100 (AEDT)
-Received: from pps.filterd (m0187216.ppops.net [127.0.0.1])
- by mx0b-003cac01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19QHX2XF017997
- for <openbmc@lists.ozlabs.org>; Tue, 26 Oct 2021 10:53:12 -0700
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2106.outbound.protection.outlook.com [104.47.55.106])
- by mx0b-003cac01.pphosted.com with ESMTP id 3bx4j59qdj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 26 Oct 2021 10:53:12 -0700
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hf0tW3Qf4z2yNC
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Oct 2021 05:37:37 +1100 (AEDT)
+X-IronPort-AV: E=McAfee;i="6200,9189,10149"; a="227441359"
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="227441359"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Oct 2021 11:36:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.87,184,1631602800"; d="scan'208";a="722592998"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga006.fm.intel.com with ESMTP; 26 Oct 2021 11:36:33 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12; Tue, 26 Oct 2021 11:36:33 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2242.12 via Frontend Transport; Tue, 26 Oct 2021 11:36:33 -0700
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.42) by
+ edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2242.12; Tue, 26 Oct 2021 11:36:33 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ibeGOWVdkjznJKH2N9LX5wJCpXVbs2Q33SaxuivnQl3UPGDYLbRMIL9FIdLhBcE7xpbW94qeZmM7z1iU0VVp+UllUuGmHQJAISHXOwJyrYUk+YGzf2iEJv3q8O/PLGa+oxeT+BMTSCW5jzUD1e9x540/34Qg35Ck9mag//xk9w2anSAUS6SAsXe2CepBBYNSqouZ0NI8fxIhImTIoOw6y1ENuPSatNmhaGKAL1OX4dEO6M5cCsHtYzwMX7xpE/bLnsVuoBfw++G/As7IufIpzdVzwgaXE03Y34tuIGwa2nu6WzOjFWJrNtDLYJHll99qvdiliFeuNNQ1Zf7GWjnFHw==
+ b=Xw6ujqGGZ0Lbnu1bQumYU+B266Rcg23gvcT5bdfl8XV7z9a0MAJb51RVdh50/tvsZ/S9RaJI/fJ5UfdjdaOUqHbcdiq+vVlQ3Q89EI3+zJTDlKtr5ZwK0Lg7gu0He2CQqgdIJAqDopWq6kZD4PybtcRicoEMAQ34PYTLJQJllKUx9p/PGsj5R4mtl5ppMPrq2ME+Il2t/p+sANicA1qnHJxd7b2uSL+R5nKJtJHeiEbZ3nFystuei3ORGrOaCT7oFRNSQyHxZRRZoRMz+ayMJMAbFjUz1RwAMAN993dMuG7ly4+acUan28gSHXS2VLwzYioytxr3ntGPSqbdFQzEnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SzoRVTMn9Ms/rn1NDya7Y22+8DrkdHHxam4/c27AJPI=;
- b=XtM03XeJqGi7HvuVje5j5LJInyEFYqDTd0RsTrBNNWv+/1VAkDIT9KFuXdpr+8AJridUXeseMq/7qLxfwXL8NXwgyGD5sN9jZyZv3FDlgA13EUu0lmWO9DaGhp3Ga9R7S06fb4FvXXsp3uRMxY5m4bdNVnMd3ahZLlbhNSnUS7ZN5Baf7zLhLoxn2X5mUIj44Xc0RB1T6Wy2ahQwPTIUbehPtpUtvGhje3Ncrwmsknr/rFevrG9uaG7KikisM+d1HgO3f/M9w1SLHTTrS8GmIcu3130maV/NDrVQ+J0xNHy1PNA83CXFB43hG4Hl4fvd7K3kOe3zv0WiN9EGP06eMQ==
+ bh=setO7pTIzu/tU8OMfjoxwNuuU2qMvTHfUVwjOi2RBnc=;
+ b=jqANq8RIGxOVAf+pEWOOypuZvznRugCapp0Xb4YfiA4ScGDa0ysivsTynueXkOwcud+rZiwC8YOLkOuHqcqN1QI5MjCQtXf7E3nJaYw6hXSoG9mspBdRRwz0UJsEO30KMDeU+Ey07oN7AdHFzkIkHd6QHuCKhwfCb4ZAAzq+mlCG5OGkGTR+vByvByrcWMFEz9TRCEZtcHf4hXkISS2Dc1AVaPHQn8nZUN6rP0f+NAmR21rAdkLSjJIreCAhaiEM1OwFtajWJFH/u2ZxnesSfFgnk/7EQGRpanGDXVRnpSXqFg6o9UodQWTe046JrkojdFkLNQ3CkZzz1VOZXEL2Aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=keysight.com; dmarc=pass action=none header.from=keysight.com;
- dkim=pass header.d=keysight.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=keysight.com;
- s=selector1;
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SzoRVTMn9Ms/rn1NDya7Y22+8DrkdHHxam4/c27AJPI=;
- b=SFMlYYx1Nkyc4BgB69Cut62bEDy4ybgNSSSNWOG+LfTM7tak1KJx8Kzugl+Tg9rIT3oHukxyQGWY2p7rGKC1/Pz1sckVvcuL+fIj71asHinM9LZOfqcoWjl79QW+xhLKJ41tnaemZJ0Wm2DGS5mnX6lETOzyCJuIOpzjwu9jttc=
-Received: from SA1PR17MB4593.namprd17.prod.outlook.com (2603:10b6:806:190::21)
- by SA0PR17MB4158.namprd17.prod.outlook.com (2603:10b6:806:83::12)
+ bh=setO7pTIzu/tU8OMfjoxwNuuU2qMvTHfUVwjOi2RBnc=;
+ b=E2Rq7CBXlc0WOrJP1dr4TnfrmjYq+NYGF5UyAuqItUrrGvc11UwgNb0Z6pkVX/1kjopx+v/D5ecAmyAUC+QaDZz1QJy2UeSq/y8W8kQf5QWJh6FgYJt0HVAGjKKEekyCVJOI1//5ZNnQlYEwDcbqizCKoOFjoz/r4kIppVTOqsw=
+Received: from MW4PR11MB5823.namprd11.prod.outlook.com (2603:10b6:303:186::12)
+ by MWHPR11MB1390.namprd11.prod.outlook.com (2603:10b6:300:22::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Tue, 26 Oct
- 2021 17:53:10 +0000
-Received: from SA1PR17MB4593.namprd17.prod.outlook.com
- ([fe80::d16f:d0e2:fb2d:110f]) by SA1PR17MB4593.namprd17.prod.outlook.com
- ([fe80::d16f:d0e2:fb2d:110f%8]) with mapi id 15.20.4649.014; Tue, 26 Oct 2021
- 17:53:10 +0000
-From: Mahesh Kurapati <mahesh.kurapati@keysight.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: cannot ping serverip from u-boot. 
-Thread-Topic: cannot ping serverip from u-boot. 
-Thread-Index: AdfKkQp1VQW4pwYHStSRPWC98tcSAg==
-Date: Tue, 26 Oct 2021 17:53:10 +0000
-Message-ID: <SA1PR17MB4593DE25C67A9229F65DEF4196849@SA1PR17MB4593.namprd17.prod.outlook.com>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Tue, 26 Oct
+ 2021 18:36:32 +0000
+Received: from MW4PR11MB5823.namprd11.prod.outlook.com
+ ([fe80::6553:c7f9:a224:cac1]) by MW4PR11MB5823.namprd11.prod.outlook.com
+ ([fe80::6553:c7f9:a224:cac1%4]) with mapi id 15.20.4628.020; Tue, 26 Oct 2021
+ 18:36:32 +0000
+From: "Winiarska, Iwona" <iwona.winiarska@intel.com>
+To: "61a91bc@gmail.com" <61a91bc@gmail.com>
+Subject: Re: kenel module dont enable
+Thread-Topic: kenel module dont enable
+Thread-Index: AQHXwboS0D+58AIk+0mhW5qv/yvja6vY2X6AgAEdYwCAABf6gIAATNuAgAAKf4CAC0cfAA==
+Date: Tue, 26 Oct 2021 18:36:31 +0000
+Message-ID: <1f788b07e883b8dd704769d9a33dde9dccff7d13.camel@intel.com>
+References: <CAMqwjCA0HFE4O9YHMAG4pxciCGLY5cLPJVdrDiKJMjTtQqrrEA@mail.gmail.com>
+ <f06c4b91d9459061e380f860acd89802ab495524.camel@intel.com>
+ <CAMqwjCBWB4LT8ZYO6gSY2azR_VoGoFqPj9rrLrR+yK20k7NMKw@mail.gmail.com>
+ <CAMqwjCB7GaoNy4eSzrBEOeKCO1zj9fJ1=rZh3j3=AvgXhThfVQ@mail.gmail.com>
+ <4f41bc7f0f320a9114d3576c814e99ae8a3015fa.camel@intel.com>
+ <CAMqwjCC-=z3ZyVDWcJRsvkMUBGo9QvvrpD=gcpwHGQgDuXKJxA@mail.gmail.com>
+In-Reply-To: <CAMqwjCC-=z3ZyVDWcJRsvkMUBGo9QvvrpD=gcpwHGQgDuXKJxA@mail.gmail.com>
+Accept-Language: en-US, pl-PL
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: lists.ozlabs.org; dkim=none (message not signed)
- header.d=none;lists.ozlabs.org; dmarc=none action=none
- header.from=keysight.com;
+user-agent: Evolution 3.40.4 (3.40.4-1.fc34) 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a4981c03-70f6-485d-d4ec-08d998a9799d
-x-ms-traffictypediagnostic: SA0PR17MB4158:
-x-microsoft-antispam-prvs: <SA0PR17MB41581DFD7D7295CE881C798896849@SA0PR17MB4158.namprd17.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-office365-filtering-correlation-id: 2c2e2dcc-e09a-468f-621a-08d998af882f
+x-ms-traffictypediagnostic: MWHPR11MB1390:
+x-microsoft-antispam-prvs: <MWHPR11MB13904C71AE02BD40E5D6C262EC849@MWHPR11MB1390.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: j5KZy17R6v1hGziwjYqZJyZW0X/2tqYZxfwA5/WUIu32N/RmdfbQ13elYPappoBzkHkhizZeH80Ps7mQq9DPXlV/7MY+7rPQ9dzC7R00yymO1Vd6QcSnYB/+AZ/4uVxsUxOOYx6vKctQmt5rKr7sjMgmCsmmX6UnJMQ1SWXgmm8VmqQPsPRVgse2BaPC0tYYwuUXf29yuUR1gCWWIegVsD+kgwNsaKTb57E5Co93FDlTko0CLfBD9q1RfXhHt7gbplEMT+tcIoHmmfc4cFYaPwJdqPpujuMg0weRL+/+Rqz4r8OS5/f4zLO11xAgse3YJ43bj53Pe9nc44jrMOCGD7PbAvL/avbv8tpz9S7ATwV7Neqvf6hBqFY/+jNSqjBzxwxiWWPIuInKadA4c9hyW7WFjq3xgu5tlfzFlENAm83vcWkxGEE+9Iex3mUMkZN3DAESdcid12nqCJHOm2XxsdDfizqOCBs6yyR3gGtRC4DUdYi6Ucws3A2ubs5KHmsVp3b7iEdgnBcJhRr41SArewve3jY4hmHuwsJeEdyBWCw5XnlLph7GxeAO5WonYLugMeffe0NmLLv0IY2eqAzLsqLVjenlmOKGi6NBee1uRyxtlaloVcyT4P/yyGKU+VlxFsnwH8TwMLQ3GYFu76zXYK7BHLPIm7FAhixl2KAKV6YxJZo1Op9EcWfpJHyg1iStE+LsPhS+mnkg6bHyct8mtw==
+x-microsoft-antispam-message-info: 6thbm2f/aNg1ajcQTyS9cMlaoHzNrWdU2ljBGZU7BiS1GtpfTkQwlpEg/DPPXVYvwbaRXEosirlhyrjX7ffZxLtB1dp4Hc8EjEZ+sk8h7PlX/u7bVwQ2rptqsj0+0Cg6iZS/6zCcLs5GoOvJLoyvLOrCb/+xxlLjtN5nGgHx9J4BwMGiPp0/x4PZJMjymjOGmzBmcYXL/uLSIfvsuGYOvVIp3IAaX0xiKgns3pVMRf485Ae/T6NXnSM96OSGrLkPIAp050dOno+bHCl7aP7bH3U2v4XpGSEs3PVgAz7sV/5SjVMItKz1bc7BivfFVENjJHnQiAGDaYoOFe7LYBwTaOfURfjhmU7faSRrFcu5ZDM0CJy+m1Zx47hueinc8Ca1Sm32m/r1puoPJS+6Yhq+VwfvgVP23A9UcBNr/nAwQkTV84tXWvVlpoW6pD9tjE17K/PJNO0qq/DAhUw0x39+g8OnZYVyoSE25MpXXYAxH3tG5tJfWVPeKw4jU8Pyad9KN5gBRZOGDjfVLcLG2KLN5SU5IEjxxCE//bTHT4pmpRJUEBi+SF4hyI8SxayezycNjmruTiVO8iTco7acwoKhedc37bRr5pEWm+wYi66+RFGQd0lbM9ydPWrvRGhY9AC+TBByI49PpKzXYM/hGSbUyqSaA7r5YpBeYGosngOdF+IRk0t2mXUet1mCSPUaZ5GrHhvzocQsGQNjcvKSiUeEPMOQOd2+tp0neOu3gQX3aAXP5MHiX+JlN+cWsLK6KdepY598dbR5qxb2cymDGA/Rr+2Z5syZLL80YfuVlvx98lXdQ9Wgj5jS12XQrAa7k5NlmRNmuJf9/tY0gS4YkvRtvMrmXXtOUrLJ1j+2tUueiDM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR17MB4593.namprd17.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(26005)(8936002)(55016002)(2906002)(76116006)(5660300002)(66556008)(8676002)(86362001)(4743002)(64756008)(186003)(6506007)(7696005)(52536014)(33656002)(44832011)(66946007)(508600001)(38070700005)(38100700002)(122000001)(9686003)(71200400001)(83380400001)(6916009)(66476007)(66446008)(316002);
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB5823.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(366004)(76116006)(6486002)(91956017)(66946007)(2906002)(66476007)(64756008)(66556008)(66446008)(5660300002)(2616005)(71200400001)(6506007)(53546011)(4001150100001)(6512007)(186003)(508600001)(38070700005)(82960400001)(86362001)(26005)(4326008)(6916009)(966005)(8936002)(122000001)(316002)(36756003)(3480700007)(38100700002)(83380400001)(8676002)(192303002);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?yemUyX1s5isXMixUYtNvwD8gBvsGLOizXcRSqVaep6lPrfb4bUn9ptuq8Ibc?=
- =?us-ascii?Q?S0xdHmH3jRtsqrtMOlSWjShcKBc1cZb3EIbwtwv9/5a1NMEDL/fFXsMA0fz/?=
- =?us-ascii?Q?ytFzgdvq9xHtrVwbol4Gn1ZRN5W6GGv4KCIXnAP0/yQ2O27xTKh34MTIpjLe?=
- =?us-ascii?Q?mLtanT1c2ZX3DJBacMjvy5jkmA71nj2cR4LlMNvDXhvpIlxSkmtcMR2Uho1k?=
- =?us-ascii?Q?zDJwTZ5nPFfQDHz9zJCRfOmAVpM5yAh8y24dVCt0XGnjW18GtW5izhQC45tg?=
- =?us-ascii?Q?oFd8CW822PrEaOE1BEc1ooiWu/wm/iFhtZmzHh88euwUhzK2kEGpImt4KB4Q?=
- =?us-ascii?Q?gPH8mPIl2/g/dXwRplGDTp1G/uH98oMT5yM3vGM1yc023fmRAW3WS+ATfknP?=
- =?us-ascii?Q?l5992senvmNEyQXHlbnv4dFZVVeexTp3QJBdifnog2XLNUgGWU5wWSH6uurF?=
- =?us-ascii?Q?jUu5IlhH8JjoZ/ghV1ksH1RFXZrybtKEeKdnPqhX8CRtuyg/coZ14mEwsCEe?=
- =?us-ascii?Q?1zE2MtGDrKQNoBp25Ta3PmYOt7wciMvbrcV00+dzP5t1tjThfvSjtrs5nVfH?=
- =?us-ascii?Q?0EKMmQysvTrUg/ueGR9b7Jxnis8/H2CL9a7fNdPBcz+xlwNNPzbHdcVQNSI+?=
- =?us-ascii?Q?UcInWY6/BJBkqDQxhJ11E5IUHm32/k67SdkZ8lA28d7h5UBmV0RE50cfde54?=
- =?us-ascii?Q?K4nBrB4EhKSEuxs+TLMBAeb6e5gXOy4vwLr4WJcpbdhXxVz6XQVgRZsCFf/m?=
- =?us-ascii?Q?fQ3Noe+ipvB/8pdY3YkgdrayzSMI3vumHJrP0bjXp2haU7BZ0QR3TT0g5pWe?=
- =?us-ascii?Q?KGof+ppRm5H8mGx31XAWkw7JisFQ13EG/HAZtzq1LaIft1YbY4eOA5YDFYQG?=
- =?us-ascii?Q?RPjrAwmQpFT4pL7zFzarHsfvGJJ/Nq5u795h4kEMMF4FUQ/JsZLTD8f13upH?=
- =?us-ascii?Q?biZdaJAWiOTS7N3KIlo8AseRazgYIbJCXraTy7p49h8wm+rjVzJvuoIbE0Ap?=
- =?us-ascii?Q?HkXblSvHd51tIcCaaXXglHyr6LcQYDoa61bOZE0gW76sE5linvZWRce3OvvK?=
- =?us-ascii?Q?02cvhetdR8AbUApNMYzfEYXR0TVjC3ECznCBshnEp812YTPPE3+KCBcgaxIr?=
- =?us-ascii?Q?kKPIUO1rYZZyKw4fujy75FB5P+Q8dJw9JTs62fyFREoySDxbMW02ApadpNxx?=
- =?us-ascii?Q?x3E64ZEDzXvKsBgqHSiHw3FzCSyihAgEwE0y/jXZKAKA4kpJyG7B05IocVfl?=
- =?us-ascii?Q?UfxZDjk+O1KCaEgI95v0JZdVPa63lQ6S37pssxEmkOE+paeKp82V92XrTTss?=
- =?us-ascii?Q?IA5WzbHZGnsBzv9O3xs7Z9B066h0YpIKaDgFHOMVOOVL9R+xGSmUocJlvri1?=
- =?us-ascii?Q?9fxiRmSlV88588vqwN8+vldJ8gga6/lrh1pkNSyyShtcKHKeEms9fYeLpjJ7?=
- =?us-ascii?Q?Bp8OpSw6aeaoGDrB8p09VJY9MdcSD3ZAoXKgDIfrjWxR03tbDUFRP61O98I+?=
- =?us-ascii?Q?c95PlHyBo6NxAYs96Y+nj3CdrZvIj9vlCY3tebDqcQjcB3v8D5nxj8UbtJT0?=
- =?us-ascii?Q?wxz2lsImy/WSItfV1OM8GVX7ZczyKq5W6hTb5JZV3IneMxGMop8Th/RHPUwl?=
- =?us-ascii?Q?Ypuc1/TZKpPxLeYHIpVclTZ7i0nP9irgo+0+J5BOX1mljVZaRCCbCoCWJhU3?=
- =?us-ascii?Q?Uv8L1A=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SA1PR17MB4593DE25C67A9229F65DEF4196849SA1PR17MB4593namp_"
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NkltTE0wbU01enNMemhHVk5tbVplQUFaWmhJb1lnOEMwR2tYSWdEWGlzL2R3?=
+ =?utf-8?B?OHNocDZVSnozSDJRRG85c25IcVJBMDJHQ1orcXRvQ2pqQ1F3NFQzMWUyVFY0?=
+ =?utf-8?B?dmlFMlFiQVJSalQ2UU44QXRWa1pKNUkyY2VCVFhpUlhlS0xlTEdwNWpaWE9V?=
+ =?utf-8?B?NDNvMk92V25xQmlXcnBpSUM2L1hDOG5KUGx6ZEpKSEI5T21iblNuK0F0Wk5q?=
+ =?utf-8?B?bDFxVlVFNmRxTGVXL0ZyYS9ZM3NING9ENGo2d29PWUVsNlp5S1BCUnV1K1pM?=
+ =?utf-8?B?RmFtelR1K3EvcmlqalkrSXhtdXVKWlNxZUE3VUswYmhER29yajRaTi80YUQr?=
+ =?utf-8?B?cVpVaHNvQVhkRG5IWS8rR0tVY3JjdkFNTytYYU44NHZGckxRbnBWT1N0ektZ?=
+ =?utf-8?B?YkZ2LzZRUHR2SDcrbVVrVW11cWNYdytzNXVnNDdVZlFHSWhZQllQT2IvNExp?=
+ =?utf-8?B?VmJCdzVoTTlrT1RMZ2E0SFpHUjZ5TnViYXFvYkFNeGR6TDh3K0ROTWlYek9Z?=
+ =?utf-8?B?Q0lKc2VQUElsSlNVbEROS0hXSVpqcTJ6LzVpeG1vQnVGRW9ibWM4OTN1aURo?=
+ =?utf-8?B?SU9sUnRmV1diSDJxeEpjOGtaM3A1dFpvY2R6RUVRc3ErTGFyVEtDSUdFVUJs?=
+ =?utf-8?B?b2NtY3hrdGhlUlpmUmRFY0R3VVpJWWtMNlp1OGZqTFhHODlnbnVxSERWdzNk?=
+ =?utf-8?B?OWFpSGRTcEx2cXdocnJjYzhxNVFjZStoK0J6MFhtb0dvTHh1Q1BVRW1vYnhk?=
+ =?utf-8?B?RlhyTjlMaUNIcTMrekhDY3AwRlVwSng3bGJ6T1hUdXlyeWh1NEx2V2xOdC9w?=
+ =?utf-8?B?VGExVU9TUVRVRkFMd2ZaRXJFZGZ2QkZIMUF4cEozS0MwVU1WZVlIWDY5ZlBi?=
+ =?utf-8?B?Y3JRQ3kwNUFkdmQzTXJKQ3FVeTJWY2haVUNmaStEcytUa0RUbTQ5eG9CaVhM?=
+ =?utf-8?B?T2x5WjR6b3o4dzNkQTNpRUh3U3Nia1hsSVBKZEVKMEduUVoyb3N0L1c0Y2Jm?=
+ =?utf-8?B?WUpscnNuNkVscTFtZks3RnZ4WW5NV0oxS3JKdTZ5SEdVcW9qWnpUNU9aM0hu?=
+ =?utf-8?B?YWlJY1c1Vjh3dmJDanlRYWNNU1lkMUlnTDVMRUc3bEFOR3Y3cDV2NHBxdWpt?=
+ =?utf-8?B?dHUxN0oxbEszNFYvTFZISU9ETG9GZEUvK1lZQ2JFdThQQzJBUjY0SlRtamNG?=
+ =?utf-8?B?cEVaK2FZdmhHRmhxWklJWC9pbStnMldxcTI2V0xYNURiYVEzM2RhRUtRdjJu?=
+ =?utf-8?B?alYrbUpUcmNiYmhpVGJHMlFrTWFZajJabERWOE1zN015T3hBRCt2WjdRNzVp?=
+ =?utf-8?B?QW9xTGpaSDZoNHFmS01tM1lIdmxZaHg5U29oZ3hRa1NQMU03aEFidGpwWmh1?=
+ =?utf-8?B?NGFQdVk1dFlQSkU3d2JseDJEczFjTVQ3UVVJUE1FbkJEVSthbTlUbEhtZGpx?=
+ =?utf-8?B?MzZiVW5EUzFaeWIzZ01UcXJDMkI4b1JJQnVOQ3drUmF0eUUxSVBvdWkwdU8w?=
+ =?utf-8?B?dGI3aSt5NWVOSGNOVXduYndCWitHdC9SbERIai9pc3BhVDcvSzZrbmhMQSsv?=
+ =?utf-8?B?SkwzaUdKUWswY0hpZ2Z4OCt2cWVFb1BCN0IybVBHUTE2ZnpxTnBqR2pOL1NS?=
+ =?utf-8?B?YmNYT0NnY1hTcmxBMmllUTZiRmRkaWxtYzZqTzIwTUNXejI5QzlsbnNVYnF5?=
+ =?utf-8?B?WkZsNHhIdE5rK1N0WlFwQ0xUbFIzMG56VXR0U2xaRXg1a2xSc3ZWSDFFOEFm?=
+ =?utf-8?B?Q05EMUYvWWlFUXF5ZDRLYW43K3VtYVFjSkQ1OTdLQi9rNlZocjBPbytmak9k?=
+ =?utf-8?B?OXNEWWJFNVEzQnFlUnR2WWpDWDFGV2w4L3BURUVFWWhxelJXenh5S1pkNTdv?=
+ =?utf-8?B?aUFoKzBRcHpFbVdLSXhZcmh5R0NaMUFCRDBaSkN5Sm8yU1JyZm5henFjMEJX?=
+ =?utf-8?B?NVAvbG4xQW9Jc2s4K2R6cXpiblhBNU1weGNyYzhDR09qRXpmSVFXMGdSQlV6?=
+ =?utf-8?B?Qm1TSy9lUndiK3FGNmxES0V3N2RoMnNLSWpFMkE0b0lWYno0djhzOUNIYUV1?=
+ =?utf-8?B?UkJocC9DMi9zNFlXNzB3SkhFQ2N2Qk40U2JUSWZQWndOd3RoVG9lNFhnV3hH?=
+ =?utf-8?B?TWMxVmtEeURFVGE2bW9YT0F6eE9OUHNSVGNUNlAzRGEydGNxcG5QM2xyclJL?=
+ =?utf-8?B?TFdhOHdCdjNQcHlyaHFLa04zbzVNRmNNU01nMzl1V1NMaXNsWHB1c0xER1ZL?=
+ =?utf-8?Q?OoybjqAUz/F6fIkAMSVM8S/LcMptcEhPkx1eUiHhJE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6BE9D6526960284AB4C3EE45BF136A1F@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-OriginatorOrg: keysight.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR17MB4593.namprd17.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4981c03-70f6-485d-d4ec-08d998a9799d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2021 17:53:10.6001 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB5823.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c2e2dcc-e09a-468f-621a-08d998af882f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Oct 2021 18:36:31.9667 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 63545f27-3232-4d74-a44d-cdd457063402
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LWrxNWUKRmVGYoJ+A2MkC9A3EENI47ctK+aTzqlodKXHW15rfj7sryO5Ky+UANQZFxRF9+Gwz9uvqvm0L9zEYi0nGIIiRgNrP6rAgOZ1hVc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR17MB4158
-X-Proofpoint-ORIG-GUID: snFIxMQtMAdoaJoh5inCz-qimuK7e48P
-X-Proofpoint-GUID: snFIxMQtMAdoaJoh5inCz-qimuK7e48P
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-26_05,2021-10-26_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 bulkscore=0
- clxscore=1011 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
- mlxlogscore=873 priorityscore=1501 suspectscore=0 lowpriorityscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2110260099
+X-MS-Exchange-CrossTenant-userprincipalname: gKmKEy15aG+rreoezutBlO77kgSnohTtwtfALnIEg9xT8FVkd+HVrlZK+tByPp128xoMSQUq5EjMyApo4Sr/mLyxlptMkSjMu4sUogj5pLw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB1390
+X-OriginatorOrg: intel.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,304 +173,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_000_SA1PR17MB4593DE25C67A9229F65DEF4196849SA1PR17MB4593namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-I am using openbmc-2.9.0 on AST2500 BMC.  From the u-boot, I could not ping=
- to any external node be it on the same network, or a different network.  I=
- configured static ip 192.168.0.81 for my laptop and attached wireshark to =
-the same interface.  I don't see any ARP requests when I issued ping comman=
-d from BMC to the laptop.  I see that link status is up from the debug prin=
-ts, and also the MDIO status registers.  Don't see anything wrong.  Not sur=
-e what/where to look for to debug the issue further.  Appreciate any sugges=
-tions.  We are using Marvel Alaska 88 series Phy.  If this works, I want to=
- tftpboot the board, and flash the eMMC.  That is my goal.
-
-ast# printenv
-baudrate=3D115200
-bootargs=3Dconsole=3DttyS4,115200n8 root=3D/dev/ram rw
-bootcmd=3Dbootm 20080000
-bootdelay=3D2
-bootfile=3Dall.bin
-eth1addr=3Dc2:d1:29:f8:1b:e3
-ethact=3Dethernet@1e680000
-ethaddr=3Dbe:f3:fa:8c:cd:e8
-fdtcontroladdr=3Dbcf82138
-gatewayip=3D192.168.0.1
-ipaddr=3D192.168.0.45
-netmask=3D255.255.255.0
-serverip=3D192.168.0.81
-stderr=3Dserial@1e784000
-stdin=3Dserial@1e784000
-stdout=3Dserial@1e784000
-verify=3Dyes
-ast#
-
-ast# ping $serverip
-Trying ethernet@1e680000
-ethernet@1e680000: link up, 1000 Mbps full-duplex mac:c2:d1:29:f8:1b:e3
-Using ethernet@1e680000 device
-ARP broadcast 1
-ARP broadcast 2
-ARP broadcast 3
-ARP broadcast 4
-
-ARP Retry count exceeded; starting again
-ping failed; host 192.168.0.81 is not alive
-ast#
-
-ast# mdio read  1.0-60
-Reading from bus eth1
-PHY at address 1:
-1.0 - 0x1000
-1.1 - 0x796d  =3D=3D=3D>link is up
-1.2 - 0x141
-1.3 - 0xdd4
-1.4 - 0x21e1
-1.5 - 0xc5e1
-1.6 - 0xd
-1.7 - 0x2001
-1.8 - 0x4a38
-1.9 - 0x300
-1.10 - 0x3800
-1.11 - 0x0
-1.12 - 0x0
-1.13 - 0x3
-1.14 - 0x0
-1.15 - 0x3000
-1.16 - 0x3070
-1.17 - 0xac08
-1.18 - 0x0
-1.19 - 0x0
-1.20 - 0x20
-1.21 - 0x0
-1.22 - 0x0
-1.23 - 0x0
-1.24 - 0x0
-1.25 - 0x0
-1.26 - 0x40
-1.27 - 0x0
-1.28 - 0x0
-1.29 - 0x0
-1.30 - 0x0
-
-Thank you,
-Mahesh
-
-
---_000_SA1PR17MB4593DE25C67A9229F65DEF4196849SA1PR17MB4593namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi all, <o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I am using openbmc-2.9.0 on AST2500 BMC.&nbsp; From =
-the u-boot, I could not ping to any external node be it on the same network=
-, or a different network.&nbsp; I configured static ip 192.168.0.81 for my =
-laptop and attached wireshark to the same interface.&nbsp;
- I don&#8217;t see any ARP requests when I issued ping command from BMC to =
-the laptop.&nbsp; I see that link status is up from the debug prints, and a=
-lso the MDIO status registers.&nbsp; Don&#8217;t see anything wrong.&nbsp; =
-Not sure what/where to look for to debug the issue further.&nbsp;
- Appreciate any suggestions.&nbsp; We are using Marvel Alaska 88 series Phy=
-. &nbsp;If this works, I want to tftpboot the board, and flash the eMMC.&nb=
-sp; That is my goal.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ast# printenv<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-baudrate=3D115200<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-bootargs=3Dconsole=3DttyS4,115200n8 root=3D/dev/ram rw<o:p></o:p></span></p=
->
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-bootcmd=3Dbootm 20080000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-bootdelay=3D2<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-bootfile=3Dall.bin<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-eth1addr=3Dc2:d1:29:f8:1b:e3<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ethact=3Dethernet@1e680000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ethaddr=3Dbe:f3:fa:8c:cd:e8<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-fdtcontroladdr=3Dbcf82138<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-gatewayip=3D192.168.0.1<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ipaddr=3D192.168.0.45<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-netmask=3D255.255.255.0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-serverip=3D192.168.0.81<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-stderr=3Dserial@1e784000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-stdin=3Dserial@1e784000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-stdout=3Dserial@1e784000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-verify=3Dyes<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ast#<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ast# ping $serverip<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-Trying ethernet@1e680000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ethernet@1e680000: link up, 1000 Mbps full-duplex mac:c2:d1:29:f8:1b:e3<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-Using ethernet@1e680000 device<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ARP broadcast 1<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ARP broadcast 2<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ARP broadcast 3<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ARP broadcast 4<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-<o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ARP Retry count exceeded; starting again<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ping failed; host 192.168.0.81 is not alive<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ast#<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-ast# mdio read&nbsp; 1.0-60<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-Reading from bus eth1<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-PHY at address 1:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.0 - 0x1000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.1 - 0x796d&nbsp; =3D</span><span style=3D"font-family:Wingdings">&egrave;=
-</span><span style=3D"font-family:&quot;Courier New&quot;">link is up<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.2 - 0x141<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.3 - 0xdd4<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.4 - 0x21e1<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.5 - 0xc5e1<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.6 - 0xd<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.7 - 0x2001<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.8 - 0x4a38<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.9 - 0x300<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.10 - 0x3800<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.11 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.12 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.13 - 0x3<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.14 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.15 - 0x3000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.16 - 0x3070<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.17 - 0xac08<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.18 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.19 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.20 - 0x20<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.21 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.22 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.23 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.24 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.25 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.26 - 0x40<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.27 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.28 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.29 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Courier New&quot;">=
-1.30 - 0x0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thank you, <o:p></o:p></p>
-<p class=3D"MsoNormal">Mahesh<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_SA1PR17MB4593DE25C67A9229F65DEF4196849SA1PR17MB4593namp_--
+T24gVHVlLCAyMDIxLTEwLTE5IGF0IDE3OjIzICswMzAwLCBBbGV4YW5kZXIgUmFpaCB3cm90ZToN
+Cj4gUG93ZXIgc3RhdGUgaXMgUzAgc3RhdGUuDQo+IEkgaGF2ZSBpbnRlbCBwbGF0Zm9ybSB3aXRo
+IDIgc29ja2V0cy7CoA0KPiAxIHNvY2tldDogaW50ZWwgeGVvbiBicm9uemUNCj4gMiBzb2NrZXQ6
+IGVtcHR5DQo+IENoaXBzZXQ6IGxld2lzYnVyZw0KDQpPaywgc28geW91ciBwbGF0Zm9ybSBpcyBp
+biBTMCBzdGF0ZSBhbmQgcGVjaSBjbGllbnQgZGV2aWNlIHJlZ2lzdGVyaW5nIGZhaWxlZC4NCkNv
+dWxkIHlvdSBjb25maXJtIHRoYXQgZG9pbmc6DQoNCiQgcGVjaV9jbWRzIHBpbmcNCg0KZmFpbHM/
+DQoNCklmIGl0IGRvZXMgLSBhcmUgeW91IHN1cmUgdGhhdCB5b3VyIEJNQyBoYXMgcGh5c2ljYWwg
+UEVDSSB3aXJlIGNvbm5lY3Rpb24gd2l0aA0KdGhlIENQVT8gSWYgUEVDSSBpcyBub3QgY29ubmVj
+dGVkIC0gdGhlcmUncyBub3QgbXVjaCB3ZSBjYW4gZG8gZnJvbSBCTUMgc29mdHdhcmUNCnBlcnNw
+ZWN0aXZlLg0KDQotSXdvbmENCg0KPiANCj4g0LLRgiwgMTkg0L7QutGCLiAyMDIxINCzLiDQsiAx
+NzowNSwgV2luaWFyc2thLCBJd29uYSA8aXdvbmEud2luaWFyc2thQGludGVsLmNvbT46DQo+ID4g
+T24gVHVlLCAyMDIxLTEwLTE5IGF0IDEyOjEwICswMzAwLCBBbGV4YW5kZXIgUmFpaCB3cm90ZToN
+Cj4gPiA+IEhpLA0KPiA+ID4gSSB0cnkgdG8gcmVnaXN0ZXIgcGVjaSBkZXZpY2UgaW4gc3lzZnMg
+YnV0IEkgaGF2ZSBzYW1lwqBwcm9ibGVtDQo+ID4gPiANCj4gPiA+IFsgwqA4MDAuMzM5NjA1XSBw
+ZWNpIHBlY2ktMDogRmFpbGVkIHRvIHJlZ2lzdGVyIHBlY2kgY2xpZW50IHBlY2ktY2xpZW50IGF0
+DQo+ID4gMHgzMA0KPiA+ID4gKC01KQ0KPiA+IA0KPiA+IFdlcmUgeW91IGFibGUgdG8gY29uZmly
+bSB0aGF0IHlvdXIgcGxhdGZvcm0gaXMgaW4gUzAgcG93ZXIgc3RhdGUgYmVmb3JlIHlvdQ0KPiA+
+IHRyaWVkIHRoaXM/DQo+ID4gDQo+ID4gQ291bGQgeW91IHNoYXJlIGRldGFpbHMgYWJvdXQgSW50
+ZWwgUGxhdGZvcm0vQ1BVIHRoYXQgeW91J3JlIHVzaW5nPw0KPiA+IA0KPiA+IC1Jd29uYQ0KPiA+
+IA0KPiA+ID4gDQo+ID4gPiANCj4gPiA+IA0KPiA+ID4gDQo+ID4gPiANCj4gPiA+INCy0YIsIDE5
+INC+0LrRgi4gMjAyMSDQsy4g0LIgMTA6NDQsIEFsZXhhbmRlciBSYWloIDw2MWE5MWJjQGdtYWls
+LmNvbT46DQo+ID4gPiA+IFRoYW5rcywgSXdvbmENCj4gPiA+ID4gSSB3aWxsIHRyeSB0aGlzLg0K
+PiA+ID4gPiANCj4gPiA+ID4gQmVzdCByZWdhcmRzLA0KPiA+ID4gPiBBbGV4DQo+ID4gPiA+IA0K
+PiA+ID4gPiDQv9C9LCAxOCDQvtC60YIuIDIwMjEg0LMuINCyIDE3OjQzLCBXaW5pYXJza2EsIEl3
+b25hDQo+ID4gPiA+IDxpd29uYS53aW5pYXJza2FAaW50ZWwuY29tPjoNCj4gPiA+ID4gPiBIaSBB
+bGV4LA0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+IChpbiB0aGUgZnV0dXJlLCBwbGVhc2UgQ2M6IG9w
+ZW5ibWMgbWFpbGluZyBsaXN0KQ0KPiA+ID4gPiA+IMKgwqANCj4gPiA+ID4gPiBUaGlzIG1heSBv
+Y2N1ciB3aGVuIENQVSBjYW7igJl0IGJlIGRldGVjdGVkIC0gaXMgeW91ciBwbGF0Zm9ybSBpbiBT
+MA0KPiA+ID4gPiA+IHBvd2VyDQo+ID4gPiA+ID4gc3RhdGU/DQo+ID4gPiA+ID4gQk1DIHVzdWFs
+bHkgaXMgYm9vdGVkIGJlZm9yZSB0aGUgcGxhdGZvcm0gZ29lcyB0byBTMCwgc28gSSB3b3VsZA0K
+PiA+IHJlY29tbWVuZA0KPiA+ID4gPiA+IHJlZ2lzdGVyaW5nIHBlY2ktY2xpZW50IG1hbnVhbGx5
+ICh1c2luZyBzeXNmcykgcmF0aGVyIHRoYW4gdXNpbmcgRFRTLg0KPiA+ID4gPiA+IMKgDQo+ID4g
+PiA+ID4gIyBlY2hvIHBlY2ktY2xpZW50IDB4MzAgPiAvc3lzL2J1cy9wZWNpL2RldmljZXMvcGVj
+aS0wL25ld19kZXZpY2UNCj4gPiA+ID4gPiDCoA0KPiA+ID4gPiA+IE9yIGlmIHlvdeKAmXJlIHVz
+aW5nIGRidXMtc2Vuc29ycywgcGVjaS1jbGllbnQgZGV2aWNlcyBhcmUgZXhwb3J0ZWQNCj4gPiA+
+ID4gPiB0aGVyZToNCj4gPiA+ID4gPiANCj4gPiBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9k
+YnVzLXNlbnNvcnMvYmxvYi9tYXN0ZXIvc3JjL0NQVVNlbnNvck1haW4uY3BwI0w0MDYNCj4gPiA+
+ID4gPiANCj4gPiA+ID4gPiAtLQ0KPiA+ID4gPiA+IE5vdGUgdGhhdCBQRUNJIHN1YnN5c3RlbSB5
+b3XigJlyZSB1c2luZyBpcyBzdWJqZWN0IHRvIGNoYW5nZSBpbiB0aGUNCj4gPiBmdXR1cmU6DQo+
+ID4gPiA+ID4gDQo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC8yMDIxMDgwMzExMzEz
+NC4yMjYyODgyLTEtaXdvbmEud2luaWFyc2thQGludGVsLmNvbS8NCj4gPiA+ID4gPiDCoA0KPiA+
+ID4gPiA+IC1Jd29uYQ0KPiA+ID4gPiA+IMKgDQo+ID4gPiA+ID4gRnJvbTogQWxleGFuZGVyIFJh
+aWggPDYxYTkxYmNAZ21haWwuY29tPiANCj4gPiA+ID4gPiBTZW50OiBGcmlkYXksIE9jdG9iZXIg
+MTUsIDIwMjEgMTo0NiBQTQ0KPiA+ID4gPiA+IFRvOiBZb28sIEphZSBIeXVuIDxqYWUuaHl1bi55
+b29AaW50ZWwuY29tPjsgV2luaWFyc2thLCBJd29uYQ0KPiA+ID4gPiA+IDxpd29uYS53aW5pYXJz
+a2FAaW50ZWwuY29tPg0KPiA+ID4gPiA+IFN1YmplY3Q6IGtlbmVsIG1vZHVsZSBkb250IGVuYWJs
+ZQ0KPiA+ID4gPiA+IMKgDQo+ID4gPiA+ID4gSGVsbG8sDQo+ID4gPiA+ID4gSSB1c2UgaW50ZWwg
+a2VybmVsIG1vZHVsZSBwZWNpLiBJbiBkdGIgSSBoYXZlIHRoaXMgZGVzY3JpYmUgYWJvdXQNCj4g
+PiA+ID4gPiBwZWNpOsKgDQo+ID4gPiA+ID4gwqANCj4gPiA+ID4gPiDCoA0KPiA+ID4gPiA+IGJ1
+c0AxZTc4YjAwMCB7DQo+ID4gPiA+ID4gY29tcGF0aWJsZSA9ICJzaW1wbGUtYnVzIjsNCj4gPiA+
+ID4gPiAjYWRkcmVzcy1jZWxscyA9IDwweDAxPjsNCj4gPiA+ID4gPiAjc2l6ZS1jZWxscyA9IDww
+eDAxPjsNCj4gPiA+ID4gPiByYW5nZXMgPSA8MHgwMCAweDFlNzhiMDAwIDB4NjA+Ow0KPiA+ID4g
+PiA+IHBlY2ktYnVzQDAgew0KPiA+ID4gPiA+IGNvbXBhdGlibGUgPSAiYXNwZWVkLGFzdDI1MDAt
+cGVjaSI7DQo+ID4gPiA+ID4gcmVnID0gPDB4MDAgMHg2MD47DQo+ID4gPiA+ID4gI2FkZHJlc3Mt
+Y2VsbHMgPSA8MHgwMT47DQo+ID4gPiA+ID4gI3NpemUtY2VsbHMgPSA8MHgwMD47DQo+ID4gPiA+
+ID4gaW50ZXJydXB0cyA9IDwweDBmPjsNCj4gPiA+ID4gPiBjbG9ja3MgPSA8MHgwMiAweDA2PjsN
+Cj4gPiA+ID4gPiByZXNldHMgPSA8MHgwMiAweDA2PjsNCj4gPiA+ID4gPiBjbG9jay1mcmVxdWVu
+Y3kgPSA8MHgxNmUzNjAwPjsNCj4gPiA+ID4gPiBtc2ctdGltaW5nID0gPDB4MDE+Ow0KPiA+ID4g
+PiA+IGFkZHItdGltaW5nID0gPDB4MDE+Ow0KPiA+ID4gPiA+IHJkLXNhbXBsaW5nLXBvaW50ID0g
+PDB4MDg+Ow0KPiA+ID4gPiA+IGNtZC10aW1lb3V0LW1zID0gPDB4M2U4PjsNCj4gPiA+ID4gPiBz
+dGF0dXMgPSAib2theSI7DQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gcGVjaS1jbGllbnRAMzAgew0K
+PiA+ID4gPiA+IGNvbXBhdGlibGUgPSAiaW50ZWwscGVjaS1jbGllbnQiOw0KPiA+ID4gPiA+IHJl
+ZyA9IDwweDMwPjsNCj4gPiA+ID4gPiB9Ow0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+IHBlY2ktY2xp
+ZW50QDMxIHsNCj4gPiA+ID4gPiBjb21wYXRpYmxlID0gImludGVsLHBlY2ktY2xpZW50IjsNCj4g
+PiA+ID4gPiByZWcgPSA8MHgzMT47DQo+ID4gPiA+ID4gfTsNCj4gPiA+ID4gPiB9Ow0KPiA+ID4g
+PiA+IH07DQo+ID4gPiA+ID4gwqANCj4gPiA+ID4gPiDCoA0KPiA+ID4gPiA+IEkgaGF2ZSB0aGlz
+IGVycm9yIGluIGRtZXNnOg0KPiA+ID4gPiA+IFsgwqAgwqAyLjUxNjM4M10gcGVjaSBwZWNpLTA6
+IEZhaWxlZCB0byByZWdpc3RlciBwZWNpIGNsaWVudCDCoGF0IDB4MzAgKC0NCj4gPiA+ID4gPiA1
+KQ0KPiA+ID4gPiA+IFsgwqAgwqAyLjUyNjc2N10gcGVjaSBwZWNpLTA6IEZhaWxlZCB0byBjcmVh
+dGUgUEVDSSBkZXZpY2UgZm9yDQo+ID4gPiA+ID4gL2FoYi9hcGIvYnVzQDFlNzhiMDAwL3BlY2kt
+YnVzQDAvcGVjaS1jbGllbnRAMzANCj4gPiA+ID4gPiDCoA0KPiA+ID4gPiA+IEhvdyBJIGNhbiBy
+ZXNvbHZlIHRoaXMgPw0KPiA+ID4gPiA+IMKgDQo+ID4gPiA+ID4gYmVzdCByZWdhcmRzLA0KPiA+
+ID4gPiA+IGFsZXgNCj4gPiANCg0K
