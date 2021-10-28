@@ -2,69 +2,69 @@ Return-Path: <SRS0=COHF=PQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DB8DC433F5
-	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35617C433EF
+	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:48:23 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A414B60FC0
-	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:47:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A414B60FC0
+	by mail.kernel.org (Postfix) with ESMTPS id B798F6108F
+	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B798F6108F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hg7hY2VFbz3bWb
-	for <openbmc@archiver.kernel.org>; Fri, 29 Oct 2021 01:47:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hg7j13JGJz3c4q
+	for <openbmc@archiver.kernel.org>; Fri, 29 Oct 2021 01:48:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=arndb.de
- (client-ip=212.227.126.187; helo=mout.kundenserver.de;
+ (client-ip=212.227.126.134; helo=mout.kundenserver.de;
  envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hg7h00ldjz2xKY
- for <openbmc@lists.ozlabs.org>; Fri, 29 Oct 2021 01:47:27 +1100 (AEDT)
-Received: from mail-wm1-f50.google.com ([209.85.128.50]) by
- mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1N79hs-1mjHxm00rc-017U5z for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021
- 16:42:18 +0200
-Received: by mail-wm1-f50.google.com with SMTP id 192so4485236wme.3
- for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021 07:42:17 -0700 (PDT)
-X-Gm-Message-State: AOAM532Gdb8EM4RXeQh2PyLDXw2M5a0jRjMwvc//5BJyfP/lbYUqLiCd
- 0NwnBmvXC994rH4V1Q2BYAXNOVBcLF5uEH/UEa4=
-X-Google-Smtp-Source: ABdhPJx9cbVaNwx+3GHbcHnQXOpN9heQ4JmpWp0Hw9nZ+0Vz+KISvn385FCbSquLcG8jLThOtn8bEBSn4MBwQAn7pDA=
-X-Received: by 2002:a1c:1c1:: with SMTP id 184mr1292581wmb.1.1635432137333;
- Thu, 28 Oct 2021 07:42:17 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hg7h65gXBz3002
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Oct 2021 01:47:34 +1100 (AEDT)
+Received: from mail-wr1-f54.google.com ([209.85.221.54]) by
+ mrelayeu.kundenserver.de (mreue009 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MuluN-1mxMkz3kTT-00rlpF for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021
+ 16:47:30 +0200
+Received: by mail-wr1-f54.google.com with SMTP id o14so10607239wra.12
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021 07:47:30 -0700 (PDT)
+X-Gm-Message-State: AOAM532UiyZrcAiANsZrj28r9OH149m+732ruDOVAwpriyCYqJ4l+bYV
+ 25ZSvPK/HZedQTIgzKZ0Y3/PahWShoCuIAAWZtY=
+X-Google-Smtp-Source: ABdhPJyoVAkAAk4AI83BWc3dKhVnjPD+OR+iyHl9JwP/4ZYST1PD7Ic/FVFx5Kh4Wx0twMESb211U/sUQga85d1YsLc=
+X-Received: by 2002:a5d:47a3:: with SMTP id 3mr6283991wrb.336.1635432450567;
+ Thu, 28 Oct 2021 07:47:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211028141938.3530-1-lukas.bulwahn@gmail.com>
- <20211028141938.3530-4-lukas.bulwahn@gmail.com>
-In-Reply-To: <20211028141938.3530-4-lukas.bulwahn@gmail.com>
+ <20211028141938.3530-6-lukas.bulwahn@gmail.com>
+In-Reply-To: <20211028141938.3530-6-lukas.bulwahn@gmail.com>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 28 Oct 2021 16:42:01 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3+-J6XbUmzWs7ATN7z53GomZSj6vq3n5R709=iL45RrA@mail.gmail.com>
-Message-ID: <CAK8P3a3+-J6XbUmzWs7ATN7z53GomZSj6vq3n5R709=iL45RrA@mail.gmail.com>
-Subject: Re: [PATCH 03/13] arm: Kconfig.debug: drop reference to removed
- ARCH_MSM
+Date: Thu, 28 Oct 2021 16:47:14 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2GGbik3r5BCKE2ZCkpFyzv8Q54z_iV84ZJ+kNXYUTMzw@mail.gmail.com>
+Message-ID: <CAK8P3a2GGbik3r5BCKE2ZCkpFyzv8Q54z_iV84ZJ+kNXYUTMzw@mail.gmail.com>
+Subject: Re: [PATCH 05/13] arm: davinci: remove reference to obsolete
+ BLK_DEV_PALMCHIP_BK3710
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:7JHGi/yIGSh2Iq0PKOO0eLsAwGsWaVwbv5k9esY/mtfRklYiDXO
- UbncXOx16VeAUzkOwzB7dRYFDOoPLKTiJWVsihl6g5CoAafJH1TkQv1r9RRnd5eohAuyT0d
- E5+krt7zpx3KiJYOFMXp7AOq0RuJyf5hR1F6H9g0iRH1F3KlxKeIrcWI4GbZVu2PlfHC+S7
- F/WbXxXRDhBYO0/sBiBHw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Ml0OYKL1zss=:MHg1YyEIACSKW88IeEn8wT
- W2PArWk4ORbGYuDHIpqpM5EC75d7dkJ6kXeaTOmz/EXozTUPKDKBCE8T2kX4Kqphg+XQMMAXo
- JEw4KRlc+YEkGVg41LIRb2WFojlbo9toD24SuelPZUIdvduniYnZu6X2N26vTHIyYDfpdIL2k
- 4VrOPdJTYyipozgVyZ4kzinautk4QZTc07+C7GIL+blIx8b1nBasRjjbPleqwIMijJjxwoGSy
- +q1WgfXvnX2Ao/jxlEGnnDJJljLrGAPeLIA8q/NXGJ0Um8jU19MCjh99cQmWrWJcO+3KTi8B6
- 07RTiMLTrGIwjfxf0zHDDUOyeesRH4+S0uPRW+jawJ+Mh5IJYSdtdivr2JvObRpBOYlRDOMYq
- nIa4moyYillegv6f8iSms4XMryA0v0RHgV15IcYof1g8A/mbgvauq0GPg1XwY9A8QnTa7Ip1D
- H8KvTUEG1gFECMTWdrw2vABQs4WbwKC4aR+y12UxQkZHVS8hBDqG6ZbgRuy0xfxtR3/FG1uE2
- JrFOxTTovMlY7YPGQY/QxlfYdpiscuWEOppqdzb8zmAbNt6Os8/LCA0BYdqA6TGyeRo3f8MWE
- VXx4vcpDHmnL/9+OdVvqqmO0iBw3gCQApjaWOj2Z7FBmx7lzpBgwgiwRwDQ7uhanCZwEvudM4
- zMAvJmMW4dYYApY8Ln+dWBnaxo/DF9JxiFmgenFNKxSlUMOrk/OEXURPYsdlzuhIX0YnCFecl
- JPGIk2q4lwYYISISaAIW9pX8znfm27hR/x8yLFhj37/HT3P/xoHrkU1ys5udaTB16UAiomiW+
- 1fuWcmj7X3lOrepOdo9MKBbpIRoJhjYdtDDJakIcL2P8fABeXQ=
+X-Provags-ID: V03:K1:hO/aITWr8SS6cCdk7wuXi9+IYE6Avi8cRngOV4DURYbEg7+wMSC
+ p++jWNOu/k29KBivp0Og667Rsgf3TB6DbtS6POtJKCCskbCk2+XJ4X80nIvyzuI47gorndR
+ WXorenWTK2mc8PV13rOW1vmcFjY8Qo/jc2vK2mEEB4KHw0PpEGPTRDItuvI8C9C+7wLwA/b
+ Wrp867TSBd2rIiTb3W42Q==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:aUGH027K2Q8=:Raq+jswldQ2m+ikeGqlMWg
+ +ciNth7OCnMpLmUIieWhrsq+J+QoYSM4diWKv6oEFUfO+eBIpUfXn48qirX1lmPVaVRLkNpib
+ +Qxpia5rUwF0F3TugYVEKe03w+CLtKvGqEb1H80sf5tGRoABLwKfeo8ByCvAzeVLzprqqOD7W
+ 4AqcDg311X+v5WuzCtiW4xE7J0K5VwPLSMIwM+X79gQqK5BETJ25xK7Nr1XJQSqddkUxhYhyd
+ hq9PsnRPPJysRmjNzaVMl7Aay3OKZ8bmJ+scbZzfURwSZ3BjmdrRJ15Z5QB6aLhNqDxx4COJQ
+ mAFMgOhWrVhKXj7TrhG65PhLCElrFBbp/zZZaSmscwjtp7qn5Asq3mNX9mwHnDgYs7dsYossZ
+ WvOjT8fKzW8AJKzEVHi+JyYIGlc2IVs3rxb+JTao1MhErrPejWr+WwyKZ7Syzr5ReCcUTOZzc
+ rT85zkD9TGeA4QEMa8bAavavqqjt25DlpyhpIUU/0JwBIs2qHrCB17zmPzs3mPWq4jvryWWuA
+ b1oLrj+5ib/cvboae1PcpXChbR8eadqr13zozrqBsIZElkSIXat+L9Z70XDX9GObECVTw33+S
+ jMbKwCIA3vKw+FVBK6O6GYgwWD4XDG0teTvYaFruTrcMss9jojiYYMY7EUWr0nlirEVo8s2x/
+ CTFElacmO26hzE7InMNuVFhi9p4n0vzUpcmhsWskSibK9mtspUKAmrdKVc1zi6CXdYppHqnju
+ 5B4AaYaKXiBds7AuCdwAEfTxq9N1U4/b+p/RGCvXH/7MFrC5i5hLjy7V6cOvRsqvpP4qvJExt
+ 4KvLP+FNoF/zgs3gs3XYWL+NpM5XGaGGjOyQ9ehVS1ww3uorz0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +97,11 @@ Sender: "openbmc"
 
 On Thu, Oct 28, 2021 at 4:19 PM Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
 >
-> Commit c0c89fafa289 ("ARM: Remove mach-msm and associated ARM architecture
-> code") removes the definition of the config ARCH_MSM. Since then, the
-> reference to ARCH_MSM in the dependencies of UNCOMPRESS_INCLUDE in
-> Kconfig.debug is dead.
+> Commit b7fb14d3ac63 ("ide: remove the legacy ide driver") removes the
+> definition of the config BLK_DEV_PALMCHIP_BK3710.
 >
-> Fortunately, ./scripts/checkkconfigsymbols.py warns:
->
-> ARCH_MSM
-> Referencing files: arch/arm/Kconfig.debug
->
-> Drop the dependency on this removed config.
+> So, remove the obsolete references in the mach-davinci architecture.
 >
 > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-> ---
->  arch/arm/Kconfig.debug | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
-> index 83484564b1d9..87aa6e92ee6e 100644
-> --- a/arch/arm/Kconfig.debug
-> +++ b/arch/arm/Kconfig.debug
-> @@ -1886,7 +1886,7 @@ config DEBUG_UNCOMPRESS
->
->  config UNCOMPRESS_INCLUDE
->         string
-> -       default "debug/uncompress.h" if ARCH_MULTIPLATFORM || ARCH_MSM || \
-> +       default "debug/uncompress.h" if ARCH_MULTIPLATFORM || \
->                                         PLAT_SAMSUNG || ARM_SINGLE_ARMV7M
 
-The PLAT_SAMSUNG reference is also misplaced here, I think you just want
-ARCH_S3C24XX instead, since the other samsung ones already require
-ARCH_MULTIPLATFORM.
-
-        Arnd
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
