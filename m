@@ -2,69 +2,73 @@ Return-Path: <SRS0=COHF=PQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78134C433F5
-	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EF1BC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:47:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0780260FC4
-	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:45:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0780260FC4
+	by mail.kernel.org (Postfix) with ESMTPS id 8B6AA60E8C
+	for <openbmc@archiver.kernel.org>; Thu, 28 Oct 2021 14:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8B6AA60E8C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hg7dN2trCz3c4c
-	for <openbmc@archiver.kernel.org>; Fri, 29 Oct 2021 01:45:12 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hg7gx0gMqz3bYW
+	for <openbmc@archiver.kernel.org>; Fri, 29 Oct 2021 01:47:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=arndb.de
- (client-ip=217.72.192.75; helo=mout.kundenserver.de;
+ (client-ip=212.227.126.131; helo=mout.kundenserver.de;
  envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+X-Greylist: delayed 276 seconds by postgrey-1.36 at boromir;
+ Fri, 29 Oct 2021 01:46:58 AEDT
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hg7cv37q1z2xDw
- for <openbmc@lists.ozlabs.org>; Fri, 29 Oct 2021 01:44:47 +1100 (AEDT)
-Received: from mail-wr1-f46.google.com ([209.85.221.46]) by
- mrelayeu.kundenserver.de (mreue107 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1N4Q8u-1mpLTi2psM-011Nyw for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021
- 16:39:36 +0200
-Received: by mail-wr1-f46.google.com with SMTP id k7so10565034wrd.13
- for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021 07:39:35 -0700 (PDT)
-X-Gm-Message-State: AOAM532AXsSiVyAdGsU2nx0472sbOalTWM1+qoh+OMZKw8f0geKWCKoj
- mNF4aO9CY8v+aG4WV3KaqbOT7Rhq8qbQ4chgszg=
-X-Google-Smtp-Source: ABdhPJywcxOpdNSzG6Dz7Wo0Mfr5ZcmBRbk8+ke27ZX22Ol8jLoYbLDirLsu+KPslnCjLkVgZLhdwSyWSSptfkSO3xA=
-X-Received: by 2002:a5d:4692:: with SMTP id u18mr6354304wrq.428.1635431975426; 
- Thu, 28 Oct 2021 07:39:35 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hg7gQ1QtTz2xDg
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Oct 2021 01:46:57 +1100 (AEDT)
+Received: from mail-wm1-f47.google.com ([209.85.128.47]) by
+ mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1M42zo-1mg6gA2n5M-0000Zl for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021
+ 16:46:54 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ j35-20020a05600c1c2300b0032caeca81b7so4832949wms.0
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Oct 2021 07:46:54 -0700 (PDT)
+X-Gm-Message-State: AOAM530ZTZ1FB2xjeDv9l+o2u7XSSoJYPX9tdtrin1fuEMudz6a1r8zd
+ A4orJCAB3apJRHCDHSkyzIcuu6LO9/CTaue4gjs=
+X-Google-Smtp-Source: ABdhPJxA0GJLTQ+xD6zcoP0LSqb/ZsKcXqHw7zPvo6JWGp61LpzRYISo4RdkeFEDL6Qy0I1GY7j1Zdux6/P0jUeXB5Y=
+X-Received: by 2002:a05:600c:4f42:: with SMTP id
+ m2mr13320221wmq.82.1635432414029; 
+ Thu, 28 Oct 2021 07:46:54 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211028141938.3530-1-lukas.bulwahn@gmail.com>
- <20211028141938.3530-3-lukas.bulwahn@gmail.com>
-In-Reply-To: <20211028141938.3530-3-lukas.bulwahn@gmail.com>
+ <20211028141938.3530-5-lukas.bulwahn@gmail.com>
+In-Reply-To: <20211028141938.3530-5-lukas.bulwahn@gmail.com>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 28 Oct 2021 16:39:19 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2raR70Xw3AT=BSojvqvua4WGeYrzasp+i7bnwTLVcxhg@mail.gmail.com>
-Message-ID: <CAK8P3a2raR70Xw3AT=BSojvqvua4WGeYrzasp+i7bnwTLVcxhg@mail.gmail.com>
-Subject: Re: [PATCH 02/13] arm: debug: reuse the config DEBUG_OMAP2UART{1,2}
- for OMAP{3,4,5}
+Date: Thu, 28 Oct 2021 16:46:38 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2LhGWer=GXMW_KT-8=nqBeS0xhu6si7Z57WAF0wE_TUA@mail.gmail.com>
+Message-ID: <CAK8P3a2LhGWer=GXMW_KT-8=nqBeS0xhu6si7Z57WAF0wE_TUA@mail.gmail.com>
+Subject: Re: [PATCH 04/13] arm: drop an obsolete ifdef with the removed config
+ PCI_HOST_ITE8152
 To: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:Nx0kGkCDZWHklcQkjnOYTatjfb8SCLWNu8vJViQwYFOrQKa069X
- NQb6unffWgY9DPJiZ5aKgSP+MutghCaWrnT6KoUVgSsqdKGjtlLqG4hKhpY8RyzVxLi9lh0
- Y0H5VyzWwFcmjaSql08rR5xoTlEff7tjVgn01H4xjN8iHBfUaD+dK6geqGkBQe/8Z9Rj4ma
- aj8jA8cROJZX2wd+5UA+g==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:SBXyxnn48ns=:tZ7lt3bH5caAu4yfv7+cQO
- hs01f2dG47/FTl61cOZytZnudhrqRRTrugl32ui06NW09JC0dGJQCeUEnat8pKM4rHn0pUNAq
- Aj3mLoNBr3XIiLtEnFrluXH+tdx5YqYFOekUH7+C+Hykax9z/5XPp7Ucmv3+Vim+8uPKA1JA4
- vDWEcxuqbEBDfCIWmlIvUT1+mderX1Y8S6X6OgxpU8CCJCj7q0winM2JdN1Yn3KWZxHMTNug4
- 4IAyrzgZ/k8uChCkuQ5DdNtDRm6OazPYhVjB29Olre8vJe9Cf5EblqQOyHmwEuCfgCDWBuABf
- VIX38Si5tRwZaDWYFYxWi/ZzMydpx3VJEfx//di64cTLJFzSe77jtgW66/tGS88ksyKmn62sL
- AB5x6WxOaXHeLRWkwkAiqVRtX4eH9mAG+VrSHheYZNt70f7LW1mHacjYPtAad42/8iQDEWDxb
- MrCp5oKN+RpshYqX4CMC4m9YBTo6JiLuf+Y2sfTE3Jy+ABFiHAPFqRta9Abziq1Jq9sf+USle
- AM7OJjMb7xeavwk7ikurt9B71MGneU2cGBmW78cBVagyrYqGj96sDny8xJ69AEZCuVbp+lXi6
- dy0WPDl43bYtqMgmEY/GYMkLUokgvjPojq3OaZnotvf07keP/T5BprjI7iINGyjW2WIx2T1cL
- Y5pd4REzMbTdvdC07txUUCuYqXLbpGbYE2UWCvYy0gRVMaGXoB9URzu5OwpQVp8nFl15kKjap
- 6aPKcen38/46eEi9zExzq6vPKaIiU4SbbDTUgxWOxPvgNjW0qUVOzu13EVnhWyeeWywh/hloT
- XyVWgfFE6TBHwhZzsjiKVQBPUDrz8DFrmjjLpLGmywJKFu/kQY=
+X-Provags-ID: V03:K1:rMb7MEybclNES+COQRgcinbAku6mrMFpSGwmH3pi39o+R/vi2Bk
+ SuZ8Dg5ZhKei3jeK/mcqxMYSbBgtQ7FqrnkNdjSWBu0+eM9MlptO7jUbXgypjdAkrW4bBbv
+ FgHng+mr66kqfZf7FQylFMrUKXxyB+2YRtJvp7yv61QSNaTrQO0/WQXsl9p2lY71lMmaTIo
+ IQyt+eufliLBeqnyqgEcQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:s77oUdQ87A0=:VveaSDqQsjLxUbhzBpRKwx
+ ncUf6fZah7gtlA+aEE/UyCV2xrPpV4crUxDdUrG9wfqa/9J8r2TbgXbxwrvWvytDTEicquGB0
+ aa9B+0AX77i9J/4kG5ISnZLLzzuERWKUJRxaNXcmlDgw7RNVOofScnJ42ankBDh0+ABKfGAUl
+ C92iOR1JZQKaGQOwolsmd5Rf4TL0fkOFSP5D3XQVbVltp4/LH3I7+4Lb2uhPGo0IJwOxBErc4
+ wq6w+DG7Aq5i8+NFMRc3eW3hQ21KdUr+ICFwD8Aasr1bVvJwmJXLvt9bQILVEvsnwwRVcwYWk
+ /N3tVRReLle9VeUpLDA2J4dxAyDLh/0/6jb+B6txZ/3eIE3BVx6cAeHBggJ9PSNk9a7Mg2Ir5
+ 7sXZL+MyMXU7iYCzNFv+729XmciidPCbgbxkINq+HuE4EENWPNHH/H8r9CIM43y00VRAKAG/B
+ 7Wa0z74JjZvRr0YB8CFIWNe6LAeajsQHiHPogYp64JSjAmL1aFFpuBH/Y80fmY2Wrf/zEcxuS
+ v+J6UHTt60RxzCf8bpLkZmjZF6a9rrg5pvvBtyTWz7iUu0PtUwy5auxComFoUL8hXVnlz5avm
+ FTOvi7tkHUk03JIoaBXDC9GXIHZnLnB3i5PZyC4wVY1vS+UQwZ1iaKi60drdk+skEO2Bjg8tY
+ sHqh/EbRnyAGY4pUCKmeaNkueJrcuOBdpmn4ZBt26SMTJSWRWE9HBu9zAKvL+/B2pt/c8YCvr
+ kFnTdiHz1CcNTkg+WO+JKq7u01kQ5a9X3mXy/fBmn6+bGt5o6X5zDCa3S72PlZrixaibD+/Gl
+ 0kR7Peph3g5OqnEJCeRqI3pfuB75X/lht4TYkPvjwOoEwO5eeM=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,18 +101,26 @@ Sender: "openbmc"
 
 On Thu, Oct 28, 2021 at 4:19 PM Lukas Bulwahn <lukas.bulwahn@gmail.com> wrote:
 >
-> Commit d2b310b0234c ("ARM: debug: Use generic 8250 debug_ll for omap2 and
-> omap3/4/5 common uarts") adds address definitions of DEBUG_UART_PHYS for
-> OMAP2, OMAP3, OMAP4 and OMAP5 in ./arch/arm/Kconfig.debug.
+> Commit 6da5238fa384 ("ARM: 8993/1: remove it8152 PCI controller driver")
+> removes the config PCI_HOST_ITE8152, but left a dangling obsolete ifndef
+> in ./arch/arm/kernel/bios32.c.
 >
-> These definitions depend on DEBUG_OMAP{2,3,4,5}UART{1,2}; however, only
-> DEBUG_OMAP2UART{1,2} are defined in ./arch/arm/Kconfig.debug, and
-> DEBUG_OMAP{3,4,5}UART{1,2} are not defined. Hence, the script
-> ./scripts/checkkconfigsymbols.py warns here on non-existing symbols.
-> Simply reuse the config DEBUG_OMAP2UART{1,2}; there is no need to define
-> separate config symbols for OMAP{3,4,5}. So, just delete the dead
-> references to DEBUG_OMAP{3,4,5}UART{1,2}.
+> Hence, ./scripts/checkkconfigsymbols.py warns:
+>
+> PCI_HOST_ITE8152
+> Referencing files: arch/arm/kernel/bios32.c
+>
+> Remove this obsolete ifndef.
 >
 > Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
 
 Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+
+I wonder if we should just remove this function and use the
+(non-empty) default version instead.
+
+96c5590058d7 ("PCI: Pull PCI 'latency timer' setup up into the core")
+introduced that generic version, and I suspect the arm version
+was left out by mistake, but it's not clear from that patch.
+
+         Arnd
