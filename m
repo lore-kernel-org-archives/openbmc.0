@@ -2,104 +2,71 @@ Return-Path: <SRS0=/K6i=P5=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49750C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 20:42:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFB34C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 22:29:04 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9559561058
-	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 20:42:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9559561058
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 34B7661186
+	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 22:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 34B7661186
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HqGxH1y0qz2ynQ
-	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 07:42:11 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HqKJZ59x7z2yQ5
+	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 09:29:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nGxnx3QA;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=g2UbOksn;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=nGxnx3QA; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=g2UbOksn; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HqGwV2VnYz2yMs
- for <openbmc@lists.ozlabs.org>; Thu, 11 Nov 2021 07:41:29 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1AAJI7iC023008
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : date :
- subject : from : to : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=azWt+tCLF02HP4sUdkCKkoNi939jCjS3DkZayOvEf7A=;
- b=nGxnx3QAiUuGNLdz8IPcocT+6z9K3UqR/mSz6B5i/fdbAo2XmTu4TDNTFvMv+jgtl29A
- AXLJd2m1CPAsWW5nJXT962CxtaF3qcdA8VYVm6zbBvgufVzJ83QdpzZF9ZSdwpXg9c5F
- 2/yfs6heUcfQdRd0mRvimRAYqF3ZDSPrppuVzhICrxJ3VrtPwMyGBHtneq7S2AC0RUJ4
- frKy8A4ZJwllVw1onl9sza9oq8PzRukuYeQcFukLeTzV/4D6heK7jZL4B700twHtnZgQ
- 2InoDtb+i28VmSM9IRuNHEgaGcUABFs1fwqNP5Q/shlNH5Bf8SAYcRU7zYeRyZ5MWZPn rw== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3c8m4b9r99-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:27 +0000
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 1AAKcu6S016963
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:26 GMT
-Received: from b03cxnp08025.gho.boulder.ibm.com
- (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
- by ppma02wdc.us.ibm.com with ESMTP id 3c5hbcf7us-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:26 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 1AAKfOTT46727502
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:24 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 53F93C605D
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:24 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 040F3C605A
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:23 +0000 (GMT)
-Received: from [9.65.237.168] (unknown [9.65.237.168])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 20:41:23 +0000 (GMT)
-Message-ID: <0dd84546-a444-3581-0b68-82027203edd9@linux.ibm.com>
-Date: Wed, 10 Nov 2021 14:41:22 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Security Working Group - OpenBMC working to become a CVE numbering
- authority (CNA)
-Content-Language: en-US
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: openbmc <openbmc@lists.ozlabs.org>
-References: <4ea0015b-3280-c5b3-9f9f-c424046f23c9@linux.ibm.com>
- <ba328007-7ade-c21f-8962-3da0c5112d16@linux.ibm.com>
-In-Reply-To: <ba328007-7ade-c21f-8962-3da0c5112d16@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 7iyfs4-MMVvwkEQsQ1t5omZ6JxK1LQqx
-X-Proofpoint-ORIG-GUID: 7iyfs4-MMVvwkEQsQ1t5omZ6JxK1LQqx
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HqKHs5tjnz2xWt
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Nov 2021 09:28:25 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id D91F045135;
+ Wed, 10 Nov 2021 22:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:content-transfer-encoding:mime-version
+ :x-mailer:message-id:date:date:subject:subject:from:from
+ :received:received:received; s=mta-01; t=1636583301; x=
+ 1638397702; bh=ujb4GC9grTv/jvMk6Gp1Kf5rclIO070PfVmTW4wEeso=; b=g
+ 2UbOksnKslJ01YaEB2qDlVdaVtiFe5jGGTiEiZmKzIXqXemjH2+kzke/gUe8v1uX
+ ax1D2t3nhJUsGAawF+p41QEPoOm8xKPp2N3zDL5wZ24WHHKa8fkFnvebUBKXCA7D
+ ipWlYDoMPAWT02S0jD69OGSCd4ZcQncS2pLC2hx75E=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 9rDZC4b3qj3o; Thu, 11 Nov 2021 01:28:21 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 486BE4149B;
+ Thu, 11 Nov 2021 01:28:19 +0300 (MSK)
+Received: from nb-511.yadro.com (10.199.10.105) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 11
+ Nov 2021 01:28:18 +0300
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: <joel@jms.id.au>, <andrew@aj.id.au>, <openbmc@lists.ozlabs.org>,
+ <devicetree@vger.kernel.org>
+Subject: [PATCH 0/2] ARM: dts: device tree for YADRO VEGMAN BMC
+Date: Thu, 11 Nov 2021 01:28:01 +0300
+Message-ID: <20211110222803.836-1-a.kartashev@yadro.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-10_12,2021-11-08_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxscore=0
- adultscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 spamscore=0
- mlxlogscore=420 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2111100098
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.199.10.105]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,43 +82,24 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 11/10/21 2:35 PM, Joseph Reynolds wrote:
-> On 11/10/21 8:38 AM, Joseph Reynolds wrote:
->> This is a reminder of the OpenBMC Security Working Group meeting 
->> scheduled for this Wednesday November 10 at 10:00am PDT.
->>
->> We'll discuss the following items on the agenda 
->> <https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI>, 
->> and anything else that comes up:
->>
->
-> Attended: Joseph, Bruce, Vernon, James, Caci, Jiang, Dick, Ratan, 
-> Dhananjay
->
->
-> Agenda items discussed:
+This brings initial DTS files for VEGMAN BMC machines
 
-...snip...
+Andrei Kartashev (2):
+  dt-bindings: vendor-prefixes: add YADRO
+  ARM: dts: aspeed: add device tree for YADRO VEGMAN BMC
 
-> 2 Should OpenBMC become a CVE Numbering Authority (CNA).
->
-> Ref: https://www.cve.org/ResourcesSupport/AllResources/CNARules 
-> <https://www.cve.org/ResourcesSupport/AllResources/CNARules>
->
-> This would better integrate the CVE process with github.
->
-> OpenBMC looked into become a CNA years ago.  See the old review: 
-> https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/15621 
-> <https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/15621>
->
-> Is it worthwhile for openBMC to become a CNA?  Yes, we have had 
-> multiple CVEs per year and believe this will continue.  We have filled 
-> out the form (at cve.mitre.org) to create CVEs and have become 
-> familiar with writing CVE language.
->
-> We agreed to pursue becoming a CNA.  No objections.  James will follow 
-> up.
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/Makefile                    |   5 +-
+ arch/arm/boot/dts/aspeed-bmc-vegman-n110.dts  | 149 +++++++
+ arch/arm/boot/dts/aspeed-bmc-vegman-rx20.dts  | 255 ++++++++++++
+ arch/arm/boot/dts/aspeed-bmc-vegman-sx20.dts  | 154 +++++++
+ arch/arm/boot/dts/aspeed-bmc-vegman.dtsi      | 381 ++++++++++++++++++
+ 6 files changed, 945 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-vegman-n110.dts
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-vegman-rx20.dts
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-vegman-sx20.dts
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-vegman.dtsi
 
-The OpenBMC security response team is working to become a CVE Numbering 
-Authority (CNA).
+-- 
+2.32.0
 
