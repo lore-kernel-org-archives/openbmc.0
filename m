@@ -2,19 +2,19 @@ Return-Path: <SRS0=/K6i=P5=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2035C433F5
-	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 08:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3748BC433EF
+	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 08:01:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E4C0611F2
-	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 08:01:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3E4C0611F2
+	by mail.kernel.org (Postfix) with ESMTPS id BD3B6611F2
+	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 08:01:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD3B6611F2
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hpy3L5QThz3cDn
-	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 19:01:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hpy3r20Vxz3c7f
+	for <openbmc@archiver.kernel.org>; Wed, 10 Nov 2021 19:01:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -23,10 +23,10 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hpy2b6jFwz2ywH;
- Wed, 10 Nov 2021 19:00:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hpy2b6mtDz30Ph;
+ Wed, 10 Nov 2021 19:00:38 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1AA7alv7018227;
+ by twspam01.aspeedtech.com with ESMTP id 1AA7alox018228;
  Wed, 10 Nov 2021 15:36:47 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
@@ -37,10 +37,13 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 0/2] Fix incorrect resolution detected
-Date: Wed, 10 Nov 2021 16:00:10 +0800
-Message-ID: <20211110080012.20759-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v2 1/2] media: aspeed: Add macro for the fields of the
+ mode-detect registers
+Date: Wed, 10 Nov 2021 16:00:11 +0800
+Message-ID: <20211110080012.20759-2-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211110080012.20759-1-jammy_huang@aspeedtech.com>
+References: <20211110080012.20759-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -48,7 +51,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1AA7alv7018227
+X-MAIL: twspam01.aspeedtech.com 1AA7alox018228
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,18 +67,51 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series fixes incorrect resolution detected once in a while.
+VE_MODE_DT_HOR_TOLER: the tolerance in detecting for stable horizontal
+signal.
+VE_MODE_DT_VER_TOLER: the tolerance in detecting for stable vertical
+signal.
+VE_MODE_DT_HOR_STABLE: the minimum required count in detecting stable
+HSYNC signal to set mode detection horizontal signal stable.
+VE_MODE_DT_VER_STABLE: the minimum required count in detecting stable
+VSYNC signal to set mode detection vertical signal stable.
 
-Changes in v2:
- - Separate the patch into two patches
-
-Jammy Huang (2):
-  media: aspeed: Add macro for the fields of the mode-detect registers
-  media: aspeed: Fix incorrect resolution detected
-
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
  drivers/media/platform/aspeed-video.c | 13 ++++++++++++-
  1 file changed, 12 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 5da52646b298..996afbb87ee9 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -196,6 +196,12 @@
+ #define  VE_INTERRUPT_VSYNC_DESC	BIT(11)
+ 
+ #define VE_MODE_DETECT			0x30c
++#define  VE_MODE_DT_HOR_TOLER		GENMASK(31, 28)
++#define  VE_MODE_DT_VER_TOLER		GENMASK(27, 24)
++#define  VE_MODE_DT_HOR_STABLE		GENMASK(23, 20)
++#define  VE_MODE_DT_VER_STABLE		GENMASK(19, 16)
++#define  VE_MODE_DT_EDG_THROD		GENMASK(15, 8)
++
+ #define VE_MEM_RESTRICT_START		0x310
+ #define VE_MEM_RESTRICT_END		0x314
+ 
+@@ -1199,7 +1205,12 @@ static void aspeed_video_init_regs(struct aspeed_video *video)
+ 	aspeed_video_write(video, VE_SCALING_FILTER3, 0x00200000);
+ 
+ 	/* Set mode detection defaults */
+-	aspeed_video_write(video, VE_MODE_DETECT, 0x22666500);
++	aspeed_video_write(video, VE_MODE_DETECT,
++			   FIELD_PREP(VE_MODE_DT_HOR_TOLER, 2) |
++			   FIELD_PREP(VE_MODE_DT_VER_TOLER, 2) |
++			   FIELD_PREP(VE_MODE_DT_HOR_STABLE, 6) |
++			   FIELD_PREP(VE_MODE_DT_VER_STABLE, 6) |
++			   FIELD_PREP(VE_MODE_DT_EDG_THROD, 0x65));
+ 
+ 	aspeed_video_write(video, VE_BCD_CTRL, 0);
+ }
 -- 
 2.25.1
 
