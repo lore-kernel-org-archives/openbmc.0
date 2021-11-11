@@ -2,76 +2,68 @@ Return-Path: <SRS0=GGe/=P6=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7769C433F5
-	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 02:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 762CFC433F5
+	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 14:18:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C0E3161208
-	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 02:14:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C0E3161208
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
+	by mail.kernel.org (Postfix) with ESMTPS id B932D60EDF
+	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 14:18:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B932D60EDF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HqQK80sCJz2yK3
-	for <openbmc@archiver.kernel.org>; Thu, 11 Nov 2021 13:14:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HqkMX0LS0z30CK
+	for <openbmc@archiver.kernel.org>; Fri, 12 Nov 2021 01:18:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=Sws/mIn0;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=h98KfKhe;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::231;
- helo=mail-oi1-x231.google.com; envelope-from=yulei.sh@bytedance.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::229;
+ helo=mail-lj1-x229.google.com; envelope-from=hughsient@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bytedance-com.20210112.gappssmtp.com
- header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256
- header.s=20210112 header.b=Sws/mIn0; dkim-atps=neutral
-Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com
- [IPv6:2607:f8b0:4864:20::231])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=h98KfKhe; dkim-atps=neutral
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [IPv6:2a00:1450:4864:20::229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HqQJM1ykzz2xDv
- for <openbmc@lists.ozlabs.org>; Thu, 11 Nov 2021 13:14:07 +1100 (AEDT)
-Received: by mail-oi1-x231.google.com with SMTP id o4so8841012oia.10
- for <openbmc@lists.ozlabs.org>; Wed, 10 Nov 2021 18:14:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance-com.20210112.gappssmtp.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MYi5aCjUCD0+yB7qfxUE4373YpQKBy2WyMq5xwnmcA4=;
- b=Sws/mIn0Gk51Xd6SsH32MldeYkxZr5XC8c327sareMM+DOgEeKA4ZNSt1umQZdCWLZ
- +UMPAUD0HKAndn9BWL1nEmXBMY1iSvN4KzAbOdyy+TlcJwaHdwJt3X84Q02Fb0uWjK0x
- z+2WgAK/8//QJgFEnHUoOSm5MMSvZiw6J8gbgMFJqjUM7Vqf6E1KRYPPYqStf/ITPIyI
- IOr5DW1e0HVOdIL8N7lRjcgUUhP3XfGgAfBRRHmO6F9iAchJWHxX/cEE/nq7dLtE6SdI
- uJNE4q+/BCBiujekYRCK0IxVUpgj869Sc6wD8tNqFP/Tu4ADELUa4GKolN7AuBmKrCJ0
- DrtA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HqkLp3N9jz2yb5
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Nov 2021 01:17:20 +1100 (AEDT)
+Received: by mail-lj1-x229.google.com with SMTP id z8so12178907ljz.9
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Nov 2021 06:17:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Bse4adxE4e44Go3vyIVdmhc526CY8D8VmAClhrpwtvk=;
+ b=h98KfKhe2Xml0DpPTdIVSh5DIm5COv4ujY1VZ+khmOl3KyroygGsn3Jq4zsAD04fpO
+ IIxCbetbM8VeWEGnJQ4A9mjzPUOseiHvH2RmikZtBikISAWX0Dpga8xxYrfg4ps2U0aj
+ /9U6BX0Wmbx3qAK48TVUUAABxgF8+tv1DHo2KDpoJzcQE9P/0WVEOg/o0h2jTgACUVuv
+ Svt0urcYofeojitEJAvqKCjvJ7KfrxQvONA/a2ZP4gjjEUPZdbv7s+ud3WxRs4XUt0pK
+ sxPHZNs/2mr0HgaBT8uxI/+mixyBXM49128MSjXyaIKNCtJvC+zxcKViLC6QfYstaE0D
+ Dppw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MYi5aCjUCD0+yB7qfxUE4373YpQKBy2WyMq5xwnmcA4=;
- b=tDWj+c/UamyS15wg/VBW5ng2XMZzJMj0xyHxUxlAzEVq3ZALGdg1aQHU/ox2ff7oJT
- +eQk8iZpklGlPRfnqsliBfXPrxL1VMIiikU9f0zGzcoMG/xYIz73Dwo3zoRXglFdhDCZ
- HJDD+noQycyQGY7YjS1iiTSOv9NzqtXzNkIdxxFdIMC06jg5OO42ZGQNZxyoIohm1xDY
- 5jkBZa/EfYp2RNbYKx4CrBwxhKeyszjt/R4/sCs1QeLvyQAYLAN04NHNfRgG1yLsF0iV
- IUmBASmqO7jZ6oxJbD51TlcKHBQkBq4zzGh1+ZU50TJfmGg42ZvrcIGpQnxSAixQ0H19
- rV/w==
-X-Gm-Message-State: AOAM530qr7cAxqgPLbNHMK3pMkP4Xdu8r9IJowpK0gm4edUbFgW1b1YJ
- 8ovUAWrCwiMBrA+Tt+PYx+bPerk+TTpUhuQMhociWoG37+BCKyy6
-X-Google-Smtp-Source: ABdhPJy+EG4MlenKY/065waysP/gEnN6ZfNyVa8/y+Ek2fHIYAtEjpemB73dSsWDy8j+Ykvx850NuIlpnPWPGAHMPJ4=
-X-Received: by 2002:a05:6808:1384:: with SMTP id
- c4mr16980516oiw.34.1636596844169; 
- Wed, 10 Nov 2021 18:14:04 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Bse4adxE4e44Go3vyIVdmhc526CY8D8VmAClhrpwtvk=;
+ b=SKA3TFORG8uw5yH8jpynFXp9TOKN48DXc6e/ay+v1i2/J7pWID7okgAeEOIdwM692j
+ UEnF3wlu1r/5qQdeCIMc5M3eDnQ29I269frJ5Jwtow01N2e/Wv1aF4fWtTl5ScFQMtGJ
+ ykeItkkcHIeK0I+ZT9ZXtGwwW+vcLHJqKHjKkmRl5pq+JtBBYF1wIWO+w/1je6+EWzD/
+ O3sgXDcnHjrquZvOeuKmJ+dSJR2+LGgnrbFKrFyqL+fgWjshXoa5B1rme1nhFDzAmdtn
+ qI8gNcCZ5ilDS0lyNA08umWPIM4S0ThrIgNOFg0P2nB/DiQyNzfidgR8QRyhbrdydBFY
+ dvsA==
+X-Gm-Message-State: AOAM5336zWwY+/9R9OWTjlOncWAcRp1Ops8CnBrZOR63RBvmea4WG38O
+ fsnxGzI8WwAusXUIO4QBK3CWllQBiM2zMv1piDS1KYAyxLI=
+X-Google-Smtp-Source: ABdhPJwQjkKDGm5InVbr2hKavr+zcu5ONe4ksr59/XOLtNHRyxHCe47HVKJUrGAFraC+07ItkVz5HoHunz3/oLKCPd0=
+X-Received: by 2002:a2e:9641:: with SMTP id z1mr7948750ljh.66.1636640230553;
+ Thu, 11 Nov 2021 06:17:10 -0800 (PST)
 MIME-Version: 1.0
-References: <20211110222803.836-1-a.kartashev@yadro.com>
- <20211110222803.836-3-a.kartashev@yadro.com>
-In-Reply-To: <20211110222803.836-3-a.kartashev@yadro.com>
-From: Lei Yu <yulei.sh@bytedance.com>
-Date: Thu, 11 Nov 2021 10:13:53 +0800
-Message-ID: <CAGm54UESNecrEJfiv9vXyLYqM6OSGp1Cxt8hB0UJgG_Bgi=-tg@mail.gmail.com>
-Subject: Re: [External] [PATCH 2/2] ARM: dts: aspeed: add device tree for
- YADRO VEGMAN BMC
-To: Andrei Kartashev <a.kartashev@yadro.com>
+From: Richard Hughes <hughsient@gmail.com>
+Date: Thu, 11 Nov 2021 14:16:59 +0000
+Message-ID: <CAD2FfiGpG_J5W8Ftdp5wE2wLB=7Tfmvfmivy0_4vW=D0fYdw3g@mail.gmail.com>
+Subject: Redfish implementation does not supply SoftwareId
+To: openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -84,78 +76,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: andrew@aj.id.au, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Nov 11, 2021 at 6:29 AM Andrei Kartashev <a.kartashev@yadro.com> wrote:
-> +
-> +&fmc {
-> +       status = "okay";
-> +       flash@0 {
-> +               status = "okay";
-> +               label = "bmc";
-> +               m25p,fast-read;
-> +               partitions {
-> +                       compatible = "fixed-partitions";
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
-> +
-> +                       u-boot@0 {
-> +                               reg = <0x0 0x80000>; // 512KB
-> +                               label = "u-boot";
-> +                       };
-> +
-> +                       fit-image-a@80000 {
-> +                               reg = <0x80000 0x1b80000>; // 27.5MB
-> +                               label = "image-a";
-> +                       };
-> +
-> +                       sofs@1c00000 {
-> +                               reg = <0x1c00000 0x200000>; // 2MB
-> +                               label = "sofs";
-> +                       };
-> +
-> +                       rwfs@1e00000 {
-> +                               reg = <0x1e00000 0x600000>;  // 6MB
-> +                               label = "rwfs";
-> +                       };
-> +
-> +                       u-boot-env@2400000 {
-> +                               reg = <0x2400000 0x20000>; // 128KB
-> +                               label = "u-boot-env";
-> +                       };
-> +
-> +                       fit-image-b@2480000 {
-> +                               reg = <0x2480000 0x1b80000>; // 27.5MB
-> +                               label = "image-b";
-> +                       };
-> +               };
-> +       };
-> +};
+Hi all,
 
-The flash layout is not the same as the openbmc static layout, but
-like the one used by Intel-BMC.
-May I ask if you are going to upstream the bmc-code-update related
-changes for this layout?
+My name is Richard Hughes and I'm the upstream maintainer of fwupd
+which is a linux program that allows flashing hardware. It's used by a
+few million people already and there's recently been a lot of interest
+about getting fwupd to run on the actual BMC chip, rather than on the
+host OS. That's not really what this email is about, but might explain
+the bigger picture. I'll come back to this in a few weeks time :)
 
+At the moment fwupd runs on the host OS and uses a plugin to
+communicate with various Redfish implementations, for example iDRAC
+for Dell or XClarity for Lenovo. Teddy Reed kindly donated (loaned?)
+me some hardware so I could test the fwupd plugin against the Redfish
+implementation of OpenBMC, more specifically git master on a
+evb-ast2500 board.
 
-> +&i2c0 {
-> +       /* SMB_IPMB_STBY_LVC3 */
-> +       multi-master;
-> +       general-call;
-> +       aspeed,dma-buf-size = <4095>;
-> +       aspeed,hw-timeout-ms = <300>;
+With a small patch to fwupd (setting CURLOPT_SSL_VERIFYHOST=0) it
+seems to load and enumerate correctly, but doesn't add any devices.
+The reason I found was that the SoftwareId property is missing from
+the /redfish/v1/UpdateService/FirmwareInventory/7d021ade path. The
+SoftwareId is the "key" that maps the hardware to a specific firmware
+*stream*, so for instance it could be something like
+"USB\VID_17EF&PID_3083" for a peripheral or some other kind of
+vendor-specific string, e.g. "SAMSUNG MZVLB2T0HALB-000L7". The idea is
+that vendors then upload firmware to the LVFS website with a defined
+*stream* and updates get deployed onto matching hardware
+automatically. I'm not so sure that makes a huge amount of sense for
+the OpenBMC BMC image itself. Or maybe it does; getting new official
+OpenBMC images from the LVFS would be way cool, but I don't think we
+want to flash the entire MTD image. Anyway, I digress.
 
-These properties are not available in openbmc linux kernel tree, but
-used in Intel-BMC/linux, may I ask if you are going to upstream the
-related changes?
+I guess my question is if I could get a SoftwareId set for 7d021ade --
+e.g. "evb-ast2500" -- that at least allows the device to enumerate in
+fwupd and gives me something to test against. I guess my next question
+is how a OpenBMC distributor adds a new device into
+/redfish/v1/UpdateService/FirmwareInventory.Members -- and if there's
+a way to set SoftwareId for that new device too.
 
-> +       status = "okay";
-> +};
-> +
+Sorry if all these are newbie questions, and I appreciate any
+pointers; I'm happy to send patches. Thanks.
 
--- 
-BRs,
-Lei YU
+Richard.
