@@ -2,19 +2,19 @@ Return-Path: <SRS0=o9ar=QC=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C24F1C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0A29C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 55EF060E0C
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 55EF060E0C
+	by mail.kernel.org (Postfix) with ESMTPS id 5DA3363211
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5DA3363211
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1WB03Bqz3bd0
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:47:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1Wg61WJz2yJ2
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:47:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -23,15 +23,15 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB39dkz2xsm;
- Mon, 15 Nov 2021 18:45:49 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB3sdVz2xsv;
+ Mon, 15 Nov 2021 18:45:47 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1AF7Kprr080859;
- Mon, 15 Nov 2021 15:20:51 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1AF7KqBj080861;
+ Mon, 15 Nov 2021 15:20:52 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 15 Nov 2021 15:44:26 +0800
+ Mon, 15 Nov 2021 15:44:27 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <hverkuil-cisco@xs4all.nl>,
@@ -39,10 +39,12 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <laurent.pinchart@ideasonboard.com>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 0/9] add aspeed-jpeg support for aspeed-video
-Date: Mon, 15 Nov 2021 15:44:28 +0800
-Message-ID: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v4 2/9] media: aspeed: use v4l2_info/v4l2_warn/v4l2_dbg for log
+Date: Mon, 15 Nov 2021 15:44:30 +0800
+Message-ID: <20211115074437.28079-3-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
+References: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -50,7 +52,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1AF7Kprr080859
+X-MAIL: twspam01.aspeedtech.com 1AF7KqBj080861
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +68,178 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The aim of this series is to add aspeed-jpeg support for aspeed-video
-driver.
+The debug log level, 0~3, is controlled by module_param, debug.
+The higher the value, the more the information.
+  0: off
+  1: info
+  2: debug
+  3: register operations
 
-To achieve this major goal some refactors are included.
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+v4:
+  - no update
+v3:
+  - update commit message
+  - update MODULE_PARM_DESC for debug
+v2:
+  - use v4l2_xxx log rather than self-defined macro
+---
+ drivers/media/platform/aspeed-video.c | 40 +++++++++++++++------------
+ 1 file changed, 23 insertions(+), 17 deletions(-)
 
-In the last, debugfs information is also updated per this change.
-
-Changes in v4:
- - Add definition for the Aspeed JPEG format
- - Reserve controls for ASPEED
- - Use s_fmt to update format rather than new control
- - Update aspeed hq quality range, 1 ~ 12
-
-
-Jammy Huang (9):
-  media: aspeed: move err-handling together to the bottom
-  media: aspeed: use v4l2_info/v4l2_warn/v4l2_dbg for log
-  media: aspeed: add more debug log messages
-  media: aspeed: refactor to gather format/compress settings
-  media: v4l: Add definition for the Aspeed JPEG format
-  media: v4l2-ctrls: Reserve controls for ASPEED
-  media: aspeed: Support aspeed mode to reduce compressed data
-  media: aspeed: add comments and macro
-  media: aspeed: Extend debug message
-
- .../media/uapi/v4l/pixfmt-reserved.rst        |  12 +
- drivers/media/platform/aspeed-video.c         | 464 ++++++++++++++----
- drivers/media/v4l2-core/v4l2-ioctl.c          |   1 +
- include/uapi/linux/aspeed-video.h             |  15 +
- include/uapi/linux/v4l2-controls.h            |   5 +
- include/uapi/linux/videodev2.h                |   1 +
- 6 files changed, 413 insertions(+), 85 deletions(-)
- create mode 100644 include/uapi/linux/aspeed-video.h
-
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index f5c40d6b4ece..6af57467b6d4 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -30,6 +30,7 @@
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-ioctl.h>
+ #include <media/videobuf2-dma-contig.h>
++#include <linux/videodev2.h>
+ 
+ #define DEVICE_NAME			"aspeed-video"
+ 
+@@ -390,6 +391,8 @@ static const struct v4l2_dv_timings_cap aspeed_video_timings_cap = {
+ 	},
+ };
+ 
++static unsigned int debug;
++
+ static void aspeed_video_init_jpeg_table(u32 *table, bool yuv420)
+ {
+ 	int i;
+@@ -437,23 +440,23 @@ static void aspeed_video_update(struct aspeed_video *video, u32 reg, u32 clear,
+ 	t &= ~clear;
+ 	t |= bits;
+ 	writel(t, video->base + reg);
+-	dev_dbg(video->dev, "update %03x[%08x -> %08x]\n", reg, before,
+-		readl(video->base + reg));
++	v4l2_dbg(3, debug, &video->v4l2_dev, "update %03x[%08x -> %08x]\n",
++		 reg, before, readl(video->base + reg));
+ }
+ 
+ static u32 aspeed_video_read(struct aspeed_video *video, u32 reg)
+ {
+ 	u32 t = readl(video->base + reg);
+ 
+-	dev_dbg(video->dev, "read %03x[%08x]\n", reg, t);
++	v4l2_dbg(3, debug, &video->v4l2_dev, "read %03x[%08x]\n", reg, t);
+ 	return t;
+ }
+ 
+ static void aspeed_video_write(struct aspeed_video *video, u32 reg, u32 val)
+ {
+ 	writel(val, video->base + reg);
+-	dev_dbg(video->dev, "write %03x[%08x]\n", reg,
+-		readl(video->base + reg));
++	v4l2_dbg(3, debug, &video->v4l2_dev, "write %03x[%08x]\n", reg,
++		 readl(video->base + reg));
+ }
+ 
+ static void update_perf(struct aspeed_video_perf *p)
+@@ -474,13 +477,13 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
+ 	u32 seq_ctrl = aspeed_video_read(video, VE_SEQ_CTRL);
+ 
+ 	if (video->v4l2_input_status) {
+-		dev_dbg(video->dev, "No signal; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "No signal; don't start frame\n");
+ 		return 0;
+ 	}
+ 
+ 	if (!(seq_ctrl & VE_SEQ_CTRL_COMP_BUSY) ||
+ 	    !(seq_ctrl & VE_SEQ_CTRL_CAP_BUSY)) {
+-		dev_dbg(video->dev, "Engine busy; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "Engine busy; don't start frame\n");
+ 		return -EBUSY;
+ 	}
+ 
+@@ -489,7 +492,7 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
+ 				       struct aspeed_video_buffer, link);
+ 	if (!buf) {
+ 		spin_unlock_irqrestore(&video->lock, flags);
+-		dev_dbg(video->dev, "No buffers; don't start frame\n");
++		v4l2_warn(&video->v4l2_dev, "No buffers; don't start frame\n");
+ 		return -EPROTO;
+ 	}
+ 
+@@ -569,7 +572,7 @@ static void aspeed_video_bufs_done(struct aspeed_video *video,
+ 
+ static void aspeed_video_irq_res_change(struct aspeed_video *video, ulong delay)
+ {
+-	dev_dbg(video->dev, "Resolution changed; resetting\n");
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Resolution changed; resetting\n");
+ 
+ 	set_bit(VIDEO_RES_CHANGE, &video->flags);
+ 	clear_bit(VIDEO_FRAME_INPRG, &video->flags);
+@@ -770,8 +773,8 @@ static void aspeed_video_calc_compressed_size(struct aspeed_video *video,
+ 	aspeed_video_write(video, VE_STREAM_BUF_SIZE,
+ 			   compression_buffer_size_reg);
+ 
+-	dev_dbg(video->dev, "Max compressed size: %x\n",
+-		video->max_compressed_size);
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Max compressed size: %#x\n",
++		 video->max_compressed_size);
+ }
+ 
+ #define res_check(v) test_and_clear_bit(VIDEO_MODE_DETECT_DONE, &(v)->flags)
+@@ -808,7 +811,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      res_check(video),
+ 						      MODE_DETECT_TIMEOUT);
+ 		if (!rc) {
+-			dev_dbg(video->dev, "Timed out; first mode detect\n");
++			v4l2_warn(&video->v4l2_dev, "Timed out; first mode detect\n");
+ 			clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 			return;
+ 		}
+@@ -822,7 +825,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      MODE_DETECT_TIMEOUT);
+ 		clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 		if (!rc) {
+-			dev_dbg(video->dev, "Timed out; second mode detect\n");
++			v4l2_warn(&video->v4l2_dev, "Timed out; second mode detect\n");
+ 			return;
+ 		}
+ 
+@@ -856,7 +859,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 	} while (invalid_resolution && (tries++ < INVALID_RESOLUTION_RETRIES));
+ 
+ 	if (invalid_resolution) {
+-		dev_dbg(video->dev, "Invalid resolution detected\n");
++		v4l2_warn(&video->v4l2_dev, "Invalid resolution detected\n");
+ 		return;
+ 	}
+ 
+@@ -873,8 +876,8 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 	aspeed_video_update(video, VE_SEQ_CTRL, 0,
+ 			    VE_SEQ_CTRL_AUTO_COMP | VE_SEQ_CTRL_EN_WATCHDOG);
+ 
+-	dev_dbg(video->dev, "Got resolution: %dx%d\n", det->width,
+-		det->height);
++	v4l2_dbg(1, debug, &video->v4l2_dev, "Got resolution: %dx%d\n",
++		 det->width, det->height);
+ }
+ 
+ static void aspeed_video_set_resolution(struct aspeed_video *video)
+@@ -1501,7 +1504,7 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
+ 				!test_bit(VIDEO_FRAME_INPRG, &video->flags),
+ 				STOP_TIMEOUT);
+ 	if (!rc) {
+-		dev_dbg(video->dev, "Timed out when stopping streaming\n");
++		v4l2_warn(&video->v4l2_dev, "Timed out when stopping streaming\n");
+ 
+ 		/*
+ 		 * Need to force stop any DMA and try and get HW into a good
+@@ -1851,6 +1854,9 @@ static struct platform_driver aspeed_video_driver = {
+ 
+ module_platform_driver(aspeed_video_driver);
+ 
++module_param(debug, int, 0644);
++MODULE_PARM_DESC(debug, "Debug level (0=off,1=info,2=debug,3=reg ops)");
++
+ MODULE_DESCRIPTION("ASPEED Video Engine Driver");
+ MODULE_AUTHOR("Eddie James");
+ MODULE_LICENSE("GPL v2");
 -- 
 2.25.1
 
