@@ -2,19 +2,19 @@ Return-Path: <SRS0=o9ar=QC=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EAC63C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB4E4C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91EAB61AAB
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 91EAB61AAB
+	by mail.kernel.org (Postfix) with ESMTPS id 686A461AAB
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:48:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 686A461AAB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1X9245Qz3bXW
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:48:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1Xg1Dy9z2yfk
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:48:51 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -23,15 +23,15 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB42tWz2xtK;
- Mon, 15 Nov 2021 18:45:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB498kz2xvs;
+ Mon, 15 Nov 2021 18:45:48 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1AF7KrKl080865;
- Mon, 15 Nov 2021 15:20:53 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1AF7Kqj7080860;
+ Mon, 15 Nov 2021 15:20:52 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 15 Nov 2021 15:44:28 +0800
+ Mon, 15 Nov 2021 15:44:26 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <hverkuil-cisco@xs4all.nl>,
@@ -39,9 +39,9 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <laurent.pinchart@ideasonboard.com>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 6/9] media: v4l2-ctrls: Reserve controls for ASPEED
-Date: Mon, 15 Nov 2021 15:44:34 +0800
-Message-ID: <20211115074437.28079-7-jammy_huang@aspeedtech.com>
+Subject: [PATCH v4 1/9] media: aspeed: move err-handling together to the bottom
+Date: Mon, 15 Nov 2021 15:44:29 +0800
+Message-ID: <20211115074437.28079-2-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
 References: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
@@ -52,7 +52,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1AF7KrKl080865
+X-MAIL: twspam01.aspeedtech.com 1AF7Kqj7080860
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,35 +68,75 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Reserve controls for ASPEED video family. Aspeed video engine contains a
-few features which improve video quality, reduce amount of compressed
-data, and etc. Hence, 16 controls are reserved for these aspeed
-proprietary features.
+refine aspeed_video_setup_video() flow.
 
 Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
 ---
 v4:
-  - new
+  - no update
+v3:
+  - no update
+v2:
+  - no update
 ---
- include/uapi/linux/v4l2-controls.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/media/platform/aspeed-video.c | 24 +++++++++++-------------
+ 1 file changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index a2669b79b294..e7c425a6fa9f 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -192,6 +192,11 @@ enum v4l2_colorfx {
-  * We reserve 16 controls for this driver. */
- #define V4L2_CID_USER_IMX_BASE			(V4L2_CID_USER_BASE + 0x10b0)
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index fea5e4d0927e..f5c40d6b4ece 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -1641,11 +1641,8 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
  
-+/* The base for the aspeed driver controls.
-+ * We reserve 16 controls for this driver.
-+ */
-+#define V4L2_CID_USER_ASPEED_BASE		(V4L2_CID_USER_BASE + 0x10c0)
+ 	rc = video->ctrl_handler.error;
+ 	if (rc) {
+-		v4l2_ctrl_handler_free(&video->ctrl_handler);
+-		v4l2_device_unregister(v4l2_dev);
+-
+ 		dev_err(video->dev, "Failed to init controls: %d\n", rc);
+-		return rc;
++		goto err_ctrl_init;
+ 	}
+ 
+ 	v4l2_dev->ctrl_handler = &video->ctrl_handler;
+@@ -1663,11 +1660,8 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
+ 
+ 	rc = vb2_queue_init(vbq);
+ 	if (rc) {
+-		v4l2_ctrl_handler_free(&video->ctrl_handler);
+-		v4l2_device_unregister(v4l2_dev);
+-
+ 		dev_err(video->dev, "Failed to init vb2 queue\n");
+-		return rc;
++		goto err_vb2_init;
+ 	}
+ 
+ 	vdev->queue = vbq;
+@@ -1685,15 +1679,19 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
+ 	video_set_drvdata(vdev, video);
+ 	rc = video_register_device(vdev, VFL_TYPE_GRABBER, 0);
+ 	if (rc) {
+-		vb2_queue_release(vbq);
+-		v4l2_ctrl_handler_free(&video->ctrl_handler);
+-		v4l2_device_unregister(v4l2_dev);
+-
+ 		dev_err(video->dev, "Failed to register video device\n");
+-		return rc;
++		goto err_video_reg;
+ 	}
+ 
+ 	return 0;
 +
- /* MPEG-class control IDs */
- /* The MPEG controls are applicable to all codec controls
-  * and the 'MPEG' part of the define is historical */
++err_video_reg:
++	vb2_queue_release(vbq);
++err_vb2_init:
++err_ctrl_init:
++	v4l2_ctrl_handler_free(&video->ctrl_handler);
++	v4l2_device_unregister(v4l2_dev);
++	return rc;
+ }
+ 
+ static int aspeed_video_init(struct aspeed_video *video)
 -- 
 2.25.1
 
