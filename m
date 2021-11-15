@@ -2,19 +2,19 @@ Return-Path: <SRS0=o9ar=QC=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50B60C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C24F1C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:35 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD82060184
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org BD82060184
+	by mail.kernel.org (Postfix) with ESMTPS id 55EF060E0C
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 07:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 55EF060E0C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1Vh3G21z2xDH
-	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:47:08 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ht1WB03Bqz3bd0
+	for <openbmc@archiver.kernel.org>; Mon, 15 Nov 2021 18:47:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -23,15 +23,15 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB371nz2xr3;
- Mon, 15 Nov 2021 18:45:47 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Ht1TB39dkz2xsm;
+ Mon, 15 Nov 2021 18:45:49 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1AF7KqYF080862;
- Mon, 15 Nov 2021 15:20:52 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1AF7Kprr080859;
+ Mon, 15 Nov 2021 15:20:51 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 15 Nov 2021 15:44:27 +0800
+ Mon, 15 Nov 2021 15:44:26 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <hverkuil-cisco@xs4all.nl>,
@@ -39,12 +39,10 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <laurent.pinchart@ideasonboard.com>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 3/9] media: aspeed: add more debug log messages
-Date: Mon, 15 Nov 2021 15:44:31 +0800
-Message-ID: <20211115074437.28079-4-jammy_huang@aspeedtech.com>
+Subject: [PATCH v4 0/9] add aspeed-jpeg support for aspeed-video
+Date: Mon, 15 Nov 2021 15:44:28 +0800
+Message-ID: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
-References: <20211115074437.28079-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -52,7 +50,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1AF7KqYF080862
+X-MAIL: twspam01.aspeedtech.com 1AF7Kprr080859
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,122 +66,40 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The new messages are listed as below:
-1. jpeg header and capture buffer information
-2. information for each irq
-3. current capture mode, sync or direct-fetch
-4. time consumed for each frame
-5. input timing changed information
+The aim of this series is to add aspeed-jpeg support for aspeed-video
+driver.
 
-Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
----
-v4:
-  - modify log level
-v3:
-  - update commit message
-v2:
-  - new
----
- drivers/media/platform/aspeed-video.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+To achieve this major goal some refactors are included.
 
-diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index 6af57467b6d4..e8dd0a7ebfc7 100644
---- a/drivers/media/platform/aspeed-video.c
-+++ b/drivers/media/platform/aspeed-video.c
-@@ -461,12 +461,17 @@ static void aspeed_video_write(struct aspeed_video *video, u32 reg, u32 val)
- 
- static void update_perf(struct aspeed_video_perf *p)
- {
-+	struct aspeed_video *v = container_of(p, struct aspeed_video,
-+					      perf);
-+
- 	p->duration =
- 		ktime_to_ms(ktime_sub(ktime_get(),  p->last_sample));
- 	p->totaltime += p->duration;
- 
- 	p->duration_max = max(p->duration, p->duration_max);
- 	p->duration_min = min(p->duration, p->duration_min);
-+	v4l2_dbg(2, debug, &v->v4l2_dev, "time consumed: %d ms\n",
-+		 p->duration);
- }
- 
- static int aspeed_video_start_frame(struct aspeed_video *video)
-@@ -597,6 +602,12 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
- 	struct aspeed_video *video = arg;
- 	u32 sts = aspeed_video_read(video, VE_INTERRUPT_STATUS);
- 
-+	v4l2_dbg(2, debug, &video->v4l2_dev, "irq sts=%#x %s%s%s%s\n", sts,
-+		 sts & VE_INTERRUPT_MODE_DETECT_WD ? ", unlock" : "",
-+		 sts & VE_INTERRUPT_MODE_DETECT ? ", lock" : "",
-+		 sts & VE_INTERRUPT_CAPTURE_COMPLETE ? ", capture-done" : "",
-+		 sts & VE_INTERRUPT_COMP_COMPLETE ? ", comp-done" : "");
-+
- 	/*
- 	 * Resolution changed or signal was lost; reset the engine and
- 	 * re-initialize
-@@ -910,6 +921,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
- 
- 	/* Don't use direct mode below 1024 x 768 (irqs don't fire) */
- 	if (size < DIRECT_FETCH_THRESHOLD) {
-+		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Sync Mode\n");
- 		aspeed_video_write(video, VE_TGS_0,
- 				   FIELD_PREP(VE_TGS_FIRST,
- 					      video->frame_left - 1) |
-@@ -921,6 +933,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
- 					      video->frame_bottom + 1));
- 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_INT_DE);
- 	} else {
-+		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Direct Mode\n");
- 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_DIRECT_FETCH);
- 	}
- 
-@@ -937,6 +950,10 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
- 		if (!aspeed_video_alloc_buf(video, &video->srcs[1], size))
- 			goto err_mem;
- 
-+		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf0 addr(%#x) size(%d)\n",
-+			 video->srcs[0].dma, video->srcs[0].size);
-+		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf1 addr(%#x) size(%d)\n",
-+			 video->srcs[1].dma, video->srcs[1].size);
- 		aspeed_video_write(video, VE_SRC0_ADDR, video->srcs[0].dma);
- 		aspeed_video_write(video, VE_SRC1_ADDR, video->srcs[1].dma);
- 	}
-@@ -1201,6 +1218,9 @@ static int aspeed_video_set_dv_timings(struct file *file, void *fh,
- 
- 	timings->type = V4L2_DV_BT_656_1120;
- 
-+	v4l2_dbg(1, debug, &video->v4l2_dev, "set new timings(%dx%d)\n",
-+		 timings->bt.width, timings->bt.height);
-+
- 	return 0;
- }
- 
-@@ -1383,6 +1403,7 @@ static void aspeed_video_resolution_work(struct work_struct *work)
- 			.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
- 		};
- 
-+		v4l2_dbg(1, debug, &video->v4l2_dev, "fire source change event\n");
- 		v4l2_event_queue(&video->vdev, &ev);
- 	} else if (test_bit(VIDEO_STREAMING, &video->flags)) {
- 		/* No resolution change so just restart streaming */
-@@ -1715,6 +1736,7 @@ static int aspeed_video_init(struct aspeed_video *video)
- 		dev_err(dev, "Unable to request IRQ %d\n", irq);
- 		return rc;
- 	}
-+	dev_info(video->dev, "irq %d\n", irq);
- 
- 	video->eclk = devm_clk_get(dev, "eclk");
- 	if (IS_ERR(video->eclk)) {
-@@ -1751,6 +1773,8 @@ static int aspeed_video_init(struct aspeed_video *video)
- 		rc = -ENOMEM;
- 		goto err_release_reserved_mem;
- 	}
-+	dev_info(video->dev, "alloc mem size(%d) at %#x for jpeg header\n",
-+		 VE_JPEG_HEADER_SIZE, video->jpeg.dma);
- 
- 	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
- 
+In the last, debugfs information is also updated per this change.
+
+Changes in v4:
+ - Add definition for the Aspeed JPEG format
+ - Reserve controls for ASPEED
+ - Use s_fmt to update format rather than new control
+ - Update aspeed hq quality range, 1 ~ 12
+
+
+Jammy Huang (9):
+  media: aspeed: move err-handling together to the bottom
+  media: aspeed: use v4l2_info/v4l2_warn/v4l2_dbg for log
+  media: aspeed: add more debug log messages
+  media: aspeed: refactor to gather format/compress settings
+  media: v4l: Add definition for the Aspeed JPEG format
+  media: v4l2-ctrls: Reserve controls for ASPEED
+  media: aspeed: Support aspeed mode to reduce compressed data
+  media: aspeed: add comments and macro
+  media: aspeed: Extend debug message
+
+ .../media/uapi/v4l/pixfmt-reserved.rst        |  12 +
+ drivers/media/platform/aspeed-video.c         | 464 ++++++++++++++----
+ drivers/media/v4l2-core/v4l2-ioctl.c          |   1 +
+ include/uapi/linux/aspeed-video.h             |  15 +
+ include/uapi/linux/v4l2-controls.h            |   5 +
+ include/uapi/linux/videodev2.h                |   1 +
+ 6 files changed, 413 insertions(+), 85 deletions(-)
+ create mode 100644 include/uapi/linux/aspeed-video.h
+
 -- 
 2.25.1
 
