@@ -2,75 +2,71 @@ Return-Path: <SRS0=1Y7q=QE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A11AAC433F5
-	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 01:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EB19C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 03:04:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8C9361BFE
-	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 01:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E8C9361BFE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 809EF61501
+	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 03:04:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 809EF61501
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hv4yJ2Yk2z2ymy
-	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 12:26:16 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Hv784638Bz2yb7
+	for <openbmc@archiver.kernel.org>; Wed, 17 Nov 2021 14:04:52 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=bTiS7jnT;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=RuaXesJ5;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=flex--wak.bounces.google.com (client-ip=2607:f8b0:4864:20::104a;
- helo=mail-pj1-x104a.google.com;
- envelope-from=3c1quyqmkbyqwakgoogle.comopenbmclists.ozlabs.org@flex--wak.bounces.google.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::833;
+ helo=mail-qt1-x833.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20210112 header.b=bTiS7jnT; dkim-atps=neutral
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [IPv6:2607:f8b0:4864:20::104a])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=RuaXesJ5; dkim-atps=neutral
+Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
+ [IPv6:2607:f8b0:4864:20::833])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hv4xX2dyVz2xDV
- for <openbmc@lists.ozlabs.org>; Wed, 17 Nov 2021 12:25:34 +1100 (AEDT)
-Received: by mail-pj1-x104a.google.com with SMTP id
- iq9-20020a17090afb4900b001a54412feb0so473251pjb.1
- for <openbmc@lists.ozlabs.org>; Tue, 16 Nov 2021 17:25:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=jzis9D6fqTyyLA02o3dSfzs5yeXW2O0+Qf+DxR2EUps=;
- b=bTiS7jnTXeCNNkiePPmzv8eI5F02AN9TpuuVmOQmReiT1bttmG112fOlQa2HVmv7iK
- vaqEBALepUgjzMRx6MtkCQ/yMlvPV+V2UB1XXSG42pyi/mkcKk80NE7oG3E2Er2By4Iw
- aA2rTyz5rOvRZONXeD3K1GdbBbHYBjDKxA3B+jegyj3qAfQxakwKdwSnGzCAZZKr9D8S
- 0i88cUzVgCzmVzhpLpqul3o6ducwtkzVXjgo4n6eevI3iq7iorMJ2yGjjECmT5hbNF1q
- tnOB6GZDkgwU89OAMty7oTApkK18b7Qs4fVGCcYFL2InhDBPtToim1uW5H5sFycHfOx0
- yLHA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Hv77L36glz2xsY
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Nov 2021 14:04:12 +1100 (AEDT)
+Received: by mail-qt1-x833.google.com with SMTP id f20so1308437qtb.4
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Nov 2021 19:04:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GLf5BbJI7CckLz2pFGqJ5AAjWE8XhCK30asv6W7fNoY=;
+ b=RuaXesJ5CPg7SZcwlCIA9MbBhNex4vjMR08fNuI5P9JjdcUBeJtdCHutkOIqX29vPi
+ F/leFLsnQ5W9fOWB6j26AjvkP+YzR+lrP0jqSZnoLb4Uz/BmH5zpwXazoWHBPtG6h222
+ KGrWefhIT+hKuMMGxLFzdhyrsdyqaqdyfGsGQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=jzis9D6fqTyyLA02o3dSfzs5yeXW2O0+Qf+DxR2EUps=;
- b=pkhczAwXFWNGqMDnktDsxXZrH/a5fHhkNk5ZXjEE8IMm4bQY2agiAc5XoThkEbemq1
- XTDAf78vE/TMQ5ffVNlIlLapU9AKT2WAhwDPKIUv9tLLp0pPneyBu8v7/IBarl3utMCP
- YBmtqMfjpP2qskXdE5DG7+d53Zch57NF/moMtcQkzluuQEgflIDxJbIq5cuDvoPlF/1o
- avun6gEdfKhnEpluYJnoWszS9FUXrXTdk5Jand2KQMegBvsSCCXo6f73UXLvICKHqnC3
- Spma22iAy3oTnJYCsUSWVI88SFUdKaVlAun/DGtEJ4co0MHH0Y36ub5+4uMPMXQbQIZ3
- cZEQ==
-X-Gm-Message-State: AOAM532E2qKBFBsvhvIsUAnRZXH7iW20boA52IWD3dO7pTBWNwvYPg+I
- Yc9qECTsMuZQQ/u5vnIyJ2c6gYY=
-X-Google-Smtp-Source: ABdhPJxKbny7Hyg+azjy336lJqICWE1jEiVwfA8cEngT+yLZ0bq0tdD7vltBF4qoJcDK4j3FUxDsi/A=
-X-Received: from wak-linux.svl.corp.google.com
- ([2620:15c:2c5:13:784a:d347:659f:f1f3])
- (user=wak job=sendgmr) by 2002:a17:903:18b:b0:141:eda2:d5fa with SMTP id
- z11-20020a170903018b00b00141eda2d5famr50271146plg.63.1637112331084; Tue, 16
- Nov 2021 17:25:31 -0800 (PST)
-Date: Tue, 16 Nov 2021 17:25:12 -0800
-Message-Id: <20211117012512.1081593-1-wak@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.34.0.rc1.387.gb447b232ab-goog
-Subject: [PATCH] ARM: dts: nuvoton: Fix FIU reg definition
-From: "William A. Kennington III" <wak@google.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, avifishman70@gmail.com, 
- tali.perry1@gmail.com
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GLf5BbJI7CckLz2pFGqJ5AAjWE8XhCK30asv6W7fNoY=;
+ b=NKjLJ4ojHfvxBKis88bLbkpKCM93kSgiTvCLKQxmPIyBcTxmnL1t/T6f3xR9z7zGwx
+ 6sb8QSXxjzbmYdZAtXX9ftO5FMlWoY7YR5ELp/ly0hHpdfynbM+WDoEqGVXeK4ji+GC9
+ 4nzV0DCcRKXJJofBtlwbBrBJt7tEeoLKXj0mRRjCfZBlNr/1v95kAlbwd1B+C+GAohZE
+ /23kd25RPQfMqxgGCOZdmsP13/aL9X49CfU3aKpEAK8QG62yKVTWUTd8E6QNEOhbVl/l
+ ZIkVPCVoHVsczlkdfZVbACOVelfYETH28liwt0v/PzkcOtc/4p6EsX62wc8NTckDf8G5
+ pVKQ==
+X-Gm-Message-State: AOAM532Am2RLQ099R+skEHA4OZvPzMn6FOE/dTexS8efmKrcmF881N5g
+ Ny3nxKy3qwmQk2wt9J0s4Zak8uJyQ1EoMvul6kA=
+X-Google-Smtp-Source: ABdhPJwhWpQqavr8/uc/3yJfMZaGN2l1C3RZ+BSTRQLSkMn6G3wacw5uGWvismy3tw6gEIMCBk8rAy/wUp0SNfkp23w=
+X-Received: by 2002:ac8:7f15:: with SMTP id f21mr12762615qtk.392.1637118248626; 
+ Tue, 16 Nov 2021 19:04:08 -0800 (PST)
+MIME-Version: 1.0
+References: <20211019080608.283324-1-joel@jms.id.au>
+ <8d1631a9-710e-c2c3-228c-d9a942e64aa5@molgen.mpg.de>
+ <CACPK8XeDAHVgNObar=ZAOW=gzRhO_33Y-1hvJtF_fbyA2P4O6w@mail.gmail.com>
+ <57584776-06e7-0faf-aeb2-eab0c7c5ae1f@molgen.mpg.de>
+In-Reply-To: <57584776-06e7-0faf-aeb2-eab0c7c5ae1f@molgen.mpg.de>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 17 Nov 2021 03:03:56 +0000
+Message-ID: <CACPK8Xfsfz=3ByQ0jYXUe-MWs+_OxYqfUTQ5QNppPNjb9SV5_g@mail.gmail.com>
+Subject: Re: [RFC PATCH] ARM: aspeed: Add secure boot controller support
+To: Paul Menzel <pmenzel@molgen.mpg.de>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -83,55 +79,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- "William A. Kennington III" <wak@google.com>, linux-kernel@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The current definitions have a reg-name for "memory", but no
-corresponding reg space defined. These values were taken from the
-NPCM7xx documentation and tested on real hardware.
+On Tue, 16 Nov 2021 at 10:15, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
 
-Without this definition, the FIU driver does not take advantage of
-direct read support.
+> >>> +     if (has_sbe && (security_status & SECURE_BOOT))
+> >>> +             pr_info("AST2600 secure boot enabled\n");
+> >>> +
+> >>
+> >> Maybe it is more interesting to log, when it is not enabled?
+> >
+> > By default the soc will boot without secure boot, and this is not a
+> > problem. It is informative to know that the system has been configured
+> > with secure boot as this indicates the system has it enabled, and has
+> > correctly booted (otherwise you would not see any message).
+>
+> Maybe log a message in both cases? Linux also logs the message below on
+> my old Dell Intel laptop:
+>
+>      [    0.000000] secureboot: Secure boot could not be determined (mode 0)
 
-Signed-off-by: William A. Kennington III <wak@google.com>
----
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I'll print a message either way, as long as the secure boot controller
+compatible was found.
 
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-index aca0e0e390d8..c164ec9fc96f 100644
---- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -181,7 +181,7 @@ fiu0: spi@fb000000 {
- 			compatible = "nuvoton,npcm750-fiu";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			reg = <0xfb000000 0x1000>;
-+			reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
- 			reg-names = "control", "memory";
- 			clocks = <&clk NPCM7XX_CLK_SPI0>;
- 			clock-names = "clk_spi0";
-@@ -192,7 +192,7 @@ fiu3: spi@c0000000 {
- 			compatible = "nuvoton,npcm750-fiu";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			reg = <0xc0000000 0x1000>;
-+			reg = <0xc0000000 0x1000>, <0xa0000000 0x20000000>;
- 			reg-names = "control", "memory";
- 			clocks = <&clk NPCM7XX_CLK_SPI3>;
- 			clock-names = "clk_spi3";
-@@ -265,7 +265,7 @@ fiux: spi@fb001000 {
- 			compatible = "nuvoton,npcm750-fiu";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
--			reg = <0xfb001000 0x1000>;
-+			reg = <0xfb001000 0x1000>, <0xf8000000 0x2000000>;
- 			reg-names = "control", "memory";
- 			clocks = <&clk NPCM7XX_CLK_SPIX>;
- 			clock-names = "clk_spix";
--- 
-2.34.0.rc1.387.gb447b232ab-goog
+Thanks for the review.
 
+Cheers,
+
+Joel
