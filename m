@@ -2,74 +2,57 @@ Return-Path: <SRS0=LmZo=QF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A8ECC433EF
-	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 07:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94A9CC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 07:41:33 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E270617E3
-	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 07:35:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1E270617E3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C2A5D61391
+	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 07:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C2A5D61391
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Hvs6Q0Yzpz2ynp
-	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 18:35:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=jvwlx3IA;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HvsDq2KxLz30Pj
+	for <openbmc@archiver.kernel.org>; Thu, 18 Nov 2021 18:41:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::531;
- helo=mail-ed1-x531.google.com; envelope-from=kumarthangavel.hcl@gmail.com;
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=jvwlx3IA; dkim-atps=neutral
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [IPv6:2a00:1450:4864:20::531])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Hvs5d3dNTz2yXv;
- Thu, 18 Nov 2021 18:35:14 +1100 (AEDT)
-Received: by mail-ed1-x531.google.com with SMTP id y12so22798659eda.12;
- Wed, 17 Nov 2021 23:35:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0URvf8Ysl7HlCW2mQtjtDZ/PGw8GXuG3xU/3331OCX0=;
- b=jvwlx3IA78l2uA7OfWM32bczmkICeILoPBj0gqinKbWVEXKxDp58/fJdo/e6ISIO/C
- G50ssJUDD0Coyp+0gSVcnawpV/rqcdks6+5rcs01R7OAaPLazzsICrwWD5BfZNR4s9Qq
- HDCOpFUXtEmOJcA3Jv1GgAzW/tA8qVnOIip5DUpu/ARTyNGIz/SJGLqVc0LS91OuLT2h
- DHPNRd5FtEhlFtbRz8DdgPMIaTgJtVck9ShyoolnGyljjSCZAAnTOz0e0hpAzHtediq2
- W7PltIjamEKNQtdaaJiaMa7L5ERcgnNy4yFgqyzD/Zl0xTlrS6tpJqq8/KhyWVInys0M
- PgtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0URvf8Ysl7HlCW2mQtjtDZ/PGw8GXuG3xU/3331OCX0=;
- b=yN95gHokxvaWoYggx9Xx0/hiVvZ4Pb043KForEFZwp7m6+2vkwUQTQSQrL7jXnsJpR
- spQ3i5B830Y2zVd3oDhos8Ar/loxUk5cMg5hLsfgzwLZoiOhKf/k+uadGwiJ7IInPsFY
- n/X9Pw2pet6cYWUInuIUL/b91Bn02GBQ5HJvf285Md5tBb87/gotrrQLjjFCDFZaNlGH
- gkmo6D1G6AZBQIPWlCUf6cTPkZfZCTbf2BSYfm+NSIh/2N/q/DtRn5evfA/hVr9tle6J
- ieCUoRd7JAwJ9DiZxVKkIxWv0oTBNWiFxGQdZlXj/mTnNC8Ls+/8J3tVS9iK89CxUADj
- roOw==
-X-Gm-Message-State: AOAM530lF79FEzNW+pzU7pauumi4f5KzW9Q5IHbg3H2kVvmh7AISJVdl
- wwSxwaUd/slEunfh7zM6k5ZIMP/mLuWDJx2NvaNHKjR+
-X-Google-Smtp-Source: ABdhPJxes64DATiFOCsBWgnpc/9Mt0nug8lW70oZsKrVZc11R01luhC6huCnySiqN6P2f1THe5fZ5diFLT1uBpUqmz4=
-X-Received: by 2002:a17:907:d9f:: with SMTP id
- go31mr32039949ejc.412.1637220911912; 
- Wed, 17 Nov 2021 23:35:11 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HvsDM0Dh5z2yMx;
+ Thu, 18 Nov 2021 18:41:05 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 1AI7GO8n076137;
+ Thu, 18 Nov 2021 15:16:24 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Thu, 18 Nov 2021 15:40:11 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
+ <andrew@aj.id.au>, <hverkuil-cisco@xs4all.nl>,
+ <sakari.ailus@linux.intel.com>, <gregkh@linuxfoundation.org>,
+ <laurent.pinchart@ideasonboard.com>, <linux-media@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 03/10] media: aspeed: add more debug log messages
+Date: Thu, 18 Nov 2021 15:40:24 +0800
+Message-ID: <20211118074030.685-4-jammy_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211118074030.685-1-jammy_huang@aspeedtech.com>
+References: <20211118074030.685-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
-References: <20211117075513.GA12199@gmail.com>
- <20211117102300.68d00e9a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20211117102300.68d00e9a@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-From: Kumar Thangavel <kumarthangavel.hcl@gmail.com>
-Date: Thu, 18 Nov 2021 13:07:07 +0530
-Message-ID: <CAA7Tbcux55gKoqE9OoPfRcAOO1VkC9hAESHv=Egpjd_vR=M0yQ@mail.gmail.com>
-Subject: Re: [PATCH v6] Add payload to be 32-bit aligned to fix dropped packets
-To: Jakub Kicinski <kuba@kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000df984705d10b3262"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 1AI7GO8n076137
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,42 +64,128 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed <linux-aspeed@lists.ozlabs.org>,
- Networking <netdev@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Amithash Prasad <amithash@fb.com>,
- patrickw3@fb.com, Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- velumanit@hcl.com, "David S. Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000df984705d10b3262
-Content-Type: text/plain; charset="UTF-8"
+The new messages are listed as below:
+1. jpeg header and capture buffer information
+2. information for each irq
+3. current capture mode, sync or direct-fetch
+4. time consumed for each frame
+5. input timing changed information
 
-On Wed, Nov 17, 2021 at 11:53 PM Jakub Kicinski <kuba@kernel.org> wrote:
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+v5:
+  - no update
+v4:
+  - modify log level
+v3:
+  - update commit message
+v2:
+  - new
+---
+ drivers/media/platform/aspeed-video.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-> On Wed, 17 Nov 2021 13:25:13 +0530 Kumar Thangavel wrote:
-> > +const int padding_bytes = 26;
->
-> net/ncsi/ncsi-cmd.c:21:11: warning: symbol 'padding_bytes' was not
-> declared. Should it be static?
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 6af57467b6d4..e8dd0a7ebfc7 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -461,12 +461,17 @@ static void aspeed_video_write(struct aspeed_video *video, u32 reg, u32 val)
+ 
+ static void update_perf(struct aspeed_video_perf *p)
+ {
++	struct aspeed_video *v = container_of(p, struct aspeed_video,
++					      perf);
++
+ 	p->duration =
+ 		ktime_to_ms(ktime_sub(ktime_get(),  p->last_sample));
+ 	p->totaltime += p->duration;
+ 
+ 	p->duration_max = max(p->duration, p->duration_max);
+ 	p->duration_min = min(p->duration, p->duration_min);
++	v4l2_dbg(2, debug, &v->v4l2_dev, "time consumed: %d ms\n",
++		 p->duration);
+ }
+ 
+ static int aspeed_video_start_frame(struct aspeed_video *video)
+@@ -597,6 +602,12 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
+ 	struct aspeed_video *video = arg;
+ 	u32 sts = aspeed_video_read(video, VE_INTERRUPT_STATUS);
+ 
++	v4l2_dbg(2, debug, &video->v4l2_dev, "irq sts=%#x %s%s%s%s\n", sts,
++		 sts & VE_INTERRUPT_MODE_DETECT_WD ? ", unlock" : "",
++		 sts & VE_INTERRUPT_MODE_DETECT ? ", lock" : "",
++		 sts & VE_INTERRUPT_CAPTURE_COMPLETE ? ", capture-done" : "",
++		 sts & VE_INTERRUPT_COMP_COMPLETE ? ", comp-done" : "");
++
+ 	/*
+ 	 * Resolution changed or signal was lost; reset the engine and
+ 	 * re-initialize
+@@ -910,6 +921,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 
+ 	/* Don't use direct mode below 1024 x 768 (irqs don't fire) */
+ 	if (size < DIRECT_FETCH_THRESHOLD) {
++		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Sync Mode\n");
+ 		aspeed_video_write(video, VE_TGS_0,
+ 				   FIELD_PREP(VE_TGS_FIRST,
+ 					      video->frame_left - 1) |
+@@ -921,6 +933,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 					      video->frame_bottom + 1));
+ 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_INT_DE);
+ 	} else {
++		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Direct Mode\n");
+ 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_DIRECT_FETCH);
+ 	}
+ 
+@@ -937,6 +950,10 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 		if (!aspeed_video_alloc_buf(video, &video->srcs[1], size))
+ 			goto err_mem;
+ 
++		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf0 addr(%#x) size(%d)\n",
++			 video->srcs[0].dma, video->srcs[0].size);
++		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf1 addr(%#x) size(%d)\n",
++			 video->srcs[1].dma, video->srcs[1].size);
+ 		aspeed_video_write(video, VE_SRC0_ADDR, video->srcs[0].dma);
+ 		aspeed_video_write(video, VE_SRC1_ADDR, video->srcs[1].dma);
+ 	}
+@@ -1201,6 +1218,9 @@ static int aspeed_video_set_dv_timings(struct file *file, void *fh,
+ 
+ 	timings->type = V4L2_DV_BT_656_1120;
+ 
++	v4l2_dbg(1, debug, &video->v4l2_dev, "set new timings(%dx%d)\n",
++		 timings->bt.width, timings->bt.height);
++
+ 	return 0;
+ }
+ 
+@@ -1383,6 +1403,7 @@ static void aspeed_video_resolution_work(struct work_struct *work)
+ 			.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
+ 		};
+ 
++		v4l2_dbg(1, debug, &video->v4l2_dev, "fire source change event\n");
+ 		v4l2_event_queue(&video->vdev, &ev);
+ 	} else if (test_bit(VIDEO_STREAMING, &video->flags)) {
+ 		/* No resolution change so just restart streaming */
+@@ -1715,6 +1736,7 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 		dev_err(dev, "Unable to request IRQ %d\n", irq);
+ 		return rc;
+ 	}
++	dev_info(video->dev, "irq %d\n", irq);
+ 
+ 	video->eclk = devm_clk_get(dev, "eclk");
+ 	if (IS_ERR(video->eclk)) {
+@@ -1751,6 +1773,8 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 		rc = -ENOMEM;
+ 		goto err_release_reserved_mem;
+ 	}
++	dev_info(video->dev, "alloc mem size(%d) at %#x for jpeg header\n",
++		 VE_JPEG_HEADER_SIZE, video->jpeg.dma);
+ 
+ 	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
+ 
+-- 
+2.25.1
 
-Ack.
-
---000000000000df984705d10b3262
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"></div><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov 17, 2021 at 11:53 PM Jakub Ki=
-cinski &lt;<a href=3D"mailto:kuba@kernel.org">kuba@kernel.org</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, 17 Nov=
- 2021 13:25:13 +0530 Kumar Thangavel wrote:<br>
-&gt; +const int padding_bytes =3D 26;<br>
-<br>
-net/ncsi/ncsi-cmd.c:21:11: warning: symbol &#39;padding_bytes&#39; was not =
-declared. Should it be static?</blockquote><div>Ack.=C2=A0</div></div></div=
->
-
---000000000000df984705d10b3262--
