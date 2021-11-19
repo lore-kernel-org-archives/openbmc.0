@@ -2,59 +2,73 @@ Return-Path: <SRS0=G8aM=QG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35D84C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 09:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53B38C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 12:02:10 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C20B61241
-	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 09:39:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7C20B61241
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id D754E615A4
+	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 12:02:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D754E615A4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HwWpP4FYdz3bVs
-	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 20:39:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HwZz41yqmz3bmr
+	for <openbmc@archiver.kernel.org>; Fri, 19 Nov 2021 23:02:08 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=OOMGli98;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
- receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=OOMGli98; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HwWnp343Sz2yb6;
- Fri, 19 Nov 2021 20:38:51 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1AJ9Dv16017475;
- Fri, 19 Nov 2021 17:13:57 +0800 (GMT-8)
- (envelope-from jammy_huang@aspeedtech.com)
-Received: from [192.168.2.115] (192.168.2.115) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 19 Nov
- 2021 17:37:46 +0800
-Message-ID: <b38e52d3-2800-ea59-1008-d5327c1c3e40@aspeedtech.com>
-Date: Fri, 19 Nov 2021 17:37:47 +0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HwZyQ2pdQz2yw7
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Nov 2021 23:01:34 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 30EBF46189;
+ Fri, 19 Nov 2021 12:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:content-transfer-encoding:mime-version
+ :references:in-reply-to:x-mailer:message-id:date:date:subject
+ :subject:from:from:received:received:received; s=mta-01; t=
+ 1637323288; x=1639137689; bh=xpAPkFwuTwMKtfWujH1iLL6MzSR/goTDDR4
+ 03Lp49+c=; b=OOMGli98o3ndwtloagET5lgwB/8S9Dq3YQis2+vQmj+Uf8yZ9Mw
+ pMBryCN6FxfwjTTOz96QkfnvyfO2INuFos7jXJGWby3IYhK1MqYKARNxUb/vjskq
+ 9REAb7nxLXy7iAwAc3tnq0EjVtkyTolcPELGW2ojo6G9THmz6CxOy/Lk=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id mnIMCTOOY1lk; Fri, 19 Nov 2021 15:01:28 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 66D7445E32;
+ Fri, 19 Nov 2021 15:01:27 +0300 (MSK)
+Received: from nb-511.yadro.com (10.199.10.105) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 19
+ Nov 2021 15:01:26 +0300
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: <joel@jms.id.au>, <andrew@aj.id.au>, <openbmc@lists.ozlabs.org>,
+ <devicetree@vger.kernel.org>
+Subject: [PATCH v2 1/2] dt-bindings: vendor-prefixes: add YADRO
+Date: Fri, 19 Nov 2021 15:00:56 +0300
+Message-ID: <20211119120057.12118-2-a.kartashev@yadro.com>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211119120057.12118-1-a.kartashev@yadro.com>
+References: <20211119120057.12118-1-a.kartashev@yadro.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH v5 05/10] media: v4l: Add definition for the Aspeed JPEG
- format
-Content-Language: en-US
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-References: <20211118074030.685-1-jammy_huang@aspeedtech.com>
- <20211118074030.685-6-jammy_huang@aspeedtech.com>
- <YZZIDNCLJXwrqY4W@paasikivi.fi.intel.com>
- <0bed6093-0af6-4fc4-716f-6cf8b1302320@aspeedtech.com>
- <1cc9afa7-397e-64a0-9f1b-b4d3bd85a8f0@molgen.mpg.de>
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-In-Reply-To: <1cc9afa7-397e-64a0-9f1b-b4d3bd85a8f0@molgen.mpg.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [192.168.2.115]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1AJ9Dv16017475
+Content-Type: text/plain
+X-Originating-IP: [10.199.10.105]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,93 +80,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "andrew@aj.id.au" <andrew@aj.id.au>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "eajames@linux.ibm.com" <eajames@linux.ibm.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- "hverkuil-cisco@xs4all.nl" <hverkuil-cisco@xs4all.nl>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Dear Paul,
+Add vendor prefix for YADRO (https://www.yadro.com/)
 
-OK, thanks for your suggestion.
+Signed-off-by: Andrei Kartashev <a.kartashev@yadro.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On 2021/11/19 下午 04:39, Paul Menzel wrote:
-> Dear Jammy,
->
->
-> Am 19.11.21 um 03:02 schrieb Jammy Huang:
->
->> On 2021/11/18 下午 08:33, Sakari Ailus wrote:
->>> On Thu, Nov 18, 2021 at 03:40:26PM +0800, Jammy Huang wrote:
->>>> This introduces support for the Aspeed JPEG format, where the new frame
->>>> can refer to previous frame to reduce the amount of compressed data. The
->>>> concept is similar to I/P frame of video compression. I will compare the
->>>> new frame with previous one to decide which macroblock's data is
->>>> changed, and only the changed macroblocks will be compressed.
->>>>
->>>> This Aspeed JPEG format is used by the video engine on Aspeed platforms,
->>>> which is generally adapted for remote KVM.
->>>>
->>>> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
->>>> ---
->>>> v5:
->>>>     - no update
->>>> v4:
->>>>     - new
->>>> ---
->>>>    Documentation/media/uapi/v4l/pixfmt-reserved.rst | 12 ++++++++++++
->>>>    drivers/media/v4l2-core/v4l2-ioctl.c             |  1 +
->>>>    include/uapi/linux/videodev2.h                   |  1 +
->>>>    3 files changed, 14 insertions(+)
->>>>
->>>> diff --git a/Documentation/media/uapi/v4l/pixfmt-reserved.rst
->>>> b/Documentation/media/uapi/v4l/pixfmt-reserved.rst
->>>> index b2cd155e691b..23c05063133d 100644
->>>> --- a/Documentation/media/uapi/v4l/pixfmt-reserved.rst
->>>> +++ b/Documentation/media/uapi/v4l/pixfmt-reserved.rst
->>>> @@ -264,6 +264,18 @@ please make a proposal on the linux-media
->>>> mailing list.
->>>>        of tiles, resulting in 32-aligned resolutions for the luminance
->>>> plane
->>>>        and 16-aligned resolutions for the chrominance plane (with 2x2
->>>>        subsampling).
->>>> +    * .. _V4L2-PIX-FMT-AJPG:
->>>> +
->>>> +      - ``V4L2_PIX_FMT_AJPG``
->>>> +      - 'AJPG'
->>>> +      - ASPEED JPEG format used by the aspeed-video driver on Aspeed platforms,
->>>> +        which is generally adapted for remote KVM.
->>>> +        On each frame compression, I will compare the new frame with previous
->>>> +        one to decide which macroblock's data is changed, and only the changed
->>>> +        macroblocks will be compressed.
->>>> +
->>>> +        You could reference to chapter 36, Video Engine, of AST2600's datasheet
->>>> +        for more information.
->>> Is this datasheet publicly available? Do you have a URL?
->> Sorry, this datasheet is not publicly available.
->> Hans mentioned this as well in the discussion below:
->>
->> https://lkml.org/lkml/2021/11/10/101
-> If questions come up during review, please also add the answers to the
-> commit message of the next iteration. ;-) Maybe:
->
->> The implementation is based on datasheet *Name goes here*, revision
->> X, which is not publicly available.
-> Kind regards,
->
-> Paul
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 983f5e4afbc5..e7d31da6ac7c 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1348,6 +1348,8 @@ patternProperties:
+     description: Shenzhen Xunlong Software CO.,Limited
+   "^xylon,.*":
+     description: Xylon
++  "^yadro,.*":
++    description: YADRO
+   "^yamaha,.*":
+     description: Yamaha Corporation
+   "^yes-optoelectronics,.*":
 -- 
-Best Regards
-Jammy
+2.32.0
 
