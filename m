@@ -4,87 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132EAC433EF
-	for <openbmc@archiver.kernel.org>; Wed,  1 Dec 2021 22:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D734C433EF
+	for <openbmc@archiver.kernel.org>; Thu,  2 Dec 2021 00:06:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4J4Dnk043vz3bjF
-	for <openbmc@archiver.kernel.org>; Thu,  2 Dec 2021 09:50:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4J4GTX4NkQz2yyf
+	for <openbmc@archiver.kernel.org>; Thu,  2 Dec 2021 11:06:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=ekDX1+V0;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=L6uz/wGI;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bgdev-pl.20210112.gappssmtp.com header.i=@bgdev-pl.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=JKTp2Ww0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.21;
- helo=wout5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
- receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ spf=none (no SPF record) smtp.mailfrom=bgdev.pl
+ (client-ip=2a00:1450:4864:20::529; helo=mail-ed1-x529.google.com;
+ envelope-from=brgl@bgdev.pl; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm3 header.b=ekDX1+V0; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=L6uz/wGI; 
- dkim-atps=neutral
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
+ unprotected) header.d=bgdev-pl.20210112.gappssmtp.com
+ header.i=@bgdev-pl.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=JKTp2Ww0; dkim-atps=neutral
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4J4Dn06x5wz2xWl
- for <openbmc@lists.ozlabs.org>; Thu,  2 Dec 2021 09:49:56 +1100 (AEDT)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 7D0653201DFB;
- Wed,  1 Dec 2021 17:49:54 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Wed, 01 Dec 2021 17:49:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=3LYwTNbUB7a0WKyRCkJbvuFNmVj
- KNLgXzj3C+fI0O28=; b=ekDX1+V0IBw/b/+DC/RWdHFXw4XzNHtU3jK08CLsBBF
- nDN5RjmVnxcEIvtykTbd3bTlfBgKnYERlvtAh1VrbHA9gRwFXRUPSBvvRLbp0HH0
- GeTIyRkSxHLDw75FBcb4Ag67nJHcjqq3KPFlPDzj5+nrVN31Iq29YGun550/A1M3
- cIZWIZ0rm4D9Udezz7yi/VnN2zI6H9baCJs2ZDGYOHpUmQc0l2k9lgHhdf6XmoSz
- V+06kaF0ZK9OWvRhw5s4bplDe+dEu+sGgct9b7GoxEEoWS/k7ubuvM5o4LTs6UX6
- 9kKwosgOgjDIVFWjD2QCIDvz318KlE0ks1p/R2/JyHQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3LYwTN
- bUB7a0WKyRCkJbvuFNmVjKNLgXzj3C+fI0O28=; b=L6uz/wGIRfm9AeTZs6VL5u
- U3DhahL8J9zjUA+nsXuKTBci1T4SRA0OH6OPnopkx1vdZVCHuPnaToxUVTGvZtnG
- qrDcIRHthcnEJUW6oL+GeA39E176/58E/vqZn265aPotE6ickhEP8e2p0FPU70Be
- I/lestW1MiuISHbPCix29h2iuy9Abog/PfsMpJ66QMNndaQUC2ODgrAH/s3BhC9G
- bOR/HOAMOj9Rbocj1FMbf9dEPESS+C1ag3AIKw+fLxLwZAk8/S2ZDolt6H/qTtiK
- /K5BrHzLjSkVm06UqjZTwMW2OGQal9Wr/keMkoQsqxeWfd5qll3qqFa66EuzsOyw
- ==
-X-ME-Sender: <xms:EfynYQECeDeEb8BJa5UxsC7TC4E-Zt2MTTzeoJtbNP7kZeiIjLw_Pg>
- <xme:EfynYZXcx24J4z-sWE4oQ9jAbNxQnU7OHZWgLy3Ci5OI3HGl9IRYFUwwkDHaatJR5
- OsU__kMnGwZPDltIDg>
-X-ME-Received: <xmr:EfynYaIhA0LM_wfYkUSrhQurdVmaB2oBdjcny_fpUaPX5dN4to_Ym5-7nlxcXlP_FmzKyTmmAp2eGk9aJhf1fcjNA9l2hsu8M68zVg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrieeggddtvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculdejtddmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttdej
- necuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsth
- iftgigrdighiiiqeenucggtffrrghtthgvrhhnpeekudeutdefiefhheefheefvdejueej
- ieektdetheelvdfhleehkeegvdeiveekhfenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:EfynYSFKyK2u4XsraF7pKLYIpa-BzjNRu8BqUcHj11hlpk4A2fqZJg>
- <xmx:EfynYWX6kCGpSfYjd-xkc5VpZsM_UFYYYC3liHc0SaOnc2uFWNXVNA>
- <xmx:EfynYVP3s3ec1YDcnjLUFOwoVGtP8QGtSML0w82NUeCvJ_JOCUxcxA>
- <xmx:EfynYVTUdmbA71XZJ30MpfQ-eara8rMr0gft-z4HT4kqewxXv-spPw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 1 Dec 2021 17:49:52 -0500 (EST)
-Date: Wed, 1 Dec 2021 16:49:52 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Spencer Ku =?utf-8?B?KOWPpOS4lueRnCk=?= <Spencer.Ku@quantatw.com>
-Subject: Re: Implement Ethernet Interface Properties
-Message-ID: <Yaf8EOu4qSY10q87@heinlein>
-References: <HK0PR04MB329947E4E37431B956A8D17AE4689@HK0PR04MB3299.apcprd04.prod.outlook.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4J3sgz46Zpz2yfn
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Dec 2021 19:29:18 +1100 (AEDT)
+Received: by mail-ed1-x529.google.com with SMTP id r25so32881752edq.7
+ for <openbmc@lists.ozlabs.org>; Wed, 01 Dec 2021 00:29:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=GAZPYRVnvBCeiKcXDK+/q3f5u0oQKdRXdD24cIuHcvE=;
+ b=JKTp2Ww05F6bsm4jOVZ3fAKwiHd2CBLA5vW72UtfH7/nSJhJho3dX8TsyEu02hJXdm
+ ogL6wOawe+pF6WzsFUQz5GsePtzVdIurjRhXgPRtCDTgruRUggRpjDFKCiOABLwyStvN
+ v9YO0PH32sHAHOQ30fKlMAC0VQL6oJVzC41/LYzGSluVqxxHEAgHumwPo6rXEHZn5D80
+ 42SWeN1H2ulfKKfT+F4uebQjnTyAkWaD/AvvShpgHV/t8BGdg2E8Ja97CM1340doeprp
+ HgKikaGhiEOjyZfDSCLc8KITz1fTDxxXNovkDe7z342+sIewJi7Ozd5gUqjNdQWw0DcP
+ niFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=GAZPYRVnvBCeiKcXDK+/q3f5u0oQKdRXdD24cIuHcvE=;
+ b=E7kFhOQd+UBHPFVod+JHLeSGT4UwZct51m8+AWyKLSoKPpKTeo6T6e6egvNiL99CAh
+ wVzusQ27lcl/lRKruQ0Ce4lMYRK4gdwkL4O+LavjURvruhfLnxykB11YY4GUn0tI578n
+ z8FzjFQpZMiXQd186DTkFM5seZVsjWwj6QbJPAno0mj00jwq1EO5T8gDshoUkOmIEHdC
+ ynJrjbbjGEh2jabc2/4P/8Nvve9pR/VKXrm6EiXxxK++kzhOHfAxGgaKowGaiX7UKZZq
+ 9pBTPMqUiY8P81l/bxAVM3S+lpV3TtaaJzXnyll0EjXkkeSeya4WR6AS349jT0mWeepN
+ KiRQ==
+X-Gm-Message-State: AOAM531Tgpr6JRj56a2e6ptAacjKrhmH1DA1Tqu+PjjMWq1Sjwe7sh8d
+ ZJEaftfHiJCDFb6fHckJhBrW7uYIRbdAo787/kjhsA==
+X-Google-Smtp-Source: ABdhPJxD/nL3qj8GquoGY2T+A5+XkGYn6aEV1laTGeZavd1O8RHTg27u832Yw1qwgUv1P+aKrksO8Ez15FlQQHX7nJc=
+X-Received: by 2002:a05:6402:27c7:: with SMTP id
+ c7mr6727312ede.0.1638347351525; 
+ Wed, 01 Dec 2021 00:29:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="OD1T5TSEBN8ZuuhV"
-Content-Disposition: inline
-In-Reply-To: <HK0PR04MB329947E4E37431B956A8D17AE4689@HK0PR04MB3299.apcprd04.prod.outlook.com>
+References: <20211201072902.127542-1-joel@jms.id.au>
+In-Reply-To: <20211201072902.127542-1-joel@jms.id.au>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Wed, 1 Dec 2021 09:29:00 +0100
+Message-ID: <CAMRc=McG0stAC_v9_oLjwXa4=nyJVpmuyi2eVWCFA+NW9mWibg@mail.gmail.com>
+Subject: Re: [libgpiod PATCH] gpioget: Add --line-name to lookup GPIO line
+To: Joel Stanley <joel@jms.id.au>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 02 Dec 2021 11:06:02 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,63 +77,185 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Fran Hsu =?utf-8?B?KOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>,
- Litzung Chen =?utf-8?B?KOmZs+WIqeeQrik=?= <Litzung.Chen@quantatw.com>,
- Nan Zhou <nanzhou@google.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ openbmc@lists.ozlabs.org, Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Wed, Dec 1, 2021 at 8:29 AM Joel Stanley <joel@jms.id.au> wrote:
+>
+> Systems provide line names to make using GPIOs easier for userspace. Use
+> this feature to make the tools user friendly by adding the ability to
+> show the state of a named line.
+>
+>  $ gpioget --line-name power-chassis-good
+>  1
+>
+>  $ gpioget -L pcieslot-power
+>  0
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+> While users do have the ability to chain together gpioinfo and gpioget,
+> this is less discoverable for people new to the tools, and harder to
+> explain to eg. technicians, and requires more typing.
+>
+> Please consider this enhancement. If you are happy with it I can send
+> a patch for gpioset too.
+>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  tools/gpioget.c | 86 ++++++++++++++++++++++++++++++++++++-------------
+>  1 file changed, 64 insertions(+), 22 deletions(-)
+>
+> diff --git a/tools/gpioget.c b/tools/gpioget.c
+> index 51cecb6a18a9..cd27320b7f2b 100644
+> --- a/tools/gpioget.c
+> +++ b/tools/gpioget.c
+> @@ -6,6 +6,7 @@
+>  #include <limits.h>
+>  #include <stdio.h>
+>  #include <string.h>
+> +#include <errno.h>
+>
+>  #include "tools-common.h"
+>
+> @@ -18,7 +19,7 @@ static const struct option longopts[] = {
+>         { GETOPT_NULL_LONGOPT },
+>  };
+>
+> -static const char *const shortopts = "+hvlnB:";
+> +static const char *const shortopts = "+hvlnB:L:";
+>
+>  static void print_help(void)
+>  {
+> @@ -34,6 +35,7 @@ static void print_help(void)
+>         printf("  -n, --dir-as-is:\tdon't force-reconfigure line direction\n");
+>         printf("  -B, --bias=[as-is|disable|pull-down|pull-up] (defaults to 'as-is'):\n");
+>         printf("                set the line bias\n");
+> +       printf("  -L, --line-name:\tUse this GPIO line (instead of chip name and offset)\n");
+>         printf("\n");
+>         print_bias_help();
+>  }
+> @@ -47,6 +49,7 @@ int main(int argc, char **argv)
+>         struct gpiod_line_bulk *lines;
+>         struct gpiod_chip *chip;
+>         char *device, *end;
+> +       char *name = NULL;
+>
+>         for (;;) {
+>                 optc = getopt_long(argc, argv, shortopts, longopts, &opti);
+> @@ -69,8 +72,13 @@ int main(int argc, char **argv)
+>                 case 'B':
+>                         flags |= bias_flags(optarg);
+>                         break;
+> +               case 'L':
+> +                       name = optarg;
+> +                       num_lines = 1;
+> +                       break;
+>                 case '?':
+>                         die("try %s --help", get_progname());
+> +                       break;
+>                 default:
+>                         abort();
+>                 }
+> @@ -79,30 +87,64 @@ int main(int argc, char **argv)
+>         argc -= optind;
+>         argv += optind;
+>
+> -       if (argc < 1)
+> -               die("gpiochip must be specified");
+> -
+> -       if (argc < 2)
+> -               die("at least one GPIO line offset must be specified");
+> -
+> -       device = argv[0];
+> -       num_lines = argc - 1;
+> -
+> -       values = malloc(sizeof(*values) * num_lines);
+> -       offsets = malloc(sizeof(*offsets) * num_lines);
+> -       if (!values || !offsets)
+> -               die("out of memory");
+> +       if (name) {
+> +               struct dirent **entries;
+> +               unsigned int num_chips;
+> +               int offset, n;
+> +
+> +               n = scandir("/dev/", &entries, chip_dir_filter, alphasort);
+> +               if (n < 0)
+> +                       die_perror("unable to scan /dev");
+> +               num_chips = n;
+> +
+> +               values = malloc(sizeof(*values) * 1);
+> +               offsets = malloc(sizeof(*offsets) * 1);
+> +               if (!values || !offsets)
+> +                       die("out of memory");
+> +
+> +               for (i = 0; i < num_chips; i++) {
+> +                       device = entries[i]->d_name;
+> +                       chip = chip_open_by_name(device);
+> +                       if (!chip) {
+> +                               if (errno == EACCES)
+> +                                       continue;
+> +
+> +                               die_perror("unable to open %s", device);
+> +                       }
+> +                       offset = gpiod_chip_find_line(chip, name);
+> +                       if (offset >= 0) {
+> +                               offsets[0] = offset;
+> +                               break;
+> +                       }
+> +               }
+> +               if (i == num_chips)
+> +                       die("unable to find line '%s'", name);
+> +       } else {
+> +               if (argc < 1)
+> +                       die("gpiochip must be specified");
+> +
+> +               if (argc < 2)
+> +                       die("at least one GPIO line offset must be specified");
+> +
+> +               device = argv[0];
+> +               num_lines = argc - 1;
+> +
+> +               values = malloc(sizeof(*values) * num_lines);
+> +               offsets = malloc(sizeof(*offsets) * num_lines);
+> +               if (!values || !offsets)
+> +                       die("out of memory");
+> +
+> +               for (i = 0; i < num_lines; i++) {
+> +                       offsets[i] = strtoul(argv[i + 1], &end, 10);
+> +                       if (*end != '\0' || offsets[i] > INT_MAX)
+> +                               die("invalid GPIO offset: %s", argv[i + 1]);
+> +               }
+>
+> -       for (i = 0; i < num_lines; i++) {
+> -               offsets[i] = strtoul(argv[i + 1], &end, 10);
+> -               if (*end != '\0' || offsets[i] > INT_MAX)
+> -                       die("invalid GPIO offset: %s", argv[i + 1]);
+> +               chip = chip_open_lookup(device);
+> +               if (!chip)
+> +                       die_perror("unable to open %s", device);
+>         }
+>
+> -       chip = chip_open_lookup(device);
+> -       if (!chip)
+> -               die_perror("unable to open %s", device);
+> -
+>         lines = gpiod_chip_get_lines(chip, offsets, num_lines);
+>         if (!lines)
+>                 die_perror("unable to retrieve GPIO lines from chip");
+> --
+> 2.33.0
+>
 
---OD1T5TSEBN8ZuuhV
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm not very convinced to be honest. It's not like "gpioget gpiochip0
+`gpiofind gpiochip0 line-name`" requires much more typing than
+"gpioget gpiochip --line-name=name". There are also other questions:
+this uses getopt and only allows to specify a single line name. What
+if we want to specify more lines like with offsets? Even if you allow
+multiple names, getopt() doesn't guarantee ordering of arguments.
 
-On Wed, Dec 01, 2021 at 09:58:41AM +0000, Spencer Ku (=E5=8F=A4=E4=B8=96=E7=
-=91=9C) wrote:
-
-> For phosphor-network part, we propose to use existing tool like ipert to =
-get the Ethernet BW/Drop package rate. Or the other method is that read TX/=
-RX from ethernet driver (/sys/class/net/{Ethernet_Name}), then calculate th=
-e BW/Drop package rate. After that, we will need to register the D-Bus inte=
-rface and sync the property info to that D-Bus.
-
-Is this something that systemd-networkd might be interested in exposing?  We
-should ask this question upstream there to see if they would be interested =
-in
-the contribution.
-
-I'd prefer using the sysfs interface direction rather than wrapping a tool =
-in
-`system()` calls. =20
-
-Did you mean 'iperf'?  How do you get the drop rate from that?  Don't you n=
-eed
-another system to act as the other side of iperf?
-
---=20
-Patrick Williams
-
---OD1T5TSEBN8ZuuhV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmGn/A8ACgkQqwNHzC0A
-wRmPJQ/9Ho3bMrPJCnu4dKI4iwJe+lycNfGAfwMmtf8qYGYsSd4OP8ZjwexbhC3G
-fg/pHsvxBjpOLMJg6fI8IvHZgFStgZOsX6TrDVjZvnnL+gYGal4Rdzzx09j/m5BC
-xWreDoufC8UQTsqk4eMQqhhmJTLvXM8qjwJWzZEHmfi+iC8odmbwHHEtZqBU3l38
-JY5Ba9quvtzmsXhk2u22B1ixm9PyifwBXnVEfLRrbTQhRk7ta84m+UltkwTUKf4h
-P2WOG+FJJK4CPIpn38n4naxwfxJ/mYxMNXHpHRVD62wp0Ot5HlZD4AcH7m6Cc8sn
-cHorasLoZjlYNA1qj7HaiWgpmTs8JhmKxr+Zl2k1GGzD1KjDsq/+kZLtw0I1ad06
-/thpZtrhZ+Aj0KOe2Qgdeh9t57C3ecCAtuORvkK6snb0VQClk6NveqDN7y+wW6+H
-OwF18rtjhHCp190KNDuHFXJZ4BBB9sk6Y2+M6iibFuPcYYnHCKvt7Ygr5s8632xd
-r3GaszqY+BG7tUR2nPcSfJtwwS3eWGTVsDGuA3ST73KVZoLlIa6joBMQ0wH/tJGa
-5CLaXGggxkxdxRdf5WoN+fT0J6JZuf8d1f2KG8FAzHuwYhWLkkcjEmEK2uLM89er
-JPqIkb/qXqI6XwEeEEBzlaGwW57sSrUniM3n7uhVce/EE6WoFTw=
-=UQ0k
------END PGP SIGNATURE-----
-
---OD1T5TSEBN8ZuuhV--
+Bart
