@@ -4,72 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3333AC433F5
-	for <openbmc@archiver.kernel.org>; Tue,  7 Dec 2021 21:14:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9159C433F5
+	for <openbmc@archiver.kernel.org>; Tue,  7 Dec 2021 21:15:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4J7tNS5RDmz3dnT
-	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 08:14:48 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4J7tPZ2SGbz3cGl
+	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 08:15:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=T9lTMve6;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=mY+UIVud;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.22; helo=mout.gmx.net;
- envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=T9lTMve6; 
- dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32c;
+ helo=mail-ot1-x32c.google.com; envelope-from=geissonator@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=mY+UIVud; dkim-atps=neutral
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [IPv6:2607:f8b0:4864:20::32c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4J7tGD6r9Pz3bqS
- for <openbmc@lists.ozlabs.org>; Wed,  8 Dec 2021 08:09:24 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1638911340;
- bh=ydeSff7ARSMRyer2h0d+ysVTraGKpuyvVeQKsq5VJR8=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=T9lTMve6OGkkF88AplB53qlRFXm0fKHzFXSBQ31Wh1df1U2S9lX6m7sJrt9wly+Il
- 8V5sheFbKAstTJPkU6aRS0yIMaWlK0x7ZPvI8QvcWf5S54JHGnvzuKZLqiz32S++mo
- 67aku9rwTkRp2b3kinXk7fWoiRzkNxTa6p42Dza8=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([5.146.194.160]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MLzBp-1nBxRS3hRZ-00Hsmq; Tue, 07
- Dec 2021 22:08:59 +0100
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 7/8] ARM: dts: wpcm450: Add pin functions
-Date: Tue,  7 Dec 2021 22:08:22 +0100
-Message-Id: <20211207210823.1975632-8-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211207210823.1975632-1-j.neuschaefer@gmx.net>
-References: <20211207210823.1975632-1-j.neuschaefer@gmx.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4J7tH96PHBz3cNB
+ for <openbmc@lists.ozlabs.org>; Wed,  8 Dec 2021 08:10:13 +1100 (AEDT)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ x3-20020a05683000c300b0057a5318c517so481010oto.13
+ for <openbmc@lists.ozlabs.org>; Tue, 07 Dec 2021 13:10:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=lv+TefjHo13HM1Kp3QVWpqgWygbe3knJv2OIMi4AQW0=;
+ b=mY+UIVud89fU2KiENd0rl7cicunXQkR4TgrOX0gJBVLku0wxu2seDYMbBiliC/Rwjo
+ dxOYGbkMdhrkX1szEB8EK5OtGXyBdbvJW0rkq1Ze9yvLjXX9MmQoHzTBNKrX9GrgvaTi
+ iBTyyzCaQYYGAE3h570wsq/+whdWN2w8QoqglujNbIQkUR8+arklF3o4tk2lQEGFXgiI
+ cIr5L2MKqz1YgaNMF2eJOdZ+S9yPoEy6MpfwT9qSTsbGIYHr/hfnFRLMPk3amcqyQEq8
+ U5cojVRUmC3oGQOT0bWHRlxHa8GUH2rJKnzHpdB8IlZvSUl5/Nid1+bLFGeqC1J9z/3d
+ EdDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=lv+TefjHo13HM1Kp3QVWpqgWygbe3knJv2OIMi4AQW0=;
+ b=qmlbSiW+j3lg7ar4FTq8SWJqBtYamsVTFA5ZgVvOBVTNPQ0CQUTSB94vxGgphaqbCJ
+ h70Du1/83FyE+/0HBWFMcMDX9diZmDAamqAz2G9K2Zd1lA6TF3pdk4WLlwpjvNeDLzUZ
+ KJIePYqwE+wq1kRJcFDy8xZ5/W1zyHlmJwKMR4oqOaUHIUf4cEA8Nd3jHnxjBYPvuVGJ
+ Be8sNMa43xQZw+sGChqnqHWV4n+97vXQqisPM5FUjDGSC5YTeb51hQ8VZCkijS7lIxpl
+ rPUat1gFa0K2r/WmpVWObCAxpsBou5B9pW6fBNQRf4kVC86q/WrjmMRL5/iginYJS025
+ ixwA==
+X-Gm-Message-State: AOAM531IirKVqEMDk0kLz4W6JXCRQQ4pw/IRcSKkf7b49Iwcl8CFuL/h
+ /IR3+dIW+TDZrSQoNM4qE0meAOiyszk=
+X-Google-Smtp-Source: ABdhPJyEW4XRLqAGhZgTbkuMTMqbKqcWyXnHW3m6/6oa3deyD02AUiOpXudAj/e8j6+yKwT4D6gRQA==
+X-Received: by 2002:a9d:68d9:: with SMTP id i25mr37656641oto.189.1638911408878; 
+ Tue, 07 Dec 2021 13:10:08 -0800 (PST)
+Received: from smtpclient.apple ([2600:1700:19e0:3310:618d:9fd1:a739:10aa])
+ by smtp.gmail.com with ESMTPSA id z7sm160534oib.0.2021.12.07.13.10.07
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 07 Dec 2021 13:10:08 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.13\))
+Subject: Re: [PATCH linux dev-5.15 1/2] ARM: dts: Aspeed: Rainier: Add GPIO
+ hog for USB power control
+From: Andrew Geissler <geissonator@gmail.com>
+In-Reply-To: <1dfc35d0-c888-692e-dee3-342753d7228c@linux.ibm.com>
+Date: Tue, 7 Dec 2021 15:10:07 -0600
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:xPSju/tOW5OV/wGSkbiyijYM7IDYw6LltJqtBLSOpIeyTa3NxH3
- vmF73ZHXxWgqfbe5IJXq/qNtkv47ZHdamDZFg+MoGzxfe63imFGEr4EVPMTy98HnQXfWkwf
- c6HnOWa51B2hYSUWjWlky7B4Wv39yDzrkwL2YZkTNTMu2CD3teyYnfu30nCRenZ5ZFn2lcH
- mRwsS4aTaq0XtJtXE2nYQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:gSo5a5iquJs=:x76q+v18WI3JdeYPsXy5v8
- H5FLcwMYpCG0UIvazeDFddTZD04vnUWWb78gYsDC7qVjnPckQbAqPMWdzhWzLtBF9t2LIX0zs
- dcAkzrWnwARrwgdUYg5GQxsKYzwr4J8z11Wss0C7SNGpWwB9X0Oodrj44GThgotPiqruY3Ona
- sX6czn1vCImfsqcFd9SpwWl+6We+v8lKcwvIKyBlwU9pyTQNB7N9lAQs7KwYAoonr0hJu1EeO
- +jV7GwK4z4CRMi0ZUZv9lXaeqkJ9thrP0YdSPFxbQR8dSNWhTTGY9WgOBwHCKqTDvyMslxETM
- T/s29MaiyMsfrCBJ/WmCPqdaMWDbsq6gyFL+lhxEmbOhGj4zTC5CYkRMzfmD54gci0MZh9B0O
- 5QcDWqXg0bf9VeqPoQd06NtFNGZLUVws16gh0jCyu/0anNA//kdnYhHoR1fxrKNM5OTsznqeC
- bdCaRfR7kfpchfAXuuwidfRGA1kDvifbxT5Y94xwK4C8yiZqbM1agapPwGr780P+lo2NQqXC0
- 8uqY99WRDL7M/pKqUzeziJ7qlPx8bdz1p6nKqPRO3TBa0wQirfXnFAvgCl8MH+GJP0yO5mpST
- FN3XcXwYJ9rlWzSq5A0VZr3f9CVgQBLEyBmsUcKwMVmpkFyULfA5idtiJDmUOdZZxB1CMt9sM
- GcavnR/0rVgGiKh2RKMXk2pqF9zBjsbVUd9P2BLXMj5utG9zNXprxtf2gQzjHqRzx21bRHUFQ
- Xjhrs8lpczYioZqAxCyPc+/hvNw9zMl/o6EOSxgK2zP3djhLAwfGE9m354vYHV66sJyQ9tNcu
- X/HvtAihJKs2uwLcb/fB2eGpC1TWZmLkRndVvJ+l3SuYc4YMEa/TDiDP+qky9RY2L28itr7Xg
- K3UCXtNWMtIccGyfxRxnsT0yG6A46U3telvCzMjOz4PZQ++wNXkfWvEEKRhXf+Sh+/+NvaMdy
- 0Xhrpqu0NtWQyCPHMlz1Z+vtfpxCLH8p7Rf6HLbwoGA0lqbjJ8wQEWm328HV9nhkB0M72Wm6b
- 7OI9SqiWCT5B4E5e4oDQ3kwuL4UFSIU50RJBlWJ/zDFmh6tW+cCKRCYATzjqc4Jge8nmoRYzP
- JqxVSfc+zxM+Wg=
+Message-Id: <EF9AEBD8-2106-4968-8CF6-8D9721D18876@gmail.com>
+References: <20211206213218.104318-1-eajames@linux.ibm.com>
+ <CACPK8XehjN1cvRPhOiVYh+3CARJnsr5yPZSwLHAoaLgVrF6gHA@mail.gmail.com>
+ <1dfc35d0-c888-692e-dee3-342753d7228c@linux.ibm.com>
+To: Eddie James <eajames@linux.ibm.com>
+X-Mailer: Apple Mail (2.3654.120.0.1.13)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,351 +85,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Rob Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-As done in nuvoton-common-npcm7xx.dtsi, this patch adds pinmux nodes for
-all pin functions to nuvoton-wpcm450.dtsi.
-
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-=2D--
-
-I'm not quite convinced of the value of this patch, as the pin functions
-could easily be specified in board.dts files when needed.
 
 
-v2:
-- no changes
+> On Dec 7, 2021, at 2:28 PM, Eddie James <eajames@linux.ibm.com> wrote:
+>=20
+>=20
+> On 12/6/21 16:54, Joel Stanley wrote:
+>> On Mon, 6 Dec 2021 at 21:32, Eddie James <eajames@linux.ibm.com> =
+wrote:
+>>> Set the USB power control to always on.
+>>>=20
+>>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+>>> ---
+>>>  arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 9 ++++++++-
+>>>  1 file changed, 8 insertions(+), 1 deletion(-)
+>>>=20
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts =
+b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+>>> index 866f32cdccea..b2af8ad09d33 100644
+>>> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+>>> @@ -255,7 +255,7 @@ &gpio0 {
+>>>         /*L0-L7*/       "","","","","","","","",
+>>>         /*M0-M7*/       "","","","","","","","",
+>>>         /*N0-N7*/       "","","","","","","","",
+>>> -       /*O0-O7*/       "","","","usb-power","","","","",
+>> Do we want to remove the pin from the gpio-names? Can we leave it
+>> there as documentation, or does it conflict?
+>=20
+>=20
+> I don't know; The pin isn't documented so I thought it better to =
+remove it from the line names. Then below, I named it according to the =
+board spec, which somewhat fits with the i2c mux hog. I'm open to =
+whatever we think is best here.
 
-v1:
-- https://lore.kernel.org/lkml/20210602120329.2444672-8-j.neuschaefer@gmx.=
-net/
-=2D--
- arch/arm/boot/dts/nuvoton-wpcm450.dtsi | 305 +++++++++++++++++++++++++
- 1 file changed, 305 insertions(+)
+The goal is to ensure GPIO=E2=80=99s which could have similar function =
+between different boards have a common name so that userspace =
+applications could just use that one name and work on multiple boards. =
+Using a board name for the GPIO breaks that design point. But=E2=80=A6if =
+the GPIO is only ever going to be used on a single system, or userspace =
+already has a way to abstract the name, we=E2=80=99ve been getting less =
+stringent on this rule. At first blush, the =E2=80=9Cusb-power=E2=80=9D =
+name seemed nice and generic and it seems like a function that could be =
+applicable across multiple systems. =
+https://github.com/openbmc/docs/blob/master/designs/device-tree-gpio-namin=
+g.md is the doc about this.=20
 
-diff --git a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi b/arch/arm/boot/dts/nu=
-voton-wpcm450.dtsi
-index a795cc4128654..b377e61714bcb 100644
-=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-@@ -150,6 +150,311 @@ gpio7: gpio@7 {
- 				gpio-controller;
- 				#gpio-cells =3D <2>;
- 			};
-+
-+			smb3_pins: smb3-pins {
-+				groups =3D "smb3";
-+				function =3D "smb3";
-+			};
-+
-+			smb4_pins: smb4-pins {
-+				groups =3D "smb4";
-+				function =3D "smb4";
-+			};
-+
-+			smb5_pins: smb5-pins {
-+				groups =3D "smb5";
-+				function =3D "smb5";
-+			};
-+
-+			scs1_pins: scs1-pins {
-+				groups =3D "scs1";
-+				function =3D "scs1";
-+			};
-+
-+			scs2_pins: scs2-pins {
-+				groups =3D "scs2";
-+				function =3D "scs2";
-+			};
-+
-+			scs3_pins: scs3-pins {
-+				groups =3D "scs3";
-+				function =3D "scs3";
-+			};
-+
-+			smb0_pins: smb0-pins {
-+				groups =3D "smb0";
-+				function =3D "smb0";
-+			};
-+
-+			smb1_pins: smb1-pins {
-+				groups =3D "smb1";
-+				function =3D "smb1";
-+			};
-+
-+			smb2_pins: smb2-pins {
-+				groups =3D "smb2";
-+				function =3D "smb2";
-+			};
-+
-+			bsp_pins: bsp-pins {
-+				groups =3D "bsp";
-+				function =3D "bsp";
-+			};
-+
-+			hsp1_pins: hsp1-pins {
-+				groups =3D "hsp1";
-+				function =3D "hsp1";
-+			};
-+
-+			hsp2_pins: hsp2-pins {
-+				groups =3D "hsp2";
-+				function =3D "hsp2";
-+			};
-+
-+			r1err_pins: r1err-pins {
-+				groups =3D "r1err";
-+				function =3D "r1err";
-+			};
-+
-+			r1md_pins: r1md-pins {
-+				groups =3D "r1md";
-+				function =3D "r1md";
-+			};
-+
-+			rmii2_pins: rmii2-pins {
-+				groups =3D "rmii2";
-+				function =3D "rmii2";
-+			};
-+
-+			r2err_pins: r2err-pins {
-+				groups =3D "r2err";
-+				function =3D "r2err";
-+			};
-+
-+			r2md_pins: r2md-pins {
-+				groups =3D "r2md";
-+				function =3D "r2md";
-+			};
-+
-+			kbcc_pins: kbcc-pins {
-+				groups =3D "kbcc";
-+				function =3D "kbcc";
-+			};
-+
-+			dvo0_pins: dvo0-pins {
-+				groups =3D "dvo";
-+				function =3D "dvo0";
-+			};
-+
-+			dvo3_pins: dvo3-pins {
-+				groups =3D "dvo";
-+				function =3D "dvo3";
-+			};
-+
-+			clko_pins: clko-pins {
-+				groups =3D "clko";
-+				function =3D "clko";
-+			};
-+
-+			smi_pins: smi-pins {
-+				groups =3D "smi";
-+				function =3D "smi";
-+			};
-+
-+			uinc_pins: uinc-pins {
-+				groups =3D "uinc";
-+				function =3D "uinc";
-+			};
-+
-+			gspi_pins: gspi-pins {
-+				groups =3D "gspi";
-+				function =3D "gspi";
-+			};
-+
-+			mben_pins: mben-pins {
-+				groups =3D "mben";
-+				function =3D "mben";
-+			};
-+
-+			xcs2_pins: xcs2-pins {
-+				groups =3D "xcs2";
-+				function =3D "xcs2";
-+			};
-+
-+			xcs1_pins: xcs1-pins {
-+				groups =3D "xcs1";
-+				function =3D "xcs1";
-+			};
-+
-+			sdio_pins: sdio-pins {
-+				groups =3D "sdio";
-+				function =3D "sdio";
-+			};
-+
-+			sspi_pins: sspi-pins {
-+				groups =3D "sspi";
-+				function =3D "sspi";
-+			};
-+
-+			fi0_pins: fi0-pins {
-+				groups =3D "fi0";
-+				function =3D "fi0";
-+			};
-+
-+			fi1_pins: fi1-pins {
-+				groups =3D "fi1";
-+				function =3D "fi1";
-+			};
-+
-+			fi2_pins: fi2-pins {
-+				groups =3D "fi2";
-+				function =3D "fi2";
-+			};
-+
-+			fi3_pins: fi3-pins {
-+				groups =3D "fi3";
-+				function =3D "fi3";
-+			};
-+
-+			fi4_pins: fi4-pins {
-+				groups =3D "fi4";
-+				function =3D "fi4";
-+			};
-+
-+			fi5_pins: fi5-pins {
-+				groups =3D "fi5";
-+				function =3D "fi5";
-+			};
-+
-+			fi6_pins: fi6-pins {
-+				groups =3D "fi6";
-+				function =3D "fi6";
-+			};
-+
-+			fi7_pins: fi7-pins {
-+				groups =3D "fi7";
-+				function =3D "fi7";
-+			};
-+
-+			fi8_pins: fi8-pins {
-+				groups =3D "fi8";
-+				function =3D "fi8";
-+			};
-+
-+			fi9_pins: fi9-pins {
-+				groups =3D "fi9";
-+				function =3D "fi9";
-+			};
-+
-+			fi10_pins: fi10-pins {
-+				groups =3D "fi10";
-+				function =3D "fi10";
-+			};
-+
-+			fi11_pins: fi11-pins {
-+				groups =3D "fi11";
-+				function =3D "fi11";
-+			};
-+
-+			fi12_pins: fi12-pins {
-+				groups =3D "fi12";
-+				function =3D "fi12";
-+			};
-+
-+			fi13_pins: fi13-pins {
-+				groups =3D "fi13";
-+				function =3D "fi13";
-+			};
-+
-+			fi14_pins: fi14-pins {
-+				groups =3D "fi14";
-+				function =3D "fi14";
-+			};
-+
-+			fi15_pins: fi15-pins {
-+				groups =3D "fi15";
-+				function =3D "fi15";
-+			};
-+
-+			pwm0_pins: pwm0-pins {
-+				groups =3D "pwm0";
-+				function =3D "pwm0";
-+			};
-+
-+			pwm1_pins: pwm1-pins {
-+				groups =3D "pwm1";
-+				function =3D "pwm1";
-+			};
-+
-+			pwm2_pins: pwm2-pins {
-+				groups =3D "pwm2";
-+				function =3D "pwm2";
-+			};
-+
-+			pwm3_pins: pwm3-pins {
-+				groups =3D "pwm3";
-+				function =3D "pwm3";
-+			};
-+
-+			pwm4_pins: pwm4-pins {
-+				groups =3D "pwm4";
-+				function =3D "pwm4";
-+			};
-+
-+			pwm5_pins: pwm5-pins {
-+				groups =3D "pwm5";
-+				function =3D "pwm5";
-+			};
-+
-+			pwm6_pins: pwm6-pins {
-+				groups =3D "pwm6";
-+				function =3D "pwm6";
-+			};
-+
-+			pwm7_pins: pwm7-pins {
-+				groups =3D "pwm7";
-+				function =3D "pwm7";
-+			};
-+
-+			hg0_pins: hg0-pins {
-+				groups =3D "hg0";
-+				function =3D "hg0";
-+			};
-+
-+			hg1_pins: hg1-pins {
-+				groups =3D "hg1";
-+				function =3D "hg1";
-+			};
-+
-+			hg2_pins: hg2-pins {
-+				groups =3D "hg2";
-+				function =3D "hg2";
-+			};
-+
-+			hg3_pins: hg3-pins {
-+				groups =3D "hg3";
-+				function =3D "hg3";
-+			};
-+
-+			hg4_pins: hg4-pins {
-+				groups =3D "hg4";
-+				function =3D "hg4";
-+			};
-+
-+			hg5_pins: hg5-pins {
-+				groups =3D "hg5";
-+				function =3D "hg5";
-+			};
-+
-+			hg6_pins: hg6-pins {
-+				groups =3D "hg6";
-+				function =3D "hg6";
-+			};
-+
-+			hg7_pins: hg7-pins {
-+				groups =3D "hg7";
-+				function =3D "hg7";
-+			};
- 		};
- 	};
- };
-=2D-
-2.30.2
+>=20
+>=20
+> Thanks!
+>=20
+> Eddie
+>=20
+>=20
+>>=20
+>>> +       /*O0-O7*/       "","","","","","","","",
+>>>         /*P0-P7*/       "","","","","pcieslot-power","","","",
+>>>         /*Q0-Q7*/       =
+"cfam-reset","","regulator-standby-faulted","","","","","",
+>>>         /*R0-R7*/       =
+"bmc-tpm-reset","power-chassis-control","power-chassis-good","","","","","=
+",
+>>> @@ -275,6 +275,13 @@ i2c3_mux_oe_n {
+>>>                 output-high;
+>>>                 line-name =3D "I2C3_MUX_OE_N";
+>>>         };
+>>> +
+>>> +       usb_power_en_n {
+>>> +               gpio-hog;
+>>> +               gpios =3D <ASPEED_GPIO(O, 3) GPIO_ACTIVE_LOW>;
+>>> +               output-high;
+>>> +               line-name =3D "USB_POWER_EN_N";
+>> This contradicts what you called it above.
+>>=20
+>>> +       };
+>>>  };
+>>>=20
+>>>  &emmc_controller {
+>>> --
+>>> 2.27.0
 
