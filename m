@@ -4,57 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E05CC433EF
-	for <openbmc@archiver.kernel.org>; Mon,  6 Dec 2021 23:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9E02C433F5
+	for <openbmc@archiver.kernel.org>; Tue,  7 Dec 2021 01:43:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4J7Jv64Fb2z2yp2
-	for <openbmc@archiver.kernel.org>; Tue,  7 Dec 2021 10:05:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=o+Hq59pJ;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4J7NNX0JFmz30J3
+	for <openbmc@archiver.kernel.org>; Tue,  7 Dec 2021 12:43:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
- helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=o+Hq59pJ; 
- dkim-atps=neutral
-X-Greylist: delayed 1125 seconds by postgrey-1.36 at boromir;
- Tue, 07 Dec 2021 10:05:17 AEDT
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [71.19.156.171])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4J7JtP6HGzz2x9K
- for <openbmc@lists.ozlabs.org>; Tue,  7 Dec 2021 10:05:17 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (174-21-184-96.tukw.qwest.net
- [174.21.184.96])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 1ABA15B1;
- Mon,  6 Dec 2021 15:05:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1638831916;
- bh=AGZUvdoz1R/W4UGcI1sQgiuXPO1E1UwVokdQHmJX2XY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=o+Hq59pJTf0HeC60xL18SQ1NRlYfPzNViiEaAFvLov1s302L/L9DIpY/cUfw4XD8g
- UM9m0iZdUijm6HcJAemqg/QgxQafZaSmj5CjxIW3s0FqzWFPJ9bqyNyTNwX+Az5/q9
- rm5Gve+vEkPdOYHJrfPJ7+kTIXCv0Boi9ND6kDc0=
-Date: Mon, 6 Dec 2021 15:05:14 -0800
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Guenter Roeck <linux@roeck-us.net>, g@hatter.bewilderbeest.net
-Subject: Re: [PATCH 1/2] hwmon: add Delta AHE-50DC fan control module driver
-Message-ID: <Ya6XKtxREvocOXow@hatter.bewilderbeest.net>
-References: <20211206224419.15736-1-zev@bewilderbeest.net>
- <20211206224419.15736-2-zev@bewilderbeest.net>
- <28719505-ace1-bb04-bbc2-043c56b0db7d@roeck-us.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4J7NMy5Rt7z2xXC;
+ Tue,  7 Dec 2021 12:42:38 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 1B71GuEn058441;
+ Tue, 7 Dec 2021 09:16:56 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
+ Tue, 7 Dec 2021 09:41:50 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
+ <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
+ <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH 2/2] media: aspeed: add more debug log messages
+Date: Tue, 7 Dec 2021 09:41:47 +0800
+Message-ID: <20211207014147.226-3-jammy_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211207014147.226-1-jammy_huang@aspeedtech.com>
+References: <20211207014147.226-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <28719505-ace1-bb04-bbc2-043c56b0db7d@roeck-us.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 1B71GuEn058441
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,61 +56,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
- Jean Delvare <jdelvare@suse.com>, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Dec 06, 2021 at 03:02:49PM PST, Guenter Roeck wrote:
->On 12/6/21 2:44 PM, Zev Weiss wrote:
->>This device is an integrated module of the Delta AHE-50DC Open19 power
->>shelf.  For lack of proper documentation, this driver has been developed
->>referencing an existing (GPL) driver that was included in a code release
->>from LinkedIn [1].  It provides four fan speeds, four temperatures, and
->>one voltage reading, as well as a handful of warning and fault
->>indicators.
->>
->>[1] https://github.com/linkedin/o19-bmc-firmware/blob/master/meta-openbmc/meta-linkedin/meta-deltapower/recipes-kernel/fancontrol-mod/files/fancontrol.c
->>
->>Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
->>---
->
->[ ... ]
->
->>+
->>+static const u8 AHE50DC_FAN_TEMP_REGS[] = { 0x8d, 0x8e, 0x8f, 0xd0 };
->>+static const u8 AHE50DC_FAN_SPEED_REGS[] = { 0x90, 0x91, 0x92, 0x93 };
->>+static const u8 AHE50DC_FAN_FAN_STATUS_REGS[] = { 0x81, 0x82 };
->>+#define AHE50DC_FAN_VIN_REG 0x88
->>+#define AHE50DC_FAN_CHIP_STATUS_REG 0x79
->
->PMBus registers:
->
->	PMBUS_STATUS_WORD               = 0x79,
->
->	PMBUS_STATUS_FAN_12             = 0x81,
->	PMBUS_STATUS_FAN_34             = 0x82,
->
->	PMBUS_READ_VIN                  = 0x88,
->
->        PMBUS_READ_TEMPERATURE_1        = 0x8D,
->        PMBUS_READ_TEMPERATURE_2        = 0x8E,
->        PMBUS_READ_TEMPERATURE_3        = 0x8F,
->        PMBUS_READ_FAN_SPEED_1          = 0x90,
->        PMBUS_READ_FAN_SPEED_2          = 0x91,
->        PMBUS_READ_FAN_SPEED_3          = 0x92,
->        PMBUS_READ_FAN_SPEED_4          = 0x93,
->
->This is quite obviously a PMBus device. Why not use the PMBus driver ?
->
->Guenter
+The new messages are listed as below:
+1. jpeg header and capture buffer information
+2. information for each irq
+3. current capture mode, sync or direct-fetch
+4. time consumed for each frame
+5. input timing changed information
 
-Ah, so it appears -- not familiar enough with the constants to recognize 
-it immediately I suppose (and wasn't expecting PMBus on this particular 
-device).  Let me try that.
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+ drivers/media/platform/aspeed-video.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-
-Thanks,
-Zev
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 6af57467b6d4..e8dd0a7ebfc7 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -461,12 +461,17 @@ static void aspeed_video_write(struct aspeed_video *video, u32 reg, u32 val)
+ 
+ static void update_perf(struct aspeed_video_perf *p)
+ {
++	struct aspeed_video *v = container_of(p, struct aspeed_video,
++					      perf);
++
+ 	p->duration =
+ 		ktime_to_ms(ktime_sub(ktime_get(),  p->last_sample));
+ 	p->totaltime += p->duration;
+ 
+ 	p->duration_max = max(p->duration, p->duration_max);
+ 	p->duration_min = min(p->duration, p->duration_min);
++	v4l2_dbg(2, debug, &v->v4l2_dev, "time consumed: %d ms\n",
++		 p->duration);
+ }
+ 
+ static int aspeed_video_start_frame(struct aspeed_video *video)
+@@ -597,6 +602,12 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
+ 	struct aspeed_video *video = arg;
+ 	u32 sts = aspeed_video_read(video, VE_INTERRUPT_STATUS);
+ 
++	v4l2_dbg(2, debug, &video->v4l2_dev, "irq sts=%#x %s%s%s%s\n", sts,
++		 sts & VE_INTERRUPT_MODE_DETECT_WD ? ", unlock" : "",
++		 sts & VE_INTERRUPT_MODE_DETECT ? ", lock" : "",
++		 sts & VE_INTERRUPT_CAPTURE_COMPLETE ? ", capture-done" : "",
++		 sts & VE_INTERRUPT_COMP_COMPLETE ? ", comp-done" : "");
++
+ 	/*
+ 	 * Resolution changed or signal was lost; reset the engine and
+ 	 * re-initialize
+@@ -910,6 +921,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 
+ 	/* Don't use direct mode below 1024 x 768 (irqs don't fire) */
+ 	if (size < DIRECT_FETCH_THRESHOLD) {
++		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Sync Mode\n");
+ 		aspeed_video_write(video, VE_TGS_0,
+ 				   FIELD_PREP(VE_TGS_FIRST,
+ 					      video->frame_left - 1) |
+@@ -921,6 +933,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 					      video->frame_bottom + 1));
+ 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_INT_DE);
+ 	} else {
++		v4l2_dbg(1, debug, &video->v4l2_dev, "Capture: Direct Mode\n");
+ 		aspeed_video_update(video, VE_CTRL, 0, VE_CTRL_DIRECT_FETCH);
+ 	}
+ 
+@@ -937,6 +950,10 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
+ 		if (!aspeed_video_alloc_buf(video, &video->srcs[1], size))
+ 			goto err_mem;
+ 
++		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf0 addr(%#x) size(%d)\n",
++			 video->srcs[0].dma, video->srcs[0].size);
++		v4l2_dbg(1, debug, &video->v4l2_dev, "src buf1 addr(%#x) size(%d)\n",
++			 video->srcs[1].dma, video->srcs[1].size);
+ 		aspeed_video_write(video, VE_SRC0_ADDR, video->srcs[0].dma);
+ 		aspeed_video_write(video, VE_SRC1_ADDR, video->srcs[1].dma);
+ 	}
+@@ -1201,6 +1218,9 @@ static int aspeed_video_set_dv_timings(struct file *file, void *fh,
+ 
+ 	timings->type = V4L2_DV_BT_656_1120;
+ 
++	v4l2_dbg(1, debug, &video->v4l2_dev, "set new timings(%dx%d)\n",
++		 timings->bt.width, timings->bt.height);
++
+ 	return 0;
+ }
+ 
+@@ -1383,6 +1403,7 @@ static void aspeed_video_resolution_work(struct work_struct *work)
+ 			.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
+ 		};
+ 
++		v4l2_dbg(1, debug, &video->v4l2_dev, "fire source change event\n");
+ 		v4l2_event_queue(&video->vdev, &ev);
+ 	} else if (test_bit(VIDEO_STREAMING, &video->flags)) {
+ 		/* No resolution change so just restart streaming */
+@@ -1715,6 +1736,7 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 		dev_err(dev, "Unable to request IRQ %d\n", irq);
+ 		return rc;
+ 	}
++	dev_info(video->dev, "irq %d\n", irq);
+ 
+ 	video->eclk = devm_clk_get(dev, "eclk");
+ 	if (IS_ERR(video->eclk)) {
+@@ -1751,6 +1773,8 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 		rc = -ENOMEM;
+ 		goto err_release_reserved_mem;
+ 	}
++	dev_info(video->dev, "alloc mem size(%d) at %#x for jpeg header\n",
++		 VE_JPEG_HEADER_SIZE, video->jpeg.dma);
+ 
+ 	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
+ 
+-- 
+2.25.1
 
