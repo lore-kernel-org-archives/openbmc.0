@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD2CC433EF
-	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 21:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E1AC433EF
+	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 21:39:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4J8VsR2NcLz307x
-	for <openbmc@archiver.kernel.org>; Thu,  9 Dec 2021 08:38:35 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4J8Vt65SXqz2yNw
+	for <openbmc@archiver.kernel.org>; Thu,  9 Dec 2021 08:39:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=DUihA1g+;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=Q0rc554w;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
+ smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
  helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=DUihA1g+; 
+ header.a=rsa-sha256 header.s=thorn header.b=Q0rc554w; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [71.19.156.171])
+ [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4J8Vr06wWCz2yN3
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4J8Vr0716Xz2yNW
  for <openbmc@lists.ozlabs.org>; Thu,  9 Dec 2021 08:37:20 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (174-21-184-96.tukw.qwest.net
  [174.21.184.96])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id E6BC1500;
- Wed,  8 Dec 2021 13:37:15 -0800 (PST)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 715D072A;
+ Wed,  8 Dec 2021 13:37:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
  s=thorn; t=1638999436;
- bh=DFS4xFVoWu3eIZ8C+hKS8xqrLjmyqO7+PD3wjn4s/TA=;
- h=From:To:Cc:Subject:Date:From;
- b=DUihA1g+gL8KLIYS6nxLj3FiJTBi4UTbuhhU7fEGCmzbQV22O9zo24E9H0rryuQeH
- CmFZAIu30o3/oZtgAq9gEyfGbks4mKmXaXo+kY9WHBqhlNRUSYROOpqhdfPePOHyvD
- jP5YzfldCXJzmOrK5UPiN1tVmtLR5pOPGbzb6OZg=
+ bh=DLYbN0BwJINAopqXYHsMVrIfzEfDIDq+91j/Sj5/ryo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Q0rc554wzqolxE3STaPq6ZFtZkTTLpPZZbiuemNsTTH3GEYR0bm0uEDhRuKaPZ7vK
+ 4UCNMMc51KZUWcDFnrSqlFb0Ir3ZlRqGPdqZdC+QA58RYkWLfXrvLB08ILVyhi25QK
+ nQD5lFE7qjmfL8X73ogBQ81yQ4yTw+r1i97zjtnA=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: linux-hwmon@vger.kernel.org
-Subject: [PATCH v4 0/2] hwmon: (pmbus) Add Delta AHE-50DC fan control module
- driver
-Date: Wed,  8 Dec 2021 13:37:01 -0800
-Message-Id: <20211208213703.2577-1-zev@bewilderbeest.net>
+Subject: [PATCH v4 2/2] dt-bindings: add Delta AHE-50DC fan control module
+Date: Wed,  8 Dec 2021 13:37:03 -0800
+Message-Id: <20211208213703.2577-3-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20211208213703.2577-1-zev@bewilderbeest.net>
+References: <20211208213703.2577-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -68,57 +69,27 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+This is the integrated fan control module of the Delta AHE-50DC Open19
+power shelf.
 
-These patches add a hwmon pmbus driver for the integrated fan control
-module in the Delta AHE-50DC Open19 power shelf.  I don't know of a
-datasheet or any proper documentation for it.  It's a PMBus device,
-but supports a fairly limited set of commands.  The ones it does
-support have deen deduced from a combination of an existing GPL driver
-in a code release from LinkedIn [0] and some manual experimentation
-with i2c-tools commands.  In addition to some standard PMBus sensors
-(three temperature readings, four fan speeds, and a vin voltage), it
-also has a manufacturer-specific fourth temperature reading available,
-which is supported via a virtual second page (the device itself is not
-paged, but the driver remaps PMBUS_READ_TEMPERATURE_1 in page 1 to the
-manufacturer-specific TEMPERATURE_4).
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-
-Thanks,
-Zev Weiss
-
-Changes since v3 [3]:
- - fixed header inclusion order
- - removed spurious select/depends Kconfig lines
- - added comment explaining PMBUS_NO_CAPABILITY
- - added command-filtering to read_word_data callback to avoid
-   producing bogus sensor limits
- - updated commit message
-
-Changes since v2 [2]:
- - converted to pmbus driver
-
-Changes since v1 [1]:
- - fixed invalid name warning from __hwmon_device_register()
-
-[0] https://github.com/linkedin/o19-bmc-firmware/blob/master/meta-openbmc/meta-linkedin/meta-deltapower/recipes-kernel/fancontrol-mod/files/fancontrol.c
-[1] https://lore.kernel.org/linux-hwmon/20211206224419.15736-1-zev@bewilderbeest.net/
-[2] https://lore.kernel.org/linux-hwmon/20211206230153.16891-1-zev@bewilderbeest.net/
-[3] https://lore.kernel.org/linux-hwmon/20211207071521.543-1-zev@bewilderbeest.net/
-
-
-Zev Weiss (2):
-  hwmon: (pmbus) Add Delta AHE-50DC fan control module driver
-  dt-bindings: add Delta AHE-50DC fan control module
-
- .../devicetree/bindings/trivial-devices.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/hwmon/pmbus/Kconfig                   |  10 ++
- drivers/hwmon/pmbus/Makefile                  |   1 +
- drivers/hwmon/pmbus/delta-ahe50dc-fan.c       | 114 ++++++++++++++++++
- 5 files changed, 133 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/delta-ahe50dc-fan.c
-
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 791079021f1b..1c43cc91f804 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -73,6 +73,8 @@ properties:
+           - dallas,ds4510
+             # Digital Thermometer and Thermostat
+           - dallas,ds75
++            # Delta AHE-50DC Open19 power shelf fan control module
++          - delta,ahe50dc-fan
+             # Delta Electronics DPS-650-AB power supply
+           - delta,dps650ab
+           # Delta Electronics DPS920AB 920W 54V Power Supply
 -- 
 2.34.1
 
