@@ -4,159 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB100C433EF
-	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 20:35:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04D05C433EF
+	for <openbmc@archiver.kernel.org>; Wed,  8 Dec 2021 21:38:01 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4J8TSh58bKz30RC
-	for <openbmc@archiver.kernel.org>; Thu,  9 Dec 2021 07:35:32 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4J8Vrm3J09z3bN5
+	for <openbmc@archiver.kernel.org>; Thu,  9 Dec 2021 08:38:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lenovo.com header.i=@lenovo.com header.a=rsa-sha256 header.s=Selector header.b=bvQQENcK;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=K+/r1I2R;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=lenovo.com (client-ip=67.219.250.112;
- helo=mail1.bemta35.messagelabs.com; envelope-from=dukh@lenovo.com;
+ smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=lenovo.com header.i=@lenovo.com header.a=rsa-sha256
- header.s=Selector header.b=bvQQENcK; dkim-atps=neutral
-Received: from mail1.bemta35.messagelabs.com (mail1.bemta35.messagelabs.com
- [67.219.250.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=K+/r1I2R; 
+ dkim-atps=neutral
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [71.19.156.171])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4J8TRm2tdQz2ywb
- for <openbmc@lists.ozlabs.org>; Thu,  9 Dec 2021 07:34:43 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lenovo.com;
- s=Selector; t=1638995676; i=@lenovo.com;
- bh=Xcj4otp0K7EF4N61MWnZJ6LfXF+QllfECEy2CKak97I=;
- h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
- Content-Type:Content-Transfer-Encoding:MIME-Version;
- b=bvQQENcK/iHwT2Isx9D+kjObbto5juquLvq5QdnA8VPNh/baxCkI2UbbrD1H5OaBA
- R5VhVMoz7cFMumUdl/Sc3ng66noT78B+uNXRIdClvTr/RgorSep3ItIVJue+4mkbrD
- pTorQcph+V46aMnuCAHf4NqE9gCQ+iAUd8p+K5YUu4WhuGd1hi+6jDpv87K7flvLmY
- 86morBP4+4CTMz3YCKNFUqQRB5LzhjojnzEtjKh84/AOFD/GSpqU1MB/Zgb6vBj/t6
- 8UFzDVpNiMT1Xu4nowbrwqg94/klsYto5JaJubMgPfqajQKtnRNT3PmS8Jau54cUwN
- LGVIF9G1FpHIA==
-Received: from [100.114.97.172] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-a.us-west-2.aws.ess.symcld.net id A3/70-06184-BD611B16;
- Wed, 08 Dec 2021 20:34:35 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIJsWRWlGSWpSXmKPExsWSoV9jqntbbGO
- iwa0JyhZLb15hszjV8oLFgcnj9vYmdo/zMxYyBjBFsWbmJeVXJLBmbDnyk6VgB2vFjKPiDYx7
- WboYuTgYBZYyS8z8cJodwlnEKnFjxXpWCGcDo0T3r8+MII6QwGwmibNTprJDOHcYJV70dQMN4
- ORgE1CS2Pz0DhuILSKgK3GtuYURxGYWsJTY/PESO4gtLOAhseV3EyNEjafEip9nWSBsK4n7T9
- 6B9bIIqEi8OnWRGcTmFYiVeL8SZnM7o8TNy29ZQRKcAqYSaz5eB2tgFBCT+H5qDRPEMnGJW0/
- mg9kSAgISS/acZ4awRSVePv7HClFfInHr5Xo2iLisxKX53YwQtq/EvoWToOK6Ens6trJC2DkS
- J89tBLI5gGw1iT2N2hBhOYlVvQ9ZIGx5iWmL3rND2DISD25sZwO5WULgD6vEuo7Z7BDOF2aJJ
- dfWQi0zkJj37QhU1TwBiWsLl7FNYNSdheQJCFtHYsHuT2wQtrbEsoWvmWeBQ0ZQ4uTMJywLGF
- lWMVolFWWmZ5TkJmbm6BoaGOgaGproWprpmhjoJVbpJuqVFuuWpxaX6BrpJZYX66UWF+sVV+Y
- m56To5aWWbGIEpp6UogSNHYw9/T/1DjFKcjApifKycm5MFOJLyk+pzEgszogvKs1JLT7EKMPB
- oSTBmyQClBMsSk1PrUjLzAGmQZi0BAePkggvMHEmCvEWFyTmFmemQ6ROMepyTHg5dxGzEEtef
- l6qlDjvG1GgIgGQoozSPLgRsJR8iVFWSpiXkYGBQYinILUoN7MEVf4VozgHo5Iwry0wwQvxZO
- aVwG16BXQEE9ARzi3rQY4oSURISTUwBfI+3uJWsVuwcbPmm4uqoRE3M7uY2l/Obfn4ljPvjZP
- 0zcqP85cqiwowOHju/75o6nL+c5x+SoUic2vbbT55pst2H3zRuYFBVWal63fpnZxGxz8/eHRJ
- ZIHAqp9rxEyUZMXSOi8e8T66fcek1IN2V3xbHHoLfr9ufXpdRT15bWDCTcs3U/6mFsRw+/VrH
- pzNsP2is2eyh3RX0gPPdbeFyl5OP1Uwzdc7+fcP3e11DiJ1Rc9ObLu54XVIs/gPjW8XbKIn90
- XvjosPu1DBqR5ky/3i4lqz63P/n9B/r8L68sbulawrBectOHl/0p2Dh3n2WKvzVfVU+zn7vzs
- 3u0HfRPHxdRsdTi5R1f7Ni6ZeV2Ipzkg01GIuKk4EAB7BHzBEBAAA
-X-Env-Sender: dukh@lenovo.com
-X-Msg-Ref: server-10.tower-655.messagelabs.com!1638995673!13073!1
-X-Originating-IP: [104.47.124.53]
-X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.81.7; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 11525 invoked from network); 8 Dec 2021 20:34:34 -0000
-Received: from mail-hk2apc01lp2053.outbound.protection.outlook.com (HELO
- APC01-HK2-obe.outbound.protection.outlook.com) (104.47.124.53)
- by server-10.tower-655.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 8 Dec 2021 20:34:34 -0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ql9pk9z9E2L31nyj6f/B23ME3XNaRMbaIPMzTPU5vr5iWwLGu9R5AvbeVaLUChlkwIbLYHMhtT8z3bQikTg1i8UIg7wKvqkt8Ewn19lKyVfbaBHcR56KuORDUispP7APq9ReG7RAzKBE8NrZmQpfxJXVMQHNsBUcHhcFVjX6sas9kS6pDc8UumTxrAjcFNCb5OmyIQ0oyCB7B7S3BeZGIqB9hIGltvp5aBtoDEY4L4tqgq7+DKuAwSPsBygMs+PVHI9ydAgNbtXWf0v05nN9ist9+Enzwiv39YBLHe01QHZu3vWyAN/B3CmA2dh78dw8DLyTXamNdVcckBQ6K4NS1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xcj4otp0K7EF4N61MWnZJ6LfXF+QllfECEy2CKak97I=;
- b=IWnvRmkkkBpeK2SLdbVSi92JDGGkAEvfbLZTKdicIKwYsoh77zSfpo+vcOO1oVHj0NmjzYKTvK9Osahy62RNROwgrlwzlN8N8TWXm8TpzNtgYhJud68cQTAp9vvUAn/pfIpWbfth+C+J0EuwrtBADksdS4tqUXph2rUhdgvSYueoP8mTBeW2opFKJ2cEiVhb7qK+D+GBdeoec3Z3VxGdCJmivf1ZnNBOeHXtax3D/QPDjkwOCLluhF3CqEdJGBzhuZn2RioIXut9e73FmIArpCvx9JGwdBGeulhS8cQHhuZ7bOaAYxqog2UbEiJBRg4w2cwZ2V0HcMVoro51xoIJeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=lenovo.com; dmarc=pass action=none header.from=lenovo.com;
- dkim=pass header.d=lenovo.com; arc=none
-Received: from SI2PR03MB5831.apcprd03.prod.outlook.com (2603:1096:4:143::12)
- by SI2PR03MB5499.apcprd03.prod.outlook.com (2603:1096:4:12a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.8; Wed, 8 Dec
- 2021 20:34:33 +0000
-Received: from SI2PR03MB5831.apcprd03.prod.outlook.com
- ([fe80::4058:258:50b4:78e5]) by SI2PR03MB5831.apcprd03.prod.outlook.com
- ([fe80::4058:258:50b4:78e5%6]) with mapi id 15.20.4734.028; Wed, 8 Dec 2021
- 20:34:32 +0000
-From: Duke KH Du <dukh@lenovo.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: RE: [External] Re: Apply edit permission for Lenovo CCLA folder
-Thread-Topic: [External] Re: Apply edit permission for Lenovo CCLA folder
-Thread-Index: Adfrkdat6+RFCn7nTq+ELly0GnVdQAAs8PUAAAtQFDA=
-Date: Wed, 8 Dec 2021 20:34:32 +0000
-Message-ID: <SI2PR03MB5831795031B7FB4B9016BE8FB66F9@SI2PR03MB5831.apcprd03.prod.outlook.com>
-References: <SI2PR03MB58317B51F6CB17FF2910D4F0B66E9@SI2PR03MB5831.apcprd03.prod.outlook.com>
- <20211208150932.u22x2bjaehup3v2h@cheese>
-In-Reply-To: <20211208150932.u22x2bjaehup3v2h@cheese>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0f91bef2-94f3-4706-1544-08d9ba8a246b
-x-ms-traffictypediagnostic: SI2PR03MB5499:EE_
-x-microsoft-antispam-prvs: <SI2PR03MB5499FC2D9C58BCC406DE3E9DB66F9@SI2PR03MB5499.apcprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: I7oQHTxLbeTxjEBOyD8KqFpJvzn2khI8YfC2BFaTaNlVDc34JTK+ZMsgI86UFiwV7mYZIgaQbWFue8RClihjBPFp9MdU9FwiBpk4KXrN/X8GrdQm3O5Ywon3mZK62Ec9LLIgZKH1BUZpQfd15cur2sDKmmU8KTkUPe+oFvl8gGURM3zHlg2opPV2gWV1SWP13TSLyL1PC8O+e5Yan9NOpslCLb81wDnE6AX563e3gJynEp6YlSYlHO3r/kzYJ7GmRO4wyZFxdB6Z44MnetFW+POJYQMzTZIepthmmR+BoocqLC6K+E6zLQJP/p1XlB1UZRytnvbBazT6estfMGq0AXkaRrLm8M9BZLLColxDwAc0VPNcfgwWgyPZPVX8VKlNXkSXfFx/FyMtCVDQov04VXv7bPJN0LsjVqsO8XXgrXocdwHkBLBPhydz6n52b4vKSvN7dw7KgdLZToJXiJsNbpkxO0Dpn9xvPpUiD2D9U3GdQrSxdnrUsbHHvf9FcoUk62Ts3M7yPYnYrv6fAWdFn/4pkmFv3mdBJg+80s866v91vQKWQzTs+19cHE5sj6CwmPY45Y2qYa/SwmJr8uWWl3jj7Hht/sphONkRZKa8RyLpo6o0c9vHg9TUbUSLhYABPf7HxlRt7J/XL7p/IszOtEQEheWyljd6s+Mstl1b7ZZnos8rBtozMS8XAw4c3841K6VUYG9jTGmdnGLaYgDEEQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SI2PR03MB5831.apcprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(366004)(4744005)(8936002)(6506007)(122000001)(38070700005)(64756008)(66446008)(86362001)(66476007)(53546011)(83380400001)(38100700002)(66556008)(5660300002)(9686003)(82960400001)(76116006)(7696005)(316002)(8676002)(2906002)(508600001)(52536014)(186003)(66946007)(55016003)(6916009)(33656002)(4326008)(71200400001)(26005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YmgIa1+4sY4sLACzt5CHQLpc0fsVLES1FdVeWkB+0yQ/U0TFSPNzREsEPkg9?=
- =?us-ascii?Q?li8hDQSLzxirK4UttpK302OGKD7pVrI/Rjxz0n/EB01ql6yNCYfw8p+S+aoR?=
- =?us-ascii?Q?723aGilyD/W3CagkEzrXIK52vE7z/6/xg/kxjjboiC8xrLwQAzbqoDUoUT6o?=
- =?us-ascii?Q?KP1+4ETyMULAOgkrEzUPJ1ir7nfo2wvXKQWoolfjHwdfK/wO61rXa+PGtWPm?=
- =?us-ascii?Q?W3ZnM+C00MCNgkSxXqzaQynF+HEvnglBcfs5Hwpx+D8j4v56PAa7IsBw+Dfp?=
- =?us-ascii?Q?+xE8CbHqvcBXvpCG/WaL/ElPQZxWyPxKRLu8e6I/O3RHpEun9wCo8x6zl08H?=
- =?us-ascii?Q?F01idWWXgnzDyHVDggCwHgdyg/6oOBYYH+IMXERchm6/dH5+nSlSXPUONH/Z?=
- =?us-ascii?Q?9WwTJ9FNHqJHK9O4f4UrwFIeL+39G4xNMfxYgCQrzI+yCN7ekm7X1JmGnjno?=
- =?us-ascii?Q?qezPl13DcvDlb/I56BaiXke9gIDvAlq9Ohc8mqMUc7tsZGAX0Dj76LNBLxUi?=
- =?us-ascii?Q?pjjAI9mrh/amhRQRoEVEX9W689WZfHCI5mbKKfo8f9wcjeTZ9lg2718FSQbY?=
- =?us-ascii?Q?HqJ5q5Y9c2TjsgwuoYSN9CWUvphyI2ihFhdVVAB7vqJU6Jx8Du7yyW2gmpny?=
- =?us-ascii?Q?gt+tOShQBN3a7YpwAG7YmdDTwdUngt2rV+PS7e8Od22dv5msXqWFCF1qKJ+N?=
- =?us-ascii?Q?xTskG7n5y+isfRbgsve/qkK1M1SqA886FTid4BtumgddhYVF3Xo0mc+/tNhv?=
- =?us-ascii?Q?ps5LalDL3zEAT3U6U7pDJjgiF7bdl4jLn/Bm1U8om5kEOVRW2PjtvyUMW7+m?=
- =?us-ascii?Q?JlaE40p8xcweYSMB8iNSrFcQ0Ip4ypNW1Ke0dm145GeGLerlreHuJcq+CygG?=
- =?us-ascii?Q?KryqwS8MgFeujNbBPd3+vU+W6boPaiuOwR/k56rEZHY7s8Oh4gf4Fe6rPuOw?=
- =?us-ascii?Q?KErYFLQKfMKuvX5RYcWbvxi3jWCvmnqoUdK1nxXzK3Ci30Cv+cgL80Ui671j?=
- =?us-ascii?Q?sjGHivQkk0Ss4RQMLNGyCetxVwsx20DFoBgipCQPBc3zL3ep2TxfB5qtP33o?=
- =?us-ascii?Q?HdYCtBIRNDIUl4oKJ27OZC2cHw+nXkrYKsPQF+RhOWxK4DmnNf+LpW6mIl0A?=
- =?us-ascii?Q?G6mf40xeGukXg2ojjH/Y0kxhk83/LQLhwMbd2xy1IeA20OQJiuEctcQHyLY9?=
- =?us-ascii?Q?whiLNZlKNJHs1KZBKmD3rb+oeYu6k90qKmtLRzaiBiCB+b8f43OknnKVG0rf?=
- =?us-ascii?Q?lag8PsTVsn2DTuzjqDWPDr2FPqUhFOUGG+g0Ke4VHVRRjz0rlBuuNBobC5av?=
- =?us-ascii?Q?HAD5opROMKp7dOr1Y4Sy3uMYYMsCbZJV7zU7MDJMwVnLcg7MjF3lQXjqEcaB?=
- =?us-ascii?Q?POjeh/QF9j66UG8X7yiSbRN95MpBZRWGX2m82cfdnq7aav4Sck3VGyOwH4jr?=
- =?us-ascii?Q?XxUO+r3MM6Ry5CMiMZCa6ymHLIb7j2mwvl8JTL41Xq7SCqzGxvr2WCvIot9Z?=
- =?us-ascii?Q?j2xzL0/c9fXU1EcPUNYEni3nxKXdPRDMaVmCp0ZkL8V/sVFLFiMlklycW49N?=
- =?us-ascii?Q?7/kDy8JyeKLtOMxyovU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4J8Vr06z2xz2yN4
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Dec 2021 08:37:20 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (174-21-184-96.tukw.qwest.net
+ [174.21.184.96])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 323C5630;
+ Wed,  8 Dec 2021 13:37:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1638999436;
+ bh=z+I/NzVFAdTm6TN+9l8AbmzE8Y32GYilskIoJZ8nYc8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=K+/r1I2R0M3JM9GB5EuFkDY0Ur/p1kwCjLmQ/9DDZ9lRvJvstahgBgkL3a7zrmmOC
+ lrW7mWw54wwztBgJj6ov0rhCiWJgyz9/jArSWpfRr+UvU1aNGfLl8eag0+NzlEPlbr
+ pQFw+PA/6xSy6xxBZURfu1MEeEk5BcVNKQr2dD6U=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: linux-hwmon@vger.kernel.org
+Subject: [PATCH v4 1/2] hwmon: (pmbus) Add Delta AHE-50DC fan control module
+ driver
+Date: Wed,  8 Dec 2021 13:37:02 -0800
+Message-Id: <20211208213703.2577-2-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20211208213703.2577-1-zev@bewilderbeest.net>
+References: <20211208213703.2577-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
-X-OriginatorOrg: lenovo.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SI2PR03MB5831.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f91bef2-94f3-4706-1544-08d9ba8a246b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Dec 2021 20:34:32.6895 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5c7d0b28-bdf8-410c-aa93-4df372b16203
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CcHmGj+o18XXuHX5QS8x0VBjRf13j1kLUO9vjuOMvYf9vO48BMOyfnwAw0wtZE94
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR03MB5499
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,33 +63,198 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Zev Weiss <zev@bewilderbeest.net>, openbmc@lists.ozlabs.org,
+ Rob Herring <robh+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Brad,
+This device is an integrated module of the Delta AHE-50DC Open19 power
+shelf.  I haven't been able to procure any proper documentation for
+it, but it seems to be a (somewhat minimally) PMBus-compliant device.
+It provides four fan speeds, four temperatures (three standard and one
+manufacturer-specific via a virtual second page), and a vin reading.
 
-Thanks for granting the permission. I can edit that folder now.
-Just uploaded the updated CCLA into that folder.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+---
+ MAINTAINERS                             |   6 ++
+ drivers/hwmon/pmbus/Kconfig             |  10 +++
+ drivers/hwmon/pmbus/Makefile            |   1 +
+ drivers/hwmon/pmbus/delta-ahe50dc-fan.c | 114 ++++++++++++++++++++++++
+ 4 files changed, 131 insertions(+)
+ create mode 100644 drivers/hwmon/pmbus/delta-ahe50dc-fan.c
 
-Thanks.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0ac052200ecb..8bb7ba52d2f5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5425,6 +5425,12 @@ W:	https://linuxtv.org
+ T:	git git://linuxtv.org/media_tree.git
+ F:	drivers/media/platform/sti/delta
+ 
++DELTA AHE-50DC FAN CONTROL MODULE DRIVER
++M:	Zev Weiss <zev@bewilderbeest.net>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	drivers/hwmon/pmbus/delta-ahe50dc-fan.c
++
+ DELTA DPS920AB PSU DRIVER
+ M:	Robert Marko <robert.marko@sartura.hr>
+ L:	linux-hwmon@vger.kernel.org
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index ffb609cee3a4..0b1157b883aa 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -66,6 +66,16 @@ config SENSORS_BPA_RS600
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called bpa-rs600.
+ 
++config SENSORS_DELTA_AHE50DC_FAN
++	tristate "Delta AHE-50DC fan control module"
++	help
++	  If you say yes here you get hardware monitoring support for
++	  the integrated fan control module of the Delta AHE-50DC
++	  Open19 power shelf.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called delta-ahe50dc-fan.
++
+ config SENSORS_FSP_3Y
+ 	tristate "FSP/3Y-Power power supplies"
+ 	help
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index 0ed4d596a948..a56b2897288d 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ADM1266)	+= adm1266.o
+ obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
+ obj-$(CONFIG_SENSORS_BEL_PFE)	+= bel-pfe.o
+ obj-$(CONFIG_SENSORS_BPA_RS600)	+= bpa-rs600.o
++obj-$(CONFIG_SENSORS_DELTA_AHE50DC_FAN) += delta-ahe50dc-fan.o
+ obj-$(CONFIG_SENSORS_FSP_3Y)	+= fsp-3y.o
+ obj-$(CONFIG_SENSORS_IBM_CFFPS)	+= ibm-cffps.o
+ obj-$(CONFIG_SENSORS_DPS920AB)	+= dps920ab.o
+diff --git a/drivers/hwmon/pmbus/delta-ahe50dc-fan.c b/drivers/hwmon/pmbus/delta-ahe50dc-fan.c
+new file mode 100644
+index 000000000000..40dffd9c4cbf
+--- /dev/null
++++ b/drivers/hwmon/pmbus/delta-ahe50dc-fan.c
+@@ -0,0 +1,114 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Delta AHE-50DC power shelf fan control module driver
++ *
++ * Copyright 2021 Zev Weiss <zev@bewilderbeest.net>
++ */
++
++#include <linux/i2c.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/pmbus.h>
++
++#include "pmbus.h"
++
++#define AHE50DC_PMBUS_READ_TEMP4 0xd0
++
++static int ahe50dc_fan_read_word_data(struct i2c_client *client, int page, int phase, int reg)
++{
++	/* temp1 in (virtual) page 1 is remapped to mfr-specific temp4 */
++	if (page == 1) {
++		if (reg == PMBUS_READ_TEMPERATURE_1)
++			return i2c_smbus_read_word_data(client, AHE50DC_PMBUS_READ_TEMP4);
++		return -EOPNOTSUPP;
++	}
++
++	/*
++	 * There's a fairly limited set of commands this device actually
++	 * supports, so here we block attempts to read anything else (which
++	 * return 0xffff and would cause confusion elsewhere).
++	 */
++	switch (reg) {
++	case PMBUS_STATUS_WORD:
++	case PMBUS_FAN_COMMAND_1:
++	case PMBUS_FAN_COMMAND_2:
++	case PMBUS_FAN_COMMAND_3:
++	case PMBUS_FAN_COMMAND_4:
++	case PMBUS_STATUS_FAN_12:
++	case PMBUS_STATUS_FAN_34:
++	case PMBUS_READ_VIN:
++	case PMBUS_READ_TEMPERATURE_1:
++	case PMBUS_READ_TEMPERATURE_2:
++	case PMBUS_READ_TEMPERATURE_3:
++	case PMBUS_READ_FAN_SPEED_1:
++	case PMBUS_READ_FAN_SPEED_2:
++	case PMBUS_READ_FAN_SPEED_3:
++	case PMBUS_READ_FAN_SPEED_4:
++		return -ENODATA;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
++static struct pmbus_driver_info ahe50dc_fan_info = {
++	.pages = 2,
++	.format[PSC_FAN] = direct,
++	.format[PSC_TEMPERATURE] = direct,
++	.format[PSC_VOLTAGE_IN] = direct,
++	.m[PSC_FAN] = 1,
++	.b[PSC_FAN] = 0,
++	.R[PSC_FAN] = 0,
++	.m[PSC_TEMPERATURE] = 1,
++	.b[PSC_TEMPERATURE] = 0,
++	.R[PSC_TEMPERATURE] = 1,
++	.m[PSC_VOLTAGE_IN] = 1,
++	.b[PSC_VOLTAGE_IN] = 0,
++	.R[PSC_VOLTAGE_IN] = 3,
++	.func[0] = PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2 | PMBUS_HAVE_TEMP3 |
++		PMBUS_HAVE_VIN | PMBUS_HAVE_FAN12 | PMBUS_HAVE_FAN34 |
++		PMBUS_HAVE_STATUS_FAN12 | PMBUS_HAVE_STATUS_FAN34 | PMBUS_PAGE_VIRTUAL,
++	.func[1] = PMBUS_HAVE_TEMP | PMBUS_PAGE_VIRTUAL,
++	.read_word_data = ahe50dc_fan_read_word_data,
++};
++
++/*
++ * CAPABILITY returns 0xff, which appears to be this device's way indicating
++ * it doesn't support something (and if we enable I2C_CLIENT_PEC on seeing bit
++ * 7 being set it generates bad PECs, so let's not go there).
++ */
++static struct pmbus_platform_data ahe50dc_fan_data = {
++	.flags = PMBUS_NO_CAPABILITY,
++};
++
++static int ahe50dc_fan_probe(struct i2c_client *client)
++{
++	client->dev.platform_data = &ahe50dc_fan_data;
++	return pmbus_do_probe(client, &ahe50dc_fan_info);
++}
++
++static const struct i2c_device_id ahe50dc_fan_id[] = {
++	{ "ahe50dc_fan" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, ahe50dc_fan_id);
++
++static const struct of_device_id __maybe_unused ahe50dc_fan_of_match[] = {
++	{ .compatible = "delta,ahe50dc-fan" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ahe50dc_fan_of_match);
++
++static struct i2c_driver ahe50dc_fan_driver = {
++	.driver = {
++		   .name = "ahe50dc_fan",
++		   .of_match_table = of_match_ptr(ahe50dc_fan_of_match),
++	},
++	.probe_new = ahe50dc_fan_probe,
++	.id_table = ahe50dc_fan_id,
++};
++module_i2c_driver(ahe50dc_fan_driver);
++
++MODULE_AUTHOR("Zev Weiss <zev@bewilderbeest.net>");
++MODULE_DESCRIPTION("Driver for Delta AHE-50DC power shelf fan control module");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS(PMBUS);
+-- 
+2.34.1
 
------Original Message-----
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>=20
-Sent: Wednesday, December 8, 2021 7:10 AM
-To: Duke KH Du <dukh@lenovo.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: [External] Re: Apply edit permission for Lenovo CCLA folder
-
-On Tue, Dec 07, 2021 at 05:44:35PM +0000, Duke KH Du wrote:
->Hi Brad and all,
->
->Could you grant the edit permission for me about the Lenovo CCLA folder in=
- the Google drive?
->I will update the Lenovo CCLA.
-
-Hi Duke, sure, I added you as an editor just now - let me know if you have =
-any trouble.
-
-thx - brad
