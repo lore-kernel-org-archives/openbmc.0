@@ -4,47 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B25A5C433FE
-	for <openbmc@archiver.kernel.org>; Wed, 15 Dec 2021 01:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3666DC433EF
+	for <openbmc@archiver.kernel.org>; Wed, 15 Dec 2021 01:19:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JDHBT0hhMz3bjP
-	for <openbmc@archiver.kernel.org>; Wed, 15 Dec 2021 12:06:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JDHT135qNz2yw9
+	for <openbmc@archiver.kernel.org>; Wed, 15 Dec 2021 12:19:01 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=cF/VhgNg;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
+ smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1;
+ helo=dfw.source.kernel.org; envelope-from=mchehab@kernel.org;
  receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=cF/VhgNg; 
+ dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JDH9r0gvgz2yPV;
- Wed, 15 Dec 2021 12:05:49 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1BF0dDeu017400;
- Wed, 15 Dec 2021 08:39:13 +0800 (GMT-8)
- (envelope-from jammy_huang@aspeedtech.com)
-Received: from [192.168.2.115] (192.168.2.115) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 15 Dec
- 2021 09:04:35 +0800
-Message-ID: <387e8181-c943-9372-48b1-3caadac4caac@aspeedtech.com>
-Date: Wed, 15 Dec 2021 09:04:36 +0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JD1Zt6lMjz2yXv;
+ Wed, 15 Dec 2021 01:53:10 +1100 (AEDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6A63161545;
+ Tue, 14 Dec 2021 14:53:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41196C34605;
+ Tue, 14 Dec 2021 14:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1639493585;
+ bh=AzHNcyUA/QRvy9mrDm7aHrX+kNREOEaOReCfcbc2Xx4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=cF/VhgNgrjUoFOwS01/hdqyirsFFhGaSbDWxWEnel4pr35r2BE3+67wFlo0385QVN
+ sg11RNm9ImM9CopIofbxt5YmJUEDE6s+TV+gxzdR3/J1lIBjEn+80OyZI8FjYQA7hT
+ V/eFgALuGcKBUPY2hmCe9h2RRKT9bNMNMhHgBRHTLtmDJizrdhra/g7LvmTRMJgzGx
+ Wr83hZUr5FLOQlRF8ScScaZVx4rfA6FkJoz+XZ1YugXijMDSCVovxxYoB10a8DryAj
+ EefdXQTfGDZ3//3zus4/tACdXPwLr5UMj0BRBc/vWgBzwRstHWPdX+uhbj2AusjOYz
+ W6rBfIELeqezQ==
+Date: Tue, 14 Dec 2021 15:53:00 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Jammy Huang <jammy_huang@aspeedtech.com>
+Subject: Re: [PATCH v2] media: aspeed: move err-handling together to the bottom
+Message-ID: <20211214155300.0132946e@coco.lan>
+In-Reply-To: <20211206004811.1118-1-jammy_huang@aspeedtech.com>
+References: <20211206004811.1118-1-jammy_huang@aspeedtech.com>
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.30; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH] media: aspeed: Use runtime configuration
-Content-Language: en-US
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-References: <20211207015544.1755-1-jammy_huang@aspeedtech.com>
- <20211214161216.607df557@coco.lan>
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-In-Reply-To: <20211214161216.607df557@coco.lan>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [192.168.2.115]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1BF0dDeu017400
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 15 Dec 2021 12:18:24 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,208 +66,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "andrew@aj.id.au" <andrew@aj.id.au>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "eajames@linux.ibm.com" <eajames@linux.ibm.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Cc: linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, gregkh@linuxfoundation.org,
+ openbmc@lists.ozlabs.org, eajames@linux.ibm.com, linux-kernel@vger.kernel.org,
+ laurent.pinchart@ideasonboard.com, sakari.ailus@linux.intel.com,
+ hverkuil-cisco@xs4all.nl, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Mauro,
+Em Mon, 6 Dec 2021 08:48:11 +0800
+Jammy Huang <jammy_huang@aspeedtech.com> escreveu:
 
-OK, I didn't notice previouso one has been applied.
-Thank you.
+> refine aspeed_video_setup_video() flow.
 
-On 2021/12/14 下午 11:12, Mauro Carvalho Chehab wrote:
-> Hi Jammy,
->
-> A different version of this patch was already applied. If it still makes
-> change, please rebase this one on the top of the media upstream and
-> re-send.
->
-> Thanks,
-> Mauro
->
-> Em Tue, 7 Dec 2021 09:55:44 +0800
-> Jammy Huang <jammy_huang@aspeedtech.com> escreveu:
->
->> The aspeed video IP has some differences between SoC families. Currently
->> the driver decides which registers to use at compile time, which means
->> a single kernel can not be used between platforms.
->>
->> Switch to using runtime configuration of the registers that vary between
->> SoC families.
->>
->> Signed-off-by: Joel Stanley <joel@jms.id.au>
->> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
->> ---
->>   drivers/media/platform/aspeed-video.c | 71 ++++++++++++++++++++-------
->>   1 file changed, 52 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
->> index d2335d669fb3..ba8ee82b38c3 100644
->> --- a/drivers/media/platform/aspeed-video.c
->> +++ b/drivers/media/platform/aspeed-video.c
->> @@ -75,11 +75,8 @@
->>   #define  VE_SEQ_CTRL_CAP_BUSY		BIT(16)
->>   #define  VE_SEQ_CTRL_COMP_BUSY		BIT(18)
->>   
->> -#ifdef CONFIG_MACH_ASPEED_G4
->> -#define  VE_SEQ_CTRL_JPEG_MODE		BIT(8)	/* AST2400 */
->> -#else
->> -#define  VE_SEQ_CTRL_JPEG_MODE		BIT(13)	/* AST2500/2600 */
->> -#endif
->> +#define AST2500_VE_SEQ_CTRL_JPEG_MODE	BIT(13)
->> +#define AST2400_VE_SEQ_CTRL_JPEG_MODE	BIT(8)
->>   
->>   #define VE_CTRL				0x008
->>   #define  VE_CTRL_HSYNC_POL		BIT(0)
->> @@ -136,9 +133,8 @@
->>   #define  VE_COMP_CTRL_HQ_DCT_CHR	GENMASK(26, 22)
->>   #define  VE_COMP_CTRL_HQ_DCT_LUM	GENMASK(31, 27)
->>   
->> -#define VE_OFFSET_COMP_STREAM		0x078
->> -
->> -#define VE_JPEG_COMP_SIZE_READ_BACK	0x084
->> +#define AST2400_VE_COMP_SIZE_READ_BACK	0x078
->> +#define AST2600_VE_COMP_SIZE_READ_BACK	0x084
->>   
->>   #define VE_SRC_LR_EDGE_DET		0x090
->>   #define  VE_SRC_LR_EDGE_DET_LEFT	GENMASK(11, 0)
->> @@ -233,6 +229,8 @@ struct aspeed_video {
->>   	struct video_device vdev;
->>   	struct mutex video_lock;	/* v4l2 and videobuf2 lock */
->>   
->> +	struct aspeed_video_config config;
->> +
->>   	wait_queue_head_t wait;
->>   	spinlock_t lock;		/* buffer list lock */
->>   	struct delayed_work res_work;
->> @@ -258,6 +256,30 @@ struct aspeed_video {
->>   
->>   #define to_aspeed_video(x) container_of((x), struct aspeed_video, v4l2_dev)
->>   
->> +struct aspeed_video_config {
->> +	u32 version;
->> +	u32 jpeg_mode;
->> +	u32 comp_size_read;
->> +};
->> +
->> +static const struct aspeed_video_config ast2400_config = {
->> +	.version = 4,
->> +	.jpeg_mode = AST2400_VE_SEQ_CTRL_JPEG_MODE,
->> +	.comp_size_read = AST2400_VE_COMP_SIZE_READ_BACK,
->> +};
->> +
->> +static const struct aspeed_video_config ast2500_config = {
->> +	.version = 5,
->> +	.jpeg_mode = AST2500_VE_SEQ_CTRL_JPEG_MODE,
->> +	.comp_size_read = AST2400_VE_COMP_SIZE_READ_BACK,
->> +};
->> +
->> +static const struct aspeed_video_config ast2600_config = {
->> +	.version = 6,
->> +	.jpeg_mode = AST2500_VE_SEQ_CTRL_JPEG_MODE,
->> +	.comp_size_read = AST2600_VE_COMP_SIZE_READ_BACK,
->> +};
->> +
->>   static const u32 aspeed_video_jpeg_header[ASPEED_VIDEO_JPEG_HEADER_SIZE] = {
->>   	0xe0ffd8ff, 0x464a1000, 0x01004649, 0x60000101, 0x00006000, 0x0f00feff,
->>   	0x00002d05, 0x00000000, 0x00000000, 0x00dbff00
->> @@ -640,7 +662,7 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
->>   	if (sts & VE_INTERRUPT_COMP_COMPLETE) {
->>   		struct aspeed_video_buffer *buf;
->>   		u32 frame_size = aspeed_video_read(video,
->> -						   VE_JPEG_COMP_SIZE_READ_BACK);
->> +						   video->config.comp_size_read);
->>   
->>   		update_perf(&video->perf);
->>   
->> @@ -973,7 +995,7 @@ static void aspeed_video_update_regs(struct aspeed_video *video)
->>   		FIELD_PREP(VE_COMP_CTRL_DCT_LUM, video->jpeg_quality) |
->>   		FIELD_PREP(VE_COMP_CTRL_DCT_CHR, video->jpeg_quality | 0x10);
->>   	u32 ctrl = 0;
->> -	u32 seq_ctrl = VE_SEQ_CTRL_JPEG_MODE;
->> +	u32 seq_ctrl = video->config.jpeg_mode;
->>   
->>   	v4l2_dbg(1, debug, &video->v4l2_dev, "framerate(%d)\n",
->>   		 video->frame_rate);
->> @@ -993,7 +1015,7 @@ static void aspeed_video_update_regs(struct aspeed_video *video)
->>   
->>   	/* Set control registers */
->>   	aspeed_video_update(video, VE_SEQ_CTRL,
->> -			    VE_SEQ_CTRL_JPEG_MODE | VE_SEQ_CTRL_YUV420,
->> +			    video->config.jpeg_mode | VE_SEQ_CTRL_YUV420,
->>   			    seq_ctrl);
->>   	aspeed_video_update(video, VE_CTRL, VE_CTRL_FRC, ctrl);
->>   	aspeed_video_update(video, VE_COMP_CTRL,
->> @@ -1790,8 +1812,18 @@ static int aspeed_video_init(struct aspeed_video *video)
->>   	return rc;
->>   }
->>   
->> +static const struct of_device_id aspeed_video_of_match[] = {
->> +	{ .compatible = "aspeed,ast2400-video-engine", .data = &ast2400_config },
->> +	{ .compatible = "aspeed,ast2500-video-engine", .data = &ast2500_config },
->> +	{ .compatible = "aspeed,ast2600-video-engine", .data = &ast2600_config },
->> +	{}
->> +};
->> +MODULE_DEVICE_TABLE(of, aspeed_video_of_match);
->> +
->>   static int aspeed_video_probe(struct platform_device *pdev)
->>   {
->> +	const struct aspeed_video_config *config;
->> +	const struct of_device_id *match;
->>   	int rc;
->>   	struct resource *res;
->>   	struct aspeed_video *video =
->> @@ -1815,6 +1847,13 @@ static int aspeed_video_probe(struct platform_device *pdev)
->>   	if (IS_ERR(video->base))
->>   		return PTR_ERR(video->base);
->>   
->> +	match = of_match_node(aspeed_video_of_match, pdev->dev.of_node);
->> +	if (!match)
->> +		return -EINVAL;
->> +
->> +	config = match->data;
->> +	video->config = *config;
->> +
->>   	rc = aspeed_video_init(video);
->>   	if (rc)
->>   		return rc;
->> @@ -1828,6 +1867,8 @@ static int aspeed_video_probe(struct platform_device *pdev)
->>   
->>   	aspeed_video_debugfs_create(video);
->>   
->> +	dev_info(video->dev, "compatible for g%d\n", config->version);
->> +
->>   	return 0;
->>   }
->>   
->> @@ -1860,14 +1901,6 @@ static int aspeed_video_remove(struct platform_device *pdev)
->>   	return 0;
->>   }
->>   
->> -static const struct of_device_id aspeed_video_of_match[] = {
->> -	{ .compatible = "aspeed,ast2400-video-engine" },
->> -	{ .compatible = "aspeed,ast2500-video-engine" },
->> -	{ .compatible = "aspeed,ast2600-video-engine" },
->> -	{}
->> -};
->> -MODULE_DEVICE_TABLE(of, aspeed_video_of_match);
->> -
->>   static struct platform_driver aspeed_video_driver = {
->>   	.driver = {
->>   		.name = DEVICE_NAME,
->
->
-> Thanks,
-> Mauro
+Why? It makes no difference where the error handling code is. Let's
+keep it as preferred by the driver's author ;-)
 
--- 
-Best Regards
-Jammy
+Regards,
+Mauro
 
+> 
+> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+> ---
+> v2:
+>  - remove change-id in comment
+> ---
+>  drivers/media/platform/aspeed-video.c | 24 +++++++++++-------------
+>  1 file changed, 11 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+> index fea5e4d0927e..f5c40d6b4ece 100644
+> --- a/drivers/media/platform/aspeed-video.c
+> +++ b/drivers/media/platform/aspeed-video.c
+> @@ -1641,11 +1641,8 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
+>  
+>  	rc = video->ctrl_handler.error;
+>  	if (rc) {
+> -		v4l2_ctrl_handler_free(&video->ctrl_handler);
+> -		v4l2_device_unregister(v4l2_dev);
+> -
+>  		dev_err(video->dev, "Failed to init controls: %d\n", rc);
+> -		return rc;
+> +		goto err_ctrl_init;
+>  	}
+>  
+>  	v4l2_dev->ctrl_handler = &video->ctrl_handler;
+> @@ -1663,11 +1660,8 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
+>  
+>  	rc = vb2_queue_init(vbq);
+>  	if (rc) {
+> -		v4l2_ctrl_handler_free(&video->ctrl_handler);
+> -		v4l2_device_unregister(v4l2_dev);
+> -
+>  		dev_err(video->dev, "Failed to init vb2 queue\n");
+> -		return rc;
+> +		goto err_vb2_init;
+>  	}
+>  
+>  	vdev->queue = vbq;
+> @@ -1685,15 +1679,19 @@ static int aspeed_video_setup_video(struct aspeed_video *video)
+>  	video_set_drvdata(vdev, video);
+>  	rc = video_register_device(vdev, VFL_TYPE_GRABBER, 0);
+>  	if (rc) {
+> -		vb2_queue_release(vbq);
+> -		v4l2_ctrl_handler_free(&video->ctrl_handler);
+> -		v4l2_device_unregister(v4l2_dev);
+> -
+>  		dev_err(video->dev, "Failed to register video device\n");
+> -		return rc;
+> +		goto err_video_reg;
+>  	}
+>  
+>  	return 0;
+> +
+> +err_video_reg:
+> +	vb2_queue_release(vbq);
+> +err_vb2_init:
+> +err_ctrl_init:
+> +	v4l2_ctrl_handler_free(&video->ctrl_handler);
+> +	v4l2_device_unregister(v4l2_dev);
+> +	return rc;
+>  }
+>  
+>  static int aspeed_video_init(struct aspeed_video *video)
+
+
+
+Thanks,
+Mauro
