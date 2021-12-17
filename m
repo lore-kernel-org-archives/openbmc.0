@@ -4,89 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A34A5C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 17 Dec 2021 02:45:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AC9FC433F5
+	for <openbmc@archiver.kernel.org>; Fri, 17 Dec 2021 02:46:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JFYHR1FHBz3cGl
-	for <openbmc@archiver.kernel.org>; Fri, 17 Dec 2021 13:45:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JFYKM5Rnnz3bWk
+	for <openbmc@archiver.kernel.org>; Fri, 17 Dec 2021 13:46:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=NP0vZ+FU;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=FFfYbeSh;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=S86wORQu;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2f;
- helo=mail-qv1-xf2f.google.com; envelope-from=seanga2@gmail.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.28;
+ helo=out4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=NP0vZ+FU; dkim-atps=neutral
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [IPv6:2607:f8b0:4864:20::f2f])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=FFfYbeSh; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=S86wORQu; 
+ dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JDkPP2rbhz2x99
- for <openbmc@lists.ozlabs.org>; Thu, 16 Dec 2021 05:32:25 +1100 (AEDT)
-Received: by mail-qv1-xf2f.google.com with SMTP id jo22so21053956qvb.13
- for <openbmc@lists.ozlabs.org>; Wed, 15 Dec 2021 10:32:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:subject:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=DqCTkekrYdxUkdUMUBmKp4SWDRJWlUTJWmdQHFONGSg=;
- b=NP0vZ+FUr+sIKC58VcciFSPZPxouwhht12Ah/rhtHQkutFHigSfAnIyLl/6RMplwcZ
- XDHH0Q0Idjbc7VUvC7rVdafd25Bavg4YLgf5pZt0O4Bv83m1hZ5yLempgP4ctr8GxpHK
- WNWJtQUq8dwm8o/abBqvdgrSsw0mYTv/SDXE9EoyGka35TlhQJj7/3XjL7KyinxRkrm5
- q90NuGmNWre0u+3fDwbkX/UXPa6JHcIGSr8wxclcMSTpHHoaehXSgEwfBHoJBSX1ctka
- m4lm7ZaCC6YgrcmINyX+aFZXWKdmYMZwdR4AJagM2gBqfkSn386JbrahYJqeQtEAsXdl
- 7kZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:subject:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=DqCTkekrYdxUkdUMUBmKp4SWDRJWlUTJWmdQHFONGSg=;
- b=IhEMS9wXaU+ZSBMWLjvWmZ+81a207p4j8R5tA215kqBWXWe3wQ7Eu0Wk9GI6BNfFPT
- tE+Kw+W5ZuIfYlxqq+kF1Vm+ij1wA0G4nbLP5aiX7REkRyKgGDiMkQndcfeBRSLevjKr
- xjzdexod8MUd5I+hV+TBUQ+xaqc3YM6kAGAPhTWz8kYuE9sHF4onvM4g00rg3t6bYETw
- VVVKQ75bV2i+B6jvhijOiVlp6f2nl2tUIWhQ1XNrcYLLCaOQKT9Gyc7LpSH54hMsPnAC
- jduRm4lPHZxU7I+SAfMt0sl9qk5+Jz6u61LW4gaCX/UEJO8kChy/+NrhzyzER+ACjyeX
- uG/w==
-X-Gm-Message-State: AOAM533bXZrng4jOyOaCu0lJhS5YcnsDQKwylDM39ZcJV0Z/a/rgZJXh
- Xakv9t6kJscLCMgx7VC2Kyj2MzNfPrCwaw==
-X-Google-Smtp-Source: ABdhPJzqMZXnkRCX/73g9yZ7bgytVekx0Xnccmaj5rNTlEr7cWD6/7nvTxxq6DsEPQEFjp5TBNCzcw==
-X-Received: by 2002:ad4:56ed:: with SMTP id
- cr13mr12507927qvb.127.1639593142214; 
- Wed, 15 Dec 2021 10:32:22 -0800 (PST)
-Received: from [192.168.1.201] (pool-108-18-207-184.washdc.fios.verizon.net.
- [108.18.207.184])
- by smtp.googlemail.com with ESMTPSA id a20sm1438229qkh.63.2021.12.15.10.32.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Dec 2021 10:32:21 -0800 (PST)
-From: Sean Anderson <seanga2@gmail.com>
-Subject: Re: [PATCH v1 2/9] clk: nuvoton: Add support for NPCM845
-To: Stanley Chu <stanley.chuys@gmail.com>, lukma@denx.de,
- jagan@amarulasolutions.com, andre.przywara@arm.com, festevam@denx.de,
- narmstrong@baylibre.com, pbrobinson@gmail.com, tharvey@gateworks.com,
- christianshewitt@gmail.com, lokeshvutla@ti.com, sjg@chromium.org,
- sr@denx.de, michal.simek@xilinx.com, hs@denx.de, weijie.gao@mediatek.com,
- hannes.schmelzer@br-automation.com, harm.berntsen@nedap.com,
- sebastian.reichel@collabora.com, stephan@gerhold.net, fangyuanseu@gmail.com,
- kettenis@openbsd.org, dsankouski@gmail.com, vabhav.sharma@nxp.com,
- bmeng.cn@gmail.com, patrick@blueri.se, samuel@sholland.org,
- giulio.benetti@benettiengineering.com, mr.bossman075@gmail.com,
- yschu@nuvoton.com, kwliu@nuvoton.com, ctcchien@nuvoton.com,
- avifishman70@gmail.com, tmaimon77@gmail.com
-References: <20211215025800.26918-1-yschu@nuvoton.com>
- <20211215025800.26918-3-yschu@nuvoton.com>
-Message-ID: <a461da7a-14cc-0119-6d0b-4fa08d7ee5ce@gmail.com>
-Date: Wed, 15 Dec 2021 13:32:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.0
-MIME-Version: 1.0
-In-Reply-To: <20211215025800.26918-3-yschu@nuvoton.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 17 Dec 2021 13:39:52 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JFY9W5kKYz3c7r
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Dec 2021 13:39:59 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id CD2985C0160;
+ Thu, 16 Dec 2021 21:39:55 -0500 (EST)
+Received: from imap43 ([10.202.2.93])
+ by compute4.internal (MEProxy); Thu, 16 Dec 2021 21:39:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm1; bh=RvVmLgJ+CfIM8KgsuhBrVfZ8NqzSNxS
+ HCy/QyHOevIc=; b=FFfYbeShZATKMkapn+oaHM1QvzBVcyCYmBYPGlc7nEj3GLS
+ Qlied/aNtCxa2eCTcacDMDVP1Vo/FRe+eIEFpnHTPI1K/UeQ5KeAXftoG/Vhwq1o
+ mSpuNHj/18rj/Cg9y48+wp9tFYkwwu5Ha6/KM9PgPwjTGBbkQcn4u1rBnI6QBv41
+ 20I8b9AFQEN1TSApE8mO7EvYR1xhe0OxL8FnALvWFe3J05CZdSnllB3YekHY7plA
+ bCwNx4dQHeX49qLJniujPmcywxay6+iU6owIZCc8TpLG9GTIdogPN/YEX40uFaxz
+ zipa+pY95I+9xo4yIDu09hKJ6PcOdRJ5lQpQwjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=RvVmLg
+ J+CfIM8KgsuhBrVfZ8NqzSNxSHCy/QyHOevIc=; b=S86wORQu9zZQaO8yAzPQ3z
+ wSfJXiblJMcnTdSi5au2F4OoVFnZoQM+LDwY0ztJ2Zc1mYLN3LjSTkbd6ZTrGsWz
+ t2nFk2dhoQDRv1bLmah8ShJGgwpf8v1fBfEh2rZBSy9lmRmPJTt7yghluc1WutFs
+ NEXA/B0kglJc6CQGBIP9jF1JHAie9VIKoGJGykxE57LMXSUQeAHjrfhtjW6Hf0jL
+ kI/NQfIJmj02Tag9akSNP27zEitr+GewXpIWcxmeLyTDeEarIooLH77iC1k/WffP
+ F87qsPNFjfsw9Hcp9q+hOHsDX6iViWXI8MSZyePGoFFC9AdZUDWaBlpPfGesp08A
+ ==
+X-ME-Sender: <xms:e_i7YSAoPQH0HXaziD2ho2TtAAqDl5hL3B5DZnOIQjK_7cVyJsa__Q>
+ <xme:e_i7YcjxjH5dAMGkATCC12Uc7aIsUAih8ISuLF_P5xaCCdF2MXQkxOC7EwV_-w_fY
+ 2ODYdYWJIPVwOHkog>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrleehgdegkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
+ htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
+ veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:e_i7YVn6_M5IyYXpDJMgsnOFW8jL2UNIwtqcaUZsBIIo7wXI5H-Mkg>
+ <xmx:e_i7YQz6kadUxEkYPWWz2bDHCxW13DHM_vwoubgFQagw6GoD2mCE2w>
+ <xmx:e_i7YXQDIqd7LJ5P8G2_-5R5lXfrLTyfgqLB33vcXT1pVayrPUgsng>
+ <xmx:e_i7YY6pQ2wujbiRR-i5BYvfZpZg9Kk09_NLdFGJfOVPclG3savaBQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 79CD7AC03DB; Thu, 16 Dec 2021 21:39:55 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-4524-g5e5d2efdba-fm-20211214.001-g5e5d2efd
+Mime-Version: 1.0
+Message-Id: <40eb458a-678c-4dfa-b07e-f73ac9cdb3fa@www.fastmail.com>
+In-Reply-To: <CAO9PYRKPrVzew5KUcxL7HKo4VXNR+mEef7AiPas-5FxdcB5FeA@mail.gmail.com>
+References: <CAO9PYRKmup17BSTLNLdBMO=-HjQ2Lxw+Gcw7+0VY8DKVMed9GA@mail.gmail.com>
+ <YbduMfjuc7TXT6Rw@heinlein>
+ <CAO9PYRJD0MJsuY8M_80yJci-nT8idKL7VhSXJzvX_JS1wreJzA@mail.gmail.com>
+ <YbtzcvbSwTjGzfcH@heinlein>
+ <CAO9PYRKPrVzew5KUcxL7HKo4VXNR+mEef7AiPas-5FxdcB5FeA@mail.gmail.com>
+Date: Fri, 17 Dec 2021 13:09:35 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Deng Tyler" <tyler.sabdon@gmail.com>,
+ "Patrick Williams" <patrick@stwcx.xyz>
+Subject: Re: Run unit-test during development
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,378 +100,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: u-boot@lists.denx.de, openbmc@lists.ozlabs.org
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 12/14/21 9:57 PM, Stanley Chu wrote:
-> Add clock controller driver for NPCM845
-> 
-> Signed-off-by: Stanley Chu <yschu@nuvoton.com>
-> ---
->   drivers/clk/Makefile                      |   1 +
->   drivers/clk/nuvoton/Makefile              |   1 +
->   drivers/clk/nuvoton/clk_npcm8xx.c         | 213 ++++++++++++++++++++++
->   include/dt-bindings/clock/npcm845-clock.h |  17 ++
->   4 files changed, 232 insertions(+)
->   create mode 100644 drivers/clk/nuvoton/Makefile
->   create mode 100644 drivers/clk/nuvoton/clk_npcm8xx.c
->   create mode 100644 include/dt-bindings/clock/npcm845-clock.h
-> 
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index 711ae5bc29..a3b64b73c2 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -53,3 +53,4 @@ obj-$(CONFIG_STM32H7) += clk_stm32h7.o
->   obj-$(CONFIG_CLK_VERSAL) += clk_versal.o
->   obj-$(CONFIG_CLK_CDCE9XX) += clk-cdce9xx.o
->   obj-$(CONFIG_CLK_VERSACLOCK) += clk_versaclock.o
-> +obj-$(CONFIG_ARCH_NPCM) += nuvoton/
+On Fri, 17 Dec 2021, at 13:06, Deng Tyler wrote:
+> Hi Patrick:
+>     I try to build and run unit test repository which support meson such as
+> phosphor-logging and phosphor-network. There is dependency issue while
+> building them and I wonder it is a bug or my environment issue.
+> /openbmc/phosphor-logging$ meson builddir && ninja -C builddir test
 
-Please keep this in alphabetical order (I know the file isn't perfect).
+...
 
-> diff --git a/drivers/clk/nuvoton/Makefile b/drivers/clk/nuvoton/Makefile
-> new file mode 100644
-> index 0000000000..998e5329bb
-> --- /dev/null
-> +++ b/drivers/clk/nuvoton/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_ARCH_NPCM8XX) += clk_npcm8xx.o
-> diff --git a/drivers/clk/nuvoton/clk_npcm8xx.c b/drivers/clk/nuvoton/clk_npcm8xx.c
-> new file mode 100644
-> index 0000000000..c547c47e82
-> --- /dev/null
-> +++ b/drivers/clk/nuvoton/clk_npcm8xx.c
-> @@ -0,0 +1,213 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright (c) 2021 Nuvoton Technology.
-> + */
-> +
-> +#include <common.h>
-> +#include <dm.h>
-> +#include <clk-uclass.h>
-> +#include <asm/types.h>
-> +#include <asm/arch/clock.h>
+>
+> subprojects/sdbusplus/meson.build:14:0: ERROR: Dependency "libsystemd" not
+> found, tried pkgconfig and cmake
 
-Please add this include file in this patch.
+You need to run:
 
-> +#include <asm/io.h>
-> +#include <linux/delay.h>
-> +#include <dt-bindings/clock/npcm845-clock.h>
+sudo apt install libsystemd-dev
 
-Please order these correctly. See https://www.denx.de/wiki/U-Boot/CodingStyle#Include_files
-
-> +
-> +struct npcm_clk_priv {
-> +	struct clk_ctl *regs;
-> +};
-> +
-> +enum regss {
-
-perhaps "pll_id" or similar?
-
-> +	PLL_0,
-> +	PLL_1,
-> +	PLL_2,
-> +	PLL_CLKREF,
-> +};
-> +
-> +static u32 clk_get_pll_freq(struct clk_ctl *regs, enum regss pll)
-> +{
-> +	u32 pllval;
-> +	u32 fin = EXT_CLOCK_FREQUENCY_KHZ; /* 25KHz */
-
-Please get this from the device tree.
-
-> +	u32 fout, nr, nf, no;
-> +
-> +	switch (pll) {
-> +	case PLL_0:
-> +		pllval = readl(&regs->pllcon0);
-> +		break;
-> +	case PLL_1:
-> +		pllval = readl(&regs->pllcon1);
-> +		break;
-> +	case PLL_2:
-> +		pllval = readl(&regs->pllcon2);
-> +		break;
-> +	case PLL_CLKREF:
-
-This is not used.
-
-> +	default:
-> +		return 0;
-> +	}
-> +
-> +	/* PLL Input Clock Divider */
-> +	nr = (pllval >> PLLCON_INDV) & 0x1f;
-
-With
-
-	#define PLLCON_INDV GENMASK(6, 0)
-
-you can do
-
-	nr = FIELD_GET(PLLCON_INDV, pllval);
-
-This applies to all your other register accesses.
-
-> +	/* PLL VCO Output Clock Feedback Divider */
-> +	nf = (pllval >> PLLCON_FBDV) & 0xfff;
-> +	/* PLL Output Clock Divider 1 */
-> +	no = ((pllval >> PLLCON_OTDV1) & 0x7) *
-> +		((pllval >> PLLCON_OTDV2) & 0x7);
-> +
-> +	fout = ((10 * fin * nf) / (no * nr));
-
-Can this overflow? Can you add a comment about that?
-
-> +
-> +	return fout * 100;
-
-Where do these 10 and 100 factors come from? Please combine them.
-
-> +}
-> +
-> +static u32 npcm_mmc_set_rate(struct clk_ctl *regs, ulong rate)
-> +{
-> +	u32 pll0_freq, div, sdhci_clk;
-> +
-> +	/* To acquire PLL0 frequency. */
-> +	pll0_freq = clk_get_pll_freq(regs, PLL_0);
-> +
-> +	/* Calculate rounded up div to produce closest to
-> +	 * target output clock
-> +	 */
-> +	div = (pll0_freq % rate == 0) ? (pll0_freq / rate) :
-> +					(pll0_freq / rate) + 1;
-
-div = DIV_ROUND_UP(pll0_freq, rate);
-
-> +
-> +	writel((readl(&regs->clkdiv1) & ~(0x1f << CLKDIV1_MMCCKDIV))
-> +	       | (div - 1) << CLKDIV1_MMCCKDIV, &regs->clkdiv1);
-
-example of FIELD_PREP:
-
-	clkdiv1 = readl(&regs->clkdiv1);
-	clkdiv1 &= ~CLKDIV1_MMCCKDIV;
-	clkdiv1 |= FIELD_PREP(CLKDIV1_MMCCKDIV, div - 1);
-	writel(clkdiv1, &regs->clkdiv1);
-
-You don't have to break out each line, but please apply this to your
-register writes.
-
-> +
-> +	/* Wait to the div to stabilize */
-> +	udelay(100);
-> +
-> +	/* Select PLL0 as source */
-> +	writel((readl(&regs->clksel) & ~(0x3 << CLKSEL_SDCKSEL))
-> +		| (CLKSEL_SDCKSEL_PLL0 << CLKSEL_SDCKSEL),
-> +		&regs->clksel);
-> +
-> +	sdhci_clk = pll0_freq / div;
-> +
-> +	return sdhci_clk;
-> +}
-> +
-> +static u32 npcm_uart_set_rate(struct clk_ctl *regs, ulong rate)
-> +{
-> +	u32 src_freq, div;
-> +
-> +	src_freq = clk_get_pll_freq(regs, PLL_2) / 2;
-> +	div = (src_freq % rate == 0) ? (src_freq / rate) :
-> +					(src_freq / rate) + 1;
-> +	writel((readl(&regs->clkdiv1) & ~(0x1f << CLKDIV1_UARTDIV))
-> +		| (div - 1) << CLKDIV1_UARTDIV, &regs->clkdiv1);
-> +	writel((readl(&regs->clksel) & ~(3 << CLKSEL_UARTCKSEL))
-> +		| (CLKSEL_UARTCKSEL_PLL2 << CLKSEL_UARTCKSEL),
-> +		&regs->clksel);
-> +
-> +	return (src_freq / div);
-> +}
-> +
-> +static ulong npcm_get_cpu_freq(struct clk_ctl *regs)
-> +{
-> +	ulong fout = 0;
-> +	u32 clksel = readl(&regs->clksel) & (0x3 << CLKSEL_CPUCKSEL);
-> +
-> +	if (clksel == CLKSEL_CPUCKSEL_PLL0)
-
-Use a switch here.
-
-> +		fout = (ulong)clk_get_pll_freq(regs, PLL_0);
-> +	else if (clksel == CLKSEL_CPUCKSEL_PLL1)
-> +		fout = (ulong)clk_get_pll_freq(regs, PLL_1);
-> +	else if (clksel == CLKSEL_CPUCKSEL_CLKREF)
-> +		fout = EXT_CLOCK_FREQUENCY_MHZ; /* FOUT is specified in MHz */
-> +	else
-> +		fout = EXT_CLOCK_FREQUENCY_MHZ; /* FOUT is specified in MHz */
-> +
-> +	return fout;
-> +}
-> +
-> +static u32 npcm_get_apb_divisor(struct clk_ctl *regs, u32 apb)
-> +{
-> +	u32 apb_divisor = 2;
-
-Just inline this. E.g.
-
-	return 2 << ...;
-
-> +
-> +	/* AHBn div */
-> +	apb_divisor = apb_divisor * (1 << ((readl(&regs->clkdiv1)
-> +						>> CLKDIV1_CLK4DIV) & 0x3));
-> +
-> +	switch (apb) {
-> +	case APB2: /* APB divisor */
-> +		apb_divisor = apb_divisor *
-> +				(1 << ((readl(&regs->clkdiv2)
-> +					>> CLKDIV2_APB2CKDIV) & 0x3));
-> +		break;
-> +	case APB5: /* APB divisor */
-> +		apb_divisor = apb_divisor *
-> +				(1 << ((readl(&regs->clkdiv2)
-> +					>> CLKDIV2_APB5CKDIV) & 0x3));
-> +		break;
-> +	default:
-> +		apb_divisor = 0xFFFFFFFF;
-
-Isn't getting here a bug?
-
-> +		break;
-> +	}
-> +
-> +	return apb_divisor;
-> +}
-> +
-> +static ulong npcm_clk_get_rate(struct clk *clk)
-> +{
-> +	struct npcm_clk_priv *priv = dev_get_priv(clk->dev);
-> +
-> +	switch (clk->id) {
-> +	case CLK_APB2:
-> +		return npcm_get_cpu_freq(priv->regs) /
-> +			npcm_get_apb_divisor(priv->regs, APB2);
-> +	case CLK_APB5:
-> +		return npcm_get_cpu_freq(priv->regs) /
-> +			npcm_get_apb_divisor(priv->regs, APB5);
-
-I think you can use a more modular approach here:
-
-	struct clk parent;
-	
-	switch (clk->id) {
-	case CLK_APB2:
-		parent.id = CLK_AHB;
-		ret = clk_request(clk->dev, &parent);
-		if (ret)
-			return ret;
-		
-		fin = clk_get_rate(&parent);
-		if (IS_ERR_VALUE(fin))
-			return fin;
-
-		return fin / FIELD_GET(CLKDIV2_APB2CKDIV, readl(&regs->clkdiv2));
-	}
-
-And of course you can go further and create some arrays to hold those
-parameters if you like.
-
-This switch statement should also return -ENOSYS in the default case.
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static ulong npcm_clk_set_rate(struct clk *clk, ulong rate)
-> +{
-> +	struct npcm_clk_priv *priv = dev_get_priv(clk->dev);
-> +
-> +	switch (clk->id) {
-> +	case CLK_EMMC:
-> +		return npcm_mmc_set_rate(priv->regs, rate);
-> +
-> +	case CLK_UART:
-> +		return npcm_uart_set_rate(priv->regs, rate);
-> +	default:
-> +		return -ENOENT;
-
--ENOSYS
-
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int npcm_clk_probe(struct udevice *dev)
-> +{
-> +	struct npcm_clk_priv *priv = dev_get_priv(dev);
-> +	void *base;
-> +
-> +	base = dev_read_addr_ptr(dev);
-> +	if (!base)
-> +		return -ENOENT;
-> +
-> +	priv->regs = (struct clk_ctl *)base;
-
-You can directly assign to regs. And there is no need to cast here,
-since base is a void pointer.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static struct clk_ops npcm_clk_ops = {
-> +	.get_rate = npcm_clk_get_rate,
-> +	.set_rate = npcm_clk_set_rate,
-
-Please add a .request callback which enforces the max clock id.
-
---Sean
-
-> +};
-> +
-> +static const struct udevice_id npcm_clk_ids[] = {
-> +	{ .compatible = "nuvoton,npcm845-clock" },
-> +	{ }
-> +};
-> +
-> +U_BOOT_DRIVER(clk_npcm) = {
-> +	.name           = "clk_npcm",
-> +	.id             = UCLASS_CLK,
-> +	.of_match       = npcm_clk_ids,
-> +	.ops            = &npcm_clk_ops,
-> +	.priv_auto	= sizeof(struct npcm_clk_priv),
-> +	.probe          = npcm_clk_probe,
-> +};
-> diff --git a/include/dt-bindings/clock/npcm845-clock.h b/include/dt-bindings/clock/npcm845-clock.h
-> new file mode 100644
-> index 0000000000..fca10d39c8
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/npcm845-clock.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +
-> +#ifndef _DT_BINDINGS_NPCM845_CLOCK_H_
-> +#define _DT_BINDINGS_NPCM845_CLOCK_H_
-> +
-> +#define CLK_TIMER	    0
-> +#define CLK_UART	    1
-> +#define CLK_SD		    2
-> +#define CLK_EMMC	    3
-> +#define CLK_APB1	    4
-> +#define CLK_APB2	    5
-> +#define CLK_APB3	    6
-> +#define CLK_APB4	    7
-> +#define CLK_APB5	    8
-> +#define CLK_AHB		    9
-> +
-> +#endif
-> 
-
+Andrew
