@@ -4,64 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917FBC433EF
-	for <openbmc@archiver.kernel.org>; Wed, 22 Dec 2021 10:13:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23AE9C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 22 Dec 2021 10:25:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JJq0l5hXfz2ymq
-	for <openbmc@archiver.kernel.org>; Wed, 22 Dec 2021 21:13:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JJqGJ2rq7z307L
+	for <openbmc@archiver.kernel.org>; Wed, 22 Dec 2021 21:25:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=OwZGvPbC;
+	dkim=pass (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=eDnUGes/;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::c32;
- helo=mail-oo1-xc32.google.com; envelope-from=leetroy@gmail.com;
+ smtp.mailfrom=bytedance.com (client-ip=2a00:1450:4864:20::332;
+ helo=mail-wm1-x332.google.com; envelope-from=yulei.sh@bytedance.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=OwZGvPbC; dkim-atps=neutral
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
+ unprotected) header.d=bytedance-com.20210112.gappssmtp.com
+ header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=eDnUGes/; dkim-atps=neutral
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JJq000CQYz2xsj
- for <openbmc@lists.ozlabs.org>; Wed, 22 Dec 2021 21:13:01 +1100 (AEDT)
-Received: by mail-oo1-xc32.google.com with SMTP id
- y13-20020a4a624d000000b002daae38b0b5so573110oog.9
- for <openbmc@lists.ozlabs.org>; Wed, 22 Dec 2021 02:13:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JJqFZ6ssvz2xF1
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Dec 2021 21:24:48 +1100 (AEDT)
+Received: by mail-wm1-x332.google.com with SMTP id
+ a83-20020a1c9856000000b00344731e044bso1180528wme.1
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Dec 2021 02:24:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=V7bbdHWNEEqlKDqJhjPg0gt0ycyFpnBJ9VFQDwjPwJk=;
- b=OwZGvPbCWliC1s6b3g+osC4vh+r/G4X1boWK01Fidhk4SAdG+k68oXeoI2ZvDgY0Uc
- CO7BjJsliv+5fCaEUESA3II6kPrnpPraeglaMidGqSykNvbeXQEWKeIAtL40jqEBLk9W
- rA/udVK+vWlGDZ2mbNGapA7n4XPleFVgldBHP8+Y2siByurt1O9a4PdX4DHHUJ8kGsi6
- GjoKCUX1yh/kKfXqxJb7b1X1xV48+Jqf1Lk/abG7QXuquqb8QB1BBD7Ctf2+8FSbO3m3
- bPgRyxB5lkR72yQl1szq9ttyHCv8dAWLjM9JRgBkqnrut/nQUn83mW7MwQKJc8O2tn3a
- 5PZg==
+ :cc; bh=lx5+TxPzkP4OG3zPUcL4TMPhe96VYfMUcp13pH7KaAE=;
+ b=eDnUGes/xSqMGPzgt0iViSMu9iMis5tca1eQfJ9LvnPP7mHLRm0JcV6pIr5CRPFNhj
+ 0BxCzwkAgOjoilwHnzwU5BeYtfBhQQtUx+UP574RBhyLZ5VS9lTGNZaztrmRVf+1FFUm
+ eugl9UNAhSU8zgDd6VNry1cIIVJPXWYU3TxOhXIisFEA+w8mdc6fV2Ex3O8lmKw7yn2n
+ 3SU/+otRfPTRHlgwytAgso7JFMflROfqowlVM31LmUsZ8jZaxmZ7IYQwa5o8qyw+ign/
+ CMEPGFhZzsKW1hNzO6EXzCXa+mvzq0+dmwSmn+UqS86p+1CbSwfcgxN9hRn41/KBk6e4
+ JVKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=V7bbdHWNEEqlKDqJhjPg0gt0ycyFpnBJ9VFQDwjPwJk=;
- b=G/qnW/jJJP0bbdd3g08NixjHVsW5HPjES0curp7ogrWSRuOY+CABKouFyihu8tmFQY
- MFQRR13c8OO13tP2LSOY3beu2gN5LBXFCg/vBeFhbytaO8RAdSa5MJo6JsuS4wY2w3HS
- qdP5iSiCeDbNfiCZMa8hmzhfRFlPYbhdknW3r5DV+pqRYp0oIxLDH/DNiswElTy1DJIh
- UoEwCYFO2IPlC2QNd/IUCAvNPCfdluMBAJXh+e02zRCRBcCdGaUpj1AN7YCEfokiFmvu
- sXNqQL5iW4plhVsCetua8/qVkW3cldaI/gVjK8Eit+Ke16FiSF5ttuVbS8kl4VJAJTcE
- AUEw==
-X-Gm-Message-State: AOAM530lygRm6c6QMY1dhIRLh0qNqqdkRtik96dszjJ61Lzsa9GcroDm
- UOOisWs13Mdlx7mpR7/pfQgx8VgpdtbaFpPk7SPxKF0h/1I=
-X-Google-Smtp-Source: ABdhPJxBOq7emtO+k7PdSsn9pe8Myd++LWgbgOU5ke885UQAy3VFC11XSaC41OcuwvgD6pE97Bl9f7C5SC2sMUpMUnM=
-X-Received: by 2002:a4a:ead8:: with SMTP id s24mr1397236ooh.89.1640167978358; 
- Wed, 22 Dec 2021 02:12:58 -0800 (PST)
+ bh=lx5+TxPzkP4OG3zPUcL4TMPhe96VYfMUcp13pH7KaAE=;
+ b=2vzohdnBz1nepEuPnVqiMPT3nGrZIwg7nQRi/92RUBjiLt0gX0vXrfLZj9v9bffWvE
+ ZpzNuOTiCfHfw3ivUq81rBaEPzDq4acjCU+NL6yD8gD3p5usLw18gUcMC6Ql398Trtl1
+ 8JO0H6V4D59PCdPKYNsPeZ4ywWslh/Xy5Lma5W+NpXJYA5fxCA3AiTd9Mqp/dSJQs5qy
+ 9qRyduYqIwNb9UPtjSlHXrOFq0jfP1Zh7a7BSEfM6Yy8e6wnIPVw66+/K/0V8wHTqVNM
+ YTiYpG0evhpH5QSBCIPk7bAAONVETa334sB7mCPyNrcOD5A+qV8YlIoSMyhBp7CQzRxh
+ /MHg==
+X-Gm-Message-State: AOAM530S6mr+wNsr/UirHKjGNX8lyLCM7JWB8vLjz6mGvBnXwcRu10D0
+ /5G8cLaid8BbOdAKu/YumLeLqOD2YjtuiLnuRpRj+HSNpXSERw==
+X-Google-Smtp-Source: ABdhPJz//KrQsPxi4wZTtZCUVjbaTxcXt6pS1TkT82qwKeYay5IjW9XufC3q9Je/jFNFtXXOOETH6uEcBhWm5+2OG5E=
+X-Received: by 2002:a05:600c:1549:: with SMTP id
+ f9mr456499wmg.112.1640168682021; 
+ Wed, 22 Dec 2021 02:24:42 -0800 (PST)
 MIME-Version: 1.0
-References: <CAO=notyNtux_jNWFsrYex_vkKxt_JEE=ATU-RrL=o7vmsEdEBA@mail.gmail.com>
-In-Reply-To: <CAO=notyNtux_jNWFsrYex_vkKxt_JEE=ATU-RrL=o7vmsEdEBA@mail.gmail.com>
-From: Troy Lee <leetroy@gmail.com>
-Date: Wed, 22 Dec 2021 18:12:51 +0800
-Message-ID: <CAN9Jwz0fLF+8_mSS8hSDOcAJVB_78zX3jwORd96ZAkCZNc5VnA@mail.gmail.com>
-Subject: Re: i3c on Qemu
-To: Patrick Venture <venture@google.com>
+References: <CANFuQ7AkTrtrogMj4YeAe0SWQFjG1Cd9WqFAktbvsOHmtd-Qpw@mail.gmail.com>
+In-Reply-To: <CANFuQ7AkTrtrogMj4YeAe0SWQFjG1Cd9WqFAktbvsOHmtd-Qpw@mail.gmail.com>
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Wed, 22 Dec 2021 18:24:30 +0800
+Message-ID: <CAGm54UFK6tFt64Z0aeKQWdmseJotBrtnNFgD90wjdQidU0x9Gw@mail.gmail.com>
+Subject: Re: [External] Solve the problem of bad CRC when using
+ u-boot-aspeed-sdk
+To: George Liu <liuxiwei1013@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -74,26 +78,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Hao Wu <wuhaotsh@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Patrick,
-
-On Thu, Dec 9, 2021 at 3:02 AM Patrick Venture <venture@google.com> wrote:
+On Wed, Dec 22, 2021 at 4:05 PM George Liu <liuxiwei1013@gmail.com> wrote:
 >
-> Hi all;
+> Hi, everyone:
 >
-> With ast2600 and the nuvoton 8xx, we're seeing the introduction of i3c and I was curious if anyone on this list was already working on it for Aspeed or Qemu in general.
+> The 64M flash used by Inspur's fp5280g2 machine has recently found
+> that it cannot be saved when setting the u-boot environment variable,
+> and then a warning message appears when rebooting:
 >
-> Patrick
+> ```
+> Loading Environment from SPI Flash... SF: Detected mx66l51235l with
+> page size 256 Bytes, erase size 64 KiB, total 64 MiB
+> *** Warning-bad CRC, using default environment
+> ```
+>
+> Since fp5280g2 includes `openbmc-flash-layout-64.dtsi`, the initial problem is:
+> 1. The value of CONFIG_ENV_SIZE and CONFIG_ENV_OFFSET[1] of u-boot is
+> inconsistent with the size of u-boot env of Kernel's
+> openbmc-flash-layout-64.dtsi[2].
+> 2. The `Env. size` of the fw_env_ast2600_nor.config[3] file also needs
+> to be updated
+>
+> After modifying the above problem and test by:
+> 1. Use `setenv` to add a new environment variable in u-boot and reboot
+> BMC, and then use `fw_printenv` to see this value synchronously.
+> 2. Use `fw_setenv` to add a new environment variable in BMC and reboot
+> BMC into u-boot, and then use `printenv` to see this value
+> synchronously.
+>
+> We pushed a new patch to meta-inspur and it worked fine.
+> https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/49916
 
-I have submitted an initial commit for I3C with ast2600.
-However, this isn't a real I3C model, and it is just good enough to
-bring Aspeed SDK image up.
+Good to know the issue is fixed.
+Could you kindly re-work the patches to make it applicable for all
+systems using 64MiB static layout?
 
-https://patchwork.kernel.org/project/qemu-devel/list/?series=599257
 
-Thanks,
-Troy Lee
+-- 
+BRs,
+Lei YU
