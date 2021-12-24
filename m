@@ -4,11 +4,11 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B39FC433EF
-	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 01:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D4C2C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 01:30:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JKqHV3jGyz3bmf
-	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 12:29:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JKqHz5zsTz3bY9
+	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 12:30:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -17,11 +17,11 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JKqGY5QZRz2yHj;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JKqGY5N28z2y0B;
  Fri, 24 Dec 2021 12:29:07 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1BO1M7jM007688;
- Fri, 24 Dec 2021 09:22:07 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1BO1M74X007689;
+ Fri, 24 Dec 2021 09:22:08 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
@@ -33,10 +33,12 @@ To: <hverkuil-cisco@xs4all.nl>, <sakari.ailus@linux.intel.com>,
  <linux-media@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v8 0/4] add aspeed-jpeg support for aspeed-video
-Date: Fri, 24 Dec 2021 09:27:34 +0800
-Message-ID: <20211224012738.1551-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v8 4/4] media: aspeed: Extend debug message
+Date: Fri, 24 Dec 2021 09:27:38 +0800
+Message-ID: <20211224012738.1551-5-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211224012738.1551-1-jammy_huang@aspeedtech.com>
+References: <20211224012738.1551-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -44,7 +46,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1BO1M7jM007688
+X-MAIL: twspam01.aspeedtech.com 1BO1M74X007689
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,52 +62,107 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The aim of this series is to add aspeed-jpeg support for aspeed-video
-driver. aspeed-jpeg is a per-frame differential jpeg format which only
-compress the parts which are different from the previous frame. In this
-way, it reduces both the amount of data to be transferred by network and
-those to be decoded on the client side.
+updated as below:
 
-In the last, debugfs information is also updated per this change.
+Capture:
+  Mode                : Direct fetch
+  VGA bpp mode        : 32
+  Signal              : lock
+  Width               : 1920
+  Height              : 1080
+  FRC                 : 0
 
-Changes in v8:
- - Add information of decoder's implementation
+Compression:
+  Format              : JPEG
+  Subsampling         : 444
+  Quality             : 4
+
+Performance:
+  Frame#              : 4
+  Frame Duration(ms)  :
+    Now               : 22
+    Min               : 21
+    Max               : 22
+  FPS                 : 45
+
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+v8:
+  - no update
+v7:
+  - update debugfs message. Aspeed-jpeg's compression parameters only shown
+    if it's aspeed jpeg now
+v6:
+  - no update
+v5:
+  - no update
+v4:
+  - update debugfs log
+v3:
+  - no update
+v2:
+  - update commit message
+---
+ drivers/media/platform/aspeed-video.c | 35 +++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index c0cfcf98659d..b388bc56ce81 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -1835,10 +1835,29 @@ static const struct vb2_ops aspeed_video_vb2_ops = {
+ static int aspeed_video_debugfs_show(struct seq_file *s, void *data)
+ {
+ 	struct aspeed_video *v = s->private;
++	u32 val08;
  
-Changes in v7:
- - Separate other patches alone from aspeed-jpeg series
- - for Aspeed-jpeg, generate an I frame every 8 frames
- - rename compression_mode as compression_scheme
- - Add more reference for aspeed-jpeg
- - Update debugfs message
-
-Changes in v6:
- - Update description for new format, aspeed-jpeg, in Documentation.
-
-Changes in v5:
- - Use model data to tell different soc
-
-Changes in v4:
- - Add definition for the Aspeed JPEG format
- - Reserve controls for ASPEED
- - Use s_fmt to update format rather than new control
- - Update aspeed hq quality range, 1 ~ 12
-
-
-Jammy Huang (4):
-  media: v4l: Add definition for the Aspeed JPEG format
-  media: v4l2-ctrls: Reserve controls for ASPEED
-  media: aspeed: Support aspeed mode to reduce compressed data
-  media: aspeed: Extend debug message
-
- .../media/uapi/v4l/pixfmt-reserved.rst        |  17 ++
- drivers/media/platform/aspeed-video.c         | 287 ++++++++++++++++--
- drivers/media/v4l2-core/v4l2-ioctl.c          |   1 +
- include/uapi/linux/aspeed-video.h             |  15 +
- include/uapi/linux/v4l2-controls.h            |   5 +
- include/uapi/linux/videodev2.h                |   1 +
- 6 files changed, 307 insertions(+), 19 deletions(-)
- create mode 100644 include/uapi/linux/aspeed-video.h
-
+ 	seq_puts(s, "\n");
+ 
+ 	seq_puts(s, "Capture:\n");
++	val08 = aspeed_video_read(v, VE_CTRL);
++	if (FIELD_GET(VE_CTRL_DIRECT_FETCH, val08)) {
++		seq_printf(s, "  %-20s:\tDirect fetch\n", "Mode");
++		seq_printf(s, "  %-20s:\t%s\n", "VGA bpp mode",
++			   FIELD_GET(VE_CTRL_INT_DE, val08) ? "16" : "32");
++	} else {
++		seq_printf(s, "  %-20s:\tSync\n", "Mode");
++		seq_printf(s, "  %-20s:\t%s\n", "Video source",
++			   FIELD_GET(VE_CTRL_SOURCE, val08) ?
++			   "external" : "internal");
++		seq_printf(s, "  %-20s:\t%s\n", "DE source",
++			   FIELD_GET(VE_CTRL_INT_DE, val08) ?
++			   "internal" : "external");
++		seq_printf(s, "  %-20s:\t%s\n", "Cursor overlay",
++			   FIELD_GET(VE_CTRL_AUTO_OR_CURSOR, val08) ?
++			   "Without" : "With");
++	}
++
+ 	seq_printf(s, "  %-20s:\t%s\n", "Signal",
+ 		   v->v4l2_input_status ? "Unlock" : "Lock");
+ 	seq_printf(s, "  %-20s:\t%d\n", "Width", v->pix_fmt.width);
+@@ -1847,6 +1866,22 @@ static int aspeed_video_debugfs_show(struct seq_file *s, void *data)
+ 
+ 	seq_puts(s, "\n");
+ 
++	seq_puts(s, "Compression:\n");
++	seq_printf(s, "  %-20s:\t%s\n", "Format", format_str[v->format]);
++	seq_printf(s, "  %-20s:\t%s\n", "Subsampling",
++		   v->yuv420 ? "420" : "444");
++	seq_printf(s, "  %-20s:\t%d\n", "Quality", v->jpeg_quality);
++	if (v->format == VIDEO_FMT_ASPEED) {
++		seq_printf(s, "  %-20s:\t%s\n", "HQ Mode",
++			   v->hq_mode ? "on" : "off");
++		seq_printf(s, "  %-20s:\t%d\n", "HQ Quality",
++			   v->hq_mode ? v->jpeg_hq_quality : 0);
++		seq_printf(s, "  %-20s:\t%s\n", "Coding Scheme",
++			   compress_scheme_str[v->compression_scheme]);
++	}
++
++	seq_puts(s, "\n");
++
+ 	seq_puts(s, "Performance:\n");
+ 	seq_printf(s, "  %-20s:\t%d\n", "Frame#", v->sequence);
+ 	seq_printf(s, "  %-20s:\n", "Frame Duration(ms)");
 -- 
 2.25.1
 
