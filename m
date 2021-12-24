@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFBD2C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 20:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC10C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 24 Dec 2021 20:13:31 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JLJBl2DVhz2yw1
-	for <openbmc@archiver.kernel.org>; Sat, 25 Dec 2021 07:12:31 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JLJCt0wpSz2yg5
+	for <openbmc@archiver.kernel.org>; Sat, 25 Dec 2021 07:13:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=jhkv18wc;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=eW8U6CGS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
@@ -18,59 +18,58 @@ Authentication-Results: lists.ozlabs.org;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=jhkv18wc; 
+ header.s=badeba3b8450 header.b=eW8U6CGS; 
  dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JLJ7v0kVvz2yfr
- for <openbmc@lists.ozlabs.org>; Sat, 25 Dec 2021 07:10:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JLJ835tPGz3000
+ for <openbmc@lists.ozlabs.org>; Sat, 25 Dec 2021 07:10:11 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1640376589;
- bh=gmLdgXnIZUtcHkOafM+YRv4CZWt2fQluG2qXyM/bdnw=;
+ s=badeba3b8450; t=1640376594;
+ bh=xgXOvOiI5djkt9bgMVQwlcwa+uldX2qpAJfM9bdL9Dk=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jhkv18wcQ/HnzDG/AWp2IYA5oSoo1dR0fuwZd+bIcHokKoiYj9iMgve/YppIC/Bgy
- usB9NZxnRTNHorSXb4ttFwwVkxTEEytstReDvIWxx4NiKIlOiiA8nD/uljUhWtZ7+0
- FCNh2QeFJ+jx0qiYY8k8UBba6y9GmlR4KAASbDuc=
+ b=eW8U6CGS/A39+2N3r17jp1rd8k/Soa3C42l4bgi8ddg/dSIwUGK2sXBhNW0/I+iox
+ K34UB8lhSiq3hjiBoWRx9a4l2CouE8TzH4xY3hhn6SI8WDzQU/flKSLs4Tw+zyAKbS
+ baPu33Km2YzR0g/b+vi12LjSKvlsxUBpwbCtZMUI=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([5.146.194.160]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MxDp4-1mGs2X0nKy-00xf9c; Fri, 24
- Dec 2021 21:09:49 +0100
+Received: from longitude ([5.146.194.160]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M7sDg-1n4ilU1PZy-0053e0; Fri, 24
+ Dec 2021 21:09:54 +0100
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v3 1/9] dt-bindings: arm/npcm: Add binding for global control
- registers (GCR)
-Date: Fri, 24 Dec 2021 21:09:27 +0100
-Message-Id: <20211224200935.93817-2-j.neuschaefer@gmx.net>
+Subject: [PATCH v3 4/9] dt-bindings: pinctrl: Add Nuvoton WPCM450
+Date: Fri, 24 Dec 2021 21:09:30 +0100
+Message-Id: <20211224200935.93817-5-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211224200935.93817-1-j.neuschaefer@gmx.net>
 References: <20211224200935.93817-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:EaMYBks5YHh4cjN5iJWNk/uYmtpfs8oEHCJ8qwJVAfSBQ2T9YW2
- 4jNb0C1n8No85Xln8MpzhQVobT/KTN0sNq5vqafeWaPr8zozGmUnCOJTbNYVN+242LxgjKO
- 5yFdg5sNs1H5uX6DgwZb9G1/SK/tCIv9vaT8G7pHX35M1m3ZWRmXvXAv9LyySdccyr6ueZU
- znTcgtoaaDECtIyugworg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:SeCVIGNsipQ=:AjEhZ2WKlJThqjfN2+ozqU
- bZEggaTrxOko95GULfLvor5ZxZoRzV25w0pVREANTjuaicOpUH50h+0R8+Zg5iaytHPC3x+8Z
- fINlpRDwihpGojuXwtt8zqRnsZTPP2f3Scei+eZwWONGCltDX3qA3md+itbbSKiKzX9aw3T60
- DjLbhr8r7TJpw+ksbxVRAEmbAW8jRTEjzNPhvQ8NkNo/9yZsarYGNwEalk8zH/jnLILzVCGC3
- 0g8nvYSSTTrMgKvjRNtFnmKOwu8wpzOPGFO0Wmz/phRtDZVdYBKG2g9JjQHAXNeCcNfi44Zks
- oqXxthX2lcdriKn6eAbg98QSOFWcQcPde448M5Mf5/pWRAbWvDpec1CRZUCtm79RJpgDHGccr
- r1FtGDNfawEI/exFMNk06t2fAaXICa/lOCHRSB0xW63zp5PYhvurfObs9huUkWLlfo1qrn7QE
- ctCEqNXMB1GT3VSmpetCtQC0G4VTJWbtGA1npaEh1+nAGaIUG9Q1ngZCREDoRW8dRFbM6Q6LJ
- fHgjuqs3v/fok97BzOKJGOgrHVdak/M8j0H+wNfbRjt3EWkpGcSO/HAfniU0cowvUg/yo+Rhb
- QwiyeclF0EPWuY9B3mJ1k2bMouG9cl6Ry6VKh9rGoOVmp4qlLCMDkxDrPWuv7aa4v4X3ntGl+
- G6fWvomoQMgYapSuF9J+JQge4RFsUHT92794G99q9+hbuqKnb6GWidR+p1v+D8Eql2j1RTXyq
- Q5Zjw02SiwQOUGXa4D1FbfBANBk7ONfE9A6vEEQ2/UKEa/730EXY+0KSsOxKvtgNp0p3skEwa
- OAHOXbnfate7mD4BBjRhYJ+N7hR3PUGmuKNsMB/4huO9qbYNyACip4lZJN1E57w2W0/2CrkTd
- 9Dhhr0WB5Aev9gIOR+WrfUVZBM0CK0ptwg2iPBh9ouRbBlk5HGUW1GftXivznjzx4sFi/eLDF
- v4pUUcmKCpd7WLu//Usg+xDR9QrfrG/Dq4Zp56B7vimRxtGq23mEE2yJszraobQ8usjmER4UI
- j7gKixSWI2l6tJdNez6DpqQuejwAWqbtZguy4rsOTzQTNbNs6wwg5QU0v1WgAEI1zXCFU4ORq
- nJiBCGtTqd7vBw=
+X-Provags-ID: V03:K1:jNQWeymtJVy6MUZXGKffNUHgUkUWkDV45wh7rG8QpjZRI7gRyz5
+ +QM4XZwnMPW9VKkAwgnOZKQsc7tFCvlJ+GBiY9bCEx/3bJd3lyXe4+RvNNaBWSn3c3qc3uj
+ YOinzF0LXh4EiTo52UiW+mFbexNxUUeQDSrdL1yw6Vij+oRYFugZoxMOSchn+vnQOj80W8N
+ lp0a0hYpetET5r9EvGpnw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:WVy6bPb/yBA=:hUikcXEA4vZWNW/yTiufbz
+ MhpQYNJSpPoujuc9taQMDvjOzscgrPptHHUHppr+1jXV5ZPSuTra2e23TjDaRT9h20dV6geba
+ 54lkitkGfxJswUN1lwUKWXhnFgn8yUzVe8Nsg6LIweqGpkO7Uv+CwWVHToHUqK5oLjaTYPuZ4
+ AmaWHxyZkl0v1KMyxHHcunj65GoH1Ut/4dHywyOTQ872s6AQRRudoK+aeSx0Mj+nnNr5ylNRt
+ T6TPUpSVkZLqKePQEFjU9uFbQeTcpogSro+DiTQ1dUE+2p+p6XUVzz6wI6CF5D7nu4sL8pVw8
+ UWwSAKAmtfGKREmG5i1JAdpcxpcsvxaNdnOGhFAiPhVfYFMOw3KbUShIID0d2mjBdV4u9qWDM
+ H7zIKrt78jak8BaeDF3c02aglABn86TWHpblDla86C3/2uCeXmM1TrAvws61hH1Sg/Q0SWfrg
+ hDoCUZ3eHoNCzE2+9Pm2LbvpyV9So4kPXM+TNNhJWoQ2GyHxo81m9DErCTCH1858iiQjEj5ow
+ Nkcz75UcniscotpGXbaa1nuBXtnOF0xpQWTqd6xufM2zxkbz5m+uqhoNSfyQ4fuwDuUpAOcJ4
+ ZbWXdphB7VuZ41UXxNa8Cr1+GMDlWJkkqhWka8p+xDi4/3oybYZVPOeyBR9D6lJxCkQK9XcdH
+ z0v+ajbEJ+z+avVd55ErGa23r+KEQM3QWDTsiy0EBFFYKcyh66ysP0MYnkaoFWIuBcl9c3p10
+ vFyZVcdpMH4m3wZd0aAJuby1Erb0vC9tjd8QDbj2AG9B9kZESsuTCQV9okcFIfl/PiN3Qaslq
+ FANvad285E3mFsPyy1BCltb+jlJYhLUN9hoozcklRHNmlts4K99OLAnH8oLzzL9fpkpigtYUq
+ xpN5Dqe2nptf4PLNOdvm5816nUIBVU/vPQjHLKVCBYRE6S2xvx79XMcyUTKdo7Y4ULazCcEGl
+ g3yUJE9x7GkW9yYNnr/EkK54rVSMHP5qbkTAuKTF7N5WvZCGhg/e5VegGc1LnRBZZFN7SzIMe
+ mJ5FdRkcR0tu9EYmz5U0V/x/qTOZp2YtoUQ8p1M+TYOBKfvPn2kMQaKlhtFIfz9zW7XNzzBWP
+ BIgTHpPcOyg41s=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,90 +91,227 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-A nuvoton,*-gcr node is present in nuvoton-common-npcm7xx.dtsi and will
-be added to nuvoton-wpcm450.dtsi. It is necessary for the NPCM7xx and
-WPCM450 pinctrl drivers, and may later be used to retrieve SoC model and
-version information.
+This binding is heavily based on the one for NPCM7xx, because the
+hardware is similar. There are some notable differences, however:
 
-This patch adds a binding to describe this node.
+- The addresses of GPIO banks are not physical addresses but simple
+  indices (0 to 7), because the GPIO registers are not laid out in
+  convenient blocks.
+- Pinmux settings can explicitly specify that the GPIO mode is used.
+
+Certain pins support blink patterns in hardware. This is currently not
+modelled in the DT binding.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 
+
 =2D--
 v3:
-- Make a few changes suggested by Rob Herring
-- Change name of mux-controller node to appease the linter
+- Make changes suggested by Rob Herring
+- Fix lint errors
+- Simplify child node patterns
+- Remove if/type=3Dobject/then trick
+- Reduce interrupts.maxItems to 3: 4 aren't necessary
+- Replace list of gpio0/1/2/etc. with pattern
+- Remove nuvoton,interrupt-map again, to simplify the binding
+- Make tuples clearer
 
 v2:
-- https://lore.kernel.org/lkml/20211207210823.1975632-2-j.neuschaefer@gmx.=
+- https://lore.kernel.org/lkml/20211207210823.1975632-5-j.neuschaefer@gmx.=
 net/
-- Rename node in example to syscon@800000
-- Add subnode to example
+- Move GPIO into subnodes
+- Improve use of quotes
+- Remove unnecessary minItems/maxItems lines
+- Remove "phandle: true"
+- Use separate prefixes for pinmux and pincfg nodes
+- Add nuvoton,interrupt-map property
+- Make it possible to set pinmux to GPIO explicitly
 
 v1:
-- https://lore.kernel.org/lkml/20210602120329.2444672-2-j.neuschaefer@gmx.=
+- https://lore.kernel.org/lkml/20210602120329.2444672-5-j.neuschaefer@gmx.=
 net/
 =2D--
- .../bindings/arm/npcm/nuvoton,gcr.yaml        | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/arm/npcm/nuvoton,gcr=
-.yaml
+ .../pinctrl/nuvoton,wpcm450-pinctrl.yaml      | 159 ++++++++++++++++++
+ 1 file changed, 159 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm=
+450-pinctrl.yaml
 
-diff --git a/Documentation/devicetree/bindings/arm/npcm/nuvoton,gcr.yaml b=
-/Documentation/devicetree/bindings/arm/npcm/nuvoton,gcr.yaml
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pin=
+ctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinc=
+trl.yaml
 new file mode 100644
-index 0000000000000..fcb211add7d37
+index 0000000000000..2d15737b5815e
 =2D-- /dev/null
-+++ b/Documentation/devicetree/bindings/arm/npcm/nuvoton,gcr.yaml
-@@ -0,0 +1,48 @@
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm450-pinctrl.ya=
+ml
+@@ -0,0 +1,159 @@
 +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/arm/npcm/nuvoton,gcr.yaml#
++$id: http://devicetree.org/schemas/pinctrl/nuvoton,wpcm450-pinctrl.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Global Control Registers block in Nuvoton SoCs
++title: Nuvoton WPCM450 pin control and GPIO
 +
 +maintainers:
 +  - Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 +
-+description:
-+  The Global Control Registers (GCR) are a block of registers in Nuvoton =
-SoCs
-+  that expose misc functionality such as chip model and version informati=
-on or
-+  pinmux settings.
-+
 +properties:
 +  compatible:
-+    items:
-+      - enum:
-+          - nuvoton,wpcm450-gcr
-+          - nuvoton,npcm750-gcr
-+      - const: syscon
-+      - const: simple-mfd
++    const: nuvoton,wpcm450-pinctrl
 +
 +  reg:
 +    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  # There are three kinds of subnodes:
++  # 1. a GPIO controller node for each GPIO bank
++  # 2. a pinmux node configures pin muxing for a group of pins (e.g. rmii=
+2)
++  # 3. a pinconf node configures properties of a single pin
++
++  "^gpio":
++    type: object
++
++    description:
++      Eight GPIO banks (gpio@0 to gpio@7), that each contain between 14 a=
+nd 18
++      GPIOs. Some GPIOs support interrupts.
++
++    properties:
++      reg:
++        description: GPIO bank number (0-7)
++
++      gpio-controller: true
++
++      "#gpio-cells":
++        const: 2
++
++      interrupt-controller: true
++
++      "#interrupt-cells":
++        const: 2
++
++      interrupts:
++        maxItems: 3
++        description:
++          The interrupts associated with this GPIO bank
++
++    required:
++      - reg
++      - gpio-controller
++      - '#gpio-cells'
++
++  "^mux-":
++    $ref: pinmux-node.yaml#
++
++    properties:
++      groups:
++        description:
++          One or more groups of pins to mux to a certain function
++        items:
++          enum: [ smb3, smb4, smb5, scs1, scs2, scs3, smb0, smb1, smb2, b=
+sp,
++                  hsp1, hsp2, r1err, r1md, rmii2, r2err, r2md, kbcc, dvo,
++                  clko, smi, uinc, gspi, mben, xcs2, xcs1, sdio, sspi, fi=
+0,
++                  fi1, fi2, fi3, fi4, fi5, fi6, fi7, fi8, fi9, fi10, fi11=
+,
++                  fi12, fi13, fi14, fi15, pwm0, pwm1, pwm2, pwm3, pwm4, p=
+wm5,
++                  pwm6, pwm7, hg0, hg1, hg2, hg3, hg4, hg5, hg6, hg7 ]
++      function:
++        description:
++          The function that a group of pins is muxed to
++        enum: [ smb3, smb4, smb5, scs1, scs2, scs3, smb0, smb1, smb2, bsp=
+,
++                hsp1, hsp2, r1err, r1md, rmii2, r2err, r2md, kbcc, dvo0,
++                dvo1, dvo2, dvo3, dvo4, dvo5, dvo6, dvo7, clko, smi, uinc=
+,
++                gspi, mben, xcs2, xcs1, sdio, sspi, fi0, fi1, fi2, fi3, f=
+i4,
++                fi5, fi6, fi7, fi8, fi9, fi10, fi11, fi12, fi13, fi14, fi=
+15,
++                pwm0, pwm1, pwm2, pwm3, pwm4, pwm5, pwm6, pwm7, hg0, hg1,
++                hg2, hg3, hg4, hg5, hg6, hg7, gpio ]
++
++    dependencies:
++      groups: [ function ]
++      function: [ groups ]
++
++    additionalProperties: false
++
++  "^cfg-":
++    $ref: pincfg-node.yaml#
++
++    properties:
++      pins:
++        description:
++          A list of pins to configure in certain ways, such as enabling
++          debouncing
++        items:
++          pattern: "^gpio1?[0-9]{1,2}$"
++
++      input-debounce: true
++
++    additionalProperties: false
 +
 +required:
 +  - compatible
 +  - reg
 +
-+additionalProperties:
-+  type: object
++additionalProperties: false
 +
 +examples:
 +  - |
-+    gcr: syscon@800000 {
-+      compatible =3D "nuvoton,npcm750-gcr", "syscon", "simple-mfd";
-+      reg =3D <0x800000 0x1000>;
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++    pinctrl: pinctrl@b8003000 {
++      compatible =3D "nuvoton,wpcm450-pinctrl";
++      reg =3D <0xb8003000 0x1000>;
++      #address-cells =3D <1>;
++      #size-cells =3D <0>;
 +
-+      mux-controller {
-+        compatible =3D "mmio-mux";
-+        #mux-control-cells =3D <1>;
-+        mux-reg-masks =3D <0x38 0x07>;
-+        idle-states =3D <2>;
++      gpio0: gpio@0 {
++        reg =3D <0>;
++        gpio-controller;
++        #gpio-cells =3D <2>;
++        interrupts =3D <2 IRQ_TYPE_LEVEL_HIGH>,
++                     <3 IRQ_TYPE_LEVEL_HIGH>,
++                     <4 IRQ_TYPE_LEVEL_HIGH>;
++      };
++
++      mux-rmii2 {
++        groups =3D "rmii2";
++        function =3D "rmii2";
++      };
++
++      pinmux_uid: mux-uid {
++        groups =3D "gspi", "sspi";
++        function =3D "gpio";
++      };
++
++      pinctrl_uid: cfg-uid {
++        pins =3D "gpio14";
++        input-debounce =3D <1>;
++      };
++    };
++
++    gpio-keys {
++      compatible =3D "gpio-keys";
++      pinctrl-names =3D "default";
++      pinctrl-0 =3D <&pinctrl_uid>, <&pinmux_uid>;
++
++      uid {
++        label =3D "UID";
++        linux,code =3D <102>;
++        gpios =3D <&gpio0 14 GPIO_ACTIVE_HIGH>;
 +      };
 +    };
 =2D-
