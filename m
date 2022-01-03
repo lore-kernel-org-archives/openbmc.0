@@ -4,64 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E2AC433EF
-	for <openbmc@archiver.kernel.org>; Mon,  3 Jan 2022 10:20:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36AAEC433EF
+	for <openbmc@archiver.kernel.org>; Mon,  3 Jan 2022 11:10:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JSBZh3fxxz2yn2
-	for <openbmc@archiver.kernel.org>; Mon,  3 Jan 2022 21:20:12 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JSCjF3wSJz303F
+	for <openbmc@archiver.kernel.org>; Mon,  3 Jan 2022 22:10:57 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=zohocorp.com header.i=nikhil.vu@zohocorp.com header.a=rsa-sha256 header.s=admin header.b=EsEbEuhJ;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=AcCeAjJS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=zohocorp.com (client-ip=136.143.188.12;
- helo=sender4-op-o12.zoho.com; envelope-from=nikhil.vu@zohocorp.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=zohocorp.com header.i=nikhil.vu@zohocorp.com
- header.a=rsa-sha256 header.s=admin header.b=EsEbEuhJ; 
- dkim-atps=neutral
-X-Greylist: delayed 906 seconds by postgrey-1.36 at boromir;
- Mon, 03 Jan 2022 21:19:34 AEDT
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=AcCeAjJS; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JSBYy5KW6z2xDY
- for <openbmc@lists.ozlabs.org>; Mon,  3 Jan 2022 21:19:34 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1641204263; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MGhq0VmmhHTk7jv5qnMha7rNKqsm6QiaLHITppEabuECP55ftcsEdNtcZc5fF/3FKBTtvJcxaLWNRdTwLSTOyaguqJgt3ocJXiZQ9nUVTgBPgMH2YMYB++Lz/SoAHkuwtB+MW24S1bb7LGK5+LPLwrzdxOBhZJeWHUi9nlFyj00=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; 
- t=1641204263; h=Content-Type:Date:From:MIME-Version:Message-ID:Subject:To; 
- bh=+nMPJk5K25N0AjFt1yk40x+lE7hn5LVa9nsdPEVwMco=; 
- b=FNnqTCYa82n3CETjFcU2DOrbuvFWwgDDf0yWi0LusdZmJqjHkVoFWHH5hVKlZVXjbbthS4LVuRSQ8Gg+MKOjSqSEwHWx6FRbcNIL1PY+ZY/lJiNl1R2EfcEZlTYhFtb7teRqeluqibxA25S/WHQgudPnvkcKN0+MvvcTQoOSqKU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=zohocorp.com;
- spf=pass  smtp.mailfrom=nikhil.vu@zohocorp.com;
- dmarc=pass header.from=<nikhil.vu@zohocorp.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1641204263; 
- s=admin; d=zohocorp.com; i=nikhil.vu@zohocorp.com;
- h=Date:From:To:Message-Id:In-Reply-To:Subject:MIME-Version:Content-Type;
- bh=+nMPJk5K25N0AjFt1yk40x+lE7hn5LVa9nsdPEVwMco=;
- b=EsEbEuhJsVm8pYO2unDrMNqje+hwLxSfUkdnjxTzMskc1815TJfRVn9wiJobMYdz
- NMshI3t7ce5GVdw/+Zwe1C31/nlEauKmAR0Qz1+rp6UA0hIF1RWsdlPQ2hVtkymUl4X
- BwafqYakK+r/VGAZYjo/euOqhm2Z18bR8Dk+7FiQ=
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 164120426081871.14138913027955;
- Mon, 3 Jan 2022 02:04:20 -0800 (PST)
-Date: Mon, 03 Jan 2022 15:34:20 +0530
-From: Nikhil V <nikhil.vu@zohocorp.com>
-To: "openbmc" <openbmc@lists.ozlabs.org>
-Message-Id: <17e1f659f9b.c8f061fb4115.9212316766481010802@zohocorp.com>
-In-Reply-To: 
-Subject: [ERROR: Nothing RPROVIDES 'u-boot-default-env']
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JSChV0L8bz2y7P
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Jan 2022 22:10:17 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 550B146E47;
+ Mon,  3 Jan 2022 11:10:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:mime-version:user-agent:content-type
+ :content-type:organization:references:in-reply-to:date:date:from
+ :from:subject:subject:message-id:received:received:received; s=
+ mta-01; t=1641208211; x=1643022612; bh=YTVqHpD3V+dSVbeMY597QTIiF
+ uPqqEUXLsQ0bJrvx1w=; b=AcCeAjJS9vFJckCOK4OVmez/PIWbcqBXsov1fC6Ul
+ Kkf6W2kHyDF1W+1VnuQqw+CE6LkGNS8f/uwTm+4o3xhFUpRTy4yKxXXMQrErwDIi
+ p4sfJadIFtnii9/ds/VujiYUbExMrGOvaknrMf5gj9SH/2fFzm94tpDqyG9AT2VG
+ d4=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id h-esVlIiTUT1; Mon,  3 Jan 2022 14:10:11 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id A37FB46D6D;
+ Mon,  3 Jan 2022 14:10:10 +0300 (MSK)
+Received: from [172.17.4.172] (172.17.4.172) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 3 Jan
+ 2022 14:10:09 +0300
+Message-ID: <ff7a3d7fc5ed91ab62b935421f779a6407e817fc.camel@yadro.com>
+Subject: Re: [ERROR: Nothing RPROVIDES 'u-boot-default-env']
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: Nikhil V <nikhil.vu@zohocorp.com>, openbmc <openbmc@lists.ozlabs.org>
+Date: Mon, 3 Jan 2022 14:10:09 +0300
+In-Reply-To: <17e1f659f9b.c8f061fb4115.9212316766481010802@zohocorp.com>
+References: <17e1f659f9b.c8f061fb4115.9212316766481010802@zohocorp.com>
+Organization: YADRO
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4 
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_12668_362788887.1641204260764"
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [172.17.4.172]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,91 +79,44 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-------=_Part_12668_362788887.1641204260764
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hello, 
 
-Hi,
+It's hard to say what's wrong without knowing of what are you exactly
+doing. Since there is no such platform as "at91" in OpenBMC, we don't
+know what recipe do you use for u-boot.
+Generally, u-boot recipe should include u-boot.inc: 
 
-=C2=A0=C2=A0=C2=A0=C2=A0 I am trying to build image for openbmc on SAMA5D27=
--som1-ek1 development board made by microchip(atmel). SAMA5D27 board has yo=
-cto support.
+> require recipes-bsp/u-boot/u-boot.inc
 
-=C2=A0=C2=A0=C2=A0=C2=A0 I have added meta-atmel layer to openbmc, while bu=
-ilding/compiling using " bitbake obmc-phosphor-image ", I am facing followi=
-ng error,
+This include file provide u-boot-default-env recipe
+https://github.com/openbmc/openbmc/blob/master/poky/meta/recipes-bsp/u-boot/u-boot.inc#L215
 
-=C2=A0=C2=A0=C2=A0=C2=A0=20
+On Mon, 2022-01-03 at 15:34 +0530, Nikhil V wrote:
+> Hi,
+>      I am trying to build image for openbmc on SAMA5D27-som1-ek1
+> development board made by microchip(atmel). SAMA5D27 board has yocto
+> support.
+>      I have added meta-atmel layer to openbmc, while building/compiling
+> using " bitbake obmc-phosphor-image ", I am facing following error,
+>      
+>       [ERROR: Nothing RPROVIDES 'u-boot-default-env']
+> 
+>       I have tried by updating with following content but didnt get any
+> result.
+>                 PREFERRED_PROVIDER_u-boot = "u-boot-at91"
+>                 PREFERRED_PROVIDER_virtual/bootloader = "u-boot-at91"
+> 
+>       Can you help me to find a solution.
+> 
+>   
+> Thanks & Regards,
+> Nikhil Muley
+> 
+> 
+> 
 
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [ERROR: Nothing RPROVIDES 'u-boot-default-en=
-v']
+-- 
+Best regards,
+Andrei Kartashev
 
-
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 I have tried by updating with following cont=
-ent but didnt get any result.
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 PREFERRED_PROVIDER_u-boot =3D "u-boot-at91"
-
-
-=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 PREFERRED_PROVIDER_virtual/bootloader =3D "u-boot-at91"
-
-
-
-
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Can you help me to find a solution.
-
-
-
-=C2=A0=20
-
-Thanks & Regards,
-
-Nikhil Muley
-------=_Part_12668_362788887.1641204260764
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
-<meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
-ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
-; font-size: 10pt;"><div>Hi,<br></div><div>&nbsp;&nbsp;&nbsp;&nbsp; I am tr=
-ying to build image for openbmc on SAMA5D27-som1-ek1 development board made=
- by microchip(atmel). SAMA5D27 board has yocto support.<br></div><div>&nbsp=
-;&nbsp;&nbsp;&nbsp; I have added meta-atmel layer to openbmc, while buildin=
-g/compiling using <span class=3D"comment-copy">" bitbake obmc-phosphor-imag=
-e ", I am facing following error,</span><br></div><div><span class=3D"comme=
-nt-copy">&nbsp;&nbsp;&nbsp;&nbsp; </span><br></div><div><span class=3D"comm=
-ent-copy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> [ERROR: Nothing RPROVIDES 'u-bo=
-ot-default-env']</b></span><br></div><div><br></div><div><span class=3D"com=
-ment-copy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I have tried by updating with fol=
-lowing content but didnt get any result.</span><br></div><div><p style=3D"m=
-argin  :  0px;" class=3D""><span style=3D"font-family :  Calibri,  sans-ser=
-if;" class=3D"x_1425412782font"><span style=3D"font-size :  11pt; margin : =
- 0px;" class=3D"x_1425412782size"><span style=3D"font-family :  &quot;Verda=
-na&quot;,  sans-serif;" class=3D"x_1425412782font"><span style=3D"font-size=
- :  10pt;" class=3D"x_1425412782size">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PREFERRED_PROVIDER_u-=
-boot =3D "u-boot-at91"</span></span></span></span><br></p></div><div><p sty=
-le=3D"margin  :  0px;" class=3D""><span style=3D"font-family :  Calibri,  s=
-ans-serif;" class=3D"x_1425412782font"><span style=3D"font-size :  11pt; ma=
-rgin :  0px;" class=3D"x_1425412782size"><span style=3D"font-family :  &quo=
-t;Verdana&quot;,  sans-serif;" class=3D"x_1425412782font"><span style=3D"fo=
-nt-size :  10pt;" class=3D"x_1425412782size">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PREFERRED_PROVIDER_=
-virtual/bootloader =3D "u-boot-at91"</span></span></span></span><br></p><di=
-v><span style=3D"font-family :  Calibri,  sans-serif;" class=3D"x_142541278=
-2font"><span style=3D"font-size :  11pt; margin :  0px;" class=3D"x_1425412=
-782size"><span style=3D"font-family :  &quot;Verdana&quot;,  sans-serif;" c=
-lass=3D"x_1425412782font"><span style=3D"font-size :  10pt;" class=3D"x_142=
-5412782size"></span></span></span></span><br></div></div><div><span class=
-=3D"comment-copy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Can you help me to find a =
-solution.</span><br></div><div><br></div><div><span class=3D"comment-copy">=
-&nbsp; <br></span></div><div>Thanks &amp; Regards,<br></div><div>Nikhil Mul=
-ey<br></div><div id=3D"Zm-_Id_-Sgn" data-zbluepencil-ignore=3D"true" data-s=
-igid=3D"58018000000014003"><div><br></div></div><div><br></div></div><br></=
-body></html>
-------=_Part_12668_362788887.1641204260764--
 
