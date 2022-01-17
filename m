@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18858C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 17 Jan 2022 02:25:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B47BAC4167B
+	for <openbmc@archiver.kernel.org>; Mon, 17 Jan 2022 05:37:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JcbNg4cnyz30DG
-	for <openbmc@archiver.kernel.org>; Mon, 17 Jan 2022 13:25:39 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JcgdZ6pLzz301v
+	for <openbmc@archiver.kernel.org>; Mon, 17 Jan 2022 16:37:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=TvemMbt1;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=rjCAFr31;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82f;
- helo=mail-qt1-x82f.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=bytedance.com (client-ip=2a00:1450:4864:20::335;
+ helo=mail-wm1-x335.google.com; envelope-from=yulei.sh@bytedance.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=TvemMbt1; dkim-atps=neutral
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=bytedance-com.20210112.gappssmtp.com
+ header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=rjCAFr31; dkim-atps=neutral
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [IPv6:2a00:1450:4864:20::335])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JcbMr2W36z2yLP;
- Mon, 17 Jan 2022 13:24:54 +1100 (AEDT)
-Received: by mail-qt1-x82f.google.com with SMTP id c19so17880596qtx.3;
- Sun, 16 Jan 2022 18:24:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Jcgcp0j1nz2xXX
+ for <openbmc@lists.ozlabs.org>; Mon, 17 Jan 2022 16:36:23 +1100 (AEDT)
+Received: by mail-wm1-x335.google.com with SMTP id
+ ay4-20020a05600c1e0400b0034a81a94607so19122784wmb.1
+ for <openbmc@lists.ozlabs.org>; Sun, 16 Jan 2022 21:36:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SHEqK5JLEeu9SvzW1gebcOdXEXOC523/xTa7jp+gqf8=;
- b=TvemMbt1elmxONhCJ9bH+fFSahL1xeJY28RNaE6HHzLKPlbBCnEDGSMQjNtjjvXNgJ
- iYikFbnch4vVl6JJ7XKg/m4yQf7LuRmKV+zvXMOmcSE/h6x0/D5PbsFizFJCeC6G88Su
- Ui8z2hRE1LW2AZsGCVvRIWb2oYoHKh+tUeC3Y=
+ :cc; bh=EA8+kVLxt9CGX2bWoK7aIZf1k1F16fF06BQS7ZwkP2o=;
+ b=rjCAFr31M0F+pG/oteEl6w0N049sPvdMNuJbZ9nYX0/y6DS4/YOidtIyLelSdIs7vh
+ pfxwEJNPMTRqILR4oDWZNAeLh2yA7ZuD9ROGpa2ngKZrFy+MgpmUKk01yYGLGGzeAuuh
+ m2qhdMnM7conMGUusLOjcTkZm4TurYe4PMUmKIZDwA2UvCr4bNlOz61FMiOrcQM1lP9b
+ ikrGd1JBpI+LGF9Igb8rODSO2/N3yZMfy0My+1Qp2Aztd8PYYcvUoYp91Jz8pqaSCS/U
+ rfyJ/+pfxQSJRLOvehOrYk1wbypF3ov0xb/9TQFC3aR/SNI/OI+EwG0Ahi/K3dIm5OLS
+ VQKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SHEqK5JLEeu9SvzW1gebcOdXEXOC523/xTa7jp+gqf8=;
- b=xBNtL7DOgQDESdxI/GKPBja8Dd9+YQit3Wpji9WxIsPYQuDcMyRrkGEs5mgiww+DiS
- aZp/kZaRhJ1FL5Zs8ZX84jaYVkdylUKy/PWIJicYuRzimBMUl5g2m/Ay3Ggvf7fQ7xP4
- Jd5ToLbqIqPBxiBXkLTU7SYEKIyVtKkssgDP8O888Dl6BOZXSuxxCr8CfbdD5Q9xxA2c
- 9Dsxr8DgyTcq0WwYJR9+WR89XzMsBHDRJ2IMxVfUc4eOMpLDyxY6E3N/DXtolhYH1EsY
- DzK9max3V0q9tvpaeLO8IrQDa+KUUgf0u+DWX3aWwvOuR8u2lypgVo09J5Q18nFRrR52
- XazQ==
-X-Gm-Message-State: AOAM531hT6yI2hBLl3Ge3gPR608RwvYiN8l/G9OWsJWveNNGYl1KOrbW
- V5BkK4R/qNLH3vYT9uVr6dX3OJz36+Y4u4MEQZo=
-X-Google-Smtp-Source: ABdhPJz8JBgHOfrwZOtiSMxcwxbBOgBqdYtj7KzYp4bLd6Rg5DcQyjzHbwHoY68mX+g481LUhrQs/hy8EQVUxZt1ibw=
-X-Received: by 2002:a05:622a:1a89:: with SMTP id
- s9mr10025191qtc.625.1642386290551; 
- Sun, 16 Jan 2022 18:24:50 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=EA8+kVLxt9CGX2bWoK7aIZf1k1F16fF06BQS7ZwkP2o=;
+ b=fDg1xDLLUbnEJmmwMYTecFiA0HJ2YhmzdVCxwiUmx37HP2/2ELtIRnhfS0xavrDlqO
+ QUv2Jx+rqmQde9JVAIepCYlRWx+iUi2y+26QgJak38nBK1PgtTrApQRfgo+Xj1FPqoyB
+ GwRx17XVIh8uCxv9we0L/Dk+6wwCVdZyzqIglSqouahNC/Zcu7Tif5ozKl1Vl4ffQtP+
+ Nth5QoblGwVx4LUqrrKYBZknkF5biL7KQp7Dw+WOQSieKk831KjeYssSdE2/vcrjGwbW
+ OYPWEydFBw+C43baMERaLRg93Teokmy+OVxdPINHWqJY4HcxEGToXe6geQ0RQWJQMP5B
+ G2ww==
+X-Gm-Message-State: AOAM532KvEzUQJbn3LVyrmo2+LgiQz2IYUEAp5y4CewYC99Wol8x3px/
+ nQ0O5mr5SQH1Q6SgDUflLxZ2d8bMuhNJaL0hT8kUeg==
+X-Google-Smtp-Source: ABdhPJysLyVs18RDawzOHTq6ha9DTd85Rzn6RU+krVz6ajqKSeGfytQC4dmw3oZhnx5buSwtfWd90xJenZsDgcm+k6M=
+X-Received: by 2002:adf:c843:: with SMTP id e3mr18764827wrh.38.1642397777710; 
+ Sun, 16 Jan 2022 21:36:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20211224012738.1551-1-jammy_huang@aspeedtech.com>
- <20211224012738.1551-2-jammy_huang@aspeedtech.com>
- <703ff71e-c76a-9df1-c644-04efed0199ca@xs4all.nl>
- <609cfe9e-2fd8-b31a-9d71-b83d61693f84@aspeedtech.com>
-In-Reply-To: <609cfe9e-2fd8-b31a-9d71-b83d61693f84@aspeedtech.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 17 Jan 2022 02:24:38 +0000
-Message-ID: <CACPK8XeJQHLWfVbBjArxV_QMDDnRXfccOeXdsn6aBEG7gd8yvw@mail.gmail.com>
-Subject: Re: [PATCH v8 1/4] media: v4l: Add definition for the Aspeed JPEG
- format
-To: Jammy Huang <jammy_huang@aspeedtech.com>
+References: <CAGpPFEFoTO-cUxvxEnoNQ3YoKBWRK+pOeyGzni6E5Da-=w+stA@mail.gmail.com>
+ <CACPK8Xec1P8xF9t8Uj1Fg0YsX4v6Y6Gi=KkeZD70AoLPqZB=PA@mail.gmail.com>
+ <YeHE3qPWS0LpmLIb@heinlein>
+In-Reply-To: <YeHE3qPWS0LpmLIb@heinlein>
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Mon, 17 Jan 2022 13:36:05 +0800
+Message-ID: <CAGm54UGCgosz0BX4EWUTqZHMw5ETM74KOBNOCy-GG0vt1u4f6A@mail.gmail.com>
+Subject: Re: Procedure for the send review on u-boot patch
+To: Patrick Williams <patrick@stwcx.xyz>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,178 +78,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "andrew@aj.id.au" <andrew@aj.id.au>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "eajames@linux.ibm.com" <eajames@linux.ibm.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Velumani T-ERS,
+ HCLTech" <velumanit@hcl.com>, logananth hcl <logananth13.hcl@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 17 Jan 2022 at 02:00, Jammy Huang <jammy_huang@aspeedtech.com> wrot=
-e:
+On Sat, Jan 15, 2022 at 2:46 AM Patrick Williams <patrick@stwcx.xyz> wrote:
 >
-> Hi Hans,
->
-> On 2022/1/14 =E4=B8=8B=E5=8D=88 04:11, Hans Verkuil wrote:
-> > On 24/12/2021 02:27, Jammy Huang wrote:
-> >> This introduces support for the Aspeed JPEG format, where the new fram=
-e
-> >> can refer to previous frame to reduce the amount of compressed data. T=
-he
-> >> concept is similar to I/P frame of video compression. It will compare =
-the
-> >> new frame with previous one to decide which macroblock's data is
-> >> changed, and only the changed macroblocks will be compressed.
-> >>
-> >> This Aspeed JPEG format is used by the video engine on Aspeed platform=
-s,
-> >> which is generally adapted for remote KVM.
-> >>
-> >> Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
-> >> ---
-> >> v8:
-> >>    - Add decoder information for aspeed-jpeg
-> >> v7:
-> >>    - Add more information for aspeed-jpeg
-> >> v6:
-> >>    - Update description for new format, aspeed-jpeg, in Documentation.
-> >> v5:
-> >>    - no update
-> >> v4:
-> >>    - new
-> >> ---
-> >>   .../media/uapi/v4l/pixfmt-reserved.rst          | 17 +++++++++++++++=
-++
-> >>   drivers/media/v4l2-core/v4l2-ioctl.c            |  1 +
-> >>   include/uapi/linux/videodev2.h                  |  1 +
-> >>   3 files changed, 19 insertions(+)
-> >>
-> >> diff --git a/Documentation/media/uapi/v4l/pixfmt-reserved.rst b/Docume=
-ntation/media/uapi/v4l/pixfmt-reserved.rst
-> > This is the wrong file! It should be:
+> On Thu, Jan 13, 2022 at 10:40:40PM +0000, Joel Stanley wrote:
+> > Hello,
 > >
-> > Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
->
-> Thanks, I just used git format-patch to generate the cover-letter and
-> didn't notice this.
->
-> It looks like the file, pixfmt-reserved.rst, has different path in
-> different Linux kernel,
->
-> * 5.4:           Documentation/media/uapi/v4l/pixfmt-reserved.rst
->
-> * 5.10/5.15: Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
->
-> 5.4 is the one I based to submit the patches.
->
-> Could you suggest the kernel that I should based to submit these patches?=
-?
-
-You should always submit based on the latest release.
-
-There are sometimes exceptions where you will base your patches on
-something even newer, but generally you should grab the latest.
-
-Be sure to re-test on the latest kernel before submitting.
-
-Cheers,
-
-Joel
-
->
-> I will need to change the number of V4L2_CID_USER_ASPEED_BASE per differe=
-nt
->
-> linux kernel as well.
->
+> > On Thu, 13 Jan 2022 at 08:52, logananth hcl <logananth13.hcl@gmail.com> wrote:
+> > >
+> > > Hai All,
+> > >
+> > > In openbmc/u-boot repo(branch - v2016.07-aspeed-openbmc)
+> > > https://github.com/openbmc/u-boot/tree/v2016.07-aspeed-openbmc
+> > >
+> > > I want to send a review on this particular branch in u-boot through upstream.
+> > > Is there any specific procedure to upstream it,
+> > > kindly provide your suggestions.
 > >
-> > Regards,
-> >
-> >       Hans
-> >
-> >> index b2cd155e691b..1d0dc8d86ed7 100644
-> >> --- a/Documentation/media/uapi/v4l/pixfmt-reserved.rst
-> >> +++ b/Documentation/media/uapi/v4l/pixfmt-reserved.rst
-> >> @@ -264,6 +264,23 @@ please make a proposal on the linux-media mailing=
- list.
-> >>      of tiles, resulting in 32-aligned resolutions for the luminance p=
-lane
-> >>      and 16-aligned resolutions for the chrominance plane (with 2x2
-> >>      subsampling).
-> >> +    * .. _V4L2-PIX-FMT-AJPG:
-> >> +
-> >> +      - ``V4L2_PIX_FMT_AJPG``
-> >> +      - 'AJPG'
-> >> +      - ASPEED JPEG format used by the aspeed-video driver on Aspeed =
-platforms,
-> >> +        which is generally adapted for remote KVM.
-> >> +        On each frame compression, I will compare the new frame with =
-previous
-> >> +        one to decide which macroblock's data is changed, and only th=
-e changed
-> >> +        macroblocks will be compressed.
-> >> +
-> >> +        The implementation is based on AST2600 A3 datasheet, revision=
- 0.9, which
-> >> +        is not publicly available. Or you can reference Video stream =
-data format
-> >> +        =E2=80=93 ASPEED mode compression of SDK_User_Guide which ava=
-ilable on
-> >> +        AspeedTech-BMC/openbmc/releases.
-> >> +
-> >> +        Decoder's implementation can be found here,
-> >> +        `https://github.com/AspeedTech-BMC/aspeed_codec/ <https://git=
-hub.com/AspeedTech-BMC/aspeed_codec/>`__
-> >>
-> >>   .. tabularcolumns:: |p{6.6cm}|p{2.2cm}|p{8.7cm}|
-> >>
-> >> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2=
--core/v4l2-ioctl.c
-> >> index 24db33f803c0..00dde01d2f97 100644
-> >> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> >> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> >> @@ -1378,6 +1378,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc=
- *fmt)
-> >>              case V4L2_PIX_FMT_S5C_UYVY_JPG: descr =3D "S5C73MX interl=
-eaved UYVY/JPEG"; break;
-> >>              case V4L2_PIX_FMT_MT21C:        descr =3D "Mediatek Compr=
-essed Format"; break;
-> >>              case V4L2_PIX_FMT_SUNXI_TILED_NV12: descr =3D "Sunxi Tile=
-d NV12 Format"; break;
-> >> +            case V4L2_PIX_FMT_AJPG:         descr =3D "Aspeed JPEG"; =
-break;
-> >>              default:
-> >>                      if (fmt->description[0])
-> >>                              return;
-> >> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/video=
-dev2.h
-> >> index 3210b3c82a4a..994eb6155ea9 100644
-> >> --- a/include/uapi/linux/videodev2.h
-> >> +++ b/include/uapi/linux/videodev2.h
-> >> @@ -726,6 +726,7 @@ struct v4l2_pix_format {
-> >>   #define V4L2_PIX_FMT_INZI     v4l2_fourcc('I', 'N', 'Z', 'I') /* Int=
-el Planar Greyscale 10-bit and Depth 16-bit */
-> >>   #define V4L2_PIX_FMT_SUNXI_TILED_NV12 v4l2_fourcc('S', 'T', '1', '2'=
-) /* Sunxi Tiled NV12 Format */
-> >>   #define V4L2_PIX_FMT_CNF4     v4l2_fourcc('C', 'N', 'F', '4') /* Int=
-el 4-bit packed depth confidence information */
-> >> +#define V4L2_PIX_FMT_AJPG     v4l2_fourcc('A', 'J', 'P', 'G') /* Aspe=
-ed JPEG */
-> >>
-> >>   /* 10bit raw bayer packed, 32 bytes for every 25 pixels, last LSB 6 =
-bits unused */
-> >>   #define V4L2_PIX_FMT_IPU3_SBGGR10  v4l2_fourcc('i', 'p', '3', 'b') /=
-* IPU3 packed 10-bit BGGR bayer */
+> > I strongly recommend using the newer v2019.04 based branch for any new
+> > system you're bringing up.
 >
-> --
-> Best Regards
-> Jammy
+> It doesn't seem like anyone is using this branch for any Aspeed system though.
 >
+> ```
+> $ git grep "v2019.04"
+> meta-aspeed/recipes-bsp/u-boot/u-boot-common-aspeed-sdk_2019.04.inc:PV = "v2019.04+git${SRCPV}"
+> ```
+>
+> I think everyone doing AST2400/AST2500 work has been copying from existing
+> systems and still pointing to the v2016.07 branch that we have working in the
+> tree.
+>
+
+Doing `git grep u-boot-aspeed-sdk` and there are a few systems using
+the new u-boot.
+
+Just a note: the new u-boot requires a different layout by default, it
+matches the `openbmc-flash-layout-64.dtsi` but differs from the 32MiB
+`openbmc-flash-layout.dtsi`.
+So one needs to adjust the `bootcmd` if switching from v2016.07 to v2019.04.
+
+
+-- 
+BRs,
+Lei YU
