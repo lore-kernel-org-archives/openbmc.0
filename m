@@ -4,11 +4,11 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE90C433EF
-	for <openbmc@archiver.kernel.org>; Tue, 18 Jan 2022 08:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E44CC433EF
+	for <openbmc@archiver.kernel.org>; Tue, 18 Jan 2022 10:08:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JdMpY0S3Jz3bV9
-	for <openbmc@archiver.kernel.org>; Tue, 18 Jan 2022 19:47:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JdPcJ4BcSz3035
+	for <openbmc@archiver.kernel.org>; Tue, 18 Jan 2022 21:08:32 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -17,27 +17,27 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JdMn31Zxnz2ynQ;
- Tue, 18 Jan 2022 19:45:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JdPbj4RT1z2xs7;
+ Tue, 18 Jan 2022 21:08:00 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 20I8c8xP013911;
- Tue, 18 Jan 2022 16:38:08 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 20IA0Rfm021057;
+ Tue, 18 Jan 2022 18:00:27 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 18 Jan 2022 16:45:05 +0800
+ Tue, 18 Jan 2022 18:07:24 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 1/2] media: aspeed: Add macro for the fields of the
+Subject: [PATCH v4 1/2] media: aspeed: Add macro for the fields of the
  mode-detect registers
-Date: Tue, 18 Jan 2022 16:44:48 +0800
-Message-ID: <20220118084449.5182-2-jammy_huang@aspeedtech.com>
+Date: Tue, 18 Jan 2022 18:07:28 +0800
+Message-ID: <20220118100729.7651-2-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220118084449.5182-1-jammy_huang@aspeedtech.com>
-References: <20220118084449.5182-1-jammy_huang@aspeedtech.com>
+In-Reply-To: <20220118100729.7651-1-jammy_huang@aspeedtech.com>
+References: <20220118100729.7651-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -45,7 +45,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 20I8c8xP013911
+X-MAIL: twspam01.aspeedtech.com 20IA0Rfm021057
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
