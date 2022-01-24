@@ -4,11 +4,11 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB4ECC433EF
-	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 09:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09190C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 09:36:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Jj4bf40dlz3cMd
-	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 20:35:42 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Jj4c94kdyz3bZp
+	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 20:36:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -17,24 +17,26 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Jj4ZJ0418z2yLg;
- Mon, 24 Jan 2022 20:34:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Jj4ZJ25vjz30Nc;
+ Mon, 24 Jan 2022 20:34:32 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 20O9QVf4054145;
+ by twspam01.aspeedtech.com with ESMTP id 20O9QVlT054148;
  Mon, 24 Jan 2022 17:26:31 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 24 Jan 2022 17:33:47 +0800
+ Mon, 24 Jan 2022 17:33:48 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 0/4] Correct timing report
-Date: Mon, 24 Jan 2022 17:33:41 +0800
-Message-ID: <20220124093345.3935-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v3 4/4] media: aspeed: Fix timing polarity incorrect
+Date: Mon, 24 Jan 2022 17:33:45 +0800
+Message-ID: <20220124093345.3935-5-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220124093345.3935-1-jammy_huang@aspeedtech.com>
+References: <20220124093345.3935-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -42,7 +44,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 20O9QVf4054145
+X-MAIL: twspam01.aspeedtech.com 20O9QVlT054148
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,23 +60,55 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series will correct the value of timing detected.
+This is a workaround for polarity detection unstable.
+Because h/v sync polarity got from VR098 could be wrong, we try to use
+ast SoC's characteristic to confirm sync polarity.
 
-Changes in v3:
- - Add API, aspeed_video_get_timings(), for the calculation of timings
- - Use active rather than 'total/2' as critera for sync polarity workaround
-Changes in v2:
- - code refined to improve readability
+In ast SoC's design, sync value got by VR09C counts from sync's rising
+edge, which means sync value = bp + active + fp if negative polarity.
+Thus, sync value would be larger than de if negative.
 
-Jammy Huang (4):
-  media: aspeed: Correct value for h-total-pixels
-  media: aspeed: Use FIELD_GET to improve readability
-  media: aspeed: Correct values for detected timing
-  media: aspeed: Fix timing polarity incorrect
+Ex. 1920x1200@60
+  VR098: c4d3efff, VR09C: 04cc001f
+  v-total = 0x4D3 (VR098[27:16]) = 1235
+  v-sync  = 0x4CC (VR09C[27:16]) = 1228
 
- drivers/media/platform/aspeed-video.c | 139 ++++++++++++++++++++------
- 1 file changed, 111 insertions(+), 28 deletions(-)
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+ v3:
+  - Use active rather than 'total/2' as critera for workaround
+ v2:
+  - Use 'total/2' rather than 'total<<1'
+  - Update comment
+---
+ drivers/media/platform/aspeed-video.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index 7e988cd05161..a135a31b4234 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -985,6 +985,20 @@ static void aspeed_video_get_timings(struct aspeed_video *v,
+ 	vsync = FIELD_GET(VE_SYNC_STATUS_VSYNC, sync);
+ 	hsync = FIELD_GET(VE_SYNC_STATUS_HSYNC, sync);
+ 
++	/*
++	 * This is a workaround for polarity detection.
++	 * Because ast-soc counts sync from sync's rising edge, the reg value
++	 * of sync would be larger than video's active area if negative.
++	 */
++	if (vsync > det->height)
++		det->polarities &= ~V4L2_DV_VSYNC_POS_POL;
++	else
++		det->polarities |= V4L2_DV_VSYNC_POS_POL;
++	if (hsync > det->width)
++		det->polarities &= ~V4L2_DV_HSYNC_POS_POL;
++	else
++		det->polarities |= V4L2_DV_HSYNC_POS_POL;
++
+ 	if (det->polarities & V4L2_DV_VSYNC_POS_POL) {
+ 		det->vbackporch = v->frame_top - vsync;
+ 		det->vfrontporch = vtotal - v->frame_bottom;
 -- 
 2.25.1
 
