@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A4A7C4332F
-	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6940C433FE
+	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:17:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JjKVY4Kgyz3bPP
-	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:17:09 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JjKWL2byZz3bVZ
+	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:17:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=R6A0m6Hs;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UOVZG+/4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -18,77 +18,76 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=R6A0m6Hs; dkim-atps=neutral
+ header.s=pp1 header.b=UOVZG+/4; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JjKSH2b9fz30RR
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JjKSH25CGz30Qw
  for <openbmc@lists.ozlabs.org>; Tue, 25 Jan 2022 06:15:10 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ5lBg013615; 
- Mon, 24 Jan 2022 19:15:08 GMT
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ4Hvk031004; 
+ Mon, 24 Jan 2022 19:15:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=q1ufZmoSJ4RreLU9k1LMKFusZbc9LoDWG297qxqrlZI=;
- b=R6A0m6HsRZ7JDxZzU2/D5LBYdihTFUA+GYGjKvM/l6NUzU+otvoZOpUk4kp8f0bGIi6I
- h3lXT93QLKSCkBh5rQbXnKLmgsCI2FXMKjjLB00qQy/a1yRLRBQR/F55ZFVIoVEVxa/D
- YD2hYP0qJ0PHdNOrTcLKCV84I2vyEntuRy/mKK+h4bgekJlP6QugYpxkpssjYiA5YvUz
- +TqsM4jAVMlZEkPkOqXSECXy1KmPbcWE9jtgLtXQP7qTPmC3I0xysXZT609nh3YoMC68
- 5TB3g2XefXZa7rzXsXywrPg6voChoqQerNlpOhQQYFyNxU7KMJciLObp2TdCZTvltkiP 5Q== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3dt0ccabwa-1
+ : date : message-id : in-reply-to : references : content-transfer-encoding
+ : mime-version; s=pp1; bh=UDegzf19IJG1/2gtmhgSLFVaeJaF0agvzagsd6cYnco=;
+ b=UOVZG+/4JSE66BagDeqixXpd0eV1xBq3zwHysb3kY8UwkkxXSSTUhTrw5SuvhKjueD50
+ JLopxX56ddawJdVbVgQloJ0/fPWVUhUodP08MS8zU8rZthQuFh5luI2GeR8UZ9ApWYt6
+ goyQ1WfG2Y9HDTNtU/GD0UjCAbn369ZIgMiBX88dR0TdtIfnNSXXxlXp3XzddEYl/mMG
+ ROnFRvXoEY7m+HsLH59bgPvodTEzhwj1PiM38H2+iZA5XsCDbZupG+Zfs8iskXnGAd0M
+ hTo969YUSpfUqf7asyZITSdNEV3c/FsaJanxWnveL0TIdOa+i7KToIBt3KZmbW6Pom74 uQ== 
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3dsyx8uj3t-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 24 Jan 2022 19:15:07 +0000
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ7VXh010198;
- Mon, 24 Jan 2022 19:15:07 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma03dal.us.ibm.com with ESMTP id 3dr9ja66nt-1
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ7856021832;
+ Mon, 24 Jan 2022 19:15:06 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma04dal.us.ibm.com with ESMTP id 3dr9j9p6qm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 19:15:07 +0000
+ Mon, 24 Jan 2022 19:15:06 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 20OJF6p833292614
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 20OJF5TI13042244
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 24 Jan 2022 19:15:06 GMT
+ Mon, 24 Jan 2022 19:15:05 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4D80C6076;
- Mon, 24 Jan 2022 19:15:05 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id EBE9AC6066;
+ Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BE6C7C605A;
- Mon, 24 Jan 2022 19:15:05 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id AE71CC6059;
+ Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.14.245])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 24 Jan 2022 19:15:05 +0000 (GMT)
+ Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH U-Boot v2019.04-aspeed-openbmc 4/6] gpio: Enable hogging
- support in SPL
-Date: Mon, 24 Jan 2022 13:15:01 -0600
-Message-Id: <20220124191503.88452-5-eajames@linux.ibm.com>
+Subject: [PATCH U-Boot v2019.04-aspeed-openbmc 1/6] dm: Add a No-op uclass
+Date: Mon, 24 Jan 2022 13:14:58 -0600
+Message-Id: <20220124191503.88452-2-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220124191503.88452-1-eajames@linux.ibm.com>
 References: <20220124191503.88452-1-eajames@linux.ibm.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: aFr-17KK13L01IO7LVHNpzguJCkpAAcJ
-X-Proofpoint-GUID: aFr-17KK13L01IO7LVHNpzguJCkpAAcJ
+X-Proofpoint-GUID: fiBTfhOStxIIQ9_pzpCoEkXpbw5k6ySM
+X-Proofpoint-ORIG-GUID: fiBTfhOStxIIQ9_pzpCoEkXpbw5k6ySM
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-24_09,2022-01-24_02,2021-12-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 malwarescore=0
- phishscore=0 spamscore=0 priorityscore=1501 mlxlogscore=999
- impostorscore=0 adultscore=0 suspectscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2201110000 definitions=main-2201240125
+ spamscore=0 malwarescore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 mlxscore=0 bulkscore=0
+ mlxlogscore=999 adultscore=0 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2201240125
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,108 +103,165 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Use the CONFIG macros to conditionally build the GPIO hogging support in
-either the SPL or U-Boot, or both, depending on the configuration. Also
-call the GPIO hog probe function in the common SPL board initialization
-as an equivalent to adding it to the U-Boot init sequence functions.
+From: Jean-Jacques Hiblot <jjhiblot@ti.com>
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
+This uclass is intended for devices that do not need any features from the
+uclass, including binding children.
+This will typically be used by devices that are used to bind child devices
+but do not use dm_scan_fdt_dev() to do it. That is for example the case of
+several USB wrappers that have 2 child devices (1 for device and 1 for
+host) but bind only one at a any given time.
+
+Signed-off-by: Jean-Jacques Hiblot <jjhiblot@ti.com>
+Reviewed-by: Simon Glass <sjg@chromium.org>
 ---
- common/spl/spl.c           |  7 +++++++
- drivers/gpio/Kconfig       | 10 ++++++++++
- drivers/gpio/gpio-uclass.c | 12 +++++++-----
- 3 files changed, 24 insertions(+), 5 deletions(-)
+ arch/sandbox/dts/test.dts | 12 +++++++
+ drivers/core/uclass.c     |  5 +++
+ include/dm/uclass-id.h    |  1 +
+ test/dm/Makefile          |  1 +
+ test/dm/nop.c             | 73 +++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 92 insertions(+)
+ create mode 100644 test/dm/nop.c
 
-diff --git a/common/spl/spl.c b/common/spl/spl.c
-index a1d4514fd3..bbb7578463 100644
---- a/common/spl/spl.c
-+++ b/common/spl/spl.c
-@@ -12,6 +12,9 @@
- #include <dm.h>
- #include <handoff.h>
- #include <spl.h>
-+#if defined(CONFIG_SPL_GPIO_HOG)
-+#include <asm/gpio.h>
-+#endif
- #include <asm/sections.h>
- #include <asm/u-boot.h>
- #include <nand.h>
-@@ -652,6 +655,10 @@ void board_init_r(gd_t *dummy1, ulong dummy2)
- 	timer_init();
- #endif
+diff --git a/arch/sandbox/dts/test.dts b/arch/sandbox/dts/test.dts
+index 87d8e5bcc9..b705161086 100644
+--- a/arch/sandbox/dts/test.dts
++++ b/arch/sandbox/dts/test.dts
+@@ -400,6 +400,18 @@
+ 		sandbox,silent;	/* Don't emit sounds while testing */
+ 	};
  
-+#if defined(CONFIG_SPL_GPIO_HOG)
-+	gpio_hog_probe_all();
-+#endif
++	nop-test_0 {
++		compatible = "sandbox,nop_sandbox1";
++		nop-test_1 {
++			compatible = "sandbox,nop_sandbox2";
++			bind = "True";
++		};
++		nop-test_2 {
++			compatible = "sandbox,nop_sandbox2";
++			bind = "False";
++		};
++	};
 +
- #if CONFIG_IS_ENABLED(BOARD_INIT)
- 	spl_board_init();
- #endif
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a8dc16ca0e..8b8bf6822f 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -24,6 +24,16 @@ config GPIO_HOG
- 	  is a mechanism providing automatic GPIO request and config-
- 	  uration as part of the gpio-controller's driver probe function.
- 
-+config SPL_GPIO_HOG
-+	bool "Enable GPIO hog support in SPL"
-+	depends on SPL_GPIO_SUPPORT
-+	default n
-+	help
-+	  Enable gpio hog support
-+	  The GPIO chip may contain GPIO hog definitions. GPIO hogging
-+	  is a mechanism providing automatic GPIO request and config-
-+	  uration as part of the gpio-controller's driver probe function.
-+
- config ALTERA_PIO
- 	bool "Altera PIO driver"
- 	depends on DM_GPIO
-diff --git a/drivers/gpio/gpio-uclass.c b/drivers/gpio/gpio-uclass.c
-index 01cfa2f788..219caa651b 100644
---- a/drivers/gpio/gpio-uclass.c
-+++ b/drivers/gpio/gpio-uclass.c
-@@ -144,7 +144,7 @@ static int gpio_find_and_xlate(struct gpio_desc *desc,
- 		return gpio_xlate_offs_flags(desc->dev, desc, args);
- }
- 
--#if defined(CONFIG_GPIO_HOG)
-+#if CONFIG_IS_ENABLED(GPIO_HOG)
- 
- struct gpio_hog_priv {
- 	struct gpio_desc gpiod;
-@@ -1033,9 +1033,6 @@ int gpio_dev_request_index(struct udevice *dev, const char *nodename,
- 
- static int gpio_post_bind(struct udevice *dev)
- {
--	struct udevice *child;
--	ofnode node;
--
- #if defined(CONFIG_NEEDS_MANUAL_RELOC)
- 	struct dm_gpio_ops *ops = (struct dm_gpio_ops *)device_get_ops(dev);
- 	static int reloc_done;
-@@ -1066,7 +1063,11 @@ static int gpio_post_bind(struct udevice *dev)
- 	}
- #endif
- 
--	if (IS_ENABLED(CONFIG_GPIO_HOG)) {
-+#if CONFIG_IS_ENABLED(GPIO_HOG)
-+	{
-+		struct udevice *child;
-+		ofnode node;
-+
- 		dev_for_each_subnode(node, dev) {
- 			if (ofnode_read_bool(node, "gpio-hog")) {
- 				const char *name = ofnode_get_name(node);
-@@ -1081,6 +1082,7 @@ static int gpio_post_bind(struct udevice *dev)
- 			}
- 		}
- 	}
-+#endif
+ 	misc-test {
+ 		compatible = "sandbox,misc_sandbox";
+ 	};
+diff --git a/drivers/core/uclass.c b/drivers/core/uclass.c
+index fc3157de39..dc9eb62893 100644
+--- a/drivers/core/uclass.c
++++ b/drivers/core/uclass.c
+@@ -757,3 +757,8 @@ int uclass_pre_remove_device(struct udevice *dev)
  	return 0;
  }
+ #endif
++
++UCLASS_DRIVER(nop) = {
++	.id		= UCLASS_NOP,
++	.name		= "nop",
++};
+diff --git a/include/dm/uclass-id.h b/include/dm/uclass-id.h
+index 13ae6e1e4c..281c0d6ed2 100644
+--- a/include/dm/uclass-id.h
++++ b/include/dm/uclass-id.h
+@@ -62,6 +62,7 @@ enum uclass_id {
+ 	UCLASS_MMC,		/* SD / MMC card or chip */
+ 	UCLASS_MOD_EXP,		/* RSA Mod Exp device */
+ 	UCLASS_MTD,		/* Memory Technology Device (MTD) device */
++	UCLASS_NOP,		/* No-op devices */
+ 	UCLASS_NORTHBRIDGE,	/* Intel Northbridge / SDRAM controller */
+ 	UCLASS_NVME,		/* NVM Express device */
+ 	UCLASS_PANEL,		/* Display panel, such as an LCD */
+diff --git a/test/dm/Makefile b/test/dm/Makefile
+index 49857c5092..aeb3aa0ca7 100644
+--- a/test/dm/Makefile
++++ b/test/dm/Makefile
+@@ -3,6 +3,7 @@
+ # Copyright (c) 2013 Google, Inc
  
+ obj-$(CONFIG_UT_DM) += bus.o
++obj-$(CONFIG_UT_DM) += nop.o
+ obj-$(CONFIG_UT_DM) += test-driver.o
+ obj-$(CONFIG_UT_DM) += test-fdt.o
+ obj-$(CONFIG_UT_DM) += test-main.o
+diff --git a/test/dm/nop.c b/test/dm/nop.c
+new file mode 100644
+index 0000000000..2df29f3d15
+--- /dev/null
++++ b/test/dm/nop.c
+@@ -0,0 +1,73 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Test for the NOP uclass
++ *
++ * (C) Copyright 2019 - Texas Instruments Incorporated - http://www.ti.com/
++ * Jean-Jacques Hiblot <jjhiblot@ti.com>
++ */
++
++#include <common.h>
++#include <dm.h>
++#include <dm/ofnode.h>
++#include <dm/lists.h>
++#include <dm/device.h>
++#include <dm/test.h>
++#include <misc.h>
++#include <test/ut.h>
++
++static int noptest_bind(struct udevice *parent)
++{
++	ofnode ofnode = dev_read_first_subnode(parent);
++
++	while (ofnode_valid(ofnode)) {
++		struct udevice *dev;
++		const char *bind_flag = ofnode_read_string(ofnode, "bind");
++
++		if (bind_flag && (strcmp(bind_flag, "True") == 0))
++			lists_bind_fdt(parent, ofnode, &dev, false);
++		ofnode = dev_read_next_subnode(ofnode);
++	}
++
++	return 0;
++}
++
++static const struct udevice_id noptest1_ids[] = {
++	{
++		.compatible = "sandbox,nop_sandbox1",
++	},
++	{ }
++};
++
++U_BOOT_DRIVER(noptest_drv1) = {
++	.name	= "noptest1_drv",
++	.of_match	= noptest1_ids,
++	.id	= UCLASS_NOP,
++	.bind = noptest_bind,
++};
++
++static const struct udevice_id noptest2_ids[] = {
++	{
++		.compatible = "sandbox,nop_sandbox2",
++	},
++	{ }
++};
++
++U_BOOT_DRIVER(noptest_drv2) = {
++	.name	= "noptest2_drv",
++	.of_match	= noptest2_ids,
++	.id	= UCLASS_NOP,
++};
++
++static int dm_test_nop(struct unit_test_state *uts)
++{
++	struct udevice *dev;
++
++	ut_assertok(uclass_get_device_by_name(UCLASS_NOP, "nop-test_0", &dev));
++	ut_assertok(uclass_get_device_by_name(UCLASS_NOP, "nop-test_1", &dev));
++	ut_asserteq(-ENODEV,
++		    uclass_get_device_by_name(UCLASS_NOP, "nop-test_2", &dev));
++
++	return 0;
++}
++
++DM_TEST(dm_test_nop, DM_TESTF_FLAT_TREE | DM_TESTF_SCAN_FDT);
 -- 
 2.27.0
 
