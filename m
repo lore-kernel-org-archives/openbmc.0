@@ -4,87 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BAC8C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A06BC433EF
+	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:19:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JjKX450Wwz3bVK
-	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:18:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JjKXp6GS6z3bVc
+	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:19:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=VTZqBZCe;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=QnNDfdqj;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=VTZqBZCe; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ header.s=pp1 header.b=QnNDfdqj; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JjKSH1XBzz2xtp
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jan 2022 06:15:10 +1100 (AEDT)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20OIkdJj026105; 
- Mon, 24 Jan 2022 19:15:06 GMT
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JjKSJ5hpqz2xtp
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jan 2022 06:15:12 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20OI8jpL018652; 
+ Mon, 24 Jan 2022 19:15:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=68Bm+X8NzD9jAxsNxxLNLNM54K+4dwdAI91zSDI0u9o=;
- b=VTZqBZCeijTt/0HTqG9mn/Wp/jntg3yL9KSe8RK2aApM8ZJTVE5w5FsXNlPgx0g+nb60
- wKbRRXWfpQWPhBosmDiVNBk29y460brI0+CFvpD+8mRK6ypWcPvZ6nuw69o0tsFguQ86
- TQXq9F7lUE0UuQZtetVKxPXvVL7lv5oWVbMa5ZD8Gr3Y++8xouzC054T34u6eXtQrHyE
- sjLcg4ewUPap5qsY2Cp4QVOBPuvrUYIdGgjk9HkmQEx1wPQXuMo9gyT62URoB3FiCTQ+
- 7fYOT8BIsecBhMpXsO4c5GVAygBVtA4YHcAixno7UWDCvE3F6CXpk+/rDW5A+yAO+i1Y MQ== 
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3dt1pj8mgk-1
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=IC7AWPKwYLZyQGENxMz+yYumlmC9sy49bVfY/88Udyg=;
+ b=QnNDfdqj0XFnjg1kk0TzNVmZ46UVJV5E06KXMO3Y8AeOBI5MNZixiJB+TqX3CSA9gDBM
+ 9cwC5YoBpVL75IkOokRE9Ts796tdZeqeqeyNITMkde95MTFv0jcOPdGgfhUrpwuxI1+g
+ tSlnb7xmAQA2eAv7T59g9kyiXqhdqyzsAC/sgaMHlxXEZzeKoAD9PkIVhfgC7avBQk47
+ atxHArK3tpIp6vcoBUqe04x8iLN1lfJ9gg93to3hslXkhTmbAIg++jleF45cd9VAi0Qv
+ jSu5pkxFA4a1POxiykYxvBG/nj9rV6NtU0h8JAj1UxKiZAvd/tLapeW/YJrFpZ0UvY1K Wg== 
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3dsxytn1kd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 19:15:06 +0000
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ79GB021984;
- Mon, 24 Jan 2022 19:15:06 GMT
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by ppma04dal.us.ibm.com with ESMTP id 3dr9j9p6qg-1
+ Mon, 24 Jan 2022 19:15:08 +0000
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ7RqW023062;
+ Mon, 24 Jan 2022 19:15:07 GMT
+Received: from b03cxnp07028.gho.boulder.ibm.com
+ (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
+ by ppma01dal.us.ibm.com with ESMTP id 3dr9ja67sh-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 19:15:05 +0000
+ Mon, 24 Jan 2022 19:15:07 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 20OJF4pS18481538
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 20OJF6U833489326
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 24 Jan 2022 19:15:04 GMT
+ Mon, 24 Jan 2022 19:15:06 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 94C40C605B;
- Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 981BFC6066;
+ Mon, 24 Jan 2022 19:15:06 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5A5C5C6069;
- Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 5A11CC6055;
+ Mon, 24 Jan 2022 19:15:06 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.14.245])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 24 Jan 2022 19:15:04 +0000 (GMT)
+ Mon, 24 Jan 2022 19:15:06 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH U-Boot v2019.04-aspeed-openbmc 0/6] Add GPIO hog support
-Date: Mon, 24 Jan 2022 13:14:57 -0600
-Message-Id: <20220124191503.88452-1-eajames@linux.ibm.com>
+Subject: [PATCH U-Boot v2019.04-aspeed-openbmc 6/6] ast2600: Add GPIO
+ controller and hog TPM reset pin
+Date: Mon, 24 Jan 2022 13:15:03 -0600
+Message-Id: <20220124191503.88452-7-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20220124191503.88452-1-eajames@linux.ibm.com>
+References: <20220124191503.88452-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 48NnBiy5d_2X6XBlNnphKMIS2Oquixwz
-X-Proofpoint-ORIG-GUID: 48NnBiy5d_2X6XBlNnphKMIS2Oquixwz
+X-Proofpoint-ORIG-GUID: gNkHmWZcmU1mzMULByFUtINaQGVvfuRo
+X-Proofpoint-GUID: gNkHmWZcmU1mzMULByFUtINaQGVvfuRo
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-01-24_09,2022-01-24_02,2021-12-02_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0
- suspectscore=0 bulkscore=0 mlxlogscore=816 adultscore=0 lowpriorityscore=0
- malwarescore=0 clxscore=1011 mlxscore=0 priorityscore=1501 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2201240125
+ priorityscore=1501
+ phishscore=0 mlxlogscore=999 impostorscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 malwarescore=0 mlxscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2201240125
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +104,32 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series adds support for GPIO hogging based on upstream patches.
-I added additional support for hogging in the SPL, and enabled this
-for the AST2600 "rainier" openbmc platform.
+Hog the GPIO pin to reset the TPM.
 
-Eddie James (3):
-  gpio: Enable hogging support in SPL
-  Add GPIO hogging support for AST2600 openbmc config
-  ast2600: Add GPIO controller and hog TPM reset pin
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ arch/arm/dts/ast2600-rainier.dts | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Heiko Schocher (2):
-  gpio: add gpio-hog support
-  gpio: fixes for gpio-hog support
-
-Jean-Jacques Hiblot (1):
-  dm: Add a No-op uclass
-
- arch/arm/dts/ast2600-rainier.dts           |  11 +
- arch/sandbox/dts/test.dts                  |  12 ++
- common/board_r.c                           |   6 +
- common/spl/spl.c                           |   7 +
- configs/ast2600_openbmc_spl_emmc_defconfig |   4 +-
- doc/device-tree-bindings/gpio/gpio.txt     |  60 ++++++
- drivers/core/uclass.c                      |   5 +
- drivers/gpio/Kconfig                       |  20 ++
- drivers/gpio/gpio-uclass.c                 | 230 +++++++++++++++++++--
- include/asm-generic/gpio.h                 |  34 +++
- include/dm/uclass-id.h                     |   1 +
- test/dm/Makefile                           |   1 +
- test/dm/nop.c                              |  73 +++++++
- 13 files changed, 447 insertions(+), 17 deletions(-)
- create mode 100644 test/dm/nop.c
-
+diff --git a/arch/arm/dts/ast2600-rainier.dts b/arch/arm/dts/ast2600-rainier.dts
+index aae507b4c2..d0e82d1512 100755
+--- a/arch/arm/dts/ast2600-rainier.dts
++++ b/arch/arm/dts/ast2600-rainier.dts
+@@ -108,3 +108,14 @@
+ 	u-boot,dm-pre-reloc;
+ 	status = "okay";
+ };
++
++&gpio0 {
++	u-boot,dm-pre-reloc;
++
++	tpm_reset {
++		u-boot,dm-pre-reloc;
++		gpio-hog;
++		output-high;
++		gpios = <ASPEED_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
++	};
++};
 -- 
 2.27.0
 
