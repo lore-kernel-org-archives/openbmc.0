@@ -4,91 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55538C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:20:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCD1C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 24 Jan 2022 19:57:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JjKYy6S9jz3bVZ
-	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:20:06 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JjLNl0Cy6z3bTD
+	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:57:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=H7GYqJR3;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=FkOPIukO;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::336;
+ helo=mail-wm1-x336.google.com; envelope-from=edtanous@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=H7GYqJR3; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=FkOPIukO; dkim-atps=neutral
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [IPv6:2a00:1450:4864:20::336])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JjKSL0BnDz3Wtt
- for <openbmc@lists.ozlabs.org>; Tue, 25 Jan 2022 06:15:13 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20OJBWWY018643; 
- Mon, 24 Jan 2022 19:15:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=NVTQF4631AqZzVFtzDvJjzJo3wVlj1XIVpqvlzrA3BY=;
- b=H7GYqJR3TKttrk7rsRzTa4Lsh6w4y7gQJjTeCEsivEarl6rs6vE2gtIIN3dD9l4Ky+Rq
- mkwbd1X4LyjZ//O3W5jw1+jRj3WueI5KIb2EuWmxZY+9/Gt4h9NFDu4VfPbKPdbZXbtm
- 4vX6BSYImMvWq9Pe/Ygk0CyFosIN7y3FZ0EowdZHmfJ7+0UIRYmI5PcaoK1XwzH7GFMG
- UA4BZNuT9WLf33TKGxg6Pai7zRa/UvadkQ/gg3sdVzZE068CUB+10XofLT+lthy5FOZ7
- /SsH/qX6YTSTyBQdsQh9a20JPGcbZrI6NIHhjcD/zC6gycWrXBSp4MUHO/mfbben6DBV /w== 
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3dt225825y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 19:15:07 +0000
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20OJ7LS5008987;
- Mon, 24 Jan 2022 19:15:07 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma04wdc.us.ibm.com with ESMTP id 3dr9j9w68t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Jan 2022 19:15:07 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 20OJF6ZO31392010
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 24 Jan 2022 19:15:06 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3DDBCC605F;
- Mon, 24 Jan 2022 19:15:06 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0C3F0C6055;
- Mon, 24 Jan 2022 19:15:06 +0000 (GMT)
-Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.14.245])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 24 Jan 2022 19:15:05 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH U-Boot v2019.04-aspeed-openbmc 5/6] Add GPIO hogging support
- for AST2600 openbmc config
-Date: Mon, 24 Jan 2022 13:15:02 -0600
-Message-Id: <20220124191503.88452-6-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20220124191503.88452-1-eajames@linux.ibm.com>
-References: <20220124191503.88452-1-eajames@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JjLMy55PGz2x9p
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Jan 2022 06:56:29 +1100 (AEDT)
+Received: by mail-wm1-x336.google.com with SMTP id
+ j5-20020a05600c1c0500b0034d2e956aadso153177wms.4
+ for <openbmc@lists.ozlabs.org>; Mon, 24 Jan 2022 11:56:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kqRFEZjEFFlIKzrjDxgWvcYGHblTsDjKBUOYX0qoyEI=;
+ b=FkOPIukODKmAiPvqyD2CvJA3+kanEDYT37+Ua9gbREn4GqyG93g7Z1z792C/8IXoLQ
+ 5IpGtLveIONgKuK7LPzcSRl0XApr0z0kn3yh1g/l9EtxzpdMROSpYzpBFhXoD3ScKizQ
+ ZFvnDGCREm9vgv29TrxoP/lbJKFo+1BEFJZdOxvrHn2n52khUdufHnQKsui0L9naL9nY
+ xaexoxu8JJ5oN1i0LV1cee53Y2++mdca0dBLLmpwm1xTYceIV4zdgRc36reAPsxfg/7I
+ j8DL1h29CO8sf5FLbs2WbuWEMwmVAFYuUBvS68JZySVXTw3lJqylNjogYakmGw9k4L10
+ 7GGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kqRFEZjEFFlIKzrjDxgWvcYGHblTsDjKBUOYX0qoyEI=;
+ b=xJnlpevWED0/iLqFSDICzOs2J/qMU5aeebfLhewXzNsWLrgMb2eYdchkc2ibvR7S01
+ 3BgMMnPfvJ6O/loUVVsvvUf2/LdM7Fux8R72i5I61oVlqOITEoAD6pwmNX5vit6EFNAw
+ oNupolpM/URJd1hYhaSeR9B0++hJLCKtcflyersqel6Ft4jxRsgWO79KrHyBbKMQh4rK
+ Em6kDXzh0Ee9foj7RddXOMqV2u/ySXmS6k1IEtO8PGDAZU/iHRoWIQaD0/tW0BagBb5b
+ Wdh3u8Dp+6Uu4GmQGG3rw1capmRGgFsYsb3oCkDWjQp9VYfEZxSFo52HQl7vGsgAxNIg
+ AiGA==
+X-Gm-Message-State: AOAM533EiyahLo4whVlqt8Zi3KCUoA9rrx5r5yzOL1PT1iDL/y50sj24
+ avXREJkryaoSa1BLiAMlfwjwlMY8PdSOatvqkCU/TQ==
+X-Google-Smtp-Source: ABdhPJyvRFs6pzG9CY8azLtSUiStCjbll3L1H6o/tFXCBnj5CAOxo2IK9L9VLcE+hGX8kaYUIqUC0JtK9j7595vP7Cs=
+X-Received: by 2002:a7b:c096:: with SMTP id r22mr3107331wmh.160.1643054183789; 
+ Mon, 24 Jan 2022 11:56:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 2HzIP95PSN1cW4kxWmesloL8eeNN-Lkf
-X-Proofpoint-ORIG-GUID: 2HzIP95PSN1cW4kxWmesloL8eeNN-Lkf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-24_09,2022-01-24_02,2021-12-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- priorityscore=1501 phishscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2201240125
+References: <YdiCUiwh1iD4ycr8@heinlein> <YeH2OHImO/oRgkjN@heinlein>
+ <YeH5uCwUQ02RrGok@heinlein>
+In-Reply-To: <YeH5uCwUQ02RrGok@heinlein>
+From: Ed Tanous <edtanous@google.com>
+Date: Mon, 24 Jan 2022 11:56:12 -0800
+Message-ID: <CAH2-KxBAxkZps=+Sy1xZCD=+D2bzMATd58tUEnzAH5ZBXPhZ3w@mail.gmail.com>
+Subject: Re: TOF Nominations
+To: Patrick Williams <patrick@stwcx.xyz>, William Kennington <wak@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,48 +75,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: OpenBMC List <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Enable GPIO support in the SPL and hog the GPIOs in the SPL only. Also
-increase the size of the malloc size in the SPL to get the GPIO driver
-loaded.
+On Fri, Jan 14, 2022 at 2:31 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+>
+> On Fri, Jan 14, 2022 at 04:16:24PM -0600, Patrick Williams wrote:
+> > On Fri, Jan 07, 2022 at 12:11:30PM -0600, Patrick Williams wrote:
+>
+> > > * Jan 30th: Nominations (self or peer) for TOF seats must be sent to the mailing
+> > >             list.
+>
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- configs/ast2600_openbmc_spl_emmc_defconfig | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+I'd like to nominate William Kennington to be on the TOF.  He has been
+a long time contributor to the project with commits going all the way
+back to January 2018 [1].  He has hundreds of patches landed on
+master, and maintains a combination core libraries and
+end-applications, and has a long history of both significant
+improvements and cleanups.  This round of voting shows he's 1 of 12
+"highly productive" members in terms of participation scoring [2].  I
+think he would be a great addition to the TOF.
 
-diff --git a/configs/ast2600_openbmc_spl_emmc_defconfig b/configs/ast2600_openbmc_spl_emmc_defconfig
-index 344a4d8f9c..5f50298a58 100644
---- a/configs/ast2600_openbmc_spl_emmc_defconfig
-+++ b/configs/ast2600_openbmc_spl_emmc_defconfig
-@@ -11,6 +11,7 @@ CONFIG_SYS_TEXT_BASE=0x81000000
- CONFIG_ASPEED_AST2600=y
- # CONFIG_ASPEED_LOADERS is not set
- CONFIG_TARGET_EVB_AST2600A1=y
-+CONFIG_SPL_GPIO_SUPPORT=y
- CONFIG_SPL_LIBCOMMON_SUPPORT=y
- CONFIG_SPL_LIBGENERIC_SUPPORT=y
- CONFIG_SYS_MALLOC_F_LEN=0x2000
-@@ -19,7 +20,7 @@ CONFIG_SPL_SERIAL_SUPPORT=y
- CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
- CONFIG_ENV_SIZE=0x10000
- CONFIG_ENV_OFFSET=0x5000
--CONFIG_SPL_SYS_MALLOC_F_LEN=0x800
-+CONFIG_SPL_SYS_MALLOC_F_LEN=0x1000
- CONFIG_SPL=y
- CONFIG_SPL_STACK_R_ADDR=0x90300000
- CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
-@@ -94,6 +95,7 @@ CONFIG_CLK=y
- CONFIG_SPL_CLK=y
- CONFIG_ASPEED_HACE=y
- CONFIG_DM_GPIO=y
-+CONFIG_SPL_GPIO_HOG=y
- CONFIG_ASPEED_GPIO=y
- CONFIG_DM_I2C=y
- CONFIG_SYS_I2C_ASPEED=y
--- 
-2.27.0
-
+[1] https://gerrit.openbmc-project.xyz/q/owner:wak%2540google.com
+[2] https://github.com/openbmc/tof-election/blob/c50f5beea2be92806cebad57486474c7dabecef2/2022H1/rollcall.json#L85
