@@ -4,11 +4,11 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EADAC433F5
-	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6BDC433F5
+	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 06:48:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Jjcr25hmfz3cPT
-	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 17:48:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JjcrW6BPKz3cP5
+	for <openbmc@archiver.kernel.org>; Tue, 25 Jan 2022 17:48:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com;
@@ -17,24 +17,26 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JjcpS0jJvz2yPV;
- Tue, 25 Jan 2022 17:46:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JjcpW3zp8z2yPV;
+ Tue, 25 Jan 2022 17:46:59 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 20P6akGu078227;
- Tue, 25 Jan 2022 14:36:46 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 20P6aluv078229;
+ Tue, 25 Jan 2022 14:36:47 +0800 (GMT-8)
  (envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 25 Jan 2022 14:44:06 +0800
+ Tue, 25 Jan 2022 14:44:07 +0800
 From: Jammy Huang <jammy_huang@aspeedtech.com>
 To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
  <andrew@aj.id.au>, <linux-media@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 0/3] Correct timing report
-Date: Tue, 25 Jan 2022 14:44:06 +0800
-Message-ID: <20220125064409.5502-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v4 2/3] media: aspeed: Use FIELD_GET to improve readability
+Date: Tue, 25 Jan 2022 14:44:08 +0800
+Message-ID: <20220125064409.5502-3-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220125064409.5502-1-jammy_huang@aspeedtech.com>
+References: <20220125064409.5502-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -42,7 +44,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 20P6akGu078227
+X-MAIL: twspam01.aspeedtech.com 20P6aluv078229
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,24 +60,89 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series will correct the value of timing detected.
+Use the bitfield macro FIELD_GET, and GENMASK to do the shift and mask in
+one go for reg values.
 
-Changes in v4:
- - Combine patch 3 and 4
-Changes in v3:
- - Add API, aspeed_video_get_timings(), for the calculation of timings
- - Use active rather than 'total/2' as critera for sync polarity workaround
-Changes in v2:
- - code refined to improve readability
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
+ v4:
+  - no update
+ v3:
+  - no update
+ v2:
+  - Put some codes on one line
+---
+ drivers/media/platform/aspeed-video.c | 31 +++++++++++----------------
+ 1 file changed, 12 insertions(+), 19 deletions(-)
 
-Jammy Huang (3):
-  media: aspeed: Correct value for h-total-pixels
-  media: aspeed: Use FIELD_GET to improve readability
-  media: aspeed: Correct values for detected timing
-
- drivers/media/platform/aspeed-video.c | 137 ++++++++++++++++++++------
- 1 file changed, 109 insertions(+), 28 deletions(-)
-
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index d5f77b205175..c241038ee27c 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -156,26 +156,22 @@
+ #define  VE_SRC_LR_EDGE_DET_NO_H	BIT(13)
+ #define  VE_SRC_LR_EDGE_DET_NO_DISP	BIT(14)
+ #define  VE_SRC_LR_EDGE_DET_NO_CLK	BIT(15)
+-#define  VE_SRC_LR_EDGE_DET_RT_SHF	16
+-#define  VE_SRC_LR_EDGE_DET_RT		GENMASK(27, VE_SRC_LR_EDGE_DET_RT_SHF)
++#define  VE_SRC_LR_EDGE_DET_RT		GENMASK(27, 16)
+ #define  VE_SRC_LR_EDGE_DET_INTERLACE	BIT(31)
+ 
+ #define VE_SRC_TB_EDGE_DET		0x094
+ #define  VE_SRC_TB_EDGE_DET_TOP		GENMASK(12, 0)
+-#define  VE_SRC_TB_EDGE_DET_BOT_SHF	16
+-#define  VE_SRC_TB_EDGE_DET_BOT		GENMASK(28, VE_SRC_TB_EDGE_DET_BOT_SHF)
++#define  VE_SRC_TB_EDGE_DET_BOT		GENMASK(28, 16)
+ 
+ #define VE_MODE_DETECT_STATUS		0x098
+ #define  VE_MODE_DETECT_H_PERIOD	GENMASK(11, 0)
+-#define  VE_MODE_DETECT_V_LINES_SHF	16
+-#define  VE_MODE_DETECT_V_LINES		GENMASK(27, VE_MODE_DETECT_V_LINES_SHF)
++#define  VE_MODE_DETECT_V_LINES		GENMASK(27, 16)
+ #define  VE_MODE_DETECT_STATUS_VSYNC	BIT(28)
+ #define  VE_MODE_DETECT_STATUS_HSYNC	BIT(29)
+ 
+ #define VE_SYNC_STATUS			0x09c
+ #define  VE_SYNC_STATUS_HSYNC		GENMASK(11, 0)
+-#define  VE_SYNC_STATUS_VSYNC_SHF	16
+-#define  VE_SYNC_STATUS_VSYNC		GENMASK(27, VE_SYNC_STATUS_VSYNC_SHF)
++#define  VE_SYNC_STATUS_VSYNC		GENMASK(27, 16)
+ 
+ #define VE_H_TOTAL_PIXELS		0x0A0
+ 
+@@ -988,23 +984,20 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 		sync = aspeed_video_read(video, VE_SYNC_STATUS);
+ 		htotal = aspeed_video_read(video, VE_H_TOTAL_PIXELS);
+ 
+-		video->frame_bottom = (src_tb_edge & VE_SRC_TB_EDGE_DET_BOT) >>
+-			VE_SRC_TB_EDGE_DET_BOT_SHF;
+-		video->frame_top = src_tb_edge & VE_SRC_TB_EDGE_DET_TOP;
++		video->frame_bottom = FIELD_GET(VE_SRC_TB_EDGE_DET_BOT, src_tb_edge);
++		video->frame_top = FIELD_GET(VE_SRC_TB_EDGE_DET_TOP, src_tb_edge);
+ 		det->vfrontporch = video->frame_top;
+-		det->vbackporch = ((mds & VE_MODE_DETECT_V_LINES) >>
+-			VE_MODE_DETECT_V_LINES_SHF) - video->frame_bottom;
+-		det->vsync = (sync & VE_SYNC_STATUS_VSYNC) >>
+-			VE_SYNC_STATUS_VSYNC_SHF;
++		det->vbackporch = FIELD_GET(VE_MODE_DETECT_V_LINES, mds) -
++			video->frame_bottom;
++		det->vsync = FIELD_GET(VE_SYNC_STATUS_VSYNC, sync);
+ 		if (video->frame_top > video->frame_bottom)
+ 			continue;
+ 
+-		video->frame_right = (src_lr_edge & VE_SRC_LR_EDGE_DET_RT) >>
+-			VE_SRC_LR_EDGE_DET_RT_SHF;
+-		video->frame_left = src_lr_edge & VE_SRC_LR_EDGE_DET_LEFT;
++		video->frame_right = FIELD_GET(VE_SRC_LR_EDGE_DET_RT, src_lr_edge);
++		video->frame_left = FIELD_GET(VE_SRC_LR_EDGE_DET_LEFT, src_lr_edge);
+ 		det->hfrontporch = video->frame_left;
+ 		det->hbackporch = htotal - video->frame_right;
+-		det->hsync = sync & VE_SYNC_STATUS_HSYNC;
++		det->hsync = FIELD_GET(VE_SYNC_STATUS_HSYNC, sync);
+ 		if (video->frame_left > video->frame_right)
+ 			continue;
+ 
 -- 
 2.25.1
 
