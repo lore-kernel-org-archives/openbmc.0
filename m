@@ -4,95 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E402C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 15:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E044DC433EF
+	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 21:40:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JnWgn2Zv0z3bV6
-	for <openbmc@archiver.kernel.org>; Tue,  1 Feb 2022 02:09:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JnhLW1q6Fz3bTt
+	for <openbmc@archiver.kernel.org>; Tue,  1 Feb 2022 08:40:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=cu8E891P;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=FQ25v3ri;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hKpoEvzF;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.25;
+ helo=wout2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=cu8E891P; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=FQ25v3ri; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=hKpoEvzF; 
+ dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JnWfs6fkTz2ywb
- for <openbmc@lists.ozlabs.org>; Tue,  1 Feb 2022 02:08:53 +1100 (AEDT)
-Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20VEcfxJ018150; 
- Mon, 31 Jan 2022 15:08:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=DGyzJzHZrDsTrpg2rQWbrFBuxt3vyhNVewjm8WIrSk8=;
- b=cu8E891Ps7zz5C4UfZg66FR/Fdcc+nr9VMwgFqSPeyTnAMKP7dD65sRBIsCVq28Ylm1Z
- 7/T/g9u5Dh2+VXTiE2RJcA+r4CegtItnCzwkd+Sd+54SPl6PNXoFw0+ABIkBkA2G34Vq
- OKPZoiQWruJYmB711iHVggLX3w71kEeLM+FRp0fJbMCAZ4L20+mBUVfUn6v9wyNE28fi
- X9k/PcwhrFVmHEJocm6sFCj7T4Mt8prUtCKvVtnvH99W10NkCgp0LXhqHM62xofmZ+7b
- qN9lwMhJ2HS7YvDL9YWOoPDK1uh5bWwIRtDxHAbN9aDMH4HvL4F8nQmWo7ZWwjH8Srdj iw== 
-Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
- [169.63.121.186])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3dx5a6wngv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 31 Jan 2022 15:08:48 +0000
-Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
- by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 20VEqFJc013971;
- Mon, 31 Jan 2022 15:08:47 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma03wdc.us.ibm.com with ESMTP id 3dvw79wb86-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 31 Jan 2022 15:08:47 +0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 20VF8k9d11534826
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 31 Jan 2022 15:08:46 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3D5C3BE05A;
- Mon, 31 Jan 2022 15:08:46 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 07141BE056;
- Mon, 31 Jan 2022 15:08:46 +0000 (GMT)
-Received: from [9.211.52.1] (unknown [9.211.52.1])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 31 Jan 2022 15:08:45 +0000 (GMT)
-Message-ID: <bfb4ed15-3082-8495-a4e1-d027263c77ab@linux.ibm.com>
-Date: Mon, 31 Jan 2022 09:08:45 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH linux dev-5.15] fsi: Add trace events in initialization
- path
-Content-Language: en-US
-To: Joel Stanley <joel@jms.id.au>
-References: <20220125161107.77962-1-eajames@linux.ibm.com>
- <CACPK8XevA9_DNpGkfDe8=2zy7VPZcTa1ehzoJRHLVtrWapf42Q@mail.gmail.com>
-From: Eddie James <eajames@linux.ibm.com>
-In-Reply-To: <CACPK8XevA9_DNpGkfDe8=2zy7VPZcTa1ehzoJRHLVtrWapf42Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: qG_qjGzUsl3MDDNXDMl9reSCp0lWX_Va
-X-Proofpoint-GUID: qG_qjGzUsl3MDDNXDMl9reSCp0lWX_Va
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
- definitions=2022-01-31_06,2022-01-31_01,2021-12-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 spamscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 phishscore=0 suspectscore=0 malwarescore=0 mlxscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2201110000 definitions=main-2201310099
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JnhKg3Ls7z2yQK
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Feb 2022 08:39:34 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 6BAAD3202148;
+ Mon, 31 Jan 2022 16:39:30 -0500 (EST)
+Received: from imap43 ([10.202.2.93])
+ by compute3.internal (MEProxy); Mon, 31 Jan 2022 16:39:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=KVVzNJlMWKVD+1J/t/0Mv6gzLMEV0nfyl2fRK/
+ VaTmE=; b=FQ25v3riPFefeSRTl8V6vETHSIpepGurQmAk/tib5x5sPc09bCIxBe
+ QwFW2A2Ldk2StO7V73qPBCdOcbYt8RIfuNIwIcExhm6Gpiu7liTZUfdOrNv6yCSg
+ euzL0wVECFN3v5tLCRI70T5aFkpud80zNepg9702LGVCKvAJ6WKcTmVAJVN809Ia
+ QsgrdCyCfiVNBcKQqsDwNJhlN1zvNhcylbMwEgKUOeeqO6t4UIEqRCOT0mOg9ax9
+ S6N5GxPj9dOlfg1rhipKKADzxfm5IP/sJdm360U4khRTdpQGv2hbcfX4jLFxqC21
+ 5hf6cmjdePWkfG/RJVh5+yF143VHmUsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=KVVzNJlMWKVD+1J/t
+ /0Mv6gzLMEV0nfyl2fRK/VaTmE=; b=hKpoEvzFLgrzBzxxkNLwIZM2p+PQa2WIi
+ hVb8aH6wFYdAozMmMEBoLhwgdtoxekmo7Kbkl8YGUkuW1oK9PYjBi2Ff01tjOjHa
+ 0CLqFTojatNstd7w03QYFPCe6RhI+tg9yDdE2Y+QuJfrPGT9wP7Jx3CuyeHuB06D
+ cfryc5CtVpbp5E1WVVLlqBfb9F4cfqVTkg+r6vqR7CHN83F2nXeUZag+4AEt65gs
+ LsbqyjfnUlRAJDKbzqRdnLc5xuj/g+sno+0IWlG0OEehKLQLkXYRMscL9uTfKm8C
+ HQkRjJiSOQh9QJOYFK3ViQaZ9IqidLFefGnQZ19ZARuvHqy5eQdiw==
+X-ME-Sender: <xms:EVf4YQEk4lq36LRi15aVXXCpnio24W69FupQVyNSVz9KNdh6ToRD-A>
+ <xme:EVf4YZVWhDVQ37SCCoQ0Z75T298Jk76yDS97tsozTMIOJON0G7sg-VNJG32Xqo6m9
+ L3KaE8xmnS7j4nbww>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrgedugdduheegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
+ grthhtvghrnhepleekgfffkeetjefhtdffgfevjeevvddvveegudduffduudekhffhkeev
+ gfeitdffnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiii
+ gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:EVf4YaIT362AwiWJSbrGhNQIrjbRDSLElrppDjf8NLBbC3xgh8PHKw>
+ <xmx:EVf4YSFU2k3IyGkBK3jAen3MUFrwSjYc__xQuZ-i9XolCBTY_uDJOQ>
+ <xmx:EVf4YWU8O7bL4TRr1Gd6UAWtGwAQFUwsumB_gorxM9qtydcn8HE39Q>
+ <xmx:EVf4YTiRiXrF0q8NpiWlyJdxlC3_zuwa2Ve7569lcWL3gzGp8u_oDg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 290ACAC0E99; Mon, 31 Jan 2022 16:39:29 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-4585-ga9d9773056-fm-20220113.001-ga9d97730
+Mime-Version: 1.0
+Message-Id: <80be25bd-dd64-47fe-b3d3-0f3fd4a4ca76@www.fastmail.com>
+In-Reply-To: <CAOMZO5DOSMXWK7BmfC2NVVLaZkyzsch+Z9tKsyKu1K+aPMd4_A@mail.gmail.com>
+References: <20220131032405.105204-1-andrew@aj.id.au>
+ <CAOMZO5DOSMXWK7BmfC2NVVLaZkyzsch+Z9tKsyKu1K+aPMd4_A@mail.gmail.com>
+Date: Tue, 01 Feb 2022 08:09:08 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Fabio Estevam" <festevam@gmail.com>
+Subject: Re: [PATCH] gpio: Add gpio_request_by_line_name()
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,279 +97,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: U-Boot-Denx <u-boot@lists.denx.de>, Simon Glass <sjg@chromium.org>,
+ openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Fabio, thanks for taking a look.
 
-On 1/30/22 23:59, Joel Stanley wrote:
-> On Tue, 25 Jan 2022 at 16:11, Eddie James <eajames@linux.ibm.com> wrote:
->> Add definitions for trace events to show the scanning flow in order
->> to debug recent scanning problems.
-> Do you intend this to be merged upstream?
-
-
-Was planning to send it up, yes.
-
-
+On Tue, 1 Feb 2022, at 02:40, Fabio Estevam wrote:
+> On Mon, Jan 31, 2022 at 9:55 AM Andrew Jeffery <andrew@aj.id.au> wrote:
+>>
+>> Add support for the upstream gpio-line-names property already described
+>> in the common GPIO binding document[1]. The ability to search for a line
+>> name allows boards to lift the implementation of common GPIO behaviours
+>> away from specific line indexes on a GPIO controller.
+>>
+>> [1] https://github.com/devicetree-org/dt-schema/blob/3c35bfee83c2e38e2ae7af5f83eb89ca94a521e8/dtschema/schemas/gpio/gpio.yaml#L17
+>>
+>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 >
-> Some of the traces look like they might be useful in a general sense,
-> but others (trace_fsi_minor) look like they might be just debugging?
-
-
-Yea its purely for debugging. I could drop that one.
-
-
+> Please also add a user for the newly introduced gpio_request_by_line_name().
 >
->> Signed-off-by: Eddie James <eajames@linux.ibm.com>
->> ---
->>   drivers/fsi/fsi-core.c                   |  13 ++-
->>   drivers/fsi/fsi-master-aspeed.c          |   2 +
->>   include/trace/events/fsi.h               | 109 +++++++++++++++++++++++
->>   include/trace/events/fsi_master_aspeed.h |  12 +++
->>   4 files changed, 133 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
->> index 59ddc9fd5bca..78710087aa05 100644
->> --- a/drivers/fsi/fsi-core.c
->> +++ b/drivers/fsi/fsi-core.c
->> @@ -24,9 +24,6 @@
->>
->>   #include "fsi-master.h"
->>
->> -#define CREATE_TRACE_POINTS
->> -#include <trace/events/fsi.h>
->> -
->>   #define FSI_SLAVE_CONF_NEXT_MASK       GENMASK(31, 31)
->>   #define FSI_SLAVE_CONF_SLOTS_MASK      GENMASK(23, 16)
->>   #define FSI_SLAVE_CONF_SLOTS_SHIFT     16
->> @@ -95,6 +92,9 @@ struct fsi_slave {
->>          u8                      t_echo_delay;
->>   };
->>
->> +#define CREATE_TRACE_POINTS
->> +#include <trace/events/fsi.h>
-> Did this move for a reason?
+> Otherwise, this is just dead code.
 
+Indeed. I will be working to get some other pieces upstream so I can 
+introduce a user of this API. I will resend the patch once I have that 
+sorted.
 
-Yes, I wanted to use the fsi_slave structure in the trace event, so I 
-had to include the traces after the structure definition.
+My hope was that I could get a head start on any other feedback people 
+might have for the patch while I work to get the other pieces together.
 
+Cheers,
 
-Thanks,
-
-Eddie
-
-
->
->> +
->>   #define to_fsi_master(d) container_of(d, struct fsi_master, dev)
->>   #define to_fsi_slave(d) container_of(d, struct fsi_slave, dev)
->>
->> @@ -524,6 +524,8 @@ static int fsi_slave_scan(struct fsi_slave *slave)
->>                          dev->addr = engine_addr;
->>                          dev->size = slots * engine_page_size;
->>
->> +                       trace_fsi_dev_init(dev);
->> +
->>                          dev_dbg(&slave->dev,
->>                          "engine[%i]: type %x, version %x, addr %x size %x\n",
->>                                          dev->unit, dev->engine_type, version,
->> @@ -953,6 +955,7 @@ static int __fsi_get_new_minor(struct fsi_slave *slave, enum fsi_dev_type type,
->>                  if (id >= 0) {
->>                          *out_index = fsi_adjust_index(cid);
->>                          *out_dev = fsi_base_dev + id;
->> +                       trace_fsi_minor(cid, type, true, cid);
->>                          return 0;
->>                  }
->>                  /* Other failure */
->> @@ -966,6 +969,7 @@ static int __fsi_get_new_minor(struct fsi_slave *slave, enum fsi_dev_type type,
->>                  return id;
->>          *out_index = fsi_adjust_index(id);
->>          *out_dev = fsi_base_dev + id;
->> +       trace_fsi_minor(cid, type, false, id);
->>          return 0;
->>   }
->>
->> @@ -1006,6 +1010,7 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
->>
->>          crc = crc4(0, cfam_id, 32);
->>          if (crc) {
->> +               trace_fsi_slave_invalid_cfam(master, link, cfam_id);
->>                  dev_warn(&master->dev, "slave %02x:%02x invalid cfam id CRC!\n",
->>                                  link, id);
->>                  return -EIO;
->> @@ -1080,6 +1085,8 @@ static int fsi_slave_init(struct fsi_master *master, int link, uint8_t id)
->>          if (rc)
->>                  goto err_free;
->>
->> +       trace_fsi_slave_init(slave);
->> +
->>          /* Create chardev for userspace access */
->>          cdev_init(&slave->cdev, &cfam_fops);
->>          rc = cdev_device_add(&slave->cdev, &slave->dev);
->> diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
->> index 8606e55c1721..04fec1aab23c 100644
->> --- a/drivers/fsi/fsi-master-aspeed.c
->> +++ b/drivers/fsi/fsi-master-aspeed.c
->> @@ -449,11 +449,13 @@ static ssize_t cfam_reset_store(struct device *dev, struct device_attribute *att
->>   {
->>          struct fsi_master_aspeed *aspeed = dev_get_drvdata(dev);
->>
->> +       trace_fsi_master_aspeed_cfam_reset(true);
->>          mutex_lock(&aspeed->lock);
->>          gpiod_set_value(aspeed->cfam_reset_gpio, 1);
->>          usleep_range(900, 1000);
->>          gpiod_set_value(aspeed->cfam_reset_gpio, 0);
->>          mutex_unlock(&aspeed->lock);
->> +       trace_fsi_master_aspeed_cfam_reset(false);
->>
->>          return count;
->>   }
->> diff --git a/include/trace/events/fsi.h b/include/trace/events/fsi.h
->> index 9832cb8e0eb0..251bc57a8b7f 100644
->> --- a/include/trace/events/fsi.h
->> +++ b/include/trace/events/fsi.h
->> @@ -122,6 +122,115 @@ TRACE_EVENT(fsi_master_break,
->>          )
->>   );
->>
->> +TRACE_EVENT(fsi_slave_init,
->> +       TP_PROTO(const struct fsi_slave *slave),
->> +       TP_ARGS(slave),
->> +       TP_STRUCT__entry(
->> +               __field(int,    master_idx)
->> +               __field(int,    master_n_links)
->> +               __field(int,    idx)
->> +               __field(int,    link)
->> +               __field(int,    chip_id)
->> +               __field(__u32,  cfam_id)
->> +               __field(__u32,  size)
->> +       ),
->> +       TP_fast_assign(
->> +               __entry->master_idx = slave->master->idx;
->> +               __entry->master_n_links = slave->master->n_links;
->> +               __entry->idx = slave->cdev_idx;
->> +               __entry->link = slave->link;
->> +               __entry->chip_id = slave->chip_id;
->> +               __entry->cfam_id = slave->cfam_id;
->> +               __entry->size = slave->size;
->> +       ),
->> +       TP_printk("fsi%d: idx:%d link:%d/%d cid:%d cfam:%08x %08x",
->> +               __entry->master_idx,
->> +               __entry->idx,
->> +               __entry->link,
->> +               __entry->master_n_links,
->> +               __entry->chip_id,
->> +               __entry->cfam_id,
->> +               __entry->size
->> +       )
->> +);
->> +
->> +TRACE_EVENT(fsi_slave_invalid_cfam,
->> +       TP_PROTO(const struct fsi_master *master, int link, uint32_t cfam_id),
->> +       TP_ARGS(master, link, cfam_id),
->> +       TP_STRUCT__entry(
->> +               __field(int,    master_idx)
->> +               __field(int,    master_n_links)
->> +               __field(int,    link)
->> +               __field(__u32,  cfam_id)
->> +       ),
->> +       TP_fast_assign(
->> +               __entry->master_idx = master->idx;
->> +               __entry->master_n_links = master->n_links;
->> +               __entry->link = link;
->> +               __entry->cfam_id = cfam_id;
->> +       ),
->> +       TP_printk("fsi%d: cfam:%08x link:%d/%d",
->> +               __entry->master_idx,
->> +               __entry->cfam_id,
->> +               __entry->link,
->> +               __entry->master_n_links
->> +       )
->> +);
->> +
->> +TRACE_EVENT(fsi_minor,
->> +       TP_PROTO(int cid, enum fsi_dev_type type, bool legacy, int result),
->> +       TP_ARGS(cid, type, legacy, result),
->> +       TP_STRUCT__entry(
->> +               __field(int,    cid)
->> +               __field(int,    type)
->> +               __field(bool,   legacy)
->> +               __field(int,    result)
->> +       ),
->> +       TP_fast_assign(
->> +               __entry->cid = cid;
->> +               __entry->type = type;
->> +               __entry->legacy = legacy;
->> +               __entry->result = result;
->> +       ),
->> +       TP_printk("%d: cid:%d type:%d%s",
->> +               __entry->result,
->> +               __entry->cid,
->> +               __entry->type,
->> +               __entry->legacy ? " legacy" : ""
->> +       )
->> +);
->> +
->> +TRACE_EVENT(fsi_dev_init,
->> +       TP_PROTO(const struct fsi_device *dev),
->> +       TP_ARGS(dev),
->> +       TP_STRUCT__entry(
->> +               __field(int,    master_idx)
->> +               __field(int,    link)
->> +               __field(int,    type)
->> +               __field(int,    unit)
->> +               __field(int,    version)
->> +               __field(__u32,  addr)
->> +               __field(__u32,  size)
->> +       ),
->> +       TP_fast_assign(
->> +               __entry->master_idx = dev->slave->master->idx;
->> +               __entry->link = dev->slave->link;
->> +               __entry->type = dev->engine_type;
->> +               __entry->unit = dev->unit;
->> +               __entry->version = dev->version;
->> +               __entry->addr = dev->addr;
->> +               __entry->size = dev->size;
->> +       ),
->> +       TP_printk("fsi%d: slv%d: t:%02x u:%02x v:%02x %08x@%08x",
->> +               __entry->master_idx,
->> +               __entry->link,
->> +               __entry->type,
->> +               __entry->unit,
->> +               __entry->version,
->> +               __entry->size,
->> +               __entry->addr
->> +       )
->> +);
->>
->>   #endif /* _TRACE_FSI_H */
->>
->> diff --git a/include/trace/events/fsi_master_aspeed.h b/include/trace/events/fsi_master_aspeed.h
->> index a355ceacc33f..0fff873775f1 100644
->> --- a/include/trace/events/fsi_master_aspeed.h
->> +++ b/include/trace/events/fsi_master_aspeed.h
->> @@ -72,6 +72,18 @@ TRACE_EVENT(fsi_master_aspeed_opb_error,
->>                  )
->>          );
->>
->> +TRACE_EVENT(fsi_master_aspeed_cfam_reset,
->> +       TP_PROTO(bool start),
->> +       TP_ARGS(start),
->> +       TP_STRUCT__entry(
->> +               __field(bool,   start)
->> +       ),
->> +       TP_fast_assign(
->> +               __entry->start = start;
->> +       ),
->> +       TP_printk("%s", __entry->start ? "start" : "end")
->> +);
->> +
->>   #endif
->>
->>   #include <trace/define_trace.h>
->> --
->> 2.27.0
->>
+Andrew
