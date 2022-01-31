@@ -4,89 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E51F6C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 04:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE61C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 05:20:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JnG7f3fqcz3bNg
-	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 15:59:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JnGbz33PHz3bTl
+	for <openbmc@archiver.kernel.org>; Mon, 31 Jan 2022 16:20:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=GQws82Cw;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=E2Vgb7qA;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=cEGKKlZI;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.28;
- helo=out4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f31;
+ helo=mail-qv1-xf31.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm1 header.b=GQws82Cw; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=E2Vgb7qA; 
- dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=cEGKKlZI; dkim-atps=neutral
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [IPv6:2607:f8b0:4864:20::f31])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JnG6x0PZcz2xsb
- for <openbmc@lists.ozlabs.org>; Mon, 31 Jan 2022 15:58:49 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 31A8E5C00E5;
- Sun, 30 Jan 2022 23:58:47 -0500 (EST)
-Received: from imap43 ([10.202.2.93])
- by compute3.internal (MEProxy); Sun, 30 Jan 2022 23:58:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm1; bh=0ty00qmzBXveou0zVs2PQzWd+CwEFSEACFa5JY
- sk7jo=; b=GQws82Cwm2ZmUjt5FmrMjGAeUiFJH540NsrPJIWf5x+9XGeRVNbae7
- I+iVhKZFhx/6nMujLyoVYpdy0fwLKvoYFb+XLGwKnhef5jxx2XxRy8CADWZhe3eI
- FnYUkhCfPd2PxO+5HNS+mvFqAl2FB5npndr2WuMJ85uvYss5IyY3/m0QVf+Yx9Gq
- W8hX8iezqZtZTjjdZPyFhYb3iIjsmqJnNUiMfN88tY6Lz80RABnqs759dEGOzSLO
- tRF1i2mXFYV1YXYcG39dyGGS/Te/8i0mTvI3fFWN3B5FySje7cBzoEkaiB4+DioM
- pLfRlxOTjK2QFMrI8QdP9C22+2tI2ymw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=0ty00qmzBXveou0zV
- s2PQzWd+CwEFSEACFa5JYsk7jo=; b=E2Vgb7qAaBnE5fCkZFLBrlELRZRKufIPD
- Wy0Dfx7CNkEup1siYoGHlMG43tNSJaJOA65kXrslF38M8dlO6R8+PcjyKTrCtkCu
- 25NfuAPcfDc3sP+XQLzkDFlVRGAhnCQDkGm1f9uDwyGm5HjaHLDVIQb7a0GgpIqH
- AXWdDm+HnYLH0SfEASZtO3Ew6j2kGxyTWAihFBdOiWel3qWWymwef6h9lrBPj1/7
- D+SehYcgBKy5Z2BboXxAy0qwHXxNaGt0ri+gIb7dQg2BO27uQo+yjGUj/oTRGk2v
- jFJf5SruatOQE5Z5nBVP0t9QR06LtlvY9EFK9f4IrwEqa/oAj5fEw==
-X-ME-Sender: <xms:h2z3YdLmfSBlUf8lEGg98ymV8l_WJ5gqCWrUHFVhp2jRyP3FMS_XTA>
- <xme:h2z3YZIPiiAPrnK03y6GyNsvnl7E5xdIX73Pm12PJ4SseHBVKoLSN52PCFXP75vHD
- pV6R9JZoOQUFaQn2w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrgedtgdejjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
- veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:h2z3YVslvtJiHQ4hd1yRQqviXNstIhPaEo0DN5iylDz09yXMJUxuEQ>
- <xmx:h2z3YeYVTS9C5MdQm3Ok3Wz4xpfsikufzp4D5cO9dq5_wli8_dbT_A>
- <xmx:h2z3YUa7ykW_Wc7642LJZ6koVVdHNpmp8tURYbIdrVQuMDi6TNpz6Q>
- <xmx:h2z3Ya3iVU9fENzLrq0mNgEnzCgMnRyTjVuWd7WGiscu05rXcFiZnw>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 0D161AC0E99; Sun, 30 Jan 2022 23:58:47 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-4585-ga9d9773056-fm-20220113.001-ga9d97730
-Mime-Version: 1.0
-Message-Id: <b7249e99-8a6b-4c31-965c-7c6e24b0de6a@www.fastmail.com>
-In-Reply-To: <20220124191503.88452-3-eajames@linux.ibm.com>
-References: <20220124191503.88452-1-eajames@linux.ibm.com>
- <20220124191503.88452-3-eajames@linux.ibm.com>
-Date: Mon, 31 Jan 2022 15:28:26 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Eddie James" <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH U-Boot v2019.04-aspeed-openbmc 2/6] gpio: add gpio-hog
- support
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JnGbJ5pw8z2y0B
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Jan 2022 16:19:54 +1100 (AEDT)
+Received: by mail-qv1-xf31.google.com with SMTP id o9so11807138qvy.13
+ for <openbmc@lists.ozlabs.org>; Sun, 30 Jan 2022 21:19:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3UldYJYUz96lfvTaFZcYIZDWb0p1IoU18iy7JDFB+Tg=;
+ b=cEGKKlZIOO3Fr4YLt5DUhytNzAsSrfNh3nZKar2u62mxQoOjgC4eWJJcKxUocFH0tD
+ ObsCQLZM67R+qOozEmtxhhWtBs4bZSvwkglr7+SwqNtq5szPsfzk+PyM8IM11MzvvLji
+ 67srThzlMlZGQcmXkdYAPDHMI6V//RP7tDonM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3UldYJYUz96lfvTaFZcYIZDWb0p1IoU18iy7JDFB+Tg=;
+ b=S/yNmaIERWz4vNdRvwe4X5h8Vf5k+NhfWO5Js0K//WIm3wFpaWrSz0gFi4R1WRVh6f
+ Dsv9xecTSlk48Tbg5IsFnYDo0xYX9BtaMvZOCFJRM/mABjYp6pFnO19N6UABS7wYcpFk
+ VwoyprFrDmj1/vB98krC58ea7RCEIbh3dK70Wln+QHD25PKGaY+urAxYtGqlhrmS3egL
+ 6Z/nOFjGVKg6279wwmSWyjVt1Pt/CPpnAPmqiBpFqoDZUisrEp7Y2WNFtW0sh5C9ur/i
+ YeW5XSBBJR5hull708xV25G+YelqfM3C/2HL8foFPesDhrhDSaufrCo6i7jhGElIsyh6
+ SdVg==
+X-Gm-Message-State: AOAM533CvZHSHUmZizta1E7frfV2OwAHfFco5lccT2CK8wFjnxxJqaVB
+ KNyAifU8Gsg2KxXPqRG6QjL8/VaqAAa42FjubF6NOI8Z
+X-Google-Smtp-Source: ABdhPJw0Njw04gLb2GG9KnkGf0erILHGTJjoANhpoArbx1X6A1wnLU0L51AywXP8iEmm9kEkAziFF/AVM5RhpojvpXY=
+X-Received: by 2002:ad4:4ee7:: with SMTP id dv7mr16236145qvb.65.1643606391058; 
+ Sun, 30 Jan 2022 21:19:51 -0800 (PST)
+MIME-Version: 1.0
+References: <20220128214852.21551-1-eajames@linux.ibm.com>
+ <20220128214852.21551-3-eajames@linux.ibm.com>
+In-Reply-To: <20220128214852.21551-3-eajames@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 31 Jan 2022 05:19:39 +0000
+Message-ID: <CACPK8XfFJ4AFTi5W437crDN1G84JwwLcjgmn6RiMXSDfL65EBg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.15 2/3] USB: uhci: Add ast2600 compatible
+To: Eddie James <eajames@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,25 +71,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
-
-On Tue, 25 Jan 2022, at 05:44, Eddie James wrote:
-> From: Heiko Schocher <hs@denx.de>
+On Fri, 28 Jan 2022 at 21:49, Eddie James <eajames@linux.ibm.com> wrote:
 >
-> add gpio-hog support. GPIO hogging is a mechanism
-> providing automatic GPIO request and configuration
-> as part of the gpio-controller's driver probe function.
+> Add the ast2600 compatible string to enable the Aspeed workarounds
+> on the UHCI.
 >
-> for more infos see:
-> doc/device-tree-bindings/gpio/gpio.txt
+> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+
+This one has just popped up in the stable backports (v5.15.18) so I
+will skip it.
+
+> ---
+>  drivers/usb/host/uhci-platform.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-
-(cherry-picked from 5fc7cf8c8e268590f3b0037eecea7f6798209f78) ?
-
-> Signed-off-by: Heiko Schocher <hs@denx.de>
-> Tested-by: Michal Simek <michal.simek@xilinx.com> (zcu102)
-> Tested-by: Patrick Delaunay <patrick.delaunay@st.com>
+> diff --git a/drivers/usb/host/uhci-platform.c b/drivers/usb/host/uhci-platform.c
+> index 70dbd95c3f06..be9e9db7cad1 100644
+> --- a/drivers/usb/host/uhci-platform.c
+> +++ b/drivers/usb/host/uhci-platform.c
+> @@ -113,7 +113,8 @@ static int uhci_hcd_platform_probe(struct platform_device *pdev)
+>                                 num_ports);
+>                 }
+>                 if (of_device_is_compatible(np, "aspeed,ast2400-uhci") ||
+> -                   of_device_is_compatible(np, "aspeed,ast2500-uhci")) {
+> +                   of_device_is_compatible(np, "aspeed,ast2500-uhci") ||
+> +                   of_device_is_compatible(np, "aspeed,ast2600-uhci")) {
+>                         uhci->is_aspeed = 1;
+>                         dev_info(&pdev->dev,
+>                                  "Enabled Aspeed implementation workarounds\n");
+> --
+> 2.27.0
+>
