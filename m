@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C45B0C433EF
-	for <openbmc@archiver.kernel.org>; Wed,  2 Feb 2022 15:01:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 785DBC433F5
+	for <openbmc@archiver.kernel.org>; Wed,  2 Feb 2022 15:02:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JplNw2NgPz2yJV
-	for <openbmc@archiver.kernel.org>; Thu,  3 Feb 2022 02:01:04 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JplQ20Nvrz2yJV
+	for <openbmc@archiver.kernel.org>; Thu,  3 Feb 2022 02:02:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DL1/C+c1;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BpNE5AwD;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=134.134.136.100; helo=mga07.intel.com;
+ smtp.mailfrom=intel.com (client-ip=134.134.136.65; helo=mga03.intel.com;
  envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=DL1/C+c1; dkim-atps=neutral
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ header.s=Intel header.b=BpNE5AwD; dkim-atps=neutral
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JplJZ6kXNz3bb5;
- Thu,  3 Feb 2022 01:57:18 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JplLb44Vbz3bcX;
+ Thu,  3 Feb 2022 01:59:03 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1643813839; x=1675349839;
+ t=1643813944; x=1675349944;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QMYVyv1FTscgpmw+LGMru7OffCk/NusVJ0zbwclwbtY=;
- b=DL1/C+c1egIdvemFT/iYOpVI8ttdRywV2CtuHfKfS7dGtbp+y2kXAtyn
- w85XJzQ3XP1XRfbEeBO3gzcPa5SMjALwcV4P6T99H8Z8np43p5hYaK6yN
- cL8GiJiamVFlPqEYYElV8kkskdg5XKXqohTcfWQLi3znhpmvBXhceNvcR
- hvsgs+C63Yk3YxHB9orUVFYs7HiUD7CsxrxcSz2VyaJH+CDp9kdAxyJkc
- npmEzSyBhKD0N5b5m1bJULNhJGj/fnwPyq3GOD+icV+FW6xUXekRnRup8
- znf40K/cfCEEed/bYadKhOXcllY+Xh4wtIdMqXASkkr7XiCzAod1DbtfW A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="311238064"
-X-IronPort-AV: E=Sophos;i="5.88,337,1635231600"; d="scan'208";a="311238064"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2022 06:56:15 -0800
-X-IronPort-AV: E=Sophos;i="5.88,337,1635231600"; d="scan'208";a="676456570"
+ bh=JN/E5p4qqnzndhravoj3Ekj6c+xxjjsfthiIpNERO+0=;
+ b=BpNE5AwDIczC6hMn4kyReQRPln0hM6lVMnmW1/HNF7B+jxO9W0MuOvPz
+ OwLVOdwzWDw5nE52r+GQNhtgrC4UXN7VmWd4iAv7jYFTJ6njquyVM7w7p
+ J1QOm6EGdvmvb/wgan++XyobCCBzcFmpHYeFeQ9VFhBtn1n0CI4l8tn4U
+ /HCuYbQaiIp0bB4NDvtIdyP1kykL+gc43cnN1Felwc/7m69oS6YkyFqf8
+ yop+i6KvxhIapaNIsnECgKN9iEF3IJ1EG7fOqyh9wy7UXJ9pMKrOQPRTJ
+ DR8ofLFhgfswxPUVtL63Rpyx6VuxkqAFILyjt4bAk2dKP+lbwQfSr3i/u Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10245"; a="247882260"
+X-IronPort-AV: E=Sophos;i="5.88,337,1635231600"; d="scan'208";a="247882260"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2022 06:55:58 -0800
+X-IronPort-AV: E=Sophos;i="5.88,337,1635231600"; d="scan'208";a="523518648"
 Received: from mwnuczyn-mobl.ger.corp.intel.com (HELO localhost)
  ([10.249.137.160])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2022 06:56:05 -0800
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2022 06:55:47 -0800
 From: Iwona Winiarska <iwona.winiarska@intel.com>
 To: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v7 13/13] docs: Add PECI documentation
-Date: Wed,  2 Feb 2022 15:48:38 +0100
-Message-Id: <20220202144838.163875-14-iwona.winiarska@intel.com>
+Subject: [PATCH v7 12/13] docs: hwmon: Document PECI drivers
+Date: Wed,  2 Feb 2022 15:48:37 +0100
+Message-Id: <20220202144838.163875-13-iwona.winiarska@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220202144838.163875-1-iwona.winiarska@intel.com>
 References: <20220202144838.163875-1-iwona.winiarska@intel.com>
@@ -69,7 +69,7 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
  Dave Hansen <dave.hansen@intel.com>, Zev Weiss <zweiss@equinix.com>,
- Jonathan Corbet <corbet@lwn.net>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Jonathan Corbet <corbet@lwn.net>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
  Jean Delvare <jdelvare@suse.com>, Arnd Bergmann <arnd@arndb.de>,
@@ -84,124 +84,211 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a brief overview of PECI and PECI wire interface.
-The documentation also contains kernel-doc for PECI subsystem internals
-and PECI CPU Driver API.
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 
+Add documentation for peci-cputemp driver that provides DTS thermal
+readings for CPU packages and CPU cores, and peci-dimmtemp driver that
+provides Temperature Sensor on DIMM readings.
+
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Co-developed-by: Iwona Winiarska <iwona.winiarska@intel.com>
 Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Acked-by: Guenter Roeck <linux@roeck-us.net>
 ---
- Documentation/index.rst      |  1 +
- Documentation/peci/index.rst | 16 +++++++++++
- Documentation/peci/peci.rst  | 51 ++++++++++++++++++++++++++++++++++++
- MAINTAINERS                  |  1 +
- 4 files changed, 69 insertions(+)
- create mode 100644 Documentation/peci/index.rst
- create mode 100644 Documentation/peci/peci.rst
+ Documentation/hwmon/index.rst         |  2 +
+ Documentation/hwmon/peci-cputemp.rst  | 90 +++++++++++++++++++++++++++
+ Documentation/hwmon/peci-dimmtemp.rst | 57 +++++++++++++++++
+ MAINTAINERS                           |  2 +
+ 4 files changed, 151 insertions(+)
+ create mode 100644 Documentation/hwmon/peci-cputemp.rst
+ create mode 100644 Documentation/hwmon/peci-dimmtemp.rst
 
-diff --git a/Documentation/index.rst b/Documentation/index.rst
-index b58692d687f6..1988c19d9daf 100644
---- a/Documentation/index.rst
-+++ b/Documentation/index.rst
-@@ -138,6 +138,7 @@ needed).
-    scheduler/index
-    mhi/index
-    tty/index
-+   peci/index
- 
- Architecture-agnostic documentation
- -----------------------------------
-diff --git a/Documentation/peci/index.rst b/Documentation/peci/index.rst
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index df20022c741f..f387f661e1d7 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -161,6 +161,8 @@ Hardware Monitoring Kernel Drivers
+    pcf8591
+    pim4328
+    pm6764tr
++   peci-cputemp
++   peci-dimmtemp
+    pmbus
+    powr1220
+    pxe1610
+diff --git a/Documentation/hwmon/peci-cputemp.rst b/Documentation/hwmon/peci-cputemp.rst
 new file mode 100644
-index 000000000000..989de10416e7
+index 000000000000..fe0422248dc5
 --- /dev/null
-+++ b/Documentation/peci/index.rst
-@@ -0,0 +1,16 @@
++++ b/Documentation/hwmon/peci-cputemp.rst
+@@ -0,0 +1,90 @@
 +.. SPDX-License-Identifier: GPL-2.0-only
 +
-+====================
-+Linux PECI Subsystem
-+====================
++Kernel driver peci-cputemp
++==========================
 +
-+.. toctree::
++Supported chips:
++	One of Intel server CPUs listed below which is connected to a PECI bus.
++		* Intel Xeon E5/E7 v3 server processors
++			Intel Xeon E5-14xx v3 family
++			Intel Xeon E5-24xx v3 family
++			Intel Xeon E5-16xx v3 family
++			Intel Xeon E5-26xx v3 family
++			Intel Xeon E5-46xx v3 family
++			Intel Xeon E7-48xx v3 family
++			Intel Xeon E7-88xx v3 family
++		* Intel Xeon E5/E7 v4 server processors
++			Intel Xeon E5-16xx v4 family
++			Intel Xeon E5-26xx v4 family
++			Intel Xeon E5-46xx v4 family
++			Intel Xeon E7-48xx v4 family
++			Intel Xeon E7-88xx v4 family
++		* Intel Xeon Scalable server processors
++			Intel Xeon D family
++			Intel Xeon Bronze family
++			Intel Xeon Silver family
++			Intel Xeon Gold family
++			Intel Xeon Platinum family
 +
-+   peci
++	Datasheet: Available from http://www.intel.com/design/literature.htm
 +
-+.. only::  subproject and html
++Author: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 +
-+   Indices
-+   =======
++Description
++-----------
 +
-+   * :ref:`genindex`
-diff --git a/Documentation/peci/peci.rst b/Documentation/peci/peci.rst
-new file mode 100644
-index 000000000000..331b1ec00e22
---- /dev/null
-+++ b/Documentation/peci/peci.rst
-@@ -0,0 +1,51 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
++This driver implements a generic PECI hwmon feature which provides Digital
++Thermal Sensor (DTS) thermal readings of the CPU package and CPU cores that are
++accessible via the processor PECI interface.
 +
-+========
-+Overview
-+========
++All temperature values are given in millidegree Celsius and will be measurable
++only when the target CPU is powered on.
 +
-+The Platform Environment Control Interface (PECI) is a communication
-+interface between Intel processor and management controllers
-+(e.g. Baseboard Management Controller, BMC).
-+PECI provides services that allow the management controller to
-+configure, monitor and debug platform by accessing various registers.
-+It defines a dedicated command protocol, where the management
-+controller is acting as a PECI originator and the processor - as
-+a PECI responder.
-+PECI can be used in both single processor and multiple-processor based
-+systems.
-+
-+NOTE:
-+Intel PECI specification is not released as a dedicated document,
-+instead it is a part of External Design Specification (EDS) for given
-+Intel CPU. External Design Specifications are usually not publicly
-+available.
-+
-+PECI Wire
-+---------
-+
-+PECI Wire interface uses a single wire for self-clocking and data
-+transfer. It does not require any additional control lines - the
-+physical layer is a self-clocked one-wire bus signal that begins each
-+bit with a driven, rising edge from an idle near zero volts. The
-+duration of the signal driven high allows to determine whether the bit
-+value is logic '0' or logic '1'. PECI Wire also includes variable data
-+rate established with every message.
-+
-+For PECI Wire, each processor package will utilize unique, fixed
-+addresses within a defined range and that address should
-+have a fixed relationship with the processor socket ID - if one of the
-+processors is removed, it does not affect addresses of remaining
-+processors.
-+
-+PECI subsystem internals
-+------------------------
-+
-+.. kernel-doc:: include/linux/peci.h
-+.. kernel-doc:: drivers/peci/internal.h
-+.. kernel-doc:: drivers/peci/core.c
-+.. kernel-doc:: drivers/peci/request.c
-+
-+PECI CPU Driver API
++Sysfs interface
 +-------------------
-+.. kernel-doc:: drivers/peci/cpu.c
++
++======================= =======================================================
++temp1_label		"Die"
++temp1_input		Provides current die temperature of the CPU package.
++temp1_max		Provides thermal control temperature of the CPU package
++			which is also known as Tcontrol.
++temp1_crit		Provides shutdown temperature of the CPU package which
++			is also known as the maximum processor junction
++			temperature, Tjmax or Tprochot.
++temp1_crit_hyst		Provides the hysteresis value from Tcontrol to Tjmax of
++			the CPU package.
++
++temp2_label		"DTS"
++temp2_input		Provides current temperature of the CPU package scaled
++			to match DTS thermal profile.
++temp2_max		Provides thermal control temperature of the CPU package
++			which is also known as Tcontrol.
++temp2_crit		Provides shutdown temperature of the CPU package which
++			is also known as the maximum processor junction
++			temperature, Tjmax or Tprochot.
++temp2_crit_hyst		Provides the hysteresis value from Tcontrol to Tjmax of
++			the CPU package.
++
++temp3_label		"Tcontrol"
++temp3_input		Provides current Tcontrol temperature of the CPU
++			package which is also known as Fan Temperature target.
++			Indicates the relative value from thermal monitor trip
++			temperature at which fans should be engaged.
++temp3_crit		Provides Tcontrol critical value of the CPU package
++			which is same to Tjmax.
++
++temp4_label		"Tthrottle"
++temp4_input		Provides current Tthrottle temperature of the CPU
++			package. Used for throttling temperature. If this value
++			is allowed and lower than Tjmax - the throttle will
++			occur and reported at lower than Tjmax.
++
++temp5_label		"Tjmax"
++temp5_input		Provides the maximum junction temperature, Tjmax of the
++			CPU package.
++
++temp[6-N]_label		Provides string "Core X", where X is resolved core
++			number.
++temp[6-N]_input		Provides current temperature of each core.
++
++======================= =======================================================
+diff --git a/Documentation/hwmon/peci-dimmtemp.rst b/Documentation/hwmon/peci-dimmtemp.rst
+new file mode 100644
+index 000000000000..e562aed620de
+--- /dev/null
++++ b/Documentation/hwmon/peci-dimmtemp.rst
+@@ -0,0 +1,57 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++Kernel driver peci-dimmtemp
++===========================
++
++Supported chips:
++	One of Intel server CPUs listed below which is connected to a PECI bus.
++		* Intel Xeon E5/E7 v3 server processors
++			Intel Xeon E5-14xx v3 family
++			Intel Xeon E5-24xx v3 family
++			Intel Xeon E5-16xx v3 family
++			Intel Xeon E5-26xx v3 family
++			Intel Xeon E5-46xx v3 family
++			Intel Xeon E7-48xx v3 family
++			Intel Xeon E7-88xx v3 family
++		* Intel Xeon E5/E7 v4 server processors
++			Intel Xeon E5-16xx v4 family
++			Intel Xeon E5-26xx v4 family
++			Intel Xeon E5-46xx v4 family
++			Intel Xeon E7-48xx v4 family
++			Intel Xeon E7-88xx v4 family
++		* Intel Xeon Scalable server processors
++			Intel Xeon D family
++			Intel Xeon Bronze family
++			Intel Xeon Silver family
++			Intel Xeon Gold family
++			Intel Xeon Platinum family
++
++	Datasheet: Available from http://www.intel.com/design/literature.htm
++
++Author: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
++
++Description
++-----------
++
++This driver implements a generic PECI hwmon feature which provides
++Temperature sensor on DIMM readings that are accessible via the processor PECI interface.
++
++All temperature values are given in millidegree Celsius and will be measurable
++only when the target CPU is powered on.
++
++Sysfs interface
++-------------------
++
++======================= =======================================================
++
++temp[N]_label		Provides string "DIMM CI", where C is DIMM channel and
++			I is DIMM index of the populated DIMM.
++temp[N]_input		Provides current temperature of the populated DIMM.
++temp[N]_max		Provides thermal control temperature of the DIMM.
++temp[N]_crit		Provides shutdown temperature of the DIMM.
++
++======================= =======================================================
++
++Note:
++	DIMM temperature attributes will appear when the client CPU's BIOS
++	completes memory training and testing.
 diff --git a/MAINTAINERS b/MAINTAINERS
-index b7992853a427..23fba6b2609f 100644
+index dbf2bb23a15f..b7992853a427 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -15117,6 +15117,7 @@ M:	Iwona Winiarska <iwona.winiarska@intel.com>
- L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
+@@ -15108,6 +15108,8 @@ PECI HARDWARE MONITORING DRIVERS
+ M:	Iwona Winiarska <iwona.winiarska@intel.com>
+ L:	linux-hwmon@vger.kernel.org
  S:	Supported
- F:	Documentation/devicetree/bindings/peci/
-+F:	Documentation/peci/
- F:	drivers/peci/
- F:	include/linux/peci-cpu.h
- F:	include/linux/peci.h
++F:	Documentation/hwmon/peci-cputemp.rst
++F:	Documentation/hwmon/peci-dimmtemp.rst
+ F:	drivers/hwmon/peci/
+ 
+ PECI SUBSYSTEM
 -- 
 2.34.1
 
