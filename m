@@ -4,65 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1375C433EF
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:46:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64B29C433F5
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:55:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JscBL2B3bz3bT0
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:46:50 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JscNC5Jblz30Pf
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:55:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=DMyz3gWi;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=LBn9w0cS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72d;
- helo=mail-qk1-x72d.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1029;
+ helo=mail-pj1-x1029.google.com; envelope-from=warp5tw@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=DMyz3gWi; dkim-atps=neutral
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=LBn9w0cS; dkim-atps=neutral
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Jsc9f3Zh9z3bTp
- for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:46:14 +1100 (AEDT)
-Received: by mail-qk1-x72d.google.com with SMTP id g145so10196340qke.3
- for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:46:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2V7ikyi9HSru1dOMkuD/ELmw8QWMhd56JQyc0W6Pc+0=;
- b=DMyz3gWio+5RBItFS2YKPLzR1fdgQkQbN4bNn061suHX4Evt6+hboAi2Q/KAJ0hwa2
- qR/lL8/bOrg251KiYyXTCT17a5rhpKkfZfJkDwldfVC5WDFq1d3VhVFABHjYB97qXNrJ
- wfIzKr6YQDSUOITNcl9p41oGBNQv7P5vmsl7E=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JsbvM703sz30MQ
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:33:51 +1100 (AEDT)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ r64-20020a17090a43c600b001b8854e682eso4545191pjg.0
+ for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:33:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=QBjevVYgAFUaqu2ou5cnYl7E+U1e8F1wDuqgm7AMw48=;
+ b=LBn9w0cSUzERiY6ujaumE79mxBrkeyAje0CePw/59SYwNqP8/Vzp4jaG1rQQcB1lSO
+ b7e2Q2tysdOwBH3ZrXcnYHcpmKVORWxuFw/UQx6zUesXziUED8UOeKgAIcuk5UEW6xE0
+ L5EO/CU6H2aIvqh53wVzDen6K5qrcK33Hs5BB7wCqT0vSbWYIlTl2gtOPC2YFZtY8Mec
+ mSFErbcz+h2sIwLr50YE2rMZJ9SefQvEsCK03T42+m5xbnfJ1gOIGQU/q4E3+cuovEP3
+ RCvquvxvLIgLFqeWZImqOQ6qXCETok7U9akCecv0i1cQUjuM7p7oyCcJDHyMlmS2o1hy
+ qgcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=2V7ikyi9HSru1dOMkuD/ELmw8QWMhd56JQyc0W6Pc+0=;
- b=oV/lxO0oMew/xw4Dc2bMAVJMhuPl8vUFTCNPWsFHUZry3uslUtpguBQobQLbKJjENX
- njYMl2YbJPIQgCB/axaWIdOHrwqHl5QfJsOCazpZh9OjvBLYCK5bcRmMHuP5UWIxcmVV
- naHB67dOIg+BH1z18xOasuV/dVpKrBNcuSvoFjBKZbiLrCivlvWvLm0KRpKbJN1H+JPU
- 7DTFKjLOhWvhB29o0iaba5VV/WdRI6FB2gnbuk8/DLECG5fmvyZfxvRPG/D7O1Dcmx9V
- UuymKfd2PZW82yVGhosF4ederXQvGFtIZAiwbPOhq1K1bxyZfcl3Hr4cW+Tjvlm9xP2a
- e6/A==
-X-Gm-Message-State: AOAM530k18WvHcNufQ1zL5I7DDYP2VadJWIgNoxo/vG+uGpDroxWcBEa
- w/5z0sFSVL+2jThtDDsfFDA/kj9yOlkwhbMnxX0=
-X-Google-Smtp-Source: ABdhPJz1AqMFwgmyEvCW97mOf7vi65t0/vB/DJsPB5ZSUc4/BxD2Zd6PPwCMVRnSk4aR7WWqgZapvGpk7GYcI+GxvwM=
-X-Received: by 2002:a05:620a:d86:: with SMTP id
- q6mr5521247qkl.243.1644216371814; 
- Sun, 06 Feb 2022 22:46:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20211213194703.24060-1-zev@bewilderbeest.net>
- <20220125173206.GJ5754@packtop>
- <CACPK8XcY3AURVWwKnhg1B_f_VFf4Qb8NfO6j1uKK60VVdBMmfw@mail.gmail.com>
-In-Reply-To: <CACPK8XcY3AURVWwKnhg1B_f_VFf4Qb8NfO6j1uKK60VVdBMmfw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 7 Feb 2022 06:46:00 +0000
-Message-ID: <CACPK8XdupoOZwvOy-pAVaF5E0pYBFH5CxAXq7L6DDBVQydKMqA@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc] pinctrl: ast2400: add
- support for TXD3/RXD3 pins
-To: Zev Weiss <zweiss@equinix.com>, Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=QBjevVYgAFUaqu2ou5cnYl7E+U1e8F1wDuqgm7AMw48=;
+ b=K6NmxGrqBiY2FnqwCEIzR3mQ7zgTMZrIhnrVFLvVw7bEBp9zn7raJIqB89WsrtJApg
+ f1VZBDf9S7SbaWkp3g0bkoiyGfJJ4ys8yFTzbIhq4DIjmWCnZM3bD25H9HY+q+kI07bp
+ 2OEbsDtnDXlZsekB6wfTwFxg1Lru+TusIaTPKLPDe4JDBPU8+BJR8vRpEYhMrBOnGDhx
+ jHGH1X/90IaE0mWUWH/qz0KJVFn/G6RPqzf7ZjK8u0KEIM74HaAtmftn0VgCCc1GQt60
+ J+BZthVJA1xIUXY2us+vAZJPKGaoU5e+ZrWYLk0AgWBMm3UfUWneU4ZdEe2rjmVsZQVn
+ 4QXw==
+X-Gm-Message-State: AOAM533JA65cBfYmQf7ubomiltIn3yGw5MxHb4/TUO20yVC39z7Nt/Y3
+ ntSyDjPwc2OCVgs0KRDCEg==
+X-Google-Smtp-Source: ABdhPJwHh6DxuukPHPzXF5UTpQFRyEmYEcTqkhT3otIl+T/man141s1iK/4Ndqw6yd0EMoacpqdoVg==
+X-Received: by 2002:a17:902:e54c:: with SMTP id n12mr14424plf.60.1644215629404; 
+ Sun, 06 Feb 2022 22:33:49 -0800 (PST)
+Received: from localhost ([2401:e180:8894:9737:7848:1ec7:b697:7d50])
+ by smtp.gmail.com with ESMTPSA id g8sm10666389pfc.193.2022.02.06.22.33.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sun, 06 Feb 2022 22:33:49 -0800 (PST)
+From: Tyrone Ting <warp5tw@gmail.com>
+To: avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
+ venture@google.com, yuenn@google.com, benjaminfair@google.com,
+ robh+dt@kernel.org, krzysztof.kozlowski@canonical.com,
+ semen.protsenko@linaro.org, yangyicong@hisilicon.com, wsa@kernel.org,
+ jie.deng@intel.com, sven@svenpeter.dev, bence98@sch.bme.hu,
+ lukas.bulwahn@gmail.com, arnd@arndb.de, olof@lixom.net,
+ andriy.shevchenko@linux.intel.com, warp5tw@gmail.com,
+ tali.perry@nuvoton.com, Avi.Fishman@nuvoton.com, tomer.maimon@nuvoton.com,
+ KWLIU@nuvoton.com, JJLIU0@nuvoton.com, kfting@nuvoton.com
+Subject: [PATCH v1 1/6] dt-bindings: i2c: npcm: support NPCM845
+Date: Mon,  7 Feb 2022 14:33:33 +0800
+Message-Id: <20220207063338.6570-2-warp5tw@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220207063338.6570-1-warp5tw@gmail.com>
+References: <20220207063338.6570-1-warp5tw@gmail.com>
+X-Mailman-Approved-At: Mon, 07 Feb 2022 17:54:48 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +86,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Zev Weiss <zev@bewilderbeest.net>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 31 Jan 2022 at 06:25, Joel Stanley <joel@jms.id.au> wrote:
->
-> On Tue, 25 Jan 2022 at 17:32, Zev Weiss <zweiss@equinix.com> wrote:
-> >
-> > On Mon, Dec 13, 2021 at 11:47:03AM PST, Zev Weiss wrote:
-> > >In order to support putting the u-boot console on UART3 of the
-> > >ast2400, this commit adds support for setting bits 22 and 23 of SCU80
-> > >to enable TXD3 and RXD3 on pins C14 and B14, respectively.
-> > >
-> > >Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-> > >---
-> > > drivers/pinctrl/aspeed/pinctrl_ast2400.c | 10 ++++++++++
-> > > 1 file changed, 10 insertions(+)
-> > >
-> >
-> > Ping...Joel?
->
->
-> Pinctrl is not my jam. Did you resolve Ryan's concerns?
->
-> Andrew, does this change make sense?
+From: Tyrone Ting <kfting@nuvoton.com>
 
-Given the lack of objection, I have merged this into the tree.
+This commit adds compatible and syscon description for NPCM845 i2c module.
 
-Cheers,
+Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller driver")
+Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+---
+ .../bindings/i2c/nuvoton,npcm7xx-i2c.yaml     | 21 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
-Joel
+diff --git a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
+index 128444942aec..05e58f44b03a 100644
+--- a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
+@@ -7,17 +7,22 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: nuvoton NPCM7XX I2C Controller Device Tree Bindings
+ 
+ description: |
+-  The NPCM750x includes sixteen I2C bus controllers. All Controllers support
+-  both master and slave mode. Each controller can switch between master and slave
+-  at run time (i.e. IPMB mode). Each controller has two 16 byte HW FIFO for TX and
+-  RX.
++  The NPCM7XX includes sixteen I2C bus controllers and the NPCM8XX includes
++  twenty-seven I2C bus controllers. NPCM8XX controllers 24-26 are connected on I2C
++  pins in parallel to controllers 8-10.
++  All controllers support both master and slave mode.
++  Each controller can switch between master and slave at run time (i.e. IPMB mode).
++  NPCM7XX I2C controller has two 16 byte HW FIFO for TX and RX and NPCM8XX I2C
++  controller has two 32 byte HW FIFO for TX and RX.
+ 
+ maintainers:
+   - Tali Perry <tali.perry1@gmail.com>
+ 
+ properties:
+   compatible:
+-    const: nuvoton,npcm750-i2c
++    enum:
++      - nuvoton,npcm750-i2c
++      - nuvoton,npcm845-i2c
+ 
+   reg:
+     maxItems: 1
+@@ -36,11 +41,16 @@ properties:
+     default: 100000
+     enum: [100000, 400000, 1000000]
+ 
++  syscon:
++    $ref: "/schemas/types.yaml#/definitions/phandle"
++    description: The phandle of system manager register node.
++
+ required:
+   - compatible
+   - reg
+   - interrupts
+   - clocks
++  - syscon
+ 
+ allOf:
+   - $ref: /schemas/i2c/i2c-controller.yaml#
+@@ -57,6 +67,7 @@ examples:
+         clock-frequency = <100000>;
+         interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+         compatible = "nuvoton,npcm750-i2c";
++        syscon = <&gcr>;
+     };
+ 
+ ...
+-- 
+2.17.1
+
