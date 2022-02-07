@@ -4,55 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3C0C433F5
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 14:23:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FBC0C433F5
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 15:05:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JspJx2R0Kz2xCM
-	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 01:23:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JsqFH5L3Rz2yHL
+	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 02:05:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=cfNWMuY6;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=aafy2FxS;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=209.85.161.49; helo=mail-oo1-f49.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.24;
+ helo=wout1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm2 header.b=cfNWMuY6; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=aafy2FxS; 
+ dkim-atps=neutral
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JspJR5fvNz2xY3
- for <openbmc@lists.ozlabs.org>; Tue,  8 Feb 2022 01:22:45 +1100 (AEDT)
-Received: by mail-oo1-f49.google.com with SMTP id
- c7-20020a4ad207000000b002e7ab4185d2so13779332oos.6
- for <openbmc@lists.ozlabs.org>; Mon, 07 Feb 2022 06:22:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=QIbiP35GQSEEEaU8+SHxv92w3MHEG9bQFU7JRjEoZlY=;
- b=mIo+hOQYGqYO/BdWH8kbUPLmyxZPYHeQ8QpYKAo0JxYsIyZVTguUnNi2321owYhrlY
- HUsBFT7MFGma8GC9CvZfwr7hskhVld0DPhnIYHFFzC03DXqlHfOKZR/PoircZXqCJm3y
- RKJo+e1NT48hY2oekPjweiWmLYEsAmPtEwiX28EsJjgH41Nce1t9W3859kVdHpsYG+K/
- iMN/vc7gcL4xuunQCtmhTt93xNR+wZKSXQmiG/fNpp4ZNp+jfxiMfgLW8HfW6fPrZc0u
- JkgOEQNI/Qg1fTV0sb9knY/sdVSLXEtAtdHs1dZSg8wLNtQu7knk18M3BWco3f9dWLtQ
- L+Bg==
-X-Gm-Message-State: AOAM532Yx4TtCBWplPhvfZnQ9xty1XvRkFOLysIPjXfr0HtQvRC2F4h8
- mOrLG1j1nf7hwH3UXw5zlA==
-X-Google-Smtp-Source: ABdhPJxfXZdsGyfmTD5R1VDT1P4brg4JwOcmWmQsyw1NxMpW2nnJoH8Cy0v4BgETqUhZfQJQxbm3pg==
-X-Received: by 2002:a05:6870:44:: with SMTP id 4mr3436859oaz.68.1644243762896; 
- Mon, 07 Feb 2022 06:22:42 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id t31sm4334410oaa.9.2022.02.07.06.22.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Feb 2022 06:22:42 -0800 (PST)
-Received: (nullmailer pid 320510 invoked by uid 1000);
- Mon, 07 Feb 2022 14:22:40 -0000
-From: Rob Herring <robh@kernel.org>
-To: Tyrone Ting <warp5tw@gmail.com>
-In-Reply-To: <20220207063338.6570-2-warp5tw@gmail.com>
-References: <20220207063338.6570-1-warp5tw@gmail.com>
- <20220207063338.6570-2-warp5tw@gmail.com>
-Subject: Re: [PATCH v1 1/6] dt-bindings: i2c: npcm: support NPCM845
-Date: Mon, 07 Feb 2022 08:22:40 -0600
-Message-Id: <1644243760.823059.320509.nullmailer@robh.at.kernel.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JsqDV3YhJz2xBV
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Feb 2022 02:04:26 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 539D33202113;
+ Mon,  7 Feb 2022 10:04:24 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Mon, 07 Feb 2022 10:04:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+ :cc:content-transfer-encoding:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; bh=1qgKl6N4zhoA08lqEXx3+JopS52gVw
+ bVnOMx+Ef8nCE=; b=cfNWMuY6bn2cbE5GXg6eXa1VSQOR+ThxsfvZ0cJ1BjU3h5
+ UrgduaiM6eJfUZJnOWszsEHklVeyymXHsdTXgXL2YbDFOJASdhxnT+0hxj6slL78
+ fuYd0HRZEV6OGnKrJVntwoEC35vqc+CumI27bfq6a1tgnpyP+c/60HR2Z267k9fE
+ Pyg3QKROFY0fPugoHD5bq9U7WJHhsox4qMVNgPRvATUrvlvH4SnRDkJWU4Yh/gpt
+ TaTE7zH/17Xb9ObMOfroE9N2BXgexh16GqlsoRW1xj27BDzcOi9jAtoSke5hdIiH
+ AmxZMvi4KwWSlstFh3tDhsWp3xkRS0lYba2Rc09g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=1qgKl6
+ N4zhoA08lqEXx3+JopS52gVwbVnOMx+Ef8nCE=; b=aafy2FxSQV8kYNGHr8Mg45
+ VddEOuX98QyJscW8U4UKLI6kdm8Mz2T1BKSmUmMJ0umqJhTK8ohqDcNc7/inJe2b
+ j3riFjgkN5rF/LjZyykwrkHA2T9DM+EORWpmLDVWeFPNT0EZwu3v3s1T2G8Hyu20
+ mx5MQ0aktcbaPn4WJKU1zyi4PEXp7606buTi0dam4QFuh0ul7vIbVBOufqxGeoP/
+ CxH2a05UXoM6Gjn/NKEpKZhczHnQX3hpLpx1pKKTjtGqiY0Tu4z+dqKKaob+7xG3
+ Q1HZsoRvnk+yjbd4/phGo3/WGtSkuui1VqJ0DUmVEfhtKw+gvQMdoCiGztEJmoyw
+ ==
+X-ME-Sender: <xms:9zQBYm6mYqvsZgsKrv3E6vyta8dULu4fsZt9ensvBA7E0XZ9Qt7ILQ>
+ <xme:9zQBYv7M5bMkzstoa4cS1ZbxNGj5eg9wbBFrgHApS3HnBq1LGhuyB5TBGwEhDksGD
+ ZE3mdZmAAT6EqGFkQ>
+X-ME-Received: <xmr:9zQBYlfUjER9ToP3gv9TUlS1FqOUHahXJqOm648HdTkXp1z6ANIWRLBDgSN9mBAQGO_e7X-CiwN2bP9eMbuYZTZ6O55s084VmYlvmga74A9fItF73_qtxW3ZqEobGPVw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrheehgdeilecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
+ rdhiugdrrghuqeenucggtffrrghtthgvrhhnpeejgfdvveehteekveeggeellefgleette
+ ejffelffdvudduveeiffegteelvefhteenucevlhhushhtvghrufhiiigvpedtnecurfgr
+ rhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:9zQBYjL_0y1KWApWHv5BX1xBLKSfIaaPA0uiMXbaOEacM-0L_bAJzA>
+ <xmx:9zQBYqJY5tTqGxPr3eaITxy6Fr5oOyVX0va9yUG-V1fiMxIOgo-H3g>
+ <xmx:9zQBYkzl80s14q74bpXW0F8CYP7i2SJfUCpGAeRY8uCgvHm3nPmzBA>
+ <xmx:9zQBYvHDhd7ALB-CV9x8SuYJdubB7TKMQYEHsfBUAhFqp0o3HgL3yQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Feb 2022 10:04:20 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: qemu-devel@nongnu.org
+Subject: [PATCH 1/3] hw: aspeed_gpio: Cleanup stray semicolon after switch
+Date: Tue,  8 Feb 2022 01:34:07 +1030
+Message-Id: <20220207150409.358888-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220207150409.358888-1-andrew@aj.id.au>
+References: <20220207150409.358888-1-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,134 +96,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: tmaimon77@gmail.com, KWLIU@nuvoton.com, tali.perry1@gmail.com,
- linux-i2c@vger.kernel.org, andriy.shevchenko@linux.intel.com,
- benjaminfair@google.com, krzysztof.kozlowski@canonical.com,
- openbmc@lists.ozlabs.org, JJLIU0@nuvoton.com, lukas.bulwahn@gmail.com,
- tomer.maimon@nuvoton.com, devicetree@vger.kernel.org, bence98@sch.bme.hu,
- arnd@arndb.de, sven@svenpeter.dev, robh+dt@kernel.org, Avi.Fishman@nuvoton.com,
- yangyicong@hisilicon.com, semen.protsenko@linaro.org, jie.deng@intel.com,
- avifishman70@gmail.com, venture@google.com, linux-kernel@vger.kernel.org,
- wsa@kernel.org, kfting@nuvoton.com, tali.perry@nuvoton.com, olof@lixom.net
+Cc: peter.maydell@linaro.org, openbmc@lists.ozlabs.org, qemu-arm@nongnu.org,
+ clg@kaod.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 07 Feb 2022 14:33:33 +0800, Tyrone Ting wrote:
-> From: Tyrone Ting <kfting@nuvoton.com>
-> 
-> This commit adds compatible and syscon description for NPCM845 i2c module.
-> 
-> Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller driver")
-> Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> ---
->  .../bindings/i2c/nuvoton,npcm7xx-i2c.yaml     | 21 ++++++++++++++-----
->  1 file changed, 16 insertions(+), 5 deletions(-)
-> 
+Not sure how that got there.
 
-Running 'make dtbs_check' with the schema in this patch gives the
-following warnings. Consider if they are expected or the schema is
-incorrect. These may not be new warnings.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ hw/gpio/aspeed_gpio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Note that it is not yet a requirement to have 0 warnings for dtbs_check.
-This will change in the future.
-
-Full log is available here: https://patchwork.ozlabs.org/patch/1589171
-
-
-i2c@80000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-
-i2c@81000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@82000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@83000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@84000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@85000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@86000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@87000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@88000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@89000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@8a000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@8b000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@8c000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@8d000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dt.yaml
-
-i2c@8e000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gbs.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm750-evb.dt.yaml
-
-i2c@8f000: 'syscon' is a required property
-	arch/arm/boot/dts/nuvoton-npcm730-gsj.dt.yaml
-	arch/arm/boot/dts/nuvoton-npcm730-kudo.dt.yaml
+diff --git a/hw/gpio/aspeed_gpio.c b/hw/gpio/aspeed_gpio.c
+index 911d21c8cfbe..c63634d3d3e2 100644
+--- a/hw/gpio/aspeed_gpio.c
++++ b/hw/gpio/aspeed_gpio.c
+@@ -571,7 +571,7 @@ static uint64_t aspeed_gpio_read(void *opaque, hwaddr offset, uint32_t size)
+         qemu_log_mask(LOG_GUEST_ERROR, "%s: no getter for offset 0x%"
+                       HWADDR_PRIx"\n", __func__, offset);
+         return 0;
+-    };
++    }
+ }
+ 
+ static void aspeed_gpio_write(void *opaque, hwaddr offset, uint64_t data,
+-- 
+2.32.0
 
