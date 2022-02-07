@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC3C3C433F5
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:28:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B6EC433F5
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:46:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Jsbn00gczz3bTD
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:28:20 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Jsc9g3Fx1z3bN9
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:46:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=HU6RSr/W;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=du5XHP/K;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2e;
- helo=mail-qv1-xf2e.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82d;
+ helo=mail-qt1-x82d.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=HU6RSr/W; dkim-atps=neutral
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
+ header.s=google header.b=du5XHP/K; dkim-atps=neutral
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JsbmF3x7Lz30MQ
- for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:27:39 +1100 (AEDT)
-Received: by mail-qv1-xf2e.google.com with SMTP id h9so911953qvm.0
- for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:27:39 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Jsc8z6YqCz2xrt
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:45:37 +1100 (AEDT)
+Received: by mail-qt1-x82d.google.com with SMTP id y8so11135265qtn.8
+ for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:45:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rMyxEoeJ6yLz9gjOaUA3kY4Z5Iz7P1lMcQfxehs27Mk=;
- b=HU6RSr/Wu+9zJ0txOLVneJlnrzMfHAeprtMDPu370lsl8SeFJGq6iGKF6sFmFMK1HH
- xK+DfM+thHAbRlBs0zX96m63wdi4Fokg+yPGQo38oQrCIpYkTkYolf3i0zEKWgMs/qmr
- 85/GC0uJg8pZySx+4kxdMx3JiN9+Zq4lGq6qo=
+ :cc; bh=+UbY9TKJRyt20CePqUTrZB/Qg9zX6+BMA6wGMCCt6Fk=;
+ b=du5XHP/KsmZ1PBIF1P6CFMTAlpp1iKnmE1PAC86ygoJUOiUW9xi2coDnwH1sU1fkKX
+ j86fUimVIpTIBgI5PPOk95aIms5vwmR8+TpkGAeaMb5GYAjU3hdUbIIqK2AtLGdgMcY7
+ D2uFGiPcnpRp8DklAE2lzZFmhd0Z4sVhMTvYc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rMyxEoeJ6yLz9gjOaUA3kY4Z5Iz7P1lMcQfxehs27Mk=;
- b=eAU4IghjddxhcEvoxI4GT+bWwPudXBdoBs/sPycbjdoyD0Qx8WUxeX11Nx4oZ3IUAi
- nfMUJGf85rIV/4epZnYPr/Sda8QaQXWBVkwiUMuHrS7AFFcNrjotoGjku0ATVwhJiZG2
- d4/jxiPj7u3Oj6HG9Zl+JkH5RA+LBQN+2jP1XJxFqjHMbcOTFUS1VnjVOCoFTCmMD4yE
- vygaVQacs4lUUB43M6k1N9h2cdKZWLDB1uYlEGuN+r0a1C3uhFdNe7ltwbhXw0NhCRv/
- Vhje336ptpX/PPLs+LLRjebYSqBSAaTOTTrPz7Lyl9/5wNLT0fNTDsGfr+a2WQnZGRQz
- ArEg==
-X-Gm-Message-State: AOAM532zt2M4+IqCswZSJc8tLXnCCss8DYOI4WCZm5oA4dM5J/Z22orZ
- 47Sisbt54WadTxq3AClUzmkinCIM4y+UDNaC0QI=
-X-Google-Smtp-Source: ABdhPJwtM3hDAHc5/kPUZLEZOALBEoi8wP0Qk3V5xAXvX7W5Wa9SzkK88qCkqN4Py9tR83Ai8lR/ml3mYlR1cCdMVjk=
-X-Received: by 2002:a05:6214:c29:: with SMTP id
- a9mr2091961qvd.130.1644215255885; 
- Sun, 06 Feb 2022 22:27:35 -0800 (PST)
+ bh=+UbY9TKJRyt20CePqUTrZB/Qg9zX6+BMA6wGMCCt6Fk=;
+ b=ZdiXmoWY3G+plRazW30a0pRMW0SG6DKAaPA7oBURG5HyDTQaueMm91DX9btpqDFJee
+ cMcgWu4c7QZMBHMsGoWHu+Qd6EsXt3gs8mJvEZ7c5sPtGRgCdkaH6t9Bsacgkgy0cfSP
+ M9VFFcPZbJCatZtrXv7vfh6dcjdS8Ungi/ODy1ud4xY6348GbtBOhSEWX178C/Afj5wG
+ TcARrJR1CZWrM/Xw5o5l6NeyqNOWDNE0jrWHfI/DbCjgXCoEEGFBuKSspCzcvLChN97w
+ R7iNS8y/mV/bcsah6XhsE+Hq76KRNP+eLRW0ZTi2FdzT+lC+7wabqzK+xjPNJ337LfLq
+ EbHA==
+X-Gm-Message-State: AOAM531aDoRPvpypMeeU4d0jgCYqJp5PxxoMewVu7plbK6YPWJmoB3oO
+ 6T6iQY96Td2Iv/+qKLO2YKTTOxnJTW9kSAzPteBeEtdh
+X-Google-Smtp-Source: ABdhPJyOQ3myXZoGgddRtZfym1DY1qFDOEFB7Oa2Jgk9nP2FOzdw+feFrcyCrXghivvQVOzbyNHzYxSP7KVPQKUuZ3o=
+X-Received: by 2002:ac8:7f06:: with SMTP id f6mr6929657qtk.625.1644216334511; 
+ Sun, 06 Feb 2022 22:45:34 -0800 (PST)
 MIME-Version: 1.0
-References: <20220207032641.17889-1-potin.lai@quantatw.com>
-In-Reply-To: <20220207032641.17889-1-potin.lai@quantatw.com>
+References: <5c24d89c-4e58-4d1c-ffe2-d1586c6eceeb@linux.intel.com>
+ <70fda031-ea0a-4155-81d4-74f398134bf8@www.fastmail.com>
+In-Reply-To: <70fda031-ea0a-4155-81d4-74f398134bf8@www.fastmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 7 Feb 2022 06:27:24 +0000
-Message-ID: <CACPK8XejhbzYizs4pm_bZ0UBB+nW-2SWfjyQKVJB=gbF=qos7g@mail.gmail.com>
-Subject: Re: [u-boot,v2019.04-aspeed-openbmc 1/1] arm: dts: Aspeed: add
- Bletchley dts
-To: Potin Lai <potin.lai@quantatw.com>, Jamin Lin <jamin_lin@aspeedtech.com>
+Date: Mon, 7 Feb 2022 06:45:22 +0000
+Message-ID: <CACPK8Xf+6cLOWNYpMH21KDxRX3w5W=EwheTwL-ZktJvbG_pGeg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] pinctrl: aspeed: Enable pass-through on GPIOE1 and
+ GPIOE3 free
+To: Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -72,347 +72,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: "Bills, Jason M" <jason.m.bills@linux.intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 7 Feb 2022 at 03:27, Potin Lai <potin.lai@quantatw.com> wrote:
+On Wed, 2 Feb 2022 at 22:49, Andrew Jeffery <andrew@aj.id.au> wrote:
 >
-> Initial introduction of Bletchley equipped with
-> Aspeed 2600 BMC SoC.
 >
-> Signed-off-by: Potin Lai <potin.lai@quantatw.com>
-
-I'll ask Jamin and Patrick to review too, but I've noticed some small
-things myself.
-
-> ---
->  arch/arm/dts/Makefile              |   3 +-
->  arch/arm/dts/ast2600-bletchley.dts | 285 +++++++++++++++++++++++++++++
->  2 files changed, 287 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm/dts/ast2600-bletchley.dts
 >
-> diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-> index df844065cd..a172a9f8c6 100755
-> --- a/arch/arm/dts/Makefile
-> +++ b/arch/arm/dts/Makefile
-> @@ -685,7 +685,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->         ast2600-rainier.dtb \
->         ast2600-slt.dtb \
->         ast2600-tacoma.dtb \
-> -       ast2600-intel.dtb
-> +       ast2600-intel.dtb \
-> +       ast2600-bletchley.dtb
-
-Lets sort alphabetically.
-
+> On Thu, 3 Feb 2022, at 06:29, Bills, Jason M wrote:
+> > This change adds a gpio_disable_free() implementation that checks
+> > if the GPIO being freed is GPIOE1 (33) or GPIOE3 (35) and will
+> > re-enable the pass-through mux.
 >
->  dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
+> Okay. So trying to pull back from the implementation for a moment:
 >
-> diff --git a/arch/arm/dts/ast2600-bletchley.dts b/arch/arm/dts/ast2600-bletchley.dts
-> new file mode 100644
-> index 0000000000..ec14898400
-> --- /dev/null
-> +++ b/arch/arm/dts/ast2600-bletchley.dts
-> @@ -0,0 +1,285 @@
-> +/dts-v1/;
-
-Add a licence and copyright line.
-> +
-> +#include "ast2600-u-boot.dtsi"
-> +
-> +/ {
-> +        model = "AST2600 EVB";
-> +        compatible = "aspeed,ast2600-evb", "aspeed,ast2600";
-
-This is untrue. Put your machine name these two.
-
-
-> +
-> +       memory {
-> +               device_type = "memory";
-> +               reg = <0x80000000 0x40000000>;
-> +       };
-> +
-> +       chosen {
-> +               stdout-path = &uart5;
-> +       };
-> +
-> +       aliases {
-> +               mmc0 = &emmc_slot0;
-> +               mmc1 = &sdhci_slot0;
-> +               mmc2 = &sdhci_slot1;
-> +               spi0 = &fmc;
-> +               spi1 = &spi1;
-> +               spi2 = &spi2;
-> +               ethernet0 = &mac0;
-> +               ethernet1 = &mac1;
-> +               ethernet2 = &mac2;
-> +               ethernet3 = &mac3;
-> +       };
-> +
-> +       cpus {
-> +               cpu@0 {
-> +                       clock-frequency = <800000000>;
-> +               };
-> +               cpu@1 {
-> +                       clock-frequency = <800000000>;
-> +               };
-> +       };
-> +};
-> +
-> +&uart5 {
-> +       u-boot,dm-pre-reloc;
-> +       status = "okay";
-> +};
-> +
-> +&sdrammc {
-> +       clock-frequency = <400000000>;
-> +};
-> +
-> +&wdt1 {
-> +       status = "okay";
-> +};
-> +
-> +&wdt2 {
-> +       status = "okay";
-> +};
-> +
-> +&wdt3 {
-> +       status = "okay";
-> +};
-> +
-> +&mdio {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_mdio4_default>;
-> +       #address-cells = <1>;
-> +       #size-cells = <0>;
-> +};
-> +
-> +&mac2 {
-> +       status = "okay";
-> +       phy-mode = "rgmii";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_rgmii3_default &pinctrl_mac3link_default>;
-> +       fixed-link {
-> +               speed = <1000>;
-> +               full-duplex;
-> +       };
-> +};
-> +
-> +&fmc {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_fmcquad_default>;
-> +
-> +       flash@0 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <2>;
-> +               spi-rx-bus-width = <2>;
-> +       };
-> +
-> +       flash@1 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <2>;
-> +               spi-rx-bus-width = <2>;
-> +       };
-> +
-> +       flash@2 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <2>;
-> +               spi-rx-bus-width = <2>;
-> +       };
-> +};
-> +
-> +&spi1 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_spi1_default &pinctrl_spi1abr_default
-> +                       &pinctrl_spi1cs1_default &pinctrl_spi1wp_default
-> +                       &pinctrl_spi1wp_default &pinctrl_spi1quad_default>;
-> +
-> +       flash@0 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <4>;
-> +               spi-rx-bus-width = <4>;
-> +       };
-> +
-> +       flash@1 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <4>;
-> +               spi-rx-bus-width = <4>;
-> +       };
-> +};
-> +
-> +&spi2 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_spi2_default &pinctrl_spi2cs1_default
-> +                       &pinctrl_spi2cs2_default &pinctrl_spi2quad_default>;
-> +
-> +       flash@0 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <4>;
-> +               spi-rx-bus-width = <4>;
-> +       };
-> +
-> +       flash@1 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <4>;
-> +               spi-rx-bus-width = <4>;
-> +       };
-> +
-> +       flash@2 {
-> +               compatible = "spi-flash", "sst,w25q256";
-> +               status = "okay";
-> +               spi-max-frequency = <50000000>;
-> +               spi-tx-bus-width = <4>;
-> +               spi-rx-bus-width = <4>;
-> +       };
-> +};
-> +
-> +&emmc {
-> +       u-boot,dm-pre-reloc;
-> +       timing-phase = <0x700ff>;
-> +};
-> +
-> +&emmc_slot0 {
-> +       u-boot,dm-pre-reloc;
-> +       status = "okay";
-> +       bus-width = <4>;
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_emmc_default>;
-> +       sdhci-drive-type = <1>;
-> +};
-> +
-> +&sdhci {
-> +       timing-phase = <0xc6ffff>;
-> +};
-> +
-> +&sdhci_slot0 {
-> +       status = "okay";
-> +       bus-width = <4>;
-> +       pwr-gpios = <&gpio0 ASPEED_GPIO(V, 0) GPIO_ACTIVE_HIGH>;
-> +       pwr-sw-gpios = <&gpio0 ASPEED_GPIO(V, 1) GPIO_ACTIVE_HIGH>;
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_sd1_default>;
-> +       sdhci-drive-type = <1>;
-> +};
-> +
-> +&sdhci_slot1 {
-> +       status = "okay";
-> +       bus-width = <4>;
-> +       pwr-gpios = <&gpio0 ASPEED_GPIO(V, 2) GPIO_ACTIVE_HIGH>;
-> +       pwr-sw-gpios = <&gpio0 ASPEED_GPIO(V, 3) GPIO_ACTIVE_HIGH>;
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_sd2_default>;
-> +       sdhci-drive-type = <1>;
-> +};
-> +
-> +&i2c4 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_i2c5_default>;
-> +};
-> +
-> +&i2c5 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_i2c6_default>;
-> +};
-> +
-> +&i2c6 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_i2c7_default>;
-> +};
-> +
-> +&i2c7 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_i2c8_default>;
-> +};
-> +
-> +&i2c8 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_i2c9_default>;
-> +};
-> +
-> +&pcie_bridge1 {
-> +       status = "okay";
-> +};
-> +
-> +&h2x {
-> +       status = "okay";
-> +};
-> +
-> +#if 0
-> +&fsim0 {
-> +       status = "okay";
-> +};
-> +
-> +&fsim1 {
-> +       status = "okay";
-> +};
-> +#endif
-
-If you don't use the fsi masters, remove these from your device tree.
-
-> +
-> +&ehci1 {
-> +       status = "okay";
-> +};
-> +
-> +&display_port {
-> +       status = "okay";
-> +};
-
-Are you sure you're using all of the devices you're enabling?
-
-> +
-> +&scu {
-> +       mac0-clk-delay = <0x10 0x0a
-> +                         0x10 0x10
-> +                         0x10 0x10>;
-> +       mac1-clk-delay = <0x10 0x0a
-> +                         0x10 0x10
-> +                         0x10 0x10>;
-> +       mac2-clk-delay = <0x08 0x04
-> +                         0x08 0x04
-> +                         0x08 0x04>;
-> +       mac3-clk-delay = <0x08 0x04
-> +                         0x08 0x04
-> +                         0x08 0x04>;
-> +};
-> +
-> +&hace {
-> +       status = "okay";
-> +};
-> --
-> 2.17.1
+> Perhaps we can view pass-through as a property on a pair of GPIOs, rather than a mux state? I think it would be better if we could, for instance, annotate this in the devicetree?
 >
+> If we did that I don't think we're require this awkward and pin-specific implementation of the free callback for GPIOs.
+>
+> If pass-through is enabled it puts constraints on how the pins are used if they're requested as GPIOs, but we can add those dynamic checks in the GPIO driver.
+>
+> Let me think about it some more.
+>
+> Thanks for surfacing the patch.
+
+This is for the kernel, I assume.
+
+Jason, you should send the patch to the upstream lists (use
+get_maintainers.pl) for review.
+
+Cheers,
+
+Joel
