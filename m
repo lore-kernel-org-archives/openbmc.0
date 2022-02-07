@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00FA2C433F5
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 15:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4831EC433F5
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 15:06:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JsqFz2YsKz3bTp
-	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 02:05:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JsqGh3zWmz3Wtp
+	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 02:06:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=ma7vUQQh;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WJvCVlpJ;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=FimZaoYE;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NatKFMQm;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aj.id.au (client-ip=64.147.123.24;
@@ -19,67 +19,70 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=ma7vUQQh; 
+ header.s=fm2 header.b=FimZaoYE; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=WJvCVlpJ; 
+ header.a=rsa-sha256 header.s=fm2 header.b=NatKFMQm; 
  dkim-atps=neutral
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JsqDT5hJ6z2x9R
- for <openbmc@lists.ozlabs.org>; Tue,  8 Feb 2022 02:04:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JsqDZ3dPvz2x9R
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Feb 2022 02:04:30 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 0014B32020D3;
- Mon,  7 Feb 2022 10:04:19 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 4D8193202133;
+ Mon,  7 Feb 2022 10:04:28 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Mon, 07 Feb 2022 10:04:20 -0500
+ by compute4.internal (MEProxy); Mon, 07 Feb 2022 10:04:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
  :cc:content-transfer-encoding:date:date:from:from:in-reply-to
- :message-id:mime-version:reply-to:sender:subject:subject:to:to;
- s=fm2; bh=kCkgsv5eaUYRiHSMsWv3ktFFO2E9gGbEWbk6zYLA+d0=; b=ma7vU
- QQhJYDbacUyx0oa3r5WBU/vsy+MY6dNqfJrZpqulEOh0sObfeW2nGMSuK006xkOJ
- h00tbsypibl0r2MOXHYWClIEt5CGMX7OPo0jn6D5JTrY9Tp/SdBUZFMnedAzx1Au
- S5A32YRJXEG3+kCWrt6V4mPvgyOEJNaknr7FI1lI/fNj2yMvI4eUGwhzX/AXThSk
- To+czRVPvl3GuodSoaHKDm5WnZYZRgdoVGDrgp4Cqt131NVnf0YxoaTqoqheCwC+
- ysvtYdlChO+mILL0gcY1XVhzwQ3wD7Mu9m8cAEUXCupFFUU329n9PAN716oTWI65
- qXNz8Eku0qo15VIWw==
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm2; bh=DdRMvPKHeZixKcamiXTuJrB5BVbNhd
+ 3EsmNNBzsQ7yk=; b=FimZaoYE+XltOh2eTk+KE3VxwPQmV3Oj6D0V1BHYm0AzaC
+ otNPCC1ZJCnsVN2Boa1fx96XG4ErSjrFl/+wqmEDUoV9UBvb7cuSQMHrjobQwRpW
+ C5ewJA5aq4E2pdGJop0N7XYlq69Q7qm9JmlQw9/7E9hYiBfudz4wFqCNuC7DhvaI
+ FELDUeS9IvW2ODkzIgrJlxo/5LMZx6PS2B+afBfwU5sH0ciU0UB/q8/Bx+bDacDS
+ czHR+z+u+ZmAQuSdltbHemOpLMmEYBQ1YnlgsgwvcrDUE9XYuVvQoVAX2ns7F13X
+ Vxx8u3FgwBBb4xs2xhSER+STyLhVkZboAFFQV2bQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:sender
- :subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=kCkgsv5eaUYRiHSMsWv3ktFFO2E9g
- GbEWbk6zYLA+d0=; b=WJvCVlpJFIB0jm8jTG3D9bXKBfqLpDcH0hqmO8a/4CpNN
- 7yt9U/3x3sZ3Ivq6kTBTI8nknNIRlUq2puGp07MI4Kf3FGinkhHwOEfBcR+0EIT6
- 6/PMfGCgxC/SUqGeb8l/I0NjJPEMRgMIjqdiHHFfNQy5cebnKyI7RBLWGG+5E5qU
- Se/I+eDkK3uabALqicCo5Y+da7NfxXRxvezTN8HRVhfoPt4dd411pXl61Ou8zi+h
- //bzLTJy/StiXMNX609VokXGnhR2BJWhpHSRnMUX+E3fdnNWKGkLL5ic1jtfQpTl
- X8d2uoqpbMUQWLj5Bciet2HZaA7A2qO21HO7sxCFw==
-X-ME-Sender: <xms:8jQBYs4jj-YDnGqGljZCpyiFcJq_KdcxwutE-qwPPpz8JUyR5L-F7Q>
- <xme:8jQBYt5u-7LVpX_kYJSvKTWZCN1J8nNAuSjGagHNDIlymqWl1WaXnpiO7rSeJ_VcY
- rgPe0sZUo8p3mPQNA>
-X-ME-Received: <xmr:8jQBYrcAssp3MM55wkL_BNYJVtT3dUD3UAmuQbV2277T8QnWTfVwNrLkXYbCcgqNXM8zKgaQpo0DBxB1X6RJmh3zx-ae5QANObmdV9pjo1pw8JukE4VoMVCkhfZEXaE_>
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DdRMvP
+ KHeZixKcamiXTuJrB5BVbNhd3EsmNNBzsQ7yk=; b=NatKFMQma2JSbokelaK8Z+
+ Jsdh2jz97NprGy3w4pIAOX21vpG+50qE/MziurZTGphCAaACrsyiYK2ib/WKUDAN
+ RVhWGFi+Gw0DkujYFYYxHhRd+hBiq1My7ctBn8QS0GKpvj9GqYoItYPHK6sk/gkJ
+ Lmo17jHCn86E9sslO2jEXttj5NUtrlMVl7bjKwOgsuiTO67IGj3nr8MOvqKPvGxU
+ Y9IN0mbxAxk9nbNfT4GuzH+x6nKVikWxVpdsiIJbc1C7dDdINE8q7sD7XLdB3cN0
+ cElE4lOufQN7nYV27XtAfe9Je0iOsk4j1+mdS4RV65kgFXSOx+8SazkH/pc3EsVw
+ ==
+X-ME-Sender: <xms:-zQBYhISHFEu6g1pbPUFnDwVwl3OXbef5HcYMv00Ywi1Q8-5NckY7A>
+ <xme:-zQBYtL5vU26LidEo50Stez0XbagOiYszAYCi4E71ZwPiZ_u6Pz576S4iJpGfV3Zy
+ scbGrF1gYaHujMtNg>
+X-ME-Received: <xmr:-zQBYptiTimPNNDBF6n64n-MdLYWzREJ80QXYzBMNp84bt2eRUNJEe-5T-kp5UVio3DmzIc26wzHL3qh3XXjUonWHJzcBREY2j_cktgyJaOr7I_w8fsjQ1sHliWngzo3>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrheehgdeilecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhi
- ugdrrghuqeenucggtffrrghtthgvrhhnpeekhfeiffejveefveehtdeiiefhfedvjeelvd
- dvtdehffetudejtefhueeuleeftdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
- mhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:8jQBYhIkBtr1g3aViXn-TFBYoBfcTm5AjoocNKddRAeGrThPO_b7NQ>
- <xmx:8jQBYgJM4XEnuterSrbQb-ry6E9Hf4KTdVV8GECpklNssd6W8h3Vgw>
- <xmx:8jQBYizF9TVv1V6P_GbUmSkQJhmuT9AAn9i_aetcBD95rwfLEz7jYQ>
- <xmx:8zQBYlFCsXRHPS5JxY-Uw0e3dV_sMzJqTCA_GXC6MDQN-bbnDjV89Q>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
+ rdhiugdrrghuqeenucggtffrrghtthgvrhhnpeejgfdvveehteekveeggeellefgleette
+ ejffelffdvudduveeiffegteelvefhteenucevlhhushhtvghrufhiiigvpedtnecurfgr
+ rhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:-zQBYiaqvphtXmcjBVAqGdfqVD_oXCkML0wnPxKG6DCaKHwG8NY3aw>
+ <xmx:-zQBYoZaWGH0c7J5jRdsxYydwmvTngdmob0jmfLYmo9zLohJ9jYvtg>
+ <xmx:-zQBYmCLYfyxuspsiQE7L85-eHWPHdD9Hhs16PpO-JuYSpwxzw4Nfw>
+ <xmx:-zQBYvU-Cepf5gqDcWtgabEXYcq1_pduhemsVO-a_yUTafk_LBuERA>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Feb 2022 10:04:15 -0500 (EST)
+ 7 Feb 2022 10:04:25 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: qemu-devel@nongnu.org
-Subject: [PATCH 0/3] hw: aspeed_gpio: Model new interface for the AST2600
-Date: Tue,  8 Feb 2022 01:34:06 +1030
-Message-Id: <20220207150409.358888-1-andrew@aj.id.au>
+Subject: [PATCH 2/3] hw: aspeed_gpio: Split GPIOSet handling from accessors
+Date: Tue,  8 Feb 2022 01:34:08 +1030
+Message-Id: <20220207150409.358888-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220207150409.358888-1-andrew@aj.id.au>
+References: <20220207150409.358888-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -99,36 +102,161 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+Pave the way for implementing the new register interface for GPIO
+control provided by the AST2600. We need a consistent data model, so
+do some work to enable use of the AspeedGPIOReg / GPIOSets data
+structures for both.
 
-This series adds support for a new register interface supported by the
-Aspeed GPIO controller, present in at least the AST2600.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ hw/gpio/aspeed_gpio.c | 105 ++++++++++++++++++++++++------------------
+ 1 file changed, 60 insertions(+), 45 deletions(-)
 
-The new interface is a single register implementing an indirect command
-protocol that allows us to manipulate up to (at least) 208 GPIOs. This
-makes it possible to write very simple drivers for e.g. u-boot and
-jettison the need for the tedious data model required to deal with the
-old register layout.
-
-I've lightly tested the device consistency under Linux. The Linux
-driver is implemented in terms of the old interface, so data model
-consistency can be tested one way by poking the driver using the
-libgpiod tools and then the other using devmem to drive the new
-interface.
-
-Please review!
-
-Andrew
-
-Andrew Jeffery (3):
-  hw: aspeed_gpio: Cleanup stray semicolon after switch
-  hw: aspeed_gpio: Split GPIOSet handling from accessors
-  hw: aspeed_gpio: Support the AST2600's indexed register interface
-
- hw/gpio/aspeed_gpio.c         | 305 ++++++++++++++++++++++++++++------
- include/hw/gpio/aspeed_gpio.h |   3 +
- 2 files changed, 261 insertions(+), 47 deletions(-)
-
+diff --git a/hw/gpio/aspeed_gpio.c b/hw/gpio/aspeed_gpio.c
+index c63634d3d3e2..1d4d1aedc4b5 100644
+--- a/hw/gpio/aspeed_gpio.c
++++ b/hw/gpio/aspeed_gpio.c
+@@ -516,28 +516,11 @@ static const AspeedGPIOReg aspeed_1_8v_gpios[GPIO_1_8V_REG_ARRAY_SIZE] = {
+     [GPIO_1_8V_E_INPUT_MASK] =     {1, gpio_reg_input_mask},
+ };
+ 
+-static uint64_t aspeed_gpio_read(void *opaque, hwaddr offset, uint32_t size)
++static uint64_t
++aspeed_gpio_set_read(const AspeedGPIOState *s, const AspeedGPIOReg *reg)
+ {
+-    AspeedGPIOState *s = ASPEED_GPIO(opaque);
+-    AspeedGPIOClass *agc = ASPEED_GPIO_GET_CLASS(s);
+-    uint64_t idx = -1;
+-    const AspeedGPIOReg *reg;
+-    GPIOSets *set;
++    const GPIOSets *set = &s->sets[reg->set_idx];
+ 
+-    idx = offset >> 2;
+-    if (idx >= GPIO_DEBOUNCE_TIME_1 && idx <= GPIO_DEBOUNCE_TIME_3) {
+-        idx -= GPIO_DEBOUNCE_TIME_1;
+-        return (uint64_t) s->debounce_regs[idx];
+-    }
+-
+-    reg = &agc->reg_table[idx];
+-    if (reg->set_idx >= agc->nr_gpio_sets) {
+-        qemu_log_mask(LOG_GUEST_ERROR, "%s: no getter for offset 0x%"
+-                      HWADDR_PRIx"\n", __func__, offset);
+-        return 0;
+-    }
+-
+-    set = &s->sets[reg->set_idx];
+     switch (reg->type) {
+     case gpio_reg_data_value:
+         return set->data_value;
+@@ -567,37 +550,44 @@ static uint64_t aspeed_gpio_read(void *opaque, hwaddr offset, uint32_t size)
+         return set->data_read;
+     case gpio_reg_input_mask:
+         return set->input_mask;
+-    default:
++    case gpio_not_a_reg:
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: Invalid register: %d\n", __func__,
++                      reg->type);
++    }
++
++    return 0;
++}
++
++static uint64_t aspeed_gpio_read(void *opaque, hwaddr offset, uint32_t size)
++{
++    AspeedGPIOState *s = ASPEED_GPIO(opaque);
++    AspeedGPIOClass *agc = ASPEED_GPIO_GET_CLASS(s);
++    const AspeedGPIOReg *reg;
++    uint64_t idx = -1;
++
++    idx = offset >> 2;
++    if (idx >= GPIO_DEBOUNCE_TIME_1 && idx <= GPIO_DEBOUNCE_TIME_3) {
++        idx -= GPIO_DEBOUNCE_TIME_1;
++        return (uint64_t) s->debounce_regs[idx];
++    }
++
++    reg = &agc->reg_table[idx];
++    if (reg->set_idx >= agc->nr_gpio_sets) {
+         qemu_log_mask(LOG_GUEST_ERROR, "%s: no getter for offset 0x%"
+                       HWADDR_PRIx"\n", __func__, offset);
+         return 0;
+     }
++
++    return aspeed_gpio_set_read(s, reg);
+ }
+ 
+-static void aspeed_gpio_write(void *opaque, hwaddr offset, uint64_t data,
+-                              uint32_t size)
++static void aspeed_gpio_set_write(AspeedGPIOState *s, const AspeedGPIOReg *reg,
++                                  uint32_t data)
+ {
+-    AspeedGPIOState *s = ASPEED_GPIO(opaque);
+     AspeedGPIOClass *agc = ASPEED_GPIO_GET_CLASS(s);
+     const GPIOSetProperties *props;
+-    uint64_t idx = -1;
+-    const AspeedGPIOReg *reg;
+-    GPIOSets *set;
+     uint32_t cleared;
+-
+-    idx = offset >> 2;
+-    if (idx >= GPIO_DEBOUNCE_TIME_1 && idx <= GPIO_DEBOUNCE_TIME_3) {
+-        idx -= GPIO_DEBOUNCE_TIME_1;
+-        s->debounce_regs[idx] = (uint32_t) data;
+-        return;
+-    }
+-
+-    reg = &agc->reg_table[idx];
+-    if (reg->set_idx >= agc->nr_gpio_sets) {
+-        qemu_log_mask(LOG_GUEST_ERROR, "%s: no setter for offset 0x%"
+-                      HWADDR_PRIx"\n", __func__, offset);
+-        return;
+-    }
++    GPIOSets *set;
+ 
+     set = &s->sets[reg->set_idx];
+     props = &agc->props[reg->set_idx];
+@@ -678,13 +668,38 @@ static void aspeed_gpio_write(void *opaque, hwaddr offset, uint64_t data,
+          */
+          set->input_mask = data & props->input;
+         break;
+-    default:
+-        qemu_log_mask(LOG_GUEST_ERROR, "%s: no setter for offset 0x%"
+-                      HWADDR_PRIx"\n", __func__, offset);
++    case gpio_not_a_reg:
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: Invalid register: %d\n", __func__,
++                      reg->type);
+         return;
+     }
++
+     aspeed_gpio_update(s, set, set->data_value);
+-    return;
++}
++
++static void aspeed_gpio_write(void *opaque, hwaddr offset, uint64_t data,
++                              uint32_t size)
++{
++    AspeedGPIOState *s = ASPEED_GPIO(opaque);
++    AspeedGPIOClass *agc = ASPEED_GPIO_GET_CLASS(s);
++    const AspeedGPIOReg *reg;
++    uint64_t idx = -1;
++
++    idx = offset >> 2;
++    if (idx >= GPIO_DEBOUNCE_TIME_1 && idx <= GPIO_DEBOUNCE_TIME_3) {
++        idx -= GPIO_DEBOUNCE_TIME_1;
++        s->debounce_regs[idx] = (uint32_t) data;
++        return;
++    }
++
++    reg = &agc->reg_table[idx];
++    if (reg->set_idx >= agc->nr_gpio_sets) {
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: no setter for offset 0x%"
++                      HWADDR_PRIx"\n", __func__, offset);
++        return;
++    }
++
++    aspeed_gpio_set_write(s, reg, data);
+ }
+ 
+ static int get_set_idx(AspeedGPIOState *s, const char *group, int *group_idx)
 -- 
 2.32.0
 
