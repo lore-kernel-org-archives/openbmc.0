@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 617E0C433F5
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7B12C433EF
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 06:56:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JscNt51xfz30N4
-	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:55:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JscPZ1xvDz2yws
+	for <openbmc@archiver.kernel.org>; Mon,  7 Feb 2022 17:56:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=Hh53y7v9;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=iGQGr9yT;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102f;
- helo=mail-pj1-x102f.google.com; envelope-from=warp5tw@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62a;
+ helo=mail-pl1-x62a.google.com; envelope-from=warp5tw@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=Hh53y7v9; dkim-atps=neutral
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [IPv6:2607:f8b0:4864:20::102f])
+ header.s=20210112 header.b=iGQGr9yT; dkim-atps=neutral
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JsbvM6wBPz30Lp
- for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:33:49 +1100 (AEDT)
-Received: by mail-pj1-x102f.google.com with SMTP id
- g15-20020a17090a67cf00b001b7d5b6bedaso12395406pjm.4
- for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:33:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JsbvQ2fv1z3089
+ for <openbmc@lists.ozlabs.org>; Mon,  7 Feb 2022 17:33:54 +1100 (AEDT)
+Received: by mail-pl1-x62a.google.com with SMTP id z5so10396343plg.8
+ for <openbmc@lists.ozlabs.org>; Sun, 06 Feb 2022 22:33:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id;
- bh=5w4/ennwCAEEkQywko6dYbRCf/YpCkpMTELAq3SETZ0=;
- b=Hh53y7v9NqRMkLkoNG8j78dhkJPtGq5sFnpbaHmwv98uBLw3f32oI311L5p3FsJKJ3
- IgrPn3pu9YeOnJzCeFAgfkY9+N8XVvBodUNzDn+qfjnrk/4nx0g/L9pyLyBsTMjfrZ/D
- 34Eb2vBm+bm+FF7/WxOe/zU/utjATQBnpvQiEf1XRkuAyaDtQXGOSRla9Rx36lSnSFCl
- Kz/cEyzX+XqzrcnXtwAMRKwYkscyU0U+9pzEy23Rd0t7zzMfFKAAKNA/iop5FskRk39L
- JOk5Ut+nY244dW4vzbXVIg8BJiCeT1yfuxCNAR7SEZi5s6zwM30kAYnVHR0rD06KNikt
- Bhtw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=0TH+KvK70vqF4R3xRGxJlT+5PeKHKYQ4Msc0Pdr7t5o=;
+ b=iGQGr9yTud19lEw7Dzfe5qe038Er/9pvs3h8C7e0pWiTdPaUGN2IEVMolqlvz99+Y6
+ tK7qS1nMdqUQyNLrVdRrMnFqel0S3jLhmpVpUHBBb2dR05fkqnzBU/aM7w+9WR1tS7e0
+ KGMtPoortuyKjv+zYfywy21NoWucdf3Y8BGMoATM0kauUin7LrFTjqllS4lAPTV47Bx+
+ obA3zAzgjlvjQyZRkzO4aHpgLM3TFrdNyOnwxD/Z1nETDY7UzSvEd8NRWM5VCefEHaOE
+ Y+8ls8E5ujDrKHLlaewlDheGpptcJ+S0fsF2mSvkfFp6VlGHMYu/A8ONI8iAjJzWoVAx
+ kPWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=5w4/ennwCAEEkQywko6dYbRCf/YpCkpMTELAq3SETZ0=;
- b=blH3HvUdWniSf+th7HoTUnIa7MHsARlz7TrwA02zmv9XNOYlczUjS05B8I8CuDnncK
- Ped95JHNOEbXf6r/TDy4AFvWuStO4D4q02kzbRzJ2cuqeI8pEieIe2i37P2ro4q2TXEf
- a+Uq/YxlVZzJ49EI6LO1kAa7wX2oVXDv6AZeAi/LbTWVJndpV0ZkpZs8ZuLfawGYPeiM
- v6BToDHLTiNxKbxIGa0CuiK+KGkUeRdaR5u8h7jPIjoY/JgkInP9gfuCwY6GWPBBxxhq
- 6Cb/tpS7a+GrXUV22bZElnbVPDYL82QXEGrEkgwUMsxeRAVNZg9hFuxWaRyZ5H1Csnl/
- +lNQ==
-X-Gm-Message-State: AOAM532HmYBbh5G6wLXiyVOd7Q/b8WWhANmvLih0YCSzSbo1JD1nyJso
- lbrDgqiQq65d/SLSaVvRUQ==
-X-Google-Smtp-Source: ABdhPJwAH1K+CWgey8aVJCIHJ53hQkGzwDi9PAMPA/2HOH43X+MSCDHXYztTHNJXL8NB9GZijsI3XQ==
-X-Received: by 2002:a17:90b:351:: with SMTP id
- fh17mr5008108pjb.28.1644215627026; 
- Sun, 06 Feb 2022 22:33:47 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=0TH+KvK70vqF4R3xRGxJlT+5PeKHKYQ4Msc0Pdr7t5o=;
+ b=iM2Nq5k7jcgpvqTG6ZY2GxnYFxsYMZ6/G1jzIwcgR9vdE/X9/rzQNErVe/kIGCK39U
+ XT6ff4S5/VPcRgC/R+kQ5Gg/7ZAEet6obI2ulA2aT5Y/ZnZ9TtMAPqLKOsuSTGFsWa9n
+ I4/tEUuJBMJ5PhIdD9scgPzpJAUC/vFqKaDNxCbaTYaWWjxZgtaxt6WlXVGcLFLz324I
+ 4HACgqOKNRPzIIq9kilIgTZPBV+AR3KkHUBzqVUyLXqGRqOaaKayXHFIJZqgwyVcLDD6
+ BMcpNsSNsnTYuP2avIEs+ENSj9QuSjlae4ajADmN4lRwXoDzwk/jQsOHA+b0XZw5cLWe
+ 4aKw==
+X-Gm-Message-State: AOAM530qlrLU1GHvTL6hQ4aeRP5cJG9mV+ESQpWIgiuYhSrwNBg1B2hq
+ WBv6YrpxyJDIYOx7dXP4AA==
+X-Google-Smtp-Source: ABdhPJzUhSzyUpEEAxtg0HDIK8h5MPdNrBH+uypOcMLHVjdwOPcOsEkbt23+dU/LCDKF6LYh4HwjqA==
+X-Received: by 2002:a17:903:404b:: with SMTP id
+ n11mr14679060pla.129.1644215632267; 
+ Sun, 06 Feb 2022 22:33:52 -0800 (PST)
 Received: from localhost ([2401:e180:8894:9737:7848:1ec7:b697:7d50])
- by smtp.gmail.com with ESMTPSA id d13sm2803452pfj.205.2022.02.06.22.33.46
+ by smtp.gmail.com with ESMTPSA id i12sm914768pjw.25.2022.02.06.22.33.51
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Sun, 06 Feb 2022 22:33:46 -0800 (PST)
+ Sun, 06 Feb 2022 22:33:51 -0800 (PST)
 From: Tyrone Ting <warp5tw@gmail.com>
 To: avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
  venture@google.com, yuenn@google.com, benjaminfair@google.com,
@@ -68,10 +68,12 @@ To: avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
  andriy.shevchenko@linux.intel.com, warp5tw@gmail.com,
  tali.perry@nuvoton.com, Avi.Fishman@nuvoton.com, tomer.maimon@nuvoton.com,
  KWLIU@nuvoton.com, JJLIU0@nuvoton.com, kfting@nuvoton.com
-Subject: [PATCH v1 0/6] i2c: npcm: Bug fixes timeout, spurious interrupts
-Date: Mon,  7 Feb 2022 14:33:32 +0800
-Message-Id: <20220207063338.6570-1-warp5tw@gmail.com>
+Subject: [PATCH v1 2/6] i2c: npcm: Fix timeout calculation
+Date: Mon,  7 Feb 2022 14:33:34 +0800
+Message-Id: <20220207063338.6570-3-warp5tw@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220207063338.6570-1-warp5tw@gmail.com>
+References: <20220207063338.6570-1-warp5tw@gmail.com>
 X-Mailman-Approved-At: Mon, 07 Feb 2022 17:54:48 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -90,35 +92,94 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Tyrone Ting <kfting@nuvoton.com>
+From: Tali Perry <tali.perry1@gmail.com>
 
-This patchset includes the following fixes:
+Use adap.timeout for timeout calculation instead of hard-coded
+value of 35ms.
+Use syscon to access gcr, instead of "compatible".
 
-- Add dt-bindings description for NPCM845.
-- Bug fix for timeout calculation.
-- Better handling of spurious interrupts.
-- Fix for event type in slave mode.
-- Removal of own slave addresses [2:10].
-- Support for next gen BMC (NPCM845).
+Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller driver")
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+---
+ drivers/i2c/busses/i2c-npcm7xx.c | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
 
-The NPCM I2C driver is tested on NPCM750 and NPCM845 evaluation boards.
-
-Tali Perry (4):
-  i2c: npcm: Fix timeout calculation
-  i2c: npcm: Add tx complete counter
-  i2c: npcm: Handle spurious interrupts
-  i2c: npcm: Remove own slave addresses 2:10
-
-Tyrone Ting (2):
-  dt-bindings: i2c: npcm: support NPCM845
-  i2c: npcm: Support NPCM845
-
- .../bindings/i2c/nuvoton,npcm7xx-i2c.yaml     |  21 +-
- drivers/i2c/busses/Kconfig                    |   8 +-
- drivers/i2c/busses/Makefile                   |   2 +-
- drivers/i2c/busses/i2c-npcm7xx.c              | 191 ++++++++++++------
- 4 files changed, 149 insertions(+), 73 deletions(-)
-
+diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
+index 2ad166355ec9..ddeee6f53621 100644
+--- a/drivers/i2c/busses/i2c-npcm7xx.c
++++ b/drivers/i2c/busses/i2c-npcm7xx.c
+@@ -2047,7 +2047,7 @@ static int npcm_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 	u16 nwrite, nread;
+ 	u8 *write_data, *read_data;
+ 	u8 slave_addr;
+-	int timeout;
++	unsigned long timeout;
+ 	int ret = 0;
+ 	bool read_block = false;
+ 	bool read_PEC = false;
+@@ -2099,13 +2099,13 @@ static int npcm_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 	 * 9: bits per transaction (including the ack/nack)
+ 	 */
+ 	timeout_usec = (2 * 9 * USEC_PER_SEC / bus->bus_freq) * (2 + nread + nwrite);
+-	timeout = max(msecs_to_jiffies(35), usecs_to_jiffies(timeout_usec));
++	timeout = max(bus->adap.timeout, usecs_to_jiffies(timeout_usec));
+ 	if (nwrite >= 32 * 1024 || nread >= 32 * 1024) {
+ 		dev_err(bus->dev, "i2c%d buffer too big\n", bus->num);
+ 		return -EINVAL;
+ 	}
+ 
+-	time_left = jiffies + msecs_to_jiffies(DEFAULT_STALL_COUNT) + 1;
++	time_left = jiffies + timeout + 1;
+ 	do {
+ 		/*
+ 		 * we must clear slave address immediately when the bus is not
+@@ -2131,7 +2131,7 @@ static int npcm_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+ 	}
+ 
+ 	npcm_i2c_init_params(bus);
+-	bus->dest_addr = slave_addr;
++	bus->dest_addr = slave_addr << 1;
+ 	bus->msgs = msgs;
+ 	bus->msgs_num = num;
+ 	bus->cmd_err = 0;
+@@ -2233,9 +2233,9 @@ static int npcm_i2c_probe_bus(struct platform_device *pdev)
+ 	struct i2c_adapter *adap;
+ 	struct clk *i2c_clk;
+ 	static struct regmap *gcr_regmap;
+-	static struct regmap *clk_regmap;
+ 	int irq;
+ 	int ret;
++	struct device_node *np = pdev->dev.of_node;
+ 
+ 	bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
+ 	if (!bus)
+@@ -2250,15 +2250,11 @@ static int npcm_i2c_probe_bus(struct platform_device *pdev)
+ 		return PTR_ERR(i2c_clk);
+ 	bus->apb_clk = clk_get_rate(i2c_clk);
+ 
+-	gcr_regmap = syscon_regmap_lookup_by_compatible("nuvoton,npcm750-gcr");
++	gcr_regmap = syscon_regmap_lookup_by_phandle(np, "syscon");
+ 	if (IS_ERR(gcr_regmap))
+ 		return PTR_ERR(gcr_regmap);
+ 	regmap_write(gcr_regmap, NPCM_I2CSEGCTL, NPCM_I2CSEGCTL_INIT_VAL);
+ 
+-	clk_regmap = syscon_regmap_lookup_by_compatible("nuvoton,npcm750-clk");
+-	if (IS_ERR(clk_regmap))
+-		return PTR_ERR(clk_regmap);
+-
+ 	bus->reg = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(bus->reg))
+ 		return PTR_ERR(bus->reg);
+@@ -2269,7 +2265,7 @@ static int npcm_i2c_probe_bus(struct platform_device *pdev)
+ 	adap = &bus->adap;
+ 	adap->owner = THIS_MODULE;
+ 	adap->retries = 3;
+-	adap->timeout = HZ;
++	adap->timeout = msecs_to_jiffies(35);
+ 	adap->algo = &npcm_i2c_algo;
+ 	adap->quirks = &npcm_i2c_quirks;
+ 	adap->algo_data = bus;
 -- 
 2.17.1
 
