@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E92C433EF
-	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 15:41:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0883CC433F5
+	for <openbmc@archiver.kernel.org>; Tue,  8 Feb 2022 15:41:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JtS0G0061z3bTs
-	for <openbmc@archiver.kernel.org>; Wed,  9 Feb 2022 02:41:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JtS0v27ndz3bSv
+	for <openbmc@archiver.kernel.org>; Wed,  9 Feb 2022 02:41:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iHdF/20g;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L542xzrR;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=intel.com (client-ip=134.134.136.24; helo=mga09.intel.com;
  envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=iHdF/20g; dkim-atps=neutral
+ header.s=Intel header.b=L542xzrR; dkim-atps=neutral
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JtRxw6pFJz3bb7;
- Wed,  9 Feb 2022 02:38:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JtRxy1N2lz3bVd;
+ Wed,  9 Feb 2022 02:39:02 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1644334741; x=1675870741;
+ t=1644334742; x=1675870742;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dBGNLTAhMm/rLap+uLYJ2ObOqJBY7MZbfZ++aQxavR8=;
- b=iHdF/20g6sEgcJUNKsL6fx7MegLzWirwRkNwLuE+6Rf/7XhMFM3m+mqw
- 49wrsArquKRhPc+FWe/KgoPBar0m7J23ZHeH5a+ENsuUTJ6hl6nV6HUdS
- L0Lc4wNfGid8gqprp4qFftOaBF/SNvzXrfDLJYyqxd9XfkLR6ltHH3w1x
- B8U9/xqartP7MAbQ+b82NndJ6c7u3zVprVuTKUyFFdaFtAR+HbKci1hRr
- nUnnl9NRUEJh2qihv8QUfvnkR7WkoTL5YLtPAK5AyCPYq7WIoJsz+lE3y
- JesGPJXNkSVtcEUI6z+jZDpUTeXFVsqNEoWwO1C06VhM01GSdrBo2cS0J A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="248734378"
-X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="248734378"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ bh=Cuxfrun5Yyjy2IA/sOP1QaqFJbdX0n/MI76MVyrDM9Y=;
+ b=L542xzrR1JHUm9SNHxJnT+iwVhIzvYgnocqrl+nCIGr6fk7IJZVNwVj6
+ +Xjqy43kc+B38ozvy0hmrIyNfXzxXL4ILenVKK+ozq54rif7WhIsHiAiW
+ csgnnZBDOitN36ET9kCqzuv1AsWqh6eQSr1RwNYfO2I3XWqU8IZyhNoi1
+ pFNSMbDDW+WGijTmHe1ytkyW05TfYNuSYpfgZepGQ/tOhWieBAVq0IxOK
+ lpYwfq099AZ5qX3zg1hbYIixpp2FL6gntrE2mVkS5g2g0jl+eVq/FiX8/
+ XwOnscb4UFk/rBWsShv5LBPJiZ6Cmz+QJmr+iZ/on5kH9pHd7asH9iaaN Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10252"; a="248734451"
+X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="248734451"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 07:37:57 -0800
-X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="621936143"
+ 08 Feb 2022 07:38:22 -0800
+X-IronPort-AV: E=Sophos;i="5.88,353,1635231600"; d="scan'208";a="484845951"
 Received: from mgorzkow-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.249.139.232])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2022 07:37:51 -0800
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2022 07:38:14 -0800
 From: Iwona Winiarska <iwona.winiarska@intel.com>
 To: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v8 02/13] dt-bindings: Add bindings for peci-aspeed
-Date: Tue,  8 Feb 2022 16:36:28 +0100
-Message-Id: <20220208153639.255278-3-iwona.winiarska@intel.com>
+Subject: [PATCH v8 04/13] peci: Add core infrastructure
+Date: Tue,  8 Feb 2022 16:36:30 +0100
+Message-Id: <20220208153639.255278-5-iwona.winiarska@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220208153639.255278-1-iwona.winiarska@intel.com>
 References: <20220208153639.255278-1-iwona.winiarska@intel.com>
@@ -68,9 +68,9 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Dave Hansen <dave.hansen@intel.com>, Zev Weiss <zweiss@equinix.com>,
- Rob Herring <robh@kernel.org>, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Jonathan Corbet <corbet@lwn.net>,
+ Dave Hansen <dave.hansen@intel.com>,
+ Jason M Bills <jason.m.bills@linux.intel.com>, Zev Weiss <zweiss@equinix.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Jonathan Corbet <corbet@lwn.net>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
  Jean Delvare <jdelvare@suse.com>, Arnd Bergmann <arnd@arndb.de>,
@@ -85,96 +85,402 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add device tree bindings for the peci-aspeed controller driver.
+Intel processors provide access for various services designed to support
+processor and DRAM thermal management, platform manageability and
+processor interface tuning and diagnostics.
+Those services are available via the Platform Environment Control
+Interface (PECI) that provides a communication channel between the
+processor and the Baseboard Management Controller (BMC) or other
+platform management device.
 
+This change introduces PECI subsystem by adding the initial core module
+and API for controller drivers.
+
+Co-developed-by: Jason M Bills <jason.m.bills@linux.intel.com>
+Signed-off-by: Jason M Bills <jason.m.bills@linux.intel.com>
 Co-developed-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Reviewed-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- .../devicetree/bindings/peci/peci-aspeed.yaml | 72 +++++++++++++++++++
- 1 file changed, 72 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.yaml
+ MAINTAINERS             |   8 ++
+ drivers/Kconfig         |   3 +
+ drivers/Makefile        |   1 +
+ drivers/peci/Kconfig    |  15 ++++
+ drivers/peci/Makefile   |   5 ++
+ drivers/peci/core.c     | 158 ++++++++++++++++++++++++++++++++++++++++
+ drivers/peci/internal.h |  16 ++++
+ include/linux/peci.h    |  99 +++++++++++++++++++++++++
+ 8 files changed, 305 insertions(+)
+ create mode 100644 drivers/peci/Kconfig
+ create mode 100644 drivers/peci/Makefile
+ create mode 100644 drivers/peci/core.c
+ create mode 100644 drivers/peci/internal.h
+ create mode 100644 include/linux/peci.h
 
-diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.yaml b/Documentation/devicetree/bindings/peci/peci-aspeed.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 69a2935daf6c..9dde5ea5576e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15101,6 +15101,14 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	drivers/platform/x86/peaq-wmi.c
+ 
++PECI SUBSYSTEM
++M:	Iwona Winiarska <iwona.winiarska@intel.com>
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Supported
++F:	Documentation/devicetree/bindings/peci/
++F:	drivers/peci/
++F:	include/linux/peci.h
++
+ PENSANDO ETHERNET DRIVERS
+ M:	Shannon Nelson <snelson@pensando.io>
+ M:	drivers@pensando.io
+diff --git a/drivers/Kconfig b/drivers/Kconfig
+index 0d399ddaa185..8d6cd5d08722 100644
+--- a/drivers/Kconfig
++++ b/drivers/Kconfig
+@@ -236,4 +236,7 @@ source "drivers/interconnect/Kconfig"
+ source "drivers/counter/Kconfig"
+ 
+ source "drivers/most/Kconfig"
++
++source "drivers/peci/Kconfig"
++
+ endmenu
+diff --git a/drivers/Makefile b/drivers/Makefile
+index a110338c860c..020780b6b4d2 100644
+--- a/drivers/Makefile
++++ b/drivers/Makefile
+@@ -187,3 +187,4 @@ obj-$(CONFIG_GNSS)		+= gnss/
+ obj-$(CONFIG_INTERCONNECT)	+= interconnect/
+ obj-$(CONFIG_COUNTER)		+= counter/
+ obj-$(CONFIG_MOST)		+= most/
++obj-$(CONFIG_PECI)		+= peci/
+diff --git a/drivers/peci/Kconfig b/drivers/peci/Kconfig
 new file mode 100644
-index 000000000000..1e68a801a92a
+index 000000000000..71a4ad81225a
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/peci/peci-aspeed.yaml
-@@ -0,0 +1,72 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/peci/peci-aspeed.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/peci/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
 +
-+title: Aspeed PECI Bus Device Tree Bindings
++menuconfig PECI
++	tristate "PECI support"
++	help
++	  The Platform Environment Control Interface (PECI) is an interface
++	  that provides a communication channel to Intel processors and
++	  chipset components from external monitoring or control devices.
 +
-+maintainers:
-+  - Iwona Winiarska <iwona.winiarska@intel.com>
-+  - Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
++	  If you are building a Baseboard Management Controller (BMC) kernel
++	  for Intel platform say Y here and also to the specific driver for
++	  your adapter(s) below. If unsure say N.
 +
-+allOf:
-+  - $ref: peci-controller.yaml#
++	  This support is also available as a module. If so, the module
++	  will be called peci.
+diff --git a/drivers/peci/Makefile b/drivers/peci/Makefile
+new file mode 100644
+index 000000000000..e789a354e842
+--- /dev/null
++++ b/drivers/peci/Makefile
+@@ -0,0 +1,5 @@
++# SPDX-License-Identifier: GPL-2.0-only
 +
-+properties:
-+  compatible:
-+    enum:
-+      - aspeed,ast2400-peci
-+      - aspeed,ast2500-peci
-+      - aspeed,ast2600-peci
++# Core functionality
++peci-y := core.o
++obj-$(CONFIG_PECI) += peci.o
+diff --git a/drivers/peci/core.c b/drivers/peci/core.c
+new file mode 100644
+index 000000000000..73ad0a47fa9d
+--- /dev/null
++++ b/drivers/peci/core.c
+@@ -0,0 +1,158 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2018-2021 Intel Corporation
 +
-+  reg:
-+    maxItems: 1
++#include <linux/bug.h>
++#include <linux/device.h>
++#include <linux/export.h>
++#include <linux/idr.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/peci.h>
++#include <linux/pm_runtime.h>
++#include <linux/property.h>
++#include <linux/slab.h>
 +
-+  interrupts:
-+    maxItems: 1
++#include "internal.h"
 +
-+  clocks:
-+    description:
-+      Clock source for PECI controller. Should reference the external
-+      oscillator clock.
-+    maxItems: 1
++static DEFINE_IDA(peci_controller_ida);
 +
-+  resets:
-+    maxItems: 1
++static void peci_controller_dev_release(struct device *dev)
++{
++	struct peci_controller *controller = to_peci_controller(dev);
 +
-+  cmd-timeout-ms:
-+    minimum: 1
-+    maximum: 1000
-+    default: 1000
++	mutex_destroy(&controller->bus_lock);
++	ida_free(&peci_controller_ida, controller->id);
++	kfree(controller);
++}
 +
-+  clock-frequency:
-+    description:
-+      The desired operation frequency of PECI controller in Hz.
-+    minimum: 2000
-+    maximum: 2000000
-+    default: 1000000
++struct device_type peci_controller_type = {
++	.release	= peci_controller_dev_release,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - resets
++static struct peci_controller *peci_controller_alloc(struct device *dev,
++						     struct peci_controller_ops *ops)
++{
++	struct peci_controller *controller;
++	int ret;
 +
-+additionalProperties: false
++	if (!ops->xfer)
++		return ERR_PTR(-EINVAL);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/ast2600-clock.h>
-+    peci-controller@1e78b000 {
-+      compatible = "aspeed,ast2600-peci";
-+      reg = <0x1e78b000 0x100>;
-+      interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
-+      clocks = <&syscon ASPEED_CLK_GATE_REF0CLK>;
-+      resets = <&syscon ASPEED_RESET_PECI>;
-+      cmd-timeout-ms = <1000>;
-+      clock-frequency = <1000000>;
-+    };
-+...
++	controller = kzalloc(sizeof(*controller), GFP_KERNEL);
++	if (!controller)
++		return ERR_PTR(-ENOMEM);
++
++	ret = ida_alloc_max(&peci_controller_ida, U8_MAX, GFP_KERNEL);
++	if (ret < 0)
++		goto err;
++	controller->id = ret;
++
++	controller->ops = ops;
++
++	controller->dev.parent = dev;
++	controller->dev.bus = &peci_bus_type;
++	controller->dev.type = &peci_controller_type;
++
++	device_initialize(&controller->dev);
++
++	mutex_init(&controller->bus_lock);
++
++	return controller;
++
++err:
++	kfree(controller);
++	return ERR_PTR(ret);
++}
++
++static void unregister_controller(void *_controller)
++{
++	struct peci_controller *controller = _controller;
++
++	device_unregister(&controller->dev);
++
++	fwnode_handle_put(controller->dev.fwnode);
++
++	pm_runtime_disable(&controller->dev);
++}
++
++/**
++ * devm_peci_controller_add() - add PECI controller
++ * @dev: device for devm operations
++ * @ops: pointer to controller specific methods
++ *
++ * In final stage of its probe(), peci_controller driver calls
++ * devm_peci_controller_add() to register itself with the PECI bus.
++ *
++ * Return: Pointer to the newly allocated controller or ERR_PTR() in case of failure.
++ */
++struct peci_controller *devm_peci_controller_add(struct device *dev,
++						 struct peci_controller_ops *ops)
++{
++	struct peci_controller *controller;
++	int ret;
++
++	controller = peci_controller_alloc(dev, ops);
++	if (IS_ERR(controller))
++		return controller;
++
++	ret = dev_set_name(&controller->dev, "peci-%d", controller->id);
++	if (ret)
++		goto err_put;
++
++	pm_runtime_no_callbacks(&controller->dev);
++	pm_suspend_ignore_children(&controller->dev, true);
++	pm_runtime_enable(&controller->dev);
++
++	device_set_node(&controller->dev, fwnode_handle_get(dev_fwnode(dev)));
++
++	ret = device_add(&controller->dev);
++	if (ret)
++		goto err_fwnode;
++
++	ret = devm_add_action_or_reset(dev, unregister_controller, controller);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return controller;
++
++err_fwnode:
++	fwnode_handle_put(controller->dev.fwnode);
++
++	pm_runtime_disable(&controller->dev);
++
++err_put:
++	put_device(&controller->dev);
++
++	return ERR_PTR(ret);
++}
++EXPORT_SYMBOL_NS_GPL(devm_peci_controller_add, PECI);
++
++struct bus_type peci_bus_type = {
++	.name		= "peci",
++};
++
++static int __init peci_init(void)
++{
++	int ret;
++
++	ret = bus_register(&peci_bus_type);
++	if (ret < 0) {
++		pr_err("peci: failed to register PECI bus type!\n");
++		return ret;
++	}
++
++	return 0;
++}
++module_init(peci_init);
++
++static void __exit peci_exit(void)
++{
++	bus_unregister(&peci_bus_type);
++}
++module_exit(peci_exit);
++
++MODULE_AUTHOR("Jason M Bills <jason.m.bills@linux.intel.com>");
++MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
++MODULE_AUTHOR("Iwona Winiarska <iwona.winiarska@intel.com>");
++MODULE_DESCRIPTION("PECI bus core module");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/peci/internal.h b/drivers/peci/internal.h
+new file mode 100644
+index 000000000000..918dea745a86
+--- /dev/null
++++ b/drivers/peci/internal.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright (c) 2018-2021 Intel Corporation */
++
++#ifndef __PECI_INTERNAL_H
++#define __PECI_INTERNAL_H
++
++#include <linux/device.h>
++#include <linux/types.h>
++
++struct peci_controller;
++
++extern struct bus_type peci_bus_type;
++
++extern struct device_type peci_controller_type;
++
++#endif /* __PECI_INTERNAL_H */
+diff --git a/include/linux/peci.h b/include/linux/peci.h
+new file mode 100644
+index 000000000000..26e0a4e73b50
+--- /dev/null
++++ b/include/linux/peci.h
+@@ -0,0 +1,99 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/* Copyright (c) 2018-2021 Intel Corporation */
++
++#ifndef __LINUX_PECI_H
++#define __LINUX_PECI_H
++
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++
++/*
++ * Currently we don't support any PECI command over 32 bytes.
++ */
++#define PECI_REQUEST_MAX_BUF_SIZE 32
++
++struct peci_controller;
++struct peci_request;
++
++/**
++ * struct peci_controller_ops - PECI controller specific methods
++ * @xfer: PECI transfer function
++ *
++ * PECI controllers may have different hardware interfaces - the drivers
++ * implementing PECI controllers can use this structure to abstract away those
++ * differences by exposing a common interface for PECI core.
++ */
++struct peci_controller_ops {
++	int (*xfer)(struct peci_controller *controller, u8 addr, struct peci_request *req);
++};
++
++/**
++ * struct peci_controller - PECI controller
++ * @dev: device object to register PECI controller to the device model
++ * @ops: pointer to device specific controller operations
++ * @bus_lock: lock used to protect multiple callers
++ * @id: PECI controller ID
++ *
++ * PECI controllers usually connect to their drivers using non-PECI bus,
++ * such as the platform bus.
++ * Each PECI controller can communicate with one or more PECI devices.
++ */
++struct peci_controller {
++	struct device dev;
++	struct peci_controller_ops *ops;
++	struct mutex bus_lock; /* held for the duration of xfer */
++	u8 id;
++};
++
++struct peci_controller *devm_peci_controller_add(struct device *parent,
++						 struct peci_controller_ops *ops);
++
++static inline struct peci_controller *to_peci_controller(void *d)
++{
++	return container_of(d, struct peci_controller, dev);
++}
++
++/**
++ * struct peci_device - PECI device
++ * @dev: device object to register PECI device to the device model
++ * @controller: manages the bus segment hosting this PECI device
++ * @addr: address used on the PECI bus connected to the parent controller
++ *
++ * A peci_device identifies a single device (i.e. CPU) connected to a PECI bus.
++ * The behaviour exposed to the rest of the system is defined by the PECI driver
++ * managing the device.
++ */
++struct peci_device {
++	struct device dev;
++	u8 addr;
++};
++
++static inline struct peci_device *to_peci_device(struct device *d)
++{
++	return container_of(d, struct peci_device, dev);
++}
++
++/**
++ * struct peci_request - PECI request
++ * @device: PECI device to which the request is sent
++ * @tx: TX buffer specific data
++ * @tx.buf: TX buffer
++ * @tx.len: transfer data length in bytes
++ * @rx: RX buffer specific data
++ * @rx.buf: RX buffer
++ * @rx.len: received data length in bytes
++ *
++ * A peci_request represents a request issued by PECI originator (TX) and
++ * a response received from PECI responder (RX).
++ */
++struct peci_request {
++	struct peci_device *device;
++	struct {
++		u8 buf[PECI_REQUEST_MAX_BUF_SIZE];
++		u8 len;
++	} rx, tx;
++};
++
++#endif /* __LINUX_PECI_H */
 -- 
 2.34.1
 
