@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA976C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 11 Feb 2022 01:01:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F9DC433F5
+	for <openbmc@archiver.kernel.org>; Fri, 11 Feb 2022 01:05:24 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JvwKZ0kg7z3bcg
-	for <openbmc@archiver.kernel.org>; Fri, 11 Feb 2022 12:01:06 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JvwQV3CCBz3cBr
+	for <openbmc@archiver.kernel.org>; Fri, 11 Feb 2022 12:05:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oPc/VtDb;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hE/Mrs0O;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::b35;
- helo=mail-yb1-xb35.google.com; envelope-from=linus.walleij@linaro.org;
+ smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::b2d;
+ helo=mail-yb1-xb2d.google.com; envelope-from=linus.walleij@linaro.org;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=oPc/VtDb; dkim-atps=neutral
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
+ header.s=google header.b=hE/Mrs0O; dkim-atps=neutral
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [IPv6:2607:f8b0:4864:20::b2d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JvwJt4ZmZz3bSv
- for <openbmc@lists.ozlabs.org>; Fri, 11 Feb 2022 12:00:29 +1100 (AEDT)
-Received: by mail-yb1-xb35.google.com with SMTP id v186so20561492ybg.1
- for <openbmc@lists.ozlabs.org>; Thu, 10 Feb 2022 17:00:29 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JvwPq2HGzz2yMt
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Feb 2022 12:04:46 +1100 (AEDT)
+Received: by mail-yb1-xb2d.google.com with SMTP id j2so20686391ybu.0
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Feb 2022 17:04:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=WIDkP+UZjRsiSQWkVvyjS0bhDfj4yHGdnjb56uFKkqc=;
- b=oPc/VtDbvJ5xdR+F5EjLqss73GzSSMZ83MK/qQ94DQ2ewUdsC9GJj7idJxQJAMQEP1
- Y9ehthayIHFX8IgQGbsxrOvnf6vfWaXBkCE7InAxIy1Y5bUDLe6WKkGjevb0/aj5joLI
- tQOr5giDHTQOEyl4sOrAWWCrPGBPktgX6/65bEUUtn80HJiXktW3MeDGv4rNvQaa2953
- c4FZdoUj+IaQOUq+ET3LUjpJgQ1u8qRN2K/knfW/W2MSEUPhfqWTYSd9xFrNdD3GMRRm
- 5Da5tCcCvTxirpusRKEjN6utN50DbddWPWVYtHHgLEicSloM67vZtlqIZM24l2zGRtvV
- vMLA==
+ bh=WsTiTpIPXd6aBVRDWWCsW2EfHImVRBu7uRe/2mtmvMo=;
+ b=hE/Mrs0OT4PJEvvcSBW//N5IldkDiXP8QA8UXh6EUPg2m7sgepjbdSVH+YRKBY3QFF
+ a5/XUpkCzfPY3wLcdHeRPOOWiHRzJX5iLHRp/rhZXAEgVFWb2kCc0jQjK9jkPjth8baS
+ +SOfsi88n5gCkWBefJdLXdpRv9Sk8q3cKpl2RU0uBFtwaBTO3w2BZTvEjvrI4u7yw+uM
+ 8VUBEoTAxYHIlXAbNeBdu+5rzGI6Qu1v3d2T9BKeN1AiCpuOyAoOJJBm7cc8iVHZ8Edm
+ hsjw53+KzB5w4jjKF7GFI35WTcf6mL82oIre7eqJ5K6FZXnmghyatq7Kc8zOXWjB4LWB
+ +7NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=WIDkP+UZjRsiSQWkVvyjS0bhDfj4yHGdnjb56uFKkqc=;
- b=3A/yWeGCtIr0OROILfemFS9q2Cj7P51y5WdEPved5hQBsghAMy9Kcy14shxqswVQoa
- hz7mHD/i7n2P0OwvdIIuwhrM27bhnWQ/G8UMyScyAWbJxR5yn9oZLVCpwvZlxNEEhtzf
- 07UA0YFJjkAK4/gl3I/+DlL4jbIZU2mmnh8qjZXPbd4yOPpLEX+CKuUyMtsWBR8lzFkS
- lzGTgRjVsaBFyCUIfisJ9TpEerQcYtTZdRx5RvypY6yjsEB+L7YHQPdx8/2OOYVrFt01
- Y4SCEDTfd0CMd59YRfRqAfbuP4iZzwm0dCwmfEn/CrBWk82U9dgo5OaVZi/NBLE2slwQ
- NMvA==
-X-Gm-Message-State: AOAM5327v1IEcLhKEEN9+hOnJZ9yGC4Em7Lts9d/ujYpWRS9C31mk4rd
- zgFNjbHTCA9sqdDFrouUGNUyLS2aRA778AnXvv6jvw==
-X-Google-Smtp-Source: ABdhPJygE7mUe4mxNoMa5wIo3MDF9IoyoY8qTZnJ3OJ5MpKCksp/AMCTD9rcOVERCgZDpgx0maGUdtrhblBp5EdMEQg=
-X-Received: by 2002:a05:6902:247:: with SMTP id
- k7mr9466845ybs.322.1644541225166; 
- Thu, 10 Feb 2022 17:00:25 -0800 (PST)
+ bh=WsTiTpIPXd6aBVRDWWCsW2EfHImVRBu7uRe/2mtmvMo=;
+ b=2CuMBLvxhplT82FC10x9uBiYwSVdKzsKqQ9L2xwQ6X+YUFufkuS9UZVdkQ06m8nQMR
+ ZNYMqSpCiAHEhTurE+3UEdYZY5v7WYVR1Um9YaxhzwOdfu6Z9guYMQCdSXNlQ76a+xAb
+ s9+HWGBwo/QlAPC5z/YmgEQW2ohuzAYuMvh8iaga3MF1y1FYrBdR5jGL09e8M8fQArFN
+ C9Sky16J8biTPatgO0BPNho4PezdjZYM7IBsNVDM4wNUNW6MUazoDw4xp8mdgZMsvA7H
+ 50VOe69k5mFN8YEsgpLKjAeuoQtBRE4Cinp1vFgO70hpcqOg62GzLzdykXxXLOepohiw
+ fErw==
+X-Gm-Message-State: AOAM532W9pNlhfQOMmGDUAZ9hhiy74aHkrKh8spRkoCkpHXrj59TD9ZI
+ 5h7ZtpU2RCA8YlL6BxbuJaV+GvoxtJfIbLHbUBdnxg==
+X-Google-Smtp-Source: ABdhPJx8k/neEG8CQ2DJYegDVZpGIz+78Gj9mxX8H5U/x2yDSI9sCRLGpI/0cV62BDxBuVS7AyEpooCPglR+uu9KsbU=
+X-Received: by 2002:a81:b343:: with SMTP id r64mr10383367ywh.268.1644541483360; 
+ Thu, 10 Feb 2022 17:04:43 -0800 (PST)
 MIME-Version: 1.0
-References: <20220202125438.19345-1-j.neuschaefer@gmx.net>
- <20220202125438.19345-2-j.neuschaefer@gmx.net>
-In-Reply-To: <20220202125438.19345-2-j.neuschaefer@gmx.net>
+References: <20220205155332.1308899-1-j.neuschaefer@gmx.net>
+ <20220205155332.1308899-2-j.neuschaefer@gmx.net>
+In-Reply-To: <20220205155332.1308899-2-j.neuschaefer@gmx.net>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 11 Feb 2022 02:00:14 +0100
-Message-ID: <CACRpkdYZBF2Gy-7cUBDv11WomjZFXLoUmcUcWKtUq8Dz58i9jw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] pinctrl: nuvoton: npcm7xx: Use %zd printk format for
- ARRAY_SIZE()
+Date: Fri, 11 Feb 2022 02:04:32 +0100
+Message-ID: <CACRpkdYJnB1HnEt29p3G_fUEMMHoXMmuKBkUHAGV5sKUpiU3eg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] pinctrl: nuvoton: npcm7xx: Use %zu printk format
+ for ARRAY_SIZE()
 To: =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -78,27 +77,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Benjamin Fair <benjaminfair@google.com>, kernel test robot <lkp@intel.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Tali Perry <tali.perry1@gmail.com>, linux-gpio@vger.kernel.org,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
+ linux-gpio@vger.kernel.org, Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Benjamin Fair <benjaminfair@google.com>, kernel test robot <lkp@intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Feb 2, 2022 at 1:54 PM Jonathan Neusch=C3=A4fer
+On Sat, Feb 5, 2022 at 4:53 PM Jonathan Neusch=C3=A4fer
 <j.neuschaefer@gmx.net> wrote:
 
 > When compile-testing on 64-bit architectures, GCC complains about the
 > mismatch of types between the %d format specifier and value returned by
-> ARRAY_LENGTH(). Use %zd, which is correct everywhere.
+> ARRAY_LENGTH(). Use %zu, which is correct everywhere.
 >
 > Reported-by: kernel test robot <lkp@intel.com>
+> Fixes: 3b588e43ee5c7 ("pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO dri=
+ver")
 > Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+> Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+> ---
+>
+> v3:
 
-These two patches applied!
+Applied this v3 rather than the other version.
 
 Yours,
 Linus Walleij
