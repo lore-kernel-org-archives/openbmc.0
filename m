@@ -4,93 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FDBCC433EF
-	for <openbmc@archiver.kernel.org>; Tue, 15 Feb 2022 03:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1FADC433EF
+	for <openbmc@archiver.kernel.org>; Tue, 15 Feb 2022 04:34:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JyRMM1CbWz3c9t
-	for <openbmc@archiver.kernel.org>; Tue, 15 Feb 2022 14:26:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JySt64PMLz3cBr
+	for <openbmc@archiver.kernel.org>; Tue, 15 Feb 2022 15:34:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=Fyss2rLI;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RyvtEKlI;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=TwmGdMbx;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.28;
- helo=out4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e2c;
+ helo=mail-vs1-xe2c.google.com; envelope-from=warp5tw@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=Fyss2rLI; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=RyvtEKlI; 
- dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=TwmGdMbx; dkim-atps=neutral
+Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com
+ [IPv6:2607:f8b0:4864:20::e2c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JyRLY39qKz30Ld
- for <openbmc@lists.ozlabs.org>; Tue, 15 Feb 2022 14:25:41 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id F10A25C02C1;
- Mon, 14 Feb 2022 22:25:36 -0500 (EST)
-Received: from imap50 ([10.202.2.100])
- by compute3.internal (MEProxy); Mon, 14 Feb 2022 22:25:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm2; bh=iDQeASY6QoW5QQYO02Rgb+xYbxTR6+yCsph8o2
- y3ylU=; b=Fyss2rLIm3f7zkP9SjaYk9i3Kwq8ZOJhGRJN+Pu49CXDdz88E16N+C
- kLLwtnFltfDuZ4SG86wgPJoiBKueaYWfu6sSd7ANBqmDfmonuZPZwLHpsb7NPQCj
- wrjgybsuCpPgWdv30E6dRM+Yc2o8P4gKOBqCLlcCHhiIlmZAsW8DI+pGQAMqUwse
- U5IeqLCmEk4tuGxALpl62YGqIEvhi/8LqyLm1z6OC6DMg9XqAypxBKUgDTgW/dSu
- 29F27syMyviyUbfM1tkjSz6PzQLYzJT8BQrD9+egfJ6A7PHxURX3KSO47YdAwRfe
- OklZ/9DWLLwV2zkmBuF7v1/hWx33erOQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=iDQeASY6QoW5QQYO0
- 2Rgb+xYbxTR6+yCsph8o2y3ylU=; b=RyvtEKlITb43/69y0Bd7XZCkmyp4thHps
- FYwZjehh5DlZgrtX/SEfos+cEaoYUkOUJ9aHc2MLRAVm70/47AypgDheUY4rGsEy
- r72+vpiFqV2kx9NPoSJt5LnKVXJMEuZDfusObZ2H8lP9iNKurKkVxZsr1PHvGYyo
- S1VauSxat5jOR5w9ygplRGgKjsy4UeDHTJF8SKThqrFXU0C7/8AfvIiPxy8pAnuy
- W2M6K0W3Cpcnmp9T6Q/ktziDxyv2Uzd0Nax839MoPbaXxXzmyH9i1hEQgpbnpQfb
- XosqR735fPk4BYck6Gg+vOsGyY635rRMu+csrHBuvfwFBPgS//dDA==
-X-ME-Sender: <xms:MB0LYkjfWyAbluE8v7g8ntUPwKxZAUK4hpt-uRCx6YPFomcBgOgNgw>
- <xme:MB0LYtDdDuCR1sjH6v20JQ9Sz9236ZzAnDVJvLpzvPWvwh0mv30aiPOy6UmR0N8-W
- Is3yYIpbHe4Bu-7AQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrjeefgdehlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpeduffdtvdevkeffgfetffffueevgeejleeghfffjedthedthfelgfekfefh
- feekieenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
- eptdenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:MB0LYsGpvZRI95NjDIrHfOMnlZvhG5ekVBI2W5Xky0_RkyJNVviwUQ>
- <xmx:MB0LYlQZFNxQlRNZWi4uGdFMzImSKg8A7f4XfJlOhjnkNbKGBTk2lA>
- <xmx:MB0LYhwFBDHb-iU5iHcyqnh0P7kwKw3i3pYOSoByGD3-aL1Lz_uBFQ>
- <xmx:MB0LYkqKZFj-tcTj4sKh2OuULxtj_IVWPkgvYHk3cDUb6AYx8inXng>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 431FE1920081; Mon, 14 Feb 2022 22:25:36 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-4748-g31a5b5f50e-fm-cal2020-20220204.001-g31a5b5f5
-Mime-Version: 1.0
-Message-Id: <e4b7fc2b-511a-46f0-8a6f-001c16ebe712@www.fastmail.com>
-In-Reply-To: <06616971-2f88-740d-e805-d229aa86d985@linux.microsoft.com>
-References: <20220131034147.106415-1-andrew@aj.id.au>
- <97430094-7d2a-432b-a121-96812fac87f9@gmail.com>
- <cf36daed-852b-4c72-b2f3-febf7fd3f802@www.fastmail.com>
- <e44df5b3-a338-3cd5-5399-6b5cbf55f5c9@linux.microsoft.com>
- <YgriLTCF5hvtPCMm@heinlein>
- <06616971-2f88-740d-e805-d229aa86d985@linux.microsoft.com>
-Date: Tue, 15 Feb 2022 13:55:13 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Dhananjay Phadke" <dphadke@linux.microsoft.com>,
- "Patrick Williams" <patrick@stwcx.xyz>
-Subject: Re: [PATCH] image: Control FIT signature verification at runtime
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JwbMN5fdtz3bW9
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Feb 2022 14:19:59 +1100 (AEDT)
+Received: by mail-vs1-xe2c.google.com with SMTP id t184so12419026vst.13
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Feb 2022 19:20:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=VsyfeuJ6g/2GunJL7YeMT1Xjct0dmD0TxFd0nF8PH8U=;
+ b=TwmGdMbxLLHVUn9Ba5bpyMP6jFwDyBiTYLHgXVRkaZujZ8eyCU+aHfYjLY7KNVukYT
+ 3MlOT/3rrOb9bN11+ueZ5hiUJr1GTkpFMozsfpwnpk4YOMQcReN4NOHyQnMMy8v/5lp/
+ WKY5aFvS9XzKFm0kP+e7GuhPXAU2+Bw3unDK3nY79MNQcyqbK5Xj3e94BV0fqSb84ok5
+ VMIWd5OolmStlZVA20lMLsCHvW1WKPZPrIF2pk16Rfxnp0vGFDzVl9odAe4yzwqPFB+X
+ xsLLI4I2PYOsfAJIDRMXtXMLrFPynOXoC+K8u6uoCo+flcSP0cMUxbZrH1UJ9cjKwCaG
+ neJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=VsyfeuJ6g/2GunJL7YeMT1Xjct0dmD0TxFd0nF8PH8U=;
+ b=A+mUtQbpHeYMxgiuBmZITjADPdaJr2eXuXrxQhEomvjx0PGrWaavUWYJmZWbHFjgxv
+ MAx9iPP2HeWDk8KuCH5SOcApP1pHTrzCOB1jNm8pI1+1bbc0ZDooMkGNUwP19mAPtoTY
+ 5dU+6IrVYN233DTw4hhjFhSeniN9+4juENlgqKA6HvuCH0PTkthLnuhZPVHSc+XGkOoR
+ A/K0jQKjy8CDeolfF1whSpnN/zmW0F1DaI+2lsAvV3V6ud9XGiZAvlm8Fz4dpVKS7N/s
+ EHIm0wOP2Smhs3CPsrT8Utm+BPaTZyrDwCAvKNp2lmXf9HGFMU9NzcSJt6Auy7uvKvNy
+ 1hIQ==
+X-Gm-Message-State: AOAM532VtlcxzwppFMaHq0mLJtNnQLLRjraOHNaaO7g/luhB2fpXE13K
+ Muos1iOQNpoleXk/lAAPU0gUMf3q2m/VdWq7mg==
+X-Google-Smtp-Source: ABdhPJzhjID5O0hs9dVvNkisAW79JP9/wSPy4zZ+fykuuiQaviQ2GaxlsbRxg65F5PWz5IrOOGqZd0wwcwJKtqYWe8g=
+X-Received: by 2002:a67:eed4:: with SMTP id o20mr1544446vsp.29.1644635995958; 
+ Fri, 11 Feb 2022 19:19:55 -0800 (PST)
+MIME-Version: 1.0
+References: <20220207063338.6570-1-warp5tw@gmail.com>
+ <20220207063338.6570-2-warp5tw@gmail.com>
+ <YgaLZLuCwdpUgMea@robh.at.kernel.org>
+In-Reply-To: <YgaLZLuCwdpUgMea@robh.at.kernel.org>
+From: warp5tw <warp5tw@gmail.com>
+Date: Sat, 12 Feb 2022 11:19:43 +0800
+Message-ID: <CACD3sJYbS0_ak_BEJY0P9nYTP0NUZPmQ5re+-jL0qiWivZrL0g@mail.gmail.com>
+Subject: Re: [PATCH v1 1/6] dt-bindings: i2c: npcm: support NPCM845
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 15 Feb 2022 15:34:02 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,43 +78,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Christopher J Engel <cjengel@us.ibm.com>, openbmc@lists.ozlabs.org,
- U-Boot-Denx <u-boot@lists.denx.de>, "Alex G." <mr.nuke.me@gmail.com>,
- Simon Glass <sjg@chromium.org>, "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
+Cc: tmaimon77@gmail.com, devicetree@vger.kernel.org, tali.perry1@gmail.com,
+ linux-i2c@vger.kernel.org, benjaminfair@google.com,
+ krzysztof.kozlowski@canonical.com, openbmc@lists.ozlabs.org,
+ JJLIU0@nuvoton.com, lukas.bulwahn@gmail.com, tomer.maimon@nuvoton.com,
+ KWLIU@nuvoton.com, bence98@sch.bme.hu, arnd@arndb.de, sven@svenpeter.dev,
+ Avi.Fishman@nuvoton.com, andriy.shevchenko@linux.intel.com,
+ semen.protsenko@linaro.org, jie.deng@intel.com, avifishman70@gmail.com,
+ venture@google.com, yangyicong@hisilicon.com, linux-kernel@vger.kernel.org,
+ wsa@kernel.org, kfting@nuvoton.com, tali.perry@nuvoton.com, olof@lixom.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Rob:
+
+Thank you for your comments and they will be addressed.
+
+Regards,
+Tyrone
 
 
-On Tue, 15 Feb 2022, at 13:42, Dhananjay Phadke wrote:
-> On 2/14/2022 3:13 PM, Patrick Williams wrote:
->> On Mon, Feb 14, 2022 at 11:14:53AM -0800, Dhananjay Phadke wrote:
->>> There's a key-requirement policy already implemented [1].
->>>
->>> [1]
->>> https://lore.kernel.org/u-boot/cover.1597643014.git.thiruan@linux.microsoft.com/
->>>
->>> Board code can patch "required-policy" = none at runtime based
->>> appropriate logic.
->>>
+Rob Herring <robh@kernel.org> =E6=96=BC 2022=E5=B9=B42=E6=9C=8812=E6=97=A5 =
+=E9=80=B1=E5=85=AD =E4=B8=8A=E5=8D=8812:14=E5=AF=AB=E9=81=93=EF=BC=9A
 >
-> [...]
+> On Mon, Feb 07, 2022 at 02:33:33PM +0800, Tyrone Ting wrote:
+> > From: Tyrone Ting <kfting@nuvoton.com>
+> >
+> > This commit adds compatible and syscon description for NPCM845 i2c modu=
+le.
+> >
+> > Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller dri=
+ver")
+> > Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+> > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> > ---
+> >  .../bindings/i2c/nuvoton,npcm7xx-i2c.yaml     | 21 ++++++++++++++-----
+> >  1 file changed, 16 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.=
+yaml b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
+> > index 128444942aec..05e58f44b03a 100644
+> > --- a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
+> > +++ b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
+> > @@ -7,17 +7,22 @@ $schema: http://devicetree.org/meta-schemas/core.yaml=
+#
+> >  title: nuvoton NPCM7XX I2C Controller Device Tree Bindings
+> >
+> >  description: |
+> > -  The NPCM750x includes sixteen I2C bus controllers. All Controllers s=
+upport
+> > -  both master and slave mode. Each controller can switch between maste=
+r and slave
+> > -  at run time (i.e. IPMB mode). Each controller has two 16 byte HW FIF=
+O for TX and
+> > -  RX.
+> > +  The NPCM7XX includes sixteen I2C bus controllers and the NPCM8XX inc=
+ludes
+> > +  twenty-seven I2C bus controllers. NPCM8XX controllers 24-26 are conn=
+ected on I2C
+> > +  pins in parallel to controllers 8-10.
 >
->> 
->> Isn't this jumper proposal just like the TCG Physical Presence requirements?
->> This is a software implementation and requires a particular hardware design for
->> it to be done right, but it seems to be along the same lines.
+> How many instances is really outside the scope of this binding. And I
+> don't want to be updating this for every new SoC. So rework it to cover
+> both chips and the next one.
 >
-> I'm supporting idea of having control on FIT verification, just pointed
-> that it maybe done by board code by just patching U-Boot control FDT,
-> either the "required-policy" property at /signature or "required"
-> property in individual key nodes.
-
-This might separate the logic out in a way that's acceptable to Alex.
-
-Let me poke at it.
-
-Thanks,
-
-Andrew
+> > +  All controllers support both master and slave mode.
+> > +  Each controller can switch between master and slave at run time (i.e=
+. IPMB mode).
+> > +  NPCM7XX I2C controller has two 16 byte HW FIFO for TX and RX and NPC=
+M8XX I2C
+> > +  controller has two 32 byte HW FIFO for TX and RX.
+> >
+> >  maintainers:
+> >    - Tali Perry <tali.perry1@gmail.com>
+> >
+> >  properties:
+> >    compatible:
+> > -    const: nuvoton,npcm750-i2c
+> > +    enum:
+> > +      - nuvoton,npcm750-i2c
+> > +      - nuvoton,npcm845-i2c
+> >
+> >    reg:
+> >      maxItems: 1
+> > @@ -36,11 +41,16 @@ properties:
+> >      default: 100000
+> >      enum: [100000, 400000, 1000000]
+> >
+> > +  syscon:
+>
+> nuvoton,sys-mgr or similar.
+>
+> > +    $ref: "/schemas/types.yaml#/definitions/phandle"
+> > +    description: The phandle of system manager register node.
+> > +
+> >  required:
+> >    - compatible
+> >    - reg
+> >    - interrupts
+> >    - clocks
+> > +  - syscon
+> >
+> >  allOf:
+> >    - $ref: /schemas/i2c/i2c-controller.yaml#
+> > @@ -57,6 +67,7 @@ examples:
+> >          clock-frequency =3D <100000>;
+> >          interrupts =3D <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+> >          compatible =3D "nuvoton,npcm750-i2c";
+> > +        syscon =3D <&gcr>;
+> >      };
+> >
+> >  ...
+> > --
+> > 2.17.1
+> >
+> >
