@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A6F1C433EF
-	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 10:47:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E17C433F5
+	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 10:48:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Jzs3M2fwhz3cKM
-	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 21:47:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Jzs412VKMz3bcy
+	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 21:48:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=jciqh0ot;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=n5WX/GH0;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
@@ -18,38 +18,37 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=jciqh0ot; 
+ header.a=rsa-sha256 header.s=thorn header.b=n5WX/GH0; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Jzs1y0hM0z3bTP
- for <openbmc@lists.ozlabs.org>; Thu, 17 Feb 2022 21:46:13 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Jzs1y6cpzz2ymb
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Feb 2022 21:46:14 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (174-21-187-98.tukw.qwest.net
  [174.21.187.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 3C96CB98;
- Thu, 17 Feb 2022 02:46:10 -0800 (PST)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 76045461;
+ Thu, 17 Feb 2022 02:46:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1645094770;
- bh=SQvjKarSQnVSfGUf/SQbGhZom4+CH6pepOFEZVx59+0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jciqh0otGJbTdn+SOnWBhWfeeNq0M5QiC59ykWAB5/I4N9BHwU3qvZE+ICRe/6NtL
- F267ucv4WMc0vCp9PeTavnmTGzo0j0nRi1buS1qFw/vIhAtbRm6/egmp79dtr4aN5v
- 3XLOOP1UKHTYX8t/hIGm50smYUaB9fwWLYgxJA/0=
+ s=thorn; t=1645094769;
+ bh=FlSQwzHbM/dm7ihzl/D1hs0n0mSNJjDHh9U0M7jfQIE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=n5WX/GH076Iwu6gmIk+RreldVcm2JdHFvzMzZQ75ipleGhFmWoGrrPk5hr6RuKrK6
+ UriL9lAVcJRIYaAG0q79ZiAqJ9DOsHolkEonu2PhUubNtLygi1qDIHSt5sHE1GDwLq
+ bkd3kcs7p/pTchNHOdK09foDsUXph9gA0CBBJG80=
 From: Zev Weiss <zev@bewilderbeest.net>
-To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
- linux-hwmon@vger.kernel.org
-Subject: [PATCH 2/4] hwmon: (pmbus) lm25066: Add regulator support
-Date: Thu, 17 Feb 2022 02:44:42 -0800
-Message-Id: <20220217104444.7695-3-zev@bewilderbeest.net>
+To: linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH 0/4] misc: Add power-efuse driver
+Date: Thu, 17 Feb 2022 02:44:40 -0800
+Message-Id: <20220217104444.7695-1-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220217104444.7695-1-zev@bewilderbeest.net>
-References: <20220217104444.7695-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,76 +62,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zev Weiss <zev@bewilderbeest.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>, Zev Weiss <zev@bewilderbeest.net>,
+ openbmc@lists.ozlabs.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-While these chips aren't strictly advertised as voltage regulators per
-se, they (aside from the lm25056) support the PMBus OPERATION command
-to enable and disable their outputs and have status bits for reporting
-various warnings and faults, and can hence usefully support all the
-pmbus_regulator_ops operations.
+Hello,
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
- drivers/hwmon/pmbus/Kconfig   |  7 +++++++
- drivers/hwmon/pmbus/lm25066.c | 14 ++++++++++++++
- 2 files changed, 21 insertions(+)
+This patch series is another incarnation of some previous efforts [0]
+at enabling userspace access to the OPERATION state (and now status
+flags) of PMBus devices, specifically with respect to efuses
+protecting general-purpose power outputs.  This functionality is an
+important component enabling a port of OpenBMC to the Delta AHE-50DC
+Open19 power shelf [1].
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 41f6cbf96d3b..4acf63fd69b2 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -174,6 +174,13 @@ config SENSORS_LM25066
- 	  This driver can also be built as a module. If so, the module will
- 	  be called lm25066.
- 
-+config SENSORS_LM25066_REGULATOR
-+	bool "Regulator support for LM25066 and compatibles"
-+	depends on SENSORS_LM25066 && REGULATOR
-+	help
-+	  If you say yes here you get regulator support for National
-+	  Semiconductor LM25066, LM5064, and LM5066.
-+
- config SENSORS_LTC2978
- 	tristate "Linear Technologies LTC2978 and compatibles"
- 	help
-diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
-index 8402b41520eb..09792cd03d9f 100644
---- a/drivers/hwmon/pmbus/lm25066.c
-+++ b/drivers/hwmon/pmbus/lm25066.c
-@@ -435,6 +435,12 @@ static int lm25066_write_word_data(struct i2c_client *client, int page, int reg,
- 	return ret;
- }
- 
-+#if IS_ENABLED(CONFIG_SENSORS_LM25066_REGULATOR)
-+static const struct regulator_desc lm25066_reg_desc[] = {
-+	PMBUS_REGULATOR("vout", 0),
-+};
-+#endif
-+
- static const struct i2c_device_id lm25066_id[] = {
- 	{"lm25056", lm25056},
- 	{"lm25066", lm25066},
-@@ -545,6 +551,14 @@ static int lm25066_probe(struct i2c_client *client)
- 	info->m[PSC_CURRENT_IN] = info->m[PSC_CURRENT_IN] * shunt / 1000;
- 	info->m[PSC_POWER] = info->m[PSC_POWER] * shunt / 1000;
- 
-+#if IS_ENABLED(CONFIG_SENSORS_LM25066_REGULATOR)
-+	/* LM25056 doesn't support OPERATION */
-+	if (data->id != lm25056) {
-+		info->num_regulators = ARRAY_SIZE(lm25066_reg_desc);
-+		info->reg_desc = lm25066_reg_desc;
-+	}
-+#endif
-+
- 	return pmbus_do_probe(client, info);
- }
- 
+The first patch extends the pmbus core's regulator support with an
+implementation of the .get_error_flags() operation, mapping PMBus
+status flags to REGULATOR_ERROR_* flags where possible, and the second
+patch adds regulator support for the lm25066 driver.  These two
+patches are essentially independent of the power-efuse driver (and
+each other) and could potentially be applicable individually, but are
+necessary for the power-efuse driver to be useful on the AHE-50DC.
+
+The third and fourth patches add dt-bindings and the implementation of
+the power-efuse driver, respectively.  The driver is fairly simple; it
+merely provides a sysfs interface to enable, disable, and retrieve
+error flags from an underlying regulator.
+
+There is one aspect of its usage of the regulator API I'm a bit
+uncertain about, however: this driver seems like a case where an
+exclusive 'get' of the regulator (i.e. devm_regulator_get_exclusive()
+instead of devm_regulator_get() in efuse_probe()) would be
+appropriate, since in the intended usage no other device should be
+using an efuse's regulator.  With an exclusive get though, the
+regulator's use_count and the consumer's enable_count don't balance
+out properly to allow the enable/disable operations to work properly
+(the former ending up one more than the latter, leading to
+enable_count underflows on attempts to disable the regulator).  So at
+least for now it's using a non-exclusive get -- I'd be happy to hear
+any pointers on a way to allow an exclusive get to work here, though.
+
+
+Thanks,
+Zev
+
+[0] https://lore.kernel.org/openbmc/YGLepYLvtlO6Ikzs@hatter.bewilderbeest.net/
+[1] https://www.open19.org/marketplace/delta-16kw-power-shelf/
+
+Zev Weiss (4):
+  hwmon: (pmbus) Add get_error_flags support to regulator ops
+  hwmon: (pmbus) lm25066: Add regulator support
+  dt-bindings: Add power-efuse binding
+  misc: Add power-efuse driver
+
+ .../devicetree/bindings/misc/power-efuse.yaml |  37 +++
+ MAINTAINERS                                   |   5 +
+ drivers/hwmon/pmbus/Kconfig                   |   7 +
+ drivers/hwmon/pmbus/lm25066.c                 |  14 ++
+ drivers/hwmon/pmbus/pmbus_core.c              |  97 ++++++++
+ drivers/misc/Kconfig                          |  15 ++
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/power-efuse.c                    | 221 ++++++++++++++++++
+ 8 files changed, 397 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/power-efuse.yaml
+ create mode 100644 drivers/misc/power-efuse.c
+
 -- 
 2.35.1
 
