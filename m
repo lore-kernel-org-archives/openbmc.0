@@ -4,72 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E421C433EF
-	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 03:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AFF2C433F5
+	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 03:30:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4JzgGk1KPqz3bcl
-	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 14:26:38 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4JzgMH1S71z3bcv
+	for <openbmc@archiver.kernel.org>; Thu, 17 Feb 2022 14:30:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=NciurnoE;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=Wr6K9RV1;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DQnl3iEH;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::436;
- helo=mail-pf1-x436.google.com; envelope-from=ghung.quanta@gmail.com;
+ smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28;
+ helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=NciurnoE; dkim-atps=neutral
-Received: from mail-pf1-x436.google.com (mail-pf1-x436.google.com
- [IPv6:2607:f8b0:4864:20::436])
+ unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
+ header.s=fm1 header.b=Wr6K9RV1; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=DQnl3iEH; 
+ dkim-atps=neutral
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4JzgFx27g4z3002
- for <openbmc@lists.ozlabs.org>; Thu, 17 Feb 2022 14:25:55 +1100 (AEDT)
-Received: by mail-pf1-x436.google.com with SMTP id i6so3837128pfc.9
- for <openbmc@lists.ozlabs.org>; Wed, 16 Feb 2022 19:25:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Zx5/NS3Pge1+CQDAyCvXiUqkzwv62R7N1YDVheEby6c=;
- b=NciurnoEU8K/YxhJi31qOD2voWymv7RkiXKR9vCTkaoYV5UQNoTF9WYuKM/Kd///ia
- pyN7jgw5hGiXlWfAn8TUACiJr4IQoy76+3GqMtM5dqjo8aXmdrMayFOcF6SI2PskgaCP
- HHmBb2AZsspGEQMcVeRfg0XDD7GCFvdhf0QlBtKR3hbE7db5zZitaoiV69J6WmSZtx06
- c2kKzbYsQSmQhB6EQro8qaiz2y9v4F6pvzsl6iG8QkoYUwWIvVSSrlBf+AGCxvwDAtVH
- VjiHfecinj6Xp1Ije7PsV1D5QdLb2vPKS26kI4BmzsulvEkgDwxp38QNzEUlxtArio1M
- oj7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Zx5/NS3Pge1+CQDAyCvXiUqkzwv62R7N1YDVheEby6c=;
- b=ISKAnoJU+VfXKRp08x4Z674pc/zy8HYq129CMZoGKxZ3iD68qVKC9u6i5ACQWZPfqy
- T1NW70slgOxMxeTFcX6lSo3m8ck8Dpl/6EqU8NTcC0lSy4iED+GY+ZVUw8yBSR4/nqhk
- rmqa9qoDLJ0eqLSOEzeiF3HFvY5dejxzsBVgYxww5Ebr1BF5LQVxfPOvNpgi5EQyP2MZ
- nv+K5YjVSPlRjirB6EQqItY7QRjbg4LqQ7WAlMGhevI5ef3eqxuQXawTMOhqk4wPq6bU
- 8T6n4Xt7Nyi8/xxAAv+0kRtL0dYO++D+Z67mR3pRSMldO/t91DsDOESnKlVUDrck3r3P
- 3HZw==
-X-Gm-Message-State: AOAM530+CyR7E0GOl8g13pwjb91iyZGPVSxjDdRB5nS5rerSeQHu+GMu
- Nneh1FlGHS/tQWwoTEXZcEw=
-X-Google-Smtp-Source: ABdhPJzhP4wtMMzmaOV5fGwd68AETN6RqDpqQ3yLqQDRRh8+xE2VmdpspQ+VXi7Ig7CQtG0qeMdnLQ==
-X-Received: by 2002:a63:df0d:0:b0:373:401:6818 with SMTP id
- u13-20020a63df0d000000b0037304016818mr891219pgg.34.1645068351412; 
- Wed, 16 Feb 2022 19:25:51 -0800 (PST)
-Received: from george-Quanta.com.com (125-228-123-29.hinet-ip.hinet.net.
- [125.228.123.29])
- by smtp.gmail.com with ESMTPSA id 7sm438190pjo.45.2022.02.16.19.25.49
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 16 Feb 2022 19:25:50 -0800 (PST)
-From: George Hung <ghung.quanta@gmail.com>
-X-Google-Original-From: George Hung <george.hung@quantatw.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4JzgLV3N2rz30NW
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Feb 2022 14:29:53 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 50F3A5C012B;
+ Wed, 16 Feb 2022 22:29:51 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 16 Feb 2022 22:29:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm1; bh=4+YgZVrTNSqTWky0wazo5w1jwwg0ppXqVyzqya
+ Oe3fE=; b=Wr6K9RV1QgnE/K+qXWLN1XSV96m14pcvgVOc6UFKx9dAwWm9Udyhtk
+ 7nGi124V1VswFup2Lq4OshMBQNjG+0QlS9AbGn0aSuBs+Om+1jK0TKLgFy8MXgBU
+ 980NVKzx236fPH5eZQjookRinLHNKCUy2L3IpABIXaVWLIf9bFO0Q5v2rDIUsLcr
+ YURCqHyWIsR4N/0XRPeMMaZE4ZcNad/5yKj+olK0ozq0BbqqeHDVX68sg+FwB7Ln
+ IVUPzzyWUPUb3LfRxO6jy91i2Smk9UsXJSNQDkIG73AoZoKHCPRxey6A9BhbQDN7
+ EvuHQU/Q9XsvfsvitbGEW7KntepEDvUA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=4+YgZVrTNSqTWky0w
+ azo5w1jwwg0ppXqVyzqyaOe3fE=; b=DQnl3iEHRVWsMwOL9JWkr5XAMityGBAEb
+ U8FhU898fEe0G3nnL434VHJuNZmsPxDhf5Min12XH9vT0PJ7gcnXxlzICOCk8k57
+ 8JtAW7+kC7BBvsJ3QWW0ft7wQ598GclLGUj+CK0+bpm7b3gECtjgwr0JVUz4LQfu
+ conw86vllzJkB9rXMWcrIx3OKrxvE5tOrgfyK/QztJEDOHp+gRoVBQW9WtpMq8+M
+ Um2NCkDgeLyDR4QPvjcrj2KCSXhxFOPrXy5e+DW8vV9ecIhM9HDolTXnY4TSdH8a
+ U4tg5J39wgAcPkREDKhIbrpWClLVxDjOHCcc+DAv0h4VxQfrHGR7g==
+X-ME-Sender: <xms:LsENYrQfQcooep9DJn5dlG__KVCYe9E3RYfEPWmA5gWIOt7G0oj_QQ>
+ <xme:LsENYsxTHDq5E6XiAOTti2E3o-DqJwuRiYn9P7DcVxY01s-jY7f4pbuDLAe79vEM5
+ nmneo-v3zX7g40BUgE>
+X-ME-Received: <xmr:LsENYg1OyVDcMtUqn3VpPZiBKd0NWfZDKe8Z3tETDyTrkuRQeAOeNHros4VHGNKkpDyOs3k3ebNewYjpNj-SIo69BaUtWQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrjeejgdehkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
+ hrlhcuvffnffculdefhedmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttddv
+ necuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsth
+ iftgigrdighiiiqeenucggtffrrghtthgvrhhnpedvkeeuveeuudelgffgfeelteeffeeh
+ jefhtdffudettedujedvhfeikefhhfeuheenucffohhmrghinhepghhithhhuhgsrdgtoh
+ hmpdhophgvnhgsmhgtqdhprhhojhgvtghtrdighiiinecuvehluhhsthgvrhfuihiivgep
+ tdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:LsENYrBVtcBG2gIy7b7QvWvN2cY15hnqqgx8s58weRim0dRh49Xlgg>
+ <xmx:LsENYkhgtdJqpI5gx1tyh25NrBiZOn8NHW1Va6NZ7EW4aQbvcTlq3g>
+ <xmx:LsENYvpKAV-w63LLaX6TZ69a_H7tYDtIaJNJ2xIb9kvvp6T6R8hC4A>
+ <xmx:L8ENYtXTS4s2iz5kKwjzlCHeMLU7ICgSvNcA6R_RCCL3HqaPk8soWQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Feb 2022 22:29:50 -0500 (EST)
+Date: Wed, 16 Feb 2022 21:29:48 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
 To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH dev-5.15 v3] ARM: dts: aspeed: Add device tree for Quanta S6Q
- BMC
-Date: Thu, 17 Feb 2022 11:13:55 +0800
-Message-Id: <20220217031355.46102-1-george.hung@quantatw.com>
-X-Mailer: git-send-email 2.32.0
+Subject: Re: Openbmc u-boot trees (was Re: u-boot:rsa adds rsa3072 algorithm)
+Message-ID: <Yg3BLAxgCuExE7HJ@heinlein>
+References: <TYZPR06MB4015DC4BD5CA2FFAB595C69AFC2C9@TYZPR06MB4015.apcprd06.prod.outlook.com>
+ <CACPK8XfwLCxNVLfVa=FYw0TVXPE_Kj8+p7=6Svw_O10x22Jf1g@mail.gmail.com>
+ <TYZPR06MB4015B2ADBBB832D151F4B433FC2C9@TYZPR06MB4015.apcprd06.prod.outlook.com>
+ <HK0PR06MB3779776EED65721E481F8676912E9@HK0PR06MB3779.apcprd06.prod.outlook.com>
+ <CACPK8XfM+jNJ6bsABCPgGYWDg7bczjKKFjmA=Lzbi166nSOjbw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="/QfYSL2DkLOapRC9"
+Content-Disposition: inline
+In-Reply-To: <CACPK8XfM+jNJ6bsABCPgGYWDg7bczjKKFjmA=Lzbi166nSOjbw@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,657 +102,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Alan_Kuo@quantatw.com, openbmc@lists.ozlabs.org, p.k.lee@quantatw.com,
- Fran.Hsu@quantatw.com
+Cc: Jamin Lin <jamin_lin@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>,
+ ChiaWei Wang <chiawei_wang@aspeedtech.com>, Troy Lee <troy_lee@aspeedtech.com>,
+ Steven Lee <steven_lee@aspeedtech.com>, Dylan Hung <dylan_hung@aspeedtech.com>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Zev Weiss <zweiss@equinix.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The Quanta S6Q is a server platform with AST2600 BMC SoC
 
-Signed-off-by: George Hung <george.hung@quantatw.com>
+--/QfYSL2DkLOapRC9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
----
-v3:
- - fix the autor name format
+Hi Joel,
 
----
-v2:
- - correct the author name
----
- arch/arm/boot/dts/Makefile                  |   1 +
- arch/arm/boot/dts/aspeed-bmc-quanta-s6q.dts | 610 ++++++++++++++++++++
- 2 files changed, 611 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-quanta-s6q.dts
+On Fri, Feb 11, 2022 at 02:11:12AM +0000, Joel Stanley wrote:
+> On Wed, 9 Feb 2022 at 02:29, ChiaWei Wang <chiawei_wang@aspeedtech.com> w=
+rote:
+> > > In the short term, one option is we put all of the openbmc patches in=
+ the SDK,
+> > > and continue using that for openbmc. Would this work for aspeed?
+=2E..
+> Works for me. I've sent two PRs with the obvious changes:
+>=20
+>  https://github.com/AspeedTech-BMC/u-boot/pull/9
+>=20
+>  https://github.com/AspeedTech-BMC/u-boot/pull/8
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index f75f6c30b633..c56211f92712 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1498,6 +1498,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-opp-zaius.dtb \
- 	aspeed-bmc-portwell-neptune.dtb \
- 	aspeed-bmc-quanta-q71l.dtb \
-+	aspeed-bmc-quanta-s6q.dtb \
- 	aspeed-bmc-supermicro-x11spi.dtb \
- 	aspeed-bmc-inventec-transformers.dtb \
- 	aspeed-bmc-tyan-s7106.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-s6q.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-s6q.dts
-new file mode 100644
-index 000000000000..69e1bd256271
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-quanta-s6q.dts
-@@ -0,0 +1,610 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2022 Quanta Corp.
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+#include <dt-bindings/i2c/i2c.h>
-+
-+/ {
-+	model = "Quanta S6Q BMC";
-+	compatible = "quanta,s6q-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		// bus 0
-+		i2c20 = &SMB_HOST_DB2000_3V3AUX_SCL;
-+		i2c21 = &U12_PCA9546_CH1;
-+		i2c22 = &SMB_HOST_DB800_B_SCL;
-+		i2c23 = &SMB_HOST_DB800_C_SCL;
-+
-+		// bus 1
-+		i2c24 = &SMB_M2_P0_1V8AUX_SCL;
-+		i2c25 = &SMB_M2_P1_1V8AUX_SCL;
-+		i2c26 = &SMB_CPU_PIROM_3V3AUX_SCL;
-+		i2c27 = &SMB_TEMP_3V3AUX_SCL;
-+		i2c28 = &SMB_IPMB_3V3AUX_SSDSB_SCL;
-+		i2c29 = &SMB_IPMB_3V3AUX_SCL;
-+		i2c31 = &SMB_FB_SCL;
-+
-+		// bus 1 - Fan board
-+		i2c32 = &SMB_IOEXP_SCL;
-+		i2c33 = &SMB_PROGRAM_SCL;
-+		i2c34 = &SMB_FB_SCL_CH2;
-+		i2c35 = &SMB_FAN_SENSE_SCL;
-+
-+		// bus 6
-+		i2c36 = &U197_PCA9546_CH0;
-+		i2c37 = &U197_PCA9546_CH1;
-+		i2c38 = &U197_PCA9546_CH2;
-+		i2c39 = &U197_PCA9546_CH3;
-+
-+		//bus 7
-+		i2c40 = &SMB_OCP_SFF_3V3AUX_SCL; //OCP1
-+		i2c41 = &SMB_OCP_LFF_3V3AUX_SCL; //OCP2
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200n8 earlycon";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>, <&adc0 3>,
-+			<&adc0 4>, <&adc0 5>, <&adc0 6>, <&adc0 7>,
-+			<&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
-+			<&adc1 4>, <&adc1 5>, <&adc1 6>, <&adc1 7>;
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		BMC_HEARTBEAT_N {
-+			label="BMC_HEARTBEAT_N";
-+			gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+
-+		BMC_LED_STATUS_AMBER_N {
-+			label="BMC_LED_STATUS_AMBER_N";
-+			gpios = <&gpio0 ASPEED_GPIO(S, 6) GPIO_ACTIVE_LOW>;
-+			default-state = "off";
-+		};
-+
-+		FM_ID_LED_N {
-+			label="FM_ID_LED_N";
-+			gpios = <&gpio0 ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
-+			default-state = "off";
-+		};
-+	};
-+};
-+
-+&gpio0 {
-+	gpio-line-names =
-+	/*A0 - A7*/	"", "", "", "", "", "", "", "",
-+	/*B0 - B7*/	"", "", "", "", "", "", "", "",
-+	/*C0 - C7*/	"", "", "", "", "", "", "", "",
-+	/*D0 - D7*/	"", "", "", "", "", "", "", "",
-+	/*E0 - E7*/	"", "", "", "", "", "", "", "",
-+	/*F0 - F7*/	"PLTRST_N", "", "PWR_DEBUG_N", "", "", "", "", "",
-+	/*G0 - G7*/	"", "", "", "", "", "", "", "",
-+	/*H0 - H7*/	"", "", "", "", "", "", "", "",
-+	/*I0 - I7*/	"", "", "", "", "", "", "", "",
-+	/*J0 - J7*/	"", "", "", "", "", "", "", "",
-+	/*K0 - K7*/	"", "", "", "", "", "", "", "",
-+	/*L0 - L7*/	"", "", "", "", "PREQ_N", "TCK_MUX_SEL", "", "",
-+	/*M0 - M7*/	"", "", "", "PWRGD_SYS_PWROK", "", "PRDY_N", "", "",
-+	/*N0 - N7*/	"", "", "", "", "", "", "", "",
-+	/*O0 - O7*/	"", "", "", "", "", "", "", "",
-+	/*P0 - P7*/	"SYS_BMC_PWRBTN_R_N", "SYS_PWRBTN_N", "FM_MB_RST_BTN", "RST_BMC_RSTBTN_OUT_N", "", "", "", "",
-+	/*Q0 - Q7*/	"", "", "", "", "", "", "", "",
-+	/*R0 - R7*/	"", "", "", "", "", "", "", "",
-+	/*S0 - S7*/	"", "", "", "FP_ID_BTN_SCM_N", "", "", "", "",
-+	/*T0 - T7*/	"", "", "", "", "", "", "", "",
-+	/*U0 - U7*/	"", "", "", "", "", "", "", "",
-+	/*V0 - V7*/	"", "", "", "", "", "SMI", "", "",
-+	/*W0 - W7*/	"", "", "", "", "", "", "", "",
-+	/*X0 - X7*/	"", "", "", "", "", "", "", "",
-+	/*Y0 - Y7*/	"", "", "", "", "", "", "", "",
-+	/*Z0 - Z7*/	"FM_BMC_READY_N", "", "", "", "", "", "", "",
-+	/*AA0 - AA7*/	"", "", "", "", "", "", "", "",
-+	/*AB0 - AB7*/	"", "", "", "", "", "", "", "",
-+	/*AC0 - AC7*/	"", "", "", "", "", "", "", "";
-+};
-+
-+&sgpiom0 {
-+	status = "okay";
-+	ngpios = <128>;
-+	bus-frequency = <48000>;
-+	gpio-line-names =
-+	/* SGPIO input lines */
-+	/*IOA0-IOA7*/	"","", "SIO_POWER_GOOD","OA1", "XDP_PRST_N","", "","", "FM_SLPS3_PLD_N","", "FM_SLPS4_PLD_N","", "FM_BIOS_POST_CMPLT_BMC_N","", "FM_ADR_TRIGGER_N","OA7",
-+	/*IOB0-IOB7*/	"FM_ADR_COMPLETE","", "FM_PMBUS_ALERT_B_EN","", "PSU0_PRESENT_N","", "PSU1_PRESENT_N","", "PSU0_VIN_BUF_GOOD","", "PSU01_VIN_BUF_GOOD","", "PWRGD_PS0_PWROK_R","", "PWRGD_PS1_PWROK_R","",
-+	/*IOC0-IOC7*/	"PWRGD_PS_PWROK_PLD_R","", "CHASSIS_INTRUSION","", "BMC_MFG_MODE","", "FM_BMC_EN_DET_R","", "FM_ME_BT_DONE","", "CPU1_PRESENCE","", "CPU2_PRESENCE","", "IRQ_PSYS_CRIT_N","",
-+	/*IOD0-IOD7*/	"","", "CPU1_THERMTRIP","", "CPU2_THERMTRIP","", "CPU1_MEM_THERM_EVENT","", "CPU2_MEM_THERM_EVENT","", "CPU1_VRHOT","", "CPU2_VRHOT","", "","",
-+	/*IOE0-IOE7*/	"","", "CPU1_MEM_VRHOT","", "CPU2_MEM_VRHOT","", "","", "PCH_BMC_THERMTRIP","", "","", "","", "","",
-+	/*IOF0-IOF7*/	"CPU_ERR0","", "CPU_ERR1","", "CPU_ERR2","", "","", "","", "CPU_CATERR","", "","", "","",
-+	/*IOG0-IOG7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*IOH0-IOH7*/	"","", "FP_ID_BTN_R1_N","", "FP_RST_BTN_N","", "","", "","", "FP_PWR_BTN_PLD_N_R","", "","", "","",
-+	/*IOI0-IOI7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*IOJ0-IOJ7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*IOK0-IOK7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*IOL0-IOL7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*IOM0-IOM7*/	"","", "","", "","", "","", "","", "","", "","", "","",
-+	/*ION0-ION7*/	"","BMC_SW_HEARTBEAT_N_R", "","FP_LED_FAULT_N", "","FP_ID_LED_N", "","FM_BMC_RSTBTN_OUT_N", "","FM_THERMTRIP_DLY_LVC1_R_N", "","", "","RST_PCA9548_SENSOR_PLD_N", "","USB_OC1_REAR_N",
-+	/*IOO0-IOO7*/	"","IRQ_TPM_SPI_N", "","", "","IRQ_PCH_SCI_WHEA_R_N", "","IRQ_BMC_PCH_NMI_R", "","H_CPU_NMI_LVC1_R_N", "","", "","", "","FM_JTAG_BMC_PLD_MUX_SEL",
-+	/*IOP0-IOP7*/	"IP0","OP0", "","", "","", "","", "","", "","", "","", "IP7","OP7";
-+};
-+
-+&adc0 {
-+	vref = <2500>;
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc0_default &pinctrl_adc1_default
-+		&pinctrl_adc2_default &pinctrl_adc3_default
-+		&pinctrl_adc4_default &pinctrl_adc5_default
-+		&pinctrl_adc6_default &pinctrl_adc7_default>;
-+};
-+
-+&adc1 {
-+	vref = <2500>;
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc8_default &pinctrl_adc9_default
-+		&pinctrl_adc10_default &pinctrl_adc11_default
-+		&pinctrl_adc12_default &pinctrl_adc13_default
-+		&pinctrl_adc14_default &pinctrl_adc15_default>;
-+};
-+
-+&mdio2 {
-+	status = "okay";
-+
-+	ethphy2: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
-+	};
-+};
-+
-+&mac2 {
-+	status = "okay";
-+
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy2>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii3_default>;
-+};
-+
-+&mac3 {
-+	status = "okay";
-+
-+	phy-mode = "rmii";
-+	use-ncsi;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii4_default>;
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+#include "openbmc-flash-layout-64.dtsi"
-+	};
-+};
-+
-+&spi2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi2_default &pinctrl_spi2cs1_default
-+		&pinctrl_spi2cs2_default>;
-+	status = "okay";
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "spi2:0";
-+		spi-max-frequency = <50000000>;
-+	};
-+};
-+
-+&kcs1 {
-+	status = "okay";
-+	aspeed,lpc-io-reg = <0xCA0>;
-+};
-+
-+&kcs2 {
-+	status = "okay";
-+	aspeed,lpc-io-reg = <0xCA8>;
-+};
-+
-+&kcs3 {
-+	status = "okay";
-+	aspeed,lpc-io-reg = <0xCA2>;
-+};
-+
-+&emmc_controller {
-+	status = "okay";
-+};
-+
-+&emmc {
-+	non-removable;
-+	bus-width = <4>;
-+	max-frequency = <100000000>;
-+};
-+
-+&vhub {
-+	status = "okay";
-+};
-+
-+&lpc_snoop {
-+	status = "okay";
-+	snoop-ports = <0x80>;
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&uart_routing {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	U34_PWR_ADC@48 {
-+		compatible = "ti,ads7830";
-+		reg = <0x48>;
-+	};
-+
-+	U35_PWR_ADC@4b {
-+		compatible = "ti,ads7830";
-+		reg = <0x4b>;
-+	};
-+
-+	i2c-switch@70 {
-+		compatible = "nxp,pca9546";
-+		reg = <0x70>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+
-+		SMB_HOST_DB2000_3V3AUX_SCL: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		U12_PCA9546_CH1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		SMB_HOST_DB800_B_SCL: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		SMB_HOST_DB800_C_SCL: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+
-+	i2c-switch@59 {
-+		compatible = "nxp,pca9848";
-+		reg = <0x59>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+
-+		SMB_M2_P0_1V8AUX_SCL: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		SMB_M2_P1_1V8AUX_SCL: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		SMB_CPU_PIROM_3V3AUX_SCL: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		SMB_TEMP_3V3AUX_SCL: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+
-+			U163_tmp75@48 {
-+				compatible = "ti,tmp75";
-+				reg = <0x48>;
-+			};
-+			U114_tmp75@49 {
-+				compatible = "ti,tmp75";
-+				reg = <0x49>;
-+			};
-+		};
-+
-+		SMB_IPMB_3V3AUX_SSDSB_SCL: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+
-+			U4_tmp75@4c {
-+				compatible = "ti,tmp75";
-+				reg = <0x4c>;
-+			};
-+			U73_tmp75@4d {
-+				compatible = "ti,tmp75";
-+				reg = <0x4d>;
-+			};
-+		};
-+
-+		SMB_IPMB_3V3AUX_SCL: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+
-+			U190_fru@51 {
-+				compatible = "atmel,24c128";
-+				reg = <0x51>;
-+				pagesize = <32>;
-+			};
-+		};
-+
-+		SMB_FB_SCL: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+
-+			i2c-switch@77 {
-+				compatible = "nxp,pca9546";
-+				reg = <0x77>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				i2c-mux-idle-disconnect;
-+
-+				SMB_IOEXP_SCL: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+
-+				SMB_PROGRAM_SCL: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+
-+				SMB_FB_SCL_CH2: i2c@2 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <2>;
-+				};
-+
-+				SMB_FAN_SENSE_SCL: i2c@3 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <3>;
-+
-+					Current_Meter_U2@45 {
-+						compatible = "ti,ina219";
-+						reg = <0x45>;
-+						shunt-resistor = <1000>; /* = 1 mOhm */
-+					};
-+
-+					Current_Meter_U3@44 {
-+						compatible = "ti,ina219";
-+						reg = <0x44>;
-+						shunt-resistor = <1000>; /* = 1 mOhm */
-+					};
-+
-+					TEMP_sensor_U2@4b {
-+						compatible = "ti,tmp75";
-+						reg = <0x4b>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+	bus-frequency = <400000>;
-+
-+	ipmb@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+
-+	/* MB FRU (U173) @ 0xA2 */
-+	mb_fru: mb_fru@51 {
-+		compatible = "atmel,24c128";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+
-+	/* FP_U1 Inlet */
-+	FP_U1_tmp75@4a {
-+		compatible = "ti,tmp75";
-+		reg = <0x4a>;
-+	};
-+
-+	FP_U4_fru@52 {
-+		compatible = "atmel,24c02";
-+		reg = <0x52>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+
-+	i2c-switch@77 {
-+		compatible = "nxp,pca9548";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x77>;
-+		i2c-mux-idle-disconnect;
-+
-+		U197_PCA9546_CH0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		U197_PCA9546_CH1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+
-+			cpu0_pvccin@60 {
-+				compatible = "isil,raa229004";
-+				reg = <0x60>;
-+			};
-+
-+			cpu0_pvccinfaon@61 {
-+				compatible = "isil,isl69260";
-+				reg = <0x61>;
-+			};
-+
-+			cpu0_pvccd_hv@63 {
-+				compatible = "isil,isl69260";
-+				reg = <0x63>;
-+			};
-+		};
-+
-+		U197_PCA9546_CH2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+
-+			cpu1_pvccin@72 {
-+				compatible = "isil,raa229004";
-+				reg = <0x72>;
-+			};
-+
-+			cpu1_pvccinfaon@74 {
-+				compatible = "isil,isl69260";
-+				reg = <0x74>;
-+			};
-+
-+			cpu1_pvccd_hv@76 {
-+				compatible = "isil,isl69260";
-+				reg = <0x76>;
-+			};
-+		};
-+
-+		U197_PCA9546_CH3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+
-+	i2c-switch@75 {
-+		compatible = "nxp,pca9546";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		reg = <0x75>;
-+		i2c-mux-idle-disconnect;
-+
-+		SMB_OCP_SFF_3V3AUX_SCL: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		SMB_OCP_LFF_3V3AUX_SCL: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+	};
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+
-+	/* SCM FRU (U19) @ 0xA2 */
-+	scm_fru: scm_fru@51 {
-+		compatible = "atmel,24c128";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+
-+	scm_tmp75_u4@4a {
-+		compatible = "ti,tmp75";
-+		reg = <0x4a>;
-+	};
-+};
-+
-+&i2c15 {
-+	status = "okay";
-+};
--- 
-2.32.0
+I can't tell for certain, but are you proposing that our recipes would now
+exclusively point to AspeedTech-BMC?  Or would we still point them at
+openbmc/u-boot?
 
+I have a few concerns about pointing at AspeedTech-BMC:
+
+    a. This seems to conflict with our existing guildlines for meta-layer d=
+ata
+       and some of the stronger guidelines we are close to consensus on wit=
+h:
+
+           https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/51099
+
+    b. We seem to be farther from commonality between Aspeed and Nuvoton (a=
+nd
+       any other future vendors that might surface) by taking this approach.
+
+    c. This is different from how we handle the kernel and seems to tie us
+       more specifically to the whims of the vendor, especially around upda=
+tes.
+       We're already working off an early 2019 snapshot.  I recognize that =
+the
+       current maintainership structure is additional burden on you, but is=
+ it
+       possible someone else from the community might be interested in assi=
+sting
+       here?
+
+    d. We're prohibiting patches in any meta-layer (and already explicitly =
+block
+       them from passing CI), but new machines often require at least DTS
+       changes to u-boot.  Is Aspeed committed to taking up DTS changes at a
+       similar pace to what the community needs?  What are the requirements=
+ for
+       those changes (by Aspeed)?  What is the process for them and is it t=
+o be
+       documented in our project anywhere, since what appears to be a PR-ba=
+sed
+       proposal deviates from our typical "use Gerrit or do it like upstrea=
+m"
+       model?
+
+I think most of these are manageable as long as we understand what the
+expectation is (and document it as appropriate).  It may require some wordi=
+ng
+changes to our guidelines and/or modifications to our guideline-validating
+scripts.  The one that is most worrying to me is (d) especially around the
+potential pace of acceptance of new machines.
+
+--=20
+Patrick Williams
+
+--/QfYSL2DkLOapRC9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmINwSsACgkQqwNHzC0A
+wRlhXg/+Ne5P4QVlsT++HqA4zLbecGJXGzzfWBfmHJcNrZFLTcjTaHMahcKb9Z3S
+otelE8pafDdv4qNMEESqtcuICX7/Fj/JrGQtxQFxgYVFerLrC54zdp1PfQZx1gCg
+CDK14KUKkRCcblNdOU8+lUjKtIq73f4jwmfYNHgrVgorjSaXGXcnWlnevHFLieUT
+mZlOXAlvxN/mqAJx+qec9FPhILAh0k4MREQW1cXSSFTLYyIEZTO+YX1w1NpSP/P/
+woztzkYvKrkmgWp0DBa7YCVGHqCXT5PeWiGTHo2kpAlFx2LMjfJiIDdx724XYo7l
+LQ+ElfgbDGBWYXqcHJS/V/j2tuTRMBk4Va6LWtenAcjTXG+Ik16EHI/6mGbux8C4
+j1PiN2+9Ub/izhnLRQdqpa8lksQCA8i8BrehlNuzkFeWbGfAegh4YXqhDgUmQvRV
+rb7Kd6mQMeoEAdZSIHNlAXC0Y6HdGj0zZeVNBg9DQXobV9T+MEf3evYrRpF80C8T
+IC7Z8hGyXmO5OGlh9p4FJjFEnjqalBXHOzjRmDk3X0NTuRyUrwqNvR46kt0Kyw+z
+Hnx6Z+i86QiC8Sa+x3OAGU2eESX/x6Pxu/sHfzQRR50w47ImJ5Urf5ZlRB7YUV0S
+Fl5bdBef95uM+TVeAXwvmHmHGyRWKQkgGQAVs5OjoFNbPCuAYzg=
+=Bqqj
+-----END PGP SIGNATURE-----
+
+--/QfYSL2DkLOapRC9--
