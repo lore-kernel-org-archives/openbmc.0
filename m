@@ -4,59 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5122CC433F5
-	for <openbmc@archiver.kernel.org>; Fri, 18 Feb 2022 00:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 909D5C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 18 Feb 2022 02:30:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K0C9y2K9Rz3cKM
-	for <openbmc@archiver.kernel.org>; Fri, 18 Feb 2022 11:24:22 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K0FzH4qKRz3cV9
+	for <openbmc@archiver.kernel.org>; Fri, 18 Feb 2022 13:30:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=M9kSLMcp;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=1gPM+7d2;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
- helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::c36;
+ helo=mail-oo1-xc36.google.com; envelope-from=yulei.sh@bytedance.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=M9kSLMcp; 
- dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [IPv6:2605:2700:0:5::4713:9cab])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=bytedance-com.20210112.gappssmtp.com
+ header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=1gPM+7d2; dkim-atps=neutral
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [IPv6:2607:f8b0:4864:20::c36])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K0C9F6MScz3cGW
- for <openbmc@lists.ozlabs.org>; Fri, 18 Feb 2022 11:23:45 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (174-21-187-98.tukw.qwest.net
- [174.21.187.98])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 319D3FA;
- Thu, 17 Feb 2022 16:23:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1645143824;
- bh=b+69uaIlAfYvUutHI5tZxpP8eKuLZSiDYTF3PppxEac=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M9kSLMcpXIb8BgmOmcCk0mpT/vYbtrX5je5KCdkidZJRInS65T8cKISj2rY/LzhAg
- XEfJxkqHxQV2FQx0n5qE8duGmjxVuQaIs5xrAP8kvVFWBQ8oX1MavlanSDr2yghP+g
- w24eCmHVJTCJ4KdP5mUpMnyaALzjWNhlBCdbpLpY=
-Date: Thu, 17 Feb 2022 16:23:42 -0800
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH 1/4] hwmon: (pmbus) Add get_error_flags support to
- regulator ops
-Message-ID: <Yg7nDpJuH0XkessL@hatter.bewilderbeest.net>
-References: <20220217104444.7695-1-zev@bewilderbeest.net>
- <20220217104444.7695-2-zev@bewilderbeest.net>
- <b22ca322-c8f2-d17c-75ff-54ee26b0041b@roeck-us.net>
- <Yg7cQwA+i5oTYqHJ@hatter.bewilderbeest.net>
- <3bfa7f1f-ef5d-b222-894b-b15a2270996d@roeck-us.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K0FyZ1FPWz3bVG
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Feb 2022 13:29:39 +1100 (AEDT)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ w10-20020a4ae08a000000b0031bdf7a6d76so1887286oos.10
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Feb 2022 18:29:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Y5rvOzYSBXt1xJVWgVMLZz134ORWWkG36rZQafdg9aM=;
+ b=1gPM+7d2fh7a0svgtSl7wSHz1BP54yYX6Q+0FgrpKxW1rPUh4SuaXIB6vutIB7sOX4
+ qjqlaFUdgA3bzhmH3HmVJOceityeV97ORoxQ+UxQvM3x/EoXPQ5wqi0Kw9F+5HNqw6Fo
+ SkHkwkXQlOhQg4StIqNZK8jqHL3Pn0HnqpU7Zn1yRfTJUqlPWfmMqDhy+SolucQPJWBD
+ pe9B7Ec8D7W9/1ItfRsxFFnoan8ShNrUhEM6VWs/+OKBSWwBdNj7SyOsTSDq8TFlxxOM
+ u2QPzEJSqvW2cgCvaq4rgWF73/HIs9FWdmRVsFEOIKFf5D0DJi/xzlF8tu/kj48Y6WaU
+ DVIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Y5rvOzYSBXt1xJVWgVMLZz134ORWWkG36rZQafdg9aM=;
+ b=b8Pd/RdIfstbPal/T+oY0/CulmdNyzAg02ALbor4B2urVSHTgMQxqoITnV2LQ+uZX5
+ foBI9bDWlGvaNlNe1F/05NmLMHiek027AC4N6uRYJBcHvKa3tpTFmjkZjdlR6kYX5krR
+ Vn3VyTyKhIkdoe+t+QiwZep8Qg+e8kGme2Fu3bkzY2Vi437I8/vjPTD4oVgktVvRuf6t
+ e+QhkJSdEQOz6p1BKo/ajPi5iDo9nHv8tt7YteOWp28p/mCiict8WAKmj+HUoMIA6wkA
+ F8WYCPGrybNBcKAFXvXop9DHLMka0yoWBd1qYYDcRkXmpKA7QyKM67trfurreaaPnXeQ
+ AZCw==
+X-Gm-Message-State: AOAM533k2uR9B0qAR37o0FMYI+4gcApMG+6dYAM11Navs395f9aUuyKw
+ r8Uk1SHAkf5/fs6IDeJvGo2r8ka5mjho6dwBkCEdjA==
+X-Google-Smtp-Source: ABdhPJz8BjsaANN65ntYD0fa1zFuew6726LI6XyGdoYPeVOPanMYKZ9xTyNDYB1EVbgJ+uFfLJ5fn480sUzGTSqusmk=
+X-Received: by 2002:a05:6870:219c:b0:d1:5c1d:7f54 with SMTP id
+ l28-20020a056870219c00b000d15c1d7f54mr3484713oae.213.1645151376680; Thu, 17
+ Feb 2022 18:29:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3bfa7f1f-ef5d-b222-894b-b15a2270996d@roeck-us.net>
+References: <af9a0274-2fb3-8195-a02b-c1d5ecf4848e@intel.com>
+ <bb39999e8f9638da3d29b865d85fb54d51da9797.camel@codeconstruct.com.au>
+In-Reply-To: <bb39999e8f9638da3d29b865d85fb54d51da9797.camel@codeconstruct.com.au>
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Fri, 18 Feb 2022 10:29:25 +0800
+Message-ID: <CAGm54UE1bFeLF9PHUuj__E0m_+CxLRtA4Htrjm4y5M3SnbOhLA@mail.gmail.com>
+Subject: Re: Checking for network online
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,180 +78,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Johnathan Mantey <johnathanx.mantey@intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Feb 17, 2022 at 04:02:58PM PST, Guenter Roeck wrote:
->On 2/17/22 15:37, Zev Weiss wrote:
->>On Thu, Feb 17, 2022 at 10:11:32AM PST, Guenter Roeck wrote:
->>>On 2/17/22 02:44, Zev Weiss wrote:
->>>>The various PMBus status bits don't all map perfectly to the more
->>>>limited set of REGULATOR_ERROR_* flags, but there's a reasonable
->>>>number where they correspond well enough.
->>>>
->>>>Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
->>>>---
->>>> drivers/hwmon/pmbus/pmbus_core.c | 97 ++++++++++++++++++++++++++++++++
->>>> 1 file changed, 97 insertions(+)
->>>>
->>>>diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
->>>>index 776ee2237be2..a274e8e524a5 100644
->>>>--- a/drivers/hwmon/pmbus/pmbus_core.c
->>>>+++ b/drivers/hwmon/pmbus/pmbus_core.c
->>>>@@ -2417,10 +2417,107 @@ static int pmbus_regulator_disable(struct regulator_dev *rdev)
->>>>     return _pmbus_regulator_on_off(rdev, 0);
->>>> }
->>>>+/* A PMBus status flag and the corresponding REGULATOR_ERROR_* flag */
->>>>+struct pmbus_regulator_status_assoc {
->>>>+    int pflag, rflag;
->>>>+};
->>>>+
->>>>+/* PMBus->regulator bit mappings for a PMBus status register */
->>>>+struct pmbus_regulator_status_category {
->>>>+    int func;
->>>>+    int reg;
->>>>+    const struct pmbus_regulator_status_assoc *bits; /* zero-terminated */
->>>>+};
->>>>+
->>>>+static const struct pmbus_regulator_status_category pmbus_regulator_flag_map[] = {
->>>>+    {
->>>>+        .func = PMBUS_HAVE_STATUS_VOUT,
->>>>+        .reg = PMBUS_STATUS_VOUT,
->>>>+        .bits = (const struct pmbus_regulator_status_assoc[]) {
->>>>+            { PB_VOLTAGE_UV_WARNING, REGULATOR_ERROR_UNDER_VOLTAGE_WARN },
->>>>+            { PB_VOLTAGE_UV_FAULT,   REGULATOR_ERROR_UNDER_VOLTAGE },
->>>>+            { PB_VOLTAGE_OV_WARNING, REGULATOR_ERROR_OVER_VOLTAGE_WARN },
->>>>+            { PB_VOLTAGE_OV_FAULT,   REGULATOR_ERROR_REGULATION_OUT },
->>>>+            { },
->>>>+        },
->>>>+    }, {
->>>>+        .func = PMBUS_HAVE_STATUS_IOUT,
->>>>+        .reg = PMBUS_STATUS_IOUT,
->>>>+        .bits = (const struct pmbus_regulator_status_assoc[]) {
->>>>+            { PB_IOUT_OC_WARNING,    REGULATOR_ERROR_OVER_CURRENT_WARN },
->>>>+            { PB_IOUT_OC_FAULT,      REGULATOR_ERROR_OVER_CURRENT },
->>>>+            { PB_IOUT_OC_LV_FAULT,   REGULATOR_ERROR_OVER_CURRENT },
->>>>+            { },
->>>>+        },
->>>>+    }, {
->>>>+        .func = PMBUS_HAVE_STATUS_TEMP,
->>>>+        .reg = PMBUS_STATUS_TEMPERATURE,
->>>>+        .bits = (const struct pmbus_regulator_status_assoc[]) {
->>>>+            { PB_TEMP_OT_WARNING,    REGULATOR_ERROR_OVER_TEMP_WARN },
->>>>+            { PB_TEMP_OT_FAULT,      REGULATOR_ERROR_OVER_TEMP },
->>>>+            { },
->>>>+        },
->>>>+    },
->>>>+};
->>>>+
->>>>+static int pmbus_regulator_get_error_flags(struct regulator_dev *rdev, unsigned int *flags)
->>>>+{
->>>>+    int i, status, statusreg;
->>>>+    const struct pmbus_regulator_status_category *cat;
->>>>+    const struct pmbus_regulator_status_assoc *bit;
->>>>+    struct device *dev = rdev_get_dev(rdev);
->>>>+    struct i2c_client *client = to_i2c_client(dev->parent);
->>>>+    struct pmbus_data *data = i2c_get_clientdata(client);
->>>>+    u8 page = rdev_get_id(rdev);
->>>>+    int func = data->info->func[page];
->>>>+
->>>>+    *flags = 0;
->>>>+
->>>>+    for (i = 0; i < ARRAY_SIZE(pmbus_regulator_flag_map); i++) {
->>>>+        cat = &pmbus_regulator_flag_map[i];
->>>>+        if (!(func & cat->func))
->>>>+            continue;
->>>>+
->>>>+        status = pmbus_read_byte_data(client, page, cat->reg);
->>>>+        if (status < 0)
->>>>+            return status;
->>>>+
->>>>+        for (bit = cat->bits; bit->pflag; bit++) {
->>>>+            if (status & bit->pflag)
->>>>+                *flags |= bit->rflag;
->>>>+        }
->>>>+    }
->>>>+
->>>>+    /*
->>>>+     * Map what bits of STATUS_{WORD,BYTE} we can to REGULATOR_ERROR_*
->>>>+     * bits.  Some of the other bits are tempting (especially for cases
->>>>+     * where we don't have the relevant PMBUS_HAVE_STATUS_*
->>>>+     * functionality), but there's an unfortunate ambiguity in that
->>>>+     * they're defined as indicating a fault *or* a warning, so we can't
->>>>+     * easily determine whether to report REGULATOR_ERROR_<foo> or
->>>>+     * REGULATOR_ERROR_<foo>_WARN.
->>>>+     */
->>>>+    statusreg = data->has_status_word ? PMBUS_STATUS_WORD : PMBUS_STATUS_BYTE;
->>>>+    status = pmbus_get_status(client, page, statusreg);
->>>>+
->>>
->>>pmbus_get_status() calls data->read_status if PMBUS_STATUS_WORD is provided
->>>as parameter, and data->read_status is set to pmbus_read_status_byte()
->>>if reading the word status is not supported. Given that, why not just call
->>>pmbus_get_status(client, page, PMBUS_STATUS_WORD) ?
->>
->>Good point, I'll change it to do that instead.  (And send v2 separately from the power-efuse driver patches.)
->>
->>>
->>>>+    if (status < 0)
->>>>+        return status;
->>>>+
->>>>+    if (pmbus_regulator_is_enabled(rdev) && (status & PB_STATUS_OFF))
->>>>+        *flags |= REGULATOR_ERROR_FAIL;
->>>>+    if (status & PB_STATUS_IOUT_OC)
->>>>+        *flags |= REGULATOR_ERROR_OVER_CURRENT;
->>>
->>>If the current status register is supported, this effectively means that
->>>an overcurrent warning is always reported as both REGULATOR_ERROR_OVER_CURRENT
->>>and REGULATOR_ERROR_OVER_CURRENT_WARN. Is that intentional ?
->>>
->>
->>No, but I don't think (by my reading of the spec) that's what would happen?
->>
->>I'm looking at table 16 ("STATUS_WORD Message Contents") in section 17.2 ("STATUS_WORD") of Part II of revision 1.3.1 of the PMBus spec, which says that bit 4 of the low byte (PB_STATUS_IOUT_OC) indicates an output overcurrent fault, not a warning (in contrast to most of the other bits, which may indicate either).
->>
->>>
->>>>+    if (status & PB_STATUS_VOUT_OV)
->>>>+        *flags |= REGULATOR_ERROR_REGULATION_OUT;
->>>
->>>Same for voltage.
->>
->>Likewise, PB_STATUS_VOUT_OV is specified as indicating a fault, not a warning.
->>
+On Fri, Feb 18, 2022 at 8:11 AM Jeremy Kerr <jk@codeconstruct.com.au> wrote:
 >
->Ok, that makes sense.
+> Hi Johnathan,
 >
->>>On the other side, temperature limit violations are not
->>>reported at all unless the temperature status register exists.
->>>That seems to be a bit inconsistent to me.
->>>
->>
->>Right -- that's because PB_STATUS_TEMPERATURE is one of the "fault or warning" bits (unlike VOUT_OV and IOUT_OC), and hence it's an ambiguous case as described in the comment before the pmbus_get_status() call.
->>
->>It's certainly not ideal, but it seemed like the best approach I could see given the semantics of the available flags -- I'm open to other possibilities though if there's something else that would work better.
->>
+> > Issue: systemd-networkd-wait-online.service stalls for 120 seconds
+> > when the managed NICs do not have a network connection.
+> >
+> > TLDR: Should OpenBMC remove systemd-networkd-wait-online.service
+> > universally?
 >
->My approach would be to report a warning if no temperature warning/fault
->is set from PMBUS_STATUS_TEMPERATURE but PB_STATUS_TEMPERATURE is set
->in the status register.
+> Probably not, it's required to implement network-online,target, which
+> is standard, and may be referred to by arbitrary packages.
 >
->Something like
+> There's some good background on the issues you're experiencing here:
 >
->	if (!(*flags & (REGULATOR_ERROR_OVER_TEMP | REGULATOR_ERROR_OVER_TEMP_WARN))
->	    && (status & PB_STATUS_TEMPERATURE))
->		*flags |= REGULATOR_ERROR_OVER_TEMP_WARN;
+>  https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 >
->While not perfect, it would be better than reporting nothing.
+> in short: most services should be able to start before network-
+> online.target, and be able to adapt to changes in network configuration
+> after that point.
 >
+> For your specific issue there:
+>
+> > Issues: This service blocks entry to multi-user.target.
+> > phosphor-state-manager uses multi-user.target to report the BMC is
+> > ready to use.
+> > This is reported via IPMI Get Device ID.
+>
+> That sounds like more of an issue of whether that reported state
+> actually represents the expected BMC state...
 
-That sounds like a good idea -- I'll add it in v2.
+We have an internal "override" config to start
+systemd-networkd-wait-online with --any option:
 
+ # override.conf
+ [Service]
+ ExecStart=
+ ExecStart=/lib/systemd/systemd-networkd-wait-online --any
 
-Thanks,
-Zev
-
+This is mostly about fixing the QEMU CI.
+In the real environment the network *should* be up and online so the
+above makes the systemd-networkd-wait-online starts OK in both cases.
