@@ -4,63 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D087EC433EF
-	for <openbmc@archiver.kernel.org>; Mon, 21 Feb 2022 05:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B513C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 21 Feb 2022 05:12:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K29QF3ZYyz3cMQ
-	for <openbmc@archiver.kernel.org>; Mon, 21 Feb 2022 16:11:49 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K29Qw6SVrz3cFf
+	for <openbmc@archiver.kernel.org>; Mon, 21 Feb 2022 16:12:24 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=BgKxH2bL;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=DwrEBVmt;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::1131;
- helo=mail-yw1-x1131.google.com; envelope-from=gauravgandhi@google.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::430;
+ helo=mail-pf1-x430.google.com; envelope-from=warp5tw@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20210112 header.b=BgKxH2bL; dkim-atps=neutral
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [IPv6:2607:f8b0:4864:20::1131])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=DwrEBVmt; dkim-atps=neutral
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [IPv6:2607:f8b0:4864:20::430])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K0pVr1r5Wz3Wtt
- for <openbmc@lists.ozlabs.org>; Sat, 19 Feb 2022 10:56:01 +1100 (AEDT)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-2d641c31776so82605167b3.12
- for <openbmc@lists.ozlabs.org>; Fri, 18 Feb 2022 15:56:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=CkVOQCvDoCUfHGuUBl433hZT6KHa5BvCo97zPR5CdTM=;
- b=BgKxH2bLWIeTRwXwe0fN1yD089ytgxt0FsbfDiUrqSbnhyP+nPRxU46OxlVzBc9uNH
- K2ZjOWYgLDCSAX0g7IPLTVyiTJDQqeRS0OlHoF7nCZBwVVkpOJSDq4dytE6BhUkMsorz
- gXB5S0tbp/kgDvPi2Y+LhGQ/eIwBdhJzP2iGJpMFrIxad2wBZzn3Ye5mHVkos26fmkVq
- zlWX+2W88Tsb7P75ZZFAARr4ES1XqP6+e4vq0FUSROL8x1nigZ4HId8koTgyA0Dp8mvr
- lhYgKg1S0o6QA0gmC9A9ytSebekCJJ+v5HRz4inQAjIFRXnk8e6ROIgBd6Xyjq+P8/5B
- IzJw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K1WpR6Vhpz30H3
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Feb 2022 14:57:03 +1100 (AEDT)
+Received: by mail-pf1-x430.google.com with SMTP id d17so5767561pfl.0
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Feb 2022 19:57:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=erxXp3pM+vmnwt5dCKBDd+mcnjI272utGNSkJjQm9os=;
+ b=DwrEBVmtD6umKXvFbEPmqi3ChydYqF9Do0lV1D7o6JDcbhF0HWZvlU77IplLVNNpnZ
+ HGeubBCQyEDrsZsBGwrdHwS2pegxP0pW61+IY4P5EUJQq07Vjo4pa42DycZQRruoX3FS
+ msKFOqwv0algQqyxsq7VvsYncb/8y8fbWdOxUNUK/mYzHkIIChDJgPMSqosNUDwIqkpa
+ 2sJkQocjzguWmrbPW0+uAKWT4u4sAtNxwtDmG1hshX+J0BcX+Hpov4Te/01Eei7ADh0d
+ AL55vicQ4F/gwipuvnYAoS51TFt4XzAuD96PRSQFCeyK/hF+qxwgFwDeASdeiMjLQ/uw
+ 8lGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=CkVOQCvDoCUfHGuUBl433hZT6KHa5BvCo97zPR5CdTM=;
- b=xMG927D4MoeC7Izn3oH70EtJ7tbo/VnFc8tClxRCwmqDnZWwHhFeEtQ0159PRj4ZH4
- 5BzMJlWWwTRjlLx0N7koCnvTE2a9pTRM65LDIvuQCxHQYgXJ+ECiNiBY1Uopg9mFigvU
- 282N5lB3TjukwuHcVEdO5RLQoVCzlY+czSek2Hk7kXel9c0/w83WfgeiAbmjI1K2ZC0T
- itTVqTvV7PfA/SrcijLxVXgQqf0lXjO8apl2scalDH4Xbn2Pbk9cdTG78w2B/zD6pbRN
- uc+tR+8bo9TlGbPYh1eo0gkGtOhx4hEahKw82BFVO7KOiy3qxdihFW5kWKvJVbu/bKLH
- NZbg==
-X-Gm-Message-State: AOAM532tRPNdZtF28doiEQdsjeMzJ0417qt52hzWnva4b1izhxqGEH3m
- xfThGHxkpvWqVyKEm7c9f2NHJTX0vy67IVb7ndQhcSaf9ZmGQQ==
-X-Google-Smtp-Source: ABdhPJzoBQl/vvG3V3VN4Hj2DgAWvqbnhWW4QbXLW33Hxrm0JwtiR+vmiAp93hTEGpxT+CrcjD8HmocLdh5cM+W0El8=
-X-Received: by 2002:a81:9157:0:b0:2d1:3460:a359 with SMTP id
- i84-20020a819157000000b002d13460a359mr9921845ywg.20.1645228556824; Fri, 18
- Feb 2022 15:55:56 -0800 (PST)
-MIME-Version: 1.0
-From: Gaurav Gandhi <gauravgandhi@google.com>
-Date: Fri, 18 Feb 2022 15:55:46 -0800
-Message-ID: <CACxmPJM0b_rxoRfx5qBXSsjOXL2tZtLJSZ8+64ekwXEs9q01DQ@mail.gmail.com>
-Subject: Supporting removing interfaces from settings daemon
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000b4945505d8539f88"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=erxXp3pM+vmnwt5dCKBDd+mcnjI272utGNSkJjQm9os=;
+ b=2EtISHkYj9qGcCGFc/y9W+gtWn39hPixfM9jR1FZXC+G8/mbcuZFUFS2JORGUMk23Q
+ +Jb21mU1ms0njFf904ZpSiIfrsOc+3gRKWfk24VeXBbBt1BdCbmDZ9eS/TNP4+8UTxZi
+ aN3l8PDDQI+m59r1+nCMdHkyzNLeMQZN8G85qhiideWgnctXmLmC6ckzl5wSO4drukDN
+ m4JKxXtKVv0BvvoamVY8cHowKUckbG6OwQb/B/ScShK5CyskEPADLA6O986R3/Q7Wioo
+ vrsUWFvXFnUUGBAa9HF3i/cRWy+blE9XeKE293T8baYcLNwu5sEOpLthIhc2/7rvfXyC
+ XeNw==
+X-Gm-Message-State: AOAM532kVLZYUldhss9P8sRPfEWqogi7cHvocUE/0xN+xLj751gn7aXB
+ /IQ2ai3krQKEA9KSqPGk4A==
+X-Google-Smtp-Source: ABdhPJzGMy+SAIsfp0thxPyF6s6/dL06QnFuRJKnkvyqz1XIaFiwvLSYo7DoTHXKjl3CwgmJAoOwNQ==
+X-Received: by 2002:a63:802:0:b0:374:2e45:c6fa with SMTP id
+ 2-20020a630802000000b003742e45c6famr1449715pgi.246.1645329421670; 
+ Sat, 19 Feb 2022 19:57:01 -0800 (PST)
+Received: from localhost ([2401:e180:8842:e799:9593:a6f2:788b:a48c])
+ by smtp.gmail.com with ESMTPSA id
+ m17-20020a17090ab79100b001b89fd7e298sm3473916pjr.4.2022.02.19.19.57.00
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 19 Feb 2022 19:57:01 -0800 (PST)
+From: Tyrone Ting <warp5tw@gmail.com>
+To: avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
+ venture@google.com, yuenn@google.com, benjaminfair@google.com,
+ robh+dt@kernel.org, krzysztof.kozlowski@canonical.com,
+ semen.protsenko@linaro.org, yangyicong@hisilicon.com, wsa@kernel.org,
+ jie.deng@intel.com, sven@svenpeter.dev, bence98@sch.bme.hu,
+ christophe.leroy@csgroup.eu, lukas.bulwahn@gmail.com, olof@lixom.net,
+ arnd@arndb.de, digetx@gmail.com, andriy.shevchenko@linux.intel.com,
+ warp5tw@gmail.com, tali.perry@nuvoton.com, Avi.Fishman@nuvoton.com,
+ tomer.maimon@nuvoton.com, KWLIU@nuvoton.com, JJLIU0@nuvoton.com,
+ kfting@nuvoton.com
+Subject: [PATCH v2 01/11] arm: dts: add new property for NPCM i2c module
+Date: Sun, 20 Feb 2022 11:53:11 +0800
+Message-Id: <20220220035321.3870-2-warp5tw@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220220035321.3870-1-warp5tw@gmail.com>
+References: <20220220035321.3870-1-warp5tw@gmail.com>
 X-Mailman-Approved-At: Mon, 21 Feb 2022 16:10:35 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -73,81 +88,154 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: anoo@us.ibm.com, deepak.kodihalli.83@gmail.com,
- Ed Tanous <edtanous@google.com>, geissonator@yahoo.com,
- Jason Ling <jasonling@google.com>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000b4945505d8539f88
-Content-Type: text/plain; charset="UTF-8"
+From: Tyrone Ting <kfting@nuvoton.com>
 
-Hi All,
+Add nuvoton,sys-mgr property for controlling NPCM gcr register.
 
-Currently DcmiHandler
-<https://github.com/openbmc/phosphor-host-ipmid/blob/05d17c036facc0e9125959abe3c816aa631333e1/dcmihandler.cpp#L25>
-in
-phoshor-host-ipmid only supports the power_cap interface exported by
-Settings <https://github.com/openbmc/phosphor-settingsd> daemon. To make it
-generic we can use objectmapper here
-<https://github.com/openbmc/phosphor-host-ipmid/blob/05d17c036facc0e9125959abe3c816aa631333e1/dcmihandler.cpp#L116>
-to get all objects implementing power_cap interface.
-But it poses a problem: which object to call when setting/getting the power
-cap if multiple services are exporting objects implementing the power_cap
-interface.
-Also I think dcmi commands are supposed to set the power of the system and
-it's not safe to set the system power using multiple services.
-To avoid this we can make sure only 1 service exports this power_cap path
-<https://github.com/openbmc/phosphor-host-ipmid/blob/05d17c036facc0e9125959abe3c816aa631333e1/dcmihandler.cpp#L25>
-used by dcmi handler. But the settings daemon
-<https://github.com/openbmc/phosphor-settingsd> always exports the power
-cap interface by default. Currently there is provision to override default
-settings using .override files. But I am not aware about any way to remove
-a certain interface from settings daemon.
-I am planning to add support for .remove.yml files in merge_settings
-<https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/settings/phosphor-settings/merge_settings.py>
-script
-to remove interfaces along with overriding them.
+Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-Please share your thoughts on this. I have created this review
-<https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/51394> for reference
--
-Thanks,
-Gaurav
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index 3696980a3da1..0fee5fc67e02 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -371,6 +371,7 @@
+ 				interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb0_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -383,6 +384,7 @@
+ 				interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb1_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -395,6 +397,7 @@
+ 				interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb2_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -407,6 +410,7 @@
+ 				interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb3_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -419,6 +423,7 @@
+ 				interrupts = <GIC_SPI 68 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb4_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -431,6 +436,7 @@
+ 				interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb5_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -443,6 +449,7 @@
+ 				interrupts = <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb6_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -455,6 +462,7 @@
+ 				interrupts = <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb7_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -467,6 +475,7 @@
+ 				interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb8_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -479,6 +488,7 @@
+ 				interrupts = <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb9_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -491,6 +501,7 @@
+ 				interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb10_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -503,6 +514,7 @@
+ 				interrupts = <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb11_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -515,6 +527,7 @@
+ 				interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb12_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -527,6 +540,7 @@
+ 				interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb13_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -539,6 +553,7 @@
+ 				interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb14_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 
+@@ -551,6 +566,7 @@
+ 				interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+ 				pinctrl-names = "default";
+ 				pinctrl-0 = <&smb15_pins>;
++				nuvoton,sys-mgr = <&gcr>;
+ 				status = "disabled";
+ 			};
+ 		};
+-- 
+2.17.1
 
---000000000000b4945505d8539f88
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><br></div><div>Hi All,</div><div><br></div><div>Curre=
-ntly <a href=3D"https://github.com/openbmc/phosphor-host-ipmid/blob/05d17c0=
-36facc0e9125959abe3c816aa631333e1/dcmihandler.cpp#L25">DcmiHandler</a>=C2=
-=A0in phoshor-host-ipmid only supports the power_cap interface exported by =
-<a href=3D"https://github.com/openbmc/phosphor-settingsd">Settings</a> daem=
-on. To make it generic we can use objectmapper <a href=3D"https://github.co=
-m/openbmc/phosphor-host-ipmid/blob/05d17c036facc0e9125959abe3c816aa631333e1=
-/dcmihandler.cpp#L116">here</a> to get all objects implementing=C2=A0power_=
-cap interface.=C2=A0</div><div>But it poses a problem: which object to call=
- when setting/getting the power cap if multiple services are exporting obje=
-cts implementing the power_cap interface. <br>Also I think dcmi commands ar=
-e supposed to set the power of the system and it&#39;s not safe to set the =
-system power using multiple services.=C2=A0<br></div><div>To avoid this we =
-can make sure only 1 service exports this power_cap <a href=3D"https://gith=
-ub.com/openbmc/phosphor-host-ipmid/blob/05d17c036facc0e9125959abe3c816aa631=
-333e1/dcmihandler.cpp#L25">path</a> used by dcmi handler. But the settings =
-<a href=3D"https://github.com/openbmc/phosphor-settingsd">daemon</a> always=
- exports the power cap interface by default. Currently there is provision t=
-o override default settings using .override files. But I am=C2=A0not aware =
-about any way to remove a certain interface from=C2=A0settings daemon.</div=
->I am planning to add support for .remove.yml files in <a href=3D"https://g=
-ithub.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/settin=
-gs/phosphor-settings/merge_settings.py">merge_settings</a>=C2=A0script to r=
-emove interfaces along with overriding them.<div><br>Please share your thou=
-ghts on this. I have created this <a href=3D"https://gerrit.openbmc-project=
-.xyz/c/openbmc/openbmc/+/51394">review</a> for reference<br><div>-<br></div=
-><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_si=
-gnature"><div dir=3D"ltr"><div>Thanks,<div>Gaurav</div></div></div></div></=
-div></div></div>
-
---000000000000b4945505d8539f88--
