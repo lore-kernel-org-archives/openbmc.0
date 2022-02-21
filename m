@@ -4,66 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4599EC433EF
-	for <openbmc@archiver.kernel.org>; Tue, 22 Feb 2022 02:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1461C433EF
+	for <openbmc@archiver.kernel.org>; Tue, 22 Feb 2022 02:21:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K2jST5w7pz3bT6
-	for <openbmc@archiver.kernel.org>; Tue, 22 Feb 2022 13:15:37 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K2jbb48F7z2ymb
+	for <openbmc@archiver.kernel.org>; Tue, 22 Feb 2022 13:21:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=FaqB6ci3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=P1GYRFZQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2e;
- helo=mail-qv1-xf2e.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::931;
+ helo=mail-ua1-x931.google.com; envelope-from=warp5tw@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=FaqB6ci3; dkim-atps=neutral
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=P1GYRFZQ; dkim-atps=neutral
+Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
+ [IPv6:2607:f8b0:4864:20::931])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K2jRj0FSrz2xt0
- for <openbmc@lists.ozlabs.org>; Tue, 22 Feb 2022 13:14:54 +1100 (AEDT)
-Received: by mail-qv1-xf2e.google.com with SMTP id p7so37108236qvk.11
- for <openbmc@lists.ozlabs.org>; Mon, 21 Feb 2022 18:14:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K2FWN1Jtfz2yJw
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Feb 2022 19:16:29 +1100 (AEDT)
+Received: by mail-ua1-x931.google.com with SMTP id 10so7547525uar.9
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Feb 2022 00:16:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=flhz/EufJpGqyTkxu2HTCsmD/cDYviniWhblXx00oKk=;
- b=FaqB6ci3eH3irJiUlSNmuy/5khddRHwOYs1HbaERrtxQagSlR3bpD3/H76EGywFZmU
- d7H+e9vNMgUN/6HBh28lC/GJuLqPZXB0PddRB4hvQufj0vK0voG94AYlC5bvhUkukWG/
- 8SSEiApWuY9SOdbUM5w+7TTCU9FXGEYVhhIxM=
+ bh=9ZtiehFZPrmpWvveDKWHT6rZBAs1vzApL4d4uaQ55HM=;
+ b=P1GYRFZQeNPXDzMXWJMxK1Yx5Aiz56hvaICJRp4ELbWmjcvC2CljnRwc/RkSBLwm8C
+ TvcnGVTln6qK7UEbtJb9Q784S9w0JvfjCLBlD99ydBcfj2HEXUa4/SRKzvw9gUXFPqUM
+ e4jWTf4H0mAw8dE8PqxzIciBHPF4Y8x2AYqK+RIDZBA+7NcDreAWaUiCe+skZFOps1RA
+ ThBwCqO4Ruxw2Vd/8MhEVA/9dOAcrjDUSmMkgaF36az5l/0DMjdbmH04n5uhdkaFgf31
+ Z0L3V+iR9uJjo+wfRWUWd4IheeWR0FOC7u2J1mqrYLBCJaL9YZ7pvC0cfJeYvIARTgAB
+ kLTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=flhz/EufJpGqyTkxu2HTCsmD/cDYviniWhblXx00oKk=;
- b=yyA4JswGrfn+wpv8YjdZHn89aFEJb/8NxmhfAQBqpmi1eq2W6oskdF5xCfzIB2Q7n+
- sYuhkwJMQv1o1p6QShqbU9QZBN4iBPXncd0Csns3ED0Lqtz0DJhrJQWhybZL4ZZZMVKn
- doZlJK5BZBnx96KAl6GG7ADAt2VynZ3jg5YoWFmBjhmTbOt3z36nQxBBzqP5vk43OkAD
- 5QaBNVvvZDorLr+f56MGSct1vZV2qcuZEqbIc6WPeKs8PfG8E/3RXvofyu/gJIBBoEMG
- AWOTLtrVuCVj1EdFxcKw6J3IsEO8I34EfaYdNZ1Szz07DnBoJxCNBgc6qsmz07C5LClZ
- sqnA==
-X-Gm-Message-State: AOAM532Y5KmxBd9L/TTUf1QCcHhC+pBQZjGSHVLLk8ksUiADl+2tdzeX
- Z876H9R3SDGdqyrTHlspTyBi6hjSFUCXJ3xE6lY=
-X-Google-Smtp-Source: ABdhPJwrTUkyzSwkVvtp6U5dSC6oOPUBQYA07XSOcbE5HgjOd3bIeZWuNyCLQW3bEae5FGzuG3okaMkD0UwGJy8pq8M=
-X-Received: by 2002:ac8:5b82:0:b0:2cf:232d:b1f8 with SMTP id
- a2-20020ac85b82000000b002cf232db1f8mr20439037qta.58.1645496092459; Mon, 21
- Feb 2022 18:14:52 -0800 (PST)
+ bh=9ZtiehFZPrmpWvveDKWHT6rZBAs1vzApL4d4uaQ55HM=;
+ b=7VHB8dKiCtN/2dd7/wSg0bNzM2MMsUBFe1oVILodaOMr4BAJU+QGRlyToyT5UELz3C
+ QxQQ4HFu3zh6GyS3Qp6l8w4RYsmro2znJlly69wRc9wa/D8bA3zJMXNu93/21Sb5rnSK
+ F4HTKrRe7jY/zFFFQN/KLY/dDPo2EH2OoWYvNLx1+kz5vt3BQqzcB8AguMXpsJka5roA
+ 4Kid7dW7K1R/Jn6L/kgwKiUQKB/ALCduYvfFE9/T+7n9p6Fyt08PzhtFC5YTCFBEJRuu
+ TitM1wGP8npZIDUlX3RjGWaJm1G23fcYQLI2QBRey/AI8dJhRfsiWVoOnprG+/TEuiTZ
+ CM8Q==
+X-Gm-Message-State: AOAM532c5RHEOJmPM5Jcg01GETPZAZvYQzkAtZ+Oee+ivj0yFZ4ERoqa
+ OSPao2XON5v0xIg0DbLYomD3B5hwOI8sAVvG9Q==
+X-Google-Smtp-Source: ABdhPJyCMqtc8yHa/Q//l3WPGW/u7LD/b3KNuHBI4Tjjh+j6t4LGe5SjDXAiedVRJD5oqBZFsxBlyHaEwvCXTA8W/yw=
+X-Received: by 2002:a05:6130:388:b0:342:b8e5:15c2 with SMTP id
+ az8-20020a056130038800b00342b8e515c2mr580343uab.85.1645431386642; Mon, 21 Feb
+ 2022 00:16:26 -0800 (PST)
 MIME-Version: 1.0
-References: <20220211005419.14454-1-potin.lai@quantatw.com>
- <774e60b8-85c7-986b-317c-6231c166f2a5@quantatw.com>
-In-Reply-To: <774e60b8-85c7-986b-317c-6231c166f2a5@quantatw.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 22 Feb 2022 02:14:40 +0000
-Message-ID: <CACPK8XeKNxXsVDJOb5q4476r1o9JqhwehbHXx43UF8bGbLorEg@mail.gmail.com>
-Subject: Re: [u-boot,v2019.04-aspeed-openbmc v3 1/1] arm: dts: Aspeed: add
- Bletchley dts
-To: =?UTF-8?B?UG90aW4gTGFpICjos7Tmn4/lu7cp?= <Potin.Lai@quantatw.com>
+References: <20220220035321.3870-1-warp5tw@gmail.com>
+ <5d507fda-525e-4064-3add-0bb0cc23d016@canonical.com>
+In-Reply-To: <5d507fda-525e-4064-3add-0bb0cc23d016@canonical.com>
+From: Tyrone Ting <warp5tw@gmail.com>
+Date: Mon, 21 Feb 2022 16:16:14 +0800
+Message-ID: <CACD3sJaXeWLu6=oLgxJcU9R+A1J+jB7xKaGcDFwYxof33yj17Q@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] i2c: npcm: Bug fixes timeout, spurious interrupts
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 22 Feb 2022 13:21:12 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,311 +78,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Jamin Lin <jamin_lin@aspeedtech.com>
+Cc: tmaimon77@gmail.com, devicetree@vger.kernel.org, tali.perry1@gmail.com,
+ linux-i2c@vger.kernel.org, digetx@gmail.com, benjaminfair@google.com,
+ openbmc@lists.ozlabs.org, JJLIU0@nuvoton.com, christophe.leroy@csgroup.eu,
+ lukas.bulwahn@gmail.com, tomer.maimon@nuvoton.com, KWLIU@nuvoton.com,
+ bence98@sch.bme.hu, arnd@arndb.de, sven@svenpeter.dev, robh+dt@kernel.org,
+ Avi.Fishman@nuvoton.com, andriy.shevchenko@linux.intel.com,
+ semen.protsenko@linaro.org, jie.deng@intel.com, avifishman70@gmail.com,
+ venture@google.com, yangyicong@hisilicon.com, linux-kernel@vger.kernel.org,
+ wsa@kernel.org, kfting@nuvoton.com, tali.perry@nuvoton.com, olof@lixom.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 21 Feb 2022 at 11:02, Potin Lai (=E8=B3=B4=E6=9F=8F=E5=BB=B7) <Poti=
-n.Lai@quantatw.com> wrote:
->
-> On 2/11/22 08:54, Potin Lai (=E8=B3=B4=E6=9F=8F=E5=BB=B7) wrote:
-> > Initial introduction of Bletchley equipped with
-> > Aspeed 2600 BMC SoC.
-> >
-> > Signed-off-by: Potin Lai <potin.lai@quantatw.com>
-> >
-> > ---
-> >
-> > change v2 -> v3:
-> > * update model & compatible to match with kernel dts
-> >
-> > change v1 -> v2:
-> > * sort Makefile alphabetically
-> > * add licence and copyright
-> > * update model name
-> > * remove the nodes not using (fsi, emmc, sdhci, ehci, pcie & display_po=
-rt)
->
-> Hi Joel, could you help review this patch and let me know if any modifica=
-tion needed? Many thanks
+Hi Krzysztof:
 
-It looks good. I've applied it to the openbmc u-boot tree.
+Thank you for your comments and please find my reply next to your comments.
 
-In the future, please try to get some reviews from your colleagues.
-
-Cheers,
-
-Joel
-
-
+Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com> =E6=96=BC 2022=E5=
+=B9=B42=E6=9C=8820=E6=97=A5
+=E9=80=B1=E6=97=A5 =E4=B8=8B=E5=8D=885:30=E5=AF=AB=E9=81=93=EF=BC=9A
 >
-> Potin
->
-> > ---
-> >  arch/arm/dts/Makefile              |   9 +-
-> >  arch/arm/dts/ast2600-bletchley.dts | 223 +++++++++++++++++++++++++++++
-> >  2 files changed, 228 insertions(+), 4 deletions(-)
-> >  create mode 100644 arch/arm/dts/ast2600-bletchley.dts
+> On 20/02/2022 04:53, Tyrone Ting wrote:
+> > From: Tyrone Ting <kfting@nuvoton.com>
 > >
-> > diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-> > index df844065cd..ac93a89c07 100755
-> > --- a/arch/arm/dts/Makefile
-> > +++ b/arch/arm/dts/Makefile
-> > @@ -677,15 +677,16 @@ dtb-$(CONFIG_ARCH_BCM6858) +=3D \
-> >  dtb-$(CONFIG_ARCH_ASPEED) +=3D \
-> >       ast2400-evb.dtb \
-> >       ast2500-evb.dtb \
-> > -     ast2600-evb.dtb \
-> > -     ast2600-ncsi.dtb \
-> >       ast2600a0-evb.dtb \
-> >       ast2600a1-evb.dtb \
-> > +     ast2600-bletchley.dtb \
-> > +     ast2600-evb.dtb \
-> >       ast2600-fpga.dtb \
-> > +     ast2600-intel.dtb \
-> > +     ast2600-ncsi.dtb \
-> >       ast2600-rainier.dtb \
-> >       ast2600-slt.dtb \
-> > -     ast2600-tacoma.dtb \
-> > -     ast2600-intel.dtb
-> > +     ast2600-tacoma.dtb
+> > This patchset includes the following fixes:
 > >
-> >  dtb-$(CONFIG_ARCH_STI) +=3D stih410-b2260.dtb
+> > - Add dt-bindings description for NPCM845.
+> > - Bug fix for timeout calculation.
+> > - Better handling of spurious interrupts.
+> > - Fix for event type in slave mode.
+> > - Removal of own slave addresses [2:10].
+> > - Support for next gen BMC (NPCM845).
 > >
-> > diff --git a/arch/arm/dts/ast2600-bletchley.dts b/arch/arm/dts/ast2600-=
-bletchley.dts
-> > new file mode 100644
-> > index 0000000000..57ca845b94
-> > --- /dev/null
-> > +++ b/arch/arm/dts/ast2600-bletchley.dts
-> > @@ -0,0 +1,223 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +// Copyright (c) 2022 Meta Platforms Inc.
-> > +/dts-v1/;
-> > +
-> > +#include "ast2600-u-boot.dtsi"
-> > +
-> > +/ {
-> > +     model =3D "Facebook Bletchley BMC";
-> > +     compatible =3D "facebook,bletchley-bmc", "aspeed,ast2600";
-> > +
-> > +     memory {
-> > +             device_type =3D "memory";
-> > +             reg =3D <0x80000000 0x40000000>;
-> > +     };
-> > +
-> > +     chosen {
-> > +             stdout-path =3D &uart5;
-> > +     };
-> > +
-> > +     aliases {
-> > +             mmc0 =3D &emmc_slot0;
-> > +             mmc1 =3D &sdhci_slot0;
-> > +             mmc2 =3D &sdhci_slot1;
-> > +             spi0 =3D &fmc;
-> > +             spi1 =3D &spi1;
-> > +             spi2 =3D &spi2;
-> > +             ethernet0 =3D &mac0;
-> > +             ethernet1 =3D &mac1;
-> > +             ethernet2 =3D &mac2;
-> > +             ethernet3 =3D &mac3;
-> > +     };
-> > +
-> > +     cpus {
-> > +             cpu@0 {
-> > +                     clock-frequency =3D <800000000>;
-> > +             };
-> > +             cpu@1 {
-> > +                     clock-frequency =3D <800000000>;
-> > +             };
-> > +     };
-> > +};
-> > +
-> > +&uart5 {
-> > +     u-boot,dm-pre-reloc;
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&sdrammc {
-> > +     clock-frequency =3D <400000000>;
-> > +};
-> > +
-> > +&wdt1 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&wdt2 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&wdt3 {
-> > +     status =3D "okay";
-> > +};
-> > +
-> > +&mdio {
-> > +     status =3D "okay";
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_mdio4_default>;
-> > +     #address-cells =3D <1>;
-> > +     #size-cells =3D <0>;
-> > +};
-> > +
-> > +&mac2 {
-> > +     status =3D "okay";
-> > +     phy-mode =3D "rgmii";
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_rgmii3_default &pinctrl_mac3link_default>=
-;
-> > +     fixed-link {
-> > +             speed =3D <1000>;
-> > +             full-duplex;
-> > +     };
-> > +};
-> > +
-> > +&fmc {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_fmcquad_default>;
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <2>;
-> > +             spi-rx-bus-width =3D <2>;
-> > +     };
-> > +
-> > +     flash@1 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <2>;
-> > +             spi-rx-bus-width =3D <2>;
-> > +     };
-> > +
-> > +     flash@2 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <2>;
-> > +             spi-rx-bus-width =3D <2>;
-> > +     };
-> > +};
-> > +
-> > +&spi1 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_spi1_default &pinctrl_spi1abr_default
-> > +                     &pinctrl_spi1cs1_default &pinctrl_spi1wp_default
-> > +                     &pinctrl_spi1wp_default &pinctrl_spi1quad_default=
->;
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <4>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +     };
-> > +
-> > +     flash@1 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <4>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +     };
-> > +};
-> > +
-> > +&spi2 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_spi2_default &pinctrl_spi2cs1_default
-> > +                     &pinctrl_spi2cs2_default &pinctrl_spi2quad_defaul=
-t>;
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <4>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +     };
-> > +
-> > +     flash@1 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <4>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +     };
-> > +
-> > +     flash@2 {
-> > +             compatible =3D "spi-flash", "sst,w25q256";
-> > +             status =3D "okay";
-> > +             spi-max-frequency =3D <50000000>;
-> > +             spi-tx-bus-width =3D <4>;
-> > +             spi-rx-bus-width =3D <4>;
-> > +     };
-> > +};
-> > +
-> > +&i2c4 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_i2c5_default>;
-> > +};
-> > +
-> > +&i2c5 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_i2c6_default>;
-> > +};
-> > +
-> > +&i2c6 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_i2c7_default>;
-> > +};
-> > +
-> > +&i2c7 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_i2c8_default>;
-> > +};
-> > +
-> > +&i2c8 {
-> > +     status =3D "okay";
-> > +
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&pinctrl_i2c9_default>;
-> > +};
-> > +
-> > +&scu {
-> > +     mac0-clk-delay =3D <0x10 0x0a
-> > +                       0x10 0x10
-> > +                       0x10 0x10>;
-> > +     mac1-clk-delay =3D <0x10 0x0a
-> > +                       0x10 0x10
-> > +                       0x10 0x10>;
-> > +     mac2-clk-delay =3D <0x08 0x04
-> > +                       0x08 0x04
-> > +                       0x08 0x04>;
-> > +     mac3-clk-delay =3D <0x08 0x04
-> > +                       0x08 0x04
-> > +                       0x08 0x04>;
-> > +};
-> > +
-> > +&hace {
-> > +     status =3D "okay";
-> > +};
+> > The NPCM I2C driver is tested on NPCM750 and NPCM845 evaluation boards.
+> >
+> > Addressed comments from:
+> >  - Jonathan Neusch=C3=A4fer : https://lkml.org/lkml/2022/2/7/670
+> >  - Krzysztof Kozlowski : https://lkml.org/lkml/2022/2/7/760
 >
+> How did you address the ABI change comment? I still see you break the
+> ABI with the introduction of a new, required property.
 >
+
+I add the new, required property "nuvoton,sys-mgr" in the file
+nuvoton-common-npcm7xx.dtsi.
+The file nuvoton-common-npcm7xx.dtsi is required by the existing
+upstream NPCM devicetree files.
+It is also updated and committed in this patch set [PATCH v2 01/11]
+arm: dts: add new property for NPCM i2c module.
+Please let me know if I misunderstand the meaning of "breaking the ABI".
+Thank you again.
+
+>
+> Best regards,
+> Krzysztof
+
+Best regards,
+Tyrone
