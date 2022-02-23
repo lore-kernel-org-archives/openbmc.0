@@ -4,70 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 416EFC433F5
-	for <openbmc@archiver.kernel.org>; Wed, 23 Feb 2022 04:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770FEC433F5
+	for <openbmc@archiver.kernel.org>; Wed, 23 Feb 2022 05:12:16 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K3NfN2cT8z3bSl
-	for <openbmc@archiver.kernel.org>; Wed, 23 Feb 2022 15:41:32 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K3PKp0gGFz3bZy
+	for <openbmc@archiver.kernel.org>; Wed, 23 Feb 2022 16:12:14 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ak+w4ldj;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=EsBc69u5;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::a32;
- helo=mail-vk1-xa32.google.com; envelope-from=warp5tw@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72e;
+ helo=mail-qk1-x72e.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=ak+w4ldj; dkim-atps=neutral
-Received: from mail-vk1-xa32.google.com (mail-vk1-xa32.google.com
- [IPv6:2607:f8b0:4864:20::a32])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=EsBc69u5; dkim-atps=neutral
+Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
+ [IPv6:2607:f8b0:4864:20::72e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K3MKp374bz2xBP
- for <openbmc@lists.ozlabs.org>; Wed, 23 Feb 2022 14:42:06 +1100 (AEDT)
-Received: by mail-vk1-xa32.google.com with SMTP id k128so11565502vkk.10
- for <openbmc@lists.ozlabs.org>; Tue, 22 Feb 2022 19:42:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K3PK42B3sz3089
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Feb 2022 16:11:36 +1100 (AEDT)
+Received: by mail-qk1-x72e.google.com with SMTP id z66so3252595qke.10
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Feb 2022 21:11:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=OqWoqSkj2pZq4XW3/OjAW4W3K2FZ5HzyuMQBgaaFWjQ=;
- b=ak+w4ldjGF9jIQB4I06Xh2miBcGoHM1wkGJR6KN9Bw5HhzaOBVaLpvtYS8UxAmYeDf
- DzCTY/lUOsnQAxJ/H2bcZolvw0m6k08oh6xeS7JhJZo26xlsBbzAk0alEOeovANt8nMi
- 4337ygGwF+9Sb6qGjffrxXJqByOnOMhziBdwga2F7JEy7T1nMTb4YCn/shzdF3scN0Y0
- P0zT6v773LQf9YgzUQFQsSkdMqJvZ9zKbLD2flbeEGm9/quiPbPI2dH+EvFnRLRlzUH0
- Qnm7NjaDPvu131EbaGiMjzS5GUPEcJsD7lmLR7B0pEsI7Xy8pXchEjl81VhRGR7m/gag
- ElhQ==
+ :cc; bh=YHXTfCn+659X5YVOx08xOqJoz4dYu5HsByJjmSAU0ms=;
+ b=EsBc69u5iPVjlCisjoJwpDc+MSAO8Lkbac1184QGCydWs0VGq8eArqn9Kl62wu1QOY
+ sJl2jeCKLaNm49x/+SxXbWVz2bh2ZdbuMc2vymrlBGUKgc6fpHkzJFGcGRcz6YEbRF+W
+ A7QvlqDkYOrZVvjzJ36JYnsHEqO9xLK4fRu3I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=OqWoqSkj2pZq4XW3/OjAW4W3K2FZ5HzyuMQBgaaFWjQ=;
- b=eybL/wY0O8XBnnV5ukmqYSeDd06NI1loYRI5LR8qzrxG6RktKqqVT9lhloAG6f+TKc
- 3Jn/9IdEXySNgGZoNcAj5+Dyvdi1rtxxhxMW20EvN3/0rBGE5+9I3FOy22KmAS//vaEM
- QuTgfeipCfZfUnTQIkuTfWus+8CUCjLdaKbXWfhuYQAlDkuoPxXRRmnDwH4aDVrh0aMi
- V+STbPqgQjnFb2RCwSXcVCObKDM1tC6GnCmWik87cq8L15yTsG4La4Zbfw8zXkcpLyOi
- qxCU8u01U96RcwyvCFcJOuluOD5Yr+e+h/IeUWSXMKHrt9IxY+QWfE5o7oTGdGipGql6
- qz0w==
-X-Gm-Message-State: AOAM533G/0cSGJJB4ORjGZWdCTNc3oJVQQlx5K/2zMLem2v3ksjckAu8
- XOgLHCR/mmGJL0ibP/RC2ekF1hRAHdxzeNr3VQ==
-X-Google-Smtp-Source: ABdhPJyvh/72b/1Os/zmPvR6IUg6qz3wiks0x71QCYLQFhOUwWN2mEXlb45uXlPQftu9wGfF+zrwGDRF6/QeQ486dSM=
-X-Received: by 2002:a05:6122:180b:b0:330:ee39:966e with SMTP id
- ay11-20020a056122180b00b00330ee39966emr11364658vkb.5.1645587723401; Tue, 22
- Feb 2022 19:42:03 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=YHXTfCn+659X5YVOx08xOqJoz4dYu5HsByJjmSAU0ms=;
+ b=VzCiyCoyk/OeDCei58kQcN7J7feWG4DhPLDbC/CJZ0ZDr+b2VD9P7bfNp724Mf0WqV
+ 3yWX2z9VSjTOV29jtHKhFB2dVWhKsYrD5YmAuT9G08NRUGW/yDbnFXcBxvLWN4eCj/cI
+ mKC9bZH9RmhKmT3SUuR5Ku1OHOQnd6rv3c2Qb090wXacAoP83IHmq72G8sMozf+R6fqY
+ LaSDZLbYSECrf+XMRAa3PY2btX7oN8B4Eko9/4UO5x1o+KKh+jEN15GFYeqbEMBPog3/
+ P3SvKc42t13OveeDneuO0cA6rIBnMsrBZK2A1H/Xel5QVnwT52msU2+SIOUCfkb5BuwI
+ xt6w==
+X-Gm-Message-State: AOAM532WY29ZmCnPlcm6cVnyoYgAra3sfnsTu3mPZehQ7BFQx7IF+Ktd
+ NRA/L3IdFSk/UUbRPcPtdlq/HTyEWK/o476Si0E=
+X-Google-Smtp-Source: ABdhPJz0x8fNwDxk3yjegHy2mUU+VS0aBVhtUTdH6mapt5+mM1zn/ijXIKnVncaLyQhkCh46rFHVLD6hGdzOCY4a2rk=
+X-Received: by 2002:a37:a4d1:0:b0:508:19df:7093 with SMTP id
+ n200-20020a37a4d1000000b0050819df7093mr17109746qke.346.1645593093346; Tue, 22
+ Feb 2022 21:11:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20220220035321.3870-1-warp5tw@gmail.com>
- <20220220035321.3870-3-warp5tw@gmail.com>
- <YhUj3uRQinOVF4eM@robh.at.kernel.org>
-In-Reply-To: <YhUj3uRQinOVF4eM@robh.at.kernel.org>
-From: Tyrone Ting <warp5tw@gmail.com>
-Date: Wed, 23 Feb 2022 11:41:51 +0800
-Message-ID: <CACD3sJZo4GvGxira9nM1g_58OkN9UNhUV_f=JKyKiok6_=uoSQ@mail.gmail.com>
-Subject: Re: [PATCH v2 02/11] dt-bindings: i2c: npcm: support NPCM845
-To: Rob Herring <robh@kernel.org>
+References: <CAGm54UE7-QxGBniV3J2jnBiW4ygvRcHxKd=G88PsOiNZP+hBTA@mail.gmail.com>
+ <HK0PR06MB3779076AB5B2189822951A4C913C9@HK0PR06MB3779.apcprd06.prod.outlook.com>
+ <CAGm54UGNdAtX=zSuZdZwQ6k2FjPj-Cxd3AwVxyNLLhifEntHbw@mail.gmail.com>
+ <HK0PR06MB37792404CAB772185CB386B0913C9@HK0PR06MB3779.apcprd06.prod.outlook.com>
+In-Reply-To: <HK0PR06MB37792404CAB772185CB386B0913C9@HK0PR06MB3779.apcprd06.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 23 Feb 2022 05:11:21 +0000
+Message-ID: <CACPK8Xdu2VzLBW0oMy_bGo=hoJUng25pffGEYXe9xjyqC4=7tQ@mail.gmail.com>
+Subject: Re: New u-boot-aspeed-sdk runs slow and cause wdt2 timeout on ast2500
+To: ChiaWei Wang <chiawei_wang@aspeedtech.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 23 Feb 2022 15:39:19 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,91 +74,134 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: tmaimon77@gmail.com, devicetree@vger.kernel.org, tali.perry1@gmail.com,
- linux-i2c@vger.kernel.org, digetx@gmail.com, benjaminfair@google.com,
- krzysztof.kozlowski@canonical.com, openbmc@lists.ozlabs.org,
- JJLIU0@nuvoton.com, christophe.leroy@csgroup.eu, lukas.bulwahn@gmail.com,
- tomer.maimon@nuvoton.com, KWLIU@nuvoton.com, bence98@sch.bme.hu, arnd@arndb.de,
- sven@svenpeter.dev, Avi.Fishman@nuvoton.com, andriy.shevchenko@linux.intel.com,
- semen.protsenko@linaro.org, jie.deng@intel.com, avifishman70@gmail.com,
- venture@google.com, yangyicong@hisilicon.com, linux-kernel@vger.kernel.org,
- wsa@kernel.org, kfting@nuvoton.com, tali.perry@nuvoton.com, olof@lixom.net
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, openbmc <openbmc@lists.ozlabs.org>,
+ Lei Yu <yulei.sh@bytedance.com>, Troy Lee <troy_lee@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Rob:
-
-Thank you for your comment and it'll be addressed.
-
-Rob Herring <robh@kernel.org> =E6=96=BC 2022=E5=B9=B42=E6=9C=8823=E6=97=A5 =
-=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=881:56=E5=AF=AB=E9=81=93=EF=BC=9A
+On Wed, 23 Feb 2022 at 04:38, ChiaWei Wang <chiawei_wang@aspeedtech.com> wrote:
 >
-> On Sun, Feb 20, 2022 at 11:53:12AM +0800, Tyrone Ting wrote:
-> > From: Tyrone Ting <kfting@nuvoton.com>
+> > From: Lei Yu <yulei.sh@bytedance.com>
+> > Sent: Wednesday, February 23, 2022 11:02 AM
 > >
-> > Add compatible and nuvoton,sys-mgr description for NPCM i2c module.
+> > On Wed, Feb 23, 2022 at 10:38 AM ChiaWei Wang
+> > <chiawei_wang@aspeedtech.com> wrote:
+> > >
+> > > > Lei Yu
+> > > > Sent: Wednesday, February 23, 2022 10:15 AM
+> > > >
+> > > > On the latest master with u-boot-aspeed v00.04.09 SDK, an issue
+> > > > occurs on g220a that it runs slower than before and gets wdt2 timeout.
+> > > > We reverted the u-boot to a version before v00.04.09 SDK (b0fe8fd9d)
+> > > > and the issue is gone.
+> > > >
+> > > > Below are some details:
+> > > > * Before v00.04.09: u-boot works OK, and it takes about 9~10 seconds
+> > > > to load and start the kernel including the 2 seconds timeout for
+> > > > autoboot, the kernel starts OK and it kicks the watchdog as long as the
+> > driver is loaded.
+> > > > * With v00.04.09: u-boot runs slower than before, and it takes about
+> > > > **16 seconds** to load and start the kernel (including 2s timeout
+> > > > for autoboot), then the kernel does not have enough time to run and
+> > > > loads the watchdog driver, and the wdt2 times out on about 22s.
+> > >
+> > > Could you share us the boot log with timestamps?
+> > > It would be nice to know the time elapsed at each stage.
 > >
-> > Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
-> > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> > ---
-> >  .../bindings/i2c/nuvoton,npcm7xx-i2c.yaml       | 17 ++++++++++++-----
-> >  1 file changed, 12 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.=
-yaml b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
-> > index 128444942aec..809c51ac32fe 100644
-> > --- a/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
-> > +++ b/Documentation/devicetree/bindings/i2c/nuvoton,npcm7xx-i2c.yaml
-> > @@ -7,17 +7,18 @@ $schema: http://devicetree.org/meta-schemas/core.yaml=
-#
-> >  title: nuvoton NPCM7XX I2C Controller Device Tree Bindings
-> >
-> >  description: |
-> > -  The NPCM750x includes sixteen I2C bus controllers. All Controllers s=
-upport
-> > -  both master and slave mode. Each controller can switch between maste=
-r and slave
-> > -  at run time (i.e. IPMB mode). Each controller has two 16 byte HW FIF=
-O for TX and
-> > -  RX.
-> > +  I2C bus controllers of the NPCM series support both master and
-> > +  slave mode. Each controller can switch between master and slave at r=
-un time
-> > +  (i.e. IPMB mode). HW FIFO for TX and RX are supported.
-> >
-> >  maintainers:
-> >    - Tali Perry <tali.perry1@gmail.com>
-> >
-> >  properties:
-> >    compatible:
-> > -    const: nuvoton,npcm750-i2c
-> > +     enum:
-> > +      - nuvoton,npcm750-i2c
-> > +      - nuvoton,npcm845-i2c
-> >
-> >    reg:
-> >      maxItems: 1
-> > @@ -36,11 +37,16 @@ properties:
-> >      default: 100000
-> >      enum: [100000, 400000, 1000000]
-> >
-> > +  nuvoton,sys-mgr:
-> > +    $ref: "/schemas/types.yaml#/definitions/phandle"
-> > +    description: The phandle of system manager register node.
-> > +
-> >  required:
-> >    - compatible
-> >    - reg
-> >    - interrupts
-> >    - clocks
-> > +  - nuvoton,sys-mgr
->
-> You can't make nuvoton,sys-mgr required for existing users. You can add
-> an if/then schema for nuvoton,npcm845-i2c if you want to make it
-> required in that case.
->
-> Rob
+> > Pasted to https://pastebin.com/emseqW6c
+> > It contains two logs, the first one is good, and the second has the issue.
 
-Best regards,
-Tyrone
+Working:
+[2022-02-23 02:47:03] U-Boot 2019.04 (Jan 24 2022 - 10:18:18 +0000)
+[2022-02-23 02:47:06] ## Loading kernel from FIT Image at 20100000 ...
+[2022-02-23 02:47:12] Starting kernel ...
+
+3 + 6 seconds.
+
+broken:
+[2022-02-23 02:58:07] U-Boot 2019.04 (Feb 15 2022 - 07:22:14 +0000)
+[2022-02-23 02:58:12] ## Loading kernel from FIT Image at 20100000 ...
+[2022-02-23 02:58:22] Starting kernel ...
+
+5 + 10 seconds.
+
+Interesting that the pre-hashing part is also slower.
+
+The old branch was based on v00.04.03. The new branch is based on v00.04.09.
+
+I wonder if this is the cause:
+
+$ git diff  v00.04.03..v00.04.09 -- configs/evb-ast2500_defconfig
+diff --git a/configs/evb-ast2500_defconfig b/configs/evb-ast2500_defconfig
+index 9fcf55b05ebb..000ed3f90bdd 100644
+--- a/configs/evb-ast2500_defconfig
++++ b/configs/evb-ast2500_defconfig
+@@ -1,4 +1,5 @@
+ CONFIG_ARM=y
++CONFIG_SYS_DCACHE_OFF=y
+ CONFIG_ARCH_ASPEED=y
+ CONFIG_SYS_TEXT_BASE=0x0
+ CONFIG_SYS_MALLOC_F_LEN=0x2000
+
+Lei, can you re-test with CONFIG_SYS_DCACHE_OFF=n ?
+
+>
+> Thanks for the information provided.
+> It appears that the Hash operation and DRAM initialization takes more time in newer U-Boot.
+> Could you help to provide the commit hash of the two U-Boot used in the experiment?
+> We will try to identity the root cause among the patch diffs.
+
+Regardless of the dcache issue, we should be patting the watchdog as
+we do the hashing. It seems this is not happening.
+
+You can see the sha library code does the hashing with the
+WATCHDOG_RESET() macro:
+
+$ git grep WATCHDOG lib/sha*
+lib/sha1.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha1.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha1.c:             WATCHDOG_RESET ();
+lib/sha256.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha256.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha256.c:           WATCHDOG_RESET();
+lib/sha512.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha512.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha512.c:           WATCHDOG_RESET();
+lib/sha512.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha512.c:#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+lib/sha512.c:           WATCHDOG_RESET();
+
+This relies on CONFIG_WATCHDOG (or CONFIG_HW_WATCHDOG) being enabled:
+
+$ grep CONFIG_WATCHDOG ast2500-obj/.config
+# CONFIG_WATCHDOG is not set
+
+which it is not.
+
+In the old branch, we had this:
+
+#if defined(CONFIG_HW_WATCHDOG)
+void hw_watchdog_reset(void)
+{
+        /* Restart WD2 timer */
+        writel(0x4755, AST_WDT2_BASE + 0x08);
+}
+#endif /* CONFIG_WATCHDOG */
+
+We could add that back, or we could backport something like this from upstream:
+
+https://github.com/u-boot/u-boot/commit/06985289d452ad2423145cfed8cece61a7f8cec6
+
+That commit adds support for patting the first registered wdt class
+driver. More recently they added
+492ee6b8d0e780a2ded5d9df7efc916eb4913734, which supports patting all
+of the registered watchdogs. This would be useful for AST2600 systems
+to pat both the normal watchdog and the ABR watchdog.
+
+If anyone wants to handle the backporting and testing, I would be
+happy to review patches.
+
+Cheers,
+
+Joel
