@@ -4,66 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219F9C433F5
-	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 08:52:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12697C433F5
+	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 11:44:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K469S0Lfgz30Nb
-	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 19:52:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K49zv6jk4z30hh
+	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 22:44:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=AMmUWpiF;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=LueZOwwS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f30;
- helo=mail-qv1-xf30.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::736;
+ helo=mail-qk1-x736.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=AMmUWpiF; dkim-atps=neutral
-Received: from mail-qv1-xf30.google.com (mail-qv1-xf30.google.com
- [IPv6:2607:f8b0:4864:20::f30])
+ header.s=google header.b=LueZOwwS; dkim-atps=neutral
+Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
+ [IPv6:2607:f8b0:4864:20::736])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K468k0r8Dz2x9V
- for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 19:51:48 +1100 (AEDT)
-Received: by mail-qv1-xf30.google.com with SMTP id h13so2417041qvk.12
- for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 00:51:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K49zB5WGcz2x9Q
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 22:43:48 +1100 (AEDT)
+Received: by mail-qk1-x736.google.com with SMTP id j78so1509435qke.2
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 03:43:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QfcDvcMiMrFcAL1VhJu56DYxdK9loWaywe14zUAaoJI=;
- b=AMmUWpiFw08sJGZYRKvlasA5feymHsGsyEQa3WUc4xYSQNiNRB9YJhgGhanDXkcRXp
- l7Vo4sthMbq6/Zvm+MxOzWKfOGmRygNsrnM2wG8QG68Qci+6M57tFNFGrkuVFlPp7kyH
- 5TrA3MeGhZiH2kj+q25ocesgffdKK0WuWq2+8=
+ :cc; bh=5gArQSwHwyCEW3+RdeY9YEQDCJ0lb88+ttMV1KtaKhw=;
+ b=LueZOwwSiWEHdyie9V2stclRbegLWYg1DZqJ7vXZzCpUTNphs8dzhW6AJWgfZH714O
+ mBQXQ89kpIw148kFc0aUNpgNpZP9KwNUpW/Toz3lHz2Y2C5wswLgLW6Knclfmjz3zvnB
+ DhcdL9GYNjy+QkT9A2DYomYsbxLpC8yVX8K9A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=QfcDvcMiMrFcAL1VhJu56DYxdK9loWaywe14zUAaoJI=;
- b=rlvLWZnU0Vm0WBxoyxKcJFtUixTHhtB8b/3JsPS0RwgVZ0rhaCVHdmlbjLMJs2+7iP
- UmWsE7ippblFAVXqKcTfmAeY2nleEQF543x2w8SDtEkD+lSSePRfYjbE0qdos2zAlUwV
- FqlnykIPbA512Fz2UFAGFWBE/Jo3mJdd7EoqvgmKFFQ9DDEsmq4XuWBRCqGmyjX66lTJ
- CxtxREFogK4YjDLd/QZDdHlXtLfzBGL2U9wdztc3tNtvxzB6uk20ogyJHTMcdPQ1Loxp
- ryj/Yx4XHXKriJ88l9MJZUnMRGGBGCGw7oBU3v7TS+cCJvQ30RhhVPG6RbK5oxR5Fx+a
- ZQ0A==
-X-Gm-Message-State: AOAM5314ECHzmA+HPjt2VchpyF1KfxsQLx5HrwqmBRvjE/NTfdXNlD95
- wnbJR6o5V4NqYFiIdsztiSAJQZEZXlD4A2X6MovgxkI6f0o=
-X-Google-Smtp-Source: ABdhPJykmHrKfXpzIKgbqQMJwupCJnkm1Q50nUT5H/MrcnJMiJoL56xaiPSzqpdBfCsNpSspmIK5vBtRb5y4G1mOIvw=
-X-Received: by 2002:ac8:7d91:0:b0:2de:7321:5514 with SMTP id
- c17-20020ac87d91000000b002de73215514mr692918qtd.625.1645674360607; Wed, 23
- Feb 2022 19:46:00 -0800 (PST)
+ bh=5gArQSwHwyCEW3+RdeY9YEQDCJ0lb88+ttMV1KtaKhw=;
+ b=QpfrQwW1ffhtMO6pjhkezlTYPib183HI/w5lUU9wfEIqlW3gN66eFK0cudyER3MPPD
+ Un/K0Yw0yfl4hgKn/kln3ilVBgRnWwil7O1+9e/xFYAwakJvI6EXj6Vrs4BXRsPBKEpj
+ jZe0I6SQ1t2A5mj5ZBOXw+mIk9R5x2J0oXOnSFpdDtXgjvB84ARq0hbXMe/jd1AHQ7jM
+ 2OYhGvzamM5lmdPhcqz3LLRfkRZVLapczM8jdJVpMoI1ePFExiG3G+9xab2Fnj78xXxl
+ NYP1udBsyvOZYWpxnWtTWyQiwHELLc1xojwthzZ3MeNGST8cJvsO0T664v4mY1wFjolo
+ lvEA==
+X-Gm-Message-State: AOAM530VR85TpyDs4h3dNqHY4TZbxss+QrdyqghbdWzeI72aZ9EswsUU
+ wW35KemanuHNwlNLmZEIZ98s8P8375imuUA2WzI=
+X-Google-Smtp-Source: ABdhPJxzN0Jeb9gYeQrhF0fZ/QL4uwtloSHMQJ5ZPSfyeWl8j/T+0OeVi/kfNxfbLJPi3JV7d8geCBJCHeWq97KdIbw=
+X-Received: by 2002:a37:f903:0:b0:648:ca74:b7dc with SMTP id
+ l3-20020a37f903000000b00648ca74b7dcmr1254882qkj.666.1645703024560; Thu, 24
+ Feb 2022 03:43:44 -0800 (PST)
 MIME-Version: 1.0
-References: <CAGm54UE7-QxGBniV3J2jnBiW4ygvRcHxKd=G88PsOiNZP+hBTA@mail.gmail.com>
- <HK0PR06MB3779076AB5B2189822951A4C913C9@HK0PR06MB3779.apcprd06.prod.outlook.com>
- <CAGm54UGNdAtX=zSuZdZwQ6k2FjPj-Cxd3AwVxyNLLhifEntHbw@mail.gmail.com>
- <HK0PR06MB37792404CAB772185CB386B0913C9@HK0PR06MB3779.apcprd06.prod.outlook.com>
- <CACPK8Xdu2VzLBW0oMy_bGo=hoJUng25pffGEYXe9xjyqC4=7tQ@mail.gmail.com>
- <CAGm54UH8ZrUWms84E-4mzgUvGEdVYJGiq4mWSyCKoTzAtFc9HQ@mail.gmail.com>
-In-Reply-To: <CAGm54UH8ZrUWms84E-4mzgUvGEdVYJGiq4mWSyCKoTzAtFc9HQ@mail.gmail.com>
+References: <20220224081121.10389-1-jamin_lin@aspeedtech.com>
+ <20220224081121.10389-2-jamin_lin@aspeedtech.com>
+In-Reply-To: <20220224081121.10389-2-jamin_lin@aspeedtech.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 24 Feb 2022 03:45:48 +0000
-Message-ID: <CACPK8XdJ3PNPzvhHLW_WUy2Tkvot7u9AvzztXNL8oWDZFfPn0g@mail.gmail.com>
-Subject: Re: New u-boot-aspeed-sdk runs slow and cause wdt2 timeout on ast2500
-To: Lei Yu <yulei.sh@bytedance.com>
+Date: Thu, 24 Feb 2022 11:43:32 +0000
+Message-ID: <CACPK8XeXhRwp6PrNoGnFedBwh7MqR6Qu++AOOGDbOmDF2xq-pA@mail.gmail.com>
+Subject: Re: [u-boot,v2019.04-aspeed-openbmc 1/1] fix compiling warnings for
+ AST2600 A1 SPL
+To: Jamin Lin <jamin_lin@aspeedtech.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -76,69 +73,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: ChiaWei Wang <chiawei_wang@aspeedtech.com>,
- Troy Lee <troy_lee@aspeedtech.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
- openbmc <openbmc@lists.ozlabs.org>, tangyiwei.2022@bytedance.com
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Troy Lee <troy_lee@aspeedtech.com>, Steven Lee <steven_lee@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 23 Feb 2022 at 10:02, Lei Yu <yulei.sh@bytedance.com> wrote:
+On Thu, 24 Feb 2022 at 08:11, Jamin Lin <jamin_lin@aspeedtech.com> wrote:
 >
-> > > > > Could you share us the boot log with timestamps?
-> > > > > It would be nice to know the time elapsed at each stage.
-> > > >
-> > > > Pasted to https://pastebin.com/emseqW6c
-> > > > It contains two logs, the first one is good, and the second has the issue.
-> >
-> > Working:
-> > [2022-02-23 02:47:03] U-Boot 2019.04 (Jan 24 2022 - 10:18:18 +0000)
-> > [2022-02-23 02:47:06] ## Loading kernel from FIT Image at 20100000 ...
-> > [2022-02-23 02:47:12] Starting kernel ...
-> >
-> > 3 + 6 seconds.
-> >
-> > broken:
-> > [2022-02-23 02:58:07] U-Boot 2019.04 (Feb 15 2022 - 07:22:14 +0000)
-> > [2022-02-23 02:58:12] ## Loading kernel from FIT Image at 20100000 ...
-> > [2022-02-23 02:58:22] Starting kernel ...
-> >
-> > 5 + 10 seconds.
-> >
-> > Interesting that the pre-hashing part is also slower.
-> >
-> > The old branch was based on v00.04.03. The new branch is based on v00.04.09.
-> >
-> > I wonder if this is the cause:
-> >
-> > $ git diff  v00.04.03..v00.04.09 -- configs/evb-ast2500_defconfig
-> > diff --git a/configs/evb-ast2500_defconfig b/configs/evb-ast2500_defconfig
-> > index 9fcf55b05ebb..000ed3f90bdd 100644
-> > --- a/configs/evb-ast2500_defconfig
-> > +++ b/configs/evb-ast2500_defconfig
-> > @@ -1,4 +1,5 @@
-> >  CONFIG_ARM=y
-> > +CONFIG_SYS_DCACHE_OFF=y
-> >  CONFIG_ARCH_ASPEED=y
-> >  CONFIG_SYS_TEXT_BASE=0x0
-> >  CONFIG_SYS_MALLOC_F_LEN=0x2000
-> >
-> > Lei, can you re-test with CONFIG_SYS_DCACHE_OFF=n ?
-> >
+> remove duplicated define
 >
-> Yiwei helped to test with CONFIG_SYS_DCACHE_OFF=n, and it works fine now.
-> So it seems we get the root cause!
+> Signed-off-by: Jamin Lin <jamin_lin@aspeedtech.com>
+> ---
+>  include/configs/evb_ast2600a1_spl.h | 7 -------
+>  1 file changed, 7 deletions(-)
+>
+> diff --git a/include/configs/evb_ast2600a1_spl.h b/include/configs/evb_ast2600a1_spl.h
+> index 655896b237..006cc4345b 100644
+> --- a/include/configs/evb_ast2600a1_spl.h
+> +++ b/include/configs/evb_ast2600a1_spl.h
+> @@ -42,13 +42,6 @@
+>  #endif
+>  #endif
+>
+> -/* SPL */
+> -#define CONFIG_SPL_TEXT_BASE           0x00000000
+> -#define CONFIG_SPL_MAX_SIZE            0x0000E800
+> -#define CONFIG_SPL_STACK               0x10010000
+> -#define CONFIG_SPL_BSS_START_ADDR      0x90000000
+> -#define CONFIG_SPL_BSS_MAX_SIZE                0x00100000
 
-I'm glad this worked. The bill is in the mail :)
+A good cleanup. While we're here, can we clean up the various ast2600
+config headers?
 
-I would suggest this is not the root cause. This is a workaround that
-speeds up booting enough that you make it to linux, but if your kernel
-image got a bit larger (for example), it would take longer and the
-issue would show up again.
+There is a large diff between the a0 and the a1 spl header. I know the
+A0 has a smaller SRAM. Are there any other differences required?
 
-To properly fix the issue, we need to ensure the watchdog is serviced,
-as I mentioned in my previous email.
-
-Cheers,
-
-Joel
+> -
+>  #define CONFIG_SUPPORT_EMMC_BOOT
+>
+>  #endif /* __CONFIG_H */
+> --
+> 2.17.1
+>
