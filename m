@@ -4,42 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17C3C433F5
-	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 08:12:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6162DC433F5
+	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 08:19:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K45HR3SYdz3cQj
-	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 19:12:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=jamin_lin@aspeedtech.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K45Rb0BqJz30KR
+	for <openbmc@archiver.kernel.org>; Thu, 24 Feb 2022 19:19:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158;
+ helo=codeconstruct.com.au; envelope-from=matt@codeconstruct.com.au;
  receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K45GW2S14z2x9R
- for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 19:11:46 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 21O82MG5023165;
- Thu, 24 Feb 2022 16:02:22 +0800 (GMT-8)
- (envelope-from jamin_lin@aspeedtech.com)
-Received: from localhost.localdomain (192.168.70.87) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 24 Feb
- 2022 16:11:21 +0800
-From: Jamin Lin <jamin_lin@aspeedtech.com>
-To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>, <andrew@aj.id.au>
-Subject: [u-boot,
- v2019.04-aspeed-openbmc 0/1] fix compiling warnings for AST2600 A1 SPL
-Date: Thu, 24 Feb 2022 16:11:20 +0800
-Message-ID: <20220224081121.10389-1-jamin_lin@aspeedtech.com>
-X-Mailer: git-send-email 2.17.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K45R72gwtz2x9b
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Feb 2022 19:19:15 +1100 (AEDT)
+Received: from [192.168.12.102] (unknown [159.196.94.94])
+ by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4348A20158;
+ Thu, 24 Feb 2022 11:06:40 +0800 (AWST)
+Message-ID: <73c46f0b8b609edddad0e314ead38c9b9d72517e.camel@codeconstruct.com.au>
+Subject: Re: I3C Binding DSP0233
+From: Matt Johnston <matt@codeconstruct.com.au>
+To: Rahul Kapoor <rahulkapoor@microsoft.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Date: Thu, 24 Feb 2022 11:06:39 +0800
+In-Reply-To: <DM6PR21MB17227F1F70FD8443DB09F9DDAB3C9@DM6PR21MB1722.namprd21.prod.outlook.com>
+References: <DM6PR21MB17227F1F70FD8443DB09F9DDAB3C9@DM6PR21MB1722.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.4-1ubuntu2 
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [192.168.70.87]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 21O82MG5023165
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,19 +45,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: troy_lee@aspeedtech.com, steven_lee@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-remove duplicated define
+On Wed, 2022-02-23 at 16:45 +0000, Rahul Kapoor wrote:
+> Hi,
+>  
+> I would like to understand if OpenBMC project currently supports MCTP over
+> I3C
+> https://www.dmtf.org/sites/default/files/standards/documents/DSP0233_1.0.0.pdf
+> ? If not, are there plans to support it going forward? We are currently
+> using Intel-BMC/libmctp for SMBus binding and plan to transition to in-
+> kernel MCTP in future.
 
-Jamin Lin (1):
-  fix compiling warnings for AST2600 A1 SPL
+Hi Rahul,
 
- include/configs/evb_ast2600a1_spl.h | 7 -------
- 1 file changed, 7 deletions(-)
+I'm not aware of any current work on MCTP-over-I3C for OpenBMC or in-kernel.
+It could be added as another in-kernel MCTP transport alongside the current
+I2C net driver.
 
--- 
-2.17.1
+I'm not sure what the current status is for I3C drivers on BMC hardware.
+Kernel I3C will only support Linux as an I3C Controller not Target, though
+that would suit many setups.
+
+Cheers,
+Matt
 
