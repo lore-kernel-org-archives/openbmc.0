@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83B65C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 25 Feb 2022 20:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5037C433EF
+	for <openbmc@archiver.kernel.org>; Sat, 26 Feb 2022 13:31:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K514K6wsCz3cGq
-	for <openbmc@archiver.kernel.org>; Sat, 26 Feb 2022 07:06:09 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K5SGg290kz3cCj
+	for <openbmc@archiver.kernel.org>; Sun, 27 Feb 2022 00:31:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=iuoEBbxS;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=209.85.161.49; helo=mail-oo1-f49.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
+ smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=iuoEBbxS; 
+ dkim-atps=neutral
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K513q0LMdz30DX
- for <openbmc@lists.ozlabs.org>; Sat, 26 Feb 2022 07:05:42 +1100 (AEDT)
-Received: by mail-oo1-f49.google.com with SMTP id
- i6-20020a4ac506000000b0031c5ac6c078so7817876ooq.6
- for <openbmc@lists.ozlabs.org>; Fri, 25 Feb 2022 12:05:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=pt2v58DVMNtnJGowbH5EvHKVW32wfgY0vO3q80Iq09k=;
- b=HmONk49hnzEiOebd56sRNtFZth1oUynJUwqar2lmwW/0jAY6yN+EfgjmRPNszxLe7Q
- XkMV0vxYjpC3QPlPXTd1FwpyH7L2cjIsHE855Sw436moMV+ai9ZuPyCB19O45JKlsbsq
- H3qGDdaChtejU2Uyjuphij/k3K6OjFGYNl81jVVOKgbQGHvxhrE4oM7LVnjj8YUldRhX
- aa8BpKxvuwi3yDYpqJjGKN0UXy+RA1TEwca0oQ2XBUFymjF4LiLngr6Q7n0H15tN2Upe
- EJBAOpe/ZUKdkrnGESSa8r8Yoe0JnG3Qtq5AIpDkKI4swDRS4ZvAW4U071mygw9fo0+J
- +K4g==
-X-Gm-Message-State: AOAM530dV5zIaRoJkmwwjq1s/juHhH34NvZABQaNwWgTblOJ4RZq2GyH
- uejiBsisAfjLTKOg456Ymg==
-X-Google-Smtp-Source: ABdhPJxzyw7Udfv93wJdvGYw+MZTCJWRad+6vfmdFDmh3pGrt6GAHmmrW577IEiWdVkLZmqZp1fFlg==
-X-Received: by 2002:a05:6870:c6a2:b0:d1:60cf:2d66 with SMTP id
- cv34-20020a056870c6a200b000d160cf2d66mr2137886oab.54.1645819539381; 
- Fri, 25 Feb 2022 12:05:39 -0800 (PST)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213]) by smtp.gmail.com with ESMTPSA id
- p16-20020a05680811d000b002d72ec3a921sm1906781oiv.21.2022.02.25.12.05.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Feb 2022 12:05:38 -0800 (PST)
-Received: (nullmailer pid 1344550 invoked by uid 1000);
- Fri, 25 Feb 2022 20:05:36 -0000
-Date: Fri, 25 Feb 2022 14:05:36 -0600
-From: Rob Herring <robh@kernel.org>
-To: Medad CChien <medadyoung@gmail.com>
-Subject: Re: [PATCH v1 2/3] dt-bindings: edac: npcm-edac.yaml
-Message-ID: <Yhk2kF1G74ndY60b@robh.at.kernel.org>
-References: <20220224074729.5206-1-ctcchien@nuvoton.com>
- <20220224074729.5206-3-ctcchien@nuvoton.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K5SFz1cBwz3bZR
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Feb 2022 00:31:02 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (174-21-187-98.tukw.qwest.net
+ [174.21.187.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 9FB1866F;
+ Sat, 26 Feb 2022 05:30:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1645882259;
+ bh=dvWhM0j4c/M5NbkEfml3xflGbASqE3fz2afcQu4V7N0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=iuoEBbxSYoEGXbejWzvCvAMBKnATSd7HftDVykqi9FkOgsVY0hMdqw2GlMre+YR/I
+ 8Pm1bhURCHr6HLmQ22a/utuV/vGiXAWpoZh+OVg4m18q3kj64u0aQY5ivwO4Mby5fR
+ mjcd2QdTbEUw/AI2J4CAgvUgwncmPNduvljrB2UE=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: linux-hwmon@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ Jean Delvare <jdelvare@suse.com>
+Subject: [PATCH 2/5] hwmon: (nct6775) Add read-only mode
+Date: Sat, 26 Feb 2022 05:30:44 -0800
+Message-Id: <20220226133047.6226-3-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220226133047.6226-1-zev@bewilderbeest.net>
+References: <20220226133047.6226-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220224074729.5206-3-ctcchien@nuvoton.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,108 +63,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: KWLIU@nuvoton.com, tony.luck@intel.com, rric@kernel.org,
- benjaminfair@google.com, linux-edac@vger.kernel.org, KFTING@nuvoton.com,
- avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org,
- JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, tali.perry1@gmail.com,
- devicetree@vger.kernel.org, YSCHU@nuvoton.com, bp@alien8.de,
- Medad CChien <ctcchien@nuvoton.com>, james.morse@arm.com, mchehab@kernel.org,
- tmaimon77@gmail.com
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Zev Weiss <zev@bewilderbeest.net>, Renze Nicolai <renze@rnplus.nl>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Feb 24, 2022 at 03:47:28PM +0800, Medad CChien wrote:
-> Add the device tree bindings for the EDAC driver npcm-edac.
-> 
-> Signed-off-by: Medad CChien <ctcchien@nuvoton.com>
-> ---
->  .../devicetree/bindings/edac/npcm-edac.yaml   | 64 +++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/edac/npcm-edac.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/edac/npcm-edac.yaml b/Documentation/devicetree/bindings/edac/npcm-edac.yaml
-> new file mode 100644
-> index 000000000000..228ace1025dc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/edac/npcm-edac.yaml
-> @@ -0,0 +1,64 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/edac/npcm-edac.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton NPCM Memory Controller EDAC
-> +
-> +maintainers:
-> +  - Medad CChien <ctcchien@nuvoton.com>
-> +
-> +description: |
-> +  EDAC node is defined to describe on-chip error detection and correction for
-> +  Nuvoton NPCM Memory Controller.
+When enabled, all write bits are removed from the modes of all sysfs
+attribute files.  This provides a bit of infrastructure for the
+upcoming i2c version of this driver, which should generally avoid
+writes to device registers so as not to interfere with simultaneous
+use of the device via the LPC interface.
 
-The h/w unit is the memory controller. Describe that in your binding. 
-EDAC is a Linuxism.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+---
+ drivers/hwmon/nct6775.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nuvoton,npcm8xx-edac
-> +      - nuvoton,npcm7xx-edac
+diff --git a/drivers/hwmon/nct6775.c b/drivers/hwmon/nct6775.c
+index 139b2fe5ca4d..c5b28a693461 100644
+--- a/drivers/hwmon/nct6775.c
++++ b/drivers/hwmon/nct6775.c
+@@ -1349,6 +1349,8 @@ struct nct6775_data {
+ 	/* nct6775_*() callbacks  */
+ 	u16 (*read_value)(struct nct6775_data *data, u16 reg);
+ 	int (*write_value)(struct nct6775_data *data, u16 reg, u16 value);
++
++	bool read_only;
+ };
+ 
+ struct sensor_device_template {
+@@ -1406,6 +1408,11 @@ struct sensor_template_group {
+ 	int base;
+ };
+ 
++static inline umode_t nct6775_attr_mode(struct nct6775_data *data, struct attribute *attr)
++{
++	return data->read_only ? (attr->mode & ~0222) : attr->mode;
++}
++
+ static int nct6775_add_attr_group(struct nct6775_data *data, const struct attribute_group *group)
+ {
+ 	/* Need to leave a NULL terminator at the end of data->groups */
+@@ -2246,7 +2253,7 @@ static umode_t nct6775_in_is_visible(struct kobject *kobj,
+ 	if (!(data->have_in & BIT(in)))
+ 		return 0;
+ 
+-	return attr->mode;
++	return nct6775_attr_mode(data, attr);
+ }
+ 
+ SENSOR_TEMPLATE_2(in_input, "in%d_input", S_IRUGO, show_in_reg, NULL, 0, 0);
+@@ -2464,7 +2471,7 @@ static umode_t nct6775_fan_is_visible(struct kobject *kobj,
+ 	if (nr == 5 && data->kind != nct6775)
+ 		return 0;
+ 
+-	return attr->mode;
++	return nct6775_attr_mode(data, attr);
+ }
+ 
+ SENSOR_TEMPLATE(fan_input, "fan%d_input", S_IRUGO, show_fan, NULL, 0);
+@@ -2665,7 +2672,7 @@ static umode_t nct6775_temp_is_visible(struct kobject *kobj,
+ 	if (nr > 7 && !(data->have_temp_fixed & BIT(temp)))
+ 		return 0;
+ 
+-	return attr->mode;
++	return nct6775_attr_mode(data, attr);
+ }
+ 
+ SENSOR_TEMPLATE_2(temp_input, "temp%d_input", S_IRUGO, show_temp, NULL, 0, 0);
+@@ -2736,7 +2743,7 @@ static umode_t nct6775_tsi_temp_is_visible(struct kobject *kobj, struct attribut
+ 	struct nct6775_data *data = dev_get_drvdata(dev);
+ 	int temp = index / 2;
+ 
+-	return (data->have_tsi_temp & BIT(temp)) ? attr->mode : 0;
++	return (data->have_tsi_temp & BIT(temp)) ? nct6775_attr_mode(data, attr) : 0;
+ }
+ 
+ /*
+@@ -3509,7 +3516,7 @@ static umode_t nct6775_pwm_is_visible(struct kobject *kobj,
+ 		if (api > data->auto_pwm_num)
+ 			return 0;
+ 	}
+-	return attr->mode;
++	return nct6775_attr_mode(data, attr);
+ }
+ 
+ SENSOR_TEMPLATE_2(pwm_stop_time, "pwm%d_stop_time", S_IWUSR | S_IRUGO,
+@@ -3704,7 +3711,7 @@ static umode_t nct6775_other_is_visible(struct kobject *kobj,
+ 			return 0;
+ 	}
+ 
+-	return attr->mode;
++	return nct6775_attr_mode(data, attr);
+ }
+ 
+ /*
+-- 
+2.35.1
 
-The h/w manual calls this block 'edac'?
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-
-> +  "#address-cells":
-> +    const: 2
-> +
-> +  "#size-cells":
-> +    const: 2
-
-You don't need these 2. You don't have a child node with an address.
-
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: uncorrectable error interrupt
-> +      - description: correctable error interrupt
-> +
-> +  interrupt-names:
-> +    minItems: 1
-> +    items:
-> +      - const: ue
-> +      - const: ce
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    ahb {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +        mc: memory-controller@f0824000 {
-> +            #address-cells = <2>;
-> +            #size-cells = <2>;
-> +            reg = <0x0 0xf0824000 0x0 0x1000>;
-> +            interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-> +            compatible = "nuvoton,npcm7xx-edac";
-> +        };
-> +    };
-> +
-> -- 
-> 2.17.1
-> 
-> 
