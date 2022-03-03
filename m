@@ -4,62 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB498C433F5
-	for <openbmc@archiver.kernel.org>; Thu,  3 Mar 2022 10:46:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C0BEC433F5
+	for <openbmc@archiver.kernel.org>; Thu,  3 Mar 2022 12:36:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4K8SMt482lz3c2f
-	for <openbmc@archiver.kernel.org>; Thu,  3 Mar 2022 21:46:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4K8VqB6RWtz3c1L
+	for <openbmc@archiver.kernel.org>; Thu,  3 Mar 2022 23:36:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I4aroOM2;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=cNSL1q3m;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=andriy.shevchenko@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f31;
+ helo=mail-qv1-xf31.google.com; envelope-from=tali.perry1@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=I4aroOM2; dkim-atps=neutral
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=cNSL1q3m; dkim-atps=neutral
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com
+ [IPv6:2607:f8b0:4864:20::f31])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4K8SM60yjMz3bnd
- for <openbmc@lists.ozlabs.org>; Thu,  3 Mar 2022 21:45:52 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1646304355; x=1677840355;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=dVD9z92VH43KxwwjXiWGXRu7osivdsQyI2JqeG5AhT4=;
- b=I4aroOM2awpuglJPPS6aedTdbzSblQ1Kfnvv/OU/R29dpYkHekahYnkG
- qv5+UWeMNVsFdu3yU/+LsGct0UrvYPd4sIE6B+QD9fcp6xZppw0F21Fy1
- 4ACsn85UYALmlkBdeCgXNqBVqeW+i+iD6XWK+iusjDj0ZAmkUiEV/OukJ
- r7NVUJqbwa/qwlEqm6mldPZxmTWqMFH9Tjj0Oy+VnYa5bVKziVHiejodm
- nT6sauaBN29z1JsJuJbr54tQBwplQi4uQSDh4Yc+hpxGEPejUDusPN+IG
- 53caBK4kt4079gRR2NHoEAR+vuk00fsOhYq+vEuBGy6aORkS26/v+xkPr g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10274"; a="253834376"
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="253834376"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 02:44:50 -0800
-X-IronPort-AV: E=Sophos;i="5.90,151,1643702400"; d="scan'208";a="576447018"
-Received: from smile.fi.intel.com ([10.237.72.59])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2022 02:44:44 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1nPiw8-00AkCJ-VT; Thu, 03 Mar 2022 12:43:56 +0200
-Date: Thu, 3 Mar 2022 12:43:56 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Tyrone Ting <warp5tw@gmail.com>
-Subject: Re: [PATCH v3 11/11] i2c: npcm: Support NPCM845
-Message-ID: <YiCb7LNY9tmMCZx7@smile.fi.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4K8VpQ1gffz3bxR
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Mar 2022 23:36:12 +1100 (AEDT)
+Received: by mail-qv1-xf31.google.com with SMTP id j5so3928019qvs.13
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Mar 2022 04:36:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=T4KGopGGDh3N9ZnQy5qnHV4FnEM8H/VnZKXOZ5Q7nKQ=;
+ b=cNSL1q3mZ6E7CnNPKrfdcARsqZ4Eno+LMLePOVm6FFSgofxP5NSysdysfPK94l8F0a
+ J5ZgOKyPc0pWmXy/WMaV2lzIKLniCFaUPcEVkxqjtORk0UlTIc9OnL8QTXuarTdghZbB
+ ppmXgod4sNxsmiVWiDvTTt4HWgKB6BGIGTPnTfxqlYi7Mzw10Pl5YUJPKGE9yMfdLREx
+ VNEBkQnSXuzoTHH98U4ATdoy3xf+musdGENdGSgRLkjQNgMglCUPkT71COzHUuZSVtMd
+ dt15Xg0A7wEx5cFXvrWt/KgewjnboSl5SYUDDVsyLyj8CxuurObIc+xkolRhvCZh2OuE
+ mPvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=T4KGopGGDh3N9ZnQy5qnHV4FnEM8H/VnZKXOZ5Q7nKQ=;
+ b=No0UL7no4TnXpNCPuUOCP4JllB1XxJJS6ZD9Emdhdhf3fOAq2/SiV2a+goDxBmpr2L
+ NH3secc4rsQcW9okkrhrsi9loaFaWbLJeJuqF+v18N6OW1TERpCs7BXvkeZ2Zh2El2/s
+ RaNrgAyUF6//JGlYl1uZWVkU2xJI+3ej3cI/cOG8h5xPaw2dA35EVnYaBm1ONanLrFVk
+ TNn4OuXXwLBu3i9mVXAdnZIGit+PZqdBdr290e2d5X+kSvUT3QoXylYO+RoXR68RH/hb
+ aLlAZ/oTW1GzpHrtfTr6Yz89eG8maCOVkBwGjH/tH6cYZXcqcZKJ7mth5zQhfSM/Tw3w
+ hkUw==
+X-Gm-Message-State: AOAM530g4ZdWI43kuVkIZ7UAFYtG8MaEiZr4xZ4qPsiLmDjyjvbMeUOu
+ NESlr0F0tjF+L+Mzuy17nqtul/C7+CcV+awkVXs=
+X-Google-Smtp-Source: ABdhPJzQ0GX7pIFvv4QUE8a6vGgiHU4ubSw9lwS7j8KqUYZwl4V7qWLJ6nJgfgTZhogDE3QoxuJ/t4T9nQ7Hn/0o1Nw=
+X-Received: by 2002:ad4:5be7:0:b0:435:1aad:6a84 with SMTP id
+ k7-20020ad45be7000000b004351aad6a84mr5946245qvc.124.1646310969477; Thu, 03
+ Mar 2022 04:36:09 -0800 (PST)
+MIME-Version: 1.0
 References: <20220303083141.8742-1-warp5tw@gmail.com>
  <20220303083141.8742-12-warp5tw@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220303083141.8742-12-warp5tw@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+ <YiCb7LNY9tmMCZx7@smile.fi.intel.com>
+In-Reply-To: <YiCb7LNY9tmMCZx7@smile.fi.intel.com>
+From: Tali Perry <tali.perry1@gmail.com>
+Date: Thu, 3 Mar 2022 14:35:58 +0200
+Message-ID: <CAHb3i=tWhtXK+c5GGbp6m23AHoyy=4woT_+n3a_N-6CqKUYb=g@mail.gmail.com>
+Subject: Re: [PATCH v3 11/11] i2c: npcm: Support NPCM845
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,91 +76,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: tmaimon77@gmail.com, devicetree@vger.kernel.org, tali.perry1@gmail.com,
- linux-i2c@vger.kernel.org, benjaminfair@google.com,
- krzysztof.kozlowski@canonical.com, openbmc@lists.ozlabs.org,
- JJLIU0@nuvoton.com, lukas.bulwahn@gmail.com, tomer.maimon@nuvoton.com,
- KWLIU@nuvoton.com, bence98@sch.bme.hu, arnd@arndb.de, sven@svenpeter.dev,
- robh+dt@kernel.org, Avi.Fishman@nuvoton.com, yangyicong@hisilicon.com,
- semen.protsenko@linaro.org, jie.deng@intel.com, avifishman70@gmail.com,
- venture@google.com, linux-kernel@vger.kernel.org, wsa@kernel.org,
- kfting@nuvoton.com, tali.perry@nuvoton.com, olof@lixom.net
+Cc: Tomer Maimon <tmaimon77@gmail.com>, devicetree <devicetree@vger.kernel.org>,
+ yangyicong@hisilicon.com, Linux I2C <linux-i2c@vger.kernel.org>,
+ Benjamin Fair <benjaminfair@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, JJLIU0@nuvoton.com,
+ lukas.bulwahn@gmail.com, tomer.maimon@nuvoton.com, KWLIU@nuvoton.com,
+ bence98@sch.bme.hu, arnd@arndb.de, sven@svenpeter.dev,
+ Rob Herring <robh+dt@kernel.org>, Avi Fishman <Avi.Fishman@nuvoton.com>,
+ Tyrone Ting <warp5tw@gmail.com>, semen.protsenko@linaro.org,
+ jie.deng@intel.com, avifishman70@gmail.com,
+ Patrick Venture <venture@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Wolfram Sang <wsa@kernel.org>, kfting@nuvoton.com,
+ Tali Perry <tali.perry@nuvoton.com>, olof@lixom.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Mar 03, 2022 at 04:31:41PM +0800, Tyrone Ting wrote:
-> From: Tyrone Ting <kfting@nuvoton.com>
-> 
-> Add NPCM8XX I2C support.
-> The NPCM8XX uses a similar i2c module as NPCM7XX.
-> The internal HW FIFO is larger in NPCM8XX.
-> 
-> Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> On Thu, Mar 3, 2022 at 12:45 PM Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+> >
+> > On Thu, Mar 03, 2022 at 04:31:41PM +0800, Tyrone Ting wrote:
+> > > From: Tyrone Ting <kfting@nuvoton.com>
+> > >
+> > > Add NPCM8XX I2C support.
+> > > The NPCM8XX uses a similar i2c module as NPCM7XX.
+> > > The internal HW FIFO is larger in NPCM8XX.
+> > >
+> > > Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+> > > Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+> >
+> > Wrong SoB chain.
+> >
+> > ...
+> >
+> > > +static const struct npcm_i2c_data npxm7xx_i2c_data = {
+> > > +     .fifo_size = 16,
+> > > +     .segctl_init_val = 0x0333F000,
+> > > +     .txf_sts_tx_bytes = GENMASK(4, 0),
+> > > +     .rxf_sts_rx_bytes = GENMASK(4, 0),
+> > > +     .rxf_ctl_last_pec = BIT(5)
+> >
+> > + Comma.
+> >
+> > > +};
+> > > +
+> > > +static const struct npcm_i2c_data npxm8xx_i2c_data = {
+> > > +     .fifo_size = 32,
+> > > +     .segctl_init_val = 0x9333F000,
+> > > +     .txf_sts_tx_bytes = GENMASK(5, 0),
+> > > +     .rxf_sts_rx_bytes = GENMASK(5, 0),
+> > > +     .rxf_ctl_last_pec = BIT(7)
+> >
+> > Ditto.
+> >
+> > > +};
+> >
+> > ...
+> >
+> > > -     left_in_fifo = FIELD_GET(NPCM_I2CTXF_STS_TX_BYTES,
+> > > -                              ioread8(bus->reg + NPCM_I2CTXF_STS));
+> > > +     left_in_fifo = (bus->data->txf_sts_tx_bytes &
+> > > +                     ioread8(bus->reg + NPCM_I2CTXF_STS));
+> >
+> > Besides too many parentheses, this is an interesting change. So, in different
+> > versions of IP the field is on different bits? Perhaps it means that you need
+> > something like internal ops structure for all these, where you will have been
+> > using the statically defined masks?
+> >
 
-Wrong SoB chain.
+Those are two very similar modules. The first generation had a 16 bytes HW FIFO
+and the second generation has 32 bytes.
+In V1 of this patchset the masks were defined under
+CONFIG but we were asked to change the approach:
 
-...
+the entire discussion can be found here:
 
-> +static const struct npcm_i2c_data npxm7xx_i2c_data = {
-> +	.fifo_size = 16,
-> +	.segctl_init_val = 0x0333F000,
-> +	.txf_sts_tx_bytes = GENMASK(4, 0),
-> +	.rxf_sts_rx_bytes = GENMASK(4, 0),
-> +	.rxf_ctl_last_pec = BIT(5)
+https://www.spinics.net/lists/linux-i2c/msg55566.html
 
-+ Comma.
-
-> +};
-> +
-> +static const struct npcm_i2c_data npxm8xx_i2c_data = {
-> +	.fifo_size = 32,
-> +	.segctl_init_val = 0x9333F000,
-> +	.txf_sts_tx_bytes = GENMASK(5, 0),
-> +	.rxf_sts_rx_bytes = GENMASK(5, 0),
-> +	.rxf_ctl_last_pec = BIT(7)
-
-Ditto.
-
-> +};
-
-...
-
-> -	left_in_fifo = FIELD_GET(NPCM_I2CTXF_STS_TX_BYTES,
-> -				 ioread8(bus->reg + NPCM_I2CTXF_STS));
-> +	left_in_fifo = (bus->data->txf_sts_tx_bytes &
-> +			ioread8(bus->reg + NPCM_I2CTXF_STS));
-
-Besides too many parentheses, this is an interesting change. So, in different
-versions of IP the field is on different bits? Perhaps it means that you need
-something like internal ops structure for all these, where you will have been
-using the statically defined masks?
-
-...
-
-> +	match = of_match_device(npcm_i2c_bus_of_table, dev);
-> +	if (!match) {
-> +		dev_err(dev, "OF data missing\n");
-> +		return -EINVAL;
-> +	}
-> +	bus->data = match->data;
-
-This is NIH of_device_get_match_data().
-
-...
-
-> -static const struct of_device_id npcm_i2c_bus_of_table[] = {
-> -	{ .compatible = "nuvoton,npcm750-i2c", },
-> -	{}
-> -};
-> -MODULE_DEVICE_TABLE(of, npcm_i2c_bus_of_table);
-> -
-
-Redundant change, leave this as is.
-
--- 
-With Best Regards,
-Andy Shevchenko
+Did we understand the request change right?
 
 
+> > ...
+> >
+> > > +     match = of_match_device(npcm_i2c_bus_of_table, dev);
+> > > +     if (!match) {
+> > > +             dev_err(dev, "OF data missing\n");
+> > > +             return -EINVAL;
+> > > +     }
+> > > +     bus->data = match->data;
+> >
+> > This is NIH of_device_get_match_data().
+> >
+> > ...
+> >
+> > > -static const struct of_device_id npcm_i2c_bus_of_table[] = {
+> > > -     { .compatible = "nuvoton,npcm750-i2c", },
+> > > -     {}
+> > > -};
+> > > -MODULE_DEVICE_TABLE(of, npcm_i2c_bus_of_table);
+> > > -
+> >
+> > Redundant change, leave this as is.
+> >
+> > --
+> > With Best Regards,
+> > Andy Shevchenko
+> >
+> >
+
+Thanks for the detailed review, Andy!
+
+BR,
+Tali Perry
+Nuvoton Technologies
