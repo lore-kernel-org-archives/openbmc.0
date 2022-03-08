@@ -4,52 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C69C433EF
-	for <openbmc@archiver.kernel.org>; Tue,  8 Mar 2022 07:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B281C433F5
+	for <openbmc@archiver.kernel.org>; Tue,  8 Mar 2022 07:45:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KCRJ96yQ5z3bVc
-	for <openbmc@archiver.kernel.org>; Tue,  8 Mar 2022 18:08:41 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jbWkLbJN;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KCS6B38zkz3bYq
+	for <openbmc@archiver.kernel.org>; Tue,  8 Mar 2022 18:45:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linuxfoundation.org (client-ip=139.178.84.217;
- helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
- header.a=rsa-sha256 header.s=korg header.b=jbWkLbJN; 
- dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KCRHR6YHnz2xDD
- for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2022 18:08:03 +1100 (AEDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=kaod.org (client-ip=46.105.37.156; helo=8.mo552.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+X-Greylist: delayed 4690 seconds by postgrey-1.36 at boromir;
+ Tue, 08 Mar 2022 18:44:42 AEDT
+Received: from 8.mo552.mail-out.ovh.net (8.mo552.mail-out.ovh.net
+ [46.105.37.156])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1E13661607;
- Tue,  8 Mar 2022 07:08:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD64EC340EB;
- Tue,  8 Mar 2022 07:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1646723281;
- bh=806RbM3GSl0lCzZ1Vh8RXqDEQY0njqRzw1M3TDJbdJA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jbWkLbJN5YaU+/wzIwi1t8uEr+9F0Ep/q+qp10uSiees/swR2uXzT1RVnhI5Q00Ud
- H0ay5vpHFYZ8ixwlmVo32nvmbRPMZnECjiyXkS2m6Jn50/q8XPhkJX+IwjR6xqiltU
- eHImxUp4yKsOHqFZ0CxpUhz2pii0e5HVGcm37hEQ=
-Date: Tue, 8 Mar 2022 08:07:57 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Zev Weiss <zev@bewilderbeest.net>
-Subject: Re: [PATCH v2 2/2] misc: Add power-efuse driver
-Message-ID: <YicAzSara5Sr3LQ7@kroah.com>
-References: <20220308011811.10353-1-zev@bewilderbeest.net>
- <20220308011811.10353-3-zev@bewilderbeest.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KCS5k0rrfz2x9b
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Mar 2022 18:44:38 +1100 (AEDT)
+Received: from mxplan5.mail.ovh.net (unknown [10.109.143.2])
+ by mo552.mail-out.ovh.net (Postfix) with ESMTPS id A1DAA23567;
+ Tue,  8 Mar 2022 06:26:25 +0000 (UTC)
+Received: from kaod.org (37.59.142.102) by DAG4EX1.mxp5.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.18; Tue, 8 Mar
+ 2022 07:26:24 +0100
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-102R004772dd874-7347-4ca0-8a76-f68c866fda61,
+ 03E3C14593CA27F822F61C3AD678835CDD198C87) smtp.auth=clg@kaod.org
+X-OVh-ClientIp: 82.64.250.170
+Message-ID: <e340428e-7ea3-222a-3cc5-b3d7d0ef760b@kaod.org>
+Date: Tue, 8 Mar 2022 07:26:24 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220308011811.10353-3-zev@bewilderbeest.net>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [SPAM] [PATCH 1/1] mtd: spi-nor: aspeed: set the decoding size to
+ at least 2MB for AST2600
+Content-Language: en-US
+To: =?UTF-8?B?UG90aW4gTGFpICjos7Tmn4/lu7cp?= <Potin.Lai@quantatw.com>, Joel
+ Stanley <joel@jms.id.au>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>, Patrick Williams <patrick@stwcx.xyz>
+References: <20220304170757.16924-1-potin.lai@quantatw.com>
+ <67004879-96ab-33b5-f389-bbe0005d78ef@kaod.org>
+ <6ed257f7-ae87-e2fe-26ed-9db300f5ebcc@kaod.org>
+ <efeac1dc-0762-b6d3-e03b-dffc2c76d756@quantatw.com>
+ <4d072c43-a766-9ce4-a629-a3ed095663a4@kaod.org>
+ <e10877f9-57f7-7019-b9ca-0812a60cdea9@kaod.org>
+ <597dcccf-f01a-92b5-9b62-72580660a1c5@quantatw.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+In-Reply-To: <597dcccf-f01a-92b5-9b62-72580660a1c5@quantatw.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [37.59.142.102]
+X-ClientProxiedBy: DAG2EX2.mxp5.local (172.16.2.12) To DAG4EX1.mxp5.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: bbcb5458-91c4-4130-a552-c6bef25d52ad
+X-Ovh-Tracer-Id: 17803010805389560739
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvvddrudduhedgleefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepieegvdffkeegfeetuddttddtveduiefhgeduffekiedtkeekteekhfffleevleelnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepphgrthhrihgtkhesshhtfigtgidrgiihii
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +74,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Liam Girdwood <lgirdwood@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Mar 07, 2022 at 05:18:10PM -0800, Zev Weiss wrote:
-> +static DEVICE_ATTR(operstate, 0644, efuse_show_operstate, efuse_set_operstate);
+> Thanks for taking this patch into spi-mem driver, the tested log as below.
+> 
+> [    1.945705] spi-nor spi1.0: mx25l8005 (1024 Kbytes)
+> [    1.945926] spi-aspeed-smc 1e630000.spi: CE0 window resized to 2MB (AST2600 Decoding)
+> aspeed_smc_flash_set_segment CS0 segreg=0x100000 [ 0x30000000 - 0x30200000 ]
+> aspeed_smc_flash_set_segment CS1 segreg=0x7f00020 [ 0x30200000 - 0x38000000 ]
+> [    1.953083] spi-aspeed-smc 1e630000.spi: Calibration area too uniform, using low speed
+> [    1.953409] spi-aspeed-smc 1e630000.spi: CE0 read buswidth:1 [0x000b0041]
 
-DEVICE_ATTR_RW()?
+Thanks for the test !
+  
+> By the way, there is a small error when compiling kernel, it needs forward declare for both ast2600_spi_data & ast2600_fmc_data.
 
-> +
-> +#define EFUSE_ERROR_ATTR(name, bit)							    \
-> +	static ssize_t efuse_show_##name(struct device *dev, struct device_attribute *attr, \
-> +					 char *buf)                                         \
-> +	{                                                                                   \
-> +		struct efuse *efuse = dev_get_drvdata(dev);                                 \
-> +		int status = efuse_update_error_flags(efuse);                               \
-> +		if (status)                                                                 \
-> +			return status;                                                      \
-> +		return sysfs_emit(buf, "%d\n", !!(efuse->error_flags.cache & bit));         \
-> +	}                                                                                   \
-> +	static DEVICE_ATTR(name, 0444, efuse_show_##name, NULL)
+Ah yes ! Sorry, I pushed a wrong version. I just did an update on my tree.
 
-DEVICE_ATTR_RO()?
+May be we should introduce some helpers to identify the SoC.
 
-> +EFUSE_ERROR_ATTR(under_voltage, REGULATOR_ERROR_UNDER_VOLTAGE);
-> +EFUSE_ERROR_ATTR(over_current, REGULATOR_ERROR_OVER_CURRENT);
-> +EFUSE_ERROR_ATTR(regulation_out, REGULATOR_ERROR_REGULATION_OUT);
-> +EFUSE_ERROR_ATTR(fail, REGULATOR_ERROR_FAIL);
-> +EFUSE_ERROR_ATTR(over_temp, REGULATOR_ERROR_OVER_TEMP);
-> +EFUSE_ERROR_ATTR(under_voltage_warn, REGULATOR_ERROR_UNDER_VOLTAGE_WARN);
-> +EFUSE_ERROR_ATTR(over_current_warn, REGULATOR_ERROR_OVER_CURRENT_WARN);
-> +EFUSE_ERROR_ATTR(over_voltage_warn, REGULATOR_ERROR_OVER_VOLTAGE_WARN);
-> +EFUSE_ERROR_ATTR(over_temp_warn, REGULATOR_ERROR_OVER_TEMP_WARN);
-> +
-> +static struct attribute *efuse_attrs[] = {
-> +	&dev_attr_operstate.attr,
-> +	&dev_attr_under_voltage.attr,
-> +	&dev_attr_over_current.attr,
-> +	&dev_attr_regulation_out.attr,
-> +	&dev_attr_fail.attr,
-> +	&dev_attr_over_temp.attr,
-> +	&dev_attr_under_voltage_warn.attr,
-> +	&dev_attr_over_current_warn.attr,
-> +	&dev_attr_over_voltage_warn.attr,
-> +	&dev_attr_over_temp_warn.attr,
-> +	NULL,
-> +};
-> +ATTRIBUTE_GROUPS(efuse);
+> Also, I saw you add ast2600_fmc_data for resize checking as well, should I add it in aspeed-smc.c and resend the patch?
 
-Shouldn't these all just be what all regulator drivers report?  Or power
-drivers?  I find it odd that this would be the first driver that would
-need to export these types of attributes.  Surely there's already a
-class for this?
+Both AST2600 controllers have the same encoding of the flash window
+range, so, yes the old driver needs it.
 
-thanks,
+Thanks,
 
-greg k-h
+C.
