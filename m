@@ -4,89 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8302C433F5
-	for <openbmc@archiver.kernel.org>; Tue,  8 Mar 2022 17:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC3DCC433EF
+	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 00:51:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KCjBL0YXkz3bVH
-	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 04:34:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KCttZ6K9kz3bTs
+	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 11:51:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=tvcV+Ls+;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DSVm+VHX;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=OHX3gNLw;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=tvcV+Ls+; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=DSVm+VHX; 
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=OHX3gNLw; 
  dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KCj9V1yfZz3bNx
- for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2022 04:33:49 +1100 (AEDT)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 74E295C01A0;
- Tue,  8 Mar 2022 12:33:46 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 08 Mar 2022 12:33:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
- :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to; s=fm1; bh=efrL4j7e+o7VKBATbgagA/L8Ar/jNKUi6ovHiV
- MNEl0=; b=tvcV+Ls+VQSfYm/Q5/IBN5aDWJ5aafx+2y9ZXckaC4xX/ToBuRr5KO
- mJasAjMvEhoMWJ93jjmP7At/8zlsZWsNv097RX+10ssm7l3mYJM9Y3ONqDd1EN5V
- UAe/wHaFmIOuXq9GWkTLOe0jumnZpj16ofZe/OLL3K9udbN31fL5cZBWgD3QKu4M
- Nzwj4CGO0UCUUnwHBGr5BdSjVReVoUkJ/+n12Soi4DHL8z34GtJnebuZMjM04y+W
- 5sx0EVgLCmNiyVan9b8itlABFjcZk3to87SHZphWOknOmVHmUbxOFKnLCvTJCjy7
- c3iasiofWBg0ELE4uLW4nVebC9879ncg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:date:date:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=efrL4j7e+o7VKBATb
- gagA/L8Ar/jNKUi6ovHiVMNEl0=; b=DSVm+VHXf3bHGoHvoLF6ELXXycDNfsya4
- EIDADYSpnK14Ikoj/WwG+4lZVFsbgEAsckTWEsB/1qp2sHOApiJVgo/PyO9Zy76B
- jDxX2piS7cn9kIVZ9H1ab7gvvHQ2jd/gr+jZS4AuHs4Y9aG1GVmClOt+a2MI2oVC
- Dr1yci2yf3c3/20LpwKIn4t0T1B8HW6VcGyXjiUP3Y+a6XFyGpQWjeCL3vDvE1LX
- 2/23r/GBLFkss973SUZBbQBgEQ+4ce3ahQPvyO288tkiBIYC7m62LJvYiJA9c1mY
- flq++ZWZmh1FZ0XbO8/VZ8penF/0fsx6uYWODjO52U09Y13ncqjEw==
-X-ME-Sender: <xms:eZMnYmcbSpm7PbE6N1mNwkKzepzaen2ZuvvXN54Xl47YNaKT20KRNg>
- <xme:eZMnYgNRFrYn-coDGR4I8GNurbYbC4vlxtFcCmxTwjYGbdDo2MeJerJYeDc9gkJ-E
- nbo9_zrdFX6wKtf3PQ>
-X-ME-Received: <xmr:eZMnYniIbdQgYqNEWf8JW8Ty5lXijQE6BhwRgAknrrKz_Nl4bdfmLIepHM8ATzeBuUcb5QQ5KcPC8f44YpPdisKnYm5kN7FV>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudduiedguddttdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecufghrlhcuvffnffculdefhedmnecujfgurhepff
- fhvffukfhfgggtuggjsehgtdorredttddvnecuhfhrohhmpefrrghtrhhitghkucghihhl
- lhhirghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucggtffrrghtthgvrh
- hnpeefieekvdejjeehteeggeegfeegffetuefggedtvddugefguefgfeejvdeuvdevveen
- ucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrh
- hitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:eZMnYj9Xwv7mK8DPeO50i_QCnV7FvJ012-NVDQbYVysL6jyEJM9wpg>
- <xmx:eZMnYiuEeV-rgP1dl1NBw7BZqWLSQh4FnVlXfGm2qp0wf76wKBANsQ>
- <xmx:eZMnYqGEBnZniJhjSflpt1VJyliRvnHz9BzCo9eRNteYB0q8CUga3Q>
- <xmx:epMnYo08htO7oHsXlKA-YxVvTaUrzlKHvjvQRvBfL3xvzvoX-TNOAQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Mar 2022 12:33:45 -0500 (EST)
-Date: Tue, 8 Mar 2022 11:33:44 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: pooky@sysmate.com
-Subject: Re: [Help] I want to know how to make an image for w25q256JV flash
- memory.
-Message-ID: <YieTeLalmiLBiRnB@heinlein>
-References: <000001d831cf$88c2f8e0$9a48eaa0$@sysmate.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KCtsx0xVWz301s
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2022 11:51:00 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (174-21-187-98.tukw.qwest.net
+ [174.21.187.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 07AC5663;
+ Tue,  8 Mar 2022 16:50:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1646787059;
+ bh=P/LG0Tv6Dj5QsLIhvJT27ETgaDgbX6kVZ8POr9JaRLg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=OHX3gNLwI0PRnH1RY2/8wXabqkQmOnsL7QRiWRAfrjvCemhP9HZhXgpk3FT1SNP9R
+ lWS0MRG1euHUfRSTybFLYTJsbGp4nCE5l1xeTxBSI4hhyCuiz2RHIBFxORpQuAqB58
+ QT/4u7Xv0HQSQVOmp6E2XG8hyTalNb2mbROHuypw=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ devicetree@vger.kernel.org
+Subject: [PATCH v2 1/6] dt-bindings: hwmon: Add nuvoton,nct6775
+Date: Tue,  8 Mar 2022 16:50:42 -0800
+Message-Id: <20220309005047.5107-2-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220309005047.5107-1-zev@bewilderbeest.net>
+References: <20220309005047.5107-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="k/ZdMR1+ai5fnNbT"
-Content-Disposition: inline
-In-Reply-To: <000001d831cf$88c2f8e0$9a48eaa0$@sysmate.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,97 +64,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: Zev Weiss <zev@bewilderbeest.net>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Renze Nicolai <renze@rnplus.nl>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+These Super I/O chips have an i2c interface that some systems expose
+to a BMC; the BMC's device tree can now describe that via this
+binding.
 
---k/ZdMR1+ai5fnNbT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ .../bindings/hwmon/nuvoton,nct6775.yaml       | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
 
-On Mon, Mar 07, 2022 at 12:00:42PM +0900, pooky@sysmate.com wrote:
-=20
-> I am developing a motherboard using AST2500 chip using openbmc.=20
-> It is booting with w25q256JV flash memory attached to the AST2500 chip.
-> I want to know how to make an image for w25q256JV flash memory.
+diff --git a/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml b/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
+new file mode 100644
+index 000000000000..7b1054db46b3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
+@@ -0,0 +1,48 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++
++$id: http://devicetree.org/schemas/hwmon/nuvoton,nct6775.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NCT6775 and compatible Super I/O chips
++
++maintainers:
++  - Zev Weiss <zev@bewilderbeest.net>
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,nct6106
++      - nuvoton,nct6116
++      - nuvoton,nct6775
++      - nuvoton,nct6776
++      - nuvoton,nct6779
++      - nuvoton,nct6791
++      - nuvoton,nct6792
++      - nuvoton,nct6793
++      - nuvoton,nct6795
++      - nuvoton,nct6796
++      - nuvoton,nct6797
++      - nuvoton,nct6798
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        superio@4d {
++            compatible = "nuvoton,nct6779";
++            reg = <0x4d>;
++        };
++    };
+-- 
+2.35.1
 
-That chip is relatively small for our codebase (32MB).  We still have some
-machines running that size but we typically have to reduce the features in =
-order
-to make it fit.
-
-Building an image doesn't really concern itself with the particular model of
-chip but the size.  The more important thing for your system is all the
-configuration information you need to provide about your motherboard so tha=
-t the
-software knows how to operate the hardware.
-
-In our repository you'll see a lot of 'meta-*' subdirectories.  Most of the=
-se
-are the Yocto layers for machines designed by various companies.  These are=
- the
-configuration data on those machines.  You may want to take one that looks
-similar in design and start with that.
-
-Specifically on your question regarding this chip, the only thing we really=
- need
-configured is the FLASH_SIZE variable.  This will build the 32MB image that=
- can
-fit into your chip.  Nothing else should care about the specific model beca=
-use
-u-boot and Linux should use the JEDEC model information to determine the si=
-ze of
-that chip when they access it.  Here are a number of machines configured wi=
-th a
-32MB flash layout:
-
-```
-$ git grep 'FLASH_SIZE =3D "32768"'
-meta-amd/meta-ethanolx/conf/machine/ethanolx.conf:FLASH_SIZE =3D "32768"
-meta-asrock/meta-e3c246d4i/conf/machine/e3c246d4i.conf:FLASH_SIZE =3D "3276=
-8"
-meta-facebook/meta-tiogapass/conf/machine/tiogapass.conf:FLASH_SIZE =3D "32=
-768"
-meta-facebook/meta-yosemitev2/conf/machine/yosemitev2.conf:FLASH_SIZE =3D "=
-32768"
-meta-ibm/meta-palmetto/conf/machine/palmetto.conf:FLASH_SIZE =3D "32768"
-meta-inspur/meta-on5263m5/conf/machine/on5263m5.conf:FLASH_SIZE =3D "32768"
-meta-intel-openbmc/meta-s2600wf/conf/machine/s2600wf.conf:FLASH_SIZE =3D "3=
-2768"
-meta-nuvoton/conf/machine/evb-npcm750.conf:FLASH_SIZE =3D "32768"
-meta-quanta/meta-gsj/conf/machine/gsj.conf:FLASH_SIZE =3D "32768"
-meta-quanta/meta-olympus-nuvoton/conf/machine/olympus-nuvoton.conf:FLASH_SI=
-ZE =3D "32768"
-meta-quanta/meta-q71l/conf/machine/quanta-q71l.conf:FLASH_SIZE =3D "32768"
-meta-supermicro/meta-x11spi/conf/machine/x11spi.conf:FLASH_SIZE =3D "32768"
-meta-tyan/meta-s7106/conf/machine/s7106.conf:FLASH_SIZE =3D "32768"
-meta-tyan/meta-s8036/conf/machine/s8036.conf:FLASH_SIZE =3D "32768"
-```
-
---=20
-Patrick Williams
-
---k/ZdMR1+ai5fnNbT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmInk3cACgkQqwNHzC0A
-wRmyPA//XYh8jnbGDBYL5SOQt1PSMZ4tYc1mBjJlVoWlC8intxhvsfSm7Ft22rAy
-g0yHA9BekThFKEf+kWo+gEGHo/X4FD0hjhpWp3j7CIVtm86gb1t4SNd6IER/rYvj
-McDWZj1BXZhePN23IRsj+8f6Knu8Bmyxma2BvroMzloLZclXmG1SAfFFKbCiqe18
-QKgnb/TrK0hlcd0RtD4ZPw05Yk0lApLE4kt51aDbrC81rNH5ddAI1p541y48F7Fl
-k9KwUuLyJ6uI+nm9wf2qVdf5LspjMtCSsGTRnk4ZFl6ivUxyLbvKfqHVuiiBqSAd
-m9RKq5xy0Rf2duhUdeyavXSCaa+HvTJ/rerifRkz64AUQtRrRw9QnSqcIhbc2iM9
-grOjPBznSJmptwz+Fqkwly2AxeR/z9zORK7A/8hRefInb4aZhSS02H10yk7i0KPm
-O/BM7Sa0fABISrs9kPQPfdjT+5U8+0JBxXl77MlyhzHdFO2omyjPxUijM5sbsjxM
-Z1HEDkmAQasKd/bAH1AhnmYFaXwuZ+8VYqJARgary1cxjKIBwRuDYKj62Fv6zYY4
-g4GSYc9c2olpuQ+L4EHe3tsBMoklQeYECoElmyapAsAkk43KtOVUmAwlAbflMYzp
-sHgNrJ94/zO8Yd0dIw8KMeG7ItyXMqJoFc1fmKsV5PFDOT+RbxA=
-=JuRJ
------END PGP SIGNATURE-----
-
---k/ZdMR1+ai5fnNbT--
