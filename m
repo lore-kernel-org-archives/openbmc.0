@@ -4,53 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC3DCC433EF
-	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 00:51:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36FC8C433EF
+	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 00:52:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KCttZ6K9kz3bTs
-	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 11:51:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KCtvG4Gywz3bTS
+	for <openbmc@archiver.kernel.org>; Wed,  9 Mar 2022 11:52:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=OHX3gNLw;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=m5U+UlFP;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
+ smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
  helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=OHX3gNLw; 
+ header.a=rsa-sha256 header.s=thorn header.b=m5U+UlFP; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [IPv6:2605:2700:0:5::4713:9cab])
+ [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KCtsx0xVWz301s
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KCtsx1RQ2z30HZ
  for <openbmc@lists.ozlabs.org>; Wed,  9 Mar 2022 11:51:00 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (174-21-187-98.tukw.qwest.net
  [174.21.187.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 07AC5663;
- Tue,  8 Mar 2022 16:50:59 -0800 (PST)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id A4D0AD7;
+ Tue,  8 Mar 2022 16:50:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1646787059;
- bh=P/LG0Tv6Dj5QsLIhvJT27ETgaDgbX6kVZ8POr9JaRLg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OHX3gNLwI0PRnH1RY2/8wXabqkQmOnsL7QRiWRAfrjvCemhP9HZhXgpk3FT1SNP9R
- lWS0MRG1euHUfRSTybFLYTJsbGp4nCE5l1xeTxBSI4hhyCuiz2RHIBFxORpQuAqB58
- QT/4u7Xv0HQSQVOmp6E2XG8hyTalNb2mbROHuypw=
+ s=thorn; t=1646787058;
+ bh=88A/q9YoQ5WMTxMFERK2y7lEn0PdOr7oN0oRctbP9po=;
+ h=From:To:Cc:Subject:Date:From;
+ b=m5U+UlFPrDcM7YDWRANnkU94pp3HPe4AX4k3fn925CdUVwXX/nXP6A8aK/dByWFfW
+ EWmGNeqmlF0gmyxWZxpS6HmDcXSUqns9QDxG1BTkFZ+GtdEOjgEY0tPdRdDfa6vfFo
+ l6+UTp+Im9PiXbUxzO20gO1M7za8+oJoAPvYbVn4=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
- linux-hwmon@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- devicetree@vger.kernel.org
-Subject: [PATCH v2 1/6] dt-bindings: hwmon: Add nuvoton,nct6775
-Date: Tue,  8 Mar 2022 16:50:42 -0800
-Message-Id: <20220309005047.5107-2-zev@bewilderbeest.net>
+ linux-hwmon@vger.kernel.org
+Subject: [PATCH v2 0/6] hwmon: (nct6775) Convert to regmap, add i2c support
+Date: Tue,  8 Mar 2022 16:50:41 -0800
+Message-Id: <20220309005047.5107-1-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220309005047.5107-1-zev@bewilderbeest.net>
-References: <20220309005047.5107-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,80 +61,118 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zev Weiss <zev@bewilderbeest.net>,
+Cc: devicetree@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>,
  Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Oleksandr Natalenko <oleksandr@natalenko.name>,
- Renze Nicolai <renze@rnplus.nl>
+ Rob Herring <robh+dt@kernel.org>, Renze Nicolai <renze@rnplus.nl>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-These Super I/O chips have an i2c interface that some systems expose
-to a BMC; the BMC's device tree can now describe that via this
-binding.
+Hello,
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- .../bindings/hwmon/nuvoton,nct6775.yaml       | 48 +++++++++++++++++++
- 1 file changed, 48 insertions(+)
+This is v2 of my patches to add i2c support to the nct6775 driver.
+
+Changes since v1 [0]:
+ - Added preparatory patch converting driver to regmap API [Guenter]
+ - Replaced ENOSPC with ENOBUFS and removed WARN_ON() in
+   nct6775_add_attr_group() [Guenter]
+ - Added dedicated symbol namespace [Guenter]
+ - Removed nct6775_write_temp() and nct6775_update_device() symbol
+   exports [Guenter]
+ - Reordered patches to put dt-bindings patch first [Krzysztof]
+
+The nct6775-platform and nct6775-i2c drivers have both been tested on
+the NCT6779D in an ASRock ROMED8HM3 system and the NCT6798 [1] in an
+ASRock X570-D4U (the latter thanks to Renze, CCed); both seem to work
+as expected on both systems.  I don't have access to any asuswmi
+hardware, so testing of the nct6775-platform driver on that to ensure
+it doesn't break there would be appreciated (Oleksandr, perhaps?).
+
+[0] https://lore.kernel.org/linux-hwmon/20220226133047.6226-1-zev@bewilderbeest.net/
+[1] Though it's physically labeled (mislabeled?) as an NCT6796, for
+    what that's worth.
+
+A slightly edited version of the previous cover letter follows:
+
+
+This patch series augments the existing nct6775 driver with support
+for the hardware's i2c interface; along the way it converts the driver
+to use the regmap API, and splits the LPC-specific platform driver
+into a separate module from the interface-independent core.
+
+Thus far the nct6775 driver has only supported the LPC interface,
+which is the main interface by which the Super-I/O chip is typically
+connected to the host (x86) processor.
+
+However, these chips also provide an i2c interface, which can provide
+a way for a BMC to also monitor sensor readings from them.  On some
+systems (such as the ASRock Rack ROMED8HM3 and X570-D4U) this may be
+the only way for the BMC to monitor host CPU temperatures (e.g. to
+indirectly access a TSI interface); this functionality is thus an
+important component of enabling OpenBMC to support such systems.
+
+In such an arrangement the Super-I/O chip is simultaneously controlled
+by two independent processors (the host and the BMC) which typically
+do not coordinate their accesses with each other.  In order to avoid
+conflicts between the two, the i2c driver avoids all writes to the
+device, since the BMC's needs with the hardware are merely that it be
+able to retrieve sensor readings.  This allows the host processor to
+remain ultimately in control of the chip and unaware of the BMC's use
+of it at all.
+
+The sole exception to the "no writes" rule for the i2c driver is for
+the bank-select register -- while I haven't been able to find any
+explicit statement in the Nuvoton datasheets guaranteeing this,
+testing via manual register accesses (as detailed in [2]) has
+indicated that, as one might hope, the i2c interface has its own
+bank-select register independent of the one used by the LPC interface.
+
+In terms of code structure, the approach taken in this series is to
+first convert the driver's register accesses to the regmap API, and
+then split the LPC-specific parts of it out into a separate module
+(called nct6775-platform), leaving the interface-independent parts in
+a generic driver (called nct6775-core).  The nct6775-i2c driver is
+then added as an additional consumer of the nct6775-core module's
+functionality (essentially just providing its own set of regmap
+read/write callback functions).
+
+The first patch provides DT bindings for the nct6775, the second
+contains the change to convert all register accesses to use a regmap.
+The third and fourth patches make some relatively small
+infrastructural changes to the driver.  The core/platform driver split
+is in the fifth patch, and the final patch adds the i2c driver itself.
+
+
+Thanks,
+Zev
+
+[2] https://lore.kernel.org/linux-hwmon/YhttzgDtGpcTniyw@hatter.bewilderbeest.net/
+
+Zev Weiss (6):
+  dt-bindings: hwmon: Add nuvoton,nct6775
+  hwmon: (nct6775) Convert register access to regmap API
+  hwmon: (nct6775) Rearrange attr-group initialization
+  hwmon: (nct6775) Add read-only mode
+  hwmon: (nct6775) Split core and platform driver
+  hwmon: (nct6775) Add i2c driver
+
+ .../bindings/hwmon/nuvoton,nct6775.yaml       |   48 +
+ MAINTAINERS                                   |   12 +-
+ drivers/hwmon/Kconfig                         |   32 +-
+ drivers/hwmon/Makefile                        |    4 +-
+ drivers/hwmon/{nct6775.c => nct6775-core.c}   | 2310 +++++------------
+ drivers/hwmon/nct6775-i2c.c                   |  179 ++
+ drivers/hwmon/nct6775-platform.c              | 1232 +++++++++
+ drivers/hwmon/nct6775.h                       |  252 ++
+ 8 files changed, 2382 insertions(+), 1687 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
+ rename drivers/hwmon/{nct6775.c => nct6775-core.c} (69%)
+ create mode 100644 drivers/hwmon/nct6775-i2c.c
+ create mode 100644 drivers/hwmon/nct6775-platform.c
+ create mode 100644 drivers/hwmon/nct6775.h
 
-diff --git a/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml b/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
-new file mode 100644
-index 000000000000..7b1054db46b3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
-@@ -0,0 +1,48 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+
-+$id: http://devicetree.org/schemas/hwmon/nuvoton,nct6775.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton NCT6775 and compatible Super I/O chips
-+
-+maintainers:
-+  - Zev Weiss <zev@bewilderbeest.net>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nuvoton,nct6106
-+      - nuvoton,nct6116
-+      - nuvoton,nct6775
-+      - nuvoton,nct6776
-+      - nuvoton,nct6779
-+      - nuvoton,nct6791
-+      - nuvoton,nct6792
-+      - nuvoton,nct6793
-+      - nuvoton,nct6795
-+      - nuvoton,nct6796
-+      - nuvoton,nct6797
-+      - nuvoton,nct6798
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        superio@4d {
-+            compatible = "nuvoton,nct6779";
-+            reg = <0x4d>;
-+        };
-+    };
 -- 
 2.35.1
 
