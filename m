@@ -4,90 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49346C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 11 Mar 2022 01:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5319CC433F5
+	for <openbmc@archiver.kernel.org>; Fri, 11 Mar 2022 01:43:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KF7T65hwSz2yV7
-	for <openbmc@archiver.kernel.org>; Fri, 11 Mar 2022 12:22:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KF7xr5bRjz30KR
+	for <openbmc@archiver.kernel.org>; Fri, 11 Mar 2022 12:43:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=bfXiwVit;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=hgM8E+RB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=softfail (domain owner discourages use of this
- host) smtp.mailfrom=roeck-us.net (client-ip=192.185.48.84;
- helo=gateway23.websitewelcome.com; envelope-from=linux@roeck-us.net;
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::431;
+ helo=mail-pf1-x431.google.com; envelope-from=medadyoung@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256
- header.s=default header.b=bfXiwVit; dkim-atps=neutral
-X-Greylist: delayed 1280 seconds by postgrey-1.36 at boromir;
- Fri, 11 Mar 2022 12:21:33 AEDT
-Received: from gateway23.websitewelcome.com (gateway23.websitewelcome.com
- [192.185.48.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=hgM8E+RB; dkim-atps=neutral
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KF7SF3KsTz2y6K
- for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2022 12:21:33 +1100 (AEDT)
-Received: from cm12.websitewelcome.com (cm12.websitewelcome.com [100.42.49.8])
- by gateway23.websitewelcome.com (Postfix) with ESMTP id 3AA6E4C76
- for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2022 19:00:10 -0600 (CST)
-Received: from 162-215-252-75.unifiedlayer.com ([208.91.199.152])
- by cmsmtp with SMTP
- id STdantxZt9AGSSTdan8Bw5; Thu, 10 Mar 2022 19:00:10 -0600
-X-Authority-Reason: nr=8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
- Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YrYcmX1/YLKPFplyGX4juPlh6LZE8D01pZWFuhgPaPo=; b=bfXiwVit+FdkOiMo8rqatyjIx5
- Hj+itje0sHNCV089kohxPRKB7bSSNrl3ChZ/+Mi8vVmUl7MKyJNdLxUDx/qSqIXzfYHK8EBACrmuQ
- ubvMIz3c3SdJuC5onEYF6cOzSuEBewaqTwz4+oqH8ta+DuKKGk9BZDuW/yWskAcpJNb3wA+BTSAkz
- BKKn0ha2ou57FBO9SFksMjms5ebQEp54rSVId7eBqMq647syMiFIIbSLdCViRLwC+3i1UvxNMj1Ie
- k2fyl1rYlbLOXi+rUIbQnYR3403exhCZSMX0S1jwCluUoiPaPSdYUssldDpyVjYdSyZ+9G8Kaoz4Q
- 7UdPFSlw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:54240)
- by bh-25.webhostbox.net with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <linux@roeck-us.net>)
- id 1nSTdZ-001lMl-KX; Fri, 11 Mar 2022 01:00:09 +0000
-Message-ID: <3602c1b2-1335-0663-c96a-c524c555ccc9@roeck-us.net>
-Date: Thu, 10 Mar 2022 17:00:08 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] hwmon: (pmbus/ibm-cffps) Add clear_faults debugfs entry
-Content-Language: en-US
-To: Brandon Wyman <bjwyman@gmail.com>, Joel Stanley <joel@jms.id.au>,
- openbmc@lists.ozlabs.org, Eddie James <eajames@linux.ibm.com>,
- Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20220311001858.4166205-1-bjwyman@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <20220311001858.4166205-1-bjwyman@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1nSTdZ-001lMl-KX
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- [108.223.40.66]:54240
-X-Source-Auth: linux@roeck-us.net
-X-Email-Count: 5
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KF7x53Kbxz2xgb
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Mar 2022 12:43:03 +1100 (AEDT)
+Received: by mail-pf1-x431.google.com with SMTP id g1so6673755pfv.1
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Mar 2022 17:43:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id;
+ bh=BP+86L+lIuRy6uRjMkCZyF2DvJ6c3trp41j9uZ3sVxs=;
+ b=hgM8E+RBZ0dTNuJknt6CD2fx09iOVPsZUQOoCi6PwmLUGtVGN3RgqG96s0iVGH7iB1
+ PH9jpN6UfH2GFamJQhWRogKeTgW4lZuDx45yvMMPWKv5WrEIz1RvJ71pj1kiqmygmZzU
+ qJyVi0bP6jd3Ve7c6d7VhrECwmEtHyc6klMW+mWvtlkxEVVD5snRHAiNOILiQQUmy5o3
+ G0Wi2ZgBtaXUwwh+Vrr67VWhCaWZD8gVVVLlyas8K5QS+f1NsHT7Wt8MJqHifrrMMf+F
+ DpAqwyx4NdEqlY4MJwewIvzkktkvOg88oS4iwFYqRZfsGZh/W8SFHaZL/ehrgxX52k3A
+ yUaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=BP+86L+lIuRy6uRjMkCZyF2DvJ6c3trp41j9uZ3sVxs=;
+ b=wuPmxMtIeDsbVv91DewiNJEb/ruvS9Tnkhi5lYzqub2aJGgiPiI3A4Q9ZD00j1T4D/
+ 2QQGy7QAotWbjfmuS2W3phcwTh88jfbsVtwWaWkVs0gjov3fQWyjfBAhZhUT19Xh7Tvc
+ ekpmvzcpB0910ilXhdmlfDbJQ+ZxA5BDQ0QMqfAhI5HnfhqVo627OkiOxc34o4SeHYbX
+ oHpQjdUOTzNBCKCXGWN8x9OyxaMg2zVcIi+IIHxKc33dpuke+yTz2T3sScfVjWH+mzgD
+ N8mFZzPNeU+n+djf+VvqNqEql6llmI1A2OygJA3kt0E4tEWkeDaHm4VCSQWyXZJY7Vmw
+ cprw==
+X-Gm-Message-State: AOAM5300oF8gR2EJ4zO9+CbOO9+sxUzI6cWdtTTxBWVxqJlOgUl4r4+I
+ uDXsLZS9oH3X2UqjuswHNJQ=
+X-Google-Smtp-Source: ABdhPJw4s8hxwtZjigPSX7XWokxaMTRbW0JF0Zac/tcWjw05dE0QhbsCicmgkB9Yqd+SzzZLuwA+fw==
+X-Received: by 2002:a62:55c4:0:b0:4f6:b396:9caa with SMTP id
+ j187-20020a6255c4000000b004f6b3969caamr7728287pfb.19.1646962975583; 
+ Thu, 10 Mar 2022 17:42:55 -0800 (PST)
+Received: from localhost.localdomain ([116.89.135.255])
+ by smtp.gmail.com with ESMTPSA id
+ w5-20020a17090a6b8500b001bf564e624esm7194383pjj.39.2022.03.10.17.42.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Mar 2022 17:42:54 -0800 (PST)
+From: Medad CChien <medadyoung@gmail.com>
+X-Google-Original-From: Medad CChien <ctcchien@nuvoton.com>
+To: rric@kernel.org, james.morse@arm.com, tony.luck@intel.com,
+ mchehab@kernel.org, bp@alien8.de, robh+dt@kernel.org,
+ benjaminfair@google.com, yuenn@google.com, venture@google.com,
+ KWLIU@nuvoton.com, YSCHU@nuvoton.com, JJLIU0@nuvoton.com,
+ KFTING@nuvoton.com, avifishman70@gmail.com, tmaimon77@gmail.com,
+ tali.perry1@gmail.com, ctcchien@nuvoton.com
+Subject: [PATCH v3 0/3] EDAC: nuvoton: Add nuvoton NPCM memory controller
+ driver
+Date: Fri, 11 Mar 2022 09:42:42 +0800
+Message-Id: <20220311014245.4612-1-ctcchien@nuvoton.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,58 +82,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 3/10/22 16:18, Brandon Wyman wrote:
-> Add a clear_faults write-only debugfs entry for the ibm-cffps device
-> driver.
-> 
+Add support for Nuvoton NPCM SoC.
 
-This does not explain _why_ this would be needed.
+Addressed comments from:
+ - Rob Herring : https://lkml.org/lkml/2022/2/25/1103
+ - Krzysztof Kozlowski : https://lkml.org/lkml/2022/2/27/63
+ - Rob Herring : https://lkml.org/lkml/2022/3/2/828
 
-Guenter
+Changes since version 3:
+ - Rename npcm-edac.yaml as nuvoton,npcm-memory-controller.yaml.
+ - Drop 'EDAC' in title of nuvoton,npcm-memory-controller.yaml.
+ - Update compatible in nuvoton,npcm-memory-controller.yaml.
 
-> Signed-off-by: Brandon Wyman <bjwyman@gmail.com>
-> ---
->   drivers/hwmon/pmbus/ibm-cffps.c | 11 +++++++++++
->   1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
-> index e3294a1a54bb..fca2642a8ed4 100644
-> --- a/drivers/hwmon/pmbus/ibm-cffps.c
-> +++ b/drivers/hwmon/pmbus/ibm-cffps.c
-> @@ -67,6 +67,7 @@ enum {
->   	CFFPS_DEBUGFS_CCIN,
->   	CFFPS_DEBUGFS_FW,
->   	CFFPS_DEBUGFS_ON_OFF_CONFIG,
-> +	CFFPS_DEBUGFS_CLEAR_FAULTS,
->   	CFFPS_DEBUGFS_NUM_ENTRIES
->   };
->   
-> @@ -274,6 +275,13 @@ static ssize_t ibm_cffps_debugfs_write(struct file *file,
->   		if (rc)
->   			return rc;
->   
-> +		rc = 1;
-> +		break;
-> +	case CFFPS_DEBUGFS_CLEAR_FAULTS:
-> +		rc = i2c_smbus_write_byte(psu->client, PMBUS_CLEAR_FAULTS);
-> +		if (rc < 0)
-> +			return rc;
-> +
->   		rc = 1;
->   		break;
->   	default:
-> @@ -607,6 +615,9 @@ static int ibm_cffps_probe(struct i2c_client *client)
->   	debugfs_create_file("on_off_config", 0644, ibm_cffps_dir,
->   			    &psu->debugfs_entries[CFFPS_DEBUGFS_ON_OFF_CONFIG],
->   			    &ibm_cffps_fops);
-> +	debugfs_create_file("clear_faults", 0200, ibm_cffps_dir,
-> +			    &psu->debugfs_entries[CFFPS_DEBUGFS_CLEAR_FAULTS],
-> +			    &ibm_cffps_fops);
->   
->   	return 0;
->   }
+Changes since version 2:
+ - Update description and compatible in npcm-edac.yaml.
+ - Remove address-cells and size-cells in npcm-edac.yaml.
+ - Reorder the items of examples in npcm-edac.yaml.
+ - Reorder header file in driver.
+
+Changes since version 1:
+ - Add nuvoton,npcm750-memory-controller property in NPCM devicetree.
+ - Add new property in edac binding document.
+ - Add new driver for nuvoton NPCM memory controller.
+
+Medad CChien (3):
+  ARM: dts: nuvoton: Add new device node
+  dt-bindings: edac: nuvoton,npcm-memory-controller.yaml
+  EDAC: nuvoton: Add NPCM memory controller driver
+
+ .../edac/nuvoton,npcm-memory-controller.yaml  |  62 ++
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi |   7 +
+ drivers/edac/Kconfig                          |   9 +
+ drivers/edac/Makefile                         |   1 +
+ drivers/edac/npcm_edac.c                      | 714 ++++++++++++++++++
+ 5 files changed, 793 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/edac/nuvoton,npcm-memory-controller.yaml
+ create mode 100644 drivers/edac/npcm_edac.c
+
+-- 
+2.17.1
 
