@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1513C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 02:01:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2B77C433F5
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 02:02:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KKS1X0M2Vz30QX
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 13:01:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KKS2C31KGz30HX
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 13:02:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=Xjvdv+Ok;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=b8cMpOSW;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=canonical.com (client-ip=185.125.188.122;
@@ -18,62 +18,62 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=Xjvdv+Ok; 
+ header.a=rsa-sha256 header.s=20210705 header.b=b8cMpOSW; 
  dkim-atps=neutral
 Received: from smtp-relay-internal-0.canonical.com
  (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5HP4jcgz30Bl
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:57:37 +1100 (AEDT)
-Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
- [209.85.167.69])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5HS73jXz30BV
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:57:40 +1100 (AEDT)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 64A153F625
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:57:35 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id BAF273F603
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:57:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647518255;
- bh=rkZlJ0igM03Y8VkMiNizWzNDbnqGn+aUyjhq4DWqgik=;
+ s=20210705; t=1647518258;
+ bh=rPrab2m6ZRJ1Nq2pMdTzGXWaaBF6CBXynVgpKRpBOdQ=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=Xjvdv+OkUwW7yZJeLNnCKGE5WEwOL7LyvwphAhGFP13EzvIgbkiWZ4LuPozL/XbSm
- hW3Svg4KotzhuoRm1WOGeH6/gG5fr+QSDloCh5N4bzrzAUTqJHEuxNpgI5L+trQOKd
- Ug99Ipse3lNuAnXjJtPpBIsxCROnvwXQN1ZkEBgWwWQrpR88Zth/pTrTRiFxqoWjEh
- H1Tj9qDn4neRqMdknlOT7mfrs1NpDqN88u3tPIyAZkkv7oW6T8EAfIDmxqJE85xDuJ
- RonMQowSEQWFA9M4wC52vld9Zb8OI1tA1HLxTaF3nzN2uUe90YIK3y6gg97VfKQd7F
- fFNYM6dbtNcEA==
-Received: by mail-lf1-f69.google.com with SMTP id
- f27-20020ac251bb000000b004486c507f80so1742782lfk.10
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:57:35 -0700 (PDT)
+ b=b8cMpOSWTDooaca4suw7GNt24B746mPD9wStpJxntOFReNdhOROcnC4WHPxjFpF4V
+ lzyPoWiIdkRwliKyMXcEbzy52yKQVeTYhmiK1ItmsTJgfAVhYKs+QluopqzsvZHdfX
+ aIksg0wZW9g9D7BNBqFeufUqPTpQcEw5tlcpnperKAzBoOo6aNNsg48nNp5bLxgvIW
+ 8pqVqk/aGOswVvabLTuvX5UhIsZ5TollZY6uijVoMtM5n9De3H4kouU9ashax2wgUm
+ 9wto/dXbfohnkF7VfhU1zjqSnJYOGT4cMNyVR35cKZ09j1C5rFwwbCECRglpAl9+W8
+ FPox+HCYIFl2g==
+Received: by mail-wm1-f69.google.com with SMTP id
+ 2-20020a1c0202000000b0038c71e8c49cso1933431wmc.1
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:57:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=rkZlJ0igM03Y8VkMiNizWzNDbnqGn+aUyjhq4DWqgik=;
- b=NbM6Nr4GBtIiDOoTWQiNf4uhDN/qPSnvDTa/fGSs8ayFPqblKEehf5VGfqSozOcAOL
- ylRUybpVCzLdTcvRZGPF/ggkUKq+1a8JIKq728zsZMJN6Wo+LziZ1MJg/osG43IJeDgW
- 92i0yUU1rnBBApxmsuU7xI088TezQpLElf8zMVresClAiEV7T+xkr0Zh+yA8Rz8tgRoc
- /DmXXafz9Rg2uDSjbro6ASYhBDOUjpGiIgrxhacwa6i9cvaOGIJxGTzteUzIAGuGe9HK
- xDRlC3ilJ8RquOefB317xSPa8d+Lirp+5AxBUlQYQLCEUIkWTdbfaObZfMPVlpiw3Gqk
- bD7Q==
-X-Gm-Message-State: AOAM531WDRmN+uanEv7nUo6lPP17R4OeXRivrFU6kDA5mgHX3zSh4W6L
- I4fDucfqjh6HzVgWFEN56H/WRe6w/UrMfdcdL8tqGwmb1MrnGmQQ+YJjD2wj4uItwerem6LafX8
- vAlDugfP78OUgsPNRlWM+fMIFaj8qJayV+U0X
-X-Received: by 2002:a5d:608e:0:b0:203:e8a3:36f3 with SMTP id
- w14-20020a5d608e000000b00203e8a336f3mr2822216wrt.176.1647518244238; 
- Thu, 17 Mar 2022 04:57:24 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwPfOj+UeHfKmqSbS2Hx8bnxirl/NYvL3z9HsIpNergGiYK9EsV7ImtjHZaqXnE8okb/mRUOw==
-X-Received: by 2002:a5d:608e:0:b0:203:e8a3:36f3 with SMTP id
- w14-20020a5d608e000000b00203e8a336f3mr2822186wrt.176.1647518244048; 
- Thu, 17 Mar 2022 04:57:24 -0700 (PDT)
+ bh=rPrab2m6ZRJ1Nq2pMdTzGXWaaBF6CBXynVgpKRpBOdQ=;
+ b=6O4Io/eXskZs+jOpqmWgrgHdz6ZneD4iYh4R+zrbXfpJkOfuiz8jY9WposACV7psD2
+ 39q46tEE5lkUK0a2Q2QG7Kez62xLRkEPgtGjZtj/b44gfcrjMXCo5LoWLR507aLq9jLV
+ eN97AGlcNEkjyyPFapjNhymanLE2yY0ufy0HFBUEGT7Bv/oPPnfb/C641EHQRbS8sdI0
+ +0ogv/Mzw7GLRIdQpK8Cnl5ZlFgM73IHuaQV50H37IL0PkQ+IrVu65Q6hUsKde7ihbqq
+ Y8flRDGQ35oA63ME/YuN48uR5XFnbKqXMhFH+ehs/vh8GlqVq8oyT07+KPinbe5zCyN5
+ A1Xw==
+X-Gm-Message-State: AOAM533uup/+1kMXG0VVkp1yliWOnqxZRql/naz8KX6G3lDPKvqu73Ys
+ sU0zR+lnvjW3EKWcvY4aCgnplbz3HiVJ83G3sq+yHZaXgjtiLqdr1kc7F4w7N13o/HTdvVk2qqj
+ 9DUhMmFoqgFKERu18pxXNTynaf4vd3+bv1QBf
+X-Received: by 2002:a5d:6d0c:0:b0:203:8aec:9676 with SMTP id
+ e12-20020a5d6d0c000000b002038aec9676mr3866424wrq.601.1647518258333; 
+ Thu, 17 Mar 2022 04:57:38 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwCFbJKUv1ZFo1+EZDHVZjNF5kTsPX4saRLzzvod+Y5Qcc436Gbn7v60O8I+x1+ugbTJ8av2Q==
+X-Received: by 2002:a5d:6d0c:0:b0:203:8aec:9676 with SMTP id
+ e12-20020a5d6d0c000000b002038aec9676mr3866374wrq.601.1647518258073; 
+ Thu, 17 Mar 2022 04:57:38 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- r65-20020a1c4444000000b0038c48dd23b9sm5824900wma.5.2022.03.17.04.57.21
+ r65-20020a1c4444000000b0038c48dd23b9sm5824900wma.5.2022.03.17.04.57.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 04:57:23 -0700 (PDT)
+ Thu, 17 Mar 2022 04:57:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -103,9 +103,9 @@ To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-actions@lists.infradead.org, openbmc@lists.ozlabs.org,
  linux-riscv@lists.infradead.org, linux-oxnas@groups.io
-Subject: [PATCH 06/18] dt-bindings: irqchip: ingenic: include generic schema
-Date: Thu, 17 Mar 2022 12:56:53 +0100
-Message-Id: <20220317115705.450427-5-krzysztof.kozlowski@canonical.com>
+Subject: [PATCH 11/18] dt-bindings: irqchip: mrvl, intc: include generic schema
+Date: Thu, 17 Mar 2022 12:56:58 +0100
+Message-Id: <20220317115705.450427-10-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
 References: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
@@ -133,25 +133,23 @@ naming and other generic properties.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../bindings/interrupt-controller/ingenic,intc.yaml          | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/interrupt-controller/mrvl,intc.yaml    | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/ingenic,intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/ingenic,intc.yaml
-index 0358a7739c8e..74597a98f86c 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/ingenic,intc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/ingenic,intc.yaml
-@@ -9,6 +9,9 @@ title: Ingenic SoCs interrupt controller devicetree bindings
- maintainers:
-   - Paul Cercueil <paul@crapouillou.net>
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/mrvl,intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/mrvl,intc.yaml
+index 372ccbfae771..75d49c9e956f 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/mrvl,intc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/mrvl,intc.yaml
+@@ -13,6 +13,7 @@ maintainers:
+   - Rob Herring <robh+dt@kernel.org>
  
-+allOf:
+ allOf:
 +  - $ref: /schemas/interrupt-controller.yaml#
-+
- properties:
-   $nodename:
-     pattern: "^interrupt-controller@[0-9a-f]+$"
-@@ -50,7 +53,7 @@ required:
-   - "#interrupt-cells"
+   - if:
+       properties:
+         compatible:
+@@ -101,7 +102,7 @@ required:
+   - reg
    - interrupt-controller
  
 -additionalProperties: false
