@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA576C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 01:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16625C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 01:57:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KKRvs0sKgz3bN7
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 12:56:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KKRwZ2PmYz30L7
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 12:57:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=YZbm3vVQ;
+	dkim=pass (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=RIvnWzoK;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=canonical.com (client-ip=185.125.188.122;
- helo=smtp-relay-internal-0.canonical.com;
+ smtp.mailfrom=canonical.com (client-ip=185.125.188.123;
+ helo=smtp-relay-internal-1.canonical.com;
  envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=YZbm3vVQ; 
+ header.a=rsa-sha256 header.s=20210705 header.b=RIvnWzoK; 
  dkim-atps=neutral
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5FR6NRLz2xsb
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:55:54 +1100 (AEDT)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5H245HDz2xsb
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:57:18 +1100 (AEDT)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 99D7B3F602
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:55:47 +0000 (UTC)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id EB21F3F4BE
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:57:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647518147;
- bh=FcFbQHcGNFkpGdda+W/UDbbdrtmD52pzfetu6Zdta/c=;
- h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
- b=YZbm3vVQ5reIqHrD1wDGRrwe2UaTeuW2u/cuxT1NCrAqf5Qh1AgPwhikB1ksPwYO+
- PBlU9Or+mWV/avsWVAvB2cGO46wyyrPJlYdZVuRa9OdFtAc8RDV/XT8x6Npt2jn+lz
- Z5UlkzAlfWa9hjcP53b8pJUfRUmoXPmHdJdaYsYN0JmNI4PLphHznVs87zGNFJn/Ue
- atJSFJnE7P7wts6qJoYD13LwslAr0Ng86jpe4PJ8v4g2pMgiMSo5mgDmG4KOlH7PWT
- 86/nV5ar7/ALyIRlYPXoZogYfrT8JYkjnYTQvx9x8o/iUnnXIPj7enFPWjtv47HPbi
- tdRlfXPm0DdSw==
-Received: by mail-wm1-f72.google.com with SMTP id
- a26-20020a7bc1da000000b003857205ec7cso2024869wmj.2
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:55:47 -0700 (PDT)
+ s=20210705; t=1647518234;
+ bh=VChXuM8K4QoDWKbjkubBo2C7YS9EHl+r3kLe9dbaCgo=;
+ h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+ MIME-Version;
+ b=RIvnWzoKVJ+hbtq6+bzObfxgUdPhuE661YJauvJ9sKNPxRtrfDfPgJrvEyUJ7HOC0
+ O1XpUNURmPZNZTOZ2gpFygWujmQU4j9xtmDsI3zRmGm0IIoQWY4TKA01HGd7aKU7Ed
+ wsviopv5DETjEIZBIKjT+R9CejjvLu4+TBHAuLxbH0HHTE4nfq4sNX6zRMUDKdlGbT
+ DXKs+JcZFEnM8sGtRCd2KVn1C2m3PUJJvWUl9Sp7DMi80msAWYyfpaCT2TvHLNlV/3
+ 4ZGA55vwQ2UTNtgDwcaVBkPBRVhUFBJBzAcKA1Oi1nHpFYQzpodkkTGsTG/u3JZWXi
+ 9qQ5oE2+9HXIg==
+Received: by mail-wm1-f71.google.com with SMTP id
+ p8-20020a1c5448000000b0038a12987e1eso1545143wmi.6
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:57:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=FcFbQHcGNFkpGdda+W/UDbbdrtmD52pzfetu6Zdta/c=;
- b=6q/2vPUYPqn1wHcdpD73h9pgA7TCNsugjOWDjaHC5SNsXOYHk1cVhdC+RADMzLHS2E
- kmKx6i0iSQDtwpDY1znyujhP62sBqWWqxHzxFIeaa90x9weJFhPVHEpoJSZWz3o0ccAb
- mpZQFce3FBQgUoiZALgJ5mnfu9jFXUh1x4xe2/sbCDttR5lSJ5B8EMw0mN1/YFdOhbtR
- SmZUpKXO6o//6Bd6hAzRWc1Y//+zE10BB2sCp3JYqfFxWUNoQ5z/uUX86QDknZaWriTq
- Z63wlJtHjFAgL5YqhZbcSOLm/UXmZCb9+RIFCMuuHTFz/WWz1KpNWor+C0uEB6RLllyR
- Igjg==
-X-Gm-Message-State: AOAM533kIKV4qYnN69ilQbu7nFaGNs9Bnlxtcdo8diM3KaemZXAUsnM6
- sFWQqEfkGh91TRFJJUSWTUp7QzMvBsNUhkuo6KcfCZltEyZMRxxyj/JzMq/M5OX70TwX3e2BBbT
- pWuPIWTG+dNST/r2RQqNiKQkWqLtW7+dKFZjN
-X-Received: by 2002:adf:ebc3:0:b0:203:da35:a9c1 with SMTP id
- v3-20020adfebc3000000b00203da35a9c1mr3846119wrn.610.1647518147110; 
- Thu, 17 Mar 2022 04:55:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwo+9tYsHqgUbTsMitSzq8mwjoiBGte5RGn6KnSHAj4SsmoojLzUqarbdnwawIw9oRk9oUklg==
-X-Received: by 2002:adf:ebc3:0:b0:203:da35:a9c1 with SMTP id
- v3-20020adfebc3000000b00203da35a9c1mr3846069wrn.610.1647518146894; 
- Thu, 17 Mar 2022 04:55:46 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=VChXuM8K4QoDWKbjkubBo2C7YS9EHl+r3kLe9dbaCgo=;
+ b=6m9pVetvLsoxbz0bWka1mRRbD9ENXZ4Y9gh2Yup2ojubFhQLdEspFlY7hNuz9PvdVx
+ kV0pQP5jUqyuaT9/J6GJn2uqTLW8AsAMm+V22bancnwVTwl53Bibjk38l1la2mCGjMof
+ 9f4Phds8QI0D4vslbz+W1Q+RSrd1an1kPIp0WhPcXCzOU8UkH8bRxLjKERzPM6zvND22
+ NMfwp4SDqHJrLiNW9+W1Vk9lxj6x/KjdqpUBNW6iDR/Tz8BQAfaQk/r6wtTkhSOrLqF+
+ wEtATuVI/jYNNrXMoVB99HCp80AUmJFZw/bfbY/jRhnq2chVWMUo0+zQcf1Dq28tkIym
+ huVA==
+X-Gm-Message-State: AOAM530b4xr/fNmlqHyGVztFBHeBhq0lNar8kY5TvrBB+kyXJTxD5KIg
+ NaFDxOrh0JbAXeA0UGQG3Gsthy/cdDTZWB1bzhxwiQGrudYwWs4Wi36zGzSl5fOnWjbEB1QM79v
+ 9Ab8nKvs/+zH39ujXUIAW5CqnNL3IUyTrojpB
+X-Received: by 2002:a1c:7518:0:b0:381:c77:ceec with SMTP id
+ o24-20020a1c7518000000b003810c77ceecmr3609306wmc.57.1647518234168; 
+ Thu, 17 Mar 2022 04:57:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxsiX6nbj0kfQADgRjJIDqdkJ617e7CvGmtStpgdMKD/NEmWTzdx19H/0Ce1BkkWrE8nM6zWw==
+X-Received: by 2002:a1c:7518:0:b0:381:c77:ceec with SMTP id
+ o24-20020a1c7518000000b003810c77ceecmr3609267wmc.57.1647518233902; 
+ Thu, 17 Mar 2022 04:57:13 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- j34-20020a05600c1c2200b0038995cb915fsm11462862wms.9.2022.03.17.04.55.44
+ r65-20020a1c4444000000b0038c48dd23b9sm5824900wma.5.2022.03.17.04.57.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 04:55:46 -0700 (PDT)
+ Thu, 17 Mar 2022 04:57:12 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -102,10 +103,13 @@ To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-actions@lists.infradead.org, openbmc@lists.ozlabs.org,
  linux-riscv@lists.infradead.org, linux-oxnas@groups.io
-Subject: [PATCH 00/18] dt-bindings: irqchip: include generic schema
-Date: Thu, 17 Mar 2022 12:55:24 +0100
-Message-Id: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
+Subject: [PATCH 02/18] ARM: dts: ox820: align interrupt controller node name
+ with dtschema
+Date: Thu, 17 Mar 2022 12:56:49 +0100
+Message-Id: <20220317115705.450427-1-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
+References: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 18 Mar 2022 12:55:47 +1100
@@ -125,62 +129,28 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi,
+Fixes dtbs_check warnings like:
 
-The DTS patches can be picked up independently.
+  gic@1000: $nodename:0: 'gic@1000' does not match '^interrupt-controller(@[0-9a-f,]+)*$'
 
-Best regards,
-Krzysztof
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ arch/arm/boot/dts/ox820.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Krzysztof Kozlowski (18):
-  ARM: dts: nspire: use lower case hex addresses in node unit addresses
-  ARM: dts: ox820: align interrupt controller node name with dtschema
-  ARM: dts: socfpga: align interrupt controller node name with dtschema
-  dt-bindings: irqchip: actions,owl-sirq: include generic schema
-  dt-bindings: irqchip: fsl: include generic schema
-  dt-bindings: irqchip: ingenic: include generic schema
-  dt-bindings: irqchip: intel,ixp4xx: include generic schema
-  dt-bindings: irqchip: kontron,sl28cpld: include generic schema
-  dt-bindings: irqchip: loongson: include generic schema
-  dt-bindings: irqchip: microchip,eic: include generic schema
-  dt-bindings: irqchip: mrvl,intc: include generic schema
-  dt-bindings: irqchip: mstar,mst-intc: include generic schema
-  dt-bindings: irqchip: mti,gic: include generic schema
-  dt-bindings: irqchip: nuvoton,wpcm450-aic: include generic schema
-  dt-bindings: irqchip: realtek,rtl-intc: include generic schema
-  dt-bindings: irqchip: renesas: include generic schema
-  dt-bindings: irqchip: sifive: include generic schema
-  dt-bindings: irqchip: ti: include generic schema
-
- .../actions,owl-sirq.yaml                     |  5 +-
- .../interrupt-controller/fsl,intmux.yaml      |  5 +-
- .../interrupt-controller/fsl,irqsteer.yaml    |  5 +-
- .../interrupt-controller/ingenic,intc.yaml    |  5 +-
- .../intel,ixp4xx-interrupt.yaml               |  5 +-
- .../kontron,sl28cpld-intc.yaml                |  5 +-
- .../interrupt-controller/loongson,htvec.yaml  |  5 +-
- .../loongson,pch-msi.yaml                     |  5 +-
- .../loongson,pch-pic.yaml                     |  5 +-
- .../interrupt-controller/microchip,eic.yaml   |  5 +-
- .../interrupt-controller/mrvl,intc.yaml       |  3 +-
- .../interrupt-controller/mstar,mst-intc.yaml  |  5 +-
- .../interrupt-controller/mti,gic.yaml         |  5 +-
- .../nuvoton,wpcm450-aic.yaml                  |  7 ++-
- .../realtek,rtl-intc.yaml                     |  5 +-
- .../renesas,intc-irqpin.yaml                  | 28 +++++----
- .../interrupt-controller/renesas,irqc.yaml    |  5 +-
- .../sifive,plic-1.0.0.yaml                    |  5 +-
- .../interrupt-controller/ti,pruss-intc.yaml   |  5 +-
- .../interrupt-controller/ti,sci-inta.yaml     |  1 +
- .../interrupt-controller/ti,sci-intr.yaml     |  3 +-
- arch/arm/boot/dts/nspire-classic.dtsi         | 10 ++--
- arch/arm/boot/dts/nspire-cx.dts               |  4 +-
- arch/arm/boot/dts/nspire.dtsi                 | 60 +++++++++----------
- arch/arm/boot/dts/ox820.dtsi                  |  2 +-
- arch/arm/boot/dts/socfpga.dtsi                |  2 +-
- arch/arm/boot/dts/socfpga_arria10.dtsi        |  2 +-
- 27 files changed, 129 insertions(+), 73 deletions(-)
-
+diff --git a/arch/arm/boot/dts/ox820.dtsi b/arch/arm/boot/dts/ox820.dtsi
+index 90846a7655b4..dde4364892bf 100644
+--- a/arch/arm/boot/dts/ox820.dtsi
++++ b/arch/arm/boot/dts/ox820.dtsi
+@@ -287,7 +287,7 @@ local-timer@600 {
+ 				clocks = <&armclk>;
+ 			};
+ 
+-			gic: gic@1000 {
++			gic: interrupt-controller@1000 {
+ 				compatible = "arm,arm11mp-gic";
+ 				interrupt-controller;
+ 				#interrupt-cells = <3>;
 -- 
 2.32.0
 
