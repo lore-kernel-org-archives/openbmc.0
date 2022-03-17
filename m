@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B506C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 02:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0669CC433EF
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 02:05:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KKS545JLXz30CT
-	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 13:04:56 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KKS5l50YJz3088
+	for <openbmc@archiver.kernel.org>; Fri, 18 Mar 2022 13:05:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=PX+BNk7A;
+	dkim=pass (2048-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20210705 header.b=UJENPipi;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=canonical.com (client-ip=185.125.188.123;
- helo=smtp-relay-internal-1.canonical.com;
+ smtp.mailfrom=canonical.com (client-ip=185.125.188.122;
+ helo=smtp-relay-internal-0.canonical.com;
  envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=canonical.com header.i=@canonical.com
- header.a=rsa-sha256 header.s=20210705 header.b=PX+BNk7A; 
+ header.a=rsa-sha256 header.s=20210705 header.b=UJENPipi; 
  dkim-atps=neutral
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5Hp5Sjsz307B
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:57:58 +1100 (AEDT)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KK5Hs0SLjz30CP
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 22:58:01 +1100 (AEDT)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 11C134003D
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:57:53 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 3EBA43F312
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 11:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1647518273;
- bh=nw83rNQU0DG2T5abexM+HrA3AT5FpHyglSBWAvBerB4=;
+ s=20210705; t=1647518277;
+ bh=Se1x08TIKnomHmbPOsCcljQ9abxNVpGR1lbzQcpKc/g=;
  h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
  MIME-Version;
- b=PX+BNk7AXBlFX3rexADzGUt6CS9XYQXADMOUzPojwWzpDNnZOTar4JxU/KG5dAywp
- CH8Fg91XihluSVGPzph+ds09XXGTU6woJxjHyV5pRSzW/bmT0ymPtmOULzVZpVrzmg
- golHaNluiKh3wOxdACw2q5/0ZI8osYiFyJKtKMOCPydCBgyJzylPpY/MVUquCdklQB
- v3gI+PvoOZlzKXFacxUGQJUGTxl2PYo50Zklm7+/SbW1yVUUxN+gX1m6eXjn/o0KiN
- /2p+6dFxugyAZGX20AHRoC5RYPp+wrzZi3GFoHpaNb/gUFPZIb8fz+Ga48ntyhukDv
- WjMgABwgZYJFw==
-Received: by mail-wm1-f72.google.com with SMTP id
- o33-20020a05600c512100b0038a1d06e525so4197568wms.2
- for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:57:53 -0700 (PDT)
+ b=UJENPipivXARjcYMWZngLJyBgVhk04DXb1JxK/2q6V9gINK9bfX0Pm+vkcGhT163g
+ eZpsPThD9RdnxQ2qy9IniSb6ZlykgS4LYz//Q82Os3wWJHC+4eef9ynzkDQL4XSSwv
+ FWhq68XS1a1ZWaoNAKaFQcJGY7a4/tawWEAzu06b2BRsZ0jHHBs3LxBw5BJzEylQxJ
+ E36+xKJfhsTfrNQQJRqjg/z9hyoWWWf3Yu1kXv/TltBokqCHLcNQRx/w/SSQ8e63xs
+ kz/+Dsk6iRGDh5utAcyBvMOFb6HIg0125NgKLp4HRE2hyv5DbwOyHAh7JAeCI9i86U
+ hkl0e48DyYz2Q==
+Received: by mail-wr1-f72.google.com with SMTP id
+ 71-20020adf82cd000000b00203dc43d216so1471271wrc.22
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Mar 2022 04:57:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nw83rNQU0DG2T5abexM+HrA3AT5FpHyglSBWAvBerB4=;
- b=ws5HT1F/TlQEC98c2gLCe9DJq4zUV4mPto+UxxaEw5/UHz1UrK+C9Zm6zJTMyEUcwT
- JsxE1PddD8dep8WZKZMVfZ1U4kYlr1MUDX86ScZZyxvb9xBgkIqCZcQrkaAEuOX0HosG
- M98QbIO+dWU59+4e4XkUsg6Q3OSMB1AqRGXWqlDjFG90smZR8y9PWfX3ms/nThSkjGxT
- +utz7ITc5NURae9eELqPVDhl5HcDuk3EwXXLqTMCi/KstZLUw/WRG5RD2RMmW/EK5Xxm
- 4aye8LKG2CiG2/7GoWWV4SJipiHhuHLKtsmYUQYOvn/WUi1gpADx+qKp5BtOvU9yAQqn
- 8IKg==
-X-Gm-Message-State: AOAM533LNmC6jyeb6NLKkpa73uTlnUMoaE6X8sDG0MSJGx/ZpXuOv7/w
- al8k8V9UZt/E9NlpM9r/0OYsSwrBov8G5sAFH4eZ9D62L9gp7mFNQNHZ4psaJbgkWUkSnbZ/Tf5
- c7FsnyulpqOCzmLLs/yJ7JmjCjZbBn3eqDT+H
-X-Received: by 2002:adf:d1e5:0:b0:203:d609:38da with SMTP id
- g5-20020adfd1e5000000b00203d60938damr3610501wrd.675.1647518269081; 
- Thu, 17 Mar 2022 04:57:49 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyjFXvDvHdQ01w0zg1EFDDh642eLMUzgHUDqkxXLdtcKH+7Ko3TzWiEFBj3msxkYp0Y5lUMFA==
-X-Received: by 2002:adf:d1e5:0:b0:203:d609:38da with SMTP id
- g5-20020adfd1e5000000b00203d60938damr3610457wrd.675.1647518268881; 
- Thu, 17 Mar 2022 04:57:48 -0700 (PDT)
+ bh=Se1x08TIKnomHmbPOsCcljQ9abxNVpGR1lbzQcpKc/g=;
+ b=j91VrlS+PQzeTNVHALJgLP1vnn+6uLtBXZ+iQoNxcPpQEEGO0yJLIgNuPolx59jOAs
+ M8Jerf5QVicQDzqm85y1TLudWzUuOYIZsQRB5NllTk7FlEJANbAtNbGz//yIhF97LjQF
+ GnmvQiekUNwE9h1qmQ2PVLJORb1hnp7CNSmVli/vUI8Yt/b+rocFc2ye979gZO+yN+nT
+ uofVuqMu0RM065WaTXHKjIqFvz8mG4GD+J9alXX4yLhKChehLgI8Ce7ZCeNZd0KhWSKn
+ kIMcBHFRMigx/1gHD0r5JnlvjiDzBVE36PAmALjLsZ7uRfHOXUBoQFHtKaEwC1JXif/F
+ 3nFA==
+X-Gm-Message-State: AOAM531G7IP0y2l40BV9KueoLApeKiF5qmsw9OkY55fCF0cFjQjD7dww
+ Z5UQrcSBeP906UJDkC9IgGgY4MT+KZbgnuQ5oXX1FfLUoVEf0ep79DaJ1XRHpU50E80jslgu2LU
+ IDJlLOfXFXCs/fUmmP20BfSICrRnK44ORY+kL
+X-Received: by 2002:a1c:7312:0:b0:38c:6f75:ab28 with SMTP id
+ d18-20020a1c7312000000b0038c6f75ab28mr5970891wmb.19.1647518276640; 
+ Thu, 17 Mar 2022 04:57:56 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxzGz1twNJ92VnBy+RepCLy4U1K/Q67OukVWGeTcahnkhBl7wcOvPZo8IwHXQJMuUSC1th66Q==
+X-Received: by 2002:a1c:7312:0:b0:38c:6f75:ab28 with SMTP id
+ d18-20020a1c7312000000b0038c6f75ab28mr5970841wmb.19.1647518276425; 
+ Thu, 17 Mar 2022 04:57:56 -0700 (PDT)
 Received: from krzk-bin.. (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
  by smtp.gmail.com with ESMTPSA id
- r65-20020a1c4444000000b0038c48dd23b9sm5824900wma.5.2022.03.17.04.57.46
+ r65-20020a1c4444000000b0038c48dd23b9sm5824900wma.5.2022.03.17.04.57.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Mar 2022 04:57:47 -0700 (PDT)
+ Thu, 17 Mar 2022 04:57:56 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -103,10 +103,9 @@ To: Thomas Gleixner <tglx@linutronix.de>, Marc Zyngier <maz@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-actions@lists.infradead.org, openbmc@lists.ozlabs.org,
  linux-riscv@lists.infradead.org, linux-oxnas@groups.io
-Subject: [PATCH 15/18] dt-bindings: irqchip: realtek,
- rtl-intc: include generic schema
-Date: Thu, 17 Mar 2022 12:57:02 +0100
-Message-Id: <20220317115705.450427-14-krzysztof.kozlowski@canonical.com>
+Subject: [PATCH 18/18] dt-bindings: irqchip: ti: include generic schema
+Date: Thu, 17 Mar 2022 12:57:05 +0100
+Message-Id: <20220317115705.450427-17-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
 References: <20220317115542.450032-1-krzysztof.kozlowski@canonical.com>
@@ -129,37 +128,73 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Include generic interrupt-controller.yaml schema, which enforces node
-naming and other generic properties.
+Include generic interrupt-controller.yaml and msi-controller.yaml
+schema, which enforces node naming and other generic properties.
+The schema requires now proper naming of node.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../bindings/interrupt-controller/realtek,rtl-intc.yaml      | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../bindings/interrupt-controller/ti,pruss-intc.yaml         | 5 ++++-
+ .../bindings/interrupt-controller/ti,sci-inta.yaml           | 1 +
+ .../bindings/interrupt-controller/ti,sci-intr.yaml           | 3 ++-
+ 3 files changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/realtek,rtl-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/realtek,rtl-intc.yaml
-index 9e76fff20323..4c00d44923b9 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/realtek,rtl-intc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/realtek,rtl-intc.yaml
-@@ -11,6 +11,9 @@ maintainers:
-   - Bert Vermeulen <bert@biot.com>
-   - John Crispin <john@phrozen.org>
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/ti,pruss-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/ti,pruss-intc.yaml
+index 65523d9459d8..983d10da4463 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/ti,pruss-intc.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/ti,pruss-intc.yaml
+@@ -32,6 +32,9 @@ description: |
+   This interrupt-controller node should be defined as a child node of the
+   corresponding PRUSS node. The node should be named "interrupt-controller".
  
 +allOf:
 +  - $ref: /schemas/interrupt-controller.yaml#
 +
  properties:
-   compatible:
-     const: realtek,rtl-intc
-@@ -40,7 +43,7 @@ required:
-   - "#address-cells"
-   - interrupt-map
+   $nodename:
+     pattern: "^interrupt-controller@[0-9a-f]+$"
+@@ -106,7 +109,7 @@ required:
+   - interrupt-controller
+   - "#interrupt-cells"
  
 -additionalProperties: false
 +unevaluatedProperties: false
  
  examples:
    - |
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/ti,sci-inta.yaml b/Documentation/devicetree/bindings/interrupt-controller/ti,sci-inta.yaml
+index 88c46e61732e..935a61504aa0 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/ti,sci-inta.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/ti,sci-inta.yaml
+@@ -11,6 +11,7 @@ maintainers:
+ 
+ allOf:
+   - $ref: /schemas/arm/keystone/ti,k3-sci-common.yaml#
++  - $ref: msi-controller.yaml#
+ 
+ description: |
+   The Interrupt Aggregator (INTA) provides a centralized machine
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/ti,sci-intr.yaml b/Documentation/devicetree/bindings/interrupt-controller/ti,sci-intr.yaml
+index e12aee42b126..0d35a5e21a64 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/ti,sci-intr.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/ti,sci-intr.yaml
+@@ -11,6 +11,7 @@ maintainers:
+ 
+ allOf:
+   - $ref: /schemas/arm/keystone/ti,k3-sci-common.yaml#
++  - $ref: /schemas/interrupt-controller.yaml#
+ 
+ description: |
+   The Interrupt Router (INTR) module provides a mechanism to mux M
+@@ -92,7 +93,7 @@ unevaluatedProperties: false
+ 
+ examples:
+   - |
+-    main_gpio_intr: interrupt-controller0 {
++    main_gpio_intr: interrupt-controller {
+         compatible = "ti,sci-intr";
+         ti,intr-trigger-type = <1>;
+         interrupt-controller;
 -- 
 2.32.0
 
