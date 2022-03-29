@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63B7DC433EF
-	for <openbmc@archiver.kernel.org>; Tue, 29 Mar 2022 09:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75E72C433FE
+	for <openbmc@archiver.kernel.org>; Tue, 29 Mar 2022 10:34:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KSPLG0lGVz30L4
-	for <openbmc@archiver.kernel.org>; Tue, 29 Mar 2022 20:25:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KSQsP4lPzz2yHL
+	for <openbmc@archiver.kernel.org>; Tue, 29 Mar 2022 21:34:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=gm1 header.b=E0C2ytxP;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=voCtLj+B;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bootlin.com (client-ip=217.70.178.240;
- helo=mslow1.mail.gandi.net; envelope-from=alexandre.belloni@bootlin.com;
+ smtp.mailfrom=linuxfoundation.org (client-ip=139.178.84.217;
+ helo=dfw.source.kernel.org; envelope-from=gregkh@linuxfoundation.org;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256
- header.s=gm1 header.b=E0C2ytxP; dkim-atps=neutral
-Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.a=rsa-sha256 header.s=korg header.b=voCtLj+B; 
+ dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KSPJr1W72z2xCy;
- Tue, 29 Mar 2022 20:24:10 +1100 (AEDT)
-Received: from relay10.mail.gandi.net (unknown [217.70.178.230])
- by mslow1.mail.gandi.net (Postfix) with ESMTP id 0E5CDD01FD;
- Tue, 29 Mar 2022 09:19:51 +0000 (UTC)
-Received: (Authenticated sender: alexandre.belloni@bootlin.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 17680240012;
- Tue, 29 Mar 2022 09:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1648545573;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4OYEQcpxV5ZoCImFdldnCROqjeYEuOqk5lTqs4xQNOw=;
- b=E0C2ytxPlV1W+Oe2MExHPN7L1HAoV5OikaBi/U7DewsMCqNtbPDqkZmi2EkEtqy1h9eSgE
- iiefcHj+RmgZ+f+Nhg1dBvgQLIyFkVMlqvsI0mQLoe4LXrWKzoi2/xC4DJe0nxuepZkThU
- FRyNwSRBCCVeRjb5oEYt0caD6HgzFm/e5R4zbhwmHQOWSB6a/GJnngaEUVODgCoYqdO+7g
- DcfNnSRhpGEP/dmCe7VL2vFiRtpk1xrIevN5WpjBBTppF28IllsoBjw5Ux75BSFoUNa40U
- iEy83TwJxTr5nOyIxsdHupHOzrfEzXzdR3N0Ts3ALvlLshPNCnGr1VoMVatfnA==
-Date: Tue, 29 Mar 2022 11:19:30 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>
-Subject: Re: [RFC PATCH 0/1] Categorize ARM dts directory
-Message-ID: <YkLPIgwClJAUc1Uf@piout.net>
-References: <20220328000915.15041-1-ansuelsmth@gmail.com>
- <YkG2RPrtPaBNXb7a@latitude>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KSQrf5wmQz2xRp
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Mar 2022 21:33:21 +1100 (AEDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4B311611F1;
+ Tue, 29 Mar 2022 10:33:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55664C340ED;
+ Tue, 29 Mar 2022 10:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1648549997;
+ bh=5FgUcZbB4cY37HO0BUEW/2PUtsj7QGFtqc1d2v0/2BM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=voCtLj+BHaw6L6o43Gjn26OkZsTfiSI7kCCitCS4IjDywBTq6asy4eBWSoguNCfem
+ MyPuyiJ0QIrOlTiLjURiqcURF5Tw8ulbJhpwXKTWoC+72uysp2F7oYadIdX2B580c4
+ dZ8V0bnrTotXMNwbocLb6b3sQicpw69kamBvxKgc=
+Date: Tue, 29 Mar 2022 12:33:14 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH] peci: PECI should depend on ARCH_ASPEED
+Message-ID: <YkLgapMN2JqM+Lte@kroah.com>
+References: <f7ea35c723da72a89028da5b976ad417fbd7bf52.1648545587.git.geert@linux-m68k.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YkG2RPrtPaBNXb7a@latitude>
+In-Reply-To: <f7ea35c723da72a89028da5b976ad417fbd7bf52.1648545587.git.geert@linux-m68k.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +60,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, linux-realtek-soc@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev,
- linux-samsung-soc@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@axis.com, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-unisoc@lists.infradead.org, Rob Herring <robh+dt@kernel.org>,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Ansuel Smith <ansuelsmth@gmail.com>,
- linux-renesas-soc@vger.kernel.org, kernel@dh-electronics.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-oxnas@groups.io
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Iwona Winiarska <iwona.winiarska@intel.com>, openbmc@lists.ozlabs.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
+ Jason M Bills <jason.m.bills@linux.intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi,
+On Tue, Mar 29, 2022 at 11:21:37AM +0200, Geert Uytterhoeven wrote:
+> The Platform Environment Control Interface (PECI) is only available on
+> Baseboard Management Controllers (BMC) for Intel processors.  Currently
+> the only supported BMCs are ASpeed BMC SoCs.  Hence add a dependency on
+> ARCH_ASPEED, to prevent asking the user about the PECI subsystem when
+> configuring a kernel without ASpeed SoC support.
+> 
+> Fixes: 6523d3b2ffa238ac ("peci: Add core infrastructure")
+> Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> ---
+>  drivers/peci/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/peci/Kconfig b/drivers/peci/Kconfig
+> index 89872ad833201510..0d3ef8ba0998d649 100644
+> --- a/drivers/peci/Kconfig
+> +++ b/drivers/peci/Kconfig
+> @@ -2,6 +2,7 @@
+>  
+>  menuconfig PECI
+>  	tristate "PECI support"
+> +	depends on ARCH_ASPEED || COMPILE_TEST
 
-On 28/03/2022 15:21:08+0200, Jonathan Neuschäfer wrote:
-> On Mon, Mar 28, 2022 at 02:09:14AM +0200, Ansuel Smith wrote:
-> >  create mode 100644 arch/arm/boot/dts/freescale/Makefile
-> 
-> Freescale has been part of NXP for a while, so it might make sense to
-> merge the freescale and nxp directories. I can't speak for
-> NXP-the-company, so that's just my view as a bystander.
-> 
+I hate ARCH_ dependencies as there is nothing specific with that one
+platform that means that this driver subsystem will only work on that
+one.
 
-Maybe we should wait for the market consolidation to end so we can put
-all the files in a single subfolder?
+I'm all for fixing build dependancies, but it should be fine to build
+all drivers for all arches.
 
-this would save us from all the bikeshedding ;)
+So sorry, I don't like this change.
 
-> >  create mode 100644 arch/arm/boot/dts/kirkwood/Makefile
-> 
-> The Kirkwood family should probably be sorted into Marvell.
-> 
-> >  create mode 100644 arch/arm/boot/dts/layerscape/Makefile
-> >  rename arch/arm/boot/dts/{ => layerscape}/ls1021a-moxa-uc-8410a.dts (100%)
-> >  rename arch/arm/boot/dts/{ => layerscape}/ls1021a-qds.dts (100%)
-> >  rename arch/arm/boot/dts/{ => layerscape}/ls1021a-tsn.dts (100%)
-> >  rename arch/arm/boot/dts/{ => layerscape}/ls1021a-twr.dts (100%)
-> >  rename arch/arm/boot/dts/{ => layerscape}/ls1021a.dtsi (100%)
-> 
-> The Layerscape family is part of Freescale/NXP.
-> 
-> >  create mode 120000 arch/arm/boot/dts/nxp/armv7-m.dtsi
-> 
-> armv7-m.dtsi is a bit confusing, because it contains a few devices at
-> fixed addresses, so it looks vendor-specific at a first glance into the
-> file. However, if it is actually as vendor-neutral as the name implies,
-> I think it should live dts/ directly, rather than in vendor
-> subdirectories.
-> 
-> >  rename arch/arm/boot/dts/{ => nxp}/lpc18xx.dtsi (100%)
-> 
-> Here we have the NXP LPCxxxx family, which is AFAIK unrelated to the
-> i.MX family (and thus the bulk of the Freescale legacy).
-> 
-> >  create mode 100644 arch/arm/boot/dts/vybrid/Makefile
-> 
-> Vybrid is another chip family of NXP, with a good deal of Freescale
-> legacy in it as evidenced by the "fsl," prefix in the devicetrees.
-> 
-> 
-> 
-> Thanks,
-> Jonathan
-
-
-
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
-
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+greg k-h
