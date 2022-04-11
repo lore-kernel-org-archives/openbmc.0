@@ -4,13 +4,13 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F424C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 11 Apr 2022 15:18:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FBBC433F5
+	for <openbmc@archiver.kernel.org>; Mon, 11 Apr 2022 16:21:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KcXYG095kz3071
-	for <openbmc@archiver.kernel.org>; Tue, 12 Apr 2022 01:18:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KcYyH0Xt6z3bZR
+	for <openbmc@archiver.kernel.org>; Tue, 12 Apr 2022 02:21:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PUhFJyGh;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Zpk0TYng;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -18,87 +18,83 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=PUhFJyGh; dkim-atps=neutral
+ header.s=pp1 header.b=Zpk0TYng; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KcXXM57xPz2xsm
- for <openbmc@lists.ozlabs.org>; Tue, 12 Apr 2022 01:17:22 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23BDmdct030005; 
- Mon, 11 Apr 2022 15:17:18 GMT
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KcYxR67g7z2yWN
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Apr 2022 02:20:43 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23BF2qQ5004038; 
+ Mon, 11 Apr 2022 16:20:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=Wexj+HWaU6vLgwDQsWYPJ9KbhO7qyvQywXRQlLh7xZQ=;
- b=PUhFJyGhVUumL20txeq+D3t211cps4xMKEoaQdgM7zyqcL1DwYsW8vgqIJiMx8x1hf3N
- PNy0xCge11WmIBN6RHGu0sV+TmvmzF7hbinYlhf8j0RmoA2bIdTssDpLVUETuZ9gi1fV
- JRTZn9nUPEitZHSn2jpohJtJBIDhbI4Pf1ZbuDVeMMWkYjVsgrbdgS2RTqYQRuiaPzCl
- IgMvazlXeeF77GJ7NyVi165Enk7oH8dd4jJ504v8i5AAjywUcxu6zFEIlbAuHZBtsOfx
- lVzSS5fM28heXvq5hvRuZ7vUwVUMPoXL4LeFf9seZgqBC2ddpeRAmlx7C7Q0elnh3YAo TQ== 
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=s7ozJlP7XT89+2pv9Mj5WzxpHBNotI7o7KcOVNQYjaU=;
+ b=Zpk0TYngS46RayETAZyxeNsD9LZQjATe5HCbiFuvAaWuTjjMixu5vsU/cafp27CdTIYx
+ 2GZjBaO8oEr/iwAi5BYJIajSyd2XsjRhk1JthUOQ52Vg4IKlbJBa5t7pqsm74v45JSB+
+ bSGANc/2DUyCQTy6vxwvFkfQOtq4PaZcJLfxxKQx68WYnqSE/MZWigq3mDAQBawFoPgY
+ db+T6BMuV8TrcWxpEVSV1wTFPIib5z0ikOUp4xN2PPfQ5DIrUtIsRFZAPC1yIxe2b2bI
+ +OhlHzyCH+CoCUxY7B7gj9pU58m/C4+W1ffdottMiDkzuuYANM6jqo5YNTWpz+mHVJCD 4w== 
 Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3fcks94qdw-1
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fcpmghn6p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Apr 2022 15:17:18 +0000
-Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23BFHHSe015571;
- Mon, 11 Apr 2022 15:17:17 GMT
-Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
- [169.63.214.131])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3fcks94qdj-1
+ Mon, 11 Apr 2022 16:20:40 +0000
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 23BFqRgN015782;
+ Mon, 11 Apr 2022 16:20:40 GMT
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3fcpmghn6d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Apr 2022 15:17:17 +0000
-Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
- by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23BFDH0G014511;
- Mon, 11 Apr 2022 15:17:16 GMT
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27]) by ppma01dal.us.ibm.com with ESMTP id 3fb1s94pw4-1
+ Mon, 11 Apr 2022 16:20:40 +0000
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23BGDK03009906;
+ Mon, 11 Apr 2022 16:20:38 GMT
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23]) by ppma04wdc.us.ibm.com with ESMTP id 3fb1s9gxu0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Apr 2022 15:17:16 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 23BFHFrk25100724
+ Mon, 11 Apr 2022 16:20:38 +0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 23BGKcJW21299518
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 11 Apr 2022 15:17:16 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DECAAAE064;
- Mon, 11 Apr 2022 15:17:15 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3F347AE062;
- Mon, 11 Apr 2022 15:17:15 +0000 (GMT)
-Received: from [9.211.106.206] (unknown [9.211.106.206])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 11 Apr 2022 15:17:15 +0000 (GMT)
-Message-ID: <47f566cc-bdff-0f4f-557d-b069100911c3@linux.ibm.com>
-Date: Mon, 11 Apr 2022 10:17:14 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2 1/2] leds: pca955x: Clean up and optimize
-Content-Language: en-US
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-References: <20220407183941.36555-1-eajames@linux.ibm.com>
- <20220407183941.36555-2-eajames@linux.ibm.com>
- <CAHp75VedZdEYB-BjJTVaKJgPwQ9a1DhTp=MYsrh1Ve9Eyfnytw@mail.gmail.com>
+ Mon, 11 Apr 2022 16:20:38 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 422CA124055;
+ Mon, 11 Apr 2022 16:20:38 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 699A0124053;
+ Mon, 11 Apr 2022 16:20:37 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.106.206])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 11 Apr 2022 16:20:37 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
-In-Reply-To: <CAHp75VedZdEYB-BjJTVaKJgPwQ9a1DhTp=MYsrh1Ve9Eyfnytw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: linux-leds@vger.kernel.org
+Subject: [PATCH v3 1/4] leds: pca955x: Refactor with helper functions and
+ renaming
+Date: Mon, 11 Apr 2022 11:20:30 -0500
+Message-Id: <20220411162033.39613-2-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20220411162033.39613-1-eajames@linux.ibm.com>
+References: <20220411162033.39613-1-eajames@linux.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: etKwe3NLEd6Z7glho5IQ0QJNxjw7N1i4
-X-Proofpoint-ORIG-GUID: KVAdM8862jJhTOXTU87YJCBjxK3RL8sv
+X-Proofpoint-ORIG-GUID: Yz640mPN-z35jHu_ZJwJQ7caQPRCoxnY
+X-Proofpoint-GUID: fP9OjfdxdwekiVwgtkX5-GZdIMbcEH8P
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.425,FMLib:17.11.64.514
  definitions=2022-04-11_06,2022-04-11_01,2022-02-23_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- priorityscore=1501 suspectscore=0 mlxlogscore=535 mlxscore=0 phishscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2204110083
+ adultscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 priorityscore=1501
+ bulkscore=0 spamscore=0 phishscore=0 impostorscore=0 mlxlogscore=829
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204110089
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,87 +106,177 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux LED Subsystem <linux-leds@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Joel Stanley <joel@jms.id.au>
+Cc: openbmc@lists.ozlabs.org, Eddie James <eajames@linux.ibm.com>,
+ linux-kernel@vger.kernel.org, andy.shevchenko@gmail.com, joel@jms.id.au,
+ pavel@ucw.cz
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Add helper functions to clean up the code, and rename a few
+oddly named functions and variables.
 
-On 4/8/22 06:11, Andy Shevchenko wrote:
-> On Thu, Apr 7, 2022 at 10:42 PM Eddie James <eajames@linux.ibm.com> wrote:
->> Clean up the I2C access functions to avoid fetching the pca955x
->> driver data again. Optimize the probe to do at most 4 reads and
->> 4 writes of the LED selector regs, rather than 16 of each.
->> Rename some functions and variables to be more consistent and
->> descriptive.
-> Separate patch.
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ drivers/leds/leds-pca955x.c | 50 ++++++++++++++++++-------------------
+ 1 file changed, 24 insertions(+), 26 deletions(-)
 
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 81aaf21212d7..a683c872e1ff 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -134,19 +134,21 @@ struct pca955x_led {
+ 	struct fwnode_handle	*fwnode;
+ };
+ 
++#define led_to_pca955x(l)	container_of(l, struct pca955x_led, led_cdev)
++
+ struct pca955x_platform_data {
+ 	struct pca955x_led	*leds;
+ 	int			num_leds;
+ };
+ 
+ /* 8 bits per input register */
+-static inline int pca95xx_num_input_regs(int bits)
++static inline int pca955x_num_input_regs(int bits)
+ {
+ 	return (bits + 7) / 8;
+ }
+ 
+ /* 4 bits per LED selector register */
+-static inline int pca95xx_num_led_regs(int bits)
++static inline int pca955x_num_led_regs(int bits)
+ {
+ 	return (bits + 3)  / 4;
+ }
+@@ -161,6 +163,11 @@ static inline u8 pca955x_ledsel(u8 oldval, int led_num, int state)
+ 		((state & 0x3) << (led_num << 1));
+ }
+ 
++static inline int pca955x_ledstate(u8 ls, int led_num)
++{
++	return (ls >> (led_num << 1)) & 0x3;
++}
++
+ /*
+  * Write to frequency prescaler register, used to program the
+  * period of the PWM output.  period = (PSCx + 1) / 38
+@@ -168,7 +175,7 @@ static inline u8 pca955x_ledsel(u8 oldval, int led_num, int state)
+ static int pca955x_write_psc(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + (2 * n);
++	u8 cmd = pca955x_num_input_regs(pca955x->chipdef->bits) + (2 * n);
+ 	int ret;
+ 
+ 	ret = i2c_smbus_write_byte_data(client, cmd, val);
+@@ -188,7 +195,7 @@ static int pca955x_write_psc(struct i2c_client *client, int n, u8 val)
+ static int pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + (2 * n);
++	u8 cmd = pca955x_num_input_regs(pca955x->chipdef->bits) + 1 + (2 * n);
+ 	int ret;
+ 
+ 	ret = i2c_smbus_write_byte_data(client, cmd, val);
+@@ -205,7 +212,7 @@ static int pca955x_write_pwm(struct i2c_client *client, int n, u8 val)
+ static int pca955x_write_ls(struct i2c_client *client, int n, u8 val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n;
++	u8 cmd = pca955x_num_input_regs(pca955x->chipdef->bits) + 4 + n;
+ 	int ret;
+ 
+ 	ret = i2c_smbus_write_byte_data(client, cmd, val);
+@@ -222,7 +229,7 @@ static int pca955x_write_ls(struct i2c_client *client, int n, u8 val)
+ static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + 4 + n;
++	u8 cmd = pca955x_num_input_regs(pca955x->chipdef->bits) + 4 + n;
+ 	int ret;
+ 
+ 	ret = i2c_smbus_read_byte_data(client, cmd);
+@@ -238,7 +245,7 @@ static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
+ static int pca955x_read_pwm(struct i2c_client *client, int n, u8 *val)
+ {
+ 	struct pca955x *pca955x = i2c_get_clientdata(client);
+-	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + (2 * n);
++	u8 cmd = pca955x_num_input_regs(pca955x->chipdef->bits) + 1 + (2 * n);
+ 	int ret;
+ 
+ 	ret = i2c_smbus_read_byte_data(client, cmd);
+@@ -253,9 +260,7 @@ static int pca955x_read_pwm(struct i2c_client *client, int n, u8 *val)
+ 
+ static enum led_brightness pca955x_led_get(struct led_classdev *led_cdev)
+ {
+-	struct pca955x_led *pca955x_led = container_of(led_cdev,
+-						       struct pca955x_led,
+-						       led_cdev);
++	struct pca955x_led *pca955x_led = led_to_pca955x(led_cdev);
+ 	struct pca955x *pca955x = pca955x_led->pca955x;
+ 	u8 ls, pwm;
+ 	int ret;
+@@ -264,8 +269,7 @@ static enum led_brightness pca955x_led_get(struct led_classdev *led_cdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	ls = (ls >> ((pca955x_led->led_num % 4) << 1)) & 0x3;
+-	switch (ls) {
++	switch (pca955x_ledstate(ls, pca955x_led->led_num % 4)) {
+ 	case PCA955X_LS_LED_ON:
+ 		ret = LED_FULL;
+ 		break;
+@@ -289,19 +293,13 @@ static enum led_brightness pca955x_led_get(struct led_classdev *led_cdev)
+ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 			    enum led_brightness value)
+ {
+-	struct pca955x_led *pca955x_led;
+-	struct pca955x *pca955x;
++	struct pca955x_led *pca955x_led = led_to_pca955x(led_cdev);
++	struct pca955x *pca955x = pca955x_led->pca955x;
++	int reg = pca955x_led->led_num / 4;
++	int bit = pca955x_led->led_num % 4;
+ 	u8 ls;
+-	int chip_ls;	/* which LSx to use (0-3 potentially) */
+-	int ls_led;	/* which set of bits within LSx to use (0-3) */
+ 	int ret;
+ 
+-	pca955x_led = container_of(led_cdev, struct pca955x_led, led_cdev);
+-	pca955x = pca955x_led->pca955x;
+-
+-	chip_ls = pca955x_led->led_num / 4;
+-	ls_led = pca955x_led->led_num % 4;
+-
+ 	mutex_lock(&pca955x->lock);
+ 
+ 	ret = pca955x_read_ls(pca955x->client, chip_ls, &ls);
+@@ -310,13 +308,13 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 
+ 	switch (value) {
+ 	case LED_FULL:
+-		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_ON);
++		ls = pca955x_ledsel(ls, bit, PCA955X_LS_LED_ON);
+ 		break;
+ 	case LED_OFF:
+-		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_LED_OFF);
++		ls = pca955x_ledsel(ls, bit, PCA955X_LS_LED_OFF);
+ 		break;
+ 	case LED_HALF:
+-		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_BLINK0);
++		ls = pca955x_ledsel(ls, bit, PCA955X_LS_BLINK0);
+ 		break;
+ 	default:
+ 		/*
+@@ -329,7 +327,7 @@ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 		ret = pca955x_write_pwm(pca955x->client, 1, 255 - value);
+ 		if (ret)
+ 			goto out;
+-		ls = pca955x_ledsel(ls, ls_led, PCA955X_LS_BLINK1);
++		ls = pca955x_ledsel(ls, bit, PCA955X_LS_BLINK1);
+ 		break;
+ 	}
+ 
+-- 
+2.27.0
 
-Ack.
-
-
-
->
->> +               dev_err(&pca955x->client->dev,
->> +                       "%s: reg 0x%x, val 0x%x, err %d\n", __func__, n, val,
->> +                       ret);
-> This can be indented better.
->
-> I would add a temporary dev pointer variable and put this on one line.
->
->   struct device *dev = &pca955x->client->dev;
->
->                 dev_err(dev, "%s: reg 0x%x, val 0x%x, err %d\n",
-> __func__, n, val, ret);
-
-
-Hm, I still end up having to use two lines for the dev_err function, so 
-not sure it's worth it?
-
-
->
-> ...
->
->> +               dev_err(&pca955x->client->dev,
->> +                       "%s: reg 0x%x, val 0x%x, err %d\n", __func__, n, val,
->> +                       ret);
-> Ditto.
->
-> ...
->
->> +               dev_err(&pca955x->client->dev,
->> +                       "%s: reg 0x%x, val 0x%x, err %d\n", __func__, n, val,
->> +                       ret);
-> Ditto.
->
-> ...
->
->> +               dev_err(&pca955x->client->dev, "%s: reg 0x%x, err %d\n",
->>                          __func__, n, ret);
-> Ditto.
->
-> ...
->
->> +               dev_err(&pca955x->client->dev, "%s: reg 0x%x, err %d\n",
->>                          __func__, n, ret);
-> Ditto.
->
-> ...
->
->> +       struct pca955x_led *pca955x_led = container_of(led_cdev,
->> +                                                      struct pca955x_led,
->> +                                                      led_cdev);
-> Is it used once? If more than once, consider a helper for that as well.
-
-
-Ack.
-
-
-Thanks for the review!
-
-Eddie
-
->
