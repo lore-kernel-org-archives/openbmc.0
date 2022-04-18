@@ -4,69 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A1AFC433EF
-	for <openbmc@archiver.kernel.org>; Fri, 15 Apr 2022 14:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79894C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 18 Apr 2022 09:19:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KfzfZ4mZdz3bbb
-	for <openbmc@archiver.kernel.org>; Sat, 16 Apr 2022 00:46:14 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KhhGL6QZMz3bYJ
+	for <openbmc@archiver.kernel.org>; Mon, 18 Apr 2022 19:19:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=X43BrQnS;
+	dkim=pass (1024-bit key; unprotected) header.d=quantacorp.onmicrosoft.com header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-quantacorp-onmicrosoft-com header.b=0pEZvt+y;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.15.19; helo=mout.gmx.net;
- envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=quantatw.com (client-ip=2a01:111:f403:704b::71f;
+ helo=apc01-tyz-obe.outbound.protection.outlook.com;
+ envelope-from=potin.lai@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=X43BrQnS; 
+ unprotected) header.d=quantacorp.onmicrosoft.com
+ header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-quantacorp-onmicrosoft-com header.b=0pEZvt+y; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Kfzds3GFsz2xDN
- for <openbmc@lists.ozlabs.org>; Sat, 16 Apr 2022 00:45:35 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1650033923;
- bh=U7dqB8UZdHHYcktusZM81tIBeUrwtsptS8hwCJ84BSQ=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=X43BrQnSncztZRJImZpjxVHAH4tdWwC1mg3TK029fQVe5t3Vsm9FjvLrhx1LEseRl
- QXPfB7Jer8/hIawzsUUqBVtQ7yDc93uB5N4pUNDpvz8lrsR0rGA9KuxxhOZ3zAfjFN
- UHgXT6/cKRSYVcOMTG+oxIkxyh6zXU1S5UAzb7mQ=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([185.66.193.41]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MVNAr-1nY3652vVH-00SPdx; Fri, 15
- Apr 2022 16:45:22 +0200
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH v2] ARM: dts: wpcm450: Enable watchdog by default
-Date: Fri, 15 Apr 2022 16:45:18 +0200
-Message-Id: <20220415144518.800035-1-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.35.1
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2071f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f403:704b::71f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KhhFR52RFz2xSN
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Apr 2022 19:18:49 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IF0v5MCdDLJm8+fnHPZu5C88OLFrjpp05UX9o4tNtgHgbcpXAOvYwXg7InDW2aDtgCq6tMAXR4lVcy1MdoElUK7jgk/abndp0WbkjUsn1UAR37Jz2U3Sa4SqJYEOuHINCnOAFNEPWy0xSVx3h+r22vKkhBJOIF2jWg1bMo/MbWqhmvEp4hzjkOQHXpZlTPEKtMmxvpxU2cRDCtQtsiEE57Q9xCOV1RANU2BeUbwZw88XdWzhrtLz6ukcJsDrighDvIoxFpgZMJf87pp63L6zZ3pTN4AQvW9wNCfBjhTWQL/mWyGCEw95oyvB44n/Htsxs2xYLqDqq1DkJIuog2HQcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JyX6Zi3P1sp7vG8+6ywvmwo2BEuK3YhQUFU2i0oU6E8=;
+ b=LZEdNeiRRQFX1tNPhWGZbmtoA01Ov+5DhD4sPsU0fJKAJZjExf7ikRuMGyvkfbuOev6SWNsEFmdqYhFBPPs8LCi931mmIdzAcdSF+ozia/8wzw3GJaeTk1hSJQQQso8oCML/5RNP8YYkgG6hOCTVujbuvyroj9dqzDsvK1DYR22Irtn3AEpgTcABUdPXQuoYTENueSqsA0UefhOTlKDMeT/4zb7Mjfo8wBYN01Ch6KAGTPbzxpRgik6sjG1fkjPn45kKpBj+q8cQspTAL8tnegEDXNrtb1FYw20YyUka4c1VViU4N7obkcy6s9Cf+TXH10IQkvBszsdKr4qtynud1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=quantatw.com; dmarc=pass action=none header.from=quantatw.com;
+ dkim=pass header.d=quantatw.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quantacorp.onmicrosoft.com; s=selector2-quantacorp-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JyX6Zi3P1sp7vG8+6ywvmwo2BEuK3YhQUFU2i0oU6E8=;
+ b=0pEZvt+y1CMNryhwaYONlziPqrtY8BM/EeM3ezTMRnkzAbd2bT0sQ4pwPuuR1ftvS7hQxhti3o1g17mFDqgOfTrYvoek2cLMZvaiUgxRcO2gjiygLZmK11sS90jaXt9vqjAR2E9vh8uIm1f8JeN0qcURwm+wAZnYbQAHVwPWLP8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=quantatw.com;
+Received: from HK0PR04MB3282.apcprd04.prod.outlook.com (2603:1096:203:89::17)
+ by PUZPR04MB5229.apcprd04.prod.outlook.com (2603:1096:301:bc::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18; Mon, 18 Apr
+ 2022 09:18:24 +0000
+Received: from HK0PR04MB3282.apcprd04.prod.outlook.com
+ ([fe80::1109:2541:660f:1489]) by HK0PR04MB3282.apcprd04.prod.outlook.com
+ ([fe80::1109:2541:660f:1489%6]) with mapi id 15.20.5164.025; Mon, 18 Apr 2022
+ 09:18:24 +0000
+From: Potin Lai <potin.lai@quantatw.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-5.15 RESEND 0/2] hwmon: (adm1275) Add sample
+ averaging binding support
+Date: Mon, 18 Apr 2022 17:17:26 +0800
+Message-Id: <20220418091728.23051-1-potin.lai@quantatw.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: HK2PR02CA0142.apcprd02.prod.outlook.com
+ (2603:1096:202:16::26) To HK0PR04MB3282.apcprd04.prod.outlook.com
+ (2603:1096:203:89::17)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:CqVTFanuaMJnC1Z6w6sDj9tgxzWu5GijeIxMguqHBnYYhkokfWw
- 13tsuJUSsMhUZHv9NqBNLVpb4mWXfv/4FM0Slnurg0XLe0f+cd1Ijr/BA6uqo8niJv/WkSS
- vvNGpE45FSMC8RJxIIifsvhtGOjXKJIypse3Zi8A4X4OfD0OkX+UipgN1ReTx2U/ULSbWjK
- 33I7CLc4644inmVlcDM3w==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:k0u6G8bhtF8=:gQf5rUo2ESTDBT5j/PSKzU
- ZDyzaomijA0GaJAK8H9BD/W7hd9L5qQHMABuFYjd9yfPED4sXdF2zWGKKfK40pc0/s1nQcl7V
- OWtWhWa3Hjj4D+hAX5yD/Gn78cO+m43TxQ5mwEmLiyv6//mlcgpqkvXZOwcWFcKmfO8f0EGsL
- FoHmeFcOsgcIS7mc5/n3DBE6Yl1qdsJfTZYoA/gBa8u0qmmZo2iQ6LB4eH4FnB8REIx14QADY
- LFVDxGFUk5LGHMKbMgkAnqqCw/jFs2yY4JsV8anpp2ygRnJna2aix3pNBoz2Gv43JEmwo2wtR
- ikrc/pnOn69utRlcOmTCrOPcZ97+I1rxWDWdUOnWAH3klnvdsdjKkEgLjWynb2AvHE8GZ4AtS
- UldfvYt2fXdLVXz+H+iOaEGuX1wT1WXNWRYAenpnfsYHVCKFckPsFLGlJTylkKkHJ2yo09G1t
- 9Si+98H3s6d0SvYevTylcyrl8tjGsBgruDdv0ssvyWqM9EXMdOw4gnEy6ITO2MS9tq2gWPles
- LvoS3jKlqNJ775sCcTOtSJoxt7g23sCnSl5DibHJPvfaufNgEA4vMrYdVFq5Og3dofheMusep
- egV5jnJ6gxe4ZG2kOOzWlUZ+vPLa7sZbQvgQlitj1mTWdVldmdCWr126OCdrfXVL2b2ipBZUN
- PTNvG3YZHVsx0qvN5qR0hZF/svIvtNvrwSYxPZ/B7R620gFLQtZP4LyzlBtXwf0O1SYOdscy6
- MEm53gzskZdy6oRVcnd63SVjqJgTkC6yZlSDY65vyznx7Rx6Z9pSB1cyOov8OuFg0ydhqw2bl
- pw0KtSs8FP/rkSx7S4NmNd2aN1SzZdoTcvyz1+QHp1mIsdH+qdE3RGTG5ttojm9TsjQbLkkoy
- kCiZoXJul+9fAjctV4oHCGR0vagTTQr8vntt5B0DQbadpASq+Dgr3RkP3/rYXFV2PJLSiUYWO
- qxgIsPC9YdGTxUj/MahYG1Ke2qkIR9Frc0kUCh3/LpZRT2uI7gKAyLF/9ziZUAnqGuNe+nB8O
- 4bkns7XGwhAaVJc73tfO2RRWSzxPfIS9sF83+wmdX0Bvisgu3uotsqFf6fnlcc/xNURD2J63e
- 3r1iclEMSgGxec=
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bfc00981-6251-4390-a1b2-08da211c6374
+X-MS-TrafficTypeDiagnostic: PUZPR04MB5229:EE_
+X-Microsoft-Antispam-PRVS: <PUZPR04MB522918B835164FA68437BF9E8EF39@PUZPR04MB5229.apcprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4GFFNyla7jEoGkCBy1fCoXOtolgV9RcGxV0ozVbr3pNoZQe/dHPjSSzSTQzxaosGNSmH5ZbGBprRjMCtr+2uDXUmcWQ8zV2TwGGQ3MfupUWMVZm3930tMEszIaRIYyJYnv4XlGB6Jaqgw0nOoaHJaLS6BghRDss8fNlSKnO/nkeNnp9pINTywMbRkgnSV9NWncV1sy0WB1kM4HFo+x+ctv/dhM409zmasT1h8pk4ktfu44Cg2RjXsKxMmCy7c8iJVM2u2HaLW08JKoUmQGi35HH85UD/N6NtMWKAIdAVCpN7y0BOyxkLw1DMRPQjzwaLwBE3tMOuBY2vQEiw/5AjRxYnMaIuQ2QLOivVfTLLAOdYtYHNRQtsWsIHfoZt28Xxh7osPLoyFeo7ShdqTxOwT4a1z9frjJiH/29qguTPGFe97My1nrVw6yhFjn32zKltE3SoKK2uG5TjJbxdDDcb6UqZBl5XQW3XwvYre7wUvhtZWylzD1qzBKfD1Czq75gnMeKaqf5oq0QP7KO/fWs5mLvWwPdhtF0bnZSWO0CGSkCiv6Cu6MC9H4IxkDwR7o8sFfS8eUkF+Sqvpd6jozhxFN1S1+brm7hJfzxO64iEzYcpczk4RM/qKzqdlwBRH5/M8wz+52S02AZ8C7PCPVD0fqlZ0HmmjoSyqBHrzmL1ToJUaaoIo7uGgCr9bmMMkv/KL+u3eZPsUso37UdmS/HYSNU99RmvtIPc1jf/IqcUzw/ifRgSBoxa7rcqH2m3okCLjJ2Z53j1Q7j8Crg2fdtihW5372TmxpSMY+2Wgq2tu8c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK0PR04MB3282.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(4636009)(366004)(5660300002)(83380400001)(4744005)(66946007)(66556008)(86362001)(966005)(66476007)(6512007)(6506007)(316002)(36756003)(2906002)(38100700002)(38350700002)(8676002)(6486002)(8936002)(44832011)(52116002)(508600001)(186003)(26005)(2616005)(1076003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Cw0TNaQkQygiHXBJ34SidSiCYvVQCUXg7ccxrXlOhgBa7OSppV97ts2AjhoK?=
+ =?us-ascii?Q?SJEZXEwVCAmtXILwyIrSPFbn8V/39a/lzCaI29fhROxTR/IWW3Ubpg1A6tWk?=
+ =?us-ascii?Q?QwnNnLe2CbL+MgI2BhmFMo7b//vXgXSZ4JB6v+hmLstJO9jO8Vkoe7nzJPk3?=
+ =?us-ascii?Q?kbGMViaAU4X+Mkb8HHED/wwDmVWqwHRsWrM+a+3w+SkVXMrIn0gr9wuMmWTv?=
+ =?us-ascii?Q?3xmIscSdwdxFJsgsrAMReghZaBzt3XOoRgGzlKk55r5SpwVlbR0UIjIcuOBO?=
+ =?us-ascii?Q?k++17uHcYYaYBtYLb0v3SB4ikjSmrsQGU1PJ9auF5DM6MPSGx6K3z06gaTHS?=
+ =?us-ascii?Q?W8VlZfCRz5z8+5Ltu0Su6AwRwdEgDgVL/CatBvusAo5nReSO3wzXGOCmsEj3?=
+ =?us-ascii?Q?SuBHtYEGgBDD0p3JgH8RMFsY01E7GHgbl6wVgnjR2yBcmYKl43kpPEtBIs8E?=
+ =?us-ascii?Q?Elz8mbD0/xV2NPQX/4TZXqshLT2v9s/vCkjOLsQMCdspmCvOdy2jNL8QA0/b?=
+ =?us-ascii?Q?PN8S5ew4Mo+yRDW1HT3J85siecMAMsTuZvAl65jyW5v0k84Fjrml3QElEbvE?=
+ =?us-ascii?Q?Ud3gOkBH4H9ERRLUrivUlm4FHPyLoLeeexFZ1/h2+oYVSr+O1LZaGJyK+RQu?=
+ =?us-ascii?Q?OWvF3IxgxdPlKkaWUC/QU+tRE4738jsM3RdBssuo6lBWr5OJ3wo87E/Sc5SM?=
+ =?us-ascii?Q?Y4heQ3FLuJ76hHPd7D0FxxHrUiYQVl1sfMn5KQIjkFFobbUpACguX7pScQrl?=
+ =?us-ascii?Q?FU7pLWDSFWBI6wAe47rvpO13QryTjXdFADKQGIjIXs/CFunDBnFxtTR2O+g7?=
+ =?us-ascii?Q?m780eDhs8I8kVwLgkkm0m1QxZ3cM5aZM8I4dCX84vL5F/U9cXO3mpHlPPuEI?=
+ =?us-ascii?Q?eyyQCcQGmvWmZKkbB+8JMpUPrvd6YrYKYB+TqWSsrhdo7DXPQ2I5PwS27MV3?=
+ =?us-ascii?Q?uuOlkIjgIHnRLNT+P/uSfcnpiCLYZ79kk93aVB9+9/+4+neEYWhImW6l7FdT?=
+ =?us-ascii?Q?3kGcGra9aqVd3li6W8v64E3Jiaaxj1zvrY34dXXzmByda6IeoSx/FN1ylZe8?=
+ =?us-ascii?Q?4C2ehjRen6EQeNOmY8/lmOLna+elzKdx9tATfCvpyAId2YM0QwCqOkFOy5ug?=
+ =?us-ascii?Q?WUpxX2nQbQlMAbUU+9eh6cLOtvds7YHY0n6Fk2gpSdHVrgZ0P1dfdDwhOhDh?=
+ =?us-ascii?Q?II6l++rWKHSb1TZl4bTonYFWumNnQTDffNlWCoCR1hs6pYjOAqSOdiisjMSS?=
+ =?us-ascii?Q?B9eNZKDLeAZRjHVBU8S5Wq0V/tY6ANpRhNTLtYYh13cChyu0hR2HRMQjR42t?=
+ =?us-ascii?Q?tfdW2f4/kK1Jk3+WwOLRg9sfXfN8FHWACw0MY64cTP/Ybn6seecTo/xcTSiy?=
+ =?us-ascii?Q?mu/UHdA+2p4sbgocs/wZX82Pz5nnBa4P6P/tObBpDjQ500TKQTWoqwvDW7Mn?=
+ =?us-ascii?Q?C6TovJbp6ChDWsHKAx4Gs8OH1RcfqtIAGXJrH4Qb3yMAfENqgEKGOCcQtzxh?=
+ =?us-ascii?Q?urpt/JWRpSXkikEhcs7cfioBxAo2+Q1jZTUdISLENJfqEOfRwDr9xF8brGBT?=
+ =?us-ascii?Q?QoWTJBQJQPlrarA+GD9O2mvXVJwK/7d6D20WjYJEa9LX7WdGls7p8D5RnLcy?=
+ =?us-ascii?Q?b38MNzscnkQi0S7yt/3B40hRQImHwyzQfKoYCMriHsCAEc/1Yv6BNPU+sut7?=
+ =?us-ascii?Q?uUSPI9uG7G4gxnuzF0AVnODHsdXJs12axYj9I4bPoHpNdybo0BvWc6JESroJ?=
+ =?us-ascii?Q?nQ3OQvcdStDIsMvlyGEmAy1BLqyRWbs=3D?=
+X-OriginatorOrg: quantatw.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfc00981-6251-4390-a1b2-08da211c6374
+X-MS-Exchange-CrossTenant-AuthSource: HK0PR04MB3282.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2022 09:18:24.0703 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 179b0327-07fc-4973-ac73-8de7313561b2
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sdodyvY7TElZAQC+ohM4I2dM/ZLQrBRFdgKmo5eSf4gu6hI4hSIF+44QCKGvG5kN+G5ekDz+b8LdLUSzIxdIBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR04MB5229
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,59 +131,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The watchdog timer is always usable, regardless of board design, so
-there is no point in marking the watchdog device as disabled-by-default
-in nuvoton-wpcm450.dtsi.
+This patch series allow user config PWR_AVG and VI_AVG in PMON_CONF
+register by adding properties in device tree.
 
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-=2D--
+Example:
+	adm1278@11 {
+		compatible = "adi,adm1278";
+		......
+		adi,volt-curr-sample-average = <128>;
+		adi,power-sample-average = <128>;
+	};
 
-v2:
-- add Reviewed-by tag
+Link: https://lore.kernel.org/all/20220302123817.27025-1-potin.lai@quantatw.com/
 
-v1:
-- https://lore.kernel.org/lkml/20220128221054.2002911-1-j.neuschaefer@gmx.=
-net/
-=2D--
- arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts | 4 ----
- arch/arm/boot/dts/nuvoton-wpcm450.dtsi                      | 1 -
- 2 files changed, 5 deletions(-)
+Potin Lai (2):
+  hwmon: (adm1275) Allow setting sample averaging
+  dt-bindings: hwmon: Add sample averaging properties for ADM1275
 
-diff --git a/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts b=
-/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-index 3ee61251a16d0..1ae7ae4804275 100644
-=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-+++ b/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-@@ -77,7 +77,3 @@ &serial1 {
- 	/* "Serial over LAN" port. Connected to ttyS2 of the host system. */
- 	status =3D "okay";
- };
--
--&watchdog0 {
--	status =3D "okay";
--};
-diff --git a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi b/arch/arm/boot/dts/nu=
-voton-wpcm450.dtsi
-index 57943bf5aa4a9..1c63ab14c4383 100644
-=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-@@ -83,7 +83,6 @@ watchdog0: watchdog@b800101c {
- 			interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg =3D <0xb800101c 0x4>;
- 			clocks =3D <&clk24m>;
--			status =3D "disabled";
- 		};
+ .../bindings/hwmon/adi,adm1275.yaml           | 68 +++++++++++++++++++
+ drivers/hwmon/pmbus/adm1275.c                 | 40 ++++++++++-
+ 2 files changed, 107 insertions(+), 1 deletion(-)
 
- 		aic: interrupt-controller@b8002000 {
-=2D-
-2.35.1
+-- 
+2.17.1
 
