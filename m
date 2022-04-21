@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64DDBC433F5
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 02:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DEA4C433F5
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 02:10:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KnQLV5FKWz2ync
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 12:09:38 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KnQMD4lVJz3bZZ
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 12:10:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=LPd+HGU6;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=ET0NwvTF;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=9elements.com (client-ip=2607:f8b0:4864:20::1032;
- helo=mail-pj1-x1032.google.com; envelope-from=patrick.rudolph@9elements.com;
- receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=hpe.com
+ (client-ip=148.163.147.86; helo=mx0a-002e3701.pphosted.com;
+ envelope-from=prvs=01100c5ac3=nick.hawkins@hpe.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256
- header.s=google header.b=LPd+HGU6; dkim-atps=neutral
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
- [IPv6:2607:f8b0:4864:20::1032])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256
+ header.s=pps0720 header.b=ET0NwvTF; dkim-atps=neutral
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com
+ [148.163.147.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KkWDd15CTz2xtQ
- for <openbmc@lists.ozlabs.org>; Thu, 21 Apr 2022 18:39:27 +1000 (AEST)
-Received: by mail-pj1-x1032.google.com with SMTP id iq10so575757pjb.0
- for <openbmc@lists.ozlabs.org>; Thu, 21 Apr 2022 01:39:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=9elements.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=iyVX01vepZ3mG22nb4pIjiT7SLAj+4KY2LGS4f5/uvk=;
- b=LPd+HGU6TOt9ja6czacNcqYyM28LjZfQu4U3KKDTbxeDheI8t5/i+P5sk4AwQ5L3oa
- ZGsZqiqpelIUIl7h/4dQUVKByddSVF8QGhnvBMih1N0VqH20rzAfytxwomRzSDnrEI74
- xTqbSMyDqVOS4zzlEEl81jsKxAXkNxLo/0Za0HR8w4WlbW5dnuhQ3oaFVx9e51KRGvVa
- CvCBxcj2KkhlPoNGrIayX5FDSF6lsnVHtDpPpkUPDBKhHV/phM+QqYoti6+yvmtC29ly
- YaBZfp/x7Hh93tpYV+5OC/2GIag0zWro6v1/SMjE+/0H1np4nRoSSXlwTmKSuIxvabMY
- XhHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=iyVX01vepZ3mG22nb4pIjiT7SLAj+4KY2LGS4f5/uvk=;
- b=0Tx2UYcScH3ogitn4/5uLDyVV8dxw5u22ZhcQtGj72LFXAHXOMVHOcNme5xA8U6ofR
- ushdwz9BQ7lfCo9Jd4wmFOuy9qiDesSiuSNdjrj6Vf7qG9J3NiDcokqPrKqrOKrkAX6F
- r2/t8K3I2fWoSYBqb2M6fjYsvTRKbWL6ByRzJRuz15SU4LdnLGyBmMsZCCWJmcO8LEXD
- aXN97pOOLubV6iOFia7UT99FS/nRfR7g0NrIwkFQb5Ec808SPrgz/nizKFBE2FbT6UJR
- mVJmd+jtRLCq0YmhtLE6rxJuxwG8JcyhyUYdDOTlmMj911LqqvP/a12Dl94y2XM7SDSI
- L9Iw==
-X-Gm-Message-State: AOAM533cmX1BZzDdKksSuwwEtKb/QZDeyfSoIxHOCi4TDRItXXcAH5C7
- GUN4txromRqIJYCKyGPs+mcatfkAxOC8Kpmc3tUmPw==
-X-Google-Smtp-Source: ABdhPJyKIY0EaU7iclW/36yPCE12oy0XzAs215pNMpuxDTWBRMSNjM/bLX+W507SDmqk8Hy61RvyqyWp1JUXndIqOJ0=
-X-Received: by 2002:a17:902:ef45:b0:156:1858:71fc with SMTP id
- e5-20020a170902ef4500b00156185871fcmr24427710plx.23.1650530363907; Thu, 21
- Apr 2022 01:39:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220420102502.1791566-1-patrick.rudolph@9elements.com>
- <20220420102502.1791566-3-patrick.rudolph@9elements.com>
- <20220421054232.GC11809@packtop>
- <CACPK8Xd_WizczUpAbFg+oRZZJ9y2C5_67YXGzSXg84cY=2=wyQ@mail.gmail.com>
-In-Reply-To: <CACPK8Xd_WizczUpAbFg+oRZZJ9y2C5_67YXGzSXg84cY=2=wyQ@mail.gmail.com>
-From: Patrick Rudolph <patrick.rudolph@9elements.com>
-Date: Thu, 21 Apr 2022 10:39:13 +0200
-Message-ID: <CALNFmy15DzYeRDAb3GE2k4KvaFQSUO55TY_+5wEeXHrktWGqQw@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc 3/4] arm/mach-aspeed: Allow
- to disable WDT2
-To: Joel Stanley <joel@jms.id.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Kkr4D4k68z2xy3
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022 07:18:17 +1000 (AEST)
+Received: from pps.filterd (m0150241.ppops.net [127.0.0.1])
+ by mx0a-002e3701.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 23LEv0Ko007017;
+ Thu, 21 Apr 2022 19:19:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references; s=pps0720;
+ bh=kUzIlJ5qad8YpCJQCWHt6PCb8d/QHqmZG5rNDhyUL9M=;
+ b=ET0NwvTFchYLtaj+IVhaVbtx4XDCIU4Vr6xZ4oTSYJGxfg7UcKc9r8/qI/v4XbzDEXtn
+ t4iEhF0OXSRHrRw3ZG3L6btkh71D9FghpxK/8GMM71dmvhMoUx2omCepSOhbJT5fSLVh
+ Ie0HUmTkUs8Ae6LT5ZA3nz7PrVfyKQ62ZlkO34tLWtZ/zcShdVzGnVLQrwQkJVp/Lrs4
+ E4oCpf5lx9tt/O13iWKjMi1OfKKfnu00hrHxPk1YdV7pk8Mlx8YI+moGnfQ8lMsN1XMd
+ XBs/P0Us4C1b3dnrE+QsK1YTwEPsviXyI1d9IXXbogrhB4B+httRUFQBZGlCfKVuwdUI DQ== 
+Received: from g4t3426.houston.hpe.com (g4t3426.houston.hpe.com
+ [15.241.140.75])
+ by mx0a-002e3701.pphosted.com (PPS) with ESMTPS id 3fk9fkt6bd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Apr 2022 19:19:42 +0000
+Received: from g9t2301.houston.hpecorp.net (g9t2301.houston.hpecorp.net
+ [16.220.97.129])
+ by g4t3426.houston.hpe.com (Postfix) with ESMTP id B04B562;
+ Thu, 21 Apr 2022 19:19:41 +0000 (UTC)
+Received: from hpe.com (cigateway-dev.us.rdlabs.hpecorp.net [10.14.73.30])
+ by g9t2301.houston.hpecorp.net (Postfix) with ESMTP id 60F1848;
+ Thu, 21 Apr 2022 19:19:41 +0000 (UTC)
+From: nick.hawkins@hpe.com
+To: verdun@hpe.com, nick.hawkins@hpe.com, joel@jms.id.au, arnd@arndb.de,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH v5 10/11] arch: arm: boot: dts: Introduce HPE GXP Device tree
+Date: Thu, 21 Apr 2022 14:21:31 -0500
+Message-Id: <20220421192132.109954-11-nick.hawkins@hpe.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220421192132.109954-1-nick.hawkins@hpe.com>
+References: <20220421192132.109954-1-nick.hawkins@hpe.com>
+X-Proofpoint-GUID: CTkM_sirV8zjtSvWPSbTNYOI5yK9wa3L
+X-Proofpoint-ORIG-GUID: CTkM_sirV8zjtSvWPSbTNYOI5yK9wa3L
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-04-21_04,2022-04-21_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0
+ priorityscore=1501 mlxscore=0 spamscore=0 lowpriorityscore=0
+ malwarescore=0 bulkscore=0 mlxlogscore=999 impostorscore=0 phishscore=0
+ suspectscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2202240000 definitions=main-2204210102
 X-Mailman-Approved-At: Tue, 26 Apr 2022 12:05:01 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -82,132 +82,225 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "christian.walter@9elements.com" <christian.walter@9elements.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Lei Yu <yulei.sh@bytedance.com>, "takken@us.ibm.com" <takken@us.ibm.com>,
- Zev Weiss <zweiss@equinix.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Olof Johansson <olof@lixom.net>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi,
-I enabled the DCACHE which seems to make it boot a bit faster.
-As this is a evaluation platform and the successor is not using AST2500 any=
- more
-so no further investigation had been done.
+From: Nick Hawkins <nick.hawkins@hpe.com>
 
-I've reworked the description and removed the double negation.
+The HPE SoC is new to linux. This patch
+creates the basic device tree layout with minimum required
+for linux to boot. This includes timer and watchdog
+support.
 
-Regards,
-Patrick Rudolph
-B.Sc. Electrical Engineering
-System Firmware Developer
+The dts file is empty at this point but will be
+updated in subsequent updates as board specific features
+are enabled.
 
-9elements GmbH, Kortumstra=C3=9Fe 19-21, 44787 Bochum, Germany
-Email: patrick.rudolph@9elements.com
-Phone:  +49 234 68 94 188
+Signed-off-by: Nick Hawkins <nick.hawkins@hpe.com>
 
-Sitz der Gesellschaft: Bochum
-Handelsregister: Amtsgericht Bochum, HRB 17519
-Gesch=C3=A4ftsf=C3=BChrung: Sebastian Deutsch, Eray Basar
+---
+v5:
+* Fixed commit message to show previous changes
+* Fixed typo ehci -> echi
+v4:
+* Removed hpe,gxp-cpu-init as it was no longer necessary
+* Removed bootargs as requested
+* Removed empty ahb node
+* Moved reg after compatible, everywhere
+* Removed osc and memclk
+* Removed syscon@c00000f8 as it was not necessary for boot
+* Fixed Alphabetical issue in dts/Makefile
+* Added specific board binding for dl360gen10
+* Removed empty node
+* Added Accurate Clock Architecture
+* Fixed generic-echi and generic-ochi issues
+* Removed i2cg
+v3:
+* Fixed issues with warnings
+* Used proper patchset format
+v2:
+* Reduced size of dtsi to essential components
+* Followed the proper format for having a dtsi and
+  dts
+---
+ arch/arm/boot/dts/Makefile               |   2 +
+ arch/arm/boot/dts/hpe-bmc-dl360gen10.dts |  13 +++
+ arch/arm/boot/dts/hpe-gxp.dtsi           | 128 +++++++++++++++++++++++
+ 3 files changed, 143 insertions(+)
+ create mode 100644 arch/arm/boot/dts/hpe-bmc-dl360gen10.dts
+ create mode 100644 arch/arm/boot/dts/hpe-gxp.dtsi
 
-Datenschutzhinweise nach Art. 13 DSGVO
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7c16f8a2b738..293717719c70 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -255,6 +255,8 @@ dtb-$(CONFIG_ARCH_HISI) += \
+ 	hi3519-demb.dtb
+ dtb-$(CONFIG_ARCH_HIX5HD2) += \
+ 	hisi-x5hd2-dkb.dtb
++dtb-$(CONFIG_ARCH_HPE_GXP) += \
++	hpe-bmc-dl360gen10.dtb
+ dtb-$(CONFIG_ARCH_INTEGRATOR) += \
+ 	integratorap.dtb \
+ 	integratorap-im-pd1.dtb \
+diff --git a/arch/arm/boot/dts/hpe-bmc-dl360gen10.dts b/arch/arm/boot/dts/hpe-bmc-dl360gen10.dts
+new file mode 100644
+index 000000000000..69e9c6672ea8
+--- /dev/null
++++ b/arch/arm/boot/dts/hpe-bmc-dl360gen10.dts
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Device Tree file for HPE DL360Gen10
++ */
++
++/include/ "hpe-gxp.dtsi"
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	compatible = "hpe,gxp-dl360gen10","hpe,gxp";
++	model = "Hewlett Packard Enterprise ProLiant dl360 Gen10";
++};
+diff --git a/arch/arm/boot/dts/hpe-gxp.dtsi b/arch/arm/boot/dts/hpe-gxp.dtsi
+new file mode 100644
+index 000000000000..a3a082d21101
+--- /dev/null
++++ b/arch/arm/boot/dts/hpe-gxp.dtsi
+@@ -0,0 +1,128 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Device Tree file for HPE GXP
++ */
++
++/dts-v1/;
++/ {
++	model = "Hewlett Packard Enterprise GXP BMC";
++	compatible = "hpe,gxp","hpe,gxp-dl360gen10";
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu@0 {
++			compatible = "arm,cortex-a9";
++			reg = <0>;
++			device_type = "cpu";
++		};
++	};
++
++	clocks {
++
++		pll: pll {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++			clock-frequency = <1600000000>;
++		};
++
++		iopclk: iopclk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++			clock-div = <4>;
++			clock-mult = <1>;
++			clocks = <&pll>;
++		};
++	};
++
++	memory@40000000 {
++		device_type = "memory";
++		reg = <0x40000000 0x20000000>;
++	};
++
++	axi {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++		dma-ranges;
++
++		ahb@c0000000 {
++			compatible = "simple-bus";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0x0 0xc0000000 0x30000000>;
++
++			vic0: interrupt-controller@eff0000 {
++				compatible = "arm,pl192-vic";
++				reg = <0xeff0000 0x1000>;
++				interrupt-controller;
++				#interrupt-cells = <1>;
++			};
++
++			vic1: interrupt-controller@80f00000 {
++				compatible = "arm,pl192-vic";
++				reg = <0x80f00000 0x1000>;
++				interrupt-controller;
++				#interrupt-cells = <1>;
++			};
++
++			uarta: serial@e0 {
++				compatible = "ns16550a";
++				reg = <0xe0 0x8>;
++				interrupts = <17>;
++				interrupt-parent = <&vic0>;
++				clock-frequency = <1846153>;
++				reg-shift = <0>;
++			};
++
++			uartb: serial@e8 {
++				compatible = "ns16550a";
++				reg = <0xe8 0x8>;
++				interrupts = <18>;
++				interrupt-parent = <&vic0>;
++				clock-frequency = <1846153>;
++				reg-shift = <0>;
++			};
++
++			uartc: serial@f0 {
++				compatible = "ns16550a";
++				reg = <0xf0 0x8>;
++				interrupts = <19>;
++				interrupt-parent = <&vic0>;
++				clock-frequency = <1846153>;
++				reg-shift = <0>;
++			};
++
++			usb0: usb@efe0000 {
++				compatible = "hpe,gxp-ehci","generic-ehci";
++				reg = <0xefe0000 0x100>;
++				interrupts = <7>;
++				interrupt-parent = <&vic0>;
++			};
++
++			st: timer@80 {
++				compatible = "hpe,gxp-timer","simple-mfd";
++				reg = <0x80 0x16>;
++				interrupts = <0>;
++				interrupt-parent = <&vic0>;
++				clocks = <&iopclk>;
++				clock-names = "iopclk";
++				watchdog {
++					compatible = "hpe,gxp-wdt";
++				};
++			};
++
++			usb1: usb@efe0100 {
++				compatible = "hpe,gxp-ohci","generic-ohci";
++				reg = <0xefe0100 0x110>;
++				interrupts = <6>;
++				interrupt-parent = <&vic0>;
++			};
++		};
++	};
++
++};
+-- 
+2.17.1
 
-On Thu, Apr 21, 2022 at 7:55 AM Joel Stanley <joel@jms.id.au> wrote:
->
-> On Thu, 21 Apr 2022 at 05:42, Zev Weiss <zweiss@equinix.com> wrote:
-> >
-> > On Wed, Apr 20, 2022 at 03:25:01AM PDT, Patrick Rudolph wrote:
-> > >There's no working code to poke the WDT2 and it takes too long for the
-> > >kernel to load to poke the watchdog. Selecting this Kconfig disables
-> > >the WDT2 and prevents 2nd firmware from being launched during normal b=
-oot.
-> > >
-> >
-> > I seem to recall Lei Yu (CCed) hitting problems with watchdog timeouts =
-a
-> > little while back, which I think ended up being due to caches being
-> > disabled for some reason...have you done any measurements to try to
-> > determine what's causing it to take so long?
->
-> Yes. Some work is required in this area:
->
->  - re-enable the dcache for the 2500. It works fine, and speeds up boot.
->
->  - pat the watchdog so it doesn't expire when loading, or sitting at
-> the command prompt
->
-> An alternative is to disable the watchdog as we've done here. I'd lean
-> towards leaving it running (as then if there's a hang, the system will
-> reobot and try again).
->
-> >
-> > >Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
-> > >---
-> > > arch/arm/mach-aspeed/ast2500/Kconfig    | 6 ++++++
-> > > arch/arm/mach-aspeed/ast2500/platform.S | 6 ++----
-> > > 2 files changed, 8 insertions(+), 4 deletions(-)
-> > >
-> > >diff --git a/arch/arm/mach-aspeed/ast2500/Kconfig b/arch/arm/mach-aspe=
-ed/ast2500/Kconfig
-> > >index 232117b43c..a9d880e557 100644
-> > >--- a/arch/arm/mach-aspeed/ast2500/Kconfig
-> > >+++ b/arch/arm/mach-aspeed/ast2500/Kconfig
-> > >@@ -33,6 +33,12 @@ config DRAM_UART_TO_UART1
-> > >       help
-> > >         Route debug UART to TXD1/RXD1 pins.
-> > >
-> > >+config FIRMWARE_DISABLE_2ND_BOOT
-> > >+      bool
-> > >+      prompt "Do not disable WDT2 for 2nd boot function"
-> > >+      help
-> > >+        Do not disable WDT2 for 2nd boot function.
-> >
-> > This seems a bit confusing -- for one thing, the config symbol name and
-> > the prompt/help text sound like opposites (one says "disable", the
-> > others say "do not disable").  A slightly more detailed explanation
-> > might be good.
->
-> +1, can you explain why you renamed the option when adding it to kconfig?
->
-> >
-> > >+
-> > > source "board/aspeed/evb_ast2500/Kconfig"
-> > > source "board/ibm/genesis3/Kconfig"
-> > >
-> > >diff --git a/arch/arm/mach-aspeed/ast2500/platform.S b/arch/arm/mach-a=
-speed/ast2500/platform.S
-> > >index aef55c4a0a..3eb9ee9419 100644
-> > >--- a/arch/arm/mach-aspeed/ast2500/platform.S
-> > >+++ b/arch/arm/mach-aspeed/ast2500/platform.S
-> > >@@ -95,7 +95,7 @@
-> > >  *    CONFIG_DDR3_8GSTACK         // DDR3 8Gbit Stack die
-> > >  *    CONFIG_DDR4_4GX8            // DDR4 4Gbit X8 dual part
-> > >  * 5. Firmware 2nd boot flash
-> > >- *    CONFIG_FIRMWARE_2ND_BOOT (Removed)
-> > >+ *    CONFIG_FIRMWARE_DISABLE_2ND_BOOT
-> > >  * 6. Enable DRAM extended temperature range mode
-> > >  *    CONFIG_DRAM_EXT_TEMP
-> > >  * 7. Select WDT_Full mode for power up initial reset
-> > >@@ -642,13 +642,11 @@ bypass_USB_init:
-> > > /********************************************************************=
-**********
-> > >  Disable WDT2 for 2nd boot function
-> > >  ********************************************************************=
-**********/
-> > >-/*
-> > >-#ifndef CONFIG_FIRMWARE_2ND_BOOT
-> > >+#if CONFIG_FIRMWARE_DISABLE_2ND_BOOT
-> > >     ldr   r0, =3D0x1e78502c
-> > >     mov   r1, #0
-> > >     str   r1, [r0]
-> > > #endif
-> > >-*/
-> > > /********************************************************************=
-**********
-> > >  Disable WDT3 for SPI Address mode (3 or 4 bytes) detection function
-> > >  ********************************************************************=
-**********/
-> > >--
-> > >2.35.1
-> > >
