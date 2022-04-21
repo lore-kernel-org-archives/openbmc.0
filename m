@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF2DC433EF
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 02:06:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DB6DC433F5
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 02:07:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KnQGx3WTPz3bfh
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 12:06:33 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KnQHd6hpWz2ync
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 12:07:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=G4kho5Ww;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=SJbSNW55;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::42d;
- helo=mail-wr1-x42d.google.com; envelope-from=patrick.rudolph@9elements.com;
+ smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::432;
+ helo=mail-wr1-x432.google.com; envelope-from=patrick.rudolph@9elements.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256
- header.s=google header.b=G4kho5Ww; dkim-atps=neutral
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
+ header.s=google header.b=SJbSNW55; dkim-atps=neutral
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [IPv6:2a00:1450:4864:20::432])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KkW4740Cxz2yNF
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KkW4742g8z2yXM
  for <openbmc@lists.ozlabs.org>; Thu, 21 Apr 2022 18:32:05 +1000 (AEST)
-Received: by mail-wr1-x42d.google.com with SMTP id u3so5602757wrg.3
+Received: by mail-wr1-x432.google.com with SMTP id g18so5567045wrb.10
  for <openbmc@lists.ozlabs.org>; Thu, 21 Apr 2022 01:32:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=9elements.com; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=p3fKZVgWiqYXBT8yB5Wqg9we6vzNbiz0W2JSpJ4l8RQ=;
- b=G4kho5Wwtsae0tAO6Oeg9aVm2XKHcgCtrr4poLECj6jQYeqtWp1MpxHnRkmPv7WD5i
- MBLNkE8eoCsuPhNIdbsY8c+wOGWy3yqxNHAcx0Yi3YqU7SUtNpO9R3mUYi5acSVEhr3b
- ZV5I3yybM+h3QjVEtgkAdc5lekJ/t43aOnt2EhZxxmvtcqAYQxMroD1shD5JsSBTj/xi
- chkXSF9m9mHtPeOsDcJzZTcDDnOyxPF0VvctKy2v2yaMow8jchdupaLPsNvdXbqMZK3o
- n1gQMw//NHmdySmT9RyxxNTCvbPypBqLZGWPurNbCgJE7EowT5TPahStaNHIgic+EU7E
- OZTg==
+ bh=/zJie1YFYE3Mccy8iAi63Mh8iqSeMAbpv/2v5mCK/yE=;
+ b=SJbSNW55avaFRHQheyfy+yiOuNHe3HzA2jrURtXAR8Pw5gwHX3mCHRZSdfbMbaTjfu
+ TQhsP617PBpgmJtFw3EDllIZqzfNkUV6UcWNgsCsp2aL5+0br+DOCQai2qXJcCadA4Yv
+ a+6I23hztfYDUizEq5Tqt5Ziw9PxjIK83sLxCkjq+TajFiYl42fBSisbX2AJgVnc4OSx
+ 0P9JVW+xv5+ZjqczlvGrY22gLEd2t1xYkaChMipkKFsKNmRvBcCpe3BI/FfSt0oMUIKi
+ fD/GeGwKg8Thl4e7M7J9cHOTsJBnWkdxaz+GdsUJWvIVHXkKrFVP4aDHzY3D/p7IwJvc
+ /LFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=p3fKZVgWiqYXBT8yB5Wqg9we6vzNbiz0W2JSpJ4l8RQ=;
- b=cPsQu08Z/UKf4dVdcAp3BVmuVrdxIkbTngbMkJmJQVdpWyhdthYnjORztvfiofg3RI
- JL+yj6O03OZCmDVKebxxOZ8rOMJroaKSA2klhop4MmDj7bTDy0wmm4fGbZBAw7vu76IE
- b1bQyjrUby0znTpS/BqOocyqjub3ViGrdJvwjhXW7LXXamXLNFd3dDewxEp7FWjNCKZM
- Q2DcE6kwBYU0PxxlFEn2k5OQ4kWmpt79VhdH1cJMQ8by/qMI5XegUm97309G0c8F9wml
- eOWhvndB/1bpl93MH76LiP6os9dKS6JM/VvJs+XT9XfoQB9A9fAd48hhNoHjiump38om
- w6bw==
-X-Gm-Message-State: AOAM533tLF2SW5hyocPgiHNSYckGPVNzMl3KUbjq4Uf7jFJfBm8dibQF
- qRgM1BfoWJ6JIS//dEXfRyA7hw==
-X-Google-Smtp-Source: ABdhPJwgNaz7WQgoCWyUF/sRmlPD/8NpV3aV4U0Gtw8Ul8pihM73SAEEMRrll6XJoQ5WFIsgEEdQtA==
-X-Received: by 2002:a05:6000:154a:b0:20a:9529:aa8d with SMTP id
- 10-20020a056000154a00b0020a9529aa8dmr14438047wry.93.1650529922220; 
- Thu, 21 Apr 2022 01:32:02 -0700 (PDT)
+ bh=/zJie1YFYE3Mccy8iAi63Mh8iqSeMAbpv/2v5mCK/yE=;
+ b=AQmTvC5xJZyS+W1kirxKotGwqLrhiXJHwL0jURwY0YfwtBHEimDnUnDoegFvO9sAUa
+ VDPeP4NQnBR6nBCyk5OdTtyt4K5rP9YaWfpP22S0tQldjI4f6TEh2SKsC7+MLOuUOp8Y
+ fxTV1E8i4rZzLUentIXrmIGBwvG0wvrO3UqMKiWraZLlApZMf/rc6VAxOZnJBi/hrzK4
+ W56nMRfOQU9Ck1q/IEL46fefS9HX1gML5CpIwiEO3uGtrmJUYSShZTNFRSyfYzWAJjoq
+ ozJN1BlBF9ltaOl6MZOqomwLq1HsU+BuAqOr879ocUIArL9o+vp7TQhWMILvqP7Z4kE7
+ kq7Q==
+X-Gm-Message-State: AOAM530GVY3ec8tpTF9JCRjU2xOAL8l1o8kpvgd1CKn5Y/Kx6wio8O2G
+ ZFqPzmhjNT7aAzij1HAt3bdwkg==
+X-Google-Smtp-Source: ABdhPJw0+Zh4EtYsSTIBO53d8oFzVJZ1M5sEc4mnW+DPO6tquD41HiOFtvAs2TsxSlDf3QivkMKRhg==
+X-Received: by 2002:a05:6000:1a86:b0:20a:a933:ba16 with SMTP id
+ f6-20020a0560001a8600b0020aa933ba16mr8316569wry.583.1650529920363; 
+ Thu, 21 Apr 2022 01:32:00 -0700 (PDT)
 Received: from fedora.lab.9e.network
  (ip-078-094-000-051.um19.pools.vodafone-ip.de. [78.94.0.51])
  by smtp.gmail.com with ESMTPSA id
- bg20-20020a05600c3c9400b0037fa5c422c8sm1537238wmb.48.2022.04.21.01.32.01
+ bg20-20020a05600c3c9400b0037fa5c422c8sm1537238wmb.48.2022.04.21.01.31.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Apr 2022 01:32:01 -0700 (PDT)
+ Thu, 21 Apr 2022 01:32:00 -0700 (PDT)
 From: Patrick Rudolph <patrick.rudolph@9elements.com>
 To: joel@jms.id.au,
 	openbmc@lists.ozlabs.org,
 	zweiss@equinix.com
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 4/4] configs: Add IBM
- Genesis3 defconfig
-Date: Thu, 21 Apr 2022 10:31:51 +0200
-Message-Id: <20220421083151.1887871-5-patrick.rudolph@9elements.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 2/4] arm/mach-aspeed: Add
+ support for CONFIG_DRAM_UART_TO_UART1
+Date: Thu, 21 Apr 2022 10:31:49 +0200
+Message-Id: <20220421083151.1887871-3-patrick.rudolph@9elements.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220421083151.1887871-1-patrick.rudolph@9elements.com>
 References: <20220421083151.1887871-1-patrick.rudolph@9elements.com>
@@ -93,91 +93,33 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Update the Kconfig and allow a board to use CONFIG_DRAM_UART_TO_UART1.
+The platform code already uses this Kconfig symbol, but it always
+evaluated to false.
+This is required on IBM/Genesis3 as it uses RDX1/TDX1 as debug uart.
+
 Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
 ---
- configs/ibm_genesis3_defconfig | 73 ++++++++++++++++++++++++++++++++++
- 1 file changed, 73 insertions(+)
- create mode 100644 configs/ibm_genesis3_defconfig
+ arch/arm/mach-aspeed/ast2500/Kconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/configs/ibm_genesis3_defconfig b/configs/ibm_genesis3_defconfig
-new file mode 100644
-index 0000000000..76a3673991
---- /dev/null
-+++ b/configs/ibm_genesis3_defconfig
-@@ -0,0 +1,73 @@
-+CONFIG_SPI_BOOT=y
-+CONFIG_FIT_VERBOSE=y
-+CONFIG_LOG=y
-+CONFIG_BOOTCOMMAND="bootm 20080000"
-+CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw earlycon"
-+# CONFIG_SYS_I2C_ASPEED is not set
-+CONFIG_ASPEED_AHBC=y
-+CONFIG_ARM=y
-+CONFIG_ARCH_ASPEED=y
-+CONFIG_SYS_TEXT_BASE=0x0
-+CONFIG_SYS_MALLOC_F_LEN=0x2000
-+CONFIG_ENV_SIZE=0x20000
-+CONFIG_ENV_OFFSET=0x60000
-+CONFIG_NR_DRAM_BANKS=1
-+CONFIG_FIT=y
-+CONFIG_USE_BOOTARGS=y
-+CONFIG_USE_BOOTCOMMAND=y
-+CONFIG_PRE_CONSOLE_BUFFER=y
-+CONFIG_PRE_CON_BUF_ADDR=0x1e720000
-+CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_HUSH_PARSER=y
-+# CONFIG_AUTO_COMPLETE is not set
-+CONFIG_SYS_PROMPT="ast# "
-+# CONFIG_CMD_IMI is not set
-+# CONFIG_CMD_XIMG is not set
-+CONFIG_CMD_MEMTEST=y
-+CONFIG_SYS_ALT_MEMTEST=y
-+CONFIG_CMD_CLK=y
-+CONFIG_CMD_GPIO=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_CMD_MII=y
-+CONFIG_CMD_PING=y
-+CONFIG_DEFAULT_DEVICE_TREE="ibm-genesis3"
-+CONFIG_ENV_IS_IN_SPI_FLASH=y
-+CONFIG_USE_ENV_SPI_BUS=y
-+CONFIG_ENV_SPI_BUS=0
-+CONFIG_USE_ENV_SPI_CS=y
-+CONFIG_ENV_SPI_CS=0
-+CONFIG_USE_ENV_SPI_MAX_HZ=y
-+CONFIG_ENV_SPI_MAX_HZ=50000000
-+CONFIG_SF_DEFAULT_SPEED=50000000
-+CONFIG_NET_RANDOM_ETHADDR=y
-+CONFIG_REGMAP=y
-+CONFIG_CLK=y
-+CONFIG_DM_GPIO=y
-+CONFIG_ASPEED_GPIO=y
-+CONFIG_DM_I2C=y
-+CONFIG_MISC=y
-+CONFIG_DM_MMC=y
-+# CONFIG_MMC is not set
-+# CONFIG_CMD_MMC is not set
-+# CONFIG_MMC_SDHCI is not set
-+# CONFIG_MMC_SDHCI_ASPEED is not set
-+# CONFIG_MMC_HW_PARTITIONING is not set
-+CONFIG_SPI_FLASH_SFDP_SUPPORT=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_SPANSION=y
-+CONFIG_DM_ETH=y
-+CONFIG_FTGMAC100=y
-+# CONFIG_PHY is not set
-+CONFIG_PINCTRL=y
-+CONFIG_DM_SERIAL=y
-+CONFIG_SYS_NS16550=y
-+CONFIG_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_SYSRESET=y
-+CONFIG_TIMER=y
-+CONFIG_WDT=y
-+# CONFIG_EFI_LOADER is not set
-+CONFIG_DRAM_UART_TO_UART1=y
-+# CONFIG_FIRMWARE_2ND_BOOT is not set
+diff --git a/arch/arm/mach-aspeed/ast2500/Kconfig b/arch/arm/mach-aspeed/ast2500/Kconfig
+index 4f992f442d..e7ff00cdba 100644
+--- a/arch/arm/mach-aspeed/ast2500/Kconfig
++++ b/arch/arm/mach-aspeed/ast2500/Kconfig
+@@ -17,6 +17,12 @@ config TARGET_EVB_AST2500
+ 	  20 pin JTAG, pinouts for 14 I2Cs, 3 SPIs and eSPI, 8 PWMs.
+ endchoice
+ 
++config DRAM_UART_TO_UART1
++	bool
++	prompt "Route debug UART to UART1"
++	help
++	  Route debug UART to TXD1/RXD1 pins.
++
+ source "board/aspeed/evb_ast2500/Kconfig"
+ 
+ endif
 -- 
 2.35.1
 
