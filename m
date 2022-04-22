@@ -4,64 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9274C433F5
-	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 15:05:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 409C8C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 18:33:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KlHl31ydGz3bcg
-	for <openbmc@archiver.kernel.org>; Sat, 23 Apr 2022 01:05:03 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KlNMF3VScz3bfL
+	for <openbmc@archiver.kernel.org>; Sat, 23 Apr 2022 04:33:13 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yAkNhORu;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=pbX00wnH;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=XcrOKbKj;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linutronix.de (client-ip=2a0a:51c0:0:12e:550::1;
- helo=galois.linutronix.de; envelope-from=tglx@linutronix.de;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256
- header.s=2020 header.b=yAkNhORu; 
- dkim=pass header.d=linutronix.de header.i=@linutronix.de
- header.a=ed25519-sha256 header.s=2020e header.b=pbX00wnH; 
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
+ (client-ip=212.227.17.21; helo=mout.gmx.net;
+ envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
+ header.s=badeba3b8450 header.b=XcrOKbKj; 
  dkim-atps=neutral
-X-Greylist: delayed 464 seconds by postgrey-1.36 at boromir;
- Sat, 23 Apr 2022 01:04:24 AEST
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KlHkJ1tt2z2x9G
- for <openbmc@lists.ozlabs.org>; Sat, 23 Apr 2022 01:04:24 +1000 (AEST)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1650639387;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yeO7DB/oOdZiE5YWbOfjg8Pxdhh85gWuIsOq1Wgec1w=;
- b=yAkNhORuwRA0vCkGQ5lKnhlYDhJjnaqjPGowwq3uqTmK8KvetIzZWoXWNo5H4914SRrOXI
- 6Y67ttATBwOnFttY/DaIyaJw4VQghgL/kEQjfjEPfxePgSljVurZrWBM8zov5T4QALRDjd
- 9CtP7gmEzYXv7oU9El41VxogjuI/D52/QRv0T9zHIaMrt5nJK93pmAXkUufe8I6f7pA5+t
- wGcfQ3HW+XmlACHBjESFr3qPyCvmFFibk/xbD5D55Gkwil37SzQQJzwbN+G71L2WCxsALV
- dAZMR+OsWLc82wjDlNeB1cyx76ooxJb4zH26hOQqjTVkhfw1l9izIKqzDPxElA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1650639387;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=yeO7DB/oOdZiE5YWbOfjg8Pxdhh85gWuIsOq1Wgec1w=;
- b=pbX00wnHWFBeWEQwToFkdzn2dZAsMpSlsXcZZWK42rB4fM0DI8EfoHH6HgWMhZHvTPgL2E
- RsgBuCxAU7Fdw1Bw==
-To: nick.hawkins@hpe.com, verdun@hpe.com, nick.hawkins@hpe.com,
- joel@jms.id.au, arnd@arndb.de, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v5 04/11] clocksource/drivers: Add HPE GXP timer
-In-Reply-To: <20220421192132.109954-5-nick.hawkins@hpe.com>
-References: <20220421192132.109954-1-nick.hawkins@hpe.com>
- <20220421192132.109954-5-nick.hawkins@hpe.com>
-Date: Fri, 22 Apr 2022 16:56:26 +0200
-Message-ID: <87o80t5fqd.ffs@tglx>
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KlNLR3sB2z3bYZ
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Apr 2022 04:32:30 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1650652307;
+ bh=nH5nbmzHe/xRwz0pWDdjzn30b813GPDvATKACfo4I6g=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=XcrOKbKj5+k5k5MRW3lnNx3b2BzH1muMhUPLRVbJ3jIMoPSPgc2ydeSkFlAb2Fr8L
+ zce8KB4yozHjdmE5SKTbziLmYiyG0YjClyndUaO3Zf20ugQ9QDlAt4/KbtS5KUxZ6Y
+ 1VGkDJIhm7QY6/sDlCOHs9JpkW/PtYC98dYI+R+o=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from longitude ([87.78.190.74]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MGQnF-1nh6473Djx-00GnuC; Fri, 22
+ Apr 2022 20:31:46 +0200
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-clk@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH 1/7] dt-bindings: timer: nuvoton,
+ npcm7xx-timer: Allow specifying all clocks
+Date: Fri, 22 Apr 2022 20:30:06 +0200
+Message-Id: <20220422183012.444674-2-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220422183012.444674-1-j.neuschaefer@gmx.net>
+References: <20220422183012.444674-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:lnBh/Tpvgmu7+wHhf+H5KmdyA2JGqflwIdExxJyori80ywRZSGg
+ flOvQpXx/6FTotPushCAlRjkrTtc6+4Al0ktSv+PUZ0hpSYy2O5QKr8ZpiSt5c26UcjQFfW
+ MAWFL4Hz8F9vQWjXrGC1jMgB2bGBiqgY4p203hrVJHH/jNtRhzgk4N0vl6J4PqBB2kLE79S
+ VYINyKnXBIFnjHKOVSF+g==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:cTH8WXWnjoQ=:lyV5jFTtKdRZz3DTJCjI5K
+ mMu7S2YOs5tSjCYabifnHXAu6aLwokhANbJBAXa850vOgiyWU7hoQjs1uYSwaVB3opmvKlijU
+ 9sCH4DrNAvCwuPr5qXzGlwMmbMkgcwER0V4LnWbLX8pSrfzCf7eumPMOLGkOL50gn+aqREL1y
+ iuyrMGetPG6BhSTgLdYSK5rkYdoDSrkHhrDZ1fhnRjGEfiEPvJt6bMPIULYXVDxRuDEBku7LI
+ dD91EvU2c07T6C2xaERVV1JYaeaAy6WAwmTwXuXuBO0T1YcEIvo46N5GUnQ4ulHvvzFFokFZU
+ AoddDQhNJ5a9RM21vR12Fg8LaE8UfSMly6JWVoYIQ6X81wvDqEWergSxPGL0bF/ArVf2D08S4
+ jbaSkZPYPM6pBdkUA/oqcB//2KPWtDuuprFFTdGSmeP3G7PWIfeUxcIC58rbjPKj649758P/Y
+ eFk3Ki5KPk0jLwSqGZqx+A6pFh92myD4e9bxPIYvxfpwM2zHdvslnkddGtepywQCTVDts9l12
+ rWkY/1a+4TFvEvxuAvINqegQ/NmR5FyDjgQE5QXrPK8FOS1RZDxzgAbuP/XM3jpO1bjAPxYVo
+ 2H9gKY/z7anwlvz9ZUHvfC7dTDwEe32zCezbFVioI1+hwZwr0OuTOJjIkRosoy+K3kyD3BlTF
+ am4dFA999wmVKr/p8RyKDm6IeIsxN8Fw3OqFz3KVFeEbJaoqczlw2BubXLb+EZsMTqWlRjWWF
+ AeKjWRncurTd/jruVjBIB2PlHsQ8HUzXt003PKInqjDXn2m5B1LEIXBy1bBqF41g3SdRxyLE1
+ mMO/pPcKnuiOiYTgJQazuOrVOzZT0AiiLniXGne826dzY/ntmGCpmV+Tk22L7Ver5H1FhIGlx
+ ft00hCqlkyzAqExTQ87j9PDfmv4Pk0JCr3cficbv9NdU09tnuMjEFD2sA66yK6N5y84ULPHxv
+ 0hwo6NQTurSuzuxXvIcYvmRoBv+z8peIZZpOgsi+mVTni/zD/kV5qMjzeq6SiEvSNk+qBji4w
+ C0+PvGKvhnqu2oaDDKOkNf0fTeko0p98st5ZpNpHhafcClsEDeAhidX2CCKOUrJpM6Bk4OzCm
+ gSJVOmEh6V8ZYg=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,119 +82,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-watchdog@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+ Patrick Venture <venture@google.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Benjamin Fair <benjaminfair@google.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Guenter Roeck <linux@roeck-us.net>,
+ Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Apr 21 2022 at 14:21, nick hawkins wrote:
-> +
-> +static struct gxp_timer *local_gxp_timer;
+The timer module contains multiple timers. In the WPCM450 SoC, each timer
+runs off a clock can be gated individually. To model this correctly, the
+timer node in the devicetree needs to take multiple clock inputs.
 
-What is local about that time?
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+ .../devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml  | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-> +static void __iomem *system_clock __read_mostly;
+diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer=
+.yaml b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+index 0cbc26a721514..023c999113c38 100644
+=2D-- a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+@@ -23,7 +23,13 @@ properties:
+       - description: The timer interrupt of timer 0
 
-__ro_after_init perhaps?
+   clocks:
+-    maxItems: 1
++    items:
++      - description: The reference clock for timer 0
++      - description: The reference clock for timer 1
++      - description: The reference clock for timer 2
++      - description: The reference clock for timer 3
++      - description: The reference clock for timer 4
++    minItems: 1
 
-> +static inline struct gxp_timer *to_gxp_timer(struct clock_event_device *evt_dev)
-> +{
-> +	return container_of(evt_dev, struct gxp_timer, evt);
-> +}
-> +
-> +static u64 notrace gxp_sched_read(void)
-> +{
-> +	return readl_relaxed(system_clock);
-> +}
-> +
-> +static int gxp_time_set_next_event(unsigned long event,	struct clock_event_device *evt_dev)
+ required:
+   - compatible
+=2D-
+2.35.1
 
-Stray TAB in arguments
-
-> +static int __init gxp_timer_init(struct device_node *node)
-> +{
-> +	void __iomem *base;
-> +	struct clk *clk;
-> +	u32 freq;
-> +	int ret, irq;
-> +	struct gxp_timer *gxp_timer;
-> +
-> +	base = of_iomap(node, 0);
-> +	if (!base) {
-> +		pr_err("Can't remap timer base register");
-> +		ret = -ENXIO;
-> +		return ret;
-> +	}
-> +
-> +	/*Set the offset to the clock register*/
-> +	system_clock = base + GXP_TIMESTAMP_OFS;
-> +
-> +	clk = of_clk_get(node, 0);
-> +	if (IS_ERR(clk)) {
-> +		pr_err("%pOFn clock not found: %d\n", node, (int)PTR_ERR(clk));
-> +		ret = -EIO;
-> +		goto err_iounmap;
-> +	}
-> +
-> +	ret = clk_prepare_enable(clk);
-> +
-> +	freq = clk_get_rate(clk);
-> +
-> +	sched_clock_register(gxp_sched_read, 32, freq);
-> +	clocksource_mmio_init(system_clock, node->name, freq,
-> +			      300, 32, clocksource_mmio_readl_up);
-
-So this registers sched clock and clocksource and if one of the
-following fails....
-
-> +	irq = irq_of_parse_and_map(node, 0);
-> +	if (irq <= 0) {
-> +		ret = -EINVAL;
-> +		pr_err("GXP Timer Can't parse IRQ %d", irq);
-> +		goto err_iounmap;
-
-... the error path unmaps 'system_clock'
-
-> +	}
-> +
-> +	gxp_timer = kzalloc(sizeof(*gxp_timer), GFP_KERNEL);
-> +	if (!gxp_timer) {
-> +		ret = -ENOMEM;
-> +		goto err_iounmap;
-> +	}
-> +
-> +	gxp_timer->counter = base + GXP_TIMER_CNT_OFS;
-> +	gxp_timer->control = base + GXP_TIMER_CTRL_OFS;
-> +	gxp_timer->evt.name = node->name;
-> +	gxp_timer->evt.rating = 300;
-> +	gxp_timer->evt.features = CLOCK_EVT_FEAT_ONESHOT;
-> +	gxp_timer->evt.set_next_event = gxp_time_set_next_event;
-> +	gxp_timer->evt.cpumask = cpumask_of(0);
-> +
-> +	local_gxp_timer = gxp_timer;
-> +
-> +	ret = request_irq(irq, gxp_timer_interrupt, IRQF_TIMER | IRQF_SHARED,
-> +			  node->name, gxp_timer);
-> +	if (ret) {
-> +		pr_err("%s: request_irq() failed %pe\n", "GXP Timer Tick", ERR_PTR(ret));
-> +		goto err_iounmap;
-
-... and here as a bonus leaks gxp_timer.
-
-> +	}
-> +
-> +	clockevents_config_and_register(&gxp_timer->evt, TIMER0_FREQ,
-> +					0xf, 0xffffffff);
-> +
-> +	pr_debug("gxp: system timer (irq = %d)\n", irq);
-> +	return 0;
-> +
-> +err_iounmap:
-> +	iounmap(system_clock);
-> +	iounmap(base);
-> +	return ret;
-> +}
-
-Thanks,
-
-        tglx
