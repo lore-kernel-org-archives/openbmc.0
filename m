@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C933C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 13:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FB83C433F5
+	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 13:20:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KlFQD3JK8z3bZY
-	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 23:20:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KlFQv30fxz3bdP
+	for <openbmc@archiver.kernel.org>; Fri, 22 Apr 2022 23:20:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=arndb.de
- (client-ip=212.227.17.24; helo=mout.kundenserver.de;
+ (client-ip=217.72.192.75; helo=mout.kundenserver.de;
  envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-X-Greylist: delayed 773 seconds by postgrey-1.36 at boromir;
- Fri, 22 Apr 2022 23:19:55 AEST
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KlFPl2xftz2xn9
- for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022 23:19:54 +1000 (AEST)
-Received: from mail-wr1-f54.google.com ([209.85.221.54]) by
- mrelayeu.kundenserver.de (mreue109 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1Myb8N-1o7PAL00SL-00z0Qt for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022
- 15:06:56 +0200
-Received: by mail-wr1-f54.google.com with SMTP id k22so10999443wrd.2
- for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022 06:06:55 -0700 (PDT)
-X-Gm-Message-State: AOAM532SFR8JnTA6e8yN1kERHDrl39YO8/Apf51dCZ2c1Pc4ZLfH4lwv
- owfWp8aMpWpR9arqqWk5YjvHO5zhMboWGPBp3WQ=
-X-Google-Smtp-Source: ABdhPJzr/sEIyUtXuTAvF8Q8/DssMA5FZLT4Nk4euAN9C8OsZ19szl+6WaUMm+cqYUy3lMIOfLqToKLe+raWpc5CMcM=
-X-Received: by 2002:a5d:49cb:0:b0:20a:cee3:54fc with SMTP id
- t11-20020a5d49cb000000b0020acee354fcmr122170wrs.12.1650632815075; Fri, 22 Apr
- 2022 06:06:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KlFQR3XS3z2xnP
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022 23:20:31 +1000 (AEST)
+Received: from mail-wm1-f50.google.com ([209.85.128.50]) by
+ mrelayeu.kundenserver.de (mreue106 [213.165.67.113]) with ESMTPSA (Nemesis)
+ id 1MGyl3-1ndC7E27oB-00E5JZ for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022
+ 15:20:27 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ l62-20020a1c2541000000b0038e4570af2fso5354015wml.5
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Apr 2022 06:20:27 -0700 (PDT)
+X-Gm-Message-State: AOAM531nWhh2zbf7dyQXtgwq2LIAWHSV/fk9T/LVS3V7Vk5w4UagOPKE
+ et6R6d4bjghCGzouIR8WgsYVKYxlze/oQSL/dUU=
+X-Google-Smtp-Source: ABdhPJzf/DWY7IjQmD9EMZpdSip3IO7TepL3hX4HNfMH3eMN5Wr1vB5Co+iKQNZfzMg9VSbLcZ66wrZAMeetcjbrF3c=
+X-Received: by 2002:a05:600c:4ed4:b0:392:90a5:b7e6 with SMTP id
+ g20-20020a05600c4ed400b0039290a5b7e6mr13716628wmq.33.1650633627153; Fri, 22
+ Apr 2022 06:20:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220421192132.109954-1-nick.hawkins@hpe.com>
- <20220421192132.109954-11-nick.hawkins@hpe.com>
-In-Reply-To: <20220421192132.109954-11-nick.hawkins@hpe.com>
+ <20220421192132.109954-2-nick.hawkins@hpe.com>
+In-Reply-To: <20220421192132.109954-2-nick.hawkins@hpe.com>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Fri, 22 Apr 2022 15:06:38 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2axNe=w_5PDdSQ8tDZFand_aEQxdgrNMx0uUKYKVmWtw@mail.gmail.com>
-Message-ID: <CAK8P3a2axNe=w_5PDdSQ8tDZFand_aEQxdgrNMx0uUKYKVmWtw@mail.gmail.com>
-Subject: Re: [PATCH v5 10/11] arch: arm: boot: dts: Introduce HPE GXP Device
- tree
+Date: Fri, 22 Apr 2022 15:20:11 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0E4=8Drn_x19MkauNL_WC4vEL6wqkDqrafbT-n8cZpDA@mail.gmail.com>
+Message-ID: <CAK8P3a0E4=8Drn_x19MkauNL_WC4vEL6wqkDqrafbT-n8cZpDA@mail.gmail.com>
+Subject: Re: [PATCH v5 01/11] archh: arm: mach-hpe: Introduce the HPE GXP
+ architecture
 To: "Hawkins, Nick" <nick.hawkins@hpe.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:Y/HNPsW2rXykADnHZ7XCRPZKJVRBot8k7fBLuSmvPqXWVQoEoA9
- TSHvGgksgXltSR184Cgj5iQKz9wUZoDNhbsiOOI9AIIOK5/BMOUZLDwgjwuehmxXr3vlg29
- KdS6Bhm6eGtpwc15irVML54l+sWCjnB3Ygq+fTogJto/BFzqSlLntRfaxvrf/TRYUCB4a1x
- bqBYZHwfQkzqa7Eg+KerA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:izdWeb77/Rg=:AQ9B5HxX378UlXBlgvDCzr
- GoBbRhM+dj2BtA/LnXCwSXJJAITKGjfpIk1TGeyHpD1fB4tVRjDtqOvdNazeQclvWGSJVddsE
- ny7iPL2UOB6e71bcwnKR2MNjJG+Oe664vDdO6yLQ62O8T8mrRFmep92aLhkRXjdYM+k4/z76D
- M7haayFn5UJ0rt7S/pmqsDRPmUNkZjNw4oOMSZGhQyF6RVHwMDI7IcyzH/YQwEVB8ktHHv6NE
- LoVeI3wNVRvaOM9z4gDAM8xjdjlAWj1SKiYEousB5LpHr8mrabB8rUcgFxZnzbXeBQFTUftZV
- f3n/Ei7gFN1uXBgzvM9iXtuJ5io0sfPWv3FEzH5/3P4+lRcZKoMF61/RyxGYMiKIR7ogGTdai
- G/V+xEedWPS6qg4ZQe0LUQIeBOVLka3LDkVAJ71BAuFCg4FtW8ezNT17bi97l/W4q+DdKdyPF
- Ezn6ThOdcssq9b7tkqjfkNqIrlnARPyysGEolt61Z0qyb5fee3Ejw1fXA/SOuypKelGwm7SnS
- KSt8RGunuG0By5JL/ib2PPmgDLCedMh7PX/l1o7x2dazgQfsAHxnJZp+WKzg5mWRnMAJF7y8V
- ga15z92eYovwH5iEN396EZUPkFSR6Ssy2eL1LTwqnAgpIFkpKgFkGQVZM1g8bq3+VTK4hyM8L
- wOd/87GfZekJZQN19jyy83bW+wESZdeCpLbIooiUE6u5CMJtprlbK6X4NUIMmjilNUZU=
+X-Provags-ID: V03:K1:bypOUT2wkwn++f6YwjHV3JxgINLX4hRK4bF26T4uHuZsLFNSsLk
+ E37AkHJoyQjQhBqWKKKwDKjvLI8edQbNOszsKUtLJvSkdybEg3Myqq5j2xqlxD3T1IOc7Q2
+ 52EzZJGYErtPq7ZD6Avrw7U8jYTsn638PBrFJ4afIPlHKNYykHmjZBW04M47sXtu/CgBdXy
+ LksThd2bt1VoYQlV5Ar4g==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:MfN4N6I79kI=:9OZBe2nX1fgopDNENgHgsf
+ Dha+WYUWzz2FAq3iNCJTCRenTCub+jctH+qaA9OmFkorrBYwAoRPdcqxJJfSe7u9OjS8R51vy
+ ykVFaV9ca7tNFps1IGuPlkQ0mCpqISyiWCn3/AWv+SxuClfnu1c5wcr1/Iz/XUMxemP8FdtJX
+ EYWet52JYZ+R8RXp0jgg+Ogkphv/nqn5rd+HwUEabAeWitOVOQ/krcv3ZIVIcp81VLGmXxDvf
+ fi4PT6PWpHsH5hKKwvyFuDptu+pNBoMdy8suGYQ7bCLRatPDIgF1/+8z1+dTmkHSseWWhOMc5
+ HjcT9HhOncAHy3hgms/EPXGPUR3phR0nGoazkHFgl84q11SZdXtDHaIA7XJ69a3wCleXf/TAJ
+ ROho5OvrGfR5Lgl2ZnNtX0CGXIaCCltbt8RfGYFNDqb3oSs48htnkVPyvyrY8fPMNG/GtkB3G
+ 87j4IdBsy51UYWpDb6DgCNU839HbUuN5PCokzjHI89Im4nve4AzjAX8MDEeM+apA8W1KXEOuD
+ kfuhAO7XL5tqD670D+GbCti/IPQFNR4iQ3Kwpk7iofL9C0M+EfAGqtJzdUIWgsGPG08NLcupi
+ lHpdmfOeakb7PxODBgkBgqviHvSmpELkP/1ZYcPUJxqv7dV8wg7XO6H4GtTD5EciC5hF1GlQj
+ zyLUBZ7SeyAGT/KUBiWJCtZAz3oY2qTBQsYT2jzLLXp6DrGFI1qxVBcwr9J9xcxC34oQXrsPu
+ Wu2fsG3jkAd5UDrYeS/XxfzIIxK0A3Y3WrPlbHPqBzhuoMTQ0KjAvpNDYggP26lhPzwXxo24l
+ cAYQ268vxsLmXhM8fkFfdkBF7IZerGj4Up8tR1NBbQl1h5vQC0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,35 +72,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, "Verdun,
- Jean-Marie" <verdun@hpe.com>,
+Cc: Arnd Bergmann <arnd@arndb.de>, "Verdun, Jean-Marie" <verdun@hpe.com>,
+ Russell King <linux@armlinux.org.uk>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- SoC Team <soc@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Joel Stanley <joel@jms.id.au>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Olof Johansson <olof@lixom.net>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 On Thu, Apr 21, 2022 at 9:21 PM <nick.hawkins@hpe.com> wrote:
-
-> +       axi {
-> +               compatible = "simple-bus";
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               ranges;
-> +               dma-ranges;
 > +
-> +               ahb@c0000000 {
-> +                       compatible = "simple-bus";
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
-> +                       ranges = <0x0 0xc0000000 0x30000000>;
+> +DT_MACHINE_START(GXP_DT, "HPE GXP")
+> +       .dt_compat      = gxp_board_dt_compat,
+> +       .l2c_aux_val = 0,
+> +       .l2c_aux_mask = 0,
+> +MACHINE_END
 
-I think you should add a "dma-ranges" property in the ahb node as well,
-otherwise this would mean that none of the children are DMA capable,
-when at the minimum the USB controllers require DMA.
+Ther l2c initialization looks wrong here, where  you are saying here is
+that all the bits of the aux register must be set to zero.
 
-       Arnd
+I also see that you don't have a device node for the cache controller, so
+this is probably not actually used, but in general there should be one with
+the correct properties.
+
+        Arnd
