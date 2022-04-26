@@ -4,68 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ED8DC433F5
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 22:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81963C433F5
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 22:49:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KnxMT07LZz2yHZ
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 08:27:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Knxs96ZwXz2yMD
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 08:49:33 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=arndb.de
- (client-ip=212.227.17.24; helo=mout.kundenserver.de;
- envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AfK1/zrk;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::52d;
+ helo=mail-ed1-x52d.google.com; envelope-from=krzysztof.kozlowski@linaro.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
+ header.s=google header.b=AfK1/zrk; dkim-atps=neutral
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [IPv6:2a00:1450:4864:20::52d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KnxLz4Pv5z2xZB
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 08:26:50 +1000 (AEST)
-Received: from mail-yw1-f171.google.com ([209.85.128.171]) by
- mrelayeu.kundenserver.de (mreue109 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1MAORp-1nZHIM3WeJ-00BrPp for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022
- 00:26:46 +0200
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-2f7c424c66cso193297b3.1
- for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2022 15:26:45 -0700 (PDT)
-X-Gm-Message-State: AOAM530u9yQ58SeryFDCuxv1DSbfPxwSMuQ4HL0htrYb0oNs6+zAfVM0
- Mva0NOX4q/QMCAutCOPetSMj8RUWqtxdEWvxnuQ=
-X-Google-Smtp-Source: ABdhPJyC0LoJVNwBAD4ynQWDeVjHEA5B8GtrMZ9XSvaUD6FA2vbbZNGwJPehjny6QhUEkNHAItWM3zedUmoHsTkgLY8=
-X-Received: by 2002:a81:2305:0:b0:2f7:dadb:2162 with SMTP id
- j5-20020a812305000000b002f7dadb2162mr13216162ywj.42.1651012004174; Tue, 26
- Apr 2022 15:26:44 -0700 (PDT)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KnjY73dNmz2xBF
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2022 23:34:49 +1000 (AEST)
+Received: by mail-ed1-x52d.google.com with SMTP id e23so1334270eda.11
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2022 06:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=message-id:date:mime-version:user-agent:subject:content-language:to
+ :cc:references:from:in-reply-to:content-transfer-encoding;
+ bh=5zRT5sllSsaGeFvu1yaUlRoHxNiWR89igSrOyjo1FG4=;
+ b=AfK1/zrk/APNctf5T9jianFlu/dOwBeL60VvN0e/AUy20xraPdotq4gHXNjA82CwJr
+ ASxbJYqu/egWXvhpdKoCATOneKWXEB28QPFqU/ljIv7xIVAyep8++QsrKalLELi38q10
+ K0gVVa4FyK1t8583z4ZcRnHTJDFCo4aXPEOnCMQPKOVFVeYZy3rM/h2kAQSa7PPkoHke
+ gXsnm8Yy78EAhDlPM8YcMa30cLGqmBSUZGqsijkjXNayacWiKkU1T55DciCPfdIoS15v
+ /r8zAhYkcEExrX6vnIyglxCze6PJY288k25AKszUJPG1oADUV5q4y7/jD/hKEuA12URa
+ AyFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=5zRT5sllSsaGeFvu1yaUlRoHxNiWR89igSrOyjo1FG4=;
+ b=OVAlYrppHztga48bycB2DTkYLjUo5h5fMBRw+JDSVBwnb/i7YtI6kgKlsA223uQaMG
+ 7vi6fYMFUAIviBQC30lo3abnJj7jcUYO8A3rpRGJcZi9ljAktPzzDtmnOP2AhH6D/1OO
+ QZyXAdudGo3wbWiJImpWHCxm+HOk+7nO3s/ZLFRHchRnU4Yz8Eq2j3kkrxvPyBjvbA7r
+ ZBvXyOjTwRy8JdYyHdwS2JyIZsmXDlxJmemlc2neiF/SRWx2n3Bal0qSqNos6ltxtFT1
+ xL8cDxv8+ixS2YxFgDT8TmVr/EJ2OdPN5iBbm1BO/KjmERhzl4dNq8VFcNho6E9Lf2BQ
+ qKMQ==
+X-Gm-Message-State: AOAM531xglKvaWvLZIHfL0VuI9fIRwQaEQX5zBeqPV4sAmdNMpbtigeL
+ hDkLa+hREicqkvqoK6h8vtJjSQ==
+X-Google-Smtp-Source: ABdhPJxrkUCfsREmZu2hMfXwSgf00eMictV7sH2Jynsq9vkfWIIiY5pr9thcID2PxdIUiCu86TY+jQ==
+X-Received: by 2002:a05:6402:27cb:b0:423:d386:42be with SMTP id
+ c11-20020a05640227cb00b00423d38642bemr24839191ede.227.1650980081504; 
+ Tue, 26 Apr 2022 06:34:41 -0700 (PDT)
+Received: from [192.168.0.251] (xdsl-188-155-176-92.adslplus.ch.
+ [188.155.176.92]) by smtp.gmail.com with ESMTPSA id
+ lf5-20020a170907174500b006f3806fc9cdsm3416854ejc.39.2022.04.26.06.34.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 06:34:40 -0700 (PDT)
+Message-ID: <b9d68100-c6f3-4f58-fe42-63f4cdf1dc50@linaro.org>
+Date: Tue, 26 Apr 2022 15:34:39 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v5 06/11] dt-bindings: watchdog: Add HPE GXP Watchdog
+ timer binding
+Content-Language: en-US
+To: "Hawkins, Nick" <nick.hawkins@hpe.com>, Rob Herring <robh@kernel.org>
 References: <20220421192132.109954-1-nick.hawkins@hpe.com>
- <20220421192132.109954-5-nick.hawkins@hpe.com>
- <CAK8P3a0nQ1BrtfBJ7sUSaLkA=pbVwx83bEUpZczvLOSOHDR=dw@mail.gmail.com>
- <CACRpkdbJ1N7VOgoBzGS+cOaErFcYiOVDeWRmhPyHA7=9W0CGhA@mail.gmail.com>
- <CAK8P3a2ie8kFYstCYr6FO6+yFw7VxyJjWYyy9b+rUHu_u0YXPg@mail.gmail.com>
- <YmhmXl5IWHmKzAyG@robh.at.kernel.org>
- <CAK8P3a3+TGSJgJ2-mgj+NjT3k8uuUpesLErwqZ2M_dkNqbMXXQ@mail.gmail.com>
- <CAL_JsqKqB+Fas1NOmAq+ocG8KY6ugOiZ_o6e9=5unzf5-ku5Ag@mail.gmail.com>
-In-Reply-To: <CAL_JsqKqB+Fas1NOmAq+ocG8KY6ugOiZ_o6e9=5unzf5-ku5Ag@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 27 Apr 2022 00:26:28 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a15eWvt9hWx66iR-qtxYOrYHNJhpvnfqh=j+nLOfOSE8Q@mail.gmail.com>
-Message-ID: <CAK8P3a15eWvt9hWx66iR-qtxYOrYHNJhpvnfqh=j+nLOfOSE8Q@mail.gmail.com>
-Subject: Re: [PATCH v5 04/11] clocksource/drivers: Add HPE GXP timer
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:fSRPrtDs3Wb2QfADopXJyxG2ACiw+6goijChC1iGIVVLtnTnN41
- 1aPmdFigAjnTgO79iZ+/zZsK1MreI7yLu0QQwybAyffBeSBcuhT6o0IrKDBdSgwJD664aBq
- VbchMbIlRhiSHkpHOh8r3wP5OLa26xg+CJ+Ubjm1tBWwQ0cpNCk3AfLIN4oEi5Q07m3Ei8k
- Nf145nIOjGkG6KMu914tA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:zpyC4sSWBCI=:r13aOOLiYOaNb0Eo3pwc8K
- pu4RmJf3RKHRA7frQg8F3UhvAnrDRznLXFV28w9T7Fnw7JGKfcqyu2PyHrnnwsR97QTuT/YFm
- reaQi7PxCSBSpKcxHfZfaE7LsJaRGPnUQEt9Nm89VvJqf/9XSCWV0SUoxo2eL5/fITEQCOaEw
- EvypwWFx0rYcJQpQ/ZXlMhjIWzqX8NEM9ZgFaH0LYE/dsC8m03JvCqURF9wGcwIfmEjJqs0N6
- Kbl8TsMna3t4odlDELv0sCKsoiY3vzg+gqKBIiNFjrhIkpG+nAjz5cBx8Hlv0kr4DEjd5muNU
- JY21aWCbWe0YapLY8/NEdzbwgXPagz3LGgRxnFIFa/9fQkT0Ll7Yc/cDDCvtP2rCG4Izh47Zl
- 9DH1jQNiWW0zk7P4dTeGvki+p/RpMQcCAk+XHDtHB2IIQZ7oCgUrzACuZKQ4Ds/0PiexcYb9B
- S3FeEKVGLsURf3m1DpP5CAtvBxH5QtHV14vnGbV4CxYz0ExHyFd94VNSTZEvHnZXcuuXvTeOD
- igwII7aT52q1HjN743K3AW9SnLqyxhn8YjS3v1r+8XrT3/OxO9L4ijHtA97vB/mDopj62IpU1
- c5PP2PbCTDvnMI3m7jpZZ1lJdItoIWZt+yJ9C7CkDmfQZk8NlMXoCTsXNAHaKLzmq0/pb2XuL
- BbI4S2o3fowsz34wtAWis4c+mrO7v6M/H2DTv82W+YIM18HnZ+PV+ogvDDggNQuAME/MmUvtB
- JA5eZ5Ow0j+9Qn1mf5nVoESoVzyspcM5mmxf932UpKPD0SPidqGhHi6PpKb53LQYxUF+EcthK
- Th0ZRDIHEWTSntHrQsSOnjkYtR+oh3Nrszr0gWYajOBgAZH3kc=
+ <20220421192132.109954-7-nick.hawkins@hpe.com>
+ <YmcbCgjD85lIRMSf@robh.at.kernel.org>
+ <PH0PR84MB171845F606BC40AD653BEC8888FB9@PH0PR84MB1718.NAMPRD84.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <PH0PR84MB171845F606BC40AD653BEC8888FB9@PH0PR84MB1718.NAMPRD84.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Wed, 27 Apr 2022 08:48:57 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,47 +90,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Verdun,
- Jean-Marie" <verdun@hpe.com>, Joel Stanley <joel@jms.id.au>, "Hawkins,
- Nick" <nick.hawkins@hpe.com>, Thomas Gleixner <tglx@linutronix.de>,
- Linus Walleij <linus.walleij@linaro.org>
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+ "arnd@arndb.de" <arnd@arndb.de>, "Verdun, Jean-Marie" <verdun@hpe.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "joel@jms.id.au" <joel@jms.id.au>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Apr 27, 2022 at 12:04 AM Rob Herring <robh@kernel.org> wrote:
->
-> On Tue, Apr 26, 2022 at 4:55 PM Arnd Bergmann <arnd@arndb.de> wrote:
-> >
-> > On Tue, Apr 26, 2022 at 11:38 PM Rob Herring <robh@kernel.org> wrote:
-> > > On Tue, Apr 26, 2022 at 08:00:20AM +0200, Arnd Bergmann wrote:
-> > > > On Mon, Apr 25, 2022 at 10:38 PM Linus Walleij <linus.walleij@linaro.org> wrote:
-> >
-> > > > There are multiple ways of doing this that we already discussed
-> > > > in the thread. The easiest is probably to have a child node without
-> > > > custom registers in the DT and then use the DT helpers to
-> > > > populate the linux devices with the correct data.
-> > >
-> > > I think that's what the wdt binding is doing, but I don't like that.
-> > > Maybe it's not a child node, I can't tell.
-> > >
-> > > Bindings should not be decided on the *current* driver split on one
-> > > particular OS. This looks like 1 block, so 1 node.
-> >
-> > Fair enough.
-> >
-> > > If that doesn't work well or easy for Linux, then we should fix Linux.
-> >
-> > Doing a simple platform_device_create_pdata() should work fine here,
-> > the only problem that might exist is if the wdt driver needs access to
-> > DT properties, as we can't have both devices refer to the same of_node
-> > pointer,
->
-> Why not? There's even a struct device flag for that.
+On 26/04/2022 15:21, Hawkins, Nick wrote:
+>> How is this h/w controlled? I'm guessing it's part of the timer? If so, you don't need this node. A single node can implement multiple functions.
+> 
+> It is associated with the timer because of the shared register set. Based on feedback from Krzysztof I need to create a child node for gxp-timer. I therefore will remove this file and move gxp-wdt to the hpe,gxp-timer.yaml as a child node.
 
-Ah, I forgot about ->of_node_reused, that should work then if
-it needs access to properties.
+I have impression my feedback was about mapping entire address space,
+not few registers of watchdog:
+https://lore.kernel.org/all/c6309ed8-6e74-67d3-304a-f5399d16cc37@canonical.com/
 
-        Arnd
+However later during talks it turned out that the address space is
+heavily shared.
+
+Nick,
+BTW, do you see my comments in the email I linked above? This v5 makes
+the same mistake. We talked about this already, so please make note of
+comments you receive and implement them.
+
+Best regards,
+Krzysztof
