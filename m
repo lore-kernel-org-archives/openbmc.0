@@ -4,66 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76FDAC433F5
-	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 21:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4687AC433F5
+	for <openbmc@archiver.kernel.org>; Tue, 26 Apr 2022 22:05:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Knwgk5XHhz3bpH
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 07:56:18 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Knwsw55h5z3bhB
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 08:05:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=arndb.de
- (client-ip=212.227.126.130; helo=mout.kundenserver.de;
- envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=eoZJK5ty;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=KfiWZA7A;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.27;
+ helo=out3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
+ header.s=fm2 header.b=eoZJK5ty; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=KfiWZA7A; 
+ dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KnwgB4GHTz3bXw
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 07:55:48 +1000 (AEST)
-Received: from mail-yw1-f171.google.com ([209.85.128.171]) by
- mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MHXSD-1nfKQg1Qqv-00DbsO for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2022
- 23:55:43 +0200
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-2f7d19cac0bso90528807b3.13
- for <openbmc@lists.ozlabs.org>; Tue, 26 Apr 2022 14:55:42 -0700 (PDT)
-X-Gm-Message-State: AOAM530gjRvClZkKT6dhpZQMpDIrtuHq/ZtUbB1oA3KMZQ67OjzepQ34
- 39GfVXwckzNiutfUhCqvL4ThKbnUr/PEqqpUiNM=
-X-Google-Smtp-Source: ABdhPJzeumDGKLqJzcKg47ARK8lAlqpYUoFrKMyKmxeuoEH8hFAe5PMV5ifJ7oJAZSTkd0LFQvHtD1zrKZjB2727L1E=
-X-Received: by 2002:a0d:d101:0:b0:2eb:4bd7:bcc1 with SMTP id
- t1-20020a0dd101000000b002eb4bd7bcc1mr24608932ywd.495.1651010141538; Tue, 26
- Apr 2022 14:55:41 -0700 (PDT)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Knws60Zhwz2x9M
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 08:04:25 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id A23A95C00F8;
+ Tue, 26 Apr 2022 18:04:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 26 Apr 2022 18:04:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1651010660; x=1651097060; bh=nKhjOx8+gT
+ SgS8f9zOHnVn2B5hoIh9KS9pRq/bi+igk=; b=eoZJK5ty5xJGm8ekPMl6PjYq2W
+ 4V2rtyJCZzcI2cbxQdQ16+DzqZqCTiHyNi7KJIeH1pP6xfL/DgeTrGYkQCpipFMp
+ hFXRFaI7KrUcOD/H0hDxR65vPY3rzFaSWKADEJctynaOJaBiEVYcUDu1jhkZYMDl
+ iuLVJ6jf83nXGa+FHmprpjou+hqWc8GtNEs8s4e5CW7AzhZhti7n085DGF9+T8wQ
+ zTvMo834XDK/cVwuxK0ZOELWiwRoTjExBMSQ/QR4kTjGgnwNFdQzrWtQTIld7Q7S
+ qR8ug3W/XbflLsi4gtsb5PyIvo2CwCjTc7ReSa0ZiPr1gVsFreEZgdgtVPog==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651010660; x=
+ 1651097060; bh=nKhjOx8+gTSgS8f9zOHnVn2B5hoIh9KS9pRq/bi+igk=; b=K
+ fiWZA7Aqsi2lWNL2p5FTK1cUr6npupjmdL/Q2s7WP9UtoI+mMXiw6VMKQOK/DSI+
+ D8pLDZ5vnvoAMcMo8FRIrYa76dyAX4UVX8G2EPoHo7t4GwYTUupyBYiOu+WnZ+he
+ 0gBdKkXU9dUqkaa/rYXKzTzneXrHCE6EbxD8ruzQEXupg+ITCmP3d9r4gxTfSXcF
+ VVfhj6s/3jgxrjtlXVJb0QSWAOYT8caYyhxvX2ujSWncZJP5xFYKovBcmN8CW9kj
+ UqqzcgpEipOYZYI1yNDppAtuqSi4G9TQ2Q/zFbEmPaI+VVLugle5+ukcamERlEYV
+ mqYfIawbGx5TMaG/QIEvg==
+X-ME-Sender: <xms:Y2xoYraoKYa-407dIZuwYeKfN87PQ82BJEN_Na5mb071i7joEfubMA>
+ <xme:Y2xoYqZ1DjH7y5XGKn5F93BnCYcoAK-LKSavg6u4Ed8sbppFYA_rsbJLpva_oBwSi
+ guW2AJzmmHSc4JbVHA>
+X-ME-Received: <xmr:Y2xoYt-TQ0Ftukzt8toMc_dZCPfnqMuJvWA42b9Mwt3M0QnEPhuUT8XMWs-ufOm8dVRNVl8yvr0Du-oG4zbxCdeduBmbfyiFMeI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeggddtjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecufghrlhcuvffnffculdefhedmnecujfgurhepfffhvf
+ evuffkfhggtggujgesghdtreertddtvdenucfhrhhomheprfgrthhrihgtkhcuhghilhhl
+ ihgrmhhsuceophgrthhrihgtkhesshhtfigtgidrgiihiieqnecuggftrfgrthhtvghrnh
+ epudejvdeujeehgeeigeelleegvddvgefhfeeiffekkeelhfehfefftefhtdfgudevnecu
+ ffhomhgrihhnpehophgvnhgsmhgtqdhprhhojhgvtghtrdighiiinecuvehluhhsthgvrh
+ fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigt
+ gidrgiihii
+X-ME-Proxy: <xmx:Y2xoYhq8F3mDxwxWkPEn4FS2YphbViI5MQ1m5dlF-bI11ueKw6TlPg>
+ <xmx:Y2xoYmo3VhIg2Eydho68rxGNwJb4VHZ9VRniWQq9o_GEFhlEo9HVSQ>
+ <xmx:Y2xoYnRwHcc4PJgS8UZB6lLLn6EArA75xKDNjH7eX-i0WZMgyAUcKQ>
+ <xmx:ZGxoYnenysGEZcQF3uoPW4J2JuH0-0tdV8DXKu2YV0H8XYpC0ivaYA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 26 Apr 2022 18:04:18 -0400 (EDT)
+Date: Tue, 26 Apr 2022 17:04:17 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Jayashree D <srid.11486@gmail.com>
+Subject: Re: FRU information in inventory manager
+Message-ID: <YmhsYVC9CzSUYcT9@heinlein.stwcx.org.github.beta.tailscale.net>
+References: <CALXuKJc9=hCWjU_QWi5LrP-3SeC1EwE7vvScD4qJgSfZoN_hTA@mail.gmail.com>
 MIME-Version: 1.0
-References: <20220421192132.109954-1-nick.hawkins@hpe.com>
- <20220421192132.109954-5-nick.hawkins@hpe.com>
- <CAK8P3a0nQ1BrtfBJ7sUSaLkA=pbVwx83bEUpZczvLOSOHDR=dw@mail.gmail.com>
- <CACRpkdbJ1N7VOgoBzGS+cOaErFcYiOVDeWRmhPyHA7=9W0CGhA@mail.gmail.com>
- <CAK8P3a2ie8kFYstCYr6FO6+yFw7VxyJjWYyy9b+rUHu_u0YXPg@mail.gmail.com>
- <YmhmXl5IWHmKzAyG@robh.at.kernel.org>
-In-Reply-To: <YmhmXl5IWHmKzAyG@robh.at.kernel.org>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 26 Apr 2022 23:55:25 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3+TGSJgJ2-mgj+NjT3k8uuUpesLErwqZ2M_dkNqbMXXQ@mail.gmail.com>
-Message-ID: <CAK8P3a3+TGSJgJ2-mgj+NjT3k8uuUpesLErwqZ2M_dkNqbMXXQ@mail.gmail.com>
-Subject: Re: [PATCH v5 04/11] clocksource/drivers: Add HPE GXP timer
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:UOdzjRVV1r6/Sff06DqmDdQQyPNZIzcDW/L9TXZKPNkwnPXZY6r
- 0fGqze3iD7Gk7VcLgJrr4iHcpn0Fl97WCBAxXmwvHpgj2JZZZvXz4rQin2EB/PGE37dd1RD
- RL/bpCHCsIUgPY1W6EN5pw+OgVulnpdxVJwR5AYxNXXiZ9oATquZEzlcl5B8Qsx4ak6rquO
- tA8sFYUIWwLVzbLqkLqcQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:rEI8ZTVsrak=:hsb6Do/E2O+wAW4wDk2s8r
- It368f4pjvvUr2VsPFZlCS5cD8KYg6gPzhc+03f6kSoDg4xXz1sf0sADETiaeSwJR4md0R0TE
- 3rhIOrgtMkp6UqifjJxYrEK/0HvaOj5+XqR2//pLVo2twjKCKDLj69WmVA2Vs7ZrjT3ABiAOd
- I/3BnJ9RJWv+Wcn1bo87iUuNlauQB758XsdRVB86SHiPzsnLr1ZDnJK5vIHs7q/e8GOGE9k/T
- GI/5ALnyIO0HpDYOI9PzSq4JyOD02UPcoAGivK2nC4t6hi5wLRc6elFItABQAsIdNgs3sKuVs
- 1LmrgXHlGetM6BLHrhZtX5JYEWGATCMjFDvpoVSI6Oi+wVxe9fkRuvRH5V8JCb1A66a6/o5mb
- WvWX5o8KMxE+CxC5LBActHv3hOTwy4XTZE93LRtI87736ZK9g5sLt4v3xveTHaiESVha6YmXs
- xYlaxQRyZSTQrR6i2XVfZDHgr1vVnCioPBhbJCmBhucYIkwtxQ97BYhprwrmOlilDpcq/bkro
- M5bNmmkweoEcTSmPPV/3lTp3Z0Z5jN2W1KAMueYjGBgH8An/uRFh+4cQmTWVB70x9TpRu7qP9
- JqiusqLDt4SVZHE8rkcjVimsB/cYDbFmwLMVKEyHVX/tv2SELn53qQ5+WLeFBPlq1YpuYgH+T
- BhNpFZTjQKPtiTfZk2KQaeTfX0ThxPSVAb5HMKumDC2Mn+SwHHxNzjX8WTsUGnUnhXI3ybpt/
- g+r6d69Wp66xVDkHeec33bjHy1V7eYmt2T9eodJkP2ghtM7WU1Sh++Ef0/LZLBLSHzxXl5N2Q
- SnMW3YVo8z/4jluVBRwRs/B5S/BwhrWlCl/xCyc37ttlimyzOU=
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="gOJV/wCka2Q2WxXF"
+Content-Disposition: inline
+In-Reply-To: <CALXuKJc9=hCWjU_QWi5LrP-3SeC1EwE7vvScD4qJgSfZoN_hTA@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +99,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, "Verdun,
- Jean-Marie" <verdun@hpe.com>, Joel Stanley <joel@jms.id.au>, "Hawkins,
- Nick" <nick.hawkins@hpe.com>, Thomas Gleixner <tglx@linutronix.de>,
- Linus Walleij <linus.walleij@linaro.org>
+Cc: spinler@us.ibm.com, vernon.mauery@linux.intel.com, openbmc@lists.ozlabs.org,
+ devenrao@in.ibm.com, santosh.puranik@in.ibm.com, velumanit@hcl.com,
+ ratagupt@linux.vnet.ibm.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Apr 26, 2022 at 11:38 PM Rob Herring <robh@kernel.org> wrote:
-> On Tue, Apr 26, 2022 at 08:00:20AM +0200, Arnd Bergmann wrote:
-> > On Mon, Apr 25, 2022 at 10:38 PM Linus Walleij <linus.walleij@linaro.org> wrote:
 
-> > There are multiple ways of doing this that we already discussed
-> > in the thread. The easiest is probably to have a child node without
-> > custom registers in the DT and then use the DT helpers to
-> > populate the linux devices with the correct data.
->
-> I think that's what the wdt binding is doing, but I don't like that.
-> Maybe it's not a child node, I can't tell.
->
-> Bindings should not be decided on the *current* driver split on one
-> particular OS. This looks like 1 block, so 1 node.
+--gOJV/wCka2Q2WxXF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fair enough.
+On Tue, Apr 26, 2022 at 09:27:30PM +0530, Jayashree D wrote:
+> Hi Team,
+>=20
+>=20
+> I am working on displaying FRU details in inventory manager. Based on the
+> eeprom in sysfs path (/sys/bus/i2c/devices/8-0051/eeprom), FRU details are
+> fetched and updated in the inventory dbus path in phosphor-ipmi-fru repo.
+> This is fine for the case where the FRU information is present in EEPROM
+>=20
+> In OCP multi-host platform, we have IPMB based FRU, this is handled in
+> ipmb-fru and the patches are in review.
+>=20
+> https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/51555
+> https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/39593
+>=20
+> Could you please provide some suggestion on displaying these FRU details =
+in
+> inventory manager?
 
-> If that doesn't work well or easy for Linux, then we should fix Linux.
+Is there a reason you're using PIM and not EM/fru-device for this?  It
+seems like if you were planning on using EM for pieces of it, we should
+continue for the rest of it and not try to blend PIM and EM.
 
-Doing a simple platform_device_create_pdata() should work fine here,
-the only problem that might exist is if the wdt driver needs access to
-DT properties, as we can't have both devices refer to the same of_node
-pointer, which would cause them to be picked up by the timer driver
-again.
+--=20
+Patrick Williams
 
-      Arnd
+--gOJV/wCka2Q2WxXF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmJobF8ACgkQqwNHzC0A
+wRl2xA/+JQ+zCnSi7xp/0BX7sQJsPxsj1Qa+BkRCkjZj88hWjkOlbtWB3ROk3nBw
+NSPvv27nWGMtrRq2IOTj1aXM0K5fSaqZbvtujFgcMm3zWdgy9B4fIZXl7dBjYZUz
+A9PfHKIWrsRjOMjIz7CvVGwCjElcyaiB4jUu5pSGeG5C7LI+FpMuIGKiEttQtMqp
+UVXxuXPH8bYYjc31tqhqcys70M20ot8j4AnIvvCmoqt5oU4WQE3IDO4XYcBFkcLG
+g9fg/ym6SGormO02kIeGjfN8Qlsh1bSH2UJ/qri2r+S6I6A8L5VYIJYApDQ0qaV6
+6ZEIhp9g8k+mDPYgupCKFhvtgyPVOoWxs2q0XD3nrNCiWgTosZyjdcQ2ZK95pRQp
+2FidSZhsgulPsaf4fB+85nIMjI1p41GwiO3V9G5wE9jI7zke055PMdRs8GLZFsSp
+6HDDePfwj/toar74VCJwr/9cnd91cO3Ygm2vW49nHNi8zKQ1J4C2oEs+3SvvKcOz
+n3ZjR8pUezDsf60gjK2EZSpu46GwpqqNQ8HLtINaWSXyeGrcquIrwU/HJCs6TIRi
+mKgS7RKHFcs6PJCuR/p1nrIxfXHDk901FBlrvG2mGAdPOCiLOSOS9wdXFRE47enu
+m6JneVMgTRZoSLTVvXqwOHKc06Ai5PQI00nYsJcBWQ8tobIr41E=
+=7fQC
+-----END PGP SIGNATURE-----
+
+--gOJV/wCka2Q2WxXF--
