@@ -4,91 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61107C4332F
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 12:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E354CC433F5
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 13:37:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KpJ643QXgz3bcQ
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 22:31:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KpKZC5tFwz3bYk
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 23:37:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OmKfG9e8;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=SUsmhZGs;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::22e;
+ helo=mail-oi1-x22e.google.com; envelope-from=groeck7@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=OmKfG9e8; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=SUsmhZGs; dkim-atps=neutral
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KpJ5D3GZKz2yMS
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 22:31:11 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23R9Oif2007760
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : date : to :
- from : subject : content-type : content-transfer-encoding : mime-version;
- s=pp1; bh=ST3gm5dRN7gi+2cZ4fOKCc0VFOcGiMZ4anyRawf6tQc=;
- b=OmKfG9e89zJVAV7oG8ydtpCC2WaAHv8h/TfLKJKT/QnlqOll0wad3ue/3pLx7fDN72yX
- gZdzCMVGtxaL8HQYju0BsIxdlaKQ0B73WMD/BKOgVhUBTMJqAGTxAPD7dvXXLggi+rOK
- WWKPHGjkfkzryt4JU7eGcCtamFZ2X3XXqeM/D6Dt5G+SRxatpj8EoaDG9mnPZplL1ZwI
- VHQ3OJ6v2oG2N/lzNNbhvqg/NOi4p0ZMrUJmHtpz3luc9w28C4Z75dE0y9Fr/KyghmiV
- Jz/LVCjo9jO2SRjarm9a7foQUPuwizbOCH+SD45cRWTgjgcBGNPd9bJXtQd7zhIaYWro IQ== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3fpv1ejhw9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:09 +0000
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 23RCCk0F025987
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:08 GMT
-Received: from b03cxnp07029.gho.boulder.ibm.com
- (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
- by ppma03dal.us.ibm.com with ESMTP id 3fm93a2xwv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:08 +0000
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 23RCV74t31261154
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:07 GMT
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2B7DB6E066
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:07 +0000 (GMT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EEEA16E056
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:06 +0000 (GMT)
-Received: from [9.65.238.111] (unknown [9.65.238.111])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 12:31:06 +0000 (GMT)
-Message-ID: <0b3f41c1-476b-bd94-3351-69faf93b2e82@linux.ibm.com>
-Date: Wed, 27 Apr 2022 07:31:05 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.0
-Content-Language: en-US
-To: openbmc <openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <jrey@linux.ibm.com>
-Subject: Security Working Group meeting - Wednesday April 27
-Content-Type: text/plain; charset=UTF-8; format=flowed
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: _hJMfiLwRIuwXkmDe1pV5rpUJlrIdIoz
-X-Proofpoint-GUID: _hJMfiLwRIuwXkmDe1pV5rpUJlrIdIoz
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KpKYV0LRgz2ynr
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 23:37:16 +1000 (AEST)
+Received: by mail-oi1-x22e.google.com with SMTP id m11so1943408oib.11
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 06:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=sender:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=yhF0G6yyXaul33YQtZP9cS7G8SlHQ9Le2XaQbFcTYvo=;
+ b=SUsmhZGs20++DaCxL7upzoXkA2Dm33XtRqXivIfkZODlAT7QE/Jk/BvTcWT5lLt3/k
+ 3TTrDFXoFkdEXyJeApS3tp7MxGMnTq0fL1DWsA+oNzXuQ1jQsD4IHzLGxh9NXRe1pxmN
+ p9NjQJ6LMjrVwVYPxHC6dKs+bb92+jw9o07tNRh97ma9VtjU5yky3hEpOC5+wGlFNPTT
+ g+rI/d+gPXCE+omJagi+o499emwmzpA2273FxrTp91JnXnXIc+dvAhRwurudHiZY3eeY
+ dZ+L6FeAUT0b0B/MfTQ4IIRbTcuCYyxtiDlTlnlNgDcN4HjEIE6en8Ij7V0wEBTKJSM2
+ GYcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+ :subject:content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=yhF0G6yyXaul33YQtZP9cS7G8SlHQ9Le2XaQbFcTYvo=;
+ b=RiIaYfBrHPG8TA1+11jhzVl6wigQZBaI9rx6jrwEuoylDbJY57MrWWV8rxfV0841PW
+ xfXGi161NX8h3B5pqXKSwse/NhubVGgxWrwTLWah2k7/o3/c+zturA3s4fWG/HRjLVNW
+ gJajfo6lk5RSHOZ/e7j5vVD1x12BS6eP6f/fQ3MGq5SvAn3gdpcnd/mmi0O5ppF39Yqm
+ ixE1sOe1zAgVSG8U3AIPdeupnziPrW1f/qC3Qs260aQafAP9aBDvsk8kki5U43mdO/f4
+ ayezRVT3FhvRcnQ9L457WhPOFSO06N0ogsI3C6d6sgY31qwcA3J1sjKQrocC+nCOSRqM
+ dqgw==
+X-Gm-Message-State: AOAM532FAN/TTodT6vMpjqmavLn/aKW7tfAF/02d7Y0BGRSoO0MeuUzL
+ zBieAYGHalFT1e2ToJ2I7qM=
+X-Google-Smtp-Source: ABdhPJz2pYe9wnusQC+BCwMLIw1YI1xV8X7qaYNnP2DtrkYyQC4A+AQu40ZHbQRlz8+Z77qeysc4Gw==
+X-Received: by 2002:a05:6808:2209:b0:322:bbb4:4572 with SMTP id
+ bd9-20020a056808220900b00322bbb44572mr17131157oib.182.1651066633500; 
+ Wed, 27 Apr 2022 06:37:13 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
+ ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020a4ab3cd000000b0032830efe365sm6661469ooo.43.2022.04.27.06.37.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Apr 2022 06:37:11 -0700 (PDT)
+Message-ID: <bc46d60e-7c89-ad05-780c-9e9fd19f788e@roeck-us.net>
+Date: Wed, 27 Apr 2022 06:37:07 -0700
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-27_04,2022-04-27_01,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 phishscore=0 adultscore=0 mlxscore=0
- mlxlogscore=619 lowpriorityscore=0 clxscore=1015 malwarescore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2204270082
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v4 0/7] hwmon: (nct6775) Convert to regmap, add i2c support
+Content-Language: en-US
+To: Zev Weiss <zev@bewilderbeest.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org
+References: <20220427010154.29749-1-zev@bewilderbeest.net>
+From: Guenter Roeck <linux@roeck-us.net>
+In-Reply-To: <20220427010154.29749-1-zev@bewilderbeest.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,24 +88,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Rob Herring <robh+dt@kernel.org>, Renze Nicolai <renze@rnplus.nl>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a reminder of the OpenBMC Security Working Group meeting 
-scheduled for this Wednesday April 27 at 10:00am PDT.
+Hi Zev,
 
-We'll discuss the following items on the agenda 
-<https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI>, 
-and anything else that comes up:
+On 4/26/22 18:01, Zev Weiss wrote:
+> Hello,
+> 
+> This is v4 of my effort to add i2c support to the nct6775 hwmon
+> driver.
+> 
 
-1.
+Thanks a lot for your effort.
 
+I applied patches 2..6 to hwmon-next. The first and the last
+patch of the series will have to wait for DT maintainer approval.
 
-
-
-Access, agenda and notes are in the wiki:
-https://github.com/openbmc/openbmc/wiki/Security-working-group 
-<https://github.com/openbmc/openbmc/wiki/Security-working-group>
-
-- Joseph
+Thanks,
+Guenter
