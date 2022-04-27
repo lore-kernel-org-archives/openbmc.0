@@ -4,56 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DBEC433F5
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 13:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73341C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 13:48:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KpKnn0qJvz3br0
-	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 23:47:57 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KpKpS6RC8z3byF
+	for <openbmc@archiver.kernel.org>; Wed, 27 Apr 2022 23:48:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=oKPjZqJv;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kaod.org (client-ip=46.105.33.25; helo=7.mo548.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 603 seconds by postgrey-1.36 at boromir;
- Wed, 27 Apr 2022 23:47:27 AEST
-Received: from 7.mo548.mail-out.ovh.net (7.mo548.mail-out.ovh.net
- [46.105.33.25])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=i.kononenko@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=oKPjZqJv; dkim-atps=neutral
+X-Greylist: delayed 501 seconds by postgrey-1.36 at boromir;
+ Wed, 27 Apr 2022 23:47:30 AEST
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KpKnC3j4Hz3bbs
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 23:47:26 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.156.102])
- by mo548.mail-out.ovh.net (Postfix) with ESMTPS id B36F6206B6;
- Wed, 27 Apr 2022 13:31:31 +0000 (UTC)
-Received: from kaod.org (37.59.142.105) by DAG4EX1.mxp5.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Wed, 27 Apr
- 2022 15:31:31 +0200
-Authentication-Results: garm.ovh; auth=pass
- (GARM-105G006a82e225d-9d42-49c3-adac-7c9f9c4edfb9,
- 17BF23367636C0D6DAFD61CED3DAD67CB3096C97) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.64.250.170
-Message-ID: <c60bf907-70bf-94ff-42da-d53b75cdc35b@kaod.org>
-Date: Wed, 27 Apr 2022 15:31:30 +0200
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KpKnG2Gjnz3bd8
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 23:47:30 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 1C0CE4144F
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 13:39:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:content-type:content-type:subject
+ :subject:from:from:content-language:user-agent:mime-version:date
+ :date:message-id:received:received:received; s=mta-01; t=
+ 1651066742; x=1652881143; bh=uh2NzoX7tTr+JSZU4TyclxfCHhVIfpec8BV
+ bX6xdl0w=; b=oKPjZqJvyh+y+/6ixjGxy7sQcFwxh55KhRKYJyNERePIiUiF8Vp
+ jG0FVsab0bLILy04knlc60D8XXa/oV9f+vUNwiKD2CPH0flh3T9epF9JreuAOFZ1
+ TAQTICVuSZcnhUFzHbsfogBBeEmi5g4FT4LjvDLHWO47wMF5TjVphOCU=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 4n9ybyeLO2K5 for <openbmc@lists.ozlabs.org>;
+ Wed, 27 Apr 2022 16:39:02 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 5C961413CB
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 16:39:02 +0300 (MSK)
+Received: from [10.178.113.33] (10.178.113.33) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 27
+ Apr 2022 16:39:02 +0300
+Message-ID: <7a071d50-b581-2623-d439-d134f805f228@yadro.com>
+Date: Wed, 27 Apr 2022 16:39:01 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: aspeed: spi driver: fmc wdt2
 Content-Language: en-US
-To: =?UTF-8?B?5byg5YGl?= <zhangjian.3032@bytedance.com>, openbmc
- <openbmc@lists.ozlabs.org>
-References: <CA+J-oUs6V5HGw9kekOW0YAbpTC-P79WWZti21tJ1n86pMsVKiw@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <CA+J-oUs6V5HGw9kekOW0YAbpTC-P79WWZti21tJ1n86pMsVKiw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.105]
-X-ClientProxiedBy: DAG4EX2.mxp5.local (172.16.2.32) To DAG4EX1.mxp5.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: b285efbe-1e97-4496-b43b-38a904a744de
-X-Ovh-Tracer-Id: 5022358010003360733
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrudehgdeivdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecunecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeejgefggffgheejgfdufeeiueffveehteejgfelueekgfegtefgffejhedtgfejgfenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepjhhovghlsehjmhhsrdhiugdrrghu
+To: OpenBMC MailList OZLabs <openbmc@lists.ozlabs.org>, "Brad Bishop (Code
+ Review)" <gerrit@openbmc-project.xyz>
+From: i.kononenko <i.kononenko@yadro.com>
+Subject: phosphor-misc: CI Build failure
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.178.113.33]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +77,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "joel@jms.id.au" <joel@jms.id.au>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 4/26/22 16:09, 张健 wrote:
-> Hi Guys;
-> 
-> I would like implement the flash toggle function in ast2600.
+Hello.                                                                  
 
-It would be nice to have the support in QEMU also.
+Today I was received notice of the phosphor-misc CI build failed due to 
+many `shellcheck` verify failed.  The last build (where CI fail was     
+found) related to the gerrit change [1] according add support RNDIS and 
+EEM network feature, but `shellchek` raise too many error about another 
+code that hasn't been changed.                                          
+Was I'm miss some changed about Jenkins CI-manifest of phosphor-misc    
+that was come most recently? How far I can see the previous changes  
+was building successful [2].  Can someone provide link to conversation  
+(if it was) related to the phoshpor-misc CI changes?                    
+                                                                        
+To resolve the issue I'd suggests one of bellow ways:                   
+* Disable shellcheck to the `phosphor-misc` via .eslintignore 
+* Fix sellcheck errors (preferred).                                         
+                                                                        
+Thanks.                                                                 
+                                                                        
+Links:                                                                  
+                                                                        
+[1] https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-misc/+/53279  
+[3] https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-misc/+/48292 
 
-> That function about ast2400/2500 implement at linux/aspeed_wdt.c at aspeed-master-v5.15 · AspeedTech-BMC/linux ( <https://github.com/AspeedTech-BMC/linux/blob/aspeed-master-v5.15/drivers/watchdog/aspeed_wdt.c#L172>github.com <https://github.com/AspeedTech-BMC/linux/blob/aspeed-master-v5.15/drivers/watchdog/aspeed_wdt.c#L172>) <https://github.com/AspeedTech-BMC/linux/blob/aspeed-master-v5.15/drivers/watchdog/aspeed_wdt.c#L172>
-> 
-> Here is my design, just an idea. I would like to see your suggestions. Thanks.
-> 
-> There are some differences between ast2600 and ast2500/2400. For the ast2600 SoC abr function, there is a set of registers named `FMC_WDT2` in FMC(SPI).
-> FMC_WDT2 is not a full function WDT, thus, I can't use aspeed_wdt driver to do that.
+-- 
+Best regards,
 
-
-yes. The FMC_WDT2 is a standalone logic under FMC which is simplified
-compared to the other watchdogs.
-
-I spent sometime adding WDT2 on the FMC AST2600 (not mainline but in OpenBMC
-QEMU) but I didn't handle the CS switch. It shouldn't be too hard.
-
-Keep me updated on your progress.
-
-Thanks,
-
-C.
-
-> In ast2400/2500 used a sysfs attr `access_cs0`, can make cs0->cs1 and cs1->cs0.
-> For cs0->cs1, ast2400/2500 use the wdt2's self timer, cs1->cs0, use `access_cs0` to set the `flash indicate` bit.
-> But ast2600 without the FMC_WDT2 timer driver to trigger `cs0`->`cs1`, thus, I would like to add 2 sysfs attrs in spi driver.
-> Because ast2600 supports single image abr mode, i'd like to use primary/backup instead of cs0/1.
-> 
-> attr1 "access_backup": (only appears in primary and compatible is "aspeed,ast2600-fmc")
-> store: The parameter is the timeout time for fmc_wdt2, if written, timer will be enabled, if timeout, will reboot from backup.
-> show: the time left in fmc_wdt2 timer. 0 means timer is not enabled.
-> 
-> attr2 "access_primary”: (only appears in backup, and compatible is "aspeed,ast2600-fmc")
-> store: Non-zero values indicate access to primary, 0 indicate access to backup
-> show: 0: next reboot will boot from backup, 1 : will boot from primary.
-> 
-> 
-> 
-> 
-
+Igor Kononenko
