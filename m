@@ -4,65 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA551C433EF
-	for <openbmc@archiver.kernel.org>; Thu, 28 Apr 2022 01:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66F0BC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 28 Apr 2022 01:28:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Kpd6D5vsJz3bmV
-	for <openbmc@archiver.kernel.org>; Thu, 28 Apr 2022 11:18:12 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KpdKl55cXz3bp2
+	for <openbmc@archiver.kernel.org>; Thu, 28 Apr 2022 11:28:11 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Tgyuccl8;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=Adn+J8zR;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2e;
- helo=mail-qv1-xf2e.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=Tgyuccl8; dkim-atps=neutral
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [IPv6:2607:f8b0:4864:20::f2e])
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=Adn+J8zR; 
+ dkim-atps=neutral
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Kpd5V61Nlz3bd7
- for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2022 11:17:32 +1000 (AEST)
-Received: by mail-qv1-xf2e.google.com with SMTP id iy15so2262810qvb.9
- for <openbmc@lists.ozlabs.org>; Wed, 27 Apr 2022 18:17:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=keGEYUAj84Yn+jAzevz2b05N0w9IWqyJSScNK7lxDsU=;
- b=Tgyuccl8mNHkosbZJ5MtKyjPLLPnwTrRbrHys4d9Fg5tYI3EcR42z0Ux7PerOE4RVe
- /Z6JaRvqPg+3tBBnQ+dGDiJBZ/6omNjdwas2BhAX2fxuR4Os4nRcVJtffBPizlJgXSqA
- VAIXf8btp6SiQ54ytVk0WzT6mYMZc7QxwKAYA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=keGEYUAj84Yn+jAzevz2b05N0w9IWqyJSScNK7lxDsU=;
- b=GCm3KH6f2WkP5k6Khbl+t9nAw+pYldhK2GLfHwFI/goODHwg9zLpL0fUy2YgOfj1ja
- OqjrovOX6b7C0/jZIkIGXem9NTJwETrVAWJ4M6yvurYpe3HzmHQNpZZZ+8q+vf4h2X8J
- DHIjoBpuyPvDbh2YDuNfO5gVZMD0PZ41AYzyOQecYV0eg2dgI9X7k2VeAGmXFRMxQSRA
- caI5+rGe+jfMDVveWtRXKEqC+lqtUei1BWKFiRPrSYec9fedcpFaYcHTgR5ks0gbfpiS
- +zWpW4BtRWyK8I8LAI4xF2vl3mRWXgYnuhgPFf3nQZZIu9Y36ErJPlqXY1I5f9FCKZoH
- LNDw==
-X-Gm-Message-State: AOAM533Sp0iwV4/wfJuUUB8vKfyQHby23V5CI8V7GOOT8fTdDH/BHKs2
- GZLZ5Dx0V7MyJD0NAn+jsUKbwz6jZD5JxpNeQUw=
-X-Google-Smtp-Source: ABdhPJwq05tJ7BgD+IzABZ6LCMD9gqbQxWPlE/l4ecA2cvW94nBj9JKSSVrgIkjrTtK2NzjBiwVIWnXyZetGEu+gsZA=
-X-Received: by 2002:a05:6214:624:b0:441:84f3:24e3 with SMTP id
- a4-20020a056214062400b0044184f324e3mr22337118qvx.27.1651108648063; Wed, 27
- Apr 2022 18:17:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KpdK05b8Jz3bd7
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Apr 2022 11:27:32 +1000 (AEST)
+Received: from hatter.bewilderbeest.net (174-21-163-222.tukw.qwest.net
+ [174.21.163.222])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id A393191E;
+ Wed, 27 Apr 2022 18:27:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1651109250;
+ bh=awxwKJL2fdvlcHXNXuVQh6g4FC39ft8awfgGWwXEC7g=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Adn+J8zRmv5fU+9L0BN7g/xpLHyWjku1TunUQlBl0cNsCyzr9YxbBY8mNGY1o76Om
+ xvvaXA9tvgrz9oeJqmje6cLBcRojL0Q/6XQBSTm9E64pA/xj8R/mdNa8QyAiZQOC0h
+ 1bmaboj+PrJdDzZZrxwR2FWsG1ie/Gd9OB8XoWm8=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Guenter Roeck <linux@roeck-us.net>, Jean Delvare <jdelvare@suse.com>,
+ linux-hwmon@vger.kernel.org
+Subject: [PATCH v5 2/2] hwmon: (nct6775) Add i2c driver
+Date: Wed, 27 Apr 2022 18:27:07 -0700
+Message-Id: <20220428012707.24921-3-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.36.0
+In-Reply-To: <20220428012707.24921-1-zev@bewilderbeest.net>
+References: <20220428012707.24921-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
-References: <CA+J-oUs6V5HGw9kekOW0YAbpTC-P79WWZti21tJ1n86pMsVKiw@mail.gmail.com>
-In-Reply-To: <CA+J-oUs6V5HGw9kekOW0YAbpTC-P79WWZti21tJ1n86pMsVKiw@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 28 Apr 2022 01:17:15 +0000
-Message-ID: <CACPK8Xfz6O-vy2skpR7i=GiL0X83Kq4mgH4UzOWuu31nOsFQCA@mail.gmail.com>
-Subject: Re: aspeed: spi driver: fmc wdt2
-To: =?UTF-8?B?5byg5YGl?= <zhangjian.3032@bytedance.com>, 
- Lei Yu <yulei.sh@bytedance.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,71 +63,289 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc <openbmc@lists.ozlabs.org>
+Cc: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Zev Weiss <zev@bewilderbeest.net>, Renze Nicolai <renze@rnplus.nl>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 26 Apr 2022 at 14:09, =E5=BC=A0=E5=81=A5 <zhangjian.3032@bytedance.=
-com> wrote:
->
-> Hi Guys;
->
-> I would like implement the flash toggle function in ast2600.
-> That function about ast2400/2500 implement at linux/aspeed_wdt.c at aspee=
-d-master-v5.15 =C2=B7 AspeedTech-BMC/linux (github.com)
->
-> Here is my design, just an idea. I would like to see your suggestions. Th=
-anks.
->
-> There are some differences between ast2600 and ast2500/2400. For the ast2=
-600 SoC abr function, there is a set of registers named `FMC_WDT2` in FMC(S=
-PI).
-> FMC_WDT2 is not a full function WDT, thus, I can't use aspeed_wdt driver =
-to do that.
+This driver provides an i2c I/O mechanism for the core nct6775 driver,
+as might be used by a BMC.  Because the Super I/O chip is shared with
+the host CPU in such a scenario (and the host should ultimately be in
+control of it), the i2c driver is strictly read-only to avoid
+interfering with any usage by the host (aside from the bank-select
+register, which seems to be replicated for the i2c interface).
 
-Yes. There is a similar device embedded in the secure boot controller
-for eMMC boot (SECA0..A8). The FMC register is better documented, but
-the layout is the same.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Tested-by: Renze Nicolai <renze@rnplus.nl>
+---
+ MAINTAINERS                 |   7 ++
+ drivers/hwmon/Kconfig       |  17 ++++
+ drivers/hwmon/Makefile      |   1 +
+ drivers/hwmon/nct6775-i2c.c | 195 ++++++++++++++++++++++++++++++++++++
+ 4 files changed, 220 insertions(+)
+ create mode 100644 drivers/hwmon/nct6775-i2c.c
 
-> In ast2400/2500 used a sysfs attr `access_cs0`, can make cs0->cs1 and cs1=
-->cs0.
-> For cs0->cs1, ast2400/2500 use the wdt2's self timer, cs1->cs0, use `acce=
-ss_cs0` to set the `flash indicate` bit.
-> But ast2600 without the FMC_WDT2 timer driver to trigger `cs0`->`cs1`, th=
-us, I would like to add 2 sysfs attrs in spi driver.
-> Because ast2600 supports single image abr mode, i'd like to use primary/b=
-ackup instead of cs0/1.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 88fdb7cb3197..aac1a184a4c9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13538,6 +13538,13 @@ F:	drivers/hwmon/nct6775-core.c
+ F:	drivers/hwmon/nct6775-platform.c
+ F:	drivers/hwmon/nct6775.h
+ 
++NCT6775 HARDWARE MONITOR DRIVER - I2C DRIVER
++M:	Zev Weiss <zev@bewilderbeest.net>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/hwmon/nuvoton,nct6775.yaml
++F:	drivers/hwmon/nct6775-i2c.c
++
+ NETDEVSIM
+ M:	Jakub Kicinski <kuba@kernel.org>
+ S:	Maintained
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 85c22bba439b..a1dac1aa4e3a 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -1489,6 +1489,23 @@ config SENSORS_NCT6775
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called nct6775.
+ 
++config SENSORS_NCT6775_I2C
++	tristate "I2C driver for Nuvoton NCT6775F and compatibles"
++	depends on I2C
++	select REGMAP_I2C
++	select SENSORS_NCT6775
++	help
++	  If you say yes here you get support for the hardware monitoring
++	  functionality of the Nuvoton NCT6106D, NCT6775F, NCT6776F, NCT6779D,
++	  NCT6791D, NCT6792D, NCT6793D, NCT6795D, NCT6796D, and compatible
++	  Super-I/O chips via their I2C interface.
++
++	  If you're not building a kernel for a BMC, this is probably
++	  not the driver you want (see CONFIG_SENSORS_NCT6775_PLATFORM).
++
++	  This driver can also be built as a module. If so, the module
++	  will be called nct6775-i2c.
++
+ config SENSORS_NCT7802
+ 	tristate "Nuvoton NCT7802Y"
+ 	depends on I2C
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index 93f2b774cc5e..004ab87c9b80 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -157,6 +157,7 @@ obj-$(CONFIG_SENSORS_NCT6683)	+= nct6683.o
+ obj-$(CONFIG_SENSORS_NCT6775_CORE) += nct6775-core.o
+ nct6775-objs			:= nct6775-platform.o
+ obj-$(CONFIG_SENSORS_NCT6775)	+= nct6775.o
++obj-$(CONFIG_SENSORS_NCT6775_I2C) += nct6775-i2c.o
+ obj-$(CONFIG_SENSORS_NCT7802)	+= nct7802.o
+ obj-$(CONFIG_SENSORS_NCT7904)	+= nct7904.o
+ obj-$(CONFIG_SENSORS_NPCM7XX)	+= npcm750-pwm-fan.o
+diff --git a/drivers/hwmon/nct6775-i2c.c b/drivers/hwmon/nct6775-i2c.c
+new file mode 100644
+index 000000000000..e1bcd1146191
+--- /dev/null
++++ b/drivers/hwmon/nct6775-i2c.c
+@@ -0,0 +1,195 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * nct6775-i2c - I2C driver for the hardware monitoring functionality of
++ *	         Nuvoton NCT677x Super-I/O chips
++ *
++ * Copyright (C) 2022 Zev Weiss <zev@bewilderbeest.net>
++ *
++ * This driver interacts with the chip via it's "back door" i2c interface, as
++ * is often exposed to a BMC.  Because the host may still be operating the
++ * chip via the ("front door") LPC interface, this driver cannot assume that
++ * it actually has full control of the chip, and in particular must avoid
++ * making any changes that could confuse the host's LPC usage of it.  It thus
++ * operates in a strictly read-only fashion, with the only exception being the
++ * bank-select register (which seems, thankfully, to be replicated for the i2c
++ * interface so it doesn't affect the LPC interface).
++ */
++
++#include <linux/module.h>
++#include <linux/init.h>
++#include <linux/i2c.h>
++#include <linux/hwmon.h>
++#include <linux/hwmon-sysfs.h>
++#include <linux/err.h>
++#include <linux/of_device.h>
++#include <linux/regmap.h>
++#include "nct6775.h"
++
++static int nct6775_i2c_read(void *ctx, unsigned int reg, unsigned int *val)
++{
++	int ret;
++	u32 tmp;
++	u8 bank = reg >> 8;
++	struct nct6775_data *data = ctx;
++	struct i2c_client *client = data->driver_data;
++
++	if (bank != data->bank) {
++		ret = i2c_smbus_write_byte_data(client, NCT6775_REG_BANK, bank);
++		if (ret)
++			return ret;
++		data->bank = bank;
++	}
++
++	ret = i2c_smbus_read_byte_data(client, reg & 0xff);
++	if (ret < 0)
++		return ret;
++	tmp = ret;
++
++	if (nct6775_reg_is_word_sized(data, reg)) {
++		ret = i2c_smbus_read_byte_data(client, (reg & 0xff) + 1);
++		if (ret < 0)
++			return ret;
++		tmp = (tmp << 8) | ret;
++	}
++
++	*val = tmp;
++	return 0;
++}
++
++/*
++ * The write operation is a dummy so as not to disturb anything being done
++ * with the chip via LPC.
++ */
++static int nct6775_i2c_write(void *ctx, unsigned int reg, unsigned int value)
++{
++	struct nct6775_data *data = ctx;
++	struct i2c_client *client = data->driver_data;
++
++	dev_dbg(&client->dev, "skipping attempted write: %02x -> %03x\n", value, reg);
++
++	/*
++	 * This is a lie, but writing anything but the bank-select register is
++	 * something this driver shouldn't be doing.
++	 */
++	return 0;
++}
++
++static const struct of_device_id __maybe_unused nct6775_i2c_of_match[] = {
++	{ .compatible = "nuvoton,nct6106", .data = (void *)nct6106, },
++	{ .compatible = "nuvoton,nct6116", .data = (void *)nct6116, },
++	{ .compatible = "nuvoton,nct6775", .data = (void *)nct6775, },
++	{ .compatible = "nuvoton,nct6776", .data = (void *)nct6776, },
++	{ .compatible = "nuvoton,nct6779", .data = (void *)nct6779, },
++	{ .compatible = "nuvoton,nct6791", .data = (void *)nct6791, },
++	{ .compatible = "nuvoton,nct6792", .data = (void *)nct6792, },
++	{ .compatible = "nuvoton,nct6793", .data = (void *)nct6793, },
++	{ .compatible = "nuvoton,nct6795", .data = (void *)nct6795, },
++	{ .compatible = "nuvoton,nct6796", .data = (void *)nct6796, },
++	{ .compatible = "nuvoton,nct6797", .data = (void *)nct6797, },
++	{ .compatible = "nuvoton,nct6798", .data = (void *)nct6798, },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, nct6775_i2c_of_match);
++
++static const struct i2c_device_id nct6775_i2c_id[] = {
++	{ "nct6106", nct6106 },
++	{ "nct6116", nct6116 },
++	{ "nct6775", nct6775 },
++	{ "nct6776", nct6776 },
++	{ "nct6779", nct6779 },
++	{ "nct6791", nct6791 },
++	{ "nct6792", nct6792 },
++	{ "nct6793", nct6793 },
++	{ "nct6795", nct6795 },
++	{ "nct6796", nct6796 },
++	{ "nct6797", nct6797 },
++	{ "nct6798", nct6798 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, nct6775_i2c_id);
++
++static int nct6775_i2c_probe_init(struct nct6775_data *data)
++{
++	u32 tsi_channel_mask;
++	struct i2c_client *client = data->driver_data;
++
++	/*
++	 * The i2c interface doesn't provide access to the control registers
++	 * needed to determine the presence of other fans, but fans 1 and 2
++	 * are (in principle) always there.
++	 *
++	 * In practice this is perhaps a little silly, because the system
++	 * using this driver is mostly likely a BMC, and hence probably has
++	 * totally separate fan tachs & pwms of its own that are actually
++	 * controlling/monitoring the fans -- these are thus unlikely to be
++	 * doing anything actually useful.
++	 */
++	data->has_fan = 0x03;
++	data->has_fan_min = 0x03;
++	data->has_pwm = 0x03;
++
++	/*
++	 * Because on a BMC this driver may be bound very shortly after power
++	 * is first applied to the device, the automatic TSI channel detection
++	 * in nct6775_probe() (which has already been run at this point) may
++	 * not find anything if a channel hasn't yet produced a temperature
++	 * reading.  Augment whatever was found via autodetection (if
++	 * anything) with the channels DT says should be active.
++	 */
++	if (!of_property_read_u32(client->dev.of_node, "nuvoton,tsi-channel-mask",
++				  &tsi_channel_mask))
++		data->have_tsi_temp |= tsi_channel_mask & GENMASK(NUM_TSI_TEMP - 1, 0);
++
++	return 0;
++}
++
++static const struct regmap_config nct6775_i2c_regmap_config = {
++	.reg_bits = 16,
++	.val_bits = 16,
++	.reg_read = nct6775_i2c_read,
++	.reg_write = nct6775_i2c_write,
++};
++
++static int nct6775_i2c_probe(struct i2c_client *client)
++{
++	struct nct6775_data *data;
++	const struct of_device_id *of_id;
++	const struct i2c_device_id *i2c_id;
++	struct device *dev = &client->dev;
++
++	of_id = of_match_device(nct6775_i2c_of_match, dev);
++	i2c_id = i2c_match_id(nct6775_i2c_id, client);
++
++	if (of_id && (unsigned long)of_id->data != i2c_id->driver_data)
++		dev_notice(dev, "Device mismatch: %s in device tree, %s detected\n",
++			   of_id->name, i2c_id->name);
++
++	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->kind = i2c_id->driver_data;
++
++	data->read_only = true;
++	data->driver_data = client;
++	data->driver_init = nct6775_i2c_probe_init;
++
++	return nct6775_probe(dev, data, &nct6775_i2c_regmap_config);
++}
++
++static struct i2c_driver nct6775_i2c_driver = {
++	.class = I2C_CLASS_HWMON,
++	.driver = {
++		.name = "nct6775-i2c",
++		.of_match_table = of_match_ptr(nct6775_i2c_of_match),
++	},
++	.probe_new = nct6775_i2c_probe,
++	.id_table = nct6775_i2c_id,
++};
++
++module_i2c_driver(nct6775_i2c_driver);
++
++MODULE_AUTHOR("Zev Weiss <zev@bewilderbeest.net>");
++MODULE_DESCRIPTION("I2C driver for NCT6775F and compatible chips");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS(HWMON_NCT6775);
+-- 
+2.36.0
 
-Does the ast2400/ast2500 method cs0/cs1 method work on 2600 too? If
-so, should we enable the boot switch sysfs files for 2600 too?
-
-Regarding the abr mode, could we create a piece of shared code that is
-used by both the FMC and SEC. It would be called by the respective
-drivers to register the sysfs files, with a pointer to the appropriate
-registers.
-
-> attr1 "access_backup": (only appears in primary and compatible is "aspeed=
-,ast2600-fmc")
-> store: The parameter is the timeout time for fmc_wdt2, if written, timer =
-will be enabled, if timeout, will reboot from backup.
-> show: the time left in fmc_wdt2 timer. 0 means timer is not enabled.
->
-> attr2 "access_primary=E2=80=9D: (only appears in backup, and compatible i=
-s "aspeed,ast2600-fmc")
-> store: Non-zero values indicate access to primary, 0 indicate access to b=
-ackup
-> show: 0: next reboot will boot from backup, 1 : will boot from primary.
-
-I think this makes sense. I'd suggest coding it up and putting it on
-the list. As C=C3=A9dric mentioned, adding support to Qemu would be useful
-for testing too.
-
-A separate concern is adding support to u-boot, so u-boot can pat the
-watchdog in early boot (and when sitting at the u-boot prompt).
-
-Thanks for sending your proposal along.
-
-Cheers,
-
-Joel
