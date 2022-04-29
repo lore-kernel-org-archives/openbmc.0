@@ -4,70 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07E7AC433F5
-	for <openbmc@archiver.kernel.org>; Fri, 29 Apr 2022 17:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF03C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 29 Apr 2022 17:23:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KqfT53Bqdz3bqF
-	for <openbmc@archiver.kernel.org>; Sat, 30 Apr 2022 03:23:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KqfTn1QVDz3bdg
+	for <openbmc@archiver.kernel.org>; Sat, 30 Apr 2022 03:23:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=UsxigpwS;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=dA4cH0SD;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.20; helo=mout.gmx.net;
+ (client-ip=212.227.17.21; helo=mout.gmx.net;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=UsxigpwS; 
+ header.s=badeba3b8450 header.b=dA4cH0SD; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KqfR308T6z3bYS
- for <openbmc@lists.ozlabs.org>; Sat, 30 Apr 2022 03:21:16 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KqfR30CSZz3bZZ
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Apr 2022 03:21:18 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1651252835;
- bh=2h4V0W/yZhCGU1mSyzjHlAuoaUTbxzS6gJejM6vkUcc=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=UsxigpwSjfbS0HKai5sT9/OgsaE1eJu29VEgfFrBixpIDJisHnShF/6KGIuvqR3tT
- oIkG/nN0UmL/MlQgLkjdPkxB8SuSNggQ3olLPmwnuxRlo90pzlqbzoO2VNjGjFWmQG
- OuyIuY6aA/i+kqVP1pwHHBpBfItmrvVAKECFxDOs=
+ s=badeba3b8450; t=1651252841;
+ bh=IhOdbQHhR5x4m2YHZI3GQ3kZqNDq8I52f2wlB/H7xmQ=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=dA4cH0SDbhY7UYk9O9kn3Rwqm7xs44n0nL1OVpQtvTcXxiTqsuo/Rt4fI+B50M47A
+ wW1hMSQlxpQ23uE0N53bUuxqy8jqu9v8ru5Pvd000/ow5s96FsuLOxWsvPMSIqnA9M
+ I3URDEZpJhETZjK9I2rjEI3H07pf1C4z4vkSGG7w=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.103]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MBlxM-1nYPT50EGK-00CATa; Fri, 29
- Apr 2022 19:20:35 +0200
+Received: from longitude ([37.201.215.103]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MhU5b-1oP1uk2O5D-00egWU; Fri, 29
+ Apr 2022 19:20:41 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-clk@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v2 0/7] Nuvoton WPCM450 clock and reset driver
-Date: Fri, 29 Apr 2022 19:20:23 +0200
-Message-Id: <20220429172030.398011-1-j.neuschaefer@gmx.net>
+Subject: [PATCH v2 3/7] watchdog: npcm: Enable clock if provided
+Date: Fri, 29 Apr 2022 19:20:26 +0200
+Message-Id: <20220429172030.398011-4-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220429172030.398011-1-j.neuschaefer@gmx.net>
+References: <20220429172030.398011-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:TwLeqC0Md/m/ttyQAH8dOoovZVevV61hYozSDqi4RiDGLFt1HpI
- F4vnLOhH3qGNu8Ob+KwyGa8g8zikwbZ3yRSdu97LnDkVon+U0nKqckfpmgwlpomC+kV9v0C
- 44G9l/cZKGNUgDhpI+nQQMq7n1hASAQkTI8CUeBoVWWCd4G6dTiIyOAY84nL/HI8R78plRR
- wbkeCJC8EzSwcIKawVbGw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:3ZFw5jkiuog=:39Sd7Zc9bT++8WE1jaR3bU
- 49oHNXN70y/k456eSqtJRPUA3b1MgZnRGoG/0a+bGA579Px7GzP/2ELmTEAupf+kxSFFzKWfZ
- 7AyFAr1MMLa6X9qUImPQTkuKThlDbb+4COriI5kSXEY9ZOTwFXQq7FdUDmxiQNsuK8IanUWQK
- htemUfBrV5P0TVslwbr9E1nbc2b5bqLNMvt4LJ7ejQY4Qn7HLuiHWiQzcODEWlo/cgq41myFG
- dJAG4mhyyFZxTZ9c6XP8CKXknXRbM7whzddETbGQQAD4i0yAYb14oudC2nGeunL7j5xEzzWQl
- 4dE0DRQ8hFL6SeylDXRZT/GbJOa5hg0Ig+XFYArwV9CPxzgSQh8jL5wVg2hjng6Et5vpt45oe
- o225HMdimy85rZkKPD2uNGTXwBAj4r+pKdtIZ9O9RiZYm9pTekGL6bMkkgZSYFzeTp4SBtEEB
- 2iMVMgbYTaceVEhbv9RvKV/D26RNXdB+EEB52pS3Isl7/BqHnRMCujH/qagrSxsZy/FYi9zNd
- blhmOc+Y/QnE4nkll+rYI1z7TYoPiflty/O2g+v/rNB69/esNHdw49fP6E6jwPud3vqkXA+8a
- IzV2KwZpxZewsaYB6hvsq2YCMbhFOWsbY3BqJ4ohuEUYZrcojN9IpqUg+si+84RsQ2EH4lw9O
- YNh7f1qgEiJE6XBGcrBoB7NhaLZ+ZvAIvUIbx8xktUXRd9Qh+KV+4i1hWyxRzNLJaObWP2DiX
- fvDTKREuaELFCZdX9HUf6TmiaEgfMFwCslxWczjHNUarWFBC78ePWBXi3Lz1jdT42P2XMQypK
- RNNgYnVtxzKntm2SqBTNab0wegmBTZwDMD/V/Ja69VwIgaIDuIiUQfjjVYyvN3SKcFp7z5xE7
- ChFpcZkKJuEqscq38EuULjWJX8wp64C855bzO+RkDrE8l8ViMB9Qqd4o3+0Gr0G40QPAKGcjp
- Z+zr6muGR8WcSZ6Mo4UrGZ+cJfCRynWoUxCzkWMa3PxBcjF0ApapvieL2iCez9x4y89t3bCjt
- 3IXFynkqME34CrEH2lIFBiV8q15pX1vsT8YzxNUiFQy25LGeWi6Stlyfg3d1q1/U9gEAP0+lP
- oAkFGfO2rZDrkM=
+X-Provags-ID: V03:K1:66AxyOQT8oGkP067LNEqWrXN+/37a9u2A+gPdM7rlN8B6lFXd0C
+ 8Vk9WD1HaD188zOsZF0JP1gnmOLarpkqZk6LLlwxgzV14Q4++88f76f2rp3T2edEAr6ldgm
+ hw8mK0il9mfN4zu/KWIv2bu2HmDhQlbZa5yx/RW0B++GLzdq3+Bo/FtEbvOBlBAQddX6EKl
+ Sm0ciC2AUtqmRWUgYx9Aw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:XW/wXwxEP5U=:79Z8+UWKUEfRNtNA52vATW
+ wJFlpXQJKhon4qx2TxrMMafIyL42sVkPIPJc2rskAGgzgC/FOeO11fz/QefenLXsMdT2VELUZ
+ 44RvnWRl9TPWPXFuNifEoW5suiHjvuY/oylL5uONKdU1IKO7S/05YD2iHDLQdJhosyUlszwca
+ Ml7tmlixRU25mCTiCL74raMH9tMvSHlCe5iOvP6su/sorGLf8Wl0zthZY7d7afFMdaOkuJIBm
+ g3TisDJASG5vMTJzvfDx2RLUS/WrRF0xtWuyyTuNgWVqN7tIPCuVaJY+w8kos6lSVqonJ0AIw
+ K+DvAbjynU5mDgi57yL06M1vA0Zh/81frCfu3tr4x+ybQFFyY+8jmwzurKQkbzh+zK129HKMy
+ Piqzc4u2jIhptvRb4wt2349hNO2QKXhEWFWvVE4nG+tO6AGA5qYjB9RyVLnrDY0m5ZrAO55VX
+ 4HrmdaQFZkE1H+WuASdeVgkQ4/XSi92Nss09TT/whzE+coMujv1LjXxzu873DfEuM/JdV1dve
+ /6BjlVdcZik3FxrfVEW8v3Y7Frb8aPbBGlu6kN+NUENulhgMQnPE69UtdeWeKh/wPGmyVy3Yo
+ QnpdzhUU2eREX/6u+oxsrbQoWXUe7hEFJzRAoiJ7hV5DvtTNLCUbqvIu47Sw2bG7g2JGbMNQ3
+ xg1sseJbybmGgPZ6iB8EgHeoavAparMN3E5ZZYefvjp8WF0g/xbmKUdnh1v7mXrtYgLIfH7q7
+ kX0+uL/DGFayDSWpid6Oee0WV9Z4FJQlDKBaqXH8kf3vGfK0lnDBropu5VhG6NUxoKld8TEjx
+ kxYHUnGvYf1yKfbaW8nepoWjH/MB8+ulZuMJCfBQNb9kVoHCQG/leKLHp2KNz549Xgu6pj3WZ
+ 1/tmhHj3EwYY9IYDuizRfGxbGxXfS1Q4JsTbidV/g2km8iWaRf52h5uJ8j6e139mOg1Mnu9Cg
+ doffYObyOKXwiMY3u7o9xeJ2627y0zmhgTrd5htadJt8Epe46DJt2NEnHSey+N4IGp5BKScFk
+ cjxH7sV41R9R0XXihvJ9ZuF6liBUblweYxIhR7O/3sA9V4SSCMeabkEOwV2Y0kzARsDmkzMdp
+ y3SNDVoqkCNZpY=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,67 +97,75 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series adds support for the clock and reset controller in the Nuvoton
-WPCM450 SoC. This means that the clock rates for peripherals will be calcu=
-lated
-automatically based on the clock tree as it was preconfigured by the bootl=
-oader.
-The 24 MHz dummy clock, that is currently in the devicetree, is no longer =
-needed.
-Somewhat unfortunately, this also means that there is a breaking change on=
-ce
-the devicetree starts relying on the clock driver, but I find it acceptabl=
-e in
-this case, because WPCM450 is still at a somewhat early stage.
+On the Nuvoton WPCM450 SoC, with its upcoming clock driver, peripheral
+clocks are individually gated and ungated. Therefore, the watchdog
+driver must be able to ungate the watchdog clock.
 
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
 
-Upstreaming plan (although other suggestions are welcome):
-
-Once reviewed,
-
-- The ARM/dts changes should go through Joel Stanley's bmc tree
-- The clocksource/timer changes should probably go via Daniel Lezcano and =
-TIP
-- The watchdog patch should go via the watchdog tree
-- The clock controller bindings and driver should go through the clk tree
-- It might make sense to delay the final ARM/dts patch ("ARM: dts: wpcm450=
-:
-  Switch clocks to clock controller") until next cycle to make sure it is
-  merged after the clock driver.
-
-
-New in version 2:
-- various small improvements
+v2:
+- Add clk_disable_unprepare call, suggested by Guenter Roeck
 
 v1:
-- https://lore.kernel.org/lkml/20220422183012.444674-1-j.neuschaefer@gmx.n=
+- https://lore.kernel.org/lkml/20220422183012.444674-4-j.neuschaefer@gmx.n=
 et/
+=2D--
+ drivers/watchdog/npcm_wdt.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index 28a24caa2627c..ee08d9805f966 100644
+=2D-- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -3,6 +3,7 @@
+ // Copyright (c) 2018 IBM Corp.
 
-Jonathan Neusch=C3=A4fer (7):
-  dt-bindings: timer: nuvoton,npcm7xx-timer: Allow specifying all clocks
-  clocksource: timer-npcm7xx: Enable timer 1 clock before use
-  watchdog: npcm: Enable clock if provided
-  dt-bindings: clock: Add Nuvoton WPCM450 clock/reset controller
-  ARM: dts: wpcm450: Add clock controller node
-  clk: wpcm450: Add Nuvoton WPCM450 clock/reset controller driver
-  ARM: dts: wpcm450: Switch clocks to clock controller
+ #include <linux/bitops.h>
++#include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+@@ -43,6 +44,7 @@
+ struct npcm_wdt {
+ 	struct watchdog_device  wdd;
+ 	void __iomem		*reg;
++	struct clk		*clk;
+ };
 
- .../bindings/clock/nuvoton,wpcm450-clk.yaml   |  66 +++
- .../bindings/timer/nuvoton,npcm7xx-timer.yaml |   8 +-
- arch/arm/boot/dts/nuvoton-wpcm450.dtsi        |  29 +-
- drivers/clk/Makefile                          |   1 +
- drivers/clk/clk-wpcm450.c                     | 378 ++++++++++++++++++
- drivers/clocksource/timer-npcm7xx.c           |  10 +
- drivers/reset/Kconfig                         |   2 +-
- drivers/watchdog/npcm_wdt.c                   |  12 +
- .../dt-bindings/clock/nuvoton,wpcm450-clk.h   |  67 ++++
- 9 files changed, 564 insertions(+), 9 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,wpcm45=
-0-clk.yaml
- create mode 100644 drivers/clk/clk-wpcm450.c
- create mode 100644 include/dt-bindings/clock/nuvoton,wpcm450-clk.h
+ static inline struct npcm_wdt *to_npcm_wdt(struct watchdog_device *wdd)
+@@ -66,6 +68,9 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
+ 	struct npcm_wdt *wdt =3D to_npcm_wdt(wdd);
+ 	u32 val;
 
++	if (wdt->clk)
++		clk_prepare_enable(wdt->clk);
++
+ 	if (wdd->timeout < 2)
+ 		val =3D 0x800;
+ 	else if (wdd->timeout < 3)
+@@ -100,6 +105,9 @@ static int npcm_wdt_stop(struct watchdog_device *wdd)
+
+ 	writel(0, wdt->reg);
+
++	if (wdt->clk)
++		clk_disable_unprepare(wdt->clk);
++
+ 	return 0;
+ }
+
+@@ -191,6 +199,10 @@ static int npcm_wdt_probe(struct platform_device *pde=
+v)
+ 	if (IS_ERR(wdt->reg))
+ 		return PTR_ERR(wdt->reg);
+
++	wdt->clk =3D devm_clk_get_optional(&pdev->dev, NULL);
++	if (IS_ERR(wdt->clk))
++		return PTR_ERR(wdt->clk);
++
+ 	irq =3D platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
 =2D-
 2.35.1
 
