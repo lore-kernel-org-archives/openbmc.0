@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A1A4C433EF
-	for <openbmc@archiver.kernel.org>; Thu,  5 May 2022 20:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7490C433EF
+	for <openbmc@archiver.kernel.org>; Thu,  5 May 2022 20:30:38 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KvQKz0CM8z3byb
-	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 06:29:59 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KvQLj3Vb3z2yWn
+	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 06:30:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gDUdb66r;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Wl5HaYZP;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=gDUdb66r; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ header.s=pp1 header.b=Wl5HaYZP; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KvQJT2VT6z3brQ
- for <openbmc@lists.ozlabs.org>; Fri,  6 May 2022 06:28:40 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 245KKmhl020491;
- Thu, 5 May 2022 20:28:37 GMT
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KvQJV01Sjz3brq
+ for <openbmc@lists.ozlabs.org>; Fri,  6 May 2022 06:28:41 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 245KPkfG022899;
+ Thu, 5 May 2022 20:28:39 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=CGK6jVjA5dP+r1maCFQL7NxOA7RUqgbKFTwYT1tTsl4=;
- b=gDUdb66rXGYHaSJTYqO7n2r/tSguPIvPUDnZNQ41mGjYlq8mo4hKpqw+d7M7Y2oQHHpl
- q9Xxjn0EtM9R8d6n7e1PRed8dHZ/sTn3nVrtthnwrx5t6enF+VqbtgIHZsZJJP+rju4z
- TaU3aDMPp8hQKL2U3SJsekiGVVDxKEvRT+lWZtVrptxjzTWCAFP4mE3MbEvtFhoDa/nF
- qOdgg87CIvpD8sK5GFvpP4cNWD81sSfs46xlwi6sI/GTjb3VBIk4GhR5jk/8n4f/yKWa
- EAMQfKwUai/icrLZNuY4Rp3DIwV6uPLPrN0bFqY1A9KiXcNW27273BI/E6pt1v7fgPas SQ== 
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3fvnhq03p6-1
+ bh=+i/izaS2tUeCZ1i5HZRZvDpuKxbejNCoQsOm4vY08Ic=;
+ b=Wl5HaYZP5MNyJJAOSOVhtIojNpirJT6WrEFWoKdXYCS2dCGrhBzco0oOMmROT0LJfKio
+ j5K9tnZzVxxmKFhLYi3juMAZHnq9mMh/G0ybRWGZr4tTKxTY+4HB5BDDRunSG80Sp2Tj
+ uJSJT+A+Of41nHN2Hpvd4RSMsNxYu3xANa4hJjKpTlJvgb89MFD0rojcV+uKR3OdJn4I
+ woTiTYOWHj0vU5hoKhdI4pzhB1MzsKqqNBsL9CtN0txRWiBWvnhR0jpZtyN8FG8v1MaR
+ lkOWLqkn4n/WhjxOAuCq1tbKgLojP1ZmKa06E6ZQlTGA9F6STzMhu5aPona9gc4TsNHt 2w== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3fvnm201h3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 May 2022 20:28:37 +0000
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 245KSJmM003151;
- Thu, 5 May 2022 20:28:37 GMT
+ Thu, 05 May 2022 20:28:38 +0000
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 245KSIcK007540;
+ Thu, 5 May 2022 20:28:38 GMT
 Received: from b03cxnp07027.gho.boulder.ibm.com
  (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma01wdc.us.ibm.com with ESMTP id 3frvr9v0yp-1
+ by ppma02dal.us.ibm.com with ESMTP id 3frvracw7m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 May 2022 20:28:37 +0000
+ Thu, 05 May 2022 20:28:38 +0000
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
  by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 245KSadb19726682
+ 245KSakI10224022
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Thu, 5 May 2022 20:28:36 GMT
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EDB41136061;
- Thu,  5 May 2022 20:28:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id A916513605D;
+ Thu,  5 May 2022 20:28:36 +0000 (GMT)
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B0DC3136059;
- Thu,  5 May 2022 20:28:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 605B4136053;
+ Thu,  5 May 2022 20:28:36 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.0.208])
  by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu,  5 May 2022 20:28:35 +0000 (GMT)
+ Thu,  5 May 2022 20:28:36 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 1/5] i2c: ast_i2c: Remove SCL
- direct drive mode
-Date: Thu,  5 May 2022 15:28:25 -0500
-Message-Id: <20220505202829.31466-2-eajames@linux.ibm.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 3/5] arm: dts: ast2600-rainier:
+ Add NPCT75X TPM
+Date: Thu,  5 May 2022 15:28:27 -0500
+Message-Id: <20220505202829.31466-4-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220505202829.31466-1-eajames@linux.ibm.com>
 References: <20220505202829.31466-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Lj-2-MFUThJndSEFCRgCFFrZDN-9QIG5
-X-Proofpoint-GUID: Lj-2-MFUThJndSEFCRgCFFrZDN-9QIG5
+X-Proofpoint-GUID: JslstcZ3gy_Pm3zwZAgGh5lDYk3UgYfG
+X-Proofpoint-ORIG-GUID: JslstcZ3gy_Pm3zwZAgGh5lDYk3UgYfG
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-05-05_08,2022-05-05_01,2022-02-23_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0
- lowpriorityscore=0 mlxlogscore=896 spamscore=0 clxscore=1015
- impostorscore=0 malwarescore=0 mlxscore=0 adultscore=0 priorityscore=1501
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ bulkscore=0 impostorscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 clxscore=1015 mlxscore=0 mlxlogscore=818
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2202240000 definitions=main-2205050132
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -105,28 +105,37 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-SCL direct drive mode prevents communication with devices that
-do clock stretching, so disable. The Linux driver doesn't use
-this mode, and the engine can handle clock stretching.
+Add the TPM device on I2C bus 12.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/i2c/ast_i2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/dts/ast2600-rainier.dts | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/i2c/ast_i2c.c b/drivers/i2c/ast_i2c.c
-index bbc32d6cdb..13420ade84 100644
---- a/drivers/i2c/ast_i2c.c
-+++ b/drivers/i2c/ast_i2c.c
-@@ -73,7 +73,7 @@ static void ast_i2c_init_bus(struct udevice *dev)
- 	/* Enable Master Mode. Assuming single-master */
- 	writel(I2CD_MASTER_EN
- 	       | I2CD_M_SDA_LOCK_EN
--	       | I2CD_MULTI_MASTER_DIS | I2CD_M_SCL_DRIVE_EN,
-+	       | I2CD_MULTI_MASTER_DIS,
- 	       &priv->regs->fcr);
- 	/* Enable Interrupts */
- 	writel(I2CD_INTR_TX_ACK
+diff --git a/arch/arm/dts/ast2600-rainier.dts b/arch/arm/dts/ast2600-rainier.dts
+index 8a44fd8a0a..aa91b12ed3 100755
+--- a/arch/arm/dts/ast2600-rainier.dts
++++ b/arch/arm/dts/ast2600-rainier.dts
+@@ -106,12 +106,14 @@
+ 
+ &gpio0 {
+ 	u-boot,dm-pre-reloc;
++};
++
++&i2c12 {
++	status = "okay";
+ 
+-	tpm_reset {
+-		u-boot,dm-pre-reloc;
+-		gpio-hog;
+-		output-high;
+-		gpios = <ASPEED_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
++	tpm@2e {
++		compatible = "nuvoton,npct75x";
++		reg = <0x2e>;
+ 	};
+ };
+ 
 -- 
 2.27.0
 
