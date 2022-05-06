@@ -4,57 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3985C433F5
-	for <openbmc@archiver.kernel.org>; Thu,  5 May 2022 23:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC11C433F5
+	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 06:05:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KvVHP0yh6z3bwg
-	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 09:28:01 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Kvg5f6s29z3c7J
+	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 16:05:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=YQOvXL0V;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=djRW4GTN;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
- helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ smtp.mailfrom=9elements.com (client-ip=2607:f8b0:4864:20::431;
+ helo=mail-pf1-x431.google.com; envelope-from=patrick.rudolph@9elements.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=YQOvXL0V; 
- dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [71.19.156.171])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256
+ header.s=google header.b=djRW4GTN; dkim-atps=neutral
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KvVFK52zdz3bqJ
- for <openbmc@lists.ozlabs.org>; Fri,  6 May 2022 09:26:13 +1000 (AEST)
-Received: from hatter.bewilderbeest.net (174-21-163-222.tukw.qwest.net
- [174.21.163.222])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 5C7A3331;
- Thu,  5 May 2022 16:26:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1651793169;
- bh=L4IB0VoUFCWwJW2jk1V0bP//XVHc5hIoPCrUlnX1oXU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YQOvXL0VJDatl+irFLuOtu1857mb91W96sEGVLTJ5zMg2eVP/bxSUFuFYRCL62/SZ
- w8OPcwBDnHJ0yvJfr8drtv0hZUbILNTpKKEfvF79Sek/cJZqsxhOjdQaFThODYu9cA
- Z9Pu8Fh8dfoGR637s6xOdQbtEw1qFQhc1OwlsRuM=
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: connector: Add regulator-connector binding
-Date: Thu,  5 May 2022 16:25:56 -0700
-Message-Id: <20220505232557.10936-2-zev@bewilderbeest.net>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220505232557.10936-1-zev@bewilderbeest.net>
-References: <20220505232557.10936-1-zev@bewilderbeest.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Kvg4w6LShz3bqd
+ for <openbmc@lists.ozlabs.org>; Fri,  6 May 2022 16:04:30 +1000 (AEST)
+Received: by mail-pf1-x431.google.com with SMTP id y41so627531pfw.12
+ for <openbmc@lists.ozlabs.org>; Thu, 05 May 2022 23:04:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=9elements.com; s=google;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=zmDbjFCUO9etDHREg+pJ53E2SH8ktdMRc6nf4hHusHw=;
+ b=djRW4GTN+TJaPQs8ykmkVJuOQUTO5rZoYRK++Ft6yBc8rj7XZpTTmMuCxlt1Ivovbk
+ DoElEKv+rOVYQ8S1gKCekQxIfFCs1vdS2UoKW88Fm3QGznsKt4cn5Yy4V5IreN4R84BB
+ xmD1/eyjkMliIVnzYIwWUql9gIgHyg0XCZK+V9x7l6Rkjigu2WESZO1/yOxCTQDbrcSo
+ FCLP5Bied4UgKAJ0ka6CoXbYddgMZb6PzQeWticHKlJ1jD3f9mW5ngGwsrKljNi1O3Sv
+ SzWTmiwZuhGY8hC09whFOIT9TJiFeHSyNAT4d5S3+BoEJtHSMOBPB6GiFLZsa9AomgUb
+ 9pjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=zmDbjFCUO9etDHREg+pJ53E2SH8ktdMRc6nf4hHusHw=;
+ b=Kf1dWuDhWs7rSKW9BdjC/B9KoAwlkHQaCBG1f7IN5K/qTb0EoRwaJx0b41a+Xa2rge
+ 7WPfOqJr1b1E51QnyipEClnRuqn61U0g++03IGRhEYMalrQ5idaWCEdJe+eU74x7tmsL
+ FohMFmRWtDEt4HlSRvMHPerw2hLl+FoHJXH1HLz2Xf8tl04sHlTzTWHWE1HuvoMcQUWj
+ 0rP7tLuJYYaBUpM8112rjCa6ll7Yzl81ggcBBo2v+LNTVSr2IcfvtBcu0Feuv5s2zgAw
+ TfiHsUfFSWIwkiF2vC+WAEYS2gHXUHAcuHMH2F7e/QPkMM+Jo1XImewTx0qKqBOT/1d+
+ FOgA==
+X-Gm-Message-State: AOAM532QUpsBnCYoSre6sdbXGT2uedo4i+hx+ZkYKG79iozdUn9Qze6S
+ lWTjMcKIJmP6vTmMdyj/xma3iNcsszBzqx+XLYVQ/p3+pxf6vg==
+X-Google-Smtp-Source: ABdhPJxDdFNQ6J772dQBoQrmRoTXrC8A6F+Zx9vTI9trJdoyDpWxIFI6UHsQ/T3abZZtlDD5eF5ZsYI5UCKAQLFWk9I=
+X-Received: by 2002:a05:6a00:114b:b0:4f7:915:3ec3 with SMTP id
+ b11-20020a056a00114b00b004f709153ec3mr1807905pfm.8.1651817067134; Thu, 05 May
+ 2022 23:04:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Patrick Rudolph <patrick.rudolph@9elements.com>
+Date: Fri, 6 May 2022 08:04:16 +0200
+Message-ID: <CALNFmy39ph1pQoVavHZbdTCACLMxf38f86WKH-CbPbrHDoomNg@mail.gmail.com>
+Subject: Aspeed platforms: MAC address provisioning
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +75,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This describes a power connector supplied by a regulator, such as a
-power outlet on a power distribution unit (PDU).
+Hi,
+I'm looking for the generic "OpenBMC way" of provisioning the BMC MAC
+address on platforms with an integrated NIC. In the past there has
+been the u-boot "u-boot-initial-env" target to create an environment,
+but it's no longer used on u-boot-common-aspeed-sdk_2019.04.
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
- .../connector/regulator-connector.yaml        | 38 +++++++++++++++++++
- 1 file changed, 38 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/connector/regulator-connector.yaml
+What's the default/common/preferred way of provisioning an unique MAC
+address in production? Should it be stored in an I2C EEPROM or should
+the u-boot env be created from the running system?
 
-diff --git a/Documentation/devicetree/bindings/connector/regulator-connector.yaml b/Documentation/devicetree/bindings/connector/regulator-connector.yaml
-new file mode 100644
-index 000000000000..96825b6f608a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/connector/regulator-connector.yaml
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+
-+$id: http://devicetree.org/schemas/connector/regulator-connector.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Regulator output connector
-+
-+maintainers:
-+  - Zev Weiss <zev@bewilderbeest.net>
-+
-+description: |
-+  This describes a power connector supplied by a regulator, such as a
-+  power outlet on a power distribution unit (PDU).  The connector may
-+  be standalone or merely one channel or set of pins within a ganged
-+  physical connector carrying multiple independent power outputs.
-+
-+properties:
-+  compatible:
-+    const: regulator-connector
-+
-+  vout-supply:
-+    description:
-+      Phandle of the regulator supplying the connector.
-+
-+required:
-+  - compatible
-+  - vout-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+      output {
-+          compatible = "regulator-connector";
-+          vout-supply = <&output_reg>;
-+      };
--- 
-2.36.0
+Regards,
+Patrick Rudolph
+B.Sc. Electrical Engineering
+System Firmware Developer
 
+9elements GmbH, Kortumstra=C3=9Fe 19-21, 44787 Bochum, Germany
+Email: patrick.rudolph@9elements.com
+Phone:  +49 234 68 94 188
+
+Sitz der Gesellschaft: Bochum
+Handelsregister: Amtsgericht Bochum, HRB 17519
+Gesch=C3=A4ftsf=C3=BChrung: Sebastian Deutsch, Eray Basar
+
+Datenschutzhinweise nach Art. 13 DSGVO
