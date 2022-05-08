@@ -4,66 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC11C433F5
-	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 06:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7746FC433EF
+	for <openbmc@archiver.kernel.org>; Sun,  8 May 2022 19:45:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Kvg5f6s29z3c7J
-	for <openbmc@archiver.kernel.org>; Fri,  6 May 2022 16:05:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KxFBq64wwz3c8t
+	for <openbmc@archiver.kernel.org>; Mon,  9 May 2022 05:45:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=djRW4GTN;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=KPG+FxkK;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=9elements.com (client-ip=2607:f8b0:4864:20::431;
- helo=mail-pf1-x431.google.com; envelope-from=patrick.rudolph@9elements.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256
- header.s=google header.b=djRW4GTN; dkim-atps=neutral
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
+ (client-ip=212.227.17.20; helo=mout.gmx.net;
+ envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
+ header.s=badeba3b8450 header.b=KPG+FxkK; 
+ dkim-atps=neutral
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Kvg4w6LShz3bqd
- for <openbmc@lists.ozlabs.org>; Fri,  6 May 2022 16:04:30 +1000 (AEST)
-Received: by mail-pf1-x431.google.com with SMTP id y41so627531pfw.12
- for <openbmc@lists.ozlabs.org>; Thu, 05 May 2022 23:04:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=9elements.com; s=google;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=zmDbjFCUO9etDHREg+pJ53E2SH8ktdMRc6nf4hHusHw=;
- b=djRW4GTN+TJaPQs8ykmkVJuOQUTO5rZoYRK++Ft6yBc8rj7XZpTTmMuCxlt1Ivovbk
- DoElEKv+rOVYQ8S1gKCekQxIfFCs1vdS2UoKW88Fm3QGznsKt4cn5Yy4V5IreN4R84BB
- xmD1/eyjkMliIVnzYIwWUql9gIgHyg0XCZK+V9x7l6Rkjigu2WESZO1/yOxCTQDbrcSo
- FCLP5Bied4UgKAJ0ka6CoXbYddgMZb6PzQeWticHKlJ1jD3f9mW5ngGwsrKljNi1O3Sv
- SzWTmiwZuhGY8hC09whFOIT9TJiFeHSyNAT4d5S3+BoEJtHSMOBPB6GiFLZsa9AomgUb
- 9pjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=zmDbjFCUO9etDHREg+pJ53E2SH8ktdMRc6nf4hHusHw=;
- b=Kf1dWuDhWs7rSKW9BdjC/B9KoAwlkHQaCBG1f7IN5K/qTb0EoRwaJx0b41a+Xa2rge
- 7WPfOqJr1b1E51QnyipEClnRuqn61U0g++03IGRhEYMalrQ5idaWCEdJe+eU74x7tmsL
- FohMFmRWtDEt4HlSRvMHPerw2hLl+FoHJXH1HLz2Xf8tl04sHlTzTWHWE1HuvoMcQUWj
- 0rP7tLuJYYaBUpM8112rjCa6ll7Yzl81ggcBBo2v+LNTVSr2IcfvtBcu0Feuv5s2zgAw
- TfiHsUfFSWIwkiF2vC+WAEYS2gHXUHAcuHMH2F7e/QPkMM+Jo1XImewTx0qKqBOT/1d+
- FOgA==
-X-Gm-Message-State: AOAM532QUpsBnCYoSre6sdbXGT2uedo4i+hx+ZkYKG79iozdUn9Qze6S
- lWTjMcKIJmP6vTmMdyj/xma3iNcsszBzqx+XLYVQ/p3+pxf6vg==
-X-Google-Smtp-Source: ABdhPJxDdFNQ6J772dQBoQrmRoTXrC8A6F+Zx9vTI9trJdoyDpWxIFI6UHsQ/T3abZZtlDD5eF5ZsYI5UCKAQLFWk9I=
-X-Received: by 2002:a05:6a00:114b:b0:4f7:915:3ec3 with SMTP id
- b11-20020a056a00114b00b004f709153ec3mr1807905pfm.8.1651817067134; Thu, 05 May
- 2022 23:04:27 -0700 (PDT)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KxFB25Hrvz3bdK
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2022 05:44:24 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1652039024;
+ bh=mGjWYLEwtu+ry5GXvt2ravbif89/+OFp+v9Ndwokqdo=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=KPG+FxkKQDZ5nsfn9b/rDbyRj/EIqKAafJrmd0UKHk3sF7F0EpIr9E0HuW+sj9MmE
+ F6jSp87+YhIrpWvSy/70KQZZgiUasjqmT3gk+bqpdehgm0Tu1LSAxs+xcWauIFHWJO
+ LN0zyxBJ2Q90EaNevt4+QnKnN3sWHZxrhChH4Y5M=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from longitude ([37.201.215.103]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M59C8-1noskF3cxw-001D9L; Sun, 08
+ May 2022 21:43:43 +0200
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-clk@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH v3 1/7] dt-bindings: timer: nuvoton,
+ npcm7xx-timer: Allow specifying all clocks
+Date: Sun,  8 May 2022 21:43:26 +0200
+Message-Id: <20220508194333.2170161-2-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220508194333.2170161-1-j.neuschaefer@gmx.net>
+References: <20220508194333.2170161-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
-From: Patrick Rudolph <patrick.rudolph@9elements.com>
-Date: Fri, 6 May 2022 08:04:16 +0200
-Message-ID: <CALNFmy39ph1pQoVavHZbdTCACLMxf38f86WKH-CbPbrHDoomNg@mail.gmail.com>
-Subject: Aspeed platforms: MAC address provisioning
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:+B8D9NNv1GquKXyh+yewe8u/YXwDSp0omRF9EcPdcedfR2AXylE
+ J1AAfDCtk1qY+HAxFunLVRrV18OJHIvc7EDyOOtcTwouPCChp/DNsHnUQHZDqgWERyuPagV
+ X3P1BvR4gdkav6U/K/2NPsrhWLngw/NR5mURmKEnd+ZzDRYHM7q7F0VB6IL7wxqCkulSdi9
+ N3W8ciYjZX4nRwIkhXYvg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:3V62gOaobJc=:u7MPmttD/cbQagij6o+M6e
+ A1ZgpIfOP04t2VpF2yls4Fr1yKyPFRpoJAVOsfVK3lip+W4IH6N1atgx+OYVetTttNeE6sJe8
+ UFvKAKZ7rIDLPMnxXkzCQ1HTarfQ8W+Zdsks+9dSjg25zN1RbNF+wUUfeS1qBa4yj21neK38i
+ +FsmfZSiHWlv9dIa14fF+lceiHFEElLdVfZK1uj+YZbqPveniamE8ccpQIK0/U1xuFaFgCKsU
+ 6CsIy0FsbEE9DdBDpwL0FDsfkAUHJ8CLvvIVEtmHIAf8Xo3YId+07sCAZLFKCPH12bvRQPqSx
+ AtdPOYd+4htYu86XBjRSkKiHSkG9w2hG/XtTEGea32xKLScSm7Mue2rPzc1PhK8FyelEb3Fhk
+ kfB65E7zXM3FTwmUcSkZKQsMSHpsobQpHu7t3+mYvYFt0E3iVe3ld0dsWUGL7l8/0veOTPTdk
+ Hfl89lyE9m/kuTbw2DycNFTu08GAlP3+8hfpCdI8Qbp0GvmYlYqyGDOlAJ3sZCqZor6+x1OkE
+ fks595DFnq3ROcqdSVcSqvtx5Gp5WLVrAwAp+pC0MyzboFr/0erS1Wosk6O6QCSrc+xrGw4Du
+ s9ZnU7q9PXs6aiR06M8ckI4AZuIUlxggw8Aa1lGiOh69MokAfR3mnxSZ83zwopw0Np1eYRneb
+ 5mkm5b3cok+GZ8QLShpqXTBICOXyzxW9/d1gXsL7PY7QfCvjA6y8IvFt/8n60BT+Jxj6YMfsl
+ EvTPmKJSW3pcYtthQu5mPTaR9BL3KvcHzROGLEFbAszRf6BhamQJx8zWC7oGL9NAzEowy/ZIE
+ 39fepLWo06hJoD64GqoCZmf6uQ6gK/wV8Y8EcIGhBe5yRniHbRo43EzVlwppfdWCjwYASYEca
+ QQRS3fC1+C71MdUIpJdvuRq9k85w7VejOD/Oj5bLgM1/5EihGiA0CsjHWs/m5Sjw3633cTci2
+ tdmO2yicl189R7qgV92XYLkvyVi2TL/C+WASWvEkZ8F4VwBKk289fpCssVSTDQRCud5PwkTpU
+ AGVvu1qOjbkaFI/DRQsk+P2ODF8N6DLo9cKituwDI3IwO8qU7ifhLkfAnKzWfMAIcD64b30/8
+ 6v6fStfcg2PBro=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,31 +82,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Benjamin Fair <benjaminfair@google.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Guenter Roeck <linux@roeck-us.net>,
+ Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi,
-I'm looking for the generic "OpenBMC way" of provisioning the BMC MAC
-address on platforms with an integrated NIC. In the past there has
-been the u-boot "u-boot-initial-env" target to create an environment,
-but it's no longer used on u-boot-common-aspeed-sdk_2019.04.
+The timer module contains multiple timers. In the WPCM450 SoC, each timer
+runs off a clock can be gated individually. To model this correctly, the
+timer node in the devicetree needs to take multiple clock inputs.
 
-What's the default/common/preferred way of provisioning an unique MAC
-address in production? Should it be stored in an I2C EEPROM or should
-the u-boot env be created from the running system?
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+Reviewed-by: Rob Herring <robh@kernel.org>
+=2D--
 
-Regards,
-Patrick Rudolph
-B.Sc. Electrical Engineering
-System Firmware Developer
+v3:
+- Add R-b tag
 
-9elements GmbH, Kortumstra=C3=9Fe 19-21, 44787 Bochum, Germany
-Email: patrick.rudolph@9elements.com
-Phone:  +49 234 68 94 188
+v2:
+- no changes
+=2D--
+ .../devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml  | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Sitz der Gesellschaft: Bochum
-Handelsregister: Amtsgericht Bochum, HRB 17519
-Gesch=C3=A4ftsf=C3=BChrung: Sebastian Deutsch, Eray Basar
+diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer=
+.yaml b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+index 0cbc26a721514..023c999113c38 100644
+=2D-- a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+@@ -23,7 +23,13 @@ properties:
+       - description: The timer interrupt of timer 0
 
-Datenschutzhinweise nach Art. 13 DSGVO
+   clocks:
+-    maxItems: 1
++    items:
++      - description: The reference clock for timer 0
++      - description: The reference clock for timer 1
++      - description: The reference clock for timer 2
++      - description: The reference clock for timer 3
++      - description: The reference clock for timer 4
++    minItems: 1
+
+ required:
+   - compatible
+=2D-
+2.35.1
+
