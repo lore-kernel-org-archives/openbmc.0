@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 192ACC433EF
-	for <openbmc@archiver.kernel.org>; Sun,  8 May 2022 19:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 490D0C433F5
+	for <openbmc@archiver.kernel.org>; Sun,  8 May 2022 19:46:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4KxFDC5PcXz3bs8
-	for <openbmc@archiver.kernel.org>; Mon,  9 May 2022 05:46:19 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4KxFDv6Znzz3c9S
+	for <openbmc@archiver.kernel.org>; Mon,  9 May 2022 05:46:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=Tbtd0oOd;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=RjEIdeqK;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.22; helo=mout.gmx.net;
+ (client-ip=212.227.17.21; helo=mout.gmx.net;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=Tbtd0oOd; 
+ header.s=badeba3b8450 header.b=RjEIdeqK; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KxFB25G76z3bd9
- for <openbmc@lists.ozlabs.org>; Mon,  9 May 2022 05:44:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KxFB25Yjkz3bdM
+ for <openbmc@lists.ozlabs.org>; Mon,  9 May 2022 05:44:25 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1652039027;
- bh=XVfOBublJT697s4b334rAe6W/GabYUlUTBRHBuTBhbk=;
+ s=badeba3b8450; t=1652039036;
+ bh=ZMFFSXatdPBOGp95nTHs++I59HrGyDFQ5G/SIMPqqhM=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Tbtd0oOdkMsDXF1n3Ux0ph2RxJiqyYb0tDY6P++BmhN/e+iznGvekhTOLxOzVjlT4
- igmUWjro1WUZHg1O3GobuQXl0BpDFZpHh+RzHq+mWs93r8mllPLNSgLuc78oVS0MTA
- GoHI1D2jI1TjKTaS1G6BElFwn6Rtoo0LjwXgEf2s=
+ b=RjEIdeqKWDmOJO5dgr+BdpN++zY6zcrKaVZ2pnkcdtLw5XNe3asI7lmlLvJNsJyXj
+ PvVtQPC7xkGaziwR5ghao0q6zoDZWd0jjllui6MmaX0xEHS7IoWTcVCaCHLusQ+ID6
+ jZsZM3gb3oez8m7qJInVhpAihqewZ06TnaZY6F+Y=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.103]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N8ofO-1nu3cK3CBq-015oXV; Sun, 08
- May 2022 21:43:46 +0200
+Received: from longitude ([37.201.215.103]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MEm6F-1nZDoV2X3D-00GJDe; Sun, 08
+ May 2022 21:43:56 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-clk@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v3 3/7] watchdog: npcm: Enable clock if provided
-Date: Sun,  8 May 2022 21:43:28 +0200
-Message-Id: <20220508194333.2170161-4-j.neuschaefer@gmx.net>
+Subject: [PATCH v3 7/7] ARM: dts: wpcm450: Switch clocks to clock controller
+Date: Sun,  8 May 2022 21:43:32 +0200
+Message-Id: <20220508194333.2170161-8-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220508194333.2170161-1-j.neuschaefer@gmx.net>
 References: <20220508194333.2170161-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:vzkFSMPPiFMDmjP7Vq0zkUC7L1qOOrUXx77prPxKxM5JG7X5Bw1
- 6failCDgS4gKXyhQaublZGP7D3tqW6fJyFX+9hLCjc4rpt4Yr9g0gzqZfWifABWCas2Wndz
- sjZOvqDUULn6wEzEb12IPa41+sDFls2w5G8n4cfH2kYLUF2O5u7/oj7N3wEijQ9tGuI0Bgj
- 2hgBVc30Qr2xnLxdevVRA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:zl9at1OVUvw=:DHCHsKZqeDHrG2eeIxE8MF
- 4qykzY0abfuq0Nkh5diTE0IlRkrYeqRBk4630PBA6ruBHDa+Ezxa+ot4w4lgE33zPIyNnzJ3D
- dTgHMGKzj/TNLRLTx1B+IJvHoh1sY1RCogaNWJ/Pgi3y5Wd4Iffv/9mUGLb3pW4RK81+q6YTK
- YY9iPL5F3pX7DQrO/xJkWme/oUAwJP049gm74EBn4LKnV1rP54dBRhQTj0stCHXbZ8aCY8gYc
- v+89X6RltU5Ptb2Wplvt99sdnEyb85zS3lw57Hl5Z2hkAxRKmy/tBpt72WWGmtjZRWT/fkAPM
- TZtomYXwpNTdtRl94Pyv0/HmkIMSA4L4jyNGsB3drYBol3oyyJ/4niEfLXlFgKHT4lzeO1MHM
- j9qk1YSMlEx2v7KgVvluc/x3vyoj/pcbLHdkL0xkoEunfPrfyWsxwQU5C87K9H2Y9GoE/Hhcj
- Gepabk1f5e1dxVFrAvHpxwyCV1/0G4NxjvOSqZqXN//P+uEm3SLlnOmldfKNOtdlLakHrghc1
- H8hnJS1BAOhZwpnAEer3KlxPQqHkY6zAHs4Fldia/ANUy9viBMrqaclFJsRNO7fzEoyX6N73f
- af9xtZdr4ZbMf4WwzO9q2VGJg5h+Im0ILjUqgYgoA/JbzQBSire9ErIEo9J7TVxWa4hEuqVxF
- wrmhCChpMAMlbRqg9XbsID3FQoGPSZIBWgbBt0PrE8ntkr6yGlcyC9ezBxoIG6XowiLHivzG3
- 0KxC2DBXJ2pGwWLjXjwafwGCF/d3S4bfVe8f5XuLIZ0p2tFyC32Bgt5ZlpU3CmvcNg4gitiB9
- r3nVhoqycmtQ0bs7fgyryAZUAxNw5dmJ4Bp9hl196irU/Fdy6a1zwH8JfUPB4XQ4OHCVG8YQw
- 05NoycP93i789V7ZzsaZiS5o5SBXCfx6OFBF0sIgNwJqKxxDyQo7RY0sRcOf8TzSNEEURmlw4
- oXiH8aqVL4yvLfIYhfclXD1zZzjV2YMiM5dd77brc30OBr09C7oe/iYeOP6eV6tFHMa/29MCp
- mrXYnCy+yaAY4f49g9PWbpiQ5E6c55GInx41N2637GQAekCA81AeHcb8d4lUb6X0574Gg1DeH
- hm/fEOJSKndp18=
+X-Provags-ID: V03:K1:kkDcTVKHYxQWJty64O/zo4HzicYg5+GXVtXaJFZY35ZwbBQKgYd
+ zvZ0lSKISIrw6iDMJ30CaX1EaqdEq5W5IO9XJUBy0Gh7/8kqKAEiVS3LhmC6TI7z9IQucXf
+ JqKzmNiJsHin8PcaWclRQQ5oU0oXvgvqiaouMJH5V6j0w9Kk4bgsuy7UwJU5jOzpZ74yA9m
+ +xh6sCA5teAj0W96PLtEw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:h7PjhEGAGOY=:E9L81qjT7kzz0e1fwo1uT7
+ hP7PDfwv9bFJoDbDNnAEoAeD6NEVYJPBRko2AGHhE2c4NefKXvFE+mKhavU6F132Pc0Ga84WC
+ jG+5Oc5Hg0WtD7vI/Qx9dcU7qjLROxeUhOAQCNiNkhbKs2MoOwUver026OQbwrsPgPm4LBmOC
+ TLdqKJ1RVwRv5ZSzuT7chMxc4qU+YdCrkHBF58CgwQDz9YZA9ZG20hcKyLodBiv5SIDQSDjrS
+ mu+3ffQjErTwwkioRN/2l7Be4b8Kzi4BcXTyLyL+CyNQT+bqRhIn+gQy8+Ye+RwPXOU+xipyd
+ 6F1JK4aHJf6SzOJdNmWBUKNtkx8+p1SnJeVtjU6VpGuAIowdksfXwih+1vhYwFHR2benybRk3
+ E8tSm+YyqXHbPjjDqSkxn/5wYNXHfU6Vz/euXhJEVHPru0tHID+wPfTsSEKXfNBSSnfiYsT0E
+ bbnHBmOe9CRkNO1noDUUixS6PItcivvP2Xo33MeSXE0eXUewx3f7xZnJG8xJA+Ggc0QavlIfn
+ Hp6K9ZScZ6kAEBkRwPJrJuHhHsYdxFtRfdSyhjVQsAcZcmZrXYZv0sh/LB+8zpTSRu/NLoOFM
+ AKfvDfBq+UspetCK7m3vnW7RCbvg2nIL14mwfcp02+y+l+uoB7d+Sl5U8EbFRlD6huvwpexvv
+ ghDkuJ2yrptKI1a49kcTtECiYe+KNtR1BO+zEgTeM+TG0FNH3fq6lLcivQ6Uk+YycR1BTFNfF
+ 3bU+WjihzPQF4h1OgOIHULAngsFKFw4FYFxDMXHp42pKDuJF7s+UhCKqZVDTpqRitgHEuG6JA
+ BGtlo8BSF/TUlG4lwa7q+FcIwQEOLQQh1GalrIieqlKkeHNaeLuTGLlckdF0RetlbtheLLhqE
+ Vp0SWHJDzskYAcEw6xGZdaLrBLQb9afN+UoydsSlz65hBfErrB/VC+v+HGnrxzsyn64s0Vlm4
+ tq798DMw7fpFLru9XucyPLtcNsGmQbgr2KZIgHvrJ5xGnlX7X+s1dfhULtOO8gS5FUYmLHwKi
+ 7iibNhowRvgn9ewxJwU45M1lLex5AsQdEEFWnYMFkZ+9qi6BFFCHMCFTP1QmAgqwrQGhC2oME
+ C30VTj5QQgijc0=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,99 +97,85 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On the Nuvoton WPCM450 SoC, with its upcoming clock driver, peripheral
-clocks are individually gated and ungated. Therefore, the watchdog
-driver must be able to ungate the watchdog clock.
+This change is incompatible with older kernels because it requires the
+clock controller driver, but I think that's acceptable because WPCM450
+support is generally still in an early phase.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
 
-v3:
-- Add enable/disable calls to npcm_wdt_restart handler
-- Not applied due to the above change:  Acked-by: Guenter Roeck <linux@roe=
-ck-us.net>
-
-v2:
-- https://lore.kernel.org/lkml/20220429172030.398011-4-j.neuschaefer@gmx.n=
-et/
-- Add clk_disable_unprepare call, suggested by Guenter Roeck
-
-v1:
-- https://lore.kernel.org/lkml/20220422183012.444674-4-j.neuschaefer@gmx.n=
-et/
+v2, v3:
+- no changes
 =2D--
- drivers/watchdog/npcm_wdt.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ arch/arm/boot/dts/nuvoton-wpcm450.dtsi | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
-index 28a24caa2627c..a1240a906ef2a 100644
-=2D-- a/drivers/watchdog/npcm_wdt.c
-+++ b/drivers/watchdog/npcm_wdt.c
-@@ -3,6 +3,7 @@
- // Copyright (c) 2018 IBM Corp.
+diff --git a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi b/arch/arm/boot/dts/nu=
+voton-wpcm450.dtsi
+index 515e943787416..d5ed95ef810e8 100644
+=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
++++ b/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
+@@ -2,6 +2,7 @@
+ // Copyright 2021 Jonathan Neusch=C3=A4fer
 
- #include <linux/bitops.h>
-+#include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
-@@ -43,6 +44,7 @@
- struct npcm_wdt {
- 	struct watchdog_device  wdd;
- 	void __iomem		*reg;
-+	struct clk		*clk;
- };
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
 
- static inline struct npcm_wdt *to_npcm_wdt(struct watchdog_device *wdd)
-@@ -66,6 +68,9 @@ static int npcm_wdt_start(struct watchdog_device *wdd)
- 	struct npcm_wdt *wdt =3D to_npcm_wdt(wdd);
- 	u32 val;
+ / {
+ 	compatible =3D "nuvoton,wpcm450";
+@@ -32,13 +33,6 @@ cpu@0 {
+ 		};
+ 	};
 
-+	if (wdt->clk)
-+		clk_prepare_enable(wdt->clk);
-+
- 	if (wdd->timeout < 2)
- 		val =3D 0x800;
- 	else if (wdd->timeout < 3)
-@@ -100,6 +105,9 @@ static int npcm_wdt_stop(struct watchdog_device *wdd)
+-	clk24m: clock-24mhz {
+-		/* 24 MHz dummy clock */
+-		compatible =3D "fixed-clock";
+-		clock-frequency =3D <24000000>;
+-		#clock-cells =3D <0>;
+-	};
+-
+ 	refclk: clock-48mhz {
+ 		/* 48 MHz reference oscillator */
+ 		compatible =3D "fixed-clock";
+@@ -73,7 +67,7 @@ serial0: serial@b8000000 {
+ 			reg =3D <0xb8000000 0x20>;
+ 			reg-shift =3D <2>;
+ 			interrupts =3D <7 IRQ_TYPE_LEVEL_HIGH>;
+-			clocks =3D <&clk24m>;
++			clocks =3D <&clk WPCM450_CLK_UART0>;
+ 			pinctrl-names =3D "default";
+ 			pinctrl-0 =3D <&bsp_pins>;
+ 			status =3D "disabled";
+@@ -84,7 +78,7 @@ serial1: serial@b8000100 {
+ 			reg =3D <0xb8000100 0x20>;
+ 			reg-shift =3D <2>;
+ 			interrupts =3D <8 IRQ_TYPE_LEVEL_HIGH>;
+-			clocks =3D <&clk24m>;
++			clocks =3D <&clk WPCM450_CLK_UART1>;
+ 			status =3D "disabled";
+ 		};
 
- 	writel(0, wdt->reg);
+@@ -92,14 +86,18 @@ timer0: timer@b8001000 {
+ 			compatible =3D "nuvoton,wpcm450-timer";
+ 			interrupts =3D <12 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg =3D <0xb8001000 0x1c>;
+-			clocks =3D <&clk24m>;
++			clocks =3D <&clk WPCM450_CLK_TIMER0>,
++				 <&clk WPCM450_CLK_TIMER1>,
++				 <&clk WPCM450_CLK_TIMER2>,
++				 <&clk WPCM450_CLK_TIMER3>,
++				 <&clk WPCM450_CLK_TIMER4>;
+ 		};
 
-+	if (wdt->clk)
-+		clk_disable_unprepare(wdt->clk);
-+
- 	return 0;
- }
+ 		watchdog0: watchdog@b800101c {
+ 			compatible =3D "nuvoton,wpcm450-wdt";
+ 			interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
+ 			reg =3D <0xb800101c 0x4>;
+-			clocks =3D <&clk24m>;
++			clocks =3D <&clk WPCM450_CLK_WDT>;
+ 		};
 
-@@ -147,9 +155,15 @@ static int npcm_wdt_restart(struct watchdog_device *w=
-dd,
- {
- 	struct npcm_wdt *wdt =3D to_npcm_wdt(wdd);
-
-+	if (wdt->clk)
-+		clk_prepare_enable(wdt->clk);
-+
- 	writel(NPCM_WTR | NPCM_WTRE | NPCM_WTE, wdt->reg);
- 	udelay(1000);
-
-+	if (wdt->clk)
-+		clk_disable_unprepare(wdt->clk);
-+
- 	return 0;
- }
-
-@@ -191,6 +205,10 @@ static int npcm_wdt_probe(struct platform_device *pde=
-v)
- 	if (IS_ERR(wdt->reg))
- 		return PTR_ERR(wdt->reg);
-
-+	wdt->clk =3D devm_clk_get_optional(&pdev->dev, NULL);
-+	if (IS_ERR(wdt->clk))
-+		return PTR_ERR(wdt->clk);
-+
- 	irq =3D platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
+ 		aic: interrupt-controller@b8002000 {
 =2D-
 2.35.1
 
