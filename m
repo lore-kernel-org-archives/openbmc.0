@@ -4,64 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3908CC433F5
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 23:10:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B95C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 23:11:50 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L2FNW2GXkz3bbV
-	for <openbmc@archiver.kernel.org>; Tue, 17 May 2022 09:10:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L2FPd1MtDz3bpf
+	for <openbmc@archiver.kernel.org>; Tue, 17 May 2022 09:11:49 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IIwz+Bon;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=J/zsEQMu;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=lkp@intel.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a;
+ helo=mail-pj1-x102a.google.com; envelope-from=linmq006@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
- header.s=Intel header.b=IIwz+Bon; dkim-atps=neutral
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20210112 header.b=J/zsEQMu; dkim-atps=neutral
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [IPv6:2607:f8b0:4864:20::102a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L2FMl3QYDz2yHp
- for <openbmc@lists.ozlabs.org>; Tue, 17 May 2022 09:10:05 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1652742611; x=1684278611;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=t9s//g5eW49okIknpm3TXfprezkECY9aRbZEJNV1PS0=;
- b=IIwz+BonUc5lDXHI6Y7oNAVg6Raph/UCtgNvzrkRGPnQHQbZbpfL4aUy
- Fk3JDqCqi2/nLDgMoDQByAsGAdQa2rBcnNSju+rkx2FQmffATRxhR/VkY
- /kEiHugvTNHRlQquyT4iTNYcNNXcsdysaVKYKjfpOVPbedmY/tk2NtXjZ
- 2XCkkIjn23JRbWOzbHrb5KFPvlcNCsri1SR1XKwkPSSsijljnY5OB+pn2
- 7yeoFwQSW8w75DtpwiMGMH9rh9/3mKFjwYlw1cJsfsEHGT3mPUL8SJYuY
- 4FRJ6+xMcoUDJPLMVtKBxKeDUyhy5JtvgTI1rMb9czeUhTlA1k2WRYHxk w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10349"; a="271117492"
-X-IronPort-AV: E=Sophos;i="5.91,231,1647327600"; d="scan'208";a="271117492"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2022 16:08:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,231,1647327600"; d="scan'208";a="816621816"
-Received: from lkp-server02.sh.intel.com (HELO 242b25809ac7) ([10.239.97.151])
- by fmsmga006.fm.intel.com with ESMTP; 16 May 2022 16:08:53 -0700
-Received: from kbuild by 242b25809ac7 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1nqjpc-0000PB-Ni;
- Mon, 16 May 2022 23:08:52 +0000
-Date: Tue, 17 May 2022 07:08:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Medad CChien <medadyoung@gmail.com>, benjaminfair@google.com,
- yuenn@google.com, venture@google.com, tali.perry1@gmail.com,
- tmaimon77@gmail.com, avifishman70@gmail.com, robh+dt@kernel.org,
- alexandre.belloni@bootlin.com, a.zummo@towertech.it,
- KWLIU@nuvoton.com, YSCHU@nuvoton.com, JJLIU0@nuvoton.com,
- KFTING@nuvoton.com, ctcchien@nuvoton.com
-Subject: Re: [PATCH v1 3/3] RTC: nuvoton: Add NCT3018Y real time clock driver
-Message-ID: <202205170654.jQqRSbra-lkp@intel.com>
-References: <20220516152751.27716-3-ctcchien@nuvoton.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KzGnd0RDgz3bd9
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2022 13:03:48 +1000 (AEST)
+Received: by mail-pj1-x102a.google.com with SMTP id
+ c1-20020a17090a558100b001dca2694f23so3687991pji.3
+ for <openbmc@lists.ozlabs.org>; Wed, 11 May 2022 20:03:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=q41Jr8VR5dY09mKNn7RY5RfYlHLETTBtn1k7thCkKuQ=;
+ b=J/zsEQMuV3jeFz2ZNyP7VN5TA+LgtwO4M2U3fzh8HvTEAuUbQNRfq7QJ9DC12ZVfn4
+ I8TTZ5KkOAOZxahJkyBOlCo1U2T2zkc03IKM6xt3J77YxyPEaOL0Vwl7tKMlMRSXogCp
+ d3ZluyhDUTx4//RZrGv0wFfOp3u4s0S7Tp33qk561OC64mhOSZrVZuRTeohjmV+qI7q6
+ hbYyzx3z2iWEhcgWfnAN+06TIfsNB6ORPz8rwURmywoHEKF+TpiZgsCgXzVCjHAbyBR4
+ d5yxPSkTuXmq4T+SQBxa7W0HtrS3sKh3kO9N0X7tRqggNj4gahwMG3eyaBdDKgGJFCD8
+ sBGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=q41Jr8VR5dY09mKNn7RY5RfYlHLETTBtn1k7thCkKuQ=;
+ b=oA3t+YSlFxh7d+P991GrFrkWCsn4zc2ccVxJnUos/o4YX1BZriLt454LFZX/NcfIXT
+ g0MHs4dK3g4rkD0uoyxNP3/6Dl9RPmeMm9twvfiQBBhgZ7dQZHKwHORrpzwCgbuWkGX6
+ Dc19GEsr+y3ryPUXjAsWgnxBBFJyk9ah0E1kJzgHLUJtoxISuRlZjlt7YJ0OH0Elp4Kz
+ U6rVbog24zX7cHm/Yp+3E/AfvBsbq7u2rGeS7FIsn/H5g2KAOP+Eq22yPPvn+dJwx4uK
+ SZFWABQGSAk9XI6UXa2uyCtJcS/eKHde74QlsvXCbhb5eNgutnR35GSx/I+s0TAPCYzE
+ w3Ug==
+X-Gm-Message-State: AOAM53294TFhqpJzzALc/sjHU08a5gvDW1pzTJJcmNHsC/4ZquITFGT1
+ k6OOolCI9o8FH8cjuLoukFE=
+X-Google-Smtp-Source: ABdhPJzMEbwjlTwN4njMLoFUKyG6CTBFqiX1Z2hsX7AHrrVgcWAFRUs76ym8HM2zKTrZihSX41SbVg==
+X-Received: by 2002:a17:90b:3901:b0:1dc:5a24:691 with SMTP id
+ ob1-20020a17090b390100b001dc5a240691mr8562489pjb.40.1652324624077; 
+ Wed, 11 May 2022 20:03:44 -0700 (PDT)
+Received: from localhost.localdomain ([202.120.234.246])
+ by smtp.googlemail.com with ESMTPSA id
+ 5-20020a17090a190500b001d77f392280sm640890pjg.30.2022.05.11.20.03.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 May 2022 20:03:43 -0700 (PDT)
+From: Miaoqian Lin <linmq006@gmail.com>
+To: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Brendan Higgins <brendanhiggins@google.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] arm: npcm: Fix some refcount leaks
+Date: Thu, 12 May 2022 07:03:34 +0400
+Message-Id: <20220512030334.52918-1-linmq006@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220516152751.27716-3-ctcchien@nuvoton.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 17 May 2022 09:10:20 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,146 +87,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, kbuild-all@lists.01.org,
- linux-kernel@vger.kernel.org
+Cc: linmq006@gmail.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Medad,
+of_find_compatible_node() returns a node pointer with refcount
+incremented, we should use of_node_put() on it when done.
+Add missing of_node_put() to avoid refcount leak.
 
-Thank you for the patch! Perhaps something to improve:
+Fixes: 7bffa14c9aed ("arm: npcm: add basic support for Nuvoton BMCs")
+Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+---
+ arch/arm/mach-npcm/platsmp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[auto build test WARNING on abelloni/rtc-next]
-[also build test WARNING on robh/for-next v5.18-rc7]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Medad-CChien/ARM-dts-nuvoton-Add-nuvoton-RTC3018Y-node/20220516-232940
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux.git rtc-next
-config: i386-allyesconfig (https://download.01.org/0day-ci/archive/20220517/202205170654.jQqRSbra-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.2.0-20) 11.2.0
-reproduce (this is a W=1 build):
-        # https://github.com/intel-lab-lkp/linux/commit/5c51862ee8030cfd9f2e955c10ee580f168663e3
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Medad-CChien/ARM-dts-nuvoton-Add-nuvoton-RTC3018Y-node/20220516-232940
-        git checkout 5c51862ee8030cfd9f2e955c10ee580f168663e3
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash drivers/rtc/
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All warnings (new ones prefixed by >>):
-
-   drivers/rtc/rtc-nct3018y.c: In function 'nct3018y_rtc_read_time':
->> drivers/rtc/rtc-nct3018y.c:192:26: warning: unused variable 'nct3018y' [-Wunused-variable]
-     192 |         struct nct3018y *nct3018y = i2c_get_clientdata(client);
-         |                          ^~~~~~~~
-   drivers/rtc/rtc-nct3018y.c: In function 'nct3018y_rtc_set_time':
-   drivers/rtc/rtc-nct3018y.c:227:26: warning: unused variable 'nct3018y' [-Wunused-variable]
-     227 |         struct nct3018y *nct3018y = i2c_get_clientdata(client);
-         |                          ^~~~~~~~
-   drivers/rtc/rtc-nct3018y.c: In function 'nct3018y_rtc_set_alarm':
-   drivers/rtc/rtc-nct3018y.c:292:26: warning: unused variable 'nct3018y' [-Wunused-variable]
-     292 |         struct nct3018y *nct3018y = i2c_get_clientdata(client);
-         |                          ^~~~~~~~
-   drivers/rtc/rtc-nct3018y.c: In function 'nct3018y_irq_enable':
-   drivers/rtc/rtc-nct3018y.c:322:26: warning: unused variable 'nct3018y' [-Wunused-variable]
-     322 |         struct nct3018y *nct3018y = i2c_get_clientdata(client);
-         |                          ^~~~~~~~
-   In file included from include/linux/printk.h:555,
-                    from include/linux/kernel.h:29,
-                    from arch/x86/include/asm/percpu.h:27,
-                    from arch/x86/include/asm/current.h:6,
-                    from include/linux/mutex.h:14,
-                    from include/linux/kernfs.h:11,
-                    from include/linux/sysfs.h:16,
-                    from include/linux/kobject.h:20,
-                    from include/linux/of.h:17,
-                    from include/linux/clk-provider.h:9,
-                    from drivers/rtc/rtc-nct3018y.c:5:
-   drivers/rtc/rtc-nct3018y.c: In function 'nct3018y_probe':
-   drivers/rtc/rtc-nct3018y.c:513:39: warning: format '%d' expects argument of type 'int', but argument 5 has type 'long unsigned int' [-Wformat=]
-     513 |                 dev_dbg(&client->dev, "%s: NCT3018Y_BIT_TWO is :%d\n",
-         |                                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/dynamic_debug.h:134:29: note: in definition of macro '__dynamic_func_call'
-     134 |                 func(&id, ##__VA_ARGS__);               \
-         |                             ^~~~~~~~~~~
-   include/linux/dynamic_debug.h:166:9: note: in expansion of macro '_dynamic_func_call'
-     166 |         _dynamic_func_call(fmt,__dynamic_dev_dbg,               \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:9: note: in expansion of macro 'dynamic_dev_dbg'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |         ^~~~~~~~~~~~~~~
-   include/linux/dev_printk.h:155:30: note: in expansion of macro 'dev_fmt'
-     155 |         dynamic_dev_dbg(dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                              ^~~~~~~
-   drivers/rtc/rtc-nct3018y.c:513:17: note: in expansion of macro 'dev_dbg'
-     513 |                 dev_dbg(&client->dev, "%s: NCT3018Y_BIT_TWO is :%d\n",
-         |                 ^~~~~~~
-   drivers/rtc/rtc-nct3018y.c:513:66: note: format string is defined here
-     513 |                 dev_dbg(&client->dev, "%s: NCT3018Y_BIT_TWO is :%d\n",
-         |                                                                 ~^
-         |                                                                  |
-         |                                                                  int
-         |                                                                 %ld
-   drivers/rtc/rtc-nct3018y.c:535:22: error: 'struct rtc_device' has no member named 'uie_unsupported'
-     535 |         nct3018y->rtc->uie_unsupported = 1;
-         |                      ^~
-   drivers/rtc/rtc-nct3018y.c:561:15: error: implicit declaration of function 'rtc_register_device'; did you mean 'i2c_unregister_device'? [-Werror=implicit-function-declaration]
-     561 |         err = rtc_register_device(nct3018y->rtc);
-         |               ^~~~~~~~~~~~~~~~~~~
-         |               i2c_unregister_device
-   cc1: some warnings being treated as errors
-
-
-vim +/nct3018y +192 drivers/rtc/rtc-nct3018y.c
-
-   184	
-   185	/*
-   186	 * In the routines that deal directly with the nct3018y hardware, we use
-   187	 * rtc_time -- month 0-11, hour 0-23, yr = calendar year-epoch.
-   188	 */
-   189	static int nct3018y_rtc_read_time(struct device *dev, struct rtc_time *tm)
-   190	{
-   191		struct i2c_client *client = to_i2c_client(dev);
- > 192		struct nct3018y *nct3018y = i2c_get_clientdata(client);
-   193		unsigned char buf[10];
-   194		int err;
-   195	
-   196		err = nct3018y_read_block_data(client, NCT3018Y_REG_ST, 1, buf);
-   197		if (err)
-   198			return err;
-   199	
-   200		if (!buf[0]) {
-   201			dev_err(&client->dev, " voltage <=1.7, date/time is not reliable.\n");
-   202			return -EINVAL;
-   203		}
-   204	
-   205		err = nct3018y_read_block_data(client, NCT3018Y_REG_SC, 10, buf);
-   206		if (err)
-   207			return err;
-   208	
-   209		tm->tm_sec = bcd2bin(buf[0] & 0x7F);
-   210		tm->tm_min = bcd2bin(buf[2] & 0x7F);
-   211		tm->tm_hour = bcd2bin(buf[4] & 0x3F); /* rtc hr 0-24 */
-   212		tm->tm_wday = buf[6] & 0x07;
-   213		tm->tm_mday = bcd2bin(buf[7] & 0x3F);
-   214		tm->tm_mon = bcd2bin(buf[8] & 0x1F) - 1 ; /* rtc mn 1-12 */
-   215		tm->tm_year = bcd2bin(buf[9]) + 100;
-   216	
-   217		dev_dbg(&client->dev, "%s:s=%d, m=%d, hr=%d, md=%d, m=%d, yr=%d, wd=%d\n",
-   218			__func__, tm->tm_sec, tm->tm_min, tm->tm_hour, tm->tm_mday, tm->tm_mon,
-   219			tm->tm_year, tm->tm_wday);
-   220	
-   221		return 0;
-   222	}
-   223	
-
+diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+index 21633c70fe7f..fe63edc9886d 100644
+--- a/arch/arm/mach-npcm/platsmp.c
++++ b/arch/arm/mach-npcm/platsmp.c
+@@ -35,6 +35,7 @@ static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+ 		goto out;
+ 	}
+ 	gcr_base = of_iomap(gcr_np, 0);
++	of_node_put(gcr_np);
+ 	if (!gcr_base) {
+ 		pr_err("could not iomap gcr");
+ 		ret = -ENOMEM;
+@@ -63,6 +64,7 @@ static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+ 		return;
+ 	}
+ 	scu_base = of_iomap(scu_np, 0);
++	of_node_put(scu_np);
+ 	if (!scu_base) {
+ 		pr_err("could not iomap scu");
+ 		return;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+
