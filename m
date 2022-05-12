@@ -4,77 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B95C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 23:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32EB7C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 23:12:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L2FPd1MtDz3bpf
-	for <openbmc@archiver.kernel.org>; Tue, 17 May 2022 09:11:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L2FQK3MLyz3bw6
+	for <openbmc@archiver.kernel.org>; Tue, 17 May 2022 09:12:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=J/zsEQMu;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ETrbDFnf;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a;
- helo=mail-pj1-x102a.google.com; envelope-from=linmq006@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42c;
+ helo=mail-pf1-x42c.google.com; envelope-from=milkfafa@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=J/zsEQMu; dkim-atps=neutral
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
+ header.s=20210112 header.b=ETrbDFnf; dkim-atps=neutral
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [IPv6:2607:f8b0:4864:20::42c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4KzGnd0RDgz3bd9
- for <openbmc@lists.ozlabs.org>; Thu, 12 May 2022 13:03:48 +1000 (AEST)
-Received: by mail-pj1-x102a.google.com with SMTP id
- c1-20020a17090a558100b001dca2694f23so3687991pji.3
- for <openbmc@lists.ozlabs.org>; Wed, 11 May 2022 20:03:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4KzNf66tRMz3bZt
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2022 17:27:41 +1000 (AEST)
+Received: by mail-pf1-x42c.google.com with SMTP id p12so4084672pfn.0
+ for <openbmc@lists.ozlabs.org>; Thu, 12 May 2022 00:27:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q41Jr8VR5dY09mKNn7RY5RfYlHLETTBtn1k7thCkKuQ=;
- b=J/zsEQMuV3jeFz2ZNyP7VN5TA+LgtwO4M2U3fzh8HvTEAuUbQNRfq7QJ9DC12ZVfn4
- I8TTZ5KkOAOZxahJkyBOlCo1U2T2zkc03IKM6xt3J77YxyPEaOL0Vwl7tKMlMRSXogCp
- d3ZluyhDUTx4//RZrGv0wFfOp3u4s0S7Tp33qk561OC64mhOSZrVZuRTeohjmV+qI7q6
- hbYyzx3z2iWEhcgWfnAN+06TIfsNB6ORPz8rwURmywoHEKF+TpiZgsCgXzVCjHAbyBR4
- d5yxPSkTuXmq4T+SQBxa7W0HtrS3sKh3kO9N0X7tRqggNj4gahwMG3eyaBdDKgGJFCD8
- sBGw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=vbCROyekNSS6r922VIpU9j52qiNMPCsXY7vyKjWup7s=;
+ b=ETrbDFnf6QoERKrNeXN/vJhckh+Jid/ylQ9oIwHuOniqdIh7zvCVmou2Vg34q5d78Z
+ E2vlgCPPNmeNeeVCkQ8euCfkKx/un4TGIzmvp03oZXRtGJqv46hD6CMHUUK466GNnti1
+ SRz5m/g4zl4xctVYY2GAexq5GI1EnoX4mCta9rehXYeNx/GD+jV2ppkQggEphnOcvC2y
+ jnkLT1bRjwy9BLkWV3hNvnHjCfDXRzM8x8ovcUxNN/idcYhy/N5GnpVddJUatOet8cc9
+ /2MAK5OsLIbflwf//T+zJOHirXYz3syCBIsJhf6GdoCdxKuhpLw+6zFHezlrMGON9okB
+ rgQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=q41Jr8VR5dY09mKNn7RY5RfYlHLETTBtn1k7thCkKuQ=;
- b=oA3t+YSlFxh7d+P991GrFrkWCsn4zc2ccVxJnUos/o4YX1BZriLt454LFZX/NcfIXT
- g0MHs4dK3g4rkD0uoyxNP3/6Dl9RPmeMm9twvfiQBBhgZ7dQZHKwHORrpzwCgbuWkGX6
- Dc19GEsr+y3ryPUXjAsWgnxBBFJyk9ah0E1kJzgHLUJtoxISuRlZjlt7YJ0OH0Elp4Kz
- U6rVbog24zX7cHm/Yp+3E/AfvBsbq7u2rGeS7FIsn/H5g2KAOP+Eq22yPPvn+dJwx4uK
- SZFWABQGSAk9XI6UXa2uyCtJcS/eKHde74QlsvXCbhb5eNgutnR35GSx/I+s0TAPCYzE
- w3Ug==
-X-Gm-Message-State: AOAM53294TFhqpJzzALc/sjHU08a5gvDW1pzTJJcmNHsC/4ZquITFGT1
- k6OOolCI9o8FH8cjuLoukFE=
-X-Google-Smtp-Source: ABdhPJzMEbwjlTwN4njMLoFUKyG6CTBFqiX1Z2hsX7AHrrVgcWAFRUs76ym8HM2zKTrZihSX41SbVg==
-X-Received: by 2002:a17:90b:3901:b0:1dc:5a24:691 with SMTP id
- ob1-20020a17090b390100b001dc5a240691mr8562489pjb.40.1652324624077; 
- Wed, 11 May 2022 20:03:44 -0700 (PDT)
-Received: from localhost.localdomain ([202.120.234.246])
- by smtp.googlemail.com with ESMTPSA id
- 5-20020a17090a190500b001d77f392280sm640890pjg.30.2022.05.11.20.03.38
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=vbCROyekNSS6r922VIpU9j52qiNMPCsXY7vyKjWup7s=;
+ b=tchRkk/Db6BhZ5SRel4yKMKRIIid78H+twPjtXHd/jhtnWlV3ZqQ0xYEsfMW3EuORB
+ Qk1yD5vIJksabCAhbrxs2eDgzFc0GEJrKdNdAk9C9mWpd8CaoZSOpwNUNChjpsgXC82x
+ eel+KYgPyBTz3OIF53t9bz7KkDC+ZqsflF90lTE8XUjR55JU5Ux4f6ZwP9mwvmhx8GmH
+ AtH4d5McRi6H++mr/gdJOhhl8OvFtb9/G4BMYXOGhwH/8Kw/6w9wmoymrDnhfp6o/pQH
+ YFHT3VtM2HdujKdyTRLy96VHh0zLKlb7cZJUpi9aMWem9M0GE43Nr4ep9lo2jutX51VD
+ RE8A==
+X-Gm-Message-State: AOAM53330xten6C+R1WaYbctpwxSn+ZWCcnvE+RJnNFNs87J2CTBhCIP
+ 7ARC0G01pRY6L3pCYsU32DQ=
+X-Google-Smtp-Source: ABdhPJwzcBtT4Mxya91XaNMZTt6nZp5IgwGbwP4h7R1jpflxvjexD1216f1TtHet2cJ//gaUJGoTbA==
+X-Received: by 2002:a62:5ec6:0:b0:50d:a467:3cb7 with SMTP id
+ s189-20020a625ec6000000b0050da4673cb7mr28079644pfb.85.1652340458700; 
+ Thu, 12 May 2022 00:27:38 -0700 (PDT)
+Received: from localhost.localdomain (60-250-192-107.hinet-ip.hinet.net.
+ [60.250.192.107]) by smtp.gmail.com with ESMTPSA id
+ z9-20020aa79e49000000b0050dc762813csm3082779pfq.22.2022.05.12.00.27.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 May 2022 20:03:43 -0700 (PDT)
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Russell King <linux@armlinux.org.uk>,
- Brendan Higgins <brendanhiggins@google.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Thu, 12 May 2022 00:27:38 -0700 (PDT)
+From: Marvin Lin <milkfafa@gmail.com>
+X-Google-Original-From: Marvin Lin <kflin@nuvoton.com>
+To: mchehab@kernel.org, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] arm: npcm: Fix some refcount leaks
-Date: Thu, 12 May 2022 07:03:34 +0400
-Message-Id: <20220512030334.52918-1-linmq006@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: [PATCH v1 1/5] arm: dts: Add node for NPCM Video Capture/Encode Engine
+Date: Thu, 12 May 2022 15:27:18 +0800
+Message-Id: <20220512072722.25005-2-kflin@nuvoton.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220512072722.25005-1-kflin@nuvoton.com>
+References: <20220512072722.25005-1-kflin@nuvoton.com>
 X-Mailman-Approved-At: Tue, 17 May 2022 09:10:20 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -87,41 +81,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linmq006@gmail.com
+Cc: kwliu@nuvoton.com, tmaimon77@gmail.com, avifishman70@gmail.com,
+ openbmc@lists.ozlabs.org, tali.perry1@gmail.com, kflin@nuvoton.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-of_find_compatible_node() returns a node pointer with refcount
-incremented, we should use of_node_put() on it when done.
-Add missing of_node_put() to avoid refcount leak.
+Add node for Video Capture/Differentiation Engine (VCD) and Encoding
+Compression Engine (ECE) present on Nuvoton NPCM SoCs.
 
-Fixes: 7bffa14c9aed ("arm: npcm: add basic support for Nuvoton BMCs")
-Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
+Signed-off-by: Marvin Lin <kflin@nuvoton.com>
 ---
- arch/arm/mach-npcm/platsmp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
-index 21633c70fe7f..fe63edc9886d 100644
---- a/arch/arm/mach-npcm/platsmp.c
-+++ b/arch/arm/mach-npcm/platsmp.c
-@@ -35,6 +35,7 @@ static int npcm7xx_smp_boot_secondary(unsigned int cpu,
- 		goto out;
- 	}
- 	gcr_base = of_iomap(gcr_np, 0);
-+	of_node_put(gcr_np);
- 	if (!gcr_base) {
- 		pr_err("could not iomap gcr");
- 		ret = -ENOMEM;
-@@ -63,6 +64,7 @@ static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
- 		return;
- 	}
- 	scu_base = of_iomap(scu_np, 0);
-+	of_node_put(scu_np);
- 	if (!scu_base) {
- 		pr_err("could not iomap scu");
- 		return;
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index 3696980a3da1..0d2df74974bf 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -178,6 +178,19 @@
+ 			status = "disabled";
+ 		};
+ 
++		video: video@f0810000 {
++			compatible = "nuvoton,npcm750-video";
++			reg = <0xf0810000 0x10000>, <0xf0820000 0x2000>;
++			reg-names = "vcd", "ece";
++			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
++			resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_VCD>,
++				 <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_ECE>;
++			reset-names = "vcd", "ece";
++			nuvoton,syscon-gcr = <&gcr>;
++			nuvoton,syscon-gfxi = <&gfxi>;
++			status = "disabled";
++		};
++
+ 		apb {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+@@ -553,6 +566,12 @@
+ 				pinctrl-0 = <&smb15_pins>;
+ 				status = "disabled";
+ 			};
++
++			gfxi: gfxi@e000 {
++				compatible = "nuvoton,npcm750-gfxi", "syscon",
++					     "simple-mfd";
++				reg = <0xe000 0x100>;
++			};
+ 		};
+ 	};
+ 
 -- 
-2.25.1
+2.17.1
 
