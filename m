@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03FE6C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 13 May 2022 17:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC5DC433EF
+	for <openbmc@archiver.kernel.org>; Fri, 13 May 2022 17:10:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L0FWZ261Bz3cCL
-	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 03:10:02 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L0FXH2kMWz2y7V
+	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 03:10:39 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KuVZ0pa0;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=h5QzKOxK;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=KuVZ0pa0; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=h5QzKOxK; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L0FSW3pQYz3brM
- for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 03:07:22 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24DGxxXM006495;
- Fri, 13 May 2022 17:07:20 GMT
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L0FSX5PTfz3brM
+ for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 03:07:24 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24DFjWWH002559;
+ Fri, 13 May 2022 17:07:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=fVOPjE+hCDVQiGALTMiRBxDLCwjBMeLkcryYmBu04K8=;
- b=KuVZ0pa0kfEY5a61XQzVpwscHzVJyOmtO2LyETgnEIjsfWU2s8/ckEHoFavAaHJ7/p65
- K1Ivh2HXaXjWIrgoRO9e/0U20klCy9mKds/qa7DGtZiypG+er8/diItVCBieYFsLyAp6
- rXnXujP/a5i6s/2IaOpx/Jn2KL3zXpXku4bZOWaH4hr9prFYQ2lD3wxbYI+OWZQnnY6I
- WhTAT5NV/9UhNu5i+P8CPq/FFe76A29WsynNVFH+LdOYph4Z0q+/ZCcQ5Bfd+QNirTob
- ZkMpTkY8vN1W3XWY1C0o8LBWc8bZHExQN8MVLlueVtpbPvO6OLIL9iKIjuG7BjbTpeEa Fw== 
-Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
- [169.63.214.131])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3g1ubkg51d-1
+ bh=KbZJ5JUANetDuVWVNY6aGwNzWeNVuNXqJ5k20EQqerY=;
+ b=h5QzKOxKo1rx610wF6k6E1g+Ic7PPm7GTcImiLDHhcp/Waq77K6wHAt74jT6n5coQYlm
+ Zr7EbW2qxCcn9Aj1ykU6r0dbSHrzr4PciaznQJsnfgAYY0jyZTHsQo1TUkhBwYFdp0fU
+ +C+koFJMfoHkkLf6vQkO/JQjIluTXLV51QA1m/DU1GML0DnU/llbEm3xJla8IIK+yv/2
+ gEi/zm3WHLMHO7o7HhkhIM9muSQd8tZjGfyKNkU88QMCGBDZ6+FmXsnJ6dxO547eS5cq
+ +nPiXzMHhmkfKopRKCP3YvMf1V1kt9DSMskE6BhTUenxtMNES5QMPc/GbftvzsaXbJEk 2g== 
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3g1t8p1j6g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 May 2022 17:07:19 +0000
-Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
- by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 24DH7J59029817;
- Fri, 13 May 2022 17:07:19 GMT
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
- [9.57.198.28]) by ppma01dal.us.ibm.com with ESMTP id 3fwgdbeh63-1
+ Fri, 13 May 2022 17:07:21 +0000
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 24DGhvQQ025064;
+ Fri, 13 May 2022 17:07:20 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma04wdc.us.ibm.com with ESMTP id 3fwgdabq75-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 13 May 2022 17:07:18 +0000
+ Fri, 13 May 2022 17:07:20 +0000
 Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
  [9.57.199.111])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 24DH7Hgj43974918
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 24DH7JVq8782302
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 13 May 2022 17:07:17 GMT
+ Fri, 13 May 2022 17:07:19 GMT
 Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 704CDAC062;
- Fri, 13 May 2022 17:07:17 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 6ADBFAC060;
+ Fri, 13 May 2022 17:07:19 +0000 (GMT)
 Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EFC88AC05E;
- Fri, 13 May 2022 17:07:16 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id EA98EAC059;
+ Fri, 13 May 2022 17:07:18 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.1.123])
  by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 13 May 2022 17:07:16 +0000 (GMT)
+ Fri, 13 May 2022 17:07:18 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 2/9] tpm: add #ifndef to fix
- redeclaration build errors
-Date: Fri, 13 May 2022 12:07:08 -0500
-Message-Id: <20220513170715.43475-3-eajames@linux.ibm.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 5/9] tpm: core: Set timeouts
+ before requesting locality
+Date: Fri, 13 May 2022 12:07:11 -0500
+Message-Id: <20220513170715.43475-6-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20220513170715.43475-1-eajames@linux.ibm.com>
 References: <20220513170715.43475-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: dbAv0VyhBEdqD24w3FU_lA-KTZJ0QKfO
-X-Proofpoint-ORIG-GUID: dbAv0VyhBEdqD24w3FU_lA-KTZJ0QKfO
+X-Proofpoint-GUID: OhZCvALOQtezirp66-CLz7qQo0XCunRm
+X-Proofpoint-ORIG-GUID: OhZCvALOQtezirp66-CLz7qQo0XCunRm
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
  definitions=2022-05-13_09,2022-05-13_01,2022-02-23_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 spamscore=0 mlxlogscore=672 priorityscore=1501 mlxscore=0
- malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ mlxscore=0 malwarescore=0 phishscore=0 mlxlogscore=886 spamscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2202240000 definitions=main-2205130073
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -104,36 +104,38 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Johannes Holland <johannes.holland@infineon.com>
+Requesting the locality uses the timeout values, so they need
+to be set beforehand.
 
-tpm_tis_spi.c directly includes tpm_tis.h and tpm-v2.h which both
-define the same enums (see e.g. TPM_ACCESS_VALID). Add an #ifndef to
-prevent redeclaration errors.
-
-Signed-off-by: Johannes Holland <johannes.holland@infineon.com>
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/tpm/tpm_tis.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/tpm/tpm2_tis_core.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/tpm/tpm_tis.h b/drivers/tpm/tpm_tis.h
-index 947585f8e3..2a160fe05c 100644
---- a/drivers/tpm/tpm_tis.h
-+++ b/drivers/tpm/tpm_tis.h
-@@ -104,6 +104,7 @@ struct tpm_cmd_t {
- /* Max number of iterations after i2c NAK */
- #define MAX_COUNT		3
+diff --git a/drivers/tpm/tpm2_tis_core.c b/drivers/tpm/tpm2_tis_core.c
+index 51392c4584..985a816219 100644
+--- a/drivers/tpm/tpm2_tis_core.c
++++ b/drivers/tpm/tpm2_tis_core.c
+@@ -433,15 +433,16 @@ int tpm_tis_init(struct udevice *dev)
+ 		log_err("Driver bug. No bus ops defined\n");
+ 		return -1;
+ 	}
+-	ret = tpm_tis_request_locality(dev, 0);
+-	if (ret)
+-		return ret;
  
-+#ifndef __TPM_V2_H
- /*
-  * Max number of iterations after i2c NAK for 'long' commands
-  *
-@@ -127,5 +128,6 @@ enum tis_status {
- 	TPM_STS_DATA_AVAIL		= 0x10,
- 	TPM_STS_DATA_EXPECT		= 0x08,
- };
-+#endif
+ 	chip->timeout_a = TIS_SHORT_TIMEOUT_MS;
+ 	chip->timeout_b = TIS_LONG_TIMEOUT_MS;
+ 	chip->timeout_c = TIS_SHORT_TIMEOUT_MS;
+ 	chip->timeout_d = TIS_SHORT_TIMEOUT_MS;
  
- #endif
++	ret = tpm_tis_request_locality(dev, 0);
++	if (ret)
++		return ret;
++
+ 	/* Disable interrupts */
+ 	phy_ops->read32(dev, TPM_INT_ENABLE(chip->locality), &tmp);
+ 	tmp |= TPM_INTF_CMD_READY_INT | TPM_INTF_LOCALITY_CHANGE_INT |
 -- 
 2.27.0
 
