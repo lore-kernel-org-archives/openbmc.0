@@ -4,72 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94E8BC433F5
-	for <openbmc@archiver.kernel.org>; Fri, 13 May 2022 14:13:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEF4C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 13 May 2022 17:08:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L09bT6pgTz3c9r
-	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 00:13:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L0FTJ02cdz3cDX
+	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 03:08:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=lkzj93NB;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=m/i/gEjP;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::834;
- helo=mail-qt1-x834.google.com; envelope-from=geissonator@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=lkzj93NB; dkim-atps=neutral
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=m/i/gEjP; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L09Zk6CSVz2yHt
- for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 00:12:28 +1000 (AEST)
-Received: by mail-qt1-x834.google.com with SMTP id s22so1197158qta.0
- for <openbmc@lists.ozlabs.org>; Fri, 13 May 2022 07:12:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:content-transfer-encoding:mime-version:subject:message-id:date
- :to; bh=vGxMBTxapdhSIDfwXQdGfdpJzyEe1ljEDnzJZkjl7BU=;
- b=lkzj93NBOCKM/7rR+sb27BA4bRZADWyvlYDr/6WqNmVL2TMccwq0QjdIbczwBlg5+H
- gWV1QyJx+f8UcIY3ua5TfmhmTYcsdAGTz5ECq3RBV+aXoZ0lj/4FkPhm+DbL76elhlsK
- 8USFWN8Sra2eP0xWyIawTHaQVw3qf/4F64lpZEfDmxdUGpLZ/O9ufzblrAv5Sm4NrOYE
- J4wIhMd6mngwSUPmzJLuV9OKfWkc4Wb6a7kEVe26udKgtHCa3cJe9TX4GoWq+ddZc8O9
- 17Hd8XKW+OCzgpcxvYtMDKSl4YqUJDMXd1Foq72K+JJmQ6mJSV88WGBp67GMs0SNsRSs
- /s5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:content-transfer-encoding:mime-version
- :subject:message-id:date:to;
- bh=vGxMBTxapdhSIDfwXQdGfdpJzyEe1ljEDnzJZkjl7BU=;
- b=oKCfK0S/8xloTMR1q4Au0Zi4Mt5fqhE7lVyqYocJBQCAhF+1R+kfTWIF/rrDJylFQq
- Xz7dqCpv0XWePO6f/N+WhzNFrVFG4nvhIZOODBHHQOvGW13WLf4Qbq/22MESisoc/Q2y
- 3j96PmALIKnM3XE2Evd0th8j23lpc2buG5PqnANuI/ZKvNhujok4Uehwq+0qJL1O4pC1
- qEYBsIPaqmx86Wf8sj6X1kcC3v5ePauShYT2B1cMqij3ujDLaucCgCWUo7uH6qT9mnZP
- m3Bc0rq2Bu4s1BOE0olpQai5Cg21zn5skVz5XVi0S+PB3peXVh38CeSkW11pm9589dce
- A3oA==
-X-Gm-Message-State: AOAM530K4U8MgrmuzBohG8hJI8FNYbqVexFCr8l1ZiR16THLP6nXF/33
- PjdeB8+WjASFfKiQaeliusNRNZmlk2ar2w==
-X-Google-Smtp-Source: ABdhPJxUREucgJLHzIrIvkXtc6LYh+snIQZfPQooEKUSFLlD2YqoGWIc2ghN1EX355NL+28I6ymecQ==
-X-Received: by 2002:a05:622a:199e:b0:2f3:cd8c:28ed with SMTP id
- u30-20020a05622a199e00b002f3cd8c28edmr4693255qtc.656.1652451144688; 
- Fri, 13 May 2022 07:12:24 -0700 (PDT)
-Received: from smtpclient.apple (wsip-70-184-161-145.hr.hr.cox.net.
- [70.184.161.145]) by smtp.gmail.com with ESMTPSA id
- 12-20020a05620a06cc00b0069fc13ce24fsm1383988qky.128.2022.05.13.07.12.23
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 13 May 2022 07:12:24 -0700 (PDT)
-From: Andrew Geissler <geissonator@gmail.com>
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.120.0.1.13\))
-Subject: Gerrit and Jenkins server transition May 20th
-Message-Id: <E6809659-C4B1-45FF-A19A-3DF59B598F2D@gmail.com>
-Date: Fri, 13 May 2022 10:12:22 -0400
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3654.120.0.1.13)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L0FSV6vQxz3brM
+ for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 03:07:22 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24DGj458010461;
+ Fri, 13 May 2022 17:07:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=rMMkbUFZbN5xcO3ueOxyHYMX2CdHcTvubGkI2NbgXwA=;
+ b=m/i/gEjPlnZAs/VvdQfNBrxF3TlwaeNq4w0CsFenmRg7wtzJWJEaJJbOlvrwor5wQ8Wp
+ wyyEg+BlWmazYmeGdFbNSOl4KMUgZj9MhXIYUcoH+cB6PnxqwY/XXnPaw9kTqu3byOJ2
+ YiOFKl91axCVtrWr///xH1JD0u2qTP0M336mMvK6bZLk0LX/qo6JmOU56kNnBd6ypsP2
+ pkE7UydLrp3bXEPjAgfZuH2jMvIejQDlvjkHVB1kPrKBJrW3M4PNMuBfIRSpEbwRswWm
+ BdSgxTrT85k72XnOo0SqmuvfyP50Dx6g52A3snYqIm45MTQoQ0nb71gYWUy4NA9/J9qY qg== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3g1u4k8cfj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 May 2022 17:07:19 +0000
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 24DGhQX2026228;
+ Fri, 13 May 2022 17:07:18 GMT
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23]) by ppma03wdc.us.ibm.com with ESMTP id 3fwgda3qdp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 May 2022 17:07:18 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 24DH7GvG32768310
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 13 May 2022 17:07:16 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CA2DAAC060;
+ Fri, 13 May 2022 17:07:16 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5EAE3AC05E;
+ Fri, 13 May 2022 17:07:16 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.1.123])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri, 13 May 2022 17:07:16 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 1/9] tpm: Add more TPM2
+ definitions
+Date: Fri, 13 May 2022 12:07:07 -0500
+Message-Id: <20220513170715.43475-2-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20220513170715.43475-1-eajames@linux.ibm.com>
+References: <20220513170715.43475-1-eajames@linux.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: N-82p9mAhiyZxHuWjzce5huK1yD4HOQa
+X-Proofpoint-ORIG-GUID: N-82p9mAhiyZxHuWjzce5huK1yD4HOQa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-13_09,2022-05-13_01,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501
+ suspectscore=0 mlxlogscore=779 adultscore=0 malwarescore=0 mlxscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2205130073
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,28 +99,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: cjengel@us.ibm.com, joel@jms.id.au
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Greetings,
+From: Simon Glass <sjg@chromium.org>
 
-The current gerrit/jenkins/opengrok software is running on a bare metal =
-server
-which is reaching end of life (it was a great ~5 years).
+Add definitions for access and status.
 
-A new server has already been created and some basic testing has passed.
-My tentative plan is to take gerrit/jenkins/opengrok offline next =
-Friday,
-May 20th, to do the swap to the new server. This would start around
-8:00am US Central time.
+Need to drop the mixed case.
 
-As with all of these types of events, I have no idea how long it=E2=80=99s=
- going
-to take :)  So plan on no access Fri-Sun.
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reviewed-by: Bin Meng <bmeng.cn@gmail.com>
+---
+ include/tpm-v2.h | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-I=E2=80=99ll send up a follow up email as we get closer and keep the =
-Infrastructure
-channel in discord updated.
+diff --git a/include/tpm-v2.h b/include/tpm-v2.h
+index ae00803f6d..d53d2e4023 100644
+--- a/include/tpm-v2.h
++++ b/include/tpm-v2.h
+@@ -161,6 +161,37 @@ enum tpm_index_attrs {
+ 					TPMA_NV_AUTHWRITE | TPMA_NV_POLICYWRITE,
+ };
+ 
++enum {
++	TPM_ACCESS_VALID		= 1 << 7,
++	TPM_ACCESS_ACTIVE_LOCALITY	= 1 << 5,
++	TPM_ACCESS_REQUEST_PENDING	= 1 << 2,
++	TPM_ACCESS_REQUEST_USE		= 1 << 1,
++	TPM_ACCESS_ESTABLISHMENT	= 1 << 0,
++};
++
++enum {
++	TPM_STS_FAMILY_SHIFT		= 26,
++	TPM_STS_FAMILY_MASK		= 0x3 << TPM_STS_FAMILY_SHIFT,
++	TPM_STS_FAMILY_TPM2		= 1 << TPM_STS_FAMILY_SHIFT,
++	TPM_STS_RESE_TESTABLISMENT_BIT	= 1 << 25,
++	TPM_STS_COMMAND_CANCEL		= 1 << 24,
++	TPM_STS_BURST_COUNT_SHIFT	= 8,
++	TPM_STS_BURST_COUNT_MASK	= 0xffff << TPM_STS_BURST_COUNT_SHIFT,
++	TPM_STS_VALID			= 1 << 7,
++	TPM_STS_COMMAND_READY		= 1 << 6,
++	TPM_STS_GO			= 1 << 5,
++	TPM_STS_DATA_AVAIL		= 1 << 4,
++	TPM_STS_DATA_EXPECT		= 1 << 3,
++	TPM_STS_SELF_TEST_DONE		= 1 << 2,
++	TPM_STS_RESPONSE_RETRY		= 1 << 1,
++};
++
++enum {
++	TPM_CMD_COUNT_OFFSET	= 2,
++	TPM_CMD_ORDINAL_OFFSET	= 6,
++	TPM_MAX_BUF_SIZE	= 1260,
++};
++
+ /**
+  * Issue a TPM2_Startup command.
+  *
+-- 
+2.27.0
 
-Andrew=
