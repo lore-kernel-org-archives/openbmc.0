@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB54C433F5
-	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 07:50:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9505C433EF
+	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 10:44:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L0d356Njjz3cGZ
-	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 17:50:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L0hwJ0L5gz3cBt
+	for <openbmc@archiver.kernel.org>; Sat, 14 May 2022 20:44:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSY4svhb;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kaod.org (client-ip=178.33.254.192;
- helo=3.mo552.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 598 seconds by postgrey-1.36 at boromir;
- Sat, 14 May 2022 17:49:44 AEST
-Received: from 3.mo552.mail-out.ovh.net (3.mo552.mail-out.ovh.net
- [178.33.254.192])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ smtp.mailfrom=intel.com (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=lkp@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256
+ header.s=Intel header.b=CSY4svhb; dkim-atps=neutral
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L0d2c5n51z3bpR
- for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 17:49:41 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.108.20.27])
- by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 7F1EC2348E;
- Sat, 14 May 2022 07:30:29 +0000 (UTC)
-Received: from kaod.org (37.59.142.103) by DAG4EX1.mxp5.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Sat, 14 May
- 2022 09:30:28 +0200
-Authentication-Results: garm.ovh; auth=pass
- (GARM-103G00520789420-35f2-4651-93e0-02bfd5341618,
- E18F6C3BC2EC4AF86CA0BD7024908CDDB092B269) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.64.250.170
-Message-ID: <bcc23f78-e81c-f4b7-3dae-17c216eb9afd@kaod.org>
-Date: Sat, 14 May 2022 09:30:23 +0200
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L0hvY2Dxcz3bgR
+ for <openbmc@lists.ozlabs.org>; Sat, 14 May 2022 20:43:44 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1652525033; x=1684061033;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=owL2E8dN4WOVXiXSAA2t80U2WaZOkvUVbpuMiP4wVM8=;
+ b=CSY4svhbyeqH+km3JNy3uSL3RsFtOvT9eWl6ZQZzP43iN3WCc3wAIe43
+ RPIwuMXiJhY/c4MlIuhK2oir8BNcgWPaH/3qh/uFqOFx0O7iCG7Xu1mcG
+ G2HBiQXcvC328W4a5s9wSH6n2Bm9exGRppH9aw9RzP8e6AA+Vj6MWgotF
+ YMLno4AtWm6zZdrbTLBW7hm/dQvNCRugwjzeGY4BgXOukMwpWZvM3MSuO
+ q8HD/VhZxlunU2TDacT2y6LwWP4NcesAg16yCSPJwcXse+oJoi2I3gmIZ
+ pCeBm1TtyvffuVMyFogKe6/sZH37IjgPzNg275Iau3ZwItibXsZY7wl60 g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10346"; a="270173114"
+X-IronPort-AV: E=Sophos;i="5.91,225,1647327600"; d="scan'208";a="270173114"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 May 2022 03:42:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,225,1647327600"; d="scan'208";a="595648948"
+Received: from lkp-server01.sh.intel.com (HELO d1462bc4b09b) ([10.239.97.150])
+ by orsmga008.jf.intel.com with ESMTP; 14 May 2022 03:42:36 -0700
+Received: from kbuild by d1462bc4b09b with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1nppEJ-0000Vx-Ds;
+ Sat, 14 May 2022 10:42:35 +0000
+Date: Sat, 14 May 2022 18:41:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Marvin Lin <milkfafa@gmail.com>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] drivers: media: platform: Add NPCM Video
+ Capture/Encode Engine driver
+Message-ID: <202205141815.QVBWWaqM-lkp@intel.com>
+References: <20220513033450.7038-6-kflin@nuvoton.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 2/2] hw: aspeed: Init all UART's with serial devices
-Content-Language: en-US
-To: Peter Delevoryas <pdel@fb.com>
-References: <20220513040220.3657135-1-pdel@fb.com>
- <20220513040220.3657135-3-pdel@fb.com>
- <443933f2-069f-df96-ec62-76c21fc644b2@kaod.org>
- <05F5C72F-8424-476C-82B7-7D30BA48CDEB@fb.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <05F5C72F-8424-476C-82B7-7D30BA48CDEB@fb.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.103]
-X-ClientProxiedBy: DAG6EX1.mxp5.local (172.16.2.51) To DAG4EX1.mxp5.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: 57e97edc-71ff-4a63-bf08-061c88653e66
-X-Ovh-Tracer-Id: 6527123237723933618
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrhedtgdduudekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeejgefggffgheejgfdufeeiueffveehteejgfelueekgfegtefgffejhedtgfejgfenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepjhhovghlsehjmhhsrdhiugdrrghu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220513033450.7038-6-kflin@nuvoton.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,161 +70,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- "zev@bewilderbeest.net" <zev@bewilderbeest.net>,
- Andrew Jeffery <andrew@aj.id.au>, Iris Chen <irischenlj@fb.com>,
- OpenBMC List <openbmc@lists.ozlabs.org>,
- Cameron Esfahani via <qemu-devel@nongnu.org>, qemu-arm <qemu-arm@nongnu.org>,
- Joel Stanley <joel@jms.id.au>
+Cc: kwliu@nuvoton.com, kbuild-all@lists.01.org, tmaimon77@gmail.com,
+ avifishman70@gmail.com, openbmc@lists.ozlabs.org, llvm@lists.linux.dev,
+ tali.perry1@gmail.com, kflin@nuvoton.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 5/13/22 23:08, Peter Delevoryas wrote:
-> 
-> 
->> On May 12, 2022, at 10:31 PM, Cédric Le Goater <clg@kaod.org> wrote:
->>
->> On 5/13/22 06:02, Peter Delevoryas wrote:
->>> Usually, QEMU users just provide one serial device on the command line,
->>> either through "-nographic" or "-serial stdio -display none", or just using
->>> VNC and popping up a window. We try to match what the user expects, which is
->>> to connect the first (and usually only) serial device to the UART a board is
->>> using as serial0.
->>> Most Aspeed machines in hw/arm/aspeed.c use UART5 for serial0 in their
->>> device tree, so we connect UART5 to the first serial device. Some machines
->>> use UART1 though, or UART3, so the uart_default property lets us specify
->>> that in a board definition.
->>> In order to specify a nonstandard serial0 UART, a user basically *must* add
->>> a new board definition in hw/arm/aspeed.c. There's no way to do this without
->>> recompiling QEMU, besides constructing the machine completely from scratch
->>> on the command line.
->>> To provide more flexibility, we can also support the user specifying more
->>> serial devices, and connect them to the UART memory regions if possible.
->>> Even if a user doesn't specify any extra serial devices, it's useful to
->>> initialize these memory regions as UART's, so that they respond to the guest
->>> OS more naturally. At the moment, they will just always return zero's for
->>> everything, and some UART registers have a default non-zero state.
->>> With this change, if a new OpenBMC image uses UART3 or some other
->>> nonstandard UART for serial0, you can still use it with the EVB without
->>> recompiling QEMU, even though uart-default=UART5 for the EVB.
->>> For example, Facebook's Wedge100 BMC uses UART3: you can fetch an image from
->>> Github[1] and get the serial console output even while running the palmetto
->>> machine type, because we explicitly specify that we want UART3 to be
->>> connected to stdio.
->>> qemu-system-arm -machine palmetto-bmc \
->>> -drive file=wedge100.mtd,format=raw,if=mtd \
->>> -serial null -serial null -serial null -serial stdio -display none
->>> Similarly, you can boot a Fuji BMC image[2], which uses UART1, using the
->>> AST2600 EVB machine:
->>> qemu-system-arm -machine ast2600-evb \
->>> -drive file=fuji.mtd,format=raw,if=mtd \
->>> -serial null -serial stdio -display none
->>> This is kind of complicated, of course: it might be more natural to get rid
->>> of the uart_default attribute completely, and initialize UART's
->>> sequentially. But, keeping backward compatibility and the way most users
->>> know how to use QEMU in mind, this seems to make the most sense.
->>> [1] https://github.com/facebook/openbmc/releases/download/v2021.49.0/wedge100.mtd
->>> [2] https://github.com/facebook/openbmc/releases/download/v2021.49.0/fuji.mtd
->>> Signed-off-by: Peter Delevoryas <pdel@fb.com>
->>> ---
->>> hw/arm/aspeed_ast10x0.c | 14 +++++++++++---
->>> hw/arm/aspeed_ast2600.c | 10 +++++++++-
->>> hw/arm/aspeed_soc.c | 10 +++++++++-
->>> 3 files changed, 29 insertions(+), 5 deletions(-)
->>> diff --git a/hw/arm/aspeed_ast10x0.c b/hw/arm/aspeed_ast10x0.c
->>> index f65dc139da..5e6f3a8fed 100644
->>> --- a/hw/arm/aspeed_ast10x0.c
->>> +++ b/hw/arm/aspeed_ast10x0.c
->>> @@ -215,10 +215,18 @@ static void aspeed_soc_ast1030_realize(DeviceState *dev_soc, Error **errp)
->>> qdev_get_gpio_in(DEVICE(&s->armv7m),
->>> sc->irqmap[ASPEED_DEV_KCS] + aspeed_lpc_kcs_4));
->>> - /* UART5 - attach an 8250 to the IO space as our UART */
->>> - serial_mm_init(get_system_memory(), sc->memmap[ASPEED_DEV_UART5], 2,
->>> - aspeed_soc_get_irq(s, ASPEED_DEV_UART5),
->>> + /* UART - attach 8250's to the IO space for each UART */
->>> + serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
->>> + aspeed_soc_get_irq(s, s->uart_default),
->>
->> That's a fix for aspeed_ast10x0 that should come first.
-> 
-> Good point, I’ll separate this into another patch in the series instead
-> of doing it right here.
-> 
->>
->>> 38400, serial_hd(0), DEVICE_LITTLE_ENDIAN);
->>> + for (int i = 1, uart = ASPEED_DEV_UART1; i < 13; i++, uart++) {
->>
->> '13' should be a AspeecSoCClass attribute. The number of uarts varies
->> depending on the SoC model and we might want to model that one day.
-> 
-> True, I’ll add a patch to the series that includes that.
-> 
->>
->>> + if (uart == s->uart_default) {
->>> + uart++;
->>> + }
->>
->> Shouldn't we test serial_hd(i) validity ?
-> 
-> I was actually intentionally skipping that. If serial_hd(i)
-> doesn’t exist, the function will return NULL.
-> 
-> Chardev *serial_hd(int i)
-> {
->      assert(i >= 0);
->      if (i < num_serial_hds) {
->          return serial_hds[i];
->      }
->      return NULL;
-> }
-> 
-> So then, the serial device’s CharBackend’s “Chardev *chr”
-> will be initialized as NULL. Looking at all of the
-> usage of this attribute in “hw/char/serial.c”, I think
-> that’s ok, the read/write functions will just be no-ops.
-> They all have guards for “chr == NULL”. Take this one
-> as an example:
-> 
-> int qemu_chr_fe_write(CharBackend *be, const uint8_t *buf, int len)
-> {
->      Chardev *s = be->chr;
-> 
->      if (!s) {
->          return 0;
->      }
-> 
->      return qemu_chr_write(s, buf, len, false);
-> }
-> 
-> On the other hand, most of the rest of the serial device
-> code will run, include setting and clearing the line
-> status register and stuff like that. In some FB code[1] using
-> UART’s, processes will actually go to 100% CPU usage in QEMU
-> polling the line status register if it doesn’t have the
-> transmitter-empty bit set, mostly because the author didn’t write
-> fault-tolerant code, but also because it doesn’t align with how
-> the hardware behaves by default (I think). So, that was my
-> motivation for initializing serial devices, but not always
-> connecting a chardev backend. But I’m open to other
-> interpretations of how things should be setup too.
-> 
-> If you’d like me to only initialize a UART if a chardev backend
-> is provided for it, then to satisfy my use case, I would
-> just always make sure our test infrastructure runs QEMU
-> with all serial devices connected to chardevs. So, either way,
-> this change is still useful, and will satisfy my requirements.
+Hi Marvin,
 
-The problem is that it is breaking compatibility with previous QEMUs.
-We can not change the command line to :
+Thank you for the patch! Perhaps something to improve:
 
-     qemu-system-arm -machine palmetto-bmc \
-         -drive file=wedge100.mtd,format=raw,if=mtd \
-         -serial null -serial null -serial null -serial stdio -display none
+[auto build test WARNING on robh/for-next]
+[also build test WARNING on linux/master linus/master v5.18-rc6]
+[cannot apply to media-tree/master next-20220513]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-What about adding a machine "uart" option ? like we did for the fmc/spi
-models
+url:    https://github.com/intel-lab-lkp/linux/commits/Marvin-Lin/Support-Nuvoton-NPCM-Video-Capture-Encode-Engine/20220513-113806
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20220514/202205141815.QVBWWaqM-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 38189438b69ca27b4c6ce707c52dbd217583d046)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/7fa1f7750e7317479ce2c2c043b44fa19c46b1a8
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Marvin-Lin/Support-Nuvoton-NPCM-Video-Capture-Encode-Engine/20220513-113806
+        git checkout 7fa1f7750e7317479ce2c2c043b44fa19c46b1a8
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/media/platform/nuvoton/
 
-Thanks,
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-C.
+All warnings (new ones prefixed by >>):
+
+>> drivers/media/platform/nuvoton/npcm-video.c:1776:6: warning: variable 'empty' set but not used [-Wunused-but-set-variable]
+           int empty;
+               ^
+   1 warning generated.
+
+
+vim +/empty +1776 drivers/media/platform/nuvoton/npcm-video.c
+
+  1773	
+  1774	static void nuvoton_video_buf_queue(struct vb2_buffer *vb)
+  1775	{
+> 1776		int empty;
+  1777		struct nuvoton_video *video = vb2_get_drv_priv(vb->vb2_queue);
+  1778		struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+  1779		struct nuvoton_video_buffer *nvb = to_nuvoton_video_buffer(vbuf);
+  1780		unsigned long flags;
+  1781	
+  1782		dev_dbg(video->dev, "%s\n", __func__);
+  1783	
+  1784		spin_lock_irqsave(&video->lock, flags);
+  1785		empty = list_empty(&video->buffers);
+  1786		list_add_tail(&nvb->link, &video->buffers);
+  1787		spin_unlock_irqrestore(&video->lock, flags);
+  1788	}
+  1789	
+
+-- 
+0-DAY CI Kernel Test Service
+https://01.org/lkp
