@@ -4,54 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B392FC433F5
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 07:20:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82892C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 07:21:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L1rJ22rl8z3c9B
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 17:20:34 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L1rK30RtJz3byX
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 17:21:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kaod.org (client-ip=46.105.33.25; helo=7.mo548.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-Received: from 7.mo548.mail-out.ovh.net (7.mo548.mail-out.ovh.net
- [46.105.33.25])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ smtp.mailfrom=kaod.org (client-ip=217.182.185.173;
+ helo=smtpout4.mo529.mail-out.ovh.net; envelope-from=clg@kaod.org;
+ receiver=<UNKNOWN>)
+X-Greylist: delayed 124 seconds by postgrey-1.36 at boromir;
+ Mon, 16 May 2022 17:21:00 AEST
+Received: from smtpout4.mo529.mail-out.ovh.net
+ (smtpout4.mo529.mail-out.ovh.net [217.182.185.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L1rHX2MN2z2ync
- for <openbmc@lists.ozlabs.org>; Mon, 16 May 2022 17:20:06 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.138.84])
- by mo548.mail-out.ovh.net (Postfix) with ESMTPS id 46D9522E18;
- Mon, 16 May 2022 07:19:59 +0000 (UTC)
-Received: from kaod.org (37.59.142.95) by DAG4EX1.mxp5.local (172.16.2.31)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L1rJX6qf4z2ybB
+ for <openbmc@lists.ozlabs.org>; Mon, 16 May 2022 17:21:00 +1000 (AEST)
+Received: from mxplan5.mail.ovh.net (unknown [10.109.146.192])
+ by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 1197910028E11;
+ Mon, 16 May 2022 09:20:58 +0200 (CEST)
+Received: from kaod.org (37.59.142.97) by DAG4EX1.mxp5.local (172.16.2.31)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 16 May
- 2022 09:19:58 +0200
+ 2022 09:20:57 +0200
 Authentication-Results: garm.ovh; auth=pass
- (GARM-95G0019ea08e22-5546-4010-8cbe-789ae0f0c085,
+ (GARM-97G002ac001822-d446-48a0-8c9e-03cc33ed083d,
  182B8575423FAF1F37CDABDABB9637A2CFA4B440) smtp.auth=clg@kaod.org
 X-OVh-ClientIp: 82.64.250.170
-Message-ID: <85c15d25-ed3f-65a7-0f94-d5d877e6ff75@kaod.org>
-Date: Mon, 16 May 2022 09:19:57 +0200
+Message-ID: <6193e078-0819-16c3-389c-304a30089636@kaod.org>
+Date: Mon, 16 May 2022 09:20:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: [PATCH v2 1/5] hw: aspeed: Add missing UART's
+Subject: Re: [PATCH v2 4/5] hw: aspeed: Introduce common UART init function
 Content-Language: en-US
 To: Peter Delevoryas <pdel@fb.com>
 References: <20220516062328.298336-1-pdel@fb.com>
- <20220516062328.298336-2-pdel@fb.com>
+ <20220516062328.298336-5-pdel@fb.com>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <20220516062328.298336-2-pdel@fb.com>
+In-Reply-To: <20220516062328.298336-5-pdel@fb.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.95]
-X-ClientProxiedBy: DAG2EX1.mxp5.local (172.16.2.11) To DAG4EX1.mxp5.local
+X-Originating-IP: [37.59.142.97]
+X-ClientProxiedBy: DAG2EX2.mxp5.local (172.16.2.12) To DAG4EX1.mxp5.local
  (172.16.2.31)
-X-Ovh-Tracer-GUID: 64428277-d221-4a70-9f00-6cd19f6b1ed8
-X-Ovh-Tracer-Id: 18095181831742786482
+X-Ovh-Tracer-GUID: ea3d32f0-c9d9-4fcb-9fbc-b1a3abddeed6
+X-Ovh-Tracer-Id: 18111788852229999538
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrheeggdduvddtucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeekteejtdelkeejvdevffduhfetteelieefgeefffeugffhfeekheffueefledujeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepjhgrmhhinhgplhhinhesrghsphgvvgguthgvtghhrdgtohhm
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrheeggdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeekteejtdelkeejvdevffduhfetteelieefgeefffeugffhfeekheffueefledujeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepjhgrmhhinhgplhhinhesrghsphgvvgguthgvtghhrdgtohhm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,13 +74,6 @@ Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 On 5/16/22 08:23, Peter Delevoryas wrote:
-> This adds the missing UART memory and IRQ mappings for the AST2400, AST2500,
-> AST2600, and AST1030.
-> 
-> This also includes the new UART interfaces added in the AST2600 and AST1030
-> from UART6 to UART13. The addresses and interrupt numbers for these two
-> later chips are identical.
-> 
 > Signed-off-by: Peter Delevoryas <pdel@fb.com>
 
 Reviewed-by: Cédric Le Goater <clg@kaod.org>
@@ -88,135 +83,105 @@ Thanks,
 C.
 
 
+
+
 > ---
->   hw/arm/aspeed_ast10x0.c     | 24 ++++++++++++++++++++++++
->   hw/arm/aspeed_ast2600.c     | 19 +++++++++++++++++++
->   hw/arm/aspeed_soc.c         |  6 ++++++
->   include/hw/arm/aspeed_soc.h |  8 ++++++++
->   4 files changed, 57 insertions(+)
+>   hw/arm/aspeed_ast10x0.c     |  7 ++-----
+>   hw/arm/aspeed_ast2600.c     |  7 ++-----
+>   hw/arm/aspeed_soc.c         | 16 ++++++++++++----
+>   include/hw/arm/aspeed_soc.h |  1 +
+>   4 files changed, 17 insertions(+), 14 deletions(-)
 > 
 > diff --git a/hw/arm/aspeed_ast10x0.c b/hw/arm/aspeed_ast10x0.c
-> index 9ae9efaac1..fa2cc4406c 100644
+> index faafb800f3..938615d55f 100644
 > --- a/hw/arm/aspeed_ast10x0.c
 > +++ b/hw/arm/aspeed_ast10x0.c
-> @@ -33,14 +33,38 @@ static const hwaddr aspeed_soc_ast1030_memmap[] = {
->       [ASPEED_DEV_SBC]       = 0x7E6F2000,
->       [ASPEED_DEV_GPIO]      = 0x7E780000,
->       [ASPEED_DEV_TIMER1]    = 0x7E782000,
-> +    [ASPEED_DEV_UART1]     = 0x7E783000,
-> +    [ASPEED_DEV_UART2]     = 0x7E78D000,
-> +    [ASPEED_DEV_UART3]     = 0x7E78E000,
-> +    [ASPEED_DEV_UART4]     = 0x7E78F000,
->       [ASPEED_DEV_UART5]     = 0x7E784000,
-> +    [ASPEED_DEV_UART6]     = 0x7E790000,
-> +    [ASPEED_DEV_UART7]     = 0x7E790100,
-> +    [ASPEED_DEV_UART8]     = 0x7E790200,
-> +    [ASPEED_DEV_UART9]     = 0x7E790300,
-> +    [ASPEED_DEV_UART10]    = 0x7E790400,
-> +    [ASPEED_DEV_UART11]    = 0x7E790500,
-> +    [ASPEED_DEV_UART12]    = 0x7E790600,
-> +    [ASPEED_DEV_UART13]    = 0x7E790700,
->       [ASPEED_DEV_WDT]       = 0x7E785000,
->       [ASPEED_DEV_LPC]       = 0x7E789000,
->       [ASPEED_DEV_I2C]       = 0x7E7B0000,
->   };
+> @@ -15,7 +15,6 @@
+>   #include "sysemu/sysemu.h"
+>   #include "hw/qdev-clock.h"
+>   #include "hw/misc/unimp.h"
+> -#include "hw/char/serial.h"
+>   #include "hw/arm/aspeed_soc.h"
 >   
->   static const int aspeed_soc_ast1030_irqmap[] = {
-> +    [ASPEED_DEV_UART1]     = 47,
-> +    [ASPEED_DEV_UART2]     = 48,
-> +    [ASPEED_DEV_UART3]     = 49,
-> +    [ASPEED_DEV_UART4]     = 50,
->       [ASPEED_DEV_UART5]     = 8,
-> +    [ASPEED_DEV_UART6]     = 57,
-> +    [ASPEED_DEV_UART7]     = 58,
-> +    [ASPEED_DEV_UART8]     = 59,
-> +    [ASPEED_DEV_UART9]     = 60,
-> +    [ASPEED_DEV_UART10]    = 61,
-> +    [ASPEED_DEV_UART11]    = 62,
-> +    [ASPEED_DEV_UART12]    = 63,
-> +    [ASPEED_DEV_UART13]    = 64,
->       [ASPEED_DEV_GPIO]      = 11,
->       [ASPEED_DEV_TIMER1]    = 16,
->       [ASPEED_DEV_TIMER2]    = 17,
+>   #define ASPEED_SOC_IOMEM_SIZE 0x00200000
+> @@ -215,10 +214,8 @@ static void aspeed_soc_ast1030_realize(DeviceState *dev_soc, Error **errp)
+>                          qdev_get_gpio_in(DEVICE(&s->armv7m),
+>                                   sc->irqmap[ASPEED_DEV_KCS] + aspeed_lpc_kcs_4));
+>   
+> -    /* UART - attach an 8250 to the IO space as our UART */
+> -    serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
+> -                   aspeed_soc_get_irq(s, s->uart_default),
+> -                   38400, serial_hd(0), DEVICE_LITTLE_ENDIAN);
+> +    /* UART */
+> +    aspeed_soc_uart_init(s);
+>   
+>       /* Timer */
+>       object_property_set_link(OBJECT(&s->timerctrl), "scu", OBJECT(&s->scu),
 > diff --git a/hw/arm/aspeed_ast2600.c b/hw/arm/aspeed_ast2600.c
-> index 4161a0cc4b..f3ecc0f3b7 100644
+> index a9523074a0..b0a4199b69 100644
 > --- a/hw/arm/aspeed_ast2600.c
 > +++ b/hw/arm/aspeed_ast2600.c
-> @@ -61,7 +61,18 @@ static const hwaddr aspeed_soc_ast2600_memmap[] = {
->       [ASPEED_DEV_IBT]       = 0x1E789140,
->       [ASPEED_DEV_I2C]       = 0x1E78A000,
->       [ASPEED_DEV_UART1]     = 0x1E783000,
-> +    [ASPEED_DEV_UART2]     = 0x1E78D000,
-> +    [ASPEED_DEV_UART3]     = 0x1E78E000,
-> +    [ASPEED_DEV_UART4]     = 0x1E78F000,
->       [ASPEED_DEV_UART5]     = 0x1E784000,
-> +    [ASPEED_DEV_UART6]     = 0x1E790000,
-> +    [ASPEED_DEV_UART7]     = 0x1E790100,
-> +    [ASPEED_DEV_UART8]     = 0x1E790200,
-> +    [ASPEED_DEV_UART9]     = 0x1E790300,
-> +    [ASPEED_DEV_UART10]    = 0x1E790400,
-> +    [ASPEED_DEV_UART11]    = 0x1E790500,
-> +    [ASPEED_DEV_UART12]    = 0x1E790600,
-> +    [ASPEED_DEV_UART13]    = 0x1E790700,
->       [ASPEED_DEV_VUART]     = 0x1E787000,
->       [ASPEED_DEV_I3C]       = 0x1E7A0000,
->       [ASPEED_DEV_SDRAM]     = 0x80000000,
-> @@ -78,6 +89,14 @@ static const int aspeed_soc_ast2600_irqmap[] = {
->       [ASPEED_DEV_UART3]     = 49,
->       [ASPEED_DEV_UART4]     = 50,
->       [ASPEED_DEV_UART5]     = 8,
-> +    [ASPEED_DEV_UART6]     = 57,
-> +    [ASPEED_DEV_UART7]     = 58,
-> +    [ASPEED_DEV_UART8]     = 59,
-> +    [ASPEED_DEV_UART9]     = 60,
-> +    [ASPEED_DEV_UART10]    = 61,
-> +    [ASPEED_DEV_UART11]    = 62,
-> +    [ASPEED_DEV_UART12]    = 63,
-> +    [ASPEED_DEV_UART13]    = 64,
->       [ASPEED_DEV_VUART]     = 8,
->       [ASPEED_DEV_FMC]       = 39,
->       [ASPEED_DEV_SDMC]      = 0,
+> @@ -11,7 +11,6 @@
+>   #include "qapi/error.h"
+>   #include "hw/misc/unimp.h"
+>   #include "hw/arm/aspeed_soc.h"
+> -#include "hw/char/serial.h"
+>   #include "qemu/module.h"
+>   #include "qemu/error-report.h"
+>   #include "hw/i2c/aspeed_i2c.h"
+> @@ -372,10 +371,8 @@ static void aspeed_soc_ast2600_realize(DeviceState *dev, Error **errp)
+>       sysbus_connect_irq(SYS_BUS_DEVICE(&s->adc), 0,
+>                          aspeed_soc_get_irq(s, ASPEED_DEV_ADC));
+>   
+> -    /* UART - attach an 8250 to the IO space as our UART */
+> -    serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
+> -                   aspeed_soc_get_irq(s, s->uart_default), 38400,
+> -                   serial_hd(0), DEVICE_LITTLE_ENDIAN);
+> +    /* UART */
+> +    aspeed_soc_uart_init(s);
+>   
+>       /* I2C */
+>       object_property_set_link(OBJECT(&s->i2c), "dram", OBJECT(s->dram_mr),
 > diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
-> index c339b5c74d..96bc060680 100644
+> index 7008cd1af7..912798a9c9 100644
 > --- a/hw/arm/aspeed_soc.c
 > +++ b/hw/arm/aspeed_soc.c
-> @@ -48,6 +48,9 @@ static const hwaddr aspeed_soc_ast2400_memmap[] = {
->       [ASPEED_DEV_ETH1]   = 0x1E660000,
->       [ASPEED_DEV_ETH2]   = 0x1E680000,
->       [ASPEED_DEV_UART1]  = 0x1E783000,
-> +    [ASPEED_DEV_UART2]  = 0x1E78D000,
-> +    [ASPEED_DEV_UART3]  = 0x1E78E000,
-> +    [ASPEED_DEV_UART4]  = 0x1E78F000,
->       [ASPEED_DEV_UART5]  = 0x1E784000,
->       [ASPEED_DEV_VUART]  = 0x1E787000,
->       [ASPEED_DEV_SDRAM]  = 0x40000000,
-> @@ -80,6 +83,9 @@ static const hwaddr aspeed_soc_ast2500_memmap[] = {
->       [ASPEED_DEV_ETH1]   = 0x1E660000,
->       [ASPEED_DEV_ETH2]   = 0x1E680000,
->       [ASPEED_DEV_UART1]  = 0x1E783000,
-> +    [ASPEED_DEV_UART2]  = 0x1E78D000,
-> +    [ASPEED_DEV_UART3]  = 0x1E78E000,
-> +    [ASPEED_DEV_UART4]  = 0x1E78F000,
->       [ASPEED_DEV_UART5]  = 0x1E784000,
->       [ASPEED_DEV_VUART]  = 0x1E787000,
->       [ASPEED_DEV_SDRAM]  = 0x80000000,
+> @@ -303,10 +303,8 @@ static void aspeed_soc_realize(DeviceState *dev, Error **errp)
+>       sysbus_connect_irq(SYS_BUS_DEVICE(&s->adc), 0,
+>                          aspeed_soc_get_irq(s, ASPEED_DEV_ADC));
+>   
+> -    /* UART - attach an 8250 to the IO space as our UART */
+> -    serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
+> -                   aspeed_soc_get_irq(s, s->uart_default), 38400,
+> -                   serial_hd(0), DEVICE_LITTLE_ENDIAN);
+> +    /* UART */
+> +    aspeed_soc_uart_init(s);
+>   
+>       /* I2C */
+>       object_property_set_link(OBJECT(&s->i2c), "dram", OBJECT(s->dram_mr),
+> @@ -544,3 +542,13 @@ qemu_irq aspeed_soc_get_irq(AspeedSoCState *s, int dev)
+>   {
+>       return ASPEED_SOC_GET_CLASS(s)->get_irq(s, dev);
+>   }
+> +
+> +void aspeed_soc_uart_init(AspeedSoCState *s)
+> +{
+> +    AspeedSoCClass *sc = ASPEED_SOC_GET_CLASS(s);
+> +
+> +    /* Attach an 8250 to the IO space as our UART */
+> +    serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
+> +                   aspeed_soc_get_irq(s, s->uart_default), 38400,
+> +                   serial_hd(0), DEVICE_LITTLE_ENDIAN);
+> +}
 > diff --git a/include/hw/arm/aspeed_soc.h b/include/hw/arm/aspeed_soc.h
-> index 3789f38603..709a78285b 100644
+> index 669bc49855..02a5a9ffcb 100644
 > --- a/include/hw/arm/aspeed_soc.h
 > +++ b/include/hw/arm/aspeed_soc.h
-> @@ -105,6 +105,14 @@ enum {
->       ASPEED_DEV_UART3,
->       ASPEED_DEV_UART4,
->       ASPEED_DEV_UART5,
-> +    ASPEED_DEV_UART6,
-> +    ASPEED_DEV_UART7,
-> +    ASPEED_DEV_UART8,
-> +    ASPEED_DEV_UART9,
-> +    ASPEED_DEV_UART10,
-> +    ASPEED_DEV_UART11,
-> +    ASPEED_DEV_UART12,
-> +    ASPEED_DEV_UART13,
->       ASPEED_DEV_VUART,
->       ASPEED_DEV_FMC,
->       ASPEED_DEV_SPI1,
+> @@ -164,5 +164,6 @@ enum {
+>   };
+>   
+>   qemu_irq aspeed_soc_get_irq(AspeedSoCState *s, int dev);
+> +void aspeed_soc_uart_init(AspeedSoCState *s);
+>   
+>   #endif /* ASPEED_SOC_H */
 
