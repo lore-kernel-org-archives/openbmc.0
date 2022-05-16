@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93971C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 07:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75EA3C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 07:30:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L1rWV113Rz3bxr
-	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 17:30:30 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L1rWy0KxMz3ccl
+	for <openbmc@archiver.kernel.org>; Mon, 16 May 2022 17:30:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kaod.org (client-ip=178.33.43.201; helo=4.mo552.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 558 seconds by postgrey-1.36 at boromir;
- Mon, 16 May 2022 17:30:02 AEST
-Received: from 4.mo552.mail-out.ovh.net (4.mo552.mail-out.ovh.net
- [178.33.43.201])
+ smtp.mailfrom=kaod.org (client-ip=178.33.254.192;
+ helo=3.mo552.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+Received: from 3.mo552.mail-out.ovh.net (3.mo552.mail-out.ovh.net
+ [178.33.254.192])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L1rVy3rxXz3cGR
- for <openbmc@lists.ozlabs.org>; Mon, 16 May 2022 17:30:01 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.156.171])
- by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 5ECC321DA7;
- Mon, 16 May 2022 07:20:37 +0000 (UTC)
-Received: from kaod.org (37.59.142.107) by DAG4EX1.mxp5.local (172.16.2.31)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L1rWL0Bn5z3cM1
+ for <openbmc@lists.ozlabs.org>; Mon, 16 May 2022 17:30:21 +1000 (AEST)
+Received: from mxplan5.mail.ovh.net (unknown [10.108.20.180])
+ by mo552.mail-out.ovh.net (Postfix) with ESMTPS id A0C3826B29;
+ Mon, 16 May 2022 07:22:23 +0000 (UTC)
+Received: from kaod.org (37.59.142.108) by DAG4EX1.mxp5.local (172.16.2.31)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.6; Mon, 16 May
- 2022 09:20:36 +0200
+ 2022 09:22:22 +0200
 Authentication-Results: garm.ovh; auth=pass
- (GARM-107S001e18fa46d-3347-47f6-9108-8713955a4707,
+ (GARM-108S002a6839763-3245-402c-bf7b-2f24d5b9d825,
  182B8575423FAF1F37CDABDABB9637A2CFA4B440) smtp.auth=clg@kaod.org
 X-OVh-ClientIp: 82.64.250.170
-Message-ID: <a4bc0da6-cab0-c9c4-4171-51d5167b2b96@kaod.org>
-Date: Mon, 16 May 2022 09:20:30 +0200
+Message-ID: <c57591b0-604b-1a98-102d-17cac1732db9@kaod.org>
+Date: Mon, 16 May 2022 09:22:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: [PATCH v2 3/5] hw: aspeed: Ensure AST1030 respects uart-default
+Subject: Re: [PATCH v2 5/5] hw: aspeed: Init all UART's with serial devices
 Content-Language: en-US
 To: Peter Delevoryas <pdel@fb.com>
 References: <20220516062328.298336-1-pdel@fb.com>
- <20220516062328.298336-4-pdel@fb.com>
+ <20220516062328.298336-6-pdel@fb.com>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <20220516062328.298336-4-pdel@fb.com>
+In-Reply-To: <20220516062328.298336-6-pdel@fb.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.107]
-X-ClientProxiedBy: DAG8EX1.mxp5.local (172.16.2.71) To DAG4EX1.mxp5.local
+X-Originating-IP: [37.59.142.108]
+X-ClientProxiedBy: DAG7EX2.mxp5.local (172.16.2.62) To DAG4EX1.mxp5.local
  (172.16.2.31)
-X-Ovh-Tracer-GUID: b9b26e7f-ae49-43dc-bc86-caf57d9614fe
-X-Ovh-Tracer-Id: 18105877877467483058
+X-Ovh-Tracer-GUID: 4103372d-cd80-4613-b592-a061500577f9
+X-Ovh-Tracer-Id: 18135714226604182450
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrheeggdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeekteejtdelkeejvdevffduhfetteelieefgeefffeugffhfeekheffueefledujeenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghnhedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdpnhgspghrtghpthhtohepuddprhgtphhtthhopehjrghmihhnpghlihhnsegrshhpvggvughtvggthhdrtghomh
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrheeggdduvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpefhfeevveegueejhfettdeuvdejtefgkeffkeejgeeuteejgfduieelhedttefhtdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhenucfkpheptddrtddrtddrtddpfeejrdehledrudegvddruddtkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghnhedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdpnhgspghrtghpthhtohepuddprhgtphhtthhopehjrghmihhnpghlihhnsegrshhpvggvughtvggthhdrtghomh
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,14 +72,76 @@ Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 On 5/16/22 08:23, Peter Delevoryas wrote:
-> The AST1030 machine initialization was not respecting the Aspeed SoC
-> property "uart-default", which specifies which UART should be connected to
-> the first serial device, it was just always connecting UART5. This doesn't
-> change any behavior, because the default value for "uart-default" is UART5,
-> but it makes it possible to override this in new machine definitions using
-> the AST1030.
+> Background:
+> 
+> AspeedMachineClass.uart_default specifies the serial console UART, which
+> usually corresponds to the "stdout-path" in the device tree.
+> 
+> The default value is UART5, since most boards use UART5 for this:
+> 
+>      amc->uart_default = ASPEED_DEV_UART5;
+> 
+> Users can override AspeedMachineClass.uart_default in their board's machine
+> class init to specify something besides UART5. For example, for fuji-bmc:
+> 
+>      amc->uart_default = ASPEED_DEV_UART1;
+> 
+> We only connect this one UART, of the 5 UART's on the AST2400 and AST2500
+> and the 13 UART's on the AST2600 and AST1030, to a serial device that QEMU
+> users can use. None of the other UART's are initialized, and the only way
+> to override this attribute is by creating a specialized board definition,
+> requiring QEMU source code changes and rebuilding.
+> 
+> The result of this is that if you want to get serial console output on a
+> board that uses UART3, you need to add a board definition. This was
+> encountered by Zev in OpenBMC. [1]
+> 
+> Changes:
+> 
+> This commit initializes all of the UART's present on each Aspeed chip with
+> serial devices and allows the QEMU user to connect as many or few as they
+> like to serial devices. For example, you can still run QEMU and just connect
+> stdout to the machine's default UART, without specifying any additional
+> serial devices:
+> 
+>      qemu-system-arm -machine fuji-bmc \
+>          -drive file=fuji.mtd,format=raw,if=mtd \
+>          -nographic
+> 
+> However, if you don't want to add a special machine definition, you can now
+> manually configure UART1 to connect to stdout and get serial console output,
+> even if the machine's default is UART5:
+> 
+>      qemu-system-arm -machine ast2600-evb \
+>          -drive file=fuji.mtd,format=raw,if=mtd \
+>          -serial null -serial mon:stdio -display none
+> 
+> In the example above, the first "-serial null" argument is connected to
+> UART5, and "-serial mon:stdio" is connected to UART1.
+> 
+> Another example: you can get serial console output from Wedge100, which uses
+> UART3, by reusing the palmetto AST2400 machine and rewiring the serial
+> device arguments:
+> 
+>      qemu-system-arm -machine palmetto-bmc \
+>          -drive file=wedge100.mtd,format=raw,if=mtd \
+>          -serial null -serial null -serial null \
+>          -serial mon:stdio -display none
+> 
+> There is a slight change in behavior introduced with this change: now, each
+> UART's memory-mapped IO region will have a serial device model connected to
+> it. Previously, all reads and writes to those regions would be ineffective
+> and return zero values, but now some values will be nonzero, even when the
+> user doesn't connect a serial device backend (like a socket, file, etc). For
+> example, the line status register might indicate that the transmit buffer is
+> empty now, whereas previously it might have always indicated it was full.
+> 
+> [1] https://lore.kernel.org/openbmc/YnzGnWjkYdMUUNyM@hatter.bewilderbeest.net/
+> [2] https://github.com/facebook/openbmc/releases/download/v2021.49.0/fuji.mtd
+> [3] https://github.com/facebook/openbmc/releases/download/v2021.49.0/wedge100.mtd
 > 
 > Signed-off-by: Peter Delevoryas <pdel@fb.com>
+
 
 Reviewed-by: Cédric Le Goater <clg@kaod.org>
 
@@ -90,26 +150,31 @@ Thanks,
 C.
 
 
-
 > ---
->   hw/arm/aspeed_ast10x0.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+>   hw/arm/aspeed_soc.c | 9 +++++++++
+>   1 file changed, 9 insertions(+)
 > 
-> diff --git a/hw/arm/aspeed_ast10x0.c b/hw/arm/aspeed_ast10x0.c
-> index bb8177e86c..faafb800f3 100644
-> --- a/hw/arm/aspeed_ast10x0.c
-> +++ b/hw/arm/aspeed_ast10x0.c
-> @@ -215,9 +215,9 @@ static void aspeed_soc_ast1030_realize(DeviceState *dev_soc, Error **errp)
->                          qdev_get_gpio_in(DEVICE(&s->armv7m),
->                                   sc->irqmap[ASPEED_DEV_KCS] + aspeed_lpc_kcs_4));
+> diff --git a/hw/arm/aspeed_soc.c b/hw/arm/aspeed_soc.c
+> index 912798a9c9..30574d4276 100644
+> --- a/hw/arm/aspeed_soc.c
+> +++ b/hw/arm/aspeed_soc.c
+> @@ -546,9 +546,18 @@ qemu_irq aspeed_soc_get_irq(AspeedSoCState *s, int dev)
+>   void aspeed_soc_uart_init(AspeedSoCState *s)
+>   {
+>       AspeedSoCClass *sc = ASPEED_SOC_GET_CLASS(s);
+> +    int i, uart;
 >   
-> -    /* UART5 - attach an 8250 to the IO space as our UART */
-> -    serial_mm_init(get_system_memory(), sc->memmap[ASPEED_DEV_UART5], 2,
-> -                   aspeed_soc_get_irq(s, ASPEED_DEV_UART5),
-> +    /* UART - attach an 8250 to the IO space as our UART */
-> +    serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
-> +                   aspeed_soc_get_irq(s, s->uart_default),
->                      38400, serial_hd(0), DEVICE_LITTLE_ENDIAN);
->   
->       /* Timer */
+>       /* Attach an 8250 to the IO space as our UART */
+>       serial_mm_init(get_system_memory(), sc->memmap[s->uart_default], 2,
+>                      aspeed_soc_get_irq(s, s->uart_default), 38400,
+>                      serial_hd(0), DEVICE_LITTLE_ENDIAN);
+> +    for (i = 1, uart = ASPEED_DEV_UART1; i < sc->uarts_num; i++, uart++) {
+> +        if (uart == s->uart_default) {
+> +            uart++;
+> +        }
+> +        serial_mm_init(get_system_memory(), sc->memmap[uart], 2,
+> +                       aspeed_soc_get_irq(s, uart), 38400,
+> +                       serial_hd(i), DEVICE_LITTLE_ENDIAN);
+> +    }
+>   }
 
