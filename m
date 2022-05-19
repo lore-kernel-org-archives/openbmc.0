@@ -4,74 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB4AC433F5
-	for <openbmc@archiver.kernel.org>; Thu, 19 May 2022 15:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96DF6C433EF
+	for <openbmc@archiver.kernel.org>; Thu, 19 May 2022 18:56:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L3tZD0YZQz2yyf
-	for <openbmc@archiver.kernel.org>; Fri, 20 May 2022 01:09:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L3zbR0W82z301N
+	for <openbmc@archiver.kernel.org>; Fri, 20 May 2022 04:56:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=O2PDgplY;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=frhkRuTX;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::62a;
- helo=mail-ej1-x62a.google.com; envelope-from=patrick.rudolph@9elements.com;
+ smtp.mailfrom=quicinc.com (client-ip=199.106.114.39;
+ helo=alexa-out-sd-02.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256
- header.s=google header.b=O2PDgplY; dkim-atps=neutral
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [IPv6:2a00:1450:4864:20::62a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256
+ header.s=qcdkim header.b=frhkRuTX; dkim-atps=neutral
+X-Greylist: delayed 123 seconds by postgrey-1.36 at boromir;
+ Fri, 20 May 2022 04:55:38 AEST
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com
+ [199.106.114.39])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L3tWQ68J5z2yyf
- for <openbmc@lists.ozlabs.org>; Fri, 20 May 2022 01:07:28 +1000 (AEST)
-Received: by mail-ej1-x62a.google.com with SMTP id y13so9811692eje.2
- for <openbmc@lists.ozlabs.org>; Thu, 19 May 2022 08:07:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L3zZf5zpFz2yyQ
+ for <openbmc@lists.ozlabs.org>; Fri, 20 May 2022 04:55:38 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=9elements.com; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TzWy8IpWXFf4QcdnvcMjYq4nzBOuUkzd1RDivYTla34=;
- b=O2PDgplY1dAenX3HLMAErbfYyQwuu0uPdRvBgPzYXUqSBGXDmByVLmWjBDHDu44xHO
- VgfJ5vsf6hAqQ5GYbfE0Rm9/73nzdUREsL8toGLE7XUro9dLlacbd21VZTePHynbvneB
- C6jNMDJxOl62s/wkEK8FfhhXcodSHlx3YtVUQEWabyGSrTndwOupvFG8PAcKOJAjPkWM
- TChs48xBxTCisBnoo+BK8WSsDi+6D+LkICbmjK+MD9fKV43J2CjfXnWUoLAS27+rSEL1
- tsvwJc7CZMmCS0lAS6ZsYUpBUPBSecfhY+3tArb9aIudG4pWwGw4y8uuy/ctZFb+rWHn
- jMag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TzWy8IpWXFf4QcdnvcMjYq4nzBOuUkzd1RDivYTla34=;
- b=4KMS2pm+em+bZpBSq26Q4+qBd71+wB6ekmEkxPORYdId6bn1YIyM3TjEP6zjT4hBw8
- uF0srkVbG2uJxKrXhHXIs8GfrHPXygXWDP+mduLUxOgUUKwVe/G5rHoZYQCM3+YaeJMn
- smbp2sReYDRlcAotn61gn3FPKyE2tizlP+Fn/vCtJ5YySnRELgFqGiGorua+E0U3D09H
- 2vm7M0kWS1TNgADtrkzlHHNO2Bg6bqN95PF1taX0l9tYHaD7GwpcE5SCyiilwBGjIGBO
- chjirWlh7uH2XKH2dBO1UIe2z9AFGCj0+2jPEN9f3eASkqn2vOoQW5nDbodOGa/E5XbV
- CGzA==
-X-Gm-Message-State: AOAM530n6uBHzzP55X18rjeHAs/x4eDZpwoytlsAwk/aNz+DSXUeO5fR
- KI4YgYJc8XHJEGNGAg6MNm/bTw==
-X-Google-Smtp-Source: ABdhPJzAgOuZlppdpvC6Xd5vZ9Wj+Xbo5n3hdDqLFvGhtojvWID7BfxsSY4cl4RvGaMbMyPLdmg/4Q==
-X-Received: by 2002:a17:907:7745:b0:6f3:674a:339 with SMTP id
- kx5-20020a170907774500b006f3674a0339mr4774210ejc.207.1652972842009; 
- Thu, 19 May 2022 08:07:22 -0700 (PDT)
-Received: from fedora.sec.9e.network
- (ip-088-153-019-247.um27.pools.vodafone-ip.de. [88.153.19.247])
- by smtp.gmail.com with ESMTPSA id
- l3-20020a056402124300b0042617ba63d5sm2962263edw.95.2022.05.19.08.07.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 May 2022 08:07:21 -0700 (PDT)
-From: Patrick Rudolph <patrick.rudolph@9elements.com>
-To: joel@jms.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 0/3] Add support for IBM
- Genesis3
-Date: Thu, 19 May 2022 17:07:16 +0200
-Message-Id: <20220519150719.22338-1-patrick.rudolph@9elements.com>
-X-Mailer: git-send-email 2.35.3
+ d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+ t=1652986539; x=1684522539;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=cIPa1NoyfDMNm06yHcW9CZ7Ga4FWuzhpFTZ0ypuRj3g=;
+ b=frhkRuTXz3zjfUurZ1Q7I7T4zVDgbTp6uSVrtShbWwbcW80bJmmHo18L
+ r/sBk7yjhicZGuTk2vdoxq3IfScJMJHPQQq0mpXeSP+kO2FvPnLnDZIcl
+ xNsXYyzTEadO78SJcwGBMqBmRBgqIsnjsi9rJlC20RuwbqjbffVLwKiQQ Y=;
+Received: from unknown (HELO ironmsg02-sd.qualcomm.com) ([10.53.140.142])
+ by alexa-out-sd-02.qualcomm.com with ESMTP; 19 May 2022 11:53:31 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+ by ironmsg02-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 11:53:31 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 19 May 2022 11:53:31 -0700
+Received: from maru.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 19 May
+ 2022 11:53:30 -0700
+From: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2] ARM: dts: aspeed: add
+ Qualcomm DC-SCM V1
+Date: Thu, 19 May 2022 11:53:18 -0700
+Message-ID: <20220519185318.62655-1-quic_jaehyoo@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,38 +74,254 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: christian.walter@9elements.com, takken@us.ibm.com,
- Patrick Rudolph <patrick.rudolph@9elements.com>, zev@bewilderbeest.net
+Cc: openbmc@lists.ozlabs.org, Graeme Gregory <quic_ggregory@quicinc.com>,
+ Jae Hyun Yoo <quic_jaehyoo@quicinc.com>, Jamie Iles <quic_jiles@quicinc.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-v3:
-  - Drop FIRMWARE_2ND_BOOT patch
-  - Include reference board DTS instead of copying it
-  - Rename DTS to ast2500-<boardname>
-  - Describe defconfig changes in commit message
+From: Graeme Gregory <quic_ggregory@quicinc.com>
 
-v2:
-  - Fix whitespace and compatible in DTS
-  - Remove board stub
-  - Improve commit message
-  - Rewrite FIRMWARE_2ND_BOOT support
-  - Update defconfig
+Add initial version of device tree for Qualcomm DC-SCM V1 BMC which is
+equipped with Aspeed AST2600 BMC SoC.
 
-Patrick Rudolph (3):
-  arm/dts: Add Genesis3 board
-  arm/mach-aspeed: Add support for CONFIG_DRAM_UART_TO_UART1
-  configs: Add IBM Genesis3 defconfig
+Signed-off-by: Graeme Gregory <quic_ggregory@quicinc.com>
+Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+---
+Changes in v2:
+* Changed vendor name from Nuvia to Qualcomm.
 
- arch/arm/dts/Makefile                 |  1 +
- arch/arm/dts/ast2500-ibm-genesis3.dts | 28 ++++++++++
- arch/arm/mach-aspeed/ast2500/Kconfig  |  6 +++
- configs/ibm_genesis3_defconfig        | 74 +++++++++++++++++++++++++++
- 4 files changed, 109 insertions(+)
- create mode 100644 arch/arm/dts/ast2500-ibm-genesis3.dts
- create mode 100644 configs/ibm_genesis3_defconfig
+ arch/arm/dts/Makefile                   |   1 +
+ arch/arm/dts/ast2600-qcom-dc-scm-v1.dts | 208 ++++++++++++++++++++++++
+ 2 files changed, 209 insertions(+)
+ create mode 100644 arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
 
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 3515100c65ce..e86a6c0ed609 100755
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -686,6 +686,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	ast2600-intel.dtb \
+ 	ast2600-ncsi.dtb \
+ 	ast2600-pfr.dtb \
++	ast2600-qcom-dc-scm-v1.dts \
+ 	ast2600-rainier.dtb \
+ 	ast2600-s6q.dtb \
+ 	ast2600-slt.dtb \
+diff --git a/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts b/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+new file mode 100644
+index 000000000000..e966f739b708
+--- /dev/null
++++ b/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+@@ -0,0 +1,208 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright (c) 2021-2022 Qualcomm Innovation Center, Inc. All rights reserved.
++/dts-v1/;
++
++#include "ast2600-u-boot.dtsi"
++
++/ {
++	model = "Qualcomm DC-SCM V1 BMC";
++	compatible = "qcom,dc-scm-v1-bmc", "aspeed,ast2600";
++
++	memory {
++		device_type = "memory";
++		reg = <0x80000000 0x40000000>;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++	};
++
++	aliases {
++		spi0 = &fmc;
++		spi1 = &spi1;
++		spi2 = &spi2;
++	};
++
++	cpus {
++		cpu@0 {
++			clock-frequency = <800000000>;
++		};
++		cpu@1 {
++			clock-frequency = <800000000>;
++		};
++	};
++};
++
++&uart5 {
++	u-boot,dm-pre-reloc;
++	status = "okay";
++};
++
++&sdrammc {
++	clock-frequency = <400000000>;
++};
++
++&wdt1 {
++	status = "okay";
++};
++
++&wdt2 {
++	status = "okay";
++};
++
++&wdt3 {
++	status = "okay";
++};
++
++&mdio {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_mdio4_default>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	ethphy3: ethernet-phy@1 {
++		reg = <1>;
++	};
++};
++
++&mac2 {
++	status = "okay";
++	reg = <0x1e670000 0x180>, <0x1e650018 0x4>;
++	phy-mode = "rgmii";
++	phy-handle = <&ethphy3>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii3_default>;
++};
++
++&fmc {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_fmcquad_default>;
++
++	flash@0 {
++		compatible = "spi-flash", "sst,w25q256";
++		status = "okay";
++		spi-max-frequency = <133000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++	};
++
++	flash@1 {
++		compatible = "spi-flash", "sst,w25q256";
++		status = "okay";
++		spi-max-frequency = <133000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++	};
++};
++
++&spi1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default &pinctrl_spi1abr_default
++			&pinctrl_spi1cs1_default &pinctrl_spi1wp_default
++			&pinctrl_spi1wp_default &pinctrl_spi1quad_default>;
++
++	flash@0 {
++		compatible = "spi-flash", "sst,w25q256";
++		status = "okay";
++		spi-max-frequency = <133000000>;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++	};
++};
++
++&i2c4 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c5_default>;
++};
++
++&i2c5 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c6_default>;
++};
++
++&i2c6 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c7_default>;
++};
++
++&i2c7 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c8_default>;
++};
++
++&i2c8 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c9_default>;
++};
++
++&i2c9 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c10_default>;
++};
++
++&i2c10 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c11_default>;
++};
++
++&i2c12 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c13_default>;
++};
++
++&i2c13 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c14_default>;
++};
++
++&i2c14 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c15_default>;
++};
++
++&i2c15 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_i2c16_default>;
++};
++
++&scu {
++	mac0-clk-delay = <0x1d 0x1c
++			  0x10 0x17
++			  0x10 0x17>;
++	mac1-clk-delay = <0x1d 0x10
++			  0x10 0x10
++			  0x10 0x10>;
++	mac2-clk-delay = <0x0a 0x04
++			  0x08 0x04
++			  0x08 0x04>;
++	mac3-clk-delay = <0x0a 0x04
++			  0x08 0x04
++			  0x08 0x04>;
++};
 -- 
-2.35.3
+2.25.1
 
