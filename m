@@ -4,84 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEB65C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 23 May 2022 05:36:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 393EEC433FE
+	for <openbmc@archiver.kernel.org>; Mon, 23 May 2022 05:42:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L65fJ2KNVz3bld
-	for <openbmc@archiver.kernel.org>; Mon, 23 May 2022 15:36:08 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L65nG6Cb9z3bsh
+	for <openbmc@archiver.kernel.org>; Mon, 23 May 2022 15:42:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=dl7Ft5A/;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=NttK1SU1;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::a36;
- helo=mail-vk1-xa36.google.com; envelope-from=tali.perry1@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42b;
+ helo=mail-wr1-x42b.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=dl7Ft5A/; dkim-atps=neutral
-Received: from mail-vk1-xa36.google.com (mail-vk1-xa36.google.com
- [IPv6:2607:f8b0:4864:20::a36])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=NttK1SU1; dkim-atps=neutral
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L5WTw0D8Pz300x
- for <openbmc@lists.ozlabs.org>; Sun, 22 May 2022 16:56:49 +1000 (AEST)
-Received: by mail-vk1-xa36.google.com with SMTP id u188so105127vku.3
- for <openbmc@lists.ozlabs.org>; Sat, 21 May 2022 23:56:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=qDo9UUCdw4SMj2aM3ERRiVJpDYvO4JgoJi8WdLoZ0lU=;
- b=dl7Ft5A/2X6nUPIBbpqjdW58KNi+xMUoc3zBFTctHHzVONK2CleyYzTWzBi/tDqjiU
- ngBC6pjX9j2B8a4/cHW3x51cqt96agpMOEbL25qEyOhW8WoeaIi4CaqNhxFMoknQqmgX
- Hb92DxvrvrrhyWTQvtBtnpikiCAPoxZYtU0r1Er+KQ7pW9Di4NzF3qO/EB3Fgv6DRroc
- tdToxaiNPp9FWXeYERnMhDVYlPxaO29Q4rdHUVWACuFXi7QauT/ZgeUE6UXika1MryAS
- w+yaEXyIB1vEU7MFvH4ifImAxayMZvQFqJ3jRsn1yM+6XxwcfZA/t9Iad9SzKx1Ftvt4
- aMmw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L65mK3tbcz3bkt
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2022 15:41:20 +1000 (AEST)
+Received: by mail-wr1-x42b.google.com with SMTP id r23so19689594wrr.2
+ for <openbmc@lists.ozlabs.org>; Sun, 22 May 2022 22:41:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=BG1/fzDpHenPJmkgl9u+VQSGIeJA/usktCfvERNdvBY=;
+ b=NttK1SU1uQGzaS1CLb4HTCTv/kENWH7fc3L6eskfIZHIBoxSZVD3gC9T3y2FX3alxi
+ gQy2/wrEhQCrpTwdaZ31RMvL4iYAZlCFOstF7QmxmQCbSyH8vVyX5Ck+ghuNNC/jE5+r
+ mA5esv56HHeTihI29D6UepXuY4BIutJhG+ZUw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=qDo9UUCdw4SMj2aM3ERRiVJpDYvO4JgoJi8WdLoZ0lU=;
- b=F+Oxt+my26hNf4OdysABS4jKQfLo7J5E3bGeKmv4F3R38LhY3R7OTRvQSlHTeoczJs
- UIZwJ2qMvruVmVp8VjAT8y0pgqiXu3/i5Qy8+kqVyYLijWb7SX4RR3Zc82Yqm5U6lptH
- MAEwnyOsMyqMxPW+S5AQbVfz500WddbQpSbFgJvPNgbENXhFkTRdat2Vyuh6zvdS+Kt6
- 2mSrHlbQkxvym6aKcwGu8KGsnu2AxK7gqgYVQ9VLELV9J7N7lRPE6ymZNY1JQ1ANBME/
- hy1hJob7WZBM6Xf/wR/PM4dNAPnvw0FGMT7zxKRLJDnXeGMbUPrf0lJ+toopX/OLz0Ea
- 08xw==
-X-Gm-Message-State: AOAM5312JUEM58PbP8294fXlpwQKfr/LU8h/b/zJPHHyrZwmLE+2WXch
- Z8fXWEeb1prl9XIsVXllVzI8SPRJtTlNdLjozBg=
-X-Google-Smtp-Source: ABdhPJzSFsR0sEXSSM5qtNrvyCk4BshQuchdzAr1Kwogd9LEeS00mSfb8t/DqERH2KTXWr8GoqbKL8OpiYoYlSFsncY=
-X-Received: by 2002:a1f:1d11:0:b0:357:733d:a6d with SMTP id
- d17-20020a1f1d11000000b00357733d0a6dmr1374013vkd.26.1653202607265; Sat, 21
- May 2022 23:56:47 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=BG1/fzDpHenPJmkgl9u+VQSGIeJA/usktCfvERNdvBY=;
+ b=BfH7R+IZAQv3Hrd2JvfRh8h9awzTcWD4cZZfoIrJGZSF9ks2XGHkZEmgsrf0SK+SAI
+ +DAiWh+5ONp0eT5gZu2qM3RO0/zl/9V4m7E2RTb/U3b2A1rYVfhTe40Za31JDC22Ujwc
+ gVkbVtLp3sowpO81d9/BODNxdbEVwyal7PDpPyV71qfUCbiYaP8B6LUO7LZGfxQLIQ/6
+ xy7DZIAXAGV4YnLd68V7mYvc50GOs975Hzg/DKurvIfOTPIPTSzg/Zq7UgPFo9mc7ecd
+ cifyLmI5LEY1R5kYtWrZ4ZUmODjXklUOtU/rOuy4yO/dizIysysw+SPTxEdJO1TKfd2B
+ f71w==
+X-Gm-Message-State: AOAM532miE/1rOZ4L/a7ZdL5T7mUWkUMhz+GocWmLVDc2rIjNxQ5hXMs
+ mb1elVckqThFGzV77KH9qrll01mT5UJPTLz6lLQ=
+X-Google-Smtp-Source: ABdhPJyhlVAQaNPxtMSXtRuHBJaYkcJOJ8nRa/3NDiu3FcfkGfhOSvLiBektuHNnghFa4hFeYBOQNLLS+cPKWQkIwcg=
+X-Received: by 2002:a5d:595f:0:b0:20d:97d:4d14 with SMTP id
+ e31-20020a5d595f000000b0020d097d4d14mr17125843wri.549.1653284472033; Sun, 22
+ May 2022 22:41:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220517101142.28421-1-warp5tw@gmail.com>
- <20220517101142.28421-9-warp5tw@gmail.com>
- <Yoh/nEYPu++LZSvb@shikoro>
-In-Reply-To: <Yoh/nEYPu++LZSvb@shikoro>
-From: Tali Perry <tali.perry1@gmail.com>
-Date: Sun, 22 May 2022 09:56:36 +0300
-Message-ID: <CAHb3i=uKwe1RdvzQA=oO6zNmEvyA_awx09+C2w8kbRq_NGi54w@mail.gmail.com>
-Subject: Re: [PATCH v5 08/10] i2c: npcm: Remove own slave addresses 2:10
-To: Wolfram Sang <wsa@kernel.org>, Tyrone Ting <warp5tw@gmail.com>,
- avifishman70@gmail.com, 
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Benjamin Fair <benjaminfair@google.com>, Rob Herring <robh+dt@kernel.org>, 
- krzysztof.kozlowski+dt@linaro.org, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- jarkko.nikula@linux.intel.com, 
- semen.protsenko@linaro.org, rafal@milecki.pl, sven@svenpeter.dev, 
- jsd@semihalf.com, jie.deng@intel.com, lukas.bulwahn@gmail.com, arnd@arndb.de, 
- olof@lixom.net, Tali Perry <tali.perry@nuvoton.com>, 
- Avi Fishman <Avi.Fishman@nuvoton.com>, tomer.maimon@nuvoton.com,
- KWLIU@nuvoton.com, JJLIU0@nuvoton.com, kfting@nuvoton.com, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux I2C <linux-i2c@vger.kernel.org>, 
- devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <E6809659-C4B1-45FF-A19A-3DF59B598F2D@gmail.com>
+ <3E12FF01-9770-4281-B3E5-33A62426FF1B@gmail.com>
+ <6B50C209-4CB6-40DD-B2A0-50B5B207598D@gmail.com>
+In-Reply-To: <6B50C209-4CB6-40DD-B2A0-50B5B207598D@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 23 May 2022 05:40:59 +0000
+Message-ID: <CACPK8XdOdO17kmHgWXbW-zW4AsxM43PghOTzya0Ttq1AytLfKQ@mail.gmail.com>
+Subject: Re: Gerrit and Jenkins server transition May 20th (Today)
+To: Andrew Geissler <geissonator@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Mon, 23 May 2022 15:30:44 +1000
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,111 +75,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-> On Sat, May 21, 2022 at 8:58 AM Wolfram Sang <wsa@kernel.org> wrote:
+On Mon, 23 May 2022 at 00:06, Andrew Geissler <geissonator@gmail.com> wrote=
+:
 >
-> > NPCM can support up to 10 own slave addresses. In practice, only one
-> > address is actually being used. In order to access addresses 2 and above,
-> > need to switch register banks. The switch needs spinlock.
-> > To avoid using spinlock for this useless feature removed support of SA >=
-> > 2. Also fix returned slave event enum.
+> ok, jenkins and gerrit are back up and fairly functional. Still a few kin=
+ks
+> to be worked out in the #infrastructure discord channel. Please report
+> any issues there or to me on the mailing list.
 >
-> Is the spinlock contention so high? The code paths do not really look
-> like hot paths to me. A bit sad to see this feature go.
+> Autoassign of reviewers does not seem to be working in gerrit so
+> for now you=E2=80=99ll have to manually add reviewers to new reviews.
 >
-
-The module has two seperate banks, accessible with a bit change. The
-first one is used
-for most of the runtime operations. Second bank is used mostly during init.
-Unfortunetly, the first two own slave addresses are in the first bank
-and the other
-8 are in the second bank.
-
-Every time the module switchs from master to slave mode, those
-registers are accessed.
-In theory, a spinlock can be used to protect those registers.
-In practice, none of our customers use the extra addresses.
-In fact they only need one.
-
-The driver also does not allow you to register more then one slave per bus,
-so this HW feature was not fully available to begin with.
-
-So when we encounter a deadlock with this spinlock we decided to get rid of this
-unused feature and get both a stable fix for the issue + performance benefits.
-We work closely with all our customers so we know that this HW
-feature is useless to them.
-
-> >  static const int npcm_i2caddr[I2C_NUM_OWN_ADDR] = {
-> >       NPCM_I2CADDR1, NPCM_I2CADDR2, NPCM_I2CADDR3, NPCM_I2CADDR4,
-> >       NPCM_I2CADDR5, NPCM_I2CADDR6, NPCM_I2CADDR7, NPCM_I2CADDR8,
+> I need to work with the Linux Foundation to add a SPF record
+> for the gerrit.openbmc.org domain to help make the emails not
+> look like spam to people.
 >
-> Why do we keep this array if we drop the support?
+> I=E2=80=99ll work on getting opengrok back up and going sometime this wee=
+k.
 >
-This array represents the HW so we left it as-is. But I agree it can
-be shortened to one\two.
+> During this maintenance window I moved the apps to a different server,
+> I upgraded gerrit and jenkins to the latest stable versions, and I
+> moved our gerrit server to the gerrit.openbmc.org domain. This way
+> we=E2=80=99ve now got gerrit, jenkins, and opengrok on the same domain.
+> The old gerrit domain should still work fine (I just redirect it to
+> the new domain)
 
-> > @@ -604,8 +602,7 @@ static int npcm_i2c_slave_enable(struct npcm_i2c *bus, enum i2c_addr addr_type,
-> >                       i2cctl1 &= ~NPCM_I2CCTL1_GCMEN;
-> >               iowrite8(i2cctl1, bus->reg + NPCM_I2CCTL1);
-> >               return 0;
-> > -     }
-> > -     if (addr_type == I2C_ARP_ADDR) {
-> > +     } else if (addr_type == I2C_ARP_ADDR) {
->
+Thanks for your work maintaining our services Andrew.
 
-addr_type type can be one of several options.
-The code was
-if (addr_type is 1st option)
-...
-if (addr_type is 2st option)
-...
-etc.
+It's a minor detail but I think it's helpful that these services are
+on the same domain now.
 
-Adding that else is more accurate, but ommiting this change works as well.
+Cheers,
 
-> I might be wrong but this looks like a seperate change?
->
-> > @@ -924,11 +918,15 @@ static int npcm_i2c_slave_get_wr_buf(struct npcm_i2c *bus)
-> >       for (i = 0; i < I2C_HW_FIFO_SIZE; i++) {
-> >               if (bus->slv_wr_size >= I2C_HW_FIFO_SIZE)
-> >                       break;
-> > -             i2c_slave_event(bus->slave, I2C_SLAVE_READ_REQUESTED, &value);
-> > +             if (bus->state == I2C_SLAVE_MATCH) {
-> > +                     i2c_slave_event(bus->slave, I2C_SLAVE_READ_REQUESTED, &value);
-> > +                     bus->state = I2C_OPER_STARTED;
-> > +             } else {
-> > +                     i2c_slave_event(bus->slave, I2C_SLAVE_READ_PROCESSED, &value);
-> > +             }
-> >               ind = (bus->slv_wr_ind + bus->slv_wr_size) % I2C_HW_FIFO_SIZE;
-> >               bus->slv_wr_buf[ind] = value;
-> >               bus->slv_wr_size++;
-> > -             i2c_slave_event(bus->slave, I2C_SLAVE_READ_PROCESSED, &value);
-> >       }
-> >       return I2C_HW_FIFO_SIZE - ret;
-> >  }
-> > @@ -976,7 +974,6 @@ static void npcm_i2c_slave_xmit(struct npcm_i2c *bus, u16 nwrite,
-> >       if (nwrite == 0)
-> >               return;
-> >
-> > -     bus->state = I2C_OPER_STARTED;
-> >       bus->operation = I2C_WRITE_OPER;
->
-> This is definately a seperate change!
->
-
-OK, we will move the last two to a separate patch. BTW, this change
-appears in the title as well.
-
-But now I'm not sure: if you already apply for-next patches [1:7], and
-we change patch [8:10]
-do we need to re-submit [1:7]?
-
-> All the best!
-
-Thanks, Wolfram, for your review!
-Much appreciated
-
-Tali
+Joel
