@@ -4,73 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F99AC433EF
-	for <openbmc@archiver.kernel.org>; Tue, 24 May 2022 01:16:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A554BC433EF
+	for <openbmc@archiver.kernel.org>; Tue, 24 May 2022 02:59:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L6brc3Xk4z3bmS
-	for <openbmc@archiver.kernel.org>; Tue, 24 May 2022 11:16:48 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L6f776lGtz3bkK
+	for <openbmc@archiver.kernel.org>; Tue, 24 May 2022 12:59:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=V9WvkSLF;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=GUGkvNTp;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::235;
- helo=mail-lj1-x235.google.com; envelope-from=medadyoung@gmail.com;
+ smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::22e;
+ helo=mail-oi1-x22e.google.com; envelope-from=yulei.sh@bytedance.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=V9WvkSLF; dkim-atps=neutral
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [IPv6:2a00:1450:4864:20::235])
+ unprotected) header.d=bytedance-com.20210112.gappssmtp.com
+ header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256
+ header.s=20210112 header.b=GUGkvNTp; dkim-atps=neutral
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L6bqt6kMkz2yp0
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2022 11:16:09 +1000 (AEST)
-Received: by mail-lj1-x235.google.com with SMTP id e4so18627824ljb.13
- for <openbmc@lists.ozlabs.org>; Mon, 23 May 2022 18:16:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L6f6M5GGRz2yL6
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2022 12:58:48 +1000 (AEST)
+Received: by mail-oi1-x22e.google.com with SMTP id m203so110428oib.6
+ for <openbmc@lists.ozlabs.org>; Mon, 23 May 2022 19:58:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20210112.gappssmtp.com; s=20210112;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=xfZDqs28oyhSqhq27xEhsDuOI5suqfnf7ndJ0VongrY=;
- b=V9WvkSLF3IrBDVZuHj1fncXQbS4UZP8Bl4vGoQ4cP40GscD6acASvvt3KvV3y2kJbT
- YRvKI1ek80h6KhZw+b+gzPB6B8GXVuEoXFrqSifxHKEspJKZw7sxwx4Gzoji8uY0Df0M
- bOvd2jeiBvUM5bbTVTV8eZM2lk/AsAhU/EGkgD3Wh7WUffY6jyjRizHUgtPxZlDyGtsE
- RiTWo0/o9HaUPCnfFmONEty2uj/HVqALZZwQfzAH1xSY6o44XeVndcsckzs1j7iIbytz
- 4H4DyEiZYzHZCud6z92NKr0NeOT3ij5at8mzNzN6v8DFQ+ZGtsBS69occFDvNVFcII5r
- hZ+Q==
+ bh=IBvg9n8YwOlpt2/OpYoafS/v6PXgf/ZcAroJow2TN2U=;
+ b=GUGkvNTpIufxP5/WtPPrJZHbRbsoB+oWVNmGYAfq8vtZLVuJ4hrbnwnuib4rVT/vjh
+ czX+Nox89d6Sd6s07LCyBzABCBYeCtEjQqm4dr+oRoxYYifZs6wzjj2Lnx8i5mOW24iK
+ YCeupmpoUSwdeX6j9av+eHr/Fm283isSULKkYEn28hGlybBIcxb4YyPhZiIiUpjPdsgX
+ jjDykHYRjI/R8I4WEsZICj+ARytFL7tKSGCM//FTvD3ITk4OQZWpsMG5VhUSTQinFKLz
+ KrDcsnBfs+X443g+4tUwRRrpsqtAmrapXaF7P9pJksqAsXZmgGRdRGKYTWqQxs996djk
+ +FwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=xfZDqs28oyhSqhq27xEhsDuOI5suqfnf7ndJ0VongrY=;
- b=uZes8wI9W199FWIyqSp/qA0PBCdxcdDrOhvekcEl+oe48Oo2yCfdpvMgH6GCHfLi6E
- co1fA198rNUq1w+h+u27Z3RDy/lEizi3Hy2eJazlB1h5XucsTrEn2cEDtJbTTtp4f83M
- Ya4VRbNfPtoTEQSUV6/E+v6A//Tfdo8f4qpyg/Ss3LBdVv1Ty4dKbXxFG7PCmF6BzZ/Z
- 99s9GvuZhjVz6gQvO0aG0g5PcU5Yo6RbDYBq17wmbF2WdsjPoczCq9AlFzMdAKvs1BUN
- ArvSDahptyKSb8oaAYsdFgQJ95M9BQRU7OLeOeGx662Ck6L2N49zOplS8fhhhzSQJlev
- Yd8Q==
-X-Gm-Message-State: AOAM532212Lv1v26uV0r7irgfg5jE2BxmWR0Uj3r3Jg3I/2x2eVoXQiP
- ShHLZ8hJwPlIiGMoXRWEvl3mMs4EOT3LYPIUgWg=
-X-Google-Smtp-Source: ABdhPJyMUAWa9cyvBzye0KjjHaKA88ye8dYHy9GbuVdYLtpagId1ddjvvlKbtYqmSMfU8sIThkAM9ZCbSrzqE3dTMAc=
-X-Received: by 2002:a2e:a602:0:b0:253:d7e2:4d8a with SMTP id
- v2-20020a2ea602000000b00253d7e24d8amr12468397ljp.284.1653354961223; Mon, 23
- May 2022 18:16:01 -0700 (PDT)
+ bh=IBvg9n8YwOlpt2/OpYoafS/v6PXgf/ZcAroJow2TN2U=;
+ b=ZQ6F/aYxwhCoPzyaPLtEZyl3Tgjghg9qnP6Dcz7o6b6bHGNU4wH4seQ8zVsvMo12we
+ mACSEtzfJmx3Uccct6dCsrf8V83UAGYQRtN/0BhfZN9TnPNxInu5CGK4/8DaFcsVt0Sd
+ mqppDXhYEE6nG8RtcvqB3mGxHZ5QDYAKB2JoS3vI2A2rZqH1xmz3FgdOHJw+q2t5sHk8
+ 2P5ShoZPw6vnC7Aq9MFXzLGSAeuO5Zgpf1CGopir9mq/V+bLeUbE+nzRqh4UszPI+Zrs
+ b1ewel7m1t8cL4NawGIb2rLonGn3JHBzm1O2f3c8Aki2oGO1THU5jMpLARTOFbJbjD8k
+ QIKw==
+X-Gm-Message-State: AOAM530JRieA+066p97ZTCCkYqh1WwufbctA1SRya14mCWWIhlw+lKTA
+ vI8p2ocTgmOFFLi0iyTzMS1GKSd8Kcz6XpTd3iCVu5m2I58tSEZl
+X-Google-Smtp-Source: ABdhPJzwfyt6LnQeND7etTX60sQpjec0Ef1sm1CZVGVsiuKSTm67npA+b5LxBzTNkP0gJA8HbwxFr9SoEltIHhMSpSM=
+X-Received: by 2002:aca:ac93:0:b0:32a:e3b6:7c52 with SMTP id
+ v141-20020acaac93000000b0032ae3b67c52mr1221654oie.294.1653361122621; Mon, 23
+ May 2022 19:58:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220510031056.1657-1-ctcchien@nuvoton.com>
- <20220510031056.1657-2-ctcchien@nuvoton.com>
- <YoUwe6Tj4Uh6ukc8@zn.tnic>
- <CAHpyw9fjThEP4NuU08aNJ_raHpq9-j9KgBb8YuZ_shXTjhm3JA@mail.gmail.com>
- <YoYPGWreQuF9QZzc@zn.tnic>
- <CAHpyw9es-n+bW9SsGBmmr3ghBFk8Q8E6ZTbE42BpU-6p8LfHtw@mail.gmail.com>
- <YoeE8cBhUkF3K44/@zn.tnic>
- <CAHpyw9fAfNf8j++JtLhuudSWj6N1-KAxA_fxEGL998WNVXTPdQ@mail.gmail.com>
- <YotVJ+ExcrQshM4A@zn.tnic>
-In-Reply-To: <YotVJ+ExcrQshM4A@zn.tnic>
-From: Medad Young <medadyoung@gmail.com>
-Date: Tue, 24 May 2022 09:15:50 +0800
-Message-ID: <CAHpyw9eALo=39N15omAFLA28LySBfPom7ejCfOgW9aS5gTa3Lg@mail.gmail.com>
-Subject: Re: [PATCH v9 1/3] ARM: dts: nuvoton: Add memory controller node
-To: Borislav Petkov <bp@alien8.de>
+References: <CAGm54UHU9s0bTq-AR9tJunoX2Wa9tQ0PH_zWJ2QrYdR3SRqcvg@mail.gmail.com>
+ <CAH2-KxCOC4My0=hgQwjxedmnJ9+qewVkjv1SSCzPdGVfOAwBqA@mail.gmail.com>
+In-Reply-To: <CAH2-KxCOC4My0=hgQwjxedmnJ9+qewVkjv1SSCzPdGVfOAwBqA@mail.gmail.com>
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Tue, 24 May 2022 10:58:32 +0800
+Message-ID: <CAGm54UGwb3-ENOPTCdrWPF_7BX6E9cx4YUavOoHKJ5OLLp47tA@mail.gmail.com>
+Subject: Re: [External] Re: The incomplete result of mapper GetSubTree/Paths
+To: Ed Tanous <edtanous@google.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -84,87 +79,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: KWLIU@nuvoton.com, tony.luck@intel.com, rric@kernel.org,
- Benjamin Fair <benjaminfair@google.com>,
- linux-edac <linux-edac@vger.kernel.org>, KFTING <KFTING@nuvoton.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, JJLIU0@nuvoton.com,
- ctcchien@nuvoton.com, Tali Perry <tali.perry1@gmail.com>,
- devicetree <devicetree@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>,
- James Morse <james.morse@arm.com>, YSCHU@nuvoton.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Tomer Maimon <tmaimon77@gmail.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Dear Borislav,
+On Tue, May 24, 2022 at 12:19 AM Ed Tanous <edtanous@google.com> wrote:
+>
+>
+>
+> On Thu, May 19, 2022 at 8:14 PM Lei Yu <yulei.sh@bytedance.com> wrote:
+>>
+>> This email is to describe an issue in mapper that the
+>> GetSubTree/GetSubTreePaths could return incomplete results when it's
+>> doing introspect.
+>>
+>> Steps to reproduce the issue:
+>> 1. Configure phosphor-logging to get max 1000 entries. (with
+>> -Derror_info_cap=3D1000 meson option)
+>> 2. Create 1000 logging entries.
+>> 3. Call GetSubTreePaths and make sure it gets the correct 1000 entries:
+>>     # busctl call "xyz.openbmc_project.ObjectMapper"
+>> "/xyz/openbmc_project/object_mapper"
+>> "xyz.openbmc_project.ObjectMapper" GetSubTreePaths sias
+>> /xyz/openbmc_project/logging/entry 0 1
+>> xyz.openbmc_project.Logging.Entry | awk '{print $2;}'
+>>     1000
+>> 4. Restart logging service
+>>     # systemctl restart xyz.openbmc_project.Logging.service
+>> 5. After the service is restarted, call GetSubTreePaths for multiple
+>> times in the short time (e.g. within 10 seconds)
+>>     # busctl call "xyz.openbmc_project.ObjectMapper"
+>> "/xyz/openbmc_project/object_mapper"
+>> "xyz.openbmc_project.ObjectMapper" GetSubTreePaths sias
+>> /xyz/openbmc_project/loggiz.openbmc_project.Logging.Entry | awk
+>> '{print $2;}'
+>>     47
+>>     # busctl call "xyz.openbmc_project.ObjectMapper"
+>> "/xyz/openbmc_project/object_mapper"
+>> "xyz.openbmc_project.ObjectMapper" GetSubTreePaths sias
+>> /xyz/openbmc_project/loggiz.openbmc_project.Logging.Entry | awk
+>> '{print $2;}'
+>>     375
+>>     # busctl call "xyz.openbmc_project.ObjectMapper"
+>> "/xyz/openbmc_project/object_mapper"
+>> "xyz.openbmc_project.ObjectMapper" GetSubTreePaths sias
+>> /xyz/openbmc_project/loggiz.openbmc_project.Logging.Entry | awk
+>> '{print $2;}'
+>>     851
+>>     # busctl call "xyz.openbmc_project.ObjectMapper"
+>> "/xyz/openbmc_project/object_mapper"
+>> "xyz.openbmc_project.ObjectMapper" GetSubTreePaths sias
+>> /xyz/openbmc_project/loggiz.openbmc_project.Logging.Entry | awk
+>> '{print $2;}'
+>>     1000
+>>
+>> We can see that the result of GetSubTreePaths is increasing until it get=
+s 1000.
+>> This actually happens when mapper is doing introspect of the logging
+>> service, and getting more and more objects.
+>>
+>> The above "incomplete" behavior will impact the logic that depends on
+>> the result of GetSubTreePaths.
+>> E.g. in ipmid, the "cached SEL" feature depends on the reliable result
+>> of GetSubTreePath, to get the number of current logging entries.
+>
+>
+> I'm not really following why this is a problem, and sounds like a bug in =
+the cached SEL feature.  Dbus objects can get added or removed at any time,=
+ including logging objects, if the cached sel feature isn't handling all th=
+e added/removed signals as it should, that really should be fixed.  Can you=
+ go into more detail about what this actually causes?  Is it that logging o=
+bjects are getting added out of order?
+>
 
-thanks for your help.
+As Patrick also mentioned, the issue is that
+1. When a service creates 1000 objects _before_ advertising the
+service to the DBus.
+2. When it advertises itself, the other services are expected to see
+there are 1000 objects, _without_ `interfacesAdded` signal.
+3. The reality is that mapper gives a random number between 0~1000
+during the introspection.
+4. The side effect is that if a service is interested and ask mapper
+for the object, it gets incomplete result, and there are no
+`interfacesAdded` signal at all, and thus it has the incomplete data
+of the DBus objets.
 
-Borislav Petkov <bp@alien8.de> =E6=96=BC 2022=E5=B9=B45=E6=9C=8823=E6=97=A5=
- =E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=885:34=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On Mon, May 23, 2022 at 05:06:07PM +0800, Medad Young wrote:
-> > I did do "git commit --amend",
-> > I beleve the issue is about the mail server I used,
-> > I use gmail to send the mail due to the mail server of my company
-> > does't support smtp
-> > so now I should sign the commit with my gmail account.
->
-> No, you should supply --author too - I had forgotten about that.
->
-> commit 0876b99e4aa2bf7113070c9c0f5d0ade7ad91697 (HEAD -> refs/heads/test)
-> Author: Medad CChien <medadyoung@gmail.com>
-> Date:   Tue May 10 11:10:54 2022 +0800
->
->     ARM: dts: nuvoton: Add memory controller node
->
->     ECC must be configured in the BootBlock header.
->     Then, you can read error counts via the EDAC kernel framework.
->
->     Signed-off-by: Medad CChien <ctcchien@nuvoton.com>
->
-> $  git commit --amend --author=3D"Medad CChien <ctcchien@nuvoton.com>"
-> [test 5d6cd85171d1] ARM: dts: nuvoton: Add memory controller node
->  Author: Medad CChien <ctcchien@nuvoton.com>
->  Date: Tue May 10 11:10:54 2022 +0800
->  1 file changed, 7 insertions(+)
-> $ git log -p -1
-> commit 5d6cd85171d14e67840e672e2f96a16981243424 (HEAD -> refs/heads/test)
-> Author: Medad CChien <ctcchien@nuvoton.com>
-> Date:   Tue May 10 11:10:54 2022 +0800
->
->     ARM: dts: nuvoton: Add memory controller node
->
->     ECC must be configured in the BootBlock header.
->     Then, you can read error counts via the EDAC kernel framework.
->
->     Signed-off-by: Medad CChien <ctcchien@nuvoton.com>
->
-> $ git format-patch -1 -o /tmp/
-> /tmp/0001-ARM-dts-nuvoton-Add-memory-controller-node.patch
->
-> $ head /tmp/0001-ARM-dts-nuvoton-Add-memory-controller-node.patch
-> From 5d6cd85171d14e67840e672e2f96a16981243424 Mon Sep 17 00:00:00 2001
-> From: Medad CChien <ctcchien@nuvoton.com>
->                     ^^^^^^^^^^^^^^^^^^^^^^
+>>
+>> If
+>> it's not correct, ipmid will not know the "missed" entries.
 >
 >
-> Don't hesitate to look at the manpages if a tool doesn't do what you
-> expect it to do.
+> What is a "missed" entry in this context?
 
-OK, I will try to supply --author with my original mail server
+See the above example, where the `GetSubTreePaths` API gives result of
+47, 375, 851, while the expectation is 1000.
+
+>>
+>>
+>> The question is, should we make sure mapper returns the "stable"
+>> result in the above case?
+>
+>
+> I don't think so, at least, when it was built, it wasn't designed to retu=
+rn atomically created results, but given that ANY object on dbus can be add=
+ed or removed at any time, it's not clear why this is a problem in the mapp=
+er itself.
+
+When an object is added or removed, either it emits
+interfacesAdded/Removed signal, or it emits nameOwnerChanged signal.
+Both will mapper to do the introspect and get the latest objects. And
+when it is doing introspection, it is expected *NOT* to return
+"incomplete" result. Otherwise services relying on mapper will have
+chance to get incomplete view of the DBus objects.
 
 >
-> HTH.
+>>
+>> When it's doing introspect of a service (e.g. nameOwnerChanged), it
+>> could throw if the service is not fully introspected, and only return
+>> the "correct" result after the service is fully introspected.
+>>
+>>
+>> If mapper could not guarantee the stable result, the service calling
+>> mapper will have to add more complex logic to make sure it gets the
+>> "full and correct" result.
 >
-> --
-> Regards/Gruss,
->     Boris.
 >
-> https://people.kernel.org/tglx/notes-about-netiquette
+> I left comments on your code review as well, but please don't do this.  T=
+his is going to force retry code into EVERY service that relies on the mapp=
+er, at EVERY mapper call site.  If the current behavior is truly a problem,=
+ I would much rather the mapper support multi-versioned atomically create c=
+opies of the dbus-map, and have the mapper expose the "reliable" interface,=
+ rather than spreading that throughout the system.  For context, bmcweb alo=
+ne has dozens of call sites to the mapper that would need to be fixed if it=
+ were made to be possible for it to fail in this way.
 
-B.R.
-Medad
+The patch is POC to show the problem and a possible fix. Throwing
+`ResourceNotFound` may not be a good fix.
+But it shall tell the caller about the status of the result, possibly:
+* Throwing an "InIntrospect" exception to indicate it's doing
+introspecting on the object path. This is similar to what my patch
+does, it's just using a more meaningful exception.
+* Add a flag in the result to indicate that the result is not
+complete. Then the caller who cares could check the flag, and retry
+until it gets a complete result.
