@@ -4,62 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF783C433F5
-	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 01:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62736C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 01:30:06 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L7Cw32k6kz3bl8
-	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 11:21:55 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L7D5S60C3z2yL6
+	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 11:30:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Wln+Iowo;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=joQ/Q1DG;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42f;
- helo=mail-wr1-x42f.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42c;
+ helo=mail-wr1-x42c.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=Wln+Iowo; dkim-atps=neutral
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [IPv6:2a00:1450:4864:20::42f])
+ header.s=google header.b=joQ/Q1DG; dkim-atps=neutral
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L7CvL5rv8z2y0B
- for <openbmc@lists.ozlabs.org>; Wed, 25 May 2022 11:21:17 +1000 (AEST)
-Received: by mail-wr1-x42f.google.com with SMTP id f2so28064603wrc.0
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2022 18:21:17 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L7D4j6hHnz2ywN
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2022 11:29:23 +1000 (AEST)
+Received: by mail-wr1-x42c.google.com with SMTP id u27so27203363wru.8
+ for <openbmc@lists.ozlabs.org>; Tue, 24 May 2022 18:29:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Jz7RiwwqBsNVsA4nxOngfy+cwVxSf+avZmgPCQg2td8=;
- b=Wln+IowotioBNA9Fwa1LmYNZy7b+tTJODsS6vJX4HshobmAlQwHwPruGA0FFljQv2d
- x6rCNQoUO+jYm8VO1jg4xT7C8938alqdL2r9dtXj0dXeOXD0HieS2BmfjNFpkGL5/pWe
- Oi2L1PFSAO41c9gEVZl+n6zyP8An7pXt8dark=
+ :cc:content-transfer-encoding;
+ bh=Mzba+1bqBZLcRm5qZ6rykTzRdXll1pChOXI2HUFHVUA=;
+ b=joQ/Q1DGE8r0kvzsNBAYH9YkQ6kevDUnV+vyEt+TRntxuYH52QyFav1papNPG75v9P
+ uIj+dx/EM5V1AnJUzEiTrJdGjnKraNBtZL9fEl07storMrgLZu0GNVOSo0Ln/Y+4CXbP
+ 4FmJWCaOLWmrC+hPVC/Pn7///TCWV4lqfUXUg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Jz7RiwwqBsNVsA4nxOngfy+cwVxSf+avZmgPCQg2td8=;
- b=QAjBWMGqkzvJpJClZFG15xOcRgPkVN8jBpFsq83w5XSSzaPabfLTexDusQdJigkdSx
- 01ylNTs+TSBwmdaCUEnNpuuartf/MVRAF/9/Gse9HbXNh+isuiLYqO2BLwOKix9Xcoge
- vcr6MNTNTZpPTwcYk7xptrjSuMrF9BSJq7l1gKDVz8iQd043Whx016TpDPk8ltRXBL6v
- CjFdO03vIrmCkRrJf3pe+ABOwdyxWOpbWhRCvNZjLdOYrerCEPHjoIakPTbUMfl9agxZ
- x/3LYBj5MEkM6hwULQ/hVqLv4SCZYXs1W0V5CNHVTUFoFdbNNlrPmdTlCKz99G90z5Va
- cZqA==
-X-Gm-Message-State: AOAM533wFzF/4/78xt89KB5GY4t1omQKFDCI+X1IU0fvEFGdPLR+kpBN
- fl23nwqU8WNfXuyKSdg6/9PHI/vRQ0dD0zx0rJM=
-X-Google-Smtp-Source: ABdhPJz6JMiFgRw1rFmWWQw2VgvXi+mreUal49JQtsBnpEorR1RyB7+hZhdXAoaAghcaMKfT0GIkNE4kA3iPf5VgKuQ=
-X-Received: by 2002:a5d:595f:0:b0:20d:97d:4d14 with SMTP id
- e31-20020a5d595f000000b0020d097d4d14mr24458586wri.549.1653441673883; Tue, 24
- May 2022 18:21:13 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Mzba+1bqBZLcRm5qZ6rykTzRdXll1pChOXI2HUFHVUA=;
+ b=ym8kJskY5ZdLCs0TmLBC7h3hScsY/In4pdX2uJU2K3JQln1v7UsOKtdCNErGXs4AnS
+ 2kzh1Jhh9oS3K8YlEno4NmVBDCiDWT6/IwcXfT6jzSdgQkctCzva6HIgMP0/gct8cb7c
+ GPlp3FiK5tbmGlsa9v6xocKhDfyMD/63qL7/39uB5ifDPlBSFjVRS9k/q0Bi8EbLgYll
+ xA9PHZ6R8VXp6/az07agNHLCBaj08QqdNUxeA6ofztIggX+WLAyg45GiW7ZvLvwt/HmA
+ hOAT9LCxm2EWOQqgBMcws/dhtoooDvnkw5dP4dP5dYD6zHqr1UKPGrZXuPNU63iUjNjt
+ Zkaw==
+X-Gm-Message-State: AOAM533Wt8iwq0uHVNLYTxpRuPItdLUmRtVAjQ4pgBCbFlt/v5fL2/f5
+ 3A5d2gGZ7zXt1TB5d3TJvyuhkk+FATFWicIQIWa0HLBVnaU=
+X-Google-Smtp-Source: ABdhPJwezzy94LxeMA1iv62VUkeBPFlmzZoZ7v7IEo4+3SW+QtvyxngsJ/X8AKm66xM5KooZidYGvvgI4tbX0dhPuK0=
+X-Received: by 2002:a5d:47c9:0:b0:20f:e7da:6a48 with SMTP id
+ o9-20020a5d47c9000000b0020fe7da6a48mr8248438wrc.315.1653442159648; Tue, 24
+ May 2022 18:29:19 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220525011138.5882-1-eajames@linux.ibm.com>
 In-Reply-To: <20220525011138.5882-1-eajames@linux.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 25 May 2022 01:21:01 +0000
-Message-ID: <CACPK8XfxQbQ1EVvcfRaTjCqEr9U+FHzXENL7368Ru51hHuQyUg@mail.gmail.com>
+Date: Wed, 25 May 2022 01:29:07 +0000
+Message-ID: <CACPK8Xed4_msPWALtAh7AMwy9g1=1JKeegMgS28sqxbnOjUi3Q@mail.gmail.com>
 Subject: Re: [PATCH linux dev-5.15] iio: si7020: Remove reset in probe
 To: Eddie James <eajames@linux.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,21 +87,14 @@ On Wed, 25 May 2022 at 01:11, Eddie James <eajames@linux.ibm.com> wrote:
 > is on a shared bus or behind a mux, which may switch channels at
 > any time (generating I2C traffic). Therefore, remove the device
 > reset in the probe function.
-
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-
-Following the upstream discussion, I think this is the way forward.
-Send this out to the upstream list when you have time.
-
-https://lore.kernel.org/all/20220518204119.38943-1-eajames@linux.ibm.com/
-
 >
 > Signed-off-by: Eddie James <eajames@linux.ibm.com>
 > ---
 >  drivers/iio/humidity/si7020.c | 7 -------
 >  1 file changed, 7 deletions(-)
 >
-> diff --git a/drivers/iio/humidity/si7020.c b/drivers/iio/humidity/si7020.c
+> diff --git a/drivers/iio/humidity/si7020.c b/drivers/iio/humidity/si7020.=
+c
 > index ab6537f136ba..3c55b81ce984 100644
 > --- a/drivers/iio/humidity/si7020.c
 > +++ b/drivers/iio/humidity/si7020.c
@@ -108,13 +103,22 @@ https://lore.kernel.org/all/20220518204119.38943-1-eajames@linux.ibm.com/
 >                 return -EOPNOTSUPP;
 >
 > -       /* Reset device, loads default settings. */
-> -       ret = i2c_smbus_write_byte(client, SI7020CMD_RESET);
+> -       ret =3D i2c_smbus_write_byte(client, SI7020CMD_RESET);
 > -       if (ret < 0)
 > -               return ret;
 > -       /* Wait the maximum power-up time after software reset. */
 > -       msleep(15);
+
+
+../drivers/iio/humidity/si7020.c:111:13: warning: unused variable
+=E2=80=98ret=E2=80=99 [-Wunused-variable]
+  111 |         int ret;
+      |             ^~~
+
+I have fixed it up when applying, but keep that in mind for when you
+send upstream.
 > -
->         indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
+>         indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
 >         if (!indio_dev)
 >                 return -ENOMEM;
 > --
