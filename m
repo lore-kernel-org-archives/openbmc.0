@@ -4,77 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CE58C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 03:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF73CC433EF
+	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 13:12:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L7GjV45V0z3bYk
-	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 13:27:58 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L7WhV34KQz3cF8
+	for <openbmc@archiver.kernel.org>; Wed, 25 May 2022 23:12:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ZNb5OBFW;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=kZmjyxYE;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=wfXfxVC0;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42b;
- helo=mail-pf1-x42b.google.com; envelope-from=warp5tw@gmail.com;
+ smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.25;
+ helo=wout2-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=ZNb5OBFW; dkim-atps=neutral
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [IPv6:2607:f8b0:4864:20::42b])
+ unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
+ header.s=fm2 header.b=kZmjyxYE; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=wfXfxVC0; 
+ dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4L7GdS0WTRz3bcW
- for <openbmc@lists.ozlabs.org>; Wed, 25 May 2022 13:24:27 +1000 (AEST)
-Received: by mail-pf1-x42b.google.com with SMTP id x143so18084907pfc.11
- for <openbmc@lists.ozlabs.org>; Tue, 24 May 2022 20:24:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=NK0b08wKodTidGQbJ6ZwixKVSwwf1GDBnVR4pQHKSOM=;
- b=ZNb5OBFWkdlzavtDQbaXzKhfGhiojpEdFaXBJ6LVM1bMxooZmZvyTqSPrYrb0Qh+TH
- IDAH0t7FUlbcHYve9GhLhOTHqQaXlgJhgQwrk2zjoxrzC4IHqrXfVio77Vrpuj9wvJPL
- UNk3RMKhCfpfzQaTmsD469ozLhT4hYQznyVuHTk/CsZxSm1magE2nOKBf8uIlDbkBvoD
- KeWNsW4PRHIhd4RRMfyF4LeCEmgtM4QBex6amk/Ax41Z9+Fpsqz2Fq2DIgwxzXKW44Mk
- GU8YrvCexQ0z2tvGC/gAkku8MJTDlHzHeoq+0SGLQQLDRHUac5eK0SfDmetwBmrdQc62
- muQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=NK0b08wKodTidGQbJ6ZwixKVSwwf1GDBnVR4pQHKSOM=;
- b=EibtHTNalX6NgrMad3OYfSo4sknxW2uz+oCALOdAzWRgsJqtmbKdkEQgTXkzxtbRuH
- NqpvT9U6afYg969VhJ/Zqs5kHN0s8wwi9Tx6MqXcq+AskUXxRpJW2JBDZ5mjRPzNvhXo
- cXRdYdExx8OJkBnt7NDWBKU4tryu4Rqp1akp04R7gJBn52w04hUhdM2g2NAVgXFBmYGX
- 819Ra3+kjVC/Hj6hiLCU4xIaVXsB9N9dPvEF9VY47Z9x4L0z4bJNToXecmYF+XMhqyjp
- S9o5o7XxKPfm4vn/B5XdFF79XuknMvp7RWmD8/dV0J62x+XciHWYL7UQXDfwFI+KGCUu
- BwkA==
-X-Gm-Message-State: AOAM5337fir19FiDV48wJghzXZ3LO4AmQWwkl6qx6Y20mfFuZ0/1c3rx
- Z/iPuMlykJpPSYu5inz9zw==
-X-Google-Smtp-Source: ABdhPJxV22rPnTpeEJI47XYFMMdxEpkOc4Zu6BY3qj12o/0OYPLWPEsrUzcR9a7YgCbueyIKAHz/Lg==
-X-Received: by 2002:aa7:9819:0:b0:518:4654:cf68 with SMTP id
- e25-20020aa79819000000b005184654cf68mr28288713pfl.28.1653449065644; 
- Tue, 24 May 2022 20:24:25 -0700 (PDT)
-Received: from localhost (220-133-130-217.hinet-ip.hinet.net.
- [220.133.130.217]) by smtp.gmail.com with ESMTPSA id
- c2-20020a170902848200b00161996b9a66sm7969391plo.233.2022.05.24.20.24.25
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 24 May 2022 20:24:25 -0700 (PDT)
-From: Tyrone Ting <warp5tw@gmail.com>
-To: avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
- venture@google.com, yuenn@google.com, benjaminfair@google.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, wsa@kernel.org,
- andriy.shevchenko@linux.intel.com, jarkko.nikula@linux.intel.com,
- semen.protsenko@linaro.org, jie.deng@intel.com, jsd@semihalf.com,
- sven@svenpeter.dev, lukas.bulwahn@gmail.com, olof@lixom.net, arnd@arndb.de,
- warp5tw@gmail.com, tali.perry@nuvoton.com, Avi.Fishman@nuvoton.com,
- tomer.maimon@nuvoton.com, KWLIU@nuvoton.com, JJLIU0@nuvoton.com,
- kfting@nuvoton.com
-Subject: [PATCH v6 5/5] i2c: npcm: Capitalize the one-line comment
-Date: Wed, 25 May 2022 11:23:41 +0800
-Message-Id: <20220525032341.3182-6-warp5tw@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220525032341.3182-1-warp5tw@gmail.com>
-References: <20220525032341.3182-1-warp5tw@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4L7Wf94Js8z3bl8
+ for <openbmc@lists.ozlabs.org>; Wed, 25 May 2022 23:10:56 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 9544532001AB;
+ Wed, 25 May 2022 09:10:51 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 25 May 2022 09:10:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1653484251; x=1653570651; bh=XTElGPWSnf
+ 3oPp4kqQyjeZ3Lh44Vp6HlP/IT7qeFuUk=; b=kZmjyxYEcVSHbQPJrDAUl9xNHY
+ xAbssA9XXcgvppWgs6DBtwry8bQ7Xf0In49xO6SNuDnLEuNH9HHTWnGeJQBpTtBb
+ QmD6tT5dp9ASVhNEVLhdfRLemKDfLDbtXK+QG47F6PM1UT3OOIwqrLhjk+DvTF5e
+ 4OE5aGkShQ2BEXfQlSu7hJKQztNSfnHbspwbl33W8qq6of8Mc/2RZLA2O83gqnar
+ vtdd96yl3cTv90mcpmEdpaP/v6Fz4IR8JTXsrmGX0QLfPvw0r/UcZTvYPe2tKiuG
+ 9hhIL8pDPwWW9Y541n9OHwAIcmPC942ikTd9XaXdBpJt92CvqV2s5U1Z9OHQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1653484251; x=1653570651; bh=XTElGPWSnf3oPp4kqQyjeZ3Lh44V
+ p6HlP/IT7qeFuUk=; b=wfXfxVC0IHqKpdHeEiY6mPiBk1uREczdoS06HVU42prm
+ V+HqYJPYXTq0VA7q3xSvMN0DNOQ0li0c6PtzkeYkQaHMixOcNiW0xD52fR2z8PkG
+ 5UCvw7g6GS0+HYBjNu4RJmx/iG20/nD2FCrkkGOzmt1jjctvYsl0+kiOzfankhVK
+ cDIpqW6TX7Rekc9JvpXr2a2alj5CX/B61a5tPOUpNsLC3KmexO1sy3W9vLN8Q8Q6
+ aNPJGcHtX5p+mQJj5J53iiVXV0teiyNdCROZt2sk/rbDWbCCtOnpimsVnWH9wJgo
+ rea57TJukQmeVljvc7J4ERlhkMoqDNRTKJrehIrGHg==
+X-ME-Sender: <xms:2iqOYqS2JLbsVBZV7lP9NjMJ1qnsgG2hD8Cf9dMaU4VZS7saxV9zlA>
+ <xme:2iqOYvw332hL4y2CgEcPAV1sW7nQzhb_zW_Iyo8ljkg6hQaNSvkoAf2CE8NZd6G_n
+ 1TQi1EDrY8sRV0d7Gs>
+X-ME-Received: <xmr:2iqOYn2WB08T2BCFo6iDnWI8sZsZRyRw_KkZ5Pqv7ordyyfMCt4qWf21daKfATFkxavy4G2r5URM2-LBKgt3Lw-uHnc_Zo7fUzQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrjeehgdeitdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecufghrlhcuvffnffculddvfedmnecujfgurhepfffhvf
+ evuffkfhggtggujgesghdtreertddtvdenucfhrhhomheprfgrthhrihgtkhcuhghilhhl
+ ihgrmhhsuceophgrthhrihgtkhesshhtfigtgidrgiihiieqnecuggftrfgrthhtvghrnh
+ epgfevvddvgfejgeffvdelvdetheelkedthfehjeeliedtvdegteelfeduheduheefnecu
+ ffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiih
+ ii
+X-ME-Proxy: <xmx:2iqOYmDNjt0p7Dpv_g4kxt3V8B-iOkW49HLDyjtxg-wOfaAuXCvWqA>
+ <xmx:2iqOYjh2FXO2rTQ6IF24EIhkIGbTPon1FZvmrJHEEK8UiLK7Bl45qA>
+ <xmx:2iqOYipC4FShuZg-HhM_eGE4UXnB_9rS9g1aMwxM-Lxmn0zdx9UrIg>
+ <xmx:2yqOYjIm0HEqpkpYgmo749C-1zE3TKOnJSb6iXREmmIID-6T05Nq5Q>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 25 May 2022 09:10:50 -0400 (EDT)
+Date: Wed, 25 May 2022 08:10:49 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Prashant Badsheshi <prashantsbemail@gmail.com>
+Subject: Re: Need help in creating Namespace Journal logging
+Message-ID: <Yo4q2fyEkOp8ywDY@heinlein.stwcx.org.github.beta.tailscale.net>
+References: <CAD5wtF146Axtj5XCDMFY=EEXpDUE3sGRD_76kVyBq8jJ9RQOpQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="x+z39HsWxACdoZgj"
+Content-Disposition: inline
+In-Reply-To: <CAD5wtF146Axtj5XCDMFY=EEXpDUE3sGRD_76kVyBq8jJ9RQOpQ@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,81 +100,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Tyrone Ting <kfting@nuvoton.com>
 
-Make the one-line comments capital in the driver to get the comment style
-consistent.
+--x+z39HsWxACdoZgj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller driver")
-Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
----
- drivers/i2c/busses/i2c-npcm7xx.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On Tue, May 24, 2022 at 11:43:45AM +0530, Prashant Badsheshi wrote:
+> I am working on a yocto based openbmc project, I am trying to add namespa=
+ce
+> journal logging.
 
-diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
-index 86fd942ea648..7d863edc14e4 100644
---- a/drivers/i2c/busses/i2c-npcm7xx.c
-+++ b/drivers/i2c/busses/i2c-npcm7xx.c
-@@ -680,7 +680,7 @@ static void npcm_i2c_reset(struct npcm_i2c *bus)
- 	}
- #endif
- 
--	/* clear status bits for spurious interrupts */
-+	/* Clear status bits for spurious interrupts */
- 	npcm_i2c_clear_master_status(bus);
- 
- 	bus->state = I2C_IDLE;
-@@ -1252,7 +1252,7 @@ static irqreturn_t npcm_i2c_int_slave_handler(struct npcm_i2c *bus)
- 	} /* SDAST */
- 
- 	/*
--	 * if irq is not one of the above, make sure EOB is disabled and all
-+	 * If irq is not one of the above, make sure EOB is disabled and all
- 	 * status bits are cleared.
- 	 */
- 	if (ret == IRQ_NONE) {
-@@ -1506,7 +1506,7 @@ static void npcm_i2c_irq_handle_nack(struct npcm_i2c *bus)
- 		npcm_i2c_clear_master_status(bus);
- 		readx_poll_timeout_atomic(ioread8, bus->reg + NPCM_I2CCST, val,
- 					  !(val & NPCM_I2CCST_BUSY), 10, 200);
--		/* verify no status bits are still set after bus is released */
-+		/* Verify no status bits are still set after bus is released */
- 		npcm_i2c_clear_master_status(bus);
- 	}
- 	bus->state = I2C_IDLE;
-@@ -1974,7 +1974,7 @@ static int npcm_i2c_init_module(struct npcm_i2c *bus, enum i2c_mode mode,
- 
- 	npcm_i2c_reset(bus);
- 
--	/* check HW is OK: SDA and SCL should be high at this point. */
-+	/* Check HW is OK: SDA and SCL should be high at this point. */
- 	if ((npcm_i2c_get_SDA(&bus->adap) == 0) || (npcm_i2c_get_SCL(&bus->adap) == 0)) {
- 		dev_err(bus->dev, "I2C%d init fail: lines are low\n", bus->num);
- 		dev_err(bus->dev, "SDA=%d SCL=%d\n", npcm_i2c_get_SDA(&bus->adap),
-@@ -2034,7 +2034,7 @@ static irqreturn_t npcm_i2c_bus_irq(int irq, void *dev_id)
- 			return IRQ_HANDLED;
- 	}
- #endif
--	/* clear status bits for spurious interrupts */
-+	/* Clear status bits for spurious interrupts */
- 	npcm_i2c_clear_master_status(bus);
- 
- 	return IRQ_HANDLED;
-@@ -2216,7 +2216,7 @@ static int npcm_i2c_master_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
- 		 (bus->data->rxf_ctl_last_pec & ioread8(bus->reg + NPCM_I2CRXF_CTL)))
- 		npcm_i2c_reset(bus);
- 
--	/* after any xfer, successful or not, stall and EOB must be disabled */
-+	/* After any xfer, successful or not, stall and EOB must be disabled */
- 	npcm_i2c_stall_after_start(bus, false);
- 	npcm_i2c_eob_int(bus, false);
- 
--- 
-2.17.1
+Can you elaborate on what "namespace journal logging" is?
 
+If this is what you're talking about, I don't think we've leveraged this
+feature:
+
+    https://www.freedesktop.org/software/systemd/man/systemd-journald.servi=
+ce.html#Journal%20Namespaces
+
+You'd probably need to propose a design and add support to
+phosphor-logging.
+
+--=20
+Patrick Williams
+
+--x+z39HsWxACdoZgj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmKOKtcACgkQqwNHzC0A
+wRnl/Q/+JPGexPu2L3zn4biQLP2+g96kOKwzW5GK1j56qwy8wHzut1b6vhIF9iWH
+Dwu555yyIxBNx2kqG+GbZKbicnpDRR4YhUu0updaPlk1TT2p5MsO+WCW8hDhxX/K
+Kp9Z0tL87AP+u4G2g7FTEt4zZAhEqJJ5kP6fraEAM7yrXvn7Lpkp2BFakPm2cHbI
+GS7Auuqc/aGQbt9FPnME6XDSoBpWWFZfE79NwBJL4ONNZ7c9PfqrbQFgzKcToI3C
+6smZxteSwVMBbdw7jDHrge3FG4pVBjozDX6Zl3sulXyM8gW220MdLH6DHmVFu6bo
+wGOqUlJxeeT/BGpGAa9/9T1IcQTIrBIk1JsdbSUsIIoOKYiQT98SRhvAHn2YXL//
+nEtBVYFG2jXuZl+AUBQg6ucJYhVFMYw8TXJNWkJAyYkDV2z7zzsMptnEagjNe6sU
+4RDfv/tkXGIo/A1PdbkO7y3fyQsX9U6JsoJYfEVsFYEvDktA65wExBK+twy0txCx
+KZqWghKltq3NOrdRQRgluRH6uREu2FrcDsceJTmtb8820QussMWCniPNKQFBzYnl
+VphlQNTFM53zszzZ2a9Ikqq7RiinpfK4CC/ZGGRQLNL9unvCnsUB99VbwJrtx6QL
+xR3qSNifGUurgSXrh3N2GzkjQXsuscg3EB1olVAtDmnf5K0+Mrc=
+=l235
+-----END PGP SIGNATURE-----
+
+--x+z39HsWxACdoZgj--
