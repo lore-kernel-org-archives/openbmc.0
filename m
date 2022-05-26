@@ -4,151 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B911FC433F5
-	for <openbmc@archiver.kernel.org>; Thu, 26 May 2022 07:03:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19EDC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 26 May 2022 11:43:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4L7zRb2Cbwz3bNk
-	for <openbmc@archiver.kernel.org>; Thu, 26 May 2022 17:03:23 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4L85fX6BQCz3bm0
+	for <openbmc@archiver.kernel.org>; Thu, 26 May 2022 21:43:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Z4Ha13+M;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JLvO98Fu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.55.52.115; helo=mga14.intel.com; envelope-from=qianjin.xu@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e2c; helo=mail-vs1-xe2c.google.com; envelope-from=tali.perry1@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Z4Ha13+M;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JLvO98Fu;
 	dkim-atps=neutral
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com [IPv6:2607:f8b0:4864:20::e2c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4L7TF06HBmz2ypR
-	for <openbmc@lists.ozlabs.org>; Wed, 25 May 2022 21:22:22 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1653477749; x=1685013749;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=GiPoPjQNrJEdyEe8+KRTtA2FWodZlvZGsxfRflNZSdQ=;
-  b=Z4Ha13+MUVYV81cR8XVqDFAIN1ZHnHU1KRM4ouVTekJ/bxCcIhG9SlQq
-   uLnY3EGylKWLqgJZgCEDnv+Nkd/kc6tB66ys4BWJuN17b+xAvox18SK+W
-   zm6lLrGPC184g3tMokhs03RY4XN9cegQOcigbyZK3DGllKk9C79rq4Z91
-   WcEI22GD77dNMxz5TMfY6vbJJYlwxZb7peYkhDBFma1kQE+uYZWMyhxIA
-   ujijzpElKFGD62wcxxUg+djuQgKeZgNPSVrdSyuqiYEwSfBzPQObDPsd8
-   qXg5wBthY87v7ojNHexL4NKncxWZOG8sjsHnJOvJqHRJAeRjyDnFxqBKG
-   w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10357"; a="273897607"
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; 
-   d="scan'208,217";a="273897607"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
-  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 May 2022 04:21:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,250,1647327600"; 
-   d="scan'208,217";a="578296263"
-Received: from orsmsx604.amr.corp.intel.com ([10.22.229.17])
-  by fmsmga007.fm.intel.com with ESMTP; 25 May 2022 04:21:14 -0700
-Received: from orsmsx607.amr.corp.intel.com (10.22.229.20) by
- ORSMSX604.amr.corp.intel.com (10.22.229.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Wed, 25 May 2022 04:21:13 -0700
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX607.amr.corp.intel.com (10.22.229.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Wed, 25 May 2022 04:21:13 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27 via Frontend Transport; Wed, 25 May 2022 04:21:13 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.102)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.27; Wed, 25 May 2022 04:21:13 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F/jj4zOKbGS5tg7uhxpKugyIpzlst8B2LERMGsXwT/Ebn3O8mY/bykOB2eS0EpABk3Bj7q+zHasCWPmj6Z0XFI04x+DPce9Y9vXs/D0QYm8O8nQP8q5Om1onQ7kixcxBIAFbXFjqIMQh4I2Nlye98XwouiQBjZANe4u5LYJCBLRjUBMUlK4KZdY8FFBIg4BnwDklqltG8J1DF3VzXwHPX7RWQpXchUhVQrlqJgjur8YVVw5ycWZKEJ8BlIyZ4k6dQX41PotsEE01Rx6qr1FJyuFQvId9RArD9DEcAU6CDbJV8hIUFmG3lkdqwpJu5LUlMByOCMO5+KlXoH9NzGGnFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H8qzW3vvJKSPEGl9u5mC0ebKT9HSQeyLLeNCBhG742g=;
- b=MhqyVXYZHL5c6b5Z/5wh6B1MKDc/GtQPt2U40UDAzSZTHy52ZzQbJu0AIXFHqon6h2A19LxICDE0qGq+MDodF78mgX90UGxJk8wWxg2SBIoeiN3MnEOY8XPfEDzdiZGprQGRIkTqyVLhfWRftomnf1lygriZkEDiZfxnzbc67eOv3AMWjLuj1HL7KImK7WIt+mnvr+faiSW6eGs1qm3b45XAIhcLyF7mnWergb7U6UzERPxJj/9XOj3e/pJCCPO1+8xqzqzB92A3aVgm9Y1TPSSIDbVTYrMRgYlIHQAutHWEgXoNXVfx4Mmf9ze3r+V6Dr/IWu1gtvEykCubeNoN0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB5550.namprd11.prod.outlook.com (2603:10b6:5:38b::24)
- by BN6PR11MB1395.namprd11.prod.outlook.com (2603:10b6:404:46::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.16; Wed, 25 May
- 2022 11:21:11 +0000
-Received: from DM4PR11MB5550.namprd11.prod.outlook.com
- ([fe80::191e:cb97:9123:b8d5]) by DM4PR11MB5550.namprd11.prod.outlook.com
- ([fe80::191e:cb97:9123:b8d5%8]) with mapi id 15.20.5293.013; Wed, 25 May 2022
- 11:21:11 +0000
-From: "Xu, Qianjin" <qianjin.xu@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: DVD-ROM support discussion in OpenBmc Usb Gadget
-Thread-Topic: DVD-ROM support discussion in OpenBmc Usb Gadget
-Thread-Index: AdhwKVqRCEUBiuDvRNePF53XfTKSng==
-Date: Wed, 25 May 2022 11:21:11 +0000
-Message-ID: <DM4PR11MB555050ED71CC701F97DFF3F496D69@DM4PR11MB5550.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-version: 11.6.500.17
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 153fe149-f2f1-4cc7-1eb9-08da3e40ac23
-x-ms-traffictypediagnostic: BN6PR11MB1395:EE_
-x-microsoft-antispam-prvs: <BN6PR11MB1395908306B30D82D6757D5A96D69@BN6PR11MB1395.namprd11.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 0aH2v9oGjqNEBtGfl6OMLHSxa8C9Ai7uH+kO5YVoxpFq/dvEPN5uiHsjsd7rSwOu9aHaNhjWYaEx4LjD/ftMsWwDD3VvPWMk7DZ7Py0JlgGrXhFmGrBGdT17JLrAj3rukKNsTfkYYKetjyQ2aY0bqRQHuuvUIcfZ7q5UPm60CiEgw5HpgYBXXksZvfQX8pUZuUY0tAC+UyjhyM8IAcfUlykHwDL3s8/5LMvkVuUx/9TU0wHxejfzgp3AxAw3X3IDTskSWWuu9AbRN7IiRLpoKYGExcxmjigR/BqgE9QEY3Vn8+Oma7pMfnxI7CIzsDsOu5FM+8tHn9bV0gWLG6kV+oTw9ieWq5vbHqaa9dKYonwcayq0HZP1wURKX3nwVJI7OjKrrHTMdpifh0AxFeEzGzOU36jYw84fFiXcweVhKDpyyUiw7oJmqWlgEpDTU1w9zT5b0lygFfNPc9s+i5r24diOh87WlBfmjE1TIkoHHp5BkfSXkfGlyeKqJXQO3BrduGFrP5IWh5MpSkGD7cVwMtDYNElZGi2adoQWnZfnh3Xj+7q7uD0OFWb+TeAfIo2HktP/A7XmDz5+yL+tR9hnUVogcwzH3rwEqitruHrB1qrDKKvu/vxUUlaSnSg0GmLXjQRYsnIR/UcRfGNlzBfsdyTn9puSMjVAEHQlFeosQVsnVOVJpshfTseifAzdX0m/aaxAaH20zokY8i9XREnGZw==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB5550.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(54906003)(33656002)(2906002)(8936002)(4744005)(508600001)(5660300002)(55016003)(86362001)(26005)(52536014)(107886003)(7696005)(38070700005)(4326008)(9686003)(38100700002)(316002)(8676002)(122000001)(66476007)(66556008)(66946007)(66446008)(6506007)(82960400001)(76116006)(64756008)(186003)(71200400001)(6916009);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?23InledQwSYGyLqvKKnKdqvG6M5oPyzDnb6vfschiSFVUMZfPRP3KzxgXxJA?=
- =?us-ascii?Q?oxWOfPn/wZKc5JNVBTZHdMZLh3K7AERWYPNI56AVLpjO49+nrAZyrFs7QI7V?=
- =?us-ascii?Q?UC/Q5EVqsCvXVl6S1nv132G241V/f9puFbrNU7y6HZ1skK0nOj+7p/ytIzBj?=
- =?us-ascii?Q?+SVipPUJXK0cibFic4t5EkPa5C6Ri1v1dzHRBDt5dOQh7pZnlb+SP2U3xRD1?=
- =?us-ascii?Q?MwUDnJuZeqVhmk3jaWdTEwwMjiOx8iRPV7UfUKpY2Hwu2yw9cpp+G/PeC9XL?=
- =?us-ascii?Q?/OpiHBnSYuixYqj5gtCusnTBX7FFdLOwRj4rLPVvRwcrS3L0SmWAi6Yrwv1x?=
- =?us-ascii?Q?v2byHzYlqYZCwDu5xDBxKOipcXAmodMQKxdd93y67F/j9H8cURACUvD6scB1?=
- =?us-ascii?Q?hLgdjRSVysPUL6NbtSdGZsqy9zRHh6KMNShLpQ9Qo7g8O6bzkvdXBoc8s/+o?=
- =?us-ascii?Q?lYaMfSbRZo0DIsd+jxQLDZcS9fZ91J+00nzgC3+Y7XccBnrR+GguXjUjP+n0?=
- =?us-ascii?Q?TPtpmqr45CCTcyLRlUqk8vsy0xZ4MhcUOKYMCuNmwvhph+OzunURqFJ3UBAE?=
- =?us-ascii?Q?Wzv4/rrDqwaLR+y5m/HIDLwrdFlCQq+X0HYBWy16kygki+O1cPiHs3z77a7i?=
- =?us-ascii?Q?TqBK6TwFSA8Ay+VqyntBOWGEcB8MRxnwgaDxZdCycwEaDg+owDgdbiE/GGzR?=
- =?us-ascii?Q?mnsIzNLgWbGXpMY13nkee+6PH8IPaZePufVD5ZGAKUsNlP7oDC5Tx6LmXLir?=
- =?us-ascii?Q?0iNSOKFu113HLQemLJ5SxWCKlqxQo6eMf9P3tUuuHrDUJGNutJfpO6mU1iay?=
- =?us-ascii?Q?hWV5NhbrofhfdSYu0rLk3emBY++FaBarwosM83HNJdM4TnABaDETK/0Wstys?=
- =?us-ascii?Q?K80HEOAv+Rh4R9goQBvCBVR4G+iduQmNHFwgaEmbQEEKH8j3JybU9R9btDo5?=
- =?us-ascii?Q?QE2w7+dIko1yZy74kvIDUXyZgG0S+kqbOPapBM52NV9IgjhhX/H3jmfr3Qmu?=
- =?us-ascii?Q?mu8xOf7fIlpmJWTLHojI6ci/LpTP+c0PMV5Hob3w4s92i4i/UjZbKNyQ67eC?=
- =?us-ascii?Q?FXZoT9iEwzb4orum9tI8+EpbShP6mleE7bzvtHoK+l0mddE6ADZCpiGeqD/9?=
- =?us-ascii?Q?6BJdHBvdSj1Zct8gPopPOM1VPBkcnJC/1sJBWlBvIqNAFf82A9GmCJu9VpR4?=
- =?us-ascii?Q?s+JXXNrPjF+O0dgtU1A7oyEBj3yXUHu9xhk4f3ASxTpmDTPjzvBaH/jD9FJR?=
- =?us-ascii?Q?SOsyH899O5Jz7Naz88ACAgWGfw5MrorThRvDVyW5Vl6BEpM8K/HwX4pbRXio?=
- =?us-ascii?Q?BkEoxtxOwZE0DDDpatlbZ1nq0URTyjNdSICSbaayUiyGBZRlpEOrTUecnRWP?=
- =?us-ascii?Q?TraOYsMcSqtGi82V0xj4rIsk6+4af8TvCZoIeARl3Dsx1dTkUGqs4UwLITXN?=
- =?us-ascii?Q?M6/jJOnWMm+czARxRPC3i4P5ZCKHNv18vV1FexmlARUq8BlGgEqTWKMlZHPw?=
- =?us-ascii?Q?pZKPOM9XSaVJHapr1PmdBmfTkruspC6WPZB3MS8+95iolhLJBdukCGtACvrW?=
- =?us-ascii?Q?ppxOH5x70DYkIMfFWBC+2SNTrYrIWPqBU9kTY4q+snnGrCFVFMni7pSQiQm/?=
- =?us-ascii?Q?8/ddlAuB+XU2TYMlCab635oFVyrGx9i7TkKhicNX8ktVhoFlC1ak+tm3dcD/?=
- =?us-ascii?Q?sifhqDKntYXxGZCrbrw5sKz35wYbunL/etiqavfadvUrFEaXTEvgJ/CJXlYf?=
- =?us-ascii?Q?7MJu7nkw0w=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_DM4PR11MB555050ED71CC701F97DFF3F496D69DM4PR11MB5550namp_"
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4L85dl74Rpz2ypD
+	for <openbmc@lists.ozlabs.org>; Thu, 26 May 2022 21:42:35 +1000 (AEST)
+Received: by mail-vs1-xe2c.google.com with SMTP id c26so1146139vsl.6
+        for <openbmc@lists.ozlabs.org>; Thu, 26 May 2022 04:42:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=JEe4JTq4HMoZ+I0YWVgsR8sQxwI+sin4+wwLO1J3RKE=;
+        b=JLvO98Fu21sCqp2drA5IfmaUVr0h4lXAXWuPssLA5gtFkyn/FNC1jLwcQi+AGBV7wH
+         uJrpcQYkVYpsRk0cSakfbvPtYDIyFqdskvQJ1qsUHfT+rPBKMNjdeW6IOShNFFKid1b2
+         0vNUdDNqr6zoooiZ0/NarObdmNt80ywVrC/tAsYJTXXogKHxQnQYvkkCFB7b7XWPYvmz
+         KCMVKcwrNpvs/ZDYn28Ru24YXag2mLh0gV/bYbWeabYCR7Oo+d0fh2EC+ynAeCzEApky
+         AvBjMkJrEKG49Q63WoPqYa0sO+vBpxe7FJ5oQ0VotbsdoOrm873KJcD3X0yKlZhjsv8X
+         33jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=JEe4JTq4HMoZ+I0YWVgsR8sQxwI+sin4+wwLO1J3RKE=;
+        b=hE4Eey32qKZyKQlgmfuLF+USRDfS7KbtXadXnxZG+f1zF1ZQbMJ4ErnNmfFHrSCLlO
+         NoWiENFGCJp0l95kEwmh59GRDKBze6B4Z5hCPk/YI1FdSKr7iJzz8vokHV5neFrDGDN2
+         k/70iZ2TQM6vLaTazp38jmJZxGMS6yMMahaF6v/H7dlbbzroS/hVSkDKAIIdtRfq2WWG
+         AqSKR0uVAm7PGYxAB4G2RKBqR7vtT7qFFCR5hpiglF7vJvr1ajtYGoHGA65fz0RmqOYV
+         ipKs3FoxCgxxxs/hEbSOfxCh41XmJf1UAr+Vm7yO/HXbhGueVQ6WYGaKd2++V4h1ob+k
+         b+jg==
+X-Gm-Message-State: AOAM532EtBVllAcQQmdxDj+8Fb0QBcdYDXCrdWh3dqbaFoza543v7fTa
+	Ly4uBlfFuEpgfWELBm11zgBBk7H/fwfImNvD4Z0=
+X-Google-Smtp-Source: ABdhPJxIWXKb0kNzslGKXSAJfQCxTBRn9ur413NVMbEzqZ/Rc3zTbpcH1KxoGPjgrUzciHvXWJHHcjItv26rUnsZcWM=
+X-Received: by 2002:a67:e09d:0:b0:335:def7:e939 with SMTP id
+ f29-20020a67e09d000000b00335def7e939mr14828589vsl.27.1653565351588; Thu, 26
+ May 2022 04:42:31 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5550.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 153fe149-f2f1-4cc7-1eb9-08da3e40ac23
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2022 11:21:11.2846
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2tui4AO2YM0ylK1LAj/k3vJgULwrABTedjXRcMQo0ChbsV64Ht+V+8swju70ZrOYT0/m2TO/Wgm8WIKZFfqSJg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1395
-X-OriginatorOrg: intel.com
-X-Mailman-Approved-At: Thu, 26 May 2022 17:02:35 +1000
+References: <20220526094100.1494193-1-jiasheng@iscas.ac.cn>
+In-Reply-To: <20220526094100.1494193-1-jiasheng@iscas.ac.cn>
+From: Tali Perry <tali.perry1@gmail.com>
+Date: Thu, 26 May 2022 14:42:20 +0300
+Message-ID: <CAHb3i=v+LV=sGCX8obuy=sXBFvnP9k-THb=mGw4ze8M5AVCYoQ@mail.gmail.com>
+Subject: Re: [PATCH] i2c: npcm7xx: barco-p50-gpio: Add check for platform_driver_register
+To: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,101 +72,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "Yuan, Joy" <joy.yuan@intel.com>, "Li, Yuan" <yuan.li@intel.com>
+Cc: Benjamin Fair <benjaminfair@google.com>, avifishman70@gmail.com, Patrick Venture <venture@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux I2C <linux-i2c@vger.kernel.org>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_000_DM4PR11MB555050ED71CC701F97DFF3F496D69DM4PR11MB5550namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-                This is qianjin from intel bmc team, I met a problem in ope=
-nbmc virtual media and hope to get some help from the community.
-                Now  only cd iso can be mounted, dvd iso can not due to the=
- limitation of usb gadget.
-                I am trying to implement a dvd-rom simulation in usb gadget=
-, but have no idea how to tell a dvd iso from cd iso ?
-                Any suggestions maybe ?
-
-Thanks very much,
-Qianjin
-
---_000_DM4PR11MB555050ED71CC701F97DFF3F496D69DM4PR11MB5550namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Thu, May 26, 2022 at 12:41 PM Jiasheng Jiang <jiasheng@iscas.ac.cn> wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi all,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is qianjin from intel bmc team,=
- I met a problem in openbmc virtual media and hope to get some help from th=
-e community.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now &nbsp;only cd iso can be mounted=
-, dvd iso can not due to the limitation of usb gadget.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am trying to implement a dvd-rom s=
-imulation in usb gadget, but have no idea how to tell a dvd iso from cd iso=
- ?<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Any suggestions maybe ?<o:p></o:p></=
-p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks very much,<o:p></o:p></p>
-<p class=3D"MsoNormal">Qianjin <o:p></o:p></p>
-</div>
-</body>
-</html>
+> As platform_driver_register() could fail, it should be better
+> to deal with the return value in order to maintain the code
+> consisitency.
+>
+> Fixes: 56a1485b102e ("i2c: npcm7xx: Add Nuvoton NPCM I2C controller driver")
+> Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+> ---
+>  drivers/i2c/busses/i2c-npcm7xx.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
+> index 71aad029425d..08737fa2dcbf 100644
+> --- a/drivers/i2c/busses/i2c-npcm7xx.c
+> +++ b/drivers/i2c/busses/i2c-npcm7xx.c
+> @@ -2336,8 +2336,7 @@ static struct platform_driver npcm_i2c_bus_driver = {
+>  static int __init npcm_i2c_init(void)
+>  {
+>         npcm_i2c_debugfs_dir = debugfs_create_dir("npcm_i2c", NULL);
+> -       platform_driver_register(&npcm_i2c_bus_driver);
+> -       return 0;
+> +       return platform_driver_register(&npcm_i2c_bus_driver);
+>  }
+>  module_init(npcm_i2c_init);
+>
+> --
+> 2.25.1
+>
+thanks, Jiansheng !
 
---_000_DM4PR11MB555050ED71CC701F97DFF3F496D69DM4PR11MB5550namp_--
+Acked-by: Tali Perry <tali.perry1@gmail.com>
