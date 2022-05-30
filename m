@@ -4,85 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D96C433F5
-	for <openbmc@archiver.kernel.org>; Tue, 31 May 2022 23:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 381DDC433F5
+	for <openbmc@archiver.kernel.org>; Tue, 31 May 2022 23:18:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LCSdf1wnBz3blC
-	for <openbmc@archiver.kernel.org>; Wed,  1 Jun 2022 09:09:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LCSrx40jLz3bZc
+	for <openbmc@archiver.kernel.org>; Wed,  1 Jun 2022 09:18:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=HAcdv6pZ;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=NRP9VSpr;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=AKkizI5v;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102c; helo=mail-pj1-x102c.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=HAcdv6pZ;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=NRP9VSpr;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=AKkizI5v;
 	dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com [IPv6:2607:f8b0:4864:20::102c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LCScn0DMLz2xTb
-	for <openbmc@lists.ozlabs.org>; Wed,  1 Jun 2022 09:08:23 +1000 (AEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id 39AF05C0347;
-	Tue, 31 May 2022 19:08:17 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute5.internal (MEProxy); Tue, 31 May 2022 19:08:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1654038497; x=1654124897; bh=uTY0n06bly
-	VvB1RR4WRTfv6CZgO/XkRsCYjTfTucEcw=; b=HAcdv6pZeJRPPwy9C1Dix3pohA
-	ywDRjJmxyA6My6Ko4b5KbpLMcugSVYVNEPu8/EpY7fTVKjxNvdXn+gt+iku71nXf
-	FTmXr0yymqQ3m/3l3QEmzXSZyPkf3Lm21M+XS70EoFzMyczT2zwgYwjz5h8Mb3nB
-	BtgMYWmPP7UD9G1m0DoozfmZ5GtP8nkm2qzzMn57H2wypR8jTJXJ37znPRpKafwO
-	uTlaqhh0D5GJM8hGBYsq51UkG5p9n/ZLHtMRQMkQjdEnUfsWzbgm37+ta7avRfB5
-	38HVbLgTC2YiuOm8fCiGXmWVwOJs9RPB0JJFS59T9I1hpPCmVKzLxF3ekTSw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1654038497; x=1654124897; bh=uTY0n06blyVvB1RR4WRTfv6CZgO/
-	XkRsCYjTfTucEcw=; b=NRP9VSpr4btLRYLqWzfcDxcYVz7EIuTaSSc0gJSmOcZE
-	ewL1Wa/UzHuvDHD4u364IWcc8ptb9KbiUJHCqLUdsNE62iBRBc12ASKCmNdOweQT
-	aE+WVJrI0W0hV8QxxaebIBd4AIUnhts4k4t3mym+2lQKIKjZJvB9q+YOzTNFiLmz
-	7AIjzFSRNIi22cdlBjiZ6pgx92ngTfTK6uKchaXIDqyp3V2yFM3QCCLQG/Cjb0QO
-	UNOqJeKWHs0EhS8stc8JcoM1QlYBfPHgctCcW3ZTj2xjsn+ZJ3SETCynNvtVGuBy
-	kc0kg60+mV8xndaMlkbcURe/KQWe/X2lVFbPiZeyDw==
-X-ME-Sender: <xms:4J-WYq9YnNJg4-cl9IctAPYcnqvPcM5JtehWOalTemJHQgacYs1UXw>
-    <xme:4J-WYqsYie9-sW0DMCzI78AYN0qhyV9mCX_P-AyhybK6GtU_Pp3Urw39zE5_ngwKC
-    gziaoVPsJ5UYyyg2jU>
-X-ME-Received: <xmr:4J-WYgB7jSgzdThqNRecTjQDnWTEWTscYD8MPwZyRXoLCRDV9BYkSVISd8S5kPFz2JfWdz7x651Cp2qC3TUvrJPqWGdEKg3s39o>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrkeelgddujecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
-    hrlhcuvffnffculddujedmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
-    htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepjedugeetgfdvgfeuvddufeekjedt
-    ieduhffguddugeduvdeuvddvgeejvdfftddunecuffhomhgrihhnpehgihhthhhusgdrtg
-    homhdpuggvvhdqvghnvhhirhhonhhmvghnthdrmhgupdhophgvnhgsmhgtrdhorhhgnecu
-    vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrih
-    gtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:4J-WYifLogkBHhHX3NUCKsU1uzVZaXhOKq06P2DFdZMkTD7jSqkY5A>
-    <xmx:4J-WYvNNDbM5RaHTWKxlqd26apZRoTYyVvdDGrEADx1iM6guHeutKA>
-    <xmx:4J-WYskenUfxlcqKoO8O4A-wCR82AI71jdrZSv7zpyPHq8xWoWkxjQ>
-    <xmx:4Z-WYl10IwvjL4f4fQSDHufsJJqFzejcErleiQrq4pf--f3VE_XTdw>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 31 May 2022 19:08:16 -0400 (EDT)
-Date: Tue, 31 May 2022 18:08:15 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Jonathan Arias <jonathanarias@gmail.com>
-Subject: Re: Updated links on dev-environment.md
-Message-ID: <Ypaf3wQAL2qxrqf9@heinlein.stwcx.org.github.beta.tailscale.net>
-References: <CAG3oxEfmZ2OsE=nGWXnD_4opkiKC7dMi7+wzqo_3dqN37aAT8g@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="cBLZa5cYMIUM3/m6"
-Content-Disposition: inline
-In-Reply-To: <CAG3oxEfmZ2OsE=nGWXnD_4opkiKC7dMi7+wzqo_3dqN37aAT8g@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LBYTF1yP5z30DC;
+	Mon, 30 May 2022 21:43:43 +1000 (AEST)
+Received: by mail-pj1-x102c.google.com with SMTP id qe11-20020a17090b4f8b00b001e3239b681bso308731pjb.0;
+        Mon, 30 May 2022 04:43:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=1BvAlV75hXlmEW6H7NZj8m2+emc7pNPWivCpEN7QdQQ=;
+        b=AKkizI5vxdL5uQcfmsXWVkWdXI8Pq9JhYnyFP0MGpMimsx6reIaVisnHQEXGR52xZY
+         wxcGjJUMBWEq9eU3gQCY9ZNIey6s8Xd+jt09aZwkWby8RrmpXEC3olVVASmhX7omnVVq
+         f9OXP5KNAL5TxNuAhyUwDs12Cr+pMSULGKNyEe/pvJoAeLqw2rbAVFV5b8IIBNaoaX8q
+         yHlK9CB/JoHkSgMvc0+BF9zg2QRbGlDIqm2qGYVo4DmMDHAE8XLGNzvQFBeab+ux4gxo
+         X7OcuLR3x+woErt+qDtGgD+/CG2m3vkFsd8jc9O9WMvm/qzqtlGr2UYZr9a84t5CAyPl
+         xn/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=1BvAlV75hXlmEW6H7NZj8m2+emc7pNPWivCpEN7QdQQ=;
+        b=rrP4uZPySccynQJO/lyE4mNlvWWRqv65tEsohAW8tY0KJ5+lMJ8pt3hTiUi+pj/TiT
+         Lh8zdZ/CglIl2FIYdsvRah24LpwvV7SYuIB/vApYV95829HMGMpmojlYxl60y90SVt9o
+         E44H08ke3YaJJByLNCaaHh/+qM8fpeQaGrNK+82zQFDYR3geQBC/ZL50Fim5SrJULwtQ
+         dKxxdvdJJ42dJs0ibW1lC+5cBgKXqDW978uOx6TtfMznWQix+UwD1sQ5x1VhwusJbajT
+         iJjdIumFoUj7xlT6Fm8J5as0DniFcBQue1Gtqbe6uGupOA3pqZhKu1Z/GOhP7kWsCfSr
+         Tp5A==
+X-Gm-Message-State: AOAM532v1T090c+vX4T+nxg6OK24NhhYaTeowkbPO0O75NtH2wZIX2QS
+	RCwFz9pvia51QvbdDv5k3js=
+X-Google-Smtp-Source: ABdhPJyBjD7ZjB9mqxCcZxSrR5aW0PfM7hAyksDSD984OOLHfR+h/OvSF/fOXgX4vDfty6M+7PqF0A==
+X-Received: by 2002:a17:902:8ecc:b0:15e:f63f:233f with SMTP id x12-20020a1709028ecc00b0015ef63f233fmr55548885plo.86.1653911020277;
+        Mon, 30 May 2022 04:43:40 -0700 (PDT)
+Received: from potin-quanta.dhcpserver.local (125-228-123-29.hinet-ip.hinet.net. [125.228.123.29])
+        by smtp.gmail.com with ESMTPSA id c10-20020a170902c2ca00b0015e8d4eb207sm8865069pla.81.2022.05.30.04.43.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 30 May 2022 04:43:39 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: Brendan Higgins <brendanhiggins@google.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@aj.id.au>
+Subject: [PATCH 1/1] aspeed: i2c: add manual clock setup feature
+Date: Mon, 30 May 2022 19:40:56 +0800
+Message-Id: <20220530114056.8722-1-potin.lai.pt@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Wed, 01 Jun 2022 09:18:21 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,62 +74,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC List <openbmc@lists.ozlabs.org>
+Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Porin Lai <potin.lai.pt@gmail.com>, linux-i2c@vger.kernel.org, Porin Lai <potin.lai@quantatw.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+From: Porin Lai <potin.lai.pt@gmail.com>
 
---cBLZa5cYMIUM3/m6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add properties for manual tuning i2c clock timing register.
 
-On Mon, May 30, 2022 at 12:56:54PM -0500, Jonathan Arias wrote:
+* aspeed,i2c-manual-clk: Enable aspeed i2c clock manual setup
+* aspeed,i2c-base-clk-div: Base Clock divisor (tBaseClk)
+* aspeed,i2c-clk-high-cycle: Cycles of clock-high pulse (tClkHigh)
+* aspeed,i2c-clk-low-cycle: Cycles of clock-low pulse (tClkLow)
 
-Hello Jonathan,
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ drivers/i2c/busses/i2c-aspeed.c | 55 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 54 insertions(+), 1 deletion(-)
 
-Trimmed out a bit of your message and cc'd the ML.  It's best to use the
-ML for assistance.
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index 67e8b97c0c95..1f4b5c4b5bf4 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -898,6 +898,56 @@ static int aspeed_i2c_init_clk(struct aspeed_i2c_bus *bus)
+ 	return 0;
+ }
+ 
++/* precondition: bus.lock has been acquired. */
++static int aspeed_i2c_manual_clk_setup(struct aspeed_i2c_bus *bus)
++{
++	u32 divisor, clk_high, clk_low, clk_reg_val;
++
++	if (device_property_read_u32(bus->dev, "aspeed,i2c-base-clk-div",
++				     &divisor) != 0) {
++		dev_err(bus->dev, "Could not read aspeed,i2c-base-clk-div\n");
++		return -EINVAL;
++	} else if (divisor > ASPEED_I2CD_TIME_BASE_DIVISOR_MASK) {
++		dev_err(bus->dev, "Invalid aspeed,i2c-base-clk-div: %u\n",
++			divisor);
++		return -EINVAL;
++	}
++
++	if (device_property_read_u32(bus->dev, "aspeed,i2c-clk-high-cycle",
++				     &clk_high) != 0) {
++		dev_err(bus->dev, "Could not read aspeed,i2c-clk-high-cycle\n");
++		return -EINVAL;
++	} else if (clk_high > ASPEED_I2CD_TIME_SCL_REG_MAX) {
++		dev_err(bus->dev, "Invalid aspeed,i2c-clk-high-cycle: %u\n",
++			clk_high);
++		return -EINVAL;
++	}
++
++	if (device_property_read_u32(bus->dev, "aspeed,i2c-clk-low-cycle",
++				     &clk_low) != 0) {
++		dev_err(bus->dev, "Could not read aspeed,i2c-clk-low-cycle\n");
++		return -EINVAL;
++	} else if (clk_low > ASPEED_I2CD_TIME_SCL_REG_MAX) {
++		dev_err(bus->dev, "Invalid aspeed,i2c-clk-low-cycle: %u\n",
++			clk_low);
++		return -EINVAL;
++	}
++
++	clk_reg_val = readl(bus->base + ASPEED_I2C_AC_TIMING_REG1);
++	clk_reg_val &= (ASPEED_I2CD_TIME_TBUF_MASK |
++			ASPEED_I2CD_TIME_THDSTA_MASK |
++			ASPEED_I2CD_TIME_TACST_MASK);
++	clk_reg_val |= (divisor & ASPEED_I2CD_TIME_BASE_DIVISOR_MASK)
++			| ((clk_high << ASPEED_I2CD_TIME_SCL_HIGH_SHIFT)
++			   & ASPEED_I2CD_TIME_SCL_HIGH_MASK)
++			| ((clk_low << ASPEED_I2CD_TIME_SCL_LOW_SHIFT)
++			   & ASPEED_I2CD_TIME_SCL_LOW_MASK);
++	writel(clk_reg_val, bus->base + ASPEED_I2C_AC_TIMING_REG1);
++	writel(ASPEED_NO_TIMEOUT_CTRL, bus->base + ASPEED_I2C_AC_TIMING_REG2);
++
++	return 0;
++}
++
+ /* precondition: bus.lock has been acquired. */
+ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+ 			     struct platform_device *pdev)
+@@ -908,7 +958,10 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+ 	/* Disable everything. */
+ 	writel(0, bus->base + ASPEED_I2C_FUN_CTRL_REG);
+ 
+-	ret = aspeed_i2c_init_clk(bus);
++	if (of_property_read_bool(pdev->dev.of_node, "aspeed,i2c-manual-clk"))
++		ret = aspeed_i2c_manual_clk_setup(bus);
++	else
++		ret = aspeed_i2c_init_clk(bus);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-- 
+2.17.1
 
-> Anyway, I  was following the guide here
-> https://github.com/openbmc/docs/blob/master/development/dev-environment.md
-> But some of the links for the toolchains are broken, was hoping you knew
-> where I could find them?
->=20
-> For example,  this toolchain link is broken below.
->=20
-> wget
-> https://jenkins.openbmc.org/job/latest-master-sdk/label=3Ddocker-builder,=
-target=3Dromulus/lastSuccessfulBuild/artifact/deploy/sdk/oecore-x86_64-arm1=
-176jzs-toolchain-nodistro.0.sh
->=20
-> I went to https://jenkins.openbmc.org/job/latest-master-sdk/ to look for
-> it, but that project is disabled, so no artifacts.
-
-It looks like Andrew disabled this on 2022-04-09.  I'm not sure the
-reason why.  Hopefully he can elaborate.
-
---=20
-Patrick Williams
-
---cBLZa5cYMIUM3/m6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmKWn9wACgkQqwNHzC0A
-wRnQJg/+PoR1vnlwq0lUhgXH9q2h5YCH4ldo94PmMdFU1OEeG2BwXQHucyNqDtM5
-fdWsv4/R+/WJ4UK1glLyGTnKAPuPZALFYjpkOdipVdVvyuSO8oRKcJSyTK+xpKIJ
-3T5poRGTPsfjipliFAhFa3Hy3P2BUFLRpfR1nLHfw/Chf5YsYXEKMObaST51nTHe
-aw+H2+gLUGh4M2eQIaB0tLlsYnAKeMKbw7nOIHAPQCH0Wgig8bsASEk1yza812vI
-AVDZr4Q2NTI6U+ZqpbMXyBPp65i3AqobKTJr6KO/oDdJJUD+0QERycefWXI579e/
-8spvVs2fEYbNtJG918QF2HpqvHT/b9xSSfTKXCu0ai2aNjTrx+OZ0OKq8JdM+MFl
-BNJQwV8psFYbJnbqUwx4mCcRc/DJB+4xMQdDyU1NT4UykDZltApEQJsN4NHQ3RXp
-vh8qRkxpsphz8lonk2QbSrAvV6X306TkQohqkTXKKeh/UwOuGYw0T2JvFGMOxq76
-MvBprTvNQfzPDk2TDiU5M46Gps8preI5miGE0vxmTPNNAjOEZv975KSrBz9GI41J
-/ZJrkI92/44+j9XaQ5irkLDkR1ph3rdqVzIdUiqhYReUctMCLGH51sikiWHzIkRJ
-XS082U+4LnIdXVWUcW8ySDJbHeuvDQ2YtlLTCaObKH8TcXMM/zM=
-=MOnf
------END PGP SIGNATURE-----
-
---cBLZa5cYMIUM3/m6--
