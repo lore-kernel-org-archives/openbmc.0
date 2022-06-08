@@ -4,80 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0668C433EF
-	for <openbmc@archiver.kernel.org>; Tue,  7 Jun 2022 19:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D485EC433EF
+	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 01:14:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LHfrw3ZXTz3blW
-	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 05:03:28 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LHq4x00Zyz3bpQ
+	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 11:14:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=MJNO8zFO;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MCDZPQAJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2001:4860:4864:20::2b; helo=mail-oa1-x2b.google.com; envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=MJNO8zFO;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MCDZPQAJ;
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com [IPv6:2001:4860:4864:20::2b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LHfpZ4lFKz3bkc
-	for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2022 05:01:26 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 257IVDO5014183;
-	Tue, 7 Jun 2022 19:01:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
- : date : message-id : in-reply-to : references : content-transfer-encoding
- : mime-version; s=pp1; bh=YLXNQxGYly/YEop48e5NTocQ+sPpTf2EE7hL6WhnSGE=;
- b=MJNO8zFOLNTbeLEk2mkFc7MBDox/HF7o+fTVUFIaQnIrZY+SdyQ5wfRc/moOJeRjqQEG
- RrAaodssyDf/7IEj+X1chCMSgItPM3gKguiRF+oB6OTV5rCAmw2Qyy9pCIpCdL39ZZYw
- FbN/Jft+I3jxTxrJWYqyKka+p0XfCgCBzD7C+CvU8xJZQZj+P1G1n3fkr8c/4dIiR7Do
- Tmo6cnknBH6slk0F/7NHltChqajBQQ5W9gmglMt7MKa6KQ4rqHsNs+PG/40g0f/Y81vW
- 2EVleD+tWSrJ1yc8rcPHvuBu8bvzW+gEXsNQCeHnj0PBwA7W79ZiMqloMx3OURMBe4aF 7w== 
-Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com [169.63.121.186])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3gjc12gfd8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jun 2022 19:01:22 +0000
-Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
-	by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 257IoHqW017320;
-	Tue, 7 Jun 2022 19:01:21 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
-	by ppma03wdc.us.ibm.com with ESMTP id 3gfy19p84e-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 07 Jun 2022 19:01:21 +0000
-Received: from b03ledav001.gho.boulder.ibm.com (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
-	by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 257J1KQK15270530
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 7 Jun 2022 19:01:20 GMT
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 354196E054;
-	Tue,  7 Jun 2022 19:01:20 +0000 (GMT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C8BD16E050;
-	Tue,  7 Jun 2022 19:01:19 +0000 (GMT)
-Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.160.188.159])
-	by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
-	Tue,  7 Jun 2022 19:01:19 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.15 1/2] hwmon: (occ) Delay hwmon registration until user request
-Date: Tue,  7 Jun 2022 14:01:17 -0500
-Message-Id: <20220607190118.5078-2-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220607190118.5078-1-eajames@linux.ibm.com>
-References: <20220607190118.5078-1-eajames@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: PoqDa7Xe2-H1VW67Qhj5CfwNZrAcEST3
-X-Proofpoint-GUID: PoqDa7Xe2-H1VW67Qhj5CfwNZrAcEST3
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LHq475Mc6z2xm1
+	for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2022 11:13:42 +1000 (AEST)
+Received: by mail-oa1-x2b.google.com with SMTP id 586e51a60fabf-fb6b4da1dfso7427201fac.4
+        for <openbmc@lists.ozlabs.org>; Tue, 07 Jun 2022 18:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:message-id:date:mime-version:user-agent:content-language:to
+         :references:from:subject:in-reply-to:content-transfer-encoding;
+        bh=kBIySTAJjbizEz0lOsKHr+uK6tOPrCBwD+VayVTxzQ4=;
+        b=MCDZPQAJ1bc7E7TWI/TddSwSc40DI04iu6X924AaRYf5W/F3LaTHb1YGDUMVwF6jLB
+         ZKf7oqSVm2WMQF7YCqd4Tmnr8/v/LpJCj+LwdLJJlNlDBGf/lJC7lawn8zW+zza1/tts
+         W4tY98XaiC6q/vJVCmP8Qu/a7kW9qWM5kPgTUdlsdXIvKtkSzDFJmf/+wvBS3NNCsIZn
+         YYkjG27Bl3tXJM9E/ZzFX9oTppKe6efxyqGhPEUod94Z/ySYv4MWzA57ttEcscvjMwin
+         cOsDCijtZo+aW1NE1ZF6DDFO31qv5M7LQZwMAg3kjWj84R1xyLHfLJr+IvVphiVIt12f
+         Kj2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:message-id:date:mime-version:user-agent
+         :content-language:to:references:from:subject:in-reply-to
+         :content-transfer-encoding;
+        bh=kBIySTAJjbizEz0lOsKHr+uK6tOPrCBwD+VayVTxzQ4=;
+        b=m7tk1m4BR5tbYHazZ56SJk1epIA3RvcDwrIgQCv2oQNBlrlZjpvoRDi9Ql76UnKgtU
+         NOz97PU85YA41A+PugDMq/7fC6jUsiuohvbKzPJIHg8Rp0Ecl2kn8/XDl0dpbKxkVgjn
+         O5ojgxMQM6LwcUaLKjsdThcxUS5aJg2jHbd70zQGBA3OjqaANQKxX9N37g/h4BGv/nik
+         8PHcEiw1uhTgAtpRlht6wMKIj2Sivdy8BuSqU40pDxi6owIWxP9NEQ4GAADEcxi6HPeo
+         ASu61RDElcFa/l506iuMe4S7vzDKEz+EHdq/qAZFt+3BoGfeMAXj2ghla4lX9RdGo3NV
+         MlDQ==
+X-Gm-Message-State: AOAM532LBY1lUuU9VRY062hjPeVflXv+PrcX24fbZ0vsaNC2xoCpW7m6
+	AYRpxz71vo86RX29jWB4q/k=
+X-Google-Smtp-Source: ABdhPJxdWG4xXsD6AUUk8HYb3a1sp2KVyaroExaee8tgvUl2jx/z7X5ur0NHy3KnHqe+lWN8b8BGAw==
+X-Received: by 2002:a05:6870:f2a9:b0:f2:c0bc:411d with SMTP id u41-20020a056870f2a900b000f2c0bc411dmr990648oap.239.1654650814848;
+        Tue, 07 Jun 2022 18:13:34 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c? ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+        by smtp.gmail.com with ESMTPSA id m8-20020a0568080f0800b00325cda1ff94sm11165785oiw.19.2022.06.07.18.13.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jun 2022 18:13:34 -0700 (PDT)
+Message-ID: <cf1a2ff9-59b3-fb2d-62fd-bdeac57bb9c0@roeck-us.net>
+Date: Tue, 7 Jun 2022 18:13:31 -0700
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
- definitions=2022-06-07_08,2022-06-07_02,2022-02-23_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- phishscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- suspectscore=0 mlxlogscore=999 adultscore=0 bulkscore=0 mlxscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2204290000 definitions=main-2206070079
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Content-Language: en-US
+To: Jim Wright <wrightj@linux.ibm.com>, linux-hwmon@vger.kernel.org,
+ joel@jms.id.au, openbmc@lists.ozlabs.org
+References: <20220607205306.145636-1-wrightj@linux.ibm.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH] hwmon: (ucd9000) Add voltage monitor types
+In-Reply-To: <20220607205306.145636-1-wrightj@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,404 +81,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: joel@jms.id.au
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Instead of registering the hwmon device at probe time, use the
-existing "occ_active" sysfs file to control when the driver polls
-the OCC for sensor data and registers with hwmon. The reason for
-this change is that the SBE, which is the device by which the
-driver communicates with the OCC, cannot handle communications
-during certain system state transitions, resulting in
-unrecoverable system errors.
+On 6/7/22 13:53, Jim Wright wrote:
+> The UCD90240 and UCD90320 devices support monitor types "Input Voltage",
+> "Voltage With AVS", and "Input Voltage With AVS", add support to driver
+> to recognize these types as voltage monitors.
+> 
+> Signed-off-by: Jim Wright <wrightj@linux.ibm.com>
+> ---
+>   drivers/hwmon/pmbus/ucd9000.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+> 
+> diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
+> index 75fc770c9e40..28cc214d4d6b 100644
+> --- a/drivers/hwmon/pmbus/ucd9000.c
+> +++ b/drivers/hwmon/pmbus/ucd9000.c
+> @@ -45,6 +45,9 @@ enum chips { ucd9000, ucd90120, ucd90124, ucd90160, ucd90320, ucd9090,
+>   #define UCD9000_MON_TEMPERATURE	2
+>   #define UCD9000_MON_CURRENT	3
+>   #define UCD9000_MON_VOLTAGE_HW	4
+> +#define UCD9000_MON_INPUT_VOLTAGE	5
+> +#define UCD9000_MON_VOLTAGE_AVS	6
+> +#define UCD9000_MON_INPUT_VOLTAGE_AVS	7
+>   
+>   #define UCD9000_NUM_FAN		4
+>   
+> @@ -566,6 +569,9 @@ static int ucd9000_probe(struct i2c_client *client)
+>   		switch (UCD9000_MON_TYPE(block_buffer[i])) {
+>   		case UCD9000_MON_VOLTAGE:
+>   		case UCD9000_MON_VOLTAGE_HW:
+> +		case UCD9000_MON_INPUT_VOLTAGE:
+> +		case UCD9000_MON_VOLTAGE_AVS:
+> +		case UCD9000_MON_INPUT_VOLTAGE_AVS:
+>   			info->func[page] |= PMBUS_HAVE_VOUT
+>   			  | PMBUS_HAVE_STATUS_VOUT;
+>   			break;
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Link: https://lore.kernel.org/r/20220427140443.11428-1-eajames@linux.ibm.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/hwmon/occ/common.c | 100 +++++++++++++++++++--------
- drivers/hwmon/occ/common.h |   5 +-
- drivers/hwmon/occ/p8_i2c.c |   2 +-
- drivers/hwmon/occ/p9_sbe.c |   2 +-
- drivers/hwmon/occ/sysfs.c  | 137 ++++++++++++++++++++++---------------
- 5 files changed, 156 insertions(+), 90 deletions(-)
+I don't think it makes sense to claim VOUT support if the chip is
+configured to monitor input voltages. This should probably be something
+like
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index f00cd59f1d19..d78f4bebc718 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -1149,44 +1149,75 @@ static void occ_parse_poll_response(struct occ *occ)
- 		sizeof(*header), size + sizeof(*header));
- }
- 
--int occ_setup(struct occ *occ, const char *name)
-+int occ_active(struct occ *occ, bool active)
- {
--	int rc;
--
--	mutex_init(&occ->lock);
--	occ->groups[0] = &occ->group;
-+	int rc = mutex_lock_interruptible(&occ->lock);
- 
--	/* no need to lock */
--	rc = occ_poll(occ);
--	if (rc == -ESHUTDOWN) {
--		dev_info(occ->bus_dev, "host is not ready\n");
--		return rc;
--	} else if (rc < 0) {
--		dev_err(occ->bus_dev,
--			"failed to get OCC poll response=%02x: %d\n",
--			occ->resp.return_status, rc);
-+	if (rc)
- 		return rc;
--	}
- 
--	occ->next_update = jiffies + OCC_UPDATE_FREQUENCY;
--	occ_parse_poll_response(occ);
-+	if (active) {
-+		if (occ->active) {
-+			rc = -EALREADY;
-+			goto unlock;
-+		}
- 
--	rc = occ_setup_sensor_attrs(occ);
--	if (rc) {
--		dev_err(occ->bus_dev, "failed to setup sensor attrs: %d\n",
--			rc);
--		return rc;
--	}
-+		occ->error_count = 0;
-+		occ->last_safe = 0;
- 
--	occ->hwmon = devm_hwmon_device_register_with_groups(occ->bus_dev, name,
--							    occ, occ->groups);
--	if (IS_ERR(occ->hwmon)) {
--		rc = PTR_ERR(occ->hwmon);
--		dev_err(occ->bus_dev, "failed to register hwmon device: %d\n",
--			rc);
--		return rc;
-+		rc = occ_poll(occ);
-+		if (rc < 0) {
-+			dev_err(occ->bus_dev,
-+				"failed to get OCC poll response=%02x: %d\n",
-+				occ->resp.return_status, rc);
-+			goto unlock;
-+		}
-+
-+		occ->active = true;
-+		occ->next_update = jiffies + OCC_UPDATE_FREQUENCY;
-+		occ_parse_poll_response(occ);
-+
-+		rc = occ_setup_sensor_attrs(occ);
-+		if (rc) {
-+			dev_err(occ->bus_dev,
-+				"failed to setup sensor attrs: %d\n", rc);
-+			goto unlock;
-+		}
-+
-+		occ->hwmon = hwmon_device_register_with_groups(occ->bus_dev,
-+							       "occ", occ,
-+							       occ->groups);
-+		if (IS_ERR(occ->hwmon)) {
-+			rc = PTR_ERR(occ->hwmon);
-+			occ->hwmon = NULL;
-+			dev_err(occ->bus_dev,
-+				"failed to register hwmon device: %d\n", rc);
-+			goto unlock;
-+		}
-+	} else {
-+		if (!occ->active) {
-+			rc = -EALREADY;
-+			goto unlock;
-+		}
-+
-+		if (occ->hwmon)
-+			hwmon_device_unregister(occ->hwmon);
-+		occ->active = false;
-+		occ->hwmon = NULL;
- 	}
- 
-+unlock:
-+	mutex_unlock(&occ->lock);
-+	return rc;
-+}
-+
-+int occ_setup(struct occ *occ)
-+{
-+	int rc;
-+
-+	mutex_init(&occ->lock);
-+	occ->groups[0] = &occ->group;
-+
- 	rc = occ_setup_sysfs(occ);
- 	if (rc)
- 		dev_err(occ->bus_dev, "failed to setup sysfs: %d\n", rc);
-@@ -1195,6 +1226,15 @@ int occ_setup(struct occ *occ, const char *name)
- }
- EXPORT_SYMBOL_GPL(occ_setup);
- 
-+void occ_shutdown(struct occ *occ)
-+{
-+	occ_shutdown_sysfs(occ);
-+
-+	if (occ->hwmon)
-+		hwmon_device_unregister(occ->hwmon);
-+}
-+EXPORT_SYMBOL_GPL(occ_shutdown);
-+
- MODULE_AUTHOR("Eddie James <eajames@linux.ibm.com>");
- MODULE_DESCRIPTION("Common OCC hwmon code");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index 2dd4a4d240c0..64d5ec7e169b 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -106,6 +106,7 @@ struct occ {
- 	struct attribute_group group;
- 	const struct attribute_group *groups[2];
- 
-+	bool active;
- 	int error;                      /* final transfer error after retry */
- 	int last_error;			/* latest transfer error */
- 	unsigned int error_count;       /* number of xfr errors observed */
-@@ -123,9 +124,11 @@ struct occ {
- 	u8 prev_mode;
- };
- 
--int occ_setup(struct occ *occ, const char *name);
-+int occ_active(struct occ *occ, bool active);
-+int occ_setup(struct occ *occ);
- int occ_setup_sysfs(struct occ *occ);
- void occ_shutdown(struct occ *occ);
-+void occ_shutdown_sysfs(struct occ *occ);
- void occ_sysfs_poll_done(struct occ *occ);
- int occ_update_response(struct occ *occ);
- 
-diff --git a/drivers/hwmon/occ/p8_i2c.c b/drivers/hwmon/occ/p8_i2c.c
-index 9e61e1fb5142..da39ea28df31 100644
---- a/drivers/hwmon/occ/p8_i2c.c
-+++ b/drivers/hwmon/occ/p8_i2c.c
-@@ -223,7 +223,7 @@ static int p8_i2c_occ_probe(struct i2c_client *client)
- 	occ->poll_cmd_data = 0x10;		/* P8 OCC poll data */
- 	occ->send_cmd = p8_i2c_occ_send_cmd;
- 
--	return occ_setup(occ, "p8_occ");
-+	return occ_setup(occ);
- }
- 
- static int p8_i2c_occ_remove(struct i2c_client *client)
-diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
-index d34d6a007e8d..41c0f7a18877 100644
---- a/drivers/hwmon/occ/p9_sbe.c
-+++ b/drivers/hwmon/occ/p9_sbe.c
-@@ -151,7 +151,7 @@ static int p9_sbe_occ_probe(struct platform_device *pdev)
- 	occ->poll_cmd_data = 0x20;		/* P9 OCC poll data */
- 	occ->send_cmd = p9_sbe_occ_send_cmd;
- 
--	rc = occ_setup(occ, "p9_occ");
-+	rc = occ_setup(occ);
- 	if (rc == -ESHUTDOWN)
- 		rc = -ENODEV;	/* Host is shutdown, don't spew errors */
- 
-diff --git a/drivers/hwmon/occ/sysfs.c b/drivers/hwmon/occ/sysfs.c
-index b2f788a77746..2317301fc1e9 100644
---- a/drivers/hwmon/occ/sysfs.c
-+++ b/drivers/hwmon/occ/sysfs.c
-@@ -6,13 +6,13 @@
- #include <linux/export.h>
- #include <linux/hwmon-sysfs.h>
- #include <linux/kernel.h>
-+#include <linux/kstrtox.h>
- #include <linux/sysfs.h>
- 
- #include "common.h"
- 
- /* OCC status register */
- #define OCC_STAT_MASTER			BIT(7)
--#define OCC_STAT_ACTIVE			BIT(0)
- 
- /* OCC extended status register */
- #define OCC_EXT_STAT_DVFS_OT		BIT(7)
-@@ -22,6 +22,25 @@
- #define OCC_EXT_STAT_DVFS_VDD		BIT(3)
- #define OCC_EXT_STAT_GPU_THROTTLE	GENMASK(2, 0)
- 
-+static ssize_t occ_active_store(struct device *dev,
-+				struct device_attribute *attr,
-+				const char *buf, size_t count)
-+{
-+	int rc;
-+	bool active;
-+	struct occ *occ = dev_get_drvdata(dev);
-+
-+	rc = kstrtobool(buf, &active);
-+	if (rc)
-+		return rc;
-+
-+	rc = occ_active(occ, active);
-+	if (rc)
-+		return rc;
-+
-+	return count;
-+}
-+
- static ssize_t occ_sysfs_show(struct device *dev,
- 			      struct device_attribute *attr, char *buf)
- {
-@@ -31,54 +50,64 @@ static ssize_t occ_sysfs_show(struct device *dev,
- 	struct occ_poll_response_header *header;
- 	struct sensor_device_attribute *sattr = to_sensor_dev_attr(attr);
- 
--	rc = occ_update_response(occ);
--	if (rc)
--		return rc;
-+	if (occ->active) {
-+		rc = occ_update_response(occ);
-+		if (rc)
-+			return rc;
- 
--	header = (struct occ_poll_response_header *)occ->resp.data;
--
--	switch (sattr->index) {
--	case 0:
--		val = !!(header->status & OCC_STAT_MASTER);
--		break;
--	case 1:
--		val = !!(header->status & OCC_STAT_ACTIVE);
--		break;
--	case 2:
--		val = !!(header->ext_status & OCC_EXT_STAT_DVFS_OT);
--		break;
--	case 3:
--		val = !!(header->ext_status & OCC_EXT_STAT_DVFS_POWER);
--		break;
--	case 4:
--		val = !!(header->ext_status & OCC_EXT_STAT_MEM_THROTTLE);
--		break;
--	case 5:
--		val = !!(header->ext_status & OCC_EXT_STAT_QUICK_DROP);
--		break;
--	case 6:
--		val = header->occ_state;
--		break;
--	case 7:
--		if (header->status & OCC_STAT_MASTER)
--			val = hweight8(header->occs_present);
--		else
-+		header = (struct occ_poll_response_header *)occ->resp.data;
-+
-+		switch (sattr->index) {
-+		case 0:
-+			val = !!(header->status & OCC_STAT_MASTER);
-+			break;
-+		case 1:
- 			val = 1;
--		break;
--	case 8:
--		val = header->ips_status;
--		break;
--	case 9:
--		val = header->mode;
--		break;
--	case 10:
--		val = !!(header->ext_status & OCC_EXT_STAT_DVFS_VDD);
--		break;
--	case 11:
--		val = header->ext_status & OCC_EXT_STAT_GPU_THROTTLE;
--		break;
--	default:
--		return -EINVAL;
-+			break;
-+		case 2:
-+			val = !!(header->ext_status & OCC_EXT_STAT_DVFS_OT);
-+			break;
-+		case 3:
-+			val = !!(header->ext_status & OCC_EXT_STAT_DVFS_POWER);
-+			break;
-+		case 4:
-+			val = !!(header->ext_status &
-+				 OCC_EXT_STAT_MEM_THROTTLE);
-+			break;
-+		case 5:
-+			val = !!(header->ext_status & OCC_EXT_STAT_QUICK_DROP);
-+			break;
-+		case 6:
-+			val = header->occ_state;
-+			break;
-+		case 7:
-+			if (header->status & OCC_STAT_MASTER)
-+				val = hweight8(header->occs_present);
-+			else
-+				val = 1;
-+			break;
-+		case 8:
-+			val = header->ips_status;
-+			break;
-+		case 9:
-+			val = header->mode;
-+			break;
-+		case 10:
-+			val = !!(header->ext_status & OCC_EXT_STAT_DVFS_VDD);
-+			break;
-+		case 11:
-+			val = header->ext_status & OCC_EXT_STAT_GPU_THROTTLE;
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	} else {
-+		if (sattr->index == 1)
-+			val = 0;
-+		else if (sattr->index <= 11)
-+			val = -ENODATA;
-+		else
-+			return -EINVAL;
- 	}
- 
- 	return sysfs_emit(buf, "%d\n", val);
-@@ -95,7 +124,8 @@ static ssize_t occ_error_show(struct device *dev,
- }
- 
- static SENSOR_DEVICE_ATTR(occ_master, 0444, occ_sysfs_show, NULL, 0);
--static SENSOR_DEVICE_ATTR(occ_active, 0444, occ_sysfs_show, NULL, 1);
-+static SENSOR_DEVICE_ATTR(occ_active, 0644, occ_sysfs_show, occ_active_store,
-+			  1);
- static SENSOR_DEVICE_ATTR(occ_dvfs_overtemp, 0444, occ_sysfs_show, NULL, 2);
- static SENSOR_DEVICE_ATTR(occ_dvfs_power, 0444, occ_sysfs_show, NULL, 3);
- static SENSOR_DEVICE_ATTR(occ_mem_throttle, 0444, occ_sysfs_show, NULL, 4);
-@@ -139,7 +169,7 @@ void occ_sysfs_poll_done(struct occ *occ)
- 	 * On the first poll response, we haven't yet created the sysfs
- 	 * attributes, so don't make any notify calls.
- 	 */
--	if (!occ->hwmon)
-+	if (!occ->active)
- 		goto done;
- 
- 	if ((header->status & OCC_STAT_MASTER) !=
-@@ -148,12 +178,6 @@ void occ_sysfs_poll_done(struct occ *occ)
- 		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
- 	}
- 
--	if ((header->status & OCC_STAT_ACTIVE) !=
--	    (occ->prev_stat & OCC_STAT_ACTIVE)) {
--		name = sensor_dev_attr_occ_active.dev_attr.attr.name;
--		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
--	}
--
- 	if ((header->ext_status & OCC_EXT_STAT_DVFS_OT) !=
- 	    (occ->prev_ext_stat & OCC_EXT_STAT_DVFS_OT)) {
- 		name = sensor_dev_attr_occ_dvfs_overtemp.dev_attr.attr.name;
-@@ -227,8 +251,7 @@ int occ_setup_sysfs(struct occ *occ)
- 	return sysfs_create_group(&occ->bus_dev->kobj, &occ_sysfs);
- }
- 
--void occ_shutdown(struct occ *occ)
-+void occ_shutdown_sysfs(struct occ *occ)
- {
- 	sysfs_remove_group(&occ->bus_dev->kobj, &occ_sysfs);
- }
--EXPORT_SYMBOL_GPL(occ_shutdown);
--- 
-2.31.1
+...
+ > +		case UCD9000_MON_VOLTAGE_AVS:
+ >   			info->func[page] |= PMBUS_HAVE_VOUT
+ >   			  | PMBUS_HAVE_STATUS_VOUT;
+ >   			break;
+		case UCD9000_MON_INPUT_VOLTAGE:
+		case UCD9000_MON_INPUT_VOLTAGE_AVS:
+			info->func[page] |= PMBUS_HAVE_VIN;
+  			break;
 
+with appropriate mapping code to map the READ_VIN command for the
+affected pages to READ_VOUT. Question is if the limit registers on
+those pages are also reporting the limits using the vout limit
+commands; if so, those should be mapped as well.
+
+Guenter
