@@ -4,35 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FEAEC433EF
-	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 06:28:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3B60C43334
+	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 06:33:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LHy3M4tbBz3bv3
-	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 16:28:31 +1000 (AEST)
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LHy902CWgz3btT
+	for <openbmc@archiver.kernel.org>; Wed,  8 Jun 2022 16:33:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=188.165.49.222; helo=6.mo552.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+X-Greylist: delayed 82171 seconds by postgrey-1.36 at boromir; Wed, 08 Jun 2022 16:32:55 AEST
+Received: from 6.mo552.mail-out.ovh.net (6.mo552.mail-out.ovh.net [188.165.49.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LHy2w2cfrz2xbW
-	for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2022 16:28:08 +1000 (AEST)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org [IPv6:2404:9400:2221:ea00::3])
-	by gandalf.ozlabs.org (Postfix) with ESMTP id 4LHy2w0N74z4xXF;
-	Wed,  8 Jun 2022 16:28:08 +1000 (AEST)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4LHy2t5DsHz4xD8;
-	Wed,  8 Jun 2022 16:28:06 +1000 (AEST)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH] ARM: dts: aspeed: Add a palmetto board (AST2400)
-Date: Wed,  8 Jun 2022 08:28:03 +0200
-Message-Id: <20220608062803.366909-1-clg@kaod.org>
-X-Mailer: git-send-email 2.35.3
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LHy8R2tYlz2xgX
+	for <openbmc@lists.ozlabs.org>; Wed,  8 Jun 2022 16:32:52 +1000 (AEST)
+Received: from mxplan5.mail.ovh.net (unknown [10.109.143.159])
+	by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 8045F26EE5;
+	Wed,  8 Jun 2022 06:16:55 +0000 (UTC)
+Received: from kaod.org (37.59.142.98) by DAG4EX1.mxp5.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.9; Wed, 8 Jun 2022
+ 08:16:54 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-98R002367af67d-ecf9-4667-b5d9-369efb58422c,
+                    54A3B2140384DD5702107EFE02B2448601CCACB1) smtp.auth=clg@kaod.org
+X-OVh-ClientIp: 82.64.250.170
+Message-ID: <f59e9e6b-1267-c667-9ef0-ac6968b0f728@kaod.org>
+Date: Wed, 8 Jun 2022 08:16:53 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc v2] ARM: dts: aspeed: add
+ Qualcomm DC-SCM V1
+Content-Language: en-US
+To: Joel Stanley <joel@jms.id.au>, Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+References: <20220519185318.62655-1-quic_jaehyoo@quicinc.com>
+ <a9798967-ab87-2469-a8cf-ab8ac237908a@quicinc.com>
+ <CACPK8Xf7Bqjk1A+qeJcrTCGL-PdFj5a2yBna+QvrSi5RpfLXsg@mail.gmail.com>
+ <dcf3bc8e-eaff-1469-e034-141aa0a4acf1@kaod.org>
+ <09b467bf-2acc-1834-2143-e7e735a74b53@quicinc.com>
+ <CACPK8XfP3T1gX_3-BWM3tZHrnwCqjNXz67nE9anxat-EfTmdaQ@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+In-Reply-To: <CACPK8XfP3T1gX_3-BWM3tZHrnwCqjNXz67nE9anxat-EfTmdaQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [37.59.142.98]
+X-ClientProxiedBy: DAG3EX2.mxp5.local (172.16.2.22) To DAG4EX1.mxp5.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: 80fff33b-beb9-43fc-b7db-ad00bbfc1362
+X-Ovh-Tracer-Id: 4528087951807777699
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedruddtiedguddtiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepkeetjedtleekjedvveffudfhteetleeifeegfeffuefghfefkeehffeufeeludejnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghnhedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdpnhgspghrtghpthhtohepuddprhgtphhtthhopehophgvnhgsmhgtsehlihhsthhsrdhoiihlrggsshdrohhrghdpoffvtefjohhsthepmhhoheehvd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,224 +65,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Joel Stanley <joel@jms.id.au>, =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Graeme Gregory <quic_ggregory@quicinc.com>, Jamie Iles <quic_jiles@quicinc.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Palmettos were the first OpenPOWER systems built by Tyan with the
-product name: GN70-BP010. They contained an IBM POWER8 Turismo SCM
-processor and an Aspeed AST2400 SoC.
- 
-Cc: Joel Stanley <joel@jms.id.au>
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- arch/arm/dts/Makefile              |   1 +
- arch/arm/dts/ast2400-palmetto.dts  | 102 +++++++++++++++++++++++++++++
- configs/ast2400-palmetto_defconfig |  74 +++++++++++++++++++++
- 3 files changed, 177 insertions(+)
- create mode 100644 arch/arm/dts/ast2400-palmetto.dts
- create mode 100644 configs/ast2400-palmetto_defconfig
+On 6/8/22 05:05, Joel Stanley wrote:
+> On Tue, 7 Jun 2022 at 14:03, Jae Hyun Yoo <quic_jaehyoo@quicinc.com> wrote:
+>>
+>> On 6/7/2022 12:43 AM, Cédric Le Goater wrote:
+>>> On 6/7/22 03:05, Joel Stanley wrote:
+>>>> On Mon, 6 Jun 2022 at 13:56, Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+>>>> wrote:
+>>>>>
+>>>>> Ping
+>>>>>
+>>>>> On 5/19/2022 11:53 AM, Jae Hyun Yoo wrote:
+>>>>>> From: Graeme Gregory <quic_ggregory@quicinc.com>
+>>>>>>
+>>>>>> Add initial version of device tree for Qualcomm DC-SCM V1 BMC which is
+>>>>>> equipped with Aspeed AST2600 BMC SoC.
+>>>>>>
+>>>>>> Signed-off-by: Graeme Gregory <quic_ggregory@quicinc.com>
+>>>>>> Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+>>>>>> ---
+>>>>>> Changes in v2:
+>>>>>> * Changed vendor name from Nuvia to Qualcomm.
+>>>>>>
+>>>>>>     arch/arm/dts/Makefile                   |   1 +
+>>>>>>     arch/arm/dts/ast2600-qcom-dc-scm-v1.dts | 208
+>>>>>> ++++++++++++++++++++++++
+>>>>>>     2 files changed, 209 insertions(+)
+>>>>>>     create mode 100644 arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+>>>>>>
+>>>>>> diff --git a/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+>>>>>> b/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+>>>>>> new file mode 100644
+>>>>>> index 000000000000..e966f739b708
+>>>>>> --- /dev/null
+>>>>>> +++ b/arch/arm/dts/ast2600-qcom-dc-scm-v1.dts
+>>
+>> [...]
+>>
+>>>>>> +&fmc {
+>>>>>> +     status = "okay";
+>>>>>> +
+>>>>>> +     pinctrl-names = "default";
+>>>>>> +     pinctrl-0 = <&pinctrl_fmcquad_default>;
+>>>>>> +
+>>>>>> +     flash@0 {
+>>>>>> +             compatible = "spi-flash", "sst,w25q256";
+>>>>
+>>>> Compatible strings should go from the most general to the most
+>>>> specific, so these are around the wrong way. I see you've probably
+>>>> just copied the ast2600-evb which makes the same mistake.
+>>>>
+>>>> In the dtsi we have jedec,spi-nor which you overwrite here.
+>>>>
+>>>> u-boot has spi-flash but Linux uses jedec,spi-nor. I wonder if we
+>>>> should update the aspeed driver to use that?
+>>>>
+>>>> Cédric, do you have thoughts here?
+>>>
+>>> Yes. The closer we are to the Linux DT the better.
+>>>
+>>> The "spi-flash" and "jedec,spi-nor" compatibles are equivalent for
+>>> the SF driver in U-Boot. I think we can remove all the :
+>>>
+>>>      compatible = "spi-flash", "sst,w25q256";
+>>>
+>>> from the Aspeed dts files.
+>>>
+>>> This fits what the latest U-Boot does.
+>>
+>> I checked that it works without the compatible string. I'll drop the
+>> line in v3.
+> 
+> Can you describe your test setup?
+> 
+> When I tested, using the ast2600-evb.dts, the driver reported:
+> 
+> ast# sf probe
+> aspeed_spi: flash-controller@1e620000 has no flash devices ?!
+> Invalid bus 0 (err=-19)
+> Failed to initialize SPI flash at 0:0 (error -19)
+> 
+> This is because the aspeed_spi.c driver counts the number of "spi-flash" nodes:
+> 
+> static int aspeed_spi_count_flash_devices(struct udevice *bus)
+> {
+>          ofnode node;
+>          int count = 0;
+> 
+>          dev_for_each_subnode(node, bus) {
+>                  if (ofnode_is_available(node) &&
+>                      ofnode_device_is_compatible(node, "spi-flash"))
+>                          count++;
+>          }
+> 
+>          return count;
+> }
 
-diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 3515100c65ce..4faf29d747bd 100755
---- a/arch/arm/dts/Makefile
-+++ b/arch/arm/dts/Makefile
-@@ -676,6 +676,7 @@ dtb-$(CONFIG_ARCH_BCM6858) += \
- 
- dtb-$(CONFIG_ARCH_ASPEED) += \
- 	ast2400-evb.dtb \
-+	ast2400-palmetto.dtb \
- 	ast2400-ahe-50dc.dtb \
- 	ast2500-evb.dtb \
- 	ast2600a0-evb.dtb \
-diff --git a/arch/arm/dts/ast2400-palmetto.dts b/arch/arm/dts/ast2400-palmetto.dts
-new file mode 100644
-index 000000000000..a512f602d2f1
---- /dev/null
-+++ b/arch/arm/dts/ast2400-palmetto.dts
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/dts-v1/;
-+
-+#include "ast2400-u-boot.dtsi"
-+
-+/ {
-+	model = "Palmetto BMC";
-+	compatible = "tyan,palmetto-bmc", "aspeed,ast2400";
-+
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0x40000000 0x10000000>;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	aliases {
-+		spi0 = &fmc;
-+		spi1 = &spi1;
-+		ethernet0 = &mac0;
-+		ethernet1 = &mac1;
-+	};
-+};
-+
-+&uart5 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-+
-+&sdrammc {
-+	clock-frequency = <200000000>;
-+};
-+
-+&wdt1 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-+
-+&wdt2 {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	phy-mode = "rgmii";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mac1link_default &pinctrl_mdio1_default>;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+	phy-mode = "rgmii";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mac2link_default &pinctrl_mdio2_default>;
-+};
-+
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		compatible = "spi-flash", "sst,w25q256";
-+		status = "okay";
-+		spi-max-frequency = <50000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
-+	};
-+
-+	flash@1 {
-+                compatible = "spi-flash", "sst,w25q256";
-+                status = "okay";
-+                spi-max-frequency = <50000000>;
-+                spi-tx-bus-width = <2>;
-+                spi-rx-bus-width = <2>;
-+        };
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	flash@0 {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_spi1_default>;
-+		compatible = "spi-flash", "sst,w25q256";
-+		status = "okay";
-+		spi-max-frequency = <50000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
-+	};
-+	flash@1 {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_spi1_default &pinctrl_spi1cs1_default>;
-+		compatible = "spi-flash", "sst,w25q256";
-+		status = "okay";
-+		spi-max-frequency = <50000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
-+	};
-+};
-diff --git a/configs/ast2400-palmetto_defconfig b/configs/ast2400-palmetto_defconfig
-new file mode 100644
-index 000000000000..8802323b4db8
---- /dev/null
-+++ b/configs/ast2400-palmetto_defconfig
-@@ -0,0 +1,74 @@
-+CONFIG_ARM=y
-+CONFIG_ARCH_ASPEED=y
-+CONFIG_SYS_TEXT_BASE=0x0
-+CONFIG_ASPEED_AST2400=y
-+CONFIG_SYS_MALLOC_F_LEN=0x800
-+CONFIG_ENV_SIZE=0x10000
-+CONFIG_ENV_OFFSET=0xF0000
-+CONFIG_NR_DRAM_BANKS=1
-+CONFIG_FIT=y
-+CONFIG_USE_BOOTARGS=y
-+CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
-+CONFIG_USE_BOOTCOMMAND=y
-+CONFIG_BOOTCOMMAND="bootm 20080000"
-+CONFIG_PRE_CONSOLE_BUFFER=y
-+CONFIG_PRE_CON_BUF_ADDR=0x1e720000
-+CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_HUSH_PARSER=y
-+# CONFIG_AUTO_COMPLETE is not set
-+CONFIG_SYS_PROMPT="ast# "
-+CONFIG_CMD_MEMTEST=y
-+CONFIG_SYS_ALT_MEMTEST=y
-+CONFIG_CMD_CLK=y
-+CONFIG_CMD_GPIO=y
-+CONFIG_CMD_I2C=y
-+CONFIG_CMD_MMC=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_CMD_MII=y
-+CONFIG_CMD_PING=y
-+CONFIG_DEFAULT_DEVICE_TREE="ast2400-palmetto"
-+CONFIG_ENV_IS_IN_SPI_FLASH=y
-+CONFIG_USE_ENV_SPI_BUS=y
-+CONFIG_ENV_SPI_BUS=0
-+CONFIG_USE_ENV_SPI_CS=y
-+CONFIG_ENV_SPI_CS=0
-+CONFIG_USE_ENV_SPI_MAX_HZ=y
-+CONFIG_ENV_SPI_MAX_HZ=100000000
-+CONFIG_NET_RANDOM_ETHADDR=y
-+CONFIG_REGMAP=y
-+CONFIG_CLK=y
-+CONFIG_DM_GPIO=y
-+CONFIG_ASPEED_GPIO=y
-+CONFIG_DM_I2C=y
-+CONFIG_SYS_I2C_ASPEED=y
-+CONFIG_MISC=y
-+CONFIG_DM_MMC=y
-+# CONFIG_MMC_HW_PARTITIONING is not set
-+CONFIG_MMC_SDHCI=y
-+CONFIG_MMC_SDHCI_ASPEED=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_GIGADEVICE=y
-+CONFIG_SPI_FLASH_MACRONIX=y
-+CONFIG_SPI_FLASH_SPANSION=y
-+CONFIG_SPI_FLASH_STMICRO=y
-+CONFIG_SPI_FLASH_WINBOND=y
-+CONFIG_PHY_REALTEK=y
-+CONFIG_PHY_NCSI=y
-+CONFIG_DM_ETH=y
-+CONFIG_PHY_GIGE=y
-+CONFIG_FTGMAC100=y
-+CONFIG_PHY=y
-+CONFIG_PINCTRL=y
-+CONFIG_RAM=y
-+CONFIG_DM_SERIAL=y
-+CONFIG_SYS_NS16550=y
-+CONFIG_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_SYSRESET=y
-+CONFIG_TIMER=y
-+CONFIG_WDT=y
-+CONFIG_DM_RESET=y
-+# CONFIG_CMD_BOOTEFI is not set
-+# CONFIG_EFI_LOADER is not set
--- 
-2.35.3
+This is only needed for the "sf" command. boot simply uses the mapping on
+0x20000000.
 
+  
+> We need to fix that if we're going to remove the "spi-flash"
+> compatibles from the device tree.
+
+Just sent patches for it.
+
+Cheers,
+C.
