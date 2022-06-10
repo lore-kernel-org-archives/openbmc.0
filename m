@@ -4,68 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8349C433EF
-	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 07:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2025C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 07:55:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LKCFz2bRxz3bqL
-	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 17:27:03 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=BxEOJKL1;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.18; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=BxEOJKL1;
-	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LKCtN2jD6z3bsg
+	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 17:55:08 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=178.33.254.192; helo=3.mo552.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+Received: from 3.mo552.mail-out.ovh.net (3.mo552.mail-out.ovh.net [178.33.254.192])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKC9B3Vgtz3bw4
-	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 17:22:54 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1654845732;
-	bh=oIMa8rnYrI38DLEzC+BHBidNksqHveHBE860Em1sc3Q=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BxEOJKL1te6l3KSIM77YaWtvuXV67m9wJYOzn/j3+dupMT2SkSHuCAAwkWYWR3rtk
-	 okxpABDget83xXZf/4mBpDD75ouVIFelyJazIHRa88kmS4u6Tp6kwpYSV3GT5Nhpmt
-	 E2/yxMfNqDuW+scPq4pBQUsPW37W47+iUf+lS8Rw=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([5.146.195.3]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N5G9n-1naIqH1fcL-011AZS; Fri, 10
- Jun 2022 09:22:12 +0200
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: linux-clk@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH v4 3/6] dt-bindings: clock: Add Nuvoton WPCM450 clock/reset controller
-Date: Fri, 10 Jun 2022 09:21:38 +0200
-Message-Id: <20220610072141.347795-4-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220610072141.347795-1-j.neuschaefer@gmx.net>
-References: <20220610072141.347795-1-j.neuschaefer@gmx.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKCsr25lHz305H
+	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 17:54:37 +1000 (AEST)
+Received: from mxplan5.mail.ovh.net (unknown [10.109.138.132])
+	by mo552.mail-out.ovh.net (Postfix) with ESMTPS id 9B27C292C7;
+	Fri, 10 Jun 2022 07:54:31 +0000 (UTC)
+Received: from kaod.org (37.59.142.110) by DAG4EX1.mxp5.local (172.16.2.31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.9; Fri, 10 Jun
+ 2022 09:54:30 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-110S0049a9ae0af-6533-4b22-ad35-8350c4c2ba1c,
+                    47EE32455EA4CDBAEFF6DF707BD4A273D3E287E7) smtp.auth=clg@kaod.org
+X-OVh-ClientIp: 82.64.250.170
+Message-ID: <0e3eb1a1-a370-fc48-1f88-032d2ca436c2@kaod.org>
+Date: Fri, 10 Jun 2022 09:54:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:oBCOVoQiYTeIEeH6b1Ro7wMEWAN7NkTLykjMJfZGa+J7xGKQhzZ
- a6ne3cy/bSOv+OY/6OoQBHJu8Ufm3dUgzf14gUvrBIr7WhO2ToN//NDK6TXvFZxzUykzc8j
- 82pZHIeow6pL04QMpuARrnu63H1zAR1AOPFhl2y5+CmACK8h010dISuB998jGcRZxf+YroH
- EpG9ZjdNe/T4gr0EG2nWA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:KecseXm5aMc=:e6YrHlomRt8ARNEcnULCkk
- TcentPRMksSZqXLh7+RMzFwuv/ZpRCrmu2fK8F96k44BA6nmWCfeEn4eMabWZ7/Zax8bai9Kg
- IbOWuiBiT3rJRuagHnteIe/QFzPUVkrn/GpPHk0VBhoLwR/M0bDJYdbCZyoLeL5bFeXQVTdSP
- Tl9NvYL0FD7ILYmCMaS2SEnd0Iqp+HUO19Pxs9m0Gcglr35Km65WAGmy01uFsvEK81ryGQWtv
- i3yAP1Qvk0Q6Xm918V3HsSR6FPvpFS+JbHykS3Kks+yBU5SMwbQniJMPl19NiAY1d9+4zKrZq
- bIyIIhczlYzzT5rSf7eTXNY8Ew6/jG1TNA5i5l5BKI+j93IQvjtS3rJXKuOyyTU7bPSP4BKpj
- vu2nEpbxRjOe05fKY3B2SBOWhTt5T97LGyVe3apPFh1V3TFL0l5oAWm1XXOY9AwELJpLzSPHq
- TX8v2A7ov2ZYQSi7KbhPQhWOMS5tTZ1XTyB11wLZs7cdmhrJIC1k6Bo2u7hl9NRJYQEZzhkBC
- vXDf0fVk8Z0rCQSbx55ivI0ygP9zIcyiVY+yGyR6ix0IID2pCmxxKHLf+bJAnDr7Xt3cEJlXR
- 2KR5I02q2PUE/6ZFJBGZc3v8rFDGvXyu3TerRwMCv0mjv7pn4If3wHNsPA4SLKwgErYP9G6BO
- T5z6iuLPJYLqOB6DlXv/jI38u0TZuOrGCe1WNn5wLdRF2n2bIjB4ZDuxJVLNLgmRr4XAICLjo
- fXLUADEm9o6OoYfo2/MdsqyoL6t24CC+F8vAYwsiIQH0pdw2JTimg0oOt2XZXsZ8/y/YrqzOa
- kYEDD3dTgUbE9BxzH3btdY8op/qWZPcBcW+vHN2kBUtDtAmaJB/cN3kkLEkDxVjFNCMiTtyh9
- Uv0mbd8hlwlKGIb0ChXTqZh1+EQnkqfVY+N/YBaXGRgTPs+SsfWxn9plU51Bw7grEWWd40sry
- 9OusBzIb+sEIhniqixK1s2H5cIvFizfevPtAMJPCVZnleprwR5PARHByExsQU7NFyqUXGdoF4
- Nra0rWQgXqEFfp3Fy0zK3qkNu+ZVscnFXvIEccl8apVTM5roiUdH1RzRNagi84kqH8V1+KxvO
- xuRGachzOVfPugocd+yR7OAowWujGqBwuuh1tn4q9nVW7a0AdJXiNBh6Q==
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v2] ARM: dts: aspeed: Add a palmetto board (AST2400)
+Content-Language: en-US
+To: Joel Stanley <joel@jms.id.au>
+References: <20220608082221.460166-1-clg@kaod.org>
+ <20220608101727.GR11809@packtop>
+ <4c2702c7-14ee-df07-5c5c-eca257947536@kaod.org>
+ <CACPK8XdzQi_tyRS05OXBeWAMKUJjCnr0B=SSRA=FKUtX1ppFuw@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+In-Reply-To: <CACPK8XdzQi_tyRS05OXBeWAMKUJjCnr0B=SSRA=FKUtX1ppFuw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [37.59.142.110]
+X-ClientProxiedBy: DAG8EX2.mxp5.local (172.16.2.72) To DAG4EX1.mxp5.local
+ (172.16.2.31)
+X-Ovh-Tracer-GUID: c66ff935-203e-4273-8cdf-46436616d8d2
+X-Ovh-Tracer-Id: 17921793243885308893
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedruddutddguddvgecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfhisehtjeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepleelieeigfekfeeitddvieegteeuteekffekleehuefgteetgedvkefghefggfeknecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdduuddtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepohhpvghnsghmtgeslhhishhtshdrohiilhgrsghsrdhorhhgpdfovfetjfhoshhtpehmohehhedv
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,190 +61,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>, Michael Turquette <mturquette@baylibre.com>, Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Avi Fishman <avifishman70@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Rob Herring <robh+dt@kernel.org>, Benjamin Fair <benjaminfair@google.com>, Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>, Thomas Gleixner <tglx@linutronix.de>, Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Zev Weiss <zweiss@equinix.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The Nuvoton WPCM450 SoC has a combined clock and reset controller.
-Add a devicetree binding for it, as well as definitions for the bit
-numbers used by it.
+On 6/10/22 08:49, Joel Stanley wrote:
+>> No because of NCSI support. net_loop() would need some tweak to
+>> avoid configuring NCSI if the DT has no advertise support.
+>>
+>> Here is a tentative try below, tested on the AST2500 EVB.
+> 
+> Thanks for the patch. I tested it in qemu for rainier (p10bmc) and
+> ast2600 evb + CONFIG_PHY_NCSI=y and it worked.
+> 
+>   I then tested on hardware and it failed, as it seems we're still
+> trying to talk ncsi. Here's the call stack when running 'dhcp' from
+> the u-boot command line:
+> 
+> #0  ncsi_startup (phydev=0xbcf76bc8) at ../drivers/net/phy/ncsi.c:862
+> #1  0xbef95e28 in ftgmac100_start (dev=<optimized out>) at
+> ../drivers/net/ftgmac100.c:378
+> #2  0xbefbf488 in eth_init () at ../net/eth-uclass.c:275
+> #3  0xbefc0814 in net_loop (protocol=DHCP) at ../net/net.c:426
+> 
+> ftgmac100_phy_init is calling phy_connect, and it's connecting the
+> ncsi phy driver:
+> 
+> struct phy_device *phy_connect(struct mii_dev *bus, int addr,
+>                                 struct eth_device *dev,
+>                                 phy_interface_t interface)
+> {
+>          struct phy_device *phydev = NULL;
+>          uint mask = (addr > 0) ? (1 << addr) : 0xffffffff;
+> 
+> #ifdef CONFIG_PHY_FIXED
+>          phydev = phy_connect_fixed(bus, dev, interface);
+> #endif
+> 
+> #ifdef CONFIG_PHY_NCSI
+>          phydev = phy_device_create(bus, 0, PHY_NCSI_ID, false, interface);
+> #endif
 
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-=2D--
+That's ugly :/ and we have the ncsi information in the caller.
 
-v4:
-- Add R-b tag
+> This logic will need to be fixed so we only set ncsi if the device
+> tree specifies it.
 
-v3:
-- Change clock-output-names and clock-names from "refclk" to "ref", sugges=
-ted
-  by Krzysztof Kozlowski
+yes. Something like :
 
-v2:
-- https://lore.kernel.org/lkml/20220429172030.398011-5-j.neuschaefer@gmx.n=
-et/
-- Various improvements, suggested by Krzysztof Kozlowski
+@@ -932,7 +932,13 @@ struct phy_device *phy_connect(struct mi
+  #endif
+  
+  #ifdef CONFIG_PHY_NCSI
+-	phydev = phy_device_create(bus, 0, PHY_NCSI_ID, false, interface);
++	{
++		struct eth_pdata *pdata = dev_get_platdata(dev);
++
++		if (pdata->phy_interface == PHY_INTERFACE_MODE_NCSI)
++			phydev = phy_device_create(bus, 0, PHY_NCSI_ID,
++						   false, interface);
++	}
+  #endif
+  
+  	if (!phydev)
 
-v1:
-- https://lore.kernel.org/lkml/20220422183012.444674-5-j.neuschaefer@gmx.n=
-et/
-=2D--
- .../bindings/clock/nuvoton,wpcm450-clk.yaml   | 66 ++++++++++++++++++
- .../dt-bindings/clock/nuvoton,wpcm450-clk.h   | 67 +++++++++++++++++++
- 2 files changed, 133 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,wpcm45=
-0-clk.yaml
- create mode 100644 include/dt-bindings/clock/nuvoton,wpcm450-clk.h
 
-diff --git a/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.y=
-aml b/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.yaml
-new file mode 100644
-index 0000000000000..525024a58df4c
-=2D-- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/nuvoton,wpcm450-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton WPCM450 clock controller
-+
-+maintainers:
-+  - Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-+
-+description:
-+  The clock controller of the Nuvoton WPCM450 SoC supplies clocks and res=
-ets to
-+  the rest of the chip.
-+
-+properties:
-+  compatible:
-+    const: nuvoton,wpcm450-clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Reference clock oscillator (should be 48 MHz)
-+
-+  clock-names:
-+    items:
-+      - const: ref
-+
-+  '#clock-cells':
-+    const: 1
-+
-+  '#reset-cells':
-+    const: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - '#clock-cells'
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    refclk: clock-48mhz {
-+      /* 48 MHz reference oscillator */
-+      compatible =3D "fixed-clock";
-+      clock-output-names =3D "ref";
-+      clock-frequency =3D <48000000>;
-+      #clock-cells =3D <0>;
-+    };
-+
-+    clk: clock-controller@b0000200 {
-+      reg =3D <0xb0000200 0x100>;
-+      compatible =3D "nuvoton,wpcm450-clk";
-+      clocks =3D <&refclk>;
-+      clock-names =3D "ref";
-+      #clock-cells =3D <1>;
-+      #reset-cells =3D <1>;
-+    };
-diff --git a/include/dt-bindings/clock/nuvoton,wpcm450-clk.h b/include/dt-=
-bindings/clock/nuvoton,wpcm450-clk.h
-new file mode 100644
-index 0000000000000..86e1c895921b7
-=2D-- /dev/null
-+++ b/include/dt-bindings/clock/nuvoton,wpcm450-clk.h
-@@ -0,0 +1,67 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H
-+#define _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H
-+
-+/* Clocks based on CLKEN bits */
-+#define WPCM450_CLK_FIU            0
-+#define WPCM450_CLK_XBUS           1
-+#define WPCM450_CLK_KCS            2
-+#define WPCM450_CLK_SHM            4
-+#define WPCM450_CLK_USB1           5
-+#define WPCM450_CLK_EMC0           6
-+#define WPCM450_CLK_EMC1           7
-+#define WPCM450_CLK_USB0           8
-+#define WPCM450_CLK_PECI           9
-+#define WPCM450_CLK_AES           10
-+#define WPCM450_CLK_UART0         11
-+#define WPCM450_CLK_UART1         12
-+#define WPCM450_CLK_SMB2          13
-+#define WPCM450_CLK_SMB3          14
-+#define WPCM450_CLK_SMB4          15
-+#define WPCM450_CLK_SMB5          16
-+#define WPCM450_CLK_HUART         17
-+#define WPCM450_CLK_PWM           18
-+#define WPCM450_CLK_TIMER0        19
-+#define WPCM450_CLK_TIMER1        20
-+#define WPCM450_CLK_TIMER2        21
-+#define WPCM450_CLK_TIMER3        22
-+#define WPCM450_CLK_TIMER4        23
-+#define WPCM450_CLK_MFT0          24
-+#define WPCM450_CLK_MFT1          25
-+#define WPCM450_CLK_WDT           26
-+#define WPCM450_CLK_ADC           27
-+#define WPCM450_CLK_SDIO          28
-+#define WPCM450_CLK_SSPI          29
-+#define WPCM450_CLK_SMB0          30
-+#define WPCM450_CLK_SMB1          31
-+
-+/* Other clocks */
-+#define WPCM450_CLK_USBPHY        32
-+
-+#define WPCM450_NUM_CLKS          33
-+
-+/* Resets based on IPSRST bits */
-+#define WPCM450_RESET_FIU          0
-+#define WPCM450_RESET_EMC0         6
-+#define WPCM450_RESET_EMC1         7
-+#define WPCM450_RESET_USB0         8
-+#define WPCM450_RESET_USB1         9
-+#define WPCM450_RESET_AES_PECI    10
-+#define WPCM450_RESET_UART        11
-+#define WPCM450_RESET_MC          12
-+#define WPCM450_RESET_SMB2        13
-+#define WPCM450_RESET_SMB3        14
-+#define WPCM450_RESET_SMB4        15
-+#define WPCM450_RESET_SMB5        16
-+#define WPCM450_RESET_PWM         18
-+#define WPCM450_RESET_TIMER       19
-+#define WPCM450_RESET_ADC         27
-+#define WPCM450_RESET_SDIO        28
-+#define WPCM450_RESET_SSPI        29
-+#define WPCM450_RESET_SMB0        30
-+#define WPCM450_RESET_SMB1        31
-+
-+#define WPCM450_NUM_RESETS        32
-+
-+#endif /* _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H */
-=2D-
-2.35.1
+?
+
+C.
+
+
+>> Subject: [PATCH] net: phy: ncsi: Add phy_interface_is_ncsi() helper
+> 
+>> --- a/drivers/net/phy/phy.c
+>> +++ b/drivers/net/phy/phy.c
+>> @@ -988,3 +988,10 @@ int phy_get_interface_by_name(const char *str)
+>>
+>>          return -1;
+>>    }
+>> +
+>> +bool phy_interface_is_ncsi(void)
+>> +{
+>> +       struct eth_pdata *pdata = dev_get_platdata(eth_get_dev());
+> 
+> 
+>> +
+>> +       return pdata->phy_interface == PHY_INTERFACE_MODE_NCSI;
+>> +}
+>> diff --git a/net/net.c b/net/net.c
+>> index f0f9cd4d946b..8449445bf65c 100644
+>> --- a/net/net.c
+>> +++ b/net/net.c
+>> @@ -409,7 +409,7 @@ int net_loop(enum proto_t protocol)
+>>          debug_cond(DEBUG_INT_STATE, "--- net_loop Entry\n");
+>>
+>>    #ifdef CONFIG_PHY_NCSI
+>> -       if (protocol != NCSI && !ncsi_active()) {
+>> +       if (phy_interface_is_ncsi() && protocol != NCSI && !ncsi_active()) {
+>>                  printf("Configuring NCSI\n");
+>>                  if (net_loop(NCSI) < 0)
+>>                          return ret;
+>> --
+>> 2.35.3
+>>
+>>
+>>
 
