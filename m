@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E0EAC43334
-	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 07:25:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D192C43334
+	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 07:26:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LKCDZ5rSVz3bx3
-	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 17:25:50 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LKCFG0DS0z30D0
+	for <openbmc@archiver.kernel.org>; Fri, 10 Jun 2022 17:26:26 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=NL+S91Nd;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=CuMibIAZ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.22; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.20; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=NL+S91Nd;
+	dkim=pass (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=CuMibIAZ;
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKC923d4Kz3000
-	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 17:22:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKC914yycz2ywN
+	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 17:22:44 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1654845738;
-	bh=6We94l3lbFtVURMV4QMSE5PpvIk0qqwAzLwUr6CCrCw=;
+	s=badeba3b8450; t=1654845718;
+	bh=IQX8e4DimYSxfYiB0892MoZKJaCfS7TtVYY2navJcRE=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NL+S91NdZDtjFCi8UAx+8CdEsO/P3xL+aRxK8SCTk6/qo5Hc2DLa/4/1WIf8XgZnb
-	 n2H+q38MKZRAIw2OSxvUd6+3BMqKCU9CgbUXBZlT4hCoCmBkUtcVvPUF8cPB7YvlN6
-	 Q4fFPNbuwbaAeekoxkPVbCMrHWNalXFQeab0TLf8=
+	b=CuMibIAZmB/ve2MuTr1f1+wZVderTUs7KGiC13adrseH2oLgJT4zT8wqkV4hqMauL
+	 8W7TK1+u22oOoDY+LIJa8HI9JXrLrseZbbirKlJmpgTR57jaaVfz2mLGe9ob7FDjlf
+	 D3eeelWzAIdUfOHB8PbJG+WpyqqpqS1JuXdF7UJ4=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from longitude ([5.146.195.3]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MG9kC-1nyQNB3YWC-00GWNP; Fri, 10
- Jun 2022 09:22:17 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MuDXp-1nlLT91uOb-00ucv9; Fri, 10
+ Jun 2022 09:21:58 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-clk@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v4 6/6] ARM: dts: wpcm450: Switch clocks to clock controller
-Date: Fri, 10 Jun 2022 09:21:41 +0200
-Message-Id: <20220610072141.347795-7-j.neuschaefer@gmx.net>
+Subject: [PATCH v4 1/6] dt-bindings: timer: nuvoton,npcm7xx-timer: Allow specifying all clocks
+Date: Fri, 10 Jun 2022 09:21:36 +0200
+Message-Id: <20220610072141.347795-2-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220610072141.347795-1-j.neuschaefer@gmx.net>
 References: <20220610072141.347795-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:a+f+h0WVs/fv4wcts19D+GINBFdJUog3YzlAfih/ywvkXDMuV6O
- J03O9XTJW0v348QMAv+oxGA4CgZP2NVhaLr58/c+oaGf2aY079XyF7dycZEj5F9uEY8WuSS
- WGvzILZLGTMf6ea4C2OtAqe0n4vdZuhABnmzln0Ice39p7lrFGIt/lYUmjQQJk5bFHoWD0z
- MrO7bfY2wWt+gbIbCNoaw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:0XrQDZfgnAw=:fii0JarWt4mr8rSUZPxTiR
- 03W/bonVOGBCZFyYYvjkQ32o4n6VHB9a30AonqPpRe9QftC/YyoM8f3+W4aIgN5UG2qOeFRJ1
- yqLGnK8HDFW3S4QlBBBbynOAau/eh9MVnd7cwTkXryd/jSTtqX34Lnt7BtV/ZkxKinJtYD+Cn
- PVljnCCEbR2Ar+6Oh9ah62IRHcDC/yJ1HS8+geCHuUeWk15UXgpz+aQlXqMtHJZsGAGuxGiNc
- FVIFTd7rlYcpVF6d9UwJoDEvIuPPmCjbYdlolwoM+7fpO2WKoxvA65GH6OBfeEc0j7Fk8YOFZ
- 9BCC5r74Ioofwb3OWiDsqA2Mk81/njHm1t9ddSNGlI/t/3nyXC0Gg3zhF7v8264x1kVYuowbU
- kaySeHk9OBme5uznoP+VdaZLE1U6Gzb+jC3VMoN+JPPkAsqfmM7ssLYrX6G762xMVz/sRwKfz
- mc8WRFSYi03owDqUdHd/LLcBzIg6Bk+N6xRM+0/HSprq4DenVgCaEHtFt0ujafAtZW0SQ8FPR
- nNY42B8wTSKYx9ox2dxQt6v2J7yyvHdo7yR4kvO2P3vkU7mqEtIvKegI/hZws3bWA+TLQiOcX
- yk5MnrvRPoixjbSRT1Pc02lLddhMSJ8jLTZarPMiZlhGEOfzhuPz+vKdCLKJk46+6fhula5Kn
- 8cWq3nNNLIIb+ijp3HdHkl8tcF3wnwuSVBWY8VYWDnfUM8dTx2E6Yz+VkHQRhKa/glUocq7O6
- kBiyT6H040wPWyY9xyzvAh2+4dM4EJSnL4SXnU+vubEq4vIEk/Y5NIoEVtedaQo1ZzFcU3Kq3
- ODYFPz7CLbk2ks5h9mmUeDn9l/sdNWS6QDEHgwXyGM5mdT3AWLoE7M6CElA3TqHseahKN7L1E
- ib63guKn6o42VIGa2gJlPbkMVtTqOsyz5TOXcIEqlFxfs0dcznPzOAe27ClFr8EZ6Bgc6KlfO
- UioZpvAFA0FObzAKDPVAQG4qkhz3T+b6RHq7CtBCOnC58eOexgEM3vpvdHBZjozhRr/cvsL0t
- BchZ/5UPaj46VNC+MNQVqqsCmUkHh2H9sxZ1N9Mk6KkHGuiEjDoqbA4etqZpa4YuSkXuIwV+j
- 0jxkV60KpSw0iVgSx5kgKLIzotYwnodTYFGYTNYpsg0TubSsKeTVu3hNw==
+X-Provags-ID: V03:K1:yBVwif+DGktWM+o9r7sNiZrEwl/zKMtKSiq2+UCGtlsbNtgIk7x
+ /bbX2sXzYaXAHSx44puYxomiEoqtXeh96nX3Juh/ZB+ZLZn7Na1fVtezN2XCv8yIcCHMfOp
+ 6fh5zvIqvP5lpYYiQJ7clKDGsnJE+kiOYvK6wveqk+3IERfbN/R0A10m7PgewWhnTtZnhXG
+ pxyEgviIcFGYC0xKZ2leg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:OysjaKN0sh4=:FlL2Ak8DjTMz8OOajXTmsw
+ tDNGd70HsIgiPxXBYKsnztMa+Fk+Pml/h35M59WmgIjr6X7U/mOLkuQ2CqYDhU+5QtbWB9UTx
+ nq2ioahzPVyDN57LmqmaFIppfYPuPZQz3APeIcRze5Qd7FnCtu4OhWynBIF+3J8ymqX1RjTxN
+ fgoTN9Q/YbgvYTBFlVib8DB7ZSJkH/8Wnp4bcL0GfereOLuFkqzXWT82pCKgG6/CcRdO6APNO
+ 1R/KMbXovtwtwuvHr9U4HVg4jjG86Lcb6FBhONxvyYH3nQTAtAmE/jpSoA7jNFfK8YsEuW0nC
+ pxpCMS/iGnCkNaQD7uwxPRf5J5lOnpPzeKat0wsEq27rJbwhnDzgfm/3682Pe/1OrPRsXJRvi
+ u56mUm4jdBx9VgD3xlauvcTHaFVap/4K+OFihvebbxT+oiR+OE1wJDINFPhwAuEGg8ap6oAbC
+ jCaKogVszBpVuu1YBoz8dd1YoVOOPWH/CnRzgt3OUUsSGrkRr79o9cQlPp7mgPln6y8mnfYF8
+ b+9RWX1AYtt9Sf8pPCVs4Mra1Lp4tqVyEqqG8Z/b2bjbCJMtSbruwpExkvVWClZvhfGflRkBm
+ 1+K6IVodoq+l8UNxpIKMA6UXhfjd5PNC75ZD5laQh0aobHF5SdjXMS0HM7XPaJ6BCnEbt8Ycu
+ jfYp1Sj5wc1VD/NZg32B4hlS3/YGSBK3BA+B7p85BiFB7rQwOlGglNi7Wfy7A/KlwQ+6yCj2k
+ seHkoCEKI9cJd11pQj5Z3+MVwEzs7SbugxIKmKM529HEXfKvR6+oqzRRHfnLr2m7a6dnnPDUW
+ fHgmCami6/UnQ5crYy/O8IH2CzMEvWH5aFsZfCtpd9S0idSlkYOMxnkOTZHbG2NVUPOOOomo7
+ 9IzKqpehLW3E009ZA8NoQKXcbIZA23AcI75h7CVRD2RMqjkNCgAUqwB0DINaC3CyrCkyIbqeN
+ 8b7qgM8JDN0TAAGrqtBD+kZOphVKi/KJeT08BpqepDP6olk2r9fcmu/HCQhodinlbp/AoT1ex
+ znrsGHZEmt8fmE3gExnaK0Xp0JVSqUZlQYMKsoOB8lhzR6lo7kVeJ0UnAGZrs35dljK6FJVVj
+ BBjbXARDBPTVPT7acTieD/ZFkAbFNfWWZp1yyqGUjLXPrQqO1sU2WQ0Rw==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,89 +77,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>, Michael Turquette <mturquette@baylibre.com>, Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>, Benjamin Fair <benjaminfair@google.com>, Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>, Thomas Gleixner <tglx@linutronix.de>, Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>, Michael Turquette <mturquette@baylibre.com>, Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>, Benjamin Fair <benjaminfair@google.com>, Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>, Thomas Gleixner <tglx@linutronix.de>, Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This change is incompatible with older kernels because it requires the
-clock controller driver, but I think that's acceptable because WPCM450
-support is generally still in an early phase.
+The timer module contains multiple timers. In the WPCM450 SoC, each timer
+runs off a clock can be gated individually. To model this correctly, the
+timer node in the devicetree needs to take multiple clock inputs.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+Reviewed-by: Rob Herring <robh@kernel.org>
 =2D--
 
-v2-v4:
+v4:
+- no changes
+
+v3:
+- Add R-b tag
+
+v2:
 - no changes
 =2D--
- arch/arm/boot/dts/nuvoton-wpcm450.dtsi | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+ .../devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml  | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi b/arch/arm/boot/dts/nu=
-voton-wpcm450.dtsi
-index 332cc222c7dc5..439f9047ad651 100644
-=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-wpcm450.dtsi
-@@ -2,6 +2,7 @@
- // Copyright 2021 Jonathan Neusch=C3=A4fer
+diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer=
+.yaml b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+index 0cbc26a721514..023c999113c38 100644
+=2D-- a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.yaml
+@@ -23,7 +23,13 @@ properties:
+       - description: The timer interrupt of timer 0
 
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
+   clocks:
+-    maxItems: 1
++    items:
++      - description: The reference clock for timer 0
++      - description: The reference clock for timer 1
++      - description: The reference clock for timer 2
++      - description: The reference clock for timer 3
++      - description: The reference clock for timer 4
++    minItems: 1
 
- / {
- 	compatible =3D "nuvoton,wpcm450";
-@@ -30,13 +31,6 @@ cpu@0 {
- 		};
- 	};
-
--	clk24m: clock-24mhz {
--		/* 24 MHz dummy clock */
--		compatible =3D "fixed-clock";
--		clock-frequency =3D <24000000>;
--		#clock-cells =3D <0>;
--	};
--
- 	refclk: clock-48mhz {
- 		/* 48 MHz reference oscillator */
- 		compatible =3D "fixed-clock";
-@@ -71,7 +65,7 @@ serial0: serial@b8000000 {
- 			reg =3D <0xb8000000 0x20>;
- 			reg-shift =3D <2>;
- 			interrupts =3D <7 IRQ_TYPE_LEVEL_HIGH>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_UART0>;
- 			pinctrl-names =3D "default";
- 			pinctrl-0 =3D <&bsp_pins>;
- 			status =3D "disabled";
-@@ -82,7 +76,7 @@ serial1: serial@b8000100 {
- 			reg =3D <0xb8000100 0x20>;
- 			reg-shift =3D <2>;
- 			interrupts =3D <8 IRQ_TYPE_LEVEL_HIGH>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_UART1>;
- 			status =3D "disabled";
- 		};
-
-@@ -90,14 +84,18 @@ timer0: timer@b8001000 {
- 			compatible =3D "nuvoton,wpcm450-timer";
- 			interrupts =3D <12 IRQ_TYPE_LEVEL_HIGH>;
- 			reg =3D <0xb8001000 0x1c>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_TIMER0>,
-+				 <&clk WPCM450_CLK_TIMER1>,
-+				 <&clk WPCM450_CLK_TIMER2>,
-+				 <&clk WPCM450_CLK_TIMER3>,
-+				 <&clk WPCM450_CLK_TIMER4>;
- 		};
-
- 		watchdog0: watchdog@b800101c {
- 			compatible =3D "nuvoton,wpcm450-wdt";
- 			interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg =3D <0xb800101c 0x4>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_WDT>;
- 		};
-
- 		aic: interrupt-controller@b8002000 {
+ required:
+   - compatible
 =2D-
 2.35.1
 
