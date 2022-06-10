@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48664C433EF
-	for <openbmc@archiver.kernel.org>; Thu, 16 Jun 2022 02:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F719C43334
+	for <openbmc@archiver.kernel.org>; Thu, 16 Jun 2022 02:19:32 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LNm7s69GTz3fDL
-	for <openbmc@archiver.kernel.org>; Thu, 16 Jun 2022 12:19:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LNm8M0pqTz3f0q
+	for <openbmc@archiver.kernel.org>; Thu, 16 Jun 2022 12:19:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=analog.com (client-ip=148.163.135.77; helo=mx0a-00128a01.pphosted.com; envelope-from=nuno.sa@analog.com; receiver=<UNKNOWN>)
 Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKJ5j0yZHz3bw6
-	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 21:05:07 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LKJBP3wv5z2xgN
+	for <openbmc@lists.ozlabs.org>; Fri, 10 Jun 2022 21:09:12 +1000 (AEST)
 Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25A7JPVQ005292;
-	Fri, 10 Jun 2022 04:46:39 -0400
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3ghq33kpve-1
+	by mx0a-00128a01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 25A7h8DW005272;
+	Fri, 10 Jun 2022 04:46:12 -0400
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 3ghq33kpsk-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 10 Jun 2022 04:46:39 -0400
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 25A8kcZ0027471
+	Fri, 10 Jun 2022 04:46:12 -0400
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 25A8kB6u023099
 	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 10 Jun 2022 04:46:38 -0400
+	Fri, 10 Jun 2022 04:46:11 -0400
 Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.14; Fri, 10 Jun 2022 04:46:37 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ 15.2.986.14; Fri, 10 Jun 2022 04:46:10 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
  ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.14; Fri, 10 Jun 2022 04:46:36 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.986.14 via Frontend
- Transport; Fri, 10 Jun 2022 04:46:36 -0400
+ 15.2.986.14; Fri, 10 Jun 2022 04:46:10 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.986.14 via Frontend
+ Transport; Fri, 10 Jun 2022 04:46:09 -0400
 Received: from nsa.ad.analog.com ([10.44.3.70])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 25A8imiW014275;
-	Fri, 10 Jun 2022 04:46:27 -0400
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 25A8imiS014275;
+	Fri, 10 Jun 2022 04:45:57 -0400
 From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
 To: <linux-imx@nxp.com>, <linux-renesas-soc@vger.kernel.org>,
         <linux-mips@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
@@ -50,9 +50,9 @@ To: <linux-imx@nxp.com>, <linux-renesas-soc@vger.kernel.org>,
         <linux-stm32@st-md-mailman.stormreply.com>,
         <linux-arm-msm@vger.kernel.org>, <linux-iio@vger.kernel.org>,
         <openbmc@lists.ozlabs.org>
-Subject: [PATCH 10/34] iio: adc: rzg2l_adc: explicitly add proper header files
-Date: Fri, 10 Jun 2022 10:45:21 +0200
-Message-ID: <20220610084545.547700-11-nuno.sa@analog.com>
+Subject: [PATCH 06/34] iio: adc: ingenic-adc: explicitly add proper header files
+Date: Fri, 10 Jun 2022 10:45:17 +0200
+Message-ID: <20220610084545.547700-7-nuno.sa@analog.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220610084545.547700-1-nuno.sa@analog.com>
 References: <20220610084545.547700-1-nuno.sa@analog.com>
@@ -60,13 +60,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: e5lRgS1l5c2oWgy06IJOCDtohXSOKtpc
-X-Proofpoint-GUID: e5lRgS1l5c2oWgy06IJOCDtohXSOKtpc
+X-Proofpoint-ORIG-GUID: ZWkRrk7n7yLUDDdUIimFozBiAwIQaxy8
+X-Proofpoint-GUID: ZWkRrk7n7yLUDDdUIimFozBiAwIQaxy8
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.874,Hydra:6.0.517,FMLib:17.11.64.514
  definitions=2022-06-10_02,2022-06-09_02,2022-02-23_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
- mlxlogscore=968 phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015
+ mlxlogscore=736 phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015
  lowpriorityscore=0 mlxscore=0 spamscore=0 impostorscore=0 bulkscore=0
  malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2204290000 definitions=main-2206100031
@@ -96,21 +96,22 @@ The ultimate goal is to actually drop of.h from iio.h.
 
 Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 ---
- drivers/iio/adc/rzg2l_adc.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/iio/adc/ingenic-adc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/iio/adc/rzg2l_adc.c b/drivers/iio/adc/rzg2l_adc.c
-index bee5f9861acb..c9403ab520d8 100644
---- a/drivers/iio/adc/rzg2l_adc.c
-+++ b/drivers/iio/adc/rzg2l_adc.c
-@@ -18,6 +18,7 @@
- #include <linux/module.h>
+diff --git a/drivers/iio/adc/ingenic-adc.c b/drivers/iio/adc/ingenic-adc.c
+index 2b3912c6ca6b..e731ba47add2 100644
+--- a/drivers/iio/adc/ingenic-adc.c
++++ b/drivers/iio/adc/ingenic-adc.c
+@@ -18,6 +18,8 @@
+ #include <linux/mod_devicetable.h>
+ #include <linux/mutex.h>
  #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
 +#include <linux/property.h>
- #include <linux/reset.h>
++#include <linux/of.h>
  
- #define DRIVER_NAME		"rzg2l-adc"
+ #define JZ_ADC_REG_ENABLE		0x00
+ #define JZ_ADC_REG_CFG			0x04
 -- 
 2.36.1
 
