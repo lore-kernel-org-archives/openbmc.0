@@ -4,55 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 570BEC43334
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 08:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D228C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 08:09:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LRMhS75gqz3cd5
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 18:07:52 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LRMjx644Mz3bmJ
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 18:09:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AHFj/HFo;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.a=rsa-sha256 header.s=usp-google header.b=cuXb7N4G;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=jic23@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=usp.br (client-ip=2001:4860:4864:20::36; helo=mail-oa1-x36.google.com; envelope-from=maira.canal@usp.br; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AHFj/HFo;
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.a=rsa-sha256 header.s=usp-google header.b=cuXb7N4G;
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com [IPv6:2001:4860:4864:20::36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LQHXf2nLnz30Dp
-	for <openbmc@lists.ozlabs.org>; Sat, 18 Jun 2022 23:57:22 +1000 (AEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 0EA6860B1E;
-	Sat, 18 Jun 2022 13:57:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1EE2C3411A;
-	Sat, 18 Jun 2022 13:57:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1655560638;
-	bh=lRorEWc2KTi7z7ymOlOmHg76zQDyaFrAFstUtz9SnBg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=AHFj/HFoFUUH94y50WWJJ41Nc0+xVyu0BnPz6ynMPeCuA7tW1khpFHcZOcygfpS66
-	 1PJdLDzuD9XLdoajYWLREwRAil3c82vDUZ1NpmJkmEvfQh8et0/u/ebN3adQ5YS49E
-	 8rFcodb3jxfyoQyunzWPPKvsaeSLocaZU+cQic/JV8F9tZOPKEeTIt8kcRe5ZukkUq
-	 tC8mkXxl1GHz/gJLiyIVLfWHvitlR6Yvz5/CJvrG8iSMlMnfArAYkQhVYGdY+V8m14
-	 j2OCBtwYS9BuyltkfUIfF1QkJE3GHgLcO5pM1rV3UdWaNJotY41oTuDuq5mtMGUnRq
-	 zduVJofRh6Ktw==
-Date: Sat, 18 Jun 2022 15:06:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Subject: Re: [PATCH 22/34] iio: inkern: only return error codes in
- iio_channel_get_*() APIs
-Message-ID: <20220618150624.1bfc8914@jic23-huawei>
-In-Reply-To: <35e7c36c9ecbdc67698b413cf867cf19442ccfa9.camel@gmail.com>
-References: <20220610084545.547700-1-nuno.sa@analog.com>
-	<20220610084545.547700-23-nuno.sa@analog.com>
-	<20220611161701.46a68837@jic23-huawei>
-	<35e7c36c9ecbdc67698b413cf867cf19442ccfa9.camel@gmail.com>
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LQMrx40G5z30Lk
+	for <openbmc@lists.ozlabs.org>; Sun, 19 Jun 2022 03:11:42 +1000 (AEST)
+Received: by mail-oa1-x36.google.com with SMTP id 586e51a60fabf-100eb6f7782so9166091fac.2
+        for <openbmc@lists.ozlabs.org>; Sat, 18 Jun 2022 10:11:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=usp.br; s=usp-google;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=B8CXs8G7SKCeidkQWd9kAuICsm7Sw1h76v8hv8CR6wQ=;
+        b=cuXb7N4G9pIbYvpYCa6o9PQHUD2DfcKP/+gFugpXKusIPZ8udyvtuH7DJPmo+JUAOL
+         8eagpNlDgynjnq8Gd81Y/eopVQYnjECp8OsqpfuRnKA9HNyn++ZH7HNNZ9TIjsRXeSeG
+         BvdjwgCJNtORrqw8bW9YNyv+ik/h87ruk6IhWF/Ulomb3roDpockEzXUsaUcJnWsLKey
+         JlqmKq38sV0x3yb+kEcSWDJ7IjC7ODgIlcJzGQ3llXc0MXXhANbar/PuhU229R0QH9qT
+         lz3fsVlqpE6nT/3L7c8FVrsr8AgyflhOszSQr4SlJOROtqKz5LZwEe2tkhcIJNa2UAy5
+         H5YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=B8CXs8G7SKCeidkQWd9kAuICsm7Sw1h76v8hv8CR6wQ=;
+        b=iJ2P0jzy1l8Gkn9Tz309xfDY2gAQOkuzqhQcsyMbrA5dtMBAsb/mpyZluCVwMjtmkg
+         xSqarY4GZ7kv5il2pxJ3sG2HceVj7BTt1Tcw8L8ZznQIYWE2trsFGXYV2r737ULT5BQj
+         nCX+Lx685SJUVHCYMk8kEJOMqMxJs9Muc2haoFmDwGMLBX7bJdQZyWGCLohR/vV9LtuV
+         HakMWdvZkLE3oBysLXalgVf/L+tqgMEcapuUsdfqOsOdvUZ+hxptiwWixVIM6mmQ8wPQ
+         KGqpAOcY/G3CeHH5tuEShC5uToa9PyPP35iYeELv/txsH4qwuuYBQpzLMU/SaTHMPfWZ
+         lAjg==
+X-Gm-Message-State: AJIora/deBZLFDe5R3SrorpQOa1W9brYKDGPrjYRjVkZ7sUQBZ1B9bJS
+	USrFyqB8WGhcH1hJ2YAuo3NPHg==
+X-Google-Smtp-Source: AGRyM1tDVmXtipYu/LaRH32Cww8VlWl/7+4pR6EaOfqHWjwGaKiJnIATqU0fJ7tQTyGNrbOvR86wqw==
+X-Received: by 2002:a05:6870:538b:b0:101:17f2:d6e with SMTP id h11-20020a056870538b00b0010117f20d6emr13782917oan.200.1655572295844;
+        Sat, 18 Jun 2022 10:11:35 -0700 (PDT)
+Received: from ?IPV6:2804:14d:8084:84c6:fe26:c42d:aab9:fa8a? ([2804:14d:8084:84c6:fe26:c42d:aab9:fa8a])
+        by smtp.gmail.com with ESMTPSA id o5-20020a4a2c05000000b0035eb4e5a6b3sm4677268ooo.9.2022.06.18.10.11.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 18 Jun 2022 10:11:35 -0700 (PDT)
+Message-ID: <3358b97e-021a-82b7-9ae2-2113aea2c2d9@usp.br>
+Date: Sat, 18 Jun 2022 14:11:29 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH 0/5] Rework KUnit test execution in modules
+Content-Language: en-US
+To: David Gow <davidgow@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Jeremy Kerr <jk@codeconstruct.com.au>,
+ Daniel Latypov <dlatypov@google.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andra Paraschiv <andraprs@amazon.com>, Longpeng <longpeng2@huawei.com>
+References: <20220618090310.1174932-1-davidgow@google.com>
+From: =?UTF-8?Q?Ma=c3=adra_Canal?= <maira.canal@usp.br>
+In-Reply-To: <20220618090310.1174932-1-davidgow@google.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 20 Jun 2022 18:05:43 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -65,117 +87,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, linux-iio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>, Amit Kucheria <amitk@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Paul Cercueil <paul@crapouillou.net>, Miquel Raynal <miquel.raynal@bootlin.com>, Guenter Roeck <groeck@chromium.org>, Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, chrome-platform@lists.linux.dev, Lars-Peter Clausen <lars@metafoo.de>, Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org, Jishnu Prakash <quic_jprakash@quicinc.com>, Haibo Chen <haibo.chen@nxp.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Andy Gross <agross@kernel.org>, linux-imx@nxp.com, Olivier Moysan <olivier.moysan@foss.st.com>, Zhang Rui <rui.zhang@intel.com>, Christophe Branchereau <cbranchereau@gmai
- l.com>, Bjorn Andersson <bjorn.andersson@linaro.org>, Saravanan Sekar <sravanhome@gmail.com>, Michael Hennerich <Michael.Hennerich@analog.com>, linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, Nicolas Ferre <nicolas.ferre@microchip.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>, linux-mediatek@lists.infradead.org, Eugen Hristev <eugen.hristev@microchip.com>, Matthias Brugger <matthias.bgg@gmail.com>, Gwendal Grignou <gwendal@chromium.org>, Tali Perry <tali.perry1@gmail.com>, Benson Leung <bleung@chromium.org>, Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, Lorenzo Bianconi <lorenzo@kernel.org>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, linux-mips@vger.kernel.org, Thara Gopinath <thara.gopinath@linaro.org>, linux-renesas-soc@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Cai Huoqing <
- cai.huoqing@linux.dev>, Shawn Guo <shawnguo@kernel.or
-
-g>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, Matt Johnston <matt@codeconstruct.com.au>, linux-modules@vger.kernel.org, kunit-dev@googlegroups.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 13 Jun 2022 09:06:49 +0200
-Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+On 6/18/22 06:03, David Gow wrote:
+> This patch series makes two changes to how KUnit test suites are stored
+> and executed:
+> - The .kunit_test_suites section is now used for tests in modules (in
+>   lieu of a module_init funciton), as well as for built-in tests. The
+>   module loader will now trigger test execution. This frees up the
+>   module_init function for other uses.
+> - Instead of storing an array of arrays of suites, have the
+>   kunit_test_suite() and kunit_test_suites() macros append to one global
+>   (or per-module) list of test suites. This removes a needless layer of
+>   indirection.
+> 
+> The upshot of this is that it should now be possible to use the
+> kunit_test_suite() and kunit_test_suites() macros to register test
+> suites even from within modules which otherwise had module_init
+> functions. This was proving to be quite a common issue, resulting in
+> several modules calling into KUnit's private suite execution functions
+> to run their tests (often introducing incompatibilities with the KUnit
+> tooling).
+> 
+> This series also fixes the thunderbolt, nitro_enclaves, and
+> sdhci-of-aspeed tests to use kunit_test_suite() now that it works.
+> 
+> Huge thanks to Jeremy Kerr, who designed and implemented the module
+> loader changes, and to Daniel Latypov for pushing the simplification of
+> the nested arrays in .kunit_test_suites.
+> 
+> I've tested this series both with builtin tests, and with modules on
+> x86_64, but there's always the possibility that there's something subtle
+> and nasty on another architecture, so please test!
+> 
+> Cheers,
+> -- David
+> 
 
-> On Sat, 2022-06-11 at 16:17 +0100, Jonathan Cameron wrote:
-> > On Fri, 10 Jun 2022 10:45:33 +0200
-> > Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
-> >  =20
-> > > APIs like of_iio_channel_get_by_name() and of_iio_channel_get_all()
-> > > were
-> > > returning a mix of NULL and error pointers being NULL the way to =20
-> >=20
-> > pointers with NULL being the way to...
-> >  =20
-> > > "notify" that we should do a "system" lookup for channels. This
-> > > make
-> > > it very confusing and prone to errors as commit dbbccf7c20bf
-> > > ("iio: inkern: fix return value in
-> > > devm_of_iio_channel_get_by_name()")
-> > > proves. On top of this, patterns like 'if (channel !=3D NULL) return
-> > > channel'
-> > > were being used where channel could actually be an error code which
-> > > makes the code hard to read.
-> > >=20
-> > > Signed-off-by: Nuno S=C3=A1 <nuno.sa@analog.com>
-> > > ---
-> > > =C2=A0drivers/iio/inkern.c | 24 +++++++++++-------------
-> > > =C2=A01 file changed, 11 insertions(+), 13 deletions(-)
-> > >=20
-> > > diff --git a/drivers/iio/inkern.c b/drivers/iio/inkern.c
-> > > index 87fd2a0d44f2..31d9c122199a 100644
-> > > --- a/drivers/iio/inkern.c
-> > > +++ b/drivers/iio/inkern.c
-> > > @@ -214,7 +214,7 @@ static struct iio_channel
-> > > *of_iio_channel_get(struct device_node *np, int index)
-> > > =C2=A0struct iio_channel *of_iio_channel_get_by_name(struct device_no=
-de
-> > > *np,
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *name)
-> > > =C2=A0{
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct iio_channel *chan =
-=3D NULL;
-> > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct iio_channel *chan;
-> > > =C2=A0
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/* Walk up the tree o=
-f devices looking for a matching iio
-> > > channel */
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0while (np) {
-> > > @@ -231,11 +231,11 @@ struct iio_channel
-> > > *of_iio_channel_get_by_name(struct device_node *np,
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 name);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0chan =3D of_iio_channel_get(np, index);
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0if (!IS_ERR(chan) || PTR_ERR(chan) =3D=3D -
-> > > EPROBE_DEFER)
-> > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bre=
-ak; =20
-> >=20
-> > This original behaviour is 'interesting'. If we get a error like -
-> > ENOMEM
-> > we should return it rather than carry on.=C2=A0 Do we have enough
-> > knowledge
-> > of possible errors here to be more explicit on when we keep looking
-> > up
-> > the tree?=C2=A0 I think we can get -ENOENT from
-> > of_parse_phandle_with_args()
-> >=20
-> > That raises an interesting question on whether -ENODEV is the right
-> > response
-> > for the previously NULL case or is -ENOENT more consistent with other
-> > of_ functions?=C2=A0 No device could be thought of as being the case th=
-at
-> > needs
-> > to defer (in hope it turns up later) whereas no entry means it will
-> > never
-> > succeed. =20
->=20
-> From what I could see, of_parse_phandle_with_args() either returns=C2=A0
-> -EINVAL or -ENOENT. We also have the internal of_iio_channel_get()
-> which can return -ENOMEM. So I guess we should only continue looking if
-> we get -ENOENT?
->=20
-> To be clear, do you still prefer to explicitly return -ENODEV in the
-> previous NULL cases or should we honor the return code from=20
-> of_parse_phandle_with_args() and just return chans (and thus ENOENT)?
-You've looked at this more than me, so whilst I think -ENOENT is probably
-slightly more consistent I'll go with whatever you conclude is the
-best option.  Maybe add a small amount of description on what you chose
-and why to the relevant patch descriptions.
+I've tested the modules on x86_64 machines, and everything looks fine.
+Also, I applied the AMDGPU KUnit tests [1] on top of these patches,
+tried out compiling as a module, and it runs pretty well!
 
-Thanks,
+Great to see this feature on KUnit!
 
-Jonathan
+Tested-by: Maíra Canal <maira.canal@usp.br>
 
+[1] https://lore.kernel.org/dri-devel/20220608010709.272962-1
+maira.canal@usp.br/
 
->=20
-> - Nuno S=C3=A1
-
+Best Regards,
+- Maíra Canal
