@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F384C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 08:07:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFCB1C43334
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 08:08:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LRMgn6vWkz3cDt
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 18:07:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LRMj91lZTz3cKm
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jun 2022 18:08:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=GxhaPL32;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=RldbtdJu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=jic23@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4601:e00::1; helo=ams.source.kernel.org; envelope-from=jic23@kernel.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=GxhaPL32;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=RldbtdJu;
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LQHTW0DFTz3blh
-	for <openbmc@lists.ozlabs.org>; Sat, 18 Jun 2022 23:54:38 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LQHjQ0l3Qz30DC
+	for <openbmc@lists.ozlabs.org>; Sun, 19 Jun 2022 00:04:57 +1000 (AEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3863460BA0;
-	Sat, 18 Jun 2022 13:54:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A83C3411A;
-	Sat, 18 Jun 2022 13:54:21 +0000 (UTC)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 32B75B8013C;
+	Sat, 18 Jun 2022 14:04:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F42C3411A;
+	Sat, 18 Jun 2022 14:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1655560474;
-	bh=pEznlvbLCZMIZNrAGFvIthCC7BXrhairfIEqdywRBMA=;
+	s=k20201202; t=1655561093;
+	bh=/7mJvxsz132cWqlccRthsjLNck7xsii/5fBu0hdLf5g=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=GxhaPL32MMwD2706Sgr0GI/8Mp639UZnJ/ycF0FAHU3CsKxLwYzNMZLBY46ng/Cl6
-	 cA2tu+QHDcQ8szJt/XGkInJSooj3a8X6Z1+plT7627KxxpiLc29CdY5kWroUwI8a+x
-	 hooq9bpCJ0AR9emay7LD7rtZfEpWlUKjW/+2wuflJJ8FqazBIbIKr+lZJFjX5Q55nJ
-	 tiMMkcQQQ6AkUozXeP6350UGS9sK9EWEJVaxD1Gi+gcvZcYiKq9bE9qvY2Sl8Ib6BE
-	 oLDu0po4j9wgXmjAX9w74l2+KupzYd9kZ4nW7FUXvm5f6jOVFEW79O2m2kE4U8KvNx
-	 YWwjBtPyUuy9w==
-Date: Sat, 18 Jun 2022 15:03:40 +0100
+	b=RldbtdJues9VGt96oy4NlFJmSKjlkNacdZDdv+OBXJxxJEallSdFh+dbFkIuxSCpu
+	 oAAP3sxEcbVWgfP3Dq61WTKXRcNTKw4J4O6X/H3gZ1kBSbid554/3cOR2krrZnZ2w2
+	 983W4VkVS3NGk7bXqEuFFM4fi5MW8eVNMXlBNDyrRbXk76IphuVhyHKJM2LYRAzmyb
+	 ZAf/JvXGWe8MnDMbuHseA5PRzsb1zn/tGxgY/9E9OMBiI5U+mqX95NXLiSVAVei1HG
+	 e4U4ME9kWFRPYgcQ2+rnxNQpkJtsJxwYEXYGy4rdw+Mua1e+Xc8EXXZtP8Qn21jAUk
+	 gl+OB6NRRllhA==
+Date: Sat, 18 Jun 2022 15:13:58 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
 Subject: Re: [PATCH 20/34] iio: inkern: only relase the device node when
  done with it
-Message-ID: <20220618150340.64e639df@jic23-huawei>
+Message-ID: <20220618151358.44b78c11@jic23-huawei>
 In-Reply-To: <5e81f73b996de80445c2e905c44ebb18c63a739b.camel@gmail.com>
 References: <20220610084545.547700-1-nuno.sa@analog.com>
 	<20220610084545.547700-21-nuno.sa@analog.com>
@@ -147,16 +147,6 @@ Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
 > reason is that iio_dev only has a weak reference to it's parent and (I
 > think) the parent can actually go away while the iio_dev is still
 > around (eg: someone has an open fd to the iio_dev cdev).
-
-I chased through this as well and agree. The device_del()
-hiding in cdev_device_del() will drop the parent reference on the parent.
-
-I'm not sure it actually maters much though given almost all of_node
-useage is not tied up with the anything that might be using the iio_dev
-after the iio_device_unregister() call.
-
-Maybe there is a race condition somewhere...
-
 >=20
 > > >=20
 > > > Again, I might be wrong and I admit I was not sure about including
@@ -182,7 +172,8 @@ Maybe there is a race condition somewhere...
 >=20
 > Should I drop the fixes tag?
 >=20
-Keep the tag. It's a fix, just a low priority one.
+Nope,  Tag still relevant and may be useful to someone down the
+line!
 
 Jonathan
 
