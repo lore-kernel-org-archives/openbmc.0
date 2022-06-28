@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C13B5C433EF
-	for <openbmc@archiver.kernel.org>; Tue, 28 Jun 2022 04:32:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61F87C433EF
+	for <openbmc@archiver.kernel.org>; Tue, 28 Jun 2022 09:29:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LXBWg6kNlz3bx3
-	for <openbmc@archiver.kernel.org>; Tue, 28 Jun 2022 14:31:59 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LXK7L3wQsz3bxp
+	for <openbmc@archiver.kernel.org>; Tue, 28 Jun 2022 19:29:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=N5Rlb6rH;
+	dkim=pass (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=eB97lciR;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32b; helo=mail-wm1-x32b.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bytedance.com (client-ip=2001:4860:4864:20::2f; helo=mail-oa1-x2f.google.com; envelope-from=yulei.sh@bytedance.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=N5Rlb6rH;
+	dkim=pass (2048-bit key; unprotected) header.d=bytedance-com.20210112.gappssmtp.com header.i=@bytedance-com.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=eB97lciR;
 	dkim-atps=neutral
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
+Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LXBVt4QSpz3bc9
-	for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2022 14:31:17 +1000 (AEST)
-Received: by mail-wm1-x32b.google.com with SMTP id h14-20020a1ccc0e000000b0039eff745c53so6795223wmb.5
-        for <openbmc@lists.ozlabs.org>; Mon, 27 Jun 2022 21:31:17 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LXK6d3F0Xz3bq3
+	for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2022 19:29:10 +1000 (AEST)
+Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-101ab23ff3fso16367703fac.1
+        for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2022 02:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jms.id.au; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=l9SaGECP310wKRiRqNLSXpEUnfLgLKcO2n/5HnF2MW8=;
-        b=N5Rlb6rHeuVCtlCw0Wp8REhO+Xpnp1dCJsiDcF2fdEN2L0CDcQimOUz+fBgSFu/Z6Y
-         x5Y8mbBaN6oXOHlBipdm/ORAI7/ugZZaerbYgxe4g76CStroMXfglAMthY/27pLvJyfT
-         mSjmcsWHQyraN9lZwDH+L34kqwMGNp6+pyB0g=
+        d=bytedance-com.20210112.gappssmtp.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=r2DFgsXPniyoMATnLOzi1aJJLyleOyOm2aw4GEyS/wI=;
+        b=eB97lciRKAjoX/RiIrJqzBrWxIfRfg0h487tE3CSYqev4+Z5ruSvWSRppODq7Kmk1f
+         0OA2YQX6JpAMxiW5tql7y7W6VTm2Zm25MCSdMXZ8J5f58M+KS/Iqvt8Sgh+qBB5BQrkq
+         XiRuYr4Qekw992PMVyUslCqmRvAzKcRv0oZSFD7HHPU09x0r4RQV6IRKwBEaWchD8F52
+         hXHnHVUsSmngKvu5a/HTA05r0k0EfOrRpA0JRFomiTXJLxWjsmxFQn3Z6XcyPeh0yhGl
+         j5BnMuRjUYwgpYMiYRariv0vm3ZSjrIh8eJialkCCDRseGmI74GXr0uAlwv1IxdK7NgH
+         JTqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=l9SaGECP310wKRiRqNLSXpEUnfLgLKcO2n/5HnF2MW8=;
-        b=Anxrz3NOMFMoozaEfd3Vxa3+7liu0nwcrS1PbH7zPoAIZgKHztVgyR/O4NwWvFhduo
-         E+mr4bJyLBsM11St4ZAg0O8S/5KbRduZ9FFnSiJbu232acBYCYUbOGOwkKF6t4xnIBo5
-         Z95tuCRWGtJ4Tak0qF1Np1l0JcjlGabWudnXWf2whpHmQrcIw2U64o+6jWMsIJU/9KSn
-         J0fDcNsyAJpLDSSw4M34FfhmyD5EoefOF9VuUVKSTyP6HZBh26vzMxv4Mpeu/AkMe5T5
-         k3FLgr9IUL2efAQ1GhYVLcDhORkMDMRW+sGVH40e05Vw+XeWXJB6JUF62RUW5fngKMcU
-         bw7w==
-X-Gm-Message-State: AJIora8oYqoCcwkCcKtRt6Cv06lfUAULJM7dCm7CiU4C/rjkEU68fwe1
-	oEexINsg3ta2pnIxE4KGkTcMChs9ZyOGloyebr8=
-X-Google-Smtp-Source: AGRyM1uT2CITEMVNidND0Af0trVklKvyonPOKKZb9kq1P8slPQD44zNWhmxMGKvsU9FdMYe75JSyJ/XgizLV2/9FKbk=
-X-Received: by 2002:a1c:4e19:0:b0:3a0:43e0:3591 with SMTP id
- g25-20020a1c4e19000000b003a043e03591mr16040673wmh.10.1656390671617; Mon, 27
- Jun 2022 21:31:11 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=r2DFgsXPniyoMATnLOzi1aJJLyleOyOm2aw4GEyS/wI=;
+        b=qaaXVULtcHgdL8GNfM48fFPHNkTp8gAOGAJiFugf9F712wKTO0wlF/r0+7GLIgcFLW
+         DiS+L8H0CvZUZIphb5qL0h8Kn5yGPHuk+SyLgR7lIx0ALA49uKFhaOPq/dwebJI55/Ea
+         5VEVJpk4Fh1ufgNm5lsexxL0AuMxvEQw7PxwOVc0g/BFwMKd9hXEO915EUTwKq8ZrEV3
+         TxPWn9i8iD4zPtw9XCKTYcFjsfV9dtycbpkkaeRHhBIeyIB11NC8GIbKKyKaZK/D9G5S
+         jVAD6pjlSWeG3Hg8Ihy5tcNyFkiUNlVA2URvoV1PffTzdhtwXn3tph19xRU3v8SaMaEJ
+         wshg==
+X-Gm-Message-State: AJIora+UDQrel9M+8tY12AbbZC2IbUzP+KFlxDuP9PzFaoQcZMFQN3+I
+	Rnn+6jg3AQsfuk9ljDj5NFneTAvdN63Vc8NKM3AoSU1Z2MbAK8Ag
+X-Google-Smtp-Source: AGRyM1tlMS0SHPBM4U75E80jxOfuTPZt63I15/z0VrpRhAY5D49+kV6bcuGmBymEiwoTGk9o1U8AxcmdjrS8xGC648k=
+X-Received: by 2002:a05:6871:98:b0:100:5cd:518d with SMTP id
+ u24-20020a056871009800b0010005cd518dmr12935711oaa.294.1656408544245; Tue, 28
+ Jun 2022 02:29:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220628031343.21097-1-potin.lai.pt@gmail.com>
-In-Reply-To: <20220628031343.21097-1-potin.lai.pt@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 28 Jun 2022 04:30:59 +0000
-Message-ID: <CACPK8Xfdj2s_NHq_5KpvvMoFg17dbYpzezgzWmNEV1hD83MujQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.15 0/4] Update Facebook Bletchley BMC DTS
-To: Potin Lai <potin.lai.pt@gmail.com>
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Tue, 28 Jun 2022 17:28:54 +0800
+Message-ID: <CAGm54UG5R9Kv9_y44KBHztzr7Zio-1ofofnNQjm0yNA0G=OO=A@mail.gmail.com>
+Subject: Handle expired certificate
+To: openbmc <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,38 +68,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Potin Lai <potin.lai@quantatw.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 28 Jun 2022 at 03:15, Potin Lai <potin.lai.pt@gmail.com> wrote:
->
-> Hi Joel,
->
-> Could you help review this patch series and backport to linux-aspeed dev-5.15?
-> Thank you.
+This email is to discuss a case in certificate-manager and bmcweb
+about the expired certificate.
 
-Sure. I took the ones you posted on the upstream list as they have
-Patrick's r-b.
+The issue could be described in the below steps:
 
-I've applied them to dev-5.15.
+1. If BMC starts when the time is invalid (e.g. the date is in 1970),
+bmcweb will create a default certificate with hostname `testhost`;
+2. In later reboots when BMC gets a valid time, the bmcweb loads the
+certificate as before.
+3. phosphor-certificate-manager will throw on this certificate because
+it's expired. Then there is no DBus object created for this
+certificate (`/xyz/openbmc_project/certs/server/https/1`)
+4. Due to the missing DBus object:
+ * We will not be able to replace the certificate, e.g. by below
+Redfish URI: /redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate
+ * When the BMC gets the hostname, bmcweb will generate a new
+self-signed certificate with the hostname and replace it, the
+replacement fails as well.
 
-Cheers,
+The problem is actually related to Redfish URI "ReplaceCertificate",
+that is to replace an existing certificate.
+If an existing certificate expires and is rejected by
+certificate-manager, we won't be able to replace it because it's not
+on DBus anymore.
 
-Joel
+A patch is sent to
+https://gerrit.openbmc.org/c/openbmc/phosphor-certificate-manager/+/54947
+to allow expired certificates, comments are welcome.
 
->
-> LINK: https://lore.kernel.org/all/20220613095150.21917-1-potin.lai.pt@gmail.com/
->
-> Potin Lai (4):
->   ARM: dts: aspeed: bletchley: change LED sys_log_id to active low
->   ARM: dts: aspeed: bletchley: disable GPIOV2 pull-down
->   ARM: dts: aspeed: bletchley: bind presence-sledX pins via gpio-keys
->   ARM: dts: aspeed: bletchley: update fusb302 nodes
->
->  .../dts/aspeed-bmc-facebook-bletchley.dts     | 197 +++++++++++++-----
->  1 file changed, 148 insertions(+), 49 deletions(-)
->
-> --
-> 2.17.1
->
+-- 
+BRs,
+Lei YU
