@@ -4,67 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24331CCA479
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 08:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12318C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 09:00:00 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LmbSq5TWpz3c1y
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:57:31 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LmbWf55q6z3bjX
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:59:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=mYYjMzL8;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MUVowMI+;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=mYYjMzL8;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MUVowMI+;
 	dkim-atps=neutral
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmbQk3gjSz2xKw
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 18:55:42 +1000 (AEST)
-Received: by mail-pl1-x635.google.com with SMTP id j12so8433223plj.8
-        for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 01:55:42 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LX8r15bQWz30Qc
+	for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2022 13:16:00 +1000 (AEST)
+Received: by mail-pl1-x631.google.com with SMTP id l6so9855840plg.11
+        for <openbmc@lists.ozlabs.org>; Mon, 27 Jun 2022 20:16:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=9IvPq+vzg2IttRaK2bQl7hyUjCEsf/3i9d9Ngi7pYU4=;
-        b=mYYjMzL8agkVK4nZ6T3xKc2+i0Ur+eKSLXcSuwNcY1d1YrGdR+ml6X2qxYoEG1cA34
-         lfc5rEuxwBQVg5MUnlyFcCPpfQ+7SmcIzF+ijqXGaGO1N4kSr5pNL5eEkiDBaAM2qRq1
-         +eFvSWyRXNv358X5Xk9CfFwvNrY04MQZvA5ew48DFFI7daxTsDMOFfs1Y50IeUT2H2o3
-         xvc8YE1sD/z50b5yJfKZZqH/XyFlLEvEDveQVs6u+Gg07Tj+dsKpC5C2AN5iNbEYCkBK
-         gghxnlEyRj9CfTuU6Ks1xJWlGj55VQU59eaJXbif2A8ugR1HLcOYrbg+qsn9zBQxbBe5
-         I2/Q==
+        h=from:to:cc:subject:date:message-id;
+        bh=hZpH+jjHBanXNKXLJIsGD7EvYPamEgyaGZv+JpUAvQo=;
+        b=MUVowMI+ZxHWE8BQjZNE+VGuJjprv12fujzN2IRvz0qj0TJEsSh/VdihRNvaYVayMy
+         QdSMgEc5o82qbTKCJg3yO8cQFcu5nqYB7CBdRrL4Az3Urd2YzzJk9eeKd9cnX4Kz84nf
+         fWNvRvC+cOvUW64QuJC2drz5IpKTimS5gTJed4vVVIHAaK9DjQ2dj3ryBg+zHSelc/pt
+         kDyL0ruFjksD2FW7xQeLea27geXJOmX0+Am706XL1eomTdkl7vBz02Fik73OX542VSXK
+         2L2kKSnhfe59Eqtck2fRpINU0QMOukOO56sa8FvOp5s8cM+WZmPJw9HBmXKUP79NA/WS
+         PEmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=9IvPq+vzg2IttRaK2bQl7hyUjCEsf/3i9d9Ngi7pYU4=;
-        b=sCtud2oIV3qakQ9hvJUXI8TiEMusAQ86R7VI+/KroUfvFTmtZmL6ZJjMnbVWRI7CMk
-         torukshJAH8NyZL7aAMD8C5h/9IodY2pf9/VHY0u6yWfQ4C4Mc8BPOG9TXcu2wBU7NnB
-         RH1EIncXeqUxnYuktqlE3bI5qhKuu8zKVvmgCo8WLltWNDA8QP+K+TYq9fNPiixUNKME
-         Bpl0X6rCBCf8XXarF/a88b4cPc4gA1arWXiC0kJ6c5hRetgKpl9LxFy2BCNIkkOON5dF
-         CBKwZKWcrNAOYfNKoKuF1TGQC9OBR0CAOtg87XiY8cK8KA/LCcrba8WDmXZ9dWAe9oE+
-         w0yA==
-X-Gm-Message-State: AJIora9Q8kkfDcy25KFTMq/jGTCTRqvH6NkrEitSjIWu144R0NhbvoFx
-	JfvIvhodxvXV9xqnoIzzfx8mCNIMOXo=
-X-Google-Smtp-Source: AGRyM1u7NXEVFFwKkf8SUOJkgLjJ0uT9oDqBFfTUMHvqk7DeGc6HvDE3NoEqj3YIllr+BIxpb4FtlA==
-X-Received: by 2002:a17:902:7294:b0:16c:a8d0:e827 with SMTP id d20-20020a170902729400b0016ca8d0e827mr23356673pll.101.1658134539461;
-        Mon, 18 Jul 2022 01:55:39 -0700 (PDT)
-Received: from localhost.localdomain ([45.124.203.18])
-        by smtp.gmail.com with ESMTPSA id r11-20020a170903410b00b0016c5306917fsm8750575pld.53.2022.07.18.01.55.37
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=hZpH+jjHBanXNKXLJIsGD7EvYPamEgyaGZv+JpUAvQo=;
+        b=KNhDrSAKd4D/oWufZrRzzkaeXoXfupJXOqHgeJo0JK7s1BtCZlvlLj36tmX0MACXkf
+         Yr6u/NMJ/YtQmeNsIL4AyHxYQY36Tjk3UPovrr49fUs0+61QI1eUe47FjC6CqY/Ui2c5
+         cr8fAu4bXQFTDLUs/VDKeg2qU/+QUmuDZk1ZJSxsofWUCq0i2nIOnnspm/3Z0j5KNekz
+         6qGhUT/uPsOG6aPgAPGh/Dd1bbv7heAizQjdG/2Lnj9ISMuaIg3R4HWEsvNC+mX7qPoj
+         Gcm8wan5DPqOcnSCLSBK6vjHMTzZAN/nxUxfdr7kM8tCSbfM5YE/kuewpr6+N1kSa5Py
+         cWgA==
+X-Gm-Message-State: AJIora8W59iwSo8WPL9OblUeZXcxSiAhOzVVdphb74aBvwEPTuDEqHMI
+	jkCgIa8JrzbH7H2IWGz3h/h19kDx2a8Qaw==
+X-Google-Smtp-Source: AGRyM1ugHhS9uHhthiglEpWo9ikNAXy8XKoZmb45rRXajmG/zQ+9zitY8twApqtmDuGwRcjwW3ZLzQ==
+X-Received: by 2002:a17:90b:4d05:b0:1e2:bf91:8af2 with SMTP id mw5-20020a17090b4d0500b001e2bf918af2mr19866720pjb.210.1656386157491;
+        Mon, 27 Jun 2022 20:15:57 -0700 (PDT)
+Received: from potin-quanta.dhcpserver.local (125-228-123-29.hinet-ip.hinet.net. [125.228.123.29])
+        by smtp.gmail.com with ESMTPSA id y22-20020a17090264d600b0016a0b31a8bdsm8046511pli.4.2022.06.27.20.15.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 Jul 2022 01:55:38 -0700 (PDT)
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 2/2] i2c/aspeed: Use new mode only when driver is enabled
-Date: Mon, 18 Jul 2022 18:25:23 +0930
-Message-Id: <20220718085523.1140566-3-joel@jms.id.au>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220718085523.1140566-1-joel@jms.id.au>
-References: <20220718085523.1140566-1-joel@jms.id.au>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+        Mon, 27 Jun 2022 20:15:56 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-5.15 0/4] Update Facebook Bletchley BMC DTS
+Date: Tue, 28 Jun 2022 11:13:39 +0800
+Message-Id: <20220628031343.21097-1-potin.lai.pt@gmail.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Mon, 18 Jul 2022 18:59:27 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,32 +72,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zev Weiss <zweiss@equinix.com>
+Cc: Potin Lai <potin.lai@quantatw.com>, Potin Lai <potin.lai.pt@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Don't attempt to switch to the AST2600 "new" register mode if the driver
-is not compiled in.
+Hi Joel,
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- drivers/i2c/aspeed_i2c_global.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Could you help review this patch series and backport to linux-aspeed dev-5.15?
+Thank you.
 
-diff --git a/drivers/i2c/aspeed_i2c_global.c b/drivers/i2c/aspeed_i2c_global.c
-index c76c29821083..86ed8f746d56 100644
---- a/drivers/i2c/aspeed_i2c_global.c
-+++ b/drivers/i2c/aspeed_i2c_global.c
-@@ -60,7 +60,8 @@ static int aspeed_i2c_global_probe(struct udevice *dev)
- 
- 	reset_deassert(&i2c_global->reset);
- 
--	if (i2c_global->version == AST2600_I2C_GLOBAL) {
-+	if (IS_ENABLED(SYS_I2C_AST2600) &&
-+	    i2c_global->version == AST2600_I2C_GLOBAL) {
- 		writel(AST2600_GLOBAL_INIT, i2c_global->regs +
- 			AST2600_I2CG_CTRL);
- 		writel(I2CCG_DIV_CTRL, i2c_global->regs +
+LINK: https://lore.kernel.org/all/20220613095150.21917-1-potin.lai.pt@gmail.com/
+
+Potin Lai (4):
+  ARM: dts: aspeed: bletchley: change LED sys_log_id to active low
+  ARM: dts: aspeed: bletchley: disable GPIOV2 pull-down
+  ARM: dts: aspeed: bletchley: bind presence-sledX pins via gpio-keys
+  ARM: dts: aspeed: bletchley: update fusb302 nodes
+
+ .../dts/aspeed-bmc-facebook-bletchley.dts     | 197 +++++++++++++-----
+ 1 file changed, 148 insertions(+), 49 deletions(-)
+
 -- 
-2.35.1
+2.17.1
 
