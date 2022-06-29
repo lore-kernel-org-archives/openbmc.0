@@ -4,29 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC87FC433EF
-	for <openbmc@archiver.kernel.org>; Wed, 29 Jun 2022 17:29:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D0B9C43334
+	for <openbmc@archiver.kernel.org>; Wed, 29 Jun 2022 18:16:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LY7jp0Dbxz3chy
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 03:29:02 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=79.137.123.220; helo=smtpout2.mo529.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-Received: from smtpout2.mo529.mail-out.ovh.net (smtpout2.mo529.mail-out.ovh.net [79.137.123.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LY8mq07kmz3bnT
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 04:16:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=178.32.121.110; helo=1.mo548.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+Received: from 1.mo548.mail-out.ovh.net (1.mo548.mail-out.ovh.net [178.32.121.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LY7hf1lkYz3cdT
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 03:28:00 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.138.217])
-	by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 4B278112AB939;
-	Wed, 29 Jun 2022 19:21:10 +0200 (CEST)
-Received: from kaod.org (37.59.142.109) by DAG4EX1.mxp5.local (172.16.2.31)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LY8mK4G9Gz3blW
+	for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 04:16:17 +1000 (AEST)
+Received: from mxplan5.mail.ovh.net (unknown [10.108.20.177])
+	by mo548.mail-out.ovh.net (Postfix) with ESMTPS id A8D0B20747;
+	Wed, 29 Jun 2022 18:07:45 +0000 (UTC)
+Received: from kaod.org (37.59.142.96) by DAG4EX1.mxp5.local (172.16.2.31)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.9; Wed, 29 Jun
- 2022 19:21:09 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-109S003511e947e-9180-4c81-b57c-8a0fd849f407,
-                    74A1F81DE4F8936248B5873BB0AED4007818FEC6) smtp.auth=clg@kaod.org
+ 2022 20:07:44 +0200
+Authentication-Results: garm.ovh; auth=pass (GARM-96R00198260963-dde8-461b-8c1a-012665a8672e,
+                    DF7F9948BD89912A9BBE6A4903E17E70B6709CC1) smtp.auth=clg@kaod.org
 X-OVh-ClientIp: 82.64.250.170
-Message-ID: <59b82730-f09f-f7e5-0e2f-4ad1765f0f6e@kaod.org>
-Date: Wed, 29 Jun 2022 19:21:08 +0200
+Message-ID: <d272ce4b-c338-c3ea-3770-6c85ddf60ec5@kaod.org>
+Date: Wed, 29 Jun 2022 20:07:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.9.0
@@ -35,18 +36,20 @@ Content-Language: en-US
 To: Mark Brown <broonie@kernel.org>
 References: <20220622161617.3719096-1-clg@kaod.org>
  <20220622161617.3719096-3-clg@kaod.org> <YryHVsrqNlhdwKzq@sirena.org.uk>
+ <59b82730-f09f-f7e5-0e2f-4ad1765f0f6e@kaod.org>
+ <YryLj6iWVkqWowDg@sirena.org.uk>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <YryHVsrqNlhdwKzq@sirena.org.uk>
+In-Reply-To: <YryLj6iWVkqWowDg@sirena.org.uk>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.109]
-X-ClientProxiedBy: DAG9EX1.mxp5.local (172.16.2.81) To DAG4EX1.mxp5.local
+X-Originating-IP: [37.59.142.96]
+X-ClientProxiedBy: DAG8EX1.mxp5.local (172.16.2.71) To DAG4EX1.mxp5.local
  (172.16.2.31)
-X-Ovh-Tracer-GUID: 36ecf0dd-83f2-4ad5-b70e-839565468a1b
-X-Ovh-Tracer-Id: 9945636828781054968
+X-Ovh-Tracer-GUID: 3fc20af5-91b9-41c4-b2e6-732ae46bea70
+X-Ovh-Tracer-Id: 10732359387039697912
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrudegledgudduudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepkeetjedtleekjedvveffudfhteetleeifeegfeffuefghfefkeehffeufeeludejnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtohepihifohhlohhstghhsegrkhgrmhgrihdrtghomhdpoffvtefjohhsthepmhhohedvle
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrudegledguddvtdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepkeetjedtleekjedvveffudfhteetleeifeegfeffuefghfefkeehffeufeeludejnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghnhedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdpnhgspghrtghpthhtohepuddprhgtphhtthhopehifiholhhoshgthhesrghkrghmrghirdgtohhmpdfovfetjfhoshhtpehmohehgeek
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,13 +65,20 @@ Cc: linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, openbmc@lis
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 6/29/22 19:09, Mark Brown wrote:
-> On Wed, Jun 22, 2022 at 06:16:17PM +0200, Cédric Le Goater wrote:
+On 6/29/22 19:27, Mark Brown wrote:
+> On Wed, Jun 29, 2022 at 07:21:08PM +0200, Cédric Le Goater wrote:
+>> On 6/29/22 19:09, Mark Brown wrote:
+>>> On Wed, Jun 22, 2022 at 06:16:17PM +0200, Cédric Le Goater wrote:
+>>>
+>>>> Fixes: 54613fc6659b ("spi: aspeed: Add support for direct mapping")
+>>>
+>>> This commit isn't in mainline.
 > 
->> Fixes: 54613fc6659b ("spi: aspeed: Add support for direct mapping")
+>> drat. It's the OpenBMC kernel. I will resend. Sorry about that.
 > 
-> This commit isn't in mainline.
+> It's OK, I fixed it up locally.
 
-drat. It's the OpenBMC kernel. I will resend. Sorry about that.
+
+Thanks,
 
 C.
