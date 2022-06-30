@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72BBC433EF
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 20:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C21DBC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 20:04:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LYq6X2HMrz3chN
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 06:04:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LYq7G25myz3dpX
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 06:04:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=iq2iYgaW;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=sMHZsEWy;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.39; helo=alexa-out-sd-02.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.38; helo=alexa-out-sd-01.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=iq2iYgaW;
+	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=sMHZsEWy;
 	dkim-atps=neutral
-Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com [199.106.114.39])
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com [199.106.114.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYq4z6vKgz2ywl
-	for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2022 06:02:58 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYq506SgHz2ywl
+	for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2022 06:03:00 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
-  t=1656619380; x=1688155380;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=mStF7gmi5HL1FVka7Jv3G7H7k+K8ZLG4A1020yILARI=;
-  b=iq2iYgaWteTxyRwrNcEdyoo0uCTNHp6mRuAqHmDJI/iGG86lFllhsJf2
-   JY2FTm2ZRzYPnjQ2O0jBSEmt9jV7crWU14M9+RE8WYIxbfufWbw8CqQRk
-   X3uqD/MMD6OIieBVRrod3wwn/GR4L7ugcMBQlFVlrAeXa7yTFhYDsD1W1
-   M=;
-Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
-  by alexa-out-sd-02.qualcomm.com with ESMTP; 30 Jun 2022 13:02:54 -0700
+  t=1656619381; x=1688155381;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=oAGsnP6P1nbnf3+dl9tUOYmwBH2h2knhrH3Ob22FbXI=;
+  b=sMHZsEWyof3rJQ2RvDd9pSbituXLP32eZFJvHNmhCs/Hkkonh4nf8ARA
+   c3o+yyZHl8tsCMa2ROJvOARi3efsYsq1FPvCKuWFh6e5V1rbvVkRZPWse
+   uP6bWGRRkKQUe/4TPyjgGPtAg5bJww+foi93tkUyPHbHeQ/5rVsz0UbwX
+   8=;
+Received: from unknown (HELO ironmsg05-sd.qualcomm.com) ([10.53.140.145])
+  by alexa-out-sd-01.qualcomm.com with ESMTP; 30 Jun 2022 13:02:55 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
-  by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 13:02:53 -0700
+  by ironmsg05-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 13:02:55 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 30 Jun 2022 13:02:53 -0700
+ 15.2.986.22; Thu, 30 Jun 2022 13:02:55 -0700
 Received: from maru.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 30 Jun
- 2022 13:02:52 -0700
+ 2022 13:02:54 -0700
 From: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
 To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 0/3] Add Qualcomm DC-SCM V1 defconfig and board support
-Date: Thu, 30 Jun 2022 13:02:24 -0700
-Message-ID: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 3/3] board: ast2600_qualcomm: add env default
+Date: Thu, 30 Jun 2022 13:02:27 -0700
+Message-ID: <20220630200227.2292079-4-quic_jaehyoo@quicinc.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
+References: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,34 +73,38 @@ Cc: openbmc@lists.ozlabs.org, Graeme Gregory <quic_ggregory@quicinc.com>, =?UTF-
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+Add env default to dc-scm-v1 board configuration.
 
-This series adds Qualcomm DC-SCM V1 defconfig and initial board support.
-Please review!
-
-Thanks,
-
-Jae
-
-Jae Hyun Yoo (3):
-  configs: ast2600: add Qualcomm DC-SCM V1 defconfig
-  board: ast2600_qualcomm: add initial version of Qualcomm DC-SCM V1
-    board
-  board: ast2600_qualcomm: add env default
-
- arch/arm/mach-aspeed/ast2600/Kconfig          |   8 ++
- board/aspeed/ast2600_qualcomm/Kconfig         |  15 +++
- board/aspeed/ast2600_qualcomm/Makefile        |   1 +
- .../dc-scm-v1-u-boot-env-default.txt          |   4 +
- board/aspeed/ast2600_qualcomm/dc-scm-v1.c     |  33 +++++
- configs/ast2600_qcom_dc_scm_v1_defconfig      | 119 ++++++++++++++++++
- 6 files changed, 180 insertions(+)
- create mode 100644 board/aspeed/ast2600_qualcomm/Kconfig
- create mode 100644 board/aspeed/ast2600_qualcomm/Makefile
+Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+---
+ .../aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt  | 4 ++++
+ configs/ast2600_qcom_dc_scm_v1_defconfig                      | 2 ++
+ 2 files changed, 6 insertions(+)
  create mode 100644 board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt
- create mode 100644 board/aspeed/ast2600_qualcomm/dc-scm-v1.c
- create mode 100644 configs/ast2600_qcom_dc_scm_v1_defconfig
 
+diff --git a/board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt b/board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt
+new file mode 100644
+index 000000000000..9aebd38424ef
+--- /dev/null
++++ b/board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt
+@@ -0,0 +1,4 @@
++bootargs=console=ttyS4,115200n8 root=/dev/ram rw
++bootcmd=bootm 20100000
++bootdelay=2
++loadaddr=0x83000000
+diff --git a/configs/ast2600_qcom_dc_scm_v1_defconfig b/configs/ast2600_qcom_dc_scm_v1_defconfig
+index 353882deed26..e602163e1caf 100644
+--- a/configs/ast2600_qcom_dc_scm_v1_defconfig
++++ b/configs/ast2600_qcom_dc_scm_v1_defconfig
+@@ -67,6 +67,8 @@ CONFIG_USE_ENV_SPI_CS=y
+ CONFIG_ENV_SPI_CS=0
+ CONFIG_USE_ENV_SPI_MAX_HZ=y
+ CONFIG_ENV_SPI_MAX_HZ=100000000
++CONFIG_USE_DEFAULT_ENV_FILE=y
++CONFIG_DEFAULT_ENV_FILE="board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt"
+ CONFIG_NET_RANDOM_ETHADDR=y
+ CONFIG_REGMAP=y
+ CONFIG_SYSCON=y
 -- 
 2.25.1
 
