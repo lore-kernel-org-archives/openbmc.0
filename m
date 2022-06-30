@@ -4,64 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CACD0C43334
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 11:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B53CC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 11:09:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LYbDJ08NNz3bkV
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 21:08:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LYbF13tJ6z3cFT
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 21:09:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=UhCSl9Lr;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=LTJmdE9v;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::62b; helo=mail-ej1-x62b.google.com; envelope-from=patrick.rudolph@9elements.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::633; helo=mail-ej1-x633.google.com; envelope-from=patrick.rudolph@9elements.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=UhCSl9Lr;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=LTJmdE9v;
 	dkim-atps=neutral
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYbCX44mGz2ywV
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 21:07:51 +1000 (AEST)
-Received: by mail-ej1-x62b.google.com with SMTP id ay16so38302042ejb.6
-        for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 04:07:51 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYbCY6mXdz2ywV
+	for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 21:07:53 +1000 (AEST)
+Received: by mail-ej1-x633.google.com with SMTP id o25so5832678ejm.3
+        for <openbmc@lists.ozlabs.org>; Thu, 30 Jun 2022 04:07:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=9elements.com; s=google;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hdBXC8xZnYJ6R+JztCH/OwQPymxeb4yJg01zGc7n6bM=;
-        b=UhCSl9LrxyVdxWe6Mc5FUF9y/mhIdaGZil4hNyiOHjNE2mGC4rYT83I7p1b1fLVBi6
-         gDgLMOXFtkYrLDCixbm4X/pB9jc/Bj7KIR2fQ6jQOszbBbovQ92+aHoxBiNWVik3l+Fw
-         0vf0SSlrKc71pVAYyMQxqeJnodKvj6T4CqXM+X/1hsPm/uW1LGostuGHOc4Q25Rqwmom
-         +nBCBuA5ktKRveVw2OIUh86t+/NXZanGG2tyCrOK8DFO9MajGr2oge0wiHTgGPKCamr8
-         BvQx8mrn1CDu+6wszGUkLsLpgVUYITi2BWMmvxx0TUbTJrlpP7jddc94km0v6nV8sN6/
-         ViQA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=fBcSY9myBFHPgiV/0ycJxXRtG8C6bf0DFuBhPwKhmes=;
+        b=LTJmdE9v1nM/kpr2sVsdEuOwP7Y+uIaaEZfeUHuniPoOkKkGmnM2M81uCQCOMlbgaw
+         6IDFsWT2N0E4L/bK7VKUg49Y/H7HSL1KTfmsqRdCDFnhzDi8q/WR1cFvGCKbIlcZ0Iuf
+         f3t40QT1VqdU5jHoz+09wZRTSfq/12pC8LrA6FK0S9HoKWNv9PE8X93bN+bTofI00IEG
+         NZBIHpeK9DHkbVpHPwNQR8N4d//j1FDMbwTLHIDiWetEOHySsK7CxVpDoF0LWMSuL+ZX
+         31CTA2aHu36/JgYqZqyPa9Ajmf9ivhoPkThiYK+g2f22dptOzUk5JWx+5jt6EorGneCd
+         YIDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hdBXC8xZnYJ6R+JztCH/OwQPymxeb4yJg01zGc7n6bM=;
-        b=K0AQirk+OZRLhqe8dIv1f7+OAdoXX6A/auXH4v1FSzeXhaNMLzrnuPUsvYCjNIJ8t+
-         L0cHhYzsbF28D811CS6ELFW8XmLD1Zx2g0wlZeRcrsS72fIRstPMCaMIKamSEOnzpNDc
-         m6J2exokZzwpY5UJr854OnEluUofSH7DNE2jmmAfQO3zglnm5M3P0LS0k6xVwMUrwoHJ
-         cHrdEOv9s/O3m5WanRn/kRNUelJ00L5fUuMlrREGtL649FqYRzKiI/IuOLQ3lGiDTbK1
-         eYOvRaZ54LJw8nkQDOC05B57W93Yhr9xtayG9eULr9llD28MjLob+3KpjF4Hbr8EdMNU
-         3XEA==
-X-Gm-Message-State: AJIora+fZUc9NP0h91Qv2tF/+5b+JVgEpJIvNxqQdG1x3QM5Sxxyscoq
-	U72qPaJOvaH91WbqGEcQVig5FQ==
-X-Google-Smtp-Source: AGRyM1ukjKWmNTv+XT93hQd10M5E5JRukH8T81P0JcOJxbjpsVspudKRLmYxCPykFqU55GDpowJy6A==
-X-Received: by 2002:a17:906:9451:b0:726:93a8:bcc with SMTP id z17-20020a170906945100b0072693a80bccmr7994574ejx.361.1656587268773;
-        Thu, 30 Jun 2022 04:07:48 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=fBcSY9myBFHPgiV/0ycJxXRtG8C6bf0DFuBhPwKhmes=;
+        b=yRejyNfVDnHiNJyAdQ70Zj1pVzMD0+Fqf/vI+qVb4i2V8rL+se5VF+qZj4hYNy3PZK
+         GY72e1PfDbwGbdDSz2pdXDZNCBVAHYddBkJud2z84ibMAngTCbyXdSCgiEaduUIWTjyG
+         PONzgehasPtnkPQ2OQ7FCRIlaaxyb917VNlyUDGfy3MnBVAW/5Wzj3tFwpTlQ+Ma0LRs
+         PuFIR/Sn1mTn064NaEb4JJeZuvh5CZhk5RxsuPS09Q4vuQBjgwqHhAe905UsL7q/Lyno
+         crJrtdQXs7qDPD+51EofbemOR1tuJ7e1sdSpjRL5JEYd2eMCG4Fsn0JVLOBFc8sESvFV
+         uq5g==
+X-Gm-Message-State: AJIora+8iyErQypir6hP6fbn4QRRTE0S8uX7g9V1HeHgZ+TmluSvKbGf
+	29yNerpG7GA5E5N4A4UmRkIqBA==
+X-Google-Smtp-Source: AGRyM1vj3cLHdhx519CcQTAlBZG78YUCxAeYecoWpUCvHZ/s0HbcD7Jnl94QBKzMaiNQanksPmIRlA==
+X-Received: by 2002:a17:906:4482:b0:70a:19e3:d18a with SMTP id y2-20020a170906448200b0070a19e3d18amr8337312ejo.510.1656587270659;
+        Thu, 30 Jun 2022 04:07:50 -0700 (PDT)
 Received: from fedora.sec.9e.network (ip-088-153-019-247.um27.pools.vodafone-ip.de. [88.153.19.247])
-        by smtp.gmail.com with ESMTPSA id j20-20020a056402239400b00439645915a4sm174594eda.49.2022.06.30.04.07.47
+        by smtp.gmail.com with ESMTPSA id j20-20020a056402239400b00439645915a4sm174594eda.49.2022.06.30.04.07.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jun 2022 04:07:48 -0700 (PDT)
+        Thu, 30 Jun 2022 04:07:50 -0700 (PDT)
 From: Patrick Rudolph <patrick.rudolph@9elements.com>
 To: joel@jms.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [RESEND][PATCH u-boot v2019.04-aspeed-openbmc v5 0/2] Add support for IBM Genesis3
-Date: Thu, 30 Jun 2022 13:07:43 +0200
-Message-Id: <20220630110745.345705-1-patrick.rudolph@9elements.com>
+Subject: [RESEND][PATCH u-boot v2019.04-aspeed-openbmc v5 2/2] arm/mach-aspeed: Add support for CONFIG_ASPEED_ROUTE_UART5_TO_UART1
+Date: Thu, 30 Jun 2022 13:07:45 +0200
+Message-Id: <20220630110745.345705-3-patrick.rudolph@9elements.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220630110745.345705-1-patrick.rudolph@9elements.com>
+References: <20220630110745.345705-1-patrick.rudolph@9elements.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -79,38 +81,47 @@ Cc: christian.walter@9elements.com, takken@us.ibm.com, Patrick Rudolph <patrick.
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-v5:
-  - Rename Kconfig and don't depend on ASPEED_ALLOW_DANGEROUS_BACKDOORS
+Introduce CONFIG_ASPEED_ROUTE_UART5_TO_UART1 and reuse existing
+platform code to route UART5 to UART1.
+This is required on IBM/Genesis3 as it uses UART5 as debug uart, but the
+RXD1/TXD1 pins are connected instead of RXD5/TXD5.
 
-v4:
-  - Rebase on upstream
-  - Drop defconfig and add it on openbmc instead
-  - Rename Kconfig for debug uart
+Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+---
+ arch/arm/mach-aspeed/Kconfig            | 6 ++++++
+ arch/arm/mach-aspeed/ast2500/platform.S | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-v3:
-  - Drop FIRMWARE_2ND_BOOT patch
-  - Include reference board DTS instead of copying it
-  - Rename DTS to ast2500-<boardname>
-  - Describe defconfig changes in commit message
-
-v2:
-  - Fix whitespace and compatible in DTS
-  - Remove board stub
-  - Improve commit message
-  - Rewrite FIRMWARE_2ND_BOOT support
-  - Update defconfig
-
-Patrick Rudolph (2):
-  arm/dts: Add IBM Genesis3 board
-  arm/mach-aspeed: Add support for CONFIG_ASPEED_ROUTE_UART5_TO_UART1
-
- arch/arm/dts/Makefile                   |  1 +
- arch/arm/dts/ast2500-genesis3.dts       | 28 +++++++++++++++++++++++++
- arch/arm/mach-aspeed/Kconfig            |  6 ++++++
- arch/arm/mach-aspeed/ast2500/platform.S |  2 +-
- 4 files changed, 36 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/dts/ast2500-genesis3.dts
-
+diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
+index edb5520aec..50ea261dac 100644
+--- a/arch/arm/mach-aspeed/Kconfig
++++ b/arch/arm/mach-aspeed/Kconfig
+@@ -84,6 +84,12 @@ config ASPEED_ENABLE_DEBUG_UART
+ 
+ endif
+ 
++config ASPEED_ROUTE_UART5_TO_UART1
++	bool "Route UART5 to UART1 pins"
++	depends on ASPEED_AST2500
++	help
++	  Route debug UART (UART5) to TXD1/RXD1 pins instead of TXD5/RXD5.
++
+ config ASPEED_PALLADIUM
+ 	bool "Aspeed palladium for simulation"
+ 	default n
+diff --git a/arch/arm/mach-aspeed/ast2500/platform.S b/arch/arm/mach-aspeed/ast2500/platform.S
+index aef55c4a0a..fd013e4e6f 100644
+--- a/arch/arm/mach-aspeed/ast2500/platform.S
++++ b/arch/arm/mach-aspeed/ast2500/platform.S
+@@ -795,7 +795,7 @@ wait_ddr_reset:
+     /* end delay 10ms */
+ 
+ /* Debug - UART console message */
+-#ifdef CONFIG_DRAM_UART_TO_UART1
++#ifdef CONFIG_ASPEED_ROUTE_UART5_TO_UART1
+     ldr   r0, =0x1e78909c                        @ route UART5 to UART Port1, 2016.08.29
+     ldr   r1, =0x10000004
+     str   r1, [r0]
 -- 
 2.35.3
 
