@@ -4,51 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6881AC433EF
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 17:31:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C5DC43334
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 20:03:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LYlkb6Vr4z3cgS
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 03:31:51 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=188.165.42.229; helo=4.mo548.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-Received: from 4.mo548.mail-out.ovh.net (4.mo548.mail-out.ovh.net [188.165.42.229])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LYq5q2TXWz3dQs
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 06:03:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=PJqPEgw5;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.38; helo=alexa-out-sd-01.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=PJqPEgw5;
+	dkim-atps=neutral
+Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com [199.106.114.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYlk43Nryz2yMK
-	for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2022 03:31:22 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.108.20.55])
-	by mo548.mail-out.ovh.net (Postfix) with ESMTPS id DADFF1FF8F;
-	Thu, 30 Jun 2022 17:23:44 +0000 (UTC)
-Received: from kaod.org (37.59.142.110) by DAG4EX1.mxp5.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.9; Thu, 30 Jun
- 2022 19:23:44 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-110S0044880d423-adc9-45d1-9510-23aa7138f6d2,
-                    40551C6C823FDDA91B74F5D58A080B55BE22893A) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.64.250.170
-Message-ID: <9cfe0fe8-d37c-8511-87f8-aebe8e1a6e23@kaod.org>
-Date: Thu, 30 Jun 2022 19:23:38 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYq4z6xt7z3cg7
+	for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2022 06:02:58 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+  t=1656619380; x=1688155380;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Z6ke1MKPZiBFKNVvWuD0vMmxvbDmwv4Qe6BYyPZ/twg=;
+  b=PJqPEgw5kOjEZwfaXcWHiDQWRV4iWjOD09jLvCWM13LP+hPZyWa/1AUO
+   RIct5U4M8G1sf0zThebo/ZMAvkANIk1KqvZk645HTdvbdXQNmBnBL0HDn
+   fxBDuK8vl4ZyriBPK4XRblrmBOxr3JWRWVw73W1G0PyZdIXpEUFw97KiY
+   Q=;
+Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
+  by alexa-out-sd-01.qualcomm.com with ESMTP; 30 Jun 2022 13:02:54 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+  by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 13:02:54 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Thu, 30 Jun 2022 13:02:54 -0700
+Received: from maru.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 30 Jun
+ 2022 13:02:53 -0700
+From: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 1/3] configs: ast2600: add Qualcomm DC-SCM V1 defconfig
+Date: Thu, 30 Jun 2022 13:02:25 -0700
+Message-ID: <20220630200227.2292079-2-quic_jaehyoo@quicinc.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
+References: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH linux 4/5] spi: aspeed: Handle custom decoding ranges
-Content-Language: en-US
-To: Naresh Solanki <naresh.solanki@9elements.com>
-References: <20220628162044.1121337-1-clg@kaod.org>
- <20220628162044.1121337-5-clg@kaod.org>
- <CABqG17gD4VwQiSz_LcnikN+GuQ9UqEZB2hm8pCoJFdbGyoj8BA@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <CABqG17gD4VwQiSz_LcnikN+GuQ9UqEZB2hm8pCoJFdbGyoj8BA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.110]
-X-ClientProxiedBy: DAG4EX2.mxp5.local (172.16.2.32) To DAG4EX1.mxp5.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: 8015275b-5b32-4eb7-8332-61d69a832bb1
-X-Ovh-Tracer-Id: 15861677889633291171
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvfedrudehuddguddutdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfevfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepkeetjedtleekjedvveffudfhteetleeifeegfeffuefghfefkeehffeufeeludejnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdduuddtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtoheptghhihhnqdhtihhnghgpkhhuohesrghsphgvvgguthgvtghhrdgtohhmpdfovfetjfhoshhtpehmohehgeek
+Content-Type: text/plain
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,131 +69,141 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>, Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
+Cc: openbmc@lists.ozlabs.org, Graeme Gregory <quic_ggregory@quicinc.com>, =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>, Jae Hyun Yoo <quic_jaehyoo@quicinc.com>, Jamie Iles <quic_jiles@quicinc.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 6/29/22 07:46, Naresh Solanki wrote:
-> Verified for its working.
+Add Qualcomm DC-SCM V1 defconfig which is equipped with AST2600.
 
-Thanks for the test ! When we upstream, a Tested-by tag would
-be nice to have.
+Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+---
+ configs/ast2600_qcom_dc_scm_v1_defconfig | 117 +++++++++++++++++++++++
+ 1 file changed, 117 insertions(+)
+ create mode 100644 configs/ast2600_qcom_dc_scm_v1_defconfig
 
-C.
-
-> Thanks
-> 
-> 
-> On Tue, 28 Jun 2022 at 21:51, Cédric Le Goater <clg@kaod.org <mailto:clg@kaod.org>> wrote:
-> 
->     "ranges" predefines settings of the decoding ranges for each CS. If
->     found in the DT, the driver applies the settings at probe time. The
->     default behavior is to set the decoding range of each CS using the
->     flash device size when the spi slave is setup.
-> 
->     Cc: Naresh Solanki <naresh.solanki@9elements.com <mailto:naresh.solanki@9elements.com>>
->     Cc: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com <mailto:chin-ting_kuo@aspeedtech.com>>
->     Signed-off-by: Cédric Le Goater <clg@kaod.org <mailto:clg@kaod.org>>
->     ---
->       drivers/spi/spi-aspeed-smc.c | 63 +++++++++++++++++++++++++++++++++++-
->       1 file changed, 62 insertions(+), 1 deletion(-)
-> 
->     diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c
->     index 1611c354c31f..791cbf753a85 100644
->     --- a/drivers/spi/spi-aspeed-smc.c
->     +++ b/drivers/spi/spi-aspeed-smc.c
->     @@ -101,6 +101,7 @@ struct aspeed_spi {
->              u32                      clk_freq;
-> 
->              struct aspeed_spi_chip   chips[ASPEED_SPI_MAX_NUM_CS];
->     +       bool                     fixed_windows;
->       };
-> 
->       static u32 aspeed_spi_get_io_mode(const struct spi_mem_op *op)
->     @@ -574,7 +575,8 @@ static int aspeed_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
->              if (op->data.dir != SPI_MEM_DATA_IN)
->                      return -EOPNOTSUPP;
-> 
->     -       aspeed_spi_chip_adjust_window(chip, desc->info.offset, desc->info.length);
->     +       if (!aspi->fixed_windows)
->     +               aspeed_spi_chip_adjust_window(chip, desc->info.offset, desc->info.length);
-> 
->              if (desc->info.length > chip->ahb_window_size)
->                      dev_warn(aspi->dev, "CE%d window (%dMB) too small for mapping",
->     @@ -749,6 +751,61 @@ static const struct attribute_group aspeed_spi_attribute_group = {
->              .attrs = aspeed_spi_attributes
->       };
-> 
->     +static int aspeed_spi_chip_read_ranges(struct device_node *node, struct aspeed_spi *aspi)
->     +{
->     +       const char *range_prop = "ranges";
->     +       struct property *prop;
->     +       struct aspeed_spi_window ranges[ASPEED_SPI_MAX_NUM_CS];
->     +       int prop_size;
->     +       int count;
->     +       int ret;
->     +       int i;
->     +
->     +       prop = of_find_property(node, range_prop, &prop_size);
->     +       if (!prop)
->     +               return 0;
->     +
->     +       count = prop_size / sizeof(*ranges);
->     +       if (count > aspi->data->max_cs) {
->     +               dev_err(aspi->dev, "invalid '%s' property %d\n", range_prop, count);
->     +               return -EINVAL;
->     +       }
->     +
->     +       if (count < aspi->data->max_cs)
->     +               dev_dbg(aspi->dev, "'%s' property does not cover all CE\n",
->     +                       range_prop);
->     +
->     +       ret = of_property_read_u32_array(node, range_prop, (u32 *)ranges, count * 4);
->     +       if (ret)
->     +               return ret;
->     +
->     +       dev_info(aspi->dev, "Using preset decoding ranges\n");
->     +       for (i = 0; i < count; i++) {
->     +               struct aspeed_spi_window *win = &ranges[i];
->     +
->     +               if (win->cs > aspi->data->max_cs) {
->     +                       dev_err(aspi->dev, "CE%d range is invalid", win->cs);
->     +                       return -EINVAL;
->     +               }
->     +
->     +               /* Trim top bit of the address to keep offset */
->     +               win->offset &= aspi->ahb_window_size - 1;
->     +
->     +               /* Minimal check */
->     +               if (win->offset + win->size > aspi->ahb_window_size) {
->     +                       dev_warn(aspi->dev, "CE%d range is too large", win->cs);
->     +                               return -EINVAL;
->     +               }
->     +
->     +               ret = aspeed_spi_set_window(aspi, win);
->     +               if (ret)
->     +                       return ret;
->     +       }
->     +
->     +       aspi->fixed_windows = true;
->     +       return 0;
->     +}
->     +
->       static int aspeed_spi_probe(struct platform_device *pdev)
->       {
->              struct device *dev = &pdev->dev;
->     @@ -806,6 +863,10 @@ static int aspeed_spi_probe(struct platform_device *pdev)
->                      return ret;
->              }
-> 
->     +       ret = aspeed_spi_chip_read_ranges(dev->of_node, aspi);
->     +       if (ret)
->     +               return ret;
->     +
->              /* IRQ is for DMA, which the driver doesn't support yet */
-> 
->              ctlr->mode_bits = SPI_RX_DUAL | SPI_TX_DUAL | data->mode_bits;
->     -- 
->     2.35.3
-> 
+diff --git a/configs/ast2600_qcom_dc_scm_v1_defconfig b/configs/ast2600_qcom_dc_scm_v1_defconfig
+new file mode 100644
+index 000000000000..353882deed26
+--- /dev/null
++++ b/configs/ast2600_qcom_dc_scm_v1_defconfig
+@@ -0,0 +1,117 @@
++CONFIG_ARM=y
++CONFIG_SYS_DCACHE_OFF=y
++CONFIG_ARCH_ASPEED=y
++CONFIG_SYS_TEXT_BASE=0x0
++CONFIG_ASPEED_AST2600=y
++CONFIG_TARGET_AST2600_QUALCOMM_DC_SCM_V1=y
++CONFIG_SYS_MALLOC_F_LEN=0x800
++CONFIG_ENV_SIZE=0x10000
++CONFIG_ENV_OFFSET=0xE0000
++CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
++CONFIG_NR_DRAM_BANKS=1
++CONFIG_FIT=y
++CONFIG_USE_BOOTARGS=y
++CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
++CONFIG_USE_BOOTCOMMAND=y
++CONFIG_BOOTCOMMAND="bootm 20100000"
++CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
++CONFIG_BOARD_LATE_INIT=y
++CONFIG_DISPLAY_BOARDINFO_LATE=y
++CONFIG_ARCH_EARLY_INIT_R=y
++CONFIG_BOARD_EARLY_INIT_F=y
++CONFIG_HUSH_PARSER=y
++# CONFIG_AUTO_COMPLETE is not set
++CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTZ=y
++# CONFIG_CMD_BOOTEFI is not set
++# CONFIG_CMD_ELF is not set
++# CONFIG_CMD_IMI is not set
++# CONFIG_CMD_XIMG is not set
++# CONFIG_CMD_NVEDIT_EFI is not set
++CONFIG_CMD_CRC32=y
++CONFIG_CRC32_VERIFY=y
++# CONFIG_LOOPW is not set
++CONFIG_CMD_MD5SUM=y
++CONFIG_MD5SUM_VERIFY=y
++CONFIG_CMD_MEMINFO=y
++CONFIG_CMD_MEMORY=y
++CONFIG_CMD_MEMTEST=y
++CONFIG_SYS_ALT_MEMTEST=y
++CONFIG_CMD_MX_CYCLIC=y
++CONFIG_CMD_SHA1SUM=y
++CONFIG_SHA1SUM_VERIFY=y
++CONFIG_CMD_STRINGS=y
++CONFIG_CMD_CLK=y
++CONFIG_CMD_GPIO=y
++CONFIG_CMD_I2C=y
++CONFIG_CMD_MMC=y
++CONFIG_CMD_PART=y
++CONFIG_CMD_PCI=y
++CONFIG_CMD_SF=y
++CONFIG_CMD_USB=y
++CONFIG_CMD_DHCP=y
++CONFIG_CMD_MII=y
++CONFIG_CMD_PING=y
++CONFIG_CMD_NCSI=y
++CONFIG_CMD_EXT2=y
++CONFIG_CMD_EXT4=y
++CONFIG_CMD_EXT4_WRITE=y
++CONFIG_CMD_FAT=y
++CONFIG_CMD_FS_GENERIC=y
++CONFIG_CMD_MTDPARTS=y
++CONFIG_EFI_PARTITION=y
++CONFIG_ENV_IS_IN_SPI_FLASH=y
++CONFIG_USE_ENV_SPI_BUS=y
++CONFIG_ENV_SPI_BUS=0
++CONFIG_USE_ENV_SPI_CS=y
++CONFIG_ENV_SPI_CS=0
++CONFIG_USE_ENV_SPI_MAX_HZ=y
++CONFIG_ENV_SPI_MAX_HZ=100000000
++CONFIG_NET_RANDOM_ETHADDR=y
++CONFIG_REGMAP=y
++CONFIG_SYSCON=y
++CONFIG_CLK=y
++CONFIG_DM_GPIO=y
++CONFIG_ASPEED_GPIO=y
++CONFIG_DM_I2C=y
++CONFIG_SYS_I2C_ASPEED=y
++CONFIG_MISC=y
++CONFIG_ASPEED_AHBC=y
++CONFIG_ASPEED_H2X=y
++CONFIG_DM_MMC=y
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_ASPEED=y
++CONFIG_DM_SPI_FLASH=y
++CONFIG_SPI_FLASH=y
++CONFIG_SPI_FLASH_GIGADEVICE=y
++CONFIG_SPI_FLASH_MACRONIX=y
++CONFIG_SPI_FLASH_SPANSION=y
++CONFIG_SPI_FLASH_STMICRO=y
++CONFIG_SPI_FLASH_WINBOND=y
++CONFIG_PHY_BROADCOM=y
++CONFIG_PHY_MICREL=y
++CONFIG_PHY_MICREL_KSZ90X1=y
++CONFIG_PHY_REALTEK=y
++CONFIG_PHY_NCSI=y
++CONFIG_DM_ETH=y
++CONFIG_PHY_GIGE=y
++CONFIG_FTGMAC100=y
++CONFIG_MDIO=y
++CONFIG_PCI=y
++CONFIG_DM_PCI=y
++CONFIG_PCIE_ASPEED=y
++CONFIG_PHY=y
++CONFIG_PINCTRL=y
++CONFIG_RAM=y
++CONFIG_DM_SERIAL=y
++CONFIG_SYS_NS16550=y
++CONFIG_SPI=y
++CONFIG_DM_SPI=y
++CONFIG_SYSRESET=y
++CONFIG_USB=y
++CONFIG_DM_USB=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_STORAGE=y
++CONFIG_WDT=y
++CONFIG_HEXDUMP=y
++# CONFIG_GENERATE_SMBIOS_TABLE is not set
+-- 
+2.25.1
 
