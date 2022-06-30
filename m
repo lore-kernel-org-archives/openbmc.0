@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C5DC43334
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 20:03:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C72BBC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jun 2022 20:04:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LYq5q2TXWz3dQs
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 06:03:43 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LYq6X2HMrz3chN
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jul 2022 06:04:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=PJqPEgw5;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=iq2iYgaW;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.38; helo=alexa-out-sd-01.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.39; helo=alexa-out-sd-02.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=PJqPEgw5;
+	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=iq2iYgaW;
 	dkim-atps=neutral
-Received: from alexa-out-sd-01.qualcomm.com (alexa-out-sd-01.qualcomm.com [199.106.114.38])
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com [199.106.114.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYq4z6xt7z3cg7
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LYq4z6vKgz2ywl
 	for <openbmc@lists.ozlabs.org>; Fri,  1 Jul 2022 06:02:58 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
   t=1656619380; x=1688155380;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Z6ke1MKPZiBFKNVvWuD0vMmxvbDmwv4Qe6BYyPZ/twg=;
-  b=PJqPEgw5kOjEZwfaXcWHiDQWRV4iWjOD09jLvCWM13LP+hPZyWa/1AUO
-   RIct5U4M8G1sf0zThebo/ZMAvkANIk1KqvZk645HTdvbdXQNmBnBL0HDn
-   fxBDuK8vl4ZyriBPK4XRblrmBOxr3JWRWVw73W1G0PyZdIXpEUFw97KiY
-   Q=;
-Received: from unknown (HELO ironmsg04-sd.qualcomm.com) ([10.53.140.144])
-  by alexa-out-sd-01.qualcomm.com with ESMTP; 30 Jun 2022 13:02:54 -0700
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mStF7gmi5HL1FVka7Jv3G7H7k+K8ZLG4A1020yILARI=;
+  b=iq2iYgaWteTxyRwrNcEdyoo0uCTNHp6mRuAqHmDJI/iGG86lFllhsJf2
+   JY2FTm2ZRzYPnjQ2O0jBSEmt9jV7crWU14M9+RE8WYIxbfufWbw8CqQRk
+   X3uqD/MMD6OIieBVRrod3wwn/GR4L7ugcMBQlFVlrAeXa7yTFhYDsD1W1
+   M=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+  by alexa-out-sd-02.qualcomm.com with ESMTP; 30 Jun 2022 13:02:54 -0700
 X-QCInternal: smtphost
 Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
-  by ironmsg04-sd.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 13:02:54 -0700
+  by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jun 2022 13:02:53 -0700
 Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
  nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.22; Thu, 30 Jun 2022 13:02:54 -0700
+ 15.2.986.22; Thu, 30 Jun 2022 13:02:53 -0700
 Received: from maru.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
  (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Thu, 30 Jun
- 2022 13:02:53 -0700
+ 2022 13:02:52 -0700
 From: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
 To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 1/3] configs: ast2600: add Qualcomm DC-SCM V1 defconfig
-Date: Thu, 30 Jun 2022 13:02:25 -0700
-Message-ID: <20220630200227.2292079-2-quic_jaehyoo@quicinc.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 0/3] Add Qualcomm DC-SCM V1 defconfig and board support
+Date: Thu, 30 Jun 2022 13:02:24 -0700
+Message-ID: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
-References: <20220630200227.2292079-1-quic_jaehyoo@quicinc.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -73,137 +71,34 @@ Cc: openbmc@lists.ozlabs.org, Graeme Gregory <quic_ggregory@quicinc.com>, =?UTF-
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add Qualcomm DC-SCM V1 defconfig which is equipped with AST2600.
+Hello,
 
-Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
----
- configs/ast2600_qcom_dc_scm_v1_defconfig | 117 +++++++++++++++++++++++
- 1 file changed, 117 insertions(+)
+This series adds Qualcomm DC-SCM V1 defconfig and initial board support.
+Please review!
+
+Thanks,
+
+Jae
+
+Jae Hyun Yoo (3):
+  configs: ast2600: add Qualcomm DC-SCM V1 defconfig
+  board: ast2600_qualcomm: add initial version of Qualcomm DC-SCM V1
+    board
+  board: ast2600_qualcomm: add env default
+
+ arch/arm/mach-aspeed/ast2600/Kconfig          |   8 ++
+ board/aspeed/ast2600_qualcomm/Kconfig         |  15 +++
+ board/aspeed/ast2600_qualcomm/Makefile        |   1 +
+ .../dc-scm-v1-u-boot-env-default.txt          |   4 +
+ board/aspeed/ast2600_qualcomm/dc-scm-v1.c     |  33 +++++
+ configs/ast2600_qcom_dc_scm_v1_defconfig      | 119 ++++++++++++++++++
+ 6 files changed, 180 insertions(+)
+ create mode 100644 board/aspeed/ast2600_qualcomm/Kconfig
+ create mode 100644 board/aspeed/ast2600_qualcomm/Makefile
+ create mode 100644 board/aspeed/ast2600_qualcomm/dc-scm-v1-u-boot-env-default.txt
+ create mode 100644 board/aspeed/ast2600_qualcomm/dc-scm-v1.c
  create mode 100644 configs/ast2600_qcom_dc_scm_v1_defconfig
 
-diff --git a/configs/ast2600_qcom_dc_scm_v1_defconfig b/configs/ast2600_qcom_dc_scm_v1_defconfig
-new file mode 100644
-index 000000000000..353882deed26
---- /dev/null
-+++ b/configs/ast2600_qcom_dc_scm_v1_defconfig
-@@ -0,0 +1,117 @@
-+CONFIG_ARM=y
-+CONFIG_SYS_DCACHE_OFF=y
-+CONFIG_ARCH_ASPEED=y
-+CONFIG_SYS_TEXT_BASE=0x0
-+CONFIG_ASPEED_AST2600=y
-+CONFIG_TARGET_AST2600_QUALCOMM_DC_SCM_V1=y
-+CONFIG_SYS_MALLOC_F_LEN=0x800
-+CONFIG_ENV_SIZE=0x10000
-+CONFIG_ENV_OFFSET=0xE0000
-+CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
-+CONFIG_NR_DRAM_BANKS=1
-+CONFIG_FIT=y
-+CONFIG_USE_BOOTARGS=y
-+CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
-+CONFIG_USE_BOOTCOMMAND=y
-+CONFIG_BOOTCOMMAND="bootm 20100000"
-+CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_BOARD_LATE_INIT=y
-+CONFIG_DISPLAY_BOARDINFO_LATE=y
-+CONFIG_ARCH_EARLY_INIT_R=y
-+CONFIG_BOARD_EARLY_INIT_F=y
-+CONFIG_HUSH_PARSER=y
-+# CONFIG_AUTO_COMPLETE is not set
-+CONFIG_SYS_PROMPT="ast# "
-+CONFIG_CMD_BOOTZ=y
-+# CONFIG_CMD_BOOTEFI is not set
-+# CONFIG_CMD_ELF is not set
-+# CONFIG_CMD_IMI is not set
-+# CONFIG_CMD_XIMG is not set
-+# CONFIG_CMD_NVEDIT_EFI is not set
-+CONFIG_CMD_CRC32=y
-+CONFIG_CRC32_VERIFY=y
-+# CONFIG_LOOPW is not set
-+CONFIG_CMD_MD5SUM=y
-+CONFIG_MD5SUM_VERIFY=y
-+CONFIG_CMD_MEMINFO=y
-+CONFIG_CMD_MEMORY=y
-+CONFIG_CMD_MEMTEST=y
-+CONFIG_SYS_ALT_MEMTEST=y
-+CONFIG_CMD_MX_CYCLIC=y
-+CONFIG_CMD_SHA1SUM=y
-+CONFIG_SHA1SUM_VERIFY=y
-+CONFIG_CMD_STRINGS=y
-+CONFIG_CMD_CLK=y
-+CONFIG_CMD_GPIO=y
-+CONFIG_CMD_I2C=y
-+CONFIG_CMD_MMC=y
-+CONFIG_CMD_PART=y
-+CONFIG_CMD_PCI=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_USB=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_CMD_MII=y
-+CONFIG_CMD_PING=y
-+CONFIG_CMD_NCSI=y
-+CONFIG_CMD_EXT2=y
-+CONFIG_CMD_EXT4=y
-+CONFIG_CMD_EXT4_WRITE=y
-+CONFIG_CMD_FAT=y
-+CONFIG_CMD_FS_GENERIC=y
-+CONFIG_CMD_MTDPARTS=y
-+CONFIG_EFI_PARTITION=y
-+CONFIG_ENV_IS_IN_SPI_FLASH=y
-+CONFIG_USE_ENV_SPI_BUS=y
-+CONFIG_ENV_SPI_BUS=0
-+CONFIG_USE_ENV_SPI_CS=y
-+CONFIG_ENV_SPI_CS=0
-+CONFIG_USE_ENV_SPI_MAX_HZ=y
-+CONFIG_ENV_SPI_MAX_HZ=100000000
-+CONFIG_NET_RANDOM_ETHADDR=y
-+CONFIG_REGMAP=y
-+CONFIG_SYSCON=y
-+CONFIG_CLK=y
-+CONFIG_DM_GPIO=y
-+CONFIG_ASPEED_GPIO=y
-+CONFIG_DM_I2C=y
-+CONFIG_SYS_I2C_ASPEED=y
-+CONFIG_MISC=y
-+CONFIG_ASPEED_AHBC=y
-+CONFIG_ASPEED_H2X=y
-+CONFIG_DM_MMC=y
-+CONFIG_MMC_SDHCI=y
-+CONFIG_MMC_SDHCI_ASPEED=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_GIGADEVICE=y
-+CONFIG_SPI_FLASH_MACRONIX=y
-+CONFIG_SPI_FLASH_SPANSION=y
-+CONFIG_SPI_FLASH_STMICRO=y
-+CONFIG_SPI_FLASH_WINBOND=y
-+CONFIG_PHY_BROADCOM=y
-+CONFIG_PHY_MICREL=y
-+CONFIG_PHY_MICREL_KSZ90X1=y
-+CONFIG_PHY_REALTEK=y
-+CONFIG_PHY_NCSI=y
-+CONFIG_DM_ETH=y
-+CONFIG_PHY_GIGE=y
-+CONFIG_FTGMAC100=y
-+CONFIG_MDIO=y
-+CONFIG_PCI=y
-+CONFIG_DM_PCI=y
-+CONFIG_PCIE_ASPEED=y
-+CONFIG_PHY=y
-+CONFIG_PINCTRL=y
-+CONFIG_RAM=y
-+CONFIG_DM_SERIAL=y
-+CONFIG_SYS_NS16550=y
-+CONFIG_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_SYSRESET=y
-+CONFIG_USB=y
-+CONFIG_DM_USB=y
-+CONFIG_USB_EHCI_HCD=y
-+CONFIG_USB_STORAGE=y
-+CONFIG_WDT=y
-+CONFIG_HEXDUMP=y
-+# CONFIG_GENERATE_SMBIOS_TABLE is not set
 -- 
 2.25.1
 
