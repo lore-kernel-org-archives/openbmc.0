@@ -4,63 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94502C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 09:03:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D543C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 09:03:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmbb91c7qz3c1q
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 19:03:01 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmbbw0FT1z3c3w
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 19:03:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=g0z5qJ+h;
+	dkim=pass (1024-bit key; unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=iQz/MPES;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2607:f8b0:4864:20::1030; helo=mail-pj1-x1030.google.com; envelope-from=naresh.solanki@9elements.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=126.com (client-ip=123.126.96.3; helo=mail-m963.mail.126.com; envelope-from=wangmin_phy@126.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=g0z5qJ+h;
+	dkim=pass (1024-bit key; unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=iQz/MPES;
 	dkim-atps=neutral
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com [IPv6:2607:f8b0:4864:20::1030])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LXr7M5Lltz3bkh
-	for <openbmc@lists.ozlabs.org>; Wed, 29 Jun 2022 15:46:37 +1000 (AEST)
-Received: by mail-pj1-x1030.google.com with SMTP id dw10-20020a17090b094a00b001ed00a16eb4so14959066pjb.2
-        for <openbmc@lists.ozlabs.org>; Tue, 28 Jun 2022 22:46:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=XQsfcuTrW6PCvd3IzADds3QM7CvehQrlrcRUQ07G+0I=;
-        b=g0z5qJ+htY1M6w9uxJ//ELl37Iin/mdNCL2y8ZS04Vl+s1SqMvkf2Z3OX0QUQkywXh
-         JW2zIaILIKjT9HHBMxqVEn5hVlqmleBVIpqjgsKrbzPrnfMmXjbn58HFm4Ps4/wwbwvD
-         WBjQKIH55Ezzhrh/oeV/mNneRX8pxks91fMPpRXmHR6dnYulkCRNkba/44w727h5JJN3
-         hTTQPkI/L7pwwHkNBfZhUq+eniXVdvZBk2OtqKY9da0bpc6wwpvbe0LkL5iIfGqpZ3RS
-         muuWJpozq985PC24UlPdotIQvc8Z5/TMRz/GOpmtN9KbCCa8bmIE7k5D95hsvarHlJoj
-         OjYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=XQsfcuTrW6PCvd3IzADds3QM7CvehQrlrcRUQ07G+0I=;
-        b=UBZNvpzPhZwNKZaIppc1tjXlg6ryiNZ+B5Exx7I3syzhfvmrQra6QtV29VbtFBAsJ9
-         JlrGTY8lWf8Q9D4ehRKKhDOvAJJHfxSR3Kjp2hl5+ZMyrrQOOOXyYWW5vVIOGZl1Cw+Q
-         nm5tsf7pNoaut019P2zmo2Keu3x5Caw/XuTHllLmrUFtvmaLfpASsAOBF5YtUUhqTPGT
-         wDozWu1Iob5SvtInYk+J1R5efIxmTjZl/7QwaUq4sQDknhiKUc7cQjXxRc083JOubyWo
-         EXK+S7OuvjbdUOqhV8fSww8iZcsFn6oHVGyiEVELJZ8uydTjFnkxu0TzBcupXXWrzgB/
-         Hu7w==
-X-Gm-Message-State: AJIora/OyEYSedk0k0iWJPpDlikXcJ0ChVf0YGgJu9+O6B4oPGV50Oyd
-	eytC6NTx97N7magg33AdC1MBmUMfXhorRW1tLgQzWOGrjiQ=
-X-Google-Smtp-Source: AGRyM1tmXT6gTM8FQ/PGkkIx+ZHm/8IvVjDxlpZz1Sd1BQkrmeIFkNbkldbqoszZyBsfcqou5SvY/HhVZA10I72HaG4=
-X-Received: by 2002:a17:90a:8815:b0:1ee:f3f3:2607 with SMTP id
- s21-20020a17090a881500b001eef3f32607mr1999729pjn.72.1656481595902; Tue, 28
- Jun 2022 22:46:35 -0700 (PDT)
+X-Greylist: delayed 1886 seconds by postgrey-1.36 at boromir; Mon, 11 Jul 2022 22:55:21 AEST
+Received: from mail-m963.mail.126.com (mail-m963.mail.126.com [123.126.96.3])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LhP4T63ysz3bw7;
+	Mon, 11 Jul 2022 22:55:09 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=YED4X
+	OFMfSQUREuGAuFmq6pq8tLgCjzUozBrrXGL4+A=; b=iQz/MPES+tTtCKWON0xWf
+	qnBW78o8qvx/zZ3Hk02Z65fp2gTX+A+9quy9y/cDVIkMK9mRu4RfqL+qZHSCP1vu
+	58uo9lKxaNV+EsSde970818H3VjohrHVta7nudVNIlUuaXjJtE1CIO611WMN+o58
+	UCMZBEaU7R7wrA4xNkP8X0=
+Received: from localhost.localdomain (unknown [120.55.36.104])
+	by smtp8 (Coremail) with SMTP id NORpCgCHj3NFFsxifBzKHg--.10313S3;
+	Mon, 11 Jul 2022 20:23:34 +0800 (CST)
+From: wangmin_phy@126.com
+To: openbmc@lists.ozlabs.org,
+	linux-aspeed@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH 1/1] ARM: dts: aspeed: Add device tree for Phytium's BMC
+Date: Mon, 11 Jul 2022 20:23:33 +0800
+Message-Id: <20220711122333.385730-2-wangmin_phy@126.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20220711122333.385730-1-wangmin_phy@126.com>
+References: <20220711122333.385730-1-wangmin_phy@126.com>
 MIME-Version: 1.0
-References: <20220628162044.1121337-1-clg@kaod.org> <20220628162044.1121337-5-clg@kaod.org>
-In-Reply-To: <20220628162044.1121337-5-clg@kaod.org>
-From: Naresh Solanki <naresh.solanki@9elements.com>
-Date: Wed, 29 Jun 2022 11:16:25 +0530
-Message-ID: <CABqG17gD4VwQiSz_LcnikN+GuQ9UqEZB2hm8pCoJFdbGyoj8BA@mail.gmail.com>
-Subject: Re: [PATCH linux 4/5] spi: aspeed: Handle custom decoding ranges
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Content-Type: multipart/alternative; boundary="00000000000019e2fc05e28fad57"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: NORpCgCHj3NFFsxifBzKHg--.10313S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AFW7AF47tw47Aw1rZFW3GFg_yoW7Kr17pa
+	y7uFWrGFWfXw4YgasxAFyvkF1rGw1rGFWIkrnFkFyUGrZI9as0v3y8KryxAr1DXFWUJw45
+	JFWrXr9rWFsrXw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jVdgAUUUUU=
+X-Originating-IP: [120.55.36.104]
+X-CM-SenderInfo: 5zdqwzhlqb1xb16rjloofrz/1tbiLQY7pVpD+0YdKwAAsn
 X-Mailman-Approved-At: Mon, 18 Jul 2022 18:59:27 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -73,314 +60,341 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>, Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
+Cc: liuyongpeng@phytium.com.cn, shuyiqi@phytium.com.cn, wangmin@phytium.com.cn
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---00000000000019e2fc05e28fad57
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Min Wang <wangmin@phytium.com.cn>
 
-Verified for its working.
-Thanks
+The Phytium's BMC card is an ASPEED AST2500-based BMC for the
+hardware reference platform with Phytium's Processors Family.
 
+Signed-off-by: Min Wang <wangmin@phytium.com.cn>
+---
+ arch/arm/boot/dts/Makefile                    |   3 +-
+ .../boot/dts/aspeed-bmc-phytium-pomelo.dts    | 302 ++++++++++++++++++
+ 2 files changed, 304 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-phytium-pomelo.dts
 
-On Tue, 28 Jun 2022 at 21:51, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7e0934180724..e02cd800d45a 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1497,4 +1497,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-portwell-neptune.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb \
+-	aspeed-bmc-supermicro-x11spi.dtb
++	aspeed-bmc-supermicro-x11spi.dtb \
++	aspeed-bmc-phytium-pomelo.dtb
+diff --git a/arch/arm/boot/dts/aspeed-bmc-phytium-pomelo.dts b/arch/arm/boot/dts/aspeed-bmc-phytium-pomelo.dts
+new file mode 100644
+index 000000000000..a75017f22140
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-phytium-pomelo.dts
+@@ -0,0 +1,302 @@
++// SPDX-License-Identifier: GPL-2.0+
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "Phytium AST2500 BMC";
++	compatible = "aspeed,ast2500";
++
++	aliases {
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=tty0 console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@9c000000 {
++			no-map;
++			reg = <0x9c000000 0x04000000>; /* 64M */
++		};
++
++		video_engine_memory: jpegbuffer {
++			size = <0x02000000>;	/* 32M */
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		id-button {
++			label = "id-button";
++			gpios = <&gpio  ASPEED_GPIO(S, 2)  GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		identify {
++			gpios = <&gpio ASPEED_GPIO(C, 6) GPIO_ACTIVE_LOW>;
++		};
++		fault {
++			gpios = <&gpio ASPEED_GPIO(C, 7) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++		      <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++		      <&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
++		      <&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++	};
++};
++
++&adc {
++	status = "okay";
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++		spi-max-frequency = <100000000>;
++	};
++};
++
++&spi2 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++			&pinctrl_rxd1_default
++			&pinctrl_nrts1_default
++			&pinctrl_ndtr1_default
++			&pinctrl_ndsr1_default
++			&pinctrl_ncts1_default
++			&pinctrl_ndcd1_default
++			&pinctrl_nri1_default>;
++
++};
++
++&lpc_snoop {
++	status = "okay";
++	snoop-ports = <0x80>;
++};
++
++&kcs3 {
++	status = "okay";
++	aspeed,lpc-io-reg = <0xCA2>;
++};
++
++&kcs2 {
++	status = "okay";
++	aspeed,lpc-io-reg = <0xCA8>;
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>,
++		 <&syscon ASPEED_CLK_MAC1RCLK>;
++	clock-names = "MACCLK", "RCLK";
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&i2c1 {
++	status = "okay";
++	psu1@58 {
++		compatible = "pmbus";
++		reg = <0x58>;
++	};
++	psu2@59 {
++		compatible = "pmbus";
++		reg = <0x59>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++
++};
++
++&i2c4 {
++	status = "okay";
++	rtc@68 {
++		compatible = "dallas,ds1339";
++		reg = <0x68>;
++	};
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++	lm75@48 {
++		compatible = "ti,tmp100";
++		reg = <0x48>;
++	};
++	lm75@49 {
++		compatible = "ti,tmp100";
++		reg = <0x49>;
++	};
++	lm75@4a {
++		compatible = "ti,tmp100";
++		reg = <0x4a>;
++	};
++	lm75@4c {
++		compatible = "ti,tmp100";
++		reg = <0x4c>;
++	};
++	lm75@4d {
++		compatible = "ti,tmp100";
++		reg = <0x4d>;
++	};
++	lm75@4e {
++		compatible = "ti,tmp100";
++		reg = <0x4e>;
++	};
++
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++
++/*
++ * Enable port A as device (via the virtual hub) and port B as
++ * host by default on the eval board. This can be easily changed
++ * by replacing the override below with &ehci0 { ... } to enable
++ * host on both ports.
++ */
++&vhub {
++	status = "okay";
++};
++
++&ehci1 {
++	status = "okay";
++};
++
++&uhci {
++	status = "okay";
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default
++		     &pinctrl_pwm1_default
++		     &pinctrl_pwm2_default
++		     &pinctrl_pwm3_default
++		     &pinctrl_pwm4_default
++		     &pinctrl_pwm5_default
++		     &pinctrl_pwm6_default
++		     &pinctrl_pwm7_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x1>;
++	};
++
++	fan@2 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x2>;
++	};
++
++	fan@3 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x3>;
++	};
++
++	fan@4 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x4>;
++	};
++
++	fan@5 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x5>;
++	};
++
++	fan@6 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x6>;
++	};
++
++	fan@7 {
++		reg = <0x07>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x7>;
++	};
++};
++
++&video {
++	status = "okay";
++	memory-region = <&video_engine_memory>;
++};
+-- 
+2.27.0
 
-> "ranges" predefines settings of the decoding ranges for each CS. If
-> found in the DT, the driver applies the settings at probe time. The
-> default behavior is to set the decoding range of each CS using the
-> flash device size when the spi slave is setup.
->
-> Cc: Naresh Solanki <naresh.solanki@9elements.com>
-> Cc: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> ---
->  drivers/spi/spi-aspeed-smc.c | 63 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 62 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c
-> index 1611c354c31f..791cbf753a85 100644
-> --- a/drivers/spi/spi-aspeed-smc.c
-> +++ b/drivers/spi/spi-aspeed-smc.c
-> @@ -101,6 +101,7 @@ struct aspeed_spi {
->         u32                      clk_freq;
->
->         struct aspeed_spi_chip   chips[ASPEED_SPI_MAX_NUM_CS];
-> +       bool                     fixed_windows;
->  };
->
->  static u32 aspeed_spi_get_io_mode(const struct spi_mem_op *op)
-> @@ -574,7 +575,8 @@ static int aspeed_spi_dirmap_create(struct
-> spi_mem_dirmap_desc *desc)
->         if (op->data.dir !=3D SPI_MEM_DATA_IN)
->                 return -EOPNOTSUPP;
->
-> -       aspeed_spi_chip_adjust_window(chip, desc->info.offset,
-> desc->info.length);
-> +       if (!aspi->fixed_windows)
-> +               aspeed_spi_chip_adjust_window(chip, desc->info.offset,
-> desc->info.length);
->
->         if (desc->info.length > chip->ahb_window_size)
->                 dev_warn(aspi->dev, "CE%d window (%dMB) too small for
-> mapping",
-> @@ -749,6 +751,61 @@ static const struct attribute_group
-> aspeed_spi_attribute_group =3D {
->         .attrs =3D aspeed_spi_attributes
->  };
->
-> +static int aspeed_spi_chip_read_ranges(struct device_node *node, struct
-> aspeed_spi *aspi)
-> +{
-> +       const char *range_prop =3D "ranges";
-> +       struct property *prop;
-> +       struct aspeed_spi_window ranges[ASPEED_SPI_MAX_NUM_CS];
-> +       int prop_size;
-> +       int count;
-> +       int ret;
-> +       int i;
-> +
-> +       prop =3D of_find_property(node, range_prop, &prop_size);
-> +       if (!prop)
-> +               return 0;
-> +
-> +       count =3D prop_size / sizeof(*ranges);
-> +       if (count > aspi->data->max_cs) {
-> +               dev_err(aspi->dev, "invalid '%s' property %d\n",
-> range_prop, count);
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (count < aspi->data->max_cs)
-> +               dev_dbg(aspi->dev, "'%s' property does not cover all CE\n=
-",
-> +                       range_prop);
-> +
-> +       ret =3D of_property_read_u32_array(node, range_prop, (u32 *)range=
-s,
-> count * 4);
-> +       if (ret)
-> +               return ret;
-> +
-> +       dev_info(aspi->dev, "Using preset decoding ranges\n");
-> +       for (i =3D 0; i < count; i++) {
-> +               struct aspeed_spi_window *win =3D &ranges[i];
-> +
-> +               if (win->cs > aspi->data->max_cs) {
-> +                       dev_err(aspi->dev, "CE%d range is invalid",
-> win->cs);
-> +                       return -EINVAL;
-> +               }
-> +
-> +               /* Trim top bit of the address to keep offset */
-> +               win->offset &=3D aspi->ahb_window_size - 1;
-> +
-> +               /* Minimal check */
-> +               if (win->offset + win->size > aspi->ahb_window_size) {
-> +                       dev_warn(aspi->dev, "CE%d range is too large",
-> win->cs);
-> +                               return -EINVAL;
-> +               }
-> +
-> +               ret =3D aspeed_spi_set_window(aspi, win);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       aspi->fixed_windows =3D true;
-> +       return 0;
-> +}
-> +
->  static int aspeed_spi_probe(struct platform_device *pdev)
->  {
->         struct device *dev =3D &pdev->dev;
-> @@ -806,6 +863,10 @@ static int aspeed_spi_probe(struct platform_device
-> *pdev)
->                 return ret;
->         }
->
-> +       ret =3D aspeed_spi_chip_read_ranges(dev->of_node, aspi);
-> +       if (ret)
-> +               return ret;
-> +
->         /* IRQ is for DMA, which the driver doesn't support yet */
->
->         ctlr->mode_bits =3D SPI_RX_DUAL | SPI_TX_DUAL | data->mode_bits;
-> --
-> 2.35.3
->
->
-
---00000000000019e2fc05e28fad57
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr" class=3D"gmail_sign=
-ature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div style=3D"co=
-lor:rgb(34,34,34);font-size:medium;font-family:Helvetica;line-height:11px">=
-Verified for its working.</div><div style=3D"color:rgb(34,34,34);font-size:=
-medium;font-family:Helvetica;line-height:11px">Thanks</div><div style=3D"co=
-lor:rgb(34,34,34);font-size:medium;font-family:Helvetica;line-height:11px">=
-<br></div><div style=3D"color:rgb(34,34,34);font-size:medium;font-family:He=
-lvetica;line-height:11px"><br></div></div></div></div></div><div class=3D"g=
-mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, 28 Jun 2022 at 21=
-:51, C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kaod.org">clg@kaod.org=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-&quot;ranges&quot; predefines settings of the decoding ranges for each CS. =
-If<br>
-found in the DT, the driver applies the settings at probe time. The<br>
-default behavior is to set the decoding range of each CS using the<br>
-flash device size when the spi slave is setup.<br>
-<br>
-Cc: Naresh Solanki &lt;<a href=3D"mailto:naresh.solanki@9elements.com" targ=
-et=3D"_blank">naresh.solanki@9elements.com</a>&gt;<br>
-Cc: Chin-Ting Kuo &lt;<a href=3D"mailto:chin-ting_kuo@aspeedtech.com" targe=
-t=3D"_blank">chin-ting_kuo@aspeedtech.com</a>&gt;<br>
-Signed-off-by: C=C3=A9dric Le Goater &lt;<a href=3D"mailto:clg@kaod.org" ta=
-rget=3D"_blank">clg@kaod.org</a>&gt;<br>
----<br>
-=C2=A0drivers/spi/spi-aspeed-smc.c | 63 +++++++++++++++++++++++++++++++++++=
--<br>
-=C2=A01 file changed, 62 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c<br=
->
-index 1611c354c31f..791cbf753a85 100644<br>
---- a/drivers/spi/spi-aspeed-smc.c<br>
-+++ b/drivers/spi/spi-aspeed-smc.c<br>
-@@ -101,6 +101,7 @@ struct aspeed_spi {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_freq;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct aspeed_spi_chip=C2=A0 =C2=A0chips[ASPEED=
-_SPI_MAX_NUM_CS];<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bool=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fixed_windows;<br>
-=C2=A0};<br>
-<br>
-=C2=A0static u32 aspeed_spi_get_io_mode(const struct spi_mem_op *op)<br>
-@@ -574,7 +575,8 @@ static int aspeed_spi_dirmap_create(struct spi_mem_dirm=
-ap_desc *desc)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (op-&gt;data.dir !=3D SPI_MEM_DATA_IN)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EOPNOTSUPP;=
-<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0aspeed_spi_chip_adjust_window(chip, desc-&gt;in=
-fo.offset, desc-&gt;info.length);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!aspi-&gt;fixed_windows)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0aspeed_spi_chip_adj=
-ust_window(chip, desc-&gt;info.offset, desc-&gt;info.length);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (desc-&gt;info.length &gt; chip-&gt;ahb_wind=
-ow_size)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_warn(aspi-&gt;d=
-ev, &quot;CE%d window (%dMB) too small for mapping&quot;,<br>
-@@ -749,6 +751,61 @@ static const struct attribute_group aspeed_spi_attribu=
-te_group =3D {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 .attrs =3D aspeed_spi_attributes<br>
-=C2=A0};<br>
-<br>
-+static int aspeed_spi_chip_read_ranges(struct device_node *node, struct as=
-peed_spi *aspi)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0const char *range_prop =3D &quot;ranges&quot;;<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct property *prop;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct aspeed_spi_window ranges[ASPEED_SPI_MAX_=
-NUM_CS];<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int prop_size;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int count;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int i;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0prop =3D of_find_property(node, range_prop, &am=
-p;prop_size);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!prop)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0count =3D prop_size / sizeof(*ranges);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (count &gt; aspi-&gt;data-&gt;max_cs) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_err(aspi-&gt;de=
-v, &quot;invalid &#39;%s&#39; property %d\n&quot;, range_prop, count);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (count &lt; aspi-&gt;data-&gt;max_cs)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_dbg(aspi-&gt;de=
-v, &quot;&#39;%s&#39; property does not cover all CE\n&quot;,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0range_prop);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D of_property_read_u32_array(node, range_=
-prop, (u32 *)ranges, count * 4);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dev_info(aspi-&gt;dev, &quot;Using preset decod=
-ing ranges\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; count; i++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct aspeed_spi_w=
-indow *win =3D &amp;ranges[i];<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (win-&gt;cs &gt;=
- aspi-&gt;data-&gt;max_cs) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dev_err(aspi-&gt;dev, &quot;CE%d range is invalid&quot;, win-&gt;=
-cs);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Trim top bit of =
-the address to keep offset */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0win-&gt;offset &amp=
-;=3D aspi-&gt;ahb_window_size - 1;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Minimal check */=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (win-&gt;offset =
-+ win-&gt;size &gt; aspi-&gt;ahb_window_size) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dev_warn(aspi-&gt;dev, &quot;CE%d range is too large&quot;, win-&=
-gt;cs);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D aspeed_spi_=
-set_window(aspi, win);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return ret;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0aspi-&gt;fixed_windows =3D true;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-=C2=A0static int aspeed_spi_probe(struct platform_device *pdev)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct device *dev =3D &amp;pdev-&gt;dev;<br>
-@@ -806,6 +863,10 @@ static int aspeed_spi_probe(struct platform_device *pd=
-ev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D aspeed_spi_chip_read_ranges(dev-&gt;of_=
-node, aspi);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* IRQ is for DMA, which the driver doesn&#39;t=
- support yet */<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 ctlr-&gt;mode_bits =3D SPI_RX_DUAL | SPI_TX_DUA=
-L | data-&gt;mode_bits;<br>
--- <br>
-2.35.3<br>
-<br>
-</blockquote></div></div>
-
---00000000000019e2fc05e28fad57--
