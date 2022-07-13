@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BEBC43334
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 09:04:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C78C43334
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 09:04:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmbcb4scJz3c3Z
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 19:04:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=X5H7gnPj;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=126.com (client-ip=123.126.96.3; helo=mail-m963.mail.126.com; envelope-from=wangmin_phy@126.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=X5H7gnPj;
-	dkim-atps=neutral
-Received: from mail-m963.mail.126.com (mail-m963.mail.126.com [123.126.96.3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LhP4q0rcYz2xmL;
-	Mon, 11 Jul 2022 22:55:37 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=kYhfT
-	TXFSNJd4PzWfDHhsdkZ92TcmmF06NJjVM9JBEU=; b=X5H7gnPjbIYNsWT8BuV/J
-	+LNAY4Fdj94fVlmm2F02uT7x0n+urkwZpN1PnmvwyvQTuAKmU297e/8HsYqPRSXG
-	ru+81ox0WmH7/4lMAYaWrcSsp2J7KFBm4C3AT6hFEdQ/cGiWSR4fPOaRhhI+r+Gv
-	2UhWJI0ypS1zDLNokUKJh0=
-Received: from localhost.localdomain (unknown [120.55.36.104])
-	by smtp8 (Coremail) with SMTP id NORpCgCHj3NFFsxifBzKHg--.10313S2;
-	Mon, 11 Jul 2022 20:23:34 +0800 (CST)
-From: wangmin_phy@126.com
-To: openbmc@lists.ozlabs.org,
-	linux-aspeed@lists.ozlabs.org,
-	joel@jms.id.au
-Subject: [PATCH 0/1] *** Add device tree for Phytium's BMC ***
-Date: Mon, 11 Jul 2022 20:23:32 +0800
-Message-Id: <20220711122333.385730-1-wangmin_phy@126.com>
-X-Mailer: git-send-email 2.27.0
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmbd249k8z3c6M
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 19:04:38 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LjTD41QZPz3bqT
+	for <openbmc@lists.ozlabs.org>; Wed, 13 Jul 2022 17:05:38 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26D75PNC020380
+	for <openbmc@lists.ozlabs.org>; Wed, 13 Jul 2022 10:05:26 +0300
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 13 Jul
+ 2022 10:05:24 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Wed, 13 Jul
+ 2022 15:05:21 +0800
+Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Wed, 13 Jul 2022 15:05:21 +0800
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id A65BE63A23; Wed, 13 Jul 2022 10:05:19 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
+        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
+        <jic23@kernel.org>, <lars@metafoo.de>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <j.neuschaefer@gmx.net>,
+        <zhengbin13@huawei.com>
+Subject: [PATCH v2 0/2] iio: adc: npcm: add Arbel NPCM8XX support
+Date: Wed, 13 Jul 2022 10:05:15 +0300
+Message-ID: <20220713070517.172852-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: NORpCgCHj3NFFsxifBzKHg--.10313S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUx_HUUUUUU
-X-Originating-IP: [120.55.36.104]
-X-CM-SenderInfo: 5zdqwzhlqb1xb16rjloofrz/1tbiuQY7pVpD92tUFwAAsn
+Content-Type: text/plain
 X-Mailman-Approved-At: Mon, 18 Jul 2022 18:59:27 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -55,22 +56,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: liuyongpeng@phytium.com.cn, shuyiqi@phytium.com.cn, wangmin@phytium.com.cn
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Min Wang <wangmin@phytium.com.cn>
+This patch set adds Arbel NPCM8XX Analog-to-Digital Converter (ADC) support 
+to ADC NPCM driver.
 
-*** BLURB HERE ***
+The NPCM8XX ADC is a 12-bit converter for eight channel inputs.
 
-Min Wang (1):
-  ARM: dts: aspeed: Add device tree for Phytium's BMC
+The NPCM ADC driver tested on NPCM845 evaluation board.
 
- arch/arm/boot/dts/Makefile                    |   3 +-
- .../boot/dts/aspeed-bmc-phytium-pomelo.dts    | 302 ++++++++++++++++++
- 2 files changed, 304 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-phytium-pomelo.dts
+Addressed comments from:
+ - Rob Herring : https://www.spinics.net/lists/kernel/msg4433755.html
+ - Krzysztof Kozlowski: https://www.spinics.net/lists/kernel/msg4434546.html
+ - Andy Shevchenko : https://www.spinics.net/lists/devicetree/msg516844.html
+
+Changes since version 1:
+ - Modify dt-binding compatible property.
+ - Use device_get_match_data function instead of_match_node function.
+
+Tomer Maimon (2):
+  dt-bindings: iio: adc: npcm: Add npcm845 compatible string
+  iio: adc: npcm: Add NPCM8XX support
+
+ .../bindings/iio/adc/nuvoton,npcm750-adc.yaml |  7 ++--
+ drivers/iio/adc/npcm_adc.c                    | 35 +++++++++++++++----
+ 2 files changed, 33 insertions(+), 9 deletions(-)
 
 -- 
-2.27.0
+2.33.0
 
