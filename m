@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04960C433EF
-	for <openbmc@archiver.kernel.org>; Sun, 17 Jul 2022 12:13:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FCCC43334
+	for <openbmc@archiver.kernel.org>; Sun, 17 Jul 2022 15:05:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lm3rx3kTcz3c3D
-	for <openbmc@archiver.kernel.org>; Sun, 17 Jul 2022 22:13:05 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lm7gL5Ftwz3c5d
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 01:05:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=atuzkpNQ;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=jic23@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=atuzkpNQ;
+	dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lm3qw2LgZz3blt
-	for <openbmc@lists.ozlabs.org>; Sun, 17 Jul 2022 22:12:08 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26HCC1Yu023593
-	for <openbmc@lists.ozlabs.org>; Sun, 17 Jul 2022 15:12:01 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 17 Jul
- 2022 15:12:00 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Sun, 17 Jul
- 2022 20:11:55 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Sun, 17 Jul 2022 20:11:54 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id EE34063A23; Sun, 17 Jul 2022 15:11:52 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <jic23@kernel.org>, <minyard@acm.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v1 1/2] dt-bindings: ipmi: Add npcm845 compatible
-Date: Sun, 17 Jul 2022 15:11:23 +0300
-Message-ID: <20220717121124.154734-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220717121124.154734-1-tmaimon77@gmail.com>
-References: <20220717121124.154734-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lm7fc2Y9Vz3052
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 01:04:24 +1000 (AEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 14B1361231;
+	Sun, 17 Jul 2022 15:04:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD50BC3411E;
+	Sun, 17 Jul 2022 15:04:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1658070259;
+	bh=BxuIeHHjKT+QK1LwDy/gj0wFfMVCa2LuSM5eUhYt+GE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=atuzkpNQ/XRR++UOciAGLH7C+M5MiCZItNh8JcRbFDT6uLbRu066f8shCDVt2KZTV
+	 G5DCwuB8InttFqL/9TyF8QNB40msPAP2el9nyJK26GP9POLfg1ASz65XT1u4zBrWYV
+	 051P93Gx6sW52t/uwXdNCm5c8H0A24sGe7I2LiAhC4ldoWjAyMmPt7NOfCUaeaECg/
+	 xE3nLpwOchcdiEBfCRdWwEWkhWXsDuBZ/SPDZWMweMHq/QBHBs35GwqXyk0wlCn870
+	 sfBeHjs0NVl9rPw4M415qsy59BgtcQMGhBUtqNeKjzZy+9TlG3purKiB49JVGf2P2b
+	 FftupYWp2WEJg==
+Date: Sun, 17 Jul 2022 16:14:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [PATCH v3 2/2] iio: adc: npcm: Add NPCM8XX support
+Message-ID: <20220717161412.69b2743e@jic23-huawei>
+In-Reply-To: <20220713172132.0bc5002d@jic23-huawei>
+References: <20220713132640.215916-1-tmaimon77@gmail.com>
+	<20220713132640.215916-3-tmaimon77@gmail.com>
+	<20220713172132.0bc5002d@jic23-huawei>
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.34; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +62,140 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, lars@metafoo.de, benjaminfair@google.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, j.neuschaefer@gmx.net, linux-iio@vger.kernel.org, tali.perry1@gmail.com, zhengbin13@huawei.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 KCS and modify NPCM KCS
-description to support all NPCM BMC SoC.
+On Wed, 13 Jul 2022 17:21:32 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> On Wed, 13 Jul 2022 16:26:40 +0300
+> Tomer Maimon <tmaimon77@gmail.com> wrote:
+> 
+> > Adding ADC NPCM8XX support to NPCM ADC driver.
+> > ADC NPCM8XX uses a different resolution and voltage reference.
+> > 
+> > As part of adding NPCM8XX support:
+> > - Add NPCM8XX specific compatible string.
+> > - Add data to handle architecture-specific ADC parameters.
+> > 
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>  
+> missing 
+> 
+> #include <linux/property.h> 
+> 
+> So in current IIO togreg tree this doesn't build.  I could fix it up
+> but given we are very late in cycle and I'd like to give this a little
+> more time on list for Andy to take another look if he wishes, chances
+> are this won't make it in until early next cycle.
+> 
+Applied to the togreg branch of iio.git and pushed out as testing for
+now only as I'll be rebaseing on rc1 once available.
 
-diff --git a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-index 352f5e9c759b..cbc10a68ddef 100644
---- a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-+++ b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-@@ -1,12 +1,13 @@
--* Nuvoton NPCM7xx KCS (Keyboard Controller Style) IPMI interface
-+* Nuvoton NPCM KCS (Keyboard Controller Style) IPMI interface
- 
--The Nuvoton SOCs (NPCM7xx) are commonly used as BMCs
-+The Nuvoton SOCs (NPCM) are commonly used as BMCs
- (Baseboard Management Controllers) and the KCS interface can be
- used to perform in-band IPMI communication with their host.
- 
- Required properties:
- - compatible : should be one of
-     "nuvoton,npcm750-kcs-bmc"
-+    "nuvoton,npcm845-kcs-bmc"
- - interrupts : interrupt generated by the controller
- - kcs_chan : The KCS channel number in the controller
- 
--- 
-2.33.0
+Thanks,
+
+Jonathan
+
+> Thanks,
+> 
+> Jonathan
+> 
+> > ---
+> >  drivers/iio/adc/npcm_adc.c | 35 ++++++++++++++++++++++++++++-------
+> >  1 file changed, 28 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
+> > index f7bc0bb7f112..4c7ebcd57b88 100644
+> > --- a/drivers/iio/adc/npcm_adc.c
+> > +++ b/drivers/iio/adc/npcm_adc.c
+> > @@ -16,6 +16,12 @@
+> >  #include <linux/uaccess.h>
+> >  #include <linux/reset.h>
+> >  
+> > +struct npcm_adc_info {
+> > +	u32 data_mask;
+> > +	u32 internal_vref;
+> > +	u32 res_bits;
+> > +};
+> > +
+> >  struct npcm_adc {
+> >  	bool int_status;
+> >  	u32 adc_sample_hz;
+> > @@ -34,6 +40,7 @@ struct npcm_adc {
+> >  	 * has finished.
+> >  	 */
+> >  	struct mutex lock;
+> > +	const struct npcm_adc_info *data;
+> >  };
+> >  
+> >  /* ADC registers */
+> > @@ -52,13 +59,21 @@ struct npcm_adc {
+> >  #define NPCM_ADCCON_CH(x)		((x) << 24)
+> >  #define NPCM_ADCCON_DIV_SHIFT		1
+> >  #define NPCM_ADCCON_DIV_MASK		GENMASK(8, 1)
+> > -#define NPCM_ADC_DATA_MASK(x)		((x) & GENMASK(9, 0))
+> >  
+> >  #define NPCM_ADC_ENABLE		(NPCM_ADCCON_ADC_EN | NPCM_ADCCON_ADC_INT_EN)
+> >  
+> >  /* ADC General Definition */
+> > -#define NPCM_RESOLUTION_BITS		10
+> > -#define NPCM_INT_VREF_MV		2000
+> > +static const struct npcm_adc_info npxm7xx_adc_info = {
+> > +	.data_mask = GENMASK(9, 0),
+> > +	.internal_vref = 2048,
+> > +	.res_bits = 10,
+> > +};
+> > +
+> > +static const struct npcm_adc_info npxm8xx_adc_info = {
+> > +	.data_mask = GENMASK(11, 0),
+> > +	.internal_vref = 1229,
+> > +	.res_bits = 12,
+> > +};
+> >  
+> >  #define NPCM_ADC_CHAN(ch) {					\
+> >  	.type = IIO_VOLTAGE,					\
+> > @@ -129,7 +144,8 @@ static int npcm_adc_read(struct npcm_adc *info, int *val, u8 channel)
+> >  	if (ret < 0)
+> >  		return ret;
+> >  
+> > -	*val = NPCM_ADC_DATA_MASK(ioread32(info->regs + NPCM_ADCDATA));
+> > +	*val = ioread32(info->regs + NPCM_ADCDATA);
+> > +	*val &= info->data->data_mask;
+> >  
+> >  	return 0;
+> >  }
+> > @@ -157,9 +173,9 @@ static int npcm_adc_read_raw(struct iio_dev *indio_dev,
+> >  			vref_uv = regulator_get_voltage(info->vref);
+> >  			*val = vref_uv / 1000;
+> >  		} else {
+> > -			*val = NPCM_INT_VREF_MV;
+> > +			*val = info->data->internal_vref;
+> >  		}
+> > -		*val2 = NPCM_RESOLUTION_BITS;
+> > +		*val2 = info->data->res_bits;
+> >  		return IIO_VAL_FRACTIONAL_LOG2;
+> >  	case IIO_CHAN_INFO_SAMP_FREQ:
+> >  		*val = info->adc_sample_hz;
+> > @@ -176,7 +192,8 @@ static const struct iio_info npcm_adc_iio_info = {
+> >  };
+> >  
+> >  static const struct of_device_id npcm_adc_match[] = {
+> > -	{ .compatible = "nuvoton,npcm750-adc", },
+> > +	{ .compatible = "nuvoton,npcm750-adc", .data = &npxm7xx_adc_info},
+> > +	{ .compatible = "nuvoton,npcm845-adc", .data = &npxm8xx_adc_info},
+> >  	{ /* sentinel */ }
+> >  };
+> >  MODULE_DEVICE_TABLE(of, npcm_adc_match);
+> > @@ -196,6 +213,10 @@ static int npcm_adc_probe(struct platform_device *pdev)
+> >  		return -ENOMEM;
+> >  	info = iio_priv(indio_dev);
+> >  
+> > +	info->data = device_get_match_data(dev);
+> > +	if (!info->data)
+> > +		return -EINVAL;
+> > +
+> >  	mutex_init(&info->lock);
+> >  
+> >  	info->dev = &pdev->dev;  
+> 
 
