@@ -4,47 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2C77C43334
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 08:14:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5265C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 08:32:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LmZVm2vc4z3c4Z
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:14:08 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LmZvd2Ysvz3c3c
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:32:13 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=iYfcMNoO;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::430; helo=mail-wr1-x430.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=iYfcMNoO;
+	dkim-atps=neutral
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com [IPv6:2a00:1450:4864:20::430])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmZTH65LFz3c1Q
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 18:12:50 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26I8CfWD015559
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 11:12:42 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 18 Jul
- 2022 11:12:41 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Mon, 18 Jul
- 2022 16:12:39 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Mon, 18 Jul 2022 16:12:39 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 7522263A20; Mon, 18 Jul 2022 11:12:38 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <broonie@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v1 2/3] dt-binding: spi: Add npcm845 compatible to npcm-fiu document
-Date: Mon, 18 Jul 2022 11:11:45 +0300
-Message-ID: <20220718081146.256070-3-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220718081146.256070-1-tmaimon77@gmail.com>
-References: <20220718081146.256070-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmZtr4tV4z2xn6
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 18:31:30 +1000 (AEST)
+Received: by mail-wr1-x430.google.com with SMTP id d16so15914017wrv.10
+        for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 01:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jms.id.au; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=LJKhQUd6xv8UVrB6TPmjuLtGUxti4beDYERkVcKWtJ4=;
+        b=iYfcMNoOaavzRK8reaHIHfALUMiZxvbY+nj8NFDtcNJiUedWzc7ZDeK4z+Xi0Ew0xB
+         nq868M3y5Xi/Yf7zaIlVlwBo9G6zTMwZjXV0cY7lbqQue9DUo4Z4nO+l3uIQbY/fEsMR
+         bWTxpvWEhBrBJ8Ca2mScgd/4Sqmv+jJI7JjLg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=LJKhQUd6xv8UVrB6TPmjuLtGUxti4beDYERkVcKWtJ4=;
+        b=qd60j8l4u9R2tU3FlK9sqpvs6SJ8EKMX/4A1q+A9p5zcqAQ/VK3UNWiSVCoK7Ewt2N
+         jv8x+cJFERoHbG2P49m0qwxjMwX6E3kYXc0ISMAYfFgSGo2d5VxnsZDPxeOgDRM83NHs
+         2oA7PxQ7H4Do2hoyeegpWh5ia3IYvzz7ZbKlyTwfpK3WVR0/RJLHLGj+S2SUAYCbah2E
+         ZB29/FmM5RvP7Iums/gjCBCfDj4XBTjYKUm+Nr4l1Frp4ElCtPkWLog8OyQUeb0WEMOA
+         2G8ObADxqPzE41x6wTciEaddnSuidkNqK75PjUh/dk3WDVo+iM3Kp5Ws/bOB6j1m+DRG
+         ByQA==
+X-Gm-Message-State: AJIora/4s1cWIrfJQOxut9vShpMgNlF7HLi+mm4/4F/OPJ1d2rKNTg6t
+	7v3/DrZTmn+E+lAU2IkN/sS9ni2B9zdpbOW0muk=
+X-Google-Smtp-Source: AGRyM1sGS8DxBZHVBvi+Bt3nW4gLnaTlysfyqNHln/bGjfCX/P7bDfOhilsKe0Gr7GfiULN6IijJLMctM4YH5vFyivs=
+X-Received: by 2002:a5d:4a09:0:b0:21d:a9ad:3b1b with SMTP id
+ m9-20020a5d4a09000000b0021da9ad3b1bmr21086869wrq.3.1658133083405; Mon, 18 Jul
+ 2022 01:31:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+References: <20220715033327.1053462-1-joel@jms.id.au> <f518fc94-5534-0fac-c5fc-7059eb166b0c@molgen.mpg.de>
+In-Reply-To: <f518fc94-5534-0fac-c5fc-7059eb166b0c@molgen.mpg.de>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 18 Jul 2022 08:31:11 +0000
+Message-ID: <CACPK8XcBQmhf2sObvWWvbOyaGzBWd5t9+t0ibtpM64aWAjLGvQ@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc] tools: Disable OpenSSL
+ deprecation warnings
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,49 +71,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string and description for Nuvoton BMC NPCM845 FIU.
+On Fri, 15 Jul 2022 at 07:25, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
+>
+> Dear Joel,
+>
+>
+> Thank you for the patch.
+>
+> Am 15.07.22 um 05:33 schrieb Joel Stanley:
+> > mkimage is linked against the host version of OpenSSL. If the distro
+> > happens to be using OpenSSL 3.0 then several warnings about using
+> > depreciated functions will be emitted.
+>
+> sdepreciated/deprecated/
+>
+> >
+> >   warning: =E2=80=98RSA_get0_key=E2=80=99 is deprecated: Since OpenSSL =
+3.0 [-Wdeprecated-declarations]
+> >
+> > These functions still work for now, so suppress the warning and delay
+> > the need to move to the new API.
+> >
+> > Signed-off-by: Joel Stanley <joel@jms.id.au>
+>
+> [=E2=80=A6]
+>
+> Reviewed-by: Paul Menzel <pmenzel@molgne.mpg.de>
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../devicetree/bindings/spi/nuvoton,npcm-fiu.txt    | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Thanks for the review. I fixed the grammar and committed it.
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
-index a388005842ad..c63ce4cc0a80 100644
---- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
-@@ -6,8 +6,13 @@ The NPCM7XX supports three FIU modules,
- FIU0 and FIUx supports two chip selects,
- FIU3 support four chip select.
- 
-+The NPCM8XX supports four FIU modules,
-+FIU0 and FIUx supports two chip selects,
-+FIU1 and FIU3 supports four chip selects.
-+
- Required properties:
--  - compatible : "nuvoton,npcm750-fiu" for the NPCM7XX BMC
-+  - compatible : "nuvoton,npcm750-fiu" for Poleg NPCM7XX BMC
-+			     "nuvoton,npcm845-fiu" for Arbel NPCM8XX BMC
-   - #address-cells : should be 1.
-   - #size-cells : should be 0.
-   - reg : the first contains the register location and length,
-@@ -30,6 +35,12 @@ Aliases:
-   		fiu1 represent fiu 3 controller
-   		fiu2 represent fiu x controller
- 
-+  In the NPCM8XX BMC:
-+  		fiu0 represent fiu 0 controller
-+  		fiu1 represent fiu 1 controller
-+  		fiu2 represent fiu 3 controller
-+  		fiu3 represent fiu x controller
-+
- Example:
- fiu3: spi@c00000000 {
- 	compatible = "nuvoton,npcm750-fiu";
--- 
-2.33.0
+Cheers,
 
+Joel
