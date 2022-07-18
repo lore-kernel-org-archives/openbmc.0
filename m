@@ -4,49 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB60AC43334
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0677C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:25:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmqyk1YrCz3c23
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jul 2022 04:20:46 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lmr4J0RRfz3btl
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jul 2022 04:25:36 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=NahQkqpL;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com; envelope-from=edtanous@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=NahQkqpL;
+	dkim-atps=neutral
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmqxH2R5nz30DP
-	for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2022 04:19:28 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26IIJKQI027509
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 21:19:20 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 18 Jul
- 2022 21:19:20 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7; Tue, 19 Jul
- 2022 02:19:18 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Tue, 19 Jul 2022 02:19:18 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 6526563A20; Mon, 18 Jul 2022 21:19:17 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
-        <tony@atomide.com>, <felipe.balbi@linux.intel.com>, <jgross@suse.com>,
-        <lukas.bulwahn@gmail.com>, <arnd@arndb.de>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v2 2/3] dt-bindings: usb: npcm7xx: Add npcm845 compatible
-Date: Mon, 18 Jul 2022 21:18:41 +0300
-Message-ID: <20220718181842.61040-3-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220718181842.61040-1-tmaimon77@gmail.com>
-References: <20220718181842.61040-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lmr3b38Ktz3050
+	for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2022 04:24:58 +1000 (AEST)
+Received: by mail-pg1-x532.google.com with SMTP id f11so11338087pgj.7
+        for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 11:24:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=XYgWNBKyznGTl/hdjEZ8e0/fK5WKYtnepNIzq668AoI=;
+        b=NahQkqpLoX/NE4BYC80oXl/D6nKh+3GbVqHXdX+ZIcQuING0TPqMYU4eaBGOrm7LB+
+         X1nZm4lyRfnjseb1UZ/Qh1BF+WgzoBUJku+CD2cW5HHoTKmgCek2jkzHmxXeTBzsJoSk
+         wX8pTqRwCgoMn+U4ART7QQ48GeF5AiAnAZO3acUtiWsY2J5LNC+jkF+uuCoOGMQDRNm0
+         ETzcrPhhmZBOfo3WdOiO9lChxnoYemf+XuYkc5D2jRzrubI+mu0g4+Ja//5hKY3rtKg0
+         mxvjQXgOn8+JydSlVYjf+vmhQOr4Koc/zeEMDc+OGjBks6GMAQB8ff5GsbQklVk7MHAH
+         BKMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=XYgWNBKyznGTl/hdjEZ8e0/fK5WKYtnepNIzq668AoI=;
+        b=qVC2QkF5MQfhKyiQTloyLA1IbVWxs/ElBOz9WXuuM5DpchDIYJGqKUhMIRZhEsn1o2
+         rtZxNXaXxtnZ1Q1Jd20Flq934Lw+ZBY2BUfMg5JdA8S0KGQ0KT8RxvvvCF2lPAFnA2jD
+         wt7CcHYfOpk3fwOm/MN6DK0Th4HtAGehzosMc8Xdq3ktGiW4eQRU5esz0RcaSuWhELYZ
+         oxr/dFzh2Eb8Qw3rtjYqg1efL4Khqw4pCdv8xD9mFxLkpDr2x4cqwA9owaieqX93ftRR
+         Vjuwmn0BPqfWhWE+iodH59eYaeWLkzWwcxi6tCHgi5vQHlwmn4vhyrGbNRDLZrE/HaB5
+         2Lyg==
+X-Gm-Message-State: AJIora+dotRDzLGzUcCN59B0lXrNAYJs7fdX6t2ErWNhpL6cyqQFervZ
+	HkkWaeEm9dRPhZQUYPhj/3+BGeulkXEzav9Xt9YC92tXlGeH7ESH
+X-Google-Smtp-Source: AGRyM1sAg2Sbxu69S+Nk9JNIXWOmvWL0X70SqvEU6T/laanj7xghStnTwq7dqXvY7Fb7HQhJvoOtK9lQzhyruVCiiBo=
+X-Received: by 2002:a63:6b84:0:b0:410:702f:88d8 with SMTP id
+ g126-20020a636b84000000b00410702f88d8mr26370723pgc.534.1658168695349; Mon, 18
+ Jul 2022 11:24:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+References: <4fd07678.20a7.181be531f49.Coremail.geratul@163.com>
+In-Reply-To: <4fd07678.20a7.181be531f49.Coremail.geratul@163.com>
+From: Ed Tanous <edtanous@google.com>
+Date: Mon, 18 Jul 2022 11:24:44 -0700
+Message-ID: <CAH2-KxCmhpZK-KqtouBJfN72-tph=QYdXdZ1xq_CAyEDwciNXw@mail.gmail.com>
+Subject: Re: about webui-vue vue version
+To: Yang <geratul@163.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,33 +72,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 USB EHCI host controller.
+On Mon, Jul 18, 2022 at 2:08 AM Yang <geratul@163.com> wrote:
+>
+> Hello
+>
+>     I am a web developer.I want to ask if you have any plan to upgrade the vue framework of webui-vue to vue3.x. If yes ,when do you begin to do this.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The short answer is: Whenever someone needs it enough to send the
+patch in and test it.  With that said, I spent about an hour on this
+last week, and the (untested) progress I made is here:
+https://gerrit.openbmc.org/c/openbmc/webui-vue/+/55438
 
-diff --git a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-index 5a0f1f14fbfa..352a0a1e2f76 100644
---- a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-+++ b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-@@ -5,7 +5,9 @@ EHCI:
- -----
- 
- Required properties:
--- compatible: "nuvoton,npcm750-ehci"
-+- compatible: should be one of
-+    "nuvoton,npcm750-ehci"
-+    "nuvoton,npcm845-ehci"
- - interrupts: Should contain the EHCI interrupt
- - reg:        Physical address and length of the register set for the device
- 
--- 
-2.33.0
+Feel free to use it as a starting point if it's something you want to
+see happen on master.  I think right now the last build-thing that
+needs to occur before we can start testing is moving the unit tests
+over to the vue-tools 3 style.
 
+>
+> Thank you very much !
