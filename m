@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE2AC43334
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 08:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF9BC43334
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 08:50:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LmbJP1zG8z3c2V
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:50:13 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LmbK668Ccz3c4W
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jul 2022 18:50:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=O0gyfJw4;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=OS4dBJZd;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102b; helo=mail-pj1-x102b.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=O0gyfJw4;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=OS4dBJZd;
 	dkim-atps=neutral
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com [IPv6:2607:f8b0:4864:20::102b])
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmbFf4zzdz3c36
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 18:47:49 +1000 (AEST)
-Received: by mail-pj1-x102b.google.com with SMTP id b10so200361pjq.5
-        for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 01:47:49 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmbFh45Sdz3c5h
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 18:47:52 +1000 (AEST)
+Received: by mail-pg1-x52e.google.com with SMTP id 23so9964465pgc.8
+        for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 01:47:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=yifBd2n4QDMYqazu6CfgI4lc8zpl2b/rWdFJCdaCing=;
-        b=O0gyfJw4UxNUkRw86oTixGMug3BUIIKqri++gw4qfQh3tRLnouxQ9a0K5tLgU7vmDE
-         1H5+YwCosxeeOH0gxlsMjI1Yhn7F8mtgvDPfW0VoFa5RZVIx98Fiu52Rebc4+e7mmrlH
-         K4KpbfXva+mYl7huuz9q0BuqIpk86tYKdABP9LGYkmitpzLgkfidn+ExB0+xdkAOi0Ws
-         TQlPCpBnuxPIilHLWoLhA/b26gjLub2K79mpzT5eGR8W4odxSpfTTmHIQoSxOSPL9R3R
-         xQWASVQO5jztZm6uyCD+RM5P/4pGlKLgtOOY7CTfKLWs1BkkJOD/8l7NwVqKT0GTH/1K
-         3KTQ==
+        bh=gGTNzPjEZYpLT4vW76g3OPKhcCsIvw3YoUWlJme06UI=;
+        b=OS4dBJZd6Su+QhDeXDmADUCzoS+jsVW2HA1v8BWUQwrAVPfLywK+UMrEmQ1dgPp2l+
+         osSh+Xr6sXTDvPsNX/uN2cLVofOLDBhkmkL12QOm2OZ1FJ2yYegIzugBDZulV95su6in
+         bb3UrQh+I9mio2pxjyey5H3fD7smV7KLqflXKED/p57w+AcWFelHqFaE/jKht/41j/KE
+         ZbaBfCXQa+o7Zoto5GKHV9Qq/8P07KrDOO/4OVmBPg9KdlZMgp3y0voJmw8NciEf9a1w
+         PNAOh70vFi1WyvIRIAWtKvmuClJx4QIz2qFv4JrcP2GqEF/l8lf945/YzU+imb3sgdJc
+         MoYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :in-reply-to:references:mime-version:content-transfer-encoding;
-        bh=yifBd2n4QDMYqazu6CfgI4lc8zpl2b/rWdFJCdaCing=;
-        b=Epkf5xZ0afc9ieAznVtMgxbUQR/vg9+5/uVq6iul2MYyWt7JNuVib0WF8l4XRtjdjC
-         HHliGZEDACMn/kSLWSYYJtm/OjtsAkDmu3+C+XTgfK/4TxI2nldgYac+9H79RLL4Ex7m
-         JqGml0puYU/IT1C9kOjrtK7vdr29eBZkN47wPYkwT7gTj7PeeunlyVHwHQFNjYd5D4RY
-         9cbmmZryJQtBcOQMbLvho0lMrSbZMA8BXtES8AEuCU9BLUGWu1y2fLxmiYlDHauCTOYX
-         c56QkUTKPekfWdRH5A3LXE4vMVXETrpardfuca3l1HhRW3SkqWxq+XnMvIQ/ZUOMcaUc
-         0WAw==
-X-Gm-Message-State: AJIora8Oi4Ok71CcorOOXRR2QNoKJ8HuUMA+an/q1SIjQ/Uvw/s98Nnq
-	l1ug/kaqDwDLmn9BWpvJbQTUyHZSeeo=
-X-Google-Smtp-Source: AGRyM1t3UwTtNN+S0ERhXW7uDH2KXe7maLgbRMG4ITY8qYaCT/40XrGNAisTL0+rMRl63p8VCApxiQ==
-X-Received: by 2002:a17:90b:1206:b0:1ef:7bcd:e8d1 with SMTP id gl6-20020a17090b120600b001ef7bcde8d1mr31594946pjb.156.1658134066871;
-        Mon, 18 Jul 2022 01:47:46 -0700 (PDT)
+        bh=gGTNzPjEZYpLT4vW76g3OPKhcCsIvw3YoUWlJme06UI=;
+        b=7bQWrqEQ30WYzH11yKdhsOl882mIg3hn3HYGtdiTDCAMd4jK1AJ55imQ3LOWfmKZj6
+         V3eip9mqc+B4qJoJq7RPKAGvoSSSzypps3TvUx5VdNpo7WXEtHuDp9/uekgpA73gfHYH
+         3BcS9UTquOJQy1pcWbxNQrtYzKkxin/89sPGghdoJu+X06aNoRWvrTNmzL/ol337BfiG
+         zUHaYkf+QD0twjVI/t7R5Chbe4oSaJZLa5t6zAExeIhdxhx1caLphDS5WnuN5xz9SR3M
+         NK8cTHkP3GV176V0yVhUF3gBPJNMkboAgE2MUIk7brSnCCytSTyLEMwufRDeOVc0jfPh
+         nYFQ==
+X-Gm-Message-State: AJIora+Fcv8X8TBKtJ5KKWZEgrL3JadF5TRgISigxTkwtc6wLjb1s2VA
+	dqCJL3086FY0SrLzem2i5weMzf4FW5M=
+X-Google-Smtp-Source: AGRyM1twgx12QOOdRHdzxu16oPB836sd4SbrT8ro2XapNG/Oq3PrxCByAhNw5luBT+GmgvRYulywMg==
+X-Received: by 2002:a05:6a00:1703:b0:52b:39a4:4632 with SMTP id h3-20020a056a00170300b0052b39a44632mr16845001pfc.29.1658134069399;
+        Mon, 18 Jul 2022 01:47:49 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.18])
-        by smtp.gmail.com with ESMTPSA id i28-20020a056a00225c00b005289521b656sm8806095pfu.92.2022.07.18.01.47.44
+        by smtp.gmail.com with ESMTPSA id i28-20020a056a00225c00b005289521b656sm8806095pfu.92.2022.07.18.01.47.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 Jul 2022 01:47:46 -0700 (PDT)
+        Mon, 18 Jul 2022 01:47:48 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 3/5] cmd/otp: Depend on SHA variants
-Date: Mon, 18 Jul 2022 18:17:26 +0930
-Message-Id: <20220718084728.1140108-4-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 4/5] cmd/otp: Use hashing API
+Date: Mon, 18 Jul 2022 18:17:27 +0930
+Message-Id: <20220718084728.1140108-5-joel@jms.id.au>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220718084728.1140108-1-joel@jms.id.au>
 References: <20220718084728.1140108-1-joel@jms.id.au>
@@ -80,32 +80,107 @@ Cc: Zev Weiss <zweiss@equinix.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Indicate which SHA algorithms are required by depending on them. Don't
-select them, as this force enables the options.
+Instead of calling the hashing functions directly, which uses the
+software implementation of the algorithms, use the hash API which
+allows the use of the HACE driver.
+
+Saves 12.5KB:
+
+ Before=279327, After=266547, chg -4.58%
 
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- cmd/Kconfig | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ cmd/otp.c | 49 +++++++++++++++++--------------------------------
+ 1 file changed, 17 insertions(+), 32 deletions(-)
 
-diff --git a/cmd/Kconfig b/cmd/Kconfig
-index ff90a5d99acc..8b90f0f23406 100644
---- a/cmd/Kconfig
-+++ b/cmd/Kconfig
-@@ -616,11 +616,9 @@ menu "Device access commands"
+diff --git a/cmd/otp.c b/cmd/otp.c
+index 049c217d6048..add70c841405 100644
+--- a/cmd/otp.c
++++ b/cmd/otp.c
+@@ -305,33 +305,6 @@ static int get_rid_num(u32 *rid)
+ 	return rid_num;
+ }
  
- config CMD_OTP
- 	depends on ASPEED_AST2600
-+	depends on SHA256 && SHA384 && SHA512
-         bool "ASPEED otp program"
--	select SHA512_ALGO
--	select SHA512
--	select SHA384
--	select SHA256
-+	select HASH
- 	select RSA
-         default y
+-static void sb_sha256(u8 *src, u32 len, u8 *digest_ret)
+-{
+-	sha256_context ctx;
+-
+-	sha256_starts(&ctx);
+-	sha256_update(&ctx, src, len);
+-	sha256_finish(&ctx, digest_ret);
+-}
+-
+-static void sb_sha384(u8 *src, u32 len, u8 *digest_ret)
+-{
+-	sha512_context ctx;
+-
+-	sha384_starts(&ctx);
+-	sha384_update(&ctx, src, len);
+-	sha384_finish(&ctx, digest_ret);
+-}
+-
+-static void sb_sha512(u8 *src, u32 len, u8 *digest_ret)
+-{
+-	sha512_context ctx;
+-
+-	sha512_starts(&ctx);
+-	sha512_update(&ctx, src, len);
+-	sha512_finish(&ctx, digest_ret);
+-}
+-
+ static u32 chip_version(void)
+ {
+ 	u32 revid0, revid1;
+@@ -1912,6 +1885,18 @@ static int otp_check_scu_image(struct otp_image_layout *image_layout, u32 *scu_p
+ 	return OTP_SUCCESS;
+ }
  
++static void do_hash(const void *data, int data_len, const char *algo_name, uint8_t *value)
++{
++        struct hash_algo *algo;
++
++        if (hash_lookup_algo(algo_name, &algo)) {
++                debug("Unsupported hash alogrithm\n");
++                return;
++        }
++
++        algo->hash_func_ws(data, data_len, value, algo->chunk_size);
++}
++
+ static int otp_verify_image(u8 *src_buf, u32 length, u8 *digest_buf, int version)
+ {
+ 	u8 digest_ret[48];
+@@ -1919,11 +1904,11 @@ static int otp_verify_image(u8 *src_buf, u32 length, u8 *digest_buf, int version
+ 
+ 	switch (version) {
+ 	case 1:
+-		sb_sha256(src_buf, length, digest_ret);
++		do_hash(src_buf, length, "sha256", digest_ret);
+ 		digest_len = 32;
+ 		break;
+ 	case 2:
+-		sb_sha384(src_buf, length, digest_ret);
++		do_hash(src_buf, length, "sha384", digest_ret);
+ 		digest_len = 48;
+ 		break;
+ 	default:
+@@ -2549,13 +2534,13 @@ static int sb_sha(struct sb_info *si, u8 *sec_image, u32 sign_image_size, u8 *di
+ 		printf("otp verify does not support SHA224\n");
+ 		return OTP_FAILURE;
+ 	case 256:
+-		sb_sha256(sec_image, sign_image_size, digest_ret);
++		do_hash(sec_image, sign_image_size, "sha256", digest_ret);
+ 		break;
+ 	case 384:
+-		sb_sha384(sec_image, sign_image_size, digest_ret);
++		do_hash(sec_image, sign_image_size, "sha384", digest_ret);
+ 		break;
+ 	case 512:
+-		sb_sha512(sec_image, sign_image_size, digest_ret);
++		do_hash(sec_image, sign_image_size, "sha512", digest_ret);
+ 		break;
+ 	default:
+ 		printf("SHA Algorithm is invalid\n");
 -- 
 2.35.1
 
