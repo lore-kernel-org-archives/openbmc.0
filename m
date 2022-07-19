@@ -4,48 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4526EC43334
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jul 2022 06:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A407DC43334
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jul 2022 20:59:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ln83r5Lhwz3dQq
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jul 2022 16:26:16 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LnWRx3KT0z3bg4
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jul 2022 06:59:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=RzKZiKfo;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=quicinc.com (client-ip=199.106.114.39; helo=alexa-out-sd-02.qualcomm.com; envelope-from=quic_jaehyoo@quicinc.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.a=rsa-sha256 header.s=qcdkim header.b=RzKZiKfo;
+	dkim-atps=neutral
+Received: from alexa-out-sd-02.qualcomm.com (alexa-out-sd-02.qualcomm.com [199.106.114.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LmqxM1KH6z3bVt
-	for <openbmc@lists.ozlabs.org>; Tue, 19 Jul 2022 04:19:34 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26IIJTTU027515
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Jul 2022 21:19:29 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 18 Jul
- 2022 21:19:29 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Tue, 19 Jul
- 2022 02:19:15 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Tue, 19 Jul 2022 02:19:14 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 289EF63A20; Mon, 18 Jul 2022 21:19:14 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
-        <tony@atomide.com>, <felipe.balbi@linux.intel.com>, <jgross@suse.com>,
-        <lukas.bulwahn@gmail.com>, <arnd@arndb.de>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v2 0/3] usb: host: npcm7xx-ehci: add Arbel NPCM8XX support and remove reset sequence 
-Date: Mon, 18 Jul 2022 21:18:39 +0300
-Message-ID: <20220718181842.61040-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LnWR802sBz2xKl
+	for <openbmc@lists.ozlabs.org>; Wed, 20 Jul 2022 06:59:13 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=quicinc.com; i=@quicinc.com; q=dns/txt; s=qcdkim;
+  t=1658264356; x=1689800356;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=XtJkuc0zwzQ729cqzSBSBi330bIZrU274gl5gQHdSUg=;
+  b=RzKZiKfoyOrFZBRUyM7Y79XmZ6/2DlfrvhsXmXQNTgjI+kPSx0Ag0DCO
+   IbYc37Q9NdZB1+g5c1SQP+1iqxq2NhYm9QKRd7tryTC80Ul0SdFOvWBTg
+   r81bfv1cJudfPQmfYx2whTOKiD646MzQtzTG6k1IxQ/CTTNkoxqzrBGZb
+   w=;
+Received: from unknown (HELO ironmsg-SD-alpha.qualcomm.com) ([10.53.140.30])
+  by alexa-out-sd-02.qualcomm.com with ESMTP; 19 Jul 2022 13:59:09 -0700
+X-QCInternal: smtphost
+Received: from nasanex01c.na.qualcomm.com ([10.47.97.222])
+  by ironmsg-SD-alpha.qualcomm.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jul 2022 13:59:09 -0700
+Received: from nalasex01a.na.qualcomm.com (10.47.209.196) by
+ nasanex01c.na.qualcomm.com (10.47.97.222) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.22; Tue, 19 Jul 2022 13:59:09 -0700
+Received: from maru.qualcomm.com (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.22; Tue, 19 Jul
+ 2022 13:59:08 -0700
+From: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc] mtd: spi-nor-ids: add winbond w25q512nw family support
+Date: Tue, 19 Jul 2022 13:58:56 -0700
+Message-ID: <20220719205856.2232070-1-quic_jaehyoo@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Mailman-Approved-At: Tue, 19 Jul 2022 16:25:30 +1000
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,38 +67,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
+Cc: openbmc@lists.ozlabs.org, Graeme Gregory <quic_ggregory@quicinc.com>, =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>, Jae Hyun Yoo <quic_jaehyoo@quicinc.com>, Jamie Iles <quic_jiles@quicinc.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set
-- Adds Arbel NPCM8XX USB EHCI host controller support to USB EHCI driver.
-- Remove the USB reset sequence because it is done in the NPCM reset driver.
+Add Winbond w25q512nwq/n and w25q512nwm support.
 
-The NPCM USB host driver tested on the NPCM845 evaluation board.
+datasheet:
+https://www.winbond.com/resource-files/W25Q512NW%20RevB%2007192021.pdf
 
-Addressed comments from:
- - Arnd Bergmann : https://lore.kernel.org/all/CAK8P3a2PM9pe5tN=N7BMdkwZZKNv9Wa+CEFCyQT_6Ur=O7P5pQ@mail.gmail.com/
- - Alan Stern: https://lore.kernel.org/all/YtVuildpxcI5By4x@rowland.harvard.edu/
+Signed-off-by: Jae Hyun Yoo <quic_jaehyoo@quicinc.com>
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
+Reviewed-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+This is backport of 47ed8b22fd561b65e8541919becc76ab3d86f7a3 from the u-boot
+upstream.
 
-Changes since version 1:
- - Remove NPCM reset configuration dependency.
- - Remove unused definitions.
+ drivers/mtd/spi/spi-nor-ids.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Changes since version 1:
- - Modify dt-binding compatible property.
- - Use device_get_match_data function instead of_match_node function.
-
-Tomer Maimon (3):
-  usb: host: npcm7xx: remove USB EHCI host reset sequence
-  dt-bindings: usb: npcm7xx: Add npcm845 compatible
-  USB: host: npcm: Add NPCM8XX support
-
- .../devicetree/bindings/usb/npcm7xx-usb.txt   |  4 +-
- drivers/usb/host/Kconfig                      |  8 +--
- drivers/usb/host/ehci-npcm7xx.c               | 50 -------------------
- 3 files changed, 7 insertions(+), 55 deletions(-)
-
+diff --git a/drivers/mtd/spi/spi-nor-ids.c b/drivers/mtd/spi/spi-nor-ids.c
+index 5882eab2e3fc..53e352d8656e 100644
+--- a/drivers/mtd/spi/spi-nor-ids.c
++++ b/drivers/mtd/spi/spi-nor-ids.c
+@@ -334,6 +334,16 @@ const struct flash_info spi_nor_ids[] = {
+ 			SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ |
+ 			SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB)
+ 	},
++	{
++		INFO("w25q512nwq", 0xef6020, 0, 64 * 1024, 1024,
++			SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ |
++			SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB)
++	},
++	{
++		INFO("w25q512nwm", 0xef8020, 0, 64 * 1024, 1024,
++			SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ |
++			SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB)
++	},
+ 	{
+ 		INFO("w25q01jv", 0xef4021, 0, 64 * 1024, 2048,
+ 			SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ |
 -- 
-2.33.0
+2.25.1
 
