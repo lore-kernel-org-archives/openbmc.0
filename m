@@ -4,50 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DE66C43334
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jul 2022 18:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 446DDC433EF
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jul 2022 20:16:54 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lp3b069QFz3c6g
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 04:07:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lp6Rm20Dbz3c9W
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 06:16:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=uXkfeYZp;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=f+HjUiwy;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=uXkfeYZp;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=f+HjUiwy;
 	dkim-atps=neutral
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lp3ZH0YRdz2yyM
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 04:07:19 +1000 (AEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id C90D5CE21B0;
-	Wed, 20 Jul 2022 18:07:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946FFC3411E;
-	Wed, 20 Jul 2022 18:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1658340430;
-	bh=JWV/F2msIyQc/Z1zlF2MD+qGz260XB+/zEVQWxqmxog=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=uXkfeYZp43MO82SDOYFRwLWvkmFoAHgV3P211bZ3qZzJai5UtdSlv+xg1NwIehJpT
-	 Gb0mtHOQbP/iQ0dQ8aR90KtrFopGbwZKcWjtVGI9lXcRo/crwxx7FJVnrRmw+jm8PB
-	 MIfen/dpIzvFj1KcsPdvooxvqV/xIUe2F5NE1ranFPjbxX0kMsGMoKjjrtPLY60V1E
-	 dTzxy7JVw9oxI/LU7YHRPxFB3Uw4EgS+BNs0MoktWfNEHrVPEV7yt9C/XtHdCujCZN
-	 3nVT6Cca5DeWs2ITNmRClzjg3p4hzNm2KZrQbfET8COtUuJHEZTl0OQoI2wzedwiB5
-	 RDPvZNO87Zl0w==
-From: Mark Brown <broonie@kernel.org>
-To: benjaminfair@google.com, tali.perry1@gmail.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, venture@google.com, avifishman70@gmail.com, tmaimon77@gmail.com, yuenn@google.com, joel@jms.id.au
-In-Reply-To: <20220718081146.256070-1-tmaimon77@gmail.com>
-References: <20220718081146.256070-1-tmaimon77@gmail.com>
-Subject: Re: [PATCH v1 0/3] spi: npcm-fiu: add Arbel NPCM8XX support
-Message-Id: <165834042733.589042.2864906716831607368.b4-ty@kernel.org>
-Date: Wed, 20 Jul 2022 19:07:07 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lp6Qt4P1nz3bmT
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 06:16:05 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26KJhlMl002298;
+	Wed, 20 Jul 2022 20:16:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=7Jk2TSAxkhrCDesHeqVo4fpQeCQWOm8tBrqTvGT4XdQ=;
+ b=f+HjUiwyOFkPl0ql+Nk2tTB8uprundBx6qAKAx0Vkmcc4gtEcl6fDGok+4G5MHopy+sk
+ bVMgdyyGmuJq5wKnw6UOWM8Oklog7HWe5W+b0k6wHLJ8niD0QLssfHyiSzzvI0jZC6h/
+ d0vNd/dlgFhvIqNFnAcWCkHk+yLF08pFbh0lIJPTssrnPUXa+J4JVMmV/1yDjg6OZCfu
+ DGLdX6nRbwHLQItcTZQwHYfjTUn4BF96c4SNmeg5G1yP3BZ7XwXt9EGTwWoUHj2RHTjo
+ lVKDtnCXRUyJdvshzVXxuF8Xpb0sUVbM3XJqqj2UUZQu8OaRit4tRwFncj9weItu5PQg 5g== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com [169.63.121.186])
+	by mx0b-001b2d01.pphosted.com (PPS) with ESMTPS id 3her430q1a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 Jul 2022 20:16:02 +0000
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+	by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 26KK5VDg029963;
+	Wed, 20 Jul 2022 20:16:01 GMT
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com [9.57.198.25])
+	by ppma03wdc.us.ibm.com with ESMTP id 3hbmy9bps2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 20 Jul 2022 20:16:01 +0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com [9.57.199.107])
+	by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 26KKG0Ox10879606
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 20 Jul 2022 20:16:00 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9EFCE124053;
+	Wed, 20 Jul 2022 20:16:00 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EB951124052;
+	Wed, 20 Jul 2022 20:15:59 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.160.104.49])
+	by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
+	Wed, 20 Jul 2022 20:15:59 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.15 2/2] hwmon (occ): Fix response length in checksum retry
+Date: Wed, 20 Jul 2022 15:15:58 -0500
+Message-Id: <20220720201558.11337-2-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20220720201558.11337-1-eajames@linux.ibm.com>
+References: <20220720201558.11337-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 2mEkfNl0ZdiYRRZifxcfFQEiir8fcD2z
+X-Proofpoint-GUID: 2mEkfNl0ZdiYRRZifxcfFQEiir8fcD2z
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-20_12,2022-07-20_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501 mlxscore=0
+ bulkscore=0 clxscore=1015 malwarescore=0 adultscore=0 mlxlogscore=999
+ suspectscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
+ definitions=main-2207200080
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,48 +89,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+Cc: joel@jms.id.au
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 18 Jul 2022 11:11:43 +0300, Tomer Maimon wrote:
-> This patch set adds Arbel NPCM8XX Flash Interface Unit (FIU) support to FIU NPCM
-> driver and modify direct read dummy configuration.
-> 
-> NPCM8XX FIU supports four controllers.
-> 
-> The NPCM FIU driver tested on NPCM845 evaluation board.
-> 
-> [...]
+Retrying for checksum failure doesn't work since the response length
+gets zeroed out in the submit function. Fix this by resetting the
+response length to its original value before the retry.
 
-Applied to
+Fixes: fe6200e9c8be ("hwmon (occ): Retry for checksum failure")
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ drivers/hwmon/occ/p9_sbe.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+diff --git a/drivers/hwmon/occ/p9_sbe.c b/drivers/hwmon/occ/p9_sbe.c
+index ad2fcc31db78..037046c3921d 100644
+--- a/drivers/hwmon/occ/p9_sbe.c
++++ b/drivers/hwmon/occ/p9_sbe.c
+@@ -82,6 +82,7 @@ static bool p9_sbe_occ_save_ffdc(struct p9_sbe_occ *ctx, const void *resp,
+ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd, size_t len,
+ 			       void *resp, size_t resp_len)
+ {
++	size_t original_resp_len = resp_len;
+ 	struct p9_sbe_occ *ctx = to_p9_sbe_occ(occ);
+ 	int rc, i;
+ 
+@@ -98,6 +99,7 @@ static int p9_sbe_occ_send_cmd(struct occ *occ, u8 *cmd, size_t len,
+ 		}
+ 		if (rc != -EBADE)
+ 			return rc;
++		resp_len = original_resp_len;
+ 	}
+ 
+ 	switch (((struct occ_response *)resp)->return_status) {
+-- 
+2.31.1
 
-Thanks!
-
-[1/3] spi: npcm-fiu: Modify direct read dummy configuration
-      commit: 7c3193f7890a03fc1b5b979f3f8dc8750ef47b13
-[2/3] dt-binding: spi: Add npcm845 compatible to npcm-fiu document
-      commit: d50fef8ae939c2b50431fe6a11457e7ff85aea55
-[3/3] spi: npcm-fiu: Add NPCM8XX support
-      commit: 650b014facca5238e25399f28da1e59747bddb99
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
