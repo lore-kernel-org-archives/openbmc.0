@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1870DC433EF
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 10:17:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 207C0C43334
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 10:17:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LpT5n5WFfz3cCp
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 20:17:33 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LpT6D3m6kz3dqX
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 20:17:56 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LpT4B6GRJz3chp
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 20:16:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LpT4B2PJQz3cD9
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 20:16:09 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26LAG5rL010086
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 13:16:05 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26LAG24B010080
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 13:16:02 +0300
+Received: from NTHCCAS03.nuvoton.com (10.1.20.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Thu, 21 Jul
- 2022 13:16:05 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Thu, 21 Jul
- 2022 18:16:03 +0800
+ 2022 13:16:01 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS03.nuvoton.com
+ (10.1.20.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1847.3; Thu, 21 Jul
+ 2022 18:15:59 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Thu, 21 Jul 2022 18:16:02 +0800
+ Transport; Thu, 21 Jul 2022 18:15:59 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 303F863A23; Thu, 21 Jul 2022 13:16:02 +0300 (IDT)
+	id CAD6C63A23; Thu, 21 Jul 2022 13:15:58 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
         <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
         <broonie@kernel.org>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v1 2/2] dt-binding: spi: npcm-pspi: Add npcm845 compatible
-Date: Thu, 21 Jul 2022 13:15:56 +0300
-Message-ID: <20220721101556.118568-3-tmaimon77@gmail.com>
+Subject: [PATCH v1 0/2] spi: npcm-pspi: add Arbel NPCM8XX and full duplex support 
+Date: Thu, 21 Jul 2022 13:15:54 +0300
+Message-ID: <20220721101556.118568-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220721101556.118568-1-tmaimon77@gmail.com>
-References: <20220721101556.118568-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -60,27 +58,21 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 PSPI.
+This patch set add the following support to the NPCM Peripheral SPI (PSPI) 
+driver:
+ - Arbel NPCM8XX.
+ - Full duplex.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The NPCM PSPI driver tested on NPCM845 evaluation board.
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-index b98203ca656d..a4e72e52af59 100644
---- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
-@@ -3,7 +3,8 @@ Nuvoton NPCM Peripheral Serial Peripheral Interface(PSPI) controller driver
- Nuvoton NPCM7xx SOC support two PSPI channels.
- 
- Required properties:
-- - compatible : "nuvoton,npcm750-pspi" for NPCM7XX BMC
-+ - compatible : "nuvoton,npcm750-pspi" for Poleg NPCM7XX.
-+				"nuvoton,npcm845-pspi" for Arbel NPCM8XX.
-  - #address-cells : should be 1. see spi-bus.txt
-  - #size-cells : should be 0. see spi-bus.txt
-  - specifies physical base address and size of the register.
+Tomer Maimon (2):
+  spi: npcm-pspi: add full duplex support
+  dt-binding: spi: npcm-pspi: Add npcm845 compatible
+
+ .../bindings/spi/nuvoton,npcm-pspi.txt        |  3 +-
+ drivers/spi/spi-npcm-pspi.c                   | 75 ++++++++-----------
+ 2 files changed, 32 insertions(+), 46 deletions(-)
+
 -- 
 2.33.0
 
