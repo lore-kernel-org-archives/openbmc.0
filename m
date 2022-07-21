@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD013CCA479
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 10:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B05C43334
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 12:10:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LpT6g6RQGz3cjN
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 20:18:19 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LpWc42DCXz3cfL
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jul 2022 22:10:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=iG7EuUC2;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=iG7EuUC2;
+	dkim-atps=neutral
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LpT4C2vxXz3c71
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 20:16:11 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26LAG3pr010083
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 13:16:04 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Thu, 21 Jul
- 2022 13:16:03 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Thu, 21
- Jul 2022 18:16:01 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Thu, 21 Jul 2022 18:16:01 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 73B2963A23; Thu, 21 Jul 2022 13:16:00 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <broonie@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v1 1/2] spi: npcm-pspi: add full duplex support
-Date: Thu, 21 Jul 2022 13:15:55 +0300
-Message-ID: <20220721101556.118568-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220721101556.118568-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LpWbK2xn7z3bnV
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Jul 2022 22:09:49 +1000 (AEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 4A1D761D4F;
+	Thu, 21 Jul 2022 12:09:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBBBC3411E;
+	Thu, 21 Jul 2022 12:09:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1658405385;
+	bh=Is1b7K1zP/3u0FK9rRtUZbsH5NcbGby4sQBDfEtE5P0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iG7EuUC2eFEtuAh9lO7Gdb5CUn8qCMad1EgCcxOwxHzuvUoEM0rb9jyJKnagNwX4e
+	 x14GZunev8iP+CVXaIXKY+Jd2fUKr64cDGB96MzonyMGUo2jhq+50mgaBU35MDTp3e
+	 k10+toz3abomP3mzXn0H+Ksr7uLRyeTIjh7HU0sJO5pbTJ2WhHdnEZE7QuwwI82fKF
+	 laLspgKV1boLi+I3YAW/ndz+nbYv2Uo+SLNLijH5g0/P3lXjYM9jAmP82gcsu6zhR2
+	 /Cg4u83F7TDCzt4pqBdVzfSvBW11AcX8/wHLTyIeXD9hb3VuBBMN4VDUUQGAg/T/6X
+	 ZAZJn755a82Pg==
+Date: Thu, 21 Jul 2022 13:09:38 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [PATCH v1 2/2] dt-binding: spi: npcm-pspi: Add npcm845 compatible
+Message-ID: <YtlCAvJK/pb4PbJ6@sirena.org.uk>
 References: <20220721101556.118568-1-tmaimon77@gmail.com>
+ <20220721101556.118568-3-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fAOdgDIIiCA86x/O"
+Content-Disposition: inline
+In-Reply-To: <20220721101556.118568-3-tmaimon77@gmail.com>
+X-Cookie: Exercise caution in your daily affairs.
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,145 +62,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
+Cc: devicetree@vger.kernel.org, benjaminfair@google.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, linux-spi@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The NPCM PSPI handler, on TX-buffer not null, would perform a dummy read
-but did not save the rx-data, this was valid only for half duplex.
 
-This patch adds full duplex support for NPCM PSPI driver by storing all
-rx-data when the Rx-buffer is defined also for TX-buffer handling.
+--fAOdgDIIiCA86x/O
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/spi/spi-npcm-pspi.c | 75 +++++++++++++++----------------------
- 1 file changed, 30 insertions(+), 45 deletions(-)
+On Thu, Jul 21, 2022 at 01:15:56PM +0300, Tomer Maimon wrote:
 
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index 1668a347e003..02f0fcceaf19 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -195,22 +195,22 @@ static void npcm_pspi_setup_transfer(struct spi_device *spi,
- static void npcm_pspi_send(struct npcm_pspi *priv)
- {
- 	int wsize;
--	u16 val;
-+	u16 val = 0;
- 
- 	wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
- 	priv->tx_bytes -= wsize;
- 
--	if (!priv->tx_buf)
--		return;
--
- 	switch (wsize) {
- 	case 1:
--		val = *priv->tx_buf++;
-+		if (priv->tx_buf)
-+			val = *priv->tx_buf++;
- 		iowrite8(val, NPCM_PSPI_DATA + priv->base);
- 		break;
- 	case 2:
--		val = *priv->tx_buf++;
--		val = *priv->tx_buf++ | (val << 8);
-+		if (priv->tx_buf) {
-+			val = *priv->tx_buf++;
-+			val = *priv->tx_buf++ | (val << 8);
-+		}
- 		iowrite16(val, NPCM_PSPI_DATA + priv->base);
- 		break;
- 	default:
-@@ -222,22 +222,24 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
- static void npcm_pspi_recv(struct npcm_pspi *priv)
- {
- 	int rsize;
--	u16 val;
-+	u16 val_16;
-+	u8  val_8;
- 
- 	rsize = min(bytes_per_word(priv->bits_per_word), priv->rx_bytes);
- 	priv->rx_bytes -= rsize;
- 
--	if (!priv->rx_buf)
--		return;
--
- 	switch (rsize) {
- 	case 1:
--		*priv->rx_buf++ = ioread8(priv->base + NPCM_PSPI_DATA);
-+		val_8 = ioread8(priv->base + NPCM_PSPI_DATA);
-+		if (priv->rx_buf)
-+			*priv->rx_buf++ = val_8;
- 		break;
- 	case 2:
--		val = ioread16(priv->base + NPCM_PSPI_DATA);
--		*priv->rx_buf++ = (val >> 8);
--		*priv->rx_buf++ = val & 0xff;
-+		val_16 = ioread16(priv->base + NPCM_PSPI_DATA);
-+		if (priv->rx_buf) {
-+			*priv->rx_buf++ = (val_16 >> 8);
-+			*priv->rx_buf++ = val_16 & 0xff;
-+		}
- 		break;
- 	default:
- 		WARN_ON_ONCE(1);
-@@ -296,43 +298,26 @@ static irqreturn_t npcm_pspi_handler(int irq, void *dev_id)
- 	struct npcm_pspi *priv = dev_id;
- 	u8 stat;
- 
--	stat = ioread8(priv->base + NPCM_PSPI_STAT);
--
- 	if (!priv->tx_buf && !priv->rx_buf)
- 		return IRQ_NONE;
- 
--	if (priv->tx_buf) {
--		if (stat & NPCM_PSPI_STAT_RBF) {
--			ioread8(NPCM_PSPI_DATA + priv->base);
--			if (priv->tx_bytes == 0) {
--				npcm_pspi_disable(priv);
--				complete(&priv->xfer_done);
--				return IRQ_HANDLED;
--			}
--		}
--
--		if ((stat & NPCM_PSPI_STAT_BSY) == 0)
--			if (priv->tx_bytes)
--				npcm_pspi_send(priv);
-+	if (priv->tx_bytes == 0 && priv->rx_bytes == 0) {
-+		npcm_pspi_disable(priv);
-+		complete(&priv->xfer_done);
-+		return IRQ_HANDLED;
- 	}
- 
--	if (priv->rx_buf) {
--		if (stat & NPCM_PSPI_STAT_RBF) {
--			if (!priv->rx_bytes)
--				return IRQ_NONE;
--
--			npcm_pspi_recv(priv);
-+	stat = ioread8(priv->base + NPCM_PSPI_STAT);
- 
--			if (!priv->rx_bytes) {
--				npcm_pspi_disable(priv);
--				complete(&priv->xfer_done);
--				return IRQ_HANDLED;
--			}
--		}
-+	/*
-+	 * first we do the read since if we do the write we previous read might
-+	 * be lost (indeed low chances)
-+	 */
-+	if ((stat & NPCM_PSPI_STAT_RBF) && priv->rx_bytes)
-+		npcm_pspi_recv(priv);
- 
--		if (((stat & NPCM_PSPI_STAT_BSY) == 0) && !priv->tx_buf)
--			iowrite8(0x0, NPCM_PSPI_DATA + priv->base);
--	}
-+	if (((stat & NPCM_PSPI_STAT_BSY) == 0) && priv->tx_bytes)
-+		npcm_pspi_send(priv);
- 
- 	return IRQ_HANDLED;
- }
--- 
-2.33.0
+>  Required properties:
+> - - compatible : "nuvoton,npcm750-pspi" for NPCM7XX BMC
+> + - compatible : "nuvoton,npcm750-pspi" for Poleg NPCM7XX.
+> +				"nuvoton,npcm845-pspi" for Arbel NPCM8XX.
 
+You've not updated the driver to accept this compatible and this doesn't
+say anything about fallbacks.
+
+--fAOdgDIIiCA86x/O
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmLZQgIACgkQJNaLcl1U
+h9BwuQf+MgqHMK5RNzIBd69yNdZ64oCneh+BsjdFstytLx4t07xWCOv5+XBZ68ct
+cDoz13GzxwS2bysHegbH30+oUEmGQBb6LRB3+IGyLc5XGFWIzf4idBGXQI4c25zK
+jEz8cK7i9q548YD+pwtpVzPyPW5DC2+llPoyKFIzECn8+UmaxR3OTTrFDabmV0+m
+KonNrnoWCLggYz+t/DVkVLdECAnQwbatCXOKKwSn5atkrGpzd3kHTNGzXv+FB/qp
+9pSPrfNMRFXl9tRuUISkFx0iqhiyCpMlVoJx00jZYq9Vw7Y5ZW1y/4/nRrQkqR1j
+KGsll59OiewC/YZvU8L2dM8Z9DWYCQ==
+=Pul1
+-----END PGP SIGNATURE-----
+
+--fAOdgDIIiCA86x/O--
