@@ -4,67 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79D29C43334
-	for <openbmc@archiver.kernel.org>; Fri, 22 Jul 2022 10:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59B46C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 22 Jul 2022 11:42:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Lq5Nq4X30z3cfX
-	for <openbmc@archiver.kernel.org>; Fri, 22 Jul 2022 20:32:43 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ODcKD8AK;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::52c; helo=mail-ed1-x52c.google.com; envelope-from=lukas.bulwahn@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ODcKD8AK;
-	dkim-atps=neutral
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Lq6xD3bSlz3c7q
+	for <openbmc@archiver.kernel.org>; Fri, 22 Jul 2022 21:42:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lq5N3512Qz3c2g
-	for <openbmc@lists.ozlabs.org>; Fri, 22 Jul 2022 20:32:02 +1000 (AEST)
-Received: by mail-ed1-x52c.google.com with SMTP id m8so5302364edd.9
-        for <openbmc@lists.ozlabs.org>; Fri, 22 Jul 2022 03:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=IFnsmnbjcLlYoAr+xu6Ngnb6y3ZV0ANVWM4gMEJHPHs=;
-        b=ODcKD8AKT8ZDFo1Dq1Me1oMI0j3JdBF/BczXgmiYMw21AhSv0qxXSpkVlPAFbQHi3w
-         JcUMMZ+2Z0VrdUZ4t53DgWZDjo0dkP2ECKnmqlb0vaHElM6lMjXhZ2xtP1fLuFhtjIwm
-         li9GhqCYir0h+IoaJ0IEOhpfO6l8enuHGnWR94y2kAlWQrudeiaW6flY4Kx1QT0sCAig
-         262JebI8msFNSZE/iF3Uic+zO4uarea7WPSf6rBSmp7MqZV5lPrwdCgAIjYqAbNbPvai
-         IJXNwlOmaUcCqOUMov2mmvucDBFjIA3MJ3fZLE8Uz+CQvUuzWaErz6x1qYDdjS0RbS03
-         +Aeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=IFnsmnbjcLlYoAr+xu6Ngnb6y3ZV0ANVWM4gMEJHPHs=;
-        b=a2dnmT3Z63vH9ADgb9gA6K7MKWAb/AioMGCy85l6b9fPvkUkQOyGle64ciHML3lB+6
-         x95apJ5x1wgWC5jJ3a3UtzNDXQRbX4Kpi9MFKIO8Oi8ZUax8Sx0VzFYPMKFs2uNROee2
-         jna0eiNjj4yh9ChHotk+05RzMnKMhjX2Tmhggo34FHduQenPjJXTcugbi0CZKaAHqlHg
-         iZPEmwV1fPWoQgEzt2bz8X5kF5HL7tqqkKujf1eZe5CXVS8EEgl+P3ReTPlr/Lf1C5fk
-         EACBHE5EdjGSJ6nt9Wa/MhrNM/eVLXRdW30IzBxjwvdSCXEehKDGtRHgDCcmgGxWaqMl
-         06OA==
-X-Gm-Message-State: AJIora+FOpsC76BA1LHi2pN90IFfarKjaGg77eDhbAp6nduVPwQz37F8
-	7jQGVM4s/abL6uzjni9cOm8=
-X-Google-Smtp-Source: AGRyM1s4VWxM8kdBPaogcz5EkWQVbnvREQtxatII7yHeZJssaVyWzvpJpywlE5aDi7jeDqYKENptAQ==
-X-Received: by 2002:a05:6402:28c3:b0:43a:6d78:1b64 with SMTP id ef3-20020a05640228c300b0043a6d781b64mr2866830edb.93.1658485915793;
-        Fri, 22 Jul 2022 03:31:55 -0700 (PDT)
-Received: from felia.fritz.box (200116b826e64200edeeb77a6a94b0d2.dip.versatel-1u1.de. [2001:16b8:26e6:4200:edee:b77a:6a94:b0d2])
-        by smtp.gmail.com with ESMTPSA id lu44-20020a170906faec00b006fe9ec4ba9esm1856159ejb.52.2022.07.22.03.31.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 22 Jul 2022 03:31:54 -0700 (PDT)
-From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-To: Tomer Maimon <tmaimon77@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] MAINTAINERS: rectify entry for ARM/NUVOTON NPCM ARCHITECTURE
-Date: Fri, 22 Jul 2022 12:31:29 +0200
-Message-Id: <20220722103129.22998-1-lukas.bulwahn@gmail.com>
-X-Mailer: git-send-email 2.17.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Lq6wk3SXHz2xjv
+	for <openbmc@lists.ozlabs.org>; Fri, 22 Jul 2022 21:41:54 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 26MBfjG9008246
+	for <openbmc@lists.ozlabs.org>; Fri, 22 Jul 2022 14:41:45 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Fri, 22 Jul
+ 2022 14:41:44 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Fri, 22 Jul
+ 2022 19:41:43 +0800
+Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
+ Transport; Fri, 22 Jul 2022 19:41:42 +0800
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 2C78763A20; Fri, 22 Jul 2022 14:41:42 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
+        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
+        <broonie@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>
+Subject: [PATCH v2 2/2] spi: npcm-pspi: Add NPCM845 peripheral SPI support
+Date: Fri, 22 Jul 2022 14:41:36 +0300
+Message-ID: <20220722114136.251415-3-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20220722114136.251415-1-tmaimon77@gmail.com>
+References: <20220722114136.251415-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,41 +56,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, kernel-janitors@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, Tali Perry <tali.perry1@gmail.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Lukas Bulwahn <lukas.bulwahn@gmail.com>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Commit 08e950449c62 ("dt-binding: clk: npcm845: Add binding for Nuvoton
-NPCM8XX Clock") obviously adds nuvoton,npcm845-clk.h, but the file entry in
-MAINTAINERS, added with commit 3670d2ec13ee ("arm64: npcm: Add support for
-Nuvoton NPCM8XX BMC SoC") then refers to nuvoton,npcm8xx-clock.h.
+Add Nuvoton BMC NPCM845 NPCM Peripheral SPI (PSPI) support.
 
-Hence, ./scripts/get_maintainer.pl --self-test=patterns complains about a
-broken reference.
-
-Repair this file reference in ARM/NUVOTON NPCM ARCHITECTURE.
-
-Fixes: 3670d2ec13ee ("arm64: npcm: Add support for Nuvoton NPCM8XX BMC SoC")
-Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
-Arnd, please pick this patch on top of the commits above.
+ drivers/spi/spi-npcm-pspi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7d14a446df13..e2734926f6ce 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2488,7 +2488,7 @@ F:	arch/arm64/boot/dts/nuvoton/
- F:	drivers/*/*npcm*
- F:	drivers/*/*/*npcm*
- F:	include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
--F:	include/dt-bindings/clock/nuvoton,npcm8xx-clock.h
-+F:	include/dt-bindings/clock/nuvoton,npcm845-clk.h
+diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+index 1668a347e003..7f2e4d1b0d43 100644
+--- a/drivers/spi/spi-npcm-pspi.c
++++ b/drivers/spi/spi-npcm-pspi.c
+@@ -443,6 +443,7 @@ static int npcm_pspi_remove(struct platform_device *pdev)
  
- ARM/NUVOTON WPCM450 ARCHITECTURE
- M:	Jonathan Neuschäfer <j.neuschaefer@gmx.net>
+ static const struct of_device_id npcm_pspi_match[] = {
+ 	{ .compatible = "nuvoton,npcm750-pspi", .data = NULL },
++	{ .compatible = "nuvoton,npcm845-pspi", .data = NULL },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, npcm_pspi_match);
 -- 
-2.17.1
+2.33.0
 
