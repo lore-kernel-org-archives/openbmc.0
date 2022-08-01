@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5C7C00144
-	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 14:51:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F4A4C00144
+	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 14:52:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LxLgK4RmBz3cD8
-	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 00:51:57 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LxLhB0H2Dz3bYd
+	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 00:52:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxLcZ13glz2yMk
-	for <openbmc@lists.ozlabs.org>; Tue,  2 Aug 2022 00:49:29 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxLck6ffdz305W
+	for <openbmc@lists.ozlabs.org>; Tue,  2 Aug 2022 00:49:42 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271EnLGt024208
-	for <openbmc@lists.ozlabs.org>; Mon, 1 Aug 2022 17:49:22 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271EnYOw024226
+	for <openbmc@lists.ozlabs.org>; Mon, 1 Aug 2022 17:49:34 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 1 Aug
- 2022 17:49:21 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 17:49:34 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Mon, 1 Aug 2022
- 22:49:19 +0800
+ 22:49:20 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Mon, 1 Aug 2022 22:49:19 +0800
+ Transport; Mon, 1 Aug 2022 22:49:20 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 73B8363A0A; Mon,  1 Aug 2022 17:49:18 +0300 (IDT)
+	id 8AC8663A21; Mon,  1 Aug 2022 17:49:18 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-5.15 v1 3/7] dt-bindings: ipmi: Add npcm845 compatible
-Date: Mon, 1 Aug 2022 17:49:10 +0300
-Message-ID: <20220801144914.126075-4-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.15 v1 5/7] spi: npcm-fiu: Modify direct read dummy configuration
+Date: Mon, 1 Aug 2022 17:49:12 +0300
+Message-ID: <20220801144914.126075-6-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220801144914.126075-1-tmaimon77@gmail.com>
 References: <20220801144914.126075-1-tmaimon77@gmail.com>
@@ -57,34 +57,28 @@ Cc: andrew@aj.id.au, joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 KCS and modify NPCM KCS
-description to support all NPCM BMC SoC.
+Modify NPCM BMC FIU direct read dummy configuration that according
+spi-mem direct read function.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/spi/spi-npcm-fiu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-index 352f5e9c759b..cbc10a68ddef 100644
---- a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-+++ b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
-@@ -1,12 +1,13 @@
--* Nuvoton NPCM7xx KCS (Keyboard Controller Style) IPMI interface
-+* Nuvoton NPCM KCS (Keyboard Controller Style) IPMI interface
- 
--The Nuvoton SOCs (NPCM7xx) are commonly used as BMCs
-+The Nuvoton SOCs (NPCM) are commonly used as BMCs
- (Baseboard Management Controllers) and the KCS interface can be
- used to perform in-band IPMI communication with their host.
- 
- Required properties:
- - compatible : should be one of
-     "nuvoton,npcm750-kcs-bmc"
-+    "nuvoton,npcm845-kcs-bmc"
- - interrupts : interrupt generated by the controller
- - kcs_chan : The KCS channel number in the controller
- 
+diff --git a/drivers/spi/spi-npcm-fiu.c b/drivers/spi/spi-npcm-fiu.c
+index b62471ab6d7f..f17932e3e816 100644
+--- a/drivers/spi/spi-npcm-fiu.c
++++ b/drivers/spi/spi-npcm-fiu.c
+@@ -252,8 +252,7 @@ static void npcm_fiu_set_drd(struct npcm_fiu_spi *fiu,
+ 	fiu->drd_op.addr.buswidth = op->addr.buswidth;
+ 	regmap_update_bits(fiu->regmap, NPCM_FIU_DRD_CFG,
+ 			   NPCM_FIU_DRD_CFG_DBW,
+-			   ((op->dummy.nbytes * ilog2(op->addr.buswidth)) / BITS_PER_BYTE)
+-			   << NPCM_FIU_DRD_DBW_SHIFT);
++			   op->dummy.nbytes << NPCM_FIU_DRD_DBW_SHIFT);
+ 	fiu->drd_op.dummy.nbytes = op->dummy.nbytes;
+ 	regmap_update_bits(fiu->regmap, NPCM_FIU_DRD_CFG,
+ 			   NPCM_FIU_DRD_CFG_RDCMD, op->cmd.opcode);
 -- 
 2.33.0
 
