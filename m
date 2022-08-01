@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6CFC00144
-	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 12:10:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7688CC00144
+	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 12:11:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LxH5Y3HKDz30LS
-	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 22:10:57 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LxH6003brz3dsF
+	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 22:11:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxH2x12Lwz2xGH
-	for <openbmc@lists.ozlabs.org>; Mon,  1 Aug 2022 22:08:37 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxH2x1dRkz2xmk
+	for <openbmc@lists.ozlabs.org>; Mon,  1 Aug 2022 22:08:39 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271C8UMb020993
-	for <openbmc@lists.ozlabs.org>; Mon, 1 Aug 2022 15:08:30 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271C8Tqt020988
+	for <openbmc@lists.ozlabs.org>; Mon, 1 Aug 2022 15:08:29 +0300
+Received: from NTHCCAS03.nuvoton.com (10.1.20.28) by NTILML01.nuvoton.com
  (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 1 Aug
  2022 15:08:28 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Mon, 1 Aug 2022
- 20:08:26 +0800
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS03.nuvoton.com
+ (10.1.20.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1847.3; Mon, 1 Aug 2022
+ 20:08:25 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
  Transport; Mon, 1 Aug 2022 20:08:25 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 7681463A2D; Mon,  1 Aug 2022 15:08:23 +0300 (IDT)
+	id 005FC63A24; Mon,  1 Aug 2022 15:08:22 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-5.15 v1 16/16] arm64: defconfig: Add Nuvoton NPCM family support
-Date: Mon, 1 Aug 2022 15:08:19 +0300
-Message-ID: <20220801120819.113533-17-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.15 v1 07/16] ARM: dts: nuvoton: add reset syscon property
+Date: Mon, 1 Aug 2022 15:08:10 +0300
+Message-ID: <20220801120819.113533-8-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220801120819.113533-1-tmaimon77@gmail.com>
 References: <20220801120819.113533-1-tmaimon77@gmail.com>
@@ -57,42 +57,26 @@ Cc: andrew@aj.id.au, joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Enable basic drivers for NPCM8XX booting up support: Architecture, Clock,
-and WD.
+Add nuvoton,sysgcr syscon property to the reset node to handle the general
+control registers.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm64/configs/defconfig | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 4972a81d40d6..d2f74789eddd 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -48,6 +48,7 @@ CONFIG_ARCH_MEDIATEK=y
- CONFIG_ARCH_MESON=y
- CONFIG_ARCH_MVEBU=y
- CONFIG_ARCH_MXC=y
-+CONFIG_ARCH_NPCM=y
- CONFIG_ARCH_QCOM=y
- CONFIG_ARCH_RENESAS=y
- CONFIG_ARCH_ROCKCHIP=y
-@@ -596,6 +597,7 @@ CONFIG_MESON_WATCHDOG=m
- CONFIG_RENESAS_WDT=y
- CONFIG_UNIPHIER_WATCHDOG=y
- CONFIG_BCM2835_WDT=y
-+CONFIG_NPCM7XX_WATCHDOG=y
- CONFIG_MFD_ALTERA_SYSMGR=y
- CONFIG_MFD_BD9571MWV=y
- CONFIG_MFD_AXP20X_I2C=y
-@@ -961,6 +963,7 @@ CONFIG_COMMON_CLK_S2MPS11=y
- CONFIG_COMMON_CLK_PWM=y
- CONFIG_COMMON_CLK_VC5=y
- CONFIG_COMMON_CLK_ZYNQMP=y
-+CONFIG_COMMON_CLK_NPCM8XX=y
- CONFIG_COMMON_CLK_BD718XX=m
- CONFIG_CLK_RASPBERRYPI=m
- CONFIG_CLK_IMX8MM=y
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index aca0e0e390d8..ce6ac444c858 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -121,6 +121,7 @@ rstc: rstc@f0801000 {
+ 			compatible = "nuvoton,npcm750-reset";
+ 			reg = <0xf0801000 0x70>;
+ 			#reset-cells = <2>;
++			nuvoton,sysgcr = <&gcr>;
+ 		};
+ 
+ 		clk: clock-controller@f0801000 {
 -- 
 2.33.0
 
