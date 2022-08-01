@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972BAC00144
-	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 14:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA5C7C00144
+	for <openbmc@archiver.kernel.org>; Mon,  1 Aug 2022 14:51:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LxLfv1dWBz3bqn
-	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 00:51:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LxLgK4RmBz3cD8
+	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 00:51:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxLcZ0qjLz2xG5
-	for <openbmc@lists.ozlabs.org>; Tue,  2 Aug 2022 00:49:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxLcZ13glz2yMk
+	for <openbmc@lists.ozlabs.org>; Tue,  2 Aug 2022 00:49:29 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271EnM0d024220
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 271EnLGt024208
 	for <openbmc@lists.ozlabs.org>; Mon, 1 Aug 2022 17:49:22 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 1 Aug
- 2022 17:49:22 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 17:49:21 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Mon, 1 Aug 2022
- 22:49:20 +0800
+ 22:49:19 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Mon, 1 Aug 2022 22:49:20 +0800
+ Transport; Mon, 1 Aug 2022 22:49:19 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id A0CDE63A24; Mon,  1 Aug 2022 17:49:18 +0300 (IDT)
+	id 73B8363A0A; Mon,  1 Aug 2022 17:49:18 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-5.15 v1 7/7] spi: npcm-fiu: Add NPCM8XX support
-Date: Mon, 1 Aug 2022 17:49:14 +0300
-Message-ID: <20220801144914.126075-8-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.15 v1 3/7] dt-bindings: ipmi: Add npcm845 compatible
+Date: Mon, 1 Aug 2022 17:49:10 +0300
+Message-ID: <20220801144914.126075-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220801144914.126075-1-tmaimon77@gmail.com>
 References: <20220801144914.126075-1-tmaimon77@gmail.com>
@@ -57,108 +57,33 @@ Cc: andrew@aj.id.au, joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Adding FIU NPCM8XX support to NPCM FIU driver.
-NPCM8XX FIU supports four controllers.
-
-As part of adding NPCM8XX support:
-- Add NPCM8XX specific compatible string.
-- Using an internal burst configuration register instead of a GCR
-  register.
-- Support FIU1 controller.
+Add a compatible string for Nuvoton BMC NPCM845 KCS and modify NPCM KCS
+description to support all NPCM BMC SoC.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/spi/spi-npcm-fiu.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+ Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-npcm-fiu.c b/drivers/spi/spi-npcm-fiu.c
-index f17932e3e816..cd11b4632f2f 100644
---- a/drivers/spi/spi-npcm-fiu.c
-+++ b/drivers/spi/spi-npcm-fiu.c
-@@ -36,6 +36,7 @@
- #define NPCM_FIU_UMA_DR1		0x34
- #define NPCM_FIU_UMA_DR2		0x38
- #define NPCM_FIU_UMA_DR3		0x3C
-+#define NPCM_FIU_CFG			0x78
- #define NPCM_FIU_MAX_REG_LIMIT		0x80
+diff --git a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+index 352f5e9c759b..cbc10a68ddef 100644
+--- a/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
++++ b/Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt
+@@ -1,12 +1,13 @@
+-* Nuvoton NPCM7xx KCS (Keyboard Controller Style) IPMI interface
++* Nuvoton NPCM KCS (Keyboard Controller Style) IPMI interface
  
- /* FIU Direct Read Configuration Register */
-@@ -151,6 +152,9 @@
- #define NPCM_FIU_UMA_DR3_RB13		GENMASK(15, 8)
- #define NPCM_FIU_UMA_DR3_RB12		GENMASK(7, 0)
+-The Nuvoton SOCs (NPCM7xx) are commonly used as BMCs
++The Nuvoton SOCs (NPCM) are commonly used as BMCs
+ (Baseboard Management Controllers) and the KCS interface can be
+ used to perform in-band IPMI communication with their host.
  
-+/* FIU Configuration Register */
-+#define NPCM_FIU_CFG_FIU_FIX		BIT(31)
-+
- /* FIU Read Mode */
- enum {
- 	DRD_SINGLE_WIRE_MODE	= 0,
-@@ -187,6 +191,7 @@ enum {
- 	FIU0 = 0,
- 	FIU3,
- 	FIUX,
-+	FIU1,
- };
- 
- struct npcm_fiu_info {
-@@ -201,7 +206,7 @@ struct fiu_data {
- 	int fiu_max;
- };
- 
--static const struct npcm_fiu_info npxm7xx_fiu_info[] = {
-+static const struct npcm_fiu_info npcm7xx_fiu_info[] = {
- 	{.name = "FIU0", .fiu_id = FIU0,
- 		.max_map_size = MAP_SIZE_128MB, .max_cs = 2},
- 	{.name = "FIU3", .fiu_id = FIU3,
-@@ -209,11 +214,26 @@ static const struct npcm_fiu_info npxm7xx_fiu_info[] = {
- 	{.name = "FIUX", .fiu_id = FIUX,
- 		.max_map_size = MAP_SIZE_16MB, .max_cs = 2} };
- 
--static const struct fiu_data npxm7xx_fiu_data = {
--	.npcm_fiu_data_info = npxm7xx_fiu_info,
-+static const struct fiu_data npcm7xx_fiu_data = {
-+	.npcm_fiu_data_info = npcm7xx_fiu_info,
- 	.fiu_max = 3,
- };
- 
-+static const struct npcm_fiu_info npxm8xx_fiu_info[] = {
-+	{.name = "FIU0", .fiu_id = FIU0,
-+		.max_map_size = MAP_SIZE_128MB, .max_cs = 2},
-+	{.name = "FIU3", .fiu_id = FIU3,
-+		.max_map_size = MAP_SIZE_128MB, .max_cs = 4},
-+	{.name = "FIUX", .fiu_id = FIUX,
-+		.max_map_size = MAP_SIZE_16MB, .max_cs = 2},
-+	{.name = "FIU1", .fiu_id = FIU1,
-+		.max_map_size = MAP_SIZE_16MB, .max_cs = 4} };
-+
-+static const struct fiu_data npxm8xx_fiu_data = {
-+	.npcm_fiu_data_info = npxm8xx_fiu_info,
-+	.fiu_max = 4,
-+};
-+
- struct npcm_fiu_spi;
- 
- struct npcm_fiu_chip {
-@@ -624,6 +644,10 @@ static int npcm_fiu_dirmap_create(struct spi_mem_dirmap_desc *desc)
- 		regmap_update_bits(gcr_regmap, NPCM7XX_INTCR3_OFFSET,
- 				   NPCM7XX_INTCR3_FIU_FIX,
- 				   NPCM7XX_INTCR3_FIU_FIX);
-+	} else {
-+		regmap_update_bits(fiu->regmap, NPCM_FIU_CFG,
-+				   NPCM_FIU_CFG_FIU_FIX,
-+				   NPCM_FIU_CFG_FIU_FIX);
- 	}
- 
- 	if (desc->info.op_tmpl.data.dir == SPI_MEM_DATA_IN) {
-@@ -663,7 +687,8 @@ static const struct spi_controller_mem_ops npcm_fiu_mem_ops = {
- };
- 
- static const struct of_device_id npcm_fiu_dt_ids[] = {
--	{ .compatible = "nuvoton,npcm750-fiu", .data = &npxm7xx_fiu_data  },
-+	{ .compatible = "nuvoton,npcm750-fiu", .data = &npcm7xx_fiu_data  },
-+	{ .compatible = "nuvoton,npcm845-fiu", .data = &npxm8xx_fiu_data  },
- 	{ /* sentinel */ }
- };
+ Required properties:
+ - compatible : should be one of
+     "nuvoton,npcm750-kcs-bmc"
++    "nuvoton,npcm845-kcs-bmc"
+ - interrupts : interrupt generated by the controller
+ - kcs_chan : The KCS channel number in the controller
  
 -- 
 2.33.0
