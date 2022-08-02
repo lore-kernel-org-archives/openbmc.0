@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F7C2C00140
-	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 13:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C192C00140
+	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 13:19:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4LxwYp2gYcz30D8
-	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 23:19:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4LxwZF2bDJz3bbl
+	for <openbmc@archiver.kernel.org>; Tue,  2 Aug 2022 23:19:33 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxwXp2Dk7z302S
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4LxwXp28zSz2yMk
 	for <openbmc@lists.ozlabs.org>; Tue,  2 Aug 2022 23:18:14 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 272DI3La021459
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 272DI4iY021466
 	for <openbmc@lists.ozlabs.org>; Tue, 2 Aug 2022 16:18:04 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 2 Aug
- 2022 16:18:02 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 16:18:03 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Tue, 2 Aug 2022
  21:18:01 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
  Transport; Tue, 2 Aug 2022 21:18:00 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 13F7563A0A; Tue,  2 Aug 2022 16:18:00 +0300 (IDT)
+	id 2B7AD63A21; Tue,  2 Aug 2022 16:18:00 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-5.15 v1 2/5] dt-bindings: usb: npcm7xx: Add npcm845 compatible
-Date: Tue, 2 Aug 2022 16:17:54 +0300
-Message-ID: <20220802131757.234026-3-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.15 v1 4/5] dt-bindings: rng: nuvoton,npcm-rng: Add npcm845 compatible
+Date: Tue, 2 Aug 2022 16:17:56 +0300
+Message-ID: <20220802131757.234026-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20220802131757.234026-1-tmaimon77@gmail.com>
 References: <20220802131757.234026-1-tmaimon77@gmail.com>
@@ -57,28 +57,26 @@ Cc: andrew@aj.id.au, joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 USB EHCI host controller.
+Add a compatible string for Nuvoton BMC NPCM845 random number generator.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/devicetree/bindings/usb/npcm7xx-usb.txt | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-index 5a0f1f14fbfa..352a0a1e2f76 100644
---- a/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-+++ b/Documentation/devicetree/bindings/usb/npcm7xx-usb.txt
-@@ -5,7 +5,9 @@ EHCI:
- -----
+diff --git a/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
+index 65c04172fc8c..7667ecaa28a4 100644
+--- a/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
++++ b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
+@@ -2,6 +2,8 @@ NPCM SoC Random Number Generator
  
  Required properties:
--- compatible: "nuvoton,npcm750-ehci"
-+- compatible: should be one of
-+    "nuvoton,npcm750-ehci"
-+    "nuvoton,npcm845-ehci"
- - interrupts: Should contain the EHCI interrupt
- - reg:        Physical address and length of the register set for the device
+ - compatible  : "nuvoton,npcm750-rng" for the NPCM7XX BMC.
++				"nuvoton,npcm845-rng" for the NPCM8XX BMC.
++
+ - reg         : Specifies physical base address and size of the registers.
  
+ Example:
 -- 
 2.33.0
 
