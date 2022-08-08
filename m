@@ -4,74 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5B63C00140
-	for <openbmc@archiver.kernel.org>; Mon,  8 Aug 2022 14:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD81C25B0C
+	for <openbmc@archiver.kernel.org>; Mon,  8 Aug 2022 22:09:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4M1dk60GD8z30Bm
-	for <openbmc@archiver.kernel.org>; Tue,  9 Aug 2022 00:24:14 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4M1r375XGZz2xh0
+	for <openbmc@archiver.kernel.org>; Tue,  9 Aug 2022 08:09:39 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ZnLmow2w;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=pjd.dev header.i=@pjd.dev header.a=rsa-sha256 header.s=fm2 header.b=HIPjQlwI;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=XYxclB/h;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com; envelope-from=tcminyard@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pjd.dev (client-ip=66.111.4.224; helo=new2-smtp.messagingengine.com; envelope-from=peter@pjd.dev; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ZnLmow2w;
+	dkim=pass (2048-bit key; unprotected) header.d=pjd.dev header.i=@pjd.dev header.a=rsa-sha256 header.s=fm2 header.b=HIPjQlwI;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=XYxclB/h;
 	dkim-atps=neutral
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com [IPv6:2607:f8b0:4864:20::32f])
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com [66.111.4.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4M1djP042nz2xJG
-	for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2022 00:23:35 +1000 (AEST)
-Received: by mail-ot1-x32f.google.com with SMTP id cb12-20020a056830618c00b00616b871cef3so6582410otb.5
-        for <openbmc@lists.ozlabs.org>; Mon, 08 Aug 2022 07:23:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:sender:from:to:cc;
-        bh=c4sdWPDGZh2lpcz0JPsH1RxILtP+3NzhgDmzZEzhFwU=;
-        b=ZnLmow2wQ4sURptG6gn+2TtbvfsVwBPnjNh04IBl4k64MgxlFvSvUC+wp+vboN3FgO
-         ZyzRtpw9HTFDSJFU034ypntElaqBvXbVjdm6be2TRrV7uK16N99P1EchihnkRoKVliBv
-         8GPCh+Cfbd5UnCYx4nUQfWm3niPkbwQoKkNBKaNVXIw+u4CP7aMrxBGpmDm79s1VSoSA
-         UiPRyNaRR/wMj53t/PjOxllk2TJrO0AEUzOkw2dCBTrfbgVAfMHFdUe/xgp/HVbunerL
-         TOsm01vtfLxY0tyde5qMUJ1Q267z+JxC2cJNOEpgBI8FwHIQPZxY08ZWIUvoyhQxNAN4
-         Du/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:reply-to
-         :message-id:subject:cc:to:from:date:sender:x-gm-message-state:from
-         :to:cc;
-        bh=c4sdWPDGZh2lpcz0JPsH1RxILtP+3NzhgDmzZEzhFwU=;
-        b=oCtrs2zaHjh/9wvbGoqcAZyZLH7MFx5kWhGP47OYZOeqblc3aaSR5vLpbF2grSSymn
-         Yv/ElJ9pbq2s0z0nnWzaHnEPr3jeAdPSHb9razZAeABKAmcBgTKdQZZ5SCuDOb9b+V+E
-         uy0aE7NQERB40ds4ws2pdLYV+urs/qZd+v8NOHozozYzMi8DhKNcziNUzNaads+f4rsz
-         ox1AGfTN2cugTwzLuiyHNq0EhtMFyA92laoamHU1t/RfF0Cphn7BXX64KxNZ7Di6mTRY
-         L86xF6BXSlev1kYlaZB2RKma7SRoTxPeiT9BERmQPnrTrboULeH8mIaS+twqP3cqLT5C
-         sxyg==
-X-Gm-Message-State: ACgBeo1y4OXjupsocOKELXII8ef+oQj22EIktdiuTNt/o8XdBPwCj2UO
-	XznrrnVQ/uanXd867s8k1Q==
-X-Google-Smtp-Source: AA6agR5il2qTkCti/3qg75D5Tbky90Do0XQ9veQVqgQYxxPzZdL+FNKM8OV8jU27apltAUSE8fZdRA==
-X-Received: by 2002:a9d:73d0:0:b0:61c:8d31:6981 with SMTP id m16-20020a9d73d0000000b0061c8d316981mr7149505otk.99.1659968610070;
-        Mon, 08 Aug 2022 07:23:30 -0700 (PDT)
-Received: from serve.minyard.net ([47.184.144.75])
-        by smtp.gmail.com with ESMTPSA id fo34-20020a0568709a2200b0010e47737471sm2295305oab.49.2022.08.08.07.23.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 08 Aug 2022 07:23:29 -0700 (PDT)
-Received: from minyard.net (unknown [IPv6:2001:470:b8f6:1b:3153:e085:df0f:abc2])
-	by serve.minyard.net (Postfix) with ESMTPSA id B79DE1800FA;
-	Mon,  8 Aug 2022 14:23:28 +0000 (UTC)
-Date: Mon, 8 Aug 2022 09:23:27 -0500
-From: Corey Minyard <minyard@acm.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v3] dt-binding: ipmi: add fallback to npcm845 compatible
-Message-ID: <20220808142327.GR3834@minyard.net>
-References: <20220808075452.115907-1-tmaimon77@gmail.com>
- <da83671e-08b9-2d68-e5d3-d9b09c105bb4@linaro.org>
- <20220808122652.GO3834@minyard.net>
- <937b6737-5d55-2185-a4bc-7535fa6da85c@linaro.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4M1r2L0rkmz2xGv
+	for <openbmc@lists.ozlabs.org>; Tue,  9 Aug 2022 08:08:57 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailnew.nyi.internal (Postfix) with ESMTP id 118865815F5;
+	Mon,  8 Aug 2022 18:08:56 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Mon, 08 Aug 2022 18:08:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pjd.dev; h=cc:cc
+	:content-transfer-encoding:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm2; t=1659996536; x=1660000136; bh=MV
+	df/JbMe5sUTgfiEhIdPbqrqYx3GM1FZV8oD5XHr/U=; b=HIPjQlwIjCFlOGi0W5
+	XMiPGGtAhohUWUQCXSGGFrXPI8GiTySBpvnYU/IlXZhaL9gf0W/Rk8p/GsDhXa2Z
+	DFdmqwI1AdOiBj5n/smoG2Y1qWF1roQDeNZe1j9wMH3W4ODKQBj5DWpl6e60Ab+r
+	bCHem97ca1Jc/Xp3/JJiMuNBwhoxrmtPXQ7nXkXnN3KtITL2+qJEl/PWyLyoPjN9
+	+KnvQ4F8geB7oCIOZ6GkXvReo9VvC/3HGjxmBJ7P5PqIvxt3sfYSoK/TbQN+jxtN
+	XUVh73ieFJCAIosBOlOAty8WPrwRxTMGBKUQ21RXfHbdXKeezprdPy0N4Pk2NmY4
+	ktjQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1659996536; x=1660000136; bh=MVdf/JbMe5sUT
+	gfiEhIdPbqrqYx3GM1FZV8oD5XHr/U=; b=XYxclB/hpf2u/4Bo49Z8iLfVcajq6
+	Z5UD7kpI2w173BHLB5c2T4t0IK3whgXhjSJ6mh5XcSp0R36qWS7oUhMjsUwvbT43
+	V6T+mz2u0QVSZmDeFXmSLnjhdQq8PzUUO4sPSi95RyGNlm/iR29EyeaNrBDQPOyo
+	sUy7VUnb0CS4q2esvFLn4XwhSZ05Wjl0KTFdgHtxhJPrSk4TkvbMTXC2OzcrnagA
+	eCcGAb9yXYFCad8R9/8R6cvVerZaA7SNVojzK7Z4mHiyGRNscgWc/dzuFJMrxvKB
+	EWFy4NadacGQhJo+814OFgUr3vNQk/4wh3J19KgxaQ/8vl/lB1odC7zpQ==
+X-ME-Sender: <xms:d4nxYrVKfKIO16uqmz8607IYJahhDJeCqrzupehbyF8P8lBQM28Uzw>
+    <xme:d4nxYjmJ3PZTUo1_UPKx3he1DQLvTrv5BW1BVqteu9gqHh3LqjBR4KbpcgNznYtUW
+    h8KCngDPZl8Og752-4>
+X-ME-Received: <xmr:d4nxYnb7GyW0yU_TBK30MXdyQENrnw7gsru0htFVLFFS0aFnZKSVFOXEPBlPZA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdefledgtdekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenuchmihhsshhinhhgucfvqfcufhhivghlugculdeftd
+    dmnegoteeftdduqddtudculdduhedmnecujfgurhephffvvefufffkofgjfhgggfestdek
+    redtredttdenucfhrhhomheprfgvthgvrhcuffgvlhgvvhhorhihrghsuceophgvthgvrh
+    esphhjugdruggvvheqnecuggftrfgrthhtvghrnhepteelgfeuleeffffffeekiefghfej
+    uefgtdfgteeigeekvdefffevieekvdelteevnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepphgvthgvrhesphhjugdruggvvh
+X-ME-Proxy: <xmx:d4nxYmWBgVql-379smTo9RXOF-ew5xhwhu54FejYYPpLmEiXotuvZA>
+    <xmx:d4nxYlmaxP6EWkFBGE0k4dFiUfdDI82gBwqukdVmE1wp0u9ZhifXcg>
+    <xmx:d4nxYjdKVBVDlCx0CtzO1TTpcURkolQaEgXqYDs4ElJdpPkG7GOPYw>
+    <xmx:d4nxYrgfkeLxwRmP4LDFsOOw6HIE1wFO0bewOTfuPpSTTwFGotZcOw>
+Feedback-ID: i9e814621:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 8 Aug 2022 18:08:55 -0400 (EDT)
+From: Peter Delevoryas <peter@pjd.dev>
+To: 
+Subject: [PATCH 3/7] dt-bindings: trivial-devices: Add Infineon SLB9673 TPM
+Date: Mon,  8 Aug 2022 15:08:35 -0700
+Message-Id: <20220808220839.1006341-4-peter@pjd.dev>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20220808220839.1006341-1-peter@pjd.dev>
+References: <20220808220839.1006341-1-peter@pjd.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <937b6737-5d55-2185-a4bc-7535fa6da85c@linaro.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,117 +92,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Reply-To: minyard@acm.org
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, openipmi-developer@lists.sourceforge.net, jic23@kernel.org, benjaminfair@google.com
+Cc: Alexander.Steffen@infineon.com, peter@pjd.dev, joel@jms.id.au, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Aug 08, 2022 at 03:38:45PM +0300, Krzysztof Kozlowski wrote:
-> On 08/08/2022 15:26, Corey Minyard wrote:
-> > On Mon, Aug 08, 2022 at 11:11:16AM +0300, Krzysztof Kozlowski wrote:
-> >> On 08/08/2022 09:54, Tomer Maimon wrote:
-> >>> Add to npcm845 KCS compatible string a fallback to npcm750 KCS compatible
-> >>> string becuase NPCM845 and NPCM750 BMCs are using identical KCS modules.
-> >>>
-> >>> Fixes: 84261749e58a ("dt-bindings: ipmi: Add npcm845 compatible")
-> >>> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> >>
-> >>
-> >> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > 
-> > Ok, I think I understand how this is supposed to work.  It's not
-> > altogether clear from the device tree documentation.  It says in
-> > Documentation/devicetree/bindings/writing-bindings.rst:
-> > 
-> > - DO make 'compatible' properties specific. DON'T use wildcards in compatible
-> >   strings. DO use fallback compatibles when devices are the same as or a subset
-> >   of prior implementations. DO add new compatibles in case there are new
-> >   features or bugs.
-> 
-> This documentation is short, so it explains what should be done, not
-> exactly why it should be done. If we wanted "why" this would not be set
-> of 4 sentences but twice more...
-> 
-> > 
-> > AFAICT, there are no new features or bugs, just a new SOC with the same
-> > device.  In general usage I have seen, you would just use the same
-> > compatible.  
-> 
-> Most of the usages are like shown here. There are several other cases.
-> It's the same with poor or good code - you will always find both patterns.
+From: Alexander Steffen <Alexander.Steffen@infineon.com>
 
-It is true, but lack of specified good examples makes it hard for people
-like me to know what is right and wrong.
+Initial device to be supported by the upcoming tpm_tis_i2c driver. More
+to be added later.
 
-> 
-> > However, if I understand this, that last sentence should say:
-> > 
-> >   DO add new compatibles in case there is a new version of hardware with
-> >   the possibility of new features and/or bugs.
-> > 
-> > Also, the term "specific" is, ironically, vague.  Specific to what?
-> 
-> To me it is rather clear. Specific as in first meanings of the word (1,
-> 3, 4 and 5):
-> https://en.wiktionary.org/wiki/specific
+Signed-off-by: Alexander Steffen <Alexander.Steffen@infineon.com>
+Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Peter Delevoryas <peter@pjd.dev>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Everything is always clear when you understand something :).
-The really hard part about technical documentation is forgetting what
-you know and approaching it from a newbie's context.
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 1e4b3464d734..9c37f57de919 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -123,6 +123,8 @@ properties:
+           - infineon,slb9635tt
+             # Infineon SLB9645 I2C TPM (new protocol, max 400khz)
+           - infineon,slb9645tt
++            # Infineon SLB9673 I2C TPM 2.0
++          - infineon,slb9673
+             # Infineon TLV493D-A1B6 I2C 3D Magnetic Sensor
+           - infineon,tlv493d-a1b6
+             # Infineon Multi-phase Digital VR Controller xdpe12254
+-- 
+2.37.1
 
-> 
-> nuvoton,npcm7xx-kcs-bmc would not be definite (allows more meanings),
-> unique (in terms of devices it expresses), distinctive (as two different
-> devices use the same) or serving to identify one thing (again - two SoCs).
-> 
-> What other meaning do you think of?
-
-It is not the definition of specific that is vague, it is what
-"specific" applies to.  Is it specific to a SOC?  Specific to a board?
-Specific to a particular device implementation?  Specific to a rev of
-the silicon?
-
-I will say that when I read that sentence, it means nothing to me.
-If it said "DO make compatible properties as specific as possible to the
-particular hardware implementation of the device" that would have more
-meaning, but still leaves the reader wondering exactly how to do this.
-
-For instance, should I put board/rev specific compatibles in?  Would it
-be:
-
-   "mycompany,myboard-rev1-npcm845-kcs-bmc", "mycompany,myboard-npcm845-kcs-bmc",
-   "nuvoton,npcm845-revb-kcs-bmc", "nuvoton,npcm845-kcs-bmc",
-   "nuvoton,npcm750-kcs-bmc"
-
-That's about as specific as you can get with fallbacks for everything,
-but it is too specific?  How far do you go?  There might be wiring
-differences on specific board, maybe that makes a difference.
-
-That's where good (and identified bad) examples and rationale come in.
-Tell the user why something is being done and it's easier to understand
-what to do in different situations.  It's not a matter of number of
-sentences.  Just like code, shorter is not always better.
-
-Anyway, I have ranted for too long.  Thank you for clearing this up for
-me.
-
--corey
-
-> 
-> > 
-> > It would be nice to have something added to "Typical cases and caveats"
-> > that says:
-> > 
-> > - If you are writing a binding for a new device that is the same as, or
-> >   a superset of another existing device, add a new specific compatible
-> >   for the new device followed by a compatible for the existing device.
-> >   That way, if the device has new bugs or new specific features are
-> >   added, you can add workarounds without modifying the device tree.
-> > 
-> > Anyway, I have added this to my tree with your ack.
-> 
-> Fantastic, thanks!
-> 
-> 
-> Best regards,
-> Krzysztof
