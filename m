@@ -4,43 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E17C19F2D
-	for <openbmc@archiver.kernel.org>; Wed, 10 Aug 2022 03:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CEE2C19F2D
+	for <openbmc@archiver.kernel.org>; Wed, 10 Aug 2022 03:08:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4M2ZTY748Xz3c8p
-	for <openbmc@archiver.kernel.org>; Wed, 10 Aug 2022 13:01:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4M2Zdg4VLfz302S
+	for <openbmc@archiver.kernel.org>; Wed, 10 Aug 2022 13:08:39 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20210112.gappssmtp.com header.i=@tanous-net.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=cKsLOaoq;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2a00:1450:4864:20::434; helo=mail-wr1-x434.google.com; envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20210112.gappssmtp.com header.i=@tanous-net.20210112.gappssmtp.com header.a=rsa-sha256 header.s=20210112 header.b=cKsLOaoq;
+	dkim-atps=neutral
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4M2FJT35wtz2ypH
-	for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2022 00:07:36 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 279E7TfH006490
-	for <openbmc@lists.ozlabs.org>; Tue, 9 Aug 2022 17:07:29 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 9 Aug
- 2022 17:07:28 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 9 Aug 2022
- 22:07:26 +0800
-Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.1.2375.7 via Frontend
- Transport; Tue, 9 Aug 2022 22:07:26 +0800
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 2C6AA62EFD; Tue,  9 Aug 2022 17:07:25 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-5.15 v1 0/2] misc: npcm7xx-pci-mbox: add Arbel NPCM8XX support 
-Date: Tue, 9 Aug 2022 17:07:19 +0300
-Message-ID: <20220809140721.28958-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4M2Zcw4gstz2xG4
+	for <openbmc@lists.ozlabs.org>; Wed, 10 Aug 2022 13:07:59 +1000 (AEST)
+Received: by mail-wr1-x434.google.com with SMTP id h13so16274018wrf.6
+        for <openbmc@lists.ozlabs.org>; Tue, 09 Aug 2022 20:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tanous-net.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc;
+        bh=M1oNMEoETCvhj1nnlhFvE1cikmlEVphI4ljt0g5md1M=;
+        b=cKsLOaoqj6ECr+15sLZ2eVYnuLmc8N5KGduXw13iTL603Zr4Rs5/537kNLchvFwV1k
+         jkb9WlU8IeVncoLyvKSk0XVODZEpIE0g+d0jMXC1VoK9xnmalGODrZNQlsgcBBkhzqBF
+         LNART+3TZvtofR9pDr06kyrKMPQlT8fBfPLC6NTOsfh579LUk7PeclfvnL3Gp/b4KDub
+         PCVmkLnBRiHvR2cNgoWQv/8j+vAUj7695gaAs6pFXV3yU9QlYCxaAVsZPFdMRaXb6rUN
+         53W4fxlm59qhZOp/p8PJR+qFqachOHd5PNj0J1uavhJReMdW6kUM4YdTVziVFXenYdys
+         yOqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc;
+        bh=M1oNMEoETCvhj1nnlhFvE1cikmlEVphI4ljt0g5md1M=;
+        b=JHAV4mjDzRQJoDVcV3FRzZJSAZ/K/Xl3uupV3BlsKp6QzAaXoMUE8tH4CIm46ekXKF
+         Dtl5G2MJQPc/Q/FmbAWu3m6wuxM0z4DInYWBzbDwnUyzbqezEFUlYL24T4+gZ7C0+IRV
+         oWNPnOK+TQi4iGZD1XY8JhayrsWwjHh9ZLkeonb7lOAaRUqOsfKuqDTbAeQy7Z+B2B0A
+         1tWXV8rqDAvz5dBoP3z0ruEZT+XYlpLKBXFBN+ZLz2JzqBVmPOmf30JaJkHKvZRyIwjT
+         8NTYrOtlQMJxTLPgobwP6d+tXmmA5GhW7SheU/r/yBvafOYb785F3dG3Fw298VfZxqPv
+         g0PA==
+X-Gm-Message-State: ACgBeo3kyYluvf7RoSLP1cfibsepnF5j91Y7MH099gizdtGg7EiIn6mp
+	zaRwmz1bLPxe443UPK/+bwjep61avitMNMD9pR4y5Q==
+X-Google-Smtp-Source: AA6agR48zlid5mrF1XaQidPy9SKLgliICYv4/4XZ+zPOI/90aAgvVXTTU7vqJHantPNc/sWDYfh5mGXNyfiAxbtKQnM=
+X-Received: by 2002:adf:fd4f:0:b0:220:60bc:3fc9 with SMTP id
+ h15-20020adffd4f000000b0022060bc3fc9mr15799853wrs.398.1660100871902; Tue, 09
+ Aug 2022 20:07:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Mailman-Approved-At: Wed, 10 Aug 2022 13:00:00 +1000
+References: <CAO4fCV6xnz7L-DeDY6ioSmc8viEyL7J9kPKzgcBgrbx+V8f7aQ@mail.gmail.com>
+In-Reply-To: <CAO4fCV6xnz7L-DeDY6ioSmc8viEyL7J9kPKzgcBgrbx+V8f7aQ@mail.gmail.com>
+From: Ed Tanous <ed@tanous.net>
+Date: Tue, 9 Aug 2022 20:07:40 -0700
+Message-ID: <CACWQX80o7KfPrZFKuQZbyZhK-m5m2w+5Xqisxout6YodUH47gg@mail.gmail.com>
+Subject: Re: Regarding OpenBmc filtering option
+To: "Havaligi, Mruthyunjaya Rao (Jay)" <mruthyunjaya.rao.havaligi@verizon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,25 +73,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: andrew@aj.id.au, joel@jms.id.au, Tomer Maimon <tmaimon77@gmail.com>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set adds Arbel NPCM8XX PCI Mail Box support to PCI MBOX NPCM
-driver.
+On Tue, Aug 9, 2022 at 8:00 PM Havaligi, Mruthyunjaya Rao (Jay)
+<mruthyunjaya.rao.havaligi@verizon.com> wrote:
+>
+> Hi,
+>
+> I am trying the filter option in openbmc (wht-0.91-0-gca8d06-ca8d06b) on =
+Qemu. I am not able to filter based on the Id. I see where the filtering op=
+tion was verified in this link -  https://gerrit.openbmc.org/c/openbmc/bmcw=
+eb/+/43505. Also, can I use ge, le and other options too?
 
-This patchset was tested on the Arbel NPCM8XX evaluation board that running 
-Arbel OpenBMC.
+Based on your version number, I'm assuming you're using the Intel-BMC
+fork;  I can't speak to what they have implemented, but OpenBMC today
+does not have an implementation of $filter.
 
-Tomer Maimon (2):
-  dt-binding: bmc: npcm7xx-pci-mbox: Add npcm845 compatible
-  misc: npcm7xx-pci-mbox: Add NPCM845 PCI MBOX support
+https://gerrit.openbmc.org/c/openbmc/bmcweb/+/53013
 
- .../devicetree/bindings/bmc/npcm7xx-pci-mbox.txt       |  5 +++--
- drivers/misc/Kconfig                                   | 10 +++++-----
- drivers/misc/Makefile                                  |  2 +-
- 3 files changed, 9 insertions(+), 8 deletions(-)
+Was me starting to work on it, and not getting very far.
 
--- 
-2.33.0
+https://gerrit.openbmc.org/c/openbmc/bmcweb/+/43505
 
+Was another attempt that didn't go very far and was stacked behind a
+large number of other patches.  If it's something you're interested
+in, feel free to use either as a starting point.
+
+>
+>  curl -ku  x:x  'https:/x.x.x.x/redfish/v1/Managers/bmc/EthernetInterface=
+s?$expand=3D*'
+> {
+>   "@odata.id": "/redfish/v1/Managers/bmc/EthernetInterfaces",
+>   "@odata.type": "#EthernetInterfaceCollection.EthernetInterfaceCollectio=
+n",
+>   "Description": "Collection of EthernetInterfaces for this Manager",
+>   "Members": [
+>     {
+>       "@odata.id": "/redfish/v1/Managers/bmc/EthernetInterfaces/eth0"
+>     },
+>     {
+>       "@odata.id": "/redfish/v1/Managers/bmc/EthernetInterfaces/eth1"
+>     }
+>   ],
+>   "Members@odata.count": 2,
+>   "Name": "Ethernet Network Interface Collection"
+> }
+> curl -ku xx:xx  https:/x.x.x.x/redfish/v1/Managers/bmc/EthernetInterfaces=
+?$expand=3D*&$filter=3DId eq 'eth1'
+> curl: (52) Empty reply from server <<<
+>
+>
+>
+> Thanks,
+> Jay
+>
