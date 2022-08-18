@@ -4,64 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7011BC28D13
-	for <openbmc@archiver.kernel.org>; Mon, 22 Aug 2022 23:41:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72EACC28D13
+	for <openbmc@archiver.kernel.org>; Mon, 22 Aug 2022 23:41:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MBTQF6qbSz2yJQ
-	for <openbmc@archiver.kernel.org>; Tue, 23 Aug 2022 09:41:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MBTQy6JsJz3c4W
+	for <openbmc@archiver.kernel.org>; Tue, 23 Aug 2022 09:41:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=AzQhgJqC;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ZnJR2LJx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::430; helo=mail-pf1-x430.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=AzQhgJqC;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ZnJR2LJx;
 	dkim-atps=neutral
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4M7Ygq6NRqz2xkV
-	for <openbmc@lists.ozlabs.org>; Thu, 18 Aug 2022 15:42:46 +1000 (AEST)
-Received: by mail-pf1-x42a.google.com with SMTP id y141so602873pfb.7
-        for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2022 22:42:46 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4M7Ygt0rmkz2xkV
+	for <openbmc@lists.ozlabs.org>; Thu, 18 Aug 2022 15:42:49 +1000 (AEST)
+Received: by mail-pf1-x430.google.com with SMTP id 130so583970pfv.13
+        for <openbmc@lists.ozlabs.org>; Wed, 17 Aug 2022 22:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=FY65PNSVWqDBYali+M38MQ8c+8txH8rOtDLMVLEuHdI=;
-        b=AzQhgJqCkhVnq6Whc526jAOc8l46eN72vfZc0Q1wJH8g4vnxlw5KapuyGj1XtANVJS
-         ojf+wsXFiLPP9Oa1YQIZeocPzFKamXqcQV9ma5uw6Yuc160Eaj7viH+EoA1yo7fsOJ7p
-         Kw+WvpklkXb6wP4zrctYn+lEJuTE5lRHQ1UK7vr6bFhYhDVr3r/VDBrfG6qhK9+G0SBZ
-         09rjw/8SGv5x1eTqCDiZ+BjJGvGrXOcCQFVxl12pys74xQYhiChvgBk0r2tJ8Sr2Jtsw
-         7obzvaWE0lj5kLWt06VPQqzvj6DuZWsQzhIyTyGAUKl46ItZwK9aTF4IK8FWKdEvXw18
-         m+SQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc;
+        bh=K8PB1ciS662o1jhXEW/30/xnIB1fBOdqWTq+opSx6m8=;
+        b=ZnJR2LJx6JLFKPktZAmHODUTC+zFX0t8v698kWg7VG12fqbxXHK0AT9walv8s2Lj8l
+         Sil8xZf2sdQxekWzzrmkGthP11jQOSYO7E36zDtV9ktUyciqMlidFZyAjIqhZCHloVR6
+         ucCUdClihsrNSRr/VPzJ0SeauoSfKk46DMR9iWNVL532bCP7E2JKwWDdJLpUWvhTnWyt
+         sP2fD5O0Bey1CnPLHl939ufZ6HrFikAMoIlRrHVI4X2In2nGK4GFVbQaaM7a2QZLNRSc
+         5y32tvFCeZrRv0ZncEPvqopyKC+tEbKigtVAoHVuYxrA9ZgzstZ3HJ7OdB5FLq2VoEHZ
+         v28Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=FY65PNSVWqDBYali+M38MQ8c+8txH8rOtDLMVLEuHdI=;
-        b=N8voSgWDzKxGAsWwTygb84Xgmqpa/FTnGzL3DrXa1cPPqpA9LSBdIQYhAwMxZLNIMI
-         zAAcGxR3jrndEuDEqRCNCQIaBMCPcrIyufc7a4u1SmhXBgCApqZ3NmUnWVedR6L8kbAC
-         ffRZEA3cLPTaOhgEjmGYhfEFbW1hnqXiujjJygq4Jp5oFOaGOL89rYXsDycAGSCiM4Um
-         dj5xZ313vi5WctO8u4gdWeKE+hb0JcjK+rWNndUeR2DdhJwxPNrHxVNfaXSwZuGdGFtW
-         pRhx3xjQaj1zjYp9ZKnJidVuNugGB4tyABr3pxTgOvvINXhK/lyAP+BZMYebLtJKJrIl
-         r2uQ==
-X-Gm-Message-State: ACgBeo0Y7DZE9DU2jChH14SBBZKlMerSvD6FxfKUM/d3tBOQqRhLNVad
-	oAkNhxBxPRKXdSuAe+R1MKqqAIgtIq6xog==
-X-Google-Smtp-Source: AA6agR7Ylz3U99/o28VeRX8SOb4ypEZgugS1mFJKCoKRjiqK/xXMx+NXw3q5mD55eAE9tBuDxXiiPQ==
-X-Received: by 2002:a63:d609:0:b0:41d:9296:11d4 with SMTP id q9-20020a63d609000000b0041d929611d4mr1336202pgg.102.1660801361776;
-        Wed, 17 Aug 2022 22:42:41 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+        bh=K8PB1ciS662o1jhXEW/30/xnIB1fBOdqWTq+opSx6m8=;
+        b=YTS2y7IHwRRe0EhVC0hbghcWEBn4mx8Lk8a3j31qU3JkjWfD+mSUzcIYx1J5dlnqaM
+         OxiszWXXu/f90+WNtnjYMyrAL+zuPrAwiLDTs+A/RN+Y9KHasTl3Nm9iv6WmM2OFaFHz
+         ca4WzdX4r3GN/Dw4xL0IJ4YM1defPZhN4UzoEfKBhsLUj8ma2wOISjlQRoCfWlbiuScy
+         2my23TXDzklyEFcQvcWS5jlQYWKX0egLBWOQ1AXtZnEMPDjAttQkAxYtTsQMw5mU2wQ8
+         Qx/GVrvBdFEdevWfShMpmjfQsvBegVVQ4H9RPqOZeLjWVm+n7P2q50QinS43apZC82kB
+         iNvA==
+X-Gm-Message-State: ACgBeo0EqXcgm9xWtHLDiXOcCqD2KkcFtQbN+/Umjjm5+IBBOnTiP5Mc
+	xhHGAZbuK6qEA7Aw1TIRSMWPUlzIx3VRxw==
+X-Google-Smtp-Source: AA6agR69nmYBukSHwGFjc+28f6PheldTOKoxB6UwUS+aV+B74UeYQr7M7haj0u5TtyNWulswMM2nMQ==
+X-Received: by 2002:a05:6a00:1303:b0:535:c666:7d10 with SMTP id j3-20020a056a00130300b00535c6667d10mr1483237pfu.60.1660801367211;
+        Wed, 17 Aug 2022 22:42:47 -0700 (PDT)
 Received: from localhost.localdomain (125-228-123-29.hinet-ip.hinet.net. [125.228.123.29])
-        by smtp.gmail.com with ESMTPSA id x22-20020a170902821600b0016d5626af4fsm459129pln.21.2022.08.17.22.42.38
+        by smtp.gmail.com with ESMTPSA id x22-20020a170902821600b0016d5626af4fsm459129pln.21.2022.08.17.22.42.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Aug 2022 22:42:40 -0700 (PDT)
+        Wed, 17 Aug 2022 22:42:46 -0700 (PDT)
 From: Potin Lai <potin.lai.pt@gmail.com>
 To: openbmc@lists.ozlabs.org,
 	joel@jms.id.au
-Subject: [PATCH linux dev-5.15 0/2] Update Facebook Bletchley BMC devicetree
-Date: Thu, 18 Aug 2022 05:03:54 +0000
-Message-Id: <20220818050356.1459349-1-potin.lai.pt@gmail.com>
+Subject: [PATCH linux dev-5.15 2/2] ARM: dts: aspeed: bletchley: remove hdc1080 node
+Date: Thu, 18 Aug 2022 05:03:56 +0000
+Message-Id: <20220818050356.1459349-3-potin.lai.pt@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20220818050356.1459349-1-potin.lai.pt@gmail.com>
+References: <20220818050356.1459349-1-potin.lai.pt@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 23 Aug 2022 09:39:56 +1000
@@ -80,22 +82,30 @@ Cc: potin.lai@quantatw.com, Potin Lai <potin.lai.pt@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Joel,
+Because of incompatible 2nd source si7021, removing hdc1080 node from
+devicetree, and move node probe to user-space layer.
 
-Could you help review this patch series and backport to 5.15? Thank you.
-LORE LINK: https://lore.kernel.org/all/20220810004338.329832-1-potin.lai.pt@gmail.com/
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts | 5 -----
+ 1 file changed, 5 deletions(-)
 
-This patch series add modifications as below
-1. add a IPMB node for USB debug card communication.
-2. remove hdc1080 node due to incompatible 2nd source (si7021). 
-
-Potin Lai (2):
-  ARM: dts: aspeed: bletchley: add USB debug card IPMB node
-  ARM: dts: aspeed: bletchley: remove hdc1080 node
-
- arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts
+index 54c9f182f6a5c..1f72017c1e2d9 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-bletchley.dts
+@@ -882,11 +882,6 @@ tmp421@4f {
+ 		reg = <0x4f>;
+ 	};
+ 
+-	hdc1080@40 {
+-		compatible = "ti,hdc1080";
+-		reg = <0x40>;
+-	};
+-
+ 	front_leds: pca9552@67 {
+ 		compatible = "nxp,pca9552";
+ 		reg = <0x67>;
 -- 
 2.31.1
 
