@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1BC1C00140
-	for <openbmc@archiver.kernel.org>; Wed, 24 Aug 2022 06:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACBC7C00140
+	for <openbmc@archiver.kernel.org>; Wed, 24 Aug 2022 06:55:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MCH036VqBz2xGH
-	for <openbmc@archiver.kernel.org>; Wed, 24 Aug 2022 16:54:43 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MCH0k6mgBz3bhK
+	for <openbmc@archiver.kernel.org>; Wed, 24 Aug 2022 16:55:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=cG40jDJC;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FUJN9Sqk;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::52c; helo=mail-ed1-x52c.google.com; envelope-from=patrick.rudolph@9elements.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::52a; helo=mail-ed1-x52a.google.com; envelope-from=patrick.rudolph@9elements.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=cG40jDJC;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FUJN9Sqk;
 	dkim-atps=neutral
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com [IPv6:2a00:1450:4864:20::52a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MCGzL5ts0z2xk5
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MCGzL5gfkz2xGj
 	for <openbmc@lists.ozlabs.org>; Wed, 24 Aug 2022 16:54:05 +1000 (AEST)
-Received: by mail-ed1-x52c.google.com with SMTP id s11so20785316edd.13
+Received: by mail-ed1-x52a.google.com with SMTP id r4so20795924edi.8
         for <openbmc@lists.ozlabs.org>; Tue, 23 Aug 2022 23:54:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=9elements.com; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc;
-        bh=IYdWl4z0agDGXJQrtPjdAI1WivbnpHe5hlDZdVo8fu8=;
-        b=cG40jDJCVgLRijn5p9g47OlwgEQ5QTBJfR2eiXHiWf3JjTW7vOrWHRmXjg+7W+duHD
-         CmMtT0W+IhNUybCY0x4vzK0cKlvrG/rFPx3L6MderRRzbZUbS7gKmGdfhmYbOK2ZZkS5
-         WbGVX5hxqkNvMUdCd/JHok37RsKQp1nLDefxIzzO8y7te8gMt9MUIbBNEDd43QUnIl/z
-         NiLnvPCcE36omHXiLv3SXWDeRpD7hmJdeMybPuXmOOSnsoXNTeyBtNolMor3SzEju81Q
-         MRsBWRVqOv/wzTzARTSZ/jRweDDrwdkk6iIkkeKd6Wwq4U+3HmBwuOy6mg8Fd5JpfUhp
-         qVqQ==
+        bh=oS2XC6fdTXuWOLrVDXR1a2AzA8BB4cDv+VOxEeSMDbQ=;
+        b=FUJN9SqkY2b2mpNJPWquLsfyaT2FAu1XSH0aFckq3dM9tS0/1jFDzPItcFsfHMzVAn
+         GQkfjASHctPfiXl8vr5P5Oeq9PhhSHxil1tSuRs/uHAw3wkeSR0EFlmpsTRSev3uQpHh
+         iPTIJpMP5rU/9xnvRI5x11apbHHrO3hIIzane/E55t3dKuIsGOXsg7CRO3rhxjITjQpg
+         IZ6POu7Mj+Fj/yw8/idqarks6mgE7fWQYK1NGXAxpPzrZVTn9ExA5tpIlP1oSH1tXGOG
+         gkEZ1Y6cbB/BfBOjHoJfn3XRhh6HDoE5gKxCl1lh7JP/hgvESJWBENMygAYrZ9WbvKZ4
+         JPrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
-        bh=IYdWl4z0agDGXJQrtPjdAI1WivbnpHe5hlDZdVo8fu8=;
-        b=qmyTWlbxxsJ7UTqg8eFwZ405s/SJ5dnXiA6lNRkxniHqg6cGAfK2ld9nV0h8iuWpKj
-         hg+vn8v7GN5f4hf7BwPz0heoSJkLI2s95k2odhv1sbRhbwP8IDw7c11XaHXIwUaPdA5f
-         5o094CEd8aCf/NGaPt8D03VMrfBY7nNJh1JGeiFToeuwhdOr10157DQ8T196nr7Txfp0
-         bRDVtPe4TIxjURRM6oyTYqH1d39zfDiVUTrfRpuP+TA2/A8jXAId9SBBc7Zke3nrAdIs
-         PymVMQ+I6NMgbUFb04tPC709iODHohgnP8J5M6xtuO84sIOjqAqgQkruJAdDN5UthTmz
-         0QNA==
-X-Gm-Message-State: ACgBeo0uPngnXAIc2h26LYKXquG1gkm4Oq/Hp7/udXclSkvdgoP3Sjl0
-	thXb2+iwBcdA+WEtC1deIwMby3AQs+QgE55W
-X-Google-Smtp-Source: AA6agR61gCcQYZ3Nz58gKscCaOUooMPy2TnqPRC9qU4UTruPksJPxlhuvXyNBTV0pQicgqylWIdEVA==
-X-Received: by 2002:a05:6402:1ccb:b0:446:4346:8597 with SMTP id ds11-20020a0564021ccb00b0044643468597mr6476139edb.177.1661324040565;
-        Tue, 23 Aug 2022 23:54:00 -0700 (PDT)
+        bh=oS2XC6fdTXuWOLrVDXR1a2AzA8BB4cDv+VOxEeSMDbQ=;
+        b=55d+4fFCd0W0cSt/zuDwhomcnt6femfCm1jppH5VP9GEkJURR/RBcX5gZQ4OwBMcrk
+         ToBYoa++pXpdo2G0TdSHS6eWzNmf95DW4p+kOjPv9bRRN3GWF7r2ULzYBUx+hBtmGPvj
+         GxpbTwbo8uz4ttx+L6Hs47QGY2j672Hr7GFjlRka6gRIVSibwroX6icjFHVQHF6X7e/T
+         xS+hedirklc8NccHkXPX4OBuM2Cb6FZu0YA4fllotm/Y5jXUK9ZI/fjoEDS6XGvGlS/o
+         0Q77x5sNoRqgKPo/4SgEwSZxEwBa68O7sAbnCGVRoqXRNyie/IN0G8L1FcN64rTxBGRR
+         So4g==
+X-Gm-Message-State: ACgBeo2OGwj8JXu5o0jRwQi9c2n8u6Hx/98w/o2zI93AMmXUus+XRj+M
+	yvutaHnAOkO3OvDuXF4+Ic5oxEE/EIPUZ71d
+X-Google-Smtp-Source: AA6agR4O3uV1LRAgdjxhY7eeBOyVEX3iO5aOPbqa1CW1rIaSzK39v4HsKYllAha9CsPkUGrZJeE8IA==
+X-Received: by 2002:a05:6402:496:b0:443:a5f5:d3b with SMTP id k22-20020a056402049600b00443a5f50d3bmr6614807edv.331.1661324039584;
+        Tue, 23 Aug 2022 23:53:59 -0700 (PDT)
 Received: from fedora.sec.9e.network (ip-088-153-019-247.um27.pools.vodafone-ip.de. [88.153.19.247])
-        by smtp.gmail.com with ESMTPSA id n26-20020a5099da000000b0043bbf79b3ebsm2644475edb.54.2022.08.23.23.53.59
+        by smtp.gmail.com with ESMTPSA id n26-20020a5099da000000b0043bbf79b3ebsm2644475edb.54.2022.08.23.23.53.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Aug 2022 23:54:00 -0700 (PDT)
+        Tue, 23 Aug 2022 23:53:59 -0700 (PDT)
 From: Patrick Rudolph <patrick.rudolph@9elements.com>
 To: joel@jms.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v6 2/2] arm/mach-aspeed: Add support for CONFIG_ASPEED_ROUTE_UART5_TO_UART1
-Date: Wed, 24 Aug 2022 08:53:13 +0200
-Message-Id: <20220824065313.1636548-3-patrick.rudolph@9elements.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v6 1/2] arm/dts: Add IBM Genesis3 board
+Date: Wed, 24 Aug 2022 08:53:12 +0200
+Message-Id: <20220824065313.1636548-2-patrick.rudolph@9elements.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220824065313.1636548-1-patrick.rudolph@9elements.com>
 References: <20220824065313.1636548-1-patrick.rudolph@9elements.com>
@@ -81,49 +81,62 @@ Cc: andrew@aj.id.au, christian.walter@9elements.com, takken@us.ibm.com, Patrick 
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Introduce CONFIG_ASPEED_ROUTE_UART5_TO_UART1 and reuse existing
-platform code to route UART5 to UART1 pins.
-This is required on IBM/Genesis3 as only UART5 can be used as early
-debug console, but the RXD1/TXD1 pins are connected instead of RXD5/TXD5.
-This does not affect the "debug UART" function on RXD{1,5}.
+Add devicetree source file. It uses the evb-ast2500 board files.
 
 Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+Reviewed-by: Zev Weiss <zweiss@equinix.com>
 ---
- arch/arm/mach-aspeed/Kconfig            | 7 +++++++
- arch/arm/mach-aspeed/ast2500/platform.S | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ arch/arm/dts/Makefile             |  1 +
+ arch/arm/dts/ast2500-genesis3.dts | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 arch/arm/dts/ast2500-genesis3.dts
 
-diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
-index 687adcb308..660b5a240e 100644
---- a/arch/arm/mach-aspeed/Kconfig
-+++ b/arch/arm/mach-aspeed/Kconfig
-@@ -84,6 +84,13 @@ config ASPEED_ENABLE_DEBUG_UART
- 
- endif
- 
-+config ASPEED_ROUTE_UART5_TO_UART1
-+	bool "Route UART5 console to UART1 pins"
-+	depends on ASPEED_AST2500
-+	help
-+	  Route UART5 console to TXD1/RXD1 pins instead of TXD5/RXD5 pins.
-+	  Does not affect the debug uart functionality.
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 6c34b83336..db479c059b 100755
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -680,6 +680,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	ast2400-palmetto.dtb \
+ 	ast2500-evb.dtb \
+ 	ast2500-romulus.dtb \
++	ast2500-genesis3.dtb \
+ 	ast2600a0-evb.dtb \
+ 	ast2600a1-evb.dtb \
+ 	ast2600-bletchley.dtb \
+diff --git a/arch/arm/dts/ast2500-genesis3.dts b/arch/arm/dts/ast2500-genesis3.dts
+new file mode 100644
+index 0000000000..544758c5b8
+--- /dev/null
++++ b/arch/arm/dts/ast2500-genesis3.dts
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * IBM Genesis3
++ *
++ * Copyright (C) 2022 9elements GmbH
++ */
 +
- config ASPEED_PALLADIUM
- 	bool "Aspeed palladium for simulation"
- 	default n
-diff --git a/arch/arm/mach-aspeed/ast2500/platform.S b/arch/arm/mach-aspeed/ast2500/platform.S
-index aef55c4a0a..fd013e4e6f 100644
---- a/arch/arm/mach-aspeed/ast2500/platform.S
-+++ b/arch/arm/mach-aspeed/ast2500/platform.S
-@@ -795,7 +795,7 @@ wait_ddr_reset:
-     /* end delay 10ms */
- 
- /* Debug - UART console message */
--#ifdef CONFIG_DRAM_UART_TO_UART1
-+#ifdef CONFIG_ASPEED_ROUTE_UART5_TO_UART1
-     ldr   r0, =0x1e78909c                        @ route UART5 to UART Port1, 2016.08.29
-     ldr   r1, =0x10000004
-     str   r1, [r0]
++#include "ast2500-evb.dts"
++
++/ {
++	model = "IBM Genesis3";
++	compatible = "ibm,genesis3-bmc", "aspeed,ast2500";
++};
++
++&spi1 {
++	status = "disabled";
++};
++
++&fmc {
++	flash@0 {
++		compatible = "spansion,s25fl256l", "spi-flash";
++	};
++
++	flash@1 {
++		compatible = "spansion,s25fl256l", "spi-flash";
++	};
++};
++
 -- 
 2.37.1
 
