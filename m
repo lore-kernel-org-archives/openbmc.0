@@ -4,60 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBE8AECAAA1
-	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 01:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD945ECAAD5
+	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 01:27:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MHRHm1rh8z3bsS
-	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 11:22:44 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=R/zRMpeQ;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42b; helo=mail-wr1-x42b.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=R/zRMpeQ;
-	dkim-atps=neutral
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MHRP61cWqz3bjX
+	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 11:27:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=cdjrlc.com (client-ip=43.155.67.158; helo=bg5.exmail.qq.com; envelope-from=yuanjilin@cdjrlc.com; receiver=<UNKNOWN>)
+X-Greylist: delayed 125 seconds by postgrey-1.36 at boromir; Thu, 25 Aug 2022 22:49:35 AEST
+Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.155.67.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MHRH15Ljnz2xJJ
-	for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2022 11:22:05 +1000 (AEST)
-Received: by mail-wr1-x42b.google.com with SMTP id az27so16326876wrb.6
-        for <openbmc@lists.ozlabs.org>; Tue, 30 Aug 2022 18:22:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jms.id.au; s=google;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :from:to:cc;
-        bh=B8qOCB008bzkGmyeKKSx8QgzN2xxk2FyfJM736ZSJNQ=;
-        b=R/zRMpeQfrjovn7mgdQpkt0V2JtC0Ho/6UqXoDAY/APy9mHEchb7XSe+ajpBY79hKh
-         a7vMdJSeUiUQzKk1G5IVDtOF96Z9Qlw33XRfyOH7WHDmMLoUVJ1hc6K4nBiyj6wNdaPI
-         j5EAMRfnVvTj1wwcxEfUDBQGUZ+6nD5dmVLQI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-message-state:from:to:cc;
-        bh=B8qOCB008bzkGmyeKKSx8QgzN2xxk2FyfJM736ZSJNQ=;
-        b=CKu9DjjeqTPzEh4n+/CgJx91gfWjpmRG2VUDX8+Qfj0nREbn7YUNi0Z7fWtKMQ9vwq
-         xMIS5aUrNPHtk2BuqleRRvEJzaKztHgOG7ucujSaNfPEajcq09OxbYtXotELzEcrYNyd
-         SzSSMb4+VgbQ7o58ZqMbzYN1brcNV8T8hwanrBcgpBMHmsAJa7IQ1q4HSBmYyLw8q9lU
-         l+UEvg/N1Gze+pMJrCwmCbhjqfssY/jLnrqB2Aia9w56mK9HzOFftfKa+wIr1b3MpUYM
-         5l87D5ouS75/uhce00g12PrSMqF7qHTWGpcDLKXvQIkynaII3USjXPg3yJnjSiLVhLpi
-         00yg==
-X-Gm-Message-State: ACgBeo2b1lMHtxfxCk5444P23rlIaLtqs1513kZvY8SctzH/T8hRda8T
-	d2SnxHcsGCFHwW7iaQ9m8ezm9rP4uDig0jiutPPOxnfX
-X-Google-Smtp-Source: AA6agR7X+2kuqrXVHBYBNCZBSzgKMA1CBKRfydKxGlvPb+JXltruqpc/aToQuZEmUXNDG9At2u++9Us80wD6ZK4wGO0=
-X-Received: by 2002:a05:6000:1ac8:b0:220:6af3:935d with SMTP id
- i8-20020a0560001ac800b002206af3935dmr10402669wry.549.1661908917242; Tue, 30
- Aug 2022 18:21:57 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MD2q35TSSz2xGv
+	for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2022 22:49:35 +1000 (AEST)
+X-QQ-mid: bizesmtp70t1661431303tun531a5
+Received: from localhost.localdomain ( [182.148.14.124])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 25 Aug 2022 20:41:41 +0800 (CST)
+X-QQ-SSF: 01000000002000C0E000B00A0000000
+X-QQ-FEAT: zT6n3Y95oi325WtJj3R+SBXlydZNdWUy0p7FgGbcskg2dnkGMzsGYmwG7L/st
+	Ks9uO2pGqM/aDIMLA8yM6Mqjsj+PCVLbesg6+nKFBRm3JeMyN6mw4Zig5C9GSw83NdwZu6E
+	MJtfRTNqF8OJuG/1lvMqv6vTG3796B+rXImur3swG911Yl7ah70h6WaCTdLDfFU3PK+ouTH
+	/DTGsE//cA9cgiiRVugOxpRVNTjf4syPV+mF2IGleeUPdjCjNB3H+1ywlGHopjWOkxBO7ig
+	Jw4HMDPLji53V7iWnRhLbjx1VQWhnHyL5qLpQcgbwk979y5jQjziiC+Dw0oGkUorrNFGTCR
+	HYjBPraHnV9wsqmLui+Yh+iIMfsjKWXjpGfgKlLrWHw97tGFwSr+mBQVdqvevf75B0WvTfu
+X-QQ-GoodBg: 0
+From: Jilin Yuan <yuanjilin@cdjrlc.com>
+To: linus.walleij@linaro.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH] pinctrl/nuvoton: Use 'unsigned int' instead of just 'unsigned'.
+Date: Thu, 25 Aug 2022 20:41:34 +0800
+Message-Id: <20220825124134.30242-1-yuanjilin@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <166190001339.271991.6991052484622099743@amd.com>
-In-Reply-To: <166190001339.271991.6991052484622099743@amd.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 31 Aug 2022 01:21:45 +0000
-Message-ID: <CACPK8XfYKRYO3fdqjN7H-C-KZwoQFDGOcnL=OZgvjGQVXgisCg@mail.gmail.com>
-Subject: Fwd: [ANNOUNCE] QEMU 7.1.0 is now available
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
+X-Mailman-Approved-At: Wed, 31 Aug 2022 11:26:58 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,77 +56,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Jilin Yuan <yuanjilin@cdjrlc.com>, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The new qemu release includes some good stuff from many openbmc
-contriubtors, in particular for the AST2600 family of SoCs.
+'unsigned int' should be clearer than 'unsigned'.
 
-Thanks to everyone who has worked on that, in particular to Cedric for
-his careful review and maintainer work.
+Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
+---
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
----------- Forwarded message ---------
-From: Michael Roth <michael.roth@amd.com>
-Date: Tue, 30 Aug 2022 at 23:01
-Subject: [ANNOUNCE] QEMU 7.1.0 is now available
-To: <qemu-devel@nongnu.org>
-Cc: Richard Henderson <richard.henderson@linaro.org>
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index 64d8a568b3db..1c4e89b046de 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -81,11 +81,11 @@ struct npcm7xx_gpio {
+ 	int			irq;
+ 	struct irq_chip		irq_chip;
+ 	u32			pinctrl_id;
+-	int (*direction_input)(struct gpio_chip *chip, unsigned offset);
+-	int (*direction_output)(struct gpio_chip *chip, unsigned offset,
++	int (*direction_input)(struct gpio_chip *chip, unsigned int offset);
++	int (*direction_output)(struct gpio_chip *chip, unsigned int offset,
+ 				int value);
+-	int (*request)(struct gpio_chip *chip, unsigned offset);
+-	void (*free)(struct gpio_chip *chip, unsigned offset);
++	int (*request)(struct gpio_chip *chip, unsigned int offset);
++	void (*free)(struct gpio_chip *chip, unsigned int offset);
+ };
+ 
+ struct npcm7xx_pinctrl {
+-- 
+2.36.1
 
-
-Hello,
-
-On behalf of the QEMU Team, I'd like to announce the availability of
-the QEMU 7.1.0 release. This release contains 2800+ commits from 238
-authors.
-
-You can grab the tarball from our download page here:
-
-  https://www.qemu.org/download/#source
-
-The full list of changes are available at:
-
-  https://wiki.qemu.org/ChangeLog/7.1
-
-Highlights include:
-
- * Live migration: support for zero-copy-send on Linux
- * QMP: new options for exporting NBD images with dirty bitmaps via
-   'block-export-add' command
- * QMP: new 'query-stats' and 'query-stats-schema' commands for
-   retrieving statistics from various QEMU subsystems
- * QEMU guest agent: improved Solaris support, new commands
-   'guest-get-diskstats'/'guest-get-cpustats', 'guest-get-disks' now
-   reports NVMe SMART information, and 'guest-get-fsinfo' now reports
-   NVMe bus-type
-
- * ARM: emulation support for new machine types: Aspeed AST1030 SoC,
-   Qaulcomm, and fby35 (AST2600 / AST1030)
- * ARM: emulation support for Cortex-A76 and Neoverse-N1 CPUs
- * ARM: emulation support for Scalable Matrix Extensions, cache
-   speculation control, RAS, and many other CPU extensions
- * ARM: 'virt' board now supports emulation of GICv4.0
- * HPPA: new SeaBIOS v6 firmware with support for PS/2 keyboard in
-   boot menu when running with GTK UI, improved serial port emulation,
-   and additional STI text fonts
- * LoongArch: initial support for LoongArch64 architecture, Loongson
-   3A5000 multiprocessor SoC, and the Loongson 7A1000 host bridge
- * MIPS: Nios2 board (-machine 10m50-ghrd) now support Vectored
-   Interrupt Controller, shadow register sets, and improved exception
-   handling
- * OpenRISC: 'or1k-sim' machine now support 4 16550A UART serial devices
-   instead of 1
- * RISC-V: new ISA extensions with support for privileged spec version
-   1.12.0, software access to MIP SEIP, Sdtrig extension, vector
-   extension improvements, native debug, PMU improvements, and many
-   other features and miscellaneous fixes/improvements
- * RISC-V: 'virt' board now supports TPM
- * RISC-V: 'OpenTitan' board now supports Ibex SPI
- * s390x: emulation support for s390x Vector-Enhancements Facility 2
- * s390x: s390-ccw BIOS now supports booting from drives with non-512
-   sector sizes
- * x86: virtualization support for architectural LBRs
- * Xtensa: support for lx106 core and cache testing opcodes
-
- * and lots more...
-
-Thank you to everyone involved!
