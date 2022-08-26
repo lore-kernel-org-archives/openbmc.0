@@ -4,63 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA51FECAAA3
-	for <openbmc@archiver.kernel.org>; Fri, 26 Aug 2022 13:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF3EAECAAD4
+	for <openbmc@archiver.kernel.org>; Fri, 26 Aug 2022 15:42:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MDh3q73tnz3blF
-	for <openbmc@archiver.kernel.org>; Fri, 26 Aug 2022 23:47:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MDkbx6PFMz3bd6
+	for <openbmc@archiver.kernel.org>; Sat, 27 Aug 2022 01:42:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O9w7ecSB;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=DDtCptn3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=TvtfqN+4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::52e; helo=mail-ed1-x52e.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=fuzziesquirrel.com (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O9w7ecSB;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=DDtCptn3;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=TvtfqN+4;
 	dkim-atps=neutral
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MDh352stvz2xG8
-	for <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2022 23:47:10 +1000 (AEST)
-Received: by mail-ed1-x52e.google.com with SMTP id x93so2024019ede.6
-        for <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2022 06:47:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=tdyqm7lW/9+BRKW1noV2HeTiiovjnxyU7lQpW/yER3A=;
-        b=O9w7ecSB+WNfVwITP4QWmvW6OO25vFRs1Sdo2EdTAls2m3jrPtBALKsm1IOhTVKxoA
-         cXJlYperIsC5N8IyAuHQSQzyPFLBTktnttvC8CE2fVhx7MlWn7VkKNkRTej4H0OJw9CM
-         u5wvIKojceg8sTi6soDnTD7Mj2W11Wj5s+kObbrzqfzBYsisqYVFrii8VV7HToejDDXP
-         tnHJCciBrqk8aOhappwRGWZ/YBgSOigHd/ge969BkVJr2fo0rA6g2iDYPFI0k7V/xuZM
-         c72JEdZ3Br8wj3p6s51gEoILwgjx/ZR7EAVCS2jCr2k23c8qxKaPs068T4o8Uv0BR2tZ
-         vxeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=tdyqm7lW/9+BRKW1noV2HeTiiovjnxyU7lQpW/yER3A=;
-        b=m6jjze1O0Qrr251I/aU6tbmhlmoIZC7sDxjujdN7mUyo+jWfuGzf68PbIZjlBzAckY
-         gTHDLVqGIW5JOfrj9QuBcgZM6l85m+x80oT7tNjzG4vymieJrSH595Mpv0n9wnpsTs3K
-         NhdoPTb0LLMjQGi6DFWPj/m+dKwSA1O9eSyXuDIkBR3EsOvTEnnLag1Eq0vqNFOqeIG2
-         7U3ruDxPd9STWRYu5ih7YfS1wn+imp2sUweGPY4JNgudgvwMHq58DUQRkoDHmdq4GuFa
-         4oSTSufWeIExya2vFI8nCzjYHU0zX3BeGuUcqFEj1RHZSr+DItMzX/z3+Kb2GUTokI1B
-         B8EA==
-X-Gm-Message-State: ACgBeo0jWicA33YOfXi3awuNYTNZ/45O3b/4bQEgN+VJ1/LO4CgMWQzo
-	8Hn5A30dU+j6NlW5mTEEMyPvSuS13uvhzphEQfl4/Q==
-X-Google-Smtp-Source: AA6agR67VcVIwydkOJbRJ+QEjF4GAyGy9EWxWvhhZOU/F/3QiJ1q7RjJsgnEJCNT7kkdxyg3X2i9roJGA4m0wxjQ1sg=
-X-Received: by 2002:a05:6402:1f8c:b0:43e:8fab:76c with SMTP id
- c12-20020a0564021f8c00b0043e8fab076cmr6821062edc.126.1661521622829; Fri, 26
- Aug 2022 06:47:02 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MDkb55ZHTz3bY8
+	for <openbmc@lists.ozlabs.org>; Sat, 27 Aug 2022 01:41:36 +1000 (AEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id CA5ED5C02B4
+	for <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2022 11:41:28 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute1.internal (MEProxy); Fri, 26 Aug 2022 11:41:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	fuzziesquirrel.com; h=cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm2; t=1661528488; x=1661614888; bh=LjlfZhQatf
+	8jYpCQZg+ASaNgaQRS66NuqZxL6UUyqcE=; b=DDtCptn3IiKC7HtCt4UdnvoPUf
+	Eb6w9LUlxRFGAOthHzObcjBOUrnAfu2XEUI5w3oiO6plV+7IHq+J+jqu5Oj5UOnf
+	e06EVI9g/Ikw0uASArhQ+bd8bX/29qp93mxij7XRkcVi2+RfdjwVWKH49mck1M+F
+	ZUjsVREAlVVjeQT6YU+3bU3sSNZL/WDGMEU7vasZ64HnRwKbOrMQG2CLdKfRbGG1
+	zi/uLJX+e+HprBmc5GXS/nAMcfSZ0hXYn9nP1g5jP/6ePTNsaMqFLhLP8lLUKvaW
+	vKP0ktVuZyLcw2t/w9noTfwgKPZq+OO9lfeUetx+Qu8LdtyEbCJBfI+DR+iQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:mime-version
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661528488; x=
+	1661614888; bh=LjlfZhQatf8jYpCQZg+ASaNgaQRS66NuqZxL6UUyqcE=; b=T
+	vtfqN+4lQNxVaUo7oXaXOr1QJW7lUzyWEmt21sfH+jnCD0PkpngiTB9FwF2usQVy
+	zrayZGZQL3rRcEB/as1oSJx7pZBSEcRxC7JEQ/LF5QNSyex3Vpsb77yYkKeWpvCn
+	FZRIDBSQ19wWdUq/LRUABKRRaPB4yY+0nvJc08F8E1PCQpCp3HZfOQfdGJeCDSxG
+	VywS4GLDA41yvMqMJWpVCv35gQzkiHZB05uicyxbvet3j0GUAsJP76oHrlDH34he
+	VUla36Hosd2JUgpm7RfvvIHQIEd7pT1kFV797oAAGKa7YdMX6gZRtRpzRFJiHhDK
+	KFVM8a6Sw04MtVE05fxvw==
+X-ME-Sender: <xms:qOkIYzOjmtpmH0YGyXWZ08Y7CYq44n3c7aAUEDrb2y9qWAu4NsNS-g>
+    <xme:qOkIY99qcfdTn6u0H22W8TLeugsIvbgLiQRyCmjLkJcsCq7x9ImbkApt0ehHWaw8P
+    jQbBB3IAN5hNUWfVtE>
+X-ME-Received: <xmr:qOkIYyQzQyCk4FspOq3FIH0zs28eO5Bd4R236aoC12IL_MTBmab0xm4l>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejhedgleduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesthdtredttd
+    dtvdenucfhrhhomhepuehrrgguuceuihhshhhophcuoegsrhgrughlvgihsgesfhhuiiii
+    ihgvshhquhhirhhrvghlrdgtohhmqeenucggtffrrghtthgvrhhnpedukedvuddvffevje
+    fhveejieehhfdvvdffgffglefgkefgjeetiedvhfevuedtvdenucffohhmrghinhepohhp
+    vghnsghmtgdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
+    hlfhhrohhmpegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
+X-ME-Proxy: <xmx:qOkIY3uKor5usNomOd8t6mU6P4t7cs6x9Ttd4hnxfRdp7kPL471ZRw>
+    <xmx:qOkIY7c8R8OOp1vY4UyVg2efaWhafzuDgZ7exteKwVss9VPBQQmUcA>
+    <xmx:qOkIYz3ge1Fn0k36Ycxp1QI1TlipjSecjruV6IyiMPMq9q6UJvPgPg>
+    <xmx:qOkIY5p6_rneeBUb0bG1IquzOCmVOkxZuRo-fNulkg_cwqo-3P6tXA>
+Feedback-ID: i02c9470a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2022 11:41:28 -0400 (EDT)
+Date: Fri, 26 Aug 2022 11:41:26 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: openbmc@lists.ozlabs.org
+Subject: removal of mapper allowlists
+Message-ID: <20220826154126.b265sq7vh4qk5b7q@cheese>
 MIME-Version: 1.0
-References: <20220825124134.30242-1-yuanjilin@cdjrlc.com>
-In-Reply-To: <20220825124134.30242-1-yuanjilin@cdjrlc.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 26 Aug 2022 15:46:51 +0200
-Message-ID: <CACRpkday3c1BUDgheHVovBJ=v9Z-Gbq92Ex4J3VmKDr4sYdL9w@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl/nuvoton: Use 'unsigned int' instead of just 'unsigned'.
-To: Jilin Yuan <yuanjilin@cdjrlc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,17 +89,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: benjaminfair@google.com, linux-gpio@vger.kernel.org, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, tmaimon77@gmail.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Aug 25, 2022 at 2:41 PM Jilin Yuan <yuanjilin@cdjrlc.com> wrote:
+Hi all
 
-> 'unsigned int' should be clearer than 'unsigned'.
->
-> Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
+As a part of an effort to reduce our bitbake metadata complexity I have 
+made a mapper change here: https://gerrit.openbmc.org/c/54243/ that 
+removes the need to configure lists of service namespaces.  Instead, the
+mapper will introspect anything that claims a well known service name,
+with the exception of anything in the org.freedesktop namespace.  Please 
+let me know if you have any questions.
 
-Patch applied.
-
-Yours,
-Linus Walleij
+Thanks,
+Brad
