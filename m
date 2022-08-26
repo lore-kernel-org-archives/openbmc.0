@@ -4,89 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86AB1C28D13
-	for <openbmc@archiver.kernel.org>; Thu, 25 Aug 2022 13:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D67ECAAA3
+	for <openbmc@archiver.kernel.org>; Fri, 26 Aug 2022 02:42:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MD3CP5wsRz3bls
-	for <openbmc@archiver.kernel.org>; Thu, 25 Aug 2022 23:07:13 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MDPJM2MFbz3bZc
+	for <openbmc@archiver.kernel.org>; Fri, 26 Aug 2022 12:42:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=Shu7Au1H;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=4F5vrCYO;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=RTt5GrnT;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=milkfafa@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=Shu7Au1H;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=4F5vrCYO;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=RTt5GrnT;
 	dkim-atps=neutral
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com [64.147.123.24])
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MD3BW6vhdz2xGS
-	for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2022 23:06:26 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id 4DCA8320098C;
-	Thu, 25 Aug 2022 09:06:20 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute3.internal (MEProxy); Thu, 25 Aug 2022 09:06:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	fuzziesquirrel.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1661432779; x=1661519179; bh=iinfrsnwqG
-	5rGBDWWomEfSYrtyLdKCeucH3Hf949FWM=; b=Shu7Au1Hv/8N2Kf+CS5pc9sUMI
-	yZ41Mpv8OpDNdQGaRewA6zGMo/52O3NOtaYXGlV4y67fS7CceHCdGqjGxYmW/gtQ
-	Aqs6L0Qd5tpc2syGtpytnCecMjF3ADm+O1p08bJKdgfvHwq6e/W3BqgPfUAjAloA
-	XkG2n6WuruiHryIWCqft1DKvm6un8jVxKrVPu23/qf11NhtufQrcJWEM7ENBkAfd
-	Pl87SOOTaOXZ0eow404j9KvLnXRX92NdwCK/UXIl03wlntIJkbr3LxPgetmfqOuH
-	1GW+wMfDVgdabdU8FXqRM8sz92o7pgt2Mk1IxA1wLr9FCCWvjiu2abXYL/Kw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1661432779; x=
-	1661519179; bh=iinfrsnwqG5rGBDWWomEfSYrtyLdKCeucH3Hf949FWM=; b=4
-	F5vrCYOCB1ayWodw6x3TJuqe7lGUisZoTTRGju/2DtUz0Jw++jKBy4fVrwpeo4U7
-	KCvrARnb+BKgOGvlMsUhR9Q2U1afFx+5w2C5muWgJej6nxK/M176DKjXcRculcEI
-	IaufvuBTRpFeQi+slpa1EO+WzJNPuUwohbPJ/QYZx1DctGol6X1xaWgbbTnCfw6y
-	SGjRGuj8oO4HpyCzmfHnudjMy0IC0xLFH1GvLiKLaR08cwdxEOjmb8mJFJ7IdjPi
-	rzON8p/sYECK5dFMUvYuizdeQivGKYspGywcMLZaA21MKeD8mnwaXz3wXOqKrPJ3
-	72yfCca8jZw/+R3ANnZ3Q==
-X-ME-Sender: <xms:y3MHY4Im_wXgEy47EukOr40FiG3eoESbVCEqPD2xfODjR230EZj2mw>
-    <xme:y3MHY4JNCk7RBaNAel_fwjtoVgg8dEXgDeHVvs49agPw3rYifW27ZgvuBTBHcwEB_
-    we_9LJddMdSmntwg00>
-X-ME-Received: <xmr:y3MHY4skPqNp2NAwQfMtfAJ3gztUX9Pwwg3QdSxG7g9aNkOmX7ROZPrsidL4YcN7OS6B9ia9X7tamfG1QNvg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejfedgheelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepkffuhffvveffjghftgfgfgggsehtqhertddtreejnecuhfhrohhmpeeurhgr
-    ugcuuehishhhohhpuceosghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtg
-    homheqnecuggftrfgrthhtvghrnhepgeetkedufeetjeehveefheektdeifedvhfeilefh
-    ieehvdehvddtudfguefgieetnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomhepsghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtgho
-    mh
-X-ME-Proxy: <xmx:y3MHY1bdUdXyS2p6D4RSJLiOpuK1ocZNJGJE0jfXXmsDVWijKVwbog>
-    <xmx:y3MHY_ZFQjxAlxofq-llDmY1KERHbo78wQ0E22EJVH6afFYVHw7H0A>
-    <xmx:y3MHYxBqwYZUbPThnGIAhxV8ojCQ44ncJkAsiNOqf5pmyDYKUkT2JA>
-    <xmx:y3MHY-nbV5FUvtMs-tRo4PQvaSlcROwvr25vMuQjUC7_0IfbSXxjsw>
-Feedback-ID: i02c9470a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 25 Aug 2022 09:06:19 -0400 (EDT)
-Message-ID: <3a78e200967593b319b107c3a31744fd0dbe0bde.camel@fuzziesquirrel.com>
-Subject: Re: AMD's Signed CCLA
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: "Venkatesh, Supreeth" <Supreeth.Venkatesh@amd.com>, 
- "'openbmc@lists.ozlabs.org'" <openbmc@lists.ozlabs.org>,
- "'manager@lfprojects.org'" <manager@lfprojects.org>
-Date: Thu, 25 Aug 2022 09:06:18 -0400
-In-Reply-To: <SN6PR12MB4752077B3255E94D865769EE96739@SN6PR12MB4752.namprd12.prod.outlook.com>
-References: 	<SN1PR12MB25428FA4CD525DF87AC73F8496830@SN1PR12MB2542.namprd12.prod.outlook.com>
-	 <SN6PR12MB4752077B3255E94D865769EE96739@SN6PR12MB4752.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4 
-MIME-Version: 1.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MDPHc736vz30Qc
+	for <openbmc@lists.ozlabs.org>; Fri, 26 Aug 2022 12:42:03 +1000 (AEST)
+Received: by mail-pj1-x1029.google.com with SMTP id t5so395289pjs.0
+        for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2022 19:42:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
+         :cc;
+        bh=PLLLntBRKNP/TR5HdmPuN09W5k0TVn71VC7Vx2rA/LU=;
+        b=RTt5GrnTfa7hAfcc/J07/2fvusNJYRSxZfYZ03xUL76cBwmkm6jNEHsFfryhZiBO/q
+         tlfUOk7ecPNjEGZOzx3FzriuX062rEa55QsGlNGohENjf1Dm7IC30j7hLAOX4kYrjX1/
+         ZkIEgaYvQWnRu7U/QBNC7zqH6CO8PSIgp4fm9vWCQMoXIi13jaP59CwYCBjY3eSli0xo
+         22OTfiK0uOKhDhYJFMayZGaPdb75L4kx8j7qgp5FR0n+sQar5YOA2beDqE5OKwrQ6Qb8
+         NebSkTsK9MaFX6NwcwZ2bJlJiaugoiDOxbjAUreOT5jmxWzw5moDvd6o1E1NOWBHlqTm
+         fPGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=references:in-reply-to:message-id:date:subject:cc:to:from
+         :x-gm-message-state:from:to:cc;
+        bh=PLLLntBRKNP/TR5HdmPuN09W5k0TVn71VC7Vx2rA/LU=;
+        b=bnhefsVDR26UNP7tt5V0CZAuSLVoy1w9auc9nzH4i/lay1ZxNeQOMKsrubxLlQwpCR
+         +vunB35GHNklkGjFT3Y3CexlaFOSJaOp+5HO3gtrifCiaIlzuWOammRsh8bx1DC7higR
+         MNcnTWSJWAY8RxpEFINuB93ftzuny4ihect3/So1hwIxP5lB8uprLOARyR9HATDUrmbR
+         zHxHit7uNPa4wxzt8RC/CNU6KrAd+Jgbu0OcZZhkR2TRsfUxH+c4EPBkMaZNvmPVOrgS
+         64WJzl6xqV91Ok6x8Sm+L8i92HnPWsMfEnGLo71kr8zB6bbRGpPPUx+Vnq3xHSWpfXnw
+         jGIA==
+X-Gm-Message-State: ACgBeo18jVsGRzdd+4ViFpP1ETACiaZ5CTCckPKmzzRXPCVGemi9YEyp
+	Mwnf0DKBm0n5LTns8UK4qN5TQTwPqLw7uA==
+X-Google-Smtp-Source: AA6agR4jBxOUZXbSQmInIFfHedB8ThuUhiJs5/hLw7Em9GE6AS9ynfIU+JcuiLYWoBObxWNIcEJgTQ==
+X-Received: by 2002:a17:902:f712:b0:171:29d0:6f9f with SMTP id h18-20020a170902f71200b0017129d06f9fmr1776297plo.84.1661481720267;
+        Thu, 25 Aug 2022 19:42:00 -0700 (PDT)
+Received: from localhost.localdomain (60-250-192-107.hinet-ip.hinet.net. [60.250.192.107])
+        by smtp.gmail.com with ESMTPSA id s34-20020a17090a69a500b001f021cdd73dsm444473pjj.10.2022.08.25.19.41.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 25 Aug 2022 19:41:59 -0700 (PDT)
+From: Marvin Lin <milkfafa@gmail.com>
+To: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/5] arm: dts: Add node for NPCM Video Capture/Encode Engine
+Date: Fri, 26 Aug 2022 10:41:20 +0800
+Message-Id: <20220826024124.22747-2-milkfafa@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20220826024124.22747-1-milkfafa@gmail.com>
+References: <20220826024124.22747-1-milkfafa@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,20 +76,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "Spottswood, Jason" <Jason.Spottswood@amd.com>
+Cc: kwliu@nuvoton.com, Marvin Lin <milkfafa@gmail.com>, tmaimon77@gmail.com, avifishman70@gmail.com, openbmc@lists.ozlabs.org, tali.perry1@gmail.com, kflin@nuvoton.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 2022-08-24 at 19:25 +0000, Venkatesh, Supreeth wrote:
-> [AMD Official Use Only - General]
->=20
-> Please find the updated signed CCLA from AMD attached.
-> Updated CCLA necessitated because of both CLA Manager change and
-> Schedule A change.
+Add node for Video Capture/Differentiation Engine (VCD) and Encoding
+Compression Engine (ECE) present on Nuvoton NPCM SoCs. Tested with Nuvoton
+NPCM750 evaluation board.
 
-Hi Supreeth
+Signed-off-by: Marvin Lin <milkfafa@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-CCLA accepted.
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index 3696980a3da1..0d2df74974bf 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -178,6 +178,19 @@
+ 			status = "disabled";
+ 		};
+ 
++		video: video@f0810000 {
++			compatible = "nuvoton,npcm750-video";
++			reg = <0xf0810000 0x10000>, <0xf0820000 0x2000>;
++			reg-names = "vcd", "ece";
++			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
++			resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_VCD>,
++				 <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_ECE>;
++			reset-names = "vcd", "ece";
++			nuvoton,syscon-gcr = <&gcr>;
++			nuvoton,syscon-gfxi = <&gfxi>;
++			status = "disabled";
++		};
++
+ 		apb {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+@@ -553,6 +566,12 @@
+ 				pinctrl-0 = <&smb15_pins>;
+ 				status = "disabled";
+ 			};
++
++			gfxi: gfxi@e000 {
++				compatible = "nuvoton,npcm750-gfxi", "syscon",
++					     "simple-mfd";
++				reg = <0xe000 0x100>;
++			};
+ 		};
+ 	};
+ 
+-- 
+2.17.1
 
-Thanks,
-Brad
