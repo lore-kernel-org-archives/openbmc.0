@@ -4,47 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD945ECAAD5
-	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 01:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F56ECAAD4
+	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 12:16:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MHRP61cWqz3bjX
-	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 11:27:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=cdjrlc.com (client-ip=43.155.67.158; helo=bg5.exmail.qq.com; envelope-from=yuanjilin@cdjrlc.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 125 seconds by postgrey-1.36 at boromir; Thu, 25 Aug 2022 22:49:35 AEST
-Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.155.67.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MHjnZ5StSz3bkm
+	for <openbmc@archiver.kernel.org>; Wed, 31 Aug 2022 22:16:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AqpsGQxz;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::62e; helo=mail-ej1-x62e.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AqpsGQxz;
+	dkim-atps=neutral
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MD2q35TSSz2xGv
-	for <openbmc@lists.ozlabs.org>; Thu, 25 Aug 2022 22:49:35 +1000 (AEST)
-X-QQ-mid: bizesmtp70t1661431303tun531a5
-Received: from localhost.localdomain ( [182.148.14.124])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 25 Aug 2022 20:41:41 +0800 (CST)
-X-QQ-SSF: 01000000002000C0E000B00A0000000
-X-QQ-FEAT: zT6n3Y95oi325WtJj3R+SBXlydZNdWUy0p7FgGbcskg2dnkGMzsGYmwG7L/st
-	Ks9uO2pGqM/aDIMLA8yM6Mqjsj+PCVLbesg6+nKFBRm3JeMyN6mw4Zig5C9GSw83NdwZu6E
-	MJtfRTNqF8OJuG/1lvMqv6vTG3796B+rXImur3swG911Yl7ah70h6WaCTdLDfFU3PK+ouTH
-	/DTGsE//cA9cgiiRVugOxpRVNTjf4syPV+mF2IGleeUPdjCjNB3H+1ywlGHopjWOkxBO7ig
-	Jw4HMDPLji53V7iWnRhLbjx1VQWhnHyL5qLpQcgbwk979y5jQjziiC+Dw0oGkUorrNFGTCR
-	HYjBPraHnV9wsqmLui+Yh+iIMfsjKWXjpGfgKlLrWHw97tGFwSr+mBQVdqvevf75B0WvTfu
-X-QQ-GoodBg: 0
-From: Jilin Yuan <yuanjilin@cdjrlc.com>
-To: linus.walleij@linaro.org,
-	avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com
-Subject: [PATCH] pinctrl/nuvoton: Use 'unsigned int' instead of just 'unsigned'.
-Date: Thu, 25 Aug 2022 20:41:34 +0800
-Message-Id: <20220825124134.30242-1-yuanjilin@cdjrlc.com>
-X-Mailer: git-send-email 2.36.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MHjmn2tZ0z3bZB
+	for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2022 22:15:18 +1000 (AEST)
+Received: by mail-ej1-x62e.google.com with SMTP id og21so27967371ejc.2
+        for <openbmc@lists.ozlabs.org>; Wed, 31 Aug 2022 05:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc;
+        bh=kWB6H8/eRT0uvs+7dpZN0LfgkIKsMbM/vLGI21NZpGM=;
+        b=AqpsGQxz0Z5xEtEA2iTVL+MHr93DKFmuEVs5lC21yVoP8sAEtUttoNxOg16xoO8FWT
+         iz5fcIJSylAWLoJdbt/iB1BSAvpsnm6J5BdtLWRy18zlaYp9FFyUFHSPby+PN6ZittFK
+         Rv78F+ZJ/VU4Z3YIxyXQvP6F7TFAm8EhqeMstDp+b6d40NuB3kvomcK1QKE0tMSHOSTE
+         hrVsRkdiXae/rFdkub4hNciY8Xp22pq6x/XBmKVzhIkk5lDO2Cx5w+9jdRem5Ue/3hnO
+         Lxjeb5a6QfoyPwnSyew3K3/QEEs4sGEB4j4ypct9IJsNhKWIkE6V3pu2e0sM+WGqFYO/
+         XsBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc;
+        bh=kWB6H8/eRT0uvs+7dpZN0LfgkIKsMbM/vLGI21NZpGM=;
+        b=A1RGAVafKk9eoMHgBDCI9qiD61mijEjtWiIprbIaBxTLprG2DgkSoMTLIHVfmvnTwD
+         FXsFc2T/O28vyqe1tQngKprLfIH3D9CNmX1SNgozssJjsTJH4Ry6MRck+yoBUROO/bnA
+         uaZeosGYP3Ydsrf9dRcUcWiTeixe+QeilpETKRWfIsHmJlgXStu3dTYQ0NM8iEN0n8qR
+         GqplxC62xRdaPWwayHzrcF1pdDESMl8ezJ5Js0VeVJxPkPuOr0+L+bTUlBnbXN4KDY+x
+         CBdFTqqnZGUhcKWFFDitopoFGTGLhq2UmQSumbHfrcPyR/iQ80LmPpR8OHJz4frSqYbZ
+         WZbg==
+X-Gm-Message-State: ACgBeo3kjodw8Lz3IdKAB6tgb9bbVdsIOTYiJQ9XDY5erWGeputWrhTP
+	JeCuz3ZcTnJ7VSpUxYP9o6d7Q7uP3t2ZKhYf0huLFpt73dM=
+X-Google-Smtp-Source: AA6agR431HKmf0TUg6YlMD0uxoGOijdkT6OeZopqLPwbMGaOIN9VRF8Kz4zNCsyebmooon1v1jTmK62J5TvWsl8ex3g=
+X-Received: by 2002:a17:906:cc5a:b0:741:5240:d91a with SMTP id
+ mm26-20020a170906cc5a00b007415240d91amr13306282ejb.500.1661948115397; Wed, 31
+ Aug 2022 05:15:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr4
-X-Mailman-Approved-At: Wed, 31 Aug 2022 11:26:58 +1000
+References: <20220818101839.28860-1-billy_tsai@aspeedtech.com>
+In-Reply-To: <20220818101839.28860-1-billy_tsai@aspeedtech.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 31 Aug 2022 14:15:04 +0200
+Message-ID: <CACRpkdZSw9Nn8hp+C3SPw4_EkXn0mkLh8tSO5zhGR8xdv=Jk8g@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: aspeed: Force to disable the function's signal
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,37 +72,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Jilin Yuan <yuanjilin@cdjrlc.com>, linux-kernel@vger.kernel.org
+Cc: linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, joel@jms.id.au, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-'unsigned int' should be clearer than 'unsigned'.
+On Thu, Aug 18, 2022 at 12:18 PM Billy Tsai <billy_tsai@aspeedtech.com> wrote:
 
-Signed-off-by: Jilin Yuan <yuanjilin@cdjrlc.com>
----
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+> When the driver want to disable the signal of the function, it doesn't
+> need to query the state of the mux function's signal on a pin. The
+> condition below will miss the disable of the signal:
+> Ball | Default | P0 Signal | P0 Expression               | Other
+> -----+---------+-----------+-----------------------------+----------
+>  E21   GPIOG0    SD2CLK      SCU4B4[16]=1 & SCU450[1]=1    GPIOG0
+> -----+---------+-----------+-----------------------------+----------
+>  B22   GPIOG1    SD2CMD      SCU4B4[17]=1 & SCU450[1]=1    GPIOG1
+> -----+---------+-----------+-----------------------------+----------
+> Assume the register status like below:
+> SCU4B4[16] == 1 & SCU4B4[17] == 1 & SCU450[1]==1
+> After the driver set the Ball E21 to the GPIOG0:
+> SCU4B4[16] == 0 & SCU4B4[17] == 1 & SCU450[1]==0
+> When the driver want to set the Ball B22 to the GPIOG1, the condition of
+> the SD2CMD will be false causing SCU4B4[17] not to be cleared.
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 64d8a568b3db..1c4e89b046de 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -81,11 +81,11 @@ struct npcm7xx_gpio {
- 	int			irq;
- 	struct irq_chip		irq_chip;
- 	u32			pinctrl_id;
--	int (*direction_input)(struct gpio_chip *chip, unsigned offset);
--	int (*direction_output)(struct gpio_chip *chip, unsigned offset,
-+	int (*direction_input)(struct gpio_chip *chip, unsigned int offset);
-+	int (*direction_output)(struct gpio_chip *chip, unsigned int offset,
- 				int value);
--	int (*request)(struct gpio_chip *chip, unsigned offset);
--	void (*free)(struct gpio_chip *chip, unsigned offset);
-+	int (*request)(struct gpio_chip *chip, unsigned int offset);
-+	void (*free)(struct gpio_chip *chip, unsigned int offset);
- };
- 
- struct npcm7xx_pinctrl {
--- 
-2.36.1
+Patch applied!
 
+Yours,
+Linus Walleij
