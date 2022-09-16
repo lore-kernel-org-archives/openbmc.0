@@ -4,40 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FE2C54EE9
-	for <openbmc@archiver.kernel.org>; Mon, 19 Sep 2022 07:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEFE6ECAAD3
+	for <openbmc@archiver.kernel.org>; Mon, 19 Sep 2022 07:47:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MWGvw4zC6z2xB5
-	for <openbmc@archiver.kernel.org>; Mon, 19 Sep 2022 17:46:36 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MWGwf1Y6xz2xDN
+	for <openbmc@archiver.kernel.org>; Mon, 19 Sep 2022 17:47:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=russianclients.ru header.i=info@russianclients.ru header.a=rsa-sha256 header.s=dkim5 header.b=jUP+OryN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=WqJhRC6J;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=russianclients.ru (client-ip=194.67.93.249; helo=russianclients.ru; envelope-from=info@russianclients.ru; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::629; helo=mail-ej1-x629.google.com; envelope-from=pbrobinson@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=russianclients.ru header.i=info@russianclients.ru header.a=rsa-sha256 header.s=dkim5 header.b=jUP+OryN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=WqJhRC6J;
 	dkim-atps=neutral
-X-Greylist: delayed 1803 seconds by postgrey-1.36 at boromir; Fri, 16 Sep 2022 18:34:42 AEST
-Received: from russianclients.ru (russianclients.ru [194.67.93.249])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MTS6p5vsdz2xB5
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2022 18:34:41 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=dkim5; d=russianclients.ru;
- h=Message-ID:From:To:Subject:Date:MIME-Version:Content-Type:List-Unsubscribe;
- i=info@russianclients.ru;
- bh=ecAxoM+5qHl+8dvlZ6Hz3NzhAyHy46E7aVtTkAsnChI=;
- b=jUP+OryNavva8fxE8z7AtuBH3NncpyAWcvDEMx+1yDZAx8Up7IzNl8/0ubDdmoTLH8wysdldfiKC
-   ChBhiS8EyGGA2E3eJ43m3d3L322lDPx+r7eZokbzgGc45tfwzefZDIP6kzgGJEzyQdCP4dYZifhr
-   mtOQCfphhSvazhN35B+kmq4LkvdMkH/Ha0QR+l0bng4JFW0Q6bUVVdc61zbd28QuHoa2tcKcKZXP
-   icwZabMl0mX6556bqiOCa/v8qcl72A+VZCAtvTR2GEwawh8BF8T2+PKFwwFUnosGqOBFlV6DSsQq
-   H3/br13eLO6+hZuwrR2wCONsyB9sbhIQYlfmhQ==
-Message-ID: <241e9062965231f5d669e04bbf7b446f4d4cfb377f@russianclients.ru>
-From: Elizaveta Mitrofanova <info@russianclients.ru>
-To: openbmc@lists.ozlabs.org
-Subject: Why today is the best time to expose your property in Russia?
-Date: Fri, 16 Sep 2022 10:04:32 +0200
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MTXbG1bNrz2yxG;
+	Fri, 16 Sep 2022 21:56:09 +1000 (AEST)
+Received: by mail-ej1-x629.google.com with SMTP id u9so48964808ejy.5;
+        Fri, 16 Sep 2022 04:56:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=x14L5nWN4Vy/JiW326iHsOtIjJf1QJbgmD95EAtZRbE=;
+        b=WqJhRC6Jhe9fMZsv5wEIKkEdPLGutrQ7JDTdPexz21O9E3nlaIMpQp6Fp4z2ZVD4pf
+         3s7AQByd87b9QM7mkv9RuGz1mwYFXtPe3FBW0/GqyQ9Zh/526EJzoperb/IZV8m4tCTJ
+         P+wNPKWgPno/0UhunQqWXGMe97HUhNm5bIey+RCKlNIPmij4Gihfg6GUYAJMhO0LWZOy
+         lnzyfrIoWiVfeAzKkvtnaFUvvKx2eVcMHtaLDr3CbAUIhiOUZJvyoeDe7eU/bCF1kXnJ
+         uVb/CBJyp0yyzvuisZ/nqwQA6a6FQDHF2U/taSpIByq1MfTL0bPQhDm1tVKjjujjG86u
+         z2xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=x14L5nWN4Vy/JiW326iHsOtIjJf1QJbgmD95EAtZRbE=;
+        b=p7B+kXUcXIYTIRIO1/38ZmduL0X0uzG3set1HDOr5A8SAedvfPv2hzakIkQStD99qy
+         85kNgDuf3r7uVNr/E9HHC7ewUkK5DFBJvn1xa9rYj1J3dhRZphqRBsNleV5T07XQGjWo
+         g+/+JAfNA+QJvLXmlCZd+kg/VdM6tw44Av93QHRukiZYdODrQAR8nERFGyeO62KrG4Pp
+         398B6rW/mX/MX6ASNVlQjY/LE6bvg/2AusSmQ6ZfU6rEZtxYPbb8pE7tq7md8bGAoIS5
+         DSi5tYFZhL2aGDCw0kDtNA877mRRxHDvne7bs3S7kONSWPfFsnrpGI03UVzaNNR14ofV
+         AcWg==
+X-Gm-Message-State: ACrzQf12W/BuLhZzJzs2EoB7i39x0LySpAWaVTSLIlZGSBTZW9FOezPe
+	iqw3UQz6byCG+63/0VlAtEw=
+X-Google-Smtp-Source: AMsMyM6kx6YpswciT5Yyc8j/z70Y0Qnb361JxWuJQ94VG8037dOBAvvfWi8mN91Wd6Bgw8hIV6sT+Q==
+X-Received: by 2002:a17:907:2e02:b0:77c:405e:e740 with SMTP id ig2-20020a1709072e0200b0077c405ee740mr3228298ejc.139.1663329365113;
+        Fri, 16 Sep 2022 04:56:05 -0700 (PDT)
+Received: from morpheus.home.roving-it.com (3.e.2.0.0.0.0.0.0.0.0.0.0.0.0.0.1.8.6.2.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:2681::2e3])
+        by smtp.googlemail.com with ESMTPSA id w21-20020a1709064a1500b0077a1dd3e7b7sm10233407eju.102.2022.09.16.04.56.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Sep 2022 04:56:04 -0700 (PDT)
+From: Peter Robinson <pbrobinson@gmail.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>,
+	linux-mmc@vger.kernel.org,
+	Andrew Jeffery <andrew@aj.id.au>,
+	linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH] mmc: sdhci-of-aspeed: Add dependency on ARCH_ASPEED
+Date: Fri, 16 Sep 2022 12:56:02 +0100
+Message-Id: <20220916115602.370003-1-pbrobinson@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="03a9e00239fdc2092a80c977a366e70db6c0"
-X-Priority: 1
-X-Mailman-Approved-At: Mon, 19 Sep 2022 17:45:28 +1000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 19 Sep 2022 17:45:24 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,73 +79,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Peter Robinson <pbrobinson@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---03a9e00239fdc2092a80c977a366e70db6c0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+The MMC_SDHCI_OF_ASPEED is part of the Aspeed silicon so it makes
+sense to depend on ARCH_ASPEED and for compile testing.
 
-Hi,=C2=A015,000 Russian millionaires are seeking to emigrate to Europe.. =
-Make your real estate visible to all them.
-Advertise your properties on main local Russian portals and receive calls=
- and inquiries every day.
-With our professional advertising service you have next benefits:
-- maxim exposure for your properties on Russian area, 17 biggest Russian =
-portals with millions of visitors everyday
-- your add are exposed with your contacts so all Russian clients contact =
-you directly
-- your advertisement will be online on all Russian portals in 24-48 hours=
- after you will provide your properties details
-- receive our confirmation document, click and=C2=A0see all your advertis=
-ements easily
-Send us your properties details for advertising now.
-Thank you very much for your collaboration
+Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+---
+ drivers/mmc/host/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-Elizaveta Mitrofanova
+diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
+index e63608834411..f324daadaf70 100644
+--- a/drivers/mmc/host/Kconfig
++++ b/drivers/mmc/host/Kconfig
+@@ -157,6 +157,7 @@ config MMC_SDHCI_OF_ARASAN
+ 
+ config MMC_SDHCI_OF_ASPEED
+ 	tristate "SDHCI OF support for the ASPEED SDHCI controller"
++	depends on ARCH_ASPEED || COMPILE_TEST
+ 	depends on MMC_SDHCI_PLTFM
+ 	depends on OF && OF_ADDRESS
+ 	select MMC_SDHCI_IO_ACCESSORS
+-- 
+2.37.3
 
-www.russianclients.ru
-
-Unsubscribe
-
---03a9e00239fdc2092a80c977a366e70db6c0
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
-</head>
-<body bgColor=3D"#ffffff">
-<div>Hi,&nbsp;15,000 Russian millionaires are seeking to emigrate to Euro=
-pe.. Make your real estate visible to all them.<br>&nbsp;<br><em>Advertis=
-e your properties on main local Russian portals and receive calls and inq=
-uiries every day.</u></strong></em><br><br><font color=3D"#CC66CC"<br>Wit=
-h our professional advertising service you have next benefits:<br>&nbsp;<=
-br>- maxim exposure for your properties on Russian area, 17 biggest Russi=
-an portals with millions of visitors everyday<br>- your add are exposed w=
-ith your contacts so all Russian clients contact you directly<br>- your a=
-dvertisement will be online on all Russian portals in 24-48 hours after y=
-ou will provide your properties details<br>- receive our confirmation doc=
-ument, click and&nbsp;see all your advertisements easily</font><br>&nbsp;=
-<br>Send us your properties details for advertising now.<br><br>Thank you=
- very much for your collaboration</div>
-<div>Elizaveta Mitrofanova</div>
-<div>www.russianclients.ru</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><a href=3D"mailto:info@russianclients.ru?subject=3DLIST-UNSUBSCRIBE"=
->Unsubscribe</a></div></body></html>
-
---03a9e00239fdc2092a80c977a366e70db6c0--
