@@ -4,83 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 430B6C6FA82
-	for <openbmc@archiver.kernel.org>; Fri, 16 Sep 2022 05:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B8CFECAAA1
+	for <openbmc@archiver.kernel.org>; Fri, 16 Sep 2022 19:56:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MTNPh6X8tz3fGN
-	for <openbmc@archiver.kernel.org>; Fri, 16 Sep 2022 15:47:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MTlFb2FWJz3bry
+	for <openbmc@archiver.kernel.org>; Sat, 17 Sep 2022 05:56:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=Xs8UXx84;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IPZ82tlD;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=BK6ak24V;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aj.id.au (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=Xs8UXx84;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IPZ82tlD;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=BK6ak24V;
 	dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MTN8w41wCz3f9f
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Sep 2022 15:36:16 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.nyi.internal (Postfix) with ESMTP id 70FEF5C0077;
-	Fri, 16 Sep 2022 01:36:14 -0400 (EDT)
-Received: from imap50 ([10.202.2.100])
-  by compute3.internal (MEProxy); Fri, 16 Sep 2022 01:36:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1663306574; x=1663392974; bh=83x2YbG67a
-	SQkrZdgGwqnaamrj+2nv0cyyhi7uo1xWo=; b=Xs8UXx84Vp6hmzhQ40KUC3aDFZ
-	llz55TIksbVz7maSPMEKNS9nEI/iR+rHQX74MLGt+w3u9AcgNxOo7PhppURXrIun
-	aVW53gn8d04BLWFD1Es9o8jxhBN6RsaqIJDQ6R8XULW9jtnv9dzqbUwUGTwSmvtA
-	9Dj0zDbtDULYbSEXiVGqFfYzTORagqZF86QjFQlwTYQ2GM14gwsGtWgAfVLxDyXR
-	Xopz/wVkLInSMz/iCCS4nNqlBMSPdgXIYa+9FNasIyrhM+IVFnYBx+OKcArepUrZ
-	ktLwvXKZf0m/Z3mTldcU+zusZ0rQ5l5OD80HBU4n2IirjQXv0Edmr2YcQOhg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1663306574; x=1663392974; bh=83x2YbG67aSQkrZdgGwqnaamrj+2
-	nv0cyyhi7uo1xWo=; b=IPZ82tlDrrKkRAovXZ/iBZ70xyW33+9HbegTp27OIOIg
-	gGj5TyxAvXgRWlk/wZul57P5QNAy4qhWxz4VdEnmk/WcYV+vhk9FO6mS3tVd1wGk
-	C7yR19W9CKpkKQXjBN4S+lJjwS4Ifu3X7v/U6J/73nqaRsIID+R3t0YlGGiF3GDW
-	7ujGVnChtNXjm4fk4O3+PMdGRbLJg13zIf9Q6qwhqVToV4hL76VD0Cw5DVhpkQJK
-	tpFQ9h2Xl/8KHJHD13J8NRKsAae+aQq1B1RgjnwJjfS3OBuRVgSKKaUScyfecJuw
-	WW9tBtoyIJ2OlpcVGltjd9t6iY9+9uUceAaSAruFXQ==
-X-ME-Sender: <xms:TQskYxMKJXR5FEsnKkXj5pw7ukmfWnEKE03fQ4vqr4bInlFTuzMLjg>
-    <xme:TQskYz94TMYbvT5kCTGkl_-85PnI-URXPw7jlveKUFsAk6h76CpAeiAeyXkyxh53c
-    clQiVKcE8Wm3HhW1w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeduledgleehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
-    ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
-    frrghtthgvrhhnpeekvdekjeekgfejudffteetgeejkeetteduvedtffdtledutdfhheev
-    feetkeeiteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
-    hmpegrnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:TQskYwQlDJZRxQKf1RpoP0gHMO3FlecGHkMJLIJp1-2wY5B_w5yawQ>
-    <xmx:TQskY9vGAKlR_eDF_3UZZwI_3bCz6y0cZ2atwpAYVDRoGeBF7gHURQ>
-    <xmx:TQskY5cxJSCpVyqedZbvNkOBYYOjJwM2xlxoBXwHdG5E2LPg-RV_Lw>
-    <xmx:TgskY5GymSIMCaGhnZ33zoDa-WiIe2h0O2BOdmRsoJfkAg_iQbKmsg>
-Feedback-ID: idfb84289:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id D55451700086; Fri, 16 Sep 2022 01:36:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-935-ge4ccd4c47b-fm-20220914.001-ge4ccd4c4
-Mime-Version: 1.0
-Message-Id: <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
-In-Reply-To: <20220915210852.858170-1-anoo@linux.ibm.com>
-References: <20220915210852.858170-1-anoo@linux.ibm.com>
-Date: Fri, 16 Sep 2022 15:05:40 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Adriana Kobylak" <anoo@linux.ibm.com>, "Joel Stanley" <joel@jms.id.au>,
- openbmc@lists.ozlabs.org
-Subject: Re: [PATCH] ARM: dts: rainier,everest: Move reserved memory regions
-Content-Type: text/plain
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MTlDk1h48z3bf5
+	for <openbmc@lists.ozlabs.org>; Sat, 17 Sep 2022 05:55:49 +1000 (AEST)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28GJhQtw035618;
+	Fri, 16 Sep 2022 19:55:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=o7AQCSR5lvrlu+n83PuEk2IDFV47E1+juONyy0A4l3U=;
+ b=BK6ak24VNQmjd5nMnFW4p0HfuJK/DnCtf04gpsj6AdsFmc+AVWQMe5RrNJ+yJd+L0dls
+ bL3emmlZbqkJevhnteH66McT5u20irORmkJoW6xVhV1fYU1iPfXIe9mL1l4fAFq78879
+ H47W4EoK5z8NWYGGqltj7fORlcDqL3LTguKiGw/StKR7oXvem5Zu63elHwDUH5s787bK
+ vW9IQF8UowKAXCMUlFYBZcj5l1On6ZRmMIH1wvkpeUlSt2IeHuu8X8AEVtN5DGadFMCJ
+ 8VQsquam8apYKkFvZfvzulVC7TtNE3T6GhgeC8Kd2mur4szNoper09y7KUxG2CF6xmgz fQ== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com [169.62.189.10])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3jmyj1raf1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Sep 2022 19:55:39 +0000
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+	by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 28GJopWY012517;
+	Fri, 16 Sep 2022 19:55:38 GMT
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com [9.57.198.24])
+	by ppma02dal.us.ibm.com with ESMTP id 3jm9178jdh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 16 Sep 2022 19:55:38 +0000
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com [9.57.199.110])
+	by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 28GJtbfN11535046
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 16 Sep 2022 19:55:37 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9B06AAE060;
+	Fri, 16 Sep 2022 19:55:37 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 42CC1AE05C;
+	Fri, 16 Sep 2022 19:55:37 +0000 (GMT)
+Received: from gfwa826.aus.stglabs.ibm.com (unknown [9.3.84.13])
+	by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+	Fri, 16 Sep 2022 19:55:37 +0000 (GMT)
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: joel@jms.id.au, andrew@aj.id.au, openbmc@lists.ozlabs.org
+Subject: [PATCH v2] ARM: dts: rainier,everest: Move reserved memory regions
+Date: Fri, 16 Sep 2022 14:55:35 -0500
+Message-Id: <20220916195535.1020185-1-anoo@linux.ibm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
+References: <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: K-fWv5I3OaprAEF8pSw8HNY-3uKCmG70
+X-Proofpoint-ORIG-GUID: K-fWv5I3OaprAEF8pSw8HNY-3uKCmG70
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-09-16_12,2022-09-16_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ mlxlogscore=842 mlxscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0
+ adultscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2209160140
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,106 +93,115 @@ Cc: Adriana Kobylak <anoo@us.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Adriana,
+From: Adriana Kobylak <anoo@us.ibm.com>
 
-On Fri, 16 Sep 2022, at 06:38, Adriana Kobylak wrote:
-> From: Adriana Kobylak <anoo@us.ibm.com>
->
-> Move the reserved regions to account for a decrease in DRAM when ECC is
-> enabled. ECC takes 1/9th of memory, bringing the size down from 1024MiB
-> to 912MiB (minus 16MiB for VGA) for a total of 896MiB available DRAM.
+Move the reserved regions to account for a decrease in DRAM when ECC is
+enabled. ECC takes 1/9th of memory.
 
-The 912MiB mentioned here struck me, so I poked at the numbers:
+Running on HW with ECC off, u-boot prints:
+DRAM:  already initialized, 1008 MiB (capacity:1024 MiB, VGA:16 MiB, ECC:off)
 
-ECC(1024MiB)
-= ECC(1024 * 1024 * 1024)
-= 1024 * 1024 * 1024 * 8 / 9
-= 954437176.888888889
-= 910.222222222MiB
+And with ECC on, u-boot prints:
+DRAM:  already initialized, 896 MiB (capacity:1024 MiB, VGA:16 MiB, ECC:on, ECC size:896 MiB)
 
-From there subtracting 16MiB gets us 894.222222222MiB, which isn't a 
-number we see in practice.
+This implies that MCR54 is configured for ECC to be bounded at the
+bottom of a 16MiB VGA memory region:
 
-On the other hand:
+1024MiB - 16MiB (VGA) = 1008MiB
+1008MiB / 9 (for ECC) = 112MiB
+1008MiB - 112MiB = 896MiB (available DRAM)
 
-ECC(1024 - 16)MiB)
-= ECC((1024 - 16) * 1024 * 1024)
-= (1024 - 16) * 1024 * 1024 * 8 / 9
-= 939524096
-= 896MiB
+The flash_memory region currently starts at offset 896MiB:
+0xb8000000 (flash_memory offset) - 0x80000000 (base memory address) = 0x38000000 = 896MiB
 
-We do see 896MiB in practice which implies that MCR54 is configured for 
-ECC to be bounded at the bottom of a 16MiB VGA memory region. 912MiB 
-doesn't fall out of the numbers, so I think we need to rework the words 
-to avoid confusion?
+This is the end of the available DRAM with ECC enabled and therefore it
+needs to be moved.
 
->
-> Move the regions by 128MiB since the flash_memory region needs to be
-> aligned to 64MiB. This change doesn't affect the host if ECC is not
-> enabled.
+Since the flash_memory is 64MiB in size and needs to be 64MiB aligned,
+it can just be moved up by 64MiB and would sit right at the end of the
+available DRAM buffer.
 
-So I was curious about the 128MiB relocation as well. More on this 
-below:
+The ramoops region currently follows the flash_memory, but it can be
+moved to sit above flash_memory which would minimize the address-space
+fragmentation.
 
->
-> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 11 ++++++-----
->  arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 12 ++++++++----
->  2 files changed, 14 insertions(+), 9 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts 
-> b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> index 1bba5ad7378e..9a09301dd79e 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> @@ -163,15 +163,16 @@ reserved-memory {
->  		ranges;
-> 
->  		/* LPC FW cycle bridge region requires natural alignment */
-> -		flash_memory: region@b8000000 {
-> +		flash_memory: region@b0000000 {
->  			no-map;
-> -			reg = <0xb8000000 0x04000000>; /* 64M */
-> +			reg = <0xb0000000 0x04000000>; /* 64M */
->  		};
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 17 ++++++++---------
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 16 +++++++++-------
+ 2 files changed, 17 insertions(+), 16 deletions(-)
 
-0xb8000000 is an offset 2944MiB into the address space. The RAM base 
-address is in the middle of the address space, so 2944MiB - 2048MiB, 
-which means the buffer is offset 896MiB into RAM. This drives the need 
-for the patch with ECC, as our RAM address space is now only 896MiB in 
-size and basing the buffer at that offset is obviously invalid. So 
-change is necessary.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index 1bba5ad7378e..3bdd79506704 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -162,16 +162,9 @@ reserved-memory {
+ 		#size-cells = <1>;
+ 		ranges;
+ 
+-		/* LPC FW cycle bridge region requires natural alignment */
+-		flash_memory: region@b8000000 {
+-			no-map;
+-			reg = <0xb8000000 0x04000000>; /* 64M */
+-		};
+-
+-		/* 48MB region from the end of flash to start of vga memory */
+-		ramoops@bc000000 {
++		ramoops@b3e00000 {
+ 			compatible = "ramoops";
+-			reg = <0xbc000000 0x200000>; /* 16 * (4 * 0x8000) */
++			reg = <0xb3e00000 0x200000>; /* 16 * (4 * 0x8000) */
+ 			record-size = <0x8000>;
+ 			console-size = <0x8000>;
+ 			ftrace-size = <0x8000>;
+@@ -179,6 +172,12 @@ ramoops@bc000000 {
+ 			max-reason = <3>; /* KMSG_DUMP_EMERG */
+ 		};
+ 
++		/* LPC FW cycle bridge region requires natural alignment */
++		flash_memory: region@b4000000 {
++			no-map;
++			reg = <0xb4000000 0x04000000>; /* 64M */
++		};
++
+ 		/* VGA region is dictated by hardware strapping */
+ 		vga_memory: region@bf000000 {
+ 			no-map;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index 8bd2f441b159..e1cb3c88368a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -95,14 +95,9 @@ reserved-memory {
+ 		#size-cells = <1>;
+ 		ranges;
+ 
+-		flash_memory: region@b8000000 {
+-			no-map;
+-			reg = <0xb8000000 0x04000000>; /* 64M */
+-		};
+-
+-		ramoops@bc000000 {
++		ramoops@b3e00000 {
+ 			compatible = "ramoops";
+-			reg = <0xbc000000 0x200000>; /* 16 * (4 * 0x8000) */
++			reg = <0xb3e00000 0x200000>; /* 16 * (4 * 0x8000) */
+ 			record-size = <0x8000>;
+ 			console-size = <0x8000>;
+ 			ftrace-size = <0x8000>;
+@@ -110,6 +105,13 @@ ramoops@bc000000 {
+ 			max-reason = <3>; /* KMSG_DUMP_EMERG */
+ 		};
+ 
++		/* LPC FW cycle bridge region requires natural alignment */
++		flash_memory: region@b4000000 {
++			no-map;
++			reg = <0xb4000000 0x04000000>; /* 64M */
++		};
++
++		/* VGA region is dictated by hardware strapping */
+ 		vga_memory: region@bf000000 {
+ 			no-map;
+ 			compatible = "shared-dma-pool";
+-- 
+2.25.1
 
-We know that the flash_memory buffer needs to be naturally aligned, so
-the fact that it was where it is we know that 896MiB is valid alignment
-(as it already works). We also have the ramoops buffer below, which I
-initially put after the flash_memory buffer to reduce the "hole" in
-between vga_memory and flash_memory. However there's no other reason to
-order it this way, and we can shift it as we see fit. Specifically,
-we're free to order it before the flash_memory buffer.
-
-Focusing back on the flash_memory buffer, if 896MiB is 64MiB aligned, 
-then (896-64)MiB is also aligned. This means we can butt the 
-flash_memory buffer up against the "end" of RAM, and with the 
-observation that we can put the ramoops buffer before it, we can butt 
-the ramoops buffer up against the start of flash_memory. This minimises 
-the address-space fragmentation.
-
-So maybe we can go with this arrangement?
-
-ramoops@b3e00000 {
-    compatible = "ramoops";
-    reg = <0xb3e00000 0x200000>;
-    ...
-}
-
-flash_memory: region@b4000000 {
-    no-map;
-    reg = <0xb4000000 0x04000000>;
-    ...
-};
-
-Thoughts?
-
-Andrew
