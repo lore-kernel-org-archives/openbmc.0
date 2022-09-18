@@ -4,82 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1365EECAAA1
-	for <openbmc@archiver.kernel.org>; Fri, 16 Sep 2022 19:58:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801CCECAAD8
+	for <openbmc@archiver.kernel.org>; Sun, 18 Sep 2022 18:29:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MTlJ90DSQz3c1c
-	for <openbmc@archiver.kernel.org>; Sat, 17 Sep 2022 05:58:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MVxDj20YQz3bXG
+	for <openbmc@archiver.kernel.org>; Mon, 19 Sep 2022 04:29:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=knb0dFFh;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ole8W+kr;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::133; helo=mail-lf1-x133.google.com; envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=knb0dFFh;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=ole8W+kr;
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com [IPv6:2a00:1450:4864:20::133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MTlHH1767z3bc8
-	for <openbmc@lists.ozlabs.org>; Sat, 17 Sep 2022 05:58:02 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28GJhR52008160;
-	Fri, 16 Sep 2022 19:57:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : message-id :
- content-type : subject : date : in-reply-to : cc : to : references :
- mime-version; s=pp1; bh=FTPahfUDWAYfXSudb67N/spi+B2DNHgKjWdlksoBlog=;
- b=knb0dFFhca/OEjH5/KMkHhHls6Z+nYMhVmROuJ0s9x5d0nQOU48UzUKjYjtPNISM5CPt
- nsr8JMSyoE1xgal7Tnpu5eKJNhG4mNEZyGeqcZ4hQmrFH5RFyfU7YMJTQQbwObAPNZ9/
- Se/DEZptMWSsX3MIwbkAp9vcO/nnw0as9vE3012l3ItXrIZxnhHyLg3dYpTWi4I9T6N4
- b1ZN/seO33zCDzTXJKWP/9+26cq5pgshqf+w+B8C6i2d7I3fXB9GgyPy4yQZ7ARMSEJc
- AYjhkHNff0JGINSKgeH83avJhMLpkDC29OjxHS/GQNqd9Mtx/ehSlEHPBhZnG0ZgqUAv rw== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com [169.55.91.170])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3jmyj10by1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Sep 2022 19:57:55 +0000
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
-	by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 28GJpEij032487;
-	Fri, 16 Sep 2022 19:57:55 GMT
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com [9.57.198.28])
-	by ppma02wdc.us.ibm.com with ESMTP id 3jm91cpvdr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 16 Sep 2022 19:57:55 +0000
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com [9.57.199.108])
-	by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 28GJvtvj6357562
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 16 Sep 2022 19:57:55 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA527B2064;
-	Fri, 16 Sep 2022 19:57:54 +0000 (GMT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5E1D2B205F;
-	Fri, 16 Sep 2022 19:57:54 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.160.19.139])
-	by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTPS;
-	Fri, 16 Sep 2022 19:57:54 +0000 (GMT)
-From: Adriana Kobylak <anoo@linux.ibm.com>
-Message-Id: <1BF31378-65B7-4764-8443-057E0DDF83C6@linux.ibm.com>
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_A8885138-8C69-4077-896C-A1FFBF705CE8"
-Subject: Re: [PATCH] ARM: dts: rainier,everest: Move reserved memory regions
-Date: Fri, 16 Sep 2022 14:55:31 -0500
-In-Reply-To: <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-References: <20220915210852.858170-1-anoo@linux.ibm.com>
- <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 0CbMneuFJ1ea-1q0O1xV8AImVZUXRUMg
-X-Proofpoint-GUID: 0CbMneuFJ1ea-1q0O1xV8AImVZUXRUMg
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MVxCy57jBz2xHW
+	for <openbmc@lists.ozlabs.org>; Mon, 19 Sep 2022 04:29:17 +1000 (AEST)
+Received: by mail-lf1-x133.google.com with SMTP id u18so43461919lfo.8
+        for <openbmc@lists.ozlabs.org>; Sun, 18 Sep 2022 11:29:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=WA3909OkPlGQ2DqJkniN7gPfMblXDPfE9yZdpVr0YiU=;
+        b=ole8W+krjxvE9MZCDv41ZKiVanU59Kf76tIKgueiSoEVqzSG9ue6OqZnFslBFG+qFj
+         r0yW6jG+/RO6FjDNuixVeXWEtC6vJZPgt6UpdFvrlZGnw/W3cNduGBuR7XjS+vxUL747
+         kH6t4c2rPE2NWmxLQfkyPCsVk2LVZhiTdKm7S3SmVbzSfhth5ePNhoHqa/CuBKc8AlUr
+         duZ1dj3BNq0oSb7FL+PVc6KX6rpvskIBJq+ZK6whvlGJk+zDQB/sUzbSaU2iQ6rhUrMM
+         uXEoOIMlDqv93Bz8cPjM+uuLmIWHNG8E3+nvlqQI9U6pvKxFM4rmo9OtP6S6wYplIGx6
+         EoEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=WA3909OkPlGQ2DqJkniN7gPfMblXDPfE9yZdpVr0YiU=;
+        b=da1yAmBoukSWk1GblCzUrlwrCIL7mK7KPW93ddR1KbcQogQ+F9ULx6aqStvf0eBwcx
+         udi/1okM6tiKaLsieCNf1g0okGD7isGEQAXRh0GgEyOE875iC4XFbf3YWy9VcDkHU+cv
+         eOjWghJRfs64Ogsf1MjsNXvLwkMrtkpKLjb3KoFxdG9lQOJViaHMsO71B1KHc/ApGW9J
+         p2Ayyi1DMM3LBTEtOt9VOTNHAO2HDfCjFRs/PpPcHKgI/RmOx8vjrxQlubP3HN7P+zZm
+         geRQdz19431IiY9J+T64qEv18/Q7ovHOC64YWL9kp+xebZiw5VME+NCPfz3ktSsH/A6y
+         ngKw==
+X-Gm-Message-State: ACrzQf33NszkXMAKXm42+HgTyhLIgaqJbZ5pPlom5VE7WH8Psl8BK9mg
+	9PRlg26GLBLoqpqbM3enByAqD/QLnVpGgEUfoL0=
+X-Google-Smtp-Source: AMsMyM5ZhObwU1v6wtX7DkaBvz8M9Gqw0K7XRrt7OcA3paEWSzLhcYG167feZG7HisdunSOAsJoDLRBbmqX3I68trH8=
+X-Received: by 2002:a05:6512:eaa:b0:497:a1ed:6fa5 with SMTP id
+ bi42-20020a0565120eaa00b00497a1ed6fa5mr4728843lfb.108.1663525749385; Sun, 18
+ Sep 2022 11:29:09 -0700 (PDT)
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-16_12,2022-09-16_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0
- priorityscore=1501 lowpriorityscore=0 mlxlogscore=920 impostorscore=0
- adultscore=0 spamscore=0 clxscore=1015 phishscore=0 mlxscore=0 bulkscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2209160140
+References: <20220714122322.63663-1-tmaimon77@gmail.com> <20220714122322.63663-2-tmaimon77@gmail.com>
+ <20220718211046.GA3547663-robh@kernel.org>
+In-Reply-To: <20220718211046.GA3547663-robh@kernel.org>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Sun, 18 Sep 2022 21:28:57 +0300
+Message-ID: <CAP6Zq1hQ5m2kkQOKaYsKhPQhCW+vdsdyPRxxb_yRGMB=gJCPdw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-binding: pinctrl: Add NPCM8XX pinctrl and GPIO documentation
+To: Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,947 +73,250 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>
+Cc: devicetree <devicetree@vger.kernel.org>, Benjamin Fair <benjaminfair@google.com>, "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, Linus Walleij <linus.walleij@linaro.org>, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, zhengbin13@huawei.com, Joel Stanley <joel@jms.id.au>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Rob,
 
---Apple-Mail=_A8885138-8C69-4077-896C-A1FFBF705CE8
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Thanks for your comment and sorry for the late reply.
 
+On Tue, 19 Jul 2022 at 00:10, Rob Herring <robh@kernel.org> wrote:
+>
+> On Thu, Jul 14, 2022 at 03:23:21PM +0300, Tomer Maimon wrote:
+> > Added device tree binding documentation for Nuvoton Arbel BMC NPCM8XX
+> > pinmux and GPIO controller.
+> >
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> > ---
+> >  .../pinctrl/nuvoton,npcm845-pinctrl.yaml      | 213 ++++++++++++++++++
+> >  1 file changed, 213 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+> > new file mode 100644
+> > index 000000000000..104766f7acc5
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+> > @@ -0,0 +1,213 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/pinctrl/nuvoton,npcm845-pinctrl.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Nuvoton NPCM845 Pin Controller and GPIO
+> > +
+> > +maintainers:
+> > +  - Tomer Maimon <tmaimon77@gmail.com>
+> > +
+> > +description:
+> > +  The Nuvoton BMC NPCM8XX Pin Controller multi-function routed through
+> > +  the multiplexing block, Each pin supports GPIO functionality (GPIOx)
+> > +  and multiple functions that directly connect the pin to different
+> > +  hardware blocks.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: nuvoton,npcm845-pinctrl
+> > +
+> > +  ranges:
+> > +    maxItems: 1
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 1
+> > +
+> > +  nuvoton,sysgcr:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description: a phandle to access GCR registers.
+> > +
+> > +patternProperties:
+> > +  "^gpio@":
+> > +    type: object
+> > +
+> > +    description:
+> > +      Eight GPIO banks that each contain between 32 GPIOs.
+>
+> 'each contain between 32'?
+will be fixed net version.
+>
+> > +
+> > +    properties:
+> > +      gpio-controller: true
+> > +
+> > +      '#gpio-cells':
+> > +        const: 2
+> > +
+> > +      reg:
+> > +        maxItems: 1
+> > +
+> > +      interrupts:
+> > +        maxItems: 1
+> > +
+> > +      gpio-ranges:
+> > +        maxItems: 1
+> > +
+> > +    required:
+> > +      - gpio-controller
+> > +      - '#gpio-cells'
+> > +      - reg
+> > +      - interrupts
+> > +      - gpio-ranges
+> > +
+> > +  "-mux":
+>
+> '-mux$'? Something like 'foo-muxbar' is needed?
+No.
+>
+> > +    $ref: pinmux-node.yaml#
+> > +
+> > +    properties:
+> > +      groups:
+> > +        description:
+> > +          One or more groups of pins to mux to a certain function
+> > +        items:
+> > +          enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
+> > +                  smb5b, smb5c, lkgpo0, pspi2, jm1, jm2, smb4den, smb4b,
+> > +                  smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
+> > +                  smb22, smb23, smb4d, smb14, smb5, smb4, smb3, spi0cs1,
+> > +                  spi0cs2, spi0cs3, smb3c, smb3b, bmcuart0a, uart1, jtag2,
+> > +                  bmcuart1, uart2, bmcuart0b, r1err, r1md, r1oen, r2oen,
+> > +                  rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3, fanin4,
+> > +                  fanin5, fanin6, fanin7, fanin8, fanin9, fanin10, fanin11,
+> > +                  fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2, pwm3,
+> > +                  r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg1,
+> > +                  rg1mdio, rg2, ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5,
+> > +                  smb0, smb1, smb2, smb2c, smb2b, smb1c, smb1b, smb8, smb9,
+> > +                  smb10, smb11, sd1, sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8,
+> > +                  pwm9, pwm10, pwm11, mmc8, mmc, mmcwp, mmccd, mmcrst, clkout,
+> > +                  serirq, lpcclk, scipme, sci, smb6, smb7, spi1, faninx, r1,
+> > +                  spi3, spi3cs1, spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b,
+> > +                  smb0c, smb0den, smb0d, ddc, rg2mdio, wdog1, wdog2, smb12,
+> > +                  smb13, spix, spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3,
+> > +                  hgpio4, hgpio5, hgpio6, hgpio7 ]
+> > +
+> > +      function:
+> > +        description:
+> > +          The function that a group of pins is muxed to
+> > +        enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
+> > +                smb5b, smb5c, lkgpo0, pspi2, jm1, jm2, smb4den, smb4b,
+> > +                smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
+> > +                smb22, smb23, smb4d, smb14, smb5, smb4, smb3, spi0cs1,
+> > +                spi0cs2, spi0cs3, smb3c, smb3b, bmcuart0a, uart1, jtag2,
+> > +                bmcuart1, uart2, bmcuart0b, r1err, r1md, r1oen, r2oen,
+> > +                rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3, fanin4,
+> > +                fanin5, fanin6, fanin7, fanin8, fanin9, fanin10, fanin11,
+> > +                fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2, pwm3,
+> > +                r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg1,
+> > +                rg1mdio, rg2, ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5,
+> > +                smb0, smb1, smb2, smb2c, smb2b, smb1c, smb1b, smb8, smb9,
+> > +                smb10, smb11, sd1, sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8,
+> > +                pwm9, pwm10, pwm11, mmc8, mmc, mmcwp, mmccd, mmcrst, clkout,
+> > +                serirq, lpcclk, scipme, sci, smb6, smb7, spi1, faninx, r1,
+> > +                spi3, spi3cs1, spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b,
+> > +                smb0c, smb0den, smb0d, ddc, rg2mdio, wdog1, wdog2, smb12,
+> > +                smb13, spix, spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3,
+> > +                hgpio4, hgpio5, hgpio6, hgpio7 ]
+> > +
+> > +    dependencies:
+> > +      groups: [ function ]
+> > +      function: [ groups ]
+> > +
+> > +    additionalProperties: false
+> > +
+> > +  "^pin":
+> > +    $ref: pincfg-node.yaml#
+> > +
+> > +    properties:
+> > +      pins:
+> > +        description:
+> > +          A list of pins to configure in certain ways, such as enabling
+> > +          debouncing
+> > +
+> > +      bias-disable: true
+> > +
+> > +      bias-pull-up: true
+> > +
+> > +      bias-pull-down: true
+> > +
+> > +      input-enable: true
+> > +
+> > +      output-low: true
+> > +
+> > +      output-high: true
+> > +
+> > +      drive-push-pull: true
+> > +
+> > +      drive-open-drain: true
+> > +
+> > +      input-debounce:
+> > +        description:
+> > +          Debouncing periods in microseconds, one period per interrupt
+> > +          bank found in the controller
+> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > +        minItems: 1
+> > +        maxItems: 4
+> > +
+> > +      slew-rate:
+> > +        description: |
+> > +          0: Low rate
+> > +          1: High rate
+> > +        $ref: /schemas/types.yaml#/definitions/uint32
+> > +        enum: [0, 1]
+> > +
+> > +      drive-strength:
+> > +        enum: [ 0, 1, 2, 4, 8, 12 ]
+> > +
+> > +    additionalProperties: false
+> > +
+> > +allOf:
+> > +  - $ref: "pinctrl.yaml#"
+> > +
+> > +required:
+> > +  - compatible
+> > +  - ranges
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +  - nuvoton,sysgcr
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    soc {
+> > +      #address-cells = <2>;
+> > +      #size-cells = <2>;
+> > +
+> > +      pinctrl: pinctrl@f0800000 {
+> > +        compatible = "nuvoton,npcm845-pinctrl";
+> > +        ranges = <0x0 0x0 0xf0010000 0x8000>;
+> > +        #address-cells = <1>;
+> > +        #size-cells = <1>;
+> > +        nuvoton,sysgcr = <&gcr>;
+> > +
+> > +        gpio0: gpio@f0010000 {
+>
+> gpio@0
+>
+> Is this really a child block of the pinctrl? Doesn't really look like it
+> based on addressess. Where are the pinctrl registers? In the sysgcr? If
+> so, then pinctrl should be a child of it. But that doesn't really work
+> too well with gpio child nodes...
+the pin controller mux is handled by sysgcr this is why the sysgcr in
+the mother node,
+and the pin configuration are handled by the GPIO registers.  each
+GPIO bank (child) contains 32 GPIO.
+this is why the GPIO is the child node.
 
+>
+> Rob
 
-> On Sep 16, 2022, at 12:35 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
->=20
-> Hi Adriana,
->=20
-> On Fri, 16 Sep 2022, at 06:38, Adriana Kobylak wrote:
->> From: Adriana Kobylak <anoo@us.ibm.com <mailto:anoo@us.ibm.com>>
->>=20
->> Move the reserved regions to account for a decrease in DRAM when ECC is
->> enabled. ECC takes 1/9th of memory, bringing the size down from 1024MiB
->> to 912MiB (minus 16MiB for VGA) for a total of 896MiB available DRAM.
->=20
-> The 912MiB mentioned here struck me, so I poked at the numbers:
->=20
-> ECC(1024MiB)
-> =3D ECC(1024 * 1024 * 1024)
-> =3D 1024 * 1024 * 1024 * 8 / 9
-> =3D 954437176.888888889
-> =3D 910.222222222MiB
->=20
-> From there subtracting 16MiB gets us 894.222222222MiB, which isn't a=20
-> number we see in practice.
->=20
-> On the other hand:
->=20
-> ECC(1024 - 16)MiB)
-> =3D ECC((1024 - 16) * 1024 * 1024)
-> =3D (1024 - 16) * 1024 * 1024 * 8 / 9
-> =3D 939524096
-> =3D 896MiB
->=20
-> We do see 896MiB in practice which implies that MCR54 is configured for=20
-> ECC to be bounded at the bottom of a 16MiB VGA memory region. 912MiB=20
-> doesn't fall out of the numbers, so I think we need to rework the words=20
-> to avoid confusion?
->=20
->>=20
->> Move the regions by 128MiB since the flash_memory region needs to be
->> aligned to 64MiB. This change doesn't affect the host if ECC is not
->> enabled.
->=20
-> So I was curious about the 128MiB relocation as well. More on this=20
-> below:
->=20
->>=20
->> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
->> ---
->> arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 11 ++++++-----
->> arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 12 ++++++++----
->> 2 files changed, 14 insertions(+), 9 deletions(-)
->>=20
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts=20
->> b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
->> index 1bba5ad7378e..9a09301dd79e 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
->> @@ -163,15 +163,16 @@ reserved-memory {
->> 		ranges;
->>=20
->> 		/* LPC FW cycle bridge region requires natural alignment */
->> -		flash_memory: region@b8000000 {
->> +		flash_memory: region@b0000000 {
->> 			no-map;
->> -			reg =3D <0xb8000000 0x04000000>; /* 64M */
->> +			reg =3D <0xb0000000 0x04000000>; /* 64M */
->> 		};
->=20
-> 0xb8000000 is an offset 2944MiB into the address space. The RAM base=20
-> address is in the middle of the address space, so 2944MiB - 2048MiB,=20
-> which means the buffer is offset 896MiB into RAM. This drives the need=20
-> for the patch with ECC, as our RAM address space is now only 896MiB in=20
-> size and basing the buffer at that offset is obviously invalid. So=20
-> change is necessary.
->=20
-> We know that the flash_memory buffer needs to be naturally aligned, so
-> the fact that it was where it is we know that 896MiB is valid alignment
-> (as it already works). We also have the ramoops buffer below, which I
-> initially put after the flash_memory buffer to reduce the "hole" in
-> between vga_memory and flash_memory. However there's no other reason to
-> order it this way, and we can shift it as we see fit. Specifically,
-> we're free to order it before the flash_memory buffer.
->=20
-> Focusing back on the flash_memory buffer, if 896MiB is 64MiB aligned,=20
-> then (896-64)MiB is also aligned. This means we can butt the=20
-> flash_memory buffer up against the "end" of RAM, and with the=20
-> observation that we can put the ramoops buffer before it, we can butt=20
-> the ramoops buffer up against the start of flash_memory. This minimises=20
-> the address-space fragmentation.
->=20
-> So maybe we can go with this arrangement?
->=20
-> ramoops@b3e00000 {
->    compatible =3D "ramoops";
->    reg =3D <0xb3e00000 0x200000>;
->    ...
-> }
->=20
-> flash_memory: region@b4000000 {
->    no-map;
->    reg =3D <0xb4000000 0x04000000>;
->    ...
-> };
->=20
-> Thoughts?
+Best regards,
 
-Thanks Andrew for the background and explanation. This would be even better=
- like you mentioned to minimize the fragmentation. I=E2=80=99ll send a v2 w=
-ith those changes.
-
->=20
-> Andrew
-
-
---Apple-Mail=_A8885138-8C69-4077-896C-A1FFBF705CE8
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On Sep 16, 2022, at 12:35 AM, Andrew Jeffery &lt;<a =
-href=3D"mailto:andrew@aj.id.au" class=3D"">andrew@aj.id.au</a>&gt; =
-wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><meta =
-charset=3D"UTF-8" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Hi Adriana,</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">On Fri, 16 Sep 2022, at 06:38, Adriana Kobylak =
-wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D"">From: Adriana Kobylak &lt;<a =
-href=3D"mailto:anoo@us.ibm.com" class=3D"">anoo@us.ibm.com</a>&gt;<br =
-class=3D""><br class=3D"">Move the reserved regions to account for a =
-decrease in DRAM when ECC is<br class=3D"">enabled. ECC takes 1/9th of =
-memory, bringing the size down from 1024MiB<br class=3D"">to 912MiB =
-(minus 16MiB for VGA) for a total of 896MiB available DRAM.<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">The 912MiB mentioned here struck me, so I poked at the =
-numbers:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">ECC(1024MiB)</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D ECC(1024 * 1024 * 1024)</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">=3D 1024 * =
-1024 * 1024 * 8 / 9</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D 954437176.888888889</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">=3D =
-910.222222222MiB</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=46rom there subtracting 16MiB gets us 894.222222222MiB, =
-which isn't a<span class=3D"Apple-converted-space">&nbsp;</span></span><br=
- style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">number we see in practice.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">On the other hand:</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">ECC(1024 - 16)MiB)</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D ECC((1024 - 16) * 1024 * 1024)</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D (1024 - 16) * 1024 * 1024 * 8 / 9</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D 939524096</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">=3D 896MiB</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">We do see 896MiB in practice which implies that MCR54 is =
-configured for<span =
-class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">ECC to be bounded at the bottom of a 16MiB VGA memory region. =
-912MiB<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">doesn't fall out of the numbers, so I think we need to rework =
-the words<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">to avoid confusion?</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br class=3D"">Move the regions by =
-128MiB since the flash_memory region needs to be<br class=3D"">aligned =
-to 64MiB. This change doesn't affect the host if ECC is not<br =
-class=3D"">enabled.<br class=3D""></blockquote><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">So I was =
-curious about the 128MiB relocation as well. More on this<span =
-class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">below:</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br class=3D"">Signed-off-by: Adriana =
-Kobylak &lt;<a href=3D"mailto:anoo@us.ibm.com" =
-class=3D"">anoo@us.ibm.com</a>&gt;<br class=3D"">---<br =
-class=3D"">arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 11 =
-++++++-----<br class=3D"">arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | =
-12 ++++++++----<br class=3D"">2 files changed, 14 insertions(+), 9 =
-deletions(-)<br class=3D""><br class=3D"">diff --git =
-a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts<span =
-class=3D"Apple-converted-space">&nbsp;</span><br =
-class=3D"">b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts<br =
-class=3D"">index 1bba5ad7378e..9a09301dd79e 100644<br class=3D"">--- =
-a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts<br class=3D"">+++ =
-b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts<br class=3D"">@@ -163,15 =
-+163,16 @@ reserved-memory {<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>ranges;<br class=3D""><br =
-class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>/* LPC FW cycle bridge region requires natural alignment */<br =
-class=3D"">-<span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>flash_memory: region@b8000000 {<br class=3D"">+<span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>flash_memory: region@b0000000 {<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>no-map;<br class=3D"">-<span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>reg =3D &lt;0xb8000000 =
-0x04000000&gt;; /* 64M */<br class=3D"">+<span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>reg =3D &lt;0xb0000000 =
-0x04000000&gt;; /* 64M */<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>};<br class=3D""></blockquote><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">0xb8000000 is an offset 2944MiB into the address space. The =
-RAM base<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">address is in the middle of the address space, so 2944MiB - =
-2048MiB,<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">which means the buffer is offset 896MiB into RAM. This drives =
-the need<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">for the patch with ECC, as our RAM address space is now only =
-896MiB in<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">size and basing the buffer at that offset is obviously =
-invalid. So<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">change is necessary.</span><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">We know that the flash_memory buffer needs to be naturally =
-aligned, so</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">the fact that it was where it is we know that 896MiB is valid =
-alignment</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">(as it already works). We also have the ramoops buffer below, =
-which I</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">initially put after the flash_memory buffer to reduce the =
-"hole" in</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">between vga_memory and flash_memory. However there's no other =
-reason to</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">order it this way, and we can shift it as we see fit. =
-Specifically,</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">we're free to order it before the flash_memory =
-buffer.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Focusing back on the flash_memory buffer, if 896MiB is 64MiB =
-aligned,<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">then (896-64)MiB is also aligned. This means we can butt =
-the<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">flash_memory buffer up against the "end" of RAM, and with =
-the<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">observation that we can put the ramoops buffer before it, we =
-can butt<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">the ramoops buffer up against the start of flash_memory. This =
-minimises<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">the address-space fragmentation.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">So maybe we can go with this arrangement?</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">ramoops@b3e00000 {</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;compatible =3D "ramoops";</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;reg =3D &lt;0xb3e00000 =
-0x200000&gt;;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;...</span><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">}</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">flash_memory: region@b4000000 {</span><br style=3D"caret-color:=
- rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;no-map;</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: AvenirNext-Regular; font-size: 14px; =
-font-style: normal; font-variant-caps: normal; font-weight: 400; =
-letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;reg =3D &lt;0xb4000000 =
-0x04000000&gt;;</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">&nbsp;&nbsp;&nbsp;...</span><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">};</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: AvenirNext-Regular; font-size: 14px; font-style: =
-normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Thoughts?</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""></div></blockquote><div><br =
-class=3D""></div><div>Thanks Andrew for the background and explanation. =
-This would be even better like you mentioned to minimize the =
-fragmentation. I=E2=80=99ll send a v2 with those changes.</div><br =
-class=3D""><blockquote type=3D"cite" class=3D""><div class=3D""><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: AvenirNext-Regular; =
-font-size: 14px; font-style: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-AvenirNext-Regular; font-size: 14px; font-style: normal; =
-font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Andrew</span></div></blockquote></div><br =
-class=3D""></body></html>=
-
---Apple-Mail=_A8885138-8C69-4077-896C-A1FFBF705CE8--
-
+Tomer
