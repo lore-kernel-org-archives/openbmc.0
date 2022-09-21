@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B173C54EE9
-	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 02:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF2FCC6FA91
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 02:53:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MXNJD3j34z3c0g
-	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 12:53:00 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MXNJj4Ntqz3bfb
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 12:53:25 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com; receiver=<UNKNOWN>)
 Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MXNHk5f7wz30R7;
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MXNHk5WVZz300l;
 	Wed, 21 Sep 2022 12:52:32 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
-	by twspam01.aspeedtech.com with ESMTP id 28L2U5Vr024711;
+	by twspam01.aspeedtech.com with ESMTP id 28L2U5Vt024711;
 	Wed, 21 Sep 2022 10:30:06 +0800 (GMT-8)
 	(envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
@@ -31,10 +31,12 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
         <nicolas.dufresne@collabora.com>, <stanimir.varbanov@linaro.org>,
         <laurent.pinchart@ideasonboard.com>, <sakari.ailus@linux.intel.com>,
         <ribalda@chromium.org>
-Subject: [PATCH v9 0/4] add aspeed-jpeg support for aspeed-video
-Date: Wed, 21 Sep 2022 10:51:08 +0800
-Message-ID: <20220921025112.13150-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v9 2/4] media: v4l2-ctrls: Reserve controls for ASPEED
+Date: Wed, 21 Sep 2022 10:51:10 +0800
+Message-ID: <20220921025112.13150-3-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220921025112.13150-1-jammy_huang@aspeedtech.com>
+References: <20220921025112.13150-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -42,7 +44,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 28L2U5Vr024711
+X-MAIL: twspam01.aspeedtech.com 28L2U5Vt024711
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,54 +59,33 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The aim of this series is to add aspeed-jpeg support for aspeed-video
-driver. aspeed-jpeg is a per-frame differential jpeg format which only
-compress the parts which are different from the previous frame. In this
-way, it reduces both the amount of data to be transferred by network and
-those to be decoded on the client side.
+Reserve controls for ASPEED video family. Aspeed video engine contains a
+few features which improve video quality, reduce amount of compressed
+data, and etc. Hence, 16 controls are reserved for these aspeed
+proprietary features.
 
-In the last, debugfs information is also updated per this change.
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+ include/uapi/linux/v4l2-controls.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v9:
- - Rebase on new kernel
-
-Changes in v8:
- - Add information of decoder's implementation
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index b5e7d082b8ad..60a6bed21c56 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -231,6 +231,12 @@ enum v4l2_colorfx {
+  */
+ #define V4L2_CID_USER_DW100_BASE		(V4L2_CID_USER_BASE + 0x1190)
  
-Changes in v7:
- - Separate other patches alone from aspeed-jpeg series
- - for Aspeed-jpeg, generate an I frame every 8 frames
- - rename compression_mode as compression_scheme
- - Add more reference for aspeed-jpeg
- - Update debugfs message
-
-Changes in v6:
- - Update description for new format, aspeed-jpeg, in Documentation.
-
-Changes in v5:
- - Use model data to tell different soc
-
-Changes in v4:
- - Add definition for the Aspeed JPEG format
- - Reserve controls for ASPEED
- - Use s_fmt to update format rather than new control
- - Update aspeed hq quality range, 1 ~ 12
-
-Jammy Huang (4):
-  media: v4l: Add definition for the Aspeed JPEG format
-  media: v4l2-ctrls: Reserve controls for ASPEED
-  media: aspeed: Support aspeed mode to reduce compressed data
-  media: aspeed: Extend debug message
-
- .../media/v4l/pixfmt-reserved.rst             |  17 +
- drivers/media/platform/aspeed/aspeed-video.c  | 319 +++++++++++++++---
- drivers/media/v4l2-core/v4l2-ioctl.c          |   1 +
- include/uapi/linux/aspeed-video.h             |  15 +
- include/uapi/linux/v4l2-controls.h            |   6 +
- include/uapi/linux/videodev2.h                |   1 +
- 6 files changed, 307 insertions(+), 52 deletions(-)
- create mode 100644 include/uapi/linux/aspeed-video.h
-
++/*
++ * The base for Aspeed driver controls.
++ * We reserve 16 controls for this driver.
++ */
++#define V4L2_CID_USER_ASPEED_BASE		(V4L2_CID_USER_BASE + 0x11A0)
++
+ /* MPEG-class control IDs */
+ /* The MPEG controls are applicable to all codec controls
+  * and the 'MPEG' part of the define is historical */
 -- 
 2.25.1
 
