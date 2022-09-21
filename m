@@ -4,63 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57E0AC32771
-	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 04:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D759CECAAD8
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 04:56:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MXR1x61pSz3c1c
-	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 14:55:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MXR2g32GJz3blJ
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 14:56:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=YzJo1TGE;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=lKn2FwbF;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::430; helo=mail-pf1-x430.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102f; helo=mail-pj1-x102f.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=YzJo1TGE;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=lKn2FwbF;
 	dkim-atps=neutral
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com [IPv6:2607:f8b0:4864:20::430])
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com [IPv6:2607:f8b0:4864:20::102f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MXR0Y2kt6z2xtt
-	for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2022 14:54:37 +1000 (AEST)
-Received: by mail-pf1-x430.google.com with SMTP id d82so4744426pfd.10
-        for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2022 21:54:37 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MXR0c4GfDz3bkG
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2022 14:54:40 +1000 (AEST)
+Received: by mail-pj1-x102f.google.com with SMTP id q15-20020a17090a304f00b002002ac83485so4628744pjl.0
+        for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2022 21:54:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date;
-        bh=Nb8gKAJ52ObzJaaV+kedld87sfF3vcHrdLGJl8ces/A=;
-        b=YzJo1TGEoRvK7EG0TCw2jFJOWNhYe8dCWzhFNcgerH6fNzgDG4lYqq4sTyp/ffs0DL
-         AVnanFfgY3Du/G4RNr4b4YH4CZJF5kN9LBcXxsDgkEDxUTiMETUCHuUL9EZZTt0q4dmZ
-         akPq4VTTzsT98r104hc1zT4uKZ/yUwwoKZqczcwbv211L+/+O3H5HbIimLDvyuRI84n8
-         nIzi5jqE63Nvr7KkrxUK51wCAGOXXWHHG+q9J4+tzvYVERq9mcQ36P5oL6el4HKmHTGz
-         HBNHG6bvrsx4bL4AJ6D0QdF0TJ5JWkvbDFEArO3ZCyb1PtHXE6U1BiHgYC4KVHJL5HNW
-         CA3g==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date;
+        bh=B6wrRand9OIMyssy8tjd8aIS1c0Kw08gD9pY1qUk3Bk=;
+        b=lKn2FwbFOll/lXXMRuiqMfbcY4D8VU/fiwRQTqWx0aoNdqpAUIyisDrpzLWMS6PGJ8
+         7UU1Tp+JEp/ZdVqTGGZskp+fsRZnHXYBhd0IBQOjb0Edi7DX5/evIYIePaCfclIE95A0
+         jbqBD2xhsOiMD1leEncg4Ivt/jMNPrLMXJ4z2PLiHe97H/krg0cYfLe7ONJS+XOGUwVC
+         w2ctYmzBk95p0bOaDeTY/SuKWnPaNanjnvyzRwLLlKWjnfyjUXPx3u7nu/dH+Dobwep/
+         MYVNRaAMS0F2yaP5n33RWocluSBTo9RvRyQ+wvJeG3fkKCDSDQPiyAPkviBmg3zWJeBY
+         7Y8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-message-state:from:to:cc:subject:date;
-        bh=Nb8gKAJ52ObzJaaV+kedld87sfF3vcHrdLGJl8ces/A=;
-        b=GwWYtZTHxae7yJiaGPcgnNf7dfocQrdg6c8bvZ9o5H0HyRIvdMjJCB9mpUvWjQBG03
-         Nq8nZ+c+BMHSt1FuIljwKRH4kokc2RvVk16hq4Cd2BFfrE9keQFBr6EPnLuzp0y7Bc0I
-         qpqx9U1EcABJgjG67K3pURiLyLhE27E6wkN9/jiomeVAmqv72c4RfHcSFT701fx+XsH4
-         wrYQqIYbv/ewfknYNt6Fc2KWMwbCyYek6XS6SNa6O+JWvAnS81mr+DKJ5oQmwtUznkq0
-         hhnND/pzfMjtzvxKPieMfRujxHzBQsNPqg5M3Qv1jXn976H7KZKE/3Q6upah8+uBOirC
-         4VMg==
-X-Gm-Message-State: ACrzQf0IaRcpmsaa+xD7//tK14Pa6AOebbbKI/NexW0dlZ3Kqm3Gqj9U
-	DrBuU3ifah3HE8Ns6nvj0gMIEPWByWQ=
-X-Google-Smtp-Source: AMsMyM7usuncaDqocp9W+UbiTEUZbzr97dbMWNyO4UDSIWQiuU7WmJgkfHkltCRnJg6XC5OYzTnZoQ==
-X-Received: by 2002:a05:6a00:a29:b0:54e:6aed:c655 with SMTP id p41-20020a056a000a2900b0054e6aedc655mr14525483pfh.25.1663736072338;
-        Tue, 20 Sep 2022 21:54:32 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-message-state:from
+         :to:cc:subject:date;
+        bh=B6wrRand9OIMyssy8tjd8aIS1c0Kw08gD9pY1qUk3Bk=;
+        b=DQ66VNtOgEXWxd5JZXNrd1lBx6n8dzO41UGrQt4gYMMN4XxDAHVxvZTGfZas/MQB8i
+         4lpi4fZFw7Ju8LfYOB5n4Xskcn1YLhCAuI2UJLo95fdbcfG2OfU2baX5rnxL8lqa2LoQ
+         GqGl3Oco3BjSVrsXdXo84VZwi8fTSP6V8x8XRNPQUDCBbH1Z/CbXcGX7IlmSR+C0VpFJ
+         ka23MF85Od18nyzhSuS+7Z0dDwmImGYlXdN56ukqRoaBx5sqqdT58Klw8JEiF6brkmxC
+         FKkLaq7V9WW84xhs5YXeMMdg7+zx5/NgxEkKMHLKrrBsRsDEi8IgDnARQWCbNhkC+ao+
+         li/w==
+X-Gm-Message-State: ACrzQf0ha5CbQSaqdAAFBsc6a1tL5VGT4ZXQpjcJFsla8SE6ir8800xM
+	Za3NRPO+pD8RpM+untOIA1xgLotRjtk=
+X-Google-Smtp-Source: AMsMyM5QuidRt8uB/HFKkwzr4THMKASqrRAYdY+KnIL0lM4N0xjJVgzO5xnMd63/1J52mJK0Up4raw==
+X-Received: by 2002:a17:90a:8688:b0:202:91d7:6a53 with SMTP id p8-20020a17090a868800b0020291d76a53mr7583785pjn.153.1663736077751;
+        Tue, 20 Sep 2022 21:54:37 -0700 (PDT)
 Received: from voyager.lan ([45.124.203.18])
-        by smtp.gmail.com with ESMTPSA id n8-20020a170902d2c800b00174d9bbeda4sm819918plc.197.2022.09.20.21.54.29
+        by smtp.gmail.com with ESMTPSA id n8-20020a170902d2c800b00174d9bbeda4sm819918plc.197.2022.09.20.21.54.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Sep 2022 21:54:31 -0700 (PDT)
+        Tue, 20 Sep 2022 21:54:37 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 0/3] ram: Configure ECC
-Date: Wed, 21 Sep 2022 14:24:17 +0930
-Message-Id: <20220921045420.2116037-1-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 2/3] ram/aspeed: Remove ECC config option
+Date: Wed, 21 Sep 2022 14:24:19 +0930
+Message-Id: <20220921045420.2116037-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220921045420.2116037-1-joel@jms.id.au>
+References: <20220921045420.2116037-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -78,21 +81,104 @@ Cc: Andrew Jeffery <andrew@aj.id.au>, Adriana Kobylak <anoo@us.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-v2: Rename property to include size
-    Use correct size in printf
-    Add patch to enable ECC in p10bmc
+Always build the code now that it is enabled by device tree.
 
-Joel Stanley (3):
-  aspeed/sdram: Use device tree to configure ECC
-  ram/aspeed: Remove ECC config option
-  ARM: dts: aspeed: p10bmc: Enable ECC
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/ram/aspeed/sdram_ast2500.c | 4 ----
+ drivers/ram/aspeed/sdram_ast2600.c | 5 +----
+ drivers/ram/aspeed/Kconfig         | 7 -------
+ 3 files changed, 1 insertion(+), 15 deletions(-)
 
- drivers/ram/aspeed/sdram_ast2500.c | 18 ++++++++++--------
- drivers/ram/aspeed/sdram_ast2600.c | 19 +++++++++++--------
- arch/arm/dts/ast2600-p10bmc.dts    |  1 +
- drivers/ram/aspeed/Kconfig         | 20 --------------------
- 4 files changed, 22 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/ram/aspeed/sdram_ast2500.c b/drivers/ram/aspeed/sdram_ast2500.c
+index 9bf4906b5939..ffad4fb18c8e 100644
+--- a/drivers/ram/aspeed/sdram_ast2500.c
++++ b/drivers/ram/aspeed/sdram_ast2500.c
+@@ -278,7 +278,6 @@ static void ast2500_sdrammc_calc_size(struct dram_info *info)
+ 			 << SDRAM_CONF_CAP_SHIFT));
+ }
+ 
+-#ifdef CONFIG_ASPEED_ECC
+ static void ast2500_sdrammc_ecc_enable(struct dram_info *info, u32 conf_size_mb)
+ {
+ 	struct ast2500_sdrammc_regs *regs = info->regs;
+@@ -313,7 +312,6 @@ static void ast2500_sdrammc_ecc_enable(struct dram_info *info, u32 conf_size_mb)
+ 	writel(0x400, &regs->ecc_test_ctrl);
+ 	printf("ECC enable, ");
+ }
+-#endif
+ 
+ static int ast2500_sdrammc_init_ddr4(struct dram_info *info)
+ {
+@@ -370,14 +368,12 @@ static int ast2500_sdrammc_init_ddr4(struct dram_info *info)
+ 
+ 	writel(SDRAM_MISC_DDR4_TREFRESH, &info->regs->misc_control);
+ 
+-#ifdef CONFIG_ASPEED_ECC
+ 	if (dev_read_bool(dev, "aspeed,ecc-enabled")) {
+ 		u32 ecc_size;
+ 
+ 		ecc_size = dev_read_u32_default(dev, "aspeed,ecc-size-mb", 0);
+ 		ast2500_sdrammc_ecc_enable(priv, ecc_size);
+ 	}
+-#endif
+ 
+ 	/* Enable all requests except video & display */
+ 	writel(SDRAM_REQ_USB20_EHCI1
+diff --git a/drivers/ram/aspeed/sdram_ast2600.c b/drivers/ram/aspeed/sdram_ast2600.c
+index 2a4d6af57eb3..5f7b160faddf 100644
+--- a/drivers/ram/aspeed/sdram_ast2600.c
++++ b/drivers/ram/aspeed/sdram_ast2600.c
+@@ -859,7 +859,7 @@ static void ast2600_sdrammc_update_size(struct dram_info *info)
+ 
+ 	info->info.size = hw_size;
+ }
+-#ifdef CONFIG_ASPEED_ECC
++
+ static void ast2600_sdrammc_ecc_enable(struct dram_info *info, u32 conf_size_mb)
+ {
+ 	struct ast2600_sdrammc_regs *regs = info->regs;
+@@ -890,7 +890,6 @@ static void ast2600_sdrammc_ecc_enable(struct dram_info *info, u32 conf_size_mb)
+ 	writel(BIT(31), &regs->intr_ctrl);
+ 	writel(0, &regs->intr_ctrl);
+ }
+-#endif
+ 
+ static int ast2600_sdrammc_probe(struct udevice *dev)
+ {
+@@ -988,14 +987,12 @@ L_ast2600_sdramphy_train:
+ 	}
+ #endif
+ 
+-#ifdef CONFIG_ASPEED_ECC
+ 	if (dev_read_bool(dev, "aspeed,ecc-enabled")) {
+ 		u32 ecc_size;
+ 
+ 		ecc_size = dev_read_u32_default(dev, "aspeed,ecc-size-mb", 0);
+ 		ast2600_sdrammc_ecc_enable(priv, ecc_size);
+ 	}
+-#endif
+ 
+ 	setbits_le32(priv->scu + AST_SCU_HANDSHAKE, SCU_HANDSHAKE_MASK);
+ 	clrbits_le32(&regs->intr_ctrl, MCR50_RESET_ALL_INTR);
+diff --git a/drivers/ram/aspeed/Kconfig b/drivers/ram/aspeed/Kconfig
+index 54c7769b5bbe..25238bf28d32 100644
+--- a/drivers/ram/aspeed/Kconfig
++++ b/drivers/ram/aspeed/Kconfig
+@@ -44,13 +44,6 @@ config ASPEED_BYPASS_SELFTEST
+ 	  Say Y here to bypass DRAM self test to speed up the boot time
+ endif
+ 
+-config ASPEED_ECC
+-	bool "aspeed SDRAM error correcting code"
+-	depends on DM && OF_CONTROL && ARCH_ASPEED
+-	default n
+-	help
+-	  enable SDRAM ECC function
+-
+ choice
+ 	prompt "DDR4 PHY side ODT"
+ 	default ASPEED_DDR4_PHY_ODT40
 -- 
 2.35.1
 
