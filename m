@@ -4,69 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CD06C54EE9
-	for <openbmc@archiver.kernel.org>; Tue, 20 Sep 2022 17:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC7FAC54EE9
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 01:10:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MX79J11Wmz30Mr
-	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 03:01:08 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MXL1v0lWdz3bnY
+	for <openbmc@archiver.kernel.org>; Wed, 21 Sep 2022 11:10:27 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=QkeDWMth;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=Fc4sHKeN;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DLOZHzOk;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22a; helo=mail-lj1-x22a.google.com; envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aj.id.au (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=QkeDWMth;
+	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm1 header.b=Fc4sHKeN;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DLOZHzOk;
 	dkim-atps=neutral
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com [IPv6:2a00:1450:4864:20::22a])
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MX78b4X0Gz2xgN
-	for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2022 03:00:29 +1000 (AEST)
-Received: by mail-lj1-x22a.google.com with SMTP id l12so3746419ljg.9
-        for <openbmc@lists.ozlabs.org>; Tue, 20 Sep 2022 10:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=a2XGN4ghAp94upVl0ROOioKKEQvmVvfjeJYYCE82DlI=;
-        b=QkeDWMthgVYljQxi+VewLxdQDK4p7UImT48XBWnQsaE5KYDeQ3NZ5/rSC4DtcdgOB2
-         xqRdYK3PqtXX2zjVOhPrExBptYAtmlvZjuNn/hRVhiePrbZlEBS/atJ62JWbMCPbGRPn
-         thjqDaPfnwH2liOB4UYTD3OjceQxSRLWkcbzIxhCTTBxh8Zjx1YmVe0sLhlI1r0+DU9M
-         Z828/mxxu1dd9vW9BBFcdtx7G6Yygx5oGujKUSwy5jXaBk/ElcjfXkG13Y2tPoKcdiT2
-         Z7OV+ZPjlk2h97K6BDXJSuJFYNNeXcFOvRMJVc77O49K57wqfEtc/suxQZNw/X5TGGip
-         vEkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=a2XGN4ghAp94upVl0ROOioKKEQvmVvfjeJYYCE82DlI=;
-        b=AyhkG8Vf5h8CZiiknptmICMMo6dEusDAPIq/dk7NmeSQ0bA6n+l5RONdUuov+214u9
-         n5JvQkoJm8487VvCgpsetdKcMLjb3wfYWMHzbF+AsdGDagj2ga5fpjEefTpbUNh7VZBB
-         PBA9KxcPM7a3SrJ96T3m5a0Sbnie6GeWKbZBukMA6xtMP0lveG5rkdWXPhucmkiHNAby
-         WQy9+QK3G9pd4ogl4reeuZqWB+fyNIDSdY0Job5k1GQjvoQrUOlCADkzISVl8RrU8s3K
-         wUFToU+RYpds5yDsWn0lWV9T6+e03f2dS1/8dOGhFsc0nGgStfoWm0HIozI1dB/yo1xL
-         sJXA==
-X-Gm-Message-State: ACrzQf1i0kp5BuRO5XHrVc4FwlcGYN3FN2cYQmMu35ISOI/Gxq1gMILa
-	jOCK0ETs/cpVCcsX1sED6BF1Uff6NMirY9bVjzA=
-X-Google-Smtp-Source: AMsMyM4StdJy1Lqc4K8wWvp/gUGEklUXu1pRP3Pe1Ldrxj3ElxV6BcEyJP3XIniFnzxjBAPeA097tJPMUUZLPRWeSGg=
-X-Received: by 2002:a2e:a587:0:b0:26c:510b:3cca with SMTP id
- m7-20020a2ea587000000b0026c510b3ccamr3457801ljp.452.1663693225927; Tue, 20
- Sep 2022 10:00:25 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220714122322.63663-1-tmaimon77@gmail.com> <20220714122322.63663-2-tmaimon77@gmail.com>
- <20220718211046.GA3547663-robh@kernel.org> <CAP6Zq1hQ5m2kkQOKaYsKhPQhCW+vdsdyPRxxb_yRGMB=gJCPdw@mail.gmail.com>
- <3981e6e8-d4bb-b13d-7aaa-7aea83ffaad9@linaro.org> <CAP6Zq1gp1ph1wixgb6nL+2R8We2YJ2HQM2iC05itq_XWd2Cwig@mail.gmail.com>
- <bfca0379-7346-13e7-a18f-66740c5871b3@linaro.org> <CAP6Zq1gyDW8ZwwAZ1jyfNEZa09WN-biZZJY8tBmW_gzMzpj3ZA@mail.gmail.com>
- <2b0e6e33-ef76-4bd4-8894-53f9a3fe68b4@linaro.org> <CAP6Zq1iwW6HvvfM684VLG0ZT-0OLKT0udW4bHxsZsTMEypo2sg@mail.gmail.com>
- <6f1ad082-74e4-e4e7-9304-5cdd95cc9f66@linaro.org> <CAP6Zq1hTS7mVWvYWfTwWvrZibKMpW5r7=wE6W9uETb=aS6MTuA@mail.gmail.com>
- <d8b7fce1-99fa-584b-55e0-f4c3cbe500e2@linaro.org>
-In-Reply-To: <d8b7fce1-99fa-584b-55e0-f4c3cbe500e2@linaro.org>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 20 Sep 2022 20:00:14 +0300
-Message-ID: <CAP6Zq1hEM67cZt-pcn95VpcPcOVnySb=3XV69irzdkuAuXgofw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-binding: pinctrl: Add NPCM8XX pinctrl and GPIO documentation
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MXL150NWWz2ymS
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2022 11:09:44 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.nyi.internal (Postfix) with ESMTP id 25D805C01D5;
+	Tue, 20 Sep 2022 21:09:39 -0400 (EDT)
+Received: from imap50 ([10.202.2.100])
+  by compute3.internal (MEProxy); Tue, 20 Sep 2022 21:09:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1663722579; x=1663808979; bh=UWO+yzXtMk
+	sgG7pvBV/mscwn5HJF0IQjphfxqgOCIhM=; b=Fc4sHKeNTg40RVTKvu5ABtzxy8
+	A2b5KRjeCnnDQW0ivwNnvyFHCYbA7a9B4NUreYxTp/l9X5vSFG5Wg0zCMqociJKD
+	N5iNYaLSzr+GvpDWrq2ghy4iw+eBe1+Ib3WzNCg1CCASTtGrHLB/rJKzKiUw2slq
+	glgegsHnlIX9mwy4MxloSQGlTXZENLoGyTVkaVjqKgqmsu3MQB/s9AfvvsdzFdne
+	WlXdkJ6vRw/Ey9BiKwAgzppnfiHjnE8cXblAWtA4H+zRGGv1d4fzGmqBQe94CLDi
+	2w/osvcyJ2FRGsGRfK5rrn2qzOSOjQoJmUQzMpBoLWhs+0xWAgRBl+BRopLQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1663722579; x=1663808979; bh=UWO+yzXtMksgG7pvBV/mscwn5HJF
+	0IQjphfxqgOCIhM=; b=DLOZHzOkrdRC37qj3dzFt5kzV2zAUzSioQxfnEc+gAkR
+	sN9t213krdF0XmFnzKTeobrK5JfjqguU7rgojG8pRG3XmWq7zrX9Nfy5NdHOsOCn
+	RGLs3pPd0XfUYCj63GY1FYBWo41eJO+kgK0Qb7TyS2R/8N88TRnpVs9+MzXyieSe
+	lJWc5sWHidD2X14NBIsYOuK4310xAC9n4wApKbaCAKgHEl4Le3O3aogjDpFWe6Sd
+	/U6xjufAtdektC6SnBFCnXT1f/oyNz3mcpSJvyv1UIdxspnfXWOrKCcqcSr67cg9
+	Y1Ci6a93J59BKaxLu09uNi8tDwozOstEBilCoS+uBw==
+X-ME-Sender: <xms:UmQqY-hgRUhehKDxtZ8KCCoH_ZLxrrSNgF2GjGYug7riR2-sMRpHbQ>
+    <xme:UmQqY_DOcOjqgrGVUDJB4ty5I69l3uHEdr7W7pm53WgvH4c994_LkZcqxkTh7vzyI
+    nTBip6cj3W41tlNqg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeftddggeefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
+    ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
+    frrghtthgvrhhnpeekvdekjeekgfejudffteetgeejkeetteduvedtffdtledutdfhheev
+    feetkeeiteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:UmQqY2EUlC59vbCUxZtoVf8t6thEHytXbcEJ2gXajGhb-N1CrGOcYw>
+    <xmx:UmQqY3Q_qwtPZ4Xj2B-5oRHEYB0mkxtNYGYv1VpLrOvWwgvgPs4M4A>
+    <xmx:UmQqY7wAICYvEarB7bvkp4H6PoOaJFzvw6TbBPPKhaukY3PrF0CXiw>
+    <xmx:U2QqY0pFlzBbQQSg1KcW6TKcWQx3FawsC_tW1ZtJ3fHwbzNHXwWGnA>
+Feedback-ID: idfb84289:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id 649D31700083; Tue, 20 Sep 2022 21:09:38 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.7.0-alpha0-935-ge4ccd4c47b-fm-20220914.001-ge4ccd4c4
+Mime-Version: 1.0
+Message-Id: <60dfd5b4-bdd6-4e3c-93ed-727f0b91e3cd@app.fastmail.com>
+In-Reply-To: <20220916195535.1020185-1-anoo@linux.ibm.com>
+References: <4a2f1f13-cd98-4a0f-8e4a-b297cb81a382@www.fastmail.com>
+ <20220916195535.1020185-1-anoo@linux.ibm.com>
+Date: Wed, 21 Sep 2022 10:39:15 +0930
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Adriana Kobylak" <anoo@linux.ibm.com>, "Joel Stanley" <joel@jms.id.au>,
+ openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2] ARM: dts: rainier,everest: Move reserved memory regions
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,103 +93,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Benjamin Fair <benjaminfair@google.com>, "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, Linus Walleij <linus.walleij@linaro.org>, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, zhengbin13@huawei.com, devicetree <devicetree@vger.kernel.org>, Joel Stanley <joel@jms.id.au>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Adriana Kobylak <anoo@us.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 20 Sept 2022 at 18:16, Krzysztof Kozlowski
-<krzysztof.kozlowski@linaro.org> wrote:
->
-> On 20/09/2022 11:27, Tomer Maimon wrote:
-> > On Tue, 20 Sept 2022 at 11:47, Krzysztof Kozlowski
-> > <krzysztof.kozlowski@linaro.org> wrote:
-> >>
-> >> On 20/09/2022 10:32, Tomer Maimon wrote:
-> >>> On Tue, 20 Sept 2022 at 11:21, Krzysztof Kozlowski
-> >>> <krzysztof.kozlowski@linaro.org> wrote:
-> >>>>
-> >>>> On 20/09/2022 09:59, Tomer Maimon wrote:
-> >>>>>>>>>>> +      pinctrl: pinctrl@f0800000 {
-> >>>>>>>>>>> +        compatible = "nuvoton,npcm845-pinctrl";
-> >>>>>>>>>>> +        ranges = <0x0 0x0 0xf0010000 0x8000>;
-> >>>>>>>>>>> +        #address-cells = <1>;
-> >>>>>>>>>>> +        #size-cells = <1>;
-> >>>>>>>>>>> +        nuvoton,sysgcr = <&gcr>;
-> >>>>>>>>>>> +
-> >>>>>>>>>>> +        gpio0: gpio@f0010000 {
-> >>>>>>>>>>
-> >>>>>>>>>> gpio@0
-> >>>>>>>>>>
-> >>>>>>>>>> Is this really a child block of the pinctrl? Doesn't really look like it
-> >>>>>>>>>> based on addressess. Where are the pinctrl registers? In the sysgcr? If
-> >>>>>>>>>> so, then pinctrl should be a child of it. But that doesn't really work
-> >>>>>>>>>> too well with gpio child nodes...
-> >>>>>>>>> the pin controller mux is handled by sysgcr this is why the sysgcr in
-> >>>>>>>>> the mother node,
-> >>>>>>>>> and the pin configuration are handled by the GPIO registers.  each
-> >>>>>>>>> GPIO bank (child) contains 32 GPIO.
-> >>>>>>>>> this is why the GPIO is the child node.
-> >>>>>>>>
-> >>>>>>>> Then maybe pinctrl should be the sysgcr and expose regmap for other devices?
-> >>>>>>> The pin controller using the sysgcr to handle the pinmux, this is why
-> >>>>>>> the sysgcr is in the mother node, is it problematic?
-> >>>>>>
-> >>>>>> You said pin-controller mux registers are in sysgcr, so it should not be
-> >>>>>> used via syscon.
-> >>>>> Sorry but maybe I missed something.
-> >>>>> the sysgcr is used for miscellaneous features and not only for the pin
-> >>>>> controller mux, this is why it used syscon and defined in the dtsi:
-> >>>>>                 gcr: system-controller@f0800000 {
-> >>>>>                         compatible = "nuvoton,npcm845-gcr", "syscon";
-> >>>>>                         reg = <0x0 0xf0800000 0x0 0x1000>;
-> >>>>>                 };
-> >>>>>>
-> >>>>>> Please provide address map description to convince us that this is
-> >>>>>> correct HW representation.
-> >>>>> GCR (sysgcr) registers 0xf0800000-0xf0801000 - used for miscellaneous
-> >>>>> features, not only pin mux.
-> >>>>> GPIO0 0xf0010000-0xf0011000
-> >>>>> GPIO1 0xf0011000-0xf0012000
-> >>>>> ...
-> >>>>> GPIO7 0xf0017000-0xf0018000
-> >>>>>>
-> >>>>
-> >>>> Then why your pinctrl is in sysgcr IO range? (pinctrl@f0800000)
-> >>> you suggest using pinctrl@0 or pinctrl@f0010000 and not
-> >>> pinctrl@f0800000 because 0xf0800000 is the GCR address that serve
-> >>> miscellaneous features and not only pinmux controller ?
-> >>
-> >> If you have a map like you pasted, then DTS like this:
-> >>
-> >> syscon@f0800000 {}
-> >> pinctrl@f0800000 {
-> >>   gpio@f0010000 {}
-> >> }
-> >>
-> >> Is quite weird, don't you think? You have two devices on the same unit
-> >> address which is not allowed. You have child of pinctrl with entirely
-> > O.K.
-> >> different unit address, so how is it its child?
-> > The pinctrl node name will modify the pinctrl@f0010000 the same as the
-> > range property and the start of the child registers,is it fine?
->
-> We are all busy, so I don't have that much bandwidth to review each of
-> your many solutions and instead poking me with every possible solution,
-> I would prefer if you think a bit how this all should work and look.
->
-> I don't know if it is fine. Why you should have two devices like this:
-> pinctrl@f0010000 {
-> gpio@f0010000 {}
-> }
->
-> ???
-> Instead of one device? Answer such questions to yourself before asking
-> me. Please come with reasonable DTS describing the hardware.
->
-Will do, thanks.
-> Best regards,
-> Krzysztof
 
-Best regards,
 
-Tomer
+On Sat, 17 Sep 2022, at 05:25, Adriana Kobylak wrote:
+> From: Adriana Kobylak <anoo@us.ibm.com>
+>
+> Move the reserved regions to account for a decrease in DRAM when ECC is
+> enabled. ECC takes 1/9th of memory.
+>
+> Running on HW with ECC off, u-boot prints:
+> DRAM:  already initialized, 1008 MiB (capacity:1024 MiB, VGA:16 MiB, ECC:off)
+>
+> And with ECC on, u-boot prints:
+> DRAM:  already initialized, 896 MiB (capacity:1024 MiB, VGA:16 MiB, 
+> ECC:on, ECC size:896 MiB)
+>
+> This implies that MCR54 is configured for ECC to be bounded at the
+> bottom of a 16MiB VGA memory region:
+>
+> 1024MiB - 16MiB (VGA) = 1008MiB
+> 1008MiB / 9 (for ECC) = 112MiB
+> 1008MiB - 112MiB = 896MiB (available DRAM)
+>
+> The flash_memory region currently starts at offset 896MiB:
+> 0xb8000000 (flash_memory offset) - 0x80000000 (base memory address) = 
+> 0x38000000 = 896MiB
+>
+> This is the end of the available DRAM with ECC enabled and therefore it
+> needs to be moved.
+>
+> Since the flash_memory is 64MiB in size and needs to be 64MiB aligned,
+> it can just be moved up by 64MiB and would sit right at the end of the
+> available DRAM buffer.
+>
+> The ramoops region currently follows the flash_memory, but it can be
+> moved to sit above flash_memory which would minimize the address-space
+> fragmentation.
+>
+> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
