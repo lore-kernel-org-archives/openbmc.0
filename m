@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5452AC6FA82
-	for <openbmc@archiver.kernel.org>; Thu, 22 Sep 2022 14:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72C22C54EE9
+	for <openbmc@archiver.kernel.org>; Thu, 22 Sep 2022 15:39:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MYHZz0FjLz3c8C
-	for <openbmc@archiver.kernel.org>; Fri, 23 Sep 2022 00:23:55 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MYKGV6kHXz3c29
+	for <openbmc@archiver.kernel.org>; Fri, 23 Sep 2022 01:39:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MYHYW432hz2yPm
-	for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2022 00:22:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MYKFx1RJtz3bkG
+	for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2022 01:39:12 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 28MEMMN7010617
-	for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2022 17:22:23 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 28MFd2LH012048
+	for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2022 18:39:02 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Thu, 22 Sep
- 2022 17:22:22 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 18:39:01 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Thu, 22 Sep
- 2022 22:22:20 +0800
+ 2022 23:38:59 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Thu, 22 Sep 2022 22:22:19 +0800
+ Transport; Thu, 22 Sep 2022 23:38:59 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 7362C63A0A; Thu, 22 Sep 2022 17:22:19 +0300 (IDT)
+	id 6B8FA637C4; Thu, 22 Sep 2022 18:38:58 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
         <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <olivia@selenic.com>, <herbert@gondor.apana.org.au>,
-        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v1 1/2] dt-bindings: rng: nuvoton,npcm-rng: Add npcm845 compatible string
-Date: Thu, 22 Sep 2022 17:22:15 +0300
-Message-ID: <20220922142216.17581-2-tmaimon77@gmail.com>
+        <p.zabel@pengutronix.de>, <arnd@arndb.de>
+Subject: [PATCH v1] reset: npcm: fix iprst2 and iprst4 setting
+Date: Thu, 22 Sep 2022 18:38:56 +0300
+Message-ID: <20220922153856.23326-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20220922142216.17581-1-tmaimon77@gmail.com>
-References: <20220922142216.17581-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,32 +53,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM845 RNG.
+In NPCM8XX USB reset sequence, iprst2 register was set with iprst4 value
+and iprst4 register wasn´t set.
+
+This fix sets the correct IP reset values in iprst2 and iprst4 registers
+in NPCM8XX USB reset sequence.
+
+Fixes: fc5d2a2f4aa5 ("reset: npcm: Add NPCM8XX support")
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.yaml | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/reset/reset-npcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.yaml b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.yaml
-index abd134c9d400..e0071faa00f0 100644
---- a/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.yaml
-+++ b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.yaml
-@@ -16,7 +16,9 @@ maintainers:
+diff --git a/drivers/reset/reset-npcm.c b/drivers/reset/reset-npcm.c
+index 24c55efa98e5..f2333506b0a6 100644
+--- a/drivers/reset/reset-npcm.c
++++ b/drivers/reset/reset-npcm.c
+@@ -291,7 +291,7 @@ static void npcm_usb_reset_npcm8xx(struct npcm_rc_data *rc)
+ 	iprst2 |= ipsrst2_bits;
+ 	iprst3 |= (ipsrst3_bits | NPCM_IPSRST3_USBPHY1 |
+ 		   NPCM_IPSRST3_USBPHY2);
+-	iprst2 |= ipsrst4_bits;
++	iprst4 |= ipsrst4_bits;
  
- properties:
-   compatible:
--    const: nuvoton,npcm750-rng
-+    enum:
-+        - nuvoton,npcm750-rng
-+        - nuvoton,npcm845-rng
- 
-   reg:
-     maxItems: 1
+ 	writel(iprst1, rc->base + NPCM_IPSRST1);
+ 	writel(iprst2, rc->base + NPCM_IPSRST2);
 -- 
 2.33.0
 
