@@ -4,68 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85A4AC6FA8B
-	for <openbmc@archiver.kernel.org>; Thu, 22 Sep 2022 06:22:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13CAC54EE9
+	for <openbmc@archiver.kernel.org>; Thu, 22 Sep 2022 14:23:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MY4vC47Wsz3c6N
-	for <openbmc@archiver.kernel.org>; Thu, 22 Sep 2022 16:22:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JhubN6vA;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42b; helo=mail-pf1-x42b.google.com; envelope-from=rentao.bupt@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JhubN6vA;
-	dkim-atps=neutral
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com [IPv6:2607:f8b0:4864:20::42b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MYHZ45LjWz3cCC
+	for <openbmc@archiver.kernel.org>; Fri, 23 Sep 2022 00:23:08 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MY4tQ131hz301m
-	for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2022 16:21:31 +1000 (AEST)
-Received: by mail-pf1-x42b.google.com with SMTP id e5so8314998pfl.2
-        for <openbmc@lists.ozlabs.org>; Wed, 21 Sep 2022 23:21:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=Z+PID1IguXrR32Sm0xAPoaOjuHf2SYVeP9iLGNhXLxI=;
-        b=JhubN6vArKJKTP6jo+i5TWRlA22D7tOJ6Otcl01icAOGlUleLHoiy6QIkAP3YymeMb
-         30sG7ozA6x0B4QeBkAgRxu2fDPXDX/ERF4sVWiKIK71K4bil+ZNZOHZ4n0wGZ6kN1b6j
-         nrJNAPFvtX0OwkHfP2ZJylzlWiqnDIXbOaOyitqIAgObjB4jskFcoNBtn0N9YvKMZDCR
-         x9HPIo0TQTbj/kVLpUI4iktTj1gfHfP2LBdXoJvL77/KmRucAFf7zkcwKaUM+RN7qpuo
-         VVCD6SM9rgU63lDIeYcfuVEFmHm5Ge5PJaSWQvYr8fIcDOsxvjStXIcEhPeo0tJj6JIR
-         yVog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=Z+PID1IguXrR32Sm0xAPoaOjuHf2SYVeP9iLGNhXLxI=;
-        b=GiXZpgi9L2GL4Qtck5EzBQv4NoNbrsKBdkK494zaF8VT18m+ZpAcUGVZWvPtWvDePR
-         I+0EPvfD5xrtju6eccY42xC7ecHupdo4T4OUe0eU8G6Bj+Lv9kOB1P0cNFDHqr86j6o2
-         yEj8+Rt9eitZc31gx81wSMW2VvzTdu5MMRYuLz38yS4n1qxJAyGjS+IrZSdd9gLaULcO
-         94Tilh230AeQYW+fFEMqugp9Gr208T9kB/K0jBQijyrNNeKZS6HAJnOaGfm/RmezvoLW
-         kXrnSlqA0NynCttX+nFdh+nFh+E9iZEexyi5Zd8hJo7ZINhLnIkv4ct3Pa8VfrycYAGT
-         L04Q==
-X-Gm-Message-State: ACrzQf0OQi9v6DXJ/yPNojB1djaHhcr7k+zdPMrY1IHmvqTEhvQuKegG
-	LM5pTBWUc807lRzfB+ZuzRM=
-X-Google-Smtp-Source: AMsMyM5kbef0GcWlkq6yDhy++nJd3NxzEkdlWLLaTuY/I4H8KBrWRnmp7sb1WEkAtKg6cdczqc+4Rg==
-X-Received: by 2002:aa7:80d0:0:b0:52d:f9c6:bb14 with SMTP id a16-20020aa780d0000000b0052df9c6bb14mr1848558pfn.57.1663827688933;
-        Wed, 21 Sep 2022 23:21:28 -0700 (PDT)
-Received: from taoren-fedora-PC23YAB4 ([76.132.249.1])
-        by smtp.gmail.com with ESMTPSA id e16-20020a056a0000d000b0053b208b55d1sm3386398pfj.85.2022.09.21.23.21.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Sep 2022 23:21:28 -0700 (PDT)
-Date: Wed, 21 Sep 2022 23:21:24 -0700
-From: Tao Ren <rentao.bupt@gmail.com>
-To: Lei Yu <yulei.sh@bytedance.com>
-Subject: Re: Wedge400 (AST2520) OpenBMC stuck at reboot
-Message-ID: <Yyv+5GCp0A5WNE89@taoren-fedora-PC23YAB4>
-References: <YyuLaigEAyiYpl+B@taoren-fedora-PC23YAB4>
- <CAGm54UHu3wFdXTwd=cpe7bn3WVBf5rPA3Fi8mAtc4pJADOU5TQ@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MYHYW5XWkz3bZ4
+	for <openbmc@lists.ozlabs.org>; Fri, 23 Sep 2022 00:22:39 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (ntil-fw [212.199.177.25])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 28MEMYYf010623
+	for <openbmc@lists.ozlabs.org>; Thu, 22 Sep 2022 17:22:34 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Thu, 22 Sep
+ 2022 17:22:33 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Thu, 22 Sep
+ 2022 22:22:19 +0800
+Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
+ (10.1.12.25) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
+ Transport; Thu, 22 Sep 2022 22:22:19 +0800
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id A394E637C4; Thu, 22 Sep 2022 17:22:18 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
+        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
+        <olivia@selenic.com>, <herbert@gondor.apana.org.au>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>
+Subject: [PATCH v1 0/2] rng: npcm: add Arbel NPCM8XX support
+Date: Thu, 22 Sep 2022 17:22:14 +0300
+Message-ID: <20220922142216.17581-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGm54UHu3wFdXTwd=cpe7bn3WVBf5rPA3Fi8mAtc4pJADOU5TQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,70 +54,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: taoren@fb.com, openbmc <openbmc@lists.ozlabs.org>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Lei,
+This patch set adds Arbel NPCM8XX Random Number Generator(RNG) support 
+to RNG NPCM driver.
 
-Thank you for the quick response! The symptom is quite similar to my
-Wedge400 problem, but CONFIG_VIDEO_ASPEED is not enabled in my kconfig,
-so it might be caused by different component(s) in my environment..
+The NPCM8XX RNG uses different prescalar clock value.
 
+The NPCM RNG driver was tested on the NPCM845 evaluation board.
 
-Cheers,
+Tomer Maimon (2):
+  dt-bindings: rng: nuvoton,npcm-rng: Add npcm845 compatible string
+  hwrng: npcm: Add NPCM8XX support
 
-Tao
+ .../bindings/rng/nuvoton,npcm-rng.yaml        |  4 +++-
+ drivers/char/hw_random/npcm-rng.c             | 21 ++++++++++++-------
+ 2 files changed, 17 insertions(+), 8 deletions(-)
 
-On Thu, Sep 22, 2022 at 10:10:01AM +0800, Lei Yu wrote:
-> We hit a similar but different issue about BMC stuck.
-> It occurs when running host DC cycle test, and when the issue occurs:
-> 1. The BMC hangs, and the aspeed's heartbeat is off
-> 2. If the wdt2 is enabled, the wdt2 will fire and aspeed chip will
-> reset and reboot into the seconds flash.
-> 3. If the wdt2 is disabled, the BMC just hangs and we have to power
-> cycle the chassis.
-> 
-> We could not find the root cause, but it's likely related to a patch:
-> https://lore.kernel.org/openbmc/20201221223225.14723-2-jae.hyun.yoo@linux.intel.com/
-> If we revert the patch, the issue could not be reproduced anymore.
-> 
-> On Thu, Sep 22, 2022 at 6:09 AM Tao Ren <rentao.bupt@gmail.com> wrote:
-> >
-> > Hi there,
-> >
-> > Recently I noticed a few Wedge400 (AST2520A2) units stuck after "reboot"
-> > command. It's hard to reproduce (affecting ~1 out of 1,000 units), but
-> > once it happens, I have to power cycle the chassis to recover OpenBMC.
-> >
-> > I checked aspeed_wdt.c and manually played with watchdog registers, but
-> > everything looks normal to me. Did anyone hit the similar error before?
-> > Any suggestions which area I should look into?
-> >
-> > Below are the last few lines of logs before OpenBMC hangs:
-> >
-> > bmc-oob login:
-> > INIT: Sending processes configured via /etc/inittab the TERM signal
-> > Stopping OpenBSD Secure Shell server: sshdstopped /usr/sbin/sshd (pid 7397 1189)
-> > Stopping ntpd: done
-> > stopping rsyslogd ... done
-> > Stopping random number generator daemon.
-> > Deconfiguring network interfaces... done.
-> > Sending all processes the TERM signal...
-> > rackmond[1747]: Got request exit[  528.383133] watchdog: watchdog0: watchdog did not stop!
-> > Sending all processes the KILL signal...
-> > Unmounting remote filesystems...
-> > Deactivating swap...
-> > Unmounting local filesystems...
-> > Rebooting... [  529.725009] reboot: Restarting system
-> >
-> >
-> > Cheers,
-> >
-> > Tao
-> 
-> 
-> 
-> -- 
-> BRs,
-> Lei YU
+-- 
+2.33.0
+
