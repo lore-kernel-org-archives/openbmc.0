@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E52C04A95
-	for <openbmc@archiver.kernel.org>; Sun, 25 Sep 2022 22:12:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F211C6FA82
+	for <openbmc@archiver.kernel.org>; Sun, 25 Sep 2022 22:12:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MbKql0DGwz3088
-	for <openbmc@archiver.kernel.org>; Mon, 26 Sep 2022 08:12:03 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MbKrP42Pyz3bYM
+	for <openbmc@archiver.kernel.org>; Mon, 26 Sep 2022 08:12:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=iFPGAf/q;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=cSWhvHJl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=iFPGAf/q;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=cSWhvHJl;
 	dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
+X-Greylist: delayed 375 seconds by postgrey-1.36 at boromir; Mon, 26 Sep 2022 08:10:52 AEST
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MbKpM6p51z2xjj
-	for <openbmc@lists.ozlabs.org>; Mon, 26 Sep 2022 08:10:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MbKpN2lCGz2xk6
+	for <openbmc@lists.ozlabs.org>; Mon, 26 Sep 2022 08:10:52 +1000 (AEST)
 Received: from hatter.bewilderbeest.net (97-113-250-99.tukw.qwest.net [97.113.250.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 83FCC72C;
-	Sun, 25 Sep 2022 15:04:32 -0700 (PDT)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id C6BA81AE;
+	Sun, 25 Sep 2022 15:04:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
 	s=thorn; t=1664143472;
-	bh=szDrpMqpfTmd0bTtV19FrnGKTXelxS1H2D5cEIKOuFQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iFPGAf/qPA0PJjjaVSDRzpu0I92XjBaDPXzKaAznxrBuAyrK/ljD2JK71va+W5Zve
-	 inJnZ1p0tufMh6dJExFcnwCw3eQG1xwYTh8xwo62kF3Sk5AQ4POeJcYKVbuyWc9af5
-	 cVKFTw2NTwkYhmHQyeOtoAeEOc0Oyz3Tg8dykseQ=
+	bh=55QOZ/Sosj9iz7tF65g2uHc/YtzXw/1I5tJ5UeOj3pc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cSWhvHJldr4rpvt9/S6OgfH9CPdFlIJJHSLURXJwwyN49c6BreR4p3QHUWte2rDDK
+	 uMYzBIUoTECVbMuNfgHPDnmTQtY9uy4/kNyJzL7/0BfJuBtrzYOqjNTZ+TcjLU+tWb
+	 o8WmdMwUQLSljh9mDZ1WiodBhcdpDig+RPHZ6ZyQ=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH 2/3] dt-bindings: regulator: Add regulator-output binding
-Date: Sun, 25 Sep 2022 15:03:18 -0700
-Message-Id: <20220925220319.12572-3-zev@bewilderbeest.net>
+Subject: [PATCH 0/3] regulator: Add DT support for regulator-output connectors
+Date: Sun, 25 Sep 2022 15:03:16 -0700
+Message-Id: <20220925220319.12572-1-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220925220319.12572-1-zev@bewilderbeest.net>
-References: <20220925220319.12572-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -61,72 +60,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Zev Weiss <zev@bewilderbeest.net>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Naresh Solanki <naresh.solanki@9elements.com>, Laxman Dewangan <ldewangan@nvidia.com>, Patrick Rudolph <patrick.rudolph@9elements.com>
+Cc: Zev Weiss <zev@bewilderbeest.net>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Naresh Solanki <naresh.solanki@9elements.com>, Laxman Dewangan <ldewangan@nvidia.com>, Patrick Rudolph <patrick.rudolph@9elements.com>, Mike Rapoport <rppt@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This describes a power output supplied by a regulator, such as a
-power outlet on a power distribution unit (PDU).
+Hello,
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
- .../bindings/regulator/regulator-output.yaml  | 47 +++++++++++++++++++
- 1 file changed, 47 insertions(+)
+This series is another attempt at implementing support for
+userspace-controlled regulator-supplied power outputs.  This is an
+important feature for some kinds of BMC (baseboard management
+controller) systems where the BMC provides an operator with manual
+control of a set of DC power outputs.
+
+As in a broadly similar patchset that was recently almost merged [0],
+this takes the approach of providing support by extending the existing
+userspace-consumer regulator driver.  A couple questions about the
+userspace-consumer driver came up along the way, however.
+
+First, how (if at all) is it currently being used?  It appears the
+last in-tree use of it was removed a bit over two years ago in commit
+9d3239147d6d ("ARM: pxa: remove Compulab pxa2xx boards").  Aside from
+just adding DT support I've made a couple small tweaks to the driver
+in patch 3 that I hope are compatible with any current usage, but
+without any extant examples to look at it's kind of hard to say.
+
+Second, how critical is its support for controlling multiple
+regulators?  (i.e. its use of regulator_bulk_data and friends instead
+of a single struct regulator.)  As far as I can see every in-tree use
+of it that's ever existed has used num_supplies = 1.  If it's not
+important to retain, patch 1 of this series could be supplanted by one
+that instead simplifies the driver slightly by removing that
+functionality.
+
+The DT binding added in patch 2 is very similar to one I posted in a
+previous patchset that had an R-B from Rob [1], but has had some minor
+rewording and gained one new (optional) property.
+
+Laxman, Naresh, Patrick -- please let me know if there are any aspects
+of this implementation that would be incompatible with your needs.
+
+
+Thanks,
+Zev
+
+[0] https://lore.kernel.org/all/20220707081826.953449-4-Naresh.Solanki@9elements.com/
+[1] https://lore.kernel.org/linux-kernel/20220505232557.10936-2-zev@bewilderbeest.net/
+
+Zev Weiss (3):
+  regulator: devres: Add devm_regulator_bulk_get_exclusive()
+  dt-bindings: regulator: Add regulator-output binding
+  regulator: userspace-consumer: Handle regulator-output DT nodes
+
+ .../bindings/regulator/regulator-output.yaml  | 47 +++++++++++++
+ drivers/regulator/core.c                      | 42 +++++++-----
+ drivers/regulator/devres.c                    | 66 ++++++++++++++-----
+ drivers/regulator/internal.h                  |  2 +
+ drivers/regulator/userspace-consumer.c        | 43 ++++++++++--
+ include/linux/regulator/consumer.h            |  2 +
+ include/linux/regulator/userspace-consumer.h  |  1 +
+ 7 files changed, 162 insertions(+), 41 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/regulator/regulator-output.yaml
 
-diff --git a/Documentation/devicetree/bindings/regulator/regulator-output.yaml b/Documentation/devicetree/bindings/regulator/regulator-output.yaml
-new file mode 100644
-index 000000000000..40953ec48e9e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/regulator-output.yaml
-@@ -0,0 +1,47 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+
-+$id: http://devicetree.org/schemas/regulator/regulator-output.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Regulator output connector
-+
-+maintainers:
-+  - Zev Weiss <zev@bewilderbeest.net>
-+
-+description: |
-+  This describes a power output connector supplied by a regulator,
-+  such as a power outlet on a power distribution unit (PDU).  The
-+  connector may be standalone or merely one channel or set of pins
-+  within a ganged physical connector carrying multiple independent
-+  power outputs.
-+
-+properties:
-+  compatible:
-+    const: regulator-output
-+
-+  vout-supply:
-+    description:
-+      Phandle of the regulator supplying the output.
-+
-+  regulator-leave-on:
-+    description: |
-+      If the regulator is enabled when software relinquishes control
-+      of it (such as when shutting down) it should be left enabled
-+      instead of being turned off.
-+    type: boolean
-+
-+required:
-+  - compatible
-+  - vout-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+      output {
-+          compatible = "regulator-output";
-+          vout-supply = <&output_reg>;
-+          regulator-leave-on;
-+      };
 -- 
 2.37.3
 
