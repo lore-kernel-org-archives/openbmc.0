@@ -4,84 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECA8DC32771
-	for <openbmc@archiver.kernel.org>; Mon, 26 Sep 2022 16:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 869E6C32771
+	for <openbmc@archiver.kernel.org>; Mon, 26 Sep 2022 23:04:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Mbp7X0wv8z3bY8
-	for <openbmc@archiver.kernel.org>; Tue, 27 Sep 2022 02:27:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Mbyy10Fhcz2yR9
+	for <openbmc@archiver.kernel.org>; Tue, 27 Sep 2022 09:04:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=Pw8A9Z1i;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=fj2zbN2R;
+	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=rOZQK+Hq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=os.amperecomputing.com (client-ip=40.107.95.98; helo=nam02-dm3-obe.outbound.protection.outlook.com; envelope-from=thang@os.amperecomputing.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=Pw8A9Z1i;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=fj2zbN2R;
+	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=rOZQK+Hq;
 	dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com [64.147.123.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com (mail-dm3nam02on2098.outbound.protection.outlook.com [40.107.95.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mbp6d2fVsz3bSW
-	for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2022 02:26:30 +1000 (AEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.west.internal (Postfix) with ESMTP id A3CA4320092E;
-	Mon, 26 Sep 2022 12:26:26 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute5.internal (MEProxy); Mon, 26 Sep 2022 12:26:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1664209586; x=1664295986; bh=WYuYI865W3
-	uju+Gr7lT1w1OiJYxkxo93XMpn4X9hvoY=; b=Pw8A9Z1iWq/1GpSQp0X806aq8Z
-	hR5TOb1lxKFufM98BYYcB8zLFufRqTOp++eaLbkc6RQIq5WshqK2Xkpjg6qLfY0B
-	vhPnmUSIWIuyzeEBqoqQvhE5lgLScehFjErFNErr17goVujI5QBPG+fRV29CUGhl
-	w4hpQOdLO7CM+z6LdkYAz+5ucBBUa1WgqRAy/Ghu/9EiWVAmZyBsMaWXu2W2D/Pr
-	kOVdADJd5GNfTR1uwgFNc+RUAm7K/X1GWKPW07uS7b7ZrCnPDgj7yTKjVZ2niKWU
-	SStJ2CEytsxKrKRyyWyipSSpxJlDZ4HmBvg5cnfCjAp7NnDe42rcPfiaNGqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1664209586; x=1664295986; bh=WYuYI865W3uju+Gr7lT1w1OiJYxk
-	xo93XMpn4X9hvoY=; b=fj2zbN2RFnJ2Hq71T6nj7T8qoSP1Vy0xtFYy1TsUadcm
-	yYm31sMA0dSNBCZRxBRTVQkLbLldXqDMc5CZzlYauGBB7N5cgYRdzUfwszDDOUyW
-	hwAd34m34VSlikYUuYzsbQbSbPwJ2gRASri5/4mYItipVgwSHYu9it6WTTJFcNkM
-	3aWeLvBb9C1Kb9Hln3E+b7fU/cDWPnUgKhqOJ2BFaXfbYw+BAwjl5aL3/CUoKzJF
-	qi5HreLfhe1ignkrl/SkhxtBuYXXkMuAqUK8o28EWKNMGFdykUmhcuwUiZdMiLmb
-	1KVhgQU5b4v0wLwaT0JGu1wBXGIqbXDonl73eMW0dw==
-X-ME-Sender: <xms:sdIxY9-nCOLsaCyU8z-DFQ4-v0hl20FsG6DacNZvOMlhAyyEeNUT1g>
-    <xme:sdIxYxvwC3Car3_LsgSLqEBsXB2afBn_QtC0TrQGwe71qDyV_v_CQnvkIz7F67-hd
-    _Tu5ptvWEJccfpNWAk>
-X-ME-Received: <xmr:sdIxY7DVESmPYj2o8x7yC09zFX1pdXK43vN-9tqjrpMfnhryTV0kUALdJVv1OPk5ah_ai_rxovOA9OsMPSZdG1ignZBACSlt>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeegvddguddttdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enfghrlhcuvffnffculddvfedmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreer
-    tddtvdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkh
-    esshhtfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepheefjeehfedtjeeivdefkeff
-    heeludekudelleffkefgtdeludelvddtgedtheeknecuvehluhhsthgvrhfuihiivgeptd
-    enucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:sdIxYxeIt2XdOSQuPRGNdOcrVhuaYGtX14NJCKVTx8dmGbRPutdaTQ>
-    <xmx:sdIxYyNg4dbeQSx7U0Xzi9o775OG3KtqWUkN_oA0zy_FDbdwW8NjAg>
-    <xmx:sdIxYzn9f3UkkpGZavH36lY--qRGoYtVg-g8am-VJ9KIBVDody2lMg>
-    <xmx:stIxY_pwq4m1Yx8K--65zpF2DDbp9vNY2ujlqdVdUB30L8NSrej4JQ>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Sep 2022 12:26:24 -0400 (EDT)
-Date: Mon, 26 Sep 2022 11:26:23 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Naveen Moses <naveen.moses@hotmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mbyx41vwWz3bXg
+	for <openbmc@lists.ozlabs.org>; Tue, 27 Sep 2022 09:03:51 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XKmonJxCEakmVRAaw6u3VBuYJB7wx8z+kiSh38Zy5Z07ulehspU32y6N4cK4itfm2RZzzX4gFH4zA/DhVmUWJWlL065jbB9A3rDSMK3t6xYBVUAiQTSZaz1DMHwD6fXHtBhfNKpvjB9y4rrn6NfQ59XP5ezLG1ABoECRxLlPGImuK7I15bSr9opKW0hDyP2uZaDPBsoz0OAphYiZQ/d6DfKXeShlYjaVvsR0GGPE+EMPxLoHzWnS8tRtd9+HMz5l+hqHPrwFA9543pDA6A63bxrMcZVMrlRcjOHgs23Tg0arHQzywCnAlbZOVDXSrJTcYNunzeKjYFh8Jb4CuUiIPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xw/SzYlWZF1kwqQ0mlNIMuYLbU1LON4J8iXdlJ+7kiQ=;
+ b=epqIu4rkZ9p3AzLPqGBzv1tT+GHAOZglTYexgaqPWBeKzQ2LSRt5W0NXaw3W+yl+/yVnG+pwHS7Y5+jqIJ1VwuHqXieXhvXe+f4ZoG2Ah/Ht3N6km+PZBmF4MoHo6PQT/9WNP79aB38XOGyC+85B4yyTDXskTh4Gct7EhYhRL0hywC2PNpo7EsGxMI0TqI2iofv8hF3eqkLu1wi2oLLKqRBpF9cOSM1qprf5KdcCplPtLeiv5VFiWkLD/bmJJ/btlGIlpDwHQEnRt2541g5EDnzg3L4lPg8zmXt0IaVWWFRnD8JmlXeiKqsiP+KD5Z/kiVH9QslglYAMxpkgR8hNJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
+ header.from=os.amperecomputing.com; dkim=pass
+ header.d=os.amperecomputing.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=os.amperecomputing.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xw/SzYlWZF1kwqQ0mlNIMuYLbU1LON4J8iXdlJ+7kiQ=;
+ b=rOZQK+HqkjRUM0Dhdbzk3T3aFa76lx2VZW+Ii6OvpvdiXhyT5nj/KBn8jfugOEGvLea4Aw9coh2Ffmw3niAV+6X0j6u6JCq2GIU2EKa2fYOgeQ0sAxRKirPT57aVde0BHrdWHco5/0uSHclpCNx2NWYlnYt5GytIhkIYpKNnY5w=
+Received: from BL1PR01MB7747.prod.exchangelabs.com (2603:10b6:208:39a::12) by
+ BY5PR01MB5828.prod.exchangelabs.com (2603:10b6:a03:1c1::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5654.18; Mon, 26 Sep 2022 23:03:42 +0000
+Received: from BL1PR01MB7747.prod.exchangelabs.com
+ ([fe80::bee6:a254:ca41:8dd3]) by BL1PR01MB7747.prod.exchangelabs.com
+ ([fe80::bee6:a254:ca41:8dd3%3]) with mapi id 15.20.5654.024; Mon, 26 Sep 2022
+ 23:03:42 +0000
+From: Thang Nguyen OS <thang@os.amperecomputing.com>
+To: Patrick Williams <patrick@stwcx.xyz>, Naveen Moses
+	<naveen.moses@hotmail.com>
 Subject: Re: phosphor-buttons multihost control
-Message-ID: <YzHSr0DUdjHpCtnm@heinlein.stwcx.org.github.beta.tailscale.net>
+Thread-Topic: phosphor-buttons multihost control
+Thread-Index: AdjRdcKJGsF9EAzNTg6iwgzCmANqtgAO7c+AAATPb4AADdA2sw==
+Date: Mon, 26 Sep 2022 23:03:42 +0000
+Message-ID:  <BL1PR01MB7747F58204241D07F2E006058D529@BL1PR01MB7747.prod.exchangelabs.com>
 References: <000001d8d178$845d0900$8d171b00$@inventron.com.tr>
  <HK0PR04MB3236B36A4CDA767F59DB290891529@HK0PR04MB3236.apcprd04.prod.outlook.com>
+ <YzHSr0DUdjHpCtnm@heinlein.stwcx.org.github.beta.tailscale.net>
+In-Reply-To: <YzHSr0DUdjHpCtnm@heinlein.stwcx.org.github.beta.tailscale.net>
+Accept-Language: en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels:  MSIP_Label_5b82cb1d-c2e0-4643-920a-bbe7b2d7cc47_Enabled=True;MSIP_Label_5b82cb1d-c2e0-4643-920a-bbe7b2d7cc47_SiteId=3bc2b170-fd94-476d-b0ce-4229bdc904a7;MSIP_Label_5b82cb1d-c2e0-4643-920a-bbe7b2d7cc47_SetDate=2022-09-26T23:01:54.0235085Z;MSIP_Label_5b82cb1d-c2e0-4643-920a-bbe7b2d7cc47_ContentBits=0;MSIP_Label_5b82cb1d-c2e0-4643-920a-bbe7b2d7cc47_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR01MB7747:EE_|BY5PR01MB5828:EE_
+x-ms-office365-filtering-correlation-id: 0b071071-0a39-4228-d427-08daa0135b7c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:  5l1kXnab3XxF2D56WnDjyUtU3vzW8v16Mqx55A4WwZcep5m1OemPeeecX9ojnS26IAfb9hKEZ5s7MGP68CUxevSovT4+hHTjugrgk4H+pbC9xMlKWsjOzc36RuLPJJkD4LW6+sakGF+cIK9aEbzP+7DTH9g8PhUAd9P1bhEJdIp5daZcSHy6bScfVLFqDM2Cbf10kB2wy9cMtdnybFMvBZaGvZg11aXuk2M04RBBJWbRJ8xhpOkagAsM2h+y2CmuUU7ZpdhLn75r3gNvrp1UvWULqwCCzcsUKEYngcaRxyVin52oDNqyGRAcHedo1Q14EUhYlACOQU0d8D2E5WZe2HwZ+bX3QIY9FEOfx/WNf2LtZThfUNwzbAsVlTd8N06mz/QL7ngDoWBfQuA0Iink6FlYQliy2zAS6CXo8PqQ+btxslkpzv+20xYihjCGRtdW0wWe0kjVcOXwcamVKSrUi70XIssskvw/nDXABrIMporxWfT1W42rIVOaU8YMkM5RgK5sdru1I1gDpq0f7kdc5NFy7RCPURiDoFosuQw0ZyvCxyPwGiMcz0b0CAMb+UMjQe37rZC5xEYmaExl+4xEU1+ghAHF+VrEBSsTlAgiJilaoedWHkqFbprCl2ArN8QkBx6ufhY/G27vfQBcTJadrxQDn5gR7c20u/sgBaDbzN+ZcQmSoQJMMuKdqw6NQCD/kA/DJ9jB98StZM1SdRSf306iDzvepUhaLKAu9qklGoykCINkhb6zIdpeZa9iz+zlDZ2ClYF+TSUCvViK3qglN7df6NnkE/4LOOPmnpJ/7pc=
+x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR01MB7747.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(366004)(396003)(39850400004)(136003)(376002)(451199015)(66446008)(76116006)(66556008)(2906002)(122000001)(66946007)(64756008)(8676002)(4326008)(5660300002)(8936002)(33656002)(110136005)(38100700002)(86362001)(52536014)(38070700005)(66476007)(9686003)(166002)(7696005)(53546011)(54906003)(26005)(186003)(41300700001)(966005)(478600001)(71200400001)(3480700007)(6506007)(45080400002)(91956017)(316002)(55016003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:  =?us-ascii?Q?VAOxxeGzWycmOy9Zdb6f37BELz7YxoZWdB1+6hBqaVUde2SzxrhydiSkp+UY?=
+ =?us-ascii?Q?yDU7S3Js3r93/UafngNuQPqc6n/1ZCiDubVUvN/ahdbs62oVKPyLkEYr6/g2?=
+ =?us-ascii?Q?2QwzwSP6UVCqJmQMneKRwVi2/ZjaFZcnY7ib3v2x6eqxxwxe0f7whi1VNu1P?=
+ =?us-ascii?Q?LWMDA1eYSHgFJCEGXEcr+Y+44Zm0YXP+v5Scl3Q0VhXzL23HEZcomUOCNmPK?=
+ =?us-ascii?Q?05P3inK3RGHIeB2zTbmQjvuXVR+8rCdgmss0Jur+Ph+fy4UjrrY3M7Vf2fuE?=
+ =?us-ascii?Q?BcnMthBUrPIYjJeYB1VkZBKW1aVrsab+SoTcqtyjrkk2GvD5zePu4M3KLpjJ?=
+ =?us-ascii?Q?7dpIhstg30jBwHPONiKAAxl+9nXI2gCBljHLkM9CfXI5HN+9dkMGN0jUdV9P?=
+ =?us-ascii?Q?i31EyO2BUIpg/cxOYpQbb8DoFXS+KbfRIylFtDZzDcsqNpYD4HoWRw/Kf3tx?=
+ =?us-ascii?Q?kOC8wiUv8S3SQdBswU/dC2slFbGHwqF/ZcSZLBdeeJCtMVLS8z2fRjs2fzE6?=
+ =?us-ascii?Q?iKi/4Va8tB7u4cNwC1c54OVDLr0c3CDIBO/WJPYi597kynHoDCvnu7PBcd7S?=
+ =?us-ascii?Q?idocHBqHrQ2TfraBvADrUCsJ2emdxhgwphYjCBkiwgEmIPqDILV5rZly1dRJ?=
+ =?us-ascii?Q?GeCDZ20konb62w1R3kMRd+/Lx7fcqpwoOXL15z7AMECnexGEjEfyyNGtIixR?=
+ =?us-ascii?Q?ldya7Ct/tg5D65BCTOMFcQXv8DciWa3Jpu8huf+5SeEsi6ApLlhr3CmtV7JH?=
+ =?us-ascii?Q?C0ESYotL1pn9FJ0NLwFmCCe+rAfZO5uiVSAyAZuWYHXhfmFjmIY39YmwSCX8?=
+ =?us-ascii?Q?g64VWaiLUEMsfm7+1p6ZRYRs2j9hdYigcrV5lQbIPULw2wOILtAWiArf4rGx?=
+ =?us-ascii?Q?mmoMNZx2AhNvqxb72Nd94MgUo0Cq/QXS1ktjXI3WK5RQmG5fWHNwGhwRmJ2N?=
+ =?us-ascii?Q?lYv3DdLcnulScBK5kSeP1jpWW7IMrkvCfTSE/SUXDhFIdXJPaRAMTYPGC1q5?=
+ =?us-ascii?Q?YQihw3bEvht+0fvueUqiDMQ5sUxlug5XLAmFOnBT2Dt7RAkKwE/Zgmw6Y/cO?=
+ =?us-ascii?Q?ELdzmEZ4SJA5BcS8kXMcFgl5HO8FlqdBPl0fq8nOvRj4whGlKyV/6jPuPLcb?=
+ =?us-ascii?Q?JKK+t6oy9WE4WAtbTrdIS7SeF8PbgyAasY7CpIc9l8TJaJwRl2Ur9X0NWwPc?=
+ =?us-ascii?Q?JX6WcJKNbVKq+plFEEYTG4r0qKgTPU8FHM/gaI1jvoHFybUuLhz8nDhbxf/O?=
+ =?us-ascii?Q?Iyi6duS76ZBG4I8sfQDY8XoR50+b2UaLHnc4YzieAbvGO+hmmWbAaHYqx+as?=
+ =?us-ascii?Q?iTO6c6Hj6spDTtXOVrsyZ71WHxEOtoFuxh8RzC2PuYR2My4b6bFXue7H2/jj?=
+ =?us-ascii?Q?P2J7n7UpY4KA1jA0oeEgGEpoi7+cVXlgTh5gZDqdjHltQT8yAq4iz+iXgV3p?=
+ =?us-ascii?Q?w1tTFVbv4MVNIUTe/NOvQOgdZ/J7ZRH5WcWHYriIfDcFuD+63rtr7YoO+snx?=
+ =?us-ascii?Q?tO8RDmvcm9vikelBpEXMeuR5C+ORCoL0lqjDd+/AB/UpV3oOT6nxAOpRCGaS?=
+ =?us-ascii?Q?239I7rB6AK0nkhY2a8Oa4Ib/lFTQNnPbF4p0pQyrKzCuNtFCLZ+LUXIjYP90?=
+ =?us-ascii?Q?HGZ0wTh8ZdLe0zu8jBymkmA=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_BL1PR01MB7747F58204241D07F2E006058D529BL1PR01MB7747prod_"
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="BxUOwNLbQIWqOB4i"
-Content-Disposition: inline
-In-Reply-To: <HK0PR04MB3236B36A4CDA767F59DB290891529@HK0PR04MB3236.apcprd04.prod.outlook.com>
+X-OriginatorOrg: os.amperecomputing.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR01MB7747.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b071071-0a39-4228-d427-08daa0135b7c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2022 23:03:42.5451
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Mru3zmwMUVZzvwYOVdjjtnU1QGRcQbNLfYYGvOBNL6m+348vAdHRlJxsJ+jhIxFQ2YQsGMRnydEz7ufvjiUBEiXSW1kNPKHmjfbT3auTBkK45zo2DXcuFiVY1sW942ks
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR01MB5828
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,15 +126,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: zehra.ozdemir@inventron.com.tr, openbmc@lists.ozlabs.org, "M. Erhan Yigitbasi" <erhan.yigitbasi@inventron.com.tr>, naveen.mosess@hcl.com
+Cc: "zehra.ozdemir@inventron.com.tr" <zehra.ozdemir@inventron.com.tr>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "M. Erhan Yigitbasi" <erhan.yigitbasi@inventron.com.tr>, "naveen.mosess@hcl.com" <naveen.mosess@hcl.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
---BxUOwNLbQIWqOB4i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--_000_BL1PR01MB7747F58204241D07F2E006058D529BL1PR01MB7747prod_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Zehra,
+I think the issue of isMultiHost() has been resolved with https://github.co=
+m/openbmc/phosphor-buttons/commit/4250785723d92b6578176a2d961d47ab66e08124.
+
+BR,
+Thang Q. Nguyen
+
+________________________________
+From: openbmc <openbmc-bounces+thang=3Dos.amperecomputing.com@lists.ozlabs.=
+org> on behalf of Patrick Williams <patrick@stwcx.xyz>
+Sent: Monday, September 26, 2022 11:27 PM
+To: Naveen Moses <naveen.moses@hotmail.com>
+Cc: zehra.ozdemir@inventron.com.tr <zehra.ozdemir@inventron.com.tr>; openbm=
+c@lists.ozlabs.org <openbmc@lists.ozlabs.org>; M. Erhan Yigitbasi <erhan.yi=
+gitbasi@inventron.com.tr>; naveen.mosess@hcl.com <naveen.mosess@hcl.com>
+Subject: Re: phosphor-buttons multihost control
 
 Hi Zehra,
 
@@ -112,9 +160,9 @@ ct
 st
 > system based on host selector availability.
 > Thanks.
->=20
+>
 > On Mon, Sep 26, 2022 at 12:58 PM <zehra.ozdemir@inventron.com.tr> wrote:
->=20
+>
 > > Hello,
 > >
 > >
@@ -123,11 +171,12 @@ st
 > > host selector object is available in button-handler.cpp of the
 > > phosphor-buttons. And if it is not available, it does not return false =
 and
-> > the project gets an error. So we covered this return line with try catch
+> > the project gets an error. So we covered this return line with try catc=
+h
 > > and it works.
 
 Based on what Naveen wrote, it would be helpful if you could submit a
-change to improve the implementation to not have this issue.  I'm
+change to improve the implementation to not have this issue. I'm
 surprised no one else has ran into the issues you are seeing.
 
 > >
@@ -139,27 +188,96 @@ surprised no one else has ran into the issues you are seeing.
 > > Thanks.
 > >
 
---=20
+--
 Patrick Williams
 
---BxUOwNLbQIWqOB4i
-Content-Type: application/pgp-signature; name="signature.asc"
+--_000_BL1PR01MB7747F58204241D07F2E006058D529BL1PR01MB7747prod_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNATURE-----
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<div dir=3D"ltr">
+<div></div>
+<div>
+<div>
+<div dir=3D"ltr">Hi Zehra,</div>
+<div dir=3D"ltr">I think the issue of isMultiHost() has been resolved with&=
+nbsp;<a rel=3D"noreferrer noopener" href=3D"https://github.com/openbmc/phos=
+phor-buttons/commit/4250785723d92b6578176a2d961d47ab66e08124">https://githu=
+b.com/openbmc/phosphor-buttons/commit/4250785723d92b6578176a2d961d47ab66e08=
+124</a>.</div>
+<div dir=3D"ltr">
+<div><br>
+</div>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"ltr">BR,</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"ltr">Thang Q. Nguyen</div>
+</div>
+<div>&nbsp;</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif"><b=
+>From:</b> openbmc &lt;openbmc-bounces+thang=3Dos.amperecomputing.com@lists=
+.ozlabs.org&gt; on behalf of Patrick Williams &lt;patrick@stwcx.xyz&gt;<br>
+<b>Sent:</b> Monday, September 26, 2022 11:27 PM<br>
+<b>To:</b> Naveen Moses &lt;naveen.moses@hotmail.com&gt;<br>
+<b>Cc:</b> zehra.ozdemir@inventron.com.tr &lt;zehra.ozdemir@inventron.com.t=
+r&gt;; openbmc@lists.ozlabs.org &lt;openbmc@lists.ozlabs.org&gt;; M. Erhan =
+Yigitbasi &lt;erhan.yigitbasi@inventron.com.tr&gt;; naveen.mosess@hcl.com &=
+lt;naveen.mosess@hcl.com&gt;<br>
+<b>Subject:</b> Re: phosphor-buttons multihost control
+<div>&nbsp;</div>
+</font></div>
+Hi Zehra, <br>
+<br>
+On Mon, Sep 26, 2022 at 07:38:39PM +0530, Naveen Moses wrote: <br>
+&gt; The host Selector object is not strictly required. The host selector o=
+bject <br>
+&gt; check was only added to identify if the system is single host or multi=
+ host <br>
+&gt; system based on host selector availability. <br>
+&gt; Thanks. <br>
+&gt; <br>
+&gt; On Mon, Sep 26, 2022 at 12:58 PM &lt;zehra.ozdemir@inventron.com.tr&gt=
+; wrote: <br>
+&gt; <br>
+&gt; &gt; Hello, <br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt; There is an isMultiHost() method to control to return true in cas=
+e the <br>
+&gt; &gt; host selector object is available in button-handler.cpp of the <b=
+r>
+&gt; &gt; phosphor-buttons. And if it is not available, it does not return =
+false and <br>
+&gt; &gt; the project gets an error. So we covered this return line with tr=
+y catch <br>
+&gt; &gt; and it works. <br>
+<br>
+Based on what Naveen wrote, it would be helpful if you could submit a <br>
+change to improve the implementation to not have this issue. I'm <br>
+surprised no one else has ran into the issues you are seeing. <br>
+<br>
+&gt; &gt; <br>
+&gt; &gt; But my question is, does this host selector object has to be stri=
+ctly <br>
+&gt; &gt; defined for the project to run properly? <br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt; <br>
+&gt; &gt; Thanks. <br>
+&gt; &gt; <br>
+<br>
+-- <br>
+Patrick Williams <br>
+</div>
+</div>
+</body>
+</html>
 
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmMx0q0ACgkQqwNHzC0A
-wRndMA/+JBjxZz5v+9w9lCgET9RS/0Utb5HhYsJOCUPDy91Vj4dDJOKJspgNqNWj
-218lTwJPvaQq1FJDtvOW7GrhWoM4tbeWxfltOehcJFNKdO1gw413QMmTk0PkC87c
-Wdw5XqlkD9rqjKFFO2qGSFFIsDXPFJn/OFuyhrSN1nC6RQ8zftHIQTFZYTRamMKU
-U8z709gbtFp3cflhteppCQ8XP8cAQ4Lcu24C/IRqff8f66sjFR1u6rQnu1BsqJ6+
-yB0NO22reDLiRSSY5anfM940ijP5v6Jwhtt+2w656imc4sZ7Zwn45u1mwF7hifYD
-A7+SiOe6oMX930md6VSgeKrF6TdiTlV6jaSZe0lPstfB7l+5oumn5fXEdc3+InWz
-Tijre1Jg0fWfF6XFVAUn+9WnET212HaIgX1RIZ0tfasxJMHrMVrQHpEjIuePFNHH
-kDaLJ9qHTNTbLzToHe2xNFQT8pQok6akR+p36hQm1+ZFKNuIP+o4zJEV65apjCLb
-CpAcocJXpT1h+9aE0N75rGIdFs+GM4Deqk8oNG1QItre30Zk8vp5U4onhY+5gjTf
-dTZl8KjwyW0yRSdrggU3fd7zTJAjTyfauzxam+IgV0h4uQwOHtO3y2rG9Y7M6Uwv
-897aFym3y9kXPK7wVGx4sBtW+KNzhVi9DwI68zQR2tUcAopk+pg=
-=UhCQ
------END PGP SIGNATURE-----
-
---BxUOwNLbQIWqOB4i--
+--_000_BL1PR01MB7747F58204241D07F2E006058D529BL1PR01MB7747prod_--
