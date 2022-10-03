@@ -4,67 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA705C433F5
-	for <openbmc@archiver.kernel.org>; Mon,  3 Oct 2022 19:30:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26DC1C433FE
+	for <openbmc@archiver.kernel.org>; Mon,  3 Oct 2022 19:31:00 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Mh9s86DH2z3bkC
-	for <openbmc@archiver.kernel.org>; Tue,  4 Oct 2022 06:30:04 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Mh9tB4WyPz3bjS
+	for <openbmc@archiver.kernel.org>; Tue,  4 Oct 2022 06:30:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=NUqITyaN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=LVvLIY3W;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::233; helo=mail-lj1-x233.google.com; envelope-from=aladyshev22@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::129; helo=mail-lf1-x129.google.com; envelope-from=aladyshev22@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=NUqITyaN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=LVvLIY3W;
 	dkim-atps=neutral
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com [IPv6:2a00:1450:4864:20::233])
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com [IPv6:2a00:1450:4864:20::129])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mh9r55t9nz3bXG
-	for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2022 06:29:09 +1100 (AEDT)
-Received: by mail-lj1-x233.google.com with SMTP id a10so12991810ljq.0
-        for <openbmc@lists.ozlabs.org>; Mon, 03 Oct 2022 12:29:09 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mh9r55G09z2xf7
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Oct 2022 06:29:07 +1100 (AEDT)
+Received: by mail-lf1-x129.google.com with SMTP id bu25so18036885lfb.3
+        for <openbmc@lists.ozlabs.org>; Mon, 03 Oct 2022 12:29:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=4M75LCnR7HEj9mQ8XBusERBnMSMu8fybz1DwQ5l1ydQ=;
-        b=NUqITyaND1kSsQpRYi/A3gAqa0ZiZX4eanBrTzucnVIx1QAmsAjukK+PhNB+GuGehy
-         lVTYAf0KLmbMxQqz0Jg9FLK6vq78IinN/Y50gGc73EAEgKkTsDeqnLvXBbkWIY/mLF/f
-         HT5/itqzsKOZF4O80QK8+/UNS3L4A6T68dr5om3O6DQLIdabWYfoe0/NwwIYURNMvqP8
-         QdSwDl5Y4z8uQm984ihuze58kg49TgZNL1ev6RSTtytYi68CCBwu7meJd3F8nK2+/jJp
-         c/ND/Q+aj66mYgTBQeRLmfpVaQ/TVrNr5D9IHWuL7YzE/+TVym9J/qHUcTWrB3E6OMYg
-         cMuw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=RfoS4oNSl3iLm9QkSJWnFYEHwL243tVfavoKrg1T0Yk=;
+        b=LVvLIY3WuSxsvvozIqMiITUrkROIpXub347Se5QIGSy4WIsdtZNq/j21XISAviYZYB
+         TR6qcNq20v4v+hQlvxTbD7L807ciG1aD0QqHyLkAfxkAVm5rWsS9PSFdD0gc5PnYZBnY
+         2bmKHm62vFXGBooXJjQS1+gT+qaBNO/ugZYw9Pocsw8N5Kwylu7o9+YXNXx5Ai2WcelR
+         t4/JNE7tbzPUtPQYLWpY+7G5vHqtjWRg2PBDm/BQULQjDcYmNQgNGDaia4u6nzgsEzxr
+         ALQmCK05Ll9+M6PzSCNSuBpulANYYSebNx0oaBupug+gazdydg7L4ygsWaxtISs6tZ3Q
+         JrnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=4M75LCnR7HEj9mQ8XBusERBnMSMu8fybz1DwQ5l1ydQ=;
-        b=asgHwIxNo6wxmD3pJ1JNB+AAnDmR+aodF4IS2hWcOyt8MTahcamtCGWqUvezWd7zIP
-         YY3xLJZQU15gc1xx1ecZAWBVl30E+e8eLGo9yaUhQJaeMeMvO42B+PhHEIPzOeGjDXb2
-         1+48nQALE3W0Rh6VTfQs8gXZA6ZGTUzWKpBinGDClR6+4cYB1CvsXGXBRJvfcRukQpHZ
-         cfMi8O2ufBTkG+DBAISJfQ68aYV9D+Fssj9rEy9AGjnSihaYOiVXaQoc8RTSRXQ5MRLf
-         Rrl9X823HRuKgNwvT/n3DaWf9mEMPcNnX1/9BmVzGGBpHkJmf+pCx2Nb5npP98/W+jiX
-         0NtQ==
-X-Gm-Message-State: ACrzQf1SOy/fndfZLwFz+2n9PbzXjXHbRs0uzheQC7ZdkUUzBUQs+Fzu
-	hZ9q86qKp9bcM7bkG9+8cLo=
-X-Google-Smtp-Source: AMsMyM7C4Qplhcbd6+wkTtj8HAyy/qZfc94OTg/fZjxdC0qCGJng7ItXOn0tKmeZFLZ2wVkNcuQ/5Q==
-X-Received: by 2002:a2e:b61c:0:b0:26c:c17:feeb with SMTP id r28-20020a2eb61c000000b0026c0c17feebmr7313411ljn.199.1664825345341;
-        Mon, 03 Oct 2022 12:29:05 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=RfoS4oNSl3iLm9QkSJWnFYEHwL243tVfavoKrg1T0Yk=;
+        b=bafQPPgw6FlRiXgVIHBONtQr/vfEio5K6qRMkluIs9BIR9+6LrqebmPm2xdRr2DIUH
+         0/n4+yiDxMfZfLkAIa6h9pYD7kqq52NzTzkiXK5809vCCKsnkT5NRWl4mpatOuoLJraj
+         fiyyhMwCzstJlGlFoHvt0B/sMNicGMNhZveKVpdwluaNsAoV3wHEsepecsjrHuscWBwI
+         3ZWZ8SGDhtvrhr4ucwPteCA5ukMkEeoQWq0XKze8qXRUelFSPxXs2TJdUbVP5ok4KZNZ
+         T4cqn4qSSTL0SLuPSVkvSXOPeNz3p7eCxnRIht62RTIgMHekI6sox39tiAhYz3+kCXVq
+         cSJg==
+X-Gm-Message-State: ACrzQf3s5hRmZkW9/fxwYHww3k3Ee/O5deRoempoWgzSqM5O4743L/gI
+	LNzSLI+MtqDX8jJbuJdnk7A=
+X-Google-Smtp-Source: AMsMyM6WZVyjijFH4uQw/75SuDn/yTHGolEjOzA3aE2/E/NNy4FrpBaEZabc9id77sMixhpFnP5VlQ==
+X-Received: by 2002:a05:6512:419:b0:4a2:2e45:bf0 with SMTP id u25-20020a056512041900b004a22e450bf0mr3454508lfk.356.1664825342345;
+        Mon, 03 Oct 2022 12:29:02 -0700 (PDT)
 Received: from DESKTOP-GSFPEC9.localdomain (broadband-46-242-10-176.ip.moscow.rt.ru. [46.242.10.176])
-        by smtp.gmail.com with ESMTPSA id j2-20020a056512398200b0048ad4c718f3sm1574195lfu.30.2022.10.03.12.29.04
+        by smtp.gmail.com with ESMTPSA id j2-20020a056512398200b0048ad4c718f3sm1574195lfu.30.2022.10.03.12.29.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Oct 2022 12:29:05 -0700 (PDT)
+        Mon, 03 Oct 2022 12:29:01 -0700 (PDT)
 From: Konstantin Aladyshev <aladyshev22@gmail.com>
 To: Joel Stanley <joel@jms.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.15 1/2] dt-bindings: arm: aspeed: document AMD DaytonaX
-Date: Mon,  3 Oct 2022 22:28:50 +0300
-Message-Id: <20221003192851.3604-2-aladyshev22@gmail.com>
+Subject: [PATCH linux dev-5.15 0/2] Add DaytonaX BMC
+Date: Mon,  3 Oct 2022 22:28:49 +0300
+Message-Id: <20221003192851.3604-1-aladyshev22@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221003192851.3604-1-aladyshev22@gmail.com>
-References: <20221003192851.3604-1-aladyshev22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -82,25 +79,22 @@ Cc: Konstantin Aladyshev <aladyshev22@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Document AMD DaytonaX board compatible.
+Add initial version of device tree for the BMC in the AMD DaytonaX
+platform.
 
-Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
----
- Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
- 1 file changed, 1 insertion(+)
+AMD DaytonaX platform is a customer reference board (CRB) with an
+Aspeed ast2500 BMC manufactured by AMD.
 
-diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-index 1895ce9de461..cb9bc65df82a 100644
---- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-+++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-@@ -29,6 +29,7 @@ properties:
-       - description: AST2500 based boards
-         items:
-           - enum:
-+              - amd,daytonax-bmc
-               - amd,ethanolx-bmc
-               - ampere,mtjade-bmc
-               - aspeed,ast2500-evb
+Konstantin Aladyshev (2):
+  dt-bindings: arm: aspeed: document AMD DaytonaX
+  ARM: dts: aspeed: Add AMD DaytonaX BMC
+
+ .../bindings/arm/aspeed/aspeed.yaml           |   1 +
+ arch/arm/boot/dts/Makefile                    |   1 +
+ arch/arm/boot/dts/aspeed-bmc-amd-daytonax.dts | 319 ++++++++++++++++++
+ 3 files changed, 321 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-amd-daytonax.dts
+
 -- 
 2.25.1
 
