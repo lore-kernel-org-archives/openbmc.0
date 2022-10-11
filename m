@@ -4,61 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D91C433F5
-	for <openbmc@archiver.kernel.org>; Tue, 11 Oct 2022 09:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D97CC433F5
+	for <openbmc@archiver.kernel.org>; Tue, 11 Oct 2022 10:11:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Mmr896Kqhz3c16
-	for <openbmc@archiver.kernel.org>; Tue, 11 Oct 2022 20:29:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Mms516169z3c5D
+	for <openbmc@archiver.kernel.org>; Tue, 11 Oct 2022 21:11:33 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=O9S3zcFB;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JVbFVUvx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42f; helo=mail-wr1-x42f.google.com; envelope-from=icepbix@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12d; helo=mail-lf1-x12d.google.com; envelope-from=fercerpav@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=O9S3zcFB;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=JVbFVUvx;
 	dkim-atps=neutral
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com [IPv6:2a00:1450:4864:20::12d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mmr755M8Cz2xvJ
-	for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2022 20:28:15 +1100 (AEDT)
-Received: by mail-wr1-x42f.google.com with SMTP id bp11so7903882wrb.9
-        for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2022 02:28:15 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mms3v2rzqz3bjd
+	for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2022 21:10:34 +1100 (AEDT)
+Received: by mail-lf1-x12d.google.com with SMTP id bu25so20377929lfb.3
+        for <openbmc@lists.ozlabs.org>; Tue, 11 Oct 2022 03:10:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=P+fyWolgdXSGUMViLuvWEPpXt+OSJaCwZisZ2fdw6fk=;
-        b=O9S3zcFBWxXr9Gf1KfGxMnAUGjqTGRS2mKaSr8URj8CTWj1aUYrumDfD9YMvKalqW6
-         ydEPjKrQwIgufo3kyhOZh+8plZQPsieT5NpAFNDEagPVUTID61moF2NBlx0LbU6tpNX0
-         mxl/bdsOz8YJMg5xKn+vu2Zpr9ul23WXy1x/Zpp73e7xriWLtUAWmnTVg83EUjjHJBjz
-         fC5+6jPMACvyQuNbrZA9sBor4ce5dB9Sz+APPknwxde8hXcdmdygWWNOREVAfO9S6yf6
-         PeCtBll2ZnAXL4ZoIxBKSotqZh1eQkLHz6r4OuMxS9Ch4wyq3oKXd8wqjC0G3nbekt6Q
-         YQ9w==
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=+RUBENAjQkfGkLEtSKfpJY1z2C5TtT9NMRbBfM1GXBE=;
+        b=JVbFVUvxH0HTdzOjxX+DwJTfyMA5MXLtGChlO7LOaPWD/FB6vKlHSCSc10FlH2J/j9
+         bHahX1Ofe7yikQ9o3znELiL8wc61cGQ9CGyEEJIHtA3B/HxFVmTKhfdVYCPU3EIjV6Pa
+         nqpL3BQwBpQS6HjenIXh6Pv19BckGhINh2nGTfGAHejPg0JUB+T02TKpylW0jiNVB07T
+         xLdZu9OGhwiq1/xd+e5koCq6OWAxFhC+CvcQVNgtKmUUe3zPsOPjE8Sb28f2QNmjcHVe
+         okaJj/zrc2Sk99CCexpQpnP5oY1WFtTaIcKcrl1qgg/HRq89c+hAdJn7oFnYJTZUg7sS
+         cgMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=P+fyWolgdXSGUMViLuvWEPpXt+OSJaCwZisZ2fdw6fk=;
-        b=OQ1mh2HHSQLRubomIkjaxcJu5MUPCVHTyLZsunwXHOJ4M6DZ4t6oxqX1dkF4+KTFR3
-         6KuyP1VUcC1GN7we0sph0A14MA3N+qs8zwVxlp/PDYn/KpehGJeNYkRzSeB1EQraNA+T
-         5umIsAWBEGDm2wGK/MhFVW+0Njrl0Mby4Xb501gW5sAnZFAPmEs5Yp6U+6tSIgz3pJiC
-         aGdAVc/9GdL3jHwuT6eYUQwL29pLVvVUK/Nn48zwjWFrtXa7k38bJrRHhcb/RvfI2wYj
-         +pVdjKWs5DY9x1IbRM6ARCoD5vZTpWUHdNygl5sk0B1CGaRJ5DVCDaKYBijgru2REewG
-         tgSA==
-X-Gm-Message-State: ACrzQf0Yn1Xq8caBn4w/MPFtfqAotSYTROLzdbtIzX11BmJb4rQo87Bj
-	x7ow/LmY6X0Br5Y5D5Jx2UTM9lJKQCUTPaAcikcSa6fCrno=
-X-Google-Smtp-Source: AMsMyM52beucIwUPide9UJnon4Z1rVvPR6BdMAiggNf8ZFsu2JsYpIlYHTpp66cUiajifRrRaK0P+8QJvJ5BQzYkAe0=
-X-Received: by 2002:a05:6000:1786:b0:22e:3955:13a1 with SMTP id
- e6-20020a056000178600b0022e395513a1mr14291070wrg.624.1665480489674; Tue, 11
- Oct 2022 02:28:09 -0700 (PDT)
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+RUBENAjQkfGkLEtSKfpJY1z2C5TtT9NMRbBfM1GXBE=;
+        b=KL3YdUmO6rhZFjYw3IRXyONi+ej+XbZ886SQhPi5A1NscqmDDv8azqbvGGJglEQDgZ
+         b21sxHgo9c/niIQB7I7iJTrHCDckPciiiFFwKO0MXanABt8FLNjG8OlthoABwlrOH1xk
+         9u8gT5C1UsH92tKNrGST3Y+Ultl5YPs1TrUHIG7CpiDD4by7JJmk54lH6mQJR6jLM67y
+         kUztmF024PBWAat3VTjdIFVKELmA3Ls9wsefUMDECjTPs3N5I+4TgVZkz88Skij1mN8p
+         WHxNiftAesNdUDZJ4qAIudVTtZdy4z2/ALmdGPgiPyzIVhm61MOYe8cO+h59wReYw7xN
+         JMXg==
+X-Gm-Message-State: ACrzQf1JfRXk3Y/iaRg3g2mddfPlGo/835kGeOhm5RORy2jKByZqUPL/
+	mTTAKJ5oir7KUv5Sk+ATGnE=
+X-Google-Smtp-Source: AMsMyM7tHZoCOOV044Ori2MGgzx2IzDnrVlVzD5dtNkL8lx6YpywGPLFCbaAm5d1GQycgNW78lwWTg==
+X-Received: by 2002:a05:6512:3b2:b0:4a2:48c3:1f46 with SMTP id v18-20020a05651203b200b004a248c31f46mr8303006lfp.572.1665483029710;
+        Tue, 11 Oct 2022 03:10:29 -0700 (PDT)
+Received: from home.paul.comp (paulfertser.info. [2001:470:26:54b:226:9eff:fe70:80c2])
+        by smtp.gmail.com with ESMTPSA id g2-20020a2e3902000000b00261ccf566e3sm1986920lja.65.2022.10.11.03.10.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 11 Oct 2022 03:10:29 -0700 (PDT)
+Received: from home.paul.comp (home.paul.comp [IPv6:0:0:0:0:0:0:0:1])
+	by home.paul.comp (8.15.2/8.15.2/Debian-22) with ESMTP id 29BAAPw3010708;
+	Tue, 11 Oct 2022 13:10:27 +0300
+Received: (from paul@localhost)
+	by home.paul.comp (8.15.2/8.15.2/Submit) id 29BAAPc7010707;
+	Tue, 11 Oct 2022 13:10:25 +0300
+Date: Tue, 11 Oct 2022 13:10:25 +0300
+From: Paul Fertser <fercerpav@gmail.com>
+To: Nikita Pavlov <icepbix@gmail.com>
+Subject: Re: how get smbios blob with intel-ipmi-oem
+Message-ID: <Y0VBEZnddPlHT3cW@home.paul.comp>
+References: <CAJewAaLk0Q9fnmT_s_8TdnDfcJMXbLcS4=OZoeT5+qatDnGFKQ@mail.gmail.com>
 MIME-Version: 1.0
-From: Nikita Pavlov <icepbix@gmail.com>
-Date: Tue, 11 Oct 2022 12:27:58 +0300
-Message-ID: <CAJewAaLk0Q9fnmT_s_8TdnDfcJMXbLcS4=OZoeT5+qatDnGFKQ@mail.gmail.com>
-Subject: how get smbios blob with intel-ipmi-oem
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000f7ac4b05eabee4bd"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJewAaLk0Q9fnmT_s_8TdnDfcJMXbLcS4=OZoeT5+qatDnGFKQ@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,50 +85,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000f7ac4b05eabee4bd
-Content-Type: text/plain; charset="UTF-8"
+Hi Nikita,
 
-Hi All,
+On Tue, Oct 11, 2022 at 12:27:58PM +0300, Nikita Pavlov wrote:
+> Now I work with intel-ipmi-oem and want to get smbios blob. 
 
-Now I work with intel-ipmi-oem and want to get smbios blob.
-I use intel-ipmi-oem lib and ipmi-whitelist.conf with phosphor-host-ipmid.
+If you're going to use MDRv1 protocol then I can share the experience.
 
-I test this by ipmitool like this ipmitool raw 0x30 0x1a and get:
-Unable to send RAW command (channel=0x0 netfn=0x30 lun=0x0 cmd=0x1a
-rsp=0xc1): Invalid command
- In journalctl:
-Oct 11 09:06:43 QV-00002-3a1b4b0da2c0 ipmid[278]: Channel/NetFn/Cmd not
-whitelisted
+We use intel-ipmi-oem and it handles requests like 0x3e:0x20 (for
+region status) by calling methods of a D-Bus object, which you should
+also be able to query manually following
 
-How I can debug  this ?
+busctl introspect xyz.openbmc_project.Smbios.MDR_V1 /xyz/openbmc_project/Smbios/MDR_V1
 
-Are there any examples how to get blob with intel-ipmi-oem ?
+output.
 
+"xyz.openbmc_project.Smbios.MDR_V1" is handled by
+https://github.com/Intel-BMC/provingground/tree/master/services/smbios .
+
+Example of requesting status of the first region:
+
+# ipmitool raw 0x3e 0x20 1
+ 11 01 01 02 00 00 80 cc 0a 91
+
+> I use intel-ipmi-oem lib and ipmi-whitelist.conf with phosphor-host-ipmid.
+> I test this by ipmitool like this ipmitool raw 0x30 0x1a and get:
+
+Why are you using 0x30 0x1a, it seems to be
+<Intel General Application>:<Get NIC Info> so completely unrelated?
+
+HTH
 -- 
-Best Regards,
-Nikita Pavlov
-E-mail: icepbix@gmail.com
-
---000000000000f7ac4b05eabee4bd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi All,<div><br><div>Now I work with intel-ipmi-oem and wa=
-nt to get=C2=A0smbios blob.=C2=A0</div><div>I use intel-ipmi-oem lib and ip=
-mi-whitelist.conf with phosphor-host-ipmid.</div><div><br></div><div>I test=
- this by ipmitool like this ipmitool raw 0x30 0x1a and get:</div><div>Unabl=
-e to send RAW command (channel=3D0x0 netfn=3D0x30 lun=3D0x0 cmd=3D0x1a rsp=
-=3D0xc1): Invalid command</div><div>=C2=A0In journalctl:<br></div><div>Oct =
-11 09:06:43 QV-00002-3a1b4b0da2c0 ipmid[278]: Channel/NetFn/Cmd not whiteli=
-sted<br></div><div><br></div><div>How I can debug=C2=A0 this ?</div><div><b=
-r></div><div>Are there any examples how=C2=A0to get blob=C2=A0with=C2=A0int=
-el-ipmi-oem ?<br></div><div></div></div><div><br></div>-- <br><div dir=3D"l=
-tr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
-=3D"ltr"><div>Best Regards,</div><div>Nikita Pavlov</div><div>E-mail:=C2=A0=
-<a href=3D"mailto:icepbix@gmail.com" target=3D"_blank">icepbix@gmail.com</a=
-></div></div></div></div>
-
---000000000000f7ac4b05eabee4bd--
+Be free, use free (http://www.gnu.org/philosophy/free-sw.html) software!
+mailto:fercerpav@gmail.com
