@@ -4,83 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A007C433FE
-	for <openbmc@archiver.kernel.org>; Mon, 17 Oct 2022 23:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 386A5C433FE
+	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 11:06:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MrtjF1fZKz2y28
-	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 10:38:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ms9zF4nMzz3c1p
+	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 22:06:33 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=dSL6oIYg;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=P4iigjOj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=TQGDv7lX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.21; helo=wout5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12c; helo=mail-lf1-x12c.google.com; envelope-from=fercerpav@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=dSL6oIYg;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=P4iigjOj;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=TQGDv7lX;
 	dkim-atps=neutral
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com [64.147.123.21])
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com [IPv6:2a00:1450:4864:20::12c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mrth43g5Lz2xJ7
-	for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2022 10:37:23 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id 5E27632009B0;
-	Mon, 17 Oct 2022 19:37:18 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute3.internal (MEProxy); Mon, 17 Oct 2022 19:37:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1666049837; x=1666136237; bh=GJAZMmR4zb
-	G7woWj+r3bkkKan0yNg7lT9SeX+S6bV4A=; b=dSL6oIYgxlmUTTC1ohY0EmHCIR
-	9cqvU/QQyQl2JNod0++PcOmdNpVtezUGzJ/WF0Z0cyP22564AYfoDnHT/dMj9N0h
-	/nQqEBavupjTvI0+pSbSdq5RDyvJAof8E/tAb/iQxSzGJzu5kIGRbL0LIugQqtqq
-	I1iuzi5YoWVoxXLgYDJwmU7HTuiOcY/5e+SsUg6IhNsyxuhRw3yMB5//Qku1jtzP
-	NsVJQXrbiThFewc2kow96IqsrHLh4GLJZlgwJYN+fYFPqgAglcSLqzOjBUAA7ai8
-	tkeI7TVVzpNvilyaNG6CauHsbE9q3+rQtg5APgWRUjMLAFwDfxiWgvIhPeXw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1666049837; x=1666136237; bh=GJAZMmR4zbG7woWj+r3bkkKan0yN
-	g7lT9SeX+S6bV4A=; b=P4iigjOjbAymphRTPDw/G4m+Zf3ZeJikGIUPlG79ZLU/
-	61bWV8Yr59dTqOoCOpapbgxKukT3A5asV9Dz1HZLcg9i1KkvoNET0scXRA2nof0i
-	UeoFH/T29pSBAOjABU7yypGf/zEzGCjM9mi2HQr2Swrj9mWoTKP1UYJWMMtk6DiK
-	YqbFPr+Ka6wFBdBiZb8QTt7+nGQMEH/1l/zZ91N9g0bEan79LYjoKrsTleufl8pa
-	0txGEWO3mZjPNBFMzt1/Xc5xJtEp+x9LhMdOa9SsBbvFUOCv85LFJvFQCrZlxSY5
-	pzM4pSqLAEj2Wvh9khbgA+GN/pMJYyCVk5G3A2xHkg==
-X-ME-Sender: <xms:LedNYyoSL63Csw7epBw_SthUHphL3YKeun4EWdfGYF7Xv7KKo-_hjg>
-    <xme:LedNYwqUCnoMV8viZgHymBgQeDbulj7kXqbAJfHnWaX9KXsPkl0stLZyp0989wA0A
-    E-_JO0MPlrXxpCsA8I>
-X-ME-Received: <xmr:LedNY3NcGpQbfJ6jN-KdlDdlYK22sjbaOPnyGEiHvcWDv3wWEjOKdjozJr8fGlSwdtGY6TmZn-kuJVaFC8DBNzKojoxcGmap>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeltddgvdehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredt
-    tddvnecuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghkse
-    hsthiftgigrdighiiiqeenucggtffrrghtthgvrhhnpeehfeejheeftdejiedvfeekffeh
-    ledukeduleelffekgfdtleduledvtdegtdehkeenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:LedNYx4bMPdIrCQ8BTs0bqD6N44KIKJY3yxJPFc_Jlsu4lwv_k1wQw>
-    <xmx:LedNYx5ExLefYmMkyfwV8z74hY-ym7dU3gPs9xCXjA_iE1RXHYnIbw>
-    <xmx:LedNYxiRUuRxaA2pKkUsqWxVSw-SP_zlT3MbJ1LYMn0HoHl0aEZ1Zg>
-    <xmx:LedNY-h0vWjMnmhBGJxOsoUSSTgQwn_s7IVvj3QaO2U1wNpA4vSw3w>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Oct 2022 19:37:17 -0400 (EDT)
-Date: Mon, 17 Oct 2022 18:37:15 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Francine Sauvage <francine.sauvage@atos.net>
-Subject: Re: compiler error : get_if<> with a variant enum ?
-Message-ID: <Y03nKztaGeEn1tZg@heinlein.stwcx.org.github.beta.tailscale.net>
-References: <PAXPR02MB768084801092880D4746547FE4299@PAXPR02MB7680.eurprd02.prod.outlook.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Ms9xq3Ftmz2xbK
+	for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2022 22:05:18 +1100 (AEDT)
+Received: by mail-lf1-x12c.google.com with SMTP id g7so17076209lfv.5
+        for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2022 04:05:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/6E2oXVLOeFhZFhJlduRtUw6KPU1WI9ajzTuexhM7Do=;
+        b=TQGDv7lXU39gmy3rWQuTmj4M/7bvS0HU9kvLBag3HH5/l6pbOoYHDxrU5sLV4jKLyD
+         nZw8mU6wtGAIqgab47HMoxW5DBhwHNNRrzFGR7UIs6+xY+uR2rSxTMJrGZLZGl7IyTCS
+         6wnqdZQQ5aOkHeebVlXSFt4PaAIq0gsS82KkzSHpbuLXyyftPqlsi7/9PlBgoLZgJaW/
+         FSIJqRw0fOIExTvwmjsQMGE33OVrDyb0OmliOw/iBQ5l5ufTq7KGnVZZ51dVGI9LEpKi
+         cKUWGhVrJfVmP1133q1xO8lgtEJVKkmJ0luJE7FRrpr9z7wQ5K6+taOvdIbdqDkaxlb9
+         NibA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/6E2oXVLOeFhZFhJlduRtUw6KPU1WI9ajzTuexhM7Do=;
+        b=Q/A2kcIq8M9niktDJFsJMXVtFsavbmLsp5o2P/FIgo2g8dc26Na6Z1LnzRr0OXaSez
+         yX6Lo/esaz2dbSsZ4+FX1TPj6NBsxuWFaHJyqrG+rD+pAfVJwLX+gvGrXbsKhQh1eWGa
+         jSxydxYwkMLyG3QYcqu5gOd7meO/9jKa5oVgT1uAq5SL/2LmcAZ0nta36oizR57zSNxj
+         M5VIdNYu5nlSLIOjXz0TOqm0n+H1NkXB4jKvoK/TyLl3RopoDIheMgt2KS0HRS95SiRr
+         Hu8nW2YUZRErMbG+GEG9JjplGPptPGZA8/XP/Qv/3CT0xEEkqnyJ/JRTqt+ITSE9kHQP
+         qt/g==
+X-Gm-Message-State: ACrzQf1/uA0ik1MDoK35vAurEr+llgxwjD+0EhIpBZqRA89mGdPTJBYo
+	8zhlqVHqM9EzbZnN2l3X9Lg=
+X-Google-Smtp-Source: AMsMyM63uWsew9RrAQE+hvJ6TIzzMiRfQRyLzktKp7/gk+u3UIJwdkwWlesKCHpeUQcjLtOhforRfA==
+X-Received: by 2002:ac2:4d2e:0:b0:4a4:7ed0:76c0 with SMTP id h14-20020ac24d2e000000b004a47ed076c0mr753278lfk.240.1666091113789;
+        Tue, 18 Oct 2022 04:05:13 -0700 (PDT)
+Received: from home.paul.comp (paulfertser.info. [2001:470:26:54b:226:9eff:fe70:80c2])
+        by smtp.gmail.com with ESMTPSA id o20-20020a2e7314000000b0025ebaef9570sm1928472ljc.40.2022.10.18.04.05.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Oct 2022 04:05:13 -0700 (PDT)
+Received: from home.paul.comp (home.paul.comp [IPv6:0:0:0:0:0:0:0:1])
+	by home.paul.comp (8.15.2/8.15.2/Debian-22) with ESMTP id 29IB59kW030762;
+	Tue, 18 Oct 2022 14:05:10 +0300
+Received: (from paul@localhost)
+	by home.paul.comp (8.15.2/8.15.2/Submit) id 29IB59xk030761;
+	Tue, 18 Oct 2022 14:05:09 +0300
+Date: Tue, 18 Oct 2022 14:05:09 +0300
+From: Paul Fertser <fercerpav@gmail.com>
+To: Konstantin Klubnichkin <kitsok@yandex-team.ru>
+Subject: Re: Installing Windows Server 2019 from a remotely mounted ISO
+Message-ID: <Y06IZXkEEQ2zCmGI@home.paul.comp>
+References: <60926e52-9d00-2b20-e8ac-7fd515ddac78@yadro.com>
+ <CAH2KKeaBMhU3XDADDE0ieqRRhNBiF57-9rUi+Go-SSJCGG-GBA@mail.gmail.com>
+ <3c0b0dc3-a31d-dcfb-608b-53436074397b@linux.intel.com>
+ <34751627996896@mail.yandex-team.ru>
+ <df77021c-a86b-1a03-9960-acdf6c324600@yadro.com>
+ <9921666089829@mail.yandex-team.ru>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Cm/vvCEau+jGOAtF"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <PAXPR02MB768084801092880D4746547FE4299@PAXPR02MB7680.eurprd02.prod.outlook.com>
+In-Reply-To: <9921666089829@mail.yandex-team.ru>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,58 +88,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "i.kononenko" <i.kononenko@yadro.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Konstantin,
 
---Cm/vvCEau+jGOAtF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Oct 18, 2022 at 12:44:49PM +0200, Konstantin Klubnichkin wrote:
+> Did you succeed to include this pachset into upstream?
 
-On Mon, Oct 17, 2022 at 08:13:20AM +0000, Francine Sauvage wrote:
->=20
-> const auto* flexible_module_type =3D std::get_if<sdbusplus::xyz::openbmc_=
-project::Inventory::Item::server::FlexibleModule::ModuleTypes>(&flexible_pr=
-op_map_iterator->second);
->=20
-> ** I tried to replace auto with sdbusplus::xyz::openbmc_project::Inventor=
-y::Item::server::FlexibleModule::ModuleTypes>
-> No success.
->=20
-> Error is :
->=20
-> bmcweb/1.0+git1.0-r0/recipe-sysroot/usr/include/c++/10.2.0/variant:1150:4=
-2: error: static assertion failed: T must occur exactly once in alternatives
-> static_assert(__detail::__variant::__exactly_once<_Tp, _Types...>,
+FWIW, we're using those patches on a rather old fork, and they work
+great.
 
-What type is `flexible_prop_map_iterator->second`?  It seems likely it
-is a variant that doesn't have the enumeration type in the list of
-contained types.  "T must occur exactly one in alternatives" seems to be
-saying that `ModuleTypes` wasn't part of the underlying variant types.
+But there seems to be a serious throughput limitation for an AST2500
+getting data over NCSI. With typical OpenBMC load on CPU we are
+limited to about 1.0 MB/s (testing with netcat running on BMC
+receiving a file of fixed length with TCP and directing it to
+/dev/null), so installation from virtual media is quite slow.
 
---=20
-Patrick Williams
+Can you please benchmark your system for comparison? Do you use NCSI
+for the management channel?
 
---Cm/vvCEau+jGOAtF
-Content-Type: application/pgp-signature; name="signature.asc"
+For the reference, USB mass storage gadget is able to stream data to
+the host OS at about 11.5 MB/s.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmNN5ykACgkQqwNHzC0A
-wRnDRxAAi7+TnD8W/DNQuzA2RJ9D5fHnj+PZ8Ckizll2df9+v7X3VSGbjHw9HHu/
-pkUtwEAKgra29CFWuFsuPw5/hpjfMRVKxYbXCjd6bKRo1QMhwjpdSV2PwmRMW0PR
-RqLa0O2tmnybZt10vAD/v4K8Dj8Pj46ZB36ebVBEzLZqpSkWydRYvDAMN4ZPefP+
-r+hx0aX76j6owprM1uP3G0/Ed74PwrB3rcXbBs5AG3CLcPNkyMoc0z5qXc7pv042
-vUB/jM6OPJ305C1tX8WqWQQmlDYCURO2rr6sMlePo7piJYoeNfrAE5OZzJFHDPoN
-SKSu1TtlO7SP95pL7kL3ICfsfE3STbpinBK/p+r13f8VrCkhewdfSOUSj7nWPIxe
-95QrPn3BnydNXp23xtWi4ms3FS4kfB5DRb37s/3jvPW/lbt5UEWzeKWqkI/kRMsz
-8qi3crmrTKvXQdP/Aocw8AQ0hi8+1+A0qyN8uCjoJu+Y0x8ixIzI+GAeNWkyBtU4
-bQ2ffgDkjh7Z1dvrth1+NV65nfrjzh6VmNMFbHyfnJ6BJ3fegjFLbUzrp5N04nH9
-gORKVPwxE250QCQgTHARMNGK845HPn2rY/szkbAl6oYwQ9mQApzJCsMiI2PSHccw
-nGxLB4vjJJTCws8q6IbOi4si0fhNygAzr0afaFDT66qE852M1xs=
-=odwm
------END PGP SIGNATURE-----
-
---Cm/vvCEau+jGOAtF--
+-- 
+Be free, use free (http://www.gnu.org/philosophy/free-sw.html) software!
+mailto:fercerpav@gmail.com
