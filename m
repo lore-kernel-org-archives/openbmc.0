@@ -4,75 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1979C4332F
-	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 11:10:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CB5FC433FE
+	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 13:09:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MsB402B4Qz3c2L
-	for <openbmc@archiver.kernel.org>; Tue, 18 Oct 2022 22:10:40 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MsDhf6XbFz3bkQ
+	for <openbmc@archiver.kernel.org>; Wed, 19 Oct 2022 00:09:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=FuVEngEE;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eDDbG7to;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com; envelope-from=i.kononenko@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.helo=mga12.intel.com (client-ip=192.55.52.136; helo=mga12.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=FuVEngEE;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eDDbG7to;
 	dkim-atps=neutral
-X-Greylist: delayed 398 seconds by postgrey-1.36 at boromir; Tue, 18 Oct 2022 22:09:42 AEDT
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MsB2t3Db7z2xKN
-	for <openbmc@lists.ozlabs.org>; Tue, 18 Oct 2022 22:09:42 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
-	by mta-01.yadro.com (Postfix) with ESMTP id 573F44124A;
-	Tue, 18 Oct 2022 11:02:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:references:content-language:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received
-	:received:received; s=mta-01; t=1666090975; x=1667905376; bh=3Mu
-	5lr+v0w6mdsCKAOxnGwrovlzokF9mrPGL/3Tcbec=; b=FuVEngEE8UNrgBCgKjX
-	ReKhuJYAjk+9f2orEhHOd2sFAtGBARdhrS86o8y/seT8chAYYZLWGCRF3E7Jk3u3
-	jW5zN/VmPoCwxMIpqvHEXmOWi6w6xDb0tJ3jrpcdoOhyG9VS38OkSHtM5rMl1GkO
-	ZZC3vFDk5puJuo/r8fPc/AkM=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
-	by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 7Ofx-753maCW; Tue, 18 Oct 2022 14:02:55 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (T-EXCH-02.corp.yadro.com [172.17.10.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mta-01.yadro.com (Postfix) with ESMTPS id 75AD4412D1;
-	Tue, 18 Oct 2022 14:01:28 +0300 (MSK)
-Received: from T-EXCH-08.corp.yadro.com (172.17.11.58) by
- T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Tue, 18 Oct 2022 14:01:28 +0300
-Received: from [10.199.18.154] (10.199.18.154) by T-EXCH-08.corp.yadro.com
- (172.17.11.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1118.9; Tue, 18 Oct
- 2022 14:01:27 +0300
-Message-ID: <0cc47677-3bbb-b34d-a5b6-157f525dd76e@yadro.com>
-Date: Tue, 18 Oct 2022 14:01:22 +0300
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MsDgT1hbzz2xWx;
+	Wed, 19 Oct 2022 00:08:03 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1666098485; x=1697634485;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=sEQGqXRBwnqb8HWOCi92bXpDgq1DcIK6JeLU6KGQmhU=;
+  b=eDDbG7tolZoAiWx8PTf8/qSCXzDARQnRA7T5mjic0C+W/dfmk5unileh
+   iUU4AOXzQqjqtYreriIFBrJCpsVMJCx7aJMAXEUFZYsuKqzGoeIUqd46L
+   mnV/OvvOfGlMNZBTegjFF7pIt8bABRZSZfNm6d9qzl0sAltbOvayLsbXV
+   EErr3/MPDopvJqtqRJsGkwHIX860hskn1KGsM9Ev87wMwMK/CpS5lRAKL
+   Dc3kdQsiBFOqQGfW48gDpFZvodFfqXie/3z9k1/dpmpcDpifOpc9jYl9F
+   mGjRufRkc71b+oEaLz9jpjYXCHtSN/Z3g0MzvAwO3NTkFYTZrF5C8vJpg
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="285819233"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; 
+   d="scan'208";a="285819233"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2022 06:07:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10504"; a="659781896"
+X-IronPort-AV: E=Sophos;i="5.95,193,1661842800"; 
+   d="scan'208";a="659781896"
+Received: from smile.fi.intel.com ([10.237.72.54])
+  by orsmga008.jf.intel.com with ESMTP; 18 Oct 2022 06:07:49 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+	(envelope-from <andriy.shevchenko@linux.intel.com>)
+	id 1okmJu-009NCP-2i;
+	Tue, 18 Oct 2022 16:07:46 +0300
+Date: Tue, 18 Oct 2022 16:07:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH v2 36/36] pinctrl: Clean up headers
+Message-ID: <Y06lIq+2+MPRL45W@smile.fi.intel.com>
+References: <20221010201453.77401-1-andriy.shevchenko@linux.intel.com>
+ <20221010201453.77401-37-andriy.shevchenko@linux.intel.com>
+ <d63088d7-202b-a550-01e5-345a22de5f7d@amd.com>
+ <CAMuHMdUfdQnisexfs4yLjeKs-LUPY1HjChrgeNjNL1qSErir9Q@mail.gmail.com>
+ <Y0UyOWALxSFai2w6@smile.fi.intel.com>
+ <CAMuHMdVU-cTBMzgBrbzA9+ZYybVS8kdYaA9spU9oDfqrLMvCuA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: Installing Windows Server 2019 from a remotely mounted ISO
-Content-Language: en-US
-To: Konstantin Klubnichkin <kitsok@yandex-team.ru>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>
-References: <60926e52-9d00-2b20-e8ac-7fd515ddac78@yadro.com>
- <CAH2KKeaBMhU3XDADDE0ieqRRhNBiF57-9rUi+Go-SSJCGG-GBA@mail.gmail.com>
- <3c0b0dc3-a31d-dcfb-608b-53436074397b@linux.intel.com>
- <34751627996896@mail.yandex-team.ru>
- <df77021c-a86b-1a03-9960-acdf6c324600@yadro.com>
- <9921666089829@mail.yandex-team.ru>
-From: i.kononenko <i.kononenko@yadro.com>
-In-Reply-To: <9921666089829@mail.yandex-team.ru>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.199.18.154]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-08.corp.yadro.com (172.17.11.58)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdVU-cTBMzgBrbzA9+ZYybVS8kdYaA9spU9oDfqrLMvCuA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,64 +76,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Kent Gibson <warthog618@gmail.com>, linux-aspeed@lists.ozlabs.org, Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org, Bartosz Golaszewski <brgl@bgdev.pl>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org, linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Tue, Oct 18, 2022 at 03:04:44PM +0200, Geert Uytterhoeven wrote:
+> On Tue, Oct 11, 2022 at 11:07 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Tue, Oct 11, 2022 at 10:46:30AM +0200, Geert Uytterhoeven wrote:
+> > > On Tue, Oct 11, 2022 at 9:31 AM Basavaraj Natikar <bnatikar@amd.com> wrote:
 
+...
 
-On 18.10.2022 13:44, Konstantin Klubnichkin wrote:
-> «Внимание! Данное письмо от внешнего адресата!»
+> > > I can confirm adding
+> > >
+> > >     #include <linux/pinctrl/pinconf.h>
+> > >
+> > > to drivers/pinctrl/renesas/pinctrl-rzn1.c and drivers/pinctrl/pinctrl-single.c
+> > > fixes the issues I was seeing with shmobile_defconfig and (out-of-tree)
+> > > renesas_defconfig.
+> >
+> > I will add this, thank you for reporting.
 > 
-> Hello, Igor!
-> Did you succeed to include this pachset into upstream?
-> Thank you!
+> Same for drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c.
 
-Hello Konstantin!
+Thanks!
 
-Unfortunately, I've suspended work with publishing patches into upstream
-of the usb-gadget fmc.  The community point is the big rework of  the   
-usb-gadget:fmc subsystem is not required, and moreover we should avoid  
-that, because there is  a user-space gadget driver that may provide     
-a wider number of features and could be more agile.
-
-My opinion at this point is that the OpenBMC VirtualMedia implementation
-could be based on the GadgetFS driver with ConfigFS feature. I was plan to      
-prepare a design-doc proposal with PoC, but today I have too wide list 
-of critical tasks.
-
-> 03.08.2021, 15:53, "i.kononenko" <i.kononenko@yadro.com>:
-> 
->     Hello Konstantin,
-> 
->     I have several patches [1] to solves mounting DVD-based ISOs through Virtual
->     Media.
->     The published changes is WIP until had approved by the Linux Foundation
->     community,
->     but in the YADRO, we use these changes to support installing the OS Windows via
->     Virtual Media.
-> 
-> 
->     I hope your will found it helpful that information to support installing
->     Windows-based OS.
-> 
->     Links:
->     [1] - https://patchwork.kernel.org/project/linux-usb/list/?series=507583
->     <https://patchwork.kernel.org/project/linux-usb/list/?series=507583>
-> 
->     --
->     Best regards,
-> 
->     Igor Kononenko
-> 
-> -- 
-> Best regards,
-> Konstantin Klubnichkin,
-> lead firmware engineer,
-> server hardware R&D group,
-> Yandex Moscow office.
-> tel: +7-903-510-33-33
+Not only. I have updated all of them (but missed zynq (it is in today's Linux
+Next).
 
 -- 
-Best regards,
+With Best Regards,
+Andy Shevchenko
 
-Igor Kononenko
+
