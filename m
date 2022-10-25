@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80291C04A95
-	for <openbmc@archiver.kernel.org>; Tue, 25 Oct 2022 09:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C14C38A2D
+	for <openbmc@archiver.kernel.org>; Tue, 25 Oct 2022 09:04:32 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4MxQwX5mTZz3cCq
-	for <openbmc@archiver.kernel.org>; Tue, 25 Oct 2022 20:03:56 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4MxQxB6HWLz3c6M
+	for <openbmc@archiver.kernel.org>; Tue, 25 Oct 2022 20:04:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com; receiver=<UNKNOWN>)
 Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4MxQvr11tpz2xtt;
-	Tue, 25 Oct 2022 20:03:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4MxQvr15c3z30F7;
+	Tue, 25 Oct 2022 20:03:19 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
-	by twspam01.aspeedtech.com with ESMTP id 29P8dHGZ031239;
+	by twspam01.aspeedtech.com with ESMTP id 29P8dHbv031240;
 	Tue, 25 Oct 2022 16:39:17 +0800 (GMT-8)
 	(envelope-from jammy_huang@aspeedtech.com)
 Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
@@ -32,10 +32,12 @@ To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
         <linux-media@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
         <linux-arm-kernel@lists.infradead.org>,
         <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v10 0/5] add aspeed-jpeg support for aspeed-video
-Date: Tue, 25 Oct 2022 17:01:58 +0800
-Message-ID: <20221025090203.5623-1-jammy_huang@aspeedtech.com>
+Subject: [PATCH v10 3/5] media: Documentation: aspeed-video: Add user documentation for the aspeed-video driver
+Date: Tue, 25 Oct 2022 17:02:01 +0800
+Message-ID: <20221025090203.5623-4-jammy_huang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221025090203.5623-1-jammy_huang@aspeedtech.com>
+References: <20221025090203.5623-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -43,7 +45,7 @@ X-Originating-IP: [192.168.2.115]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 29P8dHGZ031239
+X-MAIL: twspam01.aspeedtech.com 29P8dHbv031240
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,64 +60,97 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The aim of this series is to add aspeed-jpeg support for aspeed-video
-driver. aspeed-jpeg is a per-frame differential jpeg format which only
-compress the parts which are different from the previous frame. In this
-way, it reduces both the amount of data to be transferred by network and
-those to be decoded on the client side.
+Add user documentation for the aspeed-video driver.
 
-In the last, debugfs information is also updated per this change.
-
-Changes in v10:
- - Add document, aspeed-video.rst, for new V4L2 CID
- - Fix warnings reported by kernel test robot
- 
-Changes in v9:
- - Rebase on new kernel
-
-Changes in v8:
- - Add information of decoder's implementation
- 
-Changes in v7:
- - Separate other patches alone from aspeed-jpeg series
- - for Aspeed-jpeg, generate an I frame every 8 frames
- - rename compression_mode as compression_scheme
- - Add more reference for aspeed-jpeg
- - Update debugfs message
-
-Changes in v6:
- - Update description for new format, aspeed-jpeg, in Documentation.
-
-Changes in v5:
- - Use model data to tell different soc
-
-Changes in v4:
- - Add definition for the Aspeed JPEG format
- - Reserve controls for ASPEED
- - Use s_fmt to update format rather than new control
- - Update aspeed hq quality range, 1 ~ 12
-
-
-Jammy Huang (5):
-  media: v4l: Add definition for the Aspeed JPEG format
-  media: v4l2-ctrls: Reserve controls for ASPEED
-  media: Documentation: aspeed-video: Add user documentation for the
-    aspeed-video driver
-  media: aspeed: Support aspeed mode to reduce compressed data
-  media: aspeed: Extend debug message
-
- .../media/drivers/aspeed-video.rst            |  61 ++++
- .../userspace-api/media/drivers/index.rst     |   1 +
- .../media/v4l/pixfmt-reserved.rst             |  17 +
- drivers/media/platform/aspeed/aspeed-video.c  | 317 +++++++++++++++---
- drivers/media/v4l2-core/v4l2-ioctl.c          |   1 +
- include/uapi/linux/aspeed-video.h             |  14 +
- include/uapi/linux/v4l2-controls.h            |   6 +
- include/uapi/linux/videodev2.h                |   1 +
- 8 files changed, 366 insertions(+), 52 deletions(-)
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+v10:
+  - new
+---
+ .../media/drivers/aspeed-video.rst            | 61 +++++++++++++++++++
+ .../userspace-api/media/drivers/index.rst     |  1 +
+ 2 files changed, 62 insertions(+)
  create mode 100644 Documentation/userspace-api/media/drivers/aspeed-video.rst
- create mode 100644 include/uapi/linux/aspeed-video.h
 
+diff --git a/Documentation/userspace-api/media/drivers/aspeed-video.rst b/Documentation/userspace-api/media/drivers/aspeed-video.rst
+new file mode 100644
+index 000000000000..798a2588b175
+--- /dev/null
++++ b/Documentation/userspace-api/media/drivers/aspeed-video.rst
+@@ -0,0 +1,61 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++.. include:: <isonum.txt>
++
++ASPEED video driver
++===================
++
++ASPEED Video Engine found on AST2400/2500/2600 SoC supports high performance
++video compressions with a wide range of video quality and compression ratio
++options. The adopted compressing algorithm is a modified JPEG algorithm.
++
++There are 2 types of compressions in this IP.
++
++* JPEG JFIF standard mode: for single frame and management compression
++* ASPEED proprietary mode: for multi-frame and differential compression.
++  Support 2-pass (high quality) video compression scheme (Patent pending by
++  ASPEED). Provide visually lossless video compression quality or to reduce
++  the network average loading under intranet KVM applications.
++
++More details on the ASPEED video hardware operations can be found in
++*chapter 6.2.16 KVM Video Driver* of SDK_User_Guide which available on
++AspeedTech-BMC/openbmc/releases.
++
++The ASPEED video driver implements the following driver-specific control:
++
++``V4L2_CID_ASPEED_HQ_MODE``
++-------------------------------
++    Enable/Disable ASPEED's High quality mode. This is a private control
++    that can be used to enable high quality for aspeed proprietary mode.
++
++.. flat-table::
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       1 4
++
++    * - ``(0)``
++      - ASPEED HQ mode is disabled.
++    * - ``(1)``
++      - ASPEED HQ mode is enabled.
++
++``V4L2_CID_ASPEED_HQ_JPEG_QUALITY``
++-------------------------------
++    Define the quality of ASPEED's High quality mode. This is a private control
++    that can be used to decide compression quality if High quality mode enabled
++    . Higher the value, better the quality and bigger the size.
++
++.. flat-table::
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       1 4
++
++    * - ``(1)``
++      - minimum
++    * - ``(12)``
++      - maximum
++    * - ``(1)``
++      - step
++    * - ``(1)``
++      - default
++
++**Copyright** |copy| 2022 ASPEED Technology Inc.
+diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
+index 32f82aed47d9..46a494e00b72 100644
+--- a/Documentation/userspace-api/media/drivers/index.rst
++++ b/Documentation/userspace-api/media/drivers/index.rst
+@@ -31,6 +31,7 @@ For more details see the file COPYING in the source distribution of Linux.
+ 	:maxdepth: 5
+ 	:numbered:
+ 
++	aspeed-video
+ 	ccs
+ 	cx2341x-uapi
+ 	dw100
 -- 
 2.25.1
 
