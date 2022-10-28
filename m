@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04602ECAAA1
-	for <openbmc@archiver.kernel.org>; Thu, 27 Oct 2022 18:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E45FCECAAA1
+	for <openbmc@archiver.kernel.org>; Fri, 28 Oct 2022 02:38:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Myvyk1RSDz3cCl
-	for <openbmc@archiver.kernel.org>; Fri, 28 Oct 2022 05:55:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gG3+6gQ9;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gG3+6gQ9;
-	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Mz6D537LDz3cBX
+	for <openbmc@archiver.kernel.org>; Fri, 28 Oct 2022 13:38:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com; receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Myvxc3fX4z3c2h
-	for <openbmc@lists.ozlabs.org>; Fri, 28 Oct 2022 05:55:00 +1100 (AEDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id 3278062461;
-	Thu, 27 Oct 2022 18:54:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B693C433C1;
-	Thu, 27 Oct 2022 18:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1666896892;
-	bh=Kun1EPlhNAljLOOaLOtA+3eyTsZ+9G8Vw30cBcFPzrw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gG3+6gQ96c5YkWOO1XAfUf+tlK5NY4nF4uTtmxhAOG9iUO7MH9NjYl9uV+zXmZ6Bm
-	 kFj0j3YREptD0FDWmPJ24tgUVBO3t0ApQhzUwcvP9b2hiUTQqC9d47bFYNT1vs8hwQ
-	 i/c6SqDjPDKCrAbV6p1kiVsv2/u5agF8eijGbDwULjDnDHxoF0sbAcvBzcfkCtwfnd
-	 TSL+BgYXXEBX+dHAAH2unY4GjcdQ6sKFPNi8ZompKDMZwhl0/GacW8Sj5E+kYczgjr
-	 cpztnNKpPTfvQHkzReT7E4YAqXTDz3MCDfL0W9XJtJO6W5s9ZgKbivsWxULuzcx8hK
-	 kgFA8999iDY4Q==
-Date: Thu, 27 Oct 2022 19:54:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Zev Weiss <zev@bewilderbeest.net>
-Subject: Re: [PATCH 2/3] dt-bindings: regulator: Add regulator-output binding
-Message-ID: <Y1rT96QzwIn5pIVn@sirena.org.uk>
-References: <20220925220319.12572-1-zev@bewilderbeest.net>
- <20220925220319.12572-3-zev@bewilderbeest.net>
- <20220929210714.GA2684335-robh@kernel.org>
- <YzYNt+IQRomycRLs@hatter.bewilderbeest.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Mz6CM218Nz3bcw;
+	Fri, 28 Oct 2022 13:37:33 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+	by twspam01.aspeedtech.com with ESMTP id 29S2D5KH054600;
+	Fri, 28 Oct 2022 10:13:06 +0800 (GMT-8)
+	(envelope-from jammy_huang@aspeedtech.com)
+Received: from JammyHuang-PC.aspeed.com (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 28 Oct
+ 2022 10:35:59 +0800
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
+        <andrew@aj.id.au>, <hverkuil-cisco@xs4all.nl>,
+        <laurent.pinchart@ideasonboard.com>, <xavier.roumegue@oss.nxp.com>,
+        <ezequiel@vanguardiasur.com.ar>, <stanimir.varbanov@linaro.org>,
+        <nicolas.dufresne@collabora.com>, <sakari.ailus@linux.intel.com>,
+        <ming.qian@nxp.com>, <andrzej.p@collabora.com>,
+        <linux-media@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
+        <linux-arm-kernel@lists.infradead.org>,
+        <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v11 5/5] media: aspeed: Extend debug message
+Date: Fri, 28 Oct 2022 10:35:54 +0800
+Message-ID: <20221028023554.928-6-jammy_huang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221028023554.928-1-jammy_huang@aspeedtech.com>
+References: <20221028023554.928-1-jammy_huang@aspeedtech.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M3zmNXbrrfzH3Cim"
-Content-Disposition: inline
-In-Reply-To: <YzYNt+IQRomycRLs@hatter.bewilderbeest.net>
-X-Cookie: Forgive and forget.
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 29S2D5KH054600
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,43 +57,124 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Naresh Solanki <naresh.solanki@9elements.com>, devicetree@vger.kernel.org, Laxman Dewangan <ldewangan@nvidia.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Patrick Rudolph <patrick.rudolph@9elements.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+updated as below:
 
---M3zmNXbrrfzH3Cim
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Capture:
+  Mode                : Direct fetch
+  VGA bpp mode        : 32
+  Signal              : lock
+  Width               : 1920
+  Height              : 1080
+  FRC                 : 0
 
-On Thu, Sep 29, 2022 at 02:27:19PM -0700, Zev Weiss wrote:
-> On Thu, Sep 29, 2022 at 02:07:14PM PDT, Rob Herring wrote:
+Compression:
+  Format              : JPEG
+  Subsampling         : 444
+  Quality             : 4
 
-> never as any sort of default/automatic action.  The two obvious things to
-> guard against there seem to be automatic enablement during initialization
-> and automatic disablement on de-init (shutdown, unbind, etc.).  The former I
-> think can be avoided by simply not setting regulator-boot-on, so I added
-> this as a corresponding property to avoid the latter.
+Performance:
+  Frame#              : 4
+  Frame Duration(ms)  :
+    Now               : 22
+    Min               : 21
+    Max               : 22
+  FPS                 : 45
 
-> I'm definitely open to suggestions for a better approach though.
+Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
+---
+v11:
+  - no update
+v10:
+  - no update
+v9:
+  - no update
+v8:
+  - no update
+v7:
+  - update debugfs message. Aspeed-jpeg's compression parameters only shown
+    if it's aspeed jpeg now
+v6:
+  - no update
+v5:
+  - no update
+v4:
+  - update debugfs log
+v3:
+  - no update
+v2:
+  - update commit message
+---
+ drivers/media/platform/aspeed/aspeed-video.c | 38 +++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
 
-regulator-boot-on mainly exists for handover of state from the
-bootloader where we can't read back the state of the hardware rather
-than as a control for boot purposes.
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+index 0b3605ebefc3..cf76aeee8cb6 100644
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -1905,9 +1905,29 @@ static const struct vb2_ops aspeed_video_vb2_ops = {
+ static int aspeed_video_debugfs_show(struct seq_file *s, void *data)
+ {
+ 	struct aspeed_video *v = s->private;
++	u32 val08;
+ 
+ 	seq_puts(s, "\n");
+ 
++	seq_puts(s, "Capture:\n");
++	val08 = aspeed_video_read(v, VE_CTRL);
++	if (FIELD_GET(VE_CTRL_DIRECT_FETCH, val08)) {
++		seq_printf(s, "  %-20s:\tDirect fetch\n", "Mode");
++		seq_printf(s, "  %-20s:\t%s\n", "VGA bpp mode",
++			   FIELD_GET(VE_CTRL_INT_DE, val08) ? "16" : "32");
++	} else {
++		seq_printf(s, "  %-20s:\tSync\n", "Mode");
++		seq_printf(s, "  %-20s:\t%s\n", "Video source",
++			   FIELD_GET(VE_CTRL_SOURCE, val08) ?
++			   "external" : "internal");
++		seq_printf(s, "  %-20s:\t%s\n", "DE source",
++			   FIELD_GET(VE_CTRL_INT_DE, val08) ?
++			   "internal" : "external");
++		seq_printf(s, "  %-20s:\t%s\n", "Cursor overlay",
++			   FIELD_GET(VE_CTRL_AUTO_OR_CURSOR, val08) ?
++			   "Without" : "With");
++	}
++
+ 	seq_printf(s, "  %-20s:\t%s\n", "Signal",
+ 		   v->v4l2_input_status ? "Unlock" : "Lock");
+ 	seq_printf(s, "  %-20s:\t%d\n", "Width", v->pix_fmt.width);
+@@ -1916,13 +1936,29 @@ static int aspeed_video_debugfs_show(struct seq_file *s, void *data)
+ 
+ 	seq_puts(s, "\n");
+ 
++	seq_puts(s, "Compression:\n");
++	seq_printf(s, "  %-20s:\t%s\n", "Format", format_str[v->format]);
++	seq_printf(s, "  %-20s:\t%s\n", "Subsampling",
++		   v->yuv420 ? "420" : "444");
++	seq_printf(s, "  %-20s:\t%d\n", "Quality", v->jpeg_quality);
++	if (v->format == VIDEO_FMT_ASPEED) {
++		seq_printf(s, "  %-20s:\t%s\n", "HQ Mode",
++			   v->hq_mode ? "on" : "off");
++		seq_printf(s, "  %-20s:\t%d\n", "HQ Quality",
++			   v->hq_mode ? v->jpeg_hq_quality : 0);
++	}
++
++	seq_puts(s, "\n");
++
+ 	seq_puts(s, "Performance:\n");
+ 	seq_printf(s, "  %-20s:\t%d\n", "Frame#", v->sequence);
+ 	seq_printf(s, "  %-20s:\n", "Frame Duration(ms)");
+ 	seq_printf(s, "    %-18s:\t%d\n", "Now", v->perf.duration);
+ 	seq_printf(s, "    %-18s:\t%d\n", "Min", v->perf.duration_min);
+ 	seq_printf(s, "    %-18s:\t%d\n", "Max", v->perf.duration_max);
+-	seq_printf(s, "  %-20s:\t%d\n", "FPS", 1000 / (v->perf.totaltime / v->sequence));
++	seq_printf(s, "  %-20s:\t%d\n", "FPS",
++		   (v->perf.totaltime && v->sequence) ?
++		   1000/(v->perf.totaltime/v->sequence) : 0);
+ 
+ 	return 0;
+ }
+-- 
+2.25.1
 
---M3zmNXbrrfzH3Cim
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmNa0/YACgkQJNaLcl1U
-h9B8Rgf8Du4thvptLuiv5L6LjqHMUAYet63k3rRYwGIvleliwoEFk8gYQZEKdFGB
-UEvvGOWF+AY0gTKrHEtdHgYUOi2QTwN2quCetFLxTajIVYtluNKZ76hi+9Zt7xaN
-JlSpqehmuCeCHsxzSjMfCgDTPJL7jnVFORAk7azYpQt+22dzgGwimK/QUq0BDwEX
-Sz7moED/aqfH5MiDo9tIS6OoePaXDqlUOBAgoQOe8pDwNN/ZZsvJ8H5AlDMBV7tL
-KbCtshLetmnDzd7a/pbi6zOkagoRhqHkP1TQAdxZXdDN/RThDsMXZ40IK7YEKbLy
-zar4ki4tO6ZqSMJ31ztcMXVgYzaQmg==
-=S//I
------END PGP SIGNATURE-----
-
---M3zmNXbrrfzH3Cim--
