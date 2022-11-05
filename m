@@ -4,66 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6086BC4332F
-	for <openbmc@archiver.kernel.org>; Sat,  5 Nov 2022 19:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E293C433FE
+	for <openbmc@archiver.kernel.org>; Sat,  5 Nov 2022 19:03:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4N4Rgx5kbrz3cKR
-	for <openbmc@archiver.kernel.org>; Sun,  6 Nov 2022 06:02:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4N4Rhz5lxBz3cLT
+	for <openbmc@archiver.kernel.org>; Sun,  6 Nov 2022 06:03:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=qxOFkEZ6;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=SlDnVSwI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.21; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.20; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=qxOFkEZ6;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=SlDnVSwI;
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4N4Rck318Yz3byj
-	for <openbmc@lists.ozlabs.org>; Sun,  6 Nov 2022 05:59:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4N4Rck3qHjz3c6d
+	for <openbmc@lists.ozlabs.org>; Sun,  6 Nov 2022 05:59:34 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
-	t=1667674759; bh=+CeGzPHAiwTHslgTPBjflPOdmW6LTaHhl7ZUhW3vNP8=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
-	b=qxOFkEZ6mRtOW6C0OtjPQyGgvkA05hjrWOCtJUZBCyskS27+Po3yB+UzY4c9ySMW/
-	 qkIkVsUS5JQ94Wf9wUH3K6qMzTsyggEh/SK763o7GhpE7/4dk73d4KjtF42VBlRcbq
-	 ozX8WEyPICLnYlaP5YxHVxVtwr8m0uvMaBblkOjOlOqhQ4Yu6gyuLVl0x4nx4rIxmB
-	 452sTLm48cN80OwffYIcpoeIxoDftx510bmNlXV0loQ9zyBSs0DkJrr8JT29tvZXvs
-	 lVJdUK8R6x940CoeNbTlEm/IVsc2S2wRIqGrivrGT/gav0wKHzb1v6Kp47HVVgG9Rc
-	 jbjJVw/zc+a3w==
+	t=1667674761; bh=Qpw8OKKBbZVVfzRq9A/GSiYS3wmIwpXxBurfIN6x05I=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SlDnVSwIFHrbJ4TPSLdlFuzAXHC+bhydtVpb9WMVZB0v6f01S4F78lyUg/+J+C6Tt
+	 CMQ8PLC1PWyN6BpBAtQjO0NmP4h4SvP7s7uDegygqsYg0BguryUfEytGL4RH0zMfht
+	 65Rkb8r0evwqpBLKV6LSQhqNBb/ybRZS4oJLDrWdR9Dj2BeeSbS2rOMBzZSxsw4Mz6
+	 kdl9PMtD7MK6sdgM0iIoilyTg/2XyGMx/nZDziyeKE+j2Y5n7Lh7JZu0ona21wuYkS
+	 XKvb3IEJwPLoeaIQYNe8pvDquFEfcBna05w9Bbz+8md0+p7JgQRxuXMWjaiRCuCOgy
+	 JIPDD+uQ3LSfQ==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([87.78.44.193]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N4hzj-1oyiVE1D79-011mod; Sat, 05
- Nov 2022 19:59:19 +0100
+Received: from probook ([87.78.44.193]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N1fmq-1p2ITJ2h5M-011x00; Sat, 05
+ Nov 2022 19:59:21 +0100
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-spi@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH 0/8] Nuvoton WPCM450 FIU SPI flash controller
-Date: Sat,  5 Nov 2022 19:59:03 +0100
-Message-Id: <20221105185911.1547847-1-j.neuschaefer@gmx.net>
+Subject: [PATCH 2/8] pinctrl: nuvoton: wpcm450: Fix handling of inverted MFSEL bits
+Date: Sat,  5 Nov 2022 19:59:05 +0100
+Message-Id: <20221105185911.1547847-3-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221105185911.1547847-1-j.neuschaefer@gmx.net>
+References: <20221105185911.1547847-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Y0mXxM0HICmGnOuG0U8nVhTFBA1wLRp9aUB6oInA+MZotw3HwbL
- MShwnW6ykzM4la9QVqS3pNg87Ylm7TX9x+vFTrexZ4qyxW5iiKcd4QsFgx/kozKO+QJBtAO
- O2Q2N7P4t6y+TxxbBbNeEsJpR9Q1gseSRdCD7urms/mKvIY8DH7a8npqzLV5eXbAsC8uqbQ
- Ej/NQvaje6iIicYun9tbw==
-UI-OutboundReport: notjunk:1;M01:P0:PW2MiMKEoQQ=;fObLh+9qyxrgamfZcR005K2qZ8L
- 7k//slWMHPh8Hrq2gPzixGromD+zVzHkp+Uh2Ta/jGEb1GovCJ4oRYykLzoNt1iIWNxT4K2AB
- XdnYnRCykuUV7tKyOWvx9FaxIa0j4XJRU4cgku4av2uBUU2OrdgQqINuk7JLgtnu2tn/AEy/R
- erCmQrwGNPCH3jFxt8oJ7UmzUeAQjoM+Gj0DikK1Ib2gA98DNurrPxjne7HB7WH/Cg1Y+3DuI
- JV1rp9rcgR2K6L0Xh/ePjL8TExk5xVGxNrEQLxbjBBmaFJQ9i1apVzBmNB3x4IIViiTZH+ahJ
- R+d38ePanKsDlpGDu/Gn96J2jiv2NnIW29OdcaDKWrFu5p4riSXmNagpbqp+TdwGtfG6iDbQH
- FeFJODT4YTClALNh+i2hm8l2VLknbpMStd5oqHs+vhrU01NI8L2qVA4tl5IwyjJsmpiGWT54K
- NtrN2Ka33X30nfLTDeGC+KUO4oMJGDDcefxFbjjTgeKxpf25/vr87HO81NzN/7VNl40lcJ6xK
- RK3g1lTBLMygylo+UFuRUyRljQ3c3WZL4a/6wpMAipW3CBOCoTiSioDYqCKbs6redtLRYHdaN
- ZtLwpr2Q+GvCyMo4MfsDr8t0wokve/l3FRxJn72fdMCYJhVXdf9K+URF96ruuQeUp/Dd/oBpC
- 4c5lvlsQeLJY91won9J3Lb7Gs4ZuMzZeiI7gU43I3xdcZr7c1asLaOVho+H91xK/uXqGtgv58
- 8zM5k7sFygPcGdsSC/0Lue+nDlaxbiIl8rdeug+7pQrJkFn63hCwQULKV5swpWEMF+pg8ccJp
- sFpSPQNdnZYsamiCIgOePho4EeJRCUiqOQE6V1O/BUKwa6aXGDN53pWWMvEWo+gH7WmhpPQ3l
- 9EdJlQQxIl/dMCXPL8Gx87ZZkayHNcHnBrfeK4qPPbZd/bBWibK4/AnAikp8aUH8NZFYSt8EI
- jg/s+rYmkweG1HffUj5Vj9l8eCE=
+X-Provags-ID: V03:K1:Vfta1KKuPXfyTJlokrlUIHqVt+wLZz8l/XAP30d+cEfJqL6A2LA
+ g5LjfJosVcXeoCtrvPlJNvI6ZX5ynJxH721gUnKyGVOj9SLpUA29/I2PBZtdDVOB+d6EqT2
+ Dh6Q2yAtBCAYQK1V7mhtYOqApao/igkZ0ZQvTwRlIP8pwqLrQKJpVLYaZ/fzXTl17AwqWjx
+ bR+w2fkM/sYjgaVQBMYHw==
+UI-OutboundReport: notjunk:1;M01:P0:n3cR5LUqolI=;cP+fOJOaOTtw9hjNLch1t/06EwK
+ N+vvEtSrqWPHeYoWb6HLd+ym+5ej+kC0F1ErWt8n+MfZU3Xs8uP1kuhkMllSbQyTmEXLC7WIL
+ SFdwcTVxNV4oAbP9q/GUqnedEiLtEpH+rTsm9XYG+9QMkLt6GjXh/4k0dHvgxI8XqIDwRaaUM
+ Nln9YkmS4awqNp4Eq5ZKIQSh5nwLWf/q5ecC+rIe6S9ztCMUuZOJxTtWUj2ZKBf8GwfL5W3rd
+ Ni5Vu5vU3NbID+p83WYl/HT2tYHQhu5Ktsmuw8nIuF2YLq9sGt9yqy1NL+V+jwxFnemoqnKm0
+ tAM+Sp6GXELpvq/Gw8azuUNZhkvg6wd9Ow2sMkIX4M5ovoSX4zMUb6Xa4knAr4qNAIX6NTmk8
+ gO7Hls5ZE8hvkxmOXdOX/bblzEv/Ln81ClPvOr9g7XGegpVSAFy6ucYqbXE2wndzbSxYfZIRU
+ iZyh0l+K4yJdFAGlkUHaVi7+5oIBCp2TSOzG08oFVQkVRzLW45RhSniQ+8fRIrQ/nGsiwI7T4
+ wE3IHqoC5kIQiEkMqEWLk2vgiG+xFAzv1jnMB10JKkMuJ2YcDjTiYf8kEmMxonkv1Vb+JMYa9
+ GoNSL/aFidXyb3dyw53BmX0FhY+WbwUMrOxXMAzA11SND6QaJWQx6OwaYmOElCdhCyTagHj8C
+ rIsNmb3ssRcgmZJSyIWh8w+i8VyIIXB2E2tLNAsHoPphMs6sMe+XfvspRfaFqZz64AKeaTNle
+ JCBj9KboCuv6gq80WVNRc3jTLDOfKf+Mstx1KF+j7UgcJ8SE2hXf4SlBWg8VVURz3w7QC5zmo
+ 6A2Bqn3ZNXPPoeqyoA5LSd8YotnUU9ixrjdHXejGoqEDV6alcWbB2WxXWaix2f5ByAfGHZbKN
+ QyYUnlB2DqFsQXiMNJlF8tvNV1iQ326GUUEZWlGfbu4GW8DVU9WRdf4c+LBbFBhJE7mZvZBR5
+ wD5J/CG787cp2GsgKDZbeo7U+UQ=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,46 +81,66 @@ Cc: devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>, Lee Jo
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patchset adds DT bindings and a driver for the Flash Interface Unit
-(FIU), the SPI flash controller in the Nuvoton WPCM450 BMC SoC. It
-supports four chip selects, and direct (memory-mapped) access to 16 MiB
-per chip. Larger flash chips can be accessed by software-defined SPI
-transfers.
+SCS3SEL and KBCCSEL use inverted logic: Whereas in other fields 0
+selects the GPIO function and 1 selects the special function, in these
+two fields, 0 selects the special function and 1 selects the GPIO
+function.
 
-The existing NPCM7xx FIU driver is sufficitently incompatible with the
-WPCM450 FIU that I decided to write a new driver.
+Adjust the code to handle this quirk.
 
-This patchset depends on the WPCM450 clock support patchset,
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+ drivers/pinctrl/nuvoton/pinctrl-wpcm450.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-	[PATCH v5 0/6] Nuvoton WPCM450 clock and reset driver
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c b/drivers/pinctrl/n=
+uvoton/pinctrl-wpcm450.c
+index 49b2177af17b2..2d1c1652cfd9d 100644
+=2D-- a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
+@@ -628,6 +628,9 @@ struct wpcm450_pincfg {
+ 	int fn1, reg1, bit1;
+ };
 
++/* Add this value to bit0 or bit1 to indicate that the MFSEL bit is inver=
+ted */
++#define INV	BIT(5)
++
+ static const struct wpcm450_pincfg pincfg[] =3D {
+ 	/*		PIN	  FUNCTION 1		   FUNCTION 2 */
+ 	WPCM450_PINCFG(0,	 none, NONE, 0,		  none, NONE, 0),
+@@ -665,7 +668,7 @@ static const struct wpcm450_pincfg pincfg[] =3D {
 
-Jonathan
+ 	WPCM450_PINCFG(32,	 scs1, MFSEL1, 3,	  none, NONE, 0),
+ 	WPCM450_PINCFG(33,	 scs2, MFSEL1, 4,	  none, NONE, 0),
+-	WPCM450_PINCFG(34,	 scs3, MFSEL1, 5,	  none, NONE, 0),
++	WPCM450_PINCFG(34,	 scs3, MFSEL1, 5 | INV,	  none, NONE, 0),
+ 	WPCM450_PINCFG(35,	 xcs1, MFSEL1, 29,	  none, NONE, 0),
+ 	WPCM450_PINCFG(36,	 xcs2, MFSEL1, 28,	  none, NONE, 0),
+ 	WPCM450_PINCFG(37,	 none, NONE, 0,		  none, NONE, 0), /* DVO */
+@@ -725,8 +728,8 @@ static const struct wpcm450_pincfg pincfg[] =3D {
+ 	WPCM450_PINCFG(90,	r2err, MFSEL1, 15,	  none, NONE, 0),
+ 	WPCM450_PINCFG(91,	 r2md, MFSEL1, 16,	  none, NONE, 0),
+ 	WPCM450_PINCFG(92,	 r2md, MFSEL1, 16,	  none, NONE, 0),
+-	WPCM450_PINCFG(93,	 kbcc, MFSEL1, 17,	  none, NONE, 0),
+-	WPCM450_PINCFG(94,	 kbcc, MFSEL1, 17,	  none, NONE, 0),
++	WPCM450_PINCFG(93,	 kbcc, MFSEL1, 17 | INV,  none, NONE, 0),
++	WPCM450_PINCFG(94,	 kbcc, MFSEL1, 17 | INV,  none, NONE, 0),
+ 	WPCM450_PINCFG(95,	 none, NONE, 0,		  none, NONE, 0),
 
+ 	WPCM450_PINCFG(96,	 none, NONE, 0,		  none, NONE, 0),
+@@ -805,6 +808,11 @@ static void wpcm450_update_mfsel(struct regmap *gcr_r=
+egmap, int reg, int bit, in
+ {
+ 	bool value =3D (fn =3D=3D fn_selected);
 
-Jonathan Neusch=C3=A4fer (8):
-  pinctrl: nuvoton: wpcm450: Refactor MFSEL setting code
-  pinctrl: nuvoton: wpcm450: Fix handling of inverted MFSEL bits
-  dt-bindings: spi: Add Nuvoton WPCM450 Flash Interface Unit (FIU)
-  dt-bindings: mfd: syscon: Add nuvoton,wpcm450-shm
-  ARM: dts: wpcm450: Add FIU SPI controller node
-  ARM: dts: wpcm450-supermicro-x9sci-ln4f: Add SPI flash
-  spi: wpcm-fiu: Add driver for Nuvoton WPCM450 Flash Interface Unit
-    (FIU)
-  spi: wpcm-fiu: Add direct map support
-
- .../devicetree/bindings/mfd/syscon.yaml       |   1 +
- .../bindings/spi/nuvoton,wpcm450-fiu.yaml     |  76 +++
- .../nuvoton-wpcm450-supermicro-x9sci-ln4f.dts |   9 +
- arch/arm/boot/dts/nuvoton-wpcm450.dtsi        |  16 +
- drivers/pinctrl/nuvoton/pinctrl-wpcm450.c     |  32 +-
- drivers/spi/Kconfig                           |  11 +
- drivers/spi/Makefile                          |   1 +
- drivers/spi/spi-wpcm-fiu.c                    | 507 ++++++++++++++++++
- 8 files changed, 644 insertions(+), 9 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,wpcm450-=
-fiu.yaml
- create mode 100644 drivers/spi/spi-wpcm-fiu.c
++	if (bit & INV) {
++		value =3D !value;
++		bit &=3D ~INV;
++	}
++
+ 	regmap_update_bits(gcr_regmap, reg, BIT(bit), value ? BIT(bit) : 0);
+ }
 
 =2D-
 2.35.1
