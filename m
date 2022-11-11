@@ -4,84 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04C7AC4332F
-	for <openbmc@archiver.kernel.org>; Thu, 10 Nov 2022 23:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E64EC433FE
+	for <openbmc@archiver.kernel.org>; Fri, 11 Nov 2022 03:58:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4N7dt136W6z3cF0
-	for <openbmc@archiver.kernel.org>; Fri, 11 Nov 2022 10:52:09 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4N7lLj4JwLz3cMb
+	for <openbmc@archiver.kernel.org>; Fri, 11 Nov 2022 14:58:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=ewQjMx5y;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=Lm8NbliV;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=bC872HQm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aj.id.au (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=ewQjMx5y;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=Lm8NbliV;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=bC872HQm;
 	dkim-atps=neutral
-X-Greylist: delayed 575 seconds by postgrey-1.36 at boromir; Fri, 11 Nov 2022 10:51:08 AEDT
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com [64.147.123.25])
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4N7drr0pFsz3c3W
-	for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2022 10:51:07 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
-	by mailout.west.internal (Postfix) with ESMTP id B28C33200406;
-	Thu, 10 Nov 2022 18:41:25 -0500 (EST)
-Received: from imap50 ([10.202.2.100])
-  by compute3.internal (MEProxy); Thu, 10 Nov 2022 18:41:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1668123685; x=1668210085; bh=Jk7DTEmX7s
-	1t+MY4wTCO4N7WX2Xy6MHCBQ8VDodG2BY=; b=ewQjMx5yCHE+Cvb3I+qbQ6Smlb
-	16w9y6VfMZbfE7orEV6uloL9PLc8y+SHFJchiQyNbpMcWuqI+sMIs8QEM02cqNlD
-	ZppWpZOlJIBzx3jvBumpUpQqgjbTSgF0ekgm8uG+B3AQHQUDr20F/hHqFHiEcFSx
-	gcPGdZWxIODn/m8oVfvgrN1U+3ViWCTiSgj52bEseKUw+H6GdPJ51S5VISabTqD1
-	o2mNOLKU3KpS8YUdamult5MRTBM233h7PkDxpXfwewU0PbYXka4DIm7dVI+bFNuZ
-	5vRRgjqSlooHH5jy1J/iuL0krRPybKFFI8VH5DH9KmJ9zH0mSJRyFcfrPR5A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1668123685; x=1668210085; bh=Jk7DTEmX7s1t+MY4wTCO4N7WX2Xy
-	6MHCBQ8VDodG2BY=; b=Lm8NbliVApm0G7O7ci7o8v3Gfln5yGXvlKHixfHyPiwx
-	5ATwYKSPmuIiWtYDWjL63UyooAy9kHBQFA5KVxvbjGioukZVdwrBBeH4TZwpoUKX
-	kfoIBfK+t2KxJ4Su9UnhzVWXyFRyoHdc/EM3CYCTchxZcuP9o8iaRC8rmBUDZ1iB
-	wL/sUUPib9y9m75ZbhNh7+yRb25ABdjsTRx29HeqTTd8/tp2DqXg6yZxEY5H9xvk
-	HHUE3ZAHyFHuS8a0kd8a7TI0cgSfMw3sy7Scxlexg2e5be3IA4YgYt3TGVll4GgG
-	DFoD72ecWhdWTD7zx6xhfwFw62cpURbGSI4dIsHJqQ==
-X-ME-Sender: <xms:JIxtY0Qif4SWkNy2ISMlhfunnhqWvb41Te5HQV68ewkhNMo33JbGdQ>
-    <xme:JIxtYxzLkHkCI2v0SwXKo9L_Yx32Gu_l9AW3TEcI-TrbxWCGF_GIpdZZHz3GZqwqj
-    FI2APsfoQDILPuOUQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrfeehgddugecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
-    vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
-    htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
-    veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
-    grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:JYxtYx37UVbf2fhfKLhad8cdhoGbKtQdGiQX6QBC_sx9Jed19HjyvA>
-    <xmx:JYxtY4BlI1KFhZqZsASXgUtFtPyKxqgIlnOBP7frgOCSSTqx8DZJMQ>
-    <xmx:JYxtY9j7hpQYENhFQNSy6l3JGrssaF2bk1qUZVTYhzqg1hfIWs90HA>
-    <xmx:JYxtY3fFoMg6YspyjNr1s2qs8fL1gzolKs9Z6Yk712cYtGqeEpWE6w>
-Feedback-ID: idfb84289:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-	id D303E1700089; Thu, 10 Nov 2022 18:41:24 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.7.0-alpha0-1115-g8b801eadce-fm-20221102.001-g8b801ead
-Mime-Version: 1.0
-Message-Id: <3d8ca8ab-56a3-4ad7-8b34-d97f50ae0d81@app.fastmail.com>
-In-Reply-To: <73130EC5-5B2A-4E79-9AAD-88D26C61D71F@gmail.com>
-References: <73130EC5-5B2A-4E79-9AAD-88D26C61D71F@gmail.com>
-Date: Fri, 11 Nov 2022 10:11:04 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Andrew Geissler" <geissonator@gmail.com>,
- "OpenBMC List" <openbmc@lists.ozlabs.org>
-Subject: Re: obmc-op-control-power_git.bb refactoring
-Content-Type: text/plain
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4N7lKf6086z2xZ7
+	for <openbmc@lists.ozlabs.org>; Fri, 11 Nov 2022 14:57:58 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (97-113-250-99.tukw.qwest.net [97.113.250.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: zev)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 27348B98;
+	Thu, 10 Nov 2022 19:57:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+	s=thorn; t=1668139075;
+	bh=9+vZa7ARO6Ar2RQNcERy0+FKfVUJtEgmKe6Swwo8lsY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bC872HQmmMsexyiU2F4WQHSxO1onVXOfOrpbQkCmxADT32GzcaKNvlrfxnQM25F/Z
+	 cQAZXlXSz4ekX4O3qBrtb1vYDAzuBB3FR4TlX1XWO6L83DT8BvfN4afTQj3/OpfuOV
+	 oYa+uvMrKVoDoQzt10LajE9H3GfTUyiUiSVK7YSE=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH linux dev-6.0 2/7] regulator: devres: Add devm_regulator_bulk_get_exclusive()
+Date: Thu, 10 Nov 2022 19:57:42 -0800
+Message-Id: <20221111035747.31663-3-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221111035747.31663-1-zev@bewilderbeest.net>
+References: <20221111035747.31663-1-zev@bewilderbeest.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,21 +57,212 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc@lists.ozlabs.org, Mark Brown <broonie@kernel.org>, Zev Weiss <zev@bewilderbeest.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, 11 Nov 2022, at 07:29, Andrew Geissler wrote:
->
-> Here's what I'm thinking:
->
-> Move these services to PSM and rename them as follows:
-> - op-power-start@.service -> phosphor-power-start@.service
-> - op-power-stop@.service -> phosphor-power-stop@.service
+We had an exclusive variant of the devm_regulator_get() API, but no
+corresponding variant for the bulk API; let's add one now.  We add a
+generalized version of the existing regulator_bulk_get() function that
+additionally takes a get_type parameter and redefine
+regulator_bulk_get() in terms of it, then do similarly with
+devm_regulator_bulk_get(), and finally add the new
+devm_regulator_bulk_get_exclusive().
 
-This isn't terribly constructive but I feel like given s/op-/phosphor-/ 
-results in names like 'phosphor-power*' it's going to be confusing with 
-respect to the existing phosphor-power subproject.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Link: https://lore.kernel.org/r/20221031233704.22575-2-zev@bewilderbeest.net
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/regulator/core.c           | 42 +++++++++++--------
+ drivers/regulator/devres.c         | 66 ++++++++++++++++++++++--------
+ drivers/regulator/internal.h       |  2 +
+ include/linux/regulator/consumer.h |  2 +
+ 4 files changed, 76 insertions(+), 36 deletions(-)
 
-Not sure how to fix it though.
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index c3871565fd7d..778433b68600 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -4762,22 +4762,8 @@ static int _notifier_call_chain(struct regulator_dev *rdev,
+ 	return blocking_notifier_call_chain(&rdev->notifier, event, data);
+ }
+ 
+-/**
+- * regulator_bulk_get - get multiple regulator consumers
+- *
+- * @dev:           Device to supply
+- * @num_consumers: Number of consumers to register
+- * @consumers:     Configuration of consumers; clients are stored here.
+- *
+- * @return 0 on success, an errno on failure.
+- *
+- * This helper function allows drivers to get several regulator
+- * consumers in one operation.  If any of the regulators cannot be
+- * acquired then any regulators that were allocated will be freed
+- * before returning to the caller.
+- */
+-int regulator_bulk_get(struct device *dev, int num_consumers,
+-		       struct regulator_bulk_data *consumers)
++int _regulator_bulk_get(struct device *dev, int num_consumers,
++			struct regulator_bulk_data *consumers, enum regulator_get_type get_type)
+ {
+ 	int i;
+ 	int ret;
+@@ -4786,8 +4772,8 @@ int regulator_bulk_get(struct device *dev, int num_consumers,
+ 		consumers[i].consumer = NULL;
+ 
+ 	for (i = 0; i < num_consumers; i++) {
+-		consumers[i].consumer = regulator_get(dev,
+-						      consumers[i].supply);
++		consumers[i].consumer = _regulator_get(dev,
++						       consumers[i].supply, get_type);
+ 		if (IS_ERR(consumers[i].consumer)) {
+ 			ret = dev_err_probe(dev, PTR_ERR(consumers[i].consumer),
+ 					    "Failed to get supply '%s'",
+@@ -4814,6 +4800,26 @@ int regulator_bulk_get(struct device *dev, int num_consumers,
+ 
+ 	return ret;
+ }
++
++/**
++ * regulator_bulk_get - get multiple regulator consumers
++ *
++ * @dev:           Device to supply
++ * @num_consumers: Number of consumers to register
++ * @consumers:     Configuration of consumers; clients are stored here.
++ *
++ * @return 0 on success, an errno on failure.
++ *
++ * This helper function allows drivers to get several regulator
++ * consumers in one operation.  If any of the regulators cannot be
++ * acquired then any regulators that were allocated will be freed
++ * before returning to the caller.
++ */
++int regulator_bulk_get(struct device *dev, int num_consumers,
++		       struct regulator_bulk_data *consumers)
++{
++	return _regulator_bulk_get(dev, num_consumers, consumers, NORMAL_GET);
++}
+ EXPORT_SYMBOL_GPL(regulator_bulk_get);
+ 
+ static void regulator_bulk_enable_async(void *data, async_cookie_t cookie)
+diff --git a/drivers/regulator/devres.c b/drivers/regulator/devres.c
+index 3265e75e97ab..fec0398d98b0 100644
+--- a/drivers/regulator/devres.c
++++ b/drivers/regulator/devres.c
+@@ -186,23 +186,9 @@ static void devm_regulator_bulk_release(struct device *dev, void *res)
+ 	regulator_bulk_free(devres->num_consumers, devres->consumers);
+ }
+ 
+-/**
+- * devm_regulator_bulk_get - managed get multiple regulator consumers
+- *
+- * @dev:           device to supply
+- * @num_consumers: number of consumers to register
+- * @consumers:     configuration of consumers; clients are stored here.
+- *
+- * @return 0 on success, an errno on failure.
+- *
+- * This helper function allows drivers to get several regulator
+- * consumers in one operation with management, the regulators will
+- * automatically be freed when the device is unbound.  If any of the
+- * regulators cannot be acquired then any regulators that were
+- * allocated will be freed before returning to the caller.
+- */
+-int devm_regulator_bulk_get(struct device *dev, int num_consumers,
+-			    struct regulator_bulk_data *consumers)
++static int _devm_regulator_bulk_get(struct device *dev, int num_consumers,
++				    struct regulator_bulk_data *consumers,
++				    enum regulator_get_type get_type)
+ {
+ 	struct regulator_bulk_devres *devres;
+ 	int ret;
+@@ -212,7 +198,7 @@ int devm_regulator_bulk_get(struct device *dev, int num_consumers,
+ 	if (!devres)
+ 		return -ENOMEM;
+ 
+-	ret = regulator_bulk_get(dev, num_consumers, consumers);
++	ret = _regulator_bulk_get(dev, num_consumers, consumers, get_type);
+ 	if (!ret) {
+ 		devres->consumers = consumers;
+ 		devres->num_consumers = num_consumers;
+@@ -223,8 +209,52 @@ int devm_regulator_bulk_get(struct device *dev, int num_consumers,
+ 
+ 	return ret;
+ }
++
++/**
++ * devm_regulator_bulk_get - managed get multiple regulator consumers
++ *
++ * @dev:           device to supply
++ * @num_consumers: number of consumers to register
++ * @consumers:     configuration of consumers; clients are stored here.
++ *
++ * @return 0 on success, an errno on failure.
++ *
++ * This helper function allows drivers to get several regulator
++ * consumers in one operation with management, the regulators will
++ * automatically be freed when the device is unbound.  If any of the
++ * regulators cannot be acquired then any regulators that were
++ * allocated will be freed before returning to the caller.
++ */
++int devm_regulator_bulk_get(struct device *dev, int num_consumers,
++			    struct regulator_bulk_data *consumers)
++{
++	return _devm_regulator_bulk_get(dev, num_consumers, consumers, NORMAL_GET);
++}
+ EXPORT_SYMBOL_GPL(devm_regulator_bulk_get);
+ 
++/**
++ * devm_regulator_bulk_get_exclusive - managed exclusive get of multiple
++ * regulator consumers
++ *
++ * @dev:           device to supply
++ * @num_consumers: number of consumers to register
++ * @consumers:     configuration of consumers; clients are stored here.
++ *
++ * @return 0 on success, an errno on failure.
++ *
++ * This helper function allows drivers to exclusively get several
++ * regulator consumers in one operation with management, the regulators
++ * will automatically be freed when the device is unbound.  If any of
++ * the regulators cannot be acquired then any regulators that were
++ * allocated will be freed before returning to the caller.
++ */
++int devm_regulator_bulk_get_exclusive(struct device *dev, int num_consumers,
++				      struct regulator_bulk_data *consumers)
++{
++	return _devm_regulator_bulk_get(dev, num_consumers, consumers, EXCLUSIVE_GET);
++}
++EXPORT_SYMBOL_GPL(devm_regulator_bulk_get_exclusive);
++
+ /**
+  * devm_regulator_bulk_get_const - devm_regulator_bulk_get() w/ const data
+  *
+diff --git a/drivers/regulator/internal.h b/drivers/regulator/internal.h
+index 1e9c71642143..fb4433068d29 100644
+--- a/drivers/regulator/internal.h
++++ b/drivers/regulator/internal.h
+@@ -122,4 +122,6 @@ enum regulator_get_type {
+ 
+ struct regulator *_regulator_get(struct device *dev, const char *id,
+ 				 enum regulator_get_type get_type);
++int _regulator_bulk_get(struct device *dev, int num_consumers,
++			struct regulator_bulk_data *consumers, enum regulator_get_type get_type);
+ #endif
+diff --git a/include/linux/regulator/consumer.h b/include/linux/regulator/consumer.h
+index ee3b4a014611..628a52b8e63f 100644
+--- a/include/linux/regulator/consumer.h
++++ b/include/linux/regulator/consumer.h
+@@ -247,6 +247,8 @@ int __must_check regulator_bulk_get(struct device *dev, int num_consumers,
+ int __must_check devm_regulator_bulk_get(struct device *dev, int num_consumers,
+ 					 struct regulator_bulk_data *consumers);
+ void devm_regulator_bulk_put(struct regulator_bulk_data *consumers);
++int __must_check devm_regulator_bulk_get_exclusive(struct device *dev, int num_consumers,
++						   struct regulator_bulk_data *consumers);
+ int __must_check devm_regulator_bulk_get_const(
+ 	struct device *dev, int num_consumers,
+ 	const struct regulator_bulk_data *in_consumers,
+-- 
+2.38.1
 
-Andrew
