@@ -4,124 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2BB8C4332F
-	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 03:26:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99FECC4332F
+	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 03:53:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NCQL86j7Fz3cTC
-	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 14:26:08 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NCQxX6k9tz3cQ0
+	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 14:53:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=oAphoW4u;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=pu2FcKNn;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=os.amperecomputing.com (client-ip=2a01:111:f400:7eaa::712; helo=nam11-dm6-obe.outbound.protection.outlook.com; envelope-from=quan@os.amperecomputing.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f29; helo=mail-qv1-xf29.google.com; envelope-from=jim.t90615@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=oAphoW4u;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=pu2FcKNn;
 	dkim-atps=neutral
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (mail-dm6nam11on20712.outbound.protection.outlook.com [IPv6:2a01:111:f400:7eaa::712])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com [IPv6:2607:f8b0:4864:20::f29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NCQHt1B7wz3cLB;
-	Thu, 17 Nov 2022 14:24:10 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H/XLn2j1fWYOKHFlYNp9SL4y6z5HKUH8N1MxfGRGvsMLG0scSXRhlboHJdP3HOQpA+NHtK3idARpoYJ1auFAl1eC/FbTU5fCD7P4Vt6iGYZrEhuZ/Rd1mcu+94uR+8l8pMNHgTinxxVXqLcDEXvm4bEVvvLehnOaSiTjcu+oAF6i+noONAmIP8itfq6Ybw8JX3XJCVpgJgCCrVZ4Sma+48z/fVOzI6tvcvoBJqvprfeYyH67pBY2MpMOuJ7KNVpppIdlSsI3RPRKuDhwcTqKzI3BI93ffboZiRpIyalPKXqObx/xSvWy3MtbNKZQ/6ZxtktStj2P4tJ/mfXa0RT4vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v0H3mSvcnxlObHJYpZD1w1bfKTfsQ095RKzPqChWCrI=;
- b=jMtMPENkf7ejPGWId14xe5xOSPrq7UtPJxVkSdbO1kfvpy8oRmXmdTYT0TrpRHwtlIMD/Znn+3L326NllmkjnTK/IMFqWOyshcuKS3CTVoiqqOWlen4BDwskHUaImFRuW2m/e07G5qUfxaQkU8HoKNqWpHFsE8CInjzOpxw6RNUjtSsWKOXGSJRKearyxw4FTGQbv5mQkVoTa6Qbs4KHoDZjWL6DP40fFf2X9JaQzZylGNpOOU0JMndTff4O1BldGm7M9TKpsZJne+6ZQyPwOlCQhh7SoRO3l1CLxQtwoGYB3/G5Vc/9FcJ5TjcspSCa1jWovZMTKquOx7VuM7sCSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
- header.from=os.amperecomputing.com; dkim=pass
- header.d=os.amperecomputing.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NBwQd6c9lz3bjk
+	for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2022 18:58:15 +1100 (AEDT)
+Received: by mail-qv1-xf29.google.com with SMTP id o8so11425840qvw.5
+        for <openbmc@lists.ozlabs.org>; Tue, 15 Nov 2022 23:58:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=os.amperecomputing.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v0H3mSvcnxlObHJYpZD1w1bfKTfsQ095RKzPqChWCrI=;
- b=oAphoW4ucWBBCcQ1eSqXm7gY1E/rAYwrFBRsCuCKLdI15ft8TqNNdAEpKcz1U+7G6gUrBBXGpJI3rzW65kV+1R0fKh0WKuXXXRPjJ8EODME81G97UUR5ZlbnYh1E4LWs2w9me/hjCeXgI+svvWoMOkv8N08+/zPEvS/cCdGl8qc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
-Received: from SN4PR01MB7455.prod.exchangelabs.com (2603:10b6:806:202::11) by
- DM6PR01MB5050.prod.exchangelabs.com (2603:10b6:5:68::22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5813.16; Thu, 17 Nov 2022 03:23:49 +0000
-Received: from SN4PR01MB7455.prod.exchangelabs.com
- ([fe80::df7e:7f53:a83f:a86a]) by SN4PR01MB7455.prod.exchangelabs.com
- ([fe80::df7e:7f53:a83f:a86a%4]) with mapi id 15.20.5813.016; Thu, 17 Nov 2022
- 03:23:49 +0000
-Message-ID: <8562147f-b68a-e49d-c914-c8d9d00901d6@os.amperecomputing.com>
-Date: Thu, 17 Nov 2022 10:23:38 +0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.2
-Subject: Re: [PATCH] ARM: dts: aspeed: mtjade,mtmitchell: Add BMC SSIF nodes
-Content-Language: en-CA
-To: Joel Stanley <joel@jms.id.au>
-References: <20221024081115.3320584-1-quan@os.amperecomputing.com>
- <781ea7c7-b33e-f054-71eb-d760f7a01301@os.amperecomputing.com>
- <CACPK8XcCKK_o0hBA82k0CEcpbHXbHcUii3bgoGvHaGvtw2Q_Ww@mail.gmail.com>
-From: Quan Nguyen <quan@os.amperecomputing.com>
-In-Reply-To: <CACPK8XcCKK_o0hBA82k0CEcpbHXbHcUii3bgoGvHaGvtw2Q_Ww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR04CA0010.apcprd04.prod.outlook.com
- (2603:1096:4:197::11) To SN4PR01MB7455.prod.exchangelabs.com
- (2603:10b6:806:202::11)
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=mgGyuenVtFXuCVHks+5NNuVlkc2b6o69ZD4m/QGfTIs=;
+        b=pu2FcKNnKmYX8n8ReZH0BUxp8JnZXV8eos5dZGhtCG5CWtOBuPPD4F4nWNrYze0RR1
+         6y7cMVsZPR2aVAbxBEYu37bOWJKK7bDZyoyPjcFhxubcPGAzoosnfKviwCxF/Yp5nByO
+         PWMZIuqzLGPKKDkf5HCP6Qfep9jh4rpSiivrZM/B3LtEAxH2v21PwLMubC72O0CeIAwQ
+         ITchSaF6Dt++GaIS/lHpqxvs9cOryvVxazw+rlgdwz/kaYWakTJBcsIWAvuBFetWDWwi
+         P0bl4++dn6PY46ZevmrDf6w+wKLv8iy5qrfR+9EIBjCN0FRgWmNZClMN9NJV9nLicbCP
+         auLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mgGyuenVtFXuCVHks+5NNuVlkc2b6o69ZD4m/QGfTIs=;
+        b=ol+b0KlwUu9iCPDiBvZevbbtu9Cy4Wm9Hqna8BIREjREd2XIUmob1BmKoA8T67peWJ
+         kh7mNgpB2GEhUEuPXy+AZbV4uMOp6ro4zKj/f9bsKbtks3FOaxldq/nDB+trRM+9HX/v
+         5qDdJJJtqCTH2x4qtV3wQGioDeesy1GmTZcjdWpgJXMCEK+uptoTGAFDSdMpslPHydmr
+         3UVSJ2Ok+A9PpzhnprjiG0hzKz3Oj3YDw8R4znV+T/utNlgLY65ytgxKEpcCpbtFW3GO
+         OzPEM42Q3rKF30vuIBHjhTK2yzL5Qrlbc5h3YaDTW7nGwlDILyo5HAjI83Hf36IMcFeP
+         fvMA==
+X-Gm-Message-State: ANoB5pn5zYZmCqiRfGMBjntsHCqOkQTZaKO1HrJlo3mL/TVIYNwr8hkL
+	EoppXSOE1LZcfs/MQ302S4jO3iQx5xlWEkYq/FyhfLwlSYA=
+X-Google-Smtp-Source: AA0mqf59/oE5htmWmVTO0J+J3GfnZeKnwkr103ntUrrNiEoJMv8reHdQpR1d8lcUI8ApFf7xkEp+4hpiffBVAiXP8rw=
+X-Received: by 2002:a0c:ed34:0:b0:4bb:73a4:c1dc with SMTP id
+ u20-20020a0ced34000000b004bb73a4c1dcmr20026016qvq.41.1668585491008; Tue, 15
+ Nov 2022 23:58:11 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN4PR01MB7455:EE_|DM6PR01MB5050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12a3b9ce-2c56-43ff-13f8-08dac84b247f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 	7gtorwebTpL5/WLFcyOzJK2c/xhG54vm42SCzFYLfWYK4amgORR34VCz2CeDd8O/qXBKZFrvCWb4JTug4NX5aMYvk3rkhiUp/7GxlwHrGK1+vtkvf67nXjJzJrNeGu/SqmlPdh3YTMKG5BH4aqWNN8fs+WJ/GmnW+USjPC6Sear5G+DOzG0BEhKCQNdKh/b84duArogEOPZe7HEMwIiml9dfbgXR77cNPFnJ2FyRP15pf4oGVsB+Y1GVdx5aW7xCLFrC9n7VZmkHGO+W3/PxARXzLk/sbrnlbvZP+sRDqQNAhfR1ZfdTlV+U2AFNacQQIwnFTtpcKPTQNa+fakhQAb77uYqiUd+2ZSaxvK9SjS5/uaCTWj9160gWvpR3P8fdfA3QtNO7Sdj6scaegs4+XVlaN2vBuXhKfxQiAOEmrs9LbnzYFdmy4OD2kyQx5mO+hawDJ6eANLsTwi88NKHD3c+GMA9kiI2Q/j2TNxlAsX1qNs6aKE9MbMGvZR6wuXoNhWsSAhsmjozADYcjRKGOae1v9oDnRcOqx7B4mEitwdVUI2FWLf59yN6mGz66ZnbQAem1+P4nnMROhr1u6/reEX8UGNuqfMTE2ZI/LJhA1UhHjttksDY5SQ8PRNGQBzcLrbDptPFXl09VYKdeOj8PCOMLA/PHrgpZiyM1tQXl6lP5Qy3TAJbgKJ6aa8LFgVprssCC4C2bIytCOwxHF2c3BoObNdZdgSltwq+LMLDGsqg+6/QF2KsEZr/tZNal2VciVg7J79q8aRvpyEynBvh+hytghD/TAc7ljtMG14Wn1cg=
-X-Forefront-Antispam-Report: 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN4PR01MB7455.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(346002)(136003)(396003)(39850400004)(451199015)(478600001)(107886003)(6916009)(316002)(6666004)(6486002)(41300700001)(66946007)(4326008)(8676002)(66476007)(66556008)(2616005)(186003)(8936002)(5660300002)(2906002)(26005)(6512007)(6506007)(38350700002)(52116002)(54906003)(31686004)(38100700002)(53546011)(31696002)(86362001)(43740500002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 	=?utf-8?B?dm9rK3dyZ3J0a0wwS2daRldwaW9jUzVYbGQvM2hUNmR6cWtqTkxpVXVwcFNV?=
- =?utf-8?B?SFR1Q2NJTjhBQnNvR0NDb2phRVA3RndIY01NZzRXcFZWd1FEaGdmMXI4aytB?=
- =?utf-8?B?ZDFDQjhkV1VURzhtRkNHYkRvK3Jlc0E5QnVBdDJUbStKLzZPTUpXQXd3SjZ0?=
- =?utf-8?B?MzRJbDg4RXhGSFVwaERBRVNzZlh0WElRYzM5TjdiS0Z3MzVKNU1NZTFBbUpq?=
- =?utf-8?B?SmozMUhPZEhQbFVSMFY2YmRVYW81RVdYNkNoSkMrd0Z6SVMyWEhRQnQ0VDZQ?=
- =?utf-8?B?MnhlZ3RsSVVXeVF1ODhZdng2ZWlOSGZLUjNiNEdRak8vbmtiaTJ2TWJCR1NU?=
- =?utf-8?B?SVZhZUI2TFAwYnNGZm9NRXZoWkM0anArZENQcnlBWGtneWNtYVBBRy80Znky?=
- =?utf-8?B?RURyanFwUE85UDRlbXBDVnZHTXlDd0lmamdwTmF6cGE1VUUxMWtBeWNlODRJ?=
- =?utf-8?B?MFA3R20wYVQzOC94ZGdDRnRWMVBycTFLYWdZejg4aHhPK0srU2VzVG9RQlMr?=
- =?utf-8?B?b1hLc2F1bHg3MENqSUtyejNSeXBaaEtQYjhFODJIQ1NqU0oxM2hyN3EraGRX?=
- =?utf-8?B?elljeGUzZnlKZ0ZQSnpmZFdIQ2ZmZlVHSGtQU01nTE45QkhpM2IvRytBbklw?=
- =?utf-8?B?SnhxWlVYQUo2bzRla2YzMG81SzNYOGNxRjZ6emNDazA1Wkp6S3ZiMHRNcmNr?=
- =?utf-8?B?Myt5dk90bWlEemRsMFdoa3l0N05RL0RQZkQxeUVlVGRKazVYUFRhdEZzTVVC?=
- =?utf-8?B?VFFmcjFKUUdUTDUzMDZ0MGMyaEs4R3RrZERpYWxndFFuNFQ0Zk9nWVhiL0N0?=
- =?utf-8?B?Q2ErUjRzdTJIdGM2TFh3SXNQSm1NZ1BmR1dKVGVkRzlpWFBCZkJDemJxMHFi?=
- =?utf-8?B?YkRFbWpSaC9naURwQnJURnVsbkZlL2xnUndHUGpIWTFMckc4blN6ZmM2WEhV?=
- =?utf-8?B?Yk9sOURySE43WE5GWkJHK3pGckp3UjZTblBmajlhWW1ESnRhd2Nrdk96Lzky?=
- =?utf-8?B?RmhHM2E1N1plbXpLYW9aWGxCS0JiMGFmeTYyUE9CSUJzOXcxblkva1ErY25G?=
- =?utf-8?B?YzZTRGhPdm1vVjdXY0VZcTFiajcvbnBNR2xWcnBvd1MxU0g3ajFxdEVIdDY1?=
- =?utf-8?B?ZzBZREd6bFd6OWpZV2FETS90ZVJ4UHU2bjlucytMeTRPVFprbksyZlh2SWk2?=
- =?utf-8?B?VERmRG5XcG1IZCsxVkdESmo3Z0djM25GQkxiS21sUGYwQ1U5eFFCTkFiTEJO?=
- =?utf-8?B?YXNwdzBMYXhpa0tmdnQ1NXI2V0VJQU9GT05mTkh4b21EWVJ0d25LTTZMRUo2?=
- =?utf-8?B?alQyNlIrMXZ6bTVSS2JkZXVFckZCcXpmNzQrblhnTC8yOTZNQ2QyRmhxNnRu?=
- =?utf-8?B?TjR0M281eVNxZVRmYTh4TE1JNlRnL1BJbzB0S0dHQWgrbXNMbGpHNUJGdFVo?=
- =?utf-8?B?QXRPcW1ZNlR3bWR5cFdtTm1CbEd2dkMvZXFvR2N4VG1pZk8reFVESzVsUWw1?=
- =?utf-8?B?NmxDM2dFU3pVeFNTTVY1VnZxTGoyWHJueWt3MVp5b1oyU0Q1UFYyOFEzSHNG?=
- =?utf-8?B?SHg4U0RXcUZINDRyY0JWaWVyaUxTMk56VHBJbnhrdHFLc3NtYWlVQWRjRGdN?=
- =?utf-8?B?M2dlOGZMNmVGbmZ6MDhWenZhd1Q5OVNaVjVCMjBiUGZEYXpHYW4yVHh0czJz?=
- =?utf-8?B?VVN1VHc0V1E0OGpuR1FUV0d1b2g3ekkrOFhIamJRaWZ1Y3Y1WkZqMVNiKzJX?=
- =?utf-8?B?UTM5NUxra29ndy8yc3NEN1dBWHV5dEVZUFIwUXQ4aXZ6SjdqR0VXQ1dPRTJM?=
- =?utf-8?B?cE9zSnd6R05KZXpBcFNUbkJmS3RCeXN3REZYM051cHY1OGgwcGk2TnFjelRp?=
- =?utf-8?B?WXhYRHpVd2l3cU04ZTFOd21uVXhJTUgwSDJNM2xQeEF1RmhrYW1XeXI4cTJQ?=
- =?utf-8?B?Sm9wdklZRVBKNzg4OXM5Zk9XVmFRVlpBK0Zoc05rWTlwSlNNSXNzK0hkc2ZO?=
- =?utf-8?B?U1J5VzJEMWpEN2xBZFBPZnh2dHpLTFRLOFAwallaOHY4NWZ5dXNWRW85OTZz?=
- =?utf-8?B?THBaSExNQTlnbklWcktEcEZPMG1PTWhPY0lESFJNSTU5WEY4N2pYNVdsbnVW?=
- =?utf-8?B?Nm02WXB2aUtncW1IMjcySGlJdGxpK0pUQXR1ZTBKbHlReVNsaTNSbmkrZWpB?=
- =?utf-8?Q?Iw6yej4QR9el0HnMAUTGCIA=3D?=
-X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12a3b9ce-2c56-43ff-13f8-08dac84b247f
-X-MS-Exchange-CrossTenant-AuthSource: SN4PR01MB7455.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 03:23:49.1912
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4szbR3crtL/vMui4MheLEGj3JxWzBR/WxXiA6TOpe36FgfUDI6ASgBAR8vMhe4aLoYsMGwOH+tZf6HdprjouRK9VVwz1qRJrqtDEYMdwROo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR01MB5050
+References: <20221108092840.14945-1-JJLIU0@nuvoton.com> <20221108092840.14945-4-JJLIU0@nuvoton.com>
+ <CACRpkdb+Bkwa8yCKGtRcsJ6KnJh+RUuz_gOrQV63pcYQLaHCaw@mail.gmail.com>
+ <CAKUZ0+GCf_Zv=VhnY5Z=yYAfR1=_ha98BVVxRGVy8ui6so_Yrg@mail.gmail.com>
+ <CACRpkdYW0P8gqtGdiRX_frP32WF2W=NVg1JTu1fVMBXxEL0-WA@mail.gmail.com>
+ <CAKUZ0+Hy5suFg9VZ8-+cH7kGc5KLqUnf9hjnT+iaw+a1HF8x0A@mail.gmail.com>
+ <CACRpkdYbS_syVwgc=YndkV-DpEF0K8NpH6WzP=g0AFpN+OTN8A@mail.gmail.com>
+ <CAKUZ0+FD=x8s+vqUpYwsuRUw-yTHQjtTFzWDwW=d4k8X1x1LoQ@mail.gmail.com> <168ed6e6-21bf-f034-504e-6da36842f4bc@linaro.org>
+In-Reply-To: <168ed6e6-21bf-f034-504e-6da36842f4bc@linaro.org>
+From: Jim Liu <jim.t90615@gmail.com>
+Date: Wed, 16 Nov 2022 15:57:59 +0800
+Message-ID: <CAKUZ0+Hu4C9qfSZ+zw4eVtWpYF9pr5c6nBAWTt2ehmnf+-j5BA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] dt-bindings: gpio: Add Nuvoton NPCM750 serial I/O
+ expansion interface(SGPIO)
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 17 Nov 2022 14:52:26 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,65 +81,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org, thang@os.amperecomputing.com, linux-kernel@vger.kernel.org, Phong Vo <phong@os.amperecomputing.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Open Source Submission <patches@amperecomputing.com>, linux-arm-kernel@lists.infradead.org
+Cc: KWLIU@nuvoton.com, devicetree@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, brgl@bgdev.pl, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Krzysztof
+
+Thanks for your reply.
+
+Our sgpio has 8  regs to control output and 8 regs to control input.
+Each reg size is one byte.
+and the sgpio interface has 4 pins(s_clk, d_out, d_in, LDSH).
+
+The clock is generated by APB3, and one operation cycle includes input
+and output
+beginning the signal, the  LDSH is low and now will send output serial data ,
+after finished output serial data the LDSH will be high and get serial
+input data.
+
+The in/out serial data size is byte * ports , and direct to update the regs.
+
+> the driver will open the ports to use.
+> ex: if  i set d_out=9   and d_in=20
+
+The Soc is controlled by port, not by each bit.
+So if users need 9 output pins, the driver needs to open two ports,
+because each reg is one byte.
+if users need 20 input pins ,the driver needs to open three ports.
+
+The list has some rules for use, The first half is the output and the
+second half is the input.
+the example as below:
+if i set d_out=8  d_in=8
+
+root@buv-runbmc:~# gpioinfo 8
+gpiochip8 - 16 lines:
+        line   0:      unnamed       unused  output  active-high
+        line   1:      unnamed       unused  output  active-high
+        line   2:      unnamed       unused  output  active-high
+        line   3:      unnamed       unused  output  active-high
+        line   4:      unnamed       unused  output  active-high
+        line   5:      unnamed       unused  output  active-high
+        line   6:      unnamed       unused  output  active-high
+        line   7:      unnamed       unused  output  active-high
+        line   8:      unnamed       unused   input  active-high
+        line   9:      unnamed       unused   input  active-high
+        line  10:      unnamed       unused   input  active-high
+        line  11:      unnamed       unused   input  active-high
+        line  12:      unnamed       unused   input  active-high
+        line  13:      unnamed       unused   input  active-high
+        line  14:      unnamed       unused   input  active-high
+        line  15:      unnamed       unused   input  active-high
+
+the line0~line7 will map to output reg1 and line8~line15 will map to
+input reg1 and so on.
+
+and thanks again for your suggestions and information for dts naming.
+So I need to modify it from sgpio1 to gpio8
+am i correct?
+
+Best regards,
+Jim
 
 
-On 17/11/2022 10:01, Joel Stanley wrote:
-> On Wed, 16 Nov 2022 at 07:06, Quan Nguyen <quan@os.amperecomputing.com> wrote:
->>
->>
->> Just a gentle ping about this patch.
->>
->> Thanks and best regards,
->> - Quan
->>
->> On 24/10/2022 15:11, Quan Nguyen wrote:
->>> Add BMC SSIF node to support IPMI in-band communication.
->>>
->>> Signed-off-by: Quan Nguyen <quan@os.amperecomputing.com>
-> 
-> Applied, thanks.
-> 
 
-Thanks Joel.
-- Quan
 
-> 
->>> ---
->>>    arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts     | 4 ++++
->>>    arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts | 4 ++++
->>>    2 files changed, 8 insertions(+)
->>>
->>> diff --git a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
->>> index d127cbcc7998..353359822d7b 100644
->>> --- a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
->>> +++ b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
->>> @@ -342,6 +342,10 @@ &mac1 {
->>>
->>>    &i2c0 {
->>>        status = "okay";
->>> +     ssif-bmc@10 {
->>> +             compatible = "ssif-bmc";
->>> +             reg = <0x10>;
->>> +     };
->>>    };
->>>
->>>    &i2c1 {
->>> diff --git a/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts b/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
->>> index 606cd4be245a..4b91600eaf62 100644
->>> --- a/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
->>> +++ b/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
->>> @@ -445,6 +445,10 @@ &i2c9 {
->>>
->>>    &i2c11 {
->>>        status = "okay";
->>> +     ssif-bmc@10 {
->>> +             compatible = "ssif-bmc";
->>> +             reg = <0x10>;
->>> +     };
->>>    };
->>>
->>>    &i2c14 {
+
+
+On Tue, Nov 15, 2022 at 5:58 PM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 15/11/2022 10:21, Jim Liu wrote:
+> > Hi Linus and Krzysztof
+> >
+> > Thanks for your understanding and your suggestion.
+> > I will follow your suggestion to modify the yaml file.
+> > -> nuvoton,input-ngpios = <...>
+> > -> nuvoton,output-ngpios = <...>
+> >
+> > And I don't think the node name needs to use gpio.
+> > because it's not a general gpio, so I reference aspeed dts and use sgpio.
+> > Could I use the sgpio node name or could you provide some suggestions?
+>
+> Aspeed DTS has poor code readability (not following several common DT
+> conventions), so using it as an example or argument is not correct
+> approach. Nodes have name "gpio" for GPIO controllers or one of
+> pinctrl.yaml for pin controllers.
+>
+> Best regards,
+> Krzysztof
+>
