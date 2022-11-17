@@ -4,65 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16F6C4332F
-	for <openbmc@archiver.kernel.org>; Wed, 16 Nov 2022 19:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 253E1C433FE
+	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 03:03:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NCC7l0fcCz3c6k
-	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 06:01:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NCPqd1g7mz3cLr
+	for <openbmc@archiver.kernel.org>; Thu, 17 Nov 2022 14:03:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=RXw4H5M3;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=C2jhk9al;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::42b; helo=mail-wr1-x42b.google.com; envelope-from=edtanous@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=RXw4H5M3;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=C2jhk9al;
 	dkim-atps=neutral
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NCC6g4Xc9z3bYF
-	for <openbmc@lists.ozlabs.org>; Thu, 17 Nov 2022 06:00:26 +1100 (AEDT)
-Received: by mail-wr1-x42b.google.com with SMTP id o4so31338828wrq.6
-        for <openbmc@lists.ozlabs.org>; Wed, 16 Nov 2022 11:00:26 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NCPpP6Pk7z3cLF;
+	Thu, 17 Nov 2022 14:02:03 +1100 (AEDT)
+Received: by mail-wm1-x334.google.com with SMTP id a11-20020a05600c2d4b00b003cf6f5fd9f1so706540wmg.2;
+        Wed, 16 Nov 2022 19:02:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
+        d=jms.id.au; s=google;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=zjwfR8HzuTvk+D3JgdxWzRmfAZMayBouv3Y8rBS/QeM=;
-        b=RXw4H5M3UcRJLgfM/R74TwPPMHEyTXhWppbEABsPpb4/bnqrNzU1oRRgoXnKNqZAlR
-         P/qmeI9HfTGUvNZ/ubKpONYb4m9OPykosr23TpSmquK3Hi1q6T70bO/rzd7ziFrPoC8m
-         2Gk/lnoTiFbM/HEMLq4RStoUA8jcEmSUTyB6BFqyu/lbaAXHpq5em+89LBI7SEVfwmp6
-         BcBZu+4wZ8ptpIDNzl0mrWBprYcwZys6eXYDu4TXxwJyBphkpNPhfWiTkAfoqBtcgz+9
-         8CJgbnCk+tBFElWTeT6RQWx9nBJu8MHvXmcgY8xopgWGmRPj3xrGiIxOqWh/YJ5lmpV+
-         qG3g==
+        bh=oZNyOtjou7UGJa2BliLM3P7z/CgeMGDCK77AaNy+wyQ=;
+        b=C2jhk9alJDbZ5zE2SEo1NUOVF583b2PxjyxmXI5EDaCEimWEeZn2/rHcTvHgV2DaGt
+         WDY4CH0W4wb0jqG3tSeTV2vcZjeTa9t/iKjPs/MGiKk6C+ZYPelvaw1l5GJE16xIcmIz
+         KCxTB43Hz/DU5YZXIkjtjitro4guGbjADT4YY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zjwfR8HzuTvk+D3JgdxWzRmfAZMayBouv3Y8rBS/QeM=;
-        b=X8uBopanNcNC3LjCccxknzeoTmaYx3k+4G+FKRoVes3ySWqowz6dbI1DKFb8r84FZE
-         1bZTtzZZrPC6Vs9bTtLEprXFTsVUKr0fLm0UZ8HAWxZRuCZFHHxqdhEv4zlN+FuoqxSu
-         lxmDiv5gW3WOAa/7U6NZKO62x2F81GeYX8tof30hcBeqhbJC6Wg74np+OeLSpnj+pQVi
-         T80sZ/nKztmtgp0T8dJ+ChvJIKY0CUGWopfmyCL9ZkE2PAFP+jH2qPJ+cXVhUHCI2JR2
-         Tv0Kz9JhkKnECbvXTnqlUI7/0XI+AgMj0dB2I4LE/a1n5n2ciAlEm3xNwBcBfT6I5si/
-         xijw==
-X-Gm-Message-State: ANoB5plN7HBPScMDmyUA7qgV9yg0dNXodM0R1+KA7yAzpqAY5CPgQslU
-	StF0L0SlWUy+fSNz0T9QZClNb6j6TKRkbMQS+x/05e6iR9CuBHe8
-X-Google-Smtp-Source: AA0mqf4HsOpyJWIQs3q9FTX6mDsQhJ9XADElSiS7LK6VNLJTDW/1B08cLOMxtUoF570q2ojYdTVNCHjY6Vz7nOBXjbE=
-X-Received: by 2002:a5d:62d1:0:b0:232:c489:90e6 with SMTP id
- o17-20020a5d62d1000000b00232c48990e6mr14293678wrv.68.1668625219393; Wed, 16
- Nov 2022 11:00:19 -0800 (PST)
+        bh=oZNyOtjou7UGJa2BliLM3P7z/CgeMGDCK77AaNy+wyQ=;
+        b=W2Up6WE2tiEXCmG+qOfSPNzDb16Dbb3ckBZXaGg7fO9nHMwGnwZGymORABwWviVubu
+         eub0BiHWESTFS+F49Egci0gDgn8Y7II/KmDxqjVvwap+pXLKTc6H4Xe00Hvuc9NTxQxT
+         rOVUHQC2dg5J+/pjD1ApIQ52BeQhrSd6qprEg3M3vjNZIEPhOzldu6kp4WnDQ/Ls/pwN
+         FHYPaZxX4dnDOZqiXbsHmlkuysJMlMdjAjt2sO3ruvyvpts5lpJ8JG8bja64+yxPQnSn
+         RXZnjokR/V4iDV2m9BNB4TgfOAwKM401HeIkrnYzM8AM4GHKBRKq0PEEZH+VSsXwJG0P
+         7iBw==
+X-Gm-Message-State: ANoB5plIrHWZkErdr+0cqzRm1QLou+XfCEuxhiQp0thMNz0fY7Hb5FdI
+	rKIC3FpljxpbeTaaw1KR7UAPWLZd5mHVIzZsZB8=
+X-Google-Smtp-Source: AA0mqf5i0jUWFC4j+cDibzi3Vs644huDdFdGP0IPBdvtnKtWfTcCOdK582I2KflVIQxdgy1oF4QmbhOO9vJplBbSQxc=
+X-Received: by 2002:a7b:cb83:0:b0:3cf:96da:3846 with SMTP id
+ m3-20020a7bcb83000000b003cf96da3846mr3757718wmi.10.1668654117812; Wed, 16 Nov
+ 2022 19:01:57 -0800 (PST)
 MIME-Version: 1.0
-References: <CA+H48BRsTM4B_MHreMZG+_9abbjp5G2jcxmiMwqiPGrFytWWTg@mail.gmail.com>
- <CAH2-KxABvChOBiOPqMZfjhCfByBJj0=h0PKZ6HcATZoEoYkUqQ@mail.gmail.com> <CA+H48BTnEp5w-LgnswBgtxxLMbkCyLPs7cL7bAOsic7Tuix=Sw@mail.gmail.com>
-In-Reply-To: <CA+H48BTnEp5w-LgnswBgtxxLMbkCyLPs7cL7bAOsic7Tuix=Sw@mail.gmail.com>
-From: Ed Tanous <edtanous@google.com>
-Date: Wed, 16 Nov 2022 11:00:07 -0800
-Message-ID: <CAH2-KxDJJjLogUXBOJ6jj+X-Himwi6rqy1hrGkdxHkGsfZxkww@mail.gmail.com>
-Subject: Re: Performance: BMCWEB prioritizing URI response in multiple redfish
- clients environment
-To: sharad yadav <sharad.openbmc@gmail.com>
+References: <20221024081115.3320584-1-quan@os.amperecomputing.com> <781ea7c7-b33e-f054-71eb-d760f7a01301@os.amperecomputing.com>
+In-Reply-To: <781ea7c7-b33e-f054-71eb-d760f7a01301@os.amperecomputing.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 17 Nov 2022 03:01:45 +0000
+Message-ID: <CACPK8XcCKK_o0hBA82k0CEcpbHXbHcUii3bgoGvHaGvtw2Q_Ww@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: mtjade,mtmitchell: Add BMC SSIF nodes
+To: Quan Nguyen <quan@os.amperecomputing.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -75,98 +70,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org, thang@os.amperecomputing.com, linux-kernel@vger.kernel.org, Phong Vo <phong@os.amperecomputing.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Open Source Submission <patches@amperecomputing.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Nov 16, 2022 at 9:49 AM sharad yadav <sharad.openbmc@gmail.com> wrote:
+On Wed, 16 Nov 2022 at 07:06, Quan Nguyen <quan@os.amperecomputing.com> wrote:
 >
-> Thanks for your response. Responses inline.
 >
-> >  Can you elaborate on which URLs your clients are accessing?  Is this
-> >  on an upstream SHA1 of bmcweb?  Do said clients implement HTTP
-> >  keep-alive?  Keep-alive is important, because otherwise the bmc is
-> >  negotiating TLS for every request, which can be quite slow, especially
-> >  when done in parallel.
+> Just a gentle ping about this patch.
 >
-> We are at the latest bmcweb upstream code.
-> We have 4 type of clients collecting set of URIs:
-> All thermals: /redfish/v1/Chassis/<str>/Thermal/
-> All other sensors: /redfish/v1/Chassis/<str>/Sensors/<str>/
+> Thanks and best regards,
+> - Quan
+>
+> On 24/10/2022 15:11, Quan Nguyen wrote:
+> > Add BMC SSIF node to support IPMI in-band communication.
+> >
+> > Signed-off-by: Quan Nguyen <quan@os.amperecomputing.com>
 
-When you say latest, do you really mean latest (rebased within the
-last couple weeks).  There were some pretty significant performance
-increases made in these APIs.  There's even yet another still pending
-that you might try:
-https://gerrit.openbmc.org/c/openbmc/bmcweb/+/57653
+Applied, thanks.
 
-> All inventory: /redfish/v1/Chassis/<str>/ and /redfish/v1/Systems/<str>/Processors/<str>/
-> Log services: /redfish/v1/Systems/<str>/LogServices/EventLog/ and /redfish/v1/Systems/<str>/LogServices/EventLog/Entries/
-> /redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/
 
-If you remove the two EventLog APIs, do your problems go away?  These
-endpoints are known to use blocking filesystem calls (which is now a
-documented anti-pattern, and we have alternatives like io-uring) but
-could be the source of your blocking.  That would be a lot more doable
-to fix to use non-blocking calls.
-
->
-> All clients implement keep-alive so clients avoid the TLS handshake penalty.
->
-> >  I'm not sure how a priority system would work in this case.  Can you
-> >  elaborate on your idea?  There is currently no queue outside of the
-> >  TCP kernel, and async tasks in io_context.  Which queue were you
-> >  planning on assigning priorities to?
->
-> We want to prioritize our thermal sensor URI.
-> Is there a way to prioritize HTTP requests over D-Bus response messages in bmcweb?
-
-I can't piece apart what you just asked for.  To create a response for
-a sensor object, the flow goes:
-Http -> bmcweb -> dbus -> sensor daemon
-
-if you "prioritize" http socket actions, then your end state will be
-no faster (possibly slower) because the dbus calls required to get
-that data are de-prioritized.  Can you please expand on what you're
-thinking, ideally pointing at the specific queues (in code) that you'd
-like to make a priority queue?
-
->
-> Thanks,
-> Sharad
->
-> On Wed, 16 Nov 2022 at 21:59, Ed Tanous <edtanous@google.com> wrote:
->>
->> On Wed, Nov 16, 2022 at 5:28 AM sharad yadav <sharad.openbmc@gmail.com> wrote:
->> >
->> > Hi All,
->> >
->> > We are facing a delay(till 6seconds) in bmcweb URIs responses when there are multiple clients(4 in our case) performing GET requests in parallel on different URIs.
->>
->> Can you elaborate on which URLs your clients are accessing?  Is this
->> on an upstream SHA1 of bmcweb?  Do said clients implement HTTP
->> keep-alive?  Keep-alive is important, because otherwise the bmc is
->> negotiating TLS for every request, which can be quite slow, especially
->> when done in parallel.
->>
->> Can you put together an example script that reproduces the issue?
->>
->> > We have a very important telemetry URI, used for thermal monitoring. On standalone, telemetry URI response is within 200ms.
->> > But with multiple clients, telemetry URI response reaches till 6seconds.
->> >
->> > Can we get help on how we can assign priority to our telemetry URI over other URIs in bmcweb?
->>
->> I'm not sure how a priority system would work in this case.  Can you
->> elaborate on your idea?  There is currently no queue outside of the
->> TCP kernel, and async tasks in io_context.  Which queue were you
->> planning on assigning priorities to?
->>
->> >
->> > Thanks,
->> > Sharad
->> >
->> >
->> >
->> >
->> >
->> >
+> > ---
+> >   arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts     | 4 ++++
+> >   arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts | 4 ++++
+> >   2 files changed, 8 insertions(+)
+> >
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
+> > index d127cbcc7998..353359822d7b 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-ampere-mtjade.dts
+> > @@ -342,6 +342,10 @@ &mac1 {
+> >
+> >   &i2c0 {
+> >       status = "okay";
+> > +     ssif-bmc@10 {
+> > +             compatible = "ssif-bmc";
+> > +             reg = <0x10>;
+> > +     };
+> >   };
+> >
+> >   &i2c1 {
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts b/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
+> > index 606cd4be245a..4b91600eaf62 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-ampere-mtmitchell.dts
+> > @@ -445,6 +445,10 @@ &i2c9 {
+> >
+> >   &i2c11 {
+> >       status = "okay";
+> > +     ssif-bmc@10 {
+> > +             compatible = "ssif-bmc";
+> > +             reg = <0x10>;
+> > +     };
+> >   };
+> >
+> >   &i2c14 {
