@@ -4,64 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 771F4C433FE
-	for <openbmc@archiver.kernel.org>; Tue, 22 Nov 2022 01:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75030C433FE
+	for <openbmc@archiver.kernel.org>; Tue, 22 Nov 2022 01:56:02 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NGRnj4Qtwz3cLB
-	for <openbmc@archiver.kernel.org>; Tue, 22 Nov 2022 12:42:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NGS5r64NLz3cFP
+	for <openbmc@archiver.kernel.org>; Tue, 22 Nov 2022 12:56:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=EtFDMxmv;
+	dkim=fail reason="key not found in DNS" header.d=amperemail.onmicrosoft.com header.i=@amperemail.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-amperemail-onmicrosoft-com header.b=4uoXyHLd;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42e; helo=mail-wr1-x42e.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amperemail.onmicrosoft.com (client-ip=2a01:111:f400:fe59::716; helo=nam12-dm6-obe.outbound.protection.outlook.com; envelope-from=thang@amperemail.onmicrosoft.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=EtFDMxmv;
+	dkim=fail reason="key not found in DNS" header.d=amperemail.onmicrosoft.com header.i=@amperemail.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-amperemail-onmicrosoft-com header.b=4uoXyHLd;
 	dkim-atps=neutral
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on20716.outbound.protection.outlook.com [IPv6:2a01:111:f400:fe59::716])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NGRmb0JrMz2xl6
-	for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2022 12:41:02 +1100 (AEDT)
-Received: by mail-wr1-x42e.google.com with SMTP id cl5so22566846wrb.9
-        for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2022 17:41:01 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NG3HQ1NSkz2xmg
+	for <openbmc@lists.ozlabs.org>; Mon, 21 Nov 2022 21:17:51 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PV+czQ1o7XpVqkWqRnrAptb8J/+8D3zfNmyHpjoFkgTZ2T9iNDJ48fOsPdiB83mwecth40iB37UDpO8hz3ClyorW4WEOhaKztQZxnag9+hyunW3wmbDlQS29NDWsR8uGpAzt2XZtH5ri9/SA5X42g5XQkr6K7SfS3RKBe5LgzhASx+KD+vbDFdsOR8iZrZ+6W9HpR57CH6i8zLSw1VFblsQn/VQwrq8nbhV8b/myjVbGGMEHK4AZHYzeZ4C0CkYO8MQcUMhVC7eyzwCvXHyWIInvUSoSMmdeUSZONmmvycFWskvgw+t8gkGtshyjyz5SLT8yKAJDzGOjFGILYK4OQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C/3C8Zmu2lmuiCI7vraBdjZtXdsbKROsFs5gym8l/NA=;
+ b=gubDqJIceBynvPd2K0jIUPqMjSi1VZY39C5eOQaWGFxBGPaEl8oPolLcA/2cd/kcW+z/Y6aMhUIa2qAyxyJRQD4OG4uDzX/uzXe/VCppzS6rhbqX3u41iquw9/9HFUokdaCYcB0dXNUmmkUO5blY6rm+KqXfqrOdRTMC4lR8cDJTaQmsMBCyr55d18n+cdLVLIwMrOBKXhyV0d497x8TNu4cqnw6szQLJvIo0KTWjuwFMy2W+JM8acTz+0M6GnHf+e+rzR5iVzysD1PByspNFz46NrZ6w8fY7R2ihrgBj4mwQmeoVkBKIxpKU7DrKfQiI2dYd8yGRJlz5AqMFnoKhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amperemail.onmicrosoft.com; dmarc=pass action=none
+ header.from=amperemail.onmicrosoft.com; dkim=pass
+ header.d=amperemail.onmicrosoft.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jms.id.au; s=google;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=54RP2IWIIhy2xxrG6c6vLV9h3bx5Ywa0moelQvuO0uI=;
-        b=EtFDMxmvIub6AsvD5gUZq2j5iVqjX7b7XEX5dtvzYtqsqABsmsM4uIIZWxNPm9dISL
-         fK7m5cnFEK2m/3pm4yVvUsnyMgB7C0F+Z2yN7uo9lmxccGBUlVsGtqskMGcmA/RT2joC
-         obhoRSzaSLN2YtWMgaEq9BSTIcc3q02Wiv2Bk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=54RP2IWIIhy2xxrG6c6vLV9h3bx5Ywa0moelQvuO0uI=;
-        b=Ma4HonR7m6rJSxr9Aahk+CZ3EpLQIu8+/h8UDHfhz5DZ+yRo6LqiLee5+mEbBMiXLe
-         TrOmMvQMk9Kt2fWQDbtcvJ5kN7Ud/ox528bzKUY3UbrH9AIBTaT623/NTbZCpWnljs6W
-         wfet0l5G6KFYMXx3I+z2cPvIcvVQNBIXoNFurh4y9mJZIntReEv0lUlSeThHECNNPqtG
-         a9Q61ROqbN2D/nD8LnGVcWeQTEO20DjAHy+dmdneJLGCuUUL1CK/gUOxT/yrltQYU2XK
-         9856UfznvBtdwQYcg7e+65+m0K5HWU9eEcYT8r6BoHVh8ANc7k2sjkuz1l/XNYEPnNKv
-         keug==
-X-Gm-Message-State: ANoB5pkuBKbIpMBn2TSjKcQTBgnJOOR1GhfotNna19UsivlaCw+YG68l
-	76drAjAUEq9cWWm/RIQL3sW7RrIQUjorqCGQPlw=
-X-Google-Smtp-Source: AA0mqf4wL1IspdUOJeOJ/cWD2vinkqtYh79NadtQHo1Z0VjTDwiPzWDFg7XEJZqop4Z+XKeKlDDYRDYQS7jNsQKKF7w=
-X-Received: by 2002:a5d:6642:0:b0:236:6a28:eeda with SMTP id
- f2-20020a5d6642000000b002366a28eedamr12437764wrw.315.1669081253980; Mon, 21
- Nov 2022 17:40:53 -0800 (PST)
-MIME-Version: 1.0
-References: <20221104161850.2889894-1-j.neuschaefer@gmx.net>
-In-Reply-To: <20221104161850.2889894-1-j.neuschaefer@gmx.net>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 22 Nov 2022 01:40:42 +0000
-Message-ID: <CACPK8XdXrAPMdnn0T6GQiYEK3R4MvwprOZu_Yvmv=WVOfivROg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/6] Nuvoton WPCM450 clock and reset driver
-To: =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
-	Stephen Boyd <sboyd@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Content-Type: text/plain; charset="UTF-8"
+ d=amperemail.onmicrosoft.com; s=selector1-amperemail-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C/3C8Zmu2lmuiCI7vraBdjZtXdsbKROsFs5gym8l/NA=;
+ b=4uoXyHLdJz1C1VgDugjE4V+ZL31DxySSNJmao3nwiSn/Q7Sfz769M1dma75AUvN88Evulr6iNk6a/boi9turoOPeuUiAlJAWJmkS3kOCDH9VKwtvX4NaVmoJkxvwrJ8rSQXikD6k8kYSJNNGn79C3HPxtcQFADtoDLytHk5xlDo=
+Received: from BL1PR01MB7747.prod.exchangelabs.com (2603:10b6:208:39a::12) by
+ CY1PR01MB1996.prod.exchangelabs.com (2a01:111:e400:c60e::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5834.9; Mon, 21 Nov 2022 10:17:26 +0000
+Received: from BL1PR01MB7747.prod.exchangelabs.com
+ ([fe80::82c0:f6e9:d5f9:d3ec]) by BL1PR01MB7747.prod.exchangelabs.com
+ ([fe80::82c0:f6e9:d5f9:d3ec%9]) with mapi id 15.20.5834.015; Mon, 21 Nov 2022
+ 10:17:26 +0000
+From: Thang Nguyen OS <thang@amperemail.onmicrosoft.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Phong Vo
+	<pvo@amperecomputing.com>, Phong Vo OS <phong@os.amperecomputing.com>
+Subject: Potential high risk for readonly/operator users on BMC console access
+Thread-Topic: Potential high risk for readonly/operator users on BMC console
+ access
+Thread-Index: AQHY/ZJ02G3GWPtXVEGoSHlEMsG5ZQ==
+Date: Mon, 21 Nov 2022 10:17:26 +0000
+Message-ID: <496697FB-7A80-4F2B-BC4A-8955016082CD@amperemail.onmicrosoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amperemail.onmicrosoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR01MB7747:EE_|CY1PR01MB1996:EE_
+x-ms-office365-filtering-correlation-id: 5e5e3d2a-a13a-4005-ab1d-08dacba996b7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:  VDNdFGLHGmWZXCGC0o0CiPGbxwqga/IcF9braEykgIWxup82BlDtufK6AiDvG0pq7X+qGdDbv8VwA8ctCK+z6/lAZ5aU6ZCe+LwPA+p1WE9VVB9MIeBfeZU78JSZE6WP6oSAN7X38oSO1iBVRQdNJy27pFKe8++WLG/7aRd3nnBZRYu0o+kt9plgPPhIY7vbkwRodI5dQAVGK5Dw/UWDMFvCgkF+tuMzm9iL0VnPunXXIN3a9QBs3TmROhIfqAf1iAzAh8OMt5KEqmUCSRN6SCJVOcXwExKyQuPWNg141A4XTgCbr39cu3ySJcEDh/qdvfSp+DmyYI0ORccHKFnUsJRFxmV6Gon0Sbcgbvx9VwM7rVg297KzOC2bG+ApHqI4Amhx8F1sIJeFq2T4W/pTHC3DHXQTYmoEwp6afay3zNAOwcuSd6MfoVzlux4iHWx25fsj9NC+n2DdfAOfx8cYF44oPfHhcw+W/hFa/7qPRay5uZ4VtVMUyvHmXdwZjSlvBhtQV7xAs6REF5A+zc4xYDedMSmOHLGI5X48Jrc2EoP344Vmkowam+CIxngEdaHOWYUoZlUUDSaZvgpnbrfTNy7SoBGMkOB4swWmhfCTQc2LP4b3LQyYDOMMv7fcXKHr3kjQlUdfiWmZKz2o32m710OhjrmBtC1pDrdBSgeUsavP+jmIMCAVLpvDDWghUpfTBK+ZEGcWeI4jpwniq5wFGicwu119TXum2wZUU3K/BFo=
+x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR01MB7747.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39850400004)(366004)(136003)(376002)(346002)(396003)(451199015)(91956017)(76116006)(66946007)(66476007)(5660300002)(41300700001)(8936002)(478600001)(2906002)(4326008)(66446008)(110136005)(316002)(64756008)(66556008)(8676002)(107886003)(33656002)(71200400001)(6512007)(6506007)(26005)(2616005)(186003)(83380400001)(38100700002)(86362001)(38070700005)(6486002)(122000001)(115813001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:  =?us-ascii?Q?vJ/03UWHDKDNjbFQ+vuLE2a0+zN5291z/QTtxxxQ1e8rCZa+w6x4azuw8LbA?=
+ =?us-ascii?Q?dQSMdybD0YXwVb3L0wUNuO+50zDDiL39DZL7HpN/I1nbnjpD8hK9LrrY6b2w?=
+ =?us-ascii?Q?qRjRPG+9avqZWgXp9QS2ZAsK63XLyxvp1oYc2YrMOk4qHoeUyQJQqOL0eGjl?=
+ =?us-ascii?Q?JJ+aYhhOt5l2sx7etjR4itn48gIovEWbz9u8zFunSdqEt62Udr1OdIfSQeAM?=
+ =?us-ascii?Q?UJtCkJ+3stoPeMakjpCcxFMYbMRTqPdXSWG+BU5tIFWpNC3Sk6W94+dyytpR?=
+ =?us-ascii?Q?xdhFZBiywMD5+VehMNPYj3VcqVoeFtVk7BiYBSYAGSDM4buPxZQQtPgtU4Hj?=
+ =?us-ascii?Q?eOl3PU8+Cx130nQYRJCU4IKav5+Tmxjw9kV6SmgsT+sKpJhh/Pk5UHUv1ZnV?=
+ =?us-ascii?Q?7MhTWJRnEJY6r1d78bGfejv+/55KEgt6Te1f+CVJh+6pPKLl14d7rje3US2Z?=
+ =?us-ascii?Q?tw7Ukxe+k2rN2MpvI5Nb8NAzfEqo/0lgEC9uTmdIjt4778iUgHbC2DgdsZYC?=
+ =?us-ascii?Q?6e7b6p2oYsHUUmcEU98c/KKNb0a423NCsrmgi4nuSc0Wlp+tGk0V6gX/TGXe?=
+ =?us-ascii?Q?1OCiNDSFfvH93JNzwEHsPTORxAfcD2T6tzKytchRng56Z6f9Qf3XoHUZfVhJ?=
+ =?us-ascii?Q?DjOqoQ+KsxFS9mKz+ti1gkfVakSVpQPkjCi/rCU03ZIUlZQtuzF2Sqs4TUGU?=
+ =?us-ascii?Q?cd/xvd9rdcKNyKQcze4I4gb4wUYk9rpMKRkKSuHEkCKD812w6xRXxKslG6Gz?=
+ =?us-ascii?Q?GJeKrrHCTrB/rkB2CBJuDZ5N9nNbF/SrPrYV/ZVi+RhB+OKiI9/EIid8RJhs?=
+ =?us-ascii?Q?yfSmXSZghBuyUfmCKLS6qQp7HBFfhtLIQSOFZ5ldfkUQ4592dFmL1FSiSw7W?=
+ =?us-ascii?Q?gSysOr7ted6fQH5BE5RSiHUswj8SvQcK18LprdHvoeMAJ2i1f8mPZx/zKVqf?=
+ =?us-ascii?Q?ZKUu2O7Py4bTd226UNe7nDYkYH0kxyAwQVwefc8qbWHJqQcY8B5HHQNatx0k?=
+ =?us-ascii?Q?T7wl+fP6Yahq3DBlR8gmLSjpp1hIo+sY69VYJb49j1NLDkL398s3DkOLa/0f?=
+ =?us-ascii?Q?AcFrBMAwcQ5+lvkfhHLczwCcYvm1yPPQGCpLLruC66Y15IbE1gMV6iS6TrwH?=
+ =?us-ascii?Q?NqXz6nmPYXlIth44w3nE2o+FMvvjvyo+GDu4sGeIIPPpaAjOXPFMy4vIt2sN?=
+ =?us-ascii?Q?orLSg0jekMRUB5r7HxNF+Bp1Q8CQENLuPHSBRy94/AypBIYPrXsWpF9hX9Jg?=
+ =?us-ascii?Q?GuYNybDdpnKQBdvSd+0klKW+mZFWJtTRx9UETNK0X0XD8sHEY25xMtcQuq8N?=
+ =?us-ascii?Q?dv6bR0x+luaeWkJfLmL3yH9AUr/QyASdC1E6AXNf2WPj4XrvZ0ZIpQt/f20u?=
+ =?us-ascii?Q?7FxsUlO7TIggVFaaBqJL6gAubBTrrVIenHNQUZLSmQB9ZDRCkToRlWI/q+ET?=
+ =?us-ascii?Q?rWLTsXqRngSq4QMB3ZQhPa82YjAZ7zltdoaCDoBLGyESGVnDo9r8NYPVmYaf?=
+ =?us-ascii?Q?xeXeTcF6ez9QUvJyyfO1AdF7MGGEhzPUkIinxxqaDvR70BUZo5GOUAFakNYI?=
+ =?us-ascii?Q?506RLnC+Y7RX9eUWLqLLSLk2dG4dlg4jk1Dl2ko21mCZ7SodKEpYWRiReIv5?=
+ =?us-ascii?Q?XoZL0KL50F18GLb9nea7IQc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <EFB0DA4E19D4E147A4E90ADE806E7A97@prod.exchangelabs.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amperemail.onmicrosoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR01MB7747.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e5e3d2a-a13a-4005-ab1d-08dacba996b7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 10:17:26.4252
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bOhPPmb4esrrsnd3XzxOUZrkS2x4MJWiBklxSeOl1OE9KXawLzcpmZ/QymDl44huo7uq0Jr+YMCRJzv26AbylYOVebLjvy5pzCcXayXsQDoLzbOzbhUxrmk6YL0RPoLP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR01MB1996
+X-Mailman-Approved-At: Tue, 22 Nov 2022 12:55:05 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,113 +125,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, Daniel Lezcano <daniel.lezcano@linaro.org>, Tomer Maimon <tmaimon77@gmail.com>, linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>, Michael Turquette <mturquette@baylibre.com>, Rob Herring <robh+dt@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Philipp Zabel <p.zabel@pengutronix.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-clk@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, Benjamin Fair <benjaminfair@google.com>
+Cc: Nga Nguyen <nga.nguyen@amperecomputing.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, 4 Nov 2022 at 16:21, Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.ne=
-t> wrote:
->
-> This series adds support for the clock and reset controller in the Nuvoto=
-n
-> WPCM450 SoC. This means that the clock rates for peripherals will be calc=
-ulated
-> automatically based on the clock tree as it was preconfigured by the boot=
-loader.
-> The 24 MHz dummy clock, that is currently in the devicetree, is no longer=
- needed.
-> Somewhat unfortunately, this also means that there is a breaking change o=
-nce
-> the devicetree starts relying on the clock driver, but I find it acceptab=
-le in
-> this case, because WPCM450 is still at a somewhat early stage.
+Hi,
+I would like to have your comments on below issue which we think it is high=
+ risk security issue which description below:
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+Any user (read-only, operator, administrator), when created, has BMC consol=
+e access/login by default. He can login to BMC via BMC console and do the f=
+ollowing actions:
+ - Write to his /home/<user> folder to full. This will make the RootFS full=
+ and no more operation can be done, unless do A/C power and reflash the BMC=
+ from u-boot.
+- Write to /tmp folder to full which will make many application fail to wor=
+k.
+It is good for administrator as he should have full privilege. However, for=
+ readonly/operator users, he should not have console access. No matter if h=
+e makes the BMC crashed by mistake or it is his intention, we should preven=
+t his happens.
+It is known that many production systems do not support BMC console but sti=
+ll have some support and some companies allow remote access via KVM or cons=
+ole server. I think we should disable shell login for normal users (readonl=
+y and operator) by default.
 
->
->
-> Upstreaming plan (although other suggestions are welcome):
->
-> Once reviewed,
->
-> - The ARM/dts changes should go through Joel Stanley's bmc tree
-
-I've picked up the standalone patch ("Add clock controller node").
-
-> - The clocksource/timer changes should probably go via Daniel Lezcano and=
- TIP
-> - The clock controller bindings and driver should go through the clk tree
-
-Stephen, do you plan on merging this driver for v6.2?
-
-Alternatively, could we get an ack from you and merge this entire
-series through Arnd, where we have precedent for merging these initial
-support cross-tree patch sets?
-
-
-
-> - It probably makes sense to delay the final ARM/dts patch ("ARM: dts:
->   wpcm450: Switch clocks to clock controller") until next cycle to make
->   sure it is merged after the clock driver.
->
->
-> v5:
-> - Dropped patch 2 (watchdog: npcm: Enable clock if provided), which
->   was since merged upstream
-> - Added patch 2 (clocksource: timer-npcm7xx: Enable timer 1 clock before =
-use) again,
->   because I wasn't able to find it in linux-next
-> - Switched the driver to using struct clk_parent_data
-> - Rebased on 6.1-rc3
->
-> v4:
-> - https://lore.kernel.org/lkml/20220610072141.347795-1-j.neuschaefer@gmx.=
-net/
-> - Leave WDT clock running during after restart handler
-> - Fix reset controller initialization
-> - Dropped patch 2/7 (clocksource: timer-npcm7xx: Enable timer 1 clock bef=
-ore use),
->   as it was applied by Daniel Lezcano
->
-> v3:
-> - https://lore.kernel.org/lkml/20220508194333.2170161-1-j.neuschaefer@gmx=
-.net/
-> - Changed "refclk" string to "ref"
-> - Fixed some dead code in the driver
-> - Added clk_prepare_enable call to the watchdog restart handler
-> - Added a few review tags
->
-> v2:
-> - https://lore.kernel.org/lkml/20220429172030.398011-1-j.neuschaefer@gmx.=
-net/
-> - various small improvements
->
-> v1:
-> - https://lore.kernel.org/lkml/20220422183012.444674-1-j.neuschaefer@gmx.=
-net/
->
-> Jonathan Neusch=C3=A4fer (6):
->   dt-bindings: timer: nuvoton,npcm7xx-timer: Allow specifying all clocks
->   clocksource: timer-npcm7xx: Enable timer 1 clock before use
->   dt-bindings: clock: Add Nuvoton WPCM450 clock/reset controller
->   ARM: dts: wpcm450: Add clock controller node
->   clk: wpcm450: Add Nuvoton WPCM450 clock/reset controller driver
->   [NOT FOR MERGE] ARM: dts: wpcm450: Switch clocks to clock controller
->
->  .../bindings/clock/nuvoton,wpcm450-clk.yaml   |  66 +++
->  .../bindings/timer/nuvoton,npcm7xx-timer.yaml |   8 +-
->  arch/arm/boot/dts/nuvoton-wpcm450.dtsi        |  29 +-
->  drivers/clk/Makefile                          |   1 +
->  drivers/clk/clk-wpcm450.c                     | 375 ++++++++++++++++++
->  drivers/clocksource/timer-npcm7xx.c           |  10 +
->  drivers/reset/Kconfig                         |   2 +-
->  .../dt-bindings/clock/nuvoton,wpcm450-clk.h   |  67 ++++
->  8 files changed, 549 insertions(+), 9 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/clock/nuvoton,wpcm4=
-50-clk.yaml
->  create mode 100644 drivers/clk/clk-wpcm450.c
->  create mode 100644 include/dt-bindings/clock/nuvoton,wpcm450-clk.h
->
-> --
-> 2.35.1
->
+Thanks,
+Thang Q. Nguyen -=
