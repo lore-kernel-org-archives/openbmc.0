@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49DA0C4332F
-	for <openbmc@archiver.kernel.org>; Tue, 22 Nov 2022 20:38:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D145BC433FE
+	for <openbmc@archiver.kernel.org>; Wed, 23 Nov 2022 00:06:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NGx1K4qpsz3dvK
-	for <openbmc@archiver.kernel.org>; Wed, 23 Nov 2022 07:38:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.166.170; helo=mail-il1-f170.google.com; envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-il1-f170.google.com (mail-il1-f170.google.com [209.85.166.170])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NH1d61s86z3cM6
+	for <openbmc@archiver.kernel.org>; Wed, 23 Nov 2022 11:06:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.166.54; helo=mail-io1-f54.google.com; envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-io1-f54.google.com (mail-io1-f54.google.com [209.85.166.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NGx0g2tPBz2xb4
-	for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2022 07:38:11 +1100 (AEDT)
-Received: by mail-il1-f170.google.com with SMTP id g7so7676157ile.0
-        for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2022 12:38:11 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NH1cQ1Mpsz3000
+	for <openbmc@lists.ozlabs.org>; Wed, 23 Nov 2022 11:05:56 +1100 (AEDT)
+Received: by mail-io1-f54.google.com with SMTP id z3so12153482iof.3
+        for <openbmc@lists.ozlabs.org>; Tue, 22 Nov 2022 16:05:56 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=date:subject:message-id:references:in-reply-to:cc:to:from
-         :mime-version:content-transfer-encoding:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=IxhuJmnEARIWlXQpcwKPNDNfyA1cKV7mmycNRMiAUnw=;
-        b=5T6RpkZBrc6NDoGuoiUtAZNSY4Fgp1QVHuC1Pp6PXg3+CgcJp2FpaSVMzQ20Mc8Xk/
-         /kY1m/82UDQOKHXPVxAuFTKuBl7uV5a45BWTPlAc50BsrKtZNeyuaMDNRjY/8nfwg1Y6
-         qodcIN7yspaybsSiIZZmF9EHXabvv7C7nRIIZXXQnmgcnlUq71OttVp/F1DdEIjVqA5K
-         OBWHN0gOsjlkib3blJGRk6vXa7tKUSIqJKAazQHoAYXufQoKn8uvg6rU2RoFmSM8xwqV
-         yZursZimoex7H7pDuVTyys84bFA62ZS/fQYSRRm6Tj7dVsCXU8Hcjs6NQDg0jPmaxqSz
-         pxnw==
-X-Gm-Message-State: ANoB5pnFt8oRd3PgZPfs2O73qGzrT5JQH+t7q6ockjfoWVLr6aqua0GN
-	iXfyXnoBonkZCGiZsWTt3Q==
-X-Google-Smtp-Source: AA0mqf7szvteT0DhoEE8ltblx51SieTice/p6rYK2egqQEWY2mUi7XDAmn+bUokAsQxJd8B3HHq92g==
-X-Received: by 2002:a92:cc4c:0:b0:2fc:81e8:db26 with SMTP id t12-20020a92cc4c000000b002fc81e8db26mr3822882ilq.73.1669149488075;
-        Tue, 22 Nov 2022 12:38:08 -0800 (PST)
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HOAOA3l25FTlYWgHdX0NRqhyY9RcRAzmGvtq9++eoqg=;
+        b=1cgOzXJUygO9cSt8+SerNqTDVCEMaqDilDHSc8d4yT0gC9cVdkUflrAQeYOXe0Lnfk
+         cunMT4Yv/+GsCC19KVgA2+ovNJ45mZMH1V58GIBkfavyFQf/h9zM0URSSWIrWco/5BYY
+         FpIOhEE6sfyw1MXMO/5j5jCLSxr/9uO8hBCXY+VQES7C/0kwWzCnVnCQ9sn59QTiYo96
+         ZlgmS6qAMfdqWxBzDzclLLynYOgRaBm6dKDL0pgQcPuN4k8wsXtIA50kwywIERl4TTRB
+         0lY6fS/ibqgGhQ6zp2KaKF3T0pr9n7jIVkUkFHSrhnp9Dwu75g02q74D25Mnkd4hVEmi
+         IJqQ==
+X-Gm-Message-State: ANoB5pmXDG7mdqbI5odgSfNzq/nxCpBdOLb1jRwgAn8CEhKoxcyyEwRj
+	9X1fsef8hFCUzW61+h8czw==
+X-Google-Smtp-Source: AA0mqf7BJHES9MUwE3wyYO2MhDcoicDShRER72IeewX9pYLrmCObA2dqPuNTNfOnNiY9xNcRz1K8tA==
+X-Received: by 2002:a6b:c844:0:b0:6db:fe34:6948 with SMTP id y65-20020a6bc844000000b006dbfe346948mr3010433iof.209.1669161953103;
+        Tue, 22 Nov 2022 16:05:53 -0800 (PST)
 Received: from robh_at_kernel.org ([64.188.179.252])
-        by smtp.gmail.com with ESMTPSA id u14-20020a056e02110e00b00302c31956b2sm2302289ilk.10.2022.11.22.12.38.06
+        by smtp.gmail.com with ESMTPSA id b4-20020a05660214c400b006cab79c4214sm5776318iow.46.2022.11.22.16.05.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Nov 2022 12:38:07 -0800 (PST)
-Received: (nullmailer pid 514983 invoked by uid 1000);
-	Tue, 22 Nov 2022 20:28:34 -0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
+        Tue, 22 Nov 2022 16:05:52 -0800 (PST)
+Received: (nullmailer pid 823019 invoked by uid 1000);
+	Wed, 23 Nov 2022 00:05:52 -0000
+Date: Tue, 22 Nov 2022 18:05:52 -0600
 From: Rob Herring <robh@kernel.org>
 To: Marvin Lin <milkfafa@gmail.com>
-In-Reply-To: <20221122085724.3245078-3-milkfafa@gmail.com>
-References: <20221122085724.3245078-1-milkfafa@gmail.com>
- <20221122085724.3245078-3-milkfafa@gmail.com>
-Message-Id: <166914597689.442814.4178753345805789388.robh@kernel.org>
 Subject: Re: [PATCH v7 2/7] media: dt-binding: nuvoton: Add bindings for NPCM
  VCD and ECE engine
-Date: Tue, 22 Nov 2022 14:28:34 -0600
+Message-ID: <20221123000552.GA817752-robh@kernel.org>
+References: <20221122085724.3245078-1-milkfafa@gmail.com>
+ <20221122085724.3245078-3-milkfafa@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221122085724.3245078-3-milkfafa@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,8 +68,7 @@ Cc: devicetree@vger.kernel.org, tmaimon77@gmail.com, kwliu@nuvoton.com, avifishm
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
-On Tue, 22 Nov 2022 16:57:19 +0800, Marvin Lin wrote:
+On Tue, Nov 22, 2022 at 04:57:19PM +0800, Marvin Lin wrote:
 > Add dt-binding document for Video Capture/Differentiation Engine (VCD)
 > and Encoding Compression Engine (ECE) present on Nuvoton NPCM SoCs.
 > 
@@ -79,58 +78,109 @@ On Tue, 22 Nov 2022 16:57:19 +0800, Marvin Lin wrote:
 >  1 file changed, 87 insertions(+)
 >  create mode 100644 Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml
 > 
+> diff --git a/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml b/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml
+> new file mode 100644
+> index 000000000000..b5be7ef09038
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/nuvoton,npcm-video.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton NPCM Video Capture/Encode Engine Device Tree Bindings
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Drop ' Device Tree Bindings'
 
-yamllint warnings/errors:
+> +
+> +maintainers:
+> +  - Joseph Liu <kwliu@nuvoton.com>
+> +  - Marvin Lin <kflin@nuvoton.com>
+> +
+> +description: |
+> +  Video Capture/Differentiation Engine (VCD) and Encoding Compression Engine
+> +  (ECE) present on Nuvoton NPCM SoCs.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml: properties:nuvoton,syscon-gcr: 'oneOf' conditional failed, one must be fixed:
-	'type' is a required property
-		hint: A vendor boolean property can use "type: boolean"
-	Additional properties are not allowed ('$ref' was unexpected)
-		hint: A vendor boolean property can use "type: boolean"
-	/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml: properties:nuvoton,syscon-gcr: 'oneOf' conditional failed, one must be fixed:
-		'enum' is a required property
-		'const' is a required property
-		hint: A vendor string property with exact values has an implicit type
-		from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-	'/schemas/types.yaml#definitions/phandle' does not match 'types.yaml#/definitions/'
-		hint: A vendor property needs a $ref to types.yaml
-	'/schemas/types.yaml#definitions/phandle' does not match '^#/(definitions|\\$defs)/'
-		hint: A vendor property can have a $ref to a a $defs schema
-	hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-	from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml: properties:nuvoton,syscon-gfxi: 'oneOf' conditional failed, one must be fixed:
-	'type' is a required property
-		hint: A vendor boolean property can use "type: boolean"
-	Additional properties are not allowed ('$ref' was unexpected)
-		hint: A vendor boolean property can use "type: boolean"
-	/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/nuvoton,npcm-video.yaml: properties:nuvoton,syscon-gfxi: 'oneOf' conditional failed, one must be fixed:
-		'enum' is a required property
-		'const' is a required property
-		hint: A vendor string property with exact values has an implicit type
-		from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
-	'/schemas/types.yaml#definitions/phandle' does not match 'types.yaml#/definitions/'
-		hint: A vendor property needs a $ref to types.yaml
-	'/schemas/types.yaml#definitions/phandle' does not match '^#/(definitions|\\$defs)/'
-		hint: A vendor property can have a $ref to a a $defs schema
-	hint: Vendor specific properties must have a type and description unless they have a defined, common suffix.
-	from schema $id: http://devicetree.org/meta-schemas/vendor-props.yaml#
+Sounds like 2 h/w blocks? If so, then it should be 2 separate nodes.
 
-doc reference errors (make refcheckdocs):
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nuvoton,npcm750-video
+> +      - nuvoton,npcm845-video
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20221122085724.3245078-3-milkfafa@gmail.com
+'video' doesn't sound like the name of the h/w block(s).
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command.
-
+> +
+> +  reg:
+> +    items:
+> +      - description: VCD registers
+> +      - description: ECE registers
+> +
+> +  reg-names:
+> +    items:
+> +      - const: vcd
+> +      - const: ece
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    items:
+> +      - description: VCD reset control
+> +      - description: ECE reset control
+> +
+> +  reset-names:
+> +    items:
+> +      - const: vcd
+> +      - const: ece
+> +
+> +  nuvoton,syscon-gcr:
+> +    $ref: /schemas/types.yaml#definitions/phandle
+> +    description: Phandle to the Global Control Register DT node
+> +
+> +  nuvoton,syscon-gfxi:
+> +    $ref: /schemas/types.yaml#definitions/phandle
+> +    description: Phandle to the Graphics Core Information DT node
+> +
+> +  memory-region:
+> +    description:
+> +      CMA pool to use for buffers allocation instead of the default CMA pool.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - resets
+> +  - reset-names
+> +  - nuvoton,syscon-gcr
+> +  - nuvoton,syscon-gfxi
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/nuvoton,npcm7xx-reset.h>
+> +
+> +    video: video@f0810000 {
+> +        compatible = "nuvoton,npcm750-video";
+> +        reg = <0xf0810000 0x10000>,
+> +              <0xf0820000 0x2000>;
+> +        reg-names = "vcd", "ece";
+> +        interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
+> +        resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_VCD>,
+> +                 <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_ECE>;
+> +        reset-names = "vcd", "ece";
+> +        nuvoton,syscon-gcr = <&gcr>;
+> +        nuvoton,syscon-gfxi = <&gfxi>;
+> +    };
+> -- 
+> 2.34.1
+> 
+> 
