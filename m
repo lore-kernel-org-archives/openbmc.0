@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69FB1C433FE
-	for <openbmc@archiver.kernel.org>; Mon, 28 Nov 2022 21:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF1A0C433FE
+	for <openbmc@archiver.kernel.org>; Mon, 28 Nov 2022 21:52:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NLfLd4Spjz3c4B
-	for <openbmc@archiver.kernel.org>; Tue, 29 Nov 2022 08:51:37 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NLfN919BVz301Z
+	for <openbmc@archiver.kernel.org>; Tue, 29 Nov 2022 08:52:57 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=FiCHopUi;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=Jw3M37RM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.21; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.20; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=FiCHopUi;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=Jw3M37RM;
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NLfJX35rgz301Z
-	for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2022 08:49:46 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NLfJc2YgKz3c3G
+	for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2022 08:49:52 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
-	t=1669672172; bh=RavA9BgbtnCpfeKmmttPqt2PspmEONxNtyxh+bEyHGY=;
+	t=1669672171; bh=lH8rj/PzzAAs6cBknBhgzV8qtb5kk+LHlemkd1M6aM4=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FiCHopUi8isfJcjoqIRcYiTVhvDZbqsBprPbgZDifRwu8O+81IUsS5gDgP7VzRyST
-	 0vxffhH5pccWgY4yVqxIY/bYm/i9KZg6txf+ZOuz2FmHqHP3UUJlM29ltwfiEfvK+X
-	 k7YFm+BJ7NN12fIWmLpE0Xjn/RM6PdUf3y1qjFgrtAxxbSDrzPcOCm0KBn2rxWOUIV
-	 edc7hjh6b+x2XbMFOq2jFwDosu61M0Bd2ogxlEtLLtaLtmDiELFGmCV2fui4VLaVEy
-	 NaR2iaQ3Z0w45VL0imjqH6srmdIcg9ubvxC5Fq2U6SVLyDwcEv/OHosmUE6bozRmpi
-	 c0bUWgQYaMIwQ==
+	b=Jw3M37RMVoQiQVVzhAUGEayKnSJtz5guI8IWe0tc6AOQcuuXy+grv5stwPt/MlqZa
+	 J5lObmPX+pZLwCXVcjnHdbXDf3PD1O2GWEAIE06hG4B/yLhOl969ZAyIOLJqOQzkM5
+	 sGlwBSY9h+wqIDF9oiZlJGWXMUn/ETwSp1xsV5srIkmQpKmVQbNC9Dr/AZn0msQE0a
+	 5d9eUHhnAOv+GnNtq0zNE6fbvv6p4r6mVMPssqlEZZob54kBlLEuHHW4ZkGP5UBc9G
+	 WylYAr1skaHPR13LJPlxwZbmda52Zsm9nh4UUvcJffl0qCBDlNRY8B92+B3xhb+nCi
+	 pAMxQ8pR8jxOA==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from probook ([95.223.44.31]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MrhUK-1ocn3A282e-00nid0; Mon, 28
- Nov 2022 22:49:32 +0100
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVvLB-1pOpMU2ev7-00Rntr; Mon, 28
+ Nov 2022 22:49:31 +0100
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: linux-spi@vger.kernel.org,
 	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 2/2] spi: dt-bindings: nuvoton,wpcm450-fiu: Fix warning in example (missing reg property)
-Date: Mon, 28 Nov 2022 22:49:28 +0100
-Message-Id: <20221128214928.3531463-3-j.neuschaefer@gmx.net>
+Subject: [PATCH 1/2] spi: dt-bindings: nuvoton,wpcm450-fiu: Fix error in example (bogus include)
+Date: Mon, 28 Nov 2022 22:49:27 +0100
+Message-Id: <20221128214928.3531463-2-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20221128214928.3531463-1-j.neuschaefer@gmx.net>
 References: <20221128214928.3531463-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:xqpXGQO6+Yu9CpVnDs/FsvdtqBSW0zviiqNAGW1LyN1QXQsy2sV
- rkeT3S34+2FPR4ENe3qT6bwgjlZLVbjzuB/luKAryE9oTSUrHreIpBrX4CpCQO1ZtCBK+x4
- TLEKu2zSqb3tpUa3pmxxoYW6ypWooTQr8jaJYmhOLslezcId22OTlZWVGP/+1IylxpVLv8V
- OgwGk7IPofuu8MaFENCuw==
-UI-OutboundReport: notjunk:1;M01:P0:NBafmIHXHOw=;wowX/cO77OjqVFSZ/t9Wu8lndi7
- D33OxbkdnLBrxFAr1HLZ0N+U3+jOK87yCI+pta9ehud0IfK0CrPq2vHHZHDtVHKROZ4sXBPrC
- MvWjpc9Z/uL4mG90PVt9L1Y1XieFzHrigTEvUjmexpcFxl0lIcaJO4PX9lGVw57wKfRdl6ri8
- TgxgXgVS3viJkJywlyvzsf8gJlhpvh5FOESxIgeQpL7ONMi7pVuXw73XqHRnCXlU2Af4CNO9h
- GBA2a7rV8iQEZ5vB8zsepUMyXxz1uK2CabSBG5oWHI13aC58pFiYaCVNh5cCNZ4ZGr/rNG5c3
- V0hcmBeYkHr7e2L+fxUFzDjngI45Izuntzy6fjV5Pf28yHre399buh/Q16zDb7lBnix/gd/q3
- j1iZPm6UvnTyjFnTiFTVzkdAeuGchJtrqldxypct0gGfJnUnesVjqJax5BsXzgldGcENYSam+
- 8P9NDqzpjXKBXS2SX7BZppKt8Rq5Z/wRc5TkCFTGRauHf19ZuJktWTEFnrKxHCuBdV0+gi7jK
- hakOdCIlJkI/w2uwnKEaXQZ0nAA8ER3Zp/6/7TOYqiS0kBkORQ0ZYD1FIOdzi0EodXh6wTHQG
- 7xJh2ckxK2vrlzDgRDSQ+mPnvx0+EPW2wybwEpCQk4hsYgmUmL8x7CUpjd3CNaN9HvRByXf+1
- zoaxyCutlmV34hoAxbZcd9W47cFGXKGKHsskeg/FESFturRWLx9BCN2A0leuUUaJ/w8ghio65
- 1LwkzxMZZU2i7kZthhOkP/uaAUTScBgUo9CPBrbwUFq/XbSEFR+ZN10c7D8LNj3WKhhqfW4uc
- kfxDDwJn/zxGFyiFIS3uqSn97+2r+Swun1KS4HS9w3xT9AcT1+VBwrJCLK2vwDHfjMqreSYSF
- XinSX/LRDqmKuARQYbFwBIib9+ILPsZ27M7fbjSfut7q/+NGPu5XVrQjclgOnZg4+h6dZrotV
- LNcuvQ==
+X-Provags-ID: V03:K1:ZxiiSYcKe9SD3dVmC9CIDRxkAd39KYYm5qOuk04iC/meHTJ9VU4
+ g2lwB5G75noaBcFrfaa0lC2YAjKUssmycJZMeLxgNYQUKWMXaMAHh4sSSDhzq0KJpIW6PTg
+ NaHtUwuAN3uxEgbzAKd5N+jehroqIVfnvDj9JyI/P7xJmOdZcP5n26yOG5ONX9X17heCG9P
+ J0ZA0SYI6ZBIXJrW6eEsA==
+UI-OutboundReport: notjunk:1;M01:P0:w0K/LiT7FVc=;epT6TlpjEkDgo25kECZyvEPb8Lp
+ +6Zmp/myYrDDQ9HKJgIG2f1xkXCW7vix3/LUnR3QIpp24Y4BLhxgNfKmUiV6tryRxkb0y6P7Z
+ 8DZv2sgACQCP7bOkJ3biqXvWeHR8B7U/5CT2cSrBgBOIUyL/y3UBF9P5s+4ts1ZByc8fVErQr
+ 5zbBN/9kDyHGhleaaJL7t9lu87qKZqDAdPWSHp5yvohrL7A+7wnTp+HO/6Fv4GlVtJouxluFB
+ 4hNEJx1ak1Dx8aSXzPcjkLqt1G7Q7PqTVSTQvdYIJApkQYc58ezefqIHAvrF0Oj39ffs53H4/
+ 23Xl5ML4W4gqDPhUx/Bm5HT9/i0Ym+I2getfGtYTXJFnCSUN+jsRcgthvz1t6mUynygAfGdU5
+ VYPWbFpBZ/kHVfChbm7+EF2UHAGCUFh4EX61Z38PmMvd+wC4dI2j1AuusfzMpzAnkdrDEXfcc
+ x32CoHIxiv6rGnAPqQUenWS4YIJjqCxfGkstFKkxOk38oW2gAVK8V+W/dw4aNGatSJO8kZaxq
+ Jtj4D2GK5KUDhOMOpKMm46w1zrcXVMOV20NVGZPFAjwDk6o+lp79b2Q9iDNRzBrzd91vZPCoc
+ ed3ZDPIhewMDYAC7IrPSC/kwpBZ2WVKgZJS1A+VI0lXyUsVLcOwvXgbCx6SjUxeT+C/OPZUcd
+ EjltANfgbA2o0S51ICUjWtO1fu0Jz8JAlh8qrmW5FbGwMbuSnddmOBc6a3fGSSCsOxSCWELfu
+ xVM7bAnZIwMJ2HlP/zoFkPDQxb05dwl9sjRlgmvmyh+OhOvzPpM2+U9WQ/2SlzGtHQDwJaozg
+ bpYAl7vwV37tThbFxOqnnsYrKfLYp7ELZ0YR2GB+sgJVlEF+vN3eEiWMa3ewrlLGkCV4+4DLP
+ 5pmKKY3a9fCFSpSJG8vQQyVKCIz84mhibEKAH4YaJNSeJdW59uYiKy8YKY9JpWtn159ZBEvT/
+ Hoz14f2V9RTwf91NJHW9WlNUePU=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,29 +81,42 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kern
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-I forgot to add a "reg =3D <0>;" property to the flash@0 node while
-writing the example. Fix this.
+The nuvoton,wpcm450-fiu binding's example includes
+nuvoton,wpcm450-clk.h, which has not been merged yet,
+thus causing a dt_binding_check error on -next.
+
+Fix this error by simply hardcoding the clock index in the example,
+before the breakage spreads any further.
 
 Fixes: dd71cd4dd6c9b ("spi: Add Nuvoton WPCM450 Flash Interface Unit (FIU)=
  bindings")
+Reported-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
- Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yaml | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yam=
 l b/Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yaml
-index e4162845fcc1d..4e0d391e1d697 100644
+index ef94803e75d90..e4162845fcc1d 100644
 =2D-- a/Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yaml
 +++ b/Documentation/devicetree/bindings/spi/nuvoton,wpcm450-fiu.yaml
-@@ -56,6 +56,7 @@ examples:
+@@ -45,14 +45,13 @@ unevaluatedProperties: false
+
+ examples:
+   - |
+-    #include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
+     spi@c8000000 {
+       compatible =3D "nuvoton,wpcm450-fiu";
+       reg =3D <0xc8000000 0x1000>, <0xc0000000 0x4000000>;
+       #address-cells =3D <1>;
+       #size-cells =3D <0>;
+       reg-names =3D "control", "memory";
+-      clocks =3D <&clk WPCM450_CLK_FIU>;
++      clocks =3D <&clk 0>;
+       nuvoton,shm =3D <&shm>;
 
        flash@0 {
-         compatible =3D "jedec,spi-nor";
-+        reg =3D <0>;
-       };
-     };
-
 =2D-
 2.35.1
 
