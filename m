@@ -4,83 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6122AC4332F
-	for <openbmc@archiver.kernel.org>; Tue, 29 Nov 2022 21:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B500C433FE
+	for <openbmc@archiver.kernel.org>; Wed, 30 Nov 2022 07:53:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NMFCc4bPSz3bVY
-	for <openbmc@archiver.kernel.org>; Wed, 30 Nov 2022 08:02:36 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NMWfZ5cfdz3bNB
+	for <openbmc@archiver.kernel.org>; Wed, 30 Nov 2022 18:53:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=UVsyr07V;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=jyzWhIZ1;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=eqLRsqnd;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::634; helo=mail-ej1-x634.google.com; envelope-from=patrick.rudolph@9elements.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=UVsyr07V;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=jyzWhIZ1;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=eqLRsqnd;
 	dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com [66.111.4.25])
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com [IPv6:2a00:1450:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NMFBS2Rw1z2x9d
-	for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2022 08:01:35 +1100 (AEDT)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id 9C4D25C0064;
-	Tue, 29 Nov 2022 16:01:31 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute5.internal (MEProxy); Tue, 29 Nov 2022 16:01:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1669755691; x=1669842091; bh=Ld5DMLEY4v
-	Hx3uakWo4ZbA7NLDelEsG+WOYyy+djawU=; b=UVsyr07VzMaG/LhIQYxlI3TQxA
-	bz3bDTKHFjex3muJPNd+2igp9V8CwNllB2MItlzXP5cvTm0GrGBa/LgkUaDXWzWs
-	uGpNEc54uN8mMaNV2vTFR8Kyd2sJRJQ3FwLNrsNcoiQq/v8H3Fg4YokL23WQyT+s
-	erSi7VEjwzih7yC4g3ZFrCOAD04k9bD+iWqxILY2mp83Fq0sjrAkTOhDb9uONfru
-	guCa0cZpMfM6tQXr+wY3QnNivDVZhiO+O0PNCBxdJH/hAwcTvw3IYhw+PSaKm4TC
-	2nUf1QhRhG50pnGAhm20OOHILgKzEweQSDkrdt64xvWGtVbTEoUvlQ/ZI18w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1669755691; x=1669842091; bh=Ld5DMLEY4vHx3uakWo4ZbA7NLDel
-	EsG+WOYyy+djawU=; b=jyzWhIZ1vFDoYsqBB7jwlknuFpqtlte4cu+dv4epszRl
-	PinbMHyUCEG0IlTY+rHPeQiL4QSpheEMBmyyrTwjE1yt0u6DgoHLbEuvIckNbBqO
-	6yWs9C9b25M+IumavBrBRrkPL/vsWUfZ782Mf7URwn7Ro/3cQdmV9t+MlhNZO7F7
-	4UQ+kX8XxUgJtFDEEf4lnCqx11DGE5g9l4PjyY084tk2Ua9vjZey1M2opU1BQTRY
-	/cXlSx9Gx93FTttuxSUK1ziR8rZjc0qggO6KjkKWjwocRMoxcm/xow4w7bJBwnYG
-	wY6zN9WeDKNdVkY/Df47VGvVNeBUb1BC3AEeg9LA/A==
-X-ME-Sender: <xms:KnOGY31yk1e3uTeYCCeSKJYB6oK9Sx2ZUfzcV85Mo4bITBicr1Zs-w>
-    <xme:KnOGY2Ep1vu2iR3yqdfN-1sT5tlZQHufSFKGkcVOYSZdf86G2zA0z9jQ0imbPRcrB
-    KCoZwX3CkOtp3R495s>
-X-ME-Received: <xmr:KnOGY34cKd7VdnTslMHgvh93QzftTm4ScsoBXOLaWboR1KnV5fc-uB2aQgegdhJkqvmcKRuCtfjjYD-EZsxbmkfIicXvkhHgOT0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrtddugddtudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
-    hrlhcuvffnffculdefhedmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
-    vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
-    htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepheefjeehfedtjeeivdefkeffheel
-    udekudelleffkefgtdeludelvddtgedtheeknecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:K3OGY83BJVSn4r2Gl2jaPJ4JLc1pvQewpoRSxxmkLZo6DWGZETMryA>
-    <xmx:K3OGY6F2cWv7j-ZjLdUHiYBZkFeua0hY1L1l3TiB6s3wIvt-lazYVw>
-    <xmx:K3OGY9_ENisfXIxTQ0-GQTlplKUijzrdZDohH-oGT7gu7xtUoUaQ2w>
-    <xmx:K3OGY1MLgrTKwY1kLPVRfsSUz4ejvqYaG8rdSGXqVnJMTzCYuXs2Zg>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 29 Nov 2022 16:01:30 -0500 (EST)
-Date: Tue, 29 Nov 2022 15:01:29 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Francine Sauvage <francine.sauvage@atos.net>
-Subject: Re: How to declare the default value of a dict in yaml setting ?
-Message-ID: <Y4ZzKRk+DvC4+9Fw@heinlein.taila677.ts.net>
-References: <PAXPR02MB768073FA27508BD2B28EC72FE40D9@PAXPR02MB7680.eurprd02.prod.outlook.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NMWdW6lLRz2xVr
+	for <openbmc@lists.ozlabs.org>; Wed, 30 Nov 2022 18:52:30 +1100 (AEDT)
+Received: by mail-ej1-x634.google.com with SMTP id n20so39400930ejh.0
+        for <openbmc@lists.ozlabs.org>; Tue, 29 Nov 2022 23:52:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oS2XC6fdTXuWOLrVDXR1a2AzA8BB4cDv+VOxEeSMDbQ=;
+        b=eqLRsqnd9gc0JWglPojwZhZ4WX19/ubXq/NOS8xCIJnMRcNBEJyvz0sn+NbGqICFUe
+         eVxOKw68lbucLuKCsNE/L/P4hRR9v/lO+uk7OHLnoojgvlF5UkHhpvJzdswHwUud9Vul
+         147Gxger9F2VUT1VzeU3xO0Lh47yY/JPRbZFyTtQ9x+Ov3fFclIaBUxnTMPfMUWUXQyJ
+         2OLUDT1YWl5EkD7cBWifiBEkc27qL5ydx3ll3UAmgGAuDo4fyhjeQkHbYSJtBzim8iu6
+         1ku3UiNwGt0aOPaVWGh6Rv2Hh8FSnDFuzENiT8f1pduzDx5RHWZ4ZwTngPCZflGoCw+J
+         7TaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oS2XC6fdTXuWOLrVDXR1a2AzA8BB4cDv+VOxEeSMDbQ=;
+        b=EsnQtCfhluEHx6J5CcO1YVwMSssGV0Y7/uolTC9MgQOMEtIJ2dwEujEEeJ21CaLYpn
+         RO9VECJiqWOtd7RwcWkzhekpzEa5O8OefDtzACfEmb9A4B37cswazaSijEEy7feI3z25
+         fZyX69CDpr+onbL/P9MGlZrtB+Nma9AQqo6bppElWnVdpSkuPP7bTLPSqA5czJlhEgmw
+         eZUqHGIADN8n6c/CBOU6PNWupoKaTBEEXgoxk7EzC2eGGy4r1g5rK77yXF5x7mbUf5R+
+         T9ZHIMeQ6Nh6fIuV8xeiFmNazbSYDJsBJrjvzu1csF8nqxZ0lj4fAmyC0Ec5rII4JbS7
+         k8jw==
+X-Gm-Message-State: ANoB5pkn9821PRtsbmW8tEvA/Y8egpQcAo7N+ga5stlr8pnOezrtqVCC
+	T2prZKYl5ujamdpQ1Y1HTl1HAg==
+X-Google-Smtp-Source: AA0mqf7Xk1DXgRXQhxapNKvDlOZQ0wbRuft2nW7U3pdviRpnQLgbq6BNOv6pC8RoYdK+pxhba9qUiw==
+X-Received: by 2002:a17:906:8156:b0:7c0:8fe9:cd0a with SMTP id z22-20020a170906815600b007c08fe9cd0amr4206751ejw.348.1669794747088;
+        Tue, 29 Nov 2022 23:52:27 -0800 (PST)
+Received: from fedora.. (ip-094-114-233-057.um31.pools.vodafone-ip.de. [94.114.233.57])
+        by smtp.gmail.com with ESMTPSA id s17-20020a05640217d100b004585eba4baesm313236edy.80.2022.11.29.23.52.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Nov 2022 23:52:26 -0800 (PST)
+From: Patrick Rudolph <patrick.rudolph@9elements.com>
+To: joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [RESEND][PATCH u-boot v2019.04-aspeed-openbmc v6 1/2] arm/dts: Add IBM Genesis3 board
+Date: Wed, 30 Nov 2022 08:52:21 +0100
+Message-Id: <20221130075222.1238196-2-patrick.rudolph@9elements.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221130075222.1238196-1-patrick.rudolph@9elements.com>
+References: <20221130075222.1238196-1-patrick.rudolph@9elements.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Ol+Wlfi90Q3URdVQ"
-Content-Disposition: inline
-In-Reply-To: <PAXPR02MB768073FA27508BD2B28EC72FE40D9@PAXPR02MB7680.eurprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,53 +79,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: takken@us.ibm.com, andrew@aj.id.au, naresh.solanki@9elements.com, christian.walter@9elements.com, Patrick Rudolph <patrick.rudolph@9elements.com>, zweiss@equinix.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Add devicetree source file. It uses the evb-ast2500 board files.
 
---Ol+Wlfi90Q3URdVQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+Reviewed-by: Zev Weiss <zweiss@equinix.com>
+---
+ arch/arm/dts/Makefile             |  1 +
+ arch/arm/dts/ast2500-genesis3.dts | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
+ create mode 100644 arch/arm/dts/ast2500-genesis3.dts
 
-On Tue, Nov 22, 2022 at 02:19:48PM +0000, Francine Sauvage wrote:
-> Hi all,
->=20
-> I would like to serialize a persistent data in the settings (phosphor-set=
-tings-manager) ?
-> I need a default value, what could it be ?
->=20
-> - name: MyData
->           type: dict[int16, array[byte]]
->           description: >
->             A dictionary of DIMM SPD Data.
->             default: ???
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 6c34b83336..db479c059b 100755
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -680,6 +680,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	ast2400-palmetto.dtb \
+ 	ast2500-evb.dtb \
+ 	ast2500-romulus.dtb \
++	ast2500-genesis3.dtb \
+ 	ast2600a0-evb.dtb \
+ 	ast2600a1-evb.dtb \
+ 	ast2600-bletchley.dtb \
+diff --git a/arch/arm/dts/ast2500-genesis3.dts b/arch/arm/dts/ast2500-genesis3.dts
+new file mode 100644
+index 0000000000..544758c5b8
+--- /dev/null
++++ b/arch/arm/dts/ast2500-genesis3.dts
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * IBM Genesis3
++ *
++ * Copyright (C) 2022 9elements GmbH
++ */
++
++#include "ast2500-evb.dts"
++
++/ {
++	model = "IBM Genesis3";
++	compatible = "ibm,genesis3-bmc", "aspeed,ast2500";
++};
++
++&spi1 {
++	status = "disabled";
++};
++
++&fmc {
++	flash@0 {
++		compatible = "spansion,s25fl256l", "spi-flash";
++	};
++
++	flash@1 {
++		compatible = "spansion,s25fl256l", "spi-flash";
++	};
++};
++
+-- 
+2.37.1
 
-Take a look at the phosphor-settings-defaults-native.bb recipe and any
-of the .bbappend files that are in the various meta-layers.
-
---=20
-Patrick Williams
-
---Ol+Wlfi90Q3URdVQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmOGcycACgkQqwNHzC0A
-wRmWLA//ezo9s5g/F670CZgZLABZ1nwOWLoVSwzFlaEo1I7Y8NNOuClsf7ccXRBB
-+IAgczMOq2/8nrLN+lio6seQDxVNotsSkBZENLjt/5YjzA60NssgZyBbJLJWanYh
-FxoXilWxXXjjHdO5XzPrdYvCgPMI11gepPa8lwaTLX/BBRRIPZug11kKkoE4Tkj5
-lRbhVlKnmwy9bpLbvdJoGT7gXpLM5VNTmaMWU9SK8vxTx0/LB42yLLXiTE/ytDXt
-Dw+e34LlSDgwxXB4t7hsUBXKN7SR0LZF61/awreANT6A4tImdIgMKbvcHjQul1Nm
-tUl0dry1Y0WlrPvjWVZSsa7HO2JZFTsWrQ5e7HGhAQJr7Vm16erOXQObSpQsPDkm
-OATRtqxE82BHQH1sJogc5KY3GsoIbchPqyA3IL9272m/2Ld6DVoWMS1vRzjQEVMl
-13zcdCdutZ0+Ve6kkZDsbmtmVpyCSaJNbHrPqP/3t0UGMNZM52iZp8MeKP6btuCd
-NH46N6QqyPkZbisEyZPdX0GNm8O/WZt27DNAbavpy37xoI/IvlrAJ8eOMQ4h7W1P
-0TPsopx7IhII2/7DwRLbvEfYL6kr30Ff8wyY/wApnsSEaBLbj8/xfbTcqrRb2x1Z
-Wcc83d6HXHhX8cd2FNwiYApMW+uTlmJWT79ValswZeSV+rpnU9A=
-=tbWT
------END PGP SIGNATURE-----
-
---Ol+Wlfi90Q3URdVQ--
