@@ -4,120 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7F05C4332F
-	for <openbmc@archiver.kernel.org>; Thu, 22 Dec 2022 00:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B71EC4332F
+	for <openbmc@archiver.kernel.org>; Thu, 22 Dec 2022 02:24:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4NcrYn0j39z303D
-	for <openbmc@archiver.kernel.org>; Thu, 22 Dec 2022 11:20:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4NcvKD1CB7z3bWj
+	for <openbmc@archiver.kernel.org>; Thu, 22 Dec 2022 13:24:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=kN1xSIvz;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=KsDKiECB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=os.amperecomputing.com (client-ip=40.107.244.127; helo=nam12-mw2-obe.outbound.protection.outlook.com; envelope-from=chanh@os.amperecomputing.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e2c; helo=mail-vs1-xe2c.google.com; envelope-from=milkfafa@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=os.amperecomputing.com header.i=@os.amperecomputing.com header.a=rsa-sha256 header.s=selector2 header.b=kN1xSIvz;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=KsDKiECB;
 	dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (mail-mw2nam12on2127.outbound.protection.outlook.com [40.107.244.127])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-xe2c.google.com (mail-vs1-xe2c.google.com [IPv6:2607:f8b0:4864:20::e2c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4NcSS45Ylyz2xJN
-	for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2022 20:14:10 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OmeIpAdNReuCKEKgiPVu5L4PHnye3TtkR2C74j2aUtsRH0cMnSJrftcYukBUBIk2BkgEZGGdwawM97p5dRTvuCFqyEniElWAx8s995G/DufMBVlffpcQMMZKOSblN5PslK6I5cPXuWRZv3ki5cByBi4YTYOTm0Fu5EtLLrUgs6+v//gfwyHbsOX2LZML/As0by83QfVBfrG2jsbdwnLqy0Siunvp397Mf6Tci0s3xpWfhUl1BwTQ0R8sY5WfB6nWQBvHMl1CGxn8YJvQRcpXTnXJgIaS/7VFiTBEyLkpjg9LZlIOF8xybvxSUfVtHc1durp5Js2ZiXljT0YppExyQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3BG9oHxI0rE9qx7uAKf3D/ERZbbtozXzvp62zKaIBTE=;
- b=lnn5R/5tYKJnOAlz4mGDnDyrx7/H1zREh8jvT9/zLO1+1m2JAR7yRtLuIY7MWtb12wsRTdmPd1pyJw20owrHjAP64f4+rF4bAWV3ak+PxtkqN86R1JXStmkGp1T7twe7ReojJmKwTQvuJCxzN2lgGEeSwIQd9vOdfKCa4oy/38LKVsLqFgnkYcFVTd5g0u5jz0caLbU2iWnMssWf0P0LWLZ2lk1G8puF1VrNLTDADw3WaVdESaeEuDDC7vHWVkKbQx5lK500pVKtvmpEwHn5JacjIM83B0/9l1F6dfW18JZdduxCnM+tm1lnfvysgpcc3Quv9LBklHnrYY3KV9BUKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=os.amperecomputing.com; dmarc=pass action=none
- header.from=os.amperecomputing.com; dkim=pass
- header.d=os.amperecomputing.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4NcvJ630Xqz2xnK
+	for <openbmc@lists.ozlabs.org>; Thu, 22 Dec 2022 13:23:48 +1100 (AEDT)
+Received: by mail-vs1-xe2c.google.com with SMTP id k185so529796vsc.2
+        for <openbmc@lists.ozlabs.org>; Wed, 21 Dec 2022 18:23:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=os.amperecomputing.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3BG9oHxI0rE9qx7uAKf3D/ERZbbtozXzvp62zKaIBTE=;
- b=kN1xSIvzuBmpFjdcVZB2dSKUXRqQ/buMnHDfB19qlidzi57JN6OXW1GW3mzYgJ6UBWQU+dQgmIlDMGBKN+ILiilXRB5N0HtfztnQWAXnmaT2a/QvFR7D/5/31N2nDRPqWDTK6KQwR/qVf93lQwrMR8XIRywAsteZfpkNsP6KcjQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=os.amperecomputing.com;
-Received: from SN6PR01MB4973.prod.exchangelabs.com (2603:10b6:805:c4::13) by
- PH0PR01MB6764.prod.exchangelabs.com (2603:10b6:510:7a::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5924.11; Wed, 21 Dec 2022 09:13:48 +0000
-Received: from SN6PR01MB4973.prod.exchangelabs.com
- ([fe80::1e67:38ac:ed37:be1c]) by SN6PR01MB4973.prod.exchangelabs.com
- ([fe80::1e67:38ac:ed37:be1c%3]) with mapi id 15.20.5924.016; Wed, 21 Dec 2022
- 09:13:48 +0000
-From: Chanh Nguyen <chanh@os.amperecomputing.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Frank Li <frank.li@nxp.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Dan Vacura <w36195@motorola.com>,
-	Jakob Koschel <jakobkoschel@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Vijayavardhan Vennapusa <vvreddy@codeaurora.org>,
-	Rondreis <linhaoguo86@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Open Source Submission <patches@amperecomputing.com>
-Subject: [PATCH v2] USB: gadget: Add ID numbers to configfs-gadget driver names
-Date: Wed, 21 Dec 2022 16:13:17 +0700
-Message-Id: <20221221091317.19380-1-chanh@os.amperecomputing.com>
-X-Mailer: git-send-email 2.17.1
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0002.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::16) To SN6PR01MB4973.prod.exchangelabs.com
- (2603:10b6:805:c4::13)
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=VFTDHnDll88TPaYL7KvtdsNvFq8ZgzXZIlFN1ok/uLs=;
+        b=KsDKiECBrS56TPmqiIUDPte07tYoYqXGw4oyNgupkaTeF10bKGqWZCQjJuhu4+lO38
+         84vAlBc3LmdWvvnSHh0Dr7mcoTD7NWJmR4K2SeQwhaP0dUMrfe+Um/p7KYjlaH4Tn514
+         u1s5HfcXBjMFbloTUXP3Xfb5V+nMkvXMBuwhrHEpbyj9Xbu1Rm6yIpuspfng+9rneHtn
+         LdcReBjgck5EQDqBYw0q5WkZoeQBZN9Oi56ERWA7jqIodUjdnpucUdmtiIghlRCXlx6S
+         dxaHJssKGDeqQVPdGRxiiae+Xp4gKtvS6uYCYX1dO0JctffNJDdX8WduyelfG906B9c4
+         BhcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VFTDHnDll88TPaYL7KvtdsNvFq8ZgzXZIlFN1ok/uLs=;
+        b=wVfpbAkh27fWrkjHynLpD7NtUX2O0aNVn5ZKE56KkYHjz5JEwEG0BXG+wRirHj/+Pz
+         G8uOZ3AMwLZpRo6QJaboeG9PynQjK/rQtKMuHB69SfVZrXIw3lePVCo2mrk0YzDe2BO0
+         18n08SJl9V92rOcdnTsNw3WyBho3IA3mpmCfOhcYS8a2p9ABXSbUroDUWnsDjBC3EGy6
+         D7+n76htvvVseEat/c7jRyVMB0Y/jczGQN2vMgTHtJCs6PSQcRiarYvA32UrDklg9oYv
+         +fMGpvtaz7+XdIs165VGsLryI56efZLlc5q8C6bkHj/eCn/5HlJJeT5qIT3llyigUzEU
+         j6Yg==
+X-Gm-Message-State: AFqh2kp85oUDFW57KIex/mpQC2SqUj5i9A4ihScf1F2b9HSyFD4RaznK
+	ObDhSPO+hTzRhwwgbsxPIieGPzJCzjSdstpcmJ8=
+X-Google-Smtp-Source: AMrXdXu485GKY0plvl7WKqc853dOIB+mUZa+WCeJDChwDEPLzOiTiuVy1grv9+2X/WaCczrEUdfD4Rdc6OnYT6f3IQY=
+X-Received: by 2002:a05:6102:105:b0:3b1:4aad:9c47 with SMTP id
+ z5-20020a056102010500b003b14aad9c47mr497116vsq.73.1671675823724; Wed, 21 Dec
+ 2022 18:23:43 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR01MB4973:EE_|PH0PR01MB6764:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fd0dbae-b99e-454f-aaba-08dae333ab1f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 	L40nVs+8+TyMj6Tamtodiv7xNL3HArTburI2ZnDvX6rnvvTzKZ1NVtlN5VEaD3yG3LvjU6kOpRjCe1ZS8Basdk+j9qq9AQh+YNMyNu4tmKObb85yK1Ywbi9CzxrzV6hkyMF/rsjFBe6Neop998NUnxKC2fftn8ehE9w30xjf+uY/dtvb58qQKGmg+WXlTvS5SGP+GhLRu7J3WR6MX8CClduMhr3nf3gi+EEgtoFuWyncQiEGXtOn+nTmN6fQQpPy1JdVLHK1PVDNAZ0WlM5FVREstRxXC8G9tLmLX8yo4ZxvxM92vvZoCz2ovhQr18d6dRwC0CgKbaPKuokAnlhYWpvYaCL6G7ayZ2lJOKE23MD0Sh3MG5BamxAdvSXaPx+BAbRg+XKmmh3Cnmf/1X1EOQARufYMXQrZWIsPkS+m6W9XvmQQGu5tzysx3ZGg0G6hrk9WgFB6At6m3AH4MiGPTr1dGGaa2/moLkMl93CnQG2Px0m71NuO7/tnXisaJkMJtpMz5Mx1wPW32RuOnf4773itTdPgauaTG3rdB+rNwJnGt37iwxWpi2WrpuVo3Qz4qY9Cq/7yql2mJljFCE0/FBJlkO50ahiVr4zNHnqZ0Yhk9bMJASyFqlXdDvE7m4QvYWWTxv3rFS4pmqPxMtlpCleE8AX66jMv43jyTSxKbb3LaUEuJqmrYlVb1/L9h9GFFG3FbNAsq1G6YbvyzKAijw==
-X-Forefront-Antispam-Report: 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR01MB4973.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(366004)(346002)(396003)(39850400004)(136003)(451199015)(5660300002)(66476007)(2906002)(8936002)(41300700001)(4326008)(921005)(66556008)(86362001)(66946007)(7416002)(8676002)(110136005)(316002)(6506007)(26005)(6512007)(186003)(52116002)(38100700002)(38350700002)(107886003)(6666004)(83380400001)(2616005)(1076003)(478600001)(6486002);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 	=?us-ascii?Q?AeDX5soJfO6MvPUfeVamrhluIls1DSxMRbeSaYd4BGU8s42aCab7TO4SJQNt?=
- =?us-ascii?Q?hrOQW5sSrTFy5xd3t83YH30VxoOhpuQunAtKDg8rE/7DALR1qYeFpAvzr9TP?=
- =?us-ascii?Q?WN+BZSLIpGihdgj814anPUyqRkHvoCzrWfOxoMTFGPwwJ2T2tf+w6HFFUGAN?=
- =?us-ascii?Q?BBKeh92Xn7grOCRY02m6ka9D6b6TL+Ysha1lQpwWzFz0Y1npq7Y5jmoRAr6k?=
- =?us-ascii?Q?zNzLXG+3+Jyb/k+9KxRjWi7kbX/zLhDZHqJbpXoXQcA1KcFyt8KRWiX0o+hT?=
- =?us-ascii?Q?rHHOJdqlECKnokpfvxn6TiJLJlncmGp2JDlO6c9awgfq7AofCze+93kxeL+4?=
- =?us-ascii?Q?0pvvPChK0/pXFF0ud2IgDg33w6suYVi48NhGniiDFx4CCPyxoVVb7CCu78WE?=
- =?us-ascii?Q?nWaV13ISNDE8Q0aAWJ3A/4fhp63NkAUT9YcRDbnUXaQmJ2hD3f4ezSIEQY92?=
- =?us-ascii?Q?m7Q7CCksfJ5L2+9mAP2vcZTzM99QfzKmEufVREsNARRn85jf/KqRehkQuhqC?=
- =?us-ascii?Q?9JJpHzkHlhNAqLa3+3Kgl6hUneu6Eroj/CDKwEpUNZls9lFCNLxav2snRPHA?=
- =?us-ascii?Q?DD9RT7nKVFZDJC47fytYDC0RodCxVTEmnT6h20DPFBQQGY45MdUdFcWfqgUN?=
- =?us-ascii?Q?wq0VYMa5PhfUCwbohnFZiqmjv7B7O+zHKnYQiXB/dsbKI6oyRHZu/sTftPBy?=
- =?us-ascii?Q?5xuhIeX+m4lz33G7j67fCzTiGXn1mD4/nAsW8twfcqysMnOjyXqMFov6G8+L?=
- =?us-ascii?Q?+su9Z+hQRr+GL2phBalf4KiCVy9RVe7sWp3D0J4yXsf+PhtdFc+2JMDuJrb0?=
- =?us-ascii?Q?7zmKv1bd60wySPkyJ0uEB5GtdZz/E6y5+ATgrrqko5ERzxJX71oJq0cmJGzX?=
- =?us-ascii?Q?9mI1ukfa0nf/mMJ0uLTj0y32vUuzNq2f2oi1rafVSyzqV/K12qD27IgP+VsQ?=
- =?us-ascii?Q?eXsWje2uklVfx0OpuXf3HYeePp5LqY5FXx3NLyWNCMZYhZu41weyTyH22pX0?=
- =?us-ascii?Q?CJDqU23DdDscpwG7d0WGub2sQ9K2U/G/w4jX6+yknNUDOhJfuRsaG4KfN1ET?=
- =?us-ascii?Q?M6aEF9hk8jCNhHKP40LvMFIBREmxW3JTxFgeY8s8qMBf3/aw3kxP9M9lL5ED?=
- =?us-ascii?Q?iTMXFzAsufRt2JW+jJwq/McSj6p3MTm2RbUAPq6r+9g5NPvndDom7WK1yGsM?=
- =?us-ascii?Q?DldphmxBBkVkNUO4bSZ15bnI9xW6DE04xqsnHoatvuTez9dN3ngHgPJZRGO5?=
- =?us-ascii?Q?4oYvd0puF6dDJVpHsEmLLKVzR8Z5w7C/kn0sq5f0/EXDVBWhUli8vragv4LT?=
- =?us-ascii?Q?Plk8yq4cdqhojG3ITeZurZ+afoNMNcR9OkP4TqrK/ni24OZxjTgd0lRtHGsI?=
- =?us-ascii?Q?m5CwKQsz4CpBeFTCgL7fYUJa0fsc4CojPpXuwETWaqIQu66sNFzCDmzA8HFZ?=
- =?us-ascii?Q?qXG5G0SMDJx2/zm5e9mXseE7PCLaygye+kmSJmxtdzJodJcuKyw3G6NtuYIy?=
- =?us-ascii?Q?a2P3edsma9eOHX/XWQlmUANyAGyPoRr6lm2+Eibk5FDMz5T+94k5CDaMh+9H?=
- =?us-ascii?Q?ojD01kOy2Mi+2YKSRVPOYaxUWv1uABOHeHWwvJX4aBo/szIHG8s4QlZRkahS?=
- =?us-ascii?Q?V3xm/ZHS+CCIlrQOMBp2Xy8=3D?=
-X-OriginatorOrg: os.amperecomputing.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fd0dbae-b99e-454f-aaba-08dae333ab1f
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR01MB4973.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 09:13:48.2975
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3bc2b170-fd94-476d-b0ce-4229bdc904a7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nSRu83wmTOVQDrCdtgNHuD/aGjpdBAcx8vVxrjsVSBbHkaaSgNFKaFnayNiHRAsUtlUAyXKXuUQE7iHPsL/0PH06iNNo22dqQHjN0UIWBArULGpTwIFnZpo3epk90j2f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR01MB6764
-X-Mailman-Approved-At: Thu, 22 Dec 2022 11:16:45 +1100
+References: <20221220094055.3011916-1-milkfafa@gmail.com> <20221220094055.3011916-8-milkfafa@gmail.com>
+ <078aa497-e441-ef3d-c206-de23ca2658c9@collabora.com>
+In-Reply-To: <078aa497-e441-ef3d-c206-de23ca2658c9@collabora.com>
+From: Kun-Fa Lin <milkfafa@gmail.com>
+Date: Thu, 22 Dec 2022 10:23:32 +0800
+Message-ID: <CADnNmFpjrRy2J5mrFnp6JRiY5W=Xot83PV_JMuBWMP-uf63Rig@mail.gmail.com>
+Subject: Re: [PATCH v9 7/7] media: nuvoton: Add driver for NPCM video capture
+ and encode engine
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,106 +75,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Chanh Nguyen <chanh@os.amperecomputing.com>
+Cc: devicetree@vger.kernel.org, tmaimon77@gmail.com, kwliu@nuvoton.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, linux-media@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, hverkuil-cisco@xs4all.nl, mchehab@kernel.org, kflin@nuvoton.com, linux-kernel@vger.kernel.org, benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-It is unable to use configfs to attach more than one gadget. When
-attaching the second gadget, it always fails and the kernel message
-prints out:
+Hi Andrzej,
 
-Error: Driver 'configfs-gadget' is already registered, aborting...
-UDC core: g1: driver registration failed: -16
+Thanks for the review.
 
-This commit fixes the problem by a ".N" suffix added to each
-configfs_gadget's driver name (where N is a unique ID number),
-thus making the names distinct.
+> > +static void npcm_video_ece_set_fb_addr(struct npcm_video *video, u32 buffer)
+>
+> static inline void?
+>
 
-Fixes: fc274c1e9973 ("USB: gadget: Add a new bus for gadgets")
-Signed-off-by: Chanh Nguyen <chanh@os.amperecomputing.com>
+> > +static void npcm_video_ece_set_enc_dba(struct npcm_video *video, u32 addr)
+>
+> ditto
 
----
-Changes in v2:
-  - Replace scnprintf() by kasprintf() to simplify the code [CJ]
-  - Move the clean up code from gadgets_drop() to
-    gadget_info_attr_release()                        [Frank Li]
-  - Correct the resource free up in gadges_make()   [Alan Stern]
-  - Remove the unnecessary variable in gadgets_make()    [Chanh]
-  - Fixes minor grammar issue in commit message          [Chanh]
----
- drivers/usb/gadget/configfs.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+> > +static void npcm_video_ece_clear_rect_offset(struct npcm_video *video)
+>
+> ditto
 
-diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 96121d1c8df4..7faf68bfa716 100644
---- a/drivers/usb/gadget/configfs.c
-+++ b/drivers/usb/gadget/configfs.c
-@@ -3,6 +3,7 @@
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/device.h>
-+#include <linux/idr.h>
- #include <linux/kstrtox.h>
- #include <linux/nls.h>
- #include <linux/usb/composite.h>
-@@ -11,6 +12,8 @@
- #include "u_f.h"
- #include "u_os_desc.h"
- 
-+static DEFINE_IDA(driver_id_numbers);
-+
- int check_user_usb_string(const char *name,
- 		struct usb_gadget_strings *stringtab_dev)
- {
-@@ -52,6 +55,9 @@ struct gadget_info {
- 	char qw_sign[OS_STRING_QW_SIGN_LEN];
- 	spinlock_t spinlock;
- 	bool unbind;
-+
-+	/* Make driver names unique */
-+	int driver_id_number;
- };
- 
- static inline struct gadget_info *to_gadget_info(struct config_item *item)
-@@ -393,6 +399,8 @@ static void gadget_info_attr_release(struct config_item *item)
- 	WARN_ON(!list_empty(&gi->string_list));
- 	WARN_ON(!list_empty(&gi->available_func));
- 	kfree(gi->composite.gadget_driver.function);
-+	kfree(gi->composite.gadget_driver.driver.name);
-+	ida_free(&driver_id_numbers, gi->driver_id_number);
- 	kfree(gi);
- }
- 
-@@ -1623,13 +1631,28 @@ static struct config_group *gadgets_make(
- 
- 	gi->composite.gadget_driver = configfs_driver_template;
- 
-+	gi->driver_id_number = ida_alloc(&driver_id_numbers, GFP_KERNEL);
-+	if (gi->driver_id_number < 0)
-+		goto err;
-+
-+	gi->composite.gadget_driver.driver.name = kasprintf(GFP_KERNEL,
-+							    "configfs-gadget.%d",
-+							    gi->driver_id_number);
-+	if (!gi->composite.gadget_driver.driver.name)
-+		goto out_free_driver_id_number;
-+
- 	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
- 	gi->composite.name = gi->composite.gadget_driver.function;
- 
- 	if (!gi->composite.gadget_driver.function)
--		goto err;
-+		goto out_free_driver_name;
- 
- 	return &gi->group;
-+
-+out_free_driver_name:
-+	kfree(gi->composite.gadget_driver.driver.name);
-+out_free_driver_id_number:
-+	ida_free(&driver_id_numbers, gi->driver_id_number);
- err:
- 	kfree(gi);
- 	return ERR_PTR(-ENOMEM);
--- 
-2.17.1
+> > +static int npcm_video_ece_init(struct npcm_video *video)
+>
+> static inline int? But...
+>
+> > +{
+> > +     npcm_video_ece_ip_reset(video);
+> > +     npcm_video_ece_ctrl_reset(video);
+> > +
+> > +     return 0;
+>
+> ...the return value is not inspected by the only caller anyway, so why not
+>
+> static inline void?
 
+OK, I'll declare these functions as static inline void.
+
+> > +static int npcm_video_ece_stop(struct npcm_video *video)
+> > +{
+> > +     struct regmap *ece = video->ece.regmap;
+> > +
+> > +     regmap_update_bits(ece, ECE_DDA_CTRL, ECE_DDA_CTRL_ECEEN, 0);
+> > +     regmap_update_bits(ece, ECE_DDA_CTRL, ECE_DDA_CTRL_INTEN, 0);
+> > +     regmap_update_bits(ece, ECE_HEX_CTRL, ECE_HEX_CTRL_ENCDIS,
+> > +                        ECE_HEX_CTRL_ENCDIS);
+> > +     npcm_video_ece_clear_rect_offset(video);
+> > +
+> > +     return 0;
+>
+> Nobody inspects this return value. Either void, or check the return value
+> at call site and handle a non-zero failure.
+
+OK, will change to void.
+
+> > +static unsigned int npcm_video_get_rect_count(struct npcm_video *video)
+> > +{
+> > +     struct list_head *head, *pos, *nx;
+> > +     struct rect_list *tmp;
+> > +     unsigned int count;
+>
+>         unsigned int count = 0;
+>
+> otherwise if the below condition is not met, ...
+> > +
+> > +     if (video->list && video->rect) {
+> > +             count = video->rect[video->vb_index];
+> > +             head = &video->list[video->vb_index];
+> > +
+> > +             list_for_each_safe(pos, nx, head) {
+> > +                     tmp = list_entry(pos, struct rect_list, list);
+> > +                     list_del(&tmp->list);
+> > +                     kfree(tmp);
+> > +             }
+>
+> why does a function whose name implies merely getting a number actually
+> remove all elements from some list? count equals video->rect[video->vb_index];
+> and everthing else looks like a(n indented?) side effect. This should be
+> somehow commented in the code.
+>
+> > +     }
+> > +
+> > +     return count;
+>
+> ... an undefined number is returned
+>
+> Which makes me wonder if the compiler is not warning about using a possibly
+> uninitialized value.
+
+You are right, this is not the right place to remove the rect_list.
+It makes more sense to remove the list right after the associated
+video buffer gets dequeued.
+I'll do that change.
+
+> > +static int npcm_video_capres(struct npcm_video *video, u32 hor_res,
+> > +                          u32 vert_res)
+> > +{
+> > +     struct regmap *vcd = video->vcd_regmap;
+> > +     u32 res, cap_res;
+> > +
+> > +     if (hor_res > MAX_WIDTH || vert_res > MAX_HEIGHT)
+> > +             return -EINVAL;
+> > +
+> > +     res = FIELD_PREP(VCD_CAP_RES_VERT_RES, vert_res) |
+> > +           FIELD_PREP(VCD_CAP_RES_HOR_RES, hor_res);
+> > +
+> > +     regmap_write(vcd, VCD_CAP_RES, res);
+> > +     regmap_read(vcd, VCD_CAP_RES, &cap_res);
+> > +
+> > +     if (cap_res != res)
+> > +             return -EINVAL;
+> > +
+> > +     return 0;
+>
+> The return value is not handled by the caller
+
+> > +static int npcm_video_gfx_reset(struct npcm_video *video)
+> > +{
+> > +     struct regmap *gcr = video->gcr_regmap;
+> > +
+> > +     regmap_update_bits(gcr, INTCR2, INTCR2_GIRST2, INTCR2_GIRST2);
+> > +
+> > +     npcm_video_vcd_state_machine_reset(video);
+> > +
+> > +     regmap_update_bits(gcr, INTCR2, INTCR2_GIRST2, 0);
+> > +
+> > +     return 0;
+>
+> Never inspected by callers
+
+> > +static int npcm_video_command(struct npcm_video *video, u32 value)
+> > +{
+> > +     struct regmap *vcd = video->vcd_regmap;
+> > +     u32 cmd;
+> > +
+> > +     regmap_write(vcd, VCD_STAT, VCD_STAT_CLEAR);
+> > +
+> > +     regmap_read(vcd, VCD_CMD, &cmd);
+> > +     cmd |= FIELD_PREP(VCD_CMD_OPERATION, value);
+> > +
+> > +     regmap_write(vcd, VCD_CMD, cmd);
+> > +     regmap_update_bits(vcd, VCD_CMD, VCD_CMD_GO, VCD_CMD_GO);
+> > +     video->op_cmd = value;
+> > +
+> > +     return 0;
+>
+> Never inspected by caller
+
+> > +static int npcm_video_start_frame(struct npcm_video *video)
+> > +{
+>
+> One of the callers ignores the return value, but not the other. Why?
+
+These problems will be addressed in the next patch. Thank you.
+
+Regards,
+Marvin
