@@ -4,68 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCD76C38159
-	for <openbmc@archiver.kernel.org>; Thu, 19 Jan 2023 02:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97EF6C38159
+	for <openbmc@archiver.kernel.org>; Thu, 19 Jan 2023 02:41:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ny5SC17tNz3bTK
-	for <openbmc@archiver.kernel.org>; Thu, 19 Jan 2023 13:00:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ny6Mk5wVyz3c8q
+	for <openbmc@archiver.kernel.org>; Thu, 19 Jan 2023 13:41:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=HzF+mlaT;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aQA9Ge1G;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1032; helo=mail-pj1-x1032.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=134.134.136.65; helo=mga03.intel.com; envelope-from=lkp@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=HzF+mlaT;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aQA9Ge1G;
 	dkim-atps=neutral
-Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com [IPv6:2607:f8b0:4864:20::1032])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Ny4Xf4SzWz2xbK
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Jan 2023 12:19:14 +1100 (AEDT)
-Received: by mail-pj1-x1032.google.com with SMTP id dw9so842368pjb.5
-        for <openbmc@lists.ozlabs.org>; Wed, 18 Jan 2023 17:19:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=utDmIRrPc8hFS/vmhm4HETIQODzF0nB4y0uHITxsM4w=;
-        b=HzF+mlaT/u/72Ild3byzLwjKSXIYnHG3gcZJDaMqXU6F5pXQs5tjM0mdafwRqbLT5j
-         FgQ+1uWinFFfy5MuJIIPCv9mpui3FmjHgUfuw1q2hk7HU9LizzIE0wAN8OvyvrF3SMPD
-         UFkeF9xc4q8NrYGhsDPSFVfz0XsCEEdVZvMoemkzSx8wyycUI+09ph3n6tg+yx0yLboN
-         r1bt+T6Xc2z94InjkvZcN5IuF2diLArN6LGTjWHppKrMSgE48Ak2+8gvMNX+sK1JlHIm
-         XhaW4F5umiYRPQOqmrhzrSvu5PBgV2R2h0qlfhQmu7vruTDjjqdAINrGUI8d7d/X5rdS
-         T9pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=utDmIRrPc8hFS/vmhm4HETIQODzF0nB4y0uHITxsM4w=;
-        b=FL3FOWXNZ36YwR7y4sBoPxQUN59FyJ/1YHweQAxUnvArpq6ev3dhqFxABLamHeRdxx
-         xaQOhJBYxawX+B0jSz83jbipIKFPfwOq0nTxp6hPf7dt+EkRUSgc2pxIg8plCPiCA+dY
-         YKV9PMQeloN5bEWqA1/76bkYWDMZdMZYVAS6wHodeVshR3v+MjZUKhj1mFM296cBUdqj
-         aPjW4/QEwLDIbFX9ICXlL7sYQoLiC9nDCV0NOBOJ6/7tiJanxW4Tt7z5hdenSzOm975e
-         JiHdZw3M1iJ+P5sPlgw0euz3YzKLJjQyDQIXrUsdo/fDpLa8Su2EMr2jvU1rWS36rLBu
-         QykQ==
-X-Gm-Message-State: AFqh2krequLg9tchci5IjFNknmRNXx1NAJtAaZBkNGK3vv6ok0nku+rb
-	RpGO9YCydtPuvIxVRKXVxXUIB7viMTs=
-X-Google-Smtp-Source: AMrXdXvxe02QzFA4HzPiw+sCX6ICvqMEwbBe50WClBIwIr5RJPwKMDp2o1w/Yee8LaAOC8ENTkRvXA==
-X-Received: by 2002:a17:902:a5c6:b0:193:33d4:d509 with SMTP id t6-20020a170902a5c600b0019333d4d509mr31169989plq.30.1674091151496;
-        Wed, 18 Jan 2023 17:19:11 -0800 (PST)
-Received: from localhost.localdomain (1-34-79-176.hinet-ip.hinet.net. [1.34.79.176])
-        by smtp.gmail.com with ESMTPSA id a3-20020a170902900300b00189393ab02csm6270210plp.99.2023.01.18.17.19.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Jan 2023 17:19:10 -0800 (PST)
-From: Potin Lai <potin.lai.pt@gmail.com>
-To: Joel Stanley <joel@jms.id.au>,
-	openbmc@lists.ozlabs.org
-Subject: [RESEND PATCH u-boot,v2019.04-aspeed-openbmc 1/1] ARM: Aspeed: add a config for FMC_WDT2 timer reload value
-Date: Thu, 19 Jan 2023 09:16:58 +0800
-Message-Id: <20230119011658.457158-1-potin.lai.pt@gmail.com>
-X-Mailer: git-send-email 2.31.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Ny6KZ6zq5z3c83;
+	Thu, 19 Jan 2023 13:39:40 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1674095987; x=1705631987;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0Hdifom+vjmj8bVA7OGmDBcPanpOSGWzyc6nuzaLKLM=;
+  b=aQA9Ge1GIMRT822vS90L7t94NYzAzHJhKEwAKsPvPBeesIMiaQt7qwKY
+   wscbJZJzef+2PVIWz9mXk5kGAhriTou5SM2BDoSI8PnCVwC1RovMZVlmj
+   1ZTfDfSNyj7K+FPZt1Dx/vlHO6hDRD18j0yRrk8D/O8lE0Zp42BihF4Tj
+   +eWf0nXxxin08hCSZTpe9EmGI9xW4oo25hdLEuTvKepoO5CYBlkoYltAh
+   QTqxPBfPQf99RfXHsK/A+LlI18v9f0us0NFzLOn7U9FKE5U6sy80y4Os5
+   I3KkaPT9kjqXa18Ry2lcJRehjQJStORh0N7rFryFoWZuJIUQY335rrkKw
+   g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="327247912"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; 
+   d="scan'208";a="327247912"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jan 2023 18:39:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="609907686"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; 
+   d="scan'208";a="609907686"
+Received: from lkp-server01.sh.intel.com (HELO 5646d64e7320) ([10.239.97.150])
+  by orsmga003.jf.intel.com with ESMTP; 18 Jan 2023 18:39:32 -0800
+Received: from kbuild by 5646d64e7320 with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1pIKpq-0000yk-0Z;
+	Thu, 19 Jan 2023 02:39:26 +0000
+Date: Thu, 19 Jan 2023 10:39:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>, Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH v2 3/5] dt-bindings: usb: Convert OMAP OHCI/EHCI bindings
+ to schema
+Message-ID: <202301191008.G3IXJXb5-lkp@intel.com>
+References: <20230110-dt-usb-v2-3-926bc1260e51@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 19 Jan 2023 12:59:32 +1100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230110-dt-usb-v2-3-926bc1260e51@kernel.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,86 +81,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Dan Zhang <dz4list@gmail.com>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a config for FMC_WDT2 timer reload, and set timer reload value if
-FMC_WDT2 is enabled.
+Hi Rob,
 
-Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
-Reviewed-by: Patrick Williams <patrick@stwcx.xyz>
----
- arch/arm/include/asm/arch-aspeed/platform.h |  2 ++
- arch/arm/mach-aspeed/ast2600/Kconfig        | 10 ++++++++++
- arch/arm/mach-aspeed/ast2600/scu_info.c     | 13 +++++++++++++
- 3 files changed, 25 insertions(+)
+I love your patch! Perhaps something to improve:
 
-diff --git a/arch/arm/include/asm/arch-aspeed/platform.h b/arch/arm/include/asm/arch-aspeed/platform.h
-index ca270d4be1..4c2b0866fb 100644
---- a/arch/arm/include/asm/arch-aspeed/platform.h
-+++ b/arch/arm/include/asm/arch-aspeed/platform.h
-@@ -44,6 +44,8 @@
- #define ASPEED_FMC_CS0_BASE	0x20000000
- #elif defined(CONFIG_ASPEED_AST2600)
- #define ASPEED_FMC_WDT2		0x1e620064
-+#define ASPEED_FMC_WDT2_RELOAD	0x1e620068
-+#define ASPEED_FMC_WDT2_RESTART	0x1e62006C
- #define ASPEED_SPI1_BOOT_CTRL	0x1e630064
- #define ASPEED_MULTI_CTRL10	0x1e6e2438
- #define ASPEED_HW_STRAP1	0x1e6e2500
-diff --git a/arch/arm/mach-aspeed/ast2600/Kconfig b/arch/arm/mach-aspeed/ast2600/Kconfig
-index f5852afa77..4c141672a1 100644
---- a/arch/arm/mach-aspeed/ast2600/Kconfig
-+++ b/arch/arm/mach-aspeed/ast2600/Kconfig
-@@ -53,6 +53,16 @@ config TARGET_QUALCOMM_DC_SCM_V1
- 
- endchoice
- 
-+config ASPEED_FMC_WDT2_TIMER_RELOAD
-+	int "Aspeed FMC_WDT2 timer reload value"
-+	depends on ASPEED_AST2600
-+	range 0 8191
-+	default 0
-+	help
-+	  Aspeed FMC_WDT2 timer reload value, the time unit is 0.1 second.
-+	  if this value is 0, left original FMC_WDT2 timer reload register without
-+	  change (Default 22 seconds), if it is > 0 then set timer with the value.
-+
- source "board/aspeed/evb_ast2600/Kconfig"
- source "board/aspeed/fpga_ast2600/Kconfig"
- source "board/aspeed/slt_ast2600/Kconfig"
-diff --git a/arch/arm/mach-aspeed/ast2600/scu_info.c b/arch/arm/mach-aspeed/ast2600/scu_info.c
-index a2277eec58..c18bc3923a 100644
---- a/arch/arm/mach-aspeed/ast2600/scu_info.c
-+++ b/arch/arm/mach-aspeed/ast2600/scu_info.c
-@@ -30,6 +30,9 @@ static struct soc_id soc_map_table[] = {
- 	SOC_ID("AST2625-A3", 0x0503040305030403),
- };
- 
-+static u32 aspeed_fmc_wdt2_reload =
-+	CONFIG_ASPEED_FMC_WDT2_TIMER_RELOAD & 0x1FFF;
-+
- void aspeed_print_soc_id(void)
- {
- 	int i;
-@@ -302,6 +305,16 @@ void aspeed_print_2nd_wdt_mode(void)
- 
- 			printf("\n");
- 		}
-+
-+		if (aspeed_fmc_wdt2_reload &&
-+		    (readl(ASPEED_FMC_WDT2) & BIT(0))) {
-+			writel(aspeed_fmc_wdt2_reload, ASPEED_FMC_WDT2_RELOAD);
-+			writel(0x4755, ASPEED_FMC_WDT2_RESTART);
-+			printf("Set FMC_WDT2 timer reload value to 0x%04X\n",
-+			       aspeed_fmc_wdt2_reload);
-+		} else {
-+			printf("Keep FMC_WDT2 timer reload value as init\n");
-+		}
- 	}
- }
- 
+[auto build test WARNING on 1b929c02afd37871d5afb9d498426f83432e71c2]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Rob-Herring/dt-bindings-usb-Remove-obsolete-brcm-bcm3384-usb-txt/20230119-030120
+base:   1b929c02afd37871d5afb9d498426f83432e71c2
+patch link:    https://lore.kernel.org/r/20230110-dt-usb-v2-3-926bc1260e51%40kernel.org
+patch subject: [PATCH v2 3/5] dt-bindings: usb: Convert OMAP OHCI/EHCI bindings to schema
+reproduce:
+        # https://github.com/intel-lab-lkp/linux/commit/e7220b26de1a7fcd192feec481c1a90f7bf5c949
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Rob-Herring/dt-bindings-usb-Remove-obsolete-brcm-bcm3384-usb-txt/20230119-030120
+        git checkout e7220b26de1a7fcd192feec481c1a90f7bf5c949
+        make menuconfig
+        # enable CONFIG_COMPILE_TEST, CONFIG_WARN_MISSING_DOCUMENTS, CONFIG_WARN_ABI_ERRORS
+        make htmldocs
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+
+All warnings (new ones prefixed by >>):
+
+>> Warning: Documentation/devicetree/bindings/mfd/omap-usb-host.txt references a file that doesn't exist: Documentation/devicetree/bindings/usb/ehci-generic.yaml
+>> Warning: Documentation/devicetree/bindings/mfd/omap-usb-host.txt references a file that doesn't exist: Documentation/devicetree/bindings/usb/ohci-generic.yaml
+
 -- 
-2.31.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
