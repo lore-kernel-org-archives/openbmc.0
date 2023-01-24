@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A84FC25B50
-	for <openbmc@archiver.kernel.org>; Tue, 24 Jan 2023 03:11:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C4F8C54E94
+	for <openbmc@archiver.kernel.org>; Tue, 24 Jan 2023 17:19:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4P1BnV54Pxz3fHH
-	for <openbmc@archiver.kernel.org>; Tue, 24 Jan 2023 14:11:10 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.210.47; helo=mail-ot1-f47.google.com; envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4P1YcJ4Mjtz3cJF
+	for <openbmc@archiver.kernel.org>; Wed, 25 Jan 2023 04:19:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qkQVmWi7;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linuxfoundation.org (client-ip=2604:1380:4601:e00::1; helo=ams.source.kernel.org; envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qkQVmWi7;
+	dkim-atps=neutral
+Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4P1Bfy5KHPz3c9T;
-	Tue, 24 Jan 2023 14:05:30 +1100 (AEDT)
-Received: by mail-ot1-f47.google.com with SMTP id a1-20020a056830008100b006864df3b1f8so8497293oto.3;
-        Mon, 23 Jan 2023 19:05:30 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l/w7cp6YVGNbkVTPnnS6fPAfMJMQm9O9TtAZyHYNnBw=;
-        b=tkh73S6szkffFrzKhDtdtuSfSgfp7To2mRcjcx99WlwO9yNWO7CZ7p3ViB6oVyfuO/
-         ko2/wwia/mGAALji6oZUky06izeN+vc0t7N8zoJHNjZtI3mbQ+6+qDrEjhvLGYxecuaA
-         3R08ev9JCT1Uhnn4hqmFnNJv8dmh3e7J5DitQ0Ljrt+kWyDIMpny7mA4mnP410eRlzpu
-         SsCui61Gl6njva3AV7ZG+Uwc9BaYPF+7jsz/OndVd29Pt1ZrjEJsQauTGyfVQV+Ib7Hs
-         W63mV43pcYyRVBup9Q9zCEZidYghwm+Jl9Ti8f2dzUcMuCBYrzzYHqgrYbwsjKfat6Te
-         nvJw==
-X-Gm-Message-State: AFqh2kq/wu+3TST2FiJtIf6zRjlFBzTHXt96dsej3GIODmp8Br+pUG4O
-	foAszG/ehAX6aaA+Pp2FJopO/cY/sg==
-X-Google-Smtp-Source: AMrXdXvQH0sqj/L9JBEQUzQ6OMqA602/d6xDzeDJd2iqRHh2295yqrVgSM/VJdjsM0K9Fx0dwIY4/A==
-X-Received: by 2002:a05:6830:670a:b0:684:e1cb:df87 with SMTP id cr10-20020a056830670a00b00684e1cbdf87mr15320609otb.8.1674529528074;
-        Mon, 23 Jan 2023 19:05:28 -0800 (PST)
-Received: from robh_at_kernel.org (66-90-144-107.dyn.grandenetworks.net. [66.90.144.107])
-        by smtp.gmail.com with ESMTPSA id cr11-20020a056830670b00b00661a3f4113bsm419338otb.64.2023.01.23.19.05.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Jan 2023 19:05:27 -0800 (PST)
-Received: (nullmailer pid 3266346 invoked by uid 1000);
-	Tue, 24 Jan 2023 03:05:20 -0000
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 23 Jan 2023 21:05:18 -0600
-Subject: [PATCH v3 4/5] dt-bindings: usb: Convert Marvell Orion EHCI to DT
- schema
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230110-dt-usb-v3-4-5af0541fcf8c@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4P1YZD2csgz3bZ4;
+	Wed, 25 Jan 2023 04:17:39 +1100 (AEDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id 1E15EB815FC;
+	Tue, 24 Jan 2023 17:17:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54CF2C433EF;
+	Tue, 24 Jan 2023 17:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1674580653;
+	bh=LCa2E8/jVUPBhEQJOos1nf13087EgA3kWouqC8M1bd4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qkQVmWi77Ps21jD4g32ZeUQVGNomNJ/Xoe7rqHKhJrccQ7NaBHHpf5MRwjcl9V+Ih
+	 8kH3lnhrc8TzmXLDIzeTVAlSaNNBraJI2XdnwXUrk3WAyvLlLszqPZM8FZyt9AtgF0
+	 RZZnQUzPrbpGtO5ZcqQrbLMFe1rMpWjAyQC0ndTA=
+Date: Tue, 24 Jan 2023 18:17:31 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH v3 0/5] dt-bindings: usb: Convert some more simple
+ OHCI/EHCI bindings
+Message-ID: <Y9ASq0VZ6G7Efe7s@kroah.com>
 References: <20230110-dt-usb-v3-0-5af0541fcf8c@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <20230110-dt-usb-v3-0-5af0541fcf8c@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, Lee Jones <lee@kernel.org>
-X-Mailer: b4 0.12-dev
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +57,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, linux-usb@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, openbmc@lists.ozlabs.org, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, Christophe Leroy <christophe.leroy@csgroup.eu>, Tali Perry <tali.perry1@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Patrick Venture <venture@google.com>, linuxppc-dev@lists.ozlabs.org, Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The Marvell Orion EHCI binding is just some compatible strings, so add it
-to the generic-ehci.yaml schema.
+On Mon, Jan 23, 2023 at 09:05:15PM -0600, Rob Herring wrote:
+> The 'ohci-usb' compatible is another 'generic' compatible for OHCI, but 
+> isn't documented with a schema. Let's add it to generic-ohci.yaml 
+> schema. While looking at this, I found a few other USB host bindings 
+> which are simple enough to use the 'generic' schemas.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
 
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- .../devicetree/bindings/usb/ehci-orion.txt         | 22 ----------------------
- .../devicetree/bindings/usb/generic-ehci.yaml      |  2 ++
- 2 files changed, 2 insertions(+), 22 deletions(-)
+Am I supposed to take these in my USB tree?
 
-diff --git a/Documentation/devicetree/bindings/usb/ehci-orion.txt b/Documentation/devicetree/bindings/usb/ehci-orion.txt
-deleted file mode 100644
-index 2855bae79fda..000000000000
---- a/Documentation/devicetree/bindings/usb/ehci-orion.txt
-+++ /dev/null
-@@ -1,22 +0,0 @@
--* EHCI controller, Orion Marvell variants
--
--Required properties:
--- compatible: must be one of the following
--	"marvell,orion-ehci"
--	"marvell,armada-3700-ehci"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- interrupts: The EHCI interrupt
--
--Optional properties:
--- clocks: reference to the clock
--- phys: reference to the USB PHY
--- phy-names: name of the USB PHY, should be "usb"
--
--Example:
--
--	ehci@50000 {
--		compatible = "marvell,orion-ehci";
--		reg = <0x50000 0x1000>;
--		interrupts = <19>;
--	};
-diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-index 2d382ae424da..ebbb01b39a92 100644
---- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-@@ -74,6 +74,8 @@ properties:
-           - const: usb-ehci
-       - enum:
-           - generic-ehci
-+          - marvell,armada-3700-ehci
-+          - marvell,orion-ehci
-           - ti,ehci-omap
-           - usb-ehci
- 
+I'm still confused if you all want me to take these types of things or
+not...
 
--- 
-2.39.0
+thanks,
 
+greg k-h
