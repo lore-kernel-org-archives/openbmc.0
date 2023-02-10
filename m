@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92004C05027
-	for <openbmc@archiver.kernel.org>; Fri, 10 Feb 2023 07:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31719C636CD
+	for <openbmc@archiver.kernel.org>; Fri, 10 Feb 2023 07:29:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PClhW1dHHz3cgr
-	for <openbmc@archiver.kernel.org>; Fri, 10 Feb 2023 18:28:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PCljC4m5Sz3f59
+	for <openbmc@archiver.kernel.org>; Fri, 10 Feb 2023 18:29:03 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com; receiver=<UNKNOWN>)
 Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PClgm4rVdz3cNN;
-	Fri, 10 Feb 2023 18:27:48 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PClgm5Mckz3cd9;
+	Fri, 10 Feb 2023 18:27:45 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
-	by twspam01.aspeedtech.com with ESMTP id 31A7EWrr068845;
-	Fri, 10 Feb 2023 15:14:33 +0800 (GMT-8)
+	by twspam01.aspeedtech.com with ESMTP id 31A7EW2B068844;
+	Fri, 10 Feb 2023 15:14:32 +0800 (GMT-8)
 	(envelope-from chiawei_wang@aspeedtech.com)
 Received: from Chiawei-PC03.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 10 Feb
- 2023 15:26:48 +0800
+ 2023 15:26:47 +0800
 From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 To: <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <joel@jms.id.au>,
@@ -30,12 +30,10 @@ To: <gregkh@linuxfoundation.org>, <robh+dt@kernel.org>,
         <linux-arm-kernel@lists.infradead.org>,
         <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
         <openbmc@lists.ozlabs.org>
-Subject: [PATCH 4/4] ARM: dts: aspeed-g6: Add UDMA node
-Date: Fri, 10 Feb 2023 15:26:43 +0800
-Message-ID: <20230210072643.2772-5-chiawei_wang@aspeedtech.com>
+Subject: [PATCH 0/4] arm: aspeed: Add UART with DMA support
+Date: Fri, 10 Feb 2023 15:26:39 +0800
+Message-ID: <20230210072643.2772-1-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230210072643.2772-1-chiawei_wang@aspeedtech.com>
-References: <20230210072643.2772-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -43,7 +41,7 @@ X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 31A7EWrr068845
+X-MAIL: twspam01.aspeedtech.com 31A7EW2B068844
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,31 +56,30 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add the device tree node for UART DMA controller.
+This patch series add the serial driver with DMA support for
+AST26xx UART and VUART devices.
 
-Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
----
- arch/arm/boot/dts/aspeed-g6.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+Chia-Wei Wang (4):
+  dt-bindings: aspeed: Add UART controller
+  soc: aspeed: Add UART DMA support
+  serial: 8250: Add Aspeed UART driver
+  ARM: dts: aspeed-g6: Add UDMA node
 
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
-index cc2f8b785917..3f4e9da8f6c7 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -850,6 +850,13 @@ fsim1: fsi@1e79b100 {
- 				clocks = <&syscon ASPEED_CLK_GATE_FSICLK>;
- 				status = "disabled";
- 			};
-+
-+			udma: uart-dma@1e79e000 {
-+				compatible = "aspeed,ast2600-udma";
-+				reg = <0x1e79e000 0x400>;
-+				interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-+				status = "disabled";
-+			};
- 		};
- 	};
- };
+ .../bindings/serial/aspeed,uart.yaml          |  81 +++
+ arch/arm/boot/dts/aspeed-g6.dtsi              |   7 +
+ drivers/soc/aspeed/Kconfig                    |   9 +
+ drivers/soc/aspeed/Makefile                   |   1 +
+ drivers/soc/aspeed/aspeed-udma.c              | 447 ++++++++++++++++
+ drivers/tty/serial/8250/8250_aspeed.c         | 502 ++++++++++++++++++
+ drivers/tty/serial/8250/Kconfig               |   8 +
+ drivers/tty/serial/8250/Makefile              |   1 +
+ include/linux/soc/aspeed/aspeed-udma.h        |  34 ++
+ 9 files changed, 1090 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/serial/aspeed,uart.yaml
+ create mode 100644 drivers/soc/aspeed/aspeed-udma.c
+ create mode 100644 drivers/tty/serial/8250/8250_aspeed.c
+ create mode 100644 include/linux/soc/aspeed/aspeed-udma.h
+
 -- 
 2.25.1
 
