@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB416C636CC
-	for <openbmc@archiver.kernel.org>; Mon, 20 Feb 2023 06:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FE0C05027
+	for <openbmc@archiver.kernel.org>; Mon, 20 Feb 2023 08:30:01 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PKspJ2Yy9z3bsK
-	for <openbmc@archiver.kernel.org>; Mon, 20 Feb 2023 17:24:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PKwZv2j7gz307T
+	for <openbmc@archiver.kernel.org>; Mon, 20 Feb 2023 19:29:59 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=R6tfCZuH;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=jk@codeconstruct.com.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=R6tfCZuH;
+	dkim-atps=neutral
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PKsmw2H4tz3bnP;
-	Mon, 20 Feb 2023 17:23:27 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
-	by twspam01.aspeedtech.com with ESMTP id 31K64vFx022736;
-	Mon, 20 Feb 2023 14:04:57 +0800 (GMT-8)
-	(envelope-from ryan_chen@aspeedtech.com)
-Received: from aspeedtech.com (192.168.10.13) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 20 Feb
- 2023 14:17:51 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Rob Herring <robh+dt@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-        Joel Stanley
-	<joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
-        Philipp Zabel
-	<p.zabel@pengutronix.de>, <openbmc@lists.ozlabs.org>,
-        <linux-arm-kernel@lists.infradead.org>,
-        <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 0/2] Add ASPEED AST2600 I2Cv2 controller driver
-Date: Mon, 20 Feb 2023 14:17:43 +0800
-Message-ID: <20230220061745.1973981-1-ryan_chen@aspeedtech.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PKwYf6MZ8z3bh6;
+	Mon, 20 Feb 2023 19:28:54 +1100 (AEDT)
+Received: from [172.16.71.140] (unknown [49.255.141.98])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 46AC620061;
+	Mon, 20 Feb 2023 16:28:49 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1676881733;
+	bh=fXFu0XLA13XF+cazWWGEf49HqJUOQDfKQ9JtzfT9Ba4=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=R6tfCZuHDsBmU4JIqHwzq6TVoxUP5OKOYzxMjwI3REytm3t9sDxp5y7fTkYw5/r36
+	 THL+vY5NpIIOZABqwkpUeZiqROEgiUy8dcj8ALOcTnROSmM2iV+PZK9Mq+fCcoBGsr
+	 MVsHF+olsTZv/ff8bwBQIwf188QSIv9nbvD4C+RmoC8qNejQ9z2zwkzXpV0WmsDCaC
+	 FzXEl7R8+4dGl35MPnd7MeyhjjcEBp3ZN1Jg9NVSDe+3ucE8pqK0I+v2uxDp+qJFpm
+	 Om+8AHw+nwGmeoe4CF76gk6xd3ZQQCpZb2HFWFlWU6/9VLabnrgJIlPJhv7zsOktOf
+	 5syRHwBwvabmg==
+Message-ID: <2141e513acc750bf26775f5b435f4dccd41244aa.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v5 1/2] dt-bindings: i2c: Add support for ASPEED i2Cv2
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,  Philipp Zabel
+ <p.zabel@pengutronix.de>, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org,  linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 20 Feb 2023 16:28:47 +0800
+In-Reply-To: <20230220061745.1973981-2-ryan_chen@aspeedtech.com>
+References: <20230220061745.1973981-1-ryan_chen@aspeedtech.com>
+	 <20230220061745.1973981-2-ryan_chen@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [192.168.10.13]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 31K64vFx022736
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,117 +66,66 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series add AST2600 i2cv2 new register set driver. The i2cv2 new
-register set have new clock divider option for more flexiable generation.
-And also have separate i2c master and slave register set for control.
+Hi Ryan,
 
-The legacy register layout is mix master/slave register control together.
-The following is add more detail description about new register layout.
-And new feature set add for register.
+> AST2600 support new register set for I2Cv2 controller, add bindings
+> document to support driver of i2cv2 new register mode controller.
 
--Add new clock divider option for more flexible and accurate clock
-rate generation
--Add tCKHighMin timing to guarantee SCL high pulse width.
--Add support dual pool buffer mode, split 32 bytes pool buffer of
-each device into 2 x 16 bytes for Tx and Rx individually.
--Increase DMA buffer size to 4096 bytes and support byte alignment.
--Re-define the base address of BUS1 ~ BUS16 and Pool buffer.
--Re-define registers for separating master and slave mode control.
--Support 4 individual DMA buffers for master Tx and Rx, slave Tx and Rx.
+Some comments inline:
 
-And following is new register set for package transfer sequence.
--New Master operation mode:
- S -> Aw -> P
- S -> Aw -> TxD -> P
- S -> Ar -> RxD -> P
- S -> Aw -> RxD -> Sr -> Ar -> TxD -> P
--Bus SDA lock auto-release capability for new master DMA command mode.
--Bus auto timeout for new master/slave DMA mode.
+> +=C2=A0 clock-frequency:
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Desired I2C bus clock frequency in Hz. de=
+fault 100khz.
+> +
+> +=C2=A0 multi-master:
+> +=C2=A0=C2=A0=C2=A0 type: boolean
+> +=C2=A0=C2=A0=C2=A0 description:
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 states that there is another master activ=
+e on this bus
 
-The following is two versus register layout.
-Old:
-{I2CD00}: Function Control Register     
-{I2CD04}: Clock and AC Timing Control Register
-{I2CD08}: Clock and AC Timing Control Register
-{I2CD0C}: Interrupt Control Register
-{I2CD10}: Interrupt Status Register 
-{I2CD14}: Command/Status Register   
-{I2CD18}: Slave Device Address Register
-{I2CD1C}: Pool Buffer Control Register
-{I2CD20}: Transmit/Receive Byte Buffer Register
-{I2CD24}: DMA Mode Buffer Address Register
-{I2CD28}: DMA Transfer Length Register
-{I2CD2C}: Original DMA Mode Buffer Address Setting
-{I2CD30}: Original DMA Transfer Length Setting and Final Status
+These are common to all i2c controllers, but I see that
+i2c-controller.yaml doesn't include them (while i2c.text does).
 
-New Register mode
-{I2CC00}: Master/Slave Function Control Register
-{I2CC04}: Master/Slave Clock and AC Timing Control Register
-{I2CC08}: Master/Slave Transmit/Receive Byte Buffer Register
-{I2CC0C}: Master/Slave Pool Buffer Control Register
-{I2CM10}: Master Interrupt Control Register
-{I2CM14}: Master Interrupt Status Register  
-{I2CM18}: Master Command/Status Register
-{I2CM1C}: Master DMA Buffer Length Register
-{I2CS20}: Slave~ Interrupt Control Register
-{I2CS24}: Slave~ Interrupt Status Register
-{I2CS28}: Slave~ Command/Status Register
-{I2CS2C}: Slave~ DMA Buffer Length Register
-{I2CM30}: Master DMA Mode Tx Buffer Base Address
-{I2CM34}: Master DMA Mode Rx Buffer Base Address
-{I2CS38}: Slave~ DMA Mode Tx Buffer Base Address
-{I2CS3C}: Slave~ DMA Mode Rx Buffer Base Address
-{I2CS40}: Slave Device Address Register
-{I2CM48}: Master DMA Length Status Register
-{I2CS4C}: Slave  DMA Length Status Register
-{I2CC50}: Current DMA Operating Address Status
-{I2CC54}: Current DMA Operating Length  Status
+I assume we're OK to include these in the device bindings in the
+meantime. But in that case, you may also want to include the common
+"smbus-alert" property, which you consume in your driver.
 
-v5:
--remove ast2600-i2c-global.yaml, i2c-ast2600-global.c.
--i2c-ast2600.c
- -remove legacy clock divide, all go for new clock divide.
- -remove duplicated read isr.
- -remove no used driver match
- -fix probe return for each labels return.
- -global use mfd driver, driver use phandle to regmap read/write.
--rename aspeed,i2c-ast2600.yaml to aspeed,i2cv2.yaml
--remove bus-frequency.
--add required aspeed,gr
--add timeout, byte-mode, buff-mode properites.
+> +=C2=A0 timeout:
+> +=C2=A0=C2=A0=C2=A0 type: boolean
+> +=C2=A0=C2=A0=C2=A0 description: Enable i2c bus timeout for master/slave =
+(35ms)
+> +
+> +=C2=A0 byte-mode:
+> +=C2=A0=C2=A0=C2=A0 type: boolean
+> +=C2=A0=C2=A0=C2=A0 description: Force i2c driver use byte mode transmit
+> +
+> +=C2=A0 buff-mode:
+> +=C2=A0=C2=A0=C2=A0 type: boolean
+> +=C2=A0=C2=A0=C2=A0 description: Force i2c driver use buffer mode transmi=
+t
 
-v4:
--fix i2c-ast2600.c driver buffer mode use single buffer conflit in
- master slave mode both enable.
--fix kmemleak issue when use dma mode.
--fix typo aspeed,i2c-ast2600.yaml compatible is "aspeed,ast2600-i2c"
--fix typo aspeed,i2c-ast2600.ymal to aspeed,i2c-ast2600.yaml
+These three aren't really a property of the hardware, more of the
+intended driver configuration. Do they really belong in the DT?
 
-v3:
--fix i2c global clock divide default value.
--remove i2c slave no used dev_dbg info.
+[and how would a DT author know which modes to choose?]
 
-v2:
--add i2c global ymal file commit.
--rename file name from new to ast2600.
- aspeed-i2c-new-global.c -> i2c-ast2600-global.c
- aspeed-i2c-new-global.h -> i2c-ast2600-global.h
- i2c-new-aspeed.c -> i2c-ast2600.c
--rename all driver function name to ast2600.
+> +=C2=A0 aspeed,gr:
+> +=C2=A0=C2=A0=C2=A0 $ref: /schemas/types.yaml#/definitions/phandle
+> +=C2=A0=C2=A0=C2=A0 description: The phandle of i2c global register node.
 
-Ryan Chen (2):
-  dt-bindings: i2c: Add support for ASPEED i2Cv2
-  i2c: aspeed: support ast2600 i2cv2 new register mode driver
+We'll probably want this to be consistent with other instances of aspeed
+global register references. I've used "aspeed,global-regs" in the
+proposed i3c binding:
 
- .../devicetree/bindings/i2c/aspeed,i2cv2.yaml |   83 +
- MAINTAINERS                                   |    9 +
- drivers/i2c/busses/Kconfig                    |   11 +
- drivers/i2c/busses/Makefile                   |    1 +
- drivers/i2c/busses/i2c-ast2600.c              | 1703 +++++++++++++++++
- 5 files changed, 1807 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i2c/aspeed,i2cv2.yaml
- create mode 100644 drivers/i2c/busses/i2c-ast2600.c
+  https://lore.kernel.org/linux-devicetree/cover.1676532146.git.jk@codecons=
+truct.com.au/T/#mda2d005f77ca0c481b1f1edadb58fc1b007a5cc3
 
--- 
-2.34.1
+I'd argue that "global-regs" is a little more clear, but I'm okay with
+either way - that change has been Acked but not been merged yet.
+Whichever we choose though, it should be consistent.
 
+Cheers,
+
+
+Jeremy
