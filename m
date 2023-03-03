@@ -4,53 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C0AC7EE23
-	for <openbmc@archiver.kernel.org>; Wed,  1 Mar 2023 20:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3C0C6FA8E
+	for <openbmc@archiver.kernel.org>; Fri,  3 Mar 2023 02:24:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PRmJ30byPz3cB1
-	for <openbmc@archiver.kernel.org>; Thu,  2 Mar 2023 07:37:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PSWy93x7bz3cML
+	for <openbmc@archiver.kernel.org>; Fri,  3 Mar 2023 13:24:33 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=mnVGx8zB;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=N/Z9S/5M;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=ejo7X0yX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=fuzziesquirrel.com (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=mnVGx8zB;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=N/Z9S/5M;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=ejo7X0yX;
 	dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
+X-Greylist: delayed 320 seconds by postgrey-1.36 at boromir; Fri, 03 Mar 2023 13:23:29 AEDT
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PRmGw0z3Jz3bjk
-	for <openbmc@lists.ozlabs.org>; Thu,  2 Mar 2023 07:36:23 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (174-21-161-58.tukw.qwest.net [174.21.161.58])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 3A62B341;
-	Wed,  1 Mar 2023 12:36:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1677702975;
-	bh=IRmYsMVKZO7oj/cHyStRNgW6UvFUZ3w6BCIHeycLvXE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mnVGx8zBSAvVSEXbzkQ3uAqbks7J8iX0ljiFBrh5zEu6CyjY3IsrZmuFOZ3y63y8K
-	 /bf9/xnkLgmr6gEWeZercgWJSCYmwhTodkCuK7O/HaXG6DrRtdLBYz6WBV4rnIaIXc
-	 hjCjIQFdpH+1v37ItHG94ruPSwiu5a2Xat+y0/Sg=
-Date: Wed, 1 Mar 2023 12:36:13 -0800
-From: Zev Weiss <zev@bewilderbeest.net>
-To: =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>
-Subject: Re: [PATCH v2 3/3] ARM: dts: aspeed: asrock: Correct firmware flash
- SPI clocks
-Message-ID: <Y/+3PSQzo+ZGM+hk@hatter.bewilderbeest.net>
-References: <20230224000400.12226-1-zev@bewilderbeest.net>
- <20230224000400.12226-4-zev@bewilderbeest.net>
- <CACPK8XdFT=+VJJ=iDhcmWPh9m9of2b+2UYxkrAisp6tdmWOWKg@mail.gmail.com>
- <36da41c9-2396-5dd4-7fef-c85412f23045@kaod.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PSWwx69Fhz30hh
+	for <openbmc@lists.ozlabs.org>; Fri,  3 Mar 2023 13:23:29 +1100 (AEDT)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id EA5185C0143;
+	Thu,  2 Mar 2023 21:23:27 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Thu, 02 Mar 2023 21:23:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	fuzziesquirrel.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm2; t=1677810207; x=1677896607; bh=LU
+	hdyRXXPmIxczgzVvNPzDvK9UoeqNx7DcS6WwKQiJk=; b=N/Z9S/5MCRRCAD1bu7
+	eLwfV2vxSX2ZE4gNbOc9kaMaEMUGljk9ri5QtQD81WihKWJd06JUubftjGWfrJYA
+	X/MYxeQNkWt5tlb39ra+130D/0LymrCc99pZapF9DOwqtlVl92PaIKj8waAsNa4j
+	oplCti6PwQr5I8aTfhIhEEuvmIbGhLPdSmWlaxk+nIbgC0+vET+4OOizyjBpTEDH
+	vhjc4aDb6TuLrWCG5N8euLYg5rh3rJcIxBpswaIqBqRqqUY3KZLXotPhCYTVQrlE
+	zHwcXC6r9ovGoipzMFFbq1v4irxUKAZcGl6P6jhhnnisMZCB5qr4UQ3iZrlbRX9/
+	Pq4Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1677810207; x=1677896607; bh=LUhdyRXXPmIxczgzVvNPzDvK9UoeqNx7DcS
+	6WwKQiJk=; b=ejo7X0yXH4Wfbco6xX0IF+RsI4FGrrqebY0nBZiOdIXj/gxs/gK
+	dWR4hSjH8wUSyGoz3fsCPGvA7fovpqGeJ8CDn8E8eboYQwZ9nacbp9kghYOU9zHO
+	eLNjttrH6Vg7p0j7hd/IhreYvFoB7b2UwaypWRiYyJVIQT4f5TUWt+icK/iGQ9t7
+	teSTWv1EZoq6YJtXt563S/cN+j0RJ/CrOTPcEqYmZ6t3nEnWLo8OXMFbIKJlvKCw
+	d96VEmhOMoWio3TqhgiifYvaD5aXy7c0Ow59mlLgl7+zL3ikMiA9Gb1rwKsGH/ak
+	m0f10rxcXMnDil/jBEBxJ/H1SqeopdteGZQ==
+X-ME-Sender: <xms:H1oBZFRvkRVr1mXkxaAp3G0CC-uuYR81JxXgGlqhpOz7DXm_uWojHQ>
+    <xme:H1oBZOz6V5o6R5RczrczP0HwxAKGwrsHeNCFUWnuExfvgej-wgxRST-J8IXghZzfb
+    dE7oB3yrvSIi54wqqg>
+X-ME-Received: <xmr:H1oBZK021rMwxAfOI7Y_azUpXn9zoHfm17HpjBNF4GOuSVG6J_1WgVsKnIklgrZGcW6hfMw1W7VKYJHV7V746KrcrIRpN8m-0N6BVI21RAzatGJcPZc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudelkedggeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepkffuhffvveffjghftgfgfgggsehtqhertddtreejnecuhfhrohhmpeeurhgr
+    ugcuuehishhhohhpuceosghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtg
+    homheqnecuggftrfgrthhtvghrnhepgeetkedufeetjeehveefheektdeifedvhfeilefh
+    ieehvdehvddtudfguefgieetnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+    hmrghilhhfrhhomhepsghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtgho
+    mh
+X-ME-Proxy: <xmx:H1oBZNAhtLmogZ7NaRZGU7Lq0JDb3L4izy8s2wjzohQXvrhDJJ-4tg>
+    <xmx:H1oBZOgJF7CRVTbweOVGYBTDuUn40GJQsKRmODU-gB9q8jiCOH0Wkg>
+    <xmx:H1oBZBpEfH-UFDR5W8v-_ftJ1UrzXpAYZ-UyguE4XxL1uqynrfxuKw>
+    <xmx:H1oBZCaXn__2CyDQxhLpJtcLisrPNGqDYh9gsqYkxk5rQxKnWD2jsQ>
+Feedback-ID: i02c9470a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Mar 2023 21:23:27 -0500 (EST)
+Message-ID: <3ebbfacc2f0d7119025402fa6b18dfd6b3bb0276.camel@fuzziesquirrel.com>
+Subject: Re: Equinix CCLA Schedule A update
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Zev Weiss <zweiss@equinix.com>
+Date: Thu, 02 Mar 2023 21:23:26 -0500
+In-Reply-To: <20230303022200.GZ18848@packtop>
+References: <20230302223441.GY18848@packtop>
+	 <98d5bca2443cfda96791d1640d9817cd44f37c89.camel@fuzziesquirrel.com>
+	 <20230303022200.GZ18848@packtop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <36da41c9-2396-5dd4-7fef-c85412f23045@kaod.org>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,53 +99,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, linux-arm-kernel@lists.infradead.org
+Cc: Olivier Faurax <Olivier.Faurax@eu.equinix.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Feb 28, 2023 at 11:33:58PM PST, Cédric Le Goater wrote:
->On 3/1/23 02:30, Joel Stanley wrote:
->>On Fri, 24 Feb 2023 at 00:04, Zev Weiss <zev@bewilderbeest.net> wrote:
->>>
->>>While I'm not aware of any problems that have occurred running these
->>>at 100 MHz, the official word from ASRock is that 50 MHz is the
->>>correct speed to use, so let's be safe and use that instead.
->>
->>:(
->>
->>Validated with which driver?
->>
+On Fri, 2023-03-03 at 02:22 +0000, Zev Weiss wrote:
+>=20
+> Oh, you're right -- I attached the wrong file by mistake.=C2=A0 The
+> actually-updated one is attached now.
 
-spi-nor, FWIW.
+Accepted, thanks!
 
->>Cédric, do you have any thoughts on this?
->
->Transactions on the Firmware SPI controller are usually configured at
->50MHz by U-Boot and Linux to stay on the safe side, specially CE0 from
->which the board boots. The other SPI controllers are generally set at
->a higher freq : 100MHz, because the devices on these buses are not for
->booting the BMC, they are mostly only written to (at a default lower
->freq). There are some exceptions when the devices and the wiring permit
->higher rates.
->
->For the record, we lowered the SPI freq on the AST2400 (palmetto)
->because some chips would freak out once in a while at 100MHz.
->
->C.
->
-
-Yeah, this actually grew out of some OpenBMC bringup work on another 
-ASRock board -- I started out with a 100MHz clock since that's what I'd 
-been using without a hitch on previous ASRock systems (such as these), 
-but saw sporadic data corruption.  Some discussion on the OpenBMC 
-Discord 
-(https://discord.com/channels/775381525260664832/775694683589574659/1074904879023263774 
-and 
-https://discord.com/channels/775381525260664832/775694683589574659/1075336116212875335) 
-prompted me to try 50MHz instead, which seemed to solve the problem -- 
-then after enquiring about it with ASRock I discovered that the 100MHz 
-clocks we've been using on these boards are also officially out of spec.
-
-
-Zev
-
+-brad
