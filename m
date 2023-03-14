@@ -4,61 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A118C6FD19
-	for <openbmc@archiver.kernel.org>; Mon, 13 Mar 2023 23:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC69C6FD1D
+	for <openbmc@archiver.kernel.org>; Tue, 14 Mar 2023 02:20:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PbD3b32LCz3cBq
-	for <openbmc@archiver.kernel.org>; Tue, 14 Mar 2023 10:52:27 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=YAQhIx0z;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e2d; helo=mail-vs1-xe2d.google.com; envelope-from=theactualdbashaw@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=YAQhIx0z;
-	dkim-atps=neutral
-Received: from mail-vs1-xe2d.google.com (mail-vs1-xe2d.google.com [IPv6:2607:f8b0:4864:20::e2d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PbHLD5HwWz3cLT
+	for <openbmc@archiver.kernel.org>; Tue, 14 Mar 2023 13:20:20 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com; receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PbD2T0flcz3bh3
-	for <openbmc@lists.ozlabs.org>; Tue, 14 Mar 2023 10:51:28 +1100 (AEDT)
-Received: by mail-vs1-xe2d.google.com with SMTP id y3so2618421vsl.11
-        for <openbmc@lists.ozlabs.org>; Mon, 13 Mar 2023 16:51:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678751484;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Dc1HZgqJwwGzXQzuxckkNytw98cqEpqV3qwIS/+fNyU=;
-        b=YAQhIx0zsvPrpdmbFjh5xzsF7WD0jtHAbtjcH17j5UYvQVGlypdNp7tt1SnlUukeHl
-         BBm3NnKlI+Tk7Vr57bZOWVrKJWLsaHyXbqp06Zsi+hJIvKfNCNHKEyaLT9p3NzKVfzrk
-         vjhNrKXS10kx80dBVRjJDjpsjaavEOzObEYmqzl/QSAKnToSyHSIet7w89Rh1aP6FT2h
-         P75zgUsuReBzB7dCFlqdPExEL4IWemorn6eFNtfo801AxZpX9z/xxy3nHgZZti4IJRFn
-         VkREsppeywiiiCRfIZ/yLJ8is2j2wYDN12JD6wMSJqU/uIiksNQAXMDfQMb2lWcnsSBv
-         D+5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678751484;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Dc1HZgqJwwGzXQzuxckkNytw98cqEpqV3qwIS/+fNyU=;
-        b=B1acNre1a1pV3UDeHAL3qWuydvvymsNnTK6tJoxqjl85whFSygjgflCxil5zDsXN04
-         cUkQNv6kV04XZw8aHiWeAMgou8gFNOzX0Jcjs3Q0a6GJTo/++vDQEkcCsKp4LIgF5tb+
-         J5sFuz7tyjjtk/am5W6h5ccQ+PaP/pSwP101inHPNcHSCLx8JogGXi5JVB+4H2r2lSes
-         wRp2vntzg3EWPSyj0Xw/fu9Sf5il0jYkqRPU/WwyWbyiHyj4q1vnGj94+gV9mdpltPyg
-         nvU1frEpHsK97/rPWNDOw8STsvWDUXjmK88BbrGpdNHhpURUzailtV95PDSxcF1C61LN
-         PFhw==
-X-Gm-Message-State: AO0yUKU65I/rGRjixFPIxJtCYFguTt4ixGyfajQ16TU5YUllPasN6sbH
-	9zEr+7H2IwW0cMUTtkhW7vfVLr1X75Ro27g2vOxmOPOwTlw=
-X-Google-Smtp-Source: AK7set9+bjG7B4VXBwVb5hNZ4MSN40Y6FYcHf2MnKoAXN8/O+N8dpDdFo5nLFpr2NHJFk6IbUfUVCMoWZ1xKWW7DCQo=
-X-Received: by 2002:a05:6102:444:b0:423:e0d2:8d5c with SMTP id
- e4-20020a056102044400b00423e0d28d5cmr5417801vsq.3.1678751483879; Mon, 13 Mar
- 2023 16:51:23 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PbHKW66vyz2yNX;
+	Tue, 14 Mar 2023 13:19:41 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+	by twspam01.aspeedtech.com with ESMTP id 32E249V0072545;
+	Tue, 14 Mar 2023 10:04:09 +0800 (GMT-8)
+	(envelope-from chiawei_wang@aspeedtech.com)
+Received: from Chiawei-PC03.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 14 Mar
+ 2023 10:18:20 +0800
+From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+To: <vkoul@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <joel@jms.id.au>,
+        <andrew@aj.id.au>, <gregkh@linuxfoundation.org>,
+        <jirislaby@kernel.org>, <pmenzel@molgen.mpg.de>,
+        <ilpo.jarvinen@linux.intel.com>, <dmaengine@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+        <linux-serial@vger.kernel.org>, <openbmc@lists.ozlabs.org>
+Subject: [PATCH v2 1/5] dt-bindings: serial: 8250: Add aspeed,ast2600-uart
+Date: Tue, 14 Mar 2023 10:18:13 +0800
+Message-ID: <20230314021817.30446-2-chiawei_wang@aspeedtech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230314021817.30446-1-chiawei_wang@aspeedtech.com>
+References: <20230314021817.30446-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
-From: David Bashaw <theactualdbashaw@gmail.com>
-Date: Mon, 13 Mar 2023 16:51:13 -0700
-Message-ID: <CAB7+d-nOMCGdD7upJviTVrWuZ=mW0gyV9G0E4wke8rQstg2zzw@mail.gmail.com>
-Subject: Running evb-ast2600 image using qemu
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000dce56305f6d0c96b"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.2.66]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 32E249V0072545
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,29 +59,26 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000dce56305f6d0c96b
-Content-Type: text/plain; charset="UTF-8"
+Add a compatible string for the NS16550A-compatible UARTs
+of Aspeed AST2600 SoCs.
 
-I'm new to openbmc but have read lots fo docs.
-I want to try running an evb-ast2600 image using qemu.
-I ran the following steps:
-.setup evb-ast2600
-bitbake obmc-phosphor-image
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+---
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The build completes fine.
-I installed qemu-system-arm also.
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index 692aa05500fd..cc6842371d38 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -59,6 +59,7 @@ properties:
+       - const: ns16850
+       - const: aspeed,ast2400-vuart
+       - const: aspeed,ast2500-vuart
++      - const: aspeed,ast2600-uart
+       - const: intel,xscale-uart
+       - const: mrvl,pxa-uart
+       - const: nuvoton,wpcm450-uart
+-- 
+2.25.1
 
-What command line should I use to invoke qemu?
-
---000000000000dce56305f6d0c96b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I&#39;m new to openbmc but have read lots fo docs.<div>I w=
-ant to try running an evb-ast2600 image using qemu.</div><div>I ran the fol=
-lowing steps:</div><div>.setup evb-ast2600</div><div>bitbake obmc-phosphor-=
-image</div><div><br></div><div>The build completes fine.</div><div>I instal=
-led qemu-system-arm also.</div><div><br></div><div>What command line should=
- I use to invoke qemu?</div><div><br></div></div>
-
---000000000000dce56305f6d0c96b--
