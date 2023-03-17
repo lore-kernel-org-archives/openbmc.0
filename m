@@ -4,53 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE94C74A5B
-	for <openbmc@archiver.kernel.org>; Fri, 17 Mar 2023 17:40:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13717C74A5B
+	for <openbmc@archiver.kernel.org>; Fri, 17 Mar 2023 18:39:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PdWct3Z8hz3f4R
-	for <openbmc@archiver.kernel.org>; Sat, 18 Mar 2023 04:40:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=79.137.123.220; helo=smtpout2.mo529.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 599 seconds by postgrey-1.36 at boromir; Sat, 18 Mar 2023 04:40:08 AEDT
-Received: from smtpout2.mo529.mail-out.ovh.net (smtpout2.mo529.mail-out.ovh.net [79.137.123.220])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PdXw80vBzz3cjM
+	for <openbmc@archiver.kernel.org>; Sat, 18 Mar 2023 05:39:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=hSbf2Gew;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d36; helo=mail-io1-xd36.google.com; envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=hSbf2Gew;
+	dkim-atps=neutral
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com [IPv6:2607:f8b0:4864:20::d36])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PdWc83lSwz2ygG
-	for <openbmc@lists.ozlabs.org>; Sat, 18 Mar 2023 04:40:06 +1100 (AEDT)
-Received: from mxplan5.mail.ovh.net (unknown [10.108.1.6])
-	by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 074DB2122A;
-	Fri, 17 Mar 2023 17:24:28 +0000 (UTC)
-Received: from kaod.org (37.59.142.97) by DAG4EX2.mxp5.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Fri, 17 Mar
- 2023 18:24:27 +0100
-Authentication-Results: garm.ovh; auth=pass (GARM-97G0026ca36b25-7610-4ad8-a537-861a5a1bfbeb,
-                    AA89701AE41F08E1E89E0E4F443EB3D827D1D8AD) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.64.250.170
-Message-ID: <b2c11d07-ee58-715d-2994-3add1c60b95d@kaod.org>
-Date: Fri, 17 Mar 2023 18:24:26 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PdXv02Kvkz3cDp
+	for <openbmc@lists.ozlabs.org>; Sat, 18 Mar 2023 05:38:02 +1100 (AEDT)
+Received: by mail-io1-xd36.google.com with SMTP id p17so953245ioj.10
+        for <openbmc@lists.ozlabs.org>; Fri, 17 Mar 2023 11:38:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679078278;
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id:sender
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=doTBEIPrtJGrIVKGzCIV43Qeoz4CxJQQLeaZ0TGaW9Q=;
+        b=hSbf2GewkqwWqibfrWgkVO7XXcHstCvhpYn/F4tkL6BYH44pB6P8kEuSebAOVrHMmL
+         zi2RPkBYqkPVZsDvNup5EmBAlEd2IaokgDFflK8I3ytcHVnW0lF9l4kJzt16f5x9t0pM
+         hGjPHt0szAsGj3sQuPmfzhj6nzmHG0BYF5TIJ2iwCGbVqLGNct5ZgSSyFsizv/S0b4BN
+         lSSqXXzxJxZdp9sidj23nGsSMC5vnBJ8wS9Vwm1UFJqoDKxITXWkaDrmaPgS7+Sf+igo
+         GhdG9GykYGdrQSoePQfnGTpSdUQiMAqsBWIp45fE9ALXsxFEoEALrvXjYF4S32E6IwsF
+         LLRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679078278;
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id:sender
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=doTBEIPrtJGrIVKGzCIV43Qeoz4CxJQQLeaZ0TGaW9Q=;
+        b=sqAFspiUuobIVMAMypTN4vTTNjAZfRL1Obbpklgo6LO99DWwL3uWcHDPo+y1mHUf4h
+         BBm5UkxZTj160MO9j/Pu24Ypqt7862XMSLNX9euhAncCXNYTNRFpgZxpE1gl0E13gw3n
+         lAu4yxDE7G7uFm9CEwK1NVRORUAc9cVGyGmBXMs8P5b4gVsg0G4UXuz+err/ug/AxgeW
+         Y/jiJSFpH6IpE5W2Kf6ie5dMNZ21ndkL/ogoSdwUZMtu06ytFfx4HSBpeSI3c3M0Xgwn
+         Z4DZr3sZgEaQcRPXxH3KFfXy50ls87/8sqzy0aSl2jCw6ak2AODcbX2hCD/kgMwSxw2O
+         Huyw==
+X-Gm-Message-State: AO0yUKUp/vOxN1T/Lvr/bXMei/jecRQzfVHEWlESY99rEBWqlrX2vixu
+	GVZClK53O+5cOu2vVbG5Cnk=
+X-Google-Smtp-Source: AK7set89qP2jQ0x7Zcy+DFqgPLQjIL0udBlesLSIV2ZSwz3/NAWdm44y9/1Aw9RHvJd3zAZMKUUTVA==
+X-Received: by 2002:a5d:9c89:0:b0:752:fd8e:5ee4 with SMTP id p9-20020a5d9c89000000b00752fd8e5ee4mr386005iop.1.1679078278421;
+        Fri, 17 Mar 2023 11:37:58 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c? ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+        by smtp.gmail.com with ESMTPSA id e30-20020a026d5e000000b0040631c91311sm875212jaf.91.2023.03.17.11.37.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 17 Mar 2023 11:37:57 -0700 (PDT)
+Message-ID: <4b2d6f4a-4868-9ffe-e1e1-9feafe41ccdd@roeck-us.net>
+Date: Fri, 17 Mar 2023 11:37:54 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: Using QEMU how to redirect serial /dev/ttyS2 output of guest
- machine to host machine.
+ Thunderbird/102.7.1
 Content-Language: en-US
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, Abhishek Singh
- Dagur <abhishek@drut.io>
-References: <CAJ1un7j0FNpYaaviQxoKQN4O+C8RejqA918CdBamPySKyAEJUQ@mail.gmail.com>
- <87mt4b73sv.fsf@linaro.org>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <87mt4b73sv.fsf@linaro.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+References: <20221205085351.27566-1-tmaimon77@gmail.com>
+ <20221205085351.27566-3-tmaimon77@gmail.com>
+ <f28c7c34-077c-4c7e-afd8-c4180718d403@roeck-us.net>
+ <CAHp75Vegm=jmuJ6q5qofuLKm_LggKmtQZWcVgQN=MG3kMMCTRA@mail.gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH v2 2/2] mmc: sdhci-npcm: Add NPCM SDHCI driver
+In-Reply-To: <CAHp75Vegm=jmuJ6q5qofuLKm_LggKmtQZWcVgQN=MG3kMMCTRA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.97]
-X-ClientProxiedBy: DAG9EX2.mxp5.local (172.16.2.82) To DAG4EX2.mxp5.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 5f1c1abe-5c07-4d89-9cb6-0f64decd5476
-X-Ovh-Tracer-Id: 11694440859508902694
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefvddgleelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvvehfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtucfnvgcuifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeffudefleeiudejfeffhfejffeigffhhffhvdekieejheelvdeufffhjedtheeggeenucfkphepuddvjedrtddrtddruddpfeejrdehledrudegvddrleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeotghlgheskhgrohgurdhorhhgqedpnhgspghrtghpthhtohepuddprhgtphhtthhopegrlhgvgidrsggvnhhnvggvsehlihhnrghrohdrohhrghdprggshhhishhhvghksegurhhuthdrihhopdhophgvnhgsmhgtsehlihhsthhsrdhoiihlrggsshdrohhrghdpqhgvmhhuqdguvghvvghlsehnohhnghhnuhdrohhrghdpmhgrrhhkrdgtrghvvgdqrgihlhgrnhgusehilhgrnhguvgdrtghordhukhdpphgvthgvrhdrmhgrhiguvghllheslhhinhgrrhhordhorhhgpdfovfetjfhoshhtpehmohehvdelpdhmohguvgepshhmthhpohhuth
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,156 +84,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>, openbmc@lists.ozlabs.org, Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org
+Cc: devicetree@vger.kernel.org, ulf.hansson@linaro.org, Tomer Maimon <tmaimon77@gmail.com>, arnd@arndb.de, krakoczy@antmicro.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, briannorris@chromium.org, linux-mmc@vger.kernel.org, adrian.hunter@intel.com, tali.perry1@gmail.com, gsomlo@gmail.com, joel@jms.id.au, davidgow@google.com, skhan@linuxfoundation.org, pbrobinson@gmail.com, linux-kernel@vger.kernel.org, benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 3/17/23 17:06, Alex Bennée wrote:
-> 
-> Abhishek Singh Dagur <abhishek@drut.io> writes:
-> 
-> (cc aspeed maintainers)
-> 
->> Hi all,
+On 3/17/23 10:36, Andy Shevchenko wrote:
+> On Fri, Mar 17, 2023 at 4:16 PM Guenter Roeck <linux@roeck-us.net> wrote:
 >>
->> We are using obmc-phosphor-image on an ast2500 board which is trying to communicate with other devices
->> over serial port /dev/ttyS2.
->> As we are trying to emulate the machine on qemu we need to redirect the request to the host machine so
->> that it can handle this request and return appropriately.
->> We tried using QEMU options like -serial ,-chardev but still not the
->> concrete way we get to do it.
+>> On Mon, Dec 05, 2022 at 10:53:51AM +0200, Tomer Maimon wrote:
+>>> Add Nuvoton NPCM BMC sdhci-pltfm controller driver.
+>>>
+>>> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+>>
+>> I still don't see this driver in the upstream kernel, or in linux-next.
+>>
+>> Couple of comments:
+>>
+>> - devm ordering does not really matter here. The devm resource
+>>    is the clock, it does not depend on local data, and it will be
+>>    released last, so that is ok.
 > 
-> Yeah I'm afraid its non-obvious, certainly for built in serial ports.
-> Try something like:
+> Not sure. Strictly speaking this is the problem. If you leave a clock
+> going on in a wrong period of time it (theoretically) might break your
+> hardware once and forever. Similar discussion about power, clock and
+> reset signals has been held for camera sensors.
 > 
->    ./qemu-system-aarch64 -M ast2500-evb \
->      -serial null -serial null -serial chardev:myserial \
->      -chardev file,id=myserial,path=output.txt \
->      $MORE_OPTIONS
-> 
-> You have to add a -serial for each serial port up to the one you care
-> about and then set the chardev for it.
-> 
-> If you where adding a device to the system then you can explicitly set
-> the target chardev for it with something like:
-> 
->    -device isa-serial,iobase=nnn,irq=nnn,chardev=ID
-> 
->> It will be very helpful if you can provide us some guidance on this.
-> 
-> Another quirk for the aspeed boards seems to be the default uart can be
-> an arbitrary one depending on the board model:
-> 
-> 334:    aspeed_soc_uart_set_chr(s, amc->uart_default, serial_hd(0));
-> 336:        if (uart == amc->uart_default) {
-> 1112:    amc->uart_default = ASPEED_DEV_UART5;
-> 1407:    amc->uart_default = ASPEED_DEV_UART1;
-> 
-> as a result ASPEED_DEV_UART5 will always be the first serial port
-> (serial_hd(0)). I don't know how Linux numbers them but worth being
-> aware of.
 
-Yes. UART5 is the general default but it depends on the board definition
-and the fuji was the first to require an exception. See commit 5d63d0c76c
-("hw/arm/aspeed: Allow machine to set UART default")
+In general I agree, but not here. The remove function (sdhci_pltfm_unregister)
+does call clk_disable_unprepare(), so the clock isn't left running.
 
-Then, it became more complex with commit d2b3eaefb4 ("aspeed: Refactor
-UART init for multi-SoC machines"). That's another topic.
+Also, I think it is worthwhile to point out that exactly the same sequence
+(sdhci_pltfm_init followed by devm_clk_get and cleanup/removal with
+sdhci_pltfm_unregister) is shared among several sdhci drivers (including
+the memory leak I pointed out, but only in the aspeed driver).
 
-Abhishek,
+On a higher level I do agree that the sdhci platform code is in need of cleanup,
+but I don't think it is appropriate to tie such a cleanup to this driver
+submission.
 
-I am afraid, you will need to add a new board to fit what's in the DT.
+Note that I don't really care much, I just realized that this patch is stuck
+when I tried to test booting from SD drive with qemu.
 
-Or, here is a little patch adding a machine option to set the default uart.
-It was never merged because it is a bit of hack, give it a try and we
-will discuss. Use :
-
-   -M ast2500-evb,uart-default=uart2
-
-
-Thanks,
-
-C.
-
- From 0d0700ae772fa5236914e96af1be5afcf0d4a994 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Date: Fri, 17 Mar 2023 18:21:54 +0100
-Subject: [PATCH] aspeed: Add a "uart-default" machine option
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
-  hw/arm/aspeed.c | 31 +++++++++++++++++++++++++++++--
-  1 file changed, 29 insertions(+), 2 deletions(-)
-
-diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
-index 806bb10707..e0335cf167 100644
---- a/hw/arm/aspeed.c
-+++ b/hw/arm/aspeed.c
-@@ -45,6 +45,7 @@ struct AspeedMachineState {
-      bool mmio_exec;
-      char *fmc_model;
-      char *spi_model;
-+    uint32_t uart_default;
-      uint32_t hw_strap1;
-  };
-  
-@@ -337,10 +338,11 @@ static void connect_serial_hds_to_uarts(AspeedMachineState *bmc)
-      AspeedMachineClass *amc = ASPEED_MACHINE_GET_CLASS(bmc);
-      AspeedSoCState *s = &bmc->soc;
-      AspeedSoCClass *sc = ASPEED_SOC_GET_CLASS(s);
-+    int uart_default = bmc->uart_default ? bmc->uart_default : amc->uart_default;
-  
--    aspeed_soc_uart_set_chr(s, amc->uart_default, serial_hd(0));
-+    aspeed_soc_uart_set_chr(s, uart_default, serial_hd(0));
-      for (int i = 1, uart = ASPEED_DEV_UART1; i < sc->uarts_num; i++, uart++) {
--        if (uart == amc->uart_default) {
-+        if (uart == uart_default) {
-              continue;
-          }
-          aspeed_soc_uart_set_chr(s, uart, serial_hd(i));
-@@ -1145,6 +1147,25 @@ static void aspeed_set_spi_model(Object *obj, const char *value, Error **errp)
-      bmc->spi_model = g_strdup(value);
-  }
-  
-+const QEnumLookup UartDefault_lookup = {
-+    .array =
-+        (const char *const[]) {
-+            [0] = "none",
-+            [1] = "uart1",
-+            [2] = "uart2",
-+            [3] = "uart3",
-+            [4] = "uart4",
-+            [5] = "uart5",
-+        },
-+    .size = 6
-+};
-+
-+static void aspeed_set_uart_default(Object *obj, int val, Error **err)
-+{
-+    AspeedMachineState *bmc = ASPEED_MACHINE(obj);
-+    bmc->uart_default = val + 1;
-+}
-+
-  static void aspeed_machine_class_props_init(ObjectClass *oc)
-  {
-      object_class_property_add_bool(oc, "execute-in-place",
-@@ -1153,6 +1174,12 @@ static void aspeed_machine_class_props_init(ObjectClass *oc)
-      object_class_property_set_description(oc, "execute-in-place",
-                             "boot directly from CE0 flash device");
-  
-+    object_class_property_add_enum(oc, "uart-default", "UartDefault",
-+                                   &UartDefault_lookup, NULL,
-+                                   aspeed_set_uart_default);
-+    object_class_property_set_description(oc, "uart-default",
-+                           "Change the default UART of the board");
-+
-      object_class_property_add_str(oc, "fmc-model", aspeed_get_fmc_model,
-                                     aspeed_set_fmc_model);
-      object_class_property_set_description(oc, "fmc-model",
--- 
-2.39.2
-
+Guenter
 
