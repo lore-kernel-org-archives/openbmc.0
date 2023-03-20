@@ -4,48 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42AAFC7618A
-	for <openbmc@archiver.kernel.org>; Mon, 20 Mar 2023 08:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC49FC6FD1D
+	for <openbmc@archiver.kernel.org>; Mon, 20 Mar 2023 10:21:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Pg6y94yqkz3f8H
-	for <openbmc@archiver.kernel.org>; Mon, 20 Mar 2023 19:16:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com; receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Pg9k76r4nz3cFd
+	for <openbmc@archiver.kernel.org>; Mon, 20 Mar 2023 21:21:03 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=w92KIPXQ;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f400:feae::70e; helo=apc01-psa-obe.outbound.protection.outlook.com; envelope-from=chiawei_wang@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=w92KIPXQ;
+	dkim-atps=neutral
+Received: from APC01-PSA-obe.outbound.protection.outlook.com (mail-psaapc01on2070e.outbound.protection.outlook.com [IPv6:2a01:111:f400:feae::70e])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pg6tH56x9z3cFx;
-	Mon, 20 Mar 2023 19:12:54 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
-	by twspam01.aspeedtech.com with ESMTP id 32K7v6wh088828;
-	Mon, 20 Mar 2023 15:57:06 +0800 (GMT-8)
-	(envelope-from chiawei_wang@aspeedtech.com)
-Received: from Chiawei-PC03.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 20 Mar
- 2023 16:11:38 +0800
-From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-To: <vkoul@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <joel@jms.id.au>,
-        <andrew@aj.id.au>, <gregkh@linuxfoundation.org>,
-        <jirislaby@kernel.org>, <pmenzel@molgen.mpg.de>,
-        <ilpo.jarvinen@linux.intel.com>, <hdanton@sina.com>,
-        <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>,
-        <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-        <linux-serial@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH v3 3/5] dmaengine: aspeed: Add AST2600 UART DMA driver
-Date: Mon, 20 Mar 2023 16:11:31 +0800
-Message-ID: <20230320081133.23655-4-chiawei_wang@aspeedtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230320081133.23655-1-chiawei_wang@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pg9hs1XP7z3c6X;
+	Mon, 20 Mar 2023 21:19:55 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ynzpb34DmqKWlfpVoiy5c2PFGITZwE/Oud4B9SHK4V7LK9NTEaoqMWU7O2vavpQwW4uOt4dRi9FGBm8MO9faLcYmHVr184b2t//3zOhcQ+ZRzmUoROwFBGvturYAll+9Il4dOXc5QiYLiTlqRxxqmn8mHSB9TBWvyHwOwd/jeAjck3/9/E35TVz2JcWpWANGenQG2269w9qtGmnzauAyaQvb2NcXqpRCEDx8TcWK2rJDt86A0zwERXYDt5Ih1/nsupLctJ9yL+DYkGqrlGu7m1BkTI55qMQm+2Ixzj7xUGBMc8B8/WmzzkOp2UDJ7BHRhlIY2uUuFJ2m6pObLcOYWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CeageUknSMFLh+cV/hLMSjAsAo4dbJvTeWq8699RZ8Y=;
+ b=AVOBxJhisa9oqBvhLwdxDoYUs8lNu7YnNvMFkVdaayg5l57Foq5umyUTTjHfedfOYNi5HZB/+oJguVUa/+HUw8ixJIZyksS3FdNw4ClpR4jF7v/Bw8Dg5mQ/2ZP45akWlkMeAcGuHOzSzFE4ZbF5EOe3hnc4X5YdiJOxNL3H4yAsvhwqgrEiW1ziLAYimc+SfFBqFCQTRNe506HaYRwbt/V4ZF3+chsoGd3VkHy2mCxI33uD1tULgktDBtZtD27INPS9tSRWVWMUr5fv22umWJuKieKyJKhMK0oVUFwF01TpaadguC9EFFaiUvtJNCVlb61QsI1z9WOzC0AJk32ybw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CeageUknSMFLh+cV/hLMSjAsAo4dbJvTeWq8699RZ8Y=;
+ b=w92KIPXQcHx9fDI/F8Q+PyszKsHYcsGD8Zp/gAnV/UP2ZbVp0v1eRgY1dN1TP1sLPNjon0O+JpjmLU4fVCCP1hkKnEpFAaAfyN9CMkogLzRjqMJhiex9S1Sa+6oBGA9DeeqgxefbmFSkZIHL1sMOqLleajStQACia/RTGnfQ2amWH3rLUC2hZ0j1aisttl/FeC57j+dlSJAvkZo88CWliCIO3U8pL9uCztzXvgWvrTkJVTxioVyr8xAct42oLtwXOUgDvVcxYpK6XocK+GhpMXjXx31XvhDle/b57eV5r/zM2QiobXgTz0ZzIL5hxfW1p/oYNLWNbYjVYWylKcJM3g==
+Received: from KL1PR0601MB3781.apcprd06.prod.outlook.com
+ (2603:1096:820:11::14) by SEZPR06MB5763.apcprd06.prod.outlook.com
+ (2603:1096:101:ab::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
+ 2023 10:19:31 +0000
+Received: from KL1PR0601MB3781.apcprd06.prod.outlook.com
+ ([fe80::2cd0:fdbf:62e0:8eaa]) by KL1PR0601MB3781.apcprd06.prod.outlook.com
+ ([fe80::2cd0:fdbf:62e0:8eaa%7]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
+ 10:19:30 +0000
+From: ChiaWei Wang <chiawei_wang@aspeedtech.com>
+To: =?utf-8?B?SWxwbyBKw6RydmluZW4=?= <ilpo.jarvinen@linux.intel.com>
+Subject: RE: [PATCH v3 4/5] serial: 8250: Add AST2600 UART driver
+Thread-Topic: [PATCH v3 4/5] serial: 8250: Add AST2600 UART driver
+Thread-Index: AQHZWwQiNdRDdEacbEam/8sjEiRS5q8DaqAAgAABrZA=
+Date: Mon, 20 Mar 2023 10:19:30 +0000
+Message-ID:  <KL1PR0601MB37819E400753132F11F0202D91809@KL1PR0601MB3781.apcprd06.prod.outlook.com>
 References: <20230320081133.23655-1-chiawei_wang@aspeedtech.com>
+ <20230320081133.23655-5-chiawei_wang@aspeedtech.com>
+ <10864478-99cb-e2cd-8e7b-95c6dca677e8@linux.intel.com>
+In-Reply-To: <10864478-99cb-e2cd-8e7b-95c6dca677e8@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR0601MB3781:EE_|SEZPR06MB5763:EE_
+x-ms-office365-filtering-correlation-id: 40cf0d7c-ae03-4980-ef07-08db292c97a9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:  sOMa6060ip9poasEHhZS6DoR9ZBCxhBBTJ8xa9X0oHym47s8+AZP6hRlmzonLzSX5NBRn06K+Oya/pcXTUBx5Ewclyy7mBSXLT0asxh2+igu79z7RkUXHh2gHtPAPobJIobkxNHKQzZWZLWUVn/iYigvSLUaAMc21UlyABmqVNSKnahlGo8jfHcCC3H2QPQlbI8iNCjsePjZP2pvrAZvvuXeY1XCLXichxbFsBJOqjMHAIZA5C4hjV7ydCNRy8alL/pPzfRuY2xVMOTWj+aQPbvUdybw2X3DQWS/rBVXVMLXQS+E+vhCLQ1hnPFnCXtRZmTXAytknwgoZzV8pvVtUPuO1A3CCMSaJtN7yP8aGlfq5yK6MNH9sn5aLYLiWmPB6is36UqncxIfJTmvUV1CNXU1tZkGBFyrQoTDShgNQvXTUfX7q4HwU7uG9v8Un5Exn1owWLLRT9GENfZ/vRmJO/nkzaNkBVnJMV6cZpUbwfzk7ZmYRvlubpCwBN/LBE4Ktq7l+RhIdzL1sLIRNHjF9wqr/NuW0qujiCf4i4jEfc+3lghJDEveCHD4c91FTbM+WbgziuyIwKN6NXfJ0ChmWBQlfFSGAPJEa3OKyi9h0F21E55EQ9TWZvRJeqMy6m7dLuonin0KEAY7bcVzttQpI+pKqei4qRWAxYdW8c1CQ0w/7eNieVyqeygLnKy6sIVHu/EqRYv+Up0+oKnn4ObLMQ==
+x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB3781.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39850400004)(136003)(366004)(346002)(396003)(376002)(451199018)(7696005)(71200400001)(122000001)(38100700002)(7416002)(478600001)(5660300002)(54906003)(66899018)(38070700005)(83380400001)(86362001)(316002)(66446008)(33656002)(66946007)(4326008)(8676002)(6916009)(66556008)(66476007)(64756008)(76116006)(9686003)(2906002)(55016003)(8936002)(52536014)(186003)(26005)(6506007)(66574015)(41300700001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:  =?utf-8?B?N0kyMEhoQ1ByRGtwM3M3eGZiaUFKaTUrdVc3U3JNUVlRV3c1Nm5RQW1UK2dP?=
+ =?utf-8?B?ZE5IajhnVWM3UENuUXU3WThhbE56aHcva1FUdS9sQzRIVStkTFVheitaSFVP?=
+ =?utf-8?B?eFJSbnk0OVdpVWRyVHdkZEFEZ1F3QUZPckZORkhsQkY5a0hJcE1kemx6cVpa?=
+ =?utf-8?B?Mlk4N3lIaFBBZk5YZjRza1Q5WUVlcXVSSTNOS3BFV0ZJTy9pREpZeU1nYW5s?=
+ =?utf-8?B?MWVWNlJzNmFQbTdFaGV4MWdBakdUUHFJTEtBN2JqVnduUlZOY0l0aWpaNktD?=
+ =?utf-8?B?OEdOVWpYRy9TczkyL2VMUGl0bzJFZWxDd1hrdXlFaWp1cGtiOERxVWpOWURQ?=
+ =?utf-8?B?YnhhS01EUlp5Y2JOVVE1ZDRUanZkU1hhb1pSYXdZYjJ1NjR0M0h0WUdpdTJK?=
+ =?utf-8?B?MktaYnZ6YjA2dkxta1FLeXFOcXROZkdweG81eldmZElReXBheWluOTFCUE12?=
+ =?utf-8?B?NVFCN2dSeU5jdUEwb0tPZGhmcUxRZENCbit4c0tENGI2WmRpOWxxczVQZUg1?=
+ =?utf-8?B?K1dPVHl3NmJwbWRVcmxZSU5XZ2JmdjBmQTZaaWxsS3hMUnp3eldRQ1oxczhu?=
+ =?utf-8?B?RkRHRk0vWEVLeDdyTU1wZk9Cb0lJYytDMmh3VTBpcFRDUUVnSmJwcEJEZWM3?=
+ =?utf-8?B?c1VTRjlDeGFTMUxzUklNZEhCdkxVbzhIN2FUbzQ4ZXJVZWJvNFRCVVhqQk8y?=
+ =?utf-8?B?QWx5QWxpR3ptcktEMGlvNHdaQThsbG50RG03cndVS3UxeW5xTWhxSW5jYnVB?=
+ =?utf-8?B?TjNORHNhSENBV1JodTlydnpLZEJKNzlTd1c1TE8wWWxSUEppRlpNcHB6Y3VE?=
+ =?utf-8?B?U2FzYWhmL0hvc3VjaDd4TXd4THV1eFpJejVka2h2dEFaZ0Ywb2dEUTlENi9T?=
+ =?utf-8?B?aWRFWSs3a2tqZmliMEpKUHFtUzhUMkl2WW1xNVU3ZnlyRDdOY2xKa2wvRFR0?=
+ =?utf-8?B?ZjhRZUpQUUdmV0h6T2hOY3lLTmtpbnoxYnZDZDlrd0p0R0pnZkZMbXRobVJC?=
+ =?utf-8?B?RkoyY1MxdVZRZEt4REg2MkVRT0tMZzBOSEZlNCtrQmFnV0gyWjRNSGtxNDB2?=
+ =?utf-8?B?K2JVV3pORHhENTBydVpQREJ2b0Rnc3Y1Q0xuU1pQaG92RDdhWWN2RUlZa0Fi?=
+ =?utf-8?B?UDNwZ3FVZWJrRlRXL3JteU9UcDBDaWxMYkRFcnRiWlB5YjFxZm5hOVR5REht?=
+ =?utf-8?B?TlJLc3FWM3lsOVVSQ0YyREZQNEVEMmY5K2hSQ0Q5Y1lQYW1GbWJyWmgwb3dp?=
+ =?utf-8?B?a2RFSEFBZmRZclVhZkdDdDRqOEJkNUlYeVdxQTBJZ2dqb2lPaElWZG9mVkZN?=
+ =?utf-8?B?aVZ6MTVlZVFsYk8yVEdGcDh2UWRkd3lYeXQwY294WGpLNzQ4UTlIdU5qa1Fu?=
+ =?utf-8?B?TmxOelN5ck10YzQzNjIwdEYrZWR4QjJUR2tUcjZtV0RZdE1qVUh2SzNVVEd2?=
+ =?utf-8?B?MXl0d1J3elNVZHpCd1B3aVMzR2FCZUIxUjZyTjRZZGxTOExQMDltbC93bml1?=
+ =?utf-8?B?TVBKQnREZnlVWWtJZlZJYTJpOE42ektQRTMxSzNKN0h5YnE1bkErQWV6dXJR?=
+ =?utf-8?B?SmJQS2JwUHk3MTRBV1B1cFQwYUx3QThET1J5ZUpSekhUWmNLbGUyUzNjWU5Q?=
+ =?utf-8?B?d2haVUZ5WUVDa250RkI0MmpjdDFjRVkvVXR4OXF0Skd2OG50ZVBWekwwQWFq?=
+ =?utf-8?B?TWw3bGErQ1luOEsxa3dHb1hDOWZ6TEczRSt2a1FlSnljY0ExSmRnWHRkMngx?=
+ =?utf-8?B?WFhBZ2tNL2lMQUNmVGYramdnZlNzMkg3N0EvbTJaRUswM3AzRktSQlFEaHBk?=
+ =?utf-8?B?UUU1VG5VVVRlcFdOVy9iUzRuZ3N1Y0lPamMxSnZzVmd3SmZJQlF6bC9GVWlB?=
+ =?utf-8?B?TldOcW5VT0tYWG1BV1BvcVkxV0ZuejU4b2E3VmVyNlJkWlJFbE05SWxlTXZm?=
+ =?utf-8?B?YXM4bFQvdzJJVmhjaTh3LytnQlozR2FyMXI2ZmMycWVzTGZLRDNtdHZrcTRD?=
+ =?utf-8?B?UkdpVjVXSHZjMkVjUGtZK2doSGlyODhqMSs0bzJKaEIwb2dJSFUwZEI2Nmhk?=
+ =?utf-8?B?VWFDZTVEUnJYdnVFQVdUM3VkY1UrNE16V2hHdXVEVkJ5M0RPSEN6QTZWODli?=
+ =?utf-8?B?QzZFNkRJbmhLWU03L0dlMzJMQlV5MDhQS2hoYm5ORmVONml1dTR6SjZxQ3F4?=
+ =?utf-8?B?WkE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.66]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 32K7v6wh088828
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB3781.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40cf0d7c-ae03-4980-ef07-08db292c97a9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2023 10:19:30.2540
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AhvwNjhNLMmGx68wBmt9KefHJ6ly3s76IeXJa8COFtVgmdTz0hP1fncfA3OLFIxNkq3V7Eu0O3G2xun166pNs/kp+XgKj+rD8epJvoEvJwE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5763
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,592 +133,187 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "pmenzel@molgen.mpg.de" <pmenzel@molgen.mpg.de>, "hdanton@sina.com" <hdanton@sina.com>, linux-serial <linux-serial@vger.kernel.org>, "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "andrew@aj.id.au" <andrew@aj.id.au>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, LKML <linux-kernel@vger.kernel.org>, "vkoul@kernel.org" <vkoul@kernel.org>, "robh+dt@kernel.org" <robh+dt@kernel.org>, "joel@jms.id.au" <joel@jms.id.au>, "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>, "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Aspeed AST2600 UART DMA (UDMA) includes 28 channels for the
-DMA transmission and recevie of each UART devices.
-
-Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
----
- drivers/dma/Kconfig        |   9 +
- drivers/dma/Makefile       |   1 +
- drivers/dma/ast2600-udma.c | 534 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 544 insertions(+)
- create mode 100644 drivers/dma/ast2600-udma.c
-
-diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
-index fb7073fc034f..18bf6b1350d3 100644
---- a/drivers/dma/Kconfig
-+++ b/drivers/dma/Kconfig
-@@ -93,6 +93,15 @@ config APPLE_ADMAC
- 	help
- 	  Enable support for Audio DMA Controller found on Apple Silicon SoCs.
- 
-+config ASPEED_AST2600_UDMA
-+	bool "Aspeed AST2600 UDMA support"
-+	depends on ARCH_ASPEED || COMPILE_TEST
-+	help
-+	  Enable support for Aspeed AST2600 UART DMA. Select this option if you
-+	  have a AST2600 SoC integrated system. The driver provides the UART DMA
-+	  support with the dmaengine subsystem, which can be leveraged by generic
-+	  8250 serial drivers.
-+
- config AT_HDMAC
- 	tristate "Atmel AHB DMA support"
- 	depends on ARCH_AT91
-diff --git a/drivers/dma/Makefile b/drivers/dma/Makefile
-index a4fd1ce29510..6cbacebcdcab 100644
---- a/drivers/dma/Makefile
-+++ b/drivers/dma/Makefile
-@@ -81,6 +81,7 @@ obj-$(CONFIG_XGENE_DMA) += xgene-dma.o
- obj-$(CONFIG_ST_FDMA) += st_fdma.o
- obj-$(CONFIG_FSL_DPAA2_QDMA) += fsl-dpaa2-qdma/
- obj-$(CONFIG_INTEL_LDMA) += lgm/
-+obj-$(CONFIG_ASPEED_AST2600_UDMA) += ast2600-udma.o
- 
- obj-y += mediatek/
- obj-y += qcom/
-diff --git a/drivers/dma/ast2600-udma.c b/drivers/dma/ast2600-udma.c
-new file mode 100644
-index 000000000000..39117b26996d
---- /dev/null
-+++ b/drivers/dma/ast2600-udma.c
-@@ -0,0 +1,534 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) ASPEED Technology Inc.
-+ */
-+#include <linux/delay.h>
-+#include <linux/bitfield.h>
-+#include <linux/interrupt.h>
-+#include <linux/dmaengine.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/platform_device.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_dma.h>
-+#include <linux/dma-direct.h>
-+#include "dmaengine.h"
-+
-+#define DEVICE_NAME	"aspeed-udma"
-+
-+/* register offset */
-+#define UDMA_TX_EN		0x000
-+#define UDMA_RX_EN		0x004
-+#define UDMA_TMOUT		0x00c
-+#define UDMA_TX_PTR_RST		0x020
-+#define UDMA_RX_PTR_RST		0x024
-+#define UDMA_TX_INT_EN		0x030
-+#define UDMA_TX_INT_STS		0x034
-+#define UDMA_RX_INT_EN		0x038
-+#define UDMA_RX_INT_STS		0x03c
-+
-+#define UDMA_CH_OFFS(x)		((x) * 0x10)
-+#define UDMA_CH_RPTR(x)		(0x040 + UDMA_CH_OFFS(x))
-+#define UDMA_CH_WPTR(x)		(0x044 + UDMA_CH_OFFS(x))
-+#define UDMA_CH_ADDR(x)		(0x048 + UDMA_CH_OFFS(x))
-+#define UDMA_CH_CTRL(x)		(0x04c + UDMA_CH_OFFS(x))
-+#define   UDMA_CH_CTRL_BUFSZ	GENMASK(1, 0)
-+
-+#define UDMA_MAX_BUFSZ	(0x10000)
-+#define UDMA_MAX_TXSZ	(UDMA_MAX_BUFSZ - 1)
-+
-+enum ast2600_udma_bufsz {
-+	UDMA_BUFSZ_1KB,
-+	UDMA_BUFSZ_4KB,
-+	UDMA_BUFSZ_16KB,
-+	UDMA_BUFSZ_64KB,
-+};
-+
-+struct ast2600_udma_desc {
-+	struct dma_async_tx_descriptor tx;
-+	dma_addr_t addr;
-+	unsigned int size;
-+};
-+
-+struct ast2600_udma_chan {
-+	struct dma_chan chan;
-+	struct ast2600_udma_desc ud;
-+	struct ast2600_udma *udma;
-+	uint32_t residue;
-+
-+	/* 4B-aligned local buffer for workaround */
-+	uint8_t *buf;
-+	dma_addr_t buf_addr;
-+
-+	bool is_tx;
-+};
-+
-+struct ast2600_udma {
-+	struct dma_device ddev;
-+	uint8_t __iomem *regs;
-+	int irq;
-+	struct ast2600_udma_chan *ucs;
-+	uint32_t n_ucs;
-+	spinlock_t lock;
-+};
-+
-+static struct ast2600_udma_chan *to_ast2600_udma_chan(struct dma_chan *chan)
-+{
-+	return container_of(chan, struct ast2600_udma_chan, chan);
-+}
-+
-+static int ast2600_udma_alloc_chan_resources(struct dma_chan *chan)
-+{
-+	dma_cookie_init(chan);
-+
-+	return 0;
-+}
-+
-+static dma_cookie_t ast2600_udma_tx_submit(struct dma_async_tx_descriptor *tx)
-+{
-+	return dma_cookie_assign(tx);
-+}
-+
-+/* consider only 8250_dma using dmaengine_prep_slave_single() */
-+static struct dma_async_tx_descriptor *ast2600_udma_prep_slave_sg(struct dma_chan *chan,
-+								  struct scatterlist *sgl,
-+								  unsigned int sg_len,
-+								  enum dma_transfer_direction dir,
-+								  unsigned long tx_flags,
-+								  void *context)
-+{
-+	struct device *dev = chan->device->dev;
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	struct ast2600_udma_desc *ud = &uc->ud;
-+	phys_addr_t pa;
-+	void *va;
-+
-+	if (!is_slave_direction(dir)) {
-+		dev_err(dev, "direction is not slave mode\n");
-+		return NULL;
-+	}
-+
-+	if (sg_len != 1) {
-+		dev_err(dev, "scatter list length is not 1\n");
-+		return NULL;
-+	}
-+
-+	if (uc->is_tx && dir != DMA_MEM_TO_DEV) {
-+		dev_err(dev, "invalid direction to TX channel\n");
-+		return NULL;
-+	}
-+
-+	ud->addr = sg_dma_address(sgl);
-+	ud->size = sg_dma_len(sgl);
-+
-+	if (uc->is_tx) {
-+		if (ud->size > UDMA_MAX_TXSZ) {
-+			dev_err(dev, "invalid TX DMA SIZE");
-+			return NULL;
-+		}
-+
-+		/*
-+		 * UDMA is limited to 4B-aligned DMA addresses.
-+		 * Thus copy data to local 4B-aligned buffer if
-+		 * the source does not fit.
-+		 */
-+		if (ud->addr & 0x3) {
-+			pa = dma_to_phys(chan->device->dev, ud->addr);
-+			if (pa != (phys_addr_t)-1) {
-+				va = phys_to_virt(pa);
-+				memcpy(uc->buf, va, ud->size);
-+				ud->addr = uc->buf_addr;
-+			}
-+		}
-+	} else {
-+		/*
-+		 * UDMA RX buffer size is limited to 1/4/16/64 KB
-+		 * We use the lower bits to encode the buffer size
-+		 */
-+		switch (ud->size) {
-+		case 0x400:
-+			ud->size |= FIELD_PREP(UDMA_CH_CTRL_BUFSZ, UDMA_BUFSZ_1KB);
-+			break;
-+		case 0x1000:
-+			ud->size |= FIELD_PREP(UDMA_CH_CTRL_BUFSZ, UDMA_BUFSZ_4KB);
-+			break;
-+		case 0x4000:
-+			ud->size |= FIELD_PREP(UDMA_CH_CTRL_BUFSZ, UDMA_BUFSZ_16KB);
-+			break;
-+		case 0x10000:
-+			ud->size |= FIELD_PREP(UDMA_CH_CTRL_BUFSZ, UDMA_BUFSZ_64KB);
-+			break;
-+		default:
-+			dev_err(dev, "invalid RX DMA size\n");
-+			return NULL;
-+		}
-+	}
-+
-+	dma_async_tx_descriptor_init(&ud->tx, &uc->chan);
-+	ud->tx.tx_submit = ast2600_udma_tx_submit;
-+
-+	return &ud->tx;
-+}
-+
-+static void ast2600_udma_issue_pending(struct dma_chan *chan)
-+{
-+	unsigned long flags;
-+	uint32_t r_pr, r_is, r_ie, r_en, reg;
-+	uint32_t ch_id = chan->chan_id;
-+	uint32_t ch_bit = ch_id / 2;
-+	dma_addr_t rx_addr;
-+	uint32_t rx_size;
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	struct ast2600_udma_desc *ud = &uc->ud;
-+	struct ast2600_udma *udma = uc->udma;
-+
-+	if (uc->is_tx) {
-+		r_pr = UDMA_TX_PTR_RST;
-+		r_is = UDMA_TX_INT_STS;
-+		r_ie = UDMA_TX_INT_EN;
-+		r_en = UDMA_TX_EN;
-+	} else {
-+		r_pr = UDMA_RX_PTR_RST;
-+		r_is = UDMA_RX_INT_STS;
-+		r_ie = UDMA_RX_INT_EN;
-+		r_en = UDMA_RX_EN;
-+	}
-+
-+	spin_lock_irqsave(&udma->lock, flags);
-+
-+	/* reset channel HW read/write pointer */
-+	writel(BIT(ch_bit), udma->regs + r_pr);
-+	writel(0, udma->regs + r_pr);
-+
-+	/* clear interrupt status */
-+	writel(BIT(ch_bit), udma->regs + r_is);
-+
-+	/* set transfer address & size */
-+	if (uc->is_tx) {
-+		writel(ud->addr, udma->regs + UDMA_CH_ADDR(ch_id));
-+		writel(ud->size, udma->regs + UDMA_CH_WPTR(ch_id));
-+		writel(UDMA_BUFSZ_64KB, udma->regs + UDMA_CH_CTRL(ch_id));
-+	} else {
-+		/*
-+		 * UDMA is limited to 4B-aligned addresses.
-+		 * Thus use local 4B-aligned buffer to get
-+		 * RX data and copy to the real destination
-+		 * after then.
-+		 */
-+		rx_addr = (ud->addr & 0x3) ? uc->buf_addr : ud->addr;
-+		rx_size = FIELD_GET(UDMA_CH_CTRL_BUFSZ, ud->size);
-+		writel(rx_addr, udma->regs + UDMA_CH_ADDR(ch_id));
-+		writel(rx_size, udma->regs + UDMA_CH_CTRL(ch_id));
-+	}
-+
-+	/* enable interrupt */
-+	reg = readl(udma->regs + r_ie) | BIT(ch_bit);
-+	writel(reg, udma->regs + r_ie);
-+
-+	/* start DMA */
-+	reg = readl(udma->regs + r_en) | BIT(ch_bit);
-+	writel(reg, udma->regs + r_en);
-+
-+	spin_unlock_irqrestore(&udma->lock, flags);
-+}
-+
-+static enum dma_status ast2600_udma_tx_status(struct dma_chan *chan,
-+		dma_cookie_t cookie, struct dma_tx_state *txstate)
-+{
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	enum dma_status sts = dma_cookie_status(chan, cookie, txstate);
-+
-+	dma_set_residue(txstate, uc->residue);
-+
-+	return sts;
-+}
-+
-+static int ast2600_udma_pause(struct dma_chan *chan)
-+{
-+	unsigned long flags;
-+	uint32_t r_en, r_ie, reg;
-+	uint32_t ch_id = chan->chan_id;
-+	uint32_t ch_bit = ch_id / 2;
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	struct ast2600_udma *udma = uc->udma;
-+
-+	if (uc->is_tx) {
-+		r_en = UDMA_TX_EN;
-+		r_ie = UDMA_TX_INT_EN;
-+	} else {
-+		r_en = UDMA_RX_EN;
-+		r_ie = UDMA_RX_INT_EN;
-+	}
-+
-+	spin_lock_irqsave(&udma->lock, flags);
-+
-+	reg = readl(udma->regs + r_en) & ~BIT(ch_bit);
-+	writel(reg, udma->regs + r_en);
-+
-+	reg = readl(udma->regs + r_ie) & ~BIT(ch_bit);
-+	writel(reg, udma->regs + r_ie);
-+
-+	spin_unlock_irqrestore(&udma->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int ast2600_udma_resume(struct dma_chan *chan)
-+{
-+	unsigned long flags;
-+	uint32_t r_en, r_ie, reg;
-+	uint32_t ch_id = chan->chan_id;
-+	uint32_t ch_bit = ch_id / 2;
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	struct ast2600_udma *udma = uc->udma;
-+
-+	if (uc->is_tx) {
-+		r_en = UDMA_TX_EN;
-+		r_ie = UDMA_TX_INT_EN;
-+	} else {
-+		r_en = UDMA_RX_EN;
-+		r_ie = UDMA_RX_INT_EN;
-+	}
-+
-+	spin_lock_irqsave(&udma->lock, flags);
-+
-+	reg = readl(udma->regs + r_en) | BIT(ch_bit);
-+	writel(reg, udma->regs + r_en);
-+
-+	reg = readl(udma->regs + r_ie) | BIT(ch_bit);
-+	writel(reg, udma->regs + r_ie);
-+
-+	spin_unlock_irqrestore(&udma->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int ast2600_udma_terminate(struct dma_chan *chan)
-+{
-+	unsigned long flags;
-+	uint32_t r_pr, r_is, r_ie, r_en, reg;
-+	uint32_t ch_id = chan->chan_id;
-+	uint32_t ch_bit = ch_id / 2;
-+	struct ast2600_udma_chan *uc = to_ast2600_udma_chan(chan);
-+	struct ast2600_udma *udma = uc->udma;
-+
-+	if (uc->is_tx) {
-+		r_pr = UDMA_TX_PTR_RST;
-+		r_is = UDMA_TX_INT_STS;
-+		r_ie = UDMA_TX_INT_EN;
-+		r_en = UDMA_TX_EN;
-+	} else {
-+		r_pr = UDMA_RX_PTR_RST;
-+		r_is = UDMA_RX_INT_STS;
-+		r_ie = UDMA_RX_INT_EN;
-+		r_en = UDMA_RX_EN;
-+	}
-+
-+	spin_lock_irqsave(&udma->lock, flags);
-+
-+	/* disable DMA */
-+	reg = readl(udma->regs + r_en) & ~BIT(ch_bit);
-+	writel(reg, udma->regs + r_en);
-+
-+	/* disable interrupt */
-+	reg = readl(udma->regs + r_ie) & ~BIT(ch_bit);
-+	writel(reg, udma->regs + r_ie);
-+
-+	/* clear interrupt status */
-+	writel(BIT(ch_bit), udma->regs + r_is);
-+
-+	/* reset channel HW read/write pointer */
-+	writel(BIT(ch_bit), udma->regs + r_pr);
-+	writel(0, udma->regs + r_pr);
-+
-+	spin_unlock_irqrestore(&udma->lock, flags);
-+
-+	return 0;
-+}
-+
-+static irqreturn_t ast2600_udma_isr(int irq, void *arg)
-+{
-+	struct ast2600_udma *udma = arg;
-+	struct ast2600_udma_chan *uc;
-+	struct ast2600_udma_desc *ud;
-+	struct dma_async_tx_descriptor *tx;
-+	uint32_t sts, rptr, wptr;
-+	uint32_t ch_id, ch_bit;
-+	phys_addr_t pa;
-+	void *va;
-+
-+	/* handle TX interrupt */
-+	sts = readl(udma->regs + UDMA_TX_INT_STS);
-+	for_each_set_bit(ch_bit, (unsigned long *)&sts, (udma->n_ucs / 2)) {
-+		ch_id = ch_bit << 1;
-+		rptr = readl(udma->regs + UDMA_CH_RPTR(ch_id));
-+		wptr = readl(udma->regs + UDMA_CH_WPTR(ch_id));
-+
-+		uc = &udma->ucs[ch_id];
-+		uc->residue = wptr - rptr;
-+
-+		ast2600_udma_terminate(&uc->chan);
-+
-+		tx = &uc->ud.tx;
-+		dma_cookie_complete(tx);
-+		dma_descriptor_unmap(tx);
-+		dmaengine_desc_get_callback_invoke(tx, NULL);
-+	}
-+
-+	/* handle RX interrupt */
-+	sts = readl(udma->regs + UDMA_RX_INT_STS);
-+	for_each_set_bit(ch_bit, (unsigned long *)&sts, udma->n_ucs / 2) {
-+		ch_id = (ch_bit << 1) + 1;
-+		wptr = readl(udma->regs + UDMA_CH_WPTR(ch_id));
-+
-+		uc = &udma->ucs[ch_id];
-+		ud = &uc->ud;
-+		tx = &ud->tx;
-+
-+		uc->residue = (ud->size & ~UDMA_CH_CTRL_BUFSZ) - wptr;
-+
-+		/* handle non-4B-aligned case */
-+		if (ud->addr & 0x3) {
-+			pa = dma_to_phys(uc->chan.device->dev, ud->addr);
-+			if (pa != (phys_addr_t)-1) {
-+				va = phys_to_virt(pa);
-+				memcpy(va, uc->buf, wptr);
-+			}
-+		}
-+
-+		ast2600_udma_terminate(&uc->chan);
-+
-+		dma_cookie_complete(tx);
-+		dma_descriptor_unmap(tx);
-+		dmaengine_desc_get_callback_invoke(tx, NULL);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int ast2600_udma_probe(struct platform_device *pdev)
-+{
-+	int i, rc;
-+	struct resource *res;
-+	struct ast2600_udma *udma;
-+	struct device *dev = &pdev->dev;
-+
-+	udma = devm_kzalloc(dev, sizeof(*udma), GFP_KERNEL);
-+	if (!udma)
-+		return -ENOMEM;
-+
-+	dma_cap_set(DMA_SLAVE, udma->ddev.cap_mask);
-+	udma->ddev.device_alloc_chan_resources = ast2600_udma_alloc_chan_resources;
-+	udma->ddev.device_prep_slave_sg = ast2600_udma_prep_slave_sg;
-+	udma->ddev.device_issue_pending = ast2600_udma_issue_pending;
-+	udma->ddev.device_tx_status = ast2600_udma_tx_status;
-+	udma->ddev.device_pause = ast2600_udma_pause;
-+	udma->ddev.device_resume = ast2600_udma_resume;
-+	udma->ddev.device_terminate_all = ast2600_udma_terminate;
-+	udma->ddev.src_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
-+	udma->ddev.dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
-+	udma->ddev.directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
-+	udma->ddev.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
-+	udma->ddev.dev = dev;
-+	INIT_LIST_HEAD(&udma->ddev.channels);
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (IS_ERR(res)) {
-+		dev_err(dev, "cannot get IO resource\n");
-+		return -ENODEV;
-+	}
-+
-+	udma->regs = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(udma->regs)) {
-+		dev_err(dev, "cannot map IO registers\n");
-+		return PTR_ERR(udma->regs);
-+	}
-+
-+	/* timeout value: 0x200 * (PCLK * 14400) */
-+	writel(0x200, udma->regs + UDMA_TMOUT);
-+
-+	/* disable all for safety */
-+	writel(0x0, udma->regs + UDMA_TX_EN);
-+	writel(0x0, udma->regs + UDMA_RX_EN);
-+
-+	udma->irq = platform_get_irq(pdev, 0);
-+	if (udma->irq < 0)
-+		return udma->irq;
-+
-+	rc = devm_request_irq(&pdev->dev, udma->irq, ast2600_udma_isr,
-+			      IRQF_SHARED, DEVICE_NAME, udma);
-+	if (rc) {
-+		dev_err(dev, "cannot request IRQ\n");
-+		return rc;
-+	}
-+
-+	rc = of_property_read_u32(dev->of_node, "dma-channels", &udma->n_ucs);
-+	if (rc) {
-+		dev_err(dev, "cannot find number of channels\n");
-+		return rc;
-+	}
-+
-+	udma->ucs = devm_kzalloc(dev,
-+				 sizeof(struct ast2600_udma_chan) * udma->n_ucs, GFP_KERNEL);
-+	if (!udma->ucs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < udma->n_ucs; ++i) {
-+		udma->ucs[i].is_tx = !(i % 2);
-+		udma->ucs[i].chan.device = &udma->ddev;
-+		udma->ucs[i].buf = dmam_alloc_coherent(dev, UDMA_MAX_BUFSZ,
-+						       &udma->ucs[i].buf_addr, GFP_KERNEL);
-+		if (!udma->ucs[i].buf)
-+			return -ENOMEM;
-+
-+		udma->ucs[i].udma = udma;
-+		list_add_tail(&udma->ucs[i].chan.device_node, &udma->ddev.channels);
-+	}
-+
-+	rc = dma_async_device_register(&udma->ddev);
-+	if (rc)
-+		return rc;
-+
-+	rc = of_dma_controller_register(dev->of_node, of_dma_xlate_by_chan_id, &udma->ddev);
-+	if (rc)
-+		return rc;
-+
-+	spin_lock_init(&udma->lock);
-+
-+	platform_set_drvdata(pdev, udma);
-+
-+	dev_info(dev, "module loaded\n");
-+
-+	return 0;
-+}
-+
-+static int ast2600_udma_remove(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct ast2600_udma *udma = platform_get_drvdata(pdev);
-+
-+	of_dma_controller_free(dev->of_node);
-+	dma_async_device_unregister(&udma->ddev);
-+
-+	dev_info(dev, "module removed\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ast2600_udma_match[] = {
-+	{ .compatible = "aspeed,ast2600-udma" },
-+	{ },
-+};
-+
-+static struct platform_driver ast2600_udma_driver = {
-+	.probe = ast2600_udma_probe,
-+	.remove = ast2600_udma_remove,
-+	.driver = {
-+			.name = DEVICE_NAME,
-+			.of_match_table = ast2600_udma_match,
-+	},
-+};
-+
-+module_platform_driver(ast2600_udma_driver);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Chia-Wei Wang <chiawei_wang@aspeedtech.com");
--- 
-2.25.1
-
+PiBGcm9tOiBJbHBvIErDpHJ2aW5lbiA8aWxwby5qYXJ2aW5lbkBsaW51eC5pbnRlbC5jb20+DQo+
+IFNlbnQ6IE1vbmRheSwgTWFyY2ggMjAsIDIwMjMgNTo0MyBQTQ0KPiANCj4gT24gTW9uLCAyMCBN
+YXIgMjAyMywgQ2hpYS1XZWkgV2FuZyB3cm90ZToNCj4gDQo+ID4gQWRkIG5ldyBVQVJUIGRyaXZl
+ciB3aXRoIERNQSBzdXBwb3J0IGZvciBBc3BlZWQgQVNUMjYwMCBTb0NzLg0KPiA+IFRoZSBkcml2
+ZXJzIG1haW5seSBwcmVwYXJlIHRoZSBkbWEgaW5zdGFuY2UgYmFzZWQgb24gdGhlIDgyNTBfZG1h
+DQo+ID4gaW1wbGVtZW50YXRpb24gdG8gbGV2ZXJhZ2UgdGhlIEFTVDI2MDAgVUFSVCBETUEgKFVE
+TUEpIGVuZ2luZS4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IENoaWEtV2VpIFdhbmcgPGNoaWF3
+ZWlfd2FuZ0Bhc3BlZWR0ZWNoLmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy90dHkvc2VyaWFs
+LzgyNTAvODI1MF9hc3BlZWQuYyB8IDIyNA0KPiArKysrKysrKysrKysrKysrKysrKysrKysrKw0K
+PiA+ICBkcml2ZXJzL3R0eS9zZXJpYWwvODI1MC9LY29uZmlnICAgICAgIHwgICA4ICsNCj4gPiAg
+ZHJpdmVycy90dHkvc2VyaWFsLzgyNTAvTWFrZWZpbGUgICAgICB8ICAgMSArDQo+ID4gIDMgZmls
+ZXMgY2hhbmdlZCwgMjMzIGluc2VydGlvbnMoKykNCj4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
+aXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfYXNwZWVkLmMNCj4gPg0KPiA+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2FzcGVlZC5jDQo+ID4gYi9kcml2ZXJzL3R0
+eS9zZXJpYWwvODI1MC84MjUwX2FzcGVlZC5jDQo+ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4g
+PiBpbmRleCAwMDAwMDAwMDAwMDAuLjA0ZDBiZjZmYmEyOA0KPiA+IC0tLSAvZGV2L251bGwNCj4g
+PiArKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2FzcGVlZC5jDQo+ID4gQEAgLTAs
+MCArMSwyMjQgQEANCj4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4g
+PiArLyoNCj4gPiArICogQ29weXJpZ2h0IChDKSBBU1BFRUQgVGVjaG5vbG9neSBJbmMuDQo+ID4g
+KyAqLw0KPiA+ICsjaW5jbHVkZSA8bGludXgvZGV2aWNlLmg+DQo+ID4gKyNpbmNsdWRlIDxsaW51
+eC9pby5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+DQo+ID4gKyNpbmNsdWRlIDxs
+aW51eC9zZXJpYWxfODI1MC5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvc2VyaWFsX3JlZy5oPg0K
+PiA+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4NCj4gPiArI2luY2x1ZGUgPGxpbnV4L29mX2lycS5o
+Pg0KPiA+ICsjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4NCj4gPiArI2luY2x1ZGUgPGxp
+bnV4L3BsYXRmb3JtX2RldmljZS5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvY2xrLmg+DQo+ID4g
+KyNpbmNsdWRlIDxsaW51eC9yZXNldC5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBp
+bmcuaD4NCj4gPiArI2luY2x1ZGUgPGxpbnV4L2NpcmNfYnVmLmg+DQo+ID4gKyNpbmNsdWRlIDxs
+aW51eC90dHlfZmxpcC5oPg0KPiA+ICsjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPg0KPiA+
+ICsNCj4gPiArI2luY2x1ZGUgIjgyNTAuaCINCj4gPiArDQo+ID4gKyNkZWZpbmUgREVWSUNFX05B
+TUUgImFzcGVlZC11YXJ0Ig0KPiA+ICsNCj4gPiArc3RydWN0IGFzdDgyNTBfZGF0YSB7DQo+ID4g
+KwlpbnQgbGluZTsNCj4gPiArCWludCBpcnE7DQo+ID4gKwl1OCBfX2lvbWVtICpyZWdzOw0KPiA+
+ICsJc3RydWN0IHJlc2V0X2NvbnRyb2wgKnJzdDsNCj4gPiArCXN0cnVjdCBjbGsgKmNsazsNCj4g
+PiArI2lmZGVmIENPTkZJR19TRVJJQUxfODI1MF9ETUENCj4gPiArCXN0cnVjdCB1YXJ0XzgyNTBf
+ZG1hIGRtYTsNCj4gPiArI2VuZGlmDQo+ID4gK307DQo+ID4gKw0KPiA+ICsjaWZkZWYgQ09ORklH
+X1NFUklBTF84MjUwX0RNQQ0KPiA+ICtzdGF0aWMgaW50IGFzdDgyNTBfcnhfZG1hKHN0cnVjdCB1
+YXJ0XzgyNTBfcG9ydCAqcCk7DQo+ID4gKw0KPiA+ICtzdGF0aWMgdm9pZCBhc3Q4MjUwX3J4X2Rt
+YV9jb21wbGV0ZSh2b2lkICpwYXJhbSkgew0KPiA+ICsJc3RydWN0IHVhcnRfODI1MF9wb3J0ICpw
+ID0gcGFyYW07DQo+ID4gKwlzdHJ1Y3QgdWFydF84MjUwX2RtYSAqZG1hID0gcC0+ZG1hOw0KPiA+
+ICsJc3RydWN0IHR0eV9wb3J0ICp0dHlfcG9ydCA9ICZwLT5wb3J0LnN0YXRlLT5wb3J0Ow0KPiA+
+ICsJc3RydWN0IGRtYV90eF9zdGF0ZQlzdGF0ZTsNCj4gPiArCWludAljb3VudDsNCj4gPiArDQo+
+ID4gKwlkbWFlbmdpbmVfdHhfc3RhdHVzKGRtYS0+cnhjaGFuLCBkbWEtPnJ4X2Nvb2tpZSwgJnN0
+YXRlKTsNCj4gPiArDQo+ID4gKwljb3VudCA9IGRtYS0+cnhfc2l6ZSAtIHN0YXRlLnJlc2lkdWU7
+DQo+ID4gKw0KPiA+ICsJdHR5X2luc2VydF9mbGlwX3N0cmluZyh0dHlfcG9ydCwgZG1hLT5yeF9i
+dWYsIGNvdW50KTsNCj4gPiArCXAtPnBvcnQuaWNvdW50LnJ4ICs9IGNvdW50Ow0KPiA+ICsNCj4g
+PiArCXR0eV9mbGlwX2J1ZmZlcl9wdXNoKHR0eV9wb3J0KTsNCj4gPiArDQo+ID4gKwlhc3Q4MjUw
+X3J4X2RtYShwKTsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBhc3Q4MjUwX3J4X2Rt
+YShzdHJ1Y3QgdWFydF84MjUwX3BvcnQgKnApIHsNCj4gPiArCXN0cnVjdCB1YXJ0XzgyNTBfZG1h
+ICpkbWEgPSBwLT5kbWE7DQo+ID4gKwlzdHJ1Y3QgZG1hX2FzeW5jX3R4X2Rlc2NyaXB0b3IgKnR4
+Ow0KPiA+ICsNCj4gPiArCXR4ID0gZG1hZW5naW5lX3ByZXBfc2xhdmVfc2luZ2xlKGRtYS0+cnhj
+aGFuLCBkbWEtPnJ4X2FkZHIsDQo+ID4gKwkJCQkJIGRtYS0+cnhfc2l6ZSwgRE1BX0RFVl9UT19N
+RU0sDQo+ID4gKwkJCQkJIERNQV9QUkVQX0lOVEVSUlVQVCB8IERNQV9DVFJMX0FDSyk7DQo+ID4g
+KwlpZiAoIXR4KQ0KPiA+ICsJCXJldHVybiAtRUJVU1k7DQo+IA0KPiBIb3cgZG9lcyB0aGUgRE1B
+IFJ4ICJsb29wIiByZXN0YXJ0IHdoZW4gdGhpcyBpcyB0YWtlbj8NCg0KVGhlIGxvb3AgcmUtc3Rh
+cnRzIGZyb20gYXN0ODI1MF9zdGFydHVwLg0KDQo+IA0KPiA+ICsJdHgtPmNhbGxiYWNrID0gYXN0
+ODI1MF9yeF9kbWFfY29tcGxldGU7DQo+ID4gKwl0eC0+Y2FsbGJhY2tfcGFyYW0gPSBwOw0KPiA+
+ICsNCj4gPiArCWRtYS0+cnhfY29va2llID0gZG1hZW5naW5lX3N1Ym1pdCh0eCk7DQo+ID4gKw0K
+PiA+ICsJZG1hX2FzeW5jX2lzc3VlX3BlbmRpbmcoZG1hLT5yeGNoYW4pOw0KPiA+ICsNCj4gPiAr
+CXJldHVybiAwOw0KPiA+ICt9DQo+ID4gKyNlbmRpZg0KPiANCj4gVGhlc2UgMiBmdW5jdGlvbnMg
+bG9vayB2ZXJ5IHNpbWlsYXIgdG8gd2hhdCA4MjUwX2RtYSBvZmZlcnMgZm9yIHlvdS4gVGhlIG9u
+bHkNCj4gZGlmZmVyZW5jZSBJIGNvdWxkIHNlZSBpcyB0aGF0IGFsd2F5cyBzdGFydCBETUEgUngg
+dGhpbmcgd2hpY2ggY291bGQgYmUNCj4gaGFuZGxlZCBieSBhZGRpbmcgc29tZSBjYXBhYmlsaXR5
+IGZsYWcgaW50byB1YXJ0XzgyNTBfZG1hIGZvciB0aG9zZSBVQVJUcw0KPiB0aGF0IGNhbiBsYXVu
+Y2ggRE1BIFJ4IHdoaWxlIFJ4IHF1ZXVlIGlzIGVtcHR5Lg0KPiANCj4gU28sIGp1c3QgdXNlIHRo
+ZSBzdGFuZGFyZCA4MjUwX2RtYSBmdW5jdGlvbnMgYW5kIG1ha2UgdGhlIHNtYWxsIGNhcGFiaWxp
+dGllcw0KPiBmbGFnIHR3ZWFrIHRoZXJlLg0KPiANCj4gQnkgdXNpbmcgdGhlIHN0b2NrIGZ1bmN0
+aW9ucyB5b3UgYWxzbyBhdm9pZCA4MjUwX2RtYSBSeCBhbmQgeW91ciBETUEgUngNCj4gcmFjaW5n
+IGxpa2UgdGhleSBjdXJyZW50bHkgd291bGQgKDgyNTBfcG9ydCBhc3NpZ25zIHRoZSBmdW5jdGlv
+bnMgZnJvbQ0KPiA4MjUwX2RtYSB3aGVuIHlvdSBkb24ndCBzcGVjaWZ5IHRoZSByeCBoYW5kbGVy
+IGFuZCB0aGUgZGVmYXVsdCA4MjUwIGlycQ0KPiBoYW5kbGVyIHdpbGwgY2FsbCBpbnRvIHRob3Nl
+IHN0YW5kYXJkIDgyNTAgRE1BIGZ1bmN0aW9ucykuDQoNClllcyBmb3IgdGhlIGRpZmZlcmVuY2Ug
+ZGVzY3JpYmVkLg0KDQpPdXIgY3VzdG9tZXJzIHVzdWFsbHkgdXNlIFVETUEgZm9yIGZpbGUtdHJh
+bnNtaXNzaW9ucyBvdmVyIFVBUlQuDQpBbmQgSSBmb3VuZCB0aGUgcHJlY2VkaW5nIGJ5dGVzIHdp
+bGwgZ2V0IGxvc3QgZWFzaWx5IGR1ZSB0byB0aGUgbGF0ZSBzdGFydCBvZiBETUEgZW5naW5lLg0K
+DQpJbiBmYWN0LCBJIHdhcyBzZWVraW5nIHRoZSBkZWZhdWx0IGltcGxlbWVudGF0aW9uIHRvIGFs
+d2F5cyBzdGFydCBSWCBETUEgaW5zdGVhZCBvZiBlbmFibGluZyBpdCB1cG9uIERSIGJpdCByaXNp
+bmcuDQpCdXQgbm8gbHVjayBhbmQgdGh1cyBhZGQgYXN0ODI1MF9yeF9kbWEuIChUaGUgZGVmYXVs
+dCA4MjUwIElTUiBhbHNvIGNhbGxlZCBpbnRvIHVwLT5kbWEtPnJ4X2RtYSkNCg0KSWYgYWRkaW5n
+IGEgbmV3IGNhcGFiaWxpdHkgZmxhZyBpcyB0aGUgYmV0dGVyIHdheSB0byBnbywgSSB3aWxsIHRy
+eSB0byBpbXBsZW1lbnQgaW4gdGhhdCB3YXkgZm9yIGZ1cnRoZXIgcmV2aWV3Lg0KDQo+IA0KPiAN
+Cj4gSSdtIGN1cmlvdXMgYWJvdXQgdGhpcyBIVyBhbmQgaG93IGl0IGJlaGF2ZXMgdW5kZXIgdGhl
+c2UgdHdvIHNjZW5hcmlvczoNCj4gLSBXaGVuIFJ4IGlzIGVtcHR5LCBkb2VzIFVBUlQvRE1BIGp1
+c3Qgc2l0IHRoZXJlIHdhaXRpbmcgZm9yZXZlcj8NCg0KWWVzLg0KDQo+IC0gV2hlbiBhIHN0cmVh
+bSBvZiBpbmNvbWluZyBSeCBjaGFyYWN0ZXJzIHN1ZGRlbmx5IGVuZHMsIGhvdyBkb2VzDQo+IFVB
+UlQvRE1BDQo+ICAgcmVhY3Q/IC4uLk9uIDgyNTAgVUFSVHMgSSdtIGZhbWlsaWFyIHdpdGggdGhp
+cyB0cmlnZ2VycyBVQVJUX0lJUl9USU1FT1VUDQo+ICAgd2hpY2ggeW91IGRvbid0IHNlZW0gdG8g
+aGFuZGxlLg0KDQpVRE1BIGFsc28gaGFzIGEgdGltZW91dCBjb250cm9sLg0KSWYgdGhlIGRhdGEg
+c3VkZGVubHkgZW5kcyBhbmQgdGltZW91dCBvY2N1cnMsIFVETUEgd2lsbCB0cmlnZ2VyIGFuIGlu
+dGVycnVwdC4NClVETUEgSVNSIHRoZW4gY2hlY2sgaWYgdGhlcmUgaXMgZGF0YSBhdmFpbGFibGUg
+dXNpbmcgRE1BIHJlYWQvd3JpdGUgcG9pbnRlcnMgYW5kIGludm9rZXMgY2FsbGJhY2sgaWYgYW55
+Lg0KDQo+IA0KPiBXaGVuIHlvdSBwcm92aWRlIGFuc3dlciB0byB0aG9zZSB0d28gcXVlc3Rpb25z
+LCBJIGNhbiB0cnkgdG8gaGVscCB5b3UgZnVydGhlcg0KPiBvbiBob3cgdG8gaW50ZWdyYXRlIGlu
+dG8gdGhlIHN0YW5kYXJkIDgyNTAgRE1BIGNvZGUuDQoNClRoYW5rcyENCkl0IHdvdWxkIGJlIGdy
+ZWF0IHVzaW5nIHRoZSBkZWZhdWx0IG9uZSB0byBhdm9pZCBtb3N0bHkgZHVwbGljYXRlZCBjb2Rl
+Lg0KDQo+IA0KPiA+ICtzdGF0aWMgaW50IGFzdDgyNTBfaGFuZGxlX2lycShzdHJ1Y3QgdWFydF9w
+b3J0ICpwb3J0KSB7DQo+ID4gKwlyZXR1cm4gc2VyaWFsODI1MF9oYW5kbGVfaXJxKHBvcnQsIHNl
+cmlhbF9wb3J0X2luKHBvcnQsIFVBUlRfSUlSKSk7DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRp
+YyBpbnQgYXN0ODI1MF9zdGFydHVwKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpIHsgI2lmZGVmDQo+
+ID4gK0NPTkZJR19TRVJJQUxfODI1MF9ETUENCj4gDQo+IFRoaXMgaWZkZWYnZmVyeSBpcyBlbnRp
+cmVseSB1bm5lY2Vzc2FyeS4NCg0KV2lsbCByZW1vdmUgYXMgc3VnZ2VzdGVkLg0KDQo+IA0KPiA+
+ICsJaW50IHJjOw0KPiA+ICsJc3RydWN0IHVhcnRfODI1MF9wb3J0ICp1cCA9IHVwX3RvX3U4MjUw
+cChwb3J0KTsNCj4gDQo+IFJldmVyc2UgeG1hcyB0cmVlIG9yZGVyLg0KDQpXaWxsIHJldmlzZSBh
+cyBzdWdnZXN0ZWQuDQoNCj4gDQo+ID4gKw0KPiA+ICsJcmMgPSBzZXJpYWw4MjUwX2RvX3N0YXJ0
+dXAocG9ydCk7DQo+ID4gKwlpZiAocmMpDQo+ID4gKwkJcmV0dXJuIHJjOw0KPiA+ICsNCj4gPiAr
+CS8qDQo+ID4gKwkgKiBUaGUgZGVmYXVsdCBSWCBETUEgaXMgbGF1bmNoZWQgdXBvbiByaXNpbmcg
+RFIgYml0Lg0KPiA+ICsJICoNCj4gPiArCSAqIEhvd2V2ZXIsIHRoaXMgY2FuIHJlc3VsdCBpbiBi
+eXRlIGxvc3QgaWYgVUFSVCBGSUZPIGhhcw0KPiA+ICsJICogYmVlbiBvdmVycnVuZWQgYmVmb3Jl
+IHRoZSBETUEgZW5naW5lIGdldHMgcHJlcGFyZWQgYW5kDQo+ID4gKwkgKiByZWFkIHRoZSBkYXRh
+IG91dC4gVGhpcyBpcyBlc3BlY2lhbGx5IGNvbW1vbiB3aGVuIFVBUlQNCj4gPiArCSAqIERNQSBp
+cyB1c2VkIGZvciBmaWxlIHRyYW5zZmVyLiBUaHVzIHdlIGluaXRpYXRlIFJYIERNQQ0KPiA+ICsJ
+ICogYXMgZWFybHkgYXMgcG9zc2libGUuDQo+ID4gKwkgKi8NCj4gPiArCWlmICh1cC0+ZG1hKQ0K
+PiA+ICsJCXJldHVybiBhc3Q4MjUwX3J4X2RtYSh1cCk7DQo+IA0KPiBPbmNlIHlvdSBzdGFydCB1
+c2luZyB0aGUgZ2VuZXJhbCA4MjUwIGRtYSBjb2RlIGFuZCBhZGQgdGhlIERNQSBSeCBhbHdheXMN
+Cj4gY2FwYWJpbGl0aWVzIGZsYWcsIHRoaXMgY2FuIGdvIGludG8gc2VyaWFsODI1MF9kb19zdGFy
+dHVwKCkuIFNpbmNlDQo+IHNlcmlhbDgyNTBfcnhfZG1hKCkgYWx3YXlzIGV4aXN0cyBpbmRlcGVu
+ZGVudCBvZiBDT05GSUdfU0VSSUFMXzgyNTBfRE1BLA0KPiBubyBpbmNsdWRlIGd1YXJkcyBhcmUg
+bmVjZXNzYXJ5Lg0KPiANCj4gLi4uQWZ0ZXIgd2hpY2ggeW91IHByb2JhYmx5IGRvbid0IG5lZWQg
+dGhpcyB3aG9sZSBmdW5jdGlvbiBhbnltb3JlLg0KDQpBZ3JlZS4NCg0KPiANCj4gPiArDQo+ID4g
+KwlyZXR1cm4gMDsNCj4gPiArI2Vsc2UNCj4gPiArCXJldHVybiBzZXJpYWw4MjUwX2RvX3N0YXJ0
+dXAocG9ydCk7DQo+ID4gKyNlbmRpZg0KPiA+ICt9DQo+ID4gKw0KPiA+ICtzdGF0aWMgdm9pZCBh
+c3Q4MjUwX3NodXRkb3duKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpIHsNCj4gPiArCXJldHVybiBz
+ZXJpYWw4MjUwX2RvX3NodXRkb3duKHBvcnQpOyB9DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IGFz
+dDgyNTBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikgew0KPiA+ICsJaW50IHJj
+Ow0KPiANCj4gUHV0IHRoaXMgYXMgbGFzdC4NCg0KV2lsbCByZXZpc2UgYXMgc3VnZ2VzdGVkLg0K
+DQo+IA0KPiA+ICsJc3RydWN0IHVhcnRfODI1MF9wb3J0IHVhcnQgPSB7fTsNCj4gPiArCXN0cnVj
+dCB1YXJ0X3BvcnQgKnBvcnQgPSAmdWFydC5wb3J0Ow0KPiA+ICsJc3RydWN0IGRldmljZSAqZGV2
+ID0gJnBkZXYtPmRldjsNCj4gPiArCXN0cnVjdCBhc3Q4MjUwX2RhdGEgKmRhdGE7DQo+ID4gKwlz
+dHJ1Y3QgcmVzb3VyY2UgKnJlczsNCj4gPiArDQo+ID4gKwlkYXRhID0gZGV2bV9remFsbG9jKGRl
+diwgc2l6ZW9mKCpkYXRhKSwgR0ZQX0tFUk5FTCk7DQo+ID4gKwlpZiAoIWRhdGEpDQo+ID4gKwkJ
+cmV0dXJuIC1FTk9NRU07DQo+ID4gKw0KPiA+ICsJZGF0YS0+aXJxID0gcGxhdGZvcm1fZ2V0X2ly
+cShwZGV2LCAwKTsNCj4gPiArCWlmIChkYXRhLT5pcnEgPCAwKQ0KPiA+ICsJCXJldHVybiBkYXRh
+LT5pcnE7DQo+ID4gKw0KPiA+ICsJcmVzID0gcGxhdGZvcm1fZ2V0X3Jlc291cmNlKHBkZXYsIElP
+UkVTT1VSQ0VfTUVNLCAwKTsNCj4gPiArCWlmIChyZXMgPT0gTlVMTCkgew0KPiA+ICsJCWRldl9l
+cnIoZGV2LCAiZmFpbGVkIHRvIGdldCByZWdpc3RlciBiYXNlXG4iKTsNCj4gPiArCQlyZXR1cm4g
+LUVOT0RFVjsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlkYXRhLT5yZWdzID0gZGV2bV9pb3JlbWFw
+KGRldiwgcmVzLT5zdGFydCwgcmVzb3VyY2Vfc2l6ZShyZXMpKTsNCj4gPiArCWlmIChJU19FUlIo
+ZGF0YS0+cmVncykpIHsNCj4gPiArCQlkZXZfZXJyKGRldiwgImZhaWxlZCB0byBtYXAgcmVnaXN0
+ZXJzXG4iKTsNCj4gPiArCQlyZXR1cm4gUFRSX0VSUihkYXRhLT5yZWdzKTsNCj4gPiArCX0NCj4g
+PiArDQo+ID4gKwlkYXRhLT5jbGsgPSBkZXZtX2Nsa19nZXQoZGV2LCBOVUxMKTsNCj4gPiArCWlm
+IChJU19FUlIoZGF0YS0+Y2xrKSkgew0KPiA+ICsJCWRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGdl
+dCBjbG9ja3NcbiIpOw0KPiA+ICsJCXJldHVybiAtRU5PREVWOw0KPiA+ICsJfQ0KPiA+ICsNCj4g
+PiArCXJjID0gY2xrX3ByZXBhcmVfZW5hYmxlKGRhdGEtPmNsayk7DQo+ID4gKwlpZiAocmMpIHsN
+Cj4gPiArCQlkZXZfZXJyKGRldiwgImZhaWxlZCB0byBlbmFibGUgY2xvY2tcbiIpOw0KPiA+ICsJ
+CXJldHVybiByYzsNCj4gPiArCX0NCj4gPiArDQo+ID4gKwlkYXRhLT5yc3QgPSBkZXZtX3Jlc2V0
+X2NvbnRyb2xfZ2V0X29wdGlvbmFsX2V4Y2x1c2l2ZShkZXYsIE5VTEwpOw0KPiA+ICsJaWYgKCFJ
+U19FUlIoZGF0YS0+cnN0KSkNCj4gPiArCQlyZXNldF9jb250cm9sX2RlYXNzZXJ0KGRhdGEtPnJz
+dCk7DQo+ID4gKw0KPiA+ICsJc3Bpbl9sb2NrX2luaXQoJnBvcnQtPmxvY2spOw0KPiA+ICsJcG9y
+dC0+ZGV2ID0gZGV2Ow0KPiA+ICsJcG9ydC0+dHlwZSA9IFBPUlRfMTY1NTBBOw0KPiA+ICsJcG9y
+dC0+aXJxID0gZGF0YS0+aXJxOw0KPiA+ICsJcG9ydC0+bGluZSA9IG9mX2FsaWFzX2dldF9pZChk
+ZXYtPm9mX25vZGUsICJzZXJpYWwiKTsNCj4gPiArCXBvcnQtPmhhbmRsZV9pcnEgPSBhc3Q4MjUw
+X2hhbmRsZV9pcnE7DQo+ID4gKwlwb3J0LT5tYXBiYXNlID0gcmVzLT5zdGFydDsNCj4gPiArCXBv
+cnQtPm1hcHNpemUgPSByZXNvdXJjZV9zaXplKHJlcyk7DQo+ID4gKwlwb3J0LT5tZW1iYXNlID0g
+ZGF0YS0+cmVnczsNCj4gPiArCXBvcnQtPnVhcnRjbGsgPSBjbGtfZ2V0X3JhdGUoZGF0YS0+Y2xr
+KTsNCj4gPiArCXBvcnQtPnJlZ3NoaWZ0ID0gMjsNCj4gPiArCXBvcnQtPmlvdHlwZSA9IFVQSU9f
+TUVNMzI7DQo+ID4gKwlwb3J0LT5mbGFncyA9IFVQRl9GSVhFRF9UWVBFIHwgVVBGX0ZJWEVEX1BP
+UlQgfCBVUEZfU0hBUkVfSVJROw0KPiA+ICsJcG9ydC0+c3RhcnR1cCA9IGFzdDgyNTBfc3RhcnR1
+cDsNCj4gPiArCXBvcnQtPnNodXRkb3duID0gYXN0ODI1MF9zaHV0ZG93bjsNCj4gPiArCXBvcnQt
+PnByaXZhdGVfZGF0YSA9IGRhdGE7DQo+IA0KPiA+ICsjaWZkZWYgQ09ORklHX1NFUklBTF84MjUw
+X0RNQQ0KPiA+ICsJZGF0YS0+ZG1hLnJ4Y29uZi5zcmNfbWF4YnVyc3QgPSBVQVJUX1hNSVRfU0la
+RTsNCj4gPiArCWRhdGEtPmRtYS50eGNvbmYuZHN0X21heGJ1cnN0ID0gVUFSVF9YTUlUX1NJWkU7
+DQo+ID4gKwl1YXJ0LmRtYSA9ICZkYXRhLT5kbWE7DQo+ID4gKyNlbmRpZg0KPiANCj4gQWRkIGEg
+c2V0dXAgZnVuY3Rpb24gZm9yIHRoaXMgYW5kIG1ha2UgYW4gZW1wdHkgZnVuY3Rpb24gd2l0aCB0
+aGUgc2FtZSBuYW1lDQo+IHdoZW4gQ09ORklHX1NFUklBTF84MjUwX0RNQSBpcyBub3QgdGhlcmUu
+DQoNCldpbGwgcmV2aXNlIGFzIHN1Z2dlc3RlZC4NCg0KPiANCj4gPiArDQo+ID4gKwlkYXRhLT5s
+aW5lID0gc2VyaWFsODI1MF9yZWdpc3Rlcl84MjUwX3BvcnQoJnVhcnQpOw0KPiA+ICsJaWYgKGRh
+dGEtPmxpbmUgPCAwKSB7DQo+ID4gKwkJZGV2X2VycihkZXYsICJmYWlsZWQgdG8gcmVnaXN0ZXIg
+ODI1MCBwb3J0XG4iKTsNCj4gPiArCQlyZXR1cm4gZGF0YS0+bGluZTsNCj4gPiArCX0NCj4gPiAr
+DQo+ID4gKwlwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBkYXRhKTsNCj4gPiArDQo+ID4gKwly
+ZXR1cm4gMDsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIGludCBhc3Q4MjUwX3JlbW92ZShz
+dHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KSB7DQo+ID4gKwlzdHJ1Y3QgYXN0ODI1MF9kYXRh
+ICpkYXRhID0gcGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldik7DQo+ID4gKw0KPiA+ICsJc2VyaWFs
+ODI1MF91bnJlZ2lzdGVyX3BvcnQoZGF0YS0+bGluZSk7DQo+ID4gKw0KPiA+ICsJcmV0dXJuIDA7
+DQo+ID4gK30NCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIGFz
+dDgyNTBfb2ZfbWF0Y2hbXSA9IHsNCj4gPiArCXsgLmNvbXBhdGlibGUgPSAiYXNwZWVkLGFzdDI2
+MDAtdWFydCIgfSwNCj4gPiArCXsgfSwNCj4gPiArfTsNCj4gPiArDQo+ID4gK3N0YXRpYyBzdHJ1
+Y3QgcGxhdGZvcm1fZHJpdmVyIGFzdDgyNTBfcGxhdGZvcm1fZHJpdmVyID0gew0KPiA+ICsJLmRy
+aXZlciA9IHsNCj4gPiArCQkubmFtZSA9IERFVklDRV9OQU1FLA0KPiA+ICsJCS5vZl9tYXRjaF90
+YWJsZSA9IGFzdDgyNTBfb2ZfbWF0Y2gsDQo+ID4gKwl9LA0KPiA+ICsJLnByb2JlID0gYXN0ODI1
+MF9wcm9iZSwNCj4gPiArCS5yZW1vdmUgPSBhc3Q4MjUwX3JlbW92ZSwNCj4gPiArfTsNCj4gPiAr
+DQo+ID4gK21vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoYXN0ODI1MF9wbGF0Zm9ybV9kcml2ZXIpOw0K
+PiA+ICsNCg0KVGhhbmtzLA0KQ2hpYXdlaQ0KDQo=
