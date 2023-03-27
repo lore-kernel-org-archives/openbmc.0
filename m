@@ -4,60 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19CCC76195
-	for <openbmc@archiver.kernel.org>; Mon, 27 Mar 2023 06:44:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77213C7619A
+	for <openbmc@archiver.kernel.org>; Mon, 27 Mar 2023 09:27:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PlNbP5vkRz3cct
-	for <openbmc@archiver.kernel.org>; Mon, 27 Mar 2023 17:44:49 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ec45EMIv;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=134.134.136.126; helo=mga18.intel.com; envelope-from=jiaqing.zhao@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ec45EMIv;
-	dkim-atps=neutral
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PlSBb629vz3cJg
+	for <openbmc@archiver.kernel.org>; Mon, 27 Mar 2023 20:27:03 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PlNZH4cbGz3cBP
-	for <openbmc@lists.ozlabs.org>; Mon, 27 Mar 2023 17:43:50 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679899431; x=1711435431;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=WGlOTvnFVcaT1GQzptRQuFg1/Xm3PQj7CFFfp/ogUxw=;
-  b=ec45EMIv0MgKFrsZf7mIZ+HBQIJYSKj58hHgpBGP9yFig/D9Kf2NGO5m
-   2/xD7nvaSQ5d7sIjdwIjRTt0AV2w4nZBnu0GTsvHfGD98cx5sXIcVtXi7
-   wQj8HHLEJwReCDTeDow5uSPJqVjTerXGsoxG1f/cSsudDP87pkXAiaodu
-   76QHQsP8ZBCm7/aKmpu/K71BIxQdLFHf5xoShVgZLQ0lsZj7t9M34T44N
-   Rieg7zy8AM7xAMdlmgDuz2rjYvk5cJ1OWlEOBeccO8iP/A5x6Pamk4o1n
-   1TjGApErFXBkg8zWdcj3Q9Nkptl7d1uC2+YDuGRQT+MT1mZLvNBggfC2U
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="324077528"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; 
-   d="scan'208";a="324077528"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Mar 2023 23:43:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="794209820"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; 
-   d="scan'208";a="794209820"
-Received: from jiaqingz-mobl.ccr.corp.intel.com (HELO [10.249.172.250]) ([10.249.172.250])
-  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Mar 2023 23:43:45 -0700
-Message-ID: <c668cfac-9da9-19cf-804c-3cdd8ab75d04@linux.intel.com>
-Date: Mon, 27 Mar 2023 14:43:32 +0800
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PlS9s5xRGz3bbD;
+	Mon, 27 Mar 2023 20:26:23 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+	by twspam01.aspeedtech.com with ESMTP id 32R9AVru029694;
+	Mon, 27 Mar 2023 17:10:31 +0800 (GMT-8)
+	(envelope-from ryan_chen@aspeedtech.com)
+Received: from aspeedtech.com (192.168.10.13) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 27 Mar
+ 2023 17:25:29 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: <jk@codeconstruct.com.au>, <openbmc@lists.ozlabs.org>,
+        <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
+        ryan_chen <ryan_chen@aspeedtech.com>, Rob Herring <robh+dt@kernel.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+        Joel Stanley
+	<joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+        Linus Walleij
+	<linus.walleij@linaro.org>,
+        <linux-aspeed@lists.ozlabs.org>
+Subject: [PATCH v7 1/2] dt-bindings: i2c: aspeed: support for AST2600-i2cv2
+Date: Mon, 27 Mar 2023 17:25:23 +0800
+Message-ID: <20230327092524.3916389-2-ryan_chen@aspeedtech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230327092524.3916389-1-ryan_chen@aspeedtech.com>
+References: <20230327092524.3916389-1-ryan_chen@aspeedtech.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: Host Interface Support
-To: openbmc@lists.ozlabs.org
-References: <CANT9vnoMd9KF-KcD24Rj5+wH_jWkK1Bi7kxUbrtz_BEByFhjqg@mail.gmail.com>
-Content-Language: en-US
-From: Jiaqing Zhao <jiaqing.zhao@linux.intel.com>
-In-Reply-To: <CANT9vnoMd9KF-KcD24Rj5+wH_jWkK1Bi7kxUbrtz_BEByFhjqg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.10.13]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 32R9AVru029694
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,22 +60,100 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 2023-03-27 13:29, abirami sekar wrote:
-> Hi Team,
-> 
-> I am new to openBMC and started learning Redfish.
-> Can you please guide me to add HostInterface Support to Redfish.> 
-> With Regards,
-> Abirami S
-> 
+Update ASPEED I2C maintainers email.
+Add ast2600-i2cv2 compatible and aspeed,global-regs, aspeed,enable-dma
+and description for ast2600-i2cv2.
 
-USB gadget (https://www.kernel.org/doc/html/latest/usb/gadget_configfs.html)
-can be used to create a virtual USB network interface between host and
-BMC.
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+ .../devicetree/bindings/i2c/aspeed,i2c.yaml   | 56 +++++++++++++++++--
+ 1 file changed, 52 insertions(+), 4 deletions(-)
 
-For the remaining parts, you need to program the SMBIOS Type 42 record
-in the BIOS for auto-configuring the interface in host OS. Refer
-https://www.dmtf.org/sites/default/files/standards/documents/DSP0270_1.0.0.pdf
-and
-https://uefi.org/sites/default/files/resources/14_Samer%20John%20Mike_LENOVO%20INTEL_redfish%20host%20implications.pdf
-for more details.
+diff --git a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
+index f597f73ccd87..00b92c97f432 100644
+--- a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
+@@ -7,10 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: ASPEED I2C on the AST24XX, AST25XX, and AST26XX SoCs Device Tree Bindings
+ 
+ maintainers:
+-  - Rayn Chen <rayn_chen@aspeedtech.com>
+-
+-allOf:
+-  - $ref: /schemas/i2c/i2c-controller.yaml#
++  - Ryan Chen <ryan_chen@aspeedtech.com>
+ 
+ properties:
+   compatible:
+@@ -49,6 +46,25 @@ properties:
+     description:
+       states that there is another master active on this bus
+ 
++  aspeed,enable-dma:
++    type: boolean
++    description: |
++      I2C bus enable dma mode transfer.
++
++      ASPEED ast2600 platform equipped with 16 I2C controllers that share a
++      single DMA engine. DTS files can specify the data transfer mode to/from
++      the device, either DMA or programmed I/O. However, hardware limitations
++      may require a DTS to manually allocate which controller can use DMA mode.
++      The "aspeed,enable-dma" property allows control of this.
++
++      In cases where one the hardware design results in a specific
++      controller handling a larger amount of data, a DTS would likely
++      enable DMA mode for that one controller.
++
++  aspeed,global-regs:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of i2c global register node.
++
+ required:
+   - reg
+   - compatible
+@@ -57,6 +73,26 @@ required:
+ 
+ unevaluatedProperties: false
+ 
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: aspeed,ast2600-i2cv2
++
++    then:
++      properties:
++        reg:
++          minItems: 2
++      required:
++        - aspeed,global-regs
++    else:
++      properties:
++        aspeed,global-regs: false
++        aspeed,enable-dma: false
++
++
+ examples:
+   - |
+     #include <dt-bindings/clock/aspeed-clock.h>
+@@ -71,3 +107,15 @@ examples:
+       interrupts = <0>;
+       interrupt-parent = <&i2c_ic>;
+     };
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    i2c1: i2c@80 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++      compatible = "aspeed,ast2600-i2cv2";
++      reg = <0x80 0x80>, <0xc00 0x20>;
++      interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
++      aspeed,global-regs = <&i2c_global>;
++      clocks = <&syscon ASPEED_CLK_APB>;
++      resets = <&syscon ASPEED_RESET_I2C>;
++    };
+-- 
+2.34.1
+
