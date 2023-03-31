@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2C38C6FD18
-	for <openbmc@archiver.kernel.org>; Fri, 31 Mar 2023 04:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3028C76196
+	for <openbmc@archiver.kernel.org>; Fri, 31 Mar 2023 17:27:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PnnLf0lTCz3fR3
-	for <openbmc@archiver.kernel.org>; Fri, 31 Mar 2023 15:27:06 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Pp6fY2lGcz3cL8
+	for <openbmc@archiver.kernel.org>; Sat,  1 Apr 2023 04:27:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=vvdntech.in header.i=@vvdntech.in header.a=rsa-sha256 header.s=google header.b=b4RWHQ+V;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=IRkPg0IH;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=vvdntech.in (client-ip=2607:f8b0:4864:20::833; helo=mail-qt1-x833.google.com; envelope-from=aswath.s@vvdntech.in; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::429; helo=mail-wr1-x429.google.com; envelope-from=satishroyal4u@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=vvdntech.in header.i=@vvdntech.in header.a=rsa-sha256 header.s=google header.b=b4RWHQ+V;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=IRkPg0IH;
 	dkim-atps=neutral
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com [IPv6:2607:f8b0:4864:20::833])
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PnB191WWrz3bjY
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Mar 2023 15:54:50 +1100 (AEDT)
-Received: by mail-qt1-x833.google.com with SMTP id t19so17351621qta.12
-        for <openbmc@lists.ozlabs.org>; Wed, 29 Mar 2023 21:54:50 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pp6dS3Qlrz3cFt
+	for <openbmc@lists.ozlabs.org>; Sat,  1 Apr 2023 04:26:03 +1100 (AEDT)
+Received: by mail-wr1-x429.google.com with SMTP id m2so23188639wrh.6
+        for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2023 10:26:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vvdntech.in; s=google; t=1680152087; x=1682744087;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=aNiGRbdl9w64lak3U0GvoPoTUgREASKXmCmmbAzbtNw=;
-        b=b4RWHQ+V0zv10Vx+WZ0Vn0QWpeo1VT70s+iRdR5LxEdMRMq7qK9+Fx88HG96WaZphp
-         eo5kFLMkIT1XnU4pFLccDK7jELDBFjsVO0hG+l4x8b3ssjivcQxzihkOKNBtXFfN0YqV
-         sATmrHhTiemSzGZafVSk13MZowoPdNjZz8wjI=
+        d=gmail.com; s=20210112; t=1680283557;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=vk6e3aGzKfkpbfyJj0EpUDLZiHkUDg6z9pUs/cUWAGk=;
+        b=IRkPg0IHDix4LHrokCN7eZzl9uvTv5cXh3v/jSgHEefZAnZJ2Sge1RqKNKsAEcD2l/
+         lYFTmhXEGLdmcgCVbpw3mbWw/tZ93SQu3ViGGkodaTC2WhTg5vn2nNwB5yRztvylSakG
+         x4r2RL3zm6idlyEAZxoRghy+cR3KZhslwGOGDOmrybWG3VFAP8fK8bnZAtfskejMts1B
+         mtDUUIVh0smg79F6calj6NEI5s4jWC+e2Ge/CyeXTgnzhoJFb8soVs3lPvtcT0df3aCY
+         R1pOorcUBOkeJYpkGqWlFuY2XrpkmfOXGiExE6nlOIGEh2gdDwGUmt5G2Ljd9HLYARPQ
+         AWyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680152087; x=1682744087;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=aNiGRbdl9w64lak3U0GvoPoTUgREASKXmCmmbAzbtNw=;
-        b=kVzJRQId967l2eLqZ0DNOhcKjCV32wX2X1/3akRrpiXOl0LZXirOpkrBwb2r/5sHro
-         4x09slIwK/Dcsd+D7PZc7DhSH9FNo5nlojcJInhZ8urlIwCJtQYw4OZif/RRNpzGEfpM
-         aA9nCeshmWGUCD/5ljcEwcqB7Y6YtMyJTICJ01fRLpNpIokzACz2bjb++9c2JQrNDf9t
-         6SfJ46EUMn/5TKEVIX1C5YpWbGQqBRspZXWqc/FoSs5RNEncgk2mWffFB133Wsl+QOid
-         OKgDwhGGJyiFsQH/ZPwyHMgJZ0RyBuJi/oMiVPNuFl8XAQPeFp3OXHMz51TcJY63rZaG
-         P8MA==
-X-Gm-Message-State: AO0yUKX/RKeuk3sdKbdd6cT1atdLnN1T9QHSmwG4vGH40GJ5uuMbCELq
-	yVylaJSbTEWwjFugV90uUAZzA9oG+GwhOcJI7duy/Dq6AlUJhSeL6Ji97A89V9OsWp82RyXI0qR
-	AkaHTAD1xt4sxXmp8ZHNdxvtzUsI1L+agG6b0Kik=
-X-Google-Smtp-Source: AK7set+oSQCWaEgOj3IhexCdWhg6XCzavezKE/21Q3x54pbt1vWvBoTVRMjkmrOTknXiM6nkJFtxoEB5B65HjPk7GoY=
-X-Received: by 2002:ac8:7c48:0:b0:3e2:dd92:6d27 with SMTP id
- o8-20020ac87c48000000b003e2dd926d27mr8463941qtv.9.1680152086804; Wed, 29 Mar
- 2023 21:54:46 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680283557;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vk6e3aGzKfkpbfyJj0EpUDLZiHkUDg6z9pUs/cUWAGk=;
+        b=s4iw+P9Zy7+CqYxYrA528Tsn23qCAVndcQC1eWjJZ1YH5EzAI6GE4Kbocmh0VtRBWw
+         oIFgt9ehaJqzC6UBJBqxVJhLZNK9NO8f+C4KCbB6MbBjN8lwflgtTfO81CQXdBbNGFeM
+         D2gj5QnkDVaGVsHw+hg9j2AFtMPlvtrtqoLAiBWI6RMuGZiwG++AiQ2Ypl0pQ0ofJRu3
+         SaWhC2TNDNMels9MCOg0f6sHXywlLXEuFCdhIK/ZQ5JHvNvdBSRkfFkFdcMROIUo18aJ
+         3PuVkoFwEYVQ4subUt10M1TLOzz5XkZzGV0k93/fasGdIcuIhyapqiQgISt2GdUvE/iC
+         R+rA==
+X-Gm-Message-State: AAQBX9dh+j7Uisk8cXUCgb+405dS7BrRHsyWDCOSrK6ReouGcdj2ObXu
+	RhpPoIsJYr/9mHmQmikPEjJx3b0x/MC+Mug6lkI=
+X-Google-Smtp-Source: AKy350Zh5S9T054ENsCsGw4sBhoo1ruEGa/zAzDzsy1CRHm2sTq8275D5h+xc/ge0N43Hv4UTa6fBq8ux3xlw+UImlg=
+X-Received: by 2002:a5d:6b88:0:b0:2ce:aeab:9b4 with SMTP id
+ n8-20020a5d6b88000000b002ceaeab09b4mr4684965wrx.9.1680283557305; Fri, 31 Mar
+ 2023 10:25:57 -0700 (PDT)
 MIME-Version: 1.0
-From: Aswath S <aswath.s@vvdntech.in>
-Date: Thu, 30 Mar 2023 10:24:10 +0530
-Message-ID: <CAK0X4mMqj98OTk23bcsEqZ9BBCqVpjxpVRLp-PrBmNU2ZW1MYw@mail.gmail.com>
-Subject: Host Interface || OpenBmc Project
-To: openbmc@lists.ozlabs.org, jiaqing.zhao@linux.intel.com
-Content-Type: multipart/alternative; boundary="0000000000004d943005f816e455"
-X-Mailman-Approved-At: Fri, 31 Mar 2023 15:26:14 +1100
+References: <CAGugOWsUK=2gE6iBiumKukO87b_cgAm2eT+Y=su1PPWow1-S8Q@mail.gmail.com>
+ <20230328224413.GB18848@packtop> <CAGugOWvofh+f15KuMCkC97V-9Hn4QxuVTgw5aXkTM3bVNaeEDg@mail.gmail.com>
+In-Reply-To: <CAGugOWvofh+f15KuMCkC97V-9Hn4QxuVTgw5aXkTM3bVNaeEDg@mail.gmail.com>
+From: Satish Yaduvanshi <satishroyal4u@gmail.com>
+Date: Fri, 31 Mar 2023 22:55:47 +0530
+Message-ID: <CAGugOWv=XF9UHLcgcr-W5_3DE5+w3EaP4i0eHe-nbSFVgJqsHg@mail.gmail.com>
+Subject: Re: Containerization Enablement in OpenBMC firmware
+To: Zev Weiss <zweiss@equinix.com>
+Content-Type: multipart/alternative; boundary="0000000000008e213e05f835809b"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,68 +74,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---0000000000004d943005f816e455
+--0000000000008e213e05f835809b
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi ,
-I am new to this openbmc project and I have to enable redfish host interfac=
-e
-support. I have gone through many websites like github, stackoverflow
-etc... Kindly guide or provide instructions to enable Redfish host
-interface support in openbmc project.
---=20
-With Best Regards
-Aswath S
-VVDN Technologies Pvt Ltd
-Cell: +91 98945 29918
-Web: www.vvdntech.com
+For containerizing firmware, I do believe architecture matters. could
+anyone of you  explain the OpenBMC firmware architecture briefly
+
+On Wed, Mar 29, 2023 at 5:15=E2=80=AFPM Satish Yaduvanshi <satishroyal4u@gm=
+ail.com>
+wrote:
+
+> Embedding a container in  OpenBMC may bring  many advantages such as
+> portability, modularity, security and considerably speed up the applicati=
+on
+> development time.
+>
+> On Wed, Mar 29, 2023 at 4:14=E2=80=AFAM Zev Weiss <zweiss@equinix.com> wr=
+ote:
+>
+>> On Tue, Mar 28, 2023 at 09:43:20AM PDT, Satish Yaduvanshi wrote:
+>> >Hi,
+>> >
+>> >I would like to know is there any future plans to containerize the  app=
+s
+>> >and services of OpenBMC firmware
+>> >
+>> >Thanks,
+>> >Satish Kumar
+>>
+>> I'm not aware of any efforts in that direction, no.  Is there a
+>> particular benefit that would be achieved by doing so?
+>>
+>>
+>> Zev
+>>
+>
+>
+> --
+>
+> Satish  Kumar G
+>
+>
+>
 
 --=20
-_Disclaimer:=C2=A0_=C2=A9 2023 VVDN Technologies Pvt. Ltd. This e-mail cont=
-ains=20
-PRIVILEGED AND CONFIDENTIAL INFORMATION intended solely for the use of the=
-=20
-addressee(s). If you are not the intended recipient, please notify the=20
-sender by e-mail and delete the original message. Further, you are not to=
-=20
-copy, disclose, or distribute this e-mail or its contents to any other=20
-person and any such actions are unlawful.
-__
-_
-_
-_
-_
 
---0000000000004d943005f816e455
+Satish  Kumar G
+
+--0000000000008e213e05f835809b
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi ,<div>I am new to this openbmc project and I have to en=
-able redfish host interface<br clear=3D"all"><div>support. I have gone thro=
-ugh many websites like github, stackoverflow etc... Kindly guide or provide=
- instructions to enable Redfish host interface support in openbmc project.<=
-/div><span class=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" =
-class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"lt=
-r"><div>With Best Regards</div><div>Aswath S</div><div>VVDN Technologies Pv=
-t Ltd</div><div>Cell: +91 98945 29918</div><div>Web: <a href=3D"http://www.=
-vvdntech.com" target=3D"_blank">www.vvdntech.com</a></div><div><br></div></=
-div></div></div></div>
-
+<div dir=3D"ltr"><span class=3D"gmail-ui-provider gmail-gq gmail-b gmail-c =
+gmail-d gmail-e gmail-f gmail-g gmail-h gmail-i gmail-j gmail-k gmail-l gma=
+il-m gmail-n gmail-o gmail-p gmail-q gmail-r gmail-s gmail-t gmail-u gmail-=
+v gmail-w gmail-x gmail-y gmail-z gmail-ab gmail-ac gmail-ae gmail-af gmail=
+-ag gmail-ah gmail-ai gmail-aj gmail-ak" dir=3D"ltr">For containerizing fir=
+mware, I do believe architecture matters. could anyone of you=C2=A0 explain=
+ the OpenBMC firmware architecture briefly</span><br></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 29, 2023=
+ at 5:15=E2=80=AFPM Satish Yaduvanshi &lt;<a href=3D"mailto:satishroyal4u@g=
+mail.com">satishroyal4u@gmail.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex"><div dir=3D"ltr"><span style=3D"color:rgb(=
+44,45,49);font-family:Georgia,Times,&quot;Times New Roman&quot;,serif;font-=
+size:17.6px">Embedding a container in=C2=A0 OpenBMC may bring=C2=A0 many ad=
+vantages such as portability, modularity, security and considerably speed u=
+p the application development time.</span><br></div><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 29, 2023 at 4:14=
+=E2=80=AFAM Zev Weiss &lt;<a href=3D"mailto:zweiss@equinix.com" target=3D"_=
+blank">zweiss@equinix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">On Tue, Mar 28, 2023 at 09:43:20AM PDT, Satish Yad=
+uvanshi wrote:<br>
+&gt;Hi,<br>
+&gt;<br>
+&gt;I would like to know is there any future plans to containerize the=C2=
+=A0 apps<br>
+&gt;and services of OpenBMC firmware<br>
+&gt;<br>
+&gt;Thanks,<br>
+&gt;Satish Kumar<br>
 <br>
-<div><i style=3D"font-family:georgia,serif;font-size:small;color:rgb(80,0,8=
-0)">Disclaimer:=C2=A0</i><i style=3D"font-family:georgia,serif;color:rgb(80=
-,0,80);font-size:12px;text-align:justify">=C2=A9 2023 VVDN Technologies Pvt=
-. Ltd. This e-mail contains PRIVILEGED AND CONFIDENTIAL INFORMATION intende=
-d solely for the use of the addressee(s). If you are not the intended recip=
-ient, please notify the sender by e-mail and delete the original message. F=
-urther, you are not to copy, disclose, or distribute this e-mail or its con=
-tents to any other person and any such actions are unlawful.</i><br></div><=
-div><i style=3D"font-family:georgia,serif;background-color:rgb(255,255,255)=
-;color:rgb(80,0,80);font-size:12px;text-align:justify"><br></i></div><div><=
-i style=3D"font-family:georgia,serif;background-color:rgb(255,255,255);colo=
-r:rgb(80,0,80);font-size:12px;text-align:justify"><br></i></div>
---0000000000004d943005f816e455--
+I&#39;m not aware of any efforts in that direction, no.=C2=A0 Is there a<br=
+>
+particular benefit that would be achieved by doing so?<br>
+<br>
+<br>
+Zev<br>
+</blockquote></div><br clear=3D"all"><div><br></div><span>-- </span><br><di=
+v dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr">=
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div><br></div><div><spa=
+n style=3D"font-family:&quot;arial black&quot;,sans-serif;font-size:12.8px"=
+>Satish =C2=A0Kumar G</span><br></div><div><font face=3D"arial black, sans-=
+serif"><br></font></div><div><font face=3D"arial black, sans-serif"><br></f=
+ont></div></div></div></div></div></div></div></div></div></div>
+</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div dir=3D"ltr"=
+><div dir=3D"ltr"><div dir=3D"ltr"><div><br></div><div><span style=3D"font-=
+family:&quot;arial black&quot;,sans-serif;font-size:12.8px">Satish =C2=A0Ku=
+mar G</span><br></div><div><font face=3D"arial black, sans-serif"><br></fon=
+t></div><div><font face=3D"arial black, sans-serif"><br></font></div></div>=
+</div></div></div></div></div></div></div></div>
+
+--0000000000008e213e05f835809b--
