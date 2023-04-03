@@ -4,65 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 756C8C76196
-	for <openbmc@archiver.kernel.org>; Fri, 31 Mar 2023 18:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E2FFC7619A
+	for <openbmc@archiver.kernel.org>; Mon,  3 Apr 2023 00:47:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Pp7ZR46s0z3fVT
-	for <openbmc@archiver.kernel.org>; Sat,  1 Apr 2023 05:08:31 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PqXL92VRnz3cGV
+	for <openbmc@archiver.kernel.org>; Mon,  3 Apr 2023 10:47:45 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=UBIDq+EW;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=RRyqDvkM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22d; helo=mail-lj1-x22d.google.com; envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:704b::720; helo=apc01-tyz-obe.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=UBIDq+EW;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=RRyqDvkM;
 	dkim-atps=neutral
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com [IPv6:2a00:1450:4864:20::22d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com (mail-tyzapc01on20720.outbound.protection.outlook.com [IPv6:2a01:111:f403:704b::720])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pp7YN5tXlz3fQp
-	for <openbmc@lists.ozlabs.org>; Sat,  1 Apr 2023 05:07:35 +1100 (AEDT)
-Received: by mail-lj1-x22d.google.com with SMTP id bx10so5616653ljb.8
-        for <openbmc@lists.ozlabs.org>; Fri, 31 Mar 2023 11:07:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680286051;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ii8LD6WV3C4Mz3PNT9z7qUlfncWckLBytbPn5yKSnc=;
-        b=UBIDq+EWVVrV/nFkG74e6Ck3KsIBeFYPLC7Xt2wx83p6yLICE4/wZmSiWaTvztxI8v
-         CV1Dv9YQFFyKTlwnfasNaspTw7NfJz+SBro6PXjhY3wx9ZM3A1AsbK4FqwAFir9NMjc8
-         9UXZNt3ipnWeBi5Dui/8fZS8cHHLaZ+P50TBFZK528A9gZd16gpis7aplDKLJx7+shDJ
-         wtXqoL2A0L8n13TIlX9QA/p4RLyy3eRi+73eoRJkv8TW9sLF9cOGV/szXVXj/gU6Heu8
-         BwMPQA4OPbakFlcV9Om+ysvLY/l3ncY3AgavC7TjuIlYApks3KdnfFkSQmvi2dqpjk1+
-         Wnrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680286051;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8ii8LD6WV3C4Mz3PNT9z7qUlfncWckLBytbPn5yKSnc=;
-        b=G6D2XUyCChY+6B4xtezc8a/9vovyqqgwTLpTUj/p5bPr5MT0n9TtxF2Y1wO9CQYFEx
-         2yJxfEV9aoQO/WDhgNNZR8MA7LOfGPbvmrWvNXJcdwnL9ez4ePiKswrhsgP4b54aqll3
-         MjcmwR0qiyT2+NnfoyQGZlsbxSfBTbqtOSo73zsY2GdrOobb6fUyxfzG4MEjLTf9yXx2
-         2d6ja4Z1nk9qgsKLpCU9ONlWq5p+VczRjLNzvQSNwsRfs+RqhNUWo/I/jbWo+DltOS6G
-         ze4bxYvUf4V16QD4VTB9KFixulZjIMXvBG9SXUSyp0GjxkaOAoz8uQPD+tZdpXZ5FN6p
-         XqFw==
-X-Gm-Message-State: AAQBX9f2q/7ukYeyacpNHUTUrCkm+VYQqphTUaulu1RqNEi4WMh8E0b/
-	7b9tq7+9Gq0Bxg8RuidKH0485muPJjOrbVIjT/c=
-X-Google-Smtp-Source: AKy350aJZ07tOb0BEmK67XU1aSTjWS5ZWGMRUNpAkCOO67wCOY4oPZGH0a+FVKSihdSNPSHW7CcfwJie1AFAbCCto40=
-X-Received: by 2002:a05:651c:108:b0:29a:9053:ed24 with SMTP id
- a8-20020a05651c010800b0029a9053ed24mr8730992ljb.6.1680286050817; Fri, 31 Mar
- 2023 11:07:30 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PqXJz1N3Pz3cBj;
+	Mon,  3 Apr 2023 10:46:41 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=g03uMy0fBtnZto0pvsLhFIKU7oh8Vroz9FV/pfNBGMtBRVjP9SQqlyHW/BIoQYZhZeaE9Oo9b7Ymu2Oole2oarLdNXMJi3x6PJcFY3duSl5hTMs5dJg+jJXXj7ZkIXcE/+ydGnHKqeSj3afbCPwOv6BsOboBX+zv35PdxMzgmbQmOsk0NhxPYqAAsLKBRhAP5+lmJsgnGLuoBccEuVLlK0BrYYGvZjDLTntYpNjBGnfTj8S9TZ8L9fKbTw4X8jPOuFHxta0mrRNW0dG2S/fa7zi5ZV3zPw/y8bMC8LeTT5qXnJhAKtIzgy3mUPqxUM2pcJvMhz3s01k0RpYZ7Q9zcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CPcv5+dMCRsz0y2MKdB1Y/OZ6YRHWbj+KFGenTYKrhw=;
+ b=ANEkyLJn5F2PhPm2W5N5fSU7UKaAQ/7MC2bH760ytsfCBdRhsMKwLM6dfdCV1H3QJD1/PyVG00IfuxjHJQnc03zQpN/xgUjgG6yozCdnwWOOGaU4cBQ/33pcoa/iRbTOZR1pp5iyRNz/dvMdI4Pn+2t9CZJRLWlcYZU6wjfQKmreG74EldG8UHloRTFFLypj1ZpXwxGJ/1PhLKLSHhz4MmxVdFigX91GNDgortyILZM9EZvOhsDg56Ly9Ivr8tPbL2COzdNq8fz2BTRix4XZZRUGtWpQEIkeQDiJ2oPypg/urOJ06Cr3MGKEUWyJEcmQKuBkR3QEIVSkZ5cVdvde+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CPcv5+dMCRsz0y2MKdB1Y/OZ6YRHWbj+KFGenTYKrhw=;
+ b=RRyqDvkMEMd6zzREnV4K9s7FMmoFmtZdz4VQc0Vlgam/PSgW+3bj4IAcfuvQkQe3SF0j4cjvz/QEo7p4vU8QXs/d2MhvcXU9u0TI2Ouc2r9XZISH0PApDfaajddTW4KnNsr7JiU8V2AkeR1CYfeVbJePXWpYvcktNriRuBNrKf1Ez2iVoLduEt4XokQ7NQtijGrJZhfGgtbOCSl8xY/Iha+trW22lM9irIsgSLA9W5osNcH5EbzOOCCWWXeyPW4D2R/jfnkF8ABbtpnNwJHAWc/EzJmeQBAeWxBSgU7m1NESuBf95eXvOB+jklUOmiT0tgkzX+F4tybfevBPyIiGeQ==
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
+ by PUZPR06MB5721.apcprd06.prod.outlook.com (2603:1096:301:f7::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.29; Mon, 3 Apr
+ 2023 00:46:12 +0000
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::a3a1:af8e:be1e:437c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::a3a1:af8e:be1e:437c%6]) with mapi id 15.20.6254.028; Mon, 3 Apr 2023
+ 00:46:12 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	"jk@codeconstruct.com.au" <jk@codeconstruct.com.au>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-i2c@vger.kernel.org"
+	<linux-i2c@vger.kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
+Subject: RE: [PATCH v8 1/2] dt-bindings: i2c: aspeed: support for
+ AST2600-i2cv2
+Thread-Topic: [PATCH v8 1/2] dt-bindings: i2c: aspeed: support for
+ AST2600-i2cv2
+Thread-Index: AQHZYtneonMxIe0/pEexazmStsWR9K8UjbEAgAQ3gnA=
+Date: Mon, 3 Apr 2023 00:46:11 +0000
+Message-ID:  <SEZPR06MB52699A4CC7FBC97507C70D74F2929@SEZPR06MB5269.apcprd06.prod.outlook.com>
+References: <20230330073259.485606-1-ryan_chen@aspeedtech.com>
+ <20230330073259.485606-2-ryan_chen@aspeedtech.com>
+ <a4f12cc9-d9d2-2805-f9fa-58eafe0b976c@linaro.org>
+In-Reply-To: <a4f12cc9-d9d2-2805-f9fa-58eafe0b976c@linaro.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEZPR06MB5269:EE_|PUZPR06MB5721:EE_
+x-ms-office365-filtering-correlation-id: d4eb0650-d199-4bdd-2371-08db33dcd28b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:  5Y3jSpQiJNJ6K32k+0O2SwW1F6YDntFUdyHZpGN3c4RcijpRlIixeQ2luMpQzMO41wP40y8euTJ6ZoIB6gV4lUFYCYm9y48wGQEcJW3bFccAu/oxq6u2iHZb6gJ7UJFjJp+0iyb0wZTXNYfAt3StFYkPnIn0vIjhI9qz0eczkCpL05Fjl39yPwfuW93cX0S/rXMY8/JYzbrfxnPAfcOssfv48CELRlbmF1O7SPoNv0sIyRXBHpxlS6lu9JryX9Qm5D+I6RXdnNxhN9sBlOfVHB3t75qr4mg01EwsuUk+GLEtlnrRvy8FWFwh24vDWde1mIiw9C5fWniWwVy3qvq9DFLNULzE1EXSrVwliKQwFL9L1cG6Ya6DcNFXl1QD/s3d806DUQ9xywyp/GKJ/VHIlpVp6lnXHb7OVkxfJ9V0ZzjjjMOd/aNp4p4gzHo3qu5995eDI9MbmFc7BJnU+EU8qkwmkfAyRlH/q8UjdsUnVpaKzAtH9g2236CS9yRrNZz+9ugTRPXcRd64EoEMDzCcbH+VMs5/MhmMCvZ+Vi2pPy1bVYILWXTSn/pcOLeUM8U046NZ+9YISyFh3q8KpcyUVcjiTk1aVqZ0H7D7uaMqDN1SNa3+LIjzbaWNIaAZP9MX
+x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR06MB5269.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39830400003)(136003)(396003)(366004)(346002)(376002)(451199021)(38070700005)(478600001)(316002)(110136005)(7416002)(38100700002)(5660300002)(52536014)(8936002)(66946007)(76116006)(921005)(2906002)(41300700001)(122000001)(64756008)(66446008)(66476007)(66556008)(8676002)(9686003)(55016003)(26005)(6506007)(53546011)(33656002)(86362001)(186003)(83380400001)(966005)(71200400001)(7696005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:  =?utf-8?B?TEloQUJUTlNNMVJQa0VLNjd3RFJHQldRZThrajJNOWZka0RZZDJGMFFQY292?=
+ =?utf-8?B?SnlMaWtlQmg4M1VnYlhyQWFlc0poY3B1OW94RDJTNEFiUElTVmV4NldvK1ZQ?=
+ =?utf-8?B?aEtKdndsSzNoZ1JYRFJhNDR1dTZvWnhORzR2WUw2dW9mVExHNHB6Q3BlVW53?=
+ =?utf-8?B?cU1qdGllenNybzNrSGhSMDZEdW52MGdMeGM3Uzh6UElod2YvMWNVblo0Mko2?=
+ =?utf-8?B?cGF3MW93Z0xyaHRGU0RYSWREQS9GT3F1azZ2U1hWNktPWVN0TDJVdVVxQnJD?=
+ =?utf-8?B?cWIvZkRLY0cyRjhTS3dUM0YxU2hRdGRPektwRlpydFR6YnVQUldzZGJNeWo4?=
+ =?utf-8?B?b0pwOVlPRWF3aEFPa2hVd2tHOTJKZ081ZU9UUks1UkMxR2J2Njc0V1UraTV5?=
+ =?utf-8?B?VEZnbDFpOG5ZTEhhcytlL3dRbVVzby84WFhDMkdsN3dMRStXNDNmQ04waE1C?=
+ =?utf-8?B?Q0llcW9VUGF3Yno5VVJBeVhHaFE3YldhSElaQmV3amZUdVBVWWdDZHY2QjNk?=
+ =?utf-8?B?YjZ6UnVjUHEyUnlveGtHR3lEQW8yQlgxb2dPc3BwN1FFN1Vrakc4OVFZbzFU?=
+ =?utf-8?B?Mm81dGdVQmRaYzBlMVc4RE9xQ3pTL0llejFLOGhXMHFxY2RrS1hHVktLT1Er?=
+ =?utf-8?B?RzhsMHBDMjc4SjJKRGJPM1lVOGF1RHZjd21Od3YrcWRxamMvWmZldlJlbWY5?=
+ =?utf-8?B?bCtUQ2ZzUm8rZGxwbnhJNVU4WDlZNElEK0N2bnFPRGd6bTd2RjhVUzBCQXY4?=
+ =?utf-8?B?OTZiVWNxdUN6Y3ZrTm43aXhCNDhkWnRqOXd5N1VGZlF6bzM3ZTNpckY1YzBP?=
+ =?utf-8?B?MUFpbFFVbUd4U01ZUWhVRUdDVFhTY2tvdmxVYzBpRW02RlhjeDFsTCtPTE5X?=
+ =?utf-8?B?M3ZLdHBRM0o5RzVvVzJhbnZYOGhqZDRRM09vb1hyWmNJMlNaWmNtcGJ2Rlkx?=
+ =?utf-8?B?dUEveVM5VjNsUW5ZOUlMUkxKZ0pUTXFoa3ZFdnJIZk1QZnlGWW9BYXlmZ1hN?=
+ =?utf-8?B?TjFhdHVwNkduWjJIUGJMUVhvTEUzenFXVUNaSG92OXZ6OTBPR1hqR292cDBx?=
+ =?utf-8?B?ckdBWWlCZDNJOHRNUURGSnIrNElOMlBuM0dlZTUyR0xGYjRRS0NaZTRCTXA4?=
+ =?utf-8?B?NVJ3bGZ1TmcramVFQ2ZUTGFzczRzSitWZ3RlSVpvOVlsQUdoRlFXWG42RnFI?=
+ =?utf-8?B?dTJhb1BzSEJCbHZuT25zWEg2TlN3OUQwQktDdE1MeTJLZDhGc1FtRm1BaXVV?=
+ =?utf-8?B?V1hTdElqNlNlS1lvd1d3NFVaVzRHbHdUMEdBeXgzdmlpcmdIUlAvem51a3Ny?=
+ =?utf-8?B?cmRJSDE2MDBuNExOSWNvajFob3FqVGZMdG81WjdUR1NYcW1Wc0RSNmVpSzVG?=
+ =?utf-8?B?QkxINUZTdDhKVGxaVk9Fcm1EVUpRTDVOMmJSdjJVNjFGVFF0TWhxTExYUzBs?=
+ =?utf-8?B?TTlSZk1zdnZTQWNhYTdOL2E1c1ovcFRsMFRLWGVTY0FSOVA4cUhpK2JCQ0U5?=
+ =?utf-8?B?V0FTNWxPcGU1OFREVklLS3E1YnVRaDNOTUNDelJUR25rd3Y5Q282aUFvUHZN?=
+ =?utf-8?B?UGtpZ0JVeUJCMFZxR1hxME9pYUJ3L1oxRGRhR3VjamRDK0Fid3djMXc3SnlN?=
+ =?utf-8?B?QTQweTc1NXVEbHVqcGdNR3R3M2xuQ0FEOTMxZnFWcmQ4cU5jRWRMa3NaR2dY?=
+ =?utf-8?B?L3NaL1VFdmI2bDlPUXdwejFMNHBQbDYzem9ReUNrdk5uRjNEd0NxK25USWsw?=
+ =?utf-8?B?Sms2WWplUk5ObTJ2a04wampyQnlqWEhkaUw5cGFtak9xNXIzaDZhSlpTZ1Iz?=
+ =?utf-8?B?NGY5VFZaNnRobFIvWVdaL043bmp0NTNvQmRaSjJLRkxQVEtsNG5VWEJhYVpz?=
+ =?utf-8?B?Z3Q0OW51L1owVDd1MnVxNUlwWTB0TklEOXBKZUphbkdaOTF5TjFDK284bDBG?=
+ =?utf-8?B?QVVhMmV6cmtzUFNyWDdXVndjMzIyM1QzK29pZUcwOS9CT1JIbnBpRWMvRmw3?=
+ =?utf-8?B?b0E1aVU4S3JPalZvWGdMK0pXd0R4am0yWGNTZk1VUnhZalNPeDZqeTUwbjVW?=
+ =?utf-8?B?SjczU0dpLzRkdm1ZeUFhNWFiczRlakxRVEk2RHVVakkyVDM4NVc5dmhhdmpS?=
+ =?utf-8?Q?1fZoGH/a5qKPLSI8tVQkLWMut?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20230309194402.119562-1-tmaimon77@gmail.com> <20230309194402.119562-2-tmaimon77@gmail.com>
- <495fcc93ab28ff8949569ededee954c1.sboyd@kernel.org>
-In-Reply-To: <495fcc93ab28ff8949569ededee954c1.sboyd@kernel.org>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Fri, 31 Mar 2023 21:07:19 +0300
-Message-ID: <CAP6Zq1hOHJWQSmGoVDz5bSjwdhNyQmaZVOEE8_dX6S4HCFQ2Jg@mail.gmail.com>
-Subject: Re: [PATCH v15 1/1] clk: npcm8xx: add clock controller
-To: Stephen Boyd <sboyd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4eb0650-d199-4bdd-2371-08db33dcd28b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2023 00:46:12.0192
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wo8hWnwg0K/rHPMMXRvJiIc5fB3HFCc8JMDqGowyd5GFI6BOwrutPrgiUqORJ3tfufdqlh3k1lPQ1EQwcMMIRYWZINBVbQ1YVfEl/qqYDlw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5721
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,232 +142,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: benjaminfair@google.com, avifishman70@gmail.com, venture@google.com, mturquette@baylibre.com, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, joel@jms.id.au, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-HI Stephen,
-
-Thanks for your comments
-
-On Mon, 20 Mar 2023 at 21:50, Stephen Boyd <sboyd@kernel.org> wrote:
->
-> Quoting Tomer Maimon (2023-03-09 11:44:02)
-> > diff --git a/drivers/clk/clk-npcm8xx.c b/drivers/clk/clk-npcm8xx.c
-> > new file mode 100644
-> > index 000000000000..67058f121251
-> > --- /dev/null
-> > +++ b/drivers/clk/clk-npcm8xx.c
-> > @@ -0,0 +1,561 @@
-> [...]
-> > +
-> > +struct npcm8xx_pll_data {
-> > +       const char *name;
-> > +       struct clk_parent_data parent;
-> > +       unsigned int reg;
-> > +       unsigned long flags;
-> > +};
-> > +
-> > +struct npcm8xx_clk_div_data {
-> > +       u32 reg;
-> > +       u8 shift;
-> > +       u8 width;
-> > +       const char *name;
-> > +       const struct clk_parent_data parent_data;
-> > +       u8 clk_divider_flags;
-> > +       unsigned long flags;
-> > +       int onecell_idx;
-> > +};
-> > +
-> > +struct npcm8xx_clk_mux_data {
-> > +       u8 shift;
-> > +       u32 mask;
-> > +       const u32 *table;
-> > +       const char *name;
-> > +       const struct clk_parent_data *parent_data;
-> > +       u8 num_parents;
-> > +       unsigned long flags;
-> > +};
-> > +
-> [...]
-> > +
-> > +static struct npcm8xx_pll_data npcm8xx_pll_clks[] = {
->
-> Can this be const?
-Will add
->
-> > +       { NPCM8XX_CLK_S_PLL0, { .name = NPCM8XX_CLK_S_REFCLK }, NPCM8XX_PLLCON0, 0 },
-> > +       { NPCM8XX_CLK_S_PLL1, { .name = NPCM8XX_CLK_S_REFCLK }, NPCM8XX_PLLCON1, 0 },
-> > +       { NPCM8XX_CLK_S_PLL2, { .name = NPCM8XX_CLK_S_REFCLK }, NPCM8XX_PLLCON2, 0 },
-> > +       { NPCM8XX_CLK_S_PLL_GFX, { .name = NPCM8XX_CLK_S_REFCLK }, NPCM8XX_PLLCONG, 0 },
-> > +};
-> > +
-> > +static const u32 cpuck_mux_table[] = { 0, 1, 2, 7 };
-> > +static const struct clk_parent_data cpuck_mux_parents[] = {
-> > +       { .fw_name = NPCM8XX_CLK_S_PLL0, .name = NPCM8XX_CLK_S_PLL0 },
->
-> You should only have .fw_name or .index when introducing new drivers.
-> The .name field is for existing drivers that want to migrate to
-> clk_parent_data.
-I thought using .name was done when the clock defines in the DT, like
-the ref clock.
-If the other clocks are not defined both .fw_name and .name the clocks
-are not registered properly.
->
-> > +       { .fw_name = NPCM8XX_CLK_S_PLL1, .name = NPCM8XX_CLK_S_PLL1 },
-> > +       { .name = NPCM8XX_CLK_S_REFCLK },
->
-> Note, this line says to use '.index = 0', and .name will be ignored.
-> Maybe just use the index for everything? That makes it simpler and
-> potentially faster because we don't have to do string comparisons
-> anywhere.
-Should the clk_parent_data mux use only .index? if yes how should the
-clock tree have a connection between the parent's clock and the mux
-for example:
-for example, how should the driver connect between
-NPCM8XX_CLK_S_PLL1_DIV2 and the index number in the clk_parent_data?
->
-> > +       { .fw_name = NPCM8XX_CLK_S_PLL2, .name = NPCM8XX_CLK_S_PLL2 }
-> > +};
-> > +
-> > +static const u32 pixcksel_mux_table[] = { 0, 2 };
-> > +static const struct clk_parent_data pixcksel_mux_parents[] = {
-> > +       { .fw_name = NPCM8XX_CLK_S_PLL_GFX, .name = NPCM8XX_CLK_S_PLL_GFX },
-> > +       { .name = NPCM8XX_CLK_S_REFCLK }
-> > +};
-> > +
-> [...]
-> > +
-> > +static unsigned long npcm8xx_clk_pll_recalc_rate(struct clk_hw *hw,
-> > +                                                unsigned long parent_rate)
-> > +{
-> > +       struct npcm8xx_clk_pll *pll = to_npcm8xx_clk_pll(hw);
-> > +       unsigned long fbdv, indv, otdv1, otdv2;
-> > +       unsigned int val;
-> > +       u64 ret;
-> > +
-> > +       if (parent_rate == 0) {
-> > +               pr_debug("%s: parent rate is zero\n", __func__);
-> > +               return 0;
-> > +       }
-> > +
-> > +       val = readl_relaxed(pll->pllcon + pll->reg);
->
-> Is pll->reg ever set?
-Will remove.
->
-> > +
-> > +       indv = FIELD_GET(PLLCON_INDV, val);
-> > +       fbdv = FIELD_GET(PLLCON_FBDV, val);
-> > +       otdv1 = FIELD_GET(PLLCON_OTDV1, val);
-> > +       otdv2 = FIELD_GET(PLLCON_OTDV2, val);
-> > +
-> > +       ret = (u64)parent_rate * fbdv;
-> > +       do_div(ret, indv * otdv1 * otdv2);
-> > +
-> > +       return ret;
-> > +}
-> > +
-> > +static const struct clk_ops npcm8xx_clk_pll_ops = {
-> > +       .recalc_rate = npcm8xx_clk_pll_recalc_rate,
-> > +};
-> > +
-> > +static struct clk_hw *
-> > +npcm8xx_clk_register_pll(struct device *dev, void __iomem *pllcon,
-> > +                        const char *name, const struct clk_parent_data *parent,
-> > +                        unsigned long flags)
-> > +{
-> > +       struct npcm8xx_clk_pll *pll;
-> > +       struct clk_init_data init = {};
-> > +       int ret;
-> > +
-> > +       pll = kzalloc(sizeof(*pll), GFP_KERNEL);
-> > +       if (!pll)
-> > +               return ERR_PTR(-ENOMEM);
-> > +
-> > +       init.name = name;
-> > +       init.ops = &npcm8xx_clk_pll_ops;
-> > +       init.parent_data = parent;
-> > +       init.num_parents = 1;
-> > +       init.flags = flags;
-> > +
-> > +       pll->pllcon = pllcon;
-> > +       pll->hw.init = &init;
-> > +
-> > +       ret = devm_clk_hw_register(dev, &pll->hw);
-> > +       if (ret) {
-> > +               kfree(pll);
-> > +               return ERR_PTR(ret);
-> > +       }
-> > +
-> > +       return &pll->hw;
-> > +}
-> > +
-> > +static DEFINE_SPINLOCK(npcm8xx_clk_lock);
-> > +
-> > +static int npcm8xx_clk_probe(struct platform_device *pdev)
-> > +{
-> > +       struct clk_hw_onecell_data *npcm8xx_clk_data;
-> > +       struct device *dev = &pdev->dev;
-> > +       void __iomem *clk_base;
-> > +       struct resource *res;
-> > +       struct clk_hw *hw;
-> > +       unsigned int i;
-> > +       int err;
-> > +
-> > +       npcm8xx_clk_data = devm_kzalloc(dev, struct_size(npcm8xx_clk_data, hws,
-> > +                                                        NPCM8XX_NUM_CLOCKS),
-> > +                                       GFP_KERNEL);
-> > +       if (!npcm8xx_clk_data)
-> > +               return -ENOMEM;
-> > +
-> > +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> > +       clk_base = devm_ioremap(dev, res->start, resource_size(res));
->
-> Can you use devm_platform_ioremap_resource() instead?
-We should use devm_ioremap since the clock register is used for the
-reset driver as well.
->
-> > +       if (!clk_base) {
->
-> Then this is checked for error pointer.
->
-> > +               dev_err(&pdev->dev, "Failed to remap I/O memory\n");
->
-> And no error message.
->
-> > +               return -ENOMEM;
-> > +       }
-> > +
-> > +       npcm8xx_clk_data->num = NPCM8XX_NUM_CLOCKS;
-> > +
-> [....]
-> > +       if (IS_ERR(hw)) {
-> > +               dev_err(dev, "npcm8xx_clk: Can't register axi div2\n");
-> > +               return PTR_ERR(hw);
-> > +       }
-> > +       npcm8xx_clk_data->hws[NPCM8XX_CLK_AXI] = hw;
-> > +
-> > +       hw = devm_clk_hw_register_fixed_factor(dev, NPCM8XX_CLK_S_ATB,
-> > +                                              NPCM8XX_CLK_S_AXI, 0, 1, 2);
-> > +       if (IS_ERR(hw)) {
-> > +               dev_err(dev, "npcm8xx_clk: Can't register atb div2\n");
-> > +               return PTR_ERR(hw);
-> > +       }
-> > +       npcm8xx_clk_data->hws[NPCM8XX_CLK_ATB] = hw;
-> > +
-> > +       /* Register clock dividers specified in npcm8xx_divs */
-> > +       for (i = 0; i < ARRAY_SIZE(npcm8xx_divs); i++) {
-> > +               const struct npcm8xx_clk_div_data *div_data = &npcm8xx_divs[i];
-> > +
-> > +               hw = clk_hw_register_divider_parent_data(dev, div_data->name,
->
-> Do we have a devm_ variant of this function? If not, can you add it?
-I will try to do it.
->
-> > +                                                        &div_data->parent_data,
-> > +                                                        div_data->flags,
-
-Thanks,
-
-Tomer
+SGVsbG8gS3J6eXN6dG9mLA0KDQo+IE9uIDMwLzAzLzIwMjMgMDk6MzIsIFJ5YW4gQ2hlbiB3cm90
+ZToNCj4gPiBGaXggdHlwbyBpbiBtYWludGFpbmVyJ3MgbmFtZSBhbmQgZW1haWwuDQo+ID4gUmVt
+b3ZlIGRkcmVzcy1jZWxscywgc2l6ZS1jZWxscy4NCj4gDQo+IFR5cG86IGFkZHJlc3M/DQo+IA0K
+PiA+IFVzZSBDb21wYXRpYmxlIGFuZCByZWcgYXJlIGFsd2F5cyBmaXJzdCBwcm9wZXJ0aWVzLg0K
+PiANCj4gSSBkb24ndCB1bmRlcnN0YW5kIHRoaXMgYXQgYWxsIC0gd2hhdCBkb2VzIGl0IGV4cGxh
+aW4gaGVyZT8gSXQgbG9va3MgdW5yZWxhdGVkLCBqdXN0DQo+IHJhbmRvbSBzZW50ZW5jZSBpbiB0
+aGUgbWlkZGxlIG9mIGNvbW1pdCBtc2cuDQo+IA0KPiA+IEFkZCBhc3QyNjAwLWkyY3YyIGNvbXBh
+dGlibGUgYW5kIGFzcGVlZCxnbG9iYWwtcmVncywgYXNwZWVkLGVuYWJsZS1kbWENCj4gPiBhbmQg
+ZGVzY3JpcHRpb24gZm9yIGFzdDI2MDAtaTJjdjIuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBS
+eWFuIENoZW4gPHJ5YW5fY2hlbkBhc3BlZWR0ZWNoLmNvbT4NCj4gPiAtLS0NCj4gPiAgLi4uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvaTJjL2FzcGVlZCxpMmMueWFtbCAgIHwgNTYgKysrKysrKysrKysr
+KysrKystLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgNTAgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlv
+bnMoLSkNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvaTJjL2FzcGVlZCxpMmMueWFtbA0KPiA+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL2kyYy9hc3BlZWQsaTJjLnlhbWwNCj4gPiBpbmRleCBmNTk3ZjczY2NkODcuLjgx
+ZThjZWQ2NDkwMCAxMDA2NDQNCj4gPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvaTJjL2FzcGVlZCxpMmMueWFtbA0KPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNl
+dHJlZS9iaW5kaW5ncy9pMmMvYXNwZWVkLGkyYy55YW1sDQo+ID4gQEAgLTcsMTAgKzcsNyBAQCAk
+c2NoZW1hOg0KPiA+IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1s
+Iw0KPiA+ICB0aXRsZTogQVNQRUVEIEkyQyBvbiB0aGUgQVNUMjRYWCwgQVNUMjVYWCwgYW5kIEFT
+VDI2WFggU29DcyBEZXZpY2UNCj4gPiBUcmVlIEJpbmRpbmdzDQo+ID4NCj4gPiAgbWFpbnRhaW5l
+cnM6DQo+ID4gLSAgLSBSYXluIENoZW4gPHJheW5fY2hlbkBhc3BlZWR0ZWNoLmNvbT4NCj4gPiAt
+DQo+ID4gLWFsbE9mOg0KPiA+IC0gIC0gJHJlZjogL3NjaGVtYXMvaTJjL2kyYy1jb250cm9sbGVy
+LnlhbWwjDQo+ID4gKyAgLSBSeWFuIENoZW4gPHJ5YW5fY2hlbkBhc3BlZWR0ZWNoLmNvbT4NCj4g
+Pg0KPiA+ICBwcm9wZXJ0aWVzOg0KPiA+ICAgIGNvbXBhdGlibGU6DQo+ID4gQEAgLTQ5LDYgKzQ2
+LDI1IEBAIHByb3BlcnRpZXM6DQo+ID4gICAgICBkZXNjcmlwdGlvbjoNCj4gPiAgICAgICAgc3Rh
+dGVzIHRoYXQgdGhlcmUgaXMgYW5vdGhlciBtYXN0ZXIgYWN0aXZlIG9uIHRoaXMgYnVzDQo+ID4N
+Cj4gPiArICBhc3BlZWQsZW5hYmxlLWRtYToNCj4gPiArICAgIHR5cGU6IGJvb2xlYW4NCj4gPiAr
+ICAgIGRlc2NyaXB0aW9uOiB8DQo+ID4gKyAgICAgIEkyQyBidXMgZW5hYmxlIGRtYSBtb2RlIHRy
+YW5zZmVyLg0KPiA+ICsNCj4gPiArICAgICAgQVNQRUVEIGFzdDI2MDAgcGxhdGZvcm0gZXF1aXBw
+ZWQgd2l0aCAxNiBJMkMgY29udHJvbGxlcnMgdGhhdA0KPiBzaGFyZSBhDQo+ID4gKyAgICAgIHNp
+bmdsZSBETUEgZW5naW5lLiBEVFMgZmlsZXMgY2FuIHNwZWNpZnkgdGhlIGRhdGEgdHJhbnNmZXIg
+bW9kZQ0KPiB0by9mcm9tDQo+ID4gKyAgICAgIHRoZSBkZXZpY2UsIGVpdGhlciBETUEgb3IgcHJv
+Z3JhbW1lZCBJL08uIEhvd2V2ZXIsIGhhcmR3YXJlDQo+IGxpbWl0YXRpb25zDQo+ID4gKyAgICAg
+IG1heSByZXF1aXJlIGEgRFRTIHRvIG1hbnVhbGx5IGFsbG9jYXRlIHdoaWNoIGNvbnRyb2xsZXIg
+Y2FuIHVzZQ0KPiBETUEgbW9kZS4NCj4gPiArICAgICAgVGhlICJhc3BlZWQsZW5hYmxlLWRtYSIg
+cHJvcGVydHkgYWxsb3dzIGNvbnRyb2wgb2YgdGhpcy4NCj4gPiArDQo+ID4gKyAgICAgIEluIGNh
+c2VzIHdoZXJlIG9uZSB0aGUgaGFyZHdhcmUgZGVzaWduIHJlc3VsdHMgaW4gYSBzcGVjaWZpYw0K
+PiA+ICsgICAgICBjb250cm9sbGVyIGhhbmRsaW5nIGEgbGFyZ2VyIGFtb3VudCBvZiBkYXRhLCBh
+IERUUyB3b3VsZCBsaWtlbHkNCj4gPiArICAgICAgZW5hYmxlIERNQSBtb2RlIGZvciB0aGF0IG9u
+ZSBjb250cm9sbGVyLg0KPiA+ICsNCj4gPiArICBhc3BlZWQsZ2xvYmFsLXJlZ3M6DQo+ID4gKyAg
+ICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9kZWZpbml0aW9ucy9waGFuZGxlDQo+ID4gKyAg
+ICBkZXNjcmlwdGlvbjogVGhlIHBoYW5kbGUgb2YgaTJjIGdsb2JhbCByZWdpc3RlciBub2RlLg0K
+PiA+ICsNCj4gPiAgcmVxdWlyZWQ6DQo+ID4gICAgLSByZWcNCj4gPiAgICAtIGNvbXBhdGlibGUN
+Cj4gPiBAQCAtNTcsMTIgKzczLDMwIEBAIHJlcXVpcmVkOg0KPiA+DQo+ID4gIHVuZXZhbHVhdGVk
+UHJvcGVydGllczogZmFsc2UNCj4gPg0KPiA+ICthbGxPZjoNCj4gPiArICAtICRyZWY6IC9zY2hl
+bWFzL2kyYy9pMmMtY29udHJvbGxlci55YW1sIw0KPiA+ICsgIC0gaWY6DQo+ID4gKyAgICAgIHBy
+b3BlcnRpZXM6DQo+ID4gKyAgICAgICAgY29tcGF0aWJsZToNCj4gPiArICAgICAgICAgIGNvbnRh
+aW5zOg0KPiA+ICsgICAgICAgICAgICBjb25zdDogYXNwZWVkLGFzdDI2MDAtaTJjdjINCj4gPiAr
+DQo+ID4gKyAgICB0aGVuOg0KPiA+ICsgICAgICBwcm9wZXJ0aWVzOg0KPiA+ICsgICAgICAgIHJl
+ZzoNCj4gPiArICAgICAgICAgIG1pbkl0ZW1zOiAyDQo+ID4gKyAgICAgIHJlcXVpcmVkOg0KPiA+
+ICsgICAgICAgIC0gYXNwZWVkLGdsb2JhbC1yZWdzDQo+ID4gKyAgICBlbHNlOg0KPiA+ICsgICAg
+ICBwcm9wZXJ0aWVzOg0KPiA+ICsgICAgICAgIGFzcGVlZCxnbG9iYWwtcmVnczogZmFsc2UNCj4g
+PiArICAgICAgICBhc3BlZWQsZW5hYmxlLWRtYTogZmFsc2UNCj4gPiArDQo+ID4gKw0KPiA+ICBl
+eGFtcGxlczoNCj4gPiAgICAtIHwNCj4gPiAgICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9jbG9j
+ay9hc3BlZWQtY2xvY2suaD4NCj4gPiAgICAgIGkyYzA6IGkyYy1idXNANDAgew0KPiA+IC0gICAg
+ICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4gPiAtICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+
+IA0KPiBXaHk/IEluZGVlZCB3aXRob3V0IGNoaWxkcmVuIHRoaXMgaXMgbm90IHJlYWxseSBuZWVk
+ZWQsIGJ1dCBpdCBwb2ludHMgdG8gdGhlIGZhY3QNCj4gdGhhdCB5b3VyIGV4YW1wbGUgd2l0aG91
+dCBjaGlsZHJlbiBpcyBub3QgZW50aXJlbHkgY29tcGxldGUuDQo+IA0KPiBBbnl3YXkgeW91IGFy
+ZSBkb2luZyBub3cgd2F5IHRvbyBtYW55IHRoaW5ncyBpbiBvbmUgcGF0Y2guDQo+IA0KPiBodHRw
+czovL2VsaXhpci5ib290bGluLmNvbS9saW51eC92NS4xOS1yYzUvc291cmNlL0RvY3VtZW50YXRp
+b24vcHJvY2Vzcy9zdWJtDQo+IGl0dGluZy1wYXRjaGVzLnJzdA0KPiANClVuZGVyc3Rvb2QsIEkg
+d2lsbCBrZWVwIHNpbXBsZSBmb3IgdGhpcyBwYXRjaC4NCkZvY3VzIG9uIGFkZCBzdXBwb3J0IGFz
+dDI2MDAtaTJjdjIgcGF0Y2guDQpPdGhlcnMgdHlwbyBmaXggd2lsbCBiZSBhbm90aGVyIHBhdGNo
+Lg0KDQpUaGFua3MNClJ5YW4gQ2hlbi4NCg0KDQo+ID4gICAgICAgIGNvbXBhdGlibGUgPSAiYXNw
+ZWVkLGFzdDI1MDAtaTJjLWJ1cyI7DQo+ID4gICAgICAgIHJlZyA9IDwweDQwIDB4NDA+Ow0KPiA+
+ICAgICAgICBjbG9ja3MgPSA8JnN5c2NvbiBBU1BFRURfQ0xLX0FQQj47IEBAIC03MSwzICsxMDUs
+MTMgQEANCj4gPiBleGFtcGxlczoNCj4gPiAgICAgICAgaW50ZXJydXB0cyA9IDwwPjsNCj4gPiAg
+ICAgICAgaW50ZXJydXB0LXBhcmVudCA9IDwmaTJjX2ljPjsNCj4gPiAgICAgIH07DQo+ID4gKyAg
+LSB8DQo+ID4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvaW50ZXJydXB0LWNvbnRyb2xsZXIv
+YXJtLWdpYy5oPg0KPiA+ICsgICAgaTJjMTogaTJjQDgwIHsNCj4gPiArICAgICAgY29tcGF0aWJs
+ZSA9ICJhc3BlZWQsYXN0MjYwMC1pMmN2MiI7DQo+ID4gKyAgICAgIHJlZyA9IDwweDgwIDB4ODA+
+LCA8MHhjMDAgMHgyMD47DQo+ID4gKyAgICAgIGFzcGVlZCxnbG9iYWwtcmVncyA9IDwmaTJjX2ds
+b2JhbD47DQo+ID4gKyAgICAgIGNsb2NrcyA9IDwmc3lzY29uIEFTUEVFRF9DTEtfQVBCPjsNCj4g
+PiArICAgICAgcmVzZXRzID0gPCZzeXNjb24gQVNQRUVEX1JFU0VUX0kyQz47DQo+ID4gKyAgICAg
+IGludGVycnVwdHMgPSA8R0lDX1NQSSAxMTAgSVJRX1RZUEVfTEVWRUxfSElHSD47DQo+ID4gKyAg
+ICB9Ow0KPiANCj4gQmVzdCByZWdhcmRzLA0KPiBLcnp5c3p0b2YNCg0K
