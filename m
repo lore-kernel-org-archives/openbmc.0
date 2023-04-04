@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6F4C6FD1D
-	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 09:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2783EC6FD1D
+	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 09:45:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PrNBh1vKyz3cd1
-	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 19:44:12 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PrNCg4hzPz3cdM
+	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 19:45:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YeuAYOJg;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QUgnZEVb;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::135; helo=mail-lf1-x135.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::132; helo=mail-lf1-x132.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YeuAYOJg;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QUgnZEVb;
 	dkim-atps=neutral
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com [IPv6:2a00:1450:4864:20::135])
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PrN9d3ZZCz3c9r
-	for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2023 19:43:15 +1000 (AEST)
-Received: by mail-lf1-x135.google.com with SMTP id y15so41596889lfa.7
-        for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2023 02:43:15 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PrN9d3zYPz3cHG
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2023 19:43:16 +1000 (AEST)
+Received: by mail-lf1-x132.google.com with SMTP id c29so41632202lfv.3
+        for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2023 02:43:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680601389;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KRzv9smVSuXlAiuE6nE47MRg/YlyfJfzc/qVDw1E+Jg=;
-        b=YeuAYOJg8RKBKpsfUQjs/kgAenYVEmVwzqJbLFsEPK/KvREOv8xHEoKRmXoFF7sPyG
-         v2qbxWjM6hY16GcIoIv5VlHp1y3IWXkCvM033GOY60rNXlDxTma6lriRVkpEecryoOuI
-         4Swi+Hc4peb5e13297zht3+L7ukFfdsHE1oflRo/336tvzgz+SlmDq1uV/oG7cqiw3SQ
-         ZDDW8p1Fg9K6mHpto+5dHuUssMgWQG9JwDkCUgkJMewCircHt2XNc5aqRRfRZVCQGN5L
-         UcbwPZmtLWSbcIk7BUNj1Q0lKn6PxJYm2CxlJ+uzg+3ec3cyst41vGif/jvVpx6dTIIj
-         Wt5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680601389;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1680601392;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=KRzv9smVSuXlAiuE6nE47MRg/YlyfJfzc/qVDw1E+Jg=;
-        b=Eokp6FRyDEGjVUw6j7P9rd7ICKcasdkJgRTpNcrJUZOknUeIa6jeeTcUUAHwnWfv/W
-         yIOk5Cfad7L6UJ3jftexNrbtzJRGoIfUERxdXmpZ22h3SNEp09GJI0irCXBpAQKofEaY
-         ynDAVNFwSR7A5UjU06CF7WPvx4/TXoRGyZPinOya/aVOTWLKtAaL3jnrY6L+YCTHWeVm
-         zFDf/tb559YyZZzNSoc3+l64APl8P6wLspXIP/04Nq+dGBznDb5ujgLpnOPbKsP/1I+x
-         qvmKxez5xntdG2Y0OWqPBUQB3VOAWOdggyKRGuK8RZfW6gt81FD7uy2sj88zj8eHJfSe
-         wk0w==
-X-Gm-Message-State: AAQBX9d4sO2LETx4lFCPcjz7/Zz6TULq600TLkVaFLODRjS/MZUtW+2f
-	izEvwMnG1th+ga8gm1+5QlC5vg==
-X-Google-Smtp-Source: AKy350b7Z4E6Q1dfw8Fpr7MDoDfW/n0vIeQesGBJNCLP89rnF9qd2fn2IS/qJGPHUXKFEfnY+2tHEg==
-X-Received: by 2002:ac2:4c34:0:b0:4b6:f51e:b8b6 with SMTP id u20-20020ac24c34000000b004b6f51eb8b6mr517329lfq.56.1680601389522;
-        Tue, 04 Apr 2023 02:43:09 -0700 (PDT)
+        bh=OEIEuBxKK8j0WCwoJQ18kuVBxSDA3HKgR75PLHwlYjY=;
+        b=QUgnZEVbU8qkLDF2ntyTZYUEn81xMGQMTF+In3pJjOtoHeA+wHfgBjiPJd3SQo2ubS
+         EdNjEPTsTPejVfxjcQyDuBp9bw6lcgMwOYJ0hzaw94espyf5V34EXkl/ZpBlcv3D9D83
+         +0V2+XrzqywGLnbVfh9drT5aX/q5V4zCL36sADRuJeqAfcn/NLlq8m4DdSrZY3wG0Zi/
+         q8FBEDa9RQuvXQZ0GWlpOlmM6ZZK4U1qYzUppqfAYv14x6YsE1Ip3xn/3V6DSPeA1aCF
+         FhyY2tH7hm6RIvEb2q12iB15E5zC2jQ355mxMbjoyJAliFKlrL3/5gyw+cCOHZfsai7x
+         J1Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680601392;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=OEIEuBxKK8j0WCwoJQ18kuVBxSDA3HKgR75PLHwlYjY=;
+        b=19uuHHYUyvzMq3+7HI0UqkAsg8abgYwRQOKKtdy6yZtKXoY9mSc8I1QPseq7sM8pFS
+         2aN0IJPFfxjW6BrExrwASA815v3Y8eSPiqugMhqF+C5E18KzDgm4jkPK8ZUBZCYqjhNR
+         VYQtC1vBjgTbealYUe9IWmX788NJs0qqRWCYYUgGUJfbt7PkAZBcFRzlRic+3WGX654v
+         6mBEQudnKK7+14NHEWJzDdr6G/D49KZfNbxW1/mtf25bQxssmlyFCGhw6tWuXh0/Qs5O
+         oNf3aIAVINHxJGLBNsB1plbtHyL1wsWnZJhmQTVjZueBRGiXt6CzRHaTcYQ0jkml6ys5
+         9rPQ==
+X-Gm-Message-State: AAQBX9d94vB3aToK4tgSD4I15xn0PDnvu7OtYMJ5QxmpLUvkSIPrHz1E
+	zoJsy7K6uDaJIym+c8kq5RKx5A==
+X-Google-Smtp-Source: AKy350Y1n4D3ouEbNQ+64kQoJU+ffHbBrLRRh0g8NH1+mtywafqluhvvLZ5sB6bllrfgJQ3/14bcqQ==
+X-Received: by 2002:a19:ad04:0:b0:4cb:4362:381d with SMTP id t4-20020a19ad04000000b004cb4362381dmr457830lfc.62.1680601392722;
+        Tue, 04 Apr 2023 02:43:12 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238])
-        by smtp.gmail.com with ESMTPSA id l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.08
+        by smtp.gmail.com with ESMTPSA id l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Apr 2023 02:43:09 -0700 (PDT)
+        Tue, 04 Apr 2023 02:43:12 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Subject: [PATCH 0/9] Convert low hanging pinctrl irqchips to be immutable
-Date: Tue, 04 Apr 2023 11:43:02 +0200
-Message-Id: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
+Date: Tue, 04 Apr 2023 11:43:05 +0200
+Subject: [PATCH 3/9] pinctrl: armada-37xx: Convert to immutable irq_chip
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACbxK2QC/22NSw7CMAwFr1J5TaS0qcrnKoiFkxpiiYZgU4RU9
- e64rFmO5o3eAkrCpHBqFhB6s/KjGLS7BlLGciPHozF0vgu+98HxNM0vjHcT8kyZq7rjAdMY+j2
- 1wwAWRlRyUbCkvKVX/sz1T7dNq5Dp3//5sq5f3vhqFo8AAAA=
+Message-Id: <20230403-immutable-irqchips-v1-3-503788a7f6e6@linaro.org>
+References: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
+In-Reply-To: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
 To: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
@@ -92,40 +92,100 @@ Cc: Marc Zyngier <maz@kernel.org>, openbmc@lists.ozlabs.org, linux-kernel@vger.k
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This repeats the two-fold exercise in the GPIO subsystem
-by doing the same for pin control: let's switch over all
-easily identifiable irqchips to be immutable.
+Convert the driver to immutable irq-chip with a bit of
+intuition.
 
+Cc: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
-Linus Walleij (9):
-      pinctrl: iproc: Convert to immutable irq_chip
-      pinctrl: nsp: Convert to immutable irq_chip
-      pinctrl: armada-37xx: Convert to immutable irq_chip
-      pinctrl: npcm7xx: Convert to immutable irq_chip
-      pinctrl: equilibrium: Convert to immutable irq_chip
-      pinctrl: mcp23s08: Convert to immutable irq_chip
-      pinctrl: st: Convert to immutable irq_chip
-      pinctrl: stmfx: Convert to immutable irq_chip
-      pinctrl: sx150x: Convert to immutable irq_chip
+ drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 34 ++++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
- drivers/pinctrl/bcm/pinctrl-iproc-gpio.c    | 38 +++++++++++------
- drivers/pinctrl/bcm/pinctrl-nsp-gpio.c      | 23 ++++++-----
- drivers/pinctrl/mvebu/pinctrl-armada-37xx.c | 34 ++++++++++-----
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c   | 34 +++++++--------
- drivers/pinctrl/pinctrl-equilibrium.c       | 22 ++++++----
- drivers/pinctrl/pinctrl-equilibrium.h       |  2 -
- drivers/pinctrl/pinctrl-mcp23s08.c          | 36 +++++++++++-----
- drivers/pinctrl/pinctrl-mcp23s08.h          |  1 -
- drivers/pinctrl/pinctrl-st.c                | 16 ++++----
- drivers/pinctrl/pinctrl-stmfx.c             | 36 ++++++++++------
- drivers/pinctrl/pinctrl-sx150x.c            | 64 +++++++++++++++++------------
- 11 files changed, 190 insertions(+), 116 deletions(-)
----
-base-commit: fe15c26ee26efa11741a7b632e9f23b01aca4cc6
-change-id: 20230403-immutable-irqchips-98acd347e166
+diff --git a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
+index 261b46841b9f..67c6751a6f06 100644
+--- a/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
++++ b/drivers/pinctrl/mvebu/pinctrl-armada-37xx.c
+@@ -23,6 +23,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
++#include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/string_helpers.h>
+ 
+@@ -101,7 +102,6 @@ struct armada_37xx_pinctrl {
+ 	const struct armada_37xx_pin_data	*data;
+ 	struct device			*dev;
+ 	struct gpio_chip		gpio_chip;
+-	struct irq_chip			irq_chip;
+ 	raw_spinlock_t			irq_lock;
+ 	struct pinctrl_desc		pctl;
+ 	struct pinctrl_dev		*pctl_dev;
+@@ -548,6 +548,7 @@ static void armada_37xx_irq_mask(struct irq_data *d)
+ 	val = readl(info->base + reg);
+ 	writel(val & ~d->mask, info->base + reg);
+ 	raw_spin_unlock_irqrestore(&info->irq_lock, flags);
++	gpiochip_disable_irq(chip, irqd_to_hwirq(d));
+ }
+ 
+ static void armada_37xx_irq_unmask(struct irq_data *d)
+@@ -557,6 +558,7 @@ static void armada_37xx_irq_unmask(struct irq_data *d)
+ 	u32 val, reg = IRQ_EN;
+ 	unsigned long flags;
+ 
++	gpiochip_enable_irq(chip, irqd_to_hwirq(d));
+ 	armada_37xx_irq_update_reg(&reg, d);
+ 	raw_spin_lock_irqsave(&info->irq_lock, flags);
+ 	val = readl(info->base + reg);
+@@ -729,11 +731,30 @@ static unsigned int armada_37xx_irq_startup(struct irq_data *d)
+ 	return 0;
+ }
+ 
++static void armada_37xx_irq_print_chip(struct irq_data *d, struct seq_file *p)
++{
++	struct gpio_chip *chip = irq_data_get_irq_chip_data(d);
++	struct armada_37xx_pinctrl *info = gpiochip_get_data(chip);
++
++	seq_printf(p, info->data->name);
++}
++
++static const struct irq_chip armada_37xx_irqchip = {
++	.irq_ack = armada_37xx_irq_ack,
++	.irq_mask = armada_37xx_irq_mask,
++	.irq_unmask = armada_37xx_irq_unmask,
++	.irq_set_wake = armada_37xx_irq_set_wake,
++	.irq_set_type = armada_37xx_irq_set_type,
++	.irq_startup = armada_37xx_irq_startup,
++	.irq_print_chip = armada_37xx_irq_print_chip,
++	.flags = IRQCHIP_IMMUTABLE,
++	GPIOCHIP_IRQ_RESOURCE_HELPERS,
++};
++
+ static int armada_37xx_irqchip_register(struct platform_device *pdev,
+ 					struct armada_37xx_pinctrl *info)
+ {
+ 	struct gpio_chip *gc = &info->gpio_chip;
+-	struct irq_chip *irqchip = &info->irq_chip;
+ 	struct gpio_irq_chip *girq = &gc->irq;
+ 	struct device_node *np = to_of_node(gc->fwnode);
+ 	struct device *dev = &pdev->dev;
+@@ -751,14 +772,7 @@ static int armada_37xx_irqchip_register(struct platform_device *pdev,
+ 	if (IS_ERR(info->base))
+ 		return PTR_ERR(info->base);
+ 
+-	irqchip->irq_ack = armada_37xx_irq_ack;
+-	irqchip->irq_mask = armada_37xx_irq_mask;
+-	irqchip->irq_unmask = armada_37xx_irq_unmask;
+-	irqchip->irq_set_wake = armada_37xx_irq_set_wake;
+-	irqchip->irq_set_type = armada_37xx_irq_set_type;
+-	irqchip->irq_startup = armada_37xx_irq_startup;
+-	irqchip->name = info->data->name;
+-	girq->chip = irqchip;
++	gpio_irq_chip_set_chip(girq, &armada_37xx_irqchip);
+ 	girq->parent_handler = armada_37xx_irq_handler;
+ 	/*
+ 	 * Many interrupts are connected to the parent interrupt
 
-Best regards,
 -- 
-Linus Walleij <linus.walleij@linaro.org>
+2.34.1
 
