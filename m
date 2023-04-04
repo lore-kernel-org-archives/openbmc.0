@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53F69C6FD1D
-	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 09:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F73C6FD1D
+	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 09:47:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PrNFf6gC2z30Bp
-	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 19:46:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PrNGf1NC9z3bNn
+	for <openbmc@archiver.kernel.org>; Tue,  4 Apr 2023 19:47:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VMkSf/30;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=x7ppiWby;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::12e; helo=mail-lf1-x12e.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::12b; helo=mail-lf1-x12b.google.com; envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=VMkSf/30;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=x7ppiWby;
 	dkim-atps=neutral
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com [IPv6:2a00:1450:4864:20::12b])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PrN9d46RBz3cJY
-	for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2023 19:43:17 +1000 (AEST)
-Received: by mail-lf1-x12e.google.com with SMTP id h11so34639916lfu.8
-        for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2023 02:43:17 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PrN9d41LRz3cJK
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Apr 2023 19:43:15 +1000 (AEST)
+Received: by mail-lf1-x12b.google.com with SMTP id br6so41573862lfb.11
+        for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2023 02:43:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680601393;
+        d=linaro.org; s=google; t=1680601390;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=MyI3cyYnrYsvyUY9zGwb5dqwePkLtUbYm7n0o21VTww=;
-        b=VMkSf/30AORqPOlLZAvb5ejw7HZDEOIFzuFDKLf8ZeDEbmAan3qaO3LYScbQc9IBrD
-         z3KNKoxPvP9VCHdV5C1q+HqWqDfxyxemBOlop94fOEmJJAqCmY0oOVPnFBk/nPhvPtlD
-         05cg/JC4v30mUyeoMFa3DQ6+i5PU3zMgNTANV7m80Kypa8rJcPZdaNVj3Clv+EbQyGmv
-         20gkxiqQIEK12gDQhJezK2Wcd1NquYFNF6ihh9EykeA70XyhRIhFy+LA8cGAM1Xw96Hv
-         c/pB1pihxmAgDsslQ7maLWBZQr3ZHcuEuY1ABY9GS6J6GKEhEMqQyUCBCfLTQXiMlf+F
-         QDfA==
+        bh=RKK9eLgubzxWPHMWxI1yK7d1/+43BWwyQkM2tfuG2Ww=;
+        b=x7ppiWbyNyZwwriIorzWRnpZP4rWgQx6yFQbqXqh1OXDLJel4zda/pCcS6POdONcaG
+         7Yv3e7fbUTqfjUrHeAtVc5xqJ4Gmz4/GtSFu4grqH+f3gGPtr0jGvRyKK6vRApV0uNNn
+         pBO5KB050ARhuPvDhuT2MFcCNRi/fcfb9A8aqygpgQrVbjwJfG7hcodVt+q/oS/Bx9LW
+         /fnKSlEVfDctfs5GeV3aYtiORbT1k5+p5mQ5pjXT0uBW89SPhm+5PXh2tDA/qmLebjcZ
+         KK5Dn3f/RObhVpTmQsLbGJDuntgJHC8ftHLkH2+hc+DxBbBxb4xgIHwtdQT4P8ohou1j
+         CfyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680601393;
+        d=1e100.net; s=20210112; t=1680601390;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=MyI3cyYnrYsvyUY9zGwb5dqwePkLtUbYm7n0o21VTww=;
-        b=SRUHJYgrLeWMOOGPFEHaARWZ2ui+u/xM+1d7V1P4o9Ce8+MP+BLX3g45UMb12v7b2g
-         lD5Zerqhb/mmUq8iXpYwmJfTPeP/DCnsWUuQ/PTIaFokXhtFCClV+tTwDVuk2wGZrxQf
-         p50nPXCa03cZLZ+YQzA+MWCW8Iv48wBcr0+783ag31YG7svtdzQSACR3aBNzld4msGry
-         mGIl5/Xf5jDKtYN9Omw7CgzH+8uEmsLRZ9aR4l1tc1Eovq/5Xf7XvLcILYWVqhsAK0pP
-         bnmbu6VCzBMAf6vnyBxTJeWKbYi9tkrLaAQS2RqKJvni+gyszgjiSeXjPWLBpso4/yWv
-         tNWg==
-X-Gm-Message-State: AAQBX9dbY1/Be2GbayLp13fNFLkCfoQXhIP25wHGNLFRgU7tUS5yOybN
-	ZWd/7r2Omhk0t6ytWGTRldEEPQ==
-X-Google-Smtp-Source: AKy350bAzs+k3GfXqrHrUh46WUwBaaa8Kv09rrmTTSTImYh5z6/205iT1zyUw8YZhG01/6vEVWpsVQ==
-X-Received: by 2002:ac2:4422:0:b0:4cc:73ff:579a with SMTP id w2-20020ac24422000000b004cc73ff579amr549570lfl.38.1680601393741;
-        Tue, 04 Apr 2023 02:43:13 -0700 (PDT)
+        bh=RKK9eLgubzxWPHMWxI1yK7d1/+43BWwyQkM2tfuG2Ww=;
+        b=oAvJ56rOPAhjFeu2W1wSht1W2DEJ/rpRTCXuagQg0xvEACsWLeSGC+HChv6kQB9zFF
+         rpwC2owUpLoPU6whHHgiw/q83Pf62DAhCfTmuo3ep3cVPv/I4/5Bns91YXJmqMYlG7vD
+         /i8G+FyJfoL5Y6eu9d3VIIqXLMg+PqneswOYtianGJoiQc5qN+V3JPOoW54gd71rIcoB
+         /ofGghglLUO1y7mL6wqIJ8prIEm16YbbJYZt7VjxIGmiLI6wqfJzRl2Qqb1+biAjQsZN
+         thSTBywM2VjArJxqT5F75cDBTny4fky6cS5edAh8WlZH8w3UFefubO7qzPvlsNt27JnH
+         kV+Q==
+X-Gm-Message-State: AAQBX9cDYu+4TywqlUfoK5FJztVGx1k1IoYlroNk9Mvsz4cJX0Y+3hBE
+	LO0Kyny2mI9eG88ndyllwPeZUg==
+X-Google-Smtp-Source: AKy350bXU9qE5on50GOy/zA3QRbSNFs+CqcTvsLk9DkI3fNquQp8y9IwP/2sQB6t0bTIVTgIgnAjHw==
+X-Received: by 2002:ac2:4c92:0:b0:4df:b32b:a2a3 with SMTP id d18-20020ac24c92000000b004dfb32ba2a3mr477734lfl.47.1680601390612;
+        Tue, 04 Apr 2023 02:43:10 -0700 (PDT)
 Received: from [127.0.1.1] ([85.235.12.238])
-        by smtp.gmail.com with ESMTPSA id l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.12
+        by smtp.gmail.com with ESMTPSA id l25-20020a19c219000000b004eb258f73a9sm2218443lfc.163.2023.04.04.02.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Apr 2023 02:43:13 -0700 (PDT)
+        Tue, 04 Apr 2023 02:43:10 -0700 (PDT)
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 04 Apr 2023 11:43:06 +0200
-Subject: [PATCH 4/9] pinctrl: npcm7xx: Convert to immutable irq_chip
+Date: Tue, 04 Apr 2023 11:43:03 +0200
+Subject: [PATCH 1/9] pinctrl: iproc: Convert to immutable irq_chip
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230403-immutable-irqchips-v1-4-503788a7f6e6@linaro.org>
+Message-Id: <20230403-immutable-irqchips-v1-1-503788a7f6e6@linaro.org>
 References: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
 In-Reply-To: <20230403-immutable-irqchips-v1-0-503788a7f6e6@linaro.org>
 To: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
@@ -95,121 +95,106 @@ Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 Convert the driver to immutable irq-chip with a bit of
 intuition.
 
-I refactored the way the state container was accessed in
-the irq_chip callbacks to all look the same and switch to
-use irqd_to_hwirq() while we are at it.
-
 Cc: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 34 ++++++++++++++++---------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
+ drivers/pinctrl/bcm/pinctrl-iproc-gpio.c | 38 +++++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index ff5bcea172e8..05d39f9111c2 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -82,7 +82,6 @@ struct npcm7xx_gpio {
- 	struct gpio_chip	gc;
- 	int			irqbase;
- 	int			irq;
--	struct irq_chip		irq_chip;
- 	u32			pinctrl_id;
- 	int (*direction_input)(struct gpio_chip *chip, unsigned int offset);
- 	int (*direction_output)(struct gpio_chip *chip, unsigned int offset,
-@@ -240,9 +239,9 @@ static void npcmgpio_irq_handler(struct irq_desc *desc)
+diff --git a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+index 3df56a4ea510..cc3eb7409ab3 100644
+--- a/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-iproc-gpio.c
+@@ -23,6 +23,7 @@
+ #include <linux/kernel.h>
+ #include <linux/of_device.h>
+ #include <linux/of_irq.h>
++#include <linux/seq_file.h>
+ #include <linux/slab.h>
  
- static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
- {
--	struct npcm7xx_gpio *bank =
--		gpiochip_get_data(irq_data_get_irq_chip_data(d));
--	unsigned int gpio = BIT(d->hwirq);
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
-+	unsigned int gpio = BIT(irqd_to_hwirq(d));
+ #include <linux/pinctrl/consumer.h>
+@@ -108,7 +109,6 @@ struct iproc_gpio {
  
- 	dev_dbg(bank->gc.parent, "setirqtype: %u.%u = %u\n", gpio,
- 		d->irq, type);
-@@ -288,9 +287,9 @@ static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
+ 	raw_spinlock_t lock;
  
- static void npcmgpio_irq_ack(struct irq_data *d)
- {
--	struct npcm7xx_gpio *bank =
--		gpiochip_get_data(irq_data_get_irq_chip_data(d));
--	unsigned int gpio = d->hwirq;
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
-+	unsigned int gpio = irqd_to_hwirq(d);
+-	struct irq_chip irqchip;
+ 	struct gpio_chip gc;
+ 	unsigned num_banks;
  
- 	dev_dbg(bank->gc.parent, "irq_ack: %u.%u\n", gpio, d->irq);
- 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVST);
-@@ -299,23 +298,25 @@ static void npcmgpio_irq_ack(struct irq_data *d)
- /* Disable GPIO interrupt */
- static void npcmgpio_irq_mask(struct irq_data *d)
- {
--	struct npcm7xx_gpio *bank =
--		gpiochip_get_data(irq_data_get_irq_chip_data(d));
--	unsigned int gpio = d->hwirq;
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
-+	unsigned int gpio = irqd_to_hwirq(d);
- 
- 	/* Clear events */
- 	dev_dbg(bank->gc.parent, "irq_mask: %u.%u\n", gpio, d->irq);
- 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVENC);
-+	gpiochip_disable_irq(gc, gpio);
- }
- 
- /* Enable GPIO interrupt */
- static void npcmgpio_irq_unmask(struct irq_data *d)
- {
--	struct npcm7xx_gpio *bank =
--		gpiochip_get_data(irq_data_get_irq_chip_data(d));
--	unsigned int gpio = d->hwirq;
-+	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
-+	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
-+	unsigned int gpio = irqd_to_hwirq(d);
- 
- 	/* Enable events */
-+	gpiochip_enable_irq(gc, gpio);
- 	dev_dbg(bank->gc.parent, "irq_unmask: %u.%u\n", gpio, d->irq);
- 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVENS);
- }
-@@ -323,7 +324,7 @@ static void npcmgpio_irq_unmask(struct irq_data *d)
- static unsigned int npcmgpio_irq_startup(struct irq_data *d)
+@@ -217,7 +217,7 @@ static void iproc_gpio_irq_set_mask(struct irq_data *d, bool unmask)
  {
  	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
--	unsigned int gpio = d->hwirq;
-+	unsigned int gpio = irqd_to_hwirq(d);
+ 	struct iproc_gpio *chip = gpiochip_get_data(gc);
+-	unsigned gpio = d->hwirq;
++	unsigned gpio = irqd_to_hwirq(d);
  
- 	/* active-high, input, clear interrupt, enable interrupt */
- 	dev_dbg(gc->parent, "startup: %u.%u\n", gpio, d->irq);
-@@ -341,6 +342,8 @@ static const struct irq_chip npcmgpio_irqchip = {
- 	.irq_mask = npcmgpio_irq_mask,
- 	.irq_set_type = npcmgpio_set_irq_type,
- 	.irq_startup = npcmgpio_irq_startup,
+ 	iproc_set_bit(chip, IPROC_GPIO_INT_MSK_OFFSET, gpio, unmask);
+ }
+@@ -231,6 +231,7 @@ static void iproc_gpio_irq_mask(struct irq_data *d)
+ 	raw_spin_lock_irqsave(&chip->lock, flags);
+ 	iproc_gpio_irq_set_mask(d, false);
+ 	raw_spin_unlock_irqrestore(&chip->lock, flags);
++	gpiochip_disable_irq(gc, irqd_to_hwirq(d));
+ }
+ 
+ static void iproc_gpio_irq_unmask(struct irq_data *d)
+@@ -239,6 +240,7 @@ static void iproc_gpio_irq_unmask(struct irq_data *d)
+ 	struct iproc_gpio *chip = gpiochip_get_data(gc);
+ 	unsigned long flags;
+ 
++	gpiochip_enable_irq(gc, irqd_to_hwirq(d));
+ 	raw_spin_lock_irqsave(&chip->lock, flags);
+ 	iproc_gpio_irq_set_mask(d, true);
+ 	raw_spin_unlock_irqrestore(&chip->lock, flags);
+@@ -302,6 +304,26 @@ static int iproc_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ 	return 0;
+ }
+ 
++static void iproc_gpio_irq_print_chip(struct irq_data *d, struct seq_file *p)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++	struct iproc_gpio *chip = gpiochip_get_data(gc);
++
++	seq_printf(p, dev_name(chip->dev));
++}
++
++static const struct irq_chip iproc_gpio_irq_chip = {
++	.irq_ack = iproc_gpio_irq_ack,
++	.irq_mask = iproc_gpio_irq_mask,
++	.irq_unmask = iproc_gpio_irq_unmask,
++	.irq_set_type = iproc_gpio_irq_set_type,
++	.irq_enable = iproc_gpio_irq_unmask,
++	.irq_disable = iproc_gpio_irq_mask,
++	.irq_print_chip = iproc_gpio_irq_print_chip,
 +	.flags = IRQCHIP_IMMUTABLE,
 +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
- };
- 
- /* pinmux handing in the pinctrl driver*/
-@@ -1906,7 +1909,6 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 			return -EINVAL;
- 		}
- 		pctrl->gpio_bank[id].irq = ret;
--		pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
- 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
- 		pctrl->gpio_bank[id].pinctrl_id = args.args[0];
- 		pctrl->gpio_bank[id].gc.base = args.args[1];
-@@ -1941,7 +1943,7 @@ static int npcm7xx_gpio_register(struct npcm7xx_pinctrl *pctrl)
++};
++
+ /*
+  * Request the Iproc IOMUX pinmux controller to mux individual pins to GPIO
+  */
+@@ -852,20 +874,10 @@ static int iproc_gpio_probe(struct platform_device *pdev)
+ 	/* optional GPIO interrupt support */
+ 	irq = platform_get_irq_optional(pdev, 0);
+ 	if (irq > 0) {
+-		struct irq_chip *irqc;
  		struct gpio_irq_chip *girq;
  
- 		girq = &pctrl->gpio_bank[id].gc.irq;
--		girq->chip = &pctrl->gpio_bank[id].irq_chip;
-+		gpio_irq_chip_set_chip(girq, &npcmgpio_irqchip);
- 		girq->parent_handler = npcmgpio_irq_handler;
+-		irqc = &chip->irqchip;
+-		irqc->name = dev_name(dev);
+-		irqc->irq_ack = iproc_gpio_irq_ack;
+-		irqc->irq_mask = iproc_gpio_irq_mask;
+-		irqc->irq_unmask = iproc_gpio_irq_unmask;
+-		irqc->irq_set_type = iproc_gpio_irq_set_type;
+-		irqc->irq_enable = iproc_gpio_irq_unmask;
+-		irqc->irq_disable = iproc_gpio_irq_mask;
+-
+ 		girq = &gc->irq;
+-		girq->chip = irqc;
++		gpio_irq_chip_set_chip(girq, &iproc_gpio_irq_chip);
+ 		girq->parent_handler = iproc_gpio_irq_handler;
  		girq->num_parents = 1;
- 		girq->parents = devm_kcalloc(pctrl->dev, 1,
+ 		girq->parents = devm_kcalloc(dev, 1,
 
 -- 
 2.34.1
