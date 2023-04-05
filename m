@@ -4,63 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B62FCC7619A
-	for <openbmc@archiver.kernel.org>; Wed,  5 Apr 2023 23:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E123C7619A
+	for <openbmc@archiver.kernel.org>; Thu,  6 Apr 2023 00:26:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PsLZd0ccLz3chb
-	for <openbmc@archiver.kernel.org>; Thu,  6 Apr 2023 09:34:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PsMkT56j9z3fWP
+	for <openbmc@archiver.kernel.org>; Thu,  6 Apr 2023 10:26:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=hNj7a2qm;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MSAd7uCl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::535; helo=mail-ed1-x535.google.com; envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::835; helo=mail-qt1-x835.google.com; envelope-from=lukmantaqua@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=hNj7a2qm;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=MSAd7uCl;
 	dkim-atps=neutral
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com [IPv6:2a00:1450:4864:20::535])
+Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com [IPv6:2607:f8b0:4864:20::835])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PsLYd05Sjz3cCF
-	for <openbmc@lists.ozlabs.org>; Thu,  6 Apr 2023 09:33:56 +1000 (AEST)
-Received: by mail-ed1-x535.google.com with SMTP id t10so144976051edd.12
-        for <openbmc@lists.ozlabs.org>; Wed, 05 Apr 2023 16:33:56 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PrsTW25Y1z3bNn
+	for <openbmc@lists.ozlabs.org>; Wed,  5 Apr 2023 14:43:42 +1000 (AEST)
+Received: by mail-qt1-x835.google.com with SMTP id g19so33997704qts.9
+        for <openbmc@lists.ozlabs.org>; Tue, 04 Apr 2023 21:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jms.id.au; s=google; t=1680737627;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vUAjlPJEyOzZJ5YuAhSAM41QnQ1PGA8lTF+NMd5A8V0=;
-        b=hNj7a2qmo6UljW4kdIBqDt/yBN1Fka616gqP4R0PItkwOTKZK3lLKWe6KaLoEfdhvO
-         YXiXCzaeDchjROrwFG4iylWtb2vAq/4e8EvWz4uwQIy9ZZw6Tt9A+L55BkvQfAwNv3JP
-         9eWBjSHBbl8zvS/9BA8aTLYoXGkIynXtoCFdg=
+        d=gmail.com; s=20210112; t=1680669815;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=VqvwfjnROBCf6BlLL58Ien1EB8ZG7WeaIIl2ObNIPSM=;
+        b=MSAd7uClpR+O2O7mkN4BCLEd0dXQBoDLmUjysrlTMVy7oTxf5QX8yWS/3Gsjo6cfGu
+         vHn5ysQobhKwz+I6Ni8F+zt6/Q1+vjHAldu4bq0Tm1sSVK4ALqOkii3UxI9Ml6gRP6WR
+         V+O4Qm3YyvX7CZde/6auiHquqoWlqDcIiwkLL56p5nynbASzE1q9Pp7qwldSoxMUF7fd
+         HedcHRYO/2s7QZHErjPCRAgiChGxC0849j2tezFxSLU2YJH9tLXG6Ntj+0wtRrVVwcDM
+         nSf5RnWk9yQxgjIeRz5SFZ4/hwJ8Q5qZYghYgR9d93PT6VqWW6hX0USbnWjZp4UaefSt
+         Rnug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680737627;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vUAjlPJEyOzZJ5YuAhSAM41QnQ1PGA8lTF+NMd5A8V0=;
-        b=y5M3WCIhntt6QwWJ8i1DQ60/d1/0q3EyJdAOPP9NC0p9NNU2isHZCZ9e+x0S/FnqvC
-         Q2yV/Vk+AnIKcoz9S34sPvOWUK8QTTPSptqeShbFrCN640u5JD0l1nDGZGn+Ty5d8CaL
-         6OqpJw9Hb1XEDHC2V3mpmoSBy7jednNtid3E6OQeTqyGn4ScxeDdorHQMsBbP4E/AIis
-         EOkiRJmRG0DQaUGjvB6iEB9uirgziwBT8zX7XS6TTSfGAxdGVwZYA3JgVJiRjwVraAGg
-         DAmXP+8pnO1ixNhcLKnDzY4GTviPwkt1XxRZiI4zEtnwRnFr4/EpelmVzSdZ8e+YBmDM
-         h4XQ==
-X-Gm-Message-State: AAQBX9chcUUAsdteWs+b3BJ8GEhp9lQXv+xQ9c84xdGPzwpT6pDDlXUJ
-	3jayn4FvJQ4a+dW0ChOQcNMpOEBPkS0BVzXN49sgc82K
-X-Google-Smtp-Source: AKy350Zq4GALODgwBNa9UqashWRCqk+n6PxLn+iONLHT6TnVqU78gGWALhIUswNKb+zfsxFVfuxbKk9kvkLrWpMnuSI=
-X-Received: by 2002:a17:907:2075:b0:947:72cd:9325 with SMTP id
- qp21-20020a170907207500b0094772cd9325mr2541570ejb.15.1680737627167; Wed, 05
- Apr 2023 16:33:47 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680669815;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VqvwfjnROBCf6BlLL58Ien1EB8ZG7WeaIIl2ObNIPSM=;
+        b=B/MGVhtDGHv9yivDo0emrg0fIr2zRIIFo54CUFyo7ymucidjFJ8SjgJvHX47DoRd8e
+         DsrYs5NZ1cnOoCtBjXuwrKYrTBw2hvodhd1ARtYg07fZlNaQZ9xYsxscvP9ANDQXKeWI
+         q4+86iLQSP54TW5iOXApgD1SRAojmhEVTqBO49AfHPo1J6sZ1lOpflGqS1dIaXF4qdHO
+         rVJvfmEKY56lN6nlfvUa2JUYCmcPr+RXW7TChmVRqTDlQ6VJQthD8gyWgfGaQErL3Q9q
+         +pNhPse75fz2IMwrvF7DeHvced/iFHHhzcw+gSeWsjECaxeiG0AuET5PnKk6+EgYFrFV
+         xetA==
+X-Gm-Message-State: AAQBX9eid1bsTuDfltrwUGBVtUYTav5tERLSZ+tfPTqTR4CrUR3dbxLE
+	9MLJdr1r0hTV7o2ECssKqxw1ceFATyijaly23Eo=
+X-Google-Smtp-Source: AKy350ZLLnYuTVWXSikbP5EAUJQlop1mjpL5fjI5OLoTTYPwIbtURi4zmmxe6JfxzPf5AygaMytpgT/Iao6/QcqTpU4=
+X-Received: by 2002:ac8:5a43:0:b0:3e1:3cc8:98b5 with SMTP id
+ o3-20020ac85a43000000b003e13cc898b5mr730563qta.4.1680669815258; Tue, 04 Apr
+ 2023 21:43:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <191F3605-11DF-4870-AB07-B4A31169B3D2@hpe.com>
-In-Reply-To: <191F3605-11DF-4870-AB07-B4A31169B3D2@hpe.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 5 Apr 2023 23:33:35 +0000
-Message-ID: <CACPK8Xd2kGxq1sb7DKZ0qXoinYygk6WvPTVqy84kgznGrBPdOA@mail.gmail.com>
-Subject: Re: GXP support into OpenBMC kernel
-To: "Verdun, Jean-Marie" <verdun@hpe.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <CAD8XohkKcKAgz2qZmiNKtY=878_uj8RWWzUXFnTKA2tV+9MWJQ@mail.gmail.com>
+ <CAO=notzbOiDgAEO3qHOUqGJD6+kheMDNQ2L0brdsmANsy3==OQ@mail.gmail.com>
+In-Reply-To: <CAO=notzbOiDgAEO3qHOUqGJD6+kheMDNQ2L0brdsmANsy3==OQ@mail.gmail.com>
+From: Lukman Mhd <lukmantaqua@gmail.com>
+Date: Wed, 5 Apr 2023 10:13:06 +0530
+Message-ID: <CAD8XohntKrXym3C4nWGdgvbGuCDpUO1TGRsBkhR=QUuGBt78fQ@mail.gmail.com>
+Subject: Re: Reg. phosphor-ipmi-flash in openBMC
+To: Patrick Venture <venture@google.com>
+Content-Type: multipart/alternative; boundary="00000000000052c29805f88f6f4a"
+X-Mailman-Approved-At: Thu, 06 Apr 2023 10:25:49 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,37 +75,132 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Hawkins, Nick" <nick.hawkins@hpe.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 5 Apr 2023 at 21:34, Verdun, Jean-Marie <verdun@hpe.com> wrote:
+--00000000000052c29805f88f6f4a
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> We made tremendous progress during the past year regarding the enablement=
- of GXP into the linux kernel. We followed a path to directly upstream into=
- the linux kernel, and we will probably pursue that approach as nick has es=
-tablished contacts with the various kernel maintainers including you. We ar=
-e getting used to the process even if it has been a rollercoaster initially=
-.
+Thank you for your response.
 
-Great work. I saw you presented your work recently and read some good
-feedback on social media.
+Thanks a lot,
+Muhamadlukman.
 
-> Would you like us to rely on OpenBMC linux kernel, or just what is availa=
-ble upstream, to avoid to backport our stuff ? We are open to both option, =
-even if I rather prefer option 1, as it will lower workload to everybody.
+On Tue, Apr 4, 2023 at 10:03=E2=80=AFPM Patrick Venture <venture@google.com=
+> wrote:
 
-For now we will stay with the 6.1 tree, as it is a LTS upstream and
-there's still some groups who chose to maintain their own patches on
-top of the openbmc tree who are only just catching up. The intent of
-the openbmc tree is to avoid this fragmentation, and have our work
-progress all in one place.
+> +OpenBMC Maillist <openbmc@lists.ozlabs.org>
+>
+> On Tue, Apr 4, 2023 at 1:53=E2=80=AFAM Lukman Mhd <lukmantaqua@gmail.com>=
+ wrote:
+>
+>> Hi Patrick,
+>>
+>> This is MuhamadLukman from India working as a software developer in
+>> oneAMI. This email is to inquire about a few things about
+>> phosphor-ipmi-flash in the openBMC project. Kindly help to provide your
+>> valuable suggestion as it could be a great help for me.
+>>
+>> I have built open source host tool burn_my_bmc and built an openBMC
+>> target image for evb-ast2500/evb-ast2600. When I try to flash BMC from t=
+he
+>> host machine using burn_my_bmc, I'm always getting below output for all =
+the
+>> interfaces like ipmibt,ipminet,ipmipci,ipmilpc
+>> example:
+>> *./burn_my_bmc --command update --interface ipmipci --image image-bmc
+>> --sig image-bmc.sig --type image*
+>> /flash/image not found
+>> Exception received: Goal firmware not supported
+>>
+>> I have configured openBMC recipes (recipes-phosphor/ipmi) to support
+>> phosphor-ipmi-flash in meta-evb-ast2500/meta-evb-ast2600 as below:
+>>
+>>
+>> *\openbmc-master\meta-evb\meta-evb-aspeed\meta-evb-ast2500\recipes-phosp=
+hor\ipmi\phosphor-ipmi-flash_%.bbappend*
+>>
+>> PACKAGECONFIG:append:evb-ast2500 =3D " static-bmc net-bridge aspeed-lpc
+>> host-bios reboot-update"
+>> IPMI_FLASH_BMC_ADDRESS:evb-ast2500 =3D "0x99000000"
+>>
+>> Could you please advise me why it throws "Exception received: Goal
+>> firmware not supported" always. How to configure in-band flash support i=
+n
+>> evb-ast2500 target.
+>> Whether in band flashing support not enabled by default in target
+>> machines. If so, how can I configure and overcome this issue?
+>> Could you please explain and provide elaborated steps for flashing
+>> openBMC via phosphor-ipmi-flash.
+>>
+>>
+> I no longer maintain this, see:
+> https://github.com/openbmc/phosphor-ipmi-flash/blob/master/OWNERS for the
+> list of current maintainers who can help solve your issue.
+>
+>
+>> Your help is much appreciated.
+>> Thanks a lot,
+>> MuhamadLukman.
+>>
+>>
+>>
 
-I would be happy to take backports of anything that you have upstream
-into 6.1. We can also take work in progress drivers that are on the
-upstream lists, as long as we all agree that work will continue to get
-that code into mainline.
+--00000000000052c29805f88f6f4a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+<div dir=3D"ltr">Thank you for your response.<div><br></div><div>Thanks a l=
+ot,</div><div>Muhamadlukman.=C2=A0<br></div></div><br><div class=3D"gmail_q=
+uote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Apr 4, 2023 at 10:03=E2=
+=80=AFPM Patrick Venture &lt;<a href=3D"mailto:venture@google.com">venture@=
+google.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><a class=3D"gmail_plusreply" i=
+d=3D"m_8689622964105963885gmail-plusReplyChip-1" href=3D"mailto:openbmc@lis=
+ts.ozlabs.org" target=3D"_blank">+OpenBMC Maillist</a>=C2=A0</div><br><div =
+class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Apr 4, =
+2023 at 1:53=E2=80=AFAM Lukman Mhd &lt;<a href=3D"mailto:lukmantaqua@gmail.=
+com" target=3D"_blank">lukmantaqua@gmail.com</a>&gt; wrote:<br></div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">Hi Patrick,<di=
+v><br></div><div><div>This is MuhamadLukman from India working as a softwar=
+e developer in oneAMI. This email is to inquire about a few things about ph=
+osphor-ipmi-flash in the openBMC project. Kindly help to provide your valua=
+ble suggestion as it could be a great help for me.<br></div><div><div><div>=
+<div><div><br></div><div>I have built open source host tool burn_my_bmc and=
+ built an openBMC target image for evb-ast2500/evb-ast2600. When I try to f=
+lash BMC from the host machine using burn_my_bmc, I&#39;m always getting be=
+low output for all the interfaces like ipmibt,ipminet,ipmipci,ipmilpc</div>=
+<div>example:</div><div><b>./burn_my_bmc --command update --interface ipmip=
+ci --image image-bmc --sig image-bmc.sig --type image</b><br></div><div>/fl=
+ash/image not found<br>Exception received: Goal firmware not supported<br><=
+/div><div><br></div><div>I have configured openBMC recipes (recipes-phospho=
+r/ipmi) to support phosphor-ipmi-flash in meta-evb-ast2500/meta-evb-ast2600=
+ as below:</div><div><br></div><div><b>\openbmc-master\meta-evb\meta-evb-as=
+peed\meta-evb-ast2500\recipes-phosphor\ipmi\phosphor-ipmi-flash_%.bbappend<=
+/b><br></div><div><b><br></b></div><div>PACKAGECONFIG:append:evb-ast2500 =
+=3D &quot; static-bmc net-bridge aspeed-lpc host-bios reboot-update&quot;<b=
+r>IPMI_FLASH_BMC_ADDRESS:evb-ast2500 =3D &quot;0x99000000&quot;<b><br></b><=
+/div><div><br></div><div>Could you please advise me why it throws &quot;Exc=
+eption received: Goal firmware not supported&quot; always. How to configure=
+ in-band flash support in evb-ast2500 target.=C2=A0</div><div>Whether in ba=
+nd flashing support not enabled by default in target machines. If so, how c=
+an I configure and overcome this issue?=C2=A0</div><div>Could you please ex=
+plain and provide elaborated steps for flashing openBMC via phosphor-ipmi-f=
+lash.=C2=A0</div><div><br></div></div></div></div></div></div></div></block=
+quote><div><br></div><div>I no longer maintain this, see:=C2=A0<a href=3D"h=
+ttps://github.com/openbmc/phosphor-ipmi-flash/blob/master/OWNERS" target=3D=
+"_blank">https://github.com/openbmc/phosphor-ipmi-flash/blob/master/OWNERS<=
+/a> for the list of current maintainers who can help solve your issue.</div=
+><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div di=
+r=3D"ltr"><div><div><div><div><div><div></div><div>Your help is much apprec=
+iated.</div><div>Thanks a lot,<br></div><div>MuhamadLukman.</div></div></di=
+v></div></div><div><br></div><div><br></div></div></div>
+</blockquote></div></div>
+</blockquote></div>
 
-Joel
+--00000000000052c29805f88f6f4a--
