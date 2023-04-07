@@ -4,67 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5839C76196
-	for <openbmc@archiver.kernel.org>; Mon, 10 Apr 2023 16:28:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845ACC76196
+	for <openbmc@archiver.kernel.org>; Tue, 11 Apr 2023 04:35:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PwDts3ZQdz3cLf
-	for <openbmc@archiver.kernel.org>; Tue, 11 Apr 2023 02:28:53 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PwY1P2nHqz3cMb
+	for <openbmc@archiver.kernel.org>; Tue, 11 Apr 2023 14:35:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=TDXnUgBH;
+	dkim=pass (2048-bit key; secure) header.d=sandelman.ca header.i=@sandelman.ca header.a=rsa-sha256 header.s=mail header.b=ub9wxZzI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::831; helo=mail-qt1-x831.google.com; envelope-from=jianghao@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sandelman.ca (client-ip=209.87.249.19; helo=tuna.sandelman.ca; envelope-from=mcr+ietf@sandelman.ca; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=TDXnUgBH;
+	dkim=permerror header.d=sandelman.ca header.i=@sandelman.ca header.a=rsa-sha1 header.s=mail header.b=ub9wxZzI;
 	dkim-atps=neutral
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com [IPv6:2607:f8b0:4864:20::831])
+X-Greylist: delayed 81148 seconds by postgrey-1.36 at boromir; Sat, 08 Apr 2023 03:33:02 AEST
+Received: from tuna.sandelman.ca (tuna.sandelman.ca [209.87.249.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PwDsq16kQz3cBF
-	for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2023 02:27:58 +1000 (AEST)
-Received: by mail-qt1-x831.google.com with SMTP id bl15so4575467qtb.10
-        for <openbmc@lists.ozlabs.org>; Mon, 10 Apr 2023 09:27:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112; t=1681144073; x=1683736073;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=09lv93vf/2zwwPiH9TQXCTzpoMz76LTTKaUwZEPaQZk=;
-        b=TDXnUgBHdrJCpMrJAKirBKyWpcZjnU87M9OV4QVOvuU1k+VpZtAddfRfYk2P8aWJRt
-         LxyZbIHJAbVkmoIypzvtdiVJ6zTiWLB8y8c5RWUOJvtxnm4iiKBGJvdRvrpvoI2WieqC
-         N0wgvtL/GgvYH/zKpFW73k4fONIda6ZTqCj6z4S5fDmN2VLKGgRAoO7lQGJjFQWE/x5d
-         ZNVsAxg7Yo3fcQWplGS5TbkLCuRE7bYo0uyYJ8jQjFGFLVIuviN5z8xB5C2XW1T+VeAN
-         NcyiwhIaViaMgBXQMaqdmY7jFfXIVINP5gK8efqwwKcQyf0WmBvyURYVEenYBGIMwai6
-         fV7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1681144073; x=1683736073;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=09lv93vf/2zwwPiH9TQXCTzpoMz76LTTKaUwZEPaQZk=;
-        b=P3+K6rxfSXyCvsvXjDaqsFBUAjxLsVJjmICUAQWsBz/uKY1kOHdhy0uHYNGW9rHW5/
-         oJhH2mOY5SEGaW8a2dH6n9rcNSCCniJYt4gpJVPAma2pANcTYFeV5BpPgyD/H4BqY+2D
-         haQ/B8wmnn5iirpMun6QXL11C1hC+SUB/cMxxe9EA+ZvXF7dm05pRcuqGoEhobq2AyXF
-         PlklF88iSJex4ApBVeRfx6Cj114WQXpQceX7rgoBaQS8uEG64XALW8uBRiFp+5lMqDaw
-         xOknG51f3Hv2pRk5QtGj3+V3Hu+YO7I5KSEKk6LVJjS9Bsen72g1vEnrj1CshhcerhiB
-         Ad2w==
-X-Gm-Message-State: AAQBX9eQAWuriDd4rdzUJICLILlToCcRrR/82zC7qWZZ6sxn4atXimdW
-	hNzqo43luds8SjhvCL1QUtFmFYJv3eShSi5O1OvOcQ==
-X-Google-Smtp-Source: AKy350ZjQBIehG7ZcUYJBIbTCpk24qfsXPdJ+2/EbPkvuR3q0qs9chrfBzIyH3t9AZviwFLYLNqtxufixgpnWZMtVtY=
-X-Received: by 2002:a05:622a:144c:b0:3de:bafb:82c0 with SMTP id
- v12-20020a05622a144c00b003debafb82c0mr4073031qtx.9.1681144072784; Mon, 10 Apr
- 2023 09:27:52 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PtQSG4qWNz3fDd
+	for <openbmc@lists.ozlabs.org>; Sat,  8 Apr 2023 03:33:01 +1000 (AEST)
+Received: from localhost (localhost [127.0.0.1])
+	by tuna.sandelman.ca (Postfix) with ESMTP id 7872738996;
+	Fri,  7 Apr 2023 13:49:42 -0400 (EDT)
+Received: from tuna.sandelman.ca ([127.0.0.1])
+	by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
+	with LMTP id 94njF3z32O0M; Fri,  7 Apr 2023 13:49:41 -0400 (EDT)
+Received: from sandelman.ca (unknown [IPv6:2607:f0b0:f:2:1c14:eaff:fec3:b3c7])
+	by tuna.sandelman.ca (Postfix) with ESMTP id AC42338990;
+	Fri,  7 Apr 2023 13:49:41 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sandelman.ca;
+	s=mail; t=1680889781;
+	bh=WD714MOt2096GO3EBASYadcwguvCLxN6PHs0EF2dLFE=;
+	h=From:To:cc:Subject:In-Reply-To:References:Date:From;
+	b=ub9wxZzIj58dBc1/u8doBclwN8jfXfGv4LufBpVIaP/vH5HVppCB5Jw9EjovnrR+o
+	 v/uvS9N3ivcWG4PJndwBq7Q7Yqv4lPLXC7IGPO1zkTcs+Q0nkzW39/2fBYhfO8HMM7
+	 wyo0gaZFqnLnxrnr51J9HVm1sy4ry0JBhkCiDGa8VKB3BCnYMm6uJO3OtzzMZD00wW
+	 Jr3ZfbnpSR7BmowlVW3C7MPR81AfCHnKfjWXysrbQksptgYK5tpOxuaHCr+MQ+RcNF
+	 2vvGS8skUKjENGYdSeJ3EA8jjoTR9iUcD6cj8Y9gCPeBDyHdXR8HkbE0AoftNeCpNx
+	 KrpeW7ZhVBHfQ==
+Received: from localhost (localhost [IPv6:::1])
+	by sandelman.ca (Postfix) with ESMTP id 2B57340A;
+	Fri,  7 Apr 2023 13:32:57 -0400 (EDT)
+From: Michael Richardson <mcr+ietf@sandelman.ca>
+To: Joseph Reynolds <jrey@linux.ibm.com>
+Subject: Re: Design to isolate BMC service access
+In-Reply-To: <53fade52-2afc-f375-40b1-f6781bf5d117@linux.ibm.com>
+References: <552186c1-50c4-198c-57bb-98ab3ac29d58@linux.ibm.com> <6411.1680807620@localhost> <53fade52-2afc-f375-40b1-f6781bf5d117@linux.ibm.com>
+X-Mailer: MH-E 8.6+git; nmh 1.7+dev; GNU Emacs 27.1
+X-Face: $\n1pF)h^`}$H>Hk{L"x@)JS7<%Az}5RyS@k9X%29-lHB$Ti.V>2bi.~ehC0;<'$9xN5Ub#
+ z!G,p`nR&p7Fz@^UXIn156S8.~^@MJ*mMsD7=QFeq%AL4m<nPbLgmtKK-5dC@#:k
 MIME-Version: 1.0
-References: <PR3P195MB055546905D984A24BEB9D474C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
- <c9adff03-16f4-40d4-8334-6cdbbdea2407@betaapp.fastmail.com>
- <PR3P195MB0555D8C52C5F2EBE2FA1E299C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
- <CAB38=p21yk1O8eQvq9Rtq4TuKpoJeU7Zy189KJRmGCcQ0NqyQw@mail.gmail.com> <PR3P195MB05553184971B4F0E15989893C3979@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
-In-Reply-To: <PR3P195MB05553184971B4F0E15989893C3979@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
-From: Hao Jiang <jianghao@google.com>
-Date: Mon, 10 Apr 2023 09:27:41 -0700
-Message-ID: <CAB38=p0anKYhBGTDxjSOQGDm60XNu+nv399-QoVCsKMxeoOznA@mail.gmail.com>
-Subject: Re: OpenBMC - Support NVMe drive health monitoring
-To: Lior Weintraub <liorw@pliops.com>
-Content-Type: multipart/alternative; boundary="00000000000046a21805f8fddb6f"
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 07 Apr 2023 13:32:57 -0400
+Message-ID: <26362.1680888777@localhost>
+X-Mailman-Approved-At: Tue, 11 Apr 2023 14:34:44 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,594 +70,132 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Ed Tanous <ed@tanous.net>, "rashmica@linux.ibm.com" <rashmica@linux.ibm.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>, Ed Tanous <edtanous@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---00000000000046a21805f8fddb6f
-Content-Type: text/plain; charset="UTF-8"
+--=-=-=
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-We have upstreamed the support for libnvme-mi in the opensource nvme-cli
-tool. https://github.com/linux-nvme/nvme-cli
 
-The cli tool has only nvme admin command set support, since it is co-used
-for inband and oob.
+Joseph Reynolds <jrey@linux.ibm.com> wrote:
+    > On 4/6/23 2:00 PM, Michael Richardson wrote:
+    >> Joseph Reynolds <jrey@linux.ibm.com> wrote: > A "service access toke=
+n"
+    >> is proposed.=C2=A0 Details are below but for now, a > service access=
+ token:
+    >>=20
+    >> > * Is a small file (kilobytes), a digitally-signed request to access
+    >> a > specific BMC function on a specific BMC for a limited time windo=
+w.
+    >> > This token may have additional information about its origin, etc. =
+ *
+    >> Is > created by an authorized service agent.=C2=A0 Only service agen=
+ts can
+    >> > digitally sign the tokens so they can be verified by the BMC.  * Is
+    >> > uploaded to the BMC by an admin user to perform a specific service=
+ >
+    >> function.  * Has nothing that is secret to the BMC admin user.=C2=A0=
+ If the
+    >> > token encodes a password, it is stored in the form of a secure has=
+h.
+    >>=20
+    >> So it's a bearer token (?) that is encrypted by the BMC to itself?  =
+Or
+    >> it's created by an external entity?
 
-For the MI cmd set, we have a really simple demo tool, but it doesn't have
-all MI CMD (it is a demo only :) )
-https://github.com/linux-nvme/libnvme/blob/master/examples/mi-mctp.c
+    > Michael,=C2=A0 +cc: Ed Tanous Thanks for your input!
 
-On Sat, Apr 8, 2023 at 2:42=E2=80=AFAM Lior Weintraub <liorw@pliops.com> wr=
-ote:
+    > This token is digitally signed by the service organization behind the=
+ir
+    > firewall.=C2=A0 When it is uploaded to the BMC the signature is verif=
+ied by
+    > the BMC.=C2=A0 I didn't describe the infrastructure needed for this, =
+but it
+    > includes the following pieces: 1. The BMC functions described in this
+    > design sketch.  2. The service organization creates a key pair for the
+    > service access token: 2A. The private key is held by the service
+    > organization to digitally sign the token.  2B. The public keys gets
+    > built into the BMC firmware image to validate the token's signature.
 
-> Thanks Hao,
->
->
->
-> Do you know if there is a tool (e.g. ipmitool) that can be used to
-> generate a basic NVMe MI command?
->
-> For example, the NVMe MI Revision 1.1 spec defines a "Management Interfac=
-e
-> Command Set" that can be used to:
->
-> Opcode                Command
->
-> 00h                        Read NVMe-MI Data Structure
->
-> 01h                        NVM Subsystem Health Status Poll
->
-> 02h                        Controller Health Status Poll
->
-> 03h                        Configuration Set
->
-> 04h                        Configuration Get
->
-> 05h                        VPD Read
->
-> 06h                        VPD Write
->
-> 07h                        Reset
->
-> 08h                        SES Receive
->
-> 09h                        SES Send
->
-> 0Ah                        Management Endpoint Buffer Read
->
-> 0Bh                        Management Endpoint Buffer Write
->
-> 0Ch to BFh          Reserved
->
-> C0h to FFh           Vendor specific
->
->
->
-> If we had a tool that can send such a command it would help with the
-> development of this feature.
->
-> The idea is to start with some manually triggered commands.
->
->
->
-> Thanks,
->
-> Lior.
->
->
->
->
->
-> *From:* Hao Jiang <jianghao@google.com>
-> *Sent:* Friday, April 7, 2023 8:40 PM
-> *To:* Lior Weintraub <liorw@pliops.com>
-> *Cc:* Andrew Jeffery <andrew@aj.id.au>; Ed Tanous <ed@tanous.net>;
-> openbmc@lists.ozlabs.org; rashmica@linux.ibm.com
-> *Subject:* Re: OpenBMC - Support NVMe drive health monitoring
->
->
->
-> CAUTION: External Sender
->
-> Hi Lior and Andrew,
->
-> The goal of enhancing nvmesensor with nvme-mi is to fulfill the full stac=
-k
-> management of NVMe devices, including health monitoring but beyond. An
-> example could be SSD firmware update and security protocol transportation=
-.
->
-> The MCTP support has improved compared to two years ago. The MCTP I2C
-> binding has been upstreamed to linux kernel and there is an mctp daemon f=
-or
-> openbmc for the MCTP management.
->
->
->
-> On Fri, Apr 7, 2023 at 5:35=E2=80=AFAM Lior Weintraub <liorw@pliops.com> =
-wrote:
->
-> Thanks Andrew,
->
->
->
-> I wish I had the experience to help with the review process =F0=9F=98=8A
->
-> I have more than 2 decades experience with bare metal embedded systems bu=
-t
-> no experience with Embedded Linux\Yocto nor OpenBMC (nor Gerrit).
->
-> It's all new to me and came to realize that many guides \ documentations =
-I
-> find on the web are old and doesn't work anymore on OpenBMC (e.g. using t=
+2B seems like a kicker to me.
+I have been working on (too slowly, without enough resources), an RFC8995
+client (pledge) for OpenBMC, which would allow for that token validation
+public key/trust-anchor to be delivered to the BMC at boot time/installatio=
+n.
+
+RFC7030 (EST) seems like a very good way to do this, and even without RFC89=
+95
+to automate it, entering a URL into the BMC web interface and having it
+transfer the trust-anchor seems like a good thing.  That also gets it access
+to CRLs and to refreshing the trust-anchor.
+
+I think that there should also be a self-signed option where the BMC creates
+the token itself.  In that case, having it be a bearer token has pluses and
+minuses.  linking it to a TLS Client certificate would be good in some use
+cases.
+
+I think that there are two deployment environments:
+1) the facebook/etc. scale places where they just need automation and can p=
+ay
+   for it.
+=20=20=20
+2) the SMEs where they have a few dozen systems, installed by a variety of
+   people with a variety of skills, probably at least one of them have left.
+   They are chronically under-resourced, and being able to recover easily is
+   important.
+
+(The really SMALL places with four systems can probably just poke a button =
+to reset
+the BMC to factory defaults.  I had to do that to a 2010 era server on
+Wednesday after the ice storm killed power, and the UPS went with it... Gosh
+I wish that system was running something modern)
+
+    >> Very much exactly OAUTH2-like: JWT, CWT. In fact... I suggest not
+    >> re-inventing the wheel here.
+
+    > Thanks for that!=C2=A0 I think that would work.=C2=A0 The service org=
+anization
+    > would build an OAuth2 JSON Web Token (JWT) which is uploaded to the
+    > BMC.=C2=A0 I will study up and try to redo this design sketch in those
+    > terms.
+
+Yes.  That way, you can leverage not just the crypto primitives, but also t=
 he
-> oe-init-build-env vs setup script).
->
->
->
-> I am happy to assist and contribute but I need some guidance.
->
-> I have only 2 weeks experience with OpenBMC.
->
-> I have succeeded to build few platforms and run them (e.g. qemuarm and
-> RaspberryPi4).
->
-> I watched many youtube videos on OpenBMC which gave me a good overall
-> understanding but when it comes to start coding or adding new stuff I am
-> lost.
->
->
->
-> If we start our development with NVMe-MI basic management command as a
-> starting point, what steps would you recommend we need to take?
->
-> Can we use the PaspberryPi4 for this initial implementation?
->
-> We have a basic OpenBMC image on this RaspPi and we have it's I2C
-> connected to our PCIe card (which is using a Desktop as the host PC).
->
-> (BTW, the i2c-dev module is not loaded automatically and we still haven't
-> figured out why. As a workaround, we load the module manually with modpro=
-be
-> i2c-dev on the OpenBMC UART terminal)
->
->
->
-> Thanks,
->
-> Lior.
->
->
->
-> -----Original Message-----
-> From: Andrew Jeffery <andrew@aj.id.au>
-> Sent: Friday, April 7, 2023 2:46 PM
-> To: Lior Weintraub <liorw@pliops.com>
-> Cc: Ed Tanous <ed@tanous.net>; openbmc@lists.ozlabs.org;
-> rashmica@linux.ibm.com; jianghao@google.com
-> Subject: Re: OpenBMC - Support NVMe drive health monitoring
->
->
->
-> CAUTION: External Sender
->
->
->
-> On Fri, 7 Apr 2023, at 19:50, Lior Weintraub wrote:
->
-> > Hi Jet,
->
-> >
->
-> > My name is Lior Weintraub and I face exactly the same task that you
->
-> > handled 2 years ago =F0=9F=98=8A
->
-> > I found this mailing list thread on OpenBmc:
->
-> > https://lists.ozlabs.org/pipermail/openbmc/2020-November/024012.html
->
-> >
->
-> > Can you please advice about the current status of this issue?
->
-> > I need to add OOB support to our NVMe device (supporting NVMe MI ->
->
-> > MCTP with SMBus binding).
->
-> > For this task we plan to buy the AST2600 development
->
-> > kit<https://portwell.com/solutions/openBMC.php> and use the OpenBMC
->
-> > for our development and testing.
->
->
->
-> Currently OpenBMC only supports NVMe-MI via the basic management command.
-> See phosphor-nvme or nvmesensor from dbus-sensors. We're working on
-> migrating the OpenBMC MCTP stack to the AF_MCTP sockets that are now
-> provided by Linux.
->
->
->
-> Please help review and test Rashmica's work in Gerrit to speed that
-> process along:
->
->
->
-> https://gerrit.openbmc.org/q/topic:AF_MCTP
->
->
->
-> Along with Hao Jiang's work to exploit libnvme-mi in nvmesensor:
->
->
->
-> https://gerrit.openbmc.org/q/topic:nvme-mi
->
->
->
-> Andrew
->
->
->
->
-> --
->
-> Hao
->
+operational experience around that.
+
+    >> Do you intend to sometimes bind the token to the specific user
+    >> (service team, I think).
+
+    > Yes, the basic premise is: the token is (a) created by the service
+    > agent (person) to (b) do something specific on the BMC while using the
+    > BMC's service account.
+
+Good.
 
 
---=20
-Hao
-
---00000000000046a21805f8fddb6f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">We have upstreamed the s=
-upport for libnvme-mi=C2=A0in the opensource=C2=A0nvme-cli tool.=C2=A0<a hr=
-ef=3D"https://github.com/linux-nvme/nvme-cli">https://github.com/linux-nvme=
-/nvme-cli</a><br><br>The cli tool has only nvme admin command set support, =
-since it is co-used for inband and oob.=C2=A0</div><div dir=3D"ltr"><br></d=
-iv><div>For the MI cmd set, we have a really simple demo tool, but it doesn=
-&#39;t have all MI CMD (it is a demo only :) )<br><a href=3D"https://github=
-.com/linux-nvme/libnvme/blob/master/examples/mi-mctp.c">https://github.com/=
-linux-nvme/libnvme/blob/master/examples/mi-mctp.c</a><br></div></div></div>=
-<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat=
-, Apr 8, 2023 at 2:42=E2=80=AFAM Lior Weintraub &lt;<a href=3D"mailto:liorw=
-@pliops.com">liorw@pliops.com</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex"><div class=3D"msg-3247337819342318172">
+=2D-=20
+Michael Richardson <mcr+IETF@sandelman.ca>   . o O ( IPv6 I=C3=B8T consulti=
+ng )
+           Sandelman Software Works Inc, Ottawa and Worldwide
 
 
 
 
 
-<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
-<div class=3D"m_-3247337819342318172WordSection1">
-<p class=3D"MsoNormal">Thanks Hao,<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">Do you know if there is a t=
-ool (e.g. ipmitool) that can be used to generate a basic NVMe MI command?<u=
-></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">For example, the NVMe MI Re=
-vision 1.1 spec defines a &quot;Management Interface Command Set&quot; that=
- can be used to:<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">Opcode =C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Command<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">00h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Read NVMe-MI Data Structure<u></u><u><=
-/u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">01h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVM Subsystem Health Status Poll<u></u=
-><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">02h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Controller Health Status Poll<u></u><u=
-></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">03h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Configuration Set<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">04h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Configuration Get<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">05h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 VPD Read<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">06h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 VPD Write<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">07h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Reset<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">08h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 SES Receive<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">09h =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 SES Send<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">0Ah =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Management Endpoint Buffer Read<u></u>=
-<u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">0Bh =C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Management Endpoint Buffer Write<u></u=
-><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">0Ch to BFh =C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Reserved<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">C0h to FFh =C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Vendor specific<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">If we had a tool that can s=
-end such a command it would help with the development of this feature.<u></=
-u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">The idea is to start with s=
-ome manually triggered commands.<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText"><u></u>=C2=A0<u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">Thanks,<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172MsoPlainText">Lior.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
-top:1pt solid rgb(225,225,225);padding:3pt 0cm 0cm">
-<p class=3D"MsoNormal"><b>From:</b> Hao Jiang &lt;<a href=3D"mailto:jiangha=
-o@google.com" target=3D"_blank">jianghao@google.com</a>&gt; <br>
-<b>Sent:</b> Friday, April 7, 2023 8:40 PM<br>
-<b>To:</b> Lior Weintraub &lt;<a href=3D"mailto:liorw@pliops.com" target=3D=
-"_blank">liorw@pliops.com</a>&gt;<br>
-<b>Cc:</b> Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au" target=3D"=
-_blank">andrew@aj.id.au</a>&gt;; Ed Tanous &lt;<a href=3D"mailto:ed@tanous.=
-net" target=3D"_blank">ed@tanous.net</a>&gt;; <a href=3D"mailto:openbmc@lis=
-ts.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a>; <a href=3D"m=
-ailto:rashmica@linux.ibm.com" target=3D"_blank">rashmica@linux.ibm.com</a><=
-br>
-<b>Subject:</b> Re: OpenBMC - Support NVMe drive health monitoring<u></u><u=
-></u></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div style=3D"border:1pt solid rgb(156,101,0);padding:2pt">
-<div>
-<p class=3D"MsoNormal" style=3D"background:rgb(255,235,156)"><span style=3D=
-"font-size:10pt;color:rgb(156,101,0)">CAUTION:</span><span style=3D"font-si=
-ze:10pt;color:red"> External Sender</span><u></u><u></u></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12pt">Hi Lior and Andrew,=C2=
-=A0<br>
-<br>
-The goal of enhancing nvmesensor=C2=A0with nvme-mi is to fulfill the full s=
-tack management of NVMe devices, including health monitoring but beyond. An=
- example could be SSD firmware update and security=C2=A0protocol transporta=
-tion.=C2=A0<br>
-<br>
-The MCTP support has improved compared to two years ago. The MCTP I2C bindi=
-ng has been upstreamed to linux kernel and there is an mctp daemon for open=
-bmc for the MCTP management.=C2=A0<br>
-<br>
-<u></u><u></u></p>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">On Fri, Apr 7, 2023 at 5:35=E2=80=AFAM Lior Weintrau=
-b &lt;<a href=3D"mailto:liorw@pliops.com" target=3D"_blank">liorw@pliops.co=
-m</a>&gt; wrote:<u></u><u></u></p>
-</div>
-<blockquote style=3D"border-top:none;border-right:none;border-bottom:none;b=
-order-left:1pt solid rgb(204,204,204);padding:0cm 0cm 0cm 6pt;margin-left:4=
-.8pt;margin-right:0cm">
-<div>
-<div>
-<div>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Thanks =
-Andrew,<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I wish =
-I had the experience to help with the review process
-<span style=3D"font-family:&quot;Segoe UI Emoji&quot;,sans-serif">=F0=9F=98=
-=8A</span><u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I have =
-more than 2 decades experience with bare metal embedded systems but no expe=
-rience with Embedded Linux\Yocto nor OpenBMC (nor Gerrit).<u></u><u></u></p=
->
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">It&#39;=
-s all new to me and came to realize that many guides \ documentations I fin=
-d on the web are old and doesn&#39;t work anymore on OpenBMC (e.g. using th=
-e oe-init-build-env vs setup script).<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I am ha=
-ppy to assist and contribute but I need some guidance.<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I have =
-only 2 weeks experience with OpenBMC.<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I have =
-succeeded to build few platforms and run them (e.g. qemuarm and RaspberryPi=
-4).<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">I watch=
-ed many youtube videos on OpenBMC which gave me a good overall understandin=
-g but when it comes to start coding or adding new stuff I am lost.<u></u><u=
-></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">If we s=
-tart our development with NVMe-MI basic management command as a starting po=
-int, what steps would you recommend we need to take?<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Can we =
-use the PaspberryPi4 for this initial implementation?<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">We have=
- a basic OpenBMC image on this RaspPi and we have it&#39;s I2C connected to=
- our PCIe card (which is using a Desktop as the host PC).<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">(BTW, t=
-he i2c-dev module is not loaded automatically and we still haven&#39;t figu=
-red out why. As a workaround, we load the module manually with modprobe i2c=
--dev on the OpenBMC UART terminal)<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Thanks,=
-<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Lior.<u=
-></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">-----Or=
-iginal Message-----<br>
-From: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au" target=3D"_blan=
-k">andrew@aj.id.au</a>&gt;
-<br>
-Sent: Friday, April 7, 2023 2:46 PM<br>
-To: Lior Weintraub &lt;<a href=3D"mailto:liorw@pliops.com" target=3D"_blank=
-">liorw@pliops.com</a>&gt;<br>
-Cc: Ed Tanous &lt;<a href=3D"mailto:ed@tanous.net" target=3D"_blank">ed@tan=
-ous.net</a>&gt;;
-<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists=
-.ozlabs.org</a>;
-<a href=3D"mailto:rashmica@linux.ibm.com" target=3D"_blank">rashmica@linux.=
-ibm.com</a>;
-<a href=3D"mailto:jianghao@google.com" target=3D"_blank">jianghao@google.co=
-m</a><br>
-Subject: Re: OpenBMC - Support NVMe drive health monitoring<u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">=C2=A0<=
-u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">CAUTION=
-: External Sender<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">On Fri,=
- 7 Apr 2023, at 19:50, Lior Weintraub wrote:<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; Hi=
- Jet,<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>&gt;=C2=A0</span><u></u><u></=
-u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; My=
- name is Lior Weintraub and I face exactly the same task that you
-<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; ha=
-ndled 2 years ago <span style=3D"font-family:&quot;Segoe UI Emoji&quot;,san=
-s-serif">
-=F0=9F=98=8A</span><u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; I =
-found this mailing list thread on OpenBmc:<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; <a=
- href=3D"https://lists.ozlabs.org/pipermail/openbmc/2020-November/024012.ht=
-ml" target=3D"_blank">
-<span style=3D"color:windowtext;text-decoration:none">https://lists.ozlabs.=
-org/pipermail/openbmc/2020-November/024012.html</span></a><u></u><u></u></p=
->
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>&gt;=C2=A0</span><u></u><u></=
-u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; Ca=
-n you please advice about the current status of this issue?<u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; I =
-need to add OOB support to our NVMe device (supporting NVMe MI -&gt;
-<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; MC=
-TP with SMBus binding).<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; Fo=
-r this task we plan to buy the AST2600 development
-<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; ki=
-t&lt;<a href=3D"https://portwell.com/solutions/openBMC.php" target=3D"_blan=
-k"><span style=3D"color:windowtext;text-decoration:none">https://portwell.c=
-om/solutions/openBMC.php</span></a>&gt; and use the OpenBMC
-<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">&gt; fo=
-r our development and testing.<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Current=
-ly OpenBMC only supports NVMe-MI via the basic management command. See phos=
-phor-nvme or nvmesensor from dbus-sensors. We&#39;re working on migrating t=
-he OpenBMC MCTP stack to the AF_MCTP sockets that are now provided
- by Linux.<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Please =
-help review and test Rashmica&#39;s work in Gerrit to speed that process al=
-ong:<u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><a href=
-=3D"https://gerrit.openbmc.org/q/topic:AF_MCTP" target=3D"_blank"><span sty=
-le=3D"color:windowtext;text-decoration:none">https://gerrit.openbmc.org/q/t=
-opic:AF_MCTP</span></a><u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Along w=
-ith Hao Jiang&#39;s work to exploit libnvme-mi in nvmesensor:<u></u><u></u>=
-</p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><a href=
-=3D"https://gerrit.openbmc.org/q/topic:nvme-mi" target=3D"_blank"><span sty=
-le=3D"color:windowtext;text-decoration:none">https://gerrit.openbmc.org/q/t=
-opic:nvme-mi</span></a><u></u><u></u></p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext"><span d=
-ir=3D"RTL"></span><span dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" st=
-yle=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif"><spa=
-n dir=3D"RTL"></span><span dir=3D"RTL"></span>=C2=A0</span><u></u><u></u></=
-p>
-<p class=3D"m_-3247337819342318172m6552336304203016699msoplaintext">Andrew<=
-u></u><u></u></p>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"MsoNormal"><br clear=3D"all">
-<u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<p class=3D"MsoNormal"><span class=3D"m_-3247337819342318172gmailsignaturep=
-refix">-- </span><u></u><u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hao<u></u><u></u></p>
-</div>
-</div>
-</div>
-</div>
-</div>
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
 
-</div></blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gm=
-ail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signatu=
-re"><div dir=3D"ltr">Hao</div></div>
+-----BEGIN PGP SIGNATURE-----
 
---00000000000046a21805f8fddb6f--
+iQFKBAEBCgA0FiEEbsyLEzg/qUTA43uogItw+93Q3WUFAmQwU8gWHG1jcitpZXRm
+QHNhbmRlbG1hbi5jYQAKCRCAi3D73dDdZW/xCACWDPUc4/4fE77tmeOcZ+z4ClX7
+nIbCTtVlLWa1yunaaRQx0jLX4ne0ny27e72LcdsJQDsljgZZNWruHwZouxGaoaNH
+jiNm+n2C1wkZ7mrGJa8yx17yrATR+aSzVlMPa16x7aPi7RZGVmaLsEfGv6X2rDhL
+HZwoPdIA/xjadlzXONK0YA4bDwJPoAjkSp+TTxyV6es9In85rUx2xlQowgn2JP1E
+NDJEAerTviEMKXpYoG9Rif43M+MbSKAkPObTSJDcU/edmd35kW5tb8SQGFVRrVBj
+uW2BJY8Pfvxmru0k2cdOd8/r1PmFrKhJaADpIGMdGJn/zXr+9t9JnVWJt3mZ
+=yiog
+-----END PGP SIGNATURE-----
+--=-=-=--
