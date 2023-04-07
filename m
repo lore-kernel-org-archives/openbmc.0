@@ -4,122 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 845CFC77B61
-	for <openbmc@archiver.kernel.org>; Fri,  7 Apr 2023 12:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6258DC6FD1D
+	for <openbmc@archiver.kernel.org>; Fri,  7 Apr 2023 17:41:19 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PtHtD3wxVz3fKh
-	for <openbmc@archiver.kernel.org>; Fri,  7 Apr 2023 22:36:36 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PtQdn3skXz3fV9
+	for <openbmc@archiver.kernel.org>; Sat,  8 Apr 2023 03:41:17 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=pliops.onmicrosoft.com header.i=@pliops.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-pliops-onmicrosoft-com header.b=b9bAZtec;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=Cv8nQJCW;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pliops.com (client-ip=2a01:111:f400:7e1b::605; helo=eur05-am6-obe.outbound.protection.outlook.com; envelope-from=liorw@pliops.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::82e; helo=mail-qt1-x82e.google.com; envelope-from=jianghao@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=pliops.onmicrosoft.com header.i=@pliops.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-pliops-onmicrosoft-com header.b=b9bAZtec;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=Cv8nQJCW;
 	dkim-atps=neutral
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com (mail-am6eur05on20605.outbound.protection.outlook.com [IPv6:2a01:111:f400:7e1b::605])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com [IPv6:2607:f8b0:4864:20::82e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PtHs70zjgz3chk
-	for <openbmc@lists.ozlabs.org>; Fri,  7 Apr 2023 22:35:37 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Wu9vCp88k3Kx8cZk/3QqsjELinGdodQZZkK3R+VlIrWre+b0fFm2HzPdYUG+T1QmccZ9X0dxDMuucCGrwTq2QwAbRzEO6Gku4AG/INamgaWxvJMvreDQ4/s/UwFOyvLY7/+nOV4/Jw73lf25vRgiVtbf1GdwRWHvAQX9SdXsQEvS8Tavdb+1HMDTG4oy+YthP4sV9gLf7ijWKKVfzD8/9s5vguVhQh6rMC+ypo+V9Mw9dyEUDHd8GsLjgv6SyoK1Jv26Xl17Sch++D+szvHt7PSh5tXTfX6SBWTF0tYVp0D4xkBeTqW3GGCctPPb+EXczrTmifkkR/+j2BY+ozcGAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WBoIMsfin67APOaoW+/zHxiK4uFI/ILbbkdwYqg4+3o=;
- b=Ve/pkpgZyFwgRGQFv/h3VR4aiLH0saWaE0rdJCjUwYxg3KP2p3iS78uWawDAzw2Ak/NqaS6XrpLJLqaADcer6G2l4h3VTJjoG4ur8m4DriFnPyKaidxh8fj9Wu21KJIv0hn0/UpJGQ267N2mhE7BUlHXvlMTyWOjxpM/sNyVE6ysDOmilT0ZM/siQGTS6OatAeH+t9zTJ4zxSjgRFZupdVxy/rEG6++a14ILKz6+qpmE7DSV4oPJKA7Oz07CHa0xSVIou4x1OaxkQql7/fxZM0glvsDwb0pj/nYzRfpNIQYqSl8Z33klRFYWTJ6nNsrWHWPn1B/fl+Blgbo0L9IzeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=pliops.com; dmarc=pass action=none header.from=pliops.com;
- dkim=pass header.d=pliops.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PtQcj0P50z3fSf
+	for <openbmc@lists.ozlabs.org>; Sat,  8 Apr 2023 03:40:19 +1000 (AEST)
+Received: by mail-qt1-x82e.google.com with SMTP id a5so41219078qto.6
+        for <openbmc@lists.ozlabs.org>; Fri, 07 Apr 2023 10:40:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=pliops.onmicrosoft.com; s=selector2-pliops-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WBoIMsfin67APOaoW+/zHxiK4uFI/ILbbkdwYqg4+3o=;
- b=b9bAZtect2uM4b9KfwuoOqNiss9UMorJCBynduDnhHnNKwfIDc3eOHm32nWrV57RbsO2nE/ycfgtEFtoU8EFG8XIU4+U8dif5tKEroj68ta7PRjtyqyGlAn8fXRazkwJnvPAYvjEzNFN8sbUtN0QdoHl/WFFG9KWj9qivbM5ftQ=
-Received: from PR3P195MB0555.EURP195.PROD.OUTLOOK.COM (2603:10a6:102:30::14)
- by DB9P195MB1778.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:39a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.34; Fri, 7 Apr
- 2023 12:35:15 +0000
-Received: from PR3P195MB0555.EURP195.PROD.OUTLOOK.COM
- ([fe80::2376:d467:719a:c91c]) by PR3P195MB0555.EURP195.PROD.OUTLOOK.COM
- ([fe80::2376:d467:719a:c91c%9]) with mapi id 15.20.6277.033; Fri, 7 Apr 2023
- 12:35:15 +0000
-From: Lior Weintraub <liorw@pliops.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Subject: RE: OpenBMC - Support NVMe drive health monitoring
-Thread-Topic: OpenBMC - Support NVMe drive health monitoring
-Thread-Index: AdlpOoX4AoF60PwUTHKE9qP9mDhHLAAC/7IAAAAq+AA=
-Date: Fri, 7 Apr 2023 12:35:15 +0000
-Message-ID:  <PR3P195MB0555D8C52C5F2EBE2FA1E299C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
-References:  <PR3P195MB055546905D984A24BEB9D474C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
- <c9adff03-16f4-40d4-8334-6cdbbdea2407@betaapp.fastmail.com>
-In-Reply-To: <c9adff03-16f4-40d4-8334-6cdbbdea2407@betaapp.fastmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=pliops.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PR3P195MB0555:EE_|DB9P195MB1778:EE_
-x-ms-office365-filtering-correlation-id: 57e6d3f6-371f-4508-7196-08db37648a19
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:  uTnCZbxfojZ1S/IonfSXJI6k/i3ZAEanNy2OcwWwCbwu7aRLAcu/UeVrCO6WfJWFA/XPuVzcIRJXI16teHb9UICREk/Az9Zojnlz68Xb5Vn+5pxmPgu9KKPRw0B5ZSmu5reaaDuyIKKz9BLr85sfKXnuAz4ceTNU1nVZq3X4VIFaY289f1z8/3oQelnVynkGJhXWgf0LUr1FF982kGIPzD7h4OV5RWgpm6nKQQg7HBKoZl0meR3JxZhDPFd3QC41DM4qo5L7TG9QtQwxIFiJsyPlC8hSJGdx6aa8gDd5K3fDUprSnalMz/akFChbIax/LPooRZAK99cF/hz4udE7PWkEZu6TUWyi6FGjTReAU78n9V5ue8P/ZS+EO3meFdlganM34KX/HmyYGdUZZEA1/y5aIItplC7wn1xtOWgmssFuFmAymRP/csvihUmf1R9FCOKW0+mPudlNAgCm1VC+6As+7gYbehY+f13cMNAZw653p/W8fxdPUIuBhDfBR2+9+g+q572BSRhVaWkTvlV277/hOOlyMHiHGjMYSWIgmlTe93n7RgpC8y3zBaPQaFa1pUHqtDQ4py3pG2LZ6W6B6VhQUOMzD8GpHn7BotqsUg8=
-x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3P195MB0555.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(39840400004)(396003)(346002)(376002)(136003)(366004)(451199021)(86362001)(16799955002)(33656002)(316002)(41300700001)(76116006)(66556008)(66476007)(66446008)(64756008)(8676002)(66946007)(6916009)(4326008)(966005)(7696005)(54906003)(478600001)(71200400001)(55016003)(5660300002)(52536014)(8936002)(2906002)(21615005)(38070700005)(166002)(38100700002)(122000001)(186003)(53546011)(6506007)(9686003)(26005)(83380400001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:  =?utf-8?B?a1dZQjFuRjR1NjcwLzhuaVhCbFZQZjloVGdMMG9wMXlJRHNVcDQwY3ljMHZX?=
- =?utf-8?B?ZkhRY1NXdzA2UG5tcCttYjVJd0owMi9nSFBzT21hazdSTzVjeHIyNXI2RWM1?=
- =?utf-8?B?dUI3bGxkaW9CQ1hXR2tHdHRFRkIwYmdsUGlrOVpONXNldXhFQWhvbytiMkVl?=
- =?utf-8?B?MlVnOW5ZTytoa0d5TjNJaGFBS2hTMDhhWlIzZFZjYURqNjMxcUxEMThRTy9Z?=
- =?utf-8?B?TTFMbUhxN3BpbFFxaHlZTU1PYnQ4cWdPcEk0RWRVa0JwbDVDd3Q3OWJjd2xM?=
- =?utf-8?B?L0VRWklLNTJVeVl6RGVXMityMXdUR3NpaHJCWGI5NmtJSVQ2WnBtWVFYMk5L?=
- =?utf-8?B?dUxWQzZsbmtFalZQa0oxTXYwSlU2V2o3WERmc2ZxRnpOeVZBVnlhYmM4Ulp1?=
- =?utf-8?B?YnMrdU02RTZwZGNveUo0OTRlemZPTlRQZUNTTEp1MFkzT2ptUDhQYTZkNmo2?=
- =?utf-8?B?bDNuSEsrR3BrVDFnNHZFT1FMRDR5ODdVZHZocVZSd1hIMm14VnlOd0ZSdHRK?=
- =?utf-8?B?TzgyV3ZLZTYzanhXcDgwTTZ6QTBwVkhkWDBzdUJQQytyTkE3R04vbWd0ajVG?=
- =?utf-8?B?NkR4UWZYWU9mcW5xUXh5V0xaS2l1K1lsWHFkM0J5WkNLY29rWUtELzNVclNt?=
- =?utf-8?B?bmw3dzJiQzJTdmdSSlpUUU5aTm9GVjdiWE1kcnBrU1JrS2c5dFpKRTR5ZkJL?=
- =?utf-8?B?bThPTDFGbzFPdmppWU82MG44QUxuL1cva20ycjZtdi91L1lwT25wa0ZRMndE?=
- =?utf-8?B?OWNpamxGSm1mREJkNGxOQVExSDZrVUVXcGExcHVKV1lETzg1Qm00NHN6MEVO?=
- =?utf-8?B?S2c2eVlISWdvdW9NUWRUQ1dlaUZPdDdRSi95cFcwR1FvU25VSERWOFhTZU1m?=
- =?utf-8?B?dU83YlBkVDFkQlVrVXVldGtrSXpOamdCaXZVQXNQMkZwODl4aXNwVURlcStS?=
- =?utf-8?B?dGNMcnA4U2ZCMENOS3FnYVE3aExVQi9sVHJWcDd5WE1tM0lNL3ZmR1lBbGJG?=
- =?utf-8?B?VlNUek1XUVpJWFRTZ01PMXlEa2xRalBVUkVVNVJ6RWp4WEIvTTBTK3J0OE1Q?=
- =?utf-8?B?eUt3MUI4SmQrRnA4eWQrS0o5TkpyTW94Rmd4aFp6UkI0WWhwcks0M3c4VmFQ?=
- =?utf-8?B?TFVHN09ObXppWHRiVmxVYlhheW9RMVBPMTFEVjg5YllpajlycWpON0ptZGpm?=
- =?utf-8?B?QzVqOXlCSy9TRlQyRzZKdSswT1lPSmptQmRJc2wvNlBvTVVKSnBCZnI4TnhW?=
- =?utf-8?B?VkdJWEtJV2NOamZQY2NDaGdSSGYwNktvNjZPK3luZ1dZZGQ3K3hpTk0zM21K?=
- =?utf-8?B?Q0hYaVgzcE9qa0lwaFI4M0JDamhoR3B6Z3hubjBIenRlbW9TdTRTeWFCenNR?=
- =?utf-8?B?VjJGQkNtSC95bXozVDNBNTlLdHBnTThMZS8wbjZCa0Nsdk1hTFR2NGdGT2ta?=
- =?utf-8?B?STJ6ZlNZdmVtZ2UrZnloQ2NzQjRWOGlab1RYTzF0T1hCRnBINFJpQzF4UHQz?=
- =?utf-8?B?MGJWZ3V4Tlo2YmE5Z3ZidVhSdDlUQ0tBVTlTaUYvanJDMXk4VlAzUDAwUTVn?=
- =?utf-8?B?SFBDT0drdHQrOS9jUHdCWXBGczI1L1B2am9SeDZvV3locnBXVU85dytndDU2?=
- =?utf-8?B?YU9BZDdGZEdRMitlUDRZalhkaHBpcFVGNCtiRGdvVTRlQXR1THFJSk5zYnVF?=
- =?utf-8?B?dEpObVFiS0JybFdJSXNMaCtYdHliaTh3cC9zbGhaMkxiYnBaRVZ4UHdVaHBZ?=
- =?utf-8?B?RHc5QklURVpuN2dSZ242WG85VW8xN1VtTzllLzArZ20wd3NFZ0VtUytwSkpa?=
- =?utf-8?B?VHZZVHo5U2JUSk1vS2Joa1R5WEtLMElPMDVLMjlnRmpPM3BhWW5tRVZPMUl6?=
- =?utf-8?B?aDByVjNpNTF3b2RrTGlsMHZvYXNoaHZKTFptTXVLSmZidkhMVTZpVGExQ2g3?=
- =?utf-8?B?TytMMGtRS2o3TTNWNkMzSFdnZUhlWmYvTlpHQkk1OVFwc2JkNmVqci9GR1lm?=
- =?utf-8?B?dGFuV016eHErRHpoUWJPUFhLeGcxZ3dqVWRCVWVBYnJXK1JiSmxOdW9qS1VU?=
- =?utf-8?B?T0pCRjdTelM4eEE3TEdBNlNNQWZ0eUduNlltYUR6SDJ4a1ptK1kraXh2VHpL?=
- =?utf-8?Q?JxDk=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_PR3P195MB0555D8C52C5F2EBE2FA1E299C3969PR3P195MB0555EURP_"
+        d=google.com; s=20210112; t=1680889216; x=1683481216;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=drVBEvtoZWxaeGeLMby0d9/3fk94/usYdozgfgJWxOI=;
+        b=Cv8nQJCW1RBznBARGOklJph+f2oZ3OgDnYcmvIW1hOKlcdqmvwrbULcvzMFcXIVWu8
+         jbvqYH/xR8pB48IlK8syw/8U8niK98HhjjtShdyF1cq79OHpUZ/qRQEDAfJNobwmtqNp
+         lTQIRVDEbr7vjRcJuLwpVc/FMZ0PAFDGUMUNxEcpYN1kttPBbeNJ+p6pH/QftfG+anrz
+         LCJLZt/wx570NnUpQmkMnMWSEATlxq2aoH/tHuNWRpoXfBQKXISOYGMpmM+jBeD3h1sn
+         POHX3EGQTmnmG9B0K47Y0BD4lucyKVCSnBeHajWKb/LNnzm2SnbZQV7A1yWJh93LB0BY
+         VEaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680889216; x=1683481216;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=drVBEvtoZWxaeGeLMby0d9/3fk94/usYdozgfgJWxOI=;
+        b=DspHLorLhqtFh93hxPmmC4uQz3WwiIox5pLggsACEhTNKkqU9FCzSGxOy6WXf0cMgc
+         9yUWOBRK6SGCcK56TymEPH5qOwodsgO49YeaH5QBWsrzoil8qFr1Sy2exMpqJFqoYIGW
+         A1FHrVFg0AzPBJGybP1o5bu741gAPVzakRImRx+IM/zyhMhym9e4TtwYaUCvqvGor2Eg
+         UlzyJgmgMc8NG8sDHR89g+Zv9vQL54tHFUWzWORvNBoduJ5x9HJL18p+3X6vU3w2wTO8
+         KvSYA+sVPa2u33/9EhtpUe6MSoZLOJrYuCy0U7WhIaEu1cSa/nE0iSwfQOl1CrhbzAaz
+         5VWA==
+X-Gm-Message-State: AAQBX9fePmVM+yP3mahHrnjUsSZYkB3/bhZ+eXQlEMm3HZ6Cq2xOi8A6
+	BFhBYwV10hvGQqFdKnopBgVPl64xbLKmD6Fgszq0ew==
+X-Google-Smtp-Source: AKy350Yy/OlpkkKV+eugEg+cxw+VJPw0kiGelc5eggd/svIPOgAS7OdJ/FbKmGuokxnGGp2B/mTui3DEiwjB9RKd+o4=
+X-Received: by 2002:a05:622a:d1:b0:3e3:8ed5:a47a with SMTP id
+ p17-20020a05622a00d100b003e38ed5a47amr1025286qtw.9.1680889216042; Fri, 07 Apr
+ 2023 10:40:16 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: pliops.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PR3P195MB0555.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57e6d3f6-371f-4508-7196-08db37648a19
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2023 12:35:15.6135
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 40fe8f47-55ac-403a-a5ab-1be3dd209cf8
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BIpbhiYhXr4L7SKDBmbD2Aj00EOzRpdwTnvJCbvKXSbr1UE3xKAvbFrTBjI+3nHzfYNCIdxaAkPoCYfjRt7jbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1778
+References: <PR3P195MB055546905D984A24BEB9D474C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
+ <c9adff03-16f4-40d4-8334-6cdbbdea2407@betaapp.fastmail.com> <PR3P195MB0555D8C52C5F2EBE2FA1E299C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
+In-Reply-To: <PR3P195MB0555D8C52C5F2EBE2FA1E299C3969@PR3P195MB0555.EURP195.PROD.OUTLOOK.COM>
+From: Hao Jiang <jianghao@google.com>
+Date: Fri, 7 Apr 2023 10:40:04 -0700
+Message-ID: <CAB38=p21yk1O8eQvq9Rtq4TuKpoJeU7Zy189KJRmGCcQ0NqyQw@mail.gmail.com>
+Subject: Re: OpenBMC - Support NVMe drive health monitoring
+To: Lior Weintraub <liorw@pliops.com>
+Content-Type: multipart/alternative; boundary="000000000000a1730e05f8c284af"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,217 +74,326 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "jianghao@google.com" <jianghao@google.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Ed Tanous <ed@tanous.net>, "rashmica@linux.ibm.com" <rashmica@linux.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Ed Tanous <ed@tanous.net>, "rashmica@linux.ibm.com" <rashmica@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_000_PR3P195MB0555D8C52C5F2EBE2FA1E299C3969PR3P195MB0555EURP_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--000000000000a1730e05f8c284af
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-VGhhbmtzIEFuZHJldywNCg0KDQoNCkkgd2lzaCBJIGhhZCB0aGUgZXhwZXJpZW5jZSB0byBoZWxw
-IHdpdGggdGhlIHJldmlldyBwcm9jZXNzIPCfmIoNCg0KSSBoYXZlIG1vcmUgdGhhbiAyIGRlY2Fk
-ZXMgZXhwZXJpZW5jZSB3aXRoIGJhcmUgbWV0YWwgZW1iZWRkZWQgc3lzdGVtcyBidXQgbm8gZXhw
-ZXJpZW5jZSB3aXRoIEVtYmVkZGVkIExpbnV4XFlvY3RvIG5vciBPcGVuQk1DIChub3IgR2Vycml0
-KS4NCg0KSXQncyBhbGwgbmV3IHRvIG1lIGFuZCBjYW1lIHRvIHJlYWxpemUgdGhhdCBtYW55IGd1
-aWRlcyBcIGRvY3VtZW50YXRpb25zIEkgZmluZCBvbiB0aGUgd2ViIGFyZSBvbGQgYW5kIGRvZXNu
-J3Qgd29yayBhbnltb3JlIG9uIE9wZW5CTUMgKGUuZy4gdXNpbmcgdGhlIG9lLWluaXQtYnVpbGQt
-ZW52IHZzIHNldHVwIHNjcmlwdCkuDQoNCg0KDQpJIGFtIGhhcHB5IHRvIGFzc2lzdCBhbmQgY29u
-dHJpYnV0ZSBidXQgSSBuZWVkIHNvbWUgZ3VpZGFuY2UuDQoNCkkgaGF2ZSBvbmx5IDIgd2Vla3Mg
-ZXhwZXJpZW5jZSB3aXRoIE9wZW5CTUMuDQoNCkkgaGF2ZSBzdWNjZWVkZWQgdG8gYnVpbGQgZmV3
-IHBsYXRmb3JtcyBhbmQgcnVuIHRoZW0gKGUuZy4gcWVtdWFybSBhbmQgUmFzcGJlcnJ5UGk0KS4N
-Cg0KSSB3YXRjaGVkIG1hbnkgeW91dHViZSB2aWRlb3Mgb24gT3BlbkJNQyB3aGljaCBnYXZlIG1l
-IGEgZ29vZCBvdmVyYWxsIHVuZGVyc3RhbmRpbmcgYnV0IHdoZW4gaXQgY29tZXMgdG8gc3RhcnQg
-Y29kaW5nIG9yIGFkZGluZyBuZXcgc3R1ZmYgSSBhbSBsb3N0Lg0KDQoNCg0KSWYgd2Ugc3RhcnQg
-b3VyIGRldmVsb3BtZW50IHdpdGggTlZNZS1NSSBiYXNpYyBtYW5hZ2VtZW50IGNvbW1hbmQgYXMg
-YSBzdGFydGluZyBwb2ludCwgd2hhdCBzdGVwcyB3b3VsZCB5b3UgcmVjb21tZW5kIHdlIG5lZWQg
-dG8gdGFrZT8NCg0KQ2FuIHdlIHVzZSB0aGUgUGFzcGJlcnJ5UGk0IGZvciB0aGlzIGluaXRpYWwg
-aW1wbGVtZW50YXRpb24/DQoNCldlIGhhdmUgYSBiYXNpYyBPcGVuQk1DIGltYWdlIG9uIHRoaXMg
-UmFzcFBpIGFuZCB3ZSBoYXZlIGl0J3MgSTJDIGNvbm5lY3RlZCB0byBvdXIgUENJZSBjYXJkICh3
-aGljaCBpcyB1c2luZyBhIERlc2t0b3AgYXMgdGhlIGhvc3QgUEMpLg0KDQooQlRXLCB0aGUgaTJj
-LWRldiBtb2R1bGUgaXMgbm90IGxvYWRlZCBhdXRvbWF0aWNhbGx5IGFuZCB3ZSBzdGlsbCBoYXZl
-bid0IGZpZ3VyZWQgb3V0IHdoeS4gQXMgYSB3b3JrYXJvdW5kLCB3ZSBsb2FkIHRoZSBtb2R1bGUg
-bWFudWFsbHkgd2l0aCBtb2Rwcm9iZSBpMmMtZGV2IG9uIHRoZSBPcGVuQk1DIFVBUlQgdGVybWlu
-YWwpDQoNCg0KDQpUaGFua3MsDQoNCkxpb3IuDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KRnJvbTogQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4NClNlbnQ6IEZyaWRh
-eSwgQXByaWwgNywgMjAyMyAyOjQ2IFBNDQpUbzogTGlvciBXZWludHJhdWIgPGxpb3J3QHBsaW9w
-cy5jb20+DQpDYzogRWQgVGFub3VzIDxlZEB0YW5vdXMubmV0Pjsgb3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnOyByYXNobWljYUBsaW51eC5pYm0uY29tOyBqaWFuZ2hhb0Bnb29nbGUuY29tDQpTdWJq
-ZWN0OiBSZTogT3BlbkJNQyAtIFN1cHBvcnQgTlZNZSBkcml2ZSBoZWFsdGggbW9uaXRvcmluZw0K
-DQoNCg0KQ0FVVElPTjogRXh0ZXJuYWwgU2VuZGVyDQoNCg0KDQpPbiBGcmksIDcgQXByIDIwMjMs
-IGF0IDE5OjUwLCBMaW9yIFdlaW50cmF1YiB3cm90ZToNCg0KPiBIaSBKZXQsDQoNCj4NCg0KPiBN
-eSBuYW1lIGlzIExpb3IgV2VpbnRyYXViIGFuZCBJIGZhY2UgZXhhY3RseSB0aGUgc2FtZSB0YXNr
-IHRoYXQgeW91DQoNCj4gaGFuZGxlZCAyIHllYXJzIGFnbyDwn5iKDQoNCj4gSSBmb3VuZCB0aGlz
-IG1haWxpbmcgbGlzdCB0aHJlYWQgb24gT3BlbkJtYzoNCg0KPiBodHRwczovL2xpc3RzLm96bGFi
-cy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAyMC1Ob3ZlbWJlci8wMjQwMTIuaHRtbA0KDQo+DQoN
-Cj4gQ2FuIHlvdSBwbGVhc2UgYWR2aWNlIGFib3V0IHRoZSBjdXJyZW50IHN0YXR1cyBvZiB0aGlz
-IGlzc3VlPw0KDQo+IEkgbmVlZCB0byBhZGQgT09CIHN1cHBvcnQgdG8gb3VyIE5WTWUgZGV2aWNl
-IChzdXBwb3J0aW5nIE5WTWUgTUkgLT4NCg0KPiBNQ1RQIHdpdGggU01CdXMgYmluZGluZykuDQoN
-Cj4gRm9yIHRoaXMgdGFzayB3ZSBwbGFuIHRvIGJ1eSB0aGUgQVNUMjYwMCBkZXZlbG9wbWVudA0K
-DQo+IGtpdDxodHRwczovL3BvcnR3ZWxsLmNvbS9zb2x1dGlvbnMvb3BlbkJNQy5waHA+IGFuZCB1
-c2UgdGhlIE9wZW5CTUMNCg0KPiBmb3Igb3VyIGRldmVsb3BtZW50IGFuZCB0ZXN0aW5nLg0KDQoN
-Cg0KQ3VycmVudGx5IE9wZW5CTUMgb25seSBzdXBwb3J0cyBOVk1lLU1JIHZpYSB0aGUgYmFzaWMg
-bWFuYWdlbWVudCBjb21tYW5kLiBTZWUgcGhvc3Bob3ItbnZtZSBvciBudm1lc2Vuc29yIGZyb20g
-ZGJ1cy1zZW5zb3JzLiBXZSdyZSB3b3JraW5nIG9uIG1pZ3JhdGluZyB0aGUgT3BlbkJNQyBNQ1RQ
-IHN0YWNrIHRvIHRoZSBBRl9NQ1RQIHNvY2tldHMgdGhhdCBhcmUgbm93IHByb3ZpZGVkIGJ5IExp
-bnV4Lg0KDQoNCg0KUGxlYXNlIGhlbHAgcmV2aWV3IGFuZCB0ZXN0IFJhc2htaWNhJ3Mgd29yayBp
-biBHZXJyaXQgdG8gc3BlZWQgdGhhdCBwcm9jZXNzIGFsb25nOg0KDQoNCg0KaHR0cHM6Ly9nZXJy
-aXQub3BlbmJtYy5vcmcvcS90b3BpYzpBRl9NQ1RQDQoNCg0KDQpBbG9uZyB3aXRoIEhhbyBKaWFu
-ZydzIHdvcmsgdG8gZXhwbG9pdCBsaWJudm1lLW1pIGluIG52bWVzZW5zb3I6DQoNCg0KDQpodHRw
-czovL2dlcnJpdC5vcGVuYm1jLm9yZy9xL3RvcGljOm52bWUtbWkNCg0KDQoNCkFuZHJldw0K
+Hi Lior and Andrew,
 
---_000_PR3P195MB0555D8C52C5F2EBE2FA1E299C3969PR3P195MB0555EURP_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+The goal of enhancing nvmesensor with nvme-mi is to fulfill the full stack
+management of NVMe devices, including health monitoring but beyond. An
+example could be SSD firmware update and security protocol transportation.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToiU2Vnb2UgVUkgRW1vamkiOw0KCXBhbm9z
-ZS0xOjIgMTEgNSAyIDQgMiA0IDIgMiAzO30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1z
-b1BsYWluVGV4dCwgbGkuTXNvUGxhaW5UZXh0LCBkaXYuTXNvUGxhaW5UZXh0DQoJe21zby1zdHls
-ZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiUGxhaW4gVGV4dCBDaGFyIjsNCgltYXJn
-aW46MGNtOw0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMt
-c2VyaWY7fQ0Kc3Bhbi5QbGFpblRleHRDaGFyDQoJe21zby1zdHlsZS1uYW1lOiJQbGFpbiBUZXh0
-IENoYXIiOw0KCW1zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiUGxhaW4g
-VGV4dCI7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJbXNvLWxpZ2F0dXJl
-czpub25lO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0K
-CWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCW1zby1saWdhdHVyZXM6c3RhbmRh
-cmRjb250ZXh0dWFsO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjYxMi4wcHQgNzkyLjBw
-dDsNCgltYXJnaW46NzIuMHB0IDkwLjBwdCA3Mi4wcHQgOTAuMHB0O30NCmRpdi5Xb3JkU2VjdGlv
-bjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+
-PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8
-L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0
-IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNo
-YXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMi
-IGxpbms9IiMwNTYzQzEiIHZsaW5rPSIjOTU0RjcyIiBzdHlsZT0id29yZC13cmFwOmJyZWFrLXdv
-cmQiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQi
-PlRoYW5rcyBBbmRyZXcsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48
-bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPkkgd2lzaCBJIGhh
-ZCB0aGUgZXhwZXJpZW5jZSB0byBoZWxwIHdpdGggdGhlIHJldmlldyBwcm9jZXNzDQo8c3BhbiBz
-dHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7U2Vnb2UgVUkgRW1vamkmcXVvdDssc2Fucy1zZXJpZiI+
-JiMxMjg1MjI7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
-SSBoYXZlIG1vcmUgdGhhbiAyIGRlY2FkZXMgZXhwZXJpZW5jZSB3aXRoIGJhcmUgbWV0YWwgZW1i
-ZWRkZWQgc3lzdGVtcyBidXQgbm8gZXhwZXJpZW5jZSB3aXRoIEVtYmVkZGVkIExpbnV4XFlvY3Rv
-IG5vciBPcGVuQk1DIChub3IgR2Vycml0KS48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Q
-bGFpblRleHQiPkl0J3MgYWxsIG5ldyB0byBtZSBhbmQgY2FtZSB0byByZWFsaXplIHRoYXQgbWFu
-eSBndWlkZXMgXCBkb2N1bWVudGF0aW9ucyBJIGZpbmQgb24gdGhlIHdlYiBhcmUgb2xkIGFuZCBk
-b2Vzbid0IHdvcmsgYW55bW9yZSBvbiBPcGVuQk1DIChlLmcuIHVzaW5nIHRoZSBvZS1pbml0LWJ1
-aWxkLWVudiB2cyBzZXR1cCBzY3JpcHQpLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
-YWluVGV4dCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5J
-IGFtIGhhcHB5IHRvIGFzc2lzdCBhbmQgY29udHJpYnV0ZSBidXQgSSBuZWVkIHNvbWUgZ3VpZGFu
-Y2UuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5JIGhhdmUgb25seSAy
-IHdlZWtzIGV4cGVyaWVuY2Ugd2l0aCBPcGVuQk1DLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9
-Ik1zb1BsYWluVGV4dCI+SSBoYXZlIHN1Y2NlZWRlZCB0byBidWlsZCBmZXcgcGxhdGZvcm1zIGFu
-ZCBydW4gdGhlbSAoZS5nLiBxZW11YXJtIGFuZCBSYXNwYmVycnlQaTQpLjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+SSB3YXRjaGVkIG1hbnkgeW91dHViZSB2aWRlb3Mg
-b24gT3BlbkJNQyB3aGljaCBnYXZlIG1lIGEgZ29vZCBvdmVyYWxsIHVuZGVyc3RhbmRpbmcgYnV0
-IHdoZW4gaXQgY29tZXMgdG8gc3RhcnQgY29kaW5nIG9yIGFkZGluZyBuZXcgc3R1ZmYgSSBhbSBs
-b3N0LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PG86cD4mbmJzcDs8
-L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5JZiB3ZSBzdGFydCBvdXIgZGV2ZWxv
-cG1lbnQgd2l0aCBOVk1lLU1JIGJhc2ljIG1hbmFnZW1lbnQgY29tbWFuZCBhcyBhIHN0YXJ0aW5n
-IHBvaW50LCB3aGF0IHN0ZXBzIHdvdWxkIHlvdSByZWNvbW1lbmQgd2UgbmVlZCB0byB0YWtlPzxv
-OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Q2FuIHdlIHVzZSB0aGUgUGFz
-cGJlcnJ5UGk0IGZvciB0aGlzIGluaXRpYWwgaW1wbGVtZW50YXRpb24/PG86cD48L286cD48L3A+
-DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5XZSBoYXZlIGEgYmFzaWMgT3BlbkJNQyBpbWFnZSBv
-biB0aGlzIFJhc3BQaSBhbmQgd2UgaGF2ZSBpdCdzIEkyQyBjb25uZWN0ZWQgdG8gb3VyIFBDSWUg
-Y2FyZCAod2hpY2ggaXMgdXNpbmcgYSBEZXNrdG9wIGFzIHRoZSBob3N0IFBDKS48bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPihCVFcsIHRoZSBpMmMtZGV2IG1vZHVsZSBp
-cyBub3QgbG9hZGVkIGF1dG9tYXRpY2FsbHkgYW5kIHdlIHN0aWxsIGhhdmVuJ3QgZmlndXJlZCBv
-dXQgd2h5LiBBcyBhIHdvcmthcm91bmQsIHdlIGxvYWQgdGhlIG1vZHVsZSBtYW51YWxseSB3aXRo
-IG1vZHByb2JlIGkyYy1kZXYgb24gdGhlIE9wZW5CTUMgVUFSVCB0ZXJtaW5hbCk8bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+VGhhbmtzLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+TGlvci48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+LS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS08YnI+DQpGcm9tOiBBbmRyZXcgSmVmZmVyeSAmbHQ7YW5kcmV3QGFq
-LmlkLmF1Jmd0OyA8YnI+DQpTZW50OiBGcmlkYXksIEFwcmlsIDcsIDIwMjMgMjo0NiBQTTxicj4N
-ClRvOiBMaW9yIFdlaW50cmF1YiAmbHQ7bGlvcndAcGxpb3BzLmNvbSZndDs8YnI+DQpDYzogRWQg
-VGFub3VzICZsdDtlZEB0YW5vdXMubmV0Jmd0Ozsgb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnOyBy
-YXNobWljYUBsaW51eC5pYm0uY29tOyBqaWFuZ2hhb0Bnb29nbGUuY29tPGJyPg0KU3ViamVjdDog
-UmU6IE9wZW5CTUMgLSBTdXBwb3J0IE5WTWUgZHJpdmUgaGVhbHRoIG1vbml0b3Jpbmc8L3A+DQo8
-cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29QbGFpblRleHQiPkNBVVRJT046IEV4dGVybmFsIFNlbmRlcjxvOnA+PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+PHNwYW4gbGFuZz0iSEUiIGRpcj0iUlRMIiBzdHlsZT0iZm9u
-dC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtUaW1lcyBOZXcgUm9tYW4mcXVvdDssc2Vy
-aWYiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQi
-Pk9uIEZyaSwgNyBBcHIgMjAyMywgYXQgMTk6NTAsIExpb3IgV2VpbnRyYXViIHdyb3RlOjxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBIaSBKZXQsPG86cD48L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBkaXI9IlJUTCI+PC9zcGFuPjxz
-cGFuIGRpcj0iUlRMIj48L3NwYW4+PHNwYW4gbGFuZz0iSEUiIGRpcj0iUlRMIiBzdHlsZT0iZm9u
-dC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtUaW1lcyBOZXcgUm9tYW4mcXVvdDssc2Vy
-aWYiPjxzcGFuIGRpcj0iUlRMIj48L3NwYW4+PHNwYW4gZGlyPSJSVEwiPjwvc3Bhbj4mZ3Q7PG86
-cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PHNwYW4g
-ZGlyPSJMVFIiPjwvc3Bhbj48c3BhbiBkaXI9IkxUUiI+PC9zcGFuPjxzcGFuIGRpcj0iTFRSIj48
-L3NwYW4+PHNwYW4gZGlyPSJMVFIiPjwvc3Bhbj4mZ3Q7IE15IG5hbWUgaXMgTGlvciBXZWludHJh
-dWIgYW5kIEkgZmFjZSBleGFjdGx5IHRoZSBzYW1lIHRhc2sgdGhhdCB5b3UNCjxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBoYW5kbGVkIDIgeWVhcnMgYWdvIDxz
-cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtTZWdvZSBVSSBFbW9qaSZxdW90OyxzYW5zLXNl
-cmlmIj4NCiYjMTI4NTIyOzwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
-blRleHQiPiZndDsgSSBmb3VuZCB0aGlzIG1haWxpbmcgbGlzdCB0aHJlYWQgb24gT3BlbkJtYzo8
-bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgPGEgaHJlZj0iaHR0
-cHM6Ly9saXN0cy5vemxhYnMub3JnL3BpcGVybWFpbC9vcGVuYm1jLzIwMjAtTm92ZW1iZXIvMDI0
-MDEyLmh0bWwiPg0KPHNwYW4gc3R5bGU9ImNvbG9yOndpbmRvd3RleHQ7dGV4dC1kZWNvcmF0aW9u
-Om5vbmUiPmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8yMDIwLU5v
-dmVtYmVyLzAyNDAxMi5odG1sPC9zcGFuPjwvYT48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29QbGFpblRleHQiPjxzcGFuIGRpcj0iUlRMIj48L3NwYW4+PHNwYW4gZGlyPSJSVEwiPjwvc3Bh
-bj48c3BhbiBsYW5nPSJIRSIgZGlyPSJSVEwiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O1RpbWVzIE5ldyBSb21hbiZxdW90OyxzZXJpZiI+PHNwYW4gZGlyPSJSVEwi
-Pjwvc3Bhbj48c3BhbiBkaXI9IlJUTCI+PC9zcGFuPiZndDs8bzpwPiZuYnNwOzwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBkaXI9IkxUUiI+PC9zcGFuPjxz
-cGFuIGRpcj0iTFRSIj48L3NwYW4+PHNwYW4gZGlyPSJMVFIiPjwvc3Bhbj48c3BhbiBkaXI9IkxU
-UiI+PC9zcGFuPiZndDsgQ2FuIHlvdSBwbGVhc2UgYWR2aWNlIGFib3V0IHRoZSBjdXJyZW50IHN0
-YXR1cyBvZiB0aGlzIGlzc3VlPzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+Jmd0OyBJIG5lZWQgdG8gYWRkIE9PQiBzdXBwb3J0IHRvIG91ciBOVk1lIGRldmljZSAoc3Vw
-cG9ydGluZyBOVk1lIE1JIC0mZ3Q7DQo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFp
-blRleHQiPiZndDsgTUNUUCB3aXRoIFNNQnVzIGJpbmRpbmcpLjxvOnA+PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBGb3IgdGhpcyB0YXNrIHdlIHBsYW4gdG8gYnV5IHRo
-ZSBBU1QyNjAwIGRldmVsb3BtZW50IDxvOnA+DQo8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxh
-aW5UZXh0Ij4mZ3Q7IGtpdCZsdDs8YSBocmVmPSJodHRwczovL3BvcnR3ZWxsLmNvbS9zb2x1dGlv
-bnMvb3BlbkJNQy5waHAiPjxzcGFuIHN0eWxlPSJjb2xvcjp3aW5kb3d0ZXh0O3RleHQtZGVjb3Jh
-dGlvbjpub25lIj5odHRwczovL3BvcnR3ZWxsLmNvbS9zb2x1dGlvbnMvb3BlbkJNQy5waHA8L3Nw
-YW4+PC9hPiZndDsgYW5kIHVzZSB0aGUgT3BlbkJNQw0KPG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IGZvciBvdXIgZGV2ZWxvcG1lbnQgYW5kIHRlc3RpbmcuPG86
-cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48c3BhbiBsYW5nPSJIRSIgZGly
-PSJSVEwiIHN0eWxlPSJmb250LXNpemU6MTAuNXB0O2ZvbnQtZmFtaWx5OiZxdW90O1RpbWVzIE5l
-dyBSb21hbiZxdW90OyxzZXJpZiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xh
-c3M9Ik1zb1BsYWluVGV4dCI+Q3VycmVudGx5IE9wZW5CTUMgb25seSBzdXBwb3J0cyBOVk1lLU1J
-IHZpYSB0aGUgYmFzaWMgbWFuYWdlbWVudCBjb21tYW5kLiBTZWUgcGhvc3Bob3ItbnZtZSBvciBu
-dm1lc2Vuc29yIGZyb20gZGJ1cy1zZW5zb3JzLiBXZSdyZSB3b3JraW5nIG9uIG1pZ3JhdGluZyB0
-aGUgT3BlbkJNQyBNQ1RQIHN0YWNrIHRvIHRoZSBBRl9NQ1RQIHNvY2tldHMgdGhhdCBhcmUgbm93
-IHByb3ZpZGVkIGJ5IExpbnV4LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+PHNwYW4gbGFuZz0iSEUiIGRpcj0iUlRMIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250
-LWZhbWlseTomcXVvdDtUaW1lcyBOZXcgUm9tYW4mcXVvdDssc2VyaWYiPjxvOnA+Jm5ic3A7PC9v
-OnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPlBsZWFzZSBoZWxwIHJldmll
-dyBhbmQgdGVzdCBSYXNobWljYSdzIHdvcmsgaW4gR2Vycml0IHRvIHNwZWVkIHRoYXQgcHJvY2Vz
-cyBhbG9uZzo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxh
-bmc9IkhFIiBkaXI9IlJUTCIgc3R5bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1
-b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7LHNlcmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
-L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij48YSBocmVmPSJodHRwczovL2dlcnJpdC5vcGVu
-Ym1jLm9yZy9xL3RvcGljOkFGX01DVFAiPjxzcGFuIHN0eWxlPSJjb2xvcjp3aW5kb3d0ZXh0O3Rl
-eHQtZGVjb3JhdGlvbjpub25lIj5odHRwczovL2dlcnJpdC5vcGVuYm1jLm9yZy9xL3RvcGljOkFG
-X01DVFA8L3NwYW4+PC9hPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
-PHNwYW4gbGFuZz0iSEUiIGRpcj0iUlRMIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZh
-bWlseTomcXVvdDtUaW1lcyBOZXcgUm9tYW4mcXVvdDssc2VyaWYiPjxvOnA+Jm5ic3A7PC9vOnA+
-PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPkFsb25nIHdpdGggSGFvIEppYW5n
-J3Mgd29yayB0byBleHBsb2l0IGxpYm52bWUtbWkgaW4gbnZtZXNlbnNvcjo8bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPjxzcGFuIGxhbmc9IkhFIiBkaXI9IlJUTCIgc3R5
-bGU9ImZvbnQtc2l6ZToxMC41cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1
-b3Q7LHNlcmlmIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvUGxh
-aW5UZXh0Ij48YSBocmVmPSJodHRwczovL2dlcnJpdC5vcGVuYm1jLm9yZy9xL3RvcGljOm52bWUt
-bWkiPjxzcGFuIHN0eWxlPSJjb2xvcjp3aW5kb3d0ZXh0O3RleHQtZGVjb3JhdGlvbjpub25lIj5o
-dHRwczovL2dlcnJpdC5vcGVuYm1jLm9yZy9xL3RvcGljOm52bWUtbWk8L3NwYW4+PC9hPjxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+PHNwYW4gbGFuZz0iSEUiIGRpcj0i
-UlRMIiBzdHlsZT0iZm9udC1zaXplOjEwLjVwdDtmb250LWZhbWlseTomcXVvdDtUaW1lcyBOZXcg
-Um9tYW4mcXVvdDssc2VyaWYiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29QbGFpblRleHQiPkFuZHJldzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2JvZHk+DQo8
-L2h0bWw+DQo=
+The MCTP support has improved compared to two years ago. The MCTP I2C
+binding has been upstreamed to linux kernel and there is an mctp daemon for
+openbmc for the MCTP management.
 
---_000_PR3P195MB0555D8C52C5F2EBE2FA1E299C3969PR3P195MB0555EURP_--
+
+
+On Fri, Apr 7, 2023 at 5:35=E2=80=AFAM Lior Weintraub <liorw@pliops.com> wr=
+ote:
+
+> Thanks Andrew,
+>
+>
+>
+> I wish I had the experience to help with the review process =F0=9F=98=8A
+>
+> I have more than 2 decades experience with bare metal embedded systems bu=
+t
+> no experience with Embedded Linux\Yocto nor OpenBMC (nor Gerrit).
+>
+> It's all new to me and came to realize that many guides \ documentations =
+I
+> find on the web are old and doesn't work anymore on OpenBMC (e.g. using t=
+he
+> oe-init-build-env vs setup script).
+>
+>
+>
+> I am happy to assist and contribute but I need some guidance.
+>
+> I have only 2 weeks experience with OpenBMC.
+>
+> I have succeeded to build few platforms and run them (e.g. qemuarm and
+> RaspberryPi4).
+>
+> I watched many youtube videos on OpenBMC which gave me a good overall
+> understanding but when it comes to start coding or adding new stuff I am
+> lost.
+>
+>
+>
+> If we start our development with NVMe-MI basic management command as a
+> starting point, what steps would you recommend we need to take?
+>
+> Can we use the PaspberryPi4 for this initial implementation?
+>
+> We have a basic OpenBMC image on this RaspPi and we have it's I2C
+> connected to our PCIe card (which is using a Desktop as the host PC).
+>
+> (BTW, the i2c-dev module is not loaded automatically and we still haven't
+> figured out why. As a workaround, we load the module manually with modpro=
+be
+> i2c-dev on the OpenBMC UART terminal)
+>
+>
+>
+> Thanks,
+>
+> Lior.
+>
+>
+>
+> -----Original Message-----
+> From: Andrew Jeffery <andrew@aj.id.au>
+> Sent: Friday, April 7, 2023 2:46 PM
+> To: Lior Weintraub <liorw@pliops.com>
+> Cc: Ed Tanous <ed@tanous.net>; openbmc@lists.ozlabs.org;
+> rashmica@linux.ibm.com; jianghao@google.com
+> Subject: Re: OpenBMC - Support NVMe drive health monitoring
+>
+>
+>
+> CAUTION: External Sender
+>
+>
+>
+> On Fri, 7 Apr 2023, at 19:50, Lior Weintraub wrote:
+>
+> > Hi Jet,
+>
+> >
+>
+> > My name is Lior Weintraub and I face exactly the same task that you
+>
+> > handled 2 years ago =F0=9F=98=8A
+>
+> > I found this mailing list thread on OpenBmc:
+>
+> > https://lists.ozlabs.org/pipermail/openbmc/2020-November/024012.html
+>
+> >
+>
+> > Can you please advice about the current status of this issue?
+>
+> > I need to add OOB support to our NVMe device (supporting NVMe MI ->
+>
+> > MCTP with SMBus binding).
+>
+> > For this task we plan to buy the AST2600 development
+>
+> > kit<https://portwell.com/solutions/openBMC.php> and use the OpenBMC
+>
+> > for our development and testing.
+>
+>
+>
+> Currently OpenBMC only supports NVMe-MI via the basic management command.
+> See phosphor-nvme or nvmesensor from dbus-sensors. We're working on
+> migrating the OpenBMC MCTP stack to the AF_MCTP sockets that are now
+> provided by Linux.
+>
+>
+>
+> Please help review and test Rashmica's work in Gerrit to speed that
+> process along:
+>
+>
+>
+> https://gerrit.openbmc.org/q/topic:AF_MCTP
+>
+>
+>
+> Along with Hao Jiang's work to exploit libnvme-mi in nvmesensor:
+>
+>
+>
+> https://gerrit.openbmc.org/q/topic:nvme-mi
+>
+>
+>
+> Andrew
+>
+
+
+--=20
+Hao
+
+--000000000000a1730e05f8c284af
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Lior and Andrew,=C2=A0<br><br>The goal of enhancing nvm=
+esensor=C2=A0with nvme-mi is to fulfill the full stack management of NVMe d=
+evices, including health monitoring but beyond. An example could be SSD fir=
+mware update and security=C2=A0protocol transportation.=C2=A0<br><br>The MC=
+TP support has improved compared to two years ago. The MCTP I2C binding has=
+ been upstreamed to linux kernel and there is an mctp daemon for openbmc fo=
+r the MCTP management.=C2=A0<br><br><br></div><br><div class=3D"gmail_quote=
+"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Apr 7, 2023 at 5:35=E2=80=
+=AFAM Lior Weintraub &lt;<a href=3D"mailto:liorw@pliops.com">liorw@pliops.c=
+om</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+"><div class=3D"msg6552336304203016699">
+
+
+
+
+
+<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
+<div class=3D"m_6552336304203016699WordSection1">
+<p class=3D"m_6552336304203016699MsoPlainText">Thanks Andrew,<u></u><u></u>=
+</p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I wish I had the experience =
+to help with the review process
+<span style=3D"font-family:&quot;Segoe UI Emoji&quot;,sans-serif">=F0=9F=98=
+=8A</span><u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I have more than 2 decades e=
+xperience with bare metal embedded systems but no experience with Embedded =
+Linux\Yocto nor OpenBMC (nor Gerrit).<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">It&#39;s all new to me and c=
+ame to realize that many guides \ documentations I find on the web are old =
+and doesn&#39;t work anymore on OpenBMC (e.g. using the oe-init-build-env v=
+s setup script).<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I am happy to assist and con=
+tribute but I need some guidance.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I have only 2 weeks experien=
+ce with OpenBMC.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I have succeeded to build fe=
+w platforms and run them (e.g. qemuarm and RaspberryPi4).<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">I watched many youtube video=
+s on OpenBMC which gave me a good overall understanding but when it comes t=
+o start coding or adding new stuff I am lost.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">If we start our development =
+with NVMe-MI basic management command as a starting point, what steps would=
+ you recommend we need to take?<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Can we use the PaspberryPi4 =
+for this initial implementation?<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">We have a basic OpenBMC imag=
+e on this RaspPi and we have it&#39;s I2C connected to our PCIe card (which=
+ is using a Desktop as the host PC).<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">(BTW, the i2c-dev module is =
+not loaded automatically and we still haven&#39;t figured out why. As a wor=
+karound, we load the module manually with modprobe i2c-dev on the OpenBMC U=
+ART terminal)<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Thanks,<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Lior.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">-----Original Message-----<b=
+r>
+From: Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au" target=3D"_blan=
+k">andrew@aj.id.au</a>&gt; <br>
+Sent: Friday, April 7, 2023 2:46 PM<br>
+To: Lior Weintraub &lt;<a href=3D"mailto:liorw@pliops.com" target=3D"_blank=
+">liorw@pliops.com</a>&gt;<br>
+Cc: Ed Tanous &lt;<a href=3D"mailto:ed@tanous.net" target=3D"_blank">ed@tan=
+ous.net</a>&gt;; <a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_bla=
+nk">openbmc@lists.ozlabs.org</a>; <a href=3D"mailto:rashmica@linux.ibm.com"=
+ target=3D"_blank">rashmica@linux.ibm.com</a>; <a href=3D"mailto:jianghao@g=
+oogle.com" target=3D"_blank">jianghao@google.com</a><br>
+Subject: Re: OpenBMC - Support NVMe drive health monitoring</p>
+<p class=3D"m_6552336304203016699MsoPlainText"><u></u>=C2=A0<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">CAUTION: External Sender<u><=
+/u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText">On Fri, 7 Apr 2023, at 19:50=
+, Lior Weintraub wrote:<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; Hi Jet,<u></u><u></u></=
+p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span dir=3D"RTL"></span><sp=
+an dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" style=3D"font-size:10.5=
+pt;font-family:&quot;Times New Roman&quot;,serif"><span dir=3D"RTL"></span>=
+<span dir=3D"RTL"></span>&gt;<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span dir=3D"LTR"></span><sp=
+an dir=3D"LTR"></span><span dir=3D"LTR"></span><span dir=3D"LTR"></span>&gt=
+; My name is Lior Weintraub and I face exactly the same task that you
+<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; handled 2 years ago <sp=
+an style=3D"font-family:&quot;Segoe UI Emoji&quot;,sans-serif">
+=F0=9F=98=8A</span><u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; I found this mailing li=
+st thread on OpenBmc:<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; <a href=3D"https://list=
+s.ozlabs.org/pipermail/openbmc/2020-November/024012.html" target=3D"_blank"=
+>
+<span style=3D"color:windowtext;text-decoration:none">https://lists.ozlabs.=
+org/pipermail/openbmc/2020-November/024012.html</span></a><u></u><u></u></p=
+>
+<p class=3D"m_6552336304203016699MsoPlainText"><span dir=3D"RTL"></span><sp=
+an dir=3D"RTL"></span><span lang=3D"HE" dir=3D"RTL" style=3D"font-size:10.5=
+pt;font-family:&quot;Times New Roman&quot;,serif"><span dir=3D"RTL"></span>=
+<span dir=3D"RTL"></span>&gt;<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span dir=3D"LTR"></span><sp=
+an dir=3D"LTR"></span><span dir=3D"LTR"></span><span dir=3D"LTR"></span>&gt=
+; Can you please advice about the current status of this issue?<u></u><u></=
+u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; I need to add OOB suppo=
+rt to our NVMe device (supporting NVMe MI -&gt;
+<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; MCTP with SMBus binding=
+).<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; For this task we plan t=
+o buy the AST2600 development <u></u>
+<u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; kit&lt;<a href=3D"https=
+://portwell.com/solutions/openBMC.php" target=3D"_blank"><span style=3D"col=
+or:windowtext;text-decoration:none">https://portwell.com/solutions/openBMC.=
+php</span></a>&gt; and use the OpenBMC
+<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText">&gt; for our development and=
+ testing.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Currently OpenBMC only suppo=
+rts NVMe-MI via the basic management command. See phosphor-nvme or nvmesens=
+or from dbus-sensors. We&#39;re working on migrating the OpenBMC MCTP stack=
+ to the AF_MCTP sockets that are now provided by Linux.<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Please help review and test =
+Rashmica&#39;s work in Gerrit to speed that process along:<u></u><u></u></p=
+>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><a href=3D"https://gerrit.op=
+enbmc.org/q/topic:AF_MCTP" target=3D"_blank"><span style=3D"color:windowtex=
+t;text-decoration:none">https://gerrit.openbmc.org/q/topic:AF_MCTP</span></=
+a><u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Along with Hao Jiang&#39;s w=
+ork to exploit libnvme-mi in nvmesensor:<u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><a href=3D"https://gerrit.op=
+enbmc.org/q/topic:nvme-mi" target=3D"_blank"><span style=3D"color:windowtex=
+t;text-decoration:none">https://gerrit.openbmc.org/q/topic:nvme-mi</span></=
+a><u></u><u></u></p>
+<p class=3D"m_6552336304203016699MsoPlainText"><span lang=3D"HE" dir=3D"RTL=
+" style=3D"font-size:10.5pt;font-family:&quot;Times New Roman&quot;,serif">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"m_6552336304203016699MsoPlainText">Andrew<u></u><u></u></p>
+</div>
+</div>
+
+</div></blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gm=
+ail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signatu=
+re"><div dir=3D"ltr">Hao</div></div>
+
+--000000000000a1730e05f8c284af--
