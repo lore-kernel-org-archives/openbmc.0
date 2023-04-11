@@ -4,164 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72897C7619A
-	for <openbmc@archiver.kernel.org>; Tue, 11 Apr 2023 21:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D339CC7619A
+	for <openbmc@archiver.kernel.org>; Tue, 11 Apr 2023 21:47:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PwzvH4S5sz3cMs
-	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 07:46:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PwzwH3gM0z3cMT
+	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 07:47:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=oiQrEa4n;
+	dkim=pass (2048-bit key; unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=ZK0Wz32K;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hpe.com (client-ip=148.163.147.86; helo=mx0a-002e3701.pphosted.com; envelope-from=prvs=04652edf42=verdun@hpe.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hpe.com (client-ip=148.163.143.35; helo=mx0b-002e3701.pphosted.com; envelope-from=prvs=0465b6211c=bradley.tanner@hpe.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=oiQrEa4n;
+	dkim=pass (2048-bit key; unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=ZK0Wz32K;
 	dkim-atps=neutral
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
+X-Greylist: delayed 700 seconds by postgrey-1.36 at boromir; Wed, 12 Apr 2023 07:36:25 AEST
+Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PwnTH1rc0z3bbZ
-	for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2023 23:57:05 +1000 (AEST)
-Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 33BCifxt014514;
-	Tue, 11 Apr 2023 13:56:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=pps0720;
- bh=WkQvxxG+DNJtQd0OPyZ7aPYbcDdurtqn6MAHM1541Es=;
- b=oiQrEa4nq5hGdA5YvT1LhJ3vA3ganY/fqFfA7Tmka2pNhSgnQgiHSfTuUjwysly76Lyf
- RKssOddh9BDJwQBdPeFSIrfX+BwSFJq8cEATJg6dyuxXRA6SC8OmligU/DZZyXsvlKVe
- 8rrj1SbCpKf+J8MFpU0gtOZiETqT+iQmedTxShqGWNEq3dddTu9PX5XcXCR47Bk1OPYJ
- mzAlTpF3EOAjddbwkaaFBmHvC4/Xpy0M/cciMSPgYu2zeL1jm1lpfHr8eZpDAVTybk0c
- RYlZZB7j6FQgSTrSQUhGcfnckyzHgZ93gnKw+fBEUZ8rNv3rGlAe/jtioiz4HkGCsLRE xA== 
-Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 3pw7tj0mr9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 11 Apr 2023 13:56:51 +0000
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PwzgF02bvz3bhZ
+	for <openbmc@lists.ozlabs.org>; Wed, 12 Apr 2023 07:36:23 +1000 (AEST)
+Received: from pps.filterd (m0134424.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 33BI36WN020364
+	for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2023 21:24:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=from : to : subject :
+ date : message-id : content-type : mime-version; s=pps0720;
+ bh=efO6uPuoLQFy/50fVIjRiYxAxixFwFLOZI8jy8bSPqk=;
+ b=ZK0Wz32Kzrf9MCJuzLIVXJqcPJlHEQJjCSrG/g1fbmAZzfrfdXlCHCe9U5WEhpC0UU2Y
+ +aLbrxYOnJ0j9BuSrO0gOO6ROYrC7CwjZgM5rIqZXnhYlak8rilWdP7sGbgQOOzzKrn0
+ gwc3w3mMQHsZ0MetN00OzryN2QBM/z2Q6umjAHTxnEDgvAn8yxsYSOdRhBqQ8rn8JQSq
+ 51RebtCyqPspQZvoSnPPiJRgmAITletkl9aHucOoklJRxmqMwHAmw0QIk28O0AVqHDuj
+ ZDh16FJif8NYwYW1cikCvUhAPZMFu/5COLCLh3vDq6HadFuHCdBuPbqnioAsHWLIcUiN 5g== 
+Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 3pwcfwsjv8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2023 21:24:39 +0000
 Received: from p1wg14925.americas.hpqcorp.net (unknown [10.119.18.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id 8EBDD13059;
-	Tue, 11 Apr 2023 13:56:50 +0000 (UTC)
-Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
+	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id 852901305A
+	for <openbmc@lists.ozlabs.org>; Tue, 11 Apr 2023 21:24:38 +0000 (UTC)
+Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
  p1wg14925.americas.hpqcorp.net (10.119.18.114) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Tue, 11 Apr 2023 01:56:50 -1200
-Received: from P1WG14918.americas.hpqcorp.net (16.230.19.121) by
- p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42
- via Frontend Transport; Tue, 11 Apr 2023 01:56:50 -1200
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (192.58.206.38)
- by edge.it.hpe.com (16.230.19.121) with Microsoft SMTP Server
+ 15.2.986.42; Tue, 11 Apr 2023 09:24:38 -1200
+Received: from p1wg14924.americas.hpqcorp.net (10.119.18.113) by
+ p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.986.42; Tue, 11 Apr 2023 13:56:49 +0000
+ 15.2.986.42; Tue, 11 Apr 2023 09:24:37 -1200
+Received: from p1wg14920.americas.hpqcorp.net (16.230.19.123) by
+ p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42
+ via Frontend Transport; Tue, 11 Apr 2023 09:24:37 -1200
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (192.58.206.38)
+ by edge.it.hpe.com (16.230.19.123) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.986.42; Tue, 11 Apr 2023 09:24:37 -1200
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e9BbGTUJGUIgrwNplnCQPhT3W4gpCOdpADhBMHMiRwZLnuHOl9eiVBvIX5JFowNT6i1aJx4kP23X/nsr3MBTyYKrBjginYCv74QLuy0k2z4+fIjQ7tYzudOSEyq48VHXMDqw01MQOKHVmHb+KxitUDc+vdhmmOAAvEpleBPD8NL5IGLk6s8EycDNVv+K57uaUAydyVgqGr5/jIIUQq4EkNSfcooW5Ef0g5blbVl33DbghRn/1CnVOzpASTYiaI0pgwvkoteT9sqFWyvNOzznRJmSXfeykhu8YKa65Rp5tLQ315zZZOOu03s3YMuVZ3LbuC6bOlcxFnnmEIdoDY/olA==
+ b=ko9cZ0kr2XVQxjTDO7+YfFfyOjTMGkq5ScuW5udebSJhoNlQWmoyVDwi6Ouham76i8EI5trBMRVWvGtsOVJ6Eps7StORIQwCwDZ0LpYSWYUW2e3THMiikzSEwCVdJrU1N08Xe+Lcl10uN7D7+fXGTnRgP8kN6G7/rYq8y4v7tR0HW7qyOE5ON60Bda7lu3co7DP5z+6sHjwQ33dRXJ6dZkDj6pPruTczadQIYRADwlqr5WC5RvHCTj1t4xoc8REQEwOI0ROLzw4X40nZJzlUaJUrSO2+8dKurW5nG6A/bpkI3RnkWsxSH43U9XCX4aLfitPhOLm9hPjGGQsotB8EWA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WkQvxxG+DNJtQd0OPyZ7aPYbcDdurtqn6MAHM1541Es=;
- b=K99bH0SvfZRVVy3oM4EDg4LKBqR6/FbStNIum2LQ7Ij4NmhR9F6bAH9bn1Q46eZ6Nl+Ed4gnn8wTaINATKREM2AhhlA9L8KzJQGcpKP8ckq+a3UitMV0ot8p0d1bQc7edpanLV5SnIDBKzafOxRCqc+qvtKgQmQ9fOTM6/xO118HH7PHUbs/hi2aO0Zv3ZoEMiOvx54Bk963aRxmeA69xA0hpf+VqWsqe6wvUHHRyaxjWHvCLyZDZG+MzkpQZwdTu5BNKmHBB24M+Yoht+E3M/PucED3uJeRvVLrBpM4WXQJ6uOGLc4BFAMYufQq4UqKC4REBVmTdZHYcJpG1MRbBw==
+ bh=efO6uPuoLQFy/50fVIjRiYxAxixFwFLOZI8jy8bSPqk=;
+ b=SxHpI6cD8M/+3mAyEteRWidrbeLqlX66UA8k1t+myz2U6GuJxyDDuvOtoCG5ckcw+vmwBkqVQN7zURMhno+hnnqAhpNHJJD3H2WQ6OGx29zT9ug2WuVoKe0iQS+FEK7q34hk5W6h84+IjUhorS9QYxkdlo1VyXfFo9iiMTG2gUEtBHr0q+FRNk/u9BbbPbS/fT/E8Ao/XclS2xSuEs5eSUPle4L0tltUjWrneFPupkGX/K4VH/WJhViadGO2qKjlQdZ7lBBVxeE+51ns+8U5WW0taw5FP/AaoQfbrw0luUxwMmK24557y5pykaAeop3qtKzycfrDmfpHTL4D1jKsXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
-Received: from DM4PR84MB1976.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:4f::17) by
- DM4PR84MB1517.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:48::19) with Microsoft
+Received: from DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:4c::21) by
+ MW5PR84MB3273.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:303:1cb::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6277.36; Tue, 11 Apr 2023 13:56:48 +0000
-Received: from DM4PR84MB1976.NAMPRD84.PROD.OUTLOOK.COM
- ([fe80::11d:9b53:5229:eb4e]) by DM4PR84MB1976.NAMPRD84.PROD.OUTLOOK.COM
- ([fe80::11d:9b53:5229:eb4e%6]) with mapi id 15.20.6277.036; Tue, 11 Apr 2023
- 13:56:48 +0000
-From: "Verdun, Jean-Marie" <verdun@hpe.com>
-To: Joel Stanley <joel@jms.id.au>, "Hawkins, Nick" <nick.hawkins@hpe.com>
-Subject: Re: GXP support into OpenBMC kernel
-Thread-Topic: GXP support into OpenBMC kernel
-Thread-Index: AQHZaAZjdYyBKBBOcUCwAOsKu33JVq8dXgeA//++rwCACHJdAIAAWLuA
-Date: Tue, 11 Apr 2023 13:56:48 +0000
-Message-ID: <19FB20E7-2E97-461F-96E1-C93FC5724043@hpe.com>
-References: <191F3605-11DF-4870-AB07-B4A31169B3D2@hpe.com>
- <CACPK8Xd2kGxq1sb7DKZ0qXoinYygk6WvPTVqy84kgznGrBPdOA@mail.gmail.com>
- <4044DFC4-7175-4E59-9A99-2EE355FF415D@hpe.com>
- <CACPK8Xdvcs2LTSdqWcEW-Ppp8NEf=xBkgAw8ytF8Vm=AAVENUA@mail.gmail.com>
-In-Reply-To: <CACPK8Xdvcs2LTSdqWcEW-Ppp8NEf=xBkgAw8ytF8Vm=AAVENUA@mail.gmail.com>
+ 15.20.6277.38; Tue, 11 Apr 2023 21:24:36 +0000
+Received: from DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::bec0:dcc0:6d8e:2033]) by DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::bec0:dcc0:6d8e:2033%5]) with mapi id 15.20.6277.038; Tue, 11 Apr 2023
+ 21:24:35 +0000
+From: "Tanner, Brad (EXL Ft Collins)" <bradley.tanner@hpe.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: GetConnectionUnixUser
+Thread-Topic: GetConnectionUnixUser
+Thread-Index: Adlsu4wSycyMQTZJRbWmJh0VOQxweQ==
+Date: Tue, 11 Apr 2023 21:24:35 +0000
+Message-ID: <DM4PR84MB18298F75FC611301D02500A8819A9@DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM>
 Accept-Language: en-US
 Content-Language: en-US
-X-Mentions: nick.hawkins@hpe.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR84MB1976:EE_|DM4PR84MB1517:EE_
-x-ms-office365-filtering-correlation-id: d9588508-34b6-41ee-7dc0-08db3a9497fc
+x-ms-traffictypediagnostic: DM4PR84MB1829:EE_|MW5PR84MB3273:EE_
+x-ms-office365-filtering-correlation-id: 88351388-35a6-4677-02a5-08db3ad3264c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Ro7yj8UJJcM1s0xAUljP0CXpw7pgKsSf6hp8KuiX/J3hFz1vp/OPo6Sf063qeAuSryKtIxNGv6YDkYRt6dtyRveVyx9OPtmrquYp+k2MS7MVO7bb9zWnzQg69oBTH/whnWMqNKogEFM7HQUaLI68wrBjjTXbK0fZj6Cg5Ja+eQgkDwaBWfTm9V4LCm2MQkXSLxmEqkesYRkShEeYWRRlX+FOKm1DM/XHuiNk07ap76sZWsSw9/zJH21rTOLdYsV+iUPaMnsgInK9Lb8RAF1U+WZrWDAmKOun2NRybwdqQKLjzyxu+qTRkkfy6U7ZcVpXZvBAJDbMEr1/o3U9LYXuaV4uYk0nOZmei3DpNw44lm8ps4iWFg5ZqObcAMeRCv98v02dcXNr+stGMpL9pVqb+tasIRyliAdZoU/12dyklVzf1xIrI6OW5eSVZ0u1cqmpT/v2WE5JvA6eFoeu+0LZrnKX5h+AXLNimcPFA45r5DNQdJN85D6Wutbikmc06kqRAkzgWjhfYv7UiCWHDEC/QpxjC8OueXA18di/1aBkEs9eceIH9pmzBVwSGodma5RmEyG4bXitboW9LLYTrgmvrCkOJE/jvYeWvRVCrMCZqCS8GPf1zzKtDtVyqeROsX0mpvLpNHQLOyoLYfwqpnH0BA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB1976.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(376002)(346002)(39860400002)(136003)(451199021)(71200400001)(478600001)(6512007)(316002)(110136005)(6506007)(186003)(6636002)(966005)(91956017)(6486002)(2906002)(5660300002)(4326008)(66946007)(76116006)(66446008)(41300700001)(8676002)(66476007)(64756008)(8936002)(66556008)(122000001)(86362001)(83380400001)(33656002)(36756003)(82960400001)(2616005)(38070700005)(38100700002)(45980500001);DIR:OUT;SFP:1102;
+x-microsoft-antispam-message-info: SlC823HG7R5aBnQibUfKSCGdmDrgOY4BKXMtf23OWB1vMyusKxTtmaSMVHY4pl8V9WBEyD97uJ4AFFrUBEH0nPI0q5GDSDi1yoDQ3aIkFdu26AtVK88OwrdcGmxyQS8EJ4xgthWJm+XJJd9vKEZu1UNDyp4fi2QvRRgTiW5nuePKT+kgWrO9VdXWGCuWjaWihgR78pEgJf2BigJJmHhddQpjF+NXaAk/7Nk8ZEiker5TqP6T3U/QYdNk5CongOqSvgnv6r3BuWRZ0D6GycgBFlClNqSc6L0KguecCHldvNppDGDGtjhw2CNaToJCbQu2h2hTrQQ1p7DzcLU6esqq1h6pcldyDIx8SbsPLO2P0OQ9iPcIgMhD00BHwnn8nQSRMt5FJbIYrmnDglICRkfp5JS2C9mNe8EfbKO2YQ8ZtgBaGn0zLzD9+6epCGf51JEkLwG5zMMtGiMwIcmtuzeRBlNYLnGbFXz+fj/aG5ESlw+OTxE+XJNGy7c+udZ+4g5SqdrdX58XVzcit5ws4hxzX2MxwRmwFqeHo2TLjJICacF2kSdn5iPvht/ug8i8BwMPt58bnOF0woJS48Z6JruVW/rpR9KcWzF2olm9q+wuR2af0p376cVlkBKLUJClqKIccW+5LQvy7+in6r7zRHWaEQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(396003)(39860400002)(376002)(346002)(451199021)(33656002)(86362001)(7696005)(41300700001)(76116006)(316002)(478600001)(6916009)(71200400001)(64756008)(66476007)(66556008)(66946007)(8676002)(66446008)(82960400001)(55016003)(5660300002)(2906002)(8936002)(7116003)(38070700005)(3480700007)(52536014)(38100700002)(122000001)(186003)(6506007)(26005)(9686003)(83380400001)(132573001);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UmtkU0lHcVE3QXBTa0REeGJadkV2UG54VUJvZEhVbnorOXVQMWpNdDVqdHdV?=
- =?utf-8?B?UVRuTG5iNEViTndnaWZSNVBYL0NRb2Zla0dYdHhmSXJxNE82Tmd0ek1CSEF2?=
- =?utf-8?B?TFI0ZXpZVTZ6YjM2aGtCY2g4bk1oVm1vSVdrakt5bXcxbERoYk1YdmNTZkRL?=
- =?utf-8?B?M3hoWWVvSGRQQU9laW9sNU9HU3B6TGliQm1VOXVjejZyazl6MEZjeGNNanN0?=
- =?utf-8?B?cWx3OWdMVXF6OUxKekk5TGFRNm9YWm5mZlZMS1lJQk1ZU3A1SUhtaEVjMkhF?=
- =?utf-8?B?bWJoN092TUFBR056RjRvNURqakJCdTdPNm9ERitJdFE3Vi9FeEZGaWoyVG9P?=
- =?utf-8?B?OFAvZHhhVkhmLzJVd1F0TklNSkpYQnREdVh1NGhmNHVDRlJUVCt3WXhTYVdu?=
- =?utf-8?B?bllrYmZ5ajZ5ZmdzUWZxTS9yTHBmSFpKKzhETUllZ016WmdjTjI0V3VyZTZ5?=
- =?utf-8?B?RGIyUUE0VXl5WjlpQ051Y1VjZXA0L29PQTNZcU5JVHpNUC9FV0JiSmxuUDBI?=
- =?utf-8?B?a3lWSDQvbEhsMlNxckdzei8vaWdEcDFQYUI0bzhMMWJCVnRMbnM4NkIvOGph?=
- =?utf-8?B?LzVCbHZJZUhiL1hkd2dVZXBPME4zRUdnYWZXaDY0dnN2cFhzckhWRUE2MHhT?=
- =?utf-8?B?UE5IRVpYbmxqallTeWk1SjFuaXQ4SkFxTlhvL21rSWNiM2RncGFKaEQ0UTNn?=
- =?utf-8?B?Vkh2TDJTS0tNeS9zZU1FRkUvQmMyYURmVFowQ1lqeXlTT0NDbEpkaFZMSGxF?=
- =?utf-8?B?d3M5Y2kyWDJBWmppQzVGTVovRHVkejJ6NkxHRllzU0lQOWp6YXpNT3lYTldp?=
- =?utf-8?B?d0thYWthZGpYYnVhZGZpTm1wb0VQMlN0M0J3SnRQTTMyUWxkTE02NDU5WXQ2?=
- =?utf-8?B?STBiWGJiMlMzVUJjMVJSbWpsdmc2TElGemxtaVVFazhnOUZLeUw4dzVINFdi?=
- =?utf-8?B?cXFhRHd2MjBsQUIzVk9hbkZzN2hXVXNwMUUwSmptbUk3OWM0aElXVDFEWXBk?=
- =?utf-8?B?dUh2dFR3YitjQUhTUzNJNEp0eWhNNDRIMjlDeEpSMVFtMitTWWFUWjFGTklk?=
- =?utf-8?B?LzI0YXhJbnNycVRGSmVUUTRtOFhta2FGazViT1pRTzUvYXArbjhBVDh1RE5T?=
- =?utf-8?B?NHMwMG9NU0dacHZZc24rRnNOUTNNNm1uUjc5YnR4SkJnQm45MnByOUkwajB2?=
- =?utf-8?B?RVRjRXNNTmw3NENmNmh1WHYwYmJ3N3ZlUG45UlZndWlyVzBlclZ2ZWFoWnVx?=
- =?utf-8?B?d2l4WkhNeEZsMExhZFp6WktJV2NLNDhidm9vYXI1OGdSV2J0Nm9GcEVyM1J2?=
- =?utf-8?B?UEM2QXBQajJ6Tk1mZnRBYzFFMm9pWGZYdUViNWo1UEZKT3dDMUJIWTVrRzc1?=
- =?utf-8?B?VEZPWTBoS2FBUnRwMUJNVzlaL0VDQzY3eXBIbWdGZmZ3elFvVTBra2IyQWZz?=
- =?utf-8?B?ZElraW51eXZROS9CdXByV055Nk94SC9TdXR2N2o2NWpnYWFEK3VWVFhWNjRL?=
- =?utf-8?B?VHpEOE95NWwvUGx1Z3FpQjF2VXhhaDBRNVdOWGtKQjdsZXIxNTVERzBrSGZu?=
- =?utf-8?B?VWhwRWd5OC9kRlNiQ0JNZjMrMGI4R3d4aitJUExQVzJPY0kraTdwVzhHUlI4?=
- =?utf-8?B?cGZRdERrQzN1VXF4cmRuaEJaQlh3b2owNG40bWkza3VMVGNDYXlwWWtDRUxX?=
- =?utf-8?B?MkNQWjlsM0VuWVVmcE5kS2FLVkFVT1FpK1ErK01FWVQ4Njlic3ltWXZMVWVv?=
- =?utf-8?B?emRCTFBQUUF1Sk9OWU4wZHk0ckhjczNFOXNFZFJIdG5qREw0S1V5cFQwemJ2?=
- =?utf-8?B?QUdiRnFCRXBFVG1mazZtWktkT3lxeUJyTlJ1TFh2UFJpcWtabGl4elhudS9J?=
- =?utf-8?B?MWNacXpwNXhwNVEySUFyZ1NNdExFelRQc1RzamYrUEtvekxBdVJROXJuTHR1?=
- =?utf-8?B?VmhiQ1ZrOUcvb2NsTXZlUU9KZzZBYTJnNU1KcHpMT3Z6aVJiZSt4TFM1UE52?=
- =?utf-8?B?d2p2dm9KWHlPSElwRGI2blFNZFlDUzRwQ2FOK2RJLzlWQnJCRDVQakNqZVpM?=
- =?utf-8?B?ek91R3pjcG9yV3hBVC8yM0FCU2FvSjFVUlNleCtueXBGL1ZzUFh3M0pqYS9C?=
- =?utf-8?B?NHdYd1hsZVd0TzdkcDhTMjNiS1lpNjU5b1ZicnYvSTNzcXRENXpmeTdqazdC?=
- =?utf-8?Q?jq/idxV7x1Px5OdXMrGP1EsRoyyhQwsYUf6/ynPQyj46?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5F59786BB6943F43A6CD2D9D58FE1F66@NAMPRD84.PROD.OUTLOOK.COM>
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CjW7ls//JV38d1Js/KqJ4SfEO7BjeVIuFRzTxFpWz7ibVzt5uLTPZVfigzJa?=
+ =?us-ascii?Q?poDukdWWTLkv68+MPTF0S2IUnIA83p6yzfomSI+kZFUeH4YYoJd4SzpKeJeE?=
+ =?us-ascii?Q?xjoei1n/hiM3y9Jp8JqD/rHh0TZW3gJi1J+q940kjdfvg88VtZq2E2oIdnVj?=
+ =?us-ascii?Q?85kqp/9PMrT5P6t6R8a0ypYWexXBN9VBY9HVXweygJN3GaZw7Ue0AKSeTGe7?=
+ =?us-ascii?Q?jC1PS3U+IOATzwDBKI/XCV8X6MuxB+vZIq16TBTgWbZOKc7NgZlZOdpz2r96?=
+ =?us-ascii?Q?GQS3goNsWm9SyNu0IxYVKYg6lIQgOvqXAfjWE+9eZfBNKzdJhP41/O6OKYPN?=
+ =?us-ascii?Q?ka1gGNA/dN3Hvwld0ELQcqyn/rmNnXjqAhAKhOICmoacwRkxtyxy6vRUP9hR?=
+ =?us-ascii?Q?BsMIn0hC/Q+IVeFyI6hwsYoewtJ+pquAiNzAi4fxYJ7amEyAFlCYM7hqVJi7?=
+ =?us-ascii?Q?kkD9A56jpoctUOtgB3NbPb4IRgegnGeBDvzhHO2Dz4jlpkw/N9iWhS8WGnim?=
+ =?us-ascii?Q?6rvc8EMhs76c4RQ6uYGsyQNvnHCGLncXTci9l5OgRNO5tDYZhUBqMan8BqTU?=
+ =?us-ascii?Q?7Dd6IO3Bo6bPSpbgXh8tOY7Q4AeE9otCoeMXgeZk6zsb2C0H+c1gHxmHaoxK?=
+ =?us-ascii?Q?YEbBssX4Hu2bsp1HB/qHCUIm454ypzLkOGOM0gDdwSAj+JkzAmzludwXM7+g?=
+ =?us-ascii?Q?vQ/VFBFLpgfwzIJr3+dALhl9KbBW7oUQukrZ0u25Z2oQrelSaG5LRSxsniIs?=
+ =?us-ascii?Q?JilTVgkOiVTVifPeie1dvFr2tOyxnp9hXNlGLFKztcaoNPHVowXjzmrW06Gy?=
+ =?us-ascii?Q?K35re+qHL1I1XzBpGexBGQdtoWxh+Q0EI4/wKW9aH8bT6UcIAsIxxxrKNwx6?=
+ =?us-ascii?Q?KPEJ7L+2sX2StZQNjbmYHZEYa5wBKLNt5BnGe+ssBxy4Izcc7ZJQciE1w0RD?=
+ =?us-ascii?Q?y2jxRTZq3Q1Rw3nblXCIWbthNTDNXqP2ySb8kbqsozw+ti+JUqNHHxRumgRP?=
+ =?us-ascii?Q?5h57txdpY1PbXxrUfQZwQ5o6yJTsFTeEs9tcRT2xxQAw1ov21VLU9zmCvZFE?=
+ =?us-ascii?Q?ktkhdE0vuZSy11JYwWxVr0r6laKG+DDiLrornfNSj/qM0O1WWS+ioLiA/5SX?=
+ =?us-ascii?Q?OYXFSF3GnmAEB2dOrYHfTo28KpXVVcBn442ZGgMDv1IbvtyrXRTGZJtWEayL?=
+ =?us-ascii?Q?U3/y8FWbqW/9Sd9/s6fZKtTM0A4kwQGB0qWlA0FLJdT0ATNXz1zrYV0J85Hy?=
+ =?us-ascii?Q?yVLwLKW4+Bfr+kQCVHOXn2c6Y9Eo75b6Djyhja5tLrB1eQnrQYwLXhk4We6Z?=
+ =?us-ascii?Q?NZfLD9NmZzV31YVe0LzAQqdCrvj1+yxUNxgBbZYZw35o4LxWzaxF7SETVj6a?=
+ =?us-ascii?Q?mJGZT7Q446j/+uFo/mUkVofVUfGfmSqmS9PDl/nkkbl+QQjmiVOQfaz4NRI+?=
+ =?us-ascii?Q?1SS6OpXBvSm3R8ds/sZth33UWc7JtDlR09aFF5Ldv1Dk5yDSpXhunA/8J6jG?=
+ =?us-ascii?Q?NGhf+0Mg3IxxU+1kiEh4tsLTP5rlwCobtcSwVXVcKfUCgoDsjpM5pAwbfyWC?=
+ =?us-ascii?Q?/G6PQnIhiIQ9GqKM8voeZ2P9A6zHY76FC2VXmAtU?=
+Content-Type: multipart/alternative;
+	boundary="_000_DM4PR84MB18298F75FC611301D02500A8819A9DM4PR84MB1829NAMP_"
+MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB1976.NAMPRD84.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9588508-34b6-41ee-7dc0-08db3a9497fc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2023 13:56:48.1948
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB1829.NAMPRD84.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88351388-35a6-4677-02a5-08db3ad3264c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Apr 2023 21:24:35.7610
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bAbyx3Z24oUMQyc9J65x0VSZ7cTmkCQS6nEOJp8TQNt6u7+KnNthK98Bxi3taVMB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR84MB1517
+X-MS-Exchange-CrossTenant-userprincipalname: cMogiIkRV96qBRQfdZtsDa/PZPsY5MxFtshCmrU6zzXdIXOa2DR3dI5iMLBwhjWSoLj4dvtmSf2CFgPjNV99HQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR84MB3273
 X-OriginatorOrg: hpe.com
-X-Proofpoint-ORIG-GUID: QTkpO1cGsH2wALSQpev0jASY0kz-2QMa
-X-Proofpoint-GUID: QTkpO1cGsH2wALSQpev0jASY0kz-2QMa
-Content-Transfer-Encoding: base64
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
-MIME-Version: 1.0
+X-Proofpoint-ORIG-GUID: g_GuIcI-EChM2S6K1F368H6MA2EVtL81
+X-Proofpoint-GUID: g_GuIcI-EChM2S6K1F368H6MA2EVtL81
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-04-11_09,2023-04-11_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
- mlxlogscore=705 clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0
- phishscore=0 mlxscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2303200000 definitions=main-2304110129
+ definitions=2023-04-11_14,2023-04-11_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_spam policy=outbound score=75 suspectscore=0 adultscore=0
+ impostorscore=0 phishscore=0 malwarescore=0 clxscore=1011 mlxlogscore=-47
+ mlxscore=75 priorityscore=1501 lowpriorityscore=0 spamscore=75 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304110192
 X-Mailman-Approved-At: Wed, 12 Apr 2023 07:45:59 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -174,27 +160,141 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-DQo+IFlvdSBjYW4ndCB1cHN0cmVhbSB0byA2LjIsIHRoYXQgaXMgYWxyZWFkeSByZWxlYXNlZC4g
-RGlkIHlvdSBtZWFuDQo+IG1haW5saW5lPyBUaGF0IHdvdWxkIGJlIDYuNCwgYWx0aG91Z2ggcmVh
-bGlzdGljYWxseSBpZiB5b3UgZG9uJ3QgaGF2ZQ0KPiBwYXRjaGVzIG1lcmdlZCB5ZXQgdGhlbiB5
-b3UncmUgdGFyZ2V0aW5nIDYuNS4NCg0KWWVzLCB5b3UgYXJlIHJpZ2h0LiBTb3JyeSBmb3IgdGhl
-IHZlcnNpb24gbWlzbWF0Y2guIEkgd2FzIG1lYW5pbmcgbWFpbmxpbmUuDQoNCj4gSSd2ZSBwaWNr
-ZWQgYWxsIG9mIHRoZSBHWFAgcGF0Y2hlcyBmcm9tIG1haW5saW5lIHRoYXQgd2VyZSBtZXJnZWQN
-Cj4gYWZ0ZXIgNi4xIHRoYXQgSSBjb3VsZCBmaW5kLiBUYWtlIGEgbG9vayBoZXJlLCBpZiBpdCBs
-b29rcyBva2F5IEknbGwNCj4gbWVyZ2UgdGhlbSBpbnRvIHRoZSBvcGVuYm1jIHRyZWU6DQoNCj4g
-aHR0cHM6Ly9naXRodWIuY29tL3NoZW5raS9saW51eC9jb21taXRzL2Rldi02LjEgPGh0dHBzOi8v
-Z2l0aHViLmNvbS9zaGVua2kvbGludXgvY29tbWl0cy9kZXYtNi4xPg0KDQpJIGp1c3QgY2hlY2tl
-ZCB0aGVtIGFuZCB0aGV5IGxvb2tlZCBvay4gTmljayBpcyBjdXJyZW50bHkgdXBzdHJlYW1pbmcg
-dGhlIEdQSU8gZHJpdmVyIHdoaWNoIGlzIHBhcnQgb2YgdGhlIGNvcmUgcmVxdWlyZW1lbnQgdG9v
-LiBXZSB3aWxsIGxldCB5b3UNCmtub3cgYXMgc29vbiBhcyBpdCBpcyBpbi4gQEhhd2tpbnMsIE5p
-Y2sgY2FuIHlvdSBjb25maXJtIHRvIEplb2wsIHRoYXQgeW91IGFyZSBnb29kIHdpdGggdGhlIHBh
-dGNoZXMgaGUgY2hlcnJ5IHBpY2tlZCBhbiBiYWNrcG9ydGVkID8NCg0KPiB1LWJvb3QgaXMgYSBi
-aXQgaGFyZGVyLiBJIHdvdWxkIHByZWZlciBub3QgdG8gYXBwbHkgdGhlbSB0byB0aGUgNCB5ZWFy
-DQo+IG9sZCBhc3BlZWQgdHJlZSwgYXMgdGhhdCBpcyBhbHJlYWR5IHRvbyBvbGQuIEluc3RlYWQg
-d2UgY291bGQgc3RhcnQgYQ0KPiBuZXcgYnJhbmNoIGJhc2VkIG9uIHRoZSBtb3N0IHJlY2VudCBy
-ZWxlYXNlLg0KDQpXZSBzb29uIGhhdmUgdXBzdHJlYW0gc3R1ZmYgaW50byB1LWJvb3QgbWFpbmxp
-bmUgZm9yIEdYUC4gQ2FuIHlvdSBoYXZlIGEgbG9vayA/DQoNCkpNDQoNCg0K
+--_000_DM4PR84MB18298F75FC611301D02500A8819A9DM4PR84MB1829NAMP_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+
+We use externalsensor to host dbus objects and publish the values with cust=
+om code. During busy times on our BMC, the Property Set method takes a long=
+ time to complete. I noticed with monitor that every Set is accompanied by =
+a method call to GetConnectionUnixUser, which must complete before the resp=
+onse to the Set is sent. It may be
+
+Type=3Dmethod_call  Endian=3Dl  Flags=3D0  Version=3D1 Cookie=3D2  Timestam=
+p=3D"Fri 2023-04-07 18:32:28.483676 UTC"
+  Sender=3D:1.81  Destination=3Dxyz.openbmc_project.ExternalSensor  Path=3D=
+/xyz/openbmc_project/sensors/temperature/TestSensor  Interface=3Dorg.freede=
+sktop.DBus
+
+Type=3Dmethod_call  Endian=3Dl  Flags=3D0  Version=3D1 Cookie=3D26  Timesta=
+mp=3D"Fri 2023-04-07 18:32:28.484291 UTC"
+  Sender=3D:1.56  Destination=3Dorg.freedesktop.DBus  Path=3D/org/freedeskt=
+op/DBus  Interface=3Dorg.freedesktop.DBus  Member=3DGetConnectionUnixUser
+
+Type=3Dmethod_return  Endian=3Dl  Flags=3D1  Version=3D1 Cookie=3D-1  Reply=
+Cookie=3D26  Timestamp=3D"Fri 2023-04-07 18:32:28.484468 UTC"
+  Sender=3Dorg.freedesktop.DBus  Destination=3D:1.56
+
+Type=3Dmethod_return  Endian=3Dl  Flags=3D1  Version=3D1 Cookie=3D28  Reply=
+Cookie=3D2  Timestamp=3D"Fri 2023-04-07 18:32:28.485179 UTC"
+  Sender=3D:1.56  Destination=3D:1.81
+
+Is there a way to prevent this extra dbus traffic?
+
+Thanks,
+Brad Tanner
+
+--_000_DM4PR84MB18298F75FC611301D02500A8819A9DM4PR84MB1829NAMP_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We use externalsensor to host dbus objects and publi=
+sh the values with custom code. During busy times on our BMC, the Property =
+Set method takes a long time to complete. I noticed with monitor that every=
+ Set is accompanied by a method call
+ to GetConnectionUnixUser, which must complete before the response to the S=
+et is sent. It may be
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Type=3Dmethod_call&nbsp; Endian=3Dl&nbsp; Flags=3D0&=
+nbsp; Version=3D1 Cookie=3D2&nbsp; Timestamp=3D&quot;Fri 2023-04-07 18:32:2=
+8.483676 UTC&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Sender=3D:1.81&nbsp; Destination=3Dxyz.openbm=
+c_project.ExternalSensor&nbsp; Path=3D/xyz/openbmc_project/sensors/temperat=
+ure/TestSensor&nbsp; Interface=3Dorg.freedesktop.DBus<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Type=3Dmethod_call&nbsp; Endian=3Dl&nbsp; Flags=3D0&=
+nbsp; Version=3D1 Cookie=3D26&nbsp; Timestamp=3D&quot;Fri 2023-04-07 18:32:=
+28.484291 UTC&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Sender=3D:1.56&nbsp; Destination=3Dorg.freede=
+sktop.DBus&nbsp; Path=3D/org/freedesktop/DBus&nbsp; Interface=3Dorg.freedes=
+ktop.DBus&nbsp; Member=3DGetConnectionUnixUser<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Type=3Dmethod_return&nbsp; Endian=3Dl&nbsp; Flags=3D=
+1&nbsp; Version=3D1 Cookie=3D-1&nbsp; ReplyCookie=3D26&nbsp; Timestamp=3D&q=
+uot;Fri 2023-04-07 18:32:28.484468 UTC&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Sender=3Dorg.freedesktop.DBus&nbsp; Destinati=
+on=3D:1.56<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Type=3Dmethod_return&nbsp; Endian=3Dl&nbsp; Flags=3D=
+1&nbsp; Version=3D1 Cookie=3D28&nbsp; ReplyCookie=3D2&nbsp; Timestamp=3D&qu=
+ot;Fri 2023-04-07 18:32:28.485179 UTC&quot;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp; Sender=3D:1.56&nbsp; Destination=3D:1.81<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Is there a way to prevent this extra dbus traffic?<o=
+:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Brad Tanner<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM4PR84MB18298F75FC611301D02500A8819A9DM4PR84MB1829NAMP_--
