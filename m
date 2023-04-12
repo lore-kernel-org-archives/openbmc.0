@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C40AC7619A
-	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 18:47:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 988D1C7619A
+	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 18:52:06 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PxWtJ1YHjz3bdm
-	for <openbmc@archiver.kernel.org>; Thu, 13 Apr 2023 04:47:52 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PxWz860QVz3f4x
+	for <openbmc@archiver.kernel.org>; Thu, 13 Apr 2023 04:52:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=RxMYj/Ms;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=nnLio+lx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.22; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.21; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=RxMYj/Ms;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=nnLio+lx;
 	dkim-atps=neutral
-X-Greylist: delayed 356 seconds by postgrey-1.36 at boromir; Thu, 13 Apr 2023 04:46:05 AEST
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PxWrF6SbSz3cMs
-	for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2023 04:46:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PxWy74Gp9z3cdC
+	for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2023 04:51:10 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
-	t=1681325156; i=j.neuschaefer@gmx.net;
-	bh=XeBl/5t7UZ4TzAdwmZ2UA9/ZarMbW1PhJCcszk78i7Q=;
+	t=1681325454; i=j.neuschaefer@gmx.net;
+	bh=GFR6pPBbyB1rO8q+jVeF1EaBvVI0oCUvnQvGxUKX0l0=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
-	b=RxMYj/MsFPlKDlwkKmnI6eoFJEoG2kB2bAKbYFakoq1GRMYcIt0lkwxB3KbY39twp
-	 lHuCkYpOIdXrOnRiuaii7JAFT7cykTYBWNyJ3pWPXFUY/mlN7rjsP8jEn8PV8BQWwr
-	 FIjbCatbVkqfsQr0lqe0Q2VwIz11/jZr7phqTrXDpqPEi8/vwfuHGLo06E9+z9v2g+
-	 aKhOCca9fBog/K6wB+yDmyoxYfcMi8jpeuVfFPUP3TVs4fzqdS4arjMmpffiLeCbeO
-	 747sN+ygbbgJpGT8oNoVZClS8hDWtrHkwyd+uZ/3IjlJLSk/ikJ4WhWwpz8rWf5z10
-	 QRBEH+wKkUHZw==
+	b=nnLio+lxptky58a/nb6w3pIFCfNPtD2JZ3ma8935KmFDjmGRpsva9jsmK47+3qM+w
+	 eGZPcf418TQ2VHEYK7u8/xTteu/WxiutCP21qDukLLFgq7xjWgIebUsG0w4P2G+2JB
+	 k4X6vmqz/qs2+Q5+LGOR7M73gNj1JbWVhQEJheXWw53U5DesHYewDyKRX4na/RDvjt
+	 9vDUOC7P2WWEic3pwoRlMDYNGs+h3G6sBKROVA0C3+pOr01NQlsOp1t7SQ4nDd8qvL
+	 I0CmOh3ZmruB5q3hO7C/YvN+inM2bvn56uwB4QI9JZJHOTaixCD97BoSvnkqdviOip
+	 1aPbfKjHGpJjw==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from probook ([185.66.193.41]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MA7KU-1pfTHg3b2o-00BbAY; Wed, 12
- Apr 2023 20:38:38 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MJmGP-1q6fHL3CLR-00K9qe; Wed, 12
+ Apr 2023 20:50:54 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 1/2] soc: nuvoton: Add a menu for Nuvoton SoC drivers
-Date: Wed, 12 Apr 2023 20:38:32 +0200
-Message-Id: <20230412183834.3769519-1-j.neuschaefer@gmx.net>
+To: linux-gpio@vger.kernel.org
+Subject: [PATCH] pinctrl: wpcm450: select MFD_SYSCON
+Date: Wed, 12 Apr 2023 20:50:49 +0200
+Message-Id: <20230412185049.3782842-1-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:0euLrYO+TWx5yPIpbwwSG/oxIf0i/WtN/pDJPApWgfXg7uSArUC
- viSBsOw/okp8bGMeD3UBPwh5K1fsreKnKbLM2mcadU8mCXpg0j51ze2RTmXf5N/6rZphiap
- KwXCZSM9GGM9cCyzZUGR6zaEcvyfsVOFtNk6p2WGHeADyyZxCtewnD2usYA3HFQBLvpwAcq
- 2Is66ujuiCaww7S3ek9MQ==
-UI-OutboundReport: notjunk:1;M01:P0:QW07ReCkl+E=;oemanA/KchKkwkdi+VgYCHx/pow
- fM/Lbyon4g6y4DUq8XAGmOZMdUOPpDEVzUzq71wBZzGj0Bhp1aQI9NOmO9h597gMJJ1pFv1LN
- x7wulOwEeMf6RQCwxAnizB022TKGwd2fGhmTYyX3dgXWjr83J4wKncM0V9Kf8JlbtUnslNXBx
- 2ljMLDQL/8rhjN6eeDooOkk5uzhWujdpy2EI1vTqPcdfn5LJYmJyf+ftfKahjImDkbRKzimUY
- Lcsf9YNcjsfA+QGv49ocbR/Ox7bYxr1Qal9hrs7H2isQIAkiqDcp/xT/hBUCMD0NtiMGJKRX6
- bNE7TOH0G6az2ICcfTOt5BI8OOpLSWdyn9J4JFPTco9vLkajWvoBQuFsD22TpvhIfdH83y879
- g2vqON/4baQUJhuDaHBHOfijSVjKPRzqz8bFRGszHt7mcjdvdQ/14Q1WdhpmJ1KEXnmVXRAvs
- 7NCsJDCGI4PSQQf9+VG4YtspAODwOa6LMsJkskOVMEDebC3D8LEjdqllgafTpi2HQU+m2L1f4
- 6EcSKxLSdDEYz9PnVJkFBnKTKzKyDCTElre5itnhalKReRK4/oNKTwWVmLugKQAx9qt8gWtn7
- lG+Y/P8Jsxjb8FRmE2PR/rtBOZzwO16WHI+O9yuoa4xPDbvmrjiUqeaKNo1dNwgpoPObaI+Pt
- oV1XdOMwCG9yzk/uDaEEF1rQtV1z9uAkeq3poG7rR27b8ZECDuBjxUqRqjO33n1/OW7LXEsHA
- T7YFRvD9rNjEtCBqYbBP8zGyMulD/D2K4O0zZE2SC3RYqXf2A4zDbaJVY5KUBDOVL5aISfQmR
- Bdxhko7Ujsy9VOnFxJivFA+wMaPhWBpRfO6zIMWun+zg0gQUcWUppw2f30FNAqQPZLkckANQQ
- yihTNZOqF8PoYkVMyKAHACHHAGF3HvrR73xzMkJDuJeAM5/tFm0GPOCZdpzk2eZA7r/iqC0bl
- YZRt5FJCVJxs3r8gA7RcnlRvJZA=
+X-Provags-ID: V03:K1:aggW3W45FTuN4BbpiHiKJOpl8E/pH2Nw2pHRIXGEteiRP2qyb4o
+ ZyhMoPLfz7PlK1kuOzlS3YuDMQ+NajrA4m6jPt45xzmisUE684k9bQWawNXarn1ErNtVyuU
+ 1uqpo/u4CwbMb/Oq+9IlHadwNImVLUU6nmiJh8nIbQ6J16J+cSfskJSanUO++BvTPT7WlRe
+ FdsiRSVS1rdtQNWjnz6Og==
+UI-OutboundReport: notjunk:1;M01:P0:Bj0zO1cdLHQ=;CH5ZIGfiCO+AYHjYxM/PoShCwdT
+ zG8A7k7SlLID4z1Gi6swYevzoe2cdJn4svjhdFaB1bFpltT6ZmuV4hbCphS1zN1XqJ9JolBW+
+ qOvTvs6U8oWkCH/XxunZEcsPaDyyCs+lQsx5mvoJvnWoOpvCBR/2TIlrqxokfjzveUbgSPxSF
+ yN0EeGBmocmyGrVbLp1uRKkSd0ZW1AVM9Ngug7JuC9Mr/jWWsHyqsEdcV7+skPMLysRyzd6Ap
+ lYQODI2dqCih9clTwxkyLDT2wDvdfEoZmSl/SCG+vZO7CjmMeQBLSlw9Rn7QBOvp3VN/QQ3ks
+ AiwdTHI0feETdO/HlAnNTEIbxVXgPp/yvgfHQzg8jl1GXx3DFdJ8MsypA2niM0qNEq3tveWg4
+ ck3SjiATUwzJ22hpLcZ3BIsTB5X0gS/+XHbY+R7x83qMbfJpyO/33RWFMGjkUI2Pa2I/uFey8
+ UN5QZV/lorl7iFHXUQLDfB/VCaU13SH74/fgHURdx/gEuMi1yZ9FPZ1j4A1sYQrNjlxt4p+XO
+ ZVQBlFpOtkwggWUVePhwKHL3JIREIP6slrPCSPqbAMMFq9gJB0xVM2Iw1/LyujUIc6mSBjG2B
+ Do7faSegLTqXkt1egs4Ia853Sg9yUAh6f+/wKi4bPFWKoPSrK2kIyl84g7SlH0bcC3Ay6klsv
+ aao6qrbrnQEy3KwhVolFKjWsZLfrAOnawCRBhjll8PLtLaVULcd92FWcOll4JRhjT76q7wTOS
+ 8TnwpXKEIM67s5fMUcjjD9ArtIhbujLt1CefzQFeMlSzU177uaZt2d6tsdV+nR52fPLX2TYn6
+ XsyJLu/hA18AxOrnLh4jp17V1Rctcrjpli6UHO1RwwRz3QOI/Bv5idkYAB3Qt/L4vspYH2b1D
+ rik8J3IU0p5QAsfuQhW0rY0fOLW4ldPsF8rN0rjS/NwotSZxyYj1WzS2G9MzApVulgcTDem9N
+ M0b9Ug==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,53 +75,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Geert Uytterhoeven <geert@linux-m68k.org>, Joel Stanley <joel@jms.id.au>
+Cc: openbmc@lists.ozlabs.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a menu "Nuvoton SoC drivers" to make it easier to add other Nuvoton
-SoC drivers later on and to prevent asking about the Nuvoton WPCM450 SoC
-driver when configuring a kernel without support for Nuvoton SoCs.
+The pinctrl-wpcm450 driver relies on MFD_SYSCON functionality in order
+to find some of its MMIO registers. Select MFD_SYSCON from
+PINCTRL_WPCM450 to ensure that it's enabled.
 
-Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Link: https://lore.kernel.org/lkml/CAMuHMdWo5vHCeE6BeSHrUy12uT7_wFhW-VbQmQ=
-5u+4Q8c7-wYQ@mail.gmail.com/
-Fixes: 77b8c67b5637 ("soc: nuvoton: Add SoC info driver for WPCM450")
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
-v3:
-- Split the commit into two
-- Reword the commit messages a bit
+ drivers/pinctrl/nuvoton/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-v2:
-- https://lore.kernel.org/lkml/20230212215234.2608565-1-j.neuschaefer@gmx.=
-net/
-- Commit message improvements, as suggested by Geert Uytterhoeven.
-- Add Link after Reviewed-by, as checkpatch.pl now suggests
-=2D--
- drivers/soc/nuvoton/Kconfig | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/soc/nuvoton/Kconfig b/drivers/soc/nuvoton/Kconfig
-index df46182088ec2..853392c8a9151 100644
-=2D-- a/drivers/soc/nuvoton/Kconfig
-+++ b/drivers/soc/nuvoton/Kconfig
-@@ -1,5 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
--menuconfig WPCM450_SOC
-+menu "Nuvoton SoC drivers"
-+	depends on ARCH_NPCM || COMPILE_TEST
-+
-+config WPCM450_SOC
- 	tristate "Nuvoton WPCM450 SoC driver"
- 	default y if ARCH_WPCM450
- 	select SOC_BUS
-@@ -9,3 +12,5 @@ menuconfig WPCM450_SOC
-
- 	  This driver provides information such as the SoC model and
- 	  revision.
-+
-+endmenu
+diff --git a/drivers/pinctrl/nuvoton/Kconfig b/drivers/pinctrl/nuvoton/Kco=
+nfig
+index 852b0d0eb08e0..8fe61b3481818 100644
+=2D-- a/drivers/pinctrl/nuvoton/Kconfig
++++ b/drivers/pinctrl/nuvoton/Kconfig
+@@ -11,6 +11,7 @@ config PINCTRL_WPCM450
+ 	select GPIOLIB
+ 	select GPIO_GENERIC
+ 	select GPIOLIB_IRQCHIP
++	select MFD_SYSCON
+ 	help
+ 	  Say Y or M here to enable pin controller and GPIO support for
+ 	  the Nuvoton WPCM450 SoC. This is strongly recommended when
 =2D-
 2.39.2
 
