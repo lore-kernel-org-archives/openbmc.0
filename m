@@ -4,54 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE14BC77B6E
-	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 15:30:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10A7C77B6E
+	for <openbmc@archiver.kernel.org>; Wed, 12 Apr 2023 18:47:02 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4PxRVp1psXz3fQd
-	for <openbmc@archiver.kernel.org>; Thu, 13 Apr 2023 01:30:42 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kaod.org (client-ip=46.105.54.81; helo=smtpout3.mo529.mail-out.ovh.net; envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-X-Greylist: delayed 1012 seconds by postgrey-1.36 at boromir; Thu, 13 Apr 2023 01:30:10 AEST
-Received: from smtpout3.mo529.mail-out.ovh.net (smtpout3.mo529.mail-out.ovh.net [46.105.54.81])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4PxWsJ6Gl1z3f7p
+	for <openbmc@archiver.kernel.org>; Thu, 13 Apr 2023 04:47:00 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=e76GfvWd;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.19; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=e76GfvWd;
+	dkim-atps=neutral
+X-Greylist: delayed 353 seconds by postgrey-1.36 at boromir; Thu, 13 Apr 2023 04:46:01 AEST
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4PxRVB0YNpz3cBX
-	for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2023 01:30:07 +1000 (AEST)
-Received: from mxplan5.mail.ovh.net (unknown [10.108.20.2])
-	by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 35B7E20C0C;
-	Wed, 12 Apr 2023 15:13:09 +0000 (UTC)
-Received: from kaod.org (37.59.142.101) by DAG4EX2.mxp5.local (172.16.2.32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Wed, 12 Apr
- 2023 17:13:09 +0200
-Authentication-Results: garm.ovh; auth=pass (GARM-101G004462b771d-17db-464e-b48f-f15e35446f40,
-                    5163A029651DE878447B53959E60E0FA73EB9D10) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 82.66.77.115
-Message-ID: <2231ac88-3005-0fb4-6aad-e7652ffd3467@kaod.org>
-Date: Wed, 12 Apr 2023 17:13:08 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4PxWr95n1bz3cMs
+	for <openbmc@lists.ozlabs.org>; Thu, 13 Apr 2023 04:46:00 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net; s=s31663417;
+	t=1681325152; i=j.neuschaefer@gmx.net;
+	bh=e3csk9QDtuoyy0hLFZXVSqs18PWEMHsMdfYpX2DjbKI=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e76GfvWdk0em9To7Aoa3PQjWPqw9aPabqv+r1B9CTW+ChcYY0pcWJlviEZL1MluoT
+	 ImCmDvCjJryXfHlBBNkgJcQYFJ3dSgD3+TFJne5GhsSR2uUQGKtArrJwWhvnRhLNoO
+	 0YE4YuqDwgdN6aBSty/iYXYr0SgTfhQHfWZr28Nm6Ulme+CBLi5mAWH9aZ+Sqyq3SR
+	 cmdVcbRBIhwJP5dW70FiqDQ8cD4dOjefTV7Lrg6SQswbihHvHzL1xZTwaEFvujd6IC
+	 g+yA5R+gP/BltsilrSYS49QuMSrfM7tooWilDMAibtcM/NBTrLP2dsDk4pM+oN0qXI
+	 LBm28sEtgLZoA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from probook ([185.66.193.41]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1Md6Qr-1qLRx43G5b-00aH3p; Wed, 12
+ Apr 2023 20:38:41 +0200
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH v3 2/2] soc: nuvoton: Add "select REGMAP" to WPCM450 SoC driver
+Date: Wed, 12 Apr 2023 20:38:33 +0200
+Message-Id: <20230412183834.3769519-2-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230412183834.3769519-1-j.neuschaefer@gmx.net>
+References: <20230412183834.3769519-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: Integrating swtpm(as a software TPM) with OpenBMC on Qemu
-Content-Language: en-US
-To: Sandeep Kumar <sandeep.pkumar@tcs.com>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, Ninad Palsule <ninad@linux.ibm.com>, Joel Stanley
-	<jms@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-References: <MA1PR01MB412922EF629403C84674A6AD87909@MA1PR01MB4129.INDPRD01.PROD.OUTLOOK.COM>
- <8e23c99e-0e62-3866-ce61-c75a14453a37@kaod.org>
- <MA1PR01MB4129EB6FA57EA28AA9002E9C879B9@MA1PR01MB4129.INDPRD01.PROD.OUTLOOK.COM>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <MA1PR01MB4129EB6FA57EA28AA9002E9C879B9@MA1PR01MB4129.INDPRD01.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.101]
-X-ClientProxiedBy: DAG4EX2.mxp5.local (172.16.2.32) To DAG4EX2.mxp5.local
- (172.16.2.32)
-X-Ovh-Tracer-GUID: 85b0d75d-4194-4f57-baa3-fca62ad83c75
-X-Ovh-Tracer-Id: 14593070167808773027
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvhedrvdekiedgkeejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvfhfhjggtgfhisehtkeertddtfeejnecuhfhrohhmpeevrogurhhitgcunfgvucfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhepvdfhteetudduudelvddtfedugedtueefudeggfejgeevudejhfejteekudelieeknecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhithhhuhgsrdgtohhmnecukfhppeduvdejrddtrddtrddupdefjedrheelrddugedvrddutddupdekvddrieeirdejjedrudduheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepoegtlhhgsehkrghougdrohhrgheqpdhnsggprhgtphhtthhopedupdhrtghpthhtohepshgrnhguvggvphdrphhkuhhmrghrsehttghsrdgtohhmpdhophgvnhgsmhgtsehlihhsthhsrdhoiihlrggsshdrohhrghdpnhhinhgrugeslhhinhhugidrihgsmhdrtghomhdpjhhmshesjhhmshdrihgurdgruhdprghnughrvgifsegrjhdrihgurdgruhdpoffvtefjohhsthepmhhohedvledpmhhouggvpehsmhhtphhouhht
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Sah6L9Z4qPYitnzI9t240ENQHo3+eFI+OoSRtsT2MmfdOy5jjO+
+ VP9P4lD3CzwU7l1sYs83RBd/iKKCVbJt1jigQWaDTehB1kGqPC2W1l5Iqw2j+9hUrj0WvSc
+ G1t/4bo5bl+yr0Y8kVY9jw4RA1lVPhGsgJPrfVE230KMDFaEE3dRxSC0tTetNCz3ZMVmKqK
+ Uq/X2Ibd+/vcjyRE5jeUw==
+UI-OutboundReport: notjunk:1;M01:P0:dSjesP8u/Ig=;xP6A8ISy7LtltFpKJNKXzVBGn/H
+ QxM1NkIjmCplxy46EnLmkR7Rc01QjE6JRRdoIo+99oaVTrcIbCw/wDONcpScCQu5D8S581KLM
+ JQPZgyEYvaYLYtfQNFXULrA6fOfdZWgk7wM1ZGUOQbMlNIS/oj8KZGVTbb7v588yeOA1CXP4r
+ Wx2GV5DeVEDZkVV9dc/wfktZ1AszoFTrWLx0AndA/Me3A46g3ZxcD4TIQyTXIuamvCz54G5N0
+ 4fH/QmKZavuT2g5eAYLnMCTeYGfKRbxN/ahONiWIFJ9vAvqNNxsWkr4AZQsyqIvC0HDLRYRp+
+ 9Yq2y6X8VTg1Kl9R9EwXtkhKuhyiVP3Cj4RrWWd+LWdl3X7U5CepRkIVbZ2xrE3vVMtGnT8Cf
+ KAPL/HHQZp9oClRq9TOcz4vXv0kU6qamlKgzU3NSY4dKqOW4YUjA1epVRayVJNnLceABjPwv2
+ JpToZc13y/zLv7DYjx0vUS05ElpPpEhENAmaabvXxeeKvzY5Vi0W80c8yTBr6mrkfLpZadHJU
+ aqJ67B0gcMiO+uvGO/uBumN2D+n+3h2n9uIYXNJ4nh7aEGEoyZkkWcDjzAbrLHy68R20feztM
+ CRynXAVvcjaiRG3LHW9X7lc1QTd6tZv4/2INhCpxOpHo0U64r4/YQkXLxtIzabLfzvUj99avq
+ sPtA1mqC4atnWWbuyQ/m4eITkKOK43eUaYCBcjUthFTQVUyOJ26Cf6gJNbF7+5bCISn0OtjzX
+ +cQN3YZescMrHfYK43c+Ox2whJpKWy4Jf5FoI6mdiEM3GCy+q4dU6IJinDZ/dtSRRHpLB6Gkv
+ BSKMTh3K+QQ+XALA/f01IO8+BLMyqz00D2Zd4ObaDi8bYo+k95zc9u51PUg1RTWnrNWqSJD++
+ IAS4koYLCixAQsEb+yc29HKanthwPzBffK4289v5NQIzHRSMGc7TquCiUjL1Q5VAUyfcontdJ
+ 9lMkfQ==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +78,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Geert Uytterhoeven <geert@linux-m68k.org>, Joel Stanley <joel@jms.id.au>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 4/12/23 07:12, Sandeep Kumar wrote:
->   TCS Confidential
-> 
-> Hi C,
-> 
-> Thanks for sharing the info.  We have started working on it. Could you please point to the exact patches that needs to be applied on openBMC Qemu ? There are too many patches to choose from.
+Select CONFIG_REGMAP from CONFIG_WPCM450_SOC, because the driver relies
+on regmap to work.
 
-Just use my branch for now. OpenBMC QEMU is outdated.
-We'll resync when 8.0 is out
+Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Link: https://lore.kernel.org/lkml/CAMuHMdWo5vHCeE6BeSHrUy12uT7_wFhW-VbQmQ=
+5u+4Q8c7-wYQ@mail.gmail.com/
+Fixes: 77b8c67b5637 ("soc: nuvoton: Add SoC info driver for WPCM450")
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+v3:
+- Split the commit into two
+- Reword the commit messages a bit
 
-Thanks,
+v2:
+- https://lore.kernel.org/lkml/20230212215234.2608565-1-j.neuschaefer@gmx.=
+net/
+- Commit message improvements, as suggested by Geert Uytterhoeven.
+- Add Link after Reviewed-by, as checkpatch.pl now suggests
+=2D--
+ drivers/soc/nuvoton/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-C.
-
-> 
-> Thanks,
-> Sandeep.
-> 
-> -----Original Message-----
-> From: Cédric Le Goater <clg@kaod.org>
-> Sent: Wednesday, April 5, 2023 7:25 PM
-> To: Sandeep Kumar <sandeep.pkumar@tcs.com>; openbmc@lists.ozlabs.org; Ninad Palsule <ninad@linux.ibm.com>; Joel Stanley <jms@jms.id.au>; Andrew Jeffery <andrew@aj.id.au>
-> Subject: Re: Integrating swtpm(as a software TPM) with OpenBMC on Qemu
-> 
-> "External email. Open with Caution"
-> 
-> Hello,
-> 
-> On 4/5/23 14:48, Sandeep Kumar wrote:
->> TCS Confidential
->>
->>
->> Hi,
->>
->> Trying to see how to get swtpm working as a virtual TPM and connect to openBMC on QEMU. How do we achieve this? Main idea is to get this working and make secure boot through the virtual TPM(swtpm).
-> 
-> Ninad did a nice how to :
-> 
->     https://lore.kernel.org/qemu-devel/20230331161319.2250334-4-ninadpalsule@us.ibm.com/
-> 
-> If you want to try, the patches are on this branch :
-> 
->     https://github.com/legoater/qemu/commits/aspeed-8.0
-> 
-> and they should reach the QEMU OpenBMC repo at some point in time.
-> 
-> 
-> Joel also provided a simple test case :
-> 
->     https://lore.kernel.org/qemu-devel/20230328120844.190914-1-joel@jms.id.au/
-> 
-> using the ast2600-evb machine.
-> 
-> Cheers,
-> 
-> C.
-> 
->   TCS Confidential
-> =====-----=====-----=====
-> Notice: The information contained in this e-mail
-> message and/or attachments to it may contain
-> confidential or privileged information. If you are
-> not the intended recipient, any dissemination, use,
-> review, distribution, printing or copying of the
-> information contained in this e-mail message
-> and/or attachments to it are strictly prohibited. If
-> you have received this communication in error,
-> please notify us by reply e-mail or telephone and
-> immediately and permanently delete the message
-> and any attachments. Thank you
-> 
-> 
+diff --git a/drivers/soc/nuvoton/Kconfig b/drivers/soc/nuvoton/Kconfig
+index 853392c8a9151..2167d3d739d84 100644
+=2D-- a/drivers/soc/nuvoton/Kconfig
++++ b/drivers/soc/nuvoton/Kconfig
+@@ -6,6 +6,7 @@ config WPCM450_SOC
+ 	tristate "Nuvoton WPCM450 SoC driver"
+ 	default y if ARCH_WPCM450
+ 	select SOC_BUS
++	select REGMAP
+ 	help
+ 	  Say Y here to compile the SoC information driver for Nuvoton
+ 	  WPCM450 SoCs.
+=2D-
+2.39.2
 
