@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC47C77B6E
-	for <openbmc@archiver.kernel.org>; Fri, 14 Apr 2023 16:00:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF53C77B71
+	for <openbmc@archiver.kernel.org>; Sat, 15 Apr 2023 01:31:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Pyh4B0b2Xz3fWN
-	for <openbmc@archiver.kernel.org>; Sat, 15 Apr 2023 02:00:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=inventron.com.tr header.i=@inventron.com.tr header.a=rsa-sha256 header.s=default header.b=rnTVa1jB;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=inventron.com.tr (client-ip=185.216.113.71; helo=ns1.ihsdnsx51.com; envelope-from=tunc.doygun@inventron.com.tr; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=inventron.com.tr header.i=@inventron.com.tr header.a=rsa-sha256 header.s=default header.b=rnTVa1jB;
-	dkim-atps=neutral
-X-Greylist: delayed 397 seconds by postgrey-1.36 at boromir; Sat, 15 Apr 2023 01:59:24 AEST
-Received: from ns1.ihsdnsx51.com (ns1.ihsdnsx51.com [185.216.113.71])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Pywkm43X2z3chn
+	for <openbmc@archiver.kernel.org>; Sat, 15 Apr 2023 11:31:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com; envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com [211.20.114.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pyh302MGjz3fT6
-	for <openbmc@lists.ozlabs.org>; Sat, 15 Apr 2023 01:59:23 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inventron.com.tr;
-	s=default; t=1681487960;
-	bh=/ZFnaQ6JCTMZCo/AlRJ2lUClChV5TSic3uuyohpyl+s=;
-	h=Received:Received:To:From:Subject;
-	b=rnTVa1jBVq/NhO833Ng3MDFeZQiXDAf40/etOx4aTCkvFQgsXNK8nTRBDbrATAmqT
-	 ioD2uUwKJcsolsaXBJUzKjvXNmbcAQE48tKuc1+88VBIwjZe8yPuEBWCEtfNfv2/qE
-	 NmXC7kyoaUjXUn9wPSOupzRulg1L0l5kZhI/QjDI=
-Received: (qmail 710761 invoked from network); 14 Apr 2023 18:52:39 +0300
-Received: from 78.189.148.199.static.ttnet.com.tr (HELO ?192.168.1.37?)
- (78.189.148.199)
-  by ns1.ihsdnsx51.com with ESMTPSA (AES128-GCM-SHA256 encrypted,
- authenticated); 14 Apr 2023 18:52:38 +0300
-Content-Type: multipart/alternative;
- boundary="------------ZeV42FIYBhLKM0LjCHNhXZig"
-Message-ID: <cc8b520e-b0b1-66df-d5c4-84931f4a1f8c@inventron.com.tr>
-Date: Fri, 14 Apr 2023 18:52:38 +0300
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Pywk86j4nz3cdC;
+	Sat, 15 Apr 2023 11:30:38 +1000 (AEST)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+	by twspam01.aspeedtech.com with ESMTP id 33F1CmhU037682;
+	Sat, 15 Apr 2023 09:12:48 +0800 (GMT-8)
+	(envelope-from ryan_chen@aspeedtech.com)
+Received: from aspeedtech.com (192.168.10.13) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Sat, 15 Apr
+ 2023 09:28:51 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: <jk@codeconstruct.com.au>, Brendan Higgins <brendan.higgins@linux.dev>,
+        Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+        Joel Stanley
+	<joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
+        Krzysztof Kozlowski
+	<krzysztof.kozlowski+dt@linaro.org>,
+        Andrew Jeffery <andrew@aj.id.au>,
+        Philipp Zabel <p.zabel@pengutronix.de>, Wolfram Sang <wsa@kernel.org>,
+        "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>,
+        <linux-i2c@vger.kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+        Jean Delvare <jdelvare@suse.de>,
+        William Zhang <william.zhang@broadcom.com>,
+        Tyrone Ting <kfting@nuvoton.com>,
+        Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+        Ryan Chen
+	<ryan_chen@aspeedtech.com>,
+        Conor Dooley <conor.dooley@microchip.com>,
+        "Phil
+ Edworthy" <phil.edworthy@renesas.com>,
+        <openbmc@lists.ozlabs.org>, <devicetree@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>,
+        <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v10 1/2] dt-bindings: i2c: aspeed: support for AST2600-i2cv2
+Date: Sat, 15 Apr 2023 09:28:47 +0800
+Message-ID: <20230415012848.1777768-2-ryan_chen@aspeedtech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230415012848.1777768-1-ryan_chen@aspeedtech.com>
+References: <20230415012848.1777768-1-ryan_chen@aspeedtech.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: openbmc@lists.ozlabs.org
-Content-Language: en-US
-From: Tunc Doygun <tunc.doygun@inventron.com.tr>
-Subject: smbios-mdrv1
-X-PPP-Message-ID: <168148755901.710750.3449336563857137946@ns1.ihsdnsx51.com>
-X-PPP-Vhost: inventron.com.tr
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [192.168.10.13]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 33F1CmhU037682
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,107 +74,93 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a multi-part message in MIME format.
---------------ZeV42FIYBhLKM0LjCHNhXZig
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Add ast2600-i2cv2 compatible and aspeed,global-regs, aspeed,enable-dma
+and description for ast2600-i2cv2.
 
-Hi,
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+ .../devicetree/bindings/i2c/aspeed,i2c.yaml   | 51 +++++++++++++++++--
+ 1 file changed, 48 insertions(+), 3 deletions(-)
 
-We are trying to communicate BMC with bios that supports smbios-mdrv1. 
-We have built the mdrv1 code in Intel's 
-https://github.com/Intel-BMC/provingground/tree/master/services/smbios 
-repo in yocto.We included intel-ipmi-oem project into image. We enabled 
-kcs3 0xCA2 in dts. But we could not communicate. Is there anything else 
-we should do?
+diff --git a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
+index f597f73ccd87..55d20eee06b1 100644
+--- a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
+@@ -9,9 +9,6 @@ title: ASPEED I2C on the AST24XX, AST25XX, and AST26XX SoCs Device Tree Bindings
+ maintainers:
+   - Rayn Chen <rayn_chen@aspeedtech.com>
+ 
+-allOf:
+-  - $ref: /schemas/i2c/i2c-controller.yaml#
+-
+ properties:
+   compatible:
+     enum:
+@@ -49,12 +46,50 @@ properties:
+     description:
+       states that there is another master active on this bus
+ 
++  aspeed,enable-dma:
++    type: boolean
++    description: |
++      I2C bus enable dma mode transfer.
++
++      ASPEED ast2600 platform equipped with 16 I2C controllers that share a
++      single DMA engine. DTS files can specify the data transfer mode to/from
++      the device, either DMA or programmed I/O. However, hardware limitations
++      may require a DTS to manually allocate which controller can use DMA mode.
++      The "aspeed,enable-dma" property allows control of this.
++
++      In cases where one the hardware design results in a specific
++      controller handling a larger amount of data, a DTS would likely
++      enable DMA mode for that one controller.
++
++  aspeed,global-regs:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: The phandle of i2c global register node.
++
+ required:
+   - reg
+   - compatible
+   - clocks
+   - resets
+ 
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: aspeed,ast2600-i2cv2
++
++    then:
++      properties:
++        reg:
++          minItems: 2
++      required:
++        - aspeed,global-regs
++    else:
++      properties:
++        aspeed,global-regs: false
++        aspeed,enable-dma: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+@@ -71,3 +106,13 @@ examples:
+       interrupts = <0>;
+       interrupt-parent = <&i2c_ic>;
+     };
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    i2c1: i2c@80 {
++      compatible = "aspeed,ast2600-i2cv2";
++      reg = <0x80 0x80>, <0xc00 0x20>;
++      aspeed,global-regs = <&i2c_global>;
++      clocks = <&syscon ASPEED_CLK_APB>;
++      resets = <&syscon ASPEED_RESET_I2C>;
++      interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
++    };
+-- 
+2.34.1
 
-intel-ipmi-oem logs:
-
-Apr 14 15:33:50 ipmid[383]: Registering OEM commands
-Apr 14 15:33:51 ipmid[383]: BIOSConfig module initialization
-Apr 14 15:33:51 ipmid[383]: Registering MultiNode commands
-Apr 14 15:33:52 ipmid[383]: Registering Chassis commands
-Apr 14 15:33:52 ipmid[383]: Loading whitelist filter
-Apr 14 15:33:57 ipmid[383]: Unable to find SMM Channel Info
-Apr 14 15:33:57  ipmid[383]: Could not initialize provisioning mode, 
-defaulting to restricted
-Apr 14 15:33:58  ipmid[383]: Error in OperatingSystemState Get
-Apr 14 15:33:58  ipmid[383]: No Object has implemented the interface
-Apr 14 15:33:58  ipmid[383]: The operation failed internally.
-Apr 14 15:33:58  ipmid[383]: Could not initialize CoreBiosDone, 
-coreBIOSDone asserted as default
-Apr 14 15:33:58  ipmid[383]: New interface mapping
-Apr 14 15:33:58  ipmid[383]: Set restrictedMode = false
-Apr 14 15:33:58  ipmid[383]: New interface mapping
-
-ipmid logs:
-
-Apr 14 15:48:21  ipmid[382]: Legacy Handler failed to catch exception
-Apr 14 15:48:23  ipmid[382]: Get Sol Config - Invalid channel in request
-Apr 14 15:48:24  ipmid[382]: Get Sol Config - Invalid channel in request
-Apr 14 15:48:25  ipmid[382]: Get Sol Config - Invalid channel in request
-Apr 14 15:48:26  ipmid[382]: Get Sol Config - Invalid channel in request
-
---------------ZeV42FIYBhLKM0LjCHNhXZig
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hi,</p>
-    <p><span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">We are trying to communicate BMC with bios
-            that supports smbios-mdrv1. We have built the mdrv1 code in
-            Intel's
-            <a class="moz-txt-link-freetext" href="https://github.com/Intel-BMC/provingground/tree/master/services/smbios">https://github.com/Intel-BMC/provingground/tree/master/services/smbios</a>
-            repo in yocto.</span></span><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">We included intel-ipmi-oem project into
-            image. We enabled kcs3 0xCA2 in dts. But we could not
-            communicate. Is there anything else we should do?</span></span></span></p>
-    <p><span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">intel-ipmi-oem logs:</span></span></span></p>
-    <p><span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">Apr 14 15:33:50 ipmid[383]: Registering OEM
-            commands<br>
-            Apr 14 15:33:51 ipmid[383]: BIOSConfig module initialization<br>
-            Apr 14 15:33:51 ipmid[383]: Registering MultiNode commands<br>
-            Apr 14 15:33:52 ipmid[383]: Registering Chassis commands<br>
-            Apr 14 15:33:52 ipmid[383]: Loading whitelist filter<br>
-            Apr 14 15:33:57 ipmid[383]: Unable to find SMM Channel Info<br>
-            Apr 14 15:33:57  ipmid[383]: Could not initialize
-            provisioning mode, defaulting to restricted<br>
-            Apr 14 15:33:58  ipmid[383]: Error in OperatingSystemState
-            Get<br>
-            Apr 14 15:33:58  ipmid[383]: No Object has implemented the
-            interface<br>
-            Apr 14 15:33:58  ipmid[383]: The operation failed
-            internally.<br>
-            Apr 14 15:33:58  ipmid[383]: Could not initialize
-            CoreBiosDone, coreBIOSDone asserted as default<br>
-            Apr 14 15:33:58  ipmid[383]: New interface mapping<br>
-            Apr 14 15:33:58  ipmid[383]: Set restrictedMode = false<br>
-            Apr 14 15:33:58  ipmid[383]: New interface mapping<br>
-          </span></span></span></p>
-    <p><span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">ipmid logs:</span></span></span></p>
-    <p><span class="HwtZe" lang="en"><span class="jCAhz ChMk0b"><span
-            class="ryNqvb">Apr 14 15:48:21  ipmid[382]: Legacy Handler
-            failed to catch exception<br>
-            Apr 14 15:48:23  ipmid[382]: Get Sol Config - Invalid
-            channel in request<br>
-            Apr 14 15:48:24  ipmid[382]: Get Sol Config - Invalid
-            channel in request<br>
-            Apr 14 15:48:25  ipmid[382]: Get Sol Config - Invalid
-            channel in request<br>
-            Apr 14 15:48:26  ipmid[382]: Get Sol Config - Invalid
-            channel in request<br>
-            <br>
-          </span></span></span></p>
-  </body>
-</html>
-
---------------ZeV42FIYBhLKM0LjCHNhXZig--
