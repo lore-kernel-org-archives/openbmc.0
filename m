@@ -4,48 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58B4AC7618E
-	for <openbmc@archiver.kernel.org>; Wed, 26 Apr 2023 07:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D17C7618E
+	for <openbmc@archiver.kernel.org>; Thu, 27 Apr 2023 00:48:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Q5rVG28cDz3cL7
-	for <openbmc@archiver.kernel.org>; Wed, 26 Apr 2023 17:44:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2001:67c:670:201:290:27ff:fe1d:cc33; helo=metis.ext.pengutronix.de; envelope-from=pza@pengutronix.de; receiver=<UNKNOWN>)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Q6HDC3DYxz3cff
+	for <openbmc@archiver.kernel.org>; Thu, 27 Apr 2023 10:48:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=Nhnofm2n;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JsdsPX2j;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aj.id.au (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=Nhnofm2n;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=JsdsPX2j;
+	dkim-atps=neutral
+X-Greylist: delayed 159 seconds by postgrey-1.36 at boromir; Thu, 27 Apr 2023 10:47:43 AEST
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Q5rTd3Jrhz3cBp
-	for <openbmc@lists.ozlabs.org>; Wed, 26 Apr 2023 17:43:46 +1000 (AEST)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
-	by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <pza@pengutronix.de>)
-	id 1prZoO-0001la-DI; Wed, 26 Apr 2023 09:43:36 +0200
-Received: from pza by ptx.hi.pengutronix.de with local (Exim 4.92)
-	(envelope-from <pza@pengutronix.de>)
-	id 1prZoM-0001fM-I9; Wed, 26 Apr 2023 09:43:34 +0200
-Date: Wed, 26 Apr 2023 09:43:34 +0200
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>
-Subject: Re: [PATCH v7 2/2] clk: wpcm450: Add Nuvoton WPCM450 clock/reset
- controller driver
-Message-ID: <20230426074334.GC4724@pengutronix.de>
-References: <20230422220240.322572-1-j.neuschaefer@gmx.net>
- <20230422220240.322572-3-j.neuschaefer@gmx.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230422220240.322572-3-j.neuschaefer@gmx.net>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: pza@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Q6HC36Hz1z3cF8
+	for <openbmc@lists.ozlabs.org>; Thu, 27 Apr 2023 10:47:43 +1000 (AEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+	by mailout.nyi.internal (Postfix) with ESMTP id 00C605C013C;
+	Wed, 26 Apr 2023 20:47:42 -0400 (EDT)
+Received: from imap50 ([10.202.2.100])
+  by compute6.internal (MEProxy); Wed, 26 Apr 2023 20:47:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm2; t=1682556461; x=1682642861; bh=UW
+	JOCX1B2KDZ80UCc4U8Vq6bPSbMFeMPMFq4S5CBQZw=; b=Nhnofm2nt1v/yYuo0O
+	smBvzt6uhRMxQ46slBb5w9zO1/QhyWlj0glhMLgdJ9z9jx8IJmAetPNMobaGcewn
+	K9XZLWKqNHqyHEeLgi5JkZnqar/q0ZNLd78uEUqM3N0OSaM/QrGNOel+BgfSExUb
+	adye8m5P8pxyYT+aCsFtOEFKpjbplxFxnZ+URmCBiIzxWJsGKsw0Ydog7jqW8NqG
+	ZA2HXmqqQ6NxtXYKoQ7Ruph1H1rwW8O/V+KN2HdYCk9vXCC8yw/UcdllA7sSEVJZ
+	cg5kLxODFROOho5z9awuBenAvdfC9Rf95S9OqaGMVqrZqiOEVbsY/iHa06gDXxDS
+	Lmhw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1682556461; x=1682642861; bh=UWJOCX1B2KDZ8
+	0UCc4U8Vq6bPSbMFeMPMFq4S5CBQZw=; b=JsdsPX2jHdEHBnw8tTuiFCkhoM+kx
+	TZPuxBJxxJ+GXwSiYOU+d+XJ04Yq4lXDUVHclATIMKJrqcHUSZmT38YTgQsFmdBc
+	VoYIUNpA1ffsAqarZZYEjzKasFste6pbh4Vsp29kZi6kTzW0XPMpOUoP62vIqkVT
+	XFK4KQbkW9mVMsSG+2iziqwYNW0XrCzryjV8WA1taN9itL4jggK4X6hPzebCVRw7
+	aI4+OrSzOlKqJlN/s19I2Y+Y11wd38+j58eM0HyqD3mNNMnXeCDXFrPW5CWPRfjT
+	Pkiq0nD7HYkVHiktEGbRX3a3rT75iNjtH6pmfMNMuAruVNjmVO5/hHkGA==
+X-ME-Sender: <xms:LcZJZDmOH9d56Q2pCE_feD76edXaF1N19c_3_T1rCoP56nzcdviihQ>
+    <xme:LcZJZG3guMQmMiGEar-FSIjeEKDd3_q5jvgB_M-8AsfyHMK5O281VOLyzWv4jiJhb
+    d5Sz011wvsuEqivQg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduhedgfeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehn
+    ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtf
+    frrghtthgvrhhnpeekvdekjeekgfejudffteetgeejkeetteduvedtffdtledutdfhheev
+    feetkeeiteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+    hmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:LcZJZJrUNT4ThUdPh_59Tjo4OigEkuJBqlGB1PHg_FugnwqwMI4QfQ>
+    <xmx:LcZJZLlNyagbUewi8twD8O5zJtN2Diu3HLws7mw_SrjbErmF4jUrqw>
+    <xmx:LcZJZB0SWgqtAcp9SLtUXQ-7s9J5VejATrhWu6tqwDIVzM2YKQVuFg>
+    <xmx:LcZJZC_3TAeGiNdwa-N2PiOLkb41lnAUn9X4KarmaOVv8qvnekMB-g>
+Feedback-ID: idfb84289:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id BEDC01700089; Wed, 26 Apr 2023 20:47:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-374-g72c94f7a42-fm-20230417.001-g72c94f7a
+Mime-Version: 1.0
+Message-Id: <29618904-ee21-40ff-b35a-b73bffe3e3b0@app.fastmail.com>
+In-Reply-To: <20230418061715.124725-1-lintao1890@163.com>
+References: <20230418061715.124725-1-lintao1890@163.com>
+Date: Thu, 27 Apr 2023 10:17:21 +0930
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: lintao1890@163.com, openbmc@lists.ozlabs.org,
+ "Joel Stanley" <joel@jms.id.au>
+Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc v2] board: ast2600: Add Inspur SCM
+ V1 board
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,60 +95,329 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Benjamin Fair <benjaminfair@google.com>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>, Michael Turquette <mturquette@baylibre.com>, Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: LinTao <lintao.lc@inspur.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Jonathan,
 
-On Sun, Apr 23, 2023 at 12:02:40AM +0200, Jonathan Neuschäfer wrote:
-> This driver implements the following features w.r.t. the clock and reset
-> controller in the WPCM450 SoC:
+
+On Tue, 18 Apr 2023, at 15:47, lintao1890@163.com wrote:
+> From: LinTao <lintao.lc@inspur.com>
+>
+> AST2600-INSPUR is an Inspur SCM V1 board which is
+> equipped with AST2600
+>
+> Signed-off-by: LinTao <lintao.lc@inspur.com>
+> ---
+> V1 -> V2:
+>     - add a missing '\'
+> ---
+>  arch/arm/dts/Makefile                    |   3 +-
+>  arch/arm/dts/ast2600-inspur-nf5280m7.dts | 190 +++++++++++++++++++++++
+>  arch/arm/mach-aspeed/ast2600/Kconfig     |   8 +
+>  board/aspeed/ast2600_inspur/Kconfig      |  13 ++
+>  board/aspeed/ast2600_inspur/Makefile     |   1 +
+>  board/aspeed/ast2600_inspur/inspur.c     |  22 +++
+>  6 files changed, 236 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/dts/ast2600-inspur-nf5280m7.dts
+>  create mode 100644 board/aspeed/ast2600_inspur/Kconfig
+>  create mode 100644 board/aspeed/ast2600_inspur/Makefile
+>  create mode 100644 board/aspeed/ast2600_inspur/inspur.c
+>
+> diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+> index 6c34b83336..f62c16b4f1 100755
+> --- a/arch/arm/dts/Makefile
+> +++ b/arch/arm/dts/Makefile
+> @@ -695,7 +695,8 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+>  	ast2600-slt.dtb \
+>  	ast2600-tacoma.dtb \
+>  	ast2600-intel.dtb \
+> -	ast2600-tacoma.dtb
+> +	ast2600-tacoma.dtb \
+> +	ast2600-inspur-nf5280m7.dtb
 > 
-> - It calculates the rates for all clocks managed by the clock controller
-> - It leaves the clock tree mostly unchanged, except that it enables/
->   disables clock gates based on usage.
-> - It exposes the reset lines managed by the controller using the
->   Generic Reset Controller subsystem
+>  dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
 > 
-> NOTE: If the driver and the corresponding devicetree node are present,
->       the driver will disable "unused" clocks. This is problem until
->       the clock relations are properly declared in the devicetree (in a
->       later patch). Until then, the clk_ignore_unused kernel parameter
->       can be used as a workaround.
-> 
-> Signed-off-by: Jonathan Neuschäfer <j.neuschaefer@gmx.net>
-[...]
-> diff --git a/drivers/clk/clk-wpcm450.c b/drivers/clk/clk-wpcm450.c
+> diff --git a/arch/arm/dts/ast2600-inspur-nf5280m7.dts 
+> b/arch/arm/dts/ast2600-inspur-nf5280m7.dts
 > new file mode 100644
-> index 0000000000000..6f6d8a1ea3484
+> index 0000000000..8210797868
 > --- /dev/null
-> +++ b/drivers/clk/clk-wpcm450.c
-> @@ -0,0 +1,374 @@
-[...]
-> +static void __init wpcm450_clk_init(struct device_node *clk_np)
+> +++ b/arch/arm/dts/ast2600-inspur-nf5280m7.dts
+> @@ -0,0 +1,190 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +// Copyright 2023 Inspur Corp.
+> +/dts-v1/;
+> +
+> +#include "ast2600-u-boot.dtsi"
+> +
+> +/ {
+> +	model = "Inspur SCM V1";
+> +	compatible = "inspur,nf5280m7-bmc", "aspeed,ast2600";
+> +
+> +	memory {
+> +		device_type = "memory";
+> +		reg = <0x80000000 0x40000000>;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = &uart5;
+> +	};
+> +
+> +	aliases {
+> +		mmc0 = &emmc_slot0;
+> +		mmc1 = &sdhci_slot0;
+> +		mmc2 = &sdhci_slot1;
+> +		spi0 = &fmc;
+> +		spi1 = &spi1;
+> +		spi2 = &spi2;
+> +		ethernet1 = &mac1;
+> +	};
+> +
+> +	cpus {
+> +		cpu@0 {
+> +			clock-frequency = <1200000000>;
+> +		};
+> +		cpu@1 {
+> +			clock-frequency = <1200000000>;
+> +		};
+> +	};
+> +};
+> +
+> +&gpio0 {
+> +	status = "okay";
+> +};
+> +
+> +&uart1 {
+> +	status = "okay";
+> +};
+> +
+> +&uart2 {
+> +	status = "okay";
+> +};
+> +
+> +&uart5 {
+> +	u-boot,dm-pre-reloc;
+> +	status = "okay";
+> +};
+> +
+> +&sdrammc {
+> +	clock-frequency = <400000000>;
+> +};
+> +
+> +&mdio {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_mdio2_default>;
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	ethphy0: ethernet-phy@0 {
+> +		reg = <0>;
+> +	};
+> +
+> +	ethphy1: ethernet-phy@1 {
+> +		reg = <0>;
+> +	};
+> +
+> +	ethphy2: ethernet-phy@2 {
+> +		reg = <0>;
+> +	};
+> +
+> +	ethphy3: ethernet-phy@3 {
+> +		reg = <0>;
+> +	};
+> +};
+> +
+> +&mac1 {
+> +	status = "okay";
+> +	phy-mode = "rgmii";
+> +	phy-handle = <&ethphy1>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rgmii2_default>;
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_fmcquad_default>;
+> +	flash@0 {
+> +		status = "okay";
+> +		spi-max-frequency = <40000000>;
+> +		spi-tx-bus-width = <4>;
+> +		spi-rx-bus-width = <4>;
+> +	};
+> +	flash@1 {
+> +		status = "okay";
+> +		spi-max-frequency = <40000000>;
+> +		spi-tx-bus-width = <4>;
+> +		spi-rx-bus-width = <4>;
+> +	};
+> +};
+> +
+> +&i2c1 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c2_default>;
+> +};
+> +
+> +&i2c4 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c5_default>;
+> +};
+> +
+> +&i2c5 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c6_default>;
+> +};
+> +
+> +&i2c6 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c7_default>;
+> +};
+> +
+> +&i2c7 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c8_default>;
+> +};
+> +
+> +&i2c8 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c9_default>;
+> +};
+> +
+> +&i2c9 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c10_default>;
+> +};
+> +
+> +&i2c12 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c13_default>;
+> +};
+> +
+> +&i2c13 {
+> +	status = "okay";
+> +	multi-master;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_i2c14_default>;
+> +};
+> +
+> +&hace {
+> +	u-boot,dm-pre-reloc;
+> +	status = "okay";
+> +};
+> +
+> +&acry {
+> +	u-boot,dm-pre-reloc;
+> +	status = "disabled";
+> +};
+> diff --git a/arch/arm/mach-aspeed/ast2600/Kconfig 
+> b/arch/arm/mach-aspeed/ast2600/Kconfig
+> index f5852afa77..db177399b9 100644
+> --- a/arch/arm/mach-aspeed/ast2600/Kconfig
+> +++ b/arch/arm/mach-aspeed/ast2600/Kconfig
+> @@ -51,6 +51,13 @@ config TARGET_QUALCOMM_DC_SCM_V1
+>  	  QUALCOMM-DC-SCM-V1 is a Qualcomm DC-SCM V1 board which is
+>  	  equipped with AST2600.
+> 
+> +config TARGET_AST2600_INSPUR
+> +	bool "AST2600-INSPUR"
+> +	depends on ASPEED_AST2600
+> +	help
+> +	  AST2600-INSPUR is an Inspur SCM V1 board which is
+> +	  equipped with AST2600.
+> +
+>  endchoice
+> 
+>  source "board/aspeed/evb_ast2600/Kconfig"
+> @@ -59,5 +66,6 @@ source "board/aspeed/slt_ast2600/Kconfig"
+>  source "board/aspeed/ast2600_ibm/Kconfig"
+>  source "board/aspeed/ast2600_intel/Kconfig"
+>  source "board/qualcomm/dc-scm-v1/Kconfig"
+> +source "board/aspeed/ast2600_inspur/Kconfig"
+> 
+>  endif
+> diff --git a/board/aspeed/ast2600_inspur/Kconfig 
+> b/board/aspeed/ast2600_inspur/Kconfig
+> new file mode 100644
+> index 0000000000..ef11a01bcc
+> --- /dev/null
+> +++ b/board/aspeed/ast2600_inspur/Kconfig
+> @@ -0,0 +1,13 @@
+> +if TARGET_AST2600_INSPUR
+> +
+> +config SYS_BOARD
+> +	default "ast2600_inspur"
+> +
+> +config SYS_VENDOR
+> +	default "aspeed"
+> +
+> +config SYS_CONFIG_NAME
+> +	string "board configuration name"
+> +	default "ast2600_inspur"
+> +
+> +endif
+> diff --git a/board/aspeed/ast2600_inspur/Makefile 
+> b/board/aspeed/ast2600_inspur/Makefile
+> new file mode 100644
+> index 0000000000..8af8692f3c
+> --- /dev/null
+> +++ b/board/aspeed/ast2600_inspur/Makefile
+> @@ -0,0 +1 @@
+> +obj-y += inspur.o
+> diff --git a/board/aspeed/ast2600_inspur/inspur.c 
+> b/board/aspeed/ast2600_inspur/inspur.c
+> new file mode 100644
+> index 0000000000..044a7c17c1
+> --- /dev/null
+> +++ b/board/aspeed/ast2600_inspur/inspur.c
+> @@ -0,0 +1,22 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright 2023 Inspur Corp.
+> + */
+> +
+> +#include <common.h>
+> +#include <asm/io.h>
+> +
+> +#define AST_GPIO_BASE		(0x1E780000)
+> +#define AST_GPIOABCD_DRCTN	(AST_GPIO_BASE + 0x004)
+> +
+> +int board_late_init(void)
 > +{
-> +	struct clk_hw_onecell_data *clk_data;
-> +	static struct clk_hw **hws;
-> +	static struct clk_hw *hw;
-> +	void __iomem *clk_base;
-> +	int i, ret;
-> +	struct reset_simple_data *reset;
-[...]
-> +	// Reset controller
-> +	reset = kzalloc(sizeof(*reset), GFP_KERNEL);
-> +	if (!reset)
-> +		return;
-> +	reset->rcdev.owner = THIS_MODULE;
-> +	reset->rcdev.nr_resets = WPCM450_NUM_RESETS;
-> +	reset->rcdev.ops = &reset_simple_ops;
-> +	reset->rcdev.of_node = clk_np;
-> +	reset->membase = clk_base + REG_IPSRST;
-> +	ret = reset_controller_register(&reset->rcdev);
-> +	if (ret)
-> +		pr_err("Failed to register reset controller: %d\n", ret);
+> +	u32 direction;
+> +
+> +	/* GPIOB[2] output*/
+> +	direction = readl(AST_GPIOABCD_DRCTN);
+> +	direction |= 0x700;
+> +	writel(direction, AST_GPIOABCD_DRCTN);
 
-You could use %pe for consistency.
+Why?
 
-regards
-Philipp
+And why do it this way rather than go through the gpio subsystem?
+
+Andrew
