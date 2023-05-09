@@ -4,75 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A052DC77B7D
-	for <openbmc@archiver.kernel.org>; Tue, 16 May 2023 03:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1FFC77B7D
+	for <openbmc@archiver.kernel.org>; Tue, 16 May 2023 03:09:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4QL1Qb751dz3f7D
-	for <openbmc@archiver.kernel.org>; Tue, 16 May 2023 13:08:23 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4QL1Rc1LTMz3bTf
+	for <openbmc@archiver.kernel.org>; Tue, 16 May 2023 13:09:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20221208 header.b=Sam+crre;
+	dkim=pass (1024-bit key; unprotected) header.d=corigine.onmicrosoft.com header.i=@corigine.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-corigine-onmicrosoft-com header.b=UuYu/CUV;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::136; helo=mail-lf1-x136.google.com; envelope-from=fr0st61te@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=corigine.com (client-ip=2a01:111:f400:fe5b::731; helo=nam12-bn8-obe.outbound.protection.outlook.com; envelope-from=simon.horman@corigine.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20221208 header.b=Sam+crre;
+	dkim=pass (1024-bit key; unprotected) header.d=corigine.onmicrosoft.com header.i=@corigine.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-corigine-onmicrosoft-com header.b=UuYu/CUV;
 	dkim-atps=neutral
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com [IPv6:2a00:1450:4864:20::136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on20731.outbound.protection.outlook.com [IPv6:2a01:111:f400:fe5b::731])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4QFx0s1wrPz3c8f
-	for <openbmc@lists.ozlabs.org>; Tue,  9 May 2023 21:35:25 +1000 (AEST)
-Received: by mail-lf1-x136.google.com with SMTP id 2adb3069b0e04-4f11d267d8bso6433477e87.2
-        for <openbmc@lists.ozlabs.org>; Tue, 09 May 2023 04:35:25 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4QG0tQ3XyWz3cg0
+	for <openbmc@lists.ozlabs.org>; Wed, 10 May 2023 00:30:04 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ENisjn6SKVqCtMu8+2ujO557SgMC88fGQoVw9MAumhHQDJzyzxbtSiy+nKE7UIr1GfnMCnvQxKsVvYDIXDY4ZAO6l5lIdMYu4hv4AWqf3k7Q23NGX7SLsRAZ2iQlG4W5ct6+AVYicCxQ9ye1BBDohQwEFZI8lJoLO6EwIxbhM9oJoq/0JhVp1QdrsZgT+OvbPZ5o4GMdwKrAkUV2bHVOLuVIDzTEHL00FtfLFAuDiJEictXyNlJ9tz8qvSsl+93vcZHHL9o8BYXrq1wiA7eNzhKRD2Dm4me9lgc0tE+xUBSCS2uCJL7alCvU/kUgzhXMGRg42WH73chcR4i0djCHKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWDqeP60lPbyUZnW/pK8/8J5izKCSAHN6Qo8T5BlzoU=;
+ b=oKqI8Nf5Vuhh3SRNuPECQRYkekQLYB09hc2C8anafzBQd5HbatdbzXzbbJVHdBver0KD55jieBlSKP+3IAc7MJ6L1S4WCE1+zfAedhmAXP3GJa8UAhWhMukV5ac4jWsm88Wqgy7vjvkkCextbMb5R+KQR4Yktakzy4XKtpDsfM+JjkKh6UYzWQ0gsTpDzqLx5DsqgNvZ78pnKTgB/LuidO/MQU6ndZHFFHZHDoBRmlK2X4odqfOPtoJKwzOKTkF7mj3d5ikKgRJhJdhWCTZNbzen7Dqa5RwWO8uJuBk4YM54UVbP66mlEhF4xROEhMYMhojoHUI30xmZN7KPevmmuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683632122; x=1686224122;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+QQeh9YjZzNjrXQibFSAmN6bJH27K6sErXcLxHfNpn8=;
-        b=Sam+crretoYBxWHA4qS3k5/sYy/9YNnNDeOcT/ax6idvKykJaCktFYNZ0iU6e8debI
-         B8DvJGdp1lL3Q7x5zbpU5gXoSw53k9Ch9CLd1ox4Z0XpstyGRuMY0jd47E1L/eoeTtLi
-         hyCkyvBViRBW90AOQReNZeqrscn3rogJXPMFlMm3HeRi7zJGYsvW5u0Dw7CtEC/mJGve
-         RS0Mg6lh3GQw0reca5/4SrH/9HdIWYtkje+PabbVny0Z158fzPPjMkcwOHo3XQEG2cVA
-         SjPjIPX5M11qNKaKPNIeqAQOvqo0H0DPctFCbD2iK5JPG0LYGFH5dl9SQTIcaJra+uYW
-         qqSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683632122; x=1686224122;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+QQeh9YjZzNjrXQibFSAmN6bJH27K6sErXcLxHfNpn8=;
-        b=lBdOfZCKLDwxpOHpDtcQUdUPhorw9Dw/yz6ntuHVcpy3C5N/K0giOT6+5dWmYZNfPq
-         0qyseYbHtyfojhI/Bba9B9X71CPg7gVBisRmW8TyS19j5FVayTbiZEXV7v+UCjq2gsKc
-         gyIb4rABA1vSin5J9n6nSEGb4PaMEo5eh9LeUUnLNaOEXd6RC1u5JVZUUbzkEnIvSNtt
-         iYvhlJV7riLJqYenFD58kgzewAMcV1lBeXBDuyBfkHhBpzDSEN1nuFQgIZU+vUMyApUZ
-         5HI+Ysz/McKHQxKKV+NFhc86GYK9Y3gqJtivg+i3f/B7myiAdQgzvLuctxI9EeXgT8j1
-         ehqQ==
-X-Gm-Message-State: AC+VfDwTS7z08J0fvt8blvedP5OAXGc+fQ8bcIha+Oot/RLtkTip+sRa
-	CT6siFGmCqjieFcOp+U4iCE=
-X-Google-Smtp-Source: ACHHUZ53BaQ3IWMDiSD/9ydEo3S9fenNHEm7zgrZw941KuYic4L3B4+t1YiwvBZYRXPaOZh79K0r7Q==
-X-Received: by 2002:ac2:5623:0:b0:4eb:30f9:eed7 with SMTP id b3-20020ac25623000000b004eb30f9eed7mr824674lff.22.1683632122133;
-        Tue, 09 May 2023 04:35:22 -0700 (PDT)
-Received: from localhost.localdomain (93-80-66-133.broadband.corbina.ru. [93.80.66.133])
-        by smtp.googlemail.com with ESMTPSA id k16-20020ac24570000000b004f25ccac240sm108940lfm.74.2023.05.09.04.35.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 May 2023 04:35:21 -0700 (PDT)
-From: Ivan Mikhaylov <fr0st61te@gmail.com>
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
-Subject: [PATCH v2 5/5] dt-bindings: net: ftgmac100: convert to yaml version from txt
-Date: Tue,  9 May 2023 14:35:04 +0000
-Message-Id: <20230509143504.30382-6-fr0st61te@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230509143504.30382-1-fr0st61te@gmail.com>
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWDqeP60lPbyUZnW/pK8/8J5izKCSAHN6Qo8T5BlzoU=;
+ b=UuYu/CUVgd1AHNyUrGEBNCFKOVsOfvOmuQRkQ1tQhyBgCjtHY96aJ9f3JKCQ/bfqcWdbBSBXVHYn3buaDF9QFQ1ntvzLohNKZlv7opLwyB5Ll0Ze+mjKJOZ4vP3Mo8WylBH4QH9tHjiMI3j5I5DVoM/IStDaT6/J+BRu2Z1feQI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by PH0PR13MB5897.namprd13.prod.outlook.com (2603:10b6:510:164::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Tue, 9 May
+ 2023 14:29:38 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::f416:544d:18b7:bb34]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::f416:544d:18b7:bb34%5]) with mapi id 15.20.6363.032; Tue, 9 May 2023
+ 14:29:38 +0000
+Date: Tue, 9 May 2023 16:29:18 +0200
+From: Simon Horman <simon.horman@corigine.com>
+To: Ivan Mikhaylov <fr0st61te@gmail.com>
+Subject: Re: [PATCH v2 1/5] net/ncsi: make one oem_gma function for all mfr id
+Message-ID: <ZFpYvohj5WKqqkis@corigine.com>
 References: <20230509143504.30382-1-fr0st61te@gmail.com>
+ <20230509143504.30382-2-fr0st61te@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230509143504.30382-2-fr0st61te@gmail.com>
+X-ClientProxiedBy: AM0PR03CA0004.eurprd03.prod.outlook.com
+ (2603:10a6:208:14::17) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|PH0PR13MB5897:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00e95cd4-b53a-4d27-c3b2-08db5099d16f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 	A9mF1aHRC6d5TkeikdOoC3e7wSuOtwQkX7Lf7g9rgDWxoHFzrCQsmh6xMsm9yC0yRJ/nIpCysPgv6eWwBb89cC7QAcxL9kgHq8CfQYTuODPOn7bCxiOOa0GJrLLi6iNL+IA0kftUfbHK1gJNFL/OmXwOHrJLDboHjI0PWV2ue5UsyeZ4Tknm/+t914M3S33Fcjk+bhCmXlejF3NEIIOcHYkVBcHG1mWCeCMIJIRbJ+0TTo41YR2BsE70MKn3dOFTh+OvJvsGjO6kdd7KU2JxcnVCEsk9XYzisL1TkoD3zemwVB50HK146Rsx4mBZuKBAJSqU7TAjiqfmZRI2AkuVTtxwA3HMvEa178Mah+EqvLz129NVlr74q1QTmqnPdxH19DxCGIrkBgs5vcdqsiw9VjPg9POz1L5eCvMJQBP2AS7Ql+mGQLVqluUDIXmXJSty+KYUh1vuwmFgS/bClDTSSWRYsLCE1gPFEULCfoMVUhRZmaACY2jBVhZEZ8tUogDo6zjgsx3e4ewsWOQqUQ3KXZYLdFCRHUk+XXWLpb7lenADJqOmE7dKa611VoNsdKqscafVHckLfjhUPHaRfcnLS0haKsIHfFxkfAlBVEpY57U=
+X-Forefront-Antispam-Report: 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR13MB4842.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39830400003)(396003)(366004)(376002)(136003)(346002)(451199021)(86362001)(36756003)(558084003)(6666004)(316002)(54906003)(4326008)(6916009)(478600001)(66556008)(66946007)(66476007)(6486002)(5660300002)(7416002)(8936002)(8676002)(2906002)(41300700001)(44832011)(186003)(38100700002)(6506007)(6512007)(2616005);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 	=?us-ascii?Q?dJ+916NoWXJJKosIQuW9kI9TQUan+L70tL17bjfhVepOGcRcWcbZ132v0Tat?=
+ =?us-ascii?Q?4/1REsa82fzgIvYgzzORzwvKpE9frXOUG9Qol1L/cFMvx8zS0t2/TQ1c4WRs?=
+ =?us-ascii?Q?G6cGsOpKU9qWIjq8CL3fLszU40/IocLAfPHYJKLksnfVWX8v8sQ5qfq6s92H?=
+ =?us-ascii?Q?iXw6URg8aWp6fTzs0OUb4+PX8NuNV8e1mIeWn9WBeoTWhpFk7qZEs6z6YRWD?=
+ =?us-ascii?Q?jtqByfGYeDnkFnT2ZSc9r7C7+g1JoaOhZ5kqoQmd3GSv50V+JoWOweewegL1?=
+ =?us-ascii?Q?eFzdddXdTg0zr5ZT97uPExsw2dnnkDTRf23XxmpKbEmgTwO2pE9A42tElmIo?=
+ =?us-ascii?Q?/2UAKXZT7mRNxVZgQfB+kZx5c23g2LD6Wg6qGpYFZrRqhzyeU9ZiXQD3kRz3?=
+ =?us-ascii?Q?FZnp7I/0t9TRUMflF03uTw55dqKzLUG3bEXTIlgm5GcNgUP1HFks21ycCmNU?=
+ =?us-ascii?Q?hQpRdWH6j2WOiBykxQ9T7ew43A84D0J6yhtfuCNe4R8LrfyD2NznuH6ATGfp?=
+ =?us-ascii?Q?RBj85oLl2/wzHTKmJVV7pMleiXPNj6E+1zPbNUTUrB+KAhoJJqsAizFXlKYF?=
+ =?us-ascii?Q?t3j3bp//RFTEk3wO3SvbZ/cnm3YWYA3La3OJWGqiAUGqo/R6/64exaAPJdfs?=
+ =?us-ascii?Q?XLrRe6jXvlGbsETu77vM6vnDpQlZt9MBm4lcgGMNZqVbGHf8DGcLb0uTLjsY?=
+ =?us-ascii?Q?dJUBhUim5v29D0AQr4ysblI9/jFLcZRVSVVdXPxcOHyUSvCPBn5Nu6ParcD8?=
+ =?us-ascii?Q?xYNEIp5F2kfAMzlSE508BD91e7cvYx/LXT0HMXTBGhR4sifZjD31J7qNFStb?=
+ =?us-ascii?Q?5LLHyUx9J5EeXQf958RCj/DNQXxLEr0iQVajcWA1jKJ6byuAc4n9UgBqC6e6?=
+ =?us-ascii?Q?nTQMV7DZszfrrEO7T+HNz7UYACx2QQfAZQBAScQ4Ep2dsCc+pRNbydBneCgQ?=
+ =?us-ascii?Q?k5W7dd3//ZtCp4JZ4JG4053pQ9ZGfqmuZQNxMPKBj87YVg2ZsdQ+LBwB6Y6n?=
+ =?us-ascii?Q?SiMU6ERZ1rBTIun2NcTUh1QwTEe/LaZhG0MTN6m7D66895h515OaEcq135a/?=
+ =?us-ascii?Q?rjoLI396ivdnVZvIfTXj/WP9RntugTbPvOjj5p4PZVh8f5+e7EhyQHRfvKse?=
+ =?us-ascii?Q?a0YbK3+4kLhDU5QkpTNmIbgHnQDY7lkHInllmTHOt0jtoAAdQB/0xeLqz0rA?=
+ =?us-ascii?Q?bMfUYN7kUxo4W69eaR4Qan4kDXzkGgtNwIuem8wRoO/5s5x4P9teJ2DUiTC9?=
+ =?us-ascii?Q?3cs6hxYxjqFwZTdOF2B+AEsrklpMFisPJ8LygxNCMFuIKWvnDoudFOcsn27B?=
+ =?us-ascii?Q?174ZQw+Fr5giFwj3wVgm69GTwS1QhtBDSjJPD7b8vGw7nYQdMYbvI4/2eY6C?=
+ =?us-ascii?Q?YB3CRasOtT87G9QW4T9JpALlC9I9VKVlEJFotXDm5X37bhtWPT/Wso4JVR3q?=
+ =?us-ascii?Q?D+1ZXovte2JMp9Fk2MP8v6qhjjPo8Q3If/Iia63JLpdudupIK8s1yrCqypeX?=
+ =?us-ascii?Q?o8fjZncYviV5tw2JOUSacAaBO0re2XNI+KhOkyi8m3K27/Aw8ZkEtznr5tEt?=
+ =?us-ascii?Q?pyvbL5nMN7Os6IptTFzmgIESX/mk5fQJMk48roHBAW1gn4kUeudITJv3GeTy?=
+ =?us-ascii?Q?fjxQUH4YStsxWEFuYB2cMH+3/2A0+B0NLTSHwrBkvBgVC+a6cUQWCm/xKfSj?=
+ =?us-ascii?Q?5xciug=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00e95cd4-b53a-4d27-c3b2-08db5099d16f
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2023 14:29:38.1390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lEdB1IckgVLwkJS8MGIpwjBpoFHXe0hT55OEc2NPxaz20cZ+sTMI211TSNt5zawoeIw2CcnpM7E8L363wfmpf8uW5uxp3sWtSf+Gwt5i8ZU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR13MB5897
 X-Mailman-Approved-At: Tue, 16 May 2023 13:02:57 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -85,132 +122,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org, Ivan Mikhaylov <fr0st61te@gmail.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Samuel Mendoza-Jonas <sam@mendozajonas.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Signed-off-by: Ivan Mikhaylov <fr0st61te@gmail.com>
----
- .../bindings/net/faraday,ftgmac100.yaml       | 110 ++++++++++++++++++
- 1 file changed, 110 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+On Tue, May 09, 2023 at 02:35:00PM +0000, Ivan Mikhaylov wrote:
+> Make the one Get Mac Address function for all manufacturers and change
+> this call in handlers accordingly.
+> 
+> Signed-off-by: Ivan Mikhaylov <fr0st61te@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-new file mode 100644
-index 000000000000..98cd142f74bb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-@@ -0,0 +1,110 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/faraday,ftgmac100.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Faraday Technology FTGMAC100 gigabit ethernet controller
-+
-+allOf:
-+  - $ref: "ethernet-controller.yaml#"
-+
-+maintainers:
-+  - Po-Yu Chuang <ratbert@faraday-tech.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: faraday,ftgmac100
-+      - items:
-+          - enum:
-+              - aspeed,ast2400-mac
-+              - aspeed,ast2500-mac
-+              - aspeed,ast2600-mac
-+          - const: faraday,ftgmac100
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    description: |
-+      In accordance with the generic clock bindings. Must describe the MAC
-+      IP clock, and optionally an RMII RCLK gate for the AST2500/AST2600. The
-+      required MAC clock must be the first cell.
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - enum:
-+          - MACCLK
-+          - RCLK
-+
-+  phy-mode:
-+    enum:
-+      - rgmii
-+      - rmii
-+
-+  phy-handle: true
-+
-+  use-ncsi:
-+    description: |
-+      Use the NC-SI stack instead of an MDIO PHY. Currently assumes
-+      rmii (100bT) but kept as a separate property in case NC-SI grows support
-+      for a gigabit link.
-+    type: boolean
-+
-+  no-hw-checksum:
-+    description: |
-+      Used to disable HW checksum support. Here for backward
-+      compatibility as the driver now should have correct defaults based on
-+      the SoC.
-+    type: boolean
-+
-+  mac-address-increment:
-+    description: |
-+      Increment the MAC address taken by GMA command via  NC-SI. Specifies
-+      a signed number to be added to the host MAC address as obtained by
-+      the OEM GMA command. If not specified, 1 is used by default for
-+      Broadcom and Intel network cards, 0 otherwise.
-+
-+  mdio:
-+    $ref: /schemas/net/mdio.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mac0: ethernet@1e660000 {
-+        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
-+        reg = <0x1e660000 0x180>;
-+        interrupts = <2>;
-+        use-ncsi;
-+    };
-+
-+    mac1: ethernet@1e680000 {
-+        compatible = "aspeed,ast2500-mac", "faraday,ftgmac100";
-+        reg = <0x1e680000 0x180>;
-+        interrupts = <2>;
-+
-+        phy-handle = <&phy>;
-+        phy-mode = "rgmii";
-+
-+        mdio {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            phy: ethernet-phy@1 {
-+                compatible = "ethernet-phy-ieee802.3-c22";
-+                reg = <1>;
-+            };
-+        };
-+    };
--- 
-2.40.1
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
 
