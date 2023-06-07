@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7BDDC7EE23
-	for <openbmc@archiver.kernel.org>; Wed,  7 Jun 2023 10:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFA20C7EE23
+	for <openbmc@archiver.kernel.org>; Wed,  7 Jun 2023 10:19:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Qbjfv1PBHz3dwK
-	for <openbmc@archiver.kernel.org>; Wed,  7 Jun 2023 20:06:31 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=iscas.ac.cn (client-ip=159.226.251.81; helo=cstnet.cn; envelope-from=jiasheng@iscas.ac.cn; receiver=<UNKNOWN>)
-X-Greylist: delayed 434 seconds by postgrey-1.36 at boromir; Wed, 07 Jun 2023 20:05:56 AEST
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Qbjy50y1zz3dwG
+	for <openbmc@archiver.kernel.org>; Wed,  7 Jun 2023 20:19:41 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=UQcFsAPO;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=UQcFsAPO;
+	dkim-atps=neutral
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4QbjfD6kgWz3bjd
-	for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2023 20:05:56 +1000 (AEST)
-Received: from ed3e173716be.home.arpa (unknown [124.16.138.125])
-	by APP-03 (Coremail) with SMTP id rQCowABnRxzGVIBkuOu0DA--.1610S2;
-	Wed, 07 Jun 2023 17:58:31 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com,
-	linus.walleij@linaro.org
-Subject: [PATCH] pinctrl: npcm7xx: Add missing check for ioremap
-Date: Wed,  7 Jun 2023 17:58:29 +0800
-Message-Id: <20230607095829.1345-1-jiasheng@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qbjx02gwZz3bkm
+	for <openbmc@lists.ozlabs.org>; Wed,  7 Jun 2023 20:18:44 +1000 (AEST)
+Received: from hatter.bewilderbeest.net (174-21-172-149.tukw.qwest.net [174.21.172.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: zev)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 13008CFC;
+	Wed,  7 Jun 2023 03:18:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+	s=thorn; t=1686133121;
+	bh=Wi0tNbMeMIxnA5OELgarZDXHHas4dR4zF0TSjLM+/t0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UQcFsAPOgEw0D/5m+IYx2uAnFOA9vOUQM/J1vHoGB4QVEnJYUF48kp4gy0+RJMu7J
+	 W1JjgcqeawV/YqmKHrhx11mLag50cCb0hm5y8P353DlvYBJ1xSzGhi85q81xqW+HVt
+	 N2bs5WjhQ741nN++oU2HPzEtzhY2mfE1xPlf/h5c=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: hwmon: Add Nuvoton NCT7362Y binding
+Date: Wed,  7 Jun 2023 03:18:29 -0700
+Message-ID: <20230607101827.8544-5-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230607101827.8544-4-zev@bewilderbeest.net>
+References: <20230607101827.8544-4-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: rQCowABnRxzGVIBkuOu0DA--.1610S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xw4UtryUZr43KrW5ZrW8JFb_yoWftrg_uF
-	97WF9xJ3yDCana9ryjqw18ZFy0yF47XF1FqFsaqFZ3Cr9rAw1aqryvvrW5G3Z7Wr47JryU
-	G3y7Ga45J34UAjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbV8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxkIecxEwVAFwVW8uwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x0JUSsjbUUUUU=
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,32 +60,147 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>, linux-kernel@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>, Zev Weiss <zev@bewilderbeest.net>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add check for ioremap() and return the error if it fails in order to
-guarantee the success of ioremap().
+This binding describes the NCT7362Y, a 16-channel fan/GPIO controller.
 
-Fixes: 3b588e43ee5c ("pinctrl: nuvoton: add NPCM7xx pinctrl and GPIO driver")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/hwmon/nuvoton,nct7362.yaml       | 123 ++++++++++++++++++
+ 1 file changed, 123 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,nct7362.yaml
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 21e61c2a3798..843ffcd96877 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -1884,6 +1884,8 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 		}
- 
- 		pctrl->gpio_bank[id].base = ioremap(res.start, resource_size(&res));
-+		if (!pctrl->gpio_bank[id].base)
-+			return -EINVAL;
- 
- 		ret = bgpio_init(&pctrl->gpio_bank[id].gc, dev, 4,
- 				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DIN,
+diff --git a/Documentation/devicetree/bindings/hwmon/nuvoton,nct7362.yaml b/Documentation/devicetree/bindings/hwmon/nuvoton,nct7362.yaml
+new file mode 100644
+index 000000000000..630dcce7a14c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/nuvoton,nct7362.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/nuvoton,nct7362.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NCT7362Y fan controller
++
++maintainers:
++  - Zev Weiss <zev@bewilderbeest.net>
++
++description: |
++  The Nuvoton NCT7362Y is an I2C fan controller with 16 pins that can
++  be independently configured for PWM, fan tach, or GPIO
++  functionality.  Each pin's functionality is represented by a child
++  node.
++
++  The datasheet is not publicly available but can be requested from
++  Nuvoton via their web site.
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,nct7362
++
++  reg:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 2
++
++  gpio-line-names:
++    minItems: 1
++    maxItems: 16
++
++patternProperties:
++  "^tach@([1-8]|1[0-7])$":
++    type: object
++    properties:
++      reg:
++        maxItems: 1
++        description: The pin number.
++
++      nuvoton,pulses-per-revolution:
++        description: |
++          The number of tach pulses per revolution of the fan.
++        $ref: /schemas/types.yaml#/definitions/uint32
++        minimum: 1
++        default: 2
++
++    required:
++      - reg
++
++  "^pwm@([1-8]|1[0-7])$":
++    type: object
++    properties:
++      reg:
++        maxItems: 1
++        description: The pin number.
++    required:
++      - reg
++
++  "^gpio@([1-8]|1[0-7])$":
++    type: object
++    properties:
++      reg:
++        maxItems: 1
++        description: The pin number.
++    required:
++      - reg
++
++required:
++  - compatible
++  - reg
++  - "#address-cells"
++  - "#size-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++      fanctl@22 {
++        compatible = "nuvoton,nct7362";
++        gpio-controller;
++        #gpio-cells = <2>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++        reg = <0x22>;
++        gpio-line-names = "", "", "", "", "", "", "", "",
++          "", "", "", "", "", "", "led1", "led2";
++
++        tach@1 {
++          reg = <1>;
++        };
++        tach@2 {
++          reg = <2>;
++          nuvoton,pulses-per-revolution = <1>;
++        };
++        pwm@10 {
++          reg = <10>;
++        };
++        pwm@11 {
++          reg = <11>;
++        };
++        gpio@16 {
++          reg = <16>;
++        };
++        gpio@17 {
++          reg = <17>;
++        };
++      };
++    };
 -- 
-2.25.1
+2.40.0.5.gf6e3b97ba6d2.dirty
 
