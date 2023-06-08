@@ -4,67 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7A2DC77B7A
-	for <openbmc@archiver.kernel.org>; Tue, 13 Jun 2023 03:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C52C88CB9
+	for <openbmc@archiver.kernel.org>; Tue, 13 Jun 2023 04:21:07 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20221208 header.b=Ak216gkr;
+	dkim=pass (1024-bit key; unprotected) header.d=corigine.onmicrosoft.com header.i=@corigine.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-corigine-onmicrosoft-com header.b=Baa2nn8I;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4QgDlb62vhz30Mc
-	for <openbmc@archiver.kernel.org>; Tue, 13 Jun 2023 13:37:47 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4QgFjY3Ppsz30Kg
+	for <openbmc@archiver.kernel.org>; Tue, 13 Jun 2023 14:21:05 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=corigine.com (client-ip=2a01:111:f400:fe59::716; helo=nam12-dm6-obe.outbound.protection.outlook.com; envelope-from=simon.horman@corigine.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20221208 header.b=Ak216gkr;
+	dkim=pass (1024-bit key; unprotected) header.d=corigine.onmicrosoft.com header.i=@corigine.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-corigine-onmicrosoft-com header.b=Baa2nn8I;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::234; helo=mail-oi1-x234.google.com; envelope-from=raviteja28031990@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on20716.outbound.protection.outlook.com [IPv6:2a01:111:f400:fe59::716])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4QgDkW36Xyz307y
-	for <openbmc@lists.ozlabs.org>; Tue, 13 Jun 2023 13:36:49 +1000 (AEST)
-Received: by mail-oi1-x234.google.com with SMTP id 5614622812f47-392116ae103so2982674b6e.0
-        for <openbmc@lists.ozlabs.org>; Mon, 12 Jun 2023 20:36:49 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4QcLZJ3k49z3dwG
+	for <openbmc@lists.ozlabs.org>; Thu,  8 Jun 2023 20:49:42 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BDi3+bQiXUqsY9qADoug3+hxCD0apGXO0nqz2t5Gt4uLIcoW/c3GiIuV8Skrn/fNYL+6rwNAPBfQlcjqPKBD+XWL8xtOfBAqzRVrLQlTXf3uQsFEq9tDeUFMPPIo0XCwF5ZmI6dY0LbhZrw78jSQ29eEZOU2j36n5zcbqWOwUl38uOeoTjXax5ghf8hopKK6e7aamy2o0w42kE9YODhmwZJhclvQDu44ljRoviTv07qFkQBxMmX/GSISzLvLwJNdmA4V87OZ1St1sf+2OVM/ZDtZi5q1P3OhFyg+jxktlyinvSmrSI83Infs9J7CD4nodGDVznL2+P2V2tFskBM/Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q+cR2mIDvwag+qeQZBuJbI4wmjM3ho6/mkFxr6MDEDU=;
+ b=Nci6Gqj4cNFCge4hDINyCMtJCjwKLLSJFVyTh007+tpSLaSjZVxkr7XzKI9ojNkfUaIdnk2zmJJSWXpAv+NJ7bgKD0fE475LxTwDKejBZLdK7/svXdaCo4+xH8DNUa+Rnz2GEvqIEnXHwiCYoqb5F2U0+j0yGntABTGk/b5LnSqGhrq4+YNGyd7mRkbtIPzT2UoyxfKPG/SOvFE5qTthQ5EqOVPERRJG42zEpaA4/5plV1mE6sgymmVeBN/+xqUklSQgcUHVC7vzf4llXJdiKDt0uCpjnlKHHnpid8dDrA3Y4S8RMyMErpeHN0g+oWNRCN6Sl0ZrFM6t4HXc1Hk4hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
+ dkim=pass header.d=corigine.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686627406; x=1689219406;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=E7v74uXYNBWouY+uFNi8ap0Mm0dM4OjKKOaR/CW0R6E=;
-        b=Ak216gkr0Z81piYMT4bGQPLYFCWsbOWp5l+U+P/0kC9lBs8K0Y95KhGWVEDQ+VAx4W
-         c5nMRWzVH1t2mT4cM+StmyMtqLaey3oaGsQ4MMW7w6ktN4J/kK65wKS4qTwmHlm456u1
-         qrm9XLXjC9eR0ZgVeStrRuyzS6G3gpBjq/Cz8fUUSmlQffwfqG3fuqvwI/16gNffvJyH
-         8trWVw+ZD8koSAIAX+kO8lnx3waPaOmiP/IdPVfk9j+87Orhu8V42Mu3DfM/ZQ4SpZ72
-         l8Sr+eYKfNsyI0tICW7KqVFzeFN4WKVI1XJnKcsrtjbaksyxkY6wa+C/ub+Zu3QKoPij
-         VXSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686627406; x=1689219406;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=E7v74uXYNBWouY+uFNi8ap0Mm0dM4OjKKOaR/CW0R6E=;
-        b=A5pg00hJI+CF4AwbFY/p+4kVR60D21z736litJ2PKuVWrbttu/jrSypdszG2rYtpGo
-         SsRkyp30tt5VTAShOQafwqpToItB8HjpmQrMVjND18u/f45b/3m8nOXU6T60auOlQ/ZE
-         HKNj/qrsNP+ByiGVXdmENPqc+4m4r3kqLWT4g6OOG3ktLNB8bIV3QJKDRQAoePHHTaxo
-         lEuUbZZIpZlDyU9X6pf0arWGUv92zeQw7PgW8UaZBB7g1+tfofV2CCK0fa5DS2ZDerSq
-         AA4oZly0o3g2rFRHDROqWX5LSuBD88i62qdDn/v6lAXXyhR1cE75ZN4/fdJWpI/MDSDz
-         BiwA==
-X-Gm-Message-State: AC+VfDxrzUGvxvCW60QDdaCLml+C3KNRNjXfZAq96u3Q2gmBnl9ki+3I
-	ryAiURy43BtsYNBpf8Z0ugkvkVlm+sk7RN6fgdI=
-X-Google-Smtp-Source: ACHHUZ7KfaIS0Wh9YfRkgLBi3zs61fuDEiC8BA6t54CW3iFU4x5lfOHSLwQCNu8Nw7lCKxhhbJ2Oi30d2f6muyOTa4w=
-X-Received: by 2002:a05:6808:1926:b0:39a:9cef:9dd3 with SMTP id
- bf38-20020a056808192600b0039a9cef9dd3mr7749493oib.27.1686627406101; Mon, 12
- Jun 2023 20:36:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAM4DKZkkKx_MPVv_R7WqOhnKA+hRYWU4GK=DqbqqSVj_CtMtMg@mail.gmail.com>
- <2d93fd2f-bde5-22f2-373a-63398963e94f@linux.intel.com> <CAM4DKZkvHE6AOgpaO2bCKgK9CgN_YZM9UpEDpzD3-+DSXf4EXQ@mail.gmail.com>
- <7230376b-c7f4-b931-faff-27a4da1b38a9@gmail.com> <CAM4DKZ=-pHzz-OuOyszYmrHMWog5uNpB-S4mQtQaVrY2iJ5=BQ@mail.gmail.com>
- <ZIEpSaXg4IkZ7MZk@heinlein.vulture-banana.ts.net> <5b277b0b61ab54060749975ec12aa2422d4427cb.camel@gmail.com>
-In-Reply-To: <5b277b0b61ab54060749975ec12aa2422d4427cb.camel@gmail.com>
-From: raviteja bailapudi <raviteja28031990@gmail.com>
-Date: Tue, 13 Jun 2023 09:06:34 +0530
-Message-ID: <CAM4DKZ=ZhaNVZhs9cbY4G_MUVo-5Usr1FjMWjMLvEWxhCVNivw@mail.gmail.com>
-Subject: Re: OpenBMC Network Route Management: Metric and Static Route config support
+ d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+cR2mIDvwag+qeQZBuJbI4wmjM3ho6/mkFxr6MDEDU=;
+ b=Baa2nn8IAwm9zgINzssT2fJ8yLwKdCnk/QEVRbrwgCxZrqhNqM7V5OKjEXi3lChB6r6gl9QIOMLVUE+E3rXddzUCm6MIS5zl3k48BEZ248QEM2B1I940S4gmoFw5Sha2c1xdK0P3AyO2iTHFUEjrHxhS5HBYN0DCWymuM0vFqUA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=corigine.com;
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
+ by BY3PR13MB5044.namprd13.prod.outlook.com (2603:10b6:a03:362::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Thu, 8 Jun
+ 2023 10:49:21 +0000
+Received: from PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::eb8f:e482:76e0:fe6e]) by PH0PR13MB4842.namprd13.prod.outlook.com
+ ([fe80::eb8f:e482:76e0:fe6e%4]) with mapi id 15.20.6455.030; Thu, 8 Jun 2023
+ 10:49:21 +0000
+Date: Thu, 8 Jun 2023 12:49:13 +0200
+From: Simon Horman <simon.horman@corigine.com>
 To: Ivan Mikhaylov <fr0st61te@gmail.com>
-Content-Type: multipart/alternative; boundary="00000000000068c1f005fdfa8b37"
+Subject: Re: [PATCH v3 2/2] net/ncsi: change from ndo_set_mac_address to
+ dev_set_mac_address
+Message-ID: <ZIGyKQV2yHTa+cI4@corigine.com>
+References: <20230607151742.6699-1-fr0st61te@gmail.com>
+ <20230607151742.6699-3-fr0st61te@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230607151742.6699-3-fr0st61te@gmail.com>
+X-ClientProxiedBy: AM0PR04CA0062.eurprd04.prod.outlook.com
+ (2603:10a6:208:1::39) To PH0PR13MB4842.namprd13.prod.outlook.com
+ (2603:10b6:510:78::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|BY3PR13MB5044:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79de3500-5785-4ad2-eee5-08db680e03fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 	sInn21JMfzGTwvqbx/7Qx+ammILNeJNIz2BARYjDr1WAbXUpJv3/7QWvnKvbmKa/Ft6lr0MTuK2wKAJq0q8YuwJhFYuKCuzsy47hq+uOFtKQDJZtJPmzFOAWAR4OjZJImqij/lTDMXpoLu3s1YJXsBETMGEQ0mQFRrvLgDYfHDKrigC1J6+CoEa1qWpfE08g5Q8NMvZ0pTby4UJ5N3YRSGKC3ufR9WBin4lY+x7nRtINpzp8f7JUaRqpvoP8h0t5zy/YqRAZNEyGNDOUR8X9G3MYFW8eBDOloNAFlsBJrWJqbosbx3iNJbTOKMercZnqnau8uKREl+xAEZEiPu5LE2vRRm4X+yBz/wyrIzTJCyNR0hjgVXaaxjvRN7N9cJGQP8idIEmimzgEQ6PJBPRJDiuyFN5WeTC7OWR4o8NAqaCu90XZ+9+1NOc0A7ivbWzxk/z3tZIoJjWYe6UIhYVMqdCBi+tlZcgkQ3E0u9hFIwlyUeEGNUGUJUeFBNng3RTQ/FCX5kHFz+HvVS70dMpVbNYjXMK4gV0wS2q91q9dOCRpNeRpYMH2inTyIHmFoW/vT+ti7p1ENlDz2zqG+NdapOn0O0uKnry6GJrm1pYbdsc=
+X-Forefront-Antispam-Report: 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR13MB4842.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(376002)(39840400004)(346002)(396003)(451199021)(86362001)(4744005)(2906002)(36756003)(44832011)(7416002)(6666004)(6486002)(83380400001)(186003)(6506007)(6512007)(478600001)(54906003)(6916009)(66556008)(66476007)(316002)(66946007)(8676002)(8936002)(4326008)(38100700002)(2616005)(41300700001)(5660300002)(67856001);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 	=?us-ascii?Q?ptQqlahjc7Qj6HwDkA4mqSdAJJ0D46627c+TQycmPqbD4IXe/E/DFCZg/zL5?=
+ =?us-ascii?Q?6qFNZZYtIpc9hKm6Ul5PkEHTeROdsNP6YHgrGcOKxlSnqVGmNaL2A4qBeN1K?=
+ =?us-ascii?Q?YIpvTvyijQTaumRVsW/OAnF3qQE5yFQj+uGB5PnXAIrrT3OrZZZpNR8E/b4n?=
+ =?us-ascii?Q?Vskn/n2JaVcGBvXKJclN6hnnRkCwDplLEHNqXvFXtSqSETRDbCGIykKFB7tr?=
+ =?us-ascii?Q?kxeEDPWg2SIhs9QzBda7GG9C4PRrFVcYU8oeTIRo8Z6ICpa/LXMj96fxHWNm?=
+ =?us-ascii?Q?9Qde0IvOOMbolZRUqGBs1vR3xdpaa6zIKx8RtJ3skAbie3ABEPch0g7bItKJ?=
+ =?us-ascii?Q?7Z3CgDkrQeg5pe84aVzCSrfGwrvVuE6P4cWms7eFrQ016y06UdR7CW/WTNiN?=
+ =?us-ascii?Q?twmLi39NdkSf9yq9jB4srT5dHWgbZgUktrjZzYSPqCdZ+kvEQoaTcLG6dIhN?=
+ =?us-ascii?Q?0Rl2L89xZvTGWjV4SrzRBjcs0c7+KvswJpPigKQqaKBAmZYGI7xBEIkdNY6g?=
+ =?us-ascii?Q?7dDMzAf2pLR3oWHDmBmehvz4f0I6YnhhG2VFhIZ1X9Gq4rY2CtqVD1gG3LRf?=
+ =?us-ascii?Q?T/5gxh98rSvD5g872fescu2izKNKLgTkDriwlqk7KzfjgIj9FQY5RgI+A6Ax?=
+ =?us-ascii?Q?pjhpWflUjGyuTjvNIBj7zekk4zPabHXFwmqpPGuMfvrYl+Xpvji7LZT57Y6I?=
+ =?us-ascii?Q?ey5ZtUKXB+JBlEqGRhyS8n9Hj7WVags5//RSsD/E9v9WNTP0fVOl7Ab2uo7L?=
+ =?us-ascii?Q?k3QJCpzvApD6NJONjWBsSPcrpQAd1lbLsit0VT7BwI4qOoFoLPBGaenq/9/i?=
+ =?us-ascii?Q?dBxRD4HKymOJDf1cRLQcfuUM0rYKmVwMQ2Kd1wCjJxcmiiti9qtCyct0LB9P?=
+ =?us-ascii?Q?fb22mrow+eS/FjPUPFId2F6EqnNoBbTP8dMVYjYgmsoTW+mZt2qXtJ2vLB6I?=
+ =?us-ascii?Q?UF5+qg7NeXdVmImoYWRRaI/6YINWK43Do9V+YU4k78jFkoo/PDhZZHR9xmCi?=
+ =?us-ascii?Q?0sh989k2bXq+JXE62qUfX+sbs2rVZeB1S+r0w8e3GURKUYGNJJUBPVmR12H0?=
+ =?us-ascii?Q?AxmU1tbs0lscRTYIWGsHbV1AYNQ4cWT4kPCZVAoAzyDNNbhVVoGpv7l4N6HE?=
+ =?us-ascii?Q?Hfxn2L6Jpb1L/RZ2KdbvnRzhYmfg7fuCWEh9ygwbxolkpcoYGU4X21M52zu3?=
+ =?us-ascii?Q?6+cVcBL29OgYLfC3lGs0B37Jli7ujvPxR5qfOwcPmHmIvPUDiaafixmbWIZs?=
+ =?us-ascii?Q?9VpESwpvrii45a2d5GAJ7xapNXVsKXIDHwi03rt6/H1He3HSxfhL18ocfpW9?=
+ =?us-ascii?Q?1dq72lf9nwqIgYeEpg7C+r+viMuhXGBcQ92DcBbjpMvHXBBzRh+0QbTqln4Y?=
+ =?us-ascii?Q?EqxsgxQe8Rja/iitQb/w2PT8isqnSgJw2Ikcu7AQ+ON8fcmYfTUfVppuyCyk?=
+ =?us-ascii?Q?T9yd6FMnx1IvFO21ugcPYX+8uG440EHTAz3vxLGgBSJCz4TChrC9WhCUpEJT?=
+ =?us-ascii?Q?uXxUSaVh97NpYU2gME8SSqlUMY3E2YGECyDN1w6zmrdatYqXyhRBg7RI4hSp?=
+ =?us-ascii?Q?mFUYRcK/2jCHML4opegkJMBbI6m89YuL8trVKI73aJgIELlxq/XEAtA4zH6C?=
+ =?us-ascii?Q?xD+Iz/1igHclZ4xFhvi/7XuHJs2FlfntmbrV+SIuLKnM3CGSP0XvhEO/R43u?=
+ =?us-ascii?Q?azNsPg=3D=3D?=
+X-OriginatorOrg: corigine.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79de3500-5785-4ad2-eee5-08db680e03fd
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2023 10:49:21.1251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qjof1PCD6X55MvolL2gvjxHxCs3BG3yq86ZImSrybrvn0j6ilT9BaF06xboTRrzsjAi0iCCSW5gtlX8OBqbvncH5rTcrVtYzen68bkJNO+Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY3PR13MB5044
+X-Mailman-Approved-At: Tue, 13 Jun 2023 14:20:08 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,132 +123,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Paul Fertser <fercerpav@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Vijay Khemka <vijaykhemka@fb.com>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---00000000000068c1f005fdfa8b37
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Jun 07, 2023 at 06:17:42PM +0300, Ivan Mikhaylov wrote:
+> Change ndo_set_mac_address to dev_set_mac_address because
+> dev_set_mac_address provides a way to notify network layer about MAC
+> change. In other case, services may not aware about MAC change and keep
+> using old one which set from network adapter driver.
+> 
+> As example, DHCP client from systemd do not update MAC address without
+> notification from net subsystem which leads to the problem with acquiring
+> the right address from DHCP server.
+> 
+> Fixes: cb10c7c0dfd9e ("net/ncsi: Add NCSI Broadcom OEM command")
+> Cc: stable@vger.kernel.org # v6.0+ 2f38e84 net/ncsi: make one oem_gma function for all mfr id
+> Signed-off-by: Paul Fertser <fercerpav@gmail.com>
+> Signed-off-by: Ivan Mikhaylov <fr0st61te@gmail.com>
 
-Hi Patrick/Ivan
+Reviewed-by: Simon Horman <simon.horman@corigine.com>
 
-
-Yes the DMFT PR is private and is intended only for DMTF members.
-
-I have captured DMTF mockup schema in the above mail as an example.
-
-Intent of this mail is to get feedback and use-cases of static route
-feature on BMC.
-
-
-would like to hear community interest on allowing static
-route configuration by user explicitly.
-
-On Fri, Jun 9, 2023 at 12:07=E2=80=AFPM Ivan Mikhaylov <fr0st61te@gmail.com=
-> wrote:
-
-> On Wed, 2023-06-07 at 20:05 -0500, Patrick Williams wrote:
-> > On Mon, Jun 05, 2023 at 07:49:06PM +0530, raviteja bailapudi wrote:
-> >
-> > > Gentle reminder for the feedback on Static route feature
-> > >
-> > > Here is DMTF redfish PR to enable redfish static route
-> > > configuration
-> > > https://github.com/DMTF/Redfish/pull/5464
-> >
-> > How are we suppose to review a private PR?
-> >
->
-> I'd glad to look at this PR too, at least there is multiple proposals
-> in gerrit about that theme:
->
-> https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63619
-> https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61641
-> https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/60448
->
-> Is it possible to put it in redfish forum/mail list/gerrit?
->
-> Thanks.
->
-
---00000000000068c1f005fdfa8b37
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p style=3D"margin:0px;font-stretch:normal;font-size:13px;=
-line-height:normal;font-family:&quot;Helvetica Neue&quot;;font-size-adjust:=
-none;font-kerning:auto;font-variant-alternates:normal;font-variant-ligature=
-s:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-fe=
-ature-settings:normal">Hi Patrick/Ivan</p>
-<p style=3D"margin:0px;font-stretch:normal;font-size:13px;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;;font-size-adjust:none;font-kerning=
-:auto;font-variant-alternates:normal;font-variant-ligatures:normal;font-var=
-iant-numeric:normal;font-variant-east-asian:normal;font-feature-settings:no=
-rmal;min-height:15px"><br></p>
-<p style=3D"margin:0px;font-stretch:normal;font-size:13px;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;;font-size-adjust:none;font-kerning=
-:auto;font-variant-alternates:normal;font-variant-ligatures:normal;font-var=
-iant-numeric:normal;font-variant-east-asian:normal;font-feature-settings:no=
-rmal">Yes the DMFT PR is private and is intended only for DMTF members.</p>
-<p style=3D"margin:0px;font-stretch:normal;font-size:13px;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;;font-size-adjust:none;font-kerning=
-:auto;font-variant-alternates:normal;font-variant-ligatures:normal;font-var=
-iant-numeric:normal;font-variant-east-asian:normal;font-feature-settings:no=
-rmal">I have captured DMTF mockup schema in the above mail as an example.</=
-p>
-<p style=3D"margin:0px;font-stretch:normal;font-size:13px;line-height:norma=
-l;font-family:&quot;Helvetica Neue&quot;;font-size-adjust:none;font-kerning=
-:auto;font-variant-alternates:normal;font-variant-ligatures:normal;font-var=
-iant-numeric:normal;font-variant-east-asian:normal;font-feature-settings:no=
-rmal">Intent of this mail is to get feedback and use-cases of static route =
-feature on BMC.</p><p style=3D"margin:0px;font-stretch:normal;font-size:13p=
-x;line-height:normal;font-family:&quot;Helvetica Neue&quot;;font-size-adjus=
-t:none;font-kerning:auto;font-variant-alternates:normal;font-variant-ligatu=
-res:normal;font-variant-numeric:normal;font-variant-east-asian:normal;font-=
-feature-settings:normal"><br></p><p style=3D"margin:0px;font-stretch:normal=
-;font-size:13px;line-height:normal;font-family:&quot;Helvetica Neue&quot;;f=
-ont-size-adjust:none;font-kerning:auto;font-variant-alternates:normal;font-=
-variant-ligatures:normal;font-variant-numeric:normal;font-variant-east-asia=
-n:normal;font-feature-settings:normal">would like to hear community interes=
-t on allowing static route=C2=A0configuration by user explicitly.</p></div>=
-<br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri=
-, Jun 9, 2023 at 12:07=E2=80=AFPM Ivan Mikhaylov &lt;<a href=3D"mailto:fr0s=
-t61te@gmail.com" target=3D"_blank">fr0st61te@gmail.com</a>&gt; wrote:<br></=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left-width:1px;border-left-style:solid;border-left-color:rgb(204,204,20=
-4);padding-left:1ex">On Wed, 2023-06-07 at 20:05 -0500, Patrick Williams wr=
-ote:<br>
-&gt; On Mon, Jun 05, 2023 at 07:49:06PM +0530, raviteja bailapudi wrote:<br=
->
-&gt; <br>
-&gt; &gt; Gentle reminder for the feedback on Static route feature<br>
-&gt; &gt; <br>
-&gt; &gt; Here is DMTF redfish PR to enable redfish static route<br>
-&gt; &gt; configuration<br>
-&gt; &gt; <a href=3D"https://github.com/DMTF/Redfish/pull/5464" rel=3D"nore=
-ferrer" target=3D"_blank">https://github.com/DMTF/Redfish/pull/5464</a><br>
-&gt; <br>
-&gt; How are we suppose to review a private PR?<br>
-&gt; <br>
-<br>
-I&#39;d glad to look at this PR too, at least there is multiple proposals<b=
-r>
-in gerrit about that theme:<br>
-<br>
-<a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63619" =
-rel=3D"noreferrer" target=3D"_blank">https://gerrit.openbmc.org/c/openbmc/p=
-hosphor-networkd/+/63619</a><br>
-<a href=3D"https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61641" rel=3D"nore=
-ferrer" target=3D"_blank">https://gerrit.openbmc.org/c/openbmc/bmcweb/+/616=
-41</a><br>
-<a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/=
-60448" rel=3D"noreferrer" target=3D"_blank">https://gerrit.openbmc.org/c/op=
-enbmc/phosphor-dbus-interfaces/+/60448</a><br>
-<br>
-Is it possible to put it in redfish forum/mail list/gerrit?<br>
-<br>
-Thanks.<br>
-</blockquote></div>
-
---00000000000068c1f005fdfa8b37--
