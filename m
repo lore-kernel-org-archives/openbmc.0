@@ -4,53 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5206DC7EE2E
-	for <openbmc@archiver.kernel.org>; Fri,  9 Jun 2023 09:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3AAC7EE25
+	for <openbmc@archiver.kernel.org>; Fri,  9 Jun 2023 21:46:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Qcx0y59Y3z3f8V
-	for <openbmc@archiver.kernel.org>; Fri,  9 Jun 2023 19:41:22 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4QdF5y3kS2z3fFZ
+	for <openbmc@archiver.kernel.org>; Sat, 10 Jun 2023 07:46:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AvozqRxh;
+	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20221208.gappssmtp.com header.i=@tanous-net.20221208.gappssmtp.com header.a=rsa-sha256 header.s=20221208 header.b=It92w8Dm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=patchwork-bot+netdevbpf@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AvozqRxh;
+	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20221208.gappssmtp.com header.i=@tanous-net.20221208.gappssmtp.com header.a=rsa-sha256 header.s=20221208 header.b=It92w8Dm;
 	dkim-atps=neutral
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qcwzs6m69z3f05
-	for <openbmc@lists.ozlabs.org>; Fri,  9 Jun 2023 19:40:25 +1000 (AEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by dfw.source.kernel.org (Postfix) with ESMTPS id E9BE165637;
-	Fri,  9 Jun 2023 09:40:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 54157C4339C;
-	Fri,  9 Jun 2023 09:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686303622;
-	bh=QsjPUpkRO5qwm0xSfCepOjD6AFakWYdIF5Oxfmz3lLo=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=AvozqRxhS8wdOWpuR2IwxLOVmHpV8OMtKTIHCUC7neJhPIcj0U3WCnCaV1SPs3fUx
-	 ZtZZnEaSHZi9HFWOYU/soFQ6G4oIdQNGLu/G+elYUGPsNLyOzdbuJ77t4V8jdZHXlG
-	 gw7fDR3K43wWua4e2M+DdiN5hiUnMse7FAMyAWthEcJcXVrFx2nzQ/tFDxk4y4BC0j
-	 bw56vf5WHzup4oz75gN08d2YGHA4uthN6HDJnBVrVATIgLjNu31yd45rSLh5zweRwD
-	 7yXv3q6PoIZUI846QY1ZA5zbTcw+9h5aTaUM6Db2LTl9qevFxUkmHKZqcaGPOvzIiy
-	 ayHvQP5+3FhJg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id 3B998C43157;
-	Fri,  9 Jun 2023 09:40:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4QdF4s65mcz3f0v
+	for <openbmc@lists.ozlabs.org>; Sat, 10 Jun 2023 07:45:47 +1000 (AEST)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-3f78a32266bso22102585e9.3
+        for <openbmc@lists.ozlabs.org>; Fri, 09 Jun 2023 14:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tanous-net.20221208.gappssmtp.com; s=20221208; t=1686347138; x=1688939138;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+nXOaL/7GMks+k/VQm5mSxbUGQNTZPwcC5hsnifCZvw=;
+        b=It92w8DmZdv2ERgKajW/Y2BHGsQJxCkPIJ0PZALdJ14OURHSfDRzmh0Ge+KNKoCzuq
+         JLAbo+Typqn9e+oWemHKRa7Ws2U3RfNfjQbZZI8JFn7OlmHyRd+A97eoHHewdKISOhqA
+         lUAUtJzmjwE/ihx76q3SfM0Poi1nKZJ1+dAAW/kRUAryx6PPd6TydXZ9iH6igN+ISzTD
+         O7x94eSr4pQRUuFIY7B7bg/WzZB3j08wFoVcADyIFWk4TfmOCwA8+XHIMDgxuws2KO7x
+         Aq6LsnxlH6PjMpdRL7LGNVOFs/O8Z4ALmo7il5mBkdYknL+9vAQEkKqqtx/PJJHwS6CB
+         Ruvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1686347138; x=1688939138;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+nXOaL/7GMks+k/VQm5mSxbUGQNTZPwcC5hsnifCZvw=;
+        b=QP3GLAokFpgjJFssxOMWi5O+JZ9WMbAcxNuSG0ZV+5V/UqCdshnirynbUIcQjJFQlN
+         +VxRbQaqMU1sMDYICRfa/j/YRlFoJYZoKBot11S1aX8buN6ZpLAh+lZn2+fmStkoLvnx
+         9k3lSnxRzqAC747ISdGdesBzWg9yNa7vXR9b1hn1Yv3BAoOvL3LZxtjLm6BRQabt4eI6
+         lUb/nWWAEvFhie1WwMfUATEdUuioM+sWKSsPGt7Xgz7cSMuHYshnqNQmNlPYsRPo6Vok
+         a4+w1eiqGzB5xXITT1QjZFDmNJDA2IKchgmWHt82/k+R37RKN4CO7tEiyV1tgu9fcu35
+         qYQQ==
+X-Gm-Message-State: AC+VfDy8J3jymC9fsLIURKGcp3H9XgkTGozwMFWn3ez1QAHITH8zFOms
+	AQhsHTTLSNli2EFOUjTmZuXtdRcK1yaQjMerEOVTqsIVUcMhBLsNLkI=
+X-Google-Smtp-Source: ACHHUZ7hDgricJgBecNKOBrXKhhztbGybtrFK5AClCQacQ3LJJt6DMUXGe55TUwzNf4n1tGcsZlsI/F2/7mfzwxx9hc=
+X-Received: by 2002:a05:6000:c:b0:307:8718:7891 with SMTP id
+ h12-20020a056000000c00b0030787187891mr18783wrx.54.1686347137936; Fri, 09 Jun
+ 2023 14:45:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 0/2] net/ncsi: refactoring for GMA command
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id:  <168630362223.15762.16643998871572719262.git-patchwork-notify@kernel.org>
-Date: Fri, 09 Jun 2023 09:40:22 +0000
-References: <20230607151742.6699-1-fr0st61te@gmail.com>
-In-Reply-To: <20230607151742.6699-1-fr0st61te@gmail.com>
-To: Ivan Mikhaylov <fr0st61te@gmail.com>
+From: Ed Tanous <ed@tanous.net>
+Date: Fri, 9 Jun 2023 14:45:27 -0700
+Message-ID: <CACWQX80WU+rurELYqz-Mjo0d5v1aDG9N=WEV9hU4cJ49hnHBtg@mail.gmail.com>
+Subject: Changes to content-type handling
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,36 +70,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: sam@mendozajonas.com, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, vijaykhemka@fb.com, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net
+Cc: Gunnar Mills <gmills@linux.vnet.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello:
+TL; DR if you start seeing unexplained 400 errors on POST/PATCH, read further.
 
-This series was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
+A recent bmcweb change will be changing the way Content-Type is
+handled by default for incoming requests.
 
-On Wed,  7 Jun 2023 18:17:40 +0300 you wrote:
-> Make one GMA function for all manufacturers, change ndo_set_mac_address
-> to dev_set_mac_address for notifiying net layer about MAC change which
-> ndo_set_mac_address doesn't do.
-> 
-> Changes from v1:
-> 	1. delete ftgmac100.txt changes about mac-address-increment
-> 	2. add convert to yaml from ftgmac100.txt
-> 	3. add mac-address-increment option for ethernet-controller.yaml
-> 
-> [...]
+https://gerrit.openbmc.org/c/openbmc/bmcweb/+/64072
 
-Here is the summary with links:
-  - [v3,1/2] net/ncsi: make one oem_gma function for all mfr id
-    https://git.kernel.org/netdev/net-next/c/74b449b98dcc
-  - [v3,2/2] net/ncsi: change from ndo_set_mac_address to dev_set_mac_address
-    https://git.kernel.org/netdev/net-next/c/790071347a0a
+While this is technically in line with both the HTTP RFC as well as
+the Redfish spec, it is quite possible that clients written and tested
+against only OpenBMC might be setting the content-type header
+incorrectly, in which bmcweb will now return a 400 error rather than
+silently accepting.  This is in line with OWASP guidelines for
+webservers.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+This behavior is controlled by an meson option flag
+"insecure-ignore-content-type" that has been checked in for some time.
+If you need to opt out of the behavior for some time to make sure your
+clients are brought up to compatibility.  All of the Redfish tools
+have been tested, the examples have been updated a while ago, and the
+webui works as intended, so for clients following the specification,
+this should have no impact.
 
-
+-Ed
