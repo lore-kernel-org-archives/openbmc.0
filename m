@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2044CEB64D8
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 13:26:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C908EB64D8
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 13:26:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Qh5lw4dTGz30fP
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 23:26:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Qh5mW3k32z3bYm
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 23:26:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 918 seconds by postgrey-1.37 at boromir; Wed, 14 Jun 2023 23:25:30 AEST
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qh5lG1b1Yz2xwD
-	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 23:25:28 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qh5lK0J58z2xwD
+	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 23:25:32 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 35ED9wVG032261
-	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 16:09:58 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 14 Jun
- 2023 16:09:57 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Wed, 14 Jun
- 2023 21:09:55 +0800
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 35EDAQH6032427
+	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 16:10:26 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Wed, 14 Jun
+ 2023 16:10:25 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Wed, 14
+ Jun 2023 21:10:23 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.8.29) with Microsoft SMTP Server id 15.1.2176.2 via Frontend Transport;
- Wed, 14 Jun 2023 21:09:55 +0800
+ Wed, 14 Jun 2023 21:10:23 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id CD36D637C4; Wed, 14 Jun 2023 16:09:54 +0300 (IDT)
+	id D92CE637C4; Wed, 14 Jun 2023 16:10:22 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v16 0/1] Introduce Nuvoton Arbel NPCM8XX BMC SoC
-Date: Wed, 14 Jun 2023 16:09:49 +0300
-Message-ID: <20230614130952.253349-1-tmaimon77@gmail.com>
+Subject: [PATCH v17 0/1] Introduce Nuvoton Arbel NPCM8XX BMC SoC
+Date: Wed, 14 Jun 2023 16:10:20 +0300
+Message-ID: <20230614131021.253490-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -71,7 +70,13 @@ This patchset was tested on the Arbel NPCM8XX evaluation board.
 
 Addressed comments from:
 
- - Stephen Boyd: https://www.spinics.net/lists/kernel/msg4729384.html
+ - Christophe JAILLET: https://www.spinics.net/lists/linux-clk/msg85687.html
+
+Changes since version 16:
+ - NPCM8XX clock driver
+	- Using devm_kzalloc instead kzalloc.
+	- Remove unnecessary parenthesis.
+	- Modify incorrect spelling.
 
 Changes since version 15:
  - NPCM8XX clock driver
@@ -199,8 +204,8 @@ Tomer Maimon (1):
 
  drivers/clk/Kconfig       |   8 +
  drivers/clk/Makefile      |   1 +
- drivers/clk/clk-npcm8xx.c | 566 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 575 insertions(+)
+ drivers/clk/clk-npcm8xx.c | 565 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 574 insertions(+)
  create mode 100644 drivers/clk/clk-npcm8xx.c
 
 -- 
