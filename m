@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3724EB64D9
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 13:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 067FFEB64D8
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 13:28:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Qh5n6389Lz3bW1
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 23:27:06 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Qh5pC575kz30fN
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jun 2023 23:28:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qh5lL4WSFz30dy
-	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 23:25:34 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Qh5lN5D3dz30h5
+	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 23:25:36 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 35EDARal032430
-	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 16:10:27 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 35ED9xRl032264
+	for <openbmc@lists.ozlabs.org>; Wed, 14 Jun 2023 16:09:59 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
  (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 14 Jun
- 2023 16:10:26 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.2; Wed, 14 Jun
- 2023 21:10:24 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Wed, 14 Jun
+ 2023 16:09:58 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.2; Wed, 14
+ Jun 2023 21:09:56 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS04.nuvoton.com
  (10.1.8.29) with Microsoft SMTP Server id 15.1.2176.2 via Frontend Transport;
- Wed, 14 Jun 2023 21:10:24 +0800
+ Wed, 14 Jun 2023 21:09:56 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 71BAE63A1E; Wed, 14 Jun 2023 16:10:23 +0300 (IDT)
+	id 54A8263A1E; Wed, 14 Jun 2023 16:09:55 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v17 1/1] clk: npcm8xx: add clock controller
-Date: Wed, 14 Jun 2023 16:10:21 +0300
-Message-ID: <20230614131021.253490-2-tmaimon77@gmail.com>
+Subject: [PATCH v16 1/1] clk: npcm8xx: add clock controller
+Date: Wed, 14 Jun 2023 16:09:50 +0300
+Message-ID: <20230614130952.253349-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20230614131021.253490-1-tmaimon77@gmail.com>
-References: <20230614131021.253490-1-tmaimon77@gmail.com>
+In-Reply-To: <20230614130952.253349-1-tmaimon77@gmail.com>
+References: <20230614130952.253349-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -67,8 +67,8 @@ Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
  drivers/clk/Kconfig       |   8 +
  drivers/clk/Makefile      |   1 +
- drivers/clk/clk-npcm8xx.c | 565 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 574 insertions(+)
+ drivers/clk/clk-npcm8xx.c | 566 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 575 insertions(+)
  create mode 100644 drivers/clk/clk-npcm8xx.c
 
 diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
@@ -104,14 +104,14 @@ index 0aebef17edc6..88713cbfbab5 100644
  obj-$(CONFIG_COMMON_CLK_PALMAS)		+= clk-palmas.o
 diff --git a/drivers/clk/clk-npcm8xx.c b/drivers/clk/clk-npcm8xx.c
 new file mode 100644
-index 000000000000..16c50aa9cb65
+index 000000000000..9e6ed073d124
 --- /dev/null
 +++ b/drivers/clk/clk-npcm8xx.c
-@@ -0,0 +1,565 @@
+@@ -0,0 +1,566 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Nuvoton NPCM8xx Clock Generator
-+ * All the clocks are initialized by the bootloader, so this driver allows only
++ * All the clocks are initialized by the bootloader, so this driver allow only
 + * reading of current settings directly from the hardware.
 + *
 + * Copyright (C) 2020 Nuvoton Technologies
@@ -130,16 +130,16 @@ index 000000000000..16c50aa9cb65
 +#include <dt-bindings/clock/nuvoton,npcm845-clk.h>
 +
 +/* npcm8xx clock registers*/
-+#define NPCM8XX_CLKSEL		0x04
-+#define NPCM8XX_CLKDIV1		0x08
-+#define NPCM8XX_CLKDIV2		0x2C
-+#define NPCM8XX_CLKDIV3		0x58
-+#define NPCM8XX_CLKDIV4		0x7C
-+#define NPCM8XX_PLLCON0		0x0C
-+#define NPCM8XX_PLLCON1		0x10
-+#define NPCM8XX_PLLCON2		0x54
-+#define NPCM8XX_PLLCONG		0x60
-+#define NPCM8XX_THRTL_CNT	0xC0
++#define NPCM8XX_CLKSEL          (0x04)
++#define NPCM8XX_CLKDIV1         (0x08)
++#define NPCM8XX_CLKDIV2         (0x2C)
++#define NPCM8XX_CLKDIV3         (0x58)
++#define NPCM8XX_CLKDIV4         (0x7C)
++#define NPCM8XX_PLLCON0         (0x0C)
++#define NPCM8XX_PLLCON1         (0x10)
++#define NPCM8XX_PLLCON2         (0x54)
++#define NPCM8XX_PLLCONG         (0x60)
++#define NPCM8XX_THRTL_CNT       (0xC0)
 +
 +#define PLLCON_LOKI	BIT(31)
 +#define PLLCON_LOKS	BIT(30)
@@ -467,7 +467,7 @@ index 000000000000..16c50aa9cb65
 +	struct clk_init_data init = {};
 +	int ret;
 +
-+	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
++	pll = kzalloc(sizeof(*pll), GFP_KERNEL);
 +	if (!pll)
 +		return ERR_PTR(-ENOMEM);
 +
@@ -583,7 +583,7 @@ index 000000000000..16c50aa9cb65
 +	hw = devm_clk_hw_register_fixed_factor(dev, NPCM8XX_CLK_S_PRE_CLK,
 +					       NPCM8XX_CLK_S_CPU_MUX, 0, 1, 2);
 +	if (IS_ERR(hw)) {
-+		dev_err(dev, "npcm8xx_clk: Can't register pre clk div2\n");
++		dev_err(dev, "npcm8xx_clk: Can't register ckclk div2\n");
 +		return PTR_ERR(hw);
 +	}
 +	hw_pre_clk = *hw;
@@ -636,9 +636,10 @@ index 000000000000..16c50aa9cb65
 +	return err;
 +
 +err_div_clk:
-+	while (i--)
++	while (i--) {
 +		if (npcm8xx_divs[i].onecell_idx >= 0)
 +			clk_hw_unregister_divider(npcm8xx_clk_data->hws[npcm8xx_divs[i].onecell_idx]);
++	}
 +
 +	return PTR_ERR(hw);
 +}
