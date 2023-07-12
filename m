@@ -4,36 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 631CEEB64D9
-	for <openbmc@archiver.kernel.org>; Wed, 12 Jul 2023 09:28:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D956AEB64D9
+	for <openbmc@archiver.kernel.org>; Wed, 12 Jul 2023 10:21:58 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DoUPFm8C;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4R1C934FDGz3c5n
-	for <openbmc@archiver.kernel.org>; Wed, 12 Jul 2023 19:28:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.226; helo=mail.aspeedtech.com; envelope-from=jammy_huang@aspeedtech.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 87 seconds by postgrey-1.37 at boromir; Wed, 12 Jul 2023 19:28:04 AEST
-Received: from mail.aspeedtech.com (211-20-114-226.hinet-ip.hinet.net [211.20.114.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4R1DLY1pJqz3by6
+	for <openbmc@archiver.kernel.org>; Wed, 12 Jul 2023 20:21:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DoUPFm8C;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.55.52.88; helo=mga01.intel.com; envelope-from=he.huang@linux.intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 65 seconds by postgrey-1.37 at boromir; Wed, 12 Jul 2023 20:20:57 AEST
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4R1C8N6nwJz3bYR;
-	Wed, 12 Jul 2023 19:28:04 +1000 (AEST)
-Received: from JammyHuang-PC.aspeed.com (192.168.2.181) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 12 Jul
- 2023 17:26:09 +0800
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-To: <eajames@linux.ibm.com>, <mchehab@kernel.org>, <joel@jms.id.au>,
-	<andrew@aj.id.au>, <linux-media@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] media: aspeed: Fix memory overwrite if timing is 1600x900
-Date: Wed, 12 Jul 2023 17:26:06 +0800
-Message-ID: <20230712092606.2508-1-jammy_huang@aspeedtech.com>
-X-Mailer: git-send-email 2.25.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4R1DKP5M5Bz3bnr
+	for <openbmc@lists.ozlabs.org>; Wed, 12 Jul 2023 20:20:57 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1689157258; x=1720693258;
+  h=date:from:to:subject:in-reply-to:references:mime-version:
+   message-id;
+  bh=D4FM2TxYcpmG4gosKpLU4G0hf+DPnOzUC03iVLySLoA=;
+  b=DoUPFm8Cp57jZWFyzAOt+cZN3oTKkYHhD1iwZ5u53ODzZgMSpcEd3grZ
+   KcLDK1yiMld+M5rVKo15ZQ7L5vPXeAYWyNTPIYM1t2bKQxxRc9VBs7VQb
+   aSKvPx0WASFgb7gzzKL38cn0ks57djF6v4RDorXI3DIuql8q2M0lpFmSU
+   NZEnxOWRydshNRUi9tzIkMJ8QLgY0Gg3wYhAeBoSUFdW1cVy0LeIfSNm3
+   rpfiz/rOMQT+kX1oZPrZ7TZAQiLOOiDFqvqy7AVMi1S+2lCAizvCf3xFY
+   9KLeWwUrR8mgREZ1TMctz5t8ZCwOedeM4por8bSDh1+V8FbLFSgENIOQV
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="395652423"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; 
+   d="scan'208,217";a="395652423"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Jul 2023 03:19:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="968163697"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; 
+   d="scan'208,217";a="968163697"
+Received: from linux.intel.com ([10.54.29.200])
+  by fmsmga006.fm.intel.com with ESMTP; 12 Jul 2023 03:19:44 -0700
+Received: from huanghe-mobl (huanghe-mobl.ccr.corp.intel.com [10.254.213.81])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by linux.intel.com (Postfix) with ESMTPS id 9A6025805EE;
+	Wed, 12 Jul 2023 03:19:43 -0700 (PDT)
+Date: Wed, 12 Jul 2023 18:19:44 +0800
+From: "he.huang" <he.huang@linux.intel.com>
+To: "Zheng Bao" <fishbaoz@hotmail.com>,"OpenBMC Maillist" <openbmc@lists.ozlabs.org>
+Subject: Re:  Re: Does the OpenBMC support self test?
+In-Reply-To: <DM4PR11MB65027064DE35FF5410674B3FCD2DA@DM4PR11MB6502.namprd11.prod.outlook.com>
+References: <DM4PR11MB65020C1A5474E4259D2FECD8CD5DA@DM4PR11MB6502.namprd11.prod.outlook.com>
+	<DM4PR11MB65027064DE35FF5410674B3FCD2DA@DM4PR11MB6502.namprd11.prod.outlook.com>
+X-Mailer: NetEase FlashMail 2.4.1.32
+X-Priority: 3 (Normal)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.181]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
+Message-ID: <64AE7E3C.8090108@linux.intel.com>
+Content-Type: multipart/alternative;
+	boundary="NetEase-FlashMail-003-f914bb6e-ba02-466a-b026-ba118e4f9319"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,41 +78,158 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-When capturing 1600x900, system could crash when system memory usage is
-tight.
+--NetEase-FlashMail-003-f914bb6e-ba02-466a-b026-ba118e4f9319
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The size of macro block captured is 8x8. Therefore, we should make sure
-the height of src-buf is 8 aligned to fix this issue.
+SGksDQpQbGVhc2UgY2hlY2sgdGhlIGNvbW1lbnRzIG9mOg0KaHR0cHM6Ly9naXRodWIuY29tL29w
+ZW5ibWMvb3BlbmJtYy9pc3N1ZXMvNDM2DQoNCiJEaXNjdXNzZWQgaW4gZGVzaWduIG1lZXRpbmc6
+DQpQZXIgUGF0cmljaywgd2UgaW1wbGVtZW50ZWQgYSByZXNwb25zZSB0byB0aGUgSVBNSSBjb21t
+YW5kIG9mICJub3Qgc3VwcG9ydGVkIi4gV2UgaGF2ZSBubyBwbGFuIG9mIGFjdHVhbGx5IGRvaW5n
+IGEgc2VsZi10ZXN0LiBJZiB0aGUgQk1DIGlzIHVwIGZhciBlbm91Z2ggdG8gcmVzcG9uZCB0byBJ
+UE1JIHJlcXVlc3RzIHRoZW4gYW55IHNvcnQgb2Ygc2VsZi10ZXN0IGhhcyBwYXNzZWQuIg0KDQoN
+CjIwMjMtMDctMTIgDQoNCmhlLmh1YW5nIA0KDQoNCg0K5Y+R5Lu25Lq677yaWmhlbmcgQmFvIDxm
+aXNoYmFvekBob3RtYWlsLmNvbT4NCuWPkemAgeaXtumXtO+8mjIwMjMtMDctMDcgMTE6MDcNCuS4
+u+mimO+8mlJlOiBEb2VzIHRoZSBPcGVuQk1DIHN1cHBvcnQgc2VsZiB0ZXN0PyANCuaUtuS7tuS6
+uu+8miJPcGVuQk1DIE1haWxsaXN0IjxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQrmioTpgIHv
+vJoNCg0KaXBtaXRvb2wgLXYgcmF3IDYgNA0KaXBtaXRvb2wgaHBtIHNlbGZ0ZXN0cmVzdWx0DQoN
+Cg0KDQoNClBpbmcuIElzIHRoaXMgSVBNSSBjb21tYW5kIG5vdCBzdXBwb3J0ZWQgYW55IG1vcmU/
+DQoNCg0KWmhlbmcNCg0KDQoNCkZyb206IG9wZW5ibWMgPG9wZW5ibWMtYm91bmNlcytmaXNoYmFv
+ej1ob3RtYWlsLmNvbUBsaXN0cy5vemxhYnMub3JnPiBvbiBiZWhhbGYgb2YgWmhlbmcgQmFvIDxm
+aXNoYmFvekBob3RtYWlsLmNvbT4NClNlbnQ6IFdlZG5lc2RheSwgSnVuZSAyMSwgMjAyMyAzOjAw
+IFBNDQpUbzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3Vi
+amVjdDogRG9lcyB0aGUgT3BlbkJNQyBzdXBwb3J0IHNlbGYgdGVzdD8gDQoNCkhpLCBHdXlzLA0K
+RG9lcyB0aGUgT3BlbkJNQyBzdXBwb3J0IHNlbGYgdGVzdD8gDQoNCg0KDQppcG1pdG9vbCAtdiBy
+YXcgNiA0DQppcG1pdG9vbCBocG0gc2VsZnRlc3RyZXN1bHQNCg0KDQoNCg0KVGhhbmtzLg0KDQoN
+Cg0KDQpaaGVuZw==
 
-Signed-off-by: Jammy Huang <jammy_huang@aspeedtech.com>
----
- drivers/media/platform/aspeed/aspeed-video.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--NetEase-FlashMail-003-f914bb6e-ba02-466a-b026-ba118e4f9319
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
-index 374eb7781936..14594f55a77f 100644
---- a/drivers/media/platform/aspeed/aspeed-video.c
-+++ b/drivers/media/platform/aspeed/aspeed-video.c
-@@ -1130,7 +1130,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
- static void aspeed_video_set_resolution(struct aspeed_video *video)
- {
- 	struct v4l2_bt_timings *act = &video->active_timings;
--	unsigned int size = act->width * act->height;
-+	unsigned int size = act->width * ALIGN(act->height, 8);
- 
- 	/* Set capture/compression frame sizes */
- 	aspeed_video_calc_compressed_size(video, size);
-@@ -1147,7 +1147,7 @@ static void aspeed_video_set_resolution(struct aspeed_video *video)
- 		u32 width = ALIGN(act->width, 64);
- 
- 		aspeed_video_write(video, VE_CAP_WINDOW, width << 16 | act->height);
--		size = width * act->height;
-+		size = width * ALIGN(act->height, 8);
- 	} else {
- 		aspeed_video_write(video, VE_CAP_WINDOW,
- 				   act->width << 16 | act->height);
+PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMCBUcmFuc2l0aW9uYWwv
+L0VOIj4NCjxIVE1MPjxIRUFEPg0KPE1FVEEgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0
+Zi04IiBodHRwLWVxdWl2PUNvbnRlbnQtVHlwZT4NCjxTVFlMRSBzdHlsZT0iRElTUExBWTogbm9u
+ZSIgDQp0eXBlPXRleHQvY3NzPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9T
+VFlMRT4NCjwhLS0gZmxhc2htYWlsIHN0eWxlIGJlZ2luIC0tPg0KPFNUWUxFIHR5cGU9dGV4dC9j
+c3M+CmJvZHkge2JvcmRlci13aWR0aDowO21hcmdpbjowfQppbWcge2JvcmRlcjowO21hcmdpbjow
+O3BhZGRpbmc6MH0KPC9TVFlMRT4NCjxCQVNFIHRhcmdldD1fYmxhbms+PCEtLSBmbGFzaG1haWwg
+c3R5bGUgZW5kIC0tPg0KPE1FVEEgbmFtZT1HRU5FUkFUT1IgY29udGVudD0iTVNIVE1MIDExLjAw
+LjEwNTcwLjEwMDEiPjwvSEVBRD4NCjxCT0RZIA0Kc3R5bGU9IkJPUkRFUi1MRUZULVdJRFRIOiAw
+cHg7IEZPTlQtU0laRTogMTAuNXB0OyBGT05ULUZBTUlMWTog77+977+977+977+977+977+977+9
+77+977+977+977+977+977+977+977+977+9OyBCT1JERVItUklHSFQtV0lEVEg6IDBweDsgQk9S
+REVSLUJPVFRPTS1XSURUSDogMHB4OyBDT0xPUjogIzAwMDAwMDsgTUFSR0lOOiAxMnB4OyBMSU5F
+LUhFSUdIVDogMS41OyBCT1JERVItVE9QLVdJRFRIOiAwcHgiIA0KbWFyZ2luaGVpZ2h0PSIwIiBt
+YXJnaW53aWR0aD0iMCI+DQo8RElWPkhpLDwvRElWPg0KPERJVj5QbGVhc2UgY2hlY2sgdGhlIGNv
+bW1lbnRzIG9mOjwvRElWPg0KPERJVj48QSANCmhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVu
+Ym1jL29wZW5ibWMvaXNzdWVzLzQzNiI+aHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJt
+Yy9pc3N1ZXMvNDM2PC9BPjwvRElWPg0KPERJVj4mbmJzcDs8L0RJVj4NCjxESVY+IjxTUEFOIA0K
+c3R5bGU9J0ZPTlQtU0laRTogMTRweDsgRk9OVC1GQU1JTFk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5r
+TWFjU3lzdGVtRm9udCwgIlNlZ29lIFVJIiwgIk5vdG8gU2FucyIsIEhlbHZldGljYSwgQXJpYWws
+IHNhbnMtc2VyaWYsICJBcHBsZSBDb2xvciBFbW9qaSIsICJTZWdvZSBVSSBFbW9qaSI7IFdISVRF
+LVNQQUNFOiBub3JtYWw7IFdPUkQtU1BBQ0lORzogMHB4OyBURVhULVRSQU5TRk9STTogbm9uZTsg
+RkxPQVQ6IG5vbmU7IEZPTlQtV0VJR0hUOiA0MDA7IENPTE9SOiByZ2IoMzEsMzUsNDApOyBGT05U
+LVNUWUxFOiBub3JtYWw7IE9SUEhBTlM6IDI7IFdJRE9XUzogMjsgRElTUExBWTogaW5saW5lICFp
+bXBvcnRhbnQ7IExFVFRFUi1TUEFDSU5HOiBub3JtYWw7IEJBQ0tHUk9VTkQtQ09MT1I6IHJnYigy
+NTUsMjU1LDI1NSk7IFRFWFQtSU5ERU5UOiAwcHg7IGZvbnQtdmFyaWFudC1saWdhdHVyZXM6IG5v
+cm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0
+aDogMHB4OyB0ZXh0LWRlY29yYXRpb24tdGhpY2tuZXNzOiBpbml0aWFsOyB0ZXh0LWRlY29yYXRp
+b24tc3R5bGU6IGluaXRpYWw7IHRleHQtZGVjb3JhdGlvbi1jb2xvcjogaW5pdGlhbCc+RGlzY3Vz
+c2VkIA0KaW4gZGVzaWduIG1lZXRpbmc6PC9TUEFOPjxCUiANCnN0eWxlPSdCT1gtU0laSU5HOiBi
+b3JkZXItYm94OyBGT05ULVNJWkU6IDE0cHg7IEZPTlQtRkFNSUxZOiAtYXBwbGUtc3lzdGVtLCBC
+bGlua01hY1N5c3RlbUZvbnQsICJTZWdvZSBVSSIsICJOb3RvIFNhbnMiLCBIZWx2ZXRpY2EsIEFy
+aWFsLCBzYW5zLXNlcmlmLCAiQXBwbGUgQ29sb3IgRW1vamkiLCAiU2Vnb2UgVUkgRW1vamkiOyBX
+SElURS1TUEFDRTogbm9ybWFsOyBXT1JELVNQQUNJTkc6IDBweDsgVEVYVC1UUkFOU0ZPUk06IG5v
+bmU7IEZPTlQtV0VJR0hUOiA0MDA7IENPTE9SOiByZ2IoMzEsMzUsNDApOyBGT05ULVNUWUxFOiBu
+b3JtYWw7IE9SUEhBTlM6IDI7IFdJRE9XUzogMjsgTEVUVEVSLVNQQUNJTkc6IG5vcm1hbDsgQkFD
+S0dST1VORC1DT0xPUjogcmdiKDI1NSwyNTUsMjU1KTsgVEVYVC1JTkRFTlQ6IDBweDsgZm9udC12
+YXJpYW50LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyAtd2Vi
+a2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbi10aGlja25lc3M6IGlu
+aXRpYWw7IHRleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLWNv
+bG9yOiBpbml0aWFsJz48U1BBTiANCnN0eWxlPSdGT05ULVNJWkU6IDE0cHg7IEZPTlQtRkFNSUxZ
+OiAtYXBwbGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsICJTZWdvZSBVSSIsICJOb3RvIFNh
+bnMiLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmLCAiQXBwbGUgQ29sb3IgRW1vamkiLCAi
+U2Vnb2UgVUkgRW1vamkiOyBXSElURS1TUEFDRTogbm9ybWFsOyBXT1JELVNQQUNJTkc6IDBweDsg
+VEVYVC1UUkFOU0ZPUk06IG5vbmU7IEZMT0FUOiBub25lOyBGT05ULVdFSUdIVDogNDAwOyBDT0xP
+UjogcmdiKDMxLDM1LDQwKTsgRk9OVC1TVFlMRTogbm9ybWFsOyBPUlBIQU5TOiAyOyBXSURPV1M6
+IDI7IERJU1BMQVk6IGlubGluZSAhaW1wb3J0YW50OyBMRVRURVItU1BBQ0lORzogbm9ybWFsOyBC
+QUNLR1JPVU5ELUNPTE9SOiByZ2IoMjU1LDI1NSwyNTUpOyBURVhULUlOREVOVDogMHB4OyBmb250
+LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IC13
+ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uLXRoaWNrbmVzczog
+aW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLXN0eWxlOiBpbml0aWFsOyB0ZXh0LWRlY29yYXRpb24t
+Y29sb3I6IGluaXRpYWwnPlBlciANClBhdHJpY2ssIHdlIGltcGxlbWVudGVkIGEgcmVzcG9uc2Ug
+dG8gdGhlIElQTUkgY29tbWFuZCBvZiAibm90IHN1cHBvcnRlZCIuIFdlIA0KaGF2ZSBubyBwbGFu
+IG9mIGFjdHVhbGx5IGRvaW5nIGEgc2VsZi10ZXN0LiBJZiB0aGUgQk1DIGlzIHVwIGZhciBlbm91
+Z2ggdG8gDQpyZXNwb25kIHRvIElQTUkgcmVxdWVzdHMgdGhlbiBhbnkgc29ydCBvZiBzZWxmLXRl
+c3QgaGFzIHBhc3NlZC48L1NQQU4+IjwvRElWPg0KPERJVj4mbmJzcDs8L0RJVj4NCjxESVY+Jm5i
+c3A7PC9ESVY+DQo8RElWIHN0eWxlPSJGT05ULVNJWkU6IDEwcHQ7IEZPTlQtRkFNSUxZOiBWZXJk
+YW5hOyBDT0xPUjogI2MwYzBjMCIgDQphbGlnbj1sZWZ0PjIwMjMtMDctMTIgDQo8SFIgaWQ9U2ln
+bk5hbWVIUiANCnN0eWxlPSJCT1JERVItVE9QOiAjYzBjMGMwIDFweCBzb2xpZDsgSEVJR0hUOiAx
+cHg7IEJPUkRFUi1SSUdIVDogMHB4OyBXSURUSDogMTIycHg7IEJPUkRFUi1CT1RUT006IDBweDsg
+Qk9SREVSLUxFRlQ6IDBweCIgDQphbGlnbj1sZWZ0Pg0KPFNQQU4gaWQ9X0ZsYXNoU2lnbk5hbWU+
+aGUuaHVhbmc8L1NQQU4+IDwvRElWPg0KPEhSIA0Kc3R5bGU9IkJPUkRFUi1UT1A6ICNjMGMwYzAg
+MXB4IHNvbGlkOyBIRUlHSFQ6IDFweDsgQk9SREVSLVJJR0hUOiAwcHg7IEJPUkRFUi1CT1RUT006
+IDBweDsgQk9SREVSLUxFRlQ6IDBweCI+DQoNCjxCTE9DS1FVT1RFIGlkPW50ZXMtZmxhc2htYWls
+LXF1b3RlIA0Kc3R5bGU9IkZPTlQtU0laRTogMTBwdDsgRk9OVC1GQU1JTFk6IFZlcmRhbmE7IFBB
+RERJTkctTEVGVDogMHB4OyBNQVJHSU4tTEVGVDogMHB4Ij4NCiAgPERJVj48U1RST05HPuWPkeS7
+tuS6uu+8mjwvU1RST05HPlpoZW5nIEJhbyAmbHQ7ZmlzaGJhb3pAaG90bWFpbC5jb20mZ3Q7PC9E
+SVY+DQogIDxESVY+PFNUUk9ORz7lj5HpgIHml7bpl7TvvJo8L1NUUk9ORz4yMDIzLTA3LTA3Jm5i
+c3A7MTE6MDc8L0RJVj4NCiAgPERJVj48U1RST05HPuS4u+mimO+8mjwvU1RST05HPlJlOiBEb2Vz
+IHRoZSBPcGVuQk1DIHN1cHBvcnQgc2VsZiB0ZXN0PyA8L0RJVj4NCiAgPERJVj48U1RST05HPuaU
+tuS7tuS6uu+8mjwvU1RST05HPiJPcGVuQk1DIA0KICBNYWlsbGlzdCImbHQ7b3BlbmJtY0BsaXN0
+cy5vemxhYnMub3JnJmd0OzwvRElWPg0KICA8RElWPjxTVFJPTkc+5oqE6YCB77yaPC9TVFJPTkc+
+PC9ESVY+DQogIDxESVY+Jm5ic3A7PC9ESVY+DQogIDxESVY+DQogIDxESVY+aXBtaXRvb2wgLXYg
+cmF3IDYgNDwvRElWPg0KICA8RElWPmlwbWl0b29sIGhwbSBzZWxmdGVzdHJlc3VsdDwvRElWPg0K
+ICA8RElWIGNsYXNzPWVsZW1lbnRUb1Byb29mPjxCUj48L0RJVj4NCiAgPERJViBjbGFzcz1lbGVt
+ZW50VG9Qcm9vZiANCiAgc3R5bGU9IkZPTlQtU0laRTogMTJwdDsgRk9OVC1GQU1JTFk6IENhbGli
+cmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgQ09MT1I6IHJnYigwLDAsMCkiPjxCUj48L0RJVj4N
+CiAgPERJViBjbGFzcz1lbGVtZW50VG9Qcm9vZiANCiAgc3R5bGU9IkZPTlQtU0laRTogMTJwdDsg
+Rk9OVC1GQU1JTFk6IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgQ09MT1I6IHJnYigw
+LDAsMCkiPlBpbmcuIA0KICBJcyB0aGlzIElQTUkgY29tbWFuZCBub3Qgc3VwcG9ydGVkIGFueSBt
+b3JlPzwvRElWPg0KICA8RElWIGNsYXNzPWVsZW1lbnRUb1Byb29mIA0KICBzdHlsZT0iRk9OVC1T
+SVpFOiAxMnB0OyBGT05ULUZBTUlMWTogQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBD
+T0xPUjogcmdiKDAsMCwwKSI+PEJSPjwvRElWPg0KICA8RElWIGNsYXNzPWVsZW1lbnRUb1Byb29m
+IA0KICBzdHlsZT0iRk9OVC1TSVpFOiAxMnB0OyBGT05ULUZBTUlMWTogQ2FsaWJyaSwgSGVsdmV0
+aWNhLCBzYW5zLXNlcmlmOyBDT0xPUjogcmdiKDAsMCwwKSI+Wmhlbmc8L0RJVj4NCiAgPEhSIHRh
+YkluZGV4PS0xIHN0eWxlPSJXSURUSDogOTglOyBESVNQTEFZOiBpbmxpbmUtYmxvY2siPg0KDQog
+IDxESVYgaWQ9ZGl2UnBseUZ3ZE1zZyBkaXI9bHRyPjxGT05UIHN0eWxlPSJGT05ULVNJWkU6IDEx
+cHQ7IENPTE9SOiByZ2IoMCwwLDApIiANCiAgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiI+PEI+
+RnJvbTo8L0I+IG9wZW5ibWMgDQogICZsdDtvcGVuYm1jLWJvdW5jZXMrZmlzaGJhb3o9aG90bWFp
+bC5jb21AbGlzdHMub3psYWJzLm9yZyZndDsgb24gYmVoYWxmIG9mIA0KICBaaGVuZyBCYW8gJmx0
+O2Zpc2hiYW96QGhvdG1haWwuY29tJmd0OzxCUj48Qj5TZW50OjwvQj4gV2VkbmVzZGF5LCBKdW5l
+IDIxLCANCiAgMjAyMyAzOjAwIFBNPEJSPjxCPlRvOjwvQj4gT3BlbkJNQyBNYWlsbGlzdCANCiAg
+Jmx0O29wZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs8QlI+PEI+U3ViamVjdDo8L0I+IERvZXMg
+dGhlIE9wZW5CTUMgc3VwcG9ydCANCiAgc2VsZiB0ZXN0PyA8L0ZPTlQ+DQogIDxESVY+Jm5ic3A7
+PC9ESVY+PC9ESVY+DQogIDxESVYgZGlyPWx0cj4NCiAgPERJViBjbGFzcz14X2VsZW1lbnRUb1By
+b29mIA0KICBzdHlsZT0iRk9OVC1TSVpFOiAxMnB0OyBGT05ULUZBTUlMWTogQ2FsaWJyaSwgSGVs
+dmV0aWNhLCBzYW5zLXNlcmlmOyBDT0xPUjogcmdiKDAsMCwwKSI+SGksIA0KICBHdXlzLDwvRElW
+Pg0KICA8RElWIGNsYXNzPXhfZWxlbWVudFRvUHJvb2YgDQogIHN0eWxlPSJGT05ULVNJWkU6IDEy
+cHQ7IEZPTlQtRkFNSUxZOiBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IENPTE9SOiBy
+Z2IoMCwwLDApIj5Eb2VzIA0KICB0aGUgT3BlbkJNQyBzdXBwb3J0IHNlbGYgdGVzdD8mbmJzcDs8
+L0RJVj4NCiAgPERJViBjbGFzcz14X2VsZW1lbnRUb1Byb29mIA0KICBzdHlsZT0iRk9OVC1TSVpF
+OiAxMnB0OyBGT05ULUZBTUlMWTogQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBDT0xP
+UjogcmdiKDAsMCwwKSI+PEJSPg0KICA8VEFCTEUgDQogIHN0eWxlPSJGT05ULVNJWkU6IDEycHg7
+IEZPTlQtRkFNSUxZOiBUYWhvbWEsIEhlbHZldGljYSwgU2ltU3VuLCBzYW5zLXNlcmlmOyBXSURU
+SDogMTExM3B4OyBCT1JERVItQ09MTEFQU0U6IGNvbGxhcHNlOyBUQUJMRS1MQVlPVVQ6IGZpeGVk
+OyBDT0xPUjogcmdiKDY4LDY4LDY4KTsgQkFDS0dST1VORC1DT0xPUjogcmdiKDI1NSwyNTUsMjU1
+KSI+DQogICAgPFRCT0RZPg0KICAgIDxUUj4NCiAgICAgIDxURCBjbGFzcz0ieF90X2YgeF9Db250
+ZW50UGFzdGVkMCIgc3R5bGU9IkZPTlQtU0laRTogMTRweCI+PEJSIA0KICAgICAgICBjbGFzcz14
+X0NvbnRlbnRQYXN0ZWQwPjxCUiBjbGFzcz14X0NvbnRlbnRQYXN0ZWQwPmlwbWl0b29sIC12IHJh
+dyA2IDQ8QlIgDQogICAgICAgIGNsYXNzPXhfQ29udGVudFBhc3RlZDA+aXBtaXRvb2wgaHBtIA0K
+ICBzZWxmdGVzdHJlc3VsdDwvVEQ+PC9UUj48L1RCT0RZPjwvVEFCTEU+PEJSPjwvRElWPg0KICA8
+RElWIGNsYXNzPXhfZWxlbWVudFRvUHJvb2YgDQogIHN0eWxlPSJGT05ULVNJWkU6IDEycHQ7IEZP
+TlQtRkFNSUxZOiBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IENPTE9SOiByZ2IoMCww
+LDApIj48QlI+PC9ESVY+DQogIDxESVYgY2xhc3M9eF9lbGVtZW50VG9Qcm9vZiANCiAgc3R5bGU9
+IkZPTlQtU0laRTogMTJwdDsgRk9OVC1GQU1JTFk6IENhbGlicmksIEhlbHZldGljYSwgc2Fucy1z
+ZXJpZjsgQ09MT1I6IHJnYigwLDAsMCkiPlRoYW5rcy48L0RJVj4NCiAgPERJViBjbGFzcz14X2Vs
+ZW1lbnRUb1Byb29mIA0KICBzdHlsZT0iRk9OVC1TSVpFOiAxMnB0OyBGT05ULUZBTUlMWTogQ2Fs
+aWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBDT0xPUjogcmdiKDAsMCwwKSI+PEJSPjwvRElW
+Pg0KICA8RElWIGNsYXNzPXhfZWxlbWVudFRvUHJvb2YgDQogIHN0eWxlPSJGT05ULVNJWkU6IDEy
+cHQ7IEZPTlQtRkFNSUxZOiBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IENPTE9SOiBy
+Z2IoMCwwLDApIj48QlI+PC9ESVY+DQogIDxESVYgY2xhc3M9eF9lbGVtZW50VG9Qcm9vZiANCiAg
+c3R5bGU9IkZPTlQtU0laRTogMTJwdDsgRk9OVC1GQU1JTFk6IENhbGlicmksIEhlbHZldGljYSwg
+c2Fucy1zZXJpZjsgQ09MT1I6IHJnYigwLDAsMCkiPlpoZW5nPC9ESVY+PC9ESVY+PC9ESVY+PC9C
+TE9DS1FVT1RFPjwvQk9EWT48L0hUTUw+
 
-base-commit: 2605e80d3438c77190f55b821c6575048c68268e
--- 
-2.25.1
+--NetEase-FlashMail-003-f914bb6e-ba02-466a-b026-ba118e4f9319--
 
