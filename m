@@ -4,67 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5454DC83F01
-	for <openbmc@archiver.kernel.org>; Sun, 27 Aug 2023 18:47:29 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=ubJ3uHXR;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C85F6C83F11
+	for <openbmc@archiver.kernel.org>; Sun, 27 Aug 2023 20:37:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4RYjNb4TWbz30gF
-	for <openbmc@archiver.kernel.org>; Mon, 28 Aug 2023 04:47:27 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=ubJ3uHXR;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.20; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RYlqM0QD5z3bTC
+	for <openbmc@archiver.kernel.org>; Mon, 28 Aug 2023 06:37:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4RYjMX0slmz2yVR
-	for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2023 04:46:29 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=s31663417; t=1693161981; x=1693766781; i=j.neuschaefer@gmx.net;
- bh=vfCrl3xTZlAlJ4jDNXucspu42u1OeEtKo9/uQ35+XNg=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ubJ3uHXRZFform7vw2uF9RHHDqO6P57ZfBEy2QwTE9C8AWAc6Cm3FpmrcEKhs+j8Z4KC5ut
- +kZsr14wxNnUulKwfgw6PbYkWVq6yunxpZdWRNcaAExjDpZ3UMJA3N3FTqDla6YuokQpSAy0z
- vNeRlrlOsc2oS187XMgg11Bm7z7OPPWsK2Ks7ysrLi5ZYk2i4T9tLpZec3UcWYh0MUP2uiqVP
- 0Tax0z/N89pFOSxcJ0J2oEkzSKOv4E250BRorw5QVZOLra6cj7PdwNZEFr90RHq6sBeLxkvdR
- DzKBJLPrjixGMXxWB+Cji1bUw0J+MojiY1q5RIA7F/FfW3FH0Q1g==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([94.218.119.195]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MMobU-1qJuLw495A-00Ii0I; Sun, 27
- Aug 2023 20:46:21 +0200
-Date: Sun, 27 Aug 2023 20:46:18 +0200
-From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: Mikhail Kobuk <m.kobuk@ispras.ru>
-Subject: Re: [PATCH] pinctrl: nuvoton: wpcm450: fix out of bounds write
-Message-ID: <ZOuZ+n3PZWqxsG35@probook>
-References: <20230825101532.6624-1-m.kobuk@ispras.ru>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4RYlpg71RSz2yhP
+	for <openbmc@lists.ozlabs.org>; Mon, 28 Aug 2023 06:36:39 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 37RKaTAj030369
+	for <openbmc@lists.ozlabs.org>; Sun, 27 Aug 2023 23:36:29 +0300
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 27 Aug
+ 2023 23:36:28 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 28 Aug
+ 2023 04:36:26 +0800
+Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 28 Aug 2023 04:36:26 +0800
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 92B5764741; Sun, 27 Aug 2023 23:36:25 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <linus.walleij@linaro.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
+        <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
+        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
+        <j.neuschaefer@gmx.net>
+Subject: [PATCH v6 1/2] dt-binding: pinctrl: Add NPCM8XX pinctrl and GPIO documentation
+Date: Sun, 27 Aug 2023 23:36:11 +0300
+Message-ID: <20230827203612.173562-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20230827203612.173562-1-tmaimon77@gmail.com>
+References: <20230827203612.173562-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="R079PLSdubHOUllH"
-Content-Disposition: inline
-In-Reply-To: <20230825101532.6624-1-m.kobuk@ispras.ru>
-X-Provags-ID: V03:K1:siUKjmJQMOOsosCdZvA+NvPJoj4rupQ6qsUddR4Exd5YARSKzD+
- HK5apaMUtP530gLVsxDkQa8Bzt09WyoU3TFvkicyyLcaU23AqbEKoIpnv19cfGK034jVdzv
- ZkFOr40iHkBuZZgnUVZjUVPl7RFEf568k8OoILaMeEYKOX7PHmx/hloVj1aHPuMXJf9oobj
- nkvyFzxLQXkXu/7HqP2Ww==
-UI-OutboundReport: notjunk:1;M01:P0:jDVIOE0RUD4=;u+RS0RRyx0ZYt28yQ9wu7oJVKVo
- tzwtjf6n5tExaojB5pyHxKR0Jyf4RRx+bv9hXlBa58nDL/Jh7Yoca0qSfVRiwPU5NZoyjcATx
- 3RXqdws3+hqKGju4kqdlMqFhZMUR6kyXvei8cZlDpIS+PiwZDOBixBswO9omr+jaIXGAiZ7bi
- ruRA3Y+Yod7KoyA2egRseb+U1Gz0RRnhA5OV6THYBzpnaElTcb/I56nRqIYXMeUc+2BrfTytD
- ETBIb1v0vA9CEUrTznpFuEW3yJW/MH2ezRn3w4MEeW8cGMemswWOJhiTYQh6ZmW8o6RYJjHAx
- BfATn9rbPieEqSJ+G6a9hKW7NgIlcWecSjMwTf4qhRHktSwkdp0Rc32aF+zkDYRvEuJ8SGf2/
- 8DVWu45xvdapeSd/repljTi8u7GeBGNBJNsGyXCluQ22HKsbBI9T3BkQlijxpEgY6kaBa6lcw
- qBQADBDjWsPL7I5Bs8+9VONgAAlKgpOeDLoxylNQkvTNnKrTviT/OYfSr2Cd5nDqU/SUe0CuM
- w/dn8VB5i+cx6Y4OoyQbUurfGWssSsDEfiEnBJCP7VYLKCZMfcGC9E8stQ7TRzhlpjHeBIUPI
- i8JISvn7I57vrvbV+eqShJa0Q7JcKVauGSWaqS5nFe8EBN/ZQFBW9kHj705+gOXBEFDBD+uGb
- zAiqGqhPf+shiCD+EIMZGZ+ezF6SWsbA7T/6B7Es7RUR8XJc668xw1lnA83r0ZM66lG1tF7fk
- RPiEFwAn9q1eChHV4FOLTc1CmPhgR1FzuritbuRwZLWDXzK+CrgL1BIgptcATBU2ix6BmIRQ2
- +TdZ2oM/I/eLAst/7LQl9F6yRzEkfbiDeXGXbrLOnyHLPH1kV9NGJJ2cju0fc9FJLKDr7W1/D
- /m8OmyCUriSaELBdHLTqn0n4f8ZCz/e9S/dJqnFb0cGb13rkX28ZmkcFzeMPDAG3w/PL6GwRU
- KKnvKg==
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,82 +58,240 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: lvc-project@linuxtesting.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, linux-gpio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>, Alexey Khoroshilov <khoroshilov@ispras.ru>
+Cc: Rob Herring <robh@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Added device tree binding documentation for Nuvoton Arbel BMC NPCM8XX
+pinmux and GPIO controller.
 
---R079PLSdubHOUllH
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ .../pinctrl/nuvoton,npcm845-pinctrl.yaml      | 214 ++++++++++++++++++
+ 1 file changed, 214 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
 
-On Fri, Aug 25, 2023 at 01:15:28PM +0300, Mikhail Kobuk wrote:
-> Write into 'pctrl->gpio_bank' happens before the check for GPIO index
-> validity, so out of bounds write may happen.
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+new file mode 100644
+index 000000000000..a895c60e3eb4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+@@ -0,0 +1,214 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/nuvoton,npcm845-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NPCM845 Pin Controller and GPIO
++
++maintainers:
++  - Tomer Maimon <tmaimon77@gmail.com>
++
++description:
++  The Nuvoton BMC NPCM8XX Pin Controller multi-function routed through
++  the multiplexing block, Each pin supports GPIO functionality (GPIOx)
++  and multiple functions that directly connect the pin to different
++  hardware blocks.
++
++properties:
++  compatible:
++    const: nuvoton,npcm845-pinctrl
++
++  ranges:
++    maxItems: 1
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 1
++
++  nuvoton,sysgcr:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: a phandle to access GCR registers.
++
++patternProperties:
++  '^gpio@':
++    type: object
++
++    description:
++      Eight GPIO banks that each contain 32 GPIOs.
++
++    properties:
++      gpio-controller: true
++
++      '#gpio-cells':
++        const: 2
++
++      reg:
++        maxItems: 1
++
++      interrupts:
++        maxItems: 1
++
++      gpio-ranges:
++        maxItems: 1
++
++    required:
++      - gpio-controller
++      - '#gpio-cells'
++      - reg
++      - interrupts
++      - gpio-ranges
++
++  '-mux$':
++    $ref: pinmux-node.yaml#
++
++    properties:
++      groups:
++        description:
++          One or more groups of pins to mux to a certain function
++        items:
++          enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
++                  smb5b, smb5c, lkgpo0, pspi, jm1, jm2, smb4den, smb4b,
++                  smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
++                  smb22, smb23, smb23b, smb4d, smb14, smb5, smb4, smb3,
++                  spi0cs1, spi0cs2, spi0cs3, spi1cs0, spi1cs1, spi1cs2,
++                  spi1cs3, spi1cs23, smb3c, smb3b, bmcuart0a, uart1, jtag2,
++                  bmcuart1, uart2, sg1mdio, bmcuart0b, r1err, r1md, r1oen,
++                  r2oen, rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3,
++                  fanin4, fanin5, fanin6, fanin7, fanin8, fanin9, fanin10,
++                  fanin11, fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2,
++                  pwm3, r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg2,
++                  ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2,
++                  smb2c, smb2b, smb1c, smb1b, smb8, smb9, smb10, smb11, sd1,
++                  sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8, pwm9, pwm10, pwm11,
++                  mmc8, mmc, mmcwp, mmccd, mmcrst, clkout, serirq, lpcclk,
++                  scipme, smi, smb6, smb7, spi1, faninx, r1, spi3, spi3cs1,
++                  spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b, smb0c, smb0den,
++                  smb0d, ddc, rg2mdio, wdog1, wdog2, smb12, smb13, spix,
++                  spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3, hgpio4,
++                  hgpio5, hgpio6, hgpio7 ]
++
++      function:
++        description:
++          The function that a group of pins is muxed to
++        enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
++                smb5b, smb5c, lkgpo0, pspi, jm1, jm2, smb4den, smb4b,
++                smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
++                smb22, smb23, smb23b, smb4d, smb14, smb5, smb4, smb3,
++                spi0cs1, spi0cs2, spi0cs3, spi1cs0, spi1cs1, spi1cs2,
++                spi1cs3, spi1cs23, smb3c, smb3b, bmcuart0a, uart1, jtag2,
++                bmcuart1, uart2, sg1mdio, bmcuart0b, r1err, r1md, r1oen,
++                r2oen, rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3,
++                fanin4, fanin5, fanin6, fanin7, fanin8, fanin9, fanin10,
++                fanin11, fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2,
++                pwm3, r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg2,
++                ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2,
++                smb2c, smb2b, smb1c, smb1b, smb8, smb9, smb10, smb11, sd1,
++                sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8, pwm9, pwm10, pwm11,
++                mmc8, mmc, mmcwp, mmccd, mmcrst, clkout, serirq, lpcclk,
++                scipme, smi, smb6, smb7, spi1, faninx, r1, spi3, spi3cs1,
++                spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b, smb0c, smb0den,
++                smb0d, ddc, rg2mdio, wdog1, wdog2, smb12, smb13, spix,
++                spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3, hgpio4,
++                hgpio5, hgpio6, hgpio7 ]
++
++    dependencies:
++      groups: [ function ]
++      function: [ groups ]
++
++    additionalProperties: false
++
++  '^pin':
++    $ref: pincfg-node.yaml#
++
++    properties:
++      pins:
++        description:
++          A list of pins to configure in certain ways, such as enabling
++          debouncing
++
++      bias-disable: true
++
++      bias-pull-up: true
++
++      bias-pull-down: true
++
++      input-enable: true
++
++      output-low: true
++
++      output-high: true
++
++      drive-push-pull: true
++
++      drive-open-drain: true
++
++      input-debounce:
++        description:
++          Debouncing periods in microseconds, one period per interrupt
++          bank found in the controller
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        minItems: 1
++        maxItems: 4
++
++      slew-rate:
++        description: |
++          0: Low rate
++          1: High rate
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [0, 1]
++
++      drive-strength:
++        enum: [ 0, 1, 2, 4, 8, 12 ]
++
++    additionalProperties: false
++
++allOf:
++  - $ref: pinctrl.yaml#
++
++required:
++  - compatible
++  - ranges
++  - '#address-cells'
++  - '#size-cells'
++  - nuvoton,sysgcr
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    soc {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      pinctrl: pinctrl@f0800260 {
++        compatible = "nuvoton,npcm845-pinctrl";
++        ranges = <0x0 0x0 0xf0010000 0x8000>;
++        #address-cells = <1>;
++        #size-cells = <1>;
++        nuvoton,sysgcr = <&gcr>;
++
++        gpio0: gpio@0 {
++          gpio-controller;
++          #gpio-cells = <2>;
++          reg = <0x0 0xB0>;
++          interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>;
++          gpio-ranges = <&pinctrl 0 0 32>;
++        };
++
++        fanin0_pin: fanin0-mux {
++          groups = "fanin0";
++          function = "fanin0";
++        };
++
++        pin34_slew: pin34-slew {
++          pins = "GPIO34/I3C4_SDA";
++          bias-disable;
++        };
++      };
++    };
+-- 
+2.33.0
 
-Good point.
-
-Reviewed-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-
-Thanks!
-
-
->=20
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
->=20
-> Fixes: a1d1e0e3d80a ("pinctrl: nuvoton: Add driver for WPCM450")
-> Signed-off-by: Mikhail Kobuk <m.kobuk@ispras.ru>
-> Reviewed-by: Alexey Khoroshilov <khoroshilov@ispras.ru>
-> ---
->  drivers/pinctrl/nuvoton/pinctrl-wpcm450.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c b/drivers/pinctrl/=
-nuvoton/pinctrl-wpcm450.c
-> index 2d1c1652cfd9..8a9961ac8712 100644
-> --- a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
-> +++ b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
-> @@ -1062,13 +1062,13 @@ static int wpcm450_gpio_register(struct platform_=
-device *pdev,
->  		if (ret < 0)
->  			return ret;
-> =20
-> -		gpio =3D &pctrl->gpio_bank[reg];
-> -		gpio->pctrl =3D pctrl;
-> -
->  		if (reg >=3D WPCM450_NUM_BANKS)
->  			return dev_err_probe(dev, -EINVAL,
->  					     "GPIO index %d out of range!\n", reg);
-> =20
-> +		gpio =3D &pctrl->gpio_bank[reg];
-> +		gpio->pctrl =3D pctrl;
-> +
->  		bank =3D &wpcm450_banks[reg];
->  		gpio->bank =3D bank;
-> =20
-> --=20
-> 2.42.0
->=20
-
---R079PLSdubHOUllH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmTrmdgACgkQCDBEmo7z
-X9sfNg/+JMEeSuR+27aDQ0RK06u4N58JgUVNTW7QY2Y/Q3L/s/SnqbtHdt5+fy/y
-3OSCbm8x9e5GkwWvrfel6V8lw6LH05U+Q3y69N2yDTONzxUdjvpMtPApCU/IAf0o
-TaoMHnF2kbEjLvxCy16MtXXu7/cb+/qs8+ZXPvhwB9uZB1Dwneya4bU+TZIgUlHY
-06Lwc5fYXumglMlATdxNi7JlUvMID7K+Fa/VrexK8RGFQIV9IGg3hnk2sL/6k2Ov
-bW9s0rDmA64f7AwUd/VpoHIIJrqHY3CcJoqsyybNhyCXMAD6gDniHz4xVLG4APaR
-e5j+IaUKFs5jVKnJ6XO+B/60r7LEucQHHxW+7deaa++sqanJZNrv/5KnJJscZgec
-2qKw/4mLouuD9I5sWjF9EFjFNzcmmjzpfa9RN1omP68MtERXDT+4jAYaMZDSfK2h
-eD4fDldrqYCUcfQdM2T1VG8T0rTNBF6RG48ezzJ5sFM7QYeKn3sElhqt6p6Ns1K0
-04I+8kdz4h6AUf7JrE7JuXpWAPObSR9g4hh/+Dw3aAxw82KmGTULFKGmWDYDPrWQ
-y4MSW4HGYLhnmXsa8Z7TSK2cVgupYB7NQ+vaPpOpLe5q/28EbiIBngewNxGVButP
-ZqzgL0QFoczYgk4APhdr15Q6ZQ+9VM4Av69MFknms31aOp0HldI=
-=93BM
------END PGP SIGNATURE-----
-
---R079PLSdubHOUllH--
