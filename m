@@ -4,77 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F22C83F33
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 13:15:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E885C83F2C
+	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 13:16:06 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQpkEkJw;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQDV/bzx;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rg5b22j2vz3bw4
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:15:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rg5c44G1vz3c5H
+	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:16:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQpkEkJw;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQDV/bzx;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=stefanb@linux.ibm.com; receiver=lists.ozlabs.org)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rg5Yw6RV1z2ydW
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2023 23:14:12 +1000 (AEST)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 385D8tDE021664
-	for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2023 13:14:09 GMT
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rg5Z10FQnz2ydW
+	for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2023 23:14:16 +1000 (AEST)
+Received: from pps.filterd (m0353722.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 385D9A1R019518;
+	Tue, 5 Sep 2023 13:14:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=PsXAT+kFzEXMgaJ5jdS4H2HhpJz8uhd9bmZ1qJ14xOQ=;
- b=sQpkEkJwxMK5a82+wLkEVvCvSeRqZRZtB8z5dwUCxWuavXDEsa5CVK7goZ/BCpjGf8gT
- QhFbRFSdxjVK3xl+dhxfBLEanH3eOk6mvdNfoEdALNeAgdzND5o35oRQvki5h3nBBXP9
- KACwBnu6vybsGNKW9vCzT7oB2HCCUQzpwxBEguqExyeLr3lUpf/PGyhtf5AStfZmH5dB
- 5xGjJzSrmv+HsxXLyfYkGn36NorVWqGv2ukKUzbunfQaJuOL9GgCgShBQdwyBDAyBH5E
- oIZ3cxKPq6wfs3G+LUDQuVmA35H85MRvTK7Admx6S84xXKSuwLCKPpDg9X6Yd6MQaOLv yw== 
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx44vhjsx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2023 13:14:08 +0000
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 385BjFgO021478
-	for <openbmc@lists.ozlabs.org>; Tue, 5 Sep 2023 13:14:08 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3svfryaxvm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Tue, 05 Sep 2023 13:14:08 +0000
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=BMVnUrXWXh7AEL46rE/TYeYnqxf9UKa/a5oRuOu8ops=;
+ b=sQDV/bzx/OrORQoLR7x1kO1EOYl/WsJ0iqMAXTi62bmzKwFLx/icsB5SFyqxkl5cP4H5
+ ma1MjQLnuARq9BKv/aWoco25Sg+/8HOvkkOVlfp+KHpwjdV7WTDVCcJBumtnUkv0ca9g
+ 2XzrF2jVCEPVt1lH1ESgVSWkWXRuYsdl8M5NJagvIfCNvD4nCfC6JA9spBghMoq4xb43
+ zWXN1A8TNPPfz5tVKir14drG1B2A+Qtj+C3utN0/zXAOS3FmytdtS8I+3n31fU/5AlWR
+ Iv2Yq9/EVJWbOtp5Hz6sU7CG1BVQNK4pms+3t2GxkXLzTlWfIO5/+HouS3Aj+vXiQc5B 9Q== 
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx4bfh3eg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 05 Sep 2023 13:14:13 +0000
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 385CqjSN006622;
+	Tue, 5 Sep 2023 13:14:13 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3svgvkak09-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 05 Sep 2023 13:14:13 +0000
 Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 385DE51Z39584078
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 385DE9hF51970532
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 5 Sep 2023 13:14:05 GMT
+	Tue, 5 Sep 2023 13:14:09 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 695175805F;
-	Tue,  5 Sep 2023 13:14:05 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 7563F58052;
+	Tue,  5 Sep 2023 13:14:09 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EF54958054;
-	Tue,  5 Sep 2023 13:14:04 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id DA8CE58056;
+	Tue,  5 Sep 2023 13:14:08 +0000 (GMT)
 Received: from sbct-3.pok.ibm.com (unknown [9.47.158.153])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  5 Sep 2023 13:14:04 +0000 (GMT)
+	Tue,  5 Sep 2023 13:14:08 +0000 (GMT)
 From: Stefan Berger <stefanb@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-6.1 0/5] Backports to support OpenBMC with IMA
-Date: Tue,  5 Sep 2023 09:13:56 -0400
-Message-ID: <20230905131401.82232-1-stefanb@linux.ibm.com>
+Subject: [PATCH linux dev-6.1 5/5] ovl: Always reevaluate the file signature for IMA
+Date: Tue,  5 Sep 2023 09:14:01 -0400
+Message-ID: <20230905131401.82232-6-stefanb@linux.ibm.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230905131401.82232-1-stefanb@linux.ibm.com>
+References: <20230905131401.82232-1-stefanb@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 0O8W-3ZJ0_aeo-d1x-0lnpX2krlfan-r
-X-Proofpoint-GUID: 0O8W-3ZJ0_aeo-d1x-0lnpX2krlfan-r
+X-Proofpoint-ORIG-GUID: Qnj3W4KnYkTXbWpN1MqhFSy9L53CBIUY
+X-Proofpoint-GUID: Qnj3W4KnYkTXbWpN1MqhFSy9L53CBIUY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
  definitions=2023-09-05_10,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 mlxscore=0
- mlxlogscore=994 clxscore=1011 adultscore=0 priorityscore=1501 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2308100000
- definitions=main-2309050114
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 mlxlogscore=999
+ clxscore=1011 phishscore=0 adultscore=0 mlxscore=0 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2309050114
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,45 +89,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: jmstanle@au1.ibm.com, andrewrj@au1.ibm.com, Stefan Berger <stefanb@linux.ibm.com>
+Cc: jmstanle@au1.ibm.com, andrewrj@au1.ibm.com, Linus Torvalds <torvalds@linux-foundation.org>, Mimi Zohar <zohar@linux.ibm.com>, Eric Snowberg <eric.snowberg@oracle.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series of patches are backports from recent extensions to core Linux
-filesystem code (support for STATX_CHANGE_COOKIE) and subsequent fixes
-to IMA and overlayfs so that IMA can be used by OpenBMC configured with
-overlayfs. Overlayfs is for example used by the p10bmc build.
+From: Eric Snowberg <eric.snowberg@oracle.com>
 
-The patches in this series have been cherry-picked from upstream Linux
-using the following commands:
+Commit db1d1e8b9867 ("IMA: use vfs_getattr_nosec to get the i_version")
+partially closed an IMA integrity issue when directly modifying a file
+on the lower filesystem.  If the overlay file is first opened by a user
+and later the lower backing file is modified by root, but the extended
+attribute is NOT updated, the signature validation succeeds with the old
+original signature.
 
-git cherry-pick 131f4fd2c25a # 3 consecutive patches of longer series
-git cherry-pick a3bb710383cb
-git cherry-pick a1175d6b1bda
-git cherry-pick db1d1e8b9867 # IMA: use vfs_getattr_nosec ...
-git cherry-pick 18b44bc5a672 # ovl: Always reevaluate ...
+Update the super_block s_iflags to SB_I_IMA_UNVERIFIABLE_SIGNATURE to
+force signature reevaluation on every file access until a fine grained
+solution can be found.
 
-Regards,
-   Stefan
+Signed-off-by: Eric Snowberg <eric.snowberg@oracle.com>
+Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+---
+ fs/overlayfs/super.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Eric Snowberg (1):
-  ovl: Always reevaluate the file signature for IMA
-
-Jeff Layton (4):
-  fs: uninline inode_query_iversion
-  fs: clarify when the i_version counter must be updated
-  vfs: plumb i_version handling into struct kstat
-  IMA: use vfs_getattr_nosec to get the i_version
-
- fs/libfs.c                        | 36 +++++++++++++++++++
- fs/overlayfs/super.c              |  2 +-
- fs/stat.c                         | 17 +++++++--
- include/linux/iversion.h          | 60 ++++++++++++-------------------
- include/linux/stat.h              |  9 +++++
- security/integrity/ima/ima_api.c  |  9 +++--
- security/integrity/ima/ima_main.c | 12 ++++---
- 7 files changed, 97 insertions(+), 48 deletions(-)
-
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index 51eec4a8e82b..08d3a1f34ac6 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -2155,7 +2155,7 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+ 		ovl_trusted_xattr_handlers;
+ 	sb->s_fs_info = ofs;
+ 	sb->s_flags |= SB_POSIXACL;
+-	sb->s_iflags |= SB_I_SKIP_SYNC;
++	sb->s_iflags |= SB_I_SKIP_SYNC | SB_I_IMA_UNVERIFIABLE_SIGNATURE;
+ 
+ 	err = -ENOMEM;
+ 	root_dentry = ovl_get_root(sb, upperpath.dentry, oe);
 -- 
 2.40.1
 
