@@ -4,87 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AACEC83F2C
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 13:20:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9411ACCF9E2
+	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:26:06 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=na5zkT4w;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=u6NcJsYZ;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rg5hh4LX0z3cC2
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:20:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RgM7w74z7z3c2S
+	for <openbmc@archiver.kernel.org>; Wed,  6 Sep 2023 09:26:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=na5zkT4w;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=u6NcJsYZ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=stefanb@linux.ibm.com; receiver=lists.ozlabs.org)
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org)
+X-Greylist: delayed 338 seconds by postgrey-1.37 at boromir; Wed, 06 Sep 2023 09:25:02 AEST
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rg5Z56kkxz3c3H
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2023 23:14:21 +1000 (AEST)
-Received: from pps.filterd (m0353727.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 385D8Er2009364;
-	Tue, 5 Sep 2023 13:14:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=Z3Y0Yaq/4pM/H1n+e+6vx9e8pOkDnLSEVpNCggNthgc=;
- b=na5zkT4wNV14wE8FncMmSitDirJtDQyJCNJdzr2CDlH2e5/wdDs9E755BtBG+NFppAUD
- jy2bjaYy2oK0lEpKWSRJ5zSYthnKnuL2kC0vvOEchNLLZVzHndhk3X+yPuaXGr63O/lC
- i3Il34iE9BdsaXGqfOlldJAb6XQV+r4obb2kO5LVRvyLZvWocGZ0F9P2+euXjYiu8193
- Wet6mn29CJJLAYM9g/7+VwPVcom7z+Bjw1qN8IEDY5aficZiNCRUJmIPOAh078V7xPqW
- +Ot3oOmlH7kEPg8WDc677x9SR9iekzLc1tPybZyfcnb9qfG8kP9p1eQ6WDVYgV7NSw45 ew== 
-Received: from pps.reinject (localhost [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx3yqj863-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 05 Sep 2023 13:14:12 +0000
-Received: from m0353727.ppops.net (m0353727.ppops.net [127.0.0.1])
-	by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 385D8ZsX011906;
-	Tue, 5 Sep 2023 13:14:11 GMT
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx3yqj85r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 05 Sep 2023 13:14:11 +0000
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 385BReYt001624;
-	Tue, 5 Sep 2023 13:14:10 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 3svfcsk41d-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 05 Sep 2023 13:14:10 +0000
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 385DE8jG33489626
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 5 Sep 2023 13:14:08 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EAE1958050;
-	Tue,  5 Sep 2023 13:14:07 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4B15458063;
-	Tue,  5 Sep 2023 13:14:07 +0000 (GMT)
-Received: from sbct-3.pok.ibm.com (unknown [9.47.158.153])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  5 Sep 2023 13:14:07 +0000 (GMT)
-From: Stefan Berger <stefanb@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-6.1 3/5] vfs: plumb i_version handling into struct kstat
-Date: Tue,  5 Sep 2023 09:13:59 -0400
-Message-ID: <20230905131401.82232-4-stefanb@linux.ibm.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230905131401.82232-1-stefanb@linux.ibm.com>
-References: <20230905131401.82232-1-stefanb@linux.ibm.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4RgM6k2Gtqz2xm3;
+	Wed,  6 Sep 2023 09:25:02 +1000 (AEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by sin.source.kernel.org (Postfix) with ESMTPS id 6B5AECE11D9;
+	Tue,  5 Sep 2023 23:19:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1757BC433C8;
+	Tue,  5 Sep 2023 23:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1693955959;
+	bh=tkLbpV5CYYO3vwi6utL6T6ePfooLRu8OIzUvsyy5lUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=u6NcJsYZn2RyIAvQigeFmahcfloKDTk7xZoLkOrk1UmsjkW6yHUSfdAEiGeOa8BQO
+	 usPjt9dvhzbV5AnjFq/p1CyiZdZl8vzXfS+ZLM0HDi3zdsDNAmbzFp7xz0Kg7f1fEx
+	 TRD9p/tvbbyIw8kmHYcEDCX/JhDDVkjbvoH4jn34Y3U/TKpOCNq4PoDbOO6329Yf4G
+	 N4yDzef4zY/eg4Tr4jpkG90tHwY4AoK03DZBhFcgYPDTpJiO9+x7ui1RcyVvRHjV3h
+	 /9R+PI2dI6qobu60856oGC1ytxE4XZ0EkqdrS4zBtGrkDgQxdwBXEDeL1dfgtWm4lB
+	 qtBXT/gKuedFg==
+Date: Wed, 6 Sep 2023 01:19:15 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Tommy Huang <tommy_huang@aspeedtech.com>
+Subject: Re: [PATCH] i2c: aspeed: Reset the i2c controller when timeout occurs
+Message-ID: <20230905231915.rv2ysvxa3bshekjq@zenone.zhora.eu>
+References: <20230904012505.340455-1-tommy_huang@aspeedtech.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: M6ofJTzGZOUNsbMuT3NJ1Z9u3MCzN0kK
-X-Proofpoint-ORIG-GUID: 15OYssi03LRvXNz3zgf3cVR2x8DwWKMa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-05_10,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
- priorityscore=1501 mlxlogscore=999 impostorscore=0 phishscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 mlxscore=0 bulkscore=0
- malwarescore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2308100000 definitions=main-2309050114
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230904012505.340455-1-tommy_huang@aspeedtech.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,110 +62,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: jmstanle@au1.ibm.com, andrewrj@au1.ibm.com, Jan Kara <jack@suse.cz>, Jeff Layton <jlayton@redhat.com>, NeilBrown <neilb@suse.de>, Jeff Layton <jlayton@kernel.org>
+Cc: BMC-SW@aspeedtech.com, jae.hyun.yoo@linux.intel.com, linux-aspeed@lists.ozlabs.org, andrew@aj.id.au, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, brendan.higgins@linux.dev, joel@jms.id.au, p.zabel@pengutronix.de, linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Jeff Layton <jlayton@redhat.com>
+Hi Tommy,
 
-The NFS server has a lot of special handling for different types of
-change attribute access, depending on the underlying filesystem. In
-most cases, it's doing a getattr anyway and then fetching that value
-after the fact.
+Thanks for fixing what I asked, I'm going to review here:
 
-Rather that do that, add a new STATX_CHANGE_COOKIE flag that is a
-kernel-only symbol (for now). If requested and getattr can implement it,
-it can fill out this field. For IS_I_VERSION inodes, add a generic
-implementation in vfs_getattr_nosec. Take care to mask
-STATX_CHANGE_COOKIE off in requests from userland and in the result
-mask.
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org> 
 
-Since not all filesystems can give the same guarantees of monotonicity,
-claim a STATX_ATTR_CHANGE_MONOTONIC flag that filesystems can set to
-indicate that they offer an i_version value that can never go backward.
+But still there are 3 things I will ask you for your next
+patches:
 
-Eventually if we decide to make the i_version available to userland, we
-can just designate a field for it in struct statx, and move the
-STATX_CHANGE_COOKIE definition to the uapi header.
+  1. Please add a version to the patch, this is patch version 2,
+     so that the title should be "[PATCH v2] i2c...."
 
-Reviewed-by: NeilBrown <neilb@suse.de>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/stat.c            | 17 +++++++++++++++--
- include/linux/stat.h |  9 +++++++++
- 2 files changed, 24 insertions(+), 2 deletions(-)
+     You can have that with git-format-patch:
 
-diff --git a/fs/stat.c b/fs/stat.c
-index ef50573c72a2..06fd3fc1ab84 100644
---- a/fs/stat.c
-+++ b/fs/stat.c
-@@ -18,6 +18,7 @@
- #include <linux/syscalls.h>
- #include <linux/pagemap.h>
- #include <linux/compat.h>
-+#include <linux/iversion.h>
- 
- #include <linux/uaccess.h>
- #include <asm/unistd.h>
-@@ -119,6 +120,11 @@ int vfs_getattr_nosec(const struct path *path, struct kstat *stat,
- 	stat->attributes_mask |= (STATX_ATTR_AUTOMOUNT |
- 				  STATX_ATTR_DAX);
- 
-+	if ((request_mask & STATX_CHANGE_COOKIE) && IS_I_VERSION(inode)) {
-+		stat->result_mask |= STATX_CHANGE_COOKIE;
-+		stat->change_cookie = inode_query_iversion(inode);
-+	}
-+
- 	mnt_userns = mnt_user_ns(path->mnt);
- 	if (inode->i_op->getattr)
- 		return inode->i_op->getattr(mnt_userns, path, stat,
-@@ -599,9 +605,11 @@ cp_statx(const struct kstat *stat, struct statx __user *buffer)
- 
- 	memset(&tmp, 0, sizeof(tmp));
- 
--	tmp.stx_mask = stat->result_mask;
-+	/* STATX_CHANGE_COOKIE is kernel-only for now */
-+	tmp.stx_mask = stat->result_mask & ~STATX_CHANGE_COOKIE;
- 	tmp.stx_blksize = stat->blksize;
--	tmp.stx_attributes = stat->attributes;
-+	/* STATX_ATTR_CHANGE_MONOTONIC is kernel-only for now */
-+	tmp.stx_attributes = stat->attributes & ~STATX_ATTR_CHANGE_MONOTONIC;
- 	tmp.stx_nlink = stat->nlink;
- 	tmp.stx_uid = from_kuid_munged(current_user_ns(), stat->uid);
- 	tmp.stx_gid = from_kgid_munged(current_user_ns(), stat->gid);
-@@ -640,6 +648,11 @@ int do_statx(int dfd, struct filename *filename, unsigned int flags,
- 	if ((flags & AT_STATX_SYNC_TYPE) == AT_STATX_SYNC_TYPE)
- 		return -EINVAL;
- 
-+	/* STATX_CHANGE_COOKIE is kernel-only for now. Ignore requests
-+	 * from userland.
-+	 */
-+	mask &= ~STATX_CHANGE_COOKIE;
-+
- 	error = vfs_statx(dfd, filename, flags, &stat, mask);
- 	if (error)
- 		return error;
-diff --git a/include/linux/stat.h b/include/linux/stat.h
-index ff277ced50e9..52150570d37a 100644
---- a/include/linux/stat.h
-+++ b/include/linux/stat.h
-@@ -52,6 +52,15 @@ struct kstat {
- 	u64		mnt_id;
- 	u32		dio_mem_align;
- 	u32		dio_offset_align;
-+	u64		change_cookie;
- };
- 
-+/* These definitions are internal to the kernel for now. Mainly used by nfsd. */
-+
-+/* mask values */
-+#define STATX_CHANGE_COOKIE		0x40000000U	/* Want/got stx_change_attr */
-+
-+/* file attribute values */
-+#define STATX_ATTR_CHANGE_MONOTONIC	0x8000000000000000ULL /* version monotonically increases */
-+
- #endif
--- 
-2.40.1
+        git format-patch -v 2 ....
 
+On Mon, Sep 04, 2023 at 09:25:05AM +0800, Tommy Huang wrote:
+> Reset the i2c controller when an i2c transfer timeout occurs.
+> The remaining interrupts and device should be reset to avoid
+> unpredictable controller behavior.
+> 
+> Fixes: 2e57b7cebb98 ("i2c: aspeed: Add multi-master use case support")
+> Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Cc: <stable@vger.kernel.org> # v5.1+
+> 
+> Signed-off-by: Tommy Huang <tommy_huang@aspeedtech.com>
+
+  2. Don't leave blank lines between tags. But I think Wolfram
+     can fix this before pushing.
+
+> ---
+
+  3. After the '---' it comes the freedom of speach section where
+     you can write anything. Please add the changelog, something
+     like:
+
+       v1 -> v2
+        - Fixed comment...
+	- Fixed commit log...
+	- etc.
+
+     This is important for reviewers in order to understand what
+     has changed from patch v1 to patch v2.
+
+Please, before your next patch, read first the
+Documentation/process/submitting-patches.rst document.
+
+Thanks,
+Andi
+
+>  drivers/i2c/busses/i2c-aspeed.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> index 2e5acfeb76c8..5a416b39b818 100644
+> --- a/drivers/i2c/busses/i2c-aspeed.c
+> +++ b/drivers/i2c/busses/i2c-aspeed.c
+> @@ -698,13 +698,16 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>  
+>  	if (time_left == 0) {
+>  		/*
+> -		 * If timed out and bus is still busy in a multi master
+> -		 * environment, attempt recovery at here.
+> +		 * In a multi-master setup, if a timeout occurs, attempt
+> +		 * recovery. But if the bus is idle, we still need to reset the
+> +		 * i2c controller to clear the remaining interrupts.
+>  		 */
+>  		if (bus->multi_master &&
+>  		    (readl(bus->base + ASPEED_I2C_CMD_REG) &
+>  		     ASPEED_I2CD_BUS_BUSY_STS))
+>  			aspeed_i2c_recover_bus(bus);
+> +		else
+> +			aspeed_i2c_reset(bus);
+>  
+>  		/*
+>  		 * If timed out and the state is still pending, drop the pending
+> -- 
+> 2.25.1
+> 
