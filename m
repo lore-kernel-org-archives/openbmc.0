@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E885C83F2C
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 13:16:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE87DC83F33
+	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 13:16:59 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQDV/bzx;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lXZF5JNx;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rg5c44G1vz3c5H
-	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:16:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rg5d60fXYz3c5P
+	for <openbmc@archiver.kernel.org>; Tue,  5 Sep 2023 23:16:58 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=sQDV/bzx;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lXZF5JNx;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=stefanb@linux.ibm.com; receiver=lists.ozlabs.org)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rg5Z10FQnz2ydW
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2023 23:14:16 +1000 (AEST)
-Received: from pps.filterd (m0353722.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 385D9A1R019518;
-	Tue, 5 Sep 2023 13:14:14 GMT
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rg5Z16Hc6z2ydW
+	for <openbmc@lists.ozlabs.org>; Tue,  5 Sep 2023 23:14:17 +1000 (AEST)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id 385D7tgu004612;
+	Tue, 5 Sep 2023 13:14:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=BMVnUrXWXh7AEL46rE/TYeYnqxf9UKa/a5oRuOu8ops=;
- b=sQDV/bzx/OrORQoLR7x1kO1EOYl/WsJ0iqMAXTi62bmzKwFLx/icsB5SFyqxkl5cP4H5
- ma1MjQLnuARq9BKv/aWoco25Sg+/8HOvkkOVlfp+KHpwjdV7WTDVCcJBumtnUkv0ca9g
- 2XzrF2jVCEPVt1lH1ESgVSWkWXRuYsdl8M5NJagvIfCNvD4nCfC6JA9spBghMoq4xb43
- zWXN1A8TNPPfz5tVKir14drG1B2A+Qtj+C3utN0/zXAOS3FmytdtS8I+3n31fU/5AlWR
- Iv2Yq9/EVJWbOtp5Hz6sU7CG1BVQNK4pms+3t2GxkXLzTlWfIO5/+HouS3Aj+vXiQc5B 9Q== 
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx4bfh3eg-1
+ bh=/uAA1JfRqFcAWlxWK8BquGNYcbIdhNmKtdFPosFLgHI=;
+ b=lXZF5JNxzgyFdvBikrZdcSSNzKUNrc3hgKKLlDmgISNWHsx+0DZIwZ06LybFnHWU/Xys
+ L8utvTtoRWO44ky5IGAVxIyzJ0E7j2hZghG4eIpH6I1vLpMGQ6z2m8wH/sBcvLu2VHHz
+ VQjTfKVlCMc2ycmIDA1sYU3aeTBUo5ERaNgZtcS2y/LWiU/rDIKxgxE9Xcp/dKtL1nqM
+ 75tvlUfPy8++zy4CRdaqQQbW1mB4O8XaWNNIODNWSwF4R7xIAPbORiH4+h5GdvZT05JC
+ /Hg8m5tNBL7gvJl9DR2bW1gPBJ/WoNdhrLlWmjGNyJpROQOxKWr2klxYrIiFRrg32y4r DQ== 
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3sx3sn24ge-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 05 Sep 2023 13:14:13 +0000
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 385CqjSN006622;
-	Tue, 5 Sep 2023 13:14:13 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 3svgvkak09-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 05 Sep 2023 13:14:13 +0000
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 385DE9hF51970532
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 05 Sep 2023 13:14:10 +0000
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 385BPCdT011154;
 	Tue, 5 Sep 2023 13:14:09 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 3svj31j6se-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 05 Sep 2023 13:14:09 +0000
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 385DE7rR20578680
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 5 Sep 2023 13:14:07 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7563F58052;
-	Tue,  5 Sep 2023 13:14:09 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 2778058060;
+	Tue,  5 Sep 2023 13:14:07 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DA8CE58056;
-	Tue,  5 Sep 2023 13:14:08 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 5B82A58045;
+	Tue,  5 Sep 2023 13:14:06 +0000 (GMT)
 Received: from sbct-3.pok.ibm.com (unknown [9.47.158.153])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  5 Sep 2023 13:14:08 +0000 (GMT)
+	Tue,  5 Sep 2023 13:14:06 +0000 (GMT)
 From: Stefan Berger <stefanb@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-6.1 5/5] ovl: Always reevaluate the file signature for IMA
-Date: Tue,  5 Sep 2023 09:14:01 -0400
-Message-ID: <20230905131401.82232-6-stefanb@linux.ibm.com>
+Subject: [PATCH linux dev-6.1 2/5] fs: clarify when the i_version counter must be updated
+Date: Tue,  5 Sep 2023 09:13:58 -0400
+Message-ID: <20230905131401.82232-3-stefanb@linux.ibm.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230905131401.82232-1-stefanb@linux.ibm.com>
 References: <20230905131401.82232-1-stefanb@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Qnj3W4KnYkTXbWpN1MqhFSy9L53CBIUY
-X-Proofpoint-GUID: Qnj3W4KnYkTXbWpN1MqhFSy9L53CBIUY
+X-Proofpoint-ORIG-GUID: Y5aIRFvfL7ZHocLqYKlgyjGKJuGxSTOU
+X-Proofpoint-GUID: Y5aIRFvfL7ZHocLqYKlgyjGKJuGxSTOU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
  definitions=2023-09-05_10,2023-09-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 mlxlogscore=999
- clxscore=1011 phishscore=0 adultscore=0 mlxscore=0 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0 adultscore=0
+ mlxscore=0 mlxlogscore=715 phishscore=0 impostorscore=0 clxscore=1011
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2308100000 definitions=main-2309050114
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -89,43 +89,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: jmstanle@au1.ibm.com, andrewrj@au1.ibm.com, Linus Torvalds <torvalds@linux-foundation.org>, Mimi Zohar <zohar@linux.ibm.com>, Eric Snowberg <eric.snowberg@oracle.com>
+Cc: jmstanle@au1.ibm.com, andrewrj@au1.ibm.com, Christian Brauner <brauner@kernel.org>, Colin Walters <walters@verbum.org>, NeilBrown <neilb@suse.de>, Dave Chinner <david@fromorbit.com>, Jeff Layton <jlayton@kernel.org>, Trond Myklebust <trondmy@hammerspace.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Eric Snowberg <eric.snowberg@oracle.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-Commit db1d1e8b9867 ("IMA: use vfs_getattr_nosec to get the i_version")
-partially closed an IMA integrity issue when directly modifying a file
-on the lower filesystem.  If the overlay file is first opened by a user
-and later the lower backing file is modified by root, but the extended
-attribute is NOT updated, the signature validation succeeds with the old
-original signature.
+The i_version field in the kernel has had different semantics over
+the decades, but NFSv4 has certain expectations. Update the comments
+in iversion.h to describe when the i_version must change.
 
-Update the super_block s_iflags to SB_I_IMA_UNVERIFIABLE_SIGNATURE to
-force signature reevaluation on every file access until a fine grained
-solution can be found.
-
-Signed-off-by: Eric Snowberg <eric.snowberg@oracle.com>
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Colin Walters <walters@verbum.org>
+Cc: NeilBrown <neilb@suse.de>
+Cc: Trond Myklebust <trondmy@hammerspace.com>
+Cc: Dave Chinner <david@fromorbit.com>
+Reviewed-by: Christian Brauner <brauner@kernel.org>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/overlayfs/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/iversion.h | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 51eec4a8e82b..08d3a1f34ac6 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -2155,7 +2155,7 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
- 		ovl_trusted_xattr_handlers;
- 	sb->s_fs_info = ofs;
- 	sb->s_flags |= SB_POSIXACL;
--	sb->s_iflags |= SB_I_SKIP_SYNC;
-+	sb->s_iflags |= SB_I_SKIP_SYNC | SB_I_IMA_UNVERIFIABLE_SIGNATURE;
- 
- 	err = -ENOMEM;
- 	root_dentry = ovl_get_root(sb, upperpath.dentry, oe);
+diff --git a/include/linux/iversion.h b/include/linux/iversion.h
+index 6755d8b4f20b..f174ff1b59ee 100644
+--- a/include/linux/iversion.h
++++ b/include/linux/iversion.h
+@@ -9,8 +9,26 @@
+  * ---------------------------
+  * The change attribute (i_version) is mandated by NFSv4 and is mostly for
+  * knfsd, but is also used for other purposes (e.g. IMA). The i_version must
+- * appear different to observers if there was a change to the inode's data or
+- * metadata since it was last queried.
++ * appear larger to observers if there was an explicit change to the inode's
++ * data or metadata since it was last queried.
++ *
++ * An explicit change is one that would ordinarily result in a change to the
++ * inode status change time (aka ctime). i_version must appear to change, even
++ * if the ctime does not (since the whole point is to avoid missing updates due
++ * to timestamp granularity). If POSIX or other relevant spec mandates that the
++ * ctime must change due to an operation, then the i_version counter must be
++ * incremented as well.
++ *
++ * Making the i_version update completely atomic with the operation itself would
++ * be prohibitively expensive. Traditionally the kernel has updated the times on
++ * directories after an operation that changes its contents. For regular files,
++ * the ctime is usually updated before the data is copied into the cache for a
++ * write. This means that there is a window of time when an observer can
++ * associate a new timestamp with old file contents. Since the purpose of the
++ * i_version is to allow for better cache coherency, the i_version must always
++ * be updated after the results of the operation are visible. Updating it before
++ * and after a change is also permitted. (Note that no filesystems currently do
++ * this. Fixing that is a work-in-progress).
+  *
+  * Observers see the i_version as a 64-bit number that never decreases. If it
+  * remains the same since it was last checked, then nothing has changed in the
 -- 
 2.40.1
 
