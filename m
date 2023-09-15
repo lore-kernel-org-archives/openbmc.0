@@ -4,86 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA542EEAA4C
-	for <openbmc@archiver.kernel.org>; Thu, 14 Sep 2023 14:36:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16430EE6431
+	for <openbmc@archiver.kernel.org>; Fri, 15 Sep 2023 08:10:16 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm3 header.b=D9m7DYLl;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PJguvD/9;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=AaUYfygX;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rmfz91zQkz3dDp
-	for <openbmc@archiver.kernel.org>; Fri, 15 Sep 2023 00:36:53 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rn6LZ3ghYz3cHd
+	for <openbmc@archiver.kernel.org>; Fri, 15 Sep 2023 18:10:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm3 header.b=D9m7DYLl;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=PJguvD/9;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=AaUYfygX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=fuzziesquirrel.com (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com; receiver=lists.ozlabs.org)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22c; helo=mail-lj1-x22c.google.com; envelope-from=bremenpl@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com [IPv6:2a00:1450:4864:20::22c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rmfy373pxz3c9d
-	for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2023 00:35:55 +1000 (AEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
-	by mailout.nyi.internal (Postfix) with ESMTP id E21425C02AA;
-	Thu, 14 Sep 2023 10:26:38 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute5.internal (MEProxy); Thu, 14 Sep 2023 10:26:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	fuzziesquirrel.com; h=cc:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1694701598; x=1694787998; bh=8DcqOZq1em
-	j0vSEuXLNOOpNjJ0DcS6sB18zNmNi8Mo8=; b=D9m7DYLleYdgvV6lt/6XPjc97e
-	Lmxp4opHsYmlLbEaBdVjPmAI3sqjWiw2CH9GDDGBycn3UTFDe0BC4zwxxvxPnRiP
-	ZV4EhQgFB81DHr9lvD0jf5aLl2KlcVTF89w+Y+91+Lw8K5YP6nyUUV6CwnQfOtbj
-	ob4K+tSu3S6DAK6swxSzkmqmJiXLGS+hqYVGao45hs3yCNwQb8HPexfFLD9yswIe
-	A2zhhjihXya5nSu+PDc3rczHKIVkinxtZUkpZ+oO7mXN0kqPEIDwoMgahN/Kf2R/
-	Z+WVPre0gm4n+QxhHZ3TmxEsiEbWZii4zjugzt6PZfT2zVJ7N2rpbsst7qZg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-transfer-encoding:content-type
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1694701598; x=
-	1694787998; bh=8DcqOZq1emj0vSEuXLNOOpNjJ0DcS6sB18zNmNi8Mo8=; b=P
-	JguvD/9muZbg8gPxGEd4lEb+x5Mh6YU2/L1+jago+MkcNMeKsEItTvpQACtlg2bu
-	vph7uvse1dCOZebiQFsRuZ4XsfzhJYXrZmDEyEPCqQaqjMOKXxCgZ1Fc0vi06oQt
-	VGwndqNS/MSfphYt/eRWovxwiSVzr2eeREexTuJCvVElwhwo1UVNbu/wAvr392LF
-	VjJJe5lUqIywbiujV3DZ1ZpPOxMqWZpewdMfHd44iF8Lo/k1WjYE3oU6BLRexKyw
-	O2QgiW9px3Nk42cwxt85lVNCEWdZ4UaeGmE2f5gJClq1MyP56xG65gyBpS2TvUyr
-	cYCOMP2LcQbEGbAahMing==
-X-ME-Sender: <xms:HhgDZWacsT4R1x3M2fkIjZjHmMCtvqraMS4v76D_uVPBPS4o9Qny5A>
-    <xme:HhgDZZZXIS4PLB80BcmslQnBhvhi2Sowu2-QvnXHoSmXza8xgMSoF9byTXgWqEhFS
-    lhzYHm0UalvZdAfrPQ>
-X-ME-Received: <xmr:HhgDZQ9ni2LkI3fP7S-FXWTd9Q0qbog7wCs_AW8zrHnqRgt1p7NKFHEacb4rY65a5-_uSMfXzM-Nnp3QvhTgfT2gJdBowy0YdQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudejtddgjeehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepkffuhffvffgjfhgtgfgfggesthhqredttderjeenucfhrhhomhepuehrrggu
-    uceuihhshhhophcuoegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtoh
-    hmqeenucggtffrrghtthgvrhhnpeefheffkeekgeegvefgfffhkeefgeevfeevudfghfdu
-    keevudeuhfejkeelhfeifeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
-    grihhlfhhrohhmpegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
-X-ME-Proxy: <xmx:HhgDZYrHqXx4IyNAYAYEx1ReJZPH-QCZKQpFcR19EpISR4uFLpk-ug>
-    <xmx:HhgDZRq2C3lW-6JTmddUDXjTBd4B666T-8RacNcBt7kx7NZWUCI5hw>
-    <xmx:HhgDZWSBdvzRlEFeo7geMNU2Dou2kJzWVpiH5k3xWpZhTe5y7lt0Gw>
-    <xmx:HhgDZQS3cqeSyx6KCIvW0HfXScyMDRxwrzgmsqSVYixJPjFIem5uuQ>
-Feedback-ID: i02c9470a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 14 Sep 2023 10:26:38 -0400 (EDT)
-Message-ID: <aaecc12856e6ba3ef92e6927bb1ad7360281098d.camel@fuzziesquirrel.com>
-Subject: Re: Towards less magic strings.
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Patrick Williams <patrick@stwcx.xyz>, OpenBMC List
-	 <openbmc@lists.ozlabs.org>
-Date: Thu, 14 Sep 2023 10:26:37 -0400
-In-Reply-To: <ZQKp6bcE3rvXsTIF@heinlein.vulture-banana.ts.net>
-References: <ZQKp6bcE3rvXsTIF@heinlein.vulture-banana.ts.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rn6KV6GXjz3bTC
+	for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2023 18:09:18 +1000 (AEST)
+Received: by mail-lj1-x22c.google.com with SMTP id 38308e7fff4ca-2bfc8c02e82so26301511fa.0
+        for <openbmc@lists.ozlabs.org>; Fri, 15 Sep 2023 01:09:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1694765351; x=1695370151; darn=lists.ozlabs.org;
+        h=mime-version:user-agent:reply-to:message-id:date:subject:to:from
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x7D1d7Afnhj/2KLljeVjndoIT761pKJUzvuNoCAffWw=;
+        b=AaUYfygXWJTPmVwWWb/3MZU1fAPOdln7IuPh5mYB7qd0unvS1wDYuOYxS+1hH6Z9EB
+         wZuJUxtjeqQPQp3cpmMuO2WZqVDhznDvaN0VKbXE1/4Eh6V8KXndtti4BERr4Bqu3TJB
+         MP769i6QYv6VqC+33NiOErEfgybbuxa2Ydzjj4+9Uo1mm9x/3lTzKVzaLEN/IP0LvgFi
+         5hKfZ4zUl3+52Cig5SpKxtE+MH0ueDjc7Yb6kMADHCa2Y/HPtesaUNfCwfCBEQlpv/zX
+         JCOvHkoRX0jaqeqnR8Rg/3/JB2mnqlFIS4Ag7bLvbGxcYWFSJX6u5ZgatkeLMqx4U60+
+         rfnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1694765351; x=1695370151;
+        h=mime-version:user-agent:reply-to:message-id:date:subject:to:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=x7D1d7Afnhj/2KLljeVjndoIT761pKJUzvuNoCAffWw=;
+        b=Q6TTsdUSp5XF4kkgcSNJV/GpLV7eCde7Msvh5OUMBM8i2NhUNh9/K72whR+mGYCw3M
+         IpAiEuSrCGdcyuhkbxiazjjJQ77pK2OdTSxMpL/Eo4oUSAw4av6k2B2W0prkQg/Ehe/P
+         M6GQ7XrT8lz1hZIByXjKAHtVdeuqO9RoL7QJkNmq3kT9MQvqRe8QBRTKRMW63jVUEc0z
+         rdV9fAFFyaRNcuAuCqvEbp0OYsU9wpLwOG3iu48npOcC1LHJXETRsKHGgsnx00ogNQNV
+         /DMBAqeVLFkV37TnLvKE9hsMX4OVtlwbeGxlIaw6tw1sKXDDVmuOvy353UruNa2Fmqd7
+         ogJw==
+X-Gm-Message-State: AOJu0YzVO154r982wXmUHgqTG+ScU7d2nR4R6ph62T+rBgmhkshmccZr
+	9V74fFdhz/9my4CRauvaY/s4AVi1IqA=
+X-Google-Smtp-Source: AGHT+IG+VJ2Xy8gG/WYLa5zRZnyW9mr0w7DwB05iM8XTvnKFErfP8qOLuDu+P6h3DwzMWc7UrRkTng==
+X-Received: by 2002:a2e:934d:0:b0:2bd:16e6:e34e with SMTP id m13-20020a2e934d000000b002bd16e6e34emr840372ljh.1.1694765350540;
+        Fri, 15 Sep 2023 01:09:10 -0700 (PDT)
+Received: from [192.168.7.144] (eot98.neoplus.adsl.tpnet.pl. [83.20.35.98])
+        by smtp.gmail.com with ESMTPSA id c12-20020a2e680c000000b002bcdbfe36b9sm615634lja.111.2023.09.15.01.09.09
+        for <openbmc@lists.ozlabs.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 15 Sep 2023 01:09:09 -0700 (PDT)
+From: =?utf-8?q?=c5=81ukasz=20Przenios=c5=82o?= <bremenpl@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: Support: OpenBMC build failed at bmcweb (commit:
+ 029f4aada38f4b041b5a171c2e112a267cee3b7f)
+Date: Fri, 15 Sep 2023 08:09:08 +0000
+Message-Id: <em80cca595-c4f5-47ec-a958-83a5c16e45c2@02cbb70a.com>
+User-Agent: eM_Client/9.2.2093.0
 MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="------=_MB6E4D4510-9E66-4AD6-996B-52725294ED2A"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,19 +77,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Reply-To: =?utf-8?q?=c5=81ukasz=20Przenios=c5=82o?= <bremenpl@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 2023-09-14 at 01:36 -0500, Patrick Williams wrote:
-> When I look at these, the vast majority of them falls into 1 of 4
-> different reasons:
-> =C2=A0=C2=A0=C2=A0 - A well-known service name.
-> =C2=A0=C2=A0=C2=A0 - A well-known path (or path prefix).
-> =C2=A0=C2=A0=C2=A0 - An interface name.
+--------=_MB6E4D4510-9E66-4AD6-996B-52725294ED2A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-In my mind these are not magic strings.  These are parts of an API.  We
-don't get annoyed by having to hardcode c++ function names when we call
-them - why do we get annoyed by having to hardcode DBus names?
+Hello,
+I am trying to build OpenBMC on an Ubuntu VM:
 
-Thanks,
-Brad
+lukasz@ce-lp:~/ce/openbmc/build/evb-ast2600$ uname -a
+Linux ce-lp 6.2.0-32-generic #32-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 14=20
+10:03:50 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+
+I have 16 total cores and 20 GB of RAM assigned to this VM. My target is=20
+evb-ast2600. My build fails at bmcweb:
+
+| {standard input}: Assembler messages:
+| {standard input}:8616216: Warning: end of file in string; '"' inserted
+| arm-openbmc-linux-gnueabi-g++: fatal error: Killed signal terminated=20
+program cc1plus
+| compilation terminated.
+| ninja: build stopped: subcommand failed.
+| INFO: autodetecting backend as ninja
+| INFO: calculating backend command to run:=20
+/home/lukasz/ce/openbmc/build/evb-ast2600/tmp/work/armv7ahf-vfpv4d16-openbm=
+c-linux-gnueabi/bmcweb/1.0+gitAUTOINC+e1bf8bb6a8/recipe-sysroot-native/usr/=
+bin/ninja=20
+-j 16 -v
+| WARNING: exit code 1 from a shell command.
+ERROR: Task=20
+(/home/lukasz/ce/openbmc/meta-phosphor/recipes-phosphor/interfaces/bmcweb_g=
+it.bb:do_compile)=20
+failed with exit code '1'
+NOTE: Tasks Summary: Attempted 5292 tasks of which 704 didn't need to be=20
+rerun and 1 failed.
+
+Summary: 1 task failed:
+  =20
+/home/lukasz/ce/openbmc/meta-phosphor/recipes-phosphor/interfaces/bmcweb_gi=
+t.bb:do_compile
+Summary: There were 2 WARNING messages.
+Summary: There was 1 ERROR message, returning a non-zero exit code.
+
+Here is the complete output: https://pastebin.com/yGRDT477
+
+My gcc version:
+
+lukasz@ce-lp:~/ce/openbmc/build/evb-ast2600$ gcc --version
+gcc (Ubuntu 12.3.0-1ubuntu1~23.04) 12.3.0
+
+Before building I have installed all necessary packages via:
+
+sudo apt install git python3-distutils gcc g++ make file wget gawk=20
+diffstat bzip2 cpio chrpath zstd lz4 bzip2
+
+I cannot figure out what I am missing. I would appreciate all help and=20
+support, thank you!
+
+--
+=C5=81ukasz Przenios=C5=82o
+
+--------=_MB6E4D4510-9E66-4AD6-996B-52725294ED2A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head>
+
+<style id=3D"css_styles">=20
+blockquote.cite { margin-left: 5px; margin-right: 0px; padding-left: 10px;=
+ padding-right:0px; border-left: 1px solid #cccccc }
+blockquote.cite2 {margin-left: 5px; margin-right: 0px; padding-left: 10px;=
+ padding-right:0px; border-left: 1px solid #cccccc; margin-top: 3px; padding=
+-top: 0px; }
+a img { border: 0px; }
+li[style=3D'text-align: center;'], li[style=3D'text-align: center; '], li[s=
+tyle=3D'text-align: right;'], li[style=3D'text-align: right; '] {  list-sty=
+le-position: inside;}
+body { font-family: Verdana; font-size: 12pt; }
+.quote { margin-left: 1em; margin-right: 1em; border-left: 5px #ebebeb soli=
+d; padding-left: 0.3em; }
+
+ </style>
+</head>
+<body><div>Hello,</div><div>I am trying to build OpenBMC on an Ubuntu VM:</=
+div><div><br /></div><div><font face=3D"Courier New">lukasz@ce-lp:~/ce/open=
+bmc/build/evb-ast2600$ uname -a
+</font></div><div><font face=3D"Courier New">Linux ce-lp 6.2.0-32-generic #=
+32-Ubuntu SMP PREEMPT_DYNAMIC Mon Aug 14 10:03:50 UTC 2023 x86_64 x86_64 x8=
+6_64 GNU/Linux
+</font></div><div><br /></div><div>I have 16 total cores and 20 GB of RAM a=
+ssigned to this VM. My target is evb-ast2600. My build fails at bmcweb:</di=
+v><div><br /></div><div><font face=3D"Courier New">
+| {standard input}: Assembler messages:
+</font></div><div><font face=3D"Courier New">| {standard input}:8616216: Wa=
+rning: end of file in string; '"' inserted
+</font></div><div><font face=3D"Courier New">| arm-openbmc-linux-gnueabi-g+=
++: fatal error: Killed signal terminated program cc1plus
+</font></div><div><font face=3D"Courier New">| compilation terminated.
+</font></div><div><font face=3D"Courier New">| ninja: build stopped: subcom=
+mand failed.
+</font></div><div><font face=3D"Courier New">| INFO: autodetecting backend=
+ as ninja
+</font></div><div><font face=3D"Courier New">| INFO: calculating backend co=
+mmand to run: /home/lukasz/ce/openbmc/build/evb-ast2600/tmp/work/armv7ahf-v=
+fpv4d16-openbmc-linux-gnueabi/bmcweb/1.0+gitAUTOINC+e1bf8bb6a8/recipe-sysro=
+ot-native/usr/bin/ninja -j 16 -v
+</font></div><div><font face=3D"Courier New">| WARNING: exit code 1 from a=
+ shell command.
+</font></div><div><font face=3D"Courier New"><b>ERROR: Task (/home/lukasz/c=
+e/openbmc/meta-phosphor/recipes-phosphor/interfaces/bmcweb_git.bb:do_compil=
+e) failed with exit code '1'
+</b></font></div><div><font face=3D"Courier New"><b>NOTE: Tasks Summary: At=
+tempted 5292 tasks of which 704 didn't need to be rerun and 1 failed.
+</b></font></div><div><font face=3D"Courier New"><br /></font></div><div><f=
+ont face=3D"Courier New">Summary: 1 task failed:
+</font></div><div><font face=3D"Courier New">=C2=A0 /home/lukasz/ce/openbmc=
+/meta-phosphor/recipes-phosphor/interfaces/bmcweb_git.bb:do_compile
+</font></div><div><font face=3D"Courier New">Summary: There were 2 WARNING=
+ messages.
+</font></div><div><font face=3D"Courier New">Summary: There was 1 ERROR mes=
+sage, returning a non-zero exit code.
+</font></div><div><br /></div><div>Here is the complete output:=C2=A0<a hre=
+f=3D"https://pastebin.com/yGRDT477" style=3D"font-size: 12pt;">https://past=
+ebin.com/yGRDT477</a></div><div><br /></div><div>My gcc version:</div><div>=
+<br /></div><div><font face=3D"Courier New">lukasz@ce-lp:~/ce/openbmc/build=
+/evb-ast2600$ gcc --version
+</font></div><div><font face=3D"Courier New">gcc (Ubuntu 12.3.0-1ubuntu1~23=
+.04) 12.3.0
+</font></div><div><br /></div><div>Before building I have installed all nec=
+essary packages via:</div><div><br /></div><div><font face=3D"Courier New">=
+sudo apt install git python3-distutils gcc g++ make file wget gawk diffstat =
+bzip2 cpio chrpath zstd lz4 bzip2</font></div><div><br /></div><div>I cann=
+ot figure out what I am missing. I would appreciate all help and support, t=
+hank you!</div>
+<div><br /></div><div id=3D"signature_old" style=3D"clear:both">--<div>=C5=
+=81ukasz Przenios=C5=82o</div></div><div><br /></div>
+</body></html>
+--------=_MB6E4D4510-9E66-4AD6-996B-52725294ED2A--
+
