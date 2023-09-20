@@ -4,66 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC805E7106B
-	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 13:25:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EADFC04FF3
+	for <openbmc@archiver.kernel.org>; Wed, 20 Sep 2023 19:28:52 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=h8AVvC38;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm3 header.b=btJGaUpJ;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=BkLHPtzp;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rrx3P4J0tz3c8V
-	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 23:25:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RrT9H3ffvz3cDl
+	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 05:28:51 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=h8AVvC38;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm3 header.b=btJGaUpJ;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=BkLHPtzp;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e36; helo=mail-vs1-xe36.google.com; envelope-from=milkfafa@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com [IPv6:2607:f8b0:4864:20::e36])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=fuzziesquirrel.com (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com; receiver=lists.ozlabs.org)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rrx2J462Xz3c1H
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 23:24:23 +1000 (AEST)
-Received: by mail-vs1-xe36.google.com with SMTP id ada2fe7eead31-4526d872941so519432137.1
-        for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 06:24:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695302660; x=1695907460; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2QMJzQRVdpXl092C0YB+p9u+FvBSdDJvGwaFoHe9mXs=;
-        b=h8AVvC38w8ExX28tKQITRHeqyA1QO8XIcK4bto8pRDAnnhfhfBpgpGQr1zk0LpLxZC
-         XKy3BE1EUki41RTmYu1+ns8dK70ez+Gk8hctq9AHW1zZgIwIwWrq8pUuWopMMjrEaGYd
-         yTVIivVnlGFOt1IqJkXChh2m0/YKzvomtYa4pWsuBRzKgPo2MqmQXUI97PrLQT4VuShI
-         svFalbVzf1u/yaORedswd5hvMNn0rY7ElHre9bUSkPAHq1Sg7Zb56RLoX1CULOsSAmhS
-         qUgwdUYuY3hRta/WmYyIkIDw5MFuVD+3Hsj8j+OvH9CkWdGqtOLX5LGuabQ3mujKuQ0i
-         fIKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695302660; x=1695907460;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2QMJzQRVdpXl092C0YB+p9u+FvBSdDJvGwaFoHe9mXs=;
-        b=pWBSoHJ3h1m8oVQPgK8HAHONKigCFSJf8NuPZhGAUuMiRqSlswrGJgFyX8rmmfD2K8
-         U1L2hYw3VtjWJfbz80ksbg9RMLTCNohPzpySYhQYpQHpm1PGIkUEygaTKCP2/rWTFuUx
-         hs5MmupAyu5BISytrPgb/4r5vwYHxb2KkopVkJQIZ9xD2x6Oz2l9oS5I7JNwJtRDB/ni
-         64hoCDsuL5tg2kj9nr9MxbiQBX2HC29g5ripAdpYccCKuw/T5A1jNXx0Vsme8YAT9Tpu
-         SyAa4GFLTzhjBGKqBQpfR4OEXcglrPO/YKrAdLNLH3eJFMRHj363J9bnoHoNe6BwfUzY
-         8chQ==
-X-Gm-Message-State: AOJu0Yyh1eG8jbD+BrQ6LuzqZ8gXxzt9PCDnzzrPYwlZk0KE0a6pzAgx
-	EcC5L5ezsT2/pdEY69XJlYTJEOsGcIVwBYnLE98=
-X-Google-Smtp-Source: AGHT+IEQIBnn00pB2IJpNVNOufGxL6gAIwGGykOexSbWRjQHbZV1E1O5Pn75njZHId7nUUnh90Ubb2uF3bofkKYX24k=
-X-Received: by 2002:a67:e2d7:0:b0:451:64e:4645 with SMTP id
- i23-20020a67e2d7000000b00451064e4645mr5954736vsm.12.1695302660371; Thu, 21
- Sep 2023 06:24:20 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4RrT8733W0z2ytV
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 05:27:50 +1000 (AEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id E6A515C0164
+	for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2023 15:27:46 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute5.internal (MEProxy); Wed, 20 Sep 2023 15:27:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	fuzziesquirrel.com; h=cc:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:resent-date
+	:resent-from:resent-message-id:resent-to:sender:subject:subject
+	:to:to; s=fm3; t=1695238066; x=1695324466; bh=OEUqgykOcU7FjrN5JI
+	kqcPLYueTfIv8Ghd/anXbwQ0w=; b=btJGaUpJ5Byl13fChTDsoXSeZasUbvGb+f
+	pcZh9f7HYLDk40PPi0z+HrO0aMh72D6/Qw7Ay88dt8O2a8cemRMzIJbiKNrSFGFm
+	+tzV0EHnBGU5EVyyaQX2LoWRjC35lFuVI3aW9+QFGUl/typMiY2TjoRuN0L424mz
+	yUT6j9qePkfskgd8caxuELrT5zGwGVPYOTeq3yRFkeNiQjc8hxK2ZPktmo/2Al5n
+	aMiqTi919zrXuow6UByDMw4a+3SdXk4OXJug8XbazCHYPSB8UCCDgA26QQvNSk8L
+	LiQE7hPyIERT6xOrgzadHHJdyd1WYKOCY8HssmGcZ74uRwgRGHOg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:resent-date:resent-from:resent-message-id:resent-to
+	:sender:subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1695238066; x=1695324466; bh=O
+	EUqgykOcU7FjrN5JIkqcPLYueTfIv8Ghd/anXbwQ0w=; b=BkLHPtzpkUW4b70UZ
+	XFaRdk/F8iy8zCRA1sKaI4Fr9PzKqTHfrguyQaZu6w9GyPhZDWStUxHt5PdB0mI7
+	ZfFEkoIt90mIg+8bzCFLG8FCKClwi85jY1ZBM3SrEfuSJtyTS8BlZAbKgLrudvAl
+	vcwNbWPojdim+Lwv4AQakVpKSKpVh2OJumoPyA3TEe+uaELRbiF36TZCL79OWbRp
+	qFxix7Fa/eEUBqys30sh5nA7AbotHFbqb/N/3iNILtIFW1ljPkrfXVgFJjY4FUci
+	DltDIQDLcmh+ZzdvCJuU0NP8lIAO3Ft8uv0Flt3GxaLT3TrxCUi7hWbb6e3axTmP
+	Uo0YQ==
+X-ME-Sender: <xms:skcLZXkmet0KzBfPjLLDQpjy_wBdtDuwKM4fbU1tmpOghb4SweO4pA>
+    <xme:skcLZa0zFbkzQ8hvLHnSBKxBLci4XKePIBFwa9G1nhshWXEppshVe2m1jKcokGU9E
+    9z5mVMfBhtUoW2-J1Q>
+X-ME-Received: <xmr:skcLZdrGUHuw7ypm_J_UGzkNYSK02G0hoF7AvoPtxfZRX67_gAolGyXmEBmGSNbQ-oFwx7LwVvTCprEKkRwq-MRAnAgTu_kZeb9cPsOMYPnrhQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrudekfedgudeflecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvuffkfhggtggugfgjsehtkefstddttddunecuhfhrohhmpeeurhgr
+    ugcuuehishhhohhpuceosghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtg
+    homheqnecuggftrfgrthhtvghrnhepkeehvdekgfeijefhfeffvdetgeeiledtfffhvdet
+    vdeuiefhgeduudeujefhudefnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlh
+    hushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpegsrhgrughlvgih
+    sgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
+X-ME-Proxy: <xmx:skcLZfny57V30fsENDFUwrHffHyh6Uzcju23xI5mPWYmYBeivQPUJQ>
+    <xmx:skcLZV3u3f88Fqj1sg_fqc9T2FAs7YsTvVC4VjqqB--In4mLv7hVpQ>
+    <xmx:skcLZeunSDqADBBwjU3j9pCf2-m_Lf12V_R8pfiOcthO0bjKj8woUQ>
+    <xmx:skcLZShPmWGuDQFHT-Nk1vAgc5d2Erlo_sbb_pLsYVat1xYVXXMj4Q>
+Feedback-ID: i02c9470a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2023 15:27:46 -0400 (EDT)
+Resent-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Resent-Date: Wed, 20 Sep 2023 15:27:45 -0400
+Resent-Message-ID: <43ddybus4hb3oc3lek5ccysylk3txm6cxsnegwuqk6462qhp5e@n3kdmrhoeduw>
+Resent-To: openbmc@lists.ozlabs.org
+Date: Wed, 20 Sep 2023 15:27:04 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+Subject: Re: Towards less magic strings.
+Message-ID: <sf6heopbdkrvxjeehuz5qaykdx3lg6bmbqusw7u677pia7sucz@jha5vfrslwln>
+References: <ZQKp6bcE3rvXsTIF@heinlein.vulture-banana.ts.net>
+ <aaecc12856e6ba3ef92e6927bb1ad7360281098d.camel@fuzziesquirrel.com>
+ <ZQQiAqjj--miyo_v@heinlein.vulture-banana.ts.net>
 MIME-Version: 1.0
-References: <20230920022812.601800-1-milkfafa@gmail.com> <20230920022812.601800-8-milkfafa@gmail.com>
- <fb74f6b8-3139-4652-b36a-1de396d0ca23@xs4all.nl>
-In-Reply-To: <fb74f6b8-3139-4652-b36a-1de396d0ca23@xs4all.nl>
-From: Kun-Fa Lin <milkfafa@gmail.com>
-Date: Thu, 21 Sep 2023 21:24:09 +0800
-Message-ID: <CADnNmFp9meVx5MMbCcvjSQaMv12K7j=_kB_ajJi5GoYEWegZcg@mail.gmail.com>
-Subject: Re: [PATCH v15 7/7] media: nuvoton: Add driver for NPCM video capture
- and encoding engine
-To: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZQQiAqjj--miyo_v@heinlein.vulture-banana.ts.net>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,31 +103,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, tmaimon77@gmail.com, kwliu@nuvoton.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, linux-media@vger.kernel.org, tali.perry1@gmail.com, andrzej.p@collabora.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, mchehab@kernel.org, kflin@nuvoton.com, linux-kernel@vger.kernel.org, benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Hans,
-
-Thanks for your review.
-
-> > +static const struct v4l2_ctrl_config npcm_ctrl_rect_count = {
-> > +     .id = V4L2_CID_NPCM_RECT_COUNT,
-> > +     .name = "NPCM Compressed Hextile Rectangle Count",
+On Fri, Sep 15, 2023 at 04:21:06AM -0500, Patrick Williams wrote:
+>On Thu, Sep 14, 2023 at 10:26:37AM -0400, Brad Bishop wrote:
+>> On Thu, 2023-09-14 at 01:36 -0500, Patrick Williams wrote:
+>> > When I look at these, the vast majority of them falls into 1 of 4
+>> > different reasons:
+>> >     - A well-known service name.
+>> >     - A well-known path (or path prefix).
+>> >     - An interface name.
 >
-> This name is too long, it should be max 31 characters. Dropping the "Compressed " part
-> might be best, I think that word isn't needed.
+>As a concrete example of what I'd like to see improved is this verbiage
+>embedded in the YAML description:
 >
-> > +     .type = V4L2_CTRL_TYPE_INTEGER,
-> > +     .min = 0,
-> > +     .max = (MAX_WIDTH / RECT_W) * (MAX_HEIGHT / RECT_H),
-> > +     .step = 1,
-> > +     .def = 0,
-> > +};
+>    https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L3
 >
-> With this fixed, and the sparse warnings fixed, it should be ready for merging.
+>> In my mind these are not magic strings.  These are parts of an API.  We
+>> don't get annoyed by having to hardcode c++ function names when we call
+>> them - why do we get annoyed by having to hardcode DBus names?
+>
+>They may be parts of the API, but we document the API in PDI, agreed?
 
-OK. Will fix them in the next version.
+Agree for the most part.  Some interfaces aren't documented there, for 
+one reason or another.
 
-Regards,
-Marvin
+>
+>The big difference between C++ function names is that the compiler tells
+>us when we messed those up (and your editor can do completion on them if
+>you've set it up).  With these strings, we're relying on humans and
+>runtime-detection to ensure we've got it correct.
+
+Yeah makes sense.  The build time assurances are usually nice (although 
+I have been in situations where I did not want every component to fail 
+to build just because of a D-Bus interface change).
+
+>Often we get it
+>wrong.  It has also been challenging to refactor dbus interfaces, again,
+>because we don't get compile-time assurance of correctness.
