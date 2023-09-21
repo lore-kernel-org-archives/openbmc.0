@@ -4,44 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3579CE706E3
-	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 08:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4230BE706FD
+	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 09:44:21 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=TvNZsaTI;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rrnx35fyqz3c4J
-	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 18:04:23 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=srs0=ogar=ff=xs4all.nl=hverkuil-cisco@kernel.org; receiver=lists.ozlabs.org)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rrr8M6QZmz3cC2
+	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 19:44:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=TvNZsaTI;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f400:feae::60c; helo=apc01-psa-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
+Received: from APC01-PSA-obe.outbound.protection.outlook.com (mail-psaapc01on2060c.outbound.protection.outlook.com [IPv6:2a01:111:f400:feae::60c])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4RrnwR0Dkcz303l
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 18:03:50 +1000 (AEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id ABBF7CE1164;
-	Thu, 21 Sep 2023 08:03:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9BDC116AA;
-	Thu, 21 Sep 2023 08:03:43 +0000 (UTC)
-Message-ID: <fb74f6b8-3139-4652-b36a-1de396d0ca23@xs4all.nl>
-Date: Thu, 21 Sep 2023 10:03:42 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rrr7F254rz2ys9
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 19:43:20 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O8VxszgygwqeBW6QZTXJ87k4whIPdhZ7p1H5ddeBB1G0OFhBM76CzWE4F5WuMS0f0CCnPDFI43DsI2IP/naN98p85eS8hWDMryd6KzrHUZmYlmJPjTnIUuPSPa5qTAN3DKe40zA/Rl31zJ5z6O1+p/lJTDdCe5scjsHDQVs25fCjdDOQ0ZUorIlQdF09NMvzWkGWkcShr316LzU3T9owQtUDgvHk9ngEb2zLsYgsy7vFE9kjxjdn9eVJDW3FN1/J6/GBkRGdwRTs51R2v5Ss1mYg+8wBBtedH8S9uRYiTyBsf5+Ey8j+oymz2lN5uCtbyHc7JqKQZihZDSaMR8Knfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OsfFq71kX56BNbnvVaivUf4sRYgUXxL9psyw4/9XOmo=;
+ b=DMl/1PzPZcik1VjN/NNlfy6SRugx2cNITvLnF2U5+Sich3P1VyltWdpPtXfLKZE0bmAwkQmhW6ofB8TEzpTE7a9VyS+r3Pqb4xLNUmdYhv8Y3bZnIEbsJCF6it2FN7Lv20rbWY/AA0rcSJo8cI2YxgsoQWFYpvUW/rIo68wWurDX6KKb1JwNIH5S+alVfd2aHLmBNuff7jYOPbkThNtPCrQCv4Eg3Yt1BvA/M1OQdroAzuC/LBtaSDs1/z03J3O6r5LbLXlIdj/emPyYnha3yTIxG+Fgr9fjkTErIxewd3OVAvEGe6C0N+HorMWuAU6OWUYigrQi7Vg4NbVeGWqlEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 211.20.1.79) smtp.rcpttodomain=stwcx.xyz smtp.mailfrom=wiwynn.com; dmarc=fail
+ (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=wiwynn.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wiwynn.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OsfFq71kX56BNbnvVaivUf4sRYgUXxL9psyw4/9XOmo=;
+ b=TvNZsaTIYp5ICMstrksmimS6L0FymHo1LWeYDoUA8QrrGjv6yxsphTBRaGjMRO9W/FG/94CId7uv0eUb8pGEnuV8/919f+5Ru6R8CthO67gvGG2WGSqB7on1dwvrOiYRDz5e1avQmUqL1H1q1ETkNXRnIAqbgK1TEU6srTeAhlG/oAYWFDRLsn4AHDoa7lQybMyH9pTWYHEmR2ynQNUjkx+F+1wPLUEYIiir2MbBnt5vu+bAbxKWL9LQUmzWkZUDE9DzgcqpkcYkYrpehS1s7KHxFPfb98WEA6wmY/FCkHC9y5Z+ZJKUNPeVhZ77wjN1kBBdRcz8uaX5BC1GIjPueg==
+Received: from SI2P153CA0015.APCP153.PROD.OUTLOOK.COM (2603:1096:4:140::21) by
+ TY2PR04MB3984.apcprd04.prod.outlook.com (2603:1096:404:8002::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.20; Thu, 21 Sep
+ 2023 09:43:00 +0000
+Received: from HK3PEPF0000021C.apcprd03.prod.outlook.com
+ (2603:1096:4:140:cafe::4) by SI2P153CA0015.outlook.office365.com
+ (2603:1096:4:140::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.3 via Frontend
+ Transport; Thu, 21 Sep 2023 09:43:00 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 211.20.1.79)
+ smtp.mailfrom=wiwynn.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=wiwynn.com;
+Received-SPF: Fail (protection.outlook.com: domain of wiwynn.com does not
+ designate 211.20.1.79 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.20.1.79; helo=localhost.localdomain;
+Received: from localhost.localdomain (211.20.1.79) by
+ HK3PEPF0000021C.mail.protection.outlook.com (10.167.8.38) with Microsoft SMTP
+ Server id 15.20.6792.19 via Frontend Transport; Thu, 21 Sep 2023 09:43:00
+ +0000
+From: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
+To: patrick@stwcx.xyz,
+	joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-6.1 v1 1/2] hwmon: max31790: support to config PWM as TACH
+Date: Thu, 21 Sep 2023 17:42:52 +0800
+Message-Id: <20230921094253.1309670-2-Delphine_CC_Chiu@wiwynn.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230921094253.1309670-1-Delphine_CC_Chiu@wiwynn.com>
+References: <20230921094253.1309670-1-Delphine_CC_Chiu@wiwynn.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 7/7] media: nuvoton: Add driver for NPCM video capture
- and encoding engine
-Content-Language: en-US, nl
-To: Marvin Lin <milkfafa@gmail.com>, mchehab@kernel.org,
- avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
- venture@google.com, yuenn@google.com, benjaminfair@google.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- andrzej.p@collabora.com
-References: <20230920022812.601800-1-milkfafa@gmail.com>
- <20230920022812.601800-8-milkfafa@gmail.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-In-Reply-To: <20230920022812.601800-8-milkfafa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: HK3PEPF0000021C:EE_|TY2PR04MB3984:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: f89aba15-150a-4303-6fdf-08dbba8724a5
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 	oiEXqnrXgTtgERnYwewwRMOf+vJm5DuBmEBjCQSh+tP8IVUyC680mBY2oiF9siilYngUvyZiejREs5YGFUTmr/ppYbJveo5cE4DEzdzHYyuyqv0gQCll529GzSqtYfjC2XaQqbPV1UGwfwpIEV3vGkgagE5Z778/zQMqKhrh2zfnogD2M4oN4ULB1k4cHsysNwrmOH81BJp5oxD/URu91npX8FLH4CM6eYux5JXvTfahSDV+4Sj4ypudOo45fI9cNoynSwMb5xrRSSdSRZu/XT6WCSZd+fXa0C2Rswe5mSC92J0JZcDAPtrd4iUSzpA0ssNguzGIOmMBoPhlZqciVSI1xRxL5i9IIn/xEbR7yNsRM0tfXTAeatGK82pISIBiLynAAj5r3nQek76dnIt/BEvBl7VvxmFEb05ONnxlkWDmsg6aMoQ4iWnqPZ9+8srTe/LiGXlm6lqEpWHA2YuRpitPlhOO4YLNJw4jcoNx/AD87uCvoXZoVe5wsKgzmeAQOv5XhwyQr2XxBrGXoFraRZZEijGj+TXfLAcdN0LdF6jcsMVJb9Nfkw1Q8FuFzdEySXo9pivaraxuw9KPd/Xe/Pvw0X/Yqnj/a/855Tsw0iEB+sDMQ/nZkmG0dx8IPmFLDla/CMo+v6q3yCSF1H3FvIut/SJO2VziKxp3L5IHOkfCPOAGgTbNvUobFgYyIbKWOzZZ3S24CSwwYOmm+hGCpw==
+X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(346002)(376002)(396003)(136003)(39850400004)(451199024)(82310400011)(186009)(1800799009)(46966006)(36840700001)(40480700001)(2906002)(70206006)(36736006)(70586007)(41300700001)(316002)(4326008)(5660300002)(8676002)(8936002)(336012)(9316004)(86362001)(36756003)(2616005)(47076005)(83380400001)(1076003)(956004)(36860700001)(26005)(107886003)(356005)(81166007)(478600001)(6666004)(6512007)(6506007)(6486002)(82740400003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: wiwynn.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2023 09:43:00.0292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f89aba15-150a-4303-6fdf-08dbba8724a5
+X-MS-Exchange-CrossTenant-Id: da6e0628-fc83-4caf-9dd2-73061cbab167
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=da6e0628-fc83-4caf-9dd2-73061cbab167;Ip=[211.20.1.79];Helo=[localhost.localdomain]
+X-MS-Exchange-CrossTenant-AuthSource: 	HK3PEPF0000021C.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR04MB3984
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,72 +101,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: kwliu@nuvoton.com, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, kflin@nuvoton.com, linux-media@vger.kernel.org
+Cc: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Marvin,
+The PWM outputs of max31790 could be used as tachometer inputs by
+setting the fan configuration register, but the driver doesn't support
+to config the PWM outputs as tachometer inputs currently.
 
-Just one small comment:
+Add a function to get properties of the setting of max31790 to config
+PWM outputs as tachometer inputs before initializing max31790.
+For example: set `pwm-as-tach = <2 5>` in DTS for max31790 and
+the driver will config PWMOUT2 and PWMOUT5 as TACH8 and TACH11.
 
-On 20/09/2023 04:28, Marvin Lin wrote:
-> Add driver for Video Capture/Differentiation Engine (VCD) and Encoding
-> Compression Engine (ECE) present on Nuvoton NPCM SoCs. As described in
-> the datasheet NPCM750D_DS_Rev_1.0, the VCD can capture frames from
-> digital video input and compare two frames in memory, and then the ECE
-> can compress the frame data into HEXTILE format. This driver implements
-> V4L2 interfaces and provides user controls to support KVM feature, also
-> tested with VNC Viewer ver.6.22.826 and openbmc/obmc-ikvm.
-> 
-> Signed-off-by: Marvin Lin <milkfafa@gmail.com>
-> ---
->  MAINTAINERS                                 |   12 +
->  drivers/media/platform/Kconfig              |    1 +
->  drivers/media/platform/Makefile             |    1 +
->  drivers/media/platform/nuvoton/Kconfig      |   15 +
->  drivers/media/platform/nuvoton/Makefile     |    2 +
->  drivers/media/platform/nuvoton/npcm-regs.h  |  152 ++
->  drivers/media/platform/nuvoton/npcm-video.c | 1830 +++++++++++++++++++
->  7 files changed, 2013 insertions(+)
->  create mode 100644 drivers/media/platform/nuvoton/Kconfig
->  create mode 100644 drivers/media/platform/nuvoton/Makefile
->  create mode 100644 drivers/media/platform/nuvoton/npcm-regs.h
->  create mode 100644 drivers/media/platform/nuvoton/npcm-video.c
-> 
+Signed-off-by: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
+---
+ drivers/hwmon/max31790.c | 58 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-<snip>
-
-> diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-> new file mode 100644
-> index 000000000000..aabb6077a128
-> --- /dev/null
-> +++ b/drivers/media/platform/nuvoton/npcm-video.c
-> @@ -0,0 +1,1830 @@
-
-<snip>
-
-> +
-> +/*
-> + * This control value is set when a buffer is dequeued by userspace, i.e. in
-> + * npcm_video_buf_finish function.
-> + */
-> +static const struct v4l2_ctrl_config npcm_ctrl_rect_count = {
-> +	.id = V4L2_CID_NPCM_RECT_COUNT,
-> +	.name = "NPCM Compressed Hextile Rectangle Count",
-
-This name is too long, it should be max 31 characters. Dropping the "Compressed " part
-might be best, I think that word isn't needed.
-
-> +	.type = V4L2_CTRL_TYPE_INTEGER,
-> +	.min = 0,
-> +	.max = (MAX_WIDTH / RECT_W) * (MAX_HEIGHT / RECT_H),
-> +	.step = 1,
-> +	.def = 0,
-> +};
-
-With this fixed, and the sparse warnings fixed, it should be ready for merging.
-
-Regards,
-
-	Hans
+diff --git a/drivers/hwmon/max31790.c b/drivers/hwmon/max31790.c
+index 20bf5ffadefe..2a59415e6776 100644
+--- a/drivers/hwmon/max31790.c
++++ b/drivers/hwmon/max31790.c
+@@ -480,6 +480,60 @@ static const struct hwmon_chip_info max31790_chip_info = {
+ 	.info = max31790_info,
+ };
+ 
++static int max31790_config_pwm_as_tach(struct device *dev,
++				       struct i2c_client *client)
++{
++	struct device_node *np = dev->of_node;
++	int i, ret, size, channel;
++	u32 pwm_index[NR_CHANNEL] = { 0 };
++	u8 fan_config;
++
++	size = of_property_count_u32_elems(np, "pwm-as-tach");
++
++	if (size > 0 && size <= NR_CHANNEL) {
++		ret = of_property_read_u32_array(np, "pwm-as-tach", pwm_index,
++						 size);
++		if (ret) {
++			dev_err(dev,
++				"Property 'pwm-as-tach' cannot be read.\n");
++			return ret;
++		}
++
++		for (i = 0; i < size; i++) {
++			if (pwm_index[i] == 0 || pwm_index[i] > NR_CHANNEL) {
++				dev_err(dev, "Not support to config PWM %x.\n",
++					pwm_index[i]);
++				return -EOPNOTSUPP;
++			}
++
++			channel = pwm_index[i] - 1;
++			ret = i2c_smbus_read_byte_data(
++				client, MAX31790_REG_FAN_CONFIG(channel));
++			if (ret < 0) {
++				dev_err(dev,
++					"Read fan config for channel %d failed.\n",
++					channel);
++				return ret;
++			}
++			fan_config = ret;
++			fan_config |= (MAX31790_FAN_CFG_CTRL_MON |
++				       MAX31790_FAN_CFG_TACH_INPUT);
++
++			ret = i2c_smbus_write_byte_data(
++				client, MAX31790_REG_FAN_CONFIG(channel),
++				fan_config);
++			if (ret < 0) {
++				dev_err(dev,
++					"Write fan config for channel %d failed.\n",
++					channel);
++				return ret;
++			}
++		}
++	}
++
++	return 0;
++}
++
+ static int max31790_init_client(struct i2c_client *client,
+ 				struct max31790_data *data)
+ {
+@@ -521,6 +575,10 @@ static int max31790_probe(struct i2c_client *client)
+ 	data->client = client;
+ 	mutex_init(&data->update_lock);
+ 
++	err = max31790_config_pwm_as_tach(dev, client);
++	if (err)
++		dev_crit(dev, "Config PWM as TACH failed.\n");
++
+ 	/*
+ 	 * Initialize the max31790 chip
+ 	 */
+-- 
+2.25.1
 
