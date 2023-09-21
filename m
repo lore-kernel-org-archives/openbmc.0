@@ -4,44 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3383DC04AA9
-	for <openbmc@archiver.kernel.org>; Wed, 20 Sep 2023 15:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCC7CD4942
+	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 03:23:30 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dkAT1uuz;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4RrN9N6QDbz3cF2
-	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 01:43:36 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=145.40.73.55; helo=sin.source.kernel.org; envelope-from=srs0=ud8i=fe=xs4all.nl=hverkuil-cisco@kernel.org; receiver=lists.ozlabs.org)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rrghw6xJgz3bcS
+	for <openbmc@archiver.kernel.org>; Thu, 21 Sep 2023 13:23:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dkAT1uuz;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::632; helo=mail-ej1-x632.google.com; envelope-from=dhruvaraj@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com [IPv6:2a00:1450:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4RrN8l4cFrz3c53
-	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 01:43:03 +1000 (AEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by sin.source.kernel.org (Postfix) with ESMTPS id F3174CE1170;
-	Wed, 20 Sep 2023 15:43:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE46DC433C8;
-	Wed, 20 Sep 2023 15:42:56 +0000 (UTC)
-Message-ID: <b8f8876e-d712-4ffb-b082-b8e02363ec33@xs4all.nl>
-Date: Wed, 20 Sep 2023 17:42:55 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rrggt1RN8z2yq2
+	for <openbmc@lists.ozlabs.org>; Thu, 21 Sep 2023 13:22:32 +1000 (AEST)
+Received: by mail-ej1-x632.google.com with SMTP id a640c23a62f3a-99de884ad25so48979666b.3
+        for <openbmc@lists.ozlabs.org>; Wed, 20 Sep 2023 20:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1695266548; x=1695871348; darn=lists.ozlabs.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/uiVtIk6yhDVMsDn5if0ArVRUhUITcOhJewBVyWPQ5M=;
+        b=dkAT1uuzCtiT2B/g4LKmXgM0TCLYDqur4yWRMglXnJujMiZSMnkWxhe5dGE+dRlgiD
+         buGpBJbNIAHgq7ltcSF01z4lC10/xNIy4ZQ4D22lSgJVL8KWjCAOs1iSahuZb8y5i/OM
+         stoMN+00d5y4qOni+OZyPyePGfrD6oqyRpItDJSl4XVgzWrntOPx5baEZU1p9N1SuJh1
+         NqRv49J0ZIkFqzatn+TS9qCh++CyuxSwaYHDdK14AU7epHqJjoxnNapPRmJNVvmNuA7v
+         brQF2gVKpigSMNE8jv7LgF6lKf3QO9i7yhFNh7VNVEsbJQlbUzaWy9Kt6ZA0LufxSFnA
+         YRYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695266548; x=1695871348;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/uiVtIk6yhDVMsDn5if0ArVRUhUITcOhJewBVyWPQ5M=;
+        b=OPBL0MnrcEUkgbbmMJNthJz1Z2PVV/I/VhQA/EUOn1Dn/IhDl1/cmb9KnrtZo2+YHd
+         BLJacZm48KzGB1PlIBUricu1Br1G0BtfRqTw+ur+3tl0iVRcnGHKS+k6Tuu3fW0E/j+J
+         dvBAuFFqCYLykBj7IqE5Rd8OfaKRXyr5kgbNWd9Kq+Cpk9LfhOQM4+uJcZrOT0WjgHKl
+         OzVz0AnjYPvgl/7ep3CcCVNz2IyF7ZahQLcPMIEOys01KlS9mQpHzDlO8C+yASOkYV/V
+         1McrVaahY54Zvhcv0bZEwkiFimeiRQNDWP1EY1xZeCa7Pg2RgdvfnKnjpudFg4h4IJnA
+         GJmg==
+X-Gm-Message-State: AOJu0YzjHM0wP7fKAJQBizyP8S2Vp/XtSkf9SmYhm5p4GeqfM7TosQLR
+	+l6O7902um6oSF1C+LS6YmRYzU8V7MAVn4TFEpvQkakNtssjLQ==
+X-Google-Smtp-Source: AGHT+IFmwoUuzX8FtqrZFPdu3Ys0LuJYeKZSE7VjIry/+lDSLzvezJE8H65vd3X8dIVcoJbjUSBI4ohxMN4UJI+qcJg=
+X-Received: by 2002:a17:906:3044:b0:9a5:c54f:da1c with SMTP id
+ d4-20020a170906304400b009a5c54fda1cmr4007618ejd.47.1695266548200; Wed, 20 Sep
+ 2023 20:22:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 7/7] media: nuvoton: Add driver for NPCM video capture
- and encoding engine
-Content-Language: en-US, nl
-To: Marvin Lin <milkfafa@gmail.com>, mchehab@kernel.org,
- avifishman70@gmail.com, tmaimon77@gmail.com, tali.perry1@gmail.com,
- venture@google.com, yuenn@google.com, benjaminfair@google.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- andrzej.p@collabora.com
-References: <20230920022812.601800-1-milkfafa@gmail.com>
- <20230920022812.601800-8-milkfafa@gmail.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-In-Reply-To: <20230920022812.601800-8-milkfafa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: dhruvaraj S <dhruvaraj@gmail.com>
+Date: Thu, 21 Sep 2023 08:52:15 +0530
+Message-ID: <CAK7WosgDEJN8gaLu+mC3W1xKAysdZY_pHTz46vqTpun69G0hfA@mail.gmail.com>
+Subject: Proposal: Removing redundant EpochTime interface from dump entry
+To: openbmc <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,115 +70,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: kwliu@nuvoton.com, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, kflin@nuvoton.com, linux-media@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 20/09/2023 04:28, Marvin Lin wrote:
-> Add driver for Video Capture/Differentiation Engine (VCD) and Encoding
-> Compression Engine (ECE) present on Nuvoton NPCM SoCs. As described in
-> the datasheet NPCM750D_DS_Rev_1.0, the VCD can capture frames from
-> digital video input and compare two frames in memory, and then the ECE
-> can compress the frame data into HEXTILE format. This driver implements
-> V4L2 interfaces and provides user controls to support KVM feature, also
-> tested with VNC Viewer ver.6.22.826 and openbmc/obmc-ikvm.
-> 
-> Signed-off-by: Marvin Lin <milkfafa@gmail.com>
+Hi,
 
-I'm getting two sparse warnings:
+In the current implementation, objects implementing the dump entry
+interface implement both xyz.openbmc_project.Common.Progress (for dump
+creation start time, end time, and status) and
+xyz.openbmc_project.Time.Epoch (for dump creation time, which is
+effectively the end time). This leads to a redundancy in specifying
+the dump creation end time.
 
-drivers/media/platform/nuvoton/npcm-video.c:227:27: warning: incorrect type in argument 1 (different address spaces)
-drivers/media/platform/nuvoton/npcm-video.c:227:27:    expected void const volatile [noderef] __iomem *addr
-drivers/media/platform/nuvoton/npcm-video.c:227:27:    got void *
-drivers/media/platform/nuvoton/npcm-video.c:1050:20: warning: context imbalance in 'npcm_video_irq' - different lock contexts for basic block
+My proposed change updates the documentation of the interface,
+removing the reference to xyz.openbmc_project.Time.Epoch and adding a
+reference to xyz.openbmc_project.Common.Progress. This is to remove
+the need for updating the creation time in multiple locations.
 
-That last one is a missing unlock:
+You can review the change here:
+https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/66680
 
-> +static irqreturn_t npcm_video_irq(int irq, void *arg)
-> +{
-> +	struct npcm_video *video = arg;
-> +	struct regmap *vcd = video->vcd_regmap;
-> +	struct npcm_video_buffer *buf;
-> +	unsigned int index, size, status, fmt;
-> +	dma_addr_t dma_addr;
-> +	void *addr;
-> +	static const struct v4l2_event ev = {
-> +		.type = V4L2_EVENT_SOURCE_CHANGE,
-> +		.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
-> +	};
-> +
-> +	regmap_read(vcd, VCD_STAT, &status);
-> +	dev_dbg(video->dev, "VCD irq status 0x%x\n", status);
-> +
-> +	regmap_write(vcd, VCD_STAT, VCD_STAT_CLEAR);
-> +
-> +	if (test_bit(VIDEO_STOPPED, &video->flags) ||
-> +	    !test_bit(VIDEO_STREAMING, &video->flags))
-> +		return IRQ_NONE;
-> +
-> +	if (status & VCD_STAT_DONE) {
-> +		regmap_write(vcd, VCD_INTE, 0);
-> +		spin_lock(&video->lock);
-> +		clear_bit(VIDEO_CAPTURING, &video->flags);
-> +		buf = list_first_entry_or_null(&video->buffers,
-> +					       struct npcm_video_buffer, link);
-> +		if (!buf) {
-> +			spin_unlock(&video->lock);
-> +			return IRQ_NONE;
-> +		}
-> +
-> +		addr = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
-> +		index = buf->vb.vb2_buf.index;
-> +		fmt = video->pix_fmt.pixelformat;
-> +
-> +		switch (fmt) {
-> +		case V4L2_PIX_FMT_RGB565:
-> +			size = npcm_video_raw(video, index, addr);
-> +			break;
-> +		case V4L2_PIX_FMT_HEXTILE:
-> +			dma_addr = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
-> +			size = npcm_video_hextile(video, index, dma_addr, addr);
-> +			break;
-> +		default:
+Please note that this change will have an impact on any applications
+that are currently reading the dump creation time from the EpochTime
+interface. These applications will need to be updated to read the
+creation time from the xyz.openbmc_project.Common.Progress interface
+instead.
+Link to the interface
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Common/Progress.interface.yaml
 
-Missing unlock here.
+I would appreciate it if you could take a look at the change and
+provide any feedback you have.
 
-> +			return IRQ_NONE;
-> +		}
-> +
-> +		vb2_set_plane_payload(&buf->vb.vb2_buf, 0, size);
-> +		buf->vb.vb2_buf.timestamp = ktime_get_ns();
-> +		buf->vb.sequence = video->sequence++;
-> +		buf->vb.field = V4L2_FIELD_NONE;
-> +
-> +		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-> +		list_del(&buf->link);
-> +		spin_unlock(&video->lock);
-> +
-> +		if (npcm_video_start_frame(video))
-> +			dev_err(video->dev, "Failed to capture next frame\n");
-> +	}
-> +
-> +	/* Resolution changed */
-> +	if (status & VCD_STAT_VHT_CHG || status & VCD_STAT_HAC_CHG) {
-> +		if (!test_bit(VIDEO_RES_CHANGING, &video->flags)) {
-> +			set_bit(VIDEO_RES_CHANGING, &video->flags);
-> +
-> +			vb2_queue_error(&video->queue);
-> +			v4l2_event_queue(&video->vdev, &ev);
-> +		}
-> +	}
-> +
-> +	if (status & VCD_STAT_IFOR || status & VCD_STAT_IFOT) {
-> +		dev_warn(video->dev, "VCD FIFO overrun or over thresholds\n");
-> +		if (npcm_video_start_frame(video))
-> +			dev_err(video->dev, "Failed to recover from FIFO overrun\n");
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
+Thanks,
+Dhruvaraj Subhashchandran
 
-Regards,
 
-	Hans
-
+-- 
+--------------
+Dhruvaraj S
