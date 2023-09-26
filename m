@@ -4,85 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EBFCE732C7
-	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 12:39:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A84BE732C7
+	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 12:45:38 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=sA45jKqq;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=X0tZTxt3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BE6fSY7d;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4RxCjS13c2z3c1J
-	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 22:39:40 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RxCrK2F4zz3cB7
+	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 22:45:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=sA45jKqq;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=X0tZTxt3;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BE6fSY7d;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::136; helo=mail-lf1-x136.google.com; envelope-from=dan.carpenter@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com [IPv6:2a00:1450:4864:20::136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4RxChF5tRYz2ytJ
-	for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 22:38:37 +1000 (AEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id 74FF45C0559
-	for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 08:38:33 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute1.internal (MEProxy); Thu, 28 Sep 2023 08:38:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1695904713; x=1695991113; bh=7g
-	ndytL+WRPcqAgk0LC9/mTBEdLX7qMCH5umebRe6cc=; b=sA45jKqqeEB8dwKn7q
-	XoCU+TvVM/iHC7bOTiVrTeFKC5LoCArshCjqf+mvZXXvY738UJrnSK1xeBNAsWmh
-	EA73bNQkfGThFW9sgkrix+5qyODGVxhPKypGjWTt6SFZkrRXac9MxEXdx421z0Xe
-	63OrDJHuuiAVOuk1ocg+0+mbleNj/JsIL8VmYS63Tv6GfUB5VmBvkCJNa+Tf9KBZ
-	XCqU2ClC3g5zOjnRhBhn54JoO+2zqdxiOpzJw9zqftQXlKA7rD/2JYDAojN1hKtm
-	BQSOqrwfsv+r1Lz0tsbMYRSNS6FGyIKI+CJeIAFTfxBtM8pz4HGDVP6hq5GdqgtG
-	7MyA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1695904713; x=1695991113; bh=7gndytL+WRPcq
-	Agk0LC9/mTBEdLX7qMCH5umebRe6cc=; b=X0tZTxt3DMQOe2w3ATx3Z+lG/VnIA
-	Xv6jYm5LfFiaqg9TAGvqCMXxz4T6hXFYu0PObDPdVBGhuw1rfHDBpFVuMNXhVohJ
-	2uG4+FWC9kON7AK75cqlEhCy4TzXihuWgbUXltUBSj8v/i5yNTuEHZ/YXNI1ZRkt
-	+1YEzGa+U4g9BzBQpyIGfRht0TR+bGEnjldXz/M+5drApcWHN3Sv5n63SQZ7qRyk
-	P4TZRgfs7cor6ielJcQR2O99+VONepEs2NBdfZd68WPV1d1DI60a2TwhfuNhAh4S
-	Fn49hVsLauF3CS9cdMWfn9AzJhgZKEpCCCKY7P78Yh9BwVUusB+cl88Kw==
-X-ME-Sender: <xms:yXMVZVmXsVq8liPPyPmQBVWrjL1nfYWEqHxI58lnBxYMVUjOGMmv0A>
-    <xme:yXMVZQ2DmSf-a3ybdGbEpnvJzhNABRF2d950AjHGdZcP8o_rGtIhe1H0h91qIYiv2
-    GLp1NuiW-Wv5Mw7R_Y>
-X-ME-Received: <xmr:yXMVZbrSdtXXiPzxsTs0m1B3yC-PO_k2WdaskMsmczdxzSX7nhzKvDtsODQN3iLZ57u6M8_SXb66Ymu25cEKLFE56QGk6-OMi3U>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrtddtgddvhecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenog
-    fuuhhsphgvtghtffhomhgrihhnucdlgeelmdenfghrlhcuvffnffculddvfedmnecujfgu
-    rhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpefrrghtrhhitghkuc
-    ghihhllhhirghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucggtffrrght
-    thgvrhhnpedttdehjeeiheevudffgedtgfduiefhieehhffgvdejvedvhfeugfeufeffvd
-    evvdenucffohhmrghinhepghhoohhglhgvrdgtohhmnecuvehluhhsthgvrhfuihiivgep
-    tdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:yXMVZVlBRnnH83P6Y7hS23o_mD6h_2KCcI4czwb10XSQvOKId42Q9g>
-    <xmx:yXMVZT2N72k5fAxbW4VPRn-hMDfxB6DIp1znIY5Y93JMXaR7GScpJw>
-    <xmx:yXMVZUuNBu86dYdlDVuPgUHs-TX_myekj-DSs2YyXgLmBU6Ei5-xJw>
-    <xmx:yXMVZYgq1ObldLKBbbrrVr9Pc5-q5Ze3SyeidMTDIONvmE9uFCTJ9Q>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 08:38:32 -0400 (EDT)
-Date: Thu, 28 Sep 2023 07:38:31 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC List <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Developers Conference - Oct 13th, 2023
-Message-ID: <ZRVzxzqbuIUGp7Yp@heinlein.vulture-banana.ts.net>
-References: <ZO-eDB4m3fHMMt_b@heinlein.vulture-banana.ts.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rw26V6ZNnz3cLj
+	for <openbmc@lists.ozlabs.org>; Wed, 27 Sep 2023 00:23:45 +1000 (AEST)
+Received: by mail-lf1-x136.google.com with SMTP id 2adb3069b0e04-5043120ffbcso13608227e87.2
+        for <openbmc@lists.ozlabs.org>; Tue, 26 Sep 2023 07:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1695738219; x=1696343019; darn=lists.ozlabs.org;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UssXu9Wxp7fradqyberfVF7I5rVfNpdxXWunpxNTls4=;
+        b=BE6fSY7dXS+/AYOaw4n4A2MPXfCdz2INf4Q/E5MeNjioDm8IsGNsm4yiJ3TiWHymaB
+         W/M5q5eEKBF/ayy/pryzlJuf9gkPsO8atv/e/1SGVBC7CLRBXJJfb3De9Vj1VaECg/ip
+         zMS2WEAb5yC3ZW8ZJubTaB9RpSR6Ql3HLkHKtfrZXMNsH8C84JlyveOJ4gfxcw5BrZmu
+         nXw+iUkJuzAPaNCWbMrFGdCAqgvO1+llgSJcJiua00CYpcN9b80K0J7CB7amofHR7Boy
+         hbRECJSYElPr0w8Yx/bto58j/Vw0hgQv6sHltmafKFLu24vQ+yOib3PzzxkATgn4IYj7
+         hjhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1695738219; x=1696343019;
+        h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UssXu9Wxp7fradqyberfVF7I5rVfNpdxXWunpxNTls4=;
+        b=kTRnCt6fpS+v8Jbqxky3ndRjLrC9JEtAlIddH7uX9b0exIIP3e4hLMILu8NSMO/OO4
+         bNgE1Vvx3iDxCV5lEBOXKOovfIvztFeB4irUFArrj4uJUd5vwoZ/E7kSFWSWEIfdIr/J
+         ilmqU/LN2EZk1Hl+keyYWi1HtJtYFkhd7GxK1wd9aeE4tO+fmF1/p3SVRklLJOG52VUQ
+         MnoJYkO0la5dwpXblccCtEPfELaB8IwajBjuFy4kv/tyaMgV1AcQVPjRd65aLnfpiSlj
+         DM6gOak/3sTgMRtubqk/oX3AxHShEMADS9Qhsmbx/YaoxMjmPiY8wDsQVJSaGOy5bqn7
+         p7ZA==
+X-Gm-Message-State: AOJu0YxyFX39huLK6qNHsXZLj5pW/O2TFR6AkrJbBjHASis1mtfWSGWb
+	Pgb4s2kD8oYtbKx+H/T6whbqXw==
+X-Google-Smtp-Source: AGHT+IHcUm19hYY20+/d6glprVTg94TajPGELXQ4CXgxFCpADEW5oa8NfeU0dLhCEciyb1RBm632fA==
+X-Received: by 2002:a05:6512:110b:b0:502:fdca:2eaa with SMTP id l11-20020a056512110b00b00502fdca2eaamr9903205lfg.52.1695738219428;
+        Tue, 26 Sep 2023 07:23:39 -0700 (PDT)
+Received: from localhost (h3221.n1.ips.mtn.co.ug. [41.210.178.33])
+        by smtp.gmail.com with ESMTPSA id j19-20020a170906051300b009937e7c4e54sm7884736eja.39.2023.09.26.07.23.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 Sep 2023 07:23:39 -0700 (PDT)
+Date: Tue, 26 Sep 2023 17:23:35 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: milkfafa@gmail.com
+Subject: [bug report] media: nuvoton: Add driver for NPCM video capture and
+ encoding engine
+Message-ID: <f794bf89-584b-41ff-a021-ab973cae89f8@moroto.mountain>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="KrA++CvuAKz+gqcb"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZO-eDB4m3fHMMt_b@heinlein.vulture-banana.ts.net>
+X-Mailman-Approved-At: Thu, 28 Sep 2023 22:44:44 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,72 +76,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc@lists.ozlabs.org, linux-media@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hello Marvin Lin,
 
---KrA++CvuAKz+gqcb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The patch 70721089985c: "media: nuvoton: Add driver for NPCM video
+capture and encoding engine" from Sep 22, 2023 (linux-next), leads to
+the following Smatch static checker warning:
 
-On Wed, Aug 30, 2023 at 02:52:44PM -0500, Patrick Williams wrote:
-> Hello Developers,
->=20
-> I'm pleased to announce that we will be holding an OpenBMC Developers
-> conference this year in conjunction with OSFC and hosted by HPE.  The
-> event will take place on Oct 13th, 2023 from 9am to 4pm in San Jose, CA.
->=20
-> This event will be free and attendance at OSFC is not required (but
-> encouraged since there are a number of OpenBMC-oriented talks at OSFC).
-> As the name implies, this event is intended to be attended by active
-> developers foremost and if the event facility fills up, we will give
-> priority to active developers.
->=20
-> The format of the event is yet to be determined, but I'm expected we
-> will have many face-to-face discussions on design and development topics
-> which have been difficult to get consensus and forward-momentum on
-> through our normal discussion forums (mailing list, Discord, design
-> proposals, etc.).
->=20
->=20
-> To reserve your spot at the event, please fill out the form at:
->     https://docs.google.com/forms/d/e/1FAIpQLScqIU-JGIZIrrgbDpkjLjaXi4QgV=
-_seQ9LL9Ps1DNpxyUMgLQ/viewform?usp=3Dsf_link
->=20
-> Responses are required by Sept 30th, 2023.
->=20
-> [[Some of the information is personal but required by site security.  The
->   data will only be shared with me and necessary HPE employees.  Feel
->   free to send me an email or Discord message if you have concerns.]]
->=20
-> --=20
-> Patrick Williams
+	drivers/media/platform/nuvoton/npcm-video.c:1004 npcm_video_raw()
+	warn: sleeping in atomic context
 
-Last call for sign-ups.  I'll leave the form open until sometime on
-Sunday Oct 1st.
+drivers/media/platform/nuvoton/npcm-video.c
+    998 static unsigned int npcm_video_raw(struct npcm_video *video, int index, void *addr)
+    999 {
+    1000         unsigned int width = video->active_timings.width;
+    1001         unsigned int height = video->active_timings.height;
+    1002         unsigned int i, len, offset, bytes = 0;
+    1003 
+--> 1004         video->rect[index] = npcm_video_add_rect(video, index, 0, 0, width, height);
+                                      ^^^^^^^^^^^^^^^^^^^
+This function does a sleeping allocation (GFP_KERNEL).  However
+npcm_video_irq() is holding spin_lock(&video->lock); so this is a
+sleeping in atomic bug.
 
---=20
-Patrick Williams
+    1005 
+    1006         for (i = 0; i < height; i++) {
+    1007                 len = width * video->bytesperpixel;
+    1008                 offset = i * video->bytesperline;
+    1009 
+    1010                 memcpy(addr + bytes, video->src.virt + offset, len);
+    1011                 bytes += len;
+    1012         }
+    1013 
+    1014         return bytes;
+    1015 }
 
---KrA++CvuAKz+gqcb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmUVc8UACgkQqwNHzC0A
-wRlPsRAAgMf9Ka2bzt6+tGtxDV44hTFRaFnJ0DgDv2aeKj0NXaQWMIKhDMnAC+zo
-xBBUbL+xH901xPD99gJQ3hPwZrnt90H9hxK+Y0YPgjn+vothbYO1I3clkj9U7Rfu
-QW5onO6uFGCW1SP/wvBEf66u8bphzVDMWjR2L5050h67c++f6gk8EtZ0XzlI6IZr
-As34ZJWhOqB54BAS8a0OlOCx9+KPwE1yP04dYwALx2g0NP37Xk3bBiEtfp2H0OMH
-cMn6wbvjkjOSZisAvI+y/zp7pNjq5NvTwpCO9CGsGCVuW9vK3r41Kwzg2XpPTcOw
-+pVu+hZDiqnb0PhEzDbiPTyZqOEkVwpiHLH2lk6eYCfqXIr8ieKdOrRjFzBlY44o
-6wttdVdNKfUAADIP3TdvQhpgZcrqioLMDzZcam5nIGP5Cwolp1pXk4R5URVW5+gu
-cxd6iIBUOvt1rJLXOy9JXjTCCggzJyFD5McObMLWuzPZcDBNLPUF9tQRqPvy9MYQ
-98J6BwxalVY0qMaUlljsXewPjXAYSeovIiqyI3mPrwiDyAQMUAEL486si87ZQAJE
-8kVP6CJGJ1W4oLwQgLvS/KhJT38/jC4j+mmwo7Px/I98WERsBpsoQ5P3qqXx4TWV
-cLBSz3ylt2GaKPYW2fSqsbkL61KGOOhTR7H+51TEOOEZL+eqiRo=
-=5Y6v
------END PGP SIGNATURE-----
-
---KrA++CvuAKz+gqcb--
+regards,
+dan carpenter
