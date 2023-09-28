@@ -4,66 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A395E732C5
-	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 12:34:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EBFCE732C7
+	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 12:39:41 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=IcBNUsXc;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=sA45jKqq;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=X0tZTxt3;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4RxCbp26Ygz3cMW
-	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 22:34:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RxCjS13c2z3c1J
+	for <openbmc@archiver.kernel.org>; Thu, 28 Sep 2023 22:39:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=IcBNUsXc;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=sA45jKqq;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=X0tZTxt3;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12c; helo=mail-lf1-x12c.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com [IPv6:2a00:1450:4864:20::12c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4RxCWB68WPz30MY;
-	Thu, 28 Sep 2023 22:30:45 +1000 (AEST)
-Received: by mail-lf1-x12c.google.com with SMTP id 2adb3069b0e04-50435a9f800so19774715e87.2;
-        Thu, 28 Sep 2023 05:30:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695904236; x=1696509036; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1Gm1ISeW+idItfKS/eOu6/qm0WSJn6LCWGU5CplrSsM=;
-        b=IcBNUsXcWxtNN+Y60nx0en7RGIKEgULIxJIodGDhmTUXCLvEAU+0PuNRvzwKTUi8sn
-         3cHLUlVQAwNZqiyB0JHuTtkvuBnqrrK4wXXpXWYCVXKHlL86h1OxiAXwE6W+SHu4nWNR
-         GA8HDJoLuJ+BUqCcnOgJThhECt2BmkE6ZOISq1rzONW9Pp4J5FsaYgdwbw0OsjzBegRF
-         Io29/3Ei2O3YHCbX9s5Z3FKUQ4bg2da632bfZM763eyP660Fyr6AuykFDNJM60GpAmL/
-         Gy4waqZv3Q8IJs+2PNK9MmeVHLrXkNh6IRxcfj5plc2dcA14ugqtY18RTK0u0ZEAaVR5
-         GdTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695904236; x=1696509036;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1Gm1ISeW+idItfKS/eOu6/qm0WSJn6LCWGU5CplrSsM=;
-        b=gyOvTJQ9MS9ybs/O+vZfzzWKrI/k2rLua080ok3Q3EIn1kc7icgl6WhI5TIoKP8xeb
-         yPZMoFNsCAEndJKQXy3ak7wPpxPwjiCEweFNdXQgHfTRE1jV3AQemUB6+/AuoXHOsv9M
-         3JLQ/c7sg29bweN9A6DZVPYYOr+jlZ9rzeSQEedQ6O53r8r5JdEcGaWcSsd9779mhwAe
-         M3HjF6M6CWAQBjqPxtQPpirRijMelm7+v7whalT0wl+/JRl2oi+Oz/i+GbuHBi+hhne3
-         /HSYUjYpX2m145m4CALKz1eshXDfILbf/8CHvxZb1SM2PemxmpuSRQ/NVy6seW+ixQXK
-         RwJQ==
-X-Gm-Message-State: AOJu0YzMvH7msYQ0Uvhi7LNJr+Mdzd5l6GSS2PYubep+7GU4GeHClYYJ
-	YodlkGZ9aJncN5rL8iW5XQs=
-X-Google-Smtp-Source: AGHT+IELWBzD5+DshFb82aU+91c6MxU621XWEWP2vB5rQd9UYeEMJrPISaje63D4gQs+E+MgoEPD8w==
-X-Received: by 2002:a2e:2c16:0:b0:2bf:ff17:811e with SMTP id s22-20020a2e2c16000000b002bfff17811emr1044718ljs.14.1695904235857;
-        Thu, 28 Sep 2023 05:30:35 -0700 (PDT)
-Received: from PC10319.67 ([82.97.198.254])
-        by smtp.googlemail.com with ESMTPSA id x6-20020a2e9c86000000b002ba045496d0sm3588724lji.125.2023.09.28.05.30.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 Sep 2023 05:30:35 -0700 (PDT)
-From: Konstantin Aladyshev <aladyshev22@gmail.com>
-To: 
-Subject: [PATCH 0/3] Add MCTP-over-KCS transport binding
-Date: Thu, 28 Sep 2023 15:30:06 +0300
-Message-Id: <20230928123009.2913-1-aladyshev22@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4RxChF5tRYz2ytJ
+	for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 22:38:37 +1000 (AEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id 74FF45C0559
+	for <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 08:38:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute1.internal (MEProxy); Thu, 28 Sep 2023 08:38:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm1; t=1695904713; x=1695991113; bh=7g
+	ndytL+WRPcqAgk0LC9/mTBEdLX7qMCH5umebRe6cc=; b=sA45jKqqeEB8dwKn7q
+	XoCU+TvVM/iHC7bOTiVrTeFKC5LoCArshCjqf+mvZXXvY738UJrnSK1xeBNAsWmh
+	EA73bNQkfGThFW9sgkrix+5qyODGVxhPKypGjWTt6SFZkrRXac9MxEXdx421z0Xe
+	63OrDJHuuiAVOuk1ocg+0+mbleNj/JsIL8VmYS63Tv6GfUB5VmBvkCJNa+Tf9KBZ
+	XCqU2ClC3g5zOjnRhBhn54JoO+2zqdxiOpzJw9zqftQXlKA7rD/2JYDAojN1hKtm
+	BQSOqrwfsv+r1Lz0tsbMYRSNS6FGyIKI+CJeIAFTfxBtM8pz4HGDVP6hq5GdqgtG
+	7MyA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1695904713; x=1695991113; bh=7gndytL+WRPcq
+	Agk0LC9/mTBEdLX7qMCH5umebRe6cc=; b=X0tZTxt3DMQOe2w3ATx3Z+lG/VnIA
+	Xv6jYm5LfFiaqg9TAGvqCMXxz4T6hXFYu0PObDPdVBGhuw1rfHDBpFVuMNXhVohJ
+	2uG4+FWC9kON7AK75cqlEhCy4TzXihuWgbUXltUBSj8v/i5yNTuEHZ/YXNI1ZRkt
+	+1YEzGa+U4g9BzBQpyIGfRht0TR+bGEnjldXz/M+5drApcWHN3Sv5n63SQZ7qRyk
+	P4TZRgfs7cor6ielJcQR2O99+VONepEs2NBdfZd68WPV1d1DI60a2TwhfuNhAh4S
+	Fn49hVsLauF3CS9cdMWfn9AzJhgZKEpCCCKY7P78Yh9BwVUusB+cl88Kw==
+X-ME-Sender: <xms:yXMVZVmXsVq8liPPyPmQBVWrjL1nfYWEqHxI58lnBxYMVUjOGMmv0A>
+    <xme:yXMVZQ2DmSf-a3ybdGbEpnvJzhNABRF2d950AjHGdZcP8o_rGtIhe1H0h91qIYiv2
+    GLp1NuiW-Wv5Mw7R_Y>
+X-ME-Received: <xmr:yXMVZbrSdtXXiPzxsTs0m1B3yC-PO_k2WdaskMsmczdxzSX7nhzKvDtsODQN3iLZ57u6M8_SXb66Ymu25cEKLFE56QGk6-OMi3U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrtddtgddvhecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenog
+    fuuhhsphgvtghtffhomhgrihhnucdlgeelmdenfghrlhcuvffnffculddvfedmnecujfgu
+    rhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpefrrghtrhhitghkuc
+    ghihhllhhirghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucggtffrrght
+    thgvrhhnpedttdehjeeiheevudffgedtgfduiefhieehhffgvdejvedvhfeugfeufeffvd
+    evvdenucffohhmrghinhepghhoohhglhgvrdgtohhmnecuvehluhhsthgvrhfuihiivgep
+    tdenucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:yXMVZVlBRnnH83P6Y7hS23o_mD6h_2KCcI4czwb10XSQvOKId42Q9g>
+    <xmx:yXMVZT2N72k5fAxbW4VPRn-hMDfxB6DIp1znIY5Y93JMXaR7GScpJw>
+    <xmx:yXMVZUuNBu86dYdlDVuPgUHs-TX_myekj-DSs2YyXgLmBU6Ei5-xJw>
+    <xmx:yXMVZYgq1ObldLKBbbrrVr9Pc5-q5Ze3SyeidMTDIONvmE9uFCTJ9Q>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Thu, 28 Sep 2023 08:38:32 -0400 (EDT)
+Date: Thu, 28 Sep 2023 07:38:31 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC List <openbmc@lists.ozlabs.org>
+Subject: Re: OpenBMC Developers Conference - Oct 13th, 2023
+Message-ID: <ZRVzxzqbuIUGp7Yp@heinlein.vulture-banana.ts.net>
+References: <ZO-eDB4m3fHMMt_b@heinlein.vulture-banana.ts.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="KrA++CvuAKz+gqcb"
+Content-Disposition: inline
+In-Reply-To: <ZO-eDB4m3fHMMt_b@heinlein.vulture-banana.ts.net>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,58 +94,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: tmaimon77@gmail.com, linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com, edumazet@google.com, jk@codeconstruct.com.au, matt@codeconstruct.com.au, benjaminfair@google.com, openbmc@lists.ozlabs.org, joel@jms.id.au, kuba@kernel.org, pabeni@redhat.com, minyard@acm.org, aladyshev22@gmail.com, openipmi-developer@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org, andrew@aj.id.au, venture@google.com, linux-kernel@vger.kernel.org, avifishman70@gmail.com, netdev@vger.kernel.org, davem@davemloft.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This change adds a MCTP KCS transport binding, as defined by the DMTF
-specificiation DSP0254 - "MCTP KCS Transport Binding".
-A MCTP protocol network device is created for each KCS channel found in
-the system.
-The interrupt code for the KCS state machine is based on the current
-IPMI KCS driver.
-Since the KCS subsystem code is now used both in IPMI and MCTP drivers
-the separate patchsets move KCS subsystem includes to a common folder.
 
-Tested:
-PLDM communication between the HOST and BMC was tested with both
-components implemented via open-source software:
-- The HOST (UEFI firmware) part was based one the edk2 [1] and
-edk2-platforms [2] code,
-- The BMC part was based on the openbmc [3] distribution.
+--KrA++CvuAKz+gqcb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The testing process and all the necessary utilities are described in
-the [4] repository.
+On Wed, Aug 30, 2023 at 02:52:44PM -0500, Patrick Williams wrote:
+> Hello Developers,
+>=20
+> I'm pleased to announce that we will be holding an OpenBMC Developers
+> conference this year in conjunction with OSFC and hosted by HPE.  The
+> event will take place on Oct 13th, 2023 from 9am to 4pm in San Jose, CA.
+>=20
+> This event will be free and attendance at OSFC is not required (but
+> encouraged since there are a number of OpenBMC-oriented talks at OSFC).
+> As the name implies, this event is intended to be attended by active
+> developers foremost and if the event facility fills up, we will give
+> priority to active developers.
+>=20
+> The format of the event is yet to be determined, but I'm expected we
+> will have many face-to-face discussions on design and development topics
+> which have been difficult to get consensus and forward-momentum on
+> through our normal discussion forums (mailing list, Discord, design
+> proposals, etc.).
+>=20
+>=20
+> To reserve your spot at the event, please fill out the form at:
+>     https://docs.google.com/forms/d/e/1FAIpQLScqIU-JGIZIrrgbDpkjLjaXi4QgV=
+_seQ9LL9Ps1DNpxyUMgLQ/viewform?usp=3Dsf_link
+>=20
+> Responses are required by Sept 30th, 2023.
+>=20
+> [[Some of the information is personal but required by site security.  The
+>   data will only be shared with me and necessary HPE employees.  Feel
+>   free to send me an email or Discord message if you have concerns.]]
+>=20
+> --=20
+> Patrick Williams
 
-[1]: https://github.com/tianocore/edk2
-[2]: https://github.com/tianocore/edk2-platforms
-[3]: https://github.com/openbmc/openbmc
-[4]: https://github.com/Kostr/PLDM
+Last call for sign-ups.  I'll leave the form open until sometime on
+Sunday Oct 1st.
 
-Konstantin Aladyshev (3):
-  ipmi: Move KCS headers to common include folder
-  ipmi: Create header with KCS interface defines
-  mctp: Add MCTP-over-KCS transport binding
+--=20
+Patrick Williams
 
- drivers/char/ipmi/kcs_bmc.c                   |   8 +-
- drivers/char/ipmi/kcs_bmc_aspeed.c            |   3 +-
- drivers/char/ipmi/kcs_bmc_cdev_ipmi.c         |  73 +-
- drivers/char/ipmi/kcs_bmc_npcm7xx.c           |   2 +-
- drivers/char/ipmi/kcs_bmc_serio.c             |   2 +-
- drivers/net/mctp/Kconfig                      |   8 +
- drivers/net/mctp/Makefile                     |   1 +
- drivers/net/mctp/mctp-kcs.c                   | 624 ++++++++++++++++++
- include/linux/ipmi_kcs.h                      |  80 +++
- .../char/ipmi => include/linux}/kcs_bmc.h     |   0
- .../ipmi => include/linux}/kcs_bmc_client.h   |   3 +-
- .../ipmi => include/linux}/kcs_bmc_device.h   |   3 +-
- 12 files changed, 723 insertions(+), 84 deletions(-)
- create mode 100644 drivers/net/mctp/mctp-kcs.c
- create mode 100644 include/linux/ipmi_kcs.h
- rename {drivers/char/ipmi => include/linux}/kcs_bmc.h (100%)
- rename {drivers/char/ipmi => include/linux}/kcs_bmc_client.h (97%)
- rename {drivers/char/ipmi => include/linux}/kcs_bmc_device.h (96%)
+--KrA++CvuAKz+gqcb
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-2.25.1
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmUVc8UACgkQqwNHzC0A
+wRlPsRAAgMf9Ka2bzt6+tGtxDV44hTFRaFnJ0DgDv2aeKj0NXaQWMIKhDMnAC+zo
+xBBUbL+xH901xPD99gJQ3hPwZrnt90H9hxK+Y0YPgjn+vothbYO1I3clkj9U7Rfu
+QW5onO6uFGCW1SP/wvBEf66u8bphzVDMWjR2L5050h67c++f6gk8EtZ0XzlI6IZr
+As34ZJWhOqB54BAS8a0OlOCx9+KPwE1yP04dYwALx2g0NP37Xk3bBiEtfp2H0OMH
+cMn6wbvjkjOSZisAvI+y/zp7pNjq5NvTwpCO9CGsGCVuW9vK3r41Kwzg2XpPTcOw
++pVu+hZDiqnb0PhEzDbiPTyZqOEkVwpiHLH2lk6eYCfqXIr8ieKdOrRjFzBlY44o
+6wttdVdNKfUAADIP3TdvQhpgZcrqioLMDzZcam5nIGP5Cwolp1pXk4R5URVW5+gu
+cxd6iIBUOvt1rJLXOy9JXjTCCggzJyFD5McObMLWuzPZcDBNLPUF9tQRqPvy9MYQ
+98J6BwxalVY0qMaUlljsXewPjXAYSeovIiqyI3mPrwiDyAQMUAEL486si87ZQAJE
+8kVP6CJGJ1W4oLwQgLvS/KhJT38/jC4j+mmwo7Px/I98WERsBpsoQ5P3qqXx4TWV
+cLBSz3ylt2GaKPYW2fSqsbkL61KGOOhTR7H+51TEOOEZL+eqiRo=
+=5Y6v
+-----END PGP SIGNATURE-----
+
+--KrA++CvuAKz+gqcb--
