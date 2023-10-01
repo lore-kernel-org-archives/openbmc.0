@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4163EE748E9
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 13:49:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E6BE748ED
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 13:50:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz56x3sVbz3cmW
-	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 00:49:45 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz57W5pRRz3vbw
+	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 00:50:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz55f1yMCz3cmW
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz55f1j5qz3cll
 	for <openbmc@lists.ozlabs.org>; Mon,  2 Oct 2023 00:48:34 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391DmRYY018285
-	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 16:48:27 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391DmRER018290
+	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 16:48:28 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 16:48:26 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 21:48:24 +0800
+ 2023 16:48:27 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 1 Oct
+ 2023 21:48:26 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Sun, 1 Oct 2023 21:48:24 +0800
+ Transport; Sun, 1 Oct 2023 21:48:25 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id DF7F164741; Sun,  1 Oct 2023 16:48:23 +0300 (IDT)
+	id 12E8364743; Sun,  1 Oct 2023 16:48:25 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.5 v1 1/6] media: dt-bindings: nuvoton: Add NPCM VCD and ECE engine
-Date: Sun, 1 Oct 2023 16:48:15 +0300
-Message-ID: <20231001134820.110921-2-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.5 v1 4/6] media: v4l2-ctrls: Add user control base for Nuvoton NPCM controls
+Date: Sun, 1 Oct 2023 16:48:18 +0300
+Message-ID: <20231001134820.110921-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20231001134820.110921-1-tmaimon77@gmail.com>
 References: <20231001134820.110921-1-tmaimon77@gmail.com>
@@ -58,146 +58,32 @@ Cc: Marvin Lin <milkfafa@gmail.com>, Joel Stanley <joel@jms.id.au>, Tomer Maimon
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add dt-bindings document for Video Capture/Differentiation Engine
-(VCD) and Encoding Compression Engine (ECE) present on Nuvoton NPCM
-SoCs.
+Add a control base for Nuvoton NPCM driver controls, and reserve 16
+controls.
 
 Signed-off-by: Marvin Lin <milkfafa@gmail.com>
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../bindings/media/nuvoton,npcm-ece.yaml      | 43 +++++++++++
- .../bindings/media/nuvoton,npcm-vcd.yaml      | 72 +++++++++++++++++++
- 2 files changed, 115 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/nuvoton,npcm-ece.yaml
- create mode 100644 Documentation/devicetree/bindings/media/nuvoton,npcm-vcd.yaml
+ include/uapi/linux/v4l2-controls.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/nuvoton,npcm-ece.yaml b/Documentation/devicetree/bindings/media/nuvoton,npcm-ece.yaml
-new file mode 100644
-index 000000000000..b47468e54504
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/nuvoton,npcm-ece.yaml
-@@ -0,0 +1,43 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/nuvoton,npcm-ece.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index c3604a0a3e30..68db66d4aae8 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -203,6 +203,12 @@ enum v4l2_colorfx {
+  */
+ #define V4L2_CID_USER_ASPEED_BASE		(V4L2_CID_USER_BASE + 0x11a0)
+ 
++/*
++ * The base for Nuvoton NPCM driver controls.
++ * We reserve 16 controls for this driver.
++ */
++#define V4L2_CID_USER_NPCM_BASE			(V4L2_CID_USER_BASE + 0x11b0)
 +
-+title: Nuvoton NPCM Encoding Compression Engine
-+
-+maintainers:
-+  - Joseph Liu <kwliu@nuvoton.com>
-+  - Marvin Lin <kflin@nuvoton.com>
-+
-+description: |
-+  Video Encoding Compression Engine (ECE) present on Nuvoton NPCM SoCs.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nuvoton,npcm750-ece
-+      - nuvoton,npcm845-ece
-+
-+  reg:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/reset/nuvoton,npcm7xx-reset.h>
-+
-+    ece: video-codec@f0820000 {
-+        compatible = "nuvoton,npcm750-ece";
-+        reg = <0xf0820000 0x2000>;
-+        resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_ECE>;
-+    };
-diff --git a/Documentation/devicetree/bindings/media/nuvoton,npcm-vcd.yaml b/Documentation/devicetree/bindings/media/nuvoton,npcm-vcd.yaml
-new file mode 100644
-index 000000000000..c885f559d2e5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/nuvoton,npcm-vcd.yaml
-@@ -0,0 +1,72 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/nuvoton,npcm-vcd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton NPCM Video Capture/Differentiation Engine
-+
-+maintainers:
-+  - Joseph Liu <kwliu@nuvoton.com>
-+  - Marvin Lin <kflin@nuvoton.com>
-+
-+description: |
-+  Video Capture/Differentiation Engine (VCD) present on Nuvoton NPCM SoCs.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nuvoton,npcm750-vcd
-+      - nuvoton,npcm845-vcd
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  nuvoton,sysgcr:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to access GCR (Global Control Register) registers.
-+
-+  nuvoton,sysgfxi:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to access GFXI (Graphics Core Information) registers.
-+
-+  nuvoton,ece:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to access ECE (Encoding Compression Engine) registers.
-+
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      CMA pool to use for buffers allocation instead of the default CMA pool.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - resets
-+  - nuvoton,sysgcr
-+  - nuvoton,sysgfxi
-+  - nuvoton,ece
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/reset/nuvoton,npcm7xx-reset.h>
-+
-+    vcd: vcd@f0810000 {
-+        compatible = "nuvoton,npcm750-vcd";
-+        reg = <0xf0810000 0x10000>;
-+        interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
-+        resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_VCD>;
-+        nuvoton,sysgcr = <&gcr>;
-+        nuvoton,sysgfxi = <&gfxi>;
-+        nuvoton,ece = <&ece>;
-+    };
+ /* MPEG-class control IDs */
+ /* The MPEG controls are applicable to all codec controls
+  * and the 'MPEG' part of the define is historical */
 -- 
 2.33.0
 
