@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E6BE748ED
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 13:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903B1E748E9
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 13:50:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz57W5pRRz3vbw
-	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 00:50:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz5861D2Cz3vfH
+	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 00:50:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz55f1j5qz3cll
-	for <openbmc@lists.ozlabs.org>; Mon,  2 Oct 2023 00:48:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz55f20x6z3vX3
+	for <openbmc@lists.ozlabs.org>; Mon,  2 Oct 2023 00:48:35 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391DmRER018290
-	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 16:48:28 +0300
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391DmQxe018282
+	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 16:48:26 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 16:48:27 +0300
+ 2023 16:48:26 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 1 Oct
- 2023 21:48:26 +0800
+ 2023 21:48:24 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Sun, 1 Oct 2023 21:48:25 +0800
+ Transport; Sun, 1 Oct 2023 21:48:24 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 12E8364743; Sun,  1 Oct 2023 16:48:25 +0300 (IDT)
+	id 4680B64740; Sun,  1 Oct 2023 16:48:23 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.5 v1 4/6] media: v4l2-ctrls: Add user control base for Nuvoton NPCM controls
-Date: Sun, 1 Oct 2023 16:48:18 +0300
-Message-ID: <20231001134820.110921-5-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.5 v1 0/6] Support Nuvoton NPCM Video Capture/Encode Engine
+Date: Sun, 1 Oct 2023 16:48:14 +0300
+Message-ID: <20231001134820.110921-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20231001134820.110921-1-tmaimon77@gmail.com>
-References: <20231001134820.110921-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -54,36 +52,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Marvin Lin <milkfafa@gmail.com>, Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a control base for Nuvoton NPCM driver controls, and reserve 16
-controls.
+This patch series dt-bindings document and drivers for Video
+Capture/Differentiation Engine (VCD) and Encoding Compression Engine (ECE)
+present on Nuvoton NPCM SoCs.
 
-Signed-off-by: Marvin Lin <milkfafa@gmail.com>
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- include/uapi/linux/v4l2-controls.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+This patch set have applied to next linux kernel.
 
-diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index c3604a0a3e30..68db66d4aae8 100644
---- a/include/uapi/linux/v4l2-controls.h
-+++ b/include/uapi/linux/v4l2-controls.h
-@@ -203,6 +203,12 @@ enum v4l2_colorfx {
-  */
- #define V4L2_CID_USER_ASPEED_BASE		(V4L2_CID_USER_BASE + 0x11a0)
- 
-+/*
-+ * The base for Nuvoton NPCM driver controls.
-+ * We reserve 16 controls for this driver.
-+ */
-+#define V4L2_CID_USER_NPCM_BASE			(V4L2_CID_USER_BASE + 0x11b0)
-+
- /* MPEG-class control IDs */
- /* The MPEG controls are applicable to all codec controls
-  * and the 'MPEG' part of the define is historical */
+The NPCM media driver tested on NPCM750 EVB.
+
+Tomer Maimon (6):
+  media: dt-bindings: nuvoton: Add NPCM VCD and ECE engine
+  dt-bindings: soc: nuvoton: Add NPCM GFXI
+  media: v4l: Add HEXTILE compressed format
+  media: v4l2-ctrls: Add user control base for Nuvoton NPCM controls
+  media: uapi: Add controls for NPCM video driver
+  media: nuvoton: Add driver for NPCM video capture and encoding engine
+
+ .../bindings/media/nuvoton,npcm-ece.yaml      |   43 +
+ .../bindings/media/nuvoton,npcm-vcd.yaml      |   72 +
+ .../bindings/soc/nuvoton/nuvoton,gfxi.yaml    |   39 +
+ .../userspace-api/media/drivers/index.rst     |    1 +
+ .../media/drivers/npcm-video.rst              |   66 +
+ .../media/v4l/pixfmt-reserved.rst             |    7 +
+ drivers/media/platform/Kconfig                |    1 +
+ drivers/media/platform/Makefile               |    1 +
+ drivers/media/platform/nuvoton/Kconfig        |   15 +
+ drivers/media/platform/nuvoton/Makefile       |    2 +
+ drivers/media/platform/nuvoton/npcm-regs.h    |  152 ++
+ drivers/media/platform/nuvoton/npcm-video.c   | 1831 +++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ioctl.c          |    1 +
+ include/uapi/linux/npcm-video.h               |   41 +
+ include/uapi/linux/v4l2-controls.h            |    6 +
+ include/uapi/linux/videodev2.h                |    1 +
+ 16 files changed, 2279 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/nuvoton,npcm-ece.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/nuvoton,npcm-vcd.yaml
+ create mode 100644 Documentation/devicetree/bindings/soc/nuvoton/nuvoton,gfxi.yaml
+ create mode 100644 Documentation/userspace-api/media/drivers/npcm-video.rst
+ create mode 100644 drivers/media/platform/nuvoton/Kconfig
+ create mode 100644 drivers/media/platform/nuvoton/Makefile
+ create mode 100644 drivers/media/platform/nuvoton/npcm-regs.h
+ create mode 100644 drivers/media/platform/nuvoton/npcm-video.c
+ create mode 100644 include/uapi/linux/npcm-video.h
+
 -- 
 2.33.0
 
