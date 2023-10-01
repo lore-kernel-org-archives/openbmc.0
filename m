@@ -4,41 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4264E748E9
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 11:57:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB196E748E9
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 11:58:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz2dd1zHTz3vXm
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 22:57:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz2fC0yTyz3vbp
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 22:58:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz2cL3FwPz3bXH
-	for <openbmc@lists.ozlabs.org>; Sun,  1 Oct 2023 22:56:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz2cL1V89z3bWQ
+	for <openbmc@lists.ozlabs.org>; Sun,  1 Oct 2023 22:56:32 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391BuP1b016044
-	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 14:56:25 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391BuOpG016038
+	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 14:56:24 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
  (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 14:56:25 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 14:56:23 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 19:56:23 +0800
+ 2023 19:56:21 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Sun, 1 Oct 2023 19:56:22 +0800
+ Transport; Sun, 1 Oct 2023 19:56:21 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 2E1A264740; Sun,  1 Oct 2023 14:56:22 +0300 (IDT)
+	id 095AC64740; Sun,  1 Oct 2023 14:56:21 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.5 v1 2/2] hwmon: npcm750-pwm-fan: Add NPCM8xx support
-Date: Sun, 1 Oct 2023 14:56:19 +0300
-Message-ID: <20231001115619.94491-3-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.5 v1 0/2] hwmon: npcm: add Arbel NPCM8XX support
+Date: Sun, 1 Oct 2023 14:56:17 +0300
+Message-ID: <20231001115619.94491-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20231001115619.94491-1-tmaimon77@gmail.com>
-References: <20231001115619.94491-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -58,293 +56,24 @@ Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Adding Pulse Width Modulation (PWM) and fan tacho NPCM8xx support to
-NPCM PWM and fan tacho driver.
-NPCM8xx uses a different number of PWM devices.
+This patch set adds Arbel NPCM8XX Pulse Width Modulation (PWM) and
+Fan tachometer (Fan) support to PWM FAN NPCM driver.
 
-As part of adding NPCM8XX support:
-- Add NPCM8xx specific compatible string.
-- Add data to handle architecture-specific PWM and fan tacho parameters.
+The NPCM8XX supports up to 16 Fan tachometer inputs and
+up to 12 PWM outputs.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/hwmon/npcm750-pwm-fan.c | 161 +++++++++++++++++++++++++++-----
- 1 file changed, 136 insertions(+), 25 deletions(-)
+This patch set is on upstream process.
 
-diff --git a/drivers/hwmon/npcm750-pwm-fan.c b/drivers/hwmon/npcm750-pwm-fan.c
-index 10ed3f4335d4..324de4482e71 100644
---- a/drivers/hwmon/npcm750-pwm-fan.c
-+++ b/drivers/hwmon/npcm750-pwm-fan.c
-@@ -45,11 +45,6 @@
- #define NPCM7XX_PWM_CTRL_CH2_EN_BIT		BIT(12)
- #define NPCM7XX_PWM_CTRL_CH3_EN_BIT		BIT(16)
- 
--/* Define the maximum PWM channel number */
--#define NPCM7XX_PWM_MAX_CHN_NUM			8
--#define NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE	4
--#define NPCM7XX_PWM_MAX_MODULES                 2
--
- /* Define the Counter Register, value = 100 for match 100% */
- #define NPCM7XX_PWM_COUNTER_DEFAULT_NUM		255
- #define NPCM7XX_PWM_CMR_DEFAULT_NUM		255
-@@ -138,11 +133,9 @@
- #define NPCM7XX_FAN_TCPCFG_CPASEL	BIT(0)
- 
- /* FAN General Definition */
--/* Define the maximum FAN channel number */
--#define NPCM7XX_FAN_MAX_MODULE			8
-+/* Define the PWM and FAN in a module */
-+#define NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE	4
- #define NPCM7XX_FAN_MAX_CHN_NUM_IN_A_MODULE	2
--#define NPCM7XX_FAN_MAX_CHN_NUM			16
--
- /*
-  * Get Fan Tach Timeout (base on clock 214843.75Hz, 1 cnt = 4.654us)
-  * Timeout 94ms ~= 0x5000
-@@ -171,6 +164,15 @@
- #define FAN_PREPARE_TO_GET_FIRST_CAPTURE	0x01
- #define FAN_ENOUGH_SAMPLE			0x02
- 
-+struct npcm_hwmon_info {
-+	u32 pwm_max_modules;
-+	u32 pwm_max_ch;
-+	u32 fan_max_modules;
-+	u32 fan_max_ch;
-+	const struct hwmon_chip_info *hinfo;
-+	const char *name;
-+};
-+
- struct npcm7xx_fan_dev {
- 	u8 fan_st_flg;
- 	u8 fan_pls_per_rev;
-@@ -195,15 +197,16 @@ struct npcm7xx_pwm_fan_data {
- 	unsigned long fan_clk_freq;
- 	struct clk *pwm_clk;
- 	struct clk *fan_clk;
--	struct mutex pwm_lock[NPCM7XX_PWM_MAX_MODULES];
--	spinlock_t fan_lock[NPCM7XX_FAN_MAX_MODULE];
--	int fan_irq[NPCM7XX_FAN_MAX_MODULE];
--	bool pwm_present[NPCM7XX_PWM_MAX_CHN_NUM];
--	bool fan_present[NPCM7XX_FAN_MAX_CHN_NUM];
-+	struct mutex *pwm_lock;
-+	spinlock_t *fan_lock;
-+	int *fan_irq;
-+	bool *pwm_present;
-+	bool *fan_present;
- 	u32 input_clk_freq;
- 	struct timer_list fan_timer;
--	struct npcm7xx_fan_dev fan_dev[NPCM7XX_FAN_MAX_CHN_NUM];
--	struct npcm7xx_cooling_device *cdev[NPCM7XX_PWM_MAX_CHN_NUM];
-+	struct npcm7xx_fan_dev *fan_dev;
-+	struct npcm7xx_cooling_device **cdev;
-+	const struct npcm_hwmon_info *info;
- 	u8 fan_select;
- };
- 
-@@ -333,7 +336,7 @@ static void npcm7xx_fan_polling(struct timer_list *t)
- 	 * Polling two module per one round,
- 	 * FAN01 & FAN89 / FAN23 & FAN1011 / FAN45 & FAN1213 / FAN67 & FAN1415
- 	 */
--	for (i = data->fan_select; i < NPCM7XX_FAN_MAX_MODULE;
-+	for (i = data->fan_select; i < data->info->fan_max_modules;
- 	      i = i + 4) {
- 		/* clear the flag and reset the counter (TCNT) */
- 		iowrite8(NPCM7XX_FAN_TICLR_CLEAR_ALL,
-@@ -659,6 +662,40 @@ static const struct hwmon_channel_info * const npcm7xx_info[] = {
- 	NULL
- };
- 
-+static const struct hwmon_channel_info * const npcm8xx_info[] = {
-+	HWMON_CHANNEL_INFO(pwm,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT),
-+	HWMON_CHANNEL_INFO(fan,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT),
-+	NULL
-+};
-+
- static const struct hwmon_ops npcm7xx_hwmon_ops = {
- 	.is_visible = npcm7xx_is_visible,
- 	.read = npcm7xx_read,
-@@ -670,6 +707,29 @@ static const struct hwmon_chip_info npcm7xx_chip_info = {
- 	.info = npcm7xx_info,
- };
- 
-+static const struct hwmon_chip_info npcm8xx_chip_info = {
-+	.ops = &npcm7xx_hwmon_ops,
-+	.info = npcm8xx_info,
-+};
-+
-+static const struct npcm_hwmon_info npxm7xx_hwmon_info = {
-+	.pwm_max_modules = 2,
-+	.pwm_max_ch = NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE * 2,
-+	.fan_max_modules = 8,
-+	.fan_max_ch = NPCM7XX_FAN_MAX_CHN_NUM_IN_A_MODULE * 8,
-+	.hinfo = &npcm7xx_chip_info,
-+	.name = "npcm7xx_pwm_fan",
-+};
-+
-+static const struct npcm_hwmon_info npxm8xx_hwmon_info = {
-+	.pwm_max_modules = 3,
-+	.pwm_max_ch = NPCM7XX_PWM_MAX_CHN_NUM_IN_A_MODULE * 3,
-+	.fan_max_modules = 8,
-+	.fan_max_ch = NPCM7XX_FAN_MAX_CHN_NUM_IN_A_MODULE * 8,
-+	.hinfo = &npcm8xx_chip_info,
-+	.name = "npcm8xx_pwm_fan",
-+};
-+
- static u32 npcm7xx_pwm_init(struct npcm7xx_pwm_fan_data *data)
- {
- 	int m, ch;
-@@ -693,7 +753,7 @@ static u32 npcm7xx_pwm_init(struct npcm7xx_pwm_fan_data *data)
- 	/* Setting PWM Prescale Register value register to both modules */
- 	prescale_val |= (prescale_val << NPCM7XX_PWM_PRESCALE_SHIFT_CH01);
- 
--	for (m = 0; m < NPCM7XX_PWM_MAX_MODULES  ; m++) {
-+	for (m = 0; m < data->info->pwm_max_modules  ; m++) {
- 		iowrite32(prescale_val, NPCM7XX_PWM_REG_PR(data->pwm_base, m));
- 		iowrite32(NPCM7XX_PWM_PRESCALE2_DEFAULT,
- 			  NPCM7XX_PWM_REG_CSR(data->pwm_base, m));
-@@ -716,7 +776,7 @@ static void npcm7xx_fan_init(struct npcm7xx_pwm_fan_data *data)
- 	int i;
- 	u32 apb_clk_freq;
- 
--	for (md = 0; md < NPCM7XX_FAN_MAX_MODULE; md++) {
-+	for (md = 0; md < data->info->fan_max_modules; md++) {
- 		/* stop FAN0~7 clock */
- 		iowrite8(NPCM7XX_FAN_TCKC_CLKX_NONE,
- 			 NPCM7XX_FAN_REG_TCKC(data->fan_base, md));
-@@ -905,6 +965,49 @@ static int npcm7xx_en_pwm_fan(struct device *dev,
- 	return 0;
- }
- 
-+static int npcm_pwm_fan_alloc_data(struct device *dev,
-+				   struct npcm7xx_pwm_fan_data *data)
-+{
-+	data->pwm_lock = devm_kcalloc(dev, data->info->pwm_max_modules,
-+				      sizeof(*data->pwm_lock), GFP_KERNEL);
-+	if (!data->pwm_lock)
-+		return -ENOMEM;
-+
-+	data->fan_lock = devm_kcalloc(dev, data->info->fan_max_modules,
-+				      sizeof(*data->fan_lock), GFP_KERNEL);
-+	if (!data->fan_lock)
-+		return -ENOMEM;
-+
-+	data->fan_irq = devm_kcalloc(dev, data->info->fan_max_modules,
-+				     sizeof(*data->fan_irq), GFP_KERNEL);
-+	if (!data->fan_irq)
-+		return -ENOMEM;
-+
-+	data->pwm_present = devm_kcalloc(dev, data->info->pwm_max_ch,
-+					 sizeof(*data->pwm_present),
-+					 GFP_KERNEL);
-+	if (!data->pwm_present)
-+		return -ENOMEM;
-+
-+	data->fan_present = devm_kcalloc(dev, data->info->fan_max_ch,
-+					 sizeof(*data->fan_present),
-+					 GFP_KERNEL);
-+	if (!data->fan_present)
-+		return -ENOMEM;
-+
-+	data->fan_dev = devm_kcalloc(dev, data->info->fan_max_ch,
-+				     sizeof(*data->fan_dev), GFP_KERNEL);
-+	if (!data->fan_dev)
-+		return -ENOMEM;
-+
-+	data->cdev = devm_kcalloc(dev, data->info->pwm_max_ch,
-+				  sizeof(*data->cdev), GFP_KERNEL);
-+	if (!data->cdev)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
- static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -923,6 +1026,13 @@ static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
- 	if (!data)
- 		return -ENOMEM;
- 
-+	data->info = device_get_match_data(dev);
-+	if (!data->info)
-+		return -EINVAL;
-+
-+	if (npcm_pwm_fan_alloc_data(dev, data))
-+		return -ENOMEM;
-+
- 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "pwm");
- 	if (!res) {
- 		dev_err(dev, "pwm resource not found\n");
-@@ -960,10 +1070,10 @@ static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
- 	output_freq = npcm7xx_pwm_init(data);
- 	npcm7xx_fan_init(data);
- 
--	for (cnt = 0; cnt < NPCM7XX_PWM_MAX_MODULES  ; cnt++)
-+	for (cnt = 0; cnt < data->info->pwm_max_modules  ; cnt++)
- 		mutex_init(&data->pwm_lock[cnt]);
- 
--	for (i = 0; i < NPCM7XX_FAN_MAX_MODULE; i++) {
-+	for (i = 0; i < data->info->fan_max_modules; i++) {
- 		spin_lock_init(&data->fan_lock[i]);
- 
- 		data->fan_irq[i] = platform_get_irq(pdev, i);
-@@ -988,15 +1098,15 @@ static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	hwmon = devm_hwmon_device_register_with_info(dev, "npcm7xx_pwm_fan",
--						     data, &npcm7xx_chip_info,
-+	hwmon = devm_hwmon_device_register_with_info(dev, data->info->name,
-+						     data, data->info->hinfo,
- 						     NULL);
- 	if (IS_ERR(hwmon)) {
- 		dev_err(dev, "unable to register hwmon device\n");
- 		return PTR_ERR(hwmon);
- 	}
- 
--	for (i = 0; i < NPCM7XX_FAN_MAX_CHN_NUM; i++) {
-+	for (i = 0; i < data->info->fan_max_ch; i++) {
- 		if (data->fan_present[i]) {
- 			/* fan timer initialization */
- 			data->fan_timer.expires = jiffies +
-@@ -1015,7 +1125,8 @@ static int npcm7xx_pwm_fan_probe(struct platform_device *pdev)
- }
- 
- static const struct of_device_id of_pwm_fan_match_table[] = {
--	{ .compatible = "nuvoton,npcm750-pwm-fan", },
-+	{ .compatible = "nuvoton,npcm750-pwm-fan", .data = &npxm7xx_hwmon_info},
-+	{ .compatible = "nuvoton,npcm845-pwm-fan", .data = &npxm8xx_hwmon_info},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, of_pwm_fan_match_table);
+The NPCM PWM FAN driver was tested on the NPCM845 evaluation board.
+
+Tomer Maimon (2):
+  dt-bindings: hwmon: npcm: Add npcm845 compatible string
+  hwmon: npcm750-pwm-fan: Add NPCM8xx support
+
+ .../bindings/hwmon/npcm750-pwm-fan.txt        |   6 +-
+ drivers/hwmon/npcm750-pwm-fan.c               | 161 +++++++++++++++---
+ 2 files changed, 141 insertions(+), 26 deletions(-)
+
 -- 
 2.33.0
 
