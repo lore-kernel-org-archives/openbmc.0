@@ -4,39 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915DAE748ED
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 11:14:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AC6DE748ED
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 11:57:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz1gW03rSz3vXq
-	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 22:14:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Rz2d23jxsz3vZ6
+	for <openbmc@archiver.kernel.org>; Sun,  1 Oct 2023 22:57:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz1dg2TWSz3cGC
-	for <openbmc@lists.ozlabs.org>; Sun,  1 Oct 2023 22:12:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rz2cL3BfFz3bX1
+	for <openbmc@lists.ozlabs.org>; Sun,  1 Oct 2023 22:56:32 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391BCOq6015219
-	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 14:12:24 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 391BuOuJ016041
+	for <openbmc@lists.ozlabs.org>; Sun, 1 Oct 2023 14:56:24 +0300
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 14:12:23 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Sun, 1 Oct
- 2023 19:12:22 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Sun, 1 Oct
+ 2023 14:56:24 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Sun, 1
+ Oct 2023 19:56:22 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Sun, 1 Oct 2023 19:12:21 +0800
+ Transport; Sun, 1 Oct 2023 19:56:22 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 1BA8964740; Sun,  1 Oct 2023 14:12:21 +0300 (IDT)
+	id 9C12F64741; Sun,  1 Oct 2023 14:56:21 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.5 v1 0/2] peci: add NPCM peci driver support
-Date: Sun, 1 Oct 2023 14:12:16 +0300
-Message-ID: <20231001111218.78457-1-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.5 v1 1/2] dt-bindings: hwmon: npcm: Add npcm845 compatible string
+Date: Sun, 1 Oct 2023 14:56:18 +0300
+Message-ID: <20231001115619.94491-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20231001115619.94491-1-tmaimon77@gmail.com>
+References: <20231001115619.94491-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -56,25 +58,36 @@ Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set adds PECI support for the Nuvoton NPCM Baseboard
-Management Controller (BMC).
+Add a compatible string for Nuvoton BMC NPCM845 Pulse Width Modulation (PWM)
+and Fan tach controller.
 
-This patch set have applied to kernel-6.6.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-The NPCM PECI driver tested on NPCM750 EVB.
-
-Tomer Maimon (2):
-  dt-bindings: Add bindings for peci-npcm
-  peci: Add peci-npcm controller driver
-
- .../bindings/peci/nuvoton,npcm-peci.yaml      |  56 ++++
- drivers/peci/controller/Kconfig               |  16 +
- drivers/peci/controller/Makefile              |   1 +
- drivers/peci/controller/peci-npcm.c           | 298 ++++++++++++++++++
- 4 files changed, 371 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/peci/nuvoton,npcm-peci.yaml
- create mode 100644 drivers/peci/controller/peci-npcm.c
-
+diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+index 28f43e929f6d..1e41ec1fb926 100644
+--- a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
++++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
+@@ -1,12 +1,16 @@
+-Nuvoton NPCM7xx PWM and Fan Tacho controller device
++Nuvoton NPCM PWM and Fan Tacho controller device
+ 
+ The Nuvoton BMC NPCM7XX supports 8 Pulse-width modulation (PWM)
+ controller outputs and 16 Fan tachometer controller inputs.
+ 
++The Nuvoton BMC NPCM8XX supports 12 Pulse-width modulation (PWM)
++controller outputs and 16 Fan tachometer controller inputs.
++
+ Required properties for pwm-fan node
+ - #address-cells : should be 1.
+ - #size-cells	: should be 0.
+ - compatible	: "nuvoton,npcm750-pwm-fan" for Poleg NPCM7XX.
++				: "nuvoton,npcm845-pwm-fan" for Arbel NPCM8XX.
+ - reg			: specifies physical base address and size of the registers.
+ - reg-names	: must contain:
+ 					* "pwm" for the PWM registers.
 -- 
 2.33.0
 
