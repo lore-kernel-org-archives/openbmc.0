@@ -4,39 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 730BDE74911
-	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 18:50:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 226FAE7490C
+	for <openbmc@archiver.kernel.org>; Mon,  2 Oct 2023 19:42:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Rzqlj0v6Dz3vYC
-	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 05:50:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4RzrvZ4C1nz3vZk
+	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 06:42:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rzqjt1WrRz3cH4
-	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 05:49:03 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Rzrtr2zzqz3cFL
+	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 06:41:51 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 392Imuvn021044
-	for <openbmc@lists.ozlabs.org>; Mon, 2 Oct 2023 21:48:56 +0300
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 392JfiSE022221
+	for <openbmc@lists.ozlabs.org>; Mon, 2 Oct 2023 22:41:44 +0300
 Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 2 Oct
- 2023 21:48:55 +0300
+ 2023 22:41:43 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
  (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 3 Oct
- 2023 02:48:53 +0800
+ 2023 03:41:41 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 3 Oct 2023 02:48:53 +0800
+ Transport; Tue, 3 Oct 2023 03:41:41 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 719756473F; Mon,  2 Oct 2023 21:48:52 +0300 (IDT)
+	id 6CD5564741; Mon,  2 Oct 2023 22:41:40 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.5 v1 0/2] MMC: add NPCM SDHCI driver support
-Date: Mon, 2 Oct 2023 21:48:47 +0300
-Message-ID: <20231002184849.119225-1-tmaimon77@gmail.com>
+To: <ulf.hansson@linaro.org>, <avifishman70@gmail.com>,
+        <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
+        <yuenn@google.com>, <benjaminfair@google.com>,
+        <adrian.hunter@intel.com>, <skhan@linuxfoundation.org>,
+        <davidgow@google.com>, <pbrobinson@gmail.com>, <gsomlo@gmail.com>,
+        <briannorris@chromium.org>, <arnd@arndb.de>, <krakoczy@antmicro.com>,
+        <andy.shevchenko@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: mmc: npcm,sdhci: Document NPCM SDHCI controller
+Date: Mon, 2 Oct 2023 22:41:37 +0300
+Message-ID: <20231002194138.125349-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20231002194138.125349-1-tmaimon77@gmail.com>
+References: <20231002194138.125349-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -52,27 +60,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set adds SDHCI support for the Nuvoton NPCM Baseboard
-Management Controller (BMC).
+Add binding for Nuvoton NPCM SDHCI controller.
 
-The NPCM SDHCI driver tested on NPCM750 and NPCM845 EVB.
-
-Tomer Maimon (2):
-  dt-bindings: mmc: npcm,sdhci: Document NPCM SDHCI controller
-  mmc: sdhci-npcm: Add NPCM SDHCI driver
-
- .../devicetree/bindings/mmc/npcm,sdhci.yaml   | 45 +++++++++
- drivers/mmc/host/Kconfig                      |  8 ++
- drivers/mmc/host/Makefile                     |  1 +
- drivers/mmc/host/sdhci-npcm.c                 | 96 +++++++++++++++++++
- 4 files changed, 150 insertions(+)
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/mmc/npcm,sdhci.yaml   | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/mmc/npcm,sdhci.yaml
- create mode 100644 drivers/mmc/host/sdhci-npcm.c
 
+diff --git a/Documentation/devicetree/bindings/mmc/npcm,sdhci.yaml b/Documentation/devicetree/bindings/mmc/npcm,sdhci.yaml
+new file mode 100644
+index 000000000000..196fdbfa16ed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mmc/npcm,sdhci.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mmc/npcm,sdhci.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NPCM SDHCI Controller
++
++maintainers:
++  - Tomer Maimon <tmaimon77@gmail.com>
++
++allOf:
++  - $ref: mmc-controller.yaml#
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,npcm750-sdhci
++      - nuvoton,npcm845-sdhci
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mmc@f0840000 {
++      compatible = "nuvoton,npcm750-sdhci";
++      reg = <0xf0840000 0x200>;
++      interrupts = <0 27 4>;
++      clocks = <&clk 4>;
++    };
 -- 
 2.33.0
 
