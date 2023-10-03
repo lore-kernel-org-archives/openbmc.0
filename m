@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB28E7544B
-	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 11:02:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBEBCE7544A
+	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 11:02:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S0FJy2yjfz3vY4
-	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 22:02:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S0FKX4wdqz3vY2
+	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 22:02:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0FJF1WRfz3c7q
-	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 22:01:46 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0FJF0zXhz3c4M
+	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 22:01:45 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 393B1dXe008651
-	for <openbmc@lists.ozlabs.org>; Tue, 3 Oct 2023 14:01:39 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 393B1csa008642
+	for <openbmc@lists.ozlabs.org>; Tue, 3 Oct 2023 14:01:38 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 3 Oct
- 2023 14:01:38 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 14:01:37 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 3 Oct
- 2023 19:01:36 +0800
+ 2023 19:01:35 +0800
 Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 3 Oct 2023 19:01:36 +0800
+ Transport; Tue, 3 Oct 2023 19:01:35 +0800
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id A1FC164742; Tue,  3 Oct 2023 14:01:35 +0300 (IDT)
+	id 663D264740; Tue,  3 Oct 2023 14:01:34 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <peter.chen@kernel.org>, <gregkh@linuxfoundation.org>,
         <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
         <xu.yang_2@nxp.com>, <peng.fan@nxp.com>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>, <j.neuschaefer@gmx.net>
-Subject: [PATCH v4 2/3] dt-bindings: usb: ci-hdrc-usb2: add npcm750 and npcm845 compatible
-Date: Tue, 3 Oct 2023 14:01:29 +0300
-Message-ID: <20231003110130.229711-3-tmaimon77@gmail.com>
+Subject: [PATCH v4 0/3] usb: ChipIdea: add Nuvoton NPCM UDC support
+Date: Tue, 3 Oct 2023 14:01:27 +0300
+Message-ID: <20231003110130.229711-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20231003110130.229711-1-tmaimon77@gmail.com>
-References: <20231003110130.229711-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -62,35 +60,45 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a compatible string for Nuvoton BMC NPCM750 and Nuvoton BMC NPCM845.
+This patch set add USB device controller for the NPCM Baseboard
+Management Controllers (BMC).
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+NPCM UDC driver is a part of the USB ChipIdea driver.
 
-diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-index 1394557517b1..a9e173432002 100644
---- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-@@ -16,6 +16,8 @@ properties:
-       - enum:
-           - chipidea,usb2
-           - lsi,zevio-usb
-+          - nuvoton,npcm750-udc
-+          - nuvoton,npcm845-udc
-           - nvidia,tegra20-ehci
-           - nvidia,tegra20-udc
-           - nvidia,tegra30-ehci
-@@ -388,6 +390,8 @@ allOf:
-             enum:
-               - chipidea,usb2
-               - lsi,zevio-usb
-+              - nuvoton,npcm750-udc
-+              - nuvoton,npcm845-udc
-               - nvidia,tegra20-udc
-               - nvidia,tegra30-udc
-               - nvidia,tegra114-udc
+Adding CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS flag to modify the vbus_active
+parameter to active in case the ChipIdea USB IP role is device-only and
+there is no otgsc register.
+
+BMC NPCM7XX and BMC NPCM8XX has ten identical NPCM UDC modules,
+
+The NPCM UDC were tested on NPCM845 evaluation board.
+
+Changes since version 3:
+ - Add Acked-by Peter Chen.
+ 
+Changes since version 2:
+ - Use dev_err_probe.
+ - Remove MODULE_ALIAS.
+
+Changes since version 1:
+ - Add SoC specific compatible.
+ - Remove USB phy mux property from dt-binding, will be handled differently.
+ - Add CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS commit to this patch set.
+
+Tomer Maimon (3):
+  usb: chipidea: add CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS flag
+  dt-bindings: usb: ci-hdrc-usb2: add npcm750 and npcm845 compatible
+  usb: chipidea: Add support for NPCM
+
+ .../devicetree/bindings/usb/ci-hdrc-usb2.yaml |   4 +
+ drivers/usb/chipidea/Kconfig                  |   4 +
+ drivers/usb/chipidea/Makefile                 |   1 +
+ drivers/usb/chipidea/ci_hdrc_npcm.c           | 114 ++++++++++++++++++
+ drivers/usb/chipidea/otg.c                    |   5 +-
+ include/linux/usb/chipidea.h                  |   1 +
+ 6 files changed, 128 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/usb/chipidea/ci_hdrc_npcm.c
+
 -- 
 2.33.0
 
