@@ -4,66 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFDE9E7544B
-	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 10:51:22 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=V516OOTX;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB28E7544B
+	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 11:02:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S0F492S6dz3cBb
-	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 21:51:21 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=V516OOTX;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::c2e; helo=mail-oo1-xc2e.google.com; envelope-from=andy.shevchenko@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com [IPv6:2607:f8b0:4864:20::c2e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S0FJy2yjfz3vY4
+	for <openbmc@archiver.kernel.org>; Tue,  3 Oct 2023 22:02:26 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0F3215mkz3c1Q
-	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 21:50:20 +1100 (AEDT)
-Received: by mail-oo1-xc2e.google.com with SMTP id 006d021491bc7-57e4459aa29so363395eaf.0
-        for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2023 03:50:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696330216; x=1696935016; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C/3GVTu0afK2EM7EWOS3wgoT181o6D5pcbv78as8HE0=;
-        b=V516OOTXyYduwXvpzCiO7UwxTt96vMQubNkXwl3ApUYs/Og3cn3yJJeyRVaIE9QqA/
-         7RfO7IHak8prcmASNC8liitTUyzBjwTSYf0CeDd+IMtjto2QLJty/+/NxzzSQb1MBVUl
-         Yonq9IVwGbyvISJV+zcCnZipM0ao6+F6RmP/IA0ERWFhag16ZQ9G2FZQG5XIy+gIT+gh
-         0Rc1WjGkMQ4dkf4C/2TFizMeSebM66/pJZ2Aevf8qYerhrjTVZ3GBa8tNynhE4V9AXWU
-         w6KMkdfHFlRHPS7pCCIeLW2/zTVlZgDNzgyh+fgckxceP6rSu+AVLNDsInSit7AETqZn
-         V/LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696330216; x=1696935016;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=C/3GVTu0afK2EM7EWOS3wgoT181o6D5pcbv78as8HE0=;
-        b=kZFV0HMvxaLTbObNrhYV9CGf/jnhKc8GjYSNrDiGywUqWajo3oc/jRAlbrHGRMZL7a
-         oouHB0I1w45DEUmfvBL/gkll4LVrNsKZ1DMRzXPLO7qhHI2CoBCgk7Jg/joapHeh3eWM
-         CWeTPpPDWYdrAwcWARVyuPMRxqbx5zT7u64UBTNXHlZxIu5s4NUxXc546xgzKg2M9owE
-         gNx/4f2jEhsRtBdEpuJ1EmNcLNKoAPmjCksXQbiAPkVcFfIRpCHyWBqCfXh9HqrkyDLC
-         /rxytY7Fs0OilS/U9UDjHNs7nadZU76sIVsBbD9Hm+5nLTBZAQxcNnNpj5BD+lFF1NES
-         sl0g==
-X-Gm-Message-State: AOJu0YzDG0T4Cf9nZqG7yg9KM5ScZXy8bpQdwsCCMVJuy5c/qZWFsEAh
-	0FGPCkLX8FepDvuL+4aOo6TW9Gt9xmVsOELUbP4=
-X-Google-Smtp-Source: AGHT+IGjvqSlP6GSpZt/GEk0OxELQYGIOGpISg+QgFtTkQ4ofCPdetgEL+fwI8pU6PjrCiy+Yiy/kvCap1plQHY20rE=
-X-Received: by 2002:a4a:bc94:0:b0:576:bbf6:8a8e with SMTP id
- m20-20020a4abc94000000b00576bbf68a8emr1237644oop.2.1696330216245; Tue, 03 Oct
- 2023 03:50:16 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0FJF1WRfz3c7q
+	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 22:01:46 +1100 (AEDT)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 393B1dXe008651
+	for <openbmc@lists.ozlabs.org>; Tue, 3 Oct 2023 14:01:39 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 3 Oct
+ 2023 14:01:38 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 3 Oct
+ 2023 19:01:36 +0800
+Received: from taln60.nuvoton.co.il (10.191.1.180) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 3 Oct 2023 19:01:36 +0800
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id A1FC164742; Tue,  3 Oct 2023 14:01:35 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <peter.chen@kernel.org>, <gregkh@linuxfoundation.org>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <xu.yang_2@nxp.com>, <peng.fan@nxp.com>, <avifishman70@gmail.com>,
+        <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
+        <yuenn@google.com>, <benjaminfair@google.com>, <j.neuschaefer@gmx.net>
+Subject: [PATCH v4 2/3] dt-bindings: usb: ci-hdrc-usb2: add npcm750 and npcm845 compatible
+Date: Tue, 3 Oct 2023 14:01:29 +0300
+Message-ID: <20231003110130.229711-3-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20231003110130.229711-1-tmaimon77@gmail.com>
+References: <20231003110130.229711-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <20231002200610.129799-1-tmaimon77@gmail.com> <20231002200610.129799-3-tmaimon77@gmail.com>
-In-Reply-To: <20231002200610.129799-3-tmaimon77@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 3 Oct 2023 13:49:40 +0300
-Message-ID: <CAHp75VdjB6wqeezL_UotQj-65HKb83wYh4hfA=PPiooRN0QX8Q@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] mmc: sdhci-npcm: Add NPCM SDHCI driver
-To: Tomer Maimon <tmaimon77@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,33 +58,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, ulf.hansson@linaro.org, benjaminfair@google.com, arnd@arndb.de, krakoczy@antmicro.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, briannorris@chromium.org, linux-mmc@vger.kernel.org, adrian.hunter@intel.com, tali.perry1@gmail.com, gsomlo@gmail.com, joel@jms.id.au, davidgow@google.com, skhan@linuxfoundation.org, linux-kernel@vger.kernel.org, pbrobinson@gmail.com
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Oct 2, 2023 at 11:06=E2=80=AFPM Tomer Maimon <tmaimon77@gmail.com> =
-wrote:
->
-> Add Nuvoton NPCM BMC sdhci-pltfm controller driver.
+Add a compatible string for Nuvoton BMC NPCM750 and Nuvoton BMC NPCM845.
 
-FWIW,
-Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-...
+diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+index 1394557517b1..a9e173432002 100644
+--- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
++++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+@@ -16,6 +16,8 @@ properties:
+       - enum:
+           - chipidea,usb2
+           - lsi,zevio-usb
++          - nuvoton,npcm750-udc
++          - nuvoton,npcm845-udc
+           - nvidia,tegra20-ehci
+           - nvidia,tegra20-udc
+           - nvidia,tegra30-ehci
+@@ -388,6 +390,8 @@ allOf:
+             enum:
+               - chipidea,usb2
+               - lsi,zevio-usb
++              - nuvoton,npcm750-udc
++              - nuvoton,npcm845-udc
+               - nvidia,tegra20-udc
+               - nvidia,tegra30-udc
+               - nvidia,tegra114-udc
+-- 
+2.33.0
 
-> +static const struct of_device_id npcm_sdhci_of_match[] =3D {
-> +       { .compatible =3D "nuvoton,npcm750-sdhci", .data =3D &npcm7xx_sdh=
-ci_pdata, },
-> +       { .compatible =3D "nuvoton,npcm845-sdhci", .data =3D &npcm8xx_sdh=
-ci_pdata, },
-
-Only in case when you need a new version, you may remove the inner
-trailing commas,
-no  need to do this right now.
-
-> +       { }
-> +};
-
---=20
-With Best Regards,
-Andy Shevchenko
