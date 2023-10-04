@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB085CD6138
-	for <openbmc@archiver.kernel.org>; Mon,  9 Oct 2023 21:15:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD31CD68E3
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 03:16:13 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=GXEcZDA6;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=kRDgIR6W;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S4BdY18wNz3cFw
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 08:15:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S4Ldl5Qm4z3c89
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 14:16:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=GXEcZDA6;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=kRDgIR6W;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=rob@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:40e1:4800::1; helo=sin.source.kernel.org; envelope-from=horms@kernel.org; receiver=lists.ozlabs.org)
+Received: from sin.source.kernel.org (sin.source.kernel.org [IPv6:2604:1380:40e1:4800::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4BcT2tvmz2yps
-	for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2023 08:14:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0v8w1cDJz307y;
+	Wed,  4 Oct 2023 23:27:44 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 532126140D;
-	Mon,  9 Oct 2023 21:14:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0C1C433CC;
-	Mon,  9 Oct 2023 21:14:26 +0000 (UTC)
+	by sin.source.kernel.org (Postfix) with ESMTP id 0371FCE1C17;
+	Wed,  4 Oct 2023 12:27:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518ACC433C9;
+	Wed,  4 Oct 2023 12:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1696886067;
-	bh=bcVRBerKLN3z3a+n5ySbsO9a5UW+yPFpaZA09Z5pSJk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=GXEcZDA6r/rvEEam379V7bL2vQA6BSnMY/2ii+6JzoSKwAZ7fCq4dvF2giTpe2LgD
-	 dRHLvHwuzHOHW0qi1/g923ZkJLX6U8xVJMm+3YBYtnzq+1PvH1mg0gzVP75oQN95hl
-	 UIRGfg7IUGUqcwXrY9FEKK9huJzVdjBlk0hiSJgDFPUt14CQztmQ+JpUUXTkY6padr
-	 qMype6Kyk8Lin20Tm5giIT0/q3jqVLFSLocLdRMRzJ11/VoKNeYQll+KSKnLoOcnKg
-	 iVrOQrGhzcu75mrrpWLJowrpSc8ax9RluLmdXcq9+UYQB83go3Hnb+r4LZSUQ63+uG
-	 eg4CwyTfHiQxg==
-Received: (nullmailer pid 3246090 invoked by uid 1000);
-	Mon, 09 Oct 2023 21:14:13 -0000
-From: Rob Herring <robh@kernel.org>
-To: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, Philipp Zabel <p.zabel@pengutronix.de>, Patrice Chotard <patrice.chotard@foss.st.com>
-Subject: [PATCH] reset: Use device_get_match_data()
-Date: Mon,  9 Oct 2023 16:13:41 -0500
-Message-ID: <20231009211356.3242037-11-robh@kernel.org>
-X-Mailer: git-send-email 2.42.0
+	s=k20201202; t=1696422460;
+	bh=jLtpvUu3o2mCQfgfqelejQUPXc1SMpmQFBdmvnSadmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kRDgIR6WXxZmRUOX9AEKsETpXqUxHBzUG3ZCxQNV3A7erIU9r4H3qNZEIpmsNZ6vd
+	 +YHymlJhFlVRq/pg0hiFAm2cc9E4cdWW3wZqZdKHxOAOZ1BlIYJiqkYttXL8/Kep6p
+	 MiReP0tpPrGNdcUMIoRYJZWGBtXFlMaTRItg1RyOX/sAVu/Lqvy9BKvV30ojNCVHgn
+	 aQcx+pXRM38ku9h0V2Acup8diwx67h2bgNr96QT+z0SUui2EcOK+dbzLcmsKo79S2E
+	 vH8GGZ7E49F7rpSxVAbzeKbw5xO07Ece7lYGYdFF1nL+T47G+Ux27S1d3AekE4fi6B
+	 I4VhYRuyZ9aXQ==
+Date: Wed, 4 Oct 2023 14:27:33 +0200
+From: Simon Horman <horms@kernel.org>
+To: Konstantin Aladyshev <aladyshev22@gmail.com>
+Subject: Re: [PATCH v3 3/3] mctp: Add MCTP-over-KCS transport binding
+Message-ID: <ZR1aNb0+D+uO+Qm8@kernel.org>
+References: <20231003131505.337-1-aladyshev22@gmail.com>
+ <20231003131505.337-4-aladyshev22@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231003131505.337-4-aladyshev22@gmail.com>
+X-Mailman-Approved-At: Tue, 10 Oct 2023 14:15:18 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,80 +60,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: tmaimon77@gmail.com, minyard@acm.org, andrew@aj.id.au, venture@google.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, avifishman70@gmail.com, edumazet@google.com, netdev@vger.kernel.org, linux-aspeed@lists.ozlabs.org, joel@jms.id.au, kuba@kernel.org, jk@codeconstruct.com.au, matt@codeconstruct.com.au, pabeni@redhat.com, openipmi-developer@lists.sourceforge.net, davem@davemloft.net, linux-arm-kernel@lists.infradead.org, benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Use preferred device_get_match_data() instead of of_match_device() to
-get the driver match data. With this, adjust the includes to explicitly
-include the correct headers.
+On Tue, Oct 03, 2023 at 04:15:05PM +0300, Konstantin Aladyshev wrote:
+> This change adds a MCTP KCS transport binding, as defined by the DMTF
+> specificiation DSP0254 - "MCTP KCS Transport Binding".
+> A MCTP protocol network device is created for each KCS channel found in
+> the system.
+> The interrupt code for the KCS state machine is based on the current
+> IPMI KCS driver.
+> 
+> Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
 
-Signed-off-by: Rob Herring <robh@kernel.org>
----
- drivers/reset/reset-npcm.c       |  5 ++---
- drivers/reset/sti/reset-syscfg.c | 11 ++++++-----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+...
 
-diff --git a/drivers/reset/reset-npcm.c b/drivers/reset/reset-npcm.c
-index f6c4f854f2be..8935ef95a2d1 100644
---- a/drivers/reset/reset-npcm.c
-+++ b/drivers/reset/reset-npcm.c
-@@ -6,8 +6,8 @@
- #include <linux/io.h>
- #include <linux/init.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/reboot.h>
- #include <linux/reset-controller.h>
- #include <linux/spinlock.h>
-@@ -351,8 +351,7 @@ static int npcm_usb_reset(struct platform_device *pdev, struct npcm_rc_data *rc)
- 		}
- 	}
- 
--	rc->info = (const struct npcm_reset_info *)
--			of_match_device(dev->driver->of_match_table, dev)->data;
-+	rc->info = device_get_match_data(dev);
- 	switch (rc->info->bmc_id) {
- 	case BMC_NPCM7XX:
- 		npcm_usb_reset_npcm7xx(rc);
-diff --git a/drivers/reset/sti/reset-syscfg.c b/drivers/reset/sti/reset-syscfg.c
-index c1ba04f6f155..2324060b747c 100644
---- a/drivers/reset/sti/reset-syscfg.c
-+++ b/drivers/reset/sti/reset-syscfg.c
-@@ -7,10 +7,11 @@
-  */
- #include <linux/kernel.h>
- #include <linux/platform_device.h>
-+#include <linux/property.h>
- #include <linux/module.h>
- #include <linux/err.h>
- #include <linux/types.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/mfd/syscon.h>
- 
-@@ -183,14 +184,14 @@ static int syscfg_reset_controller_register(struct device *dev,
- int syscfg_reset_probe(struct platform_device *pdev)
- {
- 	struct device *dev = pdev ? &pdev->dev : NULL;
--	const struct of_device_id *match;
-+	const void *data;
- 
- 	if (!dev || !dev->driver)
- 		return -ENODEV;
- 
--	match = of_match_device(dev->driver->of_match_table, dev);
--	if (!match || !match->data)
-+	data = device_get_match_data(&pdev->dev);
-+	if (!data)
- 		return -EINVAL;
- 
--	return syscfg_reset_controller_register(dev, match->data);
-+	return syscfg_reset_controller_register(dev, data);
- }
--- 
-2.42.0
+> diff --git a/drivers/net/mctp/mctp-kcs.c b/drivers/net/mctp/mctp-kcs.c
 
+...
+
+> +static inline void set_state(struct mctp_kcs *mkcs, u8 state)
+
+Hi Konstantin,
+
+Please avoid the inline keyword in C files unless there is a demonstrable
+reason to use it. In general, the compiler should be left to decide.
+
+> +{
+> +	dev_dbg(mkcs->client.dev->dev, "%s: state=0x%02x", __func__, state);
+> +	kcs_bmc_update_status(mkcs->client.dev, KCS_STATUS_STATE_MASK,
+> +			      KCS_STATUS_STATE(state));
+> +}
+
+...
+
+> +static inline struct mctp_kcs *client_to_mctp_kcs(struct kcs_bmc_client *client)
+
+Ditto.
+
+> +{
+> +	return container_of(client, struct mctp_kcs, client);
+> +}
+
+...
