@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E83E936EB
-	for <openbmc@archiver.kernel.org>; Wed,  4 Oct 2023 22:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BFCDE936F0
+	for <openbmc@archiver.kernel.org>; Thu,  5 Oct 2023 01:18:55 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=D1pjy+z3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=m9x/vKg/;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S196d69Dyz3cN7
-	for <openbmc@archiver.kernel.org>; Thu,  5 Oct 2023 09:56:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S1DGk0V1Kz3cQr
+	for <openbmc@archiver.kernel.org>; Thu,  5 Oct 2023 12:18:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=D1pjy+z3;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=m9x/vKg/;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
 Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S195W5Cnkz2yQL
-	for <openbmc@lists.ozlabs.org>; Thu,  5 Oct 2023 09:55:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S1DFX5Sgsz3bd6;
+	Thu,  5 Oct 2023 12:17:52 +1100 (AEDT)
 Received: from [192.168.68.112] (ppp118-210-84-62.adl-adc-lon-bras32.tpg.internode.on.net [118.210.84.62])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 9B29D200DB;
-	Thu,  5 Oct 2023 06:55:41 +0800 (AWST)
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8B8D1200DB;
+	Thu,  5 Oct 2023 09:17:51 +0800 (AWST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1696460143;
-	bh=JLixjReAsI6A6MMmsRho/T0UXAXzy2JHLyn/T/5v1Po=;
+	d=codeconstruct.com.au; s=2022a; t=1696468672;
+	bh=WN/ilaCxe3QgMddZZjU7PId19PdgcBpr/ZP9C7Gmuag=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D1pjy+z3/aW0cqzQ7D+psD7IV00Z85GRZV1dBR06NVwWUgY99TcKmilA7oXX8Pel6
-	 xNUZSgAgYmwjMEKLY+zv32w64/A63gQbCKWwt5RU+ANMzGhC+9nfzqcyQEC3EwBQQf
-	 jCRQVuzj4xCVLdj4rVyst48C14ob9uOYLAL6FueYkmnlwiXsaVFpGnYNuqqEZVgADb
-	 RHYqSMrVJ6o57mbehQbNyaUeSkqVXaj5nC74AqVFHD4UJdGo3RWIkcI3Kf1Y1X3S4Y
-	 qNnPCjJHv9ew6FVscTnPv/nE9zvSPhSaju/h+3yVSgRhSLiZ9L/Pb9y4WObCnXJcMZ
-	 Fmoo6i97nCAXQ==
-Message-ID: <c5173d78a039cbb8e048af670db006ab598b67de.camel@codeconstruct.com.au>
-Subject: Re: Aspeed SuperIO runtime management
+	b=m9x/vKg/TE3TAGrcLxTojNzClrEkgYnOEY5+tf8xe76QiqAhHIeMjif1oQec6sjbL
+	 CcLutjUOP4/x2v5wDlX6JEfJ8iO3sFLOS+VVSRT6IbtsC7d0lI8rBShKgChEaGp4k8
+	 N3/L7kqwcY4VqvrStpYmNLwcR67dHYh8kYnUUdneo9S0IU8nVRq5DqlDqR5qX+Q08M
+	 Vi/4W18RcVM5VsxUv/BTFv4ASfhE6ZP5krKuY8Zcoon8WFB7dosKCDDrN3CsB30B8c
+	 YI4QZmkNccNHGsOr4AueM848o8vtRNwvshBjzznt2Ei/8qA/6n8pIaB4gyUDLjlixk
+	 j/cExR+TeHnNg==
+Message-ID: <e5f0a67e05cf477bdb4ec6efd9c554f4aaa2cf8b.camel@codeconstruct.com.au>
+Subject: Re: [PATCH] pinctrl: aspeed: Allow changing hardware strap defaults
 From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Michael Richardson <mcr@sandelman.ca>, Zev Weiss <zweiss@equinix.com>
-Date: Thu, 05 Oct 2023 09:25:39 +1030
-In-Reply-To: <3490.1696428140@localhost>
-References: <20231004003427.GI19997@packtop> <3490.1696428140@localhost>
+To: Zev Weiss <zev@bewilderbeest.net>, Linus Walleij
+ <linus.walleij@linaro.org>,  Joel Stanley <joel@jms.id.au>,
+ linux-aspeed@lists.ozlabs.org
+Date: Thu, 05 Oct 2023 11:47:50 +1030
+In-Reply-To: <20231004071605.21323-2-zev@bewilderbeest.net>
+References: <20231004071605.21323-2-zev@bewilderbeest.net>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4-2 
@@ -57,18 +59,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 2023-10-04 at 10:02 -0400, Michael Richardson wrote:
+On Wed, 2023-10-04 at 00:16 -0700, Zev Weiss wrote:
+> Previously we've generally assumed that the defaults in the hardware
+> strapping register are in fact appropriate for the system and thus
+> have avoided making any changes to its contents (with the exception of
+> the bits controlling the GPIO passthrough feature).
 >=20
-> My question is: what if the BMC just did all the provisioning necessary a=
-nd
-> the host either just didn't
+> Unfortunately, on some platforms corrections from software are
+> required as the hardware strapping is simply incorrect for the system
+> (such as the SPI1 interface being configured for passthrough mode when
+> master mode is in fact the only useful configuration for it).  We thus
+> remove the checks preventing changes to the strap register so that the
+> pinctrl subsystem can be used for such corrections.
 
-This is essentially how the VUARTs and PUARTs operate, but the trade-
-off is you need some "platform ABI" between the host and the BMC so the
-BMC can meet the host's assumptions on the peripherals.
+So the strapping for the SPI1 configuration seems to be prone to
+(copy/paste?) mistakes. Is there evidence that motivates dropping all
+the protection instead of poking a hole for SPI1 like we did for the
+passthrough GPIOs?
+
+I'm still a little attached to the policy that software should be
+beholden to the strapping, and to try to mitigate software mistakes
+given the smattering of bits required to drive the Aspeed pinmux.
 
 Andrew
+
