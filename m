@@ -4,64 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9236DCD80BD
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 12:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34ADACD80BE
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 12:26:24 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=i0toWB4A;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kQLKP+JS;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S4ZqY1wXJz3vbJ
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 23:25:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S4ZrZ5vW2z3vbg
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 23:26:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=i0toWB4A;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kQLKP+JS;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22a; helo=mail-lj1-x22a.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com [IPv6:2a00:1450:4864:20::22a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::233; helo=mail-lj1-x233.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com [IPv6:2a00:1450:4864:20::233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4ZnH6q3Hz3bx0;
-	Tue, 10 Oct 2023 23:23:31 +1100 (AEDT)
-Received: by mail-lj1-x22a.google.com with SMTP id 38308e7fff4ca-2c15463ddd4so63643231fa.3;
-        Tue, 10 Oct 2023 05:23:30 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4ZnJ5SD4z3bx0;
+	Tue, 10 Oct 2023 23:23:32 +1100 (AEDT)
+Received: by mail-lj1-x233.google.com with SMTP id 38308e7fff4ca-2b95d5ee18dso68122541fa.1;
+        Tue, 10 Oct 2023 05:23:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1696940607; x=1697545407; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=oPyRhYnTnlw7DtON8/f4uUVjXj+t1U+rNcjZ4jW1MJI=;
-        b=i0toWB4AgJ0Kpn0s7cAOMan4axtC1QDpChogxkwLZzSApnqwCcgoJRuTiBkJYb8lUe
-         siB9vPAq5Lg5TgXr1DMFktpzFf9yQTmBOHfO56LPb6HpQL5GgSqNoFjarvTMAfSQuJs1
-         oE8KN8KSutusjSC2HIDJESPQX3hcxiL1YhzyupHkzc7nkUMchepaFZk5m2qHQ6iW+pDd
-         1Bao9jjadNTX46l5OmeKYwYfjWZYN1zf9A8NTIKVy0v4jP9THoBrUPfW3i9y1vUyroph
-         b9z3i+6Xkhgit+Tc7p/H+pWkoBILvJSkag2sLLbXC14pg9Jz27PC2WReMYaatTirhTMr
-         DDww==
+        d=gmail.com; s=20230601; t=1696940609; x=1697545409; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Yp1yNMJhm0Xmlti2S7KpcZZ4ydY0GaIDDg/yGsmahK4=;
+        b=kQLKP+JSdCfLPczoGPTdk2bEgNnKfQI/jo6L+HmZ22LVPtl+LmDR9eNKEKzqvy4YZf
+         i3F/Vjuin91ps40iylqV/t80SkfaFEIAFo3phKESq25gQ9qfaWqp0re1He6PNYDFBSth
+         vcrPCtBak31s7LahIYUjZRkxYPcrWzJ86du0efoIv7Ol8jRbO+CbUSVlXrFjGwI9l0jt
+         wj9+K7LznuViYN4ve/RWnEMXT13a6JURvmWuY+iWyLfvBZv0hyTs72y5YDnizjA6wLSG
+         vSLcjo9Dijx2s47eLGlQaVf+VsgGNIsF/TrkdE+gk0fKkGQX14iv05VrHhXMA2jeGgZE
+         kVyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696940607; x=1697545407;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=oPyRhYnTnlw7DtON8/f4uUVjXj+t1U+rNcjZ4jW1MJI=;
-        b=Vx2vrsKTX3utK+s/F5yE9mLHL8iwAO0TF1sYtuYjfI0trU+laNk3e3yXFdQwu5B4w+
-         x/M1A0Pu+8nRirCVZsTmz7eOEuJMvZ06G1iDBnMFLLGW1IPkDxF2Ylh12VSKZ4EvnQAy
-         3Um8Lf7RytoKsgAEXnKRcuDgJSQaqwi3ZClRotsPYxOJY3Cj7K2DniaM4QYLqtZYF0iJ
-         iONO/dePPNckL4/niT3wG7rwblxtCVKKkHA/jP3u8402TIId9Wibl2ONoPfLhbtVl8KF
-         OdzdFeJ26VlJpGfzk/l+x5/tCKW7fANHtxKuF0/B0ti+fhq9S+Jc4WPH6VuFJOQHJuo3
-         3K1Q==
-X-Gm-Message-State: AOJu0YzoF14tWf33Bm13qH333oHfWOrvqBBTYOa3ShYiLtJ2/BG3TIrZ
-	yBg38iSG9xhFnnTxS+1THN8=
-X-Google-Smtp-Source: AGHT+IGxa/VzwMQyk/bDo1finjw3mICZD9B5q0yI+DRUIsS6DH1ij3P9b+SOtVsaRDdkt9gWV6j36w==
-X-Received: by 2002:a2e:6e09:0:b0:2bc:e2bc:81ff with SMTP id j9-20020a2e6e09000000b002bce2bc81ffmr17213932ljc.51.1696940606426;
-        Tue, 10 Oct 2023 05:23:26 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1696940609; x=1697545409;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Yp1yNMJhm0Xmlti2S7KpcZZ4ydY0GaIDDg/yGsmahK4=;
+        b=B46liLyZ32HBTfYX3YS7uZNJbhF7y3MxUSuPXUHZH8yrW7DpWcWrk9OkyE95njIoR8
+         szmSHMcLy/N6ZMpEYMajZD9QfWKZZoUwarsnjIvWLfCHgrDMN6orb8+65KrJrDg90xtk
+         K9sG76gUkeDgq5a96u4TKF/OIOwohB6pxBqLAjK8yTKEEZYHSDY97QSjotYoS0yk9uuc
+         5Pvcdr50n+Mi1bWt1G6TJPs9BKwW7Hc7nIii2unMSc8fK5nu2Ph8qGQMMgbG97IiZxoo
+         Sm1zTHwC1RgJBms7UhFyK832wA9RRNMGY2GS05slacEGzgOzwoDcvFD63/zNAFn8vn8I
+         62UA==
+X-Gm-Message-State: AOJu0Ywz/wjDDQqMoVNy7P9f3L68wFngtoZoGSo5Pf10xybAneDwm0F/
+	g8SeNmzOHRw8e2eDHf16VVc=
+X-Google-Smtp-Source: AGHT+IE6Sf9WBnW7fB/PVNBWIP5TwKbcCvhx6WXGgnBaKiv0H1Z3E/dt1Hv3RyBRA5YTXQpg1DjOzQ==
+X-Received: by 2002:a2e:9b07:0:b0:2bd:a85:899e with SMTP id u7-20020a2e9b07000000b002bd0a85899emr16820416lji.3.1696940608544;
+        Tue, 10 Oct 2023 05:23:28 -0700 (PDT)
 Received: from PC10319.67 ([82.97.198.254])
-        by smtp.googlemail.com with ESMTPSA id g9-20020a2e9cc9000000b002b9e346a152sm2425638ljj.96.2023.10.10.05.23.25
+        by smtp.googlemail.com with ESMTPSA id g9-20020a2e9cc9000000b002b9e346a152sm2425638ljj.96.2023.10.10.05.23.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Oct 2023 05:23:25 -0700 (PDT)
+        Tue, 10 Oct 2023 05:23:28 -0700 (PDT)
 From: Konstantin Aladyshev <aladyshev22@gmail.com>
 To: 
-Subject: [PATCH v5 0/3] Add MCTP-over-KCS transport binding
-Date: Tue, 10 Oct 2023 15:23:18 +0300
-Message-Id: <20231010122321.823-1-aladyshev22@gmail.com>
+Subject: [PATCH v5 2/3] ipmi: Create header with KCS interface defines
+Date: Tue, 10 Oct 2023 15:23:20 +0300
+Message-Id: <20231010122321.823-3-aladyshev22@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231010122321.823-1-aladyshev22@gmail.com>
+References: <20231010122321.823-1-aladyshev22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -79,75 +82,199 @@ Cc: tmaimon77@gmail.com, linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com, e
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This change adds a MCTP KCS transport binding, as defined by the DMTF
-specificiation DSP0254 - "MCTP KCS Transport Binding".
-A MCTP protocol network device is created for each KCS channel found in
-the system.
-The interrupt code for the KCS state machine is based on the current
-IPMI KCS driver.
-Since the KCS subsystem code is now used both in IPMI and MCTP drivers
-the separate patchsets move KCS subsystem includes to a common folder.
+Some definitions from the current kcs_bmc_cdev_ipmi driver can be also
+utilized by the MTCP KCS binding driver. Move such definitions to the
+common header file.
 
-Tested:
-PLDM communication between the HOST and BMC was tested with both
-components implemented via open-source software:
-- The HOST (UEFI firmware) part was based one the edk2 [1] and
-edk2-platforms [2] code,
-- The BMC part was based on the openbmc [3] distribution.
-
-The testing process and all the necessary utilities are described in
-the [4] repository.
-
-[1]: https://github.com/tianocore/edk2
-[2]: https://github.com/tianocore/edk2-platforms
-[3]: https://github.com/openbmc/openbmc
-[4]: https://github.com/Kostr/PLDM
-
-Changes v4 -> v5:
- - correct spelling errors in description
- - check that rx data is big enough for binding structures
- - use unsigned int type for index and len variables
- - refactor mctp_kcs_rx_work() function
- - arrange local variables in reverse xmas tree order
-
-Changes v3 -> v4:
- - drop 'inline' keyword
-
-Changes v2 -> v3:
- - use 'dev_err_probe' correctly
-
-Changes v1 -> v2:
- - correct warning found by kernel test robot
- - use 'i2c_smbus_pec' library function for PEC calculation
- - several code style corrections based on Jonathan Cameron comments
-Original patchset can be found here:
-https://lwn.net/ml/linux-kernel/20230928123009.2913-1-aladyshev22@gmail.com/
-
-
-Konstantin Aladyshev (3):
-  ipmi: Move KCS headers to common include folder
-  ipmi: Create header with KCS interface defines
-  mctp: Add MCTP-over-KCS transport binding
-
- drivers/char/ipmi/kcs_bmc.c                   |   8 +-
- drivers/char/ipmi/kcs_bmc_aspeed.c            |   3 +-
- drivers/char/ipmi/kcs_bmc_cdev_ipmi.c         |  73 +--
- drivers/char/ipmi/kcs_bmc_npcm7xx.c           |   2 +-
- drivers/char/ipmi/kcs_bmc_serio.c             |   2 +-
- drivers/net/mctp/Kconfig                      |   8 +
- drivers/net/mctp/Makefile                     |   1 +
- drivers/net/mctp/mctp-kcs.c                   | 600 ++++++++++++++++++
- include/linux/ipmi_kcs.h                      |  80 +++
- .../char/ipmi => include/linux}/kcs_bmc.h     |   0
- .../ipmi => include/linux}/kcs_bmc_client.h   |   3 +-
- .../ipmi => include/linux}/kcs_bmc_device.h   |   3 +-
- 12 files changed, 699 insertions(+), 84 deletions(-)
- create mode 100644 drivers/net/mctp/mctp-kcs.c
+Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+---
+ drivers/char/ipmi/kcs_bmc_cdev_ipmi.c | 71 +-----------------------
+ include/linux/ipmi_kcs.h              | 80 +++++++++++++++++++++++++++
+ 2 files changed, 81 insertions(+), 70 deletions(-)
  create mode 100644 include/linux/ipmi_kcs.h
- rename {drivers/char/ipmi => include/linux}/kcs_bmc.h (100%)
- rename {drivers/char/ipmi => include/linux}/kcs_bmc_client.h (97%)
- rename {drivers/char/ipmi => include/linux}/kcs_bmc_device.h (96%)
 
+diff --git a/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c b/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
+index bf1001130a6c..f158f676114c 100644
+--- a/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
++++ b/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
+@@ -8,6 +8,7 @@
+ #include <linux/errno.h>
+ #include <linux/io.h>
+ #include <linux/ipmi_bmc.h>
++#include <linux/ipmi_kcs.h>
+ #include <linux/kcs_bmc_client.h>
+ #include <linux/list.h>
+ #include <linux/miscdevice.h>
+@@ -19,53 +20,6 @@
+ #include <linux/slab.h>
+ 
+ 
+-/* Different phases of the KCS BMC module.
+- *  KCS_PHASE_IDLE:
+- *            BMC should not be expecting nor sending any data.
+- *  KCS_PHASE_WRITE_START:
+- *            BMC is receiving a WRITE_START command from system software.
+- *  KCS_PHASE_WRITE_DATA:
+- *            BMC is receiving a data byte from system software.
+- *  KCS_PHASE_WRITE_END_CMD:
+- *            BMC is waiting a last data byte from system software.
+- *  KCS_PHASE_WRITE_DONE:
+- *            BMC has received the whole request from system software.
+- *  KCS_PHASE_WAIT_READ:
+- *            BMC is waiting the response from the upper IPMI service.
+- *  KCS_PHASE_READ:
+- *            BMC is transferring the response to system software.
+- *  KCS_PHASE_ABORT_ERROR1:
+- *            BMC is waiting error status request from system software.
+- *  KCS_PHASE_ABORT_ERROR2:
+- *            BMC is waiting for idle status afer error from system software.
+- *  KCS_PHASE_ERROR:
+- *            BMC has detected a protocol violation at the interface level.
+- */
+-enum kcs_ipmi_phases {
+-	KCS_PHASE_IDLE,
+-
+-	KCS_PHASE_WRITE_START,
+-	KCS_PHASE_WRITE_DATA,
+-	KCS_PHASE_WRITE_END_CMD,
+-	KCS_PHASE_WRITE_DONE,
+-
+-	KCS_PHASE_WAIT_READ,
+-	KCS_PHASE_READ,
+-
+-	KCS_PHASE_ABORT_ERROR1,
+-	KCS_PHASE_ABORT_ERROR2,
+-	KCS_PHASE_ERROR
+-};
+-
+-/* IPMI 2.0 - Table 9-4, KCS Interface Status Codes */
+-enum kcs_ipmi_errors {
+-	KCS_NO_ERROR                = 0x00,
+-	KCS_ABORTED_BY_COMMAND      = 0x01,
+-	KCS_ILLEGAL_CONTROL_CODE    = 0x02,
+-	KCS_LENGTH_ERROR            = 0x06,
+-	KCS_UNSPECIFIED_ERROR       = 0xFF
+-};
+-
+ struct kcs_bmc_ipmi {
+ 	struct list_head entry;
+ 
+@@ -95,29 +49,6 @@ struct kcs_bmc_ipmi {
+ 
+ #define KCS_MSG_BUFSIZ    1000
+ 
+-#define KCS_ZERO_DATA     0
+-
+-/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
+-#define KCS_STATUS_STATE(state) (state << 6)
+-#define KCS_STATUS_STATE_MASK   GENMASK(7, 6)
+-#define KCS_STATUS_CMD_DAT      BIT(3)
+-#define KCS_STATUS_SMS_ATN      BIT(2)
+-#define KCS_STATUS_IBF          BIT(1)
+-#define KCS_STATUS_OBF          BIT(0)
+-
+-/* IPMI 2.0 - Table 9-2, KCS Interface State Bits */
+-enum kcs_states {
+-	IDLE_STATE  = 0,
+-	READ_STATE  = 1,
+-	WRITE_STATE = 2,
+-	ERROR_STATE = 3,
+-};
+-
+-/* IPMI 2.0 - Table 9-3, KCS Interface Control Codes */
+-#define KCS_CMD_GET_STATUS_ABORT  0x60
+-#define KCS_CMD_WRITE_START       0x61
+-#define KCS_CMD_WRITE_END         0x62
+-#define KCS_CMD_READ_BYTE         0x68
+ 
+ static inline void set_state(struct kcs_bmc_ipmi *priv, u8 state)
+ {
+diff --git a/include/linux/ipmi_kcs.h b/include/linux/ipmi_kcs.h
+new file mode 100644
+index 000000000000..30c4b6e4d689
+--- /dev/null
++++ b/include/linux/ipmi_kcs.h
+@@ -0,0 +1,80 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2015-2018, Intel Corporation.
++ */
++
++#ifndef __IPMI_KCS_H__
++#define __IPMI_KCS_H__
++
++/* Different phases of the KCS BMC module.
++ *  KCS_PHASE_IDLE:
++ *            BMC should not be expecting nor sending any data.
++ *  KCS_PHASE_WRITE_START:
++ *            BMC is receiving a WRITE_START command from system software.
++ *  KCS_PHASE_WRITE_DATA:
++ *            BMC is receiving a data byte from system software.
++ *  KCS_PHASE_WRITE_END_CMD:
++ *            BMC is waiting a last data byte from system software.
++ *  KCS_PHASE_WRITE_DONE:
++ *            BMC has received the whole request from system software.
++ *  KCS_PHASE_WAIT_READ:
++ *            BMC is waiting the response from the upper IPMI service.
++ *  KCS_PHASE_READ:
++ *            BMC is transferring the response to system software.
++ *  KCS_PHASE_ABORT_ERROR1:
++ *            BMC is waiting error status request from system software.
++ *  KCS_PHASE_ABORT_ERROR2:
++ *            BMC is waiting for idle status afer error from system software.
++ *  KCS_PHASE_ERROR:
++ *            BMC has detected a protocol violation at the interface level.
++ */
++enum kcs_ipmi_phases {
++	KCS_PHASE_IDLE,
++
++	KCS_PHASE_WRITE_START,
++	KCS_PHASE_WRITE_DATA,
++	KCS_PHASE_WRITE_END_CMD,
++	KCS_PHASE_WRITE_DONE,
++
++	KCS_PHASE_WAIT_READ,
++	KCS_PHASE_READ,
++
++	KCS_PHASE_ABORT_ERROR1,
++	KCS_PHASE_ABORT_ERROR2,
++	KCS_PHASE_ERROR
++};
++
++/* IPMI 2.0 - Table 9-4, KCS Interface Status Codes */
++enum kcs_ipmi_errors {
++	KCS_NO_ERROR                = 0x00,
++	KCS_ABORTED_BY_COMMAND      = 0x01,
++	KCS_ILLEGAL_CONTROL_CODE    = 0x02,
++	KCS_LENGTH_ERROR            = 0x06,
++	KCS_UNSPECIFIED_ERROR       = 0xFF
++};
++
++#define KCS_ZERO_DATA     0
++
++/* IPMI 2.0 - Table 9-1, KCS Interface Status Register Bits */
++#define KCS_STATUS_STATE(state) (state << 6)
++#define KCS_STATUS_STATE_MASK   GENMASK(7, 6)
++#define KCS_STATUS_CMD_DAT      BIT(3)
++#define KCS_STATUS_SMS_ATN      BIT(2)
++#define KCS_STATUS_IBF          BIT(1)
++#define KCS_STATUS_OBF          BIT(0)
++
++/* IPMI 2.0 - Table 9-2, KCS Interface State Bits */
++enum kcs_states {
++	IDLE_STATE  = 0,
++	READ_STATE  = 1,
++	WRITE_STATE = 2,
++	ERROR_STATE = 3,
++};
++
++/* IPMI 2.0 - Table 9-3, KCS Interface Control Codes */
++#define KCS_CMD_GET_STATUS_ABORT  0x60
++#define KCS_CMD_WRITE_START       0x61
++#define KCS_CMD_WRITE_END         0x62
++#define KCS_CMD_READ_BYTE         0x68
++
++#endif /* __IPMI_KCS_H__ */
 -- 
 2.25.1
 
