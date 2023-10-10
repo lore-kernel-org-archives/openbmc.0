@@ -4,70 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF096CD68E4
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 03:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF67CD80B0
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 12:03:23 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JIxhRmlj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xCqq8she;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S4Lq63Dcbz3cGc
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 14:24:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S4ZL16dlDz3c7q
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 23:03:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=JIxhRmlj;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xCqq8she;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::432; helo=mail-wr1-x432.google.com; envelope-from=dan.carpenter@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::112c; helo=mail-yw1-x112c.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com [IPv6:2607:f8b0:4864:20::112c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S0HhT0zFTz2yN3
-	for <openbmc@lists.ozlabs.org>; Tue,  3 Oct 2023 23:49:28 +1100 (AEDT)
-Received: by mail-wr1-x432.google.com with SMTP id ffacd0b85a97d-3231df054c4so885871f8f.0
-        for <openbmc@lists.ozlabs.org>; Tue, 03 Oct 2023 05:49:28 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4ZJn37w8z2yTx
+	for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2023 23:02:15 +1100 (AEDT)
+Received: by mail-yw1-x112c.google.com with SMTP id 00721157ae682-5a7c08b7744so6296627b3.3
+        for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2023 05:02:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696337363; x=1696942163; darn=lists.ozlabs.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=dlhxrmRkRpeN3OD8U4BACgAdd1QbrxInrsx8HMZ5kJg=;
-        b=JIxhRmljG3gFRwGQGJioo6W9ZLjqDWIgZWMPHncGvaD9jTMBF2GlV7aE9PznllXpd3
-         +ZJwDiE6IplC0zXNXGxfO/PrgbBI+BMd1hrdsSk/Mp5pA8LJEHggwDaxhTtEpUGDNx3N
-         VS1q3xYx2kaxxP+XAqkb0N6LkwRPEVYMnMsu8ucAiGBP9xzIMTo1SdrzMZ/koxqiJi0F
-         NCF8Rki39wTAGL66eMYQ05YBQ+akdI5x07DamgegTarLFOzWUPzoQcBJqQvKiDg35zwa
-         JxvKKpr5mT3sEiYtTU5zg/cDJQtaCpnjIM27I8ei4p1QF4vBLVVJuMbtBX+09AjbJD8s
-         3/Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696337363; x=1696942163;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1696939330; x=1697544130; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dlhxrmRkRpeN3OD8U4BACgAdd1QbrxInrsx8HMZ5kJg=;
-        b=U3danDrBsDW6xsEPgJTo59RRg31VEBal9L+7ZEGzoIs6TfFhJyNxmDK8SfzTuSJOHB
-         6j67sJYQOaKEn4VMGf02RxV8Dw1xrJVMBAffMyZ+7emdMYeJcyQlZVRsnrrcceH+2Z6h
-         SoJYaG+tfTgcRzWLVpJEIZMxtia1ovkET1MpQ+BQLIhn2MOctEFt+v/9xyQI0sWXaoKX
-         9zZdPwms36Uq8FgHRoWYP9xbsymkRm0XrI+QHK/mdvfXoSJDXPkihhX+Ho72+E8JcaEf
-         +DBo+CWr2yaItmjSQICVVSqzQlbT10JbDcPFsQEGzyAP/aBIJeWyvrgOPKrmzPNKIWPw
-         96aA==
-X-Gm-Message-State: AOJu0YzdBZe9hiwebOeUmPjNvycb5YWQpMdBPIYjW75V8tu9vZzvokF3
-	UI7McACxWiQHuL77e0RFKa/GUw==
-X-Google-Smtp-Source: AGHT+IHaooNR/TbU/A9B5ajdiCBcPIbTQ8DPZxIgHjk9yBVQj+gRRRWDV1SLznjSXOlY8aO5drEItQ==
-X-Received: by 2002:adf:f302:0:b0:320:b2a:4ea6 with SMTP id i2-20020adff302000000b003200b2a4ea6mr13526615wro.9.1696337363023;
-        Tue, 03 Oct 2023 05:49:23 -0700 (PDT)
-Received: from localhost ([102.36.222.112])
-        by smtp.gmail.com with ESMTPSA id v8-20020adfe4c8000000b003247d3e5d99sm1522305wrm.55.2023.10.03.05.49.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Oct 2023 05:49:22 -0700 (PDT)
-Date: Tue, 3 Oct 2023 15:49:19 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Kun-Fa Lin <milkfafa@gmail.com>
-Subject: Re: [PATCH] media: nuvoton: npcm-video: Fix IS_ERR() vs NULL bug
-Message-ID: <dd71316e-18e6-47a4-a267-67328b1a1158@kadam.mountain>
-References: <3134a802-75fe-49f3-bcd6-06addc2ffaf5@moroto.mountain>
- <CADnNmFrOeGxUL1U9eJngKpMpoVVZXN4Owxxo9Ee18tEYxZ6FhQ@mail.gmail.com>
+        bh=0wBmjqlIuY6Zt3anxCmFrS7RpdSFcEoQFexeps6+6pY=;
+        b=xCqq8shesqXCCafP0F40xrNnIXS+z/YR0BBTmzvj8Ll7clxXoUmTOZC2MC2BH69eft
+         e3I9uBzzeCVsY6+ZMhfblLm413FE3l5ceXPImo2WgEY5qhv2qEN23bVClRXEaCReZLi3
+         nf+YQtZBHayNbLwLjqLPty2Zpd0HbWDLg6rKrdmEPsSZubd6ioWNAHCP2KinJDpHVq4x
+         YhvfdPqv00mTzFANf/7lzpZOGZvQG4T0yO3mseJVEfRGcPivLUdE9ZFbHS1rmNtnXCNy
+         o1Ltmql8mkOrqrIelkKrL3ib6A1NkeWQntKQ6OKuxetpUj15nX+DooFfyGXzeeE0oqmb
+         lP+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1696939330; x=1697544130;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0wBmjqlIuY6Zt3anxCmFrS7RpdSFcEoQFexeps6+6pY=;
+        b=Awd72iEsTczsrj7hJnsOZ8bpfWGMrGHsGt7A0yKvhBbtBGNbGy/dmAH8SgF/ysn4+3
+         5bx9MJPl0DoJSzeMvo2QSkSn1/5X6zMWMqRk3cjiDelhtHpzycGp72mI3QfVWMeUBYAt
+         BPSJO1NEkIk1TAAq5cskw4EPwIwpfEAmyXx7z+k34XhMXXbvxxvg6TXTnJUkP6OQqtKV
+         mhPL2lv+BofIcqwbCOT7EoTZzOsXl26H50APl6Fuzlg/d8kdgicleUHVDQl7oINQ9Af8
+         owijpj9PcmIg65FmAP+m7VWGiYQ+m13DW2ppW9ck9EsTSE6vNDmshAXk8yAGLwOPUWmo
+         u75A==
+X-Gm-Message-State: AOJu0YwEVJ2DkZAYInFXdFBQyt6/wWlSP5FsWddZ1FOEoEfEtMFBTNH7
+	Yy1J5O6uv+fbahJZ92xrIaqkU09D+HME/+kFzctrhw==
+X-Google-Smtp-Source: AGHT+IG23K04t+lvBS9/HwvoXXibHWZT2x93Gqx7aXMv0MEjbeY28YO9n63irEBhuu2GkQHI23S6u1dmnLY+nMNTZc4=
+X-Received: by 2002:a05:690c:d87:b0:5a5:7ed:cf80 with SMTP id
+ da7-20020a05690c0d8700b005a507edcf80mr20364608ywb.23.1696939329657; Tue, 10
+ Oct 2023 05:02:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADnNmFrOeGxUL1U9eJngKpMpoVVZXN4Owxxo9Ee18tEYxZ6FhQ@mail.gmail.com>
-X-Mailman-Approved-At: Tue, 10 Oct 2023 14:15:35 +1100
+References: <20231005030849.11352-2-zev@bewilderbeest.net>
+In-Reply-To: <20231005030849.11352-2-zev@bewilderbeest.net>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 10 Oct 2023 14:01:58 +0200
+Message-ID: <CACRpkdZDBmUMY7pVxtSkVQnm9bHp+ObfmumO39j=XYeDJaD7Dw@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: aspeed: Allow changing SPI mode from hardware
+ strap defaults
+To: Zev Weiss <zev@bewilderbeest.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,24 +76,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Joseph Liu <kwliu@nuvoton.com>, openbmc@lists.ozlabs.org, kernel-janitors@vger.kernel.org, Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab <mchehab@kernel.org>, Marvin Lin <kflin@nuvoton.com>, linux-media@vger.kernel.org
+Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Oct 03, 2023 at 08:02:33PM +0800, Kun-Fa Lin wrote:
-> Hi Dan,
-> 
-> Thanks for the patch.
-> 
-> > The of_parse_phandle() function returns NULL on error.  It never returns
-> > error pointers.  Update the check accordingly.
-> 
-> Commit message contains some redundant whitespaces.
-> 
+On Thu, Oct 5, 2023 at 5:09=E2=80=AFAM Zev Weiss <zev@bewilderbeest.net> wr=
+ote:
 
-I have no idea what you're talking about?  Are you talking about two
-spaces after a period?  :P
 
-regards,
-dan carpenter
+> Some platforms unfortunately have their SPI mode selection bits
+> strapped incorrectly (such as being configured for passthrough mode
+> when master mode is in fact the only useful configuration for it) and
+> thus require correction in software.  Add the SPI mode bits to the
+> GPIO passthrough bits as the exceptions to the read-only rule for the
+> hardware strap register so that the pinctrl subsystem can be used for
+> such corrections.
+>
+> Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 
+Patch applied!
+
+Yours,
+Linus Walleij
