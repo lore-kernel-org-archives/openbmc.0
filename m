@@ -4,67 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AF67CD80B0
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 12:03:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFFA3CD80BD
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 12:24:27 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xCqq8she;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=BFnBHGk9;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S4ZL16dlDz3c7q
-	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 23:03:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S4ZpL250Kz3cNH
+	for <openbmc@archiver.kernel.org>; Tue, 10 Oct 2023 23:24:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xCqq8she;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=BFnBHGk9;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::112c; helo=mail-yw1-x112c.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com [IPv6:2607:f8b0:4864:20::112c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::229; helo=mail-lj1-x229.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com [IPv6:2a00:1450:4864:20::229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4ZJn37w8z2yTx
-	for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2023 23:02:15 +1100 (AEDT)
-Received: by mail-yw1-x112c.google.com with SMTP id 00721157ae682-5a7c08b7744so6296627b3.3
-        for <openbmc@lists.ozlabs.org>; Tue, 10 Oct 2023 05:02:15 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S4ZnH61T4z3bZr;
+	Tue, 10 Oct 2023 23:23:31 +1100 (AEDT)
+Received: by mail-lj1-x229.google.com with SMTP id 38308e7fff4ca-2bfed7c4e6dso63796891fa.1;
+        Tue, 10 Oct 2023 05:23:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1696939330; x=1697544130; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1696940608; x=1697545408; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0wBmjqlIuY6Zt3anxCmFrS7RpdSFcEoQFexeps6+6pY=;
-        b=xCqq8shesqXCCafP0F40xrNnIXS+z/YR0BBTmzvj8Ll7clxXoUmTOZC2MC2BH69eft
-         e3I9uBzzeCVsY6+ZMhfblLm413FE3l5ceXPImo2WgEY5qhv2qEN23bVClRXEaCReZLi3
-         nf+YQtZBHayNbLwLjqLPty2Zpd0HbWDLg6rKrdmEPsSZubd6ioWNAHCP2KinJDpHVq4x
-         YhvfdPqv00mTzFANf/7lzpZOGZvQG4T0yO3mseJVEfRGcPivLUdE9ZFbHS1rmNtnXCNy
-         o1Ltmql8mkOrqrIelkKrL3ib6A1NkeWQntKQ6OKuxetpUj15nX+DooFfyGXzeeE0oqmb
-         lP+g==
+        bh=YUX/UAbHIqbeqOjhPaMPY2ZesCBPS6XxII45ueUUUxU=;
+        b=BFnBHGk9S6HpbS9sD2CZsvi6m9qyChcmt0Kcnm6sIPKuGEeDup+28SIRCwRV2maT2h
+         3p8dJx2j74Eh7w1E164WJTPJAbNJNveM69CxhKWnMvyiyD3Oue5o8imEKW4NMxVjSOc9
+         OSXqJQYDKcPFmavp5wsU9qXVnXiGP0H5Xi8QeoIf739QYNLAfE+7eWye5qVc1dEbqopt
+         Bp33YZJGgRsXshDpgXCGRhYkDezlszjTCr0Zzp1w9QVjCOOM7VphGJN74fTalw9S0kLR
+         g9Bi6NGI6PSBvFn4ahCz4e3R2Jn+hAtwRFNEDROo3nTbc/thG03+kqT51npsw8kccgTk
+         j+ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1696939330; x=1697544130;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1696940608; x=1697545408;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0wBmjqlIuY6Zt3anxCmFrS7RpdSFcEoQFexeps6+6pY=;
-        b=Awd72iEsTczsrj7hJnsOZ8bpfWGMrGHsGt7A0yKvhBbtBGNbGy/dmAH8SgF/ysn4+3
-         5bx9MJPl0DoJSzeMvo2QSkSn1/5X6zMWMqRk3cjiDelhtHpzycGp72mI3QfVWMeUBYAt
-         BPSJO1NEkIk1TAAq5cskw4EPwIwpfEAmyXx7z+k34XhMXXbvxxvg6TXTnJUkP6OQqtKV
-         mhPL2lv+BofIcqwbCOT7EoTZzOsXl26H50APl6Fuzlg/d8kdgicleUHVDQl7oINQ9Af8
-         owijpj9PcmIg65FmAP+m7VWGiYQ+m13DW2ppW9ck9EsTSE6vNDmshAXk8yAGLwOPUWmo
-         u75A==
-X-Gm-Message-State: AOJu0YwEVJ2DkZAYInFXdFBQyt6/wWlSP5FsWddZ1FOEoEfEtMFBTNH7
-	Yy1J5O6uv+fbahJZ92xrIaqkU09D+HME/+kFzctrhw==
-X-Google-Smtp-Source: AGHT+IG23K04t+lvBS9/HwvoXXibHWZT2x93Gqx7aXMv0MEjbeY28YO9n63irEBhuu2GkQHI23S6u1dmnLY+nMNTZc4=
-X-Received: by 2002:a05:690c:d87:b0:5a5:7ed:cf80 with SMTP id
- da7-20020a05690c0d8700b005a507edcf80mr20364608ywb.23.1696939329657; Tue, 10
- Oct 2023 05:02:09 -0700 (PDT)
+        bh=YUX/UAbHIqbeqOjhPaMPY2ZesCBPS6XxII45ueUUUxU=;
+        b=N4V0z8JZm7feaMjXBUowNF6KTfxDNsSStpDdpyGSkTIBIWvpD+GWc+53t8c3sv5FEc
+         bl7xq4HvpS8mX+scmRVY4WG4kWtbEfrHwMEtHN6frR7+FoYJJbLwWLrE1Mv/o30MRXJz
+         g1fTFUCUak3Yef2MaEq/xH4i3V1iLefzQyJ2+x5/Ac5AXEFgpVpaXq/u1yTu1jmGADX8
+         bilwiGv/y0ICMLGCXxPac7j9xJMMC7g3M7xQAQBgsHxJgL72wF9MMmhKaSLi6cFsCYX5
+         vo4wf33QPBpOypO0gtvfeDLR1UsxG1KICYPE9TV/1iX95T/G4fM4RUXc5vr7LQg10h72
+         lGBQ==
+X-Gm-Message-State: AOJu0YxvX2BbbPvBPfOHiJy4DzIkS3Ab0yovZ0vljW88Omfo8QJGUN2Y
+	+oEvY9Rejuq0W6okJCfDH0g=
+X-Google-Smtp-Source: AGHT+IF7glpbN6KRt0jokK8LtPnQbJM71FgXY7LuwB8vQJxVxZY747eKG1EeB3p5SSxJTCZ9iuU/GQ==
+X-Received: by 2002:a2e:994e:0:b0:2bc:c38a:bd7c with SMTP id r14-20020a2e994e000000b002bcc38abd7cmr16309656ljj.33.1696940607548;
+        Tue, 10 Oct 2023 05:23:27 -0700 (PDT)
+Received: from PC10319.67 ([82.97.198.254])
+        by smtp.googlemail.com with ESMTPSA id g9-20020a2e9cc9000000b002b9e346a152sm2425638ljj.96.2023.10.10.05.23.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Oct 2023 05:23:27 -0700 (PDT)
+From: Konstantin Aladyshev <aladyshev22@gmail.com>
+To: 
+Subject: [PATCH v5 1/3] ipmi: Move KCS headers to common include folder
+Date: Tue, 10 Oct 2023 15:23:19 +0300
+Message-Id: <20231010122321.823-2-aladyshev22@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231010122321.823-1-aladyshev22@gmail.com>
+References: <20231010122321.823-1-aladyshev22@gmail.com>
 MIME-Version: 1.0
-References: <20231005030849.11352-2-zev@bewilderbeest.net>
-In-Reply-To: <20231005030849.11352-2-zev@bewilderbeest.net>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 10 Oct 2023 14:01:58 +0200
-Message-ID: <CACRpkdZDBmUMY7pVxtSkVQnm9bHp+ObfmumO39j=XYeDJaD7Dw@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: aspeed: Allow changing SPI mode from hardware
- strap defaults
-To: Zev Weiss <zev@bewilderbeest.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,25 +78,169 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org
+Cc: tmaimon77@gmail.com, linux-aspeed@lists.ozlabs.org, tali.perry1@gmail.com, edumazet@google.com, jk@codeconstruct.com.au, matt@codeconstruct.com.au, benjaminfair@google.com, openbmc@lists.ozlabs.org, joel@jms.id.au, kuba@kernel.org, pabeni@redhat.com, minyard@acm.org, aladyshev22@gmail.com, openipmi-developer@lists.sourceforge.net, linux-arm-kernel@lists.infradead.org, andrew@aj.id.au, venture@google.com, linux-kernel@vger.kernel.org, avifishman70@gmail.com, netdev@vger.kernel.org, davem@davemloft.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Oct 5, 2023 at 5:09=E2=80=AFAM Zev Weiss <zev@bewilderbeest.net> wr=
-ote:
+The current KCS header files can be utilized by both IPMI drivers
+(drivers/char/ipmi) and MCTP driver (drivers/net/mctp). To be able to
+use them in both cases move the headers to 'include/linux' folder.
 
+Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+---
+ drivers/char/ipmi/kcs_bmc.c                           | 8 +++-----
+ drivers/char/ipmi/kcs_bmc_aspeed.c                    | 3 +--
+ drivers/char/ipmi/kcs_bmc_cdev_ipmi.c                 | 2 +-
+ drivers/char/ipmi/kcs_bmc_npcm7xx.c                   | 2 +-
+ drivers/char/ipmi/kcs_bmc_serio.c                     | 2 +-
+ {drivers/char/ipmi => include/linux}/kcs_bmc.h        | 0
+ {drivers/char/ipmi => include/linux}/kcs_bmc_client.h | 3 +--
+ {drivers/char/ipmi => include/linux}/kcs_bmc_device.h | 3 +--
+ 8 files changed, 9 insertions(+), 14 deletions(-)
+ rename {drivers/char/ipmi => include/linux}/kcs_bmc.h (100%)
+ rename {drivers/char/ipmi => include/linux}/kcs_bmc_client.h (97%)
+ rename {drivers/char/ipmi => include/linux}/kcs_bmc_device.h (96%)
 
-> Some platforms unfortunately have their SPI mode selection bits
-> strapped incorrectly (such as being configured for passthrough mode
-> when master mode is in fact the only useful configuration for it) and
-> thus require correction in software.  Add the SPI mode bits to the
-> GPIO passthrough bits as the exceptions to the read-only rule for the
-> hardware strap register so that the pinctrl subsystem can be used for
-> such corrections.
->
-> Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+index 8b1161d5194a..d29a8505d6ed 100644
+--- a/drivers/char/ipmi/kcs_bmc.c
++++ b/drivers/char/ipmi/kcs_bmc.c
+@@ -5,15 +5,13 @@
+  */
+ 
+ #include <linux/device.h>
++#include <linux/kcs_bmc.h>
++#include <linux/kcs_bmc_client.h>
++#include <linux/kcs_bmc_device.h>
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ 
+-#include "kcs_bmc.h"
+-
+-/* Implement both the device and client interfaces here */
+-#include "kcs_bmc_device.h"
+-#include "kcs_bmc_client.h"
+ 
+ /* Record registered devices and drivers */
+ static DEFINE_MUTEX(kcs_bmc_lock);
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_bmc_aspeed.c
+index 72640da55380..3dc0dfb448f5 100644
+--- a/drivers/char/ipmi/kcs_bmc_aspeed.c
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -10,6 +10,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
+ #include <linux/irq.h>
++#include <linux/kcs_bmc_device.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -21,8 +22,6 @@
+ #include <linux/slab.h>
+ #include <linux/timer.h>
+ 
+-#include "kcs_bmc_device.h"
+-
+ 
+ #define DEVICE_NAME     "ast-kcs-bmc"
+ 
+diff --git a/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c b/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
+index cf670e891966..bf1001130a6c 100644
+--- a/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
++++ b/drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
+@@ -8,6 +8,7 @@
+ #include <linux/errno.h>
+ #include <linux/io.h>
+ #include <linux/ipmi_bmc.h>
++#include <linux/kcs_bmc_client.h>
+ #include <linux/list.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
+@@ -17,7 +18,6 @@
+ #include <linux/sched.h>
+ #include <linux/slab.h>
+ 
+-#include "kcs_bmc_client.h"
+ 
+ /* Different phases of the KCS BMC module.
+  *  KCS_PHASE_IDLE:
+diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+index 7961fec56476..160553248a93 100644
+--- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
++++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+@@ -10,6 +10,7 @@
+ #include <linux/errno.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/kcs_bmc_device.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+@@ -17,7 +18,6 @@
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+-#include "kcs_bmc_device.h"
+ 
+ #define DEVICE_NAME	"npcm-kcs-bmc"
+ #define KCS_CHANNEL_MAX	3
+diff --git a/drivers/char/ipmi/kcs_bmc_serio.c b/drivers/char/ipmi/kcs_bmc_serio.c
+index 1793358be782..24df7144a189 100644
+--- a/drivers/char/ipmi/kcs_bmc_serio.c
++++ b/drivers/char/ipmi/kcs_bmc_serio.c
+@@ -5,12 +5,12 @@
+ #include <linux/device.h>
+ #include <linux/errno.h>
+ #include <linux/list.h>
++#include <linux/kcs_bmc_client.h>
+ #include <linux/module.h>
+ #include <linux/sched/signal.h>
+ #include <linux/serio.h>
+ #include <linux/slab.h>
+ 
+-#include "kcs_bmc_client.h"
+ 
+ struct kcs_bmc_serio {
+ 	struct list_head entry;
+diff --git a/drivers/char/ipmi/kcs_bmc.h b/include/linux/kcs_bmc.h
+similarity index 100%
+rename from drivers/char/ipmi/kcs_bmc.h
+rename to include/linux/kcs_bmc.h
+diff --git a/drivers/char/ipmi/kcs_bmc_client.h b/include/linux/kcs_bmc_client.h
+similarity index 97%
+rename from drivers/char/ipmi/kcs_bmc_client.h
+rename to include/linux/kcs_bmc_client.h
+index 6fdcde0a7169..f6350c9366dd 100644
+--- a/drivers/char/ipmi/kcs_bmc_client.h
++++ b/include/linux/kcs_bmc_client.h
+@@ -5,8 +5,7 @@
+ #define __KCS_BMC_CONSUMER_H__
+ 
+ #include <linux/irqreturn.h>
+-
+-#include "kcs_bmc.h"
++#include <linux/kcs_bmc.h>
+ 
+ struct kcs_bmc_driver_ops {
+ 	int (*add_device)(struct kcs_bmc_device *kcs_bmc);
+diff --git a/drivers/char/ipmi/kcs_bmc_device.h b/include/linux/kcs_bmc_device.h
+similarity index 96%
+rename from drivers/char/ipmi/kcs_bmc_device.h
+rename to include/linux/kcs_bmc_device.h
+index 17c572f25c54..65333b68c0af 100644
+--- a/drivers/char/ipmi/kcs_bmc_device.h
++++ b/include/linux/kcs_bmc_device.h
+@@ -5,8 +5,7 @@
+ #define __KCS_BMC_DEVICE_H__
+ 
+ #include <linux/irqreturn.h>
+-
+-#include "kcs_bmc.h"
++#include <linux/kcs_bmc.h>
+ 
+ struct kcs_bmc_device_ops {
+ 	void (*irq_mask_update)(struct kcs_bmc_device *kcs_bmc, u8 mask, u8 enable);
+-- 
+2.25.1
 
-Patch applied!
-
-Yours,
-Linus Walleij
