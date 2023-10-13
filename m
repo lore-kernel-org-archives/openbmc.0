@@ -4,51 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 677A4CDB482
-	for <openbmc@archiver.kernel.org>; Thu, 12 Oct 2023 23:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F5EBCDB474
+	for <openbmc@archiver.kernel.org>; Fri, 13 Oct 2023 01:20:56 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Q1QP2+zm;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4S64tn0k3Vz3vd5
-	for <openbmc@archiver.kernel.org>; Fri, 13 Oct 2023 10:03:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4S67xL5F1Mz3cNj
+	for <openbmc@archiver.kernel.org>; Fri, 13 Oct 2023 12:20:54 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Q1QP2+zm;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12d; helo=mail-lf1-x12d.google.com; envelope-from=joel.stan@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com [IPv6:2a00:1450:4864:20::12d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4S64rP62Vnz2xWc
-	for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2023 10:01:20 +1100 (AEDT)
-Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 39CN1762031264
-	for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2023 02:01:07 +0300
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Fri, 13 Oct
- 2023 02:01:06 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Fri, 13
- Oct 2023 07:01:02 +0800
-Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 13 Oct 2023 07:01:01 +0800
-Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id CF58168E71;
-	Fri, 13 Oct 2023 02:01:00 +0300 (IDT)
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id C9BA621CFCC4; Fri, 13 Oct 2023 02:01:00 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <peter.chen@kernel.org>, <gregkh@linuxfoundation.org>,
-        <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
-        <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-        <j.neuschaefer@gmx.net>
-Subject: [PATCH v6 1/3] usb: chipidea: add CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS flag
-Date: Fri, 13 Oct 2023 02:00:55 +0300
-Message-ID: <20231012230057.3365626-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20231012230057.3365626-1-tmaimon77@gmail.com>
-References: <20231012230057.3365626-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4S67wF4LBPz2ytJ
+	for <openbmc@lists.ozlabs.org>; Fri, 13 Oct 2023 12:19:55 +1100 (AEDT)
+Received: by mail-lf1-x12d.google.com with SMTP id 2adb3069b0e04-50307acd445so2003054e87.0
+        for <openbmc@lists.ozlabs.org>; Thu, 12 Oct 2023 18:19:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jms.id.au; s=google; t=1697159988; x=1697764788; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=OeQN8A1b3apIIzvKmd5I2fRy3O9FL+0AF7zpFAbY1Ew=;
+        b=Q1QP2+zmGsLApAShGSlLz8Sk7ylGinYljhth+e7nKX2yFoLNJG6tBK1YE9EpB0XVzS
+         CvoVRB4WnuJBezn3nb8HSIobIBu6TB9bwA/JQl7FnPK9V2XFe7alhYq+J2laBYJ+JT/R
+         190B7+/3o5GkkRxpG24iyXOZsadsIxccqQ35k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697159988; x=1697764788;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=OeQN8A1b3apIIzvKmd5I2fRy3O9FL+0AF7zpFAbY1Ew=;
+        b=SKlVEX+zu6RxMynq8ofHGFFtRwOov3uTEBAhNOSjjontfIlTgzkuU1gM8KcSxO2FL9
+         Ow7YEfYjJeuYuEYNo6JOvSpBHzQ4vENFzXAF+UXRvjQ7bsqPslmSq9+uSc27kSRbhA+y
+         tlYPrAJVnxwndLzB7nF0Q8tZF3LWATgMT/pk+dMt3xaaMD2gMGwWXO6CXdW5T2Sotd00
+         DNcWQzJvTO3KcBlGcF2Wiy9PLbOxFxWX6b9fp/btLgqBaphFiZ6avguyUII0NiGA/WPx
+         MmRc/MP3xHDddLm2KuZUSarMvy4RL5akas+sJi/mpoiKtjXvX0I6XZPQIRZ/4O61tq54
+         nHBQ==
+X-Gm-Message-State: AOJu0YxMTubXR5NG4XlZUWLIM8mOCkyjcIsJwYp7muKVNICQWTD4GjKF
+	EY0CKLsEunT3M28ecOxJVIarBgqNf4F7AiTZvVM=
+X-Google-Smtp-Source: AGHT+IH5kT3Ffc8aZZrsInyOITLAJ3XnNqCz1J1stHo/MVin+v0fhGUyErHXu9RtNOamERqW0UrkUGyHPgkHiyxwsEU=
+X-Received: by 2002:a19:6d1a:0:b0:4ff:7e80:4f1d with SMTP id
+ i26-20020a196d1a000000b004ff7e804f1dmr19999217lfc.57.1697159987855; Thu, 12
+ Oct 2023 18:19:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
+References: <20231006172735.420566-1-eajames@linux.ibm.com>
+ <CACPK8XcwULKU16zr5CKtufMV2xqeqhWk+1Pv0VMDmMA6oXUgdQ@mail.gmail.com> <3731ff1c-0b23-8ada-836a-4d45f3bcbfc8@linux.ibm.com>
+In-Reply-To: <3731ff1c-0b23-8ada-836a-4d45f3bcbfc8@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 13 Oct 2023 11:49:36 +1030
+Message-ID: <CACPK8Xc3s6ZndX-AwuG0d7o+px98aQ3G5kbXV68fa4KG2GVHLw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-6.5 0/4] ARM: dts: aspeed: p10bmc: Add fan
+ controller properties
+To: Eddie James <eajames@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,50 +72,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Adding CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS flag to modify the vbus_active
-parameter to active in case the ChipIdea USB IP role is device-only and
-there is no otgsc register.
+On Thu, 12 Oct 2023 at 00:13, Eddie James <eajames@linux.ibm.com> wrote:
+>
+>
+> On 10/10/23 20:46, Joel Stanley wrote:
+> > On Sat, 7 Oct 2023 at 03:58, Eddie James <eajames@linux.ibm.com> wrote:
+> >> Now that the max31785 driver can parse the relevant properties, update
+> > I can't see a patch that adds that support. Can you point it out?
+>
+>
+> Sure,
+> https://github.com/openbmc/linux/commit/ebd863b5c2a2f5bc3ee26fadf39a213a2cdc6efb
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Acked-by: Peter Chen <peter.chen@kernel.org>
----
- drivers/usb/chipidea/otg.c   | 5 ++++-
- include/linux/usb/chipidea.h | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/chipidea/otg.c b/drivers/usb/chipidea/otg.c
-index f5490f2a5b6b..647e98f4e351 100644
---- a/drivers/usb/chipidea/otg.c
-+++ b/drivers/usb/chipidea/otg.c
-@@ -130,8 +130,11 @@ enum ci_role ci_otg_role(struct ci_hdrc *ci)
- 
- void ci_handle_vbus_change(struct ci_hdrc *ci)
- {
--	if (!ci->is_otg)
-+	if (!ci->is_otg) {
-+		if (ci->platdata->flags & CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS)
-+			usb_gadget_vbus_connect(&ci->gadget);
- 		return;
-+	}
- 
- 	if (hw_read_otgsc(ci, OTGSC_BSV) && !ci->vbus_active)
- 		usb_gadget_vbus_connect(&ci->gadget);
-diff --git a/include/linux/usb/chipidea.h b/include/linux/usb/chipidea.h
-index 0b4f2d5faa08..5a7f96684ea2 100644
---- a/include/linux/usb/chipidea.h
-+++ b/include/linux/usb/chipidea.h
-@@ -64,6 +64,7 @@ struct ci_hdrc_platform_data {
- #define CI_HDRC_PMQOS			BIT(15)
- #define CI_HDRC_PHY_VBUS_CONTROL	BIT(16)
- #define CI_HDRC_HAS_PORTSC_PEC_MISSED	BIT(17)
-+#define CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS	BIT(18)
- 	enum usb_dr_mode	dr_mode;
- #define CI_HDRC_CONTROLLER_RESET_EVENT		0
- #define CI_HDRC_CONTROLLER_STOPPED_EVENT	1
--- 
-2.33.0
-
+Right, that's the openbmc downstream patch. We would like to see that
+patch go upstream. Are you able to work on that?
