@@ -4,56 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123DEC25B6E
-	for <openbmc@archiver.kernel.org>; Fri, 27 Oct 2023 11:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CC7C0032E
+	for <openbmc@archiver.kernel.org>; Sat, 28 Oct 2023 16:21:29 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gvYXJhSf;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dSJqOrs4;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SH09F442pz3cTj
-	for <openbmc@archiver.kernel.org>; Fri, 27 Oct 2023 22:01:53 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SHlCW68FHz3cNV
+	for <openbmc@archiver.kernel.org>; Sun, 29 Oct 2023 03:21:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gvYXJhSf;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dSJqOrs4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::432; helo=mail-pf1-x432.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com [IPv6:2607:f8b0:4864:20::432])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SH0882qWQz3cBs;
-	Fri, 27 Oct 2023 22:00:56 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:7e5d:5300::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 1871F912;
-	Fri, 27 Oct 2023 04:00:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1698404449;
-	bh=46CI2348zLuWGtq6JcTrLbZwqAqPdJ4oLHt47Q46BLU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gvYXJhSfFqFnNUZNLH6mGrPgpLf5hM+XUJqMFmDnq4vz+FXeaqBzpT57FN/cpXgC6
-	 CW0MDbyUQXnYZEFiyKVzv0eIeg3oCh6m/ZuFuBgDa+vkhfXYyWgxybN42GIr5s4sz1
-	 kcR5PICg9oa5uPjczQH5kX3MM7VI8FE5gyfcbPko=
-Date: Fri, 27 Oct 2023 04:00:47 -0700
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Andrew Jeffery <andrew@aj.id.au>, Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	"Milton D. Miller II" <mdmii@outlook.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 0/2] watchdog: aspeed: Add aspeed,reset-mask property
-Message-ID: <5db80b63-65da-407c-a019-048dea8c1a89@hatter.bewilderbeest.net>
-References: <20230922104231.1434-4-zev@bewilderbeest.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SHlBR1Qp0z2xPZ
+	for <openbmc@lists.ozlabs.org>; Sun, 29 Oct 2023 03:20:28 +1100 (AEDT)
+Received: by mail-pf1-x432.google.com with SMTP id d2e1a72fcca58-6b5cac99cfdso2843310b3a.2
+        for <openbmc@lists.ozlabs.org>; Sat, 28 Oct 2023 09:20:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1698510024; x=1699114824; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NT9WTH6/M3GiAfWTUMKKJgdgKxBiJQefVVsQat7FxOQ=;
+        b=dSJqOrs412v0fzGalZouFlUVq7BrSZMMw812/B9FqqG6Jy9LZ8P11JItu7WVNAaquA
+         RmcDNr1J5XhAJaeKGPGlqSCoH3CMgbyUmh6nHDtt9GiI+XHNo15/sbP2wJFNdguUrGk3
+         sYbF+EIaSJX9yi+oZLjfobMVgHkv2csiIvA8EvxWjiO2eeE8rnqElf5kQJ19UIwgfiDw
+         6KX/9V67OWWNqt/JgrJNIqk6wK1aOkV71MdUZX4FfpTcdhg86f+nTRMVJz1OeVX6hjaP
+         V1DSmX6wh0CAGbsIuEb/S064NGWNbxq7aR5NmyLSdnm8GhIfR9URuyLYgNLV1Nn1AseR
+         EdDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1698510024; x=1699114824;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NT9WTH6/M3GiAfWTUMKKJgdgKxBiJQefVVsQat7FxOQ=;
+        b=kiz0OfbjU7dnRJbd/D5MSFpZNx+/G853LEAQ4GlQslSBCk0bcIZC0HEpEUklhbchqB
+         F94xbU5/RztN3dndeHhWF1itFoo/H0fjOevRlOdxEyQ8rjXgfQDzUeq4xBa7P46nT7P+
+         HelsLLqUJjFdnaJIqWkVof2cUzemVx0v1HN8cjohqDLpE9Qut23nVQW5CgfeYxYEKnPF
+         oGrwu25Fg6sH3moe9O2K6yrH6KyFbDTrlwGAPOaZk6FIUeT8amQw/hy90FFoxvWPlKUI
+         7PLE/AQmLMcZn2Qt1RNa17nO0NAMlE8/oL2WBrvVCPDy5bLuGku2xc8+7wmlvpO/gSak
+         C1jw==
+X-Gm-Message-State: AOJu0Yz/3oYvPjVnaMn8HwVDg4rjh10NwsVpepVrYNCMd+WXw/pWgd1i
+	nUUSItZLWOAT/queS5/qIdg=
+X-Google-Smtp-Source: AGHT+IHJhBXFjEFWZclViV4Ss51F9C7SAzSbQQRBvpyCqGaV4EydAiGGZj90kF12MI62I+3QMbI9Kg==
+X-Received: by 2002:a05:6a00:198c:b0:68a:4261:ab7f with SMTP id d12-20020a056a00198c00b0068a4261ab7fmr6275125pfl.31.1698510023986;
+        Sat, 28 Oct 2023 09:20:23 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+        by smtp.gmail.com with ESMTPSA id fn8-20020a056a002fc800b006a77343b0ccsm3140045pfb.89.2023.10.28.09.20.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Oct 2023 09:20:23 -0700 (PDT)
+Date: Sat, 28 Oct 2023 09:20:22 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: npcm: Add npcm845 compatible
+ string
+Message-ID: <96dcad12-af5b-49ca-872b-34ed87c9766d@roeck-us.net>
+References: <20231018181925.1826042-1-tmaimon77@gmail.com>
+ <20231018181925.1826042-2-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230922104231.1434-4-zev@bewilderbeest.net>
+In-Reply-To: <20231018181925.1826042-2-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +80,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Ivan Mikhaylov <i.mikhaylov@yadro.com>, Eddie James <eajames@linux.ibm.com>, Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, jdelvare@suse.com, benjaminfair@google.com, Rob Herring <robh@kernel.org>, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, j.neuschaefer@gmx.net, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, Sep 22, 2023 at 03:42:32AM PDT, Zev Weiss wrote:
->Hello,
->
->These patches add a new aspeed,reset-mask DT property for the Aspeed
->watchdog timer, which specifies exactly which peripherals should be
->reset by the watchdog timer.
->
->This series is a replacement for a patch I sent earlier [0], though
->using an entirely different (DT-based) approach and hence not exactly
->a v2.
->
->I've tested these patches on ast2500 hardware and a qemu ast2600
->model; test results on actual ast2600 hardware would be welcome.
->
->
->Thanks,
->Zev
->
->
->[0] https://lore.kernel.org/linux-watchdog/20230922013542.29136-2-zev@bewilderbeest.net/
->
->Zev Weiss (2):
->  dt-bindings: watchdog: aspeed-wdt: Add aspeed,reset-mask property
->  watchdog: aspeed: Add support for aspeed,reset-mask DT property
->
-> .../bindings/watchdog/aspeed-wdt.txt          | 18 +++-
-> drivers/watchdog/aspeed_wdt.c                 | 11 +++
-> include/dt-bindings/watchdog/aspeed-wdt.h     | 92 +++++++++++++++++++
-> 3 files changed, 120 insertions(+), 1 deletion(-)
-> create mode 100644 include/dt-bindings/watchdog/aspeed-wdt.h
->
+On Wed, Oct 18, 2023 at 09:19:24PM +0300, Tomer Maimon wrote:
+> Add a compatible string for Nuvoton BMC NPCM845 Pulse Width Modulation (PWM)
+> and Fan tach controller.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> Acked-by: Rob Herring <robh@kernel.org>
 
-Ping...Guenter, if we stick with the simpler approach in this version of 
-the patches (which I'm fine with and seems to have passed muster with 
-Rob & Joel) does this look okay as is?
+Applied.
 
-
-Thanks,
-Zev
-
+Guenter
