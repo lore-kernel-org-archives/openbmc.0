@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15CCEC4167B
-	for <openbmc@archiver.kernel.org>; Wed,  1 Nov 2023 10:44:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5899C4167B
+	for <openbmc@archiver.kernel.org>; Wed,  1 Nov 2023 10:45:07 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=4ZLxfs94;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=13IiXlOX;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SL3XX5GZrz3cbQ
-	for <openbmc@archiver.kernel.org>; Wed,  1 Nov 2023 21:44:12 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SL3YZ3sJRz3dHR
+	for <openbmc@archiver.kernel.org>; Wed,  1 Nov 2023 21:45:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=4ZLxfs94;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=13IiXlOX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f400:feae::61f; helo=apc01-psa-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com (mail-psaapc01on2061f.outbound.protection.outlook.com [IPv6:2a01:111:f400:feae::61f])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f403:2011::601; helo=apc01-tyz-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com (mail-tyzapc01on20601.outbound.protection.outlook.com [IPv6:2a01:111:f403:2011::601])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SL3Bb0Q1Yz3bwL
-	for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2023 21:28:39 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SL3Bf0gC6z3cQ7
+	for <openbmc@lists.ozlabs.org>; Wed,  1 Nov 2023 21:28:42 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I5fJobT/Z39ICHpedoSoxL6IWPzKbLxoJQkobs38Xg4TApwJPNlPxqhVkWtuWMSy1zad9Hm9lsPk2Ja/XaLmJ5j0NE8GntREHfZPpV69hqIfD8FuxKY5Lmuq8ZAMTtWma+hexfaF7+gZbaxAKfrpK21aXBGVwae0D3JC64oqSJ92SWq33GciQgm4qtVWug5sfzkv4vfu7GOB4qbHn0NuCPmV25tshCF7+thEQQZhzQTWsGSDkJziOifix2ao1fs4mzPvQWSn15PQLH/EvE5igybz80Cyj4xjjBcY6yNX5tJVc2D3Ps+nIlwONVdckOr2Z8rvSchTMPGiFSuffkOCfg==
+ b=N1tE2d1hI+RFb4Ta+O4xnmM+JcqEG3Ed7TKgJTnLzvp9Qe2T2P7c8Neo3w/qS0tH7LKXROMOpFtsZyf0h7xRyWOGkCe7BxfnORHQ/9rMLiwCt5dGotCn+ibnRVy3lFU6jyC2Y3aSwD94/+SIQG1LciDjVcZpAl4QQO3MYKXgHnDSrhDcmpmCemj3EQzDQu5OyooloBlAkLYMG5ZtAVl56tVG43p0FMKODu2bFV9hUEPZqPUe8SSyeM1C/+qq0lqLCTABVmxbL9GjJ5tboBj6u+ygSd1auXjcAwRvWY7QW5fhxxR9ikIIh83jId/3r6+1FC1QxiYcCwYgBIJoy2QD2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hyHW3sqHJjkHWiDmJFLuBAqc6M8e+XLWt7SfBxA7Q9k=;
- b=HBZipdgKMzT1gyaQ7kSiwsafRivHFbAsCP+DBAudqIqVYvL/E8G2Lsf57HZ10PsoRibgGNw5j7h/vHn/6AL8drXr7MHjoaY2CW9bdw4tukEoHlu3cem6PSIFMcx6J67JM2bgmTCbwdEzW1vtQZc20ZniUHZtZW+Cu5k6l0Ji2a53ae96ECStCRdCyqpAV6OARYkfuarl1cmB1J6Hyp55AKad7UUnZAW9L+DrXkr5tTPMdlFw7/Ch4X+GM2Eb6pEnemfQlx1j/I/aJGaICyc6wmdvaMLbiM831oF14leV7NnmPEwXvTjoOTdbSZhiNXHKG3fgr6n+ELHIx1/YIfAmXA==
+ bh=hTdra8Q6Ty+kafVG+eRTSPVcdelb5hg9red0Vwq21ms=;
+ b=JazGOZcygJBQMrIuItS5UOG2ipvgXI4CZpGangPBbsIxkjONo2e8uSUmV88sYtO2ZH6X77yG1kcjxm+x9TRVUEKukxVeHG4+5HrWbX5vlpAeWY6nG6YrrkjLupjoDeVhisVwDlXHcEmK9dIu33itTvLfI2yxPz0RXhfs/8YiE17u7q41hBzKsMun5kc5/SCVOVV0r1FLdVaBGeXPDTUfBef0HjoOskaLlt/LVcXGKhfLg7HhRLu8rq2s3nCb7lj6hbFch4x4cSz5N+wIjmxyrks0lAoJfW0zQfhSnQHxj7DYbcsVflx6ljQMPTzJZQAPMAXYsfEefa3uqM8w+Q5WHg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  211.20.1.79) smtp.rcpttodomain=stwcx.xyz smtp.mailfrom=wiwynn.com; dmarc=fail
  (p=quarantine sp=quarantine pct=100) action=quarantine
@@ -35,17 +35,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wiwynn.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hyHW3sqHJjkHWiDmJFLuBAqc6M8e+XLWt7SfBxA7Q9k=;
- b=4ZLxfs94p2tUmPurdueGIHpw5DonMMj0pvwFR686CJwfIb0KLN0pqR1Xe+jNUaDbMNxzqAv+LHJWnkdj/Ot1WKi/nEMD4zV3IVAk49U221f9jmsxuaC8HP30pLMWiVRcsB1prNj8dLrv69pkfuUATIYeJV6GuMY+YNGlFZwJQgSY3ZL2qC1Rqnjr9WtBsPHWSpUTO95QHntMeFJsZLmHrw0KTIbLSQWwFlOt6HBfJcSxqRUEEiSJP4j6nCGPIoXOZigGwyFH0lV6OUXOD/8bzboQMOReKS1wFFFUKAuZJiAD5xrvNiXSafQHUlV1V28CGdypI/Rhq3QUmf9w42BAjg==
-Received: from SG2PR04CA0176.apcprd04.prod.outlook.com (2603:1096:4:14::14) by
- TYZPR04MB4191.apcprd04.prod.outlook.com (2603:1096:400:24::13) with Microsoft
+ bh=hTdra8Q6Ty+kafVG+eRTSPVcdelb5hg9red0Vwq21ms=;
+ b=13IiXlOX1iPEnwyhEmboQnC8Kx51tklkMb76gXezRfXmqZ6q/KRPExK6MJl3fO1MsDwu6gLMNwUssY2CKSYvyVyrhkiXXinGWhNxPXEwAks7hyP2Rk5vDJqZSmznzHYEMHs/DnYwk4uHkfu/szZN8EZiAxmB4JuCOVInLes4KTe5LQmijN7ZxQe+UsJZBwDidZRh6LlDYCZxGKAKR5VCl9Hh3iRua+Dz9BodXPfBftx8C7yf8EO4N/LhJpZ/wcd/nBfDP+UxJFTRHY8We4vfdobMdmQH9w6GtBv/1eDNTdHkde50j/GGpvMaAoc+4yUJ1XBVmb3UI3JsKvmox3OLSQ==
+Received: from SG2PR04CA0196.apcprd04.prod.outlook.com (2603:1096:4:14::34) by
+ SEYPR04MB6822.apcprd04.prod.outlook.com (2603:1096:101:dc::9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6933.25; Wed, 1 Nov 2023 10:28:19 +0000
+ 15.20.6933.29; Wed, 1 Nov 2023 10:28:22 +0000
 Received: from SG2PEPF000B66CE.apcprd03.prod.outlook.com
- (2603:1096:4:14:cafe::e3) by SG2PR04CA0176.outlook.office365.com
- (2603:1096:4:14::14) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:1096:4:14:cafe::6f) by SG2PR04CA0196.outlook.office365.com
+ (2603:1096:4:14::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6954.19 via Frontend
- Transport; Wed, 1 Nov 2023 10:28:19 +0000
+ Transport; Wed, 1 Nov 2023 10:28:22 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 211.20.1.79)
  smtp.mailfrom=wiwynn.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=wiwynn.com;
@@ -54,15 +54,15 @@ Received-SPF: Fail (protection.outlook.com: domain of wiwynn.com does not
  client-ip=211.20.1.79; helo=localhost.localdomain;
 Received: from localhost.localdomain (211.20.1.79) by
  SG2PEPF000B66CE.mail.protection.outlook.com (10.167.240.21) with Microsoft
- SMTP Server id 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 10:28:19
+ SMTP Server id 15.20.6954.19 via Frontend Transport; Wed, 1 Nov 2023 10:28:21
  +0000
 From: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 To: patrick@stwcx.xyz,
 	joel@jms.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-6.5 v1 01/11] ARM: dts: aspeed: yosemite4: Sync to torvalds kernel
-Date: Wed,  1 Nov 2023 18:27:40 +0800
-Message-Id: <20231101102751.2538864-15-Delphine_CC_Chiu@wiwynn.com>
+Subject: [PATCH linux dev-6.5 v1 03/11] ARM: dts: aspeed: yosemite4: Enable adc15
+Date: Wed,  1 Nov 2023 18:27:42 +0800
+Message-Id: <20231101102751.2538864-17-Delphine_CC_Chiu@wiwynn.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231101102751.2538864-1-Delphine_CC_Chiu@wiwynn.com>
 References: <20231101102751.2538864-1-Delphine_CC_Chiu@wiwynn.com>
@@ -70,25 +70,25 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CE:EE_|TYZPR04MB4191:EE_
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CE:EE_|SEYPR04MB6822:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 7a55a124-de84-43e8-b9eb-08dbdac54461
+X-MS-Office365-Filtering-Correlation-Id: 91a90c9a-e990-4f85-ba8d-08dbdac54607
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 	6Uw9cXfqzDGomdgP2NWYV1jnaYYGhbFOynwUUVw119pcXGk1v5ZPnyTZ2qPYAH0SlGMZCjIILj7KHlgxn5TMgcNGc8MoK06j6Zt1qlI8vwx2V2GV/BkCdoHPb2NBGlz/bASJI0CYNc87Odo8wVZEJ0uuQjCwYVWAU9WVRu+TwDNRJFOWgsGL2+raarEfoEAwd2zjnRDkKoTf4SZPG4ps8Jd2OhKQYiMTesNbOGU2dykClicfMblpy2j/pY+zswlRHTdLThKO55SgPStEiYGnJo24RJOMCw+B5A1O48IVWnWcMrsVzX7M+itLAoufZDDMfy6MX/g8SRpWDo9On8lGU6XY7n8OgQC7V8z1NCfpToKXaRFq/BND50rSBhXZ4nkilQ8nThKD/2oR0rYswiHXPPoahpe0VMV3FVqobNYhli9rQfXEZITmYycTxqJwUbTJ/FXMc4YleIycEVeussR7gmjihazo59Cc5GYEbswxjClWI0TUM2YKHpwpH7ygubwzPeWjGuBqwbcABYuN8HHXSs3+eat/n3Ic2i99xr0QGuX7n4lfOfDkUXZpk7xhUfx7Z1cUi7MhYHdiTmH8htx6yzmED440fyw2TMKtOiwIjMjEptft8YQ/fxSbE5HHFKzwSZYd9xcUoBLrqBVSPzTdhFACudT2jNZ5dWZQxSbb0pmDJnxBy2oRXwv3nWgsUiGSg2ZXcrVvVZv/k1oa9hf2OQ==
-X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(39850400004)(396003)(376002)(136003)(346002)(451199024)(1800799009)(64100799003)(186009)(82310400011)(46966006)(36840700001)(40480700001)(2616005)(956004)(6512007)(26005)(1076003)(2906002)(86362001)(36756003)(356005)(82740400003)(81166007)(47076005)(5660300002)(107886003)(41300700001)(83380400001)(336012)(478600001)(6506007)(6666004)(8676002)(36860700001)(36736006)(8936002)(9316004)(6486002)(4326008)(70206006)(316002)(70586007);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 	vy52LTCzSJgEMrVT2bbkGISUvBgufLuWQc/hF8apDPks7GgRGP1Ur21OcCw/vJGjQnkbUPfj0z6ikuymr1aciuHL4MbtncmEwa7gjcONOrxOgrauaW/yYXQd55fXQgKGpXxmOUoqjEarcmu6qDaX+gzxgUMECiK/7ryCg+2+G1bnEGO4dLlkky58QJjqP5894QqrdZm4r5g8D3wxuUK200XgI5Sih6UtT9FnfsGd6Si0pmYCA8m46GYF1hoV1eeumXlDKlGoRr6sYXbE/lnHm/4Y2dmOPJQp9K1r/I10WIxMSXcONTlqI2lKvP8j7hIAnMud85PP9zCpRQ7EwaBI9wmduuTOZv+cqnZIf5tRfeEmT8CoSu54PDSSupL1s2g+C6PB76lAOQv+keSuq5hw/tGouQpbi/Ym8g3r/ST6536PkI/DCFORzv0DPB+A9H2xoB0Wa+xjCMUZHLlcCzhoCfcNAagMoASvFwAZHJ7g/uycgakoP8A0tb3pKuaJYQ6o2KzGdUpBuA5WjSC6IswnVjjBX8JKIoqzMBDGL4rAqBg62S8NFNwpOYigV4FZ60sC4CFJdCkHcdlEw8Za4vlDy2JqaNEGjN97fRj8kJZwdqCCn7g0tO0OmdmcSCgp1B50k2WQEoj63StWeUgsvL3gRX6jaDX+/EZmiFJfhTz+MYO+pjpeoCMU3SxCoVxq4FnDk3wRbvpShgQDGbEDdKWEAg==
+X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(396003)(136003)(376002)(346002)(39860400002)(186009)(451199024)(64100799003)(82310400011)(1800799009)(36840700001)(46966006)(356005)(81166007)(2906002)(5660300002)(4326008)(8676002)(8936002)(6512007)(6666004)(47076005)(41300700001)(6506007)(82740400003)(9316004)(40480700001)(83380400001)(86362001)(70206006)(70586007)(478600001)(6486002)(1076003)(107886003)(26005)(336012)(2616005)(956004)(36736006)(316002)(36756003)(36860700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: wiwynn.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 10:28:19.0756
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2023 10:28:21.8568
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a55a124-de84-43e8-b9eb-08dbdac54461
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91a90c9a-e990-4f85-ba8d-08dbdac54607
 X-MS-Exchange-CrossTenant-Id: da6e0628-fc83-4caf-9dd2-73061cbab167
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=da6e0628-fc83-4caf-9dd2-73061cbab167;Ip=[211.20.1.79];Helo=[localhost.localdomain]
 X-MS-Exchange-CrossTenant-AuthSource: 	SG2PEPF000B66CE.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR04MB4191
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR04MB6822
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,56 +104,39 @@ Cc: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Sync to torvalds kernel
+Enable Yosemite 4 adc15 config
 
 Signed-off-by: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 ---
- .../dts/aspeed/aspeed-bmc-facebook-yosemite4.dts  | 15 ---------------
- 1 file changed, 15 deletions(-)
+ arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-index a6777efc78b8..64075cc41d92 100644
+index a5b4585e81e6..c32736fbaf70 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-@@ -87,30 +87,16 @@ &mac2 {
- 	status = "okay";
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_rmii3_default>;
--	no-hw-checksum;
- 	use-ncsi;
- 	mlx,multi-host;
--	ncsi-ctrl,start-redo-probe;
--	ncsi-ctrl,no-channel-monitor;
--	ncsi-package = <1>;
--	ncsi-channel = <1>;
--	ncsi-rexmit = <1>;
--	ncsi-timeout = <2>;
+@@ -51,7 +51,7 @@ iio-hwmon {
+ 		compatible = "iio-hwmon";
+ 		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>, <&adc0 3>,
+ 				<&adc0 4>, <&adc0 5>, <&adc0 6>, <&adc0 7>,
+-				<&adc1 0>, <&adc1 1>;
++				<&adc1 0>, <&adc1 1>, <&adc1 7>;
+ 	};
  };
  
- &mac3 {
+@@ -920,10 +920,10 @@ &pinctrl_adc4_default &pinctrl_adc5_default
+ &adc1 {
+ 	ref_voltage = <2500>;
  	status = "okay";
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_rmii4_default>;
--	no-hw-checksum;
- 	use-ncsi;
- 	mlx,multi-host;
--	ncsi-ctrl,start-redo-probe;
--	ncsi-ctrl,no-channel-monitor;
--	ncsi-package = <1>;
--	ncsi-channel = <1>;
--	ncsi-rexmit = <1>;
--	ncsi-timeout = <2>;
+-	pinctrl-0 = <&pinctrl_adc8_default &pinctrl_adc9_default>;
++	pinctrl-0 = <&pinctrl_adc8_default &pinctrl_adc9_default
++	    &pinctrl_adc15_default>;
  };
  
- &fmc {
-@@ -297,7 +283,6 @@ &i2c10 {
- 
- &i2c11 {
+-
+ &ehci0 {
  	status = "okay";
--	bus-frequency = <400000>;
- 	power-sensor@10 {
- 		compatible = "adi, adm1272";
- 		reg = <0x10>;
+ };
 -- 
 2.25.1
 
