@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEF42C4167D
-	for <openbmc@archiver.kernel.org>; Thu,  2 Nov 2023 10:13:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A0A5C4167B
+	for <openbmc@archiver.kernel.org>; Thu,  2 Nov 2023 12:50:29 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Q/sFB9dj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hFuAoFee;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SLfpx1Tc5z3byh
-	for <openbmc@archiver.kernel.org>; Thu,  2 Nov 2023 21:13:45 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SLkHm3tZlz3cVR
+	for <openbmc@archiver.kernel.org>; Thu,  2 Nov 2023 23:50:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Q/sFB9dj;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hFuAoFee;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::631; helo=mail-ej1-x631.google.com; envelope-from=wak@google.com; receiver=lists.ozlabs.org)
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::1131; helo=mail-yw1-x1131.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com [IPv6:2607:f8b0:4864:20::1131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SLfns39Tfz2xrD
-	for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2023 21:12:48 +1100 (AEDT)
-Received: by mail-ej1-x631.google.com with SMTP id a640c23a62f3a-9d8d3b65a67so104975366b.2
-        for <openbmc@lists.ozlabs.org>; Thu, 02 Nov 2023 03:12:48 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SLkGf09Dsz3cQg
+	for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2023 23:49:27 +1100 (AEDT)
+Received: by mail-yw1-x1131.google.com with SMTP id 00721157ae682-579de633419so10623357b3.3
+        for <openbmc@lists.ozlabs.org>; Thu, 02 Nov 2023 05:49:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1698919962; x=1699524762; darn=lists.ozlabs.org;
+        d=linaro.org; s=google; t=1698929362; x=1699534162; darn=lists.ozlabs.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IZqB9qrmysX13BT59JOVtj+fnTDElF0sFcixuSiHwSU=;
-        b=Q/sFB9djsgjD4q8CE7+N/RoQMONp+Ti5WdfCfAP6Sm2P+pPX1v65/0360vMb2X26ti
-         sApBr92QjpfI7vfB0ZNwiyyy90RKHbgl0COIFAGArPeqgokjb3awQpmmnYEXI1PhSygj
-         v+YaSLdqhFfNFupAi+MpOZAy6t1BU/FiYQrxWNnEFQRhtcCsfWs1nYQfBNWtnc9f478a
-         u8jQt9Uy+lkJKa9d+h3zGxzrxRjk1EmKgqmslDBVVfvOImkYWTCLx6CHljI9jAJpv8v7
-         uSM+QvIXcfULoA/NzH5rl/x5SJiVqNWlSG/LMQxljPxug43B/Wryn+KDkwNyyqdkEj/9
-         puWw==
+        bh=widlyZwBYPlMRjGOv/8GxlBrQ6R1o+G/iEjecWXMJTc=;
+        b=hFuAoFeeVkSsC+KjqX1dsleP9f++gCzADu321xpRYo3BySRbtbcfdu32fiQyqn6IHO
+         CH35MVuhWYf1cTEbVdaEaWT355GjGkHYdA2OfGZ737d/zzd+FDzTXpAIXyyOPayCBnq7
+         MUNqnEOxrtvnfxDzIeQCyfjiwSNm8F1SyUfzVnFY6EYTRj6Ope2fgN03ksQrQFiToYje
+         Mbnj3ur+q73/XTBmrhLHNOlRhyHCFeNJRFvLj+r7Lr/FB1TFVxL8zde1zPl1Sj2D9t0s
+         MgG9V8nvf564bDra02yYTk8jGpR6W7lUh8sN1GXLgf7LPN4gZQmNaMoZwcHGRpZfFV7W
+         c06g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698919962; x=1699524762;
+        d=1e100.net; s=20230601; t=1698929362; x=1699534162;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=IZqB9qrmysX13BT59JOVtj+fnTDElF0sFcixuSiHwSU=;
-        b=Dwwk1445svINb0jsK3zYKVCgiWMeH2qzBoDMwZQv0efg8TwxqC3fZ8vfId1OHIgDL+
-         Guqkm0olvTQjJL6CGHlD7TDxNcpsndEqu++42IEpu+nkghS8DVX8s9EwolvbqMKL/WCp
-         xrFo/wKqlVPQEY1bPbqZwYCbZlMU0gti5hSYzP0GfKMxlPA7k8q1GERs2k3UISYCpkrU
-         bQYwwndmQhH0JsHbjCNxcKp3sGP0daVpSz1Gta0Wn9XALweCLiiJ5Gffk4iMn079h8Oh
-         dHGqKmAdtTOc+mAX807pjLQHEp97o3WmCsRoN2WZw8h6rt3Z6fwFXMkMuQlqQ4Mu7FIA
-         pILw==
-X-Gm-Message-State: AOJu0YxkNbQDPzzMnJmprNvuu3trKacutcBFT1fOGkBJsoVkUyPcfUmo
-	auemG1mdK3fj/5UhNse+FZUjT0tnMRYzRKZAyTHMnA==
-X-Google-Smtp-Source: AGHT+IEM4bA7T/We4VeeGxv2tCY3ws3IIvRo7YMxFoEuSfPYV9VuV5hrtJA0KB9Qd5PVLMJVVfX589u23zx/Dkm3DBU=
-X-Received: by 2002:a17:907:36cd:b0:9be:5ab2:73c2 with SMTP id
- bj13-20020a17090736cd00b009be5ab273c2mr3861703ejc.58.1698919961848; Thu, 02
- Nov 2023 03:12:41 -0700 (PDT)
+        bh=widlyZwBYPlMRjGOv/8GxlBrQ6R1o+G/iEjecWXMJTc=;
+        b=s71Q9Ckkl2Kg2nLAP0SKszbsC4c2xVY+HqIf2aWVpd9x5Mc6jD/C6NGBkW5oQ1hQvq
+         gZvzG2zUVxF1sTpzYrTkeRuZ/jGtQmyCsb+OD1Jq04ZHnyDolYTCLy4/oGFSSmexJPy5
+         DmBLfli16FdcqaYGilszYJFf+KdIRzsI6RjaPopoFWAHEpl6oN0elPMrDVTH62YFt/8H
+         refu/f2JcsVdanFBzdFreTNloCVYNux9dGzXbVyoEZ9K0Fyu+Zby0q/eWC3lkuCGcqty
+         9lDUsIjc0Hl6cW/4TQiXhlLgiIBfQgKWiYZrwjYAAbVx4VhH49PlgngSPyfdjtkymGV8
+         HbBA==
+X-Gm-Message-State: AOJu0Yy3PgnLrDPdGu+TXg/+iJ8WcFIyOickGMPQGitKGpWIDrg2Js76
+	1o6935+M/po+Tz4epQo+AOjvLB4b5/LVmyPN81hd9w==
+X-Google-Smtp-Source: AGHT+IHt90STRVe8je/Z5zX/p4SgI7q02TIIO9EFzScpg845KJIIMk9ZkoVKpvO0vaU75EWje+slqqI/wuSSqst9a5E=
+X-Received: by 2002:a81:7e06:0:b0:5b4:2a52:d18a with SMTP id
+ o6-20020a817e06000000b005b42a52d18amr4113501ywn.36.1698929362230; Thu, 02 Nov
+ 2023 05:49:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <20231102002453.1299195-1-william@wkennington.com>
- <20231102005321.1303809-1-william@wkennington.com> <CAP6Zq1ig9hadeWATYVgzZkhmsU3qe6Se+hwU6rSjvnGr0OmvMA@mail.gmail.com>
-In-Reply-To: <CAP6Zq1ig9hadeWATYVgzZkhmsU3qe6Se+hwU6rSjvnGr0OmvMA@mail.gmail.com>
-From: William Kennington <wak@google.com>
-Date: Thu, 2 Nov 2023 03:12:30 -0700
-Message-ID: <CAPnigKn5ObA3iMAwdcw9nnvpgO3o5q8D+v=+Nv5edNWQzpkNEA@mail.gmail.com>
-Subject: Re: [PATCH RESEND] ARM: npcm: Add CPU hotplug callbacks for kexec support
-To: Tomer Maimon <tmaimon77@gmail.com>
+References: <20231101025110.1704543-1-jim.t90615@gmail.com> <20231101025110.1704543-4-jim.t90615@gmail.com>
+In-Reply-To: <20231101025110.1704543-4-jim.t90615@gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 2 Nov 2023 13:49:09 +0100
+Message-ID: <CACRpkdZgqfzti8KW25m++VG2GhU7LZCgzxeWW+uaNO7rh1kmjg@mail.gmail.com>
+Subject: Re: [PATCH v7 3/3] gpio: nuvoton: Add Nuvoton NPCM sgpio driver
+To: Jim Liu <jim.t90615@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -76,74 +75,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Brian Ma <chma0@nuvoton.com>, avifishman70@gmail.com, william@wkennington.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, linux-arm-kernel@lists.infradead.org
+Cc: andy@kernel.org, robh@kernel.org, benjaminfair@google.com, devicetree@vger.kernel.org, brgl@bgdev.pl, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org, openbmc@lists.ozlabs.org, kernel test robot <lkp@intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Nov 2, 2023 at 1:39=E2=80=AFAM Tomer Maimon <tmaimon77@gmail.com> w=
-rote:
->
-> Hi William,
->
->
-> On Thu, 2 Nov 2023 at 02:53, <william@wkennington.com> wrote:
-> >
-> > From: Brian Ma <chma0@nuvoton.com>
-> >
-> > Add callbacks required for kexec to function. The NPCM7xx/NPCN8xx does
-> > not expose controls for powering down CPU cores, so just wait in idle
-> > loop.
-> This patch is related only to NPCM7xx please modify NPCM7xx/NPCN8xx to NP=
-CM7xx.
+Hi Jim,
 
-Fixed in v2 message.
+thanks for your patch!
 
-> >
-> > Signed-off-by: Brian Ma <chma0@nuvoton.com>
-> > Signed-off-by: William A. Kennington III <william@wkennington.com>
-> > ---
-> >  arch/arm/mach-npcm/platsmp.c | 17 +++++++++++++++++
-> >  1 file changed, 17 insertions(+)
-> >
-> > diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.=
-c
-> > index 41891d3aa124..6cc7b5894f08 100644
-> > --- a/arch/arm/mach-npcm/platsmp.c
-> > +++ b/arch/arm/mach-npcm/platsmp.c
-> > @@ -69,10 +69,27 @@ static void __init npcm7xx_smp_prepare_cpus(unsigne=
-d int max_cpus)
-> >
-> >         iounmap(scu_base);
-> >  }
-> > +#ifdef CONFIG_HOTPLUG_CPU
-> > +static void npcm7xx_cpu_die(unsigned int cpu)
-> > +{
-> > +       while (1)
-> > +               cpu_do_idle();
-> > +}
-> > +
-> > +static int npcm7xx_cpu_kill(unsigned int l_cpu)
-> > +{
-> > +       return 1;
-> > +}
-> > +#endif
-> > +
-> >
-> >  static struct smp_operations npcm7xx_smp_ops __initdata =3D {
-> >         .smp_prepare_cpus =3D npcm7xx_smp_prepare_cpus,
-> >         .smp_boot_secondary =3D npcm7xx_smp_boot_secondary,
-> > +#ifdef CONFIG_HOTPLUG_CPU
-> > +       .cpu_die                        =3D npcm7xx_cpu_die,
-> > +       .cpu_kill                       =3D npcm7xx_cpu_kill,
-> > +#endif
-> >  };
-> >
-> >  CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm750-smp", &npcm7xx_smp=
-_ops);
-> > --
-> > 2.42.0.820.g83a721a137-goog
-> >
->
-> Best regards,
->
-> Tomer
+I saw that Andy already provided some good feedback but couldn't help
+but to notice this:
+
+On Wed, Nov 1, 2023 at 3:52=E2=80=AFAM Jim Liu <jim.t90615@gmail.com> wrote=
+:
+
+> Changes for v6:
+>    - Remove bus-frequency property set
+>    - Use GPIO_GENERIC
+(...)
+> +config GPIO_NPCM_SGPIO
+> +       bool "Nuvoton SGPIO support"
+> +       depends on (ARCH_NPCM || COMPILE_TEST) && OF_GPIO
+> +       select GPIO_GENERIC
+
+You select GPIO_GENERIC but you don't actually use it.
+If you were using it, your code would be calling bgpio_init()
+and it does not.
+
+Yours,
+Linus Walleij
