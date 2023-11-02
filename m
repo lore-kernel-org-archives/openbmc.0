@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FFFC4332F
-	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 02:25:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B089FC4332F
+	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 02:26:31 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=permerror header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha1 header.s=20230601 header.b=y/aIwDB1;
+	dkim=permerror header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha1 header.s=20230601 header.b=U/nvIUZx;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SRN352tZbz3bWQ
-	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 13:25:37 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SRN462mnqz3bV7
+	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 13:26:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=y/aIwDB1;
+	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=U/nvIUZx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::42e; helo=mail-pf1-x42e.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com [IPv6:2607:f8b0:4864:20::42e])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::430; helo=mail-pf1-x430.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SLQNR6yrbz2xHb
-	for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2023 11:53:27 +1100 (AEDT)
-Received: by mail-pf1-x42e.google.com with SMTP id d2e1a72fcca58-6bf03b98b9bso1227488b3a.1
-        for <openbmc@lists.ozlabs.org>; Wed, 01 Nov 2023 17:53:27 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SLflc0R8Nz3cQj
+	for <openbmc@lists.ozlabs.org>; Thu,  2 Nov 2023 21:10:50 +1100 (AEDT)
+Received: by mail-pf1-x430.google.com with SMTP id d2e1a72fcca58-6be0277c05bso776311b3a.0
+        for <openbmc@lists.ozlabs.org>; Thu, 02 Nov 2023 03:10:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20230601.gappssmtp.com; s=20230601; t=1698886404; x=1699491204; darn=lists.ozlabs.org;
+        d=wkennington-com.20230601.gappssmtp.com; s=20230601; t=1698919847; x=1699524647; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xEH7jgDGNi0IK8LdwBqEJDaZ1nOxkEDv/a4hPy0Cfvs=;
-        b=y/aIwDB1z/AQyTa5ZGSsiIPnKW9syWiX3E/zrfKwckqLOGi2AE2FyhSAlRdyZYdPXj
-         yhVHDoHuq+Gb/ac5I33dRx3kjyVD9WzB8N7FkUOeoZz3IRikgWThwiSY0gZIQOeWFuJb
-         wyPC5GYqpvRDP0jAH5U654EX5TkZky/I1AWO+ZLwNNemTAZmDDIE+AtWvd+Ybij7WhoL
-         1RY5mvwCeAFUmxE8WbYPk03Pp0ALwV6Z5CRiRIJ0cjeBs+d0lZrGh7JRv0/HUplS3kcH
-         GhGWSYVBmtqZxylCshvCdU30JtoXQ6HmKxuUyhEmBUGCUj4DWWS0q6kdnrfQhWV5GVVV
-         TEoA==
+        bh=odwL1J6AS5nuqoPCF8FI4fUOnDzh+OWjuHaoV8Nap8E=;
+        b=U/nvIUZxqyalZzj/UOFuB778nSumzqDZg3Gq3aGhF76jqhCsVu5aGY4cb2ls0bXVFl
+         mV/daveZkh6RCULScnVp3DKgxHS+AJPaznhZ9LUx5ywseSOAOJ+qSO3mPaVKm/ILO54r
+         5L3IoLoXCGhdIJOyMQtJk0yUP7Cr5SLronTJreI2GAAaHhl0slmsvEleNIMpEOKses0Q
+         lXuQe2Yl8sRUk6oXV2u1HuM70w8Vf5W61DrBLrtThnXMxBo7DC7W02iVeh6VVYdLlt89
+         U9bmEEXtF2Sc8C1jc47CeNFcToTQNUviV2nx3aNiMfNsARPeR2lkjYLvKTtx1w7eN9Oo
+         Lu+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1698886404; x=1699491204;
+        d=1e100.net; s=20230601; t=1698919847; x=1699524647;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xEH7jgDGNi0IK8LdwBqEJDaZ1nOxkEDv/a4hPy0Cfvs=;
-        b=PFGPMGbtCM0VgAKpk5U/F8N8YPeu9N6rFDsAfU9w7Wg2uvW0F1h4zhogpmueat+ipt
-         ceKm5NcFd9U38FGOir3WoZEHo1IIe3+2zOcMRQtTmRv6HBLwQ/9Qgz6YVSjHFiY5McL6
-         5DnO/lwFfDCYphhIKqDhi3AoyfXWfddtpwtNAja81+/EyrK9b9Pgt/QV4KVF6a6Pkb2L
-         9u2pjh+TUBsQX4wiVhfbdTTWB5B12VFHC1iqustaJ7DaAOd0WTjyKLAp6tFKrimYHoQk
-         1JqBIyo2jq8665ef8U4QAkJpPdBqoLGhZh9dfID9Xrxgu86y8rrpzGPT5BXVaHbACpxo
-         AUkg==
-X-Gm-Message-State: AOJu0YyENOJ5cUZ+73wzQ78uTBaLYj7zygc4yXRkEan0hDwNMnZaSgeZ
-	3h5gD44TuuhBFB4t7Vv5RwvVh71R59WqRe+3kf5rgg==
-X-Google-Smtp-Source: AGHT+IGSWXVKZ/Zqa3AgiAFvgieUYgWobPDkFn/aMZfv3jNm/vUrhTJokjt51yoYFUCRMB0d+zLJXw==
-X-Received: by 2002:a05:6a20:1443:b0:17e:aa00:ca62 with SMTP id a3-20020a056a20144300b0017eaa00ca62mr10468558pzi.17.1698886404340;
-        Wed, 01 Nov 2023 17:53:24 -0700 (PDT)
-Received: from wak-linux.svl.corp.google.com ([2620:15c:2a3:200:8eb3:7c85:29f7:efa1])
-        by smtp.gmail.com with ESMTPSA id n20-20020aa78a54000000b006c2d53e0b5fsm1768083pfa.57.2023.11.01.17.53.23
+        bh=odwL1J6AS5nuqoPCF8FI4fUOnDzh+OWjuHaoV8Nap8E=;
+        b=pqmL21x3bDGbYoEs3WUMt4J/Ddqw/bIDCc5oqhybOIrNh9K59+RN1Tg0OvDqRlgeYc
+         5Y+Q6PUA0gcvDIlK/u0+liszZwe4sWXRdumLvq+n4feAefS3L+DR7BPNpcz873DK6nmW
+         geKVPe5Ytm3NimO+4ZG2TDN5nZ/kXApIRQEFvDTBM44Hg9X5z3L9EHhjlyYt4XnaA9Wz
+         yxVV8uoG7ckEngv2MKNkRzG/ncprAexms8hEFv26pdtcuez+4cdIMkfntxHvAlcC0VBr
+         w+KanqdLjBYf2R9GTDV5gqRnYDBbZ7nXjk4H4323Da1s1K1j4ojXEuFJ4bVW9L2tkW2B
+         o9+w==
+X-Gm-Message-State: AOJu0YwCBXH88GjyLs6+Eg7mR1o6BVBtpamMHwDum9vTmUw/9f6RFlcP
+	j//3/fKz/Cvd8d2qsy+wpkXNSA==
+X-Google-Smtp-Source: AGHT+IEf7ZgC902FAtds2SgN5IYeyPxxxWqsIRQdyf4VSs9bXlV7zIMiF/oukOjY8Q/mn5suukmJWQ==
+X-Received: by 2002:a05:6a20:7488:b0:16b:8132:b547 with SMTP id p8-20020a056a20748800b0016b8132b547mr17207560pzd.4.1698919847221;
+        Thu, 02 Nov 2023 03:10:47 -0700 (PDT)
+Received: from wak-linux.svl.corp.google.com ([2620:15c:2a3:200:4b75:12e:f4c2:92ac])
+        by smtp.gmail.com with ESMTPSA id fb27-20020a056a002d9b00b006bdd7cbcf98sm2552127pfb.182.2023.11.02.03.10.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Nov 2023 17:53:23 -0700 (PDT)
-From: william@wkennington.com
+        Thu, 02 Nov 2023 03:10:46 -0700 (PDT)
+From: "William A. Kennington III" <william@wkennington.com>
 To: tmaimon77@gmail.com,
 	tali.perry1@gmail.com,
 	avifishman70@gmail.com
-Subject: [PATCH RESEND] ARM: npcm: Add CPU hotplug callbacks for kexec support
-Date: Wed,  1 Nov 2023 17:53:21 -0700
-Message-ID: <20231102005321.1303809-1-william@wkennington.com>
+Subject: [PATCH v2] ARM: npcm: Add CPU hotplug callbacks for kexec support
+Date: Thu,  2 Nov 2023 03:10:09 -0700
+Message-ID: <20231102101009.15104-1-william@wkennington.com>
 X-Mailer: git-send-email 2.42.0.820.g83a721a137-goog
 In-Reply-To: <20231102002453.1299195-1-william@wkennington.com>
 References: <20231102002453.1299195-1-william@wkennington.com>
@@ -87,7 +87,7 @@ Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 From: Brian Ma <chma0@nuvoton.com>
 
-Add callbacks required for kexec to function. The NPCM7xx/NPCN8xx does
+Add callbacks required for kexec to function. The NPCM7xx does
 not expose controls for powering down CPU cores, so just wait in idle
 loop.
 
