@@ -4,52 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA19EC4332F
-	for <openbmc@archiver.kernel.org>; Fri,  3 Nov 2023 23:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E93EC4332F
+	for <openbmc@archiver.kernel.org>; Mon,  6 Nov 2023 23:07:52 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=gm1 header.b=ZrWtrYP/;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=KbxNpx29;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KDncfMID;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SMcRT0vSpz3cTT
-	for <openbmc@archiver.kernel.org>; Sat,  4 Nov 2023 10:30:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SPRpG3bJdz3cQM
+	for <openbmc@archiver.kernel.org>; Tue,  7 Nov 2023 10:07:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=gm1 header.b=ZrWtrYP/;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=KbxNpx29;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KDncfMID;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=2001:4b98:dc4:8::240; helo=mslow1.mail.gandi.net; envelope-from=alexandre.belloni@bootlin.com; receiver=lists.ozlabs.org)
-Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [IPv6:2001:4b98:dc4:8::240])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com [64.147.123.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SMcPN5n60z30Pn
-	for <openbmc@lists.ozlabs.org>; Sat,  4 Nov 2023 10:28:24 +1100 (AEDT)
-Received: from relay8-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::228])
-	by mslow1.mail.gandi.net (Postfix) with ESMTP id 8D888C391C
-	for <openbmc@lists.ozlabs.org>; Fri,  3 Nov 2023 23:17:01 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id B9CAF1BF204;
-	Fri,  3 Nov 2023 23:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1699053400;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iPB150XnVQwk5yPjWi0UDGYMA4E6lDNYkvhQ2f6W0E8=;
-	b=ZrWtrYP/5OMu1HbOBC2T8IQiUQlgkTqtNyB/EVannJ00ZVEYQvEbxhZmNWlb0VmzsDY2c4
-	zg1hPdNolnLYe6ODkKZqTJIRJFP3Cv7cqhKGVzJBC4GVvfLig5Off/IIK9Vt4+MsFboams
-	h5f37DI8TjOh5YpEId93lKpziMxzuTf7LDq2HLwUAG3FC0M818KX1YdBoPTFmJo4gLWWox
-	JjvzLzILl4lHBpIUQP7bTdBUAtHSnV1RT2AHeB4N0lH0OK0E4mOpvz3Kt8idHPeBMwlqNw
-	X9Ru5e8TeRlthgj6qGZTKdbVFPgA8N76rxx3yKx6CCTlv5CwtNnmfnn2ZRLULA==
-Date: Sat, 4 Nov 2023 00:16:39 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Mia Lin <mimi05633@gmail.com>
-Subject: Re: [PATCH v6 1/1] rtc: nuvoton: Compatible with NCT3015Y-R and
- NCT3018Y-R
-Message-ID: <20231103231639fd4b631c@mail.local>
-References: <20230913013719.8342-1-mimi05633@gmail.com>
- <20230913013719.8342-2-mimi05633@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SPRn6671kz2yVN
+	for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2023 10:06:49 +1100 (AEDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+	by mailout.west.internal (Postfix) with ESMTP id 36CC932009A8;
+	Mon,  6 Nov 2023 18:06:45 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute2.internal (MEProxy); Mon, 06 Nov 2023 18:06:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:sender
+	:subject:subject:to:to; s=fm2; t=1699312004; x=1699398404; bh=Sy
+	ozeJ+KyEm808VrItdr6Nc4O0bS+Po1444eqqeoC10=; b=KbxNpx29wua3lkTyFa
+	wKeo+S2aV1frr+rGsGMYFequohsXy5ddz6MWhlZJlg3fHBcDf46/WVV4V0yB+2UA
+	6d+41rnQcmjKsM7e0hKIvALGQVUHpKBo4jDRBh+MpPYOnK5Im70NlkUziXHqTnI4
+	gg4L2ithW8hgae1DtduscG1xP7BD6OYqmgVewNkduMhnnpTKL5GYhh4tvPUimi6F
+	+EZjxDmc2O9EDvB+tFF9cREozMC8IoYuObWI3LdL4T6gd6qiC5MyjFWnC3hJ3+L7
+	KqAxSdlFv933YicDcH5y1m4xeu6dUhF02E2t8rcGoLmM8eCcBSW+6yNYvCW7xY/4
+	16+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1699312004; x=1699398404; bh=SyozeJ+KyEm80
+	8VrItdr6Nc4O0bS+Po1444eqqeoC10=; b=KDncfMID2r7nzlO3afVfbZA1Syaac
+	08UohU4M+8s4UR/grApOKihTkbdtljyLdH7hsfxH9lAXBXRWnqVEZPhrJ5s26P9F
+	DHSXUv9pXGvCSac9EAfhoAhtWEQ9h5NX4szHMhWUEvAJWaDLiHYCQfMsdglvjm5q
+	PDF16Tdd+TO0f5BetTLJu7igbv2NrsDVVh3CCup9i9DjNRCcuHsp5RII4VnZaO9r
+	qFm3DF/r4IIRKxKrWfI/+BolKAsX3sRzxX0tP+nJs9yMp/RW8vEYK9PXCX1FTcR1
+	fXMa5CeCqeCZpMNCdnm8OsLOdRR2xmYI24gs7+8PA9RpfUF2zZkGqkbpg==
+X-ME-Sender: <xms:hHFJZYmK0eMjvTjhpqYYpUt6X9BAXx9ewqe0_Z0lsjx66583fS2mxg>
+    <xme:hHFJZX0u8Q6thUc5eTNJQjbfpghDwG3QkkvFY5RPQLIQ87ifj9cPDIoghJ648Lbhe
+    8l7WM8AuvX50pGsMJk>
+X-ME-Received: <xmr:hHFJZWpxEUUhquYnK6T8IFNNaakMZReWL0DC8_2d2c6ExZAfzYD8A6IutSriaieSm1zO9h7ten8KiFKcoITGo6_PoMVlWTUbUgA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudduhedgtdehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdludejmdenucfjughrpeffhf
+    fvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpefrrghtrhhitghkucghihhl
+    lhhirghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucggtffrrghtthgvrh
+    hnpedtgeevueeikeffudfguddvkefhudeihefggeejffevieejfffhhfeileekgfffkeen
+    ucffohhmrghinhepghhithhhuhgsrdgtohhmpdihohgtthhophhrohhjvggtthdrohhrgh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprght
+    rhhitghksehsthiftgigrdighiii
+X-ME-Proxy: <xmx:hHFJZUny7dIegL4DgkXJksoGs5w2gJg9pr32NY6M3ihlqRTKrjMV8Q>
+    <xmx:hHFJZW2DjXz1y5_L2f8K_IJLjy5jhT4Fi70EBhWepn7ymWjyrXTSSg>
+    <xmx:hHFJZbt_t1tmdm20P89eO34E-I6f7cefgyuT2UoxDqgITEeZetkPBA>
+    <xmx:hHFJZUCxamGBGql_tQqcNYevIdSxfSuhCkC_hzhKvbtEXdsA76yTEg>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 6 Nov 2023 18:06:43 -0500 (EST)
+Date: Mon, 6 Nov 2023 17:06:42 -0600
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Marco.Cardellini@microchip.com
+Subject: Re: FW: OpenBMC support for SAM9X75 - follow up
+Message-ID: <ZUlxgh-hMJXl_LMe@heinlein.vulture-banana.ts.net>
+References: <SJ0PR11MB5056283972C71AD9B030327F98DDA@SJ0PR11MB5056.namprd11.prod.outlook.com>
+ <DM4PR11MB54700AF4648C4A892E0DE879EEDDA@DM4PR11MB5470.namprd11.prod.outlook.com>
+ <IA1PR11MB7918002DB77F28F1D584A232ECDDA@IA1PR11MB7918.namprd11.prod.outlook.com>
+ <DM4PR11MB54704F112382D43BDFC2F898EEDCA@DM4PR11MB5470.namprd11.prod.outlook.com>
+ <PH0PR11MB5062973F2689347ACBB44B369EA0A@PH0PR11MB5062.namprd11.prod.outlook.com>
+ <DM4PR11MB547038DD545F8C702FA6011BEEA7A@DM4PR11MB5470.namprd11.prod.outlook.com>
+ <PH0PR11MB50623E55C582689F9A7336199EA6A@PH0PR11MB5062.namprd11.prod.outlook.com>
+ <DM4PR11MB5470969CC94F9A219F5DFF9DEEA5A@DM4PR11MB5470.namprd11.prod.outlook.com>
+ <PH0PR11MB50621C4604EFE68563B3E8069EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
+ <PH0PR11MB5062741391DA033DA8BB240F9EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="f8pIm3TWEWj2gjYa"
 Content-Disposition: inline
-In-Reply-To: <20230913013719.8342-2-mimi05633@gmail.com>
-X-GND-Sasl: alexandre.belloni@bootlin.com
+In-Reply-To: <PH0PR11MB5062741391DA033DA8BB240F9EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,138 +103,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-rtc@vger.kernel.org, a.zummo@towertech.it, mylin1@nuvoton.com, benjaminfair@google.com, KWLIU@nuvoton.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, KFLIN@nuvoton.com, tmaimon77@gmail.com
+Cc: Hakim.Cherif@microchip.com, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 13/09/2023 09:37:19+0800, Mia Lin wrote:
-> The NCT3015Y-R and NCT3018Y-R use the same datasheet
->     but have different topologies as follows.
-> - Topology (Only 1st i2c can set TWO bit and HF bit)
->   In NCT3015Y-R,
->     rtc 1st i2c is connected to a host CPU
->     rtc 2nd i2c is connected to a BMC
->   In NCT3018Y-R,
->     rtc 1st i2c is connected to a BMC
->     rtc 2nd i2c is connected to a host CPU
-> In order to be compatible with NCT3015Y-R and NCT3018Y-R,
-> - In probe,
->   If part number is NCT3018Y-R, only set HF bit to 24-Hour format.
->   Else, do nothing
-> - In set_time,
->   If part number is NCT3018Y-R && TWO bit is 0,
->      change TWO bit to 1, and restore TWO bit after updating time.
-> 
-> Signed-off-by: Mia Lin <mimi05633@gmail.com>
-> ---
->  drivers/rtc/rtc-nct3018y.c | 52 +++++++++++++++++++++++++++++++++-----
->  1 file changed, 46 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/rtc/rtc-nct3018y.c b/drivers/rtc/rtc-nct3018y.c
-> index ed4e606be8e5..b006b58e15e2 100644
-> --- a/drivers/rtc/rtc-nct3018y.c
-> +++ b/drivers/rtc/rtc-nct3018y.c
-> @@ -23,6 +23,7 @@
->  #define NCT3018Y_REG_CTRL	0x0A /* timer control */
->  #define NCT3018Y_REG_ST		0x0B /* status */
->  #define NCT3018Y_REG_CLKO	0x0C /* clock out */
-> +#define NCT3018Y_REG_PART	0x21 /* part info */
->  
->  #define NCT3018Y_BIT_AF		BIT(7)
->  #define NCT3018Y_BIT_ST		BIT(7)
-> @@ -37,10 +38,12 @@
->  #define NCT3018Y_REG_BAT_MASK		0x07
->  #define NCT3018Y_REG_CLKO_F_MASK	0x03 /* frequenc mask */
->  #define NCT3018Y_REG_CLKO_CKE		0x80 /* clock out enabled */
-> +#define NCT3018Y_REG_PART_NCT3018Y	0x02
->  
->  struct nct3018y {
->  	struct rtc_device *rtc;
->  	struct i2c_client *client;
-> +	int part_num;
->  #ifdef CONFIG_COMMON_CLK
->  	struct clk_hw clkout_hw;
->  #endif
-> @@ -177,8 +180,27 @@ static int nct3018y_rtc_read_time(struct device *dev, struct rtc_time *tm)
->  static int nct3018y_rtc_set_time(struct device *dev, struct rtc_time *tm)
->  {
->  	struct i2c_client *client = to_i2c_client(dev);
-> +	struct nct3018y *nct3018y = dev_get_drvdata(dev);
->  	unsigned char buf[4] = {0};
-> -	int err;
-> +	int err, flags;
-> +	int restore_flags = 0;
-> +
-> +	flags = i2c_smbus_read_byte_data(client, NCT3018Y_REG_CTRL);
-> +	if (flags < 0) {
-> +		dev_dbg(&client->dev, "Failed to read NCT3018Y_REG_CTRL.\n");
-> +		return flags;
-> +	}
-> +
-> +	/* Check and set TWO bit */
-> +	if ((nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y) && !(flags & NCT3018Y_BIT_TWO)) {
-> +		restore_flags = 1;
-> +		flags |= NCT3018Y_BIT_TWO;
-> +		err = i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, flags);
-> +		if (err < 0) {
-> +			dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n");
-> +			return err;
-> +		}
-> +	}
->  
->  	buf[0] = bin2bcd(tm->tm_sec);
->  	err = i2c_smbus_write_byte_data(client, NCT3018Y_REG_SC, buf[0]);
-> @@ -212,6 +234,18 @@ static int nct3018y_rtc_set_time(struct device *dev, struct rtc_time *tm)
->  		return -EIO;
->  	}
->  
-> +	/* Restore TWO bit */
-> +	if (restore_flags) {
-> +		if (nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y)
-> +			flags &= ~NCT3018Y_BIT_TWO;
-> +
-> +		err = i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, flags);
-> +		if (err < 0) {
-> +			dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n");
-> +			return err;
-> +		}
-> +	}
-> +
->  	return err;
->  }
->  
-> @@ -479,11 +513,17 @@ static int nct3018y_probe(struct i2c_client *client)
->  		dev_dbg(&client->dev, "%s: NCT3018Y_BIT_TWO is set\n", __func__);
->  	}
->  
-> -	flags = NCT3018Y_BIT_TWO;
-> -	err = i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, flags);
-> -	if (err < 0) {
-> -		dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL\n");
-> -		return err;
-> +	nct3018y->part_num = i2c_smbus_read_byte_data(client, NCT3018Y_REG_PART);
-> +	if (nct3018y->part_num < 0) {
-> +		dev_dbg(&client->dev, "Failed to read NCT3018Y_REG_PART.\n");
-> +		return nct3018y->part_num;
-> +	} else if (nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y) {
 
-This is a weird way to check as this will accept any value of
-NCT3018Y_REG_PART as long as bit 1 is set, is this really what you want?
+--f8pIm3TWEWj2gjYa
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +		flags = NCT3018Y_BIT_HF;
-> +		err = i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, flags);
-> +		if (err < 0) {
-> +			dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n");
-> +			return err;
-> +		}
->  	}
->  
->  	flags = 0;
-> -- 
-> 2.17.1
-> 
+On Fri, Nov 03, 2023 at 08:37:55AM +0000, Marco.Cardellini@microchip.com wr=
+ote:
+> Hi Patrick, Andrew
+>=20
+> Many thanks for your feed back but we are not sure to understand your ans=
+wer.
+> .
+> Does it mean openBMC team will keep updating their code based on any yoct=
+o release?
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+OpenBMC only does development against the Yocto master branch.
+
+If you look at our Kirkstone branch you will see it is 3592 commits
+behind master and was last touched in April 2022.  That means it is
+missing 1.5 years worth of BMC code development.
+
+https://github.com/openbmc/openbmc/tree/kirkstone/meta-phosphor
+
+>=20
+> Checked the wiki, kirkstone is the latest LTS version of yocto. https://w=
+iki.yoctoproject.org/wiki/Releases
+
+LTS releases mean very little for OpenBMC.  Most OpenBMC uses take a
+"live at HEAD" approach (or something very near to it).  We do not
+maintain past releases and we certainly do not add new code to them.
+
+>=20
+> Did openBMC team mean if we want to put our meta (meta-atmel) to openBMC =
+github, we have to follow every version from yocto release?
+
+There are two approaches:
+
+1. You add the bare minimum of meta-atmel recipes to support your SOC
+into our tree (this was Andrew G.'s suggestion).  We need to understand
+what these recipes are.  You will probably end up with a similar set as
+what is currently in meta-nuvoton.
+
+2. You ensure your own meta-atmel is a well-maintained Yocto meta layer
+(by ensuring it always works against Yocto's master release as well) and
+then we can add it into our subtree import tool.  This is how we keep
+meta-arm, meta-raspberrypi, meta-openembedded, etc. updated.
+
+> Is there any quick way if we integrate our meta to kirkstone branch?
+
+No.  And even if we did, it would provide no value since our Kirkstone
+branch is using relatively ancient code.
+
+--=20
+Patrick Williams
+
+--f8pIm3TWEWj2gjYa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmVJcYAACgkQqwNHzC0A
+wRmH9BAAkIFsfW9utYIXhfg72uWNWZ8frQae1jqq6ZFf6+LhgIrm6CbX+o8ZGBMm
+XhBtQWC1K0N3IguvmjGjSqtVCjEt5EzzXbylU4xtbypk4h9q5A5BSqiqZYrnAhW/
+D3XTCN4m1aClWk7PNjvhbsptfOFT8XA5+ZdFb3oTpOVqOIKHc+DDW0yNab407JTB
+GjiNe956ORQ9w2HFarfF1Bmg7fhCVQLeW8ZjdFCmB0OkomjNKphWqo/P1Y8R+dvO
+5UgxbM1TzA+d+8jlEsxODDdaFo5hS91TswnZMsD3FSt61V6wwd/AMnZN0Xa/IrKu
+l1nPdi6jqNftq3MLS7ss39BOQ1GyQuBkXaIIngrd/7lhhDBhWfStEzqngaAaBsPp
+FnnMRsGniTCT8bwNs4tM2V1sBi6j38IzCSIwai0H1A0dl4vVdWJQPqq/C2PVErAX
+O8AZsFbkSfMTvuXeXYiHIIxpHyS3PrkB/U9Hv5VxoSpGOSv0D6Ogfu13YhPvzK43
+0/ovFrl0tVpBPEjSYYIOoLgR6OgZMeAut8PfIcu8l057affpgrPKT68KrZrJs4fK
+BlJ+Ux3eDgscqF2ILxlZRKgPiIk2LCxPUI6t8bObbq+W2xwFZH/h32YBHwiK8R8U
+Gx2LJZX6sFcLdRAxjzj07AQxQ/dsHyztGX+pjadvwD9tEWwncn4=
+=5DaN
+-----END PGP SIGNATURE-----
+
+--f8pIm3TWEWj2gjYa--
