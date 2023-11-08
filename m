@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E93EC4332F
-	for <openbmc@archiver.kernel.org>; Mon,  6 Nov 2023 23:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF7AC4332F
+	for <openbmc@archiver.kernel.org>; Wed,  8 Nov 2023 08:21:51 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=KbxNpx29;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KDncfMID;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=0xc5RKiI;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SPRpG3bJdz3cQM
-	for <openbmc@archiver.kernel.org>; Tue,  7 Nov 2023 10:07:50 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SQJ320N75z3cC7
+	for <openbmc@archiver.kernel.org>; Wed,  8 Nov 2023 19:21:50 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=KbxNpx29;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KDncfMID;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=0xc5RKiI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com [64.147.123.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f400:feab::629; helo=apc01-sg2-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com (mail-sgaapc01on20629.outbound.protection.outlook.com [IPv6:2a01:111:f400:feab::629])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SPRn6671kz2yVN
-	for <openbmc@lists.ozlabs.org>; Tue,  7 Nov 2023 10:06:49 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.west.internal (Postfix) with ESMTP id 36CC932009A8;
-	Mon,  6 Nov 2023 18:06:45 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
-  by compute2.internal (MEProxy); Mon, 06 Nov 2023 18:06:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm2; t=1699312004; x=1699398404; bh=Sy
-	ozeJ+KyEm808VrItdr6Nc4O0bS+Po1444eqqeoC10=; b=KbxNpx29wua3lkTyFa
-	wKeo+S2aV1frr+rGsGMYFequohsXy5ddz6MWhlZJlg3fHBcDf46/WVV4V0yB+2UA
-	6d+41rnQcmjKsM7e0hKIvALGQVUHpKBo4jDRBh+MpPYOnK5Im70NlkUziXHqTnI4
-	gg4L2ithW8hgae1DtduscG1xP7BD6OYqmgVewNkduMhnnpTKL5GYhh4tvPUimi6F
-	+EZjxDmc2O9EDvB+tFF9cREozMC8IoYuObWI3LdL4T6gd6qiC5MyjFWnC3hJ3+L7
-	KqAxSdlFv933YicDcH5y1m4xeu6dUhF02E2t8rcGoLmM8eCcBSW+6yNYvCW7xY/4
-	16+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1699312004; x=1699398404; bh=SyozeJ+KyEm80
-	8VrItdr6Nc4O0bS+Po1444eqqeoC10=; b=KDncfMID2r7nzlO3afVfbZA1Syaac
-	08UohU4M+8s4UR/grApOKihTkbdtljyLdH7hsfxH9lAXBXRWnqVEZPhrJ5s26P9F
-	DHSXUv9pXGvCSac9EAfhoAhtWEQ9h5NX4szHMhWUEvAJWaDLiHYCQfMsdglvjm5q
-	PDF16Tdd+TO0f5BetTLJu7igbv2NrsDVVh3CCup9i9DjNRCcuHsp5RII4VnZaO9r
-	qFm3DF/r4IIRKxKrWfI/+BolKAsX3sRzxX0tP+nJs9yMp/RW8vEYK9PXCX1FTcR1
-	fXMa5CeCqeCZpMNCdnm8OsLOdRR2xmYI24gs7+8PA9RpfUF2zZkGqkbpg==
-X-ME-Sender: <xms:hHFJZYmK0eMjvTjhpqYYpUt6X9BAXx9ewqe0_Z0lsjx66583fS2mxg>
-    <xme:hHFJZX0u8Q6thUc5eTNJQjbfpghDwG3QkkvFY5RPQLIQ87ifj9cPDIoghJ648Lbhe
-    8l7WM8AuvX50pGsMJk>
-X-ME-Received: <xmr:hHFJZWpxEUUhquYnK6T8IFNNaakMZReWL0DC8_2d2c6ExZAfzYD8A6IutSriaieSm1zO9h7ten8KiFKcoITGo6_PoMVlWTUbUgA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudduhedgtdehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdludejmdenucfjughrpeffhf
-    fvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpefrrghtrhhitghkucghihhl
-    lhhirghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucggtffrrghtthgvrh
-    hnpedtgeevueeikeffudfguddvkefhudeihefggeejffevieejfffhhfeileekgfffkeen
-    ucffohhmrghinhepghhithhhuhgsrdgtohhmpdihohgtthhophhrohhjvggtthdrohhrgh
-    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprght
-    rhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:hHFJZUny7dIegL4DgkXJksoGs5w2gJg9pr32NY6M3ihlqRTKrjMV8Q>
-    <xmx:hHFJZW2DjXz1y5_L2f8K_IJLjy5jhT4Fi70EBhWepn7ymWjyrXTSSg>
-    <xmx:hHFJZbt_t1tmdm20P89eO34E-I6f7cefgyuT2UoxDqgITEeZetkPBA>
-    <xmx:hHFJZUCxamGBGql_tQqcNYevIdSxfSuhCkC_hzhKvbtEXdsA76yTEg>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 6 Nov 2023 18:06:43 -0500 (EST)
-Date: Mon, 6 Nov 2023 17:06:42 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Marco.Cardellini@microchip.com
-Subject: Re: FW: OpenBMC support for SAM9X75 - follow up
-Message-ID: <ZUlxgh-hMJXl_LMe@heinlein.vulture-banana.ts.net>
-References: <SJ0PR11MB5056283972C71AD9B030327F98DDA@SJ0PR11MB5056.namprd11.prod.outlook.com>
- <DM4PR11MB54700AF4648C4A892E0DE879EEDDA@DM4PR11MB5470.namprd11.prod.outlook.com>
- <IA1PR11MB7918002DB77F28F1D584A232ECDDA@IA1PR11MB7918.namprd11.prod.outlook.com>
- <DM4PR11MB54704F112382D43BDFC2F898EEDCA@DM4PR11MB5470.namprd11.prod.outlook.com>
- <PH0PR11MB5062973F2689347ACBB44B369EA0A@PH0PR11MB5062.namprd11.prod.outlook.com>
- <DM4PR11MB547038DD545F8C702FA6011BEEA7A@DM4PR11MB5470.namprd11.prod.outlook.com>
- <PH0PR11MB50623E55C582689F9A7336199EA6A@PH0PR11MB5062.namprd11.prod.outlook.com>
- <DM4PR11MB5470969CC94F9A219F5DFF9DEEA5A@DM4PR11MB5470.namprd11.prod.outlook.com>
- <PH0PR11MB50621C4604EFE68563B3E8069EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
- <PH0PR11MB5062741391DA033DA8BB240F9EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SQJ1t4m6Rz2xFl
+	for <openbmc@lists.ozlabs.org>; Wed,  8 Nov 2023 19:20:49 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VqURpw+l+OvxvmOfpfkodRW2HVHO6XRTg4Cg4Kq2IBdegfmlDm/g9l+tu0TK1tp8lDGPUTDBomO0L8dFkWwf5lLp541eD3Kvh4MNuPI2BVc3YH6i0dmlLW9MyYXf/Zfg3lWT0jpWH3Z6JmDOFCH/iykHVlI/pi33M3gkSPJW7W6uDmf1Scw9+NdCK8JYXJvNgF0DIEb/pig/TKHM9zeTTpoTGozI6Frd8rGbQN5vkHhF+N7hIrNtJs/xmUpU8Q5I4AIwi0g9wuPr5ckl2R2sUs2cAlyHuiDo/GmlScmX68ON5tjOtpOkGMhRj7j4Gn6Fnigts9iv/DHIWnUedIG/bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PuPjiPCA9sFK1LuvVxaj+dVrTU1x/FJgsuJkCW5VPtg=;
+ b=hBQ/Nsepha4YWy/gVzRU2Kc8OB2i70pPgbyIs9BSiSr3m7u9z17vLt0nN/DGohPlt4AVVscv/QWTwzUX0JNju+n8EWl7iAtXPIFHzA59Xhsi/ot//45IPXqiFnIY9fjlBNRKHqla5ksFqOYrkk0oRJw859iTWVefgcNh6E5z5/+lpr6EB8rxjdRKOvDwvuNaz1qijsQK8Iyb/8uacJmvZiqAGqAFToPJOnagj7TsRWy9WEF/gtO2Vo7ETJ5qLyAllex4dT38JfW8baUyl7qRuDoIoj0NzLOZfj+dCiHRdfrkxBTsT9PmE//eqj8X5hmzy8HupqXk0+c02pWR+axFlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 211.20.1.79) smtp.rcpttodomain=stwcx.xyz smtp.mailfrom=wiwynn.com; dmarc=fail
+ (p=quarantine sp=quarantine pct=100) action=quarantine
+ header.from=wiwynn.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wiwynn.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PuPjiPCA9sFK1LuvVxaj+dVrTU1x/FJgsuJkCW5VPtg=;
+ b=0xc5RKiIC+pScMx7dUwoHSpr6ITEn16v/bm9V/coUFaHuQpdRssJl6eAVLmGiw6fDSlmKIFO9gkJzDAun0W6LvrWvzl6q4Vx257pX2Y0RjS48RZAyxNM0B28O04BPg9MMeIlHMfd2BeF1vFBRdwn0vjWh8pK7TpxrnZV6WhYlvIbJ8J91xSBEoARYKjSKnPk8gUMvzVVbOk4owLmck2yLhV5qIt1dtdCIIwnxsFiqT83+Zc7MVuhXmk/yW0ATnSzhs+wTASMRdl2+cl0q6UPfItK2MrVNpXS5IrTUB7JUzreoNf9g1hipN5rrgMF+jZXtz6g1fEf6MMWejsUj3brxg==
+Received: from SGAP274CA0006.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b6::18) by
+ SEYPR04MB6703.apcprd04.prod.outlook.com (2603:1096:101:df::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6954.29; Wed, 8 Nov 2023 08:20:27 +0000
+Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
+ (2603:1096:4:b6:cafe::e) by SGAP274CA0006.outlook.office365.com
+ (2603:1096:4:b6::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.18 via Frontend
+ Transport; Wed, 8 Nov 2023 08:20:26 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 211.20.1.79)
+ smtp.mailfrom=Wiwynn.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=Wiwynn.com;
+Received-SPF: Fail (protection.outlook.com: domain of Wiwynn.com does not
+ designate 211.20.1.79 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.20.1.79; helo=localhost.localdomain;
+Received: from localhost.localdomain (211.20.1.79) by
+ SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.10) with Microsoft
+ SMTP Server id 15.20.6977.16 via Frontend Transport; Wed, 8 Nov 2023 08:20:26
+ +0000
+From: Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
+To: patrick@stwcx.xyz,
+	joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-6.5 v4 1/2] dt-bindings: hwmon: Add lltc ltc4286 driver bindings
+Date: Wed,  8 Nov 2023 16:20:18 +0800
+Message-Id: <20231108082019.1601366-2-Delphine_CC_Chiu@Wiwynn.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231108082019.1601366-1-Delphine_CC_Chiu@Wiwynn.com>
+References: <20231108082019.1601366-1-Delphine_CC_Chiu@Wiwynn.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="f8pIm3TWEWj2gjYa"
-Content-Disposition: inline
-In-Reply-To: <PH0PR11MB5062741391DA033DA8BB240F9EA5A@PH0PR11MB5062.namprd11.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|SEYPR04MB6703:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: f89800ef-4e95-4375-0072-08dbe0339024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 	GdwmxFTxjUzzP3QBWXRKOuaGed0Ld5/FtizYGoxd7OBhL1egFvqHDc2lGA7wRRkpa0hQSqXVqnkE3E5RpNDrD0rK+n5bcbed7aQTWMTHpsWhvChi47IHL8cBRep24hMlx+C5keSFYbOX2PP0PhnYgZVhLdWlM8lkrkZqS3nyqPbEXlKFw6sWTBrLzdouCboLXyuD4QZul1Ge+20E3lThWnsTk4PI4GvZ2tflemIdanymbWTfzx3fuF9Ptze9POiDlMhYWL85u5m9YDeEeD4C7mwQFoO3/XVV9USNYBOIecj0lBRllGs7eqcH6vKWKEcuX3Jyl3v0TWBMnjGe8bRtTgccTxxzMoFD6JajTe9meat8drpJm16FzeIA5woE+793nqhlysFFN9uHRn1je/1nOW73Gz0zeR50sf1Kue5Tbh1QCgMqrWWzw/ihWr6Hf0cN0+HMwlgWExEbQE4VrHdNCJHw4bN5Vp4yuS3fIs7ggd2K+zFZotrYMn2OOfC0tIua/ID1tIMnuEi24w9yWRrLccgAgMXVroW8c1xBfyMgXspvvQlIuke/qm6QQGeXOhgUA1XeYFLQsawvYq79UH+/T+T9BSFdEjCYii835rgFHPQa7QcMNQ5hVCPBzIP84uTuiOPTcGv3TENi0JeeXVyktu/w6tcVXtVB70/2Q4tPyAKqYajpYEXIUOyx9xLMeyePt78OauS6HdBpiExODLMAmQf5+PGqqcLTI0Jpn99p0lE=
+X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(39860400002)(376002)(346002)(396003)(136003)(230922051799003)(186009)(64100799003)(451199024)(1800799009)(82310400011)(36840700001)(46966006)(82740400003)(26005)(1076003)(956004)(107886003)(70206006)(70586007)(2616005)(478600001)(6506007)(6666004)(336012)(966005)(9316004)(6486002)(6512007)(36756003)(40480700001)(4326008)(8676002)(41300700001)(8936002)(5660300002)(2906002)(36860700001)(81166007)(47076005)(86362001)(316002)(36736006)(356005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: wiwynn.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2023 08:20:26.6477
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f89800ef-4e95-4375-0072-08dbe0339024
+X-MS-Exchange-CrossTenant-Id: da6e0628-fc83-4caf-9dd2-73061cbab167
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=da6e0628-fc83-4caf-9dd2-73061cbab167;Ip=[211.20.1.79];Helo=[localhost.localdomain]
+X-MS-Exchange-CrossTenant-AuthSource: 	SG1PEPF000082E7.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR04MB6703
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,84 +99,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Hakim.Cherif@microchip.com, openbmc@lists.ozlabs.org
+Cc: Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Add a device tree bindings for ltc4286 device.
 
---f8pIm3TWEWj2gjYa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
 
-On Fri, Nov 03, 2023 at 08:37:55AM +0000, Marco.Cardellini@microchip.com wr=
-ote:
-> Hi Patrick, Andrew
->=20
-> Many thanks for your feed back but we are not sure to understand your ans=
-wer.
-> .
-> Does it mean openBMC team will keep updating their code based on any yoct=
-o release?
+Changelog:
+  v4 - Revise some inappropriate writing in yaml file
+  v3 - Revise adi,vrange-select-25p6 to adi,vrange-low-enable
+  v2 - Revise vrange_select_25p6 to adi,vrange-select-25p6
+     - Add type for adi,vrange-select-25p6
+     - Revise rsense-micro-ohms to shunt-resistor-micro-ohms
+---
+ .../bindings/hwmon/lltc,ltc4286.yaml          | 51 +++++++++++++++++++
+ MAINTAINERS                                   | 10 ++++
+ 2 files changed, 61 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/lltc,ltc4286.yaml
 
-OpenBMC only does development against the Yocto master branch.
+diff --git a/Documentation/devicetree/bindings/hwmon/lltc,ltc4286.yaml b/Documentation/devicetree/bindings/hwmon/lltc,ltc4286.yaml
+new file mode 100644
+index 000000000000..d26f34fb7ea7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/lltc,ltc4286.yaml
+@@ -0,0 +1,51 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/lltc,ltc4286.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LTC4286 power monitors
++
++maintainers:
++  - Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
++
++properties:
++  compatible:
++    enum:
++      - lltc,ltc4286
++      - lltc,ltc4287
++
++  reg:
++    maxItems: 1
++
++  adi,vrange-low-enable:
++    description:
++      This property is a bool parameter to represent the
++      voltage range is 25.6 volts or 102.4 volts for this chip.
++      The default is 102.4 volts.
++    type: boolean
++
++  shunt-resistor-micro-ohms:
++    description:
++      Resistor value micro-ohms.
++
++required:
++  - compatible
++  - reg
++  - shunt-resistor-micro-ohms
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        power-monitor@40 {
++            compatible = "lltc,ltc4286";
++            reg = <0x40>;
++            adi,vrange-low-enable;
++            shunt-resistor-micro-ohms = <300>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d9ba580fd4ba..e46a6e43ff64 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12363,6 +12363,16 @@ S:	Maintained
+ F:	Documentation/hwmon/ltc4261.rst
+ F:	drivers/hwmon/ltc4261.c
+ 
++LTC4286 HARDWARE MONITOR DRIVER
++M:	Delphine CC Chiu <Delphine_CC_Chiu@Wiwynn.com>
++L:	linux-i2c@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/hwmon/lltc,ltc4286.yaml
++F:	Documentation/devicetree/bindings/hwmon/ltc4286.rst
++F:	drivers/hwmon/pmbus/Kconfig
++F:	drivers/hwmon/pmbus/Makefile
++F:	drivers/hwmon/pmbus/ltc4286.c
++
+ LTC4306 I2C MULTIPLEXER DRIVER
+ M:	Michael Hennerich <michael.hennerich@analog.com>
+ L:	linux-i2c@vger.kernel.org
+-- 
+2.25.1
 
-If you look at our Kirkstone branch you will see it is 3592 commits
-behind master and was last touched in April 2022.  That means it is
-missing 1.5 years worth of BMC code development.
-
-https://github.com/openbmc/openbmc/tree/kirkstone/meta-phosphor
-
->=20
-> Checked the wiki, kirkstone is the latest LTS version of yocto. https://w=
-iki.yoctoproject.org/wiki/Releases
-
-LTS releases mean very little for OpenBMC.  Most OpenBMC uses take a
-"live at HEAD" approach (or something very near to it).  We do not
-maintain past releases and we certainly do not add new code to them.
-
->=20
-> Did openBMC team mean if we want to put our meta (meta-atmel) to openBMC =
-github, we have to follow every version from yocto release?
-
-There are two approaches:
-
-1. You add the bare minimum of meta-atmel recipes to support your SOC
-into our tree (this was Andrew G.'s suggestion).  We need to understand
-what these recipes are.  You will probably end up with a similar set as
-what is currently in meta-nuvoton.
-
-2. You ensure your own meta-atmel is a well-maintained Yocto meta layer
-(by ensuring it always works against Yocto's master release as well) and
-then we can add it into our subtree import tool.  This is how we keep
-meta-arm, meta-raspberrypi, meta-openembedded, etc. updated.
-
-> Is there any quick way if we integrate our meta to kirkstone branch?
-
-No.  And even if we did, it would provide no value since our Kirkstone
-branch is using relatively ancient code.
-
---=20
-Patrick Williams
-
---f8pIm3TWEWj2gjYa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmVJcYAACgkQqwNHzC0A
-wRmH9BAAkIFsfW9utYIXhfg72uWNWZ8frQae1jqq6ZFf6+LhgIrm6CbX+o8ZGBMm
-XhBtQWC1K0N3IguvmjGjSqtVCjEt5EzzXbylU4xtbypk4h9q5A5BSqiqZYrnAhW/
-D3XTCN4m1aClWk7PNjvhbsptfOFT8XA5+ZdFb3oTpOVqOIKHc+DDW0yNab407JTB
-GjiNe956ORQ9w2HFarfF1Bmg7fhCVQLeW8ZjdFCmB0OkomjNKphWqo/P1Y8R+dvO
-5UgxbM1TzA+d+8jlEsxODDdaFo5hS91TswnZMsD3FSt61V6wwd/AMnZN0Xa/IrKu
-l1nPdi6jqNftq3MLS7ss39BOQ1GyQuBkXaIIngrd/7lhhDBhWfStEzqngaAaBsPp
-FnnMRsGniTCT8bwNs4tM2V1sBi6j38IzCSIwai0H1A0dl4vVdWJQPqq/C2PVErAX
-O8AZsFbkSfMTvuXeXYiHIIxpHyS3PrkB/U9Hv5VxoSpGOSv0D6Ogfu13YhPvzK43
-0/ovFrl0tVpBPEjSYYIOoLgR6OgZMeAut8PfIcu8l057affpgrPKT68KrZrJs4fK
-BlJ+Ux3eDgscqF2ILxlZRKgPiIk2LCxPUI6t8bObbq+W2xwFZH/h32YBHwiK8R8U
-Gx2LJZX6sFcLdRAxjzj07AQxQ/dsHyztGX+pjadvwD9tEWwncn4=
-=5DaN
------END PGP SIGNATURE-----
-
---f8pIm3TWEWj2gjYa--
