@@ -4,70 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 686C5C4332F
-	for <openbmc@archiver.kernel.org>; Thu,  9 Nov 2023 12:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16967C4332F
+	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 00:17:53 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FarWncsY;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=i4zIy2RJ;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SR1cC0HLZz3cQ7
-	for <openbmc@archiver.kernel.org>; Thu,  9 Nov 2023 23:34:35 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SRKCh1gx9z3c2L
+	for <openbmc@archiver.kernel.org>; Fri, 10 Nov 2023 11:17:52 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FarWncsY;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=i4zIy2RJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=mimi05633@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SR1b85YRDz2xqH
-	for <openbmc@lists.ozlabs.org>; Thu,  9 Nov 2023 23:33:40 +1100 (AEDT)
-Received: by mail-pl1-x636.google.com with SMTP id d9443c01a7336-1cc4f777ab9so6888835ad.0
-        for <openbmc@lists.ozlabs.org>; Thu, 09 Nov 2023 04:33:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1699533218; x=1700138018; darn=lists.ozlabs.org;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KTHBXAc9zM9xt1Wy1erfrR/9L+jcsqcOSfBsUDoZoMI=;
-        b=FarWncsY850dWdwSV/v1W6SnCeoliEU1g89VaHLIU+UEOYI4yDjQoSXrthHqxnpN8Q
-         eYNABTbs+SrE+//eJRQees99cOviRnnA26CU2fSh+RofAHf8szuE3J9oDBN+uTBbjH8A
-         Ry46BfVi1V0rp4jOnWt/vEDnYvY6nhOwufSwEXSaMORwA2zQUr/E+nSwm+DbXBNEBrVP
-         29qVF4cLp2h9HmhLhQzX+R24TG5qJAQcXEduEByAAcxfjOP2YlgPpFHd3gUmSMm1Qbys
-         7idEesCvhyY7H9lLsXIUYM9VR0qidLX/gLhg4hGFa5N6UfAzxhSi80G4GaRQ7+08HTnX
-         bAwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699533218; x=1700138018;
-        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
-         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=KTHBXAc9zM9xt1Wy1erfrR/9L+jcsqcOSfBsUDoZoMI=;
-        b=Ek8EJ9XkOgIwN5706RTnl9kvUA5uC9ShlWRP9ofTIscBmkGMQ5I4fvXv9i4MGGrYWc
-         ZA2HD2qaVf88ntOMem2M5pTiMJMNJL6rLf4ia3mkTNS2k/3ZpMZp/tRVqjVJtpEatQy4
-         AXvmvSVTFUoa9GP32WMnvQlXteOAmNTcKRabRCvCfkTrsMLuduu1FXzKi1m5szDoa3Ma
-         tKlH+nD1u5Km+i5C5DZ5iNtDy5ZKSSsiFvyHVpS83hzfefJ2u9JtZNoMbHmFxFXX8sz/
-         Vj3eBMhzruMbdNrORsPvC8cTL/QHU2c6WiU9IQH04HCjSWBJFWbdGo24bmo5X64lYHhY
-         JK8g==
-X-Gm-Message-State: AOJu0YyS6IPrDoLmRf/C/QpFU3FNtoxRG20lhXLhpQyHZ1IZ7oHDE1Jj
-	LI4JGcj2Df5jje5G/tJfZcq6CChZjQKxLg==
-X-Google-Smtp-Source: AGHT+IEWqil4LO0GuTbHAh6kUp2YrHS6DfkZH2dJOZVMwpiGaNIcEpflnfIgcd8Jp9z3stQgvB6oBw==
-X-Received: by 2002:a17:902:ec83:b0:1ca:a290:4c0c with SMTP id x3-20020a170902ec8300b001caa2904c0cmr6188990plg.16.1699533217532;
-        Thu, 09 Nov 2023 04:33:37 -0800 (PST)
-Received: from smtpclient.apple ([2401:e180:8821:59e0:e5cc:8803:56b9:e782])
-        by smtp.gmail.com with ESMTPSA id h21-20020a170902eed500b001bf846dd2d0sm3426037plb.13.2023.11.09.04.33.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Nov 2023 04:33:37 -0800 (PST)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Mining Lin <mimi05633@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH v6 1/1] rtc: nuvoton: Compatible with NCT3015Y-R and NCT3018Y-R
-Date: Thu, 9 Nov 2023 20:33:25 +0800
-Message-Id: <79C789B5-345A-44F0-B81E-A0FB7E64235B@gmail.com>
-References: <20231103231735b4769ca4@mail.local>
-In-Reply-To: <20231103231735b4769ca4@mail.local>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-X-Mailer: iPhone Mail (20G81)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SRKBb6sblz2xFm
+	for <openbmc@lists.ozlabs.org>; Fri, 10 Nov 2023 11:16:55 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:7e5d:5300::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: zev)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 42DF54256;
+	Thu,  9 Nov 2023 16:16:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+	s=thorn; t=1699575409;
+	bh=Ltscq+tzdPiMbcpZ/4735rSiWHuvTxXOt46ZGz9PrzM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=i4zIy2RJ03ysJsw4O0qMCFgDSj/IOFDKC8bM9CDEIEaLbozhTEKxKWMMqM5Xd34X9
+	 PO57jkSbM6fcn+m4YJeEF84PmkBk23G6mWcl11436AvejmxF1G3CIPUkgCWfJh1vu8
+	 7RwnLCvWwz2vUAsJoXILZXTCPJLl72OST4Gxbdkk=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Subject: [PATCH linux dev-6.5 1/2] dt-bindings: watchdog: aspeed-wdt: Add aspeed,reset-mask property
+Date: Thu,  9 Nov 2023 16:16:36 -0800
+Message-ID: <20231110001634.6638-5-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231110001634.6638-4-zev@bewilderbeest.net>
+References: <20231110001634.6638-4-zev@bewilderbeest.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,175 +58,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-rtc@vger.kernel.org, a.zummo@towertech.it, mylin1@nuvoton.com, benjaminfair@google.com, KWLIU@nuvoton.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, KFLIN@nuvoton.com, tmaimon77@gmail.com
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Dear Alexandre,
+This property configures the Aspeed watchdog timer's reset mask, which
+controls which peripherals are reset when the watchdog timer expires.
+Some platforms require that certain devices be left untouched across a
+reboot; aspeed,reset-mask can now be used to express such constraints.
 
-I will add change log next patch.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/r/20230922104231.1434-5-zev@bewilderbeest.net
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+(cherry picked from commit 9931be2cfca35be7040f35a272a7b82b31ec1c71)
+---
+ .../bindings/watchdog/aspeed-wdt.txt          | 18 +++-
+ include/dt-bindings/watchdog/aspeed-wdt.h     | 92 +++++++++++++++++++
+ 2 files changed, 109 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/watchdog/aspeed-wdt.h
 
-Thanks.
-Best regard,
-Mia
+diff --git a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+index a8197632d6d2..3208adb3e52e 100644
+--- a/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
++++ b/Documentation/devicetree/bindings/watchdog/aspeed-wdt.txt
+@@ -47,7 +47,15 @@ Optional properties for AST2500-compatible watchdogs:
+ 			   is configured as push-pull, then set the pulse
+ 			   polarity to active-high. The default is active-low.
+ 
+-Example:
++Optional properties for AST2500- and AST2600-compatible watchdogs:
++ - aspeed,reset-mask: A bitmask indicating which peripherals will be reset if
++		      the watchdog timer expires.  On AST2500 this should be a
++		      single word defined using the AST2500_WDT_RESET_* macros;
++		      on AST2600 this should be a two-word array with the first
++		      word defined using the AST2600_WDT_RESET1_* macros and the
++		      second word defined using the AST2600_WDT_RESET2_* macros.
++
++Examples:
+ 
+ 	wdt1: watchdog@1e785000 {
+ 		compatible = "aspeed,ast2400-wdt";
+@@ -55,3 +63,11 @@ Example:
+ 		aspeed,reset-type = "system";
+ 		aspeed,external-signal;
+ 	};
++
++	#include <dt-bindings/watchdog/aspeed-wdt.h>
++	wdt2: watchdog@1e785040 {
++		compatible = "aspeed,ast2600-wdt";
++		reg = <0x1e785040 0x40>;
++		aspeed,reset-mask = <AST2600_WDT_RESET1_DEFAULT
++				     (AST2600_WDT_RESET2_DEFAULT & ~AST2600_WDT_RESET2_LPC)>;
++	};
+diff --git a/include/dt-bindings/watchdog/aspeed-wdt.h b/include/dt-bindings/watchdog/aspeed-wdt.h
+new file mode 100644
+index 000000000000..7ae6d84b2bd9
+--- /dev/null
++++ b/include/dt-bindings/watchdog/aspeed-wdt.h
+@@ -0,0 +1,92 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++
++#ifndef DT_BINDINGS_ASPEED_WDT_H
++#define DT_BINDINGS_ASPEED_WDT_H
++
++#define AST2500_WDT_RESET_CPU		(1 << 0)
++#define AST2500_WDT_RESET_COPROC	(1 << 1)
++#define AST2500_WDT_RESET_SDRAM		(1 << 2)
++#define AST2500_WDT_RESET_AHB		(1 << 3)
++#define AST2500_WDT_RESET_I2C		(1 << 4)
++#define AST2500_WDT_RESET_MAC0		(1 << 5)
++#define AST2500_WDT_RESET_MAC1		(1 << 6)
++#define AST2500_WDT_RESET_GRAPHICS	(1 << 7)
++#define AST2500_WDT_RESET_USB2_HOST_HUB	(1 << 8)
++#define AST2500_WDT_RESET_USB_HOST	(1 << 9)
++#define AST2500_WDT_RESET_HID_EHCI	(1 << 10)
++#define AST2500_WDT_RESET_VIDEO		(1 << 11)
++#define AST2500_WDT_RESET_HAC		(1 << 12)
++#define AST2500_WDT_RESET_LPC		(1 << 13)
++#define AST2500_WDT_RESET_SDIO		(1 << 14)
++#define AST2500_WDT_RESET_MIC		(1 << 15)
++#define AST2500_WDT_RESET_CRT		(1 << 16)
++#define AST2500_WDT_RESET_PWM		(1 << 17)
++#define AST2500_WDT_RESET_PECI		(1 << 18)
++#define AST2500_WDT_RESET_JTAG		(1 << 19)
++#define AST2500_WDT_RESET_ADC		(1 << 20)
++#define AST2500_WDT_RESET_GPIO		(1 << 21)
++#define AST2500_WDT_RESET_MCTP		(1 << 22)
++#define AST2500_WDT_RESET_XDMA		(1 << 23)
++#define AST2500_WDT_RESET_SPI		(1 << 24)
++#define AST2500_WDT_RESET_SOC_MISC	(1 << 25)
++
++#define AST2500_WDT_RESET_DEFAULT 0x023ffff3
++
++#define AST2600_WDT_RESET1_CPU		(1 << 0)
++#define AST2600_WDT_RESET1_SDRAM	(1 << 1)
++#define AST2600_WDT_RESET1_AHB		(1 << 2)
++#define AST2600_WDT_RESET1_SLI		(1 << 3)
++#define AST2600_WDT_RESET1_SOC_MISC0	(1 << 4)
++#define AST2600_WDT_RESET1_COPROC	(1 << 5)
++#define AST2600_WDT_RESET1_USB_A	(1 << 6)
++#define AST2600_WDT_RESET1_USB_B	(1 << 7)
++#define AST2600_WDT_RESET1_UHCI		(1 << 8)
++#define AST2600_WDT_RESET1_GRAPHICS	(1 << 9)
++#define AST2600_WDT_RESET1_CRT		(1 << 10)
++#define AST2600_WDT_RESET1_VIDEO	(1 << 11)
++#define AST2600_WDT_RESET1_HAC		(1 << 12)
++#define AST2600_WDT_RESET1_DP		(1 << 13)
++#define AST2600_WDT_RESET1_DP_MCU	(1 << 14)
++#define AST2600_WDT_RESET1_GP_MCU	(1 << 15)
++#define AST2600_WDT_RESET1_MAC0		(1 << 16)
++#define AST2600_WDT_RESET1_MAC1		(1 << 17)
++#define AST2600_WDT_RESET1_SDIO0	(1 << 18)
++#define AST2600_WDT_RESET1_JTAG0	(1 << 19)
++#define AST2600_WDT_RESET1_MCTP0	(1 << 20)
++#define AST2600_WDT_RESET1_MCTP1	(1 << 21)
++#define AST2600_WDT_RESET1_XDMA0	(1 << 22)
++#define AST2600_WDT_RESET1_XDMA1	(1 << 23)
++#define AST2600_WDT_RESET1_GPIO0	(1 << 24)
++#define AST2600_WDT_RESET1_RVAS		(1 << 25)
++
++#define AST2600_WDT_RESET1_DEFAULT 0x030f1ff1
++
++#define AST2600_WDT_RESET2_CPU		(1 << 0)
++#define AST2600_WDT_RESET2_SPI		(1 << 1)
++#define AST2600_WDT_RESET2_AHB2		(1 << 2)
++#define AST2600_WDT_RESET2_SLI2		(1 << 3)
++#define AST2600_WDT_RESET2_SOC_MISC1	(1 << 4)
++#define AST2600_WDT_RESET2_MAC2		(1 << 5)
++#define AST2600_WDT_RESET2_MAC3		(1 << 6)
++#define AST2600_WDT_RESET2_SDIO1	(1 << 7)
++#define AST2600_WDT_RESET2_JTAG1	(1 << 8)
++#define AST2600_WDT_RESET2_GPIO1	(1 << 9)
++#define AST2600_WDT_RESET2_MDIO		(1 << 10)
++#define AST2600_WDT_RESET2_LPC		(1 << 11)
++#define AST2600_WDT_RESET2_PECI		(1 << 12)
++#define AST2600_WDT_RESET2_PWM		(1 << 13)
++#define AST2600_WDT_RESET2_ADC		(1 << 14)
++#define AST2600_WDT_RESET2_FSI		(1 << 15)
++#define AST2600_WDT_RESET2_I2C		(1 << 16)
++#define AST2600_WDT_RESET2_I3C_GLOBAL	(1 << 17)
++#define AST2600_WDT_RESET2_I3C0		(1 << 18)
++#define AST2600_WDT_RESET2_I3C1		(1 << 19)
++#define AST2600_WDT_RESET2_I3C2		(1 << 20)
++#define AST2600_WDT_RESET2_I3C3		(1 << 21)
++#define AST2600_WDT_RESET2_I3C4		(1 << 22)
++#define AST2600_WDT_RESET2_I3C5		(1 << 23)
++#define AST2600_WDT_RESET2_ESPI		(1 << 26)
++
++#define AST2600_WDT_RESET2_DEFAULT 0x03fffff1
++
++#endif
+-- 
+2.42.0
 
-Sent from my iPhone
-
-> On Nov 4, 2023, at 7:17 AM, Alexandre Belloni <alexandre.belloni@bootlin.c=
-om> wrote:
->=20
-> =EF=BB=BFOn 04/11/2023 00:16:40+0100, Alexandre Belloni wrote:
->>> On 13/09/2023 09:37:19+0800, Mia Lin wrote:
->>> The NCT3015Y-R and NCT3018Y-R use the same datasheet
->>>    but have different topologies as follows.
->>> - Topology (Only 1st i2c can set TWO bit and HF bit)
->>>  In NCT3015Y-R,
->>>    rtc 1st i2c is connected to a host CPU
->>>    rtc 2nd i2c is connected to a BMC
->>>  In NCT3018Y-R,
->>>    rtc 1st i2c is connected to a BMC
->>>    rtc 2nd i2c is connected to a host CPU
->>> In order to be compatible with NCT3015Y-R and NCT3018Y-R,
->>> - In probe,
->>>  If part number is NCT3018Y-R, only set HF bit to 24-Hour format.
->>>  Else, do nothing
->>> - In set_time,
->>>  If part number is NCT3018Y-R && TWO bit is 0,
->>>     change TWO bit to 1, and restore TWO bit after updating time.
->>>=20
->>> Signed-off-by: Mia Lin <mimi05633@gmail.com>
->>> ---
->=20
-> I forgot to add, please include a changelog here, this will make my
-> reviews easier (and faster).
->=20
->>> drivers/rtc/rtc-nct3018y.c | 52 +++++++++++++++++++++++++++++++++-----
->>> 1 file changed, 46 insertions(+), 6 deletions(-)
->>>=20
->>> diff --git a/drivers/rtc/rtc-nct3018y.c b/drivers/rtc/rtc-nct3018y.c
->>> index ed4e606be8e5..b006b58e15e2 100644
->>> --- a/drivers/rtc/rtc-nct3018y.c
->>> +++ b/drivers/rtc/rtc-nct3018y.c
->>> @@ -23,6 +23,7 @@
->>> #define NCT3018Y_REG_CTRL    0x0A /* timer control */
->>> #define NCT3018Y_REG_ST        0x0B /* status */
->>> #define NCT3018Y_REG_CLKO    0x0C /* clock out */
->>> +#define NCT3018Y_REG_PART    0x21 /* part info */
->>>=20
->>> #define NCT3018Y_BIT_AF        BIT(7)
->>> #define NCT3018Y_BIT_ST        BIT(7)
->>> @@ -37,10 +38,12 @@
->>> #define NCT3018Y_REG_BAT_MASK        0x07
->>> #define NCT3018Y_REG_CLKO_F_MASK    0x03 /* frequenc mask */
->>> #define NCT3018Y_REG_CLKO_CKE        0x80 /* clock out enabled */
->>> +#define NCT3018Y_REG_PART_NCT3018Y    0x02
->>>=20
->>> struct nct3018y {
->>>    struct rtc_device *rtc;
->>>    struct i2c_client *client;
->>> +    int part_num;
->>> #ifdef CONFIG_COMMON_CLK
->>>    struct clk_hw clkout_hw;
->>> #endif
->>> @@ -177,8 +180,27 @@ static int nct3018y_rtc_read_time(struct device *de=
-v, struct rtc_time *tm)
->>> static int nct3018y_rtc_set_time(struct device *dev, struct rtc_time *tm=
-)
->>> {
->>>    struct i2c_client *client =3D to_i2c_client(dev);
->>> +    struct nct3018y *nct3018y =3D dev_get_drvdata(dev);
->>>    unsigned char buf[4] =3D {0};
->>> -    int err;
->>> +    int err, flags;
->>> +    int restore_flags =3D 0;
->>> +
->>> +    flags =3D i2c_smbus_read_byte_data(client, NCT3018Y_REG_CTRL);
->>> +    if (flags < 0) {
->>> +        dev_dbg(&client->dev, "Failed to read NCT3018Y_REG_CTRL.\n");
->>> +        return flags;
->>> +    }
->>> +
->>> +    /* Check and set TWO bit */
->>> +    if ((nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y) && !(flags & N=
-CT3018Y_BIT_TWO)) {
->>> +        restore_flags =3D 1;
->>> +        flags |=3D NCT3018Y_BIT_TWO;
->>> +        err =3D i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, fl=
-ags);
->>> +        if (err < 0) {
->>> +            dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n=
-");
->>> +            return err;
->>> +        }
->>> +    }
->>>=20
->>>    buf[0] =3D bin2bcd(tm->tm_sec);
->>>    err =3D i2c_smbus_write_byte_data(client, NCT3018Y_REG_SC, buf[0]);
->>> @@ -212,6 +234,18 @@ static int nct3018y_rtc_set_time(struct device *dev=
-, struct rtc_time *tm)
->>>        return -EIO;
->>>    }
->>>=20
->>> +    /* Restore TWO bit */
->>> +    if (restore_flags) {
->>> +        if (nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y)
->>> +            flags &=3D ~NCT3018Y_BIT_TWO;
->>> +
->>> +        err =3D i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, fl=
-ags);
->>> +        if (err < 0) {
->>> +            dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n=
-");
->>> +            return err;
->>> +        }
->>> +    }
->>> +
->>>    return err;
->>> }
->>>=20
->>> @@ -479,11 +513,17 @@ static int nct3018y_probe(struct i2c_client *clien=
-t)
->>>        dev_dbg(&client->dev, "%s: NCT3018Y_BIT_TWO is set\n", __func__);=
-
->>>    }
->>>=20
->>> -    flags =3D NCT3018Y_BIT_TWO;
->>> -    err =3D i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, flags)=
-;
->>> -    if (err < 0) {
->>> -        dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL\n");
->>> -        return err;
->>> +    nct3018y->part_num =3D i2c_smbus_read_byte_data(client, NCT3018Y_RE=
-G_PART);
->>> +    if (nct3018y->part_num < 0) {
->>> +        dev_dbg(&client->dev, "Failed to read NCT3018Y_REG_PART.\n");
->>> +        return nct3018y->part_num;
->>> +    } else if (nct3018y->part_num & NCT3018Y_REG_PART_NCT3018Y) {
->>=20
->> This is a weird way to check as this will accept any value of
->> NCT3018Y_REG_PART as long as bit 1 is set, is this really what you want?
->>=20
->>> +        flags =3D NCT3018Y_BIT_HF;
->>> +        err =3D i2c_smbus_write_byte_data(client, NCT3018Y_REG_CTRL, fl=
-ags);
->>> +        if (err < 0) {
->>> +            dev_dbg(&client->dev, "Unable to write NCT3018Y_REG_CTRL.\n=
-");
->>> +            return err;
->>> +        }
->>>    }
->>>=20
->>>    flags =3D 0;
->>> --=20
->>> 2.17.1
->>>=20
->>=20
->> --=20
->> Alexandre Belloni, co-owner and COO, Bootlin
->> Embedded Linux and Kernel engineering
->> https://bootlin.com
->=20
-> --=20
-> Alexandre Belloni, co-owner and COO, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
