@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 516D8C197A0
-	for <openbmc@archiver.kernel.org>; Mon, 20 Nov 2023 12:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB39C197A0
+	for <openbmc@archiver.kernel.org>; Mon, 20 Nov 2023 12:23:26 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=OpMdJlu+;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=oOiR56sv;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SYmq76frtz3cWs
-	for <openbmc@archiver.kernel.org>; Mon, 20 Nov 2023 23:22:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SYmrF42JMz3cYN
+	for <openbmc@archiver.kernel.org>; Mon, 20 Nov 2023 23:23:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=OpMdJlu+;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=oOiR56sv;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [71.19.156.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SYmlm19YCz3c7q;
-	Mon, 20 Nov 2023 23:19:31 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SYmmP0f9Nz3cVR;
+	Mon, 20 Nov 2023 23:20:05 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:7e5d:5300::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id E4C11DDF;
-	Mon, 20 Nov 2023 04:19:19 -0800 (PST)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 5902BDDF;
+	Mon, 20 Nov 2023 04:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1700482760;
-	bh=rxT5SCkEHZIVph1Dy+GNIIiNXWAdKs0/dnGZ+QJ8QD0=;
+	s=thorn; t=1700482803;
+	bh=/VCTTusHm67Cdtv8GHixFrCI06AKVDvt4e6PgauD7gU=;
 	h=From:To:Cc:Subject:Date:From;
-	b=OpMdJlu+8VOPG19ZpMSMmQwPpTR6HtU52UqqVoxqwVH5pNYMsr/AnBqPnOxu8ZBLL
-	 L4GYeGeN3OFDvxtQstYQrVTWL2stChWHJcAuwr5a+s7kMbC2Pe9U4XQ0IzTYEacCJi
-	 MSgSea2eYVDEASL4jmvhkiDiq/6hASYQtP/Nt04k=
+	b=oOiR56svYSx+zePzyVMlajJkEmBZ/nn4/NulnYYf84UcUyuVmQ8GxF3XwPmO8gZr6
+	 ftHNM2a6+3+hSYnI+9CZ/cwKYFgCN6lvLwm3unW3vn9Z0vcylSUa0RtkHm3HtqAedI
+	 TxAiM3jwtnY0AHkLGfHLOeXT3sPZjl53VaOqXmMw=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Rob Herring <robh+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Joel Stanley <joel@jms.id.au>,
 	Andrew Jeffery <andrew@codeconstruct.com.au>
-Subject: [PATCH v2 0/2] ARM: dts: aspeed: Add ASRock E3C256D4I BMC
-Date: Mon, 20 Nov 2023 04:19:02 -0800
-Message-ID: <20231120121901.19817-4-zev@bewilderbeest.net>
+Subject: [PATCH v2 0/2] ARM: dts: aspeed: Add ASRock SPC621D8HM3 BMC
+Date: Mon, 20 Nov 2023 04:19:55 -0800
+Message-ID: <20231120121954.19926-4-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -66,7 +66,7 @@ Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 Hello,
 
 These patches add a device-tree (and a tiny bindings update) for the
-Aspeed BMC on the ASRock E3C256D4I, so that it can be added as a
+Aspeed BMC on the ASRock SPC621D8HM3, so that it can be added as a
 supported OpenBMC platform.
 
 Changes since v1 [0]:
@@ -75,21 +75,20 @@ Changes since v1 [0]:
  - Added function & color properties to LED nodes
  - Added #address-cells and #size-cells to FRU eeprom node
 
-[0] https://lore.kernel.org/lkml/20231114112722.28506-4-zev@bewilderbeest.net/
+[0] https://lore.kernel.org/lkml/20231114112819.28572-4-zev@bewilderbeest.net/
 
 Thanks,
 Zev
 
-
 Zev Weiss (2):
-  dt-bindings: arm: aspeed: document ASRock E3C256D4I
-  ARM: dts: aspeed: Add ASRock E3C256D4I BMC
+  dt-bindings: arm: aspeed: document ASRock SPC621D8HM3
+  ARM: dts: aspeed: Add ASRock SPC621D8HM3 BMC
 
  .../bindings/arm/aspeed/aspeed.yaml           |   1 +
  arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../aspeed/aspeed-bmc-asrock-e3c256d4i.dts    | 322 ++++++++++++++++++
- 3 files changed, 324 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-e3c256d4i.dts
+ .../aspeed/aspeed-bmc-asrock-spc621d8hm3.dts  | 324 ++++++++++++++++++
+ 3 files changed, 326 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-spc621d8hm3.dts
 
 
 base-commit: 98b1cc82c4affc16f5598d4fa14b1858671b2263
