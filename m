@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE3BFC61D92
-	for <openbmc@archiver.kernel.org>; Tue, 21 Nov 2023 15:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C8DEC61D90
+	for <openbmc@archiver.kernel.org>; Tue, 21 Nov 2023 15:19:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SZShT1qq0z3clc
-	for <openbmc@archiver.kernel.org>; Wed, 22 Nov 2023 02:19:05 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SZSj614xhz3dTL
+	for <openbmc@archiver.kernel.org>; Wed, 22 Nov 2023 02:19:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SZSg854lfz2xQD
-	for <openbmc@lists.ozlabs.org>; Wed, 22 Nov 2023 02:17:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SZSg91LFBz3c2L
+	for <openbmc@lists.ozlabs.org>; Wed, 22 Nov 2023 02:17:51 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 3ALFHe2L026529
-	for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2023 17:17:41 +0200
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 3ALFHfUh026535
+	for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2023 17:17:42 +0200
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
  (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 21 Nov
- 2023 17:17:40 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 17:17:41 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 21 Nov
- 2023 23:17:38 +0800
+ 2023 23:17:39 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 21 Nov 2023 23:17:37 +0800
+ Transport; Tue, 21 Nov 2023 23:17:39 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id EF58B5F5BB;
-	Tue, 21 Nov 2023 17:17:35 +0200 (IST)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id B26A35F63F;
+	Tue, 21 Nov 2023 17:17:37 +0200 (IST)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id B7443235CE25; Tue, 21 Nov 2023 17:17:35 +0200 (IST)
+	id 9EC7B235CE27; Tue, 21 Nov 2023 17:17:36 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <davem@davemloft.net>, <edumazet@google.com>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <alexandre.torgue@foss.st.com>,
@@ -42,10 +42,12 @@ To: <davem@davemloft.net>, <edumazet@google.com>, <robh+dt@kernel.org>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>,
         <andrew@codeconstruct.com.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>, <j.neuschaefer@gmx.net>
-Subject: [PATCH v1 0/2] net: stmmac: add NPCM dwmac support
-Date: Tue, 21 Nov 2023 17:17:31 +0200
-Message-ID: <20231121151733.2015384-1-tmaimon77@gmail.com>
+Subject: [PATCH v1 2/2] net: stmmac: Add NPCM support
+Date: Tue, 21 Nov 2023 17:17:33 +0200
+Message-ID: <20231121151733.2015384-3-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20231121151733.2015384-1-tmaimon77@gmail.com>
+References: <20231121151733.2015384-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -65,27 +67,190 @@ Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, netdev@vger.
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set add dwmac/stmmac for the NPCM Baseboard
-Management Controllers (BMC).
+Add Nuvoton NPCM BMC SoCs support to STMMAC dwmac driver.
 
-NPCM8xx driver is a part of glue logic dwmac driver to support sgmii.
+And modify MAINTAINERS to add a new F: entry for this driver.
 
-The NPCM dwmac was tested on NPCM845 evaluation board.
-
-Tomer Maimon (2):
-  dt-bindings: net: Add support NPCM dwmac
-  net: stmmac: Add NPCM support
-
- .../bindings/net/nuvoton,npcm8xx-sgmii.yaml   |  72 +++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
  MAINTAINERS                                   |   1 +
  drivers/net/ethernet/stmicro/stmmac/Kconfig   |   9 ++
  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
  .../net/ethernet/stmicro/stmmac/dwmac-npcm.c  | 121 ++++++++++++++++++
- 6 files changed, 205 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
+ 4 files changed, 132 insertions(+)
  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5c9f868e13b6..43059c7d00c7 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2507,6 +2507,7 @@ F:	arch/arm64/boot/dts/nuvoton/
+ F:	drivers/*/*/*npcm*
+ F:	drivers/*/*npcm*
+ F:	drivers/rtc/rtc-nct3018y.c
++F:	drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c
+ F:	include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+ F:	include/dt-bindings/clock/nuvoton,npcm845-clk.h
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index a2b9e289aa36..2487a674d0d3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -121,6 +121,15 @@ config DWMAC_MESON
+ 	  the stmmac device driver. This driver is used for Meson6,
+ 	  Meson8, Meson8b and GXBB SoCs.
+ 
++config DWMAC_NPCM
++	tristate "Nuvoton NPCM dwmac support"
++	depends on OF && (ARCH_NPCM || COMPILE_TEST)
++	help
++	  Support for Ethernet controller on Nuvoton NPCM BMC SoCs.
++
++	  This selects the Nuvoton NPCM BMC SoC glue layer support for
++	  the stmmac device driver. This driver is used for NPCM8xx SoCs.
++
+ config DWMAC_QCOM_ETHQOS
+ 	tristate "Qualcomm ETHQOS support"
+ 	default ARCH_QCOM
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index 80e598bd4255..1c86c8ca39f0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -19,6 +19,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
+ obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
+ obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
+ obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
++obj-$(CONFIG_DWMAC_NPCM)	+= dwmac-npcm.o
+ obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
+ obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+ obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c
+new file mode 100644
+index 000000000000..dbb857661142
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2023 Nuvoton Technology corporation.
++
++#include <linux/device.h>
++#include <linux/ethtool.h>
++#include <linux/io.h>
++#include <linux/ioport.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/stmmac.h>
++
++#include "stmmac_platform.h"
++
++#define IND_AC_BA_REG		0x1FE
++#define SR_MII_CTRL		0x3E0000
++
++#define PCS_SR_MII_CTRL_REG	0x0
++#define PCS_SPEED_SELECT6	BIT(6)
++#define PCS_AN_ENABLE		BIT(12)
++#define PCS_SPEED_SELECT13	BIT(13)
++#define PCS_RST			BIT(15)
++
++#define PCS_MASK_SPEED		0xDFBF
++
++struct npcm_dwmac {
++	void __iomem	*reg;
++};
++
++static void npcm_dwmac_fix_mac_speed(void *priv, unsigned int speed,
++				     unsigned int mode)
++{
++	struct npcm_dwmac *dwmac = priv;
++	u16 val;
++
++	iowrite16((u16)(SR_MII_CTRL >> 9), dwmac->reg + IND_AC_BA_REG);
++	val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
++	val &= PCS_MASK_SPEED;
++
++	switch (speed) {
++	case SPEED_1000:
++		val |= PCS_SPEED_SELECT6;
++		break;
++	case SPEED_100:
++		val |= PCS_SPEED_SELECT13;
++		break;
++	case SPEED_10:
++		break;
++	}
++
++	iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
++}
++
++void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
++			 struct plat_stmmacenet_data *plat_dat)
++{
++	u16 val;
++
++	iowrite16((u16)(SR_MII_CTRL >> 9), dwmac->reg + IND_AC_BA_REG);
++	val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
++	val |= PCS_RST;
++	iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
++
++	while (val & PCS_RST)
++		val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
++
++	val &= ~(PCS_AN_ENABLE);
++	iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
++}
++
++static int npcm_dwmac_probe(struct platform_device *pdev)
++{
++	struct plat_stmmacenet_data *plat_dat;
++	struct stmmac_resources stmmac_res;
++	struct npcm_dwmac *dwmac;
++	int ret;
++
++	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
++	if (ret)
++		return ret;
++
++	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	if (IS_ERR(plat_dat))
++		return PTR_ERR(plat_dat);
++
++	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
++	if (!dwmac)
++		ret = -ENOMEM;
++
++	dwmac->reg = devm_platform_ioremap_resource(pdev, 1);
++	if (IS_ERR(dwmac->reg))
++		ret = PTR_ERR(dwmac->reg);
++
++	npcm_dwmac_pcs_init(dwmac, &pdev->dev, plat_dat);
++
++	plat_dat->has_gmac = true;
++	plat_dat->bsp_priv = dwmac;
++	plat_dat->fix_mac_speed = npcm_dwmac_fix_mac_speed;
++
++	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
++}
++
++static const struct of_device_id npcm_dwmac_match[] = {
++	{ .compatible = "nuvoton,npcm8xx-sgmii" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, npcm_dwmac_match);
++
++static struct platform_driver npcm_dwmac_driver = {
++	.probe  = npcm_dwmac_probe,
++	.remove_new = stmmac_pltfr_remove,
++	.driver = {
++		.name           = "npcm-dwmac",
++		.pm		= &stmmac_pltfr_pm_ops,
++		.of_match_table = npcm_dwmac_match,
++	},
++};
++module_platform_driver(npcm_dwmac_driver);
++
++MODULE_AUTHOR("Tomer Maimon <tomer.maimon@nuvoton.com>");
++MODULE_DESCRIPTION("Nuvoton NPCM DWMAC glue layer");
++MODULE_LICENSE("GPL v2");
 -- 
 2.33.0
 
