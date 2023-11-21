@@ -4,74 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C89C54FB9
-	for <openbmc@archiver.kernel.org>; Tue, 21 Nov 2023 07:02:47 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=C0Xva+9A;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FDFC61D85
+	for <openbmc@archiver.kernel.org>; Tue, 21 Nov 2023 15:18:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SZFgn5dSpz3cQT
-	for <openbmc@archiver.kernel.org>; Tue, 21 Nov 2023 18:02:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=C0Xva+9A;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com [IPv6:2607:f8b0:4864:20::533])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SZSgt4NLJz3cmp
+	for <openbmc@archiver.kernel.org>; Wed, 22 Nov 2023 02:18:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized) smtp.mailfrom=nuvoton.com (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tomer.maimon@nuvoton.com; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SYhkC18fyz2xdd;
-	Mon, 20 Nov 2023 20:17:54 +1100 (AEDT)
-Received: by mail-pg1-x533.google.com with SMTP id 41be03b00d2f7-517ab9a4a13so3171467a12.1;
-        Mon, 20 Nov 2023 01:17:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1700471873; x=1701076673; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tdiBbtmZINpiK2wrkr8560HBNxLICLlfhPzVnTah2sg=;
-        b=C0Xva+9AMMa6ClGZlEbpXk61eOrKKHJqqxD3GfpWqQrbz7YtLn2qNV3ATMTe2Gboag
-         MTarGk8NmJMRbMzO015NFR96JzmUcNvXR1NZyOQdcNDcoDM6tDnpopU4qv/gjn+2Z1F0
-         GOz23MrK3OtEoD3TLKZd0aECGCqPEenANA8DM5IiivIDO7jT0p927PIjXvpk5qPyW7bA
-         bGip9rgyzn12dQHCeByVWOnaIOIbm5AU7Zhdt5KAIeed+X5J/dIYonLcR+tdtf9M9x1E
-         C0o+FP8fU6Wovjvk5h+QQMlW50qpGNeL+44T8ED+xaqkLN7Zo50M502mENvXSbtRb3eI
-         ggyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1700471873; x=1701076673;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tdiBbtmZINpiK2wrkr8560HBNxLICLlfhPzVnTah2sg=;
-        b=vnrWZuUi7WMapQkuCjqojsXcPhBw+0b7heNDedPjMFYqYbZMj6mvPq2hfzRWPVRpRJ
-         nmS0Zo/JmZmt+pWePvzQj//D/m+XLuHDl7VbmLjhhBOVBgO+MdLxB9YaDfzAezdQlJ6q
-         mlISJlfpDEAdoduA+j0e/eBhDu7D/NdXYrY4nU7v0q5FwdwtCqvEdnfI/vJtwiOJM0Os
-         3ea4wTh7V56FFX2jLNhv/rN2cPwk5d8hzD/vV7O3V7l4LnZyHYAPceC/j8GbkdT8cBLl
-         AS0vwbuMuoXG6YpXbCEp8Gy8hnfS/lljMIsZl2aSQn+7OS2xPLx0R0Zzx7SFRDf95tKA
-         SRCQ==
-X-Gm-Message-State: AOJu0YxDSoOvfDnC6zx/lYvYwViscjWRCEqSAGnVSd9DiBQi0GspoZf1
-	ygPGIJeDMux05BVIhPhY2YM=
-X-Google-Smtp-Source: AGHT+IEp+cuTi7iFRTT+hATic2jTuRdHoJOGZ8nbXlJYs561PX9JAj/1CEyo7iX6uiwbF8PlbiVoTA==
-X-Received: by 2002:a05:6a20:4429:b0:188:75c:e69a with SMTP id ce41-20020a056a20442900b00188075ce69amr10006442pzb.4.1700471872866;
-        Mon, 20 Nov 2023 01:17:52 -0800 (PST)
-Received: from cosmo-ubuntu-2204.dhcpserver.bu9bmc.local (1-34-21-66.hinet-ip.hinet.net. [1.34.21.66])
-        by smtp.gmail.com with ESMTPSA id j12-20020a056a00130c00b0068fece22469sm5582116pfu.4.2023.11.20.01.17.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 20 Nov 2023 01:17:52 -0800 (PST)
-From: Cosmo Chou <chou.cosmo@gmail.com>
-To: brendan.higgins@linux.dev,
-	benh@kernel.crashing.org,
-	joel@jms.id.au,
-	andi.shyti@kernel.org,
-	andrew@codeconstruct.com.au,
-	linux@roeck-us.net,
-	wsa@kernel.org,
-	jae.hyun.yoo@linux.intel.com
-Subject: [PATCH] i2c: aspeed: Acknowledge Tx ack late when in SLAVE_READ_PROCESSED
-Date: Mon, 20 Nov 2023 17:17:46 +0800
-Message-Id: <20231120091746.2866232-1-chou.cosmo@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SZSg852mSz2xHT
+	for <openbmc@lists.ozlabs.org>; Wed, 22 Nov 2023 02:17:52 +1100 (AEDT)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 3ALFHfev026532
+	for <openbmc@lists.ozlabs.org>; Tue, 21 Nov 2023 17:17:41 +0200
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Tue, 21 Nov
+ 2023 17:17:40 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Tue, 21
+ Nov 2023 23:17:38 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 21 Nov 2023 23:17:38 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id BD5805F63D;
+	Tue, 21 Nov 2023 17:17:36 +0200 (IST)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 50B72235CE25; Tue, 21 Nov 2023 17:17:36 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <davem@davemloft.net>, <edumazet@google.com>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <alexandre.torgue@foss.st.com>,
+        <peppe.cavallaro@st.com>, <joabreu@synopsys.com>,
+        <mcoquelin.stm32@gmail.com>, <avifishman70@gmail.com>,
+        <tali.perry1@gmail.com>, <joel@jms.id.au>,
+        <andrew@codeconstruct.com.au>, <venture@google.com>,
+        <yuenn@google.com>, <benjaminfair@google.com>, <j.neuschaefer@gmx.net>
+Subject: [PATCH v1 1/2] dt-bindings: net: Add support NPCM dwmac
+Date: Tue, 21 Nov 2023 17:17:32 +0200
+Message-ID: <20231121151733.2015384-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20231121151733.2015384-1-tmaimon77@gmail.com>
+References: <20231121151733.2015384-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 21 Nov 2023 18:01:51 +1100
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +63,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, chou.cosmo@gmail.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, cosmo.chou@quantatw.com, linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-commit 2be6b47211e1 ("i2c: aspeed: Acknowledge most interrupts early
-in interrupt handler") moved most interrupt acknowledgments to the
-start of the interrupt handler to avoid race conditions. However,
-slave Tx ack status shouldn't be cleared before SLAVE_READ_PROCESSED
-is handled.
+Add documentation to describe Nuvoton BMC NPCM dwmac driver(sgmii).
 
-Acknowledge Tx ack status after handling SLAVE_READ_PROCESSED to fix
-the problem that the next byte is not sent correctly.
-
-Fixes: 2be6b47211e1 ("i2c: aspeed: Acknowledge most interrupts early in interrupt handler")
-Signed-off-by: Cosmo Chou <chou.cosmo@gmail.com>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/i2c/busses/i2c-aspeed.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ .../bindings/net/nuvoton,npcm8xx-sgmii.yaml   | 72 +++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+ 2 files changed, 73 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index 28e2a5fc4528..c2d74e4b7e50 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -337,6 +337,12 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 		break;
- 	}
- 
-+	/* Ack Tx ack */
-+	if (irq_handled & ASPEED_I2CD_INTR_TX_ACK) {
-+		writel(ASPEED_I2CD_INTR_TX_ACK, bus->base + ASPEED_I2C_INTR_STS_REG);
-+		readl(bus->base + ASPEED_I2C_INTR_STS_REG);
-+	}
+diff --git a/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml b/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
+new file mode 100644
+index 000000000000..6a5f2cade7c9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
+@@ -0,0 +1,72 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/nuvoton,npcm8xx-sgmii.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	return irq_handled;
- }
- #endif /* CONFIG_I2C_SLAVE */
-@@ -602,13 +608,18 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- {
- 	struct aspeed_i2c_bus *bus = dev_id;
--	u32 irq_received, irq_remaining, irq_handled;
-+	u32 irq_received, irq_remaining, irq_handled, irq_acked;
- 
- 	spin_lock(&bus->lock);
- 	irq_received = readl(bus->base + ASPEED_I2C_INTR_STS_REG);
- 	/* Ack all interrupts except for Rx done */
--	writel(irq_received & ~ASPEED_I2CD_INTR_RX_DONE,
--	       bus->base + ASPEED_I2C_INTR_STS_REG);
-+	irq_acked = irq_received & ~ASPEED_I2CD_INTR_RX_DONE;
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	/* shouldn't ack Slave Tx Ack before it's handled */
-+	if (bus->slave_state == ASPEED_I2C_SLAVE_READ_PROCESSED)
-+		irq_acked &= ~ASPEED_I2CD_INTR_TX_ACK;
-+#endif
-+	writel(irq_acked, bus->base + ASPEED_I2C_INTR_STS_REG);
- 	readl(bus->base + ASPEED_I2C_INTR_STS_REG);
- 	irq_received &= ASPEED_I2CD_INTR_RECV_MASK;
- 	irq_remaining = irq_received;
++title: Nuvoton NPCM DWMAC SGMII Ethernet controller
++
++maintainers:
++  - Tomer Maimon <tmaimon77@gmail.com>
++
++select:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - nuvoton,npcm8xx-sgmii
++  required:
++    - compatible
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - nuvoton,npcm8xx-sgmii
++          - const: snps,dwmac-3.50a
++  reg:
++    items:
++      - description:
++          The first range represent DWMAC controller registers.
++      - description:
++          The second range represent PCS configuration registers.
++
++  clocks:
++    items:
++      - description: GMAC main clock
++
++  clock-names:
++    items:
++      - const: stmmaceth
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,npcm845-clk.h>
++
++    ahb {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      gmac0: ethernet@f0802000 {
++          compatible = "nuvoton,npcm8xx-sgmii","snps,dwmac-3.50a";
++          reg = <0x0 0xf0802000 0x0 0x2000>, <0x0 0xf0780000 0x0 0x200>;
++          interrupts = <GIC_SPI 14 IRQ_TYPE_LEVEL_HIGH>;
++          interrupt-names = "macirq";
++          clocks = <&clk NPCM8XX_CLK_AHB>;
++          clock-names = "stmmaceth";
++          phy-mode = "rgmii-id";
++      };
++    };
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 5c2769dc689a..ba52dbc85144 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -66,6 +66,7 @@ properties:
+         - ingenic,x2000-mac
+         - loongson,ls2k-dwmac
+         - loongson,ls7a-dwmac
++        - nuvoton,npcm8xx-sgmii
+         - qcom,qcs404-ethqos
+         - qcom,sa8775p-ethqos
+         - qcom,sc8280xp-ethqos
 -- 
-2.34.1
+2.33.0
 
