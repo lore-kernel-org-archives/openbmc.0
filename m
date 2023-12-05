@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 174C6C4167B
-	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 10:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8025FC4167B
+	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 10:41:33 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=cpNCIxAm;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UKtWyGET;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Skxrk5PTzz3c3g
-	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 21:40:38 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Skxsm1LtMz3ck3
+	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 21:41:32 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=cpNCIxAm;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UKtWyGET;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22a; helo=mail-lj1-x22a.google.com; envelope-from=fancer.lancer@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com [IPv6:2a00:1450:4864:20::22a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22b; helo=mail-lj1-x22b.google.com; envelope-from=fancer.lancer@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com [IPv6:2a00:1450:4864:20::22b])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Skxld54cBz3c3g
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2023 21:36:12 +1100 (AEDT)
-Received: by mail-lj1-x22a.google.com with SMTP id 38308e7fff4ca-2c9f7fe6623so31466061fa.3
-        for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2023 02:36:12 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Skxlg2tRnz3c3g
+	for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2023 21:36:15 +1100 (AEDT)
+Received: by mail-lj1-x22b.google.com with SMTP id 38308e7fff4ca-2c9f099cf3aso43246771fa.1
+        for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2023 02:36:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701772564; x=1702377364; darn=lists.ozlabs.org;
+        d=gmail.com; s=20230601; t=1701772571; x=1702377371; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a4aEtBuTh0UC9CrFmY+V3IFx8owY/yY3vgzi9PmzSa0=;
-        b=cpNCIxAmMA+Lgj0na+lH9VnFlawvWf8Jv21wxxS/kOy6tdCdO1K1kstG+kP4loQGWU
-         ra/1TBZ1xBJ0YdQScaZjP+m9EEBAhCQBO0V5Q3Z7HlFVBa2TGn7QqzuQ/A45pSD40ziJ
-         jjq7ltTzCFqaxUddycZHbKyWEdayXat9rJB3OgHP3ceB4cSf2CBT7Iqcuud9N2Si+D/S
-         BwNAc+Z2YQ8GEvsT10R6v8+Je/aItHvCxb+NPxd4G/Jhy0YSokgtn2W3GUO7LftecxLi
-         /UgAmbAu7VmUhQRrzFx/uIQEcd56p3HoUD8SiLeaa94NNyNdD2z65QpxtybkNh6eAzZ6
-         quYg==
+        bh=dFMu8yHYAxfVLVvDj+B8IqaslSN1vZ5XWG3YsW0hTQA=;
+        b=UKtWyGET3JjGcneD8x8K/af6VmXNNsNssOHKi+317nKdLz/mZiQluCfGbCTJlpYBaH
+         ti6EkfCUkSO9tmVXMyIxfgBJjAX6TTy3g24RRcDK03J4ShGTnOLZZzf0pb7WN2mxvehZ
+         X+7kJzYcMlsZ3Xmj0flWTFEtFN6huPJCu9EY9olqGl7CoTdn2QvCHea3pdlGL1DNwanC
+         yHBZQ7CbLtRZZSJ0QdpJI4E7Z12z5JuAZwnAoej6ZPWYCEVwSi1fLuyzT2JDzxWtbL8d
+         pSGJhA59pJsT/kuPtbmWWwP/dX8OTWhPodlUYe6LSJBLcpDrjaY1ioYQVdiBHDPCBtJv
+         6D4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701772564; x=1702377364;
+        d=1e100.net; s=20230601; t=1701772571; x=1702377371;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=a4aEtBuTh0UC9CrFmY+V3IFx8owY/yY3vgzi9PmzSa0=;
-        b=Egl6xxLqEaS0fwlF/MLAqNBga2TOZy9J7ob5DQd2Dl4IL8aE51KHcigqQsfzjUmZrh
-         j1f227DV5SbEbMvfvo8rZ/nz30C9d3Zjq1JXbjzMkK/geYdBX8/DLwPcvYRC7UrMcoqB
-         Ybba2XRh9EK0+XERK3vTMzQ3ik9kHSpWM0mGCBXW+MSKA/KsFsvNewOqeYmOvQfnXipu
-         IVTKKb8mXZ6LdQHPH0s+5cQqqMRBlC+STjSRoYkmOnOjwOpYRyOQjKi/F1umtDI3X7+r
-         vlRZ8FMYBk9Q0giik7cK2Ywl+3JfFNdEp3Hp/YoBvVqOAdcnD3ncnEsUUI5GbfZBNDtI
-         +2EA==
-X-Gm-Message-State: AOJu0Yx3zdYdyNRX0yM5ru0onKO8S+L5bsvePFYbA7ugMlpz+cgu0fB9
-	rU25UdFR+yS3lIkRjT6Uo2g=
-X-Google-Smtp-Source: AGHT+IFZKr4mte8mEyBn5TUCZn71LfadvBGTszjO/emPzCHL8qpyDtiAvPGC3HEYzGHAFjI4CXkWeA==
-X-Received: by 2002:a2e:b24d:0:b0:2c0:17bc:124e with SMTP id n13-20020a2eb24d000000b002c017bc124emr2510299ljm.38.1701772563975;
-        Tue, 05 Dec 2023 02:36:03 -0800 (PST)
+        bh=dFMu8yHYAxfVLVvDj+B8IqaslSN1vZ5XWG3YsW0hTQA=;
+        b=oTO3t/wU3XR/H7FLXiLyCkxfALX8ymdl2/uiFq1BxUuF01xkfsIJpsLiwxYomgizA5
+         C+OErSFNtEwlqKczKeqmXzsgz7gaYrmMcbpLsZn7bhGue7infCYExC6+C73kwfmyL0VH
+         Mn1P3kvKBsxP0hTP177KJmv1vkdAiLH0DEV8JsMQTC0Zpr9q94y10AoH7aqpqG3FlSES
+         NfagB68PM1YmR0nAggmJ6inDO7H07htWQkafeETTrYKmzuxIJe78mMJD10nMKt7JbZaq
+         f2/zeqNAwU6NJqg+DvsvsHwIgv6K8A5B+mskIXOvGIOzOsZbmMRM7+jHH74+Dtx11uDm
+         0zgA==
+X-Gm-Message-State: AOJu0YyXEP/uXvp8n1TglPkFQU/xW4xMrNn9MexIkxxSEw27and/tzb5
+	G+hrLos9LruOcanD2ROA1/c=
+X-Google-Smtp-Source: AGHT+IH0HyLEqm5MstBhJhll+ilWNbLcAbUlRzT66sgkeFhmYOZXWSY29xW02fWBkRMGmVcZxYa/xQ==
+X-Received: by 2002:a2e:994c:0:b0:2c9:f3b6:522 with SMTP id r12-20020a2e994c000000b002c9f3b60522mr2596361ljj.57.1701772571048;
+        Tue, 05 Dec 2023 02:36:11 -0800 (PST)
 Received: from localhost ([178.176.56.174])
-        by smtp.gmail.com with ESMTPSA id h20-20020a2e5314000000b002c9bb53ee68sm849784ljb.136.2023.12.05.02.36.03
+        by smtp.gmail.com with ESMTPSA id l21-20020a2e3e15000000b002ca0689190fsm548139lja.31.2023.12.05.02.36.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 Dec 2023 02:36:03 -0800 (PST)
+        Tue, 05 Dec 2023 02:36:10 -0800 (PST)
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
@@ -73,9 +73,9 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH net-next 01/16] net: pcs: xpcs: Drop sentinel entry from 2500basex ifaces list
-Date: Tue,  5 Dec 2023 13:35:22 +0300
-Message-ID: <20231205103559.9605-2-fancer.lancer@gmail.com>
+Subject: [PATCH net-next 05/16] net: pcs: xpcs: Move native device ID macro to linux/pcs/pcs-xpcs.h
+Date: Tue,  5 Dec 2023 13:35:26 +0300
+Message-ID: <20231205103559.9605-6-fancer.lancer@gmail.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <20231205103559.9605-1-fancer.lancer@gmail.com>
 References: <20231205103559.9605-1-fancer.lancer@gmail.com>
@@ -96,45 +96,75 @@ Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.o
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-There are currently two methods (xpcs_find_compat() and
-xpcs_get_interfaces()) defined in the driver which loop over the available
-interfaces. All of them rely on the xpcs_compat.num_interfaces field value
-to get the number of interfaces. That field is initialized with the
-ARRAY_SIZE(xpcs_*_interfaces) macro function call. Thus the interface
-arrays are supposed to be filled with actual interface IDs and there is no
-need in the dummy terminating ID placed at the end of the arrays. Let's
-drop the redundant PHY_INTERFACE_MODE_MAX entry from the
-xpcs_2500basex_interfaces list and the redundant
-PHY_INTERFACE_MODE_MAX-based conditional statement from the
-xpcs_get_interfaces() method then.
+Generic MDIO-device driver will support setting a custom device ID for the
+particular MDIO-device. Generic DW XPCS ID can be used for that as well
+just in case if the DW XPCS-device was erroneously synthesized with no or
+some undefined ID. In addition to that having all supported DW XPCS device
+IDs defined in a sinle place will improve the code maintainability and
+readability.
+
+Note while at it rename the macros to be shorter and looking alike to the
+already defined NXP XPCS ID macro.
 
 Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 ---
- drivers/net/pcs/pcs-xpcs.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/net/pcs/pcs-xpcs.c   | 8 ++++----
+ drivers/net/pcs/pcs-xpcs.h   | 3 ---
+ include/linux/pcs/pcs-xpcs.h | 2 ++
+ 3 files changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 31f0beba638a..dc7c374da495 100644
+index 46afeb5510c0..2850122f354a 100644
 --- a/drivers/net/pcs/pcs-xpcs.c
 +++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -130,7 +130,6 @@ static const phy_interface_t xpcs_1000basex_interfaces[] = {
+@@ -1343,16 +1343,16 @@ static const struct xpcs_compat nxp_sja1110_xpcs_compat[DW_XPCS_INTERFACE_MAX] =
  
- static const phy_interface_t xpcs_2500basex_interfaces[] = {
- 	PHY_INTERFACE_MODE_2500BASEX,
--	PHY_INTERFACE_MODE_MAX,
+ static const struct xpcs_id xpcs_id_list[] = {
+ 	{
+-		.id = SYNOPSYS_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.id = DW_XPCS_ID,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = synopsys_xpcs_compat,
+ 	}, {
+ 		.id = NXP_SJA1105_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = nxp_sja1105_xpcs_compat,
+ 	}, {
+ 		.id = NXP_SJA1110_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = nxp_sja1110_xpcs_compat,
+ 	},
  };
+diff --git a/drivers/net/pcs/pcs-xpcs.h b/drivers/net/pcs/pcs-xpcs.h
+index 96c36b32ca99..369e9196f45a 100644
+--- a/drivers/net/pcs/pcs-xpcs.h
++++ b/drivers/net/pcs/pcs-xpcs.h
+@@ -6,9 +6,6 @@
+  * Author: Jose Abreu <Jose.Abreu@synopsys.com>
+  */
  
- enum {
-@@ -636,8 +635,7 @@ void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
- 		const struct xpcs_compat *compat = &xpcs->id->compat[i];
+-#define SYNOPSYS_XPCS_ID		0x7996ced0
+-#define SYNOPSYS_XPCS_MASK		0xffffffff
+-
+ /* Vendor regs access */
+ #define DW_VENDOR			BIT(15)
  
- 		for (j = 0; j < compat->num_interfaces; j++)
--			if (compat->interface[j] < PHY_INTERFACE_MODE_MAX)
--				__set_bit(compat->interface[j], interfaces);
-+			__set_bit(compat->interface[j], interfaces);
- 	}
- }
- EXPORT_SYMBOL_GPL(xpcs_get_interfaces);
+diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+index da3a6c30f6d2..8dfe90295f12 100644
+--- a/include/linux/pcs/pcs-xpcs.h
++++ b/include/linux/pcs/pcs-xpcs.h
+@@ -12,6 +12,8 @@
+ 
+ #define NXP_SJA1105_XPCS_ID		0x00000010
+ #define NXP_SJA1110_XPCS_ID		0x00000020
++#define DW_XPCS_ID			0x7996ced0
++#define DW_XPCS_ID_MASK			0xffffffff
+ 
+ /* AN mode */
+ #define DW_AN_C73			1
 -- 
 2.42.1
 
