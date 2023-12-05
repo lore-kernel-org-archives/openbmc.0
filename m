@@ -4,59 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76698C4167B
-	for <openbmc@archiver.kernel.org>; Mon,  4 Dec 2023 16:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 042F1C07E97
+	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 10:37:08 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=GXGU7MuA;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SkTQK0yfbz3cg1
-	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 03:19:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.128.176; helo=mail-yw1-f176.google.com; envelope-from=geert.uytterhoeven@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Skxmg31wCz3cLl
+	for <openbmc@archiver.kernel.org>; Tue,  5 Dec 2023 21:37:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=GXGU7MuA;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22e; helo=mail-lj1-x22e.google.com; envelope-from=fancer.lancer@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com [IPv6:2a00:1450:4864:20::22e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SkTPj1qbrz3cTj
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2023 03:19:04 +1100 (AEDT)
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-5d8a772157fso9722067b3.3
-        for <openbmc@lists.ozlabs.org>; Mon, 04 Dec 2023 08:19:04 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Skxld5WLDz3c4s
+	for <openbmc@lists.ozlabs.org>; Tue,  5 Dec 2023 21:36:12 +1100 (AEDT)
+Received: by mail-lj1-x22e.google.com with SMTP id 38308e7fff4ca-2c9f166581dso37155591fa.2
+        for <openbmc@lists.ozlabs.org>; Tue, 05 Dec 2023 02:36:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701772569; x=1702377369; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U7nbPSVfDOj9VhJDoGLXG/VirsAsAqdDlwTrxuDOen8=;
+        b=GXGU7MuAsmvpuPqfF8bV8uTnont+wQGQCKpewfNY3JhBCJekJ15rf6YWM4xuKNQVun
+         40nmePuHTxILF+mO/ZQ1wp94Mj41+9WH/Q/STgJBC4OEg2E4SKnYdRIsIZfx5/42uABP
+         XHIHS3NlbDuEebXHfRzyWJhwymjOxvz9uWN081FdtX41ISM6xCGGUaRDQDmQg5Y+g6OL
+         ClmO2y4iMB+HgKJnA2J0g8JKlrUGXP8fBJ3Yytqgz7i3oRgg/ouTZdZgeU2n796Dq2j0
+         ikSos/pwyiprcHAZRL+XcSOwz5jv2KrEpCl1Q08seo732yQEPg+BIN2hNckugqZNPEgc
+         a4OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701706742; x=1702311542;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1701772569; x=1702377369;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=p7w+3vK1cdmy3dgE8i5YLvNj03CSI+W7QHOKK1BsUDk=;
-        b=FjKkNlWDwgkrfBb/J0d/+UhnvMozMHBmKdy81WlsUOPIJvajAEe9N67PDqNPU2Iwq+
-         BZw5uAF2DKymKwHZkVs6PP3EHDTOAyk7yvNjtu6bSP5CbOaR8dQ509WWBfRGxTMxr6ld
-         tRZvQzs2aiz9b+SOgQ4iv/Snk9nmkCGQbqKNkVNhZnGDiPP4HGmFRXAJxACMlG5X/ZvM
-         OzQjDOemYjrI/pPcf6TWPCjJEPcVofL0uAEH+WVLMNRfyLbGFOB8HN+GUMC+9ZeKhF9B
-         bOkFQSfqRIRURBmeUwBjG/BO7oyrMFl3f9ukp9ALZ6L/hXIEN3oJ5NPgoPk7sLgNI+Kx
-         r5EQ==
-X-Gm-Message-State: AOJu0YxDnqcIGkOChldAStiYA3qV1PBRVfOR1+3ej4ImjHR37r4LHTgY
-	Pg3K8xqNCJBJYXcqPALfEJpPpSQWA/13Ng==
-X-Google-Smtp-Source: AGHT+IGLU1OyxxCl9F7gOZ+gIqZauD8jgBaZEykRlAA+wtQgKXBFwGRmrf1iCbfBdhLcCI+h2JcKhA==
-X-Received: by 2002:a81:7904:0:b0:5d7:1941:ac0 with SMTP id u4-20020a817904000000b005d719410ac0mr3118728ywc.91.1701706742007;
-        Mon, 04 Dec 2023 08:19:02 -0800 (PST)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com. [209.85.128.172])
-        by smtp.gmail.com with ESMTPSA id v127-20020a818585000000b00583b144fe51sm3433748ywf.118.2023.12.04.08.19.01
-        for <openbmc@lists.ozlabs.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Dec 2023 08:19:01 -0800 (PST)
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-5cfc3a48ab2so48421197b3.0
-        for <openbmc@lists.ozlabs.org>; Mon, 04 Dec 2023 08:19:01 -0800 (PST)
-X-Received: by 2002:a81:9808:0:b0:5d3:464d:18d4 with SMTP id
- p8-20020a819808000000b005d3464d18d4mr3058167ywg.21.1701706740819; Mon, 04 Dec
- 2023 08:19:00 -0800 (PST)
+        bh=U7nbPSVfDOj9VhJDoGLXG/VirsAsAqdDlwTrxuDOen8=;
+        b=XTt3XkatxjgTm/eiVEYspjwoA58yrOBElUSTefqPhxGRAB/85J6sd6Zu+kprok76Jv
+         YJqExB/iLAzKQDReR7/TuVPhAfbwPQzixdiO+uLokzxPLbbLX0qft0zqe0Lm32zmM4B1
+         hiIyBvrbzdgeWjpK+CGzOweYMIlaYPIZqkkktKltmdQfqB468GYWZ3RWNEQipGfgqiYz
+         bxlE9cdldPOyqv3uyI3pwmh3KlqVerElCwlmDQTHvqySS9gTi/BowsEdWIVvsyWQBm/+
+         amyXU2ZCLv9kLcoZM9U+bDzinYURxYx60NkepsSvPCF8FW9vEn6Xaa2rdjjjraKk+Rbl
+         LT/g==
+X-Gm-Message-State: AOJu0Yw2a3/xZZeVd/mKNE/1BDOrmQcpdZ7abQhqYnPSSb9QtL16A3xu
+	8hjwalZ6Fqs4B1BEeQz7l20=
+X-Google-Smtp-Source: AGHT+IEbTWXqnS6pqxWsiTO7y9txYu3nwyDInKx5fND8GB0zHKszkEr00SZIdi7cH2zlataH173Zeg==
+X-Received: by 2002:a2e:7c0a:0:b0:2c9:f564:b414 with SMTP id x10-20020a2e7c0a000000b002c9f564b414mr2095991ljc.24.1701772569144;
+        Tue, 05 Dec 2023 02:36:09 -0800 (PST)
+Received: from localhost ([178.176.56.174])
+        by smtp.gmail.com with ESMTPSA id s22-20020a2e98d6000000b002c9b899c449sm809872ljj.59.2023.12.05.02.36.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 05 Dec 2023 02:36:08 -0800 (PST)
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Jose Abreu <Jose.Abreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH net-next 04/16] net: pcs: xpcs: Explicitly return error on caps validation
+Date: Tue,  5 Dec 2023 13:35:25 +0300
+Message-ID: <20231205103559.9605-5-fancer.lancer@gmail.com>
+X-Mailer: git-send-email 2.42.1
+In-Reply-To: <20231205103559.9605-1-fancer.lancer@gmail.com>
+References: <20231205103559.9605-1-fancer.lancer@gmail.com>
 MIME-Version: 1.0
-References: <20231204160033.1872569-1-andriy.shevchenko@linux.intel.com> <20231204160033.1872569-2-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20231204160033.1872569-2-andriy.shevchenko@linux.intel.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 4 Dec 2023 17:18:49 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdU58NjjdOOLA_T1jr1u=H+2eVN69f1FDc6GhiXEenaxLw@mail.gmail.com>
-Message-ID: <CAMuHMdU58NjjdOOLA_T1jr1u=H+2eVN69f1FDc6GhiXEenaxLw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/5] pinctrl: renesas: Mark local variable with const
- in ->set_mux()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,31 +92,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, Lakshmi Sowjanya D <lakshmi.sowjanya.d@intel.com>, openbmc@lists.ozlabs.org
+Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>, devicetree@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Dec 4, 2023 at 5:02=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
-> We are not going to change pins in the ->set_mux() callback. Mark
-> the local variable with a const qualifier. While at it, make it
-> also unsigned.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+If an unsupported interface is requested to be validated then there is no
+need in further capabilities and-ing since the local array will be left
+initialized with zeros. Let's explicitly return EINVAL error in that case
+in order to inform the caller about invalid link-state interface. In any
+case the phylink_validate_mac_and_pcs() would terminate with error further
+link-state validation so the suggested update won't change the validation
+procedure semantics.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+---
+ drivers/net/pcs/pcs-xpcs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Gr{oetje,eeting}s,
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index 92c47da61db4..46afeb5510c0 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -613,14 +613,15 @@ static int xpcs_validate(struct phylink_pcs *pcs, unsigned long *supported,
+ 
+ 	xpcs = phylink_pcs_to_xpcs(pcs);
+ 	compat = xpcs_find_compat(xpcs->id, state->interface);
++	if (!compat)
++		return -EINVAL;
+ 
+ 	/* Populate the supported link modes for this PHY interface type.
+ 	 * FIXME: what about the port modes and autoneg bit? This masks
+ 	 * all those away.
+ 	 */
+-	if (compat)
+-		for (i = 0; compat->supported[i] != __ETHTOOL_LINK_MODE_MASK_NBITS; i++)
+-			set_bit(compat->supported[i], xpcs_supported);
++	for (i = 0; compat->supported[i] != __ETHTOOL_LINK_MODE_MASK_NBITS; i++)
++		set_bit(compat->supported[i], xpcs_supported);
+ 
+ 	linkmode_and(supported, supported, xpcs_supported);
+ 
+-- 
+2.42.1
 
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
