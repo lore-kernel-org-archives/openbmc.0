@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B7D9C4167B
-	for <openbmc@archiver.kernel.org>; Wed,  6 Dec 2023 02:41:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C9E1C4167B
+	for <openbmc@archiver.kernel.org>; Wed,  6 Dec 2023 02:42:24 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=cHcX8RWO;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=V1R85U4x;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SlM9Q0lMHz3cYh
-	for <openbmc@archiver.kernel.org>; Wed,  6 Dec 2023 13:41:30 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SlMBR0vNnz3dBl
+	for <openbmc@archiver.kernel.org>; Wed,  6 Dec 2023 13:42:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=cHcX8RWO;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=V1R85U4x;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SlM5K42pwz2xwH
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SlM5K48Mzz3bTP
 	for <openbmc@lists.ozlabs.org>; Wed,  6 Dec 2023 13:37:57 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:7e5d:5300::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 4977B42B8;
-	Tue,  5 Dec 2023 18:37:54 -0800 (PST)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id D05E0C8D;
+	Tue,  5 Dec 2023 18:37:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
 	s=thorn; t=1701830274;
-	bh=ruxO6kM1QIUSTNBo3iN7zgdQAfI4vKU8AkzwdYEIHcI=;
+	bh=a27H0zVDBwS1r/LVHyV0FxFVHg91rRki/45egKZXYEI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cHcX8RWOuGwDAzNWvfJDL1VRHhyQFyilsNWp2y2XkzFwNSbiuhoiCw/tJ0CogpPMS
-	 0rWOn42cu40CIxurMl991aOLqpv4p9xQLEJp6yUABbvBZ9rrYkM2UzNIlgJ1pOjRhZ
-	 9hYHaRaURYhp2PzQCIek+15x2eToxra4kKHcFZiQ=
+	b=V1R85U4xhMf4afF+hOmjt7JO5TNg1e+3di3iHktWHED/EUNLr3A4hExJffWVfnU09
+	 FMFuEOcKrilMcbegg/3aFjdTQw/d4euPkIxQPgSwyLGm5ot4Lmv1vWhQI2ax6Fq/vE
+	 Ahgh+kDf+BvRABF4REv6laohc6FCQOg6gN+EluhM=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Joel Stanley <joel@jms.id.au>
-Subject: [PATCH linux dev-6.5 3/4] dt-bindings: arm: aspeed: document ASRock E3C256D4I
-Date: Tue,  5 Dec 2023 18:37:39 -0800
-Message-ID: <20231206023742.5242-9-zev@bewilderbeest.net>
+Subject: [PATCH linux dev-6.5 1/4] dt-bindings: arm: aspeed: document ASRock SPC621D8HM3
+Date: Tue,  5 Dec 2023 18:37:37 -0800
+Message-ID: <20231206023742.5242-7-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231206023742.5242-6-zev@bewilderbeest.net>
 References: <20231206023742.5242-6-zev@bewilderbeest.net>
@@ -62,29 +62,29 @@ Cc: openbmc@lists.ozlabs.org, Zev Weiss <zev@bewilderbeest.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Document ASRock E3C256D4I board compatible.
+Document ASRock SPC621D8HM3 board compatible.
 
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Link: https://lore.kernel.org/r/20231114112722.28506-5-zev@bewilderbeest.net
+Link: https://lore.kernel.org/r/20231114112819.28572-5-zev@bewilderbeest.net
 Signed-off-by: Joel Stanley <joel@jms.id.au>
-(cherry picked from commit 87ac7669fbb307682cca553bb78c28ff942fddb4)
+(cherry picked from commit 974277c7fc94443244d1e3d95cdbc54ebaf49fd5)
 ---
  Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-index 00a673c7bd9e..1f65e8a245b2 100644
+index e17b3d66d6e5..00a673c7bd9e 100644
 --- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
 +++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-@@ -35,6 +35,7 @@ properties:
-               - ampere,mtjade-bmc
+@@ -36,6 +36,7 @@ properties:
                - aspeed,ast2500-evb
                - asrock,e3c246d4i-bmc
-+              - asrock,e3c256d4i-bmc
                - asrock,romed8hm3-bmc
-               - asrock,spc621d8hm3-bmc
++              - asrock,spc621d8hm3-bmc
                - bytedance,g220a-bmc
+               - facebook,cmm-bmc
+               - facebook,minipack-bmc
 -- 
 2.43.0
 
