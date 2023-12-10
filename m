@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97317C4167B
-	for <openbmc@archiver.kernel.org>; Sat,  9 Dec 2023 20:46:06 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=O/4uchdK;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F5A4C10DCE
+	for <openbmc@archiver.kernel.org>; Sun, 10 Dec 2023 22:13:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Sng5T1n9rz3ccF
-	for <openbmc@archiver.kernel.org>; Sun, 10 Dec 2023 07:46:05 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=O/4uchdK;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:40e1:4800::1; helo=sin.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org)
-Received: from sin.source.kernel.org (sin.source.kernel.org [IPv6:2604:1380:40e1:4800::1])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SpK0306tSz3cV9
+	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 09:13:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=ukl@pengutronix.de; receiver=lists.ozlabs.org)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sng4P5Qmgz3bTt;
-	Sun, 10 Dec 2023 07:45:09 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 869B3CE01BA;
-	Sat,  9 Dec 2023 20:45:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D95C433C8;
-	Sat,  9 Dec 2023 20:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702154702;
-	bh=+7qwKc+g6O9nPYHObVhq00UWcOt2oMbcUuD1ls3YUTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=O/4uchdKtwypNWRTa301WpvfdXEMmFakt5eog88JUDkRhczMX02e3rBBWNEwlx6jg
-	 PxtES+X9BVhyAsugIobcqBW8v+Y+EUd1b46dg2QTmBNxvZcHYXf5CrmyWPsJUbK+J6
-	 inuDB4VU2hVdI8Zvgc+Rh9hR0GrAcXt0Jq2mxUubAy7rzs0aWFKylmRRpgmQliSB14
-	 yZNL8vhb+wq9yb7WJeyTEJVfFYEZ0bF0Kup+mBXqrErjRnHSe3d9IblX19xyWi2r/k
-	 XnxKG81bLPX5jty4mlhRlHrV28YTlmPt/PHuy8Y26qhk5OKchvN6Lpk6cWZH6TZDTi
-	 BUZNlNoGDhOxw==
-Date: Sat, 9 Dec 2023 21:44:55 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Quan Nguyen <quan@os.amperecomputing.com>
-Subject: Re: [PATCH v3 2/2] i2c: aspeed: Acknowledge Tx done with and without
- ACK irq late
-Message-ID: <20231209204455.jxize3muvx7hhpos@zenone.zhora.eu>
-References: <20231208033142.1673232-1-quan@os.amperecomputing.com>
- <20231208033142.1673232-3-quan@os.amperecomputing.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SpJzK5Cjnz2xgw
+	for <openbmc@lists.ozlabs.org>; Mon, 11 Dec 2023 09:12:59 +1100 (AEDT)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rCS2W-0006Oy-UR; Sun, 10 Dec 2023 23:12:44 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rCS2U-00ExYC-Do; Sun, 10 Dec 2023 23:12:42 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rCS2U-000RWQ-4g; Sun, 10 Dec 2023 23:12:42 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: [PATCH 08/12] hwrng: npcm - Convert to platform remove callback returning void
+Date: Sun, 10 Dec 2023 23:12:23 +0100
+Message-ID: <a6cf7061713748667743e445ec00aa31f7c824b0.1702245873.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <cover.1702245873.git.u.kleine-koenig@pengutronix.de>
+References: <cover.1702245873.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231208033142.1673232-3-quan@os.amperecomputing.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1787; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=MuGl9Pi4du6aDKFhb44ZUIU1I3q41zByvx0vfz3i41g=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBldjfI6ggc1VYruEGcrSh92NPHvPtjsOYybF78I 0GLTXesNLGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZXY3yAAKCRCPgPtYfRL+ ToIjB/0cwvqloENXYLTCrsQoQM5KyK7tYCvgofA5HhRvmFooSWKH622upb1j9DGqYeIWYP1+blz WTD9Yh2+AeiHGILYNCQlnTZioP1F5dOwoMZINC1vA5xF0HnHV9R62osPbvGnTyMz7oVr4YZb/+O e43ibfm6Gx++mMH4OZJ4Vi2g78dP4lWFSSdwQyD7ojkfGi1XeHpljA41ujzJd35ddCbiaYJI7k+ Mf6ohtSWKCxf5mjZLL0EFuenz28xFuroQS9W28iBu+zbG+kRIhCHaz+unE7q7tpNxzDq62DKr2B y9l3aB+uStiRgEONbP3l1ula+SJ4WFylwXMKXcWzTr3MXZ5O
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,38 +58,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, "Thang Q . Nguyen" <thang@os.amperecomputing.com>, linux-kernel@vger.kernel.org, Phong Vo <phong@os.amperecomputing.com>, Wolfram Sang <wsa@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, Joel Stanley <joel@jms.id.au>, Cosmo Chou <chou.cosmo@gmail.com>, Open Source Submission <patches@amperecomputing.com>, Guenter Roeck <linux@roeck-us.net>, linux-i2c@vger.kernel.org
+Cc: Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, Tali Perry <tali.perry1@gmail.com>, linux-crypto@vger.kernel.org, kernel@pengutronix.de, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Quan,
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-[...]
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-> -	/* Ack all interrupts except for Rx done */
-> -	writel(irq_received & ~ASPEED_I2CD_INTR_RX_DONE,
-> -	       bus->base + ASPEED_I2C_INTR_STS_REG);
-> +
-> +	/*
-> +	 * Early acking of INTR_RX_DONE and INTR_TX_[ACK|NAK] would indicate HW to
-> +	 * start receiving or sending new data, and this may cause a race condition
-> +	 * as the irq handler has not yet handled these irqs but is being acked.
-> +	 * Let's ack them late at the end of the irq handler when those are truly processed.
-> +	 */
-> +	irq_ack_last = ASPEED_I2CD_INTR_RX_DONE | ASPEED_I2CD_INTR_TX_ACK | ASPEED_I2CD_INTR_TX_NAK;
-> +	writel(irq_received & ~irq_ack_last, bus->base + ASPEED_I2C_INTR_STS_REG);
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-I like Andrews suggestion of having irq_ack_last as a define that
-is already negated, instead of negating it in the writel, which
-makes it a bit difficult to read.
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/char/hw_random/npcm-rng.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Besides, ack_last, as a name is not very meaningful, I'd rather
-call it irq_ack_rx_tx (or something similar).
+diff --git a/drivers/char/hw_random/npcm-rng.c b/drivers/char/hw_random/npcm-rng.c
+index 8a304b754217..bce8c4829a1f 100644
+--- a/drivers/char/hw_random/npcm-rng.c
++++ b/drivers/char/hw_random/npcm-rng.c
+@@ -126,15 +126,13 @@ static int npcm_rng_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static int npcm_rng_remove(struct platform_device *pdev)
++static void npcm_rng_remove(struct platform_device *pdev)
+ {
+ 	struct npcm_rng *priv = platform_get_drvdata(pdev);
+ 
+ 	devm_hwrng_unregister(&pdev->dev, &priv->rng);
+ 	pm_runtime_disable(&pdev->dev);
+ 	pm_runtime_set_suspended(&pdev->dev);
+-
+-	return 0;
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -178,7 +176,7 @@ static struct platform_driver npcm_rng_driver = {
+ 		.of_match_table = of_match_ptr(rng_dt_id),
+ 	},
+ 	.probe		= npcm_rng_probe,
+-	.remove		= npcm_rng_remove,
++	.remove_new	= npcm_rng_remove,
+ };
+ 
+ module_platform_driver(npcm_rng_driver);
+-- 
+2.42.0
 
-But I'm not going to block it for this, up to you if you want to
-send a new version.
-
-Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
-
-Thanks,
-Andi
