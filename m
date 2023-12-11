@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FF51C10F05
-	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 06:05:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C25DC4167B
+	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 06:06:37 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=m4HwVmdX;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=HHpSrj3C;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SpWSm60hKz3vwr
-	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 17:05:44 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4SpWTm2C4Mz3vrs
+	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 17:06:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=m4HwVmdX;
+	dkim=pass (2048-bit key; unprotected) header.d=wiwynn.com header.i=@wiwynn.com header.a=rsa-sha256 header.s=selector2 header.b=HHpSrj3C;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f400:feae::624; helo=apc01-psa-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
-Received: from APC01-PSA-obe.outbound.protection.outlook.com (mail-psaapc01on20624.outbound.protection.outlook.com [IPv6:2a01:111:f400:feae::624])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wiwynn.com (client-ip=2a01:111:f400:feab::608; helo=apc01-sg2-obe.outbound.protection.outlook.com; envelope-from=delphine_cc_chiu@wiwynn.com; receiver=lists.ozlabs.org)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com (mail-sgaapc01on20608.outbound.protection.outlook.com [IPv6:2a01:111:f400:feab::608])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SpWJ56lkJz3bvX
-	for <openbmc@lists.ozlabs.org>; Mon, 11 Dec 2023 16:58:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4SpWJ83HrGz30MD
+	for <openbmc@lists.ozlabs.org>; Mon, 11 Dec 2023 16:58:16 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Do2IHUhmeWpP7Ub2Fo8AW7wKVAm0vspDok1oOYJwXcK0J92Gt4vXuyGZtYUNcBpuxEKRLQ2GDXyegTRWReQ9ta3pLiFCUWmpz8vKFNbcufjDm928LWR0xoo0RIDx4KIHnT0K3yXBBayKH2ljYuRK24v3PFFxgOcBRE4eYJja5PgSsHRRbrQ62N3pUe8q8UoBOgMj7BGiYwxYXoaQpxG1y5j4dxOJ+G+PzyHvJJMY9RD1ju/VpV87kTrPrrnmLHQNqo3DkxwR/JW6fYHMHxpbwMhXsIcMQ3eRvo8IDHRUuM0ZC1A0MjatnzALFzw7dfpvE1X9ij1QgeTKwCXffthuAw==
+ b=IJNocJGGWJWRJ0BOhOh4ZMNjR5DhDo80gXlYjfu36yrPoBNsf3ZaYkHqF9qJ9is13E8ZeM/McmhTumtRJ6TDq7zdKVzE6o918zZ5lqOkQ+BayfCIV+7uyB5inPZhYPIdVZXxmu1VHgI3sp0Y/Ejas2GrytQ5G6AoPEuUxBCrBXWh1l27sLW5IcV1hf1Ryp6JJiz/APY8+GkG39u/3jm6dwkbZNr2H+GFbezuCrGRqAVHk60qhOwkph6x4S8JrVmxhgQV+Pko3fzGwl+X1VWBQ4U2LmrkXeS9tFzjV+hftqZXo0SI1YZgI82XPuXrXPjZQE9/H6GN+k0dZ+GKYlCMyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S68zvDbwuc+EpYmRfn5ns/lT6xUCcZUwkslYayui3bY=;
- b=VoEtGYnq5hBG+HpTC4Y+oOx7OB3J5vHVOOgPrEcPxbNnUU2FBvhIz6FbolMBZEH40s2K0wGjhhDHoEBLY5e+5GHw/ofPxvHIvA+zXolyi6mS+HxdDvxETnsDKwzP7fdJuSOg84gNVgz7X7l/lkX03g+Zzh2T4xvF2QR9T2hPdB8k/+7mJoY46SLTkPo9ZXFQQpKULdk6BLElIgztSBVUUAkwkqLiGkw8ASSn65c7wTC87WZaqULQsiAKeCPRoGcITGUNxHYkokk4O9XhHl3UV3d0DE/q3diAn3I/TmRSCl3/acUitHfZUBD0L1z4keXtHImy+BURJwC55RNke89tnA==
+ bh=HS46iyiX5VqcZeS2QC5nTFB8RgeTDUaf1C1vb3s+wjU=;
+ b=BLmdkFkew+oM560sB3RVU3AYaxtk3EF9sl9BYkYq7tH2L6sOP1w59DCJUi5iYAe5ii/yza+Idma2Z8dOqhINaI5SQO4Ms23b/yGLoIypaiFFJMrC6sSULhIReDTzygl5slhZKlbr8nmqyQ4q6SPGc0sgczgXC7fI5HFTkeftlQwGHy9F9AQ7ChJV206k+LdfQVFfYu28II71BUr48u03qJA/OCpEM6LbDaR7IiIDxuks6tVpT1Qx2lXntvAXV3dFmT+hC3ym2GFqM1kom0pS/JP8Klv8o4XBc0lHB4CuBD7M0JM3qKiQTqyZ+z0TQ+rGSnwydYwtKwy2q0lF2cbWFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  211.20.1.79) smtp.rcpttodomain=stwcx.xyz smtp.mailfrom=wiwynn.com; dmarc=fail
  (p=quarantine sp=quarantine pct=100) action=quarantine
@@ -35,17 +35,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wiwynn.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S68zvDbwuc+EpYmRfn5ns/lT6xUCcZUwkslYayui3bY=;
- b=m4HwVmdXa4OEvI00ZwMdTlTKdd+gZk6Y0H+KGIUwBUnNkuVZ2IZ/Nd7fFL9vNZk9NYhb91J7TqKhbV5h425EUduEEoUTyyIyuuA5aivM3NEY5T2YcFpqrtHQUG3vLQL9mILS7H5l8+nBTYbWSZ1z9yCYCIOiRZkGVWYk//kUDcPcetKygA1+J84ir+8/6W5tSvBYsGhgb7ysTcOflTk6w9NTaa9BjFrC72EcTHn4kZDzld5lMzsodGP2TG7mE8p4GOtok8oGdlF4VecynUqMc+GQPPIzexPYnnqwVTkS16YmTxvZgAAs7W7irlymMRoH/pbdOLf+FsQnkcx9pPcpmw==
-Received: from SG2PR06CA0233.apcprd06.prod.outlook.com (2603:1096:4:ac::17) by
- PSAPR04MB4422.apcprd04.prod.outlook.com (2603:1096:301:2b::14) with Microsoft
+ bh=HS46iyiX5VqcZeS2QC5nTFB8RgeTDUaf1C1vb3s+wjU=;
+ b=HHpSrj3C0XNyX+OLJpWRgcwjEere9hUxjdWFS3Eyz2ezmhEeIbzQsg0MQzPDd0xayYffw+RjVGSt4iGEOuow2En3QvAXikcL/exCE+b8THxqU3UsKs6LB2aUJdTcmjP+0O2SMmpum2j7YH7Jljz44VVvbiwdfD8TBxVhZA1hYacJXUcR3sz8piobqQHTBaIyOElWaGlC0lV0y80bWeOarOjxVAJ9/IaO9ElanbJ8zwP3YKpMc2vL6F7HMAH57+iLYoOgZcQCrFDsLiQyhOlqs3tiX+71aZaZv0Y/EEYbDAwkMJgzkCZ1EFsYBJ1mjn/z5XhadzpOyNM1NhBAS+hb6A==
+Received: from SG2PR06CA0235.apcprd06.prod.outlook.com (2603:1096:4:ac::19) by
+ PUZPR04MB6607.apcprd04.prod.outlook.com (2603:1096:301:fd::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7068.32; Mon, 11 Dec 2023 05:57:52 +0000
+ 15.20.7068.32; Mon, 11 Dec 2023 05:57:56 +0000
 Received: from SG1PEPF000082E7.apcprd02.prod.outlook.com
- (2603:1096:4:ac:cafe::b7) by SG2PR06CA0233.outlook.office365.com
- (2603:1096:4:ac::17) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:1096:4:ac:cafe::43) by SG2PR06CA0235.outlook.office365.com
+ (2603:1096:4:ac::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32 via Frontend
- Transport; Mon, 11 Dec 2023 05:57:52 +0000
+ Transport; Mon, 11 Dec 2023 05:57:55 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 211.20.1.79)
  smtp.mailfrom=wiwynn.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=wiwynn.com;
@@ -55,14 +55,14 @@ Received-SPF: Fail (protection.outlook.com: domain of wiwynn.com does not
 Received: from localhost.localdomain (211.20.1.79) by
  SG1PEPF000082E7.mail.protection.outlook.com (10.167.240.10) with Microsoft
  SMTP Server id 15.20.7091.18 via Frontend Transport; Mon, 11 Dec 2023
- 05:57:52 +0000
+ 05:57:55 +0000
 From: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 To: patrick@stwcx.xyz,
 	openbmc@lists.ozlabs.org,
 	joel@jms.id.au
-Subject: [PATCH linux dev-6.6 v2 06/14] ARM: dts: aspeed: yosemite4: Revise power sensor adm1281 for schematic change
-Date: Mon, 11 Dec 2023 13:57:30 +0800
-Message-Id: <20231211055738.215773-7-Delphine_CC_Chiu@wiwynn.com>
+Subject: [PATCH linux dev-6.6 v2 08/14] ARM: dts: aspeed: yosemite4: Revise i2c11 and i2c12 schematic change
+Date: Mon, 11 Dec 2023 13:57:32 +0800
+Message-Id: <20231211055738.215773-9-Delphine_CC_Chiu@wiwynn.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231211055738.215773-1-Delphine_CC_Chiu@wiwynn.com>
 References: <20231211055738.215773-1-Delphine_CC_Chiu@wiwynn.com>
@@ -70,24 +70,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|PSAPR04MB4422:EE_
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E7:EE_|PUZPR04MB6607:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 19705eec-a81e-40ef-3941-08dbfa0e1cf7
+X-MS-Office365-Filtering-Correlation-Id: a0e2fca3-2b94-495a-993d-08dbfa0e1efc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 	J2Qpgl7/8+2Gnoj40W3P9ZDhQWGlIZjOP1xmRp87ftjUrc2pC9jS3e/zgtVD/WtXVTrUBftHrzSY+SMVRNRFnMMmz874R9ck2lJIhhJy3Mjv62sBSC4Xhqs/DgP/6U2oVsAan1BZH6Qn45RC2A2rSAn+4Set2bnPZvuN9ScQBjOIxaE9HoRV2dV9NV/XLCOWtJH44HhBuEp6DIPYe9veVvffR7niK9+KlR+NROGLQqi19lh1arj25HU7ABk9GRsru1ntapx9vF/BclrWrcCwe8jirx9NN3rQVl9zIyMLLYsXQjaBmq1W+JV6RdzxS9mF8nVgXjcmuqxGH7VbclXI26h3qFuqG1MYtiFMtVJH7ftFZ2XUIulef14pOTtAD0KlFiVHR92yo6w0DM+fLexLUZK5umjEhaqhKMyXnG90dNOjbfPMU7UzBZbqHcS++NRuXnzFdAHdKc3j7pjG8896kwwFn3HyOXgBt7ap79Iue3KqAU8l3OUz1f6uHEozueEbEUHklVRQTAR7xLbLNtPo/RyQlTqNTflXfAy2Ul0yacbegtjwUGyFJ/C/k3JeGNYRQd7kdiVFu1GVmEsNa8Qhzl++7BP6dCGUHKDBBFYAwPq5yqNF6FfJa0NqQLo4RPRalIX5G5LEw3WVETZ61HjZmAr/acN/+2KeIthqS+HU/yyx3eWTUNWVF633RIOLKzhLPw4XE12hA867tuwmFZFZhw==
-X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(376002)(136003)(39850400004)(346002)(396003)(230922051799003)(451199024)(64100799003)(1800799012)(82310400011)(186009)(46966006)(36840700001)(1076003)(26005)(107886003)(956004)(2616005)(336012)(6506007)(6666004)(6512007)(36860700001)(83380400001)(47076005)(5660300002)(41300700001)(2906002)(4326008)(9316004)(478600001)(6486002)(8676002)(8936002)(70206006)(70586007)(316002)(36736006)(82740400003)(81166007)(86362001)(356005)(36756003)(40480700001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 	YmktA5BPXpQwtgIEXW4kslncXEgSiy1CMT0fhFDDvKGDmtuRt+OaWhjt8HbF8o3D0o4v4yXsIlzNKHfPhnsne5Qfp+l8IdoeHHIvryF0Q0Fu9nEKU9eex+XZWfJt0ErxSY0pEhiqk1/K3KUObw7HT3n5jfB7XrZctRcNfpPxnBMM0vcU7KEf7G6xOMmDXHYKf3xwQdArHp6k1TJySR0aXrsZS53YWnno6HVgIJUHVB2I7MFpz5d3oUlJeHqO18fQxNnOtsL9q9Vid7tCs9+BLOtVQOEUcTCeddHzcB9ZvoiNvA0dqQT0qJtTAcT5+0TZt8yMoDgDKDecH6AmYO7vtN0XYW/zynjja3J8i2E04xXDdL5eY33tTcaeIQb7JNZ0nSw55/Pd5CFvh/KO5vsDBX7oIKNY5rmog65MwDrgc44ytS3F4zImWycbzF3Ew8Nlq3dxRBBI3L+NKWy+UfeJwNJq3k2G9lE+h/PHUC9BNFGF/ox1h9EfL62HdtQMVzVI9ue3ro+1KYWcJ2W1AuyyWGak5mBSoTmG5JvDkRz1NSDNECBrdEjbRKSxRi9pjjWvku6f/at9GSnO1b2RSCOxNR67f6Y5Ostcz8HdZw0JSZ06/sDa7DkEmZYrvotDvp2if52jg8x/z3Bwuh7OyNAyuzxI00j/Y7a80laEaLK2S4eTeqLDOMID8ddmt+yintvX8xzH2uzhM/N8szE0HnKHPg==
+X-Forefront-Antispam-Report: 	CIP:211.20.1.79;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:localhost.localdomain;PTR:211-20-1-79.hinet-ip.hinet.net;CAT:NONE;SFS:(13230031)(6069001)(4636009)(136003)(376002)(39850400004)(346002)(396003)(230922051799003)(451199024)(64100799003)(82310400011)(1800799012)(186009)(36840700001)(46966006)(6512007)(6506007)(36860700001)(5660300002)(1076003)(47076005)(336012)(26005)(2616005)(956004)(107886003)(36756003)(9316004)(70586007)(70206006)(6486002)(40480700001)(2906002)(83380400001)(82740400003)(81166007)(41300700001)(356005)(478600001)(86362001)(8676002)(8936002)(4326008)(36736006)(316002)(6666004);DIR:OUT;SFP:1101;
 X-OriginatorOrg: wiwynn.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2023 05:57:52.2382
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2023 05:57:55.6289
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19705eec-a81e-40ef-3941-08dbfa0e1cf7
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0e2fca3-2b94-495a-993d-08dbfa0e1efc
 X-MS-Exchange-CrossTenant-Id: da6e0628-fc83-4caf-9dd2-73061cbab167
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=da6e0628-fc83-4caf-9dd2-73061cbab167;Ip=[211.20.1.79];Helo=[localhost.localdomain]
 X-MS-Exchange-CrossTenant-AuthSource: 	SG1PEPF000082E7.apcprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSAPR04MB4422
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR04MB6607
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,105 +103,184 @@ Cc: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Revise power sensor adm1281 for yosemite4 schematic change
+Revise i2c11 and i2c12 schematic change:
+- remove space for adm1272 compatible
+- enable interrupt setting for pca9555
+- add eeprom for yosemite4 medusa board/BSM use
+- remove temperature sensor for yosemite4 schematic change
+- add power sensor for power module reading
 
 Signed-off-by: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>
 ---
- .../aspeed/aspeed-bmc-facebook-yosemite4.dts  | 24 ++++++++++++-------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ .../aspeed/aspeed-bmc-facebook-yosemite4.dts  | 118 ++++++++++++++----
+ 1 file changed, 93 insertions(+), 25 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-index 7fe80ad271aa..7f0134fcee57 100644
+index da413325ce30..ccb5ecd8d9a6 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-yosemite4.dts
-@@ -176,8 +176,9 @@ mctp@10 {
+@@ -821,41 +821,94 @@ imux29: i2c@1 {
+ &i2c11 {
+ 	status = "okay";
+ 	power-sensor@10 {
+-		compatible = "adi, adm1272";
++		compatible = "adi,adm1272";
+ 		reg = <0x10>;
  	};
  
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
+ 	power-sensor@12 {
+-		compatible = "adi, adm1272";
++		compatible = "adi,adm1272";
+ 		reg = <0x12>;
+ 	};
+ 
+-	gpio@20 {
++	gpio_ext1: pca9555@20 {
+ 		compatible = "nxp,pca9555";
+-		reg = <0x20>;
++		pinctrl-names = "default";
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-	};
+-
+-	gpio@21 {
++		reg = <0x20>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <94 IRQ_TYPE_LEVEL_LOW>;
++		gpio-line-names =
++		"P48V_OCP_GPIO1","P48V_OCP_GPIO2",
++		"P48V_OCP_GPIO3","FAN_BOARD_0_REVISION_0_R",
++		"FAN_BOARD_0_REVISION_1_R","FAN_BOARD_1_REVISION_0_R",
++		"FAN_BOARD_1_REVISION_1_R","RST_MUX_R_N",
++		"RST_LED_CONTROL_FAN_BOARD_0_N","RST_LED_CONTROL_FAN_BOARD_1_N",
++		"RST_IOEXP_FAN_BOARD_0_N","RST_IOEXP_FAN_BOARD_1_N",
++		"PWRGD_LOAD_SWITCH_FAN_BOARD_0_R","PWRGD_LOAD_SWITCH_FAN_BOARD_1_R",
++		"","";
++	};
++
++	gpio_ext2: pca9555@21 {
+ 		compatible = "nxp,pca9555";
+-		reg = <0x21>;
++		pinctrl-names = "default";
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-	};
+-
+-	gpio@22 {
++		reg = <0x21>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <94 IRQ_TYPE_LEVEL_LOW>;
++		gpio-line-names =
++		"DELTA_MODULE_TYPE","VSENSE_ERR_VDROP_R",
++		"EN_P48V_AUX_0","EN_P48V_AUX_1",
++		"MEDUSA_BOARD_REV_0","MEDUSA_BOARD_REV_1",
++		"MEDUSA_BOARD_REV_2","MEDUSA_BOARD_TYPE",
++		"HSC_OCP_SLOT_ODD_GPIO1","HSC_OCP_SLOT_ODD_GPIO2",
++		"HSC_OCP_SLOT_ODD_GPIO3","HSC_OCP_SLOT_EVEN_GPIO1",
++		"HSC_OCP_SLOT_EVEN_GPIO2","HSC_OCP_SLOT_EVEN_GPIO3",
++		"ADC_TYPE_0_R","ADC_TYPE_1_R";
++	};
++
++	gpio_ext3: pca9555@22 {
+ 		compatible = "nxp,pca9555";
+-		reg = <0x22>;
++		pinctrl-names = "default";
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-	};
+-
+-	gpio@23 {
++		reg = <0x22>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <94 IRQ_TYPE_LEVEL_LOW>;
++		gpio-line-names =
++		"CARD_TYPE_SLOT1","CARD_TYPE_SLOT2",
++		"CARD_TYPE_SLOT3","CARD_TYPE_SLOT4",
++		"CARD_TYPE_SLOT5","CARD_TYPE_SLOT6",
++		"CARD_TYPE_SLOT7","CARD_TYPE_SLOT8",
++		"OC_P48V_HSC_0_N","FLT_P48V_HSC_0_N",
++		"PWRGD_P12V_AUX_1","OC_P48V_HSC_1_N",
++		"FLT_P48V_HSC_1_N","PWRGD_P12V_AUX_1",
++		"MEDUSA_ADC_EFUSE_TYPE_R","P12V_HSC_TYPE";
++	};
++
++	gpio_ext4: pca9555@23 {
+ 		compatible = "nxp,pca9555";
+-		reg = <0x23>;
++		pinctrl-names = "default";
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
++		reg = <0x23>;
++		interrupt-parent = <&gpio0>;
++		interrupts = <94 IRQ_TYPE_LEVEL_LOW>;
++		gpio-line-names =
++		"HSC1_ALERT1_R_N","HSC2_ALERT1_R_N",
++		"HSC3_ALERT1_R_N","HSC4_ALERT1_R_N",
++		"HSC5_ALERT1_R_N","HSC6_ALERT1_R_N",
++		"HSC7_ALERT1_R_N","HSC8_ALERT1_R_N",
++		"HSC1_ALERT2_R_N","HSC2_ALERT2_R_N",
++		"HSC3_ALERT2_R_N","HSC4_ALERT2_R_N",
++		"HSC5_ALERT2_R_N","HSC6_ALERT2_R_N",
++		"HSC7_ALERT2_R_N","HSC8_ALERT2_R_N";
++	};
++
++	power-sensor@40 {
++			compatible = "mps,mp5023";
++			reg = <0x40>;
+ 	};
+ 
+ 	temperature-sensor@48 {
+@@ -868,19 +921,29 @@ temperature-sensor@49 {
+ 		reg = <0x49>;
+ 	};
+ 
+-	temperature-sensor@4a {
+-		compatible = "ti,tmp75";
+-		reg = <0x4a>;
++	eeprom@54 {
++		compatible = "atmel,24c128";
++		reg = <0x54>;
+ 	};
+ 
+-	temperature-sensor@4b {
+-		compatible = "ti,tmp75";
+-		reg = <0x4b>;
++	power-sensor@62 {
++		compatible = "pmbus";
++		reg = <0x62>;
+ 	};
+ 
+-	eeprom@54 {
+-		compatible = "atmel,24c256";
+-		reg = <0x54>;
++	power-sensor@64 {
++		compatible = "pmbus";
++		reg = <0x64>;
++	};
++
++	power-sensor@65 {
++		compatible = "pmbus";
++		reg = <0x65>;
++	};
++
++	power-sensor@68 {
++		compatible = "pmbus";
++		reg = <0x68>;
  	};
  };
  
-@@ -193,8 +194,9 @@ mctp@10 {
+@@ -898,6 +961,11 @@ eeprom@50 {
+ 		reg = <0x50>;
  	};
  
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -210,8 +212,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -227,8 +230,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -244,8 +248,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -261,8 +266,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -278,8 +284,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
-@@ -295,8 +302,9 @@ mctp@10 {
- 	};
- 
- 	power-sensor@40 {
--		compatible = "adi,adm1278";
-+		compatible = "adi,adm1281";
- 		reg = <0x40>;
-+		shunt-resistor-micro-ohms = <500>;
- 	};
- };
- 
++	eeprom@54 {
++		compatible = "atmel,24c64";
++		reg = <0x54>;
++	};
++
+ 	rtc@6f {
+ 		compatible = "nuvoton,nct3018y";
+ 		reg = <0x6f>;
 -- 
 2.25.1
 
