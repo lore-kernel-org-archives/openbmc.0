@@ -4,48 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6CB1C4332F
-	for <openbmc@archiver.kernel.org>; Mon, 11 Dec 2023 23:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85C8FC4332F
+	for <openbmc@archiver.kernel.org>; Tue, 12 Dec 2023 02:13:36 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=JPM0qm1p;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SpyN513Byz3c8W
-	for <openbmc@archiver.kernel.org>; Tue, 12 Dec 2023 10:18:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=ukl@pengutronix.de; receiver=lists.ozlabs.org)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Sq2GR04XDz30fZ
+	for <openbmc@archiver.kernel.org>; Tue, 12 Dec 2023 13:13:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=JPM0qm1p;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62c; helo=mail-ej1-x62c.google.com; envelope-from=joel.stan@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SpJzY1CDXz3cSJ
-	for <openbmc@lists.ozlabs.org>; Mon, 11 Dec 2023 09:13:13 +1100 (AEDT)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rCS2a-0006OU-5i; Sun, 10 Dec 2023 23:12:48 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rCS2S-00ExXo-CA; Sun, 10 Dec 2023 23:12:40 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1rCS2S-000RVl-1s; Sun, 10 Dec 2023 23:12:40 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 00/12] hwrng: Convert to platform remove callback returning 
-Date: Sun, 10 Dec 2023 23:12:15 +0100
-Message-ID: <cover.1702245873.git.u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.42.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sq2FM4vZhz30Np
+	for <openbmc@lists.ozlabs.org>; Tue, 12 Dec 2023 13:12:38 +1100 (AEDT)
+Received: by mail-ej1-x62c.google.com with SMTP id a640c23a62f3a-a1e116f2072so1058046766b.0
+        for <openbmc@lists.ozlabs.org>; Mon, 11 Dec 2023 18:12:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jms.id.au; s=google; t=1702347150; x=1702951950; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=h+wU57+ALtXnm4d/pbo7HJyJDvSp41woR8MJY1In6JE=;
+        b=JPM0qm1p10K3jidQDf44Mf/OIQgDRucJ/z0Mz10dGpd4I+J/Yrb4kf32VGtWXlMlik
+         zAsz07D8AfcAG8/5Vmt1mVy8kqOT4S958BdCjBeVRq7o07leZs72+TAkYFcJxSnhWk2r
+         jLDRhtZe0axOZodBjCsx4kNwABWy67RnSRR8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702347150; x=1702951950;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=h+wU57+ALtXnm4d/pbo7HJyJDvSp41woR8MJY1In6JE=;
+        b=s3j2LsHITk0iBJ19kYDjmIbU/omG93v6ThQDoPG5G8ucIcG6dNS/1BN4m9MkCj0O5j
+         2+Vjj0hVQ5wnxVQcLmbClfLv09wjiFU79fQ0oBzdBKX8SGlAT8qvmBwfQkiSAgmBhZ0d
+         OnBltcCIiY8pjG2bBtthwwVqEXViXiGifyyUTAogJxjLaC1d1ILPWMJafgYuvCW8cfAT
+         olxEnJRxzdHHCaejxwLfxme34AjjtaHVp47AmWWmiL4x7dOrifoc91qSaUbQmu+8IzKo
+         7YMMhWWP2/elopzGmaSV+u/KC2KjmGLQQSfeKEJL2Df9WdCw1R/bEFGzO/eJxaprbQpa
+         q+2g==
+X-Gm-Message-State: AOJu0Yx3e4fM+9CtgAa/b0eHsigUNcexQ7ZDfd9y2oxzWGZ9cMu8AMeI
+	yIjcEJWYa164m3R907nknJx12B6cxt9s++2wGrE=
+X-Google-Smtp-Source: AGHT+IGjqndG35OnZA2KC5CBFAmhGnmXCszC6GPvHFDSXywi4lYy3+p0JeN80VSX7m84mJ+fYpxUxsUk5yMQMMfKnQU=
+X-Received: by 2002:a17:907:6d05:b0:a1e:63ec:f0c5 with SMTP id
+ sa5-20020a1709076d0500b00a1e63ecf0c5mr7235867ejc.40.1702347150250; Mon, 11
+ Dec 2023 18:12:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2074; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=aN2uTP9pET0YKd8ErrSoTK5vjrK84yOnSnlqPftwp5U=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBldje/IGRTw6Qp6aopoOZNEu5aabfn86EmYir5f 1EWoJBaSb6JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZXY3vwAKCRCPgPtYfRL+ TiWpB/0QkgCxo9rWPPZuG0mV+7+gEk/GZc38dQ5EFWJhV8Stqce7VjU2EH4481MoRPnL/0AXAPH XiiR4C7gz2B/1olwgpo6lWRPxtxXYx6Sd3+aWvOsfgqAW/q4OjcKyEk3xg48rrbtLvf1xoWFo7y 0fw9lVR0RmrbvnjwaTKkcDngwN7dAD8Qflw7z7gflMyrKN0MFgRgzwvvbuD5RqWmP2ZVOJM4GRh 0k+qapzlIcA2ElXaxL07bXhanFkd0Mdw38vbHTh4dy8RCryXCfaxbiWkCskcDwfQzZ0FlwQLcQS Fb2Sj2N3HmsMlw8S8d8sC9OF1ybvnjz5+54B3FySEScCa9Gv
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
-X-Mailman-Approved-At: Tue, 12 Dec 2023 10:16:50 +1100
+References: <20231108082019.1601366-1-Delphine_CC_Chiu@Wiwynn.com>
+ <CACPK8Xc4NM_F4tBrZZe08r1=RYoe72=DbZNWSaK3E1_i18zjYQ@mail.gmail.com>
+ <CACPK8Xfb7pG6sTcx3_A8sPAgiC08A6Q8je0R+7c=eUYxuS601w@mail.gmail.com> <SG2PR04MB5543CB6774F6A5CC80501D94A1B1A@SG2PR04MB5543.apcprd04.prod.outlook.com>
+In-Reply-To: <SG2PR04MB5543CB6774F6A5CC80501D94A1B1A@SG2PR04MB5543.apcprd04.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 12 Dec 2023 12:42:18 +1030
+Message-ID: <CACPK8XdGnc44AMtOWoz22BNw-JRG3sF+e9W8wQSt=1FajzvsRw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-6.5 v4 0/2] LTC4286 and LTC4287 driver support
+To: "Delphine_CC_Chiu/WYHQ/Wiwynn" <Delphine_CC_Chiu@wiwynn.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +72,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Tomer Maimon <tmaimon77@gmail.com>, Martin Kaiser <martin@kaiser.cx>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, Alim Akhtar <alim.akhtar@samsung.com>, linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>, linux-samsung-soc@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org, Hadar Gat <hadar.gat@arm.com>, Deepak Saxena <dsaxena@plexity.net>, kernel@pengutronix.de, Yangtao Li <frank.li@vivo.com>, Yu Zhe <yuzhe@nfschina.com>, Andrei Coardos <aboutphysycs@gmail.com>, =?utf-8?q?=C5=81ukasz_Stelmach?= <l.stelmach@samsung.com>, Tali Perry <tali.perry1@gmail.com>, Alexandru Ardelean <alex@shruggie.ro>, linux-arm-kernel@lists.infradead.org, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, linux-crypto@vger.kernel.or
- g, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Gatien Chevallier <gatien.chevallier@foss.st.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+On Wed, 15 Nov 2023 at 19:24, Delphine_CC_Chiu/WYHQ/Wiwynn
+<Delphine_CC_Chiu@wiwynn.com> wrote:
+>
+> > -----Original Message-----
+> > From: Joel Stanley <joel@jms.id.au>
+> > Sent: Friday, November 10, 2023 10:35 AM
+> > To: Delphine_CC_Chiu/WYHQ/Wiwynn <Delphine_CC_Chiu@wiwynn.com>;
+> > Andrew Jeffery <andrew@codeconstruct.com.au>
+> > Cc: patrick@stwcx.xyz; openbmc@lists.ozlabs.org
+> > Subject: Re: [PATCH linux dev-6.5 v4 0/2] LTC4286 and LTC4287 driver support
+> >
+> >   Security Reminder: Please be aware that this email is sent by an external
+> > sender.
+> >
+> > On Wed, 8 Nov 2023 at 21:51, Joel Stanley <joel@jms.id.au> wrote:
+> > >
+> > > On Wed, 8 Nov 2023 at 18:50, Delphine CC Chiu
+> > > <Delphine_CC_Chiu@wiwynn.com> wrote:
+> > > >
+> > > > v4 - Add LTC4286 and LTC4287 binding document
+> > > >    - Add LTC4286 and LTC4287 driver
+> > >
+> > > This is v4, but the first version you've sent to the openbmc list. I
+> > > can't see an upstream v4, and v3 has changes requested.
+> > >
+> > > It would be best if you finished getting review from Guneter, and then
+> > > sent that version to the openbmc list for merging. Include a link to
+> > > the upstream submission in your cover letter so we know what is going
+> > > on.
+> >
+> > I didn't get a response from you.
+> >
+> > I did see you posted some more patches, both to the upstream list and to
+> > openbmc. It's not helpful, please get your patches reviewed upstream and once
+> > you've got them applied there, then send them to the openbmc list.
+> >
+> > Can you please respond to my mail if this makes sense and you agree.
+>
+> Sorry for not responding you.
+> We agree with your suggestion.
+> However, we have discussed with upstream back and forth.
+> We almost complete this driver.
+> Moreover, other projects in OpenBmc want to use this driver.
+> But we are not sure about when this driver could be merged.
+> So, we are wondering if there is any chance you can merge this driver first for OpenBmc use.
 
-this series converts all hwrng platform drivers to use .remove_new.
-See commit 5c5a7680e67b ("platform: Provide a remove callback that
-returns no value") for details and the eventual goal.
+You need to make this case when sending the backport. Please include
+that information in the cover letter, and make your case as to why we
+should spend the extra development effort carrying the patch that is
+still under review.
 
-All driver conversions are trivial as all their remove callbacks return
-0 (as good drivers should do).
+Currently you seem to send the patches to both the upstream list and
+to openbmc at the same time, which does not work for me. I have some
+new rules for getting the patches merged into openbmc:
 
-All patches are pairwise independant. These patches should go in via the
-usual hwrng tree. It's merge window material.
+1. Do not send them for backporting to the dev-6.6 branch until they
+have been reviewed upstream. This means you have Reviewed-by or
+Acked-by tags on at least a majority of the patches in a series before
+you send them to the openbmc list.
+2. Find reviewers for your upstream patches. Get other Facebook
+employees, get other openbmc contributors to review your patches. A
+good way to encourage others to review your patches is to first review
+thiers.
+3. When you do send the patches for backporting, include a
+justification in the cover letter for why they should be backported.
+For example: "These patches are merged upstream" or "the changes under
+active review, but we wish to have them in the openbmc tree because it
+has been ongoing for more than two weeks".
 
-Best regards
-Uwe
+Your latest upstream patchset produces a large number of warnings when
+I applied it to the 6.7-rc1 tree. This shows you are not compiling
+your changes before submitting.
 
-Uwe Kleine-König (12):
-  hwrng: atmel - Convert to platform remove callback returning void
-  hwrng: cctrng - Convert to platform remove callback returning void
-  hwrng: exynos - Convert to platform remove callback returning void
-  hwrng: ingenic - Convert to platform remove callback returning void
-  hwrng: ks-sa - Convert to platform remove callback returning void
-  hwrng: mxc - Convert to platform remove callback returning void
-  hwrng: n2 - Convert to platform remove callback returning void
-  hwrng: npcm - Convert to platform remove callback returning void
-  hwrng: omap - Convert to platform remove callback returning void
-  hwrng: stm32 - Convert to platform remove callback returning void
-  hwrng: timeriomem - Convert to platform remove callback returning void
-  hwrng: xgene - Convert to platform remove callback returning void
+Please engage with me and the other developers on this issue so we can
+help each other get the changes up to scratch and merged.
 
- drivers/char/hw_random/atmel-rng.c      | 6 ++----
- drivers/char/hw_random/cctrng.c         | 6 ++----
- drivers/char/hw_random/exynos-trng.c    | 6 ++----
- drivers/char/hw_random/ingenic-rng.c    | 6 ++----
- drivers/char/hw_random/ks-sa-rng.c      | 6 ++----
- drivers/char/hw_random/mxc-rnga.c       | 6 ++----
- drivers/char/hw_random/n2-drv.c         | 6 ++----
- drivers/char/hw_random/npcm-rng.c       | 6 ++----
- drivers/char/hw_random/omap-rng.c       | 6 ++----
- drivers/char/hw_random/stm32-rng.c      | 6 ++----
- drivers/char/hw_random/timeriomem-rng.c | 6 ++----
- drivers/char/hw_random/xgene-rng.c      | 6 ++----
- 12 files changed, 24 insertions(+), 48 deletions(-)
+Cheers,
 
-
-base-commit: bc63de6e6ba0b16652c5fb4b9c9916b9e7ca1f23
--- 
-2.42.0
-
+Joel
