@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44798C4332F
-	for <openbmc@archiver.kernel.org>; Wed, 13 Dec 2023 19:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57563C4332F
+	for <openbmc@archiver.kernel.org>; Wed, 13 Dec 2023 19:26:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Sr57T7404z3cY2
-	for <openbmc@archiver.kernel.org>; Thu, 14 Dec 2023 06:26:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Sr58349PMz3cYR
+	for <openbmc@archiver.kernel.org>; Thu, 14 Dec 2023 06:26:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
-X-Greylist: delayed 3395 seconds by postgrey-1.37 at boromir; Thu, 14 Dec 2023 06:25:41 AEDT
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sr56s2ltkz30gm
-	for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2023 06:25:40 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sr56w6c9Gz30gm
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2023 06:25:44 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 3BDISp4V012143
-	for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2023 20:28:51 +0200
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 3BDISoZs012137
+	for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2023 20:28:50 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 13 Dec
- 2023 20:28:50 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Thu, 14 Dec
- 2023 02:28:48 +0800
+ 2023 20:28:49 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 14 Dec
+ 2023 02:28:47 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 14 Dec 2023 02:28:48 +0800
+ Transport; Thu, 14 Dec 2023 02:28:47 +0800
 Received: from taln60.localdomain (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 15F305F490;
-	Wed, 13 Dec 2023 20:28:48 +0200 (IST)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id DF0AC5F490;
+	Wed, 13 Dec 2023 20:28:46 +0200 (IST)
 Received: by taln60.localdomain (Postfix, from userid 10070)
-	id 128D8DC3749; Wed, 13 Dec 2023 20:28:48 +0200 (IST)
+	id C663FDC3749; Wed, 13 Dec 2023 20:28:46 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <arnd@arndb.de>, <pmenzel@molgen.mpg.de>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>,
         <avifishman70@gmail.com>, <tali.perry1@gmail.com>, <joel@jms.id.au>,
         <venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
         <j.neuschaefer@gmx.net>
-Subject: [PATCH v3 2/3] soc: nuvoton: add configuration menu
-Date: Wed, 13 Dec 2023 20:28:44 +0200
-Message-ID: <20231213182845.3744685-3-tmaimon77@gmail.com>
+Subject: [PATCH v3 0/3] soc: add NPCM BPC driver support 
+Date: Wed, 13 Dec 2023 20:28:42 +0200
+Message-ID: <20231213182845.3744685-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231213182845.3744685-1-tmaimon77@gmail.com>
-References: <20231213182845.3744685-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -66,33 +63,47 @@ Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add menu configuration to Nuvoton SoC drivers.
+This patch set adds BIOS Post code (BPC) support for the Nuvoton 
+NPCM Baseboard Management Controller (BMC).
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/soc/nuvoton/Kconfig | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Nuvoton BMC NPCM BIOS Post Code (BPC) monitoring two configurable 
+I/O addresses written by the host on the bus, the capture data 
+stored in 128-word FIFO.
 
-diff --git a/drivers/soc/nuvoton/Kconfig b/drivers/soc/nuvoton/Kconfig
-index df46182088ec..d5102f5f0c28 100644
---- a/drivers/soc/nuvoton/Kconfig
-+++ b/drivers/soc/nuvoton/Kconfig
-@@ -1,5 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
--menuconfig WPCM450_SOC
-+
-+menu "NUVOTON SoC drivers"
-+
-+config WPCM450_SOC
- 	tristate "Nuvoton WPCM450 SoC driver"
- 	default y if ARCH_WPCM450
- 	select SOC_BUS
-@@ -9,3 +12,5 @@ menuconfig WPCM450_SOC
+NPCM BPC can support capture double words.
+
+The NPCM BPC driver tested on NPCM750 Olympus board.
+
+Addressed comments from:
+ - Krzysztof Kozlowski : https://www.spinics.net/lists/kernel/msg5035188.html
+ - Conor Dooley : https://www.spinics.net/lists/kernel/msg5034239.html
+ - kernel test robot : https://www.spinics.net/lists/kernel/msg5034970.html
+
+Changes since version 2:
+ - Modify compatible bindings.
+ - Add more details to nuvoton,bpc-en-dwcapture parameter. 
+ - Using _is_visible() function to support NPCM8XX.
+ - add __poll_t custom.
+
+Changes since version 1:
+ - Remove LPC present from the BPC driver.
+ - Modify dt-bindings message header.
+ - Add vendor to the file name.
+ - Modify incorrect spelling.
  
- 	  This driver provides information such as the SoC model and
- 	  revision.
-+
-+endmenu
+Tomer Maimon (3):
+  dt-bindings: soc: nuvoton: Add NPCM BPC
+  soc: nuvoton: add configuration menu
+  soc: nuvoton: add NPCM BPC driver
+
+ .../soc/nuvoton/nuvoton,npcm-bpc.yaml         |  65 +++
+ drivers/soc/nuvoton/Kconfig                   |  16 +-
+ drivers/soc/nuvoton/Makefile                  |   1 +
+ drivers/soc/nuvoton/npcm-bpc.c                | 387 ++++++++++++++++++
+ 4 files changed, 468 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/nuvoton/nuvoton,npcm-bpc.yaml
+ create mode 100644 drivers/soc/nuvoton/npcm-bpc.c
+
 -- 
 2.34.1
 
