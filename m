@@ -4,67 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1863C4332F
-	for <openbmc@archiver.kernel.org>; Wed, 13 Dec 2023 10:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6B2EC4332F
+	for <openbmc@archiver.kernel.org>; Wed, 13 Dec 2023 15:29:03 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=K4UKZAWR;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jCY8bioD;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SqsKj27zmz3c5N
-	for <openbmc@archiver.kernel.org>; Wed, 13 Dec 2023 21:34:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Sqzsn6bLTz3cGS
+	for <openbmc@archiver.kernel.org>; Thu, 14 Dec 2023 02:29:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=K4UKZAWR;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jCY8bioD;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2001:4860:4864:20::41; helo=mail-oa1-x41.google.com; envelope-from=liuxiwei1013@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oa1-x41.google.com (mail-oa1-x41.google.com [IPv6:2001:4860:4864:20::41])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22d; helo=mail-lj1-x22d.google.com; envelope-from=fancer.lancer@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com [IPv6:2a00:1450:4864:20::22d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SqsJc2zpdz30NY
-	for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2023 21:33:19 +1100 (AEDT)
-Received: by mail-oa1-x41.google.com with SMTP id 586e51a60fabf-2030f89a722so898190fac.3
-        for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2023 02:33:18 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sqzrj6QVgz2xSl
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Dec 2023 02:28:03 +1100 (AEDT)
+Received: by mail-lj1-x22d.google.com with SMTP id 38308e7fff4ca-2ca208940b3so89647911fa.1
+        for <openbmc@lists.ozlabs.org>; Wed, 13 Dec 2023 07:28:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702463596; x=1703068396; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0+FGvGFiPnq1dYEGQJjNMgoW9czAEu8BltMx4MH4Ug0=;
-        b=K4UKZAWR8zbBr23l2c70XQ87CgxMIYLGd9syewcmJ4a6zjX2oMumreX+HzdHEktadT
-         VqJN35KXNBCHy6LpjC4QDT8vYKUgxXaeOWDD2wbhQ4uCrqYJtJw3Ri6NpBqQlPFzGsv0
-         arjQNifFuGJmXlTgDAj8QqFEM4xyjHHcLeOb5YMAxbxxQhrhdtp04wm13BvaPi6gG0cY
-         OnPwPeLM4+pemfyTCHuaqXkhCh6g/FKvLSiGkyeDesTsoblcAsfAhm5CklR0Yq85p4Hh
-         yt5C3A4BRC3KzyW5Z8UwZmoyYw5THttuoLUiYfzEASCW3iaxltXFvryV17A6LXO3SHN7
-         U9kQ==
+        d=gmail.com; s=20230601; t=1702481278; x=1703086078; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=vcu9z/fG3mvtC4sTQWKLDyPuKX4cPyylkV7syb1LtxQ=;
+        b=jCY8bioD3XgLcFzzGBB8H0zCUdc0F0VlyJGIeWZzWZ9ShCiJT5ok0P8wuWb0LeE33L
+         psU/+4wp0YtaGtTLu3FlHOgqOT5ZqSp2/Q/k4plPDIo/zLw7uUJYJXTQlJHOZuUXTl9Y
+         tEYJQLgKJLeuPfj7WEDXd3o7sooD0qCdNCim75WCiaDjXGVmUqbJJjXPVPRfhLBkJfF3
+         ToA0hocumnxe3Z1k/3LLyouyeYliVaUWgce7RKJb1cPWwkn4l+4Mo8YHYvfpwcpCbqPc
+         SYCtFjQhJ+s1j26GKPVS62qTlKzpEDm618dA85cC/HBftlM5ff2Vkeu6JerLVtS0GlSc
+         /s7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702463596; x=1703068396;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0+FGvGFiPnq1dYEGQJjNMgoW9czAEu8BltMx4MH4Ug0=;
-        b=GuUXuTAfhECpqzBrGChcdQQC21R1ggGWmz93bxwQQf8hHN00/4TNh2y6T6+lUjgEs4
-         nrnUOWkJGFtvhkXkwO7h/VZrZKJa46Y9PW+ZopE+5gUoSidn/5FCVr0X30bYahs0UTbi
-         aV59Jp2r5G/an+tYYg/eJz3fvMS64hmdMERUnVAJs9hRuE+SMl4ImykFj3u1yswICRBs
-         p9oX2BbTg/Ua4xqeHRCai7to9IORhNhwOGW8H5VDVhN8Ys1mVAwCEPnsfwEmWrDmbZEV
-         fNKJ3kg3aXlBntrlZVbzYtdB4NaifnDJJMyqiH8549Pd91g9xHyoXKsARYcu2kWEqCZ9
-         VHIQ==
-X-Gm-Message-State: AOJu0Yzdlj0MzrNudpszm7CxEX8UKxCMAUAfroGx3HREmTEiprvcFoge
-	yBRloVJHfN1TSAXM4i4M+bdoOmRbZKVAddPn
-X-Google-Smtp-Source: AGHT+IFluHP7vbK3dLDAE/LVjUWATN0Yi6KhmonV2ToPn1GCGwl3vp6wjNUpfSii/UMtIygBjj5xGw==
-X-Received: by 2002:a05:6871:28a3:b0:1fb:75a:6d1a with SMTP id bq35-20020a05687128a300b001fb075a6d1amr9182039oac.65.1702463595289;
-        Wed, 13 Dec 2023 02:33:15 -0800 (PST)
-Received: from georgeliu.. ([182.45.253.49])
-        by smtp.gmail.com with ESMTPSA id o63-20020a634142000000b005898df17ea4sm9643070pga.27.2023.12.13.02.33.13
+        d=1e100.net; s=20230601; t=1702481278; x=1703086078;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vcu9z/fG3mvtC4sTQWKLDyPuKX4cPyylkV7syb1LtxQ=;
+        b=lFLyItO0NuR4+1i74dWYwpbTv+VBFHUmkgEpBLp4dEoi3yklW7JIUTEoQ/RzHTBWaL
+         nK6rLeWe1L4IS4Ujai5fHXD/2B/FUShalCQe9+UXMgSieYmgspfe4vSWkplBzwtYU/bI
+         fy5EgsDcR78d55eEjDnqbp4eKI1FK6UH5VFedxmTVFMNJbuFQGWoiUJolSrHcHHZAndS
+         VGmc4JGFRm/4OZXcMfJMkm7b0qFHalfk66qTQqXkRIr0AACzlw/wSJHQpfV66zRkc273
+         HCcV8wduUesJ94fYs7117HLIo0/tTl5y1F0vz7jxSJfH8enlwJiuJeXEldzLQURtnM/C
+         c1VA==
+X-Gm-Message-State: AOJu0Yy4Yx5wyC+CQ2V5kw/yHNzDlGciX/J1XZzgp2UklFPqq6D/RpE9
+	fL2YF/XHK81xul28s2++ufI=
+X-Google-Smtp-Source: AGHT+IG20zIu9IgmaWg0JorODZUkVG4iYfjNdT8CuX3p2RzEFn907upn4oVLIeVdXst9pwUU1EXyig==
+X-Received: by 2002:a19:5e1d:0:b0:50b:d9fc:7bca with SMTP id s29-20020a195e1d000000b0050bd9fc7bcamr3438591lfb.134.1702481277255;
+        Wed, 13 Dec 2023 07:27:57 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+        by smtp.gmail.com with ESMTPSA id i23-20020ac25237000000b0050e02507a0csm729096lfl.221.2023.12.13.07.27.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Dec 2023 02:33:14 -0800 (PST)
-From: George Liu <liuxiwei1013@gmail.com>
-X-Google-Original-From: George Liu <liuxiwei@ieisystem.com>
-To: joel@jms.id.au,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH v1 1/1] ARM: dts: aspeed: Add IEISystems FP5280G3 BMC machine
-Date: Wed, 13 Dec 2023 18:33:09 +0800
-Message-Id: <20231213103309.2754291-1-liuxiwei@ieisystem.com>
-X-Mailer: git-send-email 2.34.1
+        Wed, 13 Dec 2023 07:27:56 -0800 (PST)
+Date: Wed, 13 Dec 2023 18:27:53 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Russell King <linux@armlinux.org.uk>
+Subject: Re: [PATCH net-next 06/16] net: pcs: xpcs: Avoid creating dummy XPCS
+ MDIO device
+Message-ID: <wnptneaxxe2tq2rf7ac6a72xtyluyggughvmtxbbg5qto64mpa@7gchl5e4qllu>
+References: <20231205103559.9605-1-fancer.lancer@gmail.com>
+ <20231205103559.9605-1-fancer.lancer@gmail.com>
+ <20231205103559.9605-7-fancer.lancer@gmail.com>
+ <20231205103559.9605-7-fancer.lancer@gmail.com>
+ <20231205115234.7ntjvymurot5nnak@skbuf>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231205115234.7ntjvymurot5nnak@skbuf>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,1025 +83,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, Tomer Maimon <tmaimon77@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, Rob Herring <robh+dt@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The IEISystems FP5280G3 is a power platform server with an
-AST2600-based BMC.
-This dts file provides a basic configuration for its OpenBMC
-development.
+Hi Vladimir,
 
-Signed-off-by: George Liu <liuxiwei@ieisystem.com>
----
- .../aspeed/aspeed-bmc-ieisystems-fp5280g3.dts | 999 ++++++++++++++++++
- 1 file changed, 999 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
+On Tue, Dec 05, 2023 at 01:52:34PM +0200, Vladimir Oltean wrote:
+> On Tue, Dec 05, 2023 at 01:35:27PM +0300, Serge Semin wrote:
+> > If the DW XPCS MDIO devices are either left unmasked for being auto-probed
+> > or explicitly registered in the MDIO subsystem by means of the
+> > mdiobus_register_board_info() method
+> 
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
-new file mode 100644
-index 000000000000..30ee506a88e1
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
-@@ -0,0 +1,999 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2023, IEISystems Corporation
-+
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+#include "ibm-power10-dual.dtsi"
-+#include "ibm-power10-quad.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+#include <dt-bindings/leds/leds-pca955x.h>
-+
-+/ {
-+	model = "FP5280G3 BMC";
-+	compatible = "ieisystems,fp5280g3-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		i2c2001 = &i2c2s0ch1;
-+		i2c2002 = &i2c2s0ch2;
-+		i2c5000 = &i2c5s0ch0;
-+		i2c5001 = &i2c5s0ch1;
-+		i2c5002 = &i2c5s0ch2;
-+		i2c5003 = &i2c5s0ch3;
-+		i2c6000 = &i2c6s0ch0;
-+		i2c6001 = &i2c6s0ch1;
-+		i2c6002 = &i2c6s0ch2;
-+		i2c6003 = &i2c6s0ch3;
-+		i2c6004 = &i2c6s0ch4;
-+		i2c6005 = &i2c6s0ch5;
-+		i2c6100 = &i2c6s1ch0;
-+		i2c6101 = &i2c6s1ch1;
-+		i2c6200 = &i2c6s2ch0;
-+		i2c6201 = &i2c6s2ch1;
-+		i2c12000 = &i2c12s0ch0;
-+		i2c12001 = &i2c12s0ch1;
-+		i2c12002 = &i2c12s0ch2;
-+		i2c12003 = &i2c12s0ch3;
-+		i2c12100 = &i2c12s1ch0;
-+		i2c12101 = &i2c12s1ch1;
-+		i2c12102 = &i2c12s1ch2;
-+		i2c13000 = &i2c13s0ch0;
-+		i2c13001 = &i2c13s0ch1;
-+		i2c13002 = &i2c13s0ch2;
-+		i2c13003 = &i2c13s0ch3;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200n8 earlycon";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x80000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		ramoops@b3e00000 {
-+			compatible = "ramoops";
-+			reg = <0xb3e00000 0x200000>; /* 16 * (4 * 0x8000) */
-+			record-size = <0x8000>;
-+			console-size = <0x8000>;
-+			ftrace-size = <0x8000>;
-+			pmsg-size = <0x8000>;
-+			max-reason = <3>; /* KMSG_DUMP_EMERG */
-+		};
-+
-+		/* LPC FW cycle bridge region requires natural alignment */
-+		flash_memory: region@b4000000 {
-+			no-map;
-+			reg = <0xb4000000 0x04000000>; /* 64M */
-+		};
-+
-+		/* VGA region is dictated by hardware strapping */
-+		vga_memory: region@bf000000 {
-+			no-map;
-+			compatible = "shared-dma-pool";
-+			reg = <0xbf000000 0x01000000>;  /* 16M */
-+		};
-+
-+		video_engine_memory: jpegbuffer {
-+			size = <0x02000000>;	/* 32M */
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
-+		gfx_memory: framebuffer {
-+			size = <0x01000000>;
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>,
-+		<&adc0 3>, <&adc0 4>, <&adc0 5>, <&adc0 6>,
-+		<&adc0 7>, <&adc1 0>;
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		cpld {
-+			label = "cpld";
-+			gpios = <&gpio0 ASPEED_GPIO(S, 4) GPIO_ACTIVE_HIGH>;
-+			linux,code = <ASPEED_GPIO(S, 4)>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		bmc-heart-beat {
-+			gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-+			default-state = "keep";
-+		};
-+
-+		bmc-init-ok {
-+			gpios = <&gpio0 ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
-+			default-state = "off";
-+		};
-+
-+		chassis-power-on {
-+			gpios = <&gpio0 ASPEED_GPIO(Q, 3) GPIO_ACTIVE_LOW>;
-+			default-state = "keep";
-+		};
-+
-+		bmc-bootup {
-+			gpios = <&gpio0 ASPEED_GPIO(S, 0) GPIO_ACTIVE_LOW>;
-+			default-state = "off";
-+		};
-+
-+		fan-watchdog {
-+			label = "fan-watchdog";
-+			gpios = <&gpio0 ASPEED_GPIO(E, 0) GPIO_ACTIVE_LOW>;
-+			linux,default-trigger = "timer";
-+		};
-+	};
-+
-+};
-+
-+&adc0 {
-+	status = "okay";
-+	aspeed,int-vref-microvolt = <2500000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc0_default
-+			&pinctrl_adc1_default
-+			&pinctrl_adc2_default
-+			&pinctrl_adc3_default
-+			&pinctrl_adc4_default
-+			&pinctrl_adc5_default
-+			&pinctrl_adc6_default
-+			&pinctrl_adc7_default>;
-+};
-+
-+&adc1 {
-+	status = "okay";
-+	aspeed,int-vref-microvolt = <2500000>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc8_default>;
-+};
-+
-+&gpio0 {
-+	gpio-line-names =
-+	/*A0-A7*/	"","","","","","","","",
-+	/*B0-B7*/	"","","","","","","","",
-+	/*C0-C7*/	"","","","","","","","",
-+	/*D0-D7*/	"","","","","","","","",
-+	/*E0-E7*/	"","","","","","","","",
-+	/*F0-F7*/	"","","","","","","","",
-+	/*G0-G7*/	"","","","","","","","",
-+	/*H0-H7*/	"","","","","","","","",
-+	/*I0-I7*/	"","","","","","","","",
-+	/*J0-J7*/	"","","","","","","","",
-+	/*K0-K7*/	"","","","","","","","",
-+	/*L0-L7*/	"","","","","","","","",
-+	/*M0-M7*/	"","","","","","","","",
-+	/*N0-N7*/	"","","","","SCM_CPLD_UPDATE_HITLESS","","","",
-+	/*O0-O7*/	"","","","","","","","",
-+	/*P0-P7*/	"","","","","","","","",
-+	/*Q0-Q7*/	"","","","","","FM_PSU1_PRSNT_N","FM_PSU0_PRSNT_N","MB_CPLD_UPDATE_HITLESS",
-+	/*R0-R7*/	"","","","checkstop","","","power-chassis-control","power-button",
-+	/*S0-S7*/	"","","POSTFINISH","","","FM_BATTERY_SENSE_EN","","",
-+	/*T0-T7*/	"","","","","","","","",
-+	/*U0-U7*/	"","","","","","","","",
-+	/*V0-V7*/	"","","","","power-chassis-good","","","",
-+	/*W0-W7*/	"","","","","","","","",
-+	/*X0-X7*/	"","","","","","","","",
-+	/*Y0-Y7*/	"","","","","","","","",
-+	/*Z0-Z7*/	"","","","","","","","";
-+};
-+
-+&mdio1 {
-+	status = "okay";
-+
-+	ethphy1: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
-+	};
-+};
-+
-+&mac2 {
-+	status = "okay";
-+
-+	phy-mode = "rgmii";
-+	phy-handle = <&ethphy1>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii3_default>;
-+};
-+
-+&mac3 {
-+	status = "okay";
-+
-+	phy-mode = "rmii";
-+	use-ncsi;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii4_default>;
-+};
-+
-+&emmc_controller {
-+	status = "okay";
-+};
-+
-+&pinctrl_emmc_default {
-+	bias-disable;
-+};
-+
-+&emmc {
-+	status = "okay";
-+	clk-phase-mmc-hs200 = <180>, <180>;
-+};
-+
-+&fsim0 {
-+	cfam-reset-gpios = <&gpio0 ASPEED_GPIO(Q, 4) GPIO_ACTIVE_LOW>;
-+}
-+
-+&i2c1 {
-+	status = "okay";
-+	tmp112@48{
-+		compatible = "ti,tmp112";
-+		reg = <0x48>;
-+		label = "Sys_Outlet_Temp";
-+	};
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c256";
-+		reg = <0x50>;
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+	tmp112@40{
-+		compatible = "ti,tmp112";
-+		reg = <0x48>;
-+		label = "Inlet_Temp";
-+	};
-+
-+	pca9548@70{
-+		compatible = "nxp,pca9548";
-+		reg = <0x70>;
-+		i2c2s0ch1: i2c@1{
-+			reg = <1>;
-+			tmp112@49{
-+				compatible = "ti,tmp112";
-+				reg = <0x49>;
-+				label = "PSU_Inlet0_Temp";
-+			};
-+			tmp112@4a{
-+				compatible = "ti,tmp112";
-+				reg = <0x4a>;
-+				label = "PSU_Inlet1_Temp";
-+			};
-+		};
-+		i2c2s0ch2: i2c@2{
-+			reg = <2>;
-+			tmp112@49{
-+				compatible = "ti,tmp112";
-+				reg = <0x49>;
-+				label = "L_OCP_ZONE_Temp";
-+			};
-+			tmp112@4a{
-+				compatible = "ti,tmp112";
-+				reg = <0x4a>;
-+				label = "R_OCP_ZONE_Temp";
-+			};
-+		};
-+	};
-+
-+	pca0:pca9555@20 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x20>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"OCP0_CABLE_PRSNT_N", "OCP0_BIF2_N",
-+			"OCP0_BIF1_N", "OCP0_BIF0_N",
-+			"OCP0_CARD_PRSNTB3_ISO_N", "OCP0_CARD_PRSNTB2_ISO_N",
-+			"OCP0_CARD_PRSNTB1_ISO_N", "OCP0_CARD_PRSNTB0_ISO_N",
-+			"PE_MCIO0_BP_ID0_Q_N", "PE_MCIO0_BP_ID1_Q_N",
-+			"PE_MCIO1_BP_ID0_Q_N", "PE_MCIO1_BP_ID1_Q_N",
-+			"PE_MCIO2_BP_ID0_Q_N", "PE_MCIO2_BP_ID1_Q_N",
-+			"RISER0_PRSNT_N", "REAR_HDD_PRSNT_N";
-+	};
-+	pca1:pca9555@21 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x21>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"OCP1_CABLE_PRSNT_N", "OCP1_BIF2_N",
-+			"OCP1_BIF1_N", "OCP1_BIF0_N",
-+			"OCP1_CARD_PRSNTB3_ISO_N", "OCP1_CARD_PRSNTB2_ISO_N",
-+			"OCP1_CARD_PRSNTB1_ISO_N", "OCP1_CARD_PRSNTB0_ISO_N",
-+			"PE_MCIO3_BP_ID0_Q_N", "PE_MCIO3_BP_ID1_Q_N",
-+			"PE_MCIO4_BP_ID0_Q_N", "PE_MCIO4_BP_ID1_Q_N",
-+			"PE_MCIO5_BP_ID0_Q_N", "PE_MCIO5_BP_ID1_Q_N",
-+			"RISER2_PRSNT_N", "RISER1_PRSNT_N";
-+	};
-+	pca2:pca9555@22 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x22>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"RISER2_BOARD_ID1_N", "RISER2_BOARD_ID0_N",
-+			"RISER1_BOARD_ID2_N", "RISER1_BOARD_ID1_N",
-+			"RISER1_BOARD_ID0_N", "RISER0_BOARD_ID2_N",
-+			"RISER0_BOARD_ID1_N", "RISER0_BOARD_ID0_N",
-+			"PE_MCIO6_BP_ID0_Q_N", "PE_MCIO6_BP_ID1_Q_N",
-+			"PE_MCIO7_BP_ID0_Q_N", "PE_MCIO7_BP_ID1_Q_N",
-+			"PE_MCIO8_BP_ID0_Q_N", "PE_MCIO8_BP_ID1_Q_N",
-+			"PE_MCIO9_BP_ID0_Q_N", "PE_MCIO9_BP_ID0_Q_N";
-+	};
-+	pca3:pca9555@23 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x23>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"", "",
-+			"", "",
-+			"", "",
-+			"", "RISER2_BOARD_ID2_N",
-+			"PE_MCIO10_BP_ID0_Q_N", "PE_MCIO10_BP_ID1_Q_N",
-+			"PE_MCIO7_BP_ID11_Q_N", "PE_MCIO11_BP_ID1_Q_N",
-+			"PE_MCIO12_BP_ID0_Q_N", "PE_MCIO12_BP_ID1_Q_N",
-+			"PE_MCIO13_BP_ID0_Q_N", "PE_MCIO13_BP_ID0_Q_N";
-+	};
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+	pca9548@70 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x70>;
-+	};
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+	pca9546@70{
-+		compatible = "nxp,pca9546";
-+		reg = <0x70>;
-+		i2c5s0ch0: i2c@0 {
-+			reg = <0>;
-+			status = "okay";
-+			cpu0vdda@60 {
-+				compatible = "infineon,xdpe132g5c";
-+				reg = <0x60>;
-+			};
-+			cpu0vddb@61 {
-+				compatible = "infineon,xdpe132g5c";
-+				reg = <0x61>;
-+			};
-+			cpu0vdn@72 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x72>;
-+			};
-+			cpu0vio@73 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x73>;
-+			};
-+			cpu0vpci@74 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x74>;
-+			};
-+		};
-+		i2c5s0ch1: i2c@1{
-+			reg = <1>;
-+			status = "okay";
-+			cpu1vddc@60 {
-+				compatible = "infineon,xdpe132g5c";
-+				reg = <0x60>;
-+			};
-+			cpu1vddd@61 {
-+				compatible = "infineon,xdpe132g5c";
-+				reg = <0x61>;
-+			};
-+			cpu1vdn@72 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x72>;
-+			};
-+			cpu1vio@73 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x73>;
-+			};
-+			cpu1vpci@74 {
-+				compatible = "infineon,ir35221";
-+				reg = <0x74>;
-+			};
-+		};
-+		i2c5s0ch2: i2c@2{
-+			reg = <2>;
-+			status = "okay";
-+			pxe1610@6c {
-+				compatible = "infineon,pxe1610";
-+				reg = <0x6c>;
-+			};
-+			rdimm@74 {
-+				compatible = "infineon,pxe1610";
-+				reg = <0x74>;
-+			};
-+			mdimm@54 {
-+				compatible = "infineon,pxe1610";
-+				reg = <0x5A>;
-+			};
-+			ldimm@44 {
-+				compatible = "infineon,pxe1610";
-+				reg = <0x5C>;
-+			};
-+		};
-+		i2c5s0ch3: i2c@3{
-+				reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	/* SMB_TEMPSENSOR_STBY_LVC3_R */
-+	multi-master;
-+	status = "okay";
-+
-+	i2c-switch@70 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x70>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		i2c6s0ch0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+
-+			
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+		};
-+		i2c6s0ch1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+		};
-+		i2c6s0ch2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+		};
-+		i2c6s0ch3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+
-+			pca9548@71 {
-+				compatible = "nxp,pca9548";
-+				reg = <0x71>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c6s1ch0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+				i2c6s1ch1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+			};
-+		};
-+		i2c6s0ch4: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+
-+			pca9548@71 {
-+				compatible = "nxp,pca9548";
-+				reg = <0x71>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c6s2ch0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+				i2c6s2ch1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+			};
-+		};
-+		i2c6s0ch5: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			tmp1413@4c {
-+				compatible = "microchip,emc1413";
-+				reg = <0x4c>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+	adc128d818@1d{
-+		compatible = "ti,adc128d818";
-+		reg = <0x1d>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@1e{
-+		compatible = "ti,adc128d818";
-+		reg = <0x1e>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@1f{
-+		compatible = "ti,adc128d818";
-+		reg = <0x1f>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@2d{
-+		compatible = "ti,adc128d818";
-+		reg = <0x2d>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@2e{
-+		compatible = "ti,adc128d818";
-+		reg = <0x2e>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@2f{
-+		compatible = "ti,adc128d818";
-+		reg = <0x2f>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@35{
-+		compatible = "ti,adc128d818";
-+		reg = <0x35>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@36{
-+		compatible = "ti,adc128d818";
-+		reg = <0x36>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+
-+	adc128d818@37{
-+		compatible = "ti,adc128d818";
-+		reg = <0x37>;
-+		ti,mode = /bits/ 8 <0x01>;
-+	};
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+	nct7362@20 {
-+		compatible = "nuvoton,nct7362";
-+		device-active-gpios = <&gpio0 ASPEED_GPIO(N, 5) GPIO_ACTIVE_HIGH>;
-+		reg = <0x20>;
-+	};
-+
-+	nct7362@22 {
-+		compatible = "nuvoton,nct7362";
-+		device-active-gpios = <&gpio0 ASPEED_GPIO(N, 5) GPIO_ACTIVE_HIGH>;
-+		reg = <0x22>;
-+	};
-+
-+	pca9555@24{
-+		compatible = "nxp,pca9555";
-+		reg = <0x24>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"FAN_PRSNT5_D_N", "FAN_PRSNT4_D_N",
-+			"FAN_PRSNT3_D_N", "FAN_PRSNT2_D_N",
-+			"FAN_PRSNT1_D_N", "FAN_PRSNT0_D_N",
-+			"", "",
-+			"", "",	"", "",
-+			"", "",	"", "";
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c256";
-+		reg = <0x51>;
-+	};
-+
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c256";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c256";
-+		reg = <0x51>;
-+	};
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+	pca9555@20 {
-+	compatible = "nxp,pca9555";
-+	reg = <0x20>;
-+
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	gpio-controller;
-+	#gpio-cells = <2>;
-+
-+	gpio-line-names =
-+		"DIMM0_FAULT", "DIMM3_FAULT",
-+		"DIMM2_FAULT", "DIMM1_FAULT",
-+		"DIMM4_FAULT", "DIMM5_FAULT",
-+		"DIMM6_FAULT", "DIMM7_FAULT",
-+		"DIMM8_FAULT", "DIMM11_FAULT",
-+		"DIMM10_FAULT", "DIMM9_FAULT",
-+		"DIMM12_FAULT", "DIMM13_FAULT",
-+		"DIMM14_FAULT", "DIMM15_FAULT";
-+	};
-+
-+	pca9555@22 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x22>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"", "", "", "", "OCP0_PRSNT_N", "", "", "",
-+			"", "", "", "", "", "", "", "";
-+	};
-+
-+	pca9555@23 {
-+		compatible = "nxp,pca9555";
-+		reg = <0x23>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names =
-+			"", "", "", "", "OCP1_PRSNT_N", "", "", "",
-+			"", "", "", "", "", "", "", "";
-+	};
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+	bus-timeout-ms = <100>;
-+	bus-recover-timeout-ms = <10>;
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c256";
-+		reg = <0x51>;
-+	};
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+	pca9546@70{
-+		compatible = "nxp,pca9546";
-+		reg = <0x70>;
-+		i2c-mux-idle-disconnect;
-+		i2c12s0ch0: i2c@0{
-+			reg = <0>;
-+			tmp112@48{
-+				compatible = "ti,tmp112";
-+				reg = <0x48>;
-+				label = "PCIE_INLET_0";
-+			};
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			pca9555@24 {
-+			compatible = "nxp,pca9555";
-+			reg = <0x24>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			gpio-line-names =
-+				"RISER0_BOARD_ID7", "RISER0_BOARD_ID6",
-+				"RISER0_BOARD_ID5", "RISER0_BOARD_ID4",
-+				"RISER0_BOARD_ID3", "RISER0_BOARD_ID2",
-+				"RISER0_BOARD_ID1", "RISER0_BOARD_ID0",
-+				"RISER0_SLOT2_PRSNT", "RISER0_SLOT1_PRSNT_X8",
-+				"RISER0_SLOT0_PRSNT_X8", "RISER0_SLOT1_PRSNT_X16",
-+				"RISER0_SLOT0_PRSNT_X16", "", "", "";
-+			};
-+		};
-+		i2c12s0ch1: i2c@1{
-+			reg = <1>;
-+		};
-+		i2c12s0ch2: i2c@2{
-+			reg = <2>;
-+		};
-+		i2c12s0ch3: i2c@3{
-+			reg = <3>;
-+		};
-+	};
-+
-+	pca9546@71{
-+		compatible = "nxp,pca9546";
-+		reg = <0x71>;
-+		i2c-mux-idle-disconnect;
-+		i2c12s1ch0: i2c@0{
-+			reg = <0>;
-+			tmp112@48{
-+				compatible = "ti,tmp112";
-+				reg = <0x48>;
-+				label = "PCIE_INLET_2";
-+			};
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			pca9555@24 {
-+			compatible = "nxp,pca9555";
-+			reg = <0x24>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			gpio-line-names =
-+				"RISER2_BOARD_ID0", "RISER2_BOARD_ID1",
-+				"RISER2_BOARD_ID2", "RISER2_BOARD_ID3",
-+				"RISER2_BOARD_ID4", "RISER2_BOARD_ID5",
-+				"RISER2_BOARD_ID6", "RISER2_BOARD_ID7",
-+				"RISER2_SLOT0_PRSNT", "RISER2_SLOT1_PRSNT",
-+				"", "", "", "", "", "";
-+			};
-+		};
-+		i2c12s1ch1: i2c@1{
-+			reg = <1>;
-+		};
-+		i2c12s1ch2: i2c@2{
-+			reg = <2>;
-+		};
-+	};
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+	pca9546@70{
-+		compatible = "nxp,pca9546";
-+		reg = <0x70>;
-+		i2c-mux-idle-disconnect;
-+		i2c13s0ch0: i2c@0{
-+			reg = <0>;
-+			tmp112@48{
-+				compatible = "ti,tmp112";
-+				reg = <0x48>;
-+				label = "PCIE_INLET_1";
-+			};
-+
-+			eeprom@50 {
-+				compatible = "atmel,24c256";
-+				reg = <0x50>;
-+			};
-+
-+			pca9555@24 {
-+			compatible = "nxp,pca9555";
-+			reg = <0x24>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			gpio-line-names =
-+				"RISER1_BOARD_ID7", "RISER1_BOARD_ID6",
-+				"RISER1_BOARD_ID5", "RISER1_BOARD_ID4",
-+				"RISER1_BOARD_ID3", "RISER1_BOARD_ID2",
-+				"RISER1_BOARD_ID1", "RISER1_BOARD_ID0",
-+				"RISER1_SLOT2_PRSNT", "RISER1_SLOT1_PRSNT_X8",
-+				"RISER1_SLOT0_PRSNT_X8", "RISER1_SLOT1_PRSNT_X16",
-+				"RISER1_SLOT0_PRSNT_X16", "", "", "";
-+			};
-+		};
-+		i2c13s0ch1: i2c@1{
-+			reg = <1>;
-+		};
-+		i2c13s0ch2: i2c@2{
-+			reg = <2>;
-+		};
-+		i2c13s0ch3: i2c@3{
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+	idt1339@68{
-+		compatible = "renesas,idt1339";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&i2c15 {
-+	status = "okay";
-+};
-+
-+&ibt {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&vuart1 {
-+	status = "okay";
-+};
-+
-+&vuart2 {
-+	status = "okay";
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+};
-+
-+&wdt1 {
-+	status = "okay";
-+	aspeed,reset-mask1 = <0x20f1ff1>;
-+};
-+
-+&kcs2 {
-+	status = "okay";
-+	aspeed,lpc-io-reg = <0xca8 0xcac>;
-+};
-+
-+&kcs3 {
-+	status = "okay";
-+	aspeed,lpc-io-reg = <0xca2>;
-+	aspeed,lpc-interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
-+};
-+
-+&pcieh {
-+	status = "okay";
-+};
-+
-+&mctp {
-+	status = "okay";
-+};
-+
-+&bmc_dev {
-+	status = "okay";
-+};
-+
-+&vhub {
-+	status = "okay";
-+};
-+
-+&video {
-+	status = "okay";
-+	memory-region = <&video_engine_memory>;
-+};
-+
-+&gfx {
-+	status = "okay";
-+	memory-region = <&gfx_memory>;
-+};
--- 
-2.34.1
+> mdiobus_register_board_info() has exactly one caller, and that is
+> dsa_loop. I don't understand the relevance of it w.r.t. Synopsys XPCS.
+> I'm reading the patches in order from the beginning.
 
+Well, one user of the DW XPCS driver is updated in this series in the
+framework of the patch:
+[PATCH net-next 13/16] net: stmmac: intel: Register generic MDIO device
+https://lore.kernel.org/netdev/20231205103559.9605-14-fancer.lancer@gmail.com/
+
+I can convert of them (it's sja1105 and wangxun txgbe) and then just
+drop the MDIO-device creation part from xpcs_create_mdiodev(). As I
+also described in another emails thread below this patch I used to
+think that unmasking non-PHY device is also appropriate to get the
+MDIO-device instance. I was wrong in that matter obviously.
+
+Anyway I just realized that my solution of using
+mdiobus_register_board_info() is a bit clumsy. Moreover the patch 13
+(see the link above) shouldn't have the mdio_board_info instance
+allocation (it can be defined on stack) and most importantly is wrong
+in using the device-managed resources for it. The problem is that
+mdiobus_register_board_info() registers an MDIO-device once for entire
+system lifetime. It isn't that suitable for the hot-swappable devices
+and for drivers bind/unbind cases. Since there is no
+mdio_board_info-deregistration method, at the simplest case the no
+longer used board-info descriptors might be left registered if a
+device or driver are unloaded. That's why the device-managed
+allocation is harmful in such scenario. At the very least I'll need to
+convert the allocations to being non-managed.
+
+> 
+> > there is no point in creating the dummy MDIO device instance in order
+> 
+
+> Why dummy? There's nothing dummy about the mdio_device. It's how the PCS
+> code accesses the hardware.
+
+I call it 'dummy' because no actual device is registered (though
+'redundant' or similar definition might sound more appropriate). The
+entire structure is used as a communication layer between the XPCS
+driver and MDIO device, where the device address is the only info
+needed. Basically nothing prevents us from converting the current DW
+XPCS driver to using the mdiobus_c45_read()/mdiobus_c45_write()
+methods. Though in that case I wouldn't be able to easily add the
+fwnode-based MDIO-devices support.
+
+> 
+> > to get the DW XPCS handler since the MDIO core subsystem will create
+> > the device during the MDIO bus registration procedure.
+> 
+
+> It won't, though? Unless someone is using mdiobus_register_board_info()
+> possibly, but who does that?
+
+As I said above I wrongly assumed that unmasking non-PHY device was
+ok. But mdiobus_register_board_info() could be used for that as I (a
+bit clumsy) demonstrated in the patch 13.
+
+> 
+> > All what needs to be done is to just reuse the MDIO-device instance
+> > available in the mii_bus.mdio_map array (using some getter for it
+> > would look better though). It shall prevent the XPCS devices been
+> > accessed over several MDIO-device instances.
+> > 
+> > Note since the MDIO-device instance might be retrieved from the MDIO-bus
+> > map array its reference counter shall be increased. If the MDIO-device
+> > instance is created in the xpcs_create_mdiodev() method its reference
+> > counter will be already increased. So there is no point in toggling the
+> > reference counter in the xpcs_create() function. Just drop it from there.
+> > 
+> > Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+> > ---
+> 
+
+> Sorry, because the commit log lost me at the "context presentation" stage,
+> I failed to understand the "what"s and the "why"s.
+> 
+> Are you basically trying to add xpcs support on top of an mdio_device
+> where the mdio_device_create() call was made externally to the xpcs code,
+> through mdiobus_register_board_info() and mdiobus_setup_mdiodev_from_board_info()?
+
+Basically yes, but there is more of it. The main idea is to convert
+the XPCS driver to using the already created non-PHY MDIO-devices
+instead of manually creating a 'dummy'/'redundant' one. From my point
+of view there are several reasons of doing so:
+
+1. mdiobus_register_board_info() provides a way to assign the device
+platform data to being registered afterwards device. Thus we can pass
+some custom data to the XPCS-device driver (whether it's just an
+xpcs_create_*() call or a fully functional MDIO-device driver
+registered by the mdio_driver_register() method). For instance it can
+be utilized to drop the fake PHYSIDs implementation from
+drivers/net/dsa/sja1105/sja1105_mdio.c .
+
+2. The MDIO-devices actually registered on the MDIO-bus will be
+visible in sysfs with for instance useful IO statistics provided by
+the MDIO-bus. Potentially (if it is required) at some point we'll be
+able to convert the DW XPCS driver to being true MDIO-device driver
+(bindable to the DW XPCS device) with less efforts.
+
+3. Having an MDIO-device registered that way would make the DW XPCS
+IO-device implementation unified after the fwnode-based XPCS
+descriptor creation support is added in one of the subsequent patches.
+
+So based on the listed above I've got a question. Do you think all of
+that is worth to be implemented? Andrew, Russell?
+
+I am asking because the patchset advance depends on your answers. If
+you do I'll need to fix the problem described in my first message,
+implement some new mdiobus_register_board_info()-like but
+MDIO-bus-specific interface function (so MDIO-device infos would be
+attached to the allocated MDIO-bus and then used to register the
+respective MDIO-devices on the MDIO-bus registration), then convert
+the sja1105 and wangxun txgbe drivers to using it. If you don't I'll
+get back the xpcs_create_mdiodev() implementation and just provide a
+fwnode-based version of one.
+
+Note we already settled that converting DW XPCS driver to being normal
+MDIO-device driver is prone to errors at this stage due to a
+possibility to have the driver unbindable from user-space. I'll just
+move the DT-compatibles check to the xpcs_create_fwnode() method and
+drop the rest of the MDIO-device-driver-specific things.
+
+-Serge(y)
