@@ -4,47 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614EDC3DA6E
-	for <openbmc@archiver.kernel.org>; Sun, 17 Dec 2023 23:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C8B8C46CA2
+	for <openbmc@archiver.kernel.org>; Mon, 18 Dec 2023 06:09:09 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=cBdbKD2v;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kOHvZ8gD;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Stfw52JQBz30ht
-	for <openbmc@archiver.kernel.org>; Mon, 18 Dec 2023 10:55:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4StqCS2SYhz3bd6
+	for <openbmc@archiver.kernel.org>; Mon, 18 Dec 2023 17:09:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=cBdbKD2v;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kOHvZ8gD;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com [IPv6:2607:f8b0:4864:20::32f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Stfts5vhmz2yk7
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2023 10:54:13 +1100 (AEDT)
-Received: from [192.168.68.112] (ppp118-210-80-147.adl-adc-lon-bras32.tpg.internode.on.net [118.210.80.147])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 93FC12012A;
-	Mon, 18 Dec 2023 07:54:03 +0800 (AWST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4StqBR0gZpz3bZ4
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Dec 2023 17:08:14 +1100 (AEDT)
+Received: by mail-ot1-x32f.google.com with SMTP id 46e09a7af769-6d9d4193d94so2370090a34.3
+        for <openbmc@lists.ozlabs.org>; Sun, 17 Dec 2023 22:08:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1702857250;
-	bh=RZ2K1bWIHjJUrdTRjTnf0vshXf3nOCTkbxL5PirxiqM=;
-	h=Subject:From:To:Cc:Date;
-	b=cBdbKD2vbhi9IwE5zaui8TVCRSc2Hj8kFwtmc/a/PGF0RqBoUtcfL5O0uhXLsOQ6U
-	 2OCEDk38a8le2wMotyxVNpsORhRWDQJOGjYqYQQc/6wY63OUDjSDakV4yo5Pd7wCLG
-	 iPWUp7YS9+G+Aat3Dxfqn5X+q/7CMsieSnhF5pQUuCgBjuQF9eQLfo378kBAJKUQvc
-	 Hpg4/RjtSpMkiY2nWpW9E3oJMjCtEDMsSRpE+Xix9MfI5BmFCBQzm2HaJ4mu8eHb2g
-	 YVsdJS8hK96hu+Ur+uEIj4OtAnwYGGm7Q7ZfWJPZ1SyAci3KMLWxyHPpL0wHUyY5k4
-	 42dEcybgvgbOg==
-Message-ID: <47c53da80f585dac8e1450b20c5855ede960d243.camel@codeconstruct.com.au>
-Subject: openbmc/telemetry: First complaint of unresponsiveness
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: adrian.ambrozewicz@linux.intel.com, jozef.wludzik@intel.com, 
-	cezary.zwolak@intel.com
-Date: Mon, 18 Dec 2023 10:24:00 +1030
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+        d=gmail.com; s=20230601; t=1702879690; x=1703484490; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zHqn0lmuttOCPsOAucTyzRzcawyQT2nV3YMJKvxfNVs=;
+        b=kOHvZ8gDAba1TTSWEaKG0sG1K+2q48rQZifKlPaWiRjPS25D/Gp5Kf3xzad+hpMyeo
+         Za6rzBA4ud9S8MxPs+huSJ9gkNJwqbyCSVL+eQFfUqdykcgZr6S5AWnSRwcoixT2p9qR
+         Zxth7egLxVxj67lF+deFLjsToWfDYOyoojGJ+mp2/cQvCkmB7VnaMTVDPoh3soVpLFfd
+         wE2uVoo84IycYPlRCRiqjgZR2b8zF5oZOFBp8LAz4jwAEasrue+y8nJl9+Phkhjn3HaZ
+         /ITHqF61gxXyTve4b9+cqygvbHUCerlIT8y3k6iGFPUJdeZYbIWqi9khO/ZXAV0PCG99
+         RmjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702879690; x=1703484490;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zHqn0lmuttOCPsOAucTyzRzcawyQT2nV3YMJKvxfNVs=;
+        b=gtGgh9PsiB2HVB0gWbrCcIllFXFyxudKuNzcoHddokZQ6FpeijLoA/q2J6b4InFTTb
+         cMxBB/xl2uXvAQkTQNJ2suUkLg3iyLNKrdjb2iVyq4GsK5rrdVkN8k/xmlIuiiZijZNi
+         tfDUS9sZWJnV4Ln/ypuwf0k8HPsjJ84klnIGANN5s+NyiF12QCl7AnMEW6CZp7+ntXZU
+         9DR760G561Eh+zeFr9NSyokIZM23ybL+p3E3kToEL3bT/t+08QsDPHBzCB5hblphQAEN
+         24A9JwfoG4dOs0BCRpX7f0yUpVN2KIO50JNPvxUa8jJdsDZbIokdstotyNG55m+oXCRV
+         sYrQ==
+X-Gm-Message-State: AOJu0Yx3930xIjOiaQJ5GVOg4Q5WwsRxGKuMl3MdIZjI9G1xJsd1SEuN
+	f4B7z15AWOYRULox6epjAe/SMcQYy9E=
+X-Google-Smtp-Source: AGHT+IG+t4/DaTlqA+8oDt9/UHEb67xxYsEsn4MZpIjhLT2Um2XQ/YeV5c6Usqg9uhzTO5KweLToiA==
+X-Received: by 2002:a9d:7384:0:b0:6d9:d41e:286d with SMTP id j4-20020a9d7384000000b006d9d41e286dmr16201640otk.18.1702879689622;
+        Sun, 17 Dec 2023 22:08:09 -0800 (PST)
+Received: from localhost.localdomain (1-34-21-66.hinet-ip.hinet.net. [1.34.21.66])
+        by smtp.gmail.com with ESMTPSA id hq10-20020a056a00680a00b006d5b877aa9asm1877689pfb.41.2023.12.17.22.08.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 17 Dec 2023 22:08:08 -0800 (PST)
+From: Potin Lai <potin.lai.pt@gmail.com>
+X-Google-Original-From: Potin Lai <potin.lai@quantatw.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-6.6 1/2] dt-bindings: Add MP2856/MP2857 voltage regulator device
+Date: Mon, 18 Dec 2023 14:05:58 +0800
+Message-Id: <20231218060559.2302459-2-potin.lai@quantatw.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20231218060559.2302459-1-potin.lai@quantatw.com>
+References: <20231218060559.2302459-1-potin.lai@quantatw.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,60 +80,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, liuxiwei@ieisystem.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello Adrian, Jozef, and Cezary,
+From: Peter Yin <peteryin.openbmc@gmail.com>
 
-A complaint has been raised to the Technical Oversight Forum that as
-maintainers you collectively have not responded to several patches for
-openbmc/telemetry in a reasonable timeframe.
+Monolithic Power Systems, Inc. (MPS) MP2856/MP2857
+dual-loop, digital, multi-phase controller.
 
-Some time ago the project defined constraints on timeliness for
-reviews. This helps to set expectations for both contributors and
-maintainers. Maintainers are expected to find time to provide feedback
-on patches inside one month of them being pushed to Gerrit. Upon
-complaint, missing this deadline forms one count of unresponsiveness.
-If a subproject's maintainers receive three complaints of
-unresponsiveness in a 12 month period then the Technical Oversight
-Forum will seek to introduce new maintainers to the subproject.
+Signed-off-by: Peter Yin <peteryin.openbmc@gmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-This is the first notice of a complaint of unresponsiveness for
-openbmc/telemetry.
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 386ebd1471d0e..c847a532283d4 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -119,6 +119,10 @@ properties:
+           - fsl,mpl3115
+             # MPR121: Proximity Capacitive Touch Sensor Controller
+           - fsl,mpr121
++            # Monolithic Power Systems Inc. multi-phase controller mp2856
++          - mps,mp2856
++            # Monolithic Power Systems Inc. multi-phase controller mp2857
++          - mps,mp2857
+             # Monolithic Power Systems Inc. multi-phase controller mp2888
+           - mps,mp2888
+             # Monolithic Power Systems Inc. multi-phase controller mp2971
+-- 
+2.31.1
 
-This notice is copied to the OpenBMC mailing list to provide community
-visibility. We need the process to be both public and archived to make
-sure we are clear and accountable in our communication.
-
-Further details and considerations of this policy are defined at the
-link below:
-
-https://github.com/openbmc/docs/blob/master/process/subproject-maintainersh=
-ip.md
-
-The complaint regarding openbmc/telemetry at:
-
-https://github.com/openbmc/technical-oversight-forum/issues/32
-
-The specific patches identified by the complaint are:
-
-1. 64867: build: upgrade to C++23
-   https://gerrit.openbmc.org/c/openbmc/telemetry/+/64867
-
-2. 67240: clang-format: copy latest and re-format
-   https://gerrit.openbmc.org/c/openbmc/telemetry/+/67240
-
-3. 66007: meson_options.txt: Support for reading options from meson.options
-   https://gerrit.openbmc.org/c/openbmc/telemetry/+/66007
-
-If you are unable to continue with your maintenance role for
-openbmc/telemetry then please work with the community identify others
-who are capable and willing. When doing so, please consider the
-expectations set out in the community membership documentation:
-
-https://github.com/openbmc/docs/blob/master/community-membership.md
-
-On behalf of the Technical Oversight Forum,
-
-Andrew
