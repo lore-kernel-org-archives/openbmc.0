@@ -4,76 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD5DC41535
-	for <openbmc@archiver.kernel.org>; Tue, 19 Dec 2023 22:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF9A6C46CCD
+	for <openbmc@archiver.kernel.org>; Wed, 20 Dec 2023 09:39:46 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Zpb8lxDz;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UYB6RosX;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4SvrPd2trmz3cRD
-	for <openbmc@archiver.kernel.org>; Wed, 20 Dec 2023 09:06:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Sw7nY0kwxz3cPl
+	for <openbmc@archiver.kernel.org>; Wed, 20 Dec 2023 20:39:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Zpb8lxDz;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UYB6RosX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::433; helo=mail-pf1-x433.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com [IPv6:2607:f8b0:4864:20::433])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com; envelope-from=liuxiwei1013@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com [IPv6:2607:f8b0:4864:20::641])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4SvTdr66B9z3cVr
-	for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2023 19:00:48 +1100 (AEDT)
-Received: by mail-pf1-x433.google.com with SMTP id d2e1a72fcca58-6d87eadc43fso1032789b3a.1
-        for <openbmc@lists.ozlabs.org>; Tue, 19 Dec 2023 00:00:48 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Sw7mV5KS4z2xdZ
+	for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2023 20:38:49 +1100 (AEDT)
+Received: by mail-pl1-x641.google.com with SMTP id d9443c01a7336-1d3ac87553bso17845685ad.3
+        for <openbmc@lists.ozlabs.org>; Wed, 20 Dec 2023 01:38:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702972846; x=1703577646; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wX7DmLZOf6wPYIlb/DLlPUOa2xQdEbd7W+eqBLdDh5M=;
-        b=Zpb8lxDz3WcPhAKi89Gv1Tl20xGB/UztMN9O8/6ZHgkiHNgEvX5IC1zPfr1HFUQYvn
-         d87vWNjbyse4adXaN61/csjtMDtI7Po4fAxlwqeSuF1PNTKG7ZrHx2+mLw++2qO2gQ3I
-         0019wpXl5F203r1okmGUytgetfETgidK+J5nfbrYCYgEYp72g0ERP4XXHOvw0JG1fCoS
-         uhZgbqjRbf8bBq/rde6E2o4jjDzy/2QAAER/lIsC1VsykuTujs6sX7lehJbSiXEu58gc
-         f+7/laOEaEERW+9m2ssMIBxLQ3yBWk/UQCxwTXfShSYDDPOF6IiXnFLrfDA43knGpWv7
-         OtfA==
+        d=gmail.com; s=20230601; t=1703065127; x=1703669927; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=PA+ptV78xyz6pZzeaodkQ+dpw630XjAKvXYhuBNs0n4=;
+        b=UYB6RosXcNuOwdSy6tgreE0xXTG8C94D5XafNdfuQvr8cPa+clPRx0w7y2XBODD3jw
+         z5m8w1FD4OBTZpFsoVTV6KlI1KxEUF0AW4RAr0Dm7ahDYV8813GFQkXXFm0ERGoy7YOx
+         uW7/BgKWBJGjNREMe9dTMT3uz40VhLGdaN8pTRIz90zz/jPRvMPjV0WDsvFMfWMAqJTy
+         xuG5DPENXofuJIRMP5N8URwTfF+Qx6oqKly/tbjOCr2xtgBXp2dOyj+WPmF2S9VCWmOG
+         qsU+PK3so64v2gM5ouxEh5ZpRQGfmibGl804PzDsvWzWDHLz+I7HZ/F/n3+/HbKGqUJV
+         Pf7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702972846; x=1703577646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wX7DmLZOf6wPYIlb/DLlPUOa2xQdEbd7W+eqBLdDh5M=;
-        b=EWZ9AKc1KwAInQfQquoSuseQmrDvSQXNScoVAhp/c6Zj7Z9wRc5RXE+tdqemGk7Iw3
-         iry38vvzKhMz6QUHYkPlX/+PBd7VBebZDLJMQQtYy+Lqj2uYqYcAobB+iWiJye5J0WBt
-         wLo7Ya6K4zA/ZdRsPd8ZYwycgGIzaWnyUq7staaUhCa08nawfqoM7D5VH5/B3PyZFFHY
-         6c88t2ZiKzVuzYYyyFlSoJDXsDNZow5n8YHSQQJY5azuTgFVFaTJi9IAIryiv4Nl3854
-         3I4F/eecJVHf2klFzx1EApQC9XN8ne2NyNJnsF5+m0VUEqX9ZnSFWPWsjSOZ2U+l6cHC
-         BDlw==
-X-Gm-Message-State: AOJu0YwXV/8Tum2H15+dQx0ajB0ixPnrpHXZPJxN1CZoJ1CNlS0GSi+Q
-	fx2hTfYQe9dTWpkXGsy+q+s=
-X-Google-Smtp-Source: AGHT+IGMeOcm3LDjIuds8H7OZpfhwX0lXFyC0s2zkixeNGVnelS/JpnkPEGKNsI8uiSIsI5zKBa4Ug==
-X-Received: by 2002:a05:6a21:a5a8:b0:194:75c5:4b56 with SMTP id gd40-20020a056a21a5a800b0019475c54b56mr1486175pzc.110.1702972845938;
-        Tue, 19 Dec 2023 00:00:45 -0800 (PST)
-Received: from hcdev-d520mt2.. (60-250-192-107.hinet-ip.hinet.net. [60.250.192.107])
-        by smtp.gmail.com with ESMTPSA id jl13-20020a170903134d00b001d0b410271fsm20261005plb.218.2023.12.19.00.00.43
+        d=1e100.net; s=20230601; t=1703065127; x=1703669927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=PA+ptV78xyz6pZzeaodkQ+dpw630XjAKvXYhuBNs0n4=;
+        b=LkkuL6nsUFDxseOZM9T+w3iTcQNgC7upXBJnBcede7YgQcPPDBUiNZT60dLo8EKPd3
+         ututxq28y0AMKdK12xcoAqxSkTcxar+BAYoNO1bk13WU+5dC0GPY+yEXkJV9ML/JJguY
+         3dvI2uNaoA2h1ebCE2FV/ay0mM/5kfaabvrCXKBnMUb777N4g9gc4a91ydjgFR3qFJMU
+         lA5EavoybaKYLxisKFly4CHRnQDYwi2pe7SgVnut97xKpui48jMHLJitKytnHFNcxOXh
+         mDHWBsa6Z0SRnZBRcwoTVtovgUBQl/PRYLLcFF9AjfX8b5w/NmXlRnJ3EIp2OjE4sjrs
+         J2ZA==
+X-Gm-Message-State: AOJu0YzKYTMJbBQbKNxlA8813YB2IWfALduCkkammiDe71kFyElHU+G8
+	7ZyPVR9V3kS/HNVmNQII0OM=
+X-Google-Smtp-Source: AGHT+IHUaDdtMM2j4ELKW/sphECUQ+dcNTqrTZBdfjN+8IyDla5NOZa+jKFiCJLFxMHNRp05MQ3WLA==
+X-Received: by 2002:a17:902:d58b:b0:1d3:86d1:4302 with SMTP id k11-20020a170902d58b00b001d386d14302mr6234192plh.33.1703065126473;
+        Wed, 20 Dec 2023 01:38:46 -0800 (PST)
+Received: from georgeliu.. ([182.45.253.49])
+        by smtp.gmail.com with ESMTPSA id x12-20020a170902ea8c00b001d3aafd228dsm1018777plb.75.2023.12.20.01.38.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 Dec 2023 00:00:45 -0800 (PST)
-From: baneric926@gmail.com
-X-Google-Original-From: kcfeng0@nuvoton.com
-To: jdelvare@suse.com,
-	linux@roeck-us.net,
-	robh+dt@kernel.org,
-	krzysztof.kozlowski+dt@linaro.org,
-	conor+dt@kernel.org,
-	corbet@lwn.net
-Subject: [PATCH v2 2/2] hwmon: Driver for Nuvoton NCT7363Y
-Date: Tue, 19 Dec 2023 16:00:21 +0800
-Message-Id: <20231219080021.2048889-3-kcfeng0@nuvoton.com>
+        Wed, 20 Dec 2023 01:38:46 -0800 (PST)
+From: George Liu <liuxiwei1013@gmail.com>
+X-Google-Original-From: George Liu <liuxiwei@ieisystem.com>
+To: joel@jms.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH v1 1/2] ARM: dts: aspeed: Add IEISystems FP5280G3 BMC machine
+Date: Wed, 20 Dec 2023 17:38:39 +0800
+Message-Id: <20231220093839.2032368-1-liuxiwei@ieisystem.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231219080021.2048889-1-kcfeng0@nuvoton.com>
-References: <20231219080021.2048889-1-kcfeng0@nuvoton.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 20 Dec 2023 09:03:45 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,645 +77,1013 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, kcfeng0@nuvoton.com, kwliu@nuvoton.com, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, DELPHINE_CHIU@wiwynn.com
+Cc: wangzhiqiang02@ieisystem.com, duanzhijia01@ieisystem.com, suxiao@ieisystem.com, chenqiuyi01@ieisystem.com, banht@ieisystem.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Ban Feng <kcfeng0@nuvoton.com>
+The IEISystems FP5280G3 is a power platform server with an
+AST2600-based BMC.
+This dts file provides a basic configuration for its OpenBMC
+development.
 
-NCT7363Y is an I2C based hardware monitoring chip from Nuvoton.
-
-Signed-off-by: Ban Feng <kcfeng0@nuvoton.com>
+Signed-off-by: George Liu <liuxiwei@ieisystem.com>
 ---
- Documentation/hwmon/index.rst   |   1 +
- Documentation/hwmon/nct7363.rst |  33 ++
- MAINTAINERS                     |   2 +
- drivers/hwmon/Kconfig           |  11 +
- drivers/hwmon/Makefile          |   1 +
- drivers/hwmon/nct7363.c         | 515 ++++++++++++++++++++++++++++++++
- 6 files changed, 563 insertions(+)
- create mode 100644 Documentation/hwmon/nct7363.rst
- create mode 100644 drivers/hwmon/nct7363.c
+v1 1/1 -> v1 1/2
+  - include ibm-power10-quad.dtsi
+  - Remove redundant blank lines
+  - Remove nct7362 driver
+  - Remove bus-timeout-ms & bus-recover-timeout-ms
+  - Remove reset-mask1
+---
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../aspeed/aspeed-bmc-ieisystems-fp5280g3.dts | 966 ++++++++++++++++++
+ 2 files changed, 967 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 72f4e6065bae..178d3cae95de 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -161,6 +161,7 @@ Hardware Monitoring Kernel Drivers
-    mp5023
-    nct6683
-    nct6775
-+   nct7363
-    nct7802
-    nct7904
-    npcm750-pwm-fan
-diff --git a/Documentation/hwmon/nct7363.rst b/Documentation/hwmon/nct7363.rst
+diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
+index fb9cc95f1b60..6017ff5b7959 100644
+--- a/arch/arm/boot/dts/aspeed/Makefile
++++ b/arch/arm/boot/dts/aspeed/Makefile
+@@ -36,6 +36,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-ibm-rainier.dtb \
+ 	aspeed-bmc-ibm-rainier-1s4u.dtb \
+ 	aspeed-bmc-ibm-rainier-4u.dtb \
++	aspeed-bmc-ieisystems-fp5280g3.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+ 	aspeed-bmc-inspur-fp5280g2.dtb \
+ 	aspeed-bmc-inspur-nf5280m6.dtb \
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
 new file mode 100644
-index 000000000000..89699c95aa4b
+index 000000000000..51f0c8903b63
 --- /dev/null
-+++ b/Documentation/hwmon/nct7363.rst
-@@ -0,0 +1,33 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ieisystems-fp5280g3.dts
+@@ -0,0 +1,966 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2023, IEISystems Corporation
 +
-+Kernel driver nct7363
-+=====================
++/dts-v1/;
 +
-+Supported chip:
++#include "aspeed-g6.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/leds/leds-pca955x.h>
 +
-+  * Nuvoton NCT7363Y
++/ {
++	model = "FP5280G3 BMC";
++	compatible = "ieisystems,fp5280g3-bmc", "aspeed,ast2600";
 +
-+    Prefix: nct7363
++	aliases {
++		i2c2001 = &i2c2s0ch1;
++		i2c2002 = &i2c2s0ch2;
++		i2c5000 = &i2c5s0ch0;
++		i2c5001 = &i2c5s0ch1;
++		i2c5002 = &i2c5s0ch2;
++		i2c5003 = &i2c5s0ch3;
++		i2c6000 = &i2c6s0ch0;
++		i2c6001 = &i2c6s0ch1;
++		i2c6002 = &i2c6s0ch2;
++		i2c6003 = &i2c6s0ch3;
++		i2c6004 = &i2c6s0ch4;
++		i2c6005 = &i2c6s0ch5;
++		i2c6100 = &i2c6s1ch0;
++		i2c6101 = &i2c6s1ch1;
++		i2c6200 = &i2c6s2ch0;
++		i2c6201 = &i2c6s2ch1;
++		i2c12000 = &i2c12s0ch0;
++		i2c12001 = &i2c12s0ch1;
++		i2c12002 = &i2c12s0ch2;
++		i2c12003 = &i2c12s0ch3;
++		i2c12100 = &i2c12s1ch0;
++		i2c12101 = &i2c12s1ch1;
++		i2c12102 = &i2c12s1ch2;
++		i2c13000 = &i2c13s0ch0;
++		i2c13001 = &i2c13s0ch1;
++		i2c13002 = &i2c13s0ch2;
++		i2c13003 = &i2c13s0ch3;
++	};
 +
-+    Addresses: I2C 0x20, 0x21, 0x22, 0x23
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200n8 earlycon";
++	};
 +
-+Author: Ban Feng <kcfeng0@nuvoton.com>
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x80000000>;
++	};
 +
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
 +
-+Description
-+-----------
++		ramoops@b3e00000 {
++			compatible = "ramoops";
++			reg = <0xb3e00000 0x200000>; /* 16 * (4 * 0x8000) */
++			record-size = <0x8000>;
++			console-size = <0x8000>;
++			ftrace-size = <0x8000>;
++			pmsg-size = <0x8000>;
++			max-reason = <3>; /* KMSG_DUMP_EMERG */
++		};
 +
-+The NCT7363Y is a Fan controller which provides up to 16 independent
-+FAN input monitors, and up to 16 independent PWM output with SMBus interface.
++		/* LPC FW cycle bridge region requires natural alignment */
++		flash_memory: region@b4000000 {
++			no-map;
++			reg = <0xb4000000 0x04000000>; /* 64M */
++		};
 +
++		/* VGA region is dictated by hardware strapping */
++		vga_memory: region@bf000000 {
++			no-map;
++			compatible = "shared-dma-pool";
++			reg = <0xbf000000 0x01000000>;  /* 16M */
++		};
 +
-+Sysfs entries
-+-------------
++		video_engine_memory: jpegbuffer {
++			size = <0x02000000>;	/* 32M */
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
 +
-+Currently, the driver supports the following features:
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>,
++		<&adc0 3>, <&adc0 4>, <&adc0 5>, <&adc0 6>,
++		<&adc0 7>, <&adc1 0>;
++	};
 +
-+======================= =======================================================
-+fanX_input		provide current fan rotation value in RPM
++	gpio-keys {
++		compatible = "gpio-keys";
 +
-+pwmX			get or set PWM fan control value.
-+======================= =======================================================
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c4081a45445e..c7f1293d5b3f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14843,6 +14843,8 @@ M:	Ban Feng <kcfeng0@nuvoton.com>
- L:	linux-hwmon@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/hwmon/nuvoton,nct736x.yaml
-+F:	Documentation/hwmon/nct7363.rst
-+F:	drivers/hwmon/nct7363.c
- 
- NETDEVSIM
- M:	Jakub Kicinski <kuba@kernel.org>
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index cf27523eed5a..58a13c393a8e 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1605,6 +1605,17 @@ config SENSORS_NCT6775_I2C
- 	  This driver can also be built as a module. If so, the module
- 	  will be called nct6775-i2c.
- 
-+config SENSORS_NCT7363
-+	tristate "Nuvoton NCT7363Y"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  If you say yes here you get support for the Nuvoton NCT7363Y,
-+	  hardware monitoring chip.
++		cpld {
++			label = "cpld";
++			gpios = <&gpio0 ASPEED_GPIO(S, 4) GPIO_ACTIVE_HIGH>;
++			linux,code = <ASPEED_GPIO(S, 4)>;
++		};
++	};
 +
-+	  This driver can also be built as a module. If so, the module
-+	  will be called nct736x.
++	leds {
++		compatible = "gpio-leds";
 +
- config SENSORS_NCT7802
- 	tristate "Nuvoton NCT7802Y"
- 	depends on I2C
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index e84bd9685b5c..dd794aa06209 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -166,6 +166,7 @@ obj-$(CONFIG_SENSORS_NCT6775_CORE) += nct6775-core.o
- nct6775-objs			:= nct6775-platform.o
- obj-$(CONFIG_SENSORS_NCT6775)	+= nct6775.o
- obj-$(CONFIG_SENSORS_NCT6775_I2C) += nct6775-i2c.o
-+obj-$(CONFIG_SENSORS_NCT7363)	+= nct7363.o
- obj-$(CONFIG_SENSORS_NCT7802)	+= nct7802.o
- obj-$(CONFIG_SENSORS_NCT7904)	+= nct7904.o
- obj-$(CONFIG_SENSORS_NPCM7XX)	+= npcm750-pwm-fan.o
-diff --git a/drivers/hwmon/nct7363.c b/drivers/hwmon/nct7363.c
-new file mode 100644
-index 000000000000..1bf6e83afd7f
---- /dev/null
-+++ b/drivers/hwmon/nct7363.c
-@@ -0,0 +1,515 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2023 Nuvoton Technology corporation.
-+ */
++		bmc-heart-beat {
++			gpios = <&gpio0 ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
++			default-state = "keep";
++		};
 +
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/err.h>
-+#include <linux/hwmon.h>
-+#include <linux/hwmon-sysfs.h>
-+#include <linux/i2c.h>
-+#include <linux/jiffies.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
++		bmc-init-ok {
++			gpios = <&gpio0 ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
 +
-+#define NCT7363_REG_GPIO_0_3		0x20
-+#define NCT7363_REG_GPIO_4_7		0x21
-+#define NCT7363_REG_GPIO_10_13		0x22
-+#define NCT7363_REG_GPIO_14_17		0x23
-+#define NCT7363_REG_PWMEN_0_7		0x38
-+#define NCT7363_REG_PWMEN_8_15		0x39
-+#define NCT7363_REG_FANINEN_0_7		0x41
-+#define NCT7363_REG_FANINEN_8_15	0x42
-+#define NCT7363_REG_FANINx_HVAL(x)	(0x48 + ((x) * 2))
-+#define NCT7363_REG_FANINx_LVAL(x)	(0x49 + ((x) * 2))
-+#define NCT7363_REG_FSCPxDUTY(x)	(0x90 + ((x) * 2))
-+#define NCT7363_REG_VENDOR_ID		0xFD
-+#define NCT7363_REG_CHIP_ID		0xFE
-+#define NCT7363_REG_DEVICE_ID		0xFF
++		chassis-power-on {
++			gpios = <&gpio0 ASPEED_GPIO(Q, 3) GPIO_ACTIVE_LOW>;
++			default-state = "keep";
++		};
 +
-+#define NUVOTON_ID			0x49
-+#define CHIP_ID				0x19
-+#define DEVICE_ID			0x88
++		bmc-bootup {
++			gpios = <&gpio0 ASPEED_GPIO(S, 0) GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
 +
-+#define PWM_SEL(x)			(BIT(0) << ((x % 4) * 2))
-+#define FANIN_SEL(x)			(BIT(1) << ((x % 4) * 2))
-+#define BIT_CHECK(x)			(BIT(0) << x)
++		fan-watchdog {
++			label = "fan-watchdog";
++			gpios = <&gpio0 ASPEED_GPIO(E, 0) GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "timer";
++		};
++	};
 +
-+#define NCT7363_FANINx_LVAL_MASK	GENMASK(4, 0)
-+#define NCT7363_FANIN_MASK		GENMASK(12, 0)
-+
-+#define NCT7363_PWM_COUNT		16
-+#define NCT7363_FANIN_COUNT		16
-+
-+#define REFRESH_INTERVAL		(2 * HZ)
-+
-+static inline unsigned long FAN_FROM_REG(u16 val)
-+{
-+	if ((val >= NCT7363_FANIN_MASK) || (val == 0))
-+		return	0;
-+
-+	return (1350000UL / val);
-+}
-+
-+static const unsigned short normal_i2c[] = {
-+	0x20, 0x21, 0x22, 0x23, I2C_CLIENT_END
 +};
 +
-+enum chips { nct7363 };
-+
-+static const struct i2c_device_id nct7363_id[] = {
-+	{ "nct7363", nct7363 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, nct7363_id);
-+
-+static const struct of_device_id nct7363_of_match[] = {
-+	{ .compatible = "nuvoton,nct7363", .data = (void *)nct7363 },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, nct7363_of_match);
-+
-+struct nct7363_data {
-+	struct regmap		*regmap;
-+	struct mutex		update_lock;
-+	bool			valid;
-+	unsigned long		last_updated; /* In jiffies */
-+
-+	u16			fanin_mask;
-+	u16			fan[NCT7363_FANIN_COUNT];
-+	u16			pwm_mask;
-+	u8			pwm[NCT7363_PWM_COUNT];
++&adc0 {
++	status = "okay";
++	aspeed,int-vref-microvolt = <2500000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_adc0_default
++			&pinctrl_adc1_default
++			&pinctrl_adc2_default
++			&pinctrl_adc3_default
++			&pinctrl_adc4_default
++			&pinctrl_adc5_default
++			&pinctrl_adc6_default
++			&pinctrl_adc7_default>;
 +};
 +
-+static struct nct7363_data *nct7363_update_device(struct device *dev)
-+{
-+	struct nct7363_data *data = dev_get_drvdata(dev);
-+	unsigned int hi, lo, regval;
-+	int i, ret = 0;
-+
-+	mutex_lock(&data->update_lock);
-+
-+	if (!(time_after(jiffies, data->last_updated + REFRESH_INTERVAL)
-+	      || !data->valid))
-+		goto no_sensor_update;
-+
-+	for (i = 0; i < ARRAY_SIZE(data->fan); i++) {
-+		if (!(data->fanin_mask & BIT_CHECK(i)))
-+			continue;
-+
-+		/*
-+		 * High-byte register should be read first to latch
-+		 * synchronous low-byte value
-+		 */
-+		ret = regmap_read(data->regmap,
-+				  NCT7363_REG_FANINx_HVAL(i), &hi);
-+		if (ret)
-+			goto error;
-+
-+		ret = regmap_read(data->regmap,
-+				  NCT7363_REG_FANINx_LVAL(i), &lo);
-+		if (ret)
-+			goto error;
-+
-+		data->fan[i] = (hi << 5) | (lo & NCT7363_FANINx_LVAL_MASK);
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(data->pwm); i++) {
-+		if (!(data->pwm_mask & BIT_CHECK(i)))
-+			continue;
-+
-+		ret = regmap_read(data->regmap,
-+				  NCT7363_REG_FSCPxDUTY(i), &regval);
-+		if (ret)
-+			goto error;
-+
-+		data->pwm[i] = regval;
-+	}
-+
-+	data->last_updated = jiffies;
-+	data->valid = true;
-+
-+error:
-+	if (ret)
-+		data = ERR_PTR(ret);
-+
-+no_sensor_update:
-+	mutex_unlock(&data->update_lock);
-+
-+	return data;
-+}
-+
-+static int nct7363_read_fan(struct device *dev, u32 attr, int channel,
-+			    long *val)
-+{
-+	struct nct7363_data *data = nct7363_update_device(dev);
-+	u16 cnt, rpm;
-+
-+	if (IS_ERR(data))
-+		return PTR_ERR(data);
-+
-+	switch (attr) {
-+	case hwmon_fan_input:
-+		cnt = data->fan[channel] & NCT7363_FANIN_MASK;
-+		rpm = FAN_FROM_REG(cnt);
-+		*val = (long)rpm;
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t nct7363_fan_is_visible(const void *_data, u32 attr, int channel)
-+{
-+	const struct nct7363_data *data = _data;
-+
-+	switch (attr) {
-+	case hwmon_fan_input:
-+		if (data->fanin_mask & BIT_CHECK(channel))
-+			return 0444;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int nct7363_read_pwm(struct device *dev, u32 attr, int channel,
-+			    long *val)
-+{
-+	struct nct7363_data *data = nct7363_update_device(dev);
-+	u16 ret;
-+
-+	if (IS_ERR(data))
-+		return PTR_ERR(data);
-+
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		ret = data->pwm[channel];
-+		*val = (long)ret;
-+		return 0;
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int nct7363_write_pwm(struct device *dev, u32 attr, int channel,
-+			     long val)
-+{
-+	struct nct7363_data *data = nct7363_update_device(dev);
-+	int ret;
-+
-+	if (IS_ERR(data))
-+		return PTR_ERR(data);
-+
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		if (val < 0 || val > 255)
-+			return -EINVAL;
-+		mutex_lock(&data->update_lock);
-+		ret = regmap_write(data->regmap,
-+				   NCT7363_REG_FSCPxDUTY(channel), val);
-+		if (ret == 0)
-+			data->pwm[channel] = val;
-+		mutex_unlock(&data->update_lock);
-+		return ret;
-+
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t nct7363_pwm_is_visible(const void *_data, u32 attr, int channel)
-+{
-+	const struct nct7363_data *data = _data;
-+
-+	switch (attr) {
-+	case hwmon_pwm_input:
-+		if (data->pwm_mask & BIT_CHECK(channel))
-+			return 0644;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int nct7363_read(struct device *dev, enum hwmon_sensor_types type,
-+			u32 attr, int channel, long *val)
-+{
-+	switch (type) {
-+	case hwmon_fan:
-+		return nct7363_read_fan(dev, attr, channel, val);
-+	case hwmon_pwm:
-+		return nct7363_read_pwm(dev, attr, channel, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static int nct7363_write(struct device *dev, enum hwmon_sensor_types type,
-+			 u32 attr, int channel, long val)
-+{
-+	switch (type) {
-+	case hwmon_pwm:
-+		return nct7363_write_pwm(dev, attr, channel, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t nct7363_is_visible(const void *data,
-+				  enum hwmon_sensor_types type,
-+				  u32 attr, int channel)
-+{
-+	switch (type) {
-+	case hwmon_fan:
-+		return nct7363_fan_is_visible(data, attr, channel);
-+	case hwmon_pwm:
-+		return nct7363_pwm_is_visible(data, attr, channel);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static const struct hwmon_channel_info *nct7363_info[] = {
-+	HWMON_CHANNEL_INFO(fan,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT,
-+			   HWMON_F_INPUT),
-+	HWMON_CHANNEL_INFO(pwm,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT,
-+			   HWMON_PWM_INPUT),
-+	NULL
++&adc1 {
++	status = "okay";
++	aspeed,int-vref-microvolt = <2500000>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_adc8_default>;
 +};
 +
-+static const struct hwmon_ops nct7363_hwmon_ops = {
-+	.is_visible = nct7363_is_visible,
-+	.read = nct7363_read,
-+	.write = nct7363_write,
++&gpio0 {
++	gpio-line-names =
++	/*A0-A7*/	"","","","","","","","",
++	/*B0-B7*/	"","","","","","","","",
++	/*C0-C7*/	"","","","","","","","",
++	/*D0-D7*/	"","","","","","","","",
++	/*E0-E7*/	"","","","","","","","",
++	/*F0-F7*/	"","","","","","","","",
++	/*G0-G7*/	"","","","","","","","",
++	/*H0-H7*/	"","","","","","","","",
++	/*I0-I7*/	"","","","","","","","",
++	/*J0-J7*/	"","","","","","","","",
++	/*K0-K7*/	"","","","","","","","",
++	/*L0-L7*/	"","","","","","","","",
++	/*M0-M7*/	"","","","","","","","",
++	/*N0-N7*/	"","","","","SCM_CPLD_UPDATE_HITLESS","","","",
++	/*O0-O7*/	"","","","","","","","",
++	/*P0-P7*/	"","","","","","","","",
++	/*Q0-Q7*/	"","","","","","FM_PSU1_PRSNT_N","FM_PSU0_PRSNT_N","MB_CPLD_UPDATE_HITLESS",
++	/*R0-R7*/	"","","","checkstop","","","power-chassis-control","power-button",
++	/*S0-S7*/	"","","POSTFINISH","","","FM_BATTERY_SENSE_EN","","",
++	/*T0-T7*/	"","","","","","","","",
++	/*U0-U7*/	"","","","","","","","",
++	/*V0-V7*/	"","","","","power-chassis-good","","","",
++	/*W0-W7*/	"","","","","","","","",
++	/*X0-X7*/	"","","","","","","","",
++	/*Y0-Y7*/	"","","","","","","","",
++	/*Z0-Z7*/	"","","","","","","","";
 +};
 +
-+static const struct hwmon_chip_info nct7363_chip_info = {
-+	.ops = &nct7363_hwmon_ops,
-+	.info = nct7363_info,
++&mdio1 {
++	status = "okay";
++
++	ethphy1: ethernet-phy@0 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <0>;
++	};
 +};
 +
-+/* Return 0 if detection is successful, -ENODEV otherwise */
-+static int nct7363_detect(struct i2c_client *client,
-+			  struct i2c_board_info *info)
-+{
-+	struct i2c_adapter *adapter = client->adapter;
-+	int vendor, chip, device;
++&mac2 {
++	status = "okay";
 +
-+	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -ENODEV;
++	phy-mode = "rgmii";
++	phy-handle = <&ethphy1>;
 +
-+	vendor = i2c_smbus_read_byte_data(client, NCT7363_REG_VENDOR_ID);
-+	if (vendor != NUVOTON_ID)
-+		return -ENODEV;
-+
-+	chip = i2c_smbus_read_byte_data(client, NCT7363_REG_CHIP_ID);
-+	if (chip != CHIP_ID)
-+		return -ENODEV;
-+
-+	device = i2c_smbus_read_byte_data(client, NCT7363_REG_DEVICE_ID);
-+	if (device != DEVICE_ID)
-+		return -ENODEV;
-+
-+	strscpy(info->type, "nct7363", I2C_NAME_SIZE);
-+
-+	return 0;
-+}
-+
-+static int nct7363_init_chip(struct nct7363_data *data)
-+{
-+	u8 i, gpio0_3 = 0, gpio4_7 = 0, gpio10_13 = 0, gpio14_17 = 0;
-+	int ret;
-+
-+	for (i = 0; i < NCT7363_PWM_COUNT; i++) {
-+		if (i < 4) {
-+			if (data->pwm_mask & BIT_CHECK(i))
-+				gpio0_3 |= PWM_SEL(i);
-+			if (data->fanin_mask & BIT_CHECK(i))
-+				gpio10_13 |= FANIN_SEL(i);
-+		} else if (i < 8) {
-+			if (data->pwm_mask & BIT_CHECK(i))
-+				gpio4_7 |= PWM_SEL(i);
-+			if (data->fanin_mask & BIT_CHECK(i))
-+				gpio14_17 |= FANIN_SEL(i);
-+		} else if (i < 12) {
-+			if (data->pwm_mask & BIT_CHECK(i))
-+				gpio10_13 |= PWM_SEL(i);
-+			if (data->fanin_mask & BIT_CHECK(i))
-+				gpio0_3 |= FANIN_SEL(i);
-+		} else {
-+			if (data->pwm_mask & BIT_CHECK(i))
-+				gpio14_17 |= PWM_SEL(i);
-+			if (data->fanin_mask & BIT_CHECK(i))
-+				gpio4_7 |= FANIN_SEL(i);
-+		}
-+	}
-+
-+	/* Pin Function Configuration */
-+	ret = regmap_write(data->regmap, NCT7363_REG_GPIO_0_3, gpio0_3);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_GPIO_4_7, gpio4_7);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_GPIO_10_13, gpio10_13);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_GPIO_14_17, gpio14_17);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* PWM and FANIN Monitoring Enable */
-+	ret = regmap_write(data->regmap, NCT7363_REG_PWMEN_0_7,
-+			   data->pwm_mask & 0xff);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_PWMEN_8_15,
-+			   (data->pwm_mask >> 8) & 0xff);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_FANINEN_0_7,
-+			   data->fanin_mask & 0xff);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(data->regmap, NCT7363_REG_FANINEN_8_15,
-+			   (data->fanin_mask >> 8) & 0xff);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int nct7363_present_pwm_fanin(struct device *dev,
-+				     struct device_node *child,
-+				     struct nct7363_data *data)
-+{
-+	struct of_phandle_args args;
-+	int ret, fanin_cnt;
-+	u8 *fanin_ch;
-+	u8 ch, index;
-+
-+	ret = of_parse_phandle_with_args(child, "pwms", "#pwm-cells",
-+					 0, &args);
-+	if (ret)
-+		return ret;
-+
-+	data->pwm_mask |= BIT(args.args[0]);
-+
-+	fanin_cnt = of_property_count_u8_elems(child, "tach-ch");
-+	if (fanin_cnt < 1)
-+		return -EINVAL;
-+
-+	fanin_ch = devm_kcalloc(dev, fanin_cnt, sizeof(*fanin_ch), GFP_KERNEL);
-+	if (!fanin_ch)
-+		return -ENOMEM;
-+
-+	ret = of_property_read_u8_array(child, "tach-ch", fanin_ch, fanin_cnt);
-+	if (ret)
-+		return ret;
-+
-+	for (ch = 0; ch < fanin_cnt; ch++) {
-+		index = fanin_ch[ch];
-+		data->fanin_mask |= BIT(index);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config nct7363_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii3_default>;
 +};
 +
-+static int nct7363_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct device_node *child;
-+	struct nct7363_data *data;
-+	struct device *hwmon_dev;
-+	int ret;
++&mac3 {
++	status = "okay";
 +
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
++	phy-mode = "rmii";
++	use-ncsi;
 +
-+	data->regmap = devm_regmap_init_i2c(client, &nct7363_regmap_config);
-+	if (IS_ERR(data->regmap))
-+		return PTR_ERR(data->regmap);
-+
-+	mutex_init(&data->update_lock);
-+
-+	for_each_child_of_node(dev->of_node, child) {
-+		ret = nct7363_present_pwm_fanin(dev, child, data);
-+		if (ret) {
-+			of_node_put(child);
-+			return ret;
-+		}
-+	}
-+
-+	/* Initialize the chip */
-+	ret = nct7363_init_chip(data);
-+	if (ret)
-+		return ret;
-+
-+	hwmon_dev =
-+		devm_hwmon_device_register_with_info(dev, client->name, data,
-+						     &nct7363_chip_info, NULL);
-+	return PTR_ERR_OR_ZERO(hwmon_dev);
-+}
-+
-+static struct i2c_driver nct7363_driver = {
-+	.class = I2C_CLASS_HWMON,
-+	.driver = {
-+		.name = "nct7363",
-+		.of_match_table = nct7363_of_match,
-+	},
-+	.probe = nct7363_probe,
-+	.id_table = nct7363_id,
-+	.detect = nct7363_detect,
-+	.address_list = normal_i2c,
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii4_default>;
 +};
 +
-+module_i2c_driver(nct7363_driver);
++&emmc_controller {
++	status = "okay";
++};
 +
-+MODULE_AUTHOR("CW Ho <cwho@nuvoton.com>");
-+MODULE_AUTHOR("Ban Feng <kcfeng0@nuvoton.com>");
-+MODULE_DESCRIPTION("NCT7363 Hardware Monitoring Driver");
-+MODULE_LICENSE("GPL");
++&pinctrl_emmc_default {
++	bias-disable;
++};
++
++&emmc {
++	status = "okay";
++	clk-phase-mmc-hs200 = <180>, <180>;
++};
++
++#include "ibm-power10-quad.dtsi"
++&fsim0 {
++	cfam-reset-gpios = <&gpio0 ASPEED_GPIO(Q, 4) GPIO_ACTIVE_LOW>;
++};
++
++&i2c1 {
++	status = "okay";
++	tmp112@48{
++		compatible = "ti,tmp112";
++		reg = <0x48>;
++		label = "Sys_Outlet_Temp";
++	};
++
++	eeprom@50 {
++		compatible = "atmel,24c256";
++		reg = <0x50>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++	tmp112@40{
++		compatible = "ti,tmp112";
++		reg = <0x48>;
++		label = "Inlet_Temp";
++	};
++
++	pca9548@70{
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++		i2c2s0ch1: i2c@1{
++			reg = <1>;
++			tmp112@49{
++				compatible = "ti,tmp112";
++				reg = <0x49>;
++				label = "PSU_Inlet0_Temp";
++			};
++			tmp112@4a{
++				compatible = "ti,tmp112";
++				reg = <0x4a>;
++				label = "PSU_Inlet1_Temp";
++			};
++		};
++		i2c2s0ch2: i2c@2{
++			reg = <2>;
++			tmp112@49{
++				compatible = "ti,tmp112";
++				reg = <0x49>;
++				label = "L_OCP_ZONE_Temp";
++			};
++			tmp112@4a{
++				compatible = "ti,tmp112";
++				reg = <0x4a>;
++				label = "R_OCP_ZONE_Temp";
++			};
++		};
++	};
++
++	pca0:pca9555@20 {
++		compatible = "nxp,pca9555";
++		reg = <0x20>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"OCP0_CABLE_PRSNT_N", "OCP0_BIF2_N",
++			"OCP0_BIF1_N", "OCP0_BIF0_N",
++			"OCP0_CARD_PRSNTB3_ISO_N", "OCP0_CARD_PRSNTB2_ISO_N",
++			"OCP0_CARD_PRSNTB1_ISO_N", "OCP0_CARD_PRSNTB0_ISO_N",
++			"PE_MCIO0_BP_ID0_Q_N", "PE_MCIO0_BP_ID1_Q_N",
++			"PE_MCIO1_BP_ID0_Q_N", "PE_MCIO1_BP_ID1_Q_N",
++			"PE_MCIO2_BP_ID0_Q_N", "PE_MCIO2_BP_ID1_Q_N",
++			"RISER0_PRSNT_N", "REAR_HDD_PRSNT_N";
++	};
++	pca1:pca9555@21 {
++		compatible = "nxp,pca9555";
++		reg = <0x21>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"OCP1_CABLE_PRSNT_N", "OCP1_BIF2_N",
++			"OCP1_BIF1_N", "OCP1_BIF0_N",
++			"OCP1_CARD_PRSNTB3_ISO_N", "OCP1_CARD_PRSNTB2_ISO_N",
++			"OCP1_CARD_PRSNTB1_ISO_N", "OCP1_CARD_PRSNTB0_ISO_N",
++			"PE_MCIO3_BP_ID0_Q_N", "PE_MCIO3_BP_ID1_Q_N",
++			"PE_MCIO4_BP_ID0_Q_N", "PE_MCIO4_BP_ID1_Q_N",
++			"PE_MCIO5_BP_ID0_Q_N", "PE_MCIO5_BP_ID1_Q_N",
++			"RISER2_PRSNT_N", "RISER1_PRSNT_N";
++	};
++	pca2:pca9555@22 {
++		compatible = "nxp,pca9555";
++		reg = <0x22>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"RISER2_BOARD_ID1_N", "RISER2_BOARD_ID0_N",
++			"RISER1_BOARD_ID2_N", "RISER1_BOARD_ID1_N",
++			"RISER1_BOARD_ID0_N", "RISER0_BOARD_ID2_N",
++			"RISER0_BOARD_ID1_N", "RISER0_BOARD_ID0_N",
++			"PE_MCIO6_BP_ID0_Q_N", "PE_MCIO6_BP_ID1_Q_N",
++			"PE_MCIO7_BP_ID0_Q_N", "PE_MCIO7_BP_ID1_Q_N",
++			"PE_MCIO8_BP_ID0_Q_N", "PE_MCIO8_BP_ID1_Q_N",
++			"PE_MCIO9_BP_ID0_Q_N", "PE_MCIO9_BP_ID0_Q_N";
++	};
++	pca3:pca9555@23 {
++		compatible = "nxp,pca9555";
++		reg = <0x23>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"", "",
++			"", "",
++			"", "",
++			"", "RISER2_BOARD_ID2_N",
++			"PE_MCIO10_BP_ID0_Q_N", "PE_MCIO10_BP_ID1_Q_N",
++			"PE_MCIO7_BP_ID11_Q_N", "PE_MCIO11_BP_ID1_Q_N",
++			"PE_MCIO12_BP_ID0_Q_N", "PE_MCIO12_BP_ID1_Q_N",
++			"PE_MCIO13_BP_ID0_Q_N", "PE_MCIO13_BP_ID0_Q_N";
++	};
++};
++
++&i2c3 {
++	status = "okay";
++	pca9548@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++	};
++};
++
++&i2c5 {
++	status = "okay";
++	pca9546@70{
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		i2c5s0ch0: i2c@0 {
++			reg = <0>;
++			status = "okay";
++			cpu0vdda@60 {
++				compatible = "infineon,xdpe132g5c";
++				reg = <0x60>;
++			};
++			cpu0vddb@61 {
++				compatible = "infineon,xdpe132g5c";
++				reg = <0x61>;
++			};
++			cpu0vdn@72 {
++				compatible = "infineon,ir35221";
++				reg = <0x72>;
++			};
++			cpu0vio@73 {
++				compatible = "infineon,ir35221";
++				reg = <0x73>;
++			};
++			cpu0vpci@74 {
++				compatible = "infineon,ir35221";
++				reg = <0x74>;
++			};
++		};
++		i2c5s0ch1: i2c@1{
++			reg = <1>;
++			status = "okay";
++			cpu1vddc@60 {
++				compatible = "infineon,xdpe132g5c";
++				reg = <0x60>;
++			};
++			cpu1vddd@61 {
++				compatible = "infineon,xdpe132g5c";
++				reg = <0x61>;
++			};
++			cpu1vdn@72 {
++				compatible = "infineon,ir35221";
++				reg = <0x72>;
++			};
++			cpu1vio@73 {
++				compatible = "infineon,ir35221";
++				reg = <0x73>;
++			};
++			cpu1vpci@74 {
++				compatible = "infineon,ir35221";
++				reg = <0x74>;
++			};
++		};
++		i2c5s0ch2: i2c@2{
++			reg = <2>;
++			status = "okay";
++			pxe1610@6c {
++				compatible = "infineon,pxe1610";
++				reg = <0x6c>;
++			};
++			rdimm@74 {
++				compatible = "infineon,pxe1610";
++				reg = <0x74>;
++			};
++			mdimm@54 {
++				compatible = "infineon,pxe1610";
++				reg = <0x5A>;
++			};
++			ldimm@44 {
++				compatible = "infineon,pxe1610";
++				reg = <0x5C>;
++			};
++		};
++		i2c5s0ch3: i2c@3{
++				reg = <3>;
++		};
++	};
++};
++
++&i2c6 {
++	/* SMB_TEMPSENSOR_STBY_LVC3_R */
++	multi-master;
++	status = "okay";
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		i2c6s0ch0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++		};
++		i2c6s0ch1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++		};
++		i2c6s0ch2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++		};
++		i2c6s0ch3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++
++			pca9548@71 {
++				compatible = "nxp,pca9548";
++				reg = <0x71>;
++				i2c-mux-idle-disconnect;
++
++				i2c6s1ch0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++				i2c6s1ch1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++			};
++		};
++		i2c6s0ch4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++
++			pca9548@71 {
++				compatible = "nxp,pca9548";
++				reg = <0x71>;
++				i2c-mux-idle-disconnect;
++
++				i2c6s2ch0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++				i2c6s2ch1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++			};
++		};
++		i2c6s0ch5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			tmp1413@4c {
++				compatible = "microchip,emc1413";
++				reg = <0x4c>;
++			};
++		};
++	};
++};
++
++&i2c7 {
++	status = "okay";
++	adc128d818@1d{
++		compatible = "ti,adc128d818";
++		reg = <0x1d>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@1e{
++		compatible = "ti,adc128d818";
++		reg = <0x1e>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@1f{
++		compatible = "ti,adc128d818";
++		reg = <0x1f>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@2d{
++		compatible = "ti,adc128d818";
++		reg = <0x2d>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@2e{
++		compatible = "ti,adc128d818";
++		reg = <0x2e>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@2f{
++		compatible = "ti,adc128d818";
++		reg = <0x2f>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@35{
++		compatible = "ti,adc128d818";
++		reg = <0x35>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@36{
++		compatible = "ti,adc128d818";
++		reg = <0x36>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++
++	adc128d818@37{
++		compatible = "ti,adc128d818";
++		reg = <0x37>;
++		ti,mode = /bits/ 8 <0x01>;
++	};
++};
++
++&i2c8 {
++	status = "okay";
++
++	pca9555@24{
++		compatible = "nxp,pca9555";
++		reg = <0x24>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"FAN_PRSNT5_D_N", "FAN_PRSNT4_D_N",
++			"FAN_PRSNT3_D_N", "FAN_PRSNT2_D_N",
++			"FAN_PRSNT1_D_N", "FAN_PRSNT0_D_N",
++			"", "",
++			"", "",	"", "",
++			"", "",	"", "";
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c256";
++		reg = <0x51>;
++	};
++
++};
++
++&i2c9 {
++	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c256";
++		reg = <0x50>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c256";
++		reg = <0x51>;
++	};
++};
++
++&i2c10 {
++	status = "okay";
++	pca9555@20 {
++	compatible = "nxp,pca9555";
++	reg = <0x20>;
++
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	gpio-controller;
++	#gpio-cells = <2>;
++
++	gpio-line-names =
++		"DIMM0_FAULT", "DIMM3_FAULT",
++		"DIMM2_FAULT", "DIMM1_FAULT",
++		"DIMM4_FAULT", "DIMM5_FAULT",
++		"DIMM6_FAULT", "DIMM7_FAULT",
++		"DIMM8_FAULT", "DIMM11_FAULT",
++		"DIMM10_FAULT", "DIMM9_FAULT",
++		"DIMM12_FAULT", "DIMM13_FAULT",
++		"DIMM14_FAULT", "DIMM15_FAULT";
++	};
++
++	pca9555@22 {
++		compatible = "nxp,pca9555";
++		reg = <0x22>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"", "", "", "", "OCP0_PRSNT_N", "", "", "",
++			"", "", "", "", "", "", "", "";
++	};
++
++	pca9555@23 {
++		compatible = "nxp,pca9555";
++		reg = <0x23>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names =
++			"", "", "", "", "OCP1_PRSNT_N", "", "", "",
++			"", "", "", "", "", "", "", "";
++	};
++};
++
++&i2c11 {
++	status = "okay";
++
++	eeprom@51 {
++		compatible = "atmel,24c256";
++		reg = <0x51>;
++	};
++};
++
++&i2c12 {
++	status = "okay";
++	pca9546@70{
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		i2c-mux-idle-disconnect;
++		i2c12s0ch0: i2c@0{
++			reg = <0>;
++			tmp112@48{
++				compatible = "ti,tmp112";
++				reg = <0x48>;
++				label = "PCIE_INLET_0";
++			};
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			pca9555@24 {
++			compatible = "nxp,pca9555";
++			reg = <0x24>;
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			gpio-line-names =
++				"RISER0_BOARD_ID7", "RISER0_BOARD_ID6",
++				"RISER0_BOARD_ID5", "RISER0_BOARD_ID4",
++				"RISER0_BOARD_ID3", "RISER0_BOARD_ID2",
++				"RISER0_BOARD_ID1", "RISER0_BOARD_ID0",
++				"RISER0_SLOT2_PRSNT", "RISER0_SLOT1_PRSNT_X8",
++				"RISER0_SLOT0_PRSNT_X8", "RISER0_SLOT1_PRSNT_X16",
++				"RISER0_SLOT0_PRSNT_X16", "", "", "";
++			};
++		};
++		i2c12s0ch1: i2c@1{
++			reg = <1>;
++		};
++		i2c12s0ch2: i2c@2{
++			reg = <2>;
++		};
++		i2c12s0ch3: i2c@3{
++			reg = <3>;
++		};
++	};
++
++	pca9546@71{
++		compatible = "nxp,pca9546";
++		reg = <0x71>;
++		i2c-mux-idle-disconnect;
++		i2c12s1ch0: i2c@0{
++			reg = <0>;
++			tmp112@48{
++				compatible = "ti,tmp112";
++				reg = <0x48>;
++				label = "PCIE_INLET_2";
++			};
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			pca9555@24 {
++			compatible = "nxp,pca9555";
++			reg = <0x24>;
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			gpio-line-names =
++				"RISER2_BOARD_ID0", "RISER2_BOARD_ID1",
++				"RISER2_BOARD_ID2", "RISER2_BOARD_ID3",
++				"RISER2_BOARD_ID4", "RISER2_BOARD_ID5",
++				"RISER2_BOARD_ID6", "RISER2_BOARD_ID7",
++				"RISER2_SLOT0_PRSNT", "RISER2_SLOT1_PRSNT",
++				"", "", "", "", "", "";
++			};
++		};
++		i2c12s1ch1: i2c@1{
++			reg = <1>;
++		};
++		i2c12s1ch2: i2c@2{
++			reg = <2>;
++		};
++	};
++};
++
++&i2c13 {
++	status = "okay";
++	pca9546@70{
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		i2c-mux-idle-disconnect;
++		i2c13s0ch0: i2c@0{
++			reg = <0>;
++			tmp112@48{
++				compatible = "ti,tmp112";
++				reg = <0x48>;
++				label = "PCIE_INLET_1";
++			};
++
++			eeprom@50 {
++				compatible = "atmel,24c256";
++				reg = <0x50>;
++			};
++
++			pca9555@24 {
++			compatible = "nxp,pca9555";
++			reg = <0x24>;
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			gpio-controller;
++			#gpio-cells = <2>;
++
++			gpio-line-names =
++				"RISER1_BOARD_ID7", "RISER1_BOARD_ID6",
++				"RISER1_BOARD_ID5", "RISER1_BOARD_ID4",
++				"RISER1_BOARD_ID3", "RISER1_BOARD_ID2",
++				"RISER1_BOARD_ID1", "RISER1_BOARD_ID0",
++				"RISER1_SLOT2_PRSNT", "RISER1_SLOT1_PRSNT_X8",
++				"RISER1_SLOT0_PRSNT_X8", "RISER1_SLOT1_PRSNT_X16",
++				"RISER1_SLOT0_PRSNT_X16", "", "", "";
++			};
++		};
++		i2c13s0ch1: i2c@1{
++			reg = <1>;
++		};
++		i2c13s0ch2: i2c@2{
++			reg = <2>;
++		};
++		i2c13s0ch3: i2c@3{
++			reg = <3>;
++		};
++	};
++};
++
++&i2c14 {
++	status = "okay";
++};
++
++&i2c15 {
++	status = "okay";
++};
++
++&ibt {
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&vuart1 {
++	status = "okay";
++};
++
++&vuart2 {
++	status = "okay";
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++};
++
++&wdt1 {
++	status = "okay";
++};
++
++&kcs2 {
++	status = "okay";
++	aspeed,lpc-io-reg = <0xca8 0xcac>;
++};
++
++&kcs3 {
++	status = "okay";
++	aspeed,lpc-io-reg = <0xca2>;
++	aspeed,lpc-interrupts = <11 IRQ_TYPE_LEVEL_LOW>;
++};
++
++&vhub {
++	status = "okay";
++};
++
++&video {
++	status = "okay";
++	memory-region = <&video_engine_memory>;
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
 -- 
 2.34.1
 
