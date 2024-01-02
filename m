@@ -4,48 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B43ACC4706F
-	for <openbmc@archiver.kernel.org>; Mon,  1 Jan 2024 18:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E04AC46CD2
+	for <openbmc@archiver.kernel.org>; Tue,  2 Jan 2024 04:48:02 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dMPRUrMP;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T3lQD06m0z3cjX
-	for <openbmc@archiver.kernel.org>; Tue,  2 Jan 2024 05:49:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T40hw47g5z30f5
+	for <openbmc@archiver.kernel.org>; Tue,  2 Jan 2024 15:48:00 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=dMPRUrMP;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=padathjayashankar@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T3lNT1W7Qz3bPM
-	for <openbmc@lists.ozlabs.org>; Tue,  2 Jan 2024 05:47:48 +1100 (AEDT)
-Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 401IleOR020934
-	for <openbmc@lists.ozlabs.org>; Mon, 1 Jan 2024 20:47:41 +0200
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 1 Jan
- 2024 20:47:39 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Tue, 2 Jan
- 2024 02:47:38 +0800
-Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 2 Jan 2024 02:47:37 +0800
-Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 34CF05F5D4;
-	Mon,  1 Jan 2024 20:47:37 +0200 (IST)
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 32776DC3805; Mon,  1 Jan 2024 20:47:37 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.6 v1 1/2] dt-bindings: soc: nuvoton: Add NPCM BPC
-Date: Mon, 1 Jan 2024 20:47:34 +0200
-Message-ID: <20240101184735.3048767-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240101184735.3048767-1-tmaimon77@gmail.com>
-References: <20240101184735.3048767-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T40fy032bz30Pp
+	for <openbmc@lists.ozlabs.org>; Tue,  2 Jan 2024 15:46:17 +1100 (AEDT)
+Received: by mail-pj1-x102a.google.com with SMTP id 98e67ed59e1d1-28c93513462so1790970a91.2
+        for <openbmc@lists.ozlabs.org>; Mon, 01 Jan 2024 20:46:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704170775; x=1704775575; darn=lists.ozlabs.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=wkjvhkJv1Vtz9sRyuKBkU2gpxKeknuEOeuXnQNL3UZc=;
+        b=dMPRUrMP3yyRlv9CFhdtAPWpCBMuYg8xfNpSMYkoxLScNyjTZ512SicCpz84pfj0gm
+         nS404gvtbVL1tCXnMp5f9X9bcet0W+e8EtzTovo9+2jWyTzygc7xDYRBqGJbEQbcwIzs
+         5fDqSwpgJHsLJ6RvXiMj1BoNSHuzcBMbEiW3rXCM515c+YYWOlsfpsq9X2JxNUtJ5g9i
+         yoVUv7Y4yw90hN6ugixVeCDLXl38d376n2HQ23CaQh8j7Th1vQbA7QGdy+2KSqTkCbP7
+         WCkEF0e5cp391LrtRZOV6ddrwcjQDxdVuLtgdSDyalknfeS7QnYyRFWI/iR0Jn6LG2Ov
+         ziUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704170775; x=1704775575;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wkjvhkJv1Vtz9sRyuKBkU2gpxKeknuEOeuXnQNL3UZc=;
+        b=cUyNJU8OBe+PyOpkzz7Ap5rLMsZil9N5eYpHeWRfb9FsprMDcA0R5wiXnUC6pSE8ll
+         INtKhA9RU7hhVG+YVgzN8m8t4109eZOglUczNJRX5W7gT222ne+XXJ+zkQ3amE0y9dxU
+         NuH4zDw3/0gUkg/uQHXbFhNJ/c91DoLlDyD8AjK3FB4y+y7hvMV6EKoz5H2GbWUnw+tF
+         UIreyOhtl3NMyFdM6mh1lzsgYQ2rUS7PmDGyP1HKvpaPbhqhNu5I/jNRcmcyeTPADzmu
+         5rgm1BujuwFtXDXwbrpAzNVptM2x1ypHKMcrt2mk5P2VoWbkDeJwaU30wV8hqZ08Jqy4
+         FOHA==
+X-Gm-Message-State: AOJu0YwYec3fvq4Fclddh7uiL0m4cDAceF5vx/Zw66jFFoxNsS1s0HzX
+	XrPTHFhtfoHEpUrRaZof/MKxQwxBKdF8Op4f4cCvsm33tlw=
+X-Google-Smtp-Source: AGHT+IGkRtfi+6GTCgfrD8cQauPUNOEtipNqi/OYqNdDfuZgb0sWllXzXkvRDPCZ7gSpOheY37MOHZz54h4Z1xvd32s=
+X-Received: by 2002:a17:90a:408a:b0:28c:915c:5eca with SMTP id
+ l10-20020a17090a408a00b0028c915c5ecamr2941590pjg.89.1704170775136; Mon, 01
+ Jan 2024 20:46:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
+From: Jayashankar Padath <padathjayashankar@gmail.com>
+Date: Tue, 2 Jan 2024 10:16:04 +0530
+Message-ID: <CAFRDoiwOqE96Pxw9QVE7B2j_JnBbsvaEa38H5_=DVch8Xo8P9Q@mail.gmail.com>
+Subject: Question on passing username and password credentials through PLDM
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000b04c1d060def2df5"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,93 +70,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Added device tree binding documentation for Nuvoton BMC NPCM BIOS Post
-Code (BPC).
+--000000000000b04c1d060def2df5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The NPCM BPC monitoring two configurable I/O addresses written by the
-host on the bus.
+Hi all,
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../soc/nuvoton/nuvoton,npcm-bpc.yaml         | 65 +++++++++++++++++++
- 1 file changed, 65 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/nuvoton/nuvoton,npcm-bpc.yaml
+We do have a requirement in which the Host needs to pass the username and
+password credentials to the BMC PAM module for authentication OR during a
+password change. These details are passed through the PLDM stack.
 
-diff --git a/Documentation/devicetree/bindings/soc/nuvoton/nuvoton,npcm-bpc.yaml b/Documentation/devicetree/bindings/soc/nuvoton/nuvoton,npcm-bpc.yaml
-new file mode 100644
-index 000000000000..c04302a1d52b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soc/nuvoton/nuvoton,npcm-bpc.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soc/nuvoton/nuvoton,npcm-bpc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton BMC NPCM BIOS Post Code (BPC) controller
-+
-+maintainers:
-+  - Tomer Maimon <tmaimon77@gmail.com>
-+
-+description:
-+  Nuvoton BMC NPCM BIOS Post Code (BPC) monitoring two configurable I/O
-+  addresses written by the host on the bus, the capture data stored in
-+  128-word FIFO.
-+
-+  NPCM BPC supports capture double words, when using capture
-+  double word only I/O address 1 is monitored.
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - nuvoton,npcm845-bpc
-+          - nuvoton,npcm750-bpc
-+      - const: nuvoton,npcm-bpc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  nuvoton,monitor-ports:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      Contain monitor I/O addresses on the bus, at least one monitor I/O
-+      address required.
-+
-+  nuvoton,bpc-en-dwcapture:
-+    description:
-+      Set DWCAPTURE bit in BPCFEN register that enable double words capture
-+      according to the first address setting.
-+    type: boolean
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - nuvoton,monitor-ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    bpc: bpc@f0007040 {
-+        compatible = "nuvoton,npcm750-bpc", "nuvoton,npcm-bpc";
-+        reg = <0xf0007040 0x20>;
-+        interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+        nuvoton,monitor-ports = <0x80>;
-+    };
-+...
--- 
-2.34.1
+BMC specific requirements:
 
+=E2=97=A6 The ability to prompt for a username/password and provide authent=
+ication
+=E2=97=A6 The ability to change a password when the current password is exp=
+ired
+
+Seeing two design options here.
+
+1. PLDM calls the PAM APIs directly
+2. Make use of BIOS Config manager (But this has only password change and
+no direct authentication. Also this does not make use of PAM)
+
+Would like to know any inputs on the desired direction on this OR any one
+else has similar designs in place.
+
+Thanks and Best Regards,
+Jayashankar
+
+--000000000000b04c1d060def2df5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all, =C2=A0<br>=C2=A0 <br>We do have a requirement in w=
+hich the Host needs to pass the username and password credentials to the BM=
+C PAM module for authentication OR during a password change. These details =
+are passed through the PLDM stack.<br><br>BMC specific requirements:<br><br=
+>=E2=97=A6	The ability to prompt for a username/password and provide authen=
+tication <br>=E2=97=A6	The ability to change a password when the current pa=
+ssword is expired<br><br>Seeing two design options here.<br><br>1. PLDM cal=
+ls the PAM APIs directly<br>2. Make use of BIOS Config manager (But this ha=
+s only password change and no direct authentication. Also this does not mak=
+e use of PAM)<br>=C2=A0 <br>Would like to know any inputs on the desired di=
+rection on this OR any one else has similar designs in place.<br>=C2=A0 <br=
+>Thanks and Best Regards, =C2=A0<br>Jayashankar<br></div>
+
+--000000000000b04c1d060def2df5--
