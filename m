@@ -4,86 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41EACC3DA6E
-	for <openbmc@archiver.kernel.org>; Wed,  3 Jan 2024 12:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2907C3DA6E
+	for <openbmc@archiver.kernel.org>; Wed,  3 Jan 2024 13:12:33 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=Hjq+NjuK;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=0NmmIIEl;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=j4HsyboF;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T4pbH4nZqz3cb7
-	for <openbmc@archiver.kernel.org>; Wed,  3 Jan 2024 23:15:55 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T4qrc0gHlz3cl3
+	for <openbmc@archiver.kernel.org>; Thu,  4 Jan 2024 00:12:32 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=Hjq+NjuK;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=0NmmIIEl;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=j4HsyboF;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42f; helo=mail-pf1-x42f.google.com; envelope-from=padathjayashankar@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com [IPv6:2607:f8b0:4864:20::42f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T4pZ61mZGz3cVb
-	for <openbmc@lists.ozlabs.org>; Wed,  3 Jan 2024 23:14:53 +1100 (AEDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 6F13B5C01C4;
-	Wed,  3 Jan 2024 07:14:49 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Wed, 03 Jan 2024 07:14:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1704284089; x=1704370489; bh=pl77qDcjg4
-	1X5ZfqloQFn5q0kCMQP8UKn16+o41o3NA=; b=Hjq+NjuK0Pp1nVyYwIWlVkvfkO
-	CzHznWY1CyWdfwbD+ZkVBHxBeJRk+E0J0mrLQAC/JZCB27d0QFovt4mN8G7ZEipc
-	erayQrwhVSWWckxVV/6D29KAOOxyd3qfw+QD8eW6pA8Jhi1bAeSlc/OUuU63VY26
-	/xsZAR0k4fz8t1qPCnQK56es08N0EKIWZEfut6xS2JDORvoYErsGe45wflstp1+D
-	BRyodi7eMeThZgnYryKZ6mvrn6YEa5cXVLB5GQbD8h+HFQmNkQf8GjYtPgVzcioQ
-	U92gB9g/I32LlJilwJm6wm1t7E3BWcA4Tes+lWlBpGzHo8/CfrHwbpZAQlFw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1704284089; x=1704370489; bh=pl77qDcjg41X5ZfqloQFn5q0kCMQ
-	P8UKn16+o41o3NA=; b=0NmmIIEljc5zxhqP7OCDWinKSDkmXWyLJEXNgwHGxuEc
-	0CZi8W3RGV5KD+HhlhFWuif4OLAkAK6KTmobMnxOfsBjP5upJx/GZ4LZ4FR0LZop
-	XioZS3QvGthvj5nblXATJpx4FjNKyfKiJsTLVcLJA2cmFAdYfbMqjFPhZr8V3rP4
-	VfEsCKQ1Xvn9/MJmfdyr2EF7WOV+xxj2xh0Tv7ScSp6jfw9XsfQe/EuXGL3EcjHS
-	BFs/y6UFQpNNILw5e+y5QCKnVXaqqO5WgnbUmgiDTvDv5lC2REFSw9w+ekz8NTs8
-	6ECq0WkDrLOtFoBC+5mWni74hHVbYooUXIr53aPkzg==
-X-ME-Sender: <xms:uU-VZRwSpH3PY_qYl-dDtxaNZHLsxXDAE7BRdRDK9P2k4FMRNivoEQ>
-    <xme:uU-VZRT65ijSsc88q-s4A713LcxrIc4_knXlHmmqxfENzjT8qopcE9qWQjnZAVQyf
-    BIA_hzpB3RM0XTlQ34>
-X-ME-Received: <xmr:uU-VZbXK1sjKIrEuIECGU7A1uA6ASxnoiQ11wK9ZSWlOW7dd5oagDDhwd596RqsldIhp0iqRjV1y8z3hlYgTsv3m97qyIA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdeghedgfeekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredt
-    tddvnecuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghkse
-    hsthiftgigrdighiiiqeenucggtffrrghtthgvrhhnpeehfeejheeftdejiedvfeekffeh
-    ledukeduleelffekgfdtleduledvtdegtdehkeenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:uU-VZThZUpfuIM6EpM1366Zimj1mn4orgQxBY0jwQZ4vOXZa8v_uTw>
-    <xmx:uU-VZTARHHaix5trOHPXz4agCYG0NMH6Brv8AYBSwiOXZZEugiCLPA>
-    <xmx:uU-VZcINi3pbCmaES8Xy_1X0hf5d-35N-kwrWNXelZYdJyI9fHZCWQ>
-    <xmx:uU-VZWqpDCsLbVARuLu-IQ1mCE-u_QwQgWcsPLKtI8BUIb8BGsL2YQ>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 3 Jan 2024 07:14:48 -0500 (EST)
-Date: Wed, 3 Jan 2024 06:14:47 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Jayashankar Padath <padathjayashankar@gmail.com>
-Subject: Re: Question on passing username and password credentials through
- PLDM
-Message-ID: <ZZVPt0JXDXxEX7pB@heinlein.vulture-banana.ts.net>
-References: <CAFRDoiwOqE96Pxw9QVE7B2j_JnBbsvaEa38H5_=DVch8Xo8P9Q@mail.gmail.com>
- <ZZQBRhzMCiI3SC-Q@heinlein.vulture-banana.ts.net>
- <CAFRDoixW1aUVACo84wtGcmo09cgN9NieifB4uv-kWuxmBC2qsg@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T4qqW2lqsz3cSC
+	for <openbmc@lists.ozlabs.org>; Thu,  4 Jan 2024 00:11:33 +1100 (AEDT)
+Received: by mail-pf1-x42f.google.com with SMTP id d2e1a72fcca58-6daa822be30so658270b3a.0
+        for <openbmc@lists.ozlabs.org>; Wed, 03 Jan 2024 05:11:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704287489; x=1704892289; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=gl5b85pYW8H++YYsiVynFCXW+Hd1aNQCBTkf+NNHHOs=;
+        b=j4HsyboFp21UjuCyXGNOpkEhJJD4ylGjuWCWaCDkTKZa82ykwKUWYr9VYwzWLXSNtn
+         o8Z0rHvRzVix4B/durk3AXhY0WNHj/Jzbac+Go1WjOA1rnm1eu1e50ZNLU0PNi+KxzWX
+         KBzrdqh+JhX6wcwu8uUiqXqJw6/t206+NP/b0UVhSppFI83RjqIsluXeF01nEgQMKpH/
+         YSDJqQ2PTTJvPbAVVNYtnnphLSJVFOqGNnAtWY7dHLevjFndwT8ANqep/o2f47PK9PWS
+         0DAdoAAXNWzZnEsQRSl3JSvmRNODTNwMpsejNrhDMpsbuG/WUXFtZiNtT8BmnwrvDKKt
+         Z/nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704287489; x=1704892289;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gl5b85pYW8H++YYsiVynFCXW+Hd1aNQCBTkf+NNHHOs=;
+        b=SY5JSsMy02CTg8UGzunQDpZOj6m7SdLmEB3HR27UC9EytJ46Q8qKUXHWUgeLzamzUj
+         FKj+857eJRLIFGCCTIqWpbT7MO/19QJX3Nes8wrsqIO2TlA2YfMEFUJgv0lE50tfhsIa
+         9/CCW17TPRxVJqV7KA0WPcwNYZ2wU3HebR76Dh/vRXj9YDTecJhuFLrUdZyqaZ6Or4Uo
+         Y6PeNq+kAaMpCe1/Xv9ZdVtTDO6JdkH7sH9u3y/PQEWxpnGet+AAfaccEXq3fnnqswn/
+         fqRDfpENE6GXo+d27a8QGF6X8XC3mT3E45xkvzD2n5BnoVDER7DYds21emDBbTV/+4u4
+         PTWg==
+X-Gm-Message-State: AOJu0YxLJmwu9vgtOq/iTnfgCBGmEGFPl26OZ4avw6LMRtWbHDgbUoI5
+	/wLD+jEPdti5Vb+U91DyHniQDwm/OgsLPslVyTI=
+X-Google-Smtp-Source: AGHT+IFQhI8Rl8apYG90tomX9px2xv2OzlNpVqnwhjHlqmApxa7utIXr4FTEXRVklpnTcx8GnNh2/wjhnpvlsQbDMGA=
+X-Received: by 2002:a05:6a00:13a1:b0:6d9:98ea:e8ad with SMTP id
+ t33-20020a056a0013a100b006d998eae8admr10097521pfg.47.1704287488784; Wed, 03
+ Jan 2024 05:11:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="eZqZ4DHlvfQH69OE"
-Content-Disposition: inline
-In-Reply-To: <CAFRDoixW1aUVACo84wtGcmo09cgN9NieifB4uv-kWuxmBC2qsg@mail.gmail.com>
+References: <CAFRDoiwOqE96Pxw9QVE7B2j_JnBbsvaEa38H5_=DVch8Xo8P9Q@mail.gmail.com>
+ <ZZQBRhzMCiI3SC-Q@heinlein.vulture-banana.ts.net> <CAFRDoixW1aUVACo84wtGcmo09cgN9NieifB4uv-kWuxmBC2qsg@mail.gmail.com>
+ <ZZVPt0JXDXxEX7pB@heinlein.vulture-banana.ts.net>
+In-Reply-To: <ZZVPt0JXDXxEX7pB@heinlein.vulture-banana.ts.net>
+From: Jayashankar Padath <padathjayashankar@gmail.com>
+Date: Wed, 3 Jan 2024 18:41:17 +0530
+Message-ID: <CAFRDoixfn0C8+AKRqG+9o281pdgQNQHOBjvU8aigOnX4yk6bTw@mail.gmail.com>
+Subject: Re: Question on passing username and password credentials through PLDM
+To: Patrick Williams <patrick@stwcx.xyz>
+Content-Type: multipart/alternative; boundary="0000000000005d3e27060e0a5a51"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,57 +79,100 @@ Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
---eZqZ4DHlvfQH69OE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--0000000000005d3e27060e0a5a51
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jan 03, 2024 at 03:18:41PM +0530, Jayashankar Padath wrote:
-> Hello Patrick,
->=20
-> Thanks for your suggestion. From the host side they wanted  to attach a
-> graphics adapter so that some of the system management service operations
-> could be carried out.
+Okay I was basically mentioning about the communication between the host
+and the BMC. So in reality, a graphics adapter would be assigned to a
+partition, where PFW (Platform firmware) can display the SMS ( System
+Management Services) menus for some specific operations. Since PFW does not
+have the authentication mechanism, it's done by BMC with the help of PAM
+module according to the specific role of the user.
 
-I'm not understanding the relationship between a graphics adapter on the
-host and authentication on the BMC over PLDM.
+Thanks and Best Regards,
+Jayashankar
 
-Are you aware that the Aspeed chip already has a graphics engine that
-can be connected to the host?  OpenBMC already supports exposing that
-graphics adapter as a KVM over the webui.
+On Wed, Jan 3, 2024 at 5:44=E2=80=AFPM Patrick Williams <patrick@stwcx.xyz>=
+ wrote:
 
-If you're suggesting a graphics adapter that the BMC itself uses, there
-is currently no support for doing that.
+> On Wed, Jan 03, 2024 at 03:18:41PM +0530, Jayashankar Padath wrote:
+> > Hello Patrick,
+> >
+> > Thanks for your suggestion. From the host side they wanted  to attach a
+> > graphics adapter so that some of the system management service operatio=
+ns
+> > could be carried out.
+>
+> I'm not understanding the relationship between a graphics adapter on the
+> host and authentication on the BMC over PLDM.
+>
+> Are you aware that the Aspeed chip already has a graphics engine that
+> can be connected to the host?  OpenBMC already supports exposing that
+> graphics adapter as a KVM over the webui.
+>
+> If you're suggesting a graphics adapter that the BMC itself uses, there
+> is currently no support for doing that.
+>
+> > As you suggested we would consider the way, other external interface
+> > programs like bmcweb which support similar functionalities.
+> >
+> > Thanks and Best Regards,
+> > Jayashankar
+> >
+>
+> --
+> Patrick Williams
+>
 
-> As you suggested we would consider the way, other external interface
-> programs like bmcweb which support similar functionalities.
->=20
-> Thanks and Best Regards,
-> Jayashankar
->=20
+--0000000000005d3e27060e0a5a51
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---=20
-Patrick Williams
+<div dir=3D"ltr">Okay I was basically mentioning about the communication be=
+tween the host and the BMC. So in reality, a graphics adapter would be assi=
+gned to a partition, where PFW (Platform firmware) can display the SMS ( Sy=
+stem Management Services) menus for some specific operations. Since PFW doe=
+s not have the authentication mechanism, it&#39;s done by BMC with the help=
+ of PAM module according to the specific role of the user.<br><div><br></di=
+v><div>Thanks and Best Regards,</div><div>Jayashankar</div></div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 3, 2=
+024 at 5:44=E2=80=AFPM Patrick Williams &lt;<a href=3D"mailto:patrick@stwcx=
+.xyz">patrick@stwcx.xyz</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
+204);padding-left:1ex">On Wed, Jan 03, 2024 at 03:18:41PM +0530, Jayashanka=
+r Padath wrote:<br>
+&gt; Hello Patrick,<br>
+&gt; <br>
+&gt; Thanks for your suggestion. From the host side they wanted=C2=A0 to at=
+tach a<br>
+&gt; graphics adapter so that some of the system management service operati=
+ons<br>
+&gt; could be carried out.<br>
+<br>
+I&#39;m not understanding the relationship between a graphics adapter on th=
+e<br>
+host and authentication on the BMC over PLDM.<br>
+<br>
+Are you aware that the Aspeed chip already has a graphics engine that<br>
+can be connected to the host?=C2=A0 OpenBMC already supports exposing that<=
+br>
+graphics adapter as a KVM over the webui.<br>
+<br>
+If you&#39;re suggesting a graphics adapter that the BMC itself uses, there=
+<br>
+is currently no support for doing that.<br>
+<br>
+&gt; As you suggested we would consider the way, other external interface<b=
+r>
+&gt; programs like bmcweb which support similar functionalities.<br>
+&gt; <br>
+&gt; Thanks and Best Regards,<br>
+&gt; Jayashankar<br>
+&gt; <br>
+<br>
+-- <br>
+Patrick Williams<br>
+</blockquote></div>
 
---eZqZ4DHlvfQH69OE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmWVT7YACgkQqwNHzC0A
-wRkMtw//T/6FHnyb36IPFNX3Y32rqGnZjvar/IaSX/XHFAlwa5D4kT7272VDWY9x
-90qWz1i1X40I24Vh6K/2rlWnrqE8FhHMJv+CJeAGK4JIxEJxDuinryMN6Wn45L2r
-TRbactOk9Tzwzt1/FvhSivcn2tH66c0VswZv8Tf9njjMsjjzTa7r4hrtGfG++YtI
-3bHsKaX9CTQVRGqSwVXhq/LFtGLx+iZRC32DH0Wrq/reF0qN68kF3LWWi4ZwB00+
-Qcr12di8XXBCXfTJRkZlIjajSu5toCD4hhJOU482Br8cWjcVY34FLaF1WdXtBBal
-wuv7t8djWE/NERTpRu6I5dk+IP6YjdO7DywTpU+rci8yNiagNOCX3J8BbjJDrCai
-JV3+uqOitCqHn/Yq0FXqGhEeTwSZyllXTMfe5KdqSyrYrTraHuniezc035UZdjlb
-gpLHIyBWiQLGp88/dwxiD9OfIvtu13tPo5uHb1LThhurROCWnEXKkqku17wSv4V2
-bIcA91zpXXCVxcdroiHyEYXC/vaavYJLjMDRX196xn/ccK2JnKn9c/TAlOeyTqM/
-N8Xr125DwiYj3YixaBrwYsDcOg/uz7ryq+54k4vju8uZMp9SGLg3pBCod5Fe/07v
-cFtuDQdJVRw6kK+/uxa/qEoMioHMuyY1wZ5jKCwgeoebcLZJjRU=
-=lPjN
------END PGP SIGNATURE-----
-
---eZqZ4DHlvfQH69OE--
+--0000000000005d3e27060e0a5a51--
