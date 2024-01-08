@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40514C3DA6E
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9D4AC3DA6E
+	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:58:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wcF4MQ9z3cVM
-	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:57:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wcp2Pbjz3d9B
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:58:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wXx178Gz2yN3
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wXy4fqbz2yks
 	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 00:54:40 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsRp9028564
-	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:28 +0200
-Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Mon, 8 Jan
- 2024 15:54:27 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Mon, 8
- Jan 2024 21:54:24 +0800
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsQ51028557
+	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:27 +0200
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 8 Jan
+ 2024 15:54:26 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 8 Jan
+ 2024 21:54:24 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 8 Jan 2024 21:54:25 +0800
+ Transport; Mon, 8 Jan 2024 21:54:24 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id A36305F64C;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 81CF35F646;
 	Mon,  8 Jan 2024 15:54:23 +0200 (IST)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id A2E5ADC0047; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
+	id 8127DDC0047; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <tali.perry1@gmail.com>,
         <joel@jms.id.au>, <venture@google.com>, <yuenn@google.com>,
         <benjaminfair@google.com>
-Subject: [PATCH v22 6/8] dt-bindings: clock: npcm845: replace reg with syscon property
-Date: Mon, 8 Jan 2024 15:54:19 +0200
-Message-ID: <20240108135421.684263-7-tmaimon77@gmail.com>
+Subject: [PATCH v22 3/8] arm: dts: nuvoton: npcm7xx: modify rst syscon node
+Date: Mon, 8 Jan 2024 15:54:16 +0200
+Message-ID: <20240108135421.684263-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240108135421.684263-1-tmaimon77@gmail.com>
 References: <20240108135421.684263-1-tmaimon77@gmail.com>
@@ -64,60 +64,29 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Replace reg with syscon property since the clock registers handle the
-reset registers as well.
+rst node name and compatible property modified since clock and reset are
+handled in the same memory region.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../bindings/clock/nuvoton,npcm845-clk.yaml   | 22 +++++++++----------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
-index 0b642bfce292..c6bf05c163b4 100644
---- a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
-+++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
-@@ -18,8 +18,9 @@ properties:
-     enum:
-       - nuvoton,npcm845-clk
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+index 868454ae6bde..f72c5a03d04c 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+@@ -93,8 +93,8 @@ gcr: gcr@800000 {
+ 			reg = <0x800000 0x1000>;
+ 		};
  
--  reg:
--    maxItems: 1
-+  nuvoton,sysclk:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to access clock registers.
- 
-   clocks:
-     items:
-@@ -37,7 +38,7 @@ properties:
- 
- required:
-   - compatible
--  - reg
-+  - nuvoton,sysclk
-   - clocks
-   - clock-names
-   - '#clock-cells'
-@@ -52,14 +53,11 @@ examples:
-         clock-frequency = <25000000>;
-     }; 
-   
--    ahb {
--        #address-cells = <2>;
--        #size-cells = <2>;
--
--        clock-controller@f0801000 {
--            compatible = "nuvoton,npcm845-clk";
--            reg = <0x0 0xf0801000 0x0 0x1000>;
--            #clock-cells = <1>;
--        };
-+    clk: clock-controller {
-+        compatible = "nuvoton,npcm845-clk";
-+        nuvoton,sysclk = <&clk_rst>;
-+        #clock-cells = <1>;
-+        clocks = <&refclk>;
-+        clock-names = "refclk";
-     };
- ...
+-		rst: rst@801000 {
+-			compatible = "nuvoton,npcm750-rst", "syscon", "simple-mfd";
++		clk_rst: syscon@801000 {
++			compatible = "nuvoton,npcm750-clk-rst", "syscon", "simple-mfd";
+ 			reg = <0x801000 0x6C>;
+ 		};
+ 	};
 -- 
 2.34.1
 
