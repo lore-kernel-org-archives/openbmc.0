@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A38C3DA6E
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A406CC3DA6E
+	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 21:10:41 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=LJysBBxa;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wfL6bgxz3dK3
-	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:59:22 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T86Cz4z0Hz30Dw
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 08:10:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=LJysBBxa;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wYF1pCxz3bWn
-	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 00:54:56 +1100 (AEDT)
-Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsTr7028574
-	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:29 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 8 Jan
- 2024 15:54:28 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 8 Jan
- 2024 21:54:25 +0800
-Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 8 Jan 2024 21:54:25 +0800
-Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id AE8675F64D;
-	Mon,  8 Jan 2024 15:54:23 +0200 (IST)
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id ADCB1DC0047; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh+dt@kernel.org>,
-        <krzysztof.kozlowski+dt@linaro.org>, <tali.perry1@gmail.com>,
-        <joel@jms.id.au>, <venture@google.com>, <yuenn@google.com>,
-        <benjaminfair@google.com>
-Subject: [PATCH v22 7/8] arm64: dts: nuvoton: npcm8xx: replace reg with syscon property
-Date: Mon, 8 Jan 2024 15:54:20 +0200
-Message-ID: <20240108135421.684263-8-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240108135421.684263-1-tmaimon77@gmail.com>
-References: <20240108135421.684263-1-tmaimon77@gmail.com>
-MIME-Version: 1.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T86Bw0G5rz2xcn
+	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 08:09:43 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id E010B61041;
+	Mon,  8 Jan 2024 21:09:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1719AC43390;
+	Mon,  8 Jan 2024 21:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1704748180;
+	bh=tOZeUwu8Ym50TZyoye/7s3VUIMz/brOfUTrnWpL/6c0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=LJysBBxajBMPFfDATpJd+uWkPL3Z5fpOojms4mGLvOAO91gF1W9TpCFLbFI6b/Vg9
+	 FXZn+YmoSnguYsVRJSiuSOOny/i5cwbpl3Zdv/iitV3842uA67jdfd8ERQD1josYtm
+	 Vcc+YUiyGE4jvoONH9istQxAVsBTOloUmkURe68BEBS8U0NVZppgbFNbVKik4XeZZe
+	 VfGMuvKJy74wu1sbbyFS6GlX20UK+unzrDKJJDDyrwd1mUyLmLxyjf84eNQaSwaVDm
+	 hZ8fwKSbS8gQW9SenAcToLaAj1yYZjNJokMkcpzwic95/GRBpstaVco5lDsWZqDidv
+	 Bac3fPiapXvnA==
+Received: (nullmailer pid 2140736 invoked by uid 1000);
+	Mon, 08 Jan 2024 21:09:36 -0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+In-Reply-To: <20240108135421.684263-2-tmaimon77@gmail.com>
+References: <20240108135421.684263-1-tmaimon77@gmail.com>
+ <20240108135421.684263-2-tmaimon77@gmail.com>
+Message-Id: <170474817687.2140623.4004065884295248395.robh@kernel.org>
+Subject: Re: [PATCH v22 1/8] dt-bindings: clock: npcm845: Add reference 25m
+ clock  property
+Date: Mon, 08 Jan 2024 14:09:36 -0700
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,35 +62,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, benjaminfair@google.com, sboyd@kernel.org, venture@google.com, mturquette@baylibre.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, linux-clk@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Replace reg with syscon property since the clock registers handle the
-reset registers as well.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Mon, 08 Jan 2024 15:54:14 +0200, Tomer Maimon wrote:
+> The NPCM8XX clock driver uses 25Mhz external clock, therefor adding
+> refclk property.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  .../bindings/clock/nuvoton,npcm845-clk.yaml      | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-index 7d5956e2c9f3..5cc0efdbb3c7 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-@@ -59,10 +59,10 @@ rstc: reset-controller@f0801000 {
- 			nuvoton,sysgcr = <&gcr>;
- 		};
- 
--		clk: clock-controller@f0801000 {
-+		clk: clock-controller {
- 			compatible = "nuvoton,npcm845-clk";
- 			#clock-cells = <1>;
--			reg = <0x0 0xf0801000 0x0 0x1000>;
-+			nuvoton,sysclk = <&clk_rst>;
- 			clocks = <&refclk>;
- 			clock-names = "refclk";
- 		};
--- 
-2.34.1
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.example.dtb: clock-controller@f0801000: 'clocks' is a required property
+	from schema $id: http://devicetree.org/schemas/clock/nuvoton,npcm845-clk.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.example.dtb: clock-controller@f0801000: 'clock-names' is a required property
+	from schema $id: http://devicetree.org/schemas/clock/nuvoton,npcm845-clk.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240108135421.684263-2-tmaimon77@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
