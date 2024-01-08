@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EDF2C3DA6E
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 08:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA19C3DA6E
+	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:55:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T7nZY1Cp0z30YZ
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 19:40:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=h08.hostsharing.net (client-ip=2a01:4f8:150:2161:1:b009:f23e:0; helo=bmailout3.hostsharing.net; envelope-from=foo00@h08.hostsharing.net; receiver=lists.ozlabs.org)
-Received: from bmailout3.hostsharing.net (bmailout3.hostsharing.net [IPv6:2a01:4f8:150:2161:1:b009:f23e:0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wYX1lCpz3bcJ
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:55:12 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T4qF858wWz3cZx
-	for <openbmc@lists.ozlabs.org>; Wed,  3 Jan 2024 23:45:16 +1100 (AEDT)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
-	 client-signature RSA-PSS (4096 bits) client-digest SHA256)
-	(Client CN "*.hostsharing.net", Issuer "RapidSSL TLS RSA CA G1" (verified OK))
-	by bmailout3.hostsharing.net (Postfix) with ESMTPS id A05C4100DA1A2;
-	Wed,  3 Jan 2024 13:45:02 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
-	id 3FEC5294C4E; Wed,  3 Jan 2024 13:45:02 +0100 (CET)
-Date: Wed, 3 Jan 2024 13:45:02 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Tao Ren <rentao.bupt@gmail.com>
-Subject: Re: [PATCH v2 3/6] ARM: dts: aspeed: Common dtsi for Facebook
- AST2600 Network BMCs
-Message-ID: <20240103124502.GB23899@wunner.de>
-References: <20210805222818.8391-1-rentao.bupt@gmail.com>
- <20210805222818.8391-4-rentao.bupt@gmail.com>
- <20231220081402.GA3831@wunner.de>
- <ZZSmMJ//l972Qbxu@fedora>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wXx08NYz2xQK
+	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 00:54:37 +1100 (AEDT)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsQ53028557
+	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:27 +0200
+Received: from NTHCCAS04.nuvoton.com (10.1.8.29) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2176.14; Mon, 8 Jan
+ 2024 15:54:26 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS04.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2176.14; Mon, 8
+ Jan 2024 21:54:23 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 8 Jan 2024 21:54:24 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 6FCE75F5FA;
+	Mon,  8 Jan 2024 15:54:23 +0200 (IST)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 6B50EDC004A; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <tali.perry1@gmail.com>,
+        <joel@jms.id.au>, <venture@google.com>, <yuenn@google.com>,
+        <benjaminfair@google.com>
+Subject: [PATCH v22 1/8] dt-bindings: clock: npcm845: Add reference 25m clock  property
+Date: Mon, 8 Jan 2024 15:54:14 +0200
+Message-ID: <20240108135421.684263-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240108135421.684263-1-tmaimon77@gmail.com>
+References: <20240108135421.684263-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZZSmMJ//l972Qbxu@fedora>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 08 Jan 2024 19:40:08 +1100
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,50 +60,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>, taoren@fb.com, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Jan 02, 2024 at 04:11:28PM -0800, Tao Ren wrote:
-> On Wed, Dec 20, 2023 at 09:14:02AM +0100, Lukas Wunner wrote:
-> > On Thu, Aug 05, 2021 at 03:28:15PM -0700, rentao.bupt@gmail.com wrote:
-> > > This common descirption is included by all Facebook AST2600 Network BMC
-> > > platforms to minimize duplicated device entries across Facebook Network
-> > > BMC device trees.
-> > [...]
-> > > --- /dev/null
-> > > +++ b/arch/arm/boot/dts/ast2600-facebook-netbmc-common.dtsi
-> > [...]
-> > > +		tpmdev@0 {
-> > > +			compatible = "tcg,tpm_tis-spi";
-> > 
-> > What's the chip used on this board?  Going forward, the DT schema for TPMs
-> > requires the exact chip name in addition to the generic "tcg,tpm_tis-spi".
-> 
-> Sorry about the late response. It's "infineon,slb9670", and I will
-> submit a patch for fix it soon.
+The NPCM8XX clock driver uses 25Mhz external clock, therefor adding
+refclk property.
 
-Thank you Tao and Patrick for the replies.  I've prepared two commits
-to fix all violations of the TPM schema on this branch:
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/clock/nuvoton,npcm845-clk.yaml      | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-  https://github.com/l1k/linux/commits/tpm-dt3
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
+index b901ca13cd25..0b642bfce292 100644
+--- a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
++++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
+@@ -21,6 +21,14 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  clocks:
++    items:
++      - description: 25Mhz referance clock
++
++  clock-names:
++    items:
++      - const: refclk
++
+   '#clock-cells':
+     const: 1
+     description:
+@@ -30,12 +38,20 @@ properties:
+ required:
+   - compatible
+   - reg
++  - clocks
++  - clock-names
+   - '#clock-cells'
+ 
+ additionalProperties: false
+ 
+ examples:
+   - |
++    refclk: refclk-25mhz {
++        compatible = "fixed-clock";
++        #clock-cells = <0>;
++        clock-frequency = <25000000>;
++    }; 
++  
+     ahb {
+         #address-cells = <2>;
+         #size-cells = <2>;
+-- 
+2.34.1
 
-The commits are named:
-
-  e95bdbc arm64: dts: Fix TPM schema violations
-  63e5dfd ARM: dts: Fix TPM schema violations
-
-I've now amended the ARM commit to use "infineon,slb9670" for:
-
-  arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-  arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-wedge400.dts
-  arch/arm/boot/dts/aspeed/ast2600-facebook-netbmc-common.dtsi
-
-I intend to submit the two commits once the TPM schema is applied
-either to Jarkko's or Rob's tree:
-
-  https://lore.kernel.org/all/20231220160422.GA282877-robh@kernel.org/
-
-Thanks,
-
-Lukas
