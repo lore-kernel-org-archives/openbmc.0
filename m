@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9D4AC3DA6E
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62285C3DA6E
+	for <openbmc@archiver.kernel.org>; Mon,  8 Jan 2024 13:58:32 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wcp2Pbjz3d9B
-	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:58:02 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4T7wdL23Hyz3clb
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jan 2024 00:58:30 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wXy4fqbz2yks
-	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 00:54:40 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4T7wY01sDHz2yN3
+	for <openbmc@lists.ozlabs.org>; Tue,  9 Jan 2024 00:54:37 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsQ51028557
-	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:27 +0200
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 408DsUFb028577
+	for <openbmc@lists.ozlabs.org>; Mon, 8 Jan 2024 15:54:30 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 8 Jan
- 2024 15:54:26 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Mon, 8 Jan
- 2024 21:54:24 +0800
+ 2024 15:54:29 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 8 Jan
+ 2024 21:54:25 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 8 Jan 2024 21:54:24 +0800
+ Transport; Mon, 8 Jan 2024 21:54:25 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 81CF35F646;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 97D175F64B;
 	Mon,  8 Jan 2024 15:54:23 +0200 (IST)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 8127DDC0047; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
+	id 97224DC0047; Mon,  8 Jan 2024 15:54:23 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh+dt@kernel.org>,
         <krzysztof.kozlowski+dt@linaro.org>, <tali.perry1@gmail.com>,
         <joel@jms.id.au>, <venture@google.com>, <yuenn@google.com>,
         <benjaminfair@google.com>
-Subject: [PATCH v22 3/8] arm: dts: nuvoton: npcm7xx: modify rst syscon node
-Date: Mon, 8 Jan 2024 15:54:16 +0200
-Message-ID: <20240108135421.684263-4-tmaimon77@gmail.com>
+Subject: [PATCH v22 5/8] arm64: dts: nuvoton: npcm8xx: add clock reset syscon node
+Date: Mon, 8 Jan 2024 15:54:18 +0200
+Message-ID: <20240108135421.684263-6-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240108135421.684263-1-tmaimon77@gmail.com>
 References: <20240108135421.684263-1-tmaimon77@gmail.com>
@@ -64,29 +64,30 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-rst node name and compatible property modified since clock and reset are
-handled in the same memory region.
+Add clock reset syscon node to handle reset and clock registers
+controllers.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-index 868454ae6bde..f72c5a03d04c 100644
---- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
-@@ -93,8 +93,8 @@ gcr: gcr@800000 {
- 			reg = <0x800000 0x1000>;
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index 9c4df91031e7..7d5956e2c9f3 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -22,6 +22,11 @@ gcr: system-controller@f0800000 {
+ 			reg = <0x0 0xf0800000 0x0 0x1000>;
  		};
  
--		rst: rst@801000 {
--			compatible = "nuvoton,npcm750-rst", "syscon", "simple-mfd";
-+		clk_rst: syscon@801000 {
-+			compatible = "nuvoton,npcm750-clk-rst", "syscon", "simple-mfd";
- 			reg = <0x801000 0x6C>;
- 		};
- 	};
++		clk_rst: syscon@f0801000 {
++			compatible = "nuvoton,npcm845-clk-rst", "syscon", "simple-mfd";
++			reg = <0x0 0xf0801000 0x0 0xC4>;
++		};
++
+ 		gic: interrupt-controller@dfff9000 {
+ 			compatible = "arm,gic-400";
+ 			reg = <0x0 0xdfff9000 0x0 0x1000>,
 -- 
 2.34.1
 
