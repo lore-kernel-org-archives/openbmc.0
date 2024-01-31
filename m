@@ -4,67 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E2FDC47258
-	for <openbmc@archiver.kernel.org>; Wed, 31 Jan 2024 08:11:43 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UB+BneGD;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73EF9C47258
+	for <openbmc@archiver.kernel.org>; Wed, 31 Jan 2024 18:27:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TPvrZ19Nmz3cQL
-	for <openbmc@archiver.kernel.org>; Wed, 31 Jan 2024 19:11:42 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UB+BneGD;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::b30; helo=mail-yb1-xb30.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com [IPv6:2607:f8b0:4864:20::b30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TQ9Wb6bDsz3cTL
+	for <openbmc@archiver.kernel.org>; Thu,  1 Feb 2024 05:27:55 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TPvqY00tzz2yyT
-	for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2024 19:10:46 +1100 (AEDT)
-Received: by mail-yb1-xb30.google.com with SMTP id 3f1490d57ef6-dc2501ed348so505049276.0
-        for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2024 00:10:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706688642; x=1707293442; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z9OD1UiKot9xBEp4pQEuFNoRwTpzFrjRRiTMq/H5FH8=;
-        b=UB+BneGDpDDVOSsG8kLoTy7PXvGuXt0Gru605rB6M1/GQLw539vu3hGCW05+9OyvW1
-         kwIwa+o2Eqe+Ax7l8tpzOJbSTCl3qODsSrbvsVBHBifjbLraRbiI95QWgoHYEGGJdobL
-         bmn+hA7tJPdSLwTAUh5KUGelUKFX56r/yoZkMOXyFauLomKxSjFlBPakVoMXpBI7fPm1
-         Biagb7J0YLS9FJbqSrIg7jYaSuO6N2FwOvFS3Xu1SuwpMH7vZ4aSPXEj2H3gUZvNMRXZ
-         q1O87tg8LXVbfIRXoTflVdSCS4wLMWbLb5fiY84OmwVbWk3L2fQ15YsKPgkjh9CWjqx6
-         7pKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706688642; x=1707293442;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=z9OD1UiKot9xBEp4pQEuFNoRwTpzFrjRRiTMq/H5FH8=;
-        b=vAmZA1+SYEgxANhkgHgkjMMF7nPkMsJj1CXbKkTQUhU7ta6gTo5zz/ngEW7QQT+E9F
-         I22QV6PHdz3iOjJukb4nSXIKOI4LRb6V/6ZrB15kWv5LlfaA4qD1KtUCljK9thFHK/P5
-         6NHIiwWoW9kgngrTJr4e1wyf9QCGQ1goCHvoRHUtNFg8UkWI1cG4sKvFe+AbouVe2zhh
-         xWu3kdoJN5gROdc9KKm3cQ3bLiC7vWDu/UteTiTZNNy1alaW56pK1S9uBLnAv20gJBe1
-         e0epGgh49uVh/UIh23YhQ3042fpe4WSjYSQ+RLEioOR96UwZP0ksLPyKIWOZYm4N7MLj
-         PFlg==
-X-Gm-Message-State: AOJu0YwIgC+XnBi2O4sIWwNmLAEmyTs0i1NMBvthiU1g9RcPS+WXc7Il
-	D6Zis7SCNgILqXmeirxLOY9dLz5yyRZbnZrLSZFwwkKC+MVjNgEQWKtYJSjTHR7EQCi2g6BBVjN
-	luaFX1qrbwAOpJpDXg8WemZ455UpP1rfbpCP/dA==
-X-Google-Smtp-Source: AGHT+IF7/97h8A2ABSW+ZKivSqrc+3VaVDxhilyJhD8FjHKMHd8T3fIFoykLSG2kAQuVNIsrK+oFINo0NP7MfrmxMWg=
-X-Received: by 2002:a25:bb4d:0:b0:dc6:c252:75fe with SMTP id
- b13-20020a25bb4d000000b00dc6c25275femr281957ybk.10.1706688642247; Wed, 31 Jan
- 2024 00:10:42 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TQ9Vx6Gsxz3blb
+	for <openbmc@lists.ozlabs.org>; Thu,  1 Feb 2024 05:27:19 +1100 (AEDT)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 40VIRAER011689
+	for <openbmc@lists.ozlabs.org>; Wed, 31 Jan 2024 20:27:10 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Wed, 31 Jan
+ 2024 20:27:09 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Feb
+ 2024 02:27:07 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 1 Feb 2024 02:27:07 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id EF7BF5F63F;
+	Wed, 31 Jan 2024 20:27:06 +0200 (IST)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id EC000DC08DB; Wed, 31 Jan 2024 20:27:06 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <robh+dt@kernel.org>,
+        <krzysztof.kozlowski+dt@linaro.org>, <tali.perry1@gmail.com>,
+        <joel@jms.id.au>, <venture@google.com>, <yuenn@google.com>,
+        <benjaminfair@google.com>
+Subject: [PATCH v23 1/3] dt-bindings: clock: npcm845: Add reference 25m clock property
+Date: Wed, 31 Jan 2024 20:26:51 +0200
+Message-ID: <20240131182653.2673554-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240131182653.2673554-1-tmaimon77@gmail.com>
+References: <20240131182653.2673554-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <20240124190106.1540585-1-robh@kernel.org>
-In-Reply-To: <20240124190106.1540585-1-robh@kernel.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 31 Jan 2024 09:10:31 +0100
-Message-ID: <CACRpkdZq4dYwJNvo1CncaHGsDeU5qQhms2SN8WGsTRwBB-Bhmw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: Unify "input-debounce" schema
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,21 +60,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, Charles Keepax <ckeepax@opensource.cirrus.com>, Tomer Maimon <tmaimon77@gmail.com>, alsa-devel@alsa-project.org, linux-gpio@vger.kernel.org, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, Richard Fitzgerald <rf@opensource.cirrus.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Jan 24, 2024 at 8:01=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
-:
+The NPCM8XX clock driver uses a 25Mhz external clock, therefore adding
+clock property.
 
-> nuvoton,npcm845-pinctrl defines the common "input-debounce" property as
-> an array rather than an scalar. Update the common definition to expand
-> it to an uint32-array, and update all the users of the property with
-> array constraints.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
+The new required clock property does not break the NPCM8XX clock ABI
+since the NPCM8XX clock driver hasn't merged yet to the Linux vanilla.
 
-Patches applied, thanks for fixing this!
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/clock/nuvoton,npcm845-clk.yaml          | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
+index b901ca13cd25..7060891d0c32 100644
+--- a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
++++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
+@@ -21,6 +21,14 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  clocks:
++    items:
++      - description: 25Mhz reference clock
++
++  clock-names:
++    items:
++      - const: refclk
++
+   '#clock-cells':
+     const: 1
+     description:
+@@ -30,6 +38,8 @@ properties:
+ required:
+   - compatible
+   - reg
++  - clocks
++  - clock-names
+   - '#clock-cells'
+ 
+ additionalProperties: false
+@@ -44,6 +54,8 @@ examples:
+             compatible = "nuvoton,npcm845-clk";
+             reg = <0x0 0xf0801000 0x0 0x1000>;
+             #clock-cells = <1>;
++            clocks = <&refclk>;
++            clock-names = "refclk";
+         };
+     };
+ ...
+-- 
+2.34.1
+
