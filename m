@@ -4,51 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A3A1C4828D
-	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 01:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2AFFC48260
+	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 07:23:19 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=ONjRy3aH;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=KY6moMGn;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TVfh95rGVz3bpt
-	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 12:35:53 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TVpP22mVlz3cJl
+	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 18:23:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=ONjRy3aH;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=KY6moMGn;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
-X-Greylist: delayed 409 seconds by postgrey-1.37 at boromir; Thu, 08 Feb 2024 12:33:22 AEDT
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::235; helo=mail-oi1-x235.google.com; envelope-from=sunithaharish04@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com [IPv6:2607:f8b0:4864:20::235])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TVfdG2Fsbz3bn0
-	for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2024 12:33:22 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:712b:6300::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id ED594D98;
-	Wed,  7 Feb 2024 17:26:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1707355589;
-	bh=3HS5yhO/DTt8/grju8Sqzw88K9FEC/162WIjUF71ihQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ONjRy3aHpvhgvdr/qZopPFDDk9gJT0Cc5cn1ptSvy4EpaL5K7ZCgYTwrWu+Pty3Wb
-	 FZJfZ784SCOysGyooOeqod7rgLZS9cjuzJ3WNFHtv5+CQyU9dcdZEKM4TWtPfJaG3N
-	 eFGWY8+D/ROgtTNbHFzNbcJwhr2E3vXpCERbyNMI=
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Helge Deller <deller@gmx.de>,
-	linux-parisc@vger.kernel.org,
-	Florent Revest <revest@chromium.org>
-Subject: [PATCH 1/2] prctl: Generalize PR_SET_MDWE support check to be per-arch
-Date: Wed,  7 Feb 2024 17:26:19 -0800
-Message-ID: <20240208012620.32604-5-zev@bewilderbeest.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240208012620.32604-4-zev@bewilderbeest.net>
-References: <20240208012620.32604-4-zev@bewilderbeest.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TVpMz312Fz3bqQ
+	for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2024 18:22:21 +1100 (AEDT)
+Received: by mail-oi1-x235.google.com with SMTP id 5614622812f47-3bfcbfbfd92so785653b6e.2
+        for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2024 23:22:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707376936; x=1707981736; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:from:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8aQUvQGcVs8N2FaBIlKl7xmWkoBJSTmhLKRO5vFEedM=;
+        b=KY6moMGnB6LbcC4c+rPWLMzd5dL8u4VuPR6R3NSl5l5r/rvKb8ESQKSDvz4qT3ptTB
+         2lAQ2Q3+peQSaJ3EtxJDbuWCjTmq0YFKOCTqIxNcnA2YH2mdgabnJV5tbCNaEpjYFTsf
+         je25eiOF6ZYXuEiP7nml5lXlVXlGd1aJOApBDWhP+V+LgB9NNAsW+kLRNVmxWa897lqf
+         QC3WuiNOVz+TW+sWQVeILx/yJn0iOrPHeciN5cpIzcfZOwaJm6bNmg7p0OWyGDJUdaSt
+         j+1K7J129K5SE8tlX29RwesNiY40/N0jIVAZAp5ksrwrsQzmDBDCTxkP9IoYo831646D
+         BR2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707376936; x=1707981736;
+        h=content-transfer-encoding:cc:to:subject:from:content-language
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=8aQUvQGcVs8N2FaBIlKl7xmWkoBJSTmhLKRO5vFEedM=;
+        b=Yr5qwUn82GOjPYCXW8POZlAVVCEcNc+3BrUoGUs2D9xJYjfM635apjraiGnb6uCGsU
+         r9hLgVDLgw0eGQfFPAzCFgdz0GW/FY4Io+H9ba9epxZRZtjVsaROHxX7IldiJ+7Qs5tc
+         dzq5o3wWE0mWd6eHbBrx+HkvPAJ0h+bZlZglEz12r+yi0tduf13a0CEj9VKpSDGGyvLL
+         4Cuq6l1ot/KeQJaluiQMas37xPXaZ6g3K0rExP/dXpFEoiGq0oA5kPgiB4bMVOPXROOU
+         OfKTm9x0+Obq/YbmmnrtQ88DQ+6YHcElUyLq0FxYn3JKyyCYMcoonaF806L3JzsROBMe
+         +sow==
+X-Gm-Message-State: AOJu0YwHiBmXKxlmxE4Mdwa5ZLCbAMmskKLeabLC6r/2pgP5Ls+HEJ0P
+	VtTGMFdCKqY0gZAc+Kl2NA7fqDkEez8trmtdum03p36G75fwY8D2ohEsl+s1
+X-Google-Smtp-Source: AGHT+IGiLbqPbESxwvznFEdHGnzRfewPZbrl7jsCxTueF2BkxeeAd+P9i6RazqdAI7k7evuSwF63bw==
+X-Received: by 2002:a05:6808:d4:b0:3bf:d127:b510 with SMTP id t20-20020a05680800d400b003bfd127b510mr7708081oic.15.1707376936029;
+        Wed, 07 Feb 2024 23:22:16 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVv03SwHh0DzCXFB4UEOmVUMCBl02ciUkigGcR1jTzt4+E/daX+P88ofVP8043+3AU2nXn6UpR8QGAE0idQGv7jvWaUSHe2L6n4RuVaOP9F+ECIe/Q/SgVc
+Received: from ?IPV6:2620:1f7:3d44:7c48::32:3cb? ([2620:1f7:3d44:7c48::32:3cb])
+        by smtp.gmail.com with ESMTPSA id hy6-20020a056a006a0600b006e06af90ff4sm2698209pfb.204.2024.02.07.23.22.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Feb 2024 23:22:15 -0800 (PST)
+Message-ID: <88ba0256-2c86-4727-97b6-dce02ba61554@gmail.com>
+Date: Thu, 8 Feb 2024 12:52:11 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Sunitha Harish <sunithaharish04@gmail.com>
+Subject: File Manager Service in OpenBMC
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,81 +79,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Sam James <sam@gentoo.org>, Ondrej Mosnacek <omosnace@redhat.com>, Zev Weiss <zev@bewilderbeest.net>, Stefan Roesch <shr@devkernel.io>, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, David Hildenbrand <david@redhat.com>, Oleg Nesterov <oleg@redhat.com>, stable@vger.kernel.org, Josh Triplett <josh@joshtriplett.org>, "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Borislav Petkov \(AMD\)" <bp@alien8.de>, Yang Shi <yang@os.amperecomputing.com>, Miguel Ojeda <ojeda@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, "Mike Rapoport \(IBM\)" <rppt@kernel.org>
+Cc: gmills@us.ibm.com, ed@tanous.net, geissonator@yahoo.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-There exist systems other than PARISC where MDWE may not be feasible
-to support; rather than cluttering up the generic code with additional
-arch-specific logic let's add a generic function for checking MDWE
-support and allow each arch to override it as needed.
+Hi,
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Cc: <stable@vger.kernel.org> # v6.3+
----
- arch/parisc/include/asm/mman.h | 14 ++++++++++++++
- include/linux/mman.h           |  8 ++++++++
- kernel/sys.c                   |  7 +++++--
- 3 files changed, 27 insertions(+), 2 deletions(-)
- create mode 100644 arch/parisc/include/asm/mman.h
+This email is about adding a FileManager Service in OpenBMC.
 
-diff --git a/arch/parisc/include/asm/mman.h b/arch/parisc/include/asm/mman.h
-new file mode 100644
-index 000000000000..47c5a1991d10
---- /dev/null
-+++ b/arch/parisc/include/asm/mman.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MMAN_H__
-+#define __ASM_MMAN_H__
-+
-+#include <uapi/asm/mman.h>
-+
-+/* PARISC cannot allow mdwe as it needs writable stacks */
-+static inline bool arch_memory_deny_write_exec_supported(void)
-+{
-+	return false;
-+}
-+#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
-+
-+#endif /* __ASM_MMAN_H__ */
-diff --git a/include/linux/mman.h b/include/linux/mman.h
-index dc7048824be8..bcb201ab7a41 100644
---- a/include/linux/mman.h
-+++ b/include/linux/mman.h
-@@ -162,6 +162,14 @@ calc_vm_flag_bits(unsigned long flags)
- 
- unsigned long vm_commit_limit(void);
- 
-+#ifndef arch_memory_deny_write_exec_supported
-+static inline bool arch_memory_deny_write_exec_supported(void)
-+{
-+	return true;
-+}
-+#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
-+#endif
-+
- /*
-  * Denies creating a writable executable mapping or gaining executable permissions.
-  *
-diff --git a/kernel/sys.c b/kernel/sys.c
-index e219fcfa112d..8d4bd24fa555 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -2394,8 +2394,11 @@ static inline int prctl_set_mdwe(unsigned long bits, unsigned long arg3,
- 	if (bits & PR_MDWE_NO_INHERIT && !(bits & PR_MDWE_REFUSE_EXEC_GAIN))
- 		return -EINVAL;
- 
--	/* PARISC cannot allow mdwe as it needs writable stacks */
--	if (IS_ENABLED(CONFIG_PARISC))
-+	/*
-+	 * EOPNOTSUPP might be more appropriate here in principle, but
-+	 * existing userspace depends on EINVAL specifically.
-+	 */
-+	if (!arch_memory_deny_write_exec_supported())
- 		return -EINVAL;
- 
- 	current_bits = get_current_mdwe();
--- 
-2.43.0
+IBM has usecases implemented under /ibm/v1 path at bmcweb, which uploads 
+and manages files on the BMC. This usecase is being re-designed, to stop 
+bmcweb from modifying and accessing BMC file system directly.
+
+To achieve this, a dbus & backend application is needed. This should 
+provide APIs to Create, Update, Get and Delete a file. This application 
+should also take care of security aspects of the File upload usecases, 
+before letting the BMC file system updated. Please share your views on 
+adding this application.
+
+Thanks & regards,
+Sunitha
+
+
 
