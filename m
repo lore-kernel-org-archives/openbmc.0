@@ -4,67 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6BE4C4828D
-	for <openbmc@archiver.kernel.org>; Wed,  7 Feb 2024 10:47:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AAD8C4828F
+	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 01:34:15 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NDxYS0Xs;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=WE/8Lz4f;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TVGzf0my4z3brc
-	for <openbmc@archiver.kernel.org>; Wed,  7 Feb 2024 21:47:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TVffG3V29z3cBK
+	for <openbmc@archiver.kernel.org>; Thu,  8 Feb 2024 12:34:14 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NDxYS0Xs;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=WE/8Lz4f;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::1129; helo=mail-yw1-x1129.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com [IPv6:2607:f8b0:4864:20::1129])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TVGyY3R69z30ft
-	for <openbmc@lists.ozlabs.org>; Wed,  7 Feb 2024 21:46:58 +1100 (AEDT)
-Received: by mail-yw1-x1129.google.com with SMTP id 00721157ae682-60406302a5eso5001407b3.0
-        for <openbmc@lists.ozlabs.org>; Wed, 07 Feb 2024 02:46:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1707302810; x=1707907610; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VKj881Aaf4mYKxSOVReOB5rnt8T7gInv+xnCpX24PSM=;
-        b=NDxYS0XsiHOSbECuCZehPe8U+EjddfiDM4QlezuUmePTBRAmkOuJeDgDnBDUsXQj3Z
-         P2h37xnsw+rMGxA3Y5BxRNdWk8V1FbYsXJx6ns3Sr5QMLPCo2krN9E0FJyVFHxcHznZh
-         /9NlJPkP5hwhsfaLLOfRpEWW3ON/GKuf/KlpXczTIpvAhoS1wOZjEY/Hg1kDdWv63izC
-         NXM/RvD/5sMAvhbr9cB3s2h2h0AEtWSuD9YVGcIPvOCNMyiK/MSY0v6Iducd2ZH8dIdQ
-         CuNY7Qv3Xxy/k0Qq9BeG32RfnLYq7Bey/SmcJpbsJ25CfvIcN6TSWZxiqkjqRQ+F2T9O
-         tWiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707302810; x=1707907610;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=VKj881Aaf4mYKxSOVReOB5rnt8T7gInv+xnCpX24PSM=;
-        b=Bn2cg3436QU8SXKVj+PdT28ZZdzEPndquKs7NiTFzAdda2WmZVhoKwxZO/H0PmVI2Q
-         qYPIUSNqyjNtiNhLi2+DwSBi+3FWPwFGw0GpHoYO4ehs32gxrdJPAZHCBXA62xwnTHcJ
-         CK77XSWBXTGSXzDpuMkGj85o/LmTUWT1RuGery8OQTM6jS4PciPumwVAtI3q2AldZ87Q
-         J4/vm73L2j33lgpUAVmvfnSAEJTrRvikQJ97gCGB6MbIW0Tr3hp0DO3sgSydS8SwRhRt
-         94Tq1t0Pm0RxQ1VsUgqvR1TJoz2DYoQrQJFNRTcAga9xeKxWBgZV8dtXNc1m7p5pDcRe
-         3hPA==
-X-Gm-Message-State: AOJu0Ywayx19uTgQr75c+jIRx47FyNBIH/TXla1jRBuQi1Xpq8FK8FCs
-	ifw+BZeUF4VFgadrFBn+cAMQpr1j3rraKIKwWV7Ecsly+2UsGRuyyrVs/He42AmOQJPRBk2RPub
-	fctpX+/sKBpal1Jmr0KC7p8G713PdjeF/BiDK+g==
-X-Google-Smtp-Source: AGHT+IFICaMWcFSHf+rMsrZpjqNCWw5NlgzTK1CiqqBvfuK2Ztc7Bl1sYVhPZ349FbFC6VpKk9kRIE5qv62ianruFtU=
-X-Received: by 2002:a81:c709:0:b0:5ff:314a:99c with SMTP id
- m9-20020a81c709000000b005ff314a099cmr4376710ywi.5.1707302810126; Wed, 07 Feb
- 2024 02:46:50 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TVfdG2f9Vz3bpt
+	for <openbmc@lists.ozlabs.org>; Thu,  8 Feb 2024 12:33:22 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:712b:6300::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: zev)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 90C25DD9;
+	Wed,  7 Feb 2024 17:26:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+	s=thorn; t=1707355589;
+	bh=jCfZxrSPfJRHCvrnkx78xqXBFO8QXL5lwiLPbS+xTAw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=WE/8Lz4fbNW5hsXgLypZFn60E7qq3727+grkoIAgUAZO+kPRV+GimPEAfRtWnfs8N
+	 BHEObsnhOydmXdgmSyMAojdnhwMYrIFvSnPrwMl8MGW8gyVf330s4rIozE0T5/dEE9
+	 47SLwGlLubpXFlRqB6hCTSQk3VHSnmIl2CW0Z4oQ=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Russell King <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 2/2] ARM: prctl: Reject PR_SET_MDWE on pre-ARMv6
+Date: Wed,  7 Feb 2024 17:26:20 -0800
+Message-ID: <20240208012620.32604-6-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240208012620.32604-4-zev@bewilderbeest.net>
+References: <20240208012620.32604-4-zev@bewilderbeest.net>
 MIME-Version: 1.0
-References: <20231211154239.4190429-1-andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20231211154239.4190429-1-andriy.shevchenko@linux.intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 7 Feb 2024 11:47:03 +0100
-Message-ID: <CACRpkdb-F_UkO-taK2Cqt-OkqWaTy3mp+YwiXxE0uMFad=D6+w@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1] pinctrl: nuvoton: Constify wpcm450_groups
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,18 +58,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Dec 11, 2023 at 4:42=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
+On v5 and lower CPUs we can't provide MDWE protection, so ensure we
+fail any attempt to enable it via prctl(PR_SET_MDWE).
 
-> There is no modifications are assumed for wpcm450_groups. Constify it.
->
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Previously such an attempt would misleadingly succeed, leading to any
+subsequent mmap(PROT_READ|PROT_WRITE) or execve() failing
+unconditionally (the latter somewhat violently via
+force_fatal_sig(SIGSEGV) due to READ_IMPLIES_EXEC).
 
-Patch applied, thanks for reminding me, I must have missed it.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Cc: <stable@vger.kernel.org> # v6.3+
+---
+ arch/arm/include/asm/mman.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 arch/arm/include/asm/mman.h
 
-Yours,
-Linus Walleij
+diff --git a/arch/arm/include/asm/mman.h b/arch/arm/include/asm/mman.h
+new file mode 100644
+index 000000000000..2189e507c8e0
+--- /dev/null
++++ b/arch/arm/include/asm/mman.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __ASM_MMAN_H__
++#define __ASM_MMAN_H__
++
++#include <asm/system_info.h>
++#include <uapi/asm/mman.h>
++
++static inline bool arch_memory_deny_write_exec_supported(void)
++{
++	return cpu_architecture() >= CPU_ARCH_ARMv6;
++}
++#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
++
++#endif /* __ASM_MMAN_H__ */
+-- 
+2.43.0
+
