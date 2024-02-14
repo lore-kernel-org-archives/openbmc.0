@@ -4,50 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B0B8C48BC4
-	for <openbmc@archiver.kernel.org>; Tue, 20 Feb 2024 22:37:35 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=JvGHSM+X;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B07AC48BC4
+	for <openbmc@archiver.kernel.org>; Wed, 14 Feb 2024 23:28:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TfZ6Q0RPNz3bnL
-	for <openbmc@archiver.kernel.org>; Wed, 21 Feb 2024 09:37:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=JvGHSM+X;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TZvWQ0x9xz3dWv
+	for <openbmc@archiver.kernel.org>; Thu, 15 Feb 2024 10:28:02 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.219.44; helo=mail-qv1-f44.google.com; envelope-from=geert.uytterhoeven@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TfZ5K0p2fz2xQB;
-	Wed, 21 Feb 2024 09:36:36 +1100 (AEDT)
-Received: from [192.168.68.112] (ppp14-2-85-8.adl-apt-pir-bras31.tpg.internode.on.net [14.2.85.8])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 0932F20154;
-	Wed, 21 Feb 2024 06:36:31 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1708468595;
-	bh=bAguqTpdGJckXBQC6UU/JtFufFB52QFTiS2nWxrqpUE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JvGHSM+XE/LFqrPlzs/radD0aS5koT/XXbKC+5mTXe6+C84/j1oB2KyYI2nZwlYcB
-	 bp0GCyOYK7oE0hvZP9pDKJg6jFPISq8gptEe53VmSFw2nT+R6C2q+S5rwgso7w87Rq
-	 bX6rpccgD0aXvwZOCqE4qYRId4gfSVGRgAAKcqbnr6zc877YGcMr7/naV9GJ4tht7g
-	 1lP+viKKdNCuLBlek3PBk1ecAcok8YyyM2Boc6dVAKt5xBWvSP7dwPWMoYS9bjFHEv
-	 H5AOrsTAhvieHyiaQMpFIq2s3BeXvfcoLlniTVsitjUZu8B17CfSAGcdF16ulYzxy9
-	 YWgbPXnt01tvw==
-Message-ID: <9680ad7d7a48fc36a0572dc2286a1229a29341fe.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] ipmi: kcs: Update OBF poll timeout to reduce latency
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: minyard@acm.org, Paul Menzel <pmenzel@molgen.mpg.de>
-Date: Wed, 21 Feb 2024 09:06:29 +1030
-In-Reply-To: <ZdT+eThnYqb3iawF@mail.minyard.net>
-References: <20240220123615.963916-1-geissonator@gmail.com>
-	 <a9169894-6972-49c0-a1d4-d80863f5b511@molgen.mpg.de>
-	 <ZdT+eThnYqb3iawF@mail.minyard.net>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TZhGw6rVGz309c;
+	Thu, 15 Feb 2024 02:01:27 +1100 (AEDT)
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-68c814135a9so31432546d6.1;
+        Wed, 14 Feb 2024 07:01:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707922881; x=1708527681;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=h6upARWbXs1k8V4Vnc/YI44n6rxziwjW/OPtXVVY76s=;
+        b=n45yioNY7E+MJa2KUh6yS/jgObhRLdrd+a8YoxUF4SYbRfswvNY+rHj9V34ZHnqVul
+         Rb2fcbz7Lvx0MddYN5A8QhLLtRkV1PYd/nvWjTCkRkFJHF2TAE/hqT2ca8nmAMnDH2/L
+         ZZlUXmy+gbItj8a15kwVKlq9/Go30gh5WItErpsFdTvjP8Y+3Jhqh/oeKLBCgIirz8Qz
+         OVm4DKwv1KJKIidpDhNs9s0v/FFzS67ecLNXzVYVH1suQgceIdI74MexqP5YVH6Zqo6V
+         vHz92a2MEfKPY3M2EwFvP2pC31NUWsAq5XS0q1S9oV7Cl4EBXYTcQCxlcGQBWF0JV05a
+         /niw==
+X-Forwarded-Encrypted: i=1; AJvYcCXGUbj2S3OFIlXfJbPYS9npLeYmUjDEP678FKQMwjreQ5bmzy1X75yBeslQ5C4XpIzSfUbd4CosTvJ/+Z1oVRtJm0rIuePbpn6Nu7hBA0MgDAN5EqMy/GiQqtWbJEJ3H7B2Jw/9yCxY
+X-Gm-Message-State: AOJu0YyxdCkhHiBS2kqRd6LAJp4ssBBMIBbHoHclOJVI3nNduh13kgrP
+	MASTrmDJikG8NJeHzE8aO0CDkO+1ARqPzAnYaFMMCu2K1ob3ZCoaD/dUEPv7A1s=
+X-Google-Smtp-Source: AGHT+IGvcPZwwvwaIvTW3LvN+TG1B4wgM7a1huwD5a6lDEB5jT5rHT2qjoaVds6rYpBtX3aId73OEA==
+X-Received: by 2002:a0c:8b1a:0:b0:68e:f0ab:46b5 with SMTP id q26-20020a0c8b1a000000b0068ef0ab46b5mr2531601qva.62.1707922879805;
+        Wed, 14 Feb 2024 07:01:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWP3W2vYtfMb4NbaC15gDeRPprJ3HYvWrF5AQ1d6zelRhcgqM0MiZSreeUsSAMNrXlgbJBN+xw7SjPCNVr8vwNxYBB1K4IufKKPV1WumLhKAa8aHY1Oqfwt8JzcEVb66gAQr0HACYCP
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com. [209.85.160.180])
+        by smtp.gmail.com with ESMTPSA id mv5-20020a056214338500b0068e540c8ae9sm2085846qvb.59.2024.02.14.07.01.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Feb 2024 07:01:19 -0800 (PST)
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-42ce63b1d30so22400841cf.3;
+        Wed, 14 Feb 2024 07:01:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVj4+PpmI3NKZssb+MJAsAjDyFkRX2ej6WAP4GQr3cGq4yvH8b6iPT2MsUPRrw9i+Zn737n+zhvnYVT4NsMVoVR7PhosIqAmMDBPw1kp/Sqb8q1CE8+EoSBd8eoAdcoY3gL6cjhOwX1
+X-Received: by 2002:a25:84c9:0:b0:dc2:3fbd:82fe with SMTP id
+ x9-20020a2584c9000000b00dc23fbd82femr2322270ybm.46.1707922857034; Wed, 14 Feb
+ 2024 07:00:57 -0800 (PST)
+MIME-Version: 1.0
+References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+In-Reply-To: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 14 Feb 2024 16:00:45 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
+Message-ID: <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
+Subject: Re: [PATCH 0/6] dts: Fix dtc interrupt warnings
+To: Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
-MIME-Version: 1.0
+X-Mailman-Approved-At: Thu, 15 Feb 2024 10:16:12 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,90 +70,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, joel@jms.id.au, openipmi-developer@lists.sourceforge.net, Andrew Geissler <geissonator@yahoo.com>, openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-aspeed@lists.ozlabs.org, Tony Lindgren <tony@atomide.com>, linux-arm-msm@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, Stefan Agner <stefan@agner.ch>, Chanho Min <chanho.min@lge.com>, Thierry Reding <thierry.reding@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, Nicolas Schier <nicolas@fjasle.eu>, Bjorn Andersson <andersson@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Gregory Clement <gregory.clement@bootlin.com>, Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Joel Stanley <joel@jms.id.au>, linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org, Maxime Coquelin <mcoquelin.s
+ tm32@gmail.com>, linux-kbuild@vger.kernel.org, Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Nathan Chancellor <nathan@kernel.org>, soc@kernel.org, Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Imre Kaloz <kaloz@openwrt.org>, Scott Branden <sbranden@broadcom.com>, openbmc@lists.ozlabs.org, Antoine Tenart <atenart@kernel.org>, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>, Pengutronix Kernel Team <kernel@pengutronix.de>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Shawn Guo <shawnguo@kernel.org>, Tsahee Zidenberg <tsahee@annapurnalabs.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 2024-02-20 at 13:33 -0600, Corey Minyard wrote:
-> On Tue, Feb 20, 2024 at 04:51:21PM +0100, Paul Menzel wrote:
-> > Dear Andrew,
-> >=20
-> >=20
-> > Thank you for your patch. Some style suggestions.
-> >=20
-> > Am 20.02.24 um 13:36 schrieb Andrew Geissler:
-> > > From: Andrew Geissler <geissonator@yahoo.com>
-> >=20
-> > (Oh no, Yahoo. (ignore))
-> >=20
-> > You could be more specific in the git commit message by using *Double*:
-> >=20
-> > > ipmi: kcs: Double OBF poll timeout to reduce latency
-> >=20
-> > > ipmi: kcs: Double OBF poll timeout to 200 us to reduce latency
-> >=20
-> > > Commit f90bc0f97f2b ("ipmi: kcs: Poll OBF briefly to reduce OBE
-> > > latency") introduced an optimization to poll when the host has
->=20
-> I assume that removing that patch doesn't fix the issue, it would only
-> make it worse, right?
+Hi Rob,
 
-Yep.
+On Tue, Feb 13, 2024 at 8:35=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+> I had a branch with most of these changes sitting in my tree for some
+> time. Geert's asking about some errors not getting found prompted me to
+> clean it up and send it out. This series fixes all* interrupt related
+> warnings and enables the check by default.
 
->=20
-> > > read the output data register (ODR). Testing has shown that the 100us
-> > > timeout was not always enough. When we miss that 100us window, it
-> > > results in 10x the time to get the next message from the BMC to the
-> > > host. When you're sending 100's of messages between the BMC and Host,
-> >=20
-> > I do not understand, how this poll timeout can result in such an increa=
-se,
-> > and why a quite big timeout hurts, but I do not know the implementation=
-.
->=20
-> It's because increasing that number causes it to poll longer for the
-> event, the host takes longer than 100us to generate the event, and if
-> the event is missed the time when it is checked again is very long.
->=20
-> Polling for 100us is already pretty extreme. 200us is really too long.
->=20
-> The real problem is that there is no interrupt for this.  I'd also guess
-> there is no interrupt on the host side, because that would solve this
-> problem, too, as it would certainly get around to handling the interupt
-> in 100us.  I'm assuming the host driver is not the Linux driver, as it
-> should also handle this in a timely manner, even when polling.
+> *There's a few Renesas warnings still Geert said he would fix.
 
-I expect the issues Andrew G is observing are with the Power10 boot
-firmware. The boot firmware only polls. The runtime firmware enables
-interrupts.
+Thanks, fix sent
+https://lore.kernel.org/r/a351e503ea97fb1af68395843f513925ff1bdf26.17079224=
+60.git.geert+renesas@glider.be
 
->=20
-> If people want hardware to perform well, they ought to design it and not
-> expect software to fix all the problems.
+>       dtc: Enable dtc interrupt_provider check
 
-+1
+>  scripts/Makefile.lib                                  |  3 +--
 
->=20
-> The right way to fix this is probably to do the same thing the host side
-> Linux driver does.  It has a kernel thread that is kicked off to do
-> this.  Unfortunately, that's more complicated to implement, but it
-> avoids polling in this location (which causes latency issues on the BMC
-> side) and lets you poll longer without causing issues.
+Just wondering, can the remaining disabler be removed, too?
 
-In Andrew G's case he's talking MCTP over KCS using a vendor-defined
-transport binding (that also leverages LPC FWH cycles for bulk data
-transfers)[1]. I think it could have taken more inspiration from the
-IPMI KCS protocol: It might be worth an experiment to write the dummy
-command value to IDR from the host side after each ODR read to signal
-the host's clearing of OBF (no interrupt for the BMC) with an IBF
-(which does interrupt the BMC). And doing the obverse for the BMC. Some
-brief thought suggests that if the dummy value is read there's no need
-to send a dummy value in reply (as it's an indicator to read the status
-register). With that the need for the spin here (or on the host side)
-is reduced at the cost of some constant protocol overhead.
+Documentation/devicetree/bindings/Makefile:     -Wno-interrupt_provider \
 
-[1]: https://github.com/openbmc/libmctp/blob/master/docs/bindings/vendor-ib=
-m-astlpc.md
+Gr{oetje,eeting}s,
 
+                        Geert
 
-Andrew J
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
