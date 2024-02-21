@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 493B0C48BC4
-	for <openbmc@archiver.kernel.org>; Wed, 14 Feb 2024 23:28:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BF8C48BC3
+	for <openbmc@archiver.kernel.org>; Wed, 21 Feb 2024 05:28:06 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=REdAzMQN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=b5zA/Ljv;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TZvXQ6wDvz3vXP
-	for <openbmc@archiver.kernel.org>; Thu, 15 Feb 2024 10:28:54 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TflD51lBqz3cQm
+	for <openbmc@archiver.kernel.org>; Wed, 21 Feb 2024 16:28:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=REdAzMQN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=b5zA/Ljv;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:40e1:4800::1; helo=sin.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from sin.source.kernel.org (sin.source.kernel.org [IPv6:2604:1380:40e1:4800::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=manojkiran.eda@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TZhxm2YW4z3cDy;
-	Thu, 15 Feb 2024 02:31:40 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 65EDFCE229C;
-	Wed, 14 Feb 2024 15:31:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7632C43394;
-	Wed, 14 Feb 2024 15:31:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707924694;
-	bh=4JlFA01oQWdtvRaP+CnWQqdwr1cP142uEyw13TLrbN8=;
-	h=References:In-Reply-To:From:Date:Subject:To:List-Id:Cc:From;
-	b=REdAzMQNUKQthunqIYd1xXRZvyRazfzeeHO6U9IdkqpQocmGPZO0MqL1dce3y5y1b
-	 PFeEIPsWTolML15+QzASJcdeWR5n3IAnWbJf7gcLrasH+H8HI8o4G8CRjOmNuEAXXZ
-	 JPJN0CaZp3PLCjJjy61EfrhMHYHUHlJL+wd+mTzJYfZGvX6odSfmQZTFtUVb0aybMe
-	 ViowSODx6riqYuR9wKjBYsEm3o3VxzwN8Mp3sn9zRKC3cerkcEYU/VGXs0MoG5uQuI
-	 g6xuLSibBrZHt98G3dsRPMywRLrzlLMAc3Dp44/uxlOpcqrH3cKuiu41UkhGcoS0W2
-	 /cPQAX+TUIULg==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-511ac32ff36so676805e87.1;
-        Wed, 14 Feb 2024 07:31:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWlespSDufhEfTViDEjgfoNpnuVC9y6Ja8fjhwcRtqJYzYo4tTogaaRmlSOtNEP5kDJoSZnvJ0YcSmAheCmged7DeC3j4zAylud+nUA4DsRAvEAsL0ybz3ym3G60hKJP6dCgTAKI4us
-X-Gm-Message-State: AOJu0YxOmtZM73CZeL5QWpro2QiZkyu6xW2qaJLAN8LFEA3U4zUmNuiN
-	d5qwPqMPjwOMrdmVfIWq991wf5efD/guSCaO3+mrYGx7dfQQjDw6g+SdR3dILEErVsihkF7gIrK
-	tKOY8y2oFTe3WjRXfcsmW6WLI9g==
-X-Google-Smtp-Source: AGHT+IH8/isML9jhNTe8vUWU49jrNm4p0HUKpD8NeE7Izp0zgWowWPvoVR9vvZmOadC5fdJrnpVWN3J0XGbdjt6xmGE=
-X-Received: by 2002:a2e:b888:0:b0:2d0:dfad:2863 with SMTP id
- r8-20020a2eb888000000b002d0dfad2863mr2522106ljp.46.1707924672118; Wed, 14 Feb
- 2024 07:31:12 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TflC44LYYz3btc
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Feb 2024 16:27:10 +1100 (AEDT)
+Received: by mail-pf1-x431.google.com with SMTP id d2e1a72fcca58-6e48ec75944so163741b3a.3
+        for <openbmc@lists.ozlabs.org>; Tue, 20 Feb 2024 21:27:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708493225; x=1709098025; darn=lists.ozlabs.org;
+        h=mime-version:subject:references:in-reply-to:message-id:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=HLvvtG9cS80lVHLWFQeiQSou96t8hN+OrLLAoPlf424=;
+        b=b5zA/Ljvcgo7cOfkCHUiWiGaWyCryWCylqXcwH+TUMxHbi0ub8bADfQcNNDPAHXLOM
+         NzUUZ4iLAhkbcZ0DlMRbWRhbOlehB7GCbRw6opyZYYGv3XBpLeQkIDZ7PXBFNRzVwTU1
+         7YJIbCAFsB45P5KSLLq8Yfg1NFBcVq0JmTW8l8/WBGwSO1FIUACAgcDPeAIIGAln9j3o
+         gXhRg/lLPN4ORsUppCpBz3Pw5+9MVlr7jM61aDW16DLJ1n61TV7cneVzePADKEqgFAfV
+         7lYiWWDNTsM/Smp+CES+Kb16ixMn1ve12KF348JjLzHtpnp43wEy4c5qsgT1EEqu9ecC
+         Zfnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708493225; x=1709098025;
+        h=mime-version:subject:references:in-reply-to:message-id:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HLvvtG9cS80lVHLWFQeiQSou96t8hN+OrLLAoPlf424=;
+        b=jfgC5ktuHinjf+08MCz7BT7c4jOkOyYMTkkYEonDXPpeD3sUaFuo5/R3JcVlQ6y6OD
+         KgNywOXlUUxmqBxXZFzdam8Y2JmUMCuU0ArD7pcJC1enxP9nDJ7pfOFR3ywIQOF0Nb1k
+         wT70GKW46wSWXuzc5NGsiNoZPdtJrX2IYrQ8o7s/tCDv/ex9YZXNRBpEwEJaaM3i5rkO
+         Jc2dPG3Fxp62LfXrLUR8nOHYzpP0D2EYLuIQPb3Wv0wl2zEUlxHbDsJUR/ZJpxNwn1Q4
+         P9Y34kpffiH9s56Ry02rLFxQqap9HmzbIhMnmCDEBcVchq0p9ouSKX8bkku7oWSxRWyy
+         fDKw==
+X-Forwarded-Encrypted: i=1; AJvYcCUY67Xta9RbUW393lKzzFd50U/cYsLWnxNNCcZkSZfFY8hW7uZmxeTwBHWGksWVXMnbQF0TChLUdQQqimZ6xs9w8FgGpfH1b1E=
+X-Gm-Message-State: AOJu0YxkIHUQJ+zNNC6MvC/EwI2KwCMm9XU9/l6zpi0JLxVVtZb1u9Qs
+	nXktk6xFjcqUyOxqxVs55btQqi6oHZy1BYcBAORAP2VghLxCMJOHsj6+jZRZ
+X-Google-Smtp-Source: AGHT+IFq6cocmTeqRt8nzbrYpEcvXetqdTIYKPdKQsN3r2T7lSmiRbXd4MxoZ4Ft5QWi2cFasVqE8A==
+X-Received: by 2002:a05:6a00:9294:b0:6e4:7a93:b626 with SMTP id jw20-20020a056a00929400b006e47a93b626mr5161721pfb.20.1708493225280;
+        Tue, 20 Feb 2024 21:27:05 -0800 (PST)
+Received: from [192.168.29.219] ([49.37.249.80])
+        by smtp.gmail.com with ESMTPSA id fc7-20020a056a002e0700b006e144ec8eafsm7907813pfb.119.2024.02.20.21.27.03
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 20 Feb 2024 21:27:04 -0800 (PST)
+Date: Wed, 21 Feb 2024 10:56:56 +0530
+From: manojkiran.eda@gmail.com
+To: Swetha Nagapuri <swethuu.n@gmail.com>, openbmc@lists.ozlabs.org
+Message-ID: <6e03e9e5-f02e-480c-a4ea-3dd72d645766@Spark>
+In-Reply-To: <CAKHO_vLYUYfW=sZ-j8iWgfrRpcBSeji5OmnMwWWH5VEfFnH_xA@mail.gmail.com>
+References: <CAKHO_vLYUYfW=sZ-j8iWgfrRpcBSeji5OmnMwWWH5VEfFnH_xA@mail.gmail.com>
+Subject: Re: Queries reg OpenBMC contribution
+X-Readdle-Message-ID: 6e03e9e5-f02e-480c-a4ea-3dd72d645766@Spark
 MIME-Version: 1.0
-References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org> <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
-In-Reply-To: <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 14 Feb 2024 15:30:57 +0000
-X-Gmail-Original-Message-ID: <CAL_JsqKbDdUzkuSBrBTYm0PF8KehK0DnUwTBHqJ6tZfaE=B2_w@mail.gmail.com>
-Message-ID: <CAL_JsqKbDdUzkuSBrBTYm0PF8KehK0DnUwTBHqJ6tZfaE=B2_w@mail.gmail.com>
-Subject: Re: [PATCH 0/6] dts: Fix dtc interrupt warnings
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 15 Feb 2024 10:16:12 +1100
+Content-Type: multipart/alternative; boundary="65d589a5_26f28d92_2687"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,42 +77,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-aspeed@lists.ozlabs.org, Tony Lindgren <tony@atomide.com>, linux-arm-msm@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, Stefan Agner <stefan@agner.ch>, Chanho Min <chanho.min@lge.com>, Thierry Reding <thierry.reding@gmail.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, Nicolas Schier <nicolas@fjasle.eu>, Bjorn Andersson <andersson@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>, Gregory Clement <gregory.clement@bootlin.com>, Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Joel Stanley <joel@jms.id.au>, linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, linux-tegra@vger.kernel.org, Maxime Coquelin <mcoquelin.s
- tm32@gmail.com>, linux-kbuild@vger.kernel.org, Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Nathan Chancellor <nathan@kernel.org>, soc@kernel.org, linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>, =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Imre Kaloz <kaloz@openwrt.org>, Scott Branden <sbranden@broadcom.com>, openbmc@lists.ozlabs.org, Antoine Tenart <atenart@kernel.org>, linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>, Pengutronix Kernel Team <kernel@pengutronix.de>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Shawn Guo <shawnguo@kernel.org>, Tsahee Zidenberg <tsahee@annapurnalabs.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Feb 14, 2024 at 9:01=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68=
-k.org> wrote:
->
-> Hi Rob,
->
-> On Tue, Feb 13, 2024 at 8:35=E2=80=AFPM Rob Herring <robh@kernel.org> wro=
-te:
-> > I had a branch with most of these changes sitting in my tree for some
-> > time. Geert's asking about some errors not getting found prompted me to
-> > clean it up and send it out. This series fixes all* interrupt related
-> > warnings and enables the check by default.
->
-> > *There's a few Renesas warnings still Geert said he would fix.
->
-> Thanks, fix sent
-> https://lore.kernel.org/r/a351e503ea97fb1af68395843f513925ff1bdf26.170792=
-2460.git.geert+renesas@glider.be
->
-> >       dtc: Enable dtc interrupt_provider check
->
-> >  scripts/Makefile.lib                                  |  3 +--
->
-> Just wondering, can the remaining disabler be removed, too?
->
-> Documentation/devicetree/bindings/Makefile:     -Wno-interrupt_provider \
+--65d589a5_26f28d92_2687
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-I was too. Shockingly, that too will require some fixes. Though I
-remember when configuring the warnings for bindings, trying to make
-them stricter. So there must have been some case where
-no-interrupt_provider was needed. It may have been related to how we
-parse interrupts in examples, but that changed back when switching to
-validate dtbs directly.
+Hi Swetha,
 
-Rob
+> Hi Manojkiran,
+>
+> Nice to connect with you over=C2=A0email. I am Swetha Nagapuri currentl=
+y exploring OpenBMC mctp and PLDM stacks. I am planning to contribute to =
+OpenBMC mctp and pldm code bases but have below queries.
+>
+> 1. How can I contribute to OpenBMC=3F Please let me know the steps if y=
+ou have.
+https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md should help y=
+ou with the steps to contribute to openbmc.
+> 2 I can't see any=C2=A0=C2=A0source code for mctp over smbus. Can you p=
+lease help me to understand why this is not part of openbmc yet=3F I am p=
+lanning to raise a couple of gerrits to support this. How can I do that=3F=
+
+Specs like MCTP and PLDM e.t.c are not openbmc specific, they are generic=
+ protocols which can be used as a communication means between embedded sy=
+stems, There is no need to have mctp/pldm in openbmc. But with that said =
+i believe there is support for MCTP over i2c. Look at https://codeconstru=
+ct.com.au/docs/mctp-on-linux-introduction/ for more information on what's=
+ being supported.
+> 3. In PLDM code, I am planning to read sensor data from sysfs nodes dir=
+ectly=C2=A0instead of some dbus methods. Can I proceed with this approach=
+=3F
+>
+This question is very vague, and cannot be answered without details. =46e=
+el free to come up with a design document capturing what you are planning=
+ to do or pitch it in =23pmci discord channel for quick feedback from the=
+ community.
+> Any response would be appreciated
+Please send emails to the community mailing list openbmc=40lists.ozlabs.o=
+rg rather than send them personally, questions like these could help othe=
+rs too.
+> Thanks,
+> Swetha
+
+Thanks,
+Manoj
+
+--65d589a5_26f28d92_2687
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+<div name=3D=22messageBodySection=22>
+<div dir=3D=22auto=22>Hi Swetha,<br /></div>
+</div>
+<div name=3D=22messageReplySection=22>
+<div dir=3D=22auto=22><br /></div>
+<blockquote style=3D=22border-left: thin solid rgb(26, 188, 156); margin:=
+ 5px; padding-left: 10px;=22>Hi Manojkiran,<br />
+<br />
+Nice to connect with you over&=23160;email. I am Swetha Nagapuri currentl=
+y exploring OpenBMC mctp and PLDM stacks. I am planning to contribute to =
+OpenBMC mctp and pldm code bases but have below queries.<br />
+<br />
+1. How can I contribute to OpenBMC=3F Please let me know the steps if you=
+ have.&=23160;</blockquote>
+<div dir=3D=22auto=22>https://github.com/openbmc/docs/blob/master/CONTRIB=
+UTING.md should help you with the steps to contribute to openbmc.</div>
+<blockquote style=3D=22border-left: thin solid rgb(26, 188, 156); margin:=
+ 5px; padding-left: 10px;=22>2 I can't see any&=23160;&=23160;source code=
+ for mctp over smbus. Can you please help me to understand why this is no=
+t part of openbmc yet=3F I am planning to raise a couple of gerrits to su=
+pport this. How can I do that=3F</blockquote>
+<div dir=3D=22auto=22>Specs like MCTP and PLDM e.t.c are not openbmc spec=
+ific, they are generic protocols which can be used as a communication mea=
+ns between embedded systems, There is no need to have mctp/pldm in openbm=
+c. But with that said i believe there is support for MCTP over i2c. Look =
+at https://codeconstruct.com.au/docs/mctp-on-linux-introduction/ for more=
+ information on what's being supported.</div>
+<blockquote style=3D=22border-left: thin solid rgb(26, 188, 156); margin:=
+ 5px; padding-left: 10px;=22>3. In PLDM code, I am planning to read senso=
+r data from sysfs nodes directly&=23160;instead of some dbus methods. Can=
+ I proceed with this approach=3F<br />
+<br /></blockquote>
+<div dir=3D=22auto=22>This question is very vague, and cannot be answered=
+ without details. =46eel free to come up with a design document capturing=
+ what you are planning to do or pitch it in =23pmci discord channel for q=
+uick feedback from the community.<br /></div>
+<blockquote style=3D=22border-left: thin solid rgb(26, 188, 156); margin:=
+ 5px; padding-left: 10px;=22>Any response would be appreciated</blockquot=
+e>
+<div dir=3D=22auto=22>Please send emails to the community mailing list op=
+enbmc=40lists.ozlabs.org rather than send them personally, questions like=
+ these could help others too.<br /></div>
+<blockquote style=3D=22border-left: thin solid rgb(26, 188, 156); margin:=
+ 5px; padding-left: 10px;=22>Thanks,<br />
+Swetha</blockquote>
+<div dir=3D=22auto=22><br />
+Thanks,<br />
+Manoj<br /></div>
+</div>
+</body>
+</html>
+
+--65d589a5_26f28d92_2687--
+
