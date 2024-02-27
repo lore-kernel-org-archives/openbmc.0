@@ -4,66 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C527C5478C
-	for <openbmc@archiver.kernel.org>; Tue, 27 Feb 2024 15:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B734CC5478C
+	for <openbmc@archiver.kernel.org>; Wed, 28 Feb 2024 02:29:48 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R1UiJtV3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kAS8n4+y;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Tkh9s1fDSz3dJ0
-	for <openbmc@archiver.kernel.org>; Wed, 28 Feb 2024 02:24:49 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Tkyx71HyDz3bmH
+	for <openbmc@archiver.kernel.org>; Wed, 28 Feb 2024 13:29:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R1UiJtV3;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kAS8n4+y;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::82d; helo=mail-qt1-x82d.google.com; envelope-from=ulf.hansson@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com [IPv6:2607:f8b0:4864:20::82d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tkh8s4Fqxz3bsd
-	for <openbmc@lists.ozlabs.org>; Wed, 28 Feb 2024 02:23:57 +1100 (AEDT)
-Received: by mail-qt1-x82d.google.com with SMTP id d75a77b69052e-42a9c21f9ecso16799551cf.0
-        for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2024 07:23:57 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TkJwd1vqDz3cBK
+	for <openbmc@lists.ozlabs.org>; Tue, 27 Feb 2024 11:57:03 +1100 (AEDT)
+Received: by mail-pl1-x636.google.com with SMTP id d9443c01a7336-1dca8b86ee7so12290545ad.2
+        for <openbmc@lists.ozlabs.org>; Mon, 26 Feb 2024 16:57:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1709047434; x=1709652234; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=XFZm/dQSg9/X/SHxcG6EeAuyboOmUCrzOisf7px9NRM=;
-        b=R1UiJtV3b2qiAzZfKH+Rtb738ZqXAmb1DCOBqqJC7n/oIoALg+LU0R3pDlyp3cbSw6
-         2EsBMD6PKGY36PrjrgtWGuFEDH3QhsgTjsgF3WmmuYGEoO8p73F2b6l65LJpAgfA11mT
-         HT/1TsQb20XtdFXu2NkZ52dbqmwpPcPtYE8t7KmN7P+rdN83HdSj4IFSh2DUrxJxPwjk
-         XDVx7egBKfkoYv+Kh2/kc3VLzxRWPZlB9L3KFgl5dzBNCiTjjQk8kJYnjRmGrzj+kek7
-         aCtulUh82RCpZKRFTmuORxvBHjREZdfikhZRzJCyb5+urckdmVXMR90StYv2urBZrvNj
-         vL3A==
+        d=gmail.com; s=20230601; t=1708995420; x=1709600220; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rWOqPITH8/D/rm9Piee283eHAkgF3ezgjvokn+PRZ8I=;
+        b=kAS8n4+yF1znlOxtciiLDvdpxmxyShEIMRJ+5lM4K67PxcUgi0P0/uh8BvR8D1ma5E
+         JEQvrlaBEzRsZtzglpHPJoyJ7N0g5ozIG+NyOS+ud3/stTvPKR+WVuRKAIxOIrnuQrQ4
+         E3x3Bkp67WsR9ky/JXcHuwVRmdZGcgYEJPj0CXAaiKET0QWTKaz6mw3EP7v1dzXZJB7A
+         +L9nKCO7n46AtZ0RxzW4v+VGLd8aKNcZRYYfJhEGEpi28XhC0aVw2q/c7FON7WAy4bDj
+         oQNtKk1T3SDdn9lA1ze0+jLIRzOC5Mi6Yl+DhLocCKHItalV2zGokjF128pOVbKIG1jd
+         ZUcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709047434; x=1709652234;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1708995420; x=1709600220;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=XFZm/dQSg9/X/SHxcG6EeAuyboOmUCrzOisf7px9NRM=;
-        b=jWJhfegB6ZagUe7qh2ntlT5+UUQC6K0pEtGfg4XR+r+m45/9JtEYQtXeSKGTl0Uhff
-         eoMG6xQJncKI0/Pd6Q2VsrgBZ8GKJ/NqAC6fdH4SfkaSddTi+TpN3/aiBYrmbNp8NDhn
-         Strri5W0hZuoe/OnQ/GONADL5pBs7ez/04Va/I8yaZHvJJAywWwxMDjtBAyEJL04KziL
-         yij6rIvtHkXhxAFnjBOjgfO5rKwxTyncyeb2UmHEJ/GPhtN2Vh/R0CUk8BVub+WRUQiG
-         juYKDPMVlVCMsOmskvA8SX7tKouVHSB9Bs4lnf2FLmSKzi1sAVvhukgpwxfUC/B+umv/
-         nQqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWvkDNgGhwznNzozLMHS3Zh1lODLT7w/18XgwbGAOvWmElEl3xuUOhVEz3yW55MvE9m+ya6LYugwjvTJrcF5hmtmxsG/uy8Tew=
-X-Gm-Message-State: AOJu0Ywvdb9lf7paTYaRycSjr1HD/ZkafxtAmg8lkMfGyq//yu4VMSrR
-	XzRVbbdGitundM7Sxhx5NE9CWiFb+BO03/GwfM5cjtISEB42Lk8ZVeGptNM4+V8beEyyAjrezQs
-	m0YcTOFrXSSmtHehEJdNjPnV8H1E4GnFyBRdGG37tswHy6OltYu8=
-X-Google-Smtp-Source: AGHT+IFXRkh4i/Gr+X+CNCwM+eiQfh5vWcQsfkjYhIrr0Xb0TkLC7JjlBRtlrrUjA+ojEUJ9UftFZVpafbLrXYMOvoU=
-X-Received: by 2002:a25:824e:0:b0:dca:c369:fac2 with SMTP id
- d14-20020a25824e000000b00dcac369fac2mr2406508ybn.3.1709047014409; Tue, 27 Feb
- 2024 07:16:54 -0800 (PST)
+        bh=rWOqPITH8/D/rm9Piee283eHAkgF3ezgjvokn+PRZ8I=;
+        b=dItb6gmoF7PNfBcrnmgv7R4pjng8DxwyF1/5Ly1kv3lCyrcWl3vnspBRTKrr2NdXAK
+         7RZFeWbCE1nBz5A7Prs6kf/hdIFOiqlf9SwGPaL545/jCQ58wDbSQFpXdgV2zfzu9OeG
+         +u0l0R6lKGKsrx5QAw1GNJR8WfRvZ0xU5T3t9h46pliwHiyqjDlZqEzsBSrt+yDOOeeR
+         8CH8aTleZR0+q1tI+4l1VlqvIsJiQIgNanwsafO7Hz9/slvVzNeR1uFiaId4PcV9c0UU
+         nyyAQnjGecWTm9sMA+slx2L6gprV1PxA/YmH9tRJRPsCrX/Gv4KI/gYHsh6LuGi8mBld
+         r3Vw==
+X-Forwarded-Encrypted: i=1; AJvYcCXAl5pRWyuuz8r/SpKR+FsGorByGgskVb2BMCcJn+sVct6Lv6ntx5T7wrr2ua/DEi6DA1EKy2nC8fhUNukLoFDAKy1k6MNcS7E=
+X-Gm-Message-State: AOJu0YwBhFrE7Zg6sVxSr046SO2Pce38YGCAdK9B48iRW0TVCI7Irt34
+	EVC5hgWC4p+MP0eywJQmqHjop6D6YT/hfWXXLnqyoVnmirha5h1O
+X-Google-Smtp-Source: AGHT+IFi5e/RLc/BtrFNtrv1ceMqXDqLPgjk0Fze9Pvw/xHtkjf+4uFWRAv/dagnTOmwpr9Lwd2C2A==
+X-Received: by 2002:a17:902:f690:b0:1dc:5dc0:9ba with SMTP id l16-20020a170902f69000b001dc5dc009bamr9461638plg.26.1708995419555;
+        Mon, 26 Feb 2024 16:56:59 -0800 (PST)
+Received: from hcdev-d520mt2.. (60-250-192-107.hinet-ip.hinet.net. [60.250.192.107])
+        by smtp.gmail.com with ESMTPSA id t12-20020a170902e84c00b001db3361bc1dsm289253plg.102.2024.02.26.16.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Feb 2024 16:56:59 -0800 (PST)
+From: baneric926@gmail.com
+X-Google-Original-From: kcfeng0@nuvoton.com
+To: jdelvare@suse.com,
+	linux@roeck-us.net,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	corbet@lwn.net
+Subject: [PATCH v4 0/3] hwmon: Driver for Nuvoton NCT7363Y
+Date: Tue, 27 Feb 2024 08:56:03 +0800
+Message-Id: <20240227005606.1107203-1-kcfeng0@nuvoton.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20240221-b4-mmc-hi3798mv200-v6-0-bc41bf6a9769@outlook.com> <20240221-b4-mmc-hi3798mv200-v6-3-bc41bf6a9769@outlook.com>
-In-Reply-To: <20240221-b4-mmc-hi3798mv200-v6-3-bc41bf6a9769@outlook.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 27 Feb 2024 16:16:18 +0100
-Message-ID: <CAPDyKFosUX7giCYbFJpKRjSDHKEyO6FATna5VnDg7tHEzagWBg@mail.gmail.com>
-Subject: Re: [PATCH v6 3/5] mmc: dw_mmc: add support for hi3798mv200
-To: forbidden405@outlook.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 28 Feb 2024 13:28:58 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,322 +83,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, linux-aspeed@lists.ozlabs.org, linux-mmc@vger.kernel.org, openbmc@lists.ozlabs.org, Igor Opaniuk <igor.opaniuk@linaro.org>, Adrian Hunter <adrian.hunter@intel.com>, linux-kernel@vger.kernel.org, Jaehoon Chung <jh80.chung@samsung.com>, tianshuliang <tianshuliang@hisilicon.com>, Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, David Yang <mmyangfl@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, kcfeng0@nuvoton.com, kwliu@nuvoton.com, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, DELPHINE_CHIU@wiwynn.com, naresh.solanki@9elements.com, billy_tsai@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 21 Feb 2024 at 13:45, Yang Xiwen via B4 Relay
-<devnull+forbidden405.outlook.com@kernel.org> wrote:
->
-> From: Yang Xiwen <forbidden405@outlook.com>
->
-> Add support for Hi3798MV200 specific extension.
->
-> Signed-off-by: Yang Xiwen <forbidden405@outlook.com>
-> ---
->  drivers/mmc/host/Kconfig              |   9 ++
->  drivers/mmc/host/Makefile             |   1 +
->  drivers/mmc/host/dw_mmc-hi3798mv200.c | 239 ++++++++++++++++++++++++++++++++++
->  3 files changed, 249 insertions(+)
->
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index 81f2c4e05287..aebc587f77a7 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -798,6 +798,15 @@ config MMC_DW_HI3798CV200
->           Synopsys DesignWare Memory Card Interface driver. Select this option
->           for platforms based on HiSilicon Hi3798CV200 SoC.
->
-> +config MMC_DW_HI3798MV200
-> +       tristate "Hi3798MV200 specific extensions for Synopsys DW Memory Card Interface"
-> +       depends on MMC_DW
-> +       select MMC_DW_PLTFM
-> +       help
-> +         This selects support for HiSilicon Hi3798MV200 SoC specific extensions to the
-> +         Synopsys DesignWare Memory Card Interface driver. Select this option
-> +         for platforms based on HiSilicon Hi3798MV200 SoC.
-> +
->  config MMC_DW_K3
->         tristate "K3 specific extensions for Synopsys DW Memory Card Interface"
->         depends on MMC_DW
-> diff --git a/drivers/mmc/host/Makefile b/drivers/mmc/host/Makefile
-> index d0be4465f3ec..f53f86d200ac 100644
-> --- a/drivers/mmc/host/Makefile
-> +++ b/drivers/mmc/host/Makefile
-> @@ -51,6 +51,7 @@ obj-$(CONFIG_MMC_DW_PLTFM)    += dw_mmc-pltfm.o
->  obj-$(CONFIG_MMC_DW_BLUEFIELD) += dw_mmc-bluefield.o
->  obj-$(CONFIG_MMC_DW_EXYNOS)    += dw_mmc-exynos.o
->  obj-$(CONFIG_MMC_DW_HI3798CV200) += dw_mmc-hi3798cv200.o
-> +obj-$(CONFIG_MMC_DW_HI3798MV200) += dw_mmc-hi3798mv200.o
->  obj-$(CONFIG_MMC_DW_K3)                += dw_mmc-k3.o
->  obj-$(CONFIG_MMC_DW_PCI)       += dw_mmc-pci.o
->  obj-$(CONFIG_MMC_DW_ROCKCHIP)  += dw_mmc-rockchip.o
-> diff --git a/drivers/mmc/host/dw_mmc-hi3798mv200.c b/drivers/mmc/host/dw_mmc-hi3798mv200.c
-> new file mode 100644
-> index 000000000000..73aaa21040ea
-> --- /dev/null
-> +++ b/drivers/mmc/host/dw_mmc-hi3798mv200.c
-> @@ -0,0 +1,239 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Modified from dw_mmc-hi3798cv200.c
-> + *
-> + * Copyright (c) 2024 Yang Xiwen <forbidden405@outlook.com>
-> + * Copyright (c) 2018 HiSilicon Technologies Co., Ltd.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/mmc/host.h>
-> +#include <linux/module.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "dw_mmc.h"
-> +#include "dw_mmc-pltfm.h"
-> +
-> +#define SDMMC_TUNING_CTRL      0x118
-> +#define SDMMC_TUNING_FIND_EDGE BIT(5)
-> +
-> +#define ALL_INT_CLR            0x1ffff
-> +
-> +/* DLL ctrl reg */
-> +#define SAP_DLL_CTRL_DLLMODE   BIT(16)
-> +
-> +struct dw_mci_hi3798mv200_priv {
-> +       struct clk *sample_clk;
-> +       struct clk *drive_clk;
-> +       struct regmap *crg_reg;
-> +       u32 sap_dll_offset;
-> +       struct mmc_clk_phase_map phase_map;
-> +};
-> +
-> +static void dw_mci_hi3798mv200_set_ios(struct dw_mci *host, struct mmc_ios *ios)
-> +{
-> +       struct dw_mci_hi3798mv200_priv *priv = host->priv;
-> +       struct mmc_clk_phase phase = priv->phase_map.phase[ios->timing];
-> +       u32 val;
-> +
-> +       val = mci_readl(host, ENABLE_SHIFT);
-> +       if (ios->timing == MMC_TIMING_MMC_DDR52
-> +           || ios->timing == MMC_TIMING_UHS_DDR50)
-> +               val |= SDMMC_ENABLE_PHASE;
-> +       else
-> +               val &= ~SDMMC_ENABLE_PHASE;
-> +       mci_writel(host, ENABLE_SHIFT, val);
-> +
-> +       val = mci_readl(host, DDR_REG);
-> +       if (ios->timing == MMC_TIMING_MMC_HS400)
-> +               val |= SDMMC_DDR_HS400;
-> +       else
-> +               val &= ~SDMMC_DDR_HS400;
-> +       mci_writel(host, DDR_REG, val);
-> +
-> +       if (clk_set_rate(host->ciu_clk, ios->clock))
-> +               dev_warn(host->dev, "Failed to set rate to %u\n", ios->clock);
-> +       else
-> +               // CLK_MUX_ROUND_NEAREST is enabled for this clock
-> +               // The actual clock rate is not what we setted, but a rounded value
-> +               // so we should get the rate once again
+From: Ban Feng <kcfeng0@nuvoton.com>
 
-Please use proper comments sections (/* .... */) and not "//".
+NCT7363Y is an I2C based hardware monitoring chip from Nuvoton.
 
-> +               host->bus_hz = clk_get_rate(host->ciu_clk);
-> +
-> +       if (phase.valid) {
-> +               clk_set_phase(priv->drive_clk, phase.out_deg);
-> +               clk_set_phase(priv->sample_clk, phase.in_deg);
-> +       } else {
-> +               dev_warn(host->dev,
-> +                        "The phase entry for timing mode %d is missing in device tree.\n",
-> +                        ios->timing);
-> +       }
-> +}
-> +
-> +static inline int dw_mci_hi3798mv200_enable_tuning(struct dw_mci_slot *slot)
-> +{
-> +       struct dw_mci_hi3798mv200_priv *priv = slot->host->priv;
-> +
-> +       return regmap_clear_bits(priv->crg_reg, priv->sap_dll_offset, SAP_DLL_CTRL_DLLMODE);
-> +}
-> +
-> +static inline int dw_mci_hi3798mv200_disable_tuning(struct dw_mci_slot *slot)
-> +{
-> +       struct dw_mci_hi3798mv200_priv *priv = slot->host->priv;
-> +
-> +       return regmap_set_bits(priv->crg_reg, priv->sap_dll_offset, SAP_DLL_CTRL_DLLMODE);
-> +}
-> +
-> +static int dw_mci_hi3798mv200_execute_tuning_mix_mode(struct dw_mci_slot *slot,
-> +                                            u32 opcode)
-> +{
-> +       static const int degrees[] = { 0, 45, 90, 135, 180, 225, 270, 315 };
-> +       struct dw_mci *host = slot->host;
-> +       struct dw_mci_hi3798mv200_priv *priv = host->priv;
-> +       int raise_point = -1, fall_point = -1;
-> +       int err, prev_err = -1;
-> +       int found = 0;
-> +       int regval;
-> +       int i;
-> +       int ret;
-> +
-> +       // enable tuning
+Changes since version 3:
+- Cherry-pick the fan-common.yaml in [1]
+- Fix "checkpatch --strict" report
+- Replace BIT_CHECK() with BIT()
+- Fix CamelCase defines or variables
+- Drop enum chips
+- Drop all local caching and just read values through regmap
+- Drop chip auto-detection since it increases boot time
 
-Looks like a redundant comment, please drop it.
+[1]: https://patchwork.kernel.org/project/linux-hwmon/patch/
+     20240221104025.1306227-2-billy_tsai@aspeedtech.com/
 
-> +       ret = dw_mci_hi3798mv200_enable_tuning(slot);
-> +       if (ret < 0)
-> +               return ret;
+Changes since version 2:
+- Cherry-pick the fan-common.yaml in [1]
+- Fix nct736x typo and add unevaluatedProperties
 
-A newline here would improve the readability I think.
+[1]: https://patchwork.kernel.org/project/linux-hwmon/patch/
+     20231107105025.1480561-2-billy_tsai@aspeedtech.com/
 
-> +       for (i = 0; i < ARRAY_SIZE(degrees); i++) {
-> +               clk_set_phase(priv->sample_clk, degrees[i]);
-> +               mci_writel(host, RINTSTS, ALL_INT_CLR);
-> +
-> +               err = mmc_send_tuning(slot->mmc, opcode, NULL);
-> +               if (!err) {
-> +                       regval = mci_readl(host, TUNING_CTRL);
-> +                       if (regval & SDMMC_TUNING_FIND_EDGE)
-> +                               err = 1;
-> +                       else
-> +                               found = 1;
-> +               };
-> +
-> +               if (i > 0) {
-> +                       if (err && !prev_err)
-> +                               fall_point = i - 1;
-> +                       if (!err && prev_err)
-> +                               raise_point = i;
-> +               }
-> +
-> +               if (raise_point != -1 && fall_point != -1)
-> +                       goto tuning_out;
-> +
-> +               prev_err = err;
-> +               err = 0;
-> +       }
-> +
-> +tuning_out:
-> +       ret = dw_mci_hi3798mv200_disable_tuning(slot);
-> +       if (ret < 0)
-> +               return ret;
-> +       if (found) {
-> +               if (raise_point == -1)
-> +                       raise_point = 0;
-> +               if (fall_point == -1)
-> +                       fall_point = ARRAY_SIZE(degrees) - 1;
-> +               if (fall_point < raise_point) {
-> +                       if ((raise_point + fall_point) >
-> +                           (ARRAY_SIZE(degrees) - 1))
-> +                               i = fall_point / 2;
-> +                       else
-> +                               i = (raise_point + ARRAY_SIZE(degrees) - 1) / 2;
-> +               } else {
-> +                       i = (raise_point + fall_point) / 2;
-> +               }
-> +
-> +               // use the same phase table for both HS200 and HS400
+Changes since version 1:
+- Modify NCT736X(nct736x) to NCT7363Y(nct7363)
+- Convert to devm_hwmon_device_register_with_info API
+- All ID tables are next to each other and should be consistent
+  between i2c_device_id and of_device_id
+- Ref. fan-common.yaml and modify properties (nuvoton,pwm-mask/
+  nuvoton,fanin-mask) to (pwms/tach-ch)
+- Convert to devm_regmap_init_i2c API
+- Remove unused function (watchdog timer)
+- Fix uninitialized symbol which is reported by kernel test robot
 
-Don't use "//" for comments.
+Ban Feng (2):
+  dt-bindings: hwmon: Add NCT7363Y documentation
+  hwmon: Driver for Nuvoton NCT7363Y
 
-> +               priv->phase_map.phase[MMC_TIMING_MMC_HS200].in_deg = degrees[i];
-> +               priv->phase_map.phase[MMC_TIMING_MMC_HS400].in_deg = degrees[i];
-> +
-> +               clk_set_phase(priv->sample_clk, degrees[i]);
-> +               dev_dbg(host->dev, "Tuning clk_sample[%d, %d], set[%d]\n",
-> +                       raise_point, fall_point, degrees[i]);
-> +               err = 0;
-> +       } else {
-> +               dev_err(host->dev, "No valid clk_sample shift! use default\n");
-> +               err = -EINVAL;
-> +       }
-> +
-> +       mci_writel(host, RINTSTS, ALL_INT_CLR);
-> +       return err;
+Naresh Solanki (1):
+  dt-bindings: hwmon: fan: Add fan binding to schema
 
-The entire code in dw_mci_hi3798mv200_execute_tuning_mix_mode() looks
-rather messy to me. A lot of variables are being used, set and reset
-from everywhere.
+ .../devicetree/bindings/hwmon/fan-common.yaml |  78 ++++
+ .../bindings/hwmon/nuvoton,nct7363.yaml       |  63 +++
+ Documentation/hwmon/index.rst                 |   1 +
+ Documentation/hwmon/nct7363.rst               |  33 ++
+ MAINTAINERS                                   |   8 +
+ drivers/hwmon/Kconfig                         |  11 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/nct7363.c                       | 412 ++++++++++++++++++
+ 8 files changed, 607 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/fan-common.yaml
+ create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,nct7363.yaml
+ create mode 100644 Documentation/hwmon/nct7363.rst
+ create mode 100644 drivers/hwmon/nct7363.c
 
-Would you mind having a closer look and try to improve it a bit, so it
-becomes easier to follow what is going on?
+-- 
+2.34.1
 
-> +}
-> +
-> +static int dw_mci_hi3798mv200_init(struct dw_mci *host)
-> +{
-> +       struct dw_mci_hi3798mv200_priv *priv;
-> +       struct device_node *np = host->dev->of_node;
-> +       int ret;
-> +
-> +       priv = devm_kzalloc(host->dev, sizeof(*priv), GFP_KERNEL);
-> +       if (!priv)
-> +               return -ENOMEM;
-> +
-> +       mmc_of_parse_clk_phase(host->dev, &priv->phase_map);
-> +
-> +       priv->sample_clk = devm_clk_get_enabled(host->dev, "ciu-sample");
-> +       if (IS_ERR(priv->sample_clk))
-> +               return dev_err_probe(host->dev, PTR_ERR(priv->sample_clk),
-> +                                    "failed to get enabled ciu-sample clock\n");
-> +
-> +       priv->drive_clk = devm_clk_get_enabled(host->dev, "ciu-drive");
-> +       if (IS_ERR(priv->drive_clk))
-> +               return dev_err_probe(host->dev, PTR_ERR(priv->drive_clk),
-> +                                    "failed to get enabled ciu-drive clock\n");
-> +
-> +       priv->crg_reg = syscon_regmap_lookup_by_phandle(np, "hisilicon,sap-dll-reg");
-> +       if (IS_ERR(priv->crg_reg))
-> +               return dev_err_probe(host->dev, PTR_ERR(priv->crg_reg),
-> +                                    "failed to get CRG reg\n");
-> +
-> +       ret = of_property_read_u32_index(np, "hisilicon,sap-dll-reg", 1, &priv->sap_dll_offset);
-> +       if (ret)
-> +               return dev_err_probe(host->dev, ret, "failed to get sample DLL register offset\n");
-> +
-> +       host->priv = priv;
-> +       return 0;
-> +}
-> +
-> +static const struct dw_mci_drv_data hi3798mv200_data = {
-> +       .common_caps = MMC_CAP_CMD23,
-> +       .init = dw_mci_hi3798mv200_init,
-> +       .set_ios = dw_mci_hi3798mv200_set_ios,
-> +       .execute_tuning = dw_mci_hi3798mv200_execute_tuning_mix_mode,
-> +};
-> +
-> +static const struct of_device_id dw_mci_hi3798mv200_match[] = {
-> +       { .compatible = "hisilicon,hi3798mv200-dw-mshc" },
-> +       {},
-> +};
-> +
-> +static int dw_mci_hi3798mv200_probe(struct platform_device *pdev)
-> +{
-> +       return dw_mci_pltfm_register(pdev, &hi3798mv200_data);
-> +}
-> +
-> +static void dw_mci_hi3798mv200_remove(struct platform_device *pdev)
-> +{
-> +       dw_mci_pltfm_remove(pdev);
-> +}
-> +
-> +MODULE_DEVICE_TABLE(of, dw_mci_hi3798mv200_match);
-> +static struct platform_driver dw_mci_hi3798mv200_driver = {
-> +       .probe = dw_mci_hi3798mv200_probe,
-> +       .remove_new = dw_mci_hi3798mv200_remove,
-> +       .driver = {
-> +               .name = "dwmmc_hi3798mv200",
-> +               .probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +               .of_match_table = dw_mci_hi3798mv200_match,
-> +       },
-> +};
-> +module_platform_driver(dw_mci_hi3798mv200_driver);
-> +
-> +MODULE_DESCRIPTION("HiSilicon Hi3798MV200 Specific DW-MSHC Driver Extension");
-> +MODULE_LICENSE("GPL");
->
-
-Kind regards
-Uffe
