@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3431DC54E41
-	for <openbmc@archiver.kernel.org>; Mon,  4 Mar 2024 20:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82C46C54E41
+	for <openbmc@archiver.kernel.org>; Mon,  4 Mar 2024 22:43:06 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=q7ur/Atm;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=moEoK3t7;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TpWHH4HqHz3d2B
-	for <openbmc@archiver.kernel.org>; Tue,  5 Mar 2024 07:57:47 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TpYcn1WPzz3d24
+	for <openbmc@archiver.kernel.org>; Tue,  5 Mar 2024 09:43:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=q7ur/Atm;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=moEoK3t7;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=wsa@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=prosunofficial@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TpWGB0rBFz2yk5;
-	Tue,  5 Mar 2024 07:56:50 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 5AAF160C41;
-	Mon,  4 Mar 2024 20:56:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3ACC433C7;
-	Mon,  4 Mar 2024 20:56:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1709585807;
-	bh=PGm7I2xBC8apFwuKMKOhBF/0kgBpWxKJP5GaEquNHBk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=q7ur/Atm+F0BRx2XjbW/RLO681jkixxNDlhtmnW7AaqfZK5wOt2MFIoSLzPfIvTrZ
-	 Zi+nwZHsw3Bcbh+Es7vhBqmOGVB4apczXij+ftNj6iUdqhxQ4MHDeKR5HuQdWZ8KSj
-	 KxBU3C08oPCt1+UeaFrru0GO2FL3YnxlGHRBY3Oe18D8eS9ANJ1b0LMJ0Z2as/AyS5
-	 NF514VkFKLg9TMBJ2WS63FZ83dOisQ029009jUSYccwpubO86aWLatNTLgqxsmlRdP
-	 jAqVWw/BQx/Gr2CRvhmXq9PEUey6KArf0gc9eRC3gDG7KsVrXvwUQdgn66nzNP5HX7
-	 EVrWQeLBkZNHA==
-Date: Mon, 4 Mar 2024 21:56:43 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: Tommy Huang <tommy_huang@aspeedtech.com>
-Subject: Re: [PATCH] i2c: aspeed: Fix the dummy irq expected print
-Message-ID: <ZeY1i9_liCIjqNYL@ninjato>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
-	Tommy Huang <tommy_huang@aspeedtech.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	"brendan.higgins@linux.dev" <brendan.higgins@linux.dev>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"benh@kernel.crashing.org" <benh@kernel.crashing.org>,
-	"joel@jms.id.au" <joel@jms.id.au>,
-	"andrew@aj.id.au" <andrew@aj.id.au>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	BMC-SW <BMC-SW@aspeedtech.com>
-References: <20240216120455.4138642-1-tommy_huang@aspeedtech.com>
- <nbkkaktcozbhly44hii3zwie7ivsra3qxzdibyzhyhooxrudvb@zik6skmkki2c>
- <TYZPR06MB61911F076C8719C6A7D57B97E1562@TYZPR06MB6191.apcprd06.prod.outlook.com>
- <v4nawwb4rwjiy2g7xv2sfyhc545mhk4izb3g22f7jupcevjuzb@nxmqgf2zjyqs>
- <TYZPR06MB61912715EE2869DDB7C3763DE1552@TYZPR06MB6191.apcprd06.prod.outlook.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tnjkj07tXz3btQ
+	for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2024 00:45:15 +1100 (AEDT)
+Received: by mail-pl1-x636.google.com with SMTP id d9443c01a7336-1dc13fb0133so26865675ad.3
+        for <openbmc@lists.ozlabs.org>; Sun, 03 Mar 2024 05:45:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709473509; x=1710078309; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=f+XvaSacvZv2FwpCKQI/VZDC6hmI2YHWeRkctoTLloI=;
+        b=moEoK3t7KQ0CZ12zv67wRMrxL/rikvabD8PD+a+aa4JypvCimmUS39DxeEYvsELts0
+         DFufm6ICWJDDRNz1M5/1PT+0xehWcjijMjX2vYVM8YTVzDCO6GxgbafU6eKnIZiaaoyz
+         y3zfPypgEJ7dH6ub+kYwiELrTbQwvDdY94WHadynW+EZlPURCMv3HLCj9rORpWv0m++D
+         AKWHl0or37iScPTEr31URau4aMfL3woZMBnPtTJFGlzqzyduD1aBjIiRHNRt933I1pKD
+         QdzazsxmBUMID70DEhjZdFWI+lKh8c/kLdMtbgjQ3XluEuH/dR1VpO4xCyMrRJkFqyTO
+         Sdtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709473509; x=1710078309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=f+XvaSacvZv2FwpCKQI/VZDC6hmI2YHWeRkctoTLloI=;
+        b=lQUNdW+wkpQCfYTcZlO7pLKZB29Lht4EQrHca8eW6EqGlemwrnb/Nv3rEaSvgcDUEW
+         DszmQ7h7wQ2GnbZLgfCEbRmi5Y29WH2etynozepw3WJ14b3ZgRNDtilr/S52lYDS8DXK
+         lPl7G1dpCklDg5+GL4fem47KAQtARYNtv5ZvyQGDmZIKuSUB++mgPqiRaAgyGk7Pgxo0
+         AB1srSS9W9q/mVAHaU43OjiAVKToi2CAIyLkokqNRBadh9IxJgpFFTQFoKzfJ4M3us1k
+         WagIrrOsjUg5Qp8DWsrRqtoQHEN0FRR75HYsYdDakLNu4wSvCxUhMmhQOdKDHARFJdZh
+         BnOA==
+X-Gm-Message-State: AOJu0Yx81Ofl8c9Gse8Ou8rDddvG9cZvFhdzXtopasqjA7ETI205Cqal
+	4ZDCuNuCQ0Jd0ZsuTrdDVdDQQ2MwYGIk+fPcTR/7YtCuA6C5ntlSJprjzn00
+X-Google-Smtp-Source: AGHT+IHp0+kCn7euvS782F+lC0zGNSOjCiP4/N9VFfmkptpZU9eXdpG/ngz60LloISbZgst1lD4Q5g==
+X-Received: by 2002:a17:903:22cb:b0:1db:c6ff:664a with SMTP id y11-20020a17090322cb00b001dbc6ff664amr6965221plg.53.1709473508876;
+        Sun, 03 Mar 2024 05:45:08 -0800 (PST)
+Received: from kernel.. ([2402:e280:214c:86:98b4:6d91:d5f4:8f27])
+        by smtp.gmail.com with ESMTPSA id c9-20020a170902d48900b001db37fd26bcsm6658041plg.116.2024.03.03.05.45.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 03 Mar 2024 05:45:08 -0800 (PST)
+From: R SUNDAR <prosunofficial@gmail.com>
+To: openbmc@lists.ozlabs.org,
+	iwona.winiarska@intel.com
+Subject: [PATCH] Removed controller field description to prevent kernel-doc warnings
+Date: Sun,  3 Mar 2024 19:14:53 +0530
+Message-Id: <20240303134453.5791-1-prosunofficial@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="avejMe9/B1mBt2nB"
-Content-Disposition: inline
-In-Reply-To: <TYZPR06MB61912715EE2869DDB7C3763DE1552@TYZPR06MB6191.apcprd06.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 05 Mar 2024 09:42:14 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,41 +77,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW <BMC-SW@aspeedtech.com>, Andi Shyti <andi.shyti@kernel.org>, "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, "andrew@aj.id.au" <andrew@aj.id.au>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "brendan.higgins@linux.dev" <brendan.higgins@linux.dev>, "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "joel@jms.id.au" <joel@jms.id.au>
+Cc: R SUNDAR <prosunofficial@gmail.com>, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+./include/linux/peci.h:84: warning: Excess struct member 'controller' description in 'peci_device'
 
---avejMe9/B1mBt2nB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Signed-off-by: R SUNDAR <prosunofficial@gmail.com>
+---
+ include/linux/peci.h | 1 -
+ 1 file changed, 1 deletion(-)
 
+diff --git a/include/linux/peci.h b/include/linux/peci.h
+index 9b3d36aff431..90e241458ef6 100644
+--- a/include/linux/peci.h
++++ b/include/linux/peci.h
+@@ -58,7 +58,6 @@ static inline struct peci_controller *to_peci_controller(void *d)
+ /**
+  * struct peci_device - PECI device
+  * @dev: device object to register PECI device to the device model
+- * @controller: manages the bus segment hosting this PECI device
+  * @info: PECI device characteristics
+  * @info.family: device family
+  * @info.model: device model
+-- 
+2.34.1
 
-> 	Sure~
-> 	Below is my re-word commit and fixes tag.
-
-Please resend the patch with the reworded commit and the fixes tag
-added.
-
-
---avejMe9/B1mBt2nB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmXmNYsACgkQFA3kzBSg
-Kbbq4Q//W482FjqPLlxS98dtd5kekeRzwCXdh6wotwierJKOu6De5uec93delN3u
-JurwdgVTBV6vASmQSt5Ljl+JsKvRGL44fBLWeItzhTKgnEcUfF5rETgNTXbtiN0U
-uMhIcys10oiWK+68nzbycbiIdxU3hdP14TsDn2JI6h4QSqA8H6zJa6u2Cwff19AP
-eglXzL0/XxyyUL4wxjSk7Mq7KPql02xZq+S1zw50kaMTiNA28iXOh7zv7MXXMbe9
-TK/f5iXsijAhjt3MhkBIvQM9O+0Q3NcDS5P0ByVte3QDv34mHkdS7srfmkrN4d9M
-7mHlg0Nqbbst9sRHJXzfqyXrkEciOtIVPw1/03/wYDY4A6r0RxTQwFhXdkT1OgYo
-q+ejx44+jXLdAQ/t5qmlG28FNSybIyzSIqE5J85jWnMXdqcv2ulBC7oJJPk/hy/L
-IxDwUhgUvVySHyP2gx6M4GBrcGAIQcNedmoGQr5ymo4Kw7zJHru1fnG2cuBMEasv
-YeSWQOd6TKoPgmTtA/66i09gem/vzJbyK08JWElhqQZjowmiRwLoztZtTdQ9t4PJ
-J1KJkt8EwBPdD43kmPpm5khvU53z6zc0pHZ5T/x36++E5neY/S1O4R/HVKl2VTkM
-g8NqxMuMSpawebBzjtH7Klgu8TYAN/csxSuvUjLtTvAqzYVvbCw=
-=U+OC
------END PGP SIGNATURE-----
-
---avejMe9/B1mBt2nB--
