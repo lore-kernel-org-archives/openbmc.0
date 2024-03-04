@@ -4,49 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6405C48BF6
-	for <openbmc@archiver.kernel.org>; Sun,  3 Mar 2024 16:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16F70C5478C
+	for <openbmc@archiver.kernel.org>; Mon,  4 Mar 2024 15:27:38 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=byLmC7rM;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=aQnS0v7f;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TnnYx6n1Hz3cZB
-	for <openbmc@archiver.kernel.org>; Mon,  4 Mar 2024 03:37:57 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=infradead.org (client-ip=2607:7c80:54:3::133; helo=bombadil.infradead.org; envelope-from=rdunlap@infradead.org; receiver=lists.ozlabs.org)
-Received: from bombadil.infradead.org (bombadil.infradead.org [IPv6:2607:7c80:54:3::133])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TpMyJ4tjFz3dKY
+	for <openbmc@archiver.kernel.org>; Tue,  5 Mar 2024 02:27:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=konsulko.com header.i=@konsulko.com header.a=rsa-sha256 header.s=google header.b=aQnS0v7f;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=konsulko.com (client-ip=2607:f8b0:4864:20::f31; helo=mail-qv1-xf31.google.com; envelope-from=trini@konsulko.com; receiver=lists.ozlabs.org)
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com [IPv6:2607:f8b0:4864:20::f31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4TnnXs54l0z3byl
-	for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2024 03:36:58 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=tSswBdIcszDJoDe9Vi8pnuS2WTvFPCmOZO051C3dxKM=; b=byLmC7rMmjeLz0US861q1IrR7R
-	IQbPqrmvZLo+d9gIbCSHG1dzWeOCiwoo9J0+pQRIfrybvbIRarvyosXTpVwRiMGjlDnRI+vgQBrhW
-	m6YlLLdXfwuqsNal5V2vZnPjOuG61Y29ges0vQu2a1Bxd9DXUR+HmWjGPwDNo5nrB4MvlBGu9vmMe
-	aRTEyUVbR5lg7i8k0X05EpsQw03v6OyDcPwI8OB2QkhbJ4KfkQqKjNUDxPXm3auq2oUUmj871eJ2P
-	1/P3MixwaR7KnoUPEZqL/cmwbjLFzXPKTKKM7YyTzFZr13pXSS4hAQ6B/sQ7EbYvrT37BAb0weNdM
-	kjfkxXOw==;
-Received: from [50.53.50.0] (helo=[192.168.254.15])
-	by bombadil.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
-	id 1rgopZ-00000006IUw-1oWo;
-	Sun, 03 Mar 2024 16:36:53 +0000
-Message-ID: <aac03d82-1a07-457e-af5e-f125e05c66de@infradead.org>
-Date: Sun, 3 Mar 2024 08:36:50 -0800
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TpMxG2qk2z3cGY
+	for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2024 02:26:40 +1100 (AEDT)
+Received: by mail-qv1-xf31.google.com with SMTP id 6a1803df08f44-68f51c5f9baso27736216d6.3
+        for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2024 07:26:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1709565995; x=1710170795; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rQ//rl1JZKbRJLcDttg7xhAxnXjRK/NF0grCK2xAXK4=;
+        b=aQnS0v7fGQir/REWf5PrLgd4KF7Me2nqCvVv6i86eHQnD3wHmLh87bCX5oqhfli6tH
+         lr/wdhI1+mzbHIIgttoo39R2WrPGYiD4d1QHb/N5/obLbkJ5rLIHjUCCNc6xdthYyhIo
+         aZn47CJV2DsVo/I4gPLPaedNXO6FXJLubr87E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709565995; x=1710170795;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rQ//rl1JZKbRJLcDttg7xhAxnXjRK/NF0grCK2xAXK4=;
+        b=XYM//97H9dKcaamDaNYltmtNdzVYF/9OKdMZwz6UhIjoAkVaWoqv8PBt4Ulzpmtrfp
+         /tkOgmlHNiN6/SmXMEWLAM3Nn4Oa80lCWyC82BlOu+GUFIVMn9lq0f1RzoQxrEayp61M
+         fO/TsPuSIwGYNbZOLuZPRgwFHkP29YKzE8GCz/3tFpPQ/tLgUukuVKB0RXEBpoh5m7GF
+         BY6fwDGRFstPvOPW3AZt2Fi7TUMJsLewzyU7amFx2bLAmG0Gvfc/Ztj7dzcXXinOXcSu
+         kgypqpBN7KHYIGyxs4dTeU0Jwf8Zs7jgOAhiyveHw4Xm6DOgD7cEl+WJQvOcOT76JMjm
+         jP4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVmjIRT8e9WqoR2SqqHnRS1v6jD4eHGykmp6gZR33etWj4O9o33s7ddk7qpcIHXpqqEcIthXxn3w28ZH8K1FxGClf05B5gDdoY=
+X-Gm-Message-State: AOJu0Yxc4mtG6MzrSpwH/5vEjhJG5dW3as7/4xG74tSrUNmdlQX3mlQa
+	JlEKmcL6nQdaKNsK5lOtLE0nmYxkza9/L0H92OHF5GXUPRnGEsysVilLyYo9xe4=
+X-Google-Smtp-Source: AGHT+IFcOBzf+i8V6Ahfuo2Tl13p3aUmjuD00T8ASmyx7NR3oClmYzELFL6APvM3zCWgF2XeKsjjtw==
+X-Received: by 2002:a0c:f506:0:b0:690:7db7:77fb with SMTP id j6-20020a0cf506000000b006907db777fbmr1310335qvm.30.1709565995254;
+        Mon, 04 Mar 2024 07:26:35 -0800 (PST)
+Received: from bill-the-cat (2603-6081-7b00-007f-0000-0000-0000-1002.res6.spectrum.com. [2603:6081:7b00:7f::1002])
+        by smtp.gmail.com with ESMTPSA id a9-20020a0ce909000000b006907945e700sm911724qvo.12.2024.03.04.07.26.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 Mar 2024 07:26:34 -0800 (PST)
+Date: Mon, 4 Mar 2024 10:26:32 -0500
+From: Tom Rini <trini@konsulko.com>
+To: Ivan Mikhaylov <fr0st61te@gmail.com>
+Subject: Re: [PATCH] pinctrl: aspeed: add pass-through pins and siopbi/siopbo
+Message-ID: <20240304152632.GH1523872@bill-the-cat>
+References: <20240120232813.32474-1-fr0st61te@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Removed controller field description to prevent
- kernel-doc warnings
-Content-Language: en-US
-To: R SUNDAR <prosunofficial@gmail.com>, openbmc@lists.ozlabs.org,
- iwona.winiarska@intel.com
-References: <20240303134453.5791-1-prosunofficial@gmail.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20240303134453.5791-1-prosunofficial@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Zb5wIw7O+4YCHwhy"
+Content-Disposition: inline
+In-Reply-To: <20240120232813.32474-1-fr0st61te@gmail.com>
+X-Clacks-Overhead: GNU Terry Pratchett
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +77,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org
+Cc: Aspeed BMC SW team <BMC-SW@aspeedtech.com>, Ryan Chen <ryan_chen@aspeedtech.com>, openbmc@lists.ozlabs.org, u-boot@lists.denx.de, Joel Stanley <joel@jms.id.au>, Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
+--Zb5wIw7O+4YCHwhy
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 3/3/24 05:44, R SUNDAR wrote:
-> /include/linux/peci.h:84: warning: Excess struct member 'controller' description in 'peci_device'
-> 
-> Signed-off-by: R SUNDAR <prosunofficial@gmail.com>
+On Sun, Jan 21, 2024 at 02:28:13AM +0300, Ivan Mikhaylov wrote:
 
-Yes, or
-https://lore.kernel.org/lkml/20231223050605.13961-1-rdunlap@infradead.org/
+> Add THRU0-3 and SIOPBI/SIOPBO pin groups/functions.
+>=20
+> Signed-off-by: Ivan Mikhaylov <fr0st61te@gmail.com>
 
-so
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Applied to u-boot/next, thanks!
 
-> ---
->  include/linux/peci.h | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/include/linux/peci.h b/include/linux/peci.h
-> index 9b3d36aff431..90e241458ef6 100644
-> --- a/include/linux/peci.h
-> +++ b/include/linux/peci.h
-> @@ -58,7 +58,6 @@ static inline struct peci_controller *to_peci_controller(void *d)
->  /**
->   * struct peci_device - PECI device
->   * @dev: device object to register PECI device to the device model
-> - * @controller: manages the bus segment hosting this PECI device
->   * @info: PECI device characteristics
->   * @info.family: device family
->   * @info.model: device model
+--=20
+Tom
 
--- 
-#Randy
+--Zb5wIw7O+4YCHwhy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEEGjx/cOCPqxcHgJu/FHw5/5Y0tywFAmXl6CUACgkQFHw5/5Y0
+tyzfewv/fttPTR41KkM/dFzF/+oqUGmSIgLJrqkg9jbZuanoW94jZg51bSWpP7Er
++QGpl9vg79Ow+GbfdR36Hp2TensfQEbXckVuK5kVpEfcye1qyOSlTeBaDpO2rsdp
+Nc6nqTSb/wqoCl1B2E/rs+atEpwPcIznfhThZ6uus8EP5ESfElPlpVaua32I4X5V
+NwU4IXSfEZ8W2NkHlqTDAMqTe4HqoCxNO1dUlah9t5wLv+wZx5cAqR0x7jyxkdOT
+jFUrqoRZMeffnZU9KsrIcLH9agvgofRAw5xUUo6n997nKWLjp2OIVPCNC51C1c5A
+3G8NeedUKRwXYdsPBVDWY2EW9oeKTKbWO2kQeTJ2JEt5D1F0Ba9LE6Fh1QBgDZut
+0pb/FqJDGeizHIwwVX7eMoNOuFDQyHRcen78xB6xZCiamKbstja7u+fsNHK/bJsW
+rqW+5IPQaj8vQmBXiRNegeDgDCgiuOOflCa/x6x5SHrqkVV0mz00cOrUQkYUPGVv
+FMqezCaL
+=/at4
+-----END PGP SIGNATURE-----
+
+--Zb5wIw7O+4YCHwhy--
