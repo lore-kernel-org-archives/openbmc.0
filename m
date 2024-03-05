@@ -4,68 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E73F5C54E41
-	for <openbmc@archiver.kernel.org>; Tue,  5 Mar 2024 16:00:34 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JYlZnw5k;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 738FFC54798
+	for <openbmc@archiver.kernel.org>; Tue,  5 Mar 2024 16:28:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Tq0ds3pyWz3dXb
-	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 03:00:33 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JYlZnw5k;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1129; helo=mail-yw1-x1129.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com [IPv6:2607:f8b0:4864:20::1129])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Tq1Fr1BWLz3vXP
+	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 03:28:16 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=ukl@pengutronix.de; receiver=lists.ozlabs.org)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tq0cr6pb3z3bV2
-	for <openbmc@lists.ozlabs.org>; Wed,  6 Mar 2024 02:59:39 +1100 (AEDT)
-Received: by mail-yw1-x1129.google.com with SMTP id 00721157ae682-609408d4b31so57917417b3.0
-        for <openbmc@lists.ozlabs.org>; Tue, 05 Mar 2024 07:59:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709654377; x=1710259177; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=FCOuK42WVPhy1j4uSU/uGoBgIzJdOLgBH9p1sEa2EVw=;
-        b=JYlZnw5k6DnPVKkNznuV2b1SisReP4JL1uIy6xjTNJd4n0zmEP6lz2A5pGgWj8St6e
-         Iye7VITpWK2mRIxR1CNTKDYYRzzr3RVuXAiv3O2V1ger8SFArakvHBNvcWUCJUdMrLoJ
-         CWFD8sLGZqCZJhNXR+nAs1agvpvj/d3gLJ6nwHobnBWg5LoAvNO+4n8+XbBG7rGsJzc0
-         sgo2fEf5cwF49xxREh2uCDbC6T0XNkmC9ciRaLilWgDu1Y2NUBT2Imvbic5jLinQP+Zc
-         LVNM7wzq5Ph+fvle//eaTipRw461Narbp6Xc08gSlXC66OhVNwRlfB4kex5RysqjdcNj
-         XNvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709654377; x=1710259177;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FCOuK42WVPhy1j4uSU/uGoBgIzJdOLgBH9p1sEa2EVw=;
-        b=evchvZvhogMfbbUsf1borl+/MMJU5AwJ5P2T+DwYzwqzql1HPUP+ArUkOJoASHLJKK
-         M70X+sG/7X1DmzVTKn0ebzoocEcNqcxt4AkKGbZv8Qg43QwqDVsyGpsjyTbSjLIvwIWx
-         tTWGUS1mBi6lJVSwkfYX8JTZ5OjnOWFKYqMut5Wq6IN5ClJOZDAh7+wVH1GFTYjHuv3s
-         Fi3jzRw1wq3f/w/QmtoqcUZmcNp/CmnjmqQ0A4rBbTGriB6wS+VemrSdTykS7pE4PGWD
-         +A9mrICSRqI/GLTOVp7o6QcpZ+L5GWdFrR/cd86c7nN4tHqo1Vg6RbPD3rZBE1r94Prf
-         RsHA==
-X-Forwarded-Encrypted: i=1; AJvYcCUbc9SYoqoGXsVwRcUjR1BysS2Mf2Kg0ebYJihiiKPszKK7MswuRljnz3qFjUmuoMAn4ffO2b/VYqirdzNfAdmSayiWs92mdgs=
-X-Gm-Message-State: AOJu0Yxv5e07rgH0WHh9iV+RWaDtC5Ihk35HmlPF8u0WBfeMRaVLxW2b
-	CCCgs9LCaQ/sB4llcZxKgWA0749NmqIr2AOzAJ4NZIzaUvV43e6vDlVuAdFAb2WaqVorXRPovrW
-	zLF27a57rKLkHSE9mAhcammf8wW0=
-X-Google-Smtp-Source: AGHT+IGRKsPs+Rmg+G7IRByyGlLAIbv/gh2rXO2CsKTyMg8RVV0haXKjJswP3onDQp/fvGC2DQYEq3EkJUOgNJqf33E=
-X-Received: by 2002:a25:aa8a:0:b0:dce:2e9:a637 with SMTP id
- t10-20020a25aa8a000000b00dce02e9a637mr11131475ybi.20.1709654377024; Tue, 05
- Mar 2024 07:59:37 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tq1FJ39lXz3dWW
+	for <openbmc@lists.ozlabs.org>; Wed,  6 Mar 2024 03:27:46 +1100 (AEDT)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rhXdc-0003Tu-PZ; Tue, 05 Mar 2024 17:27:32 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rhXdc-004aQQ-AU; Tue, 05 Mar 2024 17:27:32 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1rhXdc-000BLr-0j;
+	Tue, 05 Mar 2024 17:27:32 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Corey Minyard <minyard@acm.org>
+Subject: [PATCH 6/6] ipmi: kcs_bmc_npcm7xx: Convert to platform remove callback returning void
+Date: Tue,  5 Mar 2024 17:27:03 +0100
+Message-ID: <16144ffaa6f40a1a126d5cf19ef4337218a04fbb.1709655755.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1709655755.git.u.kleine-koenig@pengutronix.de>
+References: <cover.1709655755.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-References: <20240131182653.2673554-1-tmaimon77@gmail.com> <20240131182653.2673554-4-tmaimon77@gmail.com>
- <74e003c6d80611ddd826ac21f48b4b3a.sboyd@kernel.org> <CAP6Zq1g5gwXvYzO5fnHxG-6__gSCpNBY7VeEPyr4Qtijya6EfQ@mail.gmail.com>
- <8acf846e767884978f3bb98646433551.sboyd@kernel.org> <CAP6Zq1htKQ5v0tH9HGRejnKwJ5ZauUWG_CzYUKegkVL4Ek8UxA@mail.gmail.com>
-In-Reply-To: <CAP6Zq1htKQ5v0tH9HGRejnKwJ5ZauUWG_CzYUKegkVL4Ek8UxA@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 5 Mar 2024 17:59:26 +0200
-Message-ID: <CAP6Zq1g4ksdLSVTm+PLqa5dSEidvHdpGZb=J9wKEftaH-Mg+bw@mail.gmail.com>
-Subject: Re: [PATCH v23 3/3] clk: npcm8xx: add clock controller
-To: Stephen Boyd <sboyd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2011; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=6BojaJx0o86nvxymZyJUgXFT9pCZmy7I6WYLjizDsSQ=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBl50fYrb33YIR2AYYD4oMtv8b+EFdySFh7vvuX8 zSMz9fCVyeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZedH2AAKCRCPgPtYfRL+ TiQSB/9tmMSHdmWxhpT3OAJ3xiZ8KvmE5bdZ7E2LJWyTOayQ0g7WWgO3e9eOJYJTWuvzlcx0sDs bUz/JybC7YlfSFM5L7C2f2vWKkXFEwmxivKwybbSHv7gP1tP8TKKTNeRinVSFFbcojXrw83a9zo ju8zCM3cyYJjijDiM7fLtADyFxFV25jFakiBC9uSRxGDjXwTdhNwMgTK8vKq9dFO7d7GtjprZ75 WQ5Pz6ALIHRQ8DaR8aFZ01ZWDo+3w84R+ONj8n7zXC1kkN+aYlkl04TnU1lcvU5IMKq/XUU22fe IbAGYqFKoLGTNPKW0PVZlLRJEacyDlAAsmriOgIwvjzpRZpJ
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,206 +61,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, benjaminfair@google.com, venture@google.com, mturquette@baylibre.com, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, openbmc@lists.ozlabs.org
+Cc: Benjamin Fair <benjaminfair@google.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, kernel@pengutronix.de, openipmi-developer@lists.sourceforge.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Stephen,
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-Appreciate it if you could reply to my email afew days ago, It is
-really important to us to move this driver to upstream.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Thanks,
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-Tomer
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/char/ipmi/kcs_bmc_npcm7xx.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-On Thu, 29 Feb 2024 at 23:29, Tomer Maimon <tmaimon77@gmail.com> wrote:
->
-> Hi Stephen,
->
-> Thanks for your reply.
->
-> On Thu, 29 Feb 2024 at 00:48, Stephen Boyd <sboyd@kernel.org> wrote:
-> >
-> > Quoting Tomer Maimon (2024-02-25 10:00:35)
-> > > Hi Stephen,
-> > >
-> > > On Thu, 22 Feb 2024 at 07:58, Stephen Boyd <sboyd@kernel.org> wrote:
-> > > >
-> > > > Quoting Tomer Maimon (2024-01-31 10:26:53)
-> > > > > diff --git a/drivers/clk/clk-npcm8xx.c b/drivers/clk/clk-npcm8xx.c
-> > > > > new file mode 100644
-> > > > > index 000000000000..eacb579d30af
-> > > > > --- /dev/null
-> > > > > +++ b/drivers/clk/clk-npcm8xx.c
-> > > > > @@ -0,0 +1,509 @@
-> > > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > > +/*
-> > > > > + * Nuvoton NPCM8xx Clock Generator
-> > > > > + * All the clocks are initialized by the bootloader, so this driver allows only
-> > > > [...]
-> > > > > +
-> > > > > +/* external clock definition */
-> > > > > +#define NPCM8XX_CLK_S_REFCLK   "refclk"
-> > > > > +
-> > > > > +/* pll definition */
-> > > > > +#define NPCM8XX_CLK_S_PLL0     "pll0"
-> > > > > +#define NPCM8XX_CLK_S_PLL1     "pll1"
-> > > > > +#define NPCM8XX_CLK_S_PLL2     "pll2"
-> > > > > +#define NPCM8XX_CLK_S_PLL_GFX  "pll_gfx"
-> > > > > +
-> > > > > +/* early divider definition */
-> > > > > +#define NPCM8XX_CLK_S_PLL2_DIV2                "pll2_div2"
-> > > > > +#define NPCM8XX_CLK_S_PLL_GFX_DIV2     "pll_gfx_div2"
-> > > > > +#define NPCM8XX_CLK_S_PLL1_DIV2                "pll1_div2"
-> > > > > +
-> > > > > +/* mux definition */
-> > > > > +#define NPCM8XX_CLK_S_CPU_MUX     "cpu_mux"
-> > > > > +
-> > > > > +/* div definition */
-> > > > > +#define NPCM8XX_CLK_S_TH          "th"
-> > > > > +#define NPCM8XX_CLK_S_AXI         "axi"
-> > > >
-> > > > Please inline all these string #defines to the place they're used.
-> > > The version V21 you mention using define only when the definition is
-> > > used more than once
-> > > https://www.spinics.net/lists/kernel/msg5045826.html
-> > > Should I remove all the string definitions and add the string to the array?
-> >
-> > If it's a clk name for a clk registered in this file it should be
-> > inlined. Is that the case for everything besides refclk? And even refclk
-> > could be inlined so that we don't have to jump to the definition of a
-> > string.
-> I will add the string in the clock arrays and remove all the string definitions.
-> >
-> > > > > +
-> > > > > +static unsigned long npcm8xx_clk_div_get_parent(struct clk_hw *hw,
-> > > > > +                                               unsigned long parent_rate)
-> > > > > +{
-> > > > > +       struct npcm8xx_clk *div = to_npcm8xx_clk(hw);
-> > > > > +       unsigned int val;
-> > > > > +
-> > > > > +       regmap_read(div->clk_regmap, div->offset, &val);
-> > > > > +       val = val >> div->shift;
-> > > > > +       val &= clk_div_mask(div->width);
-> > > > > +
-> > > > > +       return divider_recalc_rate(hw, parent_rate, val, NULL, div->flags,
-> > > > > +                                  div->width);
-> > > > > +}
-> > > > > +
-> > > > > +static const struct clk_ops npcm8xx_clk_div_ops = {
-> > > > > +       .recalc_rate = npcm8xx_clk_div_get_parent,
-> > > > > +};
-> > > > > +
-> > > > > +static int npcm8xx_clk_probe(struct platform_device *pdev)
-> > > > > +{
-> > > > > +       struct device_node *parent_np = of_get_parent(pdev->dev.of_node);
-> > > >
-> > > > The parent of this device is not a syscon.
-> > > Once I have registered the map that handles both reset and the clock
-> > > in general is syscon, this is why we will modify the DTS so the clock
-> > > and the reset will be under syscon father node
-> > >                 sysctrl: system-controller@f0801000 {
-> > >                         compatible = "syscon", "simple-mfd";
-> > >                         reg = <0x0 0xf0801000 0x0 0x1000>;
-> > >
-> > >                         rstc: reset-controller {
-> > >                                 compatible = "nuvoton,npcm845-reset";
-> > >                                 reg = <0x0 0xf0801000 0x0 0xC4>;
-> > >                                 #reset-cells = <2>;
-> > >                                 nuvoton,sysgcr = <&gcr>;
-> > >                         };
-> > >
-> > >                         clk: clock-controller {
-> > >                                 compatible = "nuvoton,npcm845-clk";
-> > >                                 #clock-cells = <1>;
-> > >                                 clocks = <&refclk>;
-> > >                                 clock-names = "refclk";
-> > >                         };
-> > >                 };
-> > > You can see other drivers that using the same method like
-> > > https://elixir.bootlin.com/linux/v6.8-rc5/source/Documentation/devicetree/bindings/clock/socionext,uniphier-clock.yaml
-> >
-> > You will need a similar file like
-> > Documentation/devicetree/bindings/soc/socionext/socionext,uniphier-perictrl.yaml
-> > then to describe the child nodes.
-> I can do it.
-> >
-> > Socionext may not be the best example to follow. I generally try to
-> > avoid syscon and simply put #reset-cells and #clock-cells in the node
-> If I remove syscon I can't use syscon_node_to_regmap function, What
-> should I use If I remove syscon? auxiliary bus? something else?
-> > for the device. You can use the auxiliary bus to register drivers for
-> > clk and reset and put them into the resepective driver directories.
-> I little bit confused, what is an auxiliary bus to register drivers,
-> can you provide me an example?
-> > Avoid syscon means random drivers can't reach into the device with a
-> > regmap handle and read/write registers that they're not supposed to.
-> Indeed, but the drivers could use the reset and clock memory map only
-> if the module is also a child node.
->
-> Please let me know what is your preferred way to handle it:
-> 1. stick with syscon and upstream-defined documentation for the rst clk syscon.
-> 2. avoid syscon and use an auxiliary bus, appreciate if you could give
-> me an example of how it should be done.
-> 3. Avoid sycon and handle it differently.
-> >
-> > > >
-> > > > > +       struct clk_hw_onecell_data *npcm8xx_clk_data;
-> > > > > +       struct device *dev = &pdev->dev;
-> > > > > +       struct regmap *clk_regmap;
-> > > > > +       struct clk_hw *hw;
-> > > > > +       unsigned int i;
-> > > > > +
-> > > > > +       npcm8xx_clk_data = devm_kzalloc(dev, struct_size(npcm8xx_clk_data, hws,
-> > > > > +                                                        NPCM8XX_NUM_CLOCKS),
-> > > > > +                                       GFP_KERNEL);
-> > > > > +       if (!npcm8xx_clk_data)
-> > > > > +               return -ENOMEM;
-> > > > > +
-> > > > > +       clk_regmap = syscon_node_to_regmap(parent_np);
-> > > > > +       of_node_put(parent_np);
-> > > >
-> > > > Is there another binding update that is going to move this node to be a
-> > > > child of the syscon?
-> > > >
-> > > >                 gcr: system-controller@f0800000 {
-> > > >                         compatible = "nuvoton,npcm845-gcr", "syscon";
-> > > >                         reg = <0x0 0xf0800000 0x0 0x1000>;
-> > > >                 };
-> > > No, sorry but I'm not going to use the GCR node the handle the clock
-> > > and reset modules, the GCR has different memory space.
-> > > the clock driver will have the following device tree
-> >
-> > What does the reset driver use the CGR node for? The driver looks like
-> > it's using it to control USB phy resets.
-> Yes, the USB PHY reset is handled through the GCR registers.
-> >
-> > >                sysctrl: system-controller@f0801000 {
-> > >                         compatible = "syscon", "simple-mfd";
-> > >                         reg = <0x0 0xf0801000 0x0 0x1000>;
-> > >
-> > >                         rstc: reset-controller {
-> > >                                 compatible = "nuvoton,npcm845-reset";
-> > >                                 reg = <0x0 0xf0801000 0x0 0xC4>;
-> >
-> > This isn't a valid reg property for a child node like this.
-> O.K.
-> >
-> > >                                 #reset-cells = <2>;
-> > >                                 nuvoton,sysgcr = <&gcr>;
-> > >                         };
-> > >
-> > >                         clk: clock-controller {
-> > >                                 compatible = "nuvoton,npcm845-clk";
-> > >                                 #clock-cells = <1>;
-> > >                                 clocks = <&refclk>;
-> > >                                 clock-names = "refclk";
-> > >                         };
-> > >                 };
->
-> Appreciate your guidance!
->
-> Thanks,
->
-> Tomer
+diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+index 7961fec56476..07710198233a 100644
+--- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
++++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+@@ -218,7 +218,7 @@ static int npcm7xx_kcs_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static int npcm7xx_kcs_remove(struct platform_device *pdev)
++static void npcm7xx_kcs_remove(struct platform_device *pdev)
+ {
+ 	struct npcm7xx_kcs_bmc *priv = platform_get_drvdata(pdev);
+ 	struct kcs_bmc_device *kcs_bmc = &priv->kcs_bmc;
+@@ -227,8 +227,6 @@ static int npcm7xx_kcs_remove(struct platform_device *pdev)
+ 
+ 	npcm7xx_kcs_enable_channel(kcs_bmc, false);
+ 	npcm7xx_kcs_irq_mask_update(kcs_bmc, (KCS_BMC_EVENT_TYPE_IBF | KCS_BMC_EVENT_TYPE_OBE), 0);
+-
+-	return 0;
+ }
+ 
+ static const struct of_device_id npcm_kcs_bmc_match[] = {
+@@ -243,7 +241,7 @@ static struct platform_driver npcm_kcs_bmc_driver = {
+ 		.of_match_table	= npcm_kcs_bmc_match,
+ 	},
+ 	.probe	= npcm7xx_kcs_probe,
+-	.remove	= npcm7xx_kcs_remove,
++	.remove_new = npcm7xx_kcs_remove,
+ };
+ module_platform_driver(npcm_kcs_bmc_driver);
+ 
+-- 
+2.43.0
+
