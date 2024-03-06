@@ -4,70 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1E0AC54E49
-	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 02:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6931C5475B
+	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 10:00:44 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=beuOQr0J;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=gbtFIXk0;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TqGVw27JDz3fQH
-	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 13:25:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4TqScC1jlgz3dWh
+	for <openbmc@archiver.kernel.org>; Wed,  6 Mar 2024 21:00:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=beuOQr0J;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=gbtFIXk0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62b; helo=mail-ej1-x62b.google.com; envelope-from=ppighouse@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.21; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
+X-Greylist: delayed 322 seconds by postgrey-1.37 at boromir; Wed, 06 Mar 2024 20:59:50 AEDT
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tprbb02Jmz2ykC
-	for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2024 20:58:00 +1100 (AEDT)
-Received: by mail-ej1-x62b.google.com with SMTP id a640c23a62f3a-a441d7c6125so49830666b.2
-        for <openbmc@lists.ozlabs.org>; Tue, 05 Mar 2024 01:58:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709632676; x=1710237476; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=X+P16Wj01OQarXDJbDOe1U/EcWcwiUUk+JKOZW37dio=;
-        b=beuOQr0JerzljMNMAxjzMqiBpgOQrVCSfEiCEfgYpissX9DmEfSog+2FcNAMwcJhNT
-         lmXBuVe+rl9G12dEEq786tlm79lCeZSFLeQkfqM2sDiexUS+v1b8w27HvSRjAIi/2JB3
-         KoTDEPrCTwhldrOdHiuf6XmJPTq3XnVfkkcwaZII9fj2L1sup5V/LFv1V+Iosp3HHouL
-         j4UWeWyjVBRYPzJLM8Pv0uvTakI8pm3G8fpSVkv9MPLc6d/SQ5ITafggmZpYVk3fN81m
-         cVFNuilc8wvhvYdc4KTB26Sy83EREW7TOWASnCklISwttA9jHsCdouLdn25l+tGx98xJ
-         YTnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709632676; x=1710237476;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=X+P16Wj01OQarXDJbDOe1U/EcWcwiUUk+JKOZW37dio=;
-        b=tEPhSkhKWm3EfDyd5soYsVArLicTZzYcRASOaqOya1ZhG8efeGT5yOyoiLBX3+RO41
-         4bBd7kk9vtrg6eF+A5QDW0EpzcNqluq9ryOGlOEWrwEaJBkh5BApeiIsfYiNppWbUpXH
-         h00nCq/vi6/FWmPLyPv21sQwB4d4dafeUVCKdh1B8qNDOdSVa958HA8pvS1AoV8sgWta
-         aqwbOII12w2PpMNkw0VbSS1WdLhMdLCYS0zPMFJY3QwX1VuLaAojMs15PaY5VJfDa0My
-         ydF8tCuEjqLtiTpm3O+QuJjXkbV0BoHNhhy4pmfIGCr6vsP4Rd19AheAdY62cHTmzqyq
-         yg+w==
-X-Forwarded-Encrypted: i=1; AJvYcCUqq0As9KBtPNrikc1m+deG7M37vE/1QnWxgUlaooVq9Tvqgyc8r8IVmOwtRUGlnw6ouRzlRkSBuesjfxMdcJAzkeJ1Pzv3gxU=
-X-Gm-Message-State: AOJu0Yzon5br9qz0FCyTfzvPghQvZZcGgtTcNt597mwcEpHiUBy+4HNp
-	mJiaPmU2x8Yx2xsa23y2Uax3nAxhTg7M3oHSg9F5RbGNVVD5bvQWn/RTlqLoLDmwBg3VNLG4HmB
-	jQHlR/0yIsrDHxNPRAgP+l7uHjDE=
-X-Google-Smtp-Source: AGHT+IF20hamFlVpadqSfzSHL7vRjniGWk8jW6W/rsr+pz0z2zK08gZZ9gxt/sKLn8W1/CyKyVOV526btYONlvlmo1k=
-X-Received: by 2002:a17:906:6b89:b0:a45:419:f1e1 with SMTP id
- l9-20020a1709066b8900b00a450419f1e1mr4774776ejr.39.1709632675660; Tue, 05 Mar
- 2024 01:57:55 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4TqSbB3wYhz2xdg
+	for <openbmc@lists.ozlabs.org>; Wed,  6 Mar 2024 20:59:49 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=s31663417; t=1709719187; x=1710323987; i=j.neuschaefer@gmx.net;
+	bh=Cfsjv3bMraaDifxBSHB4874EPFtiZVDgXo474KE3U1c=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+	b=gbtFIXk0wXR9kNuGdtUvoZy0MUi9K0PiA7G07snTGCmQ/01PHDK3xAJIA1bgptn3
+	 ONQalF+U4i1aOykI7LUjUO3vsUXA6MdIsVVkFi1RFisl7DImyzjgCwN0DqG7DN9X/
+	 EIet14A2uDFqqCAst+SJPkFfYHDCBfa53sTRuEMz/52GhnlGJy47eQNbY/MqVkyDT
+	 zSGs/BMWM9i8PrkTXbqsMNZpu98n2uNCRCr2gPcr3+R40JknYQdo9Vadw5MuLfeA0
+	 b9WpxnROcaTRogb3txHdtDBY0NqukHB+z8kCkOvaGI+WmEfXscdIQSXbBbbndsfrT
+	 TwCPlISxeH1NwU290A==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from probook ([89.1.58.16]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MYeMt-1rMeLP1nBD-00VjrS; Wed, 06
+ Mar 2024 10:54:04 +0100
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] ARM: wpcm450_defconfig: Fix formatting of 32-bit number
+Date: Wed,  6 Mar 2024 10:53:58 +0100
+Message-ID: <20240306095358.509785-1-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240130090447.198103-1-Kelly_Hung@asus.com> <acd6f49b-b476-4364-8263-06e20a0c599d@kernel.org>
- <TYZPR04MB6596BB61B2D1B9216F06A18E9D222@TYZPR04MB6596.apcprd04.prod.outlook.com>
- <c88558f8-acc1-4b36-b729-bdf1019e81a0@kernel.org> <TYZPR04MB6596ACF05A2D79377F53A0F09D222@TYZPR04MB6596.apcprd04.prod.outlook.com>
- <2c5cd4f1-b048-49c1-89cc-58070d64c09d@kernel.org>
-In-Reply-To: <2c5cd4f1-b048-49c1-89cc-58070d64c09d@kernel.org>
-From: Chia Li Hung <ppighouse@gmail.com>
-Date: Tue, 5 Mar 2024 17:57:42 +0800
-Message-ID: <CAK=2BxufCBOhYdGRZG_0RdzF17W57bNV2kELT2nx8L9xJXFfKA@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: asus: Add ASUS X4TF BMC
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Type: multipart/alternative; boundary="0000000000005446c30612e6e0c8"
-X-Mailman-Approved-At: Wed, 06 Mar 2024 13:23:00 +1100
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:RKv9wcRZzdbbUc8vslPj0/ift4zM2q31+YoQqAj7SP6uKHlVkDp
+ /yVdn6Ol6am9gnjXrDd27PFrNO6rTdw53UmEMC09AA3yxp1QopeSMax4bGsbMBC4XB2khyK
+ HE1S+iZa2bsYGxHLUTUj5K6/g0OrGSxeHXJsfDhC4ySw59Ppr56scFNh9FKn2OaNTGYpD08
+ r9MAGCkl6Mde4e9LYVSUg==
+UI-OutboundReport: notjunk:1;M01:P0:bAhkw0B0ivQ=;FBJsyU1p2cex39Wfbj1pDEOcaxD
+ 60Xw8WbUvYARutegl7ocFahfPvhuIxViYYCDuroGzP+C9VP39aZuExSiPd9FLD95r0GUucLUH
+ nOMThcTfvNiedxV3ZfJJKfJwv3/XhvJQab7+04/IGmTe/REpSJ5Ssp3tWsDRz7AbUuQbEve0t
+ 2SfZb7nqQn2cosBxRkKdh/b3Aogp63aedDJBY2BJf5VkfTiJ8p+gqw9RQ+7zmpTr34ROrEDvG
+ g8zG/n8ENwpM/kidYAfQ8pmLdHpIhaZ2oZbszS2D5T/JWLQqNrnLi2I6ivRE4gAct0qqsj6CC
+ lHJJwBjzypWpbXfdDVYRqczkFkrYNILs3QmVhNtm+XTaI/n3qcfvYj4kEs82ulJrSTrpi0B5k
+ lCx5ant3wgTokDfF7PSwhMMAWpmteQcDtIz8+HIgaghl972RJVbDmGCNkC9PWQYRS0sVCorCh
+ +4DwkI8RufrPanZquKnib1qqwtpwdZM3/dl4UMi+e53d74rzFW163OO5DWI9N9BPTiy+fDK4J
+ 4eoHfoR507u+eS2kfMm95hTDcUc7tUrQRySbkS9vU4dB/svrPlvxhJmauqdHvgkXRq4Q82rQq
+ W7qO7CKvah1WVfzHkSMfhFBu+e0sjcnAQNeUBkIPyp6SrqbM3FpBfAzWgJCiQ1f82gIjcEKg6
+ WyW5SeWq6HcondtiKBUiOMOd4X+zr+4f7GXo697wfXmXUPWGqcULSIzW+YqjX/BAiO3UK/RnE
+ RmGCzzoZm4D2d1v1PlwzCeWO/x39X04HFavI0li/FnTjUKV8g/+bueOKzzkIr+aAcvMJZ5c9j
+ 04JOklBvbbYNbHQP0frhDcvQ1PxjxsDzI4KdiqQRn76mo=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,71 +74,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: =?UTF-8?B?QWxsZW5ZWSBIc3Uo6Kix5bm85bKzKQ==?= <AllenYY_Hsu@asus.com>, =?UTF-8?B?VGFpamllIFd1KOWQs+azsOmgoSk=?= <Taijie_Wu@asus.com>, =?UTF-8?B?S2VsbHkgSHVuZyjmtKrlmInojokp?= <Kelly_Hung@asus.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Russell King <linux@armlinux.org.uk>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---0000000000005446c30612e6e0c8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Nine digits are one too many.
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2024=E5=B9=B43=E6=9C=885=E6=
-=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=885:44=E5=AF=AB=E9=81=93=EF=BC=9A
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+ arch/arm/configs/wpcm450_defconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > -----Original Message-----
-> >
-> >>
-> >> Hi, Krzysztof,
-> >> I have already asked our company's IT, and because of security laws, I=
-T
-> cannot help me delete that confidential information.
->
-> >Well, this puts me in quite difficult spot because I might be legally
-> obliged to delete your emails. I don't know how to proceed (and I don't
-> care), so I recommend using different email provider, but if you do not
-> want I will conform with the requirements and delete all emails from you.
->
-> >Best regards,
-> >Krzysztof
->
-> Hi, Krzysztof,
-Yes, I replayed this email using my private Gmail account. I hope this
-patch continues to be successful.
-Please note that the email for my openbmc account is kelly_hung@asus.com.
+diff --git a/arch/arm/configs/wpcm450_defconfig b/arch/arm/configs/wpcm450=
+_defconfig
+index 45483deab034f..78b6c671eade5 100644
+=2D-- a/arch/arm/configs/wpcm450_defconfig
++++ b/arch/arm/configs/wpcm450_defconfig
+@@ -206,6 +206,6 @@ CONFIG_DEBUG_USER=3Dy
+ CONFIG_DEBUG_LL=3Dy
+ CONFIG_DEBUG_LL_UART_8250=3Dy
+ CONFIG_DEBUG_UART_PHYS=3D0xb8000000
+-CONFIG_DEBUG_UART_VIRT=3D0x0ff000000
++CONFIG_DEBUG_UART_VIRT=3D0xff000000
+ CONFIG_DEBUG_UART_8250_WORD=3Dy
+ CONFIG_EARLY_PRINTK=3Dy
+=2D-
+2.43.0
 
-Thanks.
-
-Best Regards
-Kelly
-
---0000000000005446c30612e6e0c8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gma=
-il_quote"><div dir=3D"ltr" class=3D"gmail_attr">Krzysztof Kozlowski &lt;<a =
-href=3D"mailto:krzk@kernel.org">krzk@kernel.org</a>&gt; =E6=96=BC 2024=E5=
-=B9=B43=E6=9C=885=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=885:44=E5=AF=
-=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">&gt; -----Original Message-----<br>
-&gt; <br>&gt;&gt;<br>&gt;&gt; Hi, Krzysztof,<br>&gt;&gt; I have already ask=
-ed our company&#39;s IT, and because of security laws, IT cannot help me de=
-lete that confidential information.<br>
-<br>&gt;Well, this puts me in quite difficult spot because I might be legal=
-ly<br>
-obliged to delete your emails. I don&#39;t know how to proceed (and I don&#=
-39;t<br>
-care), so I recommend using different email provider, but if you do not<br>
-want I will conform with the requirements and delete all emails from you.<b=
-r>
-<br>&gt;Best regards,<br>&gt;Krzysztof<br>
-<br></blockquote><div>Hi, Krzysztof,</div><div>Yes, I replayed this email u=
-sing my private Gmail account. I hope this patch continues to be successful=
-.</div><div>Please note that the email for my openbmc account is <a href=3D=
-"mailto:kelly_hung@asus.com">kelly_hung@asus.com</a>.=C2=A0</div><div><br><=
-/div><div>Thanks.</div><div><br></div><div>Best Regards</div><div>Kelly=C2=
-=A0</div></div></div></div></div></div></div></div>
-
---0000000000005446c30612e6e0c8--
