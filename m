@@ -4,70 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A825C54798
-	for <openbmc@archiver.kernel.org>; Thu,  7 Mar 2024 23:23:35 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=IEc09Mi7;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE7AAC54E4A
+	for <openbmc@archiver.kernel.org>; Fri,  8 Mar 2024 08:52:38 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4TrQN60l36z3vYj
-	for <openbmc@archiver.kernel.org>; Fri,  8 Mar 2024 10:23:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=IEc09Mi7;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d2f; helo=mail-io1-xd2f.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com [IPv6:2607:f8b0:4864:20::d2f])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Trg0h5kTCz3vZr
+	for <openbmc@archiver.kernel.org>; Fri,  8 Mar 2024 19:52:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=ukl@pengutronix.de; receiver=lists.ozlabs.org)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tr1Tn4S83z3dTl
-	for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2024 18:42:04 +1100 (AEDT)
-Received: by mail-io1-xd2f.google.com with SMTP id ca18e2360f4ac-7c843eb31f7so24633839f.1
-        for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2024 23:42:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709797322; x=1710402122; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B5+2SLHKHSCrTFwVgpGe2p6pLgJMincwPJKbEHmHkEw=;
-        b=IEc09Mi7vU1oTBKIZXAkbn3NnvWQWDgkI2iFHmHFXs/HtUXxXl2/LsCL1xvtB1Za4G
-         i5lS/1vDRlryf1b+5INTFuyhro+ci3ddElZ+ykxNbsti1U1YG98XuCo6JxLNg3xub3EL
-         VbRKxLPdEcR4h1+7QFRV0a63dU9Vm9SKiAxcA4RQ54vUtLotoAVfbc+p5sFao1XkQmRI
-         Tp7tTnmIBVbz+rmhdG/WMpEeecg2qFJGzdMNCgO763AQ2FHNvWya7Swpn75Opw5nCcrY
-         ksLc87i3ZrjH6WFolflb0EurZkTSTTi0UCakKAzWcUZYdim1YY83/JGoiM1B0pz2N+2O
-         nHfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709797322; x=1710402122;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=B5+2SLHKHSCrTFwVgpGe2p6pLgJMincwPJKbEHmHkEw=;
-        b=uq+265Cv5KDXq8PwrlKa+spLjFonDTsiicBhcOVdsRzd7tdjS8XzYiXB8c5zMgRmnn
-         3eSdDD2OKHtUTYBD+Aocj5/I0W7cnj4OIlXBD8Tfgyn+RxXBnkw7ylInbVFWIGdziLXh
-         PPJxfA0hCt0tJbFZzS7IeynP8BDxYmBxB5A+Z1mG0hgcYuKrTDbMWJrh+1x3BlPoHYDq
-         HKbXU3BhkwETgm2dsIlY4kCO9FLSMfsLpklD8GQSpX7nPvSAeWQPRUo0G+pguv14Olr6
-         O7vqTPz/F/l4x7Vp894jlDo6wImBNFB/BQsxwqwudPSL5gPaOIX6Mx5nPnRFUreV2Tpj
-         vkvg==
-X-Forwarded-Encrypted: i=1; AJvYcCXJK28BZttHa1+prbaiBVP46LUsamDsPEvvqBcFng7BAykYlDGwe00fgHzATJI5IsjdCzsJ3J7pD0b/7k4FLS0Yj1TmV4RQsIE=
-X-Gm-Message-State: AOJu0Yxx4fGFd7LYyFfLcyGxzTgr6BOAJn694ruAAAk8c/PvXIhpPm47
-	EU+GOM0PX3iEj348mnaN2BkfCR+H5iyw5WxDE7iRP4s5m4Zf0zUIpvlUlRN6nUH13jLZJUxoBLb
-	1HJwv4Q3RoJMNjeeeJnOZdM3TmV8=
-X-Google-Smtp-Source: AGHT+IEeBR2EPDEPGv0wdG0jF+0ybHRLIfCHqc8xs55MboJMGn1dQvKiGrjW/JtCbl+vnDXrSMS9zxUAZJEr7pMVv/c=
-X-Received: by 2002:a6b:dc0d:0:b0:7c8:63dc:e9cd with SMTP id
- s13-20020a6bdc0d000000b007c863dce9cdmr9211980ioc.19.1709797322307; Wed, 06
- Mar 2024 23:42:02 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Trg0664Hzz3bwX
+	for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2024 19:52:04 +1100 (AEDT)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1riVxH-0006zY-QM; Fri, 08 Mar 2024 09:51:51 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1riVxG-0056Nl-Mn; Fri, 08 Mar 2024 09:51:50 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+	(envelope-from <ukl@pengutronix.de>)
+	id 1riVxG-00246D-20;
+	Fri, 08 Mar 2024 09:51:50 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Peter Chen <peter.chen@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] usb: chipidea: npcm: Convert to platform remove callback returning void
+Date: Fri,  8 Mar 2024 09:51:18 +0100
+Message-ID: <91311e53e9432ae84d5720485c3b436fb7f06227.1709886922.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240227005606.1107203-1-kcfeng0@nuvoton.com> <20240227005606.1107203-2-kcfeng0@nuvoton.com>
- <1cf69d3e-a8b4-49f6-ac4d-550b525e45e2@hatter.bewilderbeest.net>
-In-Reply-To: <1cf69d3e-a8b4-49f6-ac4d-550b525e45e2@hatter.bewilderbeest.net>
-From: Ban Feng <baneric926@gmail.com>
-Date: Thu, 7 Mar 2024 15:41:51 +0800
-Message-ID: <CALz278b_bbFB77TsVZLMKaK7kwqjjS1PzBbsB==r08R1Zkju8A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: hwmon: fan: Add fan binding to schema
-To: Zev Weiss <zev@bewilderbeest.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 08 Mar 2024 10:18:22 +1100
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1902; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=UND3LN2cxUflw7dQF4s+C69E5KDxmztIpomMK2CtFqg=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBl6tGLzeOg4w6Z5Ct9P5xdIpqSFWK5xjUq8lifW Tin4bDyCfeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZerRiwAKCRCPgPtYfRL+ TnELCACpUSdK/UC2Id2ldrUSo5k8ta2kYi8yCD76nX2Wy3e4aUb3QumJQpMSX7pyOD0qrECpV1m YLWa65U7wDCsCv0QyiQbTkuEKl0TySQIyHRY1wzY9hexDKMmVy1ZreCMZOqzsSu0yloG0V3c3vQ PpFAVyL2bbr5WJnowgocAlIsZMpkJUmEjPj/J0h848GOXiVym93IGBglbppEiFl4qfpBkQLnfbv J95BQYekOVrmKkJxBgQjRFQmHHU/zgBWt2aFU1fCp4pMO890W08cDoP19rJn03ZHDIWtJZkCAyR uzC00sFPq9ptUia6dl2GIWeexvm2PV3vqmduVEZ5w4Itp0PF
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,153 +60,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, jdelvare@suse.com, corbet@lwn.net, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, DELPHINE_CHIU@wiwynn.com, naresh.solanki@9elements.com, billy_tsai@aspeedtech.com, kcfeng0@nuvoton.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, kwliu@nuvoton.com, Rob Herring <robh@kernel.org>, linux@roeck-us.net
+Cc: Benjamin Fair <benjaminfair@google.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, kernel@pengutronix.de
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Zev,
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-This patch was suggested by reviewer and I cherry-pick from below link:
-https://patchwork.kernel.org/project/linux-hwmon/patch/20240221104025.13062=
-27-2-billy_tsai@aspeedtech.com/
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Because I don't know the rule about the patch with cherry-pick, maybe
-we should discuss it there?
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-Thanks,
-Ban
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/usb/chipidea/ci_hdrc_npcm.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-On Tue, Mar 5, 2024 at 8:22=E2=80=AFAM Zev Weiss <zev@bewilderbeest.net> wr=
-ote:
->
-> On Mon, Feb 26, 2024 at 04:56:04PM PST, baneric926@gmail.com wrote:
-> >From: Naresh Solanki <naresh.solanki@9elements.com>
-> >
-> >Add common fan properties bindings to a schema.
-> >
-> >Bindings for fan controllers can reference the common schema for the
-> >fan
-> >
-> >child nodes:
-> >
-> >  patternProperties:
-> >    "^fan@[0-2]":
-> >      type: object
-> >      $ref: fan-common.yaml#
-> >      unevaluatedProperties: false
-> >
-> >Reviewed-by: Rob Herring <robh@kernel.org>
-> >Signed-off-by: Naresh Solanki <naresh.solanki@9elements.com>
-> >Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> >Signed-off-by: Ban Feng <kcfeng0@nuvoton.com>
-> >---
-> > .../devicetree/bindings/hwmon/fan-common.yaml | 78 +++++++++++++++++++
-> > 1 file changed, 78 insertions(+)
-> > create mode 100644 Documentation/devicetree/bindings/hwmon/fan-common.y=
-aml
-> >
-> >diff --git a/Documentation/devicetree/bindings/hwmon/fan-common.yaml b/D=
-ocumentation/devicetree/bindings/hwmon/fan-common.yaml
-> >new file mode 100644
-> >index 000000000000..15c591c74545
-> >--- /dev/null
-> >+++ b/Documentation/devicetree/bindings/hwmon/fan-common.yaml
-> >@@ -0,0 +1,78 @@
-> >+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> >+%YAML 1.2
-> >+---
-> >+$id: http://devicetree.org/schemas/hwmon/fan-common.yaml#
-> >+$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >+
-> >+title: Common Fan Properties
-> >+
-> >+maintainers:
-> >+  - Naresh Solanki <naresh.solanki@9elements.com>
-> >+  - Billy Tsai <billy_tsai@aspeedtech.com>
-> >+
-> >+properties:
-> >+  max-rpm:
-> >+    description:
-> >+      Max RPM supported by fan.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32
-> >+    maximum: 100000
-> >+
-> >+  min-rpm:
-> >+    description:
-> >+      Min RPM supported by fan.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32
-> >+    maximum: 1000
->
-> I can't say with certainty that it's not, but are we sure 1000 is low
-> enough?  Looking at just what I've got on hand, an 80mm fan I have will
-> run steadily at about 1500RPM, and I'd assume larger ones (e.g. 120mm)
-> could potentially go significantly lower...
->
-> >+
-> >+  pulses-per-revolution:
-> >+    description:
-> >+      The number of pulse from fan sensor per revolution.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32
-> >+    maximum: 4
->
-> Might we want 'default: 2' here?
->
-> >+
-> >+  tach-div:
-> >+    description:
-> >+      Divisor for the tach sampling clock, which determines the sensiti=
-vity of the tach pin.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32
-> >+
-> >+  target-rpm:
-> >+    description:
-> >+      The default desired fan speed in RPM.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32
-> >+
-> >+  fan-driving-mode:
-> >+    description:
-> >+      Select the driving mode of the fan.(DC, PWM and so on)
->
-> Nit: could use a space before the parenthetical.
->
-> >+    $ref: /schemas/types.yaml#/definitions/string
-> >+    enum: [ dc, pwm ]
-> >+
-> >+  pwms:
-> >+    description:
-> >+      PWM provider.
-> >+    maxItems: 1
-> >+
-> >+  "#cooling-cells":
-> >+    const: 2
-> >+
-> >+  cooling-levels:
-> >+    description:
-> >+      The control value which correspond to thermal cooling states.
-> >+    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >+
-> >+  tach-ch:
-> >+    description:
-> >+      The tach channel used for the fan.
-> >+    $ref: /schemas/types.yaml#/definitions/uint8-array
->
-> Nit: s/channel/channels/ given that it's an array?
->
-> >+
-> >+  label:
-> >+    description:
-> >+      Optional fan label
-> >+
-> >+  fan-supply:
-> >+    description:
-> >+      Power supply for fan.
-> >+
-> >+  reg:
-> >+    maxItems: 1
-> >+
-> >+additionalProperties: true
-> >+
-> >--
-> >2.34.1
-> >
-> >
+diff --git a/drivers/usb/chipidea/ci_hdrc_npcm.c b/drivers/usb/chipidea/ci_hdrc_npcm.c
+index e4a191e02ceb..b14127873c55 100644
+--- a/drivers/usb/chipidea/ci_hdrc_npcm.c
++++ b/drivers/usb/chipidea/ci_hdrc_npcm.c
+@@ -80,15 +80,13 @@ static int npcm_udc_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int npcm_udc_remove(struct platform_device *pdev)
++static void npcm_udc_remove(struct platform_device *pdev)
+ {
+ 	struct npcm_udc_data *ci = platform_get_drvdata(pdev);
+ 
+ 	pm_runtime_disable(&pdev->dev);
+ 	ci_hdrc_remove_device(ci->ci);
+ 	clk_disable_unprepare(ci->core_clk);
+-
+-	return 0;
+ }
+ 
+ static const struct of_device_id npcm_udc_dt_match[] = {
+@@ -100,7 +98,7 @@ MODULE_DEVICE_TABLE(of, npcm_udc_dt_match);
+ 
+ static struct platform_driver npcm_udc_driver = {
+ 	.probe = npcm_udc_probe,
+-	.remove = npcm_udc_remove,
++	.remove_new = npcm_udc_remove,
+ 	.driver = {
+ 		.name = "npcm_udc",
+ 		.of_match_table = npcm_udc_dt_match,
+
+base-commit: 8ffc8b1bbd505e27e2c8439d326b6059c906c9dd
+-- 
+2.43.0
+
