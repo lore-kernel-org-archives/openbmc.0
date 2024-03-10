@@ -4,51 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE7AAC54E4A
-	for <openbmc@archiver.kernel.org>; Fri,  8 Mar 2024 08:52:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 877D7C54791
+	for <openbmc@archiver.kernel.org>; Sun, 10 Mar 2024 19:23:15 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=sl6aUEHa;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Trg0h5kTCz3vZr
-	for <openbmc@archiver.kernel.org>; Fri,  8 Mar 2024 19:52:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=ukl@pengutronix.de; receiver=lists.ozlabs.org)
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Tt8vP6RD1z3cTT
+	for <openbmc@archiver.kernel.org>; Mon, 11 Mar 2024 06:23:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=sl6aUEHa;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.17.21; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Trg0664Hzz3bwX
-	for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2024 19:52:04 +1100 (AEDT)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
-	(Exim 4.92)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1riVxH-0006zY-QM; Fri, 08 Mar 2024 09:51:51 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1riVxG-0056Nl-Mn; Fri, 08 Mar 2024 09:51:50 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
-	(envelope-from <ukl@pengutronix.de>)
-	id 1riVxG-00246D-20;
-	Fri, 08 Mar 2024 09:51:50 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Peter Chen <peter.chen@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] usb: chipidea: npcm: Convert to platform remove callback returning void
-Date: Fri,  8 Mar 2024 09:51:18 +0100
-Message-ID: <91311e53e9432ae84d5720485c3b436fb7f06227.1709886922.git.u.kleine-koenig@pengutronix.de>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tt8tN1HFzz3bsX
+	for <openbmc@lists.ozlabs.org>; Mon, 11 Mar 2024 06:22:19 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=s31663417; t=1710098502; x=1710703302; i=j.neuschaefer@gmx.net;
+	bh=xwX/n31nVi07GwxabpiM+MILqJWpXLhlRC1o1CAJ1TU=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:
+	 References;
+	b=sl6aUEHaMe2HjYr6QOmJyK1QsGHLZhzojcObbY47BAg79bK1VrstaRZrGjE4GVvK
+	 p766bypEp/aScC5+yLwn2HSVZuB78+RUbp1fcXTVh7bpCRCAhb5u+ZltAOAuMgxeR
+	 b/8mE5rR9emmpSGiBVZ0mLiNvY0zR9mVezmhOk9YvbufSlwtibPIRPbtFKuY8/o4j
+	 jmCcgQNx+ZHfdtma8+ckf8inqnFUd/0Z9s5wCWMT+OvV56fwy+VuCt+GfJcjKuhcw
+	 6xccW8M++fCT7eqnOWExhC5MSiM23cJmnZJkOmGmHC6OPlgcrYcKpVdoktyKODur5
+	 k+GGtn40S1EWZNVMGw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from probook ([78.35.216.168]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MEm27-1rcZOX25HP-00GGJ0; Sun, 10
+ Mar 2024 20:21:42 +0100
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-clk@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH v10 2/4] ARM: dts: wpcm450: Remove clock-output-names from reference clock node
+Date: Sun, 10 Mar 2024 20:21:00 +0100
+Message-ID: <20240310192108.2747084-3-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240310192108.2747084-1-j.neuschaefer@gmx.net>
+References: <20240310192108.2747084-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1902; i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id; bh=UND3LN2cxUflw7dQF4s+C69E5KDxmztIpomMK2CtFqg=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBl6tGLzeOg4w6Z5Ct9P5xdIpqSFWK5xjUq8lifW Tin4bDyCfeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZerRiwAKCRCPgPtYfRL+ TnELCACpUSdK/UC2Id2ldrUSo5k8ta2kYi8yCD76nX2Wy3e4aUb3QumJQpMSX7pyOD0qrECpV1m YLWa65U7wDCsCv0QyiQbTkuEKl0TySQIyHRY1wzY9hexDKMmVy1ZreCMZOqzsSu0yloG0V3c3vQ PpFAVyL2bbr5WJnowgocAlIsZMpkJUmEjPj/J0h848GOXiVym93IGBglbppEiFl4qfpBkQLnfbv J95BQYekOVrmKkJxBgQjRFQmHHU/zgBWt2aFU1fCp4pMO890W08cDoP19rJn03ZHDIWtJZkCAyR uzC00sFPq9ptUia6dl2GIWeexvm2PV3vqmduVEZ5w4Itp0PF
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Yxv8vcS0CGRV2FQAe7UR+uwmKh8p4sYJxeQFqTQYP+MG3O7jaId
+ NA7IC8wYRDxJy8yNxv+TZcTEmnSde5YphuZlzTDpuzM5e5rE74PC+tEvwCdM+V5JqefWDlo
+ K11TyGY1UNv4K3xoTz4ej/8I9VumgcQnuzKKEmH2K1WdFz7aAMTnpdsDPaGkmxtt3R9g5yR
+ pz4cCnktw9dfFSkbqDLKQ==
+UI-OutboundReport: notjunk:1;M01:P0:ZZGopwyhUfA=;tvpNE0Osvs/k022T2xl2BC/jc/y
+ XNrWZyEdFWUtPhhsvlOPuEuDAvL+fPOKn1iZwyW1HHjag79DQJGyHLY3wG8KeKwEtva2CSZDx
+ 5zeLe9phCFSbCGT4BduAOqSpIQpYLe/kCY/EHbKbpTkVejeZh0HeB/LNFG7kMmB6NA5FCGF+O
+ hiqHtd+08UUVqMbbTSUdmT5tg9PisN9Us+WaaQErDdFp0nZ+DRlX28ZQJt/DrNl7IKSsmY5ZI
+ SqcUanas5sUzr8B7lZdi+XEXX4WiUZmXJUHDH+ONyzMumj4PW/xlpp8y5OH+isOZe1SfBHwIm
+ W1/NiVkxsDO9KNm+ly2R/otndqHOyNweCMSl8aFdU7aHONhjS6JihFsY2b+JSEdVKn1qPG7jG
+ 044Ap75j80qa64a5AebhV0i5o0fn55dM7UDXk2Pppdb1w9wjrXHSHoU7wcs5K02dLpNBhYQ5b
+ Np0CRq5D8r9AIFzAsECBHZ0HXlwUVRxM9gIYVJDGd2V/m1S+ZZlwb355hoHvEBx0Qvxti6jp1
+ viwYP4mXP3tkbk+y6HoIVTk6fZg/KkZ73ST2SlZi4Z94dhth5mWgh5AykR4LLswoU/IZBe7Sf
+ 8UeagtHFs3F4tRUSQgXJ8knmHrp5yMm4qIFfwUwftsbRq9zkxUwHIT9GDmJ+Rg58Gt+sym30y
+ 3tOIg6f1oN0hPHDuVd5251OJTR1ksz8OjllK+sJzgNUlWuxg/3UIzHiw4DSdXzt/HVSLpfTdn
+ YW4xpjfs62HzRHHikbKynuXMcKFkCGxuDUe3FaC9T9kbOEFeQ5BGs02MsP6ghfNEf5Vn5w4Hg
+ DfNwfoGUeanbr0oC/DQWIzx+trAUnfdtztkNQHBCmX7ns=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +77,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Benjamin Fair <benjaminfair@google.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, kernel@pengutronix.de
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, linux-watchdog@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, Patrick Venture <venture@google.com>, Michael Turquette <mturquette@baylibre.com>, Daniel Lezcano <daniel.lezcano@linaro.org>, linux-kernel@vger.kernel.org, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Avi Fishman <avifishman70@gmail.com>, Rob Herring <robh+dt@kernel.org>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Benjamin Fair <benjaminfair@google.com>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@linutronix.de>, Tali Perry <tali.perry1@gmail.com>, Guenter Roeck <linux@roeck-us.net>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+This is not necessary anymore, because the clk-wpcm450 driver doesn't
+rely on global clock names anymore.
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
 
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
+v10:
+- no changes
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
----
- drivers/usb/chipidea/ci_hdrc_npcm.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+v9:
+- New patch
+=2D--
+ arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/usb/chipidea/ci_hdrc_npcm.c b/drivers/usb/chipidea/ci_hdrc_npcm.c
-index e4a191e02ceb..b14127873c55 100644
---- a/drivers/usb/chipidea/ci_hdrc_npcm.c
-+++ b/drivers/usb/chipidea/ci_hdrc_npcm.c
-@@ -80,15 +80,13 @@ static int npcm_udc_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static int npcm_udc_remove(struct platform_device *pdev)
-+static void npcm_udc_remove(struct platform_device *pdev)
- {
- 	struct npcm_udc_data *ci = platform_get_drvdata(pdev);
- 
- 	pm_runtime_disable(&pdev->dev);
- 	ci_hdrc_remove_device(ci->ci);
- 	clk_disable_unprepare(ci->core_clk);
--
--	return 0;
- }
- 
- static const struct of_device_id npcm_udc_dt_match[] = {
-@@ -100,7 +98,7 @@ MODULE_DEVICE_TABLE(of, npcm_udc_dt_match);
- 
- static struct platform_driver npcm_udc_driver = {
- 	.probe = npcm_udc_probe,
--	.remove = npcm_udc_remove,
-+	.remove_new = npcm_udc_remove,
- 	.driver = {
- 		.name = "npcm_udc",
- 		.of_match_table = npcm_udc_dt_match,
-
-base-commit: 8ffc8b1bbd505e27e2c8439d326b6059c906c9dd
--- 
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi b/arch/arm/boo=
+t/dts/nuvoton/nuvoton-wpcm450.dtsi
+index 6e1f0f164cb4f5..9dfdd8f67319d3 100644
+=2D-- a/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi
+@@ -40,7 +40,6 @@ clk24m: clock-24mhz {
+ 	refclk: clock-48mhz {
+ 		/* 48 MHz reference oscillator */
+ 		compatible =3D "fixed-clock";
+-		clock-output-names =3D "ref";
+ 		clock-frequency =3D <48000000>;
+ 		#clock-cells =3D <0>;
+ 	};
+=2D-
 2.43.0
 
