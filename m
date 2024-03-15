@@ -4,72 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04CDC54E58
-	for <openbmc@archiver.kernel.org>; Wed, 13 Mar 2024 23:37:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C69AC54E67
+	for <openbmc@archiver.kernel.org>; Fri, 15 Mar 2024 16:10:15 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=MvX37fab;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=GpBy39j6;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=pmOH0irL;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Tw6P73fn3z3bnB
-	for <openbmc@archiver.kernel.org>; Thu, 14 Mar 2024 10:37:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Tx8NP4RJfz3vXX
+	for <openbmc@archiver.kernel.org>; Sat, 16 Mar 2024 03:10:13 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=MvX37fab;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=GpBy39j6;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=pmOH0irL;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62b; helo=mail-pl1-x62b.google.com; envelope-from=ppighouse@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com [IPv6:2607:f8b0:4864:20::62b])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tvmt31kKBz3bn7
-	for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2024 21:27:39 +1100 (AEDT)
-Received: by mail-pl1-x62b.google.com with SMTP id d9443c01a7336-1ddcfe064faso2902935ad.3
-        for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2024 03:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710325656; x=1710930456; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SNKdIJK1p9MJ23nCnTh6b8pdxKFP2N/HtsbD5LhKpPU=;
-        b=MvX37fabnUCyG7iGovMXmkww1keNa9ZROYm9t/38ecQ4y1fgVBoLAqrfGFfjfJxL3x
-         +nRKGUr61AJOYeh0XagKRdSFsms3PfOnMtSseYeM2d2kLfzUwLOiXjr4Z8qiSswwKP2U
-         nBCZzCymniIZyEQuUWCtzY1UiA3Q0qyWgxqEhu85LkQXXLxFq9DJrFu+yb5hKkXHYU8E
-         cwrmThZCDGWOVgUx+STRqZnu9DfZ15eoBDrvrBRkHjWNiUtzv78/reXACs8mwtVpA/pJ
-         QPS7PrdNWuE8RhOLbOQx6nKMInPp4+gE1cjfCd3GbdNgTDuC9ehb0YEMP7ERqZ43ju7Z
-         apLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710325656; x=1710930456;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SNKdIJK1p9MJ23nCnTh6b8pdxKFP2N/HtsbD5LhKpPU=;
-        b=jnCZWS8syOu+8U/XZ9mGC0L0izxqMUWzGybC1DVNhL5fTc8hRGmr1QfshGmESfTADH
-         SdgZtTWTRrelaxPIB4rFlzTnSs2eQTJvspamn8bdby25QCjUQoJbao/pvzZYIveiYgZG
-         z8xWt3lXic0av5EWirJN+MpVLvVxIVfmZgG3RIFIeEtSCjvZrOrbXTWI+RyKvrJhTcLA
-         TwR+ZAHi3+AnTxE7iwMSrhMqUFHf9ZulhuAoTxbCn8K1RQnnFF702OmMTuSbQOYjn37q
-         iGbT7uOrbzOi0FlP5MxxnOdojVMV8C3wsvlfpETFfmv+qL+mS2OlfT/8yPRAYlFaEI41
-         JR7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWiQiI4Q0RBRB9nf7o4TPj7iM/6BJtNYeNCpNVlbstIgm8XE8CnwEB8k5lbys6rTHhvaMjVj+JZHBnpc37eplwrr5dPIf4lMmw=
-X-Gm-Message-State: AOJu0Yx/lnT7Rg8QtZyFKtdaoKTcCnlVFDJ97Vu+5s2GHGuSO++NvLAc
-	wi6TJ5pFk+CGAe6u1FNLA+SOATMzlAql6hwPrS4ldsFAkNEM4oxl
-X-Google-Smtp-Source: AGHT+IFfnqqu+8B9t9lRX6CFSz9OA77aaVCcKKhEWsLHcsgyFUIfNfB+AygVrDBczjXp0n1LxNUX7w==
-X-Received: by 2002:a17:902:a386:b0:1dd:b3ef:4528 with SMTP id x6-20020a170902a38600b001ddb3ef4528mr2361299pla.52.1710325656391;
-        Wed, 13 Mar 2024 03:27:36 -0700 (PDT)
-Received: from localhost.localdomain (125-229-150-10.hinet-ip.hinet.net. [125.229.150.10])
-        by smtp.gmail.com with ESMTPSA id jz3-20020a170903430300b001db63cfe07dsm8249282plb.283.2024.03.13.03.27.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 13 Mar 2024 03:27:35 -0700 (PDT)
-From: Kelly Hung <ppighouse@gmail.com>
-X-Google-Original-From: Kelly Hung <Kelly_Hung@asus.com>
-To: u-boot@lists.denx.de
-Subject: [PATCH next v1 1/1] arm: dts: ast2600-x4tf: Add new dts for ASUS X4TF
-Date: Wed, 13 Mar 2024 18:27:25 +0800
-Message-Id: <20240313102725.2067651-2-Kelly_Hung@asus.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240313102725.2067651-1-Kelly_Hung@asus.com>
-References: <20240313102725.2067651-1-Kelly_Hung@asus.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Tx8MJ4X52z3dX6
+	for <openbmc@lists.ozlabs.org>; Sat, 16 Mar 2024 03:09:15 +1100 (AEDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id 372E05C006E
+	for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2024 12:09:11 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute1.internal (MEProxy); Fri, 15 Mar 2024 12:09:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
+	 t=1710518951; x=1710605351; bh=5rO7qV/sqwRqoL98s/nYjhMph81E4G32
+	pubCuAeTyiw=; b=GpBy39j61lYaM+dTtOk+1Rp7LxoIjfDIiwtngZ1iNGU9iXGb
+	0d6TxSe+CQZN3r5lC2VbzGeT4m/DFNYwHfwCyfXHckh3G/a/SSXs36UYgrBO5yIz
+	fZqRwVxL969vjpJ/XWgJvCXVAS0QTQBcU9Q3TJIYiMvqjOHPgr2Fm4XWXIsikD3o
+	xYUt8Fvoi+ABQHi+EJVNa/BkNjppL3mFryMTwJBVfsFUTMWbMO8NSlx8sP6y70kP
+	5PmxOPS59dTw/drcPEi9Lvoy2lTc5Mv6T55OQ6GOwY53iDD8X0EN0PyIYy0jkq4H
+	dvSEtleah+Wirtj4SfZEKDqZFifycclyR6Xtpg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1710518951; x=1710605351; bh=5rO7qV/sqwRqoL98s/nYjhMph81E4G32pub
+	CuAeTyiw=; b=pmOH0irLOpHvLrc52/Q+OZTl+2E7F0PyZbprE+5HXQJvWdn0LrT
+	03qqOLuZIHenLUa2/weWRmsE9iO2S74KN/ZOmPLevT1v9RFIWKYu9/JQZUBGbuUG
+	l9LruIPGfqOiXF9Is2vuAUJZNEKXgUTm6eFyv8qR75dneIP4ULiOnTO33+IOB5oJ
+	PF9EL6JnnXTMLiJ7IQXEWKP6EgyDab1WOHgW52yw7V9GbIN1K6rBAyt8+6DRbyGg
+	2JS1I99FKYJXhLhy/ld5dWApuRWoOkBRspP1/JVxFmJMyivqx18hRQnth0z+3Rtr
+	J8iLpPqagqPlEbdkk6zDj3dm8mJvUmYScmQ==
+X-ME-Sender: <xms:pnL0Zea29f-r-d1hsEwtjXq9e1Uor8t6O5fzLLDi6LpXqDpBP25wfA>
+    <xme:pnL0ZRag7xXpFbA3Vxka1Nsw-oVmf05jW4rfrFhmErwM2hM46zRjoyhL89_BB8rYn
+    C_BsBczX_2EFlB6QTc>
+X-ME-Received: <xmr:pnL0ZY9Fg0CyUQHudhDgKDXeFtLD1kPHVp8Ap3lpLZX8yZPOsZGKVWsFQIvSZbv3YqmMimUerwXJod5VVaqdrLFt_aBeMA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrjeelgdekgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
+    hrlhcuvffnffculddvfedmnecujfgurhepfffhvffukfggtggusehgtderredttddvnecu
+    hfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsthiftg
+    igrdighiiiqeenucggtffrrghtthgvrhhnpeekjeffheehfeehkeefjeelfeefuefhfeeu
+    leduleeiiedvudfhhfeufedutdekvdenucffohhmrghinhephihotghtohhprhhojhgvtg
+    htrdhorhhgpdhophgvnhgsmhgtrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfr
+    rghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:pnL0ZQqEGs9039y9ZaM5BAgLxTz_uesoybzv7gnulMv0hDgan84rWA>
+    <xmx:pnL0ZZr4ZqJR_EBKOmn4qI7u8kjGEnz1YulJpHEL-4lVtqkS9J5kDg>
+    <xmx:pnL0ZeTREOQMwMD82KyoMX90ssqzVNpu0zHY0bPx14XvQ3aX2gNXRA>
+    <xmx:pnL0ZZrHieDuSOTSR7qI_Ssof1q0REaD0R3uDcBlDtJzIFVpIQkPNQ>
+    <xmx:p3L0ZYTlF-DSovGE9iQZavsUM2sAednJXNR4Q6GYrZRCqZQ2DnRsNA>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2024 12:09:10 -0400 (EDT)
+Date: Fri, 15 Mar 2024 11:09:09 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC List <openbmc@lists.ozlabs.org>
+Subject: notice: meta-poky removal
+Message-ID: <ZfRypYIR-hz1hGwz@heinlein.vulture-banana.ts.net>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 14 Mar 2024 10:35:27 +1100
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="B/rgjIhOrOJ5REy5"
+Content-Disposition: inline
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,203 +92,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: marex@denx.de, trini@konsulko.com, hai.pham.ud@renesas.com, clamor95@gmail.com, jonas@kwiboo.se, openbmc@lists.ozlabs.org, neil.armstrong@linaro.org, christianshewitt@gmail.com, kever.yang@rock-chips.com, Allenyy_Hsu@asus.com, Kelly Hung <Kelly_Hung@asus.com>, naoki@radxa.com, cnsztl@gmail.com, patrick.delaunay@foss.st.com, michal.simek@amd.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is the new bmc dts for ASUS X4TF server.
 
-Signed-off-by: Kelly Hung <Kelly_Hung@asus.com>
----
-V1: Add a new bmc dts for ASUS X4TF server.
----
- arch/arm/dts/Makefile         |   4 +-
- arch/arm/dts/ast2600-x4tf.dts | 161 ++++++++++++++++++++++++++++++++++
- 2 files changed, 164 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/dts/ast2600-x4tf.dts
+--B/rgjIhOrOJ5REy5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 784192125d..ebbc0b21fc 100644
---- a/arch/arm/dts/Makefile
-+++ b/arch/arm/dts/Makefile
-@@ -1359,7 +1359,9 @@ dtb-$(CONFIG_BCM6878) += \
- 	bcm96878.dtb
- 
- dtb-$(CONFIG_ASPEED_AST2500) += ast2500-evb.dtb
--dtb-$(CONFIG_ASPEED_AST2600) += ast2600-evb.dtb
-+dtb-$(CONFIG_ASPEED_AST2600) += \
-+	ast2600-evb.dtb \
-+	ast2600-x4tf.dtb
- 
- dtb-$(CONFIG_ARCH_STI) += stih410-b2260.dtb
- 
-diff --git a/arch/arm/dts/ast2600-x4tf.dts b/arch/arm/dts/ast2600-x4tf.dts
-new file mode 100644
-index 0000000000..4bf4b66a9c
---- /dev/null
-+++ b/arch/arm/dts/ast2600-x4tf.dts
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+// Copyright 2024 ASUS Corp.
-+/dts-v1/;
-+
-+#include "ast2600-u-boot.dtsi"
-+
-+/ {
-+	model = "AST2600 ASUS X4TF";
-+	compatible = "aspeed,ast2600-asus", "aspeed,ast2600";
-+
-+	memory {
-+		device_type = "memory";
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+	};
-+
-+	aliases {
-+		spi0 = &fmc;
-+		ethernet0 = &mac2;
-+		ethernet1 = &mac3;
-+	};
-+
-+	cpus {
-+		cpu@0 {
-+			clock-frequency = <800000000>;
-+		};
-+
-+		cpu@1 {
-+			clock-frequency = <800000000>;
-+		};
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&sdrammc {
-+	clock-frequency = <400000000>;
-+};
-+
-+&wdt1 {
-+	status = "okay";
-+};
-+
-+&wdt2 {
-+	status = "okay";
-+};
-+
-+&wdt3 {
-+	status = "okay";
-+};
-+
-+&mac2 {
-+	status = "okay";
-+	phy-mode = "rmii";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii3_default>;
-+};
-+
-+&mac3 {
-+	status = "okay";
-+	phy-mode = "rmii";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii4_default>;
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor", "macronix,mx66l2g45g";
-+		status = "okay";
-+		spi-max-frequency = <25000000>;
-+		spi-tx-bus-width = <2>;
-+		spi-rx-bus-width = <2>;
-+	};
-+
-+	flash@1 {
-+		compatible = "spi-flash", "sst,w25q256";
-+		status = "okay";
-+		spi-max-frequency = <25000000>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+	};
-+};
-+
-+&hace {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "disabled";
-+};
-+
-+&i2c13 {
-+	status = "disabled";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+};
-+
-+&i2c15 {
-+	status = "okay";
-+};
-+
-+&display_port {
-+	status = "okay";
-+};
--- 
-2.25.1
+Hello,
 
+TL;DR:=20
+
+A commit is going to require a change to your downstream `bblayers.conf.sam=
+ple`
+and local bblayer.conf files in your existing build trees.
+
+----
+
+In testing an image for our machines based on a recent openbmc commit,
+we discovered that when we SSH in there is a warning message displayed.
+In tracking it down, I found it came from this upstream commit:
+
+    https://git.yoctoproject.org/poky/commit/?id=3Da226865c8683398b5f58628b=
+a2ec5aee1ee6c19d
+
+When we first started the project, we based OpenBMC on "poky" but since
+then, the purpose of Poky has diminished and upstream has moved more and
+more back into OpenEmbedded-Core.  At this point there is absolutely
+nothing we use from `meta-poky`.
+
+With this in mind, and to fix the `motd` warning, I've pushed up a
+commit to Gerrit that will completely eliminate meta-poky from use in
+our tree:
+
+    https://gerrit.openbmc.org/c/openbmc/openbmc/+/70072
+
+As you see, the primary changes here are to remove all of the
+`##OEROOT##/meta-poky` lines from our bblayers.conf.sample files for the
+upstreamed machines.  Since these files are named ".sample", bitbake will
+use them as a template when you first create your build directory, which
+means all of your local build trees have `conf/bblayers.conf` that will
+also need to be updated to remove the reference to `meta-poky`.
+
+(Or if you are not comfortable manually adjusting these files you can
+always delete your build tree and rebuild.)
+
+The openbmc/openbmc commit will also remove `meta-poky` and
+`meta-skeleton` symlinks from our root directory.  I see no usage of
+`meta-skeleton` and with this change `meta-poky` is also removed, so
+these are just to keep our root clean.  As a side effect, any downstream
+`bblayer.conf.sample` files will also need to be updated accordingly.
+
+--=20
+Patrick Williams
+
+--B/rgjIhOrOJ5REy5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmX0cqMACgkQqwNHzC0A
+wRkkRxAAi8YxLsiWPfShxVPosKvGVRBoBBebw8HlZ2OLi4SdYqjP6UCSbeUDHU4x
+DOXL+UreTeV12drqQWBzP9hXEg0jHQ0fJz9ztD/97s4ttN8w59v4doMz/56U0fXq
+bS/YrZ+uL10n5ZbAKr09rqWLltmS+chrxoWdzF8CqPAfkqhNepS90+ef9B4eJJms
+EAAdzMl7FfGyBFyd6Xbc+Ckk/TGeCWN+yQcznmLSEDhyBFG5OuRXCEGSt5S7kB1b
+W6QtVTLgNHdrkVZ5yKgOsTDwt/sOrQp7O4NhSlc/6PFJaTQcBkSnx25CONRTwMC0
+tLnvaVA8jRhTnyaQYqbYrcP3VliBvvWwdsU/n1QugS4F8K+n/YAhvvs8l072Itw/
+o4JLWVAvIdY15rrggrBrGN+NZk7mGURTodYqAjAFETLnhNGm5C9VCqNrJGHIHAdN
+iCFovSJy3+SggP1NXlruxkzFxHhTyrvewN4roxMQamt9huGJmJR96PWe3Ljy2nXt
+tFlidiknpbN1acCV2aT15WxG7qAbKxwIB4A/PTr9bb6prvfECnOqm3eZIMmofA0i
+1HqkYr07Vkyt2gnKoCoT2ssTkZ4OOpaXw/9VsCL8TGwgr+6uJJr4tbrNYnyJr548
+wxZyxGih9zrUy7xjq1nHo6HxKrcZ4z+3ew0akHdRIrl1c/Lqfqg=
+=eqUq
+-----END PGP SIGNATURE-----
+
+--B/rgjIhOrOJ5REy5--
