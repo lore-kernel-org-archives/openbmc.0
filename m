@@ -4,78 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54B1C47DD9
-	for <openbmc@archiver.kernel.org>; Fri, 22 Mar 2024 17:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F79CC47DD9
+	for <openbmc@archiver.kernel.org>; Fri, 22 Mar 2024 20:24:28 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eBgS22G9;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=mreO9Vj2;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=aXeDyliS;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V1TB972q0z3vqM
-	for <openbmc@archiver.kernel.org>; Sat, 23 Mar 2024 04:01:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V1YhV4txPz3vdq
+	for <openbmc@archiver.kernel.org>; Sat, 23 Mar 2024 07:24:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eBgS22G9;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=mreO9Vj2;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=aXeDyliS;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.12; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V1T976yJfz3vjg;
-	Sat, 23 Mar 2024 04:00:26 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1711126828; x=1742662828;
-  h=date:from:to:subject:message-id:references:mime-version:
-   in-reply-to;
-  bh=eijYIPLIRnSAkyrL//Qucwww06P+qCR4wOCt19HryXE=;
-  b=eBgS22G9h9Pz1J0MlzjH+y1gldAGZEjZlZ9UYwWyQC14PaEjt8yeGEj9
-   PO90OfwzZW+i56Bb2P720wW/z7oJOTmUlOq44B5qhaN+dqgBi3VsZA7QG
-   uKDaJuhhrR5PwtROp52dGNe0stEKQbICBhTOBwxhIbnOBWJHpKlasF00U
-   yBkJQwWYkyiFG3eJMc7gDwsHI0l/D+zPMoT7Yq8DM+qdZEeP9v9lJCyJL
-   fG7b0H0C1L37CdHou+skBXrpnWK6krEeEdScqGndwz9pg5MCoPMdg0ZbA
-   nhVMbXHuIH0tMqx1uybiQUBoJ4K2ej5Alm4nbgkHJ/UmI66XPVQikX6Iq
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="17619590"
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; 
-   d="scan'208";a="17619590"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2024 10:00:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,11020"; a="914749126"
-X-IronPort-AV: E=Sophos;i="6.07,146,1708416000"; 
-   d="scan'208";a="914749126"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Mar 2024 10:00:18 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.97)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1rniFb-0000000FDED-2Q86;
-	Fri, 22 Mar 2024 19:00:15 +0200
-Date: Fri, 22 Mar 2024 19:00:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i2c@vger.kernel.org, Andi Shyti <andi.shyti@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-amlogic@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
-	linux-omap@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-tegra@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [PATCH 64/64] i2c: reword i2c_algorithm in drivers according to
- newest specification
-Message-ID: <Zf25H-LlAFmfuyYT@smile.fi.intel.com>
-References: <20240322132619.6389-1-wsa+renesas@sang-engineering.com>
- <20240322132619.6389-65-wsa+renesas@sang-engineering.com>
- <Zf2tSLJzujUHbJjp@smile.fi.intel.com>
- <Zf22dmwBpN7Ctk3v@shikoro>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V1YgN0Dxgz3bmY
+	for <openbmc@lists.ozlabs.org>; Sat, 23 Mar 2024 07:23:25 +1100 (AEDT)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+	by mailout.nyi.internal (Postfix) with ESMTP id B11895C0055
+	for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2024 16:23:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute5.internal (MEProxy); Fri, 22 Mar 2024 16:23:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1711139000; x=1711225400; bh=RsXtMQ0H0i
+	ZS1HnpPwAAp9Cb8qehAK1Vwkuh4loxJG8=; b=mreO9Vj2g93PhuuxYQCi376QvF
+	IGdiooezHkf1lBDbd0Rl7CfutAEth8hbFJnMfdnIG0OLHUE1hTWx7SkxadoT22yr
+	sph2N5bWrz/OSJf9eyp44mMXJBTv6KRVXDGmKmeLEdfB9vdSEfahgX1vYmJ41o7e
+	1BUIcv2Rc+QYdQ7CUor/83c13EO68zI/nufpppPt4N8W6L1X2eN6ygObjTgItfUv
+	LCck8Tjw/Hz19Ojxxmi83ZA3x6KqR94A5phz8sh+Gs0rHITp59YOyWyJUeL7Udf3
+	JwzE8s9735bUptEFvkEN2y+ws8a9VYzmn4eSfV35ffY0Tq1sXYyJQXXEspcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1711139000; x=1711225400; bh=RsXtMQ0H0iZS1HnpPwAAp9Cb8qeh
+	AK1Vwkuh4loxJG8=; b=aXeDyliSnkrI/ZB6pMs6mN240EMAr5xpsODPL+IASyHm
+	5Yo/gTUkpfg7ZuI2/+FvlJNfWABTHfI0pC2RN43jjyH7SJ8zyaU5+iscpK3pWHdk
+	XOL1AJQjxq47pWUEhKfLuLV98OdduZOTjMDrFYVy9xy7wd+dKxI98HJ6cm1drMIG
+	vxNpHHze2AUJtpOw0RxdOsgUcA7B05kaIM53Cn+jUle27lzkW31J8v2Fhe+ciJOQ
+	zorP5d37wnIfUz+GcFv+kTl2z1Lj/Y37jSka0hHa2dnMvjKVrXmDV9tUSVB+/wax
+	p/Zjc+wMXqFGboJ4Vn2U2VNOjQLyMnOAOxh6sYLvAg==
+X-ME-Sender: <xms:uOj9ZWLZrVngTnBaW42NDPjSNmKyvp2PC6YwzO4AipI3PLWW226LnA>
+    <xme:uOj9ZeK2oQqnTUYqxJXqTqv26NG1YNtQIWglMWlNVsL6uTsJs1jct9Wgtt73EMAaV
+    mFrnjXfCDzjtAdeNlY>
+X-ME-Received: <xmr:uOj9ZWtC4lx3pq084OCIWRZmVXKOpneTIn0Y5xByqY6HzCDFqn4_NruExqh7TRHHAwAncu4y6LlNRqooH4teoRhx5-OQUw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledruddtvddgjedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    gfrhhlucfvnfffucdludejmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
+    vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
+    htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepffehueeltdejvdegtdetlefgveei
+    gfevfeejudfgueeghfdvveeljefghfduteevnecuffhomhgrihhnpehgihhthhhusgdrtg
+    homhdpmhgvmhgsvghrshhhihhpqdgrnhguqdhvohhtihhnghdrmhgupdifihhkihhpvggu
+    ihgrrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
+    homhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:uOj9ZbbViR2aZ50C-UokVRAzPL9GWl3PjrMQ5G4-BMSWQHeTcWDTog>
+    <xmx:uOj9ZdZGvX3YXH3MNUeRMtyce2nm_DYiT2s4Alr2D1SHkfVOxoE9YA>
+    <xmx:uOj9ZXAJavkgY38AnGoHR9ADCayF3qOlCC_NDx6drMgyomU-z_fdpQ>
+    <xmx:uOj9ZTY2frwqtxirpd5xm2Vr-yBWdRH22rEuIUCTxRujx5yVWIdE0Q>
+    <xmx:uOj9ZeAhL7fzGM2fNMOWOGYQpnCrZpkxUOFGj4VAGqgCIW42TD5Jrw>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2024 16:23:20 -0400 (EDT)
+Date: Fri, 22 Mar 2024 15:23:18 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC List <openbmc@lists.ozlabs.org>
+Subject: Re: TOF elections for 2024H1
+Message-ID: <Zf3otl5dVPv8wCcE@heinlein.vulture-banana.ts.net>
+References: <ZaWZY3A4TZth-ons@heinlein.vulture-banana.ts.net>
+ <ZeE_tWHOZLdtPXu1@heinlein.vulture-banana.ts.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="oDnvFC1pn5+CKuRt"
 Content-Disposition: inline
-In-Reply-To: <Zf22dmwBpN7Ctk3v@shikoro>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <ZeE_tWHOZLdtPXu1@heinlein.vulture-banana.ts.net>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,23 +99,63 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, Mar 22, 2024 at 05:48:54PM +0100, Wolfram Sang wrote:
-> 
-> > >  static const struct i2c_algorithm at91_twi_algorithm = {
-> > > -	.master_xfer	= at91_twi_xfer,
-> > > +	.xfer	= at91_twi_xfer,
-> > 
-> > Seems you made this by a script, can you check the indentations afterwards?
-> 
-> Yes, I noticed as well. But other (not converted) drivers have issues
-> there as well, so this will be a seperate patch.
 
-The problem is that you add to a technical debt. We don't want that.
-If you have not introduced a new indentation issue, it obviously is
-not needed to be fixed in a separate patch. So, please consider this.
+--oDnvFC1pn5+CKuRt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
--- 
-With Best Regards,
-Andy Shevchenko
+On Thu, Feb 29, 2024 at 08:38:45PM -0600, Patrick Williams wrote:
 
+> The 5 nominated developers are:
+>     * amboar - Andrew Jeffery
+>     * jmbills - Jason Bills
+>     * pointbazaar - Alexander Hansen
+>     * wak-google - William Kennington
+>     * williamspatrick - Patrick Williams
 
+Without any fancy tooling to handle Ranked Choice Voting, it is clear
+that the votes would go to Andrew J, Jason, William, and Patrick.  They
+will continue in their TOF position.
+
+Results can be verified with:
+    $ cat 2024H1/votes/*.json | grep '"' | sed 's/,//' | sort | uniq -c | s=
+ort -n
+
+One thing I noticed as the votes were coming in was that it wasn't clear
+if people understood that the order of your votes mattered, as TOF
+elections are suppose to be Ranked Choice[1].  I will make sure this is
+more clearly communicated next time we have an election.  (I saw many
+votes in simply alphabetical order.)
+
+I am interested in hearing any other feedback on how voting went.  Are
+there improvements we should make to the process?
+
+1. https://github.com/openbmc/docs/blob/master/tof/membership-and-voting.md=
+#terms-and-elections
+2. https://en.wikipedia.org/wiki/Ranked_voting
+
+--=20
+Patrick Williams
+
+--oDnvFC1pn5+CKuRt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmX96LQACgkQqwNHzC0A
+wRlCkg//bMYBJjGWSQhiPkKcLuph+miVQPIqr/1M9p50aUcmNGQ1pzUcistBHtlJ
+UkbAOVtGowdJ6OfCocFZsx7ssoGRLKMh6i6JEs4pObhG5+mjVtjwBPptL8sXqCK+
+PwrtxiPcXTILSd/eLDIztM03HScY2xRJNjPhaKp+AYWFvXXF1yFr8uCl5y3gjziA
+VePWDVCG2cPiawWt2Pd+xQL8EN53u/fOPRIgWRh3qGYkctGOPfPotIwvHvWuRtVM
+JCGzvjprF0oVh/EFtUESgxQNHAosJDjvEoMtVFmAvpfCk6df9SKxkFdHW1EjIje1
+R7IhvQBkkAHRqmlJmsHSsRZAq9O813/RXvP730p0uypT5b55m1RfI7eNk9mVaUQg
+3Gy4G75xseOmFSmGkgUxCOBKb28MfDgbGxlDDG9CYrSCCbDeZxCNTztkXbhBM8vt
+BR/NZeQuO4+BJsekQkffpd84ta6rSYNOakCwWW1PoxoCZkoBuj2yq50BsUeG012n
+y656mULA9pm9e0lk8Wd4U59P0Z902pJ5Gr73cpW/61cY+Gr1mCKEFYCMFO2lueMo
+Xfmbm/YIVKZg9Fo/3tA5tqMql45o3gNrdWAlLX/ZMA+hebOS4ks/eGnQMsDnXT1i
+xEU/kqWgLPzUyzajwglVJzMEAw1MZ2XTZq+IlasN2ChH/iy7m04=
+=wFnK
+-----END PGP SIGNATURE-----
+
+--oDnvFC1pn5+CKuRt--
