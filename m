@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D81FC54E67
-	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 18:25:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED04C6FD1F
+	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 19:51:09 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=b28mlofq;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=KYrOJYS4;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V3ysQ5HvFz3vY5
-	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 05:25:30 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V40mC5yyrz3dXc
+	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 06:51:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=b28mlofq;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=KYrOJYS4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V3yrM4bS3z3d28;
-	Wed, 27 Mar 2024 05:24:35 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 9C95B6134A;
-	Tue, 26 Mar 2024 18:24:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0572BC433C7;
-	Tue, 26 Mar 2024 18:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1711477471;
-	bh=3xBRhog27kxC70sDx2aQpj3OzOt3xnmvvAsyDrsmcII=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b28mlofqMpgdxgVoQwKl8xE5R3uFIancJn4ehIIqdxVvqItovYRjc0SScholjd/QT
-	 GWuk/KKHJsAkhi505UdUHjsnvpf/1qlIHa0yMn6hV3w11DZOqTFfwSF8X/60t/JQ9/
-	 jc6M4mWwT/YjK+WblM3Aq7Y1INPJmcz45pHvSpcppInNgQz4zB6q0cma1NXVV/0fs4
-	 /I3HB2oSaVfGFVuY9gfatvsW22+uoQV9IEgAL83hxaxaBOPu5Hp4AL+aIYEaQiFfSe
-	 f4PBLdf45fUGRRtaC2HGu1v4CzVhmmyhEilob1839hZkBy0S2pOfWyCSY+FN8PdAkw
-	 7QXys+J0KIVjg==
-Date: Tue, 26 Mar 2024 18:24:25 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: Re: [PATCH v6 1/2] dt-bindings: arm: aspeed: add ASUS X4TF board
-Message-ID: <20240326-april-word-972cd4836e81@spud>
-References: <20240326103549.2413515-1-Kelly_Hung@asus.com>
- <20240326103549.2413515-2-Kelly_Hung@asus.com>
- <32cd6f33-b4e9-4b7a-bcea-b1f2e421d67e@linaro.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V40lD59ncz3dVv
+	for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2024 06:50:16 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:712b:6300::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: zev)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 1006342B3;
+	Tue, 26 Mar 2024 12:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+	s=thorn; t=1711482612;
+	bh=BQRXTCqA36tRjFMJ2z5wGRpop1ssoSHKkb0fjkWezYc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=KYrOJYS4ByCbqhoMnebnHQrjtfDczaB+UgJeeZy06NZTpRzpu8pYaV7pV2LfvP8ms
+	 GUIYE8RtGi5C0uoeCp+CLiuvQk8QJG4NG+E5PG9PFddIGBD39Tc2drVg0Jr/OPDUWM
+	 gUMxRKmWzbW9lJgXhyZvboNr8laHRbpD/zXQRa0c=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Joel Stanley <joel@jms.id.au>
+Subject: [PATCH linux dev-6.6 1/2] prctl: Generalize PR_SET_MDWE support check to be per-arch
+Date: Tue, 26 Mar 2024 12:49:59 -0700
+Message-ID: <20240326194959.10777-5-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240326194959.10777-4-zev@bewilderbeest.net>
+References: <20240326194959.10777-4-zev@bewilderbeest.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/q+Q8QflJy7p9izc"
-Content-Disposition: inline
-In-Reply-To: <32cd6f33-b4e9-4b7a-bcea-b1f2e421d67e@linaro.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +58,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, Kelly Hung <ppighouse@gmail.com>, linux-aspeed@lists.ozlabs.org, Rob Herring <robh@kernel.org>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, kelly_hung@asus.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, Allenyy_Hsu@asus.com, linux-arm-kernel@lists.infradead.org, Zev Weiss <zweiss@equinix.com>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+There exist systems other than PARISC where MDWE may not be feasible
+to support; rather than cluttering up the generic code with additional
+arch-specific logic let's add a generic function for checking MDWE
+support and allow each arch to override it as needed.
 
---/q+Q8QflJy7p9izc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Cc: <stable@vger.kernel.org> # v6.3+
+---
+ arch/parisc/include/asm/mman.h | 14 ++++++++++++++
+ include/linux/mman.h           |  8 ++++++++
+ kernel/sys.c                   |  7 +++++--
+ 3 files changed, 27 insertions(+), 2 deletions(-)
+ create mode 100644 arch/parisc/include/asm/mman.h
 
-On Tue, Mar 26, 2024 at 12:36:50PM +0100, Krzysztof Kozlowski wrote:
-> On 26/03/2024 11:35, Kelly Hung wrote:
-> > Document the new compatibles used on ASUS X4TF.
-> >=20
-> > Signed-off-by: Kelly Hung <Kelly_Hung@asus.com>
-> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > Reviewed-by: Rob Herring <robh@kernel.org>
->=20
-> Where did it happen? Where did you receive this tag? Please provide link
-> to lore.
+diff --git a/arch/parisc/include/asm/mman.h b/arch/parisc/include/asm/mman.h
+new file mode 100644
+index 000000000000..47c5a1991d10
+--- /dev/null
++++ b/arch/parisc/include/asm/mman.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __ASM_MMAN_H__
++#define __ASM_MMAN_H__
++
++#include <uapi/asm/mman.h>
++
++/* PARISC cannot allow mdwe as it needs writable stacks */
++static inline bool arch_memory_deny_write_exec_supported(void)
++{
++	return false;
++}
++#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
++
++#endif /* __ASM_MMAN_H__ */
+diff --git a/include/linux/mman.h b/include/linux/mman.h
+index 40d94411d492..db4741007bef 100644
+--- a/include/linux/mman.h
++++ b/include/linux/mman.h
+@@ -161,6 +161,14 @@ calc_vm_flag_bits(unsigned long flags)
+ 
+ unsigned long vm_commit_limit(void);
+ 
++#ifndef arch_memory_deny_write_exec_supported
++static inline bool arch_memory_deny_write_exec_supported(void)
++{
++	return true;
++}
++#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
++#endif
++
+ /*
+  * Denies creating a writable executable mapping or gaining executable permissions.
+  *
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 7a4ae6d5aecd..44b575990333 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -2395,8 +2395,11 @@ static inline int prctl_set_mdwe(unsigned long bits, unsigned long arg3,
+ 	if (bits & PR_MDWE_NO_INHERIT && !(bits & PR_MDWE_REFUSE_EXEC_GAIN))
+ 		return -EINVAL;
+ 
+-	/* PARISC cannot allow mdwe as it needs writable stacks */
+-	if (IS_ENABLED(CONFIG_PARISC))
++	/*
++	 * EOPNOTSUPP might be more appropriate here in principle, but
++	 * existing userspace depends on EINVAL specifically.
++	 */
++	if (!arch_memory_deny_write_exec_supported())
+ 		return -EINVAL;
+ 
+ 	current_bits = get_current_mdwe();
+-- 
+2.44.0
 
-Robh's bot sent two reports, but I do not see a tag:
-https://lore.kernel.org/all/?q=3Dc%3AKelly_Hung%40asus.com+f%3Arobh
-
-> > Reviewed-by: Zev Weiss <zweiss@equinix.com>
->=20
-> Where did it happen? Where did you receive this tag? Please provide link
-> to lore.
-
-Zev seems to have left a comment on this, but not provided a tag:
-https://lore.kernel.org/all/20240223220115.GB9299@packtop/
-
-Kelly, it is important that you do not add tags unless someone gives
-them to you explicitly.
-
-Thanks,
-Conor.
-
---/q+Q8QflJy7p9izc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZgMS2QAKCRB4tDGHoIJi
-0sgmAP99qKHB+cAXDMc3qKChE30qQxxp/UYWhpZUny6oL3v5fgD/Vi2hhcCmf16A
-C/hk3u2rhCGbNyawGryEwd6Z81hpgw0=
-=cX+i
------END PGP SIGNATURE-----
-
---/q+Q8QflJy7p9izc--
