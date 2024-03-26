@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 374C1C6FD1F
-	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 19:52:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10FC9C54E67
+	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 20:09:44 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gDRFGPTj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=e9CSzPO9;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V40p361THz3vWy
-	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 06:52:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V419f56Y2z3vXw
+	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 07:09:42 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gDRFGPTj;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=e9CSzPO9;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V40lD586kz3dV7
-	for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2024 06:50:16 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:712b:6300::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id C6EE621EA;
-	Tue, 26 Mar 2024 12:50:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1711482611;
-	bh=17iBI4G9F67ykK4/m+YIQXrVKF/YrwOQ8DpUpZknaF8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gDRFGPTjdUZHNCAcxXx6W9EHPCKZRYYSEiRFI+kXYYLY68B3/8kT1b1aWYr2NE8ni
-	 ydzFRPrMuzAjcRXUB+VlYVQ/GdhtzJFbGjzfddG8/MhSVKRZqS8HqG9jyGlzET/dAp
-	 f1Aje+j8J1G6ergXMvAUUUEpoS01uV4idev1vKPQ=
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Joel Stanley <joel@jms.id.au>
-Subject: [PATCH linux dev-6.6 0/2] ARM: prctl: Reject PR_SET_MDWE where not supported
-Date: Tue, 26 Mar 2024 12:49:58 -0700
-Message-ID: <20240326194959.10777-4-zev@bewilderbeest.net>
-X-Mailer: git-send-email 2.44.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V418k4QVgz3dWW
+	for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2024 07:08:54 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 6543D613F9;
+	Tue, 26 Mar 2024 20:08:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3D9C43390;
+	Tue, 26 Mar 2024 20:08:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1711483732;
+	bh=UvvEXa7/u+TvEsP4ULFQtxhfQt+x828rllZrGgBiyAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=e9CSzPO98RG06lCpIqFTyJDf6WolP5CwzaG/dgyiELf8YlZYhsbYYqt7v0hZy/zDI
+	 LYPzl9TGgUHRpxTZoBJP3t+YshBkRKMsoVdcqgEfMyYPFTxAdU5Mm6ri/ipWUDx1XL
+	 jKF3FeE+Wx7WtMepEPj5vH9nwC1oldmISpGv0yM84regA6B6cpP0KVwzFhKEsNxfND
+	 Px/32TgtGPErlCtjy4687DrZCCJ+Y399niAMh9chreSTezD3NsKNlaqQdCtGSn+Hzw
+	 RIQvP22sPhMP7UisuoFYwjtD/B/QTkGs6K7c87vwz0RBBQ2GtMjNA+zIiw3qH9zG8r
+	 sC4ATgfPNtvDg==
+Date: Tue, 26 Mar 2024 21:08:47 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH 20/64] i2c: fsi: reword according to newest specification
+Message-ID: <hvucbpsgihrbe4tgf4ksg4obz3rxitmyrdpl6zdh25pmok3uab@y6itjppsfbmd>
+References: <20240322132619.6389-1-wsa+renesas@sang-engineering.com>
+ <20240322132619.6389-21-wsa+renesas@sang-engineering.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240322132619.6389-21-wsa+renesas@sang-engineering.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,44 +59,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: openbmc@lists.ozlabs.org, Eddie James <eajames@linux.ibm.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-[Re-sending as I forgot to CC the list the first time, apologies for
-the duplication.]
+Hi Wolfram,
 
-OpenBMC on AST2400 has been badly broken for some time now due to
-systemd services segfaulting on execve() after calls to
-prctl(PR_SET_MDWE) spuriously succeeded.  The MMU of the ARMv5 CPU in
-the AST2400 cannot meaningfully support MDWE because it lacks distinct
-read & execute page permissions (read implies execute), so these
-patches ensure that the prctl to enable MDWE properly fails on
-hardware where it isn't supported.
+On Fri, Mar 22, 2024 at 02:25:13PM +0100, Wolfram Sang wrote:
+> Match the wording of this driver wrt. the newest I2C v7, SMBus 3.2, I3C
+> specifications and replace "master/slave" with more appropriate terms.
+> They are also more specific because we distinguish now between a remote
+> entity ("client") and a local one ("target").
+> 
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+>  drivers/i2c/busses/i2c-fsi.c | 56 ++++++++++++++++++------------------
+>  1 file changed, 28 insertions(+), 28 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+> index 10332693edf0..5eaf2c85a72c 100644
+> --- a/drivers/i2c/busses/i2c-fsi.c
+> +++ b/drivers/i2c/busses/i2c-fsi.c
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+>  /*
+> - * FSI-attached I2C master algorithm
+> + * FSI-attached I2C controller algorithm
 
-These patches have been posted and approved upstream [0], and while at
-time of writing they haven't yet reached mainline or stable upstream,
-they're on their way and should hopefully get merged soon [1, 2].
+As this change is all about renaming, I think we need to be a bit
+more consistent in using either host or controller, at least
+within the same driver.
+
+In this driver you are using sometimes host and sometimes
+controller.
 
 Thanks,
-Zev
-
-[0] https://lore.kernel.org/linux-arm-kernel/20240227013546.15769-4-zev@bewilderbeest.net/
-[1] https://lore.kernel.org/mm-commits/20240326180820.88CF4C43390@smtp.kernel.org/
-[2] https://lore.kernel.org/mm-commits/20240326180821.BF06BC433C7@smtp.kernel.org/
-
-Zev Weiss (2):
-  prctl: Generalize PR_SET_MDWE support check to be per-arch
-  ARM: prctl: Reject PR_SET_MDWE on pre-ARMv6
-
- arch/arm/include/asm/mman.h    | 14 ++++++++++++++
- arch/parisc/include/asm/mman.h | 14 ++++++++++++++
- include/linux/mman.h           |  8 ++++++++
- kernel/sys.c                   |  7 +++++--
- 4 files changed, 41 insertions(+), 2 deletions(-)
- create mode 100644 arch/arm/include/asm/mman.h
- create mode 100644 arch/parisc/include/asm/mman.h
-
--- 
-2.44.0
-
+Andi
