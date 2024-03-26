@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86252C6FD1F
-	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 19:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 374C1C6FD1F
+	for <openbmc@archiver.kernel.org>; Tue, 26 Mar 2024 19:52:45 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=I/BHBtDb;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gDRFGPTj;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V40n774NZz3dhR
-	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 06:51:55 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V40p361THz3vWy
+	for <openbmc@archiver.kernel.org>; Wed, 27 Mar 2024 06:52:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=I/BHBtDb;
+	dkim=pass (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=gDRFGPTj;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab; helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net; receiver=lists.ozlabs.org)
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net [IPv6:2605:2700:0:5::4713:9cab])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V40lD4y00z30hY
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V40lD586kz3dV7
 	for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2024 06:50:16 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (unknown [IPv6:2602:61:712b:6300::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: zev)
-	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 4012D42EC;
-	Tue, 26 Mar 2024 12:50:12 -0700 (PDT)
+	by thorn.bewilderbeest.net (Postfix) with ESMTPSA id C6EE621EA;
+	Tue, 26 Mar 2024 12:50:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
-	s=thorn; t=1711482612;
-	bh=VXZG6nn8qlp/LBRiKMMU2fq4sMy01iM3iFcQ8cFjjb4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=I/BHBtDbpiLpjOFuQsYSRTw8kEBQdDesYYlRBGXEg3JWGYo2BV2Bxi5ZSEt3N9JlC
-	 TAjJYwjHRIJMErNwsxxCznTJe9320cdPdjQqBMPjr9LE0kYbEo66tX4wUkIUXKnnUP
-	 5SbhqmG9oILcn3GiqzlVYtREbC1p8Heq5msx5p8A=
+	s=thorn; t=1711482611;
+	bh=17iBI4G9F67ykK4/m+YIQXrVKF/YrwOQ8DpUpZknaF8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=gDRFGPTjdUZHNCAcxXx6W9EHPCKZRYYSEiRFI+kXYYLY68B3/8kT1b1aWYr2NE8ni
+	 ydzFRPrMuzAjcRXUB+VlYVQ/GdhtzJFbGjzfddG8/MhSVKRZqS8HqG9jyGlzET/dAp
+	 f1Aje+j8J1G6ergXMvAUUUEpoS01uV4idev1vKPQ=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Joel Stanley <joel@jms.id.au>
-Subject: [PATCH linux dev-6.6 2/2] ARM: prctl: Reject PR_SET_MDWE on pre-ARMv6
-Date: Tue, 26 Mar 2024 12:50:00 -0700
-Message-ID: <20240326194959.10777-6-zev@bewilderbeest.net>
+Subject: [PATCH linux dev-6.6 0/2] ARM: prctl: Reject PR_SET_MDWE where not supported
+Date: Tue, 26 Mar 2024 12:49:58 -0700
+Message-ID: <20240326194959.10777-4-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240326194959.10777-4-zev@bewilderbeest.net>
-References: <20240326194959.10777-4-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -62,41 +60,40 @@ Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On v5 and lower CPUs we can't provide MDWE protection, so ensure we
-fail any attempt to enable it via prctl(PR_SET_MDWE).
+[Re-sending as I forgot to CC the list the first time, apologies for
+the duplication.]
 
-Previously such an attempt would misleadingly succeed, leading to any
-subsequent mmap(PROT_READ|PROT_WRITE) or execve() failing
-unconditionally (the latter somewhat violently via
-force_fatal_sig(SIGSEGV) due to READ_IMPLIES_EXEC).
+OpenBMC on AST2400 has been badly broken for some time now due to
+systemd services segfaulting on execve() after calls to
+prctl(PR_SET_MDWE) spuriously succeeded.  The MMU of the ARMv5 CPU in
+the AST2400 cannot meaningfully support MDWE because it lacks distinct
+read & execute page permissions (read implies execute), so these
+patches ensure that the prctl to enable MDWE properly fails on
+hardware where it isn't supported.
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Cc: <stable@vger.kernel.org> # v6.3+
----
- arch/arm/include/asm/mman.h | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+These patches have been posted and approved upstream [0], and while at
+time of writing they haven't yet reached mainline or stable upstream,
+they're on their way and should hopefully get merged soon [1, 2].
+
+Thanks,
+Zev
+
+[0] https://lore.kernel.org/linux-arm-kernel/20240227013546.15769-4-zev@bewilderbeest.net/
+[1] https://lore.kernel.org/mm-commits/20240326180820.88CF4C43390@smtp.kernel.org/
+[2] https://lore.kernel.org/mm-commits/20240326180821.BF06BC433C7@smtp.kernel.org/
+
+Zev Weiss (2):
+  prctl: Generalize PR_SET_MDWE support check to be per-arch
+  ARM: prctl: Reject PR_SET_MDWE on pre-ARMv6
+
+ arch/arm/include/asm/mman.h    | 14 ++++++++++++++
+ arch/parisc/include/asm/mman.h | 14 ++++++++++++++
+ include/linux/mman.h           |  8 ++++++++
+ kernel/sys.c                   |  7 +++++--
+ 4 files changed, 41 insertions(+), 2 deletions(-)
  create mode 100644 arch/arm/include/asm/mman.h
+ create mode 100644 arch/parisc/include/asm/mman.h
 
-diff --git a/arch/arm/include/asm/mman.h b/arch/arm/include/asm/mman.h
-new file mode 100644
-index 000000000000..2189e507c8e0
---- /dev/null
-+++ b/arch/arm/include/asm/mman.h
-@@ -0,0 +1,14 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __ASM_MMAN_H__
-+#define __ASM_MMAN_H__
-+
-+#include <asm/system_info.h>
-+#include <uapi/asm/mman.h>
-+
-+static inline bool arch_memory_deny_write_exec_supported(void)
-+{
-+	return cpu_architecture() >= CPU_ARCH_ARMv6;
-+}
-+#define arch_memory_deny_write_exec_supported arch_memory_deny_write_exec_supported
-+
-+#endif /* __ASM_MMAN_H__ */
 -- 
 2.44.0
 
