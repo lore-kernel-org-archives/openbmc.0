@@ -4,76 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E6CCD1292
-	for <openbmc@archiver.kernel.org>; Mon,  1 Apr 2024 14:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9065DCD1288
+	for <openbmc@archiver.kernel.org>; Mon,  1 Apr 2024 22:43:37 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=Elufcq2i;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ZsgIydbR;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V7XyL5K9qz3dRp
-	for <openbmc@archiver.kernel.org>; Tue,  2 Apr 2024 01:12:10 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V7mJR2zWdz3dKG
+	for <openbmc@archiver.kernel.org>; Tue,  2 Apr 2024 09:43:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=Elufcq2i;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ZsgIydbR;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.15; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d34; helo=mail-io1-xd34.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com [IPv6:2607:f8b0:4864:20::d34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V7XsQ441cz3brC
-	for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2024 01:07:52 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1711980451; x=1712585251; i=j.neuschaefer@gmx.net;
-	bh=L/WjbQC0Uxb9SVhmo+C44+NRCf/fM7QYCwbjyktZyvc=;
-	h=X-UI-Sender-Class:From:Date:Subject:References:In-Reply-To:To:
-	 Cc;
-	b=Elufcq2iQIdYpEQBHoIfA5libXleYoD9eikYHEEBvSZeXKgoCla/AdgqoW1pl9if
-	 8wv1HF2xpDT8bSirRGshS3IVCRoUzp6aKW1MCSra9mqopjJ9LXnwUprMLWsy2Y4nE
-	 7wFscSpWh8gD6HGHRnvX6v0y19n4PC+v2v3queSYyn7uY1Qh03wBcvW1xuzB9PuZE
-	 /2v+AR73UspAhW726uc3dg+9CTp28kIxRDA8fzG48BkzMiEhnzHPxv0axintJi0Oe
-	 R5uEhgXdcWz/2yJ2lGVsjg5gUyPoKlIuYlEYGjoh9L6vrL/qq8aBvf8d26gHLlIIm
-	 rMWS0SSvzXOMRjPhSQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([5.145.135.152]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MnJhO-1saDNW3Uoe-00jGGw; Mon, 01
- Apr 2024 16:07:30 +0200
-From: =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-Date: Mon, 01 Apr 2024 16:06:30 +0200
-Subject: [PATCH v11 1/4] dt-bindings: clock: Add Nuvoton WPCM450
- clock/reset controller
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V7LVr0mkFz3bwR
+	for <openbmc@lists.ozlabs.org>; Mon,  1 Apr 2024 17:21:06 +1100 (AEDT)
+Received: by mail-io1-xd34.google.com with SMTP id ca18e2360f4ac-7d0d0057c8aso9547839f.0
+        for <openbmc@lists.ozlabs.org>; Sun, 31 Mar 2024 23:21:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1711952461; x=1712557261; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iMMohnAWMK6m3tG9gNhC20ZEygwyJguxL99B9xnGWG8=;
+        b=ZsgIydbRbpG59OjtHjAOffNMJtIf+OCKxP+vnYKMpWeuIvyRv64/8hBadVepI2n9st
+         dGMuF1B8Xo8mP6Z3qP8QRSHUOgCiSKTkQCBgqDRxmFUykmcj9rYpb66+BDlJzGCAHAgl
+         zUp1RFIRzpImyxxn3uD80AigQMgTch/kUpSi93H+Y0zuHkCbY/ske8GuWYU35iisIivi
+         /E7oIcFYUxjQKj6X0fDuGiWhzZNchAS9UPFUzEk8aSnKeNgXTfvi/WTItloJpfledTJF
+         XpZSpp4DwBQ3jAkL8WRPlhk202H3F9cTSLEkOLQ0BvwUAdxEjGfgceEFcgX/ftVM/Bqp
+         9cwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1711952461; x=1712557261;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=iMMohnAWMK6m3tG9gNhC20ZEygwyJguxL99B9xnGWG8=;
+        b=X2gBoMWVnhIJKE2rK8JPhIwqevTGWP+PbMh3ybe3Dh4Jt3WC7WbHlhQC2W4e1cSbiE
+         xhh42MEKgYMtJHtHvP9EVHfl+WFst8/3sNbiCAarARdgP66zAXuLQLslxpLA6c4MFGRH
+         cgjfQcSbjtfeBk9/rWrM1caU5RcBjeIMsv/quwRl+6iHUciJn7ThZWs6SFHhOBXc8dBX
+         NwDdgHivy7COcGKHiYUfYxyRtPdDwJp3Cddqrv774hPSuDJPgB2bVOkLdOunCx7FDIzm
+         y+HdfEm38rySl1QnNjoVJCoZ2nvJbaK2n/U4t3xMy6u78eKvmNcHqWgD5wWzCzkLJomf
+         FyYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXzHtF4q4UTXXRoIgymJmJbhQPQWsKmsAxHuezARmKHPfDNjnN1HKSn5hGVeY9W+iesVjhWI8mflm/KM2ea4nQmTFZIQ5zk2uI=
+X-Gm-Message-State: AOJu0Yw2J+0pgDW6SDn8KdBGxF9lRxbk8c39ogN/Reb1KkRHIe5NPEz9
+	BpXTONQyYGtuHj3J8Upu5DYRhcZnY0TwjGFZYElbwYC9gpfhQOnl5Irho3wYN9zJMqINMoCcFJM
+	3mRf4GaVSEDV0zoIJNiQOfQ2ZlKw=
+X-Google-Smtp-Source: AGHT+IGqrP3UbKuIe1tD2jwC4HaMuI/kdKXkvDhRJ+AWyQfCT0kCIFRqJPOXLpW67XqZ5jBlSE9DEP3cTjA6OoqADbE=
+X-Received: by 2002:a5d:8986:0:b0:7cf:1c5c:681e with SMTP id
+ m6-20020a5d8986000000b007cf1c5c681emr10205960iol.17.1711952461453; Sun, 31
+ Mar 2024 23:21:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+References: <20240322081158.4106326-1-kcfeng0@nuvoton.com> <20240322081158.4106326-2-kcfeng0@nuvoton.com>
+ <171109961635.307786.7810067768607811171.robh@kernel.org> <22fcad13-dd9b-4e9a-90aa-d20fb78e6a0d@roeck-us.net>
+ <e1102a00-0c94-4d35-8de2-1173ee417bdc@linaro.org>
+In-Reply-To: <e1102a00-0c94-4d35-8de2-1173ee417bdc@linaro.org>
+From: Ban Feng <baneric926@gmail.com>
+Date: Mon, 1 Apr 2024 14:20:50 +0800
+Message-ID: <CALz278ZdvJhtDhBaKMg_nP+sS0HQVvAjidKAGkeqG8Cu4ftb+Q@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: hwmon: Add NCT7363Y documentation
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20240401-wpcm-clk-v11-1-379472961244@gmx.net>
-References: <20240401-wpcm-clk-v11-0-379472961244@gmx.net>
-In-Reply-To: <20240401-wpcm-clk-v11-0-379472961244@gmx.net>
-To: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1711980406; l=5540;
- i=j.neuschaefer@gmx.net; s=20240329; h=from:subject:message-id;
- bh=QPzdQUVDkB9QA3Xv6+gOkAHNqMRKKV6HeNLuZ6QtTHg=;
- b=aELc8e1LxZHvhFng8A7HIeehmO0xMUKmyP9dfbaEhVHrinX1fJ0JQnqArOdOYhpwAiX8L3mr9
- XzPlWbluUZwDtAa3iWD9xajGSSLeUoT2yl7LS0KO2pBIYks4fiIba6R
-X-Developer-Key: i=j.neuschaefer@gmx.net; a=ed25519;
- pk=NIe0bK42wNaX/C4bi6ezm7NJK0IQE+8MKBm7igFMIS4=
-X-Provags-ID: V03:K1:S9so0wpYCtcZ/lkABhTBPtdLAFziUGm7uUQVLAJijyzK+yReS7d
- Egnptog85PlgsAqCRH4WPrFSZ+485sp7I7HPOztvcJpvN011+z0akd9YZKPhBEBNfIESnZn
- r9wNvkUzDg1b5pIVilnYT5rLE77/hCKUTp2+W50873H5mKb5eszL3J/ftm0sNabOubg2e1v
- nXOgr+Qg2t1n0mRKXnvQw==
-UI-OutboundReport: notjunk:1;M01:P0:F41cuxMVn6Q=;O5+yG+BX7rvVudCXMrI26NPViVR
- zu1i/VVWdWb1lHknMR9LtNBrFyFOMLlAfPjX2BVtduYzzZfE305q7f3geixwCEHqCKw0WicA4
- EO0Mq5wLSnma397Mb7aImrL6ebgJlo6bF5AZxRhxku8c60VTHo208rkxyReczMmzL9NKrG45a
- D/0Y+r47SFY65DqjKNYPB0H6wJ0FHqLekOI5B4pDhX54TOctEgfLICWQiSA2EZEdkomRC+X63
- webXhDJRrusSJ9lwR4vuTyjsSxD3wcAihhuIq6AG75/QgXAsGfJj7B3zXuc874GT5sl7Tnzxq
- uu6slKfFmB63UloGE7FL2tyRpn8v51jUP89OGCrMbcoNzU3HQKlaX6ryxnkz5rpUvjGg12cA9
- OtwP1uQLdQ6TEe5PJy6c+L5CsGIfSMQ+OOZRdodUF2THsayyqyC9wqE/pgMyQlgaHDoShPpkH
- n063njOmtokAClIdQCGgHDoqVcNMhIE8IDf9bprE31s8k52Yk3sanuEwFuJebik9Szxh1QWJf
- AdlWWCbJ2akh1b6KSmwIao0EciDcM7dSE71a4Ry/bGNuTf2DwIYsKqWLW+J8oWNPi+tjgpgH7
- LgtIwLCB2Jg+miZJ0cWz2ZtxJeHGTN1JZrgCta+fdroHYyof+lRcnAYhLlD+RNrTmyxfe2WZO
- MXODXPS2EQNWc1JcaJaSM4BKapzlOUkTrmKLoS3dJAzEH5oDtFljF3f+QqInCQmI3XHZmcCG8
- rOk+yYfoi35E+UjhoOXkRG09i7MniG6cdCeDXJRyHhMphWTukXlZ+ygFymr8spQ4FcP11SA1V
- HBNrFwSjgnokqT7R+8OZZiYqWFeOZHiHX3ZRhMUzRXoKL0ZPJ7EPlmURAhrhCVoWd0
+X-Mailman-Approved-At: Tue, 02 Apr 2024 09:42:42 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,200 +80,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org, =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Joel Stanley <joel@jms.id.au>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: linux-hwmon@vger.kernel.org, Rob Herring <robh@kernel.org>, conor+dt@kernel.org, jdelvare@suse.com, corbet@lwn.net, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, DELPHINE_CHIU@wiwynn.com, kcfeng0@nuvoton.com, devicetree@vger.kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, Paul Menzel <pmenzel@molgen.mpg.de>, kwliu@nuvoton.com, openbmc@lists.ozlabs.org, Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The Nuvoton WPCM450 SoC has a combined clock and reset controller.
-Add a devicetree binding for it, as well as definitions for the bit
-numbers used by it.
+Hi Krzysztof,
 
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-=2D--
-v10-v11:
-- no changes
+Thanks for your support.
 
-v9:
-- Remove clock-output-names in example, because it's now unnecessary due
-  to driver improvements
+Best regards,
+Ban
 
-v5-v8:
-- no changes
-
-v4:
-- https://lore.kernel.org/lkml/20220610072141.347795-4-j.neuschaefer@gmx.n=
-et/
-- Add R-b tag
-
-v3:
-- Change clock-output-names and clock-names from "refclk" to "ref", sugges=
-ted
-  by Krzysztof Kozlowski
-
-v2:
-- https://lore.kernel.org/lkml/20220429172030.398011-5-j.neuschaefer@gmx.n=
-et/
-- Various improvements, suggested by Krzysztof Kozlowski
-
-v1:
-- https://lore.kernel.org/lkml/20220422183012.444674-5-j.neuschaefer@gmx.n=
-et/
-=2D--
- .../bindings/clock/nuvoton,wpcm450-clk.yaml        | 65 +++++++++++++++++=
-++++
- include/dt-bindings/clock/nuvoton,wpcm450-clk.h    | 67 +++++++++++++++++=
-+++++
- 2 files changed, 132 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.y=
-aml b/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.yaml
-new file mode 100644
-index 00000000000000..93521cf68a040f
-=2D-- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/nuvoton,wpcm450-clk.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/nuvoton,wpcm450-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton WPCM450 clock controller
-+
-+maintainers:
-+  - Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-+
-+description:
-+  The clock controller of the Nuvoton WPCM450 SoC supplies clocks and res=
-ets to
-+  the rest of the chip.
-+
-+properties:
-+  compatible:
-+    const: nuvoton,wpcm450-clk
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Reference clock oscillator (should be 48 MHz)
-+
-+  clock-names:
-+    items:
-+      - const: ref
-+
-+  '#clock-cells':
-+    const: 1
-+
-+  '#reset-cells':
-+    const: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - '#clock-cells'
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    refclk: clock-48mhz {
-+      /* 48 MHz reference oscillator */
-+      compatible =3D "fixed-clock";
-+      clock-frequency =3D <48000000>;
-+      #clock-cells =3D <0>;
-+    };
-+
-+    clk: clock-controller@b0000200 {
-+      reg =3D <0xb0000200 0x100>;
-+      compatible =3D "nuvoton,wpcm450-clk";
-+      clocks =3D <&refclk>;
-+      clock-names =3D "ref";
-+      #clock-cells =3D <1>;
-+      #reset-cells =3D <1>;
-+    };
-diff --git a/include/dt-bindings/clock/nuvoton,wpcm450-clk.h b/include/dt-=
-bindings/clock/nuvoton,wpcm450-clk.h
-new file mode 100644
-index 00000000000000..86e1c895921b71
-=2D-- /dev/null
-+++ b/include/dt-bindings/clock/nuvoton,wpcm450-clk.h
-@@ -0,0 +1,67 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+
-+#ifndef _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H
-+#define _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H
-+
-+/* Clocks based on CLKEN bits */
-+#define WPCM450_CLK_FIU            0
-+#define WPCM450_CLK_XBUS           1
-+#define WPCM450_CLK_KCS            2
-+#define WPCM450_CLK_SHM            4
-+#define WPCM450_CLK_USB1           5
-+#define WPCM450_CLK_EMC0           6
-+#define WPCM450_CLK_EMC1           7
-+#define WPCM450_CLK_USB0           8
-+#define WPCM450_CLK_PECI           9
-+#define WPCM450_CLK_AES           10
-+#define WPCM450_CLK_UART0         11
-+#define WPCM450_CLK_UART1         12
-+#define WPCM450_CLK_SMB2          13
-+#define WPCM450_CLK_SMB3          14
-+#define WPCM450_CLK_SMB4          15
-+#define WPCM450_CLK_SMB5          16
-+#define WPCM450_CLK_HUART         17
-+#define WPCM450_CLK_PWM           18
-+#define WPCM450_CLK_TIMER0        19
-+#define WPCM450_CLK_TIMER1        20
-+#define WPCM450_CLK_TIMER2        21
-+#define WPCM450_CLK_TIMER3        22
-+#define WPCM450_CLK_TIMER4        23
-+#define WPCM450_CLK_MFT0          24
-+#define WPCM450_CLK_MFT1          25
-+#define WPCM450_CLK_WDT           26
-+#define WPCM450_CLK_ADC           27
-+#define WPCM450_CLK_SDIO          28
-+#define WPCM450_CLK_SSPI          29
-+#define WPCM450_CLK_SMB0          30
-+#define WPCM450_CLK_SMB1          31
-+
-+/* Other clocks */
-+#define WPCM450_CLK_USBPHY        32
-+
-+#define WPCM450_NUM_CLKS          33
-+
-+/* Resets based on IPSRST bits */
-+#define WPCM450_RESET_FIU          0
-+#define WPCM450_RESET_EMC0         6
-+#define WPCM450_RESET_EMC1         7
-+#define WPCM450_RESET_USB0         8
-+#define WPCM450_RESET_USB1         9
-+#define WPCM450_RESET_AES_PECI    10
-+#define WPCM450_RESET_UART        11
-+#define WPCM450_RESET_MC          12
-+#define WPCM450_RESET_SMB2        13
-+#define WPCM450_RESET_SMB3        14
-+#define WPCM450_RESET_SMB4        15
-+#define WPCM450_RESET_SMB5        16
-+#define WPCM450_RESET_PWM         18
-+#define WPCM450_RESET_TIMER       19
-+#define WPCM450_RESET_ADC         27
-+#define WPCM450_RESET_SDIO        28
-+#define WPCM450_RESET_SSPI        29
-+#define WPCM450_RESET_SMB0        30
-+#define WPCM450_RESET_SMB1        31
-+
-+#define WPCM450_NUM_RESETS        32
-+
-+#endif /* _DT_BINDINGS_CLOCK_NUVOTON_WPCM450_CLK_H */
-
-=2D-
-2.43.0
-
+On Tue, Mar 26, 2024 at 2:29=E2=80=AFAM Krzysztof Kozlowski
+<krzysztof.kozlowski@linaro.org> wrote:
+>
+> On 25/03/2024 18:09, Guenter Roeck wrote:
+> > On 3/22/24 02:26, Rob Herring wrote:
+> >>
+> >> On Fri, 22 Mar 2024 16:11:57 +0800, baneric926@gmail.com wrote:
+> >>> From: Ban Feng <kcfeng0@nuvoton.com>
+> >>>
+> >>> Add bindings for the Nuvoton NCT7363Y Fan Controller
+> >>>
+> >>> Reviewed-by: Rob Herring <robh@kernel.org>
+> >>> Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+> >>> Signed-off-by: Ban Feng <kcfeng0@nuvoton.com>
+> >>> ---
+> >>>   .../bindings/hwmon/nuvoton,nct7363.yaml       | 66 ++++++++++++++++=
++++
+> >>>   MAINTAINERS                                   |  6 ++
+> >>>   2 files changed, 72 insertions(+)
+> >>>   create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,=
+nct7363.yaml
+> >>>
+> >>
+> >> My bot found errors running 'make DT_CHECKER_FLAGS=3D-m dt_binding_che=
+ck'
+> >> on your patch (DT_CHECKER_FLAGS is new in v5.13):
+> >>
+> >> yamllint warnings/errors:
+> >>
+> >> dtschema/dtc warnings/errors:
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.yaml:
+> >> Error in referenced schema matching $id: http://devicetree.org/schemas=
+/hwmon/fan-common.yaml
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.example.dtb: hwmon@22: fan-0: False schema does not=
+ allow {'pwms': [[1, 0, 50000]], 'tach-ch': ['']}
+> >>      from schema $id: http://devicetree.org/schemas/hwmon/nuvoton,nct7=
+363.yaml#
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.example.dtb: hwmon@22: fan-0: Unevaluated propertie=
+s are not allowed ('pwms', 'tach-ch' were unexpected)
+> >>      from schema $id: http://devicetree.org/schemas/hwmon/nuvoton,nct7=
+363.yaml#
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.example.dtb: hwmon@22: fan-1: False schema does not=
+ allow {'pwms': [[1, 1, 50000]], 'tach-ch': b'\x01'}
+> >>      from schema $id: http://devicetree.org/schemas/hwmon/nuvoton,nct7=
+363.yaml#
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.example.dtb: hwmon@22: fan-1: Unevaluated propertie=
+s are not allowed ('pwms', 'tach-ch' were unexpected)
+> >>      from schema $id: http://devicetree.org/schemas/hwmon/nuvoton,nct7=
+363.yaml#
+> >> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/binding=
+s/hwmon/nuvoton,nct7363.example.dtb: fan-1: tach-ch: b'\x01' is not of type=
+ 'object', 'array', 'boolean', 'null'
+> >>      from schema $id: http://devicetree.org/schemas/dt-core.yaml#
+> >>
+> >> doc reference errors (make refcheckdocs):
+> >>
+> >> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/202=
+40322081158.4106326-2-kcfeng0@nuvoton.com
+> >>
+> >> The base for the series is generally the latest rc1. A different depen=
+dency
+> >> should be noted in *this* patch.
+> >>
+> >> If you already ran 'make dt_binding_check' and didn't see the above
+> >> error(s), then make sure 'yamllint' is installed and dt-schema is up t=
+o
+> >> date:
+> >>
+> >> pip3 install dtschema --upgrade
+> >>
+> >> Please check and re-submit after running the above command yourself. N=
+ote
+> >> that DT_SCHEMA_FILES can be set to your schema file to speed up checki=
+ng
+> >> your schema. However, it must be unset to test all examples with your =
+schema.
+> >>
+> >
+> > I am a bit puzzled by this one. The patch has a Reviewed-by: tag from R=
+ob,
+> > but then Rob's bot complains about errors. hat am I missing ?
+>
+> The warning is a result of missing fan-common.yaml in the tree used as a
+> base.
+>
+> I checked now and I don't see warnings on next or v6.9-rc1, so it is
+> safe for you to apply it.
+>
+> For the record:
+>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>
+> Best regards,
+> Krzysztof
+>
