@@ -4,69 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CFEDCD1284
-	for <openbmc@archiver.kernel.org>; Tue,  2 Apr 2024 19:44:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75292CD1292
+	for <openbmc@archiver.kernel.org>; Wed,  3 Apr 2024 23:15:47 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=g5Hs740K;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKWDr9tS;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V8JGs58Jcz3vX2
-	for <openbmc@archiver.kernel.org>; Wed,  3 Apr 2024 06:44:05 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4V90wd6sWMz3d28
+	for <openbmc@archiver.kernel.org>; Thu,  4 Apr 2024 10:15:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=g5Hs740K;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKWDr9tS;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::112b; helo=mail-yw1-x112b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com [IPv6:2607:f8b0:4864:20::112b])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.18; helo=mgamail.intel.com; envelope-from=iwona.winiarska@intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 64 seconds by postgrey-1.37 at boromir; Thu, 04 Apr 2024 10:14:42 AEDT
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V8JFq07PPz3d2n
-	for <openbmc@lists.ozlabs.org>; Wed,  3 Apr 2024 06:43:09 +1100 (AEDT)
-Received: by mail-yw1-x112b.google.com with SMTP id 00721157ae682-6152088aa81so12538807b3.0
-        for <openbmc@lists.ozlabs.org>; Tue, 02 Apr 2024 12:43:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1712086987; x=1712691787; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=HTJVONLBOWfYIXXYyOhTTPw9XCjwbvXp4rskUKdwRDo=;
-        b=g5Hs740KHXUf0uaS3+c0ROrU8hvnNRgKu/QH9bDVl6Z0M6vxmnDMWD8wc2eLQyYQb9
-         uLn+hm68deg7C5tdGTJKAK7Kc66toTxyN+mcwn+aNRrOQfbXtZwHsrz51zFGCUoyjl+n
-         ++grYl0JaaH36UKkUmqt7oed7dRaN7Zrlhv1nOlFDc8sVhF/Emun+O2Nkt3InhcFgBPW
-         hRN2fIU72V5LeT0dYOlqpp7l7xsXIzAT3xm7x4fImT/ruK0RRTJcUmDQSvrpSyue4hmG
-         7wIAQz1IpG3UuGSVHpowZe2Trvof4WB6ViPKgeExMHlVUKdojlI6FRZHadqJoIZXpSp4
-         b3hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712086987; x=1712691787;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HTJVONLBOWfYIXXYyOhTTPw9XCjwbvXp4rskUKdwRDo=;
-        b=pP0gTl7ZRPQBpFT/zxgwWFrXD5gGSQwOmhDir0g6d0WcAdzNLeYB2XMQGVJWSrg9cS
-         3sfXJ4gTErd5OSMoqwNaPIIuA0Jjc5Ht+SpVdArPMSTgkzdOygBLzXqsAvxfr2C2jMsT
-         SgslVH7QR2XmbWdYnFPRuhnLRM2m0pkchJbNtbfAb3ZNhCaHdw5UDnYkCiHNKPiQPJ3L
-         EMh0AAJAmPJmCNq0d/2bzpR+wxcgbywumYjB1GxHoGd5Wso9zIoFjFbnyWhOiWT3+Dno
-         l0FjwF41Pw5Kxio0RMwMNhdFwQqjhCLnVt9YhK2BSCBERmba4BaFGWNaL0ru+r6dBOpI
-         6ZzA==
-X-Forwarded-Encrypted: i=1; AJvYcCWkT3eDFpQXZHQo2EQhEarQxdePXr1aQM7UNnC/Sl05a2KfUOmOkO2/njP/kFULMFjCbi+uS6oqghKT6bLjA7RqO4mLty1nFJM=
-X-Gm-Message-State: AOJu0YyxZMAH6ZJJM/M4vEAuZtntdRN1GNsurWuO/7OWWAc7N0wGpFHH
-	g8ZcLQL+z80ImhqKisWbodp2RIcFtDQsHo+oDpKx+/XjE5ezeesRw7z1tFF06oUauYFEWX9Z7bj
-	u2uzKYrVIZkPwg8gtgkuARCuVTsU=
-X-Google-Smtp-Source: AGHT+IHYFFXpr3KeU33zxXhX2ZVeehOyLXhFmaJ6JQIOHWpfhAN0d/7P9DC2ivCdw+kd0pPLfV2tNokbt93OKVRLbgY=
-X-Received: by 2002:a25:4604:0:b0:dd0:aa2c:4da5 with SMTP id
- t4-20020a254604000000b00dd0aa2c4da5mr10797136yba.6.1712086986537; Tue, 02 Apr
- 2024 12:43:06 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4V90vQ1y94z2ygY
+	for <openbmc@lists.ozlabs.org>; Thu,  4 Apr 2024 10:14:41 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1712186082; x=1743722082;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=yJP+FJwIi1zJ1zvNeNwVQz/59VI4s/HZ4q0DnuTweOQ=;
+  b=cKWDr9tS9fTzy8aVuqvGJcNX9GBgPnmBDlGh0LaX6cNV/nA/Jl4n16im
+   njWmT7C6d6Cwexo7ZtWb0Xf7xkNE/b2wghNTZuPGsZQr3Npyf/0UyDaNN
+   vLWSP9alcKbsNGlSpoLDxo5DXN/hhL3Z0kUEa/0MLPtXnTEY8E0o9Uku2
+   ZEd6DrULApQoT/qYFPq6hHvxWq5h7cgmyFf3i0JqrPfM54+cffT3Uitth
+   Hh0TKq0dNrEAUW4sh8wiGEZpDV73PCtAtOhzYaF2eCsqtyYZgYX4NI/eL
+   uTe8A7dwFA/5zkjnNoTBCQbe8jlYc2A6jTn89jILwua0n2xupha+oqlq7
+   Q==;
+X-CSE-ConnectionGUID: mLSC1HsQRFy0aDnlmnRRkQ==
+X-CSE-MsgGUID: QzVNE3ENSkuIIkm/6NNcHg==
+X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7293430"
+X-IronPort-AV: E=Sophos;i="6.07,178,1708416000"; 
+   d="scan'208";a="7293430"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Apr 2024 16:13:33 -0700
+X-CSE-ConnectionGUID: 8ASjC9thQIuW7RbdBtwxvA==
+X-CSE-MsgGUID: eHP4bvq7TzKy2XIm/T1GiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,178,1708416000"; 
+   d="scan'208";a="19044186"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+  by orviesa006.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384; 03 Apr 2024 16:13:33 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 3 Apr 2024 16:13:32 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 3 Apr 2024 16:13:31 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Wed, 3 Apr 2024 16:13:31 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.169)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 3 Apr 2024 16:13:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FUGZeaZx4EKxZNYX1BoEZ8cA8jkWRpBqKGEiTTM7yLykNLaDaVfOm4kZRPO9S65zSP8jGb+RT4ofLEis/4GvHT3N40cz0SUjYCQXrFMl2lnMXVDhoAaNrkQj1JhvZJO60JR/8svuG+9DZVAxXr7yg7gb46jjXl8kt7MvULWP1bF66wY4nirqweXtL7ivoAqojuNgX9NLT0fwIih/wZIJMLK6MoCZ9388+7KydpW70y7+qhHSSu9OcBy0jtpun2VZeHbGA5SaRlOkCH+5czhk0NjPm3oOQGnBPe/ZlI8svZNWQ8yu/DOx0/qRccoZH3Ckko/F9ZLAzPMzRyeTjTjTKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yJP+FJwIi1zJ1zvNeNwVQz/59VI4s/HZ4q0DnuTweOQ=;
+ b=lEQh8i9mbCd7XAbfxr7uA5EKhom3Q7YJuvPd4Tyhk3nAvYWYAb2s53EtdPz2eX2dJ2Tq7cXSADy/UefFWm54cZJeAqTppXkpTdggjEm9QNtVEKlRUEZzb19MkSKMyM8bEIxX8VLvbEsoESLQo56ChwsT+JZUGOyhC2ShGLwHFPZbPfSn77aHUCd+JK6ZPWFyxjaSZFKMeTme2avPedt/QuU0k2asJ1HiiJVZEJJr+KeBsSOaRa7wRdXs6Z3jOaZxc0w0IH0ZvS96pET6xdYXzE7pvT7+pV7G66NUdE7qCpEdJ5kxicT9bAWdlh5WeC8oO7uHq+7Iincw6EyruR8cXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH0PR11MB5330.namprd11.prod.outlook.com (2603:10b6:610:bd::7)
+ by PH8PR11MB8107.namprd11.prod.outlook.com (2603:10b6:510:256::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.33; Wed, 3 Apr
+ 2024 23:13:27 +0000
+Received: from CH0PR11MB5330.namprd11.prod.outlook.com
+ ([fe80::5627:e6de:5e36:aacf]) by CH0PR11MB5330.namprd11.prod.outlook.com
+ ([fe80::5627:e6de:5e36:aacf%6]) with mapi id 15.20.7452.019; Wed, 3 Apr 2024
+ 23:13:27 +0000
+From: "Winiarska, Iwona" <iwona.winiarska@intel.com>
+To: "rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] peci: linux/peci.h: fix Excess kernel-doc description
+ warning
+Thread-Topic: [PATCH v2] peci: linux/peci.h: fix Excess kernel-doc description
+ warning
+Thread-Index: AQHaggcJ9XjElys6dkmri3wGFiPcSLFXNQEA
+Date: Wed, 3 Apr 2024 23:13:27 +0000
+Message-ID: <c28853d7e563482c5682e6cbbe5fcf20f218e487.camel@intel.com>
+References: <20240329182910.29495-1-rdunlap@infradead.org>
+In-Reply-To: <20240329182910.29495-1-rdunlap@infradead.org>
+Accept-Language: en-US, pl-PL
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.50.4 (3.50.4-1.fc39) 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR11MB5330:EE_|PH8PR11MB8107:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lTgDXf+/7m5AcRNycfJK/gWW3gHNJ6yQnTPIeRc8qdyNexq3gh7nVF05Ud4Oae4AduOyoqcnR8gzlC6rRaP9Z37T/rd8ma4JnactAOFCAI8miBccbFEHLhj5hvMy/xRUcNaO13PPcRDXK5vv51N5N0kTNO2Zp9YF5htFY6Ic95AUbrtuY/Hayv5p/AKWWHrEA65B9D1N3zieXYDXxlEQL+tfarZxxY58Jey4XEW3ynxp/LErBdIIvPdvT+X/9/fcDqQsAngf8mtz3TBs4IZ+rEVF+4uXMEEIQAjRb1KG5fx5VL55It1soIuE33dpZAVmmCgAcxXY9RQKaKLwDd5uTxvLCOo8IRxjyYo4lciwlXQDmsePnXrKq7X7On2uKI0moioX1o9bz4jfJ/fW1hu8b/8D64qpZZ/T9ViV/npDHPLTL5RmHmsbqCh67doM4A3HdZhIRZx/aW+9nUmRsH/ZM1HVzi6c2BPdpg+1x56fvRmUYt2JEALYefk9QYe215+uqid6ZfcYj3Oa06cYZdrUt1W9wUyRZM6fEa0A8GGbV46KO9VL4HzQxb1KLpnsYnVdjEHzgS6OVnI8HYc9eIP+9ru4G+bR+PKKYrqinznk980=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5330.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(366007)(1800799015);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TjJEY1NxL2t1Z1dQS2VsZWtobnVhU2U1OW50ckJqL2p1QVRmUkprOFkrZUx1?=
+ =?utf-8?B?ems0L05la1NOZWFUNjJvZVdBc2lJYW9LV2pjRytWMSswZFlsVUtvSitsbTNE?=
+ =?utf-8?B?MUZ0dmsrbW1DUG5iZTlSUmp2eEc5TzUyOXhUaWhDMGFhRXlmaW9sNGZQVlQz?=
+ =?utf-8?B?bWt0Y2dIYTNoa3c1SGNDUTBsSmFKbUh2Zi9sREE5dCtwUmxmZ2wvQjZuQU5K?=
+ =?utf-8?B?KzIzVUZxYUJCQmF5VTR4bGFaVmFCTDhxdWV2NjFKWmR4RWI5Yys1U1Y3WWFF?=
+ =?utf-8?B?YldBWTl6ZUhwSkV1WlBXWXpROW15aWNIb2JiTVozeHhsSjhaMERYV3BId3N4?=
+ =?utf-8?B?WU9ucW9kdXorcWlzSHdCcU4ra2M1bnR4Y09BQlIrMTFDUXZBcERIZFNVdTB6?=
+ =?utf-8?B?RHhSa0VpNFRMWk1OZmNKUUcvdmpuQ1BuRXF0L1RwRnF5MEFnaTdPYlhPQlNp?=
+ =?utf-8?B?MFFFRWlDSjVEbkJ0L3RWbE1LWDhLMTcya2JJU1R1cHFHYWxVdHdQNVZrYWtD?=
+ =?utf-8?B?eHovUThSaEdibUV0VzQvbm4xM2V2Z2JxVkoxZHlseUI2Z2xkQU40Yk5lWU5q?=
+ =?utf-8?B?NDJSaU93OTdFNS84YUlheVNVbm55ZVdydWZvdlZXVUNkRDUwbjd2VGVFckxq?=
+ =?utf-8?B?aWU4YlRwYnRBVjlCNThzUTI2Rnc0MmNhZXM4aGwvVDJHNTd0a3hXdDBaTDNY?=
+ =?utf-8?B?eUxudjZyeU1SMHlKUnVUdDF5MHBIOHJza01zTnVPZDVSd3ZwMFU0aXk1akJN?=
+ =?utf-8?B?WWN0V1dVNi9IYkZaK0lZcksvTnJkeVVORjViNlpjazlOaHBxeU1KbjY3SUtZ?=
+ =?utf-8?B?YTlleFhZWndQd0w1c1V0RnFRU2dSRXBJZWpMaWRlWnZVOEhMMmtxZlhiaFJ3?=
+ =?utf-8?B?RDdFQ1hqM1hjcUZiSFJyYmVPSk5MUmlKMVJxK0ZnQTJpUU16S3NoRGduRlU2?=
+ =?utf-8?B?YUkxRXJ3WG1oUFRRRTVZT0FvQStLK0JQbzh3YTFuQWY0dWk3QnRscWNRTWpP?=
+ =?utf-8?B?dkRySnFMUERXcnFaUHd2c002dExwKzA5L0JuVHJCejYvQ0lOdEkxazBWRTgw?=
+ =?utf-8?B?Y1lTL2FzR1dUUy95b2lxWEozTkhIeWp0RWtXU3FBZjNUWTNGdXE1MmdEemV2?=
+ =?utf-8?B?VDArdDBJWExXbTBsNlpGRGJnQWJtVXZYaTE0UTBaMWVlMU4weGU5b0xKNGdo?=
+ =?utf-8?B?bnJiaytTTGoxdkpGY3FMWHEzWlVPVWRJRHJ3Q2hyODl6akFQVjlXT3hySHFY?=
+ =?utf-8?B?U3BUUGt0M0NYS2VwSVErMzltczBvd0cwU0dVQ1BFZy9PTmY1djNLM2FJMGY3?=
+ =?utf-8?B?US9PVUlUY3ArRDBmZ3VwcFd2ZjJWREt2cmgwbXcvcFhmNFNHMEtZUmNldHUx?=
+ =?utf-8?B?OXQ4QVpGMXA1Ly9POGw2ZWR1cGN3R09aL0Zyd25tSkthc2g1NWFwRTRpd0E3?=
+ =?utf-8?B?Q3ltUVB6U1BEb1BMQTkrUmFvRG1iSEdFaElrODZXMTV5VFdrVGJLS1g4Q3pK?=
+ =?utf-8?B?cFJJbXNNUVpvNUJyODJqZFhsWWVaeXAvaVRtSVY5dkhCQ0V2bGkzYkZIQi9Q?=
+ =?utf-8?B?cldZQ1Z0Z2NCTHV5WlZDMHhQb1JCZi9xWDUyWHlYUWJDK01ET3VNdzZ1WjlP?=
+ =?utf-8?B?dlROcEdrZDJLbXc3VTc3MGJPRWRROUxKbTVzOFJiNmN4Y3lMUyt4aFRnQmE3?=
+ =?utf-8?B?ZFlNSE53RTEwM1d1akpBNk52L0ZFWVJON0lkaHg1U21EYzE5M3ZQUnRISGQ2?=
+ =?utf-8?B?aEJGZVBvb045WlNtd3hmb1B1MERnN205UG9LalYxTVhSWVAyMm1ITnRMNVZH?=
+ =?utf-8?B?bWtydU1rend1S0dIcktjUEVwQVVpaWhiM2EyODhic3AvS1RHNnNhRm41cVlQ?=
+ =?utf-8?B?d0N4OFNvTDJ4d1Ntc25BY2VNeldMNlBEaEhaa2w0SUI0bk02U1BxaWdGaXpq?=
+ =?utf-8?B?WTFDcUtDbk9XcGN6Q3JsbXowVUZ4WDFLeERSNWFSQXBhZm1tZWhkU01OTTZz?=
+ =?utf-8?B?Q3kxOEJMeXcxaDBUR0w2Yy90VTZRMGhtNGhNNDdhQWdDNEVRYVlWcm9oZEEx?=
+ =?utf-8?B?NjJCNmo5enZjVjNZcTN5eXJHOXpnMHd0Ri9yRVc1RU5uRVRzYzR6K3VRQXBH?=
+ =?utf-8?B?d1FhYU04RjI0MzdHYzRoZHgzaVNSQVE2Unl2UW9HR1R6SVJmbEUvZDl4U1Np?=
+ =?utf-8?B?Q2c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C6C8FDE8B570524B91DB6CD0649C6DE4@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20240131182653.2673554-1-tmaimon77@gmail.com> <20240131182653.2673554-4-tmaimon77@gmail.com>
- <74e003c6d80611ddd826ac21f48b4b3a.sboyd@kernel.org> <CAP6Zq1g5gwXvYzO5fnHxG-6__gSCpNBY7VeEPyr4Qtijya6EfQ@mail.gmail.com>
- <8acf846e767884978f3bb98646433551.sboyd@kernel.org> <CAP6Zq1htKQ5v0tH9HGRejnKwJ5ZauUWG_CzYUKegkVL4Ek8UxA@mail.gmail.com>
- <CAP6Zq1g4ksdLSVTm+PLqa5dSEidvHdpGZb=J9wKEftaH-Mg+bw@mail.gmail.com>
-In-Reply-To: <CAP6Zq1g4ksdLSVTm+PLqa5dSEidvHdpGZb=J9wKEftaH-Mg+bw@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Tue, 2 Apr 2024 22:42:55 +0300
-Message-ID: <CAP6Zq1hk46xpQsVFz3RAF3CHU-PNCBxN+6SRKrdWzffRjRep4g@mail.gmail.com>
-Subject: Re: [PATCH v23 3/3] clk: npcm8xx: add clock controller
-To: Stephen Boyd <sboyd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5330.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01a2fcdf-3916-4440-2d94-08dc5433ab69
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2024 23:13:27.5169
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PAxWSajal93iMr8tgBjby6Dmt4qQwLEAFGaipwPTUi1lJiJwA83B0/nGQCsnippZHHLz/YG6Cw6hvrqPZ9QKWIdzNw8CwGpr6uq1X+iAJAc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB8107
+X-OriginatorOrg: intel.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,217 +173,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, benjaminfair@google.com, venture@google.com, mturquette@baylibre.com, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, openbmc@lists.ozlabs.org
+Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Stephen,
-
-Kind remainder, appreciate if you can reply about the comment that
-been sent few weeks ago.
-
-Thanks,
-
-Tomer
-
-On Tue, 5 Mar 2024 at 17:59, Tomer Maimon <tmaimon77@gmail.com> wrote:
->
-> Hi Stephen,
->
-> Appreciate it if you could reply to my email afew days ago, It is
-> really important to us to move this driver to upstream.
->
-> Thanks,
->
-> Tomer
->
-> On Thu, 29 Feb 2024 at 23:29, Tomer Maimon <tmaimon77@gmail.com> wrote:
-> >
-> > Hi Stephen,
-> >
-> > Thanks for your reply.
-> >
-> > On Thu, 29 Feb 2024 at 00:48, Stephen Boyd <sboyd@kernel.org> wrote:
-> > >
-> > > Quoting Tomer Maimon (2024-02-25 10:00:35)
-> > > > Hi Stephen,
-> > > >
-> > > > On Thu, 22 Feb 2024 at 07:58, Stephen Boyd <sboyd@kernel.org> wrote:
-> > > > >
-> > > > > Quoting Tomer Maimon (2024-01-31 10:26:53)
-> > > > > > diff --git a/drivers/clk/clk-npcm8xx.c b/drivers/clk/clk-npcm8xx.c
-> > > > > > new file mode 100644
-> > > > > > index 000000000000..eacb579d30af
-> > > > > > --- /dev/null
-> > > > > > +++ b/drivers/clk/clk-npcm8xx.c
-> > > > > > @@ -0,0 +1,509 @@
-> > > > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > > > +/*
-> > > > > > + * Nuvoton NPCM8xx Clock Generator
-> > > > > > + * All the clocks are initialized by the bootloader, so this driver allows only
-> > > > > [...]
-> > > > > > +
-> > > > > > +/* external clock definition */
-> > > > > > +#define NPCM8XX_CLK_S_REFCLK   "refclk"
-> > > > > > +
-> > > > > > +/* pll definition */
-> > > > > > +#define NPCM8XX_CLK_S_PLL0     "pll0"
-> > > > > > +#define NPCM8XX_CLK_S_PLL1     "pll1"
-> > > > > > +#define NPCM8XX_CLK_S_PLL2     "pll2"
-> > > > > > +#define NPCM8XX_CLK_S_PLL_GFX  "pll_gfx"
-> > > > > > +
-> > > > > > +/* early divider definition */
-> > > > > > +#define NPCM8XX_CLK_S_PLL2_DIV2                "pll2_div2"
-> > > > > > +#define NPCM8XX_CLK_S_PLL_GFX_DIV2     "pll_gfx_div2"
-> > > > > > +#define NPCM8XX_CLK_S_PLL1_DIV2                "pll1_div2"
-> > > > > > +
-> > > > > > +/* mux definition */
-> > > > > > +#define NPCM8XX_CLK_S_CPU_MUX     "cpu_mux"
-> > > > > > +
-> > > > > > +/* div definition */
-> > > > > > +#define NPCM8XX_CLK_S_TH          "th"
-> > > > > > +#define NPCM8XX_CLK_S_AXI         "axi"
-> > > > >
-> > > > > Please inline all these string #defines to the place they're used.
-> > > > The version V21 you mention using define only when the definition is
-> > > > used more than once
-> > > > https://www.spinics.net/lists/kernel/msg5045826.html
-> > > > Should I remove all the string definitions and add the string to the array?
-> > >
-> > > If it's a clk name for a clk registered in this file it should be
-> > > inlined. Is that the case for everything besides refclk? And even refclk
-> > > could be inlined so that we don't have to jump to the definition of a
-> > > string.
-> > I will add the string in the clock arrays and remove all the string definitions.
-> > >
-> > > > > > +
-> > > > > > +static unsigned long npcm8xx_clk_div_get_parent(struct clk_hw *hw,
-> > > > > > +                                               unsigned long parent_rate)
-> > > > > > +{
-> > > > > > +       struct npcm8xx_clk *div = to_npcm8xx_clk(hw);
-> > > > > > +       unsigned int val;
-> > > > > > +
-> > > > > > +       regmap_read(div->clk_regmap, div->offset, &val);
-> > > > > > +       val = val >> div->shift;
-> > > > > > +       val &= clk_div_mask(div->width);
-> > > > > > +
-> > > > > > +       return divider_recalc_rate(hw, parent_rate, val, NULL, div->flags,
-> > > > > > +                                  div->width);
-> > > > > > +}
-> > > > > > +
-> > > > > > +static const struct clk_ops npcm8xx_clk_div_ops = {
-> > > > > > +       .recalc_rate = npcm8xx_clk_div_get_parent,
-> > > > > > +};
-> > > > > > +
-> > > > > > +static int npcm8xx_clk_probe(struct platform_device *pdev)
-> > > > > > +{
-> > > > > > +       struct device_node *parent_np = of_get_parent(pdev->dev.of_node);
-> > > > >
-> > > > > The parent of this device is not a syscon.
-> > > > Once I have registered the map that handles both reset and the clock
-> > > > in general is syscon, this is why we will modify the DTS so the clock
-> > > > and the reset will be under syscon father node
-> > > >                 sysctrl: system-controller@f0801000 {
-> > > >                         compatible = "syscon", "simple-mfd";
-> > > >                         reg = <0x0 0xf0801000 0x0 0x1000>;
-> > > >
-> > > >                         rstc: reset-controller {
-> > > >                                 compatible = "nuvoton,npcm845-reset";
-> > > >                                 reg = <0x0 0xf0801000 0x0 0xC4>;
-> > > >                                 #reset-cells = <2>;
-> > > >                                 nuvoton,sysgcr = <&gcr>;
-> > > >                         };
-> > > >
-> > > >                         clk: clock-controller {
-> > > >                                 compatible = "nuvoton,npcm845-clk";
-> > > >                                 #clock-cells = <1>;
-> > > >                                 clocks = <&refclk>;
-> > > >                                 clock-names = "refclk";
-> > > >                         };
-> > > >                 };
-> > > > You can see other drivers that using the same method like
-> > > > https://elixir.bootlin.com/linux/v6.8-rc5/source/Documentation/devicetree/bindings/clock/socionext,uniphier-clock.yaml
-> > >
-> > > You will need a similar file like
-> > > Documentation/devicetree/bindings/soc/socionext/socionext,uniphier-perictrl.yaml
-> > > then to describe the child nodes.
-> > I can do it.
-> > >
-> > > Socionext may not be the best example to follow. I generally try to
-> > > avoid syscon and simply put #reset-cells and #clock-cells in the node
-> > If I remove syscon I can't use syscon_node_to_regmap function, What
-> > should I use If I remove syscon? auxiliary bus? something else?
-> > > for the device. You can use the auxiliary bus to register drivers for
-> > > clk and reset and put them into the resepective driver directories.
-> > I little bit confused, what is an auxiliary bus to register drivers,
-> > can you provide me an example?
-> > > Avoid syscon means random drivers can't reach into the device with a
-> > > regmap handle and read/write registers that they're not supposed to.
-> > Indeed, but the drivers could use the reset and clock memory map only
-> > if the module is also a child node.
-> >
-> > Please let me know what is your preferred way to handle it:
-> > 1. stick with syscon and upstream-defined documentation for the rst clk syscon.
-> > 2. avoid syscon and use an auxiliary bus, appreciate if you could give
-> > me an example of how it should be done.
-> > 3. Avoid sycon and handle it differently.
-> > >
-> > > > >
-> > > > > > +       struct clk_hw_onecell_data *npcm8xx_clk_data;
-> > > > > > +       struct device *dev = &pdev->dev;
-> > > > > > +       struct regmap *clk_regmap;
-> > > > > > +       struct clk_hw *hw;
-> > > > > > +       unsigned int i;
-> > > > > > +
-> > > > > > +       npcm8xx_clk_data = devm_kzalloc(dev, struct_size(npcm8xx_clk_data, hws,
-> > > > > > +                                                        NPCM8XX_NUM_CLOCKS),
-> > > > > > +                                       GFP_KERNEL);
-> > > > > > +       if (!npcm8xx_clk_data)
-> > > > > > +               return -ENOMEM;
-> > > > > > +
-> > > > > > +       clk_regmap = syscon_node_to_regmap(parent_np);
-> > > > > > +       of_node_put(parent_np);
-> > > > >
-> > > > > Is there another binding update that is going to move this node to be a
-> > > > > child of the syscon?
-> > > > >
-> > > > >                 gcr: system-controller@f0800000 {
-> > > > >                         compatible = "nuvoton,npcm845-gcr", "syscon";
-> > > > >                         reg = <0x0 0xf0800000 0x0 0x1000>;
-> > > > >                 };
-> > > > No, sorry but I'm not going to use the GCR node the handle the clock
-> > > > and reset modules, the GCR has different memory space.
-> > > > the clock driver will have the following device tree
-> > >
-> > > What does the reset driver use the CGR node for? The driver looks like
-> > > it's using it to control USB phy resets.
-> > Yes, the USB PHY reset is handled through the GCR registers.
-> > >
-> > > >                sysctrl: system-controller@f0801000 {
-> > > >                         compatible = "syscon", "simple-mfd";
-> > > >                         reg = <0x0 0xf0801000 0x0 0x1000>;
-> > > >
-> > > >                         rstc: reset-controller {
-> > > >                                 compatible = "nuvoton,npcm845-reset";
-> > > >                                 reg = <0x0 0xf0801000 0x0 0xC4>;
-> > >
-> > > This isn't a valid reg property for a child node like this.
-> > O.K.
-> > >
-> > > >                                 #reset-cells = <2>;
-> > > >                                 nuvoton,sysgcr = <&gcr>;
-> > > >                         };
-> > > >
-> > > >                         clk: clock-controller {
-> > > >                                 compatible = "nuvoton,npcm845-clk";
-> > > >                                 #clock-cells = <1>;
-> > > >                                 clocks = <&refclk>;
-> > > >                                 clock-names = "refclk";
-> > > >                         };
-> > > >                 };
-> >
-> > Appreciate your guidance!
-> >
-> > Thanks,
-> >
-> > Tomer
+T24gRnJpLCAyMDI0LTAzLTI5IGF0IDExOjI5IC0wNzAwLCBSYW5keSBEdW5sYXAgd3JvdGU6DQo+
+IFJlbW92ZSB0aGUgQGNvbnRyb2xsZXI6IGxpbmUgdG8gcHJldmVudCB0aGUga2VybmVsLWRvYyB3
+YXJuaW5nOg0KPiANCj4gaW5jbHVkZS9saW51eC9wZWNpLmg6ODQ6IHdhcm5pbmc6IEV4Y2VzcyBz
+dHJ1Y3QgbWVtYmVyICdjb250cm9sbGVyJw0KPiBkZXNjcmlwdGlvbiBpbiAncGVjaV9kZXZpY2Un
+DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBSYW5keSBEdW5sYXAgPHJkdW5sYXBAaW5mcmFkZWFkLm9y
+Zz4NCj4gQ2M6IEl3b25hIFdpbmlhcnNrYSA8aXdvbmEud2luaWFyc2thQGludGVsLmNvbT4NCj4g
+Q2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KPiBSZXZpZXdlZC1ieTogSXdvbmEgV2luaWFy
+c2thIDxpd29uYS53aW5pYXJza2FAaW50ZWwuY29tPg0KPiBDYzogR3JlZyBLcm9haC1IYXJ0bWFu
+IDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4NCj4gLS0tDQo+IHYyOiBhZGQgUmV2LWJ5LCBh
+ZGQgZ3JlZ2toIGVtYWlsDQo+IA0KPiBXb3VsZCBpdCBtYWtlIHNlbnNlIHRvIGFkZCBHcmVnIGFz
+IE06IGluIHRoZSBNQUlOVEFJTkVSUyBmaWxlPw0KPiBIb3cgZG9lcyBzb21lb25lIGtub3cgdG8g
+Q2M6IEdyZWcgb24gUEVDSSBwYXRjaGVzPw0KDQpIaSBSYW5keSwNCg0KTm9ybWFsbHkgSSB3YXMg
+dGFraW5nIFBFQ0kgcmVsYXRlZCBwYXRjaGVzIGludG8gcGVjaS1uZXh0IFsxXSBhbmQgc2VuZGlu
+ZyBhIFBSDQp0byBHcmVnLiBVbmZvcnR1bmF0ZWx5LCBJIGRpZG4ndCBtYW5hZ2UgdG8gc2VuZCBp
+dCBpbiB2Ni45IGN5Y2xlLCB3aGljaCBpcyB3aHkNCnlvdXIgcGF0Y2ggZGlkbid0IGxhbmQgaW4g
+bWFpbmxpbmUgeWV0LiBTb3JyeSBhYm91dCB0aGF0IGRlbGF5Lg0KDQpbMV0gaHR0cHM6Ly9naXQu
+a2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvaXdpL2xpbnV4LmdpdC9sb2cvP2g9
+cGVjaS1uZXh0DQoNCi1Jd29uYQ0KDQo+IA0KPiDCoGluY2x1ZGUvbGludXgvcGVjaS5oIHzCoMKg
+wqAgMSAtDQo+IMKgMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS0g
+YS9pbmNsdWRlL2xpbnV4L3BlY2kuaCBiL2luY2x1ZGUvbGludXgvcGVjaS5oDQo+IC0tLSBhL2lu
+Y2x1ZGUvbGludXgvcGVjaS5oDQo+ICsrKyBiL2luY2x1ZGUvbGludXgvcGVjaS5oDQo+IEBAIC01
+OCw3ICs1OCw2IEBAIHN0YXRpYyBpbmxpbmUgc3RydWN0IHBlY2lfY29udHJvbGxlciAqdG8NCj4g
+wqAvKioNCj4gwqAgKiBzdHJ1Y3QgcGVjaV9kZXZpY2UgLSBQRUNJIGRldmljZQ0KPiDCoCAqIEBk
+ZXY6IGRldmljZSBvYmplY3QgdG8gcmVnaXN0ZXIgUEVDSSBkZXZpY2UgdG8gdGhlIGRldmljZSBt
+b2RlbA0KPiAtICogQGNvbnRyb2xsZXI6IG1hbmFnZXMgdGhlIGJ1cyBzZWdtZW50IGhvc3Rpbmcg
+dGhpcyBQRUNJIGRldmljZQ0KPiDCoCAqIEBpbmZvOiBQRUNJIGRldmljZSBjaGFyYWN0ZXJpc3Rp
+Y3MNCj4gwqAgKiBAaW5mby5mYW1pbHk6IGRldmljZSBmYW1pbHkNCj4gwqAgKiBAaW5mby5tb2Rl
+bDogZGV2aWNlIG1vZGVsDQoNCg==
