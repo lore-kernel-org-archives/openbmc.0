@@ -4,70 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20754CD1284
-	for <openbmc@archiver.kernel.org>; Tue,  2 Apr 2024 22:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1121EC67861
+	for <openbmc@archiver.kernel.org>; Mon,  8 Apr 2024 10:52:12 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mhvzoqMi;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=AkC0kZzR;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4V8N425Y6Tz3vfq
-	for <openbmc@archiver.kernel.org>; Wed,  3 Apr 2024 09:34:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4VCmBL56sHz3dfM
+	for <openbmc@archiver.kernel.org>; Mon,  8 Apr 2024 20:52:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mhvzoqMi;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=AkC0kZzR;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::b33; helo=mail-yb1-xb33.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com [IPv6:2607:f8b0:4864:20::b33])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::52d; helo=mail-pg1-x52d.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com [IPv6:2607:f8b0:4864:20::52d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4V86mQ0Zlwz3d2j
-	for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2024 23:35:32 +1100 (AEDT)
-Received: by mail-yb1-xb33.google.com with SMTP id 3f1490d57ef6-dd10ebcd702so4749689276.2
-        for <openbmc@lists.ozlabs.org>; Tue, 02 Apr 2024 05:35:32 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4VCm9M4xhrz3bn7
+	for <openbmc@lists.ozlabs.org>; Mon,  8 Apr 2024 20:51:19 +1000 (AEST)
+Received: by mail-pg1-x52d.google.com with SMTP id 41be03b00d2f7-5e152c757a5so2673839a12.2
+        for <openbmc@lists.ozlabs.org>; Mon, 08 Apr 2024 03:51:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1712061329; x=1712666129; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1712573476; x=1713178276; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZhodAsfbqQph/6Oss9KdocUA4jNT8v1VGBe4Vmslbbg=;
-        b=mhvzoqMiiZ9JHFTwocYixF4nYxnGGOtK6SEnWjouxE8+THvz6H3OBdbUjRsuhZDQbP
-         Pb8NQZGLkZf7bXWvu8j4Jhjaw30Kkko5UK+qe8iIOlT6bQv3qEDyZlUOakxZtS0M6AF2
-         gWNrnsPDv+HrXE3PefCbq5kh5WcfUd8QfzPbhN1Z++prjwpWqDgjl3fiK8gctp/3gqta
-         XhLIt9nuTGBo9lsHPGf/DbtQSg0CKKKWwjDcJWQI7gs4ZRS8NWA4J3cX9AJXciXwsW7l
-         Z6vcXobYmBwvuCqm4fgFvFz4VMWoFWxcXIIJhijLwUgyYcHGmwZmnPyazmjM+q4t6lvH
-         2+Uw==
+        bh=1uCTOnZsK/zS9zwgu4cOL4xrH7dtplXyGv6RdHAgkJc=;
+        b=AkC0kZzRH13gyJuzwUTpXNmZGuBbIFydi85/KfBg8/WamC1j7uMCr4hBegHhQZ/BbW
+         sA+hINyX4u0/89CxKZS8tpxq+ULlKglcLGL0W/nkXMLWGZgfJHVWtQALXADIV+NNYGQh
+         UpToDE6lsgI1tzeqW9yA7Nf6O1Mv/HVPKoWe/0T1i3BoCidYTBKV88eA0tRsci35YGC8
+         6Qgz4Qmp2n/kabXHtQwb1QFZmlCbWNob2EuAaIWoPWMdYibbDmnxvwgj/ruPNiW9XkWR
+         z3wlrc0uJqdsjc+WMq6C7aU4/iQveG3JEGanKscy2bYNVmV+M+G4o/Bi3ijwUxicT3MP
+         Cvbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712061329; x=1712666129;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1712573476; x=1713178276;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZhodAsfbqQph/6Oss9KdocUA4jNT8v1VGBe4Vmslbbg=;
-        b=BVvZNzJI5GKTAAr78Td4pHXDo3fwmLl8pj/AdAiqn86gb1eiXJ3tskHUdUtaqzaDB7
-         4t0UZcxVvmdlsw3U48Z15k8kAdyI4yEo/ydSmyK0rEFkggCPZYTxp8t2OqKjf09uHJZn
-         jj/i6yeTH87EYb7iXa2BuIRqQ4ZOr4JlIGNvZiwKvr/Ho50M7lgYV+uAUMAkBxiqbl+e
-         zFRulFaW1MUkDo3soY/2kiORUEejxY3ncnvOs21dpOeariDDNHBYbaiVdcd0TxyDKmph
-         2nR++aEJScJw8pLUIidlIM3vIEz6sUQL4XsmLcm9C81K3TMAPwaz1wQ5AUwsGalJxJ+1
-         9UHw==
-X-Forwarded-Encrypted: i=1; AJvYcCX6qoCDoBNyu7J98SKZy3NYdn+KZViKJRweQFGQu6jEu6y8kc1KXmdwpINgl5fQ/JeEXv4g5kK/wls8VSAL6naaQ1GEHXZYp+E=
-X-Gm-Message-State: AOJu0YzAFw1e/kCPRyDekV8fVYoiwEnMxEXprgdyCFb3ybjTJvs5+WZD
-	seSrr2jtQaqWBW09eJ5EqkYh/JeNp9hStg+3KgfyQS2r0f6IAod0DKRC+d3c8pDwd7bUV6G7qd3
-	B7rAwgwM1wI/nN+784f2hXNiaiAvgJMyBA/iY+A==
-X-Google-Smtp-Source: AGHT+IG5hxT/EMYnHoU6u7S6MkbvLw5l9U/Ss0P2rks8Fb0m+zQTGqjqkjSlSz0lY1KsLwpjx1moujtIXAN3uBffPV8=
-X-Received: by 2002:a25:6d86:0:b0:dc2:2d75:5fde with SMTP id
- i128-20020a256d86000000b00dc22d755fdemr10687728ybc.29.1712061328813; Tue, 02
- Apr 2024 05:35:28 -0700 (PDT)
+        bh=1uCTOnZsK/zS9zwgu4cOL4xrH7dtplXyGv6RdHAgkJc=;
+        b=YWxeHNA8aDSlOUZttYXe45ixCBJ019ArG5g2BQEdjBBmA8QEs5V50pS3xpoNeDDW/b
+         h0zVk6bKaqboNxz7Ael7qay9FJRR0NcWCefrqYrsGG5LzQbg0KjXh8HfvyFdEFz+hlUu
+         ER49I/h8XgsjWfg7IM7muHyg68lrrgECzRTsACibYOGojcKbFK6oDDz2OfnHheDRz48L
+         8oNzyj835aHsOkH40OT1NQOpif4F3Zl2jmACH7GKYWtWWm097nOKDXjJ2/y36asXbcb3
+         sv2XsxuBuUkQoXTQH5bZM1Y1DQLeCrV/uSleNGKps4XwFBSIFNzsJ4Zx2eYZtLqMMIGa
+         IY1g==
+X-Gm-Message-State: AOJu0YzrUWmxOhg9PvL6sqOTfS79PzphoZvhncZ7OepK6ngShRyEbpZX
+	kVrfu1yaXPPAguKa4aiOKTQxcPeeqghAzB2HjSK7gO2KdoWlbM3dVlAUx0tm
+X-Google-Smtp-Source: AGHT+IFWOgfs5wiuBZEJlzDwZ0gbbBv2AosSVC4bcoyAni4YZ6R2ne3VTPNNQ6KYN1mxTyaEQWBU4g==
+X-Received: by 2002:a05:6a20:96ce:b0:1a7:1b6e:4d4 with SMTP id hq14-20020a056a2096ce00b001a71b6e04d4mr6527066pzc.23.1712573476475;
+        Mon, 08 Apr 2024 03:51:16 -0700 (PDT)
+Received: from localhost.localdomain (1-34-21-66.hinet-ip.hinet.net. [1.34.21.66])
+        by smtp.gmail.com with ESMTPSA id d4-20020a170902654400b001e2a484db76sm6818026pln.56.2024.04.08.03.51.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Apr 2024 03:51:16 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+X-Google-Original-From: Potin Lai <potin.lai@quantatw.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Subject: [PATCH linux dev-6.6 1/3] dt-bindings: hwmon: fan: Add fan binding to schema
+Date: Mon,  8 Apr 2024 18:50:58 +0800
+Message-Id: <20240408105100.2946497-2-potin.lai@quantatw.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20240408105100.2946497-1-potin.lai@quantatw.com>
+References: <20240408105100.2946497-1-potin.lai@quantatw.com>
 MIME-Version: 1.0
-References: <20240322132619.6389-1-wsa+renesas@sang-engineering.com> <20240322132619.6389-65-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20240322132619.6389-65-wsa+renesas@sang-engineering.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 2 Apr 2024 14:35:17 +0200
-Message-ID: <CACRpkdbtRoDtWN4mnyZY_yEfWQFPCQaVudjBki8N1sOXxXWupQ@mail.gmail.com>
-Subject: Re: [PATCH 64/64] i2c: reword i2c_algorithm in drivers according to
- newest specification
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 03 Apr 2024 09:33:38 +1100
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,26 +81,118 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Lunn <andrew@lunn.ch>, Shyam Sundar S K <shyam-sundar.s-k@amd.com>, Tomer Maimon <tmaimon77@gmail.com>, Ajay Gupta <ajayg@nvidia.com>, Viresh Kumar <viresh.kumar@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Michael Ellerman <mpe@ellerman.id.au>, Khalil Blaiech <kblaiech@nvidia.com>, Christophe Leroy <christophe.leroy@csgroup.eu>, Oleksij Rempel <o.rempel@pengutronix.de>, Sascha Hauer <s.hauer@pengutronix.de>, Nicholas Piggin <npiggin@gmail.com>, linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Yicong Yang <yangyicong@hisilicon.com>, Laxman Dewangan <ldewangan@nvidia.com>, linux-i2c@vger.kernel.org, Guenter Roeck <groeck@chromium.org>, chrome-
- platform@lists.linux.dev, Fabio Estevam <festevam@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Alain Volmat <alain.volmat@foss.st.com>, Andi Shyti <andi.shyti@kernel.org>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-arm-msm@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Nick Hawkins <nick.hawkins@hpe.com>, linux-amlogic@lists.infradead.org, Mika Westerberg <mika.westerberg@linux.intel.com>, linux-arm-kernel@lists.infradead.org, Neil Armstrong <neil.armstrong@linaro.org>, Hector Martin <marcan@marcan.st>, linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Kevin Hilman <khilman@baylibre.com>, linux-mediatek@lists.infradead.org, imx@lists.linux.dev, Jean-Marie Verdun <verdun@hpe.com>, linux-tegra@vger.kernel.org, Elie Morisse <syniurge@gmail.com>, Krzysztof Adamski <krzysztof.adamski@nokia.com>, Alyssa Rosenzweig <alyssa@
- rosenzweig.io>, Peter Korsgaard <peter@korsgaard.com>, Benjamin Fair <benjaminfair@google.com>, Michal Simek <michal.simek@amd.com>, "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Codrin Ciubotariu <codrin.ciubotariu@microchip.com>, Robert Richter <rric@kernel.org>, Asmaa Mnebhi <asmaa@nvidia.com>, Vladimir Zapolskiy <vz@mleia.com>, Conghui Chen <conghui.chen@intel.com>, Benson Leung <bleung@chromium.org>, Qii Wang <qii.wang@mediatek.com>, Avi Fishman <avifishman70@gmail.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, Konrad Dybcio <konrad.dybcio@linaro.org>, Thierry Reding <thierry.reding@gmail.com>, Jarkko Nikula <jarkko.nikula@linux.intel.com>, asahi@lists.linux.dev, Shawn Guo <shawnguo@kernel.org>, Vignesh R <vigneshr@ti.com>, Tony Lindgren <tony@atomide.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Tali Perry <tali.perry1@gmail.com>, Paul Cercueil <paul@crapouillou.net>, Jan Dabros <jsd@semihalf.com>, openbmc@lists.ozlabs.org, Janusz Krzysztofik <jmkrzyszt@gmail.com>, 
- Sven Peter <sven@svenpeter.dev>, virtualization@lists.linux.dev, Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Loic Poulain <loic.poulain@linaro.org>, Patrick Venture <venture@google.com>, Bjorn Andersson <andersson@kernel.org>, linux-mips@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, linuxppc-dev@lists.ozlabs.org
+Cc: billy_tsai@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, Mar 22, 2024 at 2:27=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
+From: Naresh Solanki <naresh.solanki@9elements.com>
 
-> Match the wording in i2c_algorithm in I2C drivers wrt. the newest I2C
-> v7, SMBus 3.2, I3C specifications and replace "master/slave" with more
-> appropriate terms. For some drivers, this means no more conversions are
-> needed. For the others more work needs to be done but this will be
-> performed incrementally along with API changes/improvements. All these
-> changes here are simple search/replace results.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Add common fan properties bindings to a schema.
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
+Bindings for fan controllers can reference the common schema for the
+fan
 
-Yours,
-Linus Walleij
+child nodes:
+
+  patternProperties:
+    "^fan@[0-2]":
+      type: object
+      $ref: fan-common.yaml#
+      unevaluatedProperties: false
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Naresh Solanki <naresh.solanki@9elements.com>
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+ .../devicetree/bindings/hwmon/fan-common.yaml | 79 +++++++++++++++++++
+ 1 file changed, 79 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/fan-common.yaml
+
+diff --git a/Documentation/devicetree/bindings/hwmon/fan-common.yaml b/Documentation/devicetree/bindings/hwmon/fan-common.yaml
+new file mode 100644
+index 000000000000..0fb738081699
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/fan-common.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/fan-common.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Common Fan Properties
++
++maintainers:
++  - Naresh Solanki <naresh.solanki@9elements.com>
++  - Billy Tsai <billy_tsai@aspeedtech.com>
++
++properties:
++  max-rpm:
++    description:
++      Max RPM supported by fan.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 100000
++
++  min-rpm:
++    description:
++      Min RPM supported by fan.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 1000
++
++  pulses-per-revolution:
++    description:
++      The number of pulse from fan sensor per revolution.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    maximum: 4
++
++  tach-div:
++    description:
++      Divisor for the tach sampling clock, which determines the sensitivity of the tach pin.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  target-rpm:
++    description:
++      The default desired fan speed in RPM.
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  fan-driving-mode:
++    description:
++      Select the driving mode of the fan.(DC, PWM and so on)
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ dc, pwm ]
++
++  pwms:
++    description:
++      PWM provider.
++    maxItems: 1
++
++  "#cooling-cells":
++    const: 2
++
++  cooling-levels:
++    description:
++      The control value which correspond to thermal cooling states.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++
++  tach-ch:
++    description:
++      The tach channel used for the fan.
++    $ref: /schemas/types.yaml#/definitions/uint8-array
++
++  label:
++    description:
++      Optional fan label
++
++  fan-supply:
++    description:
++      Power supply for fan.
++
++  reg:
++    maxItems: 1
++
++additionalProperties: true
++
++...
+-- 
+2.31.1
+
