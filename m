@@ -4,63 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27DE2C4345F
-	for <openbmc@archiver.kernel.org>; Thu,  2 May 2024 08:31:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA233C4345F
+	for <openbmc@archiver.kernel.org>; Thu,  2 May 2024 10:41:33 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=fygQNv1S;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=XBLWkNmf;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4VVRwT5Bkmz3cPS
-	for <openbmc@archiver.kernel.org>; Thu,  2 May 2024 18:31:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4VVVq00dtFz3cY8
+	for <openbmc@archiver.kernel.org>; Thu,  2 May 2024 20:41:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=fygQNv1S;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=XBLWkNmf;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::52f; helo=mail-ed1-x52f.google.com; envelope-from=joel.stan@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.18; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4VVRvS099Vz3c71;
-	Thu,  2 May 2024 18:30:10 +1000 (AEST)
-Received: by mail-ed1-x52f.google.com with SMTP id 4fb4d7f45d1cf-572baf393ddso1147279a12.1;
-        Thu, 02 May 2024 01:30:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jms.id.au; s=google; t=1714638604; x=1715243404; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=EcS37ofGtSGOaqbMmyUYN9nLzJNBzaZA8qq8/HQQjPU=;
-        b=fygQNv1SyfDFSwokgqbGXJThKAAVpd51NYQ/SzMmE1vNJxgXcE1ieUHma6kDDg+ifM
-         v6bbX2YmapDbdPd9yzzstkLstPuMFaENcRLGXcU/wcYYk/W77xXki4fJPH1y/N4RiuYx
-         yz/ezigWGVW5Zn9GxrStBLR8JkosCCo7C21hQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1714638604; x=1715243404;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EcS37ofGtSGOaqbMmyUYN9nLzJNBzaZA8qq8/HQQjPU=;
-        b=YDjjTqg8wvwqRVNQ8+aUz7NNRDcWf7v3DRGzeFR8Lehw5YxcP/83NaUjRGZo/dMczY
-         dhpb8w3meM4Jb10B0sfs2vVXm3rqq5iGC9Zn3W3DxeYYxxFnuh21AIqwYQnTicTBaKzv
-         QM4SXv4Hb9Mucj4XMLs49iZqtktI3USWaCOwIcDgT6a4oz/DDKrnrO88yDq3tPZDX49F
-         a5w8KxMB7xYKL7h84yzo5vfaNIBaHOsK3VfOACA9Jxcs8vCGJtNx+HVnZJxkO7Z4uPa5
-         MG4WQYbX5o5YVY70v4nDie9mfkJY833KB9gv2BzS51s50DzInpOdriPsFcYJ1FsnZ9Nl
-         /Xag==
-X-Forwarded-Encrypted: i=1; AJvYcCX2ybm/EGHzgYrqlvlXh8Ll7n62lNk0p+em+sG4wIApDppOoY8HEJza+Xr5C1XvJl37JymnYQ8hvYjUIA3YNDM9BCxNH9rWMCKpbF0AD8j1jM9YJDU9kr+ykoL4lvNzFV6tmbgpAE0c
-X-Gm-Message-State: AOJu0YxU0zYUsVvYr2fXf7QCpHVKguo3eBrjrF1woAvUKhUvoHFAd/Lg
-	Zj2uBzxbcVxnE9rKvLxwlmXNyubkrKRYCo/UhAtQmTc9MJAA1OzG4eNUz+8OQengruscIreWB8V
-	MkdbtWMeT/bh7+YT7Hvk40vATpos=
-X-Google-Smtp-Source: AGHT+IE7PXs7Cu+sBWPGxvQ8zk0DGcZNvv6VeR1g/mLA+ZLjmhg+6Kp84MHM3XAzW8rbbeT+KWPAZfh1Yj4u2YTFJBU=
-X-Received: by 2002:a17:906:3b4b:b0:a58:f186:229 with SMTP id
- h11-20020a1709063b4b00b00a58f1860229mr1782860ejf.0.1714638604139; Thu, 02 May
- 2024 01:30:04 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4VVVnw3x1zz3cW1
+	for <openbmc@lists.ozlabs.org>; Thu,  2 May 2024 20:40:34 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1714646410; x=1715251210; i=j.neuschaefer@gmx.net;
+	bh=n2e88QE5epBSVSFicZ+xqo5ic/O/WtKAyeT8qBcSr5U=;
+	h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=XBLWkNmfCJ1LedKg3QzKOShdZwoK6kFYjyQw/5JCleg+m/Gjyccbsf6m5QDis+k3
+	 O+4SPBRi7Iug7uD6urGq49hnCnmmdCs31cgjhoWPS25aA7/v4GEaF3BRN7k0DWtn+
+	 uqyR3c5esbjjICJewjr7m+RH8akfkXXKRUeTk0ZxJv42irC2RsoDzTCjVtnTWvchF
+	 Kizs2Dd1Z0zUs+MgcHu52zY3WfHFmhcp0C7AJWsBPGNybVObj+Ca/cL6VZU1R55qZ
+	 p/1RemQ6Jd+U4Z/1H0+OysAXQCC0IS+XW6g9I2KvGDFRD03IZek87QaqmAxVGguZ8
+	 YaICM0tgtth2wcK7vg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from probook ([89.1.59.78]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MIwzA-1sLedM12Lq-00LJxi; Thu, 02
+ May 2024 12:40:10 +0200
+From: =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+Date: Thu, 02 May 2024 12:40:01 +0200
+Subject: [PATCH v12 2/6] clk: Introduce
+ devm_clk_hw_register_divider_table_parent_data()
 MIME-Version: 1.0
-References: <20240502002836.17862-5-zev@bewilderbeest.net>
-In-Reply-To: <20240502002836.17862-5-zev@bewilderbeest.net>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 2 May 2024 17:59:50 +0930
-Message-ID: <CACPK8Xe9BcFziQTKA2FrQq6GT1aWeSirDrWTNBh8b+HwcZzctg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] ARM: dts: aspeed: Add ASRock E3C256D4I BMC
-To: Zev Weiss <zev@bewilderbeest.net>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20240502-wpcm-clk-v12-2-1d065d58df07@gmx.net>
+References: <20240502-wpcm-clk-v12-0-1d065d58df07@gmx.net>
+In-Reply-To: <20240502-wpcm-clk-v12-0-1d065d58df07@gmx.net>
+To: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1714646407; l=1760;
+ i=j.neuschaefer@gmx.net; s=20240329; h=from:subject:message-id;
+ bh=VjLniaHS+bKcYFjCZNozqsTADYqMusOVNK5lpprhRBg=;
+ b=sX4JaPRF9uqkZaXe/H1tOsITjWEPOfX/cwh/WwBgOmdfDzoHO0R2RxVm1FhomjMVU8eItiw57
+ TLL9wD7ORzjBP1MKzRgE1q4qCvMKspuYEz8Rmmb1TruJORjL9UNGrzD
+X-Developer-Key: i=j.neuschaefer@gmx.net; a=ed25519;
+ pk=NIe0bK42wNaX/C4bi6ezm7NJK0IQE+8MKBm7igFMIS4=
+X-Provags-ID: V03:K1:+DtwGYQjt2x8GVjHjT0VdQrQ5fiyA2Cpx2yeh9o2vTCRIYKNWoU
+ OJ62sDPJ3xaCTsmcqVyLNjeHcft6kh70vSEzkYGZMED6eI9Mz4FHzqDLzhWVJAk0JTbDv6w
+ jp5yVlw/MiWWmdhY7Af9U5GnOegLYn4JEBN5X71PXHNytZs7tHQ8COnZvnpUOptn5EP4ty8
+ rxFlstpwa0tybgy5hjOzw==
+UI-OutboundReport: notjunk:1;M01:P0:czppJQZDsyY=;SpRHVuFG/OdBmW0gPVgXKhqSBVm
+ YV0f5C289zEt29eERNBiaRHOsFpIj9KKOACl5VF2fZ/rYfd+JdS/xbZdkED2eGeIElq9xIi4J
+ /sLh5tNaYBPvdSVYxzoOxVjQKu8gPeLpxxwS6fJS5HtIsXkTTibRrwRlWi2ObhoQNPZkX4kcZ
+ 8/VznYrGJixio/PJTyLxHB3ziFnhEFpQPUSQwPf1hyh+DJptEGzcn9kq2yGhD+0lvJ9MFwLNA
+ TrKORAVJb22FzCR0ySckD01/63k5WW9zYCbzqNMOQHmssGuAWvRiBI/vdN+C5FR6c66v9YzGq
+ Ll3Vj0yT/f9v9JioU3zGRZZ/oCetZbi2hiXVPaY2bZVTgWYK0horYBwpH2ekbVb1w17cT6Z5r
+ Jf+tGIHqphyhvnmr4nA/2/4U10PqkfLZQPzCPV+IgXmib3D4maloXooUTd1Lflsdsy8h07qlr
+ 56fYoI8PKWea1Z38iucmfzaRCPhU7wv2Qk+Mb9Wk4c8N0SfA+zoZhes++qNAdrNmEa2iXDu1f
+ Th5QMhX5XwDzxkW9g6s6FwEqvjy7VoGEtXf+WmnuyZQ9UW50aZ/B64WpQACoT5BBRQfKNdoOm
+ AB7d040y4Cwn8+mu4Ron1IuU59qhQNltazJwJAIJWxP/dQkgX+mUzvQueQiIXmX9zthktzy4I
+ wsF4XUVJPGmU+SXsQxsMRYJlfiT0sxP2G4Jc4XuLzszN28pejtWYjcC/gfi8Q5QWrw4qo21oS
+ VIhpKFQomIbcjuECA/afO5g0SE6PX/i4I02TNJ4CsisT6+7F9/m9X46mxrAHABgQwUIeI/faD
+ SXpzTkZnmBpAR4yUtTI4YvOSSIpuT7se3CDE4LL0JuJro=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,51 +87,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org, =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Joel Stanley <joel@jms.id.au>, Philipp Zabel <p.zabel@pengutronix.de>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 2 May 2024 at 09:59, Zev Weiss <zev@bewilderbeest.net> wrote:
->
-> Hello,
->
-> These patches add a device-tree (and a couple tiny bindings updates)
-> for the Aspeed BMC on the ASRock E3C256D4I, so that it can be added as
-> a supported OpenBMC platform.
+Introduce the devm pendant to clk_hw_register_divider_table_parent_data.
 
-Thanks! Applied and pushed out.
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+ include/linux/clk-provider.h | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
->
-> Changes since v2 [1]:
->  - Added patch 1 adding isl69269 to trivial-devices.yml
->  - Adjusted isl69269 compat string to use isil vendor prefix instead
->    of renesas, dropped unprefixed entry
->
-> Changes since v1 [0]:
->  - Removed bootargs [Krzysztof]
->  - Renamed LED nodes [Krzysztof]
->  - Added function & color properties to LED nodes
->  - Added #address-cells and #size-cells to FRU eeprom node
->
-> [0] https://lore.kernel.org/lkml/20231114112722.28506-4-zev@bewilderbeest.net/
-> [1] https://lore.kernel.org/lkml/20231120121954.19926-4-zev@bewilderbeest.net/
->
-> Thanks,
-> Zev
->
->
-> Zev Weiss (3):
->   dt-bindings: trivial-devices: add isil,isl69269
->   dt-bindings: arm: aspeed: document ASRock E3C256D4I
->   ARM: dts: aspeed: Add ASRock E3C256D4I BMC
->
->  .../bindings/arm/aspeed/aspeed.yaml           |   1 +
->  .../devicetree/bindings/trivial-devices.yaml  |   2 +
->  arch/arm/boot/dts/aspeed/Makefile             |   1 +
->  .../aspeed/aspeed-bmc-asrock-e3c256d4i.dts    | 322 ++++++++++++++++++
->  4 files changed, 326 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-e3c256d4i.dts
->
-> --
-> 2.44.0
->
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index 4a537260f6557d..5d537d0776a11f 100644
+=2D-- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -932,6 +932,28 @@ struct clk *clk_register_divider_table(struct device =
+*dev, const char *name,
+ 				       (width), (clk_divider_flags), (table), \
+ 				       (lock))
+
++/**
++ * devm_clk_hw_register_divider_table_parent_data - register a table base=
+d divider clock
++ * with the clock framework (devres variant)
++ * @dev: device registering this clock
++ * @name: name of this clock
++ * @parent_data: parent clk data
++ * @flags: framework-specific flags
++ * @reg: register address to adjust divider
++ * @shift: number of bits to shift the bitfield
++ * @width: width of the bitfield
++ * @clk_divider_flags: divider-specific flags for this clock
++ * @table: array of divider/value pairs ending with a div set to 0
++ * @lock: shared register lock for this clock
++ */
++#define devm_clk_hw_register_divider_table_parent_data(dev, name, parent_=
+data, flags,   \
++						       reg, shift, width,               \
++						       clk_divider_flags, table, lock)  \
++	__devm_clk_hw_register_divider((dev), NULL, (name), NULL,               =
+        \
++				       NULL, (parent_data), (flags), (reg), (shift),    \
++				       (width), (clk_divider_flags), (table),           \
++				       (lock))
++
+ void clk_unregister_divider(struct clk *clk);
+ void clk_hw_unregister_divider(struct clk_hw *hw);
+
+
+=2D-
+2.43.0
+
