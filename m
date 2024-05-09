@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E533FC25B10
-	for <openbmc@archiver.kernel.org>; Thu,  9 May 2024 20:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B92C4C10F1A
+	for <openbmc@archiver.kernel.org>; Thu,  9 May 2024 20:03:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Vb2xq26lwz3cWf
-	for <openbmc@archiver.kernel.org>; Fri, 10 May 2024 06:03:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Vb2yL0VCvz3cmr
+	for <openbmc@archiver.kernel.org>; Fri, 10 May 2024 06:03:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
-X-Greylist: delayed 2280 seconds by postgrey-1.37 at boromir; Fri, 10 May 2024 06:02:30 AEST
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vb2x22qYdz3bs2
-	for <openbmc@lists.ozlabs.org>; Fri, 10 May 2024 06:02:29 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vb2xC2Hgqz3bs2
+	for <openbmc@lists.ozlabs.org>; Fri, 10 May 2024 06:02:38 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 449JOGrC013136
-	for <openbmc@lists.ozlabs.org>; Thu, 9 May 2024 22:24:16 +0300
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 449JOIQ1013146
+	for <openbmc@lists.ozlabs.org>; Thu, 9 May 2024 22:24:18 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Thu, 9 May
- 2024 22:24:15 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.14; Fri, 10 May
- 2024 03:24:14 +0800
+ 2024 22:24:18 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 10 May
+ 2024 03:24:16 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 10 May 2024 03:24:13 +0800
+ Transport; Fri, 10 May 2024 03:24:15 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 1F82B5F66C;
-	Thu,  9 May 2024 22:24:13 +0300 (IDT)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 30DD25F66B;
+	Thu,  9 May 2024 22:24:15 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 1DE5ADC0BCE; Thu,  9 May 2024 22:24:13 +0300 (IDT)
+	id 2EEABDC0BCE; Thu,  9 May 2024 22:24:15 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <p.zabel@pengutronix.de>,
         <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v24 1/4] dt-bindings: reset: npcm: add clock properties
-Date: Thu, 9 May 2024 22:24:08 +0300
-Message-ID: <20240509192411.2432066-2-tmaimon77@gmail.com>
+Subject: [PATCH v24 4/4] dt-binding: clock: remove nuvoton npcm845-clk bindings
+Date: Thu, 9 May 2024 22:24:11 +0300
+Message-ID: <20240509192411.2432066-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240509192411.2432066-1-tmaimon77@gmail.com>
 References: <20240509192411.2432066-1-tmaimon77@gmail.com>
@@ -66,55 +65,70 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Adding 25MHz reference clock and clock-cell properties to NPCM reset
-document due to the registration of the npcm8xx clock auxiliary bus device
-in the NPCM reset driver
-
-The NPCM8xx clock auxiliary bus device has been registered in the NPCM
-reset driver because the reset and the clock share the same register
-region.
+Remove nuvoton,npcm845-clk binding since the NPCM8xx clock driver
+using the auxiliary device framework and not the device tree framework.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../bindings/reset/nuvoton,npcm750-reset.yaml  | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ .../bindings/clock/nuvoton,npcm845-clk.yaml   | 49 -------------------
+ 1 file changed, 49 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
 
-diff --git a/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml b/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
-index d82e65e37cc0..18db4de13098 100644
---- a/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
-+++ b/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
-@@ -21,6 +21,13 @@ properties:
-   '#reset-cells':
-     const: 2
- 
-+  '#clock-cells':
-+    const: 1
-+
-+  clocks:
-+    items:
-+      - description: specify external 25MHz referance clock.
-+
-   nuvoton,sysgcr:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description: a phandle to access GCR registers.
-@@ -39,6 +46,17 @@ required:
-   - '#reset-cells'
-   - nuvoton,sysgcr
- 
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        enum:
-+          - nuvoton,npcm845-reset
-+then:
-+  required:
-+    - '#clock-cells'
-+    - clocks
-+
- additionalProperties: false
- 
- examples:
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
+deleted file mode 100644
+index b901ca13cd25..000000000000
+--- a/Documentation/devicetree/bindings/clock/nuvoton,npcm845-clk.yaml
++++ /dev/null
+@@ -1,49 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+-%YAML 1.2
+----
+-$id: http://devicetree.org/schemas/clock/nuvoton,npcm845-clk.yaml#
+-$schema: http://devicetree.org/meta-schemas/core.yaml#
+-
+-title: Nuvoton NPCM8XX Clock Controller
+-
+-maintainers:
+-  - Tomer Maimon <tmaimon77@gmail.com>
+-
+-description: |
+-  Nuvoton Arbel BMC NPCM8XX contains an integrated clock controller, which
+-  generates and supplies clocks to all modules within the BMC.
+-
+-properties:
+-  compatible:
+-    enum:
+-      - nuvoton,npcm845-clk
+-
+-  reg:
+-    maxItems: 1
+-
+-  '#clock-cells':
+-    const: 1
+-    description:
+-      See include/dt-bindings/clock/nuvoton,npcm8xx-clock.h for the full
+-      list of NPCM8XX clock IDs.
+-
+-required:
+-  - compatible
+-  - reg
+-  - '#clock-cells'
+-
+-additionalProperties: false
+-
+-examples:
+-  - |
+-    ahb {
+-        #address-cells = <2>;
+-        #size-cells = <2>;
+-
+-        clock-controller@f0801000 {
+-            compatible = "nuvoton,npcm845-clk";
+-            reg = <0x0 0xf0801000 0x0 0x1000>;
+-            #clock-cells = <1>;
+-        };
+-    };
+-...
 -- 
 2.34.1
 
