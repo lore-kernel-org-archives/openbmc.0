@@ -2,159 +2,54 @@ Return-Path: <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D30CC25B78
-	for <openbmc@archiver.kernel.org>; Mon, 13 May 2024 22:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4EF7C25B74
+	for <openbmc@archiver.kernel.org>; Mon, 27 May 2024 23:26:43 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector2 header.b=EvuxSiWs;
+	dkim=pass (2048-bit key; unprotected) header.d=truschnigg.info header.i=@truschnigg.info header.a=rsa-sha256 header.s=m22 header.b=jKKL1Mix;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4VdYPd0lB3z30T9
-	for <openbmc@archiver.kernel.org>; Tue, 14 May 2024 08:02:29 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4VpBP12kPgz79kh
+	for <openbmc@archiver.kernel.org>; Tue, 28 May 2024 09:16:53 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=truschnigg.info
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector2 header.b=EvuxSiWs;
+	dkim=pass (2048-bit key; unprotected) header.d=truschnigg.info header.i=@truschnigg.info header.a=rsa-sha256 header.s=m22 header.b=jKKL1Mix;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=permerror (SPF Permanent Error: Void lookup limit of 2 exceeded) smtp.mailfrom=nxp.com (client-ip=2a01:111:f403:2608::601; helo=eur02-db5-obe.outbound.protection.outlook.com; envelope-from=peng.fan@nxp.com; receiver=lists.ozlabs.org)
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com (mail-db5eur02on20601.outbound.protection.outlook.com [IPv6:2a01:111:f403:2608::601])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=truschnigg.info (client-ip=89.163.150.210; helo=truschnigg.info; envelope-from=johannes@truschnigg.info; receiver=lists.ozlabs.org)
+Received: from truschnigg.info (truschnigg.info [89.163.150.210])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4VdJ7p1lVYz2ykn;
-	Mon, 13 May 2024 22:04:36 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Im9xCPpGKmNgMWjoDXHvNd6hwq76i7OYHeVyszkCi9ab4/5auX9RS3QjqL5PSaGD35tk3PMC8n8qL427hBKEKtwYlUm4JAi5qS1tYde0tViEQBJMI6fgivmGGQFluvU7DE/wc5tbSW26l0fu4lXt/XMJM9B1fl1D95fYxpDHNrRT6HJftgipoyYTy/OllWfsmLKpyX95RqPVb0PBKsO15NUKbjh4Vn1Y8R3hTcD4riKV6y/FUjp3OCeEXaTrpRpdLDgpVTbWbq0OJLcZa2kmkvEr16vmgO88L7jGAFUCMlYMFVHRHSXAxIQ5QJ6qqNDyUqxuCkMXas8HGTBG/8Th8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/RrsS8X5uDYKAEgi0oE3j8C1UhJ82nSyednDlsNftaA=;
- b=NI0Hm4SZ/a3SIrogikxHlC7ph+mRWaiSgSbkc8lsnR8qS5/2tFdUjid/h6ziPHEDBaTx0RK9F6J3OqXuBafyjuiNyLumQy0IlRnnjvdUMWQ/e/TEviKwxygh9NUhfH1JV3osk1P8MhCJzxLHcr3yiinbyQZG4CHX67vYMbSZ3l2PREKaCtK56LoEXmseaEfnfFGfEBihH3ybnwD7uF30+F8e+eVAO7BaNtWdqdSue1+5thDJrQOhHDXxxT/HbHTAM854cz43HNz3NFUGFYBgnlkiqCssCvkqkS+6ZcclS1skmVwGffczAsiLDcVXGGYjgjVD651Hn9dou2f17fZX/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/RrsS8X5uDYKAEgi0oE3j8C1UhJ82nSyednDlsNftaA=;
- b=EvuxSiWs2qnUzjp1vlsKJzXWfSCDc3FBwXiVBnz2uT4pn/YQVznoCuRe1m+bghwWCzu8Oh889aRwX6V6+QUv9GMvD7Ior4ml91K0/jrTIYQIpAg3IzdCjSlQlHLhlIBt1azfIt79YHQ8N4pkaZUvz/YwzZYkTst1zM/k6E+4CQ8=
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by DU4PR04MB10433.eurprd04.prod.outlook.com (2603:10a6:10:55f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7544.49; Mon, 13 May
- 2024 12:04:10 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::d30b:44e7:e78e:662d]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::d30b:44e7:e78e:662d%4]) with mapi id 15.20.7544.052; Mon, 13 May 2024
- 12:04:09 +0000
-From: Peng Fan <peng.fan@nxp.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>, "Peng Fan (OSS)"
-	<peng.fan@oss.nxp.com>
-Subject: RE: [PATCH v2 07/20] pinctrl: renesas: Use scope based of_node_put()
- cleanups
-Thread-Topic: [PATCH v2 07/20] pinctrl: renesas: Use scope based of_node_put()
- cleanups
-Thread-Index: AQHaniT3lIdYaKTlc0+a75n1zcgHjrGVHZuAgAAAhSA=
-Date: Mon, 13 May 2024 12:04:09 +0000
-Message-ID:  <DU0PR04MB9417D41C697C28B9F6B3BC2188E22@DU0PR04MB9417.eurprd04.prod.outlook.com>
-References: <20240504-pinctrl-cleanup-v2-0-26c5f2dc1181@nxp.com>
- <20240504-pinctrl-cleanup-v2-7-26c5f2dc1181@nxp.com>
- <CAMuHMdUD=1rpns_mLF2rMM-x5EnOK7TExaJxoJVkbXjVz1H8uQ@mail.gmail.com>
-In-Reply-To:  <CAMuHMdUD=1rpns_mLF2rMM-x5EnOK7TExaJxoJVkbXjVz1H8uQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|DU4PR04MB10433:EE_
-x-ms-office365-filtering-correlation-id: 931bd66e-acc5-4879-0161-08dc7344cbf1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:  BCL:0;ARA:13230031|1800799015|366007|7416005|376005|38070700009;
-x-microsoft-antispam-message-info:  =?utf-8?B?NEtBOUNiU0t2elRTOFFUYklIclM3TU55ZzlXdzZGK09SMU94MFRxUDlNTktR?=
- =?utf-8?B?SFJCaE84amwrckNTV1drU20wTTNoNU96dmZvUDZUMEV3SXZnTHVzSnJVQnM4?=
- =?utf-8?B?ZkhmQWpyYUY3MWUzeUVtcThBZktIZld2NkhDdzVmakk0WXZaTlNPYU40dU9S?=
- =?utf-8?B?UlpycXdnZ3g3STlXRUlnb2hWZTR0QlV4YzJuZERyWHlyOEh4UThYbkJBb2ZY?=
- =?utf-8?B?c3FLYjNQdEJQTXo5ejhCc2ZiWWo0N0NxQWViOU9qdkF5SkVEY3pOa28yVWw1?=
- =?utf-8?B?M0ZHN0ZNZlI5Q1o3Q2s0YUV0eFQ3RktmTG5xMXhLZXpCendjZVI5VG9IU0px?=
- =?utf-8?B?bTIrRXo5V1NEQnFEQncwczdaYU8vN0JVN0w5elp1anlOVnNHNHNrNTVZd0ZK?=
- =?utf-8?B?QVR1YTlHY1RpQ3lpUVVPUXdHa3oxRGlzY2Zud1FYWFZKWEhvUkk4TlpmOXNM?=
- =?utf-8?B?c3pZaHUwVm4yNExQRkQ3a0t4MWs0MDZrR1FDRnZ0TWhZMVplcS9mc3JBODM4?=
- =?utf-8?B?WXB5Z0NsYkJaRXJNcjZtbzVQWFZjK2srV21rU1Vsamg1MGtCUUFLL2N6RnZO?=
- =?utf-8?B?d0tSa1Jja0xmQzRzTXJZMTYvQzRnN1hhZC9nSUJKcmVYWEFQZDdxcDVGNk56?=
- =?utf-8?B?dWFXVFNsN01GLzRuMG1nN2RtSW5Cam9SSWkxdDVSRVd5T005UjRMTEdtTnNo?=
- =?utf-8?B?SXRWb3NicXZSVWxubmhmN2wwYTdZUzBlcHNFQ1hkS053eThzN1BVUTlRWTBv?=
- =?utf-8?B?ZVc2d3ZlVTlRbUw3ZWg0SU9HWFJodFlXblc1cFd6ZVpRb0VZOG53K0Z1SDJh?=
- =?utf-8?B?amZabUZmMktwT1NBYll5Uzh4U3c5bmh2Q1dmUlZDeFc5UnFLTHF0TkFzL3ky?=
- =?utf-8?B?YjlmSExYN2ordkpiQkl1NitYYnBlL2krSHpvWFg2b3Yza0Z3K1ZxMFVmK0Nk?=
- =?utf-8?B?ZzNjdDN4dE9aZzZreE1IZVc5b0xrQjlFSWkraWhXTnNMK1krNUtPWk5aRTVm?=
- =?utf-8?B?TEFPUDVYYnhaRG5SNkNJMjE2bnZ3blQwWWtNZTNRaUMwMW5LOUhwZ0RSTUNC?=
- =?utf-8?B?d1ZvMmNjaHFDMllNUmR2TFVoWXV2Tmdjc1ZIakdRMlQ3dDZOU1lCK2d1N0x2?=
- =?utf-8?B?VGRZaGNnZlNxVGkvSmk5T1lDMU1pV3RQbE5Dc245NXRzc3A4QitIb0piZjNl?=
- =?utf-8?B?Q2RFcGJGVXJFZ051WEFTMDRpOFF2eFZvMnZvWXUrWElSTzVaVHc4UmdSaWdF?=
- =?utf-8?B?cWorRERRRENqVXZUcTh2ZkVoemxWTFNOUDNNZzUxdFlPTlk5dFN4elFkR2E0?=
- =?utf-8?B?bjhHc1VlRjNiWHAxLzlEMzBlTTdha1oxQUtDU2dSTTFMT0RHTEVPOTVVUDUv?=
- =?utf-8?B?YldGVkwvdzlaNVVWMGRzQVI5U1RnU3NVaVdwV2xFcTJjYitqbXdOMnUzZzdI?=
- =?utf-8?B?VFRGLzVkWGxTRnlrRXg4emlhZkJXWEZ1NXg1MHIzemZRaVpZTk96ajd2T2Jq?=
- =?utf-8?B?SUZGYlp5cXZkWDBTM2lwaW1DMytJT1FXZDIxWEw3MHN2eURjZ05WbWpSWTl6?=
- =?utf-8?B?V3Y3VHlvQk5YUUdhaHYySENvQkQ5WXJ0WTRRa0dPTjhYWlJnSGh6WUZ4WTFa?=
- =?utf-8?B?dm5BZ2dmQUtLcVFuMGNaVjE0empKTE9IRFM3VmQ4NWYvQVg1UEZOeFhPT3dJ?=
- =?utf-8?B?R0ZTeFpjMVgxTzlIU0tpSndmZURqaWNLc3ZHUXgxZ1h5RGk0SlRHL2QvbmUr?=
- =?utf-8?B?aWFkeklqQUJwTG54MW1QVHZta2ZNd1FyQ0hQemZnWmdxK29QVHl1N3BYTmJm?=
- =?utf-8?B?RityQ1I2cE1hd3l3a0U5dz09?=
-x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(7416005)(376005)(38070700009);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:  =?utf-8?B?Uzg3UDhocXdZdlN2aE9FRFQvV0VjcmwrUFl2KzhKMUhWcUlGYkxrcTVzT0RQ?=
- =?utf-8?B?ZU1qRTRvRnhKNk5NRTdwZWdHTU05SU9zemUyWW5zdmlIVURNRlpYZnJFQmFG?=
- =?utf-8?B?MmRscEZBL3R1c1NmdEJrM1ZucTVpbHNEV1FveVBSNHIvV2lJc3hLZnlyMDRL?=
- =?utf-8?B?d1ZuZnRNSm5LejdSZ2N1Qks1eUg3UlNFejJTVXg0NE9XQ3hXbzQvT3ZRcm5x?=
- =?utf-8?B?aEVWb2dqOXBCcFBiMklOM0Vkd3BYSHBvZ2FOKzk0V0IrcTFCdnRkbHlxMWYy?=
- =?utf-8?B?Q1NuYm15US9jbDg5bExTV0x6Qkg5aHpBMUJ3OVR1eVJ4cXBSeDc5VFZHMTJY?=
- =?utf-8?B?WTFXRmgzN1BQSUkwWGpSVEVKRXY4WTlSV2tKQU1oZjFHUEN0Z3ZtVE5TMG9z?=
- =?utf-8?B?ZUoyYWNpSFpNQk5vOWM0cUxJSXNLMTg2SDdaUVNUV3JLRXhjNmVRT3VPS0g1?=
- =?utf-8?B?NXdKaU5PTHdWQXIzb1VtbEhaOWNIVm9uVUkrWS84VWZ4WjVJOE5yRU5nSkJa?=
- =?utf-8?B?blJtQWI3d2xxdVNReW9CMU9jbUIxeUR5MnVESXhGY2syV3BUUTZtWC9xdnMx?=
- =?utf-8?B?Q2JVVDQvNTQ4eFE4UHA4R2NUUXMvQUxwQkxVMnpJVS9TbDREWGxCK05jVklU?=
- =?utf-8?B?YklWZkVPWmpwVm9wa1FGekRxQmhidlNSVmY3aUZKWnRwMHVsZ3NYN08vK2xW?=
- =?utf-8?B?RmtBbVJvRXovaWM5Uk5jbVl5TndYOCs4a2dGb0JvbVRXQ1NYUUpwTWFsT3E3?=
- =?utf-8?B?WkJPbTRVWEMxV0RBOUI0YmlGU21UT1luSVl1bmsyVG42MGRZa2VoZjRObGRV?=
- =?utf-8?B?Tjg3R3FTNy9kYWZPS0pHTStLZ1psWW9aekdKVnEwV2dybCtRYjBXb0ZuVkdH?=
- =?utf-8?B?d2d1MytsazhvZUdwN3B0dlUvVStqWjh2QUdGRktZbVcwZ1JYWUxnb0VUMGxr?=
- =?utf-8?B?R3JiVisvM2lqa1RVL0E2NlRWelJ3OWZOOSthSklEZk1ZSUZSeFVjSU8zSkFh?=
- =?utf-8?B?THRsTzcybVBza2VEUVZuWmVXdUlHR21KYjM5bVJ4NTlVOHp3dTdhMHp1Q1V3?=
- =?utf-8?B?dEswZkFjd0VuMkc3Z3I5M0lVdFc3L0J6c25xSnI1WTM5QmpyWnNxM2JyZCsz?=
- =?utf-8?B?VU04VGRrZWs3a09rajNMT1MwajdjcEV2UGNnZ2pXUzhieWhNeWJtc01CY3Ax?=
- =?utf-8?B?QW12WnhzaDlrOHk3NEtRbk4raEh2dEVwczZUNkg3RUgxY016bG1UVm1uRkd2?=
- =?utf-8?B?VFlZWDV3c0xnSVJhU3hWeSs2V0lhTVkzcmFqaGNHVld3ZzZJNStoMWs4NTVM?=
- =?utf-8?B?dnZjTi9JcVo5eTBXMGVETXd4aFMzWFlmN0NYOCtVa2RsWUZzSmZLR2J3TkJT?=
- =?utf-8?B?WVdrTDZwQVUxdDJ1MGoxQnV6MU5HU1Q5V2JPSE9jQm80dmtHSkVHRzlPbm0x?=
- =?utf-8?B?SkhDdDRhRjF0bUZFSk52TU5qTjJOL2VsVVQxVUFTb0doSmZyb1VFaTljYW5P?=
- =?utf-8?B?TnZCc21KV1dKeFNhd29JSC8zREJoNTlrdlVRVmVGbkdHRmMxdU1JeWVHOUwr?=
- =?utf-8?B?RDVqYlhKcHdleXFvRzh3eDcrVHh5MXhoZGlNZE5rbFZRT3djM3l6YjFBMXhu?=
- =?utf-8?B?RUNYbmkySGpobFNYMUhjcmlORjZLcWIySFlhZGNsUzZ2b3UrZlZkVCtkNEFM?=
- =?utf-8?B?Z2lKNWtmbFZnMlJJbjlDbWdONW9KZjVQYlBQVm5HMFJZRTdVZlltRUNTL2tw?=
- =?utf-8?B?STFyNjBPYzc2NG9ESzhMMmRqSFZzZlRBajhlYnZvZDczS3orR3BaZTk1RjA1?=
- =?utf-8?B?RnJRSXdkUG43NndSZmJvdjRKQjhjeGk0RFhlZVI3SXZrMUIvaGN0QTJ2dm0x?=
- =?utf-8?B?Vlp6OTZoTFdGSWllL21uMXNobzBIQUpOV2VrQVU3VkhsSjhjVlBzRUdSUFRp?=
- =?utf-8?B?eDNTam5EZis4dkpPR0NvRGR5VVZxOGJwaWlvaDRCYzJjWjVzakZFRkQ1NjZI?=
- =?utf-8?B?ZEVibkNWRG5VaE54TWI0N3kyM212ZU5pbGdqMEVIZG9IazdhcUpIclFxYzhw?=
- =?utf-8?B?SEF5VXA5My9wcURERlh4Mjl2ZlRSNndaU0xjWSs3U3lUM0g4YzdtY0dBWTNW?=
- =?utf-8?Q?uMis=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vp3Zg0tCWz3ft7
+	for <openbmc@lists.ozlabs.org>; Tue, 28 May 2024 04:09:47 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=truschnigg.info;
+	s=m22; t=1716833381;
+	bh=J8/N0mKmDlaxzCX7I7KGPD1ab7vPbtUfYguVb7Ndd10=;
+	h=Date:From:To:Subject:References:In-Reply-To:From;
+	b=jKKL1Mix3XIUKymx72jV9LVKB0CR6xDll0IuY7cIVDVcU9d3jByKiTG22RudqYn/J
+	 RVaLvAOKruWCEq2hwtoJ73zFn1M8hjjLvD8fJYipkEsMGFH5tjiTFT/bkV1r7/o/ot
+	 GAbI0pwmRGBlSK/9xlEtXGAf0/HEI7wKyQ0jSyIk9wKnkT0tUOtScVbv4uGsiB1aid
+	 tvhaRBV6BY5EWiG7fMvBjEnyDPh03XomwEr2KAwUIHkZ0yLHQeop8htoKBt2dXc7s+
+	 l0tALuILKuZetC93fSyzYwaETJg79/cErX0SFJ2y+HyuAtLk8oI5pBM3AEgI0/KLAH
+	 Ih1EgFwu5bTCg==
+Received: from vault.lan (unknown [IPv6:2a02:1748:fafe:cf3f:1eb7:2cff:fe02:8261])
+	by truschnigg.info (Postfix) with ESMTPSA id 6265020149
+	for <openbmc@lists.ozlabs.org>; Mon, 27 May 2024 18:09:41 +0000 (UTC)
+Date: Mon, 27 May 2024 20:09:38 +0200
+From: Johannes Truschnigg <johannes@truschnigg.info>
+To: openbmc@lists.ozlabs.org
+Subject: Re: OpenBMC replacing AMI AST2500 BMC fw on Gigabyte MC12-LE0 -
+ questions
+Message-ID: <ZlTMYkCZhXmRb1av@vault.lan>
+References: <ZkuJNJ9kFrRS3mQF@vault.lan>
+ <5e89654a02e2f870b71700c8cd75c2ef371fb579.camel@codeconstruct.com.au>
+ <ZkzUX9JPPGAtNa2d@vault.lan>
+ <640ed3fcae859ef35f3c57fad6c2f39400d6ef0a.camel@codeconstruct.com.au>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931bd66e-acc5-4879-0161-08dc7344cbf1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 May 2024 12:04:09.5805
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: V3sR0JiiydVK2WRlLg2gmogtZnh2XiPkUq6DAUdkq04mpRQTtu6HrEgcttDIRqfuU0x56KpMBlcH436y47bXDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10433
-X-Mailman-Approved-At: Tue, 14 May 2024 08:01:11 +1000
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e/dwl04QfXl3oERu"
+Content-Disposition: inline
+In-Reply-To: <640ed3fcae859ef35f3c57fad6c2f39400d6ef0a.camel@codeconstruct.com.au>
+X-Mailman-Approved-At: Tue, 28 May 2024 09:15:58 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,43 +61,528 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Emil Renner Berthing <kernel@esmil.dk>, Geert Uytterhoeven <geert+renesas@glider.be>, Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>, Thierry Reding <thierry.reding@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>, Shawn Guo <shawnguo@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, Hal Feng <hal.feng@starfivetech.com>, Fabio Estevam <festevam@gmail.com>, "Ghennadi Procopciuc \(OSS\)" <ghennadi.procopciuc@oss.nxp.com>, Dan Carpenter <dan.carpenter@linaro.org>, Heiko Stuebner <heiko@sntech.de>, "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>, "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, Chunyan Zhang <zhang.lyra@gmail.com>, "openbmc@lists.ozlabs.org" <open
- bmc@lists.ozlabs.org>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, Ludovic Desroches <ludovic.desroches@microchip.com>, Jacky Bai <ping.bai@nxp.com>, Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>, Patrice Chotard <patrice.chotard@foss.st.com>, Chester Lin <chester62515@gmail.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Warren <swarren@wwwdotorg.org>, Sascha Hauer <s.hauer@pengutronix.de>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, "soc@kernel.org" <soc@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, Matthias Brugger <matthias.bgg@gmail.com>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Aisheng Dong <ai
- sheng.dong@nxp.com>, Matthias Brugger <mbrugger@suse.com>, Dvorkin Dmitry <dvorkin@tibbo.com>, Sean Wang <sean.wang@kernel.org>, "linux-stm32@st-md-mailman.stormreply.com" <linux-stm32@st-md-mailman.stormreply.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, Jianlong Huang <jianlong.huang@starfivetech.com>, "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Viresh Kumar <vireshk@kernel.org>, Wells Lu <wellslutw@gmail.com>, Shiraz Hashim <shiraz.linux.kernel@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-PiBTdWJqZWN0OiBSZTogW1BBVENIIHYyIDA3LzIwXSBwaW5jdHJsOiByZW5lc2FzOiBVc2Ugc2Nv
-cGUgYmFzZWQNCj4gb2Zfbm9kZV9wdXQoKSBjbGVhbnVwcw0KPiANCj4gSGkgUGVuZywNCj4gDQo+
-IE9uIFNhdCwgTWF5IDQsIDIwMjQgYXQgMzoxNOKAr1BNIFBlbmcgRmFuIChPU1MpIDxwZW5nLmZh
-bkBvc3MubnhwLmNvbT4NCj4gd3JvdGU6DQo+ID4gRnJvbTogUGVuZyBGYW4gPHBlbmcuZmFuQG54
-cC5jb20+DQo+ID4NCj4gPiBVc2Ugc2NvcGUgYmFzZWQgb2Zfbm9kZV9wdXQoKSBjbGVhbnVwIHRv
-IHNpbXBsaWZ5IGNvZGUuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBQZW5nIEZhbiA8cGVuZy5m
-YW5AbnhwLmNvbT4NCj4gDQo+IFRoYW5rcyBmb3IgeW91ciBwYXRjaCENCj4gDQo+IFJldmlld2Vk
-LWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPg0KPiBBY2tl
-ZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5iZT4NCj4gDQo+
-ID4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3JlbmVzYXMvcGluY3RybC1yem4xLmMNCj4gPiArKysg
-Yi9kcml2ZXJzL3BpbmN0cmwvcmVuZXNhcy9waW5jdHJsLXJ6bjEuYw0KPiANCj4gWW91IG1pc3Nl
-ZCBvbmUgdHJpdmlhbCBjb252ZXJzaW9uLCBwcmVzdW1hYmx5IGJlY2F1c2Ugbm8gZXJyb3IgaGFu
-ZGxpbmcgYW5kDQo+IHRodXMgbm8gb2Zfbm9kZV9wdXQoKSBpcyBpbnZvbHZlZD8NCg0KWW91IGFy
-ZSByaWdodC4NCg0KPiANCj4gQEAgLTczNywxMyArNzM3LDEyIEBAIHN0YXRpYyBpbnQgcnpuMV9w
-aW5jdHJsX3BhcnNlX2dyb3VwcyhzdHJ1Y3QNCj4gZGV2aWNlX25vZGUgKm5wLA0KPiANCj4gIHN0
-YXRpYyBpbnQgcnpuMV9waW5jdHJsX2NvdW50X2Z1bmN0aW9uX2dyb3VwcyhzdHJ1Y3QgZGV2aWNl
-X25vZGUgKm5wKSAgew0KPiAtICAgICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqY2hpbGQ7DQo+ICAg
-ICAgICAgaW50IGNvdW50ID0gMDsNCj4gDQo+ICAgICAgICAgaWYgKG9mX3Byb3BlcnR5X2NvdW50
-X3UzMl9lbGVtcyhucCwgUlpOMV9QSU5TX1BST1ApID4gMCkNCj4gICAgICAgICAgICAgICAgIGNv
-dW50Kys7DQo+IA0KPiAtICAgICAgIGZvcl9lYWNoX2NoaWxkX29mX25vZGUobnAsIGNoaWxkKSB7
-DQo+ICsgICAgICAgZm9yX2VhY2hfY2hpbGRfb2Zfbm9kZV9zY29wZWQobnAsIGNoaWxkKSB7DQo+
-ICAgICAgICAgICAgICAgICBpZiAob2ZfcHJvcGVydHlfY291bnRfdTMyX2VsZW1zKGNoaWxkLCBS
-Wk4xX1BJTlNfUFJPUCkgPiAwKQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICBjb3VudCsrOw0K
-PiAgICAgICAgIH0NCj4gDQo+IElmIHlvdSBwcmVmZXIgbm90IHRvIGluY2x1ZGUgdGhpcywgSSB3
-aWxsIHNlbmQgYSBzbWFsbCBwYXRjaCBteXNlbGYgbGF0ZXIuDQoNCkkgd291bGQgbm90IGFkZCBp
-dC4NCklmIG5vIG1ham9yIGNvbW1lbnRzIGluIHRoaXMgcGF0Y2hzZXQsIEkgd2lsbCBub3QgZG8g
-YSB2My4gU28sIHBsZWFzZSBkbyB0aGF0DQp3aXRoIHlvdXIgZm9sbG93IHVwIHBhdGNoLg0KDQpU
-aGFua3MsDQpQZW5nLg0KDQo+IA0KPiBHcntvZXRqZSxlZXRpbmd9cywNCj4gDQo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgIEdlZXJ0DQo+IA0KPiAtLQ0KPiBHZWVydCBVeXR0ZXJob2V2ZW4gLS0g
-VGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4LQ0KPiBtNjhr
-Lm9yZw0KPiANCj4gSW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRlY2huaWNhbCBwZW9w
-bGUsIEkgY2FsbCBteXNlbGYgYSBoYWNrZXIuIEJ1dA0KPiB3aGVuIEknbSB0YWxraW5nIHRvIGpv
-dXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQu
-DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFsZHMNCg0K
+
+--e/dwl04QfXl3oERu
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello again, dear list members!
+
+I've spent some time with my/Gigabyte's/AMI's AST2500 today, and I might ha=
+ve
+messed it up for good in the process, unwillingly. However, the result might
+also present a fresh opportunity - I reall do not know! :) But first things
+first!
+
+Because I could not find any documentation about potantial OpenBMC nfsroot
+support, I decided to "just try it", with unforseen consequences (anyone
+remember Half-Life? :)) Since `picocom` was kind enough to preserve a sessi=
+on
+log of the whole ordeal, the excerpt below should contain the gist of how I
+messed up:
+
+
+```
+
+U-Boot 2013.07 (Mar 12 2024 - 14:08:49)
+
+I2C:   ready
+DRAM:  424 MiB
+eSPI Handshake complete
+OEM_BOARD_INIT - Start (BMC)
+LPC mode
+OEM_BOARD_INIT - End
+Flash: Found SPI Chip Micron/Numonyx N25Q512A(0x20ba) 2x I/O READ, NORMAL W=
+RITE
+64 MiB
+MMC:  =20
+Net:   RTL8211E, EEECR =3D 0x06
+RTL8211E, EEEAR =3D 0x00
+RTL8211E, EEELPAR =3D 0x06
+RTL8211E, LACR =3D 0xc1
+RTL8211E, LCR =3D 0x9742
+ast_eth0, ast_eth1
+DRAM ECC enabled
+Hit any key to stop autoboot:  0=20
+AST2500EVB>set autoload no
+AST2500EVB>dhcp
+BOOTP broadcast 1
+[...]
+BOOTP broadcast 25
+
+Retry count exceeded; starting again
+BOOTP broadcast 1
+BOOTP broadcast 2
+DHCP client bound to address 172.18.3.62
+AST2500EVB>tftp 0x83000000 172.18.3.199:uboot
+Using ast_eth1 device
+TFTP from server 172.18.3.199; our IP address is 172.18.3.62
+Filename 'uboot'.
+Load address: 0x83000000
+Loading: #################################################################
+         #########
+         366.7 KiB
+done
+Bytes transferred =3D 375501 (5bacd hex)
+AST2500EVB>go 0x83000000
+## Starting application at 0x83000000 ...
+
+
+U-Boot 2019.04 (Mar 25 2024 - 04:43:19 +0000)
+
+SOC : AST2500-A2=20
+RST : WDT1=20
+RST : WDT3 - Boot
+LPC Mode : SIO:Disable=20
+Eth : MAC0: RMII/NCSI, , MAC1: RGMII,=20
+Model: AST2500 EVB
+DRAM:  424 MiB (capacity:512 MiB, VGA:32 MiB, ECC:on, ECC size:424 MiB)
+MMC:   sdhci_slot0@100: 0, sdhci_slot1@200: 1
+Loading Environment from SPI Flash... SF: Detected n25q512ax3 with page siz=
+e 256 Bytes, erase size 4 KiB, total 64 MiB
+*** Warning - bad CRC, using default environment
+
+In:    serial@1e784000
+Out:   serial@1e784000
+Err:   serial@1e784000
+Net:  =20
+Warning: ethernet@1e660000 (eth0) using random MAC address - 56:4b:8e:16:48=
+:eb
+eth0: ethernet@1e660000
+Warning: ethernet@1e680000 (eth1) using random MAC address - 32:f3:07:0a:d2=
+:ad
+, eth1: ethernet@1e680000
+Hit any key to stop autoboot:  0=20
+ast# setenv ethact ethernet@1e680000
+ast# setenv autoload no
+ast# dhcp
+ethernet@1e680000: link up, 1000 Mbps full-duplex mac:32:f3:07:0a:d2:ad
+BOOTP broadcast 1
+BOOTP broadcast 2
+BOOTP broadcast 3
+BOOTP broadcast 4
+DHCP client bound to address 172.18.3.83 (3007 ms)
+ast# tftpboot 0x84000000 172.18.3.199:fit.bin
+ethernet@1e680000: link up, 1000 Mbps full-duplex mac:32:f3:07:0a:d2:ad
+Using ethernet@1e680000 device
+TFTP from server 172.18.3.199; our IP address is 172.18.3.83
+Filename 'fit.bin'.
+Load address: 0x84000000
+Loading: #################################################################
+         #######################################
+         5.6 MiB/s
+done
+Bytes transferred =3D 4375688 (42c488 hex)
+ast# setenv bootargs console=3DttyS4,115200n8 root=3D/dev/nfs rootfstype=3D=
+nfs ip=3D172.18.3.173:172.18.3.138:172.18.3.254:255.255.255.0:bmctest:eth1:=
+off:172.18.3.254::172.18.3.254 nfsroot=3D172.18.3.138:/,mountport=3D13337
+ast# bootm 0x84000000
+## Loading kernel from FIT Image at 84000000 ...
+   Using 'conf-aspeed-ast2500-evb.dtb' configuration
+   Trying 'kernel-1' kernel subimage
+     Description:  Linux kernel
+     Type:         Kernel Image
+     Compression:  uncompressed
+     Data Start:   0x84000118
+     Data Size:    3257440 Bytes =3D 3.1 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: 0x80001000
+     Entry Point:  0x80001000
+     Hash algo:    sha256
+     Hash value:   0c874e335b61b661a7f1d638258ee1652728f021921b74bdcbad2bbb=
+4ceef3f9
+   Verifying Hash Integrity ... sha256+ OK
+## Loading ramdisk from FIT Image at 84000000 ...
+   Using 'conf-aspeed-ast2500-evb.dtb' configuration
+   Trying 'ramdisk-1' ramdisk subimage
+     Description:  obmc-phosphor-initramfs
+     Type:         RAMDisk Image
+     Compression:  uncompressed
+     Data Start:   0x84322138
+     Data Size:    1088964 Bytes =3D 1 MiB
+     Architecture: ARM
+     OS:           Linux
+     Load Address: unavailable
+     Entry Point:  unavailable
+     Hash algo:    sha256
+     Hash value:   94cc4badfdacec0b053b68954c69c55af5e50b3d8bc15b2852005fd6=
+c84c238f
+   Verifying Hash Integrity ... sha256+ OK
+## Loading fdt from FIT Image at 84000000 ...
+   Using 'conf-aspeed-ast2500-evb.dtb' configuration
+   Trying 'fdt-aspeed-ast2500-evb.dtb' fdt subimage
+     Description:  Flattened Device Tree blob
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0x8431b68c
+     Data Size:    27103 Bytes =3D 26.5 KiB
+     Architecture: ARM
+     Hash algo:    sha256
+     Hash value:   ca0066dfb087e1b1e022dec0c9aef3ac1c1ac350a49f5959e056acf6=
+4383b637
+   Verifying Hash Integrity ... sha256+ OK
+   Booting using the fdt blob at 0x8431b68c
+   Loading Kernel Image ... OK
+   Loading Ramdisk to 8fef6000, end 8ffffdc4 ... OK
+   Loading Device Tree to 8feec000, end 8fef59de ... OK
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 6.6.30-f013890-00167-gf013890407d8 (oe-user@oe=
+-host) (arm-openbmc-linux-gnueabi-gcc (GCC) 13.2.0, GNU ld (GNU Binutils) 2=
+=2E42.0.20240216) #1 Mon May 13 00:55:18 UTC 2024
+[    0.000000] CPU: ARMv6-compatible processor [410fb767] revision 7 (ARMv7=
+), cr=3D00c5387d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT nonaliasing in=
+struction cache
+[    0.000000] OF: fdt: Machine model: AST2500 EVB
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] Reserved memory: created CMA memory pool at 0x99000000, size=
+ 16 MiB
+[    0.000000] OF: reserved mem: initialized node framebuffer, compatible i=
+d shared-dma-pool
+[    0.000000] OF: reserved mem: 0x99000000..0x99ffffff (16384 KiB) map reu=
+sable framebuffer
+[    0.000000] cma: Reserved 16 MiB at 0x98000000 on node -1
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000080000000-0x000000009a7fffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000080000000-0x000000009a7fffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000080000000-0x000000009a7ff=
+fff]
+[    0.000000] Kernel command line: console=3DttyS4,115200n8 root=3D/dev/nf=
+s rootfstype=3Dnfs ip=3D172.18.3.173:172.18.3.138:172.18.3.254:255.255.255.=
+0:bmctest:eth1:off:172.18.3.254::172.18.3.254 nfsroot=3D172.18.3.138:/,moun=
+tport=3D13337
+[    0.000000] Unknown kernel command line parameters "ip=3D172.18.3.173:17=
+2.18.3.138:172.18.3.254:255.255.255.0:bmctest:eth1:off:172.18.3.254::172.18=
+=2E3.254 nfsroot=3D172.18.3.138:/,mountport=3D13337", will be passed to use=
+r space.
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 byt=
+es, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 byte=
+s, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 107696
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] Memory: 385236K/434176K available (7168K kernel code, 686K r=
+wdata, 1664K rodata, 1024K init, 141K bss, 16172K reserved, 32768K cma-rese=
+rved)
+[    0.000000] SLUB: HWalign=3D32, Order=3D0-3, MinObjects=3D0, CPUs=3D1, N=
+odes=3D1
+[    0.000000] ftrace: allocating 24994 entries in 49 pages
+[    0.000000] ftrace: allocated 49 pages with 3 groups
+[    0.000000] trace event string verifier disabled
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[    0.000000] i2c controller registered, irq 17
+[    0.000000] clocksource: FTTMR010-TIMER2: mask: 0xffffffff max_cycles: 0=
+xffffffff, max_idle_ns: 77222644334 ns
+[    0.000004] sched_clock: 32 bits at 25MHz, resolution 40ns, wraps every =
+86767015915ns
+[    0.000079] Switching to timer-based delay loop, resolution 40ns
+[    0.001275] Calibrating delay loop (skipped), value calculated using tim=
+er frequency.. 49.50 BogoMIPS (lpj=3D247500)
+[    0.001340] CPU: Testing write buffer coherency: ok
+[    0.001456] pid_max: default: 32768 minimum: 301
+[    0.011962] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, =
+linear)
+[    0.012029] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 by=
+tes, linear)
+[    0.027599] RCU Tasks Rude: Setting shift to 0 and lim to 1 rcu_task_cb_=
+adjust=3D1.
+[    0.028143] RCU Tasks Trace: Setting shift to 0 and lim to 1 rcu_task_cb=
+_adjust=3D1.
+[    0.028703] Setting up static identity map for 0x80100000 - 0x80100038
+[    0.030465] ASPEED AST2500 rev A2 (04030303)
+[    0.032008] devtmpfs: initialized
+[    0.053913] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xfffffff=
+f, max_idle_ns: 19112604462750000 ns
+[    0.053996] futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+[    0.060628] pinctrl core: initialized pinctrl subsystem
+[    0.065337] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.067525] DMA: preallocated 256 KiB pool for atomic coherent allocatio=
+ns
+[    0.070964] hw-breakpoint: found 6 breakpoint and 1 watchpoint registers.
+[    0.071009] hw-breakpoint: maximum watchpoint size is 4 bytes.
+[    0.132580] mc: Linux media interface: v0.10
+[    0.132897] videodev: Linux video capture interface: v2.00
+[    0.133060] pps_core: LinuxPPS API ver. 1 registered
+[    0.133085] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo =
+Giometti <giometti@linux.it>
+[    0.133161] PTP clock support registered
+[    0.142848] clocksource: Switched to clocksource FTTMR010-TIMER2
+[    0.174185] NET: Registered PF_INET protocol family
+[    0.174819] IP idents hash table entries: 8192 (order: 4, 65536 bytes, l=
+inear)
+[    0.177558] tcp_listen_portaddr_hash hash table entries: 1024 (order: 0,=
+ 4096 bytes, linear)
+[    0.177651] Table-perturb hash table entries: 65536 (order: 6, 262144 by=
+tes, linear)
+[    0.177714] TCP established hash table entries: 4096 (order: 2, 16384 by=
+tes, linear)
+[    0.177806] TCP bind hash table entries: 4096 (order: 3, 32768 bytes, li=
+near)
+[    0.178014] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.178317] UDP hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.178411] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes, line=
+ar)
+[    0.179584] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.186070] Unpacking initramfs...
+[    0.213300] workingset: timestamp_bits=3D30 max_order=3D17 bucket_order=
+=3D0
+[    0.214001] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.214060] jffs2: version 2.2. (SUMMARY)  =C2=A9 2001-2006 Red Hat, Inc.
+[    0.263220] Serial: 8250/16550 driver, 6 ports, IRQ sharing enabled
+[    0.273969] printk: console [ttyS4] disabled
+[    0.275132] 1e784000.serial: ttyS4 at MMIO 0x1e784000 (irq =3D 20, base_=
+baud =3D 1500000) is a 16550A
+[    0.275268] printk: console [ttyS4] enabled
+[    0.935649] timeriomem_rng 1e6e2078.hwrng: 32bits from 0x(ptrval) @ 1us
+[    0.943808] aspeed_gfx 1e6e6000.display: assigned reserved memory node f=
+ramebuffer
+[    0.967762] random: crng init done
+[    0.984563] [drm] Initialized aspeed-gfx-drm 1.0.0 20180319 for 1e6e6000=
+=2Edisplay on minor 0
+[    1.007161] aspeed_gfx 1e6e6000.display: [drm] fb0: aspeed-gfx-drmd fram=
+e buffer device
+[    1.055838] loop: module loaded
+[    1.141860] spi-nor spi0.0: mt25ql512a (65536 Kbytes)
+[    1.274576] spi-aspeed-smc 1e620000.spi: CE0 read buswidth:2 [0x203c0641]
+[    1.346136] 5 fixed-partitions partitions found on MTD device bmc
+[    1.352312] Creating 5 MTD partitions on "bmc":
+[    1.356984] 0x000000000000-0x000000060000 : "u-boot"
+[    1.385686] 0x000000060000-0x000000080000 : "u-boot-env"
+[    1.406591] 0x000000080000-0x0000004c0000 : "kernel"
+[    1.414849] 0x0000004c0000-0x000001c00000 : "rofs"
+[    1.436205] 0x000001c00000-0x000002000000 : "rwfs"
+[    1.448668] spi-nor spi1.0: unrecognized JEDEC id bytes: 00 03 00 00 00 =
+00
+[    1.463133] ftgmac100 1e660000.ethernet: Error applying setting, reverse=
+ things back
+[    1.471391] ftgmac100 1e660000.ethernet: Read MAC address 56:4b:8e:16:48=
+:eb from chip
+[    1.510983] Generic PHY 1e660000.ethernet--1:00: attached PHY driver (mi=
+i_bus:phy_addr=3D1e660000.ethernet--1:00, irq=3DPOLL)
+[    1.523568] ftgmac100 1e660000.ethernet eth0: irq 22, mapped at 96ea64c4
+[    1.531266] ftgmac100 1e680000.ethernet: Read MAC address 32:f3:07:0a:d2=
+:ad from chip
+[    1.570263] RTL8211E Gigabit Ethernet 1e680000.ethernet--1:00: attached =
+PHY driver (mii_bus:phy_addr=3D1e680000.ethernet--1:00, irq=3DPOLL)
+[    1.583921] ftgmac100 1e680000.ethernet eth1: irq 23, mapped at ec62a3ab
+[    1.746308] aspeed_vhub 1e6a0000.usb-vhub: Initialized virtual hub in US=
+B2 mode
+[    1.754377] Mass Storage Function, version: 2009/09/11
+[    1.759586] LUN: removable file: (no medium)
+[    1.764058] no file given for LUN0
+[    1.767569] udc 1e6a0000.usb-vhub:p1: failed to start g_mass_storage: -22
+[    1.774490] g_mass_storage: probe of gadget.0 failed with error -22
+[    1.780961] Mass Storage Function, version: 2009/09/11
+[    1.786234] LUN: removable file: (no medium)
+[    1.790615] no file given for LUN0
+[    1.794196] udc 1e6a0000.usb-vhub:p2: failed to start g_mass_storage: -22
+[    1.801044] g_mass_storage: probe of gadget.1 failed with error -22
+[    1.807565] Mass Storage Function, version: 2009/09/11
+[    1.812765] LUN: removable file: (no medium)
+[    1.817213] no file given for LUN0
+[    1.820709] udc 1e6a0000.usb-vhub:p3: failed to start g_mass_storage: -22
+[    1.827628] g_mass_storage: probe of gadget.2 failed with error -22
+[    1.834157] Mass Storage Function, version: 2009/09/11
+[    1.839354] LUN: removable file: (no medium)
+[    1.843823] no file given for LUN0
+[    1.847327] udc 1e6a0000.usb-vhub:p4: failed to start g_mass_storage: -22
+[    1.854243] g_mass_storage: probe of gadget.3 failed with error -22
+[    1.860710] Mass Storage Function, version: 2009/09/11
+[    1.865982] LUN: removable file: (no medium)
+[    1.870363] no file given for LUN0
+[    1.873934] udc 1e6a0000.usb-vhub:p5: failed to start g_mass_storage: -22
+[    1.880778] g_mass_storage: probe of gadget.4 failed with error -22
+[    1.887290] UDC core: g_mass_storage: couldn't find an available UDC
+[    1.894510] i2c_dev: i2c /dev entries driver
+[    2.009530] aspeed-i2c-bus 1e78a100.i2c-bus: i2c bus 3 registered, irq 25
+[    2.033760] aspeed-i2c-bus 1e78a300.i2c-bus: i2c bus 7 registered, irq 26
+[    2.041576] Driver for 1-wire Dallas network protocol.
+[    2.080643] NET: Registered PF_INET6 protocol family
+[    2.114646] Segment Routing with IPv6
+[    2.118479] In-situ OAM (IOAM) with IPv6
+[    2.122989] NET: Registered PF_PACKET protocol family
+[    2.128116] 8021q: 802.1Q VLAN Support v1.8
+[    2.173478] printk: console [netcon0] enabled
+[    2.177927] netconsole: network logging started
+[    2.183614] clk: Disabling unused clocks
+[    2.368191] Freeing initrd memory: 1064K
+[    2.378419] Freeing unused kernel image (initmem) memory: 1024K
+[    2.386528] Checked W+X mappings: passed, no W+X pages found
+[    2.392272] Run /init as init process
+rofs =3D mtd4 squashfs   rwfs =3D mtd5 jffs2
+mount: mounting /dev/mtdblock4 on run/initramfs/ro failed: Invalid argument
+[    3.427189] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000000: 0x49f3 instead
+[    3.436958] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x00000004: 0xe73d instead
+
+[... XXX *many* more of those XXX at various offsets...]
+
+[   10.907145] jffs2: jffs2_scan_eraseblock(): Magic bitmask 0x1985 not fou=
+nd at 0x003f0024: 0x68b6 instead
+[   10.916740] jffs2: Further such events for this erase block will not be =
+printed
+[   10.934585] jffs2: Cowardly refusing to erase blocks on filesystem with =
+no valid JFFS2 nodes
+[   10.943154] jffs2: empty_blocks 0, bad_blocks 0, c->nr_blocks 64
+mount: mounting /dev/mtdblock5 on run/initramfs/rw failed: Input/output err=
+or
+
+Mounting read-write /dev/mtdblock5 filesystem failed.  Please fix and run
+        mount /dev/mtdblock5 run/initramfs/rw -t jffs2 -o rw
+or perform a factory reset with the clean-rwfs-filesystem option.
+Fatal error, tri[   10.990385] Kernel panic - not syncing: Attempted to kil=
+l init! exitcode=3D0x00000100
+[   10.999145] CPU: 0 PID: 1 Comm: init Not tainted 6.6.30-f013890-00167-gf=
+013890407d8 #1
+[   11.007102] Hardware name: Generic DT based system
+[   11.011934]  unwind_backtrace from show_stack+0x18/0x1c
+[   11.017265]  show_stack from dump_stack_lvl+0x24/0x2c
+[   11.022404]  dump_stack_lvl from panic+0xf4/0x30c
+[   11.027180]  panic from do_exit+0x8a8/0x8d0
+[   11.031441]  do_exit from do_group_exit+0x40/0x84
+[   11.036209]  do_group_exit from __wake_up_parent+0x0/0x1c
+
+
+U-Boot 2013.07 (Mar 12 2024 - 14:08:49)
+
+I2C:   ready
+DRAM:  424 MiB
+eSPI Handshake complete
+OEM_BOARD_INIT - Start (BMC)
+LPC mode
+OEM_BOARD_INIT - End
+Flash: Found SPI Chip Micron/Numonyx N25Q512A(0x20ba) 2x I/O READ, NORMAL W=
+RITE
+64 MiB
+MMC:  =20
+*** Warning - bad CRC, using default environment
+
+Un-Protected 1 sectors
+Erasing Flash...
+Erasing sector  4 ... ok.
+Erased 1 sectors
+Writing to Flash... done
+Protected 1 sectors
+Net:   RTL8211E, EEECR =3D 0x06
+RTL8211E, EEEAR =3D 0x00
+RTL8211E, EEELPAR =3D 0x06
+RTL8211E, LACR =3D 0xc1
+RTL8211E, LCR =3D 0x9742
+ast_eth0, ast_eth1
+DRAM ECC enabled
+Hit any key to stop autoboot:  0=20
+AST2500EVB>
+```
+
+So afaiui my attempt misfired, the kernel panic'd, reset the system, and
+then... u-boot kinda decided to erase flash sector 4 (why?), which seems to=
+ have contained something important for (the original u-boot from Gigabyte =
+on SPI flash) to boot. I did not realize that and cut power, waiting for a =
+few secs before powering up again... only to notice that my UART serial con=
+sole was staying dark this time. Meanwhile, the BMC NIC LEDs blink in a str=
+ange loop that hints at some restart procedure that is repeated ad nauseam.
+
+To my luck, however, the host itself still willingly boots into the live sy=
+stem that I had set up before, but with a subtle difference once it's loade=
+d: The AST2500 seems to be in a state much more amenable to Andrew's `culve=
+rt` utility now, which reports its neighborhood BMC like this now:
+
+```
+root@grml ~ # /tmp/culvert probe
+[*] failed to initialise devmem bridge: -1
+[*] Accessing the BMC's AHB via the p2a bridge
+debug:  Permissive
+        Debug UART port: UART5
+xdma:   Restricted
+        BMC: Disabled
+        VGA: Enabled
+        XDMA on VGA: Enabled
+        XDMA is constrained: Yes
+p2a:    Permissive
+        BMC: Disabled
+        VGA: Enabled
+        MMIO on VGA: Enabled
+        [0x00000000 - 0x0fffffff]   Firmware: Writable
+        [0x10000000 - 0x1fffffff]     SoC IO: Writable
+        [0x20000000 - 0x2fffffff]  BMC Flash: Writable
+        [0x30000000 - 0x3fffffff] Host Flash: Writable
+        [0x40000000 - 0x5fffffff]   Reserved: Writable
+        [0x60000000 - 0x7fffffff]   LPC Host: Writable
+        [0x80000000 - 0xffffffff]       DRAM: Writable
+ilpc:   Permissive
+        SuperIO address: 0x2e
+```
+
+(Before my mishap, whenever I tried to run that command, all but `ilpc` yie=
+lded
+nothing, and even `ilpc` reported "Restricted" - none of which I know how to
+interpret at all, by the way! :D)
+
+
+So I guess I have at least six questions now:
+
+1.) What happened when the kernel called it quits, u-boot reloaded and deci=
+ded
+to format some of its flash?
+
+2.) Can I influence this behavior on my (spare) board before I try again?
+
+3.) Can I restore the original firmware/SPI content on my board by any means
+=66rom the now running host OS? If so, what way would you suggest I try fir=
+st?
+
+4.) Does having `culvert` have this new level of access have any new advant=
+ages
+or open possibilities that I should be aware of?
+
+5.) Suppose I can restore the BMC's original SPI content and behavior - wha=
+t's
+a recommended way to have the TFPT'd kernel boot into an OpenBMC rootfs
+*without* having it store on the BMC's main storage/overwriting SPI?
+
+6.) Assuming this cannot be recovered in software - what are my chances of
+identifying the SPI flash on my board as such, and re-writing its contents
+using an affordable SPI programmer solution, given that I've never done
+anything like this with hardware before? :^)
+
+If any of you could answer me any of these, I would be very grateful indeed.
+Thanks a lot for your time reading this far! :)
+
+--=20
+with best regards:
+- Johannes Truschnigg ( johannes@truschnigg.info )
+
+www:   https://johannes.truschnigg.info/
+
+--e/dwl04QfXl3oERu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEGu9IhkI+7/aKLUWF95W3jMsYfLUFAmZUzFwACgkQ95W3jMsY
+fLUX4w/9HVRZdA7v7A6C2iMofoUSHVGJ/aqk/uhqetBB35sYRs2UaQYsJn6aJuc/
+S8tjtTmY7JI4pipNOC2SjunPC4eCJfSSlwL7SaVgj7HeJigp1YofpAxduaGoxwCA
+qGEzbVB24hZGQOKk47vuM0Zx8546t+PEpD/1EUczg6mspW/uY8nlo/3R0QcrhmvK
+/gycFB04AF4E2i0JPWktTddtbyv0MlQAluRiYbT9uK12l0Gj+YEuP1F6N8MP6oOC
+iIr6humOqWSrCTMypQuzBnoErQS3bxOQgjeBAsDxSkC0/Ct4ww9x3JMRUwumv4fa
+ouXITEKC7pKVzukE8RVY1mHBRQmCBEu6KU38E1tr1gIZAtwQLuWwhklczNu15m31
+VihTu06MTa2LgTNjlTIiHp3L0ZVltOuetJa5SXGWyRbyqsJ9G+wj0AfzNYpzLHfC
+g1RrPQ+jpITK1BABat46zlvfv7atfdlJXzW+ximcpSgdgXlnZenbvLwWaeosidcx
+bpNIvhJvyN6l9nF28wNdhwl3mpKKhfmjO0Rys3Y3gBG66jXPhzuyLzmIDUDrCu33
+h2WaShSWcNhAX/yJc3h0dg4MKND4vNR9mOEaAXg+j9kSSAppoKz/Y5p/IjDKM3aB
+OLwdxqJQNcdG40t36JkzkqnHJlv/o7snVKOrLzKS+l5HwaI7mUI=
+=Wr/v
+-----END PGP SIGNATURE-----
+
+--e/dwl04QfXl3oERu--
