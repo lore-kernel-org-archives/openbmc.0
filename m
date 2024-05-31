@@ -4,54 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1D8C25B74
-	for <openbmc@archiver.kernel.org>; Fri, 31 May 2024 03:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E767C25B75
+	for <openbmc@archiver.kernel.org>; Fri, 31 May 2024 19:32:06 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=BokKH45L;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VB7wcl3j;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Vr7Ly0HNGz3cYY
-	for <openbmc@archiver.kernel.org>; Fri, 31 May 2024 13:06:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	by lists.ozlabs.org (Postfix) with ESMTP id 4VrYCm3cKnz3dBr
+	for <openbmc@archiver.kernel.org>; Sat,  1 Jun 2024 05:32:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=BokKH45L;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VB7wcl3j;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vr7Gp2v09z30Vl;
-	Fri, 31 May 2024 13:03:13 +1000 (AEST)
-Received: from [127.0.1.1] (ppp118-210-171-248.adl-adc-lon-bras34.tpg.internode.on.net [118.210.171.248])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 97782200E0;
-	Fri, 31 May 2024 11:03:06 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1717124591;
-	bh=KcNJCLwnq4RAZ/qwQckgdLlOAEGHpzhWwOSzLGWplOk=;
-	h=From:Subject:Date:To:Cc;
-	b=BokKH45LooJ+L8pFLyk2x6SZnVKAuyBU+wMXbLJMDLigf4A8uxI2bMP+q8FGxgTuG
-	 SJT9EkAbkhLUd+lYfeXrInmK4XavfFBhwq8lSSOeECK4GvqV2XOfE0ytgOhhP8LC0T
-	 0jXzTaXvAMhQCQBkpqKHzf8wFdlHcClGY6wVutk4FHDskhkcdEaCTHZy6N/jN6PDGF
-	 5a49/bchnLENwDWKdbhEk06SpBaF84JWfA1S1Ypb5uEREKBGtseWVZVWEKRLwC8aUB
-	 jr+UkUjWXPN7/4au7Dg2WQkd5L0JzxW/zxYsXk/Csft/zFCDbCqRWNBCh6ZWqjakcD
-	 5hNzfUPJVCUSQ==
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-Subject: [PATCH 0/3] dt-bindings: pinctrl: aspeed: Define missing functions
- and groups
-Date: Fri, 31 May 2024 12:32:46 +0930
-Message-Id: <20240531-dt-warnings-gpio-ast2600-pinctrl-funcs-groups-v1-0-a6fe2281a1b8@codeconstruct.com.au>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4VrYBl37Wvz3dLd
+	for <openbmc@lists.ozlabs.org>; Sat,  1 Jun 2024 05:31:11 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id E4F6562E02;
+	Fri, 31 May 2024 19:31:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770BDC4AF08;
+	Fri, 31 May 2024 19:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1717183868;
+	bh=aQ8gzOeuRTghVVqbbLrrVe8iWbU0R6iLu7KgCeY1I2Y=;
+	h=From:To:Cc:Subject:Date:From;
+	b=VB7wcl3js0H751wiNr6J+mwUtsOprAHtIuWmBg0P2MvFNrF0/nKQtgpsxF63vDVwC
+	 HPcKYLhGD44OvOI1MpAghKd5Lk2AIdaNtkTFyWG2VbkDzfhqYTuv85DIlxS31mmBAb
+	 zV5URaNzB01Eh+XNQHLv726Sv3qXqair9/aomH+ug5PhaaWIN+5N5fZbBiUcC/ixGo
+	 c+BbD0aFrXcFZEbqbd+nMgokFQzxnDCTa9I9KqyTX1lYHhZ1TWiA71wwsCHrFB/XnX
+	 gDdYwIBL5+wmtlqQb8q0ZvLqjDUeHBjQnsY9EsdRth4zna6zQfSndmUar39Y002IA8
+	 KIjyddTRQTSgA==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH] arm: dts: nuvoton: Use standard 'i2c' bus node name
+Date: Fri, 31 May 2024 14:31:04 -0500
+Message-ID: <20240531193104.3814663-1-robh@kernel.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANY9WWYC/x2N0QoCIRAAf+XY5xbU7Ip+JXow3bOFWMX1Kjju3
- 5Meh4GZDZQak8J12qDRm5WLDLCHCeIzSCbkNBiccd6cjhZTx09owpIVc+WCQbubjcHKEnt74bJ
- KHKqVtSqS9bMPZ5cu/gGjWRst/P3/bvd9/wFsjBL1fwAAAA==
-To: Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,36 +64,205 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+The standard node name for I2C buses is 'i2c'.
 
-This short series cleans up a collection of binding warnings concerning
-use of undefined pinctrl functions and groups. Together they make a
-reasonable dent in the volume of output from `make dtbs_check` for the
-Aspeed devicetrees.
-
-Please review!
-
-Andrew
-
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-Andrew Jeffery (3):
-      dt-bindings: pinctrl: aspeed: Use block syntax for function and groups
-      dt-bindings: pinctrl: aspeed,ast2500-pinctrl: Describe SGPM
-      dt-bindings: pinctrl: aspeed,ast2600-pinctrl: Describe I3C, USB
+ .../boot/dts/nuvoton/nuvoton-npcm730-kudo.dts | 22 +++++++++----------
+ .../nuvoton-npcm750-runbmc-olympus.dts        | 22 +++++++++----------
+ 2 files changed, 22 insertions(+), 22 deletions(-)
 
- .../bindings/pinctrl/aspeed,ast2400-pinctrl.yaml   | 169 ++++++-
- .../bindings/pinctrl/aspeed,ast2500-pinctrl.yaml   | 188 +++++++-
- .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml   | 507 +++++++++++++++++++--
- 3 files changed, 781 insertions(+), 83 deletions(-)
----
-base-commit: 1613e604df0cd359cf2a7fbd9be7a0bcfacfabd0
-change-id: 20240531-dt-warnings-gpio-ast2600-pinctrl-funcs-groups-e1464a72d84b
-
-Best regards,
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts b/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
+index 5787ae95d3b4..1f07ba382910 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
+@@ -525,7 +525,7 @@ max31790@58 {
+ 			};
+ 		};
+ 
+-		i2c-bus@4 {
++		i2c@4 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <4>;
+@@ -537,7 +537,7 @@ lm75@5c {
+ 			};
+ 		};
+ 
+-		i2c-bus@5 {
++		i2c@5 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <5>;
+@@ -549,7 +549,7 @@ lm75@5c {
+ 			};
+ 		};
+ 
+-		i2c-bus@6 {
++		i2c@6 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <6>;
+@@ -561,7 +561,7 @@ lm75@5c {
+ 			};
+ 		};
+ 
+-		i2c-bus@7 {
++		i2c@7 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <7>;
+@@ -580,7 +580,7 @@ i2c-mux@77 {
+ 		reg = <0x77>;
+ 		i2c-mux-idle-disconnect;
+ 
+-		i2c-bus@2 {
++		i2c@2 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <2>;
+@@ -620,7 +620,7 @@ i2c-mux@77 {
+ 		reg = <0x77>;
+ 		i2c-mux-idle-disconnect;
+ 
+-		i2c-bus@0 {
++		i2c@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0>;
+@@ -632,7 +632,7 @@ adm1266@40 {
+ 			};
+ 		};
+ 
+-		i2c-bus@1 {
++		i2c@1 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <1>;
+@@ -691,7 +691,7 @@ i2c-mux@77 {
+ 		reg = <0x77>;
+ 		i2c-mux-idle-disconnect;
+ 
+-		i2c-bus@3 {
++		i2c@3 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <3>;
+@@ -703,7 +703,7 @@ lm75@28 {
+ 			};
+ 		};
+ 
+-		i2c-bus@4 {
++		i2c@4 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <4>;
+@@ -715,7 +715,7 @@ lm75@29 {
+ 			};
+ 		};
+ 
+-		i2c-bus@5 {
++		i2c@5 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <5>;
+@@ -726,7 +726,7 @@ lm75@28 {
+ 				reg = <0x28>;
+ 			};
+ 		};
+-		i2c-bus@6 {
++		i2c@6 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <6>;
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts b/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
+index baa39d0c1032..087f4ac43187 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
+@@ -215,43 +215,43 @@ i2c-mux@70 {
+ 		reg = <0x70>;
+ 		i2c-mux-idle-disconnect;
+ 
+-		i2c_slot1a: i2c-bus@0 {
++		i2c_slot1a: i2c@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0>;
+ 		};
+ 
+-		i2c_slot1b: i2c-bus@1 {
++		i2c_slot1b: i2c@1 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <1>;
+ 		};
+ 
+-		i2c_slot2a: i2c-bus@2 {
++		i2c_slot2a: i2c@2 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <2>;
+ 		};
+ 
+-		i2c_slot2b: i2c-bus@3 {
++		i2c_slot2b: i2c@3 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <3>;
+ 		};
+ 
+-		i2c_slot3: i2c-bus@4 {
++		i2c_slot3: i2c@4 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <4>;
+ 		};
+ 
+-		i2c_slot4: i2c-bus@5 {
++		i2c_slot4: i2c@5 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <5>;
+ 		};
+ 
+-		i2c_slot5: i2c-bus@6 {
++		i2c_slot5: i2c@6 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <6>;
+@@ -265,24 +265,24 @@ i2c-mux@71 {
+ 		#size-cells = <0>;
+ 		i2c-mux-idle-disconnect;
+ 
+-		i2c_m2_s1: i2c-bus@0 {
++		i2c_m2_s1: i2c@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0>;
+ 		};
+ 
+-		i2c_m2_s2: i2c-bus@1 {
++		i2c_m2_s2: i2c@1 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <1>;
+ 		};
+-		i2c_m2_s3: i2c-bus@2 {
++		i2c_m2_s3: i2c@2 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <2>;
+ 		};
+ 
+-		i2c_m2_s4: i2c-bus@3 {
++		i2c_m2_s4: i2c@3 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <3>;
 -- 
-Andrew Jeffery <andrew@codeconstruct.com.au>
+2.43.0
 
