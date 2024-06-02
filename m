@@ -4,53 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E767C25B75
-	for <openbmc@archiver.kernel.org>; Fri, 31 May 2024 19:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 464F5C25B7E
+	for <openbmc@archiver.kernel.org>; Sun,  2 Jun 2024 14:37:47 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VB7wcl3j;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ipP4Yr8W;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4VrYCm3cKnz3dBr
-	for <openbmc@archiver.kernel.org>; Sat,  1 Jun 2024 05:32:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=kernel.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4VsfbD6n29z30Vp
+	for <openbmc@archiver.kernel.org>; Mon,  3 Jun 2024 00:37:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VB7wcl3j;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ipP4Yr8W;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22c; helo=mail-lj1-x22c.google.com; envelope-from=fancer.lancer@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com [IPv6:2a00:1450:4864:20::22c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4VrYBl37Wvz3dLd
-	for <openbmc@lists.ozlabs.org>; Sat,  1 Jun 2024 05:31:11 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E4F6562E02;
-	Fri, 31 May 2024 19:31:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770BDC4AF08;
-	Fri, 31 May 2024 19:31:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1717183868;
-	bh=aQ8gzOeuRTghVVqbbLrrVe8iWbU0R6iLu7KgCeY1I2Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=VB7wcl3js0H751wiNr6J+mwUtsOprAHtIuWmBg0P2MvFNrF0/nKQtgpsxF63vDVwC
-	 HPcKYLhGD44OvOI1MpAghKd5Lk2AIdaNtkTFyWG2VbkDzfhqYTuv85DIlxS31mmBAb
-	 zV5URaNzB01Eh+XNQHLv726Sv3qXqair9/aomH+ug5PhaaWIN+5N5fZbBiUcC/ixGo
-	 c+BbD0aFrXcFZEbqbd+nMgokFQzxnDCTa9I9KqyTX1lYHhZ1TWiA71wwsCHrFB/XnX
-	 gDdYwIBL5+wmtlqQb8q0ZvLqjDUeHBjQnsY9EsdRth4zna6zQfSndmUar39Y002IA8
-	 KIjyddTRQTSgA==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: [PATCH] arm: dts: nuvoton: Use standard 'i2c' bus node name
-Date: Fri, 31 May 2024 14:31:04 -0500
-Message-ID: <20240531193104.3814663-1-robh@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4VsfZC4sQGz3bdV
+	for <openbmc@lists.ozlabs.org>; Mon,  3 Jun 2024 00:36:50 +1000 (AEST)
+Received: by mail-lj1-x22c.google.com with SMTP id 38308e7fff4ca-2eaafda3b5cso2107141fa.3
+        for <openbmc@lists.ozlabs.org>; Sun, 02 Jun 2024 07:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1717339003; x=1717943803; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=riZO9gpWg+72DwRvoZciAprxyAK6Sq4iImVOkfuj2k8=;
+        b=ipP4Yr8WMU5+QP3+7c2dCnKS0gu60/D5dubceobb19dnM3wM2A1BTzsDj3j+OP1KUS
+         dJeH5oMid661hyyq9necO6T/jPwH3yxaV3R+KzkKdYqxOg5K5P+zniMgeCT3k4ZqOsF6
+         1nIr78rD7LE/kjgHdyTZwtarDZUVoOiVBKldGOolxHBvOUXOwDCT9ZQ6PX0xeMVFMJgz
+         pRp3IMOqeNHG/nRKjFuMEnmUTZaTvm2ygiKCYDo8bOJyShLT485uCm1T5ZJzgxSGI/FQ
+         KuNudYyPCESzmjHu2cZb3GkA8MnZKhW27vNyWSVxUkfwSDXLZH8B7a1m5dRjwsGDfSJ2
+         6tMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1717339003; x=1717943803;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=riZO9gpWg+72DwRvoZciAprxyAK6Sq4iImVOkfuj2k8=;
+        b=HVtbFISc03T6tbAiaYwrI9zc6vLbWfZaEvV0DDMyNgbzE9GpBtafrC7nbGH30FQ0+x
+         QKnNGkhIwAk5nAYJqaVcAJ9egSLbdvRoBeZJPtL1F6SHZUzPnJD1jQe997sPMOubHh8D
+         YXjn9EkjP9N4pYSXMM7348c/E3VeK8Et4NJQ+XM3YvSSY+fq8G2i/iyzF4YeGNd3+UPP
+         NxnFZVaYQEt/CYhPgES37HS6mAsszu4OIljgVwe/sV5Ui1z1n/Z/mG5rY3IWXE4CpzUO
+         3FB8Lni9k/9of+N9TYXv6XAs0I9tDswHgWS1e4AmnIsach3En/OKT+87LtiHYMBJRwO4
+         +AGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVxuEisAHRIFlZOTHYgLjsFx1r97C1wcIUx4/cAKue3d5pT9k/lZw3mk2ZJ2VmtM12bKm3OZhTlA1lNSLna6uLq+44M0BdnFf8=
+X-Gm-Message-State: AOJu0YxtbiNkBs7Ybj5aLF98sX8tINJicP4J5GtO+Y9cmHWA3Ew3AJHh
+	RLhRyoAaG92Fo+hkpYApr6wVNXViQxztIg+kT96Mi1O8sokG0hnQ
+X-Google-Smtp-Source: AGHT+IG/nqO6KddNLN4fpmEQxGgs5n8RHQTH8IjsI3YbjSKU5j1KmcjSR/VTeLrOiH7DXm32Jlu6Mw==
+X-Received: by 2002:a2e:9141:0:b0:2e5:1dae:1789 with SMTP id 38308e7fff4ca-2ea9512f6d0mr48251181fa.22.1717339002935;
+        Sun, 02 Jun 2024 07:36:42 -0700 (PDT)
+Received: from localhost ([178.178.142.64])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-2ea91cefc4fsm9282471fa.118.2024.06.02.07.36.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 02 Jun 2024 07:36:42 -0700 (PDT)
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Jose Abreu <Jose.Abreu@synopsys.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH net-next v2 01/10] net: pcs: xpcs: Move native device ID macro to linux/pcs/pcs-xpcs.h
+Date: Sun,  2 Jun 2024 17:36:15 +0300
+Message-ID: <20240602143636.5839-2-fancer.lancer@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240602143636.5839-1-fancer.lancer@gmail.com>
+References: <20240602143636.5839-1-fancer.lancer@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -64,205 +95,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>, Jiawen Wu <jiawenwu@trustnetic.com>, Abhishek Chauhan <quic_abchauha@quicinc.com>, Sagar Cheluvegowda <quic_scheluve@quicinc.com>, Mengyuan Lou <mengyuanlou@net-swift.com>, Andrew Halaney <ahalaney@redhat.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The standard node name for I2C buses is 'i2c'.
+One of the next commits will alter the DW XPCS driver to support setting a
+custom device ID for the particular MDIO-device detected on the platform.
+The generic DW XPCS ID can be used as a custom ID as well in case if the
+DW XPCS-device was erroneously synthesized with no or some undefined ID.
+In addition to that having all supported DW XPCS device IDs defined in a
+single place will improve the code maintainability and readability.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Note while at it rename the macros to being shorter and looking alike to
+the already defined NXP XPCS ID macro.
+
+Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+
 ---
- .../boot/dts/nuvoton/nuvoton-npcm730-kudo.dts | 22 +++++++++----------
- .../nuvoton-npcm750-runbmc-olympus.dts        | 22 +++++++++----------
- 2 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts b/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
-index 5787ae95d3b4..1f07ba382910 100644
---- a/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
-+++ b/arch/arm/boot/dts/nuvoton/nuvoton-npcm730-kudo.dts
-@@ -525,7 +525,7 @@ max31790@58 {
- 			};
- 		};
+Changelog v2:
+- Alter the commit log so one would refer to the DW XPCS driver change and
+  would describe the change clearer. (@Russell)
+- s/sinle/single (@Vladimir)
+---
+ drivers/net/pcs/pcs-xpcs.c   | 8 ++++----
+ drivers/net/pcs/pcs-xpcs.h   | 3 ---
+ include/linux/pcs/pcs-xpcs.h | 2 ++
+ 3 files changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+index 31525fe9c32e..99adbf15ab36 100644
+--- a/drivers/net/pcs/pcs-xpcs.c
++++ b/drivers/net/pcs/pcs-xpcs.c
+@@ -1343,16 +1343,16 @@ static const struct xpcs_compat nxp_sja1110_xpcs_compat[DW_XPCS_INTERFACE_MAX] =
  
--		i2c-bus@4 {
-+		i2c@4 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <4>;
-@@ -537,7 +537,7 @@ lm75@5c {
- 			};
- 		};
+ static const struct xpcs_id xpcs_id_list[] = {
+ 	{
+-		.id = SYNOPSYS_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.id = DW_XPCS_ID,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = synopsys_xpcs_compat,
+ 	}, {
+ 		.id = NXP_SJA1105_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = nxp_sja1105_xpcs_compat,
+ 	}, {
+ 		.id = NXP_SJA1110_XPCS_ID,
+-		.mask = SYNOPSYS_XPCS_MASK,
++		.mask = DW_XPCS_ID_MASK,
+ 		.compat = nxp_sja1110_xpcs_compat,
+ 	},
+ };
+diff --git a/drivers/net/pcs/pcs-xpcs.h b/drivers/net/pcs/pcs-xpcs.h
+index 96c36b32ca99..369e9196f45a 100644
+--- a/drivers/net/pcs/pcs-xpcs.h
++++ b/drivers/net/pcs/pcs-xpcs.h
+@@ -6,9 +6,6 @@
+  * Author: Jose Abreu <Jose.Abreu@synopsys.com>
+  */
  
--		i2c-bus@5 {
-+		i2c@5 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <5>;
-@@ -549,7 +549,7 @@ lm75@5c {
- 			};
- 		};
+-#define SYNOPSYS_XPCS_ID		0x7996ced0
+-#define SYNOPSYS_XPCS_MASK		0xffffffff
+-
+ /* Vendor regs access */
+ #define DW_VENDOR			BIT(15)
  
--		i2c-bus@6 {
-+		i2c@6 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <6>;
-@@ -561,7 +561,7 @@ lm75@5c {
- 			};
- 		};
+diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
+index da3a6c30f6d2..8dfe90295f12 100644
+--- a/include/linux/pcs/pcs-xpcs.h
++++ b/include/linux/pcs/pcs-xpcs.h
+@@ -12,6 +12,8 @@
  
--		i2c-bus@7 {
-+		i2c@7 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <7>;
-@@ -580,7 +580,7 @@ i2c-mux@77 {
- 		reg = <0x77>;
- 		i2c-mux-idle-disconnect;
+ #define NXP_SJA1105_XPCS_ID		0x00000010
+ #define NXP_SJA1110_XPCS_ID		0x00000020
++#define DW_XPCS_ID			0x7996ced0
++#define DW_XPCS_ID_MASK			0xffffffff
  
--		i2c-bus@2 {
-+		i2c@2 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <2>;
-@@ -620,7 +620,7 @@ i2c-mux@77 {
- 		reg = <0x77>;
- 		i2c-mux-idle-disconnect;
- 
--		i2c-bus@0 {
-+		i2c@0 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <0>;
-@@ -632,7 +632,7 @@ adm1266@40 {
- 			};
- 		};
- 
--		i2c-bus@1 {
-+		i2c@1 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <1>;
-@@ -691,7 +691,7 @@ i2c-mux@77 {
- 		reg = <0x77>;
- 		i2c-mux-idle-disconnect;
- 
--		i2c-bus@3 {
-+		i2c@3 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <3>;
-@@ -703,7 +703,7 @@ lm75@28 {
- 			};
- 		};
- 
--		i2c-bus@4 {
-+		i2c@4 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <4>;
-@@ -715,7 +715,7 @@ lm75@29 {
- 			};
- 		};
- 
--		i2c-bus@5 {
-+		i2c@5 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <5>;
-@@ -726,7 +726,7 @@ lm75@28 {
- 				reg = <0x28>;
- 			};
- 		};
--		i2c-bus@6 {
-+		i2c@6 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <6>;
-diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts b/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
-index baa39d0c1032..087f4ac43187 100644
---- a/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
-+++ b/arch/arm/boot/dts/nuvoton/nuvoton-npcm750-runbmc-olympus.dts
-@@ -215,43 +215,43 @@ i2c-mux@70 {
- 		reg = <0x70>;
- 		i2c-mux-idle-disconnect;
- 
--		i2c_slot1a: i2c-bus@0 {
-+		i2c_slot1a: i2c@0 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <0>;
- 		};
- 
--		i2c_slot1b: i2c-bus@1 {
-+		i2c_slot1b: i2c@1 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <1>;
- 		};
- 
--		i2c_slot2a: i2c-bus@2 {
-+		i2c_slot2a: i2c@2 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <2>;
- 		};
- 
--		i2c_slot2b: i2c-bus@3 {
-+		i2c_slot2b: i2c@3 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <3>;
- 		};
- 
--		i2c_slot3: i2c-bus@4 {
-+		i2c_slot3: i2c@4 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <4>;
- 		};
- 
--		i2c_slot4: i2c-bus@5 {
-+		i2c_slot4: i2c@5 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <5>;
- 		};
- 
--		i2c_slot5: i2c-bus@6 {
-+		i2c_slot5: i2c@6 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <6>;
-@@ -265,24 +265,24 @@ i2c-mux@71 {
- 		#size-cells = <0>;
- 		i2c-mux-idle-disconnect;
- 
--		i2c_m2_s1: i2c-bus@0 {
-+		i2c_m2_s1: i2c@0 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <0>;
- 		};
- 
--		i2c_m2_s2: i2c-bus@1 {
-+		i2c_m2_s2: i2c@1 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <1>;
- 		};
--		i2c_m2_s3: i2c-bus@2 {
-+		i2c_m2_s3: i2c@2 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <2>;
- 		};
- 
--		i2c_m2_s4: i2c-bus@3 {
-+		i2c_m2_s4: i2c@3 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 			reg = <3>;
+ /* AN mode */
+ #define DW_AN_C73			1
 -- 
 2.43.0
 
