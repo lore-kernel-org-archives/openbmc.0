@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD0AC25B76
-	for <openbmc@archiver.kernel.org>; Tue, 11 Jun 2024 09:33:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B94C27C5E
+	for <openbmc@archiver.kernel.org>; Tue, 11 Jun 2024 09:33:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Vz3Ph3SQjz3cX8
-	for <openbmc@archiver.kernel.org>; Tue, 11 Jun 2024 19:33:12 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Vz3QB0MXkz3cYb
+	for <openbmc@archiver.kernel.org>; Tue, 11 Jun 2024 19:33:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=gmail.com (client-ip=62.142.5.81; helo=fgw20-7.mail.saunalahti.fi; envelope-from=andy.shevchenko@gmail.com; receiver=lists.ozlabs.org)
-Received: from fgw20-7.mail.saunalahti.fi (fgw20-7.mail.saunalahti.fi [62.142.5.81])
+Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=gmail.com (client-ip=62.142.5.84; helo=fgw23-7.mail.saunalahti.fi; envelope-from=andy.shevchenko@gmail.com; receiver=lists.ozlabs.org)
+Received: from fgw23-7.mail.saunalahti.fi (fgw23-7.mail.saunalahti.fi [62.142.5.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vz3P7646qz3cLL
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Vz3P767TFz3cLQ
 	for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2024 19:32:42 +1000 (AEST)
 Received: from localhost (88-113-25-87.elisa-laajakaista.fi [88.113.25.87])
-	by fgw21.mail.saunalahti.fi (Halon) with ESMTP
-	id 646b635b-27d5-11ef-ab0f-005056bdd08f;
-	Tue, 11 Jun 2024 12:31:34 +0300 (EEST)
+	by fgw23.mail.saunalahti.fi (Halon) with ESMTP
+	id 61bcbe87-27d5-11ef-80ea-005056bdfda7;
+	Tue, 11 Jun 2024 12:31:31 +0300 (EEST)
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
 To: Andy Shevchenko <andy.shevchenko@gmail.com>,
 	Jacky Huang <ychuang3@nuvoton.com>,
@@ -30,12 +30,10 @@ To: Andy Shevchenko <andy.shevchenko@gmail.com>,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v1 2/4] pinctrl: nuvoton: Make use of struct pinfunction and PINCTRL_PINFUNCTION()
-Date: Tue, 11 Jun 2024 12:30:23 +0300
-Message-ID: <20240611093127.90210-3-andy.shevchenko@gmail.com>
+Subject: [PATCH v1 0/4] pinctrl: nuvoton: A few cleanups
+Date: Tue, 11 Jun 2024 12:30:21 +0300
+Message-ID: <20240611093127.90210-1-andy.shevchenko@gmail.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20240611093127.90210-1-andy.shevchenko@gmail.com>
-References: <20240611093127.90210-1-andy.shevchenko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -49,194 +47,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, Shan-Chun Hung <schung@nuvoton.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, Shan-Chun Hung <schung@nuvoton.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Convert Nuvoton drivers to use pin control provided data types
+and more of device property APIs.
 
-Since pin control provides a generic data type and a macro for
-the pin function definition, use them in the driver.
+Not tested.
 
-Signed-off-by: Andy Shevchenko <andy.shevchenko@gmail.com>
----
- drivers/pinctrl/nuvoton/pinctrl-ma35.c    | 19 ++++++++-----------
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 11 +++--------
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 11 +++--------
- drivers/pinctrl/nuvoton/pinctrl-wpcm450.c | 11 +++--------
- 4 files changed, 17 insertions(+), 35 deletions(-)
+Andy Shevchenko (4):
+  pinctrl: nuvoton: Convert to use struct pingroup and
+    PINCTRL_PINGROUP()
+  pinctrl: nuvoton: Make use of struct pinfunction and
+    PINCTRL_PINFUNCTION()
+  pinctrl: nuvoton: Convert to use struct group_desc
+  pinctrl: nuvoton: Reduce use of OF-specific APIs
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index fb933cddde91..62e877b76a25 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -98,12 +98,6 @@ static const u32 ds_3300mv_tbl[] = {
- 	17100, 25600, 34100, 42800, 48000, 56000, 77000, 82000,
- };
- 
--struct ma35_pin_func {
--	const char		*name;
--	const char		**groups;
--	u32			ngroups;
--};
--
- struct ma35_pin_setting {
- 	u32			offset;
- 	u32			shift;
-@@ -149,7 +143,7 @@ struct ma35_pinctrl {
- 	struct regmap		*regmap;
- 	struct ma35_pin_group	*groups;
- 	unsigned int		ngroups;
--	struct ma35_pin_func	*functions;
-+	struct pinfunction	*functions;
- 	unsigned int		nfunctions;
- };
- 
-@@ -1041,9 +1035,10 @@ static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinc
- 					u32 index)
- {
- 	struct device_node *child;
--	struct ma35_pin_func *func;
-+	struct pinfunction *func;
- 	struct ma35_pin_group *grp;
- 	static u32 grp_index;
-+	const char **groups;
- 	u32 ret, i = 0;
- 
- 	dev_dbg(npctl->dev, "parse function(%d): %s\n", index, np->name);
-@@ -1055,12 +1050,12 @@ static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinc
- 	if (func->ngroups <= 0)
- 		return 0;
- 
--	func->groups = devm_kcalloc(npctl->dev, func->ngroups, sizeof(char *), GFP_KERNEL);
--	if (!func->groups)
-+	groups = devm_kcalloc(npctl->dev, func->ngroups, sizeof(*groups), GFP_KERNEL);
-+	if (!groups)
- 		return -ENOMEM;
- 
- 	for_each_child_of_node(np, child) {
--		func->groups[i] = child->name;
-+		groups[i] = child->name;
- 		grp = &npctl->groups[grp_index++];
- 		ret = ma35_pinctrl_parse_groups(child, grp, npctl, i++);
- 		if (ret) {
-@@ -1068,6 +1063,8 @@ static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinc
- 			return ret;
- 		}
- 	}
-+
-+	func->groups = groups;
- 	return 0;
- }
- 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 2601aacfb976..c6b11a198c76 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -639,13 +639,6 @@ static struct pingroup npcm7xx_groups[] = {
- 
- #define NPCM7XX_SFUNC(a) NPCM7XX_FUNC(a, #a)
- #define NPCM7XX_FUNC(a, b...) static const char *a ## _grp[] = { b }
--#define NPCM7XX_MKFUNC(nm) { .name = #nm, .ngroups = ARRAY_SIZE(nm ## _grp), \
--			.groups = nm ## _grp }
--struct npcm7xx_func {
--	const char *name;
--	const unsigned int ngroups;
--	const char *const *groups;
--};
- 
- NPCM7XX_SFUNC(smb0);
- NPCM7XX_SFUNC(smb0b);
-@@ -764,7 +757,8 @@ NPCM7XX_SFUNC(lkgpo2);
- NPCM7XX_SFUNC(nprd_smi);
- 
- /* Function names */
--static struct npcm7xx_func npcm7xx_funcs[] = {
-+static struct pinfunction npcm7xx_funcs[] = {
-+#define NPCM7XX_MKFUNC(nm) PINCTRL_PINFUNCTION(#nm, nm ## _grp, ARRAY_SIZE(nm ## _grp))
- 	NPCM7XX_MKFUNC(smb0),
- 	NPCM7XX_MKFUNC(smb0b),
- 	NPCM7XX_MKFUNC(smb0c),
-@@ -880,6 +874,7 @@ static struct npcm7xx_func npcm7xx_funcs[] = {
- 	NPCM7XX_MKFUNC(lkgpo1),
- 	NPCM7XX_MKFUNC(lkgpo2),
- 	NPCM7XX_MKFUNC(nprd_smi),
-+#undef NPCM7XX_MKFUNC
- };
- 
- #define NPCM7XX_PINCFG(a, b, c, d, e, f, g, h, i, j, k) \
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 9834a13cf5c9..7c37d2cda9f1 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -829,13 +829,6 @@ static struct pingroup npcm8xx_pingroups[] = {
- 
- #define NPCM8XX_SFUNC(a) NPCM8XX_FUNC(a, #a)
- #define NPCM8XX_FUNC(a, b...) static const char *a ## _grp[] = { b }
--#define NPCM8XX_MKFUNC(nm) { .name = #nm, .ngroups = ARRAY_SIZE(nm ## _grp), \
--			.groups = nm ## _grp }
--struct npcm8xx_func {
--	const char *name;
--	const unsigned int ngroups;
--	const char *const *groups;
--};
- 
- NPCM8XX_SFUNC(gpi36);
- NPCM8XX_SFUNC(gpi35);
-@@ -1060,7 +1053,8 @@ NPCM8XX_SFUNC(hgpio6);
- NPCM8XX_SFUNC(hgpio7);
- 
- /* Function names */
--static struct npcm8xx_func npcm8xx_funcs[] = {
-+static struct pinfunction npcm8xx_funcs[] = {
-+#define NPCM8XX_MKFUNC(nm) PINCTRL_PINFUNCTION(#nm, nm ## _grp, ARRAY_SIZE(nm ## _grp))
- 	NPCM8XX_MKFUNC(gpi36),
- 	NPCM8XX_MKFUNC(gpi35),
- 	NPCM8XX_MKFUNC(tp_jtag3),
-@@ -1282,6 +1276,7 @@ static struct npcm8xx_func npcm8xx_funcs[] = {
- 	NPCM8XX_MKFUNC(hgpio5),
- 	NPCM8XX_MKFUNC(hgpio6),
- 	NPCM8XX_MKFUNC(hgpio7),
-+#undef NPCM8XX_MKFUNC
- };
- 
- #define NPCM8XX_PINCFG(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q) \
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
-index cdad4ef11a2f..5cf6d555c5a5 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
-@@ -482,13 +482,6 @@ static const struct pingroup wpcm450_groups[] = {
- 
- #define WPCM450_SFUNC(a) WPCM450_FUNC(a, #a)
- #define WPCM450_FUNC(a, b...) static const char *a ## _grp[] = { b }
--#define WPCM450_MKFUNC(nm) { .name = #nm, .ngroups = ARRAY_SIZE(nm ## _grp), \
--			.groups = nm ## _grp }
--struct wpcm450_func {
--	const char *name;
--	const unsigned int ngroups;
--	const char *const *groups;
--};
- 
- WPCM450_SFUNC(smb3);
- WPCM450_SFUNC(smb4);
-@@ -555,7 +548,8 @@ WPCM450_FUNC(gpio, WPCM450_GRPS);
- #undef WPCM450_GRP
- 
- /* Function names */
--static struct wpcm450_func wpcm450_funcs[] = {
-+static struct pinfunction wpcm450_funcs[] = {
-+#define WPCM450_MKFUNC(nm) PINCTRL_PINFUNCTION(#nm, nm ## _grp, ARRAY_SIZE(nm ## _grp))
- 	WPCM450_MKFUNC(smb3),
- 	WPCM450_MKFUNC(smb4),
- 	WPCM450_MKFUNC(smb5),
-@@ -616,6 +610,7 @@ static struct wpcm450_func wpcm450_funcs[] = {
- 	WPCM450_MKFUNC(hg6),
- 	WPCM450_MKFUNC(hg7),
- 	WPCM450_MKFUNC(gpio),
-+#undef WPCM450_MKFUNC
- };
- 
- #define WPCM450_PINCFG(a, b, c, d, e, f, g) \
+ drivers/pinctrl/nuvoton/pinctrl-ma35.c    | 116 ++++++++++------------
+ drivers/pinctrl/nuvoton/pinctrl-ma35d1.c  |   1 -
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c |  43 ++------
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c |  29 ++----
+ drivers/pinctrl/nuvoton/pinctrl-wpcm450.c |  11 +-
+ 5 files changed, 71 insertions(+), 129 deletions(-)
+
 -- 
 2.45.2
 
