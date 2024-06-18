@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA34C27C79
-	for <openbmc@archiver.kernel.org>; Mon, 17 Jun 2024 19:40:31 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N4d/aq3n;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27AF9C27C4F
+	for <openbmc@archiver.kernel.org>; Tue, 18 Jun 2024 19:03:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4W30bd4MdDz3gBd
-	for <openbmc@archiver.kernel.org>; Tue, 18 Jun 2024 05:40:29 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N4d/aq3n;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linuxfoundation.org (client-ip=2604:1380:40e1:4800::1; helo=sin.source.kernel.org; envelope-from=gregkh@linuxfoundation.org; receiver=lists.ozlabs.org)
-Received: from sin.source.kernel.org (sin.source.kernel.org [IPv6:2604:1380:40e1:4800::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4W3bk15czZz3cXB
+	for <openbmc@archiver.kernel.org>; Wed, 19 Jun 2024 05:03:05 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+X-Greylist: delayed 233 seconds by postgrey-1.37 at boromir; Wed, 19 Jun 2024 05:02:33 AEST
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4W30Zd61Vsz3g7v
-	for <openbmc@lists.ozlabs.org>; Tue, 18 Jun 2024 05:39:36 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sin.source.kernel.org (Postfix) with ESMTP id 0F198CE119B;
-	Mon, 17 Jun 2024 19:39:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEFFC4AF1A;
-	Mon, 17 Jun 2024 19:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1718653169;
-	bh=eifoVYumsdizkrAoyM6QgvMhpDqLMiStFLxX6KG1t64=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=N4d/aq3noWi2duzNPZk1nDL3mUgGnUJSxcqCzdyIUFzCsqp6PMTm6aUHlTWQv3Ec6
-	 054Fp8hBQqpPqvzS8c0oyWrosalN6jqs6mZTL+O0yIZMWmawEIWaRPICfsK/GXJRj2
-	 97heaekywe1HoweuRn8ZERafGVplV7Ha/sx1pF7k=
-Date: Mon, 17 Jun 2024 21:39:26 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: "Winiarska, Iwona" <iwona.winiarska@intel.com>
-Subject: Re: [GIT PULL] PECI changes for v6.11-rc1
-Message-ID: <2024061717-ninth-jigsaw-c625@gregkh>
-References: <4726946cc4ece91b414994fcd696aebf69ee115b.camel@intel.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4W3bjP3yJ5z3bZ3
+	for <openbmc@lists.ozlabs.org>; Wed, 19 Jun 2024 05:02:33 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 45IIwQI8013168
+	for <openbmc@lists.ozlabs.org>; Tue, 18 Jun 2024 21:58:27 +0300
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 18 Jun
+ 2024 21:58:26 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 19 Jun
+ 2024 02:58:23 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 19 Jun 2024 02:58:23 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 87C465F633;
+	Tue, 18 Jun 2024 21:58:22 +0300 (IDT)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 833FBDC0726; Tue, 18 Jun 2024 21:58:22 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <p.zabel@pengutronix.de>,
+        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
+        <yuenn@google.com>, <benjaminfair@google.com>
+Subject: [PATCH v25 1/3] dt-bindings: reset: npcm: add clock properties
+Date: Tue, 18 Jun 2024 21:58:17 +0300
+Message-ID: <20240618185819.2155595-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240618185819.2155595-1-tmaimon77@gmail.com>
+References: <20240618185819.2155595-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4726946cc4ece91b414994fcd696aebf69ee115b.camel@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,26 +62,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Jun 17, 2024 at 02:08:58PM +0000, Winiarska, Iwona wrote:
-> Hi Greg!
-> 
-> Please pull PECI update for Linux v6.11.
-> 
-> Thanks
-> -Iwona
-> 
-> The following changes since commit 6ba59ff4227927d3a8530fc2973b80e94b54d58f:
-> 
->   Linux 6.10-rc4 (2024-06-16 13:40:16 -0700)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/iwi/linux.git peci-next-6.11-rc1
+This commit adds a 25MHz reference clock and clock-cell properties to
+the NPCM reset document. The addition is necessitated by the integration
+of the NPCM8xx clock auxiliary bus device into the NPCM reset driver.
 
-Pulled and pushed out, thanks.
+The inclusion of the NPCM8xx clock properties in the reset document is
+crucial as the reset block also serves as a clock provider for the
+NPCM8xx clock. This enhancement is intended to facilitate the use of the
+NPCM8xx clock driver.
 
-greg k-h
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/reset/nuvoton,npcm750-reset.yaml  | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml b/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
+index d82e65e37cc0..72523f1bbc18 100644
+--- a/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
++++ b/Documentation/devicetree/bindings/reset/nuvoton,npcm750-reset.yaml
+@@ -21,6 +21,13 @@ properties:
+   '#reset-cells':
+     const: 2
+ 
++  '#clock-cells':
++    const: 1
++
++  clocks:
++    items:
++      - description: specify external 25MHz reference clock.
++
+   nuvoton,sysgcr:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description: a phandle to access GCR registers.
+@@ -39,6 +46,17 @@ required:
+   - '#reset-cells'
+   - nuvoton,sysgcr
+ 
++if:
++  properties:
++    compatible:
++      contains:
++        enum:
++          - nuvoton,npcm845-reset
++then:
++  required:
++    - '#clock-cells'
++    - clocks
++
+ additionalProperties: false
+ 
+ examples:
+-- 
+2.34.1
+
