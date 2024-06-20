@@ -4,73 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AC7BC27C53
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 01:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EA1C2BA18
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 05:58:38 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ENERYVVw;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihk+fKMI;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4W4NG95X7gz3cWV
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 11:30:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4W4VCv5gQzz3cFN
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 15:58:35 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=ENERYVVw;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ihk+fKMI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com [IPv6:2607:f8b0:4864:20::62a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.19; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4NC95dLpz3cTj;
-	Thu, 20 Jun 2024 11:27:32 +1000 (AEST)
-Received: by mail-pl1-x62a.google.com with SMTP id d9443c01a7336-1f9cd92b146so654565ad.3;
-        Wed, 19 Jun 2024 18:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718846844; x=1719451644; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YXfqQxN1NZBOse/QmDM+IrCyohO6K/sbaRySddUPK6w=;
-        b=ENERYVVw+YUup4Z4eNBaEdPcnKLjdhlETpu0FRX17SNnB8btS1MTVFIeic39FG3tDS
-         vuKWrUHpwHxnzfStwTGT/ACf9Df/Eqwr1BEM/bZUeDBZG8ZIhbRf5/p+EevYJUrVepuN
-         M7+gerU6u/k6XgBm32n84zGBGODxXS2x6a2gdVAAhjd9Y58KexmE1NhnAo/DrMqUOPb0
-         /0RceWYmzPnvD+NO0nF8Hl19wc5L8I/nmwXOYWl7WMw2tS/sjoOHOFJiCqBWHQyN3dWr
-         BYYxwude/q3GmowS60bTy2OCHYyB7CqfmE1Jw0+hLWb8aivoXqeVSQBz3XSkAWP6qULN
-         fUjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718846844; x=1719451644;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YXfqQxN1NZBOse/QmDM+IrCyohO6K/sbaRySddUPK6w=;
-        b=oPCW2zkIxzNcp6MRU1AZRg7xCz/q9NnQrmI3DK+HKE46w2x7TyVaTLy8gZvNM+MSUW
-         o/OaQvbSKePL3ihAtnkhbYLOipVdoeuxMkPA5khI10nT9ppqu5+rpOahINSRKETUdx9Z
-         Vzgb5aEdOo/8bS0f7op6vpz50CMn1SP5LfsFd/IyJ+p9zO8kKJr7xUWgGMVvSJ3qh5FP
-         qAguGgNUOmND8UOYbPhtgNjGQqCNH0OZe9TKDdNALgE/u5ewS61OmcFAENW9yQxMbk+R
-         LibQ/esyuZ9m52eITVY5EMpzyfhDcQv4040WIHfJsmi3QOOwpQu1yU0WBfT4vBlfTbCW
-         YOjg==
-X-Forwarded-Encrypted: i=1; AJvYcCVDUI6b2Rqa9QBzd+am2xVvGdf6ZanrLT0cMX5MptIeC14Gbjre6rtX+3+9Q4EXZJMXgYtjjKpy2se6CZl82OHB2qcT1trLlzA=
-X-Gm-Message-State: AOJu0YyCU71hFc8t+xy4kCCHqiXHFuS7LwGQAv0R9ze5bSkfdP+Ux+W2
-	CpXmXIJM06kW0GfZ1seYjXHPKXP4emfD9YWkxwh1fZmoW/LzVY27
-X-Google-Smtp-Source: AGHT+IHtfUD5B+zKdHWT+iwIIrUKH41s2geArXIdro84BxWzTplbCRW+myV6oeXLWPV6UNJ7T1Qfag==
-X-Received: by 2002:a17:903:11cc:b0:1f6:ea71:34ee with SMTP id d9443c01a7336-1f9aa3ce954mr49436905ad.16.1718846843524;
-        Wed, 19 Jun 2024 18:27:23 -0700 (PDT)
-Received: from localhost.localdomain (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-1f9d021b98fsm105855ad.33.2024.06.19.18.27.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Jun 2024 18:27:23 -0700 (PDT)
-From: Potin Lai <potin.lai.pt@gmail.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>
-Subject: [PATCH v2 0/2] add ast2600 NCSI pin group
-Date: Thu, 20 Jun 2024 09:25:10 +0800
-Message-Id: <20240620012512.3109518-1-potin.lai.pt@gmail.com>
-X-Mailer: git-send-email 2.31.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4VBt3TmVz30VR
+	for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2024 15:57:40 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1718863064; x=1750399064;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zMCFp8zCllWXZJOLn+ox9s+gLl+0FUepfCkgfmEOmGU=;
+  b=ihk+fKMI6XnQJ/rsknPd7QrR2PmVSJsJQTzBXUIdHhHo2fNe3w3TU9k8
+   3dzt/IbeGwwqOYKZNuVZH8Y+sLc/BUZUDcaf4Z0TQ15DwL304g8A+BsCd
+   1wokvzAXTLUVf8c1xp88EWI7TpUIkMXa2Ghp5lQxLjX6QJDfkw2fbI6ox
+   BzY8EGj9p4c+AeihS6pDxLU0wPFDYPrXQEPniEMBMOvnLjMYRmScT5N/E
+   sw5sAnWIRYKPAELA//2FHRyUpAZCX3NQTV4SNjHPJWfW6oiXShumQl6zW
+   NdrXlnczoxd7B2auO/B4UUGnDMQyHfaUdICmOqRxUjb4ma+onO5cifYXN
+   w==;
+X-CSE-ConnectionGUID: 7ys3nIfhQnC18OOOllfYQw==
+X-CSE-MsgGUID: 7RKpjGcnR0aGumBN0gPzhw==
+X-IronPort-AV: E=McAfee;i="6700,10204,11108"; a="15585023"
+X-IronPort-AV: E=Sophos;i="6.08,251,1712646000"; 
+   d="scan'208";a="15585023"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jun 2024 22:57:38 -0700
+X-CSE-ConnectionGUID: xNu0A6xbT2qdW0R8iq+V0Q==
+X-CSE-MsgGUID: Cca+h7QjQquGw6LR94NR2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.08,251,1712646000"; 
+   d="scan'208";a="42792780"
+Received: from lkp-server01.sh.intel.com (HELO 68891e0c336b) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 19 Jun 2024 22:57:35 -0700
+Received: from kbuild by 68891e0c336b with local (Exim 4.96)
+	(envelope-from <lkp@intel.com>)
+	id 1sKAnb-0007Mk-34;
+	Thu, 20 Jun 2024 05:57:31 +0000
+Date: Thu, 20 Jun 2024 13:57:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Tomer Maimon <tmaimon77@gmail.com>, mturquette@baylibre.com,
+	sboyd@kernel.org, p.zabel@pengutronix.de, robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org, tali.perry1@gmail.com,
+	joel@jms.id.au, venture@google.com, yuenn@google.com,
+	benjaminfair@google.com
+Subject: Re: [PATCH v25 2/3] reset: npcm: register npcm8xx clock auxiliary
+ bus device
+Message-ID: <202406201328.SGrN27to-lkp@intel.com>
+References: <20240618185819.2155595-3-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240618185819.2155595-3-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,26 +79,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Potin Lai <potin.lai.pt@gmail.com>, linux-gpio@vger.kernel.org, Cosmo Chou <cosmo.chou@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev, linux-clk@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-In the NCSI pin table, the reference clock output pin (RMIIXRCLKO) is not
-needed on the management controller side.
+Hi Tomer,
 
-LINK: [v1] https://lore.kernel.org/all/20240613080725.2531580-1-potin.lai.pt@gmail.com/
+kernel test robot noticed the following build errors:
 
-changes v1 --> v2:
-- add NCSI pin group in dt-bindings document
+[auto build test ERROR on clk/clk-next]
+[also build test ERROR on linus/master pza/reset/next v6.10-rc4 next-20240619]
+[cannot apply to pza/imx-drm/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Potin Lai (2):
-  pinctrl: aspeed-g6: Add NCSI pin group config
-  dt-bindings: pinctrl: aspeed,ast2600-pinctrl: add NCSI group
+url:    https://github.com/intel-lab-lkp/linux/commits/Tomer-Maimon/dt-bindings-reset-npcm-add-clock-properties/20240619-093532
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
+patch link:    https://lore.kernel.org/r/20240618185819.2155595-3-tmaimon77%40gmail.com
+patch subject: [PATCH v25 2/3] reset: npcm: register npcm8xx clock auxiliary bus device
+config: arm64-randconfig-003-20240620 (https://download.01.org/0day-ci/archive/20240620/202406201328.SGrN27to-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240620/202406201328.SGrN27to-lkp@intel.com/reproduce)
 
- .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml       |  2 ++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c             | 10 ++++++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202406201328.SGrN27to-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   aarch64-linux-ld: drivers/reset/reset-npcm.o: in function `npcm_rc_probe':
+   reset-npcm.c:(.text+0xce8): undefined reference to `auxiliary_device_init'
+>> reset-npcm.c:(.text+0xce8): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `auxiliary_device_init'
+>> aarch64-linux-ld: reset-npcm.c:(.text+0xd30): undefined reference to `__auxiliary_device_add'
+>> reset-npcm.c:(.text+0xd30): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `__auxiliary_device_add'
 
 -- 
-2.31.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
