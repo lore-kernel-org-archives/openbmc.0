@@ -4,67 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23AA4C2BA18
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 07:33:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26600C27C79
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 08:46:56 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JlBglCtA;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=QfXBuAh/;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4W4XKW2F7tz3cWR
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 17:33:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4W4Yy55rSjz3cTF
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 18:46:53 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JlBglCtA;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=QfXBuAh/;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::112d; helo=mail-yw1-x112d.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com [IPv6:2607:f8b0:4864:20::112d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42f; helo=mail-pf1-x42f.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com [IPv6:2607:f8b0:4864:20::42f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4XJX4WVZz30T1
-	for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2024 17:32:43 +1000 (AEST)
-Received: by mail-yw1-x112d.google.com with SMTP id 00721157ae682-633629c3471so5490227b3.1
-        for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2024 00:32:44 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4Yx075MMz30T1;
+	Thu, 20 Jun 2024 18:45:56 +1000 (AEST)
+Received: by mail-pf1-x42f.google.com with SMTP id d2e1a72fcca58-7061365d2f3so499430b3a.3;
+        Thu, 20 Jun 2024 01:45:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718868757; x=1719473557; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=qnAIkWGQryIAQtTLmUZTYaNhdbVrLJLMPyGuu/muHE4=;
-        b=JlBglCtADv44Ja3Hs8bVKZTzGJTTX4dQjPuSgS9H/lO4fTjgTNu5g98K03fnR77sTS
-         6ZvU4g/yKxqR67o/+WbiCXzg+VrZhl5veAUrEjhCEQIjGN59L0K5+VD2Ukug8yej2Gut
-         h7PxKuiiXE3zYCGUgXM7EnhgU7lq9uQ0XpSSlVWqxlWpeev218cJoOpA1LXkt7YWYqbx
-         0GPRQIG/Rj2igpKMioyVqxmQIrmEnGqSsfzf4YC0296T5wm545IpWB7anlAtQny25ySV
-         QZTSnpvoorMNla9Ia/qn/4ikFlLhr4G4SBKcJf+s6nOvmP8NMZKVpx5IEO/vKJZYrJLA
-         OOgQ==
+        d=gmail.com; s=20230601; t=1718873155; x=1719477955; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fte78PnOfBiH+sJHP9JZR7QJmPh/4n6xzLMPWhbJ8Gc=;
+        b=QfXBuAh/y9mx1uGq/JxtIb3LmmQ3OiiUG+fPgwJ2gtuMxgBZu8F9k5DW2F2FydIuYn
+         eGa3FZU27fL75F7NwrOURuJOqJCTSutK6Rcnr6wzfKXJ6POqM9TEKjQHyE+OsRPZckfp
+         zAhsg3Bpx8xm64L07neP3gjhpaQy1ANtLGQhDrZJmME8tp4voDMJ6yLiTS6MXPHHeKxq
+         H2zMoWOslfanrfdZZLEFVxfgKRaJnmQ42DyqI67K37F49pcSMpMt82i86aWEtU+f5lMm
+         gdcvGwrKqlfhRAo+6aAG0PqQpfMrUKwWuB4zQeyXiOdg5Q9576W3UCfZg3u14d/Ngmts
+         FLMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718868757; x=1719473557;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qnAIkWGQryIAQtTLmUZTYaNhdbVrLJLMPyGuu/muHE4=;
-        b=v5spDslAXzUCgmRx+amX+etnM/zznuB5qZ44SyPwGxVxGKrZyEFBT4bCMrWsPjY5WW
-         dSk18nzuXBbgkfKCYsMPLqHy8oRZ2Oe+w+fGFPF9dWwH3uR49Zv2UXEM8iDlbkJ3TOVA
-         ye8YgbDMZWPpUc+qqcraDXLZTdU+hnYbbch1uPSqYuRyKOYIBBEsYiZ3Khf5YbefNec4
-         +miwfFFXGwJOcKwyy7FiivowV68I0g7CqnBEcUxycyF2wjuYZMaAxKFOQ+TJBRoXIVd0
-         hqcgFAjXRYTjzwrFVAvKLLsiUpvZXdAOtqBLOZL8W3FUjHI+WPUwj7N7P9OH3ErRvG0P
-         qCvw==
-X-Forwarded-Encrypted: i=1; AJvYcCXNjFQ571OWli1+UZBWS0Focw1H4MHzO/X9c1xxKEBe8NBGDes63pJ9pDLB3asMrH6M/s09ZXVFw71TNCW6lzmCGGyNtx9zGS8=
-X-Gm-Message-State: AOJu0YwGBrOuMmvUPhXmm0uF0Lx/8Fj05KtR4yoq3CCl7LQz06w+CJk7
-	R98Glj90Et2WqQvUY4+HlCPjgC1XkHDYLpz3LyMLzibr4wnVoH+nmI3SFQkRHj/ZBBYPPTuqDgu
-	9H2+of1oxz3+FoUb1DPN32ScZIss=
-X-Google-Smtp-Source: AGHT+IFMs27chWrPqAVjs1vjzs16P9LfbkLcD+9tzrx+qaAHwjt2BmEAahSMklBZ+1btLgaZ6nW+L/dXD2/WIeBy5t8=
-X-Received: by 2002:a0d:e605:0:b0:618:8d31:a557 with SMTP id
- 00721157ae682-63a8e1d915cmr46504547b3.14.1718868757233; Thu, 20 Jun 2024
- 00:32:37 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1718873155; x=1719477955;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Fte78PnOfBiH+sJHP9JZR7QJmPh/4n6xzLMPWhbJ8Gc=;
+        b=wiWcXH/nlsIQEe8jOnqVNENkaMxgtAhAkKENzCXYga+dTpwNXvG7au+crN2bd+Ul7Z
+         88JVjMo0eW+fCjtf24NYS1TuDr6pZ022ZDjwqA7t+PdKFMjTs5avVSWNnhn2kCS1E0wU
+         kR7UMZNvmpMl70eM6OGy5yg+IhMemtY+okDlN+SEwv8mr30K9do3fndEVe/TRsY0BMbr
+         nucJHsH7PB+XalzW9VL+omg8k3BPNxDJElpeyzlUlZB9YdrIGNVPugFiL6opKEo7uUQQ
+         yGZtxg63Dfuu6CCEYCx0y07USIlxpWX8tbNZPTR7TFUAKyr4r3tB/SQGjXVvHYE6jlK/
+         zehg==
+X-Forwarded-Encrypted: i=1; AJvYcCVbP51OgWszyJcmx9Fy8iQpOJjee0LMXeZbTdD4gtErhwrVQ0J/weAnjxbT1Ax+n04tGtUfc25i6jsG6rNz2/mf5uL8ILW2elQ=
+X-Gm-Message-State: AOJu0Yz6yDYPxlYAY+KPr7HyAS0IXN7g7iP1lMotUu8TYNIWdSUxEN+l
+	DbGMj+ApPASYmtb7tYvNKw6ahEBvo78eNAxhqJIYCs4NbEJYsYPX
+X-Google-Smtp-Source: AGHT+IFxym5JK2ZJ/HsMfJgwaJm993/2O/e1hkkImoYa+PVFsL906eYHSVqcL7DY+taWQyuSWfH3Bw==
+X-Received: by 2002:a05:6a20:968e:b0:1b8:a13f:3a39 with SMTP id adf61e73a8af0-1bcbb5cb26fmr5082372637.38.1718873154815;
+        Thu, 20 Jun 2024 01:45:54 -0700 (PDT)
+Received: from localhost.localdomain (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-705ccb6b9besm11895592b3a.165.2024.06.20.01.45.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Jun 2024 01:45:54 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>
+Subject: [PATCH v3 1/2] dt-bindings: pinctrl: aspeed,ast2600-pinctrl: add NCSI group
+Date: Thu, 20 Jun 2024 16:43:36 +0800
+Message-Id: <20240620084337.3525690-2-potin.lai.pt@gmail.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20240620084337.3525690-1-potin.lai.pt@gmail.com>
+References: <20240620084337.3525690-1-potin.lai.pt@gmail.com>
 MIME-Version: 1.0
-References: <20240618185819.2155595-2-tmaimon77@gmail.com> <202406191439.3NcnExKM-lkp@intel.com>
-In-Reply-To: <202406191439.3NcnExKM-lkp@intel.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Thu, 20 Jun 2024 10:32:26 +0300
-Message-ID: <CAP6Zq1h2Sk6H2V-i+PAk_fCy9xdywcYw=w9wT_xcJ2WrqyWbAg@mail.gmail.com>
-Subject: Re: [PATCH v25 1/3] dt-bindings: reset: npcm: add clock properties
-To: kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +85,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, p.zabel@pengutronix.de, sboyd@kernel.org, venture@google.com, mturquette@baylibre.com, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, robh+dt@kernel.org, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org, oe-kbuild-all@lists.linux.dev, openbmc@lists.ozlabs.org, benjaminfair@google.com
+Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Potin Lai <potin.lai.pt@gmail.com>, linux-gpio@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Cosmo Chou <cosmo.chou@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Rob and Krzysztof,
+In the NCSI pin table, the reference clock output pin (RMIIXRCLKO) is not
+needed on the management controller side.
 
-Could you please review this patch?
+Add NCSI group to distinguish the pin group between RMII and NCSI.
 
-Thanks,
+- RMII pins:
+  - RMIIXRCLKI
+  - RMIIXRXD0
+  - RMIIXRXD1
+  - RMIIXCRSDV
+  - RMIIXRXER
+  - RMIIXRCLKO
+  - RMIIXTXEN
+  - RMIIXTXD0
+  - RMIIXTXD1
 
-Tomer
+- NCSI pins:
+  - RMIIXRCLKI
+  - RMIIXRXD0
+  - RMIIXRXD1
+  - RMIIXCRSDV
+  - RMIIXRXER
+  - RMIIXTXEN
+  - RMIIXTXD0
+  - RMIIXTXD1
 
-On Wed, 19 Jun 2024 at 09:20, kernel test robot <lkp@intel.com> wrote:
->
-> Hi Tomer,
->
-> kernel test robot noticed the following build warnings:
->
-> [auto build test WARNING on clk/clk-next]
-> [also build test WARNING on linus/master pza/reset/next v6.10-rc4 next-20240618]
-> [cannot apply to pza/imx-drm/next]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Tomer-Maimon/dt-bindings-reset-npcm-add-clock-properties/20240619-093532
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git clk-next
-> patch link:    https://lore.kernel.org/r/20240618185819.2155595-2-tmaimon77%40gmail.com
-> patch subject: [PATCH v25 1/3] dt-bindings: reset: npcm: add clock properties
-> config: arm64-randconfig-051-20240619 (https://download.01.org/0day-ci/archive/20240619/202406191439.3NcnExKM-lkp@intel.com/config)
-> compiler: aarch64-linux-gcc (GCC) 13.2.0
-> dtschema version: 2024.6.dev1+g833054f
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240619/202406191439.3NcnExKM-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202406191439.3NcnExKM-lkp@intel.com/
->
-> dtcheck warnings: (new ones prefixed by >>)
->    arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi:63.7-177.5: Warning (simple_bus_reg): /ahb/apb: simple-bus unit address format error, expected "f0000000"
->    arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi:50.35-55.5: Warning (unique_unit_address_if_enabled): /ahb/reset-controller@f0801000: duplicate unit-address (also used in node /ahb/clock-controller@f0801000)
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /: memory@0: 'device_type' is a required property
->         from schema $id: http://devicetree.org/schemas/memory.yaml#
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: system-controller@f0800000: compatible: ['nuvoton,npcm845-gcr', 'syscon'] is too short
->         from schema $id: http://devicetree.org/schemas/soc/nuvoton/nuvoton,npcm-gcr.yaml#
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: interrupt-controller@dfff9000: 'ppi-partitions' does not match any of the regexes: '^v2m@[0-9a-f]+$', 'pinctrl-[0-9]+'
->         from schema $id: http://devicetree.org/schemas/interrupt-controller/arm,gic.yaml#
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: ahb: apb:ranges: [[0, 0, 4026531840, 3145728], [4293918720, 0, 4293918720, 90112]] is not of type 'boolean'
->         from schema $id: http://devicetree.org/schemas/simple-bus.yaml#
-> >> arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: reset-controller@f0801000: '#clock-cells' is a required property
->         from schema $id: http://devicetree.org/schemas/reset/nuvoton,npcm750-reset.yaml#
-> >> arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: reset-controller@f0801000: 'clocks' is a required property
->         from schema $id: http://devicetree.org/schemas/reset/nuvoton,npcm750-reset.yaml#
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: timer@8000: 'clock-names' does not match any of the regexes: 'pinctrl-[0-9]+'
->         from schema $id: http://devicetree.org/schemas/timer/nuvoton,npcm7xx-timer.yaml#
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@801c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@801c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@901c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@901c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@a01c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->    arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dtb: /ahb/apb/watchdog@a01c: failed to match any schema with compatible: ['nuvoton,npcm845-wdt', 'nuvoton,npcm750-wdt']
->
-> --
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ .../devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml     | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+index 00b6974a5ed3d..3f02dc94a7ce2 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+@@ -337,6 +337,8 @@ additionalProperties:
+         - MDIO2
+         - MDIO3
+         - MDIO4
++        - NCSI3
++        - NCSI4
+         - NCTS1
+         - NCTS2
+         - NCTS3
+-- 
+2.31.1
+
