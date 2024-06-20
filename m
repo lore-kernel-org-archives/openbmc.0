@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1470C27C79
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 08:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A611DC27C79
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 08:48:42 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=LeVLeBxd;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=gsi+xw75;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4W4Yz72gFqz3cf7
-	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 18:47:47 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4W4Z082VZSz3cZ2
+	for <openbmc@archiver.kernel.org>; Thu, 20 Jun 2024 18:48:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=LeVLeBxd;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=gsi+xw75;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2001:4860:4864:20::2f; helo=mail-oa1-x2f.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com [IPv6:2001:4860:4864:20::2f])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::231; helo=mail-oi1-x231.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-oi1-x231.google.com (mail-oi1-x231.google.com [IPv6:2607:f8b0:4864:20::231])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4Yx071x5z30T0;
-	Thu, 20 Jun 2024 18:45:55 +1000 (AEST)
-Received: by mail-oa1-x2f.google.com with SMTP id 586e51a60fabf-250ca14422aso364750fac.0;
-        Thu, 20 Jun 2024 01:45:55 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4W4Yx45PL5z30Wc;
+	Thu, 20 Jun 2024 18:46:00 +1000 (AEST)
+Received: by mail-oi1-x231.google.com with SMTP id 5614622812f47-3cabac56b38so313757b6e.3;
+        Thu, 20 Jun 2024 01:46:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1718873152; x=1719477952; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=43KWYYRyoYmhNOn4BNyMreQoj2jRjYHSjwBPqztaSRQ=;
-        b=LeVLeBxdC+/nPGIe+wvUjQuZV6d4oZ5Yt4k5dKcroHCg3WxzVbSuIRNoKzz8rmlByi
-         fb44neAo3SId2nADCx0cs4mRwqYdCXiVD02tZBtt86dID1k6BQDZu8/j7op+/83U/BSG
-         947Hrm0mENASqTkUncLpIC/JApdDimeZuNi6X0vzLnpAC6TOrZjMoFnNYDxNTAT1YcBF
-         NiLH+YQyIHQ47Y26/VdDdq5CPvW0cnp1jhObyiHPVuR8Ipk0a41rjCJR6BtQ6VQjaGUw
-         2aIF3XxjlRc0NGAbFOnnTq8tmw+HOOGsuN9Cbsg1kiD7G2ME5OnuwKWte61Sup4xzahq
-         nDnw==
+        d=gmail.com; s=20230601; t=1718873159; x=1719477959; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EiJfmKO8nNBSX1oUuFOSypNRXVZPBtzmshynKzoPzUw=;
+        b=gsi+xw75pqDQn2BobzS7PAUrnsPFFgE0p65V7n+UU2FGqNDwy0sMNU+APSdlXmnDEt
+         P7IVd8rgdNz76FnBbgc4JmQxzxTyldsv/blwW0wcXEoEygYGn5WlGGXDJv17rptYoGye
+         rYNbh3nLZ3e+BJwHVOUjg37ZwrM3csGHFRwOb5UZ+d+w+rKQvMejQZJAgVKxoIcEoyeE
+         4hRy8eW0WIksnbKk60T7Q/GhC8s772CU+M1sqUAzjMBvmoNBeda/h6dFcSJdFhnXOlB/
+         lTRMBpmbApFw74KealMjdcJCBTJGmf1Gpf3+HYf3zQkzBt9kfIsatWdXJ4y5j7GXga2M
+         g7Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1718873152; x=1719477952;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=43KWYYRyoYmhNOn4BNyMreQoj2jRjYHSjwBPqztaSRQ=;
-        b=KUme7aorQ9HSaQM0njJm0BFUesqYAmytplDKWheJrcTAEQCXXObbgU4p5kdG3LTVvI
-         GRC2PL8ouGd7Lx09dImk6qIq/SNLkjg5VWBV6WmZDF2IFpgpxlIC9+EeT1MUvFtUT4aQ
-         PluOP7Y9Q4L+zQQ16kGsMebqRPhJ98GJjXPgi3qKclU3GSsofLcwAfyEq0FqVwYAEToD
-         GKOmoIH7zf9/X6FO+TrC4Dvry/3j6tpDkSaxIZT0+JmzlE1lGP1Ljrb6SW5AuAxXcpXo
-         uwrjXTt/9zw2uz40ONte2f1vCZok+vT6EIxszl+Q+8oskv8AFyw9CG7BhRvYxAh/yY9q
-         tP5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXBxYKvD1zFyiMBllY23HSvD9c2rMjIwx80QcB1z7BIdQ70zC79mGxHUVktBxGlWZSTWQGlLlhz0MsXXgo4nrAY6unTfv0rVNU=
-X-Gm-Message-State: AOJu0YwjkueNQBAc6NViMnEULRIlAMYtn0TZo84Ndic7/UfTHeRAgI7Z
-	0GngnCkLUHUBfwdws920XgTZ+7IES6Oqc49BZbmSS9YIe+yw3eVQ
-X-Google-Smtp-Source: AGHT+IHUTewqsAsKC5xSUqbLqUEneEIJJdmKam3OZ0MLUfraam+NlYP/6BgrAchuTs1OQ6A+N03g8Q==
-X-Received: by 2002:a05:6870:b50f:b0:255:1819:b458 with SMTP id 586e51a60fabf-25c948f70cfmr4718438fac.8.1718873151683;
-        Thu, 20 Jun 2024 01:45:51 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1718873159; x=1719477959;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EiJfmKO8nNBSX1oUuFOSypNRXVZPBtzmshynKzoPzUw=;
+        b=I4I2zmBAm1mYfRAkLPpsdMgMNsioFGVHK5zjMLdvezk5Kferxv0d42yHMRF/1tp3Z/
+         eGsRv8gXhrWD/L+2j9M5pYlit/sfr7DStvX117z4PrTP5U2SbRPIHKGP4F5v7V4d67QK
+         Au8q1+hFkfgdo7g4ZLtwOhDdPih/7H++zPCOlWGWurBhx8/vTr7llbuODiUaVy0fN8mj
+         90GyYZaLAXogOlACZ42wgd3VxXvkNvzU14y4t1BmQcxt2YIYMZxXWf75kkCTvxAUbEHs
+         OnYsZh304c3npzzn0BLdZ26baFKq6jRQJqHxRHPen6skNSh1hwwFavWjKonij9vqBnYu
+         IXbQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX6AUlJ4wCV9lu7BphjxDBvcbPgc6lpRQR5V0lPeRvFJSooKsggswfWdZ4NY0nyIv4maVLtgUdNmgKgYhpyxtP2BR4LYcY6jCo=
+X-Gm-Message-State: AOJu0YzkebkvH9jFpdyU8oJUiPq/9frYXsEOWKoUppq6LpHIvYUaBkFJ
+	kD6KzKdEzBValbGvJHDzGQdeBmRSViS5XGNmLitJ8kaVL3UbSMY4
+X-Google-Smtp-Source: AGHT+IGhGDKSgAv0T6Xql5g7csBDAeTCcq8i/P2W7WhnsCqa2jWpcloUNmsMrFYRH/C43jnjpNWvwg==
+X-Received: by 2002:a05:6808:199c:b0:3d2:1e98:cb04 with SMTP id 5614622812f47-3d51b9824c4mr5393367b6e.7.1718873157886;
+        Thu, 20 Jun 2024 01:45:57 -0700 (PDT)
 Received: from localhost.localdomain (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-705ccb6b9besm11895592b3a.165.2024.06.20.01.45.48
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-705ccb6b9besm11895592b3a.165.2024.06.20.01.45.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Jun 2024 01:45:51 -0700 (PDT)
+        Thu, 20 Jun 2024 01:45:57 -0700 (PDT)
 From: Potin Lai <potin.lai.pt@gmail.com>
 To: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Linus Walleij <linus.walleij@linaro.org>,
@@ -65,10 +66,12 @@ To: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Joel Stanley <joel@jms.id.au>
-Subject: [PATCH v3 0/2] add ast2600 NCSI pin group
-Date: Thu, 20 Jun 2024 16:43:35 +0800
-Message-Id: <20240620084337.3525690-1-potin.lai.pt@gmail.com>
+Subject: [PATCH v3 2/2] pinctrl: aspeed-g6: Add NCSI pin group config
+Date: Thu, 20 Jun 2024 16:43:37 +0800
+Message-Id: <20240620084337.3525690-3-potin.lai.pt@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20240620084337.3525690-1-potin.lai.pt@gmail.com>
+References: <20240620084337.3525690-1-potin.lai.pt@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -86,27 +89,55 @@ Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozl
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-In the NCSI pin table, the reference clock output pin (RMIIXRCLKO) is not
-needed on the management controller side.
+Based on the NCSI pin table (Table 181) in NCSI spec[1], the reference
+clock output pin (RMIIXRCLKO) is not needed on the management controller
+side.
 
-LINK: [v1] https://lore.kernel.org/all/20240613080725.2531580-1-potin.lai.pt@gmail.com/
-LINK: [v2] https://lore.kernel.org/all/20240620012512.3109518-1-potin.lai.pt@gmail.com/
+To optimize pin usage, add new NCSI pin group that excludes RMIIXRCLKO,
+reducing the number of required pins.
 
-changes v2 --> v3:
-- fix commit message typo
-- move dt-bindings patch forward
+LINK: [1] https://www.dmtf.org/sites/default/files/standards/documents/DSP0222_1.2.0a.pdf
 
-changes v1 --> v2:
-- add NCSI pin group in dt-bindings document
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Potin Lai (2):
-  dt-bindings: pinctrl: aspeed,ast2600-pinctrl: add NCSI group
-  pinctrl: aspeed-g6: Add NCSI pin group config
-
- .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml       |  2 ++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c             | 10 ++++++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index 7938741136a2c..31e4e0b342a00 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -249,7 +249,9 @@ PIN_DECL_2(E26, GPIOD3, RGMII3RXD3, RMII3RXER);
+ 
+ FUNC_GROUP_DECL(RGMII3, H24, J22, H22, H23, G22, F22, G23, G24, F23, F26, F25,
+ 		E26);
+-FUNC_GROUP_DECL(RMII3, H24, J22, H22, H23, G23, F23, F26, F25, E26);
++GROUP_DECL(RMII3, H24, J22, H22, H23, G23, F23, F26, F25, E26);
++GROUP_DECL(NCSI3, J22, H22, H23, G23, F23, F26, F25, E26);
++FUNC_DECL_2(RMII3, RMII3, NCSI3);
+ 
+ #define F24 28
+ SIG_EXPR_LIST_DECL_SESG(F24, NCTS3, NCTS3, SIG_DESC_SET(SCU410, 28));
+@@ -355,7 +357,9 @@ FUNC_GROUP_DECL(NRTS4, B24);
+ 
+ FUNC_GROUP_DECL(RGMII4, F24, E23, E24, E25, D26, D24, C25, C26, C24, B26, B25,
+ 		B24);
+-FUNC_GROUP_DECL(RMII4, F24, E23, E24, E25, C25, C24, B26, B25, B24);
++GROUP_DECL(RMII4, F24, E23, E24, E25, C25, C24, B26, B25, B24);
++GROUP_DECL(NCSI4, E23, E24, E25, C25, C24, B26, B25, B24);
++FUNC_DECL_2(RMII4, RMII4, NCSI4);
+ 
+ #define D22 40
+ SIG_EXPR_LIST_DECL_SESG(D22, SD1CLK, SD1, SIG_DESC_SET(SCU414, 8));
+@@ -1976,6 +1980,8 @@ static const struct aspeed_pin_group aspeed_g6_groups[] = {
+ 	ASPEED_PINCTRL_GROUP(MDIO2),
+ 	ASPEED_PINCTRL_GROUP(MDIO3),
+ 	ASPEED_PINCTRL_GROUP(MDIO4),
++	ASPEED_PINCTRL_GROUP(NCSI3),
++	ASPEED_PINCTRL_GROUP(NCSI4),
+ 	ASPEED_PINCTRL_GROUP(NCTS1),
+ 	ASPEED_PINCTRL_GROUP(NCTS2),
+ 	ASPEED_PINCTRL_GROUP(NCTS3),
 -- 
 2.31.1
 
