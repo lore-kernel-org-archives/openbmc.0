@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE2E7C31D97
-	for <openbmc@archiver.kernel.org>; Tue,  2 Jul 2024 19:17:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50DE8C30658
+	for <openbmc@archiver.kernel.org>; Tue,  2 Jul 2024 19:18:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WDCNZ5gHfz3dBD
-	for <openbmc@archiver.kernel.org>; Wed,  3 Jul 2024 05:17:50 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WDCP45hN3z3fVw
+	for <openbmc@archiver.kernel.org>; Wed,  3 Jul 2024 05:18:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WDCMz4SxKz3cQX
-	for <openbmc@lists.ozlabs.org>; Wed,  3 Jul 2024 05:17:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WDCMz3dwbz3c4h
+	for <openbmc@lists.ozlabs.org>; Wed,  3 Jul 2024 05:17:16 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 462JH6tR018321
-	for <openbmc@lists.ozlabs.org>; Tue, 2 Jul 2024 22:17:06 +0300
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 462JH2FE018313
+	for <openbmc@lists.ozlabs.org>; Tue, 2 Jul 2024 22:17:03 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 2 Jul
- 2024 22:17:04 +0300
+ 2024 22:17:01 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 3 Jul
- 2024 03:16:59 +0800
+ 2024 03:16:58 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 3 Jul 2024 03:16:59 +0800
+ Transport; Wed, 3 Jul 2024 03:16:57 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id CF4B25F681;
-	Tue,  2 Jul 2024 22:16:57 +0300 (IDT)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id C4EBD5F67D;
+	Tue,  2 Jul 2024 22:16:56 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id CD6D6DC0750; Tue,  2 Jul 2024 22:16:57 +0300 (IDT)
+	id B03D3DC0750; Tue,  2 Jul 2024 22:16:56 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <p.zabel@pengutronix.de>,
         <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v26 2/3] reset: npcm: register npcm8xx clock auxiliary bus device
-Date: Tue, 2 Jul 2024 22:16:49 +0300
-Message-ID: <20240702191650.57364-3-tmaimon77@gmail.com>
+Subject: [PATCH v26 0/3] Introduce Nuvoton Arbel NPCM8XX BMC SoC
+Date: Tue, 2 Jul 2024 22:16:47 +0300
+Message-ID: <20240702191650.57364-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240702191650.57364-1-tmaimon77@gmail.com>
-References: <20240702191650.57364-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -65,178 +63,184 @@ Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add NPCM8xx clock controller auxiliary bus device registration.
+This patchset adds clock support for the Nuvoton 
+Arbel NPCM8XX Board Management controller (BMC) SoC family.
 
-The NPCM8xx clock controller is registered as an aux device because the
-reset and the clock controller share the same register region.
+The NPCM8xx clock controller is created using the auxiliary device framework
+and set up in the npcm reset driver since the NPCM8xx clock is using the
+same register region.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/reset/Kconfig               |  1 +
- drivers/reset/reset-npcm.c          | 74 ++++++++++++++++++++++++++++-
- include/soc/nuvoton/clock-npcm8xx.h | 16 +++++++
- 3 files changed, 90 insertions(+), 1 deletion(-)
+This patchset cover letter is based from the initial support for NPCM8xx BMC to
+keep tracking the version history.
+
+This patchset was tested on the Arbel NPCM8XX evaluation board.
+
+Addressed comments from:
+ - kernel test robot : https://www.spinics.net/lists/linux-clk/msg100302.html
+
+Changes since version 25:
+ - Add select AUXILIARY_BUS to npcm_reset kconfig.
+ - Include <linux/auxiliary_bus.h> and <linux/slab.h> in reset and clock driver.
+ 
+Changes since version 24:
+ - Keep clock npcm8xx dt-binding to avoid ABI break.
+ - Fix kfree parameter.
+ - Correct reference.
+ - Modify commit message.
+ 
+Changes since version 23:
+ - NPCM8xx clock controller using the auxiliary device framework.
+ - Add NPCM8xx clock controller aux device registration support in npcm reset driver.
+ - Remove unused nuvoton,npcm845 clk bindings.
+ - Remove all string #define 
+ 
+Changes since version 22:
+ - Modify commit message to explain broken ABI in dt-binding
+ - Using regmap parenet regmap memory therefore remove use of npcm8xx rst-clock patch.
+ - Leave npcm7xx rst node as is
+ 
+Changes since version 21:
+ - Since using regmap instead of ioremap replace reg to syscon 
+   property in dt-bindings and dts.
+ - Add reference clock property to the dt-bindings and dts.
+ - Using .index instead of .name in clk_parent_data structures.
+ - Using string where any macros are used once.
+
+Changes since version 20:
+ - Using regmap instead of ioremap.
+   the clock and reset modules are sharing the same memory region 
+   and cause failure when using devm_platform_ioremap_resource
+   function, this version uses regmap to handle shared 
+   reset and clock memory region, in case it is approved I will
+   modify the reset driver to use the regmap as well.
+ - Using clk_hw instead of clk_parent_data structre.
+ - Divider clock definition to one line
+
+Changes since version 19:
+ - Remove unnecessary free command.
+ - Defining pr_fmt().
+ - Using dev_err_probe.
+ - Return zero in the end of the probe function.
+
+Changes since version 18:
+ - NPCM8XX clock driver did not changed from version 18 only build and tested under kernel 6.6-rc1.
+
+Changes since version 17:
+ - NPCM8XX clock driver did not changed from version 17 only build and tested under kernel 6.5-rc3.
+
+Changes since version 16:
+ - NPCM8XX clock driver
+	- Using devm_kzalloc instead kzalloc.
+	- Remove unnecessary parenthesis.
+	- Modify incorrect spelling.
+
+Changes since version 15:
+ - NPCM8XX clock driver
+	- Remove unused regs parameter from npcm8xx_pll_data structure.
+	- Using index and clk_hw parameters to set the clock parent in the clock structures.
+
+Changes since version 14:
+ - NPCM8XX clock driver
+	- Remove unnecessary register definitions.
+	- Remove the internal reference clock, instead use the external DT reference clock.
+	- rearrange the driver.
+	- using .names parameter in DT to define clock (refclk).
+
+Changes since version 13:
+ - NPCM8XX clock driver
+	- Remove unnecessary definitions and add module.h define
+	- Use in clk_parent_data struct.fw_name and .name.
+	- Add module_exit function.
+	- Add const to divider clock names.
+	- Add MODULE_DESCRIPTION and MODULE_LICENSE
+
+Changes since version 12:
+ - NPCM8XX clock driver
+	- Use clk_parent_data in mux and div clock structure.
+	- Add const to mux tables.
+	- Using devm_clk_hw_register_fixed_rate function.
+	- use only .name clk_parent_data instead .name and .fw_name.
+	- Modify mask values in mux clocks. 
+
+Changes since version 11:
+ - NPCM8XX clock driver
+	- Modify Kconfig help.
+	- Modify loop variable to unsigned int.
+
+Changes since version 11:
+ - NPCM8XX clock driver
+	- Modify Kconfig help.
+	- Modify loop variable to unsigned int.
+
+Changes since version 10:
+ - NPCM8XX clock driver
+	- Fix const warning.
+
+Changes since version 9:
+ - NPCM8XX clock driver
+	- Move configuration place.
+	- Using clk_parent_data instead of parent_name
+	- using devm_ioremap instead of ioremap. deeply sorry, I know we had
+	 a long discussion on what should the driver use, from other examples 
+	 (also in other clock drivers) I see the combination of 
+	 platform_get_resource and devm_ioremap are commonly used and it answer
+	 the reset and clock needs.
+
+Changes since version 8:
+ - NPCM8XX clock driver
+	- Move configuration place.
+	- Add space before and aftre '{' '}'.
+	- Handle devm_of_clk_add_hw_provider function error.
+
+Changes since version 7:
+ - NPCM8XX clock driver
+	- The clock and reset registers using the same memory region, 
+	  due to it the clock driver should claim the ioremap directly 
+	  without checking the memory region.
+
+Changes since version 5:
+ - NPCM8XX clock driver
+	- Remove refclk if devm_of_clk_add_hw_provider function failed.
+
+Changes since version 4:
+ - NPCM8XX clock driver
+	- Use the same quote in the dt-binding file.
+
+Changes since version 3:
+ - NPCM8XX clock driver
+	- Rename NPCM8xx clock dt-binding header file.
+	- Remove unused structures.
+	- Improve Handling the clocks registration.
+
+Changes since version 2:
+ - NPCM8XX clock driver
+	- Add debug new line.
+	- Add 25M fixed rate clock.
+	- Remove unused clocks and clock name from dt-binding.
+
+Changes since version 1:
+ - NPCM8XX clock driver
+	- Modify dt-binding.
+	- Remove unsed definition and include.
+	- Include alphabetically.
+	- Use clock devm.
+
+Tomer Maimon (3):
+  dt-bindings: reset: npcm: add clock properties
+  reset: npcm: register npcm8xx clock auxiliary bus device
+  clk: npcm8xx: add clock controller
+
+ .../bindings/reset/nuvoton,npcm750-reset.yaml |  18 +
+ drivers/clk/Kconfig                           |   8 +
+ drivers/clk/Makefile                          |   1 +
+ drivers/clk/clk-npcm8xx.c                     | 430 ++++++++++++++++++
+ drivers/reset/Kconfig                         |   1 +
+ drivers/reset/reset-npcm.c                    |  74 ++-
+ include/soc/nuvoton/clock-npcm8xx.h           |  16 +
+ 7 files changed, 547 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/clk/clk-npcm8xx.c
  create mode 100644 include/soc/nuvoton/clock-npcm8xx.h
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index 7112f5932609..31ec8795c105 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -148,6 +148,7 @@ config RESET_MESON_AUDIO_ARB
- config RESET_NPCM
- 	bool "NPCM BMC Reset Driver" if COMPILE_TEST
- 	default ARCH_NPCM
-+	select AUXILIARY_BUS
- 	help
- 	  This enables the reset controller driver for Nuvoton NPCM
- 	  BMC SoCs.
-diff --git a/drivers/reset/reset-npcm.c b/drivers/reset/reset-npcm.c
-index 8935ef95a2d1..aa68b947226a 100644
---- a/drivers/reset/reset-npcm.c
-+++ b/drivers/reset/reset-npcm.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2019 Nuvoton Technology corporation.
- 
-+#include <linux/auxiliary_bus.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/io.h>
-@@ -10,11 +11,14 @@
- #include <linux/property.h>
- #include <linux/reboot.h>
- #include <linux/reset-controller.h>
-+#include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/mfd/syscon.h>
- #include <linux/regmap.h>
- #include <linux/of_address.h>
- 
-+#include <soc/nuvoton/clock-npcm8xx.h>
-+
- /* NPCM7xx GCR registers */
- #define NPCM_MDLR_OFFSET	0x7C
- #define NPCM7XX_MDLR_USBD0	BIT(9)
-@@ -89,6 +93,7 @@ struct npcm_rc_data {
- 	const struct npcm_reset_info *info;
- 	struct regmap *gcr_regmap;
- 	u32 sw_reset_number;
-+	struct device *dev;
- 	void __iomem *base;
- 	spinlock_t lock;
- };
-@@ -372,6 +377,67 @@ static const struct reset_control_ops npcm_rc_ops = {
- 	.status		= npcm_rc_status,
- };
- 
-+static void npcm_clock_unregister_adev(void *_adev)
-+{
-+	struct auxiliary_device *adev = _adev;
-+
-+	auxiliary_device_delete(adev);
-+	auxiliary_device_uninit(adev);
-+}
-+
-+static void npcm_clock_adev_release(struct device *dev)
-+{
-+	struct auxiliary_device *adev = to_auxiliary_dev(dev);
-+	struct npcm_clock_adev *rdev = to_npcm_clock_adev(adev);
-+
-+	kfree(rdev);
-+}
-+
-+static struct auxiliary_device *npcm_clock_adev_alloc(struct npcm_rc_data *rst_data, char *clk_name)
-+{
-+	struct npcm_clock_adev *rdev;
-+	struct auxiliary_device *adev;
-+	int ret;
-+
-+	rdev = kzalloc(sizeof(*rdev), GFP_KERNEL);
-+	if (!rdev)
-+		return ERR_PTR(-ENOMEM);
-+
-+	rdev->base = rst_data->base;
-+
-+	adev = &rdev->adev;
-+	adev->name = clk_name;
-+	adev->dev.parent = rst_data->dev;
-+	adev->dev.release = npcm_clock_adev_release;
-+	adev->id = 555u;
-+
-+	ret = auxiliary_device_init(adev);
-+	if (ret) {
-+		kfree(rdev);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return adev;
-+}
-+
-+static int npcm8xx_clock_controller_register(struct npcm_rc_data *rst_data, char *clk_name)
-+{
-+	struct auxiliary_device *adev;
-+	int ret;
-+
-+	adev = npcm_clock_adev_alloc(rst_data, clk_name);
-+	if (IS_ERR(adev))
-+		return PTR_ERR(adev);
-+
-+	ret = auxiliary_device_add(adev);
-+	if (ret) {
-+		auxiliary_device_uninit(adev);
-+		return ret;
-+	}
-+
-+	return devm_add_action_or_reset(rst_data->dev, npcm_clock_unregister_adev, adev);
-+}
-+
- static int npcm_rc_probe(struct platform_device *pdev)
- {
- 	struct npcm_rc_data *rc;
-@@ -392,6 +458,7 @@ static int npcm_rc_probe(struct platform_device *pdev)
- 	rc->rcdev.of_node = pdev->dev.of_node;
- 	rc->rcdev.of_reset_n_cells = 2;
- 	rc->rcdev.of_xlate = npcm_reset_xlate;
-+	rc->dev = &pdev->dev;
- 
- 	ret = devm_reset_controller_register(&pdev->dev, &rc->rcdev);
- 	if (ret) {
-@@ -413,7 +480,12 @@ static int npcm_rc_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	return ret;
-+	switch (rc->info->bmc_id) {
-+	case BMC_NPCM8XX:
-+		return npcm8xx_clock_controller_register(rc, "clk-npcm8xx");
-+	default:
-+		return ret;
-+	}
- }
- 
- static struct platform_driver npcm_rc_driver = {
-diff --git a/include/soc/nuvoton/clock-npcm8xx.h b/include/soc/nuvoton/clock-npcm8xx.h
-new file mode 100644
-index 000000000000..139130e98c51
---- /dev/null
-+++ b/include/soc/nuvoton/clock-npcm8xx.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __SOC_NPCM8XX_CLOCK_H
-+#define __SOC_NPCM8XX_CLOCK_H
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/container_of.h>
-+
-+struct npcm_clock_adev {
-+	void __iomem *base;
-+	struct auxiliary_device adev;
-+};
-+
-+#define to_npcm_clock_adev(_adev) \
-+	container_of((_adev), struct npcm_clock_adev, adev)
-+
-+#endif
 -- 
 2.34.1
 
