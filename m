@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A73FC38150
-	for <openbmc@archiver.kernel.org>; Sun,  7 Jul 2024 22:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A53C3DA42
+	for <openbmc@archiver.kernel.org>; Sun,  7 Jul 2024 22:43:39 +0000 (UTC)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=hOKbzxsM;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=M16xJrhm;
 	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WHMhn2060z3dLs
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jul 2024 08:42:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WHMjj5fgDz3dRb
+	for <openbmc@archiver.kernel.org>; Mon,  8 Jul 2024 08:43:37 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=hOKbzxsM;
+	dkim=pass (2048-bit key; secure) header.d=gmx.net header.i=j.neuschaefer@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=M16xJrhm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.15; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net (client-ip=212.227.15.18; helo=mout.gmx.net; envelope-from=j.neuschaefer@gmx.net; receiver=lists.ozlabs.org)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WHMb629b2z30WB
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WHMb62mfgz30Wq
 	for <openbmc@lists.ozlabs.org>; Mon,  8 Jul 2024 08:37:52 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1720391853; x=1720996653; i=j.neuschaefer@gmx.net;
-	bh=6OXJA6Op8AyXGG0UDDxLGH3tvgeicFvPJqUw6T5kUbc=;
+	s=s31663417; t=1720391851; x=1720996651; i=j.neuschaefer@gmx.net;
+	bh=mi0PezsKxlt4YHnZxxM0jZD6ggEqlUX2jNwgc7Ancas=;
 	h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 cc:content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=hOKbzxsMT2Z1GyX9OwxlQ+9XPM6+mGdULGj8hltvpSZIL5yXLH2zBvg4GwhmOf6o
-	 XnIrrp8nqWM2ilWx4CxTz7DrbODRIe+cbgQDRkENhwvqXVOg9nmTgSxebylqcEcHs
-	 wcxMWh6KEPe5s3kX2ftcEGBL6CdEIGD46o0GgYjY6/J9XaNBoKQlT6sZFwnyPYuYQ
-	 49AxXuqG+k8rAvr1WRFgxulTOyuWsibZ5WQRUuYQEo6lhF+/KesM7dAisEXw1XgZ/
-	 JUHGPn5P/mIlG4NNlv6syrW4xW2kaznF29zz/tiunP/i+kyNleUJ0wzDkOOqTOJ8l
-	 2UQlsNmcrvc1VoRrTw==
+	b=M16xJrhmAcM9WZKw2+gndFWN8Fmm6KddUUs45Ds0sNXnZNLQgxkv4BQFEoDiHwfD
+	 /ygwTXRNxZWvzK2q0oa6/NFBPY6sgpk3idMj88NrrcuqKVH+PaVUIPLWwAj6kpMzD
+	 aZyxLm6m+I+TKuu1oL3I/ajLTXVdvvlh0jB4OO14r/MGctIyGAy4JUhkl3FD3gKKK
+	 SVA0JEdO+YAFGtU+xdjBEVVP4nZUwg9ERPHVHErp+UE7n6LTr/qFpK61Vez1fFLI3
+	 MkXEMj3vSsBskpsIEXQWoW8thOOgkfkYNfpUfMFi/XLW3kBoHNbZtaKemhKh/FkxK
+	 v4sp3YvmZ92USy9//w==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from probook ([89.0.46.161]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MJmGZ-1sfm0i1AwT-00Vjvf; Mon, 08
- Jul 2024 00:37:33 +0200
+Received: from probook ([89.0.46.161]) by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MVeI2-1ssC4N1hRs-00R9Kf; Mon, 08
+ Jul 2024 00:37:31 +0200
 From: =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-Date: Mon, 08 Jul 2024 00:37:19 +0200
-Subject: [PATCH RESEND v12 6/6] ARM: dts: wpcm450: Switch clocks to clock
- controller
+Date: Mon, 08 Jul 2024 00:37:16 +0200
+Subject: [PATCH RESEND v12 3/6] clk: provider: Address documentation
+ pitfall in struct clk_parent_data
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20240708-wpcm-clk-v12-6-1afac539c37d@gmx.net>
+Message-Id: <20240708-wpcm-clk-v12-3-1afac539c37d@gmx.net>
 References: <20240708-wpcm-clk-v12-0-1afac539c37d@gmx.net>
 In-Reply-To: <20240708-wpcm-clk-v12-0-1afac539c37d@gmx.net>
 To: openbmc@lists.ozlabs.org, linux-clk@vger.kernel.org, 
  devicetree@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1720391846; l=3443;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1720391846; l=1209;
  i=j.neuschaefer@gmx.net; s=20240329; h=from:subject:message-id;
- bh=kTIwYF9CzV7EiefFtPbjPQBui0vN/ls9WsnRdurtK5Q=;
- b=Jvhw7ZM3sg31yGmqSFi0QKOVXKPvvAROu66FWKbLZAcKxN5/88ivEgrnqzKDsxkrK2dQjq4LR
- lEnoN2gxMbPD0tT/H9ln+/BJvKMw6b5dkadiK2UXV3lp778putQyqcj
+ bh=1uiYw4A/lLLh/mTtdxttn1wy5i6b5KyOE0h65+zswio=;
+ b=SoPHDFAoOK/kLuq+yWRUtieGEfwTb95/pAmzeW9Um6JRqHEspAR/tqeWlNH3wGdHRxmngwikn
+ kuAlaTSN9/DBuxNWZQ2OjnIXZeTRu09kvz2dA1q/lgeMjn0akQoHK6w
 X-Developer-Key: i=j.neuschaefer@gmx.net; a=ed25519;
  pk=NIe0bK42wNaX/C4bi6ezm7NJK0IQE+8MKBm7igFMIS4=
-X-Provags-ID: V03:K1:Cfn7sVF9yJmxe/Rug/YHADGQRtYxP4GTFoYDHCfBOqRyejKpixx
- zjWkeIq3n1/umG4CO43FAvpr6GIJze1xiQGuHbMGYU5zWIJLwjXV/asPng+xmkb1EPegY5c
- 4aQjlXfAIPLEVRBx8r+F0XvrqLII4bVOhVsiONVGlouM+qIaDcbs/TR5616GQRMafq/AW4Q
- 22Nng/9LzJ/HWAzviFkmw==
-UI-OutboundReport: notjunk:1;M01:P0:Z5q+TLdM1Og=;3GqVIYz92KmRvpvMABWudVwtk9q
- Trycz/qINNm5TyC0kML8Zf3GTSbjjzAlAexwK4fAo3ZBqxsjx1xXXiVesfmw75RBJQhCEIqM9
- 7CgWq7RL8GmNSJLVMnxsICjYOV7kP4tq2VGKFVjlV6l9v2d3qLRG+rNRzwnYhs3VlNkt+jFgD
- 7/iHo3vwzj5Rf9ilLsIrCnVW1efIT+ZTTd0lk0DJl3ZfLEH2HeyQ9SNnerVYpQOv7mEP9tzVo
- ZCowKaNKlDBN7XMmhiKvuPDcOEyNP2GFGv8q72YNLZAZSVVEPohhs7XYM5UqzGdVo/vaRySsm
- 90u235xz97YfCJvbFVRg3WthJnlmfm531/4RrtyzZ4jsA21bt4Nx2lZNWvrLn2d86GEag++v0
- IcSPb3ipgPoO2w5n5sTaPsHAZFUHu8QAMKClY0Ad5Dv7bWNaI56AHFyAzd9OD0sWti3rlaVgi
- 9FdCtbaDhzXudzLpVdZFIPeMRr9bG9f8eAdKaT8z7hmkCN80Q6sMPjUXhW/g+Ya/cpFY2vkPL
- 4XkvU65kWJTEiRv8WrtVcAJYt59hvkQ8PZluRJHt5CBqriWBgJL2gCrpLLxwbSuS9NrVY3Ql7
- XmFLYjfIBtPyP6KAvlirDQOH7nvZZzZ/ZI7CJv13SiLSq3tUGELno5IusnjUD2N1/hywY7rx3
- aUBkF5hoWWckj+UX1y8WIT6fWldMVCAPZMY635NJIEXbIHk+5ToiUMHJLInkxC7dGgj16WvOo
- VMHKDtj+aMW6/FC/f7E5/L++SbwjQY8x6xUOrgUQmaPbmDbQddAohJs5jRinyOtc/LLlekEUr
- +H9kSoOau6s00wfyUGvPCEIjLvJWmwTcczhksqcSjXN4o=
+X-Provags-ID: V03:K1:rr3gzaxoTF4B6FifwJso/858vBXoLg/bHDfpgjv7fOrjouocjVU
+ 5lbQUMs96Tgf+iKbc3BibhvSmAD9sgQgqo1ZtxA5upI5vPzQH/d9V9DnIXK7qY4B7FqiIIm
+ Fh2VnZuW4dpi0SfYTriH8ktpWUanNEbwLojyCcGxaxZRkYm7I/5xIsAB/tj39MykNd4x7Br
+ YaSl2FPXSfGP3ti99fcMg==
+UI-OutboundReport: notjunk:1;M01:P0:BldRFGiEc3M=;Pki+aikhIANvKonFR9z2VgwjHgq
+ Bjsr+Xo5t4wtZcu3jBhNNQBcDyj3zqrQVML5i9FbITqaHG5Fo5JIm60wRXuhHTUYFxfjLHroj
+ 7GM5LjQBB0PmFwpGmOirUiYr7kS43lZAYWLsgLjK9kNBNeHe1yjNm4WBV3UaFeWmICRB5jv2W
+ z9bjKqUr/mq2Ev718p9BJf1NA0lHSaFzbem9lQBdwUkWKvp/1QEUXuILH/gw5JiFTzZxcf4aE
+ pPsdwUEJOzD7yw1w56NTs9C31heL9zehNm7a11f8g/JT3u1ggqUJkus8vIi0KEpmdeKx+4aS8
+ OVKoBcJh4P0lII4b8prxUCVPqil9Ty9y7BMIXi8RiuC4KwOIJXkW/BvbBMIwtTH0mYOArAtGN
+ A6ZkDsTHpv+Mt5nDrM3pNo3YYiVvoFPLRz4goMT5FSQB3UVL5xFRYTOP3M8JDTppeNtMP6FKI
+ kPXheRPk8am2n9R6eDb26nYfDpWPpjXRqjxipvJXGgvjEiW4AnrXyLknVNue5X7WMlqAJome6
+ zLnQAYOKY213n+pE3Wi8uY+ZbfVA7cBF4TOucbcwnO8UBGdlnwmYpeEL4oPAeNUKWVCsGgB+o
+ ReGRrjdwp1UxTZlhWqOjwnzeXWKsxbWZDj3YsFFkX4/2bR5l1OrqCSnLnCe7KX3p4Jeo9ftJE
+ KS0L+RloKFPRXugLbsUy3yMPNjsZJN9NNGwkEgJmrhlPF4Y6dvtVSOUTYM7mjhencl1zQP56U
+ e1pfZeImzg2EI3kLcOJOO/1m1Zdn6N7j/0kiJsmxZZQEIDSWgUYIgBsubb73FYDaCTkkJSb6A
+ /+F5ixpS3hvwtX9YY8HHpf/EaERpiTCfeGDifpxRuoShc=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,123 +92,36 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen B
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This change is incompatible with older kernels because it requires the
-clock controller driver, but I think that's acceptable because WPCM450
-support is generally still in an early phase.
+For some reason, I understood the description of .index to mean an index
+into the list of clocks defined by the provider itself. This is not the
+case, and it caused me much confusion.
+
+Let's be a bit more explicit for those who read the documentation after me=
+.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
+ include/linux/clk-provider.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-It's probably best to delay merging of this patch until after the driver
-is merged; I'm including it here for review, and in case someone wants
-to set up a shared branch between the clock and devicetree parts.
-
-v12:
-- work around timer-npcm7xx driver issue by providing timer clock separate=
-ly
-
-v11:
-- no changes
-
-v10:
-- Reintroducing this patch as part of the clock/reset controller series
-=2D--
- arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi | 32 ++++++++++++++++-----=
------
- 1 file changed, 20 insertions(+), 12 deletions(-)
-
-diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi b/arch/arm/boo=
-t/dts/nuvoton/nuvoton-wpcm450.dtsi
-index ff153858801ccf..daf4d399ecab4c 100644
-=2D-- a/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi
-+++ b/arch/arm/boot/dts/nuvoton/nuvoton-wpcm450.dtsi
-@@ -2,6 +2,7 @@
- // Copyright 2021 Jonathan Neusch=C3=A4fer
-
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/clock/nuvoton,wpcm450-clk.h>
-
- / {
- 	compatible =3D "nuvoton,wpcm450";
-@@ -30,13 +31,6 @@ cpu@0 {
- 		};
- 	};
-
--	clk24m: clock-24mhz {
--		/* 24 MHz dummy clock */
--		compatible =3D "fixed-clock";
--		clock-frequency =3D <24000000>;
--		#clock-cells =3D <0>;
--	};
--
- 	refclk: clock-ref {
- 		/* 48 MHz reference oscillator */
- 		compatible =3D "fixed-clock";
-@@ -44,6 +38,19 @@ refclk: clock-ref {
- 		#clock-cells =3D <0>;
- 	};
-
-+	refclk_div2: clock-refdiv2 {
-+		/*
-+		 * reference oscillator divided by 2, as a workaround because
-+		 * the npcm7xx-timer driver needs its clock earlier than the
-+		 * clk-wpcm450 driver (as a platform driver) can provide it.
-+		 */
-+		compatible =3D "fixed-factor-clock";
-+		clocks =3D <&refclk>;
-+		#clock-cells =3D <0>;
-+		clock-mult =3D <1>;
-+		clock-div =3D <2>;
-+	};
-+
- 	soc {
- 		compatible =3D "simple-bus";
- 		#address-cells =3D <1>;
-@@ -70,7 +77,7 @@ serial0: serial@b8000000 {
- 			reg =3D <0xb8000000 0x20>;
- 			reg-shift =3D <2>;
- 			interrupts =3D <7 IRQ_TYPE_LEVEL_HIGH>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_UART0>;
- 			pinctrl-names =3D "default";
- 			pinctrl-0 =3D <&bsp_pins>;
- 			status =3D "disabled";
-@@ -81,7 +88,7 @@ serial1: serial@b8000100 {
- 			reg =3D <0xb8000100 0x20>;
- 			reg-shift =3D <2>;
- 			interrupts =3D <8 IRQ_TYPE_LEVEL_HIGH>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_UART1>;
- 			status =3D "disabled";
- 		};
-
-@@ -89,14 +96,15 @@ timer0: timer@b8001000 {
- 			compatible =3D "nuvoton,wpcm450-timer";
- 			interrupts =3D <12 IRQ_TYPE_LEVEL_HIGH>;
- 			reg =3D <0xb8001000 0x1c>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&refclk_div2>,
-+				 <&refclk_div2>;
- 		};
-
- 		watchdog0: watchdog@b800101c {
- 			compatible =3D "nuvoton,wpcm450-wdt";
- 			interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
- 			reg =3D <0xb800101c 0x4>;
--			clocks =3D <&clk24m>;
-+			clocks =3D <&clk WPCM450_CLK_WDT>;
- 		};
-
- 		aic: interrupt-controller@b8002000 {
-@@ -480,7 +488,7 @@ fiu: spi-controller@c8000000 {
- 			#size-cells =3D <0>;
- 			reg =3D <0xc8000000 0x1000>, <0xc0000000 0x4000000>;
- 			reg-names =3D "control", "memory";
--			clocks =3D <&clk 0>;
-+			clocks =3D <&clk WPCM450_CLK_FIU>;
- 			nuvoton,shm =3D <&shm>;
- 			status =3D "disabled";
- 		};
+diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
+index 5d537d0776a11f..88bdada390c772 100644
+=2D-- a/include/linux/clk-provider.h
++++ b/include/linux/clk-provider.h
+@@ -273,7 +273,9 @@ struct clk_ops {
+  * @hw: parent clk_hw pointer (used for clk providers with internal clks)
+  * @fw_name: parent name local to provider registering clk
+  * @name: globally unique parent name (used as a fallback)
+- * @index: parent index local to provider registering clk (if @fw_name ab=
+sent)
++ * @index: parent index local to provider registering clk (if @fw_name ab=
+sent).
++ *         Note that this is not an index into the provider's own clocks =
+but
++ *         into its list of parents!
+  */
+ struct clk_parent_data {
+ 	const struct clk_hw	*hw;
 
 =2D-
 2.43.0
