@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8597FC3DA4B
-	for <openbmc@archiver.kernel.org>; Thu, 11 Jul 2024 19:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7B5C3DA45
+	for <openbmc@archiver.kernel.org>; Thu, 11 Jul 2024 19:41:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WKlSz28hdz3g4k
-	for <openbmc@archiver.kernel.org>; Fri, 12 Jul 2024 05:40:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WKlTS5pd9z3g6c
+	for <openbmc@archiver.kernel.org>; Fri, 12 Jul 2024 05:41:16 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WKlQ00z3Nz3chL
-	for <openbmc@lists.ozlabs.org>; Fri, 12 Jul 2024 05:38:15 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WKlPy5h2Rz3cdn
+	for <openbmc@lists.ozlabs.org>; Fri, 12 Jul 2024 05:38:11 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46BJc21o028616
-	for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2024 22:38:02 +0300
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46BJc0cj028611
+	for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2024 22:38:01 +0300
 Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 11 Jul
- 2024 22:38:01 +0300
+ 2024 22:37:59 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
  (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 12 Jul
- 2024 03:37:58 +0800
+ 2024 03:37:56 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 12 Jul 2024 03:37:58 +0800
+ Transport; Fri, 12 Jul 2024 03:37:56 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 53A165F671;
-	Thu, 11 Jul 2024 22:37:57 +0300 (IDT)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 775AF5F675;
+	Thu, 11 Jul 2024 22:37:55 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 53353DC0F7F; Thu, 11 Jul 2024 22:37:57 +0300 (IDT)
+	id 76600DC0F7F; Thu, 11 Jul 2024 22:37:55 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <linus.walleij@linaro.org>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v1 5/7] pinctrl: nuvoton: npcm8xx: remove unused lpcclk pin, group, function
-Date: Thu, 11 Jul 2024 22:37:47 +0300
-Message-ID: <20240711193749.2397471-6-tmaimon77@gmail.com>
+Subject: [PATCH v1 2/7] pinctrl: nuvoton: npcm8xx: add gpi35 and gpi36
+Date: Thu, 11 Jul 2024 22:37:44 +0300
+Message-ID: <20240711193749.2397471-3-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240711193749.2397471-1-tmaimon77@gmail.com>
 References: <20240711193749.2397471-1-tmaimon77@gmail.com>
@@ -64,59 +64,58 @@ Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kern
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Remove unused lpcclk pin, group and function on the Nuvoton NPCM8XX BMC
-SoC.
+This patch adds support for GPIO pins GPI35 and GPI36 on the Nuvoton
+NPCM8xx BMC SoC.
+
+The pins are configured for only for input.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 396bd07e7c74..bc947d0d6ede 100644
+index 0cd8a5e00cde..cf021d0e8099 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -570,7 +570,6 @@ static const int spi3cs3_pins[] = { 189 };
- static const int ddc_pins[] = { 204, 205, 206, 207 };
+@@ -316,8 +316,8 @@ static struct irq_chip npcmgpio_irqchip = {
+ 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+ };
  
- static const int lpc_pins[] = { 95, 161, 163, 164, 165, 166, 167 };
--static const int lpcclk_pins[] = { 168 };
- static const int espi_pins[] = { 95, 161, 163, 164, 165, 166, 167, 168 };
+-static const int gpi36_pins[] = { 58 };
+-static const int gpi35_pins[] = { 58 };
++static const int gpi36_pins[] = { 36 };
++static const int gpi35_pins[] = { 35 };
  
- static const int lkgpo0_pins[] = { 16 };
-@@ -807,7 +806,6 @@ struct npcm8xx_pingroup {
- 	NPCM8XX_GRP(spi3cs3), \
- 	NPCM8XX_GRP(spi0cs1), \
- 	NPCM8XX_GRP(lpc), \
--	NPCM8XX_GRP(lpcclk), \
- 	NPCM8XX_GRP(espi), \
- 	NPCM8XX_GRP(lkgpo0), \
- 	NPCM8XX_GRP(lkgpo1), \
-@@ -1054,7 +1052,6 @@ NPCM8XX_SFUNC(spi3cs2);
- NPCM8XX_SFUNC(spi3cs3);
- NPCM8XX_SFUNC(spi0cs1);
- NPCM8XX_SFUNC(lpc);
--NPCM8XX_SFUNC(lpcclk);
- NPCM8XX_SFUNC(espi);
- NPCM8XX_SFUNC(lkgpo0);
- NPCM8XX_SFUNC(lkgpo1);
-@@ -1277,7 +1274,6 @@ static struct npcm8xx_func npcm8xx_funcs[] = {
- 	NPCM8XX_MKFUNC(spi3cs3),
- 	NPCM8XX_MKFUNC(spi0cs1),
- 	NPCM8XX_MKFUNC(lpc),
--	NPCM8XX_MKFUNC(lpcclk),
- 	NPCM8XX_MKFUNC(espi),
- 	NPCM8XX_MKFUNC(lkgpo0),
- 	NPCM8XX_MKFUNC(lkgpo1),
-@@ -1495,7 +1491,7 @@ static const struct npcm8xx_pincfg pincfg[] = {
- 	NPCM8XX_PINCFG(165,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(166,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(167,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
--	NPCM8XX_PINCFG(168,	lpcclk, MFSEL1, 31,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
-+	NPCM8XX_PINCFG(168,	none, NONE, 0,		espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(169,	scipme, MFSEL3, 0,	smb21, MFSEL5, 29,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(170,	smi, MFSEL1, 22,	smb21, MFSEL5, 29,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(171,	smb6, MFSEL3, 1,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
+ static const int tp_jtag3_pins[] = { 44, 62, 45, 46 };
+ static const int tp_uart_pins[] = { 50, 51 };
+@@ -1366,6 +1366,8 @@ static const struct npcm8xx_pincfg pincfg[] = {
+ 	NPCM8XX_PINCFG(32,	spi0cs1, MFSEL1, 3,	smb14b, MFSEL7, 26,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(33,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(34,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
++	NPCM8XX_PINCFG(35,	gpi35, MFSEL5, 16,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
++	NPCM8XX_PINCFG(36,	gpi36, MFSEL5, 18,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
+ 	NPCM8XX_PINCFG(37,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(38,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(39,	smb3b, I2CSEGSEL, 11,	smb22, MFSEL5, 30,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+@@ -1611,6 +1613,8 @@ static const struct pinctrl_pin_desc npcm8xx_pins[] = {
+ 	PINCTRL_PIN(32, "GPIO32/SMB14B_SCL/SPI0_nCS1"),
+ 	PINCTRL_PIN(33, "GPIO33/I3C4_SCL"),
+ 	PINCTRL_PIN(34, "GPIO34/I3C4_SDA"),
++	PINCTRL_PIN(35, "MCBPCK/GPI35_AHB2PCI_DIS"),
++	PINCTRL_PIN(36, "SYSBPCK/GPI36"),
+ 	PINCTRL_PIN(37, "GPIO37/SMB3C_SDA/SMB23_SDA"),
+ 	PINCTRL_PIN(38, "GPIO38/SMB3C_SCL/SMB23_SCL"),
+ 	PINCTRL_PIN(39, "GPIO39/SMB3B_SDA/SMB22_SDA"),
+@@ -2045,7 +2049,7 @@ static int npcm8xx_gpio_request_enable(struct pinctrl_dev *pctldev,
+ 	const unsigned int *pin = &offset;
+ 	int mode = fn_gpio;
+ 
+-	if (pin[0] >= 183 && pin[0] <= 189)
++	if ((pin[0] >= 183 && pin[0] <= 189) || pin[0] == 35 || pin[0] == 36)
+ 		mode = pincfg[pin[0]].fn0;
+ 
+ 	npcm8xx_setfunc(npcm->gcr_regmap, &offset, 1, mode);
 -- 
 2.34.1
 
