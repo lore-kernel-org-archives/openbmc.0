@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427C1C3DA49
-	for <openbmc@archiver.kernel.org>; Tue, 16 Jul 2024 19:42:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68767C3DA49
+	for <openbmc@archiver.kernel.org>; Tue, 16 Jul 2024 19:42:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WNqGH3X1Dz3fsf
-	for <openbmc@archiver.kernel.org>; Wed, 17 Jul 2024 05:42:15 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WNqGm75pBz3g0L
+	for <openbmc@archiver.kernel.org>; Wed, 17 Jul 2024 05:42:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WNqDF20npz3dBm
-	for <openbmc@lists.ozlabs.org>; Wed, 17 Jul 2024 05:40:25 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WNqDF3LVjz3dHM
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Jul 2024 05:40:28 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46GJeExs022543
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46GJeFuq022574
 	for <openbmc@lists.ozlabs.org>; Tue, 16 Jul 2024 22:40:15 +0300
 Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 16 Jul
- 2024 22:40:14 +0300
+ 2024 22:40:15 +0300
 Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
  (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 17 Jul
@@ -31,24 +31,22 @@ Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
  Transport; Wed, 17 Jul 2024 03:40:12 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 62A0C5F63E;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 5714E5F617;
 	Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 5EB0BDC0BCE; Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
+	id 4515DDC0BCE; Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <linus.walleij@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
         <conor+dt@kernel.org>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v2 3/7] pinctrl: nuvoton: npcm8xx: clear polarity before set both edge
-Date: Tue, 16 Jul 2024 22:40:04 +0300
-Message-ID: <20240716194008.3502068-4-tmaimon77@gmail.com>
+Subject: [PATCH v2 0/7] pinctrl: npcm8xx: pin configuration changes 
+Date: Tue, 16 Jul 2024 22:40:01 +0300
+Message-ID: <20240716194008.3502068-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240716194008.3502068-1-tmaimon77@gmail.com>
-References: <20240716194008.3502068-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -65,26 +63,33 @@ Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Clear polarity before setting both edges to ensure that the polarity is
-in the same state before configuring events for both edges
+This patch set addresses various pin configuration changes for the 
+Nuvoton NPCM8XX BMC SoC. The patches aim to enhance functionality, 
+remove unused pins, and improve overall pin management.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 1 +
- 1 file changed, 1 insertion(+)
+Addressed comments from:
+- J. Neuschäfer: https://www.spinics.net/lists/linux-gpio/msg101303.html
+- Jonas Gorski: https://www.spinics.net/lists/linux-gpio/msg101304.html
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 2df735947d86..7985400de12a 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -241,6 +241,7 @@ static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
- 		npcm_gpio_set(&bank->gc, bank->base + NPCM8XX_GP_N_POL, gpio);
- 		break;
- 	case IRQ_TYPE_EDGE_BOTH:
-+		npcm_gpio_clr(&bank->gc, bank->base + NPCM8XX_GP_N_POL, gpio);
- 		npcm_gpio_set(&bank->gc, bank->base + NPCM8XX_GP_N_EVBE, gpio);
- 		break;
- 	case IRQ_TYPE_LEVEL_LOW:
+Changes since version 1:
+	- Squash the non-existent pins, groups and functions.
+	- Remove non-existent groups and functions from dt-bindings.
+	- Modify the commit message.
+
+Tomer Maimon (7):
+  dt-bindings: pinctrl: npcm8xx: remove non-existent groups and
+    functions
+  pinctrl: nuvoton: npcm8xx: remove non-existent pins, groups, functions
+  pinctrl: nuvoton: npcm8xx: clear polarity before set both edge
+  pinctrl: nuvoton: npcm8xx: add gpi35 and gpi36
+  pinctrl: nuvoton: npcm8xx: add pin 250 to DDR pins group
+  pinctrl: nuvoton: npcm8xx: modify clkrun and serirq pin configuration
+  pinctrl: nuvoton: npcm8xx: modify pins flags
+
+ .../pinctrl/nuvoton,npcm845-pinctrl.yaml      | 70 +++++++++----------
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c     | 64 ++++++++---------
+ 2 files changed, 65 insertions(+), 69 deletions(-)
+
 -- 
 2.34.1
 
