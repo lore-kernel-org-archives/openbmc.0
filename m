@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A77E1C3DA49
-	for <openbmc@archiver.kernel.org>; Tue, 16 Jul 2024 19:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A72C3DA59
+	for <openbmc@archiver.kernel.org>; Tue, 16 Jul 2024 19:43:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WNqHG346Dz3g2y
-	for <openbmc@archiver.kernel.org>; Wed, 17 Jul 2024 05:43:06 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WNqHl6mRXz3g5S
+	for <openbmc@archiver.kernel.org>; Wed, 17 Jul 2024 05:43:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WNqDF3h1rz3dJm
-	for <openbmc@lists.ozlabs.org>; Wed, 17 Jul 2024 05:40:28 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WNqDF1KdMz3cYy
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Jul 2024 05:40:26 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46GJeExt022543
-	for <openbmc@lists.ozlabs.org>; Tue, 16 Jul 2024 22:40:15 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46GJeGPk022586
+	for <openbmc@lists.ozlabs.org>; Tue, 16 Jul 2024 22:40:16 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
  (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 16 Jul
- 2024 22:40:14 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 22:40:15 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 17 Jul
- 2024 03:40:12 +0800
+ 2024 03:40:13 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 17 Jul 2024 03:40:12 +0800
+ Transport; Wed, 17 Jul 2024 03:40:13 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 5BB335F63D;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 7847F5F64E;
 	Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 54A84DC148E; Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
+	id 74D8DDC0BCE; Tue, 16 Jul 2024 22:40:11 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <linus.walleij@linaro.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
         <conor+dt@kernel.org>, <avifishman70@gmail.com>,
         <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
         <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v2 2/7] pinctrl: nuvoton: npcm8xx: remove non-existent pins, groups, functions
-Date: Tue, 16 Jul 2024 22:40:03 +0300
-Message-ID: <20240716194008.3502068-3-tmaimon77@gmail.com>
+Subject: [PATCH v2 5/7] pinctrl: nuvoton: npcm8xx: add pin 250 to DDR pins group
+Date: Tue, 16 Jul 2024 22:40:06 +0300
+Message-ID: <20240716194008.3502068-6-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240716194008.3502068-1-tmaimon77@gmail.com>
 References: <20240716194008.3502068-1-tmaimon77@gmail.com>
@@ -65,100 +65,34 @@ Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon7
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Remove non-existent smb4den abd lpcclk pins, groups and functions on
-the Nuvoton NPCM8XX BMC SoC.
+Add pin 250 to DDR pins group on the Nuvoton NPCM8xx BMC SoC.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index a377d36b0eb0..2df735947d86 100644
+index 4e02d1a68f39..bc947d0d6ede 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -437,7 +437,6 @@ static const int smb4_pins[]  = { 28, 29 };
- static const int smb4b_pins[] = { 18, 19 };
- static const int smb4c_pins[] = { 20, 21 };
- static const int smb4d_pins[] = { 22, 23 };
--static const int smb4den_pins[] = { 17 };
- static const int smb5_pins[]  = { 26, 27 };
- static const int smb5b_pins[] = { 13, 12 };
- static const int smb5c_pins[] = { 15, 14 };
-@@ -570,7 +569,6 @@ static const int spi3cs3_pins[] = { 189 };
- static const int ddc_pins[] = { 204, 205, 206, 207 };
+@@ -515,7 +515,7 @@ static const int rg2_pins[] = { 110, 111, 112, 113, 208, 209, 210, 211, 212,
+ static const int rg2mdio_pins[] = { 216, 217 };
  
- static const int lpc_pins[] = { 95, 161, 163, 164, 165, 166, 167 };
--static const int lpcclk_pins[] = { 168 };
- static const int espi_pins[] = { 95, 161, 163, 164, 165, 166, 167, 168 };
+ static const int ddr_pins[] = { 110, 111, 112, 113, 208, 209, 210, 211, 212,
+-	213, 214, 215, 216, 217 };
++	213, 214, 215, 216, 217, 250 };
  
- static const int lkgpo0_pins[] = { 16 };
-@@ -699,7 +697,6 @@ struct npcm8xx_pingroup {
- 	NPCM8XX_GRP(smb4b), \
- 	NPCM8XX_GRP(smb4c), \
- 	NPCM8XX_GRP(smb4d), \
--	NPCM8XX_GRP(smb4den), \
- 	NPCM8XX_GRP(smb5), \
- 	NPCM8XX_GRP(smb5b), \
- 	NPCM8XX_GRP(smb5c), \
-@@ -808,7 +805,6 @@ struct npcm8xx_pingroup {
- 	NPCM8XX_GRP(spi3cs3), \
- 	NPCM8XX_GRP(spi0cs1), \
- 	NPCM8XX_GRP(lpc), \
--	NPCM8XX_GRP(lpcclk), \
- 	NPCM8XX_GRP(espi), \
- 	NPCM8XX_GRP(lkgpo0), \
- 	NPCM8XX_GRP(lkgpo1), \
-@@ -948,7 +944,6 @@ NPCM8XX_SFUNC(smb4);
- NPCM8XX_SFUNC(smb4b);
- NPCM8XX_SFUNC(smb4c);
- NPCM8XX_SFUNC(smb4d);
--NPCM8XX_SFUNC(smb4den);
- NPCM8XX_SFUNC(smb5);
- NPCM8XX_SFUNC(smb5b);
- NPCM8XX_SFUNC(smb5c);
-@@ -1056,7 +1051,6 @@ NPCM8XX_SFUNC(spi3cs2);
- NPCM8XX_SFUNC(spi3cs3);
- NPCM8XX_SFUNC(spi0cs1);
- NPCM8XX_SFUNC(lpc);
--NPCM8XX_SFUNC(lpcclk);
- NPCM8XX_SFUNC(espi);
- NPCM8XX_SFUNC(lkgpo0);
- NPCM8XX_SFUNC(lkgpo1);
-@@ -1172,7 +1166,6 @@ static struct npcm8xx_func npcm8xx_funcs[] = {
- 	NPCM8XX_MKFUNC(smb4b),
- 	NPCM8XX_MKFUNC(smb4c),
- 	NPCM8XX_MKFUNC(smb4d),
--	NPCM8XX_MKFUNC(smb4den),
- 	NPCM8XX_MKFUNC(smb5),
- 	NPCM8XX_MKFUNC(smb5b),
- 	NPCM8XX_MKFUNC(smb5c),
-@@ -1280,7 +1273,6 @@ static struct npcm8xx_func npcm8xx_funcs[] = {
- 	NPCM8XX_MKFUNC(spi3cs3),
- 	NPCM8XX_MKFUNC(spi0cs1),
- 	NPCM8XX_MKFUNC(lpc),
--	NPCM8XX_MKFUNC(lpcclk),
- 	NPCM8XX_MKFUNC(espi),
- 	NPCM8XX_MKFUNC(lkgpo0),
- 	NPCM8XX_MKFUNC(lkgpo1),
-@@ -1347,7 +1339,7 @@ static const struct npcm8xx_pincfg pincfg[] = {
- 	NPCM8XX_PINCFG(14,	gspi, MFSEL1, 24,	smb5c, I2CSEGSEL, 20,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(15,	gspi, MFSEL1, 24,	smb5c, I2CSEGSEL, 20,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(16,	lkgpo0, FLOCKR1, 0,	smb7b, I2CSEGSEL, 27,	tp_gpio2b, MFSEL7, 10,	none, NONE, 0,		none, NONE, 0,		SLEW),
--	NPCM8XX_PINCFG(17,	pspi, MFSEL3, 13,	cp1gpio5, MFSEL6, 7,	smb4den, I2CSEGSEL, 23,	none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(17,	pspi, MFSEL3, 13,	cp1gpio5, MFSEL6, 7,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(18,	pspi, MFSEL3, 13,	smb4b, I2CSEGSEL, 14,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(19,	pspi, MFSEL3, 13,	smb4b, I2CSEGSEL, 14,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(20,	hgpio0,	MFSEL2, 24,	smb15, MFSEL3, 8,	smb4c, I2CSEGSEL, 15,	none, NONE, 0,		none, NONE, 0,		SLEW),
-@@ -1496,7 +1488,7 @@ static const struct npcm8xx_pincfg pincfg[] = {
- 	NPCM8XX_PINCFG(165,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(166,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(167,	lpc, MFSEL1, 26,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
--	NPCM8XX_PINCFG(168,	lpcclk, MFSEL1, 31,	espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
-+	NPCM8XX_PINCFG(168,	none, NONE, 0,		espi, MFSEL4, 8,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(169,	scipme, MFSEL3, 0,	smb21, MFSEL5, 29,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(170,	smi, MFSEL1, 22,	smb21, MFSEL5, 29,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(171,	smb6, MFSEL3, 1,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
+ static const int iox1_pins[] = { 0, 1, 2, 3 };
+ static const int iox2_pins[] = { 4, 5, 6, 7 };
+@@ -1562,6 +1562,7 @@ static const struct npcm8xx_pincfg pincfg[] = {
+ 	NPCM8XX_PINCFG(245,	i3c2, MFSEL5, 21,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(246,	i3c3, MFSEL5, 23,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(247,	i3c3, MFSEL5, 23,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
++	NPCM8XX_PINCFG(250,	ddr, MFSEL3, 26,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
+ 	NPCM8XX_PINCFG(251,	jm2, MFSEL5, 1,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(253,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		GPI), /* SDHC1 power */
+ 	NPCM8XX_PINCFG(254,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		GPI), /* SDHC2 power */
 -- 
 2.34.1
 
