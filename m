@@ -4,69 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D40DC3DA63
-	for <openbmc@archiver.kernel.org>; Thu, 18 Jul 2024 15:32:06 +0000 (UTC)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FWRfNF16;
-	dkim-atps=neutral
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A384DC3DA61
+	for <openbmc@archiver.kernel.org>; Thu, 18 Jul 2024 18:28:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WPxch5TTGz3fmQ
-	for <openbmc@archiver.kernel.org>; Fri, 19 Jul 2024 01:32:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FWRfNF16;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com [IPv6:2607:f8b0:4864:20::533])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WQ1X109yYz3fTN
+	for <openbmc@archiver.kernel.org>; Fri, 19 Jul 2024 04:28:17 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WPxbj1rXDz2yvx
-	for <openbmc@lists.ozlabs.org>; Fri, 19 Jul 2024 01:31:11 +1000 (AEST)
-Received: by mail-pg1-x533.google.com with SMTP id 41be03b00d2f7-7163489149eso726453a12.1
-        for <openbmc@lists.ozlabs.org>; Thu, 18 Jul 2024 08:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1721316666; x=1721921466; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=sEFye0Dsk7Zyp8CrFXtXmiS20SE9tzlxERuXii0FnHc=;
-        b=FWRfNF16BG6stF5y6D5Q+gIsshLun7fY/4UNDAost51DonB+OdE0axtQxK42Vv0Zcn
-         D5viL3AyVedYjaFKQcu3SbYvUQwjvQXHHBTLVekXKpQtqQ1YRC3KVl8TkMK6NphwdBTB
-         rN9GyIXb4cXkA04GWWnfbnyfRTftRimKf7oZ4F86rsPPmcWLYhZ/9fGlcICdQVnO0WxJ
-         QMoCsEzIMomXJHDNUMdQkT8S7HFi9wHGDErGJiMFihQ+An4RK0gYNK6AoMTndNGTWYqt
-         g/TZAAKbKNYDWau1+uIhl6kx4xwld/ERrX1YXgU27D+P7KCoCk6BOXsfego3gnRGpzAN
-         mQdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1721316666; x=1721921466;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sEFye0Dsk7Zyp8CrFXtXmiS20SE9tzlxERuXii0FnHc=;
-        b=Sj3rHJNSP8hSiCLmbmxARKJKKc8CPYY3LK1kj7+N2g587dW4luc9mu0FLLlHseSLE+
-         2uYfx7kEP82C7r/EkF33lcUpr9jAVgyPIC00N6wsKYpsxdMbtFJWgUsSlD0xPHW1AI8K
-         tyIrGyxAwXWLRaV68hVLA9btInvsqb4gx04oKCR2flYzJ6GSYwfiXHukc1/7CgTNX4kM
-         zLJtnYK34TezWWgVtpd/PymofyIohAzTp33NKXvG7eraXYE9mQ5OZj4buJqH1cE8e7nJ
-         FZiNIt1LJ2l2F0Mwt74MgswxaqXxYnmHILOhz3yivL9xb9uDh0kDRSkW3BITU7BkbwIU
-         UVtA==
-X-Gm-Message-State: AOJu0YzzknahYwKwhIss/oQOglwe3UaSeo86sUbdFQ6D/dg/Q4L4ABNi
-	q4TFJ22gk5GLCX2sYAJe1ZosGgQ3sOXZbcVocg6sePFuBpy/Jk8RyduEYg==
-X-Google-Smtp-Source: AGHT+IH9iIDEL+WGdL9Wn0RzH2IDPNP9k477harWlsX3Nbfiacb3TKbHAvd/yNtdLyb8xbEE9HHhWg==
-X-Received: by 2002:a05:6a21:7899:b0:1c3:b1b3:75cf with SMTP id adf61e73a8af0-1c3fdcd431emr7025711637.14.1721316665507;
-        Thu, 18 Jul 2024 08:31:05 -0700 (PDT)
-Received: from localhost.localdomain (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2cb77b045edsm794810a91.48.2024.07.18.08.31.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jul 2024 08:31:05 -0700 (PDT)
-From: Potin Lai <potin.lai.pt@gmail.com>
-To: openbmc@lists.ozlabs.org,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Patrick Williams <patrick@stwcx.xyz>
-Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 1/1] ARM: dts: Aspeed: Add Catalina into Facebook DTS
-Date: Thu, 18 Jul 2024 23:28:53 +0800
-Message-Id: <20240718152853.1291804-1-potin.lai.pt@gmail.com>
-X-Mailer: git-send-email 2.31.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WQ1WP07D2z3cZr
+	for <openbmc@lists.ozlabs.org>; Fri, 19 Jul 2024 04:27:41 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 46IIRUko015605
+	for <openbmc@lists.ozlabs.org>; Thu, 18 Jul 2024 21:27:30 +0300
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 18 Jul
+ 2024 21:27:29 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 19 Jul
+ 2024 02:27:26 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 19 Jul 2024 02:27:26 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 967AF5F679;
+	Thu, 18 Jul 2024 21:27:25 +0300 (IDT)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 93DDBDC0E6E; Thu, 18 Jul 2024 21:27:25 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: [linux dev-6.6 v2 4/7] pinctrl: nuvoton: npcm8xx: add gpi35 and gpi36
+Date: Thu, 18 Jul 2024 21:27:17 +0300
+Message-ID: <20240718182720.2721427-5-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20240718182720.2721427-1-tmaimon77@gmail.com>
+References: <20240718182720.2721427-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,30 +58,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Potin Lai <potin.lai@quantatw.com>, Potin Lai <potin.lai.pt@gmail.com>, Peter Yin <peteryin.openbmc@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Introduce Mata Catalina system with Aspeed 2600 BMC SoC.
+This patch adds support for GPIO pins GPI35 and GPI36 on the Nuvoton
+NPCM8xx BMC SoC.
 
-Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+The pins are configured for only for input.
+
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/dts/ast2600-facebook.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/dts/ast2600-facebook.dts b/arch/arm/dts/ast2600-facebook.dts
-index b988ff755e..c742ac1dc3 100644
---- a/arch/arm/dts/ast2600-facebook.dts
-+++ b/arch/arm/dts/ast2600-facebook.dts
-@@ -6,7 +6,7 @@
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+index ea36b044240a..fe9d18b10dd1 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+@@ -321,8 +321,8 @@ static struct irq_chip npcmgpio_irqchip = {
+ 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+ };
  
- / {
- 	model = "Facebook BMC";
--	compatible = "facebook,harma-bmc", "facebook,minerva-bmc", "aspeed,ast2600";
-+	compatible = "facebook,harma-bmc", "facebook,minerva-bmc", "facebook,catalina-bmc", "aspeed,ast2600";
+-static const int gpi36_pins[] = { 58 };
+-static const int gpi35_pins[] = { 58 };
++static const int gpi36_pins[] = { 36 };
++static const int gpi35_pins[] = { 35 };
  
- 	memory {
- 		device_type = "memory";
+ static const int tp_jtag3_pins[] = { 44, 62, 45, 46 };
+ static const int tp_uart_pins[] = { 50, 51 };
+@@ -1363,6 +1363,8 @@ static const struct npcm8xx_pincfg pincfg[] = {
+ 	NPCM8XX_PINCFG(32,	spi0cs1, MFSEL1, 3,	smb14b, MFSEL7, 26,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(33,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(34,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
++	NPCM8XX_PINCFG(35,	gpi35, MFSEL5, 16,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
++	NPCM8XX_PINCFG(36,	gpi36, MFSEL5, 18,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
+ 	NPCM8XX_PINCFG(37,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(38,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+ 	NPCM8XX_PINCFG(39,	smb3b, I2CSEGSEL, 11,	smb22, MFSEL5, 30,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
+@@ -1608,6 +1610,8 @@ static const struct pinctrl_pin_desc npcm8xx_pins[] = {
+ 	PINCTRL_PIN(32, "GPIO32/SMB14B_SCL/SPI0_nCS1"),
+ 	PINCTRL_PIN(33, "GPIO33/I3C4_SCL"),
+ 	PINCTRL_PIN(34, "GPIO34/I3C4_SDA"),
++	PINCTRL_PIN(35, "MCBPCK/GPI35_AHB2PCI_DIS"),
++	PINCTRL_PIN(36, "SYSBPCK/GPI36"),
+ 	PINCTRL_PIN(37, "GPIO37/SMB3C_SDA/SMB23_SDA"),
+ 	PINCTRL_PIN(38, "GPIO38/SMB3C_SCL/SMB23_SCL"),
+ 	PINCTRL_PIN(39, "GPIO39/SMB3B_SDA/SMB22_SDA"),
+@@ -2042,7 +2046,7 @@ static int npcm8xx_gpio_request_enable(struct pinctrl_dev *pctldev,
+ 	const unsigned int *pin = &offset;
+ 	int mode = fn_gpio;
+ 
+-	if (pin[0] >= 183 && pin[0] <= 189)
++	if ((pin[0] >= 183 && pin[0] <= 189) || pin[0] == 35 || pin[0] == 36)
+ 		mode = pincfg[pin[0]].fn0;
+ 
+ 	npcm8xx_setfunc(npcm->gcr_regmap, &offset, 1, mode);
 -- 
-2.31.1
+2.34.1
 
