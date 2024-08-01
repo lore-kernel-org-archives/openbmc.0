@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64CF4C3DA64
-	for <openbmc@archiver.kernel.org>; Thu,  1 Aug 2024 19:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF891C3DA64
+	for <openbmc@archiver.kernel.org>; Thu,  1 Aug 2024 23:30:33 +0000 (UTC)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=gm1 header.b=g1LJb/p0;
+	dkim-atps=neutral
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WZffJ0nLwz3cRs
-	for <openbmc@archiver.kernel.org>; Fri,  2 Aug 2024 05:48:40 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
-Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
-	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WZlZJ0pnlz3dW2
+	for <openbmc@archiver.kernel.org>; Fri,  2 Aug 2024 09:30:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=gm1 header.b=g1LJb/p0;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=217.70.178.240; helo=mslow1.mail.gandi.net; envelope-from=alexandre.belloni@bootlin.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 1285 seconds by postgrey-1.37 at boromir; Fri, 02 Aug 2024 09:29:38 AEST
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WZfcC4mlVz30WP
-	for <openbmc@lists.ozlabs.org>; Fri,  2 Aug 2024 05:46:50 +1000 (AEST)
-Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 471JkcmK023899
-	for <openbmc@lists.ozlabs.org>; Thu, 1 Aug 2024 22:46:38 +0300
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Aug
- 2024 22:46:37 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 2 Aug
- 2024 03:46:35 +0800
-Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 2 Aug 2024 03:46:35 +0800
-Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id F1B3E5F64E;
-	Thu,  1 Aug 2024 22:46:34 +0300 (IDT)
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id EAED7DC1D37; Thu,  1 Aug 2024 22:46:34 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: <mturquette@baylibre.com>, <sboyd@kernel.org>, <p.zabel@pengutronix.de>,
-        <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
-        <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
-        <yuenn@google.com>, <benjaminfair@google.com>
-Subject: [PATCH v27 2/3] reset: npcm: register npcm8xx clock auxiliary bus device
-Date: Thu, 1 Aug 2024 22:46:31 +0300
-Message-ID: <20240801194632.742006-3-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240801194632.742006-1-tmaimon77@gmail.com>
-References: <20240801194632.742006-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WZlYG6JJvz3cKV
+	for <openbmc@lists.ozlabs.org>; Fri,  2 Aug 2024 09:29:37 +1000 (AEST)
+Received: from relay6-d.mail.gandi.net (unknown [217.70.183.198])
+	by mslow1.mail.gandi.net (Postfix) with ESMTP id B1485C6029
+	for <openbmc@lists.ozlabs.org>; Thu,  1 Aug 2024 23:07:49 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 46BCCC0003;
+	Thu,  1 Aug 2024 23:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1722553651;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4awUVwG37LseNs27BJI5me6lqTMbdYGn9CDQNcfZPk8=;
+	b=g1LJb/p0yD6SgP3eDyE9mw2oVj7wCol0tEc3HqCjkEU5R/2QPtKYabNUgLEgC8E91cg4Ev
+	mPc2Obd0gKBUh7cgU7ooiysO+KFpyGCIdIekXOvTKrfFsPFjG9014nexl8rz80AXe/mkOF
+	3QgRb5Lrpfm67nXj4pR0Nx4mHApPU/MNUj8pCaxuGdOHxRSJ97vLdBbMPwyeDHEBnOeL5d
+	DlScwlT7k2caemmpGghwyMmPTO2i/RWypSR44V4299LptiPKX5mfTt0aBrmxe9s39XwXCE
+	tMplR5Eriatc+oUuTrsswrhQPhPj3nu+rRxIEfs17URyNtlwbZg5jD/YCp/BNw==
+Date: Fri, 2 Aug 2024 01:06:31 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v1 1/2] dt-bindings: i3c: Add NPCM845 i3c controller
+Message-ID: <202408012306316257ee23@mail.local>
+References: <20240801071946.43266-1-yschu@nuvoton.com>
+ <20240801071946.43266-2-yschu@nuvoton.com>
+ <c3ee7783-6891-4917-9935-21d46d8ac9a7@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3ee7783-6891-4917-9935-21d46d8ac9a7@kernel.org>
+X-GND-Sasl: alexandre.belloni@bootlin.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,183 +63,150 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: robh@kernel.org, yschu@nuvoton.com, devicetree@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, kwliu@nuvoton.com, cpchiang1@nuvoton.com, tomer.maimon@nuvoton.com, Stanley Chu <stanley.chuys@gmail.com>, krzk+dt@kernel.org, linux-i3c@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add NPCM8xx clock controller auxiliary bus device registration.
+On 01/08/2024 16:53:52+0200, Krzysztof Kozlowski wrote:
+> On 01/08/2024 09:19, Stanley Chu wrote:
+> > The npcm845 i3c devicetree binding follows the basic i3c bindings
+> > and add the properties for allowing to adjust the SDA/SCL timing
+> > to meet different requirements.
+> > 
+> > Signed-off-by: Stanley Chu <yschu@nuvoton.com>
+> > Signed-off-by: James Chiang <cpchiang1@nuvoton.com>
+> > ---
+> >  .../bindings/i3c/nuvoton,i3c-master.yaml      | 123 ++++++++++++++++++
+> 
+> Use compatible as filename. Anyway word "master" was dropped.
+> 
+> >  1 file changed, 123 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/i3c/nuvoton,i3c-master.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/i3c/nuvoton,i3c-master.yaml b/Documentation/devicetree/bindings/i3c/nuvoton,i3c-master.yaml
+> > new file mode 100644
+> > index 000000000000..a40b37b16872
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/i3c/nuvoton,i3c-master.yaml
+> > @@ -0,0 +1,123 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/i3c/nuvoton,i3c-master.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Nuvoton NPCM845 I3C master
+> 
+> Use new terminology. Since 2021 there was a change... three years ago.
+> 
+> > +
+> > +maintainers:
+> > +  - Stanley Chu <yschu@nuvoton.com>
+> > +  - James Chiang <cpchiang1@nuvoton.com>
+> > +
+> > +allOf:
+> > +  - $ref: i3c.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: nuvoton,npcm845-i3c
+> > +
+> > +  reg:
+> > +    items:
+> > +      - description: I3C registers
+> > +      - description: GDMA registers
+> > +      - description: GDMA request control register
+> > +
+> > +  reg-names:
+> > +    items:
+> > +      - const: i3c
+> > +      - const: dma
+> > +      - const: dma_ctl
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: system clock
+> > +      - description: bus clock
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: pclk
+> > +      - const: fast_clk
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  i3c-pp-scl-hi-period-ns:
+> > +    description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
+> 
+> > +      If need to configure SCL with required duty cycle, specify the clock high/low period directly.
+> > +      i3c-pp-scl-hi-perios-ns specifies the high period ns of the SCL clock cycle in push pull mode
+> > +      When i3c-pp-scl-hi-period-ns and i3c-pp-scl-lo-period-ns are specified, the i3c pp frequency is
+> > +      decided by these two properties.
+> 
+> Wrap according to Linux Coding Style (and read coding style to figure
+> the proper wrapping...).
+> 
+> > +
+> > +  i3c-pp-scl-lo-period-ns:
+> > +    description: |
+> > +      The low period ns of the SCL clock cycle in push pull mode. i3c-pp-scl-lo-period-ns should not
+> > +      be less than i3c-pp-scl-hi-period-ns and the maximal value is i3c-pp-scl-hi-period-ns + 150.
+> 
+> Everywhere: defaults, constraints.
+> 
+> > +
+> > +  i3c-pp-sda-rd-skew:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    description: |
+> > +      The number of MCLK clock periods to delay the SDA transition from the SCL clock edge at push
+> > +      pull operation when transfers i3c private read.
+> > +    maximum: 7
+> > +    default: 0
+> > +
+> > +  i3c-pp-sda-wr-skew:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    description: |
+> > +      The number of MCLK clock periods to delay the SDA transition from the SCL clock edge at push
+> > +      pull operation when transfers i3c private write.
+> > +    maximum: 7
+> > +    default: 0
+> > +
+> > +  i3c-od-scl-hi-period-ns:
+> > +    description: |
+> > +      The i3c open drain frequency is 1MHz by default.
+> > +      If need to use different frequency, specify the clock high/low period directly.
+> > +      i3c-od-scl-hi-perios-ns specifies the high period ns of the SCL clock cycle in open drain mode.
+> > +      When i3c-od-scl-hi-period-ns and i3c-od-scl-lo-period-ns are specified, the i3c od frequency is
+> > +      decided by these two properties.
+> > +      i3c-od-scl-hi-period-ns should be equal to i3c-pp-scl-hi-period-ns or i3c-od-scl-lo-period-ns.
+> > +
+> > +  i3c-od-scl-lo-period-ns:
+> > +    description: |
+> > +      The low period ns of the SCL clock cycle in open drain mode. i3c-od-scl-lo-period-ns should be
+> > +      multiple of i3c-pp-scl-hi-period-ns.
+> > +
+> > +  enable-hj:
+> > +    type: boolean
+> > +    description: |
+> > +      Enable SLVSTART interrupt for receiving hot-join request.
+> 
+> You described the desired Linux feature or behavior, not the actual
+> hardware. The bindings are about the latter, so instead you need to
+> rephrase the property and its description to match actual hardware
+> capabilities/features/configuration etc.
+> 
 
-The NPCM8xx clock controller is registered as an aux device because the
-reset and the clock controller share the same register region.
+This has to be runtime configurable, see hotjoin in
+https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-bus-i3c
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Tested-by: Benjamin Fair <benjaminfair@google.com>
----
- drivers/reset/Kconfig               |  1 +
- drivers/reset/reset-npcm.c          | 74 ++++++++++++++++++++++++++++-
- include/soc/nuvoton/clock-npcm8xx.h | 16 +++++++
- 3 files changed, 90 insertions(+), 1 deletion(-)
- create mode 100755 include/soc/nuvoton/clock-npcm8xx.h
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index 67bce340a87e..c6bf5275cca2 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -157,6 +157,7 @@ config RESET_MESON_AUDIO_ARB
- config RESET_NPCM
- 	bool "NPCM BMC Reset Driver" if COMPILE_TEST
- 	default ARCH_NPCM
-+	select AUXILIARY_BUS
- 	help
- 	  This enables the reset controller driver for Nuvoton NPCM
- 	  BMC SoCs.
-diff --git a/drivers/reset/reset-npcm.c b/drivers/reset/reset-npcm.c
-index 8935ef95a2d1..aa68b947226a 100644
---- a/drivers/reset/reset-npcm.c
-+++ b/drivers/reset/reset-npcm.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2019 Nuvoton Technology corporation.
- 
-+#include <linux/auxiliary_bus.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/io.h>
-@@ -10,11 +11,14 @@
- #include <linux/property.h>
- #include <linux/reboot.h>
- #include <linux/reset-controller.h>
-+#include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/mfd/syscon.h>
- #include <linux/regmap.h>
- #include <linux/of_address.h>
- 
-+#include <soc/nuvoton/clock-npcm8xx.h>
-+
- /* NPCM7xx GCR registers */
- #define NPCM_MDLR_OFFSET	0x7C
- #define NPCM7XX_MDLR_USBD0	BIT(9)
-@@ -89,6 +93,7 @@ struct npcm_rc_data {
- 	const struct npcm_reset_info *info;
- 	struct regmap *gcr_regmap;
- 	u32 sw_reset_number;
-+	struct device *dev;
- 	void __iomem *base;
- 	spinlock_t lock;
- };
-@@ -372,6 +377,67 @@ static const struct reset_control_ops npcm_rc_ops = {
- 	.status		= npcm_rc_status,
- };
- 
-+static void npcm_clock_unregister_adev(void *_adev)
-+{
-+	struct auxiliary_device *adev = _adev;
-+
-+	auxiliary_device_delete(adev);
-+	auxiliary_device_uninit(adev);
-+}
-+
-+static void npcm_clock_adev_release(struct device *dev)
-+{
-+	struct auxiliary_device *adev = to_auxiliary_dev(dev);
-+	struct npcm_clock_adev *rdev = to_npcm_clock_adev(adev);
-+
-+	kfree(rdev);
-+}
-+
-+static struct auxiliary_device *npcm_clock_adev_alloc(struct npcm_rc_data *rst_data, char *clk_name)
-+{
-+	struct npcm_clock_adev *rdev;
-+	struct auxiliary_device *adev;
-+	int ret;
-+
-+	rdev = kzalloc(sizeof(*rdev), GFP_KERNEL);
-+	if (!rdev)
-+		return ERR_PTR(-ENOMEM);
-+
-+	rdev->base = rst_data->base;
-+
-+	adev = &rdev->adev;
-+	adev->name = clk_name;
-+	adev->dev.parent = rst_data->dev;
-+	adev->dev.release = npcm_clock_adev_release;
-+	adev->id = 555u;
-+
-+	ret = auxiliary_device_init(adev);
-+	if (ret) {
-+		kfree(rdev);
-+		return ERR_PTR(ret);
-+	}
-+
-+	return adev;
-+}
-+
-+static int npcm8xx_clock_controller_register(struct npcm_rc_data *rst_data, char *clk_name)
-+{
-+	struct auxiliary_device *adev;
-+	int ret;
-+
-+	adev = npcm_clock_adev_alloc(rst_data, clk_name);
-+	if (IS_ERR(adev))
-+		return PTR_ERR(adev);
-+
-+	ret = auxiliary_device_add(adev);
-+	if (ret) {
-+		auxiliary_device_uninit(adev);
-+		return ret;
-+	}
-+
-+	return devm_add_action_or_reset(rst_data->dev, npcm_clock_unregister_adev, adev);
-+}
-+
- static int npcm_rc_probe(struct platform_device *pdev)
- {
- 	struct npcm_rc_data *rc;
-@@ -392,6 +458,7 @@ static int npcm_rc_probe(struct platform_device *pdev)
- 	rc->rcdev.of_node = pdev->dev.of_node;
- 	rc->rcdev.of_reset_n_cells = 2;
- 	rc->rcdev.of_xlate = npcm_reset_xlate;
-+	rc->dev = &pdev->dev;
- 
- 	ret = devm_reset_controller_register(&pdev->dev, &rc->rcdev);
- 	if (ret) {
-@@ -413,7 +480,12 @@ static int npcm_rc_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	return ret;
-+	switch (rc->info->bmc_id) {
-+	case BMC_NPCM8XX:
-+		return npcm8xx_clock_controller_register(rc, "clk-npcm8xx");
-+	default:
-+		return ret;
-+	}
- }
- 
- static struct platform_driver npcm_rc_driver = {
-diff --git a/include/soc/nuvoton/clock-npcm8xx.h b/include/soc/nuvoton/clock-npcm8xx.h
-new file mode 100755
-index 000000000000..139130e98c51
---- /dev/null
-+++ b/include/soc/nuvoton/clock-npcm8xx.h
-@@ -0,0 +1,16 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __SOC_NPCM8XX_CLOCK_H
-+#define __SOC_NPCM8XX_CLOCK_H
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/container_of.h>
-+
-+struct npcm_clock_adev {
-+	void __iomem *base;
-+	struct auxiliary_device adev;
-+};
-+
-+#define to_npcm_clock_adev(_adev) \
-+	container_of((_adev), struct npcm_clock_adev, adev)
-+
-+#endif
 -- 
-2.34.1
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
