@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE682C531DD
-	for <openbmc@archiver.kernel.org>; Mon, 12 Aug 2024 15:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BAAEC3DA7F
+	for <openbmc@archiver.kernel.org>; Mon, 12 Aug 2024 15:01:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WjHlh3kj9z2ytN
-	for <openbmc@archiver.kernel.org>; Tue, 13 Aug 2024 01:01:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WjHmB0DP1z2yQG
+	for <openbmc@archiver.kernel.org>; Tue, 13 Aug 2024 01:01:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WjHhW5s3Jz2yFC
-	for <openbmc@lists.ozlabs.org>; Tue, 13 Aug 2024 00:58:34 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WjHhW3KTzz2xYr
+	for <openbmc@lists.ozlabs.org>; Tue, 13 Aug 2024 00:58:32 +1000 (AEST)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 47CEwN47032091
-	for <openbmc@lists.ozlabs.org>; Mon, 12 Aug 2024 17:58:24 +0300
-Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 47CEwMDL032085
+	for <openbmc@lists.ozlabs.org>; Mon, 12 Aug 2024 17:58:23 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 Aug
- 2024 17:58:23 +0300
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ 2024 17:58:22 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 Aug
- 2024 22:58:21 +0800
+ 2024 22:58:20 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 12 Aug 2024 22:58:21 +0800
+ Transport; Mon, 12 Aug 2024 22:58:19 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 55AA75F5DD;
-	Mon, 12 Aug 2024 17:58:20 +0300 (IDT)
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 335FB5F5DD;
+	Mon, 12 Aug 2024 17:58:19 +0300 (IDT)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 53914DC113B; Mon, 12 Aug 2024 17:58:20 +0300 (IDT)
+	id 31964DC113B; Mon, 12 Aug 2024 17:58:19 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
         <joel@jms.id.au>
-Subject: [linux dev-6.6 v3 4/7] pinctrl: nuvoton: npcm8xx: add gpi35 and gpi36
-Date: Mon, 12 Aug 2024 17:58:13 +0300
-Message-ID: <20240812145816.3301570-5-tmaimon77@gmail.com>
+Subject: [linux dev-6.6 v3 1/7] dt-bindings: pinctrl: npcm8xx: remove non-existent groups and functions
+Date: Mon, 12 Aug 2024 17:58:10 +0300
+Message-ID: <20240812145816.3301570-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240812145816.3301570-1-tmaimon77@gmail.com>
 References: <20240812145816.3301570-1-tmaimon77@gmail.com>
@@ -63,58 +63,109 @@ Cc: Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch adds support for GPIO pins GPI35 and GPI36 on the Nuvoton
-NPCM8xx BMC SoC.
-
-The pins are configured for only for input.
+Remove non-existent smb4den and lpcclk groups and functions from Nuvoton
+NPCM8XX Pin controller binding documentation.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ .../pinctrl/nuvoton,npcm845-pinctrl.yaml      | 80 +++++++++----------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index ea36b044240a..fe9d18b10dd1 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -321,8 +321,8 @@ static struct irq_chip npcmgpio_irqchip = {
- 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
- };
+diff --git a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+index e4b9f3da2cf0..f9b0e49dcf84 100644
+--- a/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/nuvoton,npcm845-pinctrl.yaml
+@@ -69,50 +69,50 @@ patternProperties:
+         description:
+           One or more groups of pins to mux to a certain function
+         items:
+-          enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
+-                  smb5b, smb5c, lkgpo0, pspi, jm1, jm2, smb4den, smb4b,
+-                  smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
+-                  smb22, smb23, smb23b, smb4d, smb14, smb5, smb4, smb3,
+-                  spi0cs1, spi0cs2, spi0cs3, spi1cs0, spi1cs1, spi1cs2,
+-                  spi1cs3, spi1cs23, smb3c, smb3b, bmcuart0a, uart1, jtag2,
+-                  bmcuart1, uart2, sg1mdio, bmcuart0b, r1err, r1md, r1oen,
+-                  r2oen, rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3,
+-                  fanin4, fanin5, fanin6, fanin7, fanin8, fanin9, fanin10,
+-                  fanin11, fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2,
+-                  pwm3, r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg2,
+-                  ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2,
+-                  smb2c, smb2b, smb1c, smb1b, smb8, smb9, smb10, smb11, sd1,
+-                  sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8, pwm9, pwm10, pwm11,
+-                  mmc8, mmc, mmcwp, mmccd, mmcrst, clkout, serirq, lpcclk,
+-                  scipme, smi, smb6, smb7, spi1, faninx, r1, spi3, spi3cs1,
+-                  spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b, smb0c, smb0den,
+-                  smb0d, ddc, rg2mdio, wdog1, wdog2, smb12, smb13, spix,
+-                  spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3, hgpio4,
+-                  hgpio5, hgpio6, hgpio7 ]
++           enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
++                   smb5b, smb5c, lkgpo0, pspi, jm1, jm2, smb4b, smb4c, smb15,
++                   smb16, smb17, smb18, smb19, smb20, smb21, smb22, smb23,
++                   smb23b, smb4d, smb14, smb5, smb4, smb3, spi0cs1, spi0cs2,
++                   spi0cs3, spi1cs0, spi1cs1, spi1cs2, spi1cs3, spi1cs23, smb3c,
++                   smb3b, bmcuart0a, uart1, jtag2, bmcuart1, uart2, sg1mdio,
++                   bmcuart0b, r1err, r1md, r1oen, r2oen, rmii3, r3oen, smb3d,
++                   fanin0, fanin1, fanin2, fanin3, fanin4, fanin5, fanin6,
++                   fanin7, fanin8, fanin9, fanin10, fanin11, fanin12, fanin13,
++                   fanin14, fanin15, pwm0, pwm1, pwm2, pwm3, r2, r2err, r2md,
++                   r3rxer, ga20kbc, smb5d, lpc, espi, rg2, ddr, i3c0, i3c1,
++                   i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2, smb2c, smb2b, smb1c,
++                   smb1b, smb8, smb9, smb10, smb11, sd1, sd1pwr, pwm4, pwm5,
++                   pwm6, pwm7, pwm8, pwm9, pwm10, pwm11, mmc8, mmc, mmcwp, mmccd,
++                   mmcrst, clkout, serirq, scipme, smi, smb6, smb6b, smb6c,
++                   smb6d, smb7, smb7b, smb7c, smb7d, spi1, faninx, r1, spi3,
++                   spi3cs1, spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b, smb0c,
++                   smb0den, smb0d, ddc, rg2mdio, wdog1, wdog2, smb12, smb13,
++                   spix, spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3, hgpio4,
++                   hgpio5, hgpio6, hgpio7, bu4, bu4b, bu5, bu5b, bu6, gpo187 ]
  
--static const int gpi36_pins[] = { 58 };
--static const int gpi35_pins[] = { 58 };
-+static const int gpi36_pins[] = { 36 };
-+static const int gpi35_pins[] = { 35 };
+       function:
+         description:
+           The function that a group of pins is muxed to
+-        enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi,
+-                smb5b, smb5c, lkgpo0, pspi, jm1, jm2, smb4den, smb4b,
+-                smb4c, smb15, smb16, smb17, smb18, smb19, smb20, smb21,
+-                smb22, smb23, smb23b, smb4d, smb14, smb5, smb4, smb3,
+-                spi0cs1, spi0cs2, spi0cs3, spi1cs0, spi1cs1, spi1cs2,
+-                spi1cs3, spi1cs23, smb3c, smb3b, bmcuart0a, uart1, jtag2,
+-                bmcuart1, uart2, sg1mdio, bmcuart0b, r1err, r1md, r1oen,
+-                r2oen, rmii3, r3oen, smb3d, fanin0, fanin1, fanin2, fanin3,
+-                fanin4, fanin5, fanin6, fanin7, fanin8, fanin9, fanin10,
+-                fanin11, fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2,
+-                pwm3, r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg2,
+-                ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2,
+-                smb2c, smb2b, smb1c, smb1b, smb8, smb9, smb10, smb11, sd1,
+-                sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8, pwm9, pwm10, pwm11,
+-                mmc8, mmc, mmcwp, mmccd, mmcrst, clkout, serirq, lpcclk,
+-                scipme, smi, smb6, smb7, spi1, faninx, r1, spi3, spi3cs1,
+-                spi3quad, spi3cs2, spi3cs3, nprd_smi, smb0b, smb0c, smb0den,
+-                smb0d, ddc, rg2mdio, wdog1, wdog2, smb12, smb13, spix,
+-                spixcs1, clkreq, hgpio0, hgpio1, hgpio2, hgpio3, hgpio4,
+-                hgpio5, hgpio6, hgpio7 ]
++         enum: [ iox1, iox2, smb1d, smb2d, lkgpo1, lkgpo2, ioxh, gspi, smb5b,
++                 smb5c, lkgpo0, pspi, jm1, jm2, smb4b, smb4c, smb15, smb16,
++                 smb17, smb18, smb19, smb20, smb21, smb22, smb23, smb23b, smb4d,
++                 smb14, smb5, smb4, smb3, spi0cs1, spi0cs2, spi0cs3, spi1cs0,
++                 spi1cs1, spi1cs2, spi1cs3, spi1cs23, smb3c, smb3b, bmcuart0a,
++                 uart1, jtag2, bmcuart1, uart2, sg1mdio, bmcuart0b, r1err, r1md,
++                 r1oen, r2oen, rmii3, r3oen, smb3d, fanin0, fanin1, fanin2,
++                 fanin3, fanin4, fanin5, fanin6, fanin7, fanin8, fanin9, fanin10,
++                 fanin11, fanin12, fanin13, fanin14, fanin15, pwm0, pwm1, pwm2,
++                 pwm3, r2, r2err, r2md, r3rxer, ga20kbc, smb5d, lpc, espi, rg2,
++                 ddr, i3c0, i3c1, i3c2, i3c3, i3c4, i3c5, smb0, smb1, smb2,
++                 smb2c, smb2b, smb1c, smb1b, smb8, smb9, smb10, smb11, sd1,
++                 sd1pwr, pwm4, pwm5, pwm6, pwm7, pwm8, pwm9, pwm10, pwm11,
++                 mmc8, mmc, mmcwp, mmccd, mmcrst, clkout, serirq, scipme, smi,
++                 smb6, smb6b, smb6c, smb6d, smb7, smb7b, smb7c, smb7d, spi1,
++                 faninx, r1, spi3, spi3cs1, spi3quad, spi3cs2, spi3cs3, nprd_smi,
++                 smb0b, smb0c, smb0den, smb0d, ddc, rg2mdio, wdog1, wdog2,
++                 smb12, smb13, spix, spixcs1, clkreq, hgpio0, hgpio1, hgpio2,
++                 hgpio3, hgpio4, hgpio5, hgpio6, hgpio7, bu4, bu4b, bu5, bu5b,
++                 bu6, gpo187 ]
  
- static const int tp_jtag3_pins[] = { 44, 62, 45, 46 };
- static const int tp_uart_pins[] = { 50, 51 };
-@@ -1363,6 +1363,8 @@ static const struct npcm8xx_pincfg pincfg[] = {
- 	NPCM8XX_PINCFG(32,	spi0cs1, MFSEL1, 3,	smb14b, MFSEL7, 26,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(33,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(34,	i3c4, MFSEL6, 10,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(35,	gpi35, MFSEL5, 16,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
-+	NPCM8XX_PINCFG(36,	gpi36, MFSEL5, 18,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(37,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(38,	smb3c, I2CSEGSEL, 12,	smb23, MFSEL5, 31,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(39,	smb3b, I2CSEGSEL, 11,	smb22, MFSEL5, 30,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-@@ -1608,6 +1610,8 @@ static const struct pinctrl_pin_desc npcm8xx_pins[] = {
- 	PINCTRL_PIN(32, "GPIO32/SMB14B_SCL/SPI0_nCS1"),
- 	PINCTRL_PIN(33, "GPIO33/I3C4_SCL"),
- 	PINCTRL_PIN(34, "GPIO34/I3C4_SDA"),
-+	PINCTRL_PIN(35, "MCBPCK/GPI35_AHB2PCI_DIS"),
-+	PINCTRL_PIN(36, "SYSBPCK/GPI36"),
- 	PINCTRL_PIN(37, "GPIO37/SMB3C_SDA/SMB23_SDA"),
- 	PINCTRL_PIN(38, "GPIO38/SMB3C_SCL/SMB23_SCL"),
- 	PINCTRL_PIN(39, "GPIO39/SMB3B_SDA/SMB22_SDA"),
-@@ -2042,7 +2046,7 @@ static int npcm8xx_gpio_request_enable(struct pinctrl_dev *pctldev,
- 	const unsigned int *pin = &offset;
- 	int mode = fn_gpio;
- 
--	if (pin[0] >= 183 && pin[0] <= 189)
-+	if ((pin[0] >= 183 && pin[0] <= 189) || pin[0] == 35 || pin[0] == 36)
- 		mode = pincfg[pin[0]].fn0;
- 
- 	npcm8xx_setfunc(npcm->gcr_regmap, &offset, 1, mode);
+     dependencies:
+       groups: [ function ]
 -- 
 2.34.1
 
