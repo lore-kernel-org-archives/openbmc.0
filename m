@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC3EC5321E
-	for <openbmc@archiver.kernel.org>; Mon, 26 Aug 2024 13:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4906BC5472E
+	for <openbmc@archiver.kernel.org>; Mon, 26 Aug 2024 18:43:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Wsrpd3CxXz3blk
-	for <openbmc@archiver.kernel.org>; Mon, 26 Aug 2024 23:18:33 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=45.249.212.187
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1724678309;
-	cv=none; b=D/U2msejCJSH/wf2vzneWCQEIpC05VHAL5gbHjE7K4KY5pmC8TLY6W0NJBkgtpc0TdLPrmLuozcSROL391qVllwDMYPU1XPlOfqbOwX0zW6KCMadR269h8QQ7KCAFDLwNxh9ufMAh03VdugDzEE2ei+HB9/agX4IH1sP6BFC5EsibMObyusyUxJXqITSXVzdJdLXgZUI6CIS8XUbI4zgGMu2Abl05QZH/GpcsEjEX73xZUqz/zmZKUFJyoIBhyaenjeH+50/TZAcCnVjXjDg6k1CA4NI/7BBmRIFgBrLYkEGUkNVodBa30UKKnXElXfwc7fhSglxkC6I5WzDxEQlFg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Wt01H3zcJz3bgQ
+	for <openbmc@archiver.kernel.org>; Tue, 27 Aug 2024 04:43:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=89.163.150.210
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1724697791;
+	cv=none; b=Y/uWaUUUBVkiRYOyEuXCOTdv5VSGmKRFo33b06IyQYnHlauB8pjPxhRO7wRQArpm4w4fYwVEu4x3LTRwdQSiern7J14LheuTicrFmTdSI6w+vTVYxaz4PWoO8pBhRf2ByVW9onlYiTDYPzmfjdbDJkOGB44z+319lYCxZT0D4qdSfMSZ7EJB97vO/rhHEyhQJAvI44X3c5Y7Qz+QRnqiGUHHau9kSemeXCUGpftLdAAHbN33FMBY2JC7m4GZfbd1dPjgFvnfmXOJRjfrituziFXx1P01CHIeiAofuIAU/QwOWx9ANRYcNicygT8AyU95aToEUSt1WiUae4X5BldMFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1724678309; c=relaxed/relaxed;
-	bh=yoNQdHh6Rz+LF1xtCQ5U+uXfBwjl0TlC1qwSsDQ4PrQ=;
-	h=Received:Received:Received:From:To:CC:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy; b=lcYdiPFAzYNjwJm4PImQ7fiUXz8vVrEjkLnFVYENZ4fSNQsRXh00ezmWgELOKXJrI12w8aEE1rn8kAlqh6CGhrCcpC0uecWl1wg7cihSk2QUUjBNmkyYHHgtngpN7z8s1+viVPdt+Kqd+guaxPGLDaU9+3JsRFII/mDHhQrwl4NXMqnLvDML3eRkjPuZx6qpt+46GzL9NyOIoyI9quzJ1au3Ip1Z3oSI2p4wj9Vxgfa9tXutGAkavJbZ9jW5AhPhkoN+eTY08lacalZj12q2J5aE/Nrh2GF2U5vYkX+5sMh41zj4icZ3l3IpGVKiVnnixROjuyxrU3zUkK9uMbWL/w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass (client-ip=45.249.212.187; helo=szxga01-in.huawei.com; envelope-from=ruanjinjie@huawei.com; receiver=lists.ozlabs.org) smtp.mailfrom=huawei.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=huawei.com (client-ip=45.249.212.187; helo=szxga01-in.huawei.com; envelope-from=ruanjinjie@huawei.com; receiver=lists.ozlabs.org)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	t=1724697791; c=relaxed/relaxed;
+	bh=13bEpxcTLQVhi3RrJyd+u6v6KGDEpWPFwnZQPwwAxNU=;
+	h=X-Greylist:DKIM-Signature:Received:Date:From:To:Subject:
+	 Message-ID:MIME-Version:Content-Type:Content-Disposition; b=XooIU9PfohSnMiioTuEO7ucF4aRkX2UOal8nuPRBJM12Zo/OvdaZd9s51XTMVKsNxDuMpxq40vcpf78q/MT5zUavmVjLam/CfsJmJ3TJ6FULMMnXyo5a8B/7T3hRsjKqwasTCum3jMWdIBmejKsbEJmH/rLBu1inGEl55w692/9MF3yE3Hz6Q8tIezrLxGE1WHCIBT8iCPNdMo09HkTKWUAcWlWMbs92ui4I1q29BLd27SSqvfTBoIm9bZk34NsvDTFWh2HeCdcsGX058nMwGq5gxtlXrTqR54Ku21YeKBTSzadAJWi023GqeVgU5CLyt9AjN/HEfeX4SApJQhFjlA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=truschnigg.info; dkim=pass (2048-bit key; unprotected) header.d=truschnigg.info header.i=@truschnigg.info header.a=rsa-sha256 header.s=m22 header.b=T6YWWDws; dkim-atps=neutral; spf=pass (client-ip=89.163.150.210; helo=truschnigg.info; envelope-from=johannes@truschnigg.info; receiver=lists.ozlabs.org) smtp.mailfrom=truschnigg.info
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=truschnigg.info
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=truschnigg.info header.i=@truschnigg.info header.a=rsa-sha256 header.s=m22 header.b=T6YWWDws;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=truschnigg.info (client-ip=89.163.150.210; helo=truschnigg.info; envelope-from=johannes@truschnigg.info; receiver=lists.ozlabs.org)
+X-Greylist: delayed 442 seconds by postgrey-1.37 at boromir; Tue, 27 Aug 2024 04:43:10 AEST
+Received: from truschnigg.info (truschnigg.info [89.163.150.210])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WsrpY13lzz2yJL
-	for <openbmc@lists.ozlabs.org>; Mon, 26 Aug 2024 23:18:29 +1000 (AEST)
-Received: from mail.maildlp.com (unknown [172.19.162.254])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Wsrmz59wWzyQKr;
-	Mon, 26 Aug 2024 21:17:07 +0800 (CST)
-Received: from kwepemh500013.china.huawei.com (unknown [7.202.181.146])
-	by mail.maildlp.com (Postfix) with ESMTPS id 970341800F2;
-	Mon, 26 Aug 2024 21:17:53 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemh500013.china.huawei.com
- (7.202.181.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 26 Aug
- 2024 21:17:53 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <j.neuschaefer@gmx.net>, <broonie@kernel.org>, <openbmc@lists.ozlabs.org>,
-	<linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH -next 0/2] spi: wpcm-fiu: Fix uninitialized res
-Date: Mon, 26 Aug 2024 21:25:42 +0800
-Message-ID: <20240826132544.3463616-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Wt01B65KXz2yLJ
+	for <openbmc@lists.ozlabs.org>; Tue, 27 Aug 2024 04:43:10 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=truschnigg.info;
+	s=m22; t=1724697343;
+	bh=zBBy/rUKwvMPqG+k7w6PyDT6h0wqcil3EU77DaRoMLw=;
+	h=Date:From:To:Subject:From;
+	b=T6YWWDwsADiYOJ3k33xib96HJplDG1GRXh/Ai+p68RPL/atUHlVIt6HrAI2rUuACU
+	 tDlLFpwRAUAq2y/Yz5Uu1O05LieIsPiZ3OVbw/K/NzH/0I96w9wVNC5YxD5nEJBxxO
+	 Y/qVMJAX1kSsCydDEuXg713SWjrvx6H80PJAS6W1iUoP7SG79kMRuClz/sLbMOgZI+
+	 S+sH2xyijfgJojeE0lHdRZczgY7rrmwI35bFIYWHOiMsuUf0KD8DyWaNWu7QxtZkmj
+	 YaTv9YtbMR6i3WLq6Cos26YC5rgXC8Q3dZYeaQL1aSxsUX6tnfijEAE9Uzt7rtxY7z
+	 u0yCQ4Y929ozw==
+Received: from vault.lan (unknown [IPv6:2a02:1748:fafe:cf3f:1eb7:2cff:fe02:8261])
+	by truschnigg.info (Postfix) with ESMTPSA id 4F8F2201B2
+	for <openbmc@lists.ozlabs.org>; Mon, 26 Aug 2024 18:35:43 +0000 (UTC)
+Date: Mon, 26 Aug 2024 20:35:41 +0200
+From: Johannes Truschnigg <johannes@truschnigg.info>
+To: openbmc@lists.ozlabs.org
+Subject: Plea for help with GPIO pin naming
+Message-ID: <ZszK_Zj1QpH--xv1@vault.lan>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemh500013.china.huawei.com (7.202.181.146)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TAbrMjHdI9ANUg2h"
+Content-Disposition: inline
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,19 +63,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: ruanjinjie@huawei.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Fix uninitialized res in probe function.
 
-Jinjie Ruan (2):
-  spi: wpcm-fiu: Fix uninitialized res
-  spi: wpcm-fiu: Simplify with dev_err_probe()
+--TAbrMjHdI9ANUg2h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- drivers/spi/spi-wpcm-fiu.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+Dear list,
 
--- 
-2.34.1
+in my ongoing hobbyist quest to port OpenBMC to the Gigabyte MC12-LE0, I fa=
+ce
+some challenges that leave me scratching my head - hence me posting here.
+Today's questions concern GPIO line names and x86-power-control aka
+/usr/bin/power-control.
 
+I've been reverse-engineering my board's GPIO pins for a while now, and onc=
+e I
+figure out what a particular pin is (probably) actually good and used for, I
+most of the time have a hard time identifying the proper name/label for that
+particular pin.
+
+I don't have a background in electronics, much less PCB design, but I guess
+most line names in OpenBMC's DTS files are lifted verbatim from board
+schematics, which I do not have for my board. That, as well as the sprawl of
+pin labels and names used between existing platforms and boards, makes it v=
+ery
+hard for me to infer the meaning of most pins defined for supported OpenBMC
+machines.
+
+My research led me to a design document from 2020 with the promising title
+"Device Tree GPIO Naming in OpenBMC"[0], but since I can't seem to find the
+proposed names in any of OpenBMC meta layers, I guess it always remained a
+proposal, without proper uptake in the real world? This hunch of mine is
+somewhat exacerbated by the fact that the x86-power-control package assumes
+very different pin names in its default example config file[1] (although a
+GitHub issue[2] exists that makes it somewhat plausible that might not be 1=
+00%
+deliberate)...
+
+What I'd like to have is a solid guideline on how to interpret existing boa=
+rds'
+DTS pin names (unfortunately, I don't know what either of SIO_POWER_GOOD or
+PS_PWROK exactly describe, or what the difference between the concepts the =
+two
+strings of characters map to in the physical world might be), assuming litt=
+le
+prior knowledge of these dark arts. Is there material on the web that isn't
+buried under mountains of mainboard-designer-specific NDAs that could help =
+me
+with making sense of all the jargon I don't know? I'd be very thankful if
+someone could point me a way!
+
+Thanks very much for reading this far! :)
+
+[0]: https://github.com/openbmc/docs/blob/master/designs/device-tree-gpio-n=
+aming.md
+[1]: https://github.com/openbmc/x86-power-control/blob/master/config/power-=
+config-host0.json
+[2]: https://github.com/openbmc/x86-power-control/issues/4
+
+--=20
+with best regards:
+- Johannes Truschnigg ( johannes@truschnigg.info )
+
+www:   https://johannes.truschnigg.info/
+
+--TAbrMjHdI9ANUg2h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEGu9IhkI+7/aKLUWF95W3jMsYfLUFAmbMyvYACgkQ95W3jMsY
+fLWbHQ//bnDRaTiyDZNcyk3rmEm0WCVfwpNrX7cn5mB8crFKoFzVSIHQZ0p8HlxH
+hQ5HxwdtmDKGwKtCtQn2/uLENSz0XY1PDk2vzxtAXlH7LfyNUFrz16DTYY2HEBCs
+X6wIhHM2cbF/LYZRxBPj6uZI4mhwykiu276g164VKw2s/P2HYIut1/0OBufLr4LN
++grolkXBJamK1bvtRl3KyicIMGFRLvk66oGrU1CJ/iQkMD6R1ql1iQJA/guLQwWp
+5J9ftcydYoZcQMfk/HF0ItjH14ZORctnWsnbj5Lw91a3+Jwh3zsaJBG38T8g3XcT
+zo+xjkeIuxle73/iKvk6H6VM5Z1wU1rVFsk6WW7l7tFSCZg5YNyH/ZdaVurTbcIn
+waYMfbZPb0VJI5/uc2Fhq5lol1T5XVjk+yVbFju8SC4QqRb7yfDLZEMFhtPOvMZx
+xEcVbtgKJ0skGTIKm8GiTsTRlQhJSpA5jufLp1EQXB6m9yhofvV7LFueHMWj3jix
+SY9j7RdlhjlJBR2Hz4VE1bP5CtgOU/oThN3cg7oWzExn/ugxieLwM39PoPMUilVk
+sV+PfMba2JX2yeuPSJpja9ZRZjgceUCCw9uzuENiE1UwFVJUVmcdBPcI/EeiBWqB
+ZmwQB0pt8VGruTkniAeOQWfQrkcO+E3oE/BASgUfrxExsRHOHHE=
+=QFb2
+-----END PGP SIGNATURE-----
+
+--TAbrMjHdI9ANUg2h--
