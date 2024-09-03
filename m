@@ -4,76 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99CB7CA0ED3
-	for <openbmc@archiver.kernel.org>; Mon,  2 Sep 2024 12:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 823CFCA0ED3
+	for <openbmc@archiver.kernel.org>; Tue,  3 Sep 2024 02:08:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Wy6kz4LRQz3cVB
-	for <openbmc@archiver.kernel.org>; Mon,  2 Sep 2024 22:00:11 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.14
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725278406;
-	cv=none; b=YFy9KHQqetR+47xnP26nA+AL9TJIuE+r6BtVyUz7z/t8nQ7XvpMYcpgjiztOjTxogDSMcYnOclgE2DVCfCTz3zVYEZMFejO0fjC7yeWj3XoZl27j2eLQgz+f/UuLN9LWoIauVerna+k8FGK+OeT3mdVeJZPOrIwZzT2zMtCEEOxHUQyObpxGMlNRny/PTocKrslHQwFkGs2sglMY/FPsWe0mm5rGlvvxyneJREcCiLFtl+S47nD9HPoMA/Nd/pwPbebDSuUqKMif5H+3DXhXg2siWH+igNk4er2AN6HMNVqXOs/qpQakLoSkta2ruJ76TSyyoydLT7Vgb6EzncAXJw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WyTYP3zd6z3cTX
+	for <openbmc@archiver.kernel.org>; Tue,  3 Sep 2024 12:08:09 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::62d"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725329285;
+	cv=none; b=I3QnasSsTGMjrc4GW8MFADhX0S+jFAH8DOG1Bo8sgjCLz2cAT56geImB+O/EhLbOEXYdH64yD7xSqFdhOnRdi7d09JrD1cr+CMDHxqzQTPYNicbdZpbSEu+2vIX3SZ4WjmAejzE8qFdCYxylg2MyRBc1fOeZrVMkAtiaem+OdRlJf+Qde0KrjE4KAAKMl5dvVra3J7s6iXvlNfCbneNre55pKKB1oIA+nkhyd0kvC3PBq6fHHfXPTiAM6xXOKaXh7jeTY59JsSCmltJC3kt9PbB2v4YuKQaotSJLI/PcJN/PprqtY8bre0YOVCoR8QyKwknkdw1ns56DxeyMIcjXcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1725278406; c=relaxed/relaxed;
-	bh=kSoBVc4tKvGkmvCrjydyHYLIbTEvLClDKVwDwJsYwhs=;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To; b=fS4YFU+hGnP5fzVI+imwWTYERo3C9n8QAr2yQpYaBR34w3Em4aRdsCfyofxgdCWAKrl88daYDnPvxJTO9OmRgncZ7l+O6DVs9U0KhzmWmWO+uhq9A0NneTKwGr0whlm43tSxTooa60fW8veTQ76BXmyYGKT5t9tILY9NeweOHcCeRiJ53i7JkBKRybhgr1v4CgqKg4QM6cXeDCvQIEFfP3jHY+7fVUjeFVUC9pqJQtbDUIvISYUxA3gQLE714BwQH+Uj2+h32p3RjDj/kcoCHWzh9atjnqgnOHUQe6lO7AlfAPBbAS7eoocVGJwjDFJL5BtQiYs2xRRwwGu0FOlCHQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m04E5lzz; dkim-atps=neutral; spf=none (client-ip=198.175.65.14; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	t=1725329285; c=relaxed/relaxed;
+	bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
+	h=DKIM-Signature:MIME-Version:References:In-Reply-To:From:Date:
+	 Message-ID:Subject:To:Cc:Content-Type; b=C/IgfGbkkwBChvpPfCnFLVHSyWDjy3J6/gIQcLobQCcPGON1Gv2ADS74tpzpBvJknjJUKw2KU9ZsrwF4eCdnARUgoDTfW46pRRSIg2PDcy/PBkGOv/XZzPb6zF03QQVhg4eIKUzHl9J9pFVS+BSskaUdXa/S6LX5vb4VqKnvHoV/ZizblWfyWTpujxsRcbazip/HEhT6nN+ZJhuBrDLXCnOZn4eETOU744Tf+dmIqdi3UcXtAC/ZMVReJbJUd8UfFIcCrRUriGD1raGm2AVUgwkXsr/lxpispZ47YhZbljbn2+hYIfTKWd5NrHPHwaq3321Z12ZfYJYTSTsQPLM2FQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=keljqYv5; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62d; helo=mail-ej1-x62d.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m04E5lzz;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=keljqYv5;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.14; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62d; helo=mail-ej1-x62d.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Wy6ks5XYSz2xjH
-	for <openbmc@lists.ozlabs.org>; Mon,  2 Sep 2024 22:00:05 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1725278407; x=1756814407;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=s5PNXJylVeTaejUqfvcmHm17nL+lhZdgF7rPHmXu+Dc=;
-  b=m04E5lzz6Kf1hH5brdVtFNetH+J9cpWupV2BQgXC+Sq2b1JAQChfK6x0
-   7asmdm02vdeOBud8ByN0LUozNcK4Ab3ZQb6UJ+EcvPNYyKoRPUnyA4qq7
-   BMTilmo0RlTgB1Ko0A4a57qlxrOCLZ9m+3UUCe8jBD44vwV/qYU8xz0fy
-   mCabkjd5h4eGS984Eb7TEBhe1ngVtIRquaucxaJT6ugvKV0Z0TOeGiCT6
-   PfQWTkJnymEMM7Ew40Ck3ydCMC3aAefoX2LML4V7tKx4xkeaHa07Ib80I
-   3iLk5jw+9n7Qal5tCp7+nQhm+5Oxcb/AgCe+naGTIlDWnU7U/IFGJ4Kgn
-   A==;
-X-CSE-ConnectionGUID: AqfCCoAZR9u5VSJ22IBeaw==
-X-CSE-MsgGUID: tzx5tjzhRDmaHrzEeN10jA==
-X-IronPort-AV: E=McAfee;i="6700,10204,11182"; a="27643889"
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; 
-   d="scan'208";a="27643889"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2024 04:53:42 -0700
-X-CSE-ConnectionGUID: bBchEQG1RTKmqrN4miqtxA==
-X-CSE-MsgGUID: bamhgSFwRwK8MR+qtAi4vA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.10,195,1719903600"; 
-   d="scan'208";a="65308475"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2024 04:53:36 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
-	(envelope-from <andriy.shevchenko@linux.intel.com>)
-	id 1sl5cj-00000004LfJ-1Jbb;
-	Mon, 02 Sep 2024 14:53:33 +0300
-Date: Mon, 2 Sep 2024 14:53:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Tali Perry <tali.perry1@gmail.com>
-Subject: Re: [PATCH v2 6/7] i2c: npcm: use i2c frequency table
-Message-ID: <ZtWnPTSu1RKmIlhK@smile.fi.intel.com>
-References: <20240830034640.7049-1-kfting@nuvoton.com>
- <20240830034640.7049-7-kfting@nuvoton.com>
- <ZtIbM4NTbldBIDXf@smile.fi.intel.com>
- <CAHb3i=vWNmokQYyOZJOVeaJaT6XAroct2gZiJYPVQf6rHzR5LA@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4WyTYJ0zvlz2yDM
+	for <openbmc@lists.ozlabs.org>; Tue,  3 Sep 2024 12:08:03 +1000 (AEST)
+Received: by mail-ej1-x62d.google.com with SMTP id a640c23a62f3a-a868831216cso548148366b.3
+        for <openbmc@lists.ozlabs.org>; Mon, 02 Sep 2024 19:08:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1725329278; x=1725934078; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
+        b=keljqYv5ZhqN+AbO48ytcSPjfGgHoudRardBusz34nPCTaufV2QsKEd8o8gP7y4wYg
+         TXjA0VlMBT6Y94oHW7qjcHrDzagV8zPftq+2x0GRRwfzoNAI24scODGmsDzWLwSGTC+S
+         ZyP7IELmhqf0In/9/hWSo4NH5XEgAQMg//YJ82ycujCLAGmyYBzrZsbIAxsW37gzmvNd
+         bTgIQ6DtlG84ghq8MBmyyDLT1GgQ9Og59Y2L3Ispqk1CjQ67z1Aj4/avEZOxtzZHkJq3
+         QvCXj5vibK8TilcYiQJae+Ec0bsUpol1ODg2reCQ0PR2kVo9mbIo+XT9qSmDNrT4H7Nn
+         fWRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1725329278; x=1725934078;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
+        b=DisYkarl3iFAzNMQPh4imBGU2Rdh7djSYwuKdwo7rmgJUnVRDPRjzVja74Ab5AdxBj
+         7j6X4X3F6jg0syZuoFAGKLQUtV9JaGZk39wtC93BhhKUO//ovitdk8BoN4ornCUbbcls
+         FGtZKGgt9kkIwRw+fsXHrPmtB6yHU5LjqbnapUHmokfrpVCG7qvVoG8BN0H1btSuqKQL
+         El5T7HbtQ9zcOIhiiZdL1WnNg1L8w+GKI3my5XD94GuP8kDBtufmo9pujhyBCTWkBT6S
+         wde9RZpb6urZfXeUG1TfToO7+DrKd2WydQCjFiMot95EryoF/GlxemkzCiAlegoSMP21
+         5BPA==
+X-Gm-Message-State: AOJu0YyB1X+7QWkfgmDtDd0D8L9nwp1kDK4EcYmGjGbN2jea7Sh1xABi
+	hlgZMrbMss0TRP/S4Lv7V98dUOQ+A+XsDlyh45tGOWUOtAgnT7UPHXgPY+ltEoaLyUkJFBKgoMq
+	HUlgX/AEsANduK1DC2eS4zk77Wg==
+X-Google-Smtp-Source: AGHT+IGrC74Ctz0HzdIiD7tPawwv+UqDvOFvoUGHiH77vBFIYeFjLsTp/nj7HnVFDEBLZ4qvEkvOCGuZe0mvz2lIzBk=
+X-Received: by 2002:a17:906:f586:b0:a86:8917:fcd6 with SMTP id
+ a640c23a62f3a-a89b9733607mr529621766b.60.1725329277088; Mon, 02 Sep 2024
+ 19:07:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHb3i=vWNmokQYyOZJOVeaJaT6XAroct2gZiJYPVQf6rHzR5LA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20240830034640.7049-1-kfting@nuvoton.com> <20240830034640.7049-6-kfting@nuvoton.com>
+ <ZtIaofiTqyFwNXrO@smile.fi.intel.com> <CACD3sJbZ-Yy3PfPWisMSiPYCbztbi1+Q+=udMG8EjNvE+xA1mg@mail.gmail.com>
+ <ZtWnd8bmiu-M4fQg@smile.fi.intel.com>
+In-Reply-To: <ZtWnd8bmiu-M4fQg@smile.fi.intel.com>
+From: Tyrone Ting <warp5tw@gmail.com>
+Date: Tue, 3 Sep 2024 10:07:45 +0800
+Message-ID: <CACD3sJass-6gu6MQxrYwLGi6OMgWnntO+N7Ob9nV6o3siFHNVg@mail.gmail.com>
+Subject: Re: [PATCH v2 5/7] i2c: npcm: Modify the client address assignment
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, avifishman70@gmail.com, 
+	tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com, 
+	yuenn@google.com, benjaminfair@google.com, andi.shyti@kernel.org, 
+	wsa@kernel.org, rand.sec96@gmail.com, wsa+renesas@sang-engineering.com, 
+	kwliu@nuvoton.com, jjliu0@nuvoton.com, avi.fishman@nuvoton.com, 
+	tali.perry@nuvoton.com, tomer.maimon@nuvoton.com, kfting@nuvoton.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,57 +90,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: KWLIU@nuvoton.com, tomer.maimon@nuvoton.com, benjaminfair@google.com, wsa+renesas@sang-engineering.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, kfting@nuvoton.com, JJLIU0@nuvoton.com, tali.perry@nuvoton.com, linux-kernel@vger.kernel.org, wsa@kernel.org, andi.shyti@kernel.org, linux-i2c@vger.kernel.org, Avi.Fishman@nuvoton.com, Tyrone Ting <warp5tw@gmail.com>, rand.sec96@gmail.com, tmaimon77@gmail.com
+Cc: openbmc@lists.ozlabs.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Sun, Sep 01, 2024 at 06:53:38PM +0300, Tali Perry wrote:
-> On Fri, Aug 30, 2024 at 10:19 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> >
-> > On Fri, Aug 30, 2024 at 11:46:39AM +0800, Tyrone Ting wrote:
-> > > Modify i2c frequency from table parameters
-> > > for NPCM i2c modules.
+Hi Andy:
+
+Thank you for your feedback.
+
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> =E6=96=BC 2024=E5=B9=B4=
+9=E6=9C=882=E6=97=A5 =E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=887:54=E5=AF=AB=E9=
+=81=93=EF=BC=9A
+>
+> On Mon, Sep 02, 2024 at 09:40:09AM +0800, Tyrone Ting wrote:
+> > Andy Shevchenko <andriy.shevchenko@linux.intel.com> =E6=96=BC 2024=E5=
+=B9=B48=E6=9C=8831=E6=97=A5 =E9=80=B1=E5=85=AD =E4=B8=8A=E5=8D=883:16=E5=AF=
+=AB=E9=81=93=EF=BC=9A
+> > > On Fri, Aug 30, 2024 at 11:46:38AM +0800, Tyrone Ting wrote:
+> > > > Store the client address earlier since it's used in the i2c_recover=
+_bus
+> > > > logic flow.
 > > >
-> > > Supported frequencies are:
-> > >
-> > > 1. 100KHz
-> > > 2. 400KHz
-> > > 3. 1MHz
+> > > Here no explanation why it's now left-shifted by one bit.
 > >
-> > There is no explanations "why". What's wrong with the calculations done in the
-> > current code?
-> >
-> > --
-> > With Best Regards,
-> > Andy Shevchenko
-> >
-> >
-> Hi Andy,
-> 
-> The original equations were tested on a variety of chips and base clocks.
-> Since we added devices that use higher frequencies of the module we
-> saw that there is a mismatch between the equation and the actual
-> results on the bus itself, measured on scope.
-> So instead of using the equations we did an optimization per module
-> frequency, verified on a device.
-> Most of the work was focused on the rise time of the SCL and SDA,
-> which depends on external load of the bus and PU.
-> We needed to make sure that in all valid range of load the rise time
-> is compliant of the SMB spec timing requirements.
-> 
-> This patch include the final values after extensive testing both at
-> Nuvoton as well as at customer sites.
+> > The address is stored from bit 1 to bit 7 in the register for sending
+> > the i2c address later.
+>
+> Yes, but previously it was stored w/o that shift.
+>
 
-But:
-1) why is it better than do calculations?
-2) can it be problematic on theoretically different PCB design in the future?
+Previously, the address was stored w/o that shift and with that shift
+in the following call to npcm_i2c_master_start_xmit,
+just like what https://github.com/torvalds/linux/blob/master/drivers/i2c/bu=
+sses/i2c-npcm7xx.c#L2043
+shows.
 
-P.S. If there is a good explanations to these and more, elaborate this in the
-commit message.
+Since there are cases that the i2c_recover_bus gets called at the
+early stage of the function npcm_i2c_master_xfer,
+the address is stored with the shift and used in the i2c_recover_bus call.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> > I'll write some comments about the left-shifted by one bit behavior
+> > above this modification in next patch set.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
 
+Thank you.
 
+Regards,
+Tyrone
