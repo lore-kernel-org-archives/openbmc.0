@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5A8DCA0ED3
-	for <openbmc@archiver.kernel.org>; Wed,  4 Sep 2024 06:21:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E892CA0ED3
+	for <openbmc@archiver.kernel.org>; Wed,  4 Sep 2024 06:21:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WzC6n4sLYz3cQq
-	for <openbmc@archiver.kernel.org>; Wed,  4 Sep 2024 16:21:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4WzC6r482vz3dFw
+	for <openbmc@archiver.kernel.org>; Wed,  4 Sep 2024 16:21:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a01:4f8:c0c:45b4::3"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725133291;
-	cv=none; b=iKukslF6R99vYjcws3c1bEOWKvARg2P7DVN7JqGFhUgjI3vIAG1/FqP8LCO9A/yN0rhVqj7U2nvHytnt5EEQPnn/pttSCXgND2eoOoFYEBRx+BUKOlEvl3T8bMVBO7T81byZ4/WHngKMKwhybcgaK50jqiS47Tsnz062+KyFbuVvR2LNc1p9RHZMtT8laWAd+qhBJqAT3qMEcUIoD7Q4RDrNcGcTdCMlVnK8eaYeNjzPe8qVDJvhrgYZ6J02Axkb5RhmNK4AITmwexvfOahT4soXj9zYaJpGGOXTVIATM8vFfoApIt2o/IhrFNZJniebG+A95oCGOjVY/xt5j/PNMw==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725370078;
+	cv=none; b=L2LzBhrM6/Rp7lHS9QUWfvf/s4DNNpe/mkKwBH7/RZOcbYtzk9ivNxeAj4yRn7dxiS+ijS+It8S83bGOw4SM0V8Ux+fnQBqPt0MrW+aULlbUpKD+fCpstBUrXW6lure77reeF1n76itY6DqGSstGqE4/54M83tHNkK0ZfnY0XghHSqiDeq4OAtKZTJk6P6VHnobtn5K/zp/vDGi6P1SldVDtBTLEA25PNUzr+pf4WpM9x2EcOUSJ07jJ77DTc1HPZzA+7VVI6KXASKk8uRFbPArRuEjvAL8vgyjphxfSX51TOfZn4PvmGj3yfD+eK1/EP6SLY1hjxsw9nnZmw7eQ9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1725133291; c=relaxed/relaxed;
-	bh=46QX0kuhx180X/8BVQKfdic538oR3Z6r3UiNROg8Mi8=;
-	h=X-Greylist:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version; b=IHbWZ/pVal3JUlnPpjsQhvzsK9iLHM3BLLsWBPBcoKEVMpJtTuaaC5DEh0iEgwnj0Nv5MfEx69Ahcx+2ihTjGouY3Lw0uukDcYXhBZ5o3UkiOgI7arkvS92inyn8mBSuh8CXKFjevWdoe2UBY4RxjQtpVPNCjBZAHx4AIhw6y6x3jw+MvPG6rqPToXtP/SWwPcMmB90lsnE+go/XCGrX2N8amuW68kOmRP/YOxAha7y+8NloAT7AAC2qsZesLwViMbEc3ETuFAc0yJlqVK8CM1QyqsFBRV6pm0Y60OIFHRSbETsRYf5tg7dJ8QwmHTmFSP+fsEjZZ2NNs3OplR74Pw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=diekuehnen.com; dkim=pass (2048-bit key; unprotected) header.d=diekuehnen.com header.i=@diekuehnen.com header.a=rsa-sha256 header.s=dkim header.b=T7lf2pXs; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:c0c:45b4::3; helo=mail.diekuehnen.com; envelope-from=andreas.kuehn@diekuehnen.com; receiver=lists.ozlabs.org) smtp.mailfrom=diekuehnen.com
+	t=1725370078; c=relaxed/relaxed;
+	bh=HV2hf1nSATsA3NNJxSWkfgMwLvWvQ3pMvRpwUZxKkXc=;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type; b=HVkqBq9t91zH6CFKncQlzA/+ufE6cfFNOtPEdYLvfmOU7qGjTadrgit9b/dS9p1sM1EDWN5AoPQClU4wrhAhL5O1DxVFwznHFDYPz9E1k+MGtIqG9gV5c1rMx1Tnf/uISDIWPNZyOA5Gdjqv3hnEtNxJTLLNqo1ah77sgEPOlOfUrexHg8MWbujBuZCvgo39YZJhtGqs9bgY4UWxD6IF3A4/LDCAgk1JKjqGBLuFBkphwiZiUF/XX5Qv0VFRErUvZG1J0Y/nwHpkaWG7cWGldxvXeCDIlX77g73gba7JaPqRD+lE0PF4F41KdK9cpRc7YOZzoYZxLJN1S7zu9fG5GA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=diekuehnen.com; dkim=pass (2048-bit key; unprotected) header.d=diekuehnen.com header.i=@diekuehnen.com header.a=rsa-sha256 header.s=dkim header.b=yp1r/26l; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:c0c:45b4::3; helo=mail.diekuehnen.com; envelope-from=andreas.kuehn@diekuehnen.com; receiver=lists.ozlabs.org) smtp.mailfrom=diekuehnen.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=diekuehnen.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=diekuehnen.com header.i=@diekuehnen.com header.a=rsa-sha256 header.s=dkim header.b=T7lf2pXs;
+	dkim=pass (2048-bit key; unprotected) header.d=diekuehnen.com header.i=@diekuehnen.com header.a=rsa-sha256 header.s=dkim header.b=yp1r/26l;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=diekuehnen.com (client-ip=2a01:4f8:c0c:45b4::3; helo=mail.diekuehnen.com; envelope-from=andreas.kuehn@diekuehnen.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 314 seconds by postgrey-1.37 at boromir; Sun, 01 Sep 2024 05:41:30 AEST
 Received: from mail.diekuehnen.com (mail.diekuehnen.com [IPv6:2a01:4f8:c0c:45b4::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Wx54B1XdMz2yDx
-	for <openbmc@lists.ozlabs.org>; Sun,  1 Sep 2024 05:41:30 +1000 (AEST)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 17CBA7E699;
-	Sat, 31 Aug 2024 21:36:06 +0200 (CEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Wymdp2ZgLz2xtK
+	for <openbmc@lists.ozlabs.org>; Tue,  3 Sep 2024 23:27:57 +1000 (AEST)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CD2EE7E70D;
+	Tue,  3 Sep 2024 15:27:45 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=diekuehnen.com;
-	s=dkim; t=1725132967;
+	s=dkim; t=1725370068;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=46QX0kuhx180X/8BVQKfdic538oR3Z6r3UiNROg8Mi8=;
-	b=T7lf2pXsSKOnmASVTCVThS7v+FSiSl+ZgeUhKY/kPdUlCRCWjb+hHnoj/rHaBsnEU+lj1h
-	et9GEtGPAYjp5isu1sRgRrmL44oBlOYNl/NV5dDEZecEi6aJqrfFwS90nQxUF9Ee1xOzfR
-	v2tsGDtD0Se+IENU7xyLpg0q5Aelm7J5fJPJYaM56xA+2Oj2w1mbCgN9vVYdTCR/g87LZz
-	ajljGKi1MYGSF5oQRQRtedXIYUjDKsc7TWxcCLmggbZmDGHqRr++uzPpm0nJQViJi2BgBF
-	JIvtc23HLLmXj+BJb4lv+rNQWcYZL918sHbUp3UbCxFaJrXVcP7xqhuu+HEb8w==
+	 content-transfer-encoding; bh=HV2hf1nSATsA3NNJxSWkfgMwLvWvQ3pMvRpwUZxKkXc=;
+	b=yp1r/26lNKqk7dD7+0Bh9E7ZrMQKfgz+bGiBEeBdChNJ567eFsyqrGZq1VTcMhFk4hoGwg
+	ZpUBSD0nmRlaGKi+SSeQnVLwBY/d/7R7o67TUMm/KcJlLOT57Imw6g2tXihs+Hp397/Kin
+	8WFCA/oHt1CBebwGnNIw9qBQrGMtBJFcYIkOwup+hDeWJa1aSCm+UrSuyB7hTI90ttxHLH
+	XCsQsPFsXflPnWPHchXA2uTfQ4ET/WKP4Epez4sMkqNpuOqN1xRXCeJTp9m7TM0AGirIPq
+	ouIESRkTIQtc2p6gpjXtn+51mF/8cssoG+wsiI2hOh8DVvcmh7WjR8j8T6KAHA==
 From: =?UTF-8?q?Andreas=20K=C3=BChn?= <andreas.kuehn@diekuehnen.com>
 To: avifishman70@gmail.com,
 	tmaimon77@gmail.com,
@@ -51,9 +49,9 @@ To: avifishman70@gmail.com,
 	benjaminfair@google.com,
 	peter.chen@kernel.org,
 	gregkh@linuxfoundation.org
-Subject: [PATCH] usb: chipidea: npcm: Fix coding style with missing space
-Date: Sat, 31 Aug 2024 21:34:06 +0200
-Message-ID: <20240831193407.11302-1-andreas.kuehn@diekuehnen.com>
+Subject: [PATCH] usb: chipidea: npcm: Fix coding style with clarification of data type
+Date: Tue,  3 Sep 2024 15:25:15 +0200
+Message-ID: <20240903132535.15554-1-andreas.kuehn@diekuehnen.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -71,11 +69,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, =?UTF-8?q?Andreas=20K=C3=BChn?= <andreas.kuehn@diekuehnen.com>
+Cc: =?UTF-8?q?Andreas=20K=C3=BChn?= <andreas.kuehn@diekuehnen.com>, linux-usb@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Fixed coding style issue: added missing space.
+Fixed coding style issue: unsigned to unsigned int.
 
 Signed-off-by: Andreas Kühn <andreas.kuehn@diekuehnen.com>
 ---
@@ -83,17 +81,17 @@ Signed-off-by: Andreas Kühn <andreas.kuehn@diekuehnen.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/chipidea/ci_hdrc_npcm.c b/drivers/usb/chipidea/ci_hdrc_npcm.c
-index b14127873c55..c89c68f41ccc 100644
+index c89c68f41ccc..3e5e05dbda89 100644
 --- a/drivers/usb/chipidea/ci_hdrc_npcm.c
 +++ b/drivers/usb/chipidea/ci_hdrc_npcm.c
-@@ -28,7 +28,7 @@ static int npcm_udc_notify_event(struct ci_hdrc *ci, unsigned event)
- 		hw_write(ci, OP_USBMODE, 0xffffffff, 0x0);
- 		break;
- 	default:
--		dev_dbg(dev, "unknown ci_hdrc event (%d)\n",event);
-+		dev_dbg(dev, "unknown ci_hdrc event (%d)\n", event);
- 		break;
- 	}
+@@ -18,7 +18,7 @@ struct npcm_udc_data {
+ 	struct ci_hdrc_platform_data pdata;
+ };
+ 
+-static int npcm_udc_notify_event(struct ci_hdrc *ci, unsigned event)
++static int npcm_udc_notify_event(struct ci_hdrc *ci, unsigned int event)
+ {
+ 	struct device *dev = ci->dev->parent;
  
 -- 
 2.43.0
