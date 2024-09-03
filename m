@@ -4,81 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 823CFCA0ED3
-	for <openbmc@archiver.kernel.org>; Tue,  3 Sep 2024 02:08:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4227ACD3446
+	for <openbmc@archiver.kernel.org>; Tue,  3 Sep 2024 16:00:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4WyTYP3zd6z3cTX
-	for <openbmc@archiver.kernel.org>; Tue,  3 Sep 2024 12:08:09 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::62d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725329285;
-	cv=none; b=I3QnasSsTGMjrc4GW8MFADhX0S+jFAH8DOG1Bo8sgjCLz2cAT56geImB+O/EhLbOEXYdH64yD7xSqFdhOnRdi7d09JrD1cr+CMDHxqzQTPYNicbdZpbSEu+2vIX3SZ4WjmAejzE8qFdCYxylg2MyRBc1fOeZrVMkAtiaem+OdRlJf+Qde0KrjE4KAAKMl5dvVra3J7s6iXvlNfCbneNre55pKKB1oIA+nkhyd0kvC3PBq6fHHfXPTiAM6xXOKaXh7jeTY59JsSCmltJC3kt9PbB2v4YuKQaotSJLI/PcJN/PprqtY8bre0YOVCoR8QyKwknkdw1ns56DxeyMIcjXcQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Wyr1D4s8Yz3cRk
+	for <openbmc@archiver.kernel.org>; Wed,  4 Sep 2024 02:00:00 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1725379196;
+	cv=none; b=kY5WVKdmBmmp+P5KkfSQ6FaM/pHUk7XoyrQfu3zq5MeEOd2GRbGEU3RXg+xHJBkJzOyuxm371ZBpVzye1kEg8kqosgAYve26beQfJ0FUr7Tyrujn98ehChRn3Jf714fDUYymUHDo5DeiAtK02fST8oCKXVoFitEQujLoRmgLDJJCA7gGk+3B64EuR46OiZa/IYPo6ltrELv4PpzH8LXfWKwstA8kEoEjxpeNl3+vxDqmhLD+zL/eFvV8SKyh4d8c6NiLe34G/hkioqR2q1+3X2Af2yiQBq9IEjUDmpe/WIdLc7/Os59Ge1v4Jdr4qNvl+K1GWm2xgFyCIAnvIg/MoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1725329285; c=relaxed/relaxed;
-	bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
-	h=DKIM-Signature:MIME-Version:References:In-Reply-To:From:Date:
-	 Message-ID:Subject:To:Cc:Content-Type; b=C/IgfGbkkwBChvpPfCnFLVHSyWDjy3J6/gIQcLobQCcPGON1Gv2ADS74tpzpBvJknjJUKw2KU9ZsrwF4eCdnARUgoDTfW46pRRSIg2PDcy/PBkGOv/XZzPb6zF03QQVhg4eIKUzHl9J9pFVS+BSskaUdXa/S6LX5vb4VqKnvHoV/ZizblWfyWTpujxsRcbazip/HEhT6nN+ZJhuBrDLXCnOZn4eETOU744Tf+dmIqdi3UcXtAC/ZMVReJbJUd8UfFIcCrRUriGD1raGm2AVUgwkXsr/lxpispZ47YhZbljbn2+hYIfTKWd5NrHPHwaq3321Z12ZfYJYTSTsQPLM2FQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=keljqYv5; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62d; helo=mail-ej1-x62d.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1725379196; c=relaxed/relaxed;
+	bh=YObX343rc2ZfeM1gQQp4Yw9bsw9NAFoEiVxyfkfxbnI=;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=SqlICErYZpKm0ed093hsT073mA/oPO3LkSwOykzjbfOMr6yQE6z9hUNNp9d/PkbE29YmlmnIpOIHuUjmkyih88C3USQkxaqfikvFCcs9pOer1nudjzFNSfVsyCqG2VU1B/fBBbTQfy+7nyFOfxMJL14xzqRrlYiQXTnz5hot91Vy2j243aY4nasItAK5kc9Ofz2P1x6352fUrxugzRqbDWKvYRfPYd0GIpUzzY7pDAwcLpeafAIUP0mt/q9pziGdVWAZs0NVmIBlYwmAx4IkzJE0YQGXtOXegci3Kli5xw3LuP8YGV1Duh5klRi4+FVATlsk8c+/YKaVbHp4UJQt/w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=R8tQpabt; dkim-atps=neutral; spf=pass (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=keljqYv5;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=R8tQpabt;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62d; helo=mail-ej1-x62d.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com; receiver=lists.ozlabs.org)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4WyTYJ0zvlz2yDM
-	for <openbmc@lists.ozlabs.org>; Tue,  3 Sep 2024 12:08:03 +1000 (AEST)
-Received: by mail-ej1-x62d.google.com with SMTP id a640c23a62f3a-a868831216cso548148366b.3
-        for <openbmc@lists.ozlabs.org>; Mon, 02 Sep 2024 19:08:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1725329278; x=1725934078; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
-        b=keljqYv5ZhqN+AbO48ytcSPjfGgHoudRardBusz34nPCTaufV2QsKEd8o8gP7y4wYg
-         TXjA0VlMBT6Y94oHW7qjcHrDzagV8zPftq+2x0GRRwfzoNAI24scODGmsDzWLwSGTC+S
-         ZyP7IELmhqf0In/9/hWSo4NH5XEgAQMg//YJ82ycujCLAGmyYBzrZsbIAxsW37gzmvNd
-         bTgIQ6DtlG84ghq8MBmyyDLT1GgQ9Og59Y2L3Ispqk1CjQ67z1Aj4/avEZOxtzZHkJq3
-         QvCXj5vibK8TilcYiQJae+Ec0bsUpol1ODg2reCQ0PR2kVo9mbIo+XT9qSmDNrT4H7Nn
-         fWRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1725329278; x=1725934078;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=T1GuxGVThsSRhyDuyn4cmCRQjYF0xXBu34+O3FRfXrc=;
-        b=DisYkarl3iFAzNMQPh4imBGU2Rdh7djSYwuKdwo7rmgJUnVRDPRjzVja74Ab5AdxBj
-         7j6X4X3F6jg0syZuoFAGKLQUtV9JaGZk39wtC93BhhKUO//ovitdk8BoN4ornCUbbcls
-         FGtZKGgt9kkIwRw+fsXHrPmtB6yHU5LjqbnapUHmokfrpVCG7qvVoG8BN0H1btSuqKQL
-         El5T7HbtQ9zcOIhiiZdL1WnNg1L8w+GKI3my5XD94GuP8kDBtufmo9pujhyBCTWkBT6S
-         wde9RZpb6urZfXeUG1TfToO7+DrKd2WydQCjFiMot95EryoF/GlxemkzCiAlegoSMP21
-         5BPA==
-X-Gm-Message-State: AOJu0YyB1X+7QWkfgmDtDd0D8L9nwp1kDK4EcYmGjGbN2jea7Sh1xABi
-	hlgZMrbMss0TRP/S4Lv7V98dUOQ+A+XsDlyh45tGOWUOtAgnT7UPHXgPY+ltEoaLyUkJFBKgoMq
-	HUlgX/AEsANduK1DC2eS4zk77Wg==
-X-Google-Smtp-Source: AGHT+IGrC74Ctz0HzdIiD7tPawwv+UqDvOFvoUGHiH77vBFIYeFjLsTp/nj7HnVFDEBLZ4qvEkvOCGuZe0mvz2lIzBk=
-X-Received: by 2002:a17:906:f586:b0:a86:8917:fcd6 with SMTP id
- a640c23a62f3a-a89b9733607mr529621766b.60.1725329277088; Mon, 02 Sep 2024
- 19:07:57 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Wyr181Sbhz2xYk
+	for <openbmc@lists.ozlabs.org>; Wed,  4 Sep 2024 01:59:55 +1000 (AEST)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 483EGm9o003206
+	for <openbmc@lists.ozlabs.org>; Tue, 3 Sep 2024 15:59:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=from
+	:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding; s=pp1; bh=YObX343rc2ZfeM1gQQp4Yw9bsw
+	9NAFoEiVxyfkfxbnI=; b=R8tQpabtSCZIET6FqZfpJwXDKOnnl1RgCC7aYMkSmu
+	WG0TDXnSCmgeivseX15lcpncFDtLKsxw5Ki7UppzjHbpa+LKV4OU24M5c9ds6+kU
+	hS9VMOL10qmlLcCX8IxJ2fNz5UUN+iuScZ1GnBJ2inq905ZV+gP8J+GK042t/jg6
+	RXhCaB3xyFQm+mM7+pNV3tDTActZgKFLwLlpGpbpBTpMn18T2mJQKZ+e5h6dRAgL
+	ThMkPH80u5MaH2c7esLEeJ/VJhq7d+FMaHMZOYz5k74/7E90egrXckw31bKssI8z
+	FbAHMcsBf/OZyK59zc7gHKNN4NQ5eRHbQ971rBZWcyZw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 41bskkxuds-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Tue, 03 Sep 2024 15:59:53 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 483CtZDL007995
+	for <openbmc@lists.ozlabs.org>; Tue, 3 Sep 2024 15:59:52 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 41cfqmu71f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Tue, 03 Sep 2024 15:59:52 +0000
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 483FxpR138535690
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Sep 2024 15:59:51 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2CF6D5805D;
+	Tue,  3 Sep 2024 15:59:51 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 150FF58052;
+	Tue,  3 Sep 2024 15:59:51 +0000 (GMT)
+Received: from slate16.aus.stglabs.ibm.com (unknown [9.61.11.70])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Sep 2024 15:59:51 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-6.6] ARM: dts: aspeed: Fix Rainier and Blueridge GPIO LED names
+Date: Tue,  3 Sep 2024 10:59:47 -0500
+Message-ID: <20240903155947.425132-1-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240830034640.7049-1-kfting@nuvoton.com> <20240830034640.7049-6-kfting@nuvoton.com>
- <ZtIaofiTqyFwNXrO@smile.fi.intel.com> <CACD3sJbZ-Yy3PfPWisMSiPYCbztbi1+Q+=udMG8EjNvE+xA1mg@mail.gmail.com>
- <ZtWnd8bmiu-M4fQg@smile.fi.intel.com>
-In-Reply-To: <ZtWnd8bmiu-M4fQg@smile.fi.intel.com>
-From: Tyrone Ting <warp5tw@gmail.com>
-Date: Tue, 3 Sep 2024 10:07:45 +0800
-Message-ID: <CACD3sJass-6gu6MQxrYwLGi6OMgWnntO+N7Ob9nV6o3siFHNVg@mail.gmail.com>
-Subject: Re: [PATCH v2 5/7] i2c: npcm: Modify the client address assignment
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, avifishman70@gmail.com, 
-	tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com, 
-	yuenn@google.com, benjaminfair@google.com, andi.shyti@kernel.org, 
-	wsa@kernel.org, rand.sec96@gmail.com, wsa+renesas@sang-engineering.com, 
-	kwliu@nuvoton.com, jjliu0@nuvoton.com, avi.fishman@nuvoton.com, 
-	tali.perry@nuvoton.com, tomer.maimon@nuvoton.com, kfting@nuvoton.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: oqOM7in6cPhCOE4PCFcE7RztwCXImA0m
+X-Proofpoint-ORIG-GUID: oqOM7in6cPhCOE4PCFcE7RztwCXImA0m
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1039,Hydra:6.0.680,FMLib:17.12.60.29
+ definitions=2024-09-03_03,2024-09-03_01,2024-09-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501 mlxscore=0
+ mlxlogscore=549 clxscore=1011 phishscore=0 spamscore=0 bulkscore=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2407110000 definitions=main-2409030127
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,55 +94,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Andy:
+Blueridge updated the LED names to include the "led-" prefix as
+upstream required. Rainier should match for ease of application
+design. In addition, the gpio line name needs to match.
 
-Thank you for your feedback.
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ .../arm/boot/dts/aspeed/aspeed-bmc-ibm-blueridge.dts |  5 +++--
+ arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-rainier.dts  | 12 ++++++------
+ 2 files changed, 9 insertions(+), 8 deletions(-)
 
-Andy Shevchenko <andriy.shevchenko@linux.intel.com> =E6=96=BC 2024=E5=B9=B4=
-9=E6=9C=882=E6=97=A5 =E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=887:54=E5=AF=AB=E9=
-=81=93=EF=BC=9A
->
-> On Mon, Sep 02, 2024 at 09:40:09AM +0800, Tyrone Ting wrote:
-> > Andy Shevchenko <andriy.shevchenko@linux.intel.com> =E6=96=BC 2024=E5=
-=B9=B48=E6=9C=8831=E6=97=A5 =E9=80=B1=E5=85=AD =E4=B8=8A=E5=8D=883:16=E5=AF=
-=AB=E9=81=93=EF=BC=9A
-> > > On Fri, Aug 30, 2024 at 11:46:38AM +0800, Tyrone Ting wrote:
-> > > > Store the client address earlier since it's used in the i2c_recover=
-_bus
-> > > > logic flow.
-> > >
-> > > Here no explanation why it's now left-shifted by one bit.
-> >
-> > The address is stored from bit 1 to bit 7 in the register for sending
-> > the i2c address later.
->
-> Yes, but previously it was stored w/o that shift.
->
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-blueridge.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-blueridge.dts
+index a170b4b7c0fb7..63dceb8af82c2 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-blueridge.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-blueridge.dts
+@@ -207,7 +207,8 @@ &gpio0 {
+ 	/*F0-F7*/	"","","rtc-battery-voltage-read-enable","reset-cause-pinhole","","",
+ 			"factory-reset-toggle","",
+ 	/*G0-G7*/	"","","","","","","","",
+-	/*H0-H7*/	"","bmc-ingraham0","rear-enc-id0","rear-enc-fault0","","","","",
++	/*H0-H7*/	"","led-bmc-ingraham0","led-rear-enc-id0","led-rear-enc-fault0","","","",
++			"",
+ 	/*I0-I7*/	"","","","","","","bmc-secure-boot","",
+ 	/*J0-J7*/	"","","","","","","","",
+ 	/*K0-K7*/	"","","","","","","","",
+@@ -215,7 +216,7 @@ &gpio0 {
+ 	/*M0-M7*/	"","","","","","","","",
+ 	/*N0-N7*/	"","","","","","","","",
+ 	/*O0-O7*/	"","","","usb-power","","","","",
+-	/*P0-P7*/	"","","","","pcieslot-power","","","",
++	/*P0-P7*/	"","","","","led-pcieslot-power","","","",
+ 	/*Q0-Q7*/	"cfam-reset","","regulator-standby-faulted","","","","","",
+ 	/*R0-R7*/	"bmc-tpm-reset","power-chassis-control","power-chassis-good","","","","",
+ 			"",
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-rainier.dts
+index a98612c5a8c7f..d6bb9b03594c1 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-rainier.dts
+@@ -109,22 +109,22 @@ leds {
+ 		compatible = "gpio-leds";
+ 
+ 		/* BMC Card fault LED at the back */
+-		bmc-ingraham0 {
++		led-bmc-ingraham0 {
+ 			gpios = <&gpio0 ASPEED_GPIO(H, 1) GPIO_ACTIVE_LOW>;
+ 		};
+ 
+ 		/* Enclosure ID LED at the back */
+-		rear-enc-id0 {
++		led-rear-enc-id0 {
+ 			gpios = <&gpio0 ASPEED_GPIO(H, 2) GPIO_ACTIVE_LOW>;
+ 		};
+ 
+ 		/* Enclosure fault LED at the back */
+-		rear-enc-fault0 {
++		led-rear-enc-fault0 {
+ 			gpios = <&gpio0 ASPEED_GPIO(H, 3) GPIO_ACTIVE_LOW>;
+ 		};
+ 
+ 		/* PCIE slot power LED */
+-		pcieslot-power {
++		led-pcieslot-power {
+ 			gpios = <&gpio0 ASPEED_GPIO(P, 4) GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+@@ -203,7 +203,7 @@ &gpio0 {
+ 	/*E0-E7*/	"","","","","","","","",
+ 	/*F0-F7*/	"","","rtc-battery-voltage-read-enable","reset-cause-pinhole","","","factory-reset-toggle","",
+ 	/*G0-G7*/	"","","","","","","","",
+-	/*H0-H7*/	"","bmc-ingraham0","rear-enc-id0","rear-enc-fault0","","","","",
++	/*H0-H7*/	"","led-bmc-ingraham0","led-rear-enc-id0","led-rear-enc-fault0","","","","",
+ 	/*I0-I7*/	"","","","","","","bmc-secure-boot","",
+ 	/*J0-J7*/	"","","","","","","","",
+ 	/*K0-K7*/	"","","","","","","","",
+@@ -211,7 +211,7 @@ &gpio0 {
+ 	/*M0-M7*/	"","","","","","","","",
+ 	/*N0-N7*/	"","","","","","","","",
+ 	/*O0-O7*/	"","","","usb-power","","","","",
+-	/*P0-P7*/	"","","","","pcieslot-power","","","",
++	/*P0-P7*/	"","","","","led-pcieslot-power","","","",
+ 	/*Q0-Q7*/	"cfam-reset","","regulator-standby-faulted","","","","","",
+ 	/*R0-R7*/	"bmc-tpm-reset","power-chassis-control","power-chassis-good","","","","","",
+ 	/*S0-S7*/	"presence-ps0","presence-ps1","presence-ps2","presence-ps3",
+-- 
+2.43.0
 
-Previously, the address was stored w/o that shift and with that shift
-in the following call to npcm_i2c_master_start_xmit,
-just like what https://github.com/torvalds/linux/blob/master/drivers/i2c/bu=
-sses/i2c-npcm7xx.c#L2043
-shows.
-
-Since there are cases that the i2c_recover_bus gets called at the
-early stage of the function npcm_i2c_master_xfer,
-the address is stored with the shift and used in the i2c_recover_bus call.
-
-> > I'll write some comments about the left-shifted by one bit behavior
-> > above this modification in next patch set.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
-
-Thank you.
-
-Regards,
-Tyrone
