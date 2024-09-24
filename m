@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA96CCF9C6B
-	for <openbmc@archiver.kernel.org>; Tue, 24 Sep 2024 08:20:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5631FCF9C69
+	for <openbmc@archiver.kernel.org>; Tue, 24 Sep 2024 22:26:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XCXqK6nrBz3cR3
-	for <openbmc@archiver.kernel.org>; Tue, 24 Sep 2024 18:20:29 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XCvbZ4Chdz3cNc
+	for <openbmc@archiver.kernel.org>; Wed, 25 Sep 2024 08:26:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=147.75.193.91
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1727166024;
-	cv=none; b=TDdCLEtgY9JvuvPcpkc3MIDY1sL7/UlihIabQlYx7L55Ahb53rc9mzoQzzwCBkEyrpMABCwMwekyeu3I2W2XtCZttNvexdKyWBzLvrlDUAjWN9bQze6aVmMgLH7p2Lz4ZzZul0eoxV8nkcZE99+AR3EkZJ38H+joKHLl/PLvjj2YpmHD9OD1OBU0ts8CHxQ7GA923PDJTPz20wLvqA3YlDs4s7mPxU/Uz7R1pkCtiYKf56kQ1dOgn3o4z+gXVhMNyj9OT9QnB0QLrgf8ZEJj0+Iq1uRm62sJuLC024vtwtZlAdbzGWAIPhHCFkDbvSgX8LY7Xhe//FUTpf/HF/qulA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1727216790;
+	cv=none; b=JGxd01etf7SEdtdaIVLI+ST+ia/9Uw4akhH24KDTSklw1j023srsrx24RDgXKgZIwzx6uLOnaBM4EssRXbX9ehDbJpYY/H1SPlIhbjZlA6wPjIQKwqp2jIcFupvITV4KTHn0LYxNsYF3k2OjZW8WvWkFM7LrltLU0pZqbZcoCuBPfL8pOdVhdIMolV5uPKxK8mw5UAKFVKTAoyrOz73fF2WHPcBy9EqRKnP3+vd/afTRb8qb8KSH64Xx5k6NqM/kA+2VaOwqJ33ClVItz2NRVKsBBPMmmUTEUYku9BcQoH8r7XOuaH5ORqLAPoGZG2WheYwdikMrXbG3rIibQMq3oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1727166024; c=relaxed/relaxed;
-	bh=/o4tq8GeAOgaegwo22vFwkM2pGqReKxFBgBPuAuwIho=;
+	t=1727216790; c=relaxed/relaxed;
+	bh=xD6fjVB/Xyh8YtCKbEF0os2hU2bBQYNMnHylNGWACFA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WByMBtuWGuie1MAgQsFfSr6L/gyC4c/RAPpyFHHjJsQMogHhDBtKuol5DTzmBvrwf1Sgjnbgciehj4997thz+/Uy6K/M4lT22SXxeHFAEp9oqEDqi7ut6QvdTupjl6wqVrmd+jrnTC0rI1M0qpBDITCn25emM6tUBWUfV70U39H4YXRkw43wpYgeN+qJvipjT2oPcreDBBdnL4AOKWV7/Rnk3BjDQsabh2Y5thX7XpF7Xo0gDWmk2NT8aaEf8zMEz9ulBXD22eKnzyhs5keUsgUC1Mkx6UdcfP5RKcyy2aKEkCAlTlydWY7qFQ0y1HIzWnIf3TfOhMeiKGqe0fsQGA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=DpjNFQn+; dkim-atps=neutral; spf=pass (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=PPe99JBayuZ4L1K1/S4GXG3BH2CDAchZ42sin50dWWwBCV4OUQkUUQvuranSOL63bfdlpC3aS2ix54IMCG96R78/6KLHJi0hvgTH6uzNeOVDAbymzhI3gzrCpJIGw7Xz4qVY4OxMV3HXYHNq2p3MAkThPrhZ32jYFh9/3aDSO7CMSP0T1N0OxuaV65AzbV2wCu9Y164adAFjVQm3QKyezBi+/GOFcAlvvmWKvrsj6t3+UhzVieb5siYjnQzB9PiY71Z3o8OX3aDNWlg/wySY6DMPu5O/eYga2oALfW0ZxeNucMy8/g0tq1SVbOpnaiEm/ufh22ZGxezSyrTxWwE7qw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=KW+5rx58; dkim-atps=neutral; spf=pass (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=DpjNFQn+;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=KW+5rx58;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XCXqD2Mqcz2yZ1
-	for <openbmc@lists.ozlabs.org>; Tue, 24 Sep 2024 18:20:24 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XCvbV3FcFz2xjK
+	for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2024 08:26:30 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 2F6F2A435D2;
-	Tue, 24 Sep 2024 08:20:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5357BC4CEC4;
-	Tue, 24 Sep 2024 08:20:17 +0000 (UTC)
+	by nyc.source.kernel.org (Postfix) with ESMTP id 16BB4A43921;
+	Tue, 24 Sep 2024 22:26:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF21C4CEC4;
+	Tue, 24 Sep 2024 22:26:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1727166020;
-	bh=/o4tq8GeAOgaegwo22vFwkM2pGqReKxFBgBPuAuwIho=;
+	s=k20201202; t=1727216786;
+	bh=YmYTBESt0EqQFqhnzMaFyGYpmk/68DRvs5SHo7cxNSY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DpjNFQn+uUzAjAh4nIFRsrG+uZe4M8K2GVNT4q56yCaGhQPbSeN2chrsAfRLJijD5
-	 TB+NxUN6cQ4j3rgQUaqO/bewcgu5S7aNhSgGYAYBSoeuR9h4ImQTVtzJAONPabzvmP
-	 a+qLw15wrQUdw0X+aAB7nqLiWaHLtnObUdfvn8CRkN6NUu7dOjomhdeRcMlRs7tr0m
-	 Lm4Q6KHhxI1oqDcPWSpoOwtgKG6xZi81mL5LaLARuS16ZeAn9jP4mhlhNMRK6drqLO
-	 RzAGiI9TuFAr/OL6QqEmIBHWAuBpcuScurI4+ph/oVEkEQ04qeNXsWy63hfqQAJBFL
-	 Jowgqc2KuFZJg==
-Date: Tue, 24 Sep 2024 09:20:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
+	b=KW+5rx58Am0dAtvner/unXsVDmx0QycmxdReU8qVh9hd8J2qXt/8xXa+AE2mT669A
+	 nM449DLPXw8eQONRvfIrSVc6HOzA2z+5vj9PwU1qWRvY7780Pmixy56hQte1iFE99J
+	 gqq5yqYsatOS+m9/7mdkTsn2R6+SKq950WwRTgZqTNxZFOyZ3GICGBtC4GXvOW+ac6
+	 3wc/vy2ttKQs2glG0L1bG6zj/XjLvBPebBlFVlPexRp6ne922um0WB2Wf2NK5HaiFN
+	 6ANRkMEOdZPrq50mxAiQS1Pg10OAD0VyioSQa6fnsrRT/GmWTXErnlK/IEKZ3lzpkZ
+	 wIwvBuegE0xow==
+Date: Tue, 24 Sep 2024 17:26:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Chanh Nguyen <chanh@amperemail.onmicrosoft.com>
 Subject: Re: [PATCH v2] dt-bindings: trivial-devices: add onnn,adt7462
-Message-ID: <20240924-cringe-puma-67798ccadc66@spud>
+Message-ID: <20240924222625.GA403554-robh@kernel.org>
 References: <20240923093800.892949-1-chanh@os.amperecomputing.com>
  <20240923-private-grower-af6a7c1fca09@spud>
  <c536f43a-56f8-4cbf-99a0-fe3b54a42886@amperemail.onmicrosoft.com>
- <56b7aec6-bf8c-4547-bec2-e0df25489f77@roeck-us.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kbruAPx8FvGXJzyx"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <56b7aec6-bf8c-4547-bec2-e0df25489f77@roeck-us.net>
+In-Reply-To: <c536f43a-56f8-4cbf-99a0-fe3b54a42886@amperemail.onmicrosoft.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,84 +67,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Phong Vo <phong@os.amperecomputing.com>, Peter Yin <peteryin.openbmc@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, Chanh Nguyen <chanh@amperemail.onmicrosoft.com>, linux-kernel@vger.kernel.org, Thang Nguyen <thang@os.amperecomputing.com>, Noah Wang <noahwang.wang@outlook.com>, devicetree@vger.kernel.org, Lukas Wunner <lukas@wunner.de>, Quan Nguyen <quan@os.amperecomputing.com>, Khanh Pham <khpham@amperecomputing.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>, Open Source Submission <patches@amperecomputing.com>, Chanh Nguyen <chanh@os.amperecomputing.com>
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, Phong Vo <phong@os.amperecomputing.com>, Peter Yin <peteryin.openbmc@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, Thang Nguyen <thang@os.amperecomputing.com>, linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>, Noah Wang <noahwang.wang@outlook.com>, Lukas Wunner <lukas@wunner.de>, Quan Nguyen <quan@os.amperecomputing.com>, Khanh Pham <khpham@amperecomputing.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>, Open Source Submission <patches@amperecomputing.com>, Guenter Roeck <linux@roeck-us.net>, Chanh Nguyen <chanh@os.amperecomputing.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Tue, Sep 24, 2024 at 11:17:53AM +0700, Chanh Nguyen wrote:
+> On 24/09/2024 04:23, Conor Dooley wrote:
+> > On Mon, Sep 23, 2024 at 09:38:00AM +0000, Chanh Nguyen wrote:
+> > > The adt7462 supports monitoring and controlling up to
+> > > four PWM Fan drive outputs and eight TACH inputs measures.
+> > > The adt7462 supports reading a single on chip temperature
+> > > sensor and three remote temperature sensors. There are up
+> > > to 13 voltage monitoring inputs.
+> > > 
+> > > Add device tree bindings for the adt7462 device.
+> > > 
+> > > Signed-off-by: Chanh Nguyen <chanh@os.amperecomputing.com>
+> > > ---
+> > > Change in v2:
+> > >     - Add onnn,adt7462 to the list of trivial devices       [Guenter]
+> > 
+> > Is this really a trivial device? If it monitors and controls fans, how
+> > come those do not need to be represented in the devicetree? How is it
+> > possible to tell the difference between monitoring 1 and 4 fans without
+> > the extra detail?
+> > 
+> 
+> Hi Conor, Thank you for your comments!
+> 
+> The chip is old. The driver was added back in 2008.
+> 
+> Really, this is such an old chip that it would make more sense to just leave
+> its driver alone unless there is a problem with it; this is viewpoint from
+> Guenter.
+> 
+> I'm using the driver and the device tree with only the "compatible" and
+> "reg" properties; now it's being good for me without any extra detail.
+> 
+> Guenter, Rob, Krzysztof, and I discussed making the decision to add this
+> device to the list of trivial devices. You can get more information at
+> thread
+> https://lore.kernel.org/lkml/20240918220553.GA2216504-robh@kernel.org/T/
+> (Because the commit title changed between v1 and v2, it's so hard for
+> everyone to find it. Sorry! I missed mentioning the link to pacth v1).
 
---kbruAPx8FvGXJzyx
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It's fine. I'll apply this after the merge window.
 
-On Mon, Sep 23, 2024 at 10:39:20PM -0700, Guenter Roeck wrote:
-> On 9/23/24 21:17, Chanh Nguyen wrote:
-> > On 24/09/2024 04:23, Conor Dooley wrote:
-> > > On Mon, Sep 23, 2024 at 09:38:00AM +0000, Chanh Nguyen wrote:
-> > > > The adt7462 supports monitoring and controlling up to
-> > > > four PWM Fan drive outputs and eight TACH inputs measures.
-> > > > The adt7462 supports reading a single on chip temperature
-> > > > sensor and three remote temperature sensors. There are up
-> > > > to 13 voltage monitoring inputs.
-> > > >=20
-> > > > Add device tree bindings for the adt7462 device.
-> > > >=20
-> > > > Signed-off-by: Chanh Nguyen <chanh@os.amperecomputing.com>
-> > > > ---
-> > > > Change in v2:
-> > > > =A0=A0=A0 - Add onnn,adt7462 to the list of trivial devices=A0=A0=
-=A0=A0=A0=A0 [Guenter]
-> > >=20
-> > > Is this really a trivial device? If it monitors and controls fans, how
-> > > come those do not need to be represented in the devicetree? How is it
-> > > possible to tell the difference between monitoring 1 and 4 fans witho=
-ut
-> > > the extra detail?
-> > >=20
-> >=20
-> > Hi Conor, Thank you for your comments!
-> >=20
-> > The chip is old. The driver was added back in 2008.
-> >=20
-> > Really, this is such an old chip that it would make more sense to just =
-leave its driver alone unless there is a problem with it; this is viewpoint=
- from Guenter.
-> >=20
-> > I'm using the driver and the device tree with only the "compatible" and=
- "reg" properties; now it's being good for me without any extra detail.
-> >=20
-> > Guenter, Rob, Krzysztof, and I discussed making the decision to add thi=
-s device to the list of trivial devices. You can get more information at th=
-read https://lore.kernel.org/lkml/20240918220553.GA2216504-robh@kernel.org/=
-T/ (Because the commit title changed between v1 and v2, it's so hard for ev=
-eryone to find it. Sorry! I missed mentioning the link to pacth v1).
-> >=20
-> > Guenter, who supported the driver development before, he suggested me a=
-dd this device to the list of trivial devices.
-> >=20
->=20
-> Historically it was ok to add an entry into trivial devices and extending
-> it later if/when needed. That was still widely done at least until very
-> recently. Maybe that changed recently. If so, sorry for bringing up the i=
-dea.
-> I did not envision that this might be a problem.
->=20
-> Can you live with no devicetree entry at all for the chip ? That is of
-> course less than perfect, but it seems better than trying to design a
-> devicetree description for the chip only to never implement it.
-
-Since it sounds like Krzysztof assented to it, I'll just leave it for
-him to ack.
-
---kbruAPx8FvGXJzyx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZvJ2PwAKCRB4tDGHoIJi
-0qlDAP9+P62X1kDzM9QPlANL1YF/JSXwpvKvPEsHZwVg9ZeJzwEAsWev7egfyb/C
-zr3uxdKQgJZ/Okt35MKmzZM+eHBk2QY=
-=4L8j
------END PGP SIGNATURE-----
-
---kbruAPx8FvGXJzyx--
+Rob
