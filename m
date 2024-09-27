@@ -4,81 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E867CDE031
-	for <openbmc@archiver.kernel.org>; Thu, 26 Sep 2024 19:21:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA77CEBF68
+	for <openbmc@archiver.kernel.org>; Fri, 27 Sep 2024 01:59:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XF3P26xgkz3cSJ
-	for <openbmc@archiver.kernel.org>; Fri, 27 Sep 2024 05:21:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2001:4860:4864:20::35"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1727378482;
-	cv=none; b=Ddq2m+GKTiLhkA/Kg2gN3j7ELvVVcmnNG2ieYPLG7hMopYEFM0kWSKT+HcLryowhuhnqR2ehLLSi5VCGzq28jl8t69Cl0Ha+hQsBW6taXM/5QTdIXdInJ6poIAbXh3pAHAtIupLQg3UB40MNs4JzKHD3nsJWHqSvrMvk1W99ySUnL0Zf3EM3MxQyMmH2QGbBkCy6FZEe8KJQUrWH84XYsKRVMGWhYy/8Mhk4y8/+rAijOSd2U0JvXXJ4JoKYkkUZMzWkVLgIgMzU/lYer08TDWbp4H6c3VzFlLpqYK925xeMYBUrEO4464uYfm6za4rRZ8rTj0AN5bP+owS0xKNfZg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XFDDH4mhBz3cWw
+	for <openbmc@archiver.kernel.org>; Fri, 27 Sep 2024 11:59:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::636"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1727402361;
+	cv=none; b=WkXH6jmY5uoHvmtMPT5ENbywtBMkBgd6PBvaGWiX+06E0Co9vvm5zVJewO0tShd70uZpV6DGnDgqKKUpuKED7i5KnoYL6vqDHe+vHD7j8CulC+Mr/3pveuPhfz2K6y1vinYTJHTtYZUtpVTGEGCH9EFDTX3P5erPlmnTbGePH/CfK/ucjFK4cuWcl/hsGgnN768syT9IYYTgiOhnr930JNw9ohcAJ06xckLyueWZTIYz+aMeXlrRT+gzD+vsdv15/MvYClm/UXUtulG6xq+EEcyWKjLtApvKqctE5tsDv7RRy04wMGrC1rxllRKZ4MQ8AtU7R+6VHNeA0P9X2Sk22g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1727378482; c=relaxed/relaxed;
-	bh=YjTYAwiEcdBvKnyj03DrSn/gFbPOFM9h1SGmRXlp3Yg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hAJNs4Yy0jy8Wp4huRdT9t9TvgO5/VUpt8No73Mvx2fvzZqeBwxewVjpeEboD6E+tro6g032d95xi/glys4xY2sopzoSZLvbvUzZCl6mcgU4fcdd4DQteLjygWMNoKCiEKQO+QtnCzdEIbm1+5MvoK8kVrZNLLGSl/ZQU93m9TIgE2d7N3dt83bM+QlRN4pe0pPQ9I3mZXfy2XMmYtcxXRV2yNyAzDP3jD9bhjwqyMQYhjtyw+q6PcbOiw6COiCNnU7EKhLLp1AId6BXwVApamUQy3QyIkH3IHMpWZlC06hyu08DQRf61/3X5hBtIjnXxSfnq02Q4YUdNQmBSL05Hg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Bux3WfeW; dkim-atps=neutral; spf=pass (client-ip=2001:4860:4864:20::35; helo=mail-oa1-x35.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1727402361; c=relaxed/relaxed;
+	bh=c5cR3Q8+qFlb50DTwf+gQ5cpJ9VTAnU8gdUxRmnDbYM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jhA/s9SetQd9wqyIF5/PsQ2nRNw7v6+Pq0bWRSZgmoA+cDKjbrAd9WJInvtfP5X/jfnQJU90qC0kvk64JE51YhVY6+WwWmpmHCVq7qCaR5pYIZd0bZAOne4l6erm9VF/Zsgxh7ETdgr8yc1y/RgutTyj/tNVogeFpjLr3VKlJj1NfUmKT9cna+yWrQPRQ4B0CncoDhF+tPtVFq1VblriADGiwrR9gRZ0Gg7VQXiqyvZAePBKQVjPA4ZXFF5XQaCoOjYK2cGmTCJ8R17idr8oh/d4fc43A38WOzYIPNk8dqgQtM66JYbR6bnq5KkHBppsq6Dwd9nBL0myjtjNeFC1yg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=joXilk0l; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::636; helo=mail-ej1-x636.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Bux3WfeW;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=joXilk0l;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2001:4860:4864:20::35; helo=mail-oa1-x35.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com [IPv6:2001:4860:4864:20::35])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::636; helo=mail-ej1-x636.google.com; envelope-from=warp5tw@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XF3Nx2Ptyz2yYk
-	for <openbmc@lists.ozlabs.org>; Fri, 27 Sep 2024 05:21:19 +1000 (AEST)
-Received: by mail-oa1-x35.google.com with SMTP id 586e51a60fabf-2870bd5e1f7so256699fac.3
-        for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2024 12:21:19 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XFDD9036Kz2yHj
+	for <openbmc@lists.ozlabs.org>; Fri, 27 Sep 2024 11:59:19 +1000 (AEST)
+Received: by mail-ej1-x636.google.com with SMTP id a640c23a62f3a-a8d6d0fe021so256278466b.1
+        for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2024 18:59:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727378471; x=1727983271; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=YjTYAwiEcdBvKnyj03DrSn/gFbPOFM9h1SGmRXlp3Yg=;
-        b=Bux3WfeWdOncmDY6MYQs4v3gRbRkAavWAggR66FCuEoY0F+mERbrqv8vBgbaGMyQ1Z
-         0DqbQZL6FKSR78eBcUVhfsIYfB/kBZziq6xh8B3u0ZqalV6zFosQizGiGA+qHZnbq5Ul
-         A7HiuClAZMA7V1qCf45FAZomCAk2VPFr8DnPzo3Pg/AE6u9rvTpSrDO3ug8o3N71+NmT
-         6PxkLD0D4HD+aoj3cQr7Yg9PNSetKvp1JCT1tAFz1VTLpaJK2ICrrqZ1AfUeptRQvlGT
-         SlxkxDnsGCEd2OonPL55IV/NcPNOR9vTtzBssSbewyVpbBiJRPwnjGKvxpa7sRNWH0hG
-         r1xQ==
+        d=gmail.com; s=20230601; t=1727402355; x=1728007155; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c5cR3Q8+qFlb50DTwf+gQ5cpJ9VTAnU8gdUxRmnDbYM=;
+        b=joXilk0lYWWALv+hY711RY0nEA3dt/L3jYv4DnRWiZCWkD7eBDdHhR7wmu441GKEia
+         W0Ci6d8RkW0ZhIcEaolDL8mbHbu9WwKEU3FAqjOIZ8GHQ8VAFY1D0iyTqXURbIUIDKpZ
+         3HuTfNufyoVU8nFvbdUM2FGByvgiIP200VVkMvgHkFggOIde92cHo9X+m6NMBhkXR0D6
+         iAEZsXnJ4jV2pADv6U4KPs783GBjHSG2FpexRogzhWyoA4pKSaPLoaJJtnkM3ViEdllD
+         MH2oG6v1oG9NaXcSgPqQopXjRZCXuxYzxpiMKXweGE0lIhlWpjZe1Cn9maMcHYRauvLG
+         bnmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727378471; x=1727983271;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YjTYAwiEcdBvKnyj03DrSn/gFbPOFM9h1SGmRXlp3Yg=;
-        b=eJYiTv9dlJNdRQEtz7noBNOpn0WKMrX9MB126AnAcDRnNfcBLUUHq+dhfTCCZVG5wJ
-         D2KDlJFakPqxzMmBTDsAGgFG1ihgjKRoeuKOCEcCytNku2o1fkpV9qCjfnZeRK71LyMH
-         HoP49KYuZMROh4/cdpWCrZ05C88Me4lfnjYzYvoRKjc4srOpgxrYUvALYVI3bmde4OpP
-         NYDqzylni4p4mlUMjwESWDW/qp/m9SlYqX/Ck+QGOfsLhkFeokNYL6hClq+3Km985AIH
-         6uwxFysOfE+YKynbHJSH7qvPV6DMJ/QbAIqxchhY/rM3bW7wbwns4ehMqSJkUtPJZ3oR
-         lUCA==
-X-Forwarded-Encrypted: i=1; AJvYcCVNt/b5SPTukPUUTWDtqdqdYZoXME2Qpb2Icrx+p0Sw/fBYjwU/XR0Dxiu/MBITvJa1oWQ9VLaN@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzMck01h1iYqXSOHCscYb682pN0uyqOHAxU9cKiPDnKbQSB7Xja
-	m7vkup5e7Izd6cVOhSKuPf2HxzVl80EUVz0F23h7enarpdO9cc3H
-X-Google-Smtp-Source: AGHT+IHmaG62gfpdrZb7ZnuxFJJaj7R0NCV+7sYy7by/DYunRBYBWIc8vlkVZJKFibscON1FjIy1YA==
-X-Received: by 2002:a05:6870:3044:b0:27b:55e1:71e2 with SMTP id 586e51a60fabf-28710ab1b40mr1043799fac.23.1727378471436;
-        Thu, 26 Sep 2024 12:21:11 -0700 (PDT)
-Received: from ?IPV6:2601:184:200:8480:7c49:b969:e80:96ed? ([2601:184:200:8480:7c49:b969:e80:96ed])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-7ae3782a22fsm17740585a.83.2024.09.26.12.21.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Sep 2024 12:21:09 -0700 (PDT)
-Message-ID: <4ba221ea-5c27-4547-b89c-95ba03451b31@gmail.com>
-Date: Thu, 26 Sep 2024 15:21:19 -0400
+        d=1e100.net; s=20230601; t=1727402355; x=1728007155;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=c5cR3Q8+qFlb50DTwf+gQ5cpJ9VTAnU8gdUxRmnDbYM=;
+        b=f2XuRwTorXZUgKCu8axg0BQvAefiuKK30KxNdSdp90t3NU4jYnxg3rLdXj8IZCSn66
+         /VVO6iu7JMOdYLjvjrus8CjHWTOZXqtbqfmp6nfMcZQUnwPLxz6X3eYp0NnSQjWK6xXA
+         nfqjUigsJypAHTW4cdcygC+bPxpOFOyy9hr3sQgqR6Wn98cofVz8N9DCYd1vdVNlQEZi
+         fhESNlKvGNVqdykfq/fE1aD8bo5A9ELFI/L3NXwCG7JJgKArZe6Nq+O07NKM6B1SZtCf
+         nIKZA91d8zUi1gag2nobl63QUpzH2O7Kb6rKwRtsUCrMEOgnwyP2a0NOBGeWVwQ2b1oE
+         CneA==
+X-Forwarded-Encrypted: i=1; AJvYcCUf66he9SZz//it/wsB5fgO0qhGmlP8QxnJpz+Udi+VcMVpw/a7GW0R995HKCcER7PhnoeX1hGA@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yw1YGkzmfnVgoAhvueUYRerhY9BxtoEvGWVoY4sOM2qsCqkgdrP
+	mbN7imrmXnFx+5jKz+ZwNcJ7YuHe4qf1ioY7LCk5I9DVY5IcPh0aipEOWCHbP0PeQghckVOglO/
+	9a04+gaYyZWTQD0P7aGMrgbR5Zg==
+X-Google-Smtp-Source: AGHT+IE+eDDaLETVOmmDQjeaQ6dwtiRqSGMOBSedce60yrewHjSxeDZdw+OY3ofOqrceL+QgiofjsTCuQYgh0var87Q=
+X-Received: by 2002:a17:906:dac4:b0:a8d:51a7:d5e8 with SMTP id
+ a640c23a62f3a-a93c4918365mr114251366b.15.1727402355429; Thu, 26 Sep 2024
+ 18:59:15 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: CCLA for MiTAC_Tyan needs to be updated
-To: hancock.chang@mic.com.tw, openbmc@lists.ozlabs.org
-References: <9b6b8fbff7924cb6a505f028f68e51b3@mic.com.tw>
- <3a962617-2447-447a-bedb-f9911757558f@gmail.com>
- <8b676646c5b644dcb1b5125ab5a3e931@mic.com.tw>
-Content-Language: en-US
-From: Andrew Geissler <geissonator@gmail.com>
-In-Reply-To: <8b676646c5b644dcb1b5125ab5a3e931@mic.com.tw>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20240920101820.44850-1-kfting@nuvoton.com> <20240920101820.44850-2-kfting@nuvoton.com>
+ <rpu2o2vw6jqbuywabaxaqepathkqlzjzjvn7j6h5lq6zslitu4@icj5hpmwo6kr>
+In-Reply-To: <rpu2o2vw6jqbuywabaxaqepathkqlzjzjvn7j6h5lq6zslitu4@icj5hpmwo6kr>
+From: Tyrone Ting <warp5tw@gmail.com>
+Date: Fri, 27 Sep 2024 09:59:03 +0800
+Message-ID: <CACD3sJYQeqo4+uvDYR7P14cC3R9_wHMDhzy6T4G9V018NmTMSg@mail.gmail.com>
+Subject: Re: [PATCH v4 1/6] i2c: npcm: correct the read/write operation procedure
+To: Andi Shyti <andi.shyti@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,102 +85,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: KWLIU@nuvoton.com, tomer.maimon@nuvoton.com, benjaminfair@google.com, wsa+renesas@sang-engineering.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, kfting@nuvoton.com, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, wsa@kernel.org, tali.perry@nuvoton.com, linux-i2c@vger.kernel.org, Avi.Fishman@nuvoton.com, andriy.shevchenko@linux.intel.com, rand.sec96@gmail.com, tmaimon77@gmail.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Andi:
 
-On 9/23/2024 11:46 PM, hancock.chang@mic.com.tw wrote:
-> Hi Andrew
->
-> The attached is the update info of CLA manager and member list of CCLA schedule A for MiTAC team, could you or someone approve and grant me (my google account is : hancock0512@gmail.com ) the access of google drive (https://drive.google.com/drive/folders/1vKCSGGXlUbEZgAxnC54pSMklSh_xTzRc ) that I can upload it to correspond MiTAC's original CCLA by ourselves?
+Thank you for your help.
 
-Hi Hancock,
+Andi Shyti <andi.shyti@kernel.org> =E6=96=BC 2024=E5=B9=B49=E6=9C=8826=E6=
+=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=884:19=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> Hi Tyrone,
+>
+> On Fri, Sep 20, 2024 at 06:18:15PM GMT, warp5tw@gmail.com wrote:
+> > From: Tyrone Ting <kfting@nuvoton.com>
+> >
+> > From: Tyrone Ting <kfting@nuvoton.com>
+>
+> no worries, I can take care of this.
+>
+> > Originally the driver uses the XMIT bit in SMBnST register to decide
+> > the upcoming i2c transaction. If XMIT bit is 1, then it will be an i2c
+> > write operation. If it's 0, then a read operation will be executed.
+> >
+> > In slave mode the XMIT bit can simply be used directly to set the state=
+.
+> > XMIT bit can be used as an indication to the current state of the state
+> > machine during slave operation. (meaning XMIT =3D 1 during writing and
+> > XMIT =3D 0 during reading).
+> >
+> > In master operation XMIT is valid only if there are no bus errors.
+> > For example: in a multi master where the same module is switching from
+> > master to slave at runtime, and there are collisions, the XMIT bit
+> > cannot be trusted.
+> >
+> > However the maser already "knows" what the bus state is, so this bit
+> > is not needed and the driver can just track what it is currently doing.
+> >
+> > Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+> > Reviewed-by: Tali Perry <tali.perry1@gmail.com>
+>
+> This patch is independent from the rest of the series, can I
+> start takin this in and unburden you from this?
+>
 
-I've uploaded your updated schedule A and added your google account to 
-the folder.
+Sure, thank you again.
 
-You should have permission to add people from the CLA to the gerrit 
-group up at 
-https://gerrit.openbmc.org/admin/groups/455eac2e296f52e64fd498685e1636513a7cb825,members
+> Andi
 
-You can only add people once they've logged into gerrit at least once.
-
-The commit to add MiTAC to an approved CI group is up at 
-https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/74907
-
-Andrew
-
->
-> Thank you
->
->
-> Hancock
->
-> -----Original Message-----
-> From: hancock.chang (張育誠 - MCT)
-> Sent: Monday, August 19, 2024 4:09 PM
-> To: 'Andrew Geissler' <geissonator@gmail.com>; openbmc@lists.ozlabs.org
-> Cc: eric_kuo (郭守堅 - MCT) <eric_kuo@mic.com.tw>
-> Subject: RE: CCLA for MiTAC_Tyan needs to be updated
->
-> Hi Andrew
->
-> Thank you so much. We have checked the original CCLA hardcopy you helped to find out, it was signed with "MiTAC Computing Technology", so to MiTAC, it is no concern to keep this CCLA from legal perspective since we will keep "MiTAC" as our only brand name later from this year.
->
-> Just checked the CLA manager name list which would need to be updated, per the process and rule, I remember the CLA manager list is allowed to be updated by ourselves and upload to google drive directly, so if I am correct, we will update the CLA manager name list then may ask for your help for adding people to the gerrit CI group (for CI approval)
->
-> Thank you
->
->
-> Hancock
->
-> -----Original Message-----
-> From: Andrew Geissler <geissonator@gmail.com>
-> Sent: Tuesday, August 13, 2024 11:21 PM
-> To: hancock.chang (張育誠 - MCT) <hancock.chang@mic.com.tw>; openbmc@lists.ozlabs.org
-> Cc: eric_kuo (郭守堅 - MCT) <eric_kuo@mic.com.tw>
-> Subject: Re: CCLA for MiTAC_Tyan needs to be updated
->
->
->     This email originated from outside of MiTAC group. Do not click links or open attachments unless you recognize the sender and know the content is safe.
->
->
-> On 8/1/2024 12:26 AM, hancock.chang@mic.com.tw wrote:
->> Dear OpenBMC org,
->>
->> Tyan, the branded business group of MiTAC Computing Technology, has
->> signed CCLA of OpenBMC in several years ago, since lots of member
->> change in these year, also the organization change with brand name
->> change, we will unify our brand to combine “Tyan” and “MiTAC” then
->> just keep “MiTAC” as our single brand from 2024 Q3; assume it might
->> need to re-new the original CCLA between Tyan and Linux Foundation for
->> OpenBMC, should we re-submit a new CCLA?
->>
-> Hi, welcome back. I don't see a CLA for Tyan in our google drive. I do see one for MiTAC
->
-> up at
-> https://drive.google.com/drive/folders/1vKCSGGXlUbEZgAxnC54pSMklSh_xTzRc
->
-> If you can  just submit one CLA for both Tyan and MiTAC then that would be simplest.
->
-> You can send to the mailing list and I'll review and update it in our google drive.
->
-> Thanks,
->
-> Andrew
->
->> BTW, may we have help from OpenBMC org, to check and get the original
->> CCLA between Tyan and Linux Foundation?
->>
->> Thank you
->>
->> Hancock Chang
->>
->> Director, Solution Enabling Dept., BEOC
->>
->> MiTAC Computing Technology
->>
->> Tel: +8863-327-5988 #7359
->>
->> Cell: +886935547665
->>
+Regards,
+Tyrone
