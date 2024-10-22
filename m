@@ -4,63 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F55CDD0EA
-	for <openbmc@archiver.kernel.org>; Tue, 22 Oct 2024 21:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7FA1CDD0FB
+	for <openbmc@archiver.kernel.org>; Tue, 22 Oct 2024 23:05:19 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XY54J1V19z3cVK
-	for <openbmc@archiver.kernel.org>; Wed, 23 Oct 2024 08:32:32 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=80.12.242.68
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1729632748;
-	cv=none; b=XADU0E5vG943y84Ku2zaKk8R0AWOBbq52D1qrcZC2F8+czFYe56pjpjF2PffE9pYx0+KplSFsaC1tJfnVIvyDz6cCX22PrqiTau1hO6M2lWCeh0aiAZiXClwXTroe4x8wgelq9H7U0p6AVt7B4s35baE902jqfTVdA+iLMlPNM3c+C/ny5mg8liL4IVvGTrt6ByaiUrI6qMNvlWktTU2vkSLX5DuVi6REJ853ny0C3TTpGMKm8DIAKpncS6BNpxl0oIQ7337q0SjEi6NC4Qv1h4CRSp3R9mwL2GZOB9fN4+jKriCsGo1cQguWAJA9bJHAAIGHCeU7xuLrvOBg9ljoQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XY7752Wnfz3cTl
+	for <openbmc@archiver.kernel.org>; Wed, 23 Oct 2024 10:05:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42d"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1729574972;
+	cv=none; b=Y7ejUATsYU6A6JKQOmMdkjl/lWv1UiwEwgHcsU72K+/AfMjzytI+DYydc2mMgVkwPOHqN1DNcnW1EObybfkZ5/ufdMxAjerCdScb4DOaRWXYdawtumED2UxsFHdmJiuc6iEG97oLrDCOQuoa2O9ARtB7UN/wnldC6eXI+BRtftuduA14S3Bkg4z5vZg67//xaKOe7fEzPAJ1xUmGU+H2VdhWW5qiZdmA7wJXYwpfjhk7hq1p98Or2DDLQNJhQ9rxSfEYczfRP4dbpx7PY8eVPOn7qF7fAYF0nA6+dgHDxGJH/pHiuZnE025fvEF9hqejhhMhGmt7iV13f2IppOUL2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1729632748; c=relaxed/relaxed;
-	bh=jbeACBlKmPATg9TY9lfakh5orbRiwjpJqN6f+njt1iU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T/nNDFBGr4JHMZ2F/9/Xx6L3ftTTs47IIAtsJ5Swr62+l5pEm+HCgh72a+9A+jKekHszNGiBHtCK6IvE5iHtn/PA5YQ6I40nf6444wB6AXbHF8PPuj0Si4vFZIC/z027oDnWcnmg6nobK5c8SFgvnnXZZsUJlJOIPiAAuze6I0uJVLrt5I3xYkvCHb56YlWzeMAPTnhWW8cJgrBu9Pb3QcLCBzZVUMkkriiyc8POchdliQLqu1HnHmbzPAS7Otn9wAlDV0i60/Vi6bAolOXi1/10h+Gkw8WvuLTN+0X+JyOw52mfiABNXFAI0i+Il1AlIkblSMvyrNebqRLa49EWwA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=E4xyxVML; dkim-atps=neutral; spf=pass (client-ip=80.12.242.68; helo=msa.smtpout.orange.fr; envelope-from=christophe.jaillet@wanadoo.fr; receiver=lists.ozlabs.org) smtp.mailfrom=wanadoo.fr
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+	t=1729574972; c=relaxed/relaxed;
+	bh=CfWo8rEibeJNRR9ub5UZ9B73NL531yxGF3rC7/Vsvq4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=opvM1Q3XxAuKsuL1tgymwyEjj7TmdyN9YKmlbxl1KgBN63PHgcIPdCn3KgmsgNorP8YxLbtDk5vn4rISLUhZ78Mv3WoKuDzzjLow0fnzcE4qLqnayTtgdOc8PIiTW5ypEAO5x8KjbuQ329plxkm/3nSFVBADwxTeOAxGuuQgISdglvfUKFoqZwedpJ04+IsWWEI9jeiD+adoPUfy4EzwIz1dtilse9ld0nFeDIvpDJINdEMXQgfRqbrUKLNDbn5xuiC8bUIIsVKLyD+A1Et5JvP24i3lMa4sEHLRops4HiiIx5stMsBXS65GqXTf+ZZueulN4YmobcTfQSBP83qRJw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kr+EIZE9; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=E4xyxVML;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=kr+EIZE9;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=wanadoo.fr (client-ip=80.12.242.68; helo=msa.smtpout.orange.fr; envelope-from=christophe.jaillet@wanadoo.fr; receiver=lists.ozlabs.org)
-X-Greylist: delayed 51048 seconds by postgrey-1.37 at boromir; Wed, 23 Oct 2024 08:32:26 AEDT
-Received: from msa.smtpout.orange.fr (smtp-68.smtpout.orange.fr [80.12.242.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com [IPv6:2607:f8b0:4864:20::42d])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XY54B0j9Nz2xjv
-	for <openbmc@lists.ozlabs.org>; Wed, 23 Oct 2024 08:32:23 +1100 (AEDT)
-Received: from [192.168.1.37] ([90.11.132.44])
-	by smtp.orange.fr with ESMTPA
-	id 39BptoyFQvtq839BptCJaI; Tue, 22 Oct 2024 09:20:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1729581629;
-	bh=jbeACBlKmPATg9TY9lfakh5orbRiwjpJqN6f+njt1iU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=E4xyxVMLGKUcuxP9Sl0vRgZc8l0ppDa1X8iJXl/F+xBewJYFCUrXgS+sUyBezfk5U
-	 Uo810xRWboULP0HeTAVTmKN19iCzuPNiAkfW32RFTzPSYKvkgO5Z/s5gze4X6u0nMq
-	 UN+sn1Rt6q2kL1shkVZv7RYhi5OrX/sC3CxWjkTAkzau2dHj01iI6NJrjwRvqhc8pU
-	 fQ/9FChq06JTrKg16ixQo8zC0l55lsoCRNi+ZSVHSMRx2xEPMK6tPpnnE4LuLe22yl
-	 eUJXPrm/wgxLYv5tFrsUkcABOFbjShqMINvfVV90uT2xRwTHTvbm8vWUkXgAomPul8
-	 E/bUg2KN5infw==
-X-ME-Helo: [192.168.1.37]
-X-ME-Auth: bWFyaW9uLmphaWxsZXRAd2FuYWRvby5mcg==
-X-ME-Date: Tue, 22 Oct 2024 09:20:29 +0200
-X-ME-IP: 90.11.132.44
-Message-ID: <2339841b-034b-440f-83ac-139d95059727@wanadoo.fr>
-Date: Tue, 22 Oct 2024 09:20:25 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XXgj75B42z2yVM
+	for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2024 16:29:30 +1100 (AEDT)
+Received: by mail-pf1-x42d.google.com with SMTP id d2e1a72fcca58-71e3fce4a60so3484569b3a.0
+        for <openbmc@lists.ozlabs.org>; Mon, 21 Oct 2024 22:29:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1729574966; x=1730179766; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CfWo8rEibeJNRR9ub5UZ9B73NL531yxGF3rC7/Vsvq4=;
+        b=kr+EIZE9iMJIDX9DmmX9pM8HEcEnHzKbkZD3H0l0UB6S8E8SmFBBzx9w9Z2KHhJEpF
+         1h+nN6uF+PluBoNbrkWhsnoVu/ChofZbnR1edMF6HTYnY97hngGMFXPVfGG6s0EQQCRb
+         fcm6Pv7VSUjqihZGtXGsQ62DQxKjg7hDFf2X1gcEl0suRAXumqL+5KUirQIMTzHeZsx2
+         Cw4kn8gKDboI3AxKvIdToVnf6e7Nk/jtjmMKf2lrBVhVgW6tpOXujCsEMA7Fb5IiWbUP
+         G+arqjxtCyF//USBEUIp1x6TsMwwX77dRPX+OteZ78D5bKd35MRafbrKwKHN7VOdA5Ps
+         MGng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1729574966; x=1730179766;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CfWo8rEibeJNRR9ub5UZ9B73NL531yxGF3rC7/Vsvq4=;
+        b=ezk/+IwlR/CwBKJp1R0jmkdWQJZBB//wHqiRo79Wwbw3havjLsnsnhWbZr4IZiGLQO
+         lRR9KFtFdLO6PyuX0Nay104h6v2JOVfAkMzfhB6ccUY0Khzoks+zAqBV9YS3jNDWduWF
+         x8OQL2lDxFWeVY3GUtg/Vtj8e5RlzXfpoC9I31mIGgygrvvYVVoQrVK8KDhFg8p0n+lP
+         4+ZULhhBUGJvHTPmd+jmmD6+5TnjpUqTeVZ9zJp9szAiCjTCT0FiU4kXlLnwlowIueku
+         kjGeicKR9Gs4fiKixrP29i5R4xJ+0tgCpWiyrUCsyvEyZ6I0+UObq+TQ45uDariNz+2z
+         5jWw==
+X-Forwarded-Encrypted: i=1; AJvYcCXv2mmKWi0oKzS7RTvpHzWARW0KVHJ1mGhIF7QkW8hVBtHXWD2yPU20FoqjGyq21i4dJs9rP1UW@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yza7yu7gK+hOEgj/cPcldQ9FwDOG02H1gIHDs3Ny0FwohOVVBkC
+	XbDnMbcL5BsVq2x74+F8tg2U1s9VXl7RLLJmPX5V+nQnUuFJfg/p
+X-Google-Smtp-Source: AGHT+IHlSAindglmOEfkhHefJWdKX6tckM7xeJFtoM8elMYSuAHZvTh7qrg+eUu3QgKsCOo0nkDWpw==
+X-Received: by 2002:a05:6a00:1acd:b0:71e:74bf:6b1a with SMTP id d2e1a72fcca58-71ea32d4226mr20125338b3a.16.1729574965692;
+        Mon, 21 Oct 2024 22:29:25 -0700 (PDT)
+Received: from hcdev-d520mt2.. (60-250-192-107.hinet-ip.hinet.net. [60.250.192.107])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-71ec141505bsm3845846b3a.219.2024.10.21.22.29.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Oct 2024 22:29:25 -0700 (PDT)
+From: baneric926@gmail.com
+X-Google-Original-From: kcfeng0@nuvoton.com
+To: jdelvare@suse.com,
+	linux@roeck-us.net,
+	robh+dt@kernel.org,
+	krzysztof.kozlowski+dt@linaro.org,
+	conor+dt@kernel.org,
+	corbet@lwn.net
+Subject: [PATCH v6 0/2] hwmon: Driver for Nuvoton NCT7363Y
+Date: Tue, 22 Oct 2024 13:29:03 +0800
+Message-Id: <20241022052905.4062682-1-kcfeng0@nuvoton.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] hwmon: Add driver for I2C chip Nuvoton NCT7363Y
-To: baneric926@gmail.com, jdelvare@suse.com, linux@roeck-us.net,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org,
- corbet@lwn.net
-References: <20241022052905.4062682-1-kcfeng0@nuvoton.com>
- <20241022052905.4062682-3-kcfeng0@nuvoton.com>
-Content-Language: en-US, fr-FR
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20241022052905.4062682-3-kcfeng0@nuvoton.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 23 Oct 2024 10:05:01 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,134 +93,78 @@ Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, kcfeng0@nuvoton.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Le 22/10/2024 à 07:29, baneric926@gmail.com a écrit :
-> From: Ban Feng <kcfeng0@nuvoton.com>
-> 
-> The NCT7363Y is a fan controller which provides up to 16
-> independent FAN input monitors. It can report each FAN input count
-> values. The NCT7363Y also provides up to 16 independent PWM
-> outputs. Each PWM can output specific PWM signal by manual mode to
-> control the FAN duty outside.
-> 
-> Signed-off-by: Ban Feng <kcfeng0@nuvoton.com>
-> ---
+From: Ban Feng <kcfeng0@nuvoton.com>
 
-Hi,
+NCT7363Y is an I2C based hardware monitoring chip from Nuvoton.
 
-a few nitpick, should there be a v7 and if they make sense to you.
+Changes since version 5:
+- use lower case for inline function
+- remove enum chips and refine code
+- use regmap_read_bulk() to avoid the locks
+- add fan speed low limit (register 0x6c, 0x6d) and alarm attributes
+  (register 0x34, 0x35)
+- add regmap caching capabilities
+- fix "checkpatch --strict" report in FANIN_SEL
+  - Macro argument reuse 'x' - possible side-effects
 
-> +static const struct of_device_id nct7363_of_match[] = {
-> +	{ .compatible = "nuvoton,nct7363", },
-> +	{ .compatible = "nuvoton,nct7362", },
-> +	{ },
+Changes since version 4:
+- add Datasheet information and refine words in yaml and rst files
+- remove fan-common.yaml since it is already in hwmon-next
+- refine the commit messages
+- modify the type of returned value in some functions
+- refine lock/unlock in nct7363_write_pwm and accessing
+  HVAL/LVAL registers
+- refine nct7363_init_chip
+- add range check in nct7363_present_pwm_fanin
+- add i2c_device_id table
+- add nct7362 to of_device_id and i2c_device_id table
 
-Usually, a comma is not added after a terminator entry.
+Changes since version 3:
+- Cherry-pick the fan-common.yaml in [1]
+- Fix "checkpatch --strict" report
+- Replace BIT_CHECK() with BIT()
+- Fix CamelCase defines or variables
+- Drop enum chips
+- Drop all local caching and just read values through regmap
+- Drop chip auto-detection since it increases boot time
 
-> +};
-> +MODULE_DEVICE_TABLE(of, nct7363_of_match);
-> +
-> +struct nct7363_data {
-> +	struct regmap		*regmap;
-> +
-> +	u16			fanin_mask;
-> +	u16			pwm_mask;
-> +};
-> +
-> +static int nct7363_read_fan(struct device *dev, u32 attr, int channel,
-> +			    long *val)
-> +{
-> +	struct nct7363_data *data = dev_get_drvdata(dev);
-> +	unsigned int reg;
-> +	u8 regval[2];
-> +	int ret = 0;
+[1]: https://patchwork.kernel.org/project/linux-hwmon/patch/
+     20240221104025.1306227-2-billy_tsai@aspeedtech.com/
 
-No need to init.
+Changes since version 2:
+- Cherry-pick the fan-common.yaml in [1]
+- Fix nct736x typo and add unevaluatedProperties
 
-> +	u16 cnt;
-> +
-> +	switch (attr) {
-> +	case hwmon_fan_input:
-> +		/*
-> +		 * High-byte register should be read first to latch
-> +		 * synchronous low-byte value
-> +		 */
-> +		ret = regmap_bulk_read(data->regmap,
-> +				       NCT7363_REG_FANINX_HVAL(channel),
-> +				       &regval, 2);
-> +		if (ret)
-> +			return ret;
-> +
-> +		cnt = (regval[0] << 5) | (regval[1] & NCT7363_FANINX_LVAL_MASK);
-> +		*val = fan_from_reg(cnt);
-> +		return 0;
-> +	case hwmon_fan_min:
-> +		ret = regmap_bulk_read(data->regmap,
-> +				       NCT7363_REG_FANINX_HL(channel),
-> +				       &regval, 2);
-> +		if (ret)
-> +			return ret;
-> +
-> +		cnt = (regval[0] << 5) | (regval[1] & NCT7363_FANINX_LVAL_MASK);
-> +		*val = fan_from_reg(cnt);
-> +		return 0;
-> +	case hwmon_fan_alarm:
-> +		ret = regmap_read(data->regmap,
-> +				  NCT7363_REG_LSRS(channel), &reg);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = (long)ALARM_SEL(reg, channel) > 0 ? 1 : 0;
-> +		return 0;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
+[1]: https://patchwork.kernel.org/project/linux-hwmon/patch/
+     20231107105025.1480561-2-billy_tsai@aspeedtech.com/
 
-...
+Changes since version 1:
+- Modify NCT736X(nct736x) to NCT7363Y(nct7363)
+- Convert to devm_hwmon_device_register_with_info API
+- All ID tables are next to each other and should be consistent
+  between i2c_device_id and of_device_id
+- Ref. fan-common.yaml and modify properties (nuvoton,pwm-mask/
+  nuvoton,fanin-mask) to (pwms/tach-ch)
+- Convert to devm_regmap_init_i2c API
+- Remove unused function (watchdog timer)
+- Fix uninitialized symbol which is reported by kernel test robot
 
-> +static int nct7363_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct device_node *child;
-> +	struct nct7363_data *data;
-> +	struct device *hwmon_dev;
-> +	int ret;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &nct7363_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return PTR_ERR(data->regmap);
-> +
-> +	for_each_child_of_node(dev->of_node, child) {
+Ban Feng (2):
+  dt-bindings: hwmon: Add NCT7363Y documentation
+  hwmon: Add driver for I2C chip Nuvoton NCT7363Y
 
-for_each_child_of_node_scoped() to slightly simplify code and save a few 
-lines?
+ .../bindings/hwmon/nuvoton,nct7363.yaml       |  66 +++
+ Documentation/hwmon/index.rst                 |   1 +
+ Documentation/hwmon/nct7363.rst               |  33 ++
+ MAINTAINERS                                   |   8 +
+ drivers/hwmon/Kconfig                         |  11 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/nct7363.c                       | 446 ++++++++++++++++++
+ 7 files changed, 566 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/nuvoton,nct7363.yaml
+ create mode 100644 Documentation/hwmon/nct7363.rst
+ create mode 100644 drivers/hwmon/nct7363.c
 
-> +		ret = nct7363_present_pwm_fanin(dev, child, data);
-> +		if (ret) {
-> +			of_node_put(child);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	/* Initialize the chip */
-> +	ret = nct7363_init_chip(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	hwmon_dev =
-> +		devm_hwmon_device_register_with_info(dev, client->name, data,
-> +						     &nct7363_chip_info, NULL);
-
-return devm_hwmon_device_register_with_info()?
-
-> +	return PTR_ERR_OR_ZERO(hwmon_dev);
-> +}
-
-...
-
-CJ
+-- 
+2.34.1
 
