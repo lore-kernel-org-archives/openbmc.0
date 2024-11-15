@@ -4,74 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90632D10F2B
-	for <openbmc@archiver.kernel.org>; Sun, 17 Nov 2024 20:14:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD2AD10F35
+	for <openbmc@archiver.kernel.org>; Sun, 17 Nov 2024 22:45:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Xs25s5SShz3clL
-	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 07:14:09 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731874445;
-	cv=none; b=ZdUXys4GjZSpvyoiWpKF4nRD56KeNtdyJYILTZOZRlgw/BD58IRz80iNdzWjZMx7+VcxlCeIjbbf1YqLHE+/wAu2RajYFNk0pLXUiyzTmIBLhdbF8uD2cUmRoFpW60hG3KZc66v36mdblvV+pHPS3lIshclE/JmqSzhpcU9Egkxvhg6hXkwLmJ2NryA9leAaPHhb6o6jUztiZecZgZbKNMYCwsWAmfgz+7X5m6BdgIkcY7Q+sPcFIaVh5CDxM5q0W8A3xVXf4tCGIO/QaKu46kc/bY2lR/nZY8LnCmLcIpxhDF2349bemXDUI3ZX4FrpSi0xtcE6I+FyjuPNplPGLg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Xs5S95Wwhz3ckc
+	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 09:45:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a0a:edc0:2:b01:1d::104"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731660695;
+	cv=none; b=bhEnw9jb3itNMfFmua9EkWCEeoKVzV837YJ8ePJZIVOD6ywkiXV8MflJ3L6XsC/cIsTHTPgt9VTVv0CMh/HVZz4MrCEGgqo2eYRMqXdhAcxRfpBzsoUcayePHCZBX4diNPBsg4IOBnYmImj7Xq3xcjS5bBk4tKLrUmZZgQ2ZuSz7kc41HiS8v/UPv6xE0VL6ONe4pWvwvE/8tXWXMwn9OaYTFXdSwECKlP8erQQE3aTD93xSHCIrH1oscc+KMmySGk4MDuAiQmWI2Xdt4jFhy2dwiRUAcEqMZjxUj2vKUGAUnHVg2ydUTO86sZ/kRfLDTSRH2Rau0PD+kRcf2DbwUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1731874445; c=relaxed/relaxed;
-	bh=JQ22dxBuxJ3SOQxpojU/s+vE8bpP8RDnTxJHezr/asE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Hvo+gZ991P0HhlBkD03qZ1A4b3ZxY+APU48Kb/E0qufIeHoxgJZUoTQMX87iGtVz97IrL5ud7gE2cVBeLLQQApBJqTGniPQpJqaGSkQczst2oODWAHl0YklvHwiN4MNaqkIWe+fGIoms61YFh8EZpbOzA1pPQiwLwQeVa+rDtJVDa4p77WAGcbh4t/k7MmsStCRFuogJeCp0iDXEy7CytBbTSbB3OXqckERl9DodS21SlnffclGEjfkC3HPdrINqkdE99/rJHJRANYJXjOdsrcpItzAuFQ+Bihlyd2IZX6NzLY7DK8jlzQE/wkDedLl8BMS+R1Fe+W5gpZTURh/C4g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net; dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=NEjvBqpA; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org) smtp.mailfrom=tanous.net
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=NEjvBqpA;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
+	t=1731660695; c=relaxed/relaxed;
+	bh=XkqWXf7ZvjAOVDTZSmrCmO9IUaeP8XfGOR0vYgcZ52o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SYAcJ3WiD5psX83HBzjKrENF0h5iZ5R17Vi7FvTK6QR0JeDNlEi1UzDjsupRpdz+78523kq615JrbLUpkdXOcC/Rr1hgzB7sJqFLnGx2y0BVkWjIAtYmUU46prEGW/zPflJH2X+Crv7ILcidTi8LBsTUEQ9x0M3HZ15lJh2QJiOcglRvIdomdHmdDCXvNvVIJMUuNvUdBh/66A0iQLOFrO/fgJ34AN4WaD9vP7ZhpR655kaVmwt+v0gmx6j4YIVPZKXHPASyiVEKKVmzGJAhnOHW9Xx0fhfef3ecJPq3xJq52U1QFHJK88bILvRFQl0TA5O3W7xNNnhO6FB4ZcGN8w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=mkl@pengutronix.de; receiver=lists.ozlabs.org) smtp.mailfrom=pengutronix.de
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=mkl@pengutronix.de; receiver=lists.ozlabs.org)
+X-Greylist: delayed 1210 seconds by postgrey-1.37 at boromir; Fri, 15 Nov 2024 19:51:33 AEDT
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Xs25k6M5bz2y8d
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 07:14:00 +1100 (AEDT)
-Received: by mail-pf1-x42a.google.com with SMTP id d2e1a72fcca58-720cb6ac25aso2746697b3a.3
-        for <openbmc@lists.ozlabs.org>; Sun, 17 Nov 2024 12:14:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tanous-net.20230601.gappssmtp.com; s=20230601; t=1731874436; x=1732479236; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JQ22dxBuxJ3SOQxpojU/s+vE8bpP8RDnTxJHezr/asE=;
-        b=NEjvBqpA1h2GioAJOqHuPyetFqQUUurXZMmKUjK5TrOHqv3HdB4Z2EzHvXHhjthtb7
-         f78AMsEmHck5voSe+VPEcCbTMAm3E4Pm8QxKKhFmbMbtTsuFJ6B4jCkQU+/Y1x34schc
-         xSy01BWZBjwI9xlc9mT1Nqwi5JnFVLHf0L+SxDh2/AO75VG6EyFpYakQHvgAxiKNtWhE
-         zWKTwQ9V0DhqGfiCiIaQYQOUoXfK64m9eebVHYoapabZSUzGCnaW2Zh9WRlR+5fi5MWd
-         Ezmaqk3Qi7Gi431PQcvk0w06U5x2YpD1N/e4aS1ESzEg3paqn4v1sGMb+Y9DG7jVuO4x
-         LCqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731874436; x=1732479236;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JQ22dxBuxJ3SOQxpojU/s+vE8bpP8RDnTxJHezr/asE=;
-        b=LoC5tFQhVxnc0wRaz3foNUuq1mBffxSvOypxH62gCHLsY8Jp5GSsB4e7/1ne1pADYn
-         rRPjsfmK9fmGfSMO0gQC/CjrSQL5wuXWbeEWLeiLMaNsYlWvALK59OOOdfBEdKtZVkTS
-         +MFKaEt92FIjrL/sq1bq3+4UdhODFsFPAZQttEfWgCjiBypoWP1y6RxDQyULncniLkrk
-         7gejrUF6sbSHdTzsIH19xQiZdonoHI0CMZ8870T1RGpabT4lcSQto+EwVl9k/0wPpDTp
-         CSKI8u1oz2Qi3fcYBvF+BjFFskAGiRcWdbNVSU3lTtSKnSE+j1e0TlPEOwoZNhexFXTK
-         dh7A==
-X-Gm-Message-State: AOJu0YxRGBiXxamTveF+88vHEV+25oYMP6VRAlsVfAIBmncPN8+VLguj
-	/HOBRk+cjoQH6XOt49AH1dcjh1KwIb6dFqN6d8crb9S+kuxsmsbUMReBcJMCs6hoYJ5mo5W0pSi
-	B2S3Ign5hqk/ovJD6aSY8Xwl8qEDeAWiqkDaayIHJW3uB/M1+NdE=
-X-Google-Smtp-Source: AGHT+IE2u7qczij1wBlgQKaUU81dXj9yDW7X4GPevNqhah8CNOzAbaw1rIFFVwrDPly9NFgl77DrD9xWp6mSb02u6Xo=
-X-Received: by 2002:a17:90b:4b50:b0:2ea:7a22:5390 with SMTP id
- 98e67ed59e1d1-2ea7a319e89mr1365600a91.5.1731874436235; Sun, 17 Nov 2024
- 12:13:56 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XqW390xRrz2yfm
+	for <openbmc@lists.ozlabs.org>; Fri, 15 Nov 2024 19:51:33 +1100 (AEDT)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1tBrjF-0000SB-St; Fri, 15 Nov 2024 09:30:57 +0100
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1tBrjD-000sSC-07;
+	Fri, 15 Nov 2024 09:30:55 +0100
+Received: from pengutronix.de (pd9e59fec.dip0.t-ipconnect.de [217.229.159.236])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id AA09D373AB0;
+	Fri, 15 Nov 2024 08:30:54 +0000 (UTC)
+Date: Fri, 15 Nov 2024 09:30:54 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH net-next] mctp i2c: notify user space on TX failure
+Message-ID: <20241115-scrupulous-mantis-of-purring-1c41fe-mkl@pengutronix.de>
+References: <20241108094206.2808293-1-zhangjian.3032@bytedance.com>
+ <20241113190920.0ceaddf2@kernel.org>
+ <da9b94909dcda3f0f7e48865e63d118c3be09a8d.camel@codeconstruct.com.au>
+ <20241113191909.10cf495e@kernel.org>
+ <42761fa6276dcfc64f961d25ff7a46b764d35851.camel@codeconstruct.com.au>
+ <20241114070235.79f9a429@kernel.org>
 MIME-Version: 1.0
-References: <18393666.6642.1931e8207af.Coremail.yubowei0982@phytium.com.cn>
-In-Reply-To: <18393666.6642.1931e8207af.Coremail.yubowei0982@phytium.com.cn>
-From: Ed Tanous <ed@tanous.net>
-Date: Sun, 17 Nov 2024 12:13:45 -0800
-Message-ID: <CACWQX83vpXO_jNs1qnvEsd49smTQ9wrGjUapV01VJi2CJ-18hg@mail.gmail.com>
-Subject: Re: BMCWEB debug question
-To: =?UTF-8?B?5Za75p+P54Kc?= <yubowei0982@phytium.com.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vt3m2lwmvec4zdoq"
+Content-Disposition: inline
+In-Reply-To: <20241114070235.79f9a429@kernel.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
+X-Mailman-Approved-At: Mon, 18 Nov 2024 09:45:09 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,112 +77,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org, Eric Dumazet <edumazet@google.com>, open list <linux-kernel@vger.kernel.org>, Jian Zhang <zhangjian.3032@bytedance.com>, Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Nov 12, 2024 at 2:39=E2=80=AFPM =E5=96=BB=E6=9F=8F=E7=82=9C <yubowe=
-i0982@phytium.com.cn> wrote:
->
-> Hello,pm
->
->
-> Each time debuging a funcion of one line code will cost me too much time.
-> 1.type "bitbake bmcweb",this action will cost me 5 minutes.
-> 2.Replace bmcweb binary file.
-> 3.reboot bmcweb.
 
-First of all, the ideal workflow involves not building all of bmcweb
-in your "main" work loop.  Write unit tests, and develop the unit
-tests until you have confidence in your code.
+--vt3m2lwmvec4zdoq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net-next] mctp i2c: notify user space on TX failure
+MIME-Version: 1.0
 
-If you have ubuntu 24.04 or newer, you can do this simply with:
-# configure the project
-meson builddir --buildtype=3Ddebug
+On 14.11.2024 07:02:35, Jakub Kicinski wrote:
+> On Thu, 14 Nov 2024 14:48:57 +0800 Jeremy Kerr wrote:
+> > > routing isn't really my forte, TBH, what eats the error so that it
+> > > doesn't come out of mctp_local_output() ? Do you use qdiscs on top
+> > > of the MCTP devices? =20
+> >=20
+> > There are no qdiscs involved at this stage, as we need to preserve
+> > packet ordering in most cases. The route output functions will end up
+> > in a dev_queue_xmit, so any tx error would have been decoupled from the
+> > route output at that stage.
+>=20
+> Ah, it's the driver eating the errors, it puts the packet on a local
+> queue and returns OK no matter what. The I2C transfer happens from=20
+> a thread.
+>=20
+> I wonder if there is precedent, let's ask CAN experts.
+>=20
+> Mark, MCTP would like to report errors from the drivers all the way=20
+> to the socket. Do CAN drivers do something along these lines?
 
-# build the specific unit test
-ninja -C builddir utility_test (replace with name of test you want to build=
-)
+On CAN_RAW we send fixed size messages (struct can_frame) and there is a
+bit left to mark a can_frame as an error frame. This basically means we
+send the error notification inline.
 
-# run the unit test
-./builddir/utility_test
+What about using sock_queue_err_skb()? We do this in CAN_J1939.
 
-This loop on my machine takes about 90 seconds if I'm making edits to
-the shared library code, and ~25 seconds if I'm only updating the unit
-test code, which doesn't require a shared-file recompile.  This is
-still too long (ideally it would be a few seconds), but it's
-significantly shorter than your workflow now.
+regards,
+Marc
 
-Once that is done, I will generally switch to qemu, which is faster to
-boot up, and can test non-hardware changes quickly.
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
 
-After that I will generally run on real hardware.
+--vt3m2lwmvec4zdoq
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
-> This seriers of actions cost me too much time.I don't think it is a right=
- develop flow as a web engineer.Could u show me right way for debuging?
->
->
-> The second question is that I didn't find any action relate with "meson s=
-etup buildder && ninja " in bmcweb.bb.How does it work?how can I use =E2=80=
-=9CIncremental Implementation=E2=80=9D to decrease waste time in action "bi=
-tbake bmcweb" which cost me too much time.
+-----BEGIN PGP SIGNATURE-----
 
-Take a look at the meson.bbclass in yocto, and it will give you an
-idea of how it works.
-There's a tradeoff made here between binary size and link time.
-bmcweb enables LTO, and builds most of the application logic into a
-single library that's then static linked into the executable and the
-unit tests.  b_lto controls this setting in yocto, and is disabled
-implicitly in debug build types.  You could try both of these things
-in your workflow and see if it's better.
+iQEzBAABCgAdFiEEUEC6huC2BN0pvD5fKDiiPnotvG8FAmc3BrsACgkQKDiiPnot
+vG+fYgf/Va/T2YBUFonO4TuAsteq+Vjzg37H/7ok0NZCvgSfZ8QqVGaI54B/ByJH
+fdknhCQ6xHUH0ov7SkK7I8TS2LZHQ3N092ApMCtENsfCTg5ZybIiibPS2Teb+lPP
+lKbktQqtS/5UX/ZJdstAl43zm/MYrNMHnfV2D+BUXDMpr3JvMFX6B6/jeUwZ/lAS
+6r5QAne4+DWNfWf+1S+YWsYHqI1r5cuzN1ZcVPM2WhTM0LdksgkojKAvV5t7zDes
+zwlUtToIF6nfehDyeue5wjMy0WrPOZQs8cTVi0GK3Z2petxKnGFWAvn5mkVg6T0k
+Wc7MKFi1s015Oh1cjnxV6VwvambeUg==
+=XgKe
+-----END PGP SIGNATURE-----
 
->
->
-> The third question.Dose bmcweb have Hot Deployment method?Must I replace =
-binary bmcweb in obmc-phosphor-image for detectting writing result?
-
-https://github.com/openbmc/bmcweb/blob/02c1e29fceae14aa5cb7a1b3d6bcaa4c0a25=
-6f2e/TESTING.md?plain=3D1#L42
-
-I suspect is what you're looking for?  bmcweb will happily run from
-tmp, detect the "normal" binary running, and start on a different
-port.  If you're really needing to make quick edits on hardware, this
-is generally faster than loading a full image, but has some caveats.
-
->
-> Dose it exist a function to detect result more convinently like npm run s=
-erve in webui-vue,that is more convenient and more safe.It used proxy and w=
-ill never replace binary file in obmc.
-
-If you build with the instructions above, bmcweb will happily launch
-from your desktop, although without dbus services, there's not a lot
-you can test when running in that mode unless you set up more services
-on your desktop (user auth, etc)
-
-
-
-If you have any patches that would improve your workflow, please send
-them to gerrit.
-
->
->
-> Thanks!
->
->
->
->
-> =E4=BF=A1=E6=81=AF=E5=AE=89=E5=85=A8=E5=A3=B0=E6=98=8E=EF=BC=9A=E6=9C=AC=
-=E9=82=AE=E4=BB=B6=E5=8C=85=E5=90=AB=E4=BF=A1=E6=81=AF=E5=BD=92=E5=8F=91=E4=
-=BB=B6=E4=BA=BA=E6=89=80=E5=9C=A8=E7=BB=84=E7=BB=87=E6=89=80=E6=9C=89,=E5=
-=8F=91=E4=BB=B6=E4=BA=BA=E6=89=80=E5=9C=A8=E7=BB=84=E7=BB=87=E5=AF=B9=E8=AF=
-=A5=E9=82=AE=E4=BB=B6=E6=8B=A5=E6=9C=89=E6=89=80=E6=9C=89=E6=9D=83=E5=88=A9=
-=E3=80=82=E8=AF=B7=E6=8E=A5=E6=94=B6=E8=80=85=E6=B3=A8=E6=84=8F=E4=BF=9D=E5=
-=AF=86,=E6=9C=AA=E7=BB=8F=E5=8F=91=E4=BB=B6=E4=BA=BA=E4=B9=A6=E9=9D=A2=E8=
-=AE=B8=E5=8F=AF,=E4=B8=8D=E5=BE=97=E5=90=91=E4=BB=BB=E4=BD=95=E7=AC=AC=E4=
-=B8=89=E6=96=B9=E7=BB=84=E7=BB=87=E5=92=8C=E4=B8=AA=E4=BA=BA=E9=80=8F=E9=9C=
-=B2=E6=9C=AC=E9=82=AE=E4=BB=B6=E6=89=80=E5=90=AB=E4=BF=A1=E6=81=AF=E3=80=82
-> Information Security Notice: The information contained in this mail is so=
-lely property of the sender's organization.This mail communication is confi=
-dential.Recipients named above are obligated to maintain secrecy and are no=
-t permitted to disclose the contents of this communication to others.
+--vt3m2lwmvec4zdoq--
