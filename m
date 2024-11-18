@@ -4,87 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CC0ED60CEC
-	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 22:10:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B4EFD60CE7
+	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 22:13:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Xshd24Nq5z3g1v
-	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 09:09:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::633"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731918465;
-	cv=none; b=RRhbY1qzNR15YL2E8lSxMBK/QiVbtckTxaZABP13DbLEkR052cxK/hXNIRce8hMGrSqUsDkEyc1ljQifTb3zrbLrYuwzgXWRHEVzHdsdm0yRJIIXrmmbQ/0gWA7q78qRACM54QPzHj3vDpTVBPlFdSKMdIjZQkgIqz1pvUFZ5FWca+73ou6I22VciT16HMGPJrXyoa3jiUeYykyoVuSnkIVr6LVvQoqrkXHZJjppTcnEGV8D9WBDco78Ki0CKXdPLjf0d5SkK1aUMPRYpqdGEsBvgZY1oZT4kusMX72ElpTSJL4cE4FruGmN/hLcflQDi5CsBN1kZaf+j43aFIV7GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1731918465; c=relaxed/relaxed;
-	bh=16HRfIBaIOQefaOEqHf21OoxuGB8KEMOdyUB3b6s3vM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=i32O/rpuK8DEbwW3QHhH2ZJUygAlyOKOnuA2RhTTz/cqnBhM66tWiuKUbAAl8Pj+V0bP/+KV1XOZ+j7FLDJxMSa5VYsXvXikCIKHdovLheohC1Moq3C05BBQ34BI/Kv3kYpw72kKatwt+VkkWDWjgC2yWDK5HOWkVif9n4N0y6LuMzHZRBy//SFDV6Yo+URkNRvjVWIEaH2PzVnZI578JSf5LFRGysAtCJWsPkdcrLL5FSSaucuH1tl9TLnsN9CJldYFuAlHGgqBit2+wNPXIUUjEE+Gl30TISvYiJcqn8t7pCmhFXT8NrYHQuNAppnhn26/ntHbAqlm+YRQsECdiw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fqeLCmOk; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::633; helo=mail-pl1-x633.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XshjF72Frz3cyd
+	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 09:13:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=67.231.153.30 arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731968012;
+	cv=pass; b=QsaiDBWxi/4KWFq6AX5IxIzzOgw01TDprnGluHWCxTv94ga4ifg69BdSrT0Y54EZy5Z9ppOfuqWCejKhGATdA+kmG/1vOrh3OJ5IRDjlM1rZ4LZC3OHUT+yzCUYonG3w2xSPpB/GZLj8TZS1GI4PRlI4tubHrQkkmX3w9QODSvo367z49oGV7QlZxrawNwlIUwNo9HxVdU7rcwZPfHJ5+iKHy5s1Id9xZHsPMfNRny2rfQJaCMLz+a6jCVes9NsRFEKnXRG55enVSvswN5vk5L+gTeddbwxaQpBDBfc2SQ5kG0SOBaKLyFeJiHUmGwPos4okj6WPlI0mDrByWalWRQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1731968012; c=relaxed/relaxed;
+	bh=VFTVM2v8Vk8TezWzXeVV9b0ZS/aRh2S2/F5jjpHxq2U=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Y+nHW2ClbXBBp0uIS+GbfSYIWKL2AKB6/31da64WV5DeOgYdOTuDND+Sx5MVJCC+yCxpztTgmG5XQwxgxNEj5rLO3IwcsssOi8KURStqqw0XsF8gtVybPmeyJxPdhjMXjxPEqf5ufTN/lwU0hcoG4Lids+z/yDkfCj/Qxz3ZMHvMD0EvlYUh+3jF5B2DqcHs0JLeWP11B8kI45YjjPQ9rR6A7BQT8Oe015KQgk5lje3E/prVTaj36dKq7DgJe2U8myG2oDYadivru5kbbAAN//MQK2J6chOfJ9Ska+FKn5FC8fE2LTc7s+WMBmzD4UQNFTiorgiDIfSCnI0DeRxxZw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=meta.com; dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=s2048-2021-q4 header.b=bv8YSBz0; dkim-atps=neutral; spf=pass (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com; envelope-from=prvs=6052bfac03=jagpalgill@meta.com; receiver=lists.ozlabs.org) smtp.mailfrom=meta.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=meta.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fqeLCmOk;
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=s2048-2021-q4 header.b=bv8YSBz0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::633; helo=mail-pl1-x633.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com [IPv6:2607:f8b0:4864:20::633])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=meta.com (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com; envelope-from=prvs=6052bfac03=jagpalgill@meta.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 636 seconds by postgrey-1.37 at boromir; Tue, 19 Nov 2024 09:13:30 AEDT
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XsLNJ5Gwvz2xJK
-	for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 19:27:44 +1100 (AEDT)
-Received: by mail-pl1-x633.google.com with SMTP id d9443c01a7336-20cdbe608b3so37762705ad.1
-        for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 00:27:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731918462; x=1732523262; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=16HRfIBaIOQefaOEqHf21OoxuGB8KEMOdyUB3b6s3vM=;
-        b=fqeLCmOk12GHG/nu1PKnqdSwBJMpFuicAeU48hb27ZutMbS5Z71gHdwyWIQ+VEbJZ8
-         thxTpuVtm2DFrs0CFeAYtiZw1fobA9OVqVvSOKceYGvAdpOUDTYX3uJWKbWAeppLOxUQ
-         IKy8+yRUVynJKWtHd9LZVL8AE1qYfgDYPPVZjnjPFVI6h7JRQiRZ4h66puc0jPQ6EGVr
-         ibMSDCY4Zv/SRQrVChC4P/63Bjvwcb8cLhPZHlR031z1IasoLaqj8kQueDR1X/QW4C/8
-         mU7nVbYEfsKcXdFLe//4fVE5LReN3h3TRk4qYwOhbE8L3fqM0wELBl0rX5OyRFYTwZ2e
-         z/1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731918462; x=1732523262;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=16HRfIBaIOQefaOEqHf21OoxuGB8KEMOdyUB3b6s3vM=;
-        b=VTwgInEW+pFPcG1S2eAcTOSHoX1DJQfWpd2UHIvypMelwREb1FJNATcPf1KCrwEdKP
-         lWNGe648znnJrjemz9oKprDoThDA8gmasL0VEyMarFGVZvxFqTWWph9gJfgMYCJczVHI
-         uBovnXuhohbn9FtkvLeJMDV0mqjZU3MYw4Q0eVViD9Zd5XbgInAsgBevACuuA8c4sgdo
-         J1DM9/P7m0CksUcuaEP2NMNMtlSIdeSRq6Rir/6VGt5M5oWbmsM1nEIFVst6VYZHB1qN
-         M7rg6LHc+dPjKWRXI63PrY5Xk79t29FSodCTZ0wkKO4nrB6UmqdtV6woiMGQhRz7iNk6
-         abpg==
-X-Forwarded-Encrypted: i=1; AJvYcCWBSP/NqNzXcBZRpR9Iw3d2TQD0zo8DeIv50HQhT9SGrv4MgS666AjJY4+bl/EYLIEldYx7rpGT@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwinTF/LXXQxKCZ/YQKbDVIFq6Y9Vpzqhwu9RvXzNTPTFGLhcRO
-	E8SYtmeDbg01zJ8YoxGiCjzQ1arAfdeWzijdZ5N4pUQyqe5E+3ih
-X-Google-Smtp-Source: AGHT+IEy6tC7uqAZ4pS3b+sguhSutRynYB4np+NWTuUGQ8eZTjHHPdGuobH+qioA32CEFRedVnT7Dw==
-X-Received: by 2002:a17:903:32cd:b0:20b:6a57:bf3a with SMTP id d9443c01a7336-211d0d5b99amr184075665ad.1.1731918462011;
-        Mon, 18 Nov 2024 00:27:42 -0800 (PST)
-Received: from yclu-ubuntu.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-211d0ebbf9esm51883815ad.45.2024.11.18.00.27.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 Nov 2024 00:27:41 -0800 (PST)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	richardcochran@gmail.com
-Subject: [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
-Date: Mon, 18 Nov 2024 16:27:07 +0800
-Message-Id: <20241118082707.8504-4-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20241118082707.8504-1-a0987203069@gmail.com>
-References: <20241118082707.8504-1-a0987203069@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Xshj630drz2yGf
+	for <openbmc@lists.ozlabs.org>; Tue, 19 Nov 2024 09:13:29 +1100 (AEDT)
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 4AIJaEso007072
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 14:02:48 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=
+	content-type:date:from:message-id:mime-version:subject:to; s=
+	s2048-2021-q4; bh=VFTVM2v8Vk8TezWzXeVV9b0ZS/aRh2S2/F5jjpHxq2U=; b=
+	bv8YSBz0LsHTYSjs17cpdTqSImvNkgDFetRPQiYYeYaxufOyiqXn815gLoSU9KfD
+	A/fAmXTlmHkvi8w5CULONVWwbdc2fqVSYdxXnfGG/jXAxbXNChblXdngKDUVg7+P
+	558aSsqML2TB29OmGZeINtW04eKCWvpElv/uJc8RBsRzYDUvnSRWAG8p6KR1KJV1
+	NGwUZ52SZRLzF99bWUmSPgclmhwp+0+YRU87Wr9Y9HhcDYZ/WPEyOAifxIv0nvhA
+	E8K38ANMRgevH6mqVnJJD7nj6n112schtntSQVdy/peybkW3yEeecmpIytDfW4AG
+	Zw5RI1s+BtFsolhUqaqY9A==
+Received: from nam11-bn8-obe.outbound.protection.outlook.com (mail-bn8nam11lp2170.outbound.protection.outlook.com [104.47.58.170])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 430btts01x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 14:02:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YmX1b6dURs82RgOVFB8sAYDPYa4CEkuGETcrO0FvhDMn7Kt0elrng+yXScrcn/4GuGjUUiJrbPKTN3LaON/dPTOq7haAfOuZoKFY0aeiVRHhygYs5fNZZz2I9/dqSzzT308LnCq+LV5hQPAeuVXBLqjqubcNSYkQQeG3ugjlbbphSOs78GZZOIPRo3R+eN+WzUdDYT7LB75cAv9PUmgesnWmGMFWkqbE/cCh4iRSW3QY7tstfS7wqzONz0D2gF5ACpZaH7Mpvely2S3bUrzKbIzZCJjSTiE+NRfuIxrFhmvAktmui90XtkC1R4PyreCnoF8AQawGq+yngd/dzwqI9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VFTVM2v8Vk8TezWzXeVV9b0ZS/aRh2S2/F5jjpHxq2U=;
+ b=W82XqZlLPRVmP4UrSQMYS/o5U45AqkJR3rRHSCxWsmcajqjWFJ0xvTcio/Pdn/JdKopksz3SY99Y47U/Py5GmEtR5G8xzQ0gKqCsOAXEb5nIO40cTdm6vzKGah9x0gonBlWYuW6EdlIjryyjyH56CjtB22vLCwDePeYCjtD8zedjI51Ky4JgFOFqFzZuqGVMDk1t1nvBs6T86wo1XfmtTfvh/faeYpYifJKGEByQiOEuQj6ypaEJGm2jUypCm0gyzQCpKtnxNP7fwpPZvNaRD+I3AZ+5sczpD6franvsvOrqqN4BuT2l7WLBQyvm8OIrDlPMQE9B4f5KLeCsOtcLmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=meta.com; dmarc=pass action=none header.from=meta.com;
+ dkim=pass header.d=meta.com; arc=none
+Received: from PH7PR15MB5342.namprd15.prod.outlook.com (2603:10b6:510:1e1::11)
+ by CH0PR15MB6211.namprd15.prod.outlook.com (2603:10b6:610:181::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.22; Mon, 18 Nov
+ 2024 22:02:44 +0000
+Received: from PH7PR15MB5342.namprd15.prod.outlook.com
+ ([fe80::859a:3263:f65f:5743]) by PH7PR15MB5342.namprd15.prod.outlook.com
+ ([fe80::859a:3263:f65f:5743%4]) with mapi id 15.20.8158.021; Mon, 18 Nov 2024
+ 22:02:44 +0000
+From: Jagpal Singh Gill <jagpalgill@meta.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+        openbmc_compute
+	<openbmc_compute@meta.com>
+Subject: Enabling StartUpdate D-Bus interface for FirmwareUpdate
+Thread-Topic: Enabling StartUpdate D-Bus interface for FirmwareUpdate
+Thread-Index: AQHbOgWY3DoRtB518kKLvTZqkF6lag==
+Date: Mon, 18 Nov 2024 22:02:44 +0000
+Message-ID: <6A6A014A-8568-45CF-B8F0-199B82738B12@meta.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR15MB5342:EE_|CH0PR15MB6211:EE_
+x-ms-office365-filtering-correlation-id: 9a0d4f21-f534-4a40-f6a3-08dd081cbac6
+x-fb-source: Internal
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:  BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|8096899003|38070700018;
+x-microsoft-antispam-message-info:  =?us-ascii?Q?YOoRMdg37CMFae986TPlV0exXfu9uGUgP7W8Ilb5sQw9jdjMiojxy2kdQuac?=
+ =?us-ascii?Q?jVHIjLFgYZ//f82/x5GUrb54m8+6v8oC69jQGzugjtD8MYraSMb1WUZEJp44?=
+ =?us-ascii?Q?M5XlFWaA7s3ypEueUsVMxSlP+5qjqqrIcU9hLPWZ0QabKyzEzfLFsUYUvBoK?=
+ =?us-ascii?Q?mzBiNFMT7pYHyXgHLJ3ZrpnDEg7k4SkDWPVwZbe1LkB7gFGkcaRGeSxXqeEY?=
+ =?us-ascii?Q?fh92IQ4sd7c1lBnwV81cXVItX6dmAJIYbpPWstodlN8harOo489QpOKRsFZ4?=
+ =?us-ascii?Q?XIa+DKheoXcP576sIfLnp2cCNn8DQr78ey9oMRTf8pq8K0WJcTYfbh7Ij61K?=
+ =?us-ascii?Q?bIjZarBU8gONzB3TGtAgYkbU7GnKmFdwWdoXBcdKefaGw4HMRIdUR4ohchRj?=
+ =?us-ascii?Q?WpLpnYOFh4NU0A/KGgbk1hm0q1cuHiI5VHLDSXRy62CAmKG9AKXRwn/+ao0I?=
+ =?us-ascii?Q?pPmUbZ/+y9I2CdjBYNIiYJcveGj0p0bnGCZqhi16RuMVs1ECzcwe4ibEhoFB?=
+ =?us-ascii?Q?lVvaZCwrhksHrU4hhQpx8bHgTQh/cVJOefqceS0oUvWVP0jjaUYf7Ry0oDyt?=
+ =?us-ascii?Q?UhCI/gXULrsNOaHPMhJOxiHy8XC58iEfLDq0qsMn5QiDelhVHYItomY6uRlF?=
+ =?us-ascii?Q?UjLrWF0mI07l+8txeCntpIcKar6gyIeZ6x6QWlK/4PxKOXQKQcUjq5cnsdGz?=
+ =?us-ascii?Q?i4XWWZHnlcojjGhgM+L+ceHxmgWNT3OktUGg33OsFBTDeABgdOoE5hyAiKW8?=
+ =?us-ascii?Q?wR4T04QyeLHwYpRi5P6LZOWrUPP8t+ysuhWb5o8gHLcUp6DYykROzy8N1D8a?=
+ =?us-ascii?Q?IbTAafiaXvfxVumT7puAeqcONY5ZVOVdV8cTikWeS0PAu2MSLsAFTe0npyEb?=
+ =?us-ascii?Q?ZuOIG2yLbZAE6D0YdCEnuFENNKKzUxifdrwk6NJqs47N01/bF6u7GgvNwOab?=
+ =?us-ascii?Q?B/QEeFdHB4UGJEMI/fRf0eAY6JVgsIDsDWh0+7h4Wdtv98BRT/4zS7K0i5k0?=
+ =?us-ascii?Q?5FJJAH24OXMo25APteVhML8wlVk72Dkz792MFBPmPWnYHTCVhyq4rDqwB+CO?=
+ =?us-ascii?Q?Z9Hf+J23H2iHik1wvFKONyVuD/XvfohRMqKMedIJc1OXgxN39RWPm3VuUmAF?=
+ =?us-ascii?Q?HgqCfEiGklQUMLrkMQNchgx4EMhwmnI2PWVO3Xa7DjWb5x92SgV7mro683Qf?=
+ =?us-ascii?Q?HFqTAvvLS78dqhxHhe4Oelee//Xe8f+MzJteCCKRX9A9IY7pabFHjIOxky/N?=
+ =?us-ascii?Q?X+trczx0bG/bCCstDgQdLvgUcC/cRTMflOmIgC6E9Xa+X5WvG/5ADMC5vNDF?=
+ =?us-ascii?Q?+VTh/HG1UrJ6SM+arg5XRWVg?=
+x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR15MB5342.namprd15.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(8096899003)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:  =?us-ascii?Q?RIEJDUZpEq6OufQIowJl6lSlb6kpDH2WvymYe2KJSH21NZvA3kqNk2EgNnZi?=
+ =?us-ascii?Q?kRmgV1ycp9ICwQhpmp8UtmE+L+IQ3+gZezU+tO24ep6zhCUhtUAuFWrd271+?=
+ =?us-ascii?Q?sGQDQOMxE+9Er0zKrx0KfDC6MvYqonsuRF0p63LYPcgmmD016+TjFYbwF5ce?=
+ =?us-ascii?Q?yaQFGDe85IR2QrHSxg+MuH8uAhKQlhycLma2ddQTI6M/1Z6oBLHAObDvjtU0?=
+ =?us-ascii?Q?PORy0t4tdIsla2YsXLNDqAcoDWPJZAQYCk3AH9q0hCoxG13hR1J/CkzfxEpj?=
+ =?us-ascii?Q?ss0rF0m2JYIL8dFkpddc/bqo7eCGJdjLwesB4jG3Yr4lA6U0GKs+0++8zGbt?=
+ =?us-ascii?Q?JOb6dLTx9bviFl8hhtt1MyJ4WusLSaRGDnaS6UN+zQQFZuJysPiHe4DN/Tti?=
+ =?us-ascii?Q?sJwgtku3iDrzTqtRgYIWp6BpjNe6oDFf5SUg1IUMOUtil/5IA5SXVOGpWALn?=
+ =?us-ascii?Q?CXmf9ZfE3MCSLA1j/PY1j7dZ4KFbH7Bx7pT6Nx01doahGrLvasoY/sxIp259?=
+ =?us-ascii?Q?GjrbKuf9QqjxFlXA4rXT66r1Hd/hGspuQvM3iS9v6d81KzSY9k1gmdzkKvSe?=
+ =?us-ascii?Q?sHd1Ms+PDujhzArOoh8KAd7F9GE61kPI9uNtTReCwr7EI7kQuS6qAAnepwGe?=
+ =?us-ascii?Q?FZyAL5a1F8BVQkOWIF7HG5n05rrI4BGOGxOtqrODjQTKsC8+cKsL1pZxK55N?=
+ =?us-ascii?Q?dAO72t17m201SI1GecMggo/VVsfmgtYZ/u7+6UiYg3atyrLttOEHy0HMuOdB?=
+ =?us-ascii?Q?V/9rKdmCQFLwKbZjqSAANQ8MATF3lA8MY4rlhGtiEBzE3wtsd7+7SiqSnhwX?=
+ =?us-ascii?Q?J/e/N4EqMwVsupKlpC1sysJEhlQNWNHPjlStSjUXCDgu2iwAu1dLbK5se7GQ?=
+ =?us-ascii?Q?oqZaV/LZhyL3qBA2onc0Fbw1cnigUV2djQ3+wauEBmZz01zVQBz1UyAoy+YP?=
+ =?us-ascii?Q?c6xzr4fBM1CWQW+gWj46JuRrWywghF20TmR0CdOYsA91b/qmUIJ5XOtn/Szt?=
+ =?us-ascii?Q?iY7HZ8DhbPbqsGYWOS++VPq+g5Itvi/rxjhcDL4JHOtce/105I2Dx1U73Exb?=
+ =?us-ascii?Q?x9uzfZGFy44BLwFeWmjjFh4TNCPv6ByetgP/i0jA9v2kgdDHfSterpzm+Jdf?=
+ =?us-ascii?Q?L7umpbim3JIhxQf0cA3KerW47wqAlm91hfeplqxotWDw0DTYPNic62Samr/j?=
+ =?us-ascii?Q?YdZddqliE3UAUKhNbOODLQSpxz8UnigqU8C+8eNNBRbfCxg6XSk1lG5OCKOt?=
+ =?us-ascii?Q?ZrjgeJ7igAoMCedit5JVqtBqRIENvEJTjzTcjJw3vDWpEY5HYedUKsQJc3gu?=
+ =?us-ascii?Q?GYFJfvz52n3fzlUF/YExAl4FQblVXrcJpAClzpFMuXJA7DoaUNhe46XZ9OMU?=
+ =?us-ascii?Q?461BCfUsjcUg4lo79oVsEJNmGVCF9EEvQXnviUnUubTcdZk+cNNr5jMnnaUs?=
+ =?us-ascii?Q?MeJ0u+Y5Qoj/ubsBJ4MUXjUodUE9A3EqqRh7SNcw0FmAvFWeY730wH3EpCrp?=
+ =?us-ascii?Q?F2NRkeX6JL6N2XPrNCyGXc8FFm4KFNQZQ80zLlH8i2lkmMyDBdmtpuyFzCaa?=
+ =?us-ascii?Q?GOac+XqCnsQ4mPZ8pY6H/PagwCpQT3ZKxlR4RGhCawS1vN/1Ssp7ekq4oiX8?=
+ =?us-ascii?Q?srFZ9UVYTs6YmnRwNpq+hek=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_6A6A014A856845CFB8F0199B82738B12metacom_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 19 Nov 2024 09:09:45 +1100
+X-OriginatorOrg: meta.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR15MB5342.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a0d4f21-f534-4a40-f6a3-08dd081cbac6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2024 22:02:44.1816
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hJvZ2hJH7HLeszmeDdUrUDmxd/cDoWwrGvmxl1a/m40V7Dbi+QMFaJdxt4o7TenzBLY9SQn5CClu2pIDn8rwKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR15MB6211
+X-Proofpoint-GUID: thnbAfhMY-wPoa4GHDkC-L8htOEXPWeB
+X-Proofpoint-ORIG-GUID: thnbAfhMY-wPoa4GHDkC-L8htOEXPWeB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
+ definitions=2024-10-05_03,2024-10-04_01,2024-09-30_01
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,240 +166,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com, Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, joabreu@synopsys.com, schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
+--_000_6A6A014A856845CFB8F0199B82738B12metacom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  11 ++
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 180 ++++++++++++++++++
- 3 files changed, 192 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+Hi
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 05cc07b8f48c..55d94f669be3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -121,6 +121,17 @@ config DWMAC_MESON
- 	  the stmmac device driver. This driver is used for Meson6,
- 	  Meson8, Meson8b and GXBB SoCs.
- 
-+config DWMAC_NUVOTON
-+	tristate "Nuvoton MA35 dwmac support"
-+	default ARCH_MA35
-+	depends on OF && (ARCH_MA35 || COMPILE_TEST)
-+	select MFD_SYSCON
-+	help
-+	  Support for Ethernet controller on Nuvoton MA35 series SoC.
-+
-+	  This selects the Nuvoton MA35 series SoC glue layer support
-+	  for the stmmac device driver.
-+
- config DWMAC_QCOM_ETHQOS
- 	tristate "Qualcomm ETHQOS support"
- 	default ARCH_QCOM
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index c2f0e91f6bf8..c08fcfdd7b31 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -19,6 +19,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
- obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
- obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
- obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
-+obj-$(CONFIG_DWMAC_NUVOTON)	+= dwmac-nuvoton.o
- obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
- obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
- obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-new file mode 100644
-index 000000000000..ac57384b393d
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nuvoton DWMAC specific glue layer
-+ *
-+ * Copyright (C) 2024 Nuvoton Technology Corp.
-+ *
-+ * Author: Joey Lu <yclu4@nuvoton.com>
-+ */
-+
-+#include <linux/mfd/syscon.h>
-+#include <linux/of_device.h>
-+#include <linux/of_net.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/stmmac.h>
-+
-+#include "stmmac.h"
-+#include "stmmac_platform.h"
-+
-+#define REG_SYS_GMAC0MISCR  0x108
-+#define REG_SYS_GMAC1MISCR  0x10C
-+
-+#define MISCR_RMII          BIT(0)
-+
-+/* 2000ps is mapped to 0 ~ 0xF */
-+#define PATH_DELAY_DEC      134
-+#define TX_DELAY_OFFSET     16
-+#define TX_DELAY_MASK       GENMASK(19, 16)
-+#define RX_DELAY_OFFSET     20
-+#define RX_DELAY_MASK       GENMASK(23, 20)
-+
-+struct nvt_priv_data {
-+	struct platform_device *pdev;
-+	struct regmap *regmap;
-+};
-+
-+static struct nvt_priv_data *
-+nuvoton_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct nvt_priv_data *bsp_priv;
-+	phy_interface_t phy_mode;
-+	u32 tx_delay, rx_delay;
-+	u32 macid, arg, reg;
-+
-+	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
-+	if (!bsp_priv)
-+		return ERR_PTR(-ENOMEM);
-+
-+	bsp_priv->regmap =
-+		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
-+	if (IS_ERR(bsp_priv->regmap)) {
-+		dev_err(dev, "Failed to get sys register\n");
-+		return ERR_PTR(-ENODEV);
-+	}
-+	if (macid > 1) {
-+		dev_err(dev, "Invalid sys arguments\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
-+		tx_delay = 0; /* Default value is 0 */
-+	} else {
-+		if (arg <= 2000) {
-+			tx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Tx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+	if (of_property_read_u32(dev->of_node, "rx-internal-delay-ps", &arg)) {
-+		rx_delay = 0; /* Default value is 0 */
-+	} else {
-+		if (arg <= 2000) {
-+			rx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
-+			dev_dbg(dev, "Set Rx path delay to 0x%x\n", rx_delay);
-+		} else {
-+			dev_err(dev, "Invalid Rx path delay argument.\n");
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+
-+	regmap_read(bsp_priv->regmap,
-+		    macid == 0 ? REG_SYS_GMAC0MISCR : REG_SYS_GMAC1MISCR, &reg);
-+	reg &= ~(TX_DELAY_MASK | RX_DELAY_MASK);
-+
-+	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode)) {
-+		dev_err(dev, "missing phy mode property\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	switch (phy_mode) {
-+	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		reg &= ~MISCR_RMII;
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		reg |= MISCR_RMII;
-+		break;
-+	default:
-+		dev_err(dev, "Unsupported phy-mode (%d)\n", phy_mode);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	if (!(reg & MISCR_RMII)) {
-+		reg |= tx_delay << TX_DELAY_OFFSET;
-+		reg |= rx_delay << RX_DELAY_OFFSET;
-+	}
-+
-+	regmap_write(bsp_priv->regmap,
-+		     macid == 0 ? REG_SYS_GMAC0MISCR : REG_SYS_GMAC1MISCR, reg);
-+
-+	bsp_priv->pdev = pdev;
-+
-+	return bsp_priv;
-+}
-+
-+static int nuvoton_gmac_probe(struct platform_device *pdev)
-+{
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	int ret;
-+
-+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return PTR_ERR(plat_dat);
-+
-+	/* Nuvoton DWMAC configs */
-+	plat_dat->has_gmac = 1;
-+	plat_dat->tx_fifo_size = 2048;
-+	plat_dat->rx_fifo_size = 4096;
-+	plat_dat->multicast_filter_bins = 0;
-+	plat_dat->unicast_filter_entries = 8;
-+	plat_dat->flags &= ~STMMAC_FLAG_USE_PHY_WOL;
-+
-+	plat_dat->bsp_priv = nuvoton_gmac_setup(pdev, plat_dat);
-+	if (IS_ERR(plat_dat->bsp_priv)) {
-+		ret = PTR_ERR(plat_dat->bsp_priv);
-+		return ret;
-+	}
-+
-+	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-+	if (ret)
-+		return ret;
-+
-+	/* We support WoL by magic packet, override pmt to make it work! */
-+	plat_dat->pmt = 1;
-+	dev_info(&pdev->dev, "Wake-Up On Lan supported\n");
-+	device_set_wakeup_capable(&pdev->dev, 1);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id nuvoton_dwmac_match[] = {
-+	{ .compatible = "nuvoton,ma35d1-dwmac"},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nuvoton_dwmac_match);
-+
-+static struct platform_driver nuvoton_dwmac_driver = {
-+	.probe  = nuvoton_gmac_probe,
-+	.remove_new = stmmac_pltfr_remove,
-+	.driver = {
-+		.name           = "nuvoton-dwmac",
-+		.pm		= &stmmac_pltfr_pm_ops,
-+		.of_match_table = nuvoton_dwmac_match,
-+	},
-+};
-+module_platform_driver(nuvoton_dwmac_driver);
-+
-+MODULE_AUTHOR("Joey Lu <yclu4@nuvoton.com>");
-+MODULE_DESCRIPTION("Nuvoton DWMAC specific glue layer");
-+MODULE_LICENSE("GPL v2");
--- 
-2.34.1
 
+This email serves as a formal notification that the StartUpdate D-Bus inter=
+face flow will be enabled in BMCWeb and phosphor-bmc-code-mgmt by changing =
+the defaults through patches  #1<https://gerrit.openbmc.org/c/openbmc/openb=
+mc/+/75803> and #2<https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75800>. Th=
+is change is based on the design<https://github.com/openbmc/docs/blob/maste=
+r/designs/code-update.md>.
+
+
+The flow has been tested on romulus Qemu and IBM's p10bmc hardware, thanks =
+to @Adriana for her help. In the meantime, if anyone is interested in testi=
+ng the flow, they can use the above-mentioned patches (and related dependen=
+cies<https://gerrit.openbmc.org/q/topic:EnableUpdateInterface>) to test it =
+locally.
+
+
+Please let me know if you have any questions.
+
+Regards
+Jagpal S Gill
+
+
+--_000_6A6A014A856845CFB8F0199B82738B12metacom_
+Content-Type: text/html; charset="us-ascii"
+Content-ID: <2A2C7D12634D9848BB7F0CCC98E86441@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; line-br=
+eak: after-white-space;">
+<div>Hi</div>
+<div><br>
+</div>
+<div>
+<p style=3D"margin: 0px; font-style: normal; font-variant-caps: normal; fon=
+t-stretch: normal; line-height: normal; font-size-adjust: none; font-kernin=
+g: auto; font-variant-alternates: normal; font-variant-ligatures: normal; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; font-variant-=
+position: normal; font-feature-settings: normal; font-optical-sizing: auto;=
+ font-variation-settings: normal;">
+This email serves as a formal notification that the StartUpdate D-Bus inter=
+face flow will be enabled in BMCWeb and phosphor-bmc-code-mgmt by changing =
+the defaults through patches &nbsp;<a href=3D"https://gerrit.openbmc.org/c/=
+openbmc/openbmc/+/75803">#1</a>&nbsp;and&nbsp;<a href=3D"https://gerrit.ope=
+nbmc.org/c/openbmc/bmcweb/+/75800">#2</a>.
+ This change is based on the&nbsp;<a href=3D"https://github.com/openbmc/doc=
+s/blob/master/designs/code-update.md">design</a>.</p>
+<p style=3D"margin: 0px; font-style: normal; font-variant-caps: normal; fon=
+t-stretch: normal; line-height: normal; font-size-adjust: none; font-kernin=
+g: auto; font-variant-alternates: normal; font-variant-ligatures: normal; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; font-variant-=
+position: normal; font-feature-settings: normal; font-optical-sizing: auto;=
+ font-variation-settings: normal; min-height: 17px;">
+<br>
+</p>
+<p style=3D"margin: 0px; font-style: normal; font-variant-caps: normal; fon=
+t-stretch: normal; line-height: normal; font-size-adjust: none; font-kernin=
+g: auto; font-variant-alternates: normal; font-variant-ligatures: normal; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; font-variant-=
+position: normal; font-feature-settings: normal; font-optical-sizing: auto;=
+ font-variation-settings: normal;">
+The flow has been tested on romulus Qemu and IBM's p10bmc hardware, thanks =
+to @Adriana for her help. In the meantime, if anyone is interested in testi=
+ng the flow, they can use the above-mentioned patches (and&nbsp;<a href=3D"=
+https://gerrit.openbmc.org/q/topic:EnableUpdateInterface">related
+ dependencies</a>) to test it locally.</p>
+<p style=3D"margin: 0px; font-style: normal; font-variant-caps: normal; fon=
+t-stretch: normal; line-height: normal; font-size-adjust: none; font-kernin=
+g: auto; font-variant-alternates: normal; font-variant-ligatures: normal; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; font-variant-=
+position: normal; font-feature-settings: normal; font-optical-sizing: auto;=
+ font-variation-settings: normal;">
+<br>
+</p>
+<p style=3D"margin: 0px; font-style: normal; font-variant-caps: normal; fon=
+t-stretch: normal; line-height: normal; font-size-adjust: none; font-kernin=
+g: auto; font-variant-alternates: normal; font-variant-ligatures: normal; f=
+ont-variant-numeric: normal; font-variant-east-asian: normal; font-variant-=
+position: normal; font-feature-settings: normal; font-optical-sizing: auto;=
+ font-variation-settings: normal;">
+Please let me know if you have any questions.</p>
+</div>
+<div><br>
+</div>
+<div>Regards</div>
+<div>Jagpal S Gill</div>
+<div><br>
+</div>
+</body>
+</html>
+
+--_000_6A6A014A856845CFB8F0199B82738B12metacom_--
