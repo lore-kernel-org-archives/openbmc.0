@@ -4,147 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27323D10F38
-	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 00:26:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91649D591B2
+	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 20:37:24 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Xs7j20FwGz3cjt
-	for <openbmc@archiver.kernel.org>; Mon, 18 Nov 2024 11:26:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:200f::71e" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731889584;
-	cv=pass; b=KXp5SL7zD4ildu/8KYwMhpN3arZp4AuP1hqRSxsay4HGkkLpscyJk2FBOfORI7DAsNXWzDwUXysV+vt8wRJkzIJSbbB8dqub9M7kZq+mXCCFJczaC+upVHOlP35mKxeVVfKAQGTYGRbzzu4BjYcgFzeLxT+2TMVXkq9FiiVz1fHQRXNQD4UbPNswkfNGeLgDPER5yH+QMXnTcjA4eo/5wBivB8CqxtPl/AlZfwtw9yMC8nfKAZ6+AMKTDX2EpIG5k4yl6I1knLQeSpczxjG09eT7mUKrTT6cB5I2spNBlS9NgiCCEt/UXkM8GWg3s/rgdwK8jB0nYHvhM1kfRjQxTQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1731889584; c=relaxed/relaxed;
-	bh=j9I4Yd2jLHbdImzx9+gl+Glpc2DGYlaaBPMhDVJakg4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=EhNibfDIwK/Iy1SVnjC3PP6emAJ5uAk8gQR4up54+CLwieIgbuE/2O+lR2kO8M1rn9Hca+F3+CQ2d9Le2eYWY0/vsu3Ii7jOiCGR1dTXn8UVz2mTbfxaIcKn7WAdNINa6a3WkSot+xornYbdc4Ihz4lFRDxzBJHWlkaPQox8/IQrHkBjVoexP6Nvr9Hb/GgMgXCfjlPEjjxeP+7EK27vtFZYfYEq6aUkKgs8MB2lSKSNa8iyaaSo8XpTHokxIN9p7QREUFM6Bt8RjFAw0K6CqNXbH0f1x/X6Lp3xemuOzu97J81dlZ6y3ydEzBboY14VkCZkNEY5e9AmzkeP8Mo1uQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector2 header.b=kO/RE9oh; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:200f::71e; helo=apc01-sg2-obe.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XsfYy5SZDz3cmg
+	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 07:37:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.16
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731962225;
+	cv=none; b=Yuayht4oLoA1sih1+N0UwYKc+oZLMiHUwWdwEOiSHeiVmaPJJDjj+Qt95lpaPMefyfTwjWF5i4/PrqRefjWymJ5+XNfuPBOSBiIBnBoOZPGJKwZLrKWPIfMKGkTulkTqiqjrx0hBxLq+BJLqAgoFDzKU7ZtmwFvmB/XupNv0eAVBmw1hmxwnIjSvD9p6qledrIC00SYVe8DYc27xa+0DTduqU0aXIVeVcqRe/dqgUvOfQ9edwfHo3ZPJipyUiY5pSyNsoQYPOKHwsYg8cxMHeBT5IlCfcTUErWi4v1o0/Qq7Q0X0+tJpN3bWJYHOx18sh/jP4U0jlUyWA6kr6r1idA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1731962225; c=relaxed/relaxed;
+	bh=GhLkrjjHJCZt+XXwsNnqLHRjRxad3DvYfXQ138de3Tg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=QbLoQv9zi6j1j/r3V9UQs8whJyPcaLhhLJYeAW5lmDkSAkxs5Bo3bkxn6O5jLG9VaAd4dMdmrU3zVpU26zC+hmG8pj2T/zTMk5+/nyg271rwG1yeBGz45d5CS64GymPU0vbOl+XeDJSa2LiMVgEjFJhp5fSltR7e8tVk/d+tMkHB4EEj+igjdbumqD/0I2PfF3Ob5y/DdUavl6UNIWacR6U98Rg51drHJRfaBeFz6POd6LfLdTbMyeq63x/x32/BU22fibQEggSq0un2/k4ZjuGpjP1bAS0j3v8JPwaM3uVHVdisnpi+4FEmONXrj5vro5iKcp7Ja5OQOVs71+gxrg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=naYpVJPz; dkim-atps=neutral; spf=none (client-ip=198.175.65.16; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector2 header.b=kO/RE9oh;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=naYpVJPz;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:200f::71e; helo=apc01-sg2-obe.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (mail-sg2apc01on2071e.outbound.protection.outlook.com [IPv6:2a01:111:f403:200f::71e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.16; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 64 seconds by postgrey-1.37 at boromir; Tue, 19 Nov 2024 07:37:01 AEDT
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Xs7hq74JWz2y65;
-	Mon, 18 Nov 2024 11:26:19 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L9g4ecVeRjuxwF0U3wLfcNy2jVg/nIUz31FBZzu7ka2kStbL2B9RhLRAo4kkhL9qaBc3qhfQgIlLpcOAG9c0SIFMqyHyt8CmNL2CsU1mbBAASs8kRCtSizp2a0t8hRaHdZeXb1RJYoucS+Mk+Fc3BEOsoON6FtBlN0abvhtTSEhIiLmdAVWesjwJtx0zxx0M90wtOKPOnvSYBkgJCoc0MXfZpKFTg9HmYvdlaCsOA+AAzSBxrRQqt+o+mBvpvrl+SDf6Aqjh6mtQml2jzTBCsfdR1UveGCftjPwHcS2YG8s2/QFQac6aMORi1nGWQ+dUkq+adf4frSu0ZsjesQ8xJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j9I4Yd2jLHbdImzx9+gl+Glpc2DGYlaaBPMhDVJakg4=;
- b=BmFufhAGbe/8VME7FNXLYCm2q2ZxUw9tfVl9puLy3iAODjLiJBH17O4NAQbk4++0TtI7xw/KKHG4rDOG0jk8nqzsfZJJC9qmSNwGmttkyfsGSTMo0+caGE0KrGWMG2qUVGUG1h5JQrQktWdZbRA9Qd8qVtWFRN7uSY3SzqgeUaINbzN2AzfrEINP82VOy5CIYPuFPYmvwoQ/VySR9ndnKTn2g/RndBNqrX1m+phpXlLUaIiqzDXx9+DTKhq9QE1KQ1u05hVWyYL9aomfRWFGMXPPOo+R7VHPIePSBxet7TMnqqw6i7mpRKTplOKaS12QasfjPyK0pxoxB1rNZT6Wpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j9I4Yd2jLHbdImzx9+gl+Glpc2DGYlaaBPMhDVJakg4=;
- b=kO/RE9ohmqHjdVm2GdajAmCnaCdea3m2gwMMDu+PPhBR/zmDtkHszisFssoD3W9Ms9YoF5frsFeKfD0yc6oZs7qbmW44/OpAzNSG/xHoZyJhJu78r21tHJ7a87ijeuB6KSznAlqIK3+h8zPsCYQEAiVazoSWTgNCgaJTORIa7JV26uwBdoO8nJLKqt6rE9fRQH3YTE8SAwn9suUS9oDwjqxfD3BH/rZq2FCWY386T1swjJa59Phu4Ul4EfCTiCntVCrLaHW+pxYn+kYWCeOt6wX99FFhsvCEfNSay7E8UqPR1WVXwvUHQhPwHY2awXkXNeQmU2uQj4xUDFXfnwieug==
-Received: from OS8PR06MB7541.apcprd06.prod.outlook.com (2603:1096:604:2b1::11)
- by TYZPR06MB6568.apcprd06.prod.outlook.com (2603:1096:400:45f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8158.17; Mon, 18 Nov
- 2024 00:25:56 +0000
-Received: from OS8PR06MB7541.apcprd06.prod.outlook.com
- ([fe80::9f51:f68d:b2db:da11]) by OS8PR06MB7541.apcprd06.prod.outlook.com
- ([fe80::9f51:f68d:b2db:da11%6]) with mapi id 15.20.8158.017; Mon, 18 Nov 2024
- 00:25:56 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, Brendan Higgins
-	<brendanhiggins@google.com>
-Subject: RE: [RFC v1] MAINTAINERS: transfer i2c-aspeed maintainership from
- Brendan to Ryan
-Thread-Topic: [RFC v1] MAINTAINERS: transfer i2c-aspeed maintainership from
- Brendan to Ryan
-Thread-Index: AQHbNxjuAA4NcQwuWk6L3G8oF+autbK4DTOAgAQlLkA=
-Date: Mon, 18 Nov 2024 00:25:56 +0000
-Message-ID:  <OS8PR06MB75413EC87F76AD0B1BBA0FEFF2272@OS8PR06MB7541.apcprd06.prod.outlook.com>
-References: <20241115044303.50877-1-brendanhiggins@google.com>
- <ZzcPJ9sweqxLZOGf@ninjato>
-In-Reply-To: <ZzcPJ9sweqxLZOGf@ninjato>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS8PR06MB7541:EE_|TYZPR06MB6568:EE_
-x-ms-office365-filtering-correlation-id: 4a2cf2ce-f2dc-43eb-6ca3-08dd076791d9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:  BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700018;
-x-microsoft-antispam-message-info:  =?us-ascii?Q?gEImqF9sxfFsk59FVJNxaZ8bEP899YPzO/LaYbd23D3jqt9402od3B9ccJCo?=
- =?us-ascii?Q?+hwvk3+nwKu3SFBP37C6gBH95bI9niPu9epZDPo4bhqNUuwybkMs9PtaZxkl?=
- =?us-ascii?Q?vus/psgdJC+1/4TCYyDv/y/eoBTyueVj8OQaet+8XHuv9PDbCgdh1qUExT91?=
- =?us-ascii?Q?d/1d0n0LXuHpv3VM936B5ngi5GasRXRsyZNIwFfxakgJCOxe5hYTB25AlcRb?=
- =?us-ascii?Q?L6DjgvU7ShHHgWPZwmqvhDUF/Nbb3eyJTyIDXCUdU0QezObMhbSH/RfxkZ2+?=
- =?us-ascii?Q?IQ7dvHPDvbj9FtsfiP4BNqF3wGm02N7/flfTFPFD63IbJh545hMw3N3sdMnu?=
- =?us-ascii?Q?LYYB3Tu5MCgjm/v4ueRbqTMCHXxDoMMA74qyBOcqRVKlZNyV7IFbnNy/g07v?=
- =?us-ascii?Q?7qo46H2922ZpyIeuPIBYBRH4Dwx60O+U7VgPGEhaZZXWBK/SlG8dBLYSyNrl?=
- =?us-ascii?Q?WEIdPLrRgq8gUXJ1qVG0+3EhsBBEjFs17wat0ftKPmK/mjdcTaDBttiIrr0S?=
- =?us-ascii?Q?bWFC+oBTmK7IabXYlFYWgyTaJ7/1rGWnqyvdTHkaJl0fZYbqumEXWBXGy+4w?=
- =?us-ascii?Q?VYXn1JLy4miMgeAglsRrpTM2Il30EgJrzs/d+Us3NBllty+d6VPvVcc7c1O1?=
- =?us-ascii?Q?QYzhfNUNQ4HIB106zd12aWpHFGUgsIhgJ8xGAJAD7nJRNsqQ42LbwVzcStDg?=
- =?us-ascii?Q?jd496NSsGZnJrJvSEbufb0cVRrxnDDklapoKbMF2nYFBXtNWn4vdobeGGM7D?=
- =?us-ascii?Q?S5voG5AUAhP8F6vIOs5gVNnZkMpzcNeaWF0aHf3OoYSGsPiQ7PaCD2JLpdu9?=
- =?us-ascii?Q?FZEb1qh23rXLgia8cd0vOoKOs8noscFdwyY76fNPBxoU8qQu27343YT+pi6k?=
- =?us-ascii?Q?sX/HYuejJLLv5jvILZqpJYOAQCCE80FQaY4r2IdmgSTVf3lfcBogMqn/MqrK?=
- =?us-ascii?Q?M2hLoltJdYd3X1G7ok0zC42Y/gip59XZ6cYsXJO6C2fkXvKTGBKP8PqRNKI4?=
- =?us-ascii?Q?g773HC93qFRMpOkBImaZXkIC7bIieOYNl+O4V16ZKW0qkEIBF+ayfBWCXdl2?=
- =?us-ascii?Q?PVtpIkvz7mOXnlIgOG/tDugDBsB/2SsZlwrbDpBRJjdV7kv9bd/N/PhHSZr+?=
- =?us-ascii?Q?pOwVRsH/h5ouL7xtk85teQjYDS70ONQnbujk7GXSKJRaO9G9RDYEHWsdVDCN?=
- =?us-ascii?Q?wFgFK7sXI5dilkko93BwnfaRZFSeme5pcEM6Iv/1zitiFTlvXrPoLM7puRqz?=
- =?us-ascii?Q?u4d5snvD5WUa/Xp9CMLQClRnhEsNLlKhFnPwym3oGIfxggBFKLuyH1yIL7Qr?=
- =?us-ascii?Q?6LsMeRtEEB3sSLXF1dO2oobQNkwNhZ3eK+WeJ5wUaVYhsDDUTwVc/uXuU9YJ?=
- =?us-ascii?Q?I89lI+E=3D?=
-x-forefront-antispam-report:  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS8PR06MB7541.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700018);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:  =?us-ascii?Q?vdbp+/KY9Z6X8Q1Cq/SZ0woPbUoHBoxG9ORV6Z2lBcrWEGHkdJvyQ6b34EC6?=
- =?us-ascii?Q?3FfNYL1ffLFxQ+DlkhSGP0N6ezEAC1Y47JsWNuuX6AmUc79ucjYNOuG1ZM9r?=
- =?us-ascii?Q?rqrxdw40qoTevbACkgw5Nwvt5OjJev9L+og/smOmC6AGllneNSzqCL2DxJT7?=
- =?us-ascii?Q?qY9oifg0cuhZj1DaeS6voqMcCQn+K+HOcsRdMQdjUfPqUPcwwqsSRyA24NtQ?=
- =?us-ascii?Q?3SZo4pPvhwby1BHj1m7ru3R3D9a4gyooWO6P3khJIK/fwR3MHnqckDQQyhtf?=
- =?us-ascii?Q?m8/NP85OucVnUMDJA07Ng6++zAUQiTi+OIN06lJFthcvWUHs0nzMgmrSF6lu?=
- =?us-ascii?Q?y2ognzH4fEdbnOtSY3pLNxE9N2kt8JY/0AhSAazzQT2DiL6sTI4fc4qHdjYU?=
- =?us-ascii?Q?8zt2dah7N8VpZD5Hr3sgOWjf0CvE/5VE4JTGjX4be0YCmNaJEwxu3UbWV0tp?=
- =?us-ascii?Q?ZJu9ni+Y10PYl8QifPHZMV2a9agYUWNCn/cHnx7mO89nWlLA8Zrsrlt3GrT4?=
- =?us-ascii?Q?KDuEsThVwvh46eKvnHGvUZWuvqIiX7KbNOQuetuOHP83lVq0a6ONmyCEPOty?=
- =?us-ascii?Q?hkYNpkkFzNpQQ3QsiZlrFarUvKs1Ra1YO23bKm1AiQx+/SCimL889fAKE5Oc?=
- =?us-ascii?Q?kXY9DhWsSxwC06df88Z5nycAe5c/2Kja+oLkM7aoaDW6AERDQAdQdDKqlVZi?=
- =?us-ascii?Q?0QfLWq6E0ze2yjcibjiW4SZqpWpF1ELLz8Pwd3UZpVlh4ZHDGKk47U6Vuv00?=
- =?us-ascii?Q?ozOCodOuISJ523Mnvg/GEB0qipjGsjrFqInD69QCuKVex0KdmTP8UMV11Tr1?=
- =?us-ascii?Q?uF1cpufo5Fu5P680dHW4/S+bscuSfknAT1tRYQ+6V5Sr7sCTQC97QoQS2mYk?=
- =?us-ascii?Q?1wW9F15ZhVH+svrOKg1/aRgutnIp3XfWllobX/KdJucEa4Ayas2En4BosHAk?=
- =?us-ascii?Q?QiUp69YVahjOaOjkTJhAHWO5ZoCkucNxOhjgcqNCYQJBdQYKgJTcKKkIV7TP?=
- =?us-ascii?Q?DD32mQQbhUI02nPGU/kQxKXxYxjY0izmwkVME04PWlWUfVDv26pNdnApukR8?=
- =?us-ascii?Q?GePw6/hsB8iMGY0ku65nXt1qflaDkl0I4oGFfRqelW5ngVNYaOt49k7hUpZw?=
- =?us-ascii?Q?gdvDlUYTQQ2y/Ef7L2hOG5sFJdnO5SHQ5UZfRgbRaTDrRU3FoVzESflkYbZv?=
- =?us-ascii?Q?dd0fzYKQdFQu26PrgcdmTJ/4UP1lbNzwu9Zuau61YJdljSVQU0UsQ84gp4i1?=
- =?us-ascii?Q?5NW0wyI59Nuou7a68EVk7krn+jBfhotybPW2/wyBMdeklXckMvkMmMIlog1v?=
- =?us-ascii?Q?jKTN2FD/Z4+aiwHC6qUR+R+esuv49vpjfIG3Gv1ufeLrtkK5MgUQChsf76p3?=
- =?us-ascii?Q?2oFPJTEXyffhjO2lBekwKNbjk3F2pbgl1zZhg4faP9azYlx2jWGOyfwiU/2A?=
- =?us-ascii?Q?+zQYGZpiQrqKMpfBXWa2QKhKELlsCUBC5txo+NMKuq4OT70X8JCve9Md5Bjk?=
- =?us-ascii?Q?splphXW2qQMFuysuhFjWLe8Jb6T94dKWlNvXK8I7t3R5qxzrFMGOkIclbR0q?=
- =?us-ascii?Q?4R1BH5zC10c4MtrvhVIOxdyj870JRyejCO6JZyNH?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XsfYn1Wr7z2yGf
+	for <openbmc@lists.ozlabs.org>; Tue, 19 Nov 2024 07:37:00 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1731962221; x=1763498221;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=XSa515/jKWOeNW5dUE8IgASVSjGF+JutZVIApEw0YM4=;
+  b=naYpVJPzXaziQS5DwbrX8gZ1CHyfCDirppTLzEgs3+V1PNQOJiH/iALk
+   mznKQYfaXJKqb/hlQEpvzpgwnXm9lFDrVEOQeEjnHDKAzPJZ4WD9HPZXN
+   +DeiOvUpdT8y+LXy+UBdHHlnhequke7Z/T2WeQ9CABwEdAofTJWAd6V68
+   vTrSvagaIyPb5CGWQuhzyU/WKThGSguns88Lo/rdaZ7mW588dIYGxrWhN
+   c4kpl9fapZdn6r6V7X9yJm0FwcHx2w1gYl3an1XWIaj0vOZ9lODUcC54h
+   k8ofekFV9EbLrqKxRi3YKE9kbiPsPrhKkbN76YwgsDTlO3wpwHQyhU2uD
+   A==;
+X-CSE-ConnectionGUID: KJpMTOHaQ6Of5708HIpWqQ==
+X-CSE-MsgGUID: BvSndLtvRZCQbpvT2kQA6Q==
+X-IronPort-AV: E=McAfee;i="6700,10204,11260"; a="32076596"
+X-IronPort-AV: E=Sophos;i="6.12,164,1728975600"; 
+   d="scan'208";a="32076596"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2024 12:35:51 -0800
+X-CSE-ConnectionGUID: aALCUkvSRVKa5jtvJBkQJw==
+X-CSE-MsgGUID: LoOAZHd4Tsm2SUrszkVAZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.12,164,1728975600"; 
+   d="scan'208";a="89739973"
+Received: from linux.intel.com ([10.54.29.200])
+  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2024 12:35:50 -0800
+Received: from [10.124.90.30] (jmbills-mobl1.amr.corp.intel.com [10.124.90.30])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by linux.intel.com (Postfix) with ESMTPS id 6AE0920B5703
+	for <openbmc@lists.ozlabs.org>; Mon, 18 Nov 2024 12:35:50 -0800 (PST)
+Message-ID: <81994aad-acc8-43f3-b29c-5f3e676760c8@linux.intel.com>
+Date: Mon, 18 Nov 2024 13:35:49 -0700
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS8PR06MB7541.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a2cf2ce-f2dc-43eb-6ca3-08dd076791d9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2024 00:25:56.5827
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iIfu94YBbIgn71Xh3dJppwmzdyXTTPB7K+734nZqthW7iSerrrfW8tpDlZqiQ2bvGHe8gaLkdMC3vfbXbGO8GPAz8A5sYFigmJiU72zcDmw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6568
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pruning obsolete BMC devicetrees
+To: openbmc@lists.ozlabs.org
+References: <b386a9e98412b06b6186ee5dea81ac6a69bc4f8b.camel@codeconstruct.com.au>
+Content-Language: en-US
+From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+In-Reply-To: <b386a9e98412b06b6186ee5dea81ac6a69bc4f8b.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,34 +85,136 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW <BMC-SW@aspeedtech.com>, "andi.shyti@kernel.org" <andi.shyti@kernel.org>, "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "wsa@kernel.org" <wsa@kernel.org>, "brendan.higgins@linux.dev" <brendan.higgins@linux.dev>, "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, Tommy Huang <tommy_huang@aspeedtech.com>, "joel@jms.id.au" <joel@jms.id.au>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-> Subject: Re: [RFC v1] MAINTAINERS: transfer i2c-aspeed maintainership fro=
-m
-> Brendan to Ryan
->=20
-> On Fri, Nov 15, 2024 at 04:43:03AM +0000, Brendan Higgins wrote:
-> > Remove Brendan Higgins <brendanhiggins@google.com> from i2c-aspeed
-> > entry and replace with Ryan Chen <ryan_chen@aspeedtech.com>.
-> >
-> > Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
-> > ---
-> > I am leaving Google and am going through and cleaning up my
-> > @google.com
->=20
-> Thanks for your work on this driver.
->=20
-> > address in the relevant places. I was just going to remove myself from
-> > the ASPEED I2C DRIVER since I haven't been paying attention to it, but
-> > then I saw Ryan is adding a file for the I2C functions on 2600, which
-> > made my think: Should I replace myself with Ryan as the maintainer?
-> >
-> > I see that I am the only person actually listed as the maintainer at
-> > the moment, and I don't want to leave this in an unmaintained state.
-> > What does everyone think? Are we cool with Ryan as the new maintainer?
->=20
-> I am fine, depends on Ryan as far as I am concerned.
-Thanks a lot, Brendan.
-I am ok to be a maintainer.
+
+
+On 11/10/2024 9:49 PM, Andrew Jeffery wrote:
+> Hi all,
+> 
+> We now have quite a collection of BMC-related devicetrees upstream.
+> There's interest in whether we can prune some of them out.
+> 
+> If you've added a board you no-longer require, or know of one added for
+> a project you were working on that will not revisit upstream kernel
+> support, please let us know if you're happy to queue it up for removal
+> after the next LTS release.
+> 
+> For interest's sake, I did some analysis on when the Aspeed devicetrees
+> were last touched by commits that weren't obviously broad fixups:
+> 
+>     2018-06-22 876c5d891c9d7442d2734871317bc6480cd9f80e: aspeed-bmc-opp-palmetto.dts
+>     2019-01-10 869d1375a495e6217fdfda6a59b13812d2f3a569: aspeed-bmc-arm-stardragon4800-rep2.dts
+>     2019-01-17 43d78e726a2b5fef0c0e0f07e2bed0faa4918d1b: aspeed-bmc-inspur-on5263m5.dts
+>     2019-04-04 8bc7d3ed7cf4a1d44e63301c44bcbd41e6f50f65: aspeed-bmc-opp-lanyang.dts
+>     2019-04-25 29b871f344f43ef428aa55ee9ed2a76b5bee0f87: aspeed-bmc-quanta-q71l.dts
+>     2019-05-05 9831ae33750db5341bcfcb3a54758e016dfc0c81: aspeed-bmc-lenovo-hr630.dts
+>     2019-05-21 130413736376e299e77328760209fd3307d02201: aspeed-bmc-microsoft-olympus.dts
+>     2019-06-25 dc4bea0b989cfa3e3dfd8fe79a18abcfaca19767: aspeed-bmc-lenovo-hr855xg2.dts
+>     2019-11-18 e4aab38ed5d1b8316f25786e6ec6adb34449b294: aspeed-bmc-opp-vesnin.dts
+>     2019-12-03 53820e00aaa173db268e0288d0407806539b4c3e: aspeed-bmc-opp-swift.dts
+>     2020-03-06 1f2c9d31e4806177aa97819d4ddc83dacd437ba2: aspeed-bmc-opp-romulus.dts
+>     2020-03-06 fa09a28ca3e966582d6d92ef1536de360c8b194b: aspeed-bmc-opp-zaius.dts
+>     2020-04-29 697538bd65ad22a92598b5efded3666d3c59d1cc: aspeed-bmc-opp-nicole.dts
+>     2020-08-24 11c4124d5343b86e828c7c120cb8d1ece720dd0c: aspeed-bmc-facebook-yamp.dts
+>     2020-08-24 f883a606097d0017079b0e40125aac47ab221616: aspeed-bmc-facebook-cmm.dts
+>     2020-09-22 9e1cc9679776f5b9e42481d392b1550753ebd084: aspeed-bmc-intel-s2600wf.dts
+
+Intel no longer supports this system, so it's okay to prune the DTS.
+
+>     2020-12-21 13177f6ed3ea380011cea8a2f798c918e1ffc436: aspeed-bmc-supermicro-x11spi.dts
+>     2021-01-21 286a596da2937d292828927a2b2ade4e03188f6c: aspeed-bmc-opp-mowgli.dts
+>     2021-04-13 45171b7dd2b81dbd38dc4027686774f8b02f2390: aspeed-bmc-ibm-rainier-1s4u.dts
+>     2021-04-15 f0145db24e65f6cf13347a90ffb86e5ef2ff2ca2: aspeed-bmc-facebook-tiogapass.dts
+>     2021-04-30 189e847a0f0bcf99df5aea85e634abada5fbfbf4: aspeed-bmc-ibm-rainier-4u.dts
+>     2021-05-26 419cc0b8c127193f6f447b905b1240765d2087c7: aspeed-bmc-inspur-nf5280m6.dts
+>     2021-07-18 00e9e776fa197592addc1f3002c63585f884a5dd: aspeed-bmc-facebook-wedge100.dts
+>     2021-07-18 5501ab03b9f1412a44e993e469f9375276de5399: aspeed-bmc-facebook-galaxy100.dts
+>     2021-07-18 c8a66b42d689e2b90878416e4b83a7ed3f58b708: aspeed-bmc-facebook-wedge40.dts
+>     2021-07-19 813e3f1d51fda49c7c9ce8552177968cd63a2af6: aspeed-bmc-facebook-minipack.dts
+>     2021-10-14 4eb7fe3333a021c8d0f35bcb5cd7c4e42800df62: aspeed-bmc-inspur-fp5280g2.dts
+>     2021-10-19 2561b4f6ecc741cb96e67c5fe250915548a83bb2: aspeed-bmc-inventec-transformers.dts
+>     2021-11-19 67ac01d03862b274d4ca3fa76092e96b00f478af: aspeed-bmc-vegman-n110.dts
+>     2021-11-19 67ac01d03862b274d4ca3fa76092e96b00f478af: aspeed-bmc-vegman-sx20.dts
+>     2021-11-30 4fcbe1f5b6ba71e0c464a303e3769bf1ce1fe54c: aspeed-bmc-tyan-s7106.dts
+>     2021-12-10 b26965e99788ea163fc217bdca1c2b17a5d70c90: aspeed-bmc-bytedance-g220a.dts
+>     2022-03-25 7b46aa7c008d2becd5df46c174d8cb4239e24659: aspeed-bmc-nuvia-dc-scm.dts
+>     2022-05-26 94d0a03297615cad2d40b0f02ceab902a7339062: aspeed-bmc-portwell-neptune.dts
+>     2022-06-23 390ffde2b97c8d50f87bf450208b3a4ed70cc2db: aspeed-bmc-arm-centriq2400-rep.dts
+>     2022-06-24 7f058112873e86ca760f2d2b0e1ccc2ab111f418: aspeed-bmc-qcom-dc-scm-v1.dts
+>     2022-08-30 50c7e281f44726249b5ab7f148c02bbba751fea1: aspeed-bmc-facebook-elbert.dts
+>     2022-08-30 50c7e281f44726249b5ab7f148c02bbba751fea1: aspeed-bmc-facebook-fuji.dts
+>     2022-09-22 3293fca4a689dae1090b997145a46c816ff03a4a: aspeed-bmc-amd-daytonax.dts
+>     2022-10-21 fe87f88eaf696b064231143536a33a618d5e0cd2: aspeed-bmc-opp-mihawk.dts
+>     2023-01-11 03d24e12749281f51545c9011fc953ac844df413: aspeed-bmc-amd-ethanolx.dts
+>     2023-01-18 8803d9438ef65c96b03ae95472e19b3ac072c930: aspeed-bmc-tyan-s8036.dts
+>     2023-01-19 28cfb03afcb20a841e96e821ba20870a7c437034: aspeed-bmc-ufispace-ncplite.dts
+>     2023-07-03 3f2879e4040cd8145d4b2f66ee8f9738e438e055: aspeed-bmc-inventec-starscream.dts
+>     2023-09-14 fe93af86526b93de6f11ca3c201525dbd961fb8f: aspeed-bmc-facebook-minerva-cmc.dts
+>     2024-01-13 8412c47d68436b9f9a260039a4a773daa6824925: aspeed-bmc-facebook-bletchley.dts
+>     2024-01-13 8412c47d68436b9f9a260039a4a773daa6824925: aspeed-bmc-facebook-wedge400.dts
+>     2024-01-31 247997184b0eb70f7af29fbe3e32f7a4eff2651e: aspeed-bmc-asrock-e3c246d4i.dts
+>     2024-02-24 dc260f505bd57f57b23bb343285e29533a6264f3: aspeed-bmc-asrock-romed8hm3.dts
+>     2024-02-26 4ed43e8a1b9080a3ba393606b0523cf8bb311083: aspeed-bmc-delta-ahe50dc.dts
+>     2024-04-03 c61838aa458b5f96d5824733bef164da2d7ee860: aspeed-bmc-asrock-x570d4u.dts
+>     2024-04-05 f956245e4b74312cb238ce6a21fe02f60ef592f4: aspeed-bmc-facebook-yosemitev2.dts
+>     2024-04-10 1bd612936b558f6868ea1c5734e72fcea3bc49f2: aspeed-bmc-facebook-cloudripper.dts
+>     2024-04-30 d8bdd1e8acd54631a59c56f637b18816c5381f61: aspeed-bmc-asus-x4tf.dts
+>     2024-05-01 c44211af1aa9c6b93178a3993e18a7ebffab7488: aspeed-bmc-asrock-e3c256d4i.dts
+>     2024-05-20 76c5533925434b0383f95a56a4da2e81e3e8a3d3: aspeed-bmc-asrock-spc621d8hm3.dts
+>     2024-05-22 787d4cbff0dc2fb5c4a344fb5f5f14ca5d7d0a9c: aspeed-bmc-ibm-blueridge-4u.dts
+>     2024-08-02 1c8b6faf882de15fd62094e08b2ca5bf7870b767: aspeed-bmc-ibm-bonnell.dts
+>     2024-08-02 1c8b6faf882de15fd62094e08b2ca5bf7870b767: aspeed-bmc-opp-tacoma.dts
+>     2024-08-02 1c8b6faf882de15fd62094e08b2ca5bf7870b767: aspeed-bmc-opp-witherspoon.dts
+>     2024-08-06 326bed426c43645cdce46197c420f929969a18c4: aspeed-bmc-ampere-mtjade.dts
+>     2024-08-16 ef1e32cb6314898da9188e2371a398c217db238a: aspeed-bmc-facebook-greatlakes.dts
+>     2024-09-05 a16edad0afa57424b85ae512a574b21ad02ee9a5: aspeed-bmc-ampere-mtmitchell.dts
+>     2024-09-09 8da6f02e0cbd2a54a1c322f12a104ae6d0aaac26: aspeed-bmc-facebook-harma.dts
+>     2024-09-10 e87ee9893c576b2d3916b017bb672f2f3c0e231a: aspeed-bmc-quanta-s6q.dts
+>     2024-09-10 e87ee9893c576b2d3916b017bb672f2f3c0e231a: aspeed-bmc-vegman-rx20.dts
+>     2024-09-24 ef73fe22bdd97bd829246299f69cd701f29ffb07: aspeed-bmc-facebook-minerva.dts
+>     2024-09-26 e9414665bb9f80c6072b8ecd3f43f395a0c5b916: aspeed-bmc-facebook-catalina.dts
+>     2024-10-01 5270aac729e2f2ad5ed0529bcb2618c92735e9f1: aspeed-bmc-ibm-system1.dts
+>     2024-10-03 faabe02697d7348f5c7cb7be4d93f9c9041021f7: aspeed-bmc-facebook-yosemite4.dts
+>     2024-10-21 8e2e003ccafe87795a9940ffed456600f71a0fd7: aspeed-bmc-ampere-mtjefferson.dts
+>     2024-11-04 275017f75a4fefd004962024c3b4a1587a95bdfe: aspeed-bmc-ibm-sbp1.dts
+>     2024-11-06 c63cd57bb09abfb15b6907e85d2df7be152d9f25: aspeed-bmc-ibm-everest.dts
+>     2024-11-07 2eff056a229e21d9e287a74f1305f947ff6b141b: aspeed-bmc-ibm-fuji.dts
+>     2024-11-08 ed280dbf0e488347c33bef359f8b101f0835f89b: aspeed-bmc-ibm-blueridge.dts
+>     2024-11-08 ed280dbf0e488347c33bef359f8b101f0835f89b: aspeed-bmc-ibm-rainier.dts
+>     
+> Out of further curiosity, I also filtered the list by machines that
+> aren't mentioned in upstream OpenBMC (not that that's where they must
+> be used, but it might be an indication of stalled efforts to upstream
+> support):
+> 
+>     2019-01-10 869d1375a495e6217fdfda6a59b13812d2f3a569: aspeed-bmc-arm-stardragon4800-rep2.dts
+>     2019-01-17 43d78e726a2b5fef0c0e0f07e2bed0faa4918d1b: aspeed-bmc-inspur-on5263m5.dts
+>     2019-04-04 8bc7d3ed7cf4a1d44e63301c44bcbd41e6f50f65: aspeed-bmc-opp-lanyang.dts
+>     2019-05-05 9831ae33750db5341bcfcb3a54758e016dfc0c81: aspeed-bmc-lenovo-hr630.dts
+>     2019-06-25 dc4bea0b989cfa3e3dfd8fe79a18abcfaca19767: aspeed-bmc-lenovo-hr855xg2.dts
+>     2020-08-24 11c4124d5343b86e828c7c120cb8d1ece720dd0c: aspeed-bmc-facebook-yamp.dts
+>     2021-01-21 286a596da2937d292828927a2b2ade4e03188f6c: aspeed-bmc-opp-mowgli.dts
+>     2021-05-26 419cc0b8c127193f6f447b905b1240765d2087c7: aspeed-bmc-inspur-nf5280m6.dts
+>     2021-07-18 00e9e776fa197592addc1f3002c63585f884a5dd: aspeed-bmc-facebook-wedge100.dts
+>     2021-07-18 5501ab03b9f1412a44e993e469f9375276de5399: aspeed-bmc-facebook-galaxy100.dts
+>     2021-07-18 c8a66b42d689e2b90878416e4b83a7ed3f58b708: aspeed-bmc-facebook-wedge40.dts
+>     2021-07-19 813e3f1d51fda49c7c9ce8552177968cd63a2af6: aspeed-bmc-facebook-minipack.dts
+>     2021-10-14 4eb7fe3333a021c8d0f35bcb5cd7c4e42800df62: aspeed-bmc-inspur-fp5280g2.dts
+>     2022-05-26 94d0a03297615cad2d40b0f02ceab902a7339062: aspeed-bmc-portwell-neptune.dts
+>     2022-06-23 390ffde2b97c8d50f87bf450208b3a4ed70cc2db: aspeed-bmc-arm-centriq2400-rep.dts
+>     2022-08-30 50c7e281f44726249b5ab7f148c02bbba751fea1: aspeed-bmc-facebook-elbert.dts
+>     2022-10-21 fe87f88eaf696b064231143536a33a618d5e0cd2: aspeed-bmc-opp-mihawk.dts
+>     2024-01-13 8412c47d68436b9f9a260039a4a773daa6824925: aspeed-bmc-facebook-wedge400.dts
+>     2024-01-13 8412c47d68436b9f9a260039a4a773daa6824925: aspeed-bmc-facebook-wedge400.dts
+>     2024-04-10 1bd612936b558f6868ea1c5734e72fcea3bc49f2: aspeed-bmc-facebook-cloudripper.dts
+>     2024-04-30 d8bdd1e8acd54631a59c56f637b18816c5381f61: aspeed-bmc-asus-x4tf.dts
+> 
+> Some of the earlier devicetrees might be candidates for consideration.
+> 
+> Andrew
+> 
+> (data produced and post-processed with awful invocations of git log,
+> awk and one-liner shell scripts. Happy to pass them on by request)
+
