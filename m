@@ -4,59 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8FBDD6C2B4
-	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 22:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B0FD6C2B6
+	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 22:49:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XtJws6G8fz3cbC
-	for <openbmc@archiver.kernel.org>; Wed, 20 Nov 2024 09:25:49 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=147.75.193.91
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732055145;
-	cv=none; b=VAA+oF9AZatvUDlc++irL1R/uSEby6bI0tpj2tD+uxOlA11Zy4+oWJ4/xIoSMcVGl6aGD5SXB7WW2Ha9xlZNtVpZqulrG8s0/OTZsOihN0aIbw1xWKKju16gu9jUnGWYttrEFYU+K9+InBRnWZMV6MAWVAWG2nBajflWwfWLwj1rAOs4ou/1LxrKPHWNthB3udLQCdsAL2hDLCescYFnFbbEy2Ij617PoV5bgtJdBw5zQhhvq/yVNgV2c7Bac3ttmEgNGOJCJP979iCn+u8H2JkygYuvjVsc7YaHEXNMDC2QIZv7nJ7kqBHKown5EopGdg1Ppdqgg7N3LRDg7JjULQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XtKSH1grTz3cb0
+	for <openbmc@archiver.kernel.org>; Wed, 20 Nov 2024 09:49:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::62e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732010904;
+	cv=none; b=jcPwAdHGJto13Ir73f1Af+1/Q0BhcQuKYimgq5DL+RMyDJOxRo4uDVAN2LMBRQOmQoL1VNSB9YdVz93vIJR2qzFCLiwUMGJtVc+EUFany5PZhyxPO7bXKIqZ6xRLhwhRfbFdt4pbikz6tyaJgZW/8/H2sV8C3sJQRQ1oVCY3L3a7obfZTZWWgq6BMeL10CyvOxt4Lo0K+rgublbA7560c4+CtG2c+hO4XVaTtD2wUrIDeIZiJGsZfkk5GYY0A/sJGREHOdlpkdDsS1FcBcPLcRJeytMMByChvALOFRxtkRMXBS5FI6wkaUzV2ag9mABWrjCYzt4YF2If8fOy7dWsaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1732055145; c=relaxed/relaxed;
-	bh=8sJWl9WCXTMDen5KlpkZ+arIbizvkuiRNGG9/Eilnp8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0hawnJIzx5DoNghBwR2rq1TAfuup5Ys0JfV5TRDOR8fAydKeElTbDnMlPTVytf0lif0hisseXMSEBp/1mxTlu+D600mhTb1IUvUUMfkgqchQwPok6pRe81hyGpteSxRCqdcYtiMo3Ulf74gA4/sMUbtOS7D8/0nsZ7dKLBb3vNf8lJnC1w7dtXPT2/T+NL0AWzKcgk0sTErAvR/jIJxG63+pquusIFEgnYsScBnxOGWnkoFMdtV5TYbCqio9ZTF0YEbQTNNHL+tCijVsGGnoM0afRR38SiE4DYO+lTR1P1fOC6Wy+XokbBuaFOl4kI4tglapr8qsO+HRBTqCV7j8Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=ua+b4vnB; dkim-atps=neutral; spf=pass (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1732010904; c=relaxed/relaxed;
+	bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VIkoGA2uOAkjGCkzSt5PKkml9Q0zhlyaC/tFPFlXsDvgXaWD+IQArfj2OGTZQ3LiJnbUNDT7IhkznKxNuOcAYTr/1LL574QtQOP4i0x7vyrbg008oKktniux9pmEzvmrukXmSgXqgtLaFTBXSHBdUwwKUHg2tjIPBvUdQKb22D7O3aEzA8D2vlY4n3ESw+AlOKeXN1k+rK/3iEOHcd9HeK+M/9hkTB0vMIgB/oUR0e2raU8VXpYXlWrSMpeAVC2I6mDZwT1a+GtLcMMcHdnRCPiE0RRsWPUZiZNfs45zzFdLVlOAC/p5Ns7TA2jQGCvvqvPiESvMj91v4Lz8TtjAxg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=C29N1NRZ; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=ua+b4vnB;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=C29N1NRZ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XtJwm5LF2z2xr4
-	for <openbmc@lists.ozlabs.org>; Wed, 20 Nov 2024 09:25:44 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 8233FA42EF5;
-	Tue, 19 Nov 2024 22:23:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2C3FC4CECF;
-	Tue, 19 Nov 2024 22:25:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732055141;
-	bh=GwmZWQf0EKA5yMqqR2Doj7yJmnSw6NoJj8hw2zIWZkM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ua+b4vnBVOQ6rjIkKahdcOMBBQnrvNv44eh0rm8tQApLDs1AfRPfOz4jIjLA+0DjA
-	 wa/COT5zm9CdTQK3lOYW2Ccpqn0ilofgU2qTRQhbwoPEQyxn0mp1CGhzbbECaxCW3+
-	 ydE4+x/DScZ+uSSZqEM67+z1haNo/t9fD2s2mSILauQ4sf5maS7bYroiWCn+gSWMVk
-	 Cvv5SMXE2BUYKJTOC67ruvKHUF8/5oMl0Nkr1Pj2mOTINMoAc1GJAlPTtiGpMu/fUt
-	 ei4kl1ePs0OJxO9giKMf6ocPNk+/yx8pRBYj8ZHbnXbmesWofK9/HBkcte1ySji2iP
-	 HoLhjddDE4N1g==
-Date: Tue, 19 Nov 2024 23:25:38 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Tyrone Ting <warp5tw@gmail.com>
-Subject: Re: [PATCH v7 3/4] i2c: npcm: use i2c frequency table
-Message-ID: <bad4bd66cuiva4foudw4iv3aqr4475coo3fll357bh4k5xxqpv@n4iqvh5odsjc>
-References: <20241021062732.5592-1-kfting@nuvoton.com>
- <20241021062732.5592-4-kfting@nuvoton.com>
- <fh43vyo4oviet35jmihew5yew5ez3nyaqgsyntqtd7x7s5mdrv@ezpal3a4banw>
- <CACD3sJbzgnq1bKJXS59TA8MJE3o0N_bz_a9PTJdy5C0FdD8wRw@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Xt0Z00lb1z2yMb
+	for <openbmc@lists.ozlabs.org>; Tue, 19 Nov 2024 21:08:23 +1100 (AEDT)
+Received: by mail-pl1-x62e.google.com with SMTP id d9443c01a7336-20c9978a221so6659125ad.1
+        for <openbmc@lists.ozlabs.org>; Tue, 19 Nov 2024 02:08:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1732010901; x=1732615701; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
+        b=C29N1NRZehc8F9J2EMfne9W4UD2tylMxX/B9iT/Uw3IOOaCpDFKNJJaWwLKuUlbnPh
+         K/w+a/HctLl2mvvixD9r5/SJdH4BG1okr5KMFRfkg9MYVTCsY+EvJXRDfc3DxMP0RZNT
+         QtPVRendS3GpX0s3dMVTMgnexC5p1M+W8cDflCsx/pCHBrD971nJuDG7F5fySFhEF5av
+         ONU3OTORZVfMi20WEcZXsUR2/XaOdWINh9M3Azg2GzDaU/z74ZanzgPXGMmX/0oQyhiO
+         c5YXKScyRTObs2I/NX7hAKc8kq2ihPxoePBkiphTPYJqRBOxKA96xo4qvgnH6NklllXX
+         8iqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732010901; x=1732615701;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cWTYfL2NcNvtJ7hT2DfleWj2jSJLFnsNcjBnW0uewCg=;
+        b=esy4998vu4/FDDztPKEwhRDUJQhlQLHLyYOUdsF3fpnGZGboaPeN6xcZd6wn2yGvBn
+         +H8ydFw+jqFIa+Sx/SgXUNdHMYWG6mNru8HmK8w3o+BT0ebvIeqKzIK78YEWsMpRCkru
+         8Kp92sByDo7uKmqSYonW3VzfZrv62FoNT3QycjJHQp7JxIz0khCrwlQ3wNMwWfFsjVoZ
+         WBGd+BBdaMGnM5cK06af+2UWW9J5A3tfDhe+sGU7NSIInW3tOCnjtexpmAd+YRlOa569
+         MAunqZwDUO76CcwMxxEOHdaU8G+lV42WcOY42MeSin5UfpzlF6cStO7NQxQsENOOQtNc
+         K9sA==
+X-Forwarded-Encrypted: i=1; AJvYcCUpF3USKumbE02IRJB3GT4k3JrviIADDAeZO5HpAozK1BT3ofVuh1sX801Hi0y3xvQpln8kyuaq@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyBjuXiwYm7nJAx94buebg+MrKgd+lX595s4+Y8YM/HlUXpzQaZ
+	q97J9rwlZu1kDM7y2smmcZEMV2q8uFrpDkwNeq94glDkMDqEODzV
+X-Google-Smtp-Source: AGHT+IEAjyQGdRHNm7PwkX2khYpceIhQ92EAPL/Ia7j4slTtR5ja4Ryry5i8z7VVQ8n6txgqIQJr+w==
+X-Received: by 2002:a17:903:1d1:b0:20c:9983:27ae with SMTP id d9443c01a7336-211d0ecdac7mr237798475ad.48.1732010900702;
+        Tue, 19 Nov 2024 02:08:20 -0800 (PST)
+Received: from [192.168.0.102] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2120ac39585sm41966965ad.261.2024.11.19.02.08.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 19 Nov 2024 02:08:20 -0800 (PST)
+Message-ID: <191ebf4b-231d-4ebc-9ff2-4916ef718970@gmail.com>
+Date: Tue, 19 Nov 2024 18:08:14 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CACD3sJbzgnq1bKJXS59TA8MJE3o0N_bz_a9PTJdy5C0FdD8wRw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for
+ Nuvoton MA35 family
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20241118082707.8504-1-a0987203069@gmail.com>
+ <20241118082707.8504-4-a0987203069@gmail.com>
+ <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 20 Nov 2024 09:49:30 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,106 +92,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: KWLIU@nuvoton.com, tomer.maimon@nuvoton.com, benjaminfair@google.com, wsa+renesas@sang-engineering.com, avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org, kfting@nuvoton.com, JJLIU0@nuvoton.com, linux-kernel@vger.kernel.org, tali.perry1@gmail.com, wsa@kernel.org, tali.perry@nuvoton.com, linux-i2c@vger.kernel.org, Avi.Fishman@nuvoton.com, andriy.shevchenko@linux.intel.com, rand.sec96@gmail.com, tmaimon77@gmail.com
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org, richardcochran@gmail.com, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Tyrone,
 
-...
+Andrew Lunn 於 11/19/2024 9:48 AM 寫道:
+>> +	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
+>> +		tx_delay = 0; /* Default value is 0 */
+>> +	} else {
+>> +		if (arg <= 2000) {
+>> +			tx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
+>> +			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay);
+> The device tree binding says:
+>
+> +  tx-internal-delay-ps:
+> +    enum: [0, 2000]
+>
+>
+> So only two values are allowed. Yet the C code is
+>
+> arg / PATH_DELAY_DEC
+>
+> which seems to allow 16 values?
+>
+> Please make this consistent.
+>
+>
+>      Andrew
 
-> > > -     /* 100KHz and below: */
-> > > -     if (bus_freq_hz <= I2C_MAX_STANDARD_MODE_FREQ) {
-> > > -             sclfrq = src_clk_khz / (bus_freq_khz * 4);
-> > > -
-> > > -             if (sclfrq < SCLFRQ_MIN || sclfrq > SCLFRQ_MAX)
-> > > -                     return -EDOM;
-> > > -
-> > > -             if (src_clk_khz >= 40000)
-> > > -                     hldt = 17;
-> > > -             else if (src_clk_khz >= 12500)
-> > > -                     hldt = 15;
-> > > -             else
-> > > -                     hldt = 7;
-> > > -     }
-> > > -
-> > > -     /* 400KHz: */
-> > > -     else if (bus_freq_hz <= I2C_MAX_FAST_MODE_FREQ) {
-> > > -             sclfrq = 0;
-> > > +     switch (bus_freq_hz) {
-> > > +     case I2C_MAX_STANDARD_MODE_FREQ:
-> > > +             smb_timing = smb_timing_100khz;
-> > > +             table_size = ARRAY_SIZE(smb_timing_100khz);
-> > > +             break;
-> > > +     case I2C_MAX_FAST_MODE_FREQ:
-> > > +             smb_timing = smb_timing_400khz;
-> > > +             table_size = ARRAY_SIZE(smb_timing_400khz);
-> > >               fast_mode = I2CCTL3_400K_MODE;
-> > > -
-> > > -             if (src_clk_khz < 7500)
-> > > -                     /* 400KHZ cannot be supported for core clock < 7.5MHz */
-> > > -                     return -EDOM;
-> > > -
-> > > -             else if (src_clk_khz >= 50000) {
-> > > -                     k1 = 80;
-> > > -                     k2 = 48;
-> > > -                     hldt = 12;
-> > > -                     dbnct = 7;
-> > > -             }
-> > > -
-> > > -             /* Master or Slave with frequency > 25MHz */
-> > > -             else if (src_clk_khz > 25000) {
-> > > -                     hldt = clk_coef(src_clk_khz, 300) + 7;
-> > > -                     k1 = clk_coef(src_clk_khz, 1600);
-> > > -                     k2 = clk_coef(src_clk_khz, 900);
-> > > -             }
-> > > -     }
-> > > -
-> > > -     /* 1MHz: */
-> > > -     else if (bus_freq_hz <= I2C_MAX_FAST_MODE_PLUS_FREQ) {
-> > > -             sclfrq = 0;
-> > > +             break;
-> > > +     case I2C_MAX_FAST_MODE_PLUS_FREQ:
-> > > +             smb_timing = smb_timing_1000khz;
-> > > +             table_size = ARRAY_SIZE(smb_timing_1000khz);
-> > >               fast_mode = I2CCTL3_400K_MODE;
-> > > -
-> > > -             /* 1MHZ cannot be supported for core clock < 24 MHz */
-> > > -             if (src_clk_khz < 24000)
-> > > -                     return -EDOM;
-> > > -
-> > > -             k1 = clk_coef(src_clk_khz, 620);
-> > > -             k2 = clk_coef(src_clk_khz, 380);
-> > > -
-> > > -             /* Core clk > 40 MHz */
-> > > -             if (src_clk_khz > 40000) {
-> > > -                     /*
-> > > -                      * Set HLDT:
-> > > -                      * SDA hold time:  (HLDT-7) * T(CLK) >= 120
-> > > -                      * HLDT = 120/T(CLK) + 7 = 120 * FREQ(CLK) + 7
-> > > -                      */
-> > > -                     hldt = clk_coef(src_clk_khz, 120) + 7;
-> > > -             } else {
-> > > -                     hldt = 7;
-> > > -                     dbnct = 2;
-> > > -             }
-> > > +             break;
-> > > +     default:
-> > > +             return -EINVAL;
-> >
-> > There is here a slight change of behaiour which is not mentioned
-> > in the commit log. Before the user could set a bus_freq_hz which
-> > had to be <= I2C_MAX_..._MODE_FREQ, while now it has to be
-> > precisely that.
-> >
-> > Do we want to check what the user has set in the DTS?
-> 
-> The driver checks the bus frequency the user sets in the DTS.
+Oops. That was my misuse; I will change it to minimum and maximum.
 
-yes, but before it was checking the value within a range, while
-now it's checking the exact value.
+Thanks!
 
-The difference is that now if you don't set the exact value you
-get EINVAL, not before.
+BR,
 
-Andi
+Joey
+
+>
+> ---
+> pw-bot: cr
