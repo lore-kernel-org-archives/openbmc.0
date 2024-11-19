@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A1AD60D09
-	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 01:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9436BD4415E
+	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 13:36:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XsnTV6NYjz3clL
-	for <openbmc@archiver.kernel.org>; Tue, 19 Nov 2024 12:48:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=156.67.10.101
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1731980922;
-	cv=none; b=hIfiGOGPrjJC546YZaowZrHEBDo6GCqPHhqwhadlFsdCKSdFtsTzl/KPyFkaJs1v6dBYj2S29C9ROam49ZakstqeIj3XVKhoFPvikeaL2xb3NfrLqgtPbkhZtPtITDHIgTyZs10DP1JBz2zt150bt4JRzLw5Su80iZ8bL73f/LefTTAwdhBmKJmMUtkwE09FIzEC6kU4UIlghiwdHa5nJPAn05ODY0wrCZr+AHT7zi+efsUawy9b+yMPaK8SSm33tEBdCpVStjJnqBNw1IOK62KLU/WiB/TmXddVbwvLUVozSZBcEHfMmXikdBfCc/Q5YEyIKteXOq3eMSF53pPBxg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Xt59b62kLz3cfv
+	for <openbmc@archiver.kernel.org>; Wed, 20 Nov 2024 00:36:03 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2604:1380:45d1:ec00::3"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732023357;
+	cv=none; b=cR/SY5+sejEqksjmlQtT7tu0hT6wuyl5A2WXXqj/bDBrXtqnEkeiy0Y+kA7YJuq87Tyob8YR2C9xcGO6ZBmPp8i3rlWZb2wTe0XEfi86wD+fsoHIEQf1UixtJ0qTUszXSPuTFqOaaavZZMK4tDByrkfjqOcZW99OZpb0VZuRvGwj7trJcx2cFYqAgTcdPDeoDkskCN8PDhr7lowGod56pFifrc+a+l3X3A7a6DvNOTSTfGtLzF7xqWzbX4tz09/fCGvpNC2XQmwr6VBszBhwghkUSXRuOu8JM6YRP3yPJVgbA8RR1TK+zRu3Tf8+BNL0hfQ5adhV1Is7mXdojNg6Kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1731980922; c=relaxed/relaxed;
-	bh=8U8UwDGXeKDkqdmDQD2AJ6C8adRsvYsEsUh2q0q8beE=;
+	t=1732023357; c=relaxed/relaxed;
+	bh=Wjea4FlwXiv3hwGbFMl+5M469Qx4kTcDewT9eAG6hxc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iJF2tAH33xKw/tf3SRf2ZxXQv1YizcG0TDEf35K+cT/tl6U6Y/Kn0ti7GsX1ZXWB5Dt1dAUqsH44XO6ZwYLfRmgwqfmoEyCQvdkkzj//X5MQdHXCYGp240xCbaBYDYJ9nyj7NAziJcd/J89G7gkU4RqGgu/pkOGA+GG//886t6hdVMqPjHZHNbh5S6zBhI1oBNGmllXkRBmNlosbikbhEz6jw03/d+anqVnnzvp5E4uFTuSCzEKrywIb4Tlg4Ac5ybqElUomb6QKbZReMpeeRPo4di460JVNii3sRwJK/mslilTFnwFzgzooLU0ZlX8eP7xnZrFpfxckMt2xSoJzrA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uzjToPKK; dkim-atps=neutral; spf=pass (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org) smtp.mailfrom=lunn.ch
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y+spxDQ/ucO3Kma6HxnqYyrrbTgw2PHL3V0shvydTHILa4b9y/KyY4WfzMB5PZLak2V4G4YmygpSPdg4igws0JLAM7AVIOR7iQlx6bU6+j8v+3Wia8HksLgZGxs6ORrXl6ntpPz8zlKlD35hnWqmu1WoqhZkVip7+aPvWTdPVhH8RkwD/WeK7UxVE1819CgpsC89edwTMeGghMfnVoQ6u2n4wGUpfczl1GD1VFenx62Xi8QYlNDLx2ilmAy/N+n8Ix3UOZ1GIQJB5Tl8TquY6i5U25PMeNzeom81Z/43kQBhjkCgX/1Kks+IDRnBJPvsqZjofQqH8q/e6BvQnMQg5Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AebHnbAQ; dkim-atps=neutral; spf=pass (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=uzjToPKK;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=AebHnbAQ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=andi.shyti@kernel.org; receiver=lists.ozlabs.org)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XsnTN42xxz2y1W
-	for <openbmc@lists.ozlabs.org>; Tue, 19 Nov 2024 12:48:40 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8U8UwDGXeKDkqdmDQD2AJ6C8adRsvYsEsUh2q0q8beE=; b=uzjToPKKzfDbUOnMQ8BEFtGznv
-	HP/d4wX3y4jUF9yLCoXy/fI+gFmjX6TMNsWTRweaxbcGNOgkr+7lVo8hrl226YdeZTsmqdthvjGYv
-	sm3Qoh3WHHy4iU9zQbBTSZpJBdWC/qZuf8nkAJOg4iJhhhqH3twZ42e9mmHR3EOgLjyM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1tDDLn-00DjVx-O7; Tue, 19 Nov 2024 02:48:19 +0100
-Date: Tue, 19 Nov 2024 02:48:19 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Joey Lu <a0987203069@gmail.com>
-Subject: Re: [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for
- Nuvoton MA35 family
-Message-ID: <4d44bc93-6a81-4dc8-9f22-a103882f25e1@lunn.ch>
-References: <20241118082707.8504-1-a0987203069@gmail.com>
- <20241118082707.8504-4-a0987203069@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Xt59S6344z2xsM;
+	Wed, 20 Nov 2024 00:35:56 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 4E24CA42A33;
+	Tue, 19 Nov 2024 13:33:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392E8C4CECF;
+	Tue, 19 Nov 2024 13:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1732023351;
+	bh=oLpoc2WvoUsUhrS1aPvboIlqwN760aHoq0UZupZxYjQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AebHnbAQkG2N53GlUQn1JKbPsQYgSuLJ3rIaWjBB1+Cz/TCXT/sTExaoTfk1RdkaX
+	 qptk0tFf5g5zglEsN0RoWn1letpAIHLW/3okldSWHABXmTBHP4uUm/XkvCfqliWsbM
+	 cVFTfMGunVzFG9oVsnGg7/hkneH5HGDpv1hq0GnfFZLJI8yzx/D75zVTUivGmlX4/H
+	 gM3kIpPHrPmhAVlpdxt6jPUvkVHzBSi1uCac2FIAyEG9N/HqkD9of+N7nf1Kaec2o+
+	 TZskTdPA3hLcTCm2WHYwZ1cNLKRDgNEI0qVNVgW2Yd9BUV32McmtVAZlv262Nx8X4R
+	 8GZ/c0vgqwXyA==
+Date: Tue, 19 Nov 2024 14:35:48 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: Re: [RFC v1] MAINTAINERS: transfer i2c-aspeed maintainership from
+ Brendan to Ryan
+Message-ID: <x2rt6k5hw2km2vm4wjnqihop3xcy3uirhxs5wvhnesxc2athgb@c2ra7a62mfve>
+References: <20241115044303.50877-1-brendanhiggins@google.com>
+ <ZzcPJ9sweqxLZOGf@ninjato>
+ <OS8PR06MB75413EC87F76AD0B1BBA0FEFF2272@OS8PR06MB7541.apcprd06.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20241118082707.8504-4-a0987203069@gmail.com>
+In-Reply-To: <OS8PR06MB75413EC87F76AD0B1BBA0FEFF2272@OS8PR06MB7541.apcprd06.prod.outlook.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,33 +68,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org, richardcochran@gmail.com, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
+Cc: BMC-SW <BMC-SW@aspeedtech.com>, "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, "brendan.higgins@linux.dev" <brendan.higgins@linux.dev>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Brendan Higgins <brendanhiggins@google.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "wsa@kernel.org" <wsa@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, "joel@jms.id.au" <joel@jms.id.au>, Tommy Huang <tommy_huang@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-> +	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
-> +		tx_delay = 0; /* Default value is 0 */
-> +	} else {
-> +		if (arg <= 2000) {
-> +			tx_delay = (arg == 2000) ? 0xF : (arg / PATH_DELAY_DEC);
-> +			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay);
+Hi Ryan,
 
-The device tree binding says:
+On Mon, Nov 18, 2024 at 12:25:56AM +0000, Ryan Chen wrote:
+> > Subject: Re: [RFC v1] MAINTAINERS: transfer i2c-aspeed maintainership from
+> > Brendan to Ryan
+> > 
+> > On Fri, Nov 15, 2024 at 04:43:03AM +0000, Brendan Higgins wrote:
+> > > Remove Brendan Higgins <brendanhiggins@google.com> from i2c-aspeed
+> > > entry and replace with Ryan Chen <ryan_chen@aspeedtech.com>.
+> > >
+> > > Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> > > ---
+> > > I am leaving Google and am going through and cleaning up my
+> > > @google.com
+> > 
+> > Thanks for your work on this driver.
+> > 
+> > > address in the relevant places. I was just going to remove myself from
+> > > the ASPEED I2C DRIVER since I haven't been paying attention to it, but
+> > > then I saw Ryan is adding a file for the I2C functions on 2600, which
+> > > made my think: Should I replace myself with Ryan as the maintainer?
+> > >
+> > > I see that I am the only person actually listed as the maintainer at
+> > > the moment, and I don't want to leave this in an unmaintained state.
+> > > What does everyone think? Are we cool with Ryan as the new maintainer?
+> > 
+> > I am fine, depends on Ryan as far as I am concerned.
+> Thanks a lot, Brendan.
+> I am ok to be a maintainer.
 
-+  tx-internal-delay-ps:
-+    enum: [0, 2000]
+can I take this as an a-b by you?
 
-
-So only two values are allowed. Yet the C code is
-
-arg / PATH_DELAY_DEC
-
-which seems to allow 16 values?
-
-Please make this consistent.
-
-
-    Andrew
-
----
-pw-bot: cr
+Andi
