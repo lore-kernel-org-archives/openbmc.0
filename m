@@ -4,106 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C24AAD59D8A
-	for <openbmc@archiver.kernel.org>; Tue, 26 Nov 2024 10:11:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F134AD66B86
+	for <openbmc@archiver.kernel.org>; Tue, 26 Nov 2024 22:58:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XyJHn2mn7z3cV1
-	for <openbmc@archiver.kernel.org>; Tue, 26 Nov 2024 21:11:01 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=139.178.84.217
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732615855;
-	cv=none; b=UrYv49617Nf6/Rth1NYLPdBmvH/ccRZLWcdgPT51kfK/6ixeNL/msMjlw2Ig8CBIp+IUbcZkji6Z+xOoQWgtJ3/reZHxxZDOC8xuzKvbz1ShNpumprEU9PBZmpDtEF1ZRZIHOslGQtdLRj6jMzCeSr/8pBGeV9oqNf36VMn8N/6z0fP0XyG455yOuxIhX5dWKOacLuHZWu/1xASXq4x1RehqsE3kmiyLkgLWnkjwjqcBQtM7Od0RfRfaVduFGEM9R05AayTxpnwDVCpTRdiUC81fb0h4/JfLLfPcW6X/H4pf6bW+PjaRrI3PrpLaKegN9gFzUwrOfKlKZtSP/ZWyQg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XydK86PPgz3cXK
+	for <openbmc@archiver.kernel.org>; Wed, 27 Nov 2024 09:58:20 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::22f"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732613986;
+	cv=none; b=Dw70paWc42kTxTjZA0bENLVSL1P4X/Rna1qToImVEU9RW4KAX2gaUkkN8oxM8URhnCgBn8lRvVM8wmQsKTQ2DgiUhPy74ZDvYBSMjWVQVpH6MMlsyZhFjZ7MErbNuqEhwVYUvmEEjnqj8s8Bmbt0TVT+lGb3kfER+OdT1xYUEt6jGvEknSDq2bZXReOJU4EpfolQw0mT5Zr1+9fq0GUqvDjNTd0mc4jKShqsQDO8f9VYBCSNO+nGcd/RVyAicM1Q5iMi8PX1nYlTw8ce5XyiMKsTVST0pKK06+iLAQ6MgvxkyA2LnEgvB/cyTpZCcj1r+0gJoFfmTYuo4lCQAxHgRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1732615855; c=relaxed/relaxed;
-	bh=/gsHh8aZJZ90wy+eEkPcJ0iknlieI4wUGHMAGpnBzgk=;
+	t=1732613986; c=relaxed/relaxed;
+	bh=5VqTNP1l3I0fkOuZ3WrWUQyb1/49E8EQXioZGwnik0g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fA4ScqkEuksfV0YaWF/bcBlEglwPopcPe2jMRe0gjT4yBhhabPYI0WH2YtkZTZpX9nYMoE8/+5hkCnfzJLtYLrB4w4qU78xNQujQWpw78+3ElSA2Pdxw2FLZ9pBC3IrKLSWTwODV/+RKKqDlOum3oLZ4NPw6n4NTOf7i4KiHvbCHTu+t+Cv+EnDWWYvjxX5UposdyrsUf0X0TrUCuNTWaOjI8Orpejb3020S3anHVcrDgjIjqQYztWhz3NH0QXLCaESfsCLd9Y5MpPTC+3ZYCHrmPL2cWUY/BhhnRtoEQQMSnRN3FL9ut2t72LpO26Bh2vLgXvfJLLWhv9N5JYqB4g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=WYjFnX4y; dkim-atps=neutral; spf=pass (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	 In-Reply-To:Content-Type; b=mw/FIA/dZ2dQeS2vkNk9N+89swAO3WYgKZKFnJGXECirI7Boip3184ljFfi5MdJka4T52pKQuw4FrnOZekNdhd0namPOqOhFG2HnPgA1Tbc/GzirQtqsUwXqrVtEeAu0FkXe77HtHY0xhQ66czDE5dXlUhuho04YYp4P+1FNDNJNDE/zav56LiBXtyz6awG8MC1lDFytQ+Y79B7JT2WPXvBd1dps7dh7Le/huXs43KmfD+ThL5aEnz2X6heCCneyod21Xcw4ztxGgSrHmPdToU2KF7DC5BGrJo5BJnqzThIu1sJYf2RCOrkAFkRvVJmTf3ElzQ6eqSHn8300tlNtgw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=A75G9XUv; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::22f; helo=mail-oi1-x22f.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=WYjFnX4y;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=A75G9XUv;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::22f; helo=mail-oi1-x22f.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com [IPv6:2607:f8b0:4864:20::22f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XyJHf5Mzcz2yD6
-	for <openbmc@lists.ozlabs.org>; Tue, 26 Nov 2024 21:10:54 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 867C35C5C99;
-	Tue, 26 Nov 2024 10:10:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CABDC4CED0;
-	Tue, 26 Nov 2024 10:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1732615851;
-	bh=Byra4Kx0/QZ5Uz0Ky2GZAawD0zrEdfweETc4Lk5nnIs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WYjFnX4y0o0UuVhysolvR/eLfEB1pJTaXWYL0wyi9+r7CdSRSi23fWiMoWP8CBomE
-	 dZE+1qYJt0RUXqHdXAr+TCkgxG6es0uDy+lyZoF+xdTQrtDklmEi+lrJWed9vzZwFB
-	 TS0WhOvTkxr0KFoUasehLvvJyKutxDxHnLwU4v0cfx/oYoxA8xY/2q1uzfxYa3c7UM
-	 fLJRMa603+pw2x6cxUh33PIRsR0RPPa4HFtEnX1Jk4naJr62Gvm38dUbN0oj6T9Qyx
-	 q36MswkTleWWmlU8fep9hpgmDid2VsU7r2qoV2Amia3F3AleJCP2iC+uiT2Ap5D70b
-	 466l6Gl+C0G7Q==
-Message-ID: <7c132784-87db-44f9-8be4-a0805e438735@kernel.org>
-Date: Tue, 26 Nov 2024 11:10:42 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XyHbh29YYz2xCp
+	for <openbmc@lists.ozlabs.org>; Tue, 26 Nov 2024 20:39:43 +1100 (AEDT)
+Received: by mail-oi1-x22f.google.com with SMTP id 5614622812f47-3ea5a7a5e48so305154b6e.0
+        for <openbmc@lists.ozlabs.org>; Tue, 26 Nov 2024 01:39:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1732613979; x=1733218779; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5VqTNP1l3I0fkOuZ3WrWUQyb1/49E8EQXioZGwnik0g=;
+        b=A75G9XUvFNd9mWFeg1v5QXEHk+3MabWDeTeVuISMysMrlWskC5xVuTYQTQQpdx+IHs
+         l0Zxe0cF/E6FiudtPKk5cWiTgAoTmr9B9vaaYTyZdWQew51TnEJ5sNqsByBaPnBV/9Lm
+         4aUmkqyDkcPDGfOMhwv3lUQRpzU02njYM9dC5N0x1w6to3b/yOktRPUNyVU2RXBQEFEG
+         +ozdtR7P7KUBFtmkKD4wLsiuScNEOLTEZwkX309iCt5BfiK0TjK5sDFzytE0bS6S9mhw
+         GmB0EeSEPOpj4wHrwpQwvS0PyOcrzSJP3ZsU9K9sSmrtTRJCjTS5GvALWE2fx7ijKwI1
+         RkaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732613979; x=1733218779;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5VqTNP1l3I0fkOuZ3WrWUQyb1/49E8EQXioZGwnik0g=;
+        b=eWW/2GPh0yhRAKLR52HR28linb6TJ/WhfY32np309bb/sMCL+eOd+sm/3AJUijdjRH
+         aUqJnFMY2INIRiEjHOZQUrN3wTjR1JrkYEBjFyNiG+vQsWWLMz2OO0L66oThE3PX3D/n
+         wKMv4jvlvB03pXsv1j8u91fVniGt40/GoWN0pWdDVyGvLd2aaaBVHt/DuF0+MRpmuhYf
+         SAUXTQjGCeE1sOz5emgK4wZ6C/UoJsQGGmDwEMzKkbpzjmwSUcZdd6cgCPA0NS+bqsGi
+         DUPVDGEdUAzIWM9dXQ1W01VK++OadS80O+KSFgePtWusny3b+KHrnZOw6Nc1XYlutvP1
+         9x2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWelVWS/LVFKlLxXsoY8+WkeCrQgw4IFi7cg7n2UxFHf8JOUod89x/cCEhhUbieCeamzqwR26zb@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyMeDyEPC0SqEyX6c/LBe3kSKBcVfEBMa37XKft3zYXYffixpQs
+	iDg4jjQ+uqTS0Emy51TteSbBcJoeK0T7jtriybFKlCDIeYxXx+Xw
+X-Gm-Gg: ASbGnct1c441vl95/3ojwNKo1zDik1e86OjZcRbTVrci2DjAlZHXlsfE20nsOwm8EJX
+	duBuvK6jC8WhCPMwALxbo6fW+r+MlVVZ41GpD1BJoyXt/5WIUNjQFt4f8yO+SpAwmx0MOzWLW6A
+	yk8/6qris0RetzthXSNBizsdXYrGOQM94JV92hN09rtDf0rCrt6/LvVXQYXqvxY1KUb0KaM8Pzm
+	6QemNkfKC3Rvk11kuBakr9As0kv5IkK5eZPkoZ9KIUX/mfkDTsxWmDEf+J9u3tP/DTyFb07MBqk
+	sXOCikyFh1KpEri1nADKw5eTS9Ld
+X-Google-Smtp-Source: AGHT+IGrPjDu68pnnnryOtllFazbBZWaKbpvb8qp33lzobhDwUA1rKma6IACU9y0c2nXW4nq4Bk1hA==
+X-Received: by 2002:a05:6808:2395:b0:3e7:5cfa:87d1 with SMTP id 5614622812f47-3e915aef033mr13135476b6e.27.1732613978760;
+        Tue, 26 Nov 2024 01:39:38 -0800 (PST)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-724de531247sm8159148b3a.104.2024.11.26.01.39.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 Nov 2024 01:39:38 -0800 (PST)
+Message-ID: <75e4881c-8b04-4b57-ab0d-e7eb18b31a84@gmail.com>
+Date: Tue, 26 Nov 2024 17:39:31 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for
  Nuvoton MA35 family
-To: Joey Lu <a0987203069@gmail.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 References: <20241118082707.8504-1-a0987203069@gmail.com>
  <20241118082707.8504-4-a0987203069@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <klp4a7orsswfvh7s33575glcxhlwql2b7otrpchvucajydihsi@dqdkugwf5ze5>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20241118082707.8504-4-a0987203069@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <klp4a7orsswfvh7s33575glcxhlwql2b7otrpchvucajydihsi@dqdkugwf5ze5>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 27 Nov 2024 09:58:16 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,63 +97,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, joabreu@synopsys.com, schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org, pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org, richardcochran@gmail.com, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 18/11/2024 09:27, Joey Lu wrote:
-> +
-> +static struct nvt_priv_data *
-> +nuvoton_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct nvt_priv_data *bsp_priv;
-> +	phy_interface_t phy_mode;
-> +	u32 tx_delay, rx_delay;
-> +	u32 macid, arg, reg;
-> +
-> +	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
-> +	if (!bsp_priv)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	bsp_priv->regmap =
-> +		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
-> +	if (IS_ERR(bsp_priv->regmap)) {
-> +		dev_err(dev, "Failed to get sys register\n");
+Dear Uwe,
 
-Syntax is: return dev_err_probe
+Thank you for the details!
 
-> +		return ERR_PTR(-ENODEV);
-> +	}
-> +	if (macid > 1) {
-> +		dev_err(dev, "Invalid sys arguments\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
+Uwe Kleine-König 於 11/20/2024 10:56 PM 寫道:
+> Hello,
+>
+> On Mon, Nov 18, 2024 at 04:27:07PM +0800, Joey Lu wrote:
+>> +static struct platform_driver nuvoton_dwmac_driver = {
+>> +	.probe  = nuvoton_gmac_probe,
+>> +	.remove_new = stmmac_pltfr_remove,
+> Please use .remove instead of .remove_new.
+>
+> Thanks
+> Uwe
 
+I will use .remove instead.
 
+Thanks!
 
-...
+BR,
 
+Joey
 
-> +
-> +	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* We support WoL by magic packet, override pmt to make it work! */
-> +	plat_dat->pmt = 1;
-> +	dev_info(&pdev->dev, "Wake-Up On Lan supported\n");
-
-
-Drop, driver should be silent on success.
-
-> +	device_set_wakeup_capable(&pdev->dev, 1);
-> +
-> +	return 0;
-> +}
-
-
-
-Best regards,
-Krzysztof
