@@ -4,75 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9979CD6D23A
-	for <openbmc@archiver.kernel.org>; Wed, 27 Nov 2024 20:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF1AFD6D245
+	for <openbmc@archiver.kernel.org>; Wed, 27 Nov 2024 22:52:59 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4XzBGF521yz3cVn
-	for <openbmc@archiver.kernel.org>; Thu, 28 Nov 2024 07:42:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.19
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732740160;
-	cv=none; b=nDeHTeGUl419I6KV6+Hg9SP/ygP9zH+1bfx6whh6P28PBJ9fhGwk5E/YGHmEb+fSZ010xrkF9jZE1lr21KBqRlM7eI5K3hVlzweAqj+xXc3fW9jQXGyUvlgP3B1YM69w99rpkO0D0SWiYTpJtI3tHAb1O1Ou+hQ+yTqja23YGApFzJfLr0Hy1iPsExJqmzuxUAjciEnos1OyapgpXqPJ4SLeQULIndqgawG+E39gupRemKJnKv9el0DWbMv9JezT5vZL/AYGcfNSOwpwhkqo5Ka+FzsVY4eLtK+/RKBKOgMd0JyUQCDghflw/zOmDyn+MZgd0kK8+E+0RHeXI6cBsA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4XzF8D6bfpz3cVn
+	for <openbmc@archiver.kernel.org>; Thu, 28 Nov 2024 09:52:44 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::636"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1732694525;
+	cv=none; b=MWAlpPNdKLv8HzljX2SBfgULcSWm24djRlTg2WqMho7tDGt6PFCspyf+fahcMpe7KhWJvZ02DKx9zRm0K/TtSzwUThyZ3Sws0f5sraGonBEhoth5i9cRCcKUB5ytICOr+ELPlAOL2PI4xZAgL4T9LheAngEBxuJ6+AlaglFIOjWUNUjkNMEpzSeJRm13rlEILVAtD++IvzPovktzMXpSwjFby2/uaSY9tJEYT0Zj5abXp51BjvnC2d/dStppC/f/fH30MDhdRcBcmTOunf1S2JdhI+kclHrI9WxHqaJpISjEGSs7N5pdpdYyANxCUYajfcli/VZ3an3XtEdJkqufkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1732740160; c=relaxed/relaxed;
-	bh=WAyVOcscnaQDgPTvmWkygtdXNmILE4y+uuv+Lg9JcQA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Nuxto8scE6unTE6OKHk1ClOhytfGyKvc4UeCXy3V7/i8c3Eq9YZkbaIpJ1SaIWp3uNVqCYQfV1IpRT9+qIrg3nhW8TZEthph2HqiVg61OdH6mxVKFAT8pYP4tUF9oInNJYhXq+z8Le2PT6C6X57K0wq6P2gMAADTyolZajxUoPcH41K9dOYeoIFKNIic0CeKRzHDI6/bSZiTw2wRWG/OXGkqbpcvC+QLYfRjDfrH6IQvQPGXxx+Ce/B0h1eiECm1deLkag0YOW8Zx5b0YyFt23dtakuGA7EmPXHb1gPuCmBvuWjq+oQBHQZ5qFzH020dsTbWOohGMVsqND+KiY5bAg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qlt9xhTR; dkim-atps=neutral; spf=none (client-ip=192.198.163.19; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	t=1732694525; c=relaxed/relaxed;
+	bh=bew/I5xXVZXMcMLGcr2bk1V3h79V/rlhudJAubnILnI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B6+TzEaOVI5EXaBCOrkSjlu/1w9l1gtOm52V8mTcs/2CQfeoVx7Ikn1qshwKOR1bJxjpIv4ppwcnmQkjOQyygFwI5HZ1tlEDNt+k+JgV/cmucrlOTlnZnW1uaqZY2Rm8xvw4EicXCT23CPgLshhpSL0IvzuwwX3Ph/KJjc1oCAwjT5EQw28l9qTRGSItclK52MmCPzwXLIGSkrD6OjzUPghFxdF/PXie0fXhIVtmErrqmOGNqKQIIJFISv0T9/CniZgxAg+THG0zsgjacZxQei9GXFZrH2I4azCF98lmjFgof185k9uO0QzPTPXzzM0tmrPE+ueuTCyrdeIdpyFdQA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=OfhFL4Y0; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qlt9xhTR;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=OfhFL4Y0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.19; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4XzBG44whXz2y3Z
-	for <openbmc@lists.ozlabs.org>; Thu, 28 Nov 2024 07:42:34 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1732740157; x=1764276157;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=MZI2s0kV7NoOJMMupEvo1PBXn+Dp+IF6Hybe3OWdw6M=;
-  b=Qlt9xhTRAan1NzzO2gt7cqzrP+6oyuJSpKyxdt+eo98gCyH93APAcFwR
-   SSpyi1mILjwgQqpGQneg7tIZS1NPpCla9avU5krpvgfPPbEV7Er6gHYE2
-   nEk5sMKhDon8B+d5+S//exNavcQW/B7LlBzOc7vcGubWqwY2uDTUTBShT
-   hkXx/lVPjGfUZE24xxbUCDLzzF28uBgYBUifHGIrq8zqBEm4rJygPDK7a
-   uJZKy7UULqJt7gwCPKzDShe12Zed+T87GQGkD8Af//D+zg2tLMVdIISHe
-   zRJIyk5mpvvYaRNQ8BPYGwYr4Zv+YfPIk/ygxM13tA7+2qSP5YY/yhoS7
-   g==;
-X-CSE-ConnectionGUID: ZOUsHFUgRI6D1qZIUPcB+g==
-X-CSE-MsgGUID: RUPhLIK+QD2iB6quV1yzdQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11269"; a="32331219"
-X-IronPort-AV: E=Sophos;i="6.12,190,1728975600"; 
-   d="scan'208";a="32331219"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2024 12:42:31 -0800
-X-CSE-ConnectionGUID: IRWV2pUURnOoncoFFE9mvw==
-X-CSE-MsgGUID: 9u/LClu+T8aw6JV6mVIv8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.12,190,1728975600"; 
-   d="scan'208";a="129553095"
-Received: from linux.intel.com ([10.54.29.200])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Nov 2024 12:42:31 -0800
-Received: from [10.124.122.91] (jmbills-mobl1.amr.corp.intel.com [10.124.122.91])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by linux.intel.com (Postfix) with ESMTPS id E275720B5705
-	for <openbmc@lists.ozlabs.org>; Wed, 27 Nov 2024 12:42:30 -0800 (PST)
-Message-ID: <53b7d400-63ca-4af8-a0e5-13934c22a63b@linux.intel.com>
-Date: Wed, 27 Nov 2024 13:42:30 -0700
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4XysNX17pkz2xgQ
+	for <openbmc@lists.ozlabs.org>; Wed, 27 Nov 2024 19:02:03 +1100 (AEDT)
+Received: by mail-pl1-x636.google.com with SMTP id d9443c01a7336-2124ccf03edso65225225ad.2
+        for <openbmc@lists.ozlabs.org>; Wed, 27 Nov 2024 00:02:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1732694521; x=1733299321; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bew/I5xXVZXMcMLGcr2bk1V3h79V/rlhudJAubnILnI=;
+        b=OfhFL4Y0rpVMEeQ2VF2R4/KYzy/DOVh1lgLQ9qcqpBydMkXfj8f5walvFDf1flEMTZ
+         xGT5NhMhG6pLtyFaK2SlnPTAwtL2Nfb2du1yGwlOlYCPj5fEQczT9yW4vMQKZDL7hK88
+         PLWP/RrR6agFxi8Nf3oifm9wog2zyiaRv0ps0XFT5DLZRoVMe+iWmdosuChXhh2BHhpT
+         hZJ0x0gBSEV/VHjc48jGFtdDG9n937yp1U4xI7yTfmAn6UwTn2NpbY1etxisX3V1g20a
+         Gg+r+4XiU8DDKqcAWBYP5lIQnbyVWzTRhoctJE+PvkjJ3hVPPU+GaXVz02eO/tWNsDtS
+         FxYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1732694521; x=1733299321;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bew/I5xXVZXMcMLGcr2bk1V3h79V/rlhudJAubnILnI=;
+        b=nRh4AVykhqWbeQenvVy3/JmOyE2tNLwaefEHc65PYka+MMtWcsjXwdKas+zq7heBr/
+         eF7Ni7Hw1sg6yFnBOKofxKMMLDapdZgF4K0GDteRx9K6yEkEd7WQ4hUPFPG/k8Ewux8+
+         d1dNliKOd6NCxzxWYQv/CfcV/BvW/tXVKoR/j2IjT2mjdixf9uXL+PcyIwcZEqbPnsuz
+         75xuoryJnLbcydZlApFAtAUa1YS3Hh4EcvNf93bJMnkCws9CTzzo1G9lXKczEvwkGufQ
+         hjMM35fQXwG4yGsfy5UMWWVgWrOmWnTmGMpDZ9n5WXNRVp076JPNCAsmty9dM0fV9F2Q
+         LseQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX5oq0v2V8776MZ2M/Iz7tdt0yIv+1WuS5/yxocXz8iwYC3wuRaPh7Ogl/JQiNWqldcEDDgkl4x@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yxl+8y7Fa/tO2RwFNTCA4lm8QJcp8hX8wS4qd/qtWyc7pc2vZfW
+	GzMI/nz2XOJ+PymSJIJi5Wf9yh8Vp8fl6dm4RAuocvbwEab32zeu
+X-Gm-Gg: ASbGnctHpkA5Swde/2Pyt8fccZ78bMeOop/3AlYAhiI4OkxG0CDBjQpxW8/52QvWW/t
+	Gj90Eirb49+aa6B+YvwtNFBfpOAMFzfAYIYAHwGHvNsalzYlCpFZ/ECvJwz/fH+RdgWNLKidyED
+	L2KG2Rmqkcu0k88cFvKjytHRGd91utrleuV0lvh362m5H1aqp35V5ICdQwkKBe5lAL3YtlgOjvT
+	r0emOvkkSbhBP96t06hR6us7PkQ4GCy6wM5gMwbzl0ZgsGhoYoCUcjd+4E9+IJ7FX4B/EArPNiN
+	0bX6svQX+GtF/+/tLd6ozK7uW1DP
+X-Google-Smtp-Source: AGHT+IGtUIoISB0+clpN9PkK/2UFXTIykn3qm+m0cLDTT9iuNBtfEZ70ZERWyU6+cs55GUUZXZV4kQ==
+X-Received: by 2002:a17:903:2b08:b0:211:e812:3948 with SMTP id d9443c01a7336-21500fedf8amr32131585ad.0.1732694521468;
+        Wed, 27 Nov 2024 00:02:01 -0800 (PST)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2129db8c783sm96580615ad.25.2024.11.27.00.01.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 Nov 2024 00:02:01 -0800 (PST)
+Message-ID: <6efc512e-b153-4f2c-8b38-4443024475ee@gmail.com>
+Date: Wed, 27 Nov 2024 16:01:54 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Fetching Bios Attributes on BMC side.
-To: openbmc@lists.ozlabs.org
-References: <CAKMbc5vCGEaR3rLn0+3kqyEhj02i+o9ceF61i3LOuf1huz1vXw@mail.gmail.com>
+Subject: Re: [PATCH v3 2/3] arm64: dts: nuvoton: Add Ethernet nodes
+To: Krzysztof Kozlowski <krzk@kernel.org>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+References: <20241118082707.8504-1-a0987203069@gmail.com>
+ <20241118082707.8504-3-a0987203069@gmail.com>
+ <a220d407-de40-4398-a837-de11e01d2381@kernel.org>
 Content-Language: en-US
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-In-Reply-To: <CAKMbc5vCGEaR3rLn0+3kqyEhj02i+o9ceF61i3LOuf1huz1vXw@mail.gmail.com>
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <a220d407-de40-4398-a837-de11e01d2381@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 28 Nov 2024 09:52:40 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,27 +99,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, joabreu@synopsys.com, schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Dear Krzysztof,
 
+Thank you for your reply.
 
-On 11/24/2024 11:59 PM, Jack wrote:
-> I'm working on remote BIOS setup support for *intel based platform*.
-> In my case the |BaseBIOSTable| attribute is empty which |pldmd| is 
-> responsible for populating this attribute.
-> I taken property of BaseBIOSTable from busctl utility where it show 
-> *"a{s(sbsssvva(sv))} 0"*.
-> The *0* at the end of the output likely indicates the number of elements 
-> in the array (a),
-> meaning that the array is currently empty or doesn't contain any entries.
-> So what should i do if i want to take Bios attributes at BMC side & also 
-> i did'y find any .json or xml file in BMC side?
-> ||
+Krzysztof Kozlowski 於 11/26/2024 6:08 PM 寫道:
+> On 18/11/2024 09:27, Joey Lu wrote:
+>> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+>> index e51b98f5bdce..2e0071329309 100644
+>> --- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+>> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+>> @@ -379,5 +379,57 @@ uart16: serial@40880000 {
+>>   			clocks = <&clk UART16_GATE>;
+>>   			status = "disabled";
+>>   		};
+>> +
+>> +		gmac0: ethernet@40120000 {
+>> +			compatible = "nuvoton,ma35d1-dwmac";
+>> +			reg = <0x0 0x40120000 0x0 0x10000>;
+>> +			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "macirq";
+>> +			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
+>> +			clock-names = "stmmaceth", "ptp_ref";
+>> +
+>> +			nuvoton,sys = <&sys 0>;
+>> +			resets = <&sys MA35D1_RESET_GMAC0>;
+>> +			reset-names = "stmmaceth";
+>> +			status = "disabled";
+> Status is always, always the last property. Please read and follow DTS
+> coding style.
+>
+> Best regards,
+> Krzysztof
 
-It looks like the README in bios-settings-mgr was recently updated with 
-better instructions on initializing the BaseBIOSTable: 
-https://github.com/openbmc/bios-settings-mgr/blob/master/README.md#initialization-of-basebiostable
+Got it. I will fix these.
 
-Does the PLDM info there help at all?
+Thanks!
+
+BR,
+
+Joey
 
