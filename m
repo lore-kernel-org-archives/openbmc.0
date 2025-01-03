@@ -4,59 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73E89E77198
-	for <openbmc@archiver.kernel.org>; Sun,  5 Jan 2025 23:14:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD97FE77198
+	for <openbmc@archiver.kernel.org>; Sun,  5 Jan 2025 23:14:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YRCly1JQQz3fRj
-	for <openbmc@archiver.kernel.org>; Mon,  6 Jan 2025 10:13:18 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=147.75.193.91
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1735392951;
-	cv=none; b=IjUq8TZmJAXV3GlXG48FCWQL7NKwjpF7JqgQbEMiPYlPlGOUkS5ltWLsKsO3WFHnYOoVsGsYEK4HhJnl+7lCxFoaj9pJyKe0mr5JBraBeG5rMP8nuJgVoGOPAnhOcthnnMELNnXtKwqL2UUepgWnnKZwKFXsJ9LgfFK5oKByRKP5eCCKjg5Xsl9u819db85zyZGoQSpcRtgpKjcOBI8HmKOnYmeVKgP1fI4qLugTKNPGefDt1cOV1CDxt3QgevjOrFOBnL2scass+SSlKq7TUGPqEg8NRWuS6MeoFA24UFd3i15FbAWo4jjMENQnH/shvQZEGaAD9YpiJVRJK/2bAg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4YRCm142xfz88QV
+	for <openbmc@archiver.kernel.org>; Mon,  6 Jan 2025 10:13:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::102f"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1735885995;
+	cv=none; b=ianvEFHZZ6CoLumCZSDmVQ1Y379X4kFKF6y+AXqjRt463vfBezkvOLJ0XdoGa1Fk83zPWA9b3JGgKJImz+Cls00BqcQhIc4e9BJQoUto7zAxLqr5L2uvY3lYSzAXNFSVDXrWVoRsmXAllJw1vm4m8vdXjRm/Bzt3JW8JqhIMlJTc7VKtnZDd8Pkwfw8mwF33NRHZALVOQI9stxXYfnCC0SWwOxJJOK1rx8IbR8zFMB47BK9bVMN4hivmlFjje2kvuYKqIsSzNQmwDDRpZUbqM+nIHBizaczOYhmGmX6KBXE1mrtZGKetG/ewmW+swzVSt0W4a2a3Dq2dk/7aoSB8vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1735392951; c=relaxed/relaxed;
-	bh=U7PgI3hu8xqLM9VfD8xjWUyiRfMhrMhMTd1owKQ3MNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DhTb0QbD7iZoDbyqzxB8LZ76lVbs7XgHlRJ9DQg6xsPJWbppiIiRrUHGhbAxC3L2MEAHPkN23G6V2aNpAjqwBli4WbvBdba3PXy0PFo5sjxyYCMgff6ThfLcaFSqYRNTkqbaOGM3FcmIOsdD5+KeDyjTaD/iRBjwA4lGUX3R/oFMOJ4irTx4JCttDownF/3/wlxZP0ZTVnF3AbETpkZlVZmG5ppolOiJTlS7a4HlLC+AhEAMLfmd1acwNimtQhrPeRI1sCFGmDev9BfNvcxu4pXuyTgvHzHUWmz+Fk74ktr9vPnvphWCnbaYgWka6SID1NGdv0VP7Gidq54OvkYkrg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=UOUmiNPI; dkim-atps=neutral; spf=pass (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1735885995; c=relaxed/relaxed;
+	bh=7dW9tSKSb3CcOFy1YNdY01ABpN6qWxIbLh8Rm1LEF2s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FBKZkZDN1P8miU/90/CzGUKLOoCUk2fWaDL3nEZkylexDVyq7T4qpKvtYotEbVHOKwLC2wf1CGueS5XGmmBupxNxfOk+DyaJnEEwT52Dlsel+ICDwIK7z2JmMqv/FKeqk6sJbIEvwmZv9ROaS/fOjDSCWatm0/b5lqpFJWB5hG2vEiFsivzcjnkJYmH9P9DzSbgYdGKNQKpygFK5ziBiKSn5O2tEfRzIEeAvIflp5yqs486ATDSuc4PzDSdkrgOMfquFzw4TWA9+AHWue0vj68d4vjbW6U4FAA7opo4idHGtwZNUAErDgdJC3O9RRzwCqUv9h7F21T4c1XP3oJCE4Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=DnHQUBfF; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::102f; helo=mail-pj1-x102f.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=UOUmiNPI;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=DnHQUBfF;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102f; helo=mail-pj1-x102f.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com [IPv6:2607:f8b0:4864:20::102f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YL3KK6g8Cz2xKd
-	for <openbmc@lists.ozlabs.org>; Sun, 29 Dec 2024 00:35:49 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id DCEA3A40308;
-	Sat, 28 Dec 2024 13:33:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CEDC4CECD;
-	Sat, 28 Dec 2024 13:35:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1735392946;
-	bh=pkh80hy3KgcNMaEFQuksOhp6OcKpv13Fv/7BoeTtOS0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=UOUmiNPI0nCG632CkqW1Tawi6jnXRaO5iIj+1Pe7XMcnnKWcR+KNa5QR/kFisEWSt
-	 2ytD2+Tb6TXyB6YpyZKO5fiKKHZdlJSb8QYS/DFwKmDEPAqu65Ap0OxJngLZZENiVi
-	 PVe6PnnjS+bo6QIQEWBJRicfSzaAJbQoS0yJLF70kGpIZ/CUb7yn8+lne4yuHsg+HY
-	 QtKu0lfotXiwvahqQQqeoSCSLeB6lP4LnH7uhhaUcMN4ZgsM3GwbcUnpX1eb06UBSD
-	 /gPK+zX8qQ5AYHji/GLGLJlB3UztEZZ41KelditkFCtYk4y/g8wWkH/akXh7+v2dTw
-	 RL9VKw7h9F5JA==
-Date: Sat, 28 Dec 2024 13:35:31 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Eason Yang <j2anfernee@gmail.com>, marcelo.schmitt@analog.com,
- olivier.moysan@foss.st.com
-Subject: Re: [PATCH v3 2/2] iio: adc: add Nuvoton NCT7201 ADC driver
-Message-ID: <20241228133531.5e98357e@jic23-huawei>
-In-Reply-To: <20241226055313.2841977-3-j2anfernee@gmail.com>
-References: <20241226055313.2841977-1-j2anfernee@gmail.com>
-	<20241226055313.2841977-3-j2anfernee@gmail.com>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.43; x86_64-pc-linux-gnu)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YPYfy49Llz305n
+	for <openbmc@lists.ozlabs.org>; Fri,  3 Jan 2025 17:33:14 +1100 (AEDT)
+Received: by mail-pj1-x102f.google.com with SMTP id 98e67ed59e1d1-2ef87d24c2dso13569864a91.1
+        for <openbmc@lists.ozlabs.org>; Thu, 02 Jan 2025 22:33:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1735885991; x=1736490791; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7dW9tSKSb3CcOFy1YNdY01ABpN6qWxIbLh8Rm1LEF2s=;
+        b=DnHQUBfFVx8kXVhE0ACZhu2E5UJ/vdamdAw7cwVcI9XQ1dZvTCBEJQHB4x2/Fz9fqX
+         eYTaHHWli0H3HxH3OyA1HW5FJ143/lCOPWzYnolq/lQ7NHuVmjmJIgldzsf4Kg0D/S8s
+         Zh6Ya1bT0bAvyAOnpLDBYl95MA1Xr1y0K0AlreUevTDFgZdD5fjNOxqKqWPA0jshqjlq
+         06dDIZtFu4KPIjoYOhHe4w0chpvWL6hudvN73FV/Ks5jwX2PbTqSTutu2ooLlZhc5uKq
+         VeQ4OAoSGCdW/alD9d8trdx3AuH7shBqOtctkd7dXtoqdqHHT98tRMk2q9+wMSfx7mRt
+         G+gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1735885991; x=1736490791;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7dW9tSKSb3CcOFy1YNdY01ABpN6qWxIbLh8Rm1LEF2s=;
+        b=H8g8sP/fOdsPSgjENR8tHKXUSWzVPdJHgu1RYlEw1S9baICPDcnIt6GkBGk64mryxH
+         r1cttxKM0T1GLCKBd8+gPzt6+x/p+j8ls0Akt3iK2JxBQp/jGfXy4h7rNhYWBYbbG1c1
+         dH9GVXnqcj9fxWujBl7GPkMueQfeSWL28uDAmINqJ5hKDXl2mlEhm56LuTnjjdjI8VL0
+         nwojkPS3qK823O0Qv1cnALivG8LLreaBOC0c1HieUR29986FCiHoA8ZE5Y8AefSUQS9Z
+         DuzMuxa5BvSlBMj3Y9zzEZTFVZIGOr7gtAo5z6RlSpSIv/rhOKDfflDRTCwk1KcNKWJL
+         Oo5g==
+X-Forwarded-Encrypted: i=1; AJvYcCW8UJd6eBEezsv9/84GLlfCZMfBRaKadG7iehjy8vy4ke5TWlmVQkk5KlK32Nx5gPwZXEO3lRkO@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yx2SsIv7LRPJGsoDfe7KjWtkdIBtcNPAMIqmc1ENVnl/HFACwSO
+	kmlJEPOY21HVPeoycJv/BtOrWkXQSLJocy07XTK6WxfD9E671WgS
+X-Gm-Gg: ASbGncv3EgKBr+qgIl0d08FpnwMVvpDuhTTxyoY0WIxyDULPnV8LItmENFpIJBt6Q2y
+	Lai5XjR6lgYjNsgCGkbyhi+NjD+6LzR58Nz8b9dkrbA2JHyFJ30z1mAyVNfgQN5kXKYaz0fBVyf
+	KtriSzARh6TGWt0fCrUdWVY4CPiSNDOUi30JHVxk6yl/DQyu47MYfUTJEu7v+c4HHL0lWK1FZJn
+	pJUYPVjYgP+xzmFoB0gkCPuOGZ5ZZRDISCMCCAKlA3zMfX/47FCAUCE1Uq6cwib7NC6t1kFK0iY
+	Bv//681DH3O1WWfbBvkG8A==
+X-Google-Smtp-Source: AGHT+IEiOFe4evfri1nnuFO6yzTBznHLXu75pnxX+t4aHQDSqgiu6wv6g4L6GtYLrIIjCWk7VdcMRQ==
+X-Received: by 2002:a17:90b:3d50:b0:2ee:b4bf:2d06 with SMTP id 98e67ed59e1d1-2f452e458ccmr71154893a91.19.1735885991475;
+        Thu, 02 Jan 2025 22:33:11 -0800 (PST)
+Received: from yclu-ubuntu.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-2f2ee26d89asm29427805a91.46.2025.01.02.22.33.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 02 Jan 2025 22:33:11 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com
+Subject: [PATCH net-next v6 1/3] dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
+Date: Fri,  3 Jan 2025 14:32:39 +0800
+Message-Id: <20250103063241.2306312-2-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250103063241.2306312-1-a0987203069@gmail.com>
+References: <20250103063241.2306312-1-a0987203069@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Jan 2025 10:12:37 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,381 +101,163 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: tgamblin@baylibre.com, herve.codina@bootlin.com, tmaimon77@gmail.com, devicetree@vger.kernel.org, linux-iio@vger.kernel.org, tali.perry1@gmail.com, yhyang2@nuvoton.com, robh@kernel.org, lars@metafoo.de, benjaminfair@google.com, javier.carrasco.cruz@gmail.com, openbmc@lists.ozlabs.org, matteomartelli3@gmail.com, thomas.bonnefille@bootlin.com, dlechner@baylibre.com, KWLIU@nuvoton.com, conor+dt@kernel.org, alisadariana@gmail.com, andriy.shevchenko@linux.intel.com, krzk+dt@kernel.org, chanh@os.amperecomputing.com, avifishman70@gmail.com, venture@google.com, mitrutzceclan@gmail.com, linux-kernel@vger.kernel.org, nuno.sa@analog.com, gstols@baylibre.com
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com, Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org, openbmc@lists.ozlabs.org, alexandre.torgue@foss.st.com, linux-kernel@vger.kernel.org, joabreu@synopsys.com, schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 26 Dec 2024 13:53:13 +0800
-Eason Yang <j2anfernee@gmail.com> wrote:
+Create initial schema for Nuvoton MA35 family Gigabit MAC.
 
-> Add Nuvoton NCT7201/NCT7202 system voltage monitor 12-bit ADC driver
-> 
-> NCT7201/NCT7202 supports up to 12 analog voltage monitor inputs and up to
-> 4 SMBus addresses by ADDR pin. Meanwhile, ALERT# hardware event pins for
-> independent alarm signals, and the all threshold values could be set for
-> system protection without any timing delay. It also supports reset input
-> RSTIN# to recover system from a fault condition.
-> 
-> Currently, only single-edge mode conversion and threshold events support.
-> 
-> Signed-off-by: Eason Yang <j2anfernee@gmail.com>
-Hi Eason,
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 126 ++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ 2 files changed, 127 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
 
-Various minor comments in addition to what Andy has
-posted already.
+diff --git a/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+new file mode 100644
+index 000000000000..c3f2ad423cc0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+@@ -0,0 +1,126 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton DWMAC glue layer controller
++
++maintainers:
++  - Joey Lu <yclu4@nuvoton.com>
++
++description:
++  Nuvoton 10/100/1000Mbps Gigabit Ethernet MAC Controller is based on
++  Synopsys DesignWare MAC (version 3.73a).
++
++allOf:
++  - $ref: snps,dwmac.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - nuvoton,ma35d1-dwmac
++
++  reg:
++    maxItems: 1
++    description:
++      Register range should be one of the GMAC interface.
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: MAC clock
++      - description: PTP clock
++
++  clock-names:
++    items:
++      - const: stmmaceth
++      - const: ptp_ref
++
++  nuvoton,sys:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: phandle to access syscon registers.
++          - description: GMAC interface ID.
++            enum:
++              - 0
++              - 1
++    description:
++      A phandle to the syscon with one argument that configures system registers
++      for MA35D1's two GMACs. The argument specifies the GMAC interface ID.
++
++  resets:
++    maxItems: 1
++
++  reset-names:
++    items:
++      - const: stmmaceth
++
++  phy-mode:
++    enum:
++      - rmii
++      - rgmii
++      - rgmii-id
++      - rgmii-txid
++      - rgmii-rxid
++
++  tx-internal-delay-ps:
++    default: 0
++    minimum: 0
++    maximum: 2000
++    description:
++      RGMII TX path delay used only when PHY operates in RGMII mode with
++      internal delay (phy-mode is 'rgmii-id' or 'rgmii-txid') in pico-seconds.
++      Allowed values are from 0 to 2000.
++
++  rx-internal-delay-ps:
++    default: 0
++    minimum: 0
++    maximum: 2000
++    description:
++      RGMII RX path delay used only when PHY operates in RGMII mode with
++      internal delay (phy-mode is 'rgmii-id' or 'rgmii-rxid') in pico-seconds.
++      Allowed values are from 0 to 2000.
++
++required:
++  - clocks
++  - clock-names
++  - nuvoton,sys
++  - resets
++  - reset-names
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
++    ethernet@40120000 {
++        compatible = "nuvoton,ma35d1-dwmac";
++        reg = <0x40120000 0x10000>;
++        interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-names = "macirq";
++        clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
++        clock-names = "stmmaceth", "ptp_ref";
++
++        nuvoton,sys = <&sys 0>;
++        resets = <&sys MA35D1_RESET_GMAC0>;
++        reset-names = "stmmaceth";
++
++        phy-mode = "rgmii-id";
++        phy-handle = <&eth_phy0>;
++        mdio {
++            compatible = "snps,dwmac-mdio";
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            ethernet-phy@0 {
++                reg = <0>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index eb1f3ae41ab9..4bf59ab910cc 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -67,6 +67,7 @@ properties:
+         - ingenic,x2000-mac
+         - loongson,ls2k-dwmac
+         - loongson,ls7a-dwmac
++        - nuvoton,ma35d1-dwmac
+         - qcom,qcs404-ethqos
+         - qcom,sa8775p-ethqos
+         - qcom,sc8280xp-ethqos
+-- 
+2.34.1
 
-Jonathan
-
-> diff --git a/drivers/iio/adc/nct7201.c b/drivers/iio/adc/nct7201.c
-> new file mode 100644
-> index 000000000000..9ad4d2919461
-> --- /dev/null
-> +++ b/drivers/iio/adc/nct7201.c
-> @@ -0,0 +1,449 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Driver for Nuvoton nct7201 and nct7202 power monitor chips.
-> + *
-> + * Copyright (c) 2024 Nuvoton Inc.
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/iio.h>
-> +
-> +#define NCT7201_VIN_MAX					12	/* Counted from 1 */
-> +#define NCT7201_IN_SCALING				4995
-> +#define NCT7201_IN_SCALING_FACTOR			10000
-> +
-> +#define NCT7201_REG_INTERRUPT_STATUS_1			0x0C
-> +#define NCT7201_REG_INTERRUPT_STATUS_2			0x0D
-> +#define NCT7201_REG_VOLT_LOW_BYTE			0x0F
-> +#define NCT7201_REG_CONFIGURATION			0x10
-> +#define  NCT7201_BIT_CONFIGURATION_START		BIT(0)
-> +#define  NCT7201_BIT_CONFIGURATION_ALERT_MSK		BIT(1)
-> +#define  NCT7201_BIT_CONFIGURATION_CONV_RATE		BIT(2)
-> +#define  NCT7201_BIT_CONFIGURATION_RESET		BIT(7)
-> +
-> +#define NCT7201_REG_ADVANCED_CONFIGURATION		0x11
-> +#define  NCT7201_BIT_ADVANCED_CONF_MOD_ALERT		BIT(0)
-> +#define  NCT7201_BIT_ADVANCED_CONF_MOD_STS		BIT(1)
-> +#define  NCT7201_BIT_ADVANCED_CONF_FAULT_QUEUE		BIT(2)
-> +#define  NCT7201_BIT_ADVANCED_CONF_EN_DEEP_SHUTDOWN	BIT(4)
-> +#define  NCT7201_BIT_ADVANCED_CONF_EN_SMB_TIMEOUT	BIT(5)
-> +#define  NCT7201_BIT_ADVANCED_CONF_MOD_RSTIN		BIT(7)
-> +
-> +#define NCT7201_REG_CHANNEL_INPUT_MODE			0x12
-> +#define NCT7201_REG_CHANNEL_ENABLE_1			0x13
-> +#define  NCT7201_REG_CHANNEL_ENABLE_1_MASK		GENMASK(7, 0)
-> +#define NCT7201_REG_CHANNEL_ENABLE_2			0x14
-> +#define  NCT7201_REG_CHANNEL_ENABLE_2_MASK		GENMASK(3, 0)
-
-As below. I'd treat these two registers as one larger register.
-
-> +static int nct7201_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	u16 volt;
-> +	unsigned int value;
-> +	int err;
-> +	struct nct7201_chip_info *chip = iio_priv(indio_dev);
-> +
-> +	if (chan->type != IIO_VOLTAGE)
-> +		return -EOPNOTSUPP;
-> +
-> +	guard(mutex)(&chip->access_lock);
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		err = regmap_read(chip->regmap16, NCT7201_REG_VIN(chan->address), &value);
-> +		if (err < 0)
-> +			return err;
-> +		volt = value;
-> +		*val = volt >> 3;
-
-As below, likely a FIELD_GET() is appropriate here.
-
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* From the datasheet, we have to multiply by 0.0004995 */
-> +		*val = 0;
-> +		*val2 = 499500;
-> +		return IIO_VAL_INT_PLUS_NANO;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int nct7201_read_event_value(struct iio_dev *indio_dev,
-> +				    const struct iio_chan_spec *chan,
-> +				    enum iio_event_type type,
-> +				    enum iio_event_direction dir,
-> +				    enum iio_event_info info,
-> +				    int *val, int *val2)
-> +{
-> +	struct nct7201_chip_info *chip = iio_priv(indio_dev);
-> +	u16 volt;
-> +	unsigned int value;
-> +	int err;
-> +
-> +	if (chan->type != IIO_VOLTAGE)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (info != IIO_EV_INFO_VALUE)
-> +		return -EINVAL;
-> +
-> +	if (dir == IIO_EV_DIR_FALLING) {
-> +		err = regmap_read(chip->regmap16, NCT7201_REG_VIN_LOW_LIMIT(chan->address), &value);
-> +		if (err < 0)
-> +			return err;
-> +		volt = value;
-> +	} else {
-> +		err = regmap_read(chip->regmap16, NCT7201_REG_VIN_HIGH_LIMIT(chan->address), &value);
-> +		if (err < 0)
-> +			return err;
-> +		volt = value;
-> +	}
-> +
-> +	*val = volt >> 3;
-As Andy pointed out, likely a FIELD_GET() makes sense here.
-
-> +
-> +	return IIO_VAL_INT;
-> +}
-> +
-> +static int nct7201_write_event_value(struct iio_dev *indio_dev,
-> +				     const struct iio_chan_spec *chan,
-> +				     enum iio_event_type type,
-> +				     enum iio_event_direction dir,
-> +				     enum iio_event_info info,
-> +				     int val, int val2)
-> +{
-> +	struct nct7201_chip_info *chip = iio_priv(indio_dev);
-> +	long v1, v2;
-> +
-> +	v1 = val >> 5;
-> +	v2 = FIELD_PREP(NCT7201_REG_VIN_LIMIT_LSB_MASK, val) << 3;
-> +
-> +	if (chan->type != IIO_VOLTAGE)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (info == IIO_EV_INFO_VALUE) {
-I'd flip this to
-	if (info != IIO_EV_INFO_VALUE)
-		return -EOPNOTSUPP;
-
-	guard().
-
-> +		guard(mutex)(&chip->access_lock);
-> +		if (dir == IIO_EV_DIR_FALLING) {
-> +			regmap_write(chip->regmap, NCT7201_REG_VIN_LOW_LIMIT(chan->address), v1);
-> +			regmap_write(chip->regmap, NCT7201_REG_VIN_LOW_LIMIT_LSB(chan->address), v2);
-
-Check for errors.
-
-> +		} else {
-> +			regmap_write(chip->regmap, NCT7201_REG_VIN_HIGH_LIMIT(chan->address), v1);
-> +			regmap_write(chip->regmap, NCT7201_REG_VIN_HIGH_LIMIT_LSB(chan->address), v2);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-> +
-> +static int nct7201_write_event_config(struct iio_dev *indio_dev,
-> +				      const struct iio_chan_spec *chan,
-> +				      enum iio_event_type type,
-> +				      enum iio_event_direction dir,
-> +				      bool state)
-> +{
-> +	struct nct7201_chip_info *chip = iio_priv(indio_dev);
-> +	unsigned int mask;
-> +
-> +	if (chan->type != IIO_VOLTAGE)
-> +		return -EOPNOTSUPP;
-> +
-> +	mask = BIT(chan->address);
-> +
-> +	if (!state && (chip->vin_mask & mask))
-> +		chip->vin_mask &= ~mask;
-> +	else if (state && !(chip->vin_mask & mask))
-> +		chip->vin_mask |= mask;
-> +
-> +	guard(mutex)(&chip->access_lock);
-> +	regmap_write(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_1,
-> +		     chip->vin_mask & NCT7201_REG_CHANNEL_ENABLE_1_MASK);
-> +	if (chip->num_vin_channels == 12)
-> +		regmap_write(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_2,
-> +			     chip->vin_mask & NCT7201_REG_CHANNEL_ENABLE_2_MASK);
-
-This feels odd.  Don't you need to shift that vin_mask to get rid of channels
-that are enabled via ENABLE_1?
-
-> +
-> +	return 0;
-> +}
-
-> +static int nct7201_init_chip(struct nct7201_chip_info *chip)
-> +{
-> +	u8 data[2];
-> +	unsigned int value;
-> +	int err;
-> +
-> +	regmap_write(chip->regmap, NCT7201_REG_CONFIGURATION,
-> +		     NCT7201_BIT_CONFIGURATION_RESET);
-
-Add a comment on why you don't check return value (or do check it if appropriate).
-
-> +
-> +	/*
-> +	 * After about 25 msecs, the device should be ready and then
-> +	 * the Power Up bit will be set to 1. If not, wait for it.
-> +	 */
-> +	mdelay(25);
-> +	err = regmap_read(chip->regmap, NCT7201_REG_BUSY_STATUS, &value);
-> +	if (err < 0)
-> +		return err;
-> +	if (!(value & NCT7201_BIT_PWR_UP))
-> +		return dev_err_probe(&chip->client->dev, -EIO, "failed to power up after reset\n");
-> +
-> +	/* Enable Channel */
-> +	guard(mutex)(&chip->access_lock);
-> +	regmap_write(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_1,
-> +		     NCT7201_REG_CHANNEL_ENABLE_1_MASK);
-
-Check return value.  This is over an I2C bus, not the most reliable of
-transports!
-
-Consider doing this differently and using a bulk write for the larger
-case.
-
-	if (chip->num_vin_channels <= 8)
-		ret = regmap_write();
-	else
-		ret = regmap_bulk_write();
-
-However as you read ENABLE_2 unconditionally below, can you instead just
-always use a bulk write here?
-
-> +	if (chip->num_vin_channels == 12)
-> +		regmap_write(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_2,
-> +			     NCT7201_REG_CHANNEL_ENABLE_2_MASK);
-> +
-> +	err = regmap_read(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_1, &value);
-> +	if (err < 0)
-> +		return err;
-> +	data[0] = value;
-> +
-> +	err = regmap_read(chip->regmap, NCT7201_REG_CHANNEL_ENABLE_2, &value);
-> +	if (err < 0)
-> +		return err;
-> +	data[1] = value;
-
-Why does reading these back make sense?  Is there a reason the write
-above might not work if the I2C transfer is Acked?
-
-If this is part of discovery protocol for how many channels are there, then
-add comments.
-
-> +
-> +	value = get_unaligned_le16(data);
-> +	chip->vin_mask = value;
-> +
-> +	/* Start monitoring if needed */
-> +	err = regmap_read(chip->regmap, NCT7201_REG_CONFIGURATION, &value);
-> +	if (err < 0) {
-> +		dev_err_probe(&chip->client->dev, -EIO, "Failed to read REG_CONFIGURATION\n");
-> +		return value;
-
-Why return value if an error occurred?
-		retuen dev_err_probe();
-
-> +	}
-> +
-> +	value |= NCT7201_BIT_CONFIGURATION_START;
-> +	regmap_write(chip->regmap, NCT7201_REG_CONFIGURATION, value);
-
-regmap_set_bits()
-
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct regmap_config nct7201_regmap8_config = {
-> +	.name = "vin-data-read-byte",
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = 0xff,
-> +};
-> +
-> +static const struct regmap_config nct7201_regmap16_config = {
-> +	.name = "vin-data-read-word",
-> +	.reg_bits = 8,
-> +	.val_bits = 16,
-> +	.max_register = 0xff,
-> +};
-> +
-> +static int nct7201_probe(struct i2c_client *client)
-> +{
-> +	const struct nct7201_adc_model_data *model_data;
-> +	struct nct7201_chip_info *chip;
-> +	struct iio_dev *indio_dev;
-> +	int ret;
-> +
-> +	model_data = i2c_get_match_data(client);
-> +	if (!model_data)
-> +		return -EINVAL;
-> +
-> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*chip));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +	chip = iio_priv(indio_dev);
-> +
-> +	chip->regmap = devm_regmap_init_i2c(client, &nct7201_regmap8_config);
-> +	if (IS_ERR(chip->regmap))
-> +		return dev_err_probe(&client->dev, PTR_ERR(chip->regmap),
-> +			"Failed to init regmap\n");
-> +
-> +	chip->regmap16 = devm_regmap_init_i2c(client, &nct7201_regmap16_config);
-> +	if (IS_ERR(chip->regmap16))
-> +		return dev_err_probe(&client->dev, PTR_ERR(chip->regmap16),
-> +			"Failed to init regmap16\n");
-> +
-> +	chip->num_vin_channels = model_data->num_vin_channels;
-> +
-> +	ret = devm_mutex_init(&client->dev, &chip->access_lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	chip->client = client;
-> +
-> +	ret = nct7201_init_chip(chip);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	indio_dev->name = model_data->model_name;
-> +	indio_dev->channels = model_data->channels;
-> +	indio_dev->num_channels = model_data->num_channels;
-> +	if (client->irq)
-> +		indio_dev->info = &nct7201_info;
-> +	else
-> +		indio_dev->info = &nct7201_info_no_irq;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	return devm_iio_device_register(&client->dev, indio_dev);
-> +}
