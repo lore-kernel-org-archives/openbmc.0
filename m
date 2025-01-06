@@ -4,85 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05073E77188
-	for <openbmc@archiver.kernel.org>; Mon,  6 Jan 2025 17:16:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEF78E77188
+	for <openbmc@archiver.kernel.org>; Mon,  6 Jan 2025 17:16:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YRgnM67kdz3fpx
-	for <openbmc@archiver.kernel.org>; Tue,  7 Jan 2025 04:16:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4YRgnQ3GMzz3g0k
+	for <openbmc@archiver.kernel.org>; Tue,  7 Jan 2025 04:16:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1736183759;
-	cv=none; b=j5CafUvbecQApFg0TgeNWSjTtZEiSrskGYTuLVxcgH33NuJA8QtkAo+pxEwzlafwR7l+BBdOAkTOy6j9CFF1h/EKnKvUdic1qxGR8ctRezmlcFhO6K3iFD5QvLuYMT7QxLLxx0ront1+i9mh1rFST+xIO01owsNVtGvX0uJ5DZTPJiqiKmJXuOTK/6Cg4h3mNUmxumVSQRP6aOS5Hf1KbJzWSIBONBXoPjSQudpuhoJFDpgBXgCBLCw7kvMWi9FE31Vsg9BOow6OteTWROHgVXG5/9zL8CgelKXPx0hxuXFvm/xzmmJSIwZX0sfY1/uarngvyDc2hj1DetqOkTXu/g==
+	cv=none; b=f2CTj/Dd/IseVOwcbhpYKGGHuXLhwIlEYPOK67USHfLrkdGTT9tv8q7H0Cy/zSPC/3iNzKY0d7sjPQTnuynmn7YNvwQxaBqhaKqki2DDKrDwWvvcrvYyn7dDK/OMaCNVqtFnPLyr/xTgbKST9V4xnntkXom6L7NRDqXsXlpoqrjzTEpeqgnX+TAk0hZ63JXP37CHQaY6/10N4aao5XUUOkeJaA3fiZLIG7UWpxmwJ/tXA2hgCBmsIBLeOuqztYLrOoU741uHWSCGX+vb6AhlFVEcxo7oCHn4EcLtXER864tbs9F/G8I4kNYcP6pDjp4Hx4aAEPQCSkmM84hdheGJZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1736183759; c=relaxed/relaxed;
-	bh=vRxmj8QfveDDq0WCGBV6oy6wbJ+Ce25EOwCJV1b4D80=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WPe0WOsZPP6KD93pCKroLv/aUCo+EBthJm7P6Bl+UfVeHCRtAXfMqwHq7WeSkHZAuGcHFq+8dQhNvizSV6xLoQdrCT5XQEBVixYK87iizf/dy+qoQTv1vbuuG+f7wFAjhFeOFXTOA3dw6tJx1UQ+5gt6lryhVe6iL8H5xKwunHaJT+SRi6V4No0refvW5YhsGW7/rrlwHC5IIkR9zm4AnlmoWuufB/EKh86K1FAqeW7Epac8uWrKeeQYl+lkFj6Ccr8LiU68/BSoB2CDFLBnQBphxwTTkCVybmXc4Zxi99CC07zydnO+dg0fz9aXdQcNJcSpp0A6zyr/kqRcIXVTtg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=paVmQkYj; dkim-atps=neutral; spf=pass (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
+	bh=8aqA7G69P6Ty9SEbGPz9AS02J8CAWVJONhnFmmYEs28=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OpCa+Z+ghMngDXmImZlBM5K7OhEToZ07LF2c1PgS/4eJr7h7ofNqakFYKbUhtSNChkkl+L8y4hAzQUzcY00L+dsYxRgg/he3TIxlYz/6rOStJBVfBqqb1p+kqh0Pv19sR1PzedRNedtq0cz7vyslrsCcW9wqXAH+E/1O2VYlQWc4uLYT9WcRaZ1Sgsw8dJ6x4sYc8Ht7hwfr02bSFVRXr8j1LnwlVgLUd3ATuSLsQRuI5/57PN/f5lAPRNCG6peA4EA4pATaDwP9BYqTLtxWOyUBvyb2ZZvm2wWXk9AWnZCJPW+XBpmWzVHuWDMztjTPKwo1ZI2n3/niZrm6Nm1Hgg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=b0UBm7Pg; dkim-atps=neutral; spf=pass (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=paVmQkYj;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=b0UBm7Pg;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YRgn947jfz30YT
-	for <openbmc@lists.ozlabs.org>; Tue,  7 Jan 2025 04:15:56 +1100 (AEDT)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 50685XVS025170;
-	Mon, 6 Jan 2025 17:15:41 GMT
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YRgn94hyyz30fd
+	for <openbmc@lists.ozlabs.org>; Tue,  7 Jan 2025 04:15:57 +1100 (AEDT)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 506BbmbX006672;
+	Mon, 6 Jan 2025 17:15:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=vRxmj8QfveDDq0WCGBV6oy6wbJ+Ce25EOwCJV1b4D
-	80=; b=paVmQkYjXW0oRzTGjQLtkm9hotKmf2ch+Jryw5e+2f2LukYyIwTF8AWqW
-	/mVjUj2a/XjkRpkI4CYw19DPH1sdFvGyCwUISi6soD0jhuemG4bjOrv1t3GO+Y2T
-	4t+kkZbgCoBokJbU/MfNY+FF3PZge4/0W/QG/PWJA9MeeGspCZqNeCG5LrlU/zz6
-	ySFfQQACwkkwpzdAmjjEZf4SieNCrg6dPmVUa/cad8mv3J4iBdd5AY4/k5IUhKmt
-	OPlj2BKcwGG4JaEoCmj8NrZ+QDR+uOrcCGp9djaNFrLBnhmIjBddVGBoLFeanzVw
-	jy67+fhCYq772/wXTWJCU8xkq5qIA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 440bc2j80e-1
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=8aqA7G69P6Ty9SEbG
+	Pz9AS02J8CAWVJONhnFmmYEs28=; b=b0UBm7PgwiHtPfLBK+phxX2v8Lw/abezT
+	5jPhmVlxlQhFTtCW2pTkdG/mgLtFBNT0MmoFQ5p49k7PSZXMA/GSXpn8k3jjwm1N
+	OPv4cQopbbjXdhMLcNMoXMTwmLVaAl2jpCt6jggfvhyESNCfvnhl6jN9Xx+l/Y1p
+	m8PU+fw1JORIh4CrEtSor1Y1c1h6F8fZ7KMY6VGnMILGf4bV9GVM7nn7/ph//dQ8
+	Ma6jQipISIwuQQuXpPlQiexkiWNwc3gLJ1Vq5+tb9bhu7MjeABtYN22S+6H1Jpkx
+	DyQ/3fZZ5td8GVxaF/Kj5Osnmthl2JIpTqQQkC/v3XmtXBdYtQy/A==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4403wakpst-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 06 Jan 2025 17:15:41 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 506FeDCE027946;
-	Mon, 6 Jan 2025 17:15:40 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 43yhhjxeuh-1
+	Mon, 06 Jan 2025 17:15:43 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 506GX4av026171;
+	Mon, 6 Jan 2025 17:15:42 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 43yj11xbjq-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 06 Jan 2025 17:15:40 +0000
+	Mon, 06 Jan 2025 17:15:42 +0000
 Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 506HFd6Q30868048
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 506HFfT553805544
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 6 Jan 2025 17:15:39 GMT
+	Mon, 6 Jan 2025 17:15:41 GMT
 Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 903FF58054;
-	Mon,  6 Jan 2025 17:15:39 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 755C35805D;
+	Mon,  6 Jan 2025 17:15:41 +0000 (GMT)
 Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 30C2D5805F;
-	Mon,  6 Jan 2025 17:15:39 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 171145805A;
+	Mon,  6 Jan 2025 17:15:41 +0000 (GMT)
 Received: from gfwa153.aus.stglabs.ibm.com (unknown [9.3.84.127])
 	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  6 Jan 2025 17:15:39 +0000 (GMT)
+	Mon,  6 Jan 2025 17:15:41 +0000 (GMT)
 From: Ninad Palsule <ninad@linux.ibm.com>
 To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, joel@jms.id.au,
         eajames@linux.ibm.com
-Subject: [PATCH linux dev-6.6 v1 0/4] Add support for Intel CRPS PSU
-Date: Mon,  6 Jan 2025 11:15:24 -0600
-Message-ID: <20250106171530.1063148-1-ninad@linux.ibm.com>
+Subject: [PATCH linux dev-6.6 v1 4/4] ARM: dts: aspeed: system1: Use crps PSU driver
+Date: Mon,  6 Jan 2025 11:15:28 -0600
+Message-ID: <20250106171530.1063148-5-ninad@linux.ibm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250106171530.1063148-1-ninad@linux.ibm.com>
+References: <20250106171530.1063148-1-ninad@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 9OU0CMCo5dI4w8uTOFLtdc8XcnjP4sYY
-X-Proofpoint-ORIG-GUID: 9OU0CMCo5dI4w8uTOFLtdc8XcnjP4sYY
+X-Proofpoint-GUID: 2yv9DTq_YLr5IC2hX9IFpx31N6N1AWgf
+X-Proofpoint-ORIG-GUID: 2yv9DTq_YLr5IC2hX9IFpx31N6N1AWgf
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1051,Hydra:6.0.680,FMLib:17.12.62.30
  definitions=2024-10-15_01,2024-10-11_01,2024-09-30_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 mlxscore=0 adultscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 clxscore=1011 spamscore=0 malwarescore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2411120000 definitions=main-2501060145
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 mlxlogscore=832
+ lowpriorityscore=0 spamscore=0 suspectscore=0 bulkscore=0 mlxscore=0
+ clxscore=1015 adultscore=0 impostorscore=0 priorityscore=1501
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2411120000 definitions=main-2501060150
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,32 +101,45 @@ Cc: Ninad Palsule <ninad@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+The system1 uses Intel common redundant (crps185) power supplies so move
+to correct new crps driver.
 
-Please review the version 1 of patchset.
+Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+---
+ arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-This patchset is already applied upstream:
-https://lore.kernel.org/linux-kernel/20241217173537.192331-1-ninad@linux.ibm.com
-
-Ninad Palsule (4):
-  hwmon: (pmbus/core) Add PMBUS_REVISION in debugfs
-  hwmon: (pmbus/crps) Add Intel CRPS185 power supply
-  dt-bindings: hwmon: intel,crps185: Add to trivial
-  ARM: dts: aspeed: system1: Use crps PSU driver
-
- .../devicetree/bindings/trivial-devices.yaml  |  2 +
- Documentation/hwmon/crps.rst                  | 97 +++++++++++++++++++
- Documentation/hwmon/index.rst                 |  1 +
- MAINTAINERS                                   |  7 ++
- .../dts/aspeed/aspeed-bmc-ibm-system1.dts     |  8 +-
- drivers/hwmon/pmbus/Kconfig                   |  9 ++
- drivers/hwmon/pmbus/Makefile                  |  1 +
- drivers/hwmon/pmbus/crps.c                    | 74 ++++++++++++++
- drivers/hwmon/pmbus/pmbus_core.c              | 13 ++-
- 9 files changed, 206 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/hwmon/crps.rst
- create mode 100644 drivers/hwmon/pmbus/crps.c
-
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
+index c8597dcded31..c00b189daeaf 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-ibm-system1.dts
+@@ -681,22 +681,22 @@ &i2c2 {
+ 	status = "okay";
+ 
+ 	power-supply@58 {
+-		compatible = "ibm,cffps";
++		compatible = "intel,crps185";
+ 		reg = <0x58>;
+ 	};
+ 
+ 	power-supply@59 {
+-		compatible = "ibm,cffps";
++		compatible = "intel,crps185";
+ 		reg = <0x59>;
+ 	};
+ 
+ 	power-supply@5a {
+-		compatible = "ibm,cffps";
++		compatible = "intel,crps185";
+ 		reg = <0x5a>;
+ 	};
+ 
+ 	power-supply@5b {
+-		compatible = "ibm,cffps";
++		compatible = "intel,crps185";
+ 		reg = <0x5b>;
+ 	};
+ };
 -- 
 2.43.0
 
