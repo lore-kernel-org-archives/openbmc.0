@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1356CC02185
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:00:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24298C02185
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:00:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05Z0V8Kz894t
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:58:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05c3qDYz89F9
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:59:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a01:4f8:d0a:203a::1"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737107084;
-	cv=none; b=d8Q8yCAeER6jnesPL74RROKTiC5pkd9VupstantBIclN/eNj+swb7s8GGZFLpMN2hY8uzN73mMvNXSEi60pcyDrBggYT9AdekdYRZmIesPckE6/S5oXfuAF1RmSwYsT53y+cXOJ6V8k3pd08wrdE6TQQX5RgZo9gmNGAO6iluKn1B/V3Fviftv6FQN4GhaNpbkrp5VUHHUBdlg0d4pGjCOwQ5i9nn6tKcv1FaxTZMgWwWQQUtBgFz5Mwo/lwFfgSMOTTy2GFybNkLoy5HJoC2Kp5+FBZujxQ3kJfstgnCESmDSiL5tlH3AbZmAnAoWTAgpSlgITg1RlMWSnF/YrkfQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737116620;
+	cv=none; b=UfMwiT0KHfXyDqzYCR4a1XfRCjEIZXaWmHOFlb3R+jFdHtfpaJQb7N0MJoAbBUWoiWqoZC+rpfc9HiK/RTj/cNq8lc4hwGvKHM+wxXV6UKNg45zjqGB5ig8SW61wC0SkMXZ0KjR6q62ASo6do9davwwv4DeZbG5Gcz+QHQjMlKRivC7lkgxF7zPxYcedQ7Tec0U4fzrDl62EqV2qFaBkqPLoITIG9LcLSi4jOP5koTfBcy0CG/vtFTAiiDUAdRXMsHUxWTjPcnzKdl9Ema9QxV+cbAzuEh6zreR7OxaTQPNJBnmYHkLeTyjz/RvU7Vf1xxEMM7rYO/vamao4O3kjnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1737107084; c=relaxed/relaxed;
-	bh=W4GiYbiBCn8Fq2A3KryNO0oxA9LPc1vyyzAsa1FSUFI=;
+	t=1737116620; c=relaxed/relaxed;
+	bh=o412VQi5VnPenCQ9BHqCWuF/dYRpI1jXyENNZVzR5m4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WTwKHE/IQZuwCpAftOiLvF1qIcy9sW7fJKf1Gv+tjgtHutDx4i4p1Nj+AWDEhFmEO3h1zkroZoRVexm9oTkeYgpOOOlyfdBcV+uMIxmwaoaQTqxO8Gv56vuVKkeEDI+FX2QwrRyZ3FQjsoJLW52aW0RMMt+6Ehg4OzBz7VnFE6OPuABRKSmn8ROcVdY55oAeIzQvBaUa3qDiEB5lq88qYBU6fzT9/vXe1FTvH/DhUJY77GL74kKiryL2A4DYpW9dXOv8Pfe9A4YrTn+ffrkEjm2tlnrNbWcTI0mOVzfvhXhyIbGW+cBHn3JeOyhsoG04GMSUfNg4+aGQx01vZ6tfXQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=wLd1iG5K; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
+	 MIME-Version; b=jnoH6IyLA95la68iuftJ52Hj4kbY+Oq9MF0HQtYBicf3XgQKWXFDVkBCu4Pt9dccTN/orSlOgO6Ewh3o2HHYokP0eHC0JGrJFQ5goa5ZRmB/Sa9k6CDB80z3HmePlT5POs9DFOo9fZ20+Pxr7+ZWaSaj+RJyhY2mJ9js6VNFcnAmb0Hb4ZuD38Fm+/DXJUnKVkHQGoDzSif07uFpNCGrdeDGdksuYZtgkPbdjMF6Pheddib8XZnxPyB0Umzdja+NeLwkfafgkUjzvi/Rft1/uhqcARhHQe+S415QpwFepNrLV3gJCYyuwTN63FAqdwZ997XYr7gU3Pe7dn0BMFEIcQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=KevtarBa; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=wLd1iG5K;
+	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=KevtarBa;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hetzner.com (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org)
 Received: from mail.hetzner.company (mail.hetzner.company [IPv6:2a01:4f8:d0a:203a::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZFFQ3LLbz3ck2
-	for <openbmc@lists.ozlabs.org>; Fri, 17 Jan 2025 20:44:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZJmn5x67z30Vd
+	for <openbmc@lists.ozlabs.org>; Fri, 17 Jan 2025 23:23:35 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hetzner.com
 	; s=lms2212; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
 	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=W4GiYbiBCn8Fq2A3KryNO0oxA9LPc1vyyzAsa1FSUFI=; b=wLd1iG
-	5KTM1LhulEqCsvAOTE+DYJdfq8Hb2xRoDZ73wDVQ530ZEsogOkLNGdTND1D0F0ZFMDDyDWZ8TpA6F
-	Xaw39SaGCB6DS6ZAn6G4CkN1F+LZPEbdavc4+v/ke1nIkeIvneTsYOJF+vKlVYimJeQyN+5KYuzsy
-	Vvwdp10qIEQelgcVImlqahIErX0/HuusXf9+HtJY73egC1elAOA1TCazFmUcFhGa+FEJW4E4/zmkL
-	ZEiF8QX6woBoCisadMLtqFS66QX9dTv/hHU6C9/ooNMW5kO2SeXhx9bKvnCcTBvlq48MRdYZvt15/
-	yTSOK/ZUWrBQl1S2QGFviIEBGFCw==;
+	:Resent-Message-ID; bh=o412VQi5VnPenCQ9BHqCWuF/dYRpI1jXyENNZVzR5m4=; b=Kevtar
+	BaB2pOjdok7bjQ7SKPn/4ocOWFYi/J5hR0wsSNSbpwo/HBG5TS9z3hXAJFUgh+qMeKDn7a+PlcknX
+	oVHkLkZgfZS02DLuQVXf6RxBeKaDCMbcvsDelZA7VwLw/Kp7jltOoENCP8V2ZkmpAc4RmHssQu9jK
+	DUwRW584nbqipQ/rgAFeqYr+S0s21P9YMvkKa1FL6ZHrgwsgXZCCMP3Y0HJTvON+tDWzRycUFPJbn
+	op7jRuy3HXbsUCCvUeJ1kRHxowl01UiBUY7QNPx43MpGXKFtFidfRlHMzNpf8Hc8BCoPrziK767U4
+	JPaO/HoMfWJOYLD+0V7MGLieODHA==;
 Received: from [2a01:4f8:0:a0a7::4c:0] (helo=localhost.localdomain)
 	by mail.hetzner.company with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
 	(Exim 4.94.2)
 	(envelope-from <tan.siewert@hetzner.com>)
-	id 1tYiu3-000A1S-Tp; Fri, 17 Jan 2025 10:44:35 +0100
+	id 1tYiu4-000A1S-6C; Fri, 17 Jan 2025 10:44:36 +0100
 From: Tan Siewert <tan.siewert@hetzner.com>
 To: openbmc@lists.ozlabs.org,
 	andrew@aj.id.au
-Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 09/12] misc: i2c_eeprom: remove pagewidth field from i2c_eeprom
-Date: Fri, 17 Jan 2025 10:44:28 +0100
-Message-ID: <20250117094434.16641-10-tan.siewert@hetzner.com>
+Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 11/12] misc: i2c_eeprom: implement different probe test eeprom offset
+Date: Fri, 17 Jan 2025 10:44:30 +0100
+Message-ID: <20250117094434.16641-12-tan.siewert@hetzner.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20250117094434.16641-1-tan.siewert@hetzner.com>
 References: <20250117094434.16641-1-tan.siewert@hetzner.com>
@@ -68,56 +68,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Masahiro Yamada <yamada.masahiro@socionext.com>, Tan Siewert <tan.siewert@hetzner.com>
+Cc: Eugen Hristev <eugen.hristev@microchip.com>, Heiko Schocher <hs@denx.de>, Tan Siewert <tan.siewert@hetzner.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Masahiro Yamada <yamada.masahiro@socionext.com>
+From: Eugen Hristev <eugen.hristev@microchip.com>
 
-This struct member is not used in any effective way. Remove it.
+Because of this commit :
+5ae84860b0 ("misc: i2c_eeprom: verify that the chip is functional at probe()")
+at probe time, each eeprom is tested for read at offset 0.
 
-Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
-(cherry picked from commit ed6dd4e460bd94150dc09fce547a27e2fcca66eb)
+The Atmel AT24MAC402 eeprom has different mapping. One i2c slave address is
+used for the lower 0x80 bytes and another i2c slave address is used for the
+upper 0x80 bytes. Because of this basically the i2c master sees 2 different
+slaves. We need the upper bytes because we read the unique MAC address from
+this EEPROM area.
+
+However this implies that our slave address will return error on reads
+from address 0x0 to 0x80.
+
+To solve this, implemented an offset field inside platform data that is by
+default 0 (as it is used now), but can be changed in the compatible table.
+
+The probe function will now read at this offset and use it, instead of blindly
+checking offset 0.
+
+This will fix the regression noticed on these EEPROMs since the commit
+abovementioned that introduces the probe failed issue.
+
+Signed-off-by: Eugen Hristev <eugen.hristev@microchip.com>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+(cherry picked from commit b24dc83f156604f253ef6521776444188c5bff9b)
 Signed-off-by: Tan Siewert <tan.siewert@hetzner.com>
 ---
- drivers/misc/i2c_eeprom.c | 8 +++-----
- include/i2c_eeprom.h      | 2 --
- 2 files changed, 3 insertions(+), 7 deletions(-)
+ drivers/misc/i2c_eeprom.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/misc/i2c_eeprom.c b/drivers/misc/i2c_eeprom.c
-index 6c0459dc555..728e0fd79ab 100644
+index ef5f103c98e..32a1b208567 100644
 --- a/drivers/misc/i2c_eeprom.c
 +++ b/drivers/misc/i2c_eeprom.c
-@@ -99,13 +99,11 @@ static int i2c_eeprom_std_ofdata_to_platdata(struct udevice *dev)
- 	u32 pagesize;
- 	u32 size;
- 
--	if (dev_read_u32(dev, "pagesize", &pagesize) == 0) {
-+	if (dev_read_u32(dev, "pagesize", &pagesize) == 0)
- 		priv->pagesize = pagesize;
--	} else {
-+	else
- 		/* 6 bit -> page size of up to 2^63 (should be sufficient) */
--		priv->pagewidth = data->pagewidth;
--		priv->pagesize = (1 << priv->pagewidth);
--	}
-+		priv->pagesize = 1 << data->pagewidth;
- 
- 	if (dev_read_u32(dev, "size", &size) == 0)
- 		priv->size = size;
-diff --git a/include/i2c_eeprom.h b/include/i2c_eeprom.h
-index b96254ae79f..cd620d519fc 100644
---- a/include/i2c_eeprom.h
-+++ b/include/i2c_eeprom.h
-@@ -16,8 +16,6 @@ struct i2c_eeprom_ops {
- struct i2c_eeprom {
- 	/* The EEPROM's page size in byte */
- 	unsigned long pagesize;
--	/* The EEPROM's page width in bits (pagesize = 2^pagewidth) */
--	unsigned pagewidth;
- 	/* The EEPROM's capacity in bytes */
- 	unsigned long size;
+@@ -17,6 +17,7 @@ struct i2c_eeprom_drv_data {
+ 	u32 pagesize; /* page size in bytes */
+ 	u32 addr_offset_mask; /* bits in addr used for offset overflow */
+ 	u32 offset_len; /* size in bytes of offset */
++	u32 start_offset; /* valid start offset inside memory, by default 0 */
  };
+ 
+ int i2c_eeprom_read(struct udevice *dev, int offset, uint8_t *buf, int size)
+@@ -147,7 +148,11 @@ static int i2c_eeprom_std_probe(struct udevice *dev)
+ 	i2c_set_chip_addr_offset_mask(dev, data->addr_offset_mask);
+ 
+ 	/* Verify that the chip is functional */
+-	ret = i2c_eeprom_read(dev, 0, &test_byte, 1);
++	/*
++	 * Not all eeproms start from offset 0. Valid offset is available
++	 * in the platform data struct.
++	 */
++	ret = i2c_eeprom_read(dev, data->start_offset, &test_byte, 1);
+ 	if (ret)
+ 		return -ENODEV;
+ 
+@@ -215,6 +220,7 @@ static const struct i2c_eeprom_drv_data atmel24mac402_data = {
+ 	.pagesize = 16,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
++	.start_offset = 0x80,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c32_data = {
 -- 
 2.47.0
 
