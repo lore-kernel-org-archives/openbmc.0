@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018DDC02185
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:00:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC8EC02185
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:01:09 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05g0pNjz89PN
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:59:03 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05k1yBfz89Yd
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:59:06 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a01:4f8:d0a:203a::1"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737125431;
-	cv=none; b=BbZc8Eeel/55dlSeWiYmM3zhenm8peYZ/oeIHNzrucfMS8ezLlZIP1GRoPIcYl6OqafU/yme0p1Fze6SmghwXmQZm/cM7c1LKkf6KRxtSD1sxhh6rmiWN8xmNQ7GOmeLKehC9cXdUjy0tboSfFNV8HYUGnRbuAYcFOOxqrY7hxq6MDhs43ajmcxcgrAMw5wCflIjPHRj178ntYUrCgCVUp1jX0Um7flIYyDJyCQdtIrKcuyI9BcSceNBSpytA4uCvrlKhM8ifCw7XMWWkvnKqVGE/xFhmrJXHNbpFtf+iK7+L6AXwvMa0Ci0Gjy1JgEC0oZUfPIFgKvhUFOXUmV7pA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737125518;
+	cv=none; b=TJmWs2gdD52hjezrgtrZl1jfRXHCK3vuGH6yHbFOXPSu33z5quc/BfYdv6NL8l8GTfO4lbZ+/rACiCBNv2AFCwroon9QcLfeKNB2/J00jcf4++150ceUkxKh6r7CctqS9zQh515RRSOM3ONIYSEs6T/N+IqSbL3sreZhGNgT2mbd+EfwI2fr2jBTWQ/jhfKo/oFs+qGezaBufdXBnygZFOGDxSQQvcCLNjXX8S8Khtim9cSHsSSwUIUhOAi5QRxWSpvJ7iYy12xfofM+riFbPPYWbMIEQYYy5Uv4LZoH+8aIEblpS82f8VDkKWSsips7GFWX9sJQH++DduwsMiRfOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1737125431; c=relaxed/relaxed;
-	bh=x1Ph4IowC9mzw29WS0Ha77dbTQwL5wGcl1HFWDLXcas=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gzx8QXD8C3F+Wlf9l2T1ipJFLk7QpqxDL1zdFJcPjfyoLNqFYhPHne143OHVagf5UjH8MxZBl8yHEvhLhgFs97J4fu92OvWIyaCdECoihO0hikl0Dl8X0THa3RSMJ5QmFTIzNopIh6z+mCxe6yox64TMkzjN03/yjtex/v+yISlkq3PwBWW6H47sqknXYybcoctwZG+ALrvxhJA4hlfXRe6fr1fjBFQy2+0890j2SFcZ6nWcQmcXCJdV8ECzonLeRu6ulh+WVbJg/RBU6vm3trF9ac/ehzItsIDYHuByNr27BgZWTpqBC1Jdy2J2SK04PZoxRAGiIsdGD/6yoVwdrw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=sEHA11nA; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
+	t=1737125518; c=relaxed/relaxed;
+	bh=CTOd3w4tbVo5GAhOrqMRxDh01CsEZMg9oO+KV9AHh9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DggkvMMgfppbOHn/yo7dp+KK66EgS8astYS28qIGcmezaUc2ofCYAW9asqUhB1jWkj+duidqKmKrtQTERMi/+DQQUFwuAXLBfsVC1QbuVdxSzg40mOXdFVSX2y/8UF6XdKJV05JO6wh/kS8blWGHDQ2UgasYKyik6U5/z2COXkaJbN1YLbzEEr5jtTW0XISzgVZsLrfbZth/0Vd2d3RdJxrY8iXx/SS4Xo6+8H1kZeOfnkkvPEBJte7y8/bOmWHVLm2sZrsDQMLc34T8wLpxkmesr25TNRW3Ln9HsAo5GLSHfrK23VRd2413DBDzOaiqo8d2uvTv3AiCYPWFgbUM4g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=eIghtBHj; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=sEHA11nA;
+	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=eIghtBHj;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hetzner.com (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org)
 Received: from mail.hetzner.company (mail.hetzner.company [IPv6:2a01:4f8:d0a:203a::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZN2D6pQwz30WX
-	for <openbmc@lists.ozlabs.org>; Sat, 18 Jan 2025 01:50:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZN3x1Zt4z2yQL
+	for <openbmc@lists.ozlabs.org>; Sat, 18 Jan 2025 01:51:56 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hetzner.com
-	; s=lms2212; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject
-	:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References; bh=x1Ph4IowC9mzw29WS0Ha77dbTQwL5wGcl1HFWDLXcas=; b=sE
-	HA11nAWAreMA9VSsW8owzdP7BB+XzmluMPCVnBKNyPXQm57uXkHH/6xQeoJYmhuRMdy8zNxQnXTHb
-	DAdmGU5u0wzQ7r8k6A9tvb4VGVX6nRwQSQhgZpGrS5cEDbUs1UHgj+NR+BWOX1fLrFTiUCRv5+ae7
-	zRqLDjUlZIydCfblP8CStYUKEwToXXGTRRSTo9x+UGm4cWcXVPyx4ksoAuleCPMVuz17z8qO2kG+G
-	HjPoaUnhUs67lAj2gKvH3gQWuxvoges81jUWWVDsAnYfOG9Td/S+VDlpjRw6KFv72AnP4vK5hck9t
-	65ARG7swtEqMu5Bu2Rdw5Xo9qnIWdtqQ==;
+	; s=lms2212; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=CTOd3w4tbVo5GAhOrqMRxDh01CsEZMg9oO+KV9AHh9c=; b=eIghtB
+	HjG1qAWYkA1SU1sjc8zeyPjQ3GQnqjCaZtwtCE9LMEm4NwV6gnjemSiC8pLPwk6j81IJ/D93Iyvyc
+	LJ40chZ1beBcP62qaz7U9NYcwhk3D6tbQwYyWMIBG4EWUjzWnLbozWyL2y8S7n9o7evR8sH7EAKNa
+	TR08zfZ9Em7Ks21MV+o/Tb1Rsc1lUfzgZCdmBy5eIc+PyoqTze7tGbYevm6RtnaFxOnNQBRE8dK64
+	WmDYVtl1VEUXbKWxTXrdOoGoZFt6uEtwBdoOxVYplpMcgS1z69KUVBMpXhsVhNhtYd5Or8LLYhkE1
+	l79OTXOgYJYdGIAGh6Er03fmuS8Q==;
 Received: from [2a01:4f8:0:a0a7::4c:0] (helo=localhost.localdomain)
 	by mail.hetzner.company with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
 	(Exim 4.94.2)
 	(envelope-from <tan.siewert@hetzner.com>)
-	id 1tYipW-0008Ze-VG; Fri, 17 Jan 2025 10:39:55 +0100
+	id 1tYiu4-000A1S-1q; Fri, 17 Jan 2025 10:44:36 +0100
 From: Tan Siewert <tan.siewert@hetzner.com>
 To: openbmc@lists.ozlabs.org,
 	andrew@aj.id.au
-Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 00/12] misc: i2c_eeprom: Backport commits for proper pagesize and partition support
-Date: Fri, 17 Jan 2025 10:38:58 +0100
-Message-ID: <20250117093915.15256-1-tan.siewert@hetzner.com>
+Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 10/12] misc: i2c_eeprom: store pagesize instead of pagewidth in i2c_eeprom_drv_data
+Date: Fri, 17 Jan 2025 10:44:29 +0100
+Message-ID: <20250117094434.16641-11-tan.siewert@hetzner.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20250117094434.16641-1-tan.siewert@hetzner.com>
+References: <20250117094434.16641-1-tan.siewert@hetzner.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Authenticated-Sender: tom.siewert@hetzner.com
@@ -65,89 +68,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Tan Siewert <tan.siewert@hetzner.com>
+Cc: Masahiro Yamada <yamada.masahiro@socionext.com>, Tan Siewert <tan.siewert@hetzner.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This series adds proper support for pagesizes and partitions on
-EEPROMs connected via an I2C bus. All commits were backported from
-upstream tag v2021.04.
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
 
-The original issue arised during debugging a platform that gets its
-MAC address from an Atmel 24c128 EEPROM instead of the hardware,
-which always failed [1].
+Associate the pagesize with compatible strings, and copy it to
+priv->pagesize. This is more straight-forward.
 
-With the patches applied, the EEPROM can be read properly.
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+(cherry picked from commit 0c17bb1cbe87c5b00880d3445b46c437f3f22e02)
+Signed-off-by: Tan Siewert <tan.siewert@hetzner.com>
+---
+ drivers/misc/i2c_eeprom.c | 32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
-Before:
-
- ast# i2c dev 7
- ast# i2c md 0x57 0x3f80 6
- 3f80: ff ff ff ff ff ff    ......
-
-After:
-
- ast# i2c bus
- Bus 3:    i2c-bus@100
- Bus 7:    i2c-bus@300  (active 7)
-    57: eeprom@57, offset len 2, flags 0
- ast# i2c md 0x57 0x3f80 6
- 3f80: 78 24 35 bb cd 01    x$5...
-
-[1] https://discord.com/channels/775381525260664832/775694683589574659/1329524655752745044
-
-Baruch Siach (3):
-  misc: i2c_eeprom: support DT pagesize property
-  misc: i2c_eeprom: add eeprom write support
-  misc: i2c_eeprom: verify that the chip is functional at probe()
-
-Eugen Hristev (1):
-  misc: i2c_eeprom: implement different probe test eeprom offset
-
-Masahiro Yamada (2):
-  misc: i2c_eeprom: remove pagewidth field from i2c_eeprom
-  misc: i2c_eeprom: store pagesize instead of pagewidth in
-    i2c_eeprom_drv_data
-
-Michal Simek (1):
-  i2c: eeprom: Use reg property instead of offset and size
-
-Robert Beckett (4):
-  i2c: add support for offset overflow in to address
-  misc: i2c_eeprom: add fixed partitions support
-  misc: i2c_eeprom: add size query
-  misc: i2c_eeprom: set offset len and chip addr offset mask
-
-Simon Glass (1):
-  common: Move old EEPROM functions into a new header
-
- arch/sandbox/dts/test.dts                     |  13 +
- board/atmel/common/mac_eeprom.c               |   1 +
- board/compulab/common/eeprom.c                |   1 +
- board/corscience/tricorder/tricorder-eeprom.c |   1 +
- board/dhelectronics/dh_imx6/dh_imx6.c         |   1 +
- board/freescale/mpc8323erdb/mpc8323erdb.c     |   1 +
- board/kosagi/novena/novena.c                  |   1 +
- board/phytec/phycore_rk3288/phycore-rk3288.c  |   1 +
- board/rockchip/tinker_rk3288/tinker-rk3288.c  |   1 +
- board/samtec/vining_fpga/socfpga.c            |   1 +
- board/ti/am43xx/board.c                       |   1 +
- board/ti/ks2_evm/board_k2g.c                  |   1 +
- cmd/eeprom.c                                  |   1 +
- configs/sandbox_defconfig                     |   1 +
- drivers/i2c/i2c-uclass.c                      |  34 +-
- drivers/misc/i2c_eeprom.c                     | 316 ++++++++++++++++--
- drivers/mtd/mw_eeprom.c                       |   1 +
- drivers/rtc/rv3029.c                          |   1 +
- env/eeprom.c                                  |   1 +
- include/common.h                              |  15 -
- include/eeprom.h                              |  24 ++
- include/i2c.h                                 |  33 ++
- include/i2c_eeprom.h                          |  14 +-
- test/dm/bootcount.c                           |   8 +
- 24 files changed, 430 insertions(+), 43 deletions(-)
- create mode 100644 include/eeprom.h
-
+diff --git a/drivers/misc/i2c_eeprom.c b/drivers/misc/i2c_eeprom.c
+index 728e0fd79ab..ef5f103c98e 100644
+--- a/drivers/misc/i2c_eeprom.c
++++ b/drivers/misc/i2c_eeprom.c
+@@ -14,7 +14,7 @@
+ 
+ struct i2c_eeprom_drv_data {
+ 	u32 size; /* size in bytes */
+-	u32 pagewidth; /* pagesize = 2^pagewidth */
++	u32 pagesize; /* page size in bytes */
+ 	u32 addr_offset_mask; /* bits in addr used for offset overflow */
+ 	u32 offset_len; /* size in bytes of offset */
+ };
+@@ -103,7 +103,7 @@ static int i2c_eeprom_std_ofdata_to_platdata(struct udevice *dev)
+ 		priv->pagesize = pagesize;
+ 	else
+ 		/* 6 bit -> page size of up to 2^63 (should be sufficient) */
+-		priv->pagesize = 1 << data->pagewidth;
++		priv->pagesize = data->pagesize;
+ 
+ 	if (dev_read_u32(dev, "size", &size) == 0)
+ 		priv->size = size;
+@@ -156,98 +156,98 @@ static int i2c_eeprom_std_probe(struct udevice *dev)
+ 
+ static const struct i2c_eeprom_drv_data eeprom_data = {
+ 	.size = 0,
+-	.pagewidth = 0,
++	.pagesize = 1,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data mc24aa02e48_data = {
+ 	.size = 256,
+-	.pagewidth = 3,
++	.pagesize = 8,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c01a_data = {
+ 	.size = 128,
+-	.pagewidth = 3,
++	.pagesize = 8,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c02_data = {
+ 	.size = 256,
+-	.pagewidth = 3,
++	.pagesize = 8,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c04_data = {
+ 	.size = 512,
+-	.pagewidth = 4,
++	.pagesize = 16,
+ 	.addr_offset_mask = 0x1,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c08_data = {
+ 	.size = 1024,
+-	.pagewidth = 4,
++	.pagesize = 16,
+ 	.addr_offset_mask = 0x3,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c08a_data = {
+ 	.size = 1024,
+-	.pagewidth = 4,
++	.pagesize = 16,
+ 	.addr_offset_mask = 0x3,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c16a_data = {
+ 	.size = 2048,
+-	.pagewidth = 4,
++	.pagesize = 16,
+ 	.addr_offset_mask = 0x7,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24mac402_data = {
+ 	.size = 256,
+-	.pagewidth = 4,
++	.pagesize = 16,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 1,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c32_data = {
+ 	.size = 4096,
+-	.pagewidth = 5,
++	.pagesize = 32,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 2,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c64_data = {
+ 	.size = 8192,
+-	.pagewidth = 5,
++	.pagesize = 32,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 2,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c128_data = {
+ 	.size = 16384,
+-	.pagewidth = 6,
++	.pagesize = 64,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 2,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c256_data = {
+ 	.size = 32768,
+-	.pagewidth = 6,
++	.pagesize = 64,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 2,
+ };
+ 
+ static const struct i2c_eeprom_drv_data atmel24c512_data = {
+ 	.size = 65536,
+-	.pagewidth = 6,
++	.pagesize = 64,
+ 	.addr_offset_mask = 0,
+ 	.offset_len = 2,
+ };
 -- 
 2.47.0
 
