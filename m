@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A7FC02185
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:00:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1356CC02185
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 06:00:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05W5BKKz3dLR
-	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:58:55 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc05Z0V8Kz894t
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:58:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a01:4f8:d0a:203a::1"
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737107084;
-	cv=none; b=InuRCPnhzcT0F8xZl10l57TSqJqc6H+kvy3Hx5+lh35Rz5imLSrlBmeuNE++bE8rN2P/Nho+SIslvHBV7mAiA/yVdBLRHyRxynnHVs5A96Xv5sP8yQVJeppgZvqG32FjjQ+UwsnxudhEmVFNilLkUGSF6kptM551C58Xx+UD0Zjg0v/yPHZ4MXnAAp6c0qIVD3uZSVi3ZOyMs4nj67ZxjPXCwoOOmnvkStNNsewddVG26+sWI4XsYM8dKx+iK3zv8luGhRRYFple4gOCgx7vTt4mQ6tM8YqJHJ9qAdligly1wPM0LwDu3E1gG+Cxo8EVtFpUna6gqhxhPnncTYTvEA==
+	cv=none; b=d8Q8yCAeER6jnesPL74RROKTiC5pkd9VupstantBIclN/eNj+swb7s8GGZFLpMN2hY8uzN73mMvNXSEi60pcyDrBggYT9AdekdYRZmIesPckE6/S5oXfuAF1RmSwYsT53y+cXOJ6V8k3pd08wrdE6TQQX5RgZo9gmNGAO6iluKn1B/V3Fviftv6FQN4GhaNpbkrp5VUHHUBdlg0d4pGjCOwQ5i9nn6tKcv1FaxTZMgWwWQQUtBgFz5Mwo/lwFfgSMOTTy2GFybNkLoy5HJoC2Kp5+FBZujxQ3kJfstgnCESmDSiL5tlH3AbZmAnAoWTAgpSlgITg1RlMWSnF/YrkfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1737107084; c=relaxed/relaxed;
-	bh=k3PAuO3z1fhay62QPiMPBkZ0BTwW4VaVO2K1hqky2IY=;
+	bh=W4GiYbiBCn8Fq2A3KryNO0oxA9LPc1vyyzAsa1FSUFI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZSZimpaVssrwAAKVG/RS7bu7KF9yjzD9V0NAEtKXEsbxHFBKJPQz6qs7/ZjB7RIw/+kiCpCiRJvkLXglqshioxtrlDtTcZy2VM7uzVbIAaf1+J8BJQrf/KZQpM4z7pUSvwY3ARJTFPOYVHO2jUKb4Ije2SxJdWj2VdW0WZP1aYhxB0rlxNQeMHtjr8M0+3vfrofUHN5987mqziohKA7j1BSQdi8lVPGSn3rRn2vr9kJZkJvFh/dk66EdaXdUYzOw6eGMMNinxpQ8Kqvu46A4HOIPf3kkXQUtGTKe292e2VUJKmUQz9GzXm4FQOEnL91vcacuWtxbTkxLYueAM/1z5w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=lroTULNP; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
+	 MIME-Version; b=WTwKHE/IQZuwCpAftOiLvF1qIcy9sW7fJKf1Gv+tjgtHutDx4i4p1Nj+AWDEhFmEO3h1zkroZoRVexm9oTkeYgpOOOlyfdBcV+uMIxmwaoaQTqxO8Gv56vuVKkeEDI+FX2QwrRyZ3FQjsoJLW52aW0RMMt+6Ehg4OzBz7VnFE6OPuABRKSmn8ROcVdY55oAeIzQvBaUa3qDiEB5lq88qYBU6fzT9/vXe1FTvH/DhUJY77GL74kKiryL2A4DYpW9dXOv8Pfe9A4YrTn+ffrkEjm2tlnrNbWcTI0mOVzfvhXhyIbGW+cBHn3JeOyhsoG04GMSUfNg4+aGQx01vZ6tfXQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=wLd1iG5K; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=lroTULNP;
+	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=wLd1iG5K;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hetzner.com (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org)
 Received: from mail.hetzner.company (mail.hetzner.company [IPv6:2a01:4f8:d0a:203a::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZFFQ2Sctz30TQ
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZFFQ3LLbz3ck2
 	for <openbmc@lists.ozlabs.org>; Fri, 17 Jan 2025 20:44:41 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hetzner.com
 	; s=lms2212; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
 	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=k3PAuO3z1fhay62QPiMPBkZ0BTwW4VaVO2K1hqky2IY=; b=lroTUL
-	NPayj/ej7xEw+MyzESOMhCMwPt5i9iH+tljFzakaSDahHcKGwk+ZMotGEddmEfEeQgdHjcEeOdAsK
-	04Z88moJ9kedTROpBkIAUywOg5JmiJuQFucUH95ty5+X5hvQucaIznD+17PK3s/Ro4bOPp1Om1A3K
-	4f/FUOavVoTJOT84ZlxG/tQwwTDPH8OyRMKw9AgF4/4n8jEAhr1Mx8UkBTA1/OuUZNxhPDfYQjfFv
-	spE4Zu3lh8bYGhH7vKvqgfik20NgAHq6jM0zcJqdCUHFpM+VEzNchLa+0KliEzskuVPWccQ1QNo87
-	vkaregXF1BZdDJYgzGFrjeaf2lpw==;
+	:Resent-Message-ID; bh=W4GiYbiBCn8Fq2A3KryNO0oxA9LPc1vyyzAsa1FSUFI=; b=wLd1iG
+	5KTM1LhulEqCsvAOTE+DYJdfq8Hb2xRoDZ73wDVQ530ZEsogOkLNGdTND1D0F0ZFMDDyDWZ8TpA6F
+	Xaw39SaGCB6DS6ZAn6G4CkN1F+LZPEbdavc4+v/ke1nIkeIvneTsYOJF+vKlVYimJeQyN+5KYuzsy
+	Vvwdp10qIEQelgcVImlqahIErX0/HuusXf9+HtJY73egC1elAOA1TCazFmUcFhGa+FEJW4E4/zmkL
+	ZEiF8QX6woBoCisadMLtqFS66QX9dTv/hHU6C9/ooNMW5kO2SeXhx9bKvnCcTBvlq48MRdYZvt15/
+	yTSOK/ZUWrBQl1S2QGFviIEBGFCw==;
 Received: from [2a01:4f8:0:a0a7::4c:0] (helo=localhost.localdomain)
 	by mail.hetzner.company with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
 	(Exim 4.94.2)
 	(envelope-from <tan.siewert@hetzner.com>)
-	id 1tYiu2-000A1S-RT; Fri, 17 Jan 2025 10:44:34 +0100
+	id 1tYiu3-000A1S-Tp; Fri, 17 Jan 2025 10:44:35 +0100
 From: Tan Siewert <tan.siewert@hetzner.com>
 To: openbmc@lists.ozlabs.org,
 	andrew@aj.id.au
-Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 01/12] i2c: add support for offset overflow in to address
-Date: Fri, 17 Jan 2025 10:44:20 +0100
-Message-ID: <20250117094434.16641-2-tan.siewert@hetzner.com>
+Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 09/12] misc: i2c_eeprom: remove pagewidth field from i2c_eeprom
+Date: Fri, 17 Jan 2025 10:44:28 +0100
+Message-ID: <20250117094434.16641-10-tan.siewert@hetzner.com>
 X-Mailer: git-send-email 2.47.0
 In-Reply-To: <20250117094434.16641-1-tan.siewert@hetzner.com>
 References: <20250117094434.16641-1-tan.siewert@hetzner.com>
@@ -68,166 +68,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Robert Beckett <bob.beckett@collabora.com>, Heiko Schocher <hs@denx.de>, Tan Siewert <tan.siewert@hetzner.com>
+Cc: Masahiro Yamada <yamada.masahiro@socionext.com>, Tan Siewert <tan.siewert@hetzner.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Robert Beckett <bob.beckett@collabora.com>
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
 
-Some devices (2 wire eeproms for example) use some bits from the chip
-address to represent the high bits of the offset instead of or as well
-as using multiple bytes for the offset, effectively stealing chip
-addresses on the bus.
+This struct member is not used in any effective way. Remove it.
 
-Add a chip offset mask that can be set for any i2c chip which gets
-filled with the offset overflow during offset setup.
-
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Signed-off-by: Ian Ray <ian.ray@ge.com>
-Reviewed-by: Heiko Schocher <hs@denx.de>
-(cherry picked from commit 85968522b928e19a27aa79f0cb186c80b8b82e47)
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+(cherry picked from commit ed6dd4e460bd94150dc09fce547a27e2fcca66eb)
 Signed-off-by: Tan Siewert <tan.siewert@hetzner.com>
 ---
- drivers/i2c/i2c-uclass.c | 34 +++++++++++++++++++++++++++-------
- include/i2c.h            | 33 +++++++++++++++++++++++++++++++++
- 2 files changed, 60 insertions(+), 7 deletions(-)
+ drivers/misc/i2c_eeprom.c | 8 +++-----
+ include/i2c_eeprom.h      | 2 --
+ 2 files changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/i2c/i2c-uclass.c b/drivers/i2c/i2c-uclass.c
-index 49e23a0a4bf..8c9abca175a 100644
---- a/drivers/i2c/i2c-uclass.c
-+++ b/drivers/i2c/i2c-uclass.c
-@@ -52,16 +52,19 @@ void i2c_dump_msgs(struct i2c_msg *msg, int nmsgs)
- static int i2c_setup_offset(struct dm_i2c_chip *chip, uint offset,
- 			    uint8_t offset_buf[], struct i2c_msg *msg)
- {
--	int offset_len;
-+	int offset_len = chip->offset_len;
+diff --git a/drivers/misc/i2c_eeprom.c b/drivers/misc/i2c_eeprom.c
+index 6c0459dc555..728e0fd79ab 100644
+--- a/drivers/misc/i2c_eeprom.c
++++ b/drivers/misc/i2c_eeprom.c
+@@ -99,13 +99,11 @@ static int i2c_eeprom_std_ofdata_to_platdata(struct udevice *dev)
+ 	u32 pagesize;
+ 	u32 size;
  
- 	msg->addr = chip->chip_addr;
-+	if (chip->chip_addr_offset_mask)
-+		msg->addr |= (offset >> (8 * offset_len)) &
-+			chip->chip_addr_offset_mask;
- 	msg->flags = chip->flags & DM_I2C_CHIP_10BIT ? I2C_M_TEN : 0;
- 	msg->len = chip->offset_len;
- 	msg->buf = offset_buf;
--	if (!chip->offset_len)
-+	if (!offset_len)
- 		return -EADDRNOTAVAIL;
--	assert(chip->offset_len <= I2C_MAX_OFFSET_LEN);
--	offset_len = chip->offset_len;
-+	assert(offset_len <= I2C_MAX_OFFSET_LEN);
-+
- 	while (offset_len--)
- 		*offset_buf++ = offset >> (8 * offset_len);
+-	if (dev_read_u32(dev, "pagesize", &pagesize) == 0) {
++	if (dev_read_u32(dev, "pagesize", &pagesize) == 0)
+ 		priv->pagesize = pagesize;
+-	} else {
++	else
+ 		/* 6 bit -> page size of up to 2^63 (should be sufficient) */
+-		priv->pagewidth = data->pagewidth;
+-		priv->pagesize = (1 << priv->pagewidth);
+-	}
++		priv->pagesize = 1 << data->pagewidth;
  
-@@ -83,7 +86,7 @@ static int i2c_read_bytewise(struct udevice *dev, uint offset,
- 		if (i2c_setup_offset(chip, offset + i, offset_buf, msg))
- 			return -EINVAL;
- 		ptr = msg + 1;
--		ptr->addr = chip->chip_addr;
-+		ptr->addr = msg->addr;
- 		ptr->flags = msg->flags | I2C_M_RD;
- 		ptr->len = 1;
- 		ptr->buf = &buffer[i];
-@@ -139,7 +142,7 @@ int dm_i2c_read(struct udevice *dev, uint offset, uint8_t *buffer, int len)
- 		ptr++;
- 
- 	if (len) {
--		ptr->addr = chip->chip_addr;
-+		ptr->addr = msg->addr;
- 		ptr->flags = chip->flags & DM_I2C_CHIP_10BIT ? I2C_M_TEN : 0;
- 		ptr->flags |= I2C_M_RD;
- 		ptr->len = len;
-@@ -323,7 +326,8 @@ int i2c_get_chip(struct udevice *bus, uint chip_addr, uint offset_len,
- 		struct dm_i2c_chip *chip = dev_get_parent_platdata(dev);
- 		int ret;
- 
--		if (chip->chip_addr == chip_addr) {
-+		if (chip->chip_addr == (chip_addr &
-+					~chip->chip_addr_offset_mask)) {
- 			ret = device_probe(dev);
- 			debug("found, ret=%d\n", ret);
- 			if (ret)
-@@ -465,6 +469,22 @@ int i2c_get_chip_offset_len(struct udevice *dev)
- 	return chip->offset_len;
- }
- 
-+int i2c_set_chip_addr_offset_mask(struct udevice *dev, uint mask)
-+{
-+	struct dm_i2c_chip *chip = dev_get_parent_platdata(dev);
-+
-+	chip->chip_addr_offset_mask = mask;
-+
-+	return 0;
-+}
-+
-+uint i2c_get_chip_addr_offset_mask(struct udevice *dev)
-+{
-+	struct dm_i2c_chip *chip = dev_get_parent_platdata(dev);
-+
-+	return chip->chip_addr_offset_mask;
-+}
-+
- #ifdef CONFIG_DM_GPIO
- static void i2c_gpio_set_pin(struct gpio_desc *pin, int bit)
- {
-diff --git a/include/i2c.h b/include/i2c.h
-index ccffc195527..b4a46c9823b 100644
---- a/include/i2c.h
-+++ b/include/i2c.h
-@@ -45,12 +45,26 @@ struct udevice;
-  *		represent up to 256 bytes. A value larger than 1 may be
-  *		needed for larger devices.
-  * @flags:	Flags for this chip (dm_i2c_chip_flags)
-+ * @chip_addr_offset_mask: Mask of offset bits within chip_addr. Used for
-+ *			   devices which steal addresses as part of offset.
-+ *			   If offset_len is zero, then the offset is encoded
-+ *			   completely within the chip address itself.
-+ *			   e.g. a devce with chip address of 0x2c with 512
-+ *			   registers might use the bottom bit of the address
-+ *			   to indicate which half of the address space is being
-+ *			   accessed while still only using 1 byte offset.
-+ *			   This means it will respond to  chip address 0x2c and
-+ *			   0x2d.
-+ *			   A real world example is the Atmel AT24C04. It's
-+ *			   datasheet explains it's usage of this addressing
-+ *			   mode.
-  * @emul: Emulator for this chip address (only used for emulation)
-  */
- struct dm_i2c_chip {
- 	uint chip_addr;
- 	uint offset_len;
- 	uint flags;
-+	uint chip_addr_offset_mask;
- #ifdef CONFIG_SANDBOX
- 	struct udevice *emul;
- 	bool test_mode;
-@@ -259,6 +273,25 @@ int i2c_set_chip_offset_len(struct udevice *dev, uint offset_len);
-  */
- int i2c_get_chip_offset_len(struct udevice *dev);
- 
-+/**
-+ * i2c_set_chip_addr_offset_mask() - set mask of address bits usable by offset
-+ *
-+ * Some devices listen on multiple chip addresses to achieve larger offsets
-+ * than their single or multiple byte offsets would allow for. You can use this
-+ * function to set the bits that are valid to be used for offset overflow.
-+ *
-+ * @mask: The mask to be used for high offset bits within address
-+ * @return 0 if OK, other -ve value on error
-+ */
-+int i2c_set_chip_addr_offset_mask(struct udevice *dev, uint mask);
-+
-+/*
-+ * i2c_get_chip_addr_offset_mask() - get mask of address bits usable by offset
-+ *
-+ * @return current chip addr offset mask
-+ */
-+uint i2c_get_chip_addr_offset_mask(struct udevice *dev);
-+
- /**
-  * i2c_deblock() - recover a bus that is in an unknown state
-  *
+ 	if (dev_read_u32(dev, "size", &size) == 0)
+ 		priv->size = size;
+diff --git a/include/i2c_eeprom.h b/include/i2c_eeprom.h
+index b96254ae79f..cd620d519fc 100644
+--- a/include/i2c_eeprom.h
++++ b/include/i2c_eeprom.h
+@@ -16,8 +16,6 @@ struct i2c_eeprom_ops {
+ struct i2c_eeprom {
+ 	/* The EEPROM's page size in byte */
+ 	unsigned long pagesize;
+-	/* The EEPROM's page width in bits (pagesize = 2^pagewidth) */
+-	unsigned pagewidth;
+ 	/* The EEPROM's capacity in bytes */
+ 	unsigned long size;
+ };
 -- 
 2.47.0
 
