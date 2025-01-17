@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD95C02183
-	for <openbmc@archiver.kernel.org>; Sat, 18 Jan 2025 03:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4CCAC02185
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 05:58:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YZhdb46Bhz3fRT
-	for <openbmc@archiver.kernel.org>; Sat, 18 Jan 2025 14:18:43 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=45.249.212.35
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737170319;
-	cv=none; b=LwO4br0z7hlK1oTIeG5neuG6KctkYa3agmDyWOpe5P13E1a6es4IWB+gs9TmKgA0+bPAanNiEyW2P9vkDlS3UqLm11nP9jSejbCi914xiBZy6TxH9WcGAPO/evRuOnd9NopMisQGrGJzlHinXF5A32pONz9Z5Uz4WJUTMJwNigZ/2zzPK5fr/hs7z1TvCuBlGgRPBXbse5GON4PEc80oqRqOAlxc3YoifLSspkybMGUpYOlGXw2Rfl4rWnqRHq0GlsePPi2yXe834uQJ98AZq2VC6490R30faHEzrzU5UChEMDd7gEu/hAQJaLrIINH0XYLu/WMEQ7p3o9lWM0iAhw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Yc0570xJrz3dBd
+	for <openbmc@archiver.kernel.org>; Mon, 20 Jan 2025 16:58:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a01:4f8:d0a:203a::1"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1737107081;
+	cv=none; b=e2BNsLQVE2kO6DBfCi1y/RvucakWnf6Ae3qZ3EN6F5SA9ejGRJSwt03TnqLHsTA/8h5g3gtH0IXREjryAWe+ALhf5wbpuBRRX7L2fR2J4ZZXub/Xa4KlV98zhG9vkZmq9NLlNPTmHRUyoZYwz4o+QhqXkZ95PFzTqH7x8olSp85BOAKSPTQkC5lLzbGJgKbc71jDF/5CLWlDlnWZw5/ANwiLHZIO7xeHFW7dSpO0NotySb17p8U9h4mnho53xcY7zGQSUfsgCDRWybit0c/JVH8AHJ6KDYf/j6kZ9qdP5KcCqcZB4QngWpCOVsAx/K2AqyBoyo7yVBFiw9Ne6MhU0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1737170319; c=relaxed/relaxed;
-	bh=zgUnqloRKSyZaJcKphfH6p/0KKEYI6pLW6VqktiakxU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V5flXeMTyFjFaZNOH4oPWYnt9AIY6EGhgPyzkzteHznPQhVsiAzPx7NxTBG2RVzR4RlngvCCINBmtSoV4H0Y/98EhOKZTtwsn8f5nJi8zmTyPMoIKmeFCIUmtirCJD0NvpZAstmwcrD1FKA5OC3cMxApu2/ApeFT1cDFMuy7b2f4IDensTZE1+XO/1yBSweGYHsVWGIKO50jlFYb1CCgjf47JMsBvf2P676F9LNolF+1iRP/MN2/opMhArwBv/S4h/IJssLocnyA2VvgYjm6qDPLj27G4V7XTybmWVwKs4HwVod/sAksEAAPzQQdyeEeVSoldest9WPl3yFPC4X+4g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass (client-ip=45.249.212.35; helo=szxga07-in.huawei.com; envelope-from=yuehaibing@huawei.com; receiver=lists.ozlabs.org) smtp.mailfrom=huawei.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=huawei.com (client-ip=45.249.212.35; helo=szxga07-in.huawei.com; envelope-from=yuehaibing@huawei.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 1070 seconds by postgrey-1.37 at boromir; Sat, 18 Jan 2025 14:18:37 AEDT
-Received: from szxga07-in.huawei.com (szxga07-in.huawei.com [45.249.212.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	t=1737107081; c=relaxed/relaxed;
+	bh=HpanrZa2wclQWiIHg4/MRBEQnvbyg0RqkGfjqG6EB6U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GLOm+5TiCw23sVyOO5ERT8ABZEtt1kQYRzSQlzR9W/8Nf5n9DowU51EzBg4jDdO50QMRFCvsn4c3f446b3JFA5bJwa4dsYFoJlzYum720iC5N8fYE5G5n2hr4ueAtSl62OtX3Bi4yVH0f2k9zbh2qlLhjZX86onPW9JKl+XGmhHIJ3s40O1bkuaAiWmA5Wc27Mm154VJqzifpi/rIXXwg7uuBURB0sh7LyH/605Zyy7uXJBZlr84p0g75SIJ3A4ykPRcc1ZXOvyTgpKpPsmFgDrXEe5hYfv76RcsCMoLrvleKyRNQphTitDtnevx+QFLT+59G3+Qh/9iMAYIAGf6Dw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com; dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=RuZq9I90; dkim-atps=neutral; spf=pass (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org) smtp.mailfrom=hetzner.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=hetzner.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=hetzner.com header.i=@hetzner.com header.a=rsa-sha256 header.s=lms2212 header.b=RuZq9I90;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hetzner.com (client-ip=2a01:4f8:d0a:203a::1; helo=mail.hetzner.company; envelope-from=tan.siewert@hetzner.com; receiver=lists.ozlabs.org)
+Received: from mail.hetzner.company (mail.hetzner.company [IPv6:2a01:4f8:d0a:203a::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZhdT0M0cz30Bd
-	for <openbmc@lists.ozlabs.org>; Sat, 18 Jan 2025 14:18:34 +1100 (AEDT)
-Received: from mail.maildlp.com (unknown [172.19.88.163])
-	by szxga07-in.huawei.com (SkyGuard) with ESMTP id 4YZh8y2zkBz1V50B;
-	Sat, 18 Jan 2025 10:57:22 +0800 (CST)
-Received: from dggpemf500002.china.huawei.com (unknown [7.185.36.57])
-	by mail.maildlp.com (Postfix) with ESMTPS id B6659180214;
-	Sat, 18 Jan 2025 11:00:36 +0800 (CST)
-Received: from huawei.com (10.175.101.6) by dggpemf500002.china.huawei.com
- (7.185.36.57) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Sat, 18 Jan
- 2025 11:00:36 +0800
-From: Yue Haibing <yuehaibing@huawei.com>
-To: <avifishman70@gmail.com>, <tmaimon77@gmail.com>, <tali.perry1@gmail.com>,
-	<venture@google.com>, <yuenn@google.com>, <benjaminfair@google.com>,
-	<linus.walleij@linaro.org>
-Subject: [PATCH -next] pinctrl: nuvoton: npcm8xx: Fix error handling in npcm8xx_gpio_fw()
-Date: Sat, 18 Jan 2025 11:13:34 +0800
-Message-ID: <20250118031334.243324-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YZFFM0P2Tz3cjS
+	for <openbmc@lists.ozlabs.org>; Fri, 17 Jan 2025 20:44:38 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hetzner.com
+	; s=lms2212; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=HpanrZa2wclQWiIHg4/MRBEQnvbyg0RqkGfjqG6EB6U=; b=RuZq9I
+	90YGsTnK0FMZ97ROBJINTf8Zgem6+82+31rOJSS3UPzRQ3O+yRbfbxtFWm2VrnHZ0LtNMYSdLoMMk
+	mupd5XzDm7uiU5fYx0J5WABm+zhPE0ocaKeR+WURLGNuhGD15VC4AmntBAtE0+gOlyH43C4VPSp2w
+	t0uigcdsisSaVvQqy3ikm1TunVT7vSaR+C8X+O30KUaCSJj51iqfHSRkqQM4fFp5VbEo5HshiI0cc
+	Jmz1mCPKsFS/gqoIsaCFnc0fzgZ58u+vlsBggDr6UmzMaeEXkw4OVI6oEWncwiu7Uh1u5flNLJ4G+
+	ho519hEopIrs9YsC4XKJABpm+3CQ==;
+Received: from [2a01:4f8:0:a0a7::4c:0] (helo=localhost.localdomain)
+	by mail.hetzner.company with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	(Exim 4.94.2)
+	(envelope-from <tan.siewert@hetzner.com>)
+	id 1tYiu2-000A1S-Vt; Fri, 17 Jan 2025 10:44:35 +0100
+From: Tan Siewert <tan.siewert@hetzner.com>
+To: openbmc@lists.ozlabs.org,
+	andrew@aj.id.au
+Subject: [PATCH u-boot, v2019.04-aspeed-openbmc 02/12] misc: i2c_eeprom: support DT pagesize property
+Date: Fri, 17 Jan 2025 10:44:21 +0100
+Message-ID: <20250117094434.16641-3-tan.siewert@hetzner.com>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20250117094434.16641-1-tan.siewert@hetzner.com>
+References: <20250117094434.16641-1-tan.siewert@hetzner.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.101.6]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- dggpemf500002.china.huawei.com (7.185.36.57)
+X-Authenticated-Sender: tom.siewert@hetzner.com
+X-Mailman-Approved-At: Mon, 20 Jan 2025 16:58:31 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,34 +68,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, yuehaibing@huawei.com, linux-kernel@vger.kernel.org
+Cc: Baruch Siach <baruch@tkos.co.il>, Heiko Schocher <hs@denx.de>, Tan Siewert <tan.siewert@hetzner.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-fwnode_irq_get() was changed to not return 0, fix this by checking
-for negative error, also update the error log.
+From: Baruch Siach <baruch@tkos.co.il>
 
-Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
-Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+Read the page size from DT when available.
+
+Signed-off-by: Baruch Siach <baruch@tkos.co.il>
+Reviewed-by: Heiko Schocher <hs@denx.de>
+(cherry picked from commit a29034d1e6d1c1535055f455b5af5906a7edbc04)
+Signed-off-by: Tan Siewert <tan.siewert@hetzner.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/misc/i2c_eeprom.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 471f644c5eef..70e6966049e4 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2361,8 +2361,8 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 			return dev_err_probe(dev, ret, "gpio-ranges fail for GPIO bank %u\n", id);
+diff --git a/drivers/misc/i2c_eeprom.c b/drivers/misc/i2c_eeprom.c
+index 29ad87c1d7b..ce2cad44d8d 100644
+--- a/drivers/misc/i2c_eeprom.c
++++ b/drivers/misc/i2c_eeprom.c
+@@ -50,6 +50,12 @@ static int i2c_eeprom_std_ofdata_to_platdata(struct udevice *dev)
+ {
+ 	struct i2c_eeprom *priv = dev_get_priv(dev);
+ 	u64 data = dev_get_driver_data(dev);
++	u32 pagesize;
++
++	if (dev_read_u32(dev, "pagesize", &pagesize) == 0) {
++		priv->pagesize = pagesize;
++		return 0;
++	}
  
- 		ret = fwnode_irq_get(child, 0);
--		if (!ret)
--			return dev_err_probe(dev, ret, "No IRQ for GPIO bank %u\n", id);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "Failed to retrieve IRQ for bank %u\n", id);
- 
- 		pctrl->gpio_bank[id].irq = ret;
- 		pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
+ 	/* 6 bit -> page size of up to 2^63 (should be sufficient) */
+ 	priv->pagewidth = data & 0x3F;
 -- 
-2.34.1
+2.47.0
 
