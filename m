@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6EBCC02192
-	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 17:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D3DCC02192
+	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 17:12:19 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YmtMP06SZz3dVN
-	for <openbmc@archiver.kernel.org>; Tue,  4 Feb 2025 04:11:45 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4YmtMR2WLCz30T6
+	for <openbmc@archiver.kernel.org>; Tue,  4 Feb 2025 04:11:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.199.177.27
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738602700;
-	cv=none; b=H/HcyboOGrpL4CVY3PycfO1ofmPV8vkQReBrBizN2FXF/rqV/KV/McfvABDNEQcwSIO04FMtgxu5NGvKsd/tMF4YQAN+sqmjThBfAMqYpl3FYwHV/GE2lqZSvBajRABNYibdlt3vE2+Lsd5SVN2zXYVcLeMji0uZ0ino5Si8RMjwzQSAwJ5oGfOrwo5HiSxZQfEmdY5lLWDVQ0ZbpiFhj7EWrCf2hrYSHyebjgE61vx0WdU17v9GqbEchtr/qxoIIZkWIqHBI9fDlVmVqDYA73/1LKowx/MmLMXGVuNnJ+erU6NJW820Ny1wCPaabua9SOM2f1TZtxjK7KGxKGcz2A==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738602703;
+	cv=none; b=PUTCQ1I8Mp50XSvznxYxiIbzpDA07k29LjR/yTpZUK7JSt+FnZiYES5x6HDZeEiYp5n+S2U1gVPP+AZEno6sXU6dDdgfAkXZ4Kg++hC3ZoD8rNqLoIMjofQqvpi7AawGFZMAKkKYwirvRb6L1LvqbxIGbbWkcxtqNnEorRFDuX8xIRm7PaOrBvaYe2ydoxcK7OnMMfq02O9ZUmD6nxxqx/eq4rlTS99SUbQyWJXQF4dfzc/twiV71j1wt9zrGl0NZqgIbLta2gPpu0w+npMCzyDpwxo/l0m/qgfwQWtMr1LH/+95iSQlLsYnfpyTQTvPhXJNBbyzHmMHqGQ2UOzT1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1738602700; c=relaxed/relaxed;
-	bh=r3yb6HVJF+ShdVo1h+vAtuD/kcGFY6iG4+3LfQm+TiY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nZSBbvcLxYvncstND5+iK6JojJa5vtIPc/UHUlQxPLGwhNYFa91LYdIh9zJaD9Vf9b3DN9G/7uPE41HYDng3NYiuMfK93tLjPWb+/aWA4c5JqW4EJNGV0vaESFR1ME1uyADWPAfFanurn/z/6kHqFck2px7/UDW13p3VQtmGAvbhaBdKKAyT5Hj6Va4j2uFCczAxJefVEQt/3EaI0aTkHxmpXUIbhO7FP0MBTt5asApOX8WfDwyIDQ93kBc1gFPZEnu9Aow0Lwxzp4I91hqXMRtvyDdQbu5HhzeOLPjZYU2OTlINGNK7dAolFqWYhkTYji/rBMUubVPRtwVxJtbpIA==
+	t=1738602703; c=relaxed/relaxed;
+	bh=t+B9tPJaxDDUfHD9tOuMdNvzsOLRdelba8UC6PzaTDA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f8uFDjEKfYb7Psy+W965mjW4sFlELg5X7iqD/RiWFC/hhPlsDHl+owIYhMH6mutqxoUDq7b/2K2g335QQgdp2EoNqoBBYh6KM2emsWjv5gYu8pCxBOb3v4tudx0U9ys5HLY9ATA8od/NEFzuYcGz39Cp695sGFrnI2tE5FgWN+0aimjCiHzQJKADPlig8A+IHh4k41p1I8WlCfKbb0HifS07lc9R2/Aa0OFGcFrraIfURTQW0lIC2pXac8MrtmBJc2DoTkvPH/lg5pQlN9TtZWbwsIP1JfOm+imZTgMhr4HLlpxVZtzdI0dIv7E/OU3IWnoruLprnykwMEPq8lt/mw==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=none (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org) smtp.mailfrom=taln60.nuvoton.co.il
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmtMG5KMnz2xjd
-	for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2025 04:11:38 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmtMK6q0fz2yVF
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2025 04:11:41 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 513GExES006481
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 513GExET006481
 	for <openbmc@lists.ozlabs.org>; Mon, 3 Feb 2025 18:15:00 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.43; Mon, 3 Feb
  2025 18:14:58 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01B.nuvoton.com
+ (10.1.8.178) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
  2025 00:14:56 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 4 Feb 2025 00:14:55 +0800
+ Transport; Tue, 4 Feb 2025 00:14:56 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 473925F5B1;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 4D3E15F64B;
 	Mon,  3 Feb 2025 18:14:55 +0200 (IST)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 37539DC3281; Mon,  3 Feb 2025 18:14:55 +0200 (IST)
+	id 47EFADC331A; Mon,  3 Feb 2025 18:14:55 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.6 v1 0/8] i2c: npcm7xx: Various upstream modification 
-Date: Mon, 3 Feb 2025 18:14:42 +0200
-Message-ID: <20250203161450.265480-1-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.6 v1 2/8] i2c: npcm: restore slave addresses array length
+Date: Mon, 3 Feb 2025 18:14:44 +0200
+Message-ID: <20250203161450.265480-3-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250203161450.265480-1-tmaimon77@gmail.com>
+References: <20250203161450.265480-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -64,39 +67,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Joel Stanley <joel@jms.id.au>, Tomer Maimon <tmaimon77@gmail.com>
+Cc: Tyrone Ting <kfting@nuvoton.com>, Joel Stanley <joel@jms.id.au>, Dan
+ Carpenter <dan.carpenter@linaro.org>, Andi Shyti <andi.shyti@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch set contain the following upstream modifications:
-i2c: Remove redundant comparison in npcm_i2c_reg_slave · torvalds/linux@48acf82
-i2c: npcm: restore slave addresses array length · torvalds/linux@8f65c45
-i2c: npcm: correct the read/write operation procedure · torvalds/linux@e365422
-i2c: npcm: use a software flag to indicate a BER condition · torvalds/linux@b011810
-i2c: npcm: Modify timeout evaluation mechanism · torvalds/linux@4a34b9b
-i2c: npcm: Assign client address earlier for `i2c_recover_bus()` · torvalds/linux@862dd4f
-i2c: npcm: use i2c frequency table · torvalds/linux@6ddc913
-i2c: npcm: Enable slave in eob interrupt · torvalds/linux@8b56f98
+From: Tyrone Ting <kfting@nuvoton.com>
 
-The above modifications build successfully.
+The smatch check warning is "buffer overflow 'npcm_i2caddr' 2 <= 9".
+The original design supports 10 target addresses although only 2
+addresses are required for current implementation.
 
-Charles Boyer (1):
-  i2c: npcm: Enable slave in eob interrupt
+Restore the npcm_i2caddr array length to fix the smatch warning.
 
-Rand Deeb (1):
-  i2c: Remove redundant comparison in npcm_i2c_reg_slave
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Closes: https://lore.kernel.org/r/202408130818.FgDP5uNm-lkp@intel.com/
+Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+---
+ drivers/i2c/busses/i2c-npcm7xx.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Tyrone Ting (6):
-  i2c: npcm: restore slave addresses array length
-  i2c: npcm: correct the read/write operation procedure
-  i2c: npcm: use a software flag to indicate a BER condition
-  i2c: npcm: Modify timeout evaluation mechanism
-  i2c: npcm: Assign client address earlier for `i2c_recover_bus()`
-  i2c: npcm: use i2c frequency table
-
- drivers/i2c/busses/i2c-npcm7xx.c | 458 +++++++++++++++++++++++--------
- 1 file changed, 346 insertions(+), 112 deletions(-)
-
+diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
+index a28699b680f7..83a7b7577dcc 100644
+--- a/drivers/i2c/busses/i2c-npcm7xx.c
++++ b/drivers/i2c/busses/i2c-npcm7xx.c
+@@ -136,11 +136,13 @@ enum i2c_addr {
+  * Since the addr regs are sprinkled all over the address space,
+  * use this array to get the address or each register.
+  */
+-#define I2C_NUM_OWN_ADDR 2
++#define I2C_NUM_OWN_ADDR 10
+ #define I2C_NUM_OWN_ADDR_SUPPORTED 2
+ 
+ static const int npcm_i2caddr[I2C_NUM_OWN_ADDR] = {
+-	NPCM_I2CADDR1, NPCM_I2CADDR2,
++	NPCM_I2CADDR1, NPCM_I2CADDR2, NPCM_I2CADDR3, NPCM_I2CADDR4,
++	NPCM_I2CADDR5, NPCM_I2CADDR6, NPCM_I2CADDR7, NPCM_I2CADDR8,
++	NPCM_I2CADDR9, NPCM_I2CADDR10,
+ };
+ #endif
+ 
 -- 
 2.34.1
 
