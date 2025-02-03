@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 581A2C02192
-	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 17:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64238C02192
+	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 17:12:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YmtMX5VVNz3g2d
-	for <openbmc@archiver.kernel.org>; Tue,  4 Feb 2025 04:11:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4YmtMb1TZlz3gC9
+	for <openbmc@archiver.kernel.org>; Tue,  4 Feb 2025 04:11:55 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.199.177.27
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738602705;
-	cv=none; b=YOMm2wRDwMUGkPyIvDCyJRxEYgCten/Yz1daecozEREeOMfLMj9jSIe2HyKjYQCtksltksE3fNwOThk9ImeSSvPw7caGB0C911//3MYDKorxBUSVTuOKQ28p0K298mmmv6bD2RaEaon2OcCNc56JlEq7Ag9QmRv5/eeoRlSP6H/G1bEin6pcIubSAKqyZa1LM3sSEvpqQiHrPv72WJ8Hf4O+be0Iz3ffnXrfoGxhiOQHD+uQlJMMvPtSALHBf2Olw9mdMjKr/aB4PALjBiijANCcYQm0Thnk11xgNki8ddPsCIfP1XdvR7KU+502L7uGC3cBGQVIy8ROwnJpiWd3UQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738602707;
+	cv=none; b=QQZbh24LlGyJwQkqG6Q/YUb7zT04xtrxlUoodeUAOQgoqeaXiqoBoZXHT2D63YfMViJ2kXzbak1ZB5E2rE8k5w3Vdb0esF9yW+RYAvfCM/FEdAd6oBbwG1lfUUMMsOmbBvRSJWyTamnSGiWC7QRxju/2vBKxQ84AgpCWA/Ji+M2PhtWCfVJ5jZEsU2e+Gvti6M1SvX+3crIyUoG65QoPFbyl1UiFhI+WoONsEq4fK1mnikJweb33L70I/lmGj6DttR/GxszGIcZUXOkGJfgmGqDUhGW5WGhxUYVCJu2j1q9RyVTDwzwTb+GYXjyq0RW6RB+7vs8jc2w/IcN+lHo3/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1738602705; c=relaxed/relaxed;
-	bh=dGfJmuXEFtvuCrTwX0lJoF8HOnPmjNw85qhK1YQH+uI=;
+	t=1738602707; c=relaxed/relaxed;
+	bh=zIIMJaytrUmy8HHqXq+779IWfwf6z0+NHhvnOtA535c=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hCiZ5N7k32EWEue7/6yTzPvHBLdGvXWMl/5fZYLQNO29jjfhSXPXQe3PB1IvMPIj4KXEoXcJIg3zFUKzFKwB1n3IiXwSotElU7jK49BDAHLL80HxkvB2ujdYvLjUsFzme8rFc+YolHI9tOPZVihHSLek9HKln7bFYWO0MpGsFK7XbS00YYoZxfTSiO3NnfgMA9v641JpYNbN6cPgb4w6Se7KL6JzfZIoPJULMPqZTcV/vYe0813zuRkRCXbETDo2VpPNj+Ko0tqs3uanYQJBSB2XpLq0CxU3QfxTDqAK/oNWCvgpKg0H/ur4v1niNA+2GKCjkzbQvxXO7CsevRHpAA==
+	 MIME-Version:Content-Type; b=YCbtxOwfkwa/D2LaAJrLXyEd9MFdLc4kVGsif5aFctM3VnvGy9Pe+i5gZxDDQeF8pWlihouRuGVntbh7Eavcvs59TwbEBXBAmX+7iZpiYOOvFp2o0goKaQvLE1VgimKYr9e6NqE5HWizTjwEQc0PFx1CgzroQV03kqagcF6NEmbHPYSPPlr5PZ18fa1UFCfsUxij8oCZYWufbHOhAsX6H7RLN1aHpslMUJupbuwwyP3CiVRhP+ii1Z/Kor+04Ksgo1DnK23eLLXiC3V/CrR2KB71Q7B6GQq1y25EOMbSe9y/UQGLzxGVJfw7kVR6QWvdQp+tlPKbisBtwzcHYDunqQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=none (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org) smtp.mailfrom=taln60.nuvoton.co.il
 Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
 Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
 	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmtMN1bsFz3dJV
-	for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2025 04:11:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmtMQ50WWz3fVk
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2025 04:11:46 +1100 (AEDT)
 Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
-	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 513GF0q7006488
-	for <openbmc@lists.ozlabs.org>; Mon, 3 Feb 2025 18:15:00 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 513GEwU6006474
+	for <openbmc@lists.ozlabs.org>; Mon, 3 Feb 2025 18:14:59 +0200
+Received: from NTHCCAS02.nuvoton.com (10.1.9.121) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.43; Mon, 3 Feb
- 2025 18:14:59 +0200
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ 2025 18:14:58 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
- 2025 00:14:57 +0800
+ 2025 00:14:56 +0800
 Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
  (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 4 Feb 2025 00:14:57 +0800
+ Transport; Tue, 4 Feb 2025 00:14:56 +0800
 Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
-	by taln58.nuvoton.co.il (Postfix) with ESMTP id 8652A5F657;
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 4FD0E5F64D;
 	Mon,  3 Feb 2025 18:14:55 +0200 (IST)
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
-	id 863CCDC3281; Mon,  3 Feb 2025 18:14:55 +0200 (IST)
+	id 503E7DC3281; Mon,  3 Feb 2025 18:14:55 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: <openbmc@lists.ozlabs.org>
-Subject: [PATCH linux dev-6.6 v1 8/8] i2c: npcm: Enable slave in eob interrupt
-Date: Mon, 3 Feb 2025 18:14:50 +0200
-Message-ID: <20250203161450.265480-9-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-6.6 v1 3/8] i2c: npcm: correct the read/write operation procedure
+Date: Mon, 3 Feb 2025 18:14:45 +0200
+Message-ID: <20250203161450.265480-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250203161450.265480-1-tmaimon77@gmail.com>
 References: <20250203161450.265480-1-tmaimon77@gmail.com>
@@ -67,47 +67,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Charles Boyer <Charles.Boyer@fii-usa.com>, Tali Perry <tali.perry1@gmail.com>, Tyrone Ting <kfting@nuvoton.com>, Vivekanand Veeracholan <vveerach@google.com>, Joel Stanley <joel@jms.id.au>
+Cc: Tyrone Ting <kfting@nuvoton.com>, Andi Shyti <andi.shyti@kernel.org>, Joel Stanley <joel@jms.id.au>, Tali Perry <tali.perry1@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Charles Boyer <Charles.Boyer@fii-usa.com>
+From: Tyrone Ting <kfting@nuvoton.com>
 
-Nuvoton slave enable was in user space API call master_xfer, so it is
-subject to delays from the OS scheduler. If the BMC is not enabled for
-slave mode in time for master to send response, then it will NAK the
-address match. Then the PLDM request timeout occurs.
+Originally the driver uses the XMIT bit in SMBnST register to decide
+the upcoming i2c transaction. If XMIT bit is 1, then it will be an i2c
+write operation. If it's 0, then a read operation will be executed.
 
-If the slave enable is moved to the EOB interrupt service routine, then
-the BMC can be ready in slave mode by the time it needs to receive a
-response.
+In slave mode the XMIT bit can simply be used directly to set the state.
+XMIT bit can be used as an indication to the current state of the state
+machine during slave operation. (meaning XMIT = 1 during writing and
+XMIT = 0 during reading).
 
-Signed-off-by: Charles Boyer <Charles.Boyer@fii-usa.com>
-Signed-off-by: Vivekanand Veeracholan <vveerach@google.com>
+In master operation XMIT is valid only if there are no bus errors.
+For example: in a multi master where the same module is switching from
+master to slave at runtime, and there are collisions, the XMIT bit
+cannot be trusted.
+
+However the maser already "knows" what the bus state is, so this bit
+is not needed and the driver can just track what it is currently doing.
+
 Signed-off-by: Tyrone Ting <kfting@nuvoton.com>
 Reviewed-by: Tali Perry <tali.perry1@gmail.com>
-Link: https://lore.kernel.org/r/20241219090859.18722-5-kfting@nuvoton.com
 Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
 ---
- drivers/i2c/busses/i2c-npcm7xx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/i2c/busses/i2c-npcm7xx.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
-index 81f6dc95aced..706a9d64e481 100644
+index 83a7b7577dcc..608dc14593e2 100644
 --- a/drivers/i2c/busses/i2c-npcm7xx.c
 +++ b/drivers/i2c/busses/i2c-npcm7xx.c
-@@ -1926,6 +1926,12 @@ static int npcm_i2c_int_master_handler(struct npcm_i2c *bus)
- 	    (FIELD_GET(NPCM_I2CCST3_EO_BUSY,
- 		       ioread8(bus->reg + NPCM_I2CCST3)))) {
- 		npcm_i2c_irq_handle_eob(bus);
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+		/* reenable slave if it was enabled */
-+		if (bus->slave)
-+			iowrite8(bus->slave->addr | NPCM_I2CADDR_SAEN,
-+				 bus->reg + NPCM_I2CADDR1);
-+#endif
- 		return 0;
+@@ -1629,13 +1629,10 @@ static void npcm_i2c_irq_handle_sda(struct npcm_i2c *bus, u8 i2cst)
+ 			npcm_i2c_wr_byte(bus, bus->dest_addr | BIT(0));
+ 	/* SDA interrupt, after start\restart */
+ 	} else {
+-		if (NPCM_I2CST_XMIT & i2cst) {
+-			bus->operation = I2C_WRITE_OPER;
++		if (bus->operation == I2C_WRITE_OPER)
+ 			npcm_i2c_irq_master_handler_write(bus);
+-		} else {
+-			bus->operation = I2C_READ_OPER;
++		else if (bus->operation == I2C_READ_OPER)
+ 			npcm_i2c_irq_master_handler_read(bus);
+-		}
  	}
+ }
  
 -- 
 2.34.1
