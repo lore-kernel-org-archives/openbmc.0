@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF089C0218A
-	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 03:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 863BDC02192
+	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 17:11:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YmX932zmqz3cgk
-	for <openbmc@archiver.kernel.org>; Mon,  3 Feb 2025 14:31:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738553491;
-	cv=none; b=jMKvnnJsYIjXTSHc55rcx3CSmkdEsSvBanUExNiwlJfd+5aurnMSlvQiZ5RXkOI3dt1Zfqjh4X60DaPseCMv6ZoDmQnZDursWIueELunTskNYuRPIqW0aMkNCgsv98lzvv0lTqKgjS2+jGduG9xN+Cs2OyoqJ+c/0OnCX2YqDOESL0NgTrbCrNdmv/cWfzmaJeg4O/hg7SP39pY6pLmJ0J9XLntyzrLrvFjUUYo9pLjnPCwZh9nl8OsvTqEQBIvKCO48vs9gYSjQEWyMtll0elzd7WBgdVooZskQdy4YtLITZQwqU1kMwQu0srdS2az+YPc19Iv39xczBKTudqgKTQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4YmtMK4vDLz3cZR
+	for <openbmc@archiver.kernel.org>; Tue,  4 Feb 2025 04:11:41 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.199.177.27
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1738602697;
+	cv=none; b=TZtMm6/ZlhMaxDtoOmrzddMln2okM97MopPRmBSabyqGaWC4EHiEOb8PpPV+13HGZNbsBrxhvGVp5OLXS/11i7Y87yGk7THOxaETR/plyRycxL0XJZWm/2Zyih+9vgDk7oX+TRoOLa0NeMUAfRhuV3cjK9DqQ7UPa0kh9YAbvrnVQVJKVUUT1C9fT1Nc2tN1zf1YT5G4GT9u83KEfQyE1op6DkjqTTsJhMHkz/UCl1yqK2XzyRAgD4v1epzQa1CzFOKJTowxmEBAfVb9pXUwMALpvK8G9o7VN1vxdCCrfrLIsXCFJGrgYCgVMDTndRHpdyGJjZ7+vggn3P3Q+Gws8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1738553491; c=relaxed/relaxed;
-	bh=zIM0HNxOpd+mwy4yH9/zK7GjEdI1Hw/l7uc/DAJMasc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DNymUINP1T3ZZxnhQIZzbLF9YaJy2Il7hnuRS9FCC2zQJu28AzgaPC+FsuGUf5x9VKnIoINPTY5tm1Gy+FwHnfeEpDbJOOUVj921pstgl0Mf56e+0nmgHNYTgjm6Va3DM7jWiT6/Z9xu1sJU2LmrlQrpLfM6sRbopR3Jyu1X6qX/VRYaDJX9JqWdq4TnDTD137GH3e1VsLMARSylwGW62zk5BQjmrisYyudd9dQEHuqjx3Ac3uEWfwmiX7UYXhRDwNDPjYV9jLsVHwNmIfQ3q9E9s1VclxVzI5Ufb12BnOJoQQDhh1GEJIAKk0P5u108q5PmVMGPMeHyvpl+YRFtrg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XO0VtXFL; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=XO0VtXFL;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	t=1738602697; c=relaxed/relaxed;
+	bh=9xu+YDBL2l2DPc10DmG5NY0v5SBiy6SLrdNt9WjmlyE=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FwZZk3NQxhxkceFg6sptWUX7YzY1pRPK+4Rgim4NZk6Bp1UaKrmJo/dMD4vRRbqxePydEOgeRbZuMd0JyKQ04BNs0CRHWCLQnfOoTLat4z7yoMPdu4796+okuW3LpP9l8nG2uaqei9ST6rXj9lDnWrlLXAd+e5RJOm0Yiymg6BaQEqJsn646/kPgERH7R2PvMc7cluQYWyu3F/RzGG4FrLPzeBjAo23KuVL8Zaxu5Rd/KqjGquP5aFgFFn66WC6T9DmvIBO7v2+R9rJP8+An60anaP0MfDyRwnP8LHuSMtUUgo/C8K36TUmDpp6sn9/sUUY3YOQHOXtwh5yjX/muQA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=none (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org) smtp.mailfrom=taln60.nuvoton.co.il
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+X-Greylist: delayed 3378 seconds by postgrey-1.37 at boromir; Tue, 04 Feb 2025 04:11:29 AEDT
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmX8y5NZFz2yvj
-	for <openbmc@lists.ozlabs.org>; Mon,  3 Feb 2025 14:31:30 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1738553490;
-	bh=zIM0HNxOpd+mwy4yH9/zK7GjEdI1Hw/l7uc/DAJMasc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XO0VtXFL/rr/RxhK4obFlxxlnRmLC1ovr8B0+KmZ9ZCElM/lv+YJze58gfCxjyZ6b
-	 Fy7uZIiO6QjpVNDqiHuV6lBxx8GMdKO4ILWUdol5Jvu8jrOG1SKuhPPQnFkOItpORW
-	 BV6APxJvd/wFp3W26kobYkA/Tfnnoh0PIxCJIPGkVyQjIaIsoedB3XgveECN9sPUm5
-	 zdjEza8OepN34DJxomTF5bEnWFI0QArWiBk2/rlKGrn2yh3iGCenyY/0DOsxlH58f6
-	 J0mNtcbyf3QmOADC9xfXMiVCQncv6X7hUkuBhJWh47Ho7hcxlI0pLvc/Xc/sIEdtcY
-	 xHdyLl/JjkZjg==
-Received: from [192.168.68.112] (58-7-156-140.dyn.iinet.net.au [58.7.156.140])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C605873C54;
-	Mon,  3 Feb 2025 11:31:28 +0800 (AWST)
-Message-ID: <8f51f0852317a28fc5cf1ba213902be838c9545e.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] i2c: aspeed: Nullify bus messages after timeout
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Eddie James <eajames@linux.ibm.com>, linux-i2c@vger.kernel.org
-Date: Mon, 03 Feb 2025 14:01:28 +1030
-In-Reply-To: <20250131222941.798065-1-eajames@linux.ibm.com>
-References: <20250131222941.798065-1-eajames@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4YmtM5457Pz2xjd
+	for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2025 04:11:29 +1100 (AEDT)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 513GEwU5006474
+	for <openbmc@lists.ozlabs.org>; Mon, 3 Feb 2025 18:14:59 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.43; Mon, 3 Feb
+ 2025 18:14:58 +0200
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 4 Feb
+ 2025 00:14:56 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 4 Feb 2025 00:14:56 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id 485205F635;
+	Mon,  3 Feb 2025 18:14:55 +0200 (IST)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id 3E787DC3313; Mon,  3 Feb 2025 18:14:55 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: [PATCH linux dev-6.6 v1 1/8] i2c: Remove redundant comparison in npcm_i2c_reg_slave
+Date: Mon, 3 Feb 2025 18:14:43 +0200
+Message-ID: <20250203161450.265480-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250203161450.265480-1-tmaimon77@gmail.com>
+References: <20250203161450.265480-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,58 +68,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, ryan_chen@aspeedtech.com, joel@jms.id.au, andi.shyti@kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, Joel Stanley <joel@jms.id.au>, Rand Deeb <rand.sec96@gmail.com>, Andi Shyti <andi.shyti@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, 2025-01-31 at 16:29 -0600, Eddie James wrote:
-> For multimaster case, it's conceivable that an interrupt comes
-> in after the transfer times out and attempts to use bus messages
-> that have already been freed by the i2c core.
+From: Rand Deeb <rand.sec96@gmail.com>
 
-This description seems a little vague. Did you hit this case in
-practice?
+In the npcm_i2c_reg_slave() function, there was a redundant
+comparison that checked if 'bus->slave' was null immediately after
+assigning it the 'client' value. There were concerns about a
+potential null dereference because of `client->adapter`, but
+according to Wolfram Sang, "we trusted ourselves here" Therefore,
+this comparison is unnecessary.
 
->=20
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
-> =C2=A0drivers/i2c/busses/i2c-aspeed.c | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/i2c/busses/i2c-aspeed.c
-> b/drivers/i2c/busses/i2c-aspeed.c
-> index 1550d3d552aed..e344dcc2233fe 100644
-> --- a/drivers/i2c/busses/i2c-aspeed.c
-> +++ b/drivers/i2c/busses/i2c-aspeed.c
-> @@ -731,6 +731,7 @@ static int aspeed_i2c_master_xfer(struct
-> i2c_adapter *adap,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 * master command.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 */
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0spin_lock_irqsave(&bus->lock, flags);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0bus->msgs =3D NULL;
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-It feels like there's buggy code elsewhere in the driver that this is
-protecting (broken state machine)? I've had a look at the
-aspeed_i2c_master_irq() implementation and can't see what though, as we
-take an early-exit (before indexing into bus->msgs) if bus-
->master_state is INACTIVE or PENDING.
+Signed-off-by: Rand Deeb <rand.sec96@gmail.com>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+---
+ drivers/i2c/busses/i2c-npcm7xx.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Can you be a bit more specific about where the issue lies?
-
-Andrew
-
-
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0if (bus->master_state =3D=3D ASPEED_I2C_MASTER_PEND=
-ING)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0bus=
-->master_state =3D
-> ASPEED_I2C_MASTER_INACTIVE;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0spin_unlock_irqrestore(&bus->lock, flags);
+diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
+index ae4bae63ad4f..a28699b680f7 100644
+--- a/drivers/i2c/busses/i2c-npcm7xx.c
++++ b/drivers/i2c/busses/i2c-npcm7xx.c
+@@ -1265,9 +1265,6 @@ static int npcm_i2c_reg_slave(struct i2c_client *client)
+ 
+ 	bus->slave = client;
+ 
+-	if (!bus->slave)
+-		return -EINVAL;
+-
+ 	if (client->flags & I2C_CLIENT_TEN)
+ 		return -EAFNOSUPPORT;
+ 
+-- 
+2.34.1
 
