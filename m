@@ -4,84 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FADC02198
-	for <openbmc@archiver.kernel.org>; Wed, 12 Feb 2025 23:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45FD8C021A4
+	for <openbmc@archiver.kernel.org>; Thu, 13 Feb 2025 01:35:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4YtYmF40gPz3fQn
-	for <openbmc@archiver.kernel.org>; Thu, 13 Feb 2025 10:04:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::f35"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1739391813;
-	cv=none; b=Y9C4lAz0tGjf4BbaaexXAUrc+Eg/GUIuCBIUqGmVxMVkcr6awoAP3x+BdlYU7wRlaFnAjvx8PBBp4toEa/kTuKONvBwcsPWJmeW/q1WULbt9o8tBiP5biYIvj6AJBoPe42YcQ09XZqqsKwFXnYTni7+5io1qJHOGvQEi4JjIMmhLBpKY1Dzbp5lA7wKxbriegNiOAbJDYGscyhH2VSRjvUUm7c6IcEpmlQoMTm26UYayrtAQu6nZETpln939O8f7aDwyqwcPvmL35TfkFAt+vep5IdbRXwJB4XkXjWO128gAp4BVjcMBdNsId0rOK0y7SmTDVsrhhaIOPLgEw/J/GQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ytd6C3wwVz3d44
+	for <openbmc@archiver.kernel.org>; Thu, 13 Feb 2025 12:35:15 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1739410512;
+	cv=none; b=CgkW5I8L3dbu0Voq0HPpJdOlf0zPWh0goJ0Ev0frMV2wpym0lSbygjIz6LoBgeXCvswImqFqHBlIHC1rHkGV6vdHS9AJg6mQosNRj7Cl76M3cjq0O8H0jnUgIYLapCv8KmDLZnrOM+Ksg1VK13CTA34QMoZVvQ6IFTJy0FTBYzQ8EdO5LJZQDx05ZSnQA8iLQVA4blQMc6DUIAsjcSn5Ci1kSO3zuNi4mn8YyVJBmMDDow2FFtAvzFH8T+Tpw3rlKVdjuY3ihc0k3FaZ9itsSSw5LIBLWvCEa6rwWlZ5sXkbp7trYdFJcN0NDZ0gw7K8WiHZKRL1CBxuDldjcxeyjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1739391813; c=relaxed/relaxed;
-	bh=wFqfug0dvo4+SvGxTEfuy1Nbc66z9jbXayYAmndjSOM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CFPghnzP+aUvRrIEs5E07/wpXnCmAxfGutWYP6TYVf+9k0DHkYHtEB1nmGvzEowv4r34BwIfi78yR35BOOJHjO228NwpqRSvWuYJKUsox97BPJQd+kwY7VhTou2dro48y4ktQwDZ3+wudCRX7Dy1RSZD0r6m45EVp0RJQMy4289gMTIBreB8ciDLtQ5ZCxobnydxdkTTuXef33hOtDR0C7GGTJ/ejhnKsPWXl3VYN8OIZ0CFdRrUkuj1TCeXADceTObGfmWIlVakfMGGXgInP86MtILB2vKinlgoIJThsllGWiV9lJLOQ/xqp4sq7Wi5V+EYMm8haquZ3eThW+gmJQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=PiNm6T01; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::f35; helo=mail-qv1-xf35.google.com; envelope-from=chenyuan0y@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1739410512; c=relaxed/relaxed;
+	bh=7VGU4GfhPMqJEXler7778/nCovI5qCQgVoJqnQCQB0k=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ov+gzy0HF6rw2RyLkbSCFi2uVw1IpMkihqfJyVvJWiya4f96+MpNiBppO+BtnYdd3Vz+9ED8He6JlcbL7eHTUUAaL9202EruRugY2SAHEzLX/9GDbyDbXs86JuaUFXFlGYtmL2eA+ZjmaHYGxJZ50o/VeMwCkYwNQKiuIEYwSLVQgSbsvKq4LzZzOqkhATtYD2TXbutbip4CHT+RfcYgcYHFknkzp8odizdeyZeHGpa837ETsmzDWdqje8JRuCi10VZR8WZm7L3e+VmRuk9FXDmeafskqd8Zfj6+Ov03VDbw84HsDyQPDrPvaESiD0HengnBXmwughgQxFSyZm9BGA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Dt2Qll0r; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=PiNm6T01;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Dt2Qll0r;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f35; helo=mail-qv1-xf35.google.com; envelope-from=chenyuan0y@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com [IPv6:2607:f8b0:4864:20::f35])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4YtVBX0LCjz2yh2
-	for <openbmc@lists.ozlabs.org>; Thu, 13 Feb 2025 07:23:30 +1100 (AEDT)
-Received: by mail-qv1-xf35.google.com with SMTP id 6a1803df08f44-6e4479e22c1so111166d6.0
-        for <openbmc@lists.ozlabs.org>; Wed, 12 Feb 2025 12:23:30 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Ytd644qSbz2yq4
+	for <openbmc@lists.ozlabs.org>; Thu, 13 Feb 2025 12:35:08 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1739391807; x=1739996607; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=wFqfug0dvo4+SvGxTEfuy1Nbc66z9jbXayYAmndjSOM=;
-        b=PiNm6T01ughL3VUW9+peVnMRoL/tYfllH3AjMqOgIEPPUzI6wUUH5R+I6l7CUUAY/1
-         fCckELOkA9XCXvddArsNfgL8Xpvv4W2AVf0BQT/bFwoNnIYnYIRE/jhlRoEoBLMoH0Qp
-         REfKvlgZGH61NwdV7Nj0HE57OwuVFH6zY+UySnN5t7OUcyRxzTWy/RiR6UyviRKV5XTu
-         flw5J5B/QCiLO4x6bZ/9uwpcT1w50rt8EqCT9JTbtF99aaenVXOXl9YvrIy6RfXXRceP
-         vfSe8DjUcEScIpgL1hsk2w416Zv1Ww3NYw9VokQ5TgAFO0Ckn0MGEzKKHEKtPokStPLE
-         LKig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739391807; x=1739996607;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=wFqfug0dvo4+SvGxTEfuy1Nbc66z9jbXayYAmndjSOM=;
-        b=oVSLvxy3Fe8HQHVygIBZ7G+J1UaGtT/bBkVMNdiH1Oxel53n6cOM2I/rQFtvlUxcSa
-         W78mN5zB7fi38bnB8n0wGf3jXVOT7TrFD7mCDu0iaFoZNoQDQg5hAiQ2/MaYirVjbAHR
-         zhzgxC9GA9DUkfdmbvNecQ8gzk19L+h9hmBtnWp3ekrhx56A+mZtuZ5Z6tgF8CJh9ccG
-         EURuuv6J1yaWXxKWLUmpOIrOpANafE8VTjHCL4x0CyOc32gryc+Ju9HNBbY612iJWJKq
-         pTgd7LkzhrqRr3XdRdqbs70djNWg50kFMtlIEWmSUVNp69hDBr3BpgLTXP7tLjAKHRSC
-         DErA==
-X-Gm-Message-State: AOJu0Yz8ldwoR1O0r+yGUzABXpA85QorvwpWoh8qXLI+E0wGHq7PgTjf
-	AO/ZroM6tWpsBM35fLpGF2+RVsb6eWJL34Rw9LOjftuIf/aBBfg=
-X-Gm-Gg: ASbGnctdsn9nqFv854E6BQKTrBOp++AZDzhUU818vxd0e8tOltXBeNB9tYn2oubDJrH
-	QbzTxEgQJ7MkGZxhDy1euSYwEgo9KEdkKy0l2FD4WB9sGNFlThFmIquVWvBt4+UTFluR2FfrE1t
-	44G0FqJzvDyyZ7FCCQCxd8I2IH0W5pwH+ncjXTMjdRTpy1nlhwCyldtQzKxpWh7NiF1i1Y/d5cN
-	pgedyR807EYgVtyMyHOFCdg8ILCQTHk/YVz6Vf8sQXgd3Rp9nx7AjI8027shmE0lKL1cGQSJrK1
-	/2EW1VoG6VXQ
-X-Google-Smtp-Source: AGHT+IHrunwFa9y1n/VCE/JHLro3uaHsjKV1AuCg8NjkBGyKTg9Jo6/WpWR9TxBMa0++i/xfgPtU4Q==
-X-Received: by 2002:a05:6214:20e9:b0:6e1:a79c:4cb8 with SMTP id 6a1803df08f44-6e46ed772damr30480456d6.2.1739391806803;
-        Wed, 12 Feb 2025 12:23:26 -0800 (PST)
-Received: from ise-alpha.. ([2620:0:e00:550a:642:1aff:fee8:511b])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-6e43baacee1sm82943076d6.84.2025.02.12.12.23.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Feb 2025 12:23:25 -0800 (PST)
-From: Chenyuan Yang <chenyuan0y@gmail.com>
-To: avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com,
-	linus.walleij@linaro.org
-Subject: [PATCH] pinctrl: nuvoton: Add NULL pointer check in npcm8xx_gpio_fw()
-Date: Wed, 12 Feb 2025 14:23:11 -0600
-Message-Id: <20250212202311.3741443-1-chenyuan0y@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	d=codeconstruct.com.au; s=2022a; t=1739410506;
+	bh=7VGU4GfhPMqJEXler7778/nCovI5qCQgVoJqnQCQB0k=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=Dt2Qll0rbSoLUxnB0twbir6+FHpnuwPZEw8dZgzabM1BDg+KUDwwQcVYlTuaikOnZ
+	 SGgGTMO0TFLCJqvj044vDNGvijq11/Pm8Te9g86797aGwPePKFY0pQnseRcVH8qgMp
+	 Z//+afmjw9kXgkHxYCanUP+CukG217Kj//LdRx/rGVBLECQAbGcOEQys4prUg+mtWW
+	 GBdnKgf8Onu4LQJR44+chpQhPq49jydIXQGUoVVeGloOlTpXoPoKFGbWd3hu8iEVeI
+	 pNF3ribb00h9rECGOuNm/+HDM3sd2bErTVPglhvMODJK093Uvz1HeIr411vwXRR0Ae
+	 V+Wm6iVtQLjsA==
+Received: from [192.168.68.112] (203-173-7-184.dyn.iinet.net.au [203.173.7.184])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 7D1B37576E;
+	Thu, 13 Feb 2025 09:35:05 +0800 (AWST)
+Message-ID: <5d84475dc07c43fada8f3e10169739d57348eaa4.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2] ARM: dts: nuvoton: Align GPIO hog name with bindings
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Avi Fishman <avifishman70@gmail.com>, 
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,  openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Date: Thu, 13 Feb 2025 12:05:02 +1030
+In-Reply-To: <bdd7b203-ccb3-453b-ae91-32f257fc909f@kernel.org>
+References: <20250116090047.87499-1-krzysztof.kozlowski@linaro.org>
+	 <bdd7b203-ccb3-453b-ae91-32f257fc909f@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 13 Feb 2025 10:04:21 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,38 +72,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-gpio@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Chenyuan Yang <chenyuan0y@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a NULL pointer check for pctrl->gpio_bank[id].gc.label in
-npcm8xx_gpio_fw() to prevent potential NULL pointer dereference.
-This is similar to the fix in commit 3027e7b15b02 
-("ice: Fix some null pointer dereference issues in ice_ptp.c").
+On Wed, 2025-02-12 at 21:36 +0100, Krzysztof Kozlowski wrote:
+> On 16/01/2025 10:00, Krzysztof Kozlowski wrote:
+> > Bindings expect GPIO hog names to end with 'hog' suffix, so correct
+> > it
+> > to fix dtbs_check warnings like:
+> >=20
+> > =C2=A0 nuvoton-npcm750-runbmc-olympus.dtb: G1A_P0_0: $nodename:0:
+> > 'G1A_P0_0' does not match '^.+-hog(-[0-9]+)?$'
+> >=20
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> >=20
+> > ---
+> >=20
+> > Changes in v2:
+> > 1. Rename rest of the nodes I missed.
+> > ---
+> > =C2=A0.../boot/dts/nuvoton/nuvoton-npcm730-gbs.dts=C2=A0 |=C2=A0 12 +-
+> > =C2=A0.../nuvoton-npcm750-runbmc-olympus.dts=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 120 +++++++++-----
+> > ----
+> > =C2=A02 files changed, 66 insertions(+), 66 deletions(-)
+> >=20
+>=20
+> Any comments? Can this be merged?
 
-The npcm7xx driver already has this check in its npcm7xx_gpio_fw()
-function, which provides similar functionality.
-Add the same protection to npcm8xx.
+Joel was taking NPCM SoC patches through the BMC tree. I'll pick this
+up. We should probably update MAINTAINERS so they don't get lost.
 
-Signed-off-by: Chenyuan Yang <chenyuan0y@gmail.com>
----
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 471f644c5eef..d09a5e9b2eca 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2374,6 +2374,9 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 		pctrl->gpio_bank[id].gc.parent = dev;
- 		pctrl->gpio_bank[id].gc.fwnode = child;
- 		pctrl->gpio_bank[id].gc.label = devm_kasprintf(dev, GFP_KERNEL, "%pfw", child);
-+		if (!pctrl->gpio_bank[id].gc.label)
-+			return -ENOMEM;
-+
- 		pctrl->gpio_bank[id].gc.dbg_show = npcmgpio_dbg_show;
- 		pctrl->gpio_bank[id].direction_input = pctrl->gpio_bank[id].gc.direction_input;
- 		pctrl->gpio_bank[id].gc.direction_input = npcmgpio_direction_input;
--- 
-2.34.1
-
+Andrew
