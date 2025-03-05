@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5F9EC282EC
-	for <openbmc@archiver.kernel.org>; Wed,  5 Mar 2025 22:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 454A7C19F32
+	for <openbmc@archiver.kernel.org>; Wed,  5 Mar 2025 22:53:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Z7SWX0hgqz3ft4
-	for <openbmc@archiver.kernel.org>; Thu,  6 Mar 2025 09:53:12 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2604:1380:45d1:ec00::3"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1741169919;
-	cv=none; b=WSEhuuHO4ULjWQOtI3/IlQN7VgvA9AioLp0kHMRnQnqyXXBSGX1gWcnmQu+XOOafOFJXKyOwtDmNf7DmGZgzonM839Xv/zgkMBTRdkRVYE3a10Jp5a88ERrltrbn6U2fFmPF/CJKlwj1Br33TRRBtMbOECQOawFJzYf+knr4mB6AK7d0Z5KXRXDOnR4wAPvfD5pqDWeYO9m+w73/ptdN+B/J4y/1mLWcyeEl+baYzBsfzIlBH0pF9K/srh5pXTldhkgGmvmovDe+Zcw9gK0nxfo440QnrPpAR2C/J+BlAvMEcxSCFJsgdXb2nMZnVnqIwTAS/9duE0cIFLwUZmb9IQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Z7SWd4h6Bz3g1S
+	for <openbmc@archiver.kernel.org>; Thu,  6 Mar 2025 09:53:17 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1741170700;
+	cv=none; b=HYMHdptcPOPZWP+2U3UL9S0LGP6OR2vlgDU27lyNv8rQCLK8au3tiTbVpMnT1bQ882Kzd/4FuqjTsdRXWE9HCvpicMrJ03ltPLkfRUiKcY9cyiila5IQaOD9mEhdUDOBVT8bSYntnAC/cU/mdm1sTDbS+UamP3dKBNWozlSBaB6okkSI0nSJC7NNlytA9d0OFB0G42353AIiETW+PVcLHvWXLFl1NJGjmSU681GXf2THxtTOAcdNHhP4wAzDVh1/78kqSTMb51Dw4ncRsfRDVf2TUPie83cFzngHuZlcHDUJQyRvXXBOI8hMCcpSsgu3of8BzQFI8OvZVAgbI2HQ+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1741169919; c=relaxed/relaxed;
-	bh=4Vo3qOOAEBPswAqRgvzNrNkT7zw+CqURid5oS8C0xpo=;
+	t=1741170700; c=relaxed/relaxed;
+	bh=GixKrI4auj+Jq2I/e3aa9PpIqnSOeuqb6Z1Wgla2k/g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nkZUj7cTBmGMzVXIh4z52KWEudssqfVg0CEvqMOUkuYtJfuHMvz3A8ude/G1uIWXRmI2TEKHaw+OBAxMi+RzmxbwMSgSPk1QJQcBGee1twVuSYlrbuSgPw4litqr8g2S39qHVnm/vMdJ2Kv5UGiG0wLzIkP/FKCDXXFGAPi1eADFmoCwHxkhwBewE+4hpMo+zbnVP32W4QtrxjbqUmPf3GvtaA0ZhZqkeMmz8ZBdTYeM10IPp9Adpk3tls+H4Q06bHs5qd7VAlsD4KvWyOvQrTTmo5NOhYsyoHd7YOPnFVlEEpptlQ8uYuziZI/q7SXnMT2VU4HzBib7iVVQSU8pYQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=JVElypjc; dkim-atps=neutral; spf=pass (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=kabel@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=JVElypjc;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=kabel@kernel.org; receiver=lists.ozlabs.org)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [IPv6:2604:1380:45d1:ec00::3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 Content-Type:Content-Disposition:In-Reply-To; b=DaVvrex9Tn3e5HIsxEDMCLkxljDdLlC3g8x9hHt/YVBdTFBk75VM9s1ZNqTyxLGD8X2Z4m+MupkkpqMiaUjn25KnWT8ptMAtX1PsmdhTrRyA6ZTXiudAe6P4hfjQRdXJnLZRmDbqthtDrRTipwB/cij9zKriC6DFJESBs51fA/QyDu1/6NfX2QtenEPsd1Y1siDHjk1o4O3OZkJtbORbCsz7vC4OJ4bEZC2OvTPBXTFyRTt52hkFP5cHq1e1vFSMg9YX/DJDxux4XrLCtf69OgE+UVCfwADrZ4Msr3zr1V/7BCnKdoDFrWDLVgP4FOJgIjeEIOuqEiOkOQBN508ajg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=softfail (client-ip=198.175.65.12; helo=mgamail.intel.com; envelope-from=andy@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=kernel.org (client-ip=198.175.65.12; helo=mgamail.intel.com; envelope-from=andy@kernel.org; receiver=lists.ozlabs.org)
+X-Greylist: delayed 60 seconds by postgrey-1.37 at boromir; Wed, 05 Mar 2025 21:31:39 AEDT
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Z77mt3pnBz3bnr;
-	Wed,  5 Mar 2025 21:18:38 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 956E0A40EFC;
-	Wed,  5 Mar 2025 10:13:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4705FC4CEE2;
-	Wed,  5 Mar 2025 10:18:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1741169915;
-	bh=4Vo3qOOAEBPswAqRgvzNrNkT7zw+CqURid5oS8C0xpo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JVElypjcaIYX5rKtiv06hcSXy4HstFjKOeRhShpFjk2Jel2eSkA/O0uK8Wninv5/a
-	 hI5Ui+51QY9Sc5wOaelsMqqEki8iPKL/7clrg37rGARtPtuO5FAtalmSz/cR624zt9
-	 twTkQB6/0FugO2QSLBDkRJ1MULKIVW+tzVSg6Ccu0iGgHjhAUJfebciXlktocUXdn0
-	 bbIXddxhOqHs7IDCCnaG84EzsvIT+/+FsZux9DQ1iCMoMbwVVWuwRuT4u+s9e3MuJC
-	 lkrQutRMyjpWtEs6QOIxSX4h5Qvjsi5oAAXmBv854hriyofgHQ/0kVmCe+F7yX5KZc
-	 9wpnC/K5XUGSQ==
-Date: Wed, 5 Mar 2025 11:18:23 +0100
-From: Marek =?utf-8?B?QmVow7pu?= <kabel@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Z783v3q5Qz3bmL;
+	Wed,  5 Mar 2025 21:31:39 +1100 (AEDT)
+X-CSE-ConnectionGUID: CuF/STzHTe235GLxsgy8HA==
+X-CSE-MsgGUID: ec4BYwgfTf2ui7/ZKqvVjQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="53523079"
+X-IronPort-AV: E=Sophos;i="6.14,222,1736841600"; 
+   d="scan'208";a="53523079"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Mar 2025 02:31:38 -0800
+X-CSE-ConnectionGUID: Z/A8xlFITVmp8Z0twxO01Q==
+X-CSE-MsgGUID: nLVWQ8vMT/elxbz01T8mpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,222,1736841600"; 
+   d="scan'208";a="149420928"
+Received: from smile.fi.intel.com ([10.237.72.58])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Mar 2025 02:31:28 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.98)
+	(envelope-from <andy@kernel.org>)
+	id 1tpm27-0000000HNqe-12WE;
+	Wed, 05 Mar 2025 12:31:23 +0200
+Date: Wed, 5 Mar 2025 12:31:22 +0200
+From: Andy Shevchenko <andy@kernel.org>
 To: George Cherian <george.cherian@marvell.com>
-Subject: Re: [PATCH v4 1/2] watchdog: Add a new flag WDIOF_STOP_MAYSLEEP
-Message-ID: <irmewriceyzxr6jvbiao5vqrvelpftbjalmheodx5w63zi6k2y@dg3wlvs6zryd>
+Subject: Re: [PATCH v4 0/2] Add stop_on_panic support for watchdog
+Message-ID: <Z8gn-jxUH_7FT4b2@smile.fi.intel.com>
 References: <20250305101025.2279951-1-george.cherian@marvell.com>
- <20250305101025.2279951-2-george.cherian@marvell.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250305101025.2279951-2-george.cherian@marvell.com>
+In-Reply-To: <20250305101025.2279951-1-george.cherian@marvell.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Thu, 06 Mar 2025 09:52:58 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -67,13 +67,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: imx@lists.linux.dev, mwalle@kernel.org, tmaimon77@gmail.com, hayashi.kunihiko@socionext.com, alexander.usyskin@intel.com, tali.perry1@gmail.com, paul@crapouillou.net, daniel@thingy.jp, patches@opensource.cirrus.com, christophe.leroy@csgroup.eu, festevam@gmail.com, chrome-platform@lists.linux.dev, maddy@linux.ibm.com, benjaminfair@google.com, lma@chromium.org, mpe@ellerman.id.au, openbmc@lists.ozlabs.org, krzk@kernel.org, evanbenn@chromium.org, linux-mips@vger.kernel.org, linux@roeck-us.net, linux-watchdog@vger.kernel.org, mazziesaccount@gmail.com, s.hauer@pengutronix.de, naveen@kernel.org, npiggin@gmail.com, xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com, wim@linux-watchdog.org, bleung@chromium.org, linux-arm-kernel@lists.infradead.org, andy@kernel.org, support.opensource@diasemi.com, andreas.werner@men.de, avifishman70@gmail.com, thomas.richard@bootlin.com, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de, venture@google.com, jwerner@chromium.org, romain.perier@gmail.com, shawnguo@kernel.org
+Cc: imx@lists.linux.dev, mwalle@kernel.org, tmaimon77@gmail.com, hayashi.kunihiko@socionext.com, alexander.usyskin@intel.com, tali.perry1@gmail.com, paul@crapouillou.net, daniel@thingy.jp, patches@opensource.cirrus.com, christophe.leroy@csgroup.eu, festevam@gmail.com, kabel@kernel.org, chrome-platform@lists.linux.dev, maddy@linux.ibm.com, benjaminfair@google.com, lma@chromium.org, mpe@ellerman.id.au, openbmc@lists.ozlabs.org, krzk@kernel.org, evanbenn@chromium.org, linux-mips@vger.kernel.org, linux@roeck-us.net, linux-watchdog@vger.kernel.org, mazziesaccount@gmail.com, s.hauer@pengutronix.de, naveen@kernel.org, npiggin@gmail.com, xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com, wim@linux-watchdog.org, bleung@chromium.org, linux-arm-kernel@lists.infradead.org, support.opensource@diasemi.com, andreas.werner@men.de, avifishman70@gmail.com, thomas.richard@bootlin.com, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de, venture@google.com, jwerner@chromium.org, romain.perier@gmail.com, shawnguo@kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi George,
+On Wed, Mar 05, 2025 at 10:10:23AM +0000, George Cherian wrote:
+> This series adds a new kernel command line option to watchdog core to
+> stop the watchdog on panic. This is useul in certain systems which prevents
+> successful loading of kdump kernel due to watchdog reset.
+> 
+> Some of the watchdog drivers stop function could sleep. For such
+> drivers the stop_on_panic is not valid as the notifier callback happens
+> in atomic context. Introduce WDIOF_STOP_MAYSLEEP flag to watchdog_info
+> options to indicate whether the stop function would sleep.
 
-why is armada_37xx_wdt also here?
-The stop function in that driver may not sleep.
+Should you only enable this if the kdump is enabled in the kernel configuration?
 
-Marek
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
