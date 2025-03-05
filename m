@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42DFFC19F32
-	for <openbmc@archiver.kernel.org>; Wed,  5 Mar 2025 22:54:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03F0C19F32
+	for <openbmc@archiver.kernel.org>; Wed,  5 Mar 2025 22:54:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Z7SWr0YGtz3gGb
-	for <openbmc@archiver.kernel.org>; Thu,  6 Mar 2025 09:53:28 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1741170904;
-	cv=none; b=kwJs8MISG28uBk0PxcE3RVKPgeGrdYxMzvDu5pCCnj+sUoyFb3rkmj0VpkPKBW3FmbtWSLGkEDGj09e26DoQLEEe1NdfhlC9lm403aMkhWWL5qNEkJJNgiDb+pJT4TuaYiJHcw9JM1uEOvQvPCYC46h7cKvjoJ1n8wz4ro2J2GWD9vf/1gDdEznxF29Zudcd3njaXaOsIDT/Vp/5UUKe2CCgI2zD3w6snPfUzYKwKzKvzZlaYXZJb1zi3706jBYEx0cnIbn5kRlZYfFxTPZvgw9mEU6/H9SaiZcY0hGITE8uP4bYXoQkUCEYrJ4+wTXHrRUiA2WmGO8KOFPHakzWEQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Z7SWx4HHXz3vX9
+	for <openbmc@archiver.kernel.org>; Thu,  6 Mar 2025 09:53:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a0a:edc0:2:b01:1d::104"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1741171374;
+	cv=none; b=nSXMCCsvPWyPaWIMVir7nGyaz7mj1QGKLTBatArudeAPQhnASnvLbYAg7fJ27DvqCt6/uBRhJskIgIes96Dcv9MNOgtqHaObPjtcd8ycSP8jhDa0ws6u6NTq3UXi+ghmnxlJKe0gAKKTNKAfGdWhHTT/7trU7RSlCRbnFgZozOVM6Ml+c2X6oURHoUYO9Ofo5pQcc6le8cNfgIdsdy1UqNdyCgm9+ANQnD+ruAbtxtmYfKsQ1bmwi4KuMaOHo/MnhBcKPEEM5B/Z4TRGY6lETC+GMiqhRujPcrTBLbmfFZCZ3q2JYuVVheZMnuBPkcyFea5o/dkKl3TjDVExuIdSkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1741170904; c=relaxed/relaxed;
-	bh=zbIgnxo33TJwl2XpIuiDYO43qXbswWCH8QpY4+o4tns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VpS50WgaTscOCZPJTqKwk4bQJnfEriSP6SZ//UsGd0xrN6GZ+GT7guzVNdX29YyU2DJwdECNSCoUvnLOBDws1q7pd6g6EMmuhyhP232csL33QJOFHtzBluFYHVyBCAoTw0pxFAmu6hkGMbv07eZgul/CQJGHNo8/vOAQqnl4aauryG2/Qz+jRmvzgXUlVPBMO7a5lkwzDSHr+GNn4A8zkHCFJMsnHV4luy1qGbxRcACQTyL3PqBUytYmwebikCV1/VLESa+7A74WrttkViqIBgD7LZwWjv5yvyZLteYtSCwnsdzfAFh5SVvwhWTYHXwXr7uNPyHprwuzYsgT++og2g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=softfail (client-ip=192.198.163.13; helo=mgamail.intel.com; envelope-from=andy@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=kernel.org (client-ip=192.198.163.13; helo=mgamail.intel.com; envelope-from=andy@kernel.org; receiver=lists.ozlabs.org)
-X-Greylist: delayed 63 seconds by postgrey-1.37 at boromir; Wed, 05 Mar 2025 21:35:02 AEDT
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	t=1741171374; c=relaxed/relaxed;
+	bh=WT6ieFhN3zQWbuV/hXGfdLrRZ8QauOz6+gPkTZ+qxhY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=asyhRBPH5dHWq9Ykg4M5FhHbvMK2uZ0fFESKzv0G1wZpMdLcll5nv60TwM0w6vl1K+w4RHTasPgKASReGfgMsRPx/2Cg0ZnXj0XTXF3d0v+KTq7tqSG0hcCW+YfWk8ndTFkKfSiC1CG4wJHJNGN58i2mpgFRBtrj1Sn5W8ZVVieSYAR4ziDdGSOGnpYTJFU542SCEtkJLaTcaZMy0KfFWJWHcxTpx7wAUHk+G3wrhH5GOopqdWPnfG8dClpxfQuaapv3Ii09oHj69VhZW1IWqXCgj0GukbE15A9B9f/YKp11C/OJnXiXQ2WVCurx2NUnLjDZoErHV4HMLBko7gqCEg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=a.fatoum@pengutronix.de; receiver=lists.ozlabs.org) smtp.mailfrom=pengutronix.de
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=2a0a:edc0:2:b01:1d::104; helo=metis.whiteo.stw.pengutronix.de; envelope-from=a.fatoum@pengutronix.de; receiver=lists.ozlabs.org)
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [IPv6:2a0a:edc0:2:b01:1d::104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4Z787p2C2Mz30XR;
-	Wed,  5 Mar 2025 21:35:02 +1100 (AEDT)
-X-CSE-ConnectionGUID: ++ps7kicTHGCWI+rNmw7ww==
-X-CSE-MsgGUID: K7EgXrosR3+qvlwT+R5BYQ==
-X-IronPort-AV: E=McAfee;i="6700,10204,11363"; a="44936608"
-X-IronPort-AV: E=Sophos;i="6.14,222,1736841600"; 
-   d="scan'208";a="44936608"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Mar 2025 02:33:56 -0800
-X-CSE-ConnectionGUID: Pmo02+QiRyuCyBTsLyBQKA==
-X-CSE-MsgGUID: +3/qaz49Qz6WtsiJJYV/Ng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.14,222,1736841600"; 
-   d="scan'208";a="123579370"
-Received: from smile.fi.intel.com ([10.237.72.58])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Mar 2025 02:33:46 -0800
-Received: from andy by smile.fi.intel.com with local (Exim 4.98)
-	(envelope-from <andy@kernel.org>)
-	id 1tpm4L-0000000HNsf-1gjT;
-	Wed, 05 Mar 2025 12:33:41 +0200
-Date: Wed, 5 Mar 2025 12:33:41 +0200
-From: Andy Shevchenko <andy@kernel.org>
-To: George Cherian <george.cherian@marvell.com>
-Subject: Re: [PATCH v4 2/2] drivers: watchdog: Add support for panic notifier
- callback
-Message-ID: <Z8gohVIQqlA6QquZ@smile.fi.intel.com>
-References: <20250305101025.2279951-1-george.cherian@marvell.com>
- <20250305101025.2279951-3-george.cherian@marvell.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4Z78Js2CK6z3bqM
+	for <openbmc@lists.ozlabs.org>; Wed,  5 Mar 2025 21:42:51 +1100 (AEDT)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77] helo=[127.0.0.1])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <a.fatoum@pengutronix.de>)
+	id 1tpmCM-00054k-Ob; Wed, 05 Mar 2025 11:41:58 +0100
+Message-ID: <43fb0965-04b7-41dc-ae3f-54676eefdbb5@pengutronix.de>
+Date: Wed, 5 Mar 2025 11:41:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250305101025.2279951-3-george.cherian@marvell.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] Add stop_on_panic support for watchdog
+To: George Cherian <george.cherian@marvell.com>, linux@roeck-us.net,
+ wim@linux-watchdog.org, jwerner@chromium.org, evanbenn@chromium.org,
+ kabel@kernel.org, krzk@kernel.org, mazziesaccount@gmail.com,
+ thomas.richard@bootlin.com, lma@chromium.org, bleung@chromium.org,
+ support.opensource@diasemi.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, andy@kernel.org,
+ paul@crapouillou.net, alexander.usyskin@intel.com, andreas.werner@men.de,
+ daniel@thingy.jp, romain.perier@gmail.com, avifishman70@gmail.com,
+ tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com,
+ yuenn@google.com, benjaminfair@google.com, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
+ naveen@kernel.org, mwalle@kernel.org, xingyu.wu@starfivetech.com,
+ ziv.xu@starfivetech.com, hayashi.kunihiko@socionext.com, mhiramat@kernel.org
+References: <20250305101025.2279951-1-george.cherian@marvell.com>
+Content-Language: en-US
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+In-Reply-To: <20250305101025.2279951-1-george.cherian@marvell.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: openbmc@lists.ozlabs.org
 X-Mailman-Approved-At: Thu, 06 Mar 2025 09:52:58 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,37 +70,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: imx@lists.linux.dev, mwalle@kernel.org, tmaimon77@gmail.com, hayashi.kunihiko@socionext.com, alexander.usyskin@intel.com, tali.perry1@gmail.com, paul@crapouillou.net, daniel@thingy.jp, patches@opensource.cirrus.com, christophe.leroy@csgroup.eu, festevam@gmail.com, kabel@kernel.org, chrome-platform@lists.linux.dev, maddy@linux.ibm.com, benjaminfair@google.com, lma@chromium.org, mpe@ellerman.id.au, openbmc@lists.ozlabs.org, krzk@kernel.org, evanbenn@chromium.org, linux-mips@vger.kernel.org, linux@roeck-us.net, linux-watchdog@vger.kernel.org, mazziesaccount@gmail.com, s.hauer@pengutronix.de, naveen@kernel.org, npiggin@gmail.com, xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com, wim@linux-watchdog.org, bleung@chromium.org, linux-arm-kernel@lists.infradead.org, support.opensource@diasemi.com, andreas.werner@men.de, avifishman70@gmail.com, thomas.richard@bootlin.com, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de, venture@google.com, jwerner@chromium.org, romain.perier@gmail.com, shawnguo@kernel.org
+Cc: chrome-platform@lists.linux.dev, linux-watchdog@vger.kernel.org, imx@lists.linux.dev, patches@opensource.cirrus.com, openbmc@lists.ozlabs.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Mar 05, 2025 at 10:10:25AM +0000, George Cherian wrote:
-> Watchdog is not turned off in kernel panic situation.
-> In certain systems this might prevent the successful loading
-> of kdump kernel. The kdump kernel might hit a watchdog reset
-> while it is booting.
+Hi George,
+
+On 05.03.25 11:10, George Cherian wrote:
+> This series adds a new kernel command line option to watchdog core to
+> stop the watchdog on panic. This is useul in certain systems which prevents
+> successful loading of kdump kernel due to watchdog reset.
 > 
-> To avoid such scenarios add a panic notifier call back function
-> which can stop the watchdog. This provision can be enabled by
-> passing watchdog.stop_on_panic=1 via kernel command-line parameter.
+> Some of the watchdog drivers stop function could sleep. For such
+> drivers the stop_on_panic is not valid as the notifier callback happens
+> in atomic context. Introduce WDIOF_STOP_MAYSLEEP flag to watchdog_info
+> options to indicate whether the stop function would sleep.
 
-...
+Did you consider having a reset_on_panic instead, which sets a user-specified
+timeout on panic? This would make the mechanism useful also for watchdogs
+that can't be disabled and would protect against system lock up:
+Consider a memory-corruption bug (perhaps externally via DMA), which partially
+overwrites both main and kdump kernel. With a disabled watchdog, the system
+may not be able to recover on its own.
 
-First of all, do we really need a new module parameter for that? Why can't it
-be done automatically if kdump is expected?
+If you did consider it, what made you decide against it?
 
-> +static bool stop_on_panic;
-> +module_param(stop_on_panic, bool, 0444);
-> +MODULE_PARM_DESC(stop_on_panic, "Stop watchdogs on panic (0=keep watching, 1=stop)");
+Thanks,
+Ahmad
 
-+ blank line.
+> 
+> 
+> Changelog:
+> v1 -> v2
+> - Remove the per driver flag setting option
+> - Take the parameter via kernel command-line parameter to watchdog_core.
+> 
+> v2 -> v3
+> - Remove the helper function watchdog_stop_on_panic() from watchdog.h.
+> - There are no users for this. 
+> 
+> v3 -> v4
+> - Since the panic notifier is in atomic context, watchdog functions
+>   which sleep can't be called. 
+> - Add an options flag WDIOF_STOP_MAYSLEEP to indicate whether stop
+>   function sleeps.
+> - Simplify the stop_on_panic kernel command line parsing.
+> - Enable the panic notiffier only if the watchdog stop function doesn't
+>   sleep
+> 
+> George Cherian (2):
+>   watchdog: Add a new flag WDIOF_STOP_MAYSLEEP
+>   drivers: watchdog: Add support for panic notifier callback
+> 
+>  drivers/watchdog/advantech_ec_wdt.c |  3 ++-
+>  drivers/watchdog/arm_smc_wdt.c      |  3 ++-
+>  drivers/watchdog/armada_37xx_wdt.c  |  2 +-
+>  drivers/watchdog/asm9260_wdt.c      |  2 +-
+>  drivers/watchdog/bcm47xx_wdt.c      |  3 ++-
+>  drivers/watchdog/bd9576_wdt.c       |  2 +-
+>  drivers/watchdog/bd96801_wdt.c      |  2 +-
+>  drivers/watchdog/cgbc_wdt.c         |  2 +-
+>  drivers/watchdog/cros_ec_wdt.c      |  5 ++++-
+>  drivers/watchdog/da9052_wdt.c       |  3 ++-
+>  drivers/watchdog/da9055_wdt.c       |  4 +++-
+>  drivers/watchdog/da9062_wdt.c       |  4 +++-
+>  drivers/watchdog/da9063_wdt.c       |  4 +++-
+>  drivers/watchdog/db8500_wdt.c       |  5 ++++-
+>  drivers/watchdog/dw_wdt.c           |  5 +++--
+>  drivers/watchdog/f71808e_wdt.c      |  3 ++-
+>  drivers/watchdog/gpio_wdt.c         |  2 +-
+>  drivers/watchdog/i6300esb.c         |  5 ++++-
+>  drivers/watchdog/imx_sc_wdt.c       |  2 +-
+>  drivers/watchdog/intel-mid_wdt.c    |  5 ++++-
+>  drivers/watchdog/it87_wdt.c         |  5 ++++-
+>  drivers/watchdog/jz4740_wdt.c       |  5 ++++-
+>  drivers/watchdog/kempld_wdt.c       |  3 ++-
+>  drivers/watchdog/lenovo_se10_wdt.c  |  5 ++++-
+>  drivers/watchdog/max77620_wdt.c     |  5 ++++-
+>  drivers/watchdog/mei_wdt.c          |  3 ++-
+>  drivers/watchdog/menf21bmc_wdt.c    |  4 +++-
+>  drivers/watchdog/mlx_wdt.c          |  2 +-
+>  drivers/watchdog/msc313e_wdt.c      |  5 ++++-
+>  drivers/watchdog/npcm_wdt.c         |  3 ++-
+>  drivers/watchdog/omap_wdt.c         |  5 ++++-
+>  drivers/watchdog/pm8916_wdt.c       |  5 +++--
+>  drivers/watchdog/pseries-wdt.c      |  2 +-
+>  drivers/watchdog/rave-sp-wdt.c      |  5 ++++-
+>  drivers/watchdog/renesas_wdt.c      |  7 ++++--
+>  drivers/watchdog/retu_wdt.c         |  5 ++++-
+>  drivers/watchdog/rn5t618_wdt.c      |  6 +++--
+>  drivers/watchdog/rzg2l_wdt.c        |  5 ++++-
+>  drivers/watchdog/rzv2h_wdt.c        |  5 ++++-
+>  drivers/watchdog/shwdt.c            |  6 +++--
+>  drivers/watchdog/sl28cpld_wdt.c     |  5 ++++-
+>  drivers/watchdog/softdog.c          |  5 ++++-
+>  drivers/watchdog/sp805_wdt.c        |  5 ++++-
+>  drivers/watchdog/starfive-wdt.c     |  3 ++-
+>  drivers/watchdog/stpmic1_wdt.c      |  5 ++++-
+>  drivers/watchdog/ts4800_wdt.c       |  5 ++++-
+>  drivers/watchdog/twl4030_wdt.c      |  5 ++++-
+>  drivers/watchdog/uniphier_wdt.c     |  3 ++-
+>  drivers/watchdog/w83627hf_wdt.c     |  5 ++++-
+>  drivers/watchdog/watchdog_core.c    | 35 +++++++++++++++++++++++++++++
+>  drivers/watchdog/wm831x_wdt.c       |  5 ++++-
+>  drivers/watchdog/wm8350_wdt.c       |  5 ++++-
+>  drivers/watchdog/xen_wdt.c          |  5 ++++-
+>  drivers/watchdog/ziirave_wdt.c      |  5 ++++-
+>  include/linux/watchdog.h            |  2 ++
+>  include/uapi/linux/watchdog.h       |  1 +
+>  56 files changed, 198 insertions(+), 58 deletions(-)
+> 
 
-Also I do not see the documentation update. Where is it lost?
-
->  /*
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
