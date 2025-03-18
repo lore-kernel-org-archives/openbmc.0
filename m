@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF1AC28B28
-	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 11:00:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BE2C282EC
+	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 11:00:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZH84j1Wp4z3fvh
-	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 22:00:05 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742295587;
-	cv=none; b=kjvx+zSE3d89zr8puP1PVNf4qD6Ihy+UJBtMsVQ4JpBxB/ZzPPYwif4p4WABCCVEhBDHUFkmmO0xpva4xfLH9dHpZ9CFoKQlx9qjFRq/gXmCDKCglkCA9TThNDDcE7OSVnjwoO0SvGaPbA+kiv3sxysVepOt924ftk3mD1oefnUU78afRCqtsZmYPmCVx9MWCbCzaNo9RKtj7HSWeDo7ZS7n+a5H2TLyMkZfi9SexAKKfrYv+uqTSgp7C9WgXGM56sna48Hgi32Np4wJOdFMlfjOHZJRzUziFWdrYDBlYP25kkqq1iuQU9tqodsakyTu1oU5pbRZYPCUk6UzboBygg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZH84q1Tw1z3g3J
+	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 22:00:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.7
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742295588;
+	cv=none; b=QbqQ4Mynj+sD4493dIfu642Dd2RUNhUVJI0uIrnhdw5VdS9gbozxOorvpFvf+UCv+bqfLmT87VMzJmoBkUUCa4m2OeHoyMthRDmjbNtA6bMOQiY6VdJnwPhkA4SNIR6/wRScXoFaTiSyzIRIdPqHL5cPYz6xYTY63wiaDNKik26Qz2Vb1ET81NRtcv0RLpaFbeCN7wVXMH9bhfNm2+0iG5b5z8kEiCpEyt3proOCePOdP6hLWSwduYhBzXLTj6bcdM52OiRXAND8/5D6rfjhdfNSeE6QfSQmP02lwZAadcReD9m07TZsIfTWxtUK7rK0mcYzP1rdQxsgpRAGLE4CyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1742295587; c=relaxed/relaxed;
-	bh=s5hNx8qq5WA/xVIcpPPa9ZGARxESCv+eSzVs6P0/78M=;
+	t=1742295588; c=relaxed/relaxed;
+	bh=EjWT0KIPG9aIQyy56GIy7I+HKIvMrUD3TmZSay3Fv0Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jLphWN+unNLTUftTgpT16ngQVZucc4T6aA/yw0uZdYZVV260v2SO15TL5Q4bC2el4YevDoMyIyQNm+15GxgzkbaNfquXS50RO3JZpasqB3xvwDlhfNjB4PRahf/mwwt9xNApX0bMedPKkp2In+T+yZmcl+U9/hGeCEAT42uRtYXGldIRcfSV4797oluNTfQ3BlpZFEnSTD4GL4bHfNx+Yb6rvgO4XbcRt9VxA3RWeZK09tuCzETE3JzM37qaXYUCWgV6j20XJAZmi3zEE5uCtFV/4ZdIVnc9qJ7n2LVwnMYz/Zo3IXEwFG1s3cSCot0gZ/I4bC2DxEmgfzP9IajCdA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lkwooPF3; dkim-atps=neutral; spf=none (client-ip=192.198.163.8; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=ZaOQMnspQLbObRFu+ZwOfzz3Kux2ZbHOuAUExnR7hhdP/h9d6aCY6RFHwRg+e8KGAlYf5DxNi+GoUQ8jOOH0cRdVNIFrIn0/u0jLfrS5QZCyCM/N9rEH6BY6owlRzvVge+9LCOZZzkiwEUrypTIBU92OsH8wtLQaHaThwQXdwRX1rVDp73RJhvNKDEa8LLzsAAYxQLUyDm2Yr/nf9cbqOYGDYYY/xeJeJYwvq26ptw+Dpfgb5q2MIChVmiWYnst7/sAGvYfYnPdqrhX+oQiSJ0izf4OVgWT8dbZ5PcSfZ8Xx5QDSIdViNha2u1Xv7zUWVTyqdbILctq4MxQS7RVKRw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WA2qWUGJ; dkim-atps=neutral; spf=none (client-ip=192.198.163.7; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lkwooPF3;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WA2qWUGJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.8; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.7; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZH84K0m8vz2yrb
-	for <openbmc@lists.ozlabs.org>; Tue, 18 Mar 2025 21:59:44 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZH84M2GS1z2ySd
+	for <openbmc@lists.ozlabs.org>; Tue, 18 Mar 2025 21:59:46 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1742295585; x=1773831585;
+  t=1742295587; x=1773831587;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=asp1AUmFkOlCpbFyxMT3/Whk2zXRSNCtJDEO+Z5wvBY=;
-  b=lkwooPF390C6nY0P4H1vwlf/ie4oF8DJevQh35Rg7bwICMppf2fmIIHQ
-   96l+qxr1CFOyh+11iyIh8iVwLLxdiSEQtq+SWHV3NacPX2oIEk9GdNDzX
-   bWKLdnchYHddYpSRPxM7Jv+ojzMP5GPltRNQjp6NRT6MxY9kgxeK++dPs
-   M3fRkPu1bI6vE1fDFfwdO/CpLxBpK70HgRgydnyKZq4wl/Nj0xbWZSJd6
-   HXee1yjH1jHYjZYl5m+xTbbr+zlAfUTS8efnkKzd7BLMp8A1MJCcXaFNT
-   ItRdS3lQrcAUFEVqafJUjpUlQ77HmQDg/2nQw5MA1pXOU5xJvy7vYJrlN
+  bh=g0km+zVxRqwRAs2RLk/084gII6D1iqm+5F4kXCBIEnY=;
+  b=WA2qWUGJfd15osEVp/Ur/Lj9l+ipZ8AgOEtrsuIK+UJRTEMLnN/OPtbr
+   b5BxOnlrPHMoOn5hMyA5+ETKCvxR2iYKnLulfuj223xbMCmOfS4doke9K
+   7JoU7rUAs2QVdglWiGCnFu1hPLHatdHfEiCOep4kiNRxEFcRtLcSTLJBv
+   julL113cZlOcdaLrpTBW2EYH6Pi03jcN3+tcO+R+zFYv64z/wZLiLy05K
+   y6QB+NDPOFCGmZYHAnsi0iDIrg+53PbhunSM33n75vI4zjgWs6RQFrn6t
+   3NblFkhz7hHToHnNDKfPWd0G2erAQABzR+ey4YaDYZEWOcIGeApybW0wR
    g==;
-X-CSE-ConnectionGUID: FMO/xDymTBi/OLVsjBNdwQ==
-X-CSE-MsgGUID: s27mLiF1TSmK8NA+JvlrSw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="60959410"
+X-CSE-ConnectionGUID: q8lKar9jQAir3KGEkm19oQ==
+X-CSE-MsgGUID: npLlxOilQ3eEbHiY6MywJQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="68781763"
 X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; 
-   d="scan'208";a="60959410"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Mar 2025 03:59:43 -0700
-X-CSE-ConnectionGUID: dZKgkuFdQiKlfkKYVgnWMQ==
-X-CSE-MsgGUID: XKUdbCKMQt+20wsV5rwcfg==
+   d="scan'208";a="68781763"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Mar 2025 03:59:38 -0700
+X-CSE-ConnectionGUID: nhLIuPdfRqmK4abuoQlihw==
+X-CSE-MsgGUID: eQ4VFVtRTIqLSmNCiL8z3A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; 
-   d="scan'208";a="127322164"
+   d="scan'208";a="153215697"
 Received: from black.fi.intel.com ([10.237.72.28])
-  by fmviesa004.fm.intel.com with ESMTP; 18 Mar 2025 03:59:39 -0700
+  by fmviesa001.fm.intel.com with ESMTP; 18 Mar 2025 03:59:35 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
-	id 1D2EA677; Tue, 18 Mar 2025 12:59:34 +0200 (EET)
+	id D00F3CC; Tue, 18 Mar 2025 12:59:33 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jacky Huang <ychuang3@nuvoton.com>,
 	Andy Shevchenko <andy.shevchenko@gmail.com>,
@@ -65,9 +65,9 @@ To: Jacky Huang <ychuang3@nuvoton.com>,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v2 5/5] pinctrl: nuvoton: Reduce use of OF-specific APIs
-Date: Tue, 18 Mar 2025 12:57:18 +0200
-Message-ID: <20250318105932.2090926-6-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v2 1/5] pinctrl: npcm8xx: Fix incorrect struct npcm8xx_pincfg assignment
+Date: Tue, 18 Mar 2025 12:57:14 +0200
+Message-ID: <20250318105932.2090926-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.47.2
 In-Reply-To: <20250318105932.2090926-1-andriy.shevchenko@linux.intel.com>
 References: <20250318105932.2090926-1-andriy.shevchenko@linux.intel.com>
@@ -88,209 +88,48 @@ Cc: Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Sparse is not happy about implementation of the NPCM8XX_PINCFG()
 
-Some drivers are using device property APIs along with OF-specific ones.
-At the same time few of the latter can be converted to device property
-calls. Reduce use of OF-specific APIs in order to bring a bit more consistency
-into the drivers.
+ pinctrl-npcm8xx.c:1314:9: warning: obsolete array initializer, use C99 syntax
+ pinctrl-npcm8xx.c:1315:9: warning: obsolete array initializer, use C99 syntax
+ ...
+ pinctrl-npcm8xx.c:1412:9: warning: obsolete array initializer, use C99 syntax
+ pinctrl-npcm8xx.c:1413:9: warning: too many warnings
 
-Signed-off-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+which uses index-based assignment in a wrong way, i.e. it missed
+the equal sign and hence the index is simply ignored, while the
+entries are indexed naturally. This is not a problem as the pin
+numbering repeats the natural order, but it might be in case of
+shuffling the entries. Fix this by adding missed equal sign and
+reformat a bit for better readability.
+
+Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-ma35.c    | 35 +++++++++++------------
- drivers/pinctrl/nuvoton/pinctrl-ma35d1.c  |  1 -
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 17 ++---------
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c |  2 +-
- 4 files changed, 21 insertions(+), 34 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index da3c8d8e3eb3..06ae1fe8b8c5 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -519,7 +519,6 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
- 		bank->irqtype = 0;
- 		bank->irqinten = 0;
- 		bank->chip.label = bank->name;
--		bank->chip.of_gpio_n_cells = 2;
- 		bank->chip.parent = &pdev->dev;
- 		bank->chip.request = ma35_gpio_core_to_request;
- 		bank->chip.direction_input = ma35_gpio_core_direction_in;
-@@ -976,9 +975,10 @@ static const struct pinconf_ops ma35_pinconf_ops = {
- 	.is_generic = true,
- };
- 
--static int ma35_pinctrl_parse_groups(struct device_node *np, struct group_desc *grp,
-+static int ma35_pinctrl_parse_groups(struct fwnode_handle *fwnode, struct group_desc *grp,
- 				     struct ma35_pinctrl *npctl, u32 index)
- {
-+	struct device_node *np = to_of_node(fwnode);
- 	struct ma35_pin_setting *pin;
- 	unsigned long *configs;
- 	unsigned int nconfigs;
-@@ -990,7 +990,7 @@ static int ma35_pinctrl_parse_groups(struct device_node *np, struct group_desc *
- 	if (ret)
- 		return ret;
- 
--	count = of_property_count_elems_of_size(np, "nuvoton,pins", sizeof(u32));
-+	count = fwnode_property_count_u32(fwnode, "nuvoton,pins");
- 	if (!count || count % 3)
- 		return -EINVAL;
- 
-@@ -1000,7 +1000,7 @@ static int ma35_pinctrl_parse_groups(struct device_node *np, struct group_desc *
- 
- 	grp->grp.name = np->name;
- 
--	ret = of_property_read_u32_array(np, "nuvoton,pins", elems, count);
-+	ret = fwnode_property_read_u32_array(fwnode, "nuvoton,pins", elems, count);
- 	if (ret)
- 		return -EINVAL;
- 	grp->grp.npins = count / 3;
-@@ -1027,10 +1027,11 @@ static int ma35_pinctrl_parse_groups(struct device_node *np, struct group_desc *
- 	return 0;
- }
- 
--static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinctrl *npctl,
-+static int ma35_pinctrl_parse_functions(struct fwnode_handle *fwnode, struct ma35_pinctrl *npctl,
- 					u32 index)
- {
--	struct device_node *child;
-+	struct device_node *np = to_of_node(fwnode);
-+	struct fwnode_handle *child;
- 	struct pinfunction *func;
- 	struct group_desc *grp;
- 	static u32 grp_index;
-@@ -1050,12 +1051,14 @@ static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinc
- 	if (!groups)
- 		return -ENOMEM;
- 
--	for_each_child_of_node(np, child) {
--		groups[i] = child->name;
-+	fwnode_for_each_child_node(fwnode, child) {
-+		struct device_node *node = to_of_node(child);
-+
-+		groups[i] = node->name;
- 		grp = &npctl->groups[grp_index++];
- 		ret = ma35_pinctrl_parse_groups(child, grp, npctl, i++);
- 		if (ret) {
--			of_node_put(child);
-+			fwnode_handle_put(child);
- 			return ret;
- 		}
- 	}
-@@ -1066,13 +1069,12 @@ static int ma35_pinctrl_parse_functions(struct device_node *np, struct ma35_pinc
- 
- static int ma35_pinctrl_probe_dt(struct platform_device *pdev, struct ma35_pinctrl *npctl)
- {
-+	struct device *dev = &pdev->dev;
- 	struct fwnode_handle *child;
- 	u32 idx = 0;
- 	int ret;
- 
--	device_for_each_child_node(&pdev->dev, child) {
--		if (fwnode_property_present(child, "gpio-controller"))
--			continue;
-+	for_each_gpiochip_node(dev, child) {
- 		npctl->nfunctions++;
- 		npctl->ngroups += of_get_child_count(to_of_node(child));
- 	}
-@@ -1090,11 +1092,8 @@ static int ma35_pinctrl_probe_dt(struct platform_device *pdev, struct ma35_pinct
- 	if (!npctl->groups)
- 		return -ENOMEM;
- 
--	device_for_each_child_node(&pdev->dev, child) {
--		if (fwnode_property_present(child, "gpio-controller"))
--			continue;
--
--		ret = ma35_pinctrl_parse_functions(to_of_node(child), npctl, idx++);
-+	for_each_gpiochip_node(dev, child) {
-+		ret = ma35_pinctrl_parse_functions(child, npctl, idx++);
- 		if (ret) {
- 			fwnode_handle_put(child);
- 			dev_err(&pdev->dev, "failed to parse function\n");
-@@ -1139,7 +1138,7 @@ int ma35_pinctrl_probe(struct platform_device *pdev, const struct ma35_pinctrl_s
- 	npctl->info = info;
- 	npctl->dev = &pdev->dev;
- 
--	npctl->regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "nuvoton,sys");
-+	npctl->regmap = syscon_regmap_lookup_by_phandle(dev_of_node(dev), "nuvoton,sys");
- 	if (IS_ERR(npctl->regmap))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(npctl->regmap),
- 				     "No syscfg phandle specified\n");
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35d1.c b/drivers/pinctrl/nuvoton/pinctrl-ma35d1.c
-index 8bb9a5a35954..eafa06ca0879 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-ma35d1.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-ma35d1.c
-@@ -9,7 +9,6 @@
- #include <linux/io.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
--#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm.h>
- 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index c6b11a198c76..dfd32feb3428 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -7,10 +7,8 @@
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
--#include <linux/of.h>
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-@@ -1832,22 +1830,13 @@ static struct pinctrl_desc npcm7xx_pinctrl_desc = {
- static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- {
- 	int ret = -ENXIO;
--	struct resource res;
- 	struct device *dev = pctrl->dev;
- 	struct fwnode_reference_args args;
- 	struct fwnode_handle *child;
- 	int id = 0;
- 
- 	for_each_gpiochip_node(dev, child) {
--		struct device_node *np = to_of_node(child);
--
--		ret = of_address_to_resource(np, 0, &res);
--		if (ret < 0) {
--			dev_err(dev, "Resource fail for GPIO bank %u\n", id);
--			return ret;
--		}
--
--		pctrl->gpio_bank[id].base = ioremap(res.start, resource_size(&res));
-+		pctrl->gpio_bank[id].base = fwnode_iomap(child, 0);
- 		if (!pctrl->gpio_bank[id].base)
- 			return -EINVAL;
- 
-@@ -1869,7 +1858,7 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 			return ret;
- 		}
- 
--		ret = irq_of_parse_and_map(np, 0);
-+		ret = fwnode_irq_get(child, 0);
- 		if (!ret) {
- 			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
- 			return -EINVAL;
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 62347a82282d..be3db8ab406c 100644
+index 17825bbe1421..f6a1e684a386 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2424,7 +2424,7 @@ static int npcm8xx_pinctrl_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, pctrl);
+@@ -1290,12 +1290,14 @@ static struct npcm8xx_func npcm8xx_funcs[] = {
+ };
  
- 	pctrl->gcr_regmap =
--		syscon_regmap_lookup_by_phandle(dev->of_node, "nuvoton,sysgcr");
-+		syscon_regmap_lookup_by_phandle(dev_of_node(dev), "nuvoton,sysgcr");
- 	if (IS_ERR(pctrl->gcr_regmap))
- 		return dev_err_probe(dev, PTR_ERR(pctrl->gcr_regmap),
- 				      "Failed to find nuvoton,sysgcr property\n");
+ #define NPCM8XX_PINCFG(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q) \
+-	[a] { .fn0 = fn_ ## b, .reg0 = NPCM8XX_GCR_ ## c, .bit0 = d, \
++	[a] = {								  \
++			.flag = q,					  \
++			.fn0 = fn_ ## b, .reg0 = NPCM8XX_GCR_ ## c, .bit0 = d, \
+ 			.fn1 = fn_ ## e, .reg1 = NPCM8XX_GCR_ ## f, .bit1 = g, \
+ 			.fn2 = fn_ ## h, .reg2 = NPCM8XX_GCR_ ## i, .bit2 = j, \
+ 			.fn3 = fn_ ## k, .reg3 = NPCM8XX_GCR_ ## l, .bit3 = m, \
+ 			.fn4 = fn_ ## n, .reg4 = NPCM8XX_GCR_ ## o, .bit4 = p, \
+-			.flag = q }
++	}
+ 
+ /* Drive strength controlled by NPCM8XX_GP_N_ODSC */
+ #define DRIVE_STRENGTH_LO_SHIFT		8
 -- 
 2.47.2
 
