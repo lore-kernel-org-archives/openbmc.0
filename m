@@ -4,58 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22F63C282EC
-	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 08:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22B21C282EC
+	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 11:00:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZH55W2Mh4z3dSn
-	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 19:45:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=139.178.84.217
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742287530;
-	cv=none; b=VQHv+4dosZ7r7/7Oh8/ftuWSVjU2WJLPOKyqlmBS8Byftf93u/Pidr93btf2uRpU4UdESxBsLpNfW0F0labY+756GAD2TERX3M55PyNnIMMb32YX5K6Dm17LxSA6iL07rZstgR/N1janWY+PlMki06hwZelvPVGNHDmxl/1NJk0CUG/52Cdr7+IFa+Rg/HjMutLw9EUKPApzvnnQILKtcNs9Ol9swPDOqWdlVM8ONj3+d6TcrOzaopzWu7PEpFeralp8CEBlWTfZPwPZHisMIvS33ynVdM1ADI6EVbGr17nTWWyAZ5EfaGmgdQ8uXPpmYnuxTB9dW/5NV2JmVCjJHg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZH84T4pW6z3dV9
+	for <openbmc@archiver.kernel.org>; Tue, 18 Mar 2025 21:59:53 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.7
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742295586;
+	cv=none; b=PzJFfALH/3xEYf4B/TK9O8ioo2zLiyHrl+xyezC4DHv/vaq/P/TJEvZxPj49B5/BpXrDAMuuUtQDO3VGNGGo48+N2Rx4mr0iYtVDmqeDYZNGg0eJEuLNUKvWH6V/YBwxMMbFOf1qYl78CG2uEaPGzhcEZK2W/KP7k8949WEVW6/a2ucQQAmFcv98UR+ZtEiSxhUP2VMzqNboxPWO1U9OnOj0sKtSEB6L63LvMkHyTH31ljq0Z32MoYxhHbD7MjCqH0J3/YD1AYUnMlNbgXDKEEGI/gLT+leAUujATGI5hYlDCCbF4R4GWF1IY84K0onfZohEwpi5C/QjOu49hRqVHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1742287530; c=relaxed/relaxed;
-	bh=pQa+8tLXCh38wxpuqC/UFWJialaNOAJe6R4eCwrtJlY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ArrDYF7x2i+Ep9WIb4V2/UMskTpIGSORZf0AGaLy/gyHBCwUzItDnJDADtb6Yp3VKOjkNV234+a7ABa6g45TYJ7W732tkdg/uoVVhnXNBMpaLTA1f8bYvpmSPtcBzrxO5WBaBideIugjSdIJxkxWUqkn231H8tslrIBJqEtaeqSL+gIA2JJVQpWarxqVobzWD6h+UYaBzvMDZ3Zz7FRMvyIAcZX2C/XCSPbeGOKX+BiB91GOZG3BzXtYCDA3V39pTj2UIZIw3yLs+NTzLsN/jj4MLgBBGO7htEkCaS9l4Q8r/Kf4ZAN/UX0wCK/Jcx1y9nF/eeg7ZITlspsrXDEY7Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=mc0mPIzZ; dkim-atps=neutral; spf=pass (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1742295586; c=relaxed/relaxed;
+	bh=xhA20a1giyygMYB5F+ic7LpD6FeCXdJlQSf/S9lVgMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ecoYk0f0GdIhNUUaSdhGrQKONSQFIGW1jZIPGkpWrDxxfQyJcF6sRSj96mVZmPK/6QEnknfk/t9tV8qaqUROBO6mMnD/zzU/gUcOkU47G26cmZuvXU8Ld2RAiqiKqEM0Hn/948uBvD5UEwo9Xb5sBTBzA3Jch42q+Gi5bEw4MUlN1rCskB1FzKLpt9m5e9/oyk268RwlJATeciX458bAdc/NDbc822wUs69EJf82eRYBszxUlo6Kg7ymdc9KVrLuJffhipoWcnWDk9hSklqnwVnF875BKz1ohwOhvWBLdgSJm2MiPs0/vFYejeiNJbnzLD+9yXJDPCybhW+igIMylw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nQ12QItL; dkim-atps=neutral; spf=none (client-ip=192.198.163.7; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=mc0mPIzZ;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nQ12QItL;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.7; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@linux.intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZH55P4lNCz2yrQ;
-	Tue, 18 Mar 2025 19:45:29 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id 0231D5C5556;
-	Tue, 18 Mar 2025 08:43:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF98EC4CEDD;
-	Tue, 18 Mar 2025 08:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1742287526;
-	bh=xvR4q+kDcK2eJhnkZQxu0f9mq7keqwXDtJByURfUMBg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mc0mPIzZcbkoWsgw/Yh+D4VVUkWFdSfIvMFA5e41vglhGpICtIJrlOa7pKfMamn82
-	 XhoREwnpMhbcRL1xtHnbrRA632XsL3fcsP8NH8p96idE1tpO0vNe71nx9Wd8Dr4RF/
-	 e5FfFG/FimCyHiVF5WIv66uJmd10dlYXedjbxgYSiWLDsmP9kllvAixBNW/kaEPybl
-	 N4kbNi0bxwazA1YbOLiyddk2PQQFDssYSSEeHBd2fkIkRvmUbrLzjPjzF6XhTAh0U5
-	 jlBP5uEawrXWuILN1fsoDS11F00d8zlB26UoKszf5zwXx40Pj+h7YPX4/KZiGEQI4c
-	 6Pi1Pnz7UV9Rw==
-Date: Tue, 18 Mar 2025 09:45:22 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rajaganesh Rathinasabapathi <Rajaganesh.Rathinasabapathi@amd.com>
-Subject: Re: [PATCH v3 2/2] ARM:dts:aspeed: Initial device tree for AMD Onyx
- Platform
-Message-ID: <20250318-imaginary-peccary-of-argument-ab6b39@krzk-bin>
-References: <20250318041224.1693323-1-Rajaganesh.Rathinasabapathi@amd.com>
- <20250318041224.1693323-2-Rajaganesh.Rathinasabapathi@amd.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZH84H2xfCz2yrY
+	for <openbmc@lists.ozlabs.org>; Tue, 18 Mar 2025 21:59:42 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1742295583; x=1773831583;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=QrndgZbN9z1XtoTGR06yFti0xSwFxjHct0FERYdF7BA=;
+  b=nQ12QItLtxX2/e9e5afO4La9C9+wfSFrOMIRtZUufVgwqwNuOC9aDog5
+   Q2NF20w4aGL0eDHVW2KIDsWAw8DYzoMqYPe+HYpU5lshV1eiKzJRWhIgG
+   MWXB/5i3iBGx/GMlEaCFKMB+2J9vKtBFhEoKTxNk2GNY5E7NOtqBkxzga
+   nRns4E4fWk6bBlxkHSvN1oRUePbK2y7iTrnSzpt5yddwnt4KagheUO4/C
+   yobOufDjiAH+zVuKShersTEZ9EWeCZ7yMgfjFRMIYBcefNZGA9BANK3Tg
+   oN186Nh6fLT4mY1nH3l03319c6TqScBjbSFAhQkI+5eDvUnR6ieVJvl6R
+   A==;
+X-CSE-ConnectionGUID: sw3AFcE0S1WzcfaTRO/Zvw==
+X-CSE-MsgGUID: 45/OOQrATN+cgPuz7YylxQ==
+X-IronPort-AV: E=McAfee;i="6700,10204,11376"; a="68781755"
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; 
+   d="scan'208";a="68781755"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Mar 2025 03:59:38 -0700
+X-CSE-ConnectionGUID: epYLmD4nSv++05dKgL+RbQ==
+X-CSE-MsgGUID: oAb6QjutR1yMp+GHh+cTwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.14,256,1736841600"; 
+   d="scan'208";a="153215696"
+Received: from black.fi.intel.com ([10.237.72.28])
+  by fmviesa001.fm.intel.com with ESMTP; 18 Mar 2025 03:59:35 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+	id E65112E2; Tue, 18 Mar 2025 12:59:33 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jacky Huang <ychuang3@nuvoton.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH v2 2/5] pinctrl: nuvoton: Convert to use struct pingroup and PINCTRL_PINGROUP()
+Date: Tue, 18 Mar 2025 12:57:15 +0200
+Message-ID: <20250318105932.2090926-3-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250318105932.2090926-1-andriy.shevchenko@linux.intel.com>
+References: <20250318105932.2090926-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250318041224.1693323-2-Rajaganesh.Rathinasabapathi@amd.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,42 +84,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org, joel@jms.id.au, Supreeth Venkatesh <supreeth.venkatesh@amd.com>, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org
+Cc: Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, Linus Walleij <linus.walleij@linaro.org>, =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, Tali Perry <tali.perry1@gmail.com>, Shan-Chun Hung <schung@nuvoton.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Mar 17, 2025 at 11:12:24PM -0500, Rajaganesh Rathinasabapathi wrote:
-> +/ {
-> +	model = "AMD Onyx BMC";
-> +	compatible = "amd,onyx-bmc", "aspeed,ast2600";
-> +
-> +	aliases {
-> +		serial0 = &uart1;
-> +		serial4 = &uart5;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = serial4:115200n8;
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type = "memory";
-> +		reg = <0x80000000 0x80000000>;
-> +	};
-> +
-> +};
+The pin control header provides struct pingroup and PINCTRL_PINGROUP() macro.
+Utilize them instead of open coded variants in the driver.
 
-<form letter>
-This is a friendly reminder during the review process.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 16 ++--------------
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 16 ++--------------
+ 2 files changed, 4 insertions(+), 28 deletions(-)
 
-It seems my or other reviewer's previous comments were not fully
-addressed. Maybe the feedback got lost between the quotes, maybe you
-just forgot to apply it. Please go back to the previous discussion and
-either implement all requested changes or keep discussing them.
-
-Thank you.
-</form letter>
-
-Best regards,
-Krzysztof
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index 62a46d824b46..2601aacfb976 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -504,17 +504,6 @@ static const int lkgpo2_pins[] = { 9 };
+ 
+ static const int nprd_smi_pins[] = { 190 };
+ 
+-/*
+- * pin:	     name, number
+- * group:    name, npins,   pins
+- * function: name, ngroups, groups
+- */
+-struct npcm7xx_group {
+-	const char *name;
+-	const unsigned int *pins;
+-	int npins;
+-};
+-
+ #define NPCM7XX_GRPS \
+ 	NPCM7XX_GRP(smb0), \
+ 	NPCM7XX_GRP(smb0b), \
+@@ -642,9 +631,8 @@ enum {
+ #undef NPCM7XX_GRP
+ };
+ 
+-static struct npcm7xx_group npcm7xx_groups[] = {
+-#define NPCM7XX_GRP(x) { .name = #x, .pins = x ## _pins, \
+-			.npins = ARRAY_SIZE(x ## _pins) }
++static struct pingroup npcm7xx_groups[] = {
++#define NPCM7XX_GRP(x) PINCTRL_PINGROUP(#x, x ## _pins, ARRAY_SIZE(x ## _pins))
+ 	NPCM7XX_GRPS
+ #undef NPCM7XX_GRP
+ };
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+index f6a1e684a386..eac43315a360 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
+@@ -587,17 +587,6 @@ static const int hgpio5_pins[] = { 25 };
+ static const int hgpio6_pins[] = { 59 };
+ static const int hgpio7_pins[] = { 60 };
+ 
+-/*
+- * pin:	     name, number
+- * group:    name, npins,   pins
+- * function: name, ngroups, groups
+- */
+-struct npcm8xx_pingroup {
+-	const char *name;
+-	const unsigned int *pins;
+-	int npins;
+-};
+-
+ #define NPCM8XX_GRPS \
+ 	NPCM8XX_GRP(gpi36), \
+ 	NPCM8XX_GRP(gpi35), \
+@@ -829,9 +818,8 @@ enum {
+ #undef NPCM8XX_GRP
+ };
+ 
+-static struct npcm8xx_pingroup npcm8xx_pingroups[] = {
+-#define NPCM8XX_GRP(x) { .name = #x, .pins = x ## _pins, \
+-			.npins = ARRAY_SIZE(x ## _pins) }
++static struct pingroup npcm8xx_pingroups[] = {
++#define NPCM8XX_GRP(x) PINCTRL_PINGROUP(#x, x ## _pins, ARRAY_SIZE(x ## _pins))
+ 	NPCM8XX_GRPS
+ #undef NPCM8XX_GRP
+ };
+-- 
+2.47.2
 
