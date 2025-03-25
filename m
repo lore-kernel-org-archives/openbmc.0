@@ -4,84 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDB29C36002
-	for <openbmc@archiver.kernel.org>; Mon, 24 Mar 2025 22:50:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7AD6C36002
+	for <openbmc@archiver.kernel.org>; Tue, 25 Mar 2025 03:13:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZM7X70cQ6z3dSn
-	for <openbmc@archiver.kernel.org>; Tue, 25 Mar 2025 09:49:11 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::62a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742849955;
-	cv=none; b=fC9PnnPmsIa/E9BXM8exix04l7Mne88VXfJiSH94mrA8xnwHcY/pErm07PED0n8o5Raq9yBxT5GUhF5stVaoj43JTTfS0qM29iD62NAsmJZIEJkC+Tm1NJk5zzXphZBR7MDd1o2aLsjStkv6okjr1GICwn4G0Emvwk+gGyL5iKneDlA2Q4jYnWtVdqZdOcx8oFWQaLtglJDQgu/oonsfNbw0fPbHC8pAHR2ASRAseytMwuxmwPhDEpT9Ux3GwnrPjp6/t016syaDOLUTzVBuceS9Ui/l/Orl1bNbHA3kLkCapb44ravre4r0STk8KRZ8DRj6w8L5yRex0x3qFyShYw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZMFP73cPLz3cXY
+	for <openbmc@archiver.kernel.org>; Tue, 25 Mar 2025 14:13:31 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2604:1380:4641:c500::1"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1742872405;
+	cv=none; b=TbHg55a3DP5mbwm+GCeanEfCn2JHWRJ+Bot1IWF9fIW5kUQh19Wz2SSkJYtmfyuGe2FD110JcTo97VzFrLgklb8Ngs3R2B03jQclYKN8D91bcxmQOFqrc7gjvqaQV8gxkDZkJv2ckBmpHGg4g+ZCmDgYijfXJYZhhZ53mihTl3+Dm0dLIqQ2O8rTSFEMgJmJvf+fyFkYoQpacmVS1LmvKFlFs77XUkKAVUqKvqD7A1vnkC1PCjjhCZFzZYpTIEvDngtuLw7MTRiccDSKuTYGUDio+2+7Vx30r7BpNrW0eDESR9ijIRkc68NFjUgC6qdUgt1agBYbrn3W9tdA+kWoAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1742849955; c=relaxed/relaxed;
-	bh=002VYXfVkW5llc3Dj8Pb1vA7Q/1HSuDmTY1op4WgSSw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n0s0z61PFA3sEXHYwUkFJAyi98DfaoR+B1rzO0Z0IkiPaZQcWMCecZSReKQvaUHaDSjSlDc1Ewx/7Z58tF+uXnGBlHrIbF3vWSADenHOeRrty2FxNEqE/3rPyQvkUCn5jt6gMy4a7zBObj0pi2v5JCtPG+dT1nkQz7eUOxJ9KBJn1oIaJjzLSJRzOvJUSDtKfqmVPMPNbaEDWjqPXdxiej9Km74hrdkLGMmHu2mf5cTIrt8BbM4jIpbUNvElzMt/PyAi2wqhGz59a9J6McqoD/To/xLzEQiXPDimRcVody1Kaw/ed/SkmCArooBp98JMPQri2xwzGz+Bq6FFqShr8w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=VxQ1I26o; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com; envelope-from=mohammed.0.elbadry@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1742872405; c=relaxed/relaxed;
+	bh=JBGcNe5occCs8XxvzW6yTXPNpLdlfFYZmRYv1G0YKzQ=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=UL7nk4M7VIpJEmShScNLScVr5sFji0FZtJ+V7aG5PUMTQ4WXEBFZCEMeSv7OaEFDKpkLuqbo7kakPcENWm18mmx36PpUth4q/hyhNGTVzRSEeuWIQ5lfHSb5IjHbXdZTymEsxamTz31ZYnT9GGidzVxQoG9Zl0ZdZP9lkFONsHA844JSg4pEeH0L1FrFERvUGCMWGNfo/aXJjtH7XP7KP9IUVZ+qyBbI7BQw/Zhh9QTcc+gr/GIteXuYvgztXfF8Mz079NsQHVZPD1tlfX/kIGtpRs6V2FQtPnhbFN7FHdZOgSnbCdcwYrWpMuD0TcdgpBWb/OCSG/X3Q4QFgsVaGw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=vNg/JsMr; dkim-atps=neutral; spf=pass (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=VxQ1I26o;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=vNg/JsMr;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com; envelope-from=mohammed.0.elbadry@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com [IPv6:2607:f8b0:4864:20::62a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:4641:c500::1; helo=dfw.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [IPv6:2604:1380:4641:c500::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZM55G6h5Hz2ynR
-	for <openbmc@lists.ozlabs.org>; Tue, 25 Mar 2025 07:59:14 +1100 (AEDT)
-Received: by mail-pl1-x62a.google.com with SMTP id d9443c01a7336-22401f4d35aso101354675ad.2
-        for <openbmc@lists.ozlabs.org>; Mon, 24 Mar 2025 13:59:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742849952; x=1743454752; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=002VYXfVkW5llc3Dj8Pb1vA7Q/1HSuDmTY1op4WgSSw=;
-        b=VxQ1I26obTqAz7m1lCUtLJwRdCnVEiUncmCOUXHg9k+9Op17EitFwDybsV2rr2wcx3
-         zZ/GVDGY+grGIOa29x6h/+Zmg+HmXHrWSIK4bDzYJFNjPpMKDZd5Bf4ruwr5bYUUm5Dz
-         n/4xr4V+guLPq2+kaHGizvnBSvTzJae0QIZqhy2OpcD4QKBw71gG2WBnrxcZsPEsBqJp
-         pb1DC8cgICxrni9dIgFopCAugZaRT8q3Q2WO+UJjf3QNMN+Xx/52xfGwGGakFEPcQArz
-         KHmz5TFsLUupmw8sFtOCUnrGEc9cQs0sTRL9pYR9ale3mo1X3k6c83OV2vbZI71cRjVt
-         YWGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742849952; x=1743454752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=002VYXfVkW5llc3Dj8Pb1vA7Q/1HSuDmTY1op4WgSSw=;
-        b=nVTcCqiGo8uUC/6cyVTMnyTPkzPYEAzYJD6+kI3914mwmO3DEMkqb56YnsOlcHlMup
-         XP2nkTbXHnz5uojvRPiyzMoTzspdmScQDfuFsgjA8pQL7aDtXzxPKVDYa71Ks+gL5gjO
-         ZbwG7c1j3qJdCV7WSOBJq2WK8ISJ0I9wPG1AWnH+elgMfZvFvsMlbzrTaSan+PH2Rtbk
-         EdbYVT1OMG8lLYuFmqVzSyDomEG+pf1iQuAv4ZG77z9YK2HhFdvx19+uN79rSr1BhwEQ
-         z9mhrDBoaf0Me8orumW13DxTzaLcQBR7XfCZiScYnSzCoYESmhWULr+b4Dde+gnHaVta
-         zPqw==
-X-Forwarded-Encrypted: i=1; AJvYcCVqkMkePKUrPntGx2c8FC4FI3ke5gSXIXKd7MsVwd/QvSJIK3esT2g3olt7umiwJTHJDbnmmG5u@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyC13gLLwHniuFbQLSPmKufYe1RCIHqQ3FIJ02jXn4BkslSwUoM
-	gOKzDO8J+XMap+GVOq8jMy6wVWs2ndrUj/AEUe++Ai0JH7Gqw0rD
-X-Gm-Gg: ASbGncuYXhCe8vAZ3JPL18GcSw6o2czfgsxlFm0LDjNe60/QcHKcO6W9J7viDioISZN
-	SJnw+uuyqdiaBg156wBT8pwpOaXj+Lw474RTui6lWyEswdFS/cmWArTrgPQ0k94/SYVWKCSdmDc
-	qpxzCs36tE50qrMu6jq41uKxYLOUd4kGt5FE3DA0jQRoHvYRF1CfVsc10xsM2gnEudcq1GbAbVd
-	5X+JT2d1kgs7uXGAObExYhGEKBWDy+gHQKamfmkpjSXmU4NDO2+CiNFySIoQxPo7YbFmRcdEmB+
-	BYO7iTeSpQslxIXs/XJ0d9EHcakFE8UR35px/Y0+nSSJ8LTSD8MvclbLrYazifk2cAVmLi7n6wA
-	oVWI0N5Rx+5xQv75bH/mt1BQlD7ej+iKJns3E6JJvKw==
-X-Google-Smtp-Source: AGHT+IE/dFczWKVDfiwOTzNgF3uoibJmZJvpWRK1MoiTaUj4WDZC/8QOwCx9QQK2w2qtr1oI3lzDtw==
-X-Received: by 2002:a05:6a21:68e:b0:1f3:32c1:cc5d with SMTP id adf61e73a8af0-1fe42f77d7bmr25182031637.21.1742849952415;
-        Mon, 24 Mar 2025 13:59:12 -0700 (PDT)
-Received: from elbadrym.c.googlers.com.com (34.125.168.34.bc.googleusercontent.com. [34.168.125.34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-af8a2a4e8d7sm6537479a12.72.2025.03.24.13.59.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Mar 2025 13:59:12 -0700 (PDT)
-From: mohammed.0.elbadry@gmail.com
-To: 
-Subject: [PATCH v2 0/1] i2c: npcm: Add clock toggle recovery
-Date: Mon, 24 Mar 2025 20:58:58 +0000
-Message-ID: <20250324205901.1274708-1-mohammed.0.elbadry@gmail.com>
-X-Mailer: git-send-email 2.49.0.395.g12beb8f557-goog
-In-Reply-To: <20250324203233.1266772-2-mohammed.0.elbadry@gmail.com>
-References: <20250324203233.1266772-2-mohammed.0.elbadry@gmail.com>
-MIME-Version: 1.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZMFP049Lgz2yKq;
+	Tue, 25 Mar 2025 14:13:24 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id 7C4975C5747;
+	Tue, 25 Mar 2025 03:11:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2960C4CEDD;
+	Tue, 25 Mar 2025 03:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1742872401;
+	bh=KziQK7EppF5DOtBo7utcqARNBAi9Ars+fyKXqAXwwQY=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
+	b=vNg/JsMrXRn+fPXc9o2GtWX/1TEHmPJwgwn5rQ/kSlOKCEtPKAntisR79WOG74aSr
+	 TC1tvxs4yaJ1ObDFIe01JX+PM1/DqIGoID2HwBHNUYwM+3qwTM8dNOr918LcZjvNpL
+	 uIAxYA8NCggQjrZvsBzKhZPi36TadgbTBdCwpC/kI05Wyj2Ell5jq2PZDgSqgZT7VN
+	 TB9gzlMjyd0hCssyjV+x/VnQ2MeWUhII9q06rv52KYSUXWhouGByhtWsbsWfTP50CJ
+	 b7A6ETi46LP21piNgCckqLYmwwtsRNnfY8CuJwNHZ0FeKsHRIJpGfrFJrHTKAi92a9
+	 7NoWTwPdzVlAQ==
+Date: Mon, 24 Mar 2025 22:13:19 -0500
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 25 Mar 2025 09:48:45 +1100
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Willie Thai <wthai@nvidia.com>
+In-Reply-To: <20250324175926.222473-1-wthai@nvidia.com>
+References: <20250324175926.222473-1-wthai@nvidia.com>
+Message-Id: <174287235976.1618206.14203259564478820837.robh@kernel.org>
+Subject: Re: [PATCH v4 0/3] Add device tree for Nvidia's GB200NVL BMC
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,28 +65,138 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>, Andi Shyti <andi.shyti@kernel.org>, Mohammed Elbadry <mohammed.0.elbadry@gmail.com>, linux-i2c@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, conor+dt@kernel.org, leohu@nvidia.com, linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org, kees@kernel.org, openbmc@lists.ozlabs.org, tingkaic@nvidia.com, Mars Yang <maryang@nvidia.com>, linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, Paul Menzel <pmenzel@molgen.mpg.de>, gpiccoli@igalia.com, tony.luck@intel.com, joel@jms.id.au, dkodihalli@nvidia.com, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-hardening@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Tali Perry <tali.perry1@gmail.com>
 
-Hi,
+On Mon, 24 Mar 2025 17:59:23 +0000, Willie Thai wrote:
+> The GB200NVL BMC is an Aspeed Ast2600 based BMC
+> for Nvidia Blackwell GB200NVL platform.
+> Reference to Ast2600 SOC [1].
+> Reference to Blackwell GB200NVL Platform [2].
+> 
+> Co-developed-by: Mars Yang <maryang@nvidia.com>
+> Signed-off-by: Mars Yang <maryang@nvidia.com>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+> Cc: Andrew Lunn <andrew@lunn.ch>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Paul Menzel <pmenzel@molgen.mpg.de>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+> Link: https://www.aspeedtech.com/server_ast2600/ [1]
+> Link: https://nvdam.widen.net/s/wwnsxrhm2w/blackwell-datasheet-3384703 [2]
+> Signed-off-by: Willie Thai <wthai@nvidia.com>
+> ---
+> Changes v1 -> v2:
+>   - Fix the SOB name [Krzysztof]
+>   - Fix warnings from scripts/checkpatch.pl run [Krzysztof]
+>   - Fix DTS coding style [Krzysztof]
+>   - Move pinctrl override to the bottom [Krzysztof]
+>   - Drop bootargs [Krzysztof]
+>   - Follow DTS coding style and change naming for leds node [Krzysztof]
+>   - Change flash 0 status property [Krzysztof]
+>   - Change the phy-mode to rgmii [Andrew]
+>   - Remove the max-speed in mac0 [Andrew]
+>   - Put gpio line name in one line per group of 8 gpios, but keep some b/c they can exceed length limit [Paul]
+> Changes v2 -> v3:
+>   - Fix missing new line [Krzysztof]
+>   - Fix missing binding define, adding it in the patch no.1 of this patch set v3 [Krzysztof, Rob]
+>   - Fix DTS coding style [Krzysztof]
+>   - Modify nodes name to generic name for: i2c expander pca9546, gpio expander pca9555, power monitor lm5066i, fan controller max31790 [Krzysztof]
+>   - Skip mac setting and wait till the delay issue in phy-mode fix from Aspeed SOC vendor side [Andrew]
+>   - Remove i2c-scl-clk-low-timeout-us which is Apseed proprietary property [Mars]
+> Changes v3 -> v4:
+>   - Order binding patch first in the patch set [Andrew Jeffery]
+>   - Make the commit message more concise [Krzysztof]
+>   - Remove stray blank lines [Krzysztof]
+>   - Remove unnecessary comments [Krzysztof]
+>   - Remove underscore, repalce by dash symbol in node name [Krzysztof]
+>   - Remove disable-master property in i2c as it is downstream added property [Rob, Andrew Jeffery]
+>   - Remove #address-cells, #size-cells in nxp,pca9555 and maxim,max31790 as they are no longer defined [Rob, Andrew Jeffery]
+> ---
+> 
+> Willie Thai (3):
+>   dt-bindings: arm: aspeed: add Nvidia's GB200NVL BMC
+>   dt-bindings: pinctrl: aspeed,ast2600-pinctrl
+>   ARM: dts: aspeed: Add device tree for Nvidia's GB200NVL BMC
+> 
+>  .../bindings/arm/aspeed/aspeed.yaml           |    1 +
+>  .../pinctrl/aspeed,ast2600-pinctrl.yaml       |    1 +
+>  arch/arm/boot/dts/aspeed/Makefile             |    1 +
+>  .../aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts | 1149 +++++++++++++++++
+>  4 files changed, 1152 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
+> 
+> --
+> 2.25.1
+> 
+> 
+> 
 
-During init of the bus, the module checks that the bus is idle.
-If one of the lines are stuck try to toggle them first.
 
-Fixes: 76487532f797 (i2c: npcm: Add slave enable/disable function)
-Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-Signed-off-by: Mohammed Elbadry <mohammed.0.elbadry@gmail.com>
----
+My bot found new DTB warnings on the .dts files added or changed in this
+series.
 
-Tali Perry (1):
-  i2c: npcm: Add clock toggle recovery
+Some warnings may be from an existing SoC .dtsi. Or perhaps the warnings
+are fixed by another series. Ultimately, it is up to the platform
+maintainer whether these warnings are acceptable or not. No need to reply
+unless the platform maintainer has comments.
 
- drivers/i2c/busses/i2c-npcm7xx.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+If you already ran DT checks and didn't see these error(s), then
+make sure dt-schema is up to date:
 
--- 
-2.34.1
+  pip3 install dtschema --upgrade
+
+
+New warnings running 'make CHECK_DTBS=y for arch/arm/boot/dts/aspeed/' for 20250324175926.222473-1-wthai@nvidia.com:
+
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: timer: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/timer/arm,arch_timer.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /sdram@1e6e0000: failed to match any schema with compatible: ['aspeed,ast2600-sdram-edac', 'syscon']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: bus@1e600000: compatible: ['aspeed,ast2600-ahbc', 'syscon'] is too long
+	from schema $id: http://devicetree.org/schemas/bus/aspeed,ast2600-ahbc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: syscon@1e6e2000: 'smp-memram@180' does not match any of the regexes: '^interrupt-controller@[0-9a-f]+$', '^p2a-control@[0-9a-f]+$', '^pinctrl(@[0-9a-f]+)?$', '^silicon-id@[0-9a-f]+$', 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/mfd/aspeed,ast2x00-scu.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e6e0000/syscon@1e6e2000/smp-memram@180: failed to match any schema with compatible: ['aspeed,ast2600-smpmem']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e6e0000/syscon@1e6e2000/interrupt-controller@560: failed to match any schema with compatible: ['aspeed,ast2600-scu-ic0']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e6e0000/syscon@1e6e2000/interrupt-controller@570: failed to match any schema with compatible: ['aspeed,ast2600-scu-ic1']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e6e0000/display@1e6e6000: failed to match any schema with compatible: ['aspeed,ast2600-gfx', 'syscon']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: adc@1e6e9000: 'interrupts' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/iio/adc/aspeed,ast2600-adc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: adc@1e6e9100: 'interrupts' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/iio/adc/aspeed,ast2600-adc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: crypto@1e6fa000: 'aspeed,ahbc' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/crypto/aspeed,ast2600-acry.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: sdc@1e740000: sdhci@1e740100:compatible: ['aspeed,ast2600-sdhci', 'sdhci'] is too long
+	from schema $id: http://devicetree.org/schemas/mmc/aspeed,sdhci.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: sdc@1e740000: sdhci@1e740200:compatible: ['aspeed,ast2600-sdhci', 'sdhci'] is too long
+	from schema $id: http://devicetree.org/schemas/mmc/aspeed,sdhci.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/sdc@1e740000/sdhci@1e740100: failed to match any schema with compatible: ['aspeed,ast2600-sdhci', 'sdhci']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/sdc@1e740000/sdhci@1e740200: failed to match any schema with compatible: ['aspeed,ast2600-sdhci', 'sdhci']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e780000/timer@1e782000: failed to match any schema with compatible: ['aspeed,ast2600-timer']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: lpc@1e789000: lpc-snoop@80: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/mfd/aspeed-lpc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: lpc@1e789000: reg-io-width: 4 is not of type 'object'
+	from schema $id: http://devicetree.org/schemas/mfd/aspeed-lpc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: kcs@24: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/ipmi/aspeed,ast2400-kcs-bmc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: kcs@28: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/ipmi/aspeed,ast2400-kcs-bmc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: kcs@2c: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/ipmi/aspeed,ast2400-kcs-bmc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: kcs@114: 'clocks' does not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/ipmi/aspeed,ast2400-kcs-bmc.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e780000/lpc@1e789000/lhc@a0: failed to match any schema with compatible: ['aspeed,ast2600-lhc']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e780000/lpc@1e789000/ibt@140: failed to match any schema with compatible: ['aspeed,ast2600-ibt-bmc']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: fsi@1e79b000: compatible: ['aspeed,ast2600-fsi-master', 'fsi-master'] is too long
+	from schema $id: http://devicetree.org/schemas/fsi/aspeed,ast2600-fsi-master.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e790000/fsi@1e79b000: failed to match any schema with compatible: ['aspeed,ast2600-fsi-master', 'fsi-master']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: fsi@1e79b100: compatible: ['aspeed,ast2600-fsi-master', 'fsi-master'] is too long
+	from schema $id: http://devicetree.org/schemas/fsi/aspeed,ast2600-fsi-master.yaml#
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e790000/fsi@1e79b100: failed to match any schema with compatible: ['aspeed,ast2600-fsi-master', 'fsi-master']
+arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dtb: /ahb/apb@1e790000/dma-controller@1e79e000: failed to match any schema with compatible: ['aspeed,ast2600-udma']
+
+
+
+
 
