@@ -4,83 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02247C36010
-	for <openbmc@archiver.kernel.org>; Tue,  8 Apr 2025 23:04:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD72C3601E
+	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 07:08:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZXM8n2ctMz3fmT
-	for <openbmc@archiver.kernel.org>; Wed,  9 Apr 2025 09:04:25 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::630"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1744091779;
-	cv=none; b=CkjJvDktOa71lgSvOzwpdp7aosH3F8MVLKHUBqFhJutc9cilrmmiCZWM+GkdsV9h+Pl8IXzsPw0KZ2pxQuzQLLIWDzCYlAZo7yOSFgg5/zm0nargFeDIXbBLfBZQYrOk1DzHU4ZhpSCIWIN+jvVny0xI2EW8bOG7mNNOk0EnffNLg0s58PSfYMGE30ooWZYW5AvajPyBcrdOUljYxKVmVYrAnojeIeBo5XrpxOpux6BEzTxI+13bRjUAsDdipUVCIBfLhkn9j+Ogm16JcHrWc5pNRywSl5pYpKvN43TkPadPvQ9CB9rxHnHR83sWLbON8F5/aIbDAuiNC36W/cIdzA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZY9rD6HX8z3dV9
+	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 17:07:56 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.20
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1744268870;
+	cv=none; b=WtIdlsGwvy53p8R3Nyu05RdSM2hj7tRDGgYNbziyBwCbCx3+sKvgb1o9G9wD8/uVccM3PAXdwu6oGVCPzSkVGul/F9uE1r6IYxNNLFZOKlhHTFv5pJkN7zcYNdCjzIVTK4BvGJ/xosgIl4O4x5A5ePGYI/nintPi3TKHD/M+qWvXXjArNuQ/IQPAx0i4OEcGKs+VFz0ikMPVGBzwsB8Tjy6vN5P3w8APC4Y+UpSPReBfhWldnkNpo5EIp4NmTbWH1OqtwAW3OGQZ4uZj5D6gwCs9oQmEbrwiqjO/F+iqxzcTTqJejHEZd0W3jza3EbzTQleYjp8RmaGjKo/8U6J5hQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1744091779; c=relaxed/relaxed;
-	bh=Rqpz8NuFEKxlJYYhCortmvxtTD3Iriop0nreRrYWvRM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EJNMeLOaV/PywwyAddy7IT6VNNAQSU6zM1eHRIWzUN+UFkUW093dxo8Uu5jHAgYU4m8URKTRS7I6XYxtVWSJoysJYHn/JX57vAQVolVpjCjovFVWYTu/Utw40g7kWoK1LNeLdRs3q2ElhJL0QMx09L3iWWtaqFp6XjPZLpAmFzUVDeVweSScQgKnkky/PQsfOXCgv4sxrxNAeoxLyWnlaqC0p37tj89gUEs2xwE/antDdVhkjiXZVk0SFsSbu0QtuhPnOglgU2U9mWJ1F3qdFVrJGiT7IAa+W46xl8ayKAlqdOVzoJFP8YDVj+c1HXEMlJeFGpwKewI7/Ds5CKBy2Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=SW3aUT6p; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=zhang971090220@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1744268870; c=relaxed/relaxed;
+	bh=vyRnA4Q+yFbS2ZBT7zMPT+jHN8phVJhU2QuGyNS6f34=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QUTqcbR2I7wbTTgt5j1mIup0/Eo4YVs2BoumIIX9Zh66a4vU+wLVicF/H0AYkZi8OQC3k4lPFNyY2dTNQAPxDNlNKBfB1vYGlZnzAWYVpyXG/nY+eJidj01EiAnXo+2yBfPnJo7PI7Gc+htXMoH56K9qAtfgTzgWu9k15g9vUViMgTJBTEsq5osRt4bY3HCfzOVjM9hBRRGY2JqoywQUSaRaNIaDVjQPRpduuq9U1z66yf8qU3PmxHA8P2ddkluJwrDrLsFt84CR3XTQ2HXS7GtaBl5+BRSfJzmQEeo49xBHMNzh05z+w/Nub8DcW+6+QZjkNyHayc8aWmdid2iH4w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RCmryPUs; dkim-atps=neutral; spf=none (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=SW3aUT6p;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RCmryPUs;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=zhang971090220@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 64 seconds by postgrey-1.37 at boromir; Thu, 10 Apr 2025 17:07:48 AEST
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZWwLW0zrFz2yST
-	for <openbmc@lists.ozlabs.org>; Tue,  8 Apr 2025 15:56:18 +1000 (AEST)
-Received: by mail-pl1-x630.google.com with SMTP id d9443c01a7336-22409077c06so63083675ad.1
-        for <openbmc@lists.ozlabs.org>; Mon, 07 Apr 2025 22:56:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1744091776; x=1744696576; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rqpz8NuFEKxlJYYhCortmvxtTD3Iriop0nreRrYWvRM=;
-        b=SW3aUT6pv4GkD1FNYqaLUTlPxeHU3DFab3G9xnO2SUZMP6RCa1SELh+sxVTNpMrWsx
-         r6MW2h3JSa22lCg6WJPd2ijGr7frAZSs/ArDFSEeQOjTBRmDf5z5/sBikqbagSAq1j6H
-         I/V3xQyd3cYt4SfW9DmrDBjAC6eFsqefqddsy6np9a2drCneuvK0e1XsDMKV7Q7KXNto
-         xVFecMUNeiER8GRVn7dRJQL3Y5vBe3K1+LDjJ+ehFXwrHU2pR+Pd30b20GmELIzinMRZ
-         XdRHdLZ9huUUUHzu4qIE3+B7eDY3s8hiAR/tso1cIYenDR7e/httowBywrc4XWIwQIm3
-         WTgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1744091776; x=1744696576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Rqpz8NuFEKxlJYYhCortmvxtTD3Iriop0nreRrYWvRM=;
-        b=MWI6MTagMgtHmolxm8DY6kxBQjOoyuaBrweWc3+xnGH4nxsHmeUyzigYL+vHH0EmSr
-         VyBLUj0X2LfIxSRYOHmygrmLGQCnK2j7la8/5cMpl2BuOO69VxheoYfON5QlANMpm64G
-         Gqp3noDIJTu/gY3QNd1+mauX1MtHVgNDovDlxpDp9Oo8e3lJ2IKJLRzRDmQ2EsCI2Miu
-         uh4tRjAhZJrum2EJKArz+v2DY/723s4V3REtHcH8rrlauEjwNEkgWyKt9JZUgYpmLOhk
-         C2U2+QzM9+t+jGrxiMopXdWkLa0kB1vl/xv+TAGCqqDlYz8Hz3PhQBOq1azMXex2Hu6Z
-         53nw==
-X-Forwarded-Encrypted: i=1; AJvYcCXGoYX+4OVdP1N3I8eGvyDZMyeqoIVz/kmL/qs7UUmVVoY4QWvGwlcO9VOz1W6Ib+dKD/H1HCpd@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxIuDaWMWoPbLTgEsjId51de0W81bNEH5Xx7DV7Zui+UTio1ajQ
-	xVItTWenP3SfTF02C/dAQouyuzD1MBlkNt0W9imNfAVidiiIckY8
-X-Gm-Gg: ASbGncszDB9M1gOdm8pF1qX/MTiuIFD0UqH1Vl/XT3p2SQqeBiIkhMdoXK70prfwtNu
-	RAAT4z10cU5RtREYUUtSDXIo7m36pfGh7C33IMhfkmU+3DsMG+yy0x8vBdmq6lqIui8EJ+RtBGH
-	9DM0fW1iDSsUQJx0qLmfBJEOm7FtD6ZTfHoBNsaagoyRfCdpvcgS4sb4d0YQpbwE9kLKt+Fq5XT
-	avyD6VGfcILd1lbQCpp/d4V267sBDOlML0twDAQrLyyaYm3YqnPgRlTxJV5DgdLNeWpXX9E+sdJ
-	HOZQP9Wf4WW/iZQKrAgkoJLgz53Oyt5VgKNuWrkgWAjEGYefIZfBPHOSAYvADHteJ8UZJZmq7kX
-	0E5DAwfY9w46nHgWP
-X-Google-Smtp-Source: AGHT+IE05u9t9NFEBw+rXVTuN3JQshXllOgy7pnk00Je9nTx82e8AXGF/YtAVc4GIGc7M22Lq5mp8A==
-X-Received: by 2002:a17:903:1b0c:b0:223:5a6e:b16 with SMTP id d9443c01a7336-22a8a84ae50mr231161415ad.5.1744091775946;
-        Mon, 07 Apr 2025 22:56:15 -0700 (PDT)
-Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2297877656bsm91127335ad.246.2025.04.07.22.56.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Apr 2025 22:56:15 -0700 (PDT)
-From: Michael Chang <zhang971090220@gmail.com>
-To: kwliu@nuvoton.com,
-	kflin@nuvoton.com,
-	mchehab@kernel.org,
-	zhang971090220@gmail.com
-Subject: [RESEND] media: nuvoton: npcm-video: Prevent returning unsupported resolutions
-Date: Tue,  8 Apr 2025 13:54:54 +0800
-Message-Id: <20250408055454.3421083-1-zhang971090220@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZY9r40CMpz2ySc
+	for <openbmc@lists.ozlabs.org>; Thu, 10 Apr 2025 17:07:47 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1744268868; x=1775804868;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eVtQY8JBtI7OBFxIa1E1PA3pS0GE/8DYWFULSp6JaHg=;
+  b=RCmryPUs22LVMoTr4+huvoDBSzgtYAuFSgFn76LS4yl89b/IB5X9TGDj
+   qJJhOpDAVd9mdmIn0LFvQ2ZQ36DNztjjDf+Zq5kplzI7oxNgI7KVPzcoL
+   YYQRik8YUrAYu8bJHCzXWNiUWLGnUnHYTt1GZQQh5616Md6KTdRTJWWCu
+   zky+dZp4RAbalXyEKFaEAN84s5od4fXF/Y2IlcUFanRnUQPGI872L36bU
+   hoJERSf6Ym3Z2ntD7UqFCdZqP7HTVsLOjUjdugzuMzRBiUrqa+nc2bmsr
+   gxq8y51TWJVUSkI+RSBUIJPK8qxCoePKU63cqZUoQDtDjD4uNdWpnyn0U
+   w==;
+X-CSE-ConnectionGUID: ffzuthswT6ysG73CAQX0NA==
+X-CSE-MsgGUID: ockwFiNmT9qyk6/dsVaPOA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="45484788"
+X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
+   d="scan'208";a="45484788"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 00:06:39 -0700
+X-CSE-ConnectionGUID: kVTH2jZVTbeS/zX/rcXnvA==
+X-CSE-MsgGUID: BorZ3DaiT8GsjoUcY7tKvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
+   d="scan'208";a="128791501"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com) ([10.237.72.44])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 00:06:36 -0700
+Received: from punajuuri.localdomain (punajuuri.localdomain [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id AAD2D11FA2F;
+	Thu, 10 Apr 2025 10:06:33 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.96)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1u2lzd-00FQT7-28;
+	Thu, 10 Apr 2025 10:06:33 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-crypto@vger.kernel.org
+Subject: [PATCH 1/3] hwrng: atmel - Add a local variable for struct device pointer
+Date: Thu, 10 Apr 2025 10:06:21 +0300
+Message-Id: <20250410070623.3676647-2-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250410070623.3676647-1-sakari.ailus@linux.intel.com>
+References: <20250410070623.3676647-1-sakari.ailus@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 09 Apr 2025 09:04:16 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,40 +85,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, Avi Fishman <avifishman70@gmail.com>, openbmc@lists.ozlabs.org, Sean Wang <sean.wang@mediatek.com>, Tomer Maimon <tmaimon77@gmail.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, Tali Perry <tali.perry1@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Olivia Mackall <olivia@selenic.com>, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-To restrict the returned resolution due to Nuvoton SoC hardware
-limitations.
+Add a local variable for a struct device pointer instead of obtaining the
+hwrng priv field and casting it as a struct device pointer whenever it's
+needed.
 
-Signed-off-by: Michael Chang <zhang971090220@gmail.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/platform/nuvoton/npcm-video.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/char/hw_random/atmel-rng.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-index 234fdec04f74..8d6d51a674a3 100644
---- a/drivers/media/platform/nuvoton/npcm-video.c
-+++ b/drivers/media/platform/nuvoton/npcm-video.c
-@@ -578,7 +578,7 @@ static unsigned int npcm_video_hres(struct npcm_video *video)
- 	regmap_read(gfxi, HVCNTL, &hvcntl);
- 	apb_hor_res = (((hvcnth & HVCNTH_MASK) << 8) + (hvcntl & HVCNTL_MASK) + 1);
+diff --git a/drivers/char/hw_random/atmel-rng.c b/drivers/char/hw_random/atmel-rng.c
+index 143406bc6939..5192c39ebaeb 100644
+--- a/drivers/char/hw_random/atmel-rng.c
++++ b/drivers/char/hw_random/atmel-rng.c
+@@ -56,12 +56,13 @@ static int atmel_trng_read(struct hwrng *rng, void *buf, size_t max,
+ 			   bool wait)
+ {
+ 	struct atmel_trng *trng = container_of(rng, struct atmel_trng, rng);
++	struct device *dev = (struct device *)trng->rng.priv;
+ 	u32 *data = buf;
+ 	int ret;
  
--	return apb_hor_res;
-+	return (apb_hor_res > MAX_WIDTH) ? MAX_WIDTH : apb_hor_res;
+-	ret = pm_runtime_get_sync((struct device *)trng->rng.priv);
++	ret = pm_runtime_get_sync(dev);
+ 	if (ret < 0) {
+-		pm_runtime_put_sync((struct device *)trng->rng.priv);
++		pm_runtime_put_sync(dev);
+ 		return ret;
+ 	}
+ 
+@@ -79,8 +80,8 @@ static int atmel_trng_read(struct hwrng *rng, void *buf, size_t max,
+ 	ret = 4;
+ 
+ out:
+-	pm_runtime_mark_last_busy((struct device *)trng->rng.priv);
+-	pm_runtime_put_sync_autosuspend((struct device *)trng->rng.priv);
++	pm_runtime_mark_last_busy(dev);
++	pm_runtime_put_sync_autosuspend(dev);
+ 	return ret;
  }
  
- static unsigned int npcm_video_vres(struct npcm_video *video)
-@@ -591,7 +591,7 @@ static unsigned int npcm_video_vres(struct npcm_video *video)
- 
- 	apb_ver_res = (((vvcnth & VVCNTH_MASK) << 8) + (vvcntl & VVCNTL_MASK));
- 
--	return apb_ver_res;
-+	return (apb_ver_res > MAX_HEIGHT) ? MAX_HEIGHT : apb_ver_res;
- }
- 
- static int npcm_video_capres(struct npcm_video *video, unsigned int hor_res,
 -- 
-2.34.1
+2.39.5
 
