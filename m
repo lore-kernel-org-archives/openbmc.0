@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27215C369A5
-	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 15:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1D2BC3601E
+	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 15:24:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZYNrx0SdCz3fn0
-	for <openbmc@archiver.kernel.org>; Fri, 11 Apr 2025 01:24:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZYNs20cCXz3fvp
+	for <openbmc@archiver.kernel.org>; Fri, 11 Apr 2025 01:24:22 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1744298649;
-	cv=none; b=JpJ/CMzwNR+cdTVhULjCncPRxOQp2HwsWTC/HaXzTrTNj+mayecpxBAzf4AVl4NTJDdpKPWM0lY4Ccq9oVAKD5A/qdefY5Gwg/E/gSF4p4y4VOYG0NaXp7oN9NwU73ewx2+NLMad/QQ1AkiRvDBVYMB/TFUOaxSy1x22teKVBNq1sl9KzQ08QzPVW2sFZI8cWwj9Hw49qyFQM58DZwNkt+9d62W/lphwrSGh6OAo2rd5t2R0Z90i+KXD8jU+yEtLMhUoSHlJ8Fjkt2y0O2+UAvdt5QHYKlFl15W4oKWfKfUhcPEZ8nqQ6lc2NWQtb7ppdqo75keYJT8ykV0qF2P1iQ==
+	cv=none; b=brvnNyeShBEAQerZyAM4GjdzrprJG3QlF1nGoNXbnsGPmuqMMOIjvTzNsF7jzedjWrJHcLxSbcaAp6E72+aKOGarjTMC7CIrdLPIPlxFtBnlwsdrzDr6kHUnQPadYfRXupYu8EhKlzur8p4mAuOwAEN35rQ9wsxgwMfKjLECbIej9mLSZvUHhDimEL45EY5l+1efatPb/9cukRjJqqJNMIr1LBCeqdNxGKQTPXW1Cmm4Od9JiLWUbQF/hGoogvozd09HdtCg94rbkoQaqC6V1ymafF2yaZJO4eL4oU9YiyCjsOeKgzNqmcn16TSkvbsWnIgfkx7iWeG1Dx5uCqoRjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1744298649; c=relaxed/relaxed;
-	bh=k7hmDPcJtVnNvWJU40XvuloBaC9FfHDf4pXbcMxM9Jo=;
+	bh=5hfVBN0wzaSeUQg5uDnoDTlQwoorDCBq715xUx2HVbo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LHUNsPiI3EJgJYxAVBKjhc9WvVYTdvdUqIPyXXd+/Q60soCkrj+SCQHUqvAxSdqrvXyRPo7MLrWAd2HLAFnufOXc1xvn+qdPMG436UumY5/01t2JbCWd38lYmf+wGIDn4xcUL31U+z28KfVi8f4COtzpwVSK59Ph1qrSivNJs87GECBBwNP1vXLkWOBRBHBmjfUtco7tHSEmipk2S2PwpG3yf4MdJJUx55PVTAqdLOm+FipZCVqkP9BRCLieQWkxW/emjuaZ+xBqGgwSmlEzMfCLTnNY1ukAIgZZzbVeAMfTS+aB5jSqLUIsNYyPzb5NtRYA5Ti5PCwvrzXI13V0rg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IMTqoldw; dkim-atps=neutral; spf=none (client-ip=192.198.163.17; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=VA4/HtJA3bnLUZjKFw0mvSFgSR6OOrPm2ycfkO8sfJYh6nBl/yotMsggk9UfXu3iqh9I7K9VfiF/dj8a5664yJjw7SfegscdR525hbtIlnhCYBlQbr3bRi3X8jpW9jBvm6LkGLHfa8VGoBathpiYzdH4HohGhW6ea7wixZ5wOkxV/YAgKjjv6BzMcjmGS/Q7MtG2k33bfLt6L1AFMx3sA4rSqXMD2XVrVbe2J0zfGYEZi/xcIB0/cEWHpiOkXVoI8H/Us6d9JVszmYdZaeMSi9k92cHkMysO1tLhJgP11dJyKieltNJ+JU4wGveTbZvtQiqCPDDA4TJnsaMeRuN3fg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LxgbJyBf; dkim-atps=neutral; spf=none (client-ip=192.198.163.17; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IMTqoldw;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LxgbJyBf;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.17; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZYNrj4pFjz3bm7
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZYNrj6SVRz3bp7
 	for <openbmc@lists.ozlabs.org>; Fri, 11 Apr 2025 01:24:05 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1744298646; x=1775834646;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6Y6uk1OKDMurXHr6lYHInLtlxGOoJuYbcOgABgCGhk4=;
-  b=IMTqoldw3nj9KTVhwzDCXxGgrtVhqFxNRr0bbm0i/1q0iKkemmpqwx3M
-   icudm0pL54kglmZ/jFgK1tC/3AUAAe0hQB1Lfk0ZyKd1ZC50wkVpPm3V+
-   JIbWJAcJjzi9HNdZa0Nj58cIs0oLrgYWTJndfIpUcCQvbgRm5P4UOAotY
-   JOBMKCOCb5W54HK+uAaQ3j2kRCf9srJ5PW8SfJ7uaveWkbQsanFqbhyVV
-   7Ohf5BcQQ+YaWj7nGtmMHHqLX51u1DNDm5X4YzAboRFdugsg993I4vnQT
-   D7d5vRsibxta34bty9uHW7UkA3CxREGEeTT3+N8dgsxQOp4ztB+V2vCph
-   A==;
-X-CSE-ConnectionGUID: AQJcpc+iRbC+2GVpUT8RZA==
-X-CSE-MsgGUID: wqAsIQDlQ2+S1zcQMksYmw==
-X-IronPort-AV: E=McAfee;i="6700,10204,11400"; a="45716279"
+  bh=2nEmXOWj61EFby8lltYJVgmKKKLIgiCDNpDNWcMK21o=;
+  b=LxgbJyBfKKZ0gsYKO4sVeFvc8aaELbMLvBu4EKE/1e8GgQa2PpH06pza
+   R3a05rbgXkB/5f+IhU8Xpye8+DQAAE9Bz8e0l4KLLHt5AfgjO5hPfQtvV
+   cST13yCn7zQhBUglXyd/ADSonZWyoKyUVpMzWjnn4gMUnexd57Xw81Ksw
+   ORMejFWeAVY5Tsqf2BWSFea4Y+hWpFoy9LgH0vb99eQ4oK4XFR2vq/08t
+   dWTUKbt+HIFxVXL2Aupy74bjNfKX33PwVgwvl35USHbLTw7sxcvCDCRCD
+   qJ2KdGIGztYJwFYKOAhKmdOeW+mEsEp4QBdrbg9BYPW8onv+yUwGV6q9v
+   g==;
+X-CSE-ConnectionGUID: vqYSdlQmTGe3LgqGLBO2Uw==
+X-CSE-MsgGUID: H5HIRUesRQKKQzN7Fx4krg==
+X-IronPort-AV: E=McAfee;i="6700,10204,11400"; a="45716287"
 X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
-   d="scan'208";a="45716279"
+   d="scan'208";a="45716287"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 08:22:56 -0700
-X-CSE-ConnectionGUID: lXZBb65zRtqhhZOoXu2Bbg==
-X-CSE-MsgGUID: EKcd0ndITDqagjO31fW8Cg==
+X-CSE-ConnectionGUID: xwrGhn4bQV2XQcBYOS31NQ==
+X-CSE-MsgGUID: 7SLwaDhESOSRn2bA8q196Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
-   d="scan'208";a="134108197"
+   d="scan'208";a="134108201"
 Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com) ([10.237.72.44])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 08:22:52 -0700
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 08:22:53 -0700
 Received: from punajuuri.localdomain (punajuuri.localdomain [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id EC2AF1203B9;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E27B411FA2F;
 	Thu, 10 Apr 2025 18:22:49 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.96)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1u2tjt-00HOc9-35;
+	id 1u2tjt-00HObz-2s;
 	Thu, 10 Apr 2025 18:22:49 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-crypto@vger.kernel.org
-Subject: [PATCH v2 3/3] hwrng: npcm - Add struct device pointer to device context struct
-Date: Thu, 10 Apr 2025 18:22:39 +0300
-Message-Id: <20250410152239.4146166-4-sakari.ailus@linux.intel.com>
+Subject: [PATCH v2 1/3] hwrng: atmel - Add struct device pointer to device context struct
+Date: Thu, 10 Apr 2025 18:22:37 +0300
+Message-Id: <20250410152239.4146166-2-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250410152239.4146166-1-sakari.ailus@linux.intel.com>
 References: <20250410152239.4146166-1-sakari.ailus@linux.intel.com>
@@ -94,50 +94,55 @@ remove that one as well.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/char/hw_random/npcm-rng.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/char/hw_random/atmel-rng.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/char/hw_random/npcm-rng.c b/drivers/char/hw_random/npcm-rng.c
-index 9ff00f096f38..3e308c890bd2 100644
---- a/drivers/char/hw_random/npcm-rng.c
-+++ b/drivers/char/hw_random/npcm-rng.c
-@@ -32,6 +32,7 @@
- struct npcm_rng {
+diff --git a/drivers/char/hw_random/atmel-rng.c b/drivers/char/hw_random/atmel-rng.c
+index 143406bc6939..d2b00458761e 100644
+--- a/drivers/char/hw_random/atmel-rng.c
++++ b/drivers/char/hw_random/atmel-rng.c
+@@ -37,6 +37,7 @@ struct atmel_trng {
+ 	struct clk *clk;
  	void __iomem *base;
  	struct hwrng rng;
 +	struct device *dev;
- 	u32 clkp;
+ 	bool has_half_rate;
  };
  
-@@ -57,7 +58,7 @@ static int npcm_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- 	int retval = 0;
- 	int ready;
+@@ -59,9 +60,9 @@ static int atmel_trng_read(struct hwrng *rng, void *buf, size_t max,
+ 	u32 *data = buf;
+ 	int ret;
  
--	pm_runtime_get_sync((struct device *)priv->rng.priv);
-+	pm_runtime_get_sync(priv->dev);
- 
- 	while (max) {
- 		if (wait) {
-@@ -79,8 +80,8 @@ static int npcm_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
- 		max--;
+-	ret = pm_runtime_get_sync((struct device *)trng->rng.priv);
++	ret = pm_runtime_get_sync(trng->dev);
+ 	if (ret < 0) {
+-		pm_runtime_put_sync((struct device *)trng->rng.priv);
++		pm_runtime_put_sync(trng->dev);
+ 		return ret;
  	}
  
--	pm_runtime_mark_last_busy((struct device *)priv->rng.priv);
--	pm_runtime_put_sync_autosuspend((struct device *)priv->rng.priv);
-+	pm_runtime_mark_last_busy(priv->dev);
-+	pm_runtime_put_sync_autosuspend(priv->dev);
+@@ -79,8 +80,8 @@ static int atmel_trng_read(struct hwrng *rng, void *buf, size_t max,
+ 	ret = 4;
  
- 	return retval || !wait ? retval : -EIO;
+ out:
+-	pm_runtime_mark_last_busy((struct device *)trng->rng.priv);
+-	pm_runtime_put_sync_autosuspend((struct device *)trng->rng.priv);
++	pm_runtime_mark_last_busy(trng->dev);
++	pm_runtime_put_sync_autosuspend(trng->dev);
+ 	return ret;
  }
-@@ -109,7 +110,7 @@ static int npcm_rng_probe(struct platform_device *pdev)
- #endif
- 	priv->rng.name = pdev->name;
- 	priv->rng.read = npcm_rng_read;
--	priv->rng.priv = (unsigned long)&pdev->dev;
-+	priv->dev = &pdev->dev;
- 	priv->clkp = (u32)(uintptr_t)of_device_get_match_data(&pdev->dev);
  
- 	writel(NPCM_RNG_M1ROSEL, priv->base + NPCM_RNGMODE_REG);
+@@ -134,9 +135,9 @@ static int atmel_trng_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 
+ 	trng->has_half_rate = data->has_half_rate;
++	trng->dev = &pdev->dev;
+ 	trng->rng.name = pdev->name;
+ 	trng->rng.read = atmel_trng_read;
+-	trng->rng.priv = (unsigned long)&pdev->dev;
+ 	platform_set_drvdata(pdev, trng);
+ 
+ #ifndef CONFIG_PM
 -- 
 2.39.5
 
