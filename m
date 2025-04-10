@@ -4,70 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C26DC3601E
-	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 07:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE36EC3601E
+	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 07:08:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZY9rN6pyJz3cDS
-	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 17:08:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZY9rT38tyz3g6k
+	for <openbmc@archiver.kernel.org>; Thu, 10 Apr 2025 17:08:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.20
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1744268872;
-	cv=none; b=MsQES6tS+TaC4HSA4fxDbhAm0wIoDvSD/bXpabo+bcHBiRqjlV10oefoVhEcXFWwNTFP/VxwQzbGj2d3YDchPwvR7U2/w6j3/xNDJZ/vmSCyVnC7/lE6IzT/MAhmRu7e3SVVqwxIKAItY4EYIzbdIhaDvSa2cUim9Yz/hNweLj0EEJhZ2VsnV2ABxOnVjxlvrhR92oXHYebmBlxP1tvOne+2ZLrf/0lvXZdIjGlvpuuvQd0Fg39Nk9uJbF4XPYfNXbImTNmbYVyFEupL6lSRSoW3O/nscVbCIoGnV632KG8HHlBtRWm0abKlKVDEOJ1xI7dMWg4X9/YM1fha3HC0BA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1744268874;
+	cv=none; b=BGXCLG71WLq+MUk6rNwm5+RJF6pz+61bNqWESBVwniHflfFBH1Ylv+uZKpqW6gY+9FHDbvUCOf5momPF1ka88CUWIISHXdWA18SZrxwVH6FL1bngrFWstEn75DUlkee/BFFEXDWgN8lTzQ/wVvywkpTzSGXDs9lY9GmCyC95pzvZbaF0rXWKxUSrRh53S5V5QyOwgHHQ3t/oE3O7UOiyxsfAc4vjXpxRJSPhSJRWyN5ECS4ECPzys5o3CU2vEZLa9NFFXEfIXTCRWrqBjnEYBqQPak2j1ams6ZPKG6xyFUaLGdCkLmLaqnlVbjt4FmX77dHJQeIiVSPCJDUqAEXjKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1744268872; c=relaxed/relaxed;
-	bh=snR33B7zczTC3bN8IdXkOLcUmwroMI60wHKgyBtLUdc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ChfaSqhx0u6WlD+FtkYi1Acd8B5i8+Scdi0l1h9UrutUZWMQVoQrLmeqbOkxxqIKEowIrXRB9yQg9vtX9nPnumIW+STy5zryLnz8TRiNENYdI/iWiMAtus78SnxJu3J/I6Y00nPrU48LImSpzEqS1dtjIF/4EOQbnYaOXyIVHWkMjf0Nc8io6sXPPvzE+5QrCsQf1oC4GPMSvgapxGZjJwaqfi8xqxdxyWzaBjPlUFVrFZrp9ZlPJ4u1lYPTOJaTBqIfJHpg2WrejnMXlzYf83oEwAP5csCBQI2xByFndSepGDSTzzBXjIe2d+5hsfZaIyKHcIhAsfuYiHac6yQExQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UmSZpYxL; dkim-atps=neutral; spf=none (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+	t=1744268874; c=relaxed/relaxed;
+	bh=6DooyLKKYj3wKO7vJaSrsdZC2t9Wx01KgJ5YQqX5GS4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=JTIOpXVQluPyMUac/mzywnQlxirAdkoNqNZFnnPfwiG2N8KfszzeEQ7BKuJsW1AFJSwUsjdYAt0S5WkDvgAqm35DQHX/jFweMx4J7okX1baGEOJWSpOjP9LNgoDtoEpevcy88/v7nRBeczSiNsXGz7vdW49uwI99+kK5aPKZMhulfOOacL59wddL9uSFoJ6Cb1TYRi2sxiT3347fOrmHB9NbNodjHnR53qSqbAx1w5uP6pr6uHYRdpDRkpXfI5HidG79bGe7HpBLx7TndIrp+y4zC8XKJWuIwy5xfzduwX3OF3ImBCRsLZRbyZbgkDYxbdQtSeMtqjN4QFUxbSH49w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YLMxFZul; dkim-atps=neutral; spf=none (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UmSZpYxL;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YLMxFZul;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=sakari.ailus@linux.intel.com; receiver=lists.ozlabs.org)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZY9r70wnFz3blk
-	for <openbmc@lists.ozlabs.org>; Thu, 10 Apr 2025 17:07:50 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZY9r73Bygz3bm3
+	for <openbmc@lists.ozlabs.org>; Thu, 10 Apr 2025 17:07:51 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1744268871; x=1775804871;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=BwgGI6MZYv2vNydtUJb8sY2UgwkVT1/xfezAVPOvL2k=;
-  b=UmSZpYxLABp7CyKm7V3qHluazysSgcBdmndEZIgBUjs/sRj+1AHfiNiI
-   Cf9IqGSLFYb/U57ucpK1+BTVJttzWYtM6hj49fV0ARnbF0AIFhmlHyuB4
-   +kGHL3TqgmGt6lH808ukwrgbNqPR5607u4lNffKC2O7h/2EfbemOp+qZz
-   YL37V/LFmCrIKEqdLFaGiTqBN9rVLX+MNR8DPrz5hJb/Qr9qcLaWbX48Y
-   LS9mDFjCM5/r7J2Ub93o+gzBY23NG8lAcamWBhzKT5nRy0k9dPlY1qSHJ
-   go3W2NYzrXK/RdCYlR7+ov0tBA4Eo7qXFqCQ9uJyQ3pgLOsyF/uhR4oWn
-   g==;
-X-CSE-ConnectionGUID: /iizzi+yS1CsMtUyLoebHw==
-X-CSE-MsgGUID: qKLF1+B7TdurfjGjRaRa/A==
-X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="45484808"
+  t=1744268872; x=1775804872;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eTuV2CyB5vjAJ0CZ1BcbW4eb89Fsn/ZCIyYBD5yo6Ow=;
+  b=YLMxFZulE4v7EyfIi2Lh92KKQPdi82z1l9MASIJlyz5GFMkm79xFjhso
+   hMZnHEC7zBSENmJI824k6ACMo/PjmtnJMKQYZv0S+u7U8Pao1owLo/b5o
+   pf1hyS/LaV2HSH/BPYfIOGi9HffNDFLey5IG082RoRq3H5NkkRfuks9UD
+   TNLTOgLCRNZtg1F3EmEuh5o2eW8w7XC+jk+Y1xncNTInuKlMJ0dDA7Zcj
+   exSpiAHVPLP/xr2M5OAxpXpbGzD9kd8W1g+rsFaEdZPm/GTpnyhoeMuTH
+   +kkiU1dvOlKNow4g11MBL0ZMQGxSBM/i3+LjllBF/X4EjtS/t6KPB8IsI
+   A==;
+X-CSE-ConnectionGUID: 0P8iX+5DR7637zrAvu+kAw==
+X-CSE-MsgGUID: 2BSxPrD+Rrae0wgyaROMmA==
+X-IronPort-AV: E=McAfee;i="6700,10204,11399"; a="45484818"
 X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
-   d="scan'208";a="45484808"
+   d="scan'208";a="45484818"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
   by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 00:06:40 -0700
-X-CSE-ConnectionGUID: dc0X+vL2S5ioxsxxRhI0SA==
-X-CSE-MsgGUID: 4vsCeVDXRH+kGFuW1sc24A==
+X-CSE-ConnectionGUID: /9qgZoukRT2V3k+E473utg==
+X-CSE-MsgGUID: eCd3L+qyRjqOTOU2EOJUdg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.15,202,1739865600"; 
-   d="scan'208";a="128791503"
+   d="scan'208";a="128791505"
 Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com) ([10.237.72.44])
   by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Apr 2025 00:06:36 -0700
 Received: from punajuuri.localdomain (punajuuri.localdomain [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id A9DBE11FA2C;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B0BBE1203B9;
 	Thu, 10 Apr 2025 10:06:33 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.96)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1u2lzd-00FQT3-20;
+	id 1u2lzd-00FQTF-2I;
 	Thu, 10 Apr 2025 10:06:33 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-crypto@vger.kernel.org
-Subject: [PATCH 0/3] Use a local device pointer for hwrng drivers instead of casting constantly
-Date: Thu, 10 Apr 2025 10:06:20 +0300
-Message-Id: <20250410070623.3676647-1-sakari.ailus@linux.intel.com>
+Subject: [PATCH 3/3] hwrng: npcm - Add a local variable for struct device pointer
+Date: Thu, 10 Apr 2025 10:06:23 +0300
+Message-Id: <20250410070623.3676647-4-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250410070623.3676647-1-sakari.ailus@linux.intel.com>
+References: <20250410070623.3676647-1-sakari.ailus@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -85,22 +88,43 @@ Cc: Herbert Xu <herbert@gondor.apana.org.au>, Avi Fishman <avifishman70@gmail.co
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc" <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi folks,
+Add a local variable for a struct device pointer instead of obtaining the
+hwrng priv field and casting it as a struct device pointer whenever it's
+needed.
 
-Clean up random number reading by adding a local shorthand variable for a
-struct device pointer used on multiple Runtime PM functions. The changes
-are very similar in all three drivers.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/char/hw_random/npcm-rng.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-Sakari Ailus (3):
-  hwrng: atmel - Add a local variable for struct device pointer
-  hwrng: mtk - Add a local variable for struct device pointer
-  hwrng: npcm - Add a local variable for struct device pointer
-
- drivers/char/hw_random/atmel-rng.c | 9 +++++----
- drivers/char/hw_random/mtk-rng.c   | 7 ++++---
- drivers/char/hw_random/npcm-rng.c  | 7 ++++---
- 3 files changed, 13 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/char/hw_random/npcm-rng.c b/drivers/char/hw_random/npcm-rng.c
+index 9ff00f096f38..beec96391af7 100644
+--- a/drivers/char/hw_random/npcm-rng.c
++++ b/drivers/char/hw_random/npcm-rng.c
+@@ -54,10 +54,11 @@ static void npcm_rng_cleanup(struct hwrng *rng)
+ static int npcm_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
+ {
+ 	struct npcm_rng *priv = to_npcm_rng(rng);
++	struct device *dev = (struct device *)priv->rng.priv
+ 	int retval = 0;
+ 	int ready;
+ 
+-	pm_runtime_get_sync((struct device *)priv->rng.priv);
++	pm_runtime_get_sync(dev);
+ 
+ 	while (max) {
+ 		if (wait) {
+@@ -79,8 +80,8 @@ static int npcm_rng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
+ 		max--;
+ 	}
+ 
+-	pm_runtime_mark_last_busy((struct device *)priv->rng.priv);
+-	pm_runtime_put_sync_autosuspend((struct device *)priv->rng.priv);
++	pm_runtime_mark_last_busy(dev);
++	pm_runtime_put_sync_autosuspend(dev);
+ 
+ 	return retval || !wait ? retval : -EIO;
+ }
 -- 
 2.39.5
 
