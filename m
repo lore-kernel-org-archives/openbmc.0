@@ -1,71 +1,85 @@
-Return-Path: <openbmc+bounces-9-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-10-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65096C369D1
-	for <openbmc@archiver.kernel.org>; Fri, 25 Apr 2025 22:16:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FF2C369D1
+	for <openbmc@archiver.kernel.org>; Sun, 27 Apr 2025 15:30:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ZknHq4LBhz2ySX;
-	Sat, 26 Apr 2025 08:16:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::431"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1745619397;
-	cv=none; b=Y4yZjZx5t4sq3rDvXPo9i0SxaQl6w4ieRZtrFfHaR2AMGejQw3ZHg7Dds9l2HyLvzufpDD9M9sNIe4vESE4uaoKIR1uGgsDr31jYv8HEaFk5NlqEk9LjyEacvkujyZNcx1pymT4jQuiao2KARJ9Hym4+I5tf3ZbDc5+sly4a1CKU+gjAF86ZMJsx1oLQeQGH/MFsBnEh/1yD3JRJP8xTRLjdEy3F3mIhaZvdiwCWSw8YwpgiIuCKlt/c1cSVM+hETkx6KgrFdYAqWFYaPkTXpaaaogVC1tPFeTZNKzinLjeeO8RKCA29bYbFDUP0EgnPEDUN5XQAY2S1hbaN4QPI7A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ZlrBc56Mgz2ylr;
+	Mon, 28 Apr 2025 01:30:48 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::430"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1745767848;
+	cv=none; b=J9RPcrXH5ihN7c+X2uxnYf+cae5s2gQdJwUVaE+YgOCnJOWgZPel9qjrZtOeaIscgwOn33WmS0aCsqo6a7+f9YJnzTdaAVixvH+kTbOs1agSfE5F6Sujrt0xeFGCJAi4ES6ViP2mFdfPcbedjqlcBN3XoQ9/arrn3aGcYaNoB7l1/CPk5tIpTVy7wGP2D5A3Zcz8BM2CT33EDMp0B6kFo6wG4cy/wGkyZZUrcaOwPVqASsF2AH6MaUDeHtEU2u+SkW25nXzOlXhAUoId11iTTrm9DU84gM72Ytd0bH6U8VCKSQCF3+sXpbz4dD7nOiIeTXDNAQ/dVN/T53DFlU+WfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1745619397; c=relaxed/relaxed;
-	bh=WgXD6hkPKUGRTdY1zhGVp/H0Rv3gRoc0tuevqLhxiZs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M3rS731ZgYlWjkc8BODMfw+un6hFwdxG5jw7d7BbgJVSpcPWI4RRUlhh6BLgejQNLh+lOW1jVmB1os7wweCDGcHeczHHMaxt2c6H3d9PuIVB9Cg14zuhOj14IKPSPk2WWDzF2hKp4M6eTw56sn2QdlYX9Nwr5PNR2N343R4FpMjezFzQrSS1MI4gC8zcjirg7YUDVFjwwlPPxZS+hFU3rlCGUeiBic/P3oV7bP3SLOV+NZpxRZpj3ClIWUrBKlOMELvsMvaTtzEuJKfZT4hI+qSCGPt1XdYnvNtRj43JP/YXACqwMXFGONGltRsxjYlrBp0XhXBUnU3V6KkPETSzAw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=foCGxrGN; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com
+	t=1745767848; c=relaxed/relaxed;
+	bh=h4Hy3rarohJzSKsjT7TUHiAWHqnISAInF75bzVocRPk=;
+	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=SLgMYPSScKREYhj/TaMPh+tf+E2DFAotgzHmNlKYsZ/JLFj0VJIEovwuDwjQ7csu5Wl0jZ+Ao+9zT5966EDt/QGRMnbK9B+GXnDpOGt1yKIEVWXEr2Jwc2KN79NTPn1c76jDK8BNB/5ksrbbbOoO2NlgqQBw1Zv1OJtoblpZk/qlWst/NK3AhFFISeaSb1YaNDlHZ0ExgTG9VkkPwrekVGhIDSlSOdfLgORAC96f7J5ZPV80wLW3X2SbJ3Ojww1w0wiUgsdP9dZsiIZAGNPlMkrHO4Enlp1nElPVibFJOBNszBjr4qRWuYpQO0VJzxfq8RUEkn926lHAvuMLkMwDig==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=QEpiK/Uh; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::430; helo=mail-pf1-x430.google.com; envelope-from=santosh.puranik.ibm@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20230601.gappssmtp.com header.i=@wkennington-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=foCGxrGN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=QEpiK/Uh;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::430; helo=mail-pf1-x430.google.com; envelope-from=santosh.puranik.ibm@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com [IPv6:2607:f8b0:4864:20::430])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZknHm5cg9z2y2B
-	for <openbmc@lists.ozlabs.org>; Sat, 26 Apr 2025 08:16:36 +1000 (AEST)
-Received: by mail-pf1-x431.google.com with SMTP id d2e1a72fcca58-7399a2dc13fso3848938b3a.2
-        for <openbmc@lists.ozlabs.org>; Fri, 25 Apr 2025 15:16:36 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ZlrBb0K2yz2yNG
+	for <openbmc@lists.ozlabs.org>; Mon, 28 Apr 2025 01:30:46 +1000 (AEST)
+Received: by mail-pf1-x430.google.com with SMTP id d2e1a72fcca58-736bfa487c3so3243097b3a.1
+        for <openbmc@lists.ozlabs.org>; Sun, 27 Apr 2025 08:30:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20230601.gappssmtp.com; s=20230601; t=1745619394; x=1746224194; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WgXD6hkPKUGRTdY1zhGVp/H0Rv3gRoc0tuevqLhxiZs=;
-        b=foCGxrGNXrpFw9AM1gz69sgIZbI8a3ez80LoAPgHGFBlvYqRind59Okm1+G4zSOiaQ
-         F8a+U/5JkqgrRWK2piTF3xNLxtMy6ujmJhy5XJoFfgXKdnhoSEJg4jcG+MH+ZxelrmAm
-         7VapMwPo2hK/0Hf2u7nGIwDL6TX4KcuV3dIKqSmDn9lGpC2Ngu60sWoPHfu2YC43eIfL
-         VQRTqEfc/k+OfuyCFZy/m5LO9G/k/sVP1N9hVNDItdh8jMDLjCw+f55PGff3yeFrlZok
-         JCgTuwjSm+UFxNOQ75N6sLzxYE2JOCBypRB1K1NSVy6iz4sUxMw63QKj2DRf17dI4vV4
-         ZuNw==
+        d=gmail.com; s=20230601; t=1745767844; x=1746372644; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=h4Hy3rarohJzSKsjT7TUHiAWHqnISAInF75bzVocRPk=;
+        b=QEpiK/UhAzQ1VuVkPhvGbWaP0oSuXHmX/9uPTvCkiEH3ed6yAmTdMU8mEONVxEIf+I
+         6+go+rdU1rumxmjhWEOdGTmJAS2VSILyABubFTde978Gw3Bycil4eqDA8XqQiIlsg2+V
+         bFdLN9LUlnCaJCdO+RPsKrAP2wmjxThquw9pIj9a/Jzx5BE0XO7Jk1nCnfpRdO4TukrD
+         KnE7mhOdhwWap75+v2NvtNN72H9/bLu1pJNZUY2GWMU/vftWO0NFALKUkLBY222jwxvK
+         EfnF58p2vJDe/wUfzSretBeQp53ZwhzwW3o/qcqn7b+ofuk1osvFN5J05S8Rkh9sfr9U
+         ZQ9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745619394; x=1746224194;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1745767844; x=1746372644;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WgXD6hkPKUGRTdY1zhGVp/H0Rv3gRoc0tuevqLhxiZs=;
-        b=xMQapbxv+yYCZpvXZWs6kZnC8SpRpGUFGDx6oABeZ8Ihury4ZzR/vl6fnGyKW2qN0j
-         CsypgwYgwQwg8AajYioz2rbTcvQJccul3iy9AxJKzbbwPIWNQz/7dl0kIcrGjtWQ3YBX
-         pCfEFOCqAEGSqCYrJsBanRtSXzAfpV5W7DoGbEpx7bT4xPfG/lduvJe4Ej2tRHSAfvOv
-         RKAcCA6Q/lq+ObiSUcRcWR0W2yStW8mRyOWvIKFgo0cEUDi45xo2qa88iCDA4UNIquLt
-         A4RWWAkKjXe9izbm/JGSlHrFsvyj/ML3eao70zSDmAiBGS2qwT507dLY0W6B5IC+EylD
-         /T6g==
-X-Forwarded-Encrypted: i=1; AJvYcCUc4D+rM5QIP0FW8pUeNzlY2DXT94jfz7bikn6N1en6LCldvHgdHNGb12wwRyFM6rKjtsAzKFpB@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwI4tzE63v7oXEZagdQTO86oCEIAZubY8WK4p7f8nBtm7PMYeCw
-	b3mp0VJvy6v0ziHG+NXOEySrUj/s3Zo2h8gSkCIdUFFbb7EMYCn6MLvTSDaYLVZnzmURVauCfgC
-	Gy6CUo/mf6MMYhUTRnTF4Cz3ZgQEqDapsPWxXQQ==
-X-Gm-Gg: ASbGnctCbel0k8zKQxu7ggFfMiCPIlh5ew2Mf4Z9ghsbRmmmORF5SFESH16iqVziGpU
-	WfQkLOh+ekLKBiLJNWJ6SzF2oDX339WnQ5KBj+U2b7OLOjLN2kseQOdeeohB3U5Q7FMzDnq0fjU
-	6R4R3fODLC2ffiJ+kJhE3fsp1R7DFCjAeNPlQHCvE/HLan5Jkj48r7uKIX
-X-Google-Smtp-Source: AGHT+IH2N4ln+J9HVbv+8+sHBp1P/isBj0gkTrIzOTOJCwbUCAtU7RG/jp9P807JAV09WP22RBF21hsTQbnlFLBbfcE=
-X-Received: by 2002:a05:6a00:218c:b0:736:5c8e:baaa with SMTP id
- d2e1a72fcca58-73ff7255d1fmr1386610b3a.2.1745619394656; Fri, 25 Apr 2025
- 15:16:34 -0700 (PDT)
+        bh=h4Hy3rarohJzSKsjT7TUHiAWHqnISAInF75bzVocRPk=;
+        b=nTI/vFFGVXTDmyBetzZJ0D33c4aIlq+H5yOtwxuUeGsXijNttVZ4eLVXsZXAiIA0RK
+         +6VNwNX/SonAJMgOUSKzSgJn6YH1Xc/NtoXNrbP5glUr2w0AqZRn+ip4yDr2cXNckATi
+         TvI9jJgZCT9T0zS8TGjDvZIIQYHZufQduztkxoL796q3OGtrUcvYRPrlCH2R97CEy29E
+         WkmjFHFQxcUotdCGqln+P7ivi8aIOPQUbdzY3I02K45pGo9ac4qAcTN36i8fHePoKAg+
+         2faBOm0+F2c1o/maqKjHkznmzxyzmDYUg2mTULhfQ3khNHLD7ZUAJoe7DCCzJID9mJG3
+         JtzQ==
+X-Gm-Message-State: AOJu0YwNtnzGIkQ666lHzztL5jD1sjHcbo8znL+3ESWPu5pyMx7v7zSR
+	ZHsDn/uqGTGUQfyut/OAGr9iwOXyKKTUIeN+cUto0npItxGLv1lrC1FIAA==
+X-Gm-Gg: ASbGnctdJL4pllyA4Fg/i350bkcoso+JiqSlgqLfuBbpWhr2wKHifDb93jzBQ7AGFMg
+	lRHJ9eponVk+OF9jMEFDyfA4VMw7yKd3w98n9zP/dhnBwE+xuD7BZXNEyuHee1D0XnOJp81cjUe
+	BV0UMtc8AZQmzvGsX5iJ1syt7ZRN4RN92eYz3qzZOghXE3U0KIu/fzVeH9U0cZ6o5YSFe3RIzMW
+	XjW99KNwhkhvJMl7MYAf4f0XExMOGLxYWfNnnUKzpdiZteC1zkRsGNqQL2tLwLU7MqH0NffBWKw
+	I9IcHl3cGpf46w0J9gct19+oJvgXzF2soitPdLNBEWcAKYUXRilUA5qJhN0If0DmEJg=
+X-Google-Smtp-Source: AGHT+IFy/rda7+MXnttnl/7TGv8QzWJpNbdR2T4svHbw7rajwZpkKMo636ctaJnYB2XrMswXEWGZLQ==
+X-Received: by 2002:a05:6a00:4644:b0:736:4d05:2e2e with SMTP id d2e1a72fcca58-73ff7280114mr7600428b3a.6.1745767844496;
+        Sun, 27 Apr 2025 08:30:44 -0700 (PDT)
+Received: from localhost.localdomain ([49.207.234.167])
+        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-73e25912ad3sm6514567b3a.13.2025.04.27.08.30.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Apr 2025 08:30:43 -0700 (PDT)
+From: Santosh Puranik <santosh.puranik.ibm@gmail.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	jk@codeconstruct.com.au
+Subject: [PATCH linux dev-6.6 1/3] usb: Add base USB MCTP definitions
+Date: Sun, 27 Apr 2025 21:00:06 +0530
+Message-Id: <20250427153008.3166922-2-santosh.puranik.ibm@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250427153008.3166922-1-santosh.puranik.ibm@gmail.com>
+References: <20250427153008.3166922-1-santosh.puranik.ibm@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,88 +90,90 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 MIME-Version: 1.0
-References: <20250415232521.2049906-1-william@wkennington.com> <79400920-22b4-4bce-b204-c58087495c22@kernel.org>
-In-Reply-To: <79400920-22b4-4bce-b204-c58087495c22@kernel.org>
-From: William Kennington <william@wkennington.com>
-Date: Fri, 25 Apr 2025 15:16:23 -0700
-X-Gm-Features: ATxdqUG71cOtnC9xnSIu_N-FLI_cL9Ilck2vh1utGY_dfZmPABCB1UECKPYRuu0
-Message-ID: <CAD_4BXiaqLa563LoyGsPV=C164KxREzs0H+VcXPGR9QagzKs0A@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: Fix nuvoton 8xx clock properties
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
-	Tali Perry <tali.perry1@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Apr 15, 2025 at 11:55=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
->
-> On 16/04/2025 01:25, William A. Kennington III wrote:
-> > The latest iteration of the clock driver got rid of the separate clock
->
-> I don't see the binding deprecated.
->
-> > compatible node, merging clock and reset devices.
-> >
-> > Signed-off-by: William A. Kennington III <william@wkennington.com>
-> > ---
-> >  .../boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 16 ++++++----------
-> >  .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts     |  8 ++++++++
-> >  2 files changed, 14 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/=
-arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> > index ecd171b2feba..4da62308b274 100644
-> > --- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> > +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> > @@ -47,17 +47,13 @@ ahb {
-> >               interrupt-parent =3D <&gic>;
-> >               ranges;
-> >
-> > -             rstc: reset-controller@f0801000 {
-> > +             clk: rstc: reset-controller@f0801000 {
-> >                       compatible =3D "nuvoton,npcm845-reset";
-> >                       reg =3D <0x0 0xf0801000 0x0 0x78>;
->
-> So now it lacks quite a bit of address space. This must be explained in
-> commit msg.
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-Can do that when i make the updated series. Basically the old value
-was just never consumed by an actual driver and the chip reserves that
-entire 0x1000 size address space for clock registers. However, only
-0xC4 bytes (0x78 was incorrect) of that space are used for these
-registers.
+Upcoming changes will add a USB host (and later gadget) driver for the
+MCTP-over-USB protocol. Add a header that provides common definitions
+for protocol support: the packet header format and a few framing
+definitions. Add a define for the MCTP class code, as per
+https://usb.org/defined-class-codes.
 
->
-> >                       #reset-cells =3D <2>;
-> >                       nuvoton,sysgcr =3D <&gcr>;
-> > -             };
-> > -
-> > -             clk: clock-controller@f0801000 {
-> > -                     compatible =3D "nuvoton,npcm845-clk";
-> > +                     clocks =3D <&refclk>;
-> >                       #clock-cells =3D <1>;
-> > -                     reg =3D <0x0 0xf0801000 0x0 0x1000>;
-> >               };
-> >
-> >               apb {
-> > @@ -81,7 +77,7 @@ timer0: timer@8000 {
-> >                               compatible =3D "nuvoton,npcm845-timer";
-> >                               interrupts =3D <GIC_SPI 32 IRQ_TYPE_LEVEL=
-_HIGH>;
-> >                               reg =3D <0x8000 0x1C>;
-> > -                             clocks =3D <&clk NPCM8XX_CLK_REFCLK>;
-> > +                             clocks =3D <&refclk>;
->
-> Not explained in commit msg.
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20250221-dev-mctp-usb-v3-1-3353030fe9cc@codeconstruct.com.au
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit dcc35baae732b9079b2c6595cfd86da02b34a4e6)
+Signed-off-by: Santosh Puranik <santosh.puranik.ibm@gmail.com>
+---
+ MAINTAINERS                  |  1 +
+ include/linux/usb/mctp-usb.h | 30 ++++++++++++++++++++++++++++++
+ include/uapi/linux/usb/ch9.h |  1 +
+ 3 files changed, 32 insertions(+)
+ create mode 100644 include/linux/usb/mctp-usb.h
 
-Yeah, I can do that WRT using an on board refclk instead of a value
-that comes from the SoC.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6afbb4f7b33c..5da10b86be0b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -12647,6 +12647,7 @@ L:	netdev@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/networking/mctp.rst
+ F:	drivers/net/mctp/
++F:	include/linux/usb/mctp-usb.h
+ F:	include/net/mctp.h
+ F:	include/net/mctpdevice.h
+ F:	include/net/netns/mctp.h
+diff --git a/include/linux/usb/mctp-usb.h b/include/linux/usb/mctp-usb.h
+new file mode 100644
+index 000000000000..a2f6f1e04efb
+--- /dev/null
++++ b/include/linux/usb/mctp-usb.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * mctp-usb.h - MCTP USB transport binding: common definitions,
++ * based on DMTF0283 specification:
++ * https://www.dmtf.org/sites/default/files/standards/documents/DSP0283_1.0.1.pdf
++ *
++ * These are protocol-level definitions, that may be shared between host
++ * and gadget drivers.
++ *
++ * Copyright (C) 2024-2025 Code Construct Pty Ltd
++ */
++
++#ifndef __LINUX_USB_MCTP_USB_H
++#define __LINUX_USB_MCTP_USB_H
++
++#include <linux/types.h>
++
++struct mctp_usb_hdr {
++	__be16	id;
++	u8	rsvd;
++	u8	len;
++} __packed;
++
++#define MCTP_USB_XFER_SIZE	512
++#define MCTP_USB_BTU		68
++#define MCTP_USB_MTU_MIN	MCTP_USB_BTU
++#define MCTP_USB_MTU_MAX	(U8_MAX - sizeof(struct mctp_usb_hdr))
++#define MCTP_USB_DMTF_ID	0x1ab4
++
++#endif /*  __LINUX_USB_MCTP_USB_H */
+diff --git a/include/uapi/linux/usb/ch9.h b/include/uapi/linux/usb/ch9.h
+index 8a147abfc680..dce954da45ac 100644
+--- a/include/uapi/linux/usb/ch9.h
++++ b/include/uapi/linux/usb/ch9.h
+@@ -327,6 +327,7 @@ struct usb_device_descriptor {
+ #define USB_CLASS_AUDIO_VIDEO		0x10
+ #define USB_CLASS_BILLBOARD		0x11
+ #define USB_CLASS_USB_TYPE_C_BRIDGE	0x12
++#define USB_CLASS_MCTP			0x14
+ #define USB_CLASS_MISC			0xef
+ #define USB_CLASS_APP_SPEC		0xfe
+ #define USB_CLASS_VENDOR_SPEC		0xff
+-- 
+2.39.5
 
->
->
-> Best regards,
-> Krzysztof
 
