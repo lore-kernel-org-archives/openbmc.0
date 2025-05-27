@@ -1,53 +1,95 @@
-Return-Path: <openbmc+bounces-65-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-66-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 034CBC5AE59
-	for <openbmc@archiver.kernel.org>; Mon, 26 May 2025 23:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D50ADC54ED1
+	for <openbmc@archiver.kernel.org>; Tue, 27 May 2025 23:51:56 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4b5t2N06RBz2yFP;
-	Tue, 27 May 2025 09:56:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=114.242.206.163
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748239681;
-	cv=none; b=BqpoPnzgBmn3py2yX+jWw5uzdqJPEV14WLVouuxxGn9NXW1Z2+K/5uHRMTGUhMQ+SXZN2p1mReG1UN6E7fJdk0bILEVlFOHpCRFxNVRjnbve46EHH6u0x7oi3hsZWVv6jqFcwwR0StnORV5qErWCn1pcqyDpudEDObIV8GowbBiKvgZx20RYwu5tvwb1NBUy4M/OXc2nqiM55TmZTO3mJAhLiZELmONMBWzpTVYYCiPZSIB0u7TmqvKu1sHFvcjqNbakAIF1w3SfyXc1wpcbqAfxWH0vQKSPaTf1whHDwSuCWMgJvGnWDMg9QbZtJnn8Od25WdVLsN59vu84sv5Pvg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4b6Ttq0JCxz2yKq;
+	Wed, 28 May 2025 09:51:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748312553;
+	cv=none; b=SzT3lSdnk3e3evW/4nXHk6qjkL1j2psO+wGWoE4o8AmYBiZuL08+gHdHNMW6JcNq82vh92gywxxmp0p5Mv49rFvwWnvXrJWrmfkd+OrK9qlRia5rKOYxc9gEKL63tstvw0q61KWqUlhwTbr5W3+MA4FAFjd9y1FTaUz97o6A3O/Wbg8nxE5XQBqWuR/R8IQ8538hfJgoPbXHpVDOEzWEyRJlVOWVJUIvqrte4M7JRrSQdwvSM5OPUc9Y4z5vDKVXpamxDL5LcAeLbNZQ1G6hqh0jm887urdUIcxtXS/ewLBDHNOHDP88eLPjQFMARZ73iF/084o7amYNNVAwggxxkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1748239681; c=relaxed/relaxed;
-	bh=Ha1Gpc6VX8YaJYKl7MSWWB7wR2LzilH6yf28zj2SPTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oPkex2Us+AfHg9lOTX4hVCgthfb1HZZkFdoZGR+zsyozA+ggU/QpuC3cPePeB1T3T/cZDtwyCrbcIglQI+tRiG7hU5Lm1eVZCOFfYmL4kNE8Q3W1JQPBq8ZhtlYyL3ZlWLkVBei0EDvbADlwnKaEv+EuiSk67aA2uJ2o9u/KL8bPpwnRAmCGX986nK1uNqK2IRz3BFPft2aM9C3qTiCRge/ZSDRrrYr29GGKz34GRFBKchxKbopLE4A1vUHm5qHqKxzqTLFg7nDgJMqEWT7lhYdO1zyz3pacDxW8nzHQkDjNkR0DZaDwckz8fx+Tl9Y2d6ZHVoEBsCjyB+e0LF9xlg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass (client-ip=114.242.206.163; helo=mail.loongson.cn; envelope-from=zhoubinbin@loongson.cn; receiver=lists.ozlabs.org) smtp.mailfrom=loongson.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=loongson.cn (client-ip=114.242.206.163; helo=mail.loongson.cn; envelope-from=zhoubinbin@loongson.cn; receiver=lists.ozlabs.org)
-X-Greylist: delayed 71 seconds by postgrey-1.37 at boromir; Mon, 26 May 2025 16:08:00 AEST
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4b5QKr0gXcz2xgQ;
-	Mon, 26 May 2025 16:07:59 +1000 (AEST)
-Received: from loongson.cn (unknown [223.64.69.3])
-	by gateway (Coremail) with SMTP id _____8AxmnH1BDRouoX8AA--.13577S3;
-	Mon, 26 May 2025 14:06:45 +0800 (CST)
-Received: from localhost.localdomain (unknown [223.64.69.3])
-	by front1 (Coremail) with SMTP id qMiowMAxj8XyBDRoXATyAA--.34620S2;
-	Mon, 26 May 2025 14:06:43 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Adrian Hunter <adrian.hunter@intel.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Joel Stanley <joel@jms.id.au>,
-	linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH 18/34] mmc: sdhci-of-aspeed: Drop the use of sdhci_pltfm_free()
-Date: Mon, 26 May 2025 14:06:32 +0800
-Message-ID: <dfc7e01a6134e421ae3aa8da3221f67d59706d0d.1747792905.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1747792905.git.zhoubinbin@loongson.cn>
-References: <cover.1747792905.git.zhoubinbin@loongson.cn>
+	t=1748312553; c=relaxed/relaxed;
+	bh=zZFVvRJY1fTqIBxgYmrtUDDZUclFNtpBJuPYEOpKE84=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QDbn70jlmjSmSb6gFptILTEQtL6E5NeaGBIvpyReqzcQn5RQautvTV+UrnUIDnnemRPTDx4PLEcxD4HvebF1RnDXFQefWVb6liOsTn/KwfnnQJUT3XQ+zE4Z0PC3wV3SCXxCpVzUBI9jV90sxvpLGR+aP1oERLSjM8nhSEUr/xzRWwTyoh8MtRHicRHfNbH/A0rsSiPYPGzCCXckKYQwSjj5xYoJJ/BsX7hpcTIp9lmWq7cegLRvbGNCyPzqOyik7pDTc0cYC/QLFjWEksbAisAsOJoRg8ByyID+lfsecjSlvTEIG9BioYqX3nL2HIpVE79EV2kbLfqRef6LnT5sPw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=MMVUGooC; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=mohammed.0.elbadry@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=MMVUGooC;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=mohammed.0.elbadry@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4b5xHC69Z9z2xPc
+	for <openbmc@lists.ozlabs.org>; Tue, 27 May 2025 12:22:30 +1000 (AEST)
+Received: by mail-pf1-x42a.google.com with SMTP id d2e1a72fcca58-74019695377so1706175b3a.3
+        for <openbmc@lists.ozlabs.org>; Mon, 26 May 2025 19:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1748312547; x=1748917347; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zZFVvRJY1fTqIBxgYmrtUDDZUclFNtpBJuPYEOpKE84=;
+        b=MMVUGooCbywEGGTbiWGqoHc2ukYFHs2wjDtwqh4Fv3p00mlKZjtkf12wFjLYx8oaXw
+         172bA9yFD7hDoNfH/bkt2ZtemIeNdkYRpKvHNWVh/KsgPYwnhrT5L6EB2TNelKttdtnX
+         Rz26r6ggFbyKTcgz/cMit5TKcpjxd2iHJKQrq+unUZq3JJuWLnK0C9R0cjYYI0J1aVoT
+         qOJyyG21NmE7RoQcRFRwxFkh4DUTNVnNQeTEjKNBakFHrMsXKKbUq5RGr/1s6iNcZrLS
+         kTXJkgBrAOLbE9fcgu3mkDNK3kVG/eNBFwLJ4FfHHzhp7CLBX2CJFP1pIIgv1EEkWLDk
+         UG9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748312547; x=1748917347;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=zZFVvRJY1fTqIBxgYmrtUDDZUclFNtpBJuPYEOpKE84=;
+        b=D/J4NSC8EfZUAq8MMIgjQSQDXmTMlW2A4yE39X1St9KZHykC3zZ7NlfVHJl1bmyNnT
+         3oARDAYC7DBgGi9qqttZgVZ46KsgtCdwqBgKWUWveIMQhQzRp3Ox6uYxGCKXea4RFDYp
+         d4MAowkp16uRWwoj5EaghqUTqPJr7dY85FsV7XHVuqtc4XqOJq4PCWaL+GSiJUEiXsBd
+         SbxOqM0gtQ+OCyB7Ud4qSkb80+80EN/sw4UgRjVRbikUkXQV0FCAfRWvfj4Zxfd/Zjdx
+         xn+LSeA/eibkuPtSdaov/svUYlM4gExUzxfLi9+K2wZ/GVUkXwoUd8eHD1/tl4KLUmUv
+         /ZEw==
+X-Forwarded-Encrypted: i=1; AJvYcCUzM7dg6M4zPpfBW9JgZtg6UFLW1Odh1WIu06D9uQCHwDFXIupLp0qTumKASsskkWMSJ8SmHpeC@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yz1OgXEQXQfmGC2zcfc2KJSxaMl6VLH0RT1v5C4XP/ZilntCvZv
+	U87oc1zhWpHafJQAqpCnjBha5Pl67zSLyfF493L/KjoiOcMRJ4aDoPWY
+X-Gm-Gg: ASbGnctHcV26KTrSCA74Bn93T/ubEv1eHWoUqMw0uBYf8CIcx78NhGWO3Eb73r9Xveo
+	IT5QuPTIHG+4SwnvYDoPdX+xdPNqw5LGBsu4jS0Ncg5DhKluPU6+4rdVyCK7dMee1GCIVm3oZCE
+	Z3EI2a2hR9Wwmwk4JVtyw7XTcan2E8NAhhH+eJ8YI6nanpZMRK/XQ8K+bYpVci8PXH4x6yaIQQf
+	oE/0RwQYDvc2KA/jTNXKfjbOcqyYApwFj8cFv8rSFUc43d7feYM3Ig+9KlPTgBRxhZsiJASEXCH
+	P+eN9bN3w4830ZK1mZd/6E2/Q9GcuIHVsJUxoM8UUqoInkcXt4h1ZJuB7xzWOhKeY2VJahmDm8l
+	ZdPVlILgeClZVuHuFgp/u/x7L4Is/1oebn9ckSQLFjjl6sA==
+X-Google-Smtp-Source: AGHT+IFiuntnsnK15d+0mwYVXj7s4P44ohb8smQc2OgNgWwbXnwz5k1zyE7Ux7qber3BmRexfWOpAQ==
+X-Received: by 2002:a05:6a00:4646:b0:742:ae7e:7da8 with SMTP id d2e1a72fcca58-745fdfcc5e9mr16452708b3a.8.1748312547237;
+        Mon, 26 May 2025 19:22:27 -0700 (PDT)
+Received: from localhost.localdomain (c-98-42-219-30.hsd1.ca.comcast.net. [98.42.219.30])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-742a982a08esm17664706b3a.112.2025.05.26.19.22.25
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 May 2025 19:22:26 -0700 (PDT)
+From: Mohammed Elbadry <mohammed.0.elbadry@gmail.com>
+To: 
+Cc: avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	andi.shyti@kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
+Subject: [PATCH v5] i2c: npcm: Add clock toggle recovery
+Date: Mon, 26 May 2025 19:22:23 -0700
+Message-Id: <20250527022223.78371-1-mohammed.0.elbadry@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20250328193252.1570811-1-mohammed.0.elbadry@gmail.com>
+References: <20250328193252.1570811-1-mohammed.0.elbadry@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -60,75 +102,45 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowMAxj8XyBDRoXATyAA--.34620S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7uw4Dtw13WF4kZry5tr1UArc_yoW8Xw4fpa
-	9xJrWrKr47GFWrKrZ8J3Wqv3WUJw4a9ayxKrWUGw1kW3y3KFyYqFsrCFW8tFs5XFy0gw45
-	XF17Jr48Ca98AabCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUm2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26F4UJVW0owAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	ZF0_GryDMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
-	vY0x0EwIxGrwACjcxG6xCI17CEII8vrVW3JVW8Jr1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK
-	82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_tr0E3s1lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07bOfHUUUUUU=
 
-Since the devm_mmc_alloc_host() helper is already in
-use, sdhci_pltfm_free() is no longer needed.
+From: Tali Perry <tali.perry1@gmail.com>
 
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Joel Stanley <joel@jms.id.au>
-Cc: linux-aspeed@lists.ozlabs.org
-Cc: openbmc@lists.ozlabs.org
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+During init of the bus, the module checks that the bus is idle.
+If one of the lines are stuck try to recover them first before failing.
+Sometimes SDA and SCL are low if improper reset occurs (e.g., reboot).
+
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Signed-off-by: Mohammed Elbadry <mohammed.0.elbadry@gmail.com>
+Reviewed-by: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
 ---
- drivers/mmc/host/sdhci-of-aspeed.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ drivers/i2c/busses/i2c-npcm7xx.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index d6de010551b9..ca97b01996b1 100644
---- a/drivers/mmc/host/sdhci-of-aspeed.c
-+++ b/drivers/mmc/host/sdhci-of-aspeed.c
-@@ -425,10 +425,8 @@ static int aspeed_sdhci_probe(struct platform_device *pdev)
- 		return PTR_ERR(pltfm_host->clk);
+diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
+index de713b5747fe..0757a23dc1cd 100644
+--- a/drivers/i2c/busses/i2c-npcm7xx.c
++++ b/drivers/i2c/busses/i2c-npcm7xx.c
+@@ -2178,10 +2178,15 @@ static int npcm_i2c_init_module(struct npcm_i2c *bus, enum i2c_mode mode,
  
- 	ret = clk_prepare_enable(pltfm_host->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to enable SDIO clock\n");
--		goto err_pltfm_free;
--	}
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "Unable to enable SDIO clock\n");
+ 	/* Check HW is OK: SDA and SCL should be high at this point. */
+ 	if ((npcm_i2c_get_SDA(&bus->adap) == 0) || (npcm_i2c_get_SCL(&bus->adap) == 0)) {
+-		dev_err(bus->dev, "I2C%d init fail: lines are low\n", bus->num);
+-		dev_err(bus->dev, "SDA=%d SCL=%d\n", npcm_i2c_get_SDA(&bus->adap),
+-			npcm_i2c_get_SCL(&bus->adap));
+-		return -ENXIO;
++		dev_warn(bus->dev, " I2C%d SDA=%d SCL=%d, attempting to recover\n", bus->num,
++				 npcm_i2c_get_SDA(&bus->adap), npcm_i2c_get_SCL(&bus->adap));
++		ret = npcm_i2c_recovery_tgclk(&bus->adap);
++		if (ret) {
++			dev_err(bus->dev, "I2C%d init fail: SDA=%d SCL=%d\n",
++				bus->num, npcm_i2c_get_SDA(&bus->adap),
++				npcm_i2c_get_SCL(&bus->adap));
++			return ret;
++		}
+ 	}
  
- 	ret = mmc_of_parse(host->mmc);
- 	if (ret)
-@@ -445,8 +443,6 @@ static int aspeed_sdhci_probe(struct platform_device *pdev)
- 
- err_sdhci_add:
- 	clk_disable_unprepare(pltfm_host->clk);
--err_pltfm_free:
--	sdhci_pltfm_free(pdev);
- 	return ret;
- }
- 
-@@ -461,8 +457,6 @@ static void aspeed_sdhci_remove(struct platform_device *pdev)
- 	sdhci_remove_host(host, 0);
- 
- 	clk_disable_unprepare(pltfm_host->clk);
--
--	sdhci_pltfm_free(pdev);
- }
- 
- static const struct aspeed_sdhci_pdata ast2400_sdhci_pdata = {
+ 	npcm_i2c_int_enable(bus, true);
 -- 
-2.47.1
+2.39.5 (Apple Git-154)
 
 
