@@ -1,95 +1,76 @@
-Return-Path: <openbmc+bounces-84-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-85-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED03C5AD49
-	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C127C3ABB2
+	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:19:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Nm6d3Hz2yrF;
-	Thu, 29 May 2025 10:16:24 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748436717;
-	cv=none; b=EDQIOocHfCsBgMv+RsNFFJ9KK87rQRm+VncV9/hM/UsfHImVXcSx7grU2BGWthS9n09Z8eorHAGVE3a2w6XTAnll3g6KwwBaPlTvVQHWwJXKCAH8b6y/5Rplg2BpGK0WVTejr9dSnw2GqqPEktYixOcfswcmsZ6WZqgQmbP1vjHsTQJPSubywuKs504+qDSVdU3ye/aoJakCE7ySlPekjxSmeK5uFSKT0Bv98zmmVka5DetBFF1H1YyaHQ2kg4sVErDUpvj+0ua2uHMUNzXG45B4j9zJ/8aXfvn3SFr4mIZiK91YLyi12cn4Zaf8vosdIjCte7s0XGLQDxVHtwH6Dw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Nn0ds9z2yrL;
+	Thu, 29 May 2025 10:16:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::62e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748450798;
+	cv=none; b=EQIoXnfgzMJU9u2cSeOAVrxtycQmnAZC6u7dHgziFoIoGZoYmnVK8i3PFha5zc+JpSvJNIGcRwBso9KtpeHDwaNjlMOYgVRa+Ng7Ip9kdyLsojvxNso3NtTyOAffvRIA3FLqPAhiMpgvJYxLeORC9c5bJ0ksQ9WGNrW0TDu/e0FvC34joPfVT3Fh+93lcAnPCS+TtpF8+W5cnLPB0mcL6f3pJhLDIpHd+rQ/2JiOwmSUjb07k+CvF023zOTg0lJ/RAks7AhdF9UsNHtVCmN/btLjtgsLCFdWR3KrJuQ4PawQrk1FevEMmuTj6LIqC1bllziHhZQklvPHqx/8cp+vhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1748436717; c=relaxed/relaxed;
-	bh=kB7iTXZYNtwJt0PtMe69WPYXcPVzYowqNRiFzjz3jZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iepY+Nu4CFuuGjQ8aj6/BGyu2XiNUlHJAV0U5ECe+7fU5IMLx0TT2DnOLIHoQmGvoNGBfIeVOTPVYwjh1Y88jo/9iz8SRyPh+4tvrdqvpwQvHxlfRzJxnm29DDAsgHTAnIMS29emRdHiHVNqv1bNk3Sl2cDlspf9ZLTeMgQixD5d7M1vWiLek35th6PurBv0bpAioo1EXcp/CukqMjKVDPb7RFCQ7JsJhC+1pbYH/F9G5wwRtxpgUvEHxx/SUySMGEMx1BdC3BMHfE7z/a4sL9/ic44JE2wYBkajxPeGE9qBjlSj5oc5z0fQAQPIBpjgvqlujdo55FlY4DIakbCA2w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=aEt+GYsq; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=lorenzo@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1748450798; c=relaxed/relaxed;
+	bh=bTrLQar6gjTjFnrAkyn0kezzixoXN+IjT1tsTT4veX4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ShVblmaA/GvsBecj6GbDx2SQWOmGfKbJ04knvio1zUy6+w48M1mT2jWnw8gz2EOV9ASopmfeuxHy+DRN9ZcIKofazVjEIMRUwPPmPzU9aIN6MX9Tj/RvZm2gK2ngAMOdrFt/sQb7iOITbNJBJTisz5mWEfltlszzRCRrFvv53Cu5Ujac6v2NSEKPvRj1jbjYz0V6Tn/qjrSzoR2IB2vzhKjvw7UMYwB1LIF8vFzuWEzplasyLbmmGca0m7Rfnx2wuL3TycZjw6ClMrotIMZzxiZAWgCB26YjRj84m/ywUoCvTgPdvxQMkSnQYWvT1mYKteP6ktrtkpFEauBve12Otw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=broadcom.com; dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gg5Lu2bZ; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=florian.fainelli@broadcom.com; receiver=lists.ozlabs.org) smtp.mailfrom=broadcom.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=broadcom.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=aEt+GYsq;
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=gg5Lu2bZ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=lorenzo@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=broadcom.com (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=florian.fainelli@broadcom.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6qC02sPpz2xgp;
-	Wed, 28 May 2025 22:51:56 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 501C14A698;
-	Wed, 28 May 2025 12:51:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A382FC4CEE7;
-	Wed, 28 May 2025 12:51:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748436714;
-	bh=SnUlBhjo9u7u7RSQrf1KxHe5OU8VLd3rhNPNiG04UYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aEt+GYsqzE/+UQ/K7Hk/i0gSau9lkAT3hL2R69tTRbqACtYt9VtHrhU5qY0ibd3Xj
-	 EJQ3E8/eVuQ9CMfiomfFvchMrdqbskU2hRlkRmAtm4ZIk8qi0YifCqF9f6QQA6JgtE
-	 p9De0b1FMSRDj/IMgpOUzmtgoo7e4OSxEvq6HLAAHH/hJqFzgGBn4DqT7Lqat/SLZg
-	 i0LTZOqnq5R4P1I+l0r6kgNzamQPvGQG6wa2Lk1zJDGxHNf7he3hgN4ROBnp87OAo+
-	 yqhhzH8qztpN1ghO3+normZFf8fTYF/IPwFkOX9NyZx1nJKPkCY5jmDg9H6VKHkSff
-	 XClTH+H/YL33g==
-Date: Wed, 28 May 2025 14:51:51 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Joel Stanley <joel@jms.id.au>, Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Sean Wang <sean.wang@kernel.org>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Jianlong Huang <jianlong.huang@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org, linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com, linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@axis.com, linux-riscv@lists.infradead.org,
-	linux-rtc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH 16/17] pinctrl: Constify static 'pinctrl_desc'
-Message-ID: <aDcG58lXUgtW7pRZ@lore-desk>
-References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
- <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6wPn6rbqz2xCW
+	for <openbmc@lists.ozlabs.org>; Thu, 29 May 2025 02:46:37 +1000 (AEST)
+Received: by mail-pl1-x62e.google.com with SMTP id d9443c01a7336-234bfe37cccso1457895ad.0
+        for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 09:46:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1748450796; x=1749055596; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bTrLQar6gjTjFnrAkyn0kezzixoXN+IjT1tsTT4veX4=;
+        b=gg5Lu2bZZ2eYeyqHSDGCVbxBY90d+V9l3f1cLC+1F1F3jKCxENhJ5wj3ysh6LlbfIx
+         2iH1iT3gs/WmQnTDF3l9TUvzsScqmy87gdcQ81Q7xoI3JzOD/h6tIUDiXhhMpKnR6oIe
+         OMH3S19FIORy1q7rp6M9wSZyFO2b4VXJ20T+g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748450796; x=1749055596;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bTrLQar6gjTjFnrAkyn0kezzixoXN+IjT1tsTT4veX4=;
+        b=UnjZtSf4WQUQTPhXNSRX2IDEEDooJsVm/+fdfbq/dKATJTdUaSTzQs37+R3fiJa8cm
+         gBbbDzvciA5pLrggMD8g+LNuRl36bm5NLmrt9NDNbbZidGZ3RUmkZPjqCnK7nWdJNgSC
+         Z8ShCuR9aDfoacwKC6Yzylz62Q/4rk3L+FJxmoGppW9msmrdhK0USvp2FKH3fsXDs51b
+         xXuXZJeQaN7l7magnCpOzTQQPMlQe1ATOFyCKgancF62tjsdaRYkbJnobL+nmJkBCjMy
+         lQJvEiXDEUZ+bt5NGaCcpI4wFIJ1AKi62ddg1ce44HpL9rCjITlDQQEbKFTsS7StLvoH
+         46GA==
+X-Forwarded-Encrypted: i=1; AJvYcCXef5Ti0CoxnrCr0+yQX4otu2DWw86w8SiGBpSr5OaUsoW7jxlu9r1sRMO++xrrxBSO0pK4YC/Y@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxDRySdMYLgA/xelV3YPldpdqj46oHj/tlzoNQwPPu8bzeSvLw7
+	w3O8Vgt3plwUk4aMtGqiyE75yqVpsoONUwCvACJR1HmtntsZJagVlK1+2JBbpYcv6Q==
+X-Gm-Gg: ASbGnctQqd60jGX8R7Qj1iNY3zdi5mMQ+1gU3fEpUttkInXNOQ0PL9w+gsPn79hkpPp
+	KBeRfNDzDtbKq0PfyGUju898qAlODnzVME0HMYKnyt9MruvAbZd9/yT/Fr+cSjneIPP4essBbQK
+	U4KqwS1Zfr5VmUIP9SQerisg4UZR7TYkxYWX0CbleeB9+emKgy/HffOiPHtiwhH063yNc+4/LL7
+	Lh8nZxQemF7NRJQPFKmIIzRYd33lOSeF/WieKjYlcbia2g89WOvxoe1zeN3yaLlNXCysIAPWcEE
+	rrgPYLaiktGFhJFUXtGK4omRL6gpy5aYGJwwT3lZlNHmZrV86fpz0Mgdf02CZPpWiHAYrw1ZVEM
+	8JxsZi8dRZcL617U=
+X-Google-Smtp-Source: AGHT+IFZp5UK5jGx1R+UdIJR5to06T9Np6rNPVYDOR8PPYv1Mujf2unJbIiknwRlJEbu8Z7S2Ap77w==
+X-Received: by 2002:a17:902:e848:b0:234:8ac5:754 with SMTP id d9443c01a7336-2348ac50844mr145646295ad.4.1748450796372;
+        Wed, 28 May 2025 09:46:36 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-234d2fe1854sm14097295ad.66.2025.05.28.09.46.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 May 2025 09:46:35 -0700 (PDT)
+Message-ID: <0df6f879-f819-492b-b9c5-f91d544203ad@broadcom.com>
+Date: Wed, 28 May 2025 09:46:26 -0700
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -101,227 +82,93 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/Ro94xiBz0rUYauQ"
-Content-Disposition: inline
-In-Reply-To: <20250528-pinctrl-const-desc-v1-16-76fe97899945@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/17] pinctrl: bcm: cygnus-mux: Move fixed assignments to
+ 'pinctrl_desc' definition
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Lars Persson <lars.persson@axis.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Damien Le Moal <dlemoal@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
+ Michal Simek <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
+ linux-riscv@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-8-76fe97899945@linaro.org>
+Content-Language: en-US
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20250528-pinctrl-const-desc-v1-8-76fe97899945@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
---/Ro94xiBz0rUYauQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> The local static 'struct pinctrl_desc' is not modified, so can be made
-> const for code safety.
->=20
+On 5/28/25 03:41, Krzysztof Kozlowski wrote:
+> Assign 'struct pinctrl_desc' .npins member in definition to make clear
+> that number of pins is fixed and have less code in the probe.
+> 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-For airoha bits:
-
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
-
-> ---
->  drivers/pinctrl/berlin/berlin.c                    | 2 +-
->  drivers/pinctrl/cirrus/pinctrl-cs42l43.c           | 2 +-
->  drivers/pinctrl/mediatek/pinctrl-airoha.c          | 2 +-
->  drivers/pinctrl/pinctrl-artpec6.c                  | 2 +-
->  drivers/pinctrl/pinctrl-bm1880.c                   | 2 +-
->  drivers/pinctrl/pinctrl-k210.c                     | 2 +-
->  drivers/pinctrl/pinctrl-lpc18xx.c                  | 2 +-
->  drivers/pinctrl/pinctrl-mlxbf3.c                   | 2 +-
->  drivers/pinctrl/pinctrl-tb10x.c                    | 2 +-
->  drivers/pinctrl/pinctrl-zynq.c                     | 2 +-
->  drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c | 2 +-
->  11 files changed, 11 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/berlin/berlin.c b/drivers/pinctrl/berlin/ber=
-lin.c
-> index c372a2a24be4bb80b1f2475ef8512171c8e1326f..e5a35b803ce66d247c5e5ad78=
-e6677570a1add60 100644
-> --- a/drivers/pinctrl/berlin/berlin.c
-> +++ b/drivers/pinctrl/berlin/berlin.c
-> @@ -283,7 +283,7 @@ static int berlin_pinctrl_build_state(struct platform=
-_device *pdev)
->  	return 0;
->  }
-> =20
-> -static struct pinctrl_desc berlin_pctrl_desc =3D {
-> +static const struct pinctrl_desc berlin_pctrl_desc =3D {
->  	.name		=3D "berlin-pinctrl",
->  	.pctlops	=3D &berlin_pinctrl_ops,
->  	.pmxops		=3D &berlin_pinmux_ops,
-> diff --git a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c b/drivers/pinctrl/c=
-irrus/pinctrl-cs42l43.c
-> index 628b60ccc2b07dc77e36da8919436fa348749e0c..a90beb986f5bb707c54552e13=
-33802943a4b04bc 100644
-> --- a/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
-> +++ b/drivers/pinctrl/cirrus/pinctrl-cs42l43.c
-> @@ -448,7 +448,7 @@ static const struct pinconf_ops cs42l43_pin_conf_ops =
-=3D {
->  	.pin_config_group_set	=3D cs42l43_pin_config_group_set,
->  };
-> =20
-> -static struct pinctrl_desc cs42l43_pin_desc =3D {
-> +static const struct pinctrl_desc cs42l43_pin_desc =3D {
->  	.name		=3D "cs42l43-pinctrl",
->  	.owner		=3D THIS_MODULE,
-> =20
-> diff --git a/drivers/pinctrl/mediatek/pinctrl-airoha.c b/drivers/pinctrl/=
-mediatek/pinctrl-airoha.c
-> index b97b28ebb37a6ec092360f8ea404dd67e6c43eac..ccd2b512e8365b3a5af0bb223=
-329f39119bc7078 100644
-> --- a/drivers/pinctrl/mediatek/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/mediatek/pinctrl-airoha.c
-> @@ -2852,7 +2852,7 @@ static const struct pinctrl_ops airoha_pctlops =3D {
->  	.dt_free_map =3D pinconf_generic_dt_free_map,
->  };
-> =20
-> -static struct pinctrl_desc airoha_pinctrl_desc =3D {
-> +static const struct pinctrl_desc airoha_pinctrl_desc =3D {
->  	.name =3D KBUILD_MODNAME,
->  	.owner =3D THIS_MODULE,
->  	.pctlops =3D &airoha_pctlops,
-> diff --git a/drivers/pinctrl/pinctrl-artpec6.c b/drivers/pinctrl/pinctrl-=
-artpec6.c
-> index 717f9592b28b51737e67aafc93664b1345511908..af67057128ff1e9e766b958fe=
-ce9c71518c89081 100644
-> --- a/drivers/pinctrl/pinctrl-artpec6.c
-> +++ b/drivers/pinctrl/pinctrl-artpec6.c
-> @@ -907,7 +907,7 @@ static const struct pinconf_ops artpec6_pconf_ops =3D=
- {
->  	.pin_config_group_set	=3D artpec6_pconf_group_set,
->  };
-> =20
-> -static struct pinctrl_desc artpec6_desc =3D {
-> +static const struct pinctrl_desc artpec6_desc =3D {
->  	.name	 =3D "artpec6-pinctrl",
->  	.owner	 =3D THIS_MODULE,
->  	.pins	 =3D artpec6_pins,
-> diff --git a/drivers/pinctrl/pinctrl-bm1880.c b/drivers/pinctrl/pinctrl-b=
-m1880.c
-> index b0000fe5b31dfbcd6af6eaf0c01029f00cbd205b..387798fb09be51cabd5cb76e0=
-d90a28b1d363050 100644
-> --- a/drivers/pinctrl/pinctrl-bm1880.c
-> +++ b/drivers/pinctrl/pinctrl-bm1880.c
-> @@ -1298,7 +1298,7 @@ static const struct pinmux_ops bm1880_pinmux_ops =
-=3D {
->  	.set_mux =3D bm1880_pinmux_set_mux,
->  };
-> =20
-> -static struct pinctrl_desc bm1880_desc =3D {
-> +static const struct pinctrl_desc bm1880_desc =3D {
->  	.name =3D "bm1880_pinctrl",
->  	.pins =3D bm1880_pins,
->  	.npins =3D ARRAY_SIZE(bm1880_pins),
-> diff --git a/drivers/pinctrl/pinctrl-k210.c b/drivers/pinctrl/pinctrl-k21=
-0.c
-> index eddb01796a83eb86c8c5bcf6788c999e8bf2926a..66c04120c29deccf53b21cbf8=
-705f1d10c74ace5 100644
-> --- a/drivers/pinctrl/pinctrl-k210.c
-> +++ b/drivers/pinctrl/pinctrl-k210.c
-> @@ -879,7 +879,7 @@ static const struct pinctrl_ops k210_pinctrl_ops =3D {
->  	.dt_free_map =3D pinconf_generic_dt_free_map,
->  };
-> =20
-> -static struct pinctrl_desc k210_pinctrl_desc =3D {
-> +static const struct pinctrl_desc k210_pinctrl_desc =3D {
->  	.name =3D "k210-pinctrl",
->  	.pins =3D k210_pins,
->  	.npins =3D K210_NPINS,
-> diff --git a/drivers/pinctrl/pinctrl-lpc18xx.c b/drivers/pinctrl/pinctrl-=
-lpc18xx.c
-> index 0f5a7bed2f81b731714e3b65908df23f2ffdfd63..5e0201768323521754e7ecd27=
-e878a81925c18a6 100644
-> --- a/drivers/pinctrl/pinctrl-lpc18xx.c
-> +++ b/drivers/pinctrl/pinctrl-lpc18xx.c
-> @@ -1257,7 +1257,7 @@ static const struct pinctrl_ops lpc18xx_pctl_ops =
-=3D {
->  	.dt_free_map		=3D pinctrl_utils_free_map,
->  };
-> =20
-> -static struct pinctrl_desc lpc18xx_scu_desc =3D {
-> +static const struct pinctrl_desc lpc18xx_scu_desc =3D {
->  	.name =3D "lpc18xx/43xx-scu",
->  	.pins =3D lpc18xx_pins,
->  	.npins =3D ARRAY_SIZE(lpc18xx_pins),
-> diff --git a/drivers/pinctrl/pinctrl-mlxbf3.c b/drivers/pinctrl/pinctrl-m=
-lxbf3.c
-> index ffb5dda364dc81808cfd5a168ce3f1e9f119357d..fcd9d46de89fb3e5215784109=
-ba31b171fd15448 100644
-> --- a/drivers/pinctrl/pinctrl-mlxbf3.c
-> +++ b/drivers/pinctrl/pinctrl-mlxbf3.c
-> @@ -231,7 +231,7 @@ static const struct pinmux_ops mlxbf3_pmx_ops =3D {
->  	.gpio_request_enable =3D mlxbf3_gpio_request_enable,
->  };
-> =20
-> -static struct pinctrl_desc mlxbf3_pin_desc =3D {
-> +static const struct pinctrl_desc mlxbf3_pin_desc =3D {
->  	.name =3D "pinctrl-mlxbf3",
->  	.pins =3D mlxbf3_pins,
->  	.npins =3D ARRAY_SIZE(mlxbf3_pins),
-> diff --git a/drivers/pinctrl/pinctrl-tb10x.c b/drivers/pinctrl/pinctrl-tb=
-10x.c
-> index d6bb8f58978df1577db24f96c2174f47962b5520..2d2e9f697ff99b4209dda8d55=
-11f478a18b26a21 100644
-> --- a/drivers/pinctrl/pinctrl-tb10x.c
-> +++ b/drivers/pinctrl/pinctrl-tb10x.c
-> @@ -735,7 +735,7 @@ static const struct pinmux_ops tb10x_pinmux_ops =3D {
->  	.set_mux =3D tb10x_pctl_set_mux,
->  };
-> =20
-> -static struct pinctrl_desc tb10x_pindesc =3D {
-> +static const struct pinctrl_desc tb10x_pindesc =3D {
->  	.name =3D "TB10x",
->  	.pins =3D tb10x_pins,
->  	.npins =3D ARRAY_SIZE(tb10x_pins),
-> diff --git a/drivers/pinctrl/pinctrl-zynq.c b/drivers/pinctrl/pinctrl-zyn=
-q.c
-> index caa8a2ca3e681718fe213921deca8d130371b122..dcde86fed10db3e2dfebc19cb=
-841ea7f63e74989 100644
-> --- a/drivers/pinctrl/pinctrl-zynq.c
-> +++ b/drivers/pinctrl/pinctrl-zynq.c
-> @@ -1143,7 +1143,7 @@ static const struct pinconf_ops zynq_pinconf_ops =
-=3D {
->  	.pin_config_group_set =3D zynq_pinconf_group_set,
->  };
-> =20
-> -static struct pinctrl_desc zynq_desc =3D {
-> +static const struct pinctrl_desc zynq_desc =3D {
->  	.name =3D "zynq_pinctrl",
->  	.pins =3D zynq_pins,
->  	.npins =3D ARRAY_SIZE(zynq_pins),
-> diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c b/drivers=
-/pinctrl/starfive/pinctrl-starfive-jh7100.c
-> index 27f99183d994dccb92aac81ca42228bdb9225e87..aeaa0ded7c1e5ee7f9c5e4113=
-bfd208fb844ba7d 100644
-> --- a/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
-> +++ b/drivers/pinctrl/starfive/pinctrl-starfive-jh7100.c
-> @@ -898,7 +898,7 @@ static const struct pinconf_ops starfive_pinconf_ops =
-=3D {
->  	.is_generic =3D true,
->  };
-> =20
-> -static struct pinctrl_desc starfive_desc =3D {
-> +static const struct pinctrl_desc starfive_desc =3D {
->  	.name =3D DRIVER_NAME,
->  	.pins =3D starfive_pins,
->  	.npins =3D ARRAY_SIZE(starfive_pins),
->=20
-> --=20
-> 2.45.2
->=20
-
---/Ro94xiBz0rUYauQ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaDcG5wAKCRA6cBh0uS2t
-rABgAQDChqlOupLj8dMgBJtw+ZYSz23faF0MajHN6Bznec2ZxQD/b4iuNIDVxDRu
-w5SyOOU+1pIOKkH9BqiTR31e740csQc=
-=S7ff
------END PGP SIGNATURE-----
-
---/Ro94xiBz0rUYauQ--
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
 
