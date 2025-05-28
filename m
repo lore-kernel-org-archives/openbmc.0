@@ -1,80 +1,71 @@
-Return-Path: <openbmc+bounces-97-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-98-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED384C3ABB2
-	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4485AC3ABB2
+	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:21:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Nw30sBz30Kg;
-	Thu, 29 May 2025 10:16:32 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::330"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748428899;
-	cv=none; b=iXYLDVjYOKkgnQoIyoE4KXOqt14DKlWl38EjPaTdyOHcnEl4UXX0xZMwdOW3uLe7BubKjQnFnmAmAzD0pn7Jmg8L7sYEUjd3xbovtRih0HQ4sQdSRxhKF9X3jctwZ+SxskdeA46uUd2b/sem4YRN2ZTclgxcJCj6KnBEge6KZuCGAiobi2qcu2g53PVHFju6zYs18JGwQ1Jo7C0O/3cZvYKqCYfRM+M0H7vTmqXh6x2KDEozbeGc1gDFlBPWr04GLTsvfkFGHcjkWRAKFXiLk+LAiVC4hBxKcX2UaOjjU39J3MMHhZURUws6TyQojM/DHBLH0F/U4YvlL9KJA6FJxg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Ny4rf9z30Pl;
+	Thu, 29 May 2025 10:16:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::62c"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748407360;
+	cv=none; b=lp06DLgg3Q4Kp87y6yG3RUEDYgoS49PcSQ4xnzkCHdzytr7Db9hvobuG7FUO2movJx5dRD5ITXtlbS0bQ2disuSvC5uALN0DjSE0qmuaSomx52T7Xfs+A/JhP+XicuR4o8+s8T7PozKre18tetRu5PNsQMQB9dpv28XFElrfWlgSB1gfwKLiCqO3Bu+W6BOoy2aAigSuTSUFoPd9ItUBIw5mbqlhikJzILolBukgwQvTyqgNQX5q5olU5QbKquMA8REznsA1NXuDG4Qedp7sBOzbZW2kMk09ufOA0wrES5Gz6HWLNVctPaEwizCeYxxuG77kTmeOqcJF3EtVw39f4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1748428899; c=relaxed/relaxed;
-	bh=7p6g8nrYLu2YSRDRFX7+ayHvEGE7eEHjSKPeWK9MLgc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DM/orLuJgYfv+S2cuDXvlEJ0NhqsEPUMKZE/oftlwfb09cnwYd9aSa+l3YKzSZLxzi0gaXpIi33b5Mfzms1lHM9xUGO4wLRBpXYaxYEdUZCKXkmqLX4v44sKDBueqkaleCK1d3+cK/aVMPiMgmBWmeQh0fChO4UJ05U7rft8QZ5MPrwuTi5I/NBB3KxDt5FwDWrSrdBvHtvJ1mcdlyofK6AN4D8csrgKpqjNZZxgh4ss3/6I38NfsysRSdaGXcDi+qmjbM5yXdwQPWnLdyv5fUGRsX23OnDhXeeV+t24KCvbt+tOG7u+unr3Zmqs1XYDWbud7Ao/rwg49uOd/frh0Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fJZ7ta8D; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+	t=1748407360; c=relaxed/relaxed;
+	bh=WKdIaa8Maem09e2r8/gXhNTUzjBO19cqMb+s9YDilRk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Hsg90gyeAKnQT3Tb7AkcSWn94jKYN3hCY84EKKntVs1yNGltTI7jK9s/KlLG7Eyv1exP4TA6O5jpHZhAU+wJT76cyp4NQ5WClrz5s4n4QVVwRWBdcxBcPiMvVsNeKymeZGNj4+12b2wjOEh18AnSp2Ip7LA8GOYbG/kF/L0kw1jJx71PLOxNoMVPqWps7H1mzYvMqFJM0UkMI9bJme3nBCZXKNeBcQ7Mi3ggrHodgMV5jbKCLqLA47W8mrv2S4BWiDwTlJP1HM/Uop3kkhB97RuhVf9V8xQYEMco1LOAXoqqChqJGfJMCMD16wD/ekjwGPo5JbIhPbePwMQyungNlQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Kj42/R+i; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62c; helo=mail-ej1-x62c.google.com; envelope-from=zhoubb.aaron@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fJZ7ta8D;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Kj42/R+i;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62c; helo=mail-ej1-x62c.google.com; envelope-from=zhoubb.aaron@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6mJf0hj5z2yZ5
-	for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 20:41:37 +1000 (AEST)
-Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-440668acbf3so4924265e9.0
-        for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 03:41:37 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6cLQ1vfrz2xZV;
+	Wed, 28 May 2025 14:42:37 +1000 (AEST)
+Received: by mail-ej1-x62c.google.com with SMTP id a640c23a62f3a-ace94273f0dso781071766b.3;
+        Tue, 27 May 2025 21:42:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1748428895; x=1749033695; darn=lists.ozlabs.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7p6g8nrYLu2YSRDRFX7+ayHvEGE7eEHjSKPeWK9MLgc=;
-        b=fJZ7ta8D/ty7tDMTsrx8e0QMpIWzjle3Yr5n/DiZv02XqpUc37edtAUxhiY2CeJ+0J
-         lLPb5QtMbHN/mEOxvIGUTCjp46BC9UQE5/JXnQL6NH4sYF7Wtytpe0+mlXmGhIPBrdLR
-         iCJm6cBIApN3BOezrSePfbbSDPBqevw+sVIQCIsp7IprDWAE5bJdaoasX899Ll8Qze9h
-         kCQ/1zjZRvAOdP6BLwmYd+gBvm48Gn0o3vtKPGq+0VF9S5BWovjlWTJ0vM7YaljgOyKB
-         fSx6V9d5RvVvXTrB5P/Hu58RobKCmOhv8G2CqC8NsEWZzGh9CGMJY+4D4c0c+Ze7g3al
-         86hw==
+        d=gmail.com; s=20230601; t=1748407354; x=1749012154; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WKdIaa8Maem09e2r8/gXhNTUzjBO19cqMb+s9YDilRk=;
+        b=Kj42/R+irQ/qpJUfN10FD/Alp9kLpDTRSwbhKd/jNTXCix66apbu6nkRVQRTEd9vhn
+         /rhUC+2QwkutitL/aTYJk4V36eAq0epWafiLk+1t2c2IYfLj+2u47SzIC/Yn5Fb8STpR
+         efBS1vGhKzznTH396wrQpfElJYpo/mH1dLI/CD/ow57aRYI67oFP4OEqJeKaNZTZwPbM
+         N59ANdjn8i9bKE8fIKTQGna6I0sMYa2zwHK/KFsD/Km2EzxMpPNTyWrhl/GEdPGE3qYw
+         2ehn0p3mNvWhIcbUx7pDarFY2ioWBpF+WmgQORHuOBrUE6lk7KxDfZ9byr1Vp6RJMpWf
+         zefQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748428895; x=1749033695;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1748407354; x=1749012154;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7p6g8nrYLu2YSRDRFX7+ayHvEGE7eEHjSKPeWK9MLgc=;
-        b=s8GS/afnu2O5e706y4PNRB2HjD9b3zT9MPF3arlQotI8ZLxWg3ClEawS2I5x4HGm5x
-         z/ItMYss4BnJnWQBR3/aSqN8ja8LzXzuIVEX46pB/A+ZcLNOaSoXlSDZER71EuZfLctl
-         lU7Z1NFjctCRcisd79uh1T0lvZIh3fqIcp3WQObXhkQ/YeJ4wN2+q9zCPeB8cvVwmyyG
-         SPFEvqo+nYlbdxvO2RoFljUBK9mLGemT1Dv+Dq5ssbGLZ0oWGxz7/EDaUYlv/nI3QVLq
-         ivK+cOM8QMDpm8IHx7eCNeBapSj0Ws/d4EHy09uc/YAjywrQXcNDJZNtyoRDG5urYnl4
-         Y5HQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXqXThaxtdB+CMXogMfcf8V3w0lt7nQuso8CeWGZrBzvF9tne+YITu75joTgioNFFEitwDdlWGA@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzyK1SAfd+ihKotXbQFmRv9g9R/WqGhxQiV9tiQU6v8Uwdy+sQS
-	ggR0GrbhDPs8rYZjQT2gSBRugJsWb98SZZv3RI56FqdAVGzoZ5mvkLY1vzZadM5NeHs=
-X-Gm-Gg: ASbGncsapne16Uw3ym760KBJufzZgc2p4bTzIPZxQNlKQFvC2/5GrNKQfHa/lumU5Ak
-	yx13+l0giOiAZ3XIrxs41cnvpyuvuWE54IPmNhM8SQyNWLEs6EEYkYmGXTd1zNwt0VNfTfXmMaq
-	89IPg6xSfniSzl5iYJqx1MJxRdnqncNz29RO6JXKMJFRdJpwGXB/xDZ3JBy4EZR0ZXvtjatGq1J
-	6MlOOW/N+lvrBUCVdZw9RP12jEwg4+V+DYlR+M6tDrhKOr0WseyOfgo0QPIv1Jz1v9vyPLMpmUe
-	f//gXqy53s67mE7uQKccJWLBtBvHEPHld4QNoyfs5Ki8Gw1TT4MPJxq3VazShyAemvsF67YHPEa
-	o79P5aw==
-X-Google-Smtp-Source: AGHT+IF4XXp1aLCWKB2Y2JNdxIiZKbtNgU9ZnNFVay8r7bVjoBOcuQslbgG6XG2skmv22UHi94V+gA==
-X-Received: by 2002:a05:6000:1885:b0:3a4:e672:df0c with SMTP id ffacd0b85a97d-3a4e672e083mr1108871f8f.13.1748428894969;
-        Wed, 28 May 2025 03:41:34 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.223.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450064add8bsm17331595e9.17.2025.05.28.03.41.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 May 2025 03:41:34 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 28 May 2025 12:40:57 +0200
-Subject: [PATCH 01/17] pinctrl: starfive: Allow compile testing on other
- platforms
+        bh=WKdIaa8Maem09e2r8/gXhNTUzjBO19cqMb+s9YDilRk=;
+        b=TDQemBbGR0T0+FGjf7ZMcbYI+RYMkRc2cUWPYYbjJHg1PfFlJ/sfsRGzjrQmYbvScP
+         KWD0KptP/WRpci9WLC/POYSG8kOHCFGYBDewRMzPzZiSbNG4Dw0PJYS2AshZZS6VQVzr
+         UWICDzIq0n08mfr6OPYx26EG+jMNw9OppFkH7TXV3GLu5Jjg49wNEMvQMBXYeZPDhKJ5
+         hE/rV93h9Abu/wzmWGbZsVPZmnZxEimF4OId7JHpDo5oLiipl8zEDIkpw7T/dK6Divvq
+         5X0OJuf8KN03Y3dZsKQ595878B1d/kkG1L43h+UFnu5gtON5fLZ3whiuzyzif1JGtlkT
+         fohw==
+X-Forwarded-Encrypted: i=1; AJvYcCUHiTj6ijnn5xRjD+YsLxhUfrqCOvlRhuvBOM0qPBABbMO40qC/f6QtUZGerJPVt+2n4pe466bBdQ==@lists.ozlabs.org, AJvYcCW4WhSzeTnb+3ZJ4YoqkgGEBR9kJdorbLwkIy5abmZt49c2H38jQJN8PhALP7y51VXbDb4Saesgpf6odBg=@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyUMrUPIs8tqL2crT7+ijLcYIcAfaDPJhEDHbt38AdJJ8NE1IQq
+	mNp1LzlTY2dgGV08IUbr5De7w8MBbFAqb3OktR2s7cVwaUI41Y0SH8WvuuUtHUfnh35QRjCnKO4
+	iIF5UP6l0ZM35z2ybOGqf17PVGsJGFAA=
+X-Gm-Gg: ASbGnctL4Uag/cYcHBFQsiXz95iEkc5YtiZKcrQj0mZioSCdIkGTU7yl83gPmc+w8wf
+	uPot3kDPZln61oUD32fsCn5aD/XJLnBEsGWKN3V3VYDZDVajXPJG0oDxMEBMytG85mguL3+Bryw
+	P6Z1N+eVM/DaGsd0A5KHbLy12Gi/66/p/E
+X-Google-Smtp-Source: AGHT+IGIknskN8t5Mo9Bx6fWIoVobETE5Dm+e4jPUV8dy20m2qOh347Ci6qwsLs/e3BB6jtvTCXy+Cj/Ej26l8dZAXQ=
+X-Received: by 2002:a17:907:2ce5:b0:ad8:89f8:3f51 with SMTP id
+ a640c23a62f3a-ad889f8419fmr552069066b.6.1748407354032; Tue, 27 May 2025
+ 21:42:34 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,91 +77,61 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250528-pinctrl-const-desc-v1-1-76fe97899945@linaro.org>
-References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
-In-Reply-To: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
-To: Linus Walleij <linus.walleij@linaro.org>, 
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>, 
- Jesper Nilsson <jesper.nilsson@axis.com>, 
- Lars Persson <lars.persson@axis.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, 
- Damien Le Moal <dlemoal@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>, 
- Michal Simek <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>, 
- Jianlong Huang <jianlong.huang@starfivetech.com>, 
- Hal Feng <hal.feng@starfivetech.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com, 
- linux-riscv@lists.infradead.org, linux-rtc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=941;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=zrI5XszXIHo55XzuEzxs+Nt+l2DX90UOcjrVjPXljcM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoNuhJ4yZZSqj6dEPnXTgLNjKYLUIHgwgauUARk
- H8eJl7B4ryJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaDboSQAKCRDBN2bmhouD
- 1+ivEACCJDREpm7C+JuFF39/eQGACEJKolMKPZ3B1qh8VZPQQTidC/Sc4YJsNMf2ALyneQVNJRr
- ee0rzIGyB1dV+BdbrAAaU1luTOQfqd28ZU+hkN12kluq5TtfVYsfjC3qY+xT+s57CmqWJrS8suf
- tF84DJ05p8vijBMGOe4xzZO7or5BqM1JK32hTFyoZh7kOPiI174p0w91Flem3uX1rLg8f2iRGf5
- nPHw4aLV+fgDVeF1lulUpeOAfqHnt0lqKBhpWkowevGEp1PvCHxN9C+zZxjzyVFbhW7DQ7Vtb2q
- ekSrBr/nfXxV1LWbppOeZjsUoqbUYpEBFiNSjCW5tB6Rc2K4ez83OLBVRPG6U/mKcdlG/sz8MYf
- kxnETUB/7A5YgTrEHNeATC8iZ+qcu0dlniWB178PRj/Ohb5p/++wVINLNbOzxqKur1h03+i74ZQ
- lU+QrFHay3EclA4eZmLOSb5rWnnCam0dbD7OAwUxuYLUeB1dFqcULcpDozUjb0t6M4vPm2Opadi
- Y+Kcj/2g3qAtprbL+7BXQPANgJ7TNXpvHXfiUyPvyMmZPuCNkI2SsPmCPNPVAMn0fgSqkoz6iC1
- UKVdN+23XFZMk5MbzTHm838PZoLCCpE96EW79bgbL2OEPv4hPAfZ9GTjdJjAGafoQ+3/4WhNNSh
- y+XmeSNsjaGGtHQ==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+References: <cover.1747792905.git.zhoubinbin@loongson.cn> <dfc7e01a6134e421ae3aa8da3221f67d59706d0d.1747792905.git.zhoubinbin@loongson.cn>
+ <753cd65ebf659972c8a33e5f8e579b9fa8738682.camel@codeconstruct.com.au>
+In-Reply-To: <753cd65ebf659972c8a33e5f8e579b9fa8738682.camel@codeconstruct.com.au>
+From: Binbin Zhou <zhoubb.aaron@gmail.com>
+Date: Wed, 28 May 2025 12:42:21 +0800
+X-Gm-Features: AX0GCFvNqOzXkxY_eVqYydfapsa-dE3X-UyFZQRp7gfRCGdy1sKC6L7_7xZ-rCE
+Message-ID: <CAMpQs4LchvbX5-1Gr_epq42DSdfj0uegdqaG2Vh=X2DULSbaWA@mail.gmail.com>
+Subject: Re: [PATCH 18/34] mmc: sdhci-of-aspeed: Drop the use of sdhci_pltfm_free()
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Ulf Hansson <ulf.hansson@linaro.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, linux-mmc@vger.kernel.org, 
+	Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Always descent to drivers/pinctrl/starfive/ because limiting it with
-SOC_STARFIVE is redundant since all of its Kconfig entries are already
-have "depends on SOC_STARFIVE".  This allows compile testing on other
-architectures with allyesconfig.
+Hi Andrew:
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/pinctrl/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for your reply.
 
-diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-index ac27e88677d14f1c697e0d0be9f295c746556f4d..dcede70b25660833a158c298d1269d6ecea9dd8b 100644
---- a/drivers/pinctrl/Makefile
-+++ b/drivers/pinctrl/Makefile
-@@ -82,7 +82,7 @@ obj-y				+= sophgo/
- obj-y				+= spacemit/
- obj-$(CONFIG_PINCTRL_SPEAR)	+= spear/
- obj-y				+= sprd/
--obj-$(CONFIG_SOC_STARFIVE)	+= starfive/
-+obj-y				+= starfive/
- obj-$(CONFIG_PINCTRL_STM32)	+= stm32/
- obj-y				+= sunplus/
- obj-$(CONFIG_PINCTRL_SUNXI)	+= sunxi/
+On Wed, May 28, 2025 at 8:44=E2=80=AFAM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> On Mon, 2025-05-26 at 14:06 +0800, Binbin Zhou wrote:
+> > Since the devm_mmc_alloc_host() helper is already in
+> > use,
+>
+> This doesn't appear to be true? aspeed_sdhci_probe() calls
+> sdhci_pltfm_init(), and following that through eventually we call
+> mmc_alloc_host() (the non-devm_ variant).
+>
+> That said, there are some error paths in aspeed_sdhci_probe() where we
+> leak the object. Improving the code would be helpful, but my
+> understanding is this patch isn't right.
 
--- 
-2.45.2
+Sorry, I have a different thought.
+In the original code, there does seem to be a leakage of objects, for examp=
+le:
 
+pltfm_host->clk =3D devm_clk_get(&pdev->dev, NULL);
+        if (IS_ERR(pltfm_host->clk))
+                return PTR_ERR(pltfm_host->clk);
+
+With this error path, we should goto err_pltfm_free;
+
+Now, I have replaced mmc_alloc_host() with devm_mmc_alloc_host() in
+Patch-1[1], so I don't think there will be any error path leakage of
+objects.
+
+[1]: https://lore.kernel.org/all/6fd5afb003982bb5edbf95f76b605686223730e0.1=
+747792905.git.zhoubinbin@loongson.cn/
+>
+> Andrew
+
+--=20
+Thanks.
+Binbin
 
