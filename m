@@ -1,80 +1,76 @@
-Return-Path: <openbmc+bounces-96-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-95-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E96FC5AD49
-	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:20:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A714C5AD49
+	for <openbmc@archiver.kernel.org>; Thu, 29 May 2025 00:20:54 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Nv5TJGz305P;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4b76Nv24Hzz3050;
 	Thu, 29 May 2025 10:16:31 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748428934;
-	cv=none; b=K5zZf0TlfoNCs7M09FWvXR9PL9EGZFrv0a5eubQZrbiu7A6188wbzOzI48PhHugoN/YHdMCsfcJwcyEyohzoL7FehbBuaxPVrlT4yxjeQsNZhZ7pJaI7tEKZ3kwemM6NDB6SDENmVT3UB0kZOD6piqeOVocDpOLPmtKVINwG5psvhBfhVC9KqZwlnxNIeVYigPx+pl8nYNiDEg0kqR1YjsB+m+ffaylUtjaKl0WOIUAd6Z0cgTUavY/qbJXjAUxbZv3dZTp0X6EYl+6srE+cbV/DsCAeB3+oqocfjgRBTpi5zCDzNpJVDMw5dTwPkao6UBpC5+pzKBMYlctN3ykgnA==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::62e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1748450769;
+	cv=none; b=co5uWVpxf9NMEtH+8k30bmhjdHS/tBCTIPu0wyARwZkTgbYYgbLXYJK3GdzPrF/KbSYALKxtez1P0YvlyaMEyouPdfPZQ2yogqwTDKDvhXP+KA6aEe95K3VjSfxQ5/ClhoT5evH6fMTJJ/GAhk8klkTe3Uhx0MhzA3uH/NICpMWFUveS0nSu4q5RUx4InBbgUUg9+ep0c3KdTFUtwWsPK8HeStELpyfb6sdA666CQdAQWx7jfzsaaw2ZrehyMipUUVycZJVefc/dTI/6wzU8EPwGm1XJDY03ftx+y2H+HdvHZPMZmACboAS44juXNrbuEcoVNUbETTTt6Mbq7MqWpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1748428934; c=relaxed/relaxed;
-	bh=qdA/ig8nlywJbkEyEpBGSWcEGO8vU+oGS07oZJY25lE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lke+4hP3WsmN6BZC9d4AC3/cz/7l8jtXUoXbS58wTJQJ1TkCu//ybIJbAY2YaUuKlZopXA4g1ZTi0hCKeF0AGRfLB4brH61Y+hXL2gFltZGzmt8uIc2ayfCCMWu7B6oCC412mpX17dcEDjIz0h7JPBLPOtPLbrPzD9yie3DynwenWg/Ycxr0DqQkxHcj35F4/nFQ085R2WwjHDaL0p8CVcAA3QwyxpTu4AqAdUfKoYkfTgExt412Jk5YBx8/kIZn78JZcbja4zuYFXXQPIcp0+YmXDx+GOp7bpwVf+UUCRDLPIN2UqKRm8etJhz15QnBDIz+ZMjJziz7PVAOlnvyMw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t6ppRBjo; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+	t=1748450769; c=relaxed/relaxed;
+	bh=1SRpD7poP71J0Z5qeEtY8RTEWey1In+xs4H1dHguqyI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mc04xfle55pD22/AFipLUo4gRa7FqsTNpvHLhjAneoXZ3nG98/bnFHs/5E5u2nPB39MEzsQyyGooMk0yaTN5+MG2EUDkgQOcUuI2IErLMtYa0wJnXr3cewT62h85fVWTi4XbilvMgj6f1i7KLq9xBzIiAvWdNrNu2do6NYWabdnElImRxQyY3LTuuzmhVbWTES7jdL27/m9TS1DPQZIBi7ZivahXyLtpop6Xct9mj+vebkhSGS7IEMVe+NOM4z3yRO9c2DjKWn3TK37ZpmZ1U+BtTf0kHopbBR6g9ZMhvsBfOvFnbLbK4/eEmHe1Uuk6QhoClkUhVuk52NFnplQMbg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=broadcom.com; dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VPqKp2Ks; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=florian.fainelli@broadcom.com; receiver=lists.ozlabs.org) smtp.mailfrom=broadcom.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=broadcom.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t6ppRBjo;
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=VPqKp2Ks;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=broadcom.com (client-ip=2607:f8b0:4864:20::62e; helo=mail-pl1-x62e.google.com; envelope-from=florian.fainelli@broadcom.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com [IPv6:2607:f8b0:4864:20::62e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6mKK39pKz2ybQ
-	for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 20:42:13 +1000 (AEST)
-Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-43cfe99f2a7so5846885e9.2
-        for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 03:42:13 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4b6wP821mTz2xCW
+	for <openbmc@lists.ozlabs.org>; Thu, 29 May 2025 02:46:02 +1000 (AEST)
+Received: by mail-pl1-x62e.google.com with SMTP id d9443c01a7336-22c336fcdaaso982735ad.3
+        for <openbmc@lists.ozlabs.org>; Wed, 28 May 2025 09:46:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1748428931; x=1749033731; darn=lists.ozlabs.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qdA/ig8nlywJbkEyEpBGSWcEGO8vU+oGS07oZJY25lE=;
-        b=t6ppRBjoDhrtZ3Cu7g3Pfy3ARqU+eTPtopqERoW6yid2iXFwQHq7wrKjMN/vsvImyg
-         z/2AzYU88zY+vGcmj9H1z9J9dF4F7zKOafbaBLVffxFz9003eKWdADpRbj6os84zOJp4
-         0fOeQe6MivLCy1aHvrMweu0y38UVThYZV+lx/TaBiXS7iJnoqNzP4TmPt+w24D8M+eL6
-         X6ys4Y8YI4rWS7f1gptKZB2Xypb0wMhjWexk2HOk2H2TySdQQh+KzyMszBsOJXxxIZ/K
-         P/ipH8MNdC48agzDtQPw4hNchnERdeoX+G+AM2KVThD88OJhHp2T4zjl5y65zTg7bmCR
-         AK7A==
+        d=broadcom.com; s=google; t=1748450761; x=1749055561; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1SRpD7poP71J0Z5qeEtY8RTEWey1In+xs4H1dHguqyI=;
+        b=VPqKp2KsmGMrXGHQJErocO84SiZg1r+xjhiK4lE9G3DoOzlL0549zPBx70cd4xbUA/
+         5mMtvvus4LOxFS4itEKcS1w+MzFGbCXQkHY0hSGSdQcIUprWE0DwPSixIel4hkWQx9Ox
+         SvGCyMmlpa7NTvTT63Gc8+LAvsZFCn8Ywr5co=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748428931; x=1749033731;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qdA/ig8nlywJbkEyEpBGSWcEGO8vU+oGS07oZJY25lE=;
-        b=Dz7v5ScGVyUVIHT6hH0kWQEfZM81dcySfKqZWApygZ0b9+T9VlkaIX+3sD2h9fHO4b
-         6kVReCtwDGNl5htoksensaJWrjIGO7TX9VD9FpV6IHs+yFvy8E1xYtoYIDAKTVXXItMo
-         0WLEU/Q9obSyCCzjXHxYBvwIA2E8xxmjthCKXr5VNDL0+97vClYjFE+pcmzVZKWSlOWm
-         dKPJPid+RrVb3ifyNQvoivd84bHpEB75IrpFEmoTV2XacJ1OgBpX4eLNrop0eGiXJ4QH
-         EdN2WEtsdqtImjwixUhrJ8i6lhNY2okyMTU8F9u22wsC3m7PA0Zvm5hy2bNhps3SlVMj
-         OXWw==
-X-Forwarded-Encrypted: i=1; AJvYcCUWmkjTzPWI9eajHxVzQWEYa1CAA9rMyTHeY5LYm5nBO1p85IPC2QRTWw1fygQv0VsoMo6hqWkC@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yx8lhgFZDUgNFOBJTI23cr6Puhj/TPiwhf73JpBxe4r2HXSmsn6
-	/5F/XrCwI5Jh5/u6oCSfsVdFzCuWnCG2Fb9gOc2pHY6p9RN2nvxJAG3LjRbKRFumh98=
-X-Gm-Gg: ASbGncuWrLzrb8Jb3PG6ayqrOiEkOel6IZxB0/V3lKlYy/NfZ6b0trzJiwoCkCFBykL
-	RpGTjSdlSE7W3qvnTn99y5GgIE+H3ches+fCWA3P+7Wi24tH93ZovArsHCWRuMWHOc7kd3hWQti
-	MyStps4Qa4SXMNVXyNsnVAVpl0iWNs/BhgSJX0zguxfig7xQIr2qSAP4H5djBBhi8StAnPhjSjv
-	6kGXBoo4FqjEFyfq5MadFJyX+7VBXfccJQmPJbJWHRbJZFRPJnmnLvMSBia3c4irfO79UO4E8CX
-	Y9eozDINWmeIODNq/nRZaoYuQNt8u9HF+24wju5rHJAi9JaDZ/i43gAVqOLxkBBd0WPqOgyFSmk
-	ZwPpu9Q==
-X-Google-Smtp-Source: AGHT+IHdcQ9yFIlwP3zJEBCO4eEnwvHp4vt7sag5E+m0p9zZBnLpwpM4OjjEhLuG3z+TywmxNPkmLg==
-X-Received: by 2002:a05:600c:4f0c:b0:439:a30f:2e49 with SMTP id 5b1f17b1804b1-44ff407200bmr6539815e9.5.1748428930677;
-        Wed, 28 May 2025 03:42:10 -0700 (PDT)
-Received: from [192.168.1.29] ([178.197.223.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450064add8bsm17331595e9.17.2025.05.28.03.42.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 May 2025 03:42:10 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Wed, 28 May 2025 12:41:08 +0200
-Subject: [PATCH 12/17] pinctrl: max77620: Move fixed assignments to
- 'pinctrl_desc' definition
+        d=1e100.net; s=20230601; t=1748450761; x=1749055561;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1SRpD7poP71J0Z5qeEtY8RTEWey1In+xs4H1dHguqyI=;
+        b=YDkCmRVy8tW7zAmYnd49sNZqtk+fS7PTlfcvuBpR8jLB6kFKVXRb/GbYoABbnSYOQY
+         WFBbDr5cWAmIh5ICXWwp1BDEE7zuKEnenkkKPMdWQP/CK6qDqXS4hEb5pBDTwYUMmmyy
+         mS1vbbnyt0g0hD2kbOSaPXtb1K8xKCSCuzDI5tzssM8c9CYhddQJs6HkK39oB6xoA9gF
+         83bf34VnoiN3ZOiyoqbeWvLCxHKy04tNYlKxcx9YYpGXczDrXNbsVN6rN7MWp69u4SgA
+         BE3fJfB/xbJHvGtBL6kZ1ETRjlMsXOmnfrwfIo2kd84pFB/jqGgHO/LLdUOtqhZhE95m
+         KMQw==
+X-Forwarded-Encrypted: i=1; AJvYcCXIu9/glwcUKtrV2Mw6y4mBA8+LCQvYi7Uf5IB0q/FXdCGFwAdZy8Z8Bo6jZw322kXA3Q2YQjly@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YziilvN8l0F5yyFs4tcVnyhcxsy7quTvCWzylxIZ2jNtUtfOYjb
+	U86kdxSTXjcqVbTe03mqd8xnjloyfGyLislajhrOBolLzGZPFg/2anf1eaqIixkhSw==
+X-Gm-Gg: ASbGncsmOP7dvKpCnHKGWkzbDT2tMpNAHd8pNhfNso++cq271YEXzq9f8g1vVYFmOCH
+	Dwh5xyUiomgOncd/usV8D4vNiRNAHxHb6YFaEpPUI6pa+G+NCmCJ1SznpF5wJAiY1qBcYOLJvye
+	8nfa/FVDvaSTwfDxiWZ1RDOye7WCrSHR1UuTEQEeLdiF+bpkbcHEXrSq9lZhMCQoASeZElVvG9b
+	8SEcvNnho6taP0WUD9ZqGdFOv3RwXzZP2YKoX3Nx6bartxX2AjdFMlAl7p3SsI2pc/ZNRqxdW9N
+	eiTPfE92OdpBve0RTd0hgyOdPCCav5cV2TDx5ulDwlzrB9DrqXKRxGBSUkKenA9rI20PTYsURRn
+	jqZtGcPON3e2uIb8=
+X-Google-Smtp-Source: AGHT+IFDqqRyt96nyrm1smBWGPbaIUUGA60gdUbEGZQYCr4hXTXZ7qx/vOTbUl93u1wjePXxrv/QGQ==
+X-Received: by 2002:a17:902:d50b:b0:234:a734:4ac2 with SMTP id d9443c01a7336-234a7344be1mr87356785ad.9.1748450760577;
+        Wed, 28 May 2025 09:46:00 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-234d2fd22besm14180885ad.40.2025.05.28.09.45.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 May 2025 09:45:59 -0700 (PDT)
+Message-ID: <4474875f-bfd7-4f98-836c-0624f75c0f27@broadcom.com>
+Date: Wed, 28 May 2025 09:45:49 -0700
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,104 +82,92 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250528-pinctrl-const-desc-v1-12-76fe97899945@linaro.org>
-References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
-In-Reply-To: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
-To: Linus Walleij <linus.walleij@linaro.org>, 
- Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>, 
- Jesper Nilsson <jesper.nilsson@axis.com>, 
- Lars Persson <lars.persson@axis.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>, 
- Damien Le Moal <dlemoal@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>, 
- Michal Simek <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>, 
- Jianlong Huang <jianlong.huang@starfivetech.com>, 
- Hal Feng <hal.feng@starfivetech.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/17] pinctrl: bcm: Constify static 'pinctrl_desc'
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+ Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Sean Wang <sean.wang@kernel.org>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Lars Persson <lars.persson@axis.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Damien Le Moal <dlemoal@kernel.org>, Vladimir Zapolskiy <vz@mleia.com>,
+ Michal Simek <michal.simek@amd.com>, Emil Renner Berthing <kernel@esmil.dk>,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com, 
- linux-riscv@lists.infradead.org, linux-rtc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1581;
- i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=vXeTXdr0B9QOQoZjEzmtipvrdS/pdMRjTxQFNr/h+bw=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBoNuhT4xTFSLShiMHGrzurn8k/RWLwBOEg/kTfX
- 2gUx5kqw3WJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaDboUwAKCRDBN2bmhouD
- 119uEACKrgBEySfxytMKjgXas+UOwi3IzZ36tTWGAtahy8quwEaS8yKLMXGH3UR5R/xfiE/qxgT
- K0j8KZQkSSoxJgxu/1dPpRloEO6KFrgMS1JNvrxc535yglaGGAF6dztV4S0X8Zw47lxNkSI3oCf
- kmg6Jop17f+7Kjbsu3oNHrrdaoyBSECGDQxfjPrG1OK1828Xa1Gs20NH8vBU0CQOtNFmjAg4W1q
- rCrbcRJkrSV7L68wgkZcewjkW+uCHpp8xfiuky/X+XA3LrnVkt3ZWvvtx5EVrBotsW3c605oGMm
- aIh39HoF2i+U+c1KA9+kRRkUESeOM0m/NNik+1C01XMxfvb6mtTvGtL474OCtItf1zazpXvoj9T
- ygvQC/oprYke1uID4uognq5UNn/OdoNvQJk6tbxBkAwR2epz1lboNXHXIe1MMdo+aFjl0220apS
- E2bXflnrkOr9/PrUbwkSiJxaLcUHqAJCywLcj/t0mPNa791g/BPtMYNr8rDFfZ7XmZyrEPbEJKp
- 5XT8mZQD9JIEGYwbw0cQH/vz9kgOs7p47hN4UApEPGZ0HzG/37d9kmNp+Q9mNDbTUfAr5OPTT0V
- Bv9d8JMKPn9VoDFIrtdM3+11ONR/OmTdCfKgP1pqzLvz0HwoQl9QvT6II0t/70s7GaWP8Umrwo8
- X7EdXcYJodX39FA==
-X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@axis.com,
+ linux-riscv@lists.infradead.org, linux-rtc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20250528-pinctrl-const-desc-v1-0-76fe97899945@linaro.org>
+ <20250528-pinctrl-const-desc-v1-7-76fe97899945@linaro.org>
+Content-Language: en-US
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20250528-pinctrl-const-desc-v1-7-76fe97899945@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Assign 'struct pinctrl_desc' .pins, .npins and other members in
-definition to make clear that number of pins is fixed and have less code
-in the probe.
+On 5/28/25 03:41, Krzysztof Kozlowski wrote:
+> The local static 'struct pinctrl_desc' is not modified, so can be made
+> const for code safety.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/pinctrl/pinctrl-max77620.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/pinctrl/pinctrl-max77620.c b/drivers/pinctrl/pinctrl-max77620.c
-index d236daa7c13ebbcaf7c4a8d1a8bed751aa111c0f..acb945a2574368b2e34659a902c34df8aad193d7 100644
---- a/drivers/pinctrl/pinctrl-max77620.c
-+++ b/drivers/pinctrl/pinctrl-max77620.c
-@@ -543,6 +543,10 @@ static struct pinctrl_desc max77620_pinctrl_desc = {
- 	.pctlops = &max77620_pinctrl_ops,
- 	.pmxops = &max77620_pinmux_ops,
- 	.confops = &max77620_pinconf_ops,
-+	.pins = max77620_pins_desc,
-+	.npins = ARRAY_SIZE(max77620_pins_desc),
-+	.num_custom_params = ARRAY_SIZE(max77620_cfg_params),
-+	.custom_params = max77620_cfg_params,
- };
- 
- static int max77620_pinctrl_probe(struct platform_device *pdev)
-@@ -569,11 +573,6 @@ static int max77620_pinctrl_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, mpci);
- 
- 	max77620_pinctrl_desc.name = dev_name(&pdev->dev);
--	max77620_pinctrl_desc.pins = max77620_pins_desc;
--	max77620_pinctrl_desc.npins = ARRAY_SIZE(max77620_pins_desc);
--	max77620_pinctrl_desc.num_custom_params =
--				ARRAY_SIZE(max77620_cfg_params);
--	max77620_pinctrl_desc.custom_params = max77620_cfg_params;
- 
- 	for (i = 0; i < MAX77620_PIN_NUM; ++i) {
- 		mpci->fps_config[i].active_fps_src = -1;
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-2.45.2
-
+Florian
 
