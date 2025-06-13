@@ -1,71 +1,80 @@
-Return-Path: <openbmc+bounces-213-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-212-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E321C71135
-	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:42:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77C2BC71136
+	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:42:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB33rDVz30VM;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB33kyZz30VF;
 	Sat, 14 Jun 2025 10:41:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749833521;
-	cv=none; b=Osj2E0DmvGrsFgC5NZMcwyEPM5izV6a98pVXV1zwMTEsT9LH9h8d96hS6Mo5E5vFxq8/oqzdBPo77nQjWS+B58ICQy+4QgJjO7HNdaBK/lLUXL6/5X6EFuGz046YLqW4A2mvKBTEATO1ZW0oYQhDm4Re6RL6SsQg1ylpoFje1f0RpeB+7VDyBumomQUT+J7vRiOKpiVppIWafobzzzjVNOZjERaP6SILO7sAfnTRJ/bnjBKEhMNdBj5AiKuX21RbQ1aj/7MZWhy9aDxxGMNYXKzeu3XV+Sj/ds6Bh/X91566WB9D5N5RFKtlCzff2AlVljLhO4gNhAMahlItihwUxA==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::335"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749806303;
+	cv=none; b=fEcD3h0Y3TCS5aRuuLmjVgovl48v5Z+c3IV3v5l8KE/cdJq74gIglEMqPqBSOdFYV2lHpXET1RPFkSHJL1OEJqj7DXVShvBScn/qz8aCI4/ci6xX1FgAsPIlCwogO31IkVFnxrwcJFubSQKYjCbzXWrKXqnozMra9v/aItyssRMIo+q3f83r6kTvZTQWgPBjPKvYrPm2SzwcdrqBevkqmJ4i0sIf/ion4+a7lPUy8GfyENAc7rQ+09W6CBm9lPwvGMTkqojs3YL/bGO9ss3ax0Q+5ADKlasrjunXBSKKJCWHNRt9KlMC+psGMJCFRVX7c9ftaRWtQhVhUL20JokwQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749833521; c=relaxed/relaxed;
-	bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BUXcvGH+es4NwCz1MiBIEUnNVZBfXOcsNKiJgl7jgWEfVbBq+oS/tobFUtqJn1vDYRKtgmuTK0Oh0NUIREvFfe6P35z5GxMrN++bG7Vpjr7X7HQ/aE+glZ8eEyHUP7TtiMgipOaij3MD9OlPJzQENWzOkpv8vj4zGv29dx/U0ZWleR0HAhnoVxAzid463wyADJ66oPfpBH74ysTOfMVJ9BNBiXGUcmKMkVe18EqrBmcg5+uF4ME+1JCg1NsUmI1LX8Tq1y/c7s1/4swolLADIKFjqInjM1uuoug8X4QN95yC8bDhQ3G3mM7h5hfhkpl/lgtLceHMzjVnMRvXdUCLyQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com; dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Qi3vQDs6; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=kasunath@google.com; receiver=lists.ozlabs.org) smtp.mailfrom=google.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com
+	t=1749806303; c=relaxed/relaxed;
+	bh=EZezB8dUdKZQC1klqpxG0ZCPkOkCrr9wOd6SwONA76E=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=N81znZnq045m/DumI+ibJ8UGc7EKaTweXK+NJ13tzTmPFCLlMezrbsCF3RYG/csL2Mfy+F8CGKmCuP9z0d94ENPr0a9B7Qnx16wIaXjnRiWtYz0hyia0cySTscfn3NCPP5RgVIr66aAkXJJdp6W5fClrDoEQPPPnHciGogKm9mHtDwABLBkuzoduL7iuf2jFVUKtlMpu7TEDjXNx0bYd2cAiKLij8xJPq0BNOb9GvJ8GgdmnBK4x8ojAkC2TNkhN3tJXGeQH8eauvkXGaON89xdbZwVfPTj48r29+XIQVSlCGh0WoEP36SndCvM2Yqxfusl6PRpUBo/xqGZZUwQDHQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Faa+TSo4; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=neil.armstrong@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Qi3vQDs6;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Faa+TSo4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=kasunath@google.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=neil.armstrong@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJlmZ6Dhzz2xKN
-	for <openbmc@lists.ozlabs.org>; Sat, 14 Jun 2025 02:51:57 +1000 (AEST)
-Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-453200cd31cso975e9.1
-        for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 09:51:57 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJYjB1PhXz30PF
+	for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 19:18:21 +1000 (AEST)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-45300c82c1cso6553045e9.3
+        for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 02:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1749833513; x=1750438313; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
-        b=Qi3vQDs6d5CICq6//UQPAl3saqzk+0LVBaHoq3AiBKDObz6lZmQPpJaMlaKYMsBeK3
-         N1Z5+ZtDc97TFpNaS2VRJrGqKzELA5+WgNlUm1sDrqNHAUQ23VzZVojarlH7auoXEtCv
-         Jx5ag4ksLyq4A4+DcAnt8FGeF6wQxqYOV9hHKKrMW53KPbexfwK2ozWSy4l0KWJ25u/l
-         t0y2IO2ZKE/4t229+Q8tikGPe9IPoq1UsSoGPgLyU9R9XUAvgsUY/eV6Qn7Jx40VT1K9
-         WZsp7dTgY+XAyg+ri9AeSgyih1HQ+8RAM05K4ZCvqwtqDwdU+N7+3mR4nD5ay46YuT75
-         7IHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749833513; x=1750438313;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1749806299; x=1750411099; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
-        b=FncFasI8npiRJOgnHXwBJPLmbOvfaT73GyLdNRcvsN2r1q2yPBXrshS1SGu2fI7GXn
-         4Ba9euuGeC1VZ4vRmZd3YE3NhfdtWKVjbT9BOzMBhho4rK1BTBD1jHssFuJc5RxrdYwp
-         maRnwGjU2IVlnTUuIQ/vCuwK2arY17mLg8HpMrk7WwfCsyKZJm6armbXmanUCoHNhzsD
-         iPyVu2cXY9/+3dRW5fHTTvWzaf/CoLdl8r242oeFMg2g1xS/n1f1ePSYVo3Cj+oDfJSH
-         9mVHoQ1cWweI5YHZbTHtLu7FEGPpqd9VHR3i59R+aAepRJCqffmThWW6S9PnDYPk+VBU
-         6U7w==
-X-Forwarded-Encrypted: i=1; AJvYcCXWd19WN5yZomVGeQ5r3emA6OEkrlg0SSlP3EZO6w/HQ6fv3h+yFWJ5BQkMQnsqswTgq9L9O9gw@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxNqtiRskLoA38U/ZLjcuIIKDZWA7RInBqW0bSNjF+6rv6sL3BT
-	5TIIkM2Rlhw9uv5J66CsYR2gIahgQ3+dtP64bSQ60zmphjXWZW05Z2klfWJU8nY88HXxdcNwHK+
-	1Hrk7CRkTgR2e4mV7mLm8aStx8uYk3kPUqgI4CO/6
-X-Gm-Gg: ASbGncuJHBDhQ/w8mWtJfbRs595YKqWYY95jr4O3xUKC0TdP7NWQq2m462fuJ4KP2aS
-	VZcseVQZ9dYXOvrE/fWx3eCMfL8laRV1mWdMdpkAovLNJO6iAJZ5Bf5f4XaZXWI+YtB16P4zvJz
-	ygP1Kntd52glY8n1Kg8FsXIrsY4QWGVm4/6Q5n9yCQSLb8dVEKRzVTmP/ryabz/tSSSTf++k0e0
-	7wq
-X-Google-Smtp-Source: AGHT+IGoK998D7fmDQo+oAtUUPx9Oulbz+TXFM33qAKzG3/zkQ+ILqBbOsos/3QCwa4Uo/bqEg4JqN+ko1zD70rSi+Y=
-X-Received: by 2002:a05:600c:358b:b0:439:8f59:2c56 with SMTP id
- 5b1f17b1804b1-45334f120abmr2393365e9.2.1749833510468; Fri, 13 Jun 2025
- 09:51:50 -0700 (PDT)
+        bh=EZezB8dUdKZQC1klqpxG0ZCPkOkCrr9wOd6SwONA76E=;
+        b=Faa+TSo47vYIAarhvYuwRSR4eFWZYfVB9RliKJirNKPVAM5RnA8QVcMb7eMNx039ip
+         5VR/Y2gVYZLVrzexwgpGZLnE/gSF0UX3Mnz093XDRR15XGZ0JuUFxAy+ZjaUtHinUVpn
+         qJldyvHJNmC9lzmNfp2okVUjBra8HFGRvIxKODN7xc4RnVQ4p+UwcQqrTYCWjB2MYbeY
+         UagxE9qTbxYyCDVgVTnJSiUk8UkJmxj6Rml/O5MqMAu6DRVsrBH6uvDcYpp1t4j4QDbv
+         PbI+n4s/HbFAbM9E4rnyohQjO+/K/d6milNkew2bhNt7nciZaVJKLIxyB8Ya7HT5Jtm/
+         HZZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749806299; x=1750411099;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=EZezB8dUdKZQC1klqpxG0ZCPkOkCrr9wOd6SwONA76E=;
+        b=QJRhKt6w2pAGuPzgvYRo3ruV3YppuwhllzcyYwJ6/8bR96rm6S6J242KUxIuK01vsN
+         KW+Ug09ztUMc3FHMVmCdx3kZizsfR6tgQo7U9VgxoTZmjmei6AEPPsIUgTCjAmdkXuar
+         wuVv6uigRkXOpLyCdnacXYDFm4Q9TYX6vbjSfjup+EImbDxdLo6IonhL0dZmyXaFQUME
+         S30bE9jHv+YfG6zfePwGMiwlpWOCSaOWBtcgJ/u6ybyDkcEgiTjAWD1sJR3KlUIi/L0j
+         WMspPuMJ2BjlTGm1i3jy7ptYrkOJ3rbVmkp2XZ347iIBWx2FVPMjw2vvIGNvlg03YYnw
+         E80A==
+X-Forwarded-Encrypted: i=1; AJvYcCVXDyamz6kNbhM0WcaYT2lQJNFx4humdC7fWRD3AMOY67LmIuHawPnGNS9W68s/PLgG1sHZd5bt@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yz6P9oriftQziBluzyIr/0Mm+b1wwaTyAI4ufJQAp7ssUWUVF8u
+	4q1Byd8t+dkvfSdYNg4NPda/U9RqZe8agVGtfGPp25yadIo6wSW3U0BBk/+Khrho+jQ=
+X-Gm-Gg: ASbGnctxxaJpIFYvlpTGmbo1r0DtVNbsqg3mSxwXk2BvElJrFO0NwPMtz0FRGnc3OOY
+	ynSBKxJwTWdguxg52Qt6c4hRE/GhS87GpgSM8GUD/WajSF7sFrJjTaaBV9HsgrilYl7C6hkTjfh
+	AQhKEA10ssKmAhBlwa5EIx0bmNXrVdRrX1zO6q/H1Aghnhxr/O7nNAjltbT4MQsRJTFsMjhmJIZ
+	nUnVeQsmsQ+Ir7U4DGMM8nBWE2aXplWDtrALgI0OvfH0teMthB/a/8WkJjY9mGpWyWM7SBQCCw4
+	tt7rFPq3k8wVhmqbBG3HkqWEN3O0fTqLXH04uMQBPCrEnwTfM/NU0k2eklYHQh7r6z+wwXhJWdX
+	t71sChmNJj/sDUIX+uNAhlIqNWyFAdxVAwgFIBynigETCJAtUTg==
+X-Google-Smtp-Source: AGHT+IEUrossJxJVwWBU+vfj+xukJOxxn0Gc50ke7zrjhbK13v9zCYmZziSm3yGa9wtgXShwZmF+uA==
+X-Received: by 2002:a05:600c:468f:b0:450:d3b9:4b96 with SMTP id 5b1f17b1804b1-45334b07460mr22803915e9.13.1749806298856;
+        Fri, 13 Jun 2025 02:18:18 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:3d9:2080:4144:6a84:fe1d:3aae? ([2a01:e0a:3d9:2080:4144:6a84:fe1d:3aae])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4532063ebf6sm56506385e9.3.2025.06.13.02.18.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Jun 2025 02:18:18 -0700 (PDT)
+Message-ID: <7178e816-4cb4-49b3-9a1e-1ecd4caa43ed@linaro.org>
+Date: Fri, 13 Jun 2025 11:18:17 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -77,71 +86,102 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAN+wxKJMxxnm2egxVFpxhe2Z96ZTdZ2ADCbVOc-_iq-5u77V5Q@mail.gmail.com>
-In-Reply-To: <CAN+wxKJMxxnm2egxVFpxhe2Z96ZTdZ2ADCbVOc-_iq-5u77V5Q@mail.gmail.com>
-From: Kasun Athukorala <kasunath@google.com>
-Date: Fri, 13 Jun 2025 09:51:27 -0700
-X-Gm-Features: AX0GCFs42Zdujij0pYvVDLTwR9NccVn2bQye_gFzXrqTwaqwl8HgLodJzZkUVj4
-Message-ID: <CAHK_2H134KsAsZZYw+QiyH=eCXV=_fiQTi-MOrGKW4+aRsVy-g@mail.gmail.com>
-Subject: Re: Query regarding Libbej openbmc Library
-To: Sneha Bansal <bsneha309@gmail.com>
-Cc: Brandon Kim <brandonkim@google.com>, openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000d34b40063776dcc6"
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/7] Add ASPEED PCIe Root Complex support
+To: Jacky Chou <jacky_chou@aspeedtech.com>, bhelgaas@google.com,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au,
+ andrew@codeconstruct.com.au, vkoul@kernel.org, kishon@kernel.org,
+ linus.walleij@linaro.org, p.zabel@pengutronix.de,
+ linux-aspeed@lists.ozlabs.org, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org
+Cc: elbadrym@google.com, romlem@google.com, anhphan@google.com,
+ wak@google.com, yuxiaozhang@google.com, BMC-SW@aspeedtech.com
+References: <20250613033001.3153637-1-jacky_chou@aspeedtech.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20250613033001.3153637-1-jacky_chou@aspeedtech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---000000000000d34b40063776dcc6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 13/06/2025 05:29, Jacky Chou wrote:
+> This patch series adds support for the ASPEED PCIe Root Complex,
+> including device tree bindings, pinctrl support, and the PCIe host controller
+> driver. The patches introduce the necessary device tree nodes, pinmux groups,
+> and driver implementation to enable PCIe functionality on ASPEED platforms.
+> 
+> Summary of changes:
+> - Add device tree binding documents for ASPEED PCIe PHY, PCIe Config, and PCIe RC
+> - Update MAINTAINERS for new bindings and driver
+> - Add PCIe RC node and PERST control pin to aspeed-g6 device tree
+> - Add PCIe RC PERST pin group to aspeed-g6 pinctrl
+> - Implement ASPEED PCIe Root Complex host controller driver
+> 
+> This series has been tested on AST2600/AST2700 platforms and enables PCIe device
+> enumeration and operation.
+> 
+> Feedback and review are welcome.
 
-Hi Sneha,
+So it seems all PCIe RC code is bundled in a single driver and there's no
+PCIe PHY driver code, is there a reason for that ? If yes I think it should
+be described in the cover letter.
 
-Sure, happy to help. Let me know the issues you are facing and the
-corresponding code you are using.
+Thanks,
+Neil
 
-Thank you,
-Kasun.
+> 
+> Jacky Chou (7):
+>    dt-bindings: phy: Add document for ASPEED PCIe PHY
+>    dt-bindings: pci: Add document for ASPEED PCIe Config
+>    dt-bindings: pci: Add document for ASPEED PCIe RC
+>    ARM: dts: aspeed-g6: Add AST2600 PCIe RC PERST ctrl pin
+>    ARM: dts: aspeed-g6: Add PCIe RC node
+>    pinctrl: aspeed-g6: Add PCIe RC PERST pin group
+>    pci: aspeed: Add ASPEED PCIe host controller driver
+> 
+>   .../bindings/pci/aspeed-pcie-cfg.yaml         |   41 +
+>   .../devicetree/bindings/pci/aspeed-pcie.yaml  |  159 +++
+>   .../bindings/phy/aspeed-pcie-phy.yaml         |   38 +
+>   MAINTAINERS                                   |   10 +
+>   .../boot/dts/aspeed/aspeed-g6-pinctrl.dtsi    |    5 +
+>   arch/arm/boot/dts/aspeed/aspeed-g6.dtsi       |   53 +
+>   drivers/pci/controller/Kconfig                |   13 +
+>   drivers/pci/controller/Makefile               |    1 +
+>   drivers/pci/controller/pcie-aspeed.c          | 1039 +++++++++++++++++
+>   drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c    |   12 +-
+>   10 files changed, 1370 insertions(+), 1 deletion(-)
+>   create mode 100644 Documentation/devicetree/bindings/pci/aspeed-pcie-cfg.yaml
+>   create mode 100644 Documentation/devicetree/bindings/pci/aspeed-pcie.yaml
+>   create mode 100644 Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml
+>   create mode 100644 drivers/pci/controller/pcie-aspeed.c
+> 
 
-
-On Fri, Jun 13, 2025 at 8:22=E2=80=AFAM Sneha Bansal <bsneha309@gmail.com> =
-wrote:
-
-> Hi kasunath,
-> This is sneha here, i have some queries regarding libbej library and i
-> will be highly obliged to you if you can help me out with it. I was passi=
-ng
-> the transfer handles got from GetSchemaDictionary to RDEMulitipartRecieve
-> and then using the bej data as schema dictionary which i further passed i=
-t
-> on to the libbej library for decoding and encoding. But when i passed on
-> the RDEOperationInit data as encodedPLDMBlock, i was facing some issues.
-> Can we connect so that i can resolve few of my queries?
->
-> Thanks and regards
-> Sneha
->
-
---000000000000d34b40063776dcc6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi=C2=A0Sneha,<div><br></div><div>Sure, happy to help. Let=
- me know the=C2=A0issues you are facing and the corresponding=C2=A0code you=
- are using.</div><div><br></div><div>Thank you,</div><div>Kasun.</div><div>=
-<br></div></div><br><div class=3D"gmail_quote gmail_quote_container"><div d=
-ir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 13, 2025 at 8:22=E2=80=AFAM Sne=
-ha Bansal &lt;<a href=3D"mailto:bsneha309@gmail.com">bsneha309@gmail.com</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><di=
-v dir=3D"auto">Hi kasunath,<div dir=3D"auto">This is sneha here, i have som=
-e queries regarding libbej library and i will be highly obliged to you if y=
-ou can help me out with it. I was passing the transfer handles got from Get=
-SchemaDictionary to RDEMulitipartRecieve and then using the bej data as sch=
-ema dictionary which i further passed it on to the libbej library for decod=
-ing and encoding. But when i passed on the RDEOperationInit data as encoded=
-PLDMBlock, i was facing some issues.</div><div dir=3D"auto">Can we connect =
-so that i can resolve few of my queries?</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto">Thanks and regards=C2=A0</div><div dir=3D"auto">Sneha</div=
-></div>
-</blockquote></div>
-
---000000000000d34b40063776dcc6--
 
