@@ -1,68 +1,65 @@
-Return-Path: <openbmc+bounces-217-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-216-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B86E7C71135
-	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:42:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43253C71135
+	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:42:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB55PLPz3bTf;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB53pPdz30Wn;
 	Sat, 14 Jun 2025 10:41:17 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42c"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749828160;
-	cv=none; b=SGrITTCxzu0Q8RVIvqgdre8OclwO6t3ncS2s+dZymBGNFB0d9DJ4difGzdYueAkyWRhls1mOChI0pCQ6vx2FAvW7adsQr1Q2rQa0Cu2Hh15PRgn5fyngFHCEEYy68rWHr6pY4y7QIDQUkXTBNnQaFOHEZhFAP1qgljyAFcSOoKYF3Ws2nDVXacNpLfpcU34UGkiDrrUgcIy7aG2379jT+6uFX30+G6Q6tP+tvMQkRe2C0psdtFSJWrjklUKD5cph4TtaTH0mgRBqJ9w/Xq+Jfefs+O9RILauqEN5NK5pdrbZAl29+cM2A8hN7ssj7MXnpNHcmpm7FQuTyS+tgtau+Q==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749832122;
+	cv=none; b=HugAwZpA7SUfZOSc9qpfVEBCAcia5M3REvlux+zeqo7//rHvDDJeehSN4Xc/Zr7LBeNTtX94OmMWdsMbOckYmXnuZbsieMBEVXi8vxpWZoKMF/Uedxob5ovcwiLpMrCt4dAMU2X0Z7uG4CQifgUi4WX9Xg42K8K2Jz1J8nt8Q5ILxlKQ5eQoMrhd+Z48JgUP/hsQDJBfxW1B5uumOBy3zDMJ/pil1CCoMqDAQcRbvqOjbUXCsCbStHcSHo7WYmumhhwpxCeVUcVo5t3Fw4IEG7HEQ/NlMWF7zBvZa4eeRtqqdkniNl17cVzuFtEW2Z/ld/moKujqO1mbja7/As0ZDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749828160; c=relaxed/relaxed;
-	bh=o6T/spH3CSp0kqe8yzTywdjXbBdhCyR0divkqvI/frQ=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=d1BO5Z2TTaR2Otfi10xRHidtKxTGZfCyswDJmYhmt7dTt8Q1JjGtf9UEQgOmsdQb05cg6POYNbv8vsfCtU4vQSHJCbIgqaKOs6Ne+F6SJXovkDtUFIdcTSQyNd0CmdAWQyiLa9KC6ZmZ66/Ydf97C6PiOH2uZDsWirRkMrsKyi/D0kJeiGLMWdu/MOTygHCrAnl7a2KiySaNcPYVPNL9V+zul7b1k7D+yDWsHW124hAh40FtgGOj85MJ5b3ZIi49UTDqfdvSEex46KN4siRXI+BWN8IP9hF6YmszQTt+Fl5PKogZLzv1Y75ilFfJPmgIim44omRw6uU+0ucUT+U8AA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=A2uM/iXp; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::42c; helo=mail-pf1-x42c.google.com; envelope-from=bsneha309@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1749832122; c=relaxed/relaxed;
+	bh=KXuUPiNs0jGlNzOvonoMKvNlBKQFOiQg6umENLL3PPY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Az00o6ZFbAtm8QPPbIYE7N8je9GmxSzPad8Fa8RXNwvPNgr+vNWRcPnztVJRS99pLAzKHDN9r66ow4rYHn0WRK565YK2Kx30u683cnxLspZj3owi1pOgKBAlcx5RTYRLswpyQG4GmQZcNKex8byCp7iBWybOpHz+LMeJwdzd2GnQc/Re5IEnP349SCcU0LZnhj7EDW6zMwXDzUyzmiE1BCpwApltAks+lbcWZ6YCtI+OGsUyqJws2UyfArFZVRQalTMa8JUgOb958EVPdENOBLBUrzcjFyj+xIu0Efc+Wa9wtyD6eqwrliaozPeTu3zwCI22BCHdh3vmKOuUopPF7Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MDCNr2Ck; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=A2uM/iXp;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MDCNr2Ck;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42c; helo=mail-pf1-x42c.google.com; envelope-from=bsneha309@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com [IPv6:2607:f8b0:4864:20::42c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJjnW3LYqz2xKN
-	for <openbmc@lists.ozlabs.org>; Sat, 14 Jun 2025 01:22:38 +1000 (AEST)
-Received: by mail-pf1-x42c.google.com with SMTP id d2e1a72fcca58-7481600130eso2600084b3a.3
-        for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 08:22:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749828156; x=1750432956; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=o6T/spH3CSp0kqe8yzTywdjXbBdhCyR0divkqvI/frQ=;
-        b=A2uM/iXp2pE5FLy6Wdj2Je98FyG4Pq4+7Z4zhPYeHaJXaC4Hahn2RSvdPr9SdVcff5
-         Wyajm2TIjV7lCsM7UCeZsbDv9pAMl4UOQNnettibn11uNdto89LXACxjYG+0G8tbAi0s
-         HhaBIbPe/zjjkWX/ew47mOP+nMgDYs9aX19rHamTrUjaAd8tLiqhvbblsTZBfEpPQM5F
-         dPCwcQGky/OdsaDJDnbqYfhnytbtTaW0tBR8XnwUR05nd9mka1UXoEFPmRDCbz3LXzXo
-         rXKOovKRIMQ/0YML1aHEijkCTjfUbkGI/0rdaOxwxeqzpxh0MrjMGxoIoXp9NM/Bavfb
-         9xOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749828156; x=1750432956;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=o6T/spH3CSp0kqe8yzTywdjXbBdhCyR0divkqvI/frQ=;
-        b=vBoWR2mWXT4RQv8ocB7QKqzza5/8BhNKMsIURPSexFR7p7SErbAV07WidEFOvwEleY
-         qBfj8+4mn9DmfnQ5sLSkUD4GBDXm7QyPBITw6QDAzn3FDUVyRVecepnWgU9hXGWb/RMK
-         ZuFLe0eeQcgalvZvls3UMn3LAmZm90HlaEn/lnDlbbPSV7MidEjEjqWAcopJc3dGXAOe
-         HJrrcV+9IjTkryBqwGHhCFAz/xIzn/F0igzneFH10cZc6d//BOBEewbjfUohAeF/EwWD
-         fPpjz75eYcd+b9I5jl/xYiv2COVBtMM2VLkbdjDllaHQNN2x30kpzXm+XqjUbxgCwSww
-         b8PA==
-X-Forwarded-Encrypted: i=1; AJvYcCWussWhbZBkmCRjPk+ZBRw4mjiJbsW8keN5K9GTr7vHhjTCrVRUCgPkv02lIzIxFohpA/vDgjIC@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwPrxeZRrvvUQtstUheRDpbxyq9okonxRbSJ4xZ7EOPYQ1F9vQY
-	ZBGc7jJElfdB3egul+Q45tSay8/x6DAC+9Rmtfy4CIU73NkjBT3dK4p+9IWCo/U8/iOD87E+jTs
-	8v8WPYBWWEPenMzWdTKMh8i7uO5gRat09BB8Q
-X-Gm-Gg: ASbGncvNKSpWoIMVm0H5OW/Q+gJAqfYTU4q46p2xiP/eP+UVJA1j0hfZv40wiMww7mA
-	FWVaBMgoWB5b1N6axhBJtzT+T7AsrDhex+S7lUrwbICINJOee62Fad+JMIJt13v2vAfCAROkqea
-	4566WCF/NZBjmS7bTCBBXD/S6CuFLz5Y3csY0cH1l4Sd6z0sxXqnoC
-X-Google-Smtp-Source: AGHT+IG2UdTsPY6ynFbgLqIfKNvuuKRRISDMb00ADoBB9KuuZclnd3RDqGx60zOHhGIQQgC/itBn/AUeeTtzjHcyORE=
-X-Received: by 2002:a05:6a00:8a04:b0:748:2f4e:ab4e with SMTP id
- d2e1a72fcca58-7488f6f8569mr3413607b3a.11.1749828156162; Fri, 13 Jun 2025
- 08:22:36 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJlFj5xkcz2xBb;
+	Sat, 14 Jun 2025 02:28:41 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 5B16849C7D;
+	Fri, 13 Jun 2025 16:28:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09430C4CEE3;
+	Fri, 13 Jun 2025 16:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1749832119;
+	bh=LfgLcCh/Rd/dyzbnkE69yjafGpQ8BEikgpj0nsy/XCM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=MDCNr2Cktn5UWbBuKG/DM68N1yt5sia4wH4cn7qMVp9Yc7/l+XfUUa+XzvUnh77x/
+	 XBfmyi8zXzRdL1N9FHzRRKwv2rxfzileVZilD3BMkWF0wUWfNbigYIG10/C12C82j9
+	 Vx0I21/NAmbOvLKbPxYxmHBiZfXLtu60E9HxeB8DmMMPsplrmC6u6LKhWSOMGdx8Io
+	 ILd76j2aVcAdSEQ+zE6n/tmzVIIH4YaKVZpyNPBzpRgjaqVx+xXQs1cWSDsayIhCSI
+	 4hyE1GHdvqaDjbltQRQEcNJC4qscGrioIMvXyUq0txuZSiSILBlg0c0BwavuXcmCkM
+	 c6rhhz+T/uzkA==
+Date: Fri, 13 Jun 2025 11:28:37 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	mani@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
+	vkoul@kernel.org, kishon@kernel.org, linus.walleij@linaro.org,
+	p.zabel@pengutronix.de, linux-aspeed@lists.ozlabs.org,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org, elbadrym@google.com, romlem@google.com,
+	anhphan@google.com, wak@google.com, yuxiaozhang@google.com,
+	BMC-SW@aspeedtech.com
+Subject: Re: [PATCH 7/7] pci: aspeed: Add ASPEED PCIe host controller driver
+Message-ID: <20250613162837.GA962545@bhelgaas>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,44 +71,335 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Sneha Bansal <bsneha309@gmail.com>
-Date: Fri, 13 Jun 2025 20:52:23 +0530
-X-Gm-Features: AX0GCFtjjwyZST_m5WZwKzpJQRHXUYyulIS4R_LOwhIXPLzZxyB0e8fNQJ0dAF8
-Message-ID: <CAN+wxKJMxxnm2egxVFpxhe2Z96ZTdZ2ADCbVOc-_iq-5u77V5Q@mail.gmail.com>
-Subject: Query regarding Libbej openbmc Library
-To: kasunath@google.com
-Cc: Brandon Kim <brandonkim@google.com>, openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000aa86650637759dda"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250613033001.3153637-8-jacky_chou@aspeedtech.com>
 
---000000000000aa86650637759dda
-Content-Type: text/plain; charset="UTF-8"
+On Fri, Jun 13, 2025 at 11:30:01AM +0800, Jacky Chou wrote:
+> Introduce PCIe Root Complex driver for ASPEED SoCs. Support RC
+> initialization, reset, clock, IRQ domain, and MSI domain setup.
+> Implement platform-specific setup and register configuration for
+> ASPEED. And provide PCI config space read/write and INTx/MSI
+> interrupt handling.
 
-Hi kasunath,
-This is sneha here, i have some queries regarding libbej library and i will
-be highly obliged to you if you can help me out with it. I was passing the
-transfer handles got from GetSchemaDictionary to RDEMulitipartRecieve and
-then using the bej data as schema dictionary which i further passed it on
-to the libbej library for decoding and encoding. But when i passed on the
-RDEOperationInit data as encodedPLDMBlock, i was facing some issues.
-Can we connect so that i can resolve few of my queries?
+Make the subject match drivers/pci/controller/ style.
 
-Thanks and regards
-Sneha
+> +config PCIE_ASPEED
+> +	bool "ASPEED PCIe controller"
+> +	depends on PCI
+> +	depends on OF || COMPILE_TEST
+> +	select PCI_MSI_ARCH_FALLBACKS
+> +	help
+> +	  Enable this option to add support for the PCIe controller
+> +	  found on ASPEED SoCs.
+> +	  This driver provides initialization and management for PCIe
+> +	  Root Complex functionality, including interrupt and MSI support.
+> +	  Select Y if your platform uses an ASPEED SoC and requires PCIe
+> +	  connectivity.
 
---000000000000aa86650637759dda
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Alphabetize this entry by vendor to match the file.
 
-<div dir=3D"auto">Hi kasunath,<div dir=3D"auto">This is sneha here, i have =
-some queries regarding libbej library and i will be highly obliged to you i=
-f you can help me out with it. I was passing the transfer handles got from =
-GetSchemaDictionary to RDEMulitipartRecieve and then using the bej data as =
-schema dictionary which i further passed it on to the libbej library for de=
-coding and encoding. But when i passed on the RDEOperationInit data as enco=
-dedPLDMBlock, i was facing some issues.</div><div dir=3D"auto">Can we conne=
-ct so that i can resolve few of my queries?</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">Thanks and regards=C2=A0</div><div dir=3D"auto">Sneha</=
-div></div>
+Add blank line between paragraphs.
 
---000000000000aa86650637759dda--
+> + * Copyright 2025 Aspeed Technology Inc.
+
+Settle on "ASPEED" or "Aspeed" in text/comment/etc to match corporate
+style.  "aspeed" is good for the driver name, e.g., "PCI: aspeed: ..."
+for the subject.
+
+> +#include <linux/irqchip/chained_irq.h>
+> +#include <linux/irqdomain.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/kernel.h>
+> +#include <linux/msi.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/of_pci.h>
+> +#include <linux/pci.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +#include <linux/irq.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/workqueue.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+
+The trend is to alphabetize these #includes.
+
+> +/* AST2600 PCIe Host Controller Registers */
+> +#define PEHR_MISC_10		0x10
+> +#define DATALINK_REPORT_CAPABLE		BIT(4)
+
+Name register bits like these in a way that connects them with the
+register.
+
+> +static struct irq_chip aspeed_intx_irq_chip = {
+> +	.name = "ASPEED:IntX",
+
+Usual styling is "INTx".
+
+> +	.irq_ack = aspeed_pcie_intx_ack_irq,
+> +	.irq_mask = aspeed_pcie_intx_mask_irq,
+> +	.irq_unmask = aspeed_pcie_intx_unmask_irq,
+
+Name these functions to match the name of the function pointer, e.g.,
+aspeed_pcie_intx_irq_ack() instead of aspeed_pcie_intx_ack_irq()
+This makes grep/cscope more useful.
+
+> +static irqreturn_t aspeed_pcie_intr_handler(int irq, void *dev_id)
+> +{
+> +	struct aspeed_pcie *pcie = dev_id;
+> +	const struct aspeed_pcie_rc_platform *platform = pcie->platform;
+> +	unsigned long status;
+> +	unsigned long intx;
+> +	u32 bit;
+> +	int i;
+> +
+> +	intx = readl(pcie->reg + platform->reg_intx_sts) & 0xf;
+> +	if (intx) {
+
+Don't need "if (intx)" here; the loop is sufficient.
+
+> +		for_each_set_bit(bit, &intx, PCI_NUM_INTX)
+> +			generic_handle_domain_irq(pcie->irq_domain, bit);
+> +	}
+
+> +static int aspeed_ast2600_rd_conf(struct pci_bus *bus, unsigned int devfn,
+> +				  int where, int size, u32 *val)
+> +{
+> +	struct aspeed_pcie *pcie = bus->sysdata;
+> +	u32 bdf_offset;
+> +	int rx_done_fail = 0, slot = PCI_SLOT(devfn);
+> +	u32 cfg_val, isr, type = 0;
+> +	u32 link_sts = 0;
+> +	int ret;
+> +
+> +	/* Driver may set unlock RX buffere before triggering next TX config */
+
+s/buffere/buffer/
+
+> +	writel(PCIE_UNLOCK_RX_BUFF | readl(pcie->reg + H2X_DEV_CTRL),
+> +	       pcie->reg + H2X_DEV_CTRL);
+> +
+> +	if (bus->number == 128 && slot != 0 && slot != 8)
+> +		return PCIBIOS_DEVICE_NOT_FOUND;
+> +	type = (bus->number > 128);
+
+Weird.  What's all this?  Some kind of device you want to hide?
+Deserves a hint about what's special.
+
+> +	if (ret) {
+> +		dev_err(pcie->dev,
+> +			"[%X:%02X:%02X.%02X]CR tx timeout sts: 0x%08x\n",
+
+Conventional format is "%04x:%02x:%02x.%d" (4-digit domain, lower-case
+hex).
+
+> +			pcie->domain, bus->number, PCI_SLOT(devfn),
+> +			PCI_FUNC(devfn), cfg_val);
+> +		ret = PCIBIOS_SET_FAILED;
+> +		*val = ~0;
+
+PCI_SET_ERROR_RESPONSE(val)
+
+> +static int aspeed_ast2600_wr_conf(struct pci_bus *bus, unsigned int devfn,
+> +				  int where, int size, u32 val)
+> +{
+> +	u32 type = 0;
+> +	u32 shift = 8 * (where & 3);
+> +	u32 bdf_offset;
+> +	u8 byte_en = 0;
+> +	struct aspeed_pcie *pcie = bus->sysdata;
+> +	u32 isr, cfg_val;
+> +	int ret;
+> +
+> +	/* Driver may set unlock RX buffere before triggering next TX config */
+
+s/buffere/buffer/
+
+I don't understand this; I suppose it requires hardware knowledge.
+
+> +	writel(PCIE_UNLOCK_RX_BUFF | readl(pcie->reg + H2X_DEV_CTRL),
+> +	       pcie->reg + H2X_DEV_CTRL);
+> +
+> +	switch (size) {
+> +	case 1:
+> +		byte_en = 1 << (where % 4);
+> +		val = (val & 0xff) << shift;
+> +		break;
+> +	case 2:
+> +		byte_en = 0x3 << (2 * ((where >> 1) % 2));
+> +		val = (val & 0xffff) << shift;
+> +		break;
+> +	case 4:
+> +	default:
+> +		byte_en = 0xf;
+> +		break;
+> +	}
+> +
+> +	type = (bus->number > 128);
+
+You're not allowed to *read* bus 128, dev 1, but you can write it?
+
+> +static void aspeed_pcie_port_init(struct aspeed_pcie *pcie)
+> +{
+> +	u32 link_sts = 0;
+> +
+> +	regmap_write(pcie->pciephy, PEHR_LOCK, PCIE_UNLOCK);
+> +	regmap_write(pcie->pciephy, PEHR_GLOBAL, ROOT_COMPLEX_ID(0x3));
+> +
+> +	reset_control_deassert(pcie->perst);
+> +	mdelay(500);
+
+Where did this come from?  Should be a #define with reference to a
+spec.
+
+> +static int aspeed_ast2700_setup(struct platform_device *pdev)
+> +{
+> +	struct aspeed_pcie *pcie = platform_get_drvdata(pdev);
+> +	u32 cfg_val;
+> +
+> +	reset_control_assert(pcie->perst);
+> +
+> +	regmap_write(pcie->pciephy, PEHR_MISC_70,
+> +		     POSTED_DATA_CREDITS(0xc0) | POSTED_HEADER_CREDITS(0xa));
+> +	regmap_write(pcie->pciephy, PEHR_MISC_78,
+> +		     COMPLETION_DATA_CREDITS(0x30) | COMPLETION_HEADER_CREDITS(0x8));
+> +	regmap_write(pcie->pciephy, PEHR_MISC_58, LOCAL_SCALE_SUP);
+> +
+> +	regmap_update_bits(pcie->cfg, SCU_60,
+> +			   RC_E2M_PATH_EN | RC_H2XS_PATH_EN | RC_H2XD_PATH_EN | RC_H2XX_PATH_EN |
+> +			   RC_UPSTREAM_MEM_EN,
+> +			   RC_E2M_PATH_EN | RC_H2XS_PATH_EN | RC_H2XD_PATH_EN | RC_H2XX_PATH_EN |
+> +			   RC_UPSTREAM_MEM_EN);
+> +	regmap_write(pcie->cfg, SCU_64,
+> +		     RC0_DECODE_DMA_BASE(0) | RC0_DECODE_DMA_LIMIT(0xFF) | RC1_DECODE_DMA_BASE(0) |
+> +		     RC1_DECODE_DMA_LIMIT(0xFF));
+> +	regmap_write(pcie->cfg, SCU_70, DISABLE_EP_FUNC);
+> +
+> +	reset_control_assert(pcie->h2xrst);
+> +	mdelay(10);
+
+Source?
+
+> +	reset_control_deassert(pcie->h2xrst);
+> +
+> +	regmap_write(pcie->pciephy, PEHR_MISC_5C, CONFIG_RC_DEVICE);
+> +	regmap_read(pcie->pciephy, PEHR_MISC_60, &cfg_val);
+> +	regmap_write(pcie->pciephy, PEHR_MISC_60,
+> +		     (cfg_val & ~PORT_TPYE) | FIELD_PREP(PORT_TPYE, PORT_TYPE_ROOT));
+> +
+> +	writel(0, pcie->reg + H2X_CTRL);
+> +	writel(H2X_BRIDGE_EN | H2X_BRIDGE_DIRECT_EN, pcie->reg + H2X_CTRL);
+> +
+> +	/* The BAR mapping:
+> +	 * CPU Node0(domain 0): 0x60000000
+> +	 * CPU Node1(domain 1): 0x80000000
+> +	 * IO       (domain 2): 0xa0000000
+
+Are these addresses or sizes?  Should they come from DT?  Maybe it's
+something wired into the hardware?
+
+> +	writel(REMAP_BAR_BASE(0x60000000 + (0x20000000 * pcie->domain)),
+> +	       pcie->reg + H2X_REMAP_DIRECT_ADDR);
+> +
+> +	/* Prepare for 64-bit BAR pref */
+> +	writel(REMAP_PREF_ADDR_63_32(0x3), pcie->reg + H2X_REMAP_PREF_ADDR);
+> +
+> +	reset_control_deassert(pcie->perst);
+> +	mdelay(1000);
+
+Source?
+
+> +static int aspeed_pcie_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct pci_host_bridge *host;
+> +	struct aspeed_pcie *pcie;
+> +	struct device_node *node = dev->of_node;
+> +	const void *md = of_device_get_match_data(dev);
+> +	int irq, ret;
+> +
+> +	if (!md)
+> +		return -ENODEV;
+> +
+> +	host = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
+> +	if (!host)
+> +		return -ENOMEM;
+> +
+> +	pcie = pci_host_bridge_priv(host);
+> +	pcie->dev = dev;
+> +	pcie->tx_tag = 0;
+> +	platform_set_drvdata(pdev, pcie);
+> +
+> +	pcie->platform = md;
+> +	pcie->host = host;
+> +
+> +	pcie->reg = devm_platform_ioremap_resource(pdev, 0);
+> +
+> +	of_property_read_u32(node, "msi_address", &pcie->msi_address);
+> +	of_property_read_u32(node, "linux,pci-domain", &pcie->domain);
+> +
+> +	pcie->cfg = syscon_regmap_lookup_by_phandle(dev->of_node, "aspeed,pciecfg");
+> +	if (IS_ERR(pcie->cfg))
+> +		return dev_err_probe(dev, PTR_ERR(pcie->cfg), "Failed to map pciecfg base\n");
+> +
+> +	pcie->pciephy = syscon_regmap_lookup_by_phandle(node, "aspeed,pciephy");
+> +	if (IS_ERR(pcie->pciephy))
+> +		return dev_err_probe(dev, PTR_ERR(pcie->pciephy), "Failed to map pciephy base\n");
+> +
+> +	pcie->h2xrst = devm_reset_control_get_exclusive(dev, "h2x");
+> +	if (IS_ERR(pcie->h2xrst))
+> +		return dev_err_probe(dev, PTR_ERR(pcie->h2xrst), "Failed to get h2x reset\n");
+> +
+> +	pcie->perst = devm_reset_control_get_exclusive(dev, "perst");
+> +	if (IS_ERR(pcie->perst))
+> +		return dev_err_probe(dev, PTR_ERR(pcie->perst), "Failed to get perst reset\n");
+> +
+> +	ret = pcie->platform->setup(pdev);
+> +	if (ret)
+> +		goto err_setup;
+> +
+> +	host->sysdata = pcie;
+> +
+> +	ret = aspeed_pcie_init_irq_domain(pcie);
+> +	if (ret)
+> +		goto err_irq_init;
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq < 0)
+> +		goto err_irq;
+> +
+> +	ret = devm_request_irq(dev, irq, aspeed_pcie_intr_handler, IRQF_SHARED, dev_name(dev),
+> +			       pcie);
+> +	if (ret)
+> +		goto err_irq;
+> +
+> +	pcie->clock = clk_get(dev, NULL);
+> +	if (IS_ERR(pcie->clock))
+> +		goto err_clk;
+> +	ret = clk_prepare_enable(pcie->clock);
+> +	if (ret)
+> +		goto err_clk_enable;
+
+We need to observe PCIE_T_RRS_READY_MS (or
+PCIE_RESET_CONFIG_DEVICE_WAIT_MS or whatever name we eventually settle
+on) before pci_host_probe() starts issuing config reads.  Maybe this
+is accounted for by one of the sleeps above, but we need a generic
+#define that we can look for.
+
+> +	ret = pci_host_probe(host);
+> +	if (ret)
+> +		goto err_clk_enable;
+> +
+> +	return 0;
+
+Sorry, I see there's a lot of duplication with comments from other
+reviewers :)
+
+Bjorn
 
