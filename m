@@ -1,30 +1,30 @@
-Return-Path: <openbmc+bounces-193-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-194-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D50C71135
-	for <openbmc@archiver.kernel.org>; Fri, 13 Jun 2025 05:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B97C0C61DB2
+	for <openbmc@archiver.kernel.org>; Fri, 13 Jun 2025 05:04:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bJS2m2930z30QJ;
-	Fri, 13 Jun 2025 15:03:12 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bJS3Z4yX8z30RN;
+	Fri, 13 Jun 2025 15:03:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749785740;
-	cv=none; b=U7ophvACgLmIAxjpyVsDh5Qk0EMdKccTXCormjwZPum92qG2jiG1L3ZJUBPlwb5leswcO91U+cBsoLOgcyD30BZjEvg2lqoKJ5rQbvzOwR2ukQOwc7NafqAkt17GLngiIO/FKHiEjC1cX4L4H2/NlAjghIP+Zj2yOcRhSB2+s5yKnPgHf974ptyaFlm0ulsnv6r64ntYjiW7ah8s1kATCstkWm43DlrklV1O//9H+VCLv5D5dI3FZFQVKuvWQIbBO0oRcj/PYAJIj+WC8aeb+HrzAjSl7qk7Ftzwvp8oHUh9GeUUz168eeRgqalUSEZlB/icwX6X4931mB+pIwVpfg==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749785738;
+	cv=none; b=g4srMBZZUCaRImNAfKeg4Sp0L7FBETbT5FbAnjf7S4Sr9NP9BO7vbbWsW9v7aNRAjqzapyt3JtH20OoaJCLuAgHOhboOzE+28LoRNl9SRnISsO05ogectyuG+hD61Lq8uBIQ1TO8kDeovVSKEdKUuqmVKbv1KqkuW3t/C5vJLH8/17zKei0845QIM5XNYeE+s55/5KvLBHYwuTvVzVTAa3saKx6F4rJ9Z4kEwHjNxhlgmWNprmuTIODHxVSOkv1bR+Q0WWZiYbljYuvAwobcAyca3A2JGfFzHQzQuaASU3ZKiBVcIiuG2B8ygl5qf6QulTqPIRl5qiOQ7780tBG+og==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749785740; c=relaxed/relaxed;
-	bh=cm0i6X2961Akf+Ls+i0/k+ZjUPURiX4Nw6tGye1S4Nw=;
+	t=1749785738; c=relaxed/relaxed;
+	bh=PDpSHFX5/iKofQqkW2v7Wb8RTbMe57FisKpAdF+H81o=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ql9W2LisI6E12klX7MWo62eVsc1lbV4R476KU8Dwgy+o7h2RXGk94JKO6MT43ED+gscrH5ZujxPnaY8eTMhmZ52PEd1QpTDFsoC92zGD6ios9h5q/MqJ120hcrx7vL8hfFcBG0P5v7GH+QzEGn4t/ixiz70qEU3sUbJ0GDOqkTouPGms89BDkDkvrWgChe/s1G/G+7iM2b53cZobhdLeJk4TvY02sK3kzRT8zZK6ce6W/ewIsIxoe80iE9pLkZq8swqDyHciuy/2Txj41raj6Q15pczvchEyjoWUEIJv1yz4ofAMr2PUhMJ69PY3o1hKhSm/dbikninJrqSVv2sGTQ==
+	 MIME-Version:Content-Type; b=UZk6m6HzEC4rHM3C3/bBna+DAkrWzgjYtOb3uypoXrSZ67zepIlderGa+55mM5PyTX4TuOMQhks554wIxYw9klQsk9bw9qC+d0ZVvZKbyW3LNyREK6nts35FTq8+kJvfw84bvOpSeLZn4PEEfzAlrcCcf4JuW1FwBGB2iWTyDGgKgHFAJWX0aq3aLjmlW329H5i2BBU+yRFP6qNRswvTpDvAXewttofy3Rh97VKetgA4aAHijdlWBfC/+tVUPFJ//Ue+bsJnX3ckHEVR4PD0aCmxTQFjW8mQR2q6NS4ByMpM7TV0u1R7sbgoBC5l1BIBhXqOJ7yknBls0tgr0ls0GA==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJQ5l6T4Gz30Lt
-	for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 13:35:39 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJQ5j6BYdz3089
+	for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 13:35:37 +1000 (AEST)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 13 Jun
@@ -44,9 +44,9 @@ To: <bhelgaas@google.com>, <lpieralisi@kernel.org>, <kwilczynski@kernel.org>,
 	<linux-gpio@vger.kernel.org>
 CC: <elbadrym@google.com>, <romlem@google.com>, <anhphan@google.com>,
 	<wak@google.com>, <yuxiaozhang@google.com>, <BMC-SW@aspeedtech.com>
-Subject: [PATCH 4/7] ARM: dts: aspeed-g6: Add AST2600 PCIe RC PERST ctrl pin
-Date: Fri, 13 Jun 2025 11:29:58 +0800
-Message-ID: <20250613033001.3153637-5-jacky_chou@aspeedtech.com>
+Subject: [PATCH 1/7] dt-bindings: phy: Add document for ASPEED PCIe PHY
+Date: Fri, 13 Jun 2025 11:29:55 +0800
+Message-ID: <20250613033001.3153637-2-jacky_chou@aspeedtech.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250613033001.3153637-1-jacky_chou@aspeedtech.com>
 References: <20250613033001.3153637-1-jacky_chou@aspeedtech.com>
@@ -64,29 +64,83 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Add pinctrl support for PCIe RC PERST pin.
+Add device tree binding YAML documentation for the ASPEED PCIe PHY.
+This schema describes the required properties for the PCIe PHY node,
+including compatible strings and register space, and provides an
+example for reference.
 
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
- arch/arm/boot/dts/aspeed/aspeed-g6-pinctrl.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../bindings/phy/aspeed-pcie-phy.yaml         | 38 +++++++++++++++++++
+ MAINTAINERS                                   | 10 +++++
+ 2 files changed, 48 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6-pinctrl.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6-pinctrl.dtsi
-index 289668f051eb..a93e15c64a4b 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-g6-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-g6-pinctrl.dtsi
-@@ -2,6 +2,11 @@
- // Copyright 2019 IBM Corp.
- 
- &pinctrl {
-+	pinctrl_pcierc1_default: pcierc1_default {
-+		function = "PCIERC1";
-+		groups = "PCIERC1";
-+	};
+diff --git a/Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml
+new file mode 100644
+index 000000000000..762bf7b0aedc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml
+@@ -0,0 +1,38 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/aspeed-pcie-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	pinctrl_adc0_default: adc0_default {
- 		function = "ADC0";
- 		groups = "ADC0";
++title: ASPEED PCIe PHY
++
++maintainers:
++  - Jacky Chou <jacky_chou@aspeedtech.com>
++
++description: |
++  The ASPEED PCIe PHY provides the physical layer interface for PCIe
++  controllers in the SoC. This node represents the register block for the PCIe
++  PHY, which is typically accessed by PCIe Root Complex or Endpoint drivers
++  via syscon.
++
++properties:
++  compatible:
++    enum:
++      - aspeed,ast2600-pcie-phy
++      - aspeed,ast2700-pcie-phy
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    pcie-phy@1e6ed200 {
++      compatible = "aspeed,ast2600-pcie-phy";
++      reg = <0x1e6ed200 0x100>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a5a650812c16..68115443607d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3696,6 +3696,16 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/aspeed,video-engine.yaml
+ F:	drivers/media/platform/aspeed/
+ 
++ASPEED PCIE CONTROLLER DRIVER
++M:	Jacky Chou <jacky_chou@aspeedtech.com>
++L:	linux-aspeed@lists.ozlabs.org (moderated for non-subscribers)
++L:	linux-pci@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/pci/aspeed-pcie-cfg.yaml
++F:	Documentation/devicetree/bindings/pci/aspeed-pcie.yaml
++F:	Documentation/devicetree/bindings/phy/aspeed-pcie-phy.yaml
++F:	drivers/pci/controller/pcie-aspeed.c
++
+ ASUS EC HARDWARE MONITOR DRIVER
+ M:	Eugene Shalygin <eugene.shalygin@gmail.com>
+ L:	linux-hwmon@vger.kernel.org
 -- 
 2.43.0
 
