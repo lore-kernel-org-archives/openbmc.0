@@ -1,70 +1,65 @@
-Return-Path: <openbmc+bounces-209-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-210-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14212C71136
-	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:41:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C47C71135
+	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:41:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB04nZgz30Qk;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB06SGRz30Ql;
 	Sat, 14 Jun 2025 10:41:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::432"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749827825;
-	cv=none; b=Jn3aX5qxBYjUbv2m9WgzhV9NKxYXtI5Z7b19YZkmXJnVOsL703LQ4npp66F2283z+lEqINMbPwZi4kneAWpa916rsCRHGPMdIOT5mGCUeWNL5Er+iZmynT4OH+EQ2xAHfKYH5s9dl7SkgXxkbSOSGZEMRh5rCN/PcXg/i70TzLik0Hymt55VRxL0s/i+zLgWpzrHs/MM7+4Oa4X9JRE71Agtt5LfEnAzPT7U+Ww7bKWYhVweFhl+JhNxIk7HLNqYzbebkgC1H45gCogXnFD835CBOJWn9Z9pn+jXkc2eHoCuNQgttAqmWYyUuOfMdzT89uDpEDDl8GY6Kl9aWHw1eg==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2604:1380:45d1:ec00::3"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749830104;
+	cv=none; b=HJM+i09vj1VMgN+qa3tMJBFu+JMxPSEK01Zg2P9Q1FA8230fb4cQ0mD+2gSQg3V+NWBr/O+/9BlGPBUJY/ZOsW3oQJxjU8bGyX5oYaIhcCLfSu9i6iW2ca7OtIJXXO09nX4w3wxoWIL+7fPjjmQUUrySZww/BWn5CBEVJmmGvpSpvV+Siq7+it2ovMcg8hOzwWQf9V6yyRR39Syx0Awa6TDdfxbpBO+V7aWBmVSU4QDKnkScis15LaGqktdpnovS13OJULedEBtEDxYx3ZNGetd7gU59GyeaYzcfyGFxQ8qQNz+My62eKtBZqUlSfKgbifamNlzdf8n4WJUiJCD+KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749827825; c=relaxed/relaxed;
-	bh=pNAV61iMlyKs/JveZRubjELrF1cemseXztueaL7XAU8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oSB/VgxJU0rTuqOogvp1L33kiDPuQDu5dxuIf5DDHY/mWFJRpuK90kRtxOBjf6pYwuez8tNqSdDlDgcxNSkZW8/C8dVTHOoVwdJVbrZLIrC8UoDP5/F4IvYzJlf/Z6/8oh+eHIeZ3z+ilpGxEca6m7MoYbQ4wnjYtcWo2SIZFM6CXKeDopgShSwzfHxLPGbsS+njxHneo2eNyM33+AQl7pOxq02Rh78dW21LVVV37G8k6wxTh+lHyZWc1Vb5WYzc22nSsPEh29L0emnefr3EMIviy0ZqCXlZUacvOa4SZcbeyuh0sZcS4hPv2t3ZAUwrboFHBUc+wnGAGDhv/gkBgw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fra3Hq/s; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::432; helo=mail-pf1-x432.google.com; envelope-from=bsneha309@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1749830104; c=relaxed/relaxed;
+	bh=dVpvvucvYqfu63JD/OuOOltdFqYGu1+iCXebSLkmw0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=KNifS+k3rQi9rZvHVv7ThJb5N1QYPbTms7XlS5qN15jff4Lozk2w/2Mt5BudrGCxDS/nSYHMQi9cLiBaJtKNx2eeiBDIyWo9mUPeQ+cEaSsC3JhpV4XU+dPtTGanPBefp3PGa3N5Yl/AkmE+Rx9Q/aP5lVEQa1vhxzbGUmBCpIWpJqQKVsoQXUGgTHSVECsHqN5sOsbxl//JxoEVz44/8t7iJZAUfNzDeshu59d5kdoFjjSt+NLwT0syi1unPvHvkD9Ypixn7Yvt4Lug6hlKCUIGbbqhrPxwmPhQsYDwN9QG4lItCz2+6sVkw9dwlNelMCELuIk/CXM5pNcCAKqP/Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gFPoa516; dkim-atps=neutral; spf=pass (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fra3Hq/s;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gFPoa516;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::432; helo=mail-pf1-x432.google.com; envelope-from=bsneha309@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com [IPv6:2607:f8b0:4864:20::432])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2604:1380:45d1:ec00::3; helo=nyc.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [IPv6:2604:1380:45d1:ec00::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJjg41pxzz2xKN
-	for <openbmc@lists.ozlabs.org>; Sat, 14 Jun 2025 01:17:03 +1000 (AEST)
-Received: by mail-pf1-x432.google.com with SMTP id d2e1a72fcca58-7486ca9d396so1596197b3a.1
-        for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 08:17:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749827820; x=1750432620; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=pNAV61iMlyKs/JveZRubjELrF1cemseXztueaL7XAU8=;
-        b=fra3Hq/sxg0uhcwuuueE375V+SvTrbJ4ydARh79n6053D5fk1t9wBjlnkoHNs0Cd5E
-         VfatdPGIfuCcINk2IV7iOZP3yVL766OreYxjDDFjBUUgQe6RlVS7z1LBf3WS+t+QMVWU
-         lfckdQG+STjThVIaeNC/0GqM2X0PNwjn/4Cf+h81OIRbEUyYTKo2iVi6J6rCbq/g326z
-         MWHkoedyeQFEcIsZll70hd0OCpGbcoFDl02/hD1TctE2pBNHHam+0UTQqeZhImVqyAke
-         rRbYWG2dU0ZVxF/3f+z3RVfsG/v5I3xoyqyuVrO0soFQCDdUDZjXcOKMYph+i4IAO4Pv
-         55/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749827820; x=1750432620;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pNAV61iMlyKs/JveZRubjELrF1cemseXztueaL7XAU8=;
-        b=PRc2B090AwNplFTOk+4TiiHKlJwVPivFZD+6aA/cvadStqdFDQ4KDxrRdnlqjAcFs+
-         W3almGDgKxa0kJK4K9TQds+wLKa1HtGwsQJCJRh8sqQZ/J48OxAiQOrfdyaovM9pvvTh
-         ptM7+pA50FP07gqdAdCCQNm/nk66CcZE1nC6L40D0f14PPINxe9ClzxgBfDiyzadxXd8
-         /VnoOpPSljjkM002zIim6E50xzUBWH7Cc3ATd1OT9jB1bBXial7+w37ZtIF31L1/DOqR
-         5mOxyvsujlJxhPRFsEqKAbV5sfw7QvDILnvv+2vR1Jq19V9aTqLwwqb6WS/WQOL8Qkt+
-         kxEg==
-X-Forwarded-Encrypted: i=1; AJvYcCUKSnKjlkOSx9rB3YLEi3X3JHEEozD0SU5f7CLP8+Bwbjc2kPsjguMz0ye+whT6pL3owMeIA2KL@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzSR/EXTKZnGHnyEBLf4K10B8G2H7DDfISKX6vlVIfry1MRil0m
-	tBQYXA7/zNxraMeS+LnT0ZAQze7hzy9sTm4ZQyOAVWJplZd2XjPkMPWJIyHuRecD5dVT4Q5iViz
-	1S6/HNVqz5jSj8JuuBR/3C2dJNJwuTtU=
-X-Gm-Gg: ASbGncv6u6ijmsWQWX4+pFi6rxrdxJOVryWGGtW3gwovzbC6AEA1wUuk4sLd/33rybc
-	h2dUbFLRTJM3LYsv+Y2YmGRtmoGcCI8S6bWTmigRRRwYfZTYngs4e1uL0r/V3QTaBx/o0zTikAl
-	LlwOnKBSE0BunqO5w8yd+ITitrfeT6si4OwpOdhdwPstKK57vbKK3g
-X-Google-Smtp-Source: AGHT+IH8w2Z3dDrVyAvhG4hzWPjQLp/Lpvj+gLmqk0zXwngOqcEbmt1r6hO4felOjUwMFE2lt2ewJsl4290YwUH0Rdo=
-X-Received: by 2002:a05:6a00:21d1:b0:746:2c7f:b271 with SMTP id
- d2e1a72fcca58-7488f641129mr4052895b3a.9.1749827819851; Fri, 13 Jun 2025
- 08:16:59 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJkVv135nz2xBb;
+	Sat, 14 Jun 2025 01:55:02 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by nyc.source.kernel.org (Postfix) with ESMTP id 45683A5148E;
+	Fri, 13 Jun 2025 15:55:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42EBC4CEED;
+	Fri, 13 Jun 2025 15:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1749830099;
+	bh=txoIyDrG2vubdoOdTiTdmcJQb8y7qy5caM50Zd8G8to=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=gFPoa516Ela1DPXpH0f6/CS5GkNUbZK3nAYpFk07eqEgd3MKAhYJpF0s0lR7On5mh
+	 mTRs3hEkjNSmkoYXNNxat0V6bY1VSuL9RUaPNvJuo+3M4NxXHk18J9uIsBuF7BfZSP
+	 LT2mpCyuW/nNNqy98L7h2qv/SXJaaEYTKmk9KlAx8hO5gtnc+f8HFC2H9FWk4DGBfW
+	 6JdxNAw5ZVa4sVUYSYyFngUyMNeio0PIqep0t3E5XJuUwayNZIlc1Um9AsPD8fsgtD
+	 LX9RVvGngHT5S7OMOIWzgnwkmg0oDRjT3tctQgL7cXq2tYr8yGsydjYdO2oCDGOE4x
+	 7e6vKtWFkarMA==
+Date: Fri, 13 Jun 2025 10:54:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	mani@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
+	vkoul@kernel.org, kishon@kernel.org, linus.walleij@linaro.org,
+	p.zabel@pengutronix.de, linux-aspeed@lists.ozlabs.org,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org, openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org, elbadrym@google.com, romlem@google.com,
+	anhphan@google.com, wak@google.com, yuxiaozhang@google.com,
+	BMC-SW@aspeedtech.com
+Subject: Re: [PATCH 5/7] ARM: dts: aspeed-g6: Add PCIe RC node
+Message-ID: <20250613155458.GA962010@bhelgaas>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,69 +71,66 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAN+wxKK1vwqhCRQ56km1UH6Oi79DAcVeA7t45MWH=7P8nGbOBA@mail.gmail.com>
- <CALGRKGNKBxvdTwjz3X+EPNND2Swm-xjNOMe3B0G5eAT_kwQCKw@mail.gmail.com>
-In-Reply-To: <CALGRKGNKBxvdTwjz3X+EPNND2Swm-xjNOMe3B0G5eAT_kwQCKw@mail.gmail.com>
-From: Sneha Bansal <bsneha309@gmail.com>
-Date: Fri, 13 Jun 2025 20:46:47 +0530
-X-Gm-Features: AX0GCFuHqaROvJ-HqYVLYZshur1PLWdceor2SY0vcNeNSv2vYvtcVghi0d1-b2k
-Message-ID: <CAN+wxKLWTV4=rWBjssq7okuSZ=-2Ln=p6j8YRXE33_iSj2UTZw@mail.gmail.com>
-Subject: Re: Query regarding libbej library
-To: Brandon Kim <brandonkim@google.com>
-Cc: Kasun Athukorala <kasunath@google.com>, openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000009ee15d063775892d"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250613033001.3153637-6-jacky_chou@aspeedtech.com>
 
---0000000000009ee15d063775892d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Jun 13, 2025 at 11:29:59AM +0800, Jacky Chou wrote:
+> The AST2600 has one PCIe RC, and add the relative configure regmap.
 
-Ok, thanks.
+> +			pcie0: pcie@1e7700c0 {
+> +				compatible = "aspeed,ast2600-pcie";
+> +				device_type = "pci";
+> +				reg = <0x1e7700c0 0x40>;
+> +				linux,pci-domain = <0>;
+> +				#address-cells = <3>;
+> +				#size-cells = <2>;
+> +				interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+> +				bus-range = <0x80 0xff>;
+> +
+> +				ranges = <0x01000000 0x0 0x00018000 0x00018000 0x0 0x00008000
+> +					  0x02000000 0x0 0x70000000 0x70000000 0x0 0x10000000>;
+> +
+> +				status = "disabled";
+> +
+> +				resets = <&syscon ASPEED_RESET_H2X>,
+> +					 <&syscon ASPEED_RESET_PCIE_RC_O>;
+> +				reset-names = "h2x", "perst";
 
-On Mon, 9 Jun 2025, 22:32 Brandon Kim, <brandonkim@google.com> wrote:
+PERST# is clearly a per-Root Port item since it's a signal on the PCIe
+connector.  Can you separate this and any other per-Root Port things
+into a Root Port stanza to leave open the possibility of future
+hardware that supports multiple Root Ports in the RC?
 
-> @Kasun Athukorala <kasunath@google.com> worked on libbej - perhaps he'll
-> be able to help out.
->
-> On Fri, Jun 6, 2025 at 7:02=E2=80=AFPM Sneha Bansal <bsneha309@gmail.com>=
- wrote:
->
->> Hi this is sneha here, I was  integrating libbej library in my codebase
->> but was facing some issues. I have few queries regarding the library. Ca=
-n
->> you please help me out regarding this? So that i can clear my doubt and
->> perform the integration successfully.
->>
->> Thanks and Regards
->> Sneha Bansal
->>
->
-
---0000000000009ee15d063775892d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr">Ok, thanks.</p>
-<br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Mon, 9 Jun 2025, 22:32 Brandon Kim, &lt;<a href=3D"mailt=
-o:brandonkim@google.com">brandonkim@google.com</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #c=
-cc solid;padding-left:1ex"><div dir=3D"ltr"><a class=3D"gmail_plusreply" id=
-=3D"m_1036915538413113914plusReplyChip-0" href=3D"mailto:kasunath@google.co=
-m" target=3D"_blank" rel=3D"noreferrer">@Kasun Athukorala</a>=C2=A0worked o=
-n libbej - perhaps he&#39;ll be able to help out.<br></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 6, 2025 =
-at 7:02=E2=80=AFPM Sneha Bansal &lt;<a href=3D"mailto:bsneha309@gmail.com" =
-target=3D"_blank" rel=3D"noreferrer">bsneha309@gmail.com</a>&gt; wrote:<br>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"auto">H=
-i this is sneha here, I was=C2=A0 integrating libbej library in my codebase=
- but was facing some issues. I have few queries regarding the library. Can =
-you please help me out regarding=C2=A0this? So that i can clear my doubt an=
-d perform the integration successfully.=C2=A0<div dir=3D"auto"><br></div><d=
-iv dir=3D"auto">Thanks and Regards</div><div dir=3D"auto">Sneha Bansal=C2=
-=A0</div></div>
-</blockquote></div>
-</blockquote></div>
-
---0000000000009ee15d063775892d--
+> +				clocks = <&syscon ASPEED_CLK_GATE_BCLK>;
+> +				pinctrl-names = "default";
+> +				pinctrl-0 = <&pinctrl_pcierc1_default>;
+> +
+> +				#interrupt-cells = <1>;
+> +				msi-parent = <&pcie0>;
+> +				msi-controller;
+> +				msi_address = <0x1e77005c>;
+> +
+> +				aspeed,ahbc = <&ahbc>;
+> +				aspeed,pciecfg = <&pcie_cfg>;
+> +				aspeed,pciephy = <&pcie_phy1>;
+> +
+> +				interrupt-map-mask = <0 0 0 7>;
+> +				interrupt-map = <0 0 0 1 &pcie_intc0 0>,
+> +						<0 0 0 2 &pcie_intc0 1>,
+> +						<0 0 0 3 &pcie_intc0 2>,
+> +						<0 0 0 4 &pcie_intc0 3>;
+> +				pcie_intc0: interrupt-controller {
+> +					interrupt-controller;
+> +					#address-cells = <0>;
+> +					#interrupt-cells = <1>;
+> +				};
+> +			};
+> +
+>  			gfx: display@1e6e6000 {
+>  				compatible = "aspeed,ast2600-gfx", "syscon";
+>  				reg = <0x1e6e6000 0x1000>;
+> -- 
+> 2.43.0
+> 
 
