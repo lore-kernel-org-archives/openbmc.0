@@ -1,65 +1,71 @@
-Return-Path: <openbmc+bounces-211-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-213-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49E89C71136
-	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E321C71135
+	for <openbmc@archiver.kernel.org>; Sat, 14 Jun 2025 00:42:06 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB20CdQz308P;
-	Sat, 14 Jun 2025 10:41:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=147.75.193.91
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749830338;
-	cv=none; b=QfHKMg0GaxGdnWBdyf4+jiIjPn8IwXBLNInh8mZnabL2hixOrSG8HH28xq/QV5Bjy5y3Hkw99ZVFKGzRWB8ij2hfD+KisGUd9HTV9+v4ofOk8qlv2tc+JifNQCC0f0KqPrSyozp3zf1A/TmGAFJmvf+jOALgSTV3gcDwf1iL+74R+G6ER52Z8bU8q7i40GwPCMXUe9RvEkwvTdRhlYPoMHTUQCa2WpbPRjlIKm1im5wePqOn0xCaMPc1V39vU/ESPIZre5gZBnqL8xpnBVcrEB5AKnRtdQ0Hey2NA/m8jYQZKEMjyEd2eHAGwD0HtoRjgL8kNfWoOmwLPQ+niRvMqw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bJyB33rDVz30VM;
+	Sat, 14 Jun 2025 10:41:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32d"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749833521;
+	cv=none; b=Osj2E0DmvGrsFgC5NZMcwyEPM5izV6a98pVXV1zwMTEsT9LH9h8d96hS6Mo5E5vFxq8/oqzdBPo77nQjWS+B58ICQy+4QgJjO7HNdaBK/lLUXL6/5X6EFuGz046YLqW4A2mvKBTEATO1ZW0oYQhDm4Re6RL6SsQg1ylpoFje1f0RpeB+7VDyBumomQUT+J7vRiOKpiVppIWafobzzzjVNOZjERaP6SILO7sAfnTRJ/bnjBKEhMNdBj5AiKuX21RbQ1aj/7MZWhy9aDxxGMNYXKzeu3XV+Sj/ds6Bh/X91566WB9D5N5RFKtlCzff2AlVljLhO4gNhAMahlItihwUxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749830338; c=relaxed/relaxed;
-	bh=otyT+YaTJjPBX9e3RtgYlk7uAkCyCMfxu1qgrQAGDgk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=jgbJnUn1i8R6t9nSzpm6mMmndnKFCHq4BC/ANw+izP0SE934SzQo/JC2zgHEd7lrhX068soKMmFES/XB6M0/HQqIf97Luxy//zlF3HpfYPii/IQM7dV4mp+ipMGWe6Cpk3+/VvbKhQKlg0KXM49YIMgEqwdp2jZCSPtS2Heq8z3Sq184Wkg15piC6GPNZ3VzEgcVdEgmsT1VTMtgJcmDQUbevJNGmK6AnZcp0LtWsslDFxVHLwhIpl80PE9WbeEKTiBSdyLiJ6mG5g2rfwDZG2UWGlDG8+oS8COgo7xQgNd5/FZ8t9fC3TAgAl6vMgK1MsL1IVltF47I+lD/PLE2mg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Cb2gSlz4; dkim-atps=neutral; spf=pass (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1749833521; c=relaxed/relaxed;
+	bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BUXcvGH+es4NwCz1MiBIEUnNVZBfXOcsNKiJgl7jgWEfVbBq+oS/tobFUtqJn1vDYRKtgmuTK0Oh0NUIREvFfe6P35z5GxMrN++bG7Vpjr7X7HQ/aE+glZ8eEyHUP7TtiMgipOaij3MD9OlPJzQENWzOkpv8vj4zGv29dx/U0ZWleR0HAhnoVxAzid463wyADJ66oPfpBH74ysTOfMVJ9BNBiXGUcmKMkVe18EqrBmcg5+uF4ME+1JCg1NsUmI1LX8Tq1y/c7s1/4swolLADIKFjqInjM1uuoug8X4QN95yC8bDhQ3G3mM7h5hfhkpl/lgtLceHMzjVnMRvXdUCLyQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com; dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Qi3vQDs6; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=kasunath@google.com; receiver=lists.ozlabs.org) smtp.mailfrom=google.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Cb2gSlz4;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20230601 header.b=Qi3vQDs6;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=147.75.193.91; helo=nyc.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=kasunath@google.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJkbQ0K2Hz2xBb;
-	Sat, 14 Jun 2025 01:58:57 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by nyc.source.kernel.org (Postfix) with ESMTP id 44535A51438;
-	Fri, 13 Jun 2025 15:58:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5B51C4CEE3;
-	Fri, 13 Jun 2025 15:58:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749830334;
-	bh=ubx0aSPirWzdiPRt3UtSIssQRIZ/h985GJfW7cPAiJ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=Cb2gSlz42q4+9rckZbHNm9mmnaMRvUkvnKuTABMYiq84cfWP92JqlnKt4mc/n1poM
-	 T1TVcBG64hgiXnN1aHOB/gmT48zyQJZyMuDYETaY5RHNIjn6CXyB0f5jMv+qNx8OoK
-	 G2wnFuAqX6HtyA5hVjSFwbyd9k58RoaA+uERxSXQFNexM+5+E+YvraktV0HOcCYw+u
-	 fzC/lxxv9xfphyGnR6gtAC8Of00o1jYtLjo/lL95F/0SKU3b6ob3iwvx57JLO+hoGw
-	 hdtymaQhdLgvfyR0uQzoUfJDQErdB8E/NcxpoZN50++35IjeEINdfnkpPoGoPclMxL
-	 RRUepl/Ha9XoA==
-Date: Fri, 13 Jun 2025 10:58:53 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	mani@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, joel@jms.id.au, andrew@codeconstruct.com.au,
-	vkoul@kernel.org, kishon@kernel.org, linus.walleij@linaro.org,
-	p.zabel@pengutronix.de, linux-aspeed@lists.ozlabs.org,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org, elbadrym@google.com, romlem@google.com,
-	anhphan@google.com, wak@google.com, yuxiaozhang@google.com,
-	BMC-SW@aspeedtech.com
-Subject: Re: [PATCH 2/7] dt-bindings: pci: Add document for ASPEED PCIe Config
-Message-ID: <20250613155853.GA962329@bhelgaas>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bJlmZ6Dhzz2xKN
+	for <openbmc@lists.ozlabs.org>; Sat, 14 Jun 2025 02:51:57 +1000 (AEST)
+Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-453200cd31cso975e9.1
+        for <openbmc@lists.ozlabs.org>; Fri, 13 Jun 2025 09:51:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1749833513; x=1750438313; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
+        b=Qi3vQDs6d5CICq6//UQPAl3saqzk+0LVBaHoq3AiBKDObz6lZmQPpJaMlaKYMsBeK3
+         N1Z5+ZtDc97TFpNaS2VRJrGqKzELA5+WgNlUm1sDrqNHAUQ23VzZVojarlH7auoXEtCv
+         Jx5ag4ksLyq4A4+DcAnt8FGeF6wQxqYOV9hHKKrMW53KPbexfwK2ozWSy4l0KWJ25u/l
+         t0y2IO2ZKE/4t229+Q8tikGPe9IPoq1UsSoGPgLyU9R9XUAvgsUY/eV6Qn7Jx40VT1K9
+         WZsp7dTgY+XAyg+ri9AeSgyih1HQ+8RAM05K4ZCvqwtqDwdU+N7+3mR4nD5ay46YuT75
+         7IHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749833513; x=1750438313;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UOl7Gl38FugZBnNlkUXiA3CUTrFhIqj6NSPsNIe/ATQ=;
+        b=FncFasI8npiRJOgnHXwBJPLmbOvfaT73GyLdNRcvsN2r1q2yPBXrshS1SGu2fI7GXn
+         4Ba9euuGeC1VZ4vRmZd3YE3NhfdtWKVjbT9BOzMBhho4rK1BTBD1jHssFuJc5RxrdYwp
+         maRnwGjU2IVlnTUuIQ/vCuwK2arY17mLg8HpMrk7WwfCsyKZJm6armbXmanUCoHNhzsD
+         iPyVu2cXY9/+3dRW5fHTTvWzaf/CoLdl8r242oeFMg2g1xS/n1f1ePSYVo3Cj+oDfJSH
+         9mVHoQ1cWweI5YHZbTHtLu7FEGPpqd9VHR3i59R+aAepRJCqffmThWW6S9PnDYPk+VBU
+         6U7w==
+X-Forwarded-Encrypted: i=1; AJvYcCXWd19WN5yZomVGeQ5r3emA6OEkrlg0SSlP3EZO6w/HQ6fv3h+yFWJ5BQkMQnsqswTgq9L9O9gw@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxNqtiRskLoA38U/ZLjcuIIKDZWA7RInBqW0bSNjF+6rv6sL3BT
+	5TIIkM2Rlhw9uv5J66CsYR2gIahgQ3+dtP64bSQ60zmphjXWZW05Z2klfWJU8nY88HXxdcNwHK+
+	1Hrk7CRkTgR2e4mV7mLm8aStx8uYk3kPUqgI4CO/6
+X-Gm-Gg: ASbGncuJHBDhQ/w8mWtJfbRs595YKqWYY95jr4O3xUKC0TdP7NWQq2m462fuJ4KP2aS
+	VZcseVQZ9dYXOvrE/fWx3eCMfL8laRV1mWdMdpkAovLNJO6iAJZ5Bf5f4XaZXWI+YtB16P4zvJz
+	ygP1Kntd52glY8n1Kg8FsXIrsY4QWGVm4/6Q5n9yCQSLb8dVEKRzVTmP/ryabz/tSSSTf++k0e0
+	7wq
+X-Google-Smtp-Source: AGHT+IGoK998D7fmDQo+oAtUUPx9Oulbz+TXFM33qAKzG3/zkQ+ILqBbOsos/3QCwa4Uo/bqEg4JqN+ko1zD70rSi+Y=
+X-Received: by 2002:a05:600c:358b:b0:439:8f59:2c56 with SMTP id
+ 5b1f17b1804b1-45334f120abmr2393365e9.2.1749833510468; Fri, 13 Jun 2025
+ 09:51:50 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -71,20 +77,71 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250613033001.3153637-3-jacky_chou@aspeedtech.com>
+References: <CAN+wxKJMxxnm2egxVFpxhe2Z96ZTdZ2ADCbVOc-_iq-5u77V5Q@mail.gmail.com>
+In-Reply-To: <CAN+wxKJMxxnm2egxVFpxhe2Z96ZTdZ2ADCbVOc-_iq-5u77V5Q@mail.gmail.com>
+From: Kasun Athukorala <kasunath@google.com>
+Date: Fri, 13 Jun 2025 09:51:27 -0700
+X-Gm-Features: AX0GCFs42Zdujij0pYvVDLTwR9NccVn2bQye_gFzXrqTwaqwl8HgLodJzZkUVj4
+Message-ID: <CAHK_2H134KsAsZZYw+QiyH=eCXV=_fiQTi-MOrGKW4+aRsVy-g@mail.gmail.com>
+Subject: Re: Query regarding Libbej openbmc Library
+To: Sneha Bansal <bsneha309@gmail.com>
+Cc: Brandon Kim <brandonkim@google.com>, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000d34b40063776dcc6"
 
-On Fri, Jun 13, 2025 at 11:29:56AM +0800, Jacky Chou wrote:
-> Add device tree binding documentation for the ASPEED AST2600/AST2700 PCIe
-> configuration syscon block. This shared register space is used by multiple
-> PCIe-related devices to coordinate and manage common PCIe settings.
-> The binding describes the required compatible strings and register space
-> for the configuration node.
+--000000000000d34b40063776dcc6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Make your subject match style of:
+Hi Sneha,
 
-  git log --oneline Documentation/devicetree/bindings/pci/
+Sure, happy to help. Let me know the issues you are facing and the
+corresponding code you are using.
 
-s/Add document for/Add/
+Thank you,
+Kasun.
+
+
+On Fri, Jun 13, 2025 at 8:22=E2=80=AFAM Sneha Bansal <bsneha309@gmail.com> =
+wrote:
+
+> Hi kasunath,
+> This is sneha here, i have some queries regarding libbej library and i
+> will be highly obliged to you if you can help me out with it. I was passi=
+ng
+> the transfer handles got from GetSchemaDictionary to RDEMulitipartRecieve
+> and then using the bej data as schema dictionary which i further passed i=
+t
+> on to the libbej library for decoding and encoding. But when i passed on
+> the RDEOperationInit data as encodedPLDMBlock, i was facing some issues.
+> Can we connect so that i can resolve few of my queries?
+>
+> Thanks and regards
+> Sneha
+>
+
+--000000000000d34b40063776dcc6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi=C2=A0Sneha,<div><br></div><div>Sure, happy to help. Let=
+ me know the=C2=A0issues you are facing and the corresponding=C2=A0code you=
+ are using.</div><div><br></div><div>Thank you,</div><div>Kasun.</div><div>=
+<br></div></div><br><div class=3D"gmail_quote gmail_quote_container"><div d=
+ir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 13, 2025 at 8:22=E2=80=AFAM Sne=
+ha Bansal &lt;<a href=3D"mailto:bsneha309@gmail.com">bsneha309@gmail.com</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><di=
+v dir=3D"auto">Hi kasunath,<div dir=3D"auto">This is sneha here, i have som=
+e queries regarding libbej library and i will be highly obliged to you if y=
+ou can help me out with it. I was passing the transfer handles got from Get=
+SchemaDictionary to RDEMulitipartRecieve and then using the bej data as sch=
+ema dictionary which i further passed it on to the libbej library for decod=
+ing and encoding. But when i passed on the RDEOperationInit data as encoded=
+PLDMBlock, i was facing some issues.</div><div dir=3D"auto">Can we connect =
+so that i can resolve few of my queries?</div><div dir=3D"auto"><br></div><=
+div dir=3D"auto">Thanks and regards=C2=A0</div><div dir=3D"auto">Sneha</div=
+></div>
+</blockquote></div>
+
+--000000000000d34b40063776dcc6--
 
