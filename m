@@ -1,30 +1,30 @@
-Return-Path: <openbmc+bounces-222-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-223-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1921C71135
-	for <openbmc@archiver.kernel.org>; Sun, 15 Jun 2025 23:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E166C7115A
+	for <openbmc@archiver.kernel.org>; Sun, 15 Jun 2025 23:22:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bL8Jp4KVVz30T0;
-	Mon, 16 Jun 2025 09:21:14 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bL8Jq1PCfz30V7;
+	Mon, 16 Jun 2025 09:21:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749960225;
-	cv=none; b=nYPw6hC/1EccNIfKeB8IfhvcI6dFCQo4Z4khvjpVzw4IOqzWaKge45LAohdJtz6hv77kSNXDwu52YnxHc7ZT7Pet1ir+8A43EFzUF6y9tisrZAMdtAf7U8WOfiHJpPvntkcypUk9elcg0YYN0Bk8846ktwGTdQBBWatay9qsPjz4EWiAenf/5vaCz8uSlzEbcBgsYNn18sI28Di1J/1uFioAvd3P67rfrDeZ6dUll4gyOUufVhzsmQV486VN6NgAksCHyt9hlvhLXxuTjGLKjbcSob9iS+Z+jL7KKyEZJt6ixUCAvavHIodx83tJ/MSMpC/C5AbrYVgW8QpCab2hvQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1749960224;
+	cv=none; b=ltmsr4XsaOMMgj16ypU3H1NSQsQXXE8fqHTld9hKfKn/kGG6IOMyajQTCgCUqsP/zZ2X9xdrrKCNsk9Lcc0lhbXjt8w0wlJm64vy8S9XXNb2pb/kbm8J7o7upyNI5L3We7rGYtAp3wkb2zSihVlcvJjE3u6VO73iYKL/byPobi/zP5KdDY5EXfW7bcZ0I5jRgPaTjDoOgGvc6s+IYKNbk25HriFjWkY3WkeRD5dp/D2BEcA4z59S26htGMHo1yudjNlh985Yc5ZaZWkpUDcmi6FPSoh1x5BmFm4KxbQKoUgkG/aF/hznxTLYKC+psrEMP2Gzs2e1vuJCqOosUenZJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1749960225; c=relaxed/relaxed;
-	bh=27GsQHQT/FiRpIjnk0QogelmG/F5tQ0Uf+x20DOStik=;
+	t=1749960224; c=relaxed/relaxed;
+	bh=BK4x4cB+WJA5Tcpx3kDnolPiZgIkuPQYv4xGC4AWVZc=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vh2HnodIcx7vkPBBZVBzyQutQbTMFmKQdzOWJ5f9FqhQtutCopicqrU8SUB3CrNGg8T0j3ZQJ40h5AeHkvLZGuK2N0o3Z++/P4MIogmIv4SBWmMoZqSWWFIdzN6FLPvSkpc56c+2logRbGOtkqGJKjtjuBtGYlaA3F5fvkSYBgSbgYo4FYJvhKE7xiF1QArgIchvFBd4QDkBcCifuz1PaWaJ+9SYY28ASu8IT3zU4zgaY7K08f4Sfe6f8tCC3EwEUuovIioCHqABxeT/freNypngrCT5NnFOwCXHzUmJE09qrlR5xcLKWozhod4dfjYCIWb+kAmEJmMHZBRweZwmnw==
+	 MIME-Version:Content-Type; b=PDEA1VBCjr4fmO9RzcbiJFFbehmz2Ry9kSb7Jf4sUcpLMkq8/Os3GMme70WX6kH+2S64v5FiNKFWXMU1O88ZDGiiz6CrQ7MPieSmkNcD3Ntqf8i5eonnmJt8ClNdb9FeSC6cAGy5vs3cnUlH8WVzF6KB8brwMkQdtjyJnKTaPH+DBWqvOHEwEwWS36BEHWW2hbIXzy4RPESRZuQk/OyM6VrRbtSxS4h56yP34WHsmse58mimFpPUX/FC6A2doFiA5awBMKyzBApOU8Pt/dvqDRTC73yDYNfKnzHPgPiK5dHgQ22DW0Va8cLviNxw9Op53vQi3XrVM4mOl14BF1X9WQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=cool_lee@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=cool_lee@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bKfdF3YjPz30Wg;
-	Sun, 15 Jun 2025 14:03:45 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bKfdD1DfWz30Vn;
+	Sun, 15 Jun 2025 14:03:44 +1000 (AEST)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Sun, 15 Jun
@@ -38,9 +38,9 @@ To: <andrew@codeconstruct.com.au>, <adrian.hunter@intel.com>,
 	<linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
 	<linux-mmc@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH 6/8] mmc: sdhci-of-aspeed: Add output timing phase tuning
-Date: Sun, 15 Jun 2025 11:58:01 +0800
-Message-ID: <20250615035803.3752235-7-cool_lee@aspeedtech.com>
+Subject: [PATCH 4/8] mmc: sdhci-of-aspeed: Get max clockk by using default api
+Date: Sun, 15 Jun 2025 11:57:59 +0800
+Message-ID: <20250615035803.3752235-5-cool_lee@aspeedtech.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250615035803.3752235-1-cool_lee@aspeedtech.com>
 References: <20250615035803.3752235-1-cool_lee@aspeedtech.com>
@@ -58,86 +58,41 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Enhance auto tuning with input and output calibration.
+Don't limit clock frequency by f_max.
 
 Signed-off-by: Cool Lee <cool_lee@aspeedtech.com>
 ---
- drivers/mmc/host/sdhci-of-aspeed.c | 48 ++++++++++++++++++++++++++++--
- 1 file changed, 46 insertions(+), 2 deletions(-)
+ drivers/mmc/host/sdhci-of-aspeed.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
 diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index 22dde915e51b..92687fc30d1d 100644
+index 10160a706334..2bdd93a3f91f 100644
 --- a/drivers/mmc/host/sdhci-of-aspeed.c
 +++ b/drivers/mmc/host/sdhci-of-aspeed.c
-@@ -25,6 +25,7 @@
- #define   ASPEED_SDC_S1_PHASE_IN	GENMASK(25, 21)
- #define   ASPEED_SDC_S0_PHASE_IN	GENMASK(20, 16)
- #define   ASPEED_SDC_S0_PHASE_IN_SHIFT  16
-+#define   ASPEED_SDC_S0_PHASE_OUT_SHIFT 3
- #define   ASPEED_SDC_S1_PHASE_OUT	GENMASK(15, 11)
- #define   ASPEED_SDC_S1_PHASE_IN_EN	BIT(10)
- #define   ASPEED_SDC_S1_PHASE_OUT_EN	GENMASK(9, 8)
-@@ -422,7 +423,7 @@ static int aspeed_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
- 		}
- 
- 		window = right - left;
--		dev_info(dev, "tuning window = %d\n", window);
-+		dev_dbg(dev, "tuning window[%d][%d~%d] = %d\n", edge, left, right, window);
- 
- 		if (window > oldwindow) {
- 			oldwindow = window;
-@@ -433,7 +434,50 @@ static int aspeed_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
- 	val = (out_phase | enable_mask | (center << ASPEED_SDC_S0_PHASE_IN_SHIFT));
- 	writel(val, sdc->regs + ASPEED_SDC_PHASE);
- 
--	dev_info(dev, "tuning result=%x\n", val);
-+	dev_dbg(dev, "input tuning result=%x\n", val);
-+
-+	inverted = 0;
-+	out_phase = val & ~ASPEED_SDC_S0_PHASE_OUT;
-+	in_phase = out_phase;
-+	oldwindow = 0;
-+
-+	for (edge = 0; edge < 2; edge++) {
-+		if (edge == 1)
-+			inverted = ASPEED_SDHCI_TAP_PARAM_INVERT_CLK;
-+
-+		val = (in_phase | enable_mask | (inverted << ASPEED_SDC_S0_PHASE_OUT_SHIFT));
-+
-+		/* find the left boundary */
-+		for (left = 0; left < ASPEED_SDHCI_NR_TAPS + 1; left++) {
-+			out_phase = val | (left << ASPEED_SDC_S0_PHASE_OUT_SHIFT);
-+			writel(out_phase, sdc->regs + ASPEED_SDC_PHASE);
-+
-+			if (!mmc_send_tuning(host->mmc, opcode, NULL))
-+				break;
-+		}
-+
-+		/* find the right boundary */
-+		for (right = left + 1; right < ASPEED_SDHCI_NR_TAPS + 1; right++) {
-+			out_phase = val | (right << ASPEED_SDC_S0_PHASE_OUT_SHIFT);
-+			writel(out_phase, sdc->regs + ASPEED_SDC_PHASE);
-+
-+			if (mmc_send_tuning(host->mmc, opcode, NULL))
-+				break;
-+		}
-+
-+		window = right - left;
-+		dev_info(dev, "tuning window[%d][%d~%d] = %d\n", edge, left, right, window);
-+
-+		if (window > oldwindow) {
-+			oldwindow = window;
-+			center = (((right - 1) + left) / 2) | inverted;
-+		}
-+	}
-+
-+	val = (in_phase | enable_mask | (center << ASPEED_SDC_S0_PHASE_OUT_SHIFT));
-+	writel(val, sdc->regs + ASPEED_SDC_PHASE);
-+
-+	dev_dbg(dev, "output tuning result=%x\n", val);
- 
- 	return mmc_send_tuning(host->mmc, opcode, NULL);
+@@ -288,14 +288,6 @@ static void aspeed_sdhci_set_clock(struct sdhci_host *host, unsigned int clock)
+ 	sdhci_enable_clk(host, clk);
  }
+ 
+-static unsigned int aspeed_sdhci_get_max_clock(struct sdhci_host *host)
+-{
+-	if (host->mmc->f_max)
+-		return host->mmc->f_max;
+-
+-	return sdhci_pltfm_clk_get_max_clock(host);
+-}
+-
+ static void aspeed_sdhci_set_bus_width(struct sdhci_host *host, int width)
+ {
+ 	struct sdhci_pltfm_host *pltfm_priv;
+@@ -446,7 +438,7 @@ static int aspeed_sdhci_execute_tuning(struct sdhci_host *host, u32 opcode)
+ static const struct sdhci_ops aspeed_sdhci_ops = {
+ 	.read_l = aspeed_sdhci_readl,
+ 	.set_clock = aspeed_sdhci_set_clock,
+-	.get_max_clock = aspeed_sdhci_get_max_clock,
++	.get_max_clock = sdhci_pltfm_clk_get_max_clock,
+ 	.set_bus_width = aspeed_sdhci_set_bus_width,
+ 	.get_timeout_clock = sdhci_pltfm_clk_get_max_clock,
+ 	.reset = aspeed_sdhci_reset,
 -- 
 2.34.1
 
