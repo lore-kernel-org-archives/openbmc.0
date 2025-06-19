@@ -1,70 +1,171 @@
-Return-Path: <openbmc+bounces-260-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-261-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F01ACC7115A
-	for <openbmc@archiver.kernel.org>; Thu, 19 Jun 2025 11:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D60C7115A
+	for <openbmc@archiver.kernel.org>; Thu, 19 Jun 2025 23:45:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bNJ7Q2gRGz2yFJ;
-	Thu, 19 Jun 2025 21:20:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::b2b"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750332033;
-	cv=none; b=m0Rh5K8TPCDzJUPzEUZgIQX5O6k5KIvsLGu6NFtme0DtXDd7xPH5k75AO7rk6yuaCHkyXaGe+hPduHYsZr7yneC1dIxwY5pKwSU/uI5gJPIyOuBQV+hpYTWpmKEAEt1X7FbCpCZpZdBcectCjRRGLhTbDBo2B83matFidhrongN69LtoW5DQw1W60LUXIlskxuWTrqwYislC4GdQMB8Gk/FMZlX54b/aelMZJYZYyi9emNW5zjIeQ7vW0Gkj7Z7qQ9/3GLPB/7pMJXA5LerOztYonolQ4n2LHQCg1K8+R5ZLhcGmZzEnGMbuwmHZjnvVIi11RVJ6yHvndh/QrUoc3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1750332033; c=relaxed/relaxed;
-	bh=PBUsi0YBNMAsSBVKTalCtjkPCy5c9CLBxMjhKRUhDZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MnXC4iGGiYOQ6K/+W1fQSbZe43sK3G7mZUr0E3JP5Y/w554a3JM/oMkTW7CiXjIgQm2JmS/S/RF0tugFFTt5Lbr0VRlrptD0JDcXoArth+gMGm7Unx7q5tUSsLA6/1Bp5YCF3xZcaEjPkCcBIz0szL+LpJBqAZyCQk370hESeAdZqZYxwr081qx6jF1GFUzJKMDFNFPKz5M49HIRUWbgxN3owd+FM0X9R4ToGnzKW8VbpXO7pZNXuqLG0DHIROczkWU+wUt2IT4y3BN9ydq2mfEBdKpeJjQ1q9XY3A/RpA8lgBqLrnT9XkzSaLD9QgA4UNXhvPeoL8vXfzzFVPE8OQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=y5WkYUtb; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::b2b; helo=mail-yb1-xb2b.google.com; envelope-from=ulf.hansson@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bNcfc5l7wz30PF;
+	Fri, 20 Jun 2025 09:45:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::7" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750316291;
+	cv=pass; b=ENIGe/KIjQx7U2W3iQ6YfsrI+wY1ymPigBUeYM4VOdAv8HGPgJLDlKVAV8J3bmW//vu6zHrIDvEuhuUCCFEha4C9s6CT00SoEbw4UeovJoA/vW3LoRQKFz2dxsmEyH8mGInZZEF4+iUtCaOSgO5HJE/BEA3cMXOgmZVUij/anvoqiRSt6doThSphCL6Rj/JFJx1hJOIsa1BAj+CcI/9c4jXDYRjwhRafFCG9iYX423zwXak5duTh8pRCFpZCRq7Bzp7CW/9NGJDshdGj3rC+J7JGIZbYFh/AlH762+qvV7vflLZviqz43tHOfrvwWI4mY5kyMaI0Zbac95rxtubCew==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1750316291; c=relaxed/relaxed;
+	bh=y5bpmBGEIFPsEHuQJNQNj83vwroiIGjzis1YIYsIhxk=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=LG6uGuPB0zMZPvSCujleJyO0RQuKDhBXHHMrmpwTGvdZuWHqBJ2Q9s/a9AZDxtK+RZBrur/z4E2mMw4PpslA/Xq0djCeQEKlrvsIvWVgv/st4kxemVPK7FpYPNFd8BX6L/N4ii4Zw3YJd3VKtXY++aZzNYw1LiOJYUZPkNbM5KZ6CS3D3giB6BA8rqPeGzIaqgYaMLS0rPCXXN8Xp127I8gVB9LhIzmA7TFSzqwFW5JiIU95jo7uCbIxs7WxTNLaMqH1jNwLmRbYUladElLNQh/QAMDbWPv8QfkYiyX0lINbi5b0MHtJoukIOVOB7n6HmEvWCUIae4ZRgczVdHrRFg==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector2 header.b=AxmNvKlZ; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=cool_lee@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=y5WkYUtb;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector2 header.b=AxmNvKlZ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::b2b; helo=mail-yb1-xb2b.google.com; envelope-from=ulf.hansson@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com [IPv6:2607:f8b0:4864:20::b2b])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=cool_lee@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bNJ7N39PMz2yKq
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Jun 2025 21:20:31 +1000 (AEST)
-Received: by mail-yb1-xb2b.google.com with SMTP id 3f1490d57ef6-e819aa98e7aso620763276.2
-        for <openbmc@lists.ozlabs.org>; Thu, 19 Jun 2025 04:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1750332029; x=1750936829; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=PBUsi0YBNMAsSBVKTalCtjkPCy5c9CLBxMjhKRUhDZY=;
-        b=y5WkYUtb31T3JMoeZbLvKkXeJnVoqbgZssYAfVMjU2od/bOvFusLkVhjLt2m7se6oG
-         JDF567Xdcg3jMbn74HpXuat+oADIdnpAOTummuTTS8gQipxuCVqCXG1lMNBu6dau9j6/
-         MfEmRjaky2Ax+LFOb7Y70fAy+M55pLNBnvFxfn7AbzyYIl9sToJkDJS6kJQ5TjAH8nKg
-         EvBN1sGtCnfqZ0t0PKTxLTqPBSyNdx2wfFryJigeef6+A53sgioRtEWCtNj38cuVo7FK
-         lCsaAgdSOTF5Nep5lhfj87QFF8o3pQPG5lSsLa40yzMfzaUrM9RsMVGZYqre5eyVC0oJ
-         OHuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750332029; x=1750936829;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PBUsi0YBNMAsSBVKTalCtjkPCy5c9CLBxMjhKRUhDZY=;
-        b=d4dTPMGF8YS6MG8hbx4Hgzz4RPuW+qxNWc9ZfF0JUxh55wgElLNrxQTT0MBsL9TAGO
-         hS3Tje9K4kyyUqbPkKbVBNC1rF2kytM+ckwWcPOz2TQG8yYKvzj2N6D/yvvRbm+QObkv
-         5KEzE9VUQ8DY/2Xy9Lno0mi9ErPQ69veBy4XWqWPABUhgOzKlZsq/FT/IRZhM/2v8Vkw
-         df1oe2/k4dwxf2nTft0vga/p2gnvJFeU1wCvWbea7hqMWYOSA0W37HLtp+kw5KHrOq/G
-         1RVQm6XO307S3mASeFJmpbIBqITUF2J8mWSowVETlxUPEUQHCYf6icki6gXl8MkMTcc8
-         rIJA==
-X-Forwarded-Encrypted: i=1; AJvYcCVDPqC2z2zrFikVEi9xiwQBFyrNkngkwa7xY6w0mPKkOqBJ40n0SgsWdE6NSXa/POOBlcJ7OJor@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwyUloLG2e0Mmn3E05vYYhTkElUR8zETiRNMIGb0c9C7Oy1ipMa
-	d4rhcIKiVagVZDkN29f51cJ7IEmt3UvcbaGpyofZZABr1toFY0PewVH0mPbkrUJE469J8Q/3+8R
-	RTLGcp4ngOucf0W/RJ84YMqxhiXd7oiqEkS4Cuxv5Qw==
-X-Gm-Gg: ASbGnctXeo8YJufiiMgGLuS3hJMnjZnV2bH3pb9zsuXOqgDx0/yhaj+mG20NiNXsA33
-	ZurlV9tAsENzO9tghnKUeNtzQ7XtHBrpJkBNqor2j1TvF9RuLlpU3bUOeO7b8rW3GRgKCYPkilJ
-	4Fg0nGHxbt1HCF26Xqu/rI/0uMUAbayujWU/jQTFraHOzx
-X-Google-Smtp-Source: AGHT+IHX9ksGPdiWQPczJro/bAe1IGvypwqoP8WCOZDCwwHcVTV4TvNUdtBj0nob0BRaQUU78E2vrWhUpGn208sRiuY=
-X-Received: by 2002:a05:6902:1b04:b0:e82:13f4:6156 with SMTP id
- 3f1490d57ef6-e822acc6b88mr30435408276.13.1750332028965; Thu, 19 Jun 2025
- 04:20:28 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bNBJf66pWz2xS2;
+	Thu, 19 Jun 2025 16:58:10 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bd4A/Dem8+rB+GZlLc5PgRa2VrjpmRKRyHGzqlmOnbX1uXZZZHL0UITwxqANLepe1wnpAmu190xxWJoLOa4vz9bVjWzUSr/w0OX9ErGWpe38rRiEPjEMiYQNcgI6sl6S+w9g+RozIf6srhuJnDYuzIlWe1kcru9jpERtwacNsBAGVp+Tn8ZdFjMS58IIeyjuPxpFGFheTujyCtLSZRR4gXLYp98lCxBBqFJ5A7bpMktMp8l6WTZ6nsr9IlpXO2BYQ3ne/C5zItD7I4TFY03rKtYpormxos4Kne3tu2LGMAVNS6EPGgVEcS0EdxVTf54UyV4SHr8kkL3EqJmmiOpysA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y5bpmBGEIFPsEHuQJNQNj83vwroiIGjzis1YIYsIhxk=;
+ b=h8cvLmF4w71gJPBf8SLDI3pZUDxae3n1e2iavI1UUFyft2BI6N1ELpfswZNWpadQW9UgB+5P/qy4zBmiQPD2v/YAseeQ8H80VDgAAL/06TkZkSFprtRaBJxxPdgO4Jzjr9WH6QIMqFtkSbPEF2r4ZTUtXLqI6Wrj04vxJusHZM6Lal8KzR5G4Ac9PEa8eppNNiAxr8goKN8HUPsesxRL6dMnla05KdS5Ql14arpePYKRs5uYYp6wPqBlUnh/OUQDW87U8D63Mk9CVJm5BuE+wKE11Ds2fX8hN3ivZOqoeAzLSHa1W3y5jxSPpPWMSSIegfiuLkMMuyXkWNKQzfZcRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y5bpmBGEIFPsEHuQJNQNj83vwroiIGjzis1YIYsIhxk=;
+ b=AxmNvKlZn3GUlKeS4e/pPom9sbDyrHaBAc82W78wyueiZI0F1Va3v2qnGJKtXQrknEshVOu9fYUjpiNXZ/HWV0WEyotgPu3p47f0ZZRW/XaXicuhjQjT+hn/LW99TQA6qpJkC+JDMho9qyutKChDzMoRxBdI3KXw1lGhf2dlDMgUxvVVGGAgtuaKMIe5rlzxIy3JZlJa0PnW/dwUy7nnLoonjbEyO9vb3lAZftsARirkeGs5YVLCWsIYuln8Jjh1j4KSOkUNboAcuVjDmzmbJ/X0siiHaD0orsXaO4uU2c9omCELpjhoGgB/AOumso2ak5gfGGRUdQ2+V7NeRZ/cHw==
+Received: from TYSPR06MB7068.apcprd06.prod.outlook.com (2603:1096:400:466::8)
+ by SEZPR06MB6303.apcprd06.prod.outlook.com (2603:1096:101:129::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Thu, 19 Jun
+ 2025 06:57:46 +0000
+Received: from TYSPR06MB7068.apcprd06.prod.outlook.com
+ ([fe80::e1c7:8707:7d43:bbed]) by TYSPR06MB7068.apcprd06.prod.outlook.com
+ ([fe80::e1c7:8707:7d43:bbed%4]) with mapi id 15.20.8835.026; Thu, 19 Jun 2025
+ 06:57:46 +0000
+From: Cool Lee <cool_lee@aspeedtech.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>, "adrian.hunter@intel.com"
+	<adrian.hunter@intel.com>, "ulf.hansson@linaro.org" <ulf.hansson@linaro.org>,
+	"joel@jms.id.au" <joel@jms.id.au>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "linux-mmc@vger.kernel.org"
+	<linux-mmc@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, BMC-SW <BMC-SW@aspeedtech.com>
+Subject: RE: [PATCH 3/8] mmc: sdhci-of-aspeed: Patch HOST_CONTROL2 register
+ missing after top reset
+Thread-Topic: [PATCH 3/8] mmc: sdhci-of-aspeed: Patch HOST_CONTROL2 register
+ missing after top reset
+Thread-Index: AQHb3/lJBPtCuugbIEiiqOWbxb38iLQKDthg
+Date: Thu, 19 Jun 2025 06:57:45 +0000
+Message-ID:
+ <TYSPR06MB7068B3BC5D9D6FA9154A3BB6957DA@TYSPR06MB7068.apcprd06.prod.outlook.com>
+References: <20250615035803.3752235-1-cool_lee@aspeedtech.com>
+	 <20250615035803.3752235-4-cool_lee@aspeedtech.com>
+ <100bed083e9a98432888c0b1db8cbc445f96cd64.camel@codeconstruct.com.au>
+In-Reply-To:
+ <100bed083e9a98432888c0b1db8cbc445f96cd64.camel@codeconstruct.com.au>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYSPR06MB7068:EE_|SEZPR06MB6303:EE_
+x-ms-office365-filtering-correlation-id: 0247710a-cf90-4621-3f11-08ddaefe9884
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700018|921020;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?eGc1aE9ST0FHNTVEM2toNHNuRVRHQWdsck90LzA1dityU1JvVEJkdGU1RzJY?=
+ =?utf-8?B?ckxZbXFYd3QyTzlSWVRrMW9nRWJpUmIxMno1dFdrSFRRNWRRRkVqMWg4d2ZD?=
+ =?utf-8?B?eEF0VDRQZTRqYnB6WUd5emtYbTBxOVh1MCtJV0NmeExZd1BoU2srd1lDNjNL?=
+ =?utf-8?B?QXE1UHd6TVpDcklvcGJnUzdLTVR3Y0RmUThIQnZkVWJ2c1l5ZTVNS3BjYjBx?=
+ =?utf-8?B?bUdQODZpQUpaSE5UUWdKVUNsYmpzQ2luQmxJRkh0SysyZi9ybVRqdjg2MTR6?=
+ =?utf-8?B?WnlxQjBBMVBlL3VaWjN4M01iL2ZZVXdrZ3VzZjkvVVdBc2kzZHJMVWVWY2d3?=
+ =?utf-8?B?c1BpemloRmhJZDUxaE1XeGUrdXhUQ0t2M29sVXppMXdQdTJ0QTlWTS9xS1N6?=
+ =?utf-8?B?cmlCbEFBQWJhRnZ1cnI3MXpRdkNncnMydVRkS3U0bjFQa1IvYkJzT1BwTXFs?=
+ =?utf-8?B?WDlCbXpJS2dXa3NJR0dTcTNvWmdqZ0JQdllXT25mQk1SaDVoNkQ1TTNXNUVC?=
+ =?utf-8?B?c2xmZGE4YjdxaWg4RlQ4TlBNZkFTYll6bi9BL2U5V0FkQnluenRsYjFOam5D?=
+ =?utf-8?B?VzBkZUlJRUp6bGdKWXRURlN5Z2RFUExiNEpmVHdLMVV4alo1MklRd08zNHp3?=
+ =?utf-8?B?VzVrVDlEM2hRTEJVZUR5RTZLQy83UkFuc2p5UDBkalo0WU9TV0h6anh5MVFj?=
+ =?utf-8?B?cUk1Z21WalBzYzNuQjdvZXp1QS81aEdVU01mVTJrUlZhMDh3NVpwTzBoNGVy?=
+ =?utf-8?B?WWV6dUZ2ZTR2dm01aThCOTJwWllDQnRzMlZEZHUzRUp1VW5oeVA0UlVqazhl?=
+ =?utf-8?B?R3U5ZXBXK3oyUlRMcWxETXBEYUIxZTdVa0xjdlNmeVhmZVVmNVhTbnZ5R09L?=
+ =?utf-8?B?ZUIrRjNudzhRcHRxaUJjU1lid3dYam9IKzNyeXVodUZUa0RHbDJFbFpuMVhI?=
+ =?utf-8?B?THdFM2JPRXJtaUkzVnI5K2RPRW5TV3Q0dkpGbjBEZ0RpRHM3SXpVb00xSWts?=
+ =?utf-8?B?bnp3U3ZROHBTRENwVFJzdy9nTzF6bSt3YVNlVXNvV1JXM3k0eE9VeXlwS1hZ?=
+ =?utf-8?B?SmVYQ0IvOGhZTC8xQWJERGJmSzFrZXlhaHIrR3liT0k2WVNCcW9Ed3ZjenBI?=
+ =?utf-8?B?cGhydDBuMFBRMlEyUnhSVDJxUCtYNG9KZGxNSFVCTUc4K2RETlc1VjZvS2J0?=
+ =?utf-8?B?YUF6QWpiQUZMUHovbWNCSGJXWEI4UHkveHZwZUt6MmZrQmNGUDYxRmNuZTBv?=
+ =?utf-8?B?R0xOZmNUdE9Ub1JROHRxNjduVVJCQWR1eW1PbVhCaUdFazVzdFBDQW5XamZB?=
+ =?utf-8?B?bDZ0NHdhaDZBbFhSUUZMZk84WHJFdHNTKzZ6N3kyQ2I1K3VpNTdXZXNhR0NK?=
+ =?utf-8?B?VmxtemhzaW5oMGtHbEVXdEwrSFE4cUJwSXgwYXNMWVZJak5WcXNMZitPYnp0?=
+ =?utf-8?B?VGlsU3lzdnZSWmFsalI5N01uZDFmeGNXV3JkTjZjUTNTN3lBenpKY01IZ1pl?=
+ =?utf-8?B?SDc2MmxPWllaaFZxRThrOWhqZnJnNXVaTEhtNllqRktKVmR4UjZTWWIzSFhH?=
+ =?utf-8?B?b0l5YWNGK0lNc0haeUQ1SHFwckJFa0RYWVU5TTd4ZXAwZmFvTEl6c1l6ZHZT?=
+ =?utf-8?B?UkhENkdqZU1GTkRUN0ZkT2RtTVJSY0h2Y2ZFYlE0SDBsSmFqWXF3dG1oZnRk?=
+ =?utf-8?B?dmpEYzRpQlR1Z2R4K1hVS2cyR051NWNDSzVoMndVOEptY3pwQTR2elcrVGVq?=
+ =?utf-8?B?Tk1DMDA1OVUxaFNseU0wdDlPT3pkUXR1OHRWMWVKSWZKanN5RUc3YWs0VzRp?=
+ =?utf-8?B?OWpYaVBia0JuRlJ0WXpWd1JNLzVOK0ovajl5ZWFkVEhMd280ZVgwWVYyazVi?=
+ =?utf-8?B?RmRTSURySDFrNVlFMzk1ZDM2Tm9raFFrd2xnUXRJVUpKYnl5UHlLSmZpT25Q?=
+ =?utf-8?B?SHlYNkZTK3M4eEVWYlJURklZV2ZFcStEaVdFZ3ZwWE1rdVRyRHhhazBxc2Vm?=
+ =?utf-8?Q?jEgpp5T5GxGUxzWts2y/N257OSXqRE=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYSPR06MB7068.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700018)(921020);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dUtIMWlxOUVranhRSGI3aXNGMmJZc1Vtdk5oeThnRmw4VEY0bE4wQXF2SEhF?=
+ =?utf-8?B?bnRZT3htditrdlByakplb0pOYjBZRmhGM1BmbFlTZXA5Z2daM0FjcER5REs0?=
+ =?utf-8?B?azNYcFB4MWVSNk5MVjRPK1Q3STdXdGlPTXlUR2d0NzlUblcvbk1qUGN6L3VL?=
+ =?utf-8?B?TmlJZGdlZnBkeUJXSzFjWUd0RlZXZlhSbC9ENnJaQmoweC9hcU9OMG9qdmwr?=
+ =?utf-8?B?b3U5Rk4yUnVnQUxaZ1VSVi8zem9vazNpay9wV2djaVA0cjRncEo2NlNDT2ZD?=
+ =?utf-8?B?TGtMWVBhZFpoTElXRlhrblhTUHRrZlkrbHMrSHlHajF4VVl5YTRtcm50NHZz?=
+ =?utf-8?B?U3JweVIxMjJvOWhvS1BTOHM3QWRrQlg1TElWTE5aYloxcEh5aldiVytwVjVN?=
+ =?utf-8?B?TjIzQThrQUxpb1UrbENBUjBTRzlpeFV0VklMYm5lTEd3RWZJSEdFaDBZMHBP?=
+ =?utf-8?B?UkxubnVMYU8rQ1lQTk4ybm5LOGZ5ZlBjSFc5NUVtelBCOVYzY2owM012M1Jh?=
+ =?utf-8?B?cTZJVXp3NVNwcUtrN1BwM2JaZThYS2ovbSswUC8yUHEwMnRyZmsrMzJQYWY0?=
+ =?utf-8?B?MFk0OHZUR0srU1NMWFNCdkhUNThWSGNEamZTT1hDdUFDRjhmVE9GcElkakdr?=
+ =?utf-8?B?TDFqTS9QY1NsQmcxZFhTdnNTYUNxTGtad3lzSVVrdCt5ZStkbFYwV3RZQ0du?=
+ =?utf-8?B?QmRrdDFHSisySkZ1NldmcDhQeVZCSkdMOUczbXZHV2ZWZkY3Rkd4MklCMDdn?=
+ =?utf-8?B?VHRCK0I1cWZyWloyK1pMSlUxcHhLVENnOG1zSHgvbmFBWTlLdm50dWhmUGxo?=
+ =?utf-8?B?amEvQXJpeEZuekxTZGcyd2l5bjdVbnlaUXN4VGorTkFsOFh6SkYrbmRGb1VL?=
+ =?utf-8?B?VHJDbFIwWWFGaklNRDNjb0JaQ3RyM2ZRaWlFT3R4cldaZVl4ZFFyY1ZZMmZT?=
+ =?utf-8?B?UXdlaWRoOEFyNXRiazB1UWJKT1kvdHpSRm9RS3JwSFlZcG9DRVI3UGFnQ3Vh?=
+ =?utf-8?B?TDZHb01WN1F6d01zQXBoRlJub2dyaldPVStxQy9keXc5SHZvRjl1cEtETFlZ?=
+ =?utf-8?B?YjQ3SVRNdW0wYWxSaHNnVHk3VHRXbEVuKzB3L1J3b3VYcHorK052QWt3bUZQ?=
+ =?utf-8?B?ZjRXenFVemNrckk4cG5nbDQ4QXg3dTI2Ym5oYTVKU2tocW1SZ1h5MDFxWjlH?=
+ =?utf-8?B?clF0dzJGdUNkSnpLUS9ObzZNWkFvcW5nRno5ZG84TTRlUmI0SGYwUDg3VjNU?=
+ =?utf-8?B?V0F4YlMxYnRqakIwb2ZKbjdpWFlGaW5XYUxEVC84ZkZXR3RzQTZZM1lTNHgw?=
+ =?utf-8?B?bXN4L05DSjBuV044aGQ0TCs3WlRiM2FuMkVIamFDMXFRWVJwZjZzSWRiL2R0?=
+ =?utf-8?B?QmlyQ2NSTDJza2FJOVBsYXJNK2RpVFBoSEZIeWZkeFFOZ1AyQUFYZU1La3hQ?=
+ =?utf-8?B?dU1WUStIQTcrbWVOYkZkejdmbm80MzNaR21VM016V05lK2JxZEpwMmZ3N2l2?=
+ =?utf-8?B?dXA4MWZNanFZVHNKeTlNUld2M0RJYjR5bVI5eHRpV0hkcWRZZURJOU9STy9U?=
+ =?utf-8?B?bDZmelQydGU1anphbTUzeGFhS21Ja05ZdWFveE5pSEJ6OXdacmNNY1NoUXRm?=
+ =?utf-8?B?ZVlyWHJ1TGNjN1d4U2lDRWduN3ovb3NlMDFIQmEvZ1ZMZ2Y3eDNaVlNoVjMy?=
+ =?utf-8?B?RlE0aERWMU8xS3U2VWtUSVRWeE5xaENOaFM4QWJWN0ZYamlrVGphT2h6U25a?=
+ =?utf-8?B?cjhwQ3VwLzRyb1JvWTVqK28zd2x2R2lqemRNbUhLWFFxMGVoTGdlSjBKb3lp?=
+ =?utf-8?B?RTgzOU0xWFk0TkxUZGJydzNhSmJ1UHFmWkV4aEdYdll4UXh0WFlTczV1cFll?=
+ =?utf-8?B?aWd6bS9qaWtiQ2U0VE9NOUFYbHdiYURBUDVISHM1a2VGdS9Ha2RsVlpQckRS?=
+ =?utf-8?B?MVlLSzVQbTRRNU94ZEovMkxLc2FGQVpsRVFIQWJQR0Ixc2JxYkx4VTB4NkU0?=
+ =?utf-8?B?ZnFJNXpZbWtrZ1FTWEpNOVdjbzU3cFM0aUZtdXU4WnVkd2pWUTVycm43bUdD?=
+ =?utf-8?B?dVU2QnJEc2NlSGpiS0oxcU5KWXR3dCtza04xUmhubVlHMjZHUWV2dllKZkE5?=
+ =?utf-8?Q?8EvZMHDvCOB6i6dDzF87covZC?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,163 +177,21 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1749127796.git.zhoubinbin@loongson.cn>
-In-Reply-To: <cover.1749127796.git.zhoubinbin@loongson.cn>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Thu, 19 Jun 2025 13:19:50 +0200
-X-Gm-Features: AX0GCFvvZQe_9Nix73DE7Q-G_-P34yyA4RJkioiqjIQNcE5PdVnCw3Am06hW7zc
-Message-ID: <CAPDyKFqbCcHPN8yf9Rzo0b0Gr2uBwXUCJDQNkSnnBesESN+kQA@mail.gmail.com>
-Subject: Re: [PATCH v3 00/35] mmc: Cleanup sdhci_pltfm_free()/sdhci_free_host()
- usage
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	linux-mmc@vger.kernel.org, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Taichi Sugaya <sugaya.taichi@socionext.com>, Takao Orito <orito.takao@socionext.com>, 
-	Ben Dooks <ben-linux@fluff.org>, Jaehoon Chung <jh80.chung@samsung.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Kamal Dasu <kamal.dasu@broadcom.com>, 
-	Al Cooper <alcooperx@gmail.com>, Haibo Chen <haibo.chen@nxp.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev, 
-	Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
-	Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
-	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org, 
-	Michal Simek <michal.simek@amd.com>, Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org, 
-	Aubin Constans <aubin.constans@microchip.com>, Eugen Hristev <eugen.hristev@linaro.org>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Yixun Lan <dlan@gentoo.org>, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	Steen Hegelund <Steen.Hegelund@microchip.com>, Daniel Machon <daniel.machon@microchip.com>, 
-	Vignesh Raghavendra <vigneshr@ti.com>, Patrice Chotard <patrice.chotard@foss.st.com>, 
-	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-tegra@vger.kernel.org, Hu Ziji <huziji@marvell.com>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYSPR06MB7068.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0247710a-cf90-4621-3f11-08ddaefe9884
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2025 06:57:46.0099
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EDE95ehxypsF9RC79lgaWeR2rtBK/doq5+ZuhvcQ3R81XyjxT+9Tbee0pMOc4DY0zoSeEgtsQ3Ulv3+s96eaaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6303
 
-On Sat, 7 Jun 2025 at 09:32, Binbin Zhou <zhoubinbin@loongson.cn> wrote:
->
-> Hi all:
->
-> After the first part of the cleanup[1], there are sdhci related
-> drivers that need further cleanup.
->
-> This patchset is the second part of the cleanup series, and since sdhci has
-> sdhci_alloc_host() as the general interface, our main job is to clean up
-> sdhci_pltfm_free() and sdhci_free_host().
->
-> [1]: https://lore.kernel.org/all/cover.1748933789.git.zhoubinbin@loongson.cn/
->
-> Thanks.
->
-> -----
-> V3:
-> - Collect Reviewed-by and Acked-by tags.
-> Patch-19:
->   - Use dev_err_probe() to cleanup the code.
-> Patch-32:
->   - Fix build warning by lkp:
->         https://lore.kernel.org/all/202505300815.tjQRQD6z-lkp@intel.com/
->
-> Link to V2:
-> https://lore.kernel.org/all/cover.1748515612.git.zhoubinbin@loongson.cn/
->
-> V2:
-> - Collect Reviewed-by and Acked-by tags.
->
-> Patch-01:
->  - Set sdhci_free_host() to empty, rather than dropping it.
-> Patch-07:
->  - Set sdhci_pltfm_free() to empty, rather than dropping it.
-> Patch-22:
->  - As requested by Yixun, retain the goto scheme.
-> Patch-35:
->  - New patch;
->  - Since all calls have been cleaned up, sdhci_pltfm_free()/sdhci_free_host()
->    are now dropped directly;
->
-> Link to V1:
-> https://lore.kernel.org/all/cover.1747792905.git.zhoubinbin@loongson.cn/
->
-> Binbin Zhou (35):
->   mmc: sdhci: Use devm_mmc_alloc_host() helper
->   mmc: sdhci-acpi: Drop the use of sdhci_free_host()
->   mmc: sdhci-milbeaut: Drop the use of sdhci_free_host()
->   mmc: sdhci-pci: Drop the use of sdhci_free_host()
->   mmc: sdhci-s3c: Drop the use of sdhci_free_host()
->   mmc: sdhci-spear: Drop the use of sdhci_free_host()
->   mmc: sdhci-pltfm: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-bcm-kona: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-brcmstb: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-cadence: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-dove: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-esdhc-imx: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-esdhc-mcf: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-iproc: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-msm: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-npcm: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-arasan: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-aspeed: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-at91: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-dwcmshc: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-esdhc: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-k1: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-ma35d1: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-of-sparx5: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-omap: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-pic32: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-pxav2: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-pxav3: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-sprd: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-st: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-tegra: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci-xenon: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci_am654: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci_f_sdh30: Drop the use of sdhci_pltfm_free()
->   mmc: sdhci: Drop sdhci_free_host()/sdhci_pltfm_free() interface
->
->  drivers/mmc/host/sdhci-acpi.c       |  3 ---
->  drivers/mmc/host/sdhci-bcm-kona.c   |  2 --
->  drivers/mmc/host/sdhci-brcmstb.c    |  1 -
->  drivers/mmc/host/sdhci-cadence.c    | 21 ++++++------------
->  drivers/mmc/host/sdhci-dove.c       | 12 ++---------
->  drivers/mmc/host/sdhci-esdhc-imx.c  |  3 ---
->  drivers/mmc/host/sdhci-esdhc-mcf.c  | 25 ++++++----------------
->  drivers/mmc/host/sdhci-iproc.c      | 18 ++++------------
->  drivers/mmc/host/sdhci-milbeaut.c   | 19 ++++++-----------
->  drivers/mmc/host/sdhci-msm.c        | 11 ++++------
->  drivers/mmc/host/sdhci-npcm.c       | 15 +++----------
->  drivers/mmc/host/sdhci-of-arasan.c  | 26 +++++++----------------
->  drivers/mmc/host/sdhci-of-aspeed.c  | 10 ++-------
->  drivers/mmc/host/sdhci-of-at91.c    | 30 ++++++++++----------------
->  drivers/mmc/host/sdhci-of-dwcmshc.c | 14 +++++-------
->  drivers/mmc/host/sdhci-of-esdhc.c   | 11 ++--------
->  drivers/mmc/host/sdhci-of-k1.c      |  1 -
->  drivers/mmc/host/sdhci-of-ma35d1.c  | 23 +++++++-------------
->  drivers/mmc/host/sdhci-of-sparx5.c  | 24 +++++++--------------
->  drivers/mmc/host/sdhci-omap.c       | 21 ++++++------------
->  drivers/mmc/host/sdhci-pci-core.c   |  9 ++------
->  drivers/mmc/host/sdhci-pic32.c      |  9 +++-----
->  drivers/mmc/host/sdhci-pltfm.c      | 16 +-------------
->  drivers/mmc/host/sdhci-pltfm.h      |  1 -
->  drivers/mmc/host/sdhci-pxav2.c      | 26 ++++++-----------------
->  drivers/mmc/host/sdhci-pxav3.c      |  7 +-----
->  drivers/mmc/host/sdhci-s3c.c        | 16 ++++----------
->  drivers/mmc/host/sdhci-spear.c      | 11 ++++------
->  drivers/mmc/host/sdhci-sprd.c       | 33 +++++++++--------------------
->  drivers/mmc/host/sdhci-st.c         |  6 ++----
->  drivers/mmc/host/sdhci-tegra.c      |  9 +++-----
->  drivers/mmc/host/sdhci-xenon.c      | 15 +++++--------
->  drivers/mmc/host/sdhci.c            |  9 +-------
->  drivers/mmc/host/sdhci.h            |  1 -
->  drivers/mmc/host/sdhci_am654.c      | 20 ++++++-----------
->  drivers/mmc/host/sdhci_f_sdh30.c    | 13 ++++--------
->  36 files changed, 135 insertions(+), 356 deletions(-)
->
->
-
-The series applied for next, thanks!
-
-Kind regards
-Uffe
+DQo+ID4gSE9TVF9DT05UUk9MMiByZWdpc3RlciB3aWxsIGJlIGNsZWFyZWQgYWZ0ZXIgdG9wIHJl
+c2V0LCBpdCBuZWVkcyB0byBiZQ0KPiA+IHNhdmVkL3Jlc290cmVkIHdoaWxlIHJlc2V0Lg0KPiA+
+DQo+ID4gU2lnbmVkLW9mZi1ieTogQ29vbCBMZWUgPGNvb2xfbGVlQGFzcGVlZHRlY2guY29tPg0K
+PiANCj4gUGxlYXNlIHNxdWFzaCB0aGlzIGludG8gdGhlIGZpcnN0IHBhdGNoLg0KT2ssIEkgd2ls
+bCBkbyB0aGlzLg0KDQo+IA0KPiBBbmRyZXcNCg0K
 
