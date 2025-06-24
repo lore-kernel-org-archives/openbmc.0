@@ -1,80 +1,82 @@
-Return-Path: <openbmc+bounces-287-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-288-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD18EC77B7C
-	for <openbmc@archiver.kernel.org>; Tue, 24 Jun 2025 22:53:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D506EC77B7F
+	for <openbmc@archiver.kernel.org>; Tue, 24 Jun 2025 23:01:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bRgGK5WQsz30KY;
-	Wed, 25 Jun 2025 08:53:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::334"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750750160;
-	cv=none; b=Ax+BtCDPaDqpmU7qQpOXcLPIw/z8HLIElDk8jdmxviscz3NaqgnNEjXohtZkm5yc9WLo9kOZkfaOiseNOPqadJyY+CfjTaIv8jS0UO0lZI/AUViFLXzwfm/jtqkVmuaUG5gF9DRJCtA/rLRKjo1boYkHKzgHtTSwdLj2s0gN7+30vuPO/pRZz7J9NNAO51UnZRFFRIR2UN9uWStHhUEZAcpdJjm+H2SuTOWjnHVE/7dp5ButuqRqLVUdhVfKi8KYuMaEI6NgbaErne1bgbjPRXYEr4QFrnfkb06ACaKWW/d9T9P9mtjzz8pq5xnehXEJ2yCUSnTY9mhIkWVh8F3kAQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bRgRV1HSFz30PF;
+	Wed, 25 Jun 2025 09:01:10 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=139.178.84.217
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750779663;
+	cv=none; b=Rjwj/P8esesBtjKWHL3AWcZoq/eEEVg4vRD3m8Ea1twtcp/I1in/nq/eOXP73Rj+V1B0hLk0970cDu3+fmz4mXVXZ88/54O0K6KjazidioQyeeKmzQWcM5D29izeA+aBhv7BvIcbUyUUA+QiY/DldHe+3pmhFPFQG3TdyXdUW4skO3mziK2C43yj2ZDQ8Qpji5x/80gA01CFDwzjxsZLh4otYxQtg5UYxEZtoi+G0McVAv2sYSaEugExbbOjOESBSgbUZZ1mGZFMTGyc6X13iUh2JHvcv9oMSy3EY5lCBu3GjbuOwAxPCYzxUz2IzkNIpaY684y81MJNMuMyYCV1yw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1750750160; c=relaxed/relaxed;
-	bh=vXQvyWKGqoA++0+nLyhrIs47IOqxWVGOvjV4paCklaM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=J6JsXcc86iEj2c1ckSFZXvYfoYt/vEv5Le0CYHS1sK/rM9Qr/Xcf0ND4DN5JGEBFafO6MsnXgAneF47QkrBMhy1Bczn2SsDfDZjNSi50uFUXXdCSQYAQso1O2CDcv81qkyQ4gLqcWckNPWVb2GvlLm6kP5jXRkXjwTm3cpBNwivsocSaDVm75IJnTM0SXy0vGgj+jX5ZiY08xfsydhFFSq3hOrWW6YJ0DmntN/Ggnbx7WB2m98WGB0Vx4TNR08URpcJO+fv9N6fak75V50Ofi4JjX2rSHkmLlSN4a/AdIYBUCpTkahHFKb+hD0TL3Uejm8c/V9/9pjTG8yy9RHtPBg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jRxauPZ6; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=neil.armstrong@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+	t=1750779663; c=relaxed/relaxed;
+	bh=yVl1jBXeKOOdiSgdx9SxjkRUmmR2uIB4d7AOMUyCXoE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=FGkwEWzwaMfuaAMip5MqDe6MNAvFBsVxZ1AmBti42+yN45tTct3GBmx2KH/9tPQuytu324hwBscZtDXwQfcZohFvZnbVrKVZbGK3NWRlKdfpn5xFhoBTCVgBxmxoC7OVCnpkYGhnf/5wPCiRyIyvhZaLifxQ5YVPXcI7fuaQgQi3KeRMFhd9WhFPNsy18JpuhDKa1qKpL5miJ144NDKLbkfwLBuWdCZ5c3XgAMZTt0X2NNrhCjp/2bTVECXBtGoAYfgyB6vsenh8KvLPCh9/BfbtTCOJKjqpwjIAet+slChf+qJY5dSpZdO+XXLehdpMML9Eq3D6XKjbfpc1mDJEJQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=SpBF33O5; dkim-atps=neutral; spf=pass (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jRxauPZ6;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=SpBF33O5;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=neil.armstrong@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bRGmH1KrVz2xRq
-	for <openbmc@lists.ozlabs.org>; Tue, 24 Jun 2025 17:29:18 +1000 (AEST)
-Received: by mail-wm1-x334.google.com with SMTP id 5b1f17b1804b1-453647147c6so909365e9.2
-        for <openbmc@lists.ozlabs.org>; Tue, 24 Jun 2025 00:29:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1750750153; x=1751354953; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vXQvyWKGqoA++0+nLyhrIs47IOqxWVGOvjV4paCklaM=;
-        b=jRxauPZ6nSuxKSzZPfOVn/7/NkiWyo4+scsZakiZHs1cqxdQITgM7gbr1e8OHNa+Oo
-         Ralb2dk2dS2xlaXi36oFAUHrDWXE14oqnmnbpPmILCQK1um06FqOHav+vwNJyo4jDINz
-         mcOAALquLQ6wBOF+15nzHIhD5a9zQwWfZLenuqlzgC099fNvRt2R1PmxduADeJUcIrPB
-         61rySKBWfgydAJUYm6nd6DnP5p2PrJkDJxwyUtKroJJ3dnvBb6ZcQqa3RgBV+scdAUoq
-         KM7+jE1oKRhGKB7GjN7O4s7hNSRstd3qjpskmExtmCWWOJIAki6pfNzRef9nzDIVPHRb
-         eLhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750750153; x=1751354953;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=vXQvyWKGqoA++0+nLyhrIs47IOqxWVGOvjV4paCklaM=;
-        b=fnOGEUGyXKta7xmIfZFHncSdZHRIiUIRtJlvpWnd4ttXqmwZSp9w/cvKReg5tW2S4x
-         86S3RgQG4UbkxE4GdZcr9O103En8qp+3TOOiQyncGX+t6T2+xSzfnfORu68EMsj0xJPJ
-         DY6bhBCwHY7/KpnkGncFXmroTA7FSqOUcuuthdxST1ih3UjhHt8LEsLOsClOAI1vs5N0
-         6AJI9rYimwC/5siw/W/h46ZwSrJLJZP+FcdoFopqSBAX4nawVt7tXB/EAVrQIWZlxqKA
-         2nks40Ce+STlcwTNg3FskxO71XAlUbDXYrkuoFGwnveISWSq85//prDhQoamPelck5F2
-         B38g==
-X-Forwarded-Encrypted: i=1; AJvYcCWBVFlwwMa9KD7Br1RqBl7zc5xTTfHIw0J5GLwM7JYm79AIweo90rgm0WYrDCEzuz3iZ7qiWwVP@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxMOBA9xJJDXB7f6zOEfTuCtS9e1RaaaqlblJNBQkUvHZnnXYgr
-	6mZZLX7BBniy1J4GqIANM6W6wJ3SQkH0ywYyCMZJRbfO92EEgxhhrqdhWu/CN3XgqMM=
-X-Gm-Gg: ASbGncsfuI2M63AQ0FOP5GsTXvdBDrf4ZkPcEQm+NGDgdUtjaYR+zovNgyc/PvtDJEa
-	IJu/mt/oMligww7XRmkZnJudQ/NQi9A8bPst09p1+PX04ofzIr0wEyEDqgrrMtGJ7XWv9ELU/BE
-	Gs4nmAs9WQ0sbGbXZUt2/FSRwkI1gD9O6lx9wWSF4WSMn89Q1FYwIwACj3T1l84yuCAvBI7Z+D5
-	j//4zg7B2ql0dnw0W4POP77CLgXtaKICuVot3DW4AdF8p0qft2cKVKTWDNpAoTSB/zzkFA7vMHb
-	uRaca9trvwE2Z7tnBPHrCHFy4Kf3cp4x6fqjF8mWPV/+F8b6vLLVWRXiJV8ZPO0z9MGcGu2ERKi
-	oJbCUZgo31DdcsmsBzRncXNk50nBtG5RWFbD9j7w=
-X-Google-Smtp-Source: AGHT+IFNAvVc0Ym/Nl4SzjssDYkzNoxmE/MYxf9idIfGl+W01JZ50berxeUOTRJ/Uec/VhLDWdvcjg==
-X-Received: by 2002:a5d:64e6:0:b0:3a5:8d0b:600c with SMTP id ffacd0b85a97d-3a6d12bb37emr13160349f8f.3.1750750152898;
-        Tue, 24 Jun 2025 00:29:12 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:3d9:2080:6fea:600c:ca20:f54a? ([2a01:e0a:3d9:2080:6fea:600c:ca20:f54a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a6e80f27besm1190928f8f.57.2025.06.24.00.29.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Jun 2025 00:29:12 -0700 (PDT)
-Message-ID: <754d260c-1a31-494e-af06-49f6aae1813f@linaro.org>
-Date: Tue, 24 Jun 2025 09:29:11 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bRTgg0SwCz2xk5;
+	Wed, 25 Jun 2025 01:41:02 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by dfw.source.kernel.org (Postfix) with ESMTP id E2C905C67CB;
+	Tue, 24 Jun 2025 15:38:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D022AC4CEE3;
+	Tue, 24 Jun 2025 15:40:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750779660;
+	bh=V4cFT1hqRldsR5zu8HOg3Q2LTneYk9DIMbOYJXD5/V0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=SpBF33O5DmWK2ju99YB+4lma9jKXpW06Qy7WaO72fUGRR1bwapxUreARlC7ACWT6K
+	 d7vv4X3sGIn9LGbgcTNo3m5HJIra8v37CKiK8VkCbUNooIqlcYyh8VByADcphLjB9W
+	 hYlSLlPFnIJKGwnFPitY38ytqBnIwNYFchiWpKgQFsRDQMDIhi5yhHtaKUrJqUIfhI
+	 M+utXRuCz03/g3TIw4+WeJGu3yf5PFgqTBHYBduyJ+DgVZQ5TroV2E01VPGEMlzJrk
+	 LU61+IsoQyxe1V5snMuI1Aeg04lidkunp9VMazrO8DDzUHZSLfluTSyWQAZA4nsWG6
+	 Cps8jR3ACfGjQ==
+Date: Tue, 24 Jun 2025 10:40:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	"bhelgaas@google.com" <bhelgaas@google.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
+	"mani@kernel.org" <mani@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"joel@jms.id.au" <joel@jms.id.au>,
+	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
+	"vkoul@kernel.org" <vkoul@kernel.org>,
+	"kishon@kernel.org" <kishon@kernel.org>,
+	"linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"elbadrym@google.com" <elbadrym@google.com>,
+	"romlem@google.com" <romlem@google.com>,
+	"anhphan@google.com" <anhphan@google.com>,
+	"wak@google.com" <wak@google.com>,
+	"yuxiaozhang@google.com" <yuxiaozhang@google.com>,
+	BMC-SW <BMC-SW@aspeedtech.com>
+Subject: Re: [PATCH 7/7] pci: aspeed: Add ASPEED PCIe host controller driver
+Message-ID: <20250624154058.GA1478094@bhelgaas>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,97 +88,41 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: =?UTF-8?B?UmU6IOWbnuimhjogW1BBVENIIDAvN10gQWRkIEFTUEVFRCBQQ0llIFJv?=
- =?UTF-8?Q?ot_Complex_support?=
-To: Jacky Chou <jacky_chou@aspeedtech.com>,
- "bhelgaas@google.com" <bhelgaas@google.com>,
- "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
- "kwilczynski@kernel.org" <kwilczynski@kernel.org>,
- "mani@kernel.org" <mani@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, "joel@jms.id.au"
- <joel@jms.id.au>, "andrew@codeconstruct.com.au"
- <andrew@codeconstruct.com.au>, "vkoul@kernel.org" <vkoul@kernel.org>,
- "kishon@kernel.org" <kishon@kernel.org>,
- "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>
-Cc: "elbadrym@google.com" <elbadrym@google.com>,
- "romlem@google.com" <romlem@google.com>,
- "anhphan@google.com" <anhphan@google.com>, "wak@google.com"
- <wak@google.com>, "yuxiaozhang@google.com" <yuxiaozhang@google.com>,
- BMC-SW <BMC-SW@aspeedtech.com>
-References: <20250613033001.3153637-1-jacky_chou@aspeedtech.com>
- <7178e816-4cb4-49b3-9a1e-1ecd4caa43ed@linaro.org>
- <SEYPR06MB513414A5AE38EE6749A2902C9D7CA@SEYPR06MB5134.apcprd06.prod.outlook.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <SEYPR06MB513414A5AE38EE6749A2902C9D7CA@SEYPR06MB5134.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <SEYPR06MB5134973F678EB5B163DD50809D79A@SEYPR06MB5134.apcprd06.prod.outlook.com>
 
-On 20/06/2025 10:20, Jacky Chou wrote:
->>> This series has been tested on AST2600/AST2700 platforms and enables
->>> PCIe device enumeration and operation.
->>>
->>> Feedback and review are welcome.
->>
->> So it seems all PCIe RC code is bundled in a single driver and there's no PCIe
->> PHY driver code, is there a reason for that ? If yes I think it should be described
->> in the cover letter.
->>
+On Mon, Jun 23, 2025 at 05:41:13AM +0000, Jacky Chou wrote:
+
+[Apparently you trimmed out some of the lines that show who said what;
+there should be more lines here like:
+
+  > On Fri, Jun 13, 2025 at 03:03:55PM +0300, Ilpo Järvinen wrote:
+  > > On Fri, 13 Jun 2025, Jacky Chou wrote:
+]
+
+> > > +#include <linux/irqchip/chained_irq.h> #include <linux/irqdomain.h>
+
+> > > +/* TLP configuration type 0 and type 1 */
+> > > +#define CRG_READ_FMTTYPE(type)		(0x04000000 | (type << 24))
+> > > +#define CRG_WRITE_FMTTYPE(type)		(0x44000000 | (type << 24))
+> > 
+> > These are straight from PCIe spec, right?
+> > 
+> > I think those should come from defines inside
+> > include/uapi/linux/pci_regs.h, there might not be one already, so
+> > you might have to add them.
+> > 
+> > I also think you should actually use the type as boolean, and
+> > return one of the two defines based on it. A helper to do that
+> > might be generic PCI header material as well.
+> > 
 > 
-> Yes, because our design includes the PCIe RC and the PCIe EPs.
-> The two functions use the same PCIe PHY and are mutually exclusive.
-> And there are different configurations on RC and EP.
-> Therefore, we do not use a phy driver to configure our PCIe but use
-> the phandle of phy syscon to set the RC and EP drivers separately.
+> Agreed.  This definition is used on TLP header.  Maybe I will try to
+> add some definitions to pci_regs.h or pci.h
 
-I don't get why a PHY drive could not exist, it could be used by either
-the RC or EP PCIe driver in an exclusive way.
-
-Neil
-
-> 
-> I will add more description in next version.
-> 
-> Thanks,
-> Jacky
-> 
-
+This values might come from the PCIe spec, but unless they are needed
+outside drivers/pci, any #defines should probably go in
+drivers/pci/pci.h.
 
