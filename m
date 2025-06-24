@@ -1,54 +1,53 @@
-Return-Path: <openbmc+bounces-288-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-289-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D506EC77B7F
-	for <openbmc@archiver.kernel.org>; Tue, 24 Jun 2025 23:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C60CBC77B7C
+	for <openbmc@archiver.kernel.org>; Tue, 24 Jun 2025 23:01:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bRgRV1HSFz30PF;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bRgRV5jKLz30FR;
 	Wed, 25 Jun 2025 09:01:10 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=139.178.84.217
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750779663;
-	cv=none; b=Rjwj/P8esesBtjKWHL3AWcZoq/eEEVg4vRD3m8Ea1twtcp/I1in/nq/eOXP73Rj+V1B0hLk0970cDu3+fmz4mXVXZ88/54O0K6KjazidioQyeeKmzQWcM5D29izeA+aBhv7BvIcbUyUUA+QiY/DldHe+3pmhFPFQG3TdyXdUW4skO3mziK2C43yj2ZDQ8Qpji5x/80gA01CFDwzjxsZLh4otYxQtg5UYxEZtoi+G0McVAv2sYSaEugExbbOjOESBSgbUZZ1mGZFMTGyc6X13iUh2JHvcv9oMSy3EY5lCBu3GjbuOwAxPCYzxUz2IzkNIpaY684y81MJNMuMyYCV1yw==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1750778899;
+	cv=none; b=C/xC5Y9PpLE+YtTdZK42fR5kE66IFCtglFoN3qxaZy/WkpdkeSHWBiX8W1fi7NtQ2UrmLUHJUZHW2tfA3z/z+N4PErANOWsiKQ+tIt8nXOIXSpJ7VtooQZWoTjMrfzWbreVnYbdj9+4MfNgMRnJ7r1i2vAiRiaUsNaQrdg84hv02zHvdXXQn77jA5rLMZXgCkJlOh1hROGQTkNvrvW1eDy3iV0zRiz85TxZ+LmsMNM0hD+h8FG3Rrk50V4PdwSeO7+V20KwJG+b9mfKmyPUBhE4KPS9d5HJ/vY0tSFakgxEhsAKFV6lm1rBsVhk4W44DhemH6YCVFY0JDcRccuVgoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1750779663; c=relaxed/relaxed;
-	bh=yVl1jBXeKOOdiSgdx9SxjkRUmmR2uIB4d7AOMUyCXoE=;
+	t=1750778899; c=relaxed/relaxed;
+	bh=XsNdAHj/TeTWbS97LIusJoIJAQIBgxjV5yCRWn4yiOs=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=FGkwEWzwaMfuaAMip5MqDe6MNAvFBsVxZ1AmBti42+yN45tTct3GBmx2KH/9tPQuytu324hwBscZtDXwQfcZohFvZnbVrKVZbGK3NWRlKdfpn5xFhoBTCVgBxmxoC7OVCnpkYGhnf/5wPCiRyIyvhZaLifxQ5YVPXcI7fuaQgQi3KeRMFhd9WhFPNsy18JpuhDKa1qKpL5miJ144NDKLbkfwLBuWdCZ5c3XgAMZTt0X2NNrhCjp/2bTVECXBtGoAYfgyB6vsenh8KvLPCh9/BfbtTCOJKjqpwjIAet+slChf+qJY5dSpZdO+XXLehdpMML9Eq3D6XKjbfpc1mDJEJQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=SpBF33O5; dkim-atps=neutral; spf=pass (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 Content-Disposition:In-Reply-To; b=OiEuTwK3s9dhjQ/jKPKfTNL0E+w8vd4nD2kSGNJaBh5v+Ij9InkXN2Z4W1vnWmdm8oWanCZNdrB6bhsVK0RV8Xcnu9GRSEkHV+w3cB4qfU1rAA/zmE9s/4wczC/bJe5gi27z0T3fJurFDNevjAHh+syUgp7NHW6Of3F3pZazTahkp8wptqU1joWGafWoBcgGtPymZE8eKQ/Fz1aRy3+zcN3mgRks6Mdj0XIG+VXFHBJVEf4hMVzME/RJUkvffSO5Aesg8FF+t2kN+UPsFQC/TdjQasYnsc5t4RcIWSyBTRmSDiQYSq3CsYM7xwL/a5riOzTIEGqq9kJk2yyDHtd2og==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=aX667HMm; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=SpBF33O5;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=aX667HMm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=139.178.84.217; helo=dfw.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bRTgg0SwCz2xk5;
-	Wed, 25 Jun 2025 01:41:02 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bRTNy6hytz2xk5;
+	Wed, 25 Jun 2025 01:28:18 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by dfw.source.kernel.org (Postfix) with ESMTP id E2C905C67CB;
-	Tue, 24 Jun 2025 15:38:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D022AC4CEE3;
-	Tue, 24 Jun 2025 15:40:59 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 85429445D4;
+	Tue, 24 Jun 2025 15:28:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF9FC4CEE3;
+	Tue, 24 Jun 2025 15:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750779660;
-	bh=V4cFT1hqRldsR5zu8HOg3Q2LTneYk9DIMbOYJXD5/V0=;
+	s=k20201202; t=1750778896;
+	bh=Pl3NFZyhrvklSpvN1eF/J9iEI8F8auASAYz/1jCX/eI=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=SpBF33O5DmWK2ju99YB+4lma9jKXpW06Qy7WaO72fUGRR1bwapxUreARlC7ACWT6K
-	 d7vv4X3sGIn9LGbgcTNo3m5HJIra8v37CKiK8VkCbUNooIqlcYyh8VByADcphLjB9W
-	 hYlSLlPFnIJKGwnFPitY38ytqBnIwNYFchiWpKgQFsRDQMDIhi5yhHtaKUrJqUIfhI
-	 M+utXRuCz03/g3TIw4+WeJGu3yf5PFgqTBHYBduyJ+DgVZQ5TroV2E01VPGEMlzJrk
-	 LU61+IsoQyxe1V5snMuI1Aeg04lidkunp9VMazrO8DDzUHZSLfluTSyWQAZA4nsWG6
-	 Cps8jR3ACfGjQ==
-Date: Tue, 24 Jun 2025 10:40:58 -0500
+	b=aX667HMmD7Y51beRdU5f4Hd584kRCoEk7KvoexSEew+t+eRh1pj1fR9UYQkqZHZfh
+	 fWZBuBKFpWbUuR18ZgET27bcKTR21VWtudD2h/MiJg6xbrWNzJmKi4wWdNJxp8UTpF
+	 cLfLjNx7iOPtPZpUkfu58+hbZmJ888pu5bFPuQLLNe3jewq+aBRDEgJjvD7ycC26mJ
+	 gerZK14v2YkZRrVmf2+j4+xZpI9yO8HqO8Rg7b5p731cuNj3lCL5h1fcWXBFxZrqNF
+	 KCL0s7tmxxejQDhFnb583lC+8Fm9OWcJ3n4gkCCspwZLuTbTLsDNKxeUPWTTXNkXBe
+	 /ynLZbIg6aNbg==
+Date: Tue, 24 Jun 2025 10:28:14 -0500
 From: Bjorn Helgaas <helgaas@kernel.org>
 To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	"bhelgaas@google.com" <bhelgaas@google.com>,
+Cc: "bhelgaas@google.com" <bhelgaas@google.com>,
 	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
 	"kwilczynski@kernel.org" <kwilczynski@kernel.org>,
 	"mani@kernel.org" <mani@kernel.org>,
@@ -65,7 +64,7 @@ Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
 	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
 	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
 	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
 	"linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
 	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
 	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
@@ -75,8 +74,9 @@ Cc: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
 	"wak@google.com" <wak@google.com>,
 	"yuxiaozhang@google.com" <yuxiaozhang@google.com>,
 	BMC-SW <BMC-SW@aspeedtech.com>
-Subject: Re: [PATCH 7/7] pci: aspeed: Add ASPEED PCIe host controller driver
-Message-ID: <20250624154058.GA1478094@bhelgaas>
+Subject: Re: =?utf-8?B?5Zue6KaG?= =?utf-8?Q?=3A?= [PATCH 5/7] ARM: dts:
+ aspeed-g6: Add PCIe RC node
+Message-ID: <20250624152814.GA1477818@bhelgaas>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -88,41 +88,27 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <SEYPR06MB5134973F678EB5B163DD50809D79A@SEYPR06MB5134.apcprd06.prod.outlook.com>
+In-Reply-To: <SEYPR06MB51343F38D4F9C130A4CE3FED9D7CA@SEYPR06MB5134.apcprd06.prod.outlook.com>
 
-On Mon, Jun 23, 2025 at 05:41:13AM +0000, Jacky Chou wrote:
-
-[Apparently you trimmed out some of the lines that show who said what;
-there should be more lines here like:
-
-  > On Fri, Jun 13, 2025 at 03:03:55PM +0300, Ilpo Järvinen wrote:
-  > > On Fri, 13 Jun 2025, Jacky Chou wrote:
-]
-
-> > > +#include <linux/irqchip/chained_irq.h> #include <linux/irqdomain.h>
-
-> > > +/* TLP configuration type 0 and type 1 */
-> > > +#define CRG_READ_FMTTYPE(type)		(0x04000000 | (type << 24))
-> > > +#define CRG_WRITE_FMTTYPE(type)		(0x44000000 | (type << 24))
+On Fri, Jun 20, 2025 at 05:24:39AM +0000, Jacky Chou wrote:
+> > > +				resets = <&syscon ASPEED_RESET_H2X>,
+> > > +					 <&syscon ASPEED_RESET_PCIE_RC_O>;
+> > > +				reset-names = "h2x", "perst";
 > > 
-> > These are straight from PCIe spec, right?
-> > 
-> > I think those should come from defines inside
-> > include/uapi/linux/pci_regs.h, there might not be one already, so
-> > you might have to add them.
-> > 
-> > I also think you should actually use the type as boolean, and
-> > return one of the two defines based on it. A helper to do that
-> > might be generic PCI header material as well.
-> > 
+> > PERST# is clearly a per-Root Port item since it's a signal on the
+> > PCIe connector.  Can you separate this and any other per-Root Port
+> > things into a Root Port stanza to leave open the possibility of
+> > future hardware that supports multiple Root Ports in the RC?
 > 
-> Agreed.  This definition is used on TLP header.  Maybe I will try to
-> add some definitions to pci_regs.h or pci.h
+> The PCIe RC that designed by us is only one root port.
 
-This values might come from the PCIe spec, but unless they are needed
-outside drivers/pci, any #defines should probably go in
-drivers/pci/pci.h.
+Yes.  But this driver may be used in the future for other RCs that
+include more than one Root Port, and it would be good if that didn't
+require structural changes to the DT.  Also, there are RCs from other
+vendors that include more than one Root Port, and I'd like all the DTs
+and drivers to have similar structure.
+
+Bjorn
 
