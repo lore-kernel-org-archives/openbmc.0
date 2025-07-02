@@ -1,82 +1,49 @@
-Return-Path: <openbmc+bounces-304-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-305-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47EC4C83038
-	for <openbmc@archiver.kernel.org>; Tue,  1 Jul 2025 23:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A4BC8303D
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jul 2025 01:24:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bWzg41KXhz30Qk;
-	Wed,  2 Jul 2025 09:26:08 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::433"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1751369560;
-	cv=none; b=UTGs9CX/1vX1OE1blNsHxlbJEI7j8ky+7MYX1lLfcBSSOukeaGs1/p3O0giVOJBldqNmJPdcKo414NHaqzytzISukCG06Rz1jiHuqlj20aeu7bwWsJkIyHVmSyYBfB7Ncr5hKC4eE0IK1+VzvvadyyN3J7S1aTJf2lrLjqmibdaRv9VcJ38E4SqXKjD6J0hH5TsfdA9QYl9sa6DA82ABhPnI7rDFulw8sfHY+a136nOJGop7n4XFaR2CeYRq+CfwIEC9PxdxLeWW1Vu5/0iedE73YzEucwXJO5C78Ye/CipNf2h4pahZ6Ml5VTkbnVe4xRXDiFgA0PsVrd7Fl0zS7Q==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bX2HT1lqTz30FR;
+	Wed,  2 Jul 2025 11:24:21 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1751419460;
+	cv=none; b=CihJnUrCID121cVMcjA1h0eOH6zj/Ln6cjtZpPKJjfBEGE0CobLN8afPOrd6PE3X/XI0HW9Sktn+TIgT886Fm6tX4H/YC7Q01Bd5bjr6/Rj3r+356nPd4Gh3dy/w14RTHbkLY1reb/3LA4Wp02Tb8KZFzD3vHx5/3a1BFarrldSptn20iLsFLCrr8wGd8afxE9ZOKzDHtM4ICv5L+vsr1ij60cnbYScJBOWMjm/2wAl/Uj5x5YitHsDvG7DUAEz+ssHKDpRNg6z+a8U2NoTNR/metq5PGEQCqCP4TC6E3xY89GTs+CGpNG4yb0a2SRKJOiuEz1PonedivO5DmGibFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1751369560; c=relaxed/relaxed;
-	bh=FYUiAY/zB/lWD1QpwVDh6Icb7j9XmLcoZMP/NhJ1Gss=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=PUKTNP8Dj6PAOJS4K7sPCgQ2wdb3NsV8WZPqNpUYAMlD4RWdYPRvyUZgPWX9r6iGpf21PUNdg7xooj8AQdP3TEUHepmom9Z1FkFluRyt6+Twnp5w1OZGLffNKHqZ5svVhzszyV8Ll0dbQh9mRqM6H4lm0M00nQPMT2hM4fZHIOeQCugK1B6l32vkLnlMDu6T1ydnJ1U5fVLc1oKYV64Ia1Aehio9KLk50rZJWyaS2YOMSCCAtkOqoG+S3amIZ4R0reA5DFecTv9HCCNy5KmHEhbarGZ0DCErksxjlpwubU0aoMIlYke6pMgd+NmNwC0itU3fecz06hYiPtGxCYTXPA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jcICdvbH; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::433; helo=mail-pf1-x433.google.com; envelope-from=fredchen.openbmc@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1751419460; c=relaxed/relaxed;
+	bh=lqupIVmUfM/FwKL2CtGRCLXKXJXt++c24hQ1CeX4PTg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KeTlAB9AJNBrMiiWBXh+xghxBZDEHIEQyOaQqTiR7bjWEato+Tp+KdShamgirnyaE8nmFZj9O5UPu+igrDXDo0u9jvImPJK7Mmt04i4pPQW1gxRPrQ3dN8aXVhESMIjjR9qEWuEnov0Ka4ZQFetts+6f6UkNs5qwzyXAASCqKRoi2G/QkjxZrsAGXU2GpkNSsN0R0jCKNWlEmJJZiUUrdQppW+jzJFZrlP8Wz8ZihJODtBpPahU/PIsUPYVoUYigYyDInCo2i4LAp0l6mXj0P5MywrDDbAUJYklqAc0jyCSF3D7ppItKt96zeYooSxjJSuxEJTzBPb2biB5K72EdTg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=jEMMyiHt; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jcICdvbH;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=jEMMyiHt;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::433; helo=mail-pf1-x433.google.com; envelope-from=fredchen.openbmc@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com [IPv6:2607:f8b0:4864:20::433])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bWgqp5fQQz2xHT
-	for <openbmc@lists.ozlabs.org>; Tue,  1 Jul 2025 21:32:38 +1000 (AEST)
-Received: by mail-pf1-x433.google.com with SMTP id d2e1a72fcca58-7426c44e014so5639744b3a.3
-        for <openbmc@lists.ozlabs.org>; Tue, 01 Jul 2025 04:32:38 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bX2HR6KqDz2yQH;
+	Wed,  2 Jul 2025 11:24:19 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751369556; x=1751974356; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=FYUiAY/zB/lWD1QpwVDh6Icb7j9XmLcoZMP/NhJ1Gss=;
-        b=jcICdvbHjgroM7NtymzCeJpURgYWh2z4F/XehXB2hw7ZxWGRThLiv+8SvdFyYIRZjO
-         exRnzuXDNVPCliE0V75lYGSPROTksNjuaciUz7zh3J5bqpd1XA6MX4XH6Qoi/BJVN4g7
-         WTTRlAQkNfy2+OOYECmduPKQDP6skULT86uP93hsSNVtTqV5dRtjvwNePPa6OmURo/kV
-         qPUB9DF2QEBB+8EL18CrjdyOeyRXbY24U/QwZNksxJz/iLKlqZGLvrml6ts/BbljTC/o
-         3YxULQFA5P15OmlEAN7jWiEdoRk3gXb/WT1qwzFJ3Rg90zsrdVKM9tv97IcIWg8yXMvW
-         FOtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751369556; x=1751974356;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FYUiAY/zB/lWD1QpwVDh6Icb7j9XmLcoZMP/NhJ1Gss=;
-        b=BrQWjhO8aC1aYT/BVSoUh51VZ4Z2Kx/B5mdHpObAwsrlQJCIbkWTFD13q3684Xty1z
-         jdg8jmsq0Fs69bX01ccaGVz8BwwY2jVoa2FWdzdy1zMIkAsDMGUDWeg/p0Q7hzC1q071
-         hy77aQEu1Ic07Iomtb1lZyILYkvDOr4oSLAbJWRDFfFSKATuac+4xxVKZxcO07nWS07a
-         okmfafdZv2EpmWwGZcsZRbw56CgcRX6XIq7eTXFSUYh1snY+msCMoA5Ony/8oWLPRLnI
-         H3hakkjWUh1gOc2W4Y4Nv0c4DNY6dkABi5mtNtEpqmbMWQV7bex1GmrKqdTEu1/YbzKY
-         Gl+A==
-X-Forwarded-Encrypted: i=1; AJvYcCXqg50dEgjJHntCspzD3TtsCXgCf3gqL6msrxlqPbxJSDMQWIIm7qzeMlJxrFhmHs537VWK3LHX@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yyg4+IfbE7ovxx1r6d3dYuqeTIWFrKDPq3zQAzuCBTos2Mvo7s1
-	7ye0YA+AxJIf+/yKV/vrmzGZpQV1Q2ZAC0HKzfNJRYZovn6cjof5ecj/ReAQEWkmPsw=
-X-Gm-Gg: ASbGncuRm8/rn0OVoMTm2IoFSo5wpafAR4p12l5xYrJzYNoIwabXyyamtCTmyceXjP5
-	wT9nuBhnjFisCFs/ofFCytCEC/+i8IRKb/Em7HyH8mVyXsCCDRg7aKyQLqb10IbZA2mmvbHI/FR
-	1c9VftfmTW/f44h31P3vH0ggq8//XFvjxtudL+0lJDKPOe/aODBpouqJ+NNXFh7RQzV83qkRHbE
-	0caqji0bXibCTZVf56JggzfR/IVfQhr5+wf9iHLv+JdMi73vzY0++4P16G3OvRGw0YR1qrF7AR2
-	uvZ3EnbDmW3dnbBsBIXuGY3YjTS5Bb0hAvD/zVvAF5DcEuj+0PAfA2uMxm2dEdGe+X+5lt0yPf2
-	v/DxRjexRmQ0PA2eV/3WlnerGYBtRkTTzThndF6dUmh1zg5dZhzh1/vcvdq2ivnpJjeDukHEvXN
-	jBt48pA+lBB/l3bw==
-X-Google-Smtp-Source: AGHT+IFlTdEvCYvznnDhT3Zm3RuVriQIDyvit2L6TJm98L4IUPFDj4ACIoeeiOOzhwt2rRxBOzcTzQ==
-X-Received: by 2002:a05:6a21:101a:b0:218:bcd3:6d2e with SMTP id adf61e73a8af0-220a16eae19mr31122193637.36.1751369556127;
-        Tue, 01 Jul 2025 04:32:36 -0700 (PDT)
-Received: from fred-System-Product-Name.. (2001-b400-e389-b6b2-52d0-167f-4c41-9344.emome-ip6.hinet.net. [2001:b400:e389:b6b2:52d0:167f:4c41:9344])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-74af56c0c8bsm11617099b3a.113.2025.07.01.04.32.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Jul 2025 04:32:35 -0700 (PDT)
-From: Fred Chen <fredchen.openbmc@gmail.com>
-To: andrew@codeconstruct.com.au,
-	openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Subject: [PATCH linux dev-6.6] i3c: master: handle IBIs in order they came
-Date: Tue,  1 Jul 2025 19:32:32 +0800
-Message-ID: <20250701113232.1462888-1-fredchen.openbmc@gmail.com>
-X-Mailer: git-send-email 2.49.0
+	d=codeconstruct.com.au; s=2022a; t=1751419458;
+	bh=lqupIVmUfM/FwKL2CtGRCLXKXJXt++c24hQ1CeX4PTg=;
+	h=From:Date:Subject:To:Cc;
+	b=jEMMyiHttf9+780o3EE1L0TRtmlzNa50LTyif7nkuZquu0MMdgyPMQXZIdm7MNFA6
+	 EPsT3n/sTdRIh2VMmtQ+I3K5YD0AhQntiv1/9WmfCsLsS7aC2elVM39SUpsaC14FT/
+	 wrAeaNGbm4ZjuqaSP34+E2pQVgt+Z3LoZPRXXS3ysQozss7vN4+crr3VhCMqMklN/B
+	 8OmnudSbGaRM/j+DB/p1PYqkHp1hSQOBX2w3gp0MXqiilY42vKId8mtoPXI2BCK7n+
+	 Zr/fWEUcM1L4Y7YVOCkEPLBR6K6x5uWKnIDDbHWHlfYP5tNOeUOf+TOQIcKKaerPD8
+	 HAmJAM88iNKoQ==
+Received: from [127.0.1.1] (unknown [180.150.112.153])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id C1B25640B4;
+	Wed,  2 Jul 2025 09:24:17 +0800 (AWST)
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+Date: Wed, 02 Jul 2025 10:53:54 +0930
+Subject: [PATCH] MAINTAINERS: Switch ASPEED tree to shared BMC repository
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -88,100 +55,65 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250702-bmc-tree-update-v1-1-c270cd8af0ab@codeconstruct.com.au>
+X-B4-Tracking: v=1; b=H4sIACmKZGgC/x3MOwqAMBBF0a3I1A7EwR9uRSw0eeoUfkhUBHHvB
+ stT3PtQgFcEapKHPC4Nuq0RWZqQnft1AquLJjFSmMoID4vlwwN87q4/wJUMYh3y2pQjxWr3GPX
+ +j233vh+kq9TyYQAAAA==
+X-Change-ID: 20250702-bmc-tree-update-72b2cde4806f
+To: soc@kernel.org, Joel Stanley <joel@jms.id.au>
+Cc: linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1313;
+ i=andrew@codeconstruct.com.au; h=from:subject:message-id;
+ bh=gQXNDlKtiwItGVQoQQmPChI9TajdcpMw23001kg7pts=;
+ b=owGbwMvMwCG22PjiTL8dD5cxnlZLYshI6bLNPv7N3WJ/3tYN1979qjZaz311JuOeK3ZfHnyVX
+ /0ya/e76I5SFgYxDgZZMUWWFYG2hXc3T4r/eSD7GMwcViaQIQxcnAIwEb63DH/Fnd33nn1Q89lA
+ t/A7l7mcff5slg0XGRgFP7p/2bpOLH4NI8OpZ96qGzZ0mUjzxS4WnqbypixYSXEfn7wJ74fpmrv
+ c2rgB
+X-Developer-Key: i=andrew@codeconstruct.com.au; a=openpgp;
+ fpr=C0F5E25A7D30ECBBF3BE3CEC3B837651FC0D8CF4
 
-From: Zbigniew Lukwinski <zbigniew.lukwinski@linux.intel.com>
+We now have a shared repo with write access provided to M:s for the
+ASPEED SoCs.
 
-IBI shall be handled in order they appear on the bus. Otherwise could hit
-case when order of handling them in device driver will be different. It may
-lead to invalid assembling fragmented packets or events order broken.
-
-Added separate workqueue with option WQ_MEM_RECLAIM for each device driver.
-This ensures IBI handling order and improves IBI handling performance: IBI
-handlers for device B are not blocked by IBI handlers for device A.
-
-Original solution (single workqueue in main driver) was able to handle also
-general IBI (not related to specific device) like HJ or MR. So leaving this
-for such purposes.
-
-Signed-off-by: Zbigniew Lukwinski <zbigniew.lukwinski@linux.intel.com>
-Link: https://lore.kernel.org/r/20231015222334.1652401-2-zbigniew.lukwinski@linux.intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-(cherry picked from commit 9fd00df05e81a2e1080ce6e9abc35533dca99d74)
+Cc: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Andrew Jeffery <andrew@codeconstruct.com.au>
 ---
- drivers/i3c/master.c       | 14 +++++++++++++-
- include/linux/i3c/master.h |  4 +++-
- 2 files changed, 16 insertions(+), 2 deletions(-)
+Hello SoC maintainers,
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 16b87c666125..cbe8fbe0fc0b 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -2547,7 +2547,7 @@ void i3c_master_queue_ibi(struct i3c_dev_desc *dev, struct i3c_ibi_slot *slot)
- 		return;
- 
- 	atomic_inc(&dev->ibi->pending_ibis);
--	queue_work(dev->common.master->wq, &slot->work);
-+	queue_work(dev->ibi->wq, &slot->work);
- }
- EXPORT_SYMBOL_GPL(i3c_master_queue_ibi);
- 
-@@ -2992,6 +2992,12 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 	if (!ibi)
- 		return -ENOMEM;
- 
-+	ibi->wq = alloc_ordered_workqueue(dev_name(i3cdev_to_dev(dev->dev)), WQ_MEM_RECLAIM);
-+	if (!ibi->wq) {
-+		kfree(ibi);
-+		return -ENOMEM;
-+	}
-+
- 	atomic_set(&ibi->pending_ibis, 0);
- 	init_completion(&ibi->all_ibis_handled);
- 	ibi->handler = req->handler;
-@@ -3019,6 +3025,12 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
- 		WARN_ON(i3c_dev_disable_ibi_locked(dev));
- 
- 	master->ops->free_ibi(dev);
-+
-+	if (dev->ibi->wq) {
-+		destroy_workqueue(dev->ibi->wq);
-+		dev->ibi->wq = NULL;
-+	}
-+
- 	kfree(dev->ibi);
- 	dev->ibi = NULL;
- }
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index b82bebec2db7..81d681c3007a 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -135,6 +135,7 @@ struct i3c_ibi_slot {
-  *		     rejected by the master
-  * @num_slots: number of IBI slots reserved for this device
-  * @enabled: reflect the IBI status
-+ * @wq: workqueue used to execute IBI handlers.
-  * @handler: IBI handler specified at i3c_device_request_ibi() call time. This
-  *	     handler will be called from the controller workqueue, and as such
-  *	     is allowed to sleep (though it is recommended to process the IBI
-@@ -157,6 +158,7 @@ struct i3c_device_ibi_info {
- 	unsigned int max_payload_len;
- 	unsigned int num_slots;
- 	unsigned int enabled;
-+	struct workqueue_struct *wq;
- 	void (*handler)(struct i3c_device *dev,
- 			const struct i3c_ibi_payload *payload);
- };
-@@ -501,7 +503,7 @@ struct i3c_master_controller_ops {
-  * @boardinfo.i2c: list of I2C boardinfo objects
-  * @boardinfo: board-level information attached to devices connected on the bus
-  * @bus: I3C bus exposed by this master
-- * @wq: workqueue used to execute IBI handlers. Can also be used by master
-+ * @wq: workqueue which can be used by master
-  *	drivers if they need to postpone operations that need to take place
-  *	in a thread context. Typical examples are Hot Join processing which
-  *	requires taking the bus lock in maintenance, which in turn, can only
+Joel and I are chipping away at the workflow for shared maintenance of
+ASPEED and Nuvoton BMC SoCs. The latest is this shared tree from which
+we'll do future pull-requests.
+
+Andrew
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index a92290fffa163f9fe8fe3f04bf66426f9a894409..a4b8e52ace9fff3c7f43b67b288c5a2c8ec3efa4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2408,7 +2408,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ L:	linux-aspeed@lists.ozlabs.org (moderated for non-subscribers)
+ S:	Supported
+ Q:	https://patchwork.ozlabs.org/project/linux-aspeed/list/
+-T:	git git://git.kernel.org/pub/scm/linux/kernel/git/joel/bmc.git
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git
+ F:	Documentation/devicetree/bindings/arm/aspeed/
+ F:	arch/arm/boot/dts/aspeed/
+ F:	arch/arm/mach-aspeed/
+
+---
+base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
+change-id: 20250702-bmc-tree-update-72b2cde4806f
+
+Best regards,
 -- 
-2.49.0
+Andrew Jeffery <andrew@codeconstruct.com.au>
 
 
