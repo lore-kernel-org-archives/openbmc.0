@@ -1,70 +1,97 @@
-Return-Path: <openbmc+bounces-318-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-319-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A647C83F14
-	for <openbmc@archiver.kernel.org>; Wed,  9 Jul 2025 19:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32B89C83F1A
+	for <openbmc@archiver.kernel.org>; Sat, 12 Jul 2025 02:06:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bcpNt41b2z30Tf;
-	Thu, 10 Jul 2025 05:45:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::530"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752090334;
-	cv=none; b=ADzjUVe7wmXV1ETz+V/vL6uyUNgTPfAEgWPjYOU3gSEArLWE6DiDwO5zzghKvgLroWbaOp3KlkDhwzBKEwPrH3d8ySjucjsIRBF4JmP2SzvlBFamivo3O2BMLAaqOJmKDMXAnFgVnf48TZnp7SFajZ1bv0WpPPPmG7ncpA/YDYyafNHwVUYw1FktLo9Pkr/umOSXcFeWeNwBQwzu8nmR/EiLkOa5D98icty5fBHvcrwPWa7VqI1UrxoWPLAiWB5zsSdlUdkPVpJpzYsuns2N88LB3DG2QA83jx32rzpkW5ENma2BLjRv+xy8Gtt/920s/Yw6sNbZZ930ZKmOHdP9NA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bfBlc6JR6z2yMw;
+	Sat, 12 Jul 2025 12:06:36 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752160898;
+	cv=none; b=IOLaaSOX2o7rUjVHtkvnijnRtPbXmdZvmw12oTxbE6gFhijNf64llIxGJ4gTLY84PPuWGdN8K0MUV2WvjvBKsz/U72jUFhwooNn5/mcZcR5sYXEBM1Cp3xyXyS5PO/0a/rQIXy8Mrj1hp7TpL/6VkRxleIU2oTdm+7mP0czaq5hHFoHpLDw16lr/p53IXQPkqz9t1Y9jBORMyj872ukRNeCwK1oQzsvWsCxRL1wVtTxfCMfk4sMvSAPn5QGAvSlRXM9cD3qOn1g3xDi1lU2VAv/CvoW6cQKiKYsME/rEYzHqJQP6YStUA2VXPb3lu0f/w7JSY78TTa9QL6mWQ2JrtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1752090334; c=relaxed/relaxed;
-	bh=o7jknT1ShhZr8dLsk1+HNYivNrqJGA6/So51A1y+WgE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lLzTNDVeWFaakkoFYCCGcoVot2SXNsOTKzeIx1aXLWA0h6ahBqoN/u+gZQ0lqnm+qZcz/IHi3xKznrDCgcS4ZfekaHB3MHvFpWL2NGBs9Mh3VFMInB6vwJtUPP6S5F6xZOGPUquLNA7Q9Xrds80fNirJibSd6dmx+jCn6b+eg67J3TsjNgckeq8SmoAykR2Z/BmerDUPt+F5IQHgCZ/G96SUc0H+f0MfaBmYWMTRS7fOj/V9c1WEHBc/rJWlDgI05wOFf3Tx24+WBEfdQ87hyLAhTN7dtOqHVoprKm+XGSfQHWDZ5o/YZr0/LUW6jJX5IMLYtX8RZYmFQJfJixSsVA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net; dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=YG+y1IBW; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::530; helo=mail-pg1-x530.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org) smtp.mailfrom=tanous.net
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net
+	t=1752160898; c=relaxed/relaxed;
+	bh=2dw2Z+Nvvv7e9dl6Tk8Gm4QoVSZGDUeLTWDCuXgyoEs=;
+	h=From:Date:Subject:MIME-Version:Message-Id:References:In-Reply-To:
+	 To:Cc:Content-Type; b=NxLWtyie6JGElVJfEjDdjdS+lkX6Lk/uFWSItZLXjGge1jlwg/03z07oek/6Mocx5DL+mvuEkM1sF7nvkuCvY6OaR/Hdn1HUpJ8crDsMssyaA/vqUeENHEsGEB+ynjt3SQ6/PRIst1VA0dfUWQOnag95jMQy2VvZVC9YhXZC8UiYXyLGzDYOrkE6baTpV2t+4LSfdQedys2AQXaSvyRDvn4Vfmyq3PUr5PQw+oN5362xvlTnUiyGFfsYTK3PLby4O7qb3qHakB1tm5dZ0kXzrebWp/Fe0QfEq+4NFDl1k5LhHHVfhOjosVEUa4L28ULp+GqTae7Ctdyehk1BI9zJug==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HvzmGx1r; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HvzmGx1r; dkim-atps=neutral; spf=pass (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org) smtp.mailfrom=redhat.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=YG+y1IBW;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HvzmGx1r;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HvzmGx1r;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2607:f8b0:4864:20::530; helo=mail-pg1-x530.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com [IPv6:2607:f8b0:4864:20::530])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=redhat.com (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bcpNr3BPZz2xlK
-	for <openbmc@lists.ozlabs.org>; Thu, 10 Jul 2025 05:45:30 +1000 (AEST)
-Received: by mail-pg1-x530.google.com with SMTP id 41be03b00d2f7-b34a8f69862so322747a12.2
-        for <openbmc@lists.ozlabs.org>; Wed, 09 Jul 2025 12:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tanous-net.20230601.gappssmtp.com; s=20230601; t=1752090327; x=1752695127; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=o7jknT1ShhZr8dLsk1+HNYivNrqJGA6/So51A1y+WgE=;
-        b=YG+y1IBWARYAbfv5j4z9AXilbFQvRHSkwijtt4jlmfqt29HXrtqnvVDRjPQeqLtADu
-         lD5UJRwaX6XEm3Rrstj3n0cpSSZprRHTe6YduFum/F5fYmcpKVDUHGdin7iWHwQ0XaO5
-         dtg6zwKuR8dYVHFPElg6S3SXiQ2niRVFeuZ5z8EOebrub6u54+gApLtN9q/hmHWrFD5y
-         AelCFSX2Ywe+iGJ9tt2EX1RFyHQSAYOhLTA32pl0O+bauAmkv1gjRiZX9Wnm/HBAjuJ3
-         H4y6OA6Y05aN4wiHfjwNhViYvJ9M4cqqsVb4bZRQbpkO/3CdAO157HiAh+3/ZaTzvLeg
-         EjNw==
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bdJTs3z8kz2yDk
+	for <openbmc@lists.ozlabs.org>; Fri, 11 Jul 2025 01:21:37 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1752160894;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2dw2Z+Nvvv7e9dl6Tk8Gm4QoVSZGDUeLTWDCuXgyoEs=;
+	b=HvzmGx1rf/kP8sgfI8FKIroURiqe4k6998B4903i9wqmgxJ4jsqjgMXZBgvkA12R24jn/4
+	X7EN7HS3uwN2rMX0j1BNu7v6Q/CRfommcFTAnCpS6Wbzrhz69WBeUZ8HHxIUzZbU5z8i0Z
+	BnfelOnVgvqYNuNhI0GLr6E3fcrMJqY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1752160894;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2dw2Z+Nvvv7e9dl6Tk8Gm4QoVSZGDUeLTWDCuXgyoEs=;
+	b=HvzmGx1rf/kP8sgfI8FKIroURiqe4k6998B4903i9wqmgxJ4jsqjgMXZBgvkA12R24jn/4
+	X7EN7HS3uwN2rMX0j1BNu7v6Q/CRfommcFTAnCpS6Wbzrhz69WBeUZ8HHxIUzZbU5z8i0Z
+	BnfelOnVgvqYNuNhI0GLr6E3fcrMJqY=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-288-UN_2Kli9OQ6FMWzpzRqpmA-1; Thu, 10 Jul 2025 11:21:33 -0400
+X-MC-Unique: UN_2Kli9OQ6FMWzpzRqpmA-1
+X-Mimecast-MFC-AGG-ID: UN_2Kli9OQ6FMWzpzRqpmA_1752160893
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-4a7bba869dbso24559361cf.1
+        for <openbmc@lists.ozlabs.org>; Thu, 10 Jul 2025 08:21:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752090327; x=1752695127;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1752160893; x=1752765693;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=o7jknT1ShhZr8dLsk1+HNYivNrqJGA6/So51A1y+WgE=;
-        b=hAudQIBaKGvoY+ihdTDQK4OmOtXvZ5gpkTnuzHB3rutyF2yrT/S9TGf+WXZgys4bge
-         63QqlanhsH3641lJtSBTz3T/hcwNAqCEoqlVQ+CHn0i6RSbR3yHp39yvUXiNvr/IaoUp
-         InJj3V+zn4mIrN3QDGlKO4FWNCNltOc3SQath+9dLNzsngE5KCtK3T0IClZTfYAUe5WK
-         XQ8IyAgMzSCT3VVun5XpZg35QR8jgE+0z9P+7Of2LvsHwx+EbP8jIXCGaZd7OSXD4ebS
-         cUXX/0hbsgDICnvBCVB0QPYGYSEjba9fD++U5m7kgm/rDbMHV8+yZAbU3snbGEjLD9QM
-         pltQ==
-X-Gm-Message-State: AOJu0YyuV2xcJYcxpjV6DEP97twws8OnEvAOMqtVw3EqfNxR/GRe9Car
-	XlN2V4CMxv3fxMVIFaax/Mqj2c6+LgJlo9maT2wP7fz4ir9c+j5XaG3t3D4LO+X5XQWpAP1cfHA
-	5t8bLmt6GsiVnIDUdZ+zeus9y7lmCm+MgGBEeRgpXWw==
-X-Gm-Gg: ASbGnctouDBSlQfg9qajtNVYmX9R9GvMqm3W0qLcaEjiNgH1jgT3QGhFKGxK2Y9spbB
-	kGWM66mwb9XoYuJ68SWT6nVKygeCEmBcYxDOGZ1GYc5Yk7bcTCoXuqFzg34vN4a8iqd/7PGxVAM
-	2NdYbDwF0M+hvzZLzAtz0WGXHVn/jfhc5Pyj90Kp2mDQW+
-X-Google-Smtp-Source: AGHT+IEAwV0F+1+Hl41Bc4aI5dXqVLbNYC5Rz2cVkptR9M+kRF+JQDqevHC5BjR/a21JAZHfk8EXA6stimqhGw8C2V0=
-X-Received: by 2002:a17:90b:534c:b0:31c:15da:2175 with SMTP id
- 98e67ed59e1d1-31c2fd768dfmr5936852a91.9.1752090327471; Wed, 09 Jul 2025
- 12:45:27 -0700 (PDT)
+        bh=2dw2Z+Nvvv7e9dl6Tk8Gm4QoVSZGDUeLTWDCuXgyoEs=;
+        b=AMO8jUPg6obXTlNm3kuGhdKJLhg0iP325uqRL8I4Smze/qsHI/ntuZh08Uol7W0EvW
+         gRgQoFcc2o/Z6tool/Niq0IOFYlRjWi27GVkOBB1XWkcVEtD9YIp/0z/JjCpGjxvL93W
+         FBecabbwaDMBEozLu8wMtmly3oX1L2AuWQyLROv3pIkJY5Jm1pB1ZQkGNJgg6h3ytrCm
+         YxMEGvLbYWBT0cqI1SMh7y3OewWslasCYmvi1Ih3ug6/RVCKSNa1MqAA5cvrUCyCK6oD
+         5+ZUBW2oaWsXEtmcdwzKjbFMVAUaIvdcCnXdU9jxA70FjI/9QfOf6qX+e18Lh3RXDa0V
+         e/9w==
+X-Forwarded-Encrypted: i=1; AJvYcCUnbuCROTGMW3HcAibzDOzv2qj6iqOz8KRmKNpbJOPOb00fR844mbuop1hZ17VHzifRKwcvZ65C@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yz1Xs/3vGGtnUcbil6ZZN+gQqHPnJQ7eq4pmq67bImx0FEFGhmP
+	zbqo5jVzxkO9BiQIFW+QXU4voLypD+hOYm+3CoeN4AqmBP5owXLGVc0D4xhKu0ixjWlDTxBBFJp
+	9OipThZ2RCgnUOzf6JN2mYFa/dYN/xwke4bb86sJ4ilmSxlfIE5gRFCUOP3bn
+X-Gm-Gg: ASbGncs8NPzoUNdcQ+Q12eDf1clQujiDQ9uBax6RMNZvzENSJfOKNSePvhOLcHMzxl/
+	rvqdfaoVAPWYzGgnAloaj5o+ErLWzNcLsaYn9r77Y8DktU0pP+D2TNNouHPfzUYN0eUhByvzhQu
+	gYzEkhnOL3MaUMHtEwXloD4Bu6WlFeUzNXKW99W/QqySJw7ZCEc6C9QLkv/Lj3u78YNABPQlhGi
+	+YE8zW5xm7dznWh5gdULkZ54zctPmeCRlh2QpNiUOziRb/eITMFqY5vKETld1y2+Avu2nKWCmlX
+	pMoHKaSCRXpxfcWXJZwZpRz5SppY7leB+szvpzvQfm6g9dkuksGkIYNQLFMw
+X-Received: by 2002:ac8:59c3:0:b0:4a5:9b9c:2d9f with SMTP id d75a77b69052e-4a9e92fb39bmr60788221cf.2.1752160892702;
+        Thu, 10 Jul 2025 08:21:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEssxFzmy5DZaFLWrhwRKaLprHY91yPLmVxKn2VUF7H3TGYR0HmxKyVMLk0dM4mEtgHsRmiqw==
+X-Received: by 2002:ac8:59c3:0:b0:4a5:9b9c:2d9f with SMTP id d75a77b69052e-4a9e92fb39bmr60787681cf.2.1752160892253;
+        Thu, 10 Jul 2025 08:21:32 -0700 (PDT)
+Received: from [192.168.1.3] (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-4a9edeee2c2sm9654471cf.74.2025.07.10.08.21.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Jul 2025 08:21:31 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+Date: Thu, 10 Jul 2025 11:20:35 -0400
+Subject: [PATCH 15/15] rtc: rv3032: convert from round_rate() to
+ determine_rate()
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,60 +103,94 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <aG50XyECFuxmDkXB@heinlein>
-In-Reply-To: <aG50XyECFuxmDkXB@heinlein>
-From: Ed Tanous <ed@tanous.net>
-Date: Wed, 9 Jul 2025 12:45:16 -0700
-X-Gm-Features: Ac12FXwZ2RScixsjuv9hduFBOFSi1iX_4q3GgQAfL4C923Pn0x6uweh0WfHXoDg
-Message-ID: <CACWQX82NwVjw=kb5VvMgLawkxWCNfQ0VoDaDdrUu9dRFQvC25w@mail.gmail.com>
-Subject: Re: Deprecate phosphor-hostlogger?
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: OpenBMC List <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Message-Id: <20250710-rtc-clk-round-rate-v1-15-33140bb2278e@redhat.com>
+References: <20250710-rtc-clk-round-rate-v1-0-33140bb2278e@redhat.com>
+In-Reply-To: <20250710-rtc-clk-round-rate-v1-0-33140bb2278e@redhat.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Akinobu Mita <akinobu.mita@gmail.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Mia Lin <mimi05633@gmail.com>, 
+ Michael McCormick <michael.mccormick@enatel.net>, 
+ Heiko Schocher <hs@denx.de>, Parthiban Nallathambi <pn@denx.de>, 
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, 
+ Maxime Ripard <mripard@kernel.org>, Stephen Boyd <sboyd@kernel.org>
+Cc: linux-clk@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
+ Brian Masney <bmasney@redhat.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1752160847; l=1946;
+ i=bmasney@redhat.com; s=20250528; h=from:subject:message-id;
+ bh=5ZVOk+ZOrENo582GUq8LCq+7YYXjCzCCpjXuZ1lV7ck=;
+ b=DT4kedVd9JHLVr7GcGFwVFd+HuL+eV6cYmrDz6pnKaO4779AT/8pJh1xVZGoHYgcUbXEwBISq
+ HkwA/DTaq7wAhW2EXESEGcFAJ+P+8vXhpwlHpiLGX//6sA6oikBaxHi
+X-Developer-Key: i=bmasney@redhat.com; a=ed25519;
+ pk=x20f2BQYftANnik+wvlm4HqLqAlNs/npfVcbhHPOK2U=
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: HNsUDqqJzRCaRFDA_r2cNYbnJ8gkng9eOzbuXHvkf6U_1752160893
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 9, 2025 at 7:01=E2=80=AFAM Patrick Williams <patrick@stwcx.xyz>=
- wrote:
->
-> Hello,
->
-> Does anyone have opinions on if we deprecate phosphor-hostlogger?
->
-> I ended up becoming the "maintainer" of it due to the original maintainer=
-s
-> no longer being able to contribute to OpenBMC.  I've read through the
-> README and it is very much not clear to me what advantages it has over
-> using the similar functionality contained in obmc-console directly.
-> There is some mention of rsyslog and logrotate integration, but
-> obmc-console already supports a logrotate-like functionality, and I
-> think rsyslog could be easily configured to pick up the log files
-> created by obmc-console, if someone were so inclined.
->
-> It appears to only be used by the following meta layers:
->
->     * meta-amd
->     * meta-ampere
->     * meta-bytedance
->     * meta-quanta / s6q
->     * meta-tyan
->     * meta-yadro
->
-> It seems that this repository also incurred some bmcweb support that is
-> enabled for most systems (by default), even though they do not have the
-> corresponding daemon.
->
-> Can any of the system owners above comment as to what functionality they
-> are gaining by using phosphor-hostlogger over using obmc-console
-> directly?  Is this some functionality missing from obmc-console or is it
-> just a relationship between host logging, bmcweb and rsyslog that we
-> need to add?
->
-> --
-> Patrick Williams
+The round_rate() clk ops is deprecated, so migrate this driver from
+round_rate() to determine_rate() using the Coccinelle semantic patch
+on the cover letter of this series.
 
-I'm not aware of any bmcweb users. Since the feature was merged it has
-been relatively quiet in terms of additions/bug fixes.  I'm in support
-of removing/deprecating it.
+Signed-off-by: Brian Masney <bmasney@redhat.com>
+---
+ drivers/rtc/rtc-rv3032.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
--Ed
+diff --git a/drivers/rtc/rtc-rv3032.c b/drivers/rtc/rtc-rv3032.c
+index 2c6a8918acba50e57ed923db0834c7c4620ef2cd..b8376bd1d905be63afbcbc688825c0caff74a3b5 100644
+--- a/drivers/rtc/rtc-rv3032.c
++++ b/drivers/rtc/rtc-rv3032.c
+@@ -646,19 +646,24 @@ static unsigned long rv3032_clkout_recalc_rate(struct clk_hw *hw,
+ 	return clkout_xtal_rates[FIELD_GET(RV3032_CLKOUT2_FD_MSK, clkout)];
+ }
+ 
+-static long rv3032_clkout_round_rate(struct clk_hw *hw, unsigned long rate,
+-				     unsigned long *prate)
++static int rv3032_clkout_determine_rate(struct clk_hw *hw,
++					struct clk_rate_request *req)
+ {
+ 	int i, hfd;
+ 
+-	if (rate < RV3032_HFD_STEP)
++	if (req->rate < RV3032_HFD_STEP)
+ 		for (i = 0; i < ARRAY_SIZE(clkout_xtal_rates); i++)
+-			if (clkout_xtal_rates[i] <= rate)
+-				return clkout_xtal_rates[i];
++			if (clkout_xtal_rates[i] <= req->rate) {
++				req->rate = clkout_xtal_rates[i];
+ 
+-	hfd = DIV_ROUND_CLOSEST(rate, RV3032_HFD_STEP);
++				return 0;
++			}
++
++	hfd = DIV_ROUND_CLOSEST(req->rate, RV3032_HFD_STEP);
+ 
+-	return RV3032_HFD_STEP * clamp(hfd, 0, 8192);
++	req->rate = RV3032_HFD_STEP * clamp(hfd, 0, 8192);
++
++	return 0;
+ }
+ 
+ static int rv3032_clkout_set_rate(struct clk_hw *hw, unsigned long rate,
+@@ -738,7 +743,7 @@ static const struct clk_ops rv3032_clkout_ops = {
+ 	.unprepare = rv3032_clkout_unprepare,
+ 	.is_prepared = rv3032_clkout_is_prepared,
+ 	.recalc_rate = rv3032_clkout_recalc_rate,
+-	.round_rate = rv3032_clkout_round_rate,
++	.determine_rate = rv3032_clkout_determine_rate,
+ 	.set_rate = rv3032_clkout_set_rate,
+ };
+ 
+
+-- 
+2.50.0
+
 
