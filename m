@@ -1,30 +1,30 @@
-Return-Path: <openbmc+bounces-348-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-349-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 187B4C83F27
-	for <openbmc@archiver.kernel.org>; Tue, 15 Jul 2025 23:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B290FC83F17
+	for <openbmc@archiver.kernel.org>; Tue, 15 Jul 2025 23:56:31 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bhbfp3bwXz3bkP;
-	Wed, 16 Jul 2025 09:55:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bhbft4y9nz3blg;
+	Wed, 16 Jul 2025 09:55:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752551027;
-	cv=none; b=Qp9fQdkGcToxfPwK1FLdUe2tYm1gI3wpAFI/LVSKNUQKWVlG7ZzuHARrkpIz7KjQffo0dMGc4EDJZdLmZISTOi/9Z1i17BsDxOlfLL9I5VcT7NUwWPf8o0cdPHrb5y/6yqCD8TaURR4YsWq03J1xLqY/j9ZtHoIINN/D/BOLeRSx9VYnrXvbqIwgwDs0SCM+4Y9nY1k6pfMG1bT7ynQJPGoft0np8ffHb6yETn3tPNF0ENYp9Od5rFW9b98f380fHjcGBpky2DreBpfWfceSKaX/1WRJP8yT4Yg91YcJjQhrDhKNSl9TXfxEOf/37l5+CmGGlCK7gQ/ZJZDfBHsEYQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752551025;
+	cv=none; b=CVAJ8sZKNC+euwHsJYsGCr3Sii5Pdo3Il4JIwFTVO6qyl42ygrON8G/k5jVHsJzHmgvkM5LLADspn2YQyfQn/GViMeMhuSTfGMbsgLLSGEiKEXeGQKAYs/7CzmKOyaVW0JP7ngrr4We7HLaZx6e3XiEaveT/5P/D/JWXuuLkTdihLBUmgm0aOTqtcJd8WXtKYeKkz57kRNBE9qIJk6bDHWU/WO8u16stazRo51NHmKHwymgdU7oyKABC92P/iNIrxjjPMxr7bpl5lCqE36ukdFJ89AZ7S2v+xR+tAombnpOgqB/33VsTFfO+O1WW00RbJMFvDLCrJ+3ocbxDKcg8lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1752551027; c=relaxed/relaxed;
-	bh=aK01aGUmIPVi7g/grbHmbwBzcBD/ZrD56IJJamDBcTo=;
+	t=1752551025; c=relaxed/relaxed;
+	bh=D3XOFIp5UOjkpe22UJmyHedDH3ZXM5VGuLw/ClvPRxM=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jhcgiC9mlBNOstuXcTd201IBT9DRciC+HqmIgBhYauI8rcdHA29hKdiSzbpG08QqZFOv68ShYvPyiMvRHeOokCGhuQr1fkA1ikT2QLcSwukqNsTqaSq6cgqxL9cI+hX215E5Gpx5Z/0+M5ndJ6NHWyWx0lqJmRZYrR3RZpY4T2mCnO7wwipTk7e1dwLmyW2En3+p9WOix8MEeQho5mbUlgKScUImhs0kj4ANW2sqwwLXGTBWTBJOMpg6IJU3UYjdiuoC5e4mHusIG4rfaZ72avJP6bielUcHTl9463sPJXk8MSUBz9UEM0vXLKe6xcsMKboqCbBnAguxYTg3KVNEfg==
+	 MIME-Version:Content-Type; b=HdWBdemmu2PtdHrjtFci+4Rg2xSOAKql5oFaC1lvjA9GcTd2LByqoZe7/OjkZN/SKGkkr20GqYFNLQ20cynp2k+RVTIQcxx4Fgw1xv9Ch11P4GFMCR6K6dT4u4pCshDb5FDeex0ES+1rK67NfdMURyTrr1gHj0JEnF1rkV73s1mlUVF9DJT8x5EpJAFRs/XiLgzq12gzjr2WqAP1nREqtSu+Qz2eyO/HL9li6tWmzKkEX0DGsehrgeoVBrC0AQEvLOH7KbjflRqtOnmeJw3MJToModcNO1hl5EKvfXczFZGnEyKBdvoyqtto9q3ZImsjoZYZQgqq4AmY0BCwVLs9DQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bh4mL5cr7z3c5M;
-	Tue, 15 Jul 2025 13:43:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bh4mK1nWdz3c8C;
+	Tue, 15 Jul 2025 13:43:45 +1000 (AEST)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 15 Jul
@@ -41,9 +41,9 @@ To: <bhelgaas@google.com>, <lpieralisi@kernel.org>, <kwilczynski@kernel.org>,
 	<linux-kernel@vger.kernel.org>
 CC: <openbmc@lists.ozlabs.org>, <linux-gpio@vger.kernel.org>,
 	<linus.walleij@linaro.org>, <p.zabel@pengutronix.de>, <BMC-SW@aspeedtech.com>
-Subject: [PATCH v2 08/10] PCI: Add FMT and TYPE definition for TLP header
-Date: Tue, 15 Jul 2025 11:43:18 +0800
-Message-ID: <20250715034320.2553837-9-jacky_chou@aspeedtech.com>
+Subject: [PATCH v2 06/10] ARM: dts: aspeed-g6: Add PCIe RC node
+Date: Tue, 15 Jul 2025 11:43:16 +0800
+Message-ID: <20250715034320.2553837-7-jacky_chou@aspeedtech.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250715034320.2553837-1-jacky_chou@aspeedtech.com>
 References: <20250715034320.2553837-1-jacky_chou@aspeedtech.com>
@@ -61,56 +61,85 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-According to PCIe specification, add FMT and TYPE definition
-for TLP header. And also add macro to combine FMT and TYPE to
-1 byte.
+The AST2600 has one PCIe RC, and add the relative configure regmap.
 
 Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 ---
- include/uapi/linux/pci_regs.h | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 61 +++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
-index a3a3e942dedf..700b915e00f5 100644
---- a/include/uapi/linux/pci_regs.h
-+++ b/include/uapi/linux/pci_regs.h
-@@ -1230,4 +1230,36 @@
- #define PCI_DVSEC_CXL_PORT_CTL				0x0c
- #define PCI_DVSEC_CXL_PORT_CTL_UNMASK_SBR		0x00000001
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+index 8ed715bd53aa..ed99780b6860 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
+@@ -379,6 +379,67 @@ rng: hwrng@1e6e2524 {
+ 				quality = <100>;
+ 			};
  
-+/* Fmt[2:0] encoding for TLP Header */
-+#define PCI_TLP_FMT_3DW_NO_DATA		0x0  // 3DW header, no data
-+#define PCI_TLP_FMT_4DW_NO_DATA		0x1  // 4DW header, no data
-+#define PCI_TLP_FMT_3DW_DATA		0x2  // 3DW header, with data
-+#define PCI_TLP_FMT_4DW_DATA		0x3  // 4DW header, with data
-+#define PCI_TLP_FMT_PREFIX		0x4  // Prefix header
++			pcie_phy1: syscon@1e6ed200 {
++				compatible = "aspeed,pcie-phy", "syscon";
++				reg = <0x1e6ed200 0x100>;
++			};
 +
-+/* Type[4:0] encoding for TLP Header */
-+#define PCI_TLP_TYPE_MEM_RD		0x00 // Memory Read Request
-+#define PCI_TLP_TYPE_MEM_RDLK		0x01 // Memory Read Lock Request
-+#define PCI_TLP_TYPE_MEM_WR		0x00 // Memory Write Request (Fmt must be with data)
-+#define PCI_TLP_TYPE_IO_RD		0x02 // IO Read Request
-+#define PCI_TLP_TYPE_IO_WR		0x02 // IO Write Request (Fmt must be with data)
-+#define PCI_TLP_TYPE_CFG0_RD		0x04 // Config Type 0 Read Request
-+#define PCI_TLP_TYPE_CFG0_WR		0x04 // Config Type 0 Write Request (Fmt must be with data)
-+#define PCI_TLP_TYPE_CFG1_RD		0x05 // Config Type 1 Read Request
-+#define PCI_TLP_TYPE_CFG1_WR		0x05 // Config Type 1 Write Request (Fmt must be with data)
-+#define PCI_TLP_TYPE_MSG		0x10 // Message Request (see routing field)
-+#define PCI_TLP_TYPE_MSGD		0x11 // Message Request with Data (see routing field)
-+#define PCI_TLP_TYPE_CPL		0x0A // Completion without Data
-+#define PCI_TLP_TYPE_CPLD		0x0A // Completion with Data (Fmt must be with data)
-+#define PCI_TLP_TYPE_CPLLCK		0x0B // Completion Locked
-+#define PCI_TLP_TYPE_CPLDLCK		0x0B // Completion with Data Locked (Fmt must be with data)
-+#define PCI_TLP_TYPE_FETCH_ADD		0x0C // Fetch and Add AtomicOp Request
-+#define PCI_TLP_TYPE_SWAP		0x0D // Unconditional Swap AtomicOp Request
-+#define PCI_TLP_TYPE_CMP_SWAP		0x0E // Compare and Swap AtomicOp Request
-+#define PCI_TLP_TYPE_LOCAL_PREFIX	0x00 // Local TLP Prefix (Fmt = 0x4)
-+#define PCI_TLP_TYPE_E2E_PREFIX		0x10 // End-to-End TLP Prefix (Fmt = 0x4)
++			pcie_cfg: syscon@1e770000 {
++				compatible = "aspeed,pcie-cfg", "syscon";
++				reg = <0x1e770000 0x80>;
++			};
 +
-+/* Macro to combine Fmt and Type into the 8-bit field */
-+#define PCIE_TLP_FMT_TYPE(fmt, type)   (((fmt) << 5) | ((type) & 0x1F))
++			pcie0: pcie@1e7700c0 {
++				compatible = "aspeed,ast2600-pcie";
++				device_type = "pci";
++				reg = <0x1e7700c0 0x40>;
++				linux,pci-domain = <0>;
++				#address-cells = <3>;
++				#size-cells = <2>;
++				interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
++				bus-range = <0x80 0xff>;
 +
- #endif /* LINUX_PCI_REGS_H */
++				ranges = <0x01000000 0x0 0x00018000 0x00018000 0x0 0x00008000
++					  0x02000000 0x0 0x70000000 0x70000000 0x0 0x10000000>;
++
++				status = "disabled";
++
++				resets = <&syscon ASPEED_RESET_H2X>;
++				reset-names = "h2x";
++
++				#interrupt-cells = <1>;
++				msi-parent = <&pcie0>;
++				msi-controller;
++
++				aspeed,ahbc = <&ahbc>;
++				aspeed,pciecfg = <&pcie_cfg>;
++
++				interrupt-map-mask = <0 0 0 7>;
++				interrupt-map = <0 0 0 1 &pcie_intc0 0>,
++						<0 0 0 2 &pcie_intc0 1>,
++						<0 0 0 3 &pcie_intc0 2>,
++						<0 0 0 4 &pcie_intc0 3>;
++				pcie_intc0: interrupt-controller {
++					interrupt-controller;
++					#address-cells = <0>;
++					#interrupt-cells = <1>;
++				};
++
++				pcie@8,0 {
++					reg = <0x804000 0 0 0 0>;
++					#address-cells = <3>;
++					#size-cells = <2>;
++					device_type = "pci";
++					resets = <&syscon ASPEED_RESET_PCIE_RC_O>;
++					reset-names = "perst";
++					clocks = <&syscon ASPEED_CLK_GATE_BCLK>;
++					pinctrl-names = "default";
++					pinctrl-0 = <&pinctrl_pcierc1_default>;
++					aspeed,pciephy = <&pcie_phy1>;
++					ranges;
++				};
++			};
++
+ 			gfx: display@1e6e6000 {
+ 				compatible = "aspeed,ast2600-gfx", "syscon";
+ 				reg = <0x1e6e6000 0x1000>;
 -- 
 2.43.0
 
