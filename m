@@ -1,85 +1,62 @@
-Return-Path: <openbmc+bounces-373-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-374-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245BCC83F1B
-	for <openbmc@archiver.kernel.org>; Thu, 17 Jul 2025 09:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2689C83F22
+	for <openbmc@archiver.kernel.org>; Thu, 17 Jul 2025 13:54:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4bjSsL39XPz3br5;
-	Thu, 17 Jul 2025 19:52:54 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:2418::609" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752745974;
-	cv=pass; b=HJ4Gm8exPj6ATYiLE6QIvcvX7J7zbai1EvakQaYJAcVtRu3Hmov4TbDeiDeYkB5kq7OLvyBGKTaqApqK+3qR2SKohh3enweEVzcwxJxh0lz7ei+i3XwNyse47VX6DXqDhLWU2wZ7PisX9v7WTdRQwYfqc27zsviu5CGKjcHSyTsZqShb5ZtN19XHZZlY4Ya46nQ853Mb3Jg9Lks7bsM1UMmR9EZlnTWAT6AYI+lPR3S2QIFUu5oj8w68aKcHX07YR2uLd+Iodq3AIX5smOOStd+m07rFrcgZ7U2r46M7UhUDFuhrbT2MJ7oITQ+KcO3rYycpncWjabfFGW+yT+f27A==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1752745974; c=relaxed/relaxed;
-	bh=AhMoPYt1F3OESRAnc0gVCl4lrAi7RWnI7/AgAT7EaxE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Ak341oC/zSHG3x2o+FrT7mjfET+S4Pb4om6ZJBAteMxJCZlxY8LcspyMpDxsDq4e9u6oYwUbtCt9oHKS1sk5pY90iK9XFXfIPt2dVvO0UVZTZsr2wtAKBJUokNSXgQSGrTPhXkQn58rmqRfLtHwcezi9CTEjNwp6hCP4kVkzJ2wReJOn7zh/ZbT+9aZ/CBfn2gw9sGNiR9RLzxFFLEj3CHtSNjHNE9GN2l2mQHL4ojEwc4i1KMnJ9h7TaTq7TbgDFz1GyAUtQP2KNNQx4TrsGHyIfRqIOar6l1neIYG0GIfmThyZHDx7K1sG0cYsQEH+4hTAT2aTNHyRHu40lS4dDA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SJyJi0V9; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:2418::609; helo=nam12-bn8-obe.outbound.protection.outlook.com; envelope-from=wthai@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SJyJi0V9;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:2418::609; helo=nam12-bn8-obe.outbound.protection.outlook.com; envelope-from=wthai@nvidia.com; receiver=lists.ozlabs.org)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (mail-bn8nam12on20609.outbound.protection.outlook.com [IPv6:2a01:111:f403:2418::609])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4bjZCd0JdGz3bh0;
+	Thu, 17 Jul 2025 23:54:05 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.199.177.27
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1752760444;
+	cv=none; b=HHQyEL5BTBmFmM5tQe4X+u+liMwOM2eU9UQ/yPjLCED3zgPQnNll28JA/k8WxSq3alhFy64u0LKxFHJzfGLgpTGmpKp4Lyiky9OB6onVe3RaVeGFcWF0e1RPKLxe1UTD5eVkoA/Gemk/4+y1H2GU2bvWY9qJXVgDzNf24Tro9TFXNPbYzFfaN+BmpbNsepyDpbMT0/gCdgjZHExq9wGCaz1jJ0ejrDwvJ7K9djsipUA7Zu2YWleNJWqSN2CITrgebxebsRLEQt2YfogtZ1Xxm9qWKKSUCrL+DSuddXGaDxrTumnvzUyQyaAnpfvrKpQDBONs9kuIhfVf+LdouIMyxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1752760444; c=relaxed/relaxed;
+	bh=Cog2/qZBdgsiTVo2hmuoLrlg4CD4Dr6+L8/sDAp2WfM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nEekZLzYtP67sVMOUWpnofvpKNMti76wM87e+BRmP+24Dnr4Y0XhBcGkc4WTbHyP3wOwhrdQMZaDHQtEQYmxylByo4ifcmXnphbtXs3F4uVLuZVlTxU7aEMGMsmvLUZlV4WaDLH36I4La/jgqbKUGw0R7hivsixkR0GXBlbYZwlHsGGWALUVGosEWUCNeyy9+rXhTAJHMLRpvaCYQ6j+6kn9WQZcthgRQtiWwK4MTOnx2w349X+zAklEBGegytNy6tUUk5SSB9MTKDn8WO07yn1FbQYmlZ1vYfTRaivMubOdH8pFaR1cwCk5JopGBamkmbs3/F/7j64MXTwKQLpRWw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=none (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org) smtp.mailfrom=taln60.nuvoton.co.il
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=taln60.nuvoton.co.il (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il; envelope-from=tmaimon@taln60.nuvoton.co.il; receiver=lists.ozlabs.org)
+Received: from herzl.nuvoton.co.il (unknown [212.199.177.27])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bjSsK481Zz2yDk;
-	Thu, 17 Jul 2025 19:52:53 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JVjByzK+kK0Eqy7ALPST1lQt20gCq4qXe5UuRRArRuPS1qNlZf9WeP7w6kZRXx+m03l6sB3+9u6JfDCB6joo8/fIS96bz2Q448yURqrbYInvacqWexAcs52eOvU3tvMP5bVsD4n0R2mf2URifvLMXTqv7N0K1FSyYJX6uoCd3zU80Cexh0nbHhBdSTtUWwe5mvCKNh58NiYPfsIGw0IqnQNQ10XOnSL28CzR2SwtHhrB1mih9TRgn9XXldN8D7mcNPaNyEAbZuZdnzPSx+/mzjFp2BmpecC5mKmIbwJeSnPw0LvTjmhXS4HK5UhebuACOAi/oa7AJHkq1lHodI6p/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AhMoPYt1F3OESRAnc0gVCl4lrAi7RWnI7/AgAT7EaxE=;
- b=wTIhMcggD6zOTwP9y+QEqd+1cFMgZKMBqHQvvO3chYrXJ+jS2vq1ulE3UDobmpRv3SW3v/7CZalNvJmdfFpbK0dQcwW62IGpsktYpB7y7OG0qkQMJXLZ6tgUNevIiJ3LQ7TKuZ2iJY1bK42jTrR44zD3lKQuT5uG2V+abc/ncB8CStt1UO3JIbMPZYb5YS6sJy9RvoW289V/1b4zj45Z3je87FVH4y+OV8XI0DlEpyfg4XDefa9Gsr5adeTk3jLE+UKl1ap2ApkOtxgmnCzAzplR3hnIiZ+MTHz2etRM4/9o0cZaKlqBIcP4EmveT0Ud1IQe4MhoQ042nBV0AqzqIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lists.infradead.org
- smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AhMoPYt1F3OESRAnc0gVCl4lrAi7RWnI7/AgAT7EaxE=;
- b=SJyJi0V9D+2l4VOECBpyqYIn9ovln1oqk6JPRpa73ESYmLXNiEI4G8vgpSqM89GmSlSqIji7Cj3K+4DmzuXLAOM3kmncX6p4FDJVD80K4EpIfHtI/Q3P6SFNMghPVAPvimzdUOiGuq1naRTsA5WWKugIr6TxdiAIoWtIYo4Yh1JhIFl79Paqp8wvECp0TFrrX5fqyWS4XuCAgizCj+x2oNGHKQRuZOrbJLfeiZBw17Dcregd1goax8BdqpDf0gHMrYDRYisEspPQ67GBcO6RBxytmp8zUmVDeQY3/9UnbFFJgypID4mS1Nlb7AQh5qZJiuTaYNzKubxMGbmK1h262g==
-Received: from BLAPR03CA0053.namprd03.prod.outlook.com (2603:10b6:208:32d::28)
- by SJ2PR12MB9191.namprd12.prod.outlook.com (2603:10b6:a03:55a::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Thu, 17 Jul
- 2025 09:52:34 +0000
-Received: from BL02EPF0001A0FC.namprd03.prod.outlook.com
- (2603:10b6:208:32d:cafe::33) by BLAPR03CA0053.outlook.office365.com
- (2603:10b6:208:32d::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.17 via Frontend Transport; Thu,
- 17 Jul 2025 09:52:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BL02EPF0001A0FC.mail.protection.outlook.com (10.167.242.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8943.21 via Frontend Transport; Thu, 17 Jul 2025 09:52:33 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.4; Thu, 17 Jul
- 2025 02:52:17 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Thu, 17 Jul
- 2025 02:52:17 -0700
-Received: from willie-obmc-builder.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server id 15.2.1544.14 via Frontend
- Transport; Thu, 17 Jul 2025 02:52:16 -0700
-From: Willie Thai <wthai@nvidia.com>
-Date: Thu, 17 Jul 2025 09:52:13 +0000
-Subject: [PATCH v3 4/4] ARM: dts: aspeed: nvidia: gb200nvl: Enable MAC0 for
- BMC network
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4bjZCX2KH9z2yPd
+	for <openbmc@lists.ozlabs.org>; Thu, 17 Jul 2025 23:53:54 +1000 (AEST)
+Received: from NTILML01.nuvoton.com (212.199.177.18.static.012.net.il [212.199.177.18])
+	by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 56HDrjwb003788
+	for <openbmc@lists.ozlabs.org>; Thu, 17 Jul 2025 16:53:45 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTILML01.nuvoton.com
+ (10.190.1.56) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.57; Thu, 17 Jul
+ 2025 16:53:43 +0300
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.44; Thu, 17 Jul
+ 2025 21:53:40 +0800
+Received: from taln58.nuvoton.co.il (10.191.1.178) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.44 via Frontend
+ Transport; Thu, 17 Jul 2025 21:53:40 +0800
+Received: from taln60.nuvoton.co.il (taln60 [10.191.1.180])
+	by taln58.nuvoton.co.il (Postfix) with ESMTP id AA43D5F62B;
+	Thu, 17 Jul 2025 16:53:39 +0300 (IDT)
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+	id A811ADC084A; Thu, 17 Jul 2025 16:53:39 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+        <conor+dt@kernel.org>, <avifishman70@gmail.com>,
+        <tali.perry1@gmail.com>, <joel@jms.id.au>, <venture@google.com>,
+        <yuenn@google.com>, <benjaminfair@google.com>
+CC: <openbmc@lists.ozlabs.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1 1/2] arm64: dts: nuvoton: npcm845: Add peripheral nodes
+Date: Thu, 17 Jul 2025 16:53:35 +0300
+Message-ID: <20250717135336.3974758-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250717135336.3974758-1-tmaimon77@gmail.com>
+References: <20250717135336.3974758-1-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -91,135 +68,783 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20250717-update-gb200nvl-dts-for-new-hardware-v3-4-f28145c55c98@nvidia.com>
-References: <20250717-update-gb200nvl-dts-for-new-hardware-v3-0-f28145c55c98@nvidia.com>
-In-Reply-To: <20250717-update-gb200nvl-dts-for-new-hardware-v3-0-f28145c55c98@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, <openbmc@lists.ozlabs.org>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, "Deepak
- Kodihalli" <dkodihalli@nvidia.com>, Ed Tanous <etanous@nvidia.com>, Leo Huang
-	<leohu@nvidia.com>, Willie Thai <wthai@nvidia.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1752745932; l=1353;
- i=wthai@nvidia.com; s=20250525; h=from:subject:message-id;
- bh=AIEh6W3Aw33duG3ZSwFBoH0Xgfz0ou4uW61ngi8tjjc=;
- b=J56BoS7MacWDTOs3Y7pwm/K/9RdCFpnSLh7YdHxf6vEPLVy6Y8OzoQBX7olzwjBJHz6MUIIE6
- evySpWL0aEBAg4NBtDJn90wW5kNB8Nz4i3mYa4fttoTn8ICYYXOASS2
-X-Developer-Key: i=wthai@nvidia.com; a=ed25519;
- pk=i/6dxnUqKdr7Z6GA0KECRkwz5HX4RCiodw0v6kB9fbs=
-X-NV-OnPremToCloud: AnonymousSubmission
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FC:EE_|SJ2PR12MB9191:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8909de98-9f25-4d45-c5e9-08ddc517a755
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|7416014|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bTJQMlBPSVNMcTE5dk1PTllNb3I1R0w1aHVlSnNlcytGcGZRdG9TZUU4MkZk?=
- =?utf-8?B?aU9iNEcrZnRadC9DZ3J5Z0VqMXNCTjJvN1lWZEFrUG15eGE3a0twbnV4bExF?=
- =?utf-8?B?aXQ2Q2xpcnVLSjhiVVZIckVmK1pXRGZYRkxqQUsyaklIWTNuN2QrcmVCNkI3?=
- =?utf-8?B?VlNFQlV4TG5WTnVncjJpcXpCYXFnaWFTWXBwREFTYW1ONlZtVVZNS0o0OUdF?=
- =?utf-8?B?WDNRMCtmU3N5N29PUkp6MVNZdEJRWGw4UFNTRFNqS3g2YU1tb2MzeXozbTdI?=
- =?utf-8?B?RXVrMStMOHVPZHVsbWUzdFc2UWdXZXZyd2RkeUh2aXRFbDg4L1ZXMkd1Y0Nw?=
- =?utf-8?B?dC9BN1ZJem1xR2cybGxxRVg3UXkwdFNKcHlLRmg5bUVSZXFFTFowWGZzQ3RP?=
- =?utf-8?B?UkgwTEd3c0RYdXJ0WHRDRi9PWE94UFNNRktEWFEyT2FxUzZWSkF0SFFCSjg2?=
- =?utf-8?B?RlpJdmd2aEp6eVM3RXU1SUJ5WWVPTnA0ei92aWhVZDNRZHV0aDR1UjIvL3Rm?=
- =?utf-8?B?Nk5icDNoeVdRQ0c1clROSkQxR1ZNdDU5dDFYSUVyOFl5ekhsd3dwUjJJQVc4?=
- =?utf-8?B?RHZOcjJTYkVvZTNOMzkyaS9lTUs5T3lYNUNLa2RCVEt2aGdXOGQ5M0xROUFD?=
- =?utf-8?B?dW10U3VBT21SNmVYdkZTSWlabVZrSTd1RjlZeVZTdHhEWTlrUDJ4cjcwcHJ2?=
- =?utf-8?B?WFpNdlRpUUhEakhtRWFvTDdNRkRId1pNbUNaeGtFcGZrMVQvam56V3lVdktW?=
- =?utf-8?B?WkpRNHo3aGp2Ti9FU0lzcVFqcTlDQmN3K3BqYVkwVU8vSmJrZURHWDNBUEhh?=
- =?utf-8?B?NUNOSmZwUHl3ZWdPQzJtaisxKzNTK3RTN3p1eUpCa3BLTU9sS3RBVm9iV21y?=
- =?utf-8?B?ZFFUbE1IWERudU1RUEltQVNjQm8wTG5rbjFtQi8vdHVzT1dpYmt4QWtyaGlI?=
- =?utf-8?B?VnNVblcyNS81b1VVR1V6ZmJlVUI1MXBBcGJGUGcxUVFkYlFZY2tURWQrK21B?=
- =?utf-8?B?YWNJd005NmJNcFdZTUxuaXZaTENRVHBHU3JSRmZxdUhXVElQVmc2OGdTaUNB?=
- =?utf-8?B?ZGxabHNvK3Jla3RoUUlEYmszNmlEamZxYTh6TWhvZ0g5VW5lL2szM0xCd0F2?=
- =?utf-8?B?ckdZOTJkdEh6M2YrN1NYUWFEUnJVa2l0VmZvWkZKa0pFdG9zN1NCTTJUenVG?=
- =?utf-8?B?dm1IajFxZGc5dmw2RGEwd1BOQ2cwT1AyQllYZVMvRXVEdHhnbTcyeWN5RDJs?=
- =?utf-8?B?S3ovVjI4ZzJnOHN2b2ZZaTBqaW4xTnhBcWtFblI1YU9pRmRVL2NUZkJIM1ZF?=
- =?utf-8?B?RS9KSWtNaHlRQS8xR1FpUXI1OVh4QTE4UlhaQkVkeTZrc1Uva1lzbTNvMzgv?=
- =?utf-8?B?SkV6cGF2QkJPd2dWWnVFWWFUVTZCcUlnQTl1OGo3V0ZReFdGaEpMbjJBVm9V?=
- =?utf-8?B?Nm1PdnJ4N2NLYk9aOW1LMGoyMFNvWmwzbzhtOUYwTDdzZi92MXdHOFhXK1dx?=
- =?utf-8?B?M2JDaTV6ZGhNTm9pS0tucWFNZi9CeG5aVC9tRzhGYjJUTHp4cXVpY3hMcHE3?=
- =?utf-8?B?bmFtaUNYVDVJSm5VWlJRUFV4VE5ZS1Rna0VyMGdpWXoyQXVIdTV0M2RHai8w?=
- =?utf-8?B?VmMyT3FUR1g5dkFyd2F2a2RodXBjQllMVXc2OU1jT2hqOU1iY3k1djB2TTdD?=
- =?utf-8?B?bytxRGlJVGlkZ0dXaXVFVGJua1NzYXFjUEVVczQ5d0duNGttK3pyaFpUWGt5?=
- =?utf-8?B?bXBKM2tSV21TOER2aDlVYmUxZ0ZNcktGV2lxbUZMSkF2YnFWKzJkci8rNFov?=
- =?utf-8?B?dDkyaHhEQm1SNlFNOTB3eXU5WnhpUXFuakVUdDc2S2RSMmVoWE1WdE5rZ3kx?=
- =?utf-8?B?a0tqbm1CczRnRXlzYktabjRxaEdFcmhhNTR6U0llZE5uTFBwRjFiUHg5bW1N?=
- =?utf-8?B?blpZQWJ4YkxwaTlTZmZaUTd0VXFmNEg0clpBb0xYZzRJSkl4ZTFvam5VMzdj?=
- =?utf-8?B?S0lHb1JtV0JOMHZkSGF3c2pyMEEvZGdjRDFwQm5oS01uOG42ckFzbXdCaTh3?=
- =?utf-8?Q?2nZFiv?=
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700013)(7416014)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 09:52:33.6940
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8909de98-9f25-4d45-c5e9-08ddc517a755
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9191
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
 
-Upstream-Status: Inappropriate Bad devices
+Enable peripheral support for the Nuvoton NPCM845 SoC by adding device
+nodes for Ethernet controllers, MMC controller, SPI controllers, USB
+device controllers, random number generator, ADC, PWM-FAN controller,
+and I2C controllers. Include pinmux configurations for relevant
+peripherals to support hardware operation. Add an OP-TEE firmware node
+for secure services.
+This patch enhances functionality for NPCM845-based platforms.
 
-Signed-off-by: Deepak Kodihalli <dkodihalli@nvidia.com>
-Signed-off-by: Ed Tanous <etanous@nvidia.com>
-Signed-off-by: Willie Thai <wthai@nvidia.com>
+Depends-on: ARM: dts: nuvoton: npcm845: Add pinctrl groups
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
-Changes v2 -> v3:
-   - Remove max-speed setting as it is not necessary [Andrew Lunn]
----
----
- .../dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts  | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 695 ++++++++++++++++++
+ .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |   7 +
+ 2 files changed, 702 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
-index dd2a02a6d1d40cd3fe99af83123a7a3a67149a69..72dafebc080d5ab30a100450fb04c688cd805844 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-gb200nvl-bmc.dts
-@@ -227,6 +227,30 @@ &uart_routing {
- 	status = "okay";
- };
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index 5cd877e6c20a..3564e0e30791 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -4,6 +4,7 @@
+ #include <dt-bindings/clock/nuvoton,npcm845-clk.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/gpio/gpio.h>
  
-+&mdio0 {
-+	status = "okay";
-+	ethphy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
+ / {
+ 	#address-cells = <2>;
+@@ -40,6 +41,11 @@ ppi_cluster0: interrupt-partition-0 {
+ 		};
+ 	};
+ 
++	udc0_phy: usb-phy {
++		#phy-cells = <0>;
++		compatible = "usb-nop-xceiv";
 +	};
-+};
 +
-+&mdio3 {
-+	status = "okay";
-+	ethphy3: ethernet-phy@2 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <2>;
+ 	ahb {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -56,6 +62,259 @@ clk: rstc: reset-controller@f0801000 {
+ 			#clock-cells = <1>;
+ 		};
+ 
++		gmac1: eth@f0804000 {
++			device_type = "network";
++			compatible = "snps,dwmac";
++			reg = <0x0 0xf0804000 0x0 0x2000>;
++			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks	= <&clk NPCM8XX_CLK_AHB>;
++			clock-names = "stmmaceth";
++			pinctrl-names = "default";
++			pinctrl-0 = <&rg2_pins
++					&rg2mdio_pins>;
++			status = "disabled";
++		};
++
++		gmac2: eth@f0806000 {
++			device_type = "network";
++			compatible = "snps,dwmac";
++			reg = <0x0 0xf0806000 0x0 0x2000>;
++			interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks	= <&clk NPCM8XX_CLK_AHB>;
++			clock-names = "stmmaceth";
++			pinctrl-names = "default";
++			pinctrl-0 = <&r1_pins
++					&r1err_pins
++					&r1md_pins>;
++			status = "disabled";
++		};
++
++		gmac3: eth@f0808000 {
++			device_type = "network";
++			compatible = "snps,dwmac";
++			reg = <0x0 0xf0808000 0x0 0x2000>;
++			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks	= <&clk NPCM8XX_CLK_AHB>;
++			clock-names = "stmmaceth";
++			pinctrl-names = "default";
++			pinctrl-0 = <&r2_pins
++					&r2err_pins
++					&r2md_pins>;
++			status = "disabled";
++		};
++
++		sdhci: mmc@f0842000 {
++			compatible = "nuvoton,npcm845-sdhci";
++			reg = <0x0 0xf0842000 0x0 0x100>;
++			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_AHB>;
++			clock-names = "clk_mmc";
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc8_pins
++				     &mmc_pins>;
++			status = "disabled";
++		};
++
++		fiu0: spi@fb000000 {
++			compatible = "nuvoton,npcm845-fiu";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xfb000000 0x0 0x1000>;
++			reg-names = "control";
++			clocks =  <&clk NPCM8XX_CLK_SPI0>;
++			clock-names = "clk_ahb";
++			status = "disabled";
++		};
++
++		fiu1: spi@fb002000 {
++			compatible = "nuvoton,npcm845-fiu";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xfb002000 0x0 0x1000>;
++			reg-names = "control";
++			clocks =  <&clk NPCM8XX_CLK_SPI1>;
++			clock-names = "clk_spi1";
++			pinctrl-names = "default";
++			pinctrl-0 = <&spi1_pins>;
++			status = "disabled";
++		};
++
++		fiu3: spi@c0000000 {
++			compatible = "nuvoton,npcm845-fiu";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xc0000000 0x0 0x1000>;
++			reg-names = "control";
++			clocks =  <&clk NPCM8XX_CLK_SPI3>;
++			clock-names = "clk_spi3";
++			pinctrl-names = "default";
++			pinctrl-0 = <&spi3_pins>;
++			status = "disabled";
++		};
++
++		fiux: spi@fb001000 {
++			compatible = "nuvoton,npcm845-fiu";
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0x0 0xfb001000 0x0 0x1000>,
++			<0x0 0xf8000000 0x0 0x2000000>;
++			reg-names = "control", "memory";
++			clocks =  <&clk NPCM8XX_CLK_SPIX>;
++			clock-names = "clk_ahb";
++			status = "disabled";
++		};
++
++		mc: memory-controller@f0824000 {
++			compatible = "nuvoton,npcm845-memory-controller";
++			reg = <0x0 0xf0824000 0x0 0x1000>;
++			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		udc0:usb@f0830000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0830000 0x0 0x1000
++			       0x0 0xfffeb000 0x0 0x800>;
++			interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc1:usb@f0831000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0831000 0x0 0x1000
++			       0x0 0xfffeb800 0x0 0x800>;
++			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc2:usb@f0832000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0832000 0x0 0x1000
++			       0x0 0xfffec000 0x0 0x800>;
++			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc3:usb@f0833000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0833000 0x0 0x1000
++			       0x0 0xfffec800 0x0 0x800>;
++			interrupts = <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc4:usb@f0834000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0834000 0x0 0x1000
++			       0x0 0xfffed000 0x0 0x800>;
++			interrupts = <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc5:usb@f0835000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0835000 0x0 0x1000
++			       0x0 0xfffed800 0x0 0x800>;
++			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc6:usb@f0836000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0836000 0x0 0x1000
++			       0x0 0xfffee000 0x0 0x800>;
++			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc7:usb@f0837000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0837000 0x0 0x1000
++			       0x0 0xfffee800 0x0 0x800>;
++			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc8:usb@f0838000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0838000 0x0 0x1000
++			       0x0 0xfffef000 0x0 0x800>;
++			interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			nuvoton,sysgcr = <&gcr 0x9C 0xC000 0xC000>;
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
++		udc9:usb@f0839000 {
++			compatible = "nuvoton,npcm845-udc";
++			reg = <0x0 0xf0839000 0x0 0x1000
++			       0x0 0xfffef800 0x0 0x800>;
++			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk NPCM8XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++
++			nuvoton,sysgcr = <&gcr 0x9C 0x3000 0x3000>;
++			phys = <&udc0_phy>;
++			phy_type = "utmi_wide";
++			dr_mode = "peripheral";
++			status = "disabled";
++		};
++
+ 		apb {
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
+@@ -64,6 +323,20 @@ apb {
+ 			ranges = <0x0 0x0 0xf0000000 0x00300000>,
+ 				<0xfff00000 0x0 0xfff00000 0x00016000>;
+ 
++			pspi: spi@201000 {
++				compatible = "nuvoton,npcm845-pspi";
++				reg = <0x201000 0x1000>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&pspi_pins>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
++				clocks =  <&clk NPCM8XX_CLK_APB5>;
++				clock-names = "clk_apb5";
++				resets = <&rstc 0x24 23>;
++				status = "disabled";
++			};
++
+ 			peci: peci-controller@100000 {
+ 				compatible = "nuvoton,npcm845-peci";
+ 				reg = <0x100000 0x1000>;
+@@ -144,6 +417,22 @@ serial6: serial@6000 {
+ 				status = "disabled";
+ 			};
+ 
++			rng: rng@b000 {
++				compatible = "nuvoton,npcm845-rng";
++				reg = <0xb000 0x8>;
++				clocks =  <&clk NPCM8XX_CLK_APB1>;
++				status = "disabled";
++			};
++
++			adc: adc@c000 {
++				compatible = "nuvoton,npcm845-adc";
++				reg = <0xC000 0x8>;
++				interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clk NPCM8XX_CLK_ADC>;
++				resets = <&rstc 0x20 27>;
++				status = "disabled";
++			};
++
+ 			watchdog0: watchdog@801c {
+ 				compatible = "nuvoton,npcm845-wdt", "nuvoton,npcm750-wdt";
+ 				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
+@@ -170,6 +459,412 @@ watchdog2: watchdog@a01c {
+ 				clocks = <&refclk>;
+ 				syscon = <&gcr>;
+ 			};
++
++			pwm_fan:pwm-fan-controller@103000 {
++				compatible = "nuvoton,npcm845-pwm-fan";
++				reg = <0x103000 0x3000>,
++					<0x180000 0x8000>;
++				reg-names = "pwm", "fan";
++				clocks =  <&clk NPCM8XX_CLK_APB3>,
++					<&clk NPCM8XX_CLK_APB4>;
++				clock-names = "pwm","fan";
++				interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
++						<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&pwm0_pins &pwm1_pins
++						&pwm2_pins &pwm3_pins
++						&pwm4_pins &pwm5_pins
++						&pwm6_pins &pwm7_pins
++						&pwm8_pins &pwm9_pins
++						&pwm10_pins &pwm11_pins
++						&fanin0_pins &fanin1_pins
++						&fanin2_pins &fanin3_pins
++						&fanin4_pins &fanin5_pins
++						&fanin6_pins &fanin7_pins
++						&fanin8_pins &fanin9_pins
++						&fanin10_pins &fanin11_pins
++						&fanin12_pins &fanin13_pins
++						&fanin14_pins &fanin15_pins>;
++				status = "disabled";
++			};
++
++			i2c0: i2c@80000 {
++				reg = <0x80000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb0_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c1: i2c@81000 {
++				reg = <0x81000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb1_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c2: i2c@82000 {
++				reg = <0x82000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb2_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c3: i2c@83000 {
++				reg = <0x83000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb3_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c4: i2c@84000 {
++				reg = <0x84000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb4_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c5: i2c@85000 {
++				reg = <0x85000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb5_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c6: i2c@86000 {
++				reg = <0x86000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb6_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c7: i2c@87000 {
++				reg = <0x87000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb7_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c8: i2c@88000 {
++				reg = <0x88000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb8_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c9: i2c@89000 {
++				reg = <0x89000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb9_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c10: i2c@8a000 {
++				reg = <0x8a000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb10_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c11: i2c@8b000 {
++				reg = <0x8b000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb11_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c12: i2c@8c000 {
++				reg = <0x8c000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb12_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c13: i2c@8d000 {
++				reg = <0x8d000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb13_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c14: i2c@8e000 {
++				reg = <0x8e000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb14_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c15: i2c@8f000 {
++				reg = <0x8f000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb15_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c16: i2c@fff00000 {
++				reg = <0xfff00000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb16_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c17: i2c@fff01000 {
++				reg = <0xfff01000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb17_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c18: i2c@fff02000 {
++				reg = <0xfff02000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb18_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c19: i2c@fff03000 {
++				reg = <0xfff03000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb19_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c20: i2c@fff04000 {
++				reg = <0xfff04000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb20_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c21: i2c@fff05000 {
++				reg = <0xfff05000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb21_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c22: i2c@fff06000 {
++				reg = <0xfff06000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb22_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c23: i2c@fff07000 {
++				reg = <0xfff07000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&smb23_pins>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c24: i2c@fff08000 {
++				reg = <0xfff08000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c25: i2c@fff09000 {
++				reg = <0xfff09000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
++
++			i2c26: i2c@fff0a000 {
++				reg = <0xfff0a000 0x1000>;
++				compatible = "nuvoton,npcm845-i2c";
++				#address-cells = <1>;
++				#size-cells = <0>;
++				clocks =  <&clk NPCM8XX_CLK_APB2>;
++				clock-frequency = <100000>;
++				interrupts = <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>;
++				nuvoton,sys-mgr = <&gcr>;
++				status = "disabled";
++			};
+ 		};
+ 	};
+ 
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
+index 383938dcd3ce..21dea323612d 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
+@@ -75,4 +75,11 @@ timer {
+ 			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
+ 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
+ 	};
++
++	firmware {
++		optee {
++			compatible = "linaro,optee-tz";
++			method = "smc";
++		};
 +	};
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy3>;
-+	pinctrl-0 = <&pinctrl_rgmii1_default>;
-+};
-+
- &mac2 {
- 	status = "okay";
- 	phy-mode = "rmii";
-
+ };
 -- 
-2.25.1
+2.34.1
 
 
