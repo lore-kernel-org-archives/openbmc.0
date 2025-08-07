@@ -1,87 +1,60 @@
-Return-Path: <openbmc+bounces-419-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-420-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D167EC87FCB
-	for <openbmc@archiver.kernel.org>; Thu,  7 Aug 2025 00:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB86C87FD3
+	for <openbmc@archiver.kernel.org>; Thu,  7 Aug 2025 00:01:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4by6kx1tv8z3bgw;
-	Thu,  7 Aug 2025 10:01:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::429"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1754482361;
-	cv=none; b=TOX7g/YFY/MriYQ70pD37inwXh0guFyJA07o0fkCpOaDVxA12OpVy5Ue06Ufgd/nxDZN56WlJm3qUCQtTu1N+8aIU1z2fh2kq8xXE/WOa6zQzE34ACQHC2g5B7mfAnJUZW1NqC15Cxa8vZZnhDpSN6SOfwriIJgcGLhvAKQwYLOiH6eTHrLmDFSv/eXgrtienF5mOqi3NifgEiPEWrtLVPD52ESwUZQw3YVbnJYOAsL41gCcYVyo65ockILbaN0jsbcxfTQnULYRZFR/3tmBbQhxGI2Pch6Y/edF3JqQ4bnhaI9IwHX8W/a1DpFEy8yprBHVEFdPpyGhIspLzB3J6A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4by6lX4zgWz3bpL;
+	Thu,  7 Aug 2025 10:01:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1754524904;
+	cv=none; b=ZOpMAIRxVToNcYRe/gfWjfVlULQGEi49GPY2PkSlxo/1sOeJWMqqOYpm352yPsGhL+MrGXq95vF3a2kkdVM0ToO99eOPsQ1SuDY/G0WJH3d8kmkR9+qHqvRjGkRRSql0Cbs4+YOBhRFRMi0Fs8Ck+A59lDWDyIujXo/thTzYslQ5ppvoQn+mWd+7XzFE07iuLpy1H+gsR3acDteSFFUiK0r3k69Re17Tf4j9dPF8tcsOcHo9lAEJNIcOHqUwI2azFp9fCST0HZt9DzrAK3x4Lz0eJOfEwnI70C1TWkebsny4B/0uYKsUwGGfCS6SxpIROOe5elXJ2X976A42KtVsvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1754482361; c=relaxed/relaxed;
-	bh=iC1DBIlPv0nesiC0wTb7XDn1WctmeQzn0UL1ioICEDw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lpcYkxBewBdRAih5NGsg3AfHB+DtzOtu5D3hjENukjKxYGMuwzMPpZa/SVTPabQHTSrJGcSjuaClT5wcMjHl8Uwb7LiPSbQ1xCSEriekzB3fbJOBlleHUFu95uUVAGuPTNZ+24G1EuPyoCWpEzoxFioAwZ1FCceBSkczY5O9P25nlo3O/01+6+lkVcmeQMSFccfoAYnoUejZ0xOlk82J0iVwOXZdE57QDy9JcgxtjpDP0r+IovCUHTEuGGLvePXwF0/o+W0c/I0RS9CvbggT8MLBpXt2eMTCEdBOe+JavtP4hAZYEdquD1mdcIAtW7lgJb1Q1slLSvaJ/0IpmKw6rw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JnE4AZWR; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::429; helo=mail-pf1-x429.google.com; envelope-from=fredchen.openbmc@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1754524904; c=relaxed/relaxed;
+	bh=4I9u0wtzO6DJ3irQgYXORVSKqJSi0ibbHu4P68IbO54=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZlleiymgVmvrqV2KOeOBgULzkQRT5XTlFcG4hO8D/Kz0+zHCXCpaQIKMmGYjMfbZKrYnUfSXG8QzbsP41p3bPCmiKhnPHqFknTndu62ub7J5SMivNaIeBSy6mubuzNVMaDkH00BAwsfuyvF2/MGYFlQlnryhstzG3pbecUQvqu82qv0t337014bRuWspZfKY31wwDVqvJbagDtLRYjHx3RHXWGp9XR/SR8Xg/w6iD/dmBAw1BMCRj44GxZltt6J9GF7Q50r4N+FlgQiSFrPJPZVtZo3Z8hNA55YugrB+uePrlijFMNixP/41uRXsucPSzThqYN7XWO655pp6VmycGg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=JbQaFOg9; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JnE4AZWR;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=JbQaFOg9;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::429; helo=mail-pf1-x429.google.com; envelope-from=fredchen.openbmc@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com [IPv6:2607:f8b0:4864:20::429])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4bxq1N3DlCz30Vb
-	for <openbmc@lists.ozlabs.org>; Wed,  6 Aug 2025 22:12:40 +1000 (AEST)
-Received: by mail-pf1-x429.google.com with SMTP id d2e1a72fcca58-76bfd457607so3392847b3a.0
-        for <openbmc@lists.ozlabs.org>; Wed, 06 Aug 2025 05:12:40 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4by6lW53kxz3bcj
+	for <openbmc@lists.ozlabs.org>; Thu,  7 Aug 2025 10:01:43 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754482358; x=1755087158; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iC1DBIlPv0nesiC0wTb7XDn1WctmeQzn0UL1ioICEDw=;
-        b=JnE4AZWRNmiqai8L8neexWCinYZq2Aw4RNa+Iqb+OvG7TI1q0FZYMzjwPiYOuede9H
-         zBJjlcvwxWYQT5SzQLJgOGPN3oQQ/+6vs/AoMPlFVCLYbrfn0yYu/zZ3dHKJdqCy6ADD
-         jG1RT1WogKJQFe9YjDKgpxS5tWvKohlpEyTkkMgQvADiov7XaXcQPXuKqMD1d74A5GBf
-         O4Z54o2zHb2tPvb7Rty/GQh1H8oTBjQqk/GY/x/TcgC0SX3ccfeUMjaj9G2Bg6fJ52xQ
-         ItEKLDTAK8MB8BdmvCwD7FGB+gTM8yAFiRqmTEzMfatE71c7XcLyVhJnB5QC48d0FqPT
-         N2Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754482358; x=1755087158;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=iC1DBIlPv0nesiC0wTb7XDn1WctmeQzn0UL1ioICEDw=;
-        b=dOQiIrFe9cDvhvdmZHq3h//s/NzpcCs5H3NbclyV8JnYOxvBvU8qHvW3uHn8zRk67T
-         FWTnbyzWySS2Tp7KZ+BPALLn1fKXj6KaFxi/es+FHq8ftpaKGKmz9z4Zf1+ZFmuFUOi6
-         j3eHYfx0vIWFREpzbDmV5rmI0n2Epv/pgMY0DTSdLPNzLXE2PDqCsoaYh2A5eWrgNVkH
-         Ig3GScwriNSobwWsVNKaqq2ZOQZVHWRgiHDGbGtzW/tH0ditIJWXkUhCI1TS76mjPtcN
-         fdLgBdDTktDsnch1049XG/KHfaetke7V6wrZRORJd/3ibYdAjs2y9mw2Zoh/fb9nWrAN
-         I9Zg==
-X-Forwarded-Encrypted: i=1; AJvYcCV8chFCYsQnU5d+BO8nOFwKmDj5viVn1NDx0APl/Dfb8V62f5MC0O7wlBk0ovW2yJy60Tz2JzuX@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyFlL7URIEf5RYqRgqPvoW+M4QeA7YlunJwlLXy2PIffpmaYBo5
-	/+4H5kwKhviZwtJMOB0izSWUrwNraePQVJx7TPRFgXnm4QlSJ4+rfqEA
-X-Gm-Gg: ASbGncslExGnpu/VjRjiMYCi0VCR4yjbY1kCvLwncbLlkWFlxIRpNpzTRLdDfQlBvYr
-	Dy+XCfUU/rPqMz3dBpZIsqvhQFtcOJqOlSyMmyaYYSJri58SnHTz7NUx47jeh6ndgeiT8Z7T60d
-	aKkt8AYNonFv5ke7naTMSYne40n/1OYd/qKjO4pN38hzAeVUwDuvfslIZx5kOG5qDHPIilKL4QL
-	Z6SyEXG3qEBbglSQHQ+aZmpsWZbJTBkoen43taQc4mzb1kNpJqDUQ83QA0z+F4v8JnTZmZdgIa6
-	e1nh3yXmNNCW3YVYOecRb2tfalUOR7hoPxJZZzcDKueAGunqPIlHGXPorpLGhsUr1g0vHtUMC/9
-	yAv6DVFiaaPn6a8b2z5Oog3OjbdZwQHfS1qxSqll2GFrfduiBrfxu0n0l5ruZ9JEz3rTTprDulD
-	Jv8US5/8lfIY4=
-X-Google-Smtp-Source: AGHT+IFjAQ3xUxNzOh+PYEC3ZeFENADlR5jv1tLEU3DEoaGUibS6ucevsdXIOmpZ3llpXEFtOn/G8A==
-X-Received: by 2002:a05:6a00:3998:b0:76b:f5c3:2af9 with SMTP id d2e1a72fcca58-76c2aa67279mr3096426b3a.24.1754482357958;
-        Wed, 06 Aug 2025 05:12:37 -0700 (PDT)
-Received: from fred-System-Product-Name.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-76bcce6f474sm15212060b3a.4.2025.08.06.05.12.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Aug 2025 05:12:37 -0700 (PDT)
-From: Fred Chen <fredchen.openbmc@gmail.com>
-To: andrew@codeconstruct.com.au,
-	openbmc@lists.ozlabs.org,
-	joel@jms.id.au
-Subject: [PATCH linux dev-6.6 2/2] hwmon: (pmbus/mpq8785) Convert comma to semicolon
-Date: Wed,  6 Aug 2025 20:12:32 +0800
-Message-ID: <20250806121232.2331329-2-fredchen.openbmc@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250806121232.2331329-1-fredchen.openbmc@gmail.com>
-References: <20250806121232.2331329-1-fredchen.openbmc@gmail.com>
+	d=codeconstruct.com.au; s=2022a; t=1754524902;
+	bh=4I9u0wtzO6DJ3irQgYXORVSKqJSi0ibbHu4P68IbO54=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JbQaFOg9Yi+JGsQGtudE+C6Nz2F3wth6btbo5yBQmK11Dvkmn2hdS4pfHopshrEZx
+	 Reh2W82EdomvJez6RESAiR9AJmqb3PeLd7L4hsS57tbaDMBv/diJtJY+l9/qDeYCaT
+	 Mj45Pei8GSBoGz3yDAmvVuN20ERO6jGCwK4/5HLp5ClG+Th8iBAPgOOBLcI3LjA9SK
+	 W/sIaUt/9F92rWNAJAmxV94FNUTgffPJAhar6utWQysEggnwDlDSGBq+QU9bcWqfIl
+	 b+PsXeeBf0hbKJXyaJF6/A7eC/UfREvPlTeD56DhDq8MiBXOCfH46GnS8EqDwzeCl6
+	 B1evkRMIvvBxw==
+Received: from [IPv6:2405:6e00:2427:3ed5:824f:8cc:fbc2:3fde] (unknown [120.20.71.227])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4ED4667B49;
+	Thu,  7 Aug 2025 08:01:42 +0800 (AWST)
+Message-ID: <0dd7de8da1a33b6b0ba3b613cacadc399a15e156.camel@codeconstruct.com.au>
+Subject: Re: Proposed deprecation of device-tree-gpio-naming.md
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>
+Date: Thu, 07 Aug 2025 09:31:40 +0930
+In-Reply-To: <CALLMt=rt8Ngv2sRKOeQ-Gm=cccaw-d3j0WahqBXyQydhqC15nQ@mail.gmail.com>
+References: 
+	<eff663ee55f2614dde750f5f0669ec876f107c0d.camel@codeconstruct.com.au>
+	 <CALLMt=rt8Ngv2sRKOeQ-Gm=cccaw-d3j0WahqBXyQydhqC15nQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -93,35 +66,42 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Shen Lichuan <shenlichuan@vivo.com>
+On Wed, 2025-08-06 at 14:21 -0500, Andrew Geissler wrote:
+> On Tue, Aug 5, 2025 at 6:54=E2=80=AFPM Andrew Jeffery
+> <andrew@codeconstruct.com.au> wrote:
+> >=20
+> > Hello,
+> >=20
+> > In the comment thread at [1] I've proposed deprecating the directions
+> > in device-tree-gpio-naming.md[2] for the purpose of describing GPIOs in
+> > devicetrees. Devicetrees represent the hardware, and from experience
+> > over time I think it's best that they reflect the information from the
+> > schematics without influence from software implementation choices.
+>=20
+> Yeah agree, it seemed like a good idea at the time but there has been a
+> lot of friction with this design over time. I know some reviews have simp=
+ly
+> been abandoned due to the frustrations of coming up with an agreed to
+> gpio name. And other reviews have taken an excessive amount of time
+> to get through.
+>=20
+> > However, perhaps it's still a reasonable set of suggestions for
+> > consumption of pins with the translation from net names done by the
+> > applications themselves?
+>=20
+> If we all agree, I could do one final update to the doc stating it's
+> been deprecated
+>=20
 
-To ensure code clarity and prevent potential errors, use ';' instead of
-',' as a statement separator in the function mpq8785_identify.
+Thanks!
 
-Signed-off-by: Shen Lichuan <shenlichuan@vivo.com>
-Message-ID: <20240919064939.3282-1-shenlichuan@vivo.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit ff140456b5fbf03cbd04277c21d4fcdc5974e97b)
----
- drivers/hwmon/pmbus/mpq8785.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  but feel free to use the existing recommendations
+> when creating a new system if it makes sense. And another note
+> indicating some OpenBMC repos may require some work to support
+> a new GPIO name.
 
-diff --git a/drivers/hwmon/pmbus/mpq8785.c b/drivers/hwmon/pmbus/mpq8785.c
-index 4e2549cc8120..3b1d978508f8 100644
---- a/drivers/hwmon/pmbus/mpq8785.c
-+++ b/drivers/hwmon/pmbus/mpq8785.c
-@@ -22,7 +22,7 @@ static int mpq8785_identify(struct i2c_client *client,
- 		break;
- 	case 1:
- 	case 2:
--		info->format[PSC_VOLTAGE_OUT] = direct,
-+		info->format[PSC_VOLTAGE_OUT] = direct;
- 		info->m[PSC_VOLTAGE_OUT] = 64;
- 		info->b[PSC_VOLTAGE_OUT] = 0;
- 		info->R[PSC_VOLTAGE_OUT] = 1;
--- 
-2.49.0
+Sounds good to me.
 
+Andrew
 
