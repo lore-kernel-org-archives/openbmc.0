@@ -1,79 +1,80 @@
-Return-Path: <openbmc+bounces-429-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-430-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBC9FC87FDB
-	for <openbmc@archiver.kernel.org>; Mon, 11 Aug 2025 15:03:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D822AC87FDB
+	for <openbmc@archiver.kernel.org>; Mon, 11 Aug 2025 15:03:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c0yXr2gRMz3d9W;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c0yXr4Zmcz3dC0;
 	Tue, 12 Aug 2025 01:02:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32a"
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::335"
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1754924540;
-	cv=none; b=epsphSNgwgaNYp7Jy635Y1oo+hf/EDkGF5/5CcYWnZI3wyVz5ZbxZ7Jm4lWkCqW25lx/qDQNWCxqyyiGNodwpE0g+BlfJaW1koFjjqmpHlflW40OBRfb45rMWdcTs+tSydmiccDAfG88wMJ0XqufXLySFXPimHvrNQKXpaiEsd+0Lb0tLm7lrnlM6QxZeuCZlVLySodFuzGXKXwejaIr02OnhBBhy/k068+bQVa0uqxTwVSjA/HwyKnGXnSnM9xk9zV+yj5qvZMeaT+dZsCwJ0tR7KT6yOzuTehClB94jg4Ezw2LL/jK/KzsjpXkotL4CuOvpB3CqWxdTr3+c5kJ/Q==
+	cv=none; b=U4YNeldZvUPAu9u0W0/zOE0BRcvXmFAYJurvoRqscpUAnfYuj87yxYxkEooH8djZirAIlHllTVRwuEBOaqQ3a39oNui6xDGzcoKYVKs8o4U43yKC6r2IxwUy5OrBM2ZivGDpyVimcp8N8W0bKHDOrkgSvtaVuGE/hCiRK3t3L6Wo5lrZ9QBnjkgUUdGE6DMSU66G1XMOsy+/gdgn49hoP/aNgIUNjq/yA0h6UHXX2+zXIFnriM88R9s3ob0untcQA+t/ac/hQukXvul+n+UdwC3E92dwQX+X4zGHlWIdPwYvTJrlv1+Vp9whm8oV80x4O2x3WE3sHS2UeLBkrUlKxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1754924540; c=relaxed/relaxed;
-	bh=oQU4/cpC7C/NCX7LSPoWn8KwFr+mblMjEw9u9UNyQPs=;
+	bh=ysJS8u8Fhvri8S6AtBehkn2Zfsj3AWbxJ9fTcztcrag=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LOMEsUl+pk+OHIx7YlIAWl6rtyhn4gC/QiCLD+cKrm8mTBgfIR0H7UfKf0jhJXa2E1B6v9A5x8Pu8ECUkE/eHhwHXuRkDXKQPj4QQquBB5kRucRwyhPDYHI0LplT+hfbVvIesB2lZb4XjzSFDBHcocWB5lsirzVa1O3uDCB+vN7MptnDRT5P+Yt90DsfVbl1sLyR7aUnejDjISmGbm5Bc9geZKXlXTHnnn4/P6JtbghKp6nGG/SagH190x63w56pxVzTZvm5W9dacrP6/usVtogFCXsjPFiHGqizVLATIFZQU4D7Fp83E/0OfLYIAc2GA0+emk2Xj70yzsOX8+hTAw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl; dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=ETBelg06; dkim-atps=neutral; spf=none (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org) smtp.mailfrom=bgdev.pl
+	 In-Reply-To:To:Cc; b=lg7Cd5ceZzrESt4khzHjPl1HXSEgeIatk2UB4E4sJGbOtHDHCKuwRgtvF+F0nFJWw67va2BRvCW5LUwkvwuO/JQnefdd4y6EcVilHB1nTo5CcNb7Lg8M6lLVH8Np+u2Y+7Gv+x+eN7fDUkuRdvhDKJ1ULoP3SxCCg74+1RvnjXp0MomfQ7gGfSk4sYxe+FTYm7B1OJ5ImgV9+Ra2R5Kl4J7HVc37irvt3Gw6CLtEZSdev1IKlLFrz39f2F2+o/SkHGnoby7NCFVFZoRo3MHaeY73ianXrmuX0RJXNSUp8iYy4n65KJBJKe1cxqVI0IORFu4EdCqweWTAMa/AwS8umw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl; dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=EkD97Nyk; dkim-atps=neutral; spf=none (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org) smtp.mailfrom=bgdev.pl
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=ETBelg06;
+	dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=EkD97Nyk;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=bgdev.pl (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=bgdev.pl (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c0yXm0Bs0z3d44
-	for <openbmc@lists.ozlabs.org>; Tue, 12 Aug 2025 01:02:15 +1000 (AEST)
-Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-458bc3ce3beso27133485e9.1
-        for <openbmc@lists.ozlabs.org>; Mon, 11 Aug 2025 08:02:14 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c0yXp2jwmz3dBD
+	for <openbmc@lists.ozlabs.org>; Tue, 12 Aug 2025 01:02:18 +1000 (AEST)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-458bdde7dedso30344445e9.0
+        for <openbmc@lists.ozlabs.org>; Mon, 11 Aug 2025 08:02:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1754924530; x=1755529330; darn=lists.ozlabs.org;
+        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1754924535; x=1755529335; darn=lists.ozlabs.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oQU4/cpC7C/NCX7LSPoWn8KwFr+mblMjEw9u9UNyQPs=;
-        b=ETBelg06SVYQ6J18vE0PTsieBv5BjXqXXqG0NDYePzALPDBWSX9wl0YxGmMfQz0XdH
-         G97pW1AkGoo+pBV1/gArOZSw5/DvC4yqWBIuIhaEJVSzcS8nT3ccHWEIUkZhf84qUb8E
-         0peaRsMdgbzI6Bmslz9o+Przv76I+RfC/TUPSzkiTenxb34sfekNG48m+ONhgvlY3hKF
-         AehlxrD1zRlaFd7Lwriaa/elbebYEJPxUD0evO7q7x5w29iUQUUei45QiY498WPgIMtV
-         dU5rQ0N4JtKQQZfyN1gxmy3Lvhm8VkORlKlWaJTfmUWEE3tCFeffNRVkErIa1i8ggK9b
-         X7NA==
+        bh=ysJS8u8Fhvri8S6AtBehkn2Zfsj3AWbxJ9fTcztcrag=;
+        b=EkD97NykZ1/Q1nkbDEmjgVxpa0zWaB4mYZUDZvZAVi7SdcLY1becKW3xCGCKvV563Y
+         wRBz0CeEZjz9dSpMo8zBgqHexlvGaWOuIZy2NJ/y64grkvbP0nZGXbkDNx9jC44bQTx8
+         IFtDQfnwPes7weQvZ5C0obGhat6rDgKqx1BtBrp1ySfNZuLWk0TMgir/vAUmPjpiAb0E
+         j230rFeaohju1iGKUqqIAxpVleb0glR+4CUxhruNakwzkXn/2E3Ew3Gh/Ez9AZ06G8cg
+         zQKOX2b547mpUnidh9RTV2jUIkDREbSknNLKBMxt1djHatodR1Ui71UAEbfUET17+0gi
+         lXcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754924530; x=1755529330;
+        d=1e100.net; s=20230601; t=1754924535; x=1755529335;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=oQU4/cpC7C/NCX7LSPoWn8KwFr+mblMjEw9u9UNyQPs=;
-        b=OQi5zKcjQW4J7m7NbKPMbt59u1n/z4K76Xmmy+qgRwVioMv85ZCOyRMoC77ee+6QF7
-         z8yHnMCbjKIaWQ9qf/pxkXmpuiC6jW8j1FXgSK9VJQ1qMUBtZpcaFFxheyQcliL9klxd
-         pXC09vHlTPV82OJqCDbvFAz/5xSrameS8ZnhRpOByFYfxo9ykfGOsi/0PFhyx2tP09wP
-         uc+e/Sf8Grqm9V2pV6z+kuB8u/dOQrtsSidxDtUrjcyRo5Duigm887EVJULIPLjo8zUW
-         7dlVLdVrg7Fedlau0vLoQwVr1Un9hfROwy7eVzBUg4jZOshpkgcML023+jWtaZAp6PKs
-         AT/w==
-X-Forwarded-Encrypted: i=1; AJvYcCWw0NP17gfwwnZj0pUEgeOcXKJTu8UqscIwxeUNTLUj+hqWZvPhHGFa7nPJM0/6M8T/nN0/SOpR@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzBAb1A2LMZm4cKqPRIS4C71ZUGc30Z8yUXVGiqT61Lc85/0nNZ
-	c1XSLzSjm3nMVqvb78XQd149MH0ehWSu//oWvglrKOJxxfZdY7QQX/CEdKA8s0HIcFQ=
-X-Gm-Gg: ASbGncvZZMUrq+9AJKYbr+Io0q8tbgcLGBFcCeD3JH60QFH/V8eb8MVwbU/uM9wG7KZ
-	5BlA/4Wb0FEMQBF53BthHfk5MnKZjtwQtnhszuCqULqpCQgoQQJWsqoJE6b90B+Vf8WaGpEEk26
-	x+JlFnUOXmWwZDFGYD0PXeM92PDR7NJgyK0r+WySdLuZS+6ODK8vpYIFnMHAEDQpNXeSbndsfrI
-	LbbmDUoh1RaptkfslGpKxPACh9SdHueFW5EZu88ck3cTTItz9hXDGBBwf3JjCoBMA9ML74ExDjg
-	owNM4kJiCB2bouBsUWaU+8Ot2kYR7wRa9DTK8tYdFv2zIhZxd+5G2eStdW7GnbQTRXJwZkvjnSj
-	2Gp6PH7D1qcxc6TFg
-X-Google-Smtp-Source: AGHT+IGuRkJqXSehCHbSdsJW5I33/Fn2ULOWbTPFQOZm6vceKVH1dj+vd6G7mjfXDQfCQnwSEMY/9Q==
-X-Received: by 2002:a05:600c:6286:b0:439:86fb:7340 with SMTP id 5b1f17b1804b1-459f5687c58mr137162945e9.30.1754924529892;
-        Mon, 11 Aug 2025 08:02:09 -0700 (PDT)
+        bh=ysJS8u8Fhvri8S6AtBehkn2Zfsj3AWbxJ9fTcztcrag=;
+        b=dXlAjfyCkE/zGLp5Y3k/veqkxNTPtlQkL7UvnpTJsvYyP4zm2GNJlWaMS6rLmCmfar
+         JhWxBr9xaRAUay/5valiYaKVuK37sYvLTmet2K6DPq5iyFjzybb6vAuRvGwxa62znahp
+         NQjrlU1cLvZH/GDyha8hAaMaUK+emkosHzadEouljwH5HDhQamHH3mcI0egEsiNbWmrd
+         9Xn18YeQ2fnU5Da15zZVqRP8LEZQ7HJX9DlG6aFgLPmX8jvTRcnNryQ6NToYjGBw/vIE
+         qcTu9XwsRDuEdWd6AQQCXr+tPl/Q1bxQ3cGv8KMiRumemQn60gWGCOVse3fjqhiHBTjD
+         ww3w==
+X-Forwarded-Encrypted: i=1; AJvYcCVXXplhpRPnTo7FB1owR+ne9673/cMN9ruacIQEmmw0qK4wMCbZPj4cwZknvwojkOcC7dLlQIb0@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxiDgl3TlkPWutGZQminx99qno9JoKl2GZxnHruS8ZTI+L9mXNy
+	FyaKFHOhg0+4XS9SGVajfgZiCzLR87pD1F66VjaH+cMGlORa+CjLpb/cMnO6lF9djSwH4vC11d2
+	YcwIP
+X-Gm-Gg: ASbGncvSwb2SMppw4d/DL2Z8/EjjJsCkcoR61N5nFOZ1EdkOeLEFMwMzE6fUyyxcr/A
+	cHGIafhuWiG8FhbJEDvO/EZWmF5PVFQVu/hlMZWtOTCAhOGrUp9jBYKTwvj/Qo/aTY0Nzh328YE
+	XLAxEkMTtDF2l638hbKwhThIWBVQUVNGDGUIOpk1eCtAtxB6XNtnuw7+5/J8kjlZM/o4IN0i0BZ
+	pMEh676KIxCefEEnXi8F9JBufOBR2qwuzOOfh+P3Z/S5VXQlM9BhTF61j9W43aRUf5e98QQtB+i
+	DdI5rqbVwN66M9A4aUN2b6iomArSBN1iOm/HUeK4sH+dqS3t7PbYBi5iC0TTX8cM8KCepUfJ6+u
+	OoOk8m5KwSgABlj8t
+X-Google-Smtp-Source: AGHT+IFiSDH4dTGzeIV+hH7h6pQJ8LcJq0Po1XDJ2GeMsEQEPO5rZY2CszDqq2FuZ2ThQvFn+PGHwg==
+X-Received: by 2002:a05:600c:35c3:b0:456:1a69:94fd with SMTP id 5b1f17b1804b1-45a10b3a3edmr905615e9.0.1754924535221;
+        Mon, 11 Aug 2025 08:02:15 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:6841:8926:4410:c880])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-459eff7918csm192649605e9.25.2025.08.11.08.02.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-459eff7918csm192649605e9.25.2025.08.11.08.02.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Aug 2025 08:02:09 -0700 (PDT)
+        Mon, 11 Aug 2025 08:02:13 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 11 Aug 2025 17:02:01 +0200
-Subject: [PATCH 2/5] pinctrl: equilibrium: use new generic GPIO chip API
+Date: Mon, 11 Aug 2025 17:02:04 +0200
+Subject: [PATCH 5/5] pinctrl: wpcm450: use new generic GPIO chip API
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,7 +88,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250811-gpio-mmio-pinctrl-conv-v1-2-a84c5da2be20@linaro.org>
+Message-Id: <20250811-gpio-mmio-pinctrl-conv-v1-5-a84c5da2be20@linaro.org>
 References: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
 In-Reply-To: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
 To: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>, 
@@ -104,21 +105,21 @@ Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  openbmc@lists.ozlabs.org, 
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3628;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4523;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=8Yc3Q+1qQoLBEOdwvJ5ov1cATZZZnKh5I0syYOGIftg=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBomgXt7zodHeDBKguKwa7IUu7mcb1ZhND7UMYHE
- Y3heyY/C7KJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaJoF7QAKCRARpy6gFHHX
- ctoEEACcZAO8D6d3VypQQR63kLzYUCVUIk8a+J2FDJHx39O6IWus2qEipgONFpBz4wzudLzRqo5
- uTDCIgtDBb4+xJv641uKV8GWW3kJDVL/zaEWQ1Cf2Nf+yZvVNDEpUvV/VHI1d5FW0zgB7aatJkD
- kIfjKQcNA9wAf3mrbhjOWyi8dGvn5t3h1GxP+h1zpkki5kt4wDiJiXKnh++Ff4Ms9vMsQHUAVi6
- Fag9N8dquoInaui2BKJA/kw8qg7mJUwafO9F+/3tIV7qtJ95GeT2HIF/UXJkfF4TmmkN89PxnHc
- 97wGuk/NY91jcfhI3KJj/hX34dOLANgeSYSH7c+Tpl03qrvmhQMA3LYu9Saa3UeO38Zj6Dx/3zg
- RazSoMS1zXdV+ejLnGNXLXtUtNXfk4H3DYEaDL7AlIHaaFLk1Lz1TZK0Wld7XemwDSyeif5/wY0
- 6jl7HI/GWCSq/YKqrUqtnKVbK6TX8vHIEWYhS11f9U6maRkQTH2dYj8xa24n85cmVEtwKYsFv1R
- WO7dmB3Fh6fEzDpmTeE4q5VclBBN7g0ryWyWTw3Tqz/jegXUkYHK+3E9ygCq2v9KPTWGDjbsETw
- sFh/2j2L3ozuxpUBA9WEzEKEfGXqVs89vl0sjRB3eXyg2Do+3VVbsLLwztT5sfHuJ7xhq5Rh8kP
- 4qhIiw2vIrQy7EQ==
+ bh=FuIHwRskLSRbzwrVaTM8WNQE9cJKBQppwXKNoQVeoEY=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBomgXtHEGmnbFBea5WN4RyVzy/ytLzLC9kh6vxq
+ DDy5vP9Yv6JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaJoF7QAKCRARpy6gFHHX
+ ch1FEACHNtA8UzYfZDTsRXPIaEfNVsIe/A7suWXcUxzJAJ4wCZsAylvzKkr4JN0hxegkQstolf7
+ cqpnmT7yqQ1Qk6wcPN9hZ1SSYHmIrwvaf3mTmEloQV38NDiIm7IGi5WF2anqrWdsXNN3Fqw/Z03
+ JdjyJUJ5kL/NyHTWt2wSuJS5hnvdvWygpCfSyzgVrSoOrLyFbcGlnT8I7BNO6P5D84sFm2wi7Jm
+ mxORKa6aTz2hN16G9QVmbIatahVLcdG/fcDo/fqSdRfrFH54Sxws3Z1yVZiKcrsVWTD8E0xcIfi
+ ah2zKGomVba+cXUDEYljd/xpKApsmMZRcMI7JjiZFjYoOXOGWQk/y66BEo7xGO5cm2Ek7E1c3vb
+ cKltTFPFOiJa2IZQm5w2yvy6lA08elwimHnGHoWhZVIzJN/i3zKfcAYeYcM3+Wzv09D9vZIDGa4
+ c2jq8H6LaAp67sWaKXv+xE4ZtQpaIDrhcTNQE3EvPDga8ATKWdhmZRx3sX9eaKFUiSdAskTrsxq
+ Dr99n5NoKjTUCBXAsZpDkai4eXAliRMhl1omn+dBC7Yu2SOBy23wHHP91AJIGRlZt2CTyMq+9/z
+ rvhkL4YUd2ZQIdIRTAOUqWRH/1+EHDZOjJGT66N8dJzDfMyUk55wkaiNTKtvBxo3NxRUbinLL7M
+ rPWbiSQMV59HkEA==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 
@@ -129,102 +130,117 @@ linux/gpio/generic.h.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/pinctrl/pinctrl-equilibrium.c | 26 ++++++++++++++++----------
- drivers/pinctrl/pinctrl-equilibrium.h |  2 +-
- 2 files changed, 17 insertions(+), 11 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-wpcm450.c | 44 ++++++++++++++++++++-----------
+ 1 file changed, 28 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/pinctrl/pinctrl-equilibrium.c b/drivers/pinctrl/pinctrl-equilibrium.c
-index fce804d42e7d7f9233b2da0fb26e482170629424..210044185679384d03278e200d8f7723324487cd 100644
---- a/drivers/pinctrl/pinctrl-equilibrium.c
-+++ b/drivers/pinctrl/pinctrl-equilibrium.c
-@@ -2,6 +2,7 @@
- /* Copyright (C) 2019 Intel Corporation */
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
+index 8d8314ba0e4cb55db2b1d3adf2de07e6fb93c279..4dd8a3daa83e44b0e2780fedb03ab11fa46a4b7d 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
+@@ -11,6 +11,7 @@
  
+ #include <linux/device.h>
  #include <linux/gpio/driver.h>
 +#include <linux/gpio/generic.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-@@ -179,7 +180,7 @@ static int gpiochip_setup(struct device *dev, struct eqbr_gpio_ctrl *gctrl)
- 	struct gpio_irq_chip *girq;
- 	struct gpio_chip *gc;
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+ #include <linux/mfd/syscon.h>
+@@ -47,7 +48,7 @@ struct wpcm450_pinctrl;
+ struct wpcm450_bank;
  
--	gc = &gctrl->chip;
-+	gc = &gctrl->chip.gc;
- 	gc->label = gctrl->name;
- 	gc->fwnode = gctrl->fwnode;
- 	gc->request = gpiochip_generic_request;
-@@ -191,7 +192,7 @@ static int gpiochip_setup(struct device *dev, struct eqbr_gpio_ctrl *gctrl)
- 		return 0;
- 	}
+ struct wpcm450_gpio {
+-	struct gpio_chip	gc;
++	struct gpio_generic_chip chip;
+ 	struct wpcm450_pinctrl	*pctrl;
+ 	const struct wpcm450_bank *bank;
+ };
+@@ -184,11 +185,12 @@ static void wpcm450_gpio_irq_unmask(struct irq_data *d)
+ }
  
--	girq = &gctrl->chip.irq;
-+	girq = &gctrl->chip.gc.irq;
- 	gpio_irq_chip_set_chip(girq, &eqbr_irq_chip);
- 	girq->parent_handler = eqbr_irq_handler;
- 	girq->num_parents = 1;
-@@ -208,6 +209,7 @@ static int gpiochip_setup(struct device *dev, struct eqbr_gpio_ctrl *gctrl)
- 
- static int gpiolib_reg(struct eqbr_pinctrl_drv_data *drvdata)
+ /*
+- * This is an implementation of the gpio_chip->get() function, for use in
+- * wpcm450_gpio_fix_evpol. Unfortunately, we can't use the bgpio-provided
+- * implementation there, because it would require taking gpio_chip->bgpio_lock,
+- * which is a spin lock, but wpcm450_gpio_fix_evpol must work in contexts where
+- * a raw spin lock is held.
++ * FIXME: This is an implementation of the gpio_chip->get() function, for use
++ * in wpcm450_gpio_fix_evpol(). It was implemented back when gpio-mmio used a
++ * regular spinlock internally, while wpcm450_gpio_fix_evpol() needed to work
++ * in contexts with a raw spinlock held. Since then, the gpio generic chip has
++ * been switched to using a raw spinlock so this should be converted to using
++ * the locking interfaces provided in linux/gpio/gneneric.h.
+  */
+ static int wpcm450_gpio_get(struct wpcm450_gpio *gpio, int offset)
  {
-+	struct gpio_generic_chip_config config;
- 	struct device *dev = drvdata->dev;
- 	struct eqbr_gpio_ctrl *gctrl;
- 	struct device_node *np;
-@@ -239,12 +241,16 @@ static int gpiolib_reg(struct eqbr_pinctrl_drv_data *drvdata)
- 		}
- 		raw_spin_lock_init(&gctrl->lock);
+@@ -329,7 +331,7 @@ static void wpcm450_gpio_irqhandler(struct irq_desc *desc)
+ 	for_each_set_bit(bit, &pending, 32) {
+ 		int offset = wpcm450_irq_bitnum_to_gpio(gpio, bit);
  
--		ret = bgpio_init(&gctrl->chip, dev, gctrl->bank->nr_pins / 8,
--				 gctrl->membase + GPIO_IN,
--				 gctrl->membase + GPIO_OUTSET,
--				 gctrl->membase + GPIO_OUTCLR,
--				 gctrl->membase + GPIO_DIR,
--				 NULL, 0);
+-		generic_handle_domain_irq(gpio->gc.irq.domain, offset);
++		generic_handle_domain_irq(gpio->chip.gc.irq.domain, offset);
+ 	}
+ 	chained_irq_exit(chip, desc);
+ }
+@@ -1012,7 +1014,7 @@ static int wpcm450_gpio_add_pin_ranges(struct gpio_chip *chip)
+ 	struct wpcm450_gpio *gpio = gpiochip_get_data(chip);
+ 	const struct wpcm450_bank *bank = gpio->bank;
+ 
+-	return gpiochip_add_pin_range(&gpio->gc, dev_name(gpio->pctrl->dev),
++	return gpiochip_add_pin_range(&gpio->chip.gc, dev_name(gpio->pctrl->dev),
+ 				      0, bank->base, bank->length);
+ }
+ 
+@@ -1029,6 +1031,7 @@ static int wpcm450_gpio_register(struct platform_device *pdev,
+ 				     "Resource fail for GPIO controller\n");
+ 
+ 	for_each_gpiochip_node(dev, child) {
++		struct gpio_generic_chip_config config;
+ 		void __iomem *dat = NULL;
+ 		void __iomem *set = NULL;
+ 		void __iomem *dirout = NULL;
+@@ -1060,17 +1063,26 @@ static int wpcm450_gpio_register(struct platform_device *pdev,
+ 		} else {
+ 			flags = BGPIOF_NO_OUTPUT;
+ 		}
+-		ret = bgpio_init(&gpio->gc, dev, 4,
+-				 dat, set, NULL, dirout, NULL, flags);
++
 +		config = (typeof(config)){
 +			.dev = dev,
-+			.sz = gctrl->bank->nr_pins / 8,
-+			.dat = gctrl->membase + GPIO_IN,
-+			.set = gctrl->membase + GPIO_OUTSET,
-+			.clr = gctrl->membase + GPIO_OUTCLR,
-+			.dirout = gctrl->membase + GPIO_DIR,
++			.sz = 4,
++			.dat = dat,
++			.set = set,
++			.dirout = dirout,
++			.flags = flags,
 +		};
 +
-+		ret = gpio_generic_chip_init(&gctrl->chip, &config);
- 		if (ret) {
- 			dev_err(dev, "unable to init generic GPIO\n");
- 			return ret;
-@@ -254,7 +260,7 @@ static int gpiolib_reg(struct eqbr_pinctrl_drv_data *drvdata)
- 		if (ret)
- 			return ret;
++		ret = gpio_generic_chip_init(&gpio->chip, &config);
+ 		if (ret < 0)
+ 			return dev_err_probe(dev, ret, "GPIO initialization failed\n");
  
--		ret = devm_gpiochip_add_data(dev, &gctrl->chip, gctrl);
-+		ret = devm_gpiochip_add_data(dev, &gctrl->chip.gc, gctrl);
+-		gpio->gc.ngpio = bank->length;
+-		gpio->gc.set_config = wpcm450_gpio_set_config;
+-		gpio->gc.fwnode = child;
+-		gpio->gc.add_pin_ranges = wpcm450_gpio_add_pin_ranges;
++		gpio->chip.gc.ngpio = bank->length;
++		gpio->chip.gc.set_config = wpcm450_gpio_set_config;
++		gpio->chip.gc.fwnode = child;
++		gpio->chip.gc.add_pin_ranges = wpcm450_gpio_add_pin_ranges;
+ 
+-		girq = &gpio->gc.irq;
++		girq = &gpio->chip.gc.irq;
+ 		gpio_irq_chip_set_chip(girq, &wpcm450_gpio_irqchip);
+ 		girq->parent_handler = wpcm450_gpio_irqhandler;
+ 		girq->parents = devm_kcalloc(dev, WPCM450_NUM_GPIO_IRQS,
+@@ -1094,7 +1106,7 @@ static int wpcm450_gpio_register(struct platform_device *pdev,
+ 			girq->num_parents++;
+ 		}
+ 
+-		ret = devm_gpiochip_add_data(dev, &gpio->gc, gpio);
++		ret = devm_gpiochip_add_data(dev, &gpio->chip.gc, gpio);
  		if (ret)
- 			return ret;
+ 			return dev_err_probe(dev, ret, "Failed to add GPIO chip\n");
  	}
-@@ -499,7 +505,7 @@ static int eqbr_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
- 					bank->pin_base, pin);
- 				return -ENODEV;
- 			}
--			gc = &gctrl->chip;
-+			gc = &gctrl->chip.gc;
- 			gc->direction_output(gc, offset, 0);
- 			continue;
- 		default:
-diff --git a/drivers/pinctrl/pinctrl-equilibrium.h b/drivers/pinctrl/pinctrl-equilibrium.h
-index b4d149bde39d8dd08a962bb05ccf026364dd9f68..b56124d7fe9132c875d2768b0af8b939f1a4fbf8 100644
---- a/drivers/pinctrl/pinctrl-equilibrium.h
-+++ b/drivers/pinctrl/pinctrl-equilibrium.h
-@@ -96,7 +96,7 @@ struct fwnode_handle;
-  * @lock: spin lock to protect gpio register write.
-  */
- struct eqbr_gpio_ctrl {
--	struct gpio_chip	chip;
-+	struct gpio_generic_chip chip;
- 	struct fwnode_handle	*fwnode;
- 	struct eqbr_pin_bank	*bank;
- 	void __iomem		*membase;
 
 -- 
 2.48.1
