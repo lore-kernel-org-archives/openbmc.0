@@ -1,79 +1,79 @@
-Return-Path: <openbmc+bounces-426-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-427-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5E63C87FD2
-	for <openbmc@archiver.kernel.org>; Mon, 11 Aug 2025 15:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C59C87FDB
+	for <openbmc@archiver.kernel.org>; Mon, 11 Aug 2025 15:02:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c0yXp4BKZz3dBV;
-	Tue, 12 Aug 2025 01:02:18 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32e"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1754924538;
-	cv=none; b=BUQnuMNCEJ1RIRyUr08V4Y+W0+EG0NL0TQFd5cc4EmQZLyScH2phXN4dNyT+jrv3A2cmtIFyH+RuUd0GEP6h3Re1KgRzhCUputpuXEsD9SHZtJYfr2iGhaZAFJl1gJnCkFdqlul3bxuKgSg3zm9k6dMoMDgPOeqHOFCoF7bbRW+VxKPN6HMP7VV/P91hEaC21Juhwe3EMfNoQeINjbymj4dLqyUL9trbQhR6RrvwwqE5qkveSB+Ivfv4uywC2d7s5OB+xUU6LaQAm3x7AhHVoVEFntQY0drmu/fKX7AQ2xamtEqQcbjYbveZRj1LFzeJ4KGG6UTAzOzlUp9rzVwCvA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c0yXq3GGHz3dBg;
+	Tue, 12 Aug 2025 01:02:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::334"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1754924539;
+	cv=none; b=XJrGVeAnXdecmXAslI42K5mPN65iLL9zCmmNeQysiBojMB1EVUEyaV8XcrUXCcoAyxptTgnszoEm1DeDK+RsJ8ZNHK9XJmHbm5/Kx1I1TfFiwii54oAaLaWd27dSNqZI/DHvGCSvGxfvSPO1+7nmhx/1MvLrrj7QloJIZxao3iPyYbjTSLWhnb7/dZBy8cXSBup1NV7wVhsQ3q8uAKANiHaNDqIXSm1BnLtcEMJ03Xfx0OFap/50uskhex3/faJtXjRSritY2yztskpTCUvmrT+N43hXbyZo/gSv73JNysAKIQWSSg/Fx0a42+EicFD694kZMohqmwNZjXFmnUbx7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1754924538; c=relaxed/relaxed;
-	bh=sHA4EWqZ5RDD8xOnfMI1h8e9Ub4VWbYnIWSqRJ+WHMo=;
+	t=1754924539; c=relaxed/relaxed;
+	bh=8ByyWaTXTyJrckg8cOfuMo8GOaUzuD+Yig9XtQDp6Ro=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G7ZJyHStXLnL92TE2lDrm/N0gGgGtZCt14xRSDmVLGv+v99nIl+MkdKLDdTcy+kO490vwMWot8UvA/fGAXnuTpBvutl15G3+7Ds0V9lClhuxt3rxqhPjnES5NKjNlMT+ow8ElahP90NJ9u9BV0iw/RaCpnDLLkeuF8PXqxLKYXp376D5wDkVMQPzH4GklmCUC4Sw2JrYIIraN8dop26pHTgSOL9zDH/iol27wKouon6sltQILVqbID775clEfqFpohYOa0BY67AgHI0JElc7VHrPeUF+tudtipH5Fe6TV2cd8ex+Nu/nl+Fvck/Pd10EzCVsQxM4eoRrzaDcBVZSjA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl; dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=rpLYZmqw; dkim-atps=neutral; spf=none (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org) smtp.mailfrom=bgdev.pl
+	 In-Reply-To:To:Cc; b=ivSntuXIHybQGM4QnhLEM5qPtVY6tKnOInJ5pFQtI6qf9ZdgJPI5nocinJe7tk+0tVvZGb3PJM500ne7rOWSPc5C4ZHZ8ixusKY/kX4n26l6NSX7HV4u7SqiJbD6v5ftkm9y9GhsyExwJCBLXn8FvfOV1PCWuqMoKtuCiBAOlibgbzIbZEna6QK/AXL4B0Nxu6byt+jat+Jg6T75HAvDkOWS6w5shCOzZoxjRzJGF7VOJjaQvhMQyOnvjP/NoOJWSkL639rp5pSlRU/a/VX18KQRsxtphsjVtDfleFvcKQj/O6scJDyB2PojrDlT9up6Y5Dd8V1E6QhP+NaOY3fJoA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl; dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=oZCqJv2j; dkim-atps=neutral; spf=none (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org) smtp.mailfrom=bgdev.pl
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=rpLYZmqw;
+	dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=oZCqJv2j;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=bgdev.pl (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=bgdev.pl (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c0yXm12fWz3d9t
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c0yXm0LHLz3d89
 	for <openbmc@lists.ozlabs.org>; Tue, 12 Aug 2025 01:02:15 +1000 (AEST)
-Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-458bf6d69e4so41418065e9.2
+Received: by mail-wm1-x334.google.com with SMTP id 5b1f17b1804b1-45994a72356so35537175e9.0
         for <openbmc@lists.ozlabs.org>; Mon, 11 Aug 2025 08:02:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1754924528; x=1755529328; darn=lists.ozlabs.org;
+        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1754924533; x=1755529333; darn=lists.ozlabs.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=sHA4EWqZ5RDD8xOnfMI1h8e9Ub4VWbYnIWSqRJ+WHMo=;
-        b=rpLYZmqw5KhU4lWRG1ZvVnd46aDxKXzXab8RIgcaQOvq0GJZ6qo3CIXQGto0knKWRI
-         0bVXaeXlJj7AlIA02LMev9zbs9oaDsp8w1ly/xksxzloXa8mx9a8CCSOzwix0JI+x9gO
-         bs1QALYMf/Jz3zi2xJzYD8S65hV1VmVOb8swKUyh8ZTOpaMRq3nHOdgSvyhxHsjD5MEI
-         P+mslMlIAe/kfkDKMQLRj8Fxs7JJpRB758QO9fxlXSock3JIXe4LiDoeFLBUo2n/OSkF
-         Jgv5d6HTe94+H4tnxFsRAqd2L5erX+pxGJAJbidUG3FMmIgdPNJKKnr1s1l9rmHYEsnY
-         MAjg==
+        bh=8ByyWaTXTyJrckg8cOfuMo8GOaUzuD+Yig9XtQDp6Ro=;
+        b=oZCqJv2jH360yG1YY40eUzrou5RC5zKwhTLFAKBIRpjmWKZ5qSYPk+a6OzXBkNnyFA
+         EL4Yb2jV697hNxGUofn9NoFXJBU0KC1ps+ypAdVqo4uui9JP4T7P5P5nVdeVgJlsimBY
+         S8VEV0LVVs2LUUbGy0ZCgINf3ZtRz4aaO1jP7iQMDbHnWE5PdvIbljZyW8yzMHF7H00R
+         w3i2biDgzoCHrkjqz6FGGF6TZECFBr2m60rGWW5P5ici9K1js5/wSeKdSOGSuHT3VBdb
+         aHv714VsIlpR3LMIidc/BUFVovgAXV1ZmC7fso69edtTs55XTTfQHrE4XO5VGKk8PKID
+         OwBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754924529; x=1755529329;
+        d=1e100.net; s=20230601; t=1754924533; x=1755529333;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sHA4EWqZ5RDD8xOnfMI1h8e9Ub4VWbYnIWSqRJ+WHMo=;
-        b=GTUCoaZIv1CgGv/uPEsorbxUgk2feals1icqUgajJ4hTMPbTjHbXLSebiEH0gwlse8
-         fFD7Ai3n0ujx5gWfI4G5QTkMeF6aQOuXw0N7aL8JGzJYc3+552F67lQG1GpD+UuZziSn
-         WnKdQAbVwbxCIRJmDVPKesNO58aDMn7T2rQTtrDXoiQjg24+SHZQjdyePW++7EF7WOUF
-         d/SBYavi96WVLmgBWC6d/66krLXaYqDv12ngv8W6axtQej1K0DQrIDEoMBQ+WzYzkXFy
-         ha3cTAzTVnd9b+sWjnFiMkmfQ6cs5GX1b3neNid1QqnscOOBL28rRQHbI2jvNwv5BUVJ
-         IlnA==
-X-Forwarded-Encrypted: i=1; AJvYcCUTD2TE1Yy1qPc4LgU/P8iRS+bvSXK0f0eKKVnRHcZ0knxps8U6rZyVn/M20pDRhPRVwuqTquqN@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxFOZYNJCFIUJ/O3XiNi9yZcsJUOQ4rZIBQftCZn+oegrkCf3qw
-	MI3g4Jzj/hCQx5psM1BRJu5OTfQG+AXgsD25WdZAIaT/oZPVpUybKERNP/yZJhxjxOI=
-X-Gm-Gg: ASbGncvTUjk/PrjQs9Oq2eMaux7jSzkimRpVVC6P7+QJspE3LNSnnQncA3UpXq1rzGO
-	99/zu6C44vBSJJrQ+eCKbksAhWrrKUxzchfd5o76hoaD3NUzx/Wpib7HX+7CbJTUYzQFd9TRMZh
-	cEUC9UOub9JsJMBfdqmfidfr7Bk91WMrgjHwi29oAjQDNkc6MfUqEuyurWRGzrA8TJ0aC0ZlmA/
-	taEqa0kRD8/K4/zBT50F334j3fBA0g3f/mm+BEnPQmAjnu3z+zcEN2N4GyOhDnpao5ZpbyUYdI5
-	M+Vt3+re3EZKd83d3cTFJ6RMoZ6UGKcUUITx8myZynRRhVZLN7wV0WkJ43BUIKlPPnS4544uzjH
-	i8zfOKkzvp77roPqD
-X-Google-Smtp-Source: AGHT+IF+THEVCFuwYQu8m6VAawSu2em0TIQUS3g6fESwp8AcQJ26VNGTNiQ2rv1tKPajap4Wv9a2Ng==
-X-Received: by 2002:a05:600c:1c2a:b0:459:d8c2:80b2 with SMTP id 5b1f17b1804b1-459f4f3dc83mr97971385e9.7.1754924528440;
-        Mon, 11 Aug 2025 08:02:08 -0700 (PDT)
+        bh=8ByyWaTXTyJrckg8cOfuMo8GOaUzuD+Yig9XtQDp6Ro=;
+        b=iNkh6cwQArnY3jSh864EV+5x2bOcrA2EufUMDKEN+Wbyxh6KaykJeUwBbRVQELrGhH
+         rAjBvu2Y74dPyRzVsvo19uJO25rQEQ9KlC2sYr4tFdOBr323UqipOb+MAAQ88rHRUIMR
+         6gmG147tfsp+7RWTFuGCt6RKrenIvYvGQl+bl/I5V/NGQo3yV/KpCg8FubASWOEGz4vf
+         iKh6nvrraOGc0ND40Pxd9mJ7k6c2cZ9ivCn9Hyg6vzn4OgM3lvebdxtoyOVxvenfOWqb
+         q6THgV9nMu2ukiXmZ7bt5dJKJuajytIYfZbVWtEZ2vLYJHrffqVcIMu66ghqKNBoJqwh
+         +xBA==
+X-Forwarded-Encrypted: i=1; AJvYcCUAHTf5jnjDIaZmqP7Iu5o3RhE3N/HZM7q3l8C7IwfrNbmhY4Q0hx1f9W8coo81p1MMJ1ZyYaDt@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Ywa0pcuLKFz1M8c4gu1ly4n+GXbNbUY/j3YXjh96KkO7mpRCf0v
+	+bvY47Y4nvW+ZjJnqKPU1vIRgqstmPpsBYe7yj2O3N3PCf2TxZ5Pwdz+6Wget6A4xdE=
+X-Gm-Gg: ASbGnctU5TsoGb4NdYT5GU7Tg2W15s1PJ5yZXURkRjRcCy7eGgcl/fNZ6TnDzdb8ZJM
+	4VnN0dQePQhkG5yvCURFZyRj6dxtC5UYutvmaZ2Qenkxo3xgBhZpvQcheKAPIa+jjA4wDuMgRZJ
+	PLrZBLh4qtispJWxB2ZYq1Cn/yK1xQvntAJu/KbccYKQempWDlDjHEr/N25KkWiY9tLmB7KXZ6Z
+	+aJWRpm2zCUW2sJMQH9NmRZw5m9MvKv6ZNzPcNf21CJbtGNSosxpLIchjoy7iEppMeyW/loxClb
+	O9PQ9avadoSCUWWjdXughYh/an22rjlaNQZz8L8BV7EFv4hwjqY4TmPSjdYuAbJq4wK8L2R7AR6
+	TqrQzxWyKW2TzT1eGFy9bnRYzOCA=
+X-Google-Smtp-Source: AGHT+IG98jVPofl4wprxoCs8/tFHz5fzJRjh8wYTClXnDHRT8UgVJn2uumhMmWY1kRfUQCXeD2vyzQ==
+X-Received: by 2002:a05:600c:198f:b0:456:1157:59ac with SMTP id 5b1f17b1804b1-45a109e7dd2mr1677105e9.7.1754924532739;
+        Mon, 11 Aug 2025 08:02:12 -0700 (PDT)
 Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:6841:8926:4410:c880])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-459eff7918csm192649605e9.25.2025.08.11.08.02.07
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-459eff7918csm192649605e9.25.2025.08.11.08.02.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Aug 2025 08:02:07 -0700 (PDT)
+        Mon, 11 Aug 2025 08:02:12 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 11 Aug 2025 17:02:00 +0200
-Subject: [PATCH 1/5] pinctrl: stm32: use new generic GPIO chip API
+Date: Mon, 11 Aug 2025 17:02:03 +0200
+Subject: [PATCH 4/5] pinctrl: npcm7xx: use new generic GPIO chip API
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,7 +87,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20250811-gpio-mmio-pinctrl-conv-v1-1-a84c5da2be20@linaro.org>
+Message-Id: <20250811-gpio-mmio-pinctrl-conv-v1-4-a84c5da2be20@linaro.org>
 References: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
 In-Reply-To: <20250811-gpio-mmio-pinctrl-conv-v1-0-a84c5da2be20@linaro.org>
 To: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>, 
@@ -104,21 +104,21 @@ Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  openbmc@lists.ozlabs.org, 
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2737;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=18077;
  i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
- bh=TAuKojjyD6nAKERqSGd5+r/u4OVzV5ZEvxmxS/gEado=;
- b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBomgXshqBLlfnYFEFYK7uY0jFJFrmHe39l05Pcs
- k4vccla8yeJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaJoF7AAKCRARpy6gFHHX
- cg7AD/9pgOoPP+pShNjLjROnRjG6ynKjPXowGdW0ABn5sAkUvwA1fgSz4BPTxcdOu2W+Mj2vZHY
- XAcoX6QuhsYKer2Ij7zEVCFDSd2+udUclQR6z/1sd9VJkcvIU/Cxmh6o9S7S0eDGNlXT12iVKcH
- M/EkMJ1nvsruX4Gt7mIphpAl++6vvrv1+745OgmVHhYKFicEpzEly2P+jLkiVq0tISzg986/vRM
- xFCBolAsRNun3fiE99GiiaYkwrse9aR+2q5bpAwjohDzgbwv7ePgGXUzf3KRK6d9zHvxvqa7e12
- mO1pIUTCB+/Omb/OzwjvQUMJO/mPYXkjGI1HfCz1gUZvJgCVyU64A4HjqjN0eneS0mZCRO2jbpO
- /Rhq++1FNkVt7HV086RTI0wGxd2K39LvS3fGyOnmmCc4LIpwL2edcBYSL+hEpZHA6JnTJLGGiMN
- atUmuiciLUCWrgWjBsmur3+KrCq38mMzE2A4bifdCDU78T41+OZ6jq+hvXNGpfE+TG2htol6EjV
- 0U2MhDMYKV0jSaBCcphL9S+4OBxXL5+APecu01nQ+aNi7mmSNo7JzdDRQGVXvXCd0pq25kpcZiN
- mVTFPFtmbX3ShdoJ3x9oS/g9h9rgCONYNuSoHzUQZdGFjsaxJE0IFwgrNrOHSNgUIG7b27lX5wn
- kWen1t/i4XapRRw==
+ bh=93WVHev07ZUCejCf0kwiUjBiEk+LZ3uM81qrtlfjA1c=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBomgXt9uGgkd1OHHiFLtiWvcvXtAI++KwFXdCp/
+ sVjM553Kz+JAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaJoF7QAKCRARpy6gFHHX
+ chD/D/9rJHkDt6S5t6Idxvl9LC8QPYwKbx+60eh9SkD0/KLgzkqZfMUHQ0LTAonLIvBr2+UNIgT
+ z3FLmgmzByTGWH+REzVoPuSgjRhUwpxCrifYM7HmGXqTlp5BVG98zN9gSLnTCFmdjlQqdHvKet+
+ x0x8SnUXKki+T9qpR5604goxP2IxT3RanF9OyL45Bc7n7m4G1JrozglXRNzuf5CRFuMqpThkPMR
+ 4BX1FeNX8rOphXVf+qX54WuZd2B0YRY2xBpZYe0vPKPwa984fDP4+7AmomzZXDyqtsRNGSixEtQ
+ EtD6CiTM+E3/35yZ1kOb5eAXvgWSbU4Ynr6pfjMBJcTRE2j8bt0ilxKLn7eD+Y3qJF/QMoKMw6v
+ U35RJAyBYt98bMe2NB3LW4zhENse7o3fNrdTDimBrkRNnA7No7Wd0d/r+gMyFHWml2+CBnQY/cO
+ YUVwnYNYA07BmPrP3eZZg7nHCsabM2WDLbP+3DNYH+8qX5YAGshu14Onn2GZkUvAnripMEBkE9Q
+ Ai3mzdnYlsanmqFD9lCpS1cX8ci44iYUXgMRilfm20a0tuzkYiv4AcGARa4faPWvGvU49kTHEoO
+ iWeojjyFp62A/brfyTJ5K11OXroMdyzAm0EuHmmmplev6Qk/NMT3Qu1iem6blP2z3GSrSsFRYt/
+ O14Dtz19cgp/qmg==
 X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 
@@ -129,76 +129,440 @@ linux/gpio/generic.h.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/pinctrl/stm32/pinctrl-stm32-hdp.c | 32 ++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 181 +++++++++++++++---------------
+ 1 file changed, 90 insertions(+), 91 deletions(-)
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32-hdp.c b/drivers/pinctrl/stm32/pinctrl-stm32-hdp.c
-index e91442eb566bb21f7691fa14fcf684957eb6549b..dea49b9aabf2aebbaaa3cb33c8add9926972ed9f 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32-hdp.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32-hdp.c
-@@ -6,6 +6,7 @@
- #include <linux/bits.h>
- #include <linux/clk.h>
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index b8872d8f5930ad931dad208afec4e08a23c3d653..c2ca71ebb9736d1b3043fa6626767811a67e61f2 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -4,6 +4,7 @@
+ 
+ #include <linux/device.h>
  #include <linux/gpio/driver.h>
 +#include <linux/gpio/generic.h>
- #include <linux/io.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
-@@ -45,7 +46,7 @@ struct stm32_hdp {
- 	void __iomem *base;
- 	struct clk *clk;
- 	struct pinctrl_dev *pctl_dev;
--	struct gpio_chip gpio_chip;
-+	struct gpio_generic_chip gpio_chip;
- 	u32 mux_conf;
- 	u32 gposet_conf;
- 	const char * const *func_name;
-@@ -603,6 +604,7 @@ MODULE_DEVICE_TABLE(of, stm32_hdp_of_match);
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+ #include <linux/mfd/syscon.h>
+@@ -77,7 +78,7 @@
+ /* Structure for register banks */
+ struct npcm7xx_gpio {
+ 	void __iomem		*base;
+-	struct gpio_chip	gc;
++	struct gpio_generic_chip chip;
+ 	int			irqbase;
+ 	int			irq;
+ 	u32			pinctrl_id;
+@@ -99,32 +100,26 @@ struct npcm7xx_pinctrl {
+ };
  
- static int stm32_hdp_probe(struct platform_device *pdev)
+ /* GPIO handling in the pinctrl driver */
+-static void npcm_gpio_set(struct gpio_chip *gc, void __iomem *reg,
++static void npcm_gpio_set(struct gpio_generic_chip *chip, void __iomem *reg,
+ 			  unsigned int pinmask)
+ {
+-	unsigned long flags;
+ 	unsigned long val;
+ 
+-	raw_spin_lock_irqsave(&gc->bgpio_lock, flags);
++	guard(gpio_generic_lock_irqsave)(chip);
+ 
+ 	val = ioread32(reg) | pinmask;
+ 	iowrite32(val, reg);
+-
+-	raw_spin_unlock_irqrestore(&gc->bgpio_lock, flags);
+ }
+ 
+-static void npcm_gpio_clr(struct gpio_chip *gc, void __iomem *reg,
++static void npcm_gpio_clr(struct gpio_generic_chip *chip, void __iomem *reg,
+ 			  unsigned int pinmask)
+ {
+-	unsigned long flags;
+ 	unsigned long val;
+ 
+-	raw_spin_lock_irqsave(&gc->bgpio_lock, flags);
++	guard(gpio_generic_lock_irqsave)(chip);
+ 
+ 	val = ioread32(reg) & ~pinmask;
+ 	iowrite32(val, reg);
+-
+-	raw_spin_unlock_irqrestore(&gc->bgpio_lock, flags);
+ }
+ 
+ static void npcmgpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
+@@ -132,9 +127,9 @@ static void npcmgpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
+ 	struct npcm7xx_gpio *bank = gpiochip_get_data(chip);
+ 
+ 	seq_printf(s, "-- module %d [gpio%d - %d]\n",
+-		   bank->gc.base / bank->gc.ngpio,
+-		   bank->gc.base,
+-		   bank->gc.base + bank->gc.ngpio);
++		   bank->chip.gc.base / bank->chip.gc.ngpio,
++		   bank->chip.gc.base,
++		   bank->chip.gc.base + bank->chip.gc.ngpio);
+ 	seq_printf(s, "DIN :%.8x DOUT:%.8x IE  :%.8x OE	 :%.8x\n",
+ 		   ioread32(bank->base + NPCM7XX_GP_N_DIN),
+ 		   ioread32(bank->base + NPCM7XX_GP_N_DOUT),
+@@ -220,7 +215,7 @@ static void npcmgpio_irq_handler(struct irq_desc *desc)
+ 	chained_irq_enter(chip, desc);
+ 	sts = ioread32(bank->base + NPCM7XX_GP_N_EVST);
+ 	en  = ioread32(bank->base + NPCM7XX_GP_N_EVEN);
+-	dev_dbg(bank->gc.parent, "==> got irq sts %.8lx %.8lx\n", sts,
++	dev_dbg(bank->chip.gc.parent, "==> got irq sts %.8lx %.8lx\n", sts,
+ 		en);
+ 
+ 	sts &= en;
+@@ -235,42 +230,42 @@ static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
+ 	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
+ 	unsigned int gpio = BIT(irqd_to_hwirq(d));
+ 
+-	dev_dbg(bank->gc.parent, "setirqtype: %u.%u = %u\n", gpio,
++	dev_dbg(bank->chip.gc.parent, "setirqtype: %u.%u = %u\n", gpio,
+ 		d->irq, type);
+ 	switch (type) {
+ 	case IRQ_TYPE_EDGE_RISING:
+-		dev_dbg(bank->gc.parent, "edge.rising\n");
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_EVBE, gpio);
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_POL, gpio);
++		dev_dbg(bank->chip.gc.parent, "edge.rising\n");
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_EVBE, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_POL, gpio);
+ 		break;
+ 	case IRQ_TYPE_EDGE_FALLING:
+-		dev_dbg(bank->gc.parent, "edge.falling\n");
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_EVBE, gpio);
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_POL, gpio);
++		dev_dbg(bank->chip.gc.parent, "edge.falling\n");
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_EVBE, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_POL, gpio);
+ 		break;
+ 	case IRQ_TYPE_EDGE_BOTH:
+-		dev_dbg(bank->gc.parent, "edge.both\n");
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_EVBE, gpio);
++		dev_dbg(bank->chip.gc.parent, "edge.both\n");
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_EVBE, gpio);
+ 		break;
+ 	case IRQ_TYPE_LEVEL_LOW:
+-		dev_dbg(bank->gc.parent, "level.low\n");
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_POL, gpio);
++		dev_dbg(bank->chip.gc.parent, "level.low\n");
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_POL, gpio);
+ 		break;
+ 	case IRQ_TYPE_LEVEL_HIGH:
+-		dev_dbg(bank->gc.parent, "level.high\n");
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_POL, gpio);
++		dev_dbg(bank->chip.gc.parent, "level.high\n");
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_POL, gpio);
+ 		break;
+ 	default:
+-		dev_dbg(bank->gc.parent, "invalid irq type\n");
++		dev_dbg(bank->chip.gc.parent, "invalid irq type\n");
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
+ 		irq_set_handler_locked(d, handle_level_irq);
+ 	} else if (type & (IRQ_TYPE_EDGE_BOTH | IRQ_TYPE_EDGE_RISING
+ 			   | IRQ_TYPE_EDGE_FALLING)) {
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
+ 		irq_set_handler_locked(d, handle_edge_irq);
+ 	}
+ 
+@@ -283,7 +278,7 @@ static void npcmgpio_irq_ack(struct irq_data *d)
+ 	struct npcm7xx_gpio *bank = gpiochip_get_data(gc);
+ 	unsigned int gpio = irqd_to_hwirq(d);
+ 
+-	dev_dbg(bank->gc.parent, "irq_ack: %u.%u\n", gpio, d->irq);
++	dev_dbg(bank->chip.gc.parent, "irq_ack: %u.%u\n", gpio, d->irq);
+ 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVST);
+ }
+ 
+@@ -295,7 +290,7 @@ static void npcmgpio_irq_mask(struct irq_data *d)
+ 	unsigned int gpio = irqd_to_hwirq(d);
+ 
+ 	/* Clear events */
+-	dev_dbg(bank->gc.parent, "irq_mask: %u.%u\n", gpio, d->irq);
++	dev_dbg(bank->chip.gc.parent, "irq_mask: %u.%u\n", gpio, d->irq);
+ 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVENC);
+ 	gpiochip_disable_irq(gc, gpio);
+ }
+@@ -309,7 +304,7 @@ static void npcmgpio_irq_unmask(struct irq_data *d)
+ 
+ 	/* Enable events */
+ 	gpiochip_enable_irq(gc, gpio);
+-	dev_dbg(bank->gc.parent, "irq_unmask: %u.%u\n", gpio, d->irq);
++	dev_dbg(bank->chip.gc.parent, "irq_unmask: %u.%u\n", gpio, d->irq);
+ 	iowrite32(BIT(gpio), bank->base + NPCM7XX_GP_N_EVENS);
+ }
+ 
+@@ -1423,7 +1418,7 @@ static int npcm7xx_get_slew_rate(struct npcm7xx_gpio *bank,
+ 				 struct regmap *gcr_regmap, unsigned int pin)
+ {
+ 	u32 val;
+-	int gpio = (pin % bank->gc.ngpio);
++	int gpio = (pin % bank->chip.gc.ngpio);
+ 	unsigned long pinmask = BIT(gpio);
+ 
+ 	if (pincfg[pin].flag & SLEW)
+@@ -1443,16 +1438,16 @@ static int npcm7xx_set_slew_rate(struct npcm7xx_gpio *bank,
+ 				 struct regmap *gcr_regmap, unsigned int pin,
+ 				 int arg)
+ {
+-	int gpio = BIT(pin % bank->gc.ngpio);
++	int gpio = BIT(pin % bank->chip.gc.ngpio);
+ 
+ 	if (pincfg[pin].flag & SLEW) {
+ 		switch (arg) {
+ 		case 0:
+-			npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_OSRC,
++			npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_OSRC,
+ 				      gpio);
+ 			return 0;
+ 		case 1:
+-			npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_OSRC,
++			npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_OSRC,
+ 				      gpio);
+ 			return 0;
+ 		default:
+@@ -1485,7 +1480,7 @@ static int npcm7xx_get_drive_strength(struct pinctrl_dev *pctldev,
+ 	struct npcm7xx_pinctrl *npcm = pinctrl_dev_get_drvdata(pctldev);
+ 	struct npcm7xx_gpio *bank =
+ 		&npcm->gpio_bank[pin / NPCM7XX_GPIO_PER_BANK];
+-	int gpio = (pin % bank->gc.ngpio);
++	int gpio = (pin % bank->chip.gc.ngpio);
+ 	unsigned long pinmask = BIT(gpio);
+ 	u32 ds = 0;
+ 	int flg, val;
+@@ -1496,7 +1491,7 @@ static int npcm7xx_get_drive_strength(struct pinctrl_dev *pctldev,
+ 		val = ioread32(bank->base + NPCM7XX_GP_N_ODSC)
+ 		& pinmask;
+ 		ds = val ? DSHI(flg) : DSLO(flg);
+-		dev_dbg(bank->gc.parent,
++		dev_dbg(bank->chip.gc.parent,
+ 			"pin %d strength %d = %d\n", pin, val, ds);
+ 		return ds;
+ 	}
+@@ -1511,20 +1506,20 @@ static int npcm7xx_set_drive_strength(struct npcm7xx_pinctrl *npcm,
+ 	int v;
+ 	struct npcm7xx_gpio *bank =
+ 		&npcm->gpio_bank[pin / NPCM7XX_GPIO_PER_BANK];
+-	int gpio = BIT(pin % bank->gc.ngpio);
++	int gpio = BIT(pin % bank->chip.gc.ngpio);
+ 
+ 	v = (pincfg[pin].flag & DRIVE_STRENGTH_MASK);
+ 	if (!nval || !v)
+ 		return -ENOTSUPP;
+ 	if (DSLO(v) == nval) {
+-		dev_dbg(bank->gc.parent,
++		dev_dbg(bank->chip.gc.parent,
+ 			"setting pin %d to low strength [%d]\n", pin, nval);
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_ODSC, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_ODSC, gpio);
+ 		return 0;
+ 	} else if (DSHI(v) == nval) {
+-		dev_dbg(bank->gc.parent,
++		dev_dbg(bank->chip.gc.parent,
+ 			"setting pin %d to high strength [%d]\n", pin, nval);
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_ODSC, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_ODSC, gpio);
+ 		return 0;
+ 	}
+ 
+@@ -1657,9 +1652,9 @@ static int npcm_gpio_set_direction(struct pinctrl_dev *pctldev,
+ 	struct npcm7xx_pinctrl *npcm = pinctrl_dev_get_drvdata(pctldev);
+ 	struct npcm7xx_gpio *bank =
+ 		&npcm->gpio_bank[offset / NPCM7XX_GPIO_PER_BANK];
+-	int gpio = BIT(offset % bank->gc.ngpio);
++	int gpio = BIT(offset % bank->chip.gc.ngpio);
+ 
+-	dev_dbg(bank->gc.parent, "GPIO Set Direction: %d = %d\n", offset,
++	dev_dbg(bank->chip.gc.parent, "GPIO Set Direction: %d = %d\n", offset,
+ 		input);
+ 	if (input)
+ 		iowrite32(gpio, bank->base + NPCM7XX_GP_N_OEC);
+@@ -1687,7 +1682,7 @@ static int npcm7xx_config_get(struct pinctrl_dev *pctldev, unsigned int pin,
+ 	struct npcm7xx_pinctrl *npcm = pinctrl_dev_get_drvdata(pctldev);
+ 	struct npcm7xx_gpio *bank =
+ 		&npcm->gpio_bank[pin / NPCM7XX_GPIO_PER_BANK];
+-	int gpio = (pin % bank->gc.ngpio);
++	int gpio = (pin % bank->chip.gc.ngpio);
+ 	unsigned long pinmask = BIT(gpio);
+ 	u32 ie, oe, pu, pd;
+ 	int rc = 0;
+@@ -1750,38 +1745,38 @@ static int npcm7xx_config_set_one(struct npcm7xx_pinctrl *npcm,
+ 	u16 arg = pinconf_to_config_argument(config);
+ 	struct npcm7xx_gpio *bank =
+ 		&npcm->gpio_bank[pin / NPCM7XX_GPIO_PER_BANK];
+-	int gpio = BIT(pin % bank->gc.ngpio);
++	int gpio = BIT(pin % bank->chip.gc.ngpio);
+ 
+-	dev_dbg(bank->gc.parent, "param=%d %d[GPIO]\n", param, pin);
++	dev_dbg(bank->chip.gc.parent, "param=%d %d[GPIO]\n", param, pin);
+ 	switch (param) {
+ 	case PIN_CONFIG_BIAS_DISABLE:
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_PU, gpio);
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_PD, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_PU, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_PD, gpio);
+ 		break;
+ 	case PIN_CONFIG_BIAS_PULL_DOWN:
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_PU, gpio);
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_PD, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_PU, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_PD, gpio);
+ 		break;
+ 	case PIN_CONFIG_BIAS_PULL_UP:
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_PD, gpio);
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_PU, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_PD, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_PU, gpio);
+ 		break;
+ 	case PIN_CONFIG_INPUT_ENABLE:
+ 		iowrite32(gpio, bank->base + NPCM7XX_GP_N_OEC);
+-		bank->direction_input(&bank->gc, pin % bank->gc.ngpio);
++		bank->direction_input(&bank->chip.gc, pin % bank->chip.gc.ngpio);
+ 		break;
+ 	case PIN_CONFIG_OUTPUT:
+-		bank->direction_output(&bank->gc, pin % bank->gc.ngpio, arg);
++		bank->direction_output(&bank->chip.gc, pin % bank->chip.gc.ngpio, arg);
+ 		iowrite32(gpio, bank->base + NPCM7XX_GP_N_OES);
+ 		break;
+ 	case PIN_CONFIG_DRIVE_PUSH_PULL:
+-		npcm_gpio_clr(&bank->gc, bank->base + NPCM7XX_GP_N_OTYP, gpio);
++		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_OTYP, gpio);
+ 		break;
+ 	case PIN_CONFIG_DRIVE_OPEN_DRAIN:
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_OTYP, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_OTYP, gpio);
+ 		break;
+ 	case PIN_CONFIG_INPUT_DEBOUNCE:
+-		npcm_gpio_set(&bank->gc, bank->base + NPCM7XX_GP_N_DBNC, gpio);
++		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_DBNC, gpio);
+ 		break;
+ 	case PIN_CONFIG_SLEW_RATE:
+ 		return npcm7xx_set_slew_rate(bank, npcm->gcr_regmap, pin, arg);
+@@ -1829,6 +1824,7 @@ static const struct pinctrl_desc npcm7xx_pinctrl_desc = {
+ 
+ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
  {
 +	struct gpio_generic_chip_config config;
- 	struct device *dev = &pdev->dev;
- 	struct stm32_hdp *hdp;
- 	u8 version;
-@@ -635,21 +637,25 @@ static int stm32_hdp_probe(struct platform_device *pdev)
- 	if (err)
- 		return dev_err_probe(dev, err, "Failed to enable pinctrl\n");
+ 	int ret = -ENXIO;
+ 	struct device *dev = pctrl->dev;
+ 	struct fwnode_reference_args args;
+@@ -1840,15 +1836,18 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
+ 		if (!pctrl->gpio_bank[id].base)
+ 			return -EINVAL;
  
--	hdp->gpio_chip.get_direction = stm32_hdp_gpio_get_direction;
--	hdp->gpio_chip.ngpio	     = ARRAY_SIZE(stm32_hdp_pins);
--	hdp->gpio_chip.can_sleep     = true;
--	hdp->gpio_chip.names	     = stm32_hdp_pins_group;
-+	hdp->gpio_chip.gc.get_direction = stm32_hdp_gpio_get_direction;
-+	hdp->gpio_chip.gc.ngpio	     = ARRAY_SIZE(stm32_hdp_pins);
-+	hdp->gpio_chip.gc.can_sleep     = true;
-+	hdp->gpio_chip.gc.names	     = stm32_hdp_pins_group;
- 
--	err = bgpio_init(&hdp->gpio_chip, dev, 4,
--			 hdp->base + HDP_GPOVAL,
--			 hdp->base + HDP_GPOSET,
--			 hdp->base + HDP_GPOCLR,
--			 NULL, NULL, BGPIOF_NO_INPUT);
-+	config = (typeof(config)){
-+		.dev = dev,
-+		.sz = 4,
-+		.dat = hdp->base + HDP_GPOVAL,
-+		.set = hdp->base + HDP_GPOSET,
-+		.clr = hdp->base + HDP_GPOCLR,
-+		.flags = BGPIOF_NO_INPUT,
-+	};
+-		ret = bgpio_init(&pctrl->gpio_bank[id].gc, dev, 4,
+-				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DIN,
+-				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DOUT,
+-				 NULL,
+-				 NULL,
+-				 pctrl->gpio_bank[id].base + NPCM7XX_GP_N_IEM,
+-				 BGPIOF_READ_OUTPUT_REG_SET);
++		config = (typeof(config)){
++			.dev = dev,
++			.sz = 4,
++			.dat = pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DIN,
++			.set = pctrl->gpio_bank[id].base + NPCM7XX_GP_N_DOUT,
++			.dirin = pctrl->gpio_bank[id].base + NPCM7XX_GP_N_IEM,
++			.flags = BGPIOF_READ_OUTPUT_REG_SET,
++		};
 +
-+	err = gpio_generic_chip_init(&hdp->gpio_chip, &config);
- 	if (err)
--		return dev_err_probe(dev, err, "Failed to init bgpio\n");
-+		return dev_err_probe(dev, err, "Failed to init the generic GPIO chip\n");
++		ret = gpio_generic_chip_init(&pctrl->gpio_bank[id].chip, &config);
+ 		if (ret) {
+-			dev_err(dev, "bgpio_init() failed\n");
++			dev_err(dev, "failed to initialize the generic GPIO chip\n");
+ 			return ret;
+ 		}
  
--
--	err = devm_gpiochip_add_data(dev, &hdp->gpio_chip, hdp);
-+	err = devm_gpiochip_add_data(dev, &hdp->gpio_chip.gc, hdp);
- 	if (err)
- 		return dev_err_probe(dev, err, "Failed to add gpiochip\n");
+@@ -1866,23 +1865,23 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
+ 		pctrl->gpio_bank[id].irq = ret;
+ 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
+ 		pctrl->gpio_bank[id].pinctrl_id = args.args[0];
+-		pctrl->gpio_bank[id].gc.base = args.args[1];
+-		pctrl->gpio_bank[id].gc.ngpio = args.args[2];
+-		pctrl->gpio_bank[id].gc.owner = THIS_MODULE;
+-		pctrl->gpio_bank[id].gc.parent = dev;
+-		pctrl->gpio_bank[id].gc.fwnode = child;
+-		pctrl->gpio_bank[id].gc.label = devm_kasprintf(dev, GFP_KERNEL, "%pfw", child);
+-		if (pctrl->gpio_bank[id].gc.label == NULL)
++		pctrl->gpio_bank[id].chip.gc.base = args.args[1];
++		pctrl->gpio_bank[id].chip.gc.ngpio = args.args[2];
++		pctrl->gpio_bank[id].chip.gc.owner = THIS_MODULE;
++		pctrl->gpio_bank[id].chip.gc.parent = dev;
++		pctrl->gpio_bank[id].chip.gc.fwnode = child;
++		pctrl->gpio_bank[id].chip.gc.label = devm_kasprintf(dev, GFP_KERNEL, "%pfw", child);
++		if (pctrl->gpio_bank[id].chip.gc.label == NULL)
+ 			return -ENOMEM;
  
+-		pctrl->gpio_bank[id].gc.dbg_show = npcmgpio_dbg_show;
+-		pctrl->gpio_bank[id].direction_input = pctrl->gpio_bank[id].gc.direction_input;
+-		pctrl->gpio_bank[id].gc.direction_input = npcmgpio_direction_input;
+-		pctrl->gpio_bank[id].direction_output = pctrl->gpio_bank[id].gc.direction_output;
+-		pctrl->gpio_bank[id].gc.direction_output = npcmgpio_direction_output;
+-		pctrl->gpio_bank[id].request = pctrl->gpio_bank[id].gc.request;
+-		pctrl->gpio_bank[id].gc.request = npcmgpio_gpio_request;
+-		pctrl->gpio_bank[id].gc.free = pinctrl_gpio_free;
++		pctrl->gpio_bank[id].chip.gc.dbg_show = npcmgpio_dbg_show;
++		pctrl->gpio_bank[id].direction_input = pctrl->gpio_bank[id].chip.gc.direction_input;
++		pctrl->gpio_bank[id].chip.gc.direction_input = npcmgpio_direction_input;
++		pctrl->gpio_bank[id].direction_output = pctrl->gpio_bank[id].chip.gc.direction_output;
++		pctrl->gpio_bank[id].chip.gc.direction_output = npcmgpio_direction_output;
++		pctrl->gpio_bank[id].request = pctrl->gpio_bank[id].chip.gc.request;
++		pctrl->gpio_bank[id].chip.gc.request = npcmgpio_gpio_request;
++		pctrl->gpio_bank[id].chip.gc.free = pinctrl_gpio_free;
+ 		id++;
+ 	}
+ 
+@@ -1897,7 +1896,7 @@ static int npcm7xx_gpio_register(struct npcm7xx_pinctrl *pctrl)
+ 	for (id = 0 ; id < pctrl->bank_num ; id++) {
+ 		struct gpio_irq_chip *girq;
+ 
+-		girq = &pctrl->gpio_bank[id].gc.irq;
++		girq = &pctrl->gpio_bank[id].chip.gc.irq;
+ 		gpio_irq_chip_set_chip(girq, &npcmgpio_irqchip);
+ 		girq->parent_handler = npcmgpio_irq_handler;
+ 		girq->num_parents = 1;
+@@ -1912,21 +1911,21 @@ static int npcm7xx_gpio_register(struct npcm7xx_pinctrl *pctrl)
+ 		girq->default_type = IRQ_TYPE_NONE;
+ 		girq->handler = handle_level_irq;
+ 		ret = devm_gpiochip_add_data(pctrl->dev,
+-					     &pctrl->gpio_bank[id].gc,
++					     &pctrl->gpio_bank[id].chip.gc,
+ 					     &pctrl->gpio_bank[id]);
+ 		if (ret) {
+ 			dev_err(pctrl->dev, "Failed to add GPIO chip %u\n", id);
+ 			goto err_register;
+ 		}
+ 
+-		ret = gpiochip_add_pin_range(&pctrl->gpio_bank[id].gc,
++		ret = gpiochip_add_pin_range(&pctrl->gpio_bank[id].chip.gc,
+ 					     dev_name(pctrl->dev),
+ 					     pctrl->gpio_bank[id].pinctrl_id,
+-					     pctrl->gpio_bank[id].gc.base,
+-					     pctrl->gpio_bank[id].gc.ngpio);
++					     pctrl->gpio_bank[id].chip.gc.base,
++					     pctrl->gpio_bank[id].chip.gc.ngpio);
+ 		if (ret < 0) {
+ 			dev_err(pctrl->dev, "Failed to add GPIO bank %u\n", id);
+-			gpiochip_remove(&pctrl->gpio_bank[id].gc);
++			gpiochip_remove(&pctrl->gpio_bank[id].chip.gc);
+ 			goto err_register;
+ 		}
+ 	}
+@@ -1935,7 +1934,7 @@ static int npcm7xx_gpio_register(struct npcm7xx_pinctrl *pctrl)
+ 
+ err_register:
+ 	for (; id > 0; id--)
+-		gpiochip_remove(&pctrl->gpio_bank[id - 1].gc);
++		gpiochip_remove(&pctrl->gpio_bank[id - 1].chip.gc);
+ 
+ 	return ret;
+ }
 
 -- 
 2.48.1
