@@ -1,65 +1,72 @@
-Return-Path: <openbmc+bounces-441-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-442-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16282CA0EE0
-	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C3FC87FCF
+	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:53:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBK2BR7z30Vb;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBK5cMxz3cYH;
 	Thu, 14 Aug 2025 09:51:21 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=194.117.254.33
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755102309;
-	cv=none; b=BBWX+LKWiFrjNvVgNTZU0nBCmDxP6JsoHwpoSJc8rxinwQDuMSIJTbVWNskHFEmQPuUatd7ZSg6fvrkTKOObgR6cOo7p4VQN0nQ+SThUMKvSNozfGxhiS5ECWZ5MAsOxfNVIl5tf6z1wNMtgAxSQqe/uVeA3qtvD14rvDJJXFPpU/PpQbotxytc3g8gdVe6blIluTRzJ74W+20wWHnGvvmodnURiya+BZ3fnXTc1GdVf/H25orz/pyna9U74VgZXrElmZdNVBgUZyzBqXcG9KG+tLObxdNbCcO8Ct/a9RXN+ruL836WRm0sYCPEWyzTwa1TsKbAU/UFgWSKZCE3z2Q==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.47.23.234
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755122248;
+	cv=none; b=F2vIq9NscN0Dv3q6Ck6KFpk3D4bwOvyBWpXmvTavaQpSkakpAfGp+yVXbJ1abm10VhNM53woMxcIqdg8maVTXR3FrZvh5ViB3mXfhvOznY5Uzq6RTWjyKtVxaBmM4odBM/N8QSAEaB28t47vTIq2yapuyJyg3sakJqZCM6HGK5m0ma1GK9zDL4qIbMGgalbldHba9uRL9ZBeEfZLyqIctepwGRwV+EMaEr/tXmjlYpicmXYL96Ali6gZXtrYICKXck5qhW9ABj81Ksuzm9xY8I749WrvOuhXXNSTzVKPzdt7/gKfv1ZWvs3JiblFnc9wdFc68zjiwQ6oOoFkgB/Hkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755102309; c=relaxed/relaxed;
-	bh=2Z8b0tA6giS8n4O6KDji8VyXizH69Pnanef04kHHLwQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OvuFTW482xQQ3Gop2mdfV0UntRPQ4AM3RFzyYpFfHxLZa3qPf2lrw3o5Qpe1Vm0/D1K1g+U4c/LGd1R7Luq8Lxjj/POic9tNDiisV1C1ySqpuygqWL9A3HvJV84PxnACb9vdMt72Y/f8Y3CiOFYTmFJ1teeq2IDyR1YFPKYEnPM3cCy3c0dILjyhsJuqvCEl90AqIZOMshi5vJLfibwm9XxAo9VYZzZFzVfL1gOVevXAZONsEP7L7hJqha5fSg6StpLa7ZfMBpP4rFWBQe9XaZS1aT9/LP0sJa+zoeOKwhp2Mks0i4Blov19KUmQg1Q5vLB4rY2N6l9jU2oPzPGhoA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TpwPmPUA; dkim-atps=neutral; spf=pass (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org) smtp.mailfrom=sang-engineering.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+	t=1755122248; c=relaxed/relaxed;
+	bh=wWksHDBmgI3dIadKYWOJxAKOIZlW7syLhIJmTFxpaxA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ANCgwgUcsMOJczKE7w+E1ZCi3Gd1Kr3ZA8wdg5/y+l20XgN8MNr1alDFhDmVm4wmT/nGSPYykNfC94S2AooE6ZmlClybUITXCnLHmPJBlJtjiWi6Xco7Tjl8Q1PvV3H+1IS4KPgeI4i3Cor/HvmiC/6GuPL1Q8Up8bGobSW0/RACPLoZJ3V/0cFu+mU2X/sb0t9XJ7JeAbuJcnSML44E99Vvit2I4AZTeUzXBoSeyn0MOy0cPuwd/u7lYDxUDpvAClEzKRFmh03GHGCmyOp07HbiZIb419VHh6ka2pbdWKMm18dOYYEos2ZeGXZrIG0FXC2nZYolANDWD5biuj5ENw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=hwprcvhE; dkim-atps=neutral; spf=pass (client-ip=198.47.23.234; helo=lelvem-ot01.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org) smtp.mailfrom=ti.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TpwPmPUA;
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=hwprcvhE;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sang-engineering.com (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ti.com (client-ip=198.47.23.234; helo=lelvem-ot01.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 921 seconds by postgrey-1.37 at boromir; Thu, 14 Aug 2025 07:57:27 AEST
+Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2DHS6S73z30Tf
-	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 02:25:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:in-reply-to:references:mime-version:content-transfer-encoding;
-	 s=k1; bh=2Z8b0tA6giS8n4O6KDji8VyXizH69Pnanef04kHHLwQ=; b=TpwPmP
-	UAkWsHGWTOJ96wf0Xm8ASUQbM8WFN3k0wv7z3bceGB2TBJc49lhn11GuDdp0Ec3s
-	zyZ+0z0r7m+u00ZxkVz1P8GoTtQ9g0eiAofYmOGCKTsigex8taUB/9iYsQCpCdXy
-	GebgMFq6w2V69FSMBqB3BhiebgXPLJJIOs8NRMf9k9SHb7QoyvDvI9dVLftQBj4v
-	dMPZu79GLrHMWouEHF9gBIsbCu5gMjiZCbGcCdOMGP3eDZmUSR2YWJqfEhHNsHj+
-	jSD44mdaiOo8Jf9Ah8GCFypKeKDp9jugJJ6jLd4NcFxHW9NKCoWenW/wBz3Pljih
-	iHz6iAhPqmWZQ8ZQ==
-Received: (qmail 695149 invoked from network); 13 Aug 2025 18:16:17 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Aug 2025 18:16:17 +0200
-X-UD-Smtp-Session: l3s3148p1@vWXreUE8JtttKLKq
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH 11/21] peci: remove unneeded 'fast_io' parameter in regmap_config
-Date: Wed, 13 Aug 2025 18:14:57 +0200
-Message-ID: <20250813161517.4746-12-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-References: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2Mfv5Rl9z2xK5
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 07:57:26 +1000 (AEST)
+Received: from fllvem-sh03.itg.ti.com ([10.64.41.86])
+	by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57DLfeK01788737;
+	Wed, 13 Aug 2025 16:41:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1755121301;
+	bh=wWksHDBmgI3dIadKYWOJxAKOIZlW7syLhIJmTFxpaxA=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References;
+	b=hwprcvhEofD7vETt+EIe1r/OT111emuuxsiAP1mZzCEyDtFBHXdfEa8rVgei90vYb
+	 E3ZMoDDXI+YxhUJm9Zlh4m848bhKcfFM0svNuie7XtNwopBm8LpT2HBhqlcCT8TKCl
+	 fMFRLZqkmMx+0yUXmcI3ZYpkjtYHUdgqVNB/yknY=
+Received: from DFLE115.ent.ti.com (dfle115.ent.ti.com [10.64.6.36])
+	by fllvem-sh03.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57DLfeTR678594
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Wed, 13 Aug 2025 16:41:40 -0500
+Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE115.ent.ti.com
+ (10.64.6.36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 13
+ Aug 2025 16:41:40 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Wed, 13 Aug 2025 16:41:40 -0500
+Received: from fllvem-mr07.itg.ti.com ([10.249.42.149])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57DLfdNG2611079;
+	Wed, 13 Aug 2025 16:41:40 -0500
+From: Andrew Davis <afd@ti.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+        Jacky Huang <ychuang3@nuvoton.com>,
+        Shan-Chun Hung <schung@nuvoton.com>, Qin
+ Jian <qinjian@cqplus1.com>
+CC: <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>, Andrew Davis <afd@ti.com>
+Subject: [PATCH 1/6] reset: ath79: Use devm_register_restart_handler()
+Date: Wed, 13 Aug 2025 16:41:33 -0500
+Message-ID: <20250813214138.477659-2-afd@ti.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20250813214138.477659-1-afd@ti.com>
+References: <20250813214138.477659-1-afd@ti.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -72,31 +79,57 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 
-When using MMIO with regmap, fast_io is implied. No need to set it
-again.
+Function register_restart_handler() is deprecated. Using this new API
+removes our need to keep and manage a struct notifier_block and to
+later unregister the handler.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Andrew Davis <afd@ti.com>
 ---
-No dependencies, can be applied directly to the subsystem tree. Buildbot is
-happy, too.
+ drivers/reset/reset-ath79.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
- drivers/peci/controller/peci-npcm.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/peci/controller/peci-npcm.c b/drivers/peci/controller/peci-npcm.c
-index c77591ca583d..931868991241 100644
---- a/drivers/peci/controller/peci-npcm.c
-+++ b/drivers/peci/controller/peci-npcm.c
-@@ -221,7 +221,6 @@ static const struct regmap_config npcm_peci_regmap_config = {
- 	.reg_bits = 8,
- 	.val_bits = 8,
- 	.max_register = NPCM_PECI_MAX_REG,
--	.fast_io = true,
+diff --git a/drivers/reset/reset-ath79.c b/drivers/reset/reset-ath79.c
+index b5d620132052d..4c4e69eb32bbc 100644
+--- a/drivers/reset/reset-ath79.c
++++ b/drivers/reset/reset-ath79.c
+@@ -15,7 +15,6 @@
+ 
+ struct ath79_reset {
+ 	struct reset_controller_dev rcdev;
+-	struct notifier_block restart_nb;
+ 	void __iomem *base;
+ 	spinlock_t lock;
+ };
+@@ -72,11 +71,9 @@ static const struct reset_control_ops ath79_reset_ops = {
+ 	.status = ath79_reset_status,
  };
  
- static const struct peci_controller_ops npcm_ops = {
+-static int ath79_reset_restart_handler(struct notifier_block *nb,
+-				unsigned long action, void *data)
++static int ath79_reset_restart_handler(struct sys_off_data *data)
+ {
+-	struct ath79_reset *ath79_reset =
+-		container_of(nb, struct ath79_reset, restart_nb);
++	struct ath79_reset *ath79_reset = data->cb_data;
+ 
+ 	ath79_reset_assert(&ath79_reset->rcdev, FULL_CHIP_RESET);
+ 
+@@ -108,10 +105,7 @@ static int ath79_reset_probe(struct platform_device *pdev)
+ 	if (err)
+ 		return err;
+ 
+-	ath79_reset->restart_nb.notifier_call = ath79_reset_restart_handler;
+-	ath79_reset->restart_nb.priority = 128;
+-
+-	err = register_restart_handler(&ath79_reset->restart_nb);
++	err = devm_register_restart_handler(&pdev->dev, ath79_reset_restart_handler, ath79_reset);
+ 	if (err)
+ 		dev_warn(&pdev->dev, "Failed to register restart handler\n");
+ 
 -- 
-2.47.2
+2.39.2
 
 
