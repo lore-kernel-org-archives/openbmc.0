@@ -1,59 +1,58 @@
-Return-Path: <openbmc+bounces-438-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-439-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A42C87FCF
-	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C66C3CA0EE0
+	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:32 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBH3RvJz3bmC;
-	Thu, 14 Aug 2025 09:51:19 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.47.19.245
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755121598;
-	cv=none; b=BReWMi/rEL2+sh70lnKQH3i68uGN9PFMgB+7/P4MtBDxEdp2vHZcUAnDmbAAiMj9qUG9g8zD165qhpywuNyKes4+I/4sc9Ldgu3az4ucp5642vKpbrpKk+nbf+CRMzFly5Zk67KFbFA01GkxXlgHykr1uiFbSG7ziCUUwB4+2Cpz7c6QRoliFh6W4mab7ZgCRfD3SBmKUGhV9gDDJdMTd5gVsrOUJ+eyMygMiKIWZV94DWOedZ80FC6IX49zLnZmqpfeK9ydIMCBAdkzm38BAn7gUyRa9ckB1KTqoAK3yH+U+7HDgzDlK5EEYnBHBH8uMNZIG27SuvJUUV7zws4J7A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBJ1HH1z3bnL;
+	Thu, 14 Aug 2025 09:51:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.47.19.246
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755121609;
+	cv=none; b=RkXqGF9kVqBTV2XhcZSbytCLQPxJ5oLjAd9G3hsil+uRmchXohb47NZ0NKkCEy92RV2qmC+StKuioVFjWyu550rLeJ62pGrSXcY0vgV6TJX5Q/0cNAVluwWg8XLIjoSpgiZqsbBlAplbNUXJ/NT5t4rNmHBxI8leUcZ16dqqfyRae7VkktAT4PGX8ahbp/5gO4M+OtbdZcvEBoe4s7L6W+GgRQSbeQbz4EYVPrd6Pg06E/b3kienhSKAdqRUUDKXI450GwZNjA+wRxALvEVdLNHoJda72RHhDpKuZFM5dQ9Np8R/9x85E+pz/PN9nFtvoW3YTaphOlsj6/ta7C/9lw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755121598; c=relaxed/relaxed;
-	bh=ZQcBjCnOuHYG+l1tmZJq0ANml4aVyybZgww+09zyHFo=;
+	t=1755121609; c=relaxed/relaxed;
+	bh=Sy3YdWqFJNy5sq/10GkOJns1Ey6MZ1hFJo9OWJ642IY=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g3eV+xbjClWykJgfSgGMa5riJFYiyuSpdNqFZrzUB7kyeIAWw/yXfGceOtr9LigklXnbvt751zJgV4ou6PuZ8B1//8kwAAZJKVFy2K71YpePuokzHtalnm/2rStastFlZ2Wd5ismbUjJYtQxjc11N/WuCX88pA2K5lulxQObNOPkQC+FWIs83hj1a7ohvNM/EuAKrANzaUl1x9ql/j+nYKxWqtUAZrIL1iEzVScmNnJIrnrpFR94yJ6uSg0kyR5K6Oqj37zhK+RLckEvNadjjjrwE0Cg1uuXeK/fRCr+J9/8L6biPH2xRtg4EfO5dMDqfgEgkiMhqWKNR+I4R51b8w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=k2jaOzW0; dkim-atps=neutral; spf=pass (client-ip=198.47.19.245; helo=fllvem-ot03.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org) smtp.mailfrom=ti.com
+	 MIME-Version:Content-Type; b=moQGbqbATuGXr4SbeDVI8Q5/ojYjGdzskkXm4TQukwzHboI2trTnI+L6iR824m29N+vqTkOdKWib98jgFasAmJHcnN2+pC5P728qQWqzFwaeSw5hdJvBH3idvQKApj6o1Brl0sks1dGb/bwq1xNxWylnNvD6v+EzgHtuMDQ/n3Yr8RPK18FJ4mgOfvPzknqhbbI4ueEfzYiGBMbDh7NLd4HArMr/GfGOiXnHt4TW8mZuKaKIRTs6KTAgnUuhbgZ7LEWlMaAP/7gIrKCOUT4+VT1fv7Lj7E5atQBT6GH1nk2WfG9GIt0fNXc0M0RLfWNs/FX2WSC6Sh2o865timk7Nw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=U1HO0dmy; dkim-atps=neutral; spf=pass (client-ip=198.47.19.246; helo=fllvem-ot04.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org) smtp.mailfrom=ti.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=k2jaOzW0;
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=U1HO0dmy;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ti.com (client-ip=198.47.19.245; helo=fllvem-ot03.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 266 seconds by postgrey-1.37 at boromir; Thu, 14 Aug 2025 07:46:36 AEST
-Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ti.com (client-ip=198.47.19.246; helo=fllvem-ot04.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org)
+Received: from fllvem-ot04.ext.ti.com (fllvem-ot04.ext.ti.com [198.47.19.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2MQN1xKNz2xK5
-	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 07:46:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2MQc707jz2xK5
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 07:46:48 +1000 (AEST)
 Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
-	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57DLfgZ81737106;
-	Wed, 13 Aug 2025 16:41:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1755121302;
-	bh=ZQcBjCnOuHYG+l1tmZJq0ANml4aVyybZgww+09zyHFo=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=k2jaOzW0eX1Q9Lh1Jg+5ql5U2GDt6e1QDt+kaPPCTFvdR2o1jyNv9UVaqVKwWQmXQ
-	 JGyZJOUhqG10nwoarENrF8+Nzk50CZ6WxRHAAyRinTmsaJv90JgCJJ2X/Phfv/Uw6B
-	 4Teq74wPC4KX2n3lIDF8cWQAIOQCHTgr4YrUsr4s=
-Received: from DFLE110.ent.ti.com (dfle110.ent.ti.com [10.64.6.31])
-	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57DLfgum1253263
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Wed, 13 Aug 2025 16:41:42 -0500
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE110.ent.ti.com
- (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 13
- Aug 2025 16:41:42 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Wed, 13 Aug 2025 16:41:42 -0500
-Received: from fllvem-mr07.itg.ti.com ([10.249.42.149])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57DLfdNL2611079;
+	by fllvem-ot04.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57DLffL42163419;
 	Wed, 13 Aug 2025 16:41:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1755121301;
+	bh=Sy3YdWqFJNy5sq/10GkOJns1Ey6MZ1hFJo9OWJ642IY=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References;
+	b=U1HO0dmyEYwzxhovy+KOhdLitTxaFYBnevJmW0unu5e72iliHDh44gU+PxiD6AuyQ
+	 zBV59VfcqfKo+Df24XE33qB4PXEu2PC4SYUkxoj9ewn8o7kGo9c6M1AYghCp5TKRhC
+	 Sdk4i0VY528fg8BKpzMyhc2IBjlP2j6yBrKSNplI=
+Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
+	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57DLffcm1253252
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Wed, 13 Aug 2025 16:41:41 -0500
+Received: from DLEE108.ent.ti.com (157.170.170.38) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 13
+ Aug 2025 16:41:41 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Wed, 13 Aug 2025 16:41:41 -0500
+Received: from fllvem-mr07.itg.ti.com ([10.249.42.149])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57DLfdNI2611079;
+	Wed, 13 Aug 2025 16:41:40 -0500
 From: Andrew Davis <afd@ti.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
         Jacky Huang <ychuang3@nuvoton.com>,
@@ -61,9 +60,9 @@ To: Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
  Jian <qinjian@cqplus1.com>
 CC: <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
         <linux-kernel@vger.kernel.org>, Andrew Davis <afd@ti.com>
-Subject: [PATCH 6/6] reset: sunplus: Use devm_register_sys_off_handler()
-Date: Wed, 13 Aug 2025 16:41:38 -0500
-Message-ID: <20250813214138.477659-7-afd@ti.com>
+Subject: [PATCH 3/6] reset: lpc18xx: Use devm_register_sys_off_handler()
+Date: Wed, 13 Aug 2025 16:41:35 -0500
+Message-ID: <20250813214138.477659-4-afd@ti.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20250813214138.477659-1-afd@ti.com>
 References: <20250813214138.477659-1-afd@ti.com>
@@ -88,47 +87,47 @@ later unregister the handler.
 
 Signed-off-by: Andrew Davis <afd@ti.com>
 ---
- drivers/reset/reset-sunplus.c | 12 ++++--------
+ drivers/reset/reset-lpc18xx.c | 12 ++++--------
  1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/reset/reset-sunplus.c b/drivers/reset/reset-sunplus.c
-index df58decab64da..58b0874337598 100644
---- a/drivers/reset/reset-sunplus.c
-+++ b/drivers/reset/reset-sunplus.c
-@@ -100,7 +100,6 @@ static const u32 sp_resets[] = {
+diff --git a/drivers/reset/reset-lpc18xx.c b/drivers/reset/reset-lpc18xx.c
+index e42b2f24a93da..8ac9f237e1ceb 100644
+--- a/drivers/reset/reset-lpc18xx.c
++++ b/drivers/reset/reset-lpc18xx.c
+@@ -31,7 +31,6 @@
  
- struct sp_reset {
+ struct lpc18xx_rgu_data {
  	struct reset_controller_dev rcdev;
--	struct notifier_block notifier;
+-	struct notifier_block restart_nb;
+ 	struct clk *clk_delay;
+ 	struct clk *clk_reg;
  	void __iomem *base;
- };
+@@ -41,11 +40,9 @@ struct lpc18xx_rgu_data {
  
-@@ -154,10 +153,9 @@ static const struct reset_control_ops sp_reset_ops = {
- 	.status   = sp_reset_status,
- };
+ #define to_rgu_data(p) container_of(p, struct lpc18xx_rgu_data, rcdev)
  
--static int sp_restart(struct notifier_block *nb, unsigned long mode,
--		      void *cmd)
-+static int sp_restart(struct sys_off_data *data)
+-static int lpc18xx_rgu_restart(struct notifier_block *nb, unsigned long mode,
+-			       void *cmd)
++static int lpc18xx_rgu_restart(struct sys_off_data *data)
  {
--	struct sp_reset *reset = container_of(nb, struct sp_reset, notifier);
-+	struct sp_reset *reset = data->cb_data;
+-	struct lpc18xx_rgu_data *rc = container_of(nb, struct lpc18xx_rgu_data,
+-						   restart_nb);
++	struct lpc18xx_rgu_data *rc = data->cb_data;
  
- 	sp_reset_assert(&reset->rcdev, 0);
- 	sp_reset_deassert(&reset->rcdev, 0);
-@@ -189,10 +187,8 @@ static int sp_reset_probe(struct platform_device *pdev)
+ 	writel(BIT(LPC18XX_RGU_CORE_RST), rc->base + LPC18XX_RGU_CTRL0);
+ 	mdelay(2000);
+@@ -178,9 +175,8 @@ static int lpc18xx_rgu_probe(struct platform_device *pdev)
  	if (ret)
- 		return ret;
+ 		return dev_err_probe(&pdev->dev, ret, "unable to register device\n");
  
--	reset->notifier.notifier_call = sp_restart;
--	reset->notifier.priority = 192;
--
--	return register_restart_handler(&reset->notifier);
-+	return devm_register_sys_off_handler(&pdev->dev, SYS_OFF_MODE_RESTART,
-+					     192, sp_restart, reset);
- }
+-	rc->restart_nb.priority = 192,
+-	rc->restart_nb.notifier_call = lpc18xx_rgu_restart,
+-	ret = register_restart_handler(&rc->restart_nb);
++	ret = devm_register_sys_off_handler(&pdev->dev, SYS_OFF_MODE_RESTART, 192,
++					    lpc18xx_rgu_restart, rc);
+ 	if (ret)
+ 		dev_warn(&pdev->dev, "failed to register restart handler\n");
  
- static const struct of_device_id sp_reset_dt_ids[] = {
 -- 
 2.39.2
 
