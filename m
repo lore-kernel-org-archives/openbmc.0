@@ -1,160 +1,71 @@
-Return-Path: <openbmc+bounces-436-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-437-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 006B5CA0EE0
-	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BFD6C87FCF
+	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBD5tt5z30W9;
-	Thu, 14 Aug 2025 09:51:16 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=194.117.254.33
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755102164;
-	cv=none; b=Ig+ywU/Y4K+PzDuxvGS4x+8ljfrY3uxYc0wdLsVBUm2TA0snDAb8dnyXINsXCyN2TuacXrd3OMLaDe94+iqcFhAFojWEmvsx1glJu9LMR5aUYTYxE7FiX+6pXScC4ijfZ8YA5VYmi4prmd4smHSmSZb/1/uT/bQBkgNEjD8sgSkdI8TP9nrc4JqhJuxYOZ26GMmlclZ2udhSAv9F+GOvxflh6Qpn0XyNL2LKbXyaKkvWdj3Tbfx+56K6QAKdhHmb/hpRJXDTLqxzfIOv1vqxuX3/vATE/QrXtvA1uGFrp0U2HSRP76qjk5b1gedU6L0svT5YqLSOiyPrqAhiYAjKsg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBG4fL3z3bb6;
+	Thu, 14 Aug 2025 09:51:18 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.47.19.245
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755121599;
+	cv=none; b=eH4Fmd37Rk8tJP+Se9y9SntGK6UV6vgAEq4fF22BU9UauBAAtygaMvMmgXOEiQyVqsyt7LXvOvKvIHU/n3VyLqWdHGdqEhc7ivqCBaPg9B9KbkCoYFIsfLVOOjUa00aVX/HYwgHj5laDLP37p8swThzCgFDf+Ij9i4LAMSEIhTZXmLstFy+gtf7oj3G4f0tefNiokl2VO3KyckgURYyZFpsm2Ld+m15m4g+TquXNsCp4aU/gkmLbVPV8gRXYugV4Dly6xRvKiRyqI+svxuJVXpN2yhMLXl9014kTTX41Yk4lyFKGTeAPMkbtboafkwo51ySRyIUhAOjulc+zHdrtlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755102164; c=relaxed/relaxed;
-	bh=8r/LCX9rzyog3yrylwFjwRMpIaemTxzslMXi3Wwcda8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KE9UJctMt6swL4lxDRfm8ZP5MseOOnPA3AmelxAEtDQfYZDEkyMDk4L8PWFEsiB3Bbw5BRPv2qpuxsE9AGMoyLLkV4FXw5oEEWsEeeP6ql9n+USzbHeiqH5HidVf9+xlh4gri34usjtI4PM+wqAWvQFBYQEgC8FO/XwLOhelVyMytQl0N5YW9uuiCyLB1xwaH/9GSYoucmzO6M3hqM0H/LnlpLOyVXa/trAjwMxgVm5MIe9dj+HBINgdKHjfWxwPgMlAYAVnazOVzfFX4kbfxerRFhXfaLc6glqul8PH4GR13r3t6lyAkJQphGHjycVv5BgLdoueUvFwTbrVleSkug==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QCJ48aON; dkim-atps=neutral; spf=pass (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org) smtp.mailfrom=sang-engineering.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+	t=1755121599; c=relaxed/relaxed;
+	bh=MOqrt+X1MgrX06YG0uRc9BpYNXl9q+Neu4iKdp93TPs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Me1jmQTeT+S278Y1sfbK8cmS14+x6bzWk14YdlI4i7BCY/q6+qVEN9oWWEvXBpeT+QaqHFI7hXTmEKXErIim9KXms+MrkxzhgQsSf5FkY2B6GF5V561Zcb3nL0LoaHdq6b/4nSW7nYIU0GQsszGX1kbtOha23zZy8TwWbOCT1b2rTA4kqKPiG5K7g3NWRkE941RBUrBzvckyf8WBaDIZjf1GxZoIhwhOf2mRvZuQ3slHNulDrgojScmKBX2dU4EB8AWoE9rAxcq8SDUzyLzvSASi/C/184ZMrG723G6Rdu1TLhsi1qRpzkPaCF93kLwaDO38cTwruZtpMMKv4Pe5XA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=ovbl1XAW; dkim-atps=neutral; spf=pass (client-ip=198.47.19.245; helo=fllvem-ot03.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org) smtp.mailfrom=ti.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QCJ48aON;
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=ovbl1XAW;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sang-engineering.com (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 386 seconds by postgrey-1.37 at boromir; Thu, 14 Aug 2025 02:22:40 AEST
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ti.com (client-ip=198.47.19.245; helo=fllvem-ot03.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org)
+Received: from fllvem-ot03.ext.ti.com (fllvem-ot03.ext.ti.com [198.47.19.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2DDc1xhNz30T8
-	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 02:22:40 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=8r/LCX9rzyog3y
-	rylwFjwRMpIaemTxzslMXi3Wwcda8=; b=QCJ48aONHnHPI67IOJ/3D8OQB3Cd/k
-	va3dqQAxVecMFTPLNQfZkeRCBnr21f5AP85A+ko/Co2kn3d1vUsGdjjGnQSoqHT/
-	XhtDURAzo7LNMG2Hw6aJkJP1nHKCJDt/I4UFOhqYSkFA3npSGKStA4S5hsN3gfb8
-	C8iP/CLkf5T/WRnlry5E/M4rY/ikuUABioRBeFix0sZAgPzikWKDzZXwcrM/PlZn
-	9QF5GBzn0iIdqib/tI3qtiZXmnTMTK2djC7YMTKPNRHBv7OXt7TeyHMZFzQFHHD9
-	4yuXLJeM/fwFHXJlvGUnp8QGyn4bljRJZaBZSVKQgiNlixK49bkom2HA==
-Received: (qmail 694422 invoked from network); 13 Aug 2025 18:15:54 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Aug 2025 18:15:54 +0200
-X-UD-Smtp-Session: l3s3148p1@6vOVeEE8NodtKLKq
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	David Airlie <airlied@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Drew Fustini <fustini@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	Fabio Estevam <festevam@gmail.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Fu Wei <wefu@redhat.com>,
-	Guo Ren <guoren@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	imx@lists.linux.dev,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Lee Jones <lee@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	linux-actions@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-mmc@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-pm@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pwm@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-rtc@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev,
-	Liu Ying <victor.liu@nxp.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	openbmc@lists.ozlabs.org,
-	Patrick Venture <venture@google.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Vasily Khoruzhick <anarsoul@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Yangtao Li <tiny.windzz@gmail.com>,
-	Zhang Rui <rui.zhang@intel.com>
-Subject: [PATCH 00/21] treewide: remove unneeded 'fast_io' parameter in regmap_config
-Date: Wed, 13 Aug 2025 18:14:46 +0200
-Message-ID: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.47.2
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2MQR2R8wz2xK5
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 07:46:39 +1000 (AEST)
+Received: from lelvem-sh02.itg.ti.com ([10.180.78.226])
+	by fllvem-ot03.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57DLfgo61737102;
+	Wed, 13 Aug 2025 16:41:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+	s=ti-com-17Q1; t=1755121302;
+	bh=MOqrt+X1MgrX06YG0uRc9BpYNXl9q+Neu4iKdp93TPs=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References;
+	b=ovbl1XAW3oxAOCnxOLJJawfik+Re7PN5hgQVSC5cPx8urcpiiNm9OENX5sPkqshwq
+	 a+Kqi4Wr6+KhqlPHiV0kMFyve/SFkLiDxVH/mgVr796BqxITnt+uERDw41y3gQGH41
+	 JTlDJaAc8q9O2fuR66Dm1HUxrWhNgvAfkA8wlLIs=
+Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
+	by lelvem-sh02.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57DLfgut1253257
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
+	Wed, 13 Aug 2025 16:41:42 -0500
+Received: from DLEE100.ent.ti.com (157.170.170.30) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 13
+ Aug 2025 16:41:41 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
+ Frontend Transport; Wed, 13 Aug 2025 16:41:41 -0500
+Received: from fllvem-mr07.itg.ti.com ([10.249.42.149])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57DLfdNK2611079;
+	Wed, 13 Aug 2025 16:41:41 -0500
+From: Andrew Davis <afd@ti.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+        Jacky Huang <ychuang3@nuvoton.com>,
+        Shan-Chun Hung <schung@nuvoton.com>, Qin
+ Jian <qinjian@cqplus1.com>
+CC: <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-kernel@vger.kernel.org>, Andrew Davis <afd@ti.com>
+Subject: [PATCH 5/6] reset: npcm: Use devm_register_sys_off_handler()
+Date: Wed, 13 Aug 2025 16:41:37 -0500
+Message-ID: <20250813214138.477659-6-afd@ti.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20250813214138.477659-1-afd@ti.com>
+References: <20250813214138.477659-1-afd@ti.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -167,134 +78,57 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 
-While working on a driver using regmap with MMIO, I wondered if I need
-to set 'fast_io' in the config. Turned out I don't need to, so I added
-documentation for it with commit ffc72771ff6e ("regmap: Annotate that
-MMIO implies fast IO").
+Function register_restart_handler() is deprecated. Using this new API
+removes our need to keep and manage a struct notifier_block and to
+later unregister the handler.
 
-This series fixes the existing users in the tree which needlessly set
-the flag. They have been found using this coccinelle script:
+Signed-off-by: Andrew Davis <afd@ti.com>
+---
+ drivers/reset/reset-npcm.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-===
-
-@ match @
-expression dev, clk, regs;
-identifier config;
-@@
-
-(
-	regmap_init_mmio(dev, regs, &config)
-|
-	devm_regmap_init_mmio(dev, regs, &config)
-|
-	regmap_init_mmio_clk(dev, clk, regs, &config)
-|
-	devm_regmap_init_mmio_clk(dev, clk, regs, &config)
-)
-
-@ fix depends on match @
-identifier match.config;
-@@
-
-	struct regmap_config config = {
--	.fast_io = true,
-	};
-
-===
-
-It misses occasions where 'config' is an expression and not an
-identifier. These are rare, though, I can fix them manually later. The
-advantage of this approach is that it produces no false positives to the
-best of my knowledge.
-
-Please apply individually per subsystem. There are no dependencies and
-buildbot is happy. Patches are based on 6.17-rc1
-
-Happy hacking,
-
-   Wolfram
-
-
-Wolfram Sang (21):
-  bus: remove unneeded 'fast_io' parameter in regmap_config
-  clk: remove unneeded 'fast_io' parameter in regmap_config
-  gpio: remove unneeded 'fast_io' parameter in regmap_config
-  drm: remove unneeded 'fast_io' parameter in regmap_config
-  iio: remove unneeded 'fast_io' parameter in regmap_config
-  Input: remove unneeded 'fast_io' parameter in regmap_config
-  mailbox: remove unneeded 'fast_io' parameter in regmap_config
-  media: remove unneeded 'fast_io' parameter in regmap_config
-  mfd: remove unneeded 'fast_io' parameter in regmap_config
-  mmc: remove unneeded 'fast_io' parameter in regmap_config
-  peci: remove unneeded 'fast_io' parameter in regmap_config
-  phy: remove unneeded 'fast_io' parameter in regmap_config
-  pinctrl: remove unneeded 'fast_io' parameter in regmap_config
-  pmdomain: remove unneeded 'fast_io' parameter in regmap_config
-  regulator: remove unneeded 'fast_io' parameter in regmap_config
-  reset: remove unneeded 'fast_io' parameter in regmap_config
-  rtc: remove unneeded 'fast_io' parameter in regmap_config
-  soc: remove unneeded 'fast_io' parameter in regmap_config
-  spi: remove unneeded 'fast_io' parameter in regmap_config
-  thermal: remove unneeded 'fast_io' parameter in regmap_config
-  ASoC: remove unneeded 'fast_io' parameter in regmap_config
-
- drivers/bus/bt1-apb.c                             | 1 -
- drivers/clk/actions/owl-common.c                  | 1 -
- drivers/clk/clk-axm5516.c                         | 1 -
- drivers/clk/nxp/clk-lpc32xx.c                     | 1 -
- drivers/clk/qcom/a53-pll.c                        | 1 -
- drivers/clk/qcom/a7-pll.c                         | 1 -
- drivers/clk/qcom/apss-ipq-pll.c                   | 1 -
- drivers/clk/qcom/clk-cbf-8996.c                   | 1 -
- drivers/clk/qcom/clk-cpu-8996.c                   | 1 -
- drivers/clk/qcom/hfpll.c                          | 1 -
- drivers/clk/qcom/ipq-cmn-pll.c                    | 1 -
- drivers/clk/thead/clk-th1520-ap.c                 | 1 -
- drivers/gpio/gpio-mvebu.c                         | 1 -
- drivers/gpio/gpio-sifive.c                        | 1 -
- drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi2.c    | 1 -
- drivers/gpu/drm/imx/dc/dc-cf.c                    | 1 -
- drivers/gpu/drm/imx/dc/dc-de.c                    | 1 -
- drivers/gpu/drm/imx/dc/dc-ed.c                    | 2 --
- drivers/gpu/drm/imx/dc/dc-fg.c                    | 1 -
- drivers/gpu/drm/imx/dc/dc-fl.c                    | 1 -
- drivers/gpu/drm/imx/dc/dc-fw.c                    | 2 --
- drivers/gpu/drm/imx/dc/dc-ic.c                    | 1 -
- drivers/gpu/drm/imx/dc/dc-lb.c                    | 2 --
- drivers/gpu/drm/imx/dc/dc-tc.c                    | 1 -
- drivers/gpu/drm/imx/ipuv3/imx-tve.c               | 2 --
- drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c  | 1 -
- drivers/iio/adc/sun4i-gpadc-iio.c                 | 1 -
- drivers/input/touchscreen/fsl-imx25-tcq.c         | 1 -
- drivers/mailbox/qcom-apcs-ipc-mailbox.c           | 1 -
- drivers/media/cec/platform/stm32/stm32-cec.c      | 1 -
- drivers/mfd/exynos-lpass.c                        | 1 -
- drivers/mfd/fsl-imx25-tsadc.c                     | 1 -
- drivers/mfd/stm32-lptimer.c                       | 1 -
- drivers/mfd/sun4i-gpadc.c                         | 1 -
- drivers/mmc/host/sdhci_am654.c                    | 1 -
- drivers/peci/controller/peci-npcm.c               | 1 -
- drivers/phy/rockchip/phy-rockchip-samsung-hdptx.c | 1 -
- drivers/phy/rockchip/phy-rockchip-usbdp.c         | 1 -
- drivers/phy/ti/phy-am654-serdes.c                 | 1 -
- drivers/phy/ti/phy-j721e-wiz.c                    | 1 -
- drivers/pinctrl/pinctrl-rp1.c                     | 1 -
- drivers/pmdomain/imx/gpc.c                        | 1 -
- drivers/regulator/qcom-refgen-regulator.c         | 1 -
- drivers/reset/reset-intel-gw.c                    | 1 -
- drivers/reset/reset-qcom-pdc.c                    | 1 -
- drivers/reset/reset-th1520.c                      | 1 -
- drivers/rtc/rtc-meson.c                           | 1 -
- drivers/soc/qcom/llcc-qcom.c                      | 1 -
- drivers/soc/qcom/ramp_controller.c                | 1 -
- drivers/spi/spi-altera-platform.c                 | 1 -
- drivers/thermal/armada_thermal.c                  | 1 -
- drivers/thermal/sun8i_thermal.c                   | 1 -
- sound/soc/fsl/fsl_sai.c                           | 1 -
- 53 files changed, 57 deletions(-)
-
+diff --git a/drivers/reset/reset-npcm.c b/drivers/reset/reset-npcm.c
+index e5b6127783a76..6939bb3eb1507 100644
+--- a/drivers/reset/reset-npcm.c
++++ b/drivers/reset/reset-npcm.c
+@@ -89,7 +89,6 @@ static const struct npcm_reset_info npxm8xx_reset_info[] = {
+ 
+ struct npcm_rc_data {
+ 	struct reset_controller_dev rcdev;
+-	struct notifier_block restart_nb;
+ 	const struct npcm_reset_info *info;
+ 	struct regmap *gcr_regmap;
+ 	u32 sw_reset_number;
+@@ -100,11 +99,9 @@ struct npcm_rc_data {
+ 
+ #define to_rc_data(p) container_of(p, struct npcm_rc_data, rcdev)
+ 
+-static int npcm_rc_restart(struct notifier_block *nb, unsigned long mode,
+-			   void *cmd)
++static int npcm_rc_restart(struct sys_off_data *data)
+ {
+-	struct npcm_rc_data *rc = container_of(nb, struct npcm_rc_data,
+-					       restart_nb);
++	struct npcm_rc_data *rc = data->cb_data;
+ 
+ 	writel(NPCM_SWRST << rc->sw_reset_number, rc->base + NPCM_SWRSTR);
+ 	mdelay(1000);
+@@ -472,9 +469,8 @@ static int npcm_rc_probe(struct platform_device *pdev)
+ 	if (!of_property_read_u32(pdev->dev.of_node, "nuvoton,sw-reset-number",
+ 				  &rc->sw_reset_number)) {
+ 		if (rc->sw_reset_number && rc->sw_reset_number < 5) {
+-			rc->restart_nb.priority = 192;
+-			rc->restart_nb.notifier_call = npcm_rc_restart;
+-			ret = register_restart_handler(&rc->restart_nb);
++			ret = devm_register_sys_off_handler(&pdev->dev, SYS_OFF_MODE_RESTART, 192,
++							    npcm_rc_restart, rc);
+ 			if (ret) {
+ 				dev_warn(&pdev->dev, "failed to register restart handler\n");
+ 				return ret;
 -- 
-2.47.2
+2.39.2
 
 
