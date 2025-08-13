@@ -1,71 +1,65 @@
-Return-Path: <openbmc+bounces-440-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-441-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50441C87FCF
-	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16282CA0EE0
+	for <openbmc@archiver.kernel.org>; Wed, 13 Aug 2025 23:52:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBJ5F0lz3cBW;
-	Thu, 14 Aug 2025 09:51:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.47.23.235
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755123490;
-	cv=none; b=DMecY8zwTMsJzDr+Z3IlizOC/UnRVEqK2XgLY3V3E971LlIIni4cwoG5JCmRYG7CSlOzl3am8kLXac1xJRDWjJmk3JrrjIVjF7a/0LDFIhgLi8QIyRqPvdwtKg4MnmMePffQ/CHOgSG5J6AOQKBrusFRPEp865WcyKnYD2dnrtKacyLey5o/Tl2DXIGEYVhLkgVpZRImTrMyuviKzmO234FHNONcEvC35aYOAtoold26/85rWdhbO4RPVK+E1bkus7feb8SniNUxOxtpz6AzrjzOpTT3nOjyPuj9ULMietuV2DInXsBm/XyBi0DF9XjWSEUGVuL+jCbMC/1WeMZFmQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c2QBK2BR7z30Vb;
+	Thu, 14 Aug 2025 09:51:21 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755102309;
+	cv=none; b=BBWX+LKWiFrjNvVgNTZU0nBCmDxP6JsoHwpoSJc8rxinwQDuMSIJTbVWNskHFEmQPuUatd7ZSg6fvrkTKOObgR6cOo7p4VQN0nQ+SThUMKvSNozfGxhiS5ECWZ5MAsOxfNVIl5tf6z1wNMtgAxSQqe/uVeA3qtvD14rvDJJXFPpU/PpQbotxytc3g8gdVe6blIluTRzJ74W+20wWHnGvvmodnURiya+BZ3fnXTc1GdVf/H25orz/pyna9U74VgZXrElmZdNVBgUZyzBqXcG9KG+tLObxdNbCcO8Ct/a9RXN+ruL836WRm0sYCPEWyzTwa1TsKbAU/UFgWSKZCE3z2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755123490; c=relaxed/relaxed;
-	bh=N10erRoEBXTD6NQIqVCoyKFPIunTNnzn74wpSpfIUKs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WWlwS5TDxHExL9jqacbyO9TlSshaNPJpvSSnqbB9dLmGEld+vgK8RF34H1x0JvAH+7I34+QmtVyjAtLJpZiFov2dt2C+k9OFotnnv1OxuZvUczWlPNKJAflZg6OersEYZouu5bdeIree/+tezn/fYiPBHh62mMH1mWcgndvU7oOJQWBv5GXuoiu6UW7Jgrn0CrSLYWmjK7ICOCB+vqukrixLsC8Ykp0cU2qHoCb31+BJ7YLWURFHOX95DG4HDXbr3Z0QZUIoBGaQf7DNSYCMLmRTP63jwslFv77LWueiHSOxIY8TD3Fmx3GNdU/ar2G/mlIwHYqJ0drZDAFLXFF7eQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=qQ9pX/BV; dkim-atps=neutral; spf=pass (client-ip=198.47.23.235; helo=lelvem-ot02.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org) smtp.mailfrom=ti.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+	t=1755102309; c=relaxed/relaxed;
+	bh=2Z8b0tA6giS8n4O6KDji8VyXizH69Pnanef04kHHLwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OvuFTW482xQQ3Gop2mdfV0UntRPQ4AM3RFzyYpFfHxLZa3qPf2lrw3o5Qpe1Vm0/D1K1g+U4c/LGd1R7Luq8Lxjj/POic9tNDiisV1C1ySqpuygqWL9A3HvJV84PxnACb9vdMt72Y/f8Y3CiOFYTmFJ1teeq2IDyR1YFPKYEnPM3cCy3c0dILjyhsJuqvCEl90AqIZOMshi5vJLfibwm9XxAo9VYZzZFzVfL1gOVevXAZONsEP7L7hJqha5fSg6StpLa7ZfMBpP4rFWBQe9XaZS1aT9/LP0sJa+zoeOKwhp2Mks0i4Blov19KUmQg1Q5vLB4rY2N6l9jU2oPzPGhoA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TpwPmPUA; dkim-atps=neutral; spf=pass (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org) smtp.mailfrom=sang-engineering.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=ti-com-17Q1 header.b=qQ9pX/BV;
+	dkim=pass (2048-bit key; secure) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=TpwPmPUA;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ti.com (client-ip=198.47.23.235; helo=lelvem-ot02.ext.ti.com; envelope-from=afd@ti.com; receiver=lists.ozlabs.org)
-Received: from lelvem-ot02.ext.ti.com (lelvem-ot02.ext.ti.com [198.47.23.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sang-engineering.com (client-ip=194.117.254.33; helo=mail.zeus03.de; envelope-from=wsa+renesas@sang-engineering.com; receiver=lists.ozlabs.org)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2N6n6DPCz2xHp
-	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 08:18:09 +1000 (AEST)
-Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
-	by lelvem-ot02.ext.ti.com (8.15.2/8.15.2) with ESMTP id 57DLfgrP2238055;
-	Wed, 13 Aug 2025 16:41:42 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1755121302;
-	bh=N10erRoEBXTD6NQIqVCoyKFPIunTNnzn74wpSpfIUKs=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=qQ9pX/BVJfCp4RKnoYAUwMmgmWjPB6GtCU4fqgI2IfJ5hOq0hRoklLxUPRjM8Amn7
-	 d3Lok2q4SfnGwM70ycFfAmmIZn07qv7nTVyxebkEJPIa9m3wcWaEgBYhabyNUEVZWa
-	 BaLYMaTvsYVtmn46fF8vG/nzKYw1COtmxmwyZd4o=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
-	by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 57DLfgIg354028
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
-	Wed, 13 Aug 2025 16:41:42 -0500
-Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Wed, 13
- Aug 2025 16:41:41 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE101.ent.ti.com
- (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Wed, 13 Aug 2025 16:41:41 -0500
-Received: from fllvem-mr07.itg.ti.com ([10.249.42.149])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 57DLfdNJ2611079;
-	Wed, 13 Aug 2025 16:41:41 -0500
-From: Andrew Davis <afd@ti.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
-        Jacky Huang <ychuang3@nuvoton.com>,
-        Shan-Chun Hung <schung@nuvoton.com>, Qin
- Jian <qinjian@cqplus1.com>
-CC: <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, Andrew Davis <afd@ti.com>
-Subject: [PATCH 4/6] reset: ma35d1: Use devm_register_sys_off_handler()
-Date: Wed, 13 Aug 2025 16:41:36 -0500
-Message-ID: <20250813214138.477659-5-afd@ti.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20250813214138.477659-1-afd@ti.com>
-References: <20250813214138.477659-1-afd@ti.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c2DHS6S73z30Tf
+	for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 02:25:08 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=2Z8b0tA6giS8n4O6KDji8VyXizH69Pnanef04kHHLwQ=; b=TpwPmP
+	UAkWsHGWTOJ96wf0Xm8ASUQbM8WFN3k0wv7z3bceGB2TBJc49lhn11GuDdp0Ec3s
+	zyZ+0z0r7m+u00ZxkVz1P8GoTtQ9g0eiAofYmOGCKTsigex8taUB/9iYsQCpCdXy
+	GebgMFq6w2V69FSMBqB3BhiebgXPLJJIOs8NRMf9k9SHb7QoyvDvI9dVLftQBj4v
+	dMPZu79GLrHMWouEHF9gBIsbCu5gMjiZCbGcCdOMGP3eDZmUSR2YWJqfEhHNsHj+
+	jSD44mdaiOo8Jf9Ah8GCFypKeKDp9jugJJ6jLd4NcFxHW9NKCoWenW/wBz3Pljih
+	iHz6iAhPqmWZQ8ZQ==
+Received: (qmail 695149 invoked from network); 13 Aug 2025 18:16:17 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Aug 2025 18:16:17 +0200
+X-UD-Smtp-Session: l3s3148p1@vWXreUE8JtttKLKq
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-kernel@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH 11/21] peci: remove unneeded 'fast_io' parameter in regmap_config
+Date: Wed, 13 Aug 2025 18:14:57 +0200
+Message-ID: <20250813161517.4746-12-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.47.2
+In-Reply-To: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
+References: <20250813161517.4746-1-wsa+renesas@sang-engineering.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -78,58 +72,31 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 
-Function register_restart_handler() is deprecated. Using this new API
-removes our need to keep and manage a struct notifier_block and to
-later unregister the handler.
+When using MMIO with regmap, fast_io is implied. No need to set it
+again.
 
-Signed-off-by: Andrew Davis <afd@ti.com>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- drivers/reset/reset-ma35d1.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+No dependencies, can be applied directly to the subsystem tree. Buildbot is
+happy, too.
 
-diff --git a/drivers/reset/reset-ma35d1.c b/drivers/reset/reset-ma35d1.c
-index 54e53863c98aa..4ee901f001326 100644
---- a/drivers/reset/reset-ma35d1.c
-+++ b/drivers/reset/reset-ma35d1.c
-@@ -19,7 +19,6 @@
- 
- struct ma35d1_reset_data {
- 	struct reset_controller_dev rcdev;
--	struct notifier_block restart_handler;
- 	void __iomem *base;
- 	/* protect registers against concurrent read-modify-write */
- 	spinlock_t lock;
-@@ -125,10 +124,9 @@ static const struct {
- 	[MA35D1_RESET_SSPCC] =   {0x2C, 31}
+ drivers/peci/controller/peci-npcm.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/peci/controller/peci-npcm.c b/drivers/peci/controller/peci-npcm.c
+index c77591ca583d..931868991241 100644
+--- a/drivers/peci/controller/peci-npcm.c
++++ b/drivers/peci/controller/peci-npcm.c
+@@ -221,7 +221,6 @@ static const struct regmap_config npcm_peci_regmap_config = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+ 	.max_register = NPCM_PECI_MAX_REG,
+-	.fast_io = true,
  };
  
--static int ma35d1_restart_handler(struct notifier_block *this, unsigned long mode, void *cmd)
-+static int ma35d1_restart_handler(struct sys_off_data *sys_off_data)
- {
--	struct ma35d1_reset_data *data =
--				 container_of(this, struct ma35d1_reset_data, restart_handler);
-+	struct ma35d1_reset_data *data = sys_off_data->cb_data;
- 	u32 id = MA35D1_RESET_CHIP;
- 
- 	writel_relaxed(BIT(ma35d1_reset_map[id].bit),
-@@ -213,11 +211,10 @@ static int ma35d1_reset_probe(struct platform_device *pdev)
- 	reset_data->rcdev.nr_resets = MA35D1_RESET_COUNT;
- 	reset_data->rcdev.ops = &ma35d1_reset_ops;
- 	reset_data->rcdev.of_node = dev->of_node;
--	reset_data->restart_handler.notifier_call = ma35d1_restart_handler;
--	reset_data->restart_handler.priority = 192;
- 	spin_lock_init(&reset_data->lock);
- 
--	err = register_restart_handler(&reset_data->restart_handler);
-+	err = devm_register_sys_off_handler(dev, SYS_OFF_MODE_RESTART, 192,
-+					    ma35d1_restart_handler, reset_data);
- 	if (err)
- 		dev_warn(&pdev->dev, "failed to register restart handler\n");
- 
+ static const struct peci_controller_ops npcm_ops = {
 -- 
-2.39.2
+2.47.2
 
 
