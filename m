@@ -1,64 +1,88 @@
-Return-Path: <openbmc+bounces-457-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-458-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A40CA0EDC
-	for <openbmc@archiver.kernel.org>; Thu, 14 Aug 2025 22:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2779DCA0ED1
+	for <openbmc@archiver.kernel.org>; Fri, 15 Aug 2025 04:46:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c30M45Zs7z2xcB;
-	Fri, 15 Aug 2025 08:30:56 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755210656;
-	cv=none; b=YYPI473tluVj3wBu8ydWE9J2FGowv+xmCE0Z0U3W3imKf0yBYVeemOVA5q2Cr2W8+xVA9s7qDFpAJxo8O8azBaeXgc4xHM/RcFREP2+IOer+DhgPYp6OJuLUstDn2PDTkGE9Q/pCIjaPX06IiKHz4uXyNO9xNd8Q+gCRyfVssMYe9IyxyAXU97usOXrkmOFW/bQ1gMPIKOwAwF0+BqxaoZmwrNg2Dwu1ODgdQ2PnQSRNnbdKp9kldB72jNps23VDFsYh6AMH/S+UNjfBb5szRlOMcSpCe615HWXi1LeE69JpOO+RQGv15OTOB2Ok9vEeuSkb8Z7Yynwnd6qRZrb0cg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c38hD5JhGz3bm3;
+	Fri, 15 Aug 2025 14:46:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::534"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755220890;
+	cv=none; b=EFTcGB/g/xQpq1JgJvRoO/a5KEy+4Ej6eKAhWRfJnay7btijqllKMavo4/db6nC/EoMB8t303TsVdmcAMadm2E+fMXspTiUUOB4bzjBiZkPhZADTqUCVrva0wIGJZiURKGfv4s+X9WRAyq2O7Nt3V9krSMeOiyKimT8e6uqUre9LDfHGvAshkF0BDmZSRIr+X7vg0UsPFSp7ygFpZERPGPYyivyTMvfzISQ1Zz37OlUyjC3a8rSQYu4Zf0f42kIIBzd+T8mfugpnak59N2ofPNBGNkVd3cthFWLgFXoOwMluf2WZfN/a0cKy1yUdvq3+ItRq9yeMSu0ykfckgLDOpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755210656; c=relaxed/relaxed;
-	bh=vIFp7ebVwT9oleEhOGII0IqB6tGpNR9cpd6TYV5Jql0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B0A0AJyXv8fXswooOOS6t2Z37m2tWUHvt1A3IwADeQpsBHZEFWTZopaUN8AEaOq/ZpMUWmtGwhjjb9sz0Z/nfJXesOs/pCk3V+0azzbmSdhA9RSyhYaRV65MtADsYx67Gb1xoA3v6BfA2IieEjFc99wc/HNiKHY5oxAecRneFxbsvFNQzFaNKfeBr42wjv0pXQ5eZG+YfqWQKvRu1Nj0gJ3mXJIuzlEJT5DIjeVoTVdc4VfsNuZM6qvfR6Bqlr4/2gBLxIgcnGAjZBKFO9KXtJ9pjK3l7pWOhQo6TImQZZZJ9nu/xqscrPEFSoObO70ZM7AsNdbiJFEFNIHJa8szwA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=c8NZu8Q2; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1755220890; c=relaxed/relaxed;
+	bh=7bT61b4lDSfRLW37S1TqW19G6wc46GPdF/8w3PLeOJI=;
+	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=WWUQAww+ZDbcTjmEwwyLgQB7NREG1gYrt3+BJ6j6XmG4ZGcCCsFSv3zr/C5HRrIkkqA+Sg+Hx5KaiuEUMjPPrRbb4WUzPvAzPBJeX+eD1uQzAGG6Varz2qpq+m7Wi15CaPoYPVOHJqjUJNOckD7TWDzlrog7uxiC4DExdUX0EMKBdRhZQGgOUQj1ROWKGeSCOypfWQl81mQIdNS6T3BEgKs5wdhkqVGdmO3OThwdsJ/PVY9Ep7TsN4cLojYjerfvBsLHZZ7Df2hervVe65dFrzrBdp8wEIsoexWyUk9YyYRz4noZ5y3bTU6g+49kAe9P+F2RmdGOg3zz14fg4Bmsng==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=hDQZyahl; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com; envelope-from=allen.wang.quanta@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=c8NZu8Q2;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=hDQZyahl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com; envelope-from=allen.wang.quanta@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com [IPv6:2607:f8b0:4864:20::534])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c30M36WcVz2xQ6;
-	Fri, 15 Aug 2025 08:30:55 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 3D4D945C0A;
-	Thu, 14 Aug 2025 22:30:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6FBC4CEED;
-	Thu, 14 Aug 2025 22:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755210653;
-	bh=N5VWGitysz6JFmoe9n2FhghAKkO8HINQCHJY2U2kRIs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=c8NZu8Q23AcSpDXYfCjfS+nijpycYbRazO8ud7muK7v/NQSmnieFRpVKZ9HpE+Se3
-	 ihK/DheTyy0oiRrb1M1422BzweCx9GFLH23gWJEy8hhRFRngUNMiGhj74MtotNPhtF
-	 yqrUOurUhDDUC58YxblyH88j6+KNNTcK/igm+HoklMSc/qyxQ5KQz0I5OYmUnqEyQb
-	 hSHC3P59PHrQpHRwdNhYBEJf+FY2XgcEMPuuTzqg6Z4f866bnKk9VJKWj+onG9pmFj
-	 gWnmU3joyDUmkrHXStOUAiu75Y3Os4fO4BMRMQVIFbAidL1DN8rkqKZOMOECpHF6et
-	 Ltq0O6AyGRRpQ==
-Date: Thu, 14 Aug 2025 17:30:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: benh@kernel.crashing.org, joel@jms.id.au, andi.shyti@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	andrew@codeconstruct.com.au, p.zabel@pengutronix.de,
-	andriy.shevchenko@linux.intel.com, naresh.solanki@9elements.com,
-	linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 1/3] dt-bindings: i2c: aspeed,i2c.yaml: add
- transfer-mode and global-regs properties and update example
-Message-ID: <20250814223052.GA4004307-robh@kernel.org>
-References: <20250814084156.1650432-1-ryan_chen@aspeedtech.com>
- <20250814084156.1650432-2-ryan_chen@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c347r1PwXz30Vs
+	for <openbmc@lists.ozlabs.org>; Fri, 15 Aug 2025 11:21:27 +1000 (AEST)
+Received: by mail-pg1-x534.google.com with SMTP id 41be03b00d2f7-b4717553041so1214570a12.3
+        for <openbmc@lists.ozlabs.org>; Thu, 14 Aug 2025 18:21:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1755220885; x=1755825685; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7bT61b4lDSfRLW37S1TqW19G6wc46GPdF/8w3PLeOJI=;
+        b=hDQZyahlx69UVWM94IqBCP0tFjoIsgDMCd/HyouACt4urLLpALKfsQIoU2a3EBOWO2
+         USC1KRyCockgf6pfl88stGaq6XICy02Gy2nw1W+4oHl9GSwkLQxYchCMkA5lrjcfVxcH
+         k4TE/+QlEjFqim2gD37YadjuEhq6NVajw9yDjO1EL/aKMZlQyG0eYlt8/1sYowsGlwV6
+         6P7v9nXxsw2clnkE6oFAZHdDNzizlZ7Y/W4XrtujoXBMIa/PXs9MaGWsnr9FUF8P0YvU
+         A90OOzR3W+IMhb2dHl9YSaekiQTWrbJkHd4GVAYojB+tY2C3q9eGL4Szt8PosEEqGsWn
+         6JsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755220885; x=1755825685;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=7bT61b4lDSfRLW37S1TqW19G6wc46GPdF/8w3PLeOJI=;
+        b=Id9qKUyLzF9JadxzrH/ROBLHP+bfgGiKPAFYDroQUznQJAxg1nc9Q5Z9UMnjFeWsaY
+         MOvqhmAxm6iSq5Z9WYtGMiYTU4QbA/qvipwdVFryOrhNBRJpCNTKRWxxmZQo4CjwLand
+         mGjcc4gL6DQHN6ytBT2JiyQYWdfCoCHRi7hbIIL0316ISSwQLvbnrTVWlIV/UqID0Bcv
+         xGSrnL2p/mEnX+aA9Z6szGhL3064UPmeKm9FbBYeXSgtUnoFtnf53Ulq0wc9nes/Sfy/
+         n7Rqbwmj6d7fDBR0Y6zEgWJWms3ZHegb0ppurrxGaRGm+uDqHOztUf8CcpTxP1VE2UJL
+         0oGw==
+X-Forwarded-Encrypted: i=1; AJvYcCW8bltQzNHHC6/OCGhoavIZP0leQFivN43DTsmzxKYsJFazwIDKRKK1Sf7wShW4Cg7MzSUM7NF8@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yx0NaRV3vs1rGugTfTFSta15l0XzJzGR7JyQkNx1Gh4/8foNPIi
+	TVuL4ST2I9RA+ObqI2qBVvLbTJ3d1boHeYldL8z7a0roAyVMd9/MrC1Qu1Tbbyna
+X-Gm-Gg: ASbGncsjxpFNw6DbaDEF7jYrJnKcze0V5y6Zdr+WdvOUzG3h50lhJkBm/dYXBbtAftW
+	4cexyKbfhI/jHQgz+TsmAfEm+K8gUKAoVC8dOlZYgqGhfmsrO2E3YS41lwDj1ggNZRfHTNK+d5A
+	lTskrHeDERo2TQUgwW6x/fUkc2r/7PgSnrmWrt876U/FXWowpnkP20qnrIsXOku6z6C7HJvqpdy
+	jgsLlL3dIHrXpoq94WXmdiaOSp41xrDGzR4o1YsmrI2GVWILYgxfk8bOW5wa2I9RhZdv/PcRBzk
+	F5kS3UP5FlK/lmopUCLNjkJVNKbZ9J3B2CGxG9gGsEH72Adcr410ENQrIEsKwu6nXiGuh8vu4le
+	U5sH7TTdeRE6Q6xR5cBuc4vQ1WzMG9bt2yKjgXeG8MJBaeXvIEWFMVtHufQmc4t2WCKB66njwWM
+	gCINre0pSEA0IwUmez3ZPV3Mj0qk/g
+X-Google-Smtp-Source: AGHT+IE2EJLiVhNsfTUftqMuvjuGl2p6fZGhzkyg/G3ZcPhpQvvfu52QV9bAju9u3fmeejon6xkvog==
+X-Received: by 2002:a17:903:24e:b0:240:8704:fb9 with SMTP id d9443c01a7336-2446d948463mr3906515ad.53.1755220885351;
+        Thu, 14 Aug 2025 18:21:25 -0700 (PDT)
+Received: from allenwang-System-Product-Name.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2446d5637acsm1582955ad.143.2025.08.14.18.21.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 Aug 2025 18:21:25 -0700 (PDT)
+From: "Allen.Wang" <allen.wang.quanta@gmail.com>
+X-Google-Original-From: "Allen.Wang" <Allen_Wang@quantatw.com>
+To: andrew@codeconstruct.com.au,
+	openbmc@lists.ozlabs.org,
+	joel@jms.id.au
+Subject: [PATCH linux dev-6.6 2/2] hwmon: (pmbus/adm1275) add adm1273 support
+Date: Fri, 15 Aug 2025 09:19:21 +0800
+Message-Id: <20250815011921.716573-2-Allen_Wang@quantatw.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250815011921.716573-1-Allen_Wang@quantatw.com>
+References: <20250815011921.716573-1-Allen_Wang@quantatw.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,107 +94,138 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250814084156.1650432-2-ryan_chen@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 14, 2025 at 04:41:54PM +0800, Ryan Chen wrote:
-> - Add property "aspeed,global-regs" to get phandle set global
-> register, for register mode selection and clock divider control.
-> - Add an optional property "aspeed,transfer-mode" to
-> allow device tree to specify the desired transfer method used
-> by each I2C controller instance.
-> - Update example to demonstrate usage of 'aspeed,global-regs' and
-> 'aspeed,transfer-mode' for AST2600 I2C controller.
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
 
-All of this is evident reading the patch. Explain here why you need this 
-change.
+Add support for adm1273 which is similar to adm1275 and other chips
+of the series.
 
-> 
-> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-> ---
->  .../devicetree/bindings/i2c/aspeed,i2c.yaml   | 39 +++++++++++++++++++
->  1 file changed, 39 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
-> index 5b9bd2feda3b..2a9f7d1d2ea1 100644
-> --- a/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
-> @@ -44,6 +44,34 @@ properties:
->      description: frequency of the bus clock in Hz defaults to 100 kHz when not
->        specified
->  
-> +  aspeed,transfer-mode:
-> +    description: |
-> +      ASPEED ast2600 platform equipped with 16 I2C controllers each i2c controller
-> +      have 1 byte transfer buffer(byte mode), 32 bytes buffer(buffer mode), and
-> +      share a DMA engine.
-> +      Select I2C transfer mode for this controller. Supported values are:
-> +        - "byte": Use 1 byte for i2c transmit (1-byte buffer).
-> +        - "buffer": Use buffer (32-byte buffer) for i2c transmit. (default)
-> +                    Better performance then byte mode.
+Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Link: https://lore.kernel.org/r/20250106131740.305988-3-johnerasmusmari.geronimo@analog.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+(cherry picked from commit adc52dd4078067fabf1431036ba180eafd8a7eee)
+---
+ Documentation/hwmon/adm1275.rst | 28 ++++++++++++++++++----------
+ drivers/hwmon/pmbus/Kconfig     |  2 +-
+ drivers/hwmon/pmbus/adm1275.c   | 10 ++++++----
+ 3 files changed, 25 insertions(+), 15 deletions(-)
 
-If no 'aspeed,transfer-mode' property defaults to buffer mode, you never 
-need 'aspeed,transfer-mode = "buffer"'.
+diff --git a/Documentation/hwmon/adm1275.rst b/Documentation/hwmon/adm1275.rst
+index 467daf8ce3c5..57bd7a850558 100644
+--- a/Documentation/hwmon/adm1275.rst
++++ b/Documentation/hwmon/adm1275.rst
+@@ -19,6 +19,14 @@ Supported chips:
+ 
+     Datasheet: www.analog.com/static/imported-files/data_sheets/ADM1272.pdf
+ 
++  * Analog Devices ADM1273
++
++    Prefix: 'adm1273'
++
++    Addresses scanned: -
++
++    Datasheet: Not yet publicly available
++
+   * Analog Devices ADM1275
+ 
+     Prefix: 'adm1275'
+@@ -66,14 +74,14 @@ Description
+ -----------
+ 
+ This driver supports hardware monitoring for Analog Devices ADM1075, ADM1272,
+-ADM1275, ADM1276, ADM1278, ADM1281, ADM1293, and ADM1294 Hot-Swap Controller and
+-Digital Power Monitors.
++ADM1273, ADM1275, ADM1276, ADM1278, ADM1281, ADM1293, and ADM1294 Hot-Swap
++Controller and Digital Power Monitors.
+ 
+-ADM1075, ADM1272, ADM1275, ADM1276, ADM1278, ADM1281, ADM1293, and ADM1294 are hot-swap
+-controllers that allow a circuit board to be removed from or inserted into
+-a live backplane. They also feature current and voltage readback via an
+-integrated 12 bit analog-to-digital converter (ADC), accessed using a
+-PMBus interface.
++ADM1075, ADM1272, ADM1273, ADM1275, ADM1276, ADM1278, ADM1281, ADM1293, and
++ADM1294 are hot-swap controllers that allow a circuit board to be removed from
++or inserted into a live backplane. They also feature current and voltage
++readback via an integrated 12 bit analog-to-digital converter (ADC), accessed
++using a PMBus interface.
+ 
+ The driver is a client driver to the core PMBus driver. Please see
+ Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
+@@ -141,7 +149,7 @@ power1_input_highest	Highest observed input power.
+ power1_reset_history	Write any value to reset history.
+ 
+ 			Power attributes are supported on ADM1075, ADM1272,
+-			ADM1276, ADM1293, and ADM1294.
++			ADM1273, ADM1276, ADM1293, and ADM1294.
+ 
+ temp1_input		Chip temperature.
+ temp1_max		Maximum chip temperature.
+@@ -151,6 +159,6 @@ temp1_crit_alarm	Critical temperature high alarm.
+ temp1_highest		Highest observed temperature.
+ temp1_reset_history	Write any value to reset history.
+ 
+-			Temperature attributes are supported on ADM1272 and
+-			ADM1278, and ADM1281.
++			Temperature attributes are supported on ADM1272,
++			ADM1273, ADM1278, and ADM1281.
+ ======================= =======================================================
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index dd4514628975..60e74ced989a 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -51,7 +51,7 @@ config SENSORS_ADM1275
+ 	tristate "Analog Devices ADM1275 and compatibles"
+ 	help
+ 	  If you say yes here you get hardware monitoring support for Analog
+-	  Devices ADM1075, ADM1272, ADM1275, ADM1276, ADM1278, ADM1281,
++	  Devices ADM1075, ADM1272, ADM1273, ADM1275, ADM1276, ADM1278, ADM1281,
+ 	  ADM1293, and ADM1294 Hot-Swap Controller and Digital Power Monitors.
+ 
+ 	  This driver can also be built as a module. If so, the module will
+diff --git a/drivers/hwmon/pmbus/adm1275.c b/drivers/hwmon/pmbus/adm1275.c
+index 59ffc08289bd..72f2fc379f2f 100644
+--- a/drivers/hwmon/pmbus/adm1275.c
++++ b/drivers/hwmon/pmbus/adm1275.c
+@@ -18,7 +18,7 @@
+ #include <linux/log2.h>
+ #include "pmbus.h"
+ 
+-enum chips { adm1075, adm1272, adm1275, adm1276, adm1278, adm1281, adm1293, adm1294 };
++enum chips { adm1075, adm1272, adm1273, adm1275, adm1276, adm1278, adm1281, adm1293, adm1294 };
+ 
+ #define ADM1275_MFR_STATUS_IOUT_WARN2	BIT(0)
+ #define ADM1293_MFR_STATUS_VAUX_UV_WARN	BIT(5)
+@@ -479,6 +479,7 @@ static int adm1275_read_byte_data(struct i2c_client *client, int page, int reg)
+ static const struct i2c_device_id adm1275_id[] = {
+ 	{ "adm1075", adm1075 },
+ 	{ "adm1272", adm1272 },
++	{ "adm1273", adm1273 },
+ 	{ "adm1275", adm1275 },
+ 	{ "adm1276", adm1276 },
+ 	{ "adm1278", adm1278 },
+@@ -555,9 +556,9 @@ static int adm1275_probe(struct i2c_client *client)
+ 			   "Device mismatch: Configured %s, detected %s\n",
+ 			   client->name, mid->name);
+ 
+-	if (mid->driver_data == adm1272 || mid->driver_data == adm1278 ||
+-	    mid->driver_data == adm1281 || mid->driver_data == adm1293 ||
+-	    mid->driver_data == adm1294)
++	if (mid->driver_data == adm1272 || mid->driver_data == adm1273 ||
++	    mid->driver_data == adm1278 || mid->driver_data == adm1281 ||
++	    mid->driver_data == adm1293 || mid->driver_data == adm1294)
+ 		config_read_fn = i2c_smbus_read_word_data;
+ 	else
+ 		config_read_fn = i2c_smbus_read_byte_data;
+@@ -630,6 +631,7 @@ static int adm1275_probe(struct i2c_client *client)
+ 			  PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT;
+ 		break;
+ 	case adm1272:
++	case adm1273:
+ 		data->have_vout = true;
+ 		data->have_pin_max = true;
+ 		data->have_temp_max = true;
+-- 
+2.25.1
 
-When would you ever use "byte" mode? Sometimes you want worse 
-performance? That makes no sense.
-
-I feel like we already discussed this, but I'm not going to dig thru 17 
-versions to see.
-
-> +        - "dma": Each controller DMA mode is shared DMA engine. The AST2600 SoC
-> +                 provides a single DMA engine shared for 16 I2C controllers,
-> +                 so only a limited number of controllers can use DMA simultaneously.
-> +                 Therefore, the DTS must explicitly assign which controllers are
-> +                 configured to use DMA.
-> +      Only one mode can be selected per controller.
-
-The only thing that really makes sense is dma, and you need 1 boolean 
-property for that. IOW, what you had on v10 which we gave reviewed-by 2+ 
-years ago.
-
-Do you have any actual test results or usecase that show DMA is useful 
-here? Typical I2C xfers are not streaming large amounts of data to 
-justify the setup costs of DMA. It wouldn't surprise me if DMA was 
-actually slower.
-
-> +      On AST2600, each controller supports all three modes.
-> +      If not specified, buffer mode is used by default.
-> +    enum:
-> +      - byte
-> +      - buffer
-> +      - dma
-> +
-> +  aspeed,global-regs:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: |
-
-Don't need '|'. Read the documentation about when it is needed or not 
-needed.
-
-> +      The phandle of i2c global register node, For control the i2c register
-> +      define selection, clock divider mode selection and clock divider control.
-> +
->  required:
->    - reg
->    - compatible
-> @@ -66,3 +94,14 @@ examples:
->        interrupts = <0>;
->        interrupt-parent = <&i2c_ic>;
->      };
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    i2c1: i2c@80 {
-> +      compatible = "aspeed,ast2600-i2c-bus";
-> +      reg = <0x80 0x80>, <0xc00 0x20>;
-> +      aspeed,global-regs = <&i2c_global>;
-> +      clocks = <&syscon ASPEED_CLK_APB>;
-> +      resets = <&syscon ASPEED_RESET_I2C>;
-> +      interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-> +      aspeed,transfer-mode = "buffer";
-> +    };
-> -- 
-> 2.34.1
-> 
 
