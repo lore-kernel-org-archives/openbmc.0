@@ -1,90 +1,95 @@
-Return-Path: <openbmc+bounces-464-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-465-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D54FCA0EE4
-	for <openbmc@archiver.kernel.org>; Fri, 15 Aug 2025 13:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD7FCA0EE6
+	for <openbmc@archiver.kernel.org>; Fri, 15 Aug 2025 22:44:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c3NC61WWYz3cfy;
-	Fri, 15 Aug 2025 23:25:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=103.168.172.156
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755264322;
-	cv=none; b=bAp1+3m20g0WhahPJBU8hw6gYuHibn/pQey492oLexo6JcJH8nwUiOBV02S1aGBRAM/M0fcA0JmSUsittn5URQHHNu7mWFRsxx1bKrwOSIqKKefQ6wKCOs+wnq0UYfw9zGM9s6w3mDcim/AuCMGQe2rcgQjdOck2Q9rlttMDygZXB579GJdC0qEhbg9EBBr6YQ0g339/mHMs99j6C22Rp/hA/J/6PRp85By2FNaSkd34ybZsdk4cgGkG8ee2QFF8/NPFywJex6WszhxDUl5+vfNhMS1xMGR1Sr0uZyHeeDT9uUBMVkKfdAJkroWUv9cIwu+hwqM4Txilo+h2gxoTKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755264322; c=relaxed/relaxed;
-	bh=LQCdW4+eDKBB67hsBQjqNcMhDA80yXZ+oDcjhEM81sY=;
-	h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:References:
-	 Cc:In-Reply-To:To; b=TwzVdMHoqcUJS0v3NlA2+1n9bT4yGT1MjrbAdoyvsK/v8Ra8Sq3DV5PytAlrLwxLrzagDBFxMr6+qc4E1SFKb+XPaO9lg91Gv5wfEidVu8yUaMZGYGjoRwtYgcyFb7mZg0D/cFRTYd9Qx57SCtRty39f2b2kY+QKkMJWp3ukjCMpQT7c7IWGxIVUb0+78OJdbY9Fh/dWGwT7otvJCTVzZLHWO0O3se+TaY2Ac3nrG8Bcat1vdgjzBIyCxdOcYEghvZM1mbx4COpwA2b0zH8GHb5tjY7jQyyxXlIPBA3iFvYznwfqVdOrwsFAFnVqqS1e/XcZbnJbcYk44NkBvzs/Ow==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=PirbIYMS; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L/ibEqyp; dkim-atps=neutral; spf=pass (client-ip=103.168.172.156; helo=fhigh-a5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c3cc62Drsz3cZN;
+	Sat, 16 Aug 2025 08:44:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:2412::615" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755297862;
+	cv=pass; b=MD7dzIZ5h2dgSXPyxLGpY9G3lus/h5YfW/OibU0reBGfEFr2JHgnreJtt5llE9a97/PBEacHZ+jpdXJF82vK+WZHvNt6p07h9Ufv3ieXgMrSb8rcRDP3OSxl+hCTbz7eSnGyTuZ8S1dONsn9QF8+XR8iHMiQy5n9t9JaGzBIW4yOMYn6hK5wJLNjigWkG7Z+oGCU+IzYZNg6Bc7PaBY+59sBwc9chPHQefmz2c4/z+qhKjMJEeFtOxuK+trzAreNV9n0ZKXe9ZJdRis8oz9exM0/k1mmGDBlrwhTh9DcD6ztgE9XFmaIxUbo4MaTwEVHHDS+H0no5pxsb18IrkvHWg==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1755297862; c=relaxed/relaxed;
+	bh=/PJbBvDV+noSKFlIser/JH9z0P+Q4gTCv13gY7hx1Mg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BMNaIojPjQaQS/NlLfPRoB/8aPka554QpBcEdih9b/GPBNcQ/1h5GaXyc87wp4SsefwALw/xfNvz/Yqm1+wniXp3sq8VBZ1MWBF/mJEjPFnoe7uuHu2CkPnTq4x9MVAbCjcXB4HVQkTDBkulITo6h75BU2/Yyu9oTAu4g+OBAC2XVqEAKqd8H72F5VXQBM8OpyWsvuTDeeePAm2AM9T5lTyavsLal9+FbKZSTuQvnJwbHHLtxb/B1pLoVHJNRJlcF8aXIoN6CcPjuqgvm8pWiLYpS8eZ0+6Fg5FyPJx42Xb5cghlxR+QDa25M8LbUYfwin75pZMd8vp/eNh472pdXQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rFG+yO8M; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:2412::615; helo=nam10-mw2-obe.outbound.protection.outlook.com; envelope-from=donalds@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=PirbIYMS;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=L/ibEqyp;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=rFG+yO8M;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=103.168.172.156; helo=fhigh-a5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:2412::615; helo=nam10-mw2-obe.outbound.protection.outlook.com; envelope-from=donalds@nvidia.com; receiver=lists.ozlabs.org)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (mail-mw2nam10on20615.outbound.protection.outlook.com [IPv6:2a01:111:f403:2412::615])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c3NC21q4Tz3cbL
-	for <openbmc@lists.ozlabs.org>; Fri, 15 Aug 2025 23:25:17 +1000 (AEST)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id EBE5F140008E;
-	Fri, 15 Aug 2025 09:25:13 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Fri, 15 Aug 2025 09:25:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1755264313;
-	 x=1755350713; bh=LQCdW4+eDKBB67hsBQjqNcMhDA80yXZ+oDcjhEM81sY=; b=
-	PirbIYMS4B5jNpU7+9OVcm5gFzOJsPBZZMVziOVcSCM4s9Cffp4B/4TzRgkWoYLF
-	aKr0XUKcmIqF2jaAWv2g1bxBFuZnJkMSJzJO5almrmEGrZlr+gbpMQxao5Hy44z1
-	MSFQGo0zPToq1lngi4ewQasudylG7QauIhIFTBXY5puqJ8TORXgh91mKpihE4hCb
-	jiA3sfuyFGT9nKReLdsno1iCQ2f3PfVDY+R+9mgto4V1GOeR43+uVIJBEat/pJ6/
-	fmf4ImTeb8r1Vb7YcXYlv6pv58qvcwzMjD8vtY5/7sT9C42JXsrFRWJi6NY7hv6a
-	COL+o6ANmxGahi7qJqVNgA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1755264313; x=
-	1755350713; bh=LQCdW4+eDKBB67hsBQjqNcMhDA80yXZ+oDcjhEM81sY=; b=L
-	/ibEqyp0lL9ZIGJjFRHP/CGVAE9+3yyRfy6DxXPp1c27Bugz+/E31FFiZ4O4AMm/
-	oLQc4R6RyvPKF1zKPuZm20PpfMEZgx6tNRTCl/op/mvlprWbOutnQM17n2yJkfxm
-	zvxhFwz1BftwhFfJGUZrPaxWPKIfKDE0KVKUV/FRtaOHG1os++XETbFB+0ur/172
-	vURmQorMexW50noVu6+HBr+Qq/WRYXzP4whwxY5StcQKKhmt4bxtttkVuTezKWc8
-	3crEdz1xyN4GtkJ5LmGzEDvTwc77Hd/tOpy4UEStuwDD0YIP22+JdDTqktSCFKhg
-	sySIlVQrcFVO3TB/QLnSQ==
-X-ME-Sender: <xms:OTWfaI_CBOaMn_7ojAgtjz4GQYh8W93yHIFmEcW5KJG-qe3N5hI-bQ>
-    <xme:OTWfaA5H8MjGc4h5utMgglWib7JYdrdPPGWlvZMiyZHZ9g79LOh-qBkLA-AwYWT3x
-    pZjeVJ2CkTREgY5ZK4>
-X-ME-Received: <xmr:OTWfaP0d5zrLtG1pNnHxANpRQ52KaMmVoC7a_AI23XvKNlujo-zjk63gpfL6UBLHe4IQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddugeegtdekucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegfrh
-    hlucfvnfffucdlfeehmdenucfjughrpegtgffhggfufffkfhevjgfvofesrgejmherhhdt
-    jeenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
-    htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepteekheetfffggfevuddvuedvjefg
-    leehtdfhvdefjeejffdvheeftdeulefgveetnecuffhomhgrihhnpehnvhhiughirgdrtg
-    homhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehp
-    rghtrhhitghksehsthiftgigrdighiiipdhnsggprhgtphhtthhopedvpdhmohguvgepsh
-    hmthhpohhuthdprhgtphhtthhopehruhhshhhtohhtohhmsehgmhgrihhlrdgtohhmpdhr
-    tghpthhtohepohhpvghnsghmtgeslhhishhtshdrohiilhgrsghsrdhorhhg
-X-ME-Proxy: <xmx:OTWfaHCQW67juGJm9QZLva4eYfCq5glmkd_tFn_LLOl_heKmmuy5fw>
-    <xmx:OTWfaB0LmWVJ17W2F52M8BIqUikVcHB7kIFjanARD85HOxhGj4Hi7A>
-    <xmx:OTWfaBt8dgIW1LGEvPtLyxCZ9TvWqebEHHkDV9zAVOrTGavNTSO2ag>
-    <xmx:OTWfaB4RqQRjsXoyPQ0F07rg-heNGCb4BZau94emROaAd1YlY6hJaQ>
-    <xmx:OTWfaK41P2cOScEkFFM2tXUIOd9OW-brQmNJLysa0Eijd9fxOm0D2mq4>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 15 Aug 2025 09:25:12 -0400 (EDT)
-Content-Type: multipart/alternative; boundary=Apple-Mail-B8A473B7-8C3B-4C3F-BDC2-3BA524CF7F88
-Content-Transfer-Encoding: 7bit
-From: Patrick Williams <patrick@stwcx.xyz>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c3cc45kXJz3cYP;
+	Sat, 16 Aug 2025 08:44:20 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=faoyaV3RI4QZLFBQyZTQ0VFAy1ulSEt7yQ6f/9hig8eLlp/yQU6hQnWaWo+Dx2vmZT6J6Nh2qohBHg+vGAsdlSQxAbMViNxgbf+Gv5StvgV9WBIkTWN4Y0u9EF6ZrnEdvj6oxlgnSc+ihziWMFKTG0Hx2DOdclJyEgovcHvkkMBQuyvrURSwMHaw/75v0OR6euG13gdtkHCFkPsArvBMRW2h46tC/d64IJytTj69Q3T+GLtEP+I9+TQgoF5B+pHnuh5KzLxOMp0BXKe0tKbNk+NE5CJkeZRP1BKZWiTAAPQ/e2Xb5URqVgKc1zIW7NkjAg+xLDtcdXLbPXZvVPfSag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/PJbBvDV+noSKFlIser/JH9z0P+Q4gTCv13gY7hx1Mg=;
+ b=h+GTRKbudmV9KvCZj79IqvCQr3euq/CZrBrq7UA03eYkCmYrwCd8zArIKAJf5TkrwRgT/0cDGjLuUM/tJpbq1o7mcImIM2Go6URC7+eKVdykP4PTAh7f/nhSrs3nlqFnl4CQJ0GoWWAJ3+TSZFi8TtnV+5J6Tpo1QwVOam3HgY1K2s0GR/kLOpMogjKU8YxxLWXY933uvW8uTqLzTRLGsosvhWk8jovfeAKAxg6zhOLc3FIYdcnYcZ1fvsUPyHEeD6d+7Vz/uhGKsxxfNXdYDHe90WgAdupfFmXuBdfsDd4LlCXbJVkzpHHxeFMQhYvavgB8TiwYmEtQy27S/ZsLhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/PJbBvDV+noSKFlIser/JH9z0P+Q4gTCv13gY7hx1Mg=;
+ b=rFG+yO8MNnZOWL+Iz124NZR0d7KsJQNUqEgFDCyrrcjq4wA9+/Vx+Y7NScIzzEunJjtzVzJV/uzp7pK+ApVt0XKlWPZX+LZ5JnyPtkAFft792wZmkRwlrCw1S7o8DudQXrYkQZHazP196qhRd313/Nw2LF4AAUTPfWJYy05yNx6dZ4F5USesbXO+Noc9rpZkWLsB0Si9lSyhU37pvWdt5E9LIGYtHB8xPG8oiIzEDluU3IPnxQzg1++nHQoO5Y7893GI4wuvb8mYRW6T6W76RJ1qXTVi8A67l7mis5kfId1V5ZRPPA8M9SRcfw1B9mBekBdcW0NETduS/tNwzV8HOQ==
+Received: from BN9PR03CA0971.namprd03.prod.outlook.com (2603:10b6:408:109::16)
+ by DM4PR12MB8557.namprd12.prod.outlook.com (2603:10b6:8:18b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.18; Fri, 15 Aug
+ 2025 22:44:00 +0000
+Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
+ (2603:10b6:408:109:cafe::e0) by BN9PR03CA0971.outlook.office365.com
+ (2603:10b6:408:109::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.19 via Frontend Transport; Fri,
+ 15 Aug 2025 22:43:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9052.0 via Frontend Transport; Fri, 15 Aug 2025 22:43:59 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Fri, 15 Aug
+ 2025 15:43:47 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.14; Fri, 15 Aug
+ 2025 15:43:47 -0700
+Received: from dondevbox.nvidia.com (10.127.8.13) by mail.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server id 15.2.1544.14 via Frontend
+ Transport; Fri, 15 Aug 2025 15:43:47 -0700
+From: Donald Shannon <donalds@nvidia.com>
+To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<donalds@nvidia.com>
+CC: <joel@jms.id.au>, <andrew@codeconstruct.com.au>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@linaro.org>
+Subject: [PATCH v8 1/2] dt-bindings: arm: aspeed: Add NVIDIA GB200-UT3.0b  board
+Date: Fri, 15 Aug 2025 15:43:43 -0700
+Message-ID: <20250815224344.908130-2-donalds@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250815224344.908130-1-donalds@nvidia.com>
+References: <20250815224344.908130-1-donalds@nvidia.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -95,220 +100,88 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: Modifications in PLDM T5 flow to support SPI staged update
-Date: Fri, 15 Aug 2025 09:25:02 -0400
-Message-Id: <DC3C6C29-2ABB-4E27-834A-02EBE322B82D@stwcx.xyz>
-References: <CADCscQ=9xHFPfoS9BY5Nuib36nQvfcC_jwhmcPRyibgw4_ObXA@mail.gmail.com>
-Cc: OpenBMC List <openbmc@lists.ozlabs.org>
-In-Reply-To: <CADCscQ=9xHFPfoS9BY5Nuib36nQvfcC_jwhmcPRyibgw4_ObXA@mail.gmail.com>
-To: Tom Joseph <rushtotom@gmail.com>
-X-Mailer: iPhone Mail (22G86)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|DM4PR12MB8557:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76569be5-7d84-4425-bd92-08dddc4d39df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026|7416014|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?1uqPpCxU7duqnv+vXw1RcO9vYHFhzQ3mrFXWNMJa7+JEm62Z4QxEqE0pbTQi?=
+ =?us-ascii?Q?UDllrQKthtxN/pnSABeri7XJi9G6Zts454ewkNevO+Btg1VwqIArlNMn397q?=
+ =?us-ascii?Q?mIFv7IFBwJuFINYn5ZpUEKIqyy9cVna0yoEmPAR2zaPcMWmahWAroMBT0QcG?=
+ =?us-ascii?Q?Lru7s5mNnA4cX9eXy/6sKbD8N9v0LiGdy5cnH/z0w1wlD0MewYQqxZ66+QQS?=
+ =?us-ascii?Q?BDQzmrIQUA5CTK7sHoRu2T4y1GX5IAdRVUeY5kZM3O7iReFjbWuno89F0cs2?=
+ =?us-ascii?Q?tAsi1kWM2l1z6iyaRxVK871HQdwagwm1ki5QzUQytTIXXaRxrBt2SF5hwtCe?=
+ =?us-ascii?Q?T4v0vMJZ/ULyFqNZ724smyU97uOD7uCyu7RQh35yGm4ZgaSH3PWkTlywGz01?=
+ =?us-ascii?Q?YIve/pzpuUvfrhgzp0eXJQVvKpQ2eGwJ19N1AgWA/UzX86/IN7DOfTHmCDPZ?=
+ =?us-ascii?Q?VL1q4JfU7XOMwn6VF/6yQ4IBhTWneBLRIChZhvKo9Tc0IkAByEPdPrTcBbNN?=
+ =?us-ascii?Q?FoS0lWmrOaw9Gy8E2Su9TMw8Juiqmo6LJFPC/+0GQlrDwyBxwTwBt8NiT50S?=
+ =?us-ascii?Q?qxuytjdQVev6xXSpo0l97Fawzxr9Fij9k1C8YAn6QhFwWCRiT6Z89jp3jxAm?=
+ =?us-ascii?Q?2ud1KQPyg6cKbtPgMWa08BBTAZci6PfTT90v8NCiNLhE0+qtLzGk53+Nw6R6?=
+ =?us-ascii?Q?iriasafss3yfWpqIAK6/2biyzc5emscruwut7wlNKxUCtliKSfUlv7G9NtDG?=
+ =?us-ascii?Q?/la/IawGaMNjj9F5XcNQ7XzzJW3oMa8FACNcfV8Q6YZubihd3EuRVIVMl3Dc?=
+ =?us-ascii?Q?i3+dxoiFTJOvn28/Dnl0bBxwHT72P4DZBC9YKlC+Nyl8wNaw64cMMlcErIw5?=
+ =?us-ascii?Q?yf/MBoGhy4KLZsdQL9LN2ANtZfTFeqPo5Y3yf1fHUhXOEzI9ZuBpRblvVfHN?=
+ =?us-ascii?Q?94AEsOcKx94L5o22TG/tLAKDlI6Qhf8lVW8rv0u3ASsDspVJN3NwydT2A5Kl?=
+ =?us-ascii?Q?WaR/HUzjd7lEFcXtVgO6jjLslkvPMF8QAbvWnEL4UaD6uVxaieEgIBCsNtgG?=
+ =?us-ascii?Q?9ut5IJ+IwKQQ6mDUYdrVDhSdQBIzBSxe4KB9um8JVkiG7OXihmzbubPaNQwO?=
+ =?us-ascii?Q?qTzFWSLaepgR1W/OLRsbAMMiCUz4vgHqf8UJTan4oH8N5XP7s1D9fntVXpD+?=
+ =?us-ascii?Q?FVUeXHTlwGiKPngYoIoPOMcctQv7x8dbRoTYanHFaZgv6fGnOr5vxbssPvUB?=
+ =?us-ascii?Q?mZaQQe1rRpT4ApQo3/iMKW/OaPVDLmzoa9ZIq9enZIo7LQtPOCE2FNLXUgi/?=
+ =?us-ascii?Q?H4OHzTcyjMFlnbmBym7bg7xdVgY1kVTc0RTb3T3uA6E5e9tYfpO1aGe/mcpj?=
+ =?us-ascii?Q?wkUfdIJdMO8ewI8evumIzQ3693db/Pi8DlO2iu5xGc6Y/6REfsOVSRvtyiTg?=
+ =?us-ascii?Q?5NL+4hmnkrlQTpDu5SN+o81R3Wme9PfTqLlimHV5xQgzx9veH4ZOdI6ndPj/?=
+ =?us-ascii?Q?Wta60Le4D0NtjfI197QDmHp70ETjMr9frwOx?=
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(7416014)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Aug 2025 22:43:59.6072
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76569be5-7d84-4425-bd92-08dddc4d39df
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055DB.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8557
 
+This is an Aspeed AST2600 based unit testing platform for GB200.
+UT3.0b is different than nvidia-gb200nvl-bmc due to networking topology
+differences, additional gpio expanders, and voltage regulator gating
+some devices.
 
---Apple-Mail-B8A473B7-8C3B-4C3F-BDC2-3BA524CF7F88
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Reference to Ast2600 SOC [1].
+Reference to Blackwell GB200NVL Platform [2].
 
-Are there Redfish methods of initiating this now?  I recall a workgroup at O=
-CP was trying to get this done there.=20
+Link: https://www.aspeedtech.com/server_ast2600/ [1]
+Link: https://nvdam.widen.net/s/wwnsxrhm2w/blackwell-datasheet-3384703 [2]
+Signed-off-by: Donald Shannon <donalds@nvidia.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-=E2=80=94 Patrick Williams
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 456dbf7b5ec8..624581db2330 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -99,6 +99,7 @@ properties:
+               - inventec,starscream-bmc
+               - inventec,transformer-bmc
+               - jabil,rbp-bmc
++              - nvidia,gb200-ut30b
+               - nvidia,gb200nvl-bmc
+               - qcom,dc-scm-v1-bmc
+               - quanta,s6q-bmc
+-- 
+2.43.0
 
-> On Aug 15, 2025, at 8:15=E2=80=AFAM, Tom Joseph <rushtotom@gmail.com> wrot=
-e:
->=20
-> =EF=BB=BF
-> Hello All,
->=20
-> SPI Staged Update enables pre-downloading firmware component images for su=
-pported devices, significantly reducing downtime during firmware updates and=
- activation. This requires devices to support at least two slots =E2=80=94 o=
-ne for the running firmware and another for staging the new image.
->=20
-> The update process occurs in two iterations:
->=20
-> First Iteration:
->=20
-> The PLDM UA initiates the PLDM T5 flow with the PLDM FD supporting staged u=
-pdates.
->=20
-> All stages (Transfer, Verify, Apply) are completed except activation. This=
- is achieved by PLDM UA skipping the PLDM T5 ActivateFirmware command.
->=20
-> Upon state machine timeout, the PLDM FD marks the new image as staged (not=
- failed update). Since it=E2=80=99s staged, it remains inactive until explic=
-itly activated later.
->=20
-> Second Iteration:
->=20
-> The same PLDM package is used. Since the image is already staged, the PLDM=
- FD skips most of the Transfer stage, reducing downtime.
->=20
-> This iteration is typically scheduled during a maintenance window.
->=20
-> Devices that do not support SPI staging are updated in this iteration.
->=20
-> All firmware is activated after this iteration.
->=20
-> To enable this, we propose introducing a new OEM parameter in the MultiPar=
-t API to instruct the PLDM UA to skip sending the ActivateFirmwarecommand, a=
-long with necessary PLDM UA modifications to support the SPI staged flow.
->=20
-> If there is interest within the OpenBMC community to adopt and collaborate=
- on this feature, please feel free to reach out.
->=20
->=20
-> [1] https://docs.nvidia.com/multi-node-nvlink-systems/nvfupd-guide/appendi=
-x/spi-staged.html
->=20
-> Regards,
-> Tom
-
---Apple-Mail-B8A473B7-8C3B-4C3F-BDC2-3BA524CF7F88
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto">Are there Redfish methods of initiating thi=
-s now? &nbsp;I recall a workgroup at OCP was trying to get this done there.&=
-nbsp;<div><br id=3D"lineBreakAtBeginningOfSignature"><div dir=3D"ltr"><span s=
-tyle=3D"background-color: rgba(255, 255, 255, 0);">=E2=80=94 Patrick William=
-s</span></div><div dir=3D"ltr"><br><blockquote type=3D"cite">On Aug 15, 2025=
-, at 8:15=E2=80=AFAM, Tom Joseph &lt;rushtotom@gmail.com&gt; wrote:<br><br><=
-/blockquote></div><blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<div d=
-ir=3D"ltr"><div dir=3D"ltr"><div><p class=3D"gmail-my-2 gmail-[&amp;+p]:mt-4=
- gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_strong:has(+br)]:pb=
--2" style=3D"box-sizing:border-box;border-width:0px;border-style:solid;margi=
-n:1rem 0px 0.5rem;letter-spacing:0.08px"><font face=3D"arial, sans-serif">He=
-llo All,</font></p><p class=3D"gmail-my-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_=
-strong:has(+br)]:inline-block gmail-[&amp;_strong:has(+br)]:pb-2" style=3D"b=
-ox-sizing:border-box;border-width:0px;border-style:solid;margin:1rem 0px 0.5=
-rem;letter-spacing:0.08px"><font face=3D"arial, sans-serif">SPI Staged Updat=
-e enables pre-downloading firmware component images for supported devices, s=
-ignificantly reducing downtime during firmware updates and activation. This r=
-equires devices to support at least two slots =E2=80=94 one for the running f=
-irmware and another for staging the new image.</font></p><p class=3D"gmail-m=
-y-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&=
-amp;_strong:has(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;=
-border-style:solid;margin:1rem 0px 0.5rem;letter-spacing:0.08px"><font face=3D=
-"arial, sans-serif">The update process occurs in&nbsp;<span style=3D"box-siz=
-ing:border-box;border-width:0px;border-style:solid">two iterations</span>:</=
-font></p><ol class=3D"gmail-marker:text-quiet gmail-list-decimal" style=3D"b=
-ox-sizing:border-box;border-width:0px;border-style:solid;list-style-position=
-:initial;margin:0px;padding:0px;letter-spacing:0.08px"><li class=3D"gmail-py=
--0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:my-0 gmail=
--[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"box-sizi=
-ng:border-box;border-width:0px;border-style:solid;margin-top:0px;margin-bott=
-om:0px;padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 gmail-[&am=
-p;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_strong:ha=
-s(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-style:s=
-olid;margin:0px 0px 0.5rem;padding-top:0px"><span style=3D"box-sizing:border=
--box;border-width:0px;border-style:solid"><font face=3D"arial, sans-serif">Fi=
-rst Iteration:</font></span></p><ul class=3D"gmail-marker:text-quiet gmail-l=
-ist-disc" style=3D"box-sizing:border-box;border-width:0px;border-style:solid=
-;list-style:disc;margin:0.75em 0px;padding:0px"><li class=3D"gmail-py-0 gmai=
-l-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:my-0 gmail-[&amp;=
->p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"box-sizing:bord=
-er-box;border-width:0px;border-style:solid;margin-top:0px;margin-bottom:0px;=
-padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 gmail-[&amp;+p]:m=
-t-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_strong:has(+br)]=
-:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-style:solid;ma=
-rgin:0px 0px 0.5rem;padding-top:0px"><font face=3D"arial, sans-serif">The PL=
-DM UA initiates the PLDM T5 flow with the PLDM FD supporting staged updates.=
-</font></p></li><li class=3D"gmail-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-=
-prose-p:mb-2 gmail-prose-p:my-0 gmail-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gm=
-ail-[&amp;>p]:my-0" style=3D"box-sizing:border-box;border-width:0px;border-s=
-tyle:solid;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0=
-px"><p class=3D"gmail-my-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)=
-]:inline-block gmail-[&amp;_strong:has(+br)]:pb-2" style=3D"box-sizing:borde=
-r-box;border-width:0px;border-style:solid;margin:0px 0px 0.5rem;padding-top:=
-0px"><font face=3D"arial, sans-serif">All stages (Transfer, Verify, Apply) a=
-re completed&nbsp;<span style=3D"box-sizing:border-box;border-width:0px;bord=
-er-style:solid">except</span>&nbsp;activation. This is achieved by PLDM UA s=
-kipping the PLDM T5&nbsp;<span style=3D"font-family:monospace;letter-spacing=
-:0.08px">ActivateFirmware</span>&nbsp;command.</font></p></li><li class=3D"g=
-mail-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:my-=
-0 gmail-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"b=
-ox-sizing:border-box;border-width:0px;border-style:solid;margin-top:0px;marg=
-in-bottom:0px;padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 gma=
-il-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_st=
-rong:has(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-=
-style:solid;margin:0px 0px 0.5rem;padding-top:0px"><font face=3D"arial, sans=
--serif">Upon state machine timeout, the PLDM FD marks the new image as&nbsp;=
-<em style=3D"box-sizing:border-box;border-width:0px;border-style:solid">stag=
-ed</em>&nbsp;(not failed update). Since it=E2=80=99s staged, it remains inac=
-tive until explicitly activated later.</font></p></li></ul></li><li class=3D=
-"gmail-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:m=
-y-0 gmail-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D=
-"box-sizing:border-box;border-width:0px;border-style:solid;margin-top:0px;ma=
-rgin-bottom:0px;padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 g=
-mail-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_=
-strong:has(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;borde=
-r-style:solid;margin:0px 0px 0.5rem;padding-top:0px"><span style=3D"box-sizi=
-ng:border-box;border-width:0px;border-style:solid"><font face=3D"arial, sans=
--serif">Second Iteration:</font></span></p><ul class=3D"gmail-marker:text-qu=
-iet gmail-list-disc" style=3D"box-sizing:border-box;border-width:0px;border-=
-style:solid;list-style:disc;margin:0.75em 0px;padding:0px"><li class=3D"gmai=
-l-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:my-0 g=
-mail-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"box-=
-sizing:border-box;border-width:0px;border-style:solid;margin-top:0px;margin-=
-bottom:0px;padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 gmail-=
-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_stron=
-g:has(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-sty=
-le:solid;margin:0px 0px 0.5rem;padding-top:0px"><font face=3D"arial, sans-se=
-rif">The same PLDM package is used. Since the image is already staged, the P=
-LDM FD skips most of the Transfer stage, reducing downtime.</font></p></li><=
-li class=3D"gmail-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmai=
-l-prose-p:my-0 gmail-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-=
-0" style=3D"box-sizing:border-box;border-width:0px;border-style:solid;margin=
--top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px"><p class=3D"g=
-mail-my-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gm=
-ail-[&amp;_strong:has(+br)]:pb-2" style=3D"box-sizing:border-box;border-widt=
-h:0px;border-style:solid;margin:0px 0px 0.5rem;padding-top:0px"><font face=3D=
-"arial, sans-serif">This iteration is typically scheduled during a maintenan=
-ce window.</font></p></li><li class=3D"gmail-py-0 gmail-my-0 gmail-prose-p:p=
-t-0 gmail-prose-p:mb-2 gmail-prose-p:my-0 gmail-[&amp;>p]:pt-0 gmail-[&amp;>=
-p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"box-sizing:border-box;border-width:0p=
-x;border-style:solid;margin-top:0px;margin-bottom:0px;padding-top:0px;paddin=
-g-bottom:0px"><p class=3D"gmail-my-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_stron=
-g:has(+br)]:inline-block gmail-[&amp;_strong:has(+br)]:pb-2" style=3D"box-si=
-zing:border-box;border-width:0px;border-style:solid;margin:0px 0px 0.5rem;pa=
-dding-top:0px"><font face=3D"arial, sans-serif">Devices that do not support S=
-PI staging are updated in this iteration.</font></p></li><li class=3D"gmail-=
-py-0 gmail-my-0 gmail-prose-p:pt-0 gmail-prose-p:mb-2 gmail-prose-p:my-0 gma=
-il-[&amp;>p]:pt-0 gmail-[&amp;>p]:mb-2 gmail-[&amp;>p]:my-0" style=3D"box-si=
-zing:border-box;border-width:0px;border-style:solid;margin-top:0px;margin-bo=
-ttom:0px;padding-top:0px;padding-bottom:0px"><p class=3D"gmail-my-2 gmail-[&=
-amp;+p]:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_strong:=
-has(+br)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-style=
-:solid;margin:0px 0px 0.5rem;padding-top:0px"><font face=3D"arial, sans-seri=
-f">All firmware is activated after this iteration.</font></p></li></ul></li>=
-</ol><p class=3D"gmail-my-2 gmail-[&amp;+p]:mt-4 gmail-[&amp;_strong:has(+br=
-)]:inline-block gmail-[&amp;_strong:has(+br)]:pb-2" style=3D"box-sizing:bord=
-er-box;border-width:0px;border-style:solid;margin:0.5rem 0px;letter-spacing:=
-0.08px"><font face=3D"arial, sans-serif">To enable this, we propose introduc=
-ing a&nbsp;<span style=3D"box-sizing:border-box;border-width:0px;border-styl=
-e:solid">new OEM parameter</span>&nbsp;in the MultiPart API to instruct the P=
-LDM UA to skip sending the&nbsp;<code style=3D"box-sizing:border-box;border-=
-width:0px;border-style:solid;font-feature-settings:normal;background-color:r=
-gba(0,0,0,0);border-radius:0.3125rem;padding:0px 4px;font-synthesis:none">Ac=
-tivateFirmware</code>command, along with necessary PLDM UA modifications to s=
-upport the SPI staged flow.</font></p><p class=3D"gmail-my-2 gmail-[&amp;+p]=
-:mt-4 gmail-[&amp;_strong:has(+br)]:inline-block gmail-[&amp;_strong:has(+br=
-)]:pb-2" style=3D"box-sizing:border-box;border-width:0px;border-style:solid;=
-margin:1rem 0px 0.5rem;letter-spacing:0.08px"><font face=3D"arial, sans-seri=
-f" style=3D"">If there is interest within the OpenBMC community to adopt and=
- collaborate on this feature, please feel free to reach out.<br><br></font><=
-/p></div><div><font face=3D"arial, sans-serif"><span style=3D"color:rgb(26,2=
-6,26)">[1]&nbsp;</span><a href=3D"https://docs.nvidia.com/multi-node-nvlink-=
-systems/nvfupd-guide/appendix/spi-staged.html">https://docs.nvidia.com/multi=
--node-nvlink-systems/nvfupd-guide/appendix/spi-staged.html</a></font></div><=
-div><br></div><div>Regards,</div><div>Tom</div></div>
-</div>
-</div></blockquote></div></body></html>=
-
---Apple-Mail-B8A473B7-8C3B-4C3F-BDC2-3BA524CF7F88--
 
