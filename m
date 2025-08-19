@@ -1,81 +1,81 @@
-Return-Path: <openbmc+bounces-482-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-483-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D03EDCA0EEB
-	for <openbmc@archiver.kernel.org>; Tue, 19 Aug 2025 23:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F4ECA0EEB
+	for <openbmc@archiver.kernel.org>; Tue, 19 Aug 2025 23:56:38 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4c65zh2bkbz2xPy;
-	Wed, 20 Aug 2025 09:54:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4c661c6KFxz2xQ1;
+	Wed, 20 Aug 2025 09:56:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:2417::609" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755646629;
-	cv=pass; b=GyxcN07+mlcgTcndGPG26KppgMq0QaE3cOOpKLwoZg2HG7i30DkVU++nXDUEPr++QxElaLlGBWVG1r/jfoz0Lr231kP3MGiGcNXJC2iN0EpTNbNQa7FukOZVRUi0gSPk/n9SBmWDuQsWzUSRDwbYIn9+8USV9G9pBRPWXWroijQRMXKw2uoxTXwZrGFYUp66ja6kGLZ0++wFyYS+BH2DB+GW46SLxw1cBQxBOgBTNDKp0IpxAFfRnQmIYXtyhQYkIcDny+8XVdQIgnbdkf2ipgb40sfQPALW6uW/YmeZ50yOg/0sxfUiLjJUB1KnQ13LKdnfzx1UReGMMrn6XAZjOQ==
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1755646632;
+	cv=pass; b=KjfckGuEykeIfRKJYT8zgTVvsZcCEofcfq0YO1CjSc7GOEG7VnK7dhaS5HfrNorEpiPR0Yh82HpR/MJNnyLdEfogsJAshktHrgNzgnM3xdupH1MEg2WyQEVgqhRiZ4JnyUBfpnQCxbm6GUwqmUAIWjc+Bh4jsRB+NBMTdcLKILCDKFCAk1ovUZZxWjTHtve7s/WTcAzUdDQFHa8cd6ePspTMlsWloNLNGqqz02VBBXz5WAvDQjzOYosX/QkRIqwCB6qvcCFXve0kExGCHLhkh0mA0BYecOkJsUzYWDp4nUg04InAqWSgZJnQYy6npRYC5qqVCbYoTzWL9VlKZFv39Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1755646629; c=relaxed/relaxed;
-	bh=yOq5T0ASBlrkHOEonHuQ6PEiJZuLIn8OH3B48RR8wKM=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=MagMbRK/BKS0vK/tbkBf4uPN/l2Z3AREQ45xhRN5TpgCbXFLohcOFRu0LsARBQr2OkJxCJ1+AVHfZTi8UJl47AUlHusWA1QpkciFUG4tsaZRXmvBZKt69l8CCbCyY+jZ0eQM8AIboaFCq/VGc21ojPVT7YrviEGTFQmUaHh49+pmFhlS5dKUBrEur9b8LZJv6ol80lnZttCYBBs6puga+AWMeIc6eZlxcj4G4GzQNFe3286qeq+ty2VluhjVP+voes/sO7RVGQVahA868/TAopYIqfeOIhof8FIHRUcwnc8ZglZe+dSjc0bjnTfJ9f79n+gFo5RMVBRNoIkVlgXv5w==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dpWIvOQu; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:2417::609; helo=nam12-dm6-obe.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
+	t=1755646632; c=relaxed/relaxed;
+	bh=ESXiZ0EVkxmMYRIT91WXSdYT2rKof1RP/7bxRkGqfwQ=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=oCWM3bdHz/gA+mhJ//MPeUJhTr5riQEGDlLRBWw4tM4tzu4j+S5jjRDornXV5tPk+XmAllr9eld9vFtKofVvoIDtPLb45PqoZsaOpD+peH/HQZ5z+p9snczo7EXWPvbETBax6pMeHcGHDi8uawWMJ1NjPrMXSbmHNCZY830fFYGkJwvVdc0mrP/t163jdf6Uch8+x9Lb1iNW8tzPdrzqDUyxy146xPwFNgUj6Vx7gWMUS9cCXcU+4IF1peSsXyH8iHIoGTooEVYz6WaMcmhAgg/L8dHTyhs51Bh8PTMlOQNGdR4AILHWC2rvlkjCQbFSGlDUkbWnnHUQqQwCVwcTFQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DMpyNkqr; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:2417::609; helo=nam12-dm6-obe.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dpWIvOQu;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DMpyNkqr;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:2417::609; helo=nam12-dm6-obe.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com (mail-dm6nam12on20609.outbound.protection.outlook.com [IPv6:2a01:111:f403:2417::609])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4c65b76fdzz2xK2
-	for <openbmc@lists.ozlabs.org>; Wed, 20 Aug 2025 09:37:07 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4c65bC70Jcz30Qk
+	for <openbmc@lists.ozlabs.org>; Wed, 20 Aug 2025 09:37:11 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R55MzArRh35q1wyqyvpbMH0KONzZfemBT5WfXktwWCTKf6ZysRFontwCUoDtwAmNtvQnZ2Fz0KAq5/VYYFxttPvp/2NnohE0obQhZMsqNuYTiR2CIX6cg2oE04CN0FwNoXz+FQSklrO0BX5DvhVoKDTw3aYjuojxetYSwVUC9YH0i0Jq6FadSoCSeIXsUzGLdaxTJdqawS3i61fDWd+Wmc9mjxPEkwlAGQ50WPdSQynAri5Oo7QIR0BDRfOA4f6XmI+QDYyWdAAKozA0pBKWZNJssHQ/wZywiWKR4UxP8guv/ic0BO29o/R6Vxq1hPnOYjPuGt2J1Z/UROIZo/FIAw==
+ b=E34l24LtaGxAUhNhwCbqcz1CFeRwdAvI79sa5IeYKbs4agRlYEtvMKVSODXbGU5hutT/P9L3c8HBwpI/TJ6qPCvPXblQgPq5JtJAo/3VL01U+G6DbLNVnY2v1PGUsNf2mb60vt5lf8AahieSnDxt2cFbafYwq3zv/vOE5iyJ+wz8Aq7dqSSrynC0SyYKhefZLl6xmGA4mDrJTLgaej5JgGUfNTBB7Kgxg817ISviGi6qho3WR4LRgOwApudVj+bbzcelEcoauowgvvh23+gJVcpknr2ns7SBMF3jh8Tdomm1SVDEgYSPOWhaKA30CAsy3eSEp2TeTwISQg5ETEUo7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yOq5T0ASBlrkHOEonHuQ6PEiJZuLIn8OH3B48RR8wKM=;
- b=VBOwWiLadpo47/2pNKMyCPwgRxQ5h0tCCHKGuyzSE3IyRcenCMFlXLm5jevzFtbE5k+lIW1fmfNNlQixAGpg4J5mGXQj5ZocdVWzCPend19rk/o4YUsUKXwhGSMe8pcPH16Wmw0L7LXjbxZofWySbNPenDTbAji5mSXlMFU3oPiAvcfN0KGR1SlJUmVrxESccNIzycl6GiQQBCv0LQYpieGloLE0KTLoRZj3aG2cpt7UxqgUEgoNo4yVR9DPtTeyEbTVdKkbHdiLNmliGAHRgrszTfggm+uqE01NY/KCANDUM9t+uCnsTDStr4rxuTPEKpBUdjiiwhMvOSdClNDpsA==
+ bh=ESXiZ0EVkxmMYRIT91WXSdYT2rKof1RP/7bxRkGqfwQ=;
+ b=V5AkAAf2FYQmxSRiXk4E9xsayCRtQ+WACcK6Cbmx2wzWSmjMm2YPCfBMYKJnnqEKom79/396v3fI/eXX5/cid0rZJlv2RyiaDUJ6tgAbQAxtF2VcPAeSkI6LEjtk4yQ0zM8WkqvMopBz157j3csjtguLPlRDrwUIJrBuJKV3qhmpPciZBAWEDLo1u39piWfUrvHeEBusuf2sAiLCHTX5aLfF5WwX10+/F97NdTvgIMjl1vA5kJWGzGStMnA15Zw8kY2UancQ9keVGW4AfyXZJcVnO4VqvmJEJuBfJlyEw0Z5nHB85ftFwmBD7b+HtFBVMLEhJ2+YTwi7A3PJ/h+5eQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yOq5T0ASBlrkHOEonHuQ6PEiJZuLIn8OH3B48RR8wKM=;
- b=dpWIvOQuEtOyAmMiucCLlCg6YjjX3Q4RPSjmT5JQC16wTjOUShfTQpCCuAm+67d8a8JOPTob1c2b4FMLwFk5z9w6c/1Wk2rlkKHMc42Z675benDc6X82Zk4Hsb7LbOBVEci+gPZrEkyvTRx8wGemEdzYGkn1TE8TloIK5oHOmzm5lsXrtPdgk8rkOtvtDeZyLtXaG7KQvfx4xre/vbm4TVy10J/5CRC2kTCLuSuYdbpxxob4kiLjd+mTOI0zD1Un25iYvD86jeTh3JcqKyWBuVl5TqxV2rCQxPwC5ezzvQZVufOPpSgeWoOVZIomO9ja7fzOjectAhb8Eci23wasaA==
+ bh=ESXiZ0EVkxmMYRIT91WXSdYT2rKof1RP/7bxRkGqfwQ=;
+ b=DMpyNkqrnxHS0cnvpH9HNXqTHM0fiRy9W64uHxwRLl1I35h8dtjvl5vd85nk3AJRntA7HjVQ6F8x+rT2x6NkVDnJs0HBfwVXOINIJCyBOKgHvzwYdY1pmleCEYTZV9hc2SF9/sbfA+SHS3qObItmL0YUokd7VIp3Egk/n278+Llrixc7hWtFn6q+iG5EKpUeYuw98jzjGv7l2MmnHrg1gwTrRR3OQavaTpFG0UMuwsFfNHhxbSYMXgJQGBRUBbIOmXl03NEGjTHmW1EduywGNn8Tf+OjIH+nh357EGMQed62SPb7qBn1hQ+do9GhnSex/aQtdK6MESD8lo82//Lhuw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS5PPFEAC589ED8.namprd12.prod.outlook.com
  (2603:10b6:f:fc00::667) by CYXPR12MB9443.namprd12.prod.outlook.com
  (2603:10b6:930:db::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.25; Tue, 19 Aug
- 2025 23:36:47 +0000
+ 2025 23:36:51 +0000
 Received: from DS5PPFEAC589ED8.namprd12.prod.outlook.com
  ([fe80::fd4e:4c62:b756:96da]) by DS5PPFEAC589ED8.namprd12.prod.outlook.com
  ([fe80::fd4e:4c62:b756:96da%5]) with mapi id 15.20.9031.014; Tue, 19 Aug 2025
- 23:36:47 +0000
+ 23:36:51 +0000
 From: Marc Olberding <molberding@nvidia.com>
-Subject: [PATCH 0/3] Backport MCTP over USB commits to 6.12
-Date: Tue, 19 Aug 2025 16:36:21 -0700
-Message-Id: <20250819-mctp_over_usb_backport-v1-0-c655eb2a32ce@nvidia.com>
+Date: Tue, 19 Aug 2025 16:36:24 -0700
+Subject: [PATCH 3/3] net: mctp: Expose transport binding identifier via
+ IFLA attribute
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHUKpWgC/x3MQQqAIBBA0avErBNSCKurRIjZWEOUMlYE0d2Tl
- m/x/wMJmTBBVzzAeFGisGfIsgC32H1GQVM2qErVVSNbsbkjmnAhmzONZrRujYEPMelaeSm99tp
- CjiOjp/sf98P7fmgQvJRoAAAA
-X-Change-ID: 20250819-mctp_over_usb_backport-d752f11f7f7a
+Message-Id: <20250819-mctp_over_usb_backport-v1-3-c655eb2a32ce@nvidia.com>
+References: <20250819-mctp_over_usb_backport-v1-0-c655eb2a32ce@nvidia.com>
+In-Reply-To: <20250819-mctp_over_usb_backport-v1-0-c655eb2a32ce@nvidia.com>
 To: joel@jms.id.au, openbmc@lists.ozlabs.org
 Cc: andrew@codeconstruct.com.au
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1755646605; l=1403;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755646605; l=7393;
  i=molberding@nvidia.com; s=20250815; h=from:subject:message-id;
- bh=+4cdGIijDAaka/+xJFQ42t79iECysypf2McgFA0KhAw=;
- b=anfGBPaXRUG8swnY58M7aStOnw1eO883JkizbCkcocyijztNJyNMoPZG0fpNhzX5efg+JQCx3
- HPaPnFrbDz/DCZRSSQOdF9CNwHHWT9aiNi9U7/Xnxmri2hUyjdXpwU2
+ bh=7tvgQ1I62IKmM1jiedCTsZyHh9ptaGw0o2lUPJW4HI4=;
+ b=+Oa+OAyvR5AvqTZeNHJgonKJORFXDvLH4yMfL6MUlfWNFSOVUrYw/C3YUwQyGwMMnBdP/RMLr
+ Gs+r5UcaXdoC0jpHdqbZd98mCBy8YHqMbDb7n6oGS8GU6fSEX5wpTW4
 X-Developer-Key: i=molberding@nvidia.com; a=ed25519;
  pk=qCpZ1WFEf5YiaL88PDdYhG+A/bKk7rHp7KF2K3GmkH0=
-X-ClientProxiedBy: MW4PR04CA0202.namprd04.prod.outlook.com
- (2603:10b6:303:86::27) To DS5PPFEAC589ED8.namprd12.prod.outlook.com
+X-ClientProxiedBy: MW4PR03CA0075.namprd03.prod.outlook.com
+ (2603:10b6:303:b6::20) To DS5PPFEAC589ED8.namprd12.prod.outlook.com
  (2603:10b6:f:fc00::667)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
@@ -90,131 +90,306 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS5PPFEAC589ED8:EE_|CYXPR12MB9443:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe22dcea-ed89-441a-41d1-08dddf794340
+X-MS-Office365-Filtering-Correlation-Id: efdd7d43-758a-46bd-cdb3-08dddf7945fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NTZVZzNzSjlVWnoxNm5RUWJKRFpkSmt5QzJZaHpRdmJESVlxUCtUSDUveHRu?=
- =?utf-8?B?bHVCLzRKaFNBUDNQaHlTVXJmUTFMQXNCQitwbzdZMzdLZlVyRHJxb0lBd0U1?=
- =?utf-8?B?bnpiMy80K0ZTVE05UndDWm1WZUMyQUo2Z3NhOHI2NU1RWTlWeTdISzd4WmMx?=
- =?utf-8?B?anBuNUhGOGhKaGhVYWlnK3Zqd1pkWHNEdjVlRkZPaTRtRS9IeWF6NGJkRlE2?=
- =?utf-8?B?ZVFpdURGaHhGQUwwMEFpY3d6VWQramxVVEgvR0F6UXhQdFc3dERETVUyaTdJ?=
- =?utf-8?B?SnJaWm9ocllpM2gwOGdYc1VRcXd0bGpNKzhhVWVMY0htdmtBaU40QSszZEI3?=
- =?utf-8?B?Z01BcGFzZ0dJOWs4WUhnVUVaVWIrQVdnZ2NTVEZ6TUVMcWFPZFdVQno4SjIr?=
- =?utf-8?B?M0QvV0xxT1lvaCs3T2RsRXpuK3BBNjF0ZVlrMjlxTkpwUUVlbGJqY1gzd0RJ?=
- =?utf-8?B?QXBaVXJ4UEx4V04rdWNkb0xHbGM4VXorMWFpRGZ4NlhhRWR3M2NFaFlhbmNK?=
- =?utf-8?B?cmUyRkEycHE4dnpJQjRkTnd1dDV6Y20rN0gzYlRPYXhVR2JTQ2ZSNGdXd1ZJ?=
- =?utf-8?B?RGlkVmMzTlhSNWtUcTZNeDFNeWpqZFQyR2cxMXRNUURuYmR4VjJZbUNwcjJX?=
- =?utf-8?B?eXBSOTR3VFRaL1JCeWdFWTBtRHR4RDM2MC9TNi92ZWx0VHJueFF1T0plTW9y?=
- =?utf-8?B?RmhWOTRsTVYxVW9uenJuckU4WE5YaUt1cmdTWS93VDNZYkdRYy9jZXpGK1kv?=
- =?utf-8?B?VGIvRW1BZzhrUG1LdkpHZUtna2NDei9ScUF1MDlCMDY1TlRyT3paQlpjYVIw?=
- =?utf-8?B?WmE0YklySDdnQm41cHhaQkJFL1daS0FCdlRRVFU2MjVncktkWnpEM0xYbXpm?=
- =?utf-8?B?Z1l6QTVuUFllanFTdWlNTVRGL3kzRFJhNktPWmUwcmc0SDdyTUdwZCt1QWwx?=
- =?utf-8?B?MzVCNFU0b2tWU25QY0tzZ2x6emNqeWNoOXQ0cTlHb1JOV0VEK2N1U3I4cy9x?=
- =?utf-8?B?RjF4eW9FNUQ0bDVvdjNyUXdta2c5MGxSOVlwZk5HWjN6N0FJYlRwdXNkUVF4?=
- =?utf-8?B?VUprdVF0WUF1K0dBZFBneVJZR0Y1WitXNjBhV1ZkQk03NXdmclh1cHU0UmFS?=
- =?utf-8?B?WGhweURuVUFaRHRkSmp3SyttOG1rMkp0OWdwdVdoOVA3NFhpT2RsZUtKYXVN?=
- =?utf-8?B?UEJuVWUza3lwU01BVXRVTmExNlg1Rm5YYWJiNW5DSHRFV1ZPd2FkeWhtWFhV?=
- =?utf-8?B?YS9iL3hxV3pyZkcwWm0vUmh2cXFHWUJhbTZiVlljZU56QWYzWVJYbG9kRXVV?=
- =?utf-8?B?VFJBOGhISVhCajNFcmxkakRyUWxwMU0xbmxuTUtlLzVPNUdoUTlxV0s1NG16?=
- =?utf-8?B?THlaV3VOSGptMWw3aHFNR0RkVTFIWmxYbmIxR2FhWVVqUk95NFMxTm56UU1S?=
- =?utf-8?B?VkR0TmQvaGkySmk1VWo5eFlhWnR2d0Y0WlBkd3Rhb0VsZU5Kb0d4N2xpRS9y?=
- =?utf-8?B?QUF6T3FNcUxUL3Ruamc1TWk4SDhnZEg4N0FzSUhQeTdrakdYM1JPWjFUNjFK?=
- =?utf-8?B?enJDRnpWNkJnazlibEI2M2pSQ2tNb0NCQXJ5djZMelQ2Sk5kT1lydzlyTHZs?=
- =?utf-8?B?ZmN5ZnFUWWMybXNYaExrbHhmSnhaQnpIWlFLS2NncXZFTHNjWXZOT25Yejcx?=
- =?utf-8?B?ZTNBQXRGVGdreE9UZFlQN2ZJV3dHSTIzUVlTKys4VGhtWDlyR3hOZ00rd0RI?=
- =?utf-8?B?a2pjNnBYTXhrcmxCeVAzOUc1cnNmcUZyZEc5cHNxc0pUWkpwSzh3RzFLaFps?=
- =?utf-8?B?aU1QcXdtKzlGdHg1LzVKU1J0SlZoUDlCM08wcUU3QWthMXdJT1VOR1I2MHF1?=
- =?utf-8?B?VzQxN2xrUnRlRXl6ckluMFVva3BseTBveGpXTDd4cWpBemYzNWZhbGtXcU5M?=
- =?utf-8?Q?5LTgRTe3tsI=3D?=
+	=?utf-8?B?RXlOa3kyVGlUeUFkaTY5QjRQa0YwTHo3TTRhTU9JQVNxMkZ6QWZyR1BTT0h1?=
+ =?utf-8?B?UWtDbWpOaVc5dzNHYVVzSDg4Q01yVWdWdDV1MDNmaTlFRXhMbVA0TDdsRldh?=
+ =?utf-8?B?SEx2UFh2UFcwaGlBaHAvM09LTVVuV3Y2NWRUVmdpWTVjU2tmN1dVME1FMk1G?=
+ =?utf-8?B?eEJQRExZMFVMOVBxbjlxR00rSDhKQStHd1ZoNjcwS0ROaEpqQU5kYURLYUFu?=
+ =?utf-8?B?ZHJOZ3FONjUyTEFnL3VtZ1RPRlQxaVdWNlc2cFpjZE81NWNRcDJsc3dWSHlY?=
+ =?utf-8?B?RXJJMXRHUyt4bTZpeElteU5FTjR2aXdEbUZRR25LbEsyeldhU2RCUHlVN1ZU?=
+ =?utf-8?B?eWpMQW16blRMcjUvVHAzMGp4MW5USUdrNStVS25SeHVOcnQwMVpsRkM3WXBX?=
+ =?utf-8?B?cFhHL3o0NzRGRmFDZ3FpVVFmT09EZy9BcHhMejhna3JwUTl1Q25VMzhpME9D?=
+ =?utf-8?B?REpaNTcwWTJDeXkwR2wvR3MzQ1VmdFMyMVZzcnNISysvY2VCb0tIc2o5ek5S?=
+ =?utf-8?B?RnpoT0RFTTlBT3N6UGd2R001cEorelhKVlFxeXdrWk5uT3lJTjJKb0JEOUNo?=
+ =?utf-8?B?NjVRMG8yZzY0M2FIT1ZMMVhYenh0QTBJT1ZMYnN5dTBYQzVoYXJIWmE0SHl3?=
+ =?utf-8?B?dEZxOWRVeEdmcEJKWTk2cEMzc2tJN0IvcFcyWkdQSlFqM3h2bGZTT25ySUFS?=
+ =?utf-8?B?NHVucTFJQzJZR2IxVlVGTTh4NTlNS0FKT1hHOUkwUjNmemNRcVN6K3Q4bmdG?=
+ =?utf-8?B?QTVYdk1iMGVCd1ZXSWtsaXRGNGJLdm1WQUIwWGpMeHhKdUxmM2h4Rm5SS1Rj?=
+ =?utf-8?B?MjVDMk04TDhKMWRWeDVXRU5XbmF2RnAyWDBLOU1wQ1dWRXpGcEIvSzc1R1J3?=
+ =?utf-8?B?R3lXYi9NRFh2WXpuVU1ZY2hzeWZKdGdsZTRTUWFyeFZITlVXVVVqZ09taUVP?=
+ =?utf-8?B?TGhMa1kxVm1sY3VhZ3cyY2tzcDQydWZJd2hDOHZPUjJJT2NZYnM2MC9RRW4x?=
+ =?utf-8?B?WXd2QWRiT1psM05jTis0bTdzam9VSjI1UC9Ob0d4bjZ2QzV4YWM3ZFRZNTYy?=
+ =?utf-8?B?TG5ZMjNCUk9EQWUzc3N4eUlZSThvRnMvWHdSTURTdjZYVUdZM3hsVWlYczRo?=
+ =?utf-8?B?aFprYlhQSHJIVGVJaGtnTk4wTURzTTdUUENWbzlMcHVOU1gxcW16alUwcGo2?=
+ =?utf-8?B?S2Jhd3dXYjdTeURUZ3ZQVzJWaDFQY1FVcUo0TW9oOU9mdUIyMXZweGViMFUr?=
+ =?utf-8?B?WHJlZEltaFVkSTh6WGdRNXdpaDI0Q3pwV3orb3QyRkVBdkcwQldVQ2U4RWNC?=
+ =?utf-8?B?QmZ3UXNQS093RnF4WVFDYjBucUsvbWdpbnlWQ0t3dEZrSm96R1hWVHBOSUEv?=
+ =?utf-8?B?MHF6RVFMdzh4dkxmdHN0dUtUMGNPZ1J3TEJqemFJR0h4WkJPNWdJalZlV0di?=
+ =?utf-8?B?NHJ4Sk9Ham5HbzBRUjJqSTIzRllIVGlrQyt6UytjTW1TTlR6R3JxKzdWZ3ll?=
+ =?utf-8?B?eHJjdnVvR1FlaGcyTldKVXhNRzM5cFcxM3d6SitBSWdZOXk2TmJhR05hMnE5?=
+ =?utf-8?B?V1Bvb2lWN2R0ZkdWSmMzdXNZR0RVZ0xFelhzRmpGVnRIV3F0MEZFU25PZy9m?=
+ =?utf-8?B?OFBjTHI5b1c2eFJQQU9wU3gvL0FnQ3dEcDNlempMb2lieEdZdnAvMEFYUHBk?=
+ =?utf-8?B?RmF5cDZHcHRWTkdaVldhTWpKTGcwUXNicFRoakwycWtLcE9lNXREMUhGemIx?=
+ =?utf-8?B?SWVZSEM0V01hTlJUTlVtUmZQY01UQWt1RGMxanY4SkNCNDhFQWFPcUYzTmdL?=
+ =?utf-8?B?NXNzS2Y3T2pyNTdpeHp0TnN1QWxGNGVieGFrU0FpQmNBSllFWkxscjFPZjBQ?=
+ =?utf-8?B?d1RraDQyanQwRTRTOU1ZSDlPOHNBNkttUFhXcS82ZU45d3J3TUJOUW9zTkc0?=
+ =?utf-8?Q?k0HXzaGkwwE=3D?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS5PPFEAC589ED8.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVd0RmJ5NW4rbDFZaG9xWXFLRmJLWFVYRWtUT0psY3MzSjE1ejNPZHVZcWx1?=
- =?utf-8?B?UVk5WVAzYzhML012RHBVVGZ1R0x2eFFmSk5MSjVpYVViT0Fua0wvU2F1Zndi?=
- =?utf-8?B?bmhmY0ppVjJtNTZYc3BuQ1FFenBvYnZWTmJqRGxWU3N4UGo5Q1NNaCtaZmty?=
- =?utf-8?B?MTVCSGt2WldndnBhUllmS0xYMlIxbTVPWHFOc0lkdy9ZMFZTUFFZbGNxb1lP?=
- =?utf-8?B?Y0dRbTFWZDhlZEFtQkllMkRUMndsc2FYU09GbXplZWthOTE3ZjE0RW01amJ5?=
- =?utf-8?B?TzJqQXVOb05BTlhrUkZtWUkrU3VURkdLaEpRdklyMU5TdllsT1FCNTZOMnRi?=
- =?utf-8?B?d2J6OC96dDFBN1FiaktPNkJtc09PTm1kam9kY3JXbUk0WjB1RkFZaXBweUFq?=
- =?utf-8?B?ekgzc1E2Y2dNV2dvTVdMTGxtYjJXblZKcmJDTys4eWdwZXIvUWhkRE95NHhN?=
- =?utf-8?B?RkNmY3lLYnJza1hZUzRSSUlCZnNWMnJ6azFLQ2s1eHZYTnVyc0diaGEyN3hE?=
- =?utf-8?B?cE0xbFBEczN0NVlqOWtOQkNUbS9aa05icVBDODZudEpPQmxJRmFhWlB1VTRU?=
- =?utf-8?B?RnVCb01wbkUzUG9uQml0YjdkdnlrbmNwVkNYKzZhUG1aemkwMFUzUVZlTFNN?=
- =?utf-8?B?ZVZhRXc1dEFiaHY2TEdGMnJ2V3dHeU14UUdkNEgyTEdBRHo3WFByVE9FMmFt?=
- =?utf-8?B?aXRJc1JVS1doME80RDh6N29rOEJqQ21BSFRhUnlOUzduWFZGcnR2WDF1Tk9B?=
- =?utf-8?B?eS9BZnoyQng5ZmlkYXRsS3BaeUY4VlZ4NG9acDFuS3FoUTN6U0MxYTV2ejBD?=
- =?utf-8?B?Q3AwZkU1MzUyekVOMGtJd0d4RlBveXZET2FJNzBUUWVnNjJtOWwycEJQdTZQ?=
- =?utf-8?B?eCt4Y05vNjAvelBQMU5qcXgxeVd3MHlEM2V5T2VJNWl2TitvbUlVZml6UHE0?=
- =?utf-8?B?ZXJrdSsxMWVWK0p3aGp6ZGhIT3lJRm9hd3FrS3BRTG1pTXlGWkZvclBlWkNj?=
- =?utf-8?B?TW5wMjVIaUE4eStzOVFuZnIwQ0RxZVduR2dWR3dSdVRuUXZiSUk1TFdhRW04?=
- =?utf-8?B?ZGJGUkhOQVdSZUQ1RUw1bFFGYWM2Rjd4VmlMYkRqQUtNQlN0cTRDNFYyc2p0?=
- =?utf-8?B?Nit5UlMxNHlQVlN3and1NXV1S2FFWWlvYjYyTkhPdkFxOU80eWhlUmxKNHRR?=
- =?utf-8?B?OVI3SG52R0JJRHRUNjI3eFNMWXZ6dDd2SnMwNGo3Mkplc2Zic3VXR2VvczRl?=
- =?utf-8?B?bFdPMjhzMjFpbU0xZlhmZm84cVFMaWlFQWFvdGUwSm9zRk1NSnVXNHdHUUsx?=
- =?utf-8?B?Mm4xaTFKeU9WN1FaZmtUbmxzbmg4eXRNTUVDUjFRUHlPRVRWNlB2Z3YwWWRE?=
- =?utf-8?B?M1hTYit3S3F5UEI3cGxSYVEwTGE0M2xTc0xHU0F1VzY4VnZwdHBsSWV2SjFR?=
- =?utf-8?B?djJwdWJ1Ums3czFOKzFWL3lVN3NvVExnYVFKajBEYUMySWtCN2Z6eUMxK29h?=
- =?utf-8?B?RlkrVjZIQXMwako5Y2FhK1BPZ09ZTy9RbDVPdzBzTmpyVWx6cFMwOXJlbWNJ?=
- =?utf-8?B?akdPeE84RWJST1NWbjFPOEtuV0srQzhCeldzYlhMZU5yRkNKaHc4cUM3Z3Jj?=
- =?utf-8?B?ZEh5VlQyL0dYVThWUnVER2VKaVJOTDdZOWxBR3luTUZrLzY1Mzd5dlhiQlVJ?=
- =?utf-8?B?SzkyL25vOEFlcjJQZDdTSExFQ21td21tTUVFYWhqSUhqWGxxMFIyaUE3Z2VG?=
- =?utf-8?B?Q01zd2xDeEV0YXdpbFZSV3Q0bVF2Zy92K1p0Y1FPcUZFY2pIMkR2aTVZK2tD?=
- =?utf-8?B?bmVrM01HNEs2eHdLclp5ckFEemZGQjRyK3BhRGdHWTNJUDEvbm5Vc2JKNGxv?=
- =?utf-8?B?R1dNaVVFdmNPWVAxUUx5K0JScWxXYkFQSCtTbnJER1NZb0dkOERBdFZ6UEFu?=
- =?utf-8?B?S1RlTVlEZUVXZjBGVTNVS2hCQmdUaXdPRktFcjZ1eDRaYXErSEc1RTZOM3N5?=
- =?utf-8?B?TWZhN3ZscnRHdHRjaFR2ZXNicVdLL1dyQ2laejdIL1ZicjAyYkduOUlSejNa?=
- =?utf-8?B?dTFQSlYrb3g4WUJ2N1Y3WXlrbHBsbksySkw5TDdHTTRvNzUzb2o1b3JSS1d2?=
- =?utf-8?Q?lkorwKbheSwAoZax+qyltnnpZ?=
+	=?utf-8?B?S2hDU3huRUljdmhlWjRlei9xV3pYS3NTRklVTzZqcmZ0WS9TOG9RS2xPU0F5?=
+ =?utf-8?B?RlFjWUQrOVF6Y3ZGcFdGUEtWRml0VXR0NW1sS0Q4eVNhMTArMWh4V3BmZDM4?=
+ =?utf-8?B?Ryt1R1d2aTE2UFZ6Uy9aSDB6ckxtM0RwSWhaU1JBWEtiTFVxUVhPNW4xb2hq?=
+ =?utf-8?B?VU9OT3FLMWJUS1ZJdXJ1MTFac0t6VHVmZytSbXVhL0tLZC9zdCtoU3ZwcXly?=
+ =?utf-8?B?LzFSYU9wOVR2K3VuQnU5R29KdkxoVEI2dHVkY1JqVi9HZkF6bGhpbHdtZDY1?=
+ =?utf-8?B?bUgxMENCclFHNll2OWdySHE4NnJGUFgyVWNPK0MxTjF4VGl5K2l1bThqeWl1?=
+ =?utf-8?B?UEk5eDZ3ZlUzNTJLWWtPaE9PdDBVd1VjSS9CRmhjczdEY3dFOHBmTmxhWmI5?=
+ =?utf-8?B?V2Z4VmlVWE15bDh3ZnM2ZUZSSUdMQjRZdVZ5WGJUeVhiaVZzUWt0VTNjTHYr?=
+ =?utf-8?B?S0NqUHppVzdtTDA1M05IM0lvSVBxcGNUTmdMditSVjNPT3BNMHYyTjd3b2dD?=
+ =?utf-8?B?NHhlVFZZdTJXYStyRjh0SXhjVEtOWFlNS3ZXWk1XTDJ4THgvcGgyVnk3SjhM?=
+ =?utf-8?B?QVFMZEgvUnVLZUpIcmhCdkJ2N3E5WFpMQUU0SXhCVXJYUWZ3Zy9wSFVTa3VE?=
+ =?utf-8?B?MjBTTzNkcTVyQ05BT0c1djRQejVERFA2ZnBBVTFkRjdybE1aQmRBRVljVmlw?=
+ =?utf-8?B?M1p0ZWhYLzhDdVcxNWJaajhkZ0orWjVFUkdVUm50MFlydlFXaXJNOHQ0SE1R?=
+ =?utf-8?B?WVJzWVNLdC9tbmIrVXhUM3MzeVFROFhjbmVZeTJqaW5zVWpNKzhoc2QvSzU4?=
+ =?utf-8?B?RlNKdThHdy85TDViSUNsdjl5VHJmTHlIVWJJV2hMUnRjME9NWXljMyt4WFFp?=
+ =?utf-8?B?UlRpaWQ2K3FPVTFycmJEMkZrcDFBRGdGY0JDZHZkcklaQ1ZCUlZ3ZlRkL2U4?=
+ =?utf-8?B?dStKMDN0RWpmOUVjbzE2MUhKM0d5djJiZG96VzE3N25Vb1FLM2RzaWw2Rm5W?=
+ =?utf-8?B?NnRYUkZ2SUhSd0lqdUR4U0tJOERwREtiNXhDQi9sZ2RoZ1FXZHN4Q0hINTBu?=
+ =?utf-8?B?RmM4ZkZaNnc1b1cxSUtjUS9nOStWdzFES0xwano0RXc4RnRRZGxPUDdrSHBn?=
+ =?utf-8?B?Sk93Z1Q5bTJXandYSzJoQmRTS3ZXM0U2YmIyN0duK3BldlNRaFhVekJGMDF3?=
+ =?utf-8?B?NDJzYm1qWXpEZ0RDNjhhbUgyMlBDN243TjhzTlZ1d3h5TmhEMUMvWHNMVUZK?=
+ =?utf-8?B?WFI0K1kzM0tSc1M5WlVxMkFPMG10R01CNVpkVXVsUTMzMWg4RllOSW94R2Mv?=
+ =?utf-8?B?YW1vSVFXSy9XQ3YrMnd6WlQyYkFzRU5pUUE0dmhxcjMvRjVHamZWS2xlQUlX?=
+ =?utf-8?B?V0Z6MW0wODVqWS9PblF3VHdNbXJIcytGd2R5dmN5eWp0YjZ3M0dRTHVRZks5?=
+ =?utf-8?B?WDFxVEFaSCt0NkVhNC95YmVyWmdUYUZlOGVkelVHeTI3aWNsZm8xNk96bGRU?=
+ =?utf-8?B?N0ZrbE9CZHkvZzBpYXFVTFlNbWRWSEpBZmRJWVlGelVjNGtOOFpOZHNZQXpy?=
+ =?utf-8?B?KzhGZHk1VGZSUHJQKzlMM0FJVVlEUnVwV1NjaDNwS0NuQzJoSW96REdtdGx1?=
+ =?utf-8?B?NWxuMGRSR1ZqODhlN28ydlN3b0IyWTRiZGhsZDhzVnNRV3lhcGI5TVgwbmhD?=
+ =?utf-8?B?QXBUTWFxcTNKd1pIRGgrMjNVWWhvdzlaWHRpdGZMbzVhZmtISXJHWmJSblZz?=
+ =?utf-8?B?bnYvSTc5TUVHbmQ3WjJTZVhZZFhlVGRTSHRLSk04UUJVN0RYQldIOHNVanYz?=
+ =?utf-8?B?THJOS0RqYzRydXJheVNBOVZWM3V0T2lXL0ZNdmhaMlBJTS9FUHFlMTQyRjB5?=
+ =?utf-8?B?c01ibnpSMUNlYko4OU5hS2FxKzdYRks3MkZvL1FBeHF3emVZM2RSSjRGSnh5?=
+ =?utf-8?B?NFNBR2RHNGlPNGV3K0EvOGRFbk1oNkFtOGl5bWtWbUlISDVPN1FqaXZxaGkr?=
+ =?utf-8?B?M2lodnduMFg0OEl5THVZQXZ5Q0dxM1NSUHYxVWoxS3pvNElQZDBiMjZ1ZUQz?=
+ =?utf-8?B?aXRVbTkrUUdLS2p6MkJhcXU1YitIQzltc0pPWU1EQmJSTEpuK2phcFQ0N1Z4?=
+ =?utf-8?Q?FV+7YFztJTEPlFMYrcEQikqIP?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe22dcea-ed89-441a-41d1-08dddf794340
+X-MS-Exchange-CrossTenant-Network-Message-Id: efdd7d43-758a-46bd-cdb3-08dddf7945fc
 X-MS-Exchange-CrossTenant-AuthSource: DS5PPFEAC589ED8.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2025 23:36:47.1493
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2025 23:36:51.7594
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vBErzpMjKy1TKxDgbx7gVMPSKKwnRQA6/6p+h6Js8YePK6w4YYLjIpNu4eA9F4EKYMzQgZhmr9ehP/ke/gpVVQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wgsb7YjRjTQByw9P1t0TQsutaEAGFpzFrDVf3T6D6zALRQcom29Rf+Mszw90yyi7z6GGQMdniolpXWfd9cGQ+g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9443
 
-This patch series backports MCTP over USB to the open-bmc 6.12 branch.
-The commit series is mostly the base support, with the addition of bindings
-via IFLA attributes. No out of tree fixes were added in this patch series.
-The base for base support of the MCTP USB transport device were taken
-with the fixes from 6.6
+From: Khang Nguyen <khangng@os.amperecomputing.com>
 
+MCTP control protocol implementations are transport binding dependent.
+Endpoint discovery is mandatory based on transport binding.
+Message timing requirements are specified in each respective transport
+binding specification.
+
+However, we currently have no means to get this information from MCTP
+links.
+
+Add a IFLA_MCTP_PHYS_BINDING netlink link attribute, which represents
+the transport type using the DMTF DSP0239-defined type numbers, returned
+as part of RTM_GETLINK data.
+
+We get an IFLA_MCTP_PHYS_BINDING attribute for each MCTP link, for
+example:
+
+- 0x00 (unspec) for loopback interface;
+- 0x01 (SMBus/I2C) for mctpi2c%d interfaces; and
+- 0x05 (serial) for mctpserial%d interfaces.
+
+Signed-off-by: Khang Nguyen <khangng@os.amperecomputing.com>
+Reviewed-by: Matt Johnston <matt@codeconstruct.com.au>
+Link: https://patch.msgid.link/20241105071915.821871-1-khangng@os.amperecomputing.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit 580db513b4a9d52f306580015a1872eea0a0894e)
 Signed-off-by: Marc Olberding <molberding@nvidia.com>
 ---
-Jeremy Kerr (2):
-      usb: Add base USB MCTP definitions
-      net: mctp: Add MCTP USB transport driver
+ drivers/net/mctp/mctp-i2c.c    |  3 ++-
+ drivers/net/mctp/mctp-i3c.c    |  2 +-
+ drivers/net/mctp/mctp-serial.c |  5 +++--
+ include/net/mctp.h             | 18 ++++++++++++++++++
+ include/net/mctpdevice.h       |  4 +++-
+ include/uapi/linux/if_link.h   |  1 +
+ net/mctp/device.c              | 12 +++++++++---
+ 7 files changed, 37 insertions(+), 8 deletions(-)
 
-Khang Nguyen (1):
-      net: mctp: Expose transport binding identifier via IFLA attribute
+diff --git a/drivers/net/mctp/mctp-i2c.c b/drivers/net/mctp/mctp-i2c.c
+index e70fb66879941f3937b7ffc5bc1e20a8a435a441..d2b3f5a5914188bdd6882b28e5adf2dfc40e71be 100644
+--- a/drivers/net/mctp/mctp-i2c.c
++++ b/drivers/net/mctp/mctp-i2c.c
+@@ -880,7 +880,8 @@ static int mctp_i2c_add_netdev(struct mctp_i2c_client *mcli,
+ 		goto err;
+ 	}
+ 
+-	rc = mctp_register_netdev(ndev, &mctp_i2c_mctp_ops);
++	rc = mctp_register_netdev(ndev, &mctp_i2c_mctp_ops,
++				  MCTP_PHYS_BINDING_SMBUS);
+ 	if (rc < 0) {
+ 		dev_err(&mcli->client->dev,
+ 			"register netdev \"%s\" failed %d\n",
+diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+index 1bc87a0626860fecc0025536a4cb481d03a5fa7e..9adad59b867672d6eff1796729ea335789d35401 100644
+--- a/drivers/net/mctp/mctp-i3c.c
++++ b/drivers/net/mctp/mctp-i3c.c
+@@ -607,7 +607,7 @@ __must_hold(&busdevs_lock)
+ 		goto err_free_uninit;
+ 	}
+ 
+-	rc = mctp_register_netdev(ndev, NULL);
++	rc = mctp_register_netdev(ndev, NULL, MCTP_PHYS_BINDING_I3C);
+ 	if (rc < 0) {
+ 		dev_warn(&ndev->dev, "netdev register failed: %d\n", rc);
+ 		goto err_free_netdev;
+diff --git a/drivers/net/mctp/mctp-serial.c b/drivers/net/mctp/mctp-serial.c
+index e63720ec32384b642a96d12843795db8230a8486..26c9a33fd636484b1c890397c21409d101b16308 100644
+--- a/drivers/net/mctp/mctp-serial.c
++++ b/drivers/net/mctp/mctp-serial.c
+@@ -23,6 +23,7 @@
+ 
+ #include <linux/mctp.h>
+ #include <net/mctp.h>
++#include <net/mctpdevice.h>
+ #include <net/pkt_sched.h>
+ 
+ #define MCTP_SERIAL_MTU		68 /* base mtu (64) + mctp header */
+@@ -470,7 +471,7 @@ static int mctp_serial_open(struct tty_struct *tty)
+ 	spin_lock_init(&dev->lock);
+ 	INIT_WORK(&dev->tx_work, mctp_serial_tx_work);
+ 
+-	rc = register_netdev(ndev);
++	rc = mctp_register_netdev(ndev, NULL, MCTP_PHYS_BINDING_SERIAL);
+ 	if (rc)
+ 		goto free_netdev;
+ 
+@@ -492,7 +493,7 @@ static void mctp_serial_close(struct tty_struct *tty)
+ 	struct mctp_serial *dev = tty->disc_data;
+ 	int idx = dev->idx;
+ 
+-	unregister_netdev(dev->netdev);
++	mctp_unregister_netdev(dev->netdev);
+ 	ida_free(&mctp_serial_ida, idx);
+ }
+ 
+diff --git a/include/net/mctp.h b/include/net/mctp.h
+index 28d59ae94ca3b486ccc86d05aed26e998ad50c4d..1ecbff7116f62dd7eb2f9ac8273a162d7e7a3357 100644
+--- a/include/net/mctp.h
++++ b/include/net/mctp.h
+@@ -298,4 +298,22 @@ void mctp_routes_exit(void);
+ int mctp_device_init(void);
+ void mctp_device_exit(void);
+ 
++/* MCTP IDs and Codes from DMTF specification
++ * "DSP0239 Management Component Transport Protocol (MCTP) IDs and Codes"
++ * https://www.dmtf.org/sites/default/files/standards/documents/DSP0239_1.11.1.pdf
++ */
++enum mctp_phys_binding {
++	MCTP_PHYS_BINDING_UNSPEC	= 0x00,
++	MCTP_PHYS_BINDING_SMBUS		= 0x01,
++	MCTP_PHYS_BINDING_PCIE_VDM	= 0x02,
++	MCTP_PHYS_BINDING_USB		= 0x03,
++	MCTP_PHYS_BINDING_KCS		= 0x04,
++	MCTP_PHYS_BINDING_SERIAL	= 0x05,
++	MCTP_PHYS_BINDING_I3C		= 0x06,
++	MCTP_PHYS_BINDING_MMBI		= 0x07,
++	MCTP_PHYS_BINDING_PCC		= 0x08,
++	MCTP_PHYS_BINDING_UCIE		= 0x09,
++	MCTP_PHYS_BINDING_VENDOR	= 0xFF,
++};
++
+ #endif /* __NET_MCTP_H */
+diff --git a/include/net/mctpdevice.h b/include/net/mctpdevice.h
+index 5c0d04b5c12cbe43acdbf061b052823095fa6e33..957d9ef924c514ab4216e31c8ccc7a0e3f3e228f 100644
+--- a/include/net/mctpdevice.h
++++ b/include/net/mctpdevice.h
+@@ -22,6 +22,7 @@ struct mctp_dev {
+ 	refcount_t		refs;
+ 
+ 	unsigned int		net;
++	enum mctp_phys_binding	binding;
+ 
+ 	const struct mctp_netdev_ops *ops;
+ 
+@@ -44,7 +45,8 @@ struct mctp_dev *mctp_dev_get_rtnl(const struct net_device *dev);
+ struct mctp_dev *__mctp_dev_get(const struct net_device *dev);
+ 
+ int mctp_register_netdev(struct net_device *dev,
+-			 const struct mctp_netdev_ops *ops);
++			 const struct mctp_netdev_ops *ops,
++			 enum mctp_phys_binding binding);
+ void mctp_unregister_netdev(struct net_device *dev);
+ 
+ void mctp_dev_hold(struct mctp_dev *mdev);
+diff --git a/include/uapi/linux/if_link.h b/include/uapi/linux/if_link.h
+index 2acc7687e017a997c07fe3a9e54ac94a87c88230..9e76f8e59ce9a831e19ac8baadd5069457071040 100644
+--- a/include/uapi/linux/if_link.h
++++ b/include/uapi/linux/if_link.h
+@@ -1957,6 +1957,7 @@ struct ifla_rmnet_flags {
+ enum {
+ 	IFLA_MCTP_UNSPEC,
+ 	IFLA_MCTP_NET,
++	IFLA_MCTP_PHYS_BINDING,
+ 	__IFLA_MCTP_MAX,
+ };
+ 
+diff --git a/net/mctp/device.c b/net/mctp/device.c
+index 85cc5f31f1e7c0a0c3f51c5e924d9424dec27b5a..4498184a6a152e967f0386e607a72cd7264473b5 100644
+--- a/net/mctp/device.c
++++ b/net/mctp/device.c
+@@ -371,6 +371,8 @@ static int mctp_fill_link_af(struct sk_buff *skb,
+ 		return -ENODATA;
+ 	if (nla_put_u32(skb, IFLA_MCTP_NET, mdev->net))
+ 		return -EMSGSIZE;
++	if (nla_put_u8(skb, IFLA_MCTP_PHYS_BINDING, mdev->binding))
++		return -EMSGSIZE;
+ 	return 0;
+ }
+ 
+@@ -385,6 +387,7 @@ static size_t mctp_get_link_af_size(const struct net_device *dev,
+ 	if (!mdev)
+ 		return 0;
+ 	ret = nla_total_size(4); /* IFLA_MCTP_NET */
++	ret += nla_total_size(1); /* IFLA_MCTP_PHYS_BINDING */
+ 	mctp_dev_put(mdev);
+ 	return ret;
+ }
+@@ -480,7 +483,8 @@ static int mctp_dev_notify(struct notifier_block *this, unsigned long event,
+ }
+ 
+ static int mctp_register_netdevice(struct net_device *dev,
+-				   const struct mctp_netdev_ops *ops)
++				   const struct mctp_netdev_ops *ops,
++				   enum mctp_phys_binding binding)
+ {
+ 	struct mctp_dev *mdev;
+ 
+@@ -489,17 +493,19 @@ static int mctp_register_netdevice(struct net_device *dev,
+ 		return PTR_ERR(mdev);
+ 
+ 	mdev->ops = ops;
++	mdev->binding = binding;
+ 
+ 	return register_netdevice(dev);
+ }
+ 
+ int mctp_register_netdev(struct net_device *dev,
+-			 const struct mctp_netdev_ops *ops)
++			 const struct mctp_netdev_ops *ops,
++			 enum mctp_phys_binding binding)
+ {
+ 	int rc;
+ 
+ 	rtnl_lock();
+-	rc = mctp_register_netdevice(dev, ops);
++	rc = mctp_register_netdevice(dev, ops, binding);
+ 	rtnl_unlock();
+ 
+ 	return rc;
 
- MAINTAINERS                    |   1 +
- drivers/net/mctp/Kconfig       |  10 ++
- drivers/net/mctp/Makefile      |   1 +
- drivers/net/mctp/mctp-i2c.c    |   3 +-
- drivers/net/mctp/mctp-i3c.c    |   2 +-
- drivers/net/mctp/mctp-serial.c |   5 +-
- drivers/net/mctp/mctp-usb.c    | 386 +++++++++++++++++++++++++++++++++++++++++
- include/linux/usb/mctp-usb.h   |  30 ++++
- include/net/mctp.h             |  18 ++
- include/net/mctpdevice.h       |   4 +-
- include/uapi/linux/if_link.h   |   1 +
- include/uapi/linux/usb/ch9.h   |   1 +
- net/mctp/device.c              |  12 +-
- 13 files changed, 466 insertions(+), 8 deletions(-)
----
-base-commit: 03ff31ad54522521755b55609eaad19db05ddf46
-change-id: 20250819-mctp_over_usb_backport-d752f11f7f7a
-
-Best regards,
 -- 
-Marc Olberding <molberding@nvidia.com>
+2.34.1
 
 
