@@ -1,68 +1,72 @@
-Return-Path: <openbmc+bounces-518-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-519-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC89CA0EFF
-	for <openbmc@archiver.kernel.org>; Wed, 27 Aug 2025 18:04:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E48DCCA0EED
+	for <openbmc@archiver.kernel.org>; Thu, 28 Aug 2025 20:47:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cBsqC3jwSz30Ff;
-	Thu, 28 Aug 2025 04:04:07 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.20
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756317847;
-	cv=none; b=aJD2yroRBtMpPuPXy9oVPpgl+48C0y+H//F7RqY3sZ9uZuvP/1DPxoIEL9JOZujhfcESIOt18bfcwkhW4bHoJ6vFbzoFZYcqKLhC+cAwu7tdrUyBZbsF8A9HUUqA3Z5KQpyUxWQKrduOa8/CsdMdJ9ulEc/1a35fRHYxBrWnt16qbwHRKGbR1yKuxmhaDcaKzebqB9Rx2q/9Vi6i/cyHx7tYlBe4WkSV6pY6I5cJ71uhBLm6kqU9kNTaJy4v9dleYz9pstsvvtHGL5Enz2cJNdUky05YNl+dhsO3o1p/+OFZlx1ey4dh2gBDN1SQSLwzxi69aQJ34jkUeuHtGBdcmw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cCYNw4c7gz2yDH;
+	Fri, 29 Aug 2025 06:47:12 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::233"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756414032;
+	cv=none; b=acnkxhbizKIMVacWnDIB6c4ioCaytVYGL10kF6QZC42pG23KAHHukBjyeMTfn0SPj/++j8bRNxWiY7Q6y7/687TVVon1CD037H52qdhMPvJ0e5tjyxQtZvX7yRqX9ZfrA0qk8cZEwN7gQWSs/Llfs1CPCXiCWzCoDBnLLarpyhnZIeYznx+4vmh/D2y+Ou8iRtjtIpxuqI4u8MbE/9euhDmrN2e5nrS0PO8Vsp3pHUz9WyXpNRH1T+VqlnsxBuB/SgNf/j/ushfOjVFhfLLjZt83StxYaEIJPc/g75EaZyzzJQmKyE+v3WMg1ata5nryqjuxhFhJfIsh2ei370YATg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1756317847; c=relaxed/relaxed;
-	bh=ujBeZMOXe1Crk7HVOe9QSRiJGoiMxXZY5Pu/IWuIMXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=EVpxsRm1pDgKpNUXSfgdEaOJYvAXbnz/eUbXxA7pHUNSfTKw6LwFySS5MdohAKd3QQgZqCK6tGNsVzkvI3PDzmqB9DOp1RmVkFq5vlR/a0sHlVsybLddYqkeY7frBYS+iCyfEMys7gvG8bMjGjBy2Mnww4Q0Z+/CtCuYpBfhI3xokfHlOlpWS6+bM2tGHqCQUd82KirmWScOwe6xmhfchWm7JvJI4Qo24QjacJxqmgSySgK50+9iUa2uxnk/QAV53aFZf56fJVzccC1ilzKCncavmqy3aYk6VJMaBwssTxbwlrfR2Uwt7qbJceSi0LVE6OGc5XxHDVVysXCVG5zB8Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d9odPDvm; dkim-atps=neutral; spf=none (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	t=1756414032; c=relaxed/relaxed;
+	bh=yypyaBN746HsDrUzE1kCYfLJaG9FQJercS2A7aMVfV4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O/BdaFLy1XDnpCAlY7rfQ7wL7xWDo/KZZVRGktHHk+WwHCp9Hy4wWOjaZD2dhx/jbMwBvxa2x4DQ0YNErK2zD/gkrOKTFBLmMHLWj3bsayckhA2WQWtf9pimtlxvXXFQeLL2n8q9TxBrIqks6xDJcOr3TVkoJvka/KysghmQgUou+PQ9b8FQIPr0FxBF1J5ufux5VwYEdqrDnMW9oLSSzrTG4JVV++ukpuaTr6kkdg7eib/zroqoX3AEK7hOAT0KGqCToWHHvZJ27cqOB5wFRd2m6gWXoK9OaUryS2Y61ZaOmzRDyBGxw/U5HI8ZlxkUAL6HYvCQX/0AyIux3ufw0A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YS+DCWsK; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::233; helo=mail-lj1-x233.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d9odPDvm;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=YS+DCWsK;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=linux.intel.com (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=jason.m.bills@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::233; helo=mail-lj1-x233.google.com; envelope-from=linus.walleij@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com [IPv6:2a00:1450:4864:20::233])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cBsq84RD6z2yDH
-	for <openbmc@lists.ozlabs.org>; Thu, 28 Aug 2025 04:04:03 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1756317845; x=1787853845;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=0PMZCMNibnnkM+oSWniqU7KF5VGZh7IxpgBp6me+tCc=;
-  b=d9odPDvmrCKOq0VP9BR2I1gWZ3B7I0ClDW/5p7xLuqGnCKgzdGcWP8da
-   bhNw25NKtpgni+c0CJLPrCOuzFqQFxOUhj7s1Pn/JfRNipkpkUp1ltowU
-   CV4Y4I97lX+okbNYblQv9wJ0ls3iMFDRZixj0S6SpF9CfY1sgEkjyhgFz
-   74fiudZXzqMHq8aXdshygTxD4Ceh/+ydeoD15hkLG0e0oGQ1LuLELdYMr
-   ts2+YDS49k1Z3cxQVxG6TWB5dWMH7IyQUnvKrVXfUGuQS9JR6evej3W0X
-   sicJuIYcCtwzV0ov49YX/XiiINrhFCcE5ItGlmqthYzxliIarnAt/3Xp1
-   Q==;
-X-CSE-ConnectionGUID: qPONfC7ST86Qso1qWfoOgQ==
-X-CSE-MsgGUID: 3tppoVgTRJebhdziSyoN9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11535"; a="58288493"
-X-IronPort-AV: E=Sophos;i="6.18,217,1751266800"; 
-   d="scan'208";a="58288493"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2025 11:04:01 -0700
-X-CSE-ConnectionGUID: DgEdvBkhQnav3ejXE7auig==
-X-CSE-MsgGUID: cmzxLtkaRWCvzTV/HIjcqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,217,1751266800"; 
-   d="scan'208";a="169500489"
-Received: from linux.intel.com ([10.54.29.200])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2025 11:04:01 -0700
-Received: from [10.124.90.30] (jmbills-mobl1.amr.corp.intel.com [10.124.90.30])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by linux.intel.com (Postfix) with ESMTPS id ABAE320B571C
-	for <openbmc@lists.ozlabs.org>; Wed, 27 Aug 2025 11:04:00 -0700 (PDT)
-Message-ID: <0f0550bd-34b7-4f47-b472-160007bb8683@linux.intel.com>
-Date: Wed, 27 Aug 2025 12:03:59 -0600
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cCYNt3jNLz2xd4
+	for <openbmc@lists.ozlabs.org>; Fri, 29 Aug 2025 06:47:09 +1000 (AEST)
+Received: by mail-lj1-x233.google.com with SMTP id 38308e7fff4ca-336b63d2e56so1114681fa.2
+        for <openbmc@lists.ozlabs.org>; Thu, 28 Aug 2025 13:47:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1756414024; x=1757018824; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yypyaBN746HsDrUzE1kCYfLJaG9FQJercS2A7aMVfV4=;
+        b=YS+DCWsKqGX9lwcpyYsEErcCyxFcvsqbqJMu2PhCkg4VFQKMbSxL4QgfE3mkmWD0yX
+         AoxWmBwTVmTB7JsK014lujSttoFrQA/CLbPKSRwr4GRSPey7luwy1z9QKQT7tQ0kpqPh
+         0ObadyKm4GdHXAkU93Dw5jRYfkwz2EZ7brVWzV4pJ+tvtv0tgtTzC3axkHRzRjtNpUkt
+         htxURHyzNwtHxzruKh7NmG/Sm8CubBYishDDWzFN9HnQVfIJzD+R5VWtA2G0kpkY92GO
+         1XJB4kLB38SkTJJrkmp1kc8aiUSiIwOwOAtQjFdM/HDeNvTbd5ffdHxNEnirk6CUrXtU
+         TWbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756414024; x=1757018824;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=yypyaBN746HsDrUzE1kCYfLJaG9FQJercS2A7aMVfV4=;
+        b=wyD2Gxy2Fw5waJp3Ew5OzKpfuoLSvjziNKHA+qfss2n5IC4Du64wzZYaWz19iXLuGo
+         BPorftMLiDwyVBxdhykpL31yP2bzSM0NbUjJKihEKrGJWNc6fvhWIRhiul/qvdpcorGB
+         HBxPyL9wpKF2lEc+o3vQUk/xaG1oxlnBWXENO8PNCX84CjIqhHrhFYDIGlQpvv0/gGz0
+         KcOmkqpLTxpHD1BwB381RgIzVWTio77iFDfZuN5GI7a697mfIpMyOJIjX2KD7icXtEVV
+         9Nid8VdB/H1Sm6ZwvtFXmea99grbWCnreJsWbAWhBurY6NxLQtv5XQxIhUTvWm2dE8AW
+         jppQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVNbOdZhPiq92A2Z7b5MPetDCumGPXNOiaSd32pzFkavbdTtPTGDrUB+50VO4YXto2BxyJCihqt@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzM2/4nU7DqHm0EpE78P3+/qy33poezvu2WcPbPk3pPh/LJKg02
+	gbcoE0Uq/fJCvFjhcuiEzL0bJtPorIqqLxVWgkzlpAWriAfhh7/rB+eQCAdm+UEEQccbGRy/Fwl
+	RDJSuZgX0B6PeM754oVXnEmqIMTz9n8QCj9fcUQ1f/Q==
+X-Gm-Gg: ASbGncuo2KVEo8PT7ay7bI8wckYdZN1wvtKKlLj4+tsKCq0Hw/a6+H80djiKXkZ5J37
+	FC4qKabyzAn0j9LUTcrmv2dPwMJju2PcRV8U8RjBllxXb1ryMIu9ZFc5cIkOZ4nLSPRWoCrxbW2
+	LjsHziRZXjPpjey2vhx4wVHP45IdSLs+KBG943RiGY9qUxFBJ4CghsUQf9r3j5CR5w7RGvM1Q6C
+	mzqDSA=
+X-Google-Smtp-Source: AGHT+IE2uWhuibXcObFZ5VTNIy6zlok6JnK2MWtwL7cqbL+/SAGd1n7jHXQKxLY98v4CVTQiyLHeR0E2ooltz4RMmZg=
+X-Received: by 2002:a05:651c:23d2:10b0:333:f086:3092 with SMTP id
+ 38308e7fff4ca-33650e704femr56328661fa.11.1756414024499; Thu, 28 Aug 2025
+ 13:47:04 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,100 +78,45 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Modifications in PLDM T5 flow to support SPI staged update
-To: openbmc@lists.ozlabs.org
-References: <CADCscQ=9xHFPfoS9BY5Nuib36nQvfcC_jwhmcPRyibgw4_ObXA@mail.gmail.com>
- <DC3C6C29-2ABB-4E27-834A-02EBE322B82D@stwcx.xyz>
-Content-Language: en-US
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-In-Reply-To: <DC3C6C29-2ABB-4E27-834A-02EBE322B82D@stwcx.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20250715034320.2553837-1-jacky_chou@aspeedtech.com>
+ <20250715034320.2553837-8-jacky_chou@aspeedtech.com> <CACRpkdarn16N9637dL=Qo8X8o==7T=wBfHdXPczU=Rv3b270KQ@mail.gmail.com>
+ <SEYPR06MB513491FF4398138F8A52A5469D38A@SEYPR06MB5134.apcprd06.prod.outlook.com>
+In-Reply-To: <SEYPR06MB513491FF4398138F8A52A5469D38A@SEYPR06MB5134.apcprd06.prod.outlook.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 28 Aug 2025 22:46:53 +0200
+X-Gm-Features: Ac12FXzlvTJpPFPcU9uQ_fN2isTkkss2_BjIEzvxJnxhjmRwD11F1FNpCNVPGsc
+Message-ID: <CACRpkdbmRpH1+HtW+vbK7rVk6OCEve54BxTAxrUhX631a2KP1w@mail.gmail.com>
+Subject: Re: [PATCH v2 07/10] pinctrl: aspeed-g6: Add PCIe RC PERST pin group
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: "bhelgaas@google.com" <bhelgaas@google.com>, "lpieralisi@kernel.org" <lpieralisi@kernel.org>, 
+	"kwilczynski@kernel.org" <kwilczynski@kernel.org>, "mani@kernel.org" <mani@kernel.org>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "joel@jms.id.au" <joel@jms.id.au>, 
+	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>, 
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Aug 27, 2025 at 5:08=E2=80=AFAM Jacky Chou <jacky_chou@aspeedtech.c=
+om> wrote:
 
+> May I remove this patch in the next version of this series?
 
-On 8/15/2025 7:25 AM, Patrick Williams wrote:
-> Are there Redfish methods of initiating this now?  I recall a workgroup 
-> at OCP was trying to get this done there.
-> 
-> — Patrick Williams
-> 
->> On Aug 15, 2025, at 8:15 AM, Tom Joseph <rushtotom@gmail.com> wrote:
->>
->> ﻿
->>
->> Hello All,
->>
->> SPI Staged Update enables pre-downloading firmware component images 
->> for supported devices, significantly reducing downtime during firmware 
->> updates and activation. This requires devices to support at least two 
->> slots — one for the running firmware and another for staging the new 
->> image.
->>
->> The update process occurs in two iterations:
->>
->> 1.
->>
->>     First Iteration:
->>
->>      *
->>
->>         The PLDM UA initiates the PLDM T5 flow with the PLDM FD
->>         supporting staged updates.
->>
->>      *
->>
->>         All stages (Transfer, Verify, Apply) are completed
->>         except activation. This is achieved by PLDM UA skipping the
->>         PLDM T5 ActivateFirmware command.
->>
->>      *
->>
->>         Upon state machine timeout, the PLDM FD marks the new image
->>         as /staged/ (not failed update). Since it’s staged, it remains
->>         inactive until explicitly activated later.
->>
->> 2.
->>
->>     Second Iteration:
->>
->>      *
->>
->>         The same PLDM package is used. Since the image is already
->>         staged, the PLDM FD skips most of the Transfer stage, reducing
->>         downtime.
->>
->>      *
->>
->>         This iteration is typically scheduled during a maintenance window.
->>
->>      *
->>
->>         Devices that do not support SPI staging are updated in this
->>         iteration.
->>
->>      *
->>
->>         All firmware is activated after this iteration.
->>
->> To enable this, we propose introducing a new OEM parameter in the 
->> MultiPart API to instruct the PLDM UA to skip sending the | 
->> ActivateFirmware|command, along with necessary PLDM UA modifications 
->> to support the SPI staged flow.
->>
->> If there is interest within the OpenBMC community to adopt and 
->> collaborate on this feature, please feel free to reach out.
->>
+Yes, and in fact it could have been sent separately from the
+rest as well, no need to keep things in a big bundle, it's
+easier to merge in small pieces.
 
-Intel has interest in being part of an OpenBMC community collaboration 
-on this feature.
+The only upside with the big bundles is to help developers
+develop all in one place and have a "big branch" to test.
+But it doesn't really help the Linux subsystem maintainers.
 
->> [1] https://docs.nvidia.com/multi-node-nvlink-systems/nvfupd-guide/ 
->> appendix/spi-staged.html <https://docs.nvidia.com/multi-node-nvlink- 
->> systems/nvfupd-guide/appendix/spi-staged.html>
->>
->> Regards,
->> Tom
-
+Yours,
+Linus Walleij
 
