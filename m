@@ -1,188 +1,95 @@
-Return-Path: <openbmc+bounces-520-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-521-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D06AACA0FF6
-	for <openbmc@archiver.kernel.org>; Thu, 28 Aug 2025 21:51:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF455CA0FF6
+	for <openbmc@archiver.kernel.org>; Thu, 28 Aug 2025 23:51:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cCZqX0rxxz2xnq;
-	Fri, 29 Aug 2025 07:51:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=198.175.65.20 arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756417912;
-	cv=pass; b=AkBjz/KROugEU972y2av+3crufWjWge9PjmTG0DnfJR0CLHaB3l11gCRi+2Dez34JOIKGqrH3x9KTYFVtkGfk8WgcqCa19SNFzZ07zc9NCP87+VO+esueYGOLvvpvcia/eCApcIsPDkJ9QIkm4P/3Erp/IdTXz46HD/eOYnXR5xrKl8DM/pN+WPknW1fMf3YG48VkMkWVg3s3YNKlqiTgWnFlMO01Em4zfqUdRO0dUYlLpDTZKqBa3Dk4HBtA4GTcgdbqMxFleT+IREd0EcJ1MZXm+B8Ij/XkIX/kGXzhUfhDxJxHpn+pMA1zojhwoTB7BON67Rvd3SdNOJX/A9PoQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1756417912; c=relaxed/relaxed;
-	bh=CrqdA3J2Z4Ag4Jtseq0iZmcn57TXIU9bx9vWcWTKgb8=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=O3O3LKcyVaHQ5/0G7/YcBxbuodz3XnbpzoSRve9i+BeWX4efSAjDqAvIS+nwEa6YyrRlq9AftzBAWR2cCyNQn/Xx+IcARssGCbpcoSzmlkMP3BLh/QP1s6drJa9Jt7AWAgWtJ0dXgYAhrGsjUmGLJzqNkrX3xIeHRCtD0oCMxLXqFv+DRLxoJbzEW3Ohgt8MJE65MNjhNG6jEhF9HoLL84sXasUTAdeMBSV3U4powsZj8dp7GwWBveS/yMpFmyiruMapVEWZKZCUx7acEFN1Q4WjouzIGksZfCf2SMiNyvLDczWhKoEHtrrtxBFR6nbRRzCfR63kczTzljsmhu7b5A==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BLLffdm3; dkim-atps=neutral; spf=pass (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=iwona.winiarska@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cCdTH5L35z2yr8;
+	Fri, 29 Aug 2025 09:51:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::12a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756377524;
+	cv=none; b=XTFJF1Ez//FtlIiUSDWNMt5bO0r/34MUMNFB36Aj/9TcJUu7OrWe04u8MuANtdN4iMC3NuX+Blx2HHRPAchvQNKoVcBF5bVfst7hrRYvHOUCraCQi4j96xn6dQxMWmhnIqzTvyde5c6CQrTP2Oxry3e8AukwtiL6CC4vMbXV/PQio+qrgxQCbahH4VBsjZh3lBEsW5ojaBmBsYexBrQMohwHBZkyxp+hkoARbg4jZUH+oRXk5MPObAh/vrhH6Izz7O5kFO+HZxSIwbdImnpHcF6cZZm/WKfCeuMAXiDI9Q+wAhiSfev1G6maUAhkw4lciQACWMXeZJooGPEzLSm9yQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1756377524; c=relaxed/relaxed;
+	bh=0at7rmCymg/PHbg40f5SM0uyxzfcXX+xjtAZy2kTkkA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=MgJWOAjHiiZWAURyi6TgLiMM4T93eKHuxkTlpUFL7HGVUPTpGGnl6Dg66YS2YZm1RdwTrRIEHrvEM8/tnKVDZtbsZm47JCXbSvRt/bUAweLTYE10yJo5jEkjPE7SzOx08LTQERdkw7sOg8aVtvE/uxhAm5YWb3v0h0yv1skSOUPyWX1zFjSzqLzhNFNo2nlgidmRPjPACJJJT7WQ7Pn+e8D1kzb03U8k5p/qB7E7T8dTN2vOIhoeqiEQkenIBxTXOb6bW3oDOIw6WQccP99sPOHAwApLXanJqueofE0v2yfkNfSxA6v/fotbaZYF4kw5IqguhMGGf0XW161VYtvYrw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=bE3Angm3; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::12a; helo=mail-il1-x12a.google.com; envelope-from=twoerner@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BLLffdm3;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=bE3Angm3;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.20; helo=mgamail.intel.com; envelope-from=iwona.winiarska@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::12a; helo=mail-il1-x12a.google.com; envelope-from=twoerner@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com [IPv6:2607:f8b0:4864:20::12a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cCZqT3QKsz2xd4
-	for <openbmc@lists.ozlabs.org>; Fri, 29 Aug 2025 07:51:47 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1756417910; x=1787953910;
-  h=from:to:cc:subject:date:message-id:content-id:
-   content-transfer-encoding:mime-version;
-  bh=CrqdA3J2Z4Ag4Jtseq0iZmcn57TXIU9bx9vWcWTKgb8=;
-  b=BLLffdm3UP12kncvt6vv8gyoGCRRiN2wQvtzOGRZdRgzKsUiLuB2azot
-   Jewmdegsl/u3aypX68Xy8zEm6pdJ9FgrJabxWBnpu4ov5hi71yr5I2o3q
-   JowFIZ2OBOqv02xxKThxNqfT0G6Ld+Mjl0RDSX1s0rlS667mlaKH7Y+2y
-   UYWCjmPV3wXLUubt4QK9AHlJB4JAU7MXbwPDGF+0+WNDehMhxN5IYjGWG
-   Vjd47G16MFe0Q5bwQpPcguApatzPlMCimsTYXpebhddx5pfgXtV9gSf0G
-   y7jTB9EGJEZ4DTlj9oGCL+eR0Y6IyJFNvQAZpi4TckBwHNG3FqW9UhIoi
-   w==;
-X-CSE-ConnectionGUID: xDCVxsNRRX2PsEUgKHYwYg==
-X-CSE-MsgGUID: iK5TNOiYR32/7TqZuTmy+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11536"; a="58410486"
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; 
-   d="scan'208";a="58410486"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2025 14:51:45 -0700
-X-CSE-ConnectionGUID: I38lHsmSTPGpdcVmpyfqqw==
-X-CSE-MsgGUID: mSUh1gUFQKyYLTEq9M48UA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; 
-   d="scan'208";a="171014735"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2025 14:51:44 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 28 Aug 2025 14:51:43 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Thu, 28 Aug 2025 14:51:43 -0700
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (40.107.236.48)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 28 Aug 2025 14:51:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DDs23QRj3l1xpYQ4T/zrWw9+RYkC7nqxomnhrz2KppQSkIsjVyBEtvp8TdCd1SyXIRHvzzwvbCfXVNleVJ1m1DqBq+lD3iWk6mimeimVjCrcU389wQQ53+14qrV2ABg7NmXlD7QeutVFeEkg6ANdlLIOHIZcDG2ChNQRd52EqaXWOM05yfNa6mnv2hH77u+heV19Sm4hIEX8W5cgQKaewqVCB5qvudF04BDqplkDggZxSoWhq/JOisfedgHjfTweNBDZ1FClYM7tx5OYjheB9IQSRt7OimffjiZBRiyxoJsumEX8en9mNpsNyxBDtFf30DpYpbjzHSngWEjp53Bt3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CrqdA3J2Z4Ag4Jtseq0iZmcn57TXIU9bx9vWcWTKgb8=;
- b=a421CfL7oQFjY7QuBobI4KlMl1yDiTxy1g1wtrFF49BXyQmmIdkMt/89MXbXdhJnphrJemQvcKSefA6gFNiM+ZNWoHuLsaj9RNO9OtSWh8nzUGjG4016+dRNiwzzHvZanGbldWUj3up0mrv+QSUu+SftWetnnE8RRxT6eZfS/Qk74zmPS+HaSnHete83GLOb0XYxrc3PRDIM5GmAB2/yGqTRz7z1v9pGxD8nkEk1nbpsOgl77YN2Mn11L35HMHKXkXnn0SJUKc06ETvqPmdvHCQ8+yABoibIamKZjxPuTvOO3eov4kN4Tqv8+hDmhSHzFBIorLsxETpfgbaZSfzDLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CH0PR11MB5330.namprd11.prod.outlook.com (2603:10b6:610:bd::7)
- by DM4PR11MB7399.namprd11.prod.outlook.com (2603:10b6:8:101::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Thu, 28 Aug
- 2025 21:51:38 +0000
-Received: from CH0PR11MB5330.namprd11.prod.outlook.com
- ([fe80::e179:e:20e5:53db]) by CH0PR11MB5330.namprd11.prod.outlook.com
- ([fe80::e179:e:20e5:53db%4]) with mapi id 15.20.9052.014; Thu, 28 Aug 2025
- 21:51:37 +0000
-From: "Winiarska, Iwona" <iwona.winiarska@intel.com>
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] PECI changes for v6.18-rc1
-Thread-Topic: [GIT PULL] PECI changes for v6.18-rc1
-Thread-Index: AQHcGGXtM/arIIdFWkKvyM2pv2mKAw==
-Date: Thu, 28 Aug 2025 21:51:37 +0000
-Message-ID: <26c72666403f2718409d903957ddebb3984f4ed4.camel@intel.com>
-Accept-Language: en-US, pl-PL
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.54.3 (3.54.3-1.fc41) 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR11MB5330:EE_|DM4PR11MB7399:EE_
-x-ms-office365-filtering-correlation-id: b9cf87cf-20f2-4433-6366-08dde67d1085
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info: =?utf-8?B?TDdndFpBcXVmQ0VRUWd0M0I1UjQwd1UrVlAzMnM3ZnU1dzdqT2hCOFRkNGdN?=
- =?utf-8?B?a2R3NGs0UkZ2OTczZm0rUVArOFVhbkYrNGdmR1RZTjUxMW4wam1PNFA5bEFP?=
- =?utf-8?B?bEd5QUFWZTlRTlZUKzE2bDdrQ2FteFBYd3FvekxyZWMxRXZTK0RYVWV3WGRF?=
- =?utf-8?B?SG1pdzBZYmxJbkZHekJUTDM1OU1pcFcvWGNiR2Z3TExzUzBQUm5KTFZidVYw?=
- =?utf-8?B?QllIR0R1d05aUk1Lb0s5Q01VcnprR2VnWXpKK1dQZ1dEWjZma1ZSUHRncmZI?=
- =?utf-8?B?MTNkM0ppTGxPaXRQTVpEbUhZTEtRa0dBYytOaFZDVDBiU2txRXpMZlBwKzZI?=
- =?utf-8?B?T0w1aktWVkhlWFhkWmdSRGhEaVVlYStTaUkzQ0pET0czVWU5c056K05OYVcw?=
- =?utf-8?B?eGVZeUNRa0VnUGxDVVdPOGkxV3JEU2VMR1doSTZ6b3lUSjdQSndtblVGd25C?=
- =?utf-8?B?SDViT0pXWWZYSFE0TEVWZmQ2V2l0cGFUNWJKbXY5Q25FTFdqdDl4Wko1cWZh?=
- =?utf-8?B?VURpNnRrZ21MZzM5K2xTT0YrNGNYQU5SNzdUYU5uSmVLcGk5SEhRSURVc3Zv?=
- =?utf-8?B?eVNhQ0lYZDJHTHhJKzZ6aUpGaG4zTGJuc2FjOUl0MXpEaEJaS0xlSnFLQmRv?=
- =?utf-8?B?alNzb1RUMStRa0hja1B0VjNIY1ZDbGg4cndnb3dOTWswdTVnYVd4OXdTMG96?=
- =?utf-8?B?NFJ4Z2pKL1ZRMU4vYzNZQzlQVnEzS25Oc3JzakRjMHF0cjBoTEJ3aUtrRWIy?=
- =?utf-8?B?WHVSWHZoR3ptUnRnbWI4OVZFdHJQWk5pdU4rVFlTRk55S1pjdlNGeGd1ZmRG?=
- =?utf-8?B?ZFFodlUrcWRZQm1oaUsreDh2TmRKTnZ5TzNPUUpodktzN2s3S0ZSblErYzB6?=
- =?utf-8?B?ajNSTU4vUkwyUDFSSFBFMmxmVFloTEZOd01xZjFRMWtIYlZPOTZMOHAxRUY5?=
- =?utf-8?B?QjBOQjY5TVJWZm80ZmUxaDkyWjFGRS9IdnBvNEJtenBuc0dnbWhibWgxSGxH?=
- =?utf-8?B?ZTl5YzVIMERWY2lwZ3lMaU1EUTZ2Mkhpd2ZBYTQ0dnZNTkdibEUyNmFkVCti?=
- =?utf-8?B?YWl0MGd4cHRuTWtmWW9yZ0d4VzNPMjVCSXVSZFlmY1k2ZmtGVVRTNm1DeG4v?=
- =?utf-8?B?QmVJR3dMZUEzdFpNejRtSi82eHlOTUczbDdZV0RiTVJ4YUUwT05YL09YSnIv?=
- =?utf-8?B?ME1tVkEvazcyeVlGbDBySjNJYUV5N3hMNE5SWGx1WDl6bWl3ZFNHVk1tYUd3?=
- =?utf-8?B?Wkloa0VUa2luMk9ONmh5RkFydGhqME9JZFhJZTlWaVdoUjhtazhJSnhoVDNz?=
- =?utf-8?B?cVNTK2lScE9RZGJIdUtIVkFIaktWMmJNK0srUjkrb0VONCt3WG50TTQrckdV?=
- =?utf-8?B?c1hnRk1hYnBFN0FaNXlqdzcraUpYRlNSL3FoRlliVkFub05zaWNGOWZwZXpW?=
- =?utf-8?B?VXp0TkhQWk5PVGo2OEo0Tnl0bGxPUkdXTnVZUWxJMDlQT1dUVGlPbzNhN1Rs?=
- =?utf-8?B?d24zeUtxUENrUTdUdmZ0R2NjbVp1aU50UnRtNGFuN0RrYTJpTnR3OEc5czJU?=
- =?utf-8?B?ZzhDb3c4aEs4UGJvdHZ2a1hWVDlwVmZUMXJwVWNXcHQ2QUhoeC84eXUyMmNM?=
- =?utf-8?B?VDA5NTVsSWQ0ZVlHZFRNUDBuN1QwTGVucFpvOGtCa3VYWHM1R3hKQlQ2TFZp?=
- =?utf-8?B?NklYOWdBWTlyTVBDdHNtZVNjdXlCVHAxck9Wb3hEUWFaOGdxMDFRcWVBc3NQ?=
- =?utf-8?B?dEIxNXAyVElCemkybThhQ0xuUzB6WDIvUStSNnFldFBYd2pzaG1TUzNoWnBx?=
- =?utf-8?B?N0ZwWi9uQmlwRVBqYnZiZ2xhNGczMTg0bVdxM3hJWVdONG5xMDRyOFQ5RU9K?=
- =?utf-8?B?OWVPa3gxekNrVVFsUWp3aEJDZy8yemNMR0Z2KzdiQnFOdXBHeGtVQ0VtSEJW?=
- =?utf-8?B?TnhkNStsT2FOWTNiNGZjUzhaUllTM3RlRXgzT1JhcDlSeldBcE04dTRIRXVB?=
- =?utf-8?B?K3FCR0o5TTV3PT0=?=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR11MB5330.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MzhjWm1xbnZ3U2RieG5nK0RaZStNUnMwTVlQWGYvcVd3QU82cmZKVGpPYXAx?=
- =?utf-8?B?cTI1TndtckhHVEMvbFM4TVJ4Y1VISExjNmRsNndRZ1E4MWRQV0JmVDR5cWxR?=
- =?utf-8?B?RXVpSEVOVmYxTS9xQ2ZXZlExRHZFZ2wveDczN0Vta1BEeHh6RCtvSURBeS9D?=
- =?utf-8?B?TVdMelhDQXNvenJQdUROTUdVU2x6SDdPVElTVng1K0dxNXdnTCtQV3pnNm5W?=
- =?utf-8?B?YmtYZmVraHphU0N2VEp0Y2Zxc1RIL0gxUDRLQVdvTnZnSktnZWs1RTM3c0dh?=
- =?utf-8?B?MmNIRVdDdzBTNDZqT0RNdGdGcmtZTFV5NStXdWJ4cnYydDlrWjMwRzlrdkhG?=
- =?utf-8?B?Sk04R3hSUXJnRjZWNDlVOVRKVitpbFBkMjJQdHFVWDJlTG5NMURpSkhTdmtl?=
- =?utf-8?B?TTB6NGhmMU50Ri9hblhzQldyZnNGdy9MMzdmUG8xZ3ZJbzZodmtEeXlDY09U?=
- =?utf-8?B?bEJEeTdHYTVsaWMrb2dNb1hlc2I1MXdvUnYxa1E2S1hQbDJZbkhtWUVkR1dD?=
- =?utf-8?B?dTR6aWswelJVTnRUcTJtZ2ZOcjN0djJTdkNScjBOUGdCdmFXUDZHWUpDUVpy?=
- =?utf-8?B?Q29lS0lBZE9KMHoyQ2FPV05oRmlKMGNTVnpLR3RWa3FRNFhTMkFjc1NNcHVt?=
- =?utf-8?B?aVMzVHd4U3dLLy84WXI4VkI4OU1vaW95Um1IYUNYUmRtQUJtV1JVVzRvUXpJ?=
- =?utf-8?B?K1BjS3F0d0hZTHlRTEFMUjhqM2F6ekxqSmFaZ3JLZ1ZyWnJ0dmlpZFNWWFd3?=
- =?utf-8?B?NHlrOGRVRk96b3FHWlcydU9OMUpHY3QyTVRpVWlDN2Z3OFliQnNPNTZublpv?=
- =?utf-8?B?V2s1U2JlNHdFWEw1VzNnME1JTmRvelBNdHZRVWt5bXlXWXBDb1R1NC9iWWtH?=
- =?utf-8?B?L08zOVlUY2Zkby84N2d6dlFUclFRN2RRWWx1U2UvaG5yOFZKLzRpaXZSOTEz?=
- =?utf-8?B?M3d2blhqN2ZLNml4U003UWt0Ukl6cVNJbHRHOWMvb3ZUMU9yQTlqN05sdFhM?=
- =?utf-8?B?LzJZOTdZSE1XQ2hPK2RVYmFOOHJFdWJQdGRPV1FGRnJ4ZVRYM0tGanVqRUNP?=
- =?utf-8?B?Q1lTWW9sUVh3TEMweFRDVFhUNzJSNi9BWWtpM3RadE5tUnFmUEZ6ZGVvYVJ5?=
- =?utf-8?B?Wnp5UDdOQWxQMjNHbzVuYksrKzF6eitnVTZuZzg5SmtDNktoUmdUSDJsaVNB?=
- =?utf-8?B?MkR4Nk82RGx0YjlGSTB1L1AzN2FQSWZQNGFBS1ZHYlpiU2ZNUW1meW9iT0Fi?=
- =?utf-8?B?anV3M0JaSVVoTUphZWtzMGFEMFA0THZUMHRYd2M4VXlpTmMrYXVZQnRhRTZG?=
- =?utf-8?B?bFlRVTdQdDRuWDdwejJFeWkwcllaNnkzUE5ubk5PbHh5TjdDeElVTTltazc0?=
- =?utf-8?B?R3ZBMy9PY0RUaitEdUtlc3BGcUxWZGdpTkRHL2thUzJpQTR1bVNuK0V0QkFB?=
- =?utf-8?B?WkhmcjQ0RFdNdUNmNDQxcWEwL2lUQmtiY0NvQ0s5RFVSanBHcEZzVjNXTlA2?=
- =?utf-8?B?bzRtYm5lZ0g1VVRGRmFtYVpIT0JBZitSM0YzUTdtOVdCRW8rVjFwTkpJMzE3?=
- =?utf-8?B?ZHBja2VqczhBa2hWaldHaVUyeWpiS0l3UFlMVWE1Z1dmU2Z3V2laa09vTEM5?=
- =?utf-8?B?UG9rODJEbjA1d3oxczVSYmQvbS9TTFdrYUhrTXVDMVhxUFZuSkJIeC94UGVE?=
- =?utf-8?B?V3YrQjBXRHY2QjFHSUFBTjFWZ1Q0bjdUdTc0V0lnRGI0QmNxaVcrZGQ2enVK?=
- =?utf-8?B?dU1WM1laNDgxQ2ZWaDFOL0hQUVhYY3RRSkZIVmVMbCtKY2pjcU45VmNGY1pM?=
- =?utf-8?B?UFlLbmFCajNya01mdzAxT2s3a3J5ZmliaXNZS3E4bnhNSzdkVjJMdW8yWkk5?=
- =?utf-8?B?VDhndHBXWlJsN2M2UU5lNVgycmdkd2FTNEE4d0M3U2V3TjFLZGs2T1hUcGNJ?=
- =?utf-8?B?clBmRUNBbzR3MHpmelM2bVJwUnlDZU1OYngyd09HbVpTLy8zQXpPNFgvMHdi?=
- =?utf-8?B?ajJNdmlITVFCekt4UkVNdFY5ZnE3SEFudzVVc1VpVHpjb2wyMG9pK0U2Qmxk?=
- =?utf-8?B?VFJlU1RkSXozWXZJTUNRMFZrMHlsYmMrOGUrQWxPSFd4SDE5QTE1SkcxeGdS?=
- =?utf-8?B?MkZWdThUbk55SjR2dUl2L2tUK3kvNjdNaDlPeG1sRU8yZmtFOWNURFJILzN6?=
- =?utf-8?B?TEE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4A222EBF30893D438D565C93FBDE3D12@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cCHtp449zz2xnm;
+	Thu, 28 Aug 2025 20:38:41 +1000 (AEST)
+Received: by mail-il1-x12a.google.com with SMTP id e9e14a558f8ab-3ea8b3a64b8so7135535ab.2;
+        Thu, 28 Aug 2025 03:38:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756377519; x=1756982319; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0at7rmCymg/PHbg40f5SM0uyxzfcXX+xjtAZy2kTkkA=;
+        b=bE3Angm3cxmq6vrmuUJfybKKCGH0cyuwIPKTn0/2kAubrTAO1ZV68fPZv2EBzT5FFC
+         Z4NkdMKHQzQmxOE399RlGrreU9jExSggrx6OnxPQaa9FhL5fSmsZtP+qairaeKgmULAo
+         f8A3oKsqVjhiieo6/zSgVxtRsWla8i/PdwRnJv7ZDgKfAcvBDppsNQlGOzpO6BeqFQpt
+         zbJWVVJY9OvrCNRCAJLBLB6oV8L8riC5ZY1HXzxskBaHb0l7BDmZ3IPC8EPUzveEd0pM
+         IqWn7A9XCmTtnfcXpFqDc4NVZ8oporj1PgVb7Ysr8/jl4R795lnrsDLCtYKCJ5peXISH
+         ZCqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756377519; x=1756982319;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0at7rmCymg/PHbg40f5SM0uyxzfcXX+xjtAZy2kTkkA=;
+        b=ExOtmSA1uMk6fWxfZhAcVgCDV4Z0VOb16hVPrr4JqDhKNH7o/mqErR8JIAHfCssFic
+         AB8fi3hFEv18kK4lSGQwJdlhIeNz0jHiEVSo0+6Dxghpv71px5CDI7NLzW2LxQqRNs9v
+         2xKm8AsaYghuDICt26LX2bxAb+E5GPRxzhC/eqGcDo2Qjn2pd+yeVc95y94xtIddsoi8
+         p3z7Leo8E9SPTQvAK5/+JxOwhuMU13OSZkEblr4q0PudDVfiNfX/3BdolROy4gqB12bI
+         tTvRqI29l/NApokKT/oBSYaPZqXWAShtc0tLms+Y7WhuWcas5FAxZlQhVfIJDiT5D31x
+         6uIg==
+X-Forwarded-Encrypted: i=1; AJvYcCUM9QeAtemzpJKmTmj1WS5qzdxTgrpB8+wNFMu2KpD9Vgc4i8FlncAjSznBavfuydUyWARjcHsJc6rtDdQ=@lists.ozlabs.org, AJvYcCV5jJoSO/EZQZHVJztYekM2hX+UBS3cVzT2ADmxe3c7F8CzwddbhsrXVxDHBs8TtrV6KDFS8uTFtIKhDRHO@lists.ozlabs.org, AJvYcCWFQWcEzOWu8mkLwZ3maf/I7xd+CtccnvxlaTxHGr0b/d0La1x8pDrwPxXkKr1VRms8hcl8K1fCVg==@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Ywgm2hKJ5wyzOlecb9Hf1TnR8U+24W5Dov8ZaxiL64b+a1JtGrC
+	gBpdBuFbWkTh/LZWXyC1BiNpKQb8YZzsw5qV8PQQk9bt/JQrjdBUmTr/
+X-Gm-Gg: ASbGncvHyLBsQ4LJyTHULUm1g0iFaCO8P6+h/5kyg7co2oMWevfWVHifJ2vuZ7RFTWj
+	EXSu9JDMRrogaZads1Fk5kDorOTyGbmtJhHGKIjO/xjab1lAKAnUMmR02BzL5MvDBQ3D8OnGIix
+	2ajsTFc1/hXIYP+a/ZO1QKz0AgbqTnji0XXm6hKimMVoDbTIG/QCz8jOIS5T4Zm6RuJ3AOdCeqd
+	FWpdUqQEBALWcXR4qcHS9YguOk7jJjd6OagHMtuGhLnpXbBgwO2Jw3yokiHeYP7Mt9fIEB9AWd/
+	mPJ+dFv8s07wsygP4UDkaCCswT0SUjjChNyxM6mlv8MhlyeRcG206g4f86MU4+cD8OU6AZtNgbc
+	QmF7Qb9zn/nNK9HDIw/JJdtT3/rrDzKLD7qDOfJ0weKPUKVFb8LIBxR9COdR+tAh1MynMCD2LYx
+	AU
+X-Google-Smtp-Source: AGHT+IE/TTO5VX5zO/rYZlMpKz0IXcVYiEOjHKRxEps0p6AeqsRr1zyd0kO2fPmGjM9Ew3jqRiY5xQ==
+X-Received: by 2002:a05:6e02:1486:b0:3ea:9da1:b655 with SMTP id e9e14a558f8ab-3ea9da1bc20mr214678755ab.21.1756377518554;
+        Thu, 28 Aug 2025 03:38:38 -0700 (PDT)
+Received: from localhost.localdomain (pppoe-209-91-167-254.vianet.ca. [209.91.167.254])
+        by smtp.gmail.com with ESMTPSA id e9e14a558f8ab-3eb18693d2esm93755885ab.42.2025.08.28.03.38.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 Aug 2025 03:38:37 -0700 (PDT)
+From: Trevor Woerner <twoerner@gmail.com>
+To: linux-snps-arc@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-arm-msm@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-m68k@lists.linux-m68k.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] defconfig: cleanup orphaned CONFIG_SCHED_DEBUG
+Date: Thu, 28 Aug 2025 06:38:28 -0400
+Message-ID: <20250828103828.33255-1-twoerner@gmail.com>
+X-Mailer: git-send-email 2.44.0.501.g19981daefd7c
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -194,34 +101,910 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5330.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9cf87cf-20f2-4433-6366-08dde67d1085
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2025 21:51:37.8884
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NNzMxh/PaNs6JXsPOrqZzFWGcqITZh240PIPThJEU7GBYfeb2uNvK4vu+X24d9FH5TMwgZdaOuc68XM6xtYUhQURiWi5UVHaeGx1wf3tTK8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB7399
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-SGkgR3JlZyENCg0KUGxlYXNlIHB1bGwgUEVDSSB1cGRhdGUgZm9yIExpbnV4IHY2LjE4Lg0KDQpU
-aGFua3MNCi1Jd29uYQ0KDQpUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDFiMjM3
-ZjE5MGViM2QzNmY1MmRmZmUwN2E0MGI1ZWIyMTAyODBlMDA6DQoNCiAgTGludXggNi4xNy1yYzMg
-KDIwMjUtMDgtMjQgMTI6MDQ6MTIgLTA0MDApDQoNCmFyZSBhdmFpbGFibGUgaW4gdGhlIEdpdCBy
-ZXBvc2l0b3J5IGF0Og0KDQogIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2Vy
-bmVsL2dpdC9pd2kvbGludXguZ2l0IHRhZ3MvcGVjaS1uZXh0LTYuMTgtcmMxDQoNCmZvciB5b3Ug
-dG8gZmV0Y2ggY2hhbmdlcyB1cCB0byBlMjdmMTU4Y2YxZTk4ZDlhNTQxMjgyZWY0YjM2ZGZhNDQy
-N2JmMzYxOg0KDQogIHBlY2k6IHJlbW92ZSB1bm5lZWRlZCAnZmFzdF9pbycgcGFyYW1ldGVyIGlu
-IHJlZ21hcF9jb25maWcgKDIwMjUtMDgtMjggMjI6NDM6MjMgKzAyMDApDQoNCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NClVw
-ZGF0ZSBwZWNpLW5leHQgZm9yIHY2LjE4LXJjMQ0KDQpBIHNtYWxsIGNoYW5nZSBpbiBwZWNpLW5w
-Y20gZHJpdmVyIHRoYXQgcmVtb3ZlcyB1bm5lZWRlZCAnZmFzdF9pbycNCnBhcmFtZXRlciBpbiBy
-ZWdtYXBfY29uZmlnIHBpY2tlZCB1cCBhcyBhIHBhcnQgb2Ygd2lkZXIgcmVmYWN0b3JpbmcuDQoN
-Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0NCldvbGZyYW0gU2FuZyAoMSk6DQogICAgICBwZWNpOiByZW1vdmUgdW5uZWVkZWQg
-J2Zhc3RfaW8nIHBhcmFtZXRlciBpbiByZWdtYXBfY29uZmlnDQoNCiBkcml2ZXJzL3BlY2kvY29u
-dHJvbGxlci9wZWNpLW5wY20uYyB8IDEgLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0p
-DQo=
+In commit b52173065e0a ("sched/debug: Remove CONFIG_SCHED_DEBUG") this
+Kconfig option was removed since CONFIG_SCHED_DEBUG was made unconditional
+by patches preceding it.
+
+Signed-off-by: Trevor Woerner <twoerner@gmail.com>
+---
+ arch/arc/configs/axs101_defconfig              | 1 -
+ arch/arc/configs/axs103_defconfig              | 1 -
+ arch/arc/configs/axs103_smp_defconfig          | 1 -
+ arch/arc/configs/hsdk_defconfig                | 1 -
+ arch/arc/configs/vdk_hs38_defconfig            | 1 -
+ arch/arc/configs/vdk_hs38_smp_defconfig        | 1 -
+ arch/arm/configs/aspeed_g4_defconfig           | 1 -
+ arch/arm/configs/aspeed_g5_defconfig           | 1 -
+ arch/arm/configs/at91_dt_defconfig             | 1 -
+ arch/arm/configs/axm55xx_defconfig             | 1 -
+ arch/arm/configs/dove_defconfig                | 1 -
+ arch/arm/configs/lpc18xx_defconfig             | 1 -
+ arch/arm/configs/lpc32xx_defconfig             | 1 -
+ arch/arm/configs/moxart_defconfig              | 1 -
+ arch/arm/configs/mps2_defconfig                | 1 -
+ arch/arm/configs/multi_v5_defconfig            | 1 -
+ arch/arm/configs/mvebu_v5_defconfig            | 1 -
+ arch/arm/configs/mvebu_v7_defconfig            | 1 -
+ arch/arm/configs/nhk8815_defconfig             | 1 -
+ arch/arm/configs/pxa3xx_defconfig              | 1 -
+ arch/arm/configs/qcom_defconfig                | 1 -
+ arch/arm/configs/realview_defconfig            | 1 -
+ arch/arm/configs/sama5_defconfig               | 1 -
+ arch/arm/configs/sama7_defconfig               | 1 -
+ arch/arm/configs/socfpga_defconfig             | 1 -
+ arch/arm/configs/u8500_defconfig               | 1 -
+ arch/arm/configs/wpcm450_defconfig             | 1 -
+ arch/arm64/configs/defconfig                   | 1 -
+ arch/hexagon/configs/comet_defconfig           | 1 -
+ arch/loongarch/configs/loongson3_defconfig     | 1 -
+ arch/m68k/configs/amcore_defconfig             | 1 -
+ arch/m68k/configs/m5475evb_defconfig           | 1 -
+ arch/m68k/configs/stmark2_defconfig            | 1 -
+ arch/mips/configs/ath25_defconfig              | 1 -
+ arch/mips/configs/ath79_defconfig              | 1 -
+ arch/mips/configs/cavium_octeon_defconfig      | 1 -
+ arch/mips/configs/ci20_defconfig               | 1 -
+ arch/mips/configs/cu1000-neo_defconfig         | 1 -
+ arch/mips/configs/cu1830-neo_defconfig         | 1 -
+ arch/mips/configs/generic_defconfig            | 1 -
+ arch/mips/configs/loongson1b_defconfig         | 1 -
+ arch/mips/configs/loongson1c_defconfig         | 1 -
+ arch/mips/configs/loongson2k_defconfig         | 1 -
+ arch/mips/configs/loongson3_defconfig          | 1 -
+ arch/mips/configs/omega2p_defconfig            | 1 -
+ arch/mips/configs/rt305x_defconfig             | 1 -
+ arch/mips/configs/vocore2_defconfig            | 1 -
+ arch/mips/configs/xway_defconfig               | 1 -
+ arch/parisc/configs/generic-64bit_defconfig    | 1 -
+ arch/powerpc/configs/44x/warp_defconfig        | 1 -
+ arch/powerpc/configs/ep8248e_defconfig         | 1 -
+ arch/powerpc/configs/holly_defconfig           | 1 -
+ arch/powerpc/configs/mgcoge_defconfig          | 1 -
+ arch/powerpc/configs/microwatt_defconfig       | 1 -
+ arch/powerpc/configs/pasemi_defconfig          | 1 -
+ arch/powerpc/configs/skiroot_defconfig         | 1 -
+ arch/riscv/configs/nommu_k210_defconfig        | 1 -
+ arch/riscv/configs/nommu_k210_sdcard_defconfig | 1 -
+ arch/riscv/configs/nommu_virt_defconfig        | 1 -
+ arch/sh/configs/edosk7760_defconfig            | 1 -
+ arch/sh/configs/magicpanelr2_defconfig         | 1 -
+ arch/sh/configs/polaris_defconfig              | 1 -
+ arch/sh/configs/sdk7780_defconfig              | 1 -
+ arch/sh/configs/sh2007_defconfig               | 1 -
+ arch/sh/configs/sh7757lcr_defconfig            | 1 -
+ arch/sparc/configs/sparc32_defconfig           | 1 -
+ arch/sparc/configs/sparc64_defconfig           | 1 -
+ arch/xtensa/configs/audio_kc705_defconfig      | 1 -
+ arch/xtensa/configs/cadence_csp_defconfig      | 1 -
+ arch/xtensa/configs/generic_kc705_defconfig    | 1 -
+ arch/xtensa/configs/virt_defconfig             | 1 -
+ arch/xtensa/configs/xip_kc705_defconfig        | 1 -
+ 72 files changed, 72 deletions(-)
+
+diff --git a/arch/arc/configs/axs101_defconfig b/arch/arc/configs/axs101_defconfig
+index a7cd526dd7ca..44134952437a 100644
+--- a/arch/arc/configs/axs101_defconfig
++++ b/arch/arc/configs/axs101_defconfig
+@@ -100,6 +100,5 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arc/configs/axs103_defconfig b/arch/arc/configs/axs103_defconfig
+index afa6a348f444..c736f9ea962e 100644
+--- a/arch/arc/configs/axs103_defconfig
++++ b/arch/arc/configs/axs103_defconfig
+@@ -98,6 +98,5 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arc/configs/axs103_smp_defconfig b/arch/arc/configs/axs103_smp_defconfig
+index 2bfa6371953c..b678bf1d6c0b 100644
+--- a/arch/arc/configs/axs103_smp_defconfig
++++ b/arch/arc/configs/axs103_smp_defconfig
+@@ -100,6 +100,5 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arc/configs/hsdk_defconfig b/arch/arc/configs/hsdk_defconfig
+index 1558e8e87767..ded48f3e48e0 100644
+--- a/arch/arc/configs/hsdk_defconfig
++++ b/arch/arc/configs/hsdk_defconfig
+@@ -87,7 +87,6 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CRYPTO_ECHAINIV=y
+diff --git a/arch/arc/configs/vdk_hs38_defconfig b/arch/arc/configs/vdk_hs38_defconfig
+index 03d9ac20baa9..866c3f6598d6 100644
+--- a/arch/arc/configs/vdk_hs38_defconfig
++++ b/arch/arc/configs/vdk_hs38_defconfig
+@@ -89,6 +89,5 @@ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arc/configs/vdk_hs38_smp_defconfig b/arch/arc/configs/vdk_hs38_smp_defconfig
+index c09488992f13..4e314dcc6e13 100644
+--- a/arch/arc/configs/vdk_hs38_smp_defconfig
++++ b/arch/arc/configs/vdk_hs38_smp_defconfig
+@@ -95,6 +95,5 @@ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_DEFAULT_HUNG_TASK_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arm/configs/aspeed_g4_defconfig b/arch/arm/configs/aspeed_g4_defconfig
+index 28b724d59e7e..33c93b13dd17 100644
+--- a/arch/arm/configs/aspeed_g4_defconfig
++++ b/arch/arm/configs/aspeed_g4_defconfig
+@@ -259,7 +259,6 @@ CONFIG_PANIC_TIMEOUT=-1
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ # CONFIG_DETECT_HUNG_TASK is not set
+ CONFIG_WQ_WATCHDOG=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_DEBUG_USER=y
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/arm/configs/aspeed_g5_defconfig b/arch/arm/configs/aspeed_g5_defconfig
+index 61cee1e7ebea..23d5c28ef018 100644
+--- a/arch/arm/configs/aspeed_g5_defconfig
++++ b/arch/arm/configs/aspeed_g5_defconfig
+@@ -310,7 +310,6 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
+ CONFIG_BOOTPARAM_SOFTLOCKUP_PANIC=y
+ CONFIG_BOOTPARAM_HUNG_TASK_PANIC=y
+ CONFIG_WQ_WATCHDOG=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_DEBUG_USER=y
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/arm/configs/at91_dt_defconfig b/arch/arm/configs/at91_dt_defconfig
+index ff13e1ecf4bb..303965c9d351 100644
+--- a/arch/arm/configs/at91_dt_defconfig
++++ b/arch/arm/configs/at91_dt_defconfig
+@@ -239,6 +239,5 @@ CONFIG_FONT_MINI_4x6=y
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/axm55xx_defconfig b/arch/arm/configs/axm55xx_defconfig
+index 516689dc6cf1..49fe3ea741d1 100644
+--- a/arch/arm/configs/axm55xx_defconfig
++++ b/arch/arm/configs/axm55xx_defconfig
+@@ -227,7 +227,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_RCU_CPU_STALL_TIMEOUT=60
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/dove_defconfig b/arch/arm/configs/dove_defconfig
+index d76eb12d29a7..95e67dedfe83 100644
+--- a/arch/arm/configs/dove_defconfig
++++ b/arch/arm/configs/dove_defconfig
+@@ -133,5 +133,4 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/lpc18xx_defconfig b/arch/arm/configs/lpc18xx_defconfig
+index 2d489186e945..d8f41ab3bc6a 100644
+--- a/arch/arm/configs/lpc18xx_defconfig
++++ b/arch/arm/configs/lpc18xx_defconfig
+@@ -154,6 +154,5 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ # CONFIG_SLUB_DEBUG is not set
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_LL=y
+ CONFIG_EARLY_PRINTK=y
+diff --git a/arch/arm/configs/lpc32xx_defconfig b/arch/arm/configs/lpc32xx_defconfig
+index 9afccd76446b..380644900276 100644
+--- a/arch/arm/configs/lpc32xx_defconfig
++++ b/arch/arm/configs/lpc32xx_defconfig
+@@ -187,7 +187,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_PANIC_ON_OOPS=y
+ CONFIG_PANIC_TIMEOUT=5
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_LL=y
+diff --git a/arch/arm/configs/moxart_defconfig b/arch/arm/configs/moxart_defconfig
+index fa06d98e43fc..5b963ac06a0d 100644
+--- a/arch/arm/configs/moxart_defconfig
++++ b/arch/arm/configs/moxart_defconfig
+@@ -131,7 +131,6 @@ CONFIG_DEBUG_STACK_USAGE=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_PROVE_LOCKING=y
+ CONFIG_DEBUG_LL=y
+diff --git a/arch/arm/configs/mps2_defconfig b/arch/arm/configs/mps2_defconfig
+index e995e50537ef..839082405c4f 100644
+--- a/arch/arm/configs/mps2_defconfig
++++ b/arch/arm/configs/mps2_defconfig
+@@ -99,5 +99,4 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+ # CONFIG_SLUB_DEBUG is not set
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_MEMTEST=y
+diff --git a/arch/arm/configs/multi_v5_defconfig b/arch/arm/configs/multi_v5_defconfig
+index b523bc246c09..109230dd0e85 100644
+--- a/arch/arm/configs/multi_v5_defconfig
++++ b/arch/arm/configs/multi_v5_defconfig
+@@ -292,7 +292,6 @@ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/mvebu_v5_defconfig b/arch/arm/configs/mvebu_v5_defconfig
+index 23dbb80fcc2e..96ecc6098d97 100644
+--- a/arch/arm/configs/mvebu_v5_defconfig
++++ b/arch/arm/configs/mvebu_v5_defconfig
+@@ -191,7 +191,6 @@ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/mvebu_v7_defconfig b/arch/arm/configs/mvebu_v7_defconfig
+index 2d2a4dc8f379..b2414fd91ae9 100644
+--- a/arch/arm/configs/mvebu_v7_defconfig
++++ b/arch/arm/configs/mvebu_v7_defconfig
+@@ -148,5 +148,4 @@ CONFIG_PRINTK_TIME=y
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/nhk8815_defconfig b/arch/arm/configs/nhk8815_defconfig
+index ea28ed8991b4..bfb888ca18c6 100644
+--- a/arch/arm/configs/nhk8815_defconfig
++++ b/arch/arm/configs/nhk8815_defconfig
+@@ -136,5 +136,4 @@ CONFIG_CRYPTO_SHA1=y
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+diff --git a/arch/arm/configs/pxa3xx_defconfig b/arch/arm/configs/pxa3xx_defconfig
+index 381356faf382..b9397dd61f17 100644
+--- a/arch/arm/configs/pxa3xx_defconfig
++++ b/arch/arm/configs/pxa3xx_defconfig
+@@ -101,7 +101,6 @@ CONFIG_DEBUG_KERNEL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_BOOTPARAM_SOFTLOCKUP_PANIC=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_SPINLOCK=y
+ CONFIG_DEBUG_SPINLOCK_SLEEP=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/arm/configs/qcom_defconfig b/arch/arm/configs/qcom_defconfig
+index ec52ccece0ca..09abde621eec 100644
+--- a/arch/arm/configs/qcom_defconfig
++++ b/arch/arm/configs/qcom_defconfig
+@@ -324,4 +324,3 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ # CONFIG_SLUB_DEBUG is not set
+-# CONFIG_SCHED_DEBUG is not set
+diff --git a/arch/arm/configs/realview_defconfig b/arch/arm/configs/realview_defconfig
+index febea5cf7aaa..203e5f5ebd23 100644
+--- a/arch/arm/configs/realview_defconfig
++++ b/arch/arm/configs/realview_defconfig
+@@ -95,6 +95,5 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/sama5_defconfig b/arch/arm/configs/sama5_defconfig
+index 2cad045e1d8d..1b3a8527a321 100644
+--- a/arch/arm/configs/sama5_defconfig
++++ b/arch/arm/configs/sama5_defconfig
+@@ -250,6 +250,5 @@ CONFIG_CRYPTO_DEV_ATMEL_SHA=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/sama7_defconfig b/arch/arm/configs/sama7_defconfig
+index e14720a9a5ac..a825a3983ab9 100644
+--- a/arch/arm/configs/sama7_defconfig
++++ b/arch/arm/configs/sama7_defconfig
+@@ -233,7 +233,6 @@ CONFIG_CMA_ALIGNMENT=9
+ # CONFIG_DEBUG_MISC is not set
+ # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/socfpga_defconfig b/arch/arm/configs/socfpga_defconfig
+index 294906c8f16e..49eb6308b3f6 100644
+--- a/arch/arm/configs/socfpga_defconfig
++++ b/arch/arm/configs/socfpga_defconfig
+@@ -157,6 +157,5 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_DEBUG_USER=y
+diff --git a/arch/arm/configs/u8500_defconfig b/arch/arm/configs/u8500_defconfig
+index 0f55815eecb3..9100345e1776 100644
+--- a/arch/arm/configs/u8500_defconfig
++++ b/arch/arm/configs/u8500_defconfig
+@@ -190,7 +190,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_DEBUG_USER=y
+ CONFIG_CORESIGHT=y
+diff --git a/arch/arm/configs/wpcm450_defconfig b/arch/arm/configs/wpcm450_defconfig
+index cd4b3e70ff68..5c4e462720aa 100644
+--- a/arch/arm/configs/wpcm450_defconfig
++++ b/arch/arm/configs/wpcm450_defconfig
+@@ -195,7 +195,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_IO_STRICT_DEVMEM=y
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 58f87d09366c..4126281665bf 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1798,7 +1798,6 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_INFO_REDUCED=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CORESIGHT=m
+diff --git a/arch/hexagon/configs/comet_defconfig b/arch/hexagon/configs/comet_defconfig
+index c6108f000288..55d1d4e02c6c 100644
+--- a/arch/hexagon/configs/comet_defconfig
++++ b/arch/hexagon/configs/comet_defconfig
+@@ -75,4 +75,3 @@ CONFIG_CRYPTO_MD5=y
+ CONFIG_FRAME_WARN=0
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+diff --git a/arch/loongarch/configs/loongson3_defconfig b/arch/loongarch/configs/loongson3_defconfig
+index 34eaee0384c9..327e452bcc16 100644
+--- a/arch/loongarch/configs/loongson3_defconfig
++++ b/arch/loongarch/configs/loongson3_defconfig
+@@ -1071,7 +1071,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/m68k/configs/amcore_defconfig b/arch/m68k/configs/amcore_defconfig
+index 60767811e34a..4a72c805ee66 100644
+--- a/arch/m68k/configs/amcore_defconfig
++++ b/arch/m68k/configs/amcore_defconfig
+@@ -83,7 +83,6 @@ CONFIG_ROMFS_BACKED_BY_BOTH=y
+ CONFIG_PRINTK_TIME=y
+ # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
+ CONFIG_PANIC_ON_OOPS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ # CONFIG_CRYPTO_ECHAINIV is not set
+ CONFIG_CRYPTO_ANSI_CPRNG=y
+diff --git a/arch/m68k/configs/m5475evb_defconfig b/arch/m68k/configs/m5475evb_defconfig
+index 2473dc30228e..9be4dae84ebf 100644
+--- a/arch/m68k/configs/m5475evb_defconfig
++++ b/arch/m68k/configs/m5475evb_defconfig
+@@ -46,6 +46,5 @@ CONFIG_EXT2_FS=y
+ # CONFIG_PROC_PAGE_MONITOR is not set
+ CONFIG_ROMFS_FS=y
+ CONFIG_ROMFS_BACKED_BY_MTD=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_BOOTPARAM=y
+ CONFIG_BOOTPARAM_STRING="root=/dev/mtdblock0"
+diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
+index 7787a4dd7c3c..54dae08d9331 100644
+--- a/arch/m68k/configs/stmark2_defconfig
++++ b/arch/m68k/configs/stmark2_defconfig
+@@ -91,4 +91,3 @@ CONFIG_PRINTK_TIME=y
+ # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
+ CONFIG_SLUB_DEBUG_ON=y
+ CONFIG_PANIC_ON_OOPS=y
+-# CONFIG_SCHED_DEBUG is not set
+diff --git a/arch/mips/configs/ath25_defconfig b/arch/mips/configs/ath25_defconfig
+index 1d939ba9738d..30565c67702f 100644
+--- a/arch/mips/configs/ath25_defconfig
++++ b/arch/mips/configs/ath25_defconfig
+@@ -107,5 +107,4 @@ CONFIG_SQUASHFS_XZ=y
+ CONFIG_PRINTK_TIME=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/ath79_defconfig b/arch/mips/configs/ath79_defconfig
+index cba0b85c6707..6f2e5188ddc4 100644
+--- a/arch/mips/configs/ath79_defconfig
++++ b/arch/mips/configs/ath79_defconfig
+@@ -84,5 +84,4 @@ CONFIG_LEDS_GPIO=y
+ # CONFIG_PROC_PAGE_MONITOR is not set
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/cavium_octeon_defconfig b/arch/mips/configs/cavium_octeon_defconfig
+index 3f50e1d78894..6b9fc5ac1ccd 100644
+--- a/arch/mips/configs/cavium_octeon_defconfig
++++ b/arch/mips/configs/cavium_octeon_defconfig
+@@ -160,4 +160,3 @@ CONFIG_CRYPTO_DES=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+diff --git a/arch/mips/configs/ci20_defconfig b/arch/mips/configs/ci20_defconfig
+index 90536cab417e..f8ddcd059243 100644
+--- a/arch/mips/configs/ci20_defconfig
++++ b/arch/mips/configs/ci20_defconfig
+@@ -224,7 +224,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_PANIC_ON_OOPS=y
+ CONFIG_PANIC_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+ CONFIG_CMDLINE_BOOL=y
+diff --git a/arch/mips/configs/cu1000-neo_defconfig b/arch/mips/configs/cu1000-neo_defconfig
+index 19517beaf540..3e3e5827c4a1 100644
+--- a/arch/mips/configs/cu1000-neo_defconfig
++++ b/arch/mips/configs/cu1000-neo_defconfig
+@@ -118,7 +118,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_PANIC_ON_OOPS=y
+ CONFIG_PANIC_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/cu1830-neo_defconfig b/arch/mips/configs/cu1830-neo_defconfig
+index b403e67ab105..84dfe018d9e9 100644
+--- a/arch/mips/configs/cu1830-neo_defconfig
++++ b/arch/mips/configs/cu1830-neo_defconfig
+@@ -121,7 +121,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_PANIC_ON_OOPS=y
+ CONFIG_PANIC_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/generic_defconfig b/arch/mips/configs/generic_defconfig
+index fa916407bdd4..4d31d6ace4b0 100644
+--- a/arch/mips/configs/generic_defconfig
++++ b/arch/mips/configs/generic_defconfig
+@@ -84,7 +84,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_INFO_REDUCED=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CMDLINE_BOOL=y
+ CONFIG_CMDLINE="earlycon"
+diff --git a/arch/mips/configs/loongson1b_defconfig b/arch/mips/configs/loongson1b_defconfig
+index 68207b31dc20..315540913dfb 100644
+--- a/arch/mips/configs/loongson1b_defconfig
++++ b/arch/mips/configs/loongson1b_defconfig
+@@ -114,7 +114,6 @@ CONFIG_NLS_ISO8859_1=m
+ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_EARLY_PRINTK is not set
+diff --git a/arch/mips/configs/loongson1c_defconfig b/arch/mips/configs/loongson1c_defconfig
+index c3910a9dee9e..3a422f4cc3f2 100644
+--- a/arch/mips/configs/loongson1c_defconfig
++++ b/arch/mips/configs/loongson1c_defconfig
+@@ -115,7 +115,6 @@ CONFIG_NLS_ISO8859_1=m
+ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_EARLY_PRINTK is not set
+diff --git a/arch/mips/configs/loongson2k_defconfig b/arch/mips/configs/loongson2k_defconfig
+index 0cc665d3ea34..4e0012ef3656 100644
+--- a/arch/mips/configs/loongson2k_defconfig
++++ b/arch/mips/configs/loongson2k_defconfig
+@@ -354,6 +354,5 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_FRAME_WARN=1024
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/loongson3_defconfig b/arch/mips/configs/loongson3_defconfig
+index 240efff37d98..16f39c6a2fbf 100644
+--- a/arch/mips/configs/loongson3_defconfig
++++ b/arch/mips/configs/loongson3_defconfig
+@@ -407,7 +407,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_FUNCTION_TRACER=y
+ CONFIG_FTRACE_SYSCALLS=y
+ CONFIG_CMDLINE_BOOL=y
+diff --git a/arch/mips/configs/omega2p_defconfig b/arch/mips/configs/omega2p_defconfig
+index e2bcdfd290a1..309c4e026f8b 100644
+--- a/arch/mips/configs/omega2p_defconfig
++++ b/arch/mips/configs/omega2p_defconfig
+@@ -118,7 +118,6 @@ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_PANIC_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/rt305x_defconfig b/arch/mips/configs/rt305x_defconfig
+index 8f9701efef19..79992a92c3cf 100644
+--- a/arch/mips/configs/rt305x_defconfig
++++ b/arch/mips/configs/rt305x_defconfig
+@@ -138,6 +138,5 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CMDLINE_BOOL=y
+diff --git a/arch/mips/configs/vocore2_defconfig b/arch/mips/configs/vocore2_defconfig
+index 2a9a9b12847d..14709474593e 100644
+--- a/arch/mips/configs/vocore2_defconfig
++++ b/arch/mips/configs/vocore2_defconfig
+@@ -118,7 +118,6 @@ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_PANIC_TIMEOUT=10
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_STACKTRACE=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/mips/configs/xway_defconfig b/arch/mips/configs/xway_defconfig
+index aae8497b6872..defb8642a9bc 100644
+--- a/arch/mips/configs/xway_defconfig
++++ b/arch/mips/configs/xway_defconfig
+@@ -144,6 +144,5 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ CONFIG_CMDLINE_BOOL=y
+diff --git a/arch/parisc/configs/generic-64bit_defconfig b/arch/parisc/configs/generic-64bit_defconfig
+index d8cd7f858b2a..32a9dfba3d21 100644
+--- a/arch/parisc/configs/generic-64bit_defconfig
++++ b/arch/parisc/configs/generic-64bit_defconfig
+@@ -297,4 +297,3 @@ CONFIG_STRIP_ASM_SYMS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_DEBUG_STACKOVERFLOW=y
+-# CONFIG_SCHED_DEBUG is not set
+diff --git a/arch/powerpc/configs/44x/warp_defconfig b/arch/powerpc/configs/44x/warp_defconfig
+index 5757625469c4..00fc9f1e87f0 100644
+--- a/arch/powerpc/configs/44x/warp_defconfig
++++ b/arch/powerpc/configs/44x/warp_defconfig
+@@ -90,5 +90,4 @@ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+diff --git a/arch/powerpc/configs/ep8248e_defconfig b/arch/powerpc/configs/ep8248e_defconfig
+index 0d8d3f41f194..8dcc37b00496 100644
+--- a/arch/powerpc/configs/ep8248e_defconfig
++++ b/arch/powerpc/configs/ep8248e_defconfig
+@@ -60,7 +60,6 @@ CONFIG_NLS_ISO8859_1=y
+ CONFIG_NLS_UTF8=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_BDI_SWITCH=y
+ CONFIG_CRYPTO_CBC=y
+ CONFIG_CRYPTO_ECB=y
+diff --git a/arch/powerpc/configs/holly_defconfig b/arch/powerpc/configs/holly_defconfig
+index 271daff47d1d..be87926f4120 100644
+--- a/arch/powerpc/configs/holly_defconfig
++++ b/arch/powerpc/configs/holly_defconfig
+@@ -54,7 +54,6 @@ CONFIG_TMPFS=y
+ CONFIG_NFS_FS=y
+ CONFIG_ROOT_NFS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ CONFIG_XMON=y
+ CONFIG_XMON_DEFAULT=y
+diff --git a/arch/powerpc/configs/mgcoge_defconfig b/arch/powerpc/configs/mgcoge_defconfig
+index f65001e7877f..981f2cbf8b90 100644
+--- a/arch/powerpc/configs/mgcoge_defconfig
++++ b/arch/powerpc/configs/mgcoge_defconfig
+@@ -75,7 +75,6 @@ CONFIG_NLS_UTF8=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_BDI_SWITCH=y
+ CONFIG_CRYPTO_ECB=y
+ CONFIG_CRYPTO_PCBC=y
+diff --git a/arch/powerpc/configs/microwatt_defconfig b/arch/powerpc/configs/microwatt_defconfig
+index a64fb1ef8c75..39a6c791632d 100644
+--- a/arch/powerpc/configs/microwatt_defconfig
++++ b/arch/powerpc/configs/microwatt_defconfig
+@@ -98,7 +98,6 @@ CONFIG_PRINTK_TIME=y
+ # CONFIG_SYMBOLIC_ERRNAME is not set
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ # CONFIG_DEBUG_MISC is not set
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_STRICT_DEVMEM is not set
+ CONFIG_PPC_DISABLE_WERROR=y
+diff --git a/arch/powerpc/configs/pasemi_defconfig b/arch/powerpc/configs/pasemi_defconfig
+index 8bbf51b38480..04aba704d06a 100644
+--- a/arch/powerpc/configs/pasemi_defconfig
++++ b/arch/powerpc/configs/pasemi_defconfig
+@@ -163,7 +163,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_XMON=y
+ CONFIG_XMON_DEFAULT=y
+ CONFIG_CRYPTO_MD4=y
+diff --git a/arch/powerpc/configs/skiroot_defconfig b/arch/powerpc/configs/skiroot_defconfig
+index 2b71a6dc399e..82ccde74f902 100644
+--- a/arch/powerpc/configs/skiroot_defconfig
++++ b/arch/powerpc/configs/skiroot_defconfig
+@@ -293,7 +293,6 @@ CONFIG_BOOTPARAM_SOFTLOCKUP_PANIC=y
+ CONFIG_HARDLOCKUP_DETECTOR=y
+ CONFIG_BOOTPARAM_HARDLOCKUP_PANIC=y
+ CONFIG_WQ_WATCHDOG=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_SG=y
+ CONFIG_DEBUG_NOTIFIERS=y
+ CONFIG_BUG_ON_DATA_CORRUPTION=y
+diff --git a/arch/riscv/configs/nommu_k210_defconfig b/arch/riscv/configs/nommu_k210_defconfig
+index ee18d1e333f2..98494ebe1d4f 100644
+--- a/arch/riscv/configs/nommu_k210_defconfig
++++ b/arch/riscv/configs/nommu_k210_defconfig
+@@ -89,7 +89,6 @@ CONFIG_PRINTK_TIME=y
+ # CONFIG_FRAME_POINTER is not set
+ # CONFIG_DEBUG_MISC is not set
+ CONFIG_PANIC_ON_OOPS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_RCU_TRACE is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/riscv/configs/nommu_k210_sdcard_defconfig b/arch/riscv/configs/nommu_k210_sdcard_defconfig
+index e770d81b738e..4a826e30fa3e 100644
+--- a/arch/riscv/configs/nommu_k210_sdcard_defconfig
++++ b/arch/riscv/configs/nommu_k210_sdcard_defconfig
+@@ -86,7 +86,6 @@ CONFIG_PRINTK_TIME=y
+ # CONFIG_FRAME_POINTER is not set
+ # CONFIG_DEBUG_MISC is not set
+ CONFIG_PANIC_ON_OOPS=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_RCU_TRACE is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/riscv/configs/nommu_virt_defconfig b/arch/riscv/configs/nommu_virt_defconfig
+index d4b03dc3c2c0..e5970b43fefa 100644
+--- a/arch/riscv/configs/nommu_virt_defconfig
++++ b/arch/riscv/configs/nommu_virt_defconfig
+@@ -67,7 +67,6 @@ CONFIG_EXT2_FS=y
+ # CONFIG_MISC_FILESYSTEMS is not set
+ CONFIG_LSM="[]"
+ CONFIG_PRINTK_TIME=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_RCU_TRACE is not set
+ # CONFIG_FTRACE is not set
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/sh/configs/edosk7760_defconfig b/arch/sh/configs/edosk7760_defconfig
+index f427a95bcd21..38843a02a541 100644
+--- a/arch/sh/configs/edosk7760_defconfig
++++ b/arch/sh/configs/edosk7760_defconfig
+@@ -105,7 +105,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_TIMER_STATS=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_CRYPTO=y
+diff --git a/arch/sh/configs/magicpanelr2_defconfig b/arch/sh/configs/magicpanelr2_defconfig
+index 93b9aa32dc7c..b7ac0b41b67c 100644
+--- a/arch/sh/configs/magicpanelr2_defconfig
++++ b/arch/sh/configs/magicpanelr2_defconfig
+@@ -82,7 +82,6 @@ CONFIG_NLS_CODEPAGE_850=y
+ CONFIG_NLS_ISO8859_1=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_KERNEL=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_KOBJECT=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_FRAME_POINTER=y
+diff --git a/arch/sh/configs/polaris_defconfig b/arch/sh/configs/polaris_defconfig
+index 4f0396c2ac79..7c47d7ccc233 100644
+--- a/arch/sh/configs/polaris_defconfig
++++ b/arch/sh/configs/polaris_defconfig
+@@ -74,7 +74,6 @@ CONFIG_NFS_V3=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DEBUG_SHIRQ=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_DEBUG_LOCK_ALLOC=y
+ CONFIG_DEBUG_SPINLOCK_SLEEP=y
+diff --git a/arch/sh/configs/sdk7780_defconfig b/arch/sh/configs/sdk7780_defconfig
+index 9870d16d9711..36cacb67a907 100644
+--- a/arch/sh/configs/sdk7780_defconfig
++++ b/arch/sh/configs/sdk7780_defconfig
+@@ -129,7 +129,6 @@ CONFIG_NLS_UTF8=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_TIMER_STATS=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_SH_STANDARD_BIOS=y
+diff --git a/arch/sh/configs/sh2007_defconfig b/arch/sh/configs/sh2007_defconfig
+index cc6292b3235a..6bcfd8cf7d41 100644
+--- a/arch/sh/configs/sh2007_defconfig
++++ b/arch/sh/configs/sh2007_defconfig
+@@ -157,7 +157,6 @@ CONFIG_NLS_UTF8=y
+ CONFIG_DEBUG_FS=y
+ CONFIG_DEBUG_KERNEL=y
+ # CONFIG_DETECT_SOFTLOCKUP is not set
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_FRAME_POINTER=y
+ CONFIG_SH_STANDARD_BIOS=y
+diff --git a/arch/sh/configs/sh7757lcr_defconfig b/arch/sh/configs/sh7757lcr_defconfig
+index 48a0f9beb116..e75e4139dc5a 100644
+--- a/arch/sh/configs/sh7757lcr_defconfig
++++ b/arch/sh/configs/sh7757lcr_defconfig
+@@ -77,7 +77,6 @@ CONFIG_NLS_CODEPAGE_437=y
+ CONFIG_NLS_CODEPAGE_932=y
+ CONFIG_NLS_ISO8859_1=y
+ CONFIG_DEBUG_KERNEL=y
+-# CONFIG_SCHED_DEBUG is not set
+ # CONFIG_DEBUG_BUGVERBOSE is not set
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ # CONFIG_FTRACE is not set
+diff --git a/arch/sparc/configs/sparc32_defconfig b/arch/sparc/configs/sparc32_defconfig
+index f6341b063b01..09a3dd5d9c1e 100644
+--- a/arch/sparc/configs/sparc32_defconfig
++++ b/arch/sparc/configs/sparc32_defconfig
+@@ -75,7 +75,6 @@ CONFIG_RPCSEC_GSS_KRB5=m
+ CONFIG_NLS=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_KGDB=y
+ CONFIG_KGDB_TESTS=y
+ CONFIG_CRYPTO_NULL=m
+diff --git a/arch/sparc/configs/sparc64_defconfig b/arch/sparc/configs/sparc64_defconfig
+index 7a7c4dec2925..8e509a7eca6e 100644
+--- a/arch/sparc/configs/sparc64_defconfig
++++ b/arch/sparc/configs/sparc64_defconfig
+@@ -199,7 +199,6 @@ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_KERNEL=y
+ CONFIG_LOCKUP_DETECTOR=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ CONFIG_UPROBE_EVENTS=y
+diff --git a/arch/xtensa/configs/audio_kc705_defconfig b/arch/xtensa/configs/audio_kc705_defconfig
+index f2af1a32c9c7..abe27efad862 100644
+--- a/arch/xtensa/configs/audio_kc705_defconfig
++++ b/arch/xtensa/configs/audio_kc705_defconfig
+@@ -123,7 +123,6 @@ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_LOCKUP_DETECTOR=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_DEBUG_SPINLOCK=y
+diff --git a/arch/xtensa/configs/cadence_csp_defconfig b/arch/xtensa/configs/cadence_csp_defconfig
+index 88ed5284e21c..8b964ce284bb 100644
+--- a/arch/xtensa/configs/cadence_csp_defconfig
++++ b/arch/xtensa/configs/cadence_csp_defconfig
+@@ -99,7 +99,6 @@ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_LOCKUP_DETECTOR=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_PROVE_LOCKING=y
+diff --git a/arch/xtensa/configs/generic_kc705_defconfig b/arch/xtensa/configs/generic_kc705_defconfig
+index 4427907becca..8d679b812dfb 100644
+--- a/arch/xtensa/configs/generic_kc705_defconfig
++++ b/arch/xtensa/configs/generic_kc705_defconfig
+@@ -110,7 +110,6 @@ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_LOCKUP_DETECTOR=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_DEBUG_SPINLOCK=y
+diff --git a/arch/xtensa/configs/virt_defconfig b/arch/xtensa/configs/virt_defconfig
+index e37048985b47..734b98ff917b 100644
+--- a/arch/xtensa/configs/virt_defconfig
++++ b/arch/xtensa/configs/virt_defconfig
+@@ -99,7 +99,6 @@ CONFIG_PRINTK_TIME=y
+ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_DEBUG_SPINLOCK=y
+diff --git a/arch/xtensa/configs/xip_kc705_defconfig b/arch/xtensa/configs/xip_kc705_defconfig
+index ee47438f9b51..8b8dab90b30f 100644
+--- a/arch/xtensa/configs/xip_kc705_defconfig
++++ b/arch/xtensa/configs/xip_kc705_defconfig
+@@ -104,7 +104,6 @@ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DETECT_HUNG_TASK=y
+-# CONFIG_SCHED_DEBUG is not set
+ CONFIG_SCHEDSTATS=y
+ CONFIG_DEBUG_RT_MUTEXES=y
+ CONFIG_DEBUG_SPINLOCK=y
+-- 
+2.44.0.501.g19981daefd7c
+
 
