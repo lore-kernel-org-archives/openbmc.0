@@ -1,76 +1,76 @@
-Return-Path: <openbmc+bounces-562-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-563-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C47F4CA1007
-	for <openbmc@archiver.kernel.org>; Tue,  2 Sep 2025 18:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81823CA1005
+	for <openbmc@archiver.kernel.org>; Tue,  2 Sep 2025 18:33:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cGZ932R3xz30TB;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cGZ936ygLz30NF;
 	Wed,  3 Sep 2025 04:32:23 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756837943;
-	cv=none; b=Bm1YPwk3eXHDWG0G1mTBmByRMBKmGBg/h2+0CN3RS0yr/dJA7rrqml4USfas4GvWdHOUfbP/P+DHdnV5i8leeLn76AjjIrcgFrso29Kx4eb9bXJwX+K/G/1TgbQ80QMzY/ydbprFIUiRjed0sjft1qs80fzQCDyQj0shCSsnGszjKL5mGniMfD/rwGVlurwpLJ6H4lYenfOKsXJsxxsKzkUoNDBBBdnAU6U3idyV4rGpFa0fACDp6Qj5crbgf/TBqLu7iynOlmdTdyGlvh11EkBlzX+mTVOp2V9KiAytM+I34Kpyqfab1tGJbARm8ggvdnioKPXWkGTYCN1INOp7RA==
+	cv=none; b=Yuw04eWXeWSKG7yDDmRVdR02ldBrODWH3zgQ9jpJCQlD31hna3k4rJDoI9V1djU/itkHp69pM2BbaobxD6ABXwqQslsZ/U04s5zAav62qhJwU6KGu1FzcO6QdplenrDlZbJqNg69ifjfZ030ZZ57WmhHtaiDoppiPeCGSPLocQKLc/mPZTkwGQTAgDJDF37jj+4IIKUASEnQ9YDrNfj9VqbRhlaQnnmxDljbke/Vro/8dFzojJbOiF+yyFQPhMMtantkjybhubQXD267tD6WZ0CHOyWIKjWHqWNjZrsrsIezriJZRDTFDW4Vhdv1XcOKnnr1td8NOibXr8Ne3KAtlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1756837943; c=relaxed/relaxed;
-	bh=tE6oY0p93lBoSLiyE+sLGx2WPDYLPQILOwJ9TH8Qacs=;
+	bh=vmk3boFNVCJH6lQ+BXNRN3IfyvNeqAQ3KBrcoMZaqQA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nkLWbwWP2VSv32MEnjO/Uio8WIZMUIzdu/HAYZMq7UEWHxO6Mz1zGDmMOvpjVuS0fhxoY3rfHbOiT9bEsCeowFQhgFTX0pJmAnzJR9RmKX5KJRfr5YbGqDxNNPMOf/oB+mH0FHXB0LCOvjkOqYkt4XUEZ1KICcqxHLbyinCfQuFIwS/SlPWF5phmeotC1eKAEq25nlS2z9WWsqM/fndyBDIs8GB1QZcnPkVTwixCC/exMoe/oMODPISHk9+1hW0/fNuBobIPwVpt7B408Ult7OD/6dwkGCi9msw6Q02zSszoK2pZCIdiA+QGelx2n2w5AH+16vOpWUFxA9Glwtp+uQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NbD5d13f; dkim-atps=neutral; spf=pass (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
+	 MIME-Version; b=UUzCiSzIE8o2PPgCI9sk3SCvwMvK0hxhZ+vcHD9Bd2nRg1TCay2Hj4EkJvOrZY7M/uMh0/h9wbJSTLl6Vdc6eGIQz53QjiK4uL7OAvWo/S1INItJJGl8lZxOmL6FFzVJwnuHR4pCU3Qh5iqo0VSv7kYZe3N1BPZkJKcuosU6UYojbcVN6fPsA57WQU7P9gNrO6nrh1j7jGre0uUIhpsbTqBs5g4paknbA7YTVJJfH4Bl52MNSPUfzuqi8AaJ8MukXdC5YY81GbtBU3BxwV2PFIEfXi8UUdI4J1s0XvCjR6m+wKvUsuzQJpPEd3A2slSPnYqAY+PHzDTIH9/+GJPn2w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=TaA8Jqhu; dkim-atps=neutral; spf=pass (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=NbD5d13f;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=TaA8Jqhu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cGZ903XQrz30NF
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cGZ903krdz30NP
 	for <openbmc@lists.ozlabs.org>; Wed,  3 Sep 2025 04:32:19 +1000 (AEST)
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582CCHeE001387;
-	Tue, 2 Sep 2025 18:32:06 GMT
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582Et1ZW009369;
+	Tue, 2 Sep 2025 18:32:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=tE6oY0p93lBoSLiyE
-	+sLGx2WPDYLPQILOwJ9TH8Qacs=; b=NbD5d13fNj1wXcIR4F6ejG8H9v8WV9hfo
-	xcgFiQa7Uk9iqhXy4OJzJETDfaD/7gZz0qwoznl/iWF0XmUU62ajo2K5gcgTxqDT
-	czC6Atn15PUG3C+4a3JwFDN2gM7/MMBDcaOTRN6IW9f9Y6U4fgtO1xwcQhurmCtp
-	lA7bo1EJGHlT6YKdNC7zJ/FT5mTG825oxHDoDSbjWQ5euhjG/JGZm/p2tFmVAbIR
-	1tpQzJPtR7G622gEOSBFsRIKRVX69DFM2DRyHurLiQksAXfUa3VbbezQMotLO0H0
-	cow4IRZCajWf6/5aPd0gxyG2qwMI/PXq1I/70kgIGKBzFQbxeU0cw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usvfqwe2-1
+	:mime-version:references:subject:to; s=pp1; bh=vmk3boFNVCJH6lQ+B
+	XNRN3IfyvNeqAQ3KBrcoMZaqQA=; b=TaA8Jqhu/ZiQ4opxaE0acO+6bvWV9Tps7
+	vUhB+EAas1Muhj6N2Q4GBEcsSl7i6K3yDauYa7q0eZB/TUMKGdcMsDqCrxYGNoWK
+	QWG7iflNFVR+yI+CPareNptF2bIoA3rEpBYih4gKC/DJcuKhlUu+1FDuSZiglkhS
+	uPf+SERCim75GAm1wYVSVthCHU9+ZZVMJPlh/LfKgT7qUI8XvRmWhdIgcailfjre
+	XCneIlz6k2SXt1Rp5fQBZazB00YE4MQhOjBOyQ0mQnP8ntZ9x2HhyPQG54Ext5+c
+	sSaOkiXB4cTTJdP0WILqb6l7+FM5TduE7zijuiDkx4CpuLbm9RU1A==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usur04y4-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Sep 2025 18:32:06 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 582Fl96l019926;
-	Tue, 2 Sep 2025 18:32:05 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 48vbmu45x5-1
+	Tue, 02 Sep 2025 18:32:07 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 582FssJA017634;
+	Tue, 2 Sep 2025 18:32:06 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 48vc10m3a5-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Sep 2025 18:32:05 +0000
+	Tue, 02 Sep 2025 18:32:06 +0000
 Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 582IW3CX64880988
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 582IW4V5655882
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 2 Sep 2025 18:32:03 GMT
+	Tue, 2 Sep 2025 18:32:04 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BCFA258045;
-	Tue,  2 Sep 2025 18:32:03 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id C173E58045;
+	Tue,  2 Sep 2025 18:32:04 +0000 (GMT)
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2FC8258050;
-	Tue,  2 Sep 2025 18:32:03 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 63DA558050;
+	Tue,  2 Sep 2025 18:32:04 +0000 (GMT)
 Received: from gfwa153.aus.stglabs.ibm.com (unknown [9.3.84.127])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  2 Sep 2025 18:32:03 +0000 (GMT)
+	Tue,  2 Sep 2025 18:32:04 +0000 (GMT)
 From: Ninad Palsule <ninad@linux.ibm.com>
 To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, joel@jms.id.au,
         eajames@linux.ibm.com
-Cc: ninad@linux.ibm.com, Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-6.12 v1 3/6] soc: aspeed: xdma: Add reset ioctl
-Date: Tue,  2 Sep 2025 13:31:44 -0500
-Message-ID: <20250902183155.2988560-4-ninad@linux.ibm.com>
+Cc: ninad@linux.ibm.com
+Subject: [PATCH linux dev-6.12 v1 5/6] i2c: core: Add mux root adapter operations
+Date: Tue,  2 Sep 2025 13:31:46 -0500
+Message-ID: <20250902183155.2988560-6-ninad@linux.ibm.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250902183155.2988560-1-ninad@linux.ibm.com>
 References: <20250902183155.2988560-1-ninad@linux.ibm.com>
@@ -87,112 +87,253 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=behrUPPB c=1 sm=1 tr=0 ts=68b73826 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=0oV1QDMFOXbsLJkSypIA:9
-X-Proofpoint-ORIG-GUID: 2MRU9DvPMXY76uVh97x7sPgM_2jCiWeJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzNCBTYWx0ZWRfX2E6qfIHSIz/L
- pjbidAUniwJ5BErtPCSJLsi/+zdbRlkDx+2b+/JxLs0xCCAZffneZyKdFED7cMd4jPD29V+sQ6G
- 8Rf4J9NvKcy9ZKBL3x8P3QXe6/dM6dSeMThDRlMlWum6gz3XziMPT220EaJi/tnAXdDU7IRRuOf
- ++2e3q1w4GHFW8uJT4dQjpEsOBHfic/JhqyAa8vBfHG97R46v6N2OgExAd8AIiDajJN6Uf+Zq+o
- k//Zo6rIAO+6Wy/xcsOL5kha6WY/5dMwgW2+91HelXABF1pwPO0KYQWoiHNrWQz93J7WJwcUKI2
- DFp/yfTFO2SX+ZKqbR51F5SdxJwEcLB7IOOMjtQvoAH+W/ewWB7iQ9L4ZCTD7e/cXihzjDelVKI
- bBsAHtLe
-X-Proofpoint-GUID: 2MRU9DvPMXY76uVh97x7sPgM_2jCiWeJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMCBTYWx0ZWRfX0PNo9X/beJHd
+ OJT3Fx67+a50vEWhCGlXAbFbt4L8Ot7pFWH+nHQCFwlAqpatFCqMmiSR+GiGPtVmyoxALoByLBj
+ PTYL8fxW8ez9sLxYVehv0+v/Dgi1NGBnWRfb/EXY29JaZ9qprigDE52aomscx8iz4aWP5/4is5E
+ LalmAXzMtPoMgPyfXaZw0ZJmseIOrWbnf11rnmIEj9MMYf3WRAF/b1+sRtvnDHdtL0t70ntVrng
+ rSu2UHhHZnnMi7sDrGFoL7QZKdx3qIEWirOJZja2P5zcziSuZri3kUSSVlc0nEZ3Nj/jKpKRQzz
+ ZuRzcVGFMAZ2iJNmapP3nL5gPjVP6U+NYlv1FSlF2VeaGdRCobFsISGCHfhAuKkSfa0LEt/YpaD
+ 8FCjjVxi
+X-Proofpoint-GUID: _V4d9XLzsnqK4rawgSG4hEorzEfXT-3I
+X-Proofpoint-ORIG-GUID: _V4d9XLzsnqK4rawgSG4hEorzEfXT-3I
+X-Authority-Analysis: v=2.4 cv=Ao/u3P9P c=1 sm=1 tr=0 ts=68b73827 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=yg26B0FpSW6sT4ThZqEA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-02_06,2025-08-28_01,2025-03-28_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 spamscore=0 clxscore=1011 phishscore=0
- priorityscore=1501 adultscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508300034
+ clxscore=1015 phishscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2507300000 definitions=main-2508300030
 
 From: Eddie James <eajames@linux.ibm.com>
 
-Users of the XDMA engine need a way to reset it if something goes wrong.
-Problems on the host side, or user error, such as incorrect host
-address, may result in the DMA operation never completing and no way to
-determine what went wrong. Therefore, add an ioctl to reset the engine
-so that users can recover in this situation.
+Some I2C clients need the ability to control the root I2C bus even if the
+endpoint device is behind a mux. For example, a driver for a chip that
+can't handle any I2C traffic on the bus while coming out of reset
+(including an I2C-driven mux switching channels) may need to lock the root
+bus with the mux selection fixed for the entire time the device is in
+reset.
+For this purpose, add a new structure containing two function pointers to
+the adapter structure. These functions pointers should be defined for
+every adapter. The lock_select operation, for a mux adapter, locks the
+parent adpaters up to the root and selects the adapter's channel. The
+unlock_deselect operation deselects the mux channel and unlocks all the
+adapters. For a non-mux adapter, the operations lock and unlock the
+adapters up to the root. This scheme should work with multiple levels of
+muxes and regular adapters in between.
 
+OpenBMC-Staging-Count: 4
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
 Reviewed-by: Joel Stanley <joel@jms.id.au>
-Link: https://lore.kernel.org/r/1588697905-23444-5-git-send-email-eajames@linux.ibm.com
+Link: https://lore.kernel.org/r/20220906202829.1921114-2-eajames@linux.ibm.com
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/soc/aspeed/aspeed-xdma.c | 32 ++++++++++++++++++++++++++++++++
- include/uapi/linux/aspeed-xdma.h |  4 ++++
- 2 files changed, 36 insertions(+)
+ drivers/i2c/i2c-core-base.c | 38 ++++++++++++++++++++++++++++
+ drivers/i2c/i2c-mux.c       | 50 +++++++++++++++++++++++++++++++++++++
+ include/linux/i2c.h         | 42 +++++++++++++++++++++++++++++++
+ 3 files changed, 130 insertions(+)
 
-diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
-index 584038e69d49e..565486ddb3b52 100644
---- a/drivers/soc/aspeed/aspeed-xdma.c
-+++ b/drivers/soc/aspeed/aspeed-xdma.c
-@@ -640,6 +640,37 @@ static __poll_t aspeed_xdma_poll(struct file *file,
- 	return mask;
- }
+diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
+index 75d30861ffe21..0e60f24521220 100644
+--- a/drivers/i2c/i2c-core-base.c
++++ b/drivers/i2c/i2c-core-base.c
+@@ -1430,6 +1430,41 @@ static const struct i2c_lock_operations i2c_adapter_lock_ops = {
+ 	.unlock_bus =  i2c_adapter_unlock_bus,
+ };
  
-+static long aspeed_xdma_ioctl(struct file *file, unsigned int cmd,
-+			      unsigned long param)
++/*
++ * For a non-mux adapter, the lock_select operation locks the chain of
++ * adapters upwards, returning the root. If there's a mux above this adapter
++ * somehow, it should also get locked and the desired channel selected.
++ */
++static struct i2c_adapter *i2c_adapter_lock_select(struct i2c_adapter *adapter)
 +{
-+	unsigned long flags;
-+	struct aspeed_xdma_client *client = file->private_data;
-+	struct aspeed_xdma *ctx = client->ctx;
++	struct i2c_adapter *ret = adapter;
++	struct i2c_adapter *parent = i2c_parent_is_i2c_adapter(adapter);
 +
-+	switch (cmd) {
-+	case ASPEED_XDMA_IOCTL_RESET:
-+		spin_lock_irqsave(&ctx->engine_lock, flags);
-+		if (ctx->in_reset) {
-+			spin_unlock_irqrestore(&ctx->engine_lock, flags);
-+			return 0;
-+		}
-+
-+		ctx->in_reset = true;
-+		spin_unlock_irqrestore(&ctx->engine_lock, flags);
-+
-+		if (READ_ONCE(ctx->current_client))
-+			dev_warn(ctx->dev,
-+				 "User reset with transfer in progress.\n");
-+
-+		aspeed_xdma_reset(ctx);
-+		break;
-+	default:
-+		return -EINVAL;
++	if (parent) {
++		ret = parent->mux_root_ops->lock_select(parent);
++		if (IS_ERR(ret))
++			return ret;
 +	}
 +
-+	return 0;
++	adapter->lock_ops->lock_bus(adapter, I2C_LOCK_ROOT_ADAPTER);
++	return ret;
 +}
 +
- static void aspeed_xdma_vma_close(struct vm_area_struct *vma)
- {
- 	int rc;
-@@ -758,6 +789,7 @@ static const struct file_operations aspeed_xdma_fops = {
- 	.owner			= THIS_MODULE,
- 	.write			= aspeed_xdma_write,
- 	.poll			= aspeed_xdma_poll,
-+	.unlocked_ioctl		= aspeed_xdma_ioctl,
- 	.mmap			= aspeed_xdma_mmap,
- 	.open			= aspeed_xdma_open,
- 	.release		= aspeed_xdma_release,
-diff --git a/include/uapi/linux/aspeed-xdma.h b/include/uapi/linux/aspeed-xdma.h
-index 2efaa6067c39b..3a3646fd1e9ec 100644
---- a/include/uapi/linux/aspeed-xdma.h
-+++ b/include/uapi/linux/aspeed-xdma.h
-@@ -4,8 +4,12 @@
- #ifndef _UAPI_LINUX_ASPEED_XDMA_H_
- #define _UAPI_LINUX_ASPEED_XDMA_H_
- 
-+#include <linux/ioctl.h>
- #include <linux/types.h>
- 
-+#define __ASPEED_XDMA_IOCTL_MAGIC	0xb7
-+#define ASPEED_XDMA_IOCTL_RESET		_IO(__ASPEED_XDMA_IOCTL_MAGIC, 0)
++static void i2c_adapter_unlock_deselect(struct i2c_adapter *adapter)
++{
++	struct i2c_adapter *parent = i2c_parent_is_i2c_adapter(adapter);
 +
- /*
-  * aspeed_xdma_direction
-  *
++	adapter->lock_ops->unlock_bus(adapter, I2C_LOCK_ROOT_ADAPTER);
++
++	if (parent)
++		parent->mux_root_ops->unlock_deselect(parent);
++}
++
++static const struct i2c_mux_root_operations i2c_adapter_mux_root_ops = {
++	.lock_select = i2c_adapter_lock_select,
++	.unlock_deselect = i2c_adapter_unlock_deselect,
++};
++
+ static void i2c_host_notify_irq_teardown(struct i2c_adapter *adap)
+ {
+ 	struct irq_domain *domain = adap->host_notify_domain;
+@@ -1527,6 +1562,9 @@ static int i2c_register_adapter(struct i2c_adapter *adap)
+ 	if (!adap->lock_ops)
+ 		adap->lock_ops = &i2c_adapter_lock_ops;
+ 
++	if (!adap->mux_root_ops)
++		adap->mux_root_ops = &i2c_adapter_mux_root_ops;
++
+ 	adap->locked_flags = 0;
+ 	rt_mutex_init(&adap->bus_lock);
+ 	rt_mutex_init(&adap->mux_lock);
+diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
+index fda72e8be8850..3ba9a8beb7685 100644
+--- a/drivers/i2c/i2c-mux.c
++++ b/drivers/i2c/i2c-mux.c
+@@ -197,6 +197,49 @@ static void i2c_parent_unlock_bus(struct i2c_adapter *adapter,
+ 	rt_mutex_unlock(&parent->mux_lock);
+ }
+ 
++/*
++ * For a mux adapter, the lock_select operation first locks just like the
++ * lock_bus operation. Then it selects the channel for this adapter and
++ * returns the root adapter. If there is another mux above this one, calling
++ * the parent lock_select should ensure that the channel is correctly
++ * selected.
++ */
++static struct i2c_adapter *i2c_mux_lock_select(struct i2c_adapter *adapter)
++{
++	int ret;
++	struct i2c_mux_priv *priv = adapter->algo_data;
++	struct i2c_mux_core *muxc = priv->muxc;
++	struct i2c_adapter *parent = muxc->parent;
++
++	rt_mutex_lock_nested(&parent->mux_lock, i2c_adapter_depth(adapter));
++
++	adapter = parent->mux_root_ops->lock_select(parent);
++	if (IS_ERR(adapter))
++		return adapter;
++
++	ret = muxc->select(muxc, priv->chan_id);
++	if (ret < 0) {
++		parent->mux_root_ops->unlock_deselect(parent);
++		rt_mutex_unlock(&parent->mux_lock);
++		return ERR_PTR(ret);
++	}
++
++	return adapter;
++}
++
++static void i2c_mux_unlock_deselect(struct i2c_adapter *adapter)
++{
++	struct i2c_mux_priv *priv = adapter->algo_data;
++	struct i2c_mux_core *muxc = priv->muxc;
++	struct i2c_adapter *parent = muxc->parent;
++
++	if (muxc->deselect)
++		muxc->deselect(muxc, priv->chan_id);
++
++	parent->mux_root_ops->unlock_deselect(parent);
++	rt_mutex_unlock(&parent->mux_lock);
++}
++
+ struct i2c_adapter *i2c_root_adapter(struct device *dev)
+ {
+ 	struct device *i2c;
+@@ -267,6 +310,11 @@ static const struct i2c_lock_operations i2c_parent_lock_ops = {
+ 	.unlock_bus =  i2c_parent_unlock_bus,
+ };
+ 
++static const struct i2c_mux_root_operations i2c_mux_root_ops = {
++	.lock_select = i2c_mux_lock_select,
++	.unlock_deselect = i2c_mux_unlock_deselect,
++};
++
+ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 			u32 force_nr, u32 chan_id)
+ {
+@@ -326,6 +374,8 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 	else
+ 		priv->adap.lock_ops = &i2c_parent_lock_ops;
+ 
++	priv->adap.mux_root_ops = &i2c_mux_root_ops;
++
+ 	/*
+ 	 * Try to populate the mux adapter's of_node, expands to
+ 	 * nothing if !CONFIG_OF.
+diff --git a/include/linux/i2c.h b/include/linux/i2c.h
+index 388ce71a29a97..3081a48b9ec67 100644
+--- a/include/linux/i2c.h
++++ b/include/linux/i2c.h
+@@ -595,6 +595,26 @@ struct i2c_lock_operations {
+ 	void (*unlock_bus)(struct i2c_adapter *adapter, unsigned int flags);
+ };
+ 
++/**
++ * struct i2c_mux_root_operations - represent operations to lock and select
++ * the adapter's mux channel (if a mux is present)
++ * @lock_select: Get exclusive access to the root I2C bus adapter with the
++ *   correct mux channel selected for the adapter
++ * @unlock_deslect: Release exclusive access to the root I2C bus adapter and
++ *   deselect the mux channel for the adapter
++ *
++ * Some I2C clients need the ability to control the root I2C bus even if the
++ * endpoint device is behind a mux. For example, a driver for a chip that
++ * can't handle any I2C traffic on the bus while coming out of reset (including
++ * an I2C-driven mux switching channels) may need to lock the root bus with
++ * the mux selection fixed for the entire time the device is in reset.
++ * These operations are for such a purpose.
++ */
++struct i2c_mux_root_operations {
++	struct i2c_adapter *(*lock_select)(struct i2c_adapter *adapter);
++	void (*unlock_deselect)(struct i2c_adapter *adapter);
++};
++
+ /**
+  * struct i2c_timings - I2C timing information
+  * @bus_freq_hz: the bus frequency in Hz
+@@ -737,6 +757,7 @@ struct i2c_adapter {
+ 
+ 	/* data fields that are valid for all devices	*/
+ 	const struct i2c_lock_operations *lock_ops;
++	const struct i2c_mux_root_operations *mux_root_ops;
+ 	struct rt_mutex bus_lock;
+ 	struct rt_mutex mux_lock;
+ 
+@@ -834,6 +855,27 @@ i2c_unlock_bus(struct i2c_adapter *adapter, unsigned int flags)
+ 	adapter->lock_ops->unlock_bus(adapter, flags);
+ }
+ 
++/**
++ * i2c_lock_select_bus - Get exclusive access to the root I2C bus with the
++ *   target's mux channel (if a mux is present) selected.
++ * @adapter: Target I2C bus
++ *
++ * Return the root I2C bus if mux selection succeeds, an ERR_PTR otherwise
++ */
++static inline struct i2c_adapter *i2c_lock_select_bus(struct i2c_adapter *adapter)
++{
++	return adapter->mux_root_ops->lock_select(adapter);
++}
++
++/**
++ * i2c_unlock_deselect_bus - Release exclusive access to the root I2C bus
++ * @adapter: Target I2C bus
++ */
++static inline void i2c_unlock_deselect_bus(struct i2c_adapter *adapter)
++{
++	adapter->mux_root_ops->unlock_deselect(adapter);
++}
++
+ /**
+  * i2c_mark_adapter_suspended - Report suspended state of the adapter to the core
+  * @adap: Adapter to mark as suspended
 -- 
 2.48.1
 
