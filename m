@@ -1,76 +1,76 @@
-Return-Path: <openbmc+bounces-560-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-561-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD3ECA1005
-	for <openbmc@archiver.kernel.org>; Tue,  2 Sep 2025 18:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73C1ACA1007
+	for <openbmc@archiver.kernel.org>; Tue,  2 Sep 2025 18:32:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cGZ916qTtz30Pl;
-	Wed,  3 Sep 2025 04:32:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cGZ920FNMz30QJ;
+	Wed,  3 Sep 2025 04:32:22 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756837941;
-	cv=none; b=MBYRipR8bUvO2ys1Da5PPe5FC2TO5yFAt+nnx5wEMkbPtlTEcPfZ/nSMKOAyLbdVAAUacksETJSCWZ44D4UQYGQBDnLlf175JdI60S64sgEsQiSaBBexdV8PtIBeoYtLtb3RQNNB5zGKVPAKkO0agqZz8nRCMcFpera2mbDmoihU/94V972nk6kjd6eKsJ4r7QEqMueZaScRBK93LWYRXOWqTkiNGUsU8S1TW5Hjwu0ZDEzxqHWlATotE7MtOIfhCva9PO5mNlkd6JFGoJX7jNESz2IizqkQsdpqZHzQOJUB78QKpyzSvU2W3aVRoPaKcebqu3jVvIw8WdMuiJYg1g==
+	cv=none; b=ZpnizQ4gn07yNpYnPaiUilFD1qL1E2LQmmMN0e7ul1C37jrnOO8T4bz4LO5FhjC3l9Bv2raSlrLJnzGg2uzEHYvlGpX0tLrLva4JuszAAzsslixAahwvTxdrD27FTEKefQKXV+bw3M1WqwaB1NLLdBwbsJVXPF0NLjI5JD9Lf7hfns9KoFfa6Q/HgW1Bd6TPwRvGieBUUYkaxzFU51eih9FN/tlB2InDnDUpTqgM+wxpkYPVO42j3VoSYfzlHeIO7JKSvgg5un4dv2eqdr8BoKzGzCMwyk0auQv9YHd8rj8ZK3ly20G5JMnCZMxStws3MiTzODeWD33n/psYC94Mqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1756837941; c=relaxed/relaxed;
-	bh=jZ+Wl00yNXRmPAmZJSnLSCjjGfzy2ERh+6cMA4dKYv8=;
+	bh=Th3t9TP3cbI4Kvucfvy9bd34XvRV0QnUvBxu2BAMliA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UZsSyeVrF8ghmdgylLCksTVwn63CUZHpLobmDL0GfF3ubT1BIIjEU0NQU2syiBDdWmi1S+FgBr+8tSTd409W6cfrwAcQlKKmh5F5A/Ot5Ro/bwqFN9FoL8ZNrmMwKXfSybZ/xATf3UqHPVryyALu1p2pUZ1OtEu83K/HcDmFRqmMimr45pRtzWMxjwiSY5cfYhbfGY/toe+WqJTMJ0GgTiMQoPGm25aGeFJsmNAQ9QaHaZ0fCJ9svqxtCCgq69x/xbjzG8S9dQFkdprpKueL11axqOLeSX3NRrNVeYxkYO+KVfF5pskYY/GpbMqeL0OwvCG/lRvgvdXn+bPJqMUEpg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rfhwjD1e; dkim-atps=neutral; spf=pass (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
+	 MIME-Version; b=e1S+Dq4YePbf2uFNP9B9vmhQzeLdxVD6veDQ6wrqTTt8Rr1IJNb0jwapo4uInloXSrIIJ2PZQdVPfVO17fcMs8AY7fjzXHymOKA7XH0F88ZyXBQwpjSZfwgr2ydfgigiCrRkBAYrRCiH9HqKVONUG2j1PP08Rm9Ee53kWA8amGRt/53ReBkwwW4CIiE7x03Ikn6QyMvKnTLTRs+cvztRWRkRg0p4QNcYzAlLkt3yor2dxT5T2JqZ2DIIdJW7+2swjoqz1+V2tU8YRx1T1yGQmOBRhwKhYhBLEA+LFuGemQ4MjZKg+rEs2nMs6QlmGL0z5K6hXeHLKBL6zutqjWlVvA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IL+P9oC4; dkim-atps=neutral; spf=pass (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rfhwjD1e;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IL+P9oC4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cGZ902CxVz2xpn
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cGZ903FQpz307q
 	for <openbmc@lists.ozlabs.org>; Wed,  3 Sep 2025 04:32:19 +1000 (AEST)
 Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582GfRUW006957;
-	Tue, 2 Sep 2025 18:32:06 GMT
+	by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 582AOL1K031771;
+	Tue, 2 Sep 2025 18:32:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=jZ+Wl00yNXRmPAmZJ
-	SnLSCjjGfzy2ERh+6cMA4dKYv8=; b=rfhwjD1eB6Sko0Ce86FoVm4kQVdVcMSPv
-	JUzlU9H5lqGaEfLHB5wRoTI92q+jIqgp1Szx61QxrEEm/IOFbnUH9fh5TlMALlj3
-	kkUZ5wpEY8SEOxuY5fo7KJhUlU5M+Bq8oyr6qVON8dkTHKkewhGAVNsnYQDYJMjx
-	RVSPIH4iOGd3x9DOSxX0vrEGZuNErGWPV70McmCte36aVEiOBGeUMPQRg2qWKcZU
-	RuGm9Gi5Kof/XJCFZ1CBlG8jDBdsa8Rdlxl7qTPPGWewT1d+J+YUr6tJqKJRhSvl
-	dftlh3ftvc2GXtaINpIKWla03pFaWzNn9iTEiRqlTn3qipsZJkB/A==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usur04xw-1
+	:mime-version:references:subject:to; s=pp1; bh=Th3t9TP3cbI4Kvucf
+	vy9bd34XvRV0QnUvBxu2BAMliA=; b=IL+P9oC4RzJ1mRn45K56ga/TSuco76egS
+	VOTsbYQgfNOtQvUNJrlU8UYHLW7M13XNKmnwiSYHE42M/PGwL5jyCWxnNR+UPyvh
+	sH8IAzoEj6V6zUlLlME+LaYK+6bKmPdvVZ6R9UNxSapShHC3MRKdH5noLKWR6NqI
+	41ga2/dmTpnCZ7QDxNU4VQ527OIondQKRx5VfshmQYAeI0H4VKtroaUASjcHp/fW
+	XOjDMFAPi+2JZqu3fkJ7yJ2sEyd8pqMXm3GmFGwz+2JwMyKwfe7KCFHmm8JFRcwd
+	S6Y6vZDk938KA/siiTtvIr74m+uReVXocCAqFT/1Vsk3i7rLrjCkA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 48usur04y1-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Sep 2025 18:32:05 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 582GurGM009015;
-	Tue, 2 Sep 2025 18:32:04 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 48vdumbs40-1
+	Tue, 02 Sep 2025 18:32:06 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 582G9mq1021170;
+	Tue, 2 Sep 2025 18:32:05 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 48vcmpkxq0-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 02 Sep 2025 18:32:04 +0000
+	Tue, 02 Sep 2025 18:32:05 +0000
 Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 582IW3BX29360744
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 582IW4Yw18547216
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 2 Sep 2025 18:32:03 GMT
+	Tue, 2 Sep 2025 18:32:04 GMT
 Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1739858045;
+	by IMSVA (Postfix) with ESMTP id 4A52258045;
+	Tue,  2 Sep 2025 18:32:04 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D5C5E58050;
 	Tue,  2 Sep 2025 18:32:03 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A2BCA58050;
-	Tue,  2 Sep 2025 18:32:02 +0000 (GMT)
 Received: from gfwa153.aus.stglabs.ibm.com (unknown [9.3.84.127])
 	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  2 Sep 2025 18:32:02 +0000 (GMT)
+	Tue,  2 Sep 2025 18:32:03 +0000 (GMT)
 From: Ninad Palsule <ninad@linux.ibm.com>
 To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, joel@jms.id.au,
         eajames@linux.ibm.com
 Cc: ninad@linux.ibm.com, Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-6.12 v1 2/6] soc: aspeed: xdma: Add user interface
-Date: Tue,  2 Sep 2025 13:31:43 -0500
-Message-ID: <20250902183155.2988560-3-ninad@linux.ibm.com>
+Subject: [PATCH linux dev-6.12 v1 4/6] soc: aspeed: xdma: Add trace events
+Date: Tue,  2 Sep 2025 13:31:45 -0500
+Message-ID: <20250902183155.2988560-5-ninad@linux.ibm.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250902183155.2988560-1-ninad@linux.ibm.com>
 References: <20250902183155.2988560-1-ninad@linux.ibm.com>
@@ -87,18 +87,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMCBTYWx0ZWRfX3y0F0U80PxQ4
- eZklobf9lN0xPfZZZ9QxsXAXBgCPcc+Ozr/oOuZCbd7VKWx/+TXmvmhqiQicQOTzAc0m8X99Qmh
- kSAenS40OpqFUnl4FQwGqHjuCFkV+IzYQF7JzGAmceOM+giu/iD9bmn4ozNffv/zkK7o1byxi8o
- iPtztLxftID712yTieD4bnx4dsOW3u6uKDrGfRWzV4TgmLyc895/R8Txjp6rBvzYNlhIwKvb26p
- P5KEtwdcG7mCmkUsrxIINjDEo6b0EjuOpPM0PUEoFEtUJOrkhCmA/OVOG2pWcdSNIPefozx3oom
- bBsCQCdJaCaWvbuip6PZuUHzuWVD/PGkaOhCrJyjVyaSq+vmDsQOeqQq6FVE49cnVWcyVPGTRw1
- hirTDc+l
-X-Proofpoint-GUID: u6jT1xP9PxLxm8A57CGSNO4FwxQbI1Xo
-X-Proofpoint-ORIG-GUID: u6jT1xP9PxLxm8A57CGSNO4FwxQbI1Xo
-X-Authority-Analysis: v=2.4 cv=Ao/u3P9P c=1 sm=1 tr=0 ts=68b73825 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=oayRNIxBbPyhruOVhZ4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODMwMDAzMCBTYWx0ZWRfX8ziq5xednIsm
+ t3fOog8KI1eMGJSLTEEkE8I3nL8+9M5f91zR+iTbJWFHZOkpw4nuGAkoFAjZYNHuop9qILU6bR2
+ +hntTEAdXtECQ00odJm4o5m4bUcxapSE5Rp9nhR+eAiaDYXHPfJjkxUixjHaJwpE4BqrR4rOSn+
+ g1E4QLB2JWChTJAfDR0Vs68ksTL/+eH/SqHUNCOImZ+vrcgyVOiTjOmWe2PWYCvAnAYD2tE8k9+
+ 2wIKRNcONjzXvEFdK+HIjZTyAYPyJWIs76ngCH/J8tvZnJURduKBWbnrIr8Qrsh9VXfIRgGry2c
+ +qdbYdOimXshZjfa2omwL3hi+aUuIp7Of5vPiCgloJOsYZmHgpJPu9UgGjg0VP3q7swrj09HbQ8
+ p0zFXEOT
+X-Proofpoint-GUID: KLs3rxXUJ4S_NxfsRArZZdsPLBg2M60q
+X-Proofpoint-ORIG-GUID: KLs3rxXUJ4S_NxfsRArZZdsPLBg2M60q
+X-Authority-Analysis: v=2.4 cv=Ao/u3P9P c=1 sm=1 tr=0 ts=68b73826 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=yJojWOMRYYMA:10 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=MRrR7M2QgdDii1iFpLUA:9
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
  definitions=2025-09-02_06,2025-08-28_01,2025-03-28_01
@@ -110,283 +110,257 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 
 From: Eddie James <eajames@linux.ibm.com>
 
-This commits adds a miscdevice to provide a user interface to the XDMA
-engine. The interface provides the write operation to start DMA
-operations. The DMA parameters are passed as the data to the write call.
-The actual data to transfer is NOT passed through write. Note that both
-directions of DMA operation are accomplished through the write command;
-BMC to host and host to BMC.
+Trace the flow of the driver to aid debugging after an error.
 
-The XDMA driver reserves an area of physical memory for DMA operations,
-as the XDMA engine is restricted to accessing certain physical memory
-areas on some platforms. This memory forms a pool from which users can
-allocate pages for their usage with calls to mmap. The space allocated
-by a client will be the space used in the DMA operation. For an
-"upstream" (BMC to host) operation, the data in the client's area will
-be transferred to the host. For a "downstream" (host to BMC) operation,
-the host data will be placed in the client's memory area.
-
-Poll is also provided in order to determine when the DMA operation is
-complete for non-blocking IO.
-
+OpenBMC-Staging-Count: 6
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Link: https://lore.kernel.org/r/1588697905-23444-4-git-send-email-eajames@linux.ibm.com
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+Link: https://lore.kernel.org/r/20220412215331.42491-1-eajames@linux.ibm.com
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/soc/aspeed/aspeed-xdma.c | 217 +++++++++++++++++++++++++++++++
- 1 file changed, 217 insertions(+)
+ drivers/soc/aspeed/aspeed-xdma.c |  18 +++-
+ include/trace/events/xdma.h      | 139 +++++++++++++++++++++++++++++++
+ 2 files changed, 155 insertions(+), 2 deletions(-)
+ create mode 100644 include/trace/events/xdma.h
 
 diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
-index fae8ebb09203c..584038e69d49e 100644
+index 565486ddb3b52..33310e55eb1ce 100644
 --- a/drivers/soc/aspeed/aspeed-xdma.c
 +++ b/drivers/soc/aspeed/aspeed-xdma.c
-@@ -13,6 +13,7 @@
- #include <linux/io.h>
- #include <linux/jiffies.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/miscdevice.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of_device.h>
-@@ -238,6 +239,8 @@ struct aspeed_xdma {
- 	dma_addr_t mem_coherent;
- 	dma_addr_t cmdq_phys;
- 	struct gen_pool *pool;
-+
-+	struct miscdevice misc;
+@@ -253,6 +253,9 @@ struct aspeed_xdma_client {
+ 	u32 size;
  };
  
- struct aspeed_xdma_client {
-@@ -556,6 +559,210 @@ static irqreturn_t aspeed_xdma_pcie_irq(int irq, void *arg)
- 	return IRQ_HANDLED;
- }
- 
-+static ssize_t aspeed_xdma_write(struct file *file, const char __user *buf,
-+				 size_t len, loff_t *offset)
-+{
-+	int rc;
-+	unsigned int num_cmds;
-+	struct aspeed_xdma_op op;
-+	struct aspeed_xdma_cmd cmds[2];
-+	struct aspeed_xdma_client *client = file->private_data;
-+	struct aspeed_xdma *ctx = client->ctx;
++#define CREATE_TRACE_POINTS
++#include <trace/events/xdma.h>
 +
-+	if (len != sizeof(op))
-+		return -EINVAL;
-+
-+	if (copy_from_user(&op, buf, len))
-+		return -EFAULT;
-+
-+	if (!op.len || op.len > client->size ||
-+	    op.direction > ASPEED_XDMA_DIRECTION_UPSTREAM)
-+		return -EINVAL;
-+
-+	num_cmds = ctx->chip->set_cmd(ctx, cmds, &op, client->phys);
-+	do {
-+		rc = aspeed_xdma_start(ctx, num_cmds, cmds, !!op.direction,
-+				       client);
-+		if (!rc)
-+			break;
-+
-+		if ((file->f_flags & O_NONBLOCK) || rc != -EBUSY)
-+			return rc;
-+
-+		rc = wait_event_interruptible(ctx->wait,
-+					      !(ctx->current_client ||
-+						ctx->in_reset));
-+	} while (!rc);
-+
-+	if (rc)
-+		return -EINTR;
-+
-+	if (!(file->f_flags & O_NONBLOCK)) {
-+		rc = wait_event_interruptible(ctx->wait, !client->in_progress);
-+		if (rc)
-+			return -EINTR;
-+
-+		if (client->error)
-+			return -EIO;
-+	}
-+
-+	return len;
-+}
-+
-+static __poll_t aspeed_xdma_poll(struct file *file,
-+				 struct poll_table_struct *wait)
-+{
-+	__poll_t mask = 0;
-+	__poll_t req = poll_requested_events(wait);
-+	struct aspeed_xdma_client *client = file->private_data;
-+	struct aspeed_xdma *ctx = client->ctx;
-+
-+	if (req & (EPOLLIN | EPOLLRDNORM)) {
-+		if (READ_ONCE(client->in_progress))
-+			poll_wait(file, &ctx->wait, wait);
-+
-+		if (!READ_ONCE(client->in_progress)) {
-+			if (READ_ONCE(client->error))
-+				mask |= EPOLLERR;
-+			else
-+				mask |= EPOLLIN | EPOLLRDNORM;
-+		}
-+	}
-+
-+	if (req & (EPOLLOUT | EPOLLWRNORM)) {
-+		if (READ_ONCE(ctx->current_client))
-+			poll_wait(file, &ctx->wait, wait);
-+
-+		if (!READ_ONCE(ctx->current_client))
-+			mask |= EPOLLOUT | EPOLLWRNORM;
-+	}
-+
-+	return mask;
-+}
-+
-+static void aspeed_xdma_vma_close(struct vm_area_struct *vma)
-+{
-+	int rc;
-+	struct aspeed_xdma_client *client = vma->vm_private_data;
-+
-+	rc = wait_event_interruptible(client->ctx->wait, !client->in_progress);
-+	if (rc)
-+		return;
-+
-+	gen_pool_free(client->ctx->pool, (unsigned long)client->virt,
-+		      client->size);
-+
-+	client->virt = NULL;
-+	client->phys = 0;
-+	client->size = 0;
-+}
-+
-+static const struct vm_operations_struct aspeed_xdma_vm_ops = {
-+	.close =	aspeed_xdma_vma_close,
-+};
-+
-+static int aspeed_xdma_mmap(struct file *file, struct vm_area_struct *vma)
-+{
-+	int rc;
-+	struct aspeed_xdma_client *client = file->private_data;
-+	struct aspeed_xdma *ctx = client->ctx;
-+
-+	/* restrict file to one mapping */
-+	if (client->size)
-+		return -EBUSY;
-+
-+	client->size = vma->vm_end - vma->vm_start;
-+	client->virt = gen_pool_dma_alloc(ctx->pool, client->size,
-+					  &client->phys);
-+	if (!client->virt) {
-+		client->phys = 0;
-+		client->size = 0;
-+		return -ENOMEM;
-+	}
-+
-+	vma->vm_pgoff = (client->phys - ctx->mem_phys) >> PAGE_SHIFT;
-+	vma->vm_ops = &aspeed_xdma_vm_ops;
-+	vma->vm_private_data = client;
-+	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-+
-+	rc = io_remap_pfn_range(vma, vma->vm_start, client->phys >> PAGE_SHIFT,
-+				client->size, vma->vm_page_prot);
-+	if (rc) {
-+		dev_warn(ctx->dev, "mmap err: v[%08lx] to p[%08x], s[%08x]\n",
-+			 vma->vm_start, (u32)client->phys, client->size);
-+
-+		gen_pool_free(ctx->pool, (unsigned long)client->virt,
-+			      client->size);
-+
-+		client->virt = NULL;
-+		client->phys = 0;
-+		client->size = 0;
-+		return rc;
-+	}
-+
-+	dev_dbg(ctx->dev, "mmap: v[%08lx] to p[%08x], s[%08x]\n",
-+		vma->vm_start, (u32)client->phys, client->size);
-+
-+	return 0;
-+}
-+
-+static int aspeed_xdma_open(struct inode *inode, struct file *file)
-+{
-+	struct miscdevice *misc = file->private_data;
-+	struct aspeed_xdma *ctx = container_of(misc, struct aspeed_xdma, misc);
-+	struct aspeed_xdma_client *client = kzalloc(sizeof(*client),
-+						    GFP_KERNEL);
-+
-+	if (!client)
-+		return -ENOMEM;
-+
-+	kobject_get(&ctx->kobj);
-+	client->ctx = ctx;
-+	file->private_data = client;
-+	return 0;
-+}
-+
-+static int aspeed_xdma_release(struct inode *inode, struct file *file)
-+{
-+	bool reset = false;
-+	unsigned long flags;
-+	struct aspeed_xdma_client *client = file->private_data;
-+	struct aspeed_xdma *ctx = client->ctx;
-+
-+	spin_lock_irqsave(&ctx->client_lock, flags);
-+	if (client == ctx->current_client) {
-+		spin_lock(&ctx->engine_lock);
-+		if (ctx->in_reset) {
-+			ctx->current_client = NULL;
-+		} else {
-+			ctx->in_reset = true;
-+			reset = true;
-+		}
-+		spin_unlock(&ctx->engine_lock);
-+	}
-+	spin_unlock_irqrestore(&ctx->client_lock, flags);
-+
-+	if (reset)
-+		aspeed_xdma_reset(ctx);
-+
-+	if (client->virt)
-+		gen_pool_free(ctx->pool, (unsigned long)client->virt,
-+			      client->size);
-+
-+	kfree(client);
-+	kobject_put(&ctx->kobj);
-+	return 0;
-+}
-+
-+static const struct file_operations aspeed_xdma_fops = {
-+	.owner			= THIS_MODULE,
-+	.write			= aspeed_xdma_write,
-+	.poll			= aspeed_xdma_poll,
-+	.mmap			= aspeed_xdma_mmap,
-+	.open			= aspeed_xdma_open,
-+	.release		= aspeed_xdma_release,
-+};
-+
- static int aspeed_xdma_init_scu(struct aspeed_xdma *ctx, struct device *dev)
+ static u32 aspeed_xdma_readl(struct aspeed_xdma *ctx, u8 reg)
  {
- 	struct regmap *scu = syscon_regmap_lookup_by_phandle(dev->of_node,
-@@ -822,6 +1029,16 @@ static int aspeed_xdma_probe(struct platform_device *pdev)
+ 	u32 v = readl(ctx->base + reg);
+@@ -448,6 +451,7 @@ static int aspeed_xdma_start(struct aspeed_xdma *ctx, unsigned int num_cmds,
  
- 	aspeed_xdma_init_eng(ctx);
+ 	ctx->upstream = upstream;
+ 	for (i = 0; i < num_cmds; ++i) {
++		trace_xdma_start(ctx, &cmds[i]);
+ 		/*
+ 		 * Use memcpy_toio here to get some barriers before starting
+ 		 * the operation. The command(s) need to be in physical memory
+@@ -490,6 +494,8 @@ static irqreturn_t aspeed_xdma_irq(int irq, void *arg)
+ 	spin_lock(&ctx->engine_lock);
+ 	status = aspeed_xdma_readl(ctx, ctx->chip->regs.status);
  
-+	ctx->misc.minor = MISC_DYNAMIC_MINOR;
-+	ctx->misc.fops = &aspeed_xdma_fops;
-+	ctx->misc.name = "aspeed-xdma";
-+	ctx->misc.parent = dev;
-+	rc = misc_register(&ctx->misc);
-+	if (rc) {
-+		dev_err(dev, "Failed to register xdma miscdevice.\n");
-+		goto err_misc;
-+	}
++	trace_xdma_irq(status);
 +
- 	/*
- 	 * This interrupt could fire immediately so only request it once the
- 	 * engine and driver are initialized.
+ 	if (status & ctx->chip->status_bits.ds_dirty) {
+ 		aspeed_xdma_done(ctx, true);
+ 	} else {
+@@ -514,6 +520,8 @@ static void aspeed_xdma_reset(struct aspeed_xdma *ctx)
+ {
+ 	unsigned long flags;
+ 
++	trace_xdma_reset(ctx);
++
+ 	reset_control_assert(ctx->reset);
+ 	usleep_range(XDMA_ENGINE_SETUP_TIME_MIN_US,
+ 		     XDMA_ENGINE_SETUP_TIME_MAX_US);
+@@ -544,7 +552,7 @@ static irqreturn_t aspeed_xdma_pcie_irq(int irq, void *arg)
+ {
+ 	struct aspeed_xdma *ctx = arg;
+ 
+-	dev_dbg(ctx->dev, "PCI-E reset requested.\n");
++	trace_xdma_perst(ctx);
+ 
+ 	spin_lock(&ctx->engine_lock);
+ 	if (ctx->in_reset) {
+@@ -682,6 +690,7 @@ static void aspeed_xdma_vma_close(struct vm_area_struct *vma)
+ 
+ 	gen_pool_free(client->ctx->pool, (unsigned long)client->virt,
+ 		      client->size);
++	trace_xdma_unmap(client);
+ 
+ 	client->virt = NULL;
+ 	client->phys = 0;
+@@ -706,6 +715,7 @@ static int aspeed_xdma_mmap(struct file *file, struct vm_area_struct *vma)
+ 	client->virt = gen_pool_dma_alloc(ctx->pool, client->size,
+ 					  &client->phys);
+ 	if (!client->virt) {
++		trace_xdma_mmap_error(client, 0UL);
+ 		client->phys = 0;
+ 		client->size = 0;
+ 		return -ENOMEM;
+@@ -725,12 +735,14 @@ static int aspeed_xdma_mmap(struct file *file, struct vm_area_struct *vma)
+ 		gen_pool_free(ctx->pool, (unsigned long)client->virt,
+ 			      client->size);
+ 
++		trace_xdma_mmap_error(client, vma->vm_start);
+ 		client->virt = NULL;
+ 		client->phys = 0;
+ 		client->size = 0;
+ 		return rc;
+ 	}
+ 
++	trace_xdma_mmap(client);
+ 	dev_dbg(ctx->dev, "mmap: v[%08lx] to p[%08x], s[%08x]\n",
+ 		vma->vm_start, (u32)client->phys, client->size);
+ 
+@@ -776,9 +788,11 @@ static int aspeed_xdma_release(struct inode *inode, struct file *file)
+ 	if (reset)
+ 		aspeed_xdma_reset(ctx);
+ 
+-	if (client->virt)
++	if (client->virt) {
+ 		gen_pool_free(ctx->pool, (unsigned long)client->virt,
+ 			      client->size);
++		trace_xdma_unmap(client);
++	}
+ 
+ 	kfree(client);
+ 	kobject_put(&ctx->kobj);
+diff --git a/include/trace/events/xdma.h b/include/trace/events/xdma.h
+new file mode 100644
+index 0000000000000..bf515ad3d8e50
+--- /dev/null
++++ b/include/trace/events/xdma.h
+@@ -0,0 +1,139 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM xdma
++
++#if !defined(_TRACE_XDMA_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_XDMA_H
++
++#include <linux/tracepoint.h>
++
++TRACE_EVENT(xdma_start,
++	TP_PROTO(const struct aspeed_xdma *ctx, const struct aspeed_xdma_cmd *cmd),
++	TP_ARGS(ctx, cmd),
++	TP_STRUCT__entry(
++		__field(bool,	dir_upstream)
++		__field(unsigned int,	index)
++		__field(__u64,	host)
++		__field(__u64,	pitch)
++		__field(__u64,	cmd)
++	),
++	TP_fast_assign(
++		__entry->dir_upstream = ctx->upstream;
++		__entry->index = ctx->cmd_idx;
++		__entry->host = cmd->host_addr;
++		__entry->pitch = cmd->pitch;
++		__entry->cmd = cmd->cmd;
++	),
++	TP_printk("%s cmd:%u [%08llx %016llx %016llx]",
++		__entry->dir_upstream ? "upstream" : "downstream",
++		__entry->index,
++		__entry->host,
++		__entry->pitch,
++		__entry->cmd
++	)
++);
++
++TRACE_EVENT(xdma_irq,
++	TP_PROTO(u32 sts),
++	TP_ARGS(sts),
++	TP_STRUCT__entry(
++		__field(__u32,	status)
++	),
++	TP_fast_assign(
++		__entry->status = sts;
++	),
++	TP_printk("sts:%08x",
++		__entry->status
++	)
++);
++
++TRACE_EVENT(xdma_reset,
++	TP_PROTO(const struct aspeed_xdma *ctx),
++	TP_ARGS(ctx),
++	TP_STRUCT__entry(
++		__field(bool,	dir_upstream)
++		__field(bool,	in_progress)
++	),
++	TP_fast_assign(
++		__entry->dir_upstream = ctx->upstream;
++		__entry->in_progress =
++			ctx->current_client ? ctx->current_client->in_progress : false;
++	),
++	TP_printk("%sin progress%s",
++		__entry->in_progress ? "" : "not ",
++		__entry->in_progress ? (__entry->dir_upstream ? " upstream" : " downstream") : ""
++	)
++);
++
++TRACE_EVENT(xdma_perst,
++	TP_PROTO(const struct aspeed_xdma *ctx),
++	TP_ARGS(ctx),
++	TP_STRUCT__entry(
++		__field(bool,	in_reset)
++	),
++	TP_fast_assign(
++		__entry->in_reset = ctx->in_reset;
++	),
++	TP_printk("%s",
++		__entry->in_reset ? "in reset" : ""
++	)
++);
++
++TRACE_EVENT(xdma_unmap,
++	TP_PROTO(const struct aspeed_xdma_client *client),
++	TP_ARGS(client),
++	TP_STRUCT__entry(
++		__field(__u32,	phys)
++		__field(__u32,	size)
++	),
++	TP_fast_assign(
++		__entry->phys = client->phys;
++		__entry->size = client->size;
++	),
++	TP_printk("p:%08x s:%08x",
++		__entry->phys,
++		__entry->size
++	)
++);
++
++TRACE_EVENT(xdma_mmap_error,
++	TP_PROTO(const struct aspeed_xdma_client *client, unsigned long vm_start),
++	TP_ARGS(client, vm_start),
++	TP_STRUCT__entry(
++		__field(__u32,	phys)
++		__field(__u32,	size)
++		__field(unsigned long,	vm_start)
++	),
++	TP_fast_assign(
++		__entry->phys = client->phys;
++		__entry->size = client->size;
++		__entry->vm_start = vm_start;
++	),
++	TP_printk("p:%08x s:%08x v:%08lx",
++		__entry->phys,
++		__entry->size,
++		__entry->vm_start
++	)
++);
++
++TRACE_EVENT(xdma_mmap,
++	TP_PROTO(const struct aspeed_xdma_client *client),
++	TP_ARGS(client),
++	TP_STRUCT__entry(
++		__field(__u32,	phys)
++		__field(__u32,	size)
++	),
++	TP_fast_assign(
++		__entry->phys = client->phys;
++		__entry->size = client->size;
++	),
++	TP_printk("p:%08x s:%08x",
++		__entry->phys,
++		__entry->size
++	)
++);
++
++#endif /* _TRACE_XDMA_H */
++
++#include <trace/define_trace.h>
 -- 
 2.48.1
 
