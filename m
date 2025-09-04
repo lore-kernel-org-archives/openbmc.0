@@ -1,63 +1,58 @@
-Return-Path: <openbmc+bounces-587-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-588-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD5FCA1012
-	for <openbmc@archiver.kernel.org>; Wed,  3 Sep 2025 23:42:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4ED4CA1010
+	for <openbmc@archiver.kernel.org>; Thu,  4 Sep 2025 01:55:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cHJzr1DYqz2yrZ;
-	Thu,  4 Sep 2025 09:42:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756938727;
-	cv=none; b=HfySNjJByhHkB+o3MXtmDSrpJluWa3VTfDQixxaES60i+ZhgGEqmRzYfcIxAWKlJyu7lV5W56yOqB3lrsNFRVK0nCrHU59GQ6g9qMxPYoOdeuLZ3cS72bIh+uX/R4wPMxjRA/Gf0f/BTx3E0JlKzTEuwtpkIl4nY74TTwh2dAo6zlqhfmpnfEkHtkB9Fst3XKcuob/9JzyhY7me/XijgH3JcukytKP4vQuX58R5/x8WQet8m8YpcSt1p1NP5oXuS8iYzHt93rL0NopWopq8uCO7vKhfrAZ4dCUAIu1h2PEhdoSYk5lcP57KZlHdFaxqS3iPTKbOsAvKw6fRyyblMMA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cHMxw3cbhz2yrL;
+	Thu,  4 Sep 2025 11:55:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1756950932;
+	cv=none; b=LZt7virf/YurOxAYHMFa3QFVPSv/fpQxL9+sKB3yV/gM2zJxDBK5uZ4Mo6Ll+pVFA2H0GW6ThQwf2kHRSjh7nFbH94gyDx5cNYmqtIdc/zP+HlHVupM3BuThYqBknvkse4f6oc/gdT9eKqqSObBp5kP1voKjV+d2ns/WlyFeyKXV3bacBsV7S97IUQ7rd0hRgjIVcG/uJrOzVVCwO9EF0DibP/w0lVOYDw+nqqejVSPZl+zEO+2HgwbWmAADXQ9dcR1prs7xrf/dYtOYZ5yzVZ3L8q117/MzG2DwbWDqkfu24ZS1v/O5AsnLmffOHQgoMxF2arkE1SHbtdLbnfPVyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1756938727; c=relaxed/relaxed;
-	bh=x3WyPe8tzcvkjPJMTuyLmMzJxuLJegDqZyREtGdOCyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=f6QqxxizGEg/bEykxSjCaFU8KQJLtS7dMfuBBMozyJw8L46TgsNQMupMq68aVGCtpFju7T/xzL4IPYpPzDNvp/RXs3lJVHBMzrobUcbtsE3MXwysnRM9hQgtDMPr0lqZwZWVCR9fY+/I8f4RyKouG7wlLvsU38ZIM+vEPf3iBA0/jvWLXHu5xtGPM++KDQZhcLu1TqrkuRI1TDWQD3P+6FOn+IHsO3HMMMSU7nEWf7C9jLWQJJVVESkvD3vJaUC25mw7XUKohxoJelhguH0iNT0LdMsRbqnolbPEt5TtnxAKafHYTF0ug93B7lYd2bFTXHqi3NcxvfqNRL5hRqNkwg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nrz9NKhM; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1756950932; c=relaxed/relaxed;
+	bh=9ThEjAJHYoe1VIS23uavptx3FnDO2I9Smo3Dc1isPTM=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MZaeblcRmwukjpH7QuQBM04gVwT2ld6kI8BeYW6tQ5alo35eGYi4f3yWSzD6j+Zf6h9xvZM79bw4Zp0HWGpN1c2Lpu4688n2OmR8C4mJ5vupp6UsbFGgG3lYZg2stolUI9KFX8WvEwm2PbEInaSLXLHlVVOhq2knG7xcIgeie8/U9to+x39zTMsIhQgkGLEytMOZOkqsePfcAKuebQ3uXm1Gx6ZvoHj5Ql/Axx/kpK2QDCV+WYqmDYTMgsXsVfEicV+We2l1WoLChLcCWYx9paktxR1p20hgu/hpJhjQs8laUOvE+4vRRvABbvnR3f4ZAnRylu1aqhAM0xXQORsVdQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Nb5UxVhe; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nrz9NKhM;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Nb5UxVhe;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cHHRC2MM7z2xQ2;
-	Thu,  4 Sep 2025 08:32:07 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 568336024F;
-	Wed,  3 Sep 2025 22:32:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB75C4CEE7;
-	Wed,  3 Sep 2025 22:32:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756938724;
-	bh=0zNxbRiK/0aMy5wdBnW9WCgQpg46kf3uIF2gp8dwHmQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=Nrz9NKhMC5qUarkd7J+XDkSpZDWKsfS09dlIk7Cm6jJKudqb+qGchlrAH1B3u2qBH
-	 NxOy+gtbBuB6w0bqYYfEWi6QfniE4omkp5oXpUbC7VLbCjyLivl1eW2YWrxQSCgOQn
-	 VgGPsYF3+fxTUZ6f1T5fgq3F9L1J6DD5DIIzMXE1D8K+S5CpeYQAtX21OXz4pK8HK3
-	 ucbSC3pRXndnyQYZVRe5JXO5apjS3rw8iMp5mtKLM4kbwKatUSPZcMYOaY0aSJMEtt
-	 hOUFxBzIzmltmb5JpiQmUMLEbEuVkvToIWP1FFS3F4jtQfq9Hm+T16ydICw5SgYNLz
-	 oybtOg+x53FlA==
-Date: Wed, 3 Sep 2025 17:32:02 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bhelgaas@google.com,
-	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	joel@jms.id.au, andrew@codeconstruct.com.au, vkoul@kernel.org,
-	kishon@kernel.org, linus.walleij@linaro.org, p.zabel@pengutronix.de,
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 08/10] PCI: Add FMT and TYPE definition for TLP header
-Message-ID: <20250903223202.GA1235935@bhelgaas>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cHMxv0vKpz2xjv
+	for <openbmc@lists.ozlabs.org>; Thu,  4 Sep 2025 11:55:31 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1756950929;
+	bh=9ThEjAJHYoe1VIS23uavptx3FnDO2I9Smo3Dc1isPTM=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=Nb5UxVhePl5z60jR99q8hHO9ULCrXUQumCrF3TMpuwJFXIGx98qyKXfMXjx+mbRgj
+	 LbYuZku6u5M6MCD/LZdrEZbQe92HOGzzi/NJU53iCBuOKIg09bZ2v6PmUHr4fhl/V4
+	 kk2hfs0iRqy1W0FG9exl0xYYpaZbGxfjHArHNea9GO4EMDRF1H0gSh/TGgUbQm1gF5
+	 5HCJz/GpDPfUCY9DrWzt/vZvh7+yt9PCKYwP1+aL3ufh3TlulG/fXvkJHQQe0VURPe
+	 8jfIl0ckdc1zLG2buiuC+57JrmKNSx8NJ8M8vWrIk5303WoxDW+3XAwa9m0QJYO9z6
+	 YvyVBMp7nKS2Q==
+Received: from [192.168.68.113] (unknown [180.150.112.213])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 4F07F6DFFE;
+	Thu,  4 Sep 2025 09:55:28 +0800 (AWST)
+Message-ID: <651ff3c762b276c315e67e010f08fb10b03eb29a.camel@codeconstruct.com.au>
+Subject: Re: [PATCH linux dev-6.12 v2 0/6] Port linux fixes from dev-6.6
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Ninad Palsule <ninad@linux.ibm.com>, openbmc@lists.ozlabs.org, 
+	joel@jms.id.au, eajames@linux.ibm.com
+Date: Thu, 04 Sep 2025 11:25:27 +0930
+In-Reply-To: <20250903155810.2839634-1-ninad@linux.ibm.com>
+References: <20250903155810.2839634-1-ninad@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -69,46 +64,13 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250901055922.1553550-9-jacky_chou@aspeedtech.com>
 
-On Mon, Sep 01, 2025 at 01:59:20PM +0800, Jacky Chou wrote:
-> According to PCIe specification, add FMT and TYPE definition
-> for TLP header.
-> 
-> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
-> ---
->  drivers/pci/pci.h | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> index 34f65d69662e..45d47d6c4f53 100644
-> --- a/drivers/pci/pci.h
-> +++ b/drivers/pci/pci.h
-> @@ -81,6 +81,18 @@ struct pcie_tlp_log;
->  #define PCIE_MSG_CODE_DEASSERT_INTC	0x26
->  #define PCIE_MSG_CODE_DEASSERT_INTD	0x27
->  
-> +/* Format of TLP; PCIe r5.0, sec 2.2.1 */
+On Wed, 2025-09-03 at 10:58 -0500, Ninad Palsule wrote:
+> This patchset forward port fixes from dev-6.6 to dev-6.12 branch.
+> The conflicts were seen only in one patch listed below.
+> - soc: aspeed: Add XDMA Engine Driver
 
-Please update to PCIe r7.0.
+Merged to dev-6.12, thanks.
 
-> +#define PCIE_TLP_FMT_3DW_NO_DATA	0x00 /* 3DW header, no data */
-> +#define PCIE_TLP_FMT_4DW_NO_DATA	0x01 /* 4DW header, no data */
-> +#define PCIE_TLP_FMT_3DW_DATA		0x02 /* 3DW header, with data */
-> +#define PCIE_TLP_FMT_4DW_DATA		0x03 /* 4DW header, with data */
-> +
-> +/* Type of TLP; PCIe r5.0, sec 2.2.1 */
-> +#define PCIE_TLP_TYPE_CFG0_RD		0x04 /* Config Type 0 Read Request */
-> +#define PCIE_TLP_TYPE_CFG0_WR		0x04 /* Config Type 0 Write Request */
-> +#define PCIE_TLP_TYPE_CFG1_RD		0x05 /* Config Type 1 Read Request */
-> +#define PCIE_TLP_TYPE_CFG1_WR		0x05 /* Config Type 1 Write Request */
-> +
->  extern const unsigned char pcie_link_speed[];
->  extern bool pci_early_dump;
->  
-> -- 
-> 2.43.0
-> 
+Andrew
 
