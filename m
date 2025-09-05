@@ -1,77 +1,64 @@
-Return-Path: <openbmc+bounces-601-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-602-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC70CA1012
-	for <openbmc@archiver.kernel.org>; Sat,  6 Sep 2025 16:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2466CA1017
+	for <openbmc@archiver.kernel.org>; Mon,  8 Sep 2025 00:01:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cJybb4p7Mz3cbt;
-	Sun,  7 Sep 2025 02:00:11 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.15
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757174411;
-	cv=none; b=BvpGje7RYnbIDxeTFVqSdZIt8O4lwlYjZKR3mMz0HdcXL3yD31MnO2l898loOGZHuVMGDWqBR2nzhf/oBAEygjS/nKq8hyk5fCbnri2LahReNY3vWLd5VHb4EldyU+K7zSkrHb6YOiEvFZkI4fgZ43OILTy60wMwMSdpnqYzybv/VWtpKd9Fce6acL/I0jfDFAKu752oW+xiROkBw5HDRURUKqZPp6Y1yQIIZDh0DBzqC4U64XxQYXY2e8ZzqU4bBuxIu0w7Kfgd6IzG8gIXq7wDDfJjFfO7FJfTJmWgMzvCg3ubG4yCNDxC7yFQ+gEcu4X/hFMTpw+xPJL1qPvgRQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cKnDd0250z2yx7;
+	Mon,  8 Sep 2025 10:01:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757049687;
+	cv=none; b=SgoANaLyPCDXIYRCn0+NM780Kx+kZRVzxmbV5g4K0s8as+y01FAJBth6Shxfyps3KSle9FB8Gxul11H4h/MG3R2ovO1CvViivfkBpg9xt9X4f1lpXXeI3V/MQKoucuNHavoPMEcw7e2dely70ka3nCxnxshuu9PkaEm/cEhBd+ig0fBB66AHP7wo1BWvUi/f10LBQpnoz9cp13f64lK2iC2dNeilkLxdETBwBrTL+AVTddFJOWcaJWZVkBr4P3UaZuZGD2F2fGvnskIm0kupqJQfeaTmoa3uM1h5RIEhKjyFrPBoKtARTh8dzynVR+n/+jcHoNAymPDQAkFDRlNrJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1757174411; c=relaxed/relaxed;
-	bh=lEzEp4cxcXJVthqMH6SVNhJ6+RkBt+M0FVkeZIoAjOM=;
+	t=1757049687; c=relaxed/relaxed;
+	bh=93HDDhnPlJoUIuv0aOxFs6Hwi8PNmcmVMfTrVyv9Am0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jW54bs0VJ+cJI40Svc+110yK3yd6DchWhIzM8MiXRNL0NuhwNhd9A36H1JKIQhpoU0T9YoW7swcnEznDXgY3A1KhJ1rShYCkkZ//x92+hmXkWMWkXkSrtsl4+36WCxtG0AX6HjxMfluPYCvmSPRl04ou3ElgZ3frScVq4Hpy/TlEdn7dZmdE8EtL4V+euxL06COjeE59I583KaNKG6lFDbdh/87B1UZtkzXHUUW46drVF5xbani6jps65Bse2yOK9wxYrXa5UHOyJucL1AsxoX08hsZmSj65H5iAn+9molq/iSJe+2Ah3uHcr71rOvhBCAZsw3rIZ8PYf/+nJy8R9g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdPjkbIv; dkim-atps=neutral; spf=pass (client-ip=198.175.65.15; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kEAQJlYJv1nAhz7kiWRD2TtUOfuAn5JRHGZwjB9D2zDYJSHKzH31qaUhTAT2SDFP9JnPSI1tiF+fXJjveJOeJIIPz872PwbZZYYuRcHrVMUz9y1ZL1hoYLHC6dvKvpY0YxzxzZS3/JGeQmln2+UclHPaSusCYubpsckKTSJTBWWmfwQkQBX18dEqgoCcHAGGESYKqbsotHH/Wd1WBFtaQJ7IKR7m0zIgIHYm/f34aGbV5utjVYAOH/aX2iCwb+2g36ds7ZGzl5P4w6HdKFvI/RQ8eCdGJs68qhpY5W4+v/3Tts7zgUKt0JHEUfLKXoQojBAQlZVMtGbmYCJp7fmTcw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=p0CmTSir; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mani@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HdPjkbIv;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=p0CmTSir;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.15; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mani@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cJybW5zJXz3cjG;
-	Sun,  7 Sep 2025 02:00:05 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1757174408; x=1788710408;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WUhsfst+t0XA7eALQAuAAQ1QqyE/1cJqSc+0vKr5M+8=;
-  b=HdPjkbIvwMP/nUzRPODrFoSIvSCvafEsr71LuNBkjzS1RkXU4tn+3mkU
-   9JhnA560ZM8oUP8B0PYfPeyIZpeCSN3CRro5QojcpB8gQrNylZp6Qheg6
-   eHlNbibvz/cXkbNN8U6XV10Sufk30FOYMwc9FtainYQtEkTeHFj4bgYQI
-   dlcOb4LdFx2EG6/OeNUS56z4/ktV7A39FQkrWQl15PKkuiPrS/olvvzIs
-   HGYoT3XWYTMFZPHC005rfDVwJ43nQ58KqB1t8Y9JCF/JHH3nuTg3QHk8a
-   eemZ6ylxSIWCDtYBEIQSCjnLAJDcuGnbCoP6cTHvUHpMFr3GMvYjZbNkF
-   Q==;
-X-CSE-ConnectionGUID: VYtuhrmGTmW/Ulj4mph2WA==
-X-CSE-MsgGUID: 5nN5KdbCQKy2vCmhQxeyOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="63135065"
-X-IronPort-AV: E=Sophos;i="6.18,244,1751266800"; 
-   d="scan'208";a="63135065"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2025 09:00:04 -0700
-X-CSE-ConnectionGUID: /80grLjnS9W6VoqG2YW13A==
-X-CSE-MsgGUID: gvZKXpPfS72uzbhb/gOiQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,244,1751266800"; 
-   d="scan'208";a="172513740"
-Received: from lkp-server01.sh.intel.com (HELO 114d98da2b6c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 06 Sep 2025 08:59:59 -0700
-Received: from kbuild by 114d98da2b6c with local (Exim 4.96)
-	(envelope-from <lkp@intel.com>)
-	id 1uuvKW-0001bD-0V;
-	Sat, 06 Sep 2025 15:59:56 +0000
-Date: Sat, 6 Sep 2025 23:59:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: Billy Tsai <billy_tsai@aspeedtech.com>, lee@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au,
-	andrew@codeconstruct.com.au, linus.walleij@linaro.org,
-	brgl@bgdev.pl, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org, BMC-SW@aspeedtech.com
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH v2 3/4] pinctrl: aspeed: Add AST2700 pinmux support
-Message-ID: <202509062340.wX64fW0j-lkp@intel.com>
-References: <20250904103401.88287-4-billy_tsai@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cJ4T134T0z30Vj;
+	Fri,  5 Sep 2025 15:21:25 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 9A3C444300;
+	Fri,  5 Sep 2025 05:21:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26279C4CEF5;
+	Fri,  5 Sep 2025 05:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1757049683;
+	bh=mqIISEo7LPLprFNDEUcKEaTHvMz7CvLt6reLpOwI+yU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=p0CmTSirH7yBCDozYoC9DlsvzZCfvAFIewxsKM229y/tgJZn5KvA0nn3sSZy76qey
+	 0S5HgHbORGIloKt+m8EPv9nwzjEz43zvj3GBh53cftXZ8LLcH2zIdfbPPrP54KB6BQ
+	 Y2h836z0EzbOsronUrzBLoG3jbU4WNYmVjvqvhHWcF1NTZg3/tqWeUc2cGUFYxeukL
+	 kfQqw2XDwWAaZUdqwkQ76KnorupCoWqE331UKGXqY7Fus4/Dm24wxaW1aZzCZRbE2e
+	 gkSyeEO9z828d4a56/6cKYREIuv1xIUvsIvs2LWAKAjEAlx31YF3I/J3fbDyUTP1PM
+	 JQ3SWIjkiqXVQ==
+Date: Fri, 5 Sep 2025 10:51:12 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Jacky Chou <jacky_chou@aspeedtech.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bhelgaas@google.com, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joel@jms.id.au, andrew@codeconstruct.com.au, vkoul@kernel.org, kishon@kernel.org, 
+	linus.walleij@linaro.org, p.zabel@pengutronix.de, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, openbmc@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v3 03/10] dt-bindings: PCI: Add ASPEED PCIe RC support
+Message-ID: <xg5avkbsoux7rw7dg67bhf7rupgr66nzak27y2jmcerrqhlb4u@l63vz3jaie2g>
+References: <20250901055922.1553550-1-jacky_chou@aspeedtech.com>
+ <20250901055922.1553550-4-jacky_chou@aspeedtech.com>
+ <20250902211221.GA1179675-robh@kernel.org>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -83,169 +70,224 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250904103401.88287-4-billy_tsai@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250902211221.GA1179675-robh@kernel.org>
 
-Hi Billy,
+On Tue, Sep 02, 2025 at 04:12:21PM GMT, Rob Herring wrote:
+> On Mon, Sep 01, 2025 at 01:59:15PM +0800, Jacky Chou wrote:
+> > ASPEED AST2600 provides one PCIe RC for Gen2 and AST2700 provides three
+> > PCIe RC for two Gen4 and one Gen2. All of these RCs have just one root
+> > port to connect to PCIe device. And also have Mem, I/O access, legacy
+> > interrupt and MSI.
+> > 
+> > Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> > ---
+> >  .../bindings/pci/aspeed,ast2600-pcie.yaml     | 179 ++++++++++++++++++
+> >  1 file changed, 179 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/pci/aspeed,ast2600-pcie.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/pci/aspeed,ast2600-pcie.yaml b/Documentation/devicetree/bindings/pci/aspeed,ast2600-pcie.yaml
+> > new file mode 100644
+> > index 000000000000..fe75bf2961c8
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/pci/aspeed,ast2600-pcie.yaml
+> > @@ -0,0 +1,179 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/pci/aspeed,ast2600-pcie.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: ASPEED PCIe Root Complex Controller
+> > +
+> > +maintainers:
+> > +  - Jacky Chou <jacky_chou@aspeedtech.com>
+> > +
+> > +description:
+> > +  The ASPEED PCIe Root Complex controller provides PCI Express Root Complex
+> > +  functionality for ASPEED SoCs, such as the AST2600 and AST2700.
+> > +  This controller enables connectivity to PCIe endpoint devices, supporting
+> > +  memory and I/O windows, MSI and legacy interrupts, and integration with
+> > +  the SoC's clock, reset, and pinctrl subsystems.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - aspeed,ast2600-pcie
+> > +      - aspeed,ast2700-pcie
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  ranges:
+> > +    minItems: 2
+> > +    maxItems: 2
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +    description: IntX and MSI interrupt
+> > +
+> > +  resets:
+> > +    items:
+> > +      - description: PCIe controller reset
+> > +
+> > +  reset-names:
+> > +    items:
+> > +      - const: h2x
+> > +
+> > +  msi-parent: true
+> > +
+> > +  aspeed,ahbc:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle to the ASPEED AHB Controller (AHBC) syscon node.
+> > +      This reference is used by the PCIe controller to access
+> > +      system-level configuration registers related to the AHB bus.
+> > +      To enable AHB access for the PCIe controller.
+> > +
+> > +  aspeed,pciecfg:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle to the ASPEED PCIe configuration syscon node.
+> > +      This reference allows the PCIe controller to access
+> > +      SoC-specific PCIe configuration registers. There are the others
+> > +      functions such PCIe RC and PCIe EP will use this common register
+> > +      to configure the SoC interfaces.
+> > +
 
-kernel test robot noticed the following build warnings:
+So these config registers are part of the PCIe domain? Is so, accessing them as
+syscon is wrong. You should configure the registers directly from the RC and EP
+controller drivers.
 
-[auto build test WARNING on linusw-pinctrl/devel]
-[also build test WARNING on linusw-pinctrl/for-next robh/for-next lee-leds/for-leds-next linus/master v6.17-rc4 next-20250905]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> > +  interrupt-controller:
+> > +    description: Interrupt controller node for handling legacy PCI interrupts.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Billy-Tsai/dt-bindings-mfd-aspeed-ast2x00-scu-Support-ast2700-pinctrl/20250904-184115
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl.git devel
-patch link:    https://lore.kernel.org/r/20250904103401.88287-4-billy_tsai%40aspeedtech.com
-patch subject: [PATCH v2 3/4] pinctrl: aspeed: Add AST2700 pinmux support
-config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20250906/202509062340.wX64fW0j-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 15.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20250906/202509062340.wX64fW0j-lkp@intel.com/reproduce)
+s/legacy PCI interrupts/INTx
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202509062340.wX64fW0j-lkp@intel.com/
+> > +    type: object
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 0
+> > +      '#interrupt-cells':
+> > +        const: 1
+> > +      interrupt-controller: true
+> > +
+> > +    required:
+> > +      - '#address-cells'
+> > +      - '#interrupt-cells'
+> > +      - interrupt-controller
+> > +
+> > +    additionalProperties: false
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> > +  - $ref: /schemas/interrupt-controller/msi-controller.yaml#
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: aspeed,ast2600-pcie
+> > +    then:
+> > +      required:
+> > +        - aspeed,ahbc
+> > +    else:
+> > +      properties:
+> > +        aspeed,ahbc: false
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: aspeed,ast2700-pcie
+> > +    then:
+> > +      required:
+> > +        - aspeed,pciecfg
+> > +    else:
+> > +      properties:
+> > +        aspeed,pciecfg: false
+> > +
+> > +required:
+> > +  - reg
+> > +  - interrupts
+> > +  - bus-range
+> > +  - ranges
+> > +  - resets
+> > +  - reset-names
+> > +  - msi-parent
+> > +  - msi-controller
+> > +  - interrupt-map-mask
+> > +  - interrupt-map
+> > +  - interrupt-controller
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/clock/ast2600-clock.h>
+> > +
+> > +    apb {
+> > +      #address-cells = <1>;
+> > +      #size-cells = <1>;
+> 
+> No need to show this node.
+> 
+> > +
+> > +      pcie0: pcie@1e770000 {
+> > +        compatible = "aspeed,ast2600-pcie";
+> > +        device_type = "pci";
+> > +        reg = <0x1e770000 0x100>;
+> > +        linux,pci-domain = <0>;
+> > +        #address-cells = <3>;
+> > +        #size-cells = <2>;
+> > +        interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
+> > +        bus-range = <0x80 0xff>;
 
-All warnings (new ones prefixed by >>):
+Why bus number starts from 128?
 
-   In file included from drivers/pinctrl/aspeed/pinctrl-aspeed.h:15,
-                    from drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c:18:
->> drivers/pinctrl/aspeed/pinmux-aspeed.h:741:26: warning: 'group_pins_LTPI_I2C3' defined but not used [-Wunused-const-variable=]
-     741 | #define GROUP_SYM(group) group_pins_ ## group
-         |                          ^~~~~~~~~~~
-   drivers/pinctrl/aspeed/pinmux-aspeed.h:743:26: note: in expansion of macro 'GROUP_SYM'
-     743 |         static const int GROUP_SYM(group)[] = { __VA_ARGS__ }
-         |                          ^~~~~~~~~
-   drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c:479:1: note: in expansion of macro 'GROUP_DECL'
-     479 | GROUP_DECL(LTPI_I2C3, J9, J10);
-         | ^~~~~~~~~~
->> drivers/pinctrl/aspeed/pinmux-aspeed.h:741:26: warning: 'group_pins_LTPI_I2C2' defined but not used [-Wunused-const-variable=]
-     741 | #define GROUP_SYM(group) group_pins_ ## group
-         |                          ^~~~~~~~~~~
-   drivers/pinctrl/aspeed/pinmux-aspeed.h:743:26: note: in expansion of macro 'GROUP_SYM'
-     743 |         static const int GROUP_SYM(group)[] = { __VA_ARGS__ }
-         |                          ^~~~~~~~~
-   drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c:478:1: note: in expansion of macro 'GROUP_DECL'
-     478 | GROUP_DECL(LTPI_I2C2, H10, H11);
-         | ^~~~~~~~~~
->> drivers/pinctrl/aspeed/pinmux-aspeed.h:741:26: warning: 'group_pins_LTPI_I2C1' defined but not used [-Wunused-const-variable=]
-     741 | #define GROUP_SYM(group) group_pins_ ## group
-         |                          ^~~~~~~~~~~
-   drivers/pinctrl/aspeed/pinmux-aspeed.h:743:26: note: in expansion of macro 'GROUP_SYM'
-     743 |         static const int GROUP_SYM(group)[] = { __VA_ARGS__ }
-         |                          ^~~~~~~~~
-   drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c:477:1: note: in expansion of macro 'GROUP_DECL'
-     477 | GROUP_DECL(LTPI_I2C1, H8, H9);
-         | ^~~~~~~~~~
->> drivers/pinctrl/aspeed/pinmux-aspeed.h:741:26: warning: 'group_pins_LTPI_I2C0' defined but not used [-Wunused-const-variable=]
-     741 | #define GROUP_SYM(group) group_pins_ ## group
-         |                          ^~~~~~~~~~~
-   drivers/pinctrl/aspeed/pinmux-aspeed.h:743:26: note: in expansion of macro 'GROUP_SYM'
-     743 |         static const int GROUP_SYM(group)[] = { __VA_ARGS__ }
-         |                          ^~~~~~~~~
-   drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc1.c:476:1: note: in expansion of macro 'GROUP_DECL'
-     476 | GROUP_DECL(LTPI_I2C0, G11, H7);
-         | ^~~~~~~~~~
+> > +
+> > +        ranges = <0x01000000 0x0 0x00018000 0x00018000 0x0 0x00008000
+> > +            0x02000000 0x0 0x70000000 0x70000000 0x0 0x10000000>;
+> > +
+> > +        status = "disabled";
+> 
+> Examples should be enabled. Drop.
+> 
+> > +
+> > +        resets = <&syscon ASPEED_RESET_H2X>;
+> > +        reset-names = "h2x";
+> > +
+> > +        #interrupt-cells = <1>;
+> > +        msi-parent = <&pcie0>;
+> 
+> There shouldn't be any need to point to yourself.
+> 
+> > +        msi-controller;
+> > +
+> > +        aspeed,ahbc = <&ahbc>;
+> > +
+> > +        interrupt-map-mask = <0 0 0 7>;
+> > +        interrupt-map = <0 0 0 1 &pcie_intc0 0>,
+> > +                        <0 0 0 2 &pcie_intc0 1>,
+> > +                        <0 0 0 3 &pcie_intc0 2>,
+> > +                        <0 0 0 4 &pcie_intc0 3>;
+> > +        pcie_intc0: interrupt-controller {
+> > +          interrupt-controller;
+> > +          #address-cells = <0>;
+> > +          #interrupt-cells = <1>;
+> > +        };
+> > +
+> > +        pcie@8,0 {
+> > +          reg = <0x804000 0 0 0 0>;
 
+Why the device number starts from 8?
 
-vim +/group_pins_LTPI_I2C3 +741 drivers/pinctrl/aspeed/pinmux-aspeed.h
+If there are platform specific reasons behind this numbering scheme, it should
+be mentioned in the description.
 
-efa5623981b72f Andrew Jeffery 2019-06-28  655  
-7b388970816665 Andrew Jeffery 2019-07-29  656  #define PIN_DECL_(pin, ...) \
-efa5623981b72f Andrew Jeffery 2019-06-28  657  	static const struct aspeed_sig_expr **PIN_EXPRS_SYM(pin)[] = \
-efa5623981b72f Andrew Jeffery 2019-06-28  658  		{ __VA_ARGS__, NULL }; \
-efa5623981b72f Andrew Jeffery 2019-06-28  659  	static const struct aspeed_pin_desc PIN_SYM(pin) = \
-efa5623981b72f Andrew Jeffery 2019-06-28  660  		{ #pin, PIN_EXPRS_PTR(pin) }
-efa5623981b72f Andrew Jeffery 2019-06-28  661  
-efa5623981b72f Andrew Jeffery 2019-06-28  662  /**
-efa5623981b72f Andrew Jeffery 2019-06-28  663   * Declare a single signal pin
-efa5623981b72f Andrew Jeffery 2019-06-28  664   *
-efa5623981b72f Andrew Jeffery 2019-06-28  665   * @pin: The pin number
-efa5623981b72f Andrew Jeffery 2019-06-28  666   * @other: Macro name for "other" functionality (subjected to stringification)
-efa5623981b72f Andrew Jeffery 2019-06-28  667   * @sig: Macro name for the signal (subjected to stringification)
-efa5623981b72f Andrew Jeffery 2019-06-28  668   *
-efa5623981b72f Andrew Jeffery 2019-06-28  669   * For example:
-efa5623981b72f Andrew Jeffery 2019-06-28  670   *
-efa5623981b72f Andrew Jeffery 2019-06-28  671   *     #define E3 80
-efa5623981b72f Andrew Jeffery 2019-06-28  672   *     SIG_EXPR_LIST_DECL_SINGLE(SCL5, I2C5, I2C5_DESC);
-7b388970816665 Andrew Jeffery 2019-07-29  673   *     PIN_DECL_1(E3, GPIOK0, SCL5);
-efa5623981b72f Andrew Jeffery 2019-06-28  674   */
-7b388970816665 Andrew Jeffery 2019-07-29  675  #define PIN_DECL_1(pin, other, sig) \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  676  	SIG_EXPR_LIST_DECL_SESG(pin, other, other); \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  677  	PIN_DECL_(pin, SIG_EXPR_LIST_PTR(pin, sig), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  678  		  SIG_EXPR_LIST_PTR(pin, other))
-efa5623981b72f Andrew Jeffery 2019-06-28  679  
-efa5623981b72f Andrew Jeffery 2019-06-28  680  /**
-efa5623981b72f Andrew Jeffery 2019-06-28  681   * Single signal, single function pin declaration
-efa5623981b72f Andrew Jeffery 2019-06-28  682   *
-efa5623981b72f Andrew Jeffery 2019-06-28  683   * @pin: The pin number
-efa5623981b72f Andrew Jeffery 2019-06-28  684   * @other: Macro name for "other" functionality (subjected to stringification)
-efa5623981b72f Andrew Jeffery 2019-06-28  685   * @sig: Macro name for the signal (subjected to stringification)
-efa5623981b72f Andrew Jeffery 2019-06-28  686   * @...: Signal descriptors that define the function expression
-efa5623981b72f Andrew Jeffery 2019-06-28  687   *
-efa5623981b72f Andrew Jeffery 2019-06-28  688   * For example:
-efa5623981b72f Andrew Jeffery 2019-06-28  689   *
-efa5623981b72f Andrew Jeffery 2019-06-28  690   *    SSSF_PIN_DECL(A4, GPIOA2, TIMER3, SIG_DESC_SET(SCU80, 2));
-efa5623981b72f Andrew Jeffery 2019-06-28  691   */
-efa5623981b72f Andrew Jeffery 2019-06-28  692  #define SSSF_PIN_DECL(pin, other, sig, ...) \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  693  	SIG_EXPR_LIST_DECL_SESG(pin, sig, sig, __VA_ARGS__); \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  694  	SIG_EXPR_LIST_DECL_SESG(pin, other, other); \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  695  	PIN_DECL_(pin, SIG_EXPR_LIST_PTR(pin, sig), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  696  		  SIG_EXPR_LIST_PTR(pin, other)); \
-efa5623981b72f Andrew Jeffery 2019-06-28  697  	FUNC_GROUP_DECL(sig, pin)
-27d1f73670774e Andrew Jeffery 2019-07-29  698  /**
-27d1f73670774e Andrew Jeffery 2019-07-29  699   * Declare a two-signal pin
-27d1f73670774e Andrew Jeffery 2019-07-29  700   *
-27d1f73670774e Andrew Jeffery 2019-07-29  701   * @pin: The pin number
-27d1f73670774e Andrew Jeffery 2019-07-29  702   * @other: Macro name for "other" functionality (subjected to stringification)
-27d1f73670774e Andrew Jeffery 2019-07-29  703   * @high: Macro name for the highest priority signal functions
-27d1f73670774e Andrew Jeffery 2019-07-29  704   * @low: Macro name for the low signal functions
-27d1f73670774e Andrew Jeffery 2019-07-29  705   *
-27d1f73670774e Andrew Jeffery 2019-07-29  706   * For example:
-27d1f73670774e Andrew Jeffery 2019-07-29  707   *
-27d1f73670774e Andrew Jeffery 2019-07-29  708   *     #define A8 56
-27d1f73670774e Andrew Jeffery 2019-07-29  709   *     SIG_EXPR_DECL(ROMD8, ROM16, SIG_DESC_SET(SCU90, 6));
-27d1f73670774e Andrew Jeffery 2019-07-29  710   *     SIG_EXPR_DECL(ROMD8, ROM16S, SIG_DESC_SET(HW_STRAP1, 4),
-27d1f73670774e Andrew Jeffery 2019-07-29  711   *              { HW_STRAP1, GENMASK(1, 0), 0, 0 });
-27d1f73670774e Andrew Jeffery 2019-07-29  712   *     SIG_EXPR_LIST_DECL(ROMD8, SIG_EXPR_PTR(ROMD8, ROM16),
-27d1f73670774e Andrew Jeffery 2019-07-29  713   *              SIG_EXPR_PTR(ROMD8, ROM16S));
-27d1f73670774e Andrew Jeffery 2019-07-29  714   *     SIG_EXPR_LIST_DECL_SINGLE(NCTS6, NCTS6, SIG_DESC_SET(SCU90, 7));
-27d1f73670774e Andrew Jeffery 2019-07-29  715   *     PIN_DECL_2(A8, GPIOH0, ROMD8, NCTS6);
-27d1f73670774e Andrew Jeffery 2019-07-29  716   */
-27d1f73670774e Andrew Jeffery 2019-07-29  717  #define PIN_DECL_2(pin, other, high, low) \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  718  	SIG_EXPR_LIST_DECL_SESG(pin, other, other); \
-27d1f73670774e Andrew Jeffery 2019-07-29  719  	PIN_DECL_(pin, \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  720  			SIG_EXPR_LIST_PTR(pin, high), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  721  			SIG_EXPR_LIST_PTR(pin, low), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  722  			SIG_EXPR_LIST_PTR(pin, other))
-27d1f73670774e Andrew Jeffery 2019-07-29  723  
-27d1f73670774e Andrew Jeffery 2019-07-29  724  #define PIN_DECL_3(pin, other, high, medium, low) \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  725  	SIG_EXPR_LIST_DECL_SESG(pin, other, other); \
-27d1f73670774e Andrew Jeffery 2019-07-29  726  	PIN_DECL_(pin, \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  727  			SIG_EXPR_LIST_PTR(pin, high), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  728  			SIG_EXPR_LIST_PTR(pin, medium), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  729  			SIG_EXPR_LIST_PTR(pin, low), \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  730  			SIG_EXPR_LIST_PTR(pin, other))
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  731  
-0b9714845935ae Steven Lee     2021-05-25  732  #define PIN_DECL_4(pin, other, prio1, prio2, prio3, prio4) \
-0b9714845935ae Steven Lee     2021-05-25  733  	SIG_EXPR_LIST_DECL_SESG(pin, other, other); \
-0b9714845935ae Steven Lee     2021-05-25  734  	PIN_DECL_(pin, \
-0b9714845935ae Steven Lee     2021-05-25  735  			SIG_EXPR_LIST_PTR(pin, prio1), \
-0b9714845935ae Steven Lee     2021-05-25  736  			SIG_EXPR_LIST_PTR(pin, prio2), \
-0b9714845935ae Steven Lee     2021-05-25  737  			SIG_EXPR_LIST_PTR(pin, prio3), \
-0b9714845935ae Steven Lee     2021-05-25  738  			SIG_EXPR_LIST_PTR(pin, prio4), \
-0b9714845935ae Steven Lee     2021-05-25  739  			SIG_EXPR_LIST_PTR(pin, other))
-0b9714845935ae Steven Lee     2021-05-25  740  
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29 @741  #define GROUP_SYM(group) group_pins_ ## group
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  742  #define GROUP_DECL(group, ...) \
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  743  	static const int GROUP_SYM(group)[] = { __VA_ARGS__ }
-e7a96b0b7d1669 Andrew Jeffery 2019-07-29  744  
+- Mani
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+மணிவண்ணன் சதாசிவம்
 
