@@ -1,91 +1,80 @@
-Return-Path: <openbmc+bounces-616-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-617-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25528CA101F
-	for <openbmc@archiver.kernel.org>; Wed, 10 Sep 2025 07:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13F0CA101F
+	for <openbmc@archiver.kernel.org>; Wed, 10 Sep 2025 07:26:02 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cMBzX5YTFz3clx;
-	Wed, 10 Sep 2025 17:25:12 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2404:9400:2221:ea00::3"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757489112;
-	cv=none; b=KZsELWl+EWJmonjxkg2WKnDFxVgMpz3MOpGRf6xPI8rl9TAE9LDDtYlnARanUmReqbRg3LUju/S2BskqPIVrjnIscazOVBnAD/a8w803922px/tS0NvOV7dDpohsNeD2gNzdVoZkfAO+2qTaCPjjrCBXF+JT1KngixRxK4f0tWwEFx2LqljpEVvpVFTExAcitVfJR8Qekwofyph7PCSeHMuA1/VctRutPg0tYy4jL7DYLW0ohTFY3/wI3yEriSNWL3R4NkQngECW4LUX9JiRH+Z0LcIA/gOBou91ZtFrSUoJgy8+ZS6clKFZ0Esrv/1udGwzeAPAVSJWxhEkXjgNXg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cMC0Q0vMHz3cmg;
+	Wed, 10 Sep 2025 17:25:58 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::435"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757489157;
+	cv=none; b=WbuFT5Q09iOI44YVTozYVrmj4OQT2NvkPLTEe7ZmzoHmU8fnAyPK8BKcCQrvIpfRYm7rb/ugqx3qmxladL18GzO0cWpMZufe5hnQyEWBo0Dj4AQJuUgAY/F7nFoxQDkH0rjMLVZC/T5loQXec8IpPnImTObKtj+PpQIbCpOCWweagFIyyZhQrqtSFmsGZZ+9cGpYYLA751BCnSPijOmpdwqMjziEOHGPybd09bMPz80t3Mp22yV4UIdrNnYXD7KQ40aYHEX3nDYTWF35eXV+vh8jbGAdnQFTy8JYeSf+Zn/ZDPVkXyz6OkHHWtJ6usyEfk3JAyQjVaURclZvSvT+Bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1757489112; c=relaxed/relaxed;
-	bh=ZGA5dcZRWUigTt8GjmWGSHBP8/IP5ng6CyXB4N9opa0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gLQ9H7NYzQ6nyGfjMKiqOplJmmElHIm5YUgE2usUMRHzNewiLIZHun0ANFvqnXRvYjF+nlQS5bRVlBsSFxb9fDc23RhnUniw3pvVXxYvGF+/0deTZnMzB78+5zHQl5lAydbc9Dm4+cXw59eLp3SUZrdvrUZ7U4oVOyoHTdhBo+vqmz/JQwk0PtXKYtibJOIftM6J1lEufp3HZ2RWQPhLowB3jIAn1f67JNZRhCGTIPUZg5yy794yX0mMKYruwDvgY2SOwY+dy8egVx2GTb+aDpEzleGT7wUT6vwIo2HOT/qNQv0vEUvwHbVQiHd4LafUkF5oM3pfJ5MOBtk/k3zchQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=M/Df+4gF; dkim-atps=neutral; spf=pass (client-ip=2404:9400:2221:ea00::3; helo=mail.ozlabs.org; envelope-from=jk@ozlabs.org; receiver=lists.ozlabs.org) smtp.mailfrom=ozlabs.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+	t=1757489157; c=relaxed/relaxed;
+	bh=gl5EvZZ7qePjJl2BaNjHQ+dzPz2TAyeCpTwHy9T9Wfo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oFT1f9vTFksnP4dHLQ4DlMCXiesY0vh6Xgsp0HLBlIc7OK/CXkxpGGm/iwbACHH1lbefooSZ5bBs3Zjry2IxzoOgD3Xf4f1m09qK5XSkmU5+AvnGt4vm6VvpbYkiM9fBPbFl+mCHqjE0TjHEyukLLkx0oSpJY36oyzRT06lbT1fmOnVIexgOPWH0cWdo4vcFsRZxiPVmQgDjaKigikPMOwJf3gyhEJwSj0ZMcfWB/dmIGsKiEt+SPYbb+8aqtXwvrxSWw4INGsLP8uPI/exN3qdRiEamjp2+W+wgWkN9HzyQInuwwJVEsLjI3GHNaQMe/oTaU0iPGUywDDyf9cqs2w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl; dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=acPpdUmy; dkim-atps=neutral; spf=none (client-ip=2a00:1450:4864:20::435; helo=mail-wr1-x435.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org) smtp.mailfrom=bgdev.pl
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=bgdev.pl
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.a=rsa-sha256 header.s=201707 header.b=M/Df+4gF;
+	dkim=pass (2048-bit key; unprotected) header.d=bgdev-pl.20230601.gappssmtp.com header.i=@bgdev-pl.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=acPpdUmy;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ozlabs.org (client-ip=2404:9400:2221:ea00::3; helo=mail.ozlabs.org; envelope-from=jk@ozlabs.org; receiver=lists.ozlabs.org)
-Received: from mail.ozlabs.org (mail.ozlabs.org [IPv6:2404:9400:2221:ea00::3])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=bgdev.pl (client-ip=2a00:1450:4864:20::435; helo=mail-wr1-x435.google.com; envelope-from=brgl@bgdev.pl; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cMBzW0LNvz3cll;
-	Wed, 10 Sep 2025 17:25:11 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1757489109;
-	bh=ZGA5dcZRWUigTt8GjmWGSHBP8/IP5ng6CyXB4N9opa0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=M/Df+4gFpZo2jnpBnoKNNy4pZfOibmyNCP2ItaqHQzdlNhAKBa/0O+dBS5GgBf4bN
-	 5mcazSvVUOpTQK0w8gbnr0cSGCsKACMEr0oZohlttaK6NqqlncezqOJdM5TNJe4DUD
-	 5IYXoF72KmeTtZlY+Ekg+QHpUdUI4h3Yb0L9VqK68wl74rD89V3tlw+fhwQWdOF1Tw
-	 miNU11LDzRqh6+tvMe9MH1q7+fZdyd0tTKh13APQBm81mAHac4u2JMwhn6r46ZozlD
-	 S7Hx9MvZeR1mvohCH+1YOPlhe2n+MZeBftdPi4tUmK2RlsyvjIF7AVqJTl1PSCEiSc
-	 Db4UnHy8/6b1g==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4cMBzR1HQnz4w2S;
-	Wed, 10 Sep 2025 17:25:07 +1000 (AEST)
-Message-ID: <44ef5c93448a3625fcfd003b47a516e8ba795b62.camel@ozlabs.org>
-Subject: Re: [PATCH v16 1/3] dt-bindings: i2c: aspeed: support for
- AST2600-i2cv2
-From: Jeremy Kerr <jk@ozlabs.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Ryan Chen
- <ryan_chen@aspeedtech.com>
-Cc: "robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
-	 <conor+dt@kernel.org>, "andriy.shevchenko@linux.intel.com"
-	 <andriy.shevchenko@linux.intel.com>, "andi.shyti@kernel.org"
-	 <andi.shyti@kernel.org>, "linux-aspeed@lists.ozlabs.org"
-	 <linux-aspeed@lists.ozlabs.org>, "devicetree@vger.kernel.org"
-	 <devicetree@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	 <openbmc@lists.ozlabs.org>, Mo Elbadry <elbadrym@google.com>, 
-	"linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "joel@jms.id.au" <joel@jms.id.au>, 
-	"p.zabel@pengutronix.de"
-	 <p.zabel@pengutronix.de>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org"
-	 <linux-arm-kernel@lists.infradead.org>, "linux-i2c@vger.kernel.org"
-	 <linux-i2c@vger.kernel.org>
-Date: Wed, 10 Sep 2025 15:25:05 +0800
-In-Reply-To: <99053328-a117-493e-b5f3-00902669c8e7@kernel.org>
-References: <20250224055936.1804279-1-ryan_chen@aspeedtech.com>
-	 <50327725-f3b8-4a8b-94a2-85afccd2868a@kernel.org>
-	 <OS8PR06MB7541B0DBC64B3EF6838DFE74F2CD2@OS8PR06MB7541.apcprd06.prod.outlook.com>
-	 <d1b184c5-84c1-4d76-a1d0-a9f37f1e363c@kernel.org>
-	 <OS8PR06MB7541D1D2E16C5E77037F3BB0F2CB2@OS8PR06MB7541.apcprd06.prod.outlook.com>
-	 <069b9fe4-c54a-4efd-923e-1558c59fe3f4@kernel.org>
-	 <OS8PR06MB7541C69AB8E6425313DA8606F2DF2@OS8PR06MB7541.apcprd06.prod.outlook.com>
-	 <677cb075-24ae-45d8-bfb4-9b23fbacc5df@kernel.org>
-	 <OS8PR06MB7541C3B70B15F45F4824772BF2D92@OS8PR06MB7541.apcprd06.prod.outlook.com>
-	 <994cb954-f3c4-4a44-800e-9303787c1be9@kernel.org>
-	 <SI6PR06MB753542037E1D6BBF5CE8D2E7F2A42@SI6PR06MB7535.apcprd06.prod.outlook.com>
-	 <4523caea-3406-4de0-9ab5-424fb7a0a474@kernel.org>
-	 <SI6PR06MB7535BAD19B51A381171A0E64F2A42@SI6PR06MB7535.apcprd06.prod.outlook.com>
-	 <8e8aa069-af9f-453f-9bd0-e3dc2eab59ab@kernel.org>
-	 <OS8PR06MB7541FD8691B43EA33BDC1D22F2A72@OS8PR06MB7541.apcprd06.prod.outlook.com>
-	 <99053328-a117-493e-b5f3-00902669c8e7@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4-2 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cMC0N22Dlz3clp
+	for <openbmc@lists.ozlabs.org>; Wed, 10 Sep 2025 17:25:56 +1000 (AEST)
+Received: by mail-wr1-x435.google.com with SMTP id ffacd0b85a97d-3dae49b117bso5683353f8f.1
+        for <openbmc@lists.ozlabs.org>; Wed, 10 Sep 2025 00:25:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1757489153; x=1758093953; darn=lists.ozlabs.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gl5EvZZ7qePjJl2BaNjHQ+dzPz2TAyeCpTwHy9T9Wfo=;
+        b=acPpdUmyQSILqfiuybWzgVY4B/MY6A5AqRIzf1m3Kik9S5pluS/eCyml6Yuiy+LWJe
+         Bx01qsiicGQYvRNrvAynnJ/FGg9TIqw8KTxX78GC6i6sWoHOS9ts8f77xeWVz8WrUCen
+         /ot8JtaoKMRmL09bUkgquGsqD7PgkBop1v1D+UI8z7ekLQ5kuu5ZR1/f4bVZCy1uh52O
+         ge9ddiMxfphKQ3+IGtv3ZX9c+lJGy1EqsD+IbUpvcKYc421p+oYNGVk3cOPmf6Uh24Zx
+         pogLbWWjuTZ57yT3e5rUytuGSAMowDJ5vE2koVlL4dJQLoGSrFrYWPbTxqJvkxtQKAr6
+         Lciw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1757489153; x=1758093953;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gl5EvZZ7qePjJl2BaNjHQ+dzPz2TAyeCpTwHy9T9Wfo=;
+        b=vuziO7pN619V62F3WQ83nqWRgG6IrCre28qdqFkw09bfioTw/FbMdfVRtHhzVg5kHC
+         aeOCtqXRhutvmAMGIdhWJ2y9aqb1dxtEL/Xz2GwwQAo6Doyp35IVj2Pffkho3aimtGUZ
+         IvDVYy1zmavBpQTY072ImVeTjBdZiEyxgBDaMUJXD6DyB/nlBv6uUUOF3rnDT0mT19z6
+         oN4+OOQp5DApuTo3DmcXwwVnsl4bve46jsrC8Ymsw2PWcfoxSYAiITJwPpoevZK8B4cJ
+         6u5APQBylukAU23ECE7Ja4UGlW8LSojeOWoTAdTpFWae85TnfAps4ReL0tuFQmNSXcHT
+         4ivg==
+X-Forwarded-Encrypted: i=1; AJvYcCXO3/j0N/Flr+ArvDtxzMc4+MEQVpyqv4Ard8Uy92NZMMI/9b5vODav4VKpR39njro2VHrG8VFL@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yz3/G7kxgQV6ljehEnaJ57EaZ63NJE5s7OVzdYzWfkuRYyk8xBl
+	WMfQoxSHF/2833TNytXN979iV3Xdt5C6PpSW1F+06dQ9/NsjKabN7GTgE/ORr/VApwE=
+X-Gm-Gg: ASbGncu8EtWWDUeGbWmJlG2+TMu7rwjfCWb1HL7Vt5h2Nj8wvR6zKnxKElR5TBp5igZ
+	33hRzlOrLda25yomXGsgFFati0cthlQ1SoIo6RVOQ2kGOMBnmCJQQgVUgm4x7eaUiTalAKzf3uP
+	w6EdaFLXvepzrNE4Zrex26u95C0gC+f+YAdhb/Ek3q29gFT/N8VImHy9/YDAoDc29pkBYDzH021
+	g7dUMzZZbzorw0f6jY2IXTBGUXd66hy4c9eRkugokk1YfjKikulCqslLQ9Bsku2AIGHvlzHkXJN
+	Ewl/4KhCW34RAoa04IWWJDq6zkSvt50kiuyw9N57h4nlj02SOU8IXohuFheZAWRGWCHwZJCEaKS
+	kbcDxcCetyy5JX+PsvMVFv3xzN4OWl/qEjJzHqMU=
+X-Google-Smtp-Source: AGHT+IFKdWd/MOTTMywYPHVw5YIDU4ZG0NZ3VmH44f3IGf1C3HlllFBC2cfty+fO45t0VoMp0fb6YA==
+X-Received: by 2002:a05:6000:1a8d:b0:3e3:f332:73f6 with SMTP id ffacd0b85a97d-3e646257abcmr9958246f8f.31.1757489153027;
+        Wed, 10 Sep 2025 00:25:53 -0700 (PDT)
+Received: from [127.0.1.1] ([2a01:cb1d:dc:7e00:3936:709a:82c4:3e38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45df8236428sm16729825e9.24.2025.09.10.00.25.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Sep 2025 00:25:52 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Wed, 10 Sep 2025 09:25:45 +0200
+Subject: [PATCH 1/3] mfd: vexpress-sysreg: use more common syntax for
+ compound literals
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -97,44 +86,87 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250910-make-compound-literals-normal-again-v1-1-076ee7738a0b@linaro.org>
+References: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
+In-Reply-To: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
+To: Lee Jones <lee@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+ =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Bartosz Golaszewski <brgl@bgdev.pl>, 
+ James Cowgill <james.cowgill@blaize.com>, 
+ Matt Redfearn <matt.redfearn@blaize.com>, 
+ Neil Jones <neil.jones@blaize.com>, 
+ Nikolaos Pasaloukos <nikolaos.pasaloukos@blaize.com>, 
+ Hoan Tran <hoan@os.amperecomputing.com>, Yang Shen <shenyang39@huawei.com>, 
+ Imre Kaloz <kaloz@openwrt.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, imx@lists.linux.dev, 
+ linux-unisoc@lists.infradead.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=979;
+ i=bartosz.golaszewski@linaro.org; h=from:subject:message-id;
+ bh=2AiYFCloD/4RAraZbO+KeVDtX8xcEqWOa6di+UP2k+Y=;
+ b=owEBbQKS/ZANAwAKARGnLqAUcddyAcsmYgBowSf8VTnO9QVF1tR30IBvEZEbYU3RFZcMzjLBO
+ 2ZoExM1MEWJAjMEAAEKAB0WIQQWnetsC8PEYBPSx58Rpy6gFHHXcgUCaMEn/AAKCRARpy6gFHHX
+ chgMEAC1UA+PKD6t6aGSJKb2WwHVdpLkaweVvLymwppdHKPAhq4e2ZXBwcfe2Xf21UCZiVRN5Pb
+ sXKBL7TU2hsVJnh+nY1deWzVbeenzo8hfzM5je3+XttTa2Cd7DH6irICePcyIIAX9BlaWTAaKiP
+ OzZfpmYjW0CygB3YYK5biWI3U5cbt8nLFSPKK/ST9iUNo1jaFukc6FipCfVUosMTABpdPQOqmxc
+ EhVqSROfAU4VXT6X9L7y4z/srhtMFu2ufagfAW3sz0zMFPXiSOQcSirf7JyGZrRkwKN26VcH7XE
+ SMpZQkhb/5/ccgPK9pObeHyNoII8VEhVuraYCkIOiW6C04U2HwPu6nfDQ0YdiITYx2gObHsjuKA
+ dFyC1qARBLWkPpFha9B/WfdT4effL2+txlK5x8JKZY3ZYwbv+7kgyLjuwGt3fYKMneEXrd3GWwj
+ Ob2IeaFzQUJplmbPWMbcU/LOW4JBy7aOXHImgg6G6fOJSUTexbqJflcFeQ6aqoJ+iMezbpCUVxX
+ DaEUCGs/NEd4R7KcgIrmSebHGlPJot9MGekvnPntd4Xt/34GEdDUYMriQBIjB8jshF2MoPpqAbq
+ MVDAbVmCWbgIP0Aljy2QDxkXCnS8MoTibWav6SmYomsrAUE1bXtWLPW/j4cOMWhP7q0xosfcc/0
+ W2Qzs1Uc+uQvMHQ==
+X-Developer-Key: i=bartosz.golaszewski@linaro.org; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
 
-Hi Ryan & Krzysztof,
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-[my response is intended to make progress on the newer v18 submission,
-but we still have this item from v16 to resolve, hence picking up this
-thread]
+The (typeof(foo)) construct is unusual in the kernel, use a more typical
+syntax by explicitly spelling out the type.
 
-> Your compatible already expressed that there are two interfaces, so
-> your drivers can just choose whichever they want. If you need to toggle a
-> bit in system controller, it is fine. If you need different compatible,
-> then that's a NAK.
+Link: https://lore.kernel.org/all/20250909-gpio-mmio-gpio-conv-part4-v1-13-9f723dc3524a@linaro.org/
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+---
+ drivers/mfd/vexpress-sysreg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I think the mention of "two register interfaces" is a bit misleading
-here; it implies that it's just two interfaces to the same hardware.
+diff --git a/drivers/mfd/vexpress-sysreg.c b/drivers/mfd/vexpress-sysreg.c
+index 9399eb850ca29b0a9d9be2173bee4bcf6888d10f..f49cee91f71cc2e6132cd3118dafd42a48821e0d 100644
+--- a/drivers/mfd/vexpress-sysreg.c
++++ b/drivers/mfd/vexpress-sysreg.c
+@@ -120,7 +120,7 @@ static int vexpress_sysreg_probe(struct platform_device *pdev)
+ 	if (!mmc_gpio_chip)
+ 		return -ENOMEM;
+ 
+-	config = (typeof(config)){
++	config = (struct gpio_generic_chip_config) {
+ 		.dev = &pdev->dev,
+ 		.sz = 4,
+ 		.dat = base + SYS_MCI,
 
-From reading between the lines on the datasheet, it seems that this is
-two completely separate IP cores, that:
+-- 
+2.48.1
 
- * are mapped to the same MMIO space; but
- * both happen to be I2C controllers.
-
-- where the single "global register" (which you mention above) provides
-the facility to mux the MMIO mapping between the two. Some versions of
-the overall SoC have only the old core, some have only the new, and some
-have both, selectable via this register.
-
-Ryan, can you confirm whether this is the case?
-
-Given there are actual behavioural differences between the two
-peripherals - beyond just the register set - that would seem to indicate
-separate binding types (+ a syscon mux control) to me, but I'm keen to
-hear any other options.
-
-Krzysztof, if that is the case, any thoughts on the representation of
-separate bindings?
-
-Cheers,
-
-
-Jeremy
 
