@@ -1,75 +1,58 @@
-Return-Path: <openbmc+bounces-626-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-627-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62CE9CA101F
-	for <openbmc@archiver.kernel.org>; Wed, 10 Sep 2025 10:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1741CA0FED
+	for <openbmc@archiver.kernel.org>; Wed, 10 Sep 2025 12:58:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cMGVZ0fH8z3d8Z;
-	Wed, 10 Sep 2025 20:03:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757498629;
-	cv=none; b=UeTh5ZzaaRONlxPKigBf/MtdsGK1lF1M1mNzO2HeOloXSQnBw0K98pYN51JvqiZoaXmIhfpxPclYRISnAj5c36sFH/ZnWtInmeJduqyVtj/gBxPvL8qNRSMDcmF0QDJ7X1BTuusVc6kIqV00MEl/CjF6EXPh4z8TXd1bGqyBiO1lxdNdSShFda7c28Anjc79/c7BNAwb/2w77N3h1Gs2GJCZq//iBWCVNQh42XFoT2MY8kkKZpQCcCyf6aLBWRq4+oUUKQ/VJO66pCnPh3/qB9pX6NLeEb7HutXYbnkfEVq8LWHy5DThOVhiqtsJg3LQgTNw8mVjYqLTfSgeaVMI6g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cMLNH4Bg5z3dBr;
+	Wed, 10 Sep 2025 22:58:39 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1757509119;
+	cv=none; b=jR4FcLHjRorSGfSpHKoAEQFm3PMDePjmmFbRvSJfO1rDlnojkbGzx3JgxbD03C56+zlZU+UWY6Q5lPQQerU9wvQnznftD5xq/a2C/9P2TO9fwmU999cjmuG/KpMCfZVCorRXCajVfXacRBxjdJakKrFroXOsxAD1qPseUtjWvs9GpodMysV4EliMkb1pqBecPKlZb597auFCHI5ohwTqpL1CoOK8M2ZArweJjA/HOVOPLoOFWUpjAd3M4zNY84PNUzsb0kb5SGJhzNH0FW4UnIQwdKoo++eS1mUpzntk5K53PuqxzsL5aeaHvLbABTPczOflz7Hm3b/h5SMD5a5edg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1757498629; c=relaxed/relaxed;
-	bh=vfEoEI07LqAssZJd4kgA+XMFve7iOmdqNuZSLbkCoc0=;
+	t=1757509119; c=relaxed/relaxed;
+	bh=z5aBzRy9SrXCcJ1rkx7TeZFNbpBmp0grZlwbuKu+WTg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kiu29rDcf096JwLpqM1Vhoi2xPjAjGGpVzKpMaJg/ASfHfPYAozwFPSvFQun19MHfpeufsU+qWjB0AbuZM/+awvGkzMGkjJSXyTLz0kX1olFRRmVY9tL3bkewzLDNt3+LjFHvEZMkSHrLajAEcdDCEqrdA9/N1i1sDZo2OYS+QD/4s0bEvYwEJaR7m+JtURXf7PH4NlsnqEi89jVGdy74ymGNrsSRcQBm8w4aSfy3wz1KLXjjP0nOy5JMEKKsxje0GEGRXTs3rmdEfLNWF8Zu16M+znkltIOFfEseSOd3Tqyf9leWDx1RKG9pCbngiuXBqn8LAVisf73WSa6ZFP4tA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=arm.com; spf=none (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=sudeep.holla@foss.arm.com; receiver=lists.ozlabs.org) smtp.mailfrom=foss.arm.com
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=arm.com
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=foss.arm.com (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=sudeep.holla@foss.arm.com; receiver=lists.ozlabs.org)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cMGVX4bhVz3d4D
-	for <openbmc@lists.ozlabs.org>; Wed, 10 Sep 2025 20:03:48 +1000 (AEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A58516F8;
-	Wed, 10 Sep 2025 03:03:07 -0700 (PDT)
-Received: from bogus (e133711.arm.com [10.1.196.55])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 192AD3F66E;
-	Wed, 10 Sep 2025 03:03:08 -0700 (PDT)
-Date: Wed, 10 Sep 2025 11:03:06 +0100
-From: Sudeep Holla <sudeep.holla@arm.com>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: Lee Jones <lee@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
-	=?iso-8859-1?Q?Cl=E9ment?= Le Goffic <legoffic.clement@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	James Cowgill <james.cowgill@blaize.com>,
-	Matt Redfearn <matt.redfearn@blaize.com>,
-	Neil Jones <neil.jones@blaize.com>,
-	Nikolaos Pasaloukos <nikolaos.pasaloukos@blaize.com>,
-	Hoan Tran <hoan@os.amperecomputing.com>,
-	Yang Shen <shenyang39@huawei.com>, Imre Kaloz <kaloz@openwrt.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, imx@lists.linux.dev,
-	linux-unisoc@lists.infradead.org,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Subject: Re: [PATCH 1/3] mfd: vexpress-sysreg: use more common syntax for
- compound literals
-Message-ID: <20250910-precious-silky-worm-8bae77@sudeepholla>
-References: <20250910-make-compound-literals-normal-again-v1-0-076ee7738a0b@linaro.org>
- <20250910-make-compound-literals-normal-again-v1-1-076ee7738a0b@linaro.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=DctFnt8GnEePxHWnV4h/EHVe+cRqdTqB5IRyif5BFSoUjHCtflT5GXwXBfho0Ujx0mUzzoZmEvaF2A0ViBPDXQZiqHx9bVgQcyUY5trNPukDWXUhEhVlfGe9US/45DYn0w3Jf/4dHUHWMJD4rRvBpOiy+ulQYPBawvSmmM11ZvUmdBBwW+xt4yeed9VMSXuMGQ0czC+qysE+gEhq39AcxFTJKS/ge9WDxYdbdmpoh9Pu5fOT9dYgyAFPi1SNdqfHRF7NGH1vcNCJgz8aVy/W5UiuOjsaZXAZk0X3EjzoUBpP9ro4l16CyQ426NbC/ZkVnk9qwioXEmljyDy6Kg2kvw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KlPcWQyM; dkim-atps=neutral; spf=pass (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org) smtp.mailfrom=lunn.ch
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KlPcWQyM;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org)
+X-Greylist: delayed 118 seconds by postgrey-1.37 at boromir; Wed, 10 Sep 2025 22:58:38 AEST
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cMLNG627Fz3dBd;
+	Wed, 10 Sep 2025 22:58:38 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=z5aBzRy9SrXCcJ1rkx7TeZFNbpBmp0grZlwbuKu+WTg=; b=KlPcWQyMuHIw2RSFiHPkUTAg+i
+	tWFfaCyb/S3jsoP37vt2y8BaMh65/Kb4eS0v1mMmNAn7c5Qh/YtyRQreMwwPk885AQsinLQSg3M/p
+	CMXWeLiczT8ZLD7Yu90NNoFp+pbl/1i62enwSlxmX34MzJG6po0OP27saJNxncWOHiA0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1uwKP6-007wTF-UL; Wed, 10 Sep 2025 14:58:28 +0200
+Date: Wed, 10 Sep 2025 14:58:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Donald Shannon <donalds@nvidia.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	joel@jms.id.au, andrew@codeconstruct.com.au,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, etanous@nvidia.com
+Subject: Re: [PATCH v9 2/2] ARM: dts: aspeed: Add NVIDIA GB200 UT3.0b board
+Message-ID: <e51d1a9c-a54e-4fe4-9091-4f5ea29535ec@lunn.ch>
+References: <20250910041736.245451-1-donalds@nvidia.com>
+ <20250910041736.245451-3-donalds@nvidia.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -83,18 +66,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250910-make-compound-literals-normal-again-v1-1-076ee7738a0b@linaro.org>
+In-Reply-To: <20250910041736.245451-3-donalds@nvidia.com>
 
-On Wed, Sep 10, 2025 at 09:25:45AM +0200, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> The (typeof(foo)) construct is unusual in the kernel, use a more typical
-> syntax by explicitly spelling out the type.
-> 
+> +&mac0 {
+> +	pinctrl-names = "default";
+> +	phy-handle = <&ethphy0>;
+> +	pinctrl-0 = <&pinctrl_rgmii1_default>;
+> +	status = "okay";
+> +};
 
-Acked-by: Sudeep Holla <sudeep.holla@arm.com>
+Same here. Please describe your PCB.
 
--- 
-Regards,
-Sudeep
+	Andrew
 
