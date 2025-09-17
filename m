@@ -1,84 +1,84 @@
-Return-Path: <openbmc+bounces-652-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-653-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11279CA0EE8
-	for <openbmc@archiver.kernel.org>; Wed, 17 Sep 2025 06:02:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1728CAC598
+	for <openbmc@archiver.kernel.org>; Wed, 17 Sep 2025 06:03:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cRSp43QkJz3cbF;
-	Wed, 17 Sep 2025 16:01:48 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::536"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1758088908;
-	cv=none; b=dfAj81npqT1uVvzBKK9KecGuz7WccjKh0zJqDL3H0XjaSHDZzXCw1eNtvhlySHXABh9/PtrVox1Q+OL/AtMr+XyoQm7+T7LrRe9zsdisyMUVU42P+s8CNw01K3zGKn7w2Qniw+NLdXtQnVuShANGrq7sWZK/sOThshA455KxDZGN0mv4sS/1+RYQ0d9kF0D61cmIZZkMu97CYNgL2ATPi0kywh1yu36n8vMW2fUUkTkY0HF6WegzRMCMVlFeol8ye53IYuNsZ5LYRWO7PoWW+yfzZhIhNCZFyAmFBqsAIsZdreFvwV5tVclkYKl+QTV6iPjxBmdnSsJcC05dAGw7cQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cRSp63zmJz3ccf;
+	Wed, 17 Sep 2025 16:01:50 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::632"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1758088910;
+	cv=none; b=Xc9rlfyjHbvmKcq9kEtGJ71ObsXQqrZ6fEJ+nfIX4gwYutQXbgxS22KPFIkhrwGUPbIVVj7MFyQEGYz3VA07YcaxKa91DA4+Bvu6fVTfxF3f7DX3BA8g0IgmWNM4pkS4xaWxYDkfppURK4DePwf1DEX35WMJtHUlcSzHeb78rBc7KXF2BKdHc1b/5sN6vV8GWAnATwBGwffiH/QBEw7a1pFWOQHh0pe/QjO06lAj9WLwSaxB+Q2p+sxE9oWMLBivKZXSFosQFQtusw7GyilMGndAqbtIOV2XObT5nK1O/a2X+gf0fBRGF0JSPsmXyiFrc2Hk6zfgSU84O9lLxgrSlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1758088908; c=relaxed/relaxed;
-	bh=vQmuTAU9a5kL1f9Gro6CBTDp9AQ82yQASTv9Eui9FM4=;
+	t=1758088910; c=relaxed/relaxed;
+	bh=jCdV+K7YiBVTjoSvGDkLGiR0hcBO7/gHDcR1Panf8ZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DCFAAehRgN8inLQtGll0TPwg3sMUrDibHC+Z0WDIha9SaoIU6y5PDbvPr7+Zv0I0F2o+vP8jMu6r4dETwFyQE9nAQJ4Sq80KEGXsU9FhNj2AARaGPeAgapKdxeuzQQiv+C8PioQOF8SvjbuFdRXoEwmf0uQxplbDTdi7U96ZWWqwihPqr9Ak62PPMBiLYFJdoSlZ930Acrsb1tFBj5icSi7Vedzp7hpQaHVmHduA23E9dM9gQ+iPpuggSpCeQmlqLipkiFDLIfmTf0kGjpeuDlkuRqGpJYPsJt4hNOUE9ar+c7suxYoee6kTP0/2OMxfw4ALO5TvO03IHo0fu2Ueng==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=TaLSWWl5; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=peteryin.openbmc@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=GBVYLg9rL3tH/ZitI0HIeRWU5qPofh6cKQHtcV5tCUkgpqonpWpjfarAz6Q1ODRVcSMcgqKp/vQpjIPib5uNw3vqazdTLl63jLLe1a5hIgDAlMnZQeB0UUvV5pWP9jW9w+5s0mIn4M9YJRw214+V1+l43K9my4t4Hgq4eXaTVDjJ5IZ5FC6WVUzPKFoTCTTq66b2PVFNG8TO0chlMvqnmUgE06oegte5cng8g4VI/nzdI4YxhRWjHFQX1ADWxrenup1LT6aadoN743rNo8Jp8VJWbCkR7fkIRN65nv3l3Z/3Ghqb6aG3RYLs0CFzFvZRKgczgA6gKbRZ+9RMafGXFw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JyKCuee7; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::632; helo=mail-pl1-x632.google.com; envelope-from=peteryin.openbmc@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=TaLSWWl5;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JyKCuee7;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=peteryin.openbmc@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com [IPv6:2607:f8b0:4864:20::536])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::632; helo=mail-pl1-x632.google.com; envelope-from=peteryin.openbmc@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com [IPv6:2607:f8b0:4864:20::632])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cRSp34pHpz3cZ9
-	for <openbmc@lists.ozlabs.org>; Wed, 17 Sep 2025 16:01:47 +1000 (AEST)
-Received: by mail-pg1-x536.google.com with SMTP id 41be03b00d2f7-b4cb3367d87so4210979a12.3
-        for <openbmc@lists.ozlabs.org>; Tue, 16 Sep 2025 23:01:47 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cRSp5505Dz3cZ9
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Sep 2025 16:01:49 +1000 (AEST)
+Received: by mail-pl1-x632.google.com with SMTP id d9443c01a7336-2570bf6058aso80857545ad.0
+        for <openbmc@lists.ozlabs.org>; Tue, 16 Sep 2025 23:01:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1758088906; x=1758693706; darn=lists.ozlabs.org;
+        d=gmail.com; s=20230601; t=1758088907; x=1758693707; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vQmuTAU9a5kL1f9Gro6CBTDp9AQ82yQASTv9Eui9FM4=;
-        b=TaLSWWl5738rIHDR8XQZi90OCRGEH9D2cV5v643Om6pT8VWWLXl9uj0Gh0qjWLm3Ve
-         bc/JkdFcJ9PCOCrp95sjPlu0LSngf+LX0ZvnffzcmEOWn1RutMkYBLZtgQrAFU6GZAzU
-         uU5s4yfe5WZk3q8mz8SCZ8hS+g7FKfKmxSsiLr4+mDEzYJd5I9NX0ObF6L3otGckKpLi
-         bBL5wukuQKZuNaDJj5ES6FhnC+a5ItFOH0j6UQxdt9lYVhLZ8ssHkzhvBVOI30JuKgwF
-         BVx1EDM0S5mJLeua+PrkYraCMs0gu7kcqV+GnGfcLJy+/UMaEGJaqhxf0Msdr3BScAZg
-         uHfw==
+        bh=jCdV+K7YiBVTjoSvGDkLGiR0hcBO7/gHDcR1Panf8ZA=;
+        b=JyKCuee7kIe20ME4sFwchBz8c1m4bxWcUofXprhCiVI+JBM8KgaYht0DIPdHurhMk6
+         HFaaA9q+wszL0LbP6YHzLgNfPR8Eors4MiHbo7+v0V0nJsmeFDAsCptNHsSwBkCkCgWZ
+         6HoL6t+AFhnM2kcmwSYb1l0vkUF4N5+aUn20E2B35/0Sutp5kaM8x0kCI9EjGSB+RSxj
+         17PJn7amefpZ2tnyVE6A2Q+vnmEhmZv58ZRIri+0MGCyQz436Z0+r+JIJR1TonWEHBJa
+         6FJqpqIK08EywGfOM9Cu1j0e69J8OrxmUgmGPiPgWEjwQCB3NzFU4Y8Rn2jwoCwnvGCw
+         eKmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1758088906; x=1758693706;
+        d=1e100.net; s=20230601; t=1758088907; x=1758693707;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=vQmuTAU9a5kL1f9Gro6CBTDp9AQ82yQASTv9Eui9FM4=;
-        b=CSReHLIrvstbqAe1DM1alhK89k3U9TFeGTv2hAn5ygJWQUHzqNavgU+5GnkVBLJhqQ
-         6BXksNRFlsr8bSM7ROuwhBBMri+tLrREQ7YvAzVc8Zj/KtGOrbYo+G9qk+5ARjr4uLMW
-         9mFvrsbu65TpaEesRAVuhHSPdh1SP0luWN6/0FtsxqsOkG0k+jCJ52mo7pRkjBsB+FdG
-         ZO2yM1QGg6m9/vdIiFCfJ0TFsf98vA28DLPH8XncMH/HnHs6AleryLsorb+osk8OF1/y
-         wInoxq6Z4tz5TxUx5tD1c7I1WOKEWefO3QsdsCOWWlBg90QifdqAznAXkJjE3y1Rhb6u
-         5ElQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVLQkq5OKhMoYiIUcXnvB6W4sNhRogPwB0+71bGme7WkCOZGfsLsAC6EbmGnFr3C8qtp02seYx0@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzV5Gt5CSYOybJ6UrjaGYXFKFYBHjExoUcaqUyKQIde5bmLEed+
-	tNjnJvBCjKbqmNu6M5+PL9PRHyUjzvC29M4ILPN5mEoLsAUMjk8JgBrDyRl/8A==
-X-Gm-Gg: ASbGncs3qEGGuKyiss/GJJ73qsTy8RVadmpCylq9qdXjATsb2WSJO47l9Rg5By25HuY
-	izFH2aQKuG9eSMqu32NvC+0eTbT1dO9hHdukAg32vgXP9Ney9F0BDYs6er38DcvRD0+ZUsWVoQb
-	KEoxfbT3AZgGmlJTiM7V823xoLkjF20ht+akL0zG2o8kRmlKpOeFhjnbNSUWblroCd1N+n31DAV
-	3SfXuXW7jTB7Hu36me/fwT9plzHzBJiQnYWrriv6VafFyOvUnfaCq+egeAQFhZSlqhXuIrXzJz6
-	TrZVKkMnf9rG+Y7SxVevCiDbdZOKyYyqoEZOWPTYDW8xRS1mwFpWmsqkr2PPttR4UtabrHDa2Om
-	cZt7+UD0+L44By6xlyhbvxEiUHBu4IIhxw3Zzr0UfcLGMfF7/LsD9EI+gJnLqOaaEtiQjIKdxSI
-	EZgdEUDRTOxvVONO2Pby+mDoU24YWTIdEq0X4F
-X-Google-Smtp-Source: AGHT+IHWKb8wFzt+Jyig9tbnvhEjvYFDIQu0HtQb7zo/aUGDqvZSbwi3bF1jFmiVhq4BhMUCbYZBAA==
-X-Received: by 2002:a17:902:d48b:b0:24d:1f99:713a with SMTP id d9443c01a7336-268136f9d6bmr12257805ad.31.1758088904386;
-        Tue, 16 Sep 2025 23:01:44 -0700 (PDT)
+        bh=jCdV+K7YiBVTjoSvGDkLGiR0hcBO7/gHDcR1Panf8ZA=;
+        b=p5X3jCs1hd7CKcjy+XJM/KFHr7zBUs4eQZg4pcytVYcsOMS2yjB07KzUD6pw8vzKJ2
+         WHQ5XhhJYMUlY2x8mzkHtlCfTpBkJlIbzFpIodu7ulHrnuKeNZKSyHUzzTl7omobLY8S
+         GtBYA1UJQpyEE4lTI3KXDmc3Kh36buMobinO6+7bVZiGbFevySktjVpnDeD7sxk1OSjJ
+         D4KwHMDIgrCprbHS2KUvQO2yxnAmU8Z80ra63IsgmwYkjWrrh5J3dN8s02uKdChTy4Ht
+         c5yUX/yOn1MzRvvK2xpopBuJTnhdBinwweJIDyropUhZKGLl9c0fWPYVW43nXkQwcdFm
+         2/0A==
+X-Forwarded-Encrypted: i=1; AJvYcCUdykx8gvg8TPg2CidM+ClpgzK0at0QuC6nAxfDWeiSdjtCP1lQwjpK4dHI1F2X5XD6yzuK1As/@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yxjgw/m9mMY0u6xQWKN6kG6XEM4/eSs2vUGY/iN1H89kD1tEtVo
+	GJCj0TEO/ZjyA0Ln2ln+ycEWK9x+rz7zT/jl1iLl4cCVF56bcnRgjkajHh8CPg==
+X-Gm-Gg: ASbGnctJqCh5bIlx0N5yVJx3u4lTAe9Yd4ukVYuuDJGSFOAAmtNk4eSug+TCVRlh4em
+	+UyGG+PWB6EKuFI/JrrpH3zrPBmuP+l1+xQJcePZ7OwZp137hHKu2SqQKfZt6EZjAyknNjzdDI3
+	yLxG+mSsB0v6OgDwwK2TRhj/bf2sqoqF7rSpVmS0PF+Kyny+t22pmG1irtS/mSukCIVdCHDT+Dr
+	j2I2mWlQnMgczCdyb3r0+U1ju3KitPqbUHN4E6SYalJDmBsDn7fLZAEP+YihoNHgT2onjEwubx1
+	Ta27RrYum3l404Jaocwr1uiqsTAjakBdYH7ik/K0rb7WlQPnQsOtVZcxEEe4cpLMIPwCRMwLp2S
+	M7wI7hOu1x28yAKf5yssUtgMLys4glCYWYRxsWKqZs6XMPx7JbOp63j89ppZZn+HRnIGIPQGbDS
+	yZu27WeJH19/vHU+tt6N7v8dJa8Q==
+X-Google-Smtp-Source: AGHT+IG0fkdns/P4qMr+RRO91u7miqFBV+0f6YAhEdWzhky7lgbEvMTRWszH+a2u/N3qeybRSZkgRA==
+X-Received: by 2002:a17:902:ef06:b0:24c:82ad:a4ef with SMTP id d9443c01a7336-268137f3196mr10462655ad.32.1758088907185;
+        Tue, 16 Sep 2025 23:01:47 -0700 (PDT)
 Received: from eric-eric0420.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2645b8a6357sm92235525ad.130.2025.09.16.23.01.43
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2645b8a6357sm92235525ad.130.2025.09.16.23.01.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Sep 2025 23:01:43 -0700 (PDT)
+        Tue, 16 Sep 2025 23:01:46 -0700 (PDT)
 From: Peter Yin <peteryin.openbmc@gmail.com>
 To: andrew@codeconstruct.com.au,
 	openbmc@lists.ozlabs.org
 Cc: peteryin.openbmc@gmail.com
-Subject: [linux,dev-6.12,v1 5/9] hwmon: (ina238) Fix inconsistent whitespace
-Date: Wed, 17 Sep 2025 14:01:30 +0800
-Message-ID: <20250917060134.2383005-6-peteryin.openbmc@gmail.com>
+Subject: [linux,dev-6.12,v1 7/9] hwmon: (ina238) Correctly clamp temperature
+Date: Wed, 17 Sep 2025 14:01:32 +0800
+Message-ID: <20250917060134.2383005-8-peteryin.openbmc@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250917060134.2383005-1-peteryin.openbmc@gmail.com>
 References: <20250917060134.2383005-1-peteryin.openbmc@gmail.com>
@@ -95,126 +95,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jonas Rebmann <jre@pengutronix.de>
+From: Chris Packham <chris.packham@alliedtelesis.co.nz>
 
-Some purely cosmetic changes in ina238.c:
+ina238_write_temp() was attempting to clamp the user input but was
+throwing away the result. Ensure that we clamp the value to the
+appropriate range before it is converted into a register value.
 
- - When aligning definitions, do so consistently with tab stop of 8.
- - Use spaces instead of tabs around operators.
- - Align wrapped lines.
-
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
-Link: https://lore.kernel.org/r/20250718-ina228-v2-1-227feb62f709@pengutronix.de
+Fixes: 0d9f596b1fe3 ("hwmon: (ina238) Modify the calculation formula to adapt to different chips")
+Signed-off-by: Chris Packham <chris.packham@alliedtelesis.co.nz>
+Link: https://lore.kernel.org/r/20250829030512.1179998-3-chris.packham@alliedtelesis.co.nz
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit cde1cc6b6079fa24c236bff3d58f7f8b4b1fc1bb)
+(cherry picked from commit 98fd069dd87386d87eaf439e3c7b5767618926d2)
 ---
- drivers/hwmon/ina238.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ drivers/hwmon/ina238.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/hwmon/ina238.c b/drivers/hwmon/ina238.c
-index 9a5fd16a4ec2..5e43bbe8817d 100644
+index 5a394eeff676..4d3dc018ead9 100644
 --- a/drivers/hwmon/ina238.c
 +++ b/drivers/hwmon/ina238.c
-@@ -41,7 +41,7 @@
+@@ -572,7 +572,7 @@ static int ina238_write_temp(struct device *dev, u32 attr, long val)
+ 		return -EOPNOTSUPP;
  
- #define INA238_CONFIG_ADCRANGE		BIT(4)
- #define SQ52206_CONFIG_ADCRANGE_HIGH	BIT(4)
--#define SQ52206_CONFIG_ADCRANGE_LOW		BIT(3)
-+#define SQ52206_CONFIG_ADCRANGE_LOW	BIT(3)
+ 	/* Signed */
+-	regval = clamp_val(val, -40000, 125000);
++	val = clamp_val(val, -40000, 125000);
+ 	regval = div_s64(val * 10000, data->config->temp_lsb) << data->config->temp_shift;
+ 	regval = clamp_val(regval, S16_MIN, S16_MAX) & (0xffff << data->config->temp_shift);
  
- #define INA238_DIAG_ALERT_TMPOL		BIT(7)
- #define INA238_DIAG_ALERT_SHNTOL	BIT(6)
-@@ -104,7 +104,7 @@
- 
- #define INA238_SHUNT_VOLTAGE_LSB	5 /* 5 uV/lsb */
- #define INA238_BUS_VOLTAGE_LSB		3125 /* 3.125 mV/lsb */
--#define INA238_DIE_TEMP_LSB			1250000 /* 125.0000 mC/lsb */
-+#define INA238_DIE_TEMP_LSB		1250000 /* 125.0000 mC/lsb */
- #define SQ52206_BUS_VOLTAGE_LSB		3750 /* 3.75 mV/lsb */
- #define SQ52206_DIE_TEMP_LSB		78125 /* 7.8125 mC/lsb */
- 
-@@ -118,12 +118,12 @@ enum ina238_ids { ina238, ina237, sq52206 };
- 
- struct ina238_config {
- 	bool has_power_highest;		/* chip detection power peak */
--	bool has_energy;			/* chip detection energy */
--	u8 temp_shift;				/* fixed parameters for temp calculate */
-+	bool has_energy;		/* chip detection energy */
-+	u8 temp_shift;			/* fixed parameters for temp calculate */
- 	u32 power_calculate_factor;	/* fixed parameters for power calculate */
--	u16 config_default;			/* Power-on default state */
-+	u16 config_default;		/* Power-on default state */
- 	int bus_voltage_lsb;		/* use for temperature calculate, uV/lsb */
--	int temp_lsb;				/* use for temperature calculate */
-+	int temp_lsb;			/* use for temperature calculate */
- };
- 
- struct ina238_data {
-@@ -271,7 +271,7 @@ static int ina238_read_in(struct device *dev, u32 attr, int channel,
- 		if (channel == 0)
- 			/* gain of 1 -> LSB / 4 */
- 			*val = (regval * INA238_SHUNT_VOLTAGE_LSB) *
--					data->gain / (1000 * 4);
-+				data->gain / (1000 * 4);
- 		else
- 			*val = (regval * data->config->bus_voltage_lsb) / 1000;
- 		break;
-@@ -370,7 +370,7 @@ static int ina238_read_power(struct device *dev, u32 attr, long *val)
- 			return err;
- 
- 		/* Fixed 1mA lsb, scaled by 1000000 to have result in uW */
--		power = div_u64(regval * 1000ULL * INA238_FIXED_SHUNT *	data->gain *
-+		power = div_u64(regval * 1000ULL * INA238_FIXED_SHUNT * data->gain *
- 				data->config->power_calculate_factor, 4 * 100 * data->rshunt);
- 		/* Clamp value to maximum value of long */
- 		*val = clamp_val(power, 0, LONG_MAX);
-@@ -381,7 +381,7 @@ static int ina238_read_power(struct device *dev, u32 attr, long *val)
- 			return err;
- 
- 		/* Fixed 1mA lsb, scaled by 1000000 to have result in uW */
--		power = div_u64(regval * 1000ULL * INA238_FIXED_SHUNT *	data->gain *
-+		power = div_u64(regval * 1000ULL * INA238_FIXED_SHUNT * data->gain *
- 				data->config->power_calculate_factor, 4 * 100 * data->rshunt);
- 		/* Clamp value to maximum value of long */
- 		*val = clamp_val(power, 0, LONG_MAX);
-@@ -395,7 +395,7 @@ static int ina238_read_power(struct device *dev, u32 attr, long *val)
- 		 * Truncated 24-bit compare register, lower 8-bits are
- 		 * truncated. Same conversion to/from uW as POWER register.
- 		 */
--		power = div_u64((regval << 8) * 1000ULL * INA238_FIXED_SHUNT *	data->gain *
-+		power = div_u64((regval << 8) * 1000ULL * INA238_FIXED_SHUNT * data->gain *
- 				data->config->power_calculate_factor, 4 * 100 * data->rshunt);
- 		/* Clamp value to maximum value of long */
- 		*val = clamp_val(power, 0, LONG_MAX);
-@@ -448,7 +448,7 @@ static int ina238_read_temp(struct device *dev, u32 attr, long *val)
- 			return err;
- 		/* Signed, result in mC */
- 		*val = div_s64(((s64)((s16)regval) >> data->config->temp_shift) *
--						(s64)data->config->temp_lsb, 10000);
-+			       (s64)data->config->temp_lsb, 10000);
- 		break;
- 	case hwmon_temp_max:
- 		err = regmap_read(data->regmap, INA238_TEMP_LIMIT, &regval);
-@@ -456,7 +456,7 @@ static int ina238_read_temp(struct device *dev, u32 attr, long *val)
- 			return err;
- 		/* Signed, result in mC */
- 		*val = div_s64(((s64)((s16)regval) >> data->config->temp_shift) *
--						(s64)data->config->temp_lsb, 10000);
-+			       (s64)data->config->temp_lsb, 10000);
- 		break;
- 	case hwmon_temp_max_alarm:
- 		err = regmap_read(data->regmap, INA238_DIAG_ALERT, &regval);
-@@ -501,8 +501,8 @@ static ssize_t energy1_input_show(struct device *dev,
- 		return ret;
- 
- 	/* result in uJ */
--	energy = div_u64(regval * INA238_FIXED_SHUNT *	data->gain * 16 * 10 *
--				data->config->power_calculate_factor, 4 * data->rshunt);
-+	energy = div_u64(regval * INA238_FIXED_SHUNT * data->gain * 16 * 10 *
-+			 data->config->power_calculate_factor, 4 * data->rshunt);
- 
- 	return sysfs_emit(buf, "%llu\n", energy);
- }
 -- 
 2.43.0
 
