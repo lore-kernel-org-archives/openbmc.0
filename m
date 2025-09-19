@@ -1,82 +1,76 @@
-Return-Path: <openbmc+bounces-672-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-673-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4408CA1013
-	for <openbmc@archiver.kernel.org>; Thu, 18 Sep 2025 21:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0372CCAC592
+	for <openbmc@archiver.kernel.org>; Fri, 19 Sep 2025 20:53:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4cSTSL4X4sz3cgl;
-	Fri, 19 Sep 2025 07:34:58 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c001::2" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1758231298;
-	cv=pass; b=d3KzXxBjSleuF5L2tjhsCVkF0T99Ng8gSzmhqgSvaIJUyFblqPgnlyWMvGVpUN+1vpxdjXHE37YiI70FFUkmEuNP+CwqHRM6AB17VVwdrkJGVzQFcg2u0/IDyV1U0OaeJOFd2LQJg8bqMbQXrSrCXNbXBSkrRPVDic6oExK+LRPDkCycJF3MgNtqiQY1/nF2AbxsavA4mngOgM6MKS7whiYUXJy69NhpDM4mP8cyKip2NTJzVivwQbl7fOyQGaNPNI/+8IsCzsY4bLg7L+GSj1cDdTXQFQU60VwfIBYCEzPrG4ntVMzfjANFI5sz6N+5quAiDVw4wM8arXW9U7LoZw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1758231298; c=relaxed/relaxed;
-	bh=e6sSkfbszHKv5FDVRjjH85LJpe1ewN8XB3cYHu5IFoo=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=obAuhZ2AepPkFzPp+oWGp5Oruux5RpJ+b63CUvL4v9Hyl4IiZKHTtAEmkZbRqrkflkxCExjQkrERous8JqlUqlX649nCha2RaKM3lNNJfWOoTqna4PoxVD4xAyBy63g/Y/FbOBU76GsxydSStkIbBCOpUf9sVnQQLw0gilYCkB4BXRks61iwpMriXqb1H1pgcgUQwSfHzWz1isR4XoGYl6cC4mnUCCIP2RjTqDxRjWR2d/09cgToJYwu2MuGV1he19QTMgFUloxa3YT2UgC+DZkLRPzjHf4KgKpGUOpRaxlBowOKJ/JT7SglKGSIcQXakoGjc896rhw3pK3nzVoW0Q==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=At/ar26l; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4cT4V615gCz2yrm;
+	Sat, 20 Sep 2025 06:53:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1758315213;
+	cv=none; b=N0hiFBsHFtVD/kT15ldPgSJWpy8/Y5/xs2jvGaaNBfqLi3TuGwqKMiwUnGvj1Or4m1ZaWfoOoAHzQDLim9M3exKY2VYT4jfmt1XTj/GjGUkgOKYY7gC/iZaXDv2ePul/KVyOK/9LEM/9ecBrJJkZO2bOGpIXLMi2ALrQFhV5DXIsfbWer4C7Acxdgh+fp5n9f+OKtObF/M9zACPXkTmN6g5jK2vWXYhp9jibev5o1clHyiNGrHfBcPZf071mwEi2l+AvhRm99SxRu0Shi6OT/a4eEewhYqtZtDzPZr0716OAyqUPU5Ox5XWg5smov+cD7m9uh+ldcJKtlmO60yquNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1758315213; c=relaxed/relaxed;
+	bh=glOE5dMfucj+qnBmBQgUz3G1w2LwhX5scC5okr2TCTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flIzoVsIRkzxX1QcGdFjaHHzR8H8yM4RNr4N/WgghZfqkEiwszBLTQ2zlI5nMiVeklxIocipfv+/JiTf05pCKY2EILv3zIjQ0IVb5oq5lvbvtS2xZmC2iBU8Wv1c4Ry0hXIyUevogFemUWupx7sGdfp/pT1oX2WGWXIxTbdMzVMPr/7mkg+idZGNDdP2Du+eHs/uFPMUgKakovFh7M0TUd0YqglEPtEGKdJKnmqyweUvqco+DpOdcR5emrMrNuZ3ouOHtgB2xwYhManFx7RcRZdA4LNYfo57m6LGLLgG30fMZFMVqSxMAK7QL021ZRW6mYLTdh+KLWqP0PaP9wk2Bg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=cADIhg/4; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=At/ar26l;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=cADIhg/4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazlp170120002.outbound.protection.outlook.com [IPv6:2a01:111:f403:c001::2])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4cSTSK5dxpz3cfm
-	for <openbmc@lists.ozlabs.org>; Fri, 19 Sep 2025 07:34:57 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qJIWVf9dCaVQ0DOdvXFR5U67lo2B4eLshPKMDE01mjnZKLN4OWc2SfoXfPz07jEpYRTHFYQUKQAmKKVg9uGBufqyCY42Aoc903TNt016capiMa+tAnMXZ45CM5M52wdvJQxydP4AcJAiSrcVaCclaCeukWZ+hWI9rJkDuvIZY3YQvPIRrsfzJnMlER+aIoTLxms0ekDjO+8khJSFU/Pvwd0m9uG7+NPtqMhBnsiz9lMy5YF23l3WmOzsayOCs5x5/VqZUdrEcNH9MT0ExGws3SawYBCyLQJgLCnxE5/GU4sO71lhlqWbBNbiPpFK8IgFt9xn3h0gPYN+tVfqiZe2LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e6sSkfbszHKv5FDVRjjH85LJpe1ewN8XB3cYHu5IFoo=;
- b=ftIzgRXAwt0jwFyXqx0SeubJO2xBcjaNaa45TB7HWlIs0h4gp0+I8ft6n1F+4Wz/PMp3+ebc969tfh2d4lfz+91vuuYin5fSh0d1js5HAGDM8ZKzCtwtrcoc2CLcpV2ZaYBDSMGvYkpoSEqoIxsYGKqae9MKaldCjaFrlHCpliiGbSLo67YJ+ritzbEJ47WAePkdev5/NW3WVGqiPbARwdFdlIKNpL6VOECCrqGTBIHs7UwKtnBVv/UOWLeJngTnqQw1ldl2rHEZvnvT7MU3ckS8KWPUQbjV2+imL1qh5RKwJhZEH9UVU/5ilji0gDQWdWPtnLNFlXoT0cF0R7aPBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e6sSkfbszHKv5FDVRjjH85LJpe1ewN8XB3cYHu5IFoo=;
- b=At/ar26lqQ73Hkyr2ZvxTg0U79EWr/YcwFKVJ6x+7JmXkElGqp08TNC69tnXEU2ZiM1WIItWPcxLHEHbQXjmOHNAh2Yy0s2FahOBO/uy6eO3nQSUUx5nk5FjSsnzLS+Y4hTDjY+uUJHYOtV6FfjASVtAN1iomi+mkzqN88oF6LLotMyvj9SLNGN5H8p84+j+/UFk5HZ0W+rfGdIxf9i0P0Be3cmi68dw/3sgr19TMSQfA8L1gPJs21HKrAhuvAhAwnEfLKIMx/kj2wg7QmaD5B3N/RGyQlwNmvW7/Zujg0m9guKb35C3RGP5ocXg/RVKfE4V2LBC+3Aj4RLsBXNGbg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::627) by SA3PR12MB8024.namprd12.prod.outlook.com
- (2603:10b6:806:312::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.22; Thu, 18 Sep
- 2025 21:34:16 +0000
-Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
- ([fe80::9de5:7299:4ee9:21e8]) by CH1PPFDAD84AB72.namprd12.prod.outlook.com
- ([fe80::9de5:7299:4ee9:21e8%4]) with mapi id 15.20.9115.020; Thu, 18 Sep 2025
- 21:34:16 +0000
-From: Marc Olberding <molberding@nvidia.com>
-Date: Thu, 18 Sep 2025 14:33:48 -0700
-Subject: [PATCH linux dev-6.12 02/14] net: mctp: test: make cloned_frag
- buffers more appropriately-sized
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250918-mctp_gateway_routing-v1-2-8fdedda742c3@nvidia.com>
-References: <20250918-mctp_gateway_routing-v1-0-8fdedda742c3@nvidia.com>
-In-Reply-To: <20250918-mctp_gateway_routing-v1-0-8fdedda742c3@nvidia.com>
-To: openbmc@lists.ozlabs.org, joel@jms.id.au
-Cc: andrew@codeconstruct.com.au
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1758231249; l=1611;
- i=molberding@nvidia.com; s=20250815; h=from:subject:message-id;
- bh=+o8hSKySwKHoFSE8gh9TCpdolyZuUPwkt8qm89t0DUc=;
- b=QviLjldkzCS8c9pOMCABN1GN3f2MZmBOHKuQ9T9xMbHRHxsL8uU/QeHJxEKNBudn2J7vDnJr5
- KrE/Zu21bDlBS5/oenYHp5jNz01E3Spig4rhP9i+9DWflHEXmlaP+0h
-X-Developer-Key: i=molberding@nvidia.com; a=ed25519;
- pk=qCpZ1WFEf5YiaL88PDdYhG+A/bKk7rHp7KF2K3GmkH0=
-X-ClientProxiedBy: MW4PR04CA0235.namprd04.prod.outlook.com
- (2603:10b6:303:87::30) To CH1PPFDAD84AB72.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::627)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4cT4V51LZWz2xQ4;
+	Sat, 20 Sep 2025 06:53:33 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 141E260145;
+	Fri, 19 Sep 2025 20:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97ABEC4CEF0;
+	Fri, 19 Sep 2025 20:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1758315210;
+	bh=E1ZV+UNqR3veyxuHfX6mAzdM+m+4EnKUxmuyWi+TK24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cADIhg/49suBO/uC2IsFh0Z7L+funFZc48pMScM7SuZh2dhesxomGab/EsnPO8bdD
+	 BeF+aZ1x7wBm0wJcNgRvxBhY+NZIzza1GoorjrVhGAnu0KMJU8BsAQTn7ZnrZ8cy/v
+	 k2nEtYObhwAaQKGRaorlKhok+oho/mDNS94ZwHXxz3NqaOQv76rzs2SThvkFERpMSD
+	 agfFoSpllXKFRxQBQ5PmodugBYh6s0bt/MmWq0QpygbEpo+3JczH8bcI0ASmFpVxk8
+	 R2li5Bcz9H3VLWwBtpbG2PRrkEbZGjHH0SJa2xd1wasFzPTmaDC+Mvw8qZWv/QYP0y
+	 Fwj2Hwaj1icUw==
+Date: Fri, 19 Sep 2025 15:53:29 -0500
+From: Rob Herring <robh@kernel.org>
+To: Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
+	"benh@kernel.crashing.org" <benh@kernel.crashing.org>,
+	"joel@jms.id.au" <joel@jms.id.au>,
+	"andi.shyti@kernel.org" <andi.shyti@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"naresh.solanki@9elements.com" <naresh.solanki@9elements.com>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v18 1/3] dt-bindings: i2c: aspeed,i2c.yaml: add
+ transfer-mode and global-regs properties and update example
+Message-ID: <20250919205329.GA2192084-robh@kernel.org>
+References: <20250820051832.3605405-1-ryan_chen@aspeedtech.com>
+ <20250820051832.3605405-2-ryan_chen@aspeedtech.com>
+ <9d6660f0bf5119cedee824cf764f15838622833a.camel@codeconstruct.com.au>
+ <OS8PR06MB7541C0D6696FC754D944D45EF208A@OS8PR06MB7541.apcprd06.prod.outlook.com>
+ <03abda47219b8b0b476a3740c7ed2acc4b2b16dc.camel@codeconstruct.com.au>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -88,147 +82,47 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PPFDAD84AB72:EE_|SA3PR12MB8024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8235ae7f-d60d-483f-e006-08ddf6fb1e11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NzZIQ00zU0RkQXRDWmNEK0s4ZllQdDB6aGEvVWkzbjNmSm5IMlUxWWRnZHlj?=
- =?utf-8?B?ekRnWHJ0K1pZbkJaSG1PRVVQbExwWnFWcVM5TzUwQ1Y4TW1UU0ZPYm9PVmN1?=
- =?utf-8?B?ZWIrVjlycVV2SkVpVnZwSW4xK3VFUWR6Z1JySnc2L0Jxc2dZMFRrNkZlZG4x?=
- =?utf-8?B?SHBxR2RQNzhsNStaVWRBUnU2VW8xY1hBQjZjNlZtUVN1cUtTaGhDSEhmMnV0?=
- =?utf-8?B?ZTRxSFFQY3RsWTVYMHc5TUk2WjdKQTNURnJTWXNQdHRMZDkxeFJuQnNrV0hr?=
- =?utf-8?B?Q25OamZrdXFibmpFNUhFMVBFTDJpdnRIaC9LbzBzS1FEWERpOSt4YmNFcmJy?=
- =?utf-8?B?MU43SExQUy8wMXR4V0hFbDJVQVFIemtDYzNKelo1R3N6QWRUVzJKaVNDRXR2?=
- =?utf-8?B?WG5lcHlmb0xZNUJRTlljTlllQUZMeEtUNkRWanp4a2pNbXdNZkJaWEJIOU1B?=
- =?utf-8?B?VThzVXZoRTdUak1SbWVuL2orM0dBaTM1YVlJNnQ2aS8xNWdrZTFidkxwc2M3?=
- =?utf-8?B?ZWh1bVFIcnpxSFVPSGtXR0ludnJYQjBYNUR4SndGSlNUZ0FCMjlzajJqUHdz?=
- =?utf-8?B?bytkSEd1MFBlaXBSVER6dnYrdGJnTWw4Zk9PaDVLMW8rSGNKNTdZeHNMRS9X?=
- =?utf-8?B?UGcwTmwzYi9CcXlXT1pxeHJNeDg4c2g3bXkvUGZja2ttcmNDNzhZV3ZZZmVr?=
- =?utf-8?B?QzJmZVMvL2tkVVEzb01GVTdXakZTUGdmbXBSSWlxQW9LRTROWkxFVnFsbDJ1?=
- =?utf-8?B?aEt0Wm5rTTdjUThFNW0vb3JtV2VDQmlWb3BrQWUzNGR0eDJIRExJSmJCcnBo?=
- =?utf-8?B?dmR3RXM1dWpSbVNncC9IdFhVbm9LMUZqMG43L2E4Wnk4SCsxTERCdlkwNzA4?=
- =?utf-8?B?YnhUNGIvbHArb3Jna2g4c1hoVDJ6dmxvbGFyL0d1bHQ3MnNwSnBTUjJxemIv?=
- =?utf-8?B?VDZyR0lEL2oxaWhUc1BqK2o3NDg3d0pydlBlNzNZeUNyTGNwU1NZYTFZNDEr?=
- =?utf-8?B?dnd5OHV0eWVSa1VYeUxadlVBZ29JRjRqL1puYU9WWGtMVzFxYnQ0UWJsYnQz?=
- =?utf-8?B?TVZCTnpuOEtFR2p2MGFWUUhwUjIrZXk0RlNaVzlid1RYTWZtcWYxWVhFdjR1?=
- =?utf-8?B?UlpCOW9aNVE4MXl6SXJaRlZRY3FNOHlDYUcwajBQeU9JZkdEU2Y5eGdTVTFU?=
- =?utf-8?B?OGhrck9XdXRuU1N0ZFIvS05TN2VDSkR5UzFxR1p4YWc1SmtWVnBlbytTU1h5?=
- =?utf-8?B?WU9lSkpnRGtJQkR3bnlQdjBWc2M4WDR1VVZITWpNQXIrMjRZRk1RMHdtNkds?=
- =?utf-8?B?SEVaSXdEUkwvaTZMdmVhMEtMaGRFQ3cxcEFzeDgvYy9VRHd4RGhiT05oR3cz?=
- =?utf-8?B?cUpKandhUkVxc2Y1bmNzRnV3UTN6QWladkREdlluV1UwRU5aa2JBRGNWello?=
- =?utf-8?B?UVplazR3SndxL1IzQmVDR2FZcFdhNzZDUU1UOFRUV1FRRE0wZ0ZnQ1JnVmhL?=
- =?utf-8?B?U1VEQXczZlFmWGZCTE9ubTlXMzZMVXorajdlMWs5cnN5cGRlR3VjWHU5cGNW?=
- =?utf-8?B?YklxVS85Mkl2WXI2K1RmM3FWVkdsbzNLbkVLMU45VFNGTWE3blNMajVmR3Jz?=
- =?utf-8?B?d1NZQ2F6R3NxN3FsTktiL090eUtnYzhGYWs2STdBT254T1lSQWZVQ2FtQ25i?=
- =?utf-8?B?aUZGZERCRGlwZENCRTg4V3p2YUlSMHo5TGcvZGM0R0dRc2ZpWXQ1anpOWG1F?=
- =?utf-8?B?L3RRWGprelVpRk5DU1M5MEFoSXZaYmM5bWdVY0NCajR5dlYyU1lYSGhveTF1?=
- =?utf-8?B?ZGpoclpmUXdVQnlQRy9oOE9nSFMxWjA3Nml3bEdyQjRocSt6Vzc1ZUJKdlJh?=
- =?utf-8?B?cExQRG1Bb2swT1pXNXZVQlVwTXJIdjZuOExNN1QyRHkwNjJhNmhsUGZTeEhL?=
- =?utf-8?Q?SFD3ZWJv9+Y=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PPFDAD84AB72.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1U0a2J4a3p0a0w3OW5TS3Z4N1NralllcWI4NUg2UHpxNEJkbklXN0QvMEMy?=
- =?utf-8?B?eWcwS09YZ2VaRGx3TkpkK3ZBZ1RRanB5anNvMFV4blptMDZ1cnhBR3JPSTBp?=
- =?utf-8?B?Sk04QW1IMVFsVHVIL2ttUnNHNndXdUcyTmE5RElmVlVPb3VjMnJDVlRqYXVF?=
- =?utf-8?B?QXB5WXR6MjdYRnoxR3k5SU9maVNwREFaSjhWeGdUZGVPc3RNNGE5dkIvbUk4?=
- =?utf-8?B?eXRsMXdJcmlSMmRXMkNndnc1a1E2SVVwZE12WDFtWnkySlNaaGNSbmx0Ni9k?=
- =?utf-8?B?U25wL0Vya21DZEp0TGpLa0kwUllKc1d2QnBMYmpRMDQxN04xY2xHREFDZHdt?=
- =?utf-8?B?b0dyU3lNbDNsa0U1bUdPK2U2eVgwb3JjOGxFOGFjN0U3VmM1ektHNEpzWGM1?=
- =?utf-8?B?ekRha3RPYVdncnFBZ1d0ZFE3WnNJYlpNWm1ocGgzYnEzWjBJNnRxWS9jMmll?=
- =?utf-8?B?dHhmalFVcncxaHVlanZldytRNnQxclVrVW4vM0ppc3JjdzcrYkdTVW1MdUhN?=
- =?utf-8?B?UFdFdUZLV0tPV09QLzZoWE82RUljNGZjSjMveHJQdFcvYUV4eHF5OWMweW5s?=
- =?utf-8?B?ZTdPOVBVTlBKYUpSdVdxOHVTckdzTmpTNVB5OHdaVUhURHpEMktOSVExaUFZ?=
- =?utf-8?B?UGM0c3NOdy9KdDhwcHpkNlN4UURaVGdFOHVtTVBnYTJtTEl2VnpibXlCQ0V5?=
- =?utf-8?B?b3RnaVdmaEdxQlZYMENkNU0zSXlhZnpqdU1iVzRyN3dMenAyaTdCa0YvQWhz?=
- =?utf-8?B?bWMvZW1YR3JhcjY5dGNGV2J1WEhDRnVuVkNrZDhvMlMwK1dPb2F2TnhXdEwr?=
- =?utf-8?B?TGZjcDFHVEl5UTVtMkV6eFNiRUxaS0tXYklmTlJqcWkwQkVubUhnRW16SGwv?=
- =?utf-8?B?RUxpUVZ1NDhaUnlIQ2J5TzFNZEszUXpjYjVKK0R4cHNuZ0pNb0wvT2RSNkNj?=
- =?utf-8?B?aitnOUR0djJlQVlscGFqS1dFY0ZaNWhFTTdUbmxPZ2tjbWF1RE1BVVNTeldN?=
- =?utf-8?B?V25QTzcrRTZ3aFZQUFlQTlh4NGRoWE0wcjBHWkRpNGp3RytEUkFqZGZENkxW?=
- =?utf-8?B?UFBkcDVNdjhUYmF0N09ETXZmZWF4MDhNV0FtZ2YzeHFHL3c3R1pjV21qL05T?=
- =?utf-8?B?V0c0a1hDUzhTVkNOYVRXK0NzcjljMjRra3cyK0ZOdmRKc0lMdWFabFFtZ3F6?=
- =?utf-8?B?SWVQek5acEYrdUdhb3R2VlI2SnVtYmtCR1dDSkFGNW5HaWJibTB1WDJRUnpj?=
- =?utf-8?B?aHZDSU5sc0hiNmNNVldqV1QxbElvVWtLTXdoWFpRRXFTRk1UZldmeFVwUkho?=
- =?utf-8?B?QW5BT2pxVXpjZGhrSkszYmdjaDZ6L0xYdXpqZDU1L1VpbkM0ZlZldFFVL0JQ?=
- =?utf-8?B?U3ZJZE1nQW54QzNWK0VPU1hjY21xbUxremNaU2VqUm1JZEh6RXJnUndTVlBh?=
- =?utf-8?B?VXZKaFUyUmdPZkljMTJWSURwSVF0RHNlamEycTlWOXUxdDNSN3pacG5WbUov?=
- =?utf-8?B?UzhRSmxtWFhnSDZhNFA3bDI4TGdOWmY2Y0MvK1FGYnlLK1V0YmkvdElJaXZG?=
- =?utf-8?B?YmE5NXNYUFNYY1dVcFArUFFoQTFUZVNuSVhqWVh0LytqMkJIc2ZuL0FvVFlt?=
- =?utf-8?B?aituSy8yNVlOZHNGMVh6QzgrOVV0Ly90Y2VtaWU5NW5sei93U2VxVUt2SE9i?=
- =?utf-8?B?VTJvenlWUFVMWHBuOWJYaUNDOWdqVXBuWVYxWUpBWERaSDBYTngyNmFsMkVa?=
- =?utf-8?B?ZGtoRHF4QjdRZXBsUEZyNUZ2WUpPb3o0T2ZoLzBWRFBTYWt0OGRudjdsNG03?=
- =?utf-8?B?UU5Hc0RDdWR2QjlyUGR1emxaeU9qcXp3dVNYcTJ2M0NtR3pkbE8zUmdMTDQr?=
- =?utf-8?B?enV4MmhFY2l0Z0xHMmwxQ0Q5TVplS3AzUVJOR0hsSWhqS3Bha25jWWR0OFda?=
- =?utf-8?B?TFp2VnVYR3lKWklwdVV2M2cwY1RDa2wwdC9rTmUvaCtyRVVwalJ0dS8wdEh2?=
- =?utf-8?B?Qm9OL0NORkFaejZsd1RVRzZ1OFVzVk5oYkJEbzhXT0k3SXQ3U2xrK3lES2JC?=
- =?utf-8?B?RnJoZS9EZTFIbml3Q1J0cnA3VGhHcE1QWGFDRGtYYzZpMjVwQWIzOVp0RkNY?=
- =?utf-8?Q?Ieib7120u8err56TIIt99CE92?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8235ae7f-d60d-483f-e006-08ddf6fb1e11
-X-MS-Exchange-CrossTenant-AuthSource: CH1PPFDAD84AB72.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2025 21:34:15.9639
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ME6qVXKMGojG39pOmnYuHoFGmQDA5+xrbQoUHf5/3NNzzo3zTB+R9M2zDqjWaNvK6b+B7XFxtrxe3gfh/r6AWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8024
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <03abda47219b8b0b476a3740c7ed2acc4b2b16dc.camel@codeconstruct.com.au>
 
-From: Jeremy Kerr <jk@codeconstruct.com.au>
+On Mon, Sep 15, 2025 at 11:41:31AM +0800, Jeremy Kerr wrote:
+> Hi Ryan,
+> 
+> > > OK, but the ast2400 and ast2500 I2C peripherals - which this binding also
+> > > describes - do not have that facility. Given the 2600 is a distinct peripheral (as
+> > > discussed on the v16 series), this would seem to warrant a distinct binding.
+> > > 
+> > > Should this be split out into an ast2600-specific binding, to reflect that it is
+> > > different hardware? The reference to the global registers and transfer modes
+> > > would then be added only to the ast2600-i2c-bus binding.
+> > 
+> > I agree it would be cleaner to split out a new binding file specifically for AST2600,
+> > for example: `aspeed,ast2600-i2c.yaml`
+> > But also I think `aspeed,i2cv2.yaml` more better name, that compatible will 
+> > support next generation such like AST2700 .....
+> 
+> The ship may have already sailed on that one, as you already have the
+> existing compatible string describing existing hardware.
+> 
+> I would assume that the compatible string should be fixed for an
+> instance of the specific hardware, but the DT maintainers may be able to
+> provide some input/precedence on changing an existing binding, if
+> necessary.
+> 
+> If this does get changed, I would expect that you would need a
+> corresponding update in the old driver too.
+> 
+> Or, another option may be to keep the current generation ("v2 core with
+> compat registers") as-is (ie., at ast2600-i2c-bus), and introduce a new
+> string for the next - where the primary hardware change might be the
+> removal of compat registers, but it's still new hardware
 
-In our input_cloned_frag test, we currently allocate our test buffers
-arbitrarily-sized at 100 bytes.
+About the only place we use version numbers (without regret) is when the 
+version can be traced back to the actual verilog. This is typically only 
+IP targeted to FPGAs. The reality in SoCs is h/w designers can't help 
+themselves to not change things. In reality, there are almost always 
+some changes.
 
-We only expect to receive a max of 15 bytes from the socket, so reduce
-to a more appropriate size. There are some upcoming changes to the
-routing code which hit a frame-size limit on s390, so reduce the usage
-before that lands.
-
-Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Link: https://patch.msgid.link/20250702-dev-forwarding-v5-2-1468191da8a4@codeconstruct.com.au
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-(cherry picked from commit fc2b87d036e2155b16f8c53c8198df7b376fd616)
----
- net/mctp/test/route-test.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/net/mctp/test/route-test.c b/net/mctp/test/route-test.c
-index 06c1897b685a8bdfd6bb4f1bccaacb53b0cd54ba..44ebc8e4e30c6a8f91360926ede99510df2576b2 100644
---- a/net/mctp/test/route-test.c
-+++ b/net/mctp/test/route-test.c
-@@ -933,20 +933,18 @@ static void mctp_test_route_input_cloned_frag(struct kunit *test)
- 		RX_FRAG(FL_S, 0),
- 		RX_FRAG(FL_E, 1),
- 	};
-+	const size_t data_len = 3; /* arbitrary */
-+	u8 compare[3 * ARRAY_SIZE(hdrs)];
-+	u8 flat[3 * ARRAY_SIZE(hdrs)];
- 	struct mctp_test_route *rt;
- 	struct mctp_test_dev *dev;
- 	struct sk_buff *skb[5];
- 	struct sk_buff *rx_skb;
- 	struct socket *sock;
--	size_t data_len;
--	u8 compare[100];
--	u8 flat[100];
- 	size_t total;
- 	void *p;
- 	int rc;
- 
--	/* Arbitrary length */
--	data_len = 3;
- 	total = data_len + sizeof(struct mctp_hdr);
- 
- 	__mctp_route_test_init(test, &dev, &rt, &sock, MCTP_NET_ANY);
-
--- 
-2.34.1
-
+Rob
 
