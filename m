@@ -1,118 +1,95 @@
-Return-Path: <openbmc+bounces-862-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-863-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43327CCFA0D
-	for <openbmc@archiver.kernel.org>; Sat,  8 Nov 2025 04:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 861AFCCFA1A
+	for <openbmc@archiver.kernel.org>; Mon, 10 Nov 2025 08:15:20 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4d3NYK0YNPz30Vl;
-	Sat,  8 Nov 2025 15:41:25 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1762470711;
-	cv=none; b=Oe7cqi+/TK8tX4L4dS5ceNvQuB6v7kCNDWH3DhRl/3kvyGKjJAfv2gQKeQtq8AWiMV4p1y6S1BdZXrCFsRTS9l0GXrYQCZcN60rZ+DYZs9daYVU0qlijYhcKXGPSg68+WleHAAOZdrpLtMIGhi0cU4BxE5VRUvlRIvb6hs8wpGgNQdQ0jdAFvuYwrdOurOlwJV6n095YSK24q8Cyi4xbc+ul00aozTplEkhl1PUmJ04QpV7TUwvozSq5SpyxdIB7hIw9UNDTugvnearBuLVFC7nNDQZRsQKHoELPF+pA+oN6ythj41g9AviEifDD59/2klcMcL2vthhdmFqlsvn41A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4d4jC64nf6z2xqn;
+	Mon, 10 Nov 2025 19:15:14 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42c"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1762762514;
+	cv=none; b=lMTgWWrWQRez2PIKEaChCpGFlgCxzVRzfhHX5O4IdTufCJeKoOOGz1Q4yxjXnwQ8U3ba4Ohuvqm7wFWoenbHelD4kKvtbxLyuifGTCsUe/p6sMmBgLho1St8JgTyhFAFFv9aawgnvnPybZ6MDNSYLfgRglM+d1jOU/2AgrcqvRURx5Po7bkms9R9Vo969rg9rhNjM4TjJBw19SPR0Jx0ZaQTi044hVzvs8k512HDiPNmA43NzUpIMWLxB2OCkgjMHA9Wwjk5A+IRoB54aVFJJO6lip111ECzL0LlTYHNqg5KxM4qwKf0Pa8sjqjnpbX1vy5nMiqew0QDJbdbYk56Ug==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1762470711; c=relaxed/relaxed;
-	bh=QXr28wg8D7Sns2qkEeLZq8j8Ed6Tt4Rhy3ccABxhAR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Disposition; b=j048BrDCiQesk0aEKL26AuySD28k6mvbj2mzX+Mg8HSk22Jnpw4XlNJUBLruXgwzZQLm7f1ghLgyNhCbQDX7hwnd6uyghaRy1FzpMjokLryLQuy9xwgPDLokfjhUmj0Q1wN/t15/GeFznT86TfhiJGT9wrssX35+IbMdt6OyDLZYpMVJl9bP+j1eMSTXFXobYYXx2h3wZikkC/MftU+vMfq9R3XyYa6i55zRenFGMwMvBnW6KaziND35OlwK/PRuH4s08yG41cj3WyPyO5uYk3qTimK8onKZoVa+GhNaMgppmujt3QGBfNr8pV8TaWfmVLOq5rbQ/Rp9pRZ0G6JIOA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GUV/DLNX; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GUV/DLNX; dkim-atps=neutral; spf=pass (client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org) smtp.mailfrom=redhat.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+	t=1762762514; c=relaxed/relaxed;
+	bh=SeRemWdOh6BINm57bAExN2qF+KGtIQQ7kG3okdFAQq8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BjmjedTmMzThqRFk9AVKKj/CEfMivPVKSMXFG+NMaUaUvbv3hYJ1wQxQMmTA29At6weCMuoIrqXH+FWgOaLP66q0AtGpkqYuX8HbmjQgr15D907uBgmuYp4enBogXmqzVIvCS/ww7AOWyQnsnk6zj43CKQ8zfBUbz+JVDIYMX5jX8OwxhPIyLrlx8tH4xpaP57+pGLp7t1Ohw25S21TP/b5wUoAsmm07HCftpxDL6h7+yMFmWhOmbbWW3eO5nAx7cdxT1+HY+iQzNNZC23NOFwXwW7kgFclHRPVyIx875pQqatG2jZ3pj3gxlsGwcXQ9bwTZynw2wj4CAMJpj+GnXg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JpWFuTkk; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42c; helo=mail-wr1-x42c.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GUV/DLNX;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GUV/DLNX;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JpWFuTkk;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=redhat.com (client-ip=170.10.129.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org)
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42c; helo=mail-wr1-x42c.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com [IPv6:2a00:1450:4864:20::42c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4d2dHV2SD5z3bf2
-	for <openbmc@lists.ozlabs.org>; Fri,  7 Nov 2025 10:11:48 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1762470706;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QXr28wg8D7Sns2qkEeLZq8j8Ed6Tt4Rhy3ccABxhAR4=;
-	b=GUV/DLNXHts4zxWX8AbDqCvFRQz4Is7unaQwztTX7Aynw6vhaxEOZWvX0L9/d5/Bl2V/6F
-	xRX6CFwS/Ks9kOmCp0D7Vmf06rbLce3ZQnu+Et6EfdjQwcSNUL3UvkwX0AP/yLZH9t66Ii
-	ulxqd6Xs8V3dtHLGrFuSvT0z15BKI+s=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1762470706;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QXr28wg8D7Sns2qkEeLZq8j8Ed6Tt4Rhy3ccABxhAR4=;
-	b=GUV/DLNXHts4zxWX8AbDqCvFRQz4Is7unaQwztTX7Aynw6vhaxEOZWvX0L9/d5/Bl2V/6F
-	xRX6CFwS/Ks9kOmCp0D7Vmf06rbLce3ZQnu+Et6EfdjQwcSNUL3UvkwX0AP/yLZH9t66Ii
-	ulxqd6Xs8V3dtHLGrFuSvT0z15BKI+s=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-345-XC9iMl49N8irJ0lomcgQWQ-1; Thu, 06 Nov 2025 18:11:42 -0500
-X-MC-Unique: XC9iMl49N8irJ0lomcgQWQ-1
-X-Mimecast-MFC-AGG-ID: XC9iMl49N8irJ0lomcgQWQ_1762470701
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-8908a248048so37199485a.0
-        for <openbmc@lists.ozlabs.org>; Thu, 06 Nov 2025 15:11:42 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4d4jC430Z9z2xqj
+	for <openbmc@lists.ozlabs.org>; Mon, 10 Nov 2025 19:15:11 +1100 (AEDT)
+Received: by mail-wr1-x42c.google.com with SMTP id ffacd0b85a97d-42b3c965ca9so177452f8f.1
+        for <openbmc@lists.ozlabs.org>; Mon, 10 Nov 2025 00:15:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1762762504; x=1763367304; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SeRemWdOh6BINm57bAExN2qF+KGtIQQ7kG3okdFAQq8=;
+        b=JpWFuTkkxd/LfmE6hyehKFmEtrVf1sJkETwS57mTE4iXoNn5GIb92Z/pi6XWUsXvK+
+         Wkq7VDf+9am0hkQFYB2yn0dDhbIFytsajmpY7nzolS2rUqGWKjU8C3McYbFHe4Y5fvDf
+         8jooqc2pGOmh+4xvweKMTw8NV32c5153zudfq4JJaWeBIokp1NqhNoZ3VNBketD3IGGg
+         XOZbf9EUBlkKCSNvP1sK+QnaOj1wIkrWWcrVA7qW8YHdk5r0RRT34LH7mlWqWqWVMlkO
+         82tV/GxgT+6+OjxQlh0xztzEKtmIXOcAZ+NMfzRvXNwxPIBdIAvFRqx4vxf+WDl6VxnL
+         U2IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1762470701; x=1763075501;
-        h=user-agent:in-reply-to:content-disposition:mime-version:references
-         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=QXr28wg8D7Sns2qkEeLZq8j8Ed6Tt4Rhy3ccABxhAR4=;
-        b=rPc/njGnM9uIJ77gsc7UAEP1rd3OBRh0rhuGcfIzzkuv5SnRxUFadiom0QY+FycBA3
-         L6Ik84hIWZnVqzGG8+uwbyWp+oyI6He8ieR2w4KwlyCMcBJLsr7KrzrQX1bGrv8oqYOT
-         Lo8k1I8ATPPVJD/FB742RmxgtrtRWyGb58e2u1SHPYQqkwM1ly/ugIW987Sgl/B1wr7P
-         /NTS8IsRNDWuHrLfUhpuUH9Txko6YhTOUs3kMrdO49IeFDXuXjlhjZnrxVAB5HvqhLfG
-         TS+Xfp0L0VzghgFo4x1ZuEWYlEanSUEMAZoHDBd5+WU5RCwN5nYkb6T9wXrWkOajeLKd
-         09yQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+G1lluoBp4jQ+R/FobLKzdJmUcVhhZQwI5ufjcxZNeoftAWLTFQ7QtPzM4n3fzSnufmajtTYr@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxkKSwDM+OERjuKUsc/OE2QzL1sT1WBIklvlGMl9GZj+E+CJ83F
-	8E6MHPbHvjYcs86TphgBGYwdyFY5nn2k+b5UA8ErbrroX6J7AOoS3eHPKMu75L0f4jafRtVxkBb
-	5zD5gIdts0pryYmFLq76nb4HU42uopNFTscMHxpeIVGNP9tRm6DLj1tvX0FMV
-X-Gm-Gg: ASbGnctxMD46Jcbl+ycv0J3VOUqy3abCznG+2O72/N+3Wb70lHQFkT/Ux0kyLwgR9NF
-	eba7k0lxiE4qeCNcCOCCw9vHGg+skpOj5botXo8Cel6gpH5wl8spMusKzgb2B82JkVtWUQg3F8Z
-	mGxjQBt5mj8Ij6gR2bZoFLv1ATR68D4r39HgDQ1W3MmSPA19Cc4xEoW/oxAj3PNRdABK1MMs7rI
-	IrtnB21JLmv1sQx/gIk3hABepwlfGiINGZhHe/z4gIrYC/dvQhB3cMiPlMp7aoakU1zFhbchUgt
-	l+NfKKFQ4tBDk77Irk/ZeaDwYCLc8UXBPVF+anbh0fxAnKGBxLeeISk8AbjohdcF6GQeuNH6T05
-	PGlzqp4kz3mh7H0v9CJqTGfB9FbHmxmwF3g==
-X-Received: by 2002:a05:620a:31a4:b0:8b2:43f7:c07a with SMTP id af79cd13be357-8b2452a2167mr193181685a.22.1762470701627;
-        Thu, 06 Nov 2025 15:11:41 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHVetiFRByjjykyfxVb5wuiQuE2TgT+5D6JC3vwCG5rcTtdy2u5B3i2rGtKd9IxnXFml+2NaA==
-X-Received: by 2002:a05:620a:31a4:b0:8b2:43f7:c07a with SMTP id af79cd13be357-8b2452a2167mr193177985a.22.1762470701157;
-        Thu, 06 Nov 2025 15:11:41 -0800 (PST)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-8b2355e56c0sm281056785a.14.2025.11.06.15.11.37
+        d=1e100.net; s=20230601; t=1762762504; x=1763367304;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SeRemWdOh6BINm57bAExN2qF+KGtIQQ7kG3okdFAQq8=;
+        b=Dj3UQS0U+qWAPXvHhpmSRtVCcprubkYJwB2T8uIJ7KmmQecwjGFR7Tzs3AjIjXSI3H
+         qlYKmishMvEYupU9nGFo8GW/z5MJ1aVcZEUrChPXAGVOgRTTeyPrfq3uyoL/T2M+/zJm
+         2vV5sVo+nR2BFwdGJ1ZrFrtdk/0yKSEbaDNqjRjolmkG2o48D6Drm0e9s4fRWFM6QHsc
+         KGI+9zQCFwEeuRl/VGlNQ4eSjG9MhYHMIeJCpcf8VHcdBzBMiFn2BUS6OAGI1fRhrhlL
+         ko7bn1TlKhceyEcmOLzm0KhizUgl42v3OdflOCo6UCg16NlUv3VgWp0Zvk/GSegcA5wr
+         8PYA==
+X-Gm-Message-State: AOJu0Yyxo/lj/ccf/hfT7howw9oN/3UA0i4pDimbjT1CMDeExkjtPYx9
+	2QT4d+uCDLhB45kh2RQmKtfMRN+UqPfsBZQpRcp/jPZwmKKGVMXGUsCc
+X-Gm-Gg: ASbGncuKN1RoOF9AW0oUdcv3wD5f1MDem6OnWO46CHS1B6Dx8oFBiGnxD72L/8yJtRz
+	b8MB2hbkhtWlhby+eHvZ5hdkvcpZoxrKBfZ3PFp80pbHq5hup2DicLqbmRNcYWUAO4wSxP2TE/g
+	ZRoJnm66Gb03VF/vgsGUwlTFWL6Mn3u4F10kuA3vHjb/09NzGboUL0Gyh7cRC55iXtpiRz0M8pk
+	C3PG3uBFyJPwq0rqSdkUtjUhT4eUSjIfj1+jsiwak0GinBAOdbyXAT6iBSplj4n28z2xmgv3/1H
+	NCZGJkeoSk6heey6PVYvWv5uyY/zKtHOOIM3+dA62X5gVD4q/Z/QCfPuFdFINyvEbXOaXogwSjj
+	4xAjWRop1AZvHdbawKb72bqzeqc8yrLNvcrcCWmN1AXfPWnBj/9FCjQiX9dSyKI2+rKwHvUA56+
+	zZCz6R78XA9HG7PaT/KK9Ohg==
+X-Google-Smtp-Source: AGHT+IFPRvflcsKqu7bHRXK/JyFHX+r+ojZOUJvTf4Pg77kTUGLJ4kifZzrUVNK8QvjfDeCXTC/ucQ==
+X-Received: by 2002:a5d:5f86:0:b0:42b:3e20:f1b3 with SMTP id ffacd0b85a97d-42b3e20f52bmr530612f8f.9.1762762503585;
+        Mon, 10 Nov 2025 00:15:03 -0800 (PST)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-42ac679214asm22324568f8f.38.2025.11.10.00.15.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Nov 2025 15:11:40 -0800 (PST)
-Date: Thu, 6 Nov 2025 18:11:35 -0500
-From: Brian Masney <bmasney@redhat.com>
-To: "Winiarska, Iwona" <iwona.winiarska@intel.com>
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
-	"joel@jms.id.au" <joel@jms.id.au>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"sboyd@kernel.org" <sboyd@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"mripard@kernel.org" <mripard@kernel.org>
-Subject: Re: [PATCH] peci: controller: peci-aspeed: convert from round_rate()
- to determine_rate()
-Message-ID: <aQ0rJ3ahOV0gmUVM@redhat.com>
-References: <20250810-peci-round-rate-v1-1-ec96d216a455@redhat.com>
- <aMatZAX6eFI1RmDH@redhat.com>
- <28dc3bd8aeca7e3164747960747f75060c596704.camel@codeconstruct.com.au>
- <aPEZSY6RC-UVclxN@redhat.com>
- <ba2e6b78e59afb7c89e5022770a142ec8c31659a.camel@codeconstruct.com.au>
- <2025101759-runner-landing-374b@gregkh>
- <2975918e3f3a7de245e93fbee52335acb78bb23a.camel@codeconstruct.com.au>
- <2025101721-twiddling-huskiness-4852@gregkh>
- <13566a08eeaed313ad789abcae1920d9b00483b0.camel@codeconstruct.com.au>
- <d53256b35ee7089607463c66bb4a8c3420faf058.camel@intel.com>
+        Mon, 10 Nov 2025 00:15:03 -0800 (PST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	broonie@kernel.org,
+	avifishman70@gmail.com,
+	tali.perry1@gmail.com,
+	joel@jms.id.au,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	andrew@codeconstruct.com.au
+Cc: openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1] dt-bindings: spi: Convert nuvoton,npcm-pspi to DT schema
+Date: Mon, 10 Nov 2025 10:14:57 +0200
+Message-Id: <20251110081457.1008316-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -124,31 +101,133 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <d53256b35ee7089607463c66bb4a8c3420faf058.camel@intel.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: o6VAdwpVQJulswQsnwyprKHwwrMmdBQkeoz8ccvju5o_1762470701
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi Iwona,
+Convert the Nuvoton NPCM PSPI binding to DT schema format.
+Remove the clock-name property since it is not used.
 
-On Tue, Oct 21, 2025 at 09:01:23PM +0000, Winiarska, Iwona wrote:
-> Sorry for the delay - for some reason this entire thread didn't land in my inbox
-> and I just found it now, randomly browsing mailing list :/
-> 
-> I will sent it as a PR for v6.19.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/spi/nuvoton,npcm-pspi.txt        | 36 ----------
+ .../bindings/spi/nuvoton,npcm-pspi.yaml       | 65 +++++++++++++++++++
+ 2 files changed, 65 insertions(+), 36 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
+ create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.yaml
 
-I'm just checking if this patch should show up in linux-next by now?
-
-Sorry to be a pest. This patch, and one other series in another
-subsystem is all that's holding me back from removing a legacy API in
-the clk subsystem. I'd really like to get these dependencies merged for
-v6.19 so that I can do that cleanup work in v6.20.
-
-Thanks,
-
-Brian
+diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
+deleted file mode 100644
+index a4e72e52af59..000000000000
+--- a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.txt
++++ /dev/null
+@@ -1,36 +0,0 @@
+-Nuvoton NPCM Peripheral Serial Peripheral Interface(PSPI) controller driver
+-
+-Nuvoton NPCM7xx SOC support two PSPI channels.
+-
+-Required properties:
+- - compatible : "nuvoton,npcm750-pspi" for Poleg NPCM7XX.
+-				"nuvoton,npcm845-pspi" for Arbel NPCM8XX.
+- - #address-cells : should be 1. see spi-bus.txt
+- - #size-cells : should be 0. see spi-bus.txt
+- - specifies physical base address and size of the register.
+- - interrupts : contain PSPI interrupt.
+- - clocks : phandle of PSPI reference clock.
+- - clock-names: Should be "clk_apb5".
+- - pinctrl-names : a pinctrl state named "default" must be defined.
+- - pinctrl-0 : phandle referencing pin configuration of the device.
+- - resets : phandle to the reset control for this device.
+- - cs-gpios: Specifies the gpio pins to be used for chipselects.
+-            See: Documentation/devicetree/bindings/spi/spi-bus.txt
+-
+-Optional properties:
+-- clock-frequency : Input clock frequency to the PSPI block in Hz.
+-		    Default is 25000000 Hz.
+-
+-spi0: spi@f0200000 {
+-	compatible = "nuvoton,npcm750-pspi";
+-	reg = <0xf0200000 0x1000>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pspi1_pins>;
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
+-	clocks = <&clk NPCM7XX_CLK_APB5>;
+-	clock-names = "clk_apb5";
+-	resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_PSPI1>
+-	cs-gpios = <&gpio6 11 GPIO_ACTIVE_LOW>;
+-};
+diff --git a/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.yaml
+new file mode 100644
+index 000000000000..65ad40292408
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/nuvoton,npcm-pspi.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/nuvoton,npcm-pspi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton NPCM Peripheral SPI (PSPI) Controller
++
++maintainers:
++  - Tomer Maimon <tmaimon77@gmail.com>
++
++allOf:
++  - $ref: spi-controller.yaml#
++
++description:
++  Nuvoton NPCM Peripheral Serial Peripheral Interface (PSPI) controller.
++  Nuvoton NPCM7xx SOC supports two PSPI channels.
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,npcm750-pspi # Poleg NPCM7XX
++      - nuvoton,npcm845-pspi # Arbel NPCM8XX
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: PSPI reference clock.
++
++  resets:
++    maxItems: 1
++    description: PSPI module reset.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/reset/nuvoton,npcm7xx-reset.h>
++    spi0: spi@f0200000 {
++        compatible = "nuvoton,npcm750-pspi";
++        reg = <0xf0200000 0x1000>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&pspi1_pins>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++        interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&clk NPCM7XX_CLK_APB5>;
++        resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_PSPI1>;
++        cs-gpios = <&gpio6 11 0x1>;
++    };
++
+-- 
+2.34.1
 
 
