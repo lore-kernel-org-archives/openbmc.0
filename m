@@ -1,140 +1,82 @@
-Return-Path: <openbmc+bounces-962-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-963-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71170D116F6
-	for <openbmc@archiver.kernel.org>; Tue,  2 Dec 2025 13:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6155FD12689
+	for <openbmc@archiver.kernel.org>; Tue,  2 Dec 2025 23:53:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dLLYh23Xqz3bsf;
-	Wed, 03 Dec 2025 00:03:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c10d::1" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1764680616;
-	cv=pass; b=K27m5wy8nT/Ac7k9MfD5k4sOe8n+x0oKnTOJ0CmSqE70qdiRR5R5//32DDk5gyrCt8LJM3HjomiNgNX14+LLXdwplr7HY79cnCWU89RxWbSMn66koZUASRBwVh/HAeGiIkSxcH9BlLZ1sqRS0Y0QZbn46QygBksM6uAB6NYrG/t5tbvj0vx5n4HO8v2kGEPK3qAOrPbiluaxSofqJw570cuanmeE4GjKf2W9uGhxB/+0O5x7GfjzS3L9WL7u7Dce/TyghoYHk4DBbLE9EadIaXKLtqja40NoqVibi2gTOY58nR/1dcQJnyn6W33nRIiHzu8rg0pywSUE5Vodlncn7A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dLczd00Ksz2yFW;
+	Wed, 03 Dec 2025 10:53:32 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::3" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1764719612;
+	cv=pass; b=c57eJOiS6CjNbIedMj36DJElAzoLAT8h6/X85xt3IJmGXQNyZmghrnfXVRSKQNk/3rt4skBCZQ6PxExHnO7YG753b1R4uV/gfJBDljHOE1sBKA619yW4yEmxrkMlDF6dG5G9ucrrbuqHO7pW0oBk/5QRrvH5/5KimwhNl3bzs8p9U+iGltJtoMFHZavWHbb4l1S44bJ2Cz0jGDDX3jDYq6snsH+u1eQXTXqmSO6cQoJ1Lf9i2SazqRhZZ5bqLXrNgWpCWxrW/ZOgcz7naZ3qWD5+SAIrgatNOH2FTw5vN9ep9gMX/uLZ9+ALMSxhVIKa7uovIfy1gDhfk/DiLwaRSg==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1764680616; c=relaxed/relaxed;
-	bh=2X4NIqAigOpp1aL7PNVoJQIhePehyBfX0pJtI3Gejto=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=YeqYdMxo2fhUkGRRkFhOIWsv+smh8LWeirI3r5G7LDXFKX4y3jhyu5u0KzBBFh8rAxL4RyuR0805uu1J83fFW7+6/3gjGb0gnVidWSiTKyNX8qsQZJqk1Kc8vcK0OGR+2V3fkTyAKiW3TPUc3JupBMGkBBxRrtzco8miBRu39p4BipAPFNz2tPuP+PDVI2O/WdaxJF1j7bvhuzQ1wdYey2v1nYsyS2FWXhBk57LEI0vDaMQ/hun2ElBUJivAb9i+ROkmjS1puDMuZv8ibXg+SX+6M6sc6Kkt/FL0tABmRjbyBugLDmSkvIIDqyv1OPZCBk2SIcfNJuKVI6pJiqf43g==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=vertiv.com; dkim=pass (2048-bit key; unprotected) header.d=vertiv.com header.i=@vertiv.com header.a=rsa-sha256 header.s=selector2 header.b=XMhwgdWr; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c10d::1; helo=sn4pr2101cu001.outbound.protection.outlook.com; envelope-from=pankaj.patil@vertiv.com; receiver=lists.ozlabs.org) smtp.mailfrom=vertiv.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=vertiv.com
+	t=1764719612; c=relaxed/relaxed;
+	bh=i5b4t+l+Yaj/v2mUxRZmM2dfeEUp7zFVlmnW/AWAmTE=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=fJ59jRyTkoO+PDfOtkRF13ZhRsQasVbYqrSqzpk2YX+5tYs7soMksytPJheEv/h11MFbPTq4LZLaveq34Tzmbk4ojiJNzAaQvB1YWioDjYEXdHsjb8kKUTBgEbhkELRG0F1U2ZWr7n0kHjj1V8SsWrgdIeS7fN37zVdTHkVIPxW3b4fFlpcjkdNd/CsbUSwIlK+DQBvy0pHDuJCf7jSrJHVeefZ0sjVaCOW4/iN/jYV1z7TzKGetbcEvWiEgFcMY3cq+1LNyC+C4JUzpE6JzlCT996igzdRPTefO8cmJb5dBmjoWHoQadPEHKwnySUrYi4YfXP10nJnFgS4uJIAI7g==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bNTpX3Eo; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vertiv.com header.i=@vertiv.com header.a=rsa-sha256 header.s=selector2 header.b=XMhwgdWr;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bNTpX3Eo;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=vertiv.com (client-ip=2a01:111:f403:c10d::1; helo=sn4pr2101cu001.outbound.protection.outlook.com; envelope-from=pankaj.patil@vertiv.com; receiver=lists.ozlabs.org)
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazlp170120001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c10d::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org)
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dLLYd6CVVz3bqy
-	for <openbmc@lists.ozlabs.org>; Wed, 03 Dec 2025 00:03:32 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dLczb0tfGz2xqg
+	for <openbmc@lists.ozlabs.org>; Wed, 03 Dec 2025 10:53:30 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ny9a+fqh/OxZr6alKXly9IvW/LxX59MMgJVNhIdo7GoLuCvknkAza0p/EMg1Q+p6cX6v7m37Mp1oQZYTX4+6ySj9smpf3chwqsvTtc8emyrl4Q9MU6bSyrFwqZ5iYHOSWNreLfAacGtVhlxKV3zs+CL4VKCfNzVQuCA5QsyywUQNIh1bdgAFKvTIVJI8GY9XWtA/q7mnN+SKlnCCGkEKboVR2H2sT1OkeWc2gniUtyld2NDWDxMcY/H1JL3ZQPNk8Kx6rSmgBRDIaTIzmBRs0c4ptg3tObNTe0GQslBqXV1i2zOuPhlpdnt+xLhwUPy+e1kZGV8MXVp3cjTYoDvtNw==
+ b=FKJAGK8VhyuDnkaA3h98r7SnOTjeCNLA/jCzovV6ateXZgRRplmLXH96VDAmFU3ajPTcHyJnxhh6rqrnktPco3cuD2u54KzWYNdzJ4zTQGdJPgR7qNwrem3rWSIH2M7AY9u+8jRVNB6TqXVxXB2Y0mcUNQqoreNGbJ41XibmxYgnun7sqTga1XXFxqcHVK1wtI4cnFFM+Sx6SOKtADN7c/3YKhHx80VdmsV/+4/2gr2+NTZpxKUA3c0Tv4ebue/vakLfNwbA8jU7d0uhaKh/774Q9srTpHk+E4vRuVVEszGMtPv44HB/asNVvoJsV/UPZtYYPKQM3BofqZxTC7GsMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2X4NIqAigOpp1aL7PNVoJQIhePehyBfX0pJtI3Gejto=;
- b=dfT2O8VjQi3hhDId0As+oN0Tf2g6lmCf48OMdR3NWbTB6CVn3GspXP04IeXwpA/ZJnCZBivWFrP+wm43lJEiBaneVUiL2e7zgdexfZruji3znRUC9QwPoqF6vQLagZBM3mXry4eZKuX5NDg3W24l5tVzRxV5kCo6m0soLJ6oodS4uNFWm1CwvESELXhmU+H+OxRZ9uh+cnU1ivKFcKgwV6aD7T49lHabXR4Aiq+x0z4fYnyK9d4+pmxBTs0uX1sWmTjmUbrUQHtTRtKmcj3PZIDpcp4UElutD7G+TWHnhQsMFjUPRNSg7m9GiKVvvGLW27/TiUU8V2ScoJ4GrU863Q==
+ bh=i5b4t+l+Yaj/v2mUxRZmM2dfeEUp7zFVlmnW/AWAmTE=;
+ b=YWQZAsagJBTjrPfCbATcuA7YhHebj0iWOWEO8+8lO4R2r6PMS3eSME9LKAEwWZnmzaofbVA7kOxf7kyRCUlG8YrWbZSrso7JgKoSaaR0xz7HQo6mRZdnqkVHmEXcM/0/RyWxwc2E/5WbhYyxAn3HLniUUSBCy99uraDT6jH3TTBbOMB928N9ErBZYuXK0j2f9G8Cl4+/RJGkyKRzGGF+Z7z+Od+uPNX5k0CsD026ne55dc0b8Tqa8gDZ/cQkrx5lvxXiVpwWzCjFoBn7so8d2IHksXo9hh50l5JLeQ/fHX9co8I3Uizu7vOKSEL39bpHkE2BooqFLnD73celRvcEMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vertiv.com; dmarc=pass action=none header.from=vertiv.com;
- dkim=pass header.d=vertiv.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vertiv.com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2X4NIqAigOpp1aL7PNVoJQIhePehyBfX0pJtI3Gejto=;
- b=XMhwgdWr0hxPar0VJk4OdudmU6s+hoS+z+ImHs1KD/+RVsk2YNviNPuVn52Qu1K3UDisF/caqE6DYHqgROMM24GSqq9W9rRWLUT0QwW/dApW/GZ6ZffCjiCa92HsTXPwVjCdog4XybBcUqFBJTHiKcO+wH/43d0qcmNEHPIvotluprPWq/XEXZ3Q7/D1JGqfhyfDx9Crtxza/h6Bax/h4moaloqi1sPhc7a35QIsKwsb1oIudA5BMRZbyBUfo2S9ryPE8pX4KH2QHAMjJbYM2vqy+6yFOGe6i+X46u8XuEzTKkBwq2s7aB4oGQWxk824gHxBygl1nxFeCDy0JeLMMA==
-Received: from LV3PR13MB7198.namprd13.prod.outlook.com (2603:10b6:408:286::13)
- by PH0PR13MB5493.namprd13.prod.outlook.com (2603:10b6:510:142::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=i5b4t+l+Yaj/v2mUxRZmM2dfeEUp7zFVlmnW/AWAmTE=;
+ b=bNTpX3Eo18VS92anMTbF8bv1A5VMNvzGTjkSpQJTgROSJmwsfvRNvE2INk0PbkSVM+bTbGKv4vlhN7gH65fUGLCGSFCn8QEDM84EYJDJEI62QvqYW71enCsPSIY1MXHKGREh4Dyrw48ytQqoPCrp8BefhcX6Q0TzA7forFPzTXz0r4V6wEJG5Wehq5o2V2C5MqQWiav3cVVoqMBWYIs/ofrX3Cb4H4Ca3XGMWJgQwSg/kJKtUaxbqEjetbMopmaDgQCb6rN5BM8jAyGVpT9A7PGCZr6rfyvZgGDVAICdB8hmXIuTzgpTEj5lAjVjNsFZqq2rUfTRoTXeoctOfzLpQw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::627) by DM6PR12MB4370.namprd12.prod.outlook.com
+ (2603:10b6:5:2aa::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9366.17; Tue, 2 Dec
- 2025 13:03:03 +0000
-Received: from LV3PR13MB7198.namprd13.prod.outlook.com
- ([fe80::b964:e4e3:becc:323e]) by LV3PR13MB7198.namprd13.prod.outlook.com
- ([fe80::b964:e4e3:becc:323e%5]) with mapi id 15.20.9388.003; Tue, 2 Dec 2025
- 13:03:03 +0000
-From: "Pankaj.Patil@vertiv.com" <Pankaj.Patil@vertiv.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Query regarding controlling phosphor-networkd Dbus "InteraceAdded"
- and "InterfaceRemoved" signals
-Thread-Topic: Query regarding controlling phosphor-networkd Dbus
- "InteraceAdded" and "InterfaceRemoved" signals
-Thread-Index: Adxji/v9bKnrFNUsQPmuy2u36U3RRg==
-Date: Tue, 2 Dec 2025 13:03:03 +0000
-Message-ID:
- <LV3PR13MB7198CC2543B453D23178F2CCEED8A@LV3PR13MB7198.namprd13.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vertiv.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV3PR13MB7198:EE_|PH0PR13MB5493:EE_
-x-ms-office365-filtering-correlation-id: 8d6e7e94-da13-414a-f40b-08de31a320b6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|8096899003;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?Y8agl2JQ5UbVAJsXsNWSj6GQnxVUgl/ipFLFQ7h0EFgGduuAXLc71tuGeuo2?=
- =?us-ascii?Q?orCVInZGG2NpDvsD9TVluhZHUqpkBvyBUug3BUfkhVKP0GhA1WJoefymG34B?=
- =?us-ascii?Q?UjJaU4zHcCE2S9am0D/qIjnFFU4krKPQALTLdIlKrYxrYMRkQoC5E5xFqZGy?=
- =?us-ascii?Q?WMaF6qmeQeyrSbhr5PSiBscd2cy4eS7pNWvRJK5U39ZgPq0r1Y6PXVtQzCIf?=
- =?us-ascii?Q?tjyFu9KX4nawVqlCbEtZmNXpA/hdBn6hqbmwSdijqV3Ak8yvdcwxi0fYiT88?=
- =?us-ascii?Q?8OcLjE9yW4Ke2AqzxcfX5JOAOKkS5DZIcZH+DtW31Y5kipgStEhrh5FkgV72?=
- =?us-ascii?Q?/7deZPKhOElF2AYD1xdwTStaJdg1BWFLeEYAiZp6bGIwMAqICIEcsC83bUFb?=
- =?us-ascii?Q?AtzuLX6FeNrOH+jxMFr0G0lLXIQlyIMSq154v8HCNN81dM/GpZR43b2+BL74?=
- =?us-ascii?Q?+F1ZQXVa+kIEUsrcKdinhS68JYDy5P40eN0ZQJR1jS+51hQ3+qC5FFue/xNT?=
- =?us-ascii?Q?D1QS48jnoroUX1feUG2IASX1FC0EccmTbSoR5M/uWVB/8LruLHNBGg/D1AK3?=
- =?us-ascii?Q?4xPmILiSazs+zEJT0HrUfCxaJRUufUPak0Kozj+nA6ZGCVVLYHLLRY5igEYP?=
- =?us-ascii?Q?y/xq2Dfnwf1iCuFFNbpZ+Wn6Xy1lo1jGIKdC6qMZJdKOCjj3vzih8AV1+R78?=
- =?us-ascii?Q?BwA+BR1CbCskN5v2z7i2JyoBzneaDk4o2Lo9W8zseUP/YDwwMqTf+wT821kB?=
- =?us-ascii?Q?bhR4Xrqp0z7F8BHf4HEzObOUacvnqVJdrSDxBcGgVcTE5iAWs38dfVkaZQyt?=
- =?us-ascii?Q?o5IBarKHD/U/W7G1QaMUdopYNAT6SDC1wglRLdcL50s4ZjjrNLDICsniCvC/?=
- =?us-ascii?Q?Cho6WqB+6i64vG0eNk1R8y9kih7Gk0F0M0aAnwdEo5KfZ59r9LHaq3CYFA7j?=
- =?us-ascii?Q?luzYBvtilgxm0UzUiWjau1Kdqg2Y+NJy+/ba/Aq+sVNiaJ4PKoHd3qx6xCH1?=
- =?us-ascii?Q?eaqtvi0sAIW7aA+vGzzpoJrLrX+RIF/gOh72mxuplkKtrXP7mGdUqyf5mMmJ?=
- =?us-ascii?Q?3aPQhUKfsWfLhKJ19WCVSdxsgg4/xBc410IJg9LYbcfwBz/bFv5oW4i+GXKZ?=
- =?us-ascii?Q?LOMiO0By3u6vi14Y4kTKmimy+BeB+t7qBi9dMVpm7V0WVMsoHN6W2+wcFe/I?=
- =?us-ascii?Q?aBfKjUmBwhWINAJwXvph4ILDuJ1PTFHHKTXsRypSmRnEmgJZZBiTMxLUKyJ4?=
- =?us-ascii?Q?ZNXtLlEmEiBBiiwW0fHLhwGvKJ1aAL8AQVXrC+ZAib1Fwb9+nuHNd/lmODkx?=
- =?us-ascii?Q?6RtBf0ALaDQ/l1sYucfThKN4blxfvYcJyrxgTIUdcrMO/+LRVr9c7jaa5HFs?=
- =?us-ascii?Q?1Fysv5qJTAgITFaO+DxIkvhtHsFsAXQ2aedWr2fFIAFcA318ore/2pcTS0FE?=
- =?us-ascii?Q?xTnfbNxYrZ116L0ydsqR6NBjS+KIMMLm43I9S+DDbDb89DuR92mdLN+OHGRi?=
- =?us-ascii?Q?ZYVY+cCwYNaIBAQJxGgDgjCYe5AX2siSPGCF?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR13MB7198.namprd13.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(8096899003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?TCTNnCm/qZgCxRd2JCJ/GLhAS66Ce83B/dUaVq6OFyPMsMjH+ZQciLNOZ0Rl?=
- =?us-ascii?Q?Evnv2KoBxYJntGvYANZmLco10Uai6cbz1DzVTWkumdMkrfvmyfMX1Tvg4H0S?=
- =?us-ascii?Q?95YYcNISqI4HgHUeiL7Bnkr089l/IcHhVsSY0I0vNv3Q6msmKHan7jOyEoIz?=
- =?us-ascii?Q?4FhKPcrnr/bQ42JKpdBMcjKq8zn5Sw3VCA05MWBufgvqMIrPSqKfsJp/lyzr?=
- =?us-ascii?Q?LkDcovEXYifD7kZszPv+EnN66z/LMhQluWMgHn6XVI3ojota2DZaJl6tSxqO?=
- =?us-ascii?Q?ehmrcpHAHW27PYt5VZ8aljjUAp2qGHphF3uPtRcV9IIhZxE+ljQOWweXsdtR?=
- =?us-ascii?Q?akCcsKT48NlxkL+TCiJgldNTLtxNH7E8YddR7ItQwk9DvN9w/jPam/pCW985?=
- =?us-ascii?Q?i6ZMl6NG944hAsD2ixwStX34Kpimqi8x9GKL6GkdwlHKeigBJwy7mWRq6zol?=
- =?us-ascii?Q?FG+JicS0GlEr45MppULAlo1LKPJShThgomJDby1XkxYYS+YXin4z+2pKaH9V?=
- =?us-ascii?Q?3iQNGB3KaZ6v8O5dAV4ZM7Xc3EMQgIe3e/2w3YwylSbAFJhdzHbZ2R+NRR8K?=
- =?us-ascii?Q?KZsjhuB26vcrcRAjglWS7zZc1xeCTgeUrq5tQt7/n6I7efHuxKxhvcDwcI/S?=
- =?us-ascii?Q?m3af99ot/vOuN0oYkQd0WHoxLErAhiMcmga6p3MqkW9bKogcsTa468Hz4YW9?=
- =?us-ascii?Q?uoaGkKV87uteYIDySj0Fk39J/49EaYrp7nFO4tTPlAlzYUXE2OTcwxORVS/g?=
- =?us-ascii?Q?IHHU03uwTdhTBLtThhxpmnqvW1UeWXfA5WTJ+i6FbIgzjhblvWUk5ySDpepn?=
- =?us-ascii?Q?51lzuuV3MyM9PYCi9eqwId1d6mpcOagn+kA6Nqz3cpkWMp/HVZGZ4a6fAlq3?=
- =?us-ascii?Q?sCduwZDzF5SXnoiYnScg6VqU37FvbBD4zcO7fmdS62CTZITVldSExatZk8aX?=
- =?us-ascii?Q?9Xwe0x9jxM1P1Hi7taDvuNAwQVGEHP7XDiQAOf8/+jBcUeooY8+527Ec18Pd?=
- =?us-ascii?Q?4sZ8e1MQPTgm/cZKOpArf3zV2SdmfUkm57CBMK3Bbmg6ra2U1jtrL074LQB5?=
- =?us-ascii?Q?zRpkVOFg5SODPFWnX84Ct8+jLeyrcDgkPKNub6/zyoZ+m6A2I3uX68IX7eNw?=
- =?us-ascii?Q?yxB97Z74BCJljq9dzmOjIFQLOVrZfpzCG5QA6uq1XkeYSQDMDddHP0fOAzcR?=
- =?us-ascii?Q?JMG9lKKWUOk37SoOH8Dq5h4zat9P7ga7ls01rVersPWZXbXv3mBf86oY2Rsw?=
- =?us-ascii?Q?8TlcC3XXn8vzl1QdS/LKuFtpOvu4/lVvU7HJqykZKjZ9DOgW8hUtiHH9u8NT?=
- =?us-ascii?Q?pbfh7wel/cdNXKQnZqNlu+eGiZrJplu2/Ot2D2RE/G4/vgA5/4WxN+c82R75?=
- =?us-ascii?Q?cfmkExoaOraP4SU2N2jUtRxoK2qjJKjIwvYudxYHeluNK54KtUUg0x1N6dXF?=
- =?us-ascii?Q?cdas/YlvQ1gJ2gtRikjNHyDk5ecE5bg9lswhbOSIQ+hXliMDa/AVjEhauIzg?=
- =?us-ascii?Q?M252VRHjRJSywMs2Qy4k4O3BxEnNurw/ZHOis17CYUigKQWjRTzm9OsiMt/u?=
- =?us-ascii?Q?xKAJxOTBwIGaQf575jwRV1r4jlLowvDQPzVG9G8o?=
-Content-Type: multipart/alternative;
-	boundary="_000_LV3PR13MB7198CC2543B453D23178F2CCEED8ALV3PR13MB7198namp_"
+ 2025 23:53:07 +0000
+Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
+ ([fe80::7816:ec9f:a1fe:e5c9]) by CH1PPFDAD84AB72.namprd12.prod.outlook.com
+ ([fe80::7816:ec9f:a1fe:e5c9%6]) with mapi id 15.20.9366.012; Tue, 2 Dec 2025
+ 23:53:06 +0000
+From: Marc Olberding <molberding@nvidia.com>
+Date: Tue, 02 Dec 2025 15:52:40 -0800
+Subject: [PATCH u-boot v2 1/2] drivers: spi: Add support for disabling
+ FMC_WDT2 for aspeed
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251202-msx4-v2-1-a605d448bd02@nvidia.com>
+References: <20251202-msx4-v2-0-a605d448bd02@nvidia.com>
+In-Reply-To: <20251202-msx4-v2-0-a605d448bd02@nvidia.com>
+To: andrew@codeconstruct.com.au, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, eajames@linux.ibm.com
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1764719583; l=3054;
+ i=molberding@nvidia.com; s=20250815; h=from:subject:message-id;
+ bh=U1k7Eem2E4FEV7XTC/PvX/bDb1+oQqnoQY3b+gLTwOo=;
+ b=a6tEQoA3xT7/Q60tn1ZhLA9zctvbolY+IaxDvaUM8jPcNCDJA5Koi6Fuo4Wgyjy0LP+P1e3RC
+ VDw2Ld30pChDMzVmwNfMnc5cSN5Sbv9DQshudfY7wqirYdKOUUd3rs+
+X-Developer-Key: i=molberding@nvidia.com; a=ed25519;
+ pk=qCpZ1WFEf5YiaL88PDdYhG+A/bKk7rHp7KF2K3GmkH0=
+X-ClientProxiedBy: MW4P221CA0009.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:303:8b::14) To CH1PPFDAD84AB72.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::627)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -146,251 +88,181 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: vertiv.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PPFDAD84AB72:EE_|DM6PR12MB4370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32b3673e-be7a-4c58-423a-08de31fdf089
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WXRNS3MwK3lYMGhLRTdiTXFIZzZ5eXV6QVlyTnM1V0JQWElzK0FheTRpRGds?=
+ =?utf-8?B?azdqWkg1b0dwSjcveWNYVnp0cFhQd0hyT0hjUzQvQXhxOU1FY1VMUU52T09O?=
+ =?utf-8?B?MDc4SWNMakIzR3JSdFQ4dnRreHVmTm1NcXdEcVlkRSttVVpqK0l5MGVuUXdz?=
+ =?utf-8?B?eUxQQS9xU2taYjJ6L3ZRS3ZoVTIrS0I5VGhXZ1BJTStOSFBqb290bGdjZWFp?=
+ =?utf-8?B?VDZkamdNbUlpa0REMmV0U3NGc1BZUjFPTmZPTlF1UXhaZFRSMnpEZTRyeDNx?=
+ =?utf-8?B?ZEt2L0V2STFHQmdTWUZuVkMxcXlWZzZMem0rYkwyUENuQkZIb0JlSmQxSzcy?=
+ =?utf-8?B?Tms5d3o4VVJxQTZycDgrWWRFTXo0SGMzSmt4OElhZUtXME1UekpyZUlXYzhE?=
+ =?utf-8?B?dFNVTUJZZGpCUHB4QnYxK0o0WUdhbE1LcGQ3QXZiS3lUZi9ESWtOU1lKdHJK?=
+ =?utf-8?B?REYwN1lDWE9OWkhRZ1VXUC9wa1VtNWl0NDJXVXpDWDJHRi9HeC9maDFDb0xH?=
+ =?utf-8?B?MCtjdWM4Zm8rWUtLT1IxNGQwcDZscDJ6MnBLeXlxZ2hBd0ZLSFUxWVNBOGpp?=
+ =?utf-8?B?TmJUWnE3SVBqT1cxM1FPcjFsL0Z1M0t0MUJiSVhVWmxJd1BBellXMURwaDRu?=
+ =?utf-8?B?bXd6eURYS1NKdG5zOTdnZm9lTjhoNGNJaUhMMmx6dGZSUTZhRlJueXkzdzRs?=
+ =?utf-8?B?eklEV0hBaFJEeTBXWWtvR1luM1FkYjB2dkZVNkJUaFJHbDkvR0ZCbU1pYmEx?=
+ =?utf-8?B?MlRxNmczS1dkTU1iMDQ0S2ladHBPNGwycXE5OVl5djBYOFVhVG9lb0lST0Rl?=
+ =?utf-8?B?SUFTcEVKT1cxOWcyd3N5Y0wxbGdhVVJDSG05M2VoaW5EdGhIQk0zTWJNT0Rt?=
+ =?utf-8?B?MkFwOGYxNTdJaU8wK0lGeCtSVDZ1cUQ4dFBxU01IK1FnSC9rMy9MVGw2d2dk?=
+ =?utf-8?B?ZmJmTFRUaUN0Tm9yN1g4eXdzM0Vma1ROcW5ac1hFVWFFamNGTVFGM2I2SHpa?=
+ =?utf-8?B?VUsyQ0dMeUtHQlB5b0NYUHk5bUttTzZ3WkorWlhrU2JzdDU5bjJGSnJSSWZ1?=
+ =?utf-8?B?RXJmN1pvTk9HMUdHOUE1OU9UeWswSTNTWDNXNUNNcHVGV0o2dDh1NEcrc3VP?=
+ =?utf-8?B?cDBIQ08xazFIQmN5ajhMQ3RaY0g0MnNoa002NVRyZEZRdzgxQWVnbmtxdFVQ?=
+ =?utf-8?B?eGRwSjlDMWVjQ1FlQnpoelA2MUV4bDBmd0lNajNhK0ppWENybXVqTGVOZjJr?=
+ =?utf-8?B?Z3I5cFZRTE1CaVczYmhkRjVucFpsalYwTEphWG9qTE5ETzFodGgyNk16WVB6?=
+ =?utf-8?B?RktyRWZidUEzQ1l4SDZnbDJIOUp2QXpjVmRHUXZZaW9sTDRXWmpaTjg2aU1s?=
+ =?utf-8?B?Uld4OXc4ak9vemo4Yi8rRitvamNvaGszUVB3ZmV6MzMrMGR6bTlSNFZabG14?=
+ =?utf-8?B?WEphdVZiUTQvajVyREVrMml0SFpnd1lFOVNYOEhKZWh1UllnNi9peWhtbExi?=
+ =?utf-8?B?Q0lkM0RrVWwzTU5Wc1dydkhmNjZZL0lsSkh5NjJsTzJsbDB6REg3dDBSQ0tX?=
+ =?utf-8?B?c1RSM0lFYVdUNzJVdmhITXlJcXBKWHV3eVhqcFNHSUZoZjZmU1lzNXdkUGhy?=
+ =?utf-8?B?NmVvRmpyL1hkTlIvRFR3aytXYmFCTUJ4cGkwbnEvbkIvUmpXQXFWcEo3MnUz?=
+ =?utf-8?B?OWVmMmVobm1CZk5lSHpQdlhQdExYRWpiM25Md1RUWmdCTHlnK1BKaEU1SzVQ?=
+ =?utf-8?B?dG05UkxibGd1WWpGeHRIdFJRS0tvcnRlL3MreXJtck9FR01ka3NSenBQYSt6?=
+ =?utf-8?B?bm9NQW10bmlKeWoweGh3cmtrcjVHRGpmakRFdUhGUnJmdUUzdWZrMzdubVRU?=
+ =?utf-8?B?aGI3dGRMa2VhR3Vqd0dnaTVCTHc0bkpqVkdZckZXejU2YjFOb3pEc1hIM25P?=
+ =?utf-8?Q?3+HozkBpFjHy+G85eVvaVmuaTE/Pa2ct?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PPFDAD84AB72.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L29jSjIwOFg2YVJjRktpekNDeGZWZEpJY0hWbmRTREZxeHJsR01Fa2lrQ3U4?=
+ =?utf-8?B?NXRwQ28wL3hHZ2VHc1FhbDFFemY1YVFNaU0ySWtvR0xrN2IxQWl0K3JaSmYv?=
+ =?utf-8?B?dE1tMENPd0NhMmNpRXUxbzFYRERqSzJiMGd4dTJPcWJPOS9DN09LVnVvNm1N?=
+ =?utf-8?B?bGRoRkorQXZsNHpMQTJlaiswMjV5VEVvUk02OERCdVpkRno1T2hHQk4yNXJj?=
+ =?utf-8?B?cTh3Y09OamthM1J1Y1BoanZyYmFLSFNIMVBBTFpnRklYM28wK1I0R0xiUERF?=
+ =?utf-8?B?UDZZT3l3RkxVZVZqcjBCUERVaVprSHpVUVdPVzdFRzVlNmVCMTZZYlNSZjFX?=
+ =?utf-8?B?QlVva095cHlmZUVqZDJMa3Vwa0ZiZmMrQ2NlN3lpTW5RbGYrNStJa3pObjFL?=
+ =?utf-8?B?dTZuVHIxcHlXdUlhVFhWSHV5b2FlRVVVeTRsMGtxazRqK1Y3WTRzQlNyMEJE?=
+ =?utf-8?B?cG1sRW1mR3ppSFhRWmZ0bEFNVTZLZ2drR3NTVTNvNVdBNXdmelhhY3U0aGVi?=
+ =?utf-8?B?VkxVdGRSOHcxVW5IT1JheXpIUVh3UTZ4ZXhrZVdGckh1RWhOSThQQkQrVStZ?=
+ =?utf-8?B?QVZvQjB1azlJSXhtMnIzRmNaWFh0Rk95bFBtWmRTQkpHbGtIUERCbG56ZDcw?=
+ =?utf-8?B?Nys3a3o1ZTU2QndpZzRRT3NWbkdsUzV5V2Mra1dFV0VTRkdXQ2VXMzQwdEdv?=
+ =?utf-8?B?bkFsZ0Q2UWpGMVRTRUxQS2tHOVhCSXZCU3IrSXpWTzMxR3BuQy96M21iQWVQ?=
+ =?utf-8?B?K1FlTkhrVWlYVEF6TnNRa05mZDBMR29aSnoyWjhqWlBoeDY1TGE0Vms1MU9W?=
+ =?utf-8?B?UE1LczJqSmFGMWVZVUh2Q1VJVHIvU0RnSkJqcTY4bjE4UURPczZrTE4vTmg4?=
+ =?utf-8?B?eTBUSXJON1VHSVVuSXdDU1JIY051LzArQWZuL3E5dml3U1RlbUNXTy9qNnlI?=
+ =?utf-8?B?a2wwbTdSQXV6UHdtT045cXhzalo2ZTl6OEptbnVicnc2b0RnQjN6cTYyQnRH?=
+ =?utf-8?B?TzljdmVES0VDcDMvb29yeGVJdGdLbHhVKzdlVmRvMnJSTWVqYWtZVW1DK2dB?=
+ =?utf-8?B?ZVNZR3FhMkFSMy9hN0V0dUdlOEtSRFJsRFBqallraTRRK1MyUlprY0dNT0dG?=
+ =?utf-8?B?Q3FVblplUlRrQWlEYThSMjBZc3lQZGRkaEdwdEZpamZRKzgrRzJEcUg0SE1U?=
+ =?utf-8?B?YTRMcmcrWTlxcjZxcTk2bnF4d3I2Qko0Q1RZOHBwdm9oUUpHTlVkOWwxTWd3?=
+ =?utf-8?B?dHd6TTRiYTF4TXNKelU2c2pZY29pV040WWJ0ZC9MWnpBbDliaXFPZkc0Y2dp?=
+ =?utf-8?B?ZW8vc0xDNmtqZEdTSzBkUVFRNUtRQzV2L1I2QTR5ZGJuN1ZHMXBrOVY0TGpp?=
+ =?utf-8?B?UDUvNThQYnFUU2RkamFuSmMxS0RDNkJwRngydWJ3V1NLdXhwdmlrRGRWMG9v?=
+ =?utf-8?B?L1pZZ0N1bVU4VHpZakc3a0RCdGVxTUZIVVRENUlHckhRaW9YU0FsdUFwdlhR?=
+ =?utf-8?B?d2dxb29UK3N1cDNFVW9qV1VObjdWTjQxemdmN3JsR2Nhcit1cWttR1laV2o1?=
+ =?utf-8?B?M3h4NWZpYTVVSU1scGI3bVpEK2JleC9EendlN0RSbm9nb20xVVhXcys1cW40?=
+ =?utf-8?B?OGF4eWRNVTlUaUFYRDFxTGRldFNpYzdUcEU3VGhTMXI4OTM5NmE3Uk1Ucmta?=
+ =?utf-8?B?aTRlSVZsNzVRNGkrVGZQWXpJZEdnSWgySldQSFZMMjMrZWVEQUdpbEw4ZWlB?=
+ =?utf-8?B?Y0JScHh5YzJyOCtQZHl5clhsdTk2d215ZDQ0MWhDK0RtbXBEc2poRGRFdUo5?=
+ =?utf-8?B?bk4xTWVpa3RhcGRHbUU5dXZrSEFpQlBUUWhzclV1Y2ZmTEd0VUlrYVl5S2xt?=
+ =?utf-8?B?a0hwTzMyaEhVcEpTemdLQTFlMGFoenZSWUdLNkxDUEdmSnA4WlZYaWJ3Tlg1?=
+ =?utf-8?B?UG9PTzRJcUNOdWlPVjM1STJRWjdvQUx0MGE2SVhvc0kwVnFCZFZvWVRSVDgr?=
+ =?utf-8?B?WTFyM2ZVTVJha1dQVGhCd1FaZ2Eyby9UV2JjMnRpQ3QwYjVaWElwSVNjem0z?=
+ =?utf-8?B?S0JOa2RzNUFqVWFFdzYzejV5K2RMZzUzNWloNy9lSCtVa2RyVmhmdGllMEU2?=
+ =?utf-8?Q?Qi8BjcyY8u3oT8fvf7Kv6C45G?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32b3673e-be7a-4c58-423a-08de31fdf089
+X-MS-Exchange-CrossTenant-AuthSource: CH1PPFDAD84AB72.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR13MB7198.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6e7e94-da13-414a-f40b-08de31a320b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Dec 2025 13:03:03.1330
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2025 23:53:06.7840
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 74fe92c5-ef57-4d1a-a0e7-9451117d9272
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C9y5lSiZsbIcnZbJlovzDqucSCVZQ+CEDSmOUQfonbfkOXfVE1BHGxoQXhSS92LwlPQA7uFDoY56KN9SzMaivo/Lpx6HwS2d1wvmhdT7aBE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR13MB5493
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4yxlJVmSBa7JCU/gfvGvqY7CdwDDbOjKR6wxxJhAxvldfAV3G4V0K7FN+tbJoc2hPdgoSstYnEK73JhfutW11g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
 
---_000_LV3PR13MB7198CC2543B453D23178F2CCEED8ALV3PR13MB7198namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Adds support for disabling the ast2600 FMC_WDT2 through
+a device tree entry in the fmc node.
+Set `aspeed,watchdog-disable` in your device tree to have
+the driver disable it.
 
-Query regarding phosphor-networkd:
+Signed-off-by: Marc Olberding <molberding@nvidia.com>
+---
+ drivers/spi/aspeed_spi.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-With the openbmc version 2.18, I have written a custom software module that=
- registers a callback to monitor the Dbus interface signals: "InterfacesAdd=
-ed" and "InterfacesRemoved" from the phosphor-networkd.
-I tried switching my ethernet interface eth0 on AST2600 SoC from DHCP to St=
-atic IP.
+diff --git a/drivers/spi/aspeed_spi.c b/drivers/spi/aspeed_spi.c
+index 54520122f1c48c8b2052b4b1e47445a9b990d25e..de954e477aa15e6d1be042a2aee47f5a501178da 100644
+--- a/drivers/spi/aspeed_spi.c
++++ b/drivers/spi/aspeed_spi.c
+@@ -30,14 +30,16 @@ struct aspeed_spi_regs {
+ 					/* 0x30 .. 0x38 Segment Address */
+ 	u32 _reserved1[5];		/* .. */
+ 	u32 soft_rst_cmd_ctrl;	/* 0x50 Auto Soft-Reset Command Control */
+-	u32 _reserved2[11];		/* .. */
++	u32 _reserved2[4];		/* .. */
++	u32 wdt2_ctrl;			/* 0x64 FMC_WDT2 control */
++	u32 _reserved3[6];		/* .. */
+ 	u32 dma_ctrl;			/* 0x80 DMA Control/Status */
+ 	u32 dma_flash_addr;		/* 0x84 DMA Flash Side Address */
+ 	u32 dma_dram_addr;		/* 0x88 DMA DRAM Side Address */
+ 	u32 dma_len;			/* 0x8c DMA Length Register */
+ 	u32 dma_checksum;		/* 0x90 Checksum Calculation Result */
+ 	u32 timings;			/* 0x94 Read Timing Compensation */
+-	u32 _reserved3[1];
++	u32 _reserved4[1];
+ 	/* not used */
+ 	u32 soft_strap_status;		/* 0x9c Software Strap Status */
+ 	u32 write_cmd_filter_ctrl;	/* 0xa0 Write Command Filter Control */
+@@ -45,7 +47,7 @@ struct aspeed_spi_regs {
+ 	u32 lock_ctrl_reset;		/* 0xa8 Lock Control (SRST#) */
+ 	u32 lock_ctrl_wdt;		/* 0xac Lock Control (Watchdog) */
+ 	u32 write_addr_filter[8];	/* 0xb0 Write Address Filter */
+-	u32 _reserved4[12];
++	u32 _reserved5[12];
+ 	u32 fully_qualified_cmd[20];	/* 0x100 Fully Qualified Command */
+ 	u32 addr_qualified_cmd[12];	/* 0x150 Address Qualified Command */
+ };
+@@ -163,7 +165,8 @@ struct aspeed_spi_regs {
+ #define SPI_3B_AUTO_CLR_REG   0x1e6e2510
+ #define SPI_3B_AUTO_CLR       BIT(9)
+ 
+-
++/* FMC_WDT2 control register */
++#define WDT2_ENABLE		BIT(0)
+ /*
+  * flash related info
+  */
+@@ -267,6 +270,7 @@ struct aspeed_spi_priv {
+ 	ulong hclk_rate; /* AHB clock rate */
+ 	u8 num_cs;
+ 	bool is_fmc;
++	bool disable_wdt;
+ 
+ 	struct aspeed_spi_flash flashes[ASPEED_SPI_MAX_CS];
+ 	u32 flash_count;
+@@ -683,6 +687,9 @@ static int aspeed_spi_controller_init(struct aspeed_spi_priv *priv)
+ 	setbits_le32(&priv->regs->conf,
+ 		     CONF_ENABLE_W2 | CONF_ENABLE_W1 | CONF_ENABLE_W0);
+ 
++	if (priv->is_fmc && priv->disable_wdt)
++		clrbits_le32(&priv->regs->wdt2_ctrl, WDT2_ENABLE);
++
+ 	/*
+ 	 * Set safe default settings for each device. These will be
+ 	 * tuned after the SPI flash devices are probed.
+@@ -1907,6 +1914,10 @@ static int aspeed_spi_probe(struct udevice *bus)
+ 	 * SPI controllers
+ 	 */
+ 	priv->is_fmc = dev_get_driver_data(bus);
++	if (device_is_compatible(bus, "aspeed,ast2600-fmc") &&
++	    dev_read_bool(bus, "aspeed,watchdog-disable"))
++		priv->disable_wdt = true;
++
+ 
+ 	ret = aspeed_spi_controller_init(priv);
+ 	if (ret)
 
-I could assign static IP successfully to eth0 interface and DHCP IP resourc=
-e is released. But, I have several observations:
+-- 
+2.34.1
 
-  1.  I see "InterfaceAdded" Dbus signal emitted first from the phosphor-ne=
-twork for DHCP->Static transition. I believe it represents a creation of a =
-dbus static IP object, interface, and properties.
-  2.  Followed with it, "InterfaceRemoved" signal is emitted from the phosp=
-hor-network that deletes existing DHCP IP object.
-  3.  In the signal callback handlers, I have a custom implementation that =
-consists of a mutex lock for my database that is acquired when the "Interfa=
-ceRemoved" signal is received and same lock is released when "InterfaceAdde=
-d" signal is received. Additionally, I did several database updates based o=
-n the signal received.
-
-Now, I see an issue where this database lock is always acquired after DHCP-=
->Static transition. Additionally, some of the database properties are corru=
-pted. After root cause analysis for both the issues, i concluded that it is=
- due to the order of the signals mentioned in point 1 and 2. Consistently, =
-I see a similar order of the signals from phosphor-network i.e. "InterfacAd=
-ded" first followed by "InterfaceRemoved"
-
-I want to understand if there is a mechanism to control this order of the "=
-InterfaceAdded" and "InterfaceRemoved" signals from phosphor-network to ach=
-ieve consistent behavior align to my expectations. My expectation in this c=
-ase is "IntefaceRemoved" shall always be emitted first and then "InterfaceA=
-dded".
-
-Thanks,
-Pankaj Patil
-CONFIDENTIALITY NOTICE: The information contained in this message is confid=
-ential or protected by law. If you are not the intended recipient please co=
-ntact the sender and delete this message. Any unauthorized copying of this =
-message or unauthorized distribution of the information contained herein is=
- prohibited.
-
-
---_000_LV3PR13MB7198CC2543B453D23178F2CCEED8ALV3PR13MB7198namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ligatures:standardcontextual;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ligatures:standardcontextual;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Aptos",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:815686172;
-	mso-list-type:hybrid;
-	mso-list-template-ids:1851837318 67698703 67698713 67698715 67698703 67698=
-713 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style>
-</head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Query regarding pho=
-sphor-networkd:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">With the openbmc ve=
-rsion 2.18, I have written a custom software module that registers a callba=
-ck to monitor the Dbus interface signals: &#8220;InterfacesAdded&#8221; and=
- &#8220;InterfacesRemoved&#8221; from the phosphor-networkd.<o:p></o:p></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I tried switching m=
-y ethernet interface eth0 on AST2600 SoC from DHCP to Static IP.
-<br>
-<br>
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I could assign stat=
-ic IP successfully to eth0 interface and DHCP IP resource is released. But,=
- I have several observations:<o:p></o:p></span></p>
-<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
-lfo1"><span style=3D"font-size:11.0pt">I see &#8220;InterfaceAdded&#8221; D=
-bus signal emitted
-<b>first</b> from the phosphor-network for DHCP-&gt;Static transition. I be=
-lieve it represents a creation of a dbus static IP object, interface, and p=
-roperties.<o:p></o:p></span></li><li class=3D"MsoListParagraph" style=3D"ma=
-rgin-left:0in;mso-list:l0 level1 lfo1"><span style=3D"font-size:11.0pt">Fol=
-lowed with it, &#8220;InterfaceRemoved&#8221; signal is emitted from the ph=
-osphor-network that deletes existing DHCP IP object.<o:p></o:p></span></li>=
-<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
-lfo1"><span style=3D"font-size:11.0pt">In the signal callback handlers, I h=
-ave a custom implementation that consists of a mutex lock for my database t=
-hat is acquired when the &#8220;InterfaceRemoved&#8221;
- signal is received and same lock is released when &#8220;InterfaceAdded&#8=
-221; signal is received. Additionally, I did several database updates based=
- on the signal received.<o:p></o:p></span></li></ol>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Now, I see an issue=
- where this database lock is always acquired after DHCP-&gt;Static transiti=
-on. Additionally, some of the database properties are corrupted. After root=
- cause analysis for both the issues, i
- concluded that it is due to the order of the signals mentioned in point 1 =
-and 2. Consistently, I see a similar order of the signals from phosphor-net=
-work i.e. &#8220;InterfacAdded&#8221; first followed by &quot;InterfaceRemo=
-ved&#8221;<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I want to understan=
-d if there is a mechanism to control this order of the &#8220;InterfaceAdde=
-d&#8221; and &#8220;InterfaceRemoved&#8221; signals from phosphor-network t=
-o achieve consistent behavior align to my expectations. My expectation
- in this case is &#8220;IntefaceRemoved&#8221; shall always be emitted firs=
-t and then &#8220;InterfaceAdded&#8221;.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks,<o:p></o:p><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Pankaj Patil<o:p></=
-o:p></span></p>
-</div>
-<!-- Confidentiality notice banner -->
-<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
-h=3D"100%">
-<tbody>
-<tr>
-<!-- Remove the next line if you don't want the Gray bar on the left side -=
-->
-<td style=3D"background:#313131;padding:5pt 2pt 5pt 2pt"></td>
-<td width=3D"100%" cellpadding=3D"7px 6px 7px 15px" style=3D"background:#fb=
-fbfb;padding:5pt 4pt 5pt 12pt;word-wrap:break-word">
-<div style=3D"color:#222222; font-family: Arial, italic; font-size: 7pt;"><=
-!-- Adjust the font family and size here --><span style=3D"color:#222; font=
--weight:bold;">CONFIDENTIALITY NOTICE:</span> The information contained in =
-this message is confidential or protected
- by law. If you are not the intended recipient please contact the sender an=
-d delete this message. Any unauthorized copying of this message or unauthor=
-ized distribution of the information contained herein is prohibited.
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-<br>
-</body>
-</html>
-
---_000_LV3PR13MB7198CC2543B453D23178F2CCEED8ALV3PR13MB7198namp_--
 
