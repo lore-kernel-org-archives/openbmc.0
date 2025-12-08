@@ -1,121 +1,81 @@
-Return-Path: <openbmc+bounces-980-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-981-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7181ED3B7E2
-	for <openbmc@archiver.kernel.org>; Mon,  8 Dec 2025 23:07:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0969D3B7EA
+	for <openbmc@archiver.kernel.org>; Mon,  8 Dec 2025 23:07:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dQHgb5BHnz2yDl;
-	Tue, 09 Dec 2025 10:07:23 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765184806;
-	cv=none; b=Q3SaaTZ382uMsOnSvKytMG+unXo/1qFOqRS6LOsZVs/lT18UJLxNXm5TxxYo0Yx97NPfdHy3Dw3cgYXlqLb3KxmaKQmMadsTvaL/Uvkzby/FMA8GsDQvFII56pz1WWvKgr+ZcrfMSaW1HGFSnF6FKAamBqB9+s5NM49uoxhbnyqfsRVSxdM/7+BRc4CIW7xcIMJv1KJXNBQvM9weNtsrXBGktInTryTSBlrEaxYwt/NjQoNwHuAhLgZy0DDyqITGg5v6Ta5cD2NSiHaRfAHyCiBY8fNpTpnauFiyPDUFbTcpYwVr1giBb64lDvs8vfSXLBNqjfGJ6zmiFwat4w4IVg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dQHgj5YFqz2yFK;
+	Tue, 09 Dec 2025 10:07:29 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::132"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765181053;
+	cv=none; b=QcrZs+pm/LNbWgJqoI1DUtAXCgQefrmFYhLhbnNnJ76XNYws40+UmERRB7TWL8EVVLMjccigq73Q6sDaxP7SDL8N+yzYXDiIa9qezbaOyLSZdWw1Zjx9R1r7NK/LB4wdob21QYpbZwThEdpMVKfL72IlwH6H5eYW5/QSiuwVO80sc1yZobxzFOwfp2fAKaKCQM2nqsHoWf4a5/7PuJkvjxGC2abXOTJ1BBZ/F4S2Kba3wc3y1bWmkbDHXcaQUj3dYYsDmBAVh17NPBZVs9LYGCOIn9ZzsMrCMnlXZ36Tv3ZG3ZJ4doUUO5BGbnNL8/T2MRKX1f4KbdeJrG1Gp9oURg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1765184806; c=relaxed/relaxed;
-	bh=3l7HqtiahDXn2VN25ipfNfPWVxu+0LpLFpleJYNFMZQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nFmSUOLSghL2bUzvXU9wzYovS7ayZIRNR5IFL52LwEG8sS8grT+ldXBVqZxXTWn5PhExu19xKbqsuRDWEvmzpMg8kGwkcSN6rGeQbfv3cW5IsHStdcBKPgvyhtkSId+hxdb5OmaQh2fi3Bij6/b7LhE05UdFxmdJbuDImnLhOycnBhnugeTMLT5tBwtYhKm23J3q4Mx7qH6KSv1QaTEVHcbfniAuaLZBB0ZnAB4Dx79jQqkTSsMq8jxxed3TGhSg5T5bR+rwfpZU6LnR9mKnWJESS2YgMJtco07KliXYXEur3Wf13ge+dxC9GIGTGvcMdp+J5EHY+cLUFZxPB2SvYw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=suse.de; dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1q4XB/Nl; dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ytvdW7jN; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1q4XB/Nl; dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ytvdW7jN; dkim-atps=neutral; spf=pass (client-ip=195.135.223.131; helo=smtp-out2.suse.de; envelope-from=tiwai@suse.de; receiver=lists.ozlabs.org) smtp.mailfrom=suse.de
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=suse.de
+	t=1765181053; c=relaxed/relaxed;
+	bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=baDz1nwmNt6MX223K8CaxbXGjOejgrSsj81DOo9aumBmqXYFhvKyOMXQ7d7GZhowHXV0tsL8kZmVgS2tNFraIFcF0iWRwGmkLagGM4q8v9/UEXXtCYlQSN4JtegBW3EWA4lnBlWp/VvcCLP5WogO0dMg4R2A0OAnNZcyjY3UsoHLSSAu0POT7VYt+Npre9cQs+pu5Droyeg4KWy5T1xw5EiRebIPLoZ4DAvdY18a+NC6fzvvNy0TTvyCnBn6shJyU9jLEZqzxFS0jqypIh36i1/wBGbpzbn0+x002j7OvcZ8nNqKK8jXN+HNliIkBM+Sw7ff6WfWyzHVGMOk51pCyQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=HFraTrDq; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::132; helo=mail-lf1-x132.google.com; envelope-from=mazziesaccount@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1q4XB/Nl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ytvdW7jN;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=1q4XB/Nl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ytvdW7jN;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=HFraTrDq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=suse.de (client-ip=195.135.223.131; helo=smtp-out2.suse.de; envelope-from=tiwai@suse.de; receiver=lists.ozlabs.org)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::132; helo=mail-lf1-x132.google.com; envelope-from=mazziesaccount@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dPx1d0YqYz2yKp
-	for <openbmc@lists.ozlabs.org>; Mon, 08 Dec 2025 20:06:44 +1100 (AEDT)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 940565BE9F;
-	Mon,  8 Dec 2025 09:06:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1765184801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3l7HqtiahDXn2VN25ipfNfPWVxu+0LpLFpleJYNFMZQ=;
-	b=1q4XB/NlqyshiONdOX9hfb1mOHt6kWVTz4jdVlvVyJ2oABv8to3wYe9bYGSIGYIRL9TeiZ
-	9YiEhvwgZB940ExRk/hTDCsV2vDWTrjCOk08DFRWhn6pUwwjOxqwUsWMAf3/4+Pw115ABI
-	/EWTyIlfYpBV/fIgSykysE0SuSEJ4JY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1765184801;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3l7HqtiahDXn2VN25ipfNfPWVxu+0LpLFpleJYNFMZQ=;
-	b=ytvdW7jNBDJe2kkQ+8Lmguq/A4kIvPR8KWYSF1lhd+l2d6gVRPeU7QAZ5KY8OfSidrlidt
-	xBx/U5MRxM0t+ABQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1765184801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3l7HqtiahDXn2VN25ipfNfPWVxu+0LpLFpleJYNFMZQ=;
-	b=1q4XB/NlqyshiONdOX9hfb1mOHt6kWVTz4jdVlvVyJ2oABv8to3wYe9bYGSIGYIRL9TeiZ
-	9YiEhvwgZB940ExRk/hTDCsV2vDWTrjCOk08DFRWhn6pUwwjOxqwUsWMAf3/4+Pw115ABI
-	/EWTyIlfYpBV/fIgSykysE0SuSEJ4JY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1765184801;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3l7HqtiahDXn2VN25ipfNfPWVxu+0LpLFpleJYNFMZQ=;
-	b=ytvdW7jNBDJe2kkQ+8Lmguq/A4kIvPR8KWYSF1lhd+l2d6gVRPeU7QAZ5KY8OfSidrlidt
-	xBx/U5MRxM0t+ABQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 03DCB3EA63;
-	Mon,  8 Dec 2025 09:06:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DDBVOCCVNmmuBgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 08 Dec 2025 09:06:40 +0000
-Date: Mon, 08 Dec 2025 10:06:40 +0100
-Message-ID: <87fr9luyu7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Arnd Bergmann
- <arnd@arndb.de>,
-	andrew.jones@linux.dev,
-	linux-omap@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-sound@vger.kernel.org,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	linux-mips@vger.kernel.org,
-	asahi@lists.linux.dev,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	chrome-platform@lists.linux.dev,
-	Paul Cercueil <paul@crapouillou.net>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-gpio@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
-	linux-sh@vger.kernel.org,
-	x86@kernel.org,
-	Max Filippov <jcmvbkbc@gmail.com>
-Subject: Re: Kconfig dangling references (BZ 216748)
-In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.1 Mule/6.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dPvdR1bwnz2yG2
+	for <openbmc@lists.ozlabs.org>; Mon, 08 Dec 2025 19:04:09 +1100 (AEDT)
+Received: by mail-lf1-x132.google.com with SMTP id 2adb3069b0e04-5943b62c47dso4071262e87.1
+        for <openbmc@lists.ozlabs.org>; Mon, 08 Dec 2025 00:04:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1765181045; x=1765785845; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
+        b=HFraTrDq8Z6YnbpbbZA6kyBnUVhK/pZXnfl5pEaDYYaYbADHKd8/M30DyS0zYA9mxr
+         yplYTGBgVQxIWTyTX6vspGrs0vds1weBdj2WT5xI+cmXf4PSPdNKeW7Bns2fkFcKDKEd
+         R/oA5A6AOxALNJVrGiqWXTUVNKiMueld1Pl8296T/TiOAJUnq9QB++6rtzs4TXAabb4P
+         dxcr4vgKr+pFB5p9Edv9uV6ZPAG1zvPP5kv7OMquHaooTqTpZnmh6HW8WAL760d0KNwI
+         F12C+Gi8sZGR80VCqs1xFJQty50XB1AublRu6HssMvrtydsSQIzFEJeqHCswOaLtuxjp
+         JyxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765181045; x=1765785845;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
+        b=Mc7ELFZb8Tgq2heakE87VHJ9oCHKYkEdcNFYGblfuyIF85Ijig6TFMYJencAX8Ncd9
+         QW5V6JXyrnlDQvVEofyta6MabLkUJu5o72MbJcW6QeOmx5VXbWaofpNu+40ilO24WcWK
+         8NIzBU8IWcVCAXCNsP6SMMAqu/x8LWXU3isgc15anot4X09KiKpAFeNg9RZ1n3a90f11
+         DQbQd1SeHwT05mt3kjLgGnA6y0rwuW/o4x3887xKm1g4sVPECtlZvcARs+3Iz12eDZYs
+         X2BPrO/meo23oWBTXtA6AggNTNEvyqhRMQBNpTBPhXIjMl+iR2Ywui4XOaz0P/pIEeJt
+         WQPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXcQKu0u84Rl2xqrP6XbXTZ6Owz6SJikhVnxjzfPbyXU9YD9c6FgawTrm/b9VKTk8PfyeFaNOer@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyyX24nZnB0c7f17xOdeOkdDtSPjDkMLq2CijZbV2ChkbkKtHGJ
+	HZ/JcFYLKc7xKGmpSSfOm2q2zbQm9vtv74UhuaGIIWDzi1rPrzKezggP
+X-Gm-Gg: ASbGncsqHYfmuNx9bVrF+QCLdJHSr9GqkEF4XglxzQJkHewd+eYwAOdCOe/1q28RFQh
+	hnYkikUuKdV44JqecZgUmP+pcgAxFSXywLwjOs+cxOfMFO8v+xB4J1rHl0ec9wl4PBO7aCMuukH
+	K0HfonD8EDZJ3+vK2lzEVHVMzEeW5eNEcGx8ySa/CK4+g9giZFE5fipGFwtVMdnRcAPedfjw+Lg
+	PoETP8nd/MtJw3l/TQZuGFAL0k0OSh+yGCX5CLtEfOgDLztLF65U3YT09ZVjEhrUZ+xjX/tQ8FS
+	1S7w6m3ywiF1YumP6mx+FQ+jA6wfKZkm817UaEVs+rtqNZvXZ3Jud8rs5batFs6BCDkoNtDY3wF
+	9iXczqJ1IIpDRqXbK9StL6b8IYKINL0fMNg2bRhWTZ1BuDd+QDgxCc5BMFxl4VqeVWmYhQmWOvE
+	7R20ySL0/wmCPPJ086bvoCXqnAKmWyB5Os6iWrfhlza6R3drJ1gbP1N0SteQzaLI1zYqGIojlUl
+	zLiJhs=
+X-Google-Smtp-Source: AGHT+IEtsjzvo2jB+dbI9VQ7yZrjbx6yvK3VRttDJmqZME09yWJ/CiejjRuxkvbF6yvGpf9tC/V6mQ==
+X-Received: by 2002:a05:6512:104f:b0:592:fb5d:6300 with SMTP id 2adb3069b0e04-5987e88bb77mr1971804e87.10.1765181045203;
+        Mon, 08 Dec 2025 00:04:05 -0800 (PST)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-597d7c1e2b7sm3942418e87.51.2025.12.08.00.04.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 08 Dec 2025 00:04:04 -0800 (PST)
+Message-ID: <bcbe66b0-23bc-4ba1-93ab-f2c09262e07b@gmail.com>
+Date: Mon, 8 Dec 2025 10:04:03 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -126,54 +86,56 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,arndb.de,linux.dev,lists.ozlabs.org,linux.intel.com,lists.linux.dev,lists.freedesktop.org,sys-base.io,crapouillou.net,st-md-mailman.stormreply.com,lists.infradead.org,kernel.org,pengutronix.de];
-	R_RATELIMIT(0.00)[to_ip_from(RLdkcz77k7ty1a1n58a6bzpetp)];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Kconfig dangling references (BZ 216748)
+To: Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, andrew.jones@linux.dev, linux-omap@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-sound@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-mips@vger.kernel.org, asahi@lists.linux.dev,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Paul Kocialkowski <paulk@sys-base.io>, chrome-platform@lists.linux.dev,
+ Paul Cercueil <paul@crapouillou.net>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ linux-gpio@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Cameron <jic23@kernel.org>,
+ Vaibhav Hiremath <hvaibhav.linux@gmail.com>, linux-sh@vger.kernel.org,
+ x86@kernel.org, Max Filippov <jcmvbkbc@gmail.com>
+References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 08 Dec 2025 03:04:09 +0100,
-Randy Dunlap wrote:
+On 08/12/2025 04:04, Randy Dunlap wrote:
+> from  https://bugzilla.kernel.org/show_bug.cgi?id=216748
 > 
-> SND_SOC_AC97_BUS_NEW ---
-> sound/soc/pxa/Kconfig:21:	select SND_SOC_AC97_BUS_NEW
+> The bugzilla entry includes a Perl script and a shell script.
+> This is the edited result of running them (I removed some entries that were noise).
+> 
+> I'll try to Cc: all of the relevant mailing lists or individuals.
+> 
 
-This must be a bogus entry added in commit 1c8bc7b3de5e ("ASoC: pxa:
-switch to new ac97 bus support"), which can be dropped.
+Thanks Randy! This is good.
 
-> SND_SOC_CS35L56_CAL_SYSFS_COMMON ---
-> sound/soc/codecs/Kconfig:920:	select SND_SOC_CS35L56_CAL_SYSFS_COMMON
+> TEST_KUNIT_DEVICE_HELPERS ---
+> drivers/iio/test/Kconfig:11:	select TEST_KUNIT_DEVICE_HELPERS
+This is a config for stuff that never went upstream. It was replaced by 
+more sophisticated kunit_device, which I believe is behind the 
+'CONFIG_KUNIT'. So, this should be dropped, thanks!
 
-The buggy commit was 32172cf3cb54 ("ASoC: cs35l56: Allow restoring
-factory calibration through ALSA control").
-This looks like a fallout at changing from sysfs to debugfs, so this
-should be SND_SOC_CS35L56_CAL_DEBUGFS_COMMON instead.
+Yours,
+	-- Matti
 
+---
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-thanks,
-
-Takashi
+~~ When things go utterly wrong vim users can always type :help! ~~
 
