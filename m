@@ -1,81 +1,65 @@
-Return-Path: <openbmc+bounces-981-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-982-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0969D3B7EA
-	for <openbmc@archiver.kernel.org>; Mon,  8 Dec 2025 23:07:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F34ED3B7E2
+	for <openbmc@archiver.kernel.org>; Mon,  8 Dec 2025 23:16:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dQHgj5YFqz2yFK;
-	Tue, 09 Dec 2025 10:07:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::132"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765181053;
-	cv=none; b=QcrZs+pm/LNbWgJqoI1DUtAXCgQefrmFYhLhbnNnJ76XNYws40+UmERRB7TWL8EVVLMjccigq73Q6sDaxP7SDL8N+yzYXDiIa9qezbaOyLSZdWw1Zjx9R1r7NK/LB4wdob21QYpbZwThEdpMVKfL72IlwH6H5eYW5/QSiuwVO80sc1yZobxzFOwfp2fAKaKCQM2nqsHoWf4a5/7PuJkvjxGC2abXOTJ1BBZ/F4S2Kba3wc3y1bWmkbDHXcaQUj3dYYsDmBAVh17NPBZVs9LYGCOIn9ZzsMrCMnlXZ36Tv3ZG3ZJ4doUUO5BGbnNL8/T2MRKX1f4KbdeJrG1Gp9oURg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dQHsl032xz2xqm;
+	Tue, 09 Dec 2025 10:16:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.233.101.22
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765218249;
+	cv=none; b=WWiSdfSXH/UbbQd7TOrxukFmXgXevTWqoIxjeaVT+iuqi+m2/ZwW73qeu0N79oJC7LI5Ly8DFzHpEQtOSRnZR3v0rjwL1RP9+Eiu7PSonjb4qtyKljUlKFQDRCqeTw98PydGq7XKsU6VfZLa61X/nNqmjaK5O8ZBZkHeNGSeb20+TNwHMwMmtd2npki7dF+enK15BN1MSWjlPyTu5NEgg0rHXO8dGP43eQN6CeInK4RKTjxNbiWWhug0ZjEq8MfIZAPKdcuCbzqMPGIbXBCMKHkAxISGHsguobFUGpUdFpHUalFYhzgN2xzNj+DAud+tCbSec2V4/I4scT7BI+acRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1765181053; c=relaxed/relaxed;
-	bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=baDz1nwmNt6MX223K8CaxbXGjOejgrSsj81DOo9aumBmqXYFhvKyOMXQ7d7GZhowHXV0tsL8kZmVgS2tNFraIFcF0iWRwGmkLagGM4q8v9/UEXXtCYlQSN4JtegBW3EWA4lnBlWp/VvcCLP5WogO0dMg4R2A0OAnNZcyjY3UsoHLSSAu0POT7VYt+Npre9cQs+pu5Droyeg4KWy5T1xw5EiRebIPLoZ4DAvdY18a+NC6fzvvNy0TTvyCnBn6shJyU9jLEZqzxFS0jqypIh36i1/wBGbpzbn0+x002j7OvcZ8nNqKK8jXN+HNliIkBM+Sw7ff6WfWyzHVGMOk51pCyQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=HFraTrDq; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::132; helo=mail-lf1-x132.google.com; envelope-from=mazziesaccount@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=HFraTrDq;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::132; helo=mail-lf1-x132.google.com; envelope-from=mazziesaccount@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com [IPv6:2a00:1450:4864:20::132])
+	t=1765218249; c=relaxed/relaxed;
+	bh=22yBtqajb8EKYr1HfLXA4Hs90TWYxmKi/30Koi0Li3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ERAVS3ITZynBXStxKApJSomjCzQwFOFBUXnWIC8uUCaILQ8FnUO+5QzpA4Sao/CproWXP6ZDKz3u609ycd2epHIM0xhO+VAqvHOGMUyX68kuvHSeLkne5td2fKtfp0W/i4SSEelZ/U6NFQleim5x4l3WfrNTqtN+0KedR57oKFbHiA1Dy9savPIgaZEsvHJs0R2IL1AaXi6RnkpTfYF4owfAQkKZ5npogBuin4ipy/NG01IvAExazzopo6v0ddCy+/6ER5URdg07KNrht0NhYrksEgvtQpyg2tM1NmqvDBngLdPAPoV32f5cNzFy5ly/Spp7qFTCrIE30VTyfog3Bw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass (client-ip=185.233.101.22; helo=leonov.paulk.fr; envelope-from=paulk@sys-base.io; receiver=lists.ozlabs.org) smtp.mailfrom=sys-base.io
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sys-base.io (client-ip=185.233.101.22; helo=leonov.paulk.fr; envelope-from=paulk@sys-base.io; receiver=lists.ozlabs.org)
+X-Greylist: delayed 584 seconds by postgrey-1.37 at boromir; Tue, 09 Dec 2025 05:24:07 AEDT
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dPvdR1bwnz2yG2
-	for <openbmc@lists.ozlabs.org>; Mon, 08 Dec 2025 19:04:09 +1100 (AEDT)
-Received: by mail-lf1-x132.google.com with SMTP id 2adb3069b0e04-5943b62c47dso4071262e87.1
-        for <openbmc@lists.ozlabs.org>; Mon, 08 Dec 2025 00:04:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1765181045; x=1765785845; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
-        b=HFraTrDq8Z6YnbpbbZA6kyBnUVhK/pZXnfl5pEaDYYaYbADHKd8/M30DyS0zYA9mxr
-         yplYTGBgVQxIWTyTX6vspGrs0vds1weBdj2WT5xI+cmXf4PSPdNKeW7Bns2fkFcKDKEd
-         R/oA5A6AOxALNJVrGiqWXTUVNKiMueld1Pl8296T/TiOAJUnq9QB++6rtzs4TXAabb4P
-         dxcr4vgKr+pFB5p9Edv9uV6ZPAG1zvPP5kv7OMquHaooTqTpZnmh6HW8WAL760d0KNwI
-         F12C+Gi8sZGR80VCqs1xFJQty50XB1AublRu6HssMvrtydsSQIzFEJeqHCswOaLtuxjp
-         JyxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1765181045; x=1765785845;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0+tebP17XJiSVpHNLRMqnpjIXpj4TNVdcjDVZw4M8+c=;
-        b=Mc7ELFZb8Tgq2heakE87VHJ9oCHKYkEdcNFYGblfuyIF85Ijig6TFMYJencAX8Ncd9
-         QW5V6JXyrnlDQvVEofyta6MabLkUJu5o72MbJcW6QeOmx5VXbWaofpNu+40ilO24WcWK
-         8NIzBU8IWcVCAXCNsP6SMMAqu/x8LWXU3isgc15anot4X09KiKpAFeNg9RZ1n3a90f11
-         DQbQd1SeHwT05mt3kjLgGnA6y0rwuW/o4x3887xKm1g4sVPECtlZvcARs+3Iz12eDZYs
-         X2BPrO/meo23oWBTXtA6AggNTNEvyqhRMQBNpTBPhXIjMl+iR2Ywui4XOaz0P/pIEeJt
-         WQPQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXcQKu0u84Rl2xqrP6XbXTZ6Owz6SJikhVnxjzfPbyXU9YD9c6FgawTrm/b9VKTk8PfyeFaNOer@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyyX24nZnB0c7f17xOdeOkdDtSPjDkMLq2CijZbV2ChkbkKtHGJ
-	HZ/JcFYLKc7xKGmpSSfOm2q2zbQm9vtv74UhuaGIIWDzi1rPrzKezggP
-X-Gm-Gg: ASbGncsqHYfmuNx9bVrF+QCLdJHSr9GqkEF4XglxzQJkHewd+eYwAOdCOe/1q28RFQh
-	hnYkikUuKdV44JqecZgUmP+pcgAxFSXywLwjOs+cxOfMFO8v+xB4J1rHl0ec9wl4PBO7aCMuukH
-	K0HfonD8EDZJ3+vK2lzEVHVMzEeW5eNEcGx8ySa/CK4+g9giZFE5fipGFwtVMdnRcAPedfjw+Lg
-	PoETP8nd/MtJw3l/TQZuGFAL0k0OSh+yGCX5CLtEfOgDLztLF65U3YT09ZVjEhrUZ+xjX/tQ8FS
-	1S7w6m3ywiF1YumP6mx+FQ+jA6wfKZkm817UaEVs+rtqNZvXZ3Jud8rs5batFs6BCDkoNtDY3wF
-	9iXczqJ1IIpDRqXbK9StL6b8IYKINL0fMNg2bRhWTZ1BuDd+QDgxCc5BMFxl4VqeVWmYhQmWOvE
-	7R20ySL0/wmCPPJ086bvoCXqnAKmWyB5Os6iWrfhlza6R3drJ1gbP1N0SteQzaLI1zYqGIojlUl
-	zLiJhs=
-X-Google-Smtp-Source: AGHT+IEtsjzvo2jB+dbI9VQ7yZrjbx6yvK3VRttDJmqZME09yWJ/CiejjRuxkvbF6yvGpf9tC/V6mQ==
-X-Received: by 2002:a05:6512:104f:b0:592:fb5d:6300 with SMTP id 2adb3069b0e04-5987e88bb77mr1971804e87.10.1765181045203;
-        Mon, 08 Dec 2025 00:04:05 -0800 (PST)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-597d7c1e2b7sm3942418e87.51.2025.12.08.00.04.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 08 Dec 2025 00:04:04 -0800 (PST)
-Message-ID: <bcbe66b0-23bc-4ba1-93ab-f2c09262e07b@gmail.com>
-Date: Mon, 8 Dec 2025 10:04:03 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dQ9Nl5mqZz2xFS
+	for <openbmc@lists.ozlabs.org>; Tue, 09 Dec 2025 05:24:07 +1100 (AEDT)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 54A7B1F8005D
+	for <openbmc@lists.ozlabs.org>; Mon,  8 Dec 2025 18:13:58 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 7BAEBB121CB; Mon,  8 Dec 2025 18:13:56 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 74EE8B121BB;
+	Mon,  8 Dec 2025 18:13:53 +0000 (UTC)
+Date: Mon, 8 Dec 2025 19:13:50 +0100
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, andrew.jones@linux.dev,
+	linux-omap@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	linux-mips@vger.kernel.org, asahi@lists.linux.dev,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	chrome-platform@lists.linux.dev,
+	Paul Cercueil <paul@crapouillou.net>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Linux ARM <linux-arm-kernel@lists.infradead.org>,
+	linux-gpio@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+	linux-sh@vger.kernel.org, x86@kernel.org,
+	Max Filippov <jcmvbkbc@gmail.com>
+Subject: Re: Kconfig dangling references (BZ 216748)
+Message-ID: <aTcVXrUXVsyjaT22@shepard>
+References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,55 +71,72 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kconfig dangling references (BZ 216748)
-To: Randy Dunlap <rdunlap@infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Arnd Bergmann
- <arnd@arndb.de>, andrew.jones@linux.dev, linux-omap@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-sound@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-mips@vger.kernel.org, asahi@lists.linux.dev,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Paul Kocialkowski <paulk@sys-base.io>, chrome-platform@lists.linux.dev,
- Paul Cercueil <paul@crapouillou.net>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-gpio@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Cameron <jic23@kernel.org>,
- Vaibhav Hiremath <hvaibhav.linux@gmail.com>, linux-sh@vger.kernel.org,
- x86@kernel.org, Max Filippov <jcmvbkbc@gmail.com>
-References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="z9eEZ2V8rb9VqsSG"
+Content-Disposition: inline
 In-Reply-To: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 08/12/2025 04:04, Randy Dunlap wrote:
-> from  https://bugzilla.kernel.org/show_bug.cgi?id=216748
-> 
+
+--z9eEZ2V8rb9VqsSG
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Randy,
+
+On Sun 07 Dec 25, 18:04, Randy Dunlap wrote:
+> from  https://bugzilla.kernel.org/show_bug.cgi?id=3D216748
+>=20
 > The bugzilla entry includes a Perl script and a shell script.
-> This is the edited result of running them (I removed some entries that were noise).
-> 
-> I'll try to Cc: all of the relevant mailing lists or individuals.
-> 
+> This is the edited result of running them (I removed some entries that we=
+re noise).
 
-Thanks Randy! This is good.
+[...]
 
-> TEST_KUNIT_DEVICE_HELPERS ---
-> drivers/iio/test/Kconfig:11:	select TEST_KUNIT_DEVICE_HELPERS
-This is a config for stuff that never went upstream. It was replaced by 
-more sophisticated kunit_device, which I believe is behind the 
-'CONFIG_KUNIT'. So, this should be dropped, thanks!
+> DRM_KMS_DMA_HELPER ---
+> drivers/gpu/drm/adp/Kconfig:9:	select DRM_KMS_DMA_HELPER
+> drivers/gpu/drm/logicvc/Kconfig:7:	select DRM_KMS_DMA_HELPER
 
-Yours,
-	-- Matti
+For these two, the symbol was removed in commit
+09717af7d13d63df141ae6e71686289989d17efd but these two drivers either were
+missed by the batch rename or were introduced a bit later.
 
----
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+Since the symbol selected DRM_GEM_CMA_HELPER (which is still needed by the
+drivers), it should be replaced with DRM_GEM_CMA_HELPER.
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+Are you expecting to craft a patch for fixing this or should I do it myself?
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--z9eEZ2V8rb9VqsSG
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmk3FV4ACgkQhP3B6o/u
+lQxHMA/9EINPzAC/mNsqKqe+ejzVAFDvbkqgtj46jdHchIRyg5QqUNEoQvUKACwR
+bZftHenlJS3ho4n0eejvmJG9LkV6HYA4X0vXrPKGJTBCMgy1CUl7j7v8ZFn7qhcc
+KmyK3klG9hxRNAFrMTlxaE3uzNZWaZ56eEINuq5RkJWv5ieiadTkXR03L4x2l++z
+B1RqTh3yh5d57Ckfs7lLGfmiDUQAkhdAm1CASv6bO1jKRiyhuSN95aOZFZ94DV+m
+oV44vbSx4aXyh1lb07PxtPMa+WITGI6/mW0+TKhRNd0eAoO19K0zkSNA18KjgiOw
+3m/4Vs1pdWSKCTDIgtcymufTpdjqWt5LEpxEuzLprgUXrpoQbS7paAfhB4Ex6yIR
+CcQfarVp0SM0/OI5kZc40xoz6UEHrCjw7+loxHuUV+2KHAhfRlQhLcScrQXUO/X3
+L2vzAFURuGyVpPbZnq2ftkMT4h6o+W93ZtKP8vIHJjDijdwM3NAt90FT9byKXAYP
+AvVBPERmf9+savPI0eDYuO825wAcF3D2rvF4ZElPj4+OD6sq93Z52bDN3CUFHsMD
+tKp3GKwBxZ0ENUxQZvrIINzLx40EXOq/MDI1JZd4Nl89W5BBk6QGIRE4hj0FNctf
++4gCjq9z339Ik0u6aVtzq/jdewPuTo2wZ5DVPxsH1RyPX2cBWAg=
+=azY3
+-----END PGP SIGNATURE-----
+
+--z9eEZ2V8rb9VqsSG--
 
