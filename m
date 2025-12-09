@@ -1,71 +1,92 @@
-Return-Path: <openbmc+bounces-1025-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1026-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1665FD5B16E
-	for <openbmc@archiver.kernel.org>; Mon, 15 Dec 2025 02:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6691CD59D99
+	for <openbmc@archiver.kernel.org>; Mon, 15 Dec 2025 02:16:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dV3Zd5nW7z2yFW;
-	Mon, 15 Dec 2025 13:16:09 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765239373;
-	cv=none; b=LCyj8DloT3W1bvyxeeSeogNZg9vM7vGcP9k5lmizM3+uM5kBuGFcoiNCDtKsesa9/4UIVwumjpiahtuwXC8PUGywJpA40fX021DlAAoHv0rdJ+L7sddjLYxs7fnO0vCuwz+9VYTAk4YpefbqD8GKMv/PI/URpNXSc6Lb1UM7dwhi9UwOaM+lmPQyf1ldrdOHdRr7W6g7oQpovR0x3sVenTvg9tu9K2BgiKqF4AYfcYdSnJ16xAiIFWS0gbuTAsvLVFHxQNfRRT4IElZhi35qsl60RScLkb1DsEceqKSFP7ni05y0LC1iJiUSh3js/EZsNKEOZn1BMi+dMRcOFnvcHg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dV3Zf4Y92z2yFm;
+	Mon, 15 Dec 2025 13:16:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765280550;
+	cv=none; b=bVXMpJ54bX5bITh5+GfNJv7PpKiMpa7BdJUEqt0+k0NTydB5Nq1GXVa7kLV13JKA9DI2JrJYBREgAXBl9bsIY1cEm+fIGv0IB+92RTR+YmQbpbKZcnvU5vEvIM5OT85iCaGwSc9o65wEcSUxGDjcugPYVV5Ztg1narbT06f/M+rC2tHhVl5Kk40D9g29P2epoVZXL+6HSF5CXavmfuez5WSEiD7kUWhyXsg7/JK9Z60s+g/qkQbEq4/dZRDHY4vsADV8b1OR/WyfbDg2ihX3v3g9xJJGvIi0yDWTDgVrH/Ho4DPyTeuYY6Dl5vGeye0uXvuC6TC5bzH7etRLvJwRhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1765239373; c=relaxed/relaxed;
-	bh=2ZscvsbGvY30JuXEtwJ/NklAkr1juTvT+P51+rUN4M8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=O/asjiRwIPc9Tj1in2qSMIoaXxl95BxN2P3XM2ehBXwVJeDOhwV1H3HRUU/mSeBwgmmIUfFIm0KVJ+d+7YGPzfzgjdLVBtNrFG4LrNdSpHxxDmcRyv3ck0bxczelAYTopRwhVO+zoTILMAypv5Kk1U0hl5yODJPs1JXuEg5IstQNPdOe6onNemPXU1vjqZMReZWKTz14wQ2HBqP2pu8wMmTXs9Tx/c77mEYQRckebo05ChFEL8xgsSAYzOlPueoeweL1uKe0+cTORzQjKecXGTHJoT/a7x4aN635C8CkBs9oB2DTFJ+64v5/6HszUD4lfqj9cvlLpY5T5nFQhb0HKw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nzqe2YsL; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1765280550; c=relaxed/relaxed;
+	bh=Wd3Z4KYvF0dD65L7DPvviKR5Z1NQM0iwjwdQuL1cHwg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EGdmCHbp5oFVBo/DaFS3dqB46CsY1L7VqLL2VJ+aneJ2lLwmdhv2j/PekJKOk0XQF1y6Pn+We4cN2s0jnakMeKo6Z9B3YIndFeuvwjjUgMNgRPdOlDLtnEtato8tz0CCHQam63BL9zGJ1L9q8bx4+XT+yZjIZYz5vCDjYTR1qj5GwKihIBeNL8RsrYx80aqWdUQEtwv0+lwBu/G0cjObv9bt39avvtSn/L1p8isFcYjbS4C1E7YH7VkhetBS0NbNHwXBPdB6EblpLdJG9+wKQ4CbxYhavT0A2podLmywzmzpZ0Nvlt8SPS35R74qPAQsJTbAdsazYrgMYKd/B7AbiA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=GfeXAiJE; dkim-atps=neutral; spf=pass (client-ip=209.85.128.46; helo=mail-wm1-f46.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nzqe2YsL;
+	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20230601.gappssmtp.com header.i=@baylibre-com.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=GfeXAiJE;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=helgaas@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=209.85.128.46; helo=mail-wm1-f46.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dQKC03MjCz2xbQ;
-	Tue, 09 Dec 2025 11:16:12 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 31F6060125;
-	Tue,  9 Dec 2025 00:11:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF78BC4CEF1;
-	Tue,  9 Dec 2025 00:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765239068;
-	bh=7ptARhGnIW0rweJs/X7vTtC/SQB8ulRmWeebM2Urvl0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=Nzqe2YsLmvHdUUpvvSUvm6rLElIkqyZsP8E7UC7VgLN1jMvslaQaB65EuuR2M3tQD
-	 ++rs5KQFBsdOe7SSQ8hVf+DJAugUoPM5Mqrfs69Wm5NDb1BwhrWGYUAduiY2Yokwcw
-	 UnX/Dznj2igM6Bvu9sfjXeM7bTJaA4vS7oKDjiqP6a78W6GKZiw//u+Q7WQb61e+KS
-	 HRkk6gQ/8ovRTrwFr5gibfZmzjuyR5eHFLZzYqvj1cKSwTFL0LbWpbU7omxzWiVhGp
-	 mAEOHH5Lmz7F8T0wk0TahZiroHww1QftElDdmGAe4Dk+Qfg0wy4JVD6zQ794GMZXJu
-	 /flhU9gTQ0Z9A==
-Date: Mon, 8 Dec 2025 18:11:07 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-aspeed@lists.ozlabs.org, linux-pci@vger.kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v6 6/7] PCI: aspeed: Add ASPEED PCIe RC driver
-Message-ID: <20251209001107.GA3430423@bhelgaas>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dQcQs4KSLz2y5T
+	for <openbmc@lists.ozlabs.org>; Tue, 09 Dec 2025 22:42:29 +1100 (AEDT)
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-477b198f4bcso47913285e9.3
+        for <openbmc@lists.ozlabs.org>; Tue, 09 Dec 2025 03:42:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1765280487; x=1765885287; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Wd3Z4KYvF0dD65L7DPvviKR5Z1NQM0iwjwdQuL1cHwg=;
+        b=GfeXAiJE9LvZM2Z3U+Mw7OeLl0jd15b+AaE32VzfV0aRLKT/LRwCZI39RoCCyS2J+7
+         zKRAOKTqlsRZxh4eXix3byiz/DQP7hop0xbRZKhQPvrQJ4Cijyjke7WDPGjWNd4fvr/A
+         xwGIuGjsF+evZqnsOqKQ+q7BBNLwQ8vZP4DU0PdeAQbV+kt6wm2zKFaf3Tj/F/zsRfFm
+         w0w7A5kEfWO+XaYSCAnUHIxtPej03OTL+p7y9ijsVDNzoD73gedonndtI0jFEwdPL/8e
+         GuqxVWyys7Go3e74Ydad3FN2pavk65p+kuuF184+sWt/nXwQlXHQnC9Po6SLJndk/jJs
+         4Y1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1765280487; x=1765885287;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Wd3Z4KYvF0dD65L7DPvviKR5Z1NQM0iwjwdQuL1cHwg=;
+        b=MgYROHDA3OfphaqChq1Y7UAODafIVN3wB5EKDw7RjlbTiAlZ27C3rcY6xX9BU/eJy/
+         bk2AzWkU+HHv8ci72q9v0HB083O8UCu1bv1r3g/9m9rO9uBs7yieMHI5MFw2JtrLJueQ
+         R0aHubllVvrTxQN7X6mMg6o2LFsQnPm2ru9/vj+22DraZjwrPNoaliUO0Q5e7+45X1Ti
+         P6uXsQLJRaU0niyU/A7298BenTx4P+XZClMLrYg/hqYqlLls0drbjiYxWZTnIG6XNHmu
+         QLMMMCWm6KIOZmV/3rsAIzE+TWnfuoiUp6fo8RhGC9wWErCdXg5db5DD9BQPYJwjO1KG
+         Q2uw==
+X-Forwarded-Encrypted: i=1; AJvYcCUyIXVX0oAddAbu1dCDK7L3rv7zR7N8udXPWn2ezEAcy790CFmp+WcoPiR5UcHvEahP9kVclUwz@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yy27duT1FdmKfD2qxZtx2hJBqpXQeGpx/wrUm8He7wobXQX+h+f
+	CMPR1vr7RTBrDdwTyjY2F5+ewHbJXKnWncp4wNtTYOr4lqOs2aGYPEasyI6Uh9/hRmU=
+X-Gm-Gg: ASbGnctWeq1+n7pSURT4bxcTtPL6qXXNAly6qz1Hr/V1qyqEe5E7R5OnhuzcMUGEAO/
+	UpBq+vCF6L0npxksHCYJ0FdKPMxLKk3cSlivefJ4mPuW+q8rcCbyHwMFz1OFZjo+uX29gZY55ay
+	rezPt1R+NVq198WXLU+LRsnnYpU+SW6mT5IYkloQt98r4GiYNztUOI6n7OGLqWSaWRG73y9qQWZ
+	KonHxT72+faokEAxhhIo5egnQ5gf0Izdra5VRcxhQxoezbzp2UFFdIH3vM5afg2PSx+n/mlX5FN
+	Xx0VXYqv6JqDC3begaBkjmH4QBuFMJEmHFf6FMo4y9j2pv38mol1I9qLXiumnqJzLRpEMxsg1fO
+	DoGteDpIo3u3nXcXhWkHM1U4TDQJuihCl5IYFu6MKIFzlUP3nLni7vy9HmH4/8zrKk60Gpy+AeX
+	XLGEusIPYmffax1PH6zd4FHkpDVcq/qpylPmp09ZLjry5D6GPu4bLyQIMqP+d369zRT/dsqOIPy
+	SA=
+X-Google-Smtp-Source: AGHT+IHHuEvpcoKORlw30IlhcBh1e4pcDw71sf4iDJdmgzkWvf/FjxDAXF+Ko3/c/puYTdhF2sl9Aw==
+X-Received: by 2002:a7b:cc17:0:b0:47a:7fbf:d5c8 with SMTP id 5b1f17b1804b1-47a7fcf1a0bmr9909865e9.26.1765280486547;
+        Tue, 09 Dec 2025 03:41:26 -0800 (PST)
+Received: from localhost (p200300f65f00660846b2ba6e435ad603.dip0.t-ipconnect.de. [2003:f6:5f00:6608:46b2:ba6e:435a:d603])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-42f7d331a4fsm34712660f8f.33.2025.12.09.03.41.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Dec 2025 03:41:26 -0800 (PST)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Eddie James <eajames@linux.ibm.com>
+Cc: Ninad Palsule <ninad@linux.ibm.com>,
+	linux-fsi@lists.ozlabs.org,
+	Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 04/13] i2c: fsi: Drop assigning fsi bus
+Date: Tue,  9 Dec 2025 12:40:28 +0100
+Message-ID:  <8a36a0dba809d3bfe225627fd178daece10ff6a5.1765279318.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1765279318.git.u.kleine-koenig@baylibre.com>
+References: <cover.1765279318.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -77,219 +98,34 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251201-upstream_pcie_rc-v6-6-8c8800c56b16@aspeedtech.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=799; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=YXNtV+Vdnj9V5HmbInqMeie6ojhBt0TgobcWxdMwcl4=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBpOAq9zNegZqa1wjuAOOn4xg/8fl9JG81iUbT8f Tc+6+Zews2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCaTgKvQAKCRCPgPtYfRL+ TiICCACH/a6b/DA0OoKBiD1H/ZF6cgKeZWRn9faoWbhmFszSfpE4w5/CavC/ChSDHOFRrzhykfU M2DU3MbnWz1gk59midovBAEfVIHBUEeW/dBnvyL0DYrEQ0bE9C85cNDIjrtq+4P850X6m8sw2p0 g6rjAIXGhQ+fXkfmh7xg7bwEmNC7F1uxetrtJ5zLjGwWyxCxOz331plNdoArKoiP7JuJw9vMadO lC1tarO9a6AmpZ5qbVR2xZ3XpID0/5On/vj3peRrmZLaIXX+wDYv8I5PS0YWuuiBwBq8gYu+V1T Py8Bsrb5maxD4KeVfAVLstDv92Gs4SWIdOCqmnoYMpKYM9se
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Mon, Dec 01, 2025 at 02:29:16PM +0800, Jacky Chou wrote:
-> Introduce PCIe Root Complex driver for ASPEED SoCs. Support RC
-> initialization, reset, clock, IRQ domain, and MSI domain setup.
-> Implement platform-specific setup and register configuration for
-> ASPEED. And provide PCI config space read/write and INTx/MSI
-> interrupt handling.
-> ...
+Since commit FIXME ("fsi: Assign driver's bus in fsi_driver_register()")
+module_fsi_driver() cares about assigning the driver's bus member. Drop
+the explicit driver specific assignment.
 
-> +struct aspeed_pcie {
-> +	struct pci_host_bridge *host;
-> +	struct device *dev;
-> +	void __iomem *reg;
-> +	struct regmap *ahbc;
-> +	struct regmap *cfg;
-> +	const struct aspeed_pcie_rc_platform *platform;
-> +	struct list_head ports;
-> +
-> +	u8 tx_tag;
-> +	int host_bus_num;
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
+---
+ drivers/i2c/busses/i2c-fsi.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Only needs a u8.
+diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
+index ae016a9431da..e98dd5dcac0f 100644
+--- a/drivers/i2c/busses/i2c-fsi.c
++++ b/drivers/i2c/busses/i2c-fsi.c
+@@ -763,7 +763,6 @@ static struct fsi_driver fsi_i2c_driver = {
+ 	.id_table = fsi_i2c_ids,
+ 	.drv = {
+ 		.name = "i2c-fsi",
+-		.bus = &fsi_bus_type,
+ 		.probe = fsi_i2c_probe,
+ 		.remove = fsi_i2c_remove,
+ 	},
+-- 
+2.47.3
 
-> +static int aspeed_pcie_port_init(struct aspeed_pcie_port *port)
-> +{
-> +	struct aspeed_pcie *pcie = port->pcie;
-> +	struct device *dev = pcie->dev;
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(port->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to set clock for slot (%d)\n",
-> +				     port->slot);
-> +
-> +	ret = phy_init(port->phy);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to init phy pcie for slot (%d)\n",
-> +				     port->slot);
-> +
-> +	ret = phy_set_mode_ext(port->phy, PHY_MODE_PCIE, PHY_MODE_PCIE_RC);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to set phy mode for slot (%d)\n",
-> +				     port->slot);
-> +
-> +	reset_control_deassert(port->perst);
-> +	mdelay(PCIE_RESET_CONFIG_WAIT_MS);
-
-I think this should use msleep().
-
-> +static int aspeed_ast2600_setup(struct platform_device *pdev)
-> +{
-> +	struct aspeed_pcie *pcie = platform_get_drvdata(pdev);
-> +	struct device *dev = pcie->dev;
-> +
-> +	pcie->ahbc = syscon_regmap_lookup_by_phandle(dev->of_node,
-> +						     "aspeed,ahbc");
-> +	if (IS_ERR(pcie->ahbc))
-> +		return dev_err_probe(dev, PTR_ERR(pcie->ahbc),
-> +				     "failed to map ahbc base\n");
-> +
-> +	aspeed_host_reset(pcie);
-> +
-> +	regmap_write(pcie->ahbc, ASPEED_AHBC_KEY, ASPEED_AHBC_UNLOCK_KEY);
-> +	regmap_update_bits(pcie->ahbc, ASPEED_AHBC_ADDR_MAPPING,
-> +			   ASPEED_PCIE_RC_MEMORY_EN, ASPEED_PCIE_RC_MEMORY_EN);
-> +	regmap_write(pcie->ahbc, ASPEED_AHBC_KEY, ASPEED_AHBC_UNLOCK);
-> +
-> +	/* Due to the BAR assignment is fixed mapping on 0x6000_0000.*/
-> +	writel(ASPEED_AHB_REMAP_LO_ADDR(0x600) | ASPEED_AHB_MASK_LO_ADDR(0xe00),
-> +	       pcie->reg + ASPEED_H2X_AHB_ADDR_CONFIG0);
-> +	writel(ASPEED_AHB_REMAP_HI_ADDR(0),
-> +	       pcie->reg + ASPEED_H2X_AHB_ADDR_CONFIG1);
-
-I assume this ASPEED_H2X_AHB_ADDR_CONFIG is doing basically the same
-thing as aspeed_ast2700_remap_pci_addr() below, so see the comments
-there.
-
-> +	writel(ASPEED_AHB_MASK_HI_ADDR(~0),
-> +	       pcie->reg + ASPEED_H2X_AHB_ADDR_CONFIG2);
-> +	writel(ASPEED_H2X_BRIDGE_EN, pcie->reg + ASPEED_H2X_CTRL);
-> +
-> +	writel(ASPEED_PCIE_RX_DMA_EN | ASPEED_PCIE_RX_LINEAR |
-> +	       ASPEED_PCIE_RX_MSI_SEL | ASPEED_PCIE_RX_MSI_EN |
-> +	       ASPEED_PCIE_WAIT_RX_TLP_CLR | ASPEED_PCIE_RC_RX_ENABLE |
-> +	       ASPEED_PCIE_RC_ENABLE,
-> +	       pcie->reg + ASPEED_H2X_DEV_CTRL);
-> +
-> +	writel(ASPEED_RC_TLP_TX_TAG_NUM, pcie->reg + ASPEED_H2X_DEV_TX_TAG);
-> +
-> +	pcie->host->ops = &aspeed_ast2600_pcie_ops;
-> +	pcie->host->child_ops = &aspeed_ast2600_pcie_child_ops;
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_ast2700_remap_pci_addr(struct aspeed_pcie *pcie)
-> +{
-> +	struct device_node *dev_node = pcie->dev->of_node;
-> +	struct of_pci_range range;
-> +	struct of_pci_range_parser parser;
-> +	int ret;
-> +
-> +	ret = of_pci_range_parser_init(&parser, dev_node);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for_each_of_pci_range(&parser, &range) {
-> +		if ((range.flags & IORESOURCE_TYPE_BITS) == IORESOURCE_MEM) {
-> +			writel(ASPEED_REMAP_PCI_ADDR_31_12(range.pci_addr),
-> +			       pcie->reg + ASPEED_H2X_REMAP_PCI_ADDR_LO);
-> +			writel(ASPEED_REMAP_PCI_ADDR_63_32(range.pci_addr),
-> +			       pcie->reg + ASPEED_H2X_REMAP_PCI_ADDR_HI);
-> +			return 0;
-
-It looks like this is essentially hardcoding the offset between the
-parent-bus-address and the child-bus-address in the DT 'ranges'
-property.  Since ASPEED_REMAP_PCI_ADDR_31_12() and
-ASPEED_REMAP_PCI_ADDR_63_32() do nothing except mask out the low 12
-bits, I assume that offset is zero.
-
-But this should not be hard-coded at all; it should be extracted from
-'ranges'.  I don't think we really have a consistent way of doing
-this, but you can take a look at how these other drivers program
-"outbound" mappings like this using bridge->windows:
-
-  cdns_pcie_hpa_host_init_address_translation()
-  dw_pcie_iatu_setup()
-  mobiveil_host_init()
-  xgene_pcie_map_ranges()
-  iproc_pcie_map_ranges()
-  rzg3s_pcie_parse_map_ranges()
-
-> +static int aspeed_pcie_parse_dt(struct aspeed_pcie *pcie)
-> +{
-> +	struct device *dev = pcie->dev;
-> +	struct device_node *node = dev->of_node;
-> +	int ret;
-> +
-> +	for_each_available_child_of_node_scoped(node, child) {
-> +		int slot;
-> +		const char *type;
-> +
-> +		ret = of_property_read_string(child, "device_type", &type);
-> +		if (ret || strcmp(type, "pci"))
-> +			continue;
-> +
-> +		ret = of_pci_get_devfn(child);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to parse devfn\n");
-> +
-> +		slot = PCI_SLOT(ret);
-> +
-> +		ret = aspeed_pcie_parse_port(pcie, child, slot);
-> +		if (ret)
-> +			return ret;
-
-It looks unnecessarily complicated to put each port on a list in
-aspeed_pcie_parse_port() and then iterate over that list in
-aspeed_pcie_init_ports().
-
-I think you could just do something like:
-
-  aspeed_pcie_parse_port();
-  aspeed_pcie_port_init();
-
-and get rid of the list completely.
-
-> +	}
-> +
-> +	if (list_empty(&pcie->ports))
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "No PCIe port found in DT\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int aspeed_pcie_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct pci_host_bridge *host;
-> +	struct aspeed_pcie *pcie;
-> +	struct resource_entry *entry;
-> +	const struct aspeed_pcie_rc_platform *md;
-> +	int irq, ret;
-> +
-> +	md = of_device_get_match_data(dev);
-> +	if (!md)
-> +		return -ENODEV;
-> +
-> +	host = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
-> +	if (!host)
-> +		return -ENOMEM;
-> +
-> +	pcie = pci_host_bridge_priv(host);
-> +	pcie->dev = dev;
-> +	pcie->tx_tag = 0;
-> +	platform_set_drvdata(pdev, pcie);
-> +
-> +	pcie->platform = md;
-> +	pcie->host = host;
-> +	INIT_LIST_HEAD(&pcie->ports);
-> +
-> +	/* Get root bus num for cfg command to decide tlp type 0 or type 1 */
-> +	entry = resource_list_first_type(&host->windows, IORESOURCE_BUS);
-> +	if (entry)
-> +		pcie->host_bus_num = entry->res->start;
-
-s/host_bus_num/root_bus_nr/   to match struct altera_pcie
 
