@@ -1,68 +1,67 @@
-Return-Path: <openbmc+bounces-1019-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1020-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F1C3D59F76
-	for <openbmc@archiver.kernel.org>; Sat, 13 Dec 2025 17:03:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D430FD59D99
+	for <openbmc@archiver.kernel.org>; Mon, 15 Dec 2025 02:05:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dTCLy6Mjpz2xpk;
-	Sun, 14 Dec 2025 04:03:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765645386;
-	cv=none; b=AeVTLOOg53Y6l03BBDPVDh/PR7TrKzHenilTboIbWylk96j2sGf90w9vmll0J7r6Ngb5ragD5jC42OtQoFCdgCjoBHa1rQDDJajLOsa7/RUVMVfQy7EjJXKHPwB2PHFlImm84GOFg910uVULwPavtAaXwmT8rim3Npp5QHtJFqg69Xdm+gW7UJkPoW8iI68FgAqsbITqI0L+xIzFlMMxeIHOZNDjRT/Cdp1iK1iurus7Qwrk7P3KgxFvJ0bKKM4RoNc0AVHaYMLoJaMX4bvZTn8EU+NsUqTBidNCHCBreAKRInDtGAurjNlvs0FCjBu6GMIb7LF+OfosUeoB/YTNNg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dV3Lg5fNYz2xS3;
+	Mon, 15 Dec 2025 13:05:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.233.101.22
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765404622;
+	cv=none; b=ZaZBFjeclGZyjZJfIELXzU3hRunoMTAAqE9k97ibckErNOi0DCOl+WeGaPy6dasCKbMtPmhr7TmKPOJV76ErYm8X987i9jtI90cKrWBRNUVgshj00FNkewHZg8FU4jf0KNtzE64R7SV1SRjQ3uvrH3h4Zuip2nsEhwdUr54r1X0aaiDOdFke81re31ChhW0IBtcJkXXMA+SV2vT52h7h/hmGpBrZoTLgmOV9QThcJs5ZyyjUt2PIeEC1XzdK9deVCWWlZqC2IzyVso1R+JA5rs2wZyAAk62ZfkEQtA0VREVTcSH3s7E9O6mH0jk8+1rX0AcAFYvfbFebGA6isGtwwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1765645386; c=relaxed/relaxed;
-	bh=ujq1bGmRYdI/lNIRMhfdMuAx8/BNOBd92yqCSBrmzho=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YzBX/s/5GlHAX8fmYez4bMduBxV8Ck9eEQ7r4BzFLkKvcIJ3taHjjUhGwS1P0rJCZR+5scYn1LsbwGlFkq2NFz6hPesNFATQ9xcLxXfRyCs8SQGztZ1YgRtEFrKyt2wTBigHCwWE9YcyMaWlqF9z6rh/EPras2CjbiGwrE9KOjn4A5D8yeH3FPB54sEr1KSNnmOOjbnN5dw7BhzfEKTTtzPxz8d06sv38ioaJ0jg0YsUFFh0TEXTmIoeDxuENQDgSlU/s6UQ5CXg95f48rYvS5g0J/KeHaBlftYfeTfm2qkFu8g6JZ73zULxJkj3WbmBKyQdOuI0Lf5sxRJ/xxe7AA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=j9C81qHS; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=j9C81qHS;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	t=1765404622; c=relaxed/relaxed;
+	bh=KCynLH+/fhRkEbtiJ1u45Hb0z3MADBEynR2QqQHrsTw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XzFz4FfTEoPTgkRUYntiHnC9OKEAWWtTIMeVrd11zrE+fVUWhCmU1B37klhYHlXCfK2IFTMgWM16hCQm0jsFxugl2v390vKuA5Yxa3slABr0+G8icS/JNo7p3fFNxGTi8eegWyci0u8kKuKhsNkNmqWhi6aDTFG5TmFW1AlfRBrjbIFIWHwg9wa8PUrEDReHhFzrgpKei25RRTGpVIEhNDvlVx3cAuQg6HxjY006RaOphZ4CuKpSdZK4VZR2zMP5dXvj14qQ23nzyb7UOsiy2LuiWRbIQy7txI7U0gpci+uDGbHrZInP5iT8h37Ob0Y9r8kBcf9QgZIU/Cpr8njbGg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass (client-ip=185.233.101.22; helo=leonov.paulk.fr; envelope-from=paulk@sys-base.io; receiver=lists.ozlabs.org) smtp.mailfrom=sys-base.io
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=sys-base.io (client-ip=185.233.101.22; helo=leonov.paulk.fr; envelope-from=paulk@sys-base.io; receiver=lists.ozlabs.org)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dTCLx4Bmkz2x9W;
-	Sun, 14 Dec 2025 04:03:05 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id B76486013C;
-	Sat, 13 Dec 2025 17:03:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E92C4CEF7;
-	Sat, 13 Dec 2025 17:02:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765645382;
-	bh=2UpWYya/vT8/YS5AEgqSuwFPzptYkb/tbVFf+3DX8ss=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=j9C81qHShiadeRShnsOu1sAf29Rxt5NieumDPmK7zQmI3xoHdWw1NKrGr0EPQq4jn
-	 60gmmv9aHc9huhjELKBVgct9RxV1QGoAkMe7A1KSKQHkpv93BJ+h23kW4kKQVbQtEf
-	 j1mZCrKsROqh1jsYziAVG19CNOo3O5x39YClxl/N5rfPoZ2CWQ8CEhshjpcMPzK6Cn
-	 U4LEXGqvyMDrapV4lmzTWoZy/Qe6Dctfhf7DC9pDS/sBxwnvJ0HzAQ7UxHUxcCHD1c
-	 7juY++qMxRvkAbcpS9P/sah4JrqXek1rn32ULwYeCErCD8dmwbSb7Ql/xDk1c/F807
-	 BxNuWL6hOs+lQ==
-Date: Sat, 13 Dec 2025 17:02:51 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, Linus
- Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-crypto@vger.kernel.org, Joel Stanley <joel@jms.id.au>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-iio@vger.kernel.org,
- linux-mmc@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH RFC 14/16] dt-bindings: iio: adc: Allow interrupts
- property for AST2600
-Message-ID: <20251213170251.4d3b1690@jic23-huawei>
-In-Reply-To: <176548307744.1801669.10354753289483698774.robh@kernel.org>
-References: <20251211-dev-dt-warnings-all-v1-0-21b18b9ada77@codeconstruct.com.au>
-	<20251211-dev-dt-warnings-all-v1-14-21b18b9ada77@codeconstruct.com.au>
-	<176548307744.1801669.10354753289483698774.robh@kernel.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dRVJr4sRcz2yQH
+	for <openbmc@lists.ozlabs.org>; Thu, 11 Dec 2025 09:10:18 +1100 (AEDT)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id B99BF1F8005E
+	for <openbmc@lists.ozlabs.org>; Wed, 10 Dec 2025 22:09:47 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 52AC4B127FA; Wed, 10 Dec 2025 22:09:38 +0000 (UTC)
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id EBB48B127E9;
+	Wed, 10 Dec 2025 22:09:35 +0000 (UTC)
+Date: Wed, 10 Dec 2025 23:09:33 +0100
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Janne Grunau <j@jannau.net>
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, andrew.jones@linux.dev,
+	linux-omap@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-sound@vger.kernel.org,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	linux-mips@vger.kernel.org, asahi@lists.linux.dev,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	chrome-platform@lists.linux.dev,
+	Paul Cercueil <paul@crapouillou.net>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Linux ARM <linux-arm-kernel@lists.infradead.org>,
+	linux-gpio@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Vaibhav Hiremath <hvaibhav.linux@gmail.com>,
+	linux-sh@vger.kernel.org, x86@kernel.org,
+	Max Filippov <jcmvbkbc@gmail.com>
+Subject: Re: Kconfig dangling references (BZ 216748)
+Message-ID: <aTnvnaRuJ5lF4dVv@collins>
+References: <22b92ddf-6321-41b5-8073-f9c7064d3432@infradead.org>
+ <aTcVXrUXVsyjaT22@shepard>
+ <20251208200555.GA333481@robin.jannau.net>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,32 +73,93 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MEb6eXQ93P1+3Wd8"
+Content-Disposition: inline
+In-Reply-To: <20251208200555.GA333481@robin.jannau.net>
 
-On Thu, 11 Dec 2025 13:57:57 -0600
-"Rob Herring (Arm)" <robh@kernel.org> wrote:
 
-> On Thu, 11 Dec 2025 17:45:56 +0900, Andrew Jeffery wrote:
-> > The device has interrupts allocated according to the datasheet, and
-> > the devicetree already defines the interrupt property. Address existing
-> > warnings by allowing the property.
-> > 
-> > Signed-off-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-> > ---
-> >  Documentation/devicetree/bindings/iio/adc/aspeed,ast2600-adc.yaml | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >   
-> 
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> 
-> 
+--MEb6eXQ93P1+3Wd8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Doesn't seem to be a reason for me not picking this up immediately. Hence
-I've done so.  Currently on the testing branch of iio.git as I'll be rebasing
-on rc1 once available
+Hi Janne,
 
-Thanks,
+Le Mon 08 Dec 25, 21:05, Janne Grunau a =C3=A9crit :
+> On Mon, Dec 08, 2025 at 07:13:50PM +0100, Paul Kocialkowski wrote:
+> > Hi Randy,
+> >=20
+> > On Sun 07 Dec 25, 18:04, Randy Dunlap wrote:
+> > > from  https://bugzilla.kernel.org/show_bug.cgi?id=3D216748
+> > >=20
+> > > The bugzilla entry includes a Perl script and a shell script.
+> > > This is the edited result of running them (I removed some entries tha=
+t were noise).
+> >=20
+> > [...]
+> >=20
+> > > DRM_KMS_DMA_HELPER ---
+> > > drivers/gpu/drm/adp/Kconfig:9:	select DRM_KMS_DMA_HELPER
+> > > drivers/gpu/drm/logicvc/Kconfig:7:	select DRM_KMS_DMA_HELPER
+> >=20
+> > For these two, the symbol was removed in commit
+> > 09717af7d13d63df141ae6e71686289989d17efd
+>=20
+> That commit removed DRM_KMS_CMA_HELPER. Later commit 6bcfe8eaeef0
+> ("drm/fb: rename FB CMA helpers to FB DMA helpers") renamed
+> DRM_KMS_CMA_HELPER erroneously to DRM_KMS_DMA_HELPER.
+>=20
+> > but these two drivers either were
+> > missed by the batch rename or were introduced a bit later.
+>=20
+> In the case of drivers/gpu/drm/adp/Kconfig it was missed much later
+> during review (but iirc went through the same rename out of tree).
+>=20
+> > Since the symbol selected DRM_GEM_CMA_HELPER (which is still needed by =
+the
+> > drivers), it should be replaced with DRM_GEM_CMA_HELPER.
+>=20
+> That symbol doesn't exist anymore either. It's now DRM_GEM_DMA_HELPER
+> which is already present in both files.
 
-Jonathan
+Thanks for the details! It seems that I was looking at an older tree.
+
+> So the "select DRM_KMS_DMA_HELPER" lines can be removed from both files.
+
+Good, then I'll craft a patch removing these two lines.
+
+All the best,
+
+Paul
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--MEb6eXQ93P1+3Wd8
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmk5750ACgkQhP3B6o/u
+lQxOag/+J9Lwmq+hqcg9BxoDCZl6KmFGAh/RmelPeBUew6LlQphMcDpjQ0yJavK3
+bxojss4r12rV5307+f47JlSMFJa/100MablzoWV0koupx/JCRszhYf2w1lxYHKJh
+7jwy8GLd9NnaZGaiscrckVEcfaVRufzSM2I6ErSZIMSYEZ1LUTCakTPAwrgtarZb
+b9FzHmCrau56mdC2M6StWaolU90t4em1/We8XVRtLY87MEY/VQK6qLylL2fbpuIX
+5+DjnOBDMrvyB7UJFVbzcQA4ev1ckCBvnB2JdzGOfquj6XTO23m5/L5qfxTVk6qa
+yp9ShU6lQZ9RjinifpGWf8JTYl46U7hch9PrUCE/n0FgVl2frQHb/N08ynKUniCB
+1U76zgnG48Wkj08Sz6anRvER3dqEhzJgxJxpkW1UqoXFOSBQeeJZzZONuuUxYw3M
+8JKSldwJVj/oLlvCOI6QO0Q9T+U4YS1gpNBfHbysPaJgZyqld5tXaElOo9k8P8pX
+kAMhcvAn6FaXqkX5qJOAN+91M+CkQwQlWf16G7HKV0LcOvzCtGHYWVrxb7xWw9Em
+JBZRsrdq4CaQc34D8GkBR14H6WGWkGR4OQSTqxshPv7x/S4u9vV8FQWIhLW2LToY
+kw9ephtALgBj6D79R84K2DGlmZwPH2sunV3y9huDh3SNlR5dZg8=
+=EEMR
+-----END PGP SIGNATURE-----
+
+--MEb6eXQ93P1+3Wd8--
 
