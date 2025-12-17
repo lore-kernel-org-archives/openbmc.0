@@ -1,63 +1,59 @@
-Return-Path: <openbmc+bounces-1046-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1047-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19D78D64099
-	for <openbmc@archiver.kernel.org>; Wed, 17 Dec 2025 09:14:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51516D65528
+	for <openbmc@archiver.kernel.org>; Wed, 17 Dec 2025 10:09:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dWSmt3WZ7z2yng;
-	Wed, 17 Dec 2025 20:14:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765962894;
-	cv=none; b=MT3tvJ0296SNPNibqX5QWBga5xtVZnGttCBXXfbzom9AqKvrkh7xkStMrmObaYHmSgwRIPANC/y+ZD8iZr/6qgTW4IIyHnSQ+8jdJo4b5arD1t8G2mw703mmCJnLNApjn8ZWGkkokaJDY8p19OV8OYEQip/r+aCX1mKxYO51d1QpnUp8r/cHFWnbaZtAgsgqSxld9ckctdCLn9T76yU8c0JDiGDc2XUzRJSj0H3v5YuVDR4jFZGvlRt8nAz1yWh3SVb+Yc60BwdvPuZQv4XmykGRQ21oEpk6bjzCephi2j+kCtMZXmopUjyrJhXraNQllXLBmYEAzDAIQlJpmklXOw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dWTzY1qgMz2yqT;
+	Wed, 17 Dec 2025 21:09:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1765966153;
+	cv=none; b=Fl66sN3zwxPvWXb97QLfdorwMNOF4Yddh+STAA8fELxN9d2u6EQqLYEcCYhgKLjRyV/7NxJElxDogkqQ2sj9xMR+E3zs7vUdITSQa3eRvA4PyQ3lIpkorJJ2zOg6ZB40CJ4pC/gh4+0ExIth6sNZ5eJwofSJL/JZwxVZfUB9teOQB+zEQM/MCWzZp3uehik7pZk+zwTuezjx1VI7vdCJLfYXLEEIRKnZIxX7HDQKekBdMaxmx9mHGZoLkY2s+Ge3C86kaXQFsiTrN7aaZs/TtNvM0v51s8ATKH+BdV3ekO+/C7nWv1+OKyFFBbY+coYvacRNksWPUyc3ft5n5DqfqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1765962894; c=relaxed/relaxed;
-	bh=Zu3xiqt8XeGi+o0Fn7/wG3sbIHwKMH3kMLpPih7LPWM=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XQOFdUrjNkhwwsgA7ajnDFRm0iPmZ04XtmU4Au8xeeoUzzHfepe8TFh4HIVmFwCfu5WHUKGmN1AS6+pUqUaaCUwed2a4VR4a976Fl8rUqDo5FGLkAeNJAoWP2xcxYVJmBV83chJsyCWDF2Q4uwoI6GbT6CEshKbKON/LctaPwWHpZvO/kxkjMXSE6rwJQF+5D7UggO8noFB6RlBvlu24bt6FGdA0MeRiDl5VnLeAceMhHWev63oit6/dNgDHSIenudbS2Dy2xeHujs+6LhB4Il62xqK07j13BCphW8q99OPE6GIS9Cv6xczFrBHI3/Z4ET9N1W4iUlr4Hv553mCcgQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Ry+QAcQD; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1765966153; c=relaxed/relaxed;
+	bh=Sqyjw4dUjpV4zr1xHS0U3vPzCjV9G1Soe97AN69yRyY=;
+	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=VnekyvqOI4dsjK7j05wAQTSS+epwVayMiDTWs9jgebBfuaOeEszDNDW630SAtgXruFA8E52afNW1pldjaqDoGI24VYtahLY8z7HNBle+3SWgq6e6Wl3Yf/5Wd44fy3qck/Jhv3bWGaXIvDCVv9U57z6Vsy8VDNf/wVIafLzpgv7NZaw+LFIlCI0/HeeKuzYHW8TFVOc4IsjOB1k1Mw9x7IO4zxQataLkfocZXppZA74AQEC57A5KZoIlKd8BewuPMsw3eSJ3u++5L38He9+VJqCZqjkg5ZF6d5TLTJ6WnxuOlyLljLvRfQjDNntQ+FE3xnySCpCSCP2EHVCr3AS4/Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=P8Bmw+zX; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Ry+QAcQD;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=P8Bmw+zX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dWSms5PbBz2ynH
-	for <openbmc@lists.ozlabs.org>; Wed, 17 Dec 2025 20:14:53 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id CF98F601A2;
-	Wed, 17 Dec 2025 09:14:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D3EC4CEF5;
-	Wed, 17 Dec 2025 09:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1765962860;
-	bh=/7SLiaIZZd96i9+L5hF9k2Q8Gkh3M6Xu20IXncyQWyE=;
-	h=From:To:In-Reply-To:References:Subject:Date:From;
-	b=Ry+QAcQDzdbTO9ui1IjzczaxqrMNQYAB7HadZFm+kO65EgEFytBDUkZ8m/12VCflS
-	 3XAJz8Oa3PcXrC5gSxK4nIIu0vuyTcjEhIxLLDsBw6NSD6GTV7MKUHKgD1oQacsN4o
-	 3Ky2wPQZtkz00+8Y1Ym4i3WjcIXskkQWl9pCxrXMdAeOJHmnL2QZTj88TvsQSniPRm
-	 0RNJuuScL4RgQZQWKrSL//ctvXKZrS+67/sFsvKbZ3aTcUiL7Q87eHt+Rbc7BlVQan
-	 0dWTzgq4TJOGPrKsklyL5+R+RuAHIkfy+YBQInMs1KWo5nfdfz8ody5BL8qjiVXzEy
-	 GMEHR2IrkvftA==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Avi Fishman <avifishman70@gmail.com>, 
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
- Benjamin Fair <benjaminfair@google.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20250819131725.86770-3-krzysztof.kozlowski@linaro.org>
-References: <20250819131725.86770-3-krzysztof.kozlowski@linaro.org>
-Subject: Re: (subset) [PATCH 1/2] ARM: dts: nuvoton: Minor whitespace
- cleanup
-Message-Id: <176596285769.23017.10677165882858222439.b4-ty@kernel.org>
-Date: Wed, 17 Dec 2025 10:14:17 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dWTzX2bZnz2yng
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Dec 2025 21:09:12 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1765966150;
+	bh=Sqyjw4dUjpV4zr1xHS0U3vPzCjV9G1Soe97AN69yRyY=;
+	h=Subject:From:To:Cc:Date;
+	b=P8Bmw+zX/zybrbiSE6qu3m6NwccFgIh91L3G08BXitfwHKWdlfuMC7V29p++XWDGj
+	 OLhzowYiY2aV9TYJRP2cjsFbWdcRZMBHZyK//m+sojapgSE143hBayGerLKlUQ5Glb
+	 7BroRzsPxKOuU4IhJepyQ853kCevvM5GVcRqPF4BsnKaD/dC86OKms6I0cLy3XV1WU
+	 EBWerjrFYHLmQBqn4JqFzdDZ0oyuUIjhlms23Mk7Csf24scheCsxz8jXTdH+8ZOfue
+	 Sl+3SYuCkEyeR6ObXwcuHFDTnppN90uZ5KlOlH7/GSU4mj9SJuRt6Mh+AFRJ/QcwAL
+	 ImGIz2N2F/MFw==
+Received: from [192.168.68.115] (unknown [180.150.112.216])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 736DC7DE46;
+	Wed, 17 Dec 2025 18:09:08 +0800 (AWST)
+Message-ID: <4ec04355da4aa5595297f31bdd190d4e2c1f4cb2.camel@codeconstruct.com.au>
+Subject: openbmc/linux dev-6.18
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: openbmc <openbmc@lists.ozlabs.org>
+Cc: Cosmo Chou <chou.cosmo@gmail.com>, Eddie James <eajames@linux.ibm.com>, 
+ Jeremy Kerr <jk@codeconstruct.com.au>, Leo Yang <Leo-Yang@quantatw.com>,
+ Peter Yin	 <peteryin.openbmc@gmail.com>, "tomer.maimon"
+ <tomer.maimon@nuvoton.com>,  Matt Johnston <matt@codeconstruct.com.au>, Tan
+ Siewert <tan@siewert.io>
+Date: Wed, 17 Dec 2025 20:39:07 +1030
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -69,24 +65,103 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
 
+Hi all,
 
-On Tue, 19 Aug 2025 15:17:26 +0200, Krzysztof Kozlowski wrote:
-> The DTS code coding style expects exactly one space around '='
-> character.
-> 
-> 
+Linux v6.18 is a new long-term stable release[1], and I've now pushed a
+branch[2] and corresponding recipe patches[3] moving OpenBMC over to
+it.
 
-Applied, thanks!
+[1]: https://www.kernel.org/category/releases.html
+[2]: https://github.com/openbmc/linux/tree/dev-6.18
+[3]: https://gerrit.openbmc.org/q/topic:%22openbmc-linux-dev-6.18%22
 
-[1/2] ARM: dts: nuvoton: Minor whitespace cleanup
-      https://git.kernel.org/krzk/linux-dt/c/0fa50c575c1f33be0ab353d0d3820e20357e83fe
+The patch migration was done in two steps, first from v6.12 to v6.17,
+and then from v6.17 to v6.18. The multi-step effort was mainly a means
+to test my own process. If anyone's interested in what that looks like
+I'm happy to talk through it with you.
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+The patches listed below were either dropped or modified, listed by
+step.
 
+Please test dev-6.18 on your platforms and report any issues.
+
+Andrew
+
+---
+
+Dropped or modified migrating from v6.12 to v6.17:
+
+   Amit Sunil Dhamne (1):
+         usb: typec: tcpm: Add support for parsing pd-revision DT property
+ =20
+   Andrew Jeffery (2):
+         soc: aspeed: lpc-snoop: Rearrange channel paths
+         soc: aspeed: lpc-snoop: Lift channel config to const structs
+ =20
+   Breno Leitao (1):
+         Revert "x86/bugs: Make spectre user default depend on MITIGATION_S=
+PECTRE_V2" on v6.6 and older
+ =20
+   Cosmo Chou (1):
+         dt-bindings: trivial-devices: add mps,mp5998
+ =20
+   Eddie James (3):
+         leds: pca955x: Optimize probe led selection
+         leds: pca955x: Add HW blink support
+         leds: Ensure hardware blinking turns off when requested
+ =20
+   Jeremy Kerr (2):
+         net: mctp: Add MCTP USB transport driver
+         net: mctp: separate routing database from routing operations
+ =20
+   Leo Yang (1):
+         hwmon: Add driver for TI INA233 Current and Power Monitor
+ =20
+   Peter Yin (1):
+         dt-bindings: trivial-devices: add isil,isl69260
+ =20
+   Tomer Maimon (2):
+         reset: npcm: register npcm8xx clock auxiliary bus device
+         clk: npcm8xx: add clock controller
+ =20
+   Wensheng Wang (1):
+         dt-bindings: hwmon: Add MPS mp2869,mp29608,mp29612,mp29816 and mp2=
+9502
+
+Dropped or modified migrating from v6.17 to v6.18:
+
+   Amit Sunil Dhamne (2):
+         usb: typec: tcpm: unregister existing source caps before re-regist=
+ration
+         usb: typec: tcpm: fix use-after-free case in tcpm_register_source_=
+caps
+  =20
+   Andrew Jeffery (2):
+         ARM: dts: aspeed: Rework APB nodes
+         Revert "ARM: dts: aspeed: Rework APB nodes"
+  =20
+   Greg Kroah-Hartman (1):
+         usb: typec: fix up incorrectly backported "usb: typec: tcpm: unreg=
+ister existing source caps before re-registration"
+  =20
+   Matt Johnston (1):
+         mctp i3c: handle NULL header address
+  =20
+   Michael Grzeschik (1):
+         usb: typec: tcpm: allow switching to mode accessory to mux properl=
+y
+  =20
+   RD Babiera (1):
+         usb: typec: tcpm: apply vbus before data bringup in tcpm_src_attac=
+h
+  =20
+   Tan Siewert (1):
+         ARM: dts: aspeed: e3c256d4i: convert NVMEM content to layout synta=
+x
+  =20
+   Wensheng Wang (1):
+         dt-bindings: hwmon: Add MPS mp2869,mp29608,mp29612,mp29816 and mp2=
+9502
+  =20
 
