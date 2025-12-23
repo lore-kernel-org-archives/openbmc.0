@@ -1,64 +1,121 @@
-Return-Path: <openbmc+bounces-1076-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1078-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE84BD3B7E5
-	for <openbmc@archiver.kernel.org>; Mon, 29 Dec 2025 01:46:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43FC2E9271B
+	for <openbmc@archiver.kernel.org>; Mon, 29 Dec 2025 01:51:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dffFZ5gdFz2yG5;
-	Mon, 29 Dec 2025 12:46:10 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=68.232.154.123
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1766593978;
-	cv=none; b=hMI4icYwmT48v74n3/hw8QRPcTo6tnDOL0PhskT45OuzCxIB3eCFLYhF83iJ2Wnk3h7DNWyahJshcd/ERJ4qHlPU7Tr1ofTVyQ8EENSbeuV7R319EQLS9aA/pELxxb4rjGgW2hNn5BvdeGjT3KfOofrJGOmYpHu/GwArc1SLyM3LheWnO1VJ8SpOKQ2pVDwD19fQKc91xyYOZuQWsYwLO7FgC2cuycYliw6Dx5YprTTwpmn8lvsQOxqEIDeGvGpUqj8aZCND6PaDGF8/t+Vjdn7KURE5kXOq9pLsanRL4QoLTBzsvsGjFsNsPfDdPz0NAc8pGAwiKQrWyTmzXVcFvw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dffMJ3r0Fz2x9M;
+	Mon, 29 Dec 2025 12:51:08 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1766509334;
+	cv=none; b=gbdN1mMuhtE1M414qgveWAzndLEWlO2dM2zGL/1jrrp5wAW4CMrxSorcZW/oJhAq8SOcmCWpkC0swo+6g+CCa3Ztt1RJkdBnprqDDzhM5E5ogMJYfdKp0D3ILbw+nFABQ9cbEg75HopVTmP4YvuqMGl/MJxyhT3IHK5Z7RrIp4i0bXZAPBRCvT4kFcYi1YzGzebU1NPRH7sTGhvclWQpOwTR69YWrpppsfebrcebAbBFDcTbVTIgi5oJoPhWr2VPM3UlPSmQlP00HFLUGeQoxj9VenTbl+0XPtkKs6uAEEOxacPiI+BlWCzGbB0BXOjETVJoL5i8cbR2fXxuFJXUcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1766593978; c=relaxed/relaxed;
-	bh=eb1GWSMtwiCjjrRom1gCzEi9SBcGoDJFeRiB5e+S/SU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=cjM7R4EY9Q6Bom5NbadszOyaFijjJvknLm0ju+liPeGF1XghjABijA5+b9R7X8g9WArOgaxbTpxR/rdkwbMDUo7dC8hDZInV5mmYcLYcqOUUFnA7BEF5uIswCcox1btlO0RYM0V+izMSxjXD+vMbMb9vjZ+/gaF2Tbfi+1xSemtWKho0ayIrUwMRNbN9VzpSYGUoWIhjSIZPEZCpRJCEBiFiPf2UpGahKOez64IqtyeKoGVlCJ6j5RT9qxEHLZhtmiYRQWwrkeJDWHhgyffMwz0EnFui3b8C4WpJko74P9/sekitO77nJpNMsBz31zDKEcc/YzEvUx2jbcpIgLKoSw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=drhZpYRG; dkim-atps=neutral; spf=pass (client-ip=68.232.154.123; helo=esa.microchip.iphmx.com; envelope-from=prvs=4464f8a09=nicolas.ferre@microchip.com; receiver=lists.ozlabs.org) smtp.mailfrom=microchip.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+	t=1766509334; c=relaxed/relaxed;
+	bh=jiVMsPmbQP7FZ38DNLit/HG1+5z9nnDnXvMaFIBjNjQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=UYmKCBP/4b5BdhxK9KLtMx4b4NjMS9FGhIgbehV6DEDOKRyiE+pXkmjtCIpcsfYdu3S3JSKEFfVJaBrW6YiygAZcjokrhTZpssk/byXXKopuHht1j5nwhSZzvH13SgPi80XzTgvtzmDpsV5GBAsfE9ZlcABVm/H6VQHX96DsneYuAjTY5xtGVpsAL+FX3zvitGm4GOG6fBQ1drSsqlBN6Bh7776eSavl7r/h0n5pNScYcmR43Bo+EX0QRiWNbW6i7t6SWh0kXOYE3+2OhaTlZSfnW79Z2u0QvgTjcE4/MkuI5kRBpP2i+AxgRo0GrM3jH3tRZtM44ClXRC3Kv0hmSQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dY21izoQ; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kVId+lS3; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=manivannan.sadhasivam@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=drhZpYRG;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dY21izoQ;
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kVId+lS3;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=microchip.com (client-ip=68.232.154.123; helo=esa.microchip.iphmx.com; envelope-from=prvs=4464f8a09=nicolas.ferre@microchip.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 123 seconds by postgrey-1.37 at boromir; Thu, 25 Dec 2025 03:32:56 AEDT
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=manivannan.sadhasivam@oss.qualcomm.com; receiver=lists.ozlabs.org)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dby943DJbz2yLg;
-	Thu, 25 Dec 2025 03:32:56 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1766593976; x=1798129976;
-  h=message-id:date:mime-version:subject:to:references:from:
-   in-reply-to:content-transfer-encoding;
-  bh=xnT+EvR0s5oIZp/3XXt4XA68h5snb9BsA7e9vL/N/vM=;
-  b=drhZpYRG0jYy4s+kgDoXF7JwGzgGt/VORI1y8MdOXX3YtmcmwUjrUnuE
-   2AvRPev5Po+xvTJMxEzstgqGof7FilCj/Ld0NF79Ns1KSS29UZQIJQ3M6
-   nl6gx2eNik2VcW+jbsqv89OC8dVsOkD+E3Ktj7obBMv9TlqhAZdf76bya
-   Bnf9vxZGIjakWLrdeN3uhjHazL/5iE+uOmoh8z1B5bC7kfYuPvjhx3O+A
-   mGDiPEsyiz0Fqcm6QZTIrUhjdluAdVJM3HsnZ+DUnyuOEowuljh4mYwU/
-   5BNE8ONaRRH5IjVWfRdR3jfJT8i2BdukijY9E5TWN9zWYhbvgKJojoLKr
-   g==;
-X-CSE-ConnectionGUID: 1mpAtqqvTWKDWP3ouM+OuA==
-X-CSE-MsgGUID: bJulCPQ/SGmZ0iD/Mn03NA==
-X-IronPort-AV: E=Sophos;i="6.21,174,1763449200"; 
-   d="scan'208";a="51495333"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 24 Dec 2025 09:29:48 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 24 Dec 2025 09:29:25 -0700
-Received: from [10.171.248.28] (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 24 Dec 2025 09:29:20 -0700
-Message-ID: <9faff0a3-0f3d-4e51-ab5b-0cf0204ee4fd@microchip.com>
-Date: Wed, 24 Dec 2025 17:29:19 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dbLsL0XKcz2xXB
+	for <openbmc@lists.ozlabs.org>; Wed, 24 Dec 2025 04:02:13 +1100 (AEDT)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 5BNErsbW461342
+	for <openbmc@lists.ozlabs.org>; Tue, 23 Dec 2025 15:58:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jiVMsPmbQP7FZ38DNLit/HG1+5z9nnDnXvMaFIBjNjQ=; b=dY21izoQwZl3PUWu
+	Mb6XE3I9EdcKQO8QjSqkx5MLvjiEwvp7/oOdtyn2XSuWlTf3zVnBSDfvpxeh+aLG
+	uQViOdMN53cJFkPMxDxc7Tz0MrWKgjfFGwWea8YMW8CmOrD3Q9+uVH0+5tnsI3Ed
+	vxfom/ISfZ5X0F9jEgVbRIeCNtAtVoQ28hzi3zolpSY+3CY1+Dtd3NVZJYHXipJu
+	fTZdrdKIAAJ/Pd8qfzGX1MKPf2bTnUOKAR/WlTEpR4vdpBVwdecu0c2rn7UvVrN/
+	YmCQbg4NE2gSVOFz90F80BXLJDXxr/mJHWJxz2cna19+/98SeU6WkHbCYNzBY/kS
+	QCAYsA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b7w8fr62e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Tue, 23 Dec 2025 15:58:34 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2a0dabc192eso113153245ad.0
+        for <openbmc@lists.ozlabs.org>; Tue, 23 Dec 2025 07:58:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1766505514; x=1767110314; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jiVMsPmbQP7FZ38DNLit/HG1+5z9nnDnXvMaFIBjNjQ=;
+        b=kVId+lS3Zc9kUThkytI3LwpDH8v9wPim4uns4iPGuVsuXZEj/FeaDFHRGIbkkfLGMP
+         EnZDTvqgMP2PzlJlZns+ugepgdnfCURiIeETFa0pHXR7oFoVEZ8mXv4PC0UGr9v8AMk0
+         hHGDV9PRHo13gcTSgv8afe0/7jDZ1OwcYOB36eTAZ4aL1hwGdWNGYToRS7Y9a++DDizo
+         djPS92xpytg8QMxCycoVyoOpGxGZ/sAsK2zxWZ1qn9jdrm4CM/nhg4u2GuEkgxAKy1TX
+         6xat6iCh1SVQh/msZNRI0fSt8NhbBSjULuXbCHYN7pDJqHZjX4QVqBle7G5wqEhsMRAi
+         nVew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766505514; x=1767110314;
+        h=content-transfer-encoding:mime-version:date:message-id:subject
+         :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jiVMsPmbQP7FZ38DNLit/HG1+5z9nnDnXvMaFIBjNjQ=;
+        b=Gk/hNDjl6aUiDhq8SAv19YP9UMu1tc68mpTE63luFGx5ulquXAlSf05zvvxg2Wm1Zd
+         GHgufz7y7Cl4n0rx+NSpC/z3CCdpe3+6L0DmcvhJkBDZze/bUkzbV+ueTI7LuFPKNcA/
+         UOsQCUPPyxWTmZSWrGNf+BGlQkPIwCCduwuhCq8cFH3LVp2l6SaUGse9VbWsEMGVa8TK
+         QrYX/96Or+TqKtK8V04PijPHBeHIC58a4Y8JFlm50Namv/JSQfoF14TdqcFbMVB3o1qB
+         ZIPMfE3cDp9dCJfN183GhA7YBs204xLQhoBlx0ASrMiXCQH3IVXITSyhAfbRk6hNbIWX
+         eSPQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWuErL1QdI7zQANd+M/7jEeof4HfgNqAyB6YoLOZPP/oHrxCKnLZmXyOgKjGYc0C0Hj2CoxXcGE@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yxhw9rbSezSzV1iPqELCClFr/AdowwRDLGJCnr89GWUs0E/mxgD
+	3vSjZ9zCrkTNxmsCebeHnilE68sxwLTzQclFUYPGsTx8ItZyq2WHcTNol4CqnKCgN01Z28bJnBd
+	2APRYvAAH4cQ7tMNFrW5Tc2PXnEJ88mx9VA71j7eKuC5IB+iJvz77ynELOXIgzg==
+X-Gm-Gg: AY/fxX5Ixe6N6jO26buloQ68EMMzfyCZYY5IB/GbU06emx3LMsLO03U839ghvhdvyMo
+	+U36tskp8xyRga6ZNIzGO2RN79oSsIbJFWQUrJu13CLjXTXZCKsjqeUHWFrj9VQEQHb+z0UnpD7
+	6Hk9SGq/WKfL7Yk5TF0TsKsQDUqkmiKJJb2XzDymfpcNJWSnLpYBfhB/MgfgwPSSs6JyAIvIjS2
+	VYKROC8X5wfd4D2a4RXPHL9wbZ68+PPy4j7V/cbSNoHHewhAfBoSvAQpYtgNm0u1Lm7IeYDkTcb
+	NXHiOCjcmr2f7iLQXzjEErBahlL7BAOjzE7XUqz6+Ax+kjdEwJY3yFZ+iBlquzG31kVCK2ZSb99
+	uAhW6XpdPTw==
+X-Received: by 2002:a17:902:d584:b0:29e:9c82:a91e with SMTP id d9443c01a7336-2a2f21fc506mr163295565ad.7.1766505514310;
+        Tue, 23 Dec 2025 07:58:34 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFhayM1D+7Y1gHqun6N5dRaivrEs0mEAHPs1q25xLW/IAzFnLc7m+vKUO2bdvStmAZD+ZHRIQ==
+X-Received: by 2002:a17:902:d584:b0:29e:9c82:a91e with SMTP id d9443c01a7336-2a2f21fc506mr163295255ad.7.1766505513842;
+        Tue, 23 Dec 2025 07:58:33 -0800 (PST)
+Received: from [192.168.1.102] ([120.56.200.112])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a2f3d7754asm131271795ad.100.2025.12.23.07.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 23 Dec 2025 07:58:33 -0800 (PST)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Google-Original-From: Manivannan Sadhasivam <mani@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Linus Walleij <linus.walleij@linaro.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: linux-aspeed@lists.ozlabs.org, linux-pci@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+        linux-gpio@vger.kernel.org
+In-Reply-To: <20251216-upstream_pcie_rc-v7-0-4aeb0f53c4ce@aspeedtech.com>
+References: <20251216-upstream_pcie_rc-v7-0-4aeb0f53c4ce@aspeedtech.com>
+Subject: Re: (subset) [PATCH v7 0/7] Add ASPEED PCIe Root Complex support
+Message-Id: <176650550798.2188958.10356654881464455126.b4-ty@kernel.org>
+Date: Tue, 23 Dec 2025 21:28:27 +0530
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,98 +127,63 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] mmc: atmel-mci: Simplify with scoped for each OF
- child loop
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Aubin Constans
-	<aubin.constans@microchip.com>, Ulf Hansson <ulf.hansson@linaro.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Robert Richter <rric@kernel.org>, Paul Cercueil
-	<paul@crapouillou.net>, Andrew Jeffery <andrew@codeconstruct.com.au>, "Adrian
- Hunter" <adrian.hunter@intel.com>, Joel Stanley <joel@jms.id.au>, "Nathan
- Chancellor" <nathan@kernel.org>, Nick Desaulniers
-	<nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, "Justin
- Stitt" <justinstitt@google.com>, <linux-mmc@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mips@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
-	<openbmc@lists.ozlabs.org>, <llvm@lists.linux.dev>
-References: <20251224124431.208434-5-krzysztof.kozlowski@oss.qualcomm.com>
-From: Nicolas Ferre <nicolas.ferre@microchip.com>
-Content-Language: en-US, fr
-Organization: microchip
-In-Reply-To: <20251224124431.208434-5-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
+X-Proofpoint-GUID: nW_MrcNWWvykbWGqX1IeVypBCFcBhzR5
+X-Proofpoint-ORIG-GUID: nW_MrcNWWvykbWGqX1IeVypBCFcBhzR5
+X-Authority-Analysis: v=2.4 cv=QutTHFyd c=1 sm=1 tr=0 ts=694abc2b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=31AEnvkI3DvSdtIumApubw==:17
+ a=IkcTkHD0fZMA:10 a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=oUgZFhhkZxxgqap4hUAA:9
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjIzMDEzMiBTYWx0ZWRfX/TkvjE3EJ9u1
+ mif/tKPZzjN/67ADe2ztn0A76BBjzjsqfD2EtliKWuN4hIXykNO9uFvc+pLH82QaF4CVmFy8ncT
+ 0+uMY4dpUZmu0YJly+KY49vE4MsGNZHjuNyfrWpZ+9bk8eiFle+RPWZe3BalUfWgvndD++EmglN
+ qg6SEXqGyLOX/yUp2GBkco2ev5z4TgyvtFvp03X5v/xVR/8FK3lYTv7UkKEi9kkrDNsRzzNTsvx
+ aJEAs1zAUv66JZgcnoHtJhV9lIKcYnaxTsYlcyvbj9WTKgxH7kT1myDnzPNtf34ipJ9Zv8WtyPr
+ odEr+wP+pgYwixylY/jfRGcJfA2d/X1RZZtceAixw+7t5NHQf/1mC6PEtBvolzttc8HOEDLKv2l
+ n8S+rorfx4MNfHwJPyIhnLB023Ycl4BSlYpl1fHhRKwnvwdZAVSKEoRg3+vQ4R6bUMckEuVU1GH
+ 0U1lL9105FARwkQao1w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-23_03,2025-12-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 bulkscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 clxscore=1011 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512230132
 
-On 24/12/2025 at 13:44, Krzysztof Kozlowski wrote:
-> Use scoped for-each loop when iterating over device nodes to make code a
-> bit simpler.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+On Tue, 16 Dec 2025 09:49:59 +0800, Jacky Chou wrote:
+> This patch series adds support for the ASPEED PCIe Root Complex,
+> including device tree bindings, pinctrl support, and the PCIe host controller
+> driver. The patches introduce the necessary device tree nodes, pinmux groups,
+> and driver implementation to enable PCIe functionality on ASPEED platforms.
+> Currently, the ASPEED PCIe Root Complex only supports a single port.
+> 
+> Summary of changes:
+> - Add device tree binding documents for ASPEED PCIe PHY and PCIe RC
+> - Update MAINTAINERS for new bindings and driver
+> - Implement ASPEED PCIe PHY driver
+> - Implement ASPEED PCIe Root Complex host controller driver
+> 
+> [...]
 
-Thanks Krzysztof, best regards,
-   Nicolas
+Applied, thanks!
 
-> ---
->   drivers/mmc/host/atmel-mci.c | 12 +++---------
->   1 file changed, 3 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
-> index fdf6926ea468..3b4928f5b9b2 100644
-> --- a/drivers/mmc/host/atmel-mci.c
-> +++ b/drivers/mmc/host/atmel-mci.c
-> @@ -629,14 +629,13 @@ static int atmci_of_init(struct atmel_mci *host)
->   {
->          struct device *dev = host->dev;
->          struct device_node *np = dev->of_node;
-> -       struct device_node *cnp;
->          u32 slot_id;
->          int err;
-> 
->          if (!np)
->                  return dev_err_probe(dev, -EINVAL, "device node not found\n");
-> 
-> -       for_each_child_of_node(np, cnp) {
-> +       for_each_child_of_node_scoped(np, cnp) {
->                  if (of_property_read_u32(cnp, "reg", &slot_id)) {
->                          dev_warn(dev, "reg property is missing for %pOF\n", cnp);
->                          continue;
-> @@ -645,7 +644,6 @@ static int atmci_of_init(struct atmel_mci *host)
->                  if (slot_id >= ATMCI_MAX_NR_SLOTS) {
->                          dev_warn(dev, "can't have more than %d slots\n",
->                                   ATMCI_MAX_NR_SLOTS);
-> -                       of_node_put(cnp);
->                          break;
->                  }
-> 
-> @@ -658,10 +656,8 @@ static int atmci_of_init(struct atmel_mci *host)
->                                                "cd", GPIOD_IN, "cd-gpios");
->                  err = PTR_ERR_OR_ZERO(host->pdata[slot_id].detect_pin);
->                  if (err) {
-> -                       if (err != -ENOENT) {
-> -                               of_node_put(cnp);
-> +                       if (err != -ENOENT)
->                                  return err;
-> -                       }
->                          host->pdata[slot_id].detect_pin = NULL;
->                  }
-> 
-> @@ -673,10 +669,8 @@ static int atmci_of_init(struct atmel_mci *host)
->                                                "wp", GPIOD_IN, "wp-gpios");
->                  err = PTR_ERR_OR_ZERO(host->pdata[slot_id].wp_pin);
->                  if (err) {
-> -                       if (err != -ENOENT) {
-> -                               of_node_put(cnp);
-> +                       if (err != -ENOENT)
->                                  return err;
-> -                       }
->                          host->pdata[slot_id].wp_pin = NULL;
->                  }
->          }
-> --
-> 2.51.0
-> 
+[2/7] dt-bindings: PCI: Add ASPEED PCIe RC support
+      commit: a20df1a7683d6c1416c0f56fb737554b9abe9959
+[5/7] PCI: Add FMT, TYPE and CPL status definition for TLP header
+      commit: 73ce5ba701a53ad89c623a641401288844f526ac
+[6/7] PCI: aspeed: Add ASPEED PCIe RC driver
+      commit: 9aa0cb68fcc16280c8c8bdd22dc770af8dd7349f
+[7/7] MAINTAINERS: Add ASPEED PCIe RC driver
+      commit: e5c2061442dda716fb08cc4eff485220c94e6475
+
+Best regards,
+-- 
+Manivannan Sadhasivam <mani@kernel.org>
 
 
