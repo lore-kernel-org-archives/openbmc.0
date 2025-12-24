@@ -1,83 +1,116 @@
-Return-Path: <openbmc+bounces-1068-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1070-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03902E784BE
-	for <openbmc@archiver.kernel.org>; Mon, 29 Dec 2025 01:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81224D3B7E5
+	for <openbmc@archiver.kernel.org>; Mon, 29 Dec 2025 01:41:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dfdb15TMcz2yG5;
-	Mon, 29 Dec 2025 12:16:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=40.93.194.101 arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1766714328;
-	cv=pass; b=andJkeF493SPYSW+Dwg/B4sJZZ0lE3YEiHug1lDH3nKoeiZm/EyLixRJLwVJNOxB8mCJ7NbRtizQZ9AofhEim3KvElAur1VMOoAs2oBDNToTB0B5cOkZGaMr7QapwJDTwOTu/gP0ZsiP8si1KsCyKsVt90VXf8S8up3INBsMPX64IsrqcfbxHXtnprRKxZ62XY5qZz2rytpKXKcZWlOx/ojEinw5ioWuPqj0M9bH1IUs0CiVv/+YU+CuwOq8vZIZWRaD/3jpdzO4Io3C+7KosTx1kbDhwwTPGkN6zxv9nqD1z+gLftjlZ/ISLtSjAgvbTqn0DBJCVZcjefVP4y8Ddw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1766714328; c=relaxed/relaxed;
-	bh=2BJ44Nf6XreAbZSc/2cBmElH00ElSz8dXuO7uORewlk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Eti6sLoanE2dFI/e37/vXN3gCA4Am34kmzLwMOj7sBa5T55+DAirKZAl85WOyRcEad1wQc4acp03ghOFjRQHZhgJVVg5c2qUBrATMMk9QzS0jTS8Izqmcz7ojpzbmGoFvHIGqVljBokhWhdaxjZEIVroJe0jBfMh+7PjGyGjGO2G7X/lhA14P6KwkrDjGPp1Romeq0vWHnxYwbvldGvyL62eHf8AE0RQ/rpv9GSbNpQ2CyQ+YX8II0g7IuW8KAUF/lKxonYndYNwnU4i7TzmTYNQ55GjwACGjLs6v03jbGYE/kLicEWo6tKuTbc0ecMhJ/YEXVpKAJzwSBAL5uLsOg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=GfikQeGn; dkim-atps=neutral; spf=pass (client-ip=40.93.194.101; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=kchiu@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dff8Q1RTmz2xdV;
+	Mon, 29 Dec 2025 12:41:42 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1766582646;
+	cv=none; b=oVEXxc65SM6fzNQnBgFLhNoRnsPrYT+U7CbJNvs+I4T5WBiuAzBT0VZXxtMJ4RbnAzD/wyZZIksaTS7v68jgVfS2SS1Or1FzZd7bChEgcHXnO7TqDSUkMiWaVSNPyHnqTCKMyvQMPVBce1XfieOlfjzajxqe8iadTFcUalXtwuE477SAw9rYqpxJy7r+rRfo/xpBejk4hUc8QO/pZmUFt1hae5hlmiHtpMvXPJ4rskQDkrmqjAawQ/3C0V6Wmet3kLZjYalOmj86gySqN+zeiix1sthuGDkWU1/kktdjUlciyNZDMCvz0rl7blkYu9v/XqgiWBhxR8mP+AcMTZKneg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1766582646; c=relaxed/relaxed;
+	bh=m9r1P67fE5RYVgK7sJ1zYioAmxa+nW61YwB51X9ls6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L07ZfHpRg8fMdrmn4+YEtHw4PdB14ut9PIRPOQDxLLmObKNImVydkohVWRo879M3QxNqHKLemY/zTzQZG1xcuhZhralXro0FJmzZEsCM065h22mu6KTAyfDy3Gn0Jf5gHcFnPGy0IU77W8bGuI9RZ5HwE7riWpRyJSSudk5YeFyWgm+x6SBTVyExhlCVSDEBBvIYzGRVRCyvnjO5zkKbIHIJXCuuz6qUA0rdJGfka+E8+eXdGc4sajMW514fmZ9E7huO8v9wCTmu7wG2F/ei+GOJeBgwf6LbYobz/UEKnDTPrchFwXED3SNNx50WJNOmg3QWR+okb7FsBCZXf5l18A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fldrpCj+; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0S1hHkr; dkim-atps=neutral; spf=pass (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=krzysztof.kozlowski@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=GfikQeGn;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fldrpCj+;
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S0S1hHkr;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=40.93.194.101; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=kchiu@axiado.com; receiver=lists.ozlabs.org)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11021101.outbound.protection.outlook.com [40.93.194.101])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=krzysztof.kozlowski@oss.qualcomm.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 2361 seconds by postgrey-1.37 at boromir; Thu, 25 Dec 2025 00:24:05 AEDT
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dcpgX2fnHz2xFn
-	for <openbmc@lists.ozlabs.org>; Fri, 26 Dec 2025 12:58:48 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h1G+z8yu5++wQ+yXAI96XJfmyASpKcG+QnSZ3hbW1qF5ytJVZpR9jjXRbuZoAAzTFiZUUyojBLU0CiCSvHE8EcpkB4rPvUSUGIXlM3B0A2cvBl2QTRW1mX7yAKr+aP9qT7bL2AUDvw2BxjtVGy5n+vMlR6pr0tCHU8BGyxg30KrkPF0u+e5lYpr4jR7K6U8g8qxF4unkJPwSnTFDu00WzqftODCd1IqwV7cv7deAg+mqBds9vJZTCQVlt5u5FKi4DPW95lW07Gr4ozohBtJH0bgwRhihqKK4/ScbFxGHgZkqkoCxWbPFhI4j0mhCIcfgtZiHAUVPrmmdIBBMjZ2MSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BJ44Nf6XreAbZSc/2cBmElH00ElSz8dXuO7uORewlk=;
- b=ly9ICplUJ2vNxqv6HHbmhkgiGUymZVhtJhKnf+x1xJ6mLNUCTdgBu60OElOrDwkaMAlMbDxoSyQLavQ4E3Uu5SQOwxs29Yc9VIVtR5LnWe++Byd4yi6ZEMQWlbSbcGX71Way7JQKQqK4HKzBaAopEej8A/U7KpAC/ZEZQKtTWKKYHFczaF5MhRkz+DkWDysTkyVugfCIoiuwJwGSfmHu6/8LMqSf1D3KumQqcCnm9SaozLBvz5052aLRH3HPNBS28zq+yVATIsYO8oArwUFi0wRV8SgjPg+OOz8uom4bPOI80SdbTbjvLAO9aaix0IOpcGLrTfjMsvVeE1NJOR4a5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 4.227.125.105) smtp.rcpttodomain=lists.ozlabs.org smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BJ44Nf6XreAbZSc/2cBmElH00ElSz8dXuO7uORewlk=;
- b=GfikQeGnogWFHDQQi5OSvpRahdVDMuKblHi7jfQXpk0ETenEIJ/uLhlzsl6HZ05p5KHVC7sDD9DGezdQ3aUSfSfpwaFBmlV1ZYvxWoYNN2GQQA7det2vQuJOJRx94RLWS8mg6v4XBlquD14/TDYw8cGfhF5esDW6M1NUzgcvWntc5LlMQqDWqH42u5zDQpbzx49bSYTu2+S2waIHVXvKVKi1BcoDhV/DKN0wRRBMbtuBS5T5eL1/HD1BRC0PKn+oCO+hG9JpE5A83Ge6pKZR/etbSTv8OgWILdfc+xB+1xrp9JO22nThOSPYNDwt9fpI+mCLIhecKcVp8fypyDOyiQ==
-Received: from SJ0PR13CA0017.namprd13.prod.outlook.com (2603:10b6:a03:2c0::22)
- by CO6PR18MB3793.namprd18.prod.outlook.com (2603:10b6:5:345::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9456.11; Fri, 26 Dec
- 2025 01:58:07 +0000
-Received: from CO1PEPF000044F4.namprd05.prod.outlook.com
- (2603:10b6:a03:2c0:cafe::5d) by SJ0PR13CA0017.outlook.office365.com
- (2603:10b6:a03:2c0::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9478.2 via Frontend Transport; Fri,
- 26 Dec 2025 01:58:07 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 4.227.125.105)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 4.227.125.105 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.227.125.105; helo=axiado.com;
-Received: from axiado.com (4.227.125.105) by
- CO1PEPF000044F4.mail.protection.outlook.com (10.167.241.74) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9456.9
- via Frontend Transport; Fri, 26 Dec 2025 01:58:07 +0000
-From: Kuan-Jui Chiu <kchiu@axiado.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: Harshit Shah <hshah@axiado.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH linux dev-6.12 6/6] arm64: dts: axiado: Add missing UART aliases
-Date: Thu, 25 Dec 2025 17:57:50 -0800
-Message-Id: <20251226015750.377679-6-kchiu@axiado.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20251226015750.377679-1-kchiu@axiado.com>
-References: <20251226015750.377679-1-kchiu@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dbsz92LGhz2yLg
+	for <openbmc@lists.ozlabs.org>; Thu, 25 Dec 2025 00:24:04 +1100 (AEDT)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 5BO5Y2IS1018267
+	for <openbmc@lists.ozlabs.org>; Wed, 24 Dec 2025 12:44:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=m9r1P67fE5RYVgK7sJ1zYioAmxa+nW61YwB
+	51X9ls6I=; b=fldrpCj+zA9Q7h/0byn4xtx/X+g2HVNthktaN8KT3CGaPx18Eeu
+	ZhgJsqk+U2LEM5K848P1u9lcbDdFs/Khx/O6Svo+Whi74m1Mpo2HVFq1ZyRbaFm7
+	FR+LI/bJ210Qj95lb2XVxhhV4IiAM/dhKI29cjmc5z9G0QcpqRsMDKqMEnnk9vdW
+	USDUGebEx5Bm3wxnkkWgHGHUJTWuTq1VVLSx/i9AvMFY5ir8V7JBPvubHtnWW3Hr
+	QcBZauX+sDL4uoJQt4t2tHim/XbTLT8JdR4dZ/GjRpYAwhDkmTQ3+B/IBpt2U0Xb
+	kcDr/k7K10BXVAahHytAxbDKQ+4kgg96tnQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4b7xjsavgp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Wed, 24 Dec 2025 12:44:39 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-4edb6a94873so114771021cf.0
+        for <openbmc@lists.ozlabs.org>; Wed, 24 Dec 2025 04:44:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1766580279; x=1767185079; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=m9r1P67fE5RYVgK7sJ1zYioAmxa+nW61YwB51X9ls6I=;
+        b=S0S1hHkr97VlRg+3tKjwuuhL9pyRyo29b+BNm2Z5SKA8bBp/sm8Qxo7Uzq2GfKd7Y7
+         0oSb2ai54r3bhBrZDotJCDFWcrxt8OT/+6nsj3hFUeZ1K5ZE9CaLGXDLWqvqKQnt9dld
+         4O3oHAykP5JSH0+xvbIqWMV/kWiG35VwRSnjggZEUpYYe8D0GteuqcstgEulMj3a0ajl
+         36XcblMjddsx9wRyQY8i+tQERsbimxKtn1DohrQqZ7Rl38LLi4PgX4LT3ujNFlNfz62W
+         9qLsDJs5UFGMoWg+rdZlwzQQcZWzKCihmaE/RoAsRP+zywsdKh0RptjjFY5c9PiFlT68
+         7epA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1766580279; x=1767185079;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m9r1P67fE5RYVgK7sJ1zYioAmxa+nW61YwB51X9ls6I=;
+        b=EM3ifvmuBmgVy82EvOlySqIDh1+TgV1K42XYL3Fl0QDVsfMOpR039caArTrcC+ApXr
+         hJQgA0JoFtwo7HgDSM06eytvk8oZIxUxoyHuC+Ab3XDRVK3YaoYEpnBlzNMLGQ/JRGSK
+         oM43eMActnSTmViR0F2yWP3eZ2zqNjqmQSto8k4SrE+H6mg9eGUIHQcWFWxBF5+xF5qD
+         ulF63GbrRweB267Vj0/E7ecKzAyPcdvS4mzQjn79C8htQcyuEf29ApPU4aXreESjD7al
+         ZqDXYxnbYBWVYqaolVtMb+ZM/jSKzOEqRToq2JHxuRBOfq3PQoT6YQifltPU5GpZSsDK
+         x2vA==
+X-Forwarded-Encrypted: i=1; AJvYcCVzrW9pT12VKj2CaD0EG+pNWyLsyXftIT4ahtFLDvvKeXH8lM9nQ8U12YY1q9c260446txVpSt2@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzsrZDfsDXL3DIxwdZpAhG550O3+1zs5JGgSLpgmoFqx2VoVip+
+	HQtJkGSw+YNOCJGbeG3CcyY+Zwevykt4C0/7kaWNAuHzhOtnhmp5uwNjOMglcFYp7Mpb9g0b2Zk
+	AylOnTPW8/fPctLm2O5sdFwWKdWXUs+nu/h+R1zCreLDhupx6LiKfy1+Ef3CY+Q==
+X-Gm-Gg: AY/fxX7B2ZgPcvkpY0HQRTuaLigq6QlBlIK7i1IYXgF22dy6QLdgPCaJn7aXY9DVvNH
+	xJdnwO8DlZxjhrsFXpsRnCfqQUANn9ACAGH5RZzsofqRejU7hOWJ3c2/PBrqrj4f0k/n3vgPvS3
+	mHvqfbeY0Uy7/xHO/NyNZXrDjlJXArfchnbBYmh6gpyQotHm/9QAMEW2Noj8mdichxPxSLTmga0
+	okA1WNejPBAf0jTnrlGI4lU+4kVivYBR9Oo3ju8BInrEhq36rCcx3bZThDUx1jM7iPoz1q/TVQQ
+	htn8lx4ljZoY11pf/Rpm/ZT+eU6LwfQTdMkVuZotcpUT+AeqGjggBC/Soka4KzWxn3NuS5VjSrz
+	rRocUoUf8TA7JxlKNio/0VjRZ4brAhkxfvaGhm0Jeh6MPlBS1WgNtD9uJT4BA2pXWb5vmtw==
+X-Received: by 2002:a05:622a:1c0b:b0:4e7:2dac:95b7 with SMTP id d75a77b69052e-4f4abd2b668mr288449151cf.37.1766580279400;
+        Wed, 24 Dec 2025 04:44:39 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE+NA1y+53V5FjdDZScyPo8qs3w+gs5u6C1SMipwvVq0kLIBUeyMoHc8CouFvb8Es/3VC8oWA==
+X-Received: by 2002:a05:622a:1c0b:b0:4e7:2dac:95b7 with SMTP id d75a77b69052e-4f4abd2b668mr288448641cf.37.1766580278931;
+        Wed, 24 Dec 2025 04:44:38 -0800 (PST)
+Received: from quoll.home (83.5.187.232.ipv4.supernova.orange.pl. [83.5.187.232])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-64b9159a6d0sm16832679a12.28.2025.12.24.04.44.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 24 Dec 2025 04:44:38 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Aubin Constans <aubin.constans@microchip.com>,
+        Ulf Hansson <ulf.hansson@linaro.org>,
+        Nicolas Ferre <nicolas.ferre@microchip.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+        Robert Richter <rric@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        Adrian Hunter <adrian.hunter@intel.com>, Joel Stanley <joel@jms.id.au>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>, linux-mmc@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-mips@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+        openbmc@lists.ozlabs.org, llvm@lists.linux.dev
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 1/4] mmc: atmel-mci: Simplify with scoped for each OF child loop
+Date: Wed, 24 Dec 2025 13:44:32 +0100
+Message-ID: <20251224124431.208434-5-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -89,88 +122,106 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1902; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=yM7PsCJOfo1O8B7Z+MHBYKtQYFgSA+XM28CKwgjSXg0=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpS+AvGomzzRiYXzxCRUVc56q7ljsbdKRtMaPH+
+ BmIj4M47laJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaUvgLwAKCRDBN2bmhouD
+ 1wBbD/91aQO1mFxSqslLTeFr4Dl5APuLTTk/ILf/WeP5bXwicwB+MKjkIBB/JMvW4h/70qH6Z0x
+ l09ct2wktyCrkWbBXtou6V1Y7rQsfK5mBLfeoxl2z/dp0pdlPJ+qsTGLXvYBdllFC+pDR+g2a0z
+ CfRUHflxj7UxVculnSnhluQuS2OrR3hG3fGC4hSE0ZHz3Cz91jZDiaif43yekqT14EMViCjISYR
+ H6kMCEtvfb0MIxvAWqKiV5Q1h8khWIqVX12yPrf4VBGyBBXHt7B3QZfYeHKZCJsaDfOsJkUV6AM
+ AVVwK/wByZHE6ifGhM6wfijBfJ14+RW5pP0GKmymxenVLVK5UfT5BzLb4k3GG33U50rZduZkfnw
+ eb4Bs1IFB38KkbXmaqGOKFwpSesJzlAy+im5tpxruX59GaZgLflrwRxkG/bi3jqwRV0yBpjGzuF
+ e+/PdMNsicVjYO+w6R3MtfXc57BiM4CTKFuJNIf370wI4+L+0KQiLwvsmMV2BaSLDHHNL0JKSsj
+ vjYF2o3X8hNSkyG45ET2MNOjWnEdUMSgjSbImKE/Z7lsX1lkdTiF0tjBDqlqNie+zMUsjPkQVH9
+ qVzme2ry1K2D/fe6OqB4TZTznqd3WBI5cl4kmaZ5rzs+cDgLAacpGV20A9n3wfVZMEiM9MBVLDA KYGhqVe3L36+D5Q==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F4:EE_|CO6PR18MB3793:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 8842eb5f-6e95-4121-bd0e-08de4422370e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?78jJdIyVHD4JTJXuolTzVJ0eh8J4eO3+y2pGsciVTrhGQBoGm20a9HEChY43?=
- =?us-ascii?Q?VOoKwAX3+NU73JQP5Oh6NQrN32iU3SRv0HxHKeeiXxgjIB/Fl3fheLV7ANIO?=
- =?us-ascii?Q?XwkYwi0EzsYHOEqLoBM6t1GNmvRSfIbDt6WtcE8pdyYR47ZxaQl3V10nRl/t?=
- =?us-ascii?Q?5W55mcueZM0DHamSFM9ekKmOZjRZqGjcbi5lDcIiENJrHkdLJjZ0w9Juv6kZ?=
- =?us-ascii?Q?mWbN+b+IMntuU3QyU0cbCGY4z8qWflg04inqFxFCH++dKwWa3AVVnUWUG4YG?=
- =?us-ascii?Q?yonSmwl/b5BBF2JHWjOVO/4jrEBm1cpuN1XMGcSA8D3srU8t5EKvTMd3BCDM?=
- =?us-ascii?Q?jCT+NsbpcPuMTd6/tefYXcx9MARQoLotDamKJZrCEB04+efJ5nqJ8Svpg1E0?=
- =?us-ascii?Q?LWs96ut70rEvTBRaem36JD3kJW3Z1bP/yYUGCmokGBxgbk1u4DbL00ilKZI7?=
- =?us-ascii?Q?gf1hvBL2IlhWloZZFTVKgfbDGKw+FeqbqXTbTPCNCFP+n0W9+EW1ctG8C+WH?=
- =?us-ascii?Q?9P+2PXjjOViFqpd4Icl2W0n6mgWsmga06rFrH+fE9OJ//KMd/wVJX7XLLGMX?=
- =?us-ascii?Q?Yym+sDi/Qw+hQdZVY13VAXQ5L6nZgSAL/rKQYGJb9kHE1JG/2slyWrhyIA0O?=
- =?us-ascii?Q?K1YFXSQDyzfXAdHpMgJaK95D7q/2A1FdtoEpxcDfAkLSGmQHdCNOPkOoJhRw?=
- =?us-ascii?Q?jZW0GIJ0mW3Dc+l3RPKsmcxTQiVHOvNJSaDLdS3wJJjtrfkyxTHDscSqGr2O?=
- =?us-ascii?Q?OzSN6YzNUZDasgEFwIsx73P09eXElZy34edRATTbQDMvoCZBV5fWLHGQqKbp?=
- =?us-ascii?Q?q1Yju971MyKmuwqC67SS7z2aAGU2mzb2Zqaz2k7RTgOSEhXSSccsL0kh4N46?=
- =?us-ascii?Q?5/gkEHdNA73c/hiyMFsnOMP5/X3lpnM1X1uqa+Y8KZZ+VrBh5PgkbRmT7wo0?=
- =?us-ascii?Q?8pkeLnESxJEy47vgxmarb0Af0Mz2E1XzWopLbZa2xTIEWUMceuZ7nhauNH5h?=
- =?us-ascii?Q?NNbrCvdcvJzEPZEju/fH0ZXATmBEhQyWG1Bm4QKRGfnzt2nYsuhMY44ngViS?=
- =?us-ascii?Q?MyB8lrCE3oEjLug4JTr8Ps3YEQP8eUXxHDgvgQRFww9kSxrNNc7fG1WAobMZ?=
- =?us-ascii?Q?9q/zdujHFQAN4z2L2nCUabjjHbct/3KfsuuwTZQJXeTduhjsA92s7lKRSc2m?=
- =?us-ascii?Q?WdReKHK+y+KZPTPScpViGzCBr9+BZXDXKFgEF9gOsCvosmKbCdNpMRVB80vJ?=
- =?us-ascii?Q?ETZmGv64tTOoFwvtYlF9gqb4MGzBos2EsC9q4iWt7jaZb8I0jdyAaZrCwDa6?=
- =?us-ascii?Q?Re4sUG30HIV7ZXb1Y4VIXE3txZG5s0mbmvJViZFoEhO6c2EEOaJ/XeWz/n3y?=
- =?us-ascii?Q?JzhpNIxl3NGioR+fDQeObSqr1zJvuJociaOAb6al0VdGlOBa9xXtvINQYoSS?=
- =?us-ascii?Q?3E99c01VY5vPtTqbz0w9rp8gDKO0kqKzaaUA5viQJ76RR6tWVJcprczxIlTq?=
- =?us-ascii?Q?gK105WOB7fFcJSY/xwjjOgfvLBPvFfgZ2s0PgcBSC0B8APrAU0n2T4cwGmmp?=
- =?us-ascii?Q?W8NWU3lhhIQ45mruvbg=3D?=
-X-Forefront-Antispam-Report:
-	CIP:4.227.125.105;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1102;
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Dec 2025 01:58:07.2045
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8842eb5f-6e95-4121-bd0e-08de4422370e
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[4.227.125.105];Helo=[axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR18MB3793
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMjI0MDExMCBTYWx0ZWRfXxnFDyCiHTtGh
+ D7xXD2DOA4gZ6t7OUMZySFwDZ+DJ/93KHrl7ds6qcJ5zejzh0K0LIgQr4hWB+osF9jGA4wHe5NE
+ j7f909Vx2pz/4V8trZzxblq57HI9TCrjols6Q7w4xPaUWwAo2Lcbilb2gBf6+qBSP85Yf92rIFv
+ Be5CntvCFEtpUZ/XrMaEIPVam+vepko9BwNNr/egWYXOHbIQcIxPq1aNJF/dlG+xng+7Jx9gYs0
+ wk576NutESkzHBXzeuW5Mo/zMl6RaBuEjo00NMEXEbaopAMH/m3kjmRHokJUeFM++bOJxdDx66S
+ 7Y0sJKcZ3FweaGkNzhM2c6qMPtOdssCXkkihrxNeDijKJ9kXW0hFusQ6BWIM0XQp5BgbAIHuInF
+ y/GAYPqSUlwUFIPpoO2B2gVhDpcCVjRFz4t61A3iwArsJcHF9UBoARog+yFTl6yIZbtorNCO3Oj
+ DWSPiGSJdtVLrGgNZVw==
+X-Proofpoint-ORIG-GUID: uoxMRaRgvlblC2fowANT7e9weQm2JIYI
+X-Authority-Analysis: v=2.4 cv=YcqwJgRf c=1 sm=1 tr=0 ts=694be037 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=urQ9wjG1USoGuMoDBEOPbA==:17
+ a=wP3pNCr1ah4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=8ZTf1ciMPyF_Hyv9z0sA:9 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: uoxMRaRgvlblC2fowANT7e9weQm2JIYI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2025-12-24_03,2025-12-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 clxscore=1011 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2512120000
+ definitions=main-2512240110
 
-From: Harshit Shah <hshah@axiado.com>
+Use scoped for-each loop when iterating over device nodes to make code a
+bit simpler.
 
-Axiado AX3000 EVK has total of 4 UART ports. Add missing alias for uart0,
-uart1, uart2.
-
-This fixes the probe failures on the remaining UARTs.
-
-Fixes: 1f7055779001 ("arm64: dts: axiado: Add initial support for AX3000 SoC and eval board")
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Harshit Shah <hshah@axiado.com>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/axiado/ax3000-evk.dts | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/mmc/host/atmel-mci.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/axiado/ax3000-evk.dts b/arch/arm64/boot/dts/axiado/ax3000-evk.dts
-index 92101c5b534b..b86e96962557 100644
---- a/arch/arm64/boot/dts/axiado/ax3000-evk.dts
-+++ b/arch/arm64/boot/dts/axiado/ax3000-evk.dts
-@@ -14,6 +14,9 @@ / {
- 	#size-cells = <2>;
+diff --git a/drivers/mmc/host/atmel-mci.c b/drivers/mmc/host/atmel-mci.c
+index fdf6926ea468..3b4928f5b9b2 100644
+--- a/drivers/mmc/host/atmel-mci.c
++++ b/drivers/mmc/host/atmel-mci.c
+@@ -629,14 +629,13 @@ static int atmci_of_init(struct atmel_mci *host)
+ {
+ 	struct device *dev = host->dev;
+ 	struct device_node *np = dev->of_node;
+-	struct device_node *cnp;
+ 	u32 slot_id;
+ 	int err;
  
- 	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
- 		serial3 = &uart3;
- 	};
+ 	if (!np)
+ 		return dev_err_probe(dev, -EINVAL, "device node not found\n");
  
+-	for_each_child_of_node(np, cnp) {
++	for_each_child_of_node_scoped(np, cnp) {
+ 		if (of_property_read_u32(cnp, "reg", &slot_id)) {
+ 			dev_warn(dev, "reg property is missing for %pOF\n", cnp);
+ 			continue;
+@@ -645,7 +644,6 @@ static int atmci_of_init(struct atmel_mci *host)
+ 		if (slot_id >= ATMCI_MAX_NR_SLOTS) {
+ 			dev_warn(dev, "can't have more than %d slots\n",
+ 			         ATMCI_MAX_NR_SLOTS);
+-			of_node_put(cnp);
+ 			break;
+ 		}
+ 
+@@ -658,10 +656,8 @@ static int atmci_of_init(struct atmel_mci *host)
+ 					      "cd", GPIOD_IN, "cd-gpios");
+ 		err = PTR_ERR_OR_ZERO(host->pdata[slot_id].detect_pin);
+ 		if (err) {
+-			if (err != -ENOENT) {
+-				of_node_put(cnp);
++			if (err != -ENOENT)
+ 				return err;
+-			}
+ 			host->pdata[slot_id].detect_pin = NULL;
+ 		}
+ 
+@@ -673,10 +669,8 @@ static int atmci_of_init(struct atmel_mci *host)
+ 					      "wp", GPIOD_IN, "wp-gpios");
+ 		err = PTR_ERR_OR_ZERO(host->pdata[slot_id].wp_pin);
+ 		if (err) {
+-			if (err != -ENOENT) {
+-				of_node_put(cnp);
++			if (err != -ENOENT)
+ 				return err;
+-			}
+ 			host->pdata[slot_id].wp_pin = NULL;
+ 		}
+ 	}
 -- 
-2.34.1
+2.51.0
 
 
