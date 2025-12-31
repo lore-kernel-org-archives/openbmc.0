@@ -1,72 +1,59 @@
-Return-Path: <openbmc+bounces-1082-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1083-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A66FA3750
-	for <openbmc@archiver.kernel.org>; Fri,  2 Jan 2026 21:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2BC3FC6166
+	for <openbmc@archiver.kernel.org>; Sat,  3 Jan 2026 01:22:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4djcDN6jFvz2xHW;
-	Sat, 03 Jan 2026 08:25:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=209.85.216.52
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1767389124;
-	cv=none; b=iH/6NbHexb/YtmcEhdfW9Or1NmppCGW9CxuqzszgDB2/Rl1/gOS80gl1m5B5brioUWFuPP+hcLKzOMlVoy0xClijnownDU/MW3z385BfWL2E+H59+/dPeBY8bjS7+czGPBOXNK40l02WSMBO0L+DRYnc/XSUDpJ26UWzx/A9X2Zhowu+dEY8rZ7wug+7UxOeuJpF6KY60DBCY4Klzl0R0pr+MFWlXR3tTPaCScYz6W+BnPpvYA5P/UHCEBqJqgSswT/6/Ayv6KEqeTgOPUYHuYax4cq+vvRfPaMXoc430GIpJtJZhG3WeJirvi9BaiRc3T3VD83thuGZZGyyS41Hgg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4djjV00Sthz2yFY;
+	Sat, 03 Jan 2026 12:22:32 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1767217055;
+	cv=none; b=ONhnaXelACus2HZiPkv/zaq2d2R10hMULot3j5bKUIdZ1Q69vptpc64kMtNC/NeFyKN2Hsg2GMjJK1e64Y/cFEg3ApDbJDl7wSrWeWDVJoJmzCYsDuZIk9mZogkBfqQvSd+qKDVMTHe1P07M/EZ7vVVybkdnQbxSInE9rzDNFsQUu1Um/mUwuyZmB7Oezv4nE6GC1iPnVTjABUxICZgm3kBjK9sAt6P2MB0PBbxiL6kxqBgxadG+5ARmOardKjiqGaoRktMKDtn03RhdMRVMX0feU1SEOl///h0wdQAUzSKBgnrUgARRlNORAWTuy2UHbnpIsdy7SvQVlIQOBzHePw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1767389124; c=relaxed/relaxed;
-	bh=Awl09BwhuIELnSnP5lfIqPu923VWH4uy5ZBlp30qc0w=;
+	t=1767217055; c=relaxed/relaxed;
+	bh=3Rfnf2qhGGwgV00DUgX+jw89Q5Q97DzPe9bYdiAb1ps=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kZl/U28UMLLdriwhpL+vuDjd20IHRnuVwFIyJsgWKNKEGHtWSqAvYeD2TLsz1C28jdS1xlf3rOVTPhoS2Q/k5oxRYnW+lVQqYDdqaFbzd384qEVFOFRrFw8i8fxzGvR8ZOTUxJWgFZbC+9wfqr3mlIzQfp7v9dUHpXegmFWMii+w00GkEPotA4yGG/JtyaqsKIbI0SiFAojKE9/ZY8X28plZWXFoQbdvJY/AkXCWbGSZPGby7Hb+BxlO/q7W+LkMXxLLyAR6V3fMn/Hy5OtNlLTG6J76X4/wczVXUWPeJAmzjET77UTy/BwxB0dnEIfGRFw48wR3GehifT4Wz5Vn1Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=XT0q53eH; dkim-atps=neutral; spf=pass (client-ip=209.85.216.52; helo=mail-pj1-f52.google.com; envelope-from=fr0st61te@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=YUalhNjHpz2SX6NE3fj0VrnJ/ra6fj/vypk2q7pjXgVdf1YBFMCPXrY/CxWDD5Ty9ujK/0acUFGFm8n2xHpk2sUjLMB3ueXp3JBoBEkH+d3GuCKBQiWYEXkdpGhCDfQTx1ujhX5uFHJ9oIEjub+vjc3EEjsx81IyA7ble2RcWMaX6bIIgT2bJJqHkEwwa98Nr5QbwuE2m2F/t8WhkytBUqJ+lsg2UckpPZJ+Ic+TjH3eN7iHuMAfb2coMXVSQK3OTn9M1yPR1ASmBnF5ZE4sJ//QZRlrcfeRQ95Jyp66LOMAmRZPtJH9WajCtKgWYnMuzJ3uSX/gH8ZkP0tNk8IODQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=S/myJmuv; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=XT0q53eH;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=S/myJmuv;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=209.85.216.52; helo=mail-pj1-f52.google.com; envelope-from=fr0st61te@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4djcDL0sxhz2x99
-	for <openbmc@lists.ozlabs.org>; Sat, 03 Jan 2026 08:25:21 +1100 (AEDT)
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-34c84ec3b6eso15871099a91.3
-        for <openbmc@lists.ozlabs.org>; Fri, 02 Jan 2026 13:25:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1767389059; x=1767993859; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Awl09BwhuIELnSnP5lfIqPu923VWH4uy5ZBlp30qc0w=;
-        b=XT0q53eH/ZwKhGGYrC6/zZTmVNFZy66JhCDGe19WDyUHcqMmzX+voEwyjHDKotDjS+
-         pd5YCT2HcWNm+Y6t0EmB7ZrrxhqXyltaThnXfhsUBuDJsZO5orJVbHgMrKvS0uZ2batE
-         /C4R0EuMMW4GKINsbl8po9ZcaqAJxsVq7egDkaA9p3+TYyXPOOBuzi+SPzbse/xvV1HE
-         4P/j11wuXL/UaAI4u81xgYEHyZqLUjNDjDfupQz41SVNu7jiabtWKD15scUZyzK+SnVN
-         lHpj6LbeWeBj6jd1KDoFQvJaZq8hC+6VxAsc2D6Fbj1wLhKah+BhM+oGpkqZcmjDcRgX
-         bFAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1767389059; x=1767993859;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Awl09BwhuIELnSnP5lfIqPu923VWH4uy5ZBlp30qc0w=;
-        b=bePyDncXySgcRbKOFD7X3S1QzyHdRAa5GaZQb2aL9csdbUs0bSdjsadLh8L3OARBM1
-         /QmqdgOJ/voYeHHHSIiJ2qjWUYr8uwe1ZtCWdYuw88IxB3vCC73NSvfcafo/LK91X7py
-         9+GbYPdZZgR6DDLmeb0b9zroGtS9gUizxNonxarvvRGtsLjGyXu11pKkdIHeO5W79ipb
-         jU2JxnyWZFD96OnVA99UL4fuDhq+0oYHu9QBQ9aVa80w1LR40xXvIQ+2zoPool98dCwB
-         7Fwqs3YG+YHsIQGfQApW0AT304LW3VYfJ0OllVI4d8B8PJGXIGHzAKn4qvpuun5MJ8Ai
-         w1og==
-X-Forwarded-Encrypted: i=1; AJvYcCWWkMU01sHnAlEIpFrIxu1pksvG5r1gB4sYFj1uUfcaoLAp3dHsUc3MyHUWokdXNZCNPU3a6dqq@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yzmgc04XrUXyjRojoun4H0nPUouIIpKPPry1zakKMh/1eOPTxT4
-	uLUEJycxF8jqHvo60vw69PdGhdrteYQLnHd/u03EvQzpyIX168SIetL0uw2Z0ao1E+So8fqWqmx
-	QqRwyHHlpT5wRMRXq/CPofnzckzoEW5g=
-X-Gm-Gg: AY/fxX7xlin4cPqetHQ52kfNw8v++UUkVslQVHcMniRgXh6SN5GK9iBsH7cO35gY65I
-	kJGTgYqMd6qgCu2MTW9BGCq95h4SuRdvqDRvbqIaepoiddrPxQ652mIlALCVhDFrfukMGmMqWQE
-	GJzQbnUc/7JmVACbHismfRWkWPmsHc4w/u/TUhuVDwzUAzW1UpRs5PP2doJ7mGkKzAVmaFwt0Rn
-	13BalYa3LXIVYU1EpXB5FODa6u4v/Q0gtGHVCv4buLWs6abE6nwq6tecwwLJ93yzY0bI4Ih
-X-Google-Smtp-Source: AGHT+IEplm7mEH0tbp4brKLcpXIrSQWmIJbYGFnU3TEELYkZ1ynTN/o7n27W6SW7/t/vkPdG0eRaq8ViCezXdYT3rKQ=
-X-Received: by 2002:a17:90b:580e:b0:34e:7938:669c with SMTP id
- 98e67ed59e1d1-34e921cbe18mr32338336a91.25.1767389058843; Fri, 02 Jan 2026
- 13:24:18 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dhNbL5r0kz2x99
+	for <openbmc@lists.ozlabs.org>; Thu, 01 Jan 2026 08:37:34 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 85302443BF
+	for <openbmc@lists.ozlabs.org>; Wed, 31 Dec 2025 21:37:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F125C2BCB1
+	for <openbmc@lists.ozlabs.org>; Wed, 31 Dec 2025 21:37:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767217047;
+	bh=3Rfnf2qhGGwgV00DUgX+jw89Q5Q97DzPe9bYdiAb1ps=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=S/myJmuvkQhoJ8EppRf3vex1oHqN6qlqOFLVY9fq6nDRgajD26aH7kRPXmgv928XN
+	 DF+TI78MG0UkXzZMdQuw/GlDgWSTvvxshjuoWDv9HPqT/ygN9fSm4tM6/4gtAfbWRo
+	 QzgG3od32ACcdrA4U/CqlZorWWrLyM+hVKKc9JprOQAISIoIWyWLrac6n3tEKlvdbz
+	 pn7SDd/cIIVAUBaCaNAtbKkHkMk4EWxb3ubqdSGLJYW7BHJG77tQL9PBBKd5n9kxil
+	 vefx2gkquaNmsHtp/u9YwXN07/1/wFU4m8CwszxqBuN+8dVBrt7VZWgJ48dhsHZj/v
+	 RFgKGQWveyeJQ==
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-641e9422473so9139469d50.2
+        for <openbmc@lists.ozlabs.org>; Wed, 31 Dec 2025 13:37:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWMM7G/36YR/BqOBzVrFF9W1+/ZPs33UIUHHaP4X3vu835e2V6lYLBEUx0j5vdJU5v6JbyT0vgg@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyN691WxjuY80e5WRVEwgcgaAhvn6bbmp2igMAzTAa3f6mRfKVS
+	ki5wJt3JB9K/MBe+SEhEJ+Mtl5o3HoQ+B45vV4MpTVAgtxm+s8k1QxX5ilAgyAK9TddMXfUnw+W
+	YScHkxW+5BsfqR3W1B4Y136BrQbsUkz4=
+X-Google-Smtp-Source: AGHT+IHHeH8zJG7rfiI2GFfedkzIC0YK/SbYafxSnkK2MFdRLnSCHEYor5QZDiE7b0zGilhY27fuPDjyGexn5uPgcoQ=
+X-Received: by 2002:a05:690c:3803:b0:78f:984b:4bb5 with SMTP id
+ 00721157ae682-78fb40c5f09mr590051547b3.64.1767217046540; Wed, 31 Dec 2025
+ 13:37:26 -0800 (PST)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -78,129 +65,39 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20251202-msx4-v2-0-a605d448bd02@nvidia.com> <20251202-msx4-v2-1-a605d448bd02@nvidia.com>
-In-Reply-To: <20251202-msx4-v2-1-a605d448bd02@nvidia.com>
-From: =?UTF-8?B?0JjQstCw0L0g0JzQuNGF0LDQudC70L7Qsg==?= <fr0st61te@gmail.com>
-Date: Sat, 3 Jan 2026 00:24:07 +0300
-X-Gm-Features: AQt7F2puUeFAAaG-XfYSBKsF_1-L7o9HhizO3mq-VdajfCop_nLr5h0ExT7khOA
-Message-ID: <CAKkNK0JOPAyw8HA0XnD836d115p5YBbo=uBD9eXXvByzCv92Yg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2 1/2] drivers: spi: Add support for disabling
- FMC_WDT2 for aspeed
-To: Marc Olberding <molberding@nvidia.com>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au, openbmc@lists.ozlabs.org, 
-	eajames@linux.ibm.com
+References: <20251211-dev-dt-warnings-all-v1-0-21b18b9ada77@codeconstruct.com.au>
+ <20251211-dev-dt-warnings-all-v1-2-21b18b9ada77@codeconstruct.com.au>
+In-Reply-To: <20251211-dev-dt-warnings-all-v1-2-21b18b9ada77@codeconstruct.com.au>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 31 Dec 2025 22:37:15 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmNGrDt3_w=DFnBnjEuz3LN-=uc1o9KHv1j=4gbGPoPQg@mail.gmail.com>
+X-Gm-Features: AQt7F2oNijhkSY2l2xLUahhHBTqPWX5BBKamnMGV8HdX2c29O6a9KTnJl-DXNNE
+Message-ID: <CAD++jLmNGrDt3_w=DFnBnjEuz3LN-=uc1o9KHv1j=4gbGPoPQg@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/16] pinctrl: aspeed: g5: Constrain LPC binding
+ revision workaround to AST2500
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
+	linux-mmc@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	linux-iio@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 3, 2025 at 2:53=E2=80=AFAM Marc Olberding <molberding@nvidia.co=
-m> wrote:
->
-> Adds support for disabling the ast2600 FMC_WDT2 through
-> a device tree entry in the fmc node.
-> Set `aspeed,watchdog-disable` in your device tree to have
-> the driver disable it.
+On Thu, Dec 11, 2025 at 9:46=E2=80=AFAM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
 
-Marc, FMC_WDT2 doesn't disable watchdog, it controls ABR mode.
-Watchdog with or without ABR still in operational mode.
-So, maybe aspeed,abr-disable?
+> Discovering a phandle to an AST2400 or AST2600 LPC node indicates an
+> error for the purpose of the AST2500 pinctrl driver.
+>
+> Signed-off-by: Andrew Jeffery <andrew@codeconstruct.com.au>
 
-Below namings probably should be corrected.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
->
-> Signed-off-by: Marc Olberding <molberding@nvidia.com>
-> ---
->  drivers/spi/aspeed_spi.c | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/spi/aspeed_spi.c b/drivers/spi/aspeed_spi.c
-> index 54520122f1c48c8b2052b4b1e47445a9b990d25e..de954e477aa15e6d1be042a2a=
-ee47f5a501178da 100644
-> --- a/drivers/spi/aspeed_spi.c
-> +++ b/drivers/spi/aspeed_spi.c
-> @@ -30,14 +30,16 @@ struct aspeed_spi_regs {
->                                         /* 0x30 .. 0x38 Segment Address *=
-/
->         u32 _reserved1[5];              /* .. */
->         u32 soft_rst_cmd_ctrl;  /* 0x50 Auto Soft-Reset Command Control *=
-/
-> -       u32 _reserved2[11];             /* .. */
-> +       u32 _reserved2[4];              /* .. */
-> +       u32 wdt2_ctrl;                  /* 0x64 FMC_WDT2 control */
-> +       u32 _reserved3[6];              /* .. */
->         u32 dma_ctrl;                   /* 0x80 DMA Control/Status */
->         u32 dma_flash_addr;             /* 0x84 DMA Flash Side Address */
->         u32 dma_dram_addr;              /* 0x88 DMA DRAM Side Address */
->         u32 dma_len;                    /* 0x8c DMA Length Register */
->         u32 dma_checksum;               /* 0x90 Checksum Calculation Resu=
-lt */
->         u32 timings;                    /* 0x94 Read Timing Compensation =
-*/
-> -       u32 _reserved3[1];
-> +       u32 _reserved4[1];
->         /* not used */
->         u32 soft_strap_status;          /* 0x9c Software Strap Status */
->         u32 write_cmd_filter_ctrl;      /* 0xa0 Write Command Filter Cont=
-rol */
-> @@ -45,7 +47,7 @@ struct aspeed_spi_regs {
->         u32 lock_ctrl_reset;            /* 0xa8 Lock Control (SRST#) */
->         u32 lock_ctrl_wdt;              /* 0xac Lock Control (Watchdog) *=
-/
->         u32 write_addr_filter[8];       /* 0xb0 Write Address Filter */
-> -       u32 _reserved4[12];
-> +       u32 _reserved5[12];
->         u32 fully_qualified_cmd[20];    /* 0x100 Fully Qualified Command =
-*/
->         u32 addr_qualified_cmd[12];     /* 0x150 Address Qualified Comman=
-d */
->  };
-> @@ -163,7 +165,8 @@ struct aspeed_spi_regs {
->  #define SPI_3B_AUTO_CLR_REG   0x1e6e2510
->  #define SPI_3B_AUTO_CLR       BIT(9)
->
-> -
-> +/* FMC_WDT2 control register */
-> +#define WDT2_ENABLE            BIT(0)
->  /*
->   * flash related info
->   */
-> @@ -267,6 +270,7 @@ struct aspeed_spi_priv {
->         ulong hclk_rate; /* AHB clock rate */
->         u8 num_cs;
->         bool is_fmc;
-> +       bool disable_wdt;
->
->         struct aspeed_spi_flash flashes[ASPEED_SPI_MAX_CS];
->         u32 flash_count;
-> @@ -683,6 +687,9 @@ static int aspeed_spi_controller_init(struct aspeed_s=
-pi_priv *priv)
->         setbits_le32(&priv->regs->conf,
->                      CONF_ENABLE_W2 | CONF_ENABLE_W1 | CONF_ENABLE_W0);
->
-> +       if (priv->is_fmc && priv->disable_wdt)
-> +               clrbits_le32(&priv->regs->wdt2_ctrl, WDT2_ENABLE);
-> +
->         /*
->          * Set safe default settings for each device. These will be
->          * tuned after the SPI flash devices are probed.
-> @@ -1907,6 +1914,10 @@ static int aspeed_spi_probe(struct udevice *bus)
->          * SPI controllers
->          */
->         priv->is_fmc =3D dev_get_driver_data(bus);
-> +       if (device_is_compatible(bus, "aspeed,ast2600-fmc") &&
-> +           dev_read_bool(bus, "aspeed,watchdog-disable"))
-> +               priv->disable_wdt =3D true;
-> +
->
->         ret =3D aspeed_spi_controller_init(priv);
->         if (ret)
->
-> --
-> 2.34.1
->
+Also pretty obviously correct, can't I just apply this one?
 
-This patch go through the standard upstream process or just openbmc u-boot?
-Do you have plans to do any changes around the linux kernel with
-fmc_wdt2 + spi part?
-
-Thanks.
+Yours,
+Linus Walleij
 
