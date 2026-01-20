@@ -1,166 +1,64 @@
-Return-Path: <openbmc+bounces-1258-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1259-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA26D26295
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jan 2026 19:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA927D262A7
+	for <openbmc@archiver.kernel.org>; Tue, 20 Jan 2026 22:11:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dwcfy5ng1z309S;
-	Wed, 21 Jan 2026 06:23:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768936986;
-	cv=none; b=kfXFjRW+f/j3oSS26kemdqrCXnj3jwpmZcgtS9NTFeXwryGwwWx15iuIJJ4FyI+ioyEEmQ5tT/lT1qKZLi0nwlRwzB4bRU4FX+KKNIh246jHwiqhNTlyZr3bqa9pwYX45HCXC0y29mSxnbht6tMwTDvmeYhjQfXRiP4tRxFrHhwnHG/VNbnWl1+WQLxL3gXP+GP16XpAcERrGUtZdPYOHMU4SG0eeek2kfa6kjnzATdLi71nOaRwF35qiJPR3RoNjX/FGz9CwcA/wWdkGgImXDTvu190Vyjuw8bKE4PzqBi3AzyxfY0RUc/blFXwLWNAH4oBKH0TqJYe14UEkrDYLw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dwhPB0Ng3z2xrL;
+	Wed, 21 Jan 2026 09:11:26 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768947085;
+	cv=none; b=k2AvGzsuP+xo36RPFfwXqMTrw7sp81+dgEVgkzOm0RfxoaiX3zwvTTavIoHnYcqtkdh9QSqWQykI7apCKAFnwTeHqoUjqgcGrxZB5FLBaSHpSIxKeepMQHfvRyA1QzxsZRfqEHM6wMn7Y/9wpKuulVqlaZhbvrmCfBltuZWx7pyILyt19TYQm8jRrlqT6n6Y2aEAS8/b/qxUqNJL22NHCuLpSg3y0poz5qbHPRZcbXlf8u8RESyZfZ0O+Lg49OZWGQv33UJk2XN8IpNiL2of53ryr8QLtvqiAZU4g2Zy2uc5MliZCjw1d5GP41AHYrViqh1rF2La0pjkdmEzRKxPXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1768936986; c=relaxed/relaxed;
-	bh=QC7n6HVwZ0EMJZYSS+nH+tnqVbWk5qUbcH3nkVMrG1E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jCSk0//JFQ77EEncHS60KjYidafP81MtedAOxKlFcJex4gCtgWwZD9Bn0gxrpfoJ5nDWEXC3eCYs3EhfgtOW7U2YOzIinxugDC68qW6WIvQCQVZYU5nmXVZt05nkaRbL07xCt3fOssvk1OaBu4YmT33qjg7+cNFf4M9y7/+ttSM7LIj2YkUCRExljhH4JS0Uwdm5Zwjgtg0vd5japGpLcM18Wsr87dtZ1ClX4JW9TQWt0i5hZ87LdiI4PUiqxeWFtefMZofkWggDhDtLf8VjvKY35nnmTjU6CsT57Yh2L+Qd3A26ZEykrvnXEVNdhP7cIEekdHgjqrL5L7QjEazoUA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=jgX58MKi; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1768947085; c=relaxed/relaxed;
+	bh=cz8APhsseY0Zk6G5E1jpmPu9bX8/ov5VZe6gD1zzSmc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fadjwa10uw+tkYAtyt/eO44T8zHhdQTv9X8zO65KnhNgFGaqZFF0i6y+1yoRUbZXwZNc3e0HIS3tMxGtPfQi6rqWMq4ObVdr1XrU0D+emc/6DQP639lE/H4lGogsNyWCuVOyK7SUe/bQ6VsdBTrzbUH1BaZKNIbtTM+kobZNz6b4XLcKMdD1SOlQ6+2dsjD7u+ukvhf8kLH4tdRECrV14RPaf78UjhH3aijuPi+ymJEntrdPWdRKXlUHMNk/PVowUfDJvE6drAlnkfUsaC3UjmlNeTAppjQyjpqVco1qeKrLuUv90x7PMlrOM6S+GFmUvmN8LrUwI/xDPnKcPIr/UA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0WLm9SWQ; dkim-atps=neutral; spf=pass (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org) smtp.mailfrom=lunn.ch
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=jgX58MKi;
+	dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=0WLm9SWQ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dwcfx6t79z2x9M;
-	Wed, 21 Jan 2026 06:23:05 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 8683142E46;
-	Tue, 20 Jan 2026 19:23:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA9BC16AAE;
-	Tue, 20 Jan 2026 19:22:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1768936983;
-	bh=8rZs4ctIFUWV+s7flKGQlMaVzkDSCztd/ihtff8Ht6w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=jgX58MKi+zjgv/xDIQx4cHK0wTdbY5WHIpWy6zaWGiyru1YA6cG7Qbw7G8M9RhL3S
-	 SSiru+ZKHzsLIh6rtTpzRanq5020WDpXXkfsUjC/Hil6perlOH41PXAjqsRSipdXvS
-	 IPP61htVkOsCqcy9Pqn5fLS8BPsTMosoZ9eOUO70Q6cEURtv9hoJC0lOmTM5QlYWiG
-	 wz6tqUkz/prRaWfMAFRhQ1iN0dHrXg8oROA8glqKMy/5Onkhv0z+Jp0+qs66q2UQYi
-	 BzO1NPQx1qqbWombFmTG5JqwfCmxs4g31+tAPZmi39pA4KsUWJBmYbw0vvIV/lZYxv
-	 FMvcuLOxsC4SQ==
-From: Mark Brown <broonie@kernel.org>
-To: Varshini Rajendran <varshini.rajendran@microchip.com>, 
- Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Haotian Zhang <vulab@iscas.ac.cn>, Sunny Luo <sunny.luo@amlogic.com>, 
- Janne Grunau <j@jannau.net>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Chen-Yu Tsai <wens@kernel.org>, 
- Amelie Delaunay <amelie.delaunay@foss.st.com>, 
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, CL Wang <cl634@andestech.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Heiko Stuebner <heiko@sntech.de>, 
- William Zhang <william.zhang@broadcom.com>, 
- =?utf-8?q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- David Lechner <dlechner@baylibre.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Jonas Gorski <jonas.gorski@gmail.com>, Hang Zhou <929513338@qq.com>, 
- Jun Guo <jun.guo@cixtech.com>, Philipp Stanner <phasta@kernel.org>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Shiji Yang <yangshiji66@outlook.com>, James Clark <james.clark@linaro.org>, 
- Jonathan Marek <jonathan@marek.ca>, Carlos Song <carlos.song@nxp.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Huacai Chen <chenhuacai@kernel.org>, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Prajna Rajendra Kumar <prajna.rajendrakumar@microchip.com>, 
- Sergio Perez Gonzalez <sperezglz@gmail.com>, 
- Qianfeng Rong <rongqianfeng@vivo.com>, Haibo Chen <haibo.chen@nxp.com>, 
- Gabor Juhos <j4g8y7@gmail.com>, Md Sadre Alam <quic_mdalam@quicinc.com>, 
- Rosen Penev <rosenp@gmail.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Luis de Arquer <luis.dearquer@inertim.com>, 
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Longbin Li <looong.bin@gmail.com>, 
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
- =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>, 
- Alessandro Grassi <alessandro.grassi@mailbox.org>, 
- Darshan R <rathod.darshan.0896@gmail.com>, 
- Aaron Kling <webgeek1234@gmail.com>, Vishwaroop A <va@nvidia.com>, 
- Haixu Cui <quic_haixcui@quicinc.com>, 
- Darshan Rathod <darshanrathod475@gmail.com>, linux-spi@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, asahi@lists.linux.dev, 
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
- linux-rpi-kernel@lists.infradead.org, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, imx@lists.linux.dev, 
- linux-arm-msm@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, Ray Liu <ray.liu@airoha.com>, 
- Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Ryan Wanner <ryan.wanner@microchip.com>, 
- Michael Hennerich <michael.hennerich@analog.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Kamal Dasu <kamal.dasu@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Kursad Oney <kursad.oney@broadcom.com>, 
- Anand Gore <anand.gore@broadcom.com>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Jean-Marie Verdun <verdun@hpe.com>, Nick Hawkins <nick.hawkins@hpe.com>, 
- Yang Shen <shenyang39@huawei.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Lixu Zhang <lixu.zhang@intel.com>, 
- Yinbo Zhu <zhuyinbo@loongson.cn>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Han Xu <han.xu@nxp.com>, Yogesh Gaur <yogeshgaur.83@gmail.com>, 
- Linus Walleij <linusw@kernel.org>, Daniel Mack <daniel@zonque.org>, 
- Haojian Zhuang <haojian.zhuang@gmail.com>, 
- Robert Jarzmik <robert.jarzmik@free.fr>, 
- Chris Packham <chris.packham@alliedtelesis.co.nz>, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
- Orson Zhai <orsonzhai@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Li-hao Kuo <lhjeff911@gmail.com>, 
- Masahisa Kojima <masahisa.kojima@linaro.org>, 
- Jassi Brar <jaswinder.singh@linaro.org>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
- Michal Simek <michal.simek@amd.com>, Max Filippov <jcmvbkbc@gmail.com>
-In-Reply-To: <20260112203534.4186261-1-andriy.shevchenko@linux.intel.com>
-References: <20260112203534.4186261-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] spi: Make SPI core to take care of fwnode
- assignment
-Message-Id: <176893695845.778248.8132133480043006428.b4-ty@kernel.org>
-Date: Tue, 20 Jan 2026 19:22:38 +0000
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dwhP807Dwz2xjK
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 09:11:23 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=cz8APhsseY0Zk6G5E1jpmPu9bX8/ov5VZe6gD1zzSmc=; b=0W
+	Lm9SWQQov5SYd420XUzSP8tyaiF9Y4ujlBQzmY/Th4asNTZ50ub3BJd9Dlsrxalzcy+e9smXDK7uN
+	NqKWIJLS3Yz9jukT5jfXlgISuHH38T+Dy7aAeX+CrQxUfBfk/HmRYj7G1QITxRhI94jWTECv3vxjD
+	lw4a8v0h3Xo2qJY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1viJw7-003jIq-CF; Tue, 20 Jan 2026 23:10:55 +0100
+Date: Tue, 20 Jan 2026 23:10:55 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com, alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com, ychuang3@nuvoton.com, schung@nuvoton.com,
+	yclu4@nuvoton.com, peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v8 2/3] arm64: dts: nuvoton: Add Ethernet nodes
+Message-ID: <2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch>
+References: <20260119073342.3132502-1-a0987203069@gmail.com>
+ <20260119073342.3132502-3-a0987203069@gmail.com>
+ <04df4909-4fdb-4046-917f-2f2e47832c62@lunn.ch>
+ <a5cb949f-34c1-470c-bd04-0b35c249455f@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -172,57 +70,55 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15-dev-47773
+In-Reply-To: <a5cb949f-34c1-470c-bd04-0b35c249455f@gmail.com>
 
-On Mon, 12 Jan 2026 21:21:22 +0100, Andy Shevchenko wrote:
-> It seems all of the SPI drivers want to propagate fwnode (or of_node)
-> of the physical device to the SPI device. Make sure we don't duplicate
-> it over and over in each new driver (+2 in this cycle) by making core
-> to take care of that. Note, similar is done already by IIO and
-> I²C subsystems.
+On Tue, Jan 20, 2026 at 09:34:39AM +0800, Joey Lu wrote:
+> Dear Andrew,
+
+Please don't top post.
+
 > 
-> There is one noticeable and quite specific case that is taken care in
-> the first patch and now we have a confirmation from Cirrus that everything
-> is okay.  The rest is just a mechanical conversion after checking that
-> the parent device is assigned to the same that provides the respective
-> fwnode.
+> Thanks for the clarification.
 > 
-> [...]
+> In our design, the Ethernet PHYs are located on the base boards, not on the
+> MA35D1 SOM.
+> 
+> The SOM base board routes two RGMII interfaces from the SOM to two external
+> PHYs on the carrier board.
+> 
+> On the MA35D1 IoT board, there is no separate SOM and carrier board - it is
+> a single integrated board.
+> 
+> I will update the DTS accordingly so that no PHY nodes appear in .dtsi.
+> 
+> Thanks!
+> 
+> Best regards,
+> 
+> Joey
+> 
+> Andrew Lunn 於 1/19/2026 11:22 PM 寫道:
+> > On Mon, Jan 19, 2026 at 03:33:40PM +0800, Joey Lu wrote:
+> > > Add GMAC nodes for our MA35D1 development boards:
+> > > two RGMII interfaces for SOM board, and one RGMII
+> > > and one RMII interface for IoT board.
+> > > 
+> > > Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> > > ---
+> > >   .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 12 +++++
+> > >   .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 10 ++++
+> > >   arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 54 +++++++++++++++++++
 
-Applied to
+Does ma35d1.dtsi represent the SOM?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+If so, what is ma35d1-som-256m.dts ? It looks like some odd sort of
+carrier board with a few serial ports and some memory? But systems
+like this put the memory on the SOM, not the carrier.
 
-Thanks!
+As i said, i'm confused with your naming here.
 
-[1/4] spi: Propagate default fwnode to the SPI controller device
-      commit: f2d1a3318eb1ec860999db48cb8d13b43261624d
-[2/4] spi: Drop duplicate of_node assignment
-      commit: 3974a585be78a1dc90a19d5cf1846a99954e3842
-[3/4] spi: Drop duplicate fwnode assignment
-      commit: 103c510e1c6832720059756d155dd13a42baa7ab
-[4/4] spi: Drop duplicate device_set_node() call
-      commit: 37fbc1ab0f225d23f0839260a11375b4f1f7cf8c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+   Andrew
 
