@@ -1,80 +1,89 @@
-Return-Path: <openbmc+bounces-1262-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1263-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FB0CD2629F
-	for <openbmc@archiver.kernel.org>; Wed, 21 Jan 2026 02:11:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A95CA5FD7
+	for <openbmc@archiver.kernel.org>; Wed, 21 Jan 2026 14:44:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dwnk61Tt0z2yFg;
-	Wed, 21 Jan 2026 13:11:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1031"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768959795;
-	cv=none; b=iR+PyITJvBnYVRK9AAw61gbOYouNKyyfNBRuqo4+Hwk7tQ/0DagPC2+Px8QJnFukNSLRvt/U6DFbBo8FYt6mhdDI2OT6ZSbHk6vwyxvgvneakh0JoL6sfAe6SSDYKkPLi+K3dh2sjSc6oqlt8/5yqLhmwz0FIVsqY+YN/iu3ESFwo5B2+IVxeN+s9O1O9s978myWw5uGjfCoY/Hf0CzIqyg6DY+CoweKbqhLqhwA+7CZgi2bvMh53LAshPfEr1haIq8HtcaOD/A6YxMZ5zyHOa2H1R25fW5WsTNhyTi34LisSqF0M/TyqqYBCcHR083ziN7t0BEA743WdFkXCfMpqA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dx6R71TDBz2yFg;
+	Thu, 22 Jan 2026 01:44:35 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=202.12.124.154
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769006675;
+	cv=none; b=TJQrVR5zNH33KGZbOiW6RSoATwy7X3ldYtVBnPTyZX8HBGZJeLptLS5y+qji5xQRnzjbz2p0Y12VYF9ksxDZKs0wTBe4JnA3VBLre1unjWipHF7awI8KX03vjN4BsDg0aWIsoIorgfC+bjCw92FuUVX6RhRxMPoblRyK0TY/cG1P+I6+Cy3tzzoHjgpZ3N7ti/VxTTZSzDwUB+EnL6jREDQv7FaR3iOc/kuc9R8RZaQAUqAYREiTSCVBgXUXBN6LqOkbEnJ5WlSPRWF3XkT8RFRIOKAaXT+YXR5zymrme3Vzx4qA8lgd/l9gwnXTEJb+zIjqP8iKNr97PCwONyMiYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1768959795; c=relaxed/relaxed;
-	bh=AkhwBkoPexo6KnbInk5yJ8qfwJ3nLbjN4I2ZMj09FO4=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To; b=Cm1He9TCLwQCUGQ9Wum2xgAydN/4vkcZ0iDwdn4YUAA7fJfcphwvqnCbsq1xGB2m1MDYnxbptD/XM7BRewV97cE4c50jKvjI2+H+l9TayFNWcbUvgvTiXDqMniAXzCd+3wDn/3Sw9xo8lXZMNJuqmPNT9DIzji6BYZjf3pre56bCUZi5N1pCIDPBWpuU19imicG3fIY6LBG4xrljWX1AZR3KfcQcMY3ruMMj+O77qumLIJ8onAC5SW7vhDs0LnPw7BUgmVdV0eEExLaCc0nTaikqz6RwcMkxeNwsbIwkd1/SHISKea3DuFgCktGz6ojgMTThOZswl5er0DltqVpmiA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fwDQEn1A; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1031; helo=mail-pj1-x1031.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1769006675; c=relaxed/relaxed;
+	bh=BdUTKG3wrUKpN70TK1cU7PXLq4/wHQHqsSYy3lrVn3M=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QJCAvk4c4Kopm9t4TnXzMuTPZNBRrTJBSzWqhhZVDsGlQCqyVpQ8rjRakqOdGFG/y0UX8N13RptIY/gXJP287sUZtNNDZmWDwXU95N94tCkOMnS7un+5GlJHiiKH0H7R7sWmpQ4Q3kKo5PMOwMA8fHesu48V626vTk8HSMGp31mkM1XmdLD2bfr7H35byZQuW7jMbTuHouJmYHaR2wC44VuYyokiDVnT8qjUQKBzIoaEFeD7p2DBbRYtyA3u4/6yWssHMQ692oC+FbtThTDwZrT3P5i/3mbiCvyRV29rwjHcTJG59g5MoGe1eSr1pv0146sgigxcx3iMNB1FDTUpvA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=GnFyw+S2; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GjZXLquo; dkim-atps=neutral; spf=pass (client-ip=202.12.124.154; helo=fhigh-b3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fwDQEn1A;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=GnFyw+S2;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GjZXLquo;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1031; helo=mail-pj1-x1031.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com [IPv6:2607:f8b0:4864:20::1031])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=202.12.124.154; helo=fhigh-b3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dwn5Y4SHQz2xpk
-	for <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 12:43:12 +1100 (AEDT)
-Received: by mail-pj1-x1031.google.com with SMTP id 98e67ed59e1d1-352c5bd2769so895633a91.1
-        for <openbmc@lists.ozlabs.org>; Tue, 20 Jan 2026 17:43:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768959790; x=1769564590; darn=lists.ozlabs.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AkhwBkoPexo6KnbInk5yJ8qfwJ3nLbjN4I2ZMj09FO4=;
-        b=fwDQEn1ALXiKIQyFv8GwPFO00IBpjhM/gVWXmnCn8jfq4qhnQ6ZF/4j3VxYuG3DHsK
-         Zkd/ejyPub9PovIeRLe1pV9++9xwUFpZxu/x+ozD93xiHKAaiSn+SGsRXZqYRHocHyYf
-         2Nqn3zWWpicd6biyKUIQ57T9XYNPWbffXJRgr47E0HkvEIr2Cqf2Haqyyaph9gBg8t0J
-         Th4iIJvgWzCzzl//UndD+eR2RXKVAg1hEmZZLzJlW82wxWEgxZ4xTghr+hf7AZN3TuiI
-         3m+LjNJsqxxjDQoASYRi0M6rX/gT2IiaqcXvyvxHr36BUJkQYemRDmkKqek/zDBNik/j
-         YspA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768959790; x=1769564590;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AkhwBkoPexo6KnbInk5yJ8qfwJ3nLbjN4I2ZMj09FO4=;
-        b=FQn9u099+j/0u2adlNfOzmg373eN56Sv7moqt15aiHRnLFFOIBLExsmK2615nEaN+O
-         vmZjF1tC6LyK9fauVypsQtVaA32IurkO1bw6EWRy8CBAHqBSX0zJE/J2bvk8zUPHC1vM
-         FGTPeE9EBXeijNk+YP4NzBX9oEVTL72w7DJ/ctHTZfx9Y3UsL+u5XyS/tcKrwPgj1UXj
-         gPtupg5rMyBCSuhvN+xj7Zds9quelLm3R3MMOj8oFYzfR7uAcgJNjzitLlwRmhFVWJn8
-         XH5IXHaW8lMpQ1bSP25k2+fGO/rwoHvFY24VWifRCXMU70cE0/cP0W3cqC84ChxE4QHI
-         Lwkw==
-X-Forwarded-Encrypted: i=1; AJvYcCVm8FcR4KMmzbpfNz0JlQ/Im90tMNxqXdIqGk9Dzo4zhELyT00jR48CzbeiKxdIEBpmaJTM1H9Y@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yzdki/NHrUJ7beTNgo7mSAWq/HnIMaPUkUMiM7VG4xAPUdTlN2K
-	9x4aOzTUvY6YWMYdvPkQY2nn/22zF6WklkJnFwMETTA295vQSdAzLBDn
-X-Gm-Gg: AZuq6aLJe6TdaArdULPhre5QlCoYf9qCH8hCMOLedCQmVveBvA0+eu7yP12h3n5Kygv
-	y8LgE9QtpBBtTADoagV9BmGA33bDQE4mnqwXNMlosQOv0yCnCDxvkpYlqzgbMt+ZI4cqZUFT42b
-	FjoKQe4wMQwaTx8KZM+ZE7x0kIYFCd2Bt08nt7jtF7HZP+vGt4gYtK2kohq3RsfpXmlUq9z8ZHO
-	4tMP2HX3acr69KAPR99QAzRW/F1yzynRdE+LWwIiBM2OnnLfW0w0u1K4uDaKy+6fIONp0YV0Hld
-	Z8Efx00k8IptxpMhYZy5qGVwvfVMQwHtxjqJaLQoFzY3S7OnSb3DAULfNkoezMesFwmJSEmEu/J
-	MXJem/bFzOOou5XmW3P1SJ1tEjNAn3HJyjuPf55532lx2YO7P1jMZsmkZsMJD1sQ1VxToZlgE0/
-	Rs9qadU2z17YHogJgzIaK0DhtFBv4PpiWKpyRyV/u0BERBOHQprDvypOTJIY0BEK2S
-X-Received: by 2002:a17:90b:2549:b0:340:dd2c:a3f5 with SMTP id 98e67ed59e1d1-352c3e84027mr3169791a91.3.1768959789946;
-        Tue, 20 Jan 2026 17:43:09 -0800 (PST)
-Received: from [192.168.0.102] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35272f4a9a1sm13069177a91.0.2026.01.20.17.43.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Jan 2026 17:43:09 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------Q5WIQZLzjt3O9swZHs9BTXXB"
-Message-ID: <7076b491-9d56-47e0-8e2b-ef12a29b6419@gmail.com>
-Date: Wed, 21 Jan 2026 09:43:03 +0800
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dx6R422Kwz2xpk
+	for <openbmc@lists.ozlabs.org>; Thu, 22 Jan 2026 01:44:31 +1100 (AEDT)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8CD427A00B6
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 09:44:28 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 21 Jan 2026 09:44:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm1;
+	 t=1769006668; x=1769093068; bh=BdUTKG3wrUKpN70TK1cU7PXLq4/wHQHq
+	sSYy3lrVn3M=; b=GnFyw+S2OTwLXNXZ/wxLHizpaICSDoHKX4LgAN8Gm5u/ebSR
+	SAMxC8+5ed2QIt2qL8yd9phgtYw6Y50cYX8GDWmPs5mD1cVhyxQc1bEqh5HPrNnh
+	Ndam0BiIlcMbgStIaQeuYKFePVhoa4YPRnHb1xVF0Au4Kk9VKdpYYvD0iTgocosE
+	UClwrw05iVQCCZrtg3U3BQXI5WUotU1Bh4nYK7td7lZn5l4XIguxczyvN/VGsFcl
+	468H04C3av0wyu612QCCbLVeV/a8APxg9byr1+WnLx9j94lxPRdv9tGhCTA5byUJ
+	GWK9xWZniyYPvfNWeFv1dqF6QdYN94vpusse2w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1769006668; x=
+	1769093068; bh=BdUTKG3wrUKpN70TK1cU7PXLq4/wHQHqsSYy3lrVn3M=; b=G
+	jZXLquouGdBVOwDDmFaKs2p3Y0AmSAeFZ6dCd5k1sInqoH+BQQ59WNm3r9ESJRks
+	gxJsRb1gz860jiM0xH6F0K99F974WIuebolvkxazGFmB79i4C1HhDWAIC4Jd6zM9
+	+1i6sIdDXRTlAMX+9anA+Ke5kjviGz/orrd2rS8iigXtycsCzz/9eT14GTjGwzL+
+	vi00gXlMCRFVr2RTh0FSnhDbcKEBJNQntG2Pj9uTFXcveYuyvV7F6pmZZ1gYrlBI
+	Vwv4cCtSEVJV7NPNKDQgOB6FUuOpbl12K3x/r7ltzPSKwnoUFhPV6WI/XIWNP21Q
+	uYB3tTrrNdxr2asR/b3IA==
+X-ME-Sender: <xms:TOZwaVKt79qFrsEtFuCdyn55dUXFAPPruFFCRqSXpK6JZKfn0jJ3EA>
+    <xme:TOZwaYGM_BfbUwcTnbsJP0dLtwNKDyoMU8mn7eKyuZk7jFNMSG4F0hZcFlhMJNagR
+    rGM5EzNMMExdNePbOIRB6yswqSW06rY6SgHatbsd0pqFlqYP7lYeQ>
+X-ME-Received: <xmr:TOZwaTUk0v0ECWyhF9svwioej3usnqmJQFYPp5dDRp8SouzuForbcS3LdY0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddugeefheehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegfrh
+    hlucfvnfffucdlfeehmdenucfjughrpeffhffvuffkgggtugesghdtreertddtvdenucfh
+    rhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhesshhtfigtgi
+    drgiihiieqnecuggftrfgrthhtvghrnhepudeuvdeftddvveejudeuleelkeeiudevjeff
+    ffffvdffvdejkeeujeevteeifeefnecuffhomhgrihhnpehgihhthhhusgdrtghomhenuc
+    evlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhi
+    tghksehsthiftgigrdighiiipdhnsggprhgtphhtthhopedupdhmohguvgepshhmthhpoh
+    huthdprhgtphhtthhopehophgvnhgsmhgtsehlihhsthhsrdhoiihlrggsshdrohhrgh
+X-ME-Proxy: <xmx:TOZwabiJUp4Q_sezYz2rw61MK70waYq8ZudPtAHwOyatUjUC8kjxzA>
+    <xmx:TOZwacTopLddfYuJgcbJyqJ-H5R4wR_qYIcLelqztekas54HjO729Q>
+    <xmx:TOZwaWEgsqhtLDsAQRQX6ffPT9rWWm-a69_2vwpzsu8kwGhcFWGwmA>
+    <xmx:TOZwacn4WeMxEu2WfTg3KOkJEAcsV4EsYfLWt6nVTp4x92f8Fx-LOw>
+    <xmx:TOZwac5E3Mzjs5_0YhIGOtI8vKOBv4COmjFeWTF8WxWoNs9EFzFFo_fd>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 09:44:28 -0500 (EST)
+Date: Wed, 21 Jan 2026 09:44:27 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: OpenBMC List <openbmc@lists.ozlabs.org>
+Subject: TOF elections for 2026H1
+Message-ID: <aXDmS4BmR6AGXKGW@heinlein>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,107 +95,58 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v8 2/3] arm64: dts: nuvoton: Add Ethernet nodes
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260119073342.3132502-1-a0987203069@gmail.com>
- <20260119073342.3132502-3-a0987203069@gmail.com>
- <04df4909-4fdb-4046-917f-2f2e47832c62@lunn.ch>
- <a5cb949f-34c1-470c-bd04-0b35c249455f@gmail.com>
- <2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch>
-
-This is a multi-part message in MIME format.
---------------Q5WIQZLzjt3O9swZHs9BTXXB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="24OWl2b655JEQg10"
+Content-Disposition: inline
 
 
-Andrew Lunn 於 1/21/2026 6:10 AM 寫道:
-> Does ma35d1.dtsi represent the SOM?
-ma35d1.dtsi describes the MA35D1 SoC and its integrated peripherals only.
-It does not describe any board-level components and is not a SOM 
-description.
->
-> If so, what is ma35d1-som-256m.dts ? It looks like some odd sort of
-> carrier board with a few serial ports and some memory? But systems
-> like this put the memory on the SOM, not the carrier.
-In our hardware design, the DDR memory is part of the board itself.
-For the SOM-based product, the memory resides on the SOM module; 
-therefore, it is described in the corresponding board .dts file.
-Although we use "SOM" terminology internally, from a hardware and device 
-tree perspective these are single-board designs,
-and all |.dts| files describe complete boards.
->
-> As i said, i'm confused with your naming here.
+--24OWl2b655JEQg10
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
+Hello,
 
-Joey
+It is time again for TOF elections.  The current roll-call is available
+at:
+    https://github.com/openbmc/tof-election/tree/main/2026H1/rollcall.json
 
---------------Q5WIQZLzjt3O9swZHs9BTXXB
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+For this half, we have 4 seats up for election.  Currently those are
+held by Andrew Jeffery, Patrick Williams, Jagpal Gill and Jayanth Othayoth.
+All 4 are eligible for re-nomination / re-election.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">Andrew Lunn 於 1/21/2026 6:10 AM 寫道:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch">
-      <pre class="moz-quote-pre" wrap="">Does ma35d1.dtsi represent the SOM?</pre>
-    </blockquote>
-    ma35d1.dtsi describes the MA35D1 SoC and its integrated peripherals
-    only.<br>
-    It does not describe any board-level components and is not a SOM
-    description.<br>
-    <blockquote type="cite"
-      cite="mid:2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch">
-      <pre class="moz-quote-pre" wrap="">
+Nominations for those 4 seats may be sent to the mailing list by
+replying to this email.  Only those eligible to vote may nominate or be
+nominated.
 
-If so, what is ma35d1-som-256m.dts ? It looks like some odd sort of
-carrier board with a few serial ports and some memory? But systems
-like this put the memory on the SOM, not the carrier.</pre>
-    </blockquote>
-    In our hardware design, the DDR memory is part of the board itself.<br>
-    For the SOM-based product, the memory resides on the SOM module;
-    therefore, it is described in the corresponding board .dts file.<br>
-    Although we use "SOM" terminology internally, from a hardware and
-    device tree perspective these are single-board designs,<br>
-    and all <code data-start="2948" data-end="2954">.dts</code> files
-    describe complete boards.
-    <blockquote type="cite"
-      cite="mid:2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch">
-      <pre class="moz-quote-pre" wrap="">
+Nominations are due by Sunday Feb 15, 2026.  The election, if
+required, will be held beginning March 1st with more details to follow.
 
-As i said, i'm confused with your naming here.</pre>
-    </blockquote>
-    <p>Best regards,</p>
-    <p>Joey<br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:2e3f213b-d507-4290-91af-fba7492155d2@lunn.ch">
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-    </blockquote>
-  </body>
-</html>
+As usual, disagreements with the rollcall results can be raised to the
+TOF.
 
---------------Q5WIQZLzjt3O9swZHs9BTXXB--
+--=20
+Patrick Williams
+
+--24OWl2b655JEQg10
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmlw5kgACgkQqwNHzC0A
+wRnCVQ/+JYREAwNv/58RsXspUiAUWV7blOhJhw5qfg8dsrlsitXGzsw5sJwh1e2H
+wqJRLOXNPTScL+eFxRBmJ9wPTrUw8DuLSGr1Qfj6sVjuys9i87IVNZ95ZEjZOGdw
+Z+SAFYBzJo9OSC5fZPIeU9GpxH0V7RbXjd2wd6KrQbr/v9jgw5VjnuFXNlWZLkjn
+XVVhY0lhsp7Nhjb52lARVOtU5lkBNaWLYHHORBqP/vJGG6MzLn5+Y5wMO3hNS1Z8
+OZEcSZ4OOIdXDVLJMOSbYxLsIhwVYqfBMQT7HSk0RDa4XUpctiUU3lxnIesLoX1p
+Dye5kshLk8fMvlt7MXR9E2N+j8evCdEWv4358xLvk4owU8lRM7JzciuLFSCA4bRr
+zfZU55M17dmFm79arH/ODehZee3LryxtGNJnhSjxS7L9wTRoA2p0bj5uTWOAAKQ4
+jFT2otf6kjWMBX4zdWhsvnAIMPcCNtcXG0Bty+9q7O1oUx+uIGRlrhOW4FHijcFg
+624hdkXsGTuaXDOvJzAB3JxAFsOB6XbHQDSxE1V9ukWOclaxec67ihd+BpG3uxxl
+6xZLAetpy5dxSR+TNFd+1ZFfw+uIRSH5uE2aBCFdY77rqpdOc6srwBF4lhLgwSoY
+XWljwq5A6JBMQ1pENAkOqmNjSoiVENSWCtVDcGubVm74w/cVqgo=
+=qVcA
+-----END PGP SIGNATURE-----
+
+--24OWl2b655JEQg10--
 
