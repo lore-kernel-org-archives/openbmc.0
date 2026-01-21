@@ -1,68 +1,58 @@
-Return-Path: <openbmc+bounces-1266-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1267-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C800C44500
-	for <openbmc@archiver.kernel.org>; Wed, 21 Jan 2026 22:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBA08C44536
+	for <openbmc@archiver.kernel.org>; Wed, 21 Jan 2026 22:22:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dxJF16MX9z2yFQ;
-	Thu, 22 Jan 2026 09:06:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::334"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768582993;
-	cv=none; b=nnE6xlXO6fKJVx/hjWF7TAH2CsYyxd+v8s2YYI6ci0XvRWSzvFi43yYFuvE2x9G+pmXU4QbRoPJ7OomNZU1kpMpxBvLs5MqXaq0s7DNwcSNz+KoBP+B1wvhL6iwHSmLtYICyf8Tl1IypeCxEP0aMApMWXlai1rzg1Jv9MlUVHOe39CwytC7TV92m/mReRbLidxw+iVJkzFA6/YAy7Fj6XoxRj+G9+rwFAQD99QyYAeuIFn2AJTFo6CNvIhBfjela51t0Kd+Y+MHTKJxGGm3hF2ytOCEso2HQ1LeRnd9SJhV+lGlis5IaEahxr6fug4ULxGLma95dW/7/Zaht9S3bhw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dxJb724Frz2yDY;
+	Thu, 22 Jan 2026 09:22:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769034131;
+	cv=none; b=RQt1pLnf8gjexeJT59VFwQdRyQKwD9OyvJaqIdV9BcuqsDXzeDwrgqqkwNbat1nw/v0qUZXnhGB51nRUY9NOux7NK1MdEanIWrmmR43Cr+FRt9sFLcBATBOnO1AVl/t06sAEMnWlsZX3rDfY4dzxs2f8NP6e+R3JvC5mm2lZaVz3JfBjOBs3+geo0gg/fKzyRJQgxZ+hEmhGiFQxbq8ZHiFW2RmYEwZHIh6YPIOQf/xx3APrWM0HUH5bouSWU7n/Qrtl9k0HzniKNZwkqNVDQRSCf3l/qJJHBzf7vW3hT/P2o3GtWDlL2CB1neqSQ+rdmHu3khH+CPIl20K7Ys2/BA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1768582993; c=relaxed/relaxed;
-	bh=Ryz/kFTNFKVINZFAt4aXBH3C+UeBVgyLhc/OIrJOjCU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=YF8baDIb3mRTA2h7vhOq3lzwETUsH31K/qR2xZnGDBHurSftm8lRT7IGs1mgEpDj1l+nFJ2/DpueBS/L07pkbmdiPybpgh7B+5ea0Wx4aIVjgex/K4p7leHkpfIabXrg1vlGvcUT2W/xo7hxff1E5c826dcOFbwL3ENL7EoTbiA1N80WH7Z8yiK6Rq1W9L+NobF+JH5P1cz1ZEECSG0WLoL/4hxvYTNrH6kJ54ZqNBhMTh3YwkogAi7SRFOFcobOb71Ios9hlz9+Qs9YvCuXznnSxbTbSqc0GCYzAqyYJjwxejts+ua1cWqzBYacxbNzC4gufxLejxoXt0Xs4JOdpA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=bUeISNcp; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=nathan.jian7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1769034131; c=relaxed/relaxed;
+	bh=71BpcP2fgYCAtfQNdnVM+ahjOQns4Se5zsfiF1G/NgQ=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=C0kRgG3URF6DUujB/MyTlz7QHKp+xQl0H3wS/ahZWiXB2OhIl3AFdYcmOH/EjeTBkem0A7buLtLv8k/mSmvSzY5AkRWxcrSNnSNrb0SfOZcuJxew7fJ6bIiAUmmBJKpsIT9R6MJkOqzjlHbdbNTsXkiRa+mjnwsPfsoF7HwpdcTtp5j7QVZbu59ZNwymk2mC/9Cuzj36AZta+Xj3dc1EswgeuF73yoP+nlsY6KgSVWmrCtj2wQrk8xGBasW/rc6iYJIl0epcFubxxFwl9rthmZK5pguzpqMfKgQm7T93Tb8tgbw2CA9ai7T1zeNc+drya9ElMM1TD0v/564amuD8QA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=aZgwhm1j; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=bUeISNcp;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=aZgwhm1j;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::334; helo=mail-wm1-x334.google.com; envelope-from=nathan.jian7@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com [IPv6:2a00:1450:4864:20::334])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dt5lN0wJkz2xS2
-	for <openbmc@lists.ozlabs.org>; Sat, 17 Jan 2026 04:03:11 +1100 (AEDT)
-Received: by mail-wm1-x334.google.com with SMTP id 5b1f17b1804b1-4801d98cf39so8397155e9.1
-        for <openbmc@lists.ozlabs.org>; Fri, 16 Jan 2026 09:03:11 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dxJb56thsz2xQC
+	for <openbmc@lists.ozlabs.org>; Thu, 22 Jan 2026 09:22:09 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1768582987; x=1769187787; darn=lists.ozlabs.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Ryz/kFTNFKVINZFAt4aXBH3C+UeBVgyLhc/OIrJOjCU=;
-        b=bUeISNcpcP2n+9evfsa3UgR1ZtodzMosVILRzXPw3Ly0hcUHYRqGLmviL1NoL3eDd2
-         xD9NX63YmtKbP2zucpdS89W7YVkrR09zgJmSeZIp+HVvMtYMAgkEqHotcTEAV6P2LKO+
-         yuwBT7JqTiuVlDSM0kiZxZbualLZ/jHBcmYIHkXFvOqxukELtWMdarQo74KN8voJMM6b
-         DSPgU/4pxarZZZ2dsw9apl6WEUhTFYwkOZoXRGB6W065ozy/hZyKWDU6fbapX+WFhg0o
-         bCMJBCnPan9doRFZGuCMNMLhzlunQrYsnu+ENP4IcpUWO1bXrJbFaipqjac+J8iXFa90
-         tcZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768582987; x=1769187787;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ryz/kFTNFKVINZFAt4aXBH3C+UeBVgyLhc/OIrJOjCU=;
-        b=ISJWrYOxzJZy7Zbd2sASsmj/JmxhZP87MhJf3R0fzmWDcDKuBQYgEDdF2QV6ebT4wQ
-         cHnmWBtc/OpEPgco1DQKzu4jVqivxxwSdc6TDAbfzaEPD3TbTtQk6AQsGj9MgfKBcr+6
-         36mIcH39gWo0YLmqkChYNUPUvPrG+C+u0ENqKO5umkf8WEND7ONbhornlU5E5aTObRqE
-         ZRdSoDDq8zsKrTld6JQIqRJpMVYGKR1LASVMA1boeB4N39Z7hOBhO9WYLSp//bQn+Lqb
-         qDQuAGitU6hHppvdYleLjmIfCqAixA93GImYMh9aF75owiDILIicYcdA6mbMVIBkxWmA
-         S9ng==
-X-Gm-Message-State: AOJu0YxOue1KrOS5Wu8NqRclW97iEJuoCxuCtIzQcf8t7WK5KdEjfx9k
-	fmYC5P67/+mGvxikA5p7z01A4D3qYfG0krZe30T2rp4t9z7LC+MGq8tA+qq0qSQMVs9Iux26TbV
-	pgojh4xd4bWPPEt8gRk7qnUvANJHzdtH3hNdy
-X-Gm-Gg: AY/fxX4i6Zrsqf2LimEQKBfa0f6Wy18jGKqTqEENi/4NvBjnCpEGo4hBtKb/9qF7ifR
-	mwT1mEFdIRTYpestkcKwMP4VNYpPinv/7oIUhGCOg3hLj/PY2WTkKPhCSHWH0Q6UcmPwjjS5K9n
-	1HDvwG0N/h5YolMXZy+J3+XNPSMSA4hGEWHyWVYqNb489nB9rG8g//Cb577gXZeMPAh5OWXFZSe
-	Bng2NKWM/OjJzmTRGsF0VBidM1HvV7V2gv2vBBXEkvGDhF3nyvjW61N9EcJsW42/iL2uGFO9osG
-	P6d2fhh7iekKTeQ=
-X-Received: by 2002:a05:600c:4fc6:b0:47a:7fd0:9f01 with SMTP id
- 5b1f17b1804b1-4801eacf142mr45943725e9.16.1768582987327; Fri, 16 Jan 2026
- 09:03:07 -0800 (PST)
+	d=codeconstruct.com.au; s=2022a; t=1769034127;
+	bh=71BpcP2fgYCAtfQNdnVM+ahjOQns4Se5zsfiF1G/NgQ=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=aZgwhm1jFZ8Q5PXQBDcdmd336zVC+5op3vHJXgI3MvPEBtald5widvcCQRkt3XkZX
+	 2fMdmvxPL40uXtH3Nl6ER5BQg0RItaJm5dwca3jijUrMMr/RKgATX5dZ5Lc+igZk1/
+	 KNXf6VaaP0GtbAg9PImTf7OZ00An+wa4aN9m7TJ/Jv43efLaBC1q9PM5pgvSTIShJK
+	 aLh4x0uljGcvd/2YtV3JpbZTSdPY2YCHO2MT0sVtGK2miR+lYhzvYHCrNW/pEIgx0R
+	 X1Bcmh43KEpJPxX7vPgtEz1e71X4zEnCLNC0QdeBBK8CNbK+qbKNTpBcTPPu0KFBNh
+	 ObVK53CwkXbRw==
+Received: from [192.168.68.117] (unknown [180.150.112.60])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 6F2B07B1F0;
+	Thu, 22 Jan 2026 06:22:07 +0800 (AWST)
+Message-ID: <f317027856263794747d906eaebcfae69b01742a.camel@codeconstruct.com.au>
+Subject: Re: TOF elections for 2026H1
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Patrick Williams <patrick@stwcx.xyz>, OpenBMC List
+	 <openbmc@lists.ozlabs.org>
+Date: Thu, 22 Jan 2026 08:52:02 +1030
+In-Reply-To: <aXDmS4BmR6AGXKGW@heinlein>
+References: <aXDmS4BmR6AGXKGW@heinlein>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,46 +64,27 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Nathan Jian <nathan.jian7@gmail.com>
-Date: Sat, 17 Jan 2026 01:02:56 +0800
-X-Gm-Features: AZwV_Qj1DxTY0Qk3Y9PSApyeoy4p5NAKLZo3jLJ6aby7vaLJ2KMZTB-3GQM8sYk
-Message-ID: <CAAFL+NPbt+TkgsMZYZQQoGAhhUhYJSB_Hzn_U9nCzBQoTnSPEg@mail.gmail.com>
-Subject: Request for Gerrit account approval
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000b731010648845083"
 
---000000000000b731010648845083
-Content-Type: text/plain; charset="UTF-8"
+On Wed, 2026-01-21 at 09:44 -0500, Patrick Williams wrote:
+> Hello,
+>=20
+> It is time again for TOF elections.=C2=A0 The current roll-call is availa=
+ble
+> at:
+> =C2=A0=C2=A0=C2=A0 https://github.com/openbmc/tof-election/tree/main/2026=
+H1/rollcall.json
+>=20
+> For this half, we have 4 seats up for election.=C2=A0 Currently those are
+> held by Andrew Jeffery, Patrick Williams, Jagpal Gill and Jayanth Othayot=
+h.
+> All 4 are eligible for re-nomination / re-election.
+>=20
+> Nominations for those 4 seats may be sent to the mailing list by
+> replying to this email.=C2=A0 Only those eligible to vote may nominate or=
+ be
+> nominated.
 
-Hi,
+I re-nominate myself.
 
-I'm a new contributor and just submitted my first change:
-https://gerrit.openbmc.org/c/openbmc/x86-power-control/+/86739
-
-I received "User not approved, see admin, no CI" message.
-
-Could an admin please approve my account?
-
-Username: nathanjian7
-
-Thanks!
-
---000000000000b731010648845083
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div><div style=3D"font-size:inherit" dir=3D"auto">Hi,<br style=3D"font-siz=
-e:inherit"><br style=3D"font-size:inherit">I&#39;m a new contributor and ju=
-st submitted my first change:<br style=3D"font-size:inherit"><a href=3D"htt=
-ps://gerrit.openbmc.org/c/openbmc/x86-power-control/+/86739" target=3D"_bla=
-nk">https://gerrit.openbmc.org/c/openbmc/x86-power-control/+/86739</a><br s=
-tyle=3D"font-size:inherit"><br style=3D"font-size:inherit">I received &quot=
-;User not approved, see admin, no CI&quot; message.<br style=3D"font-size:i=
-nherit"><br style=3D"font-size:inherit">Could an admin please approve my ac=
-count?<br style=3D"font-size:inherit"><br style=3D"font-size:inherit">Usern=
-ame: nathanjian7<br style=3D"font-size:inherit"><br style=3D"font-size:inhe=
-rit">Thanks!</div>
-</div>
-
---000000000000b731010648845083--
+Andrew
 
