@@ -1,90 +1,66 @@
-Return-Path: <openbmc+bounces-1260-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1261-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F93D262AB
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jan 2026 23:21:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2EBAD2629F
+	for <openbmc@archiver.kernel.org>; Wed, 21 Jan 2026 02:07:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4dwjy25fSnz2xrL;
-	Wed, 21 Jan 2026 10:21:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1135" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768937980;
-	cv=pass; b=Ts3WmMj9QzMUbNOWsM5Zbyaoubap8+3dr/cC4kvTbIT+OyKYoVdQtdcTNhgPjIl467pAnkTzd/BN7axe2BsrI+aXu7Y6mG3lI7lff2V/YwMAEPaSB/rpjBjxuu7oWDPI7u87dgx8urFf65rDcvm31I3wv8UIFsU1JxGkKCUEckNGHVDDrUQC/5NDu1c7R7abBkjRGQguy5Du2LrERqsvNfaSY22bgh9SuBOENH6urVtCneJi8QlpAl22rLd/iRjCupDBrSXQoNziBmMBZB9s6Rgoa7G2t14c1UgCaKtqVYaNvIJmLFdDJDEzYj6JCuJRgJkb79ZwJWv50n/Ef27flw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1768937980; c=relaxed/relaxed;
-	bh=C/zphfTB4X5kRLrKJxXPnRK/nQ2NI+GlC/4vHcLAb/w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OWzdH0Mx3g76h2PuzHmDeU4ikKrDnKJ0gDXuXBNJiYN4MA/9hn192NpyeMblUufPoZmUCmwLP6Ys+CoPMq4h2zB+Xu6GJdqD8sZeWQ5yyl8JxZykJLdkSnGl0RcB1OG6kZfZIrh1hyjF3vIMnUGCLVFYcnSmBrxt1Xhgo1LWtLqm2lieRfSnFn+lMqzAqbWgihNxRS8JLBB98bIXNkBf+oJ+dWMEquebiSKaLaxQna11/0yrq0gpswvMYocgmsf9Wrcop/ttWxM8+oaY0sCUQ/KrCJNbWAyGka3+5pdr8+acY16Krl2tAh0JJIUgMaty7+klt06Gw2ZNozsNc4bJug==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=lfprojects.org; dkim=pass (2048-bit key; unprotected) header.d=lfprojects-org.20230601.gappssmtp.com header.i=@lfprojects-org.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=CX3WtRwD; dkim-atps=neutral; spf=softfail (client-ip=2607:f8b0:4864:20::1135; helo=mail-yw1-x1135.google.com; envelope-from=manager@lfprojects.org; receiver=lists.ozlabs.org) smtp.mailfrom=lfprojects.org
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=lfprojects.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4dwndd66vgz2yFg;
+	Wed, 21 Jan 2026 13:07:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1768961253;
+	cv=none; b=DWgf7DPHRNodnQQi/AQyTerh9gfTeLdcErIi1hbI62K15jHpg1gpdIe7mWzjxrPutmG9g5E55/rH/HirmxGljH1X97MN82dqqaKKfhaxxVToYhsjmcR2VQHWWImwNaUvOeckm8+HArcmYmX9RU2yS0voaCr55oTGMlb3xtjlR9atE8duWXhMH+w3Q53FCMePW3bNhCyG6ybRUCA5tyzYTWr1SDEW+i5vX9GseKIg8RBiAuBBvfqMzpqcQUg8sajSvnPRU8fPjdPnbuW01+EWXZGAieUVDOeWwiOojpIM8rf0hp7/hu5ReA2A38+elHxc338DFBkLXjs44VmsWAPQjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1768961253; c=relaxed/relaxed;
+	bh=3MOD7NIE1cxfcxUvm///tnok4l0oY22zZakhR8di0WQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LRZIeYgCbbfmx7al0lZn7kgLb84I1g5MFEciF9ridKMYAvmuGYdYLD1juYwR1BC3iYclUDsZpYQi8HdeJxKMabULUJxwDB/4cqCcGfbCnlCAyztYZrtpZkloLVNYAbnJBwBjuSTWw+gU7W7VU++hhZOAgm+S0FUgZLX+Gkm8FAiv6SPWQ/rp9ek1Oxq7p12LdrHu52Cu+hfdwLd2BufzV9U1SBJRUpEldQzT0SwI6PPBvdSGcR1RVGVguRy1sUxxzZWZPvuUFfr+gDZ5fayIgmyT0e5/+qhIBEKi6Tzv8eaf5JZEA2xhf9mXzRAsSDFKsoDFO34VxOzT0pUPmkCPwg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Y3ugkjBm; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lfprojects-org.20230601.gappssmtp.com header.i=@lfprojects-org.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=CX3WtRwD;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Y3ugkjBm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=lfprojects.org (client-ip=2607:f8b0:4864:20::1135; helo=mail-yw1-x1135.google.com; envelope-from=manager@lfprojects.org; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com [IPv6:2607:f8b0:4864:20::1135])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4dwd2225GPz2x9M
-	for <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 06:39:37 +1100 (AEDT)
-Received: by mail-yw1-x1135.google.com with SMTP id 00721157ae682-790b7b3e594so54902387b3.3
-        for <openbmc@lists.ozlabs.org>; Tue, 20 Jan 2026 11:39:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768937974; cv=none;
-        d=google.com; s=arc-20240605;
-        b=CCI8Ydwtn6Zo7qGUrd4SoLQc5RZYUk/hLG2pY0l0840im7s8iM/EH2ze2a7tZsGw1r
-         DhyIYLw4YlqFj2z54Ran82Ael2drM+uVjmW+DG7m0SI3u7exWWF0Q71XTPuhNh81h6pL
-         FDvUODW1SteJg2RY/mYBM2X50wQIqrN3PirDxyVXN3DNBbgOv2Ti/U4eNAzMQxa6k9xj
-         kB1zj9INmu7lbPs4LF6ngaRGYSMMEK8gX4kIpCpSrzAs4mN11qzaIBFRoZjR4OwepX6b
-         PPk5WxGsm6Md391AsLavkmG/+UClcVbUgxdHoOEc4wXyTaCrxlfFgtikxgaxopthFSES
-         fvRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=C/zphfTB4X5kRLrKJxXPnRK/nQ2NI+GlC/4vHcLAb/w=;
-        fh=fqs75KMZsr7LK8dA4hTwPjqPKcLXNRA2vTqFHa08EIk=;
-        b=Eo3yTjDY4mehPEsyIg1Q+gjpktVo8PbrAhr/Dxi1rI/qeivUa24PJNmFe0+oHMnBBY
-         dTdM52YxGxrxVlZCb7JNQCGe4UItg6CEC9dBBxI3hwoKX4Iz1/VTiFZYfEZSEjhWUmYM
-         youAvk1ApcpFrWXrvVVXJOjqK+q+XimXMzbz44HGhdm9ARhFQboMqSHrcbc3sgEYIdp/
-         JUb8txWXWvR3UldQmaKv6z2RI+3RdiUTEVEGh78Ag2wcJyxdDx7sVlq8fGQD/DsvrQvq
-         ka0IGsQCEeZCKC0JbuqEBP4sqsctJqVSTC0BOxzdhx5lWLm0ZW/Ji60WSjn+ZxiYL0FZ
-         qo6Q==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lfprojects-org.20230601.gappssmtp.com; s=20230601; t=1768937974; x=1769542774; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=C/zphfTB4X5kRLrKJxXPnRK/nQ2NI+GlC/4vHcLAb/w=;
-        b=CX3WtRwD260xTE15NtY17VSA5N94r81sHeJogAASA8+udKTVN92xX7bAta5KE4ztw0
-         vESlvLj6nuR9xDc2ARZzumGu4zo8lrfhl0VbKrh+sgn0lE7hKIHCviA4a+OwsJzRtKfe
-         WQ6CFUjTtyVTrKXvNhsPTApHoF4kRdbwMhRW+f2SZzz7/TcoKoAeYzGKnwEa8mnA4wmj
-         qCXlpz3zjz5J7W64MEqZeBFQAMYDHWiAw85TG9uYZyggy/AZZraNRBn6tiv8GnpYHWD3
-         dzh+cvXZd9L3VGaZmsrod/a0+PaqcxZnDeQuZ+T4kJFjvnhlW8JzoshQUIuCBnkRnowA
-         qpiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1768937974; x=1769542774;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C/zphfTB4X5kRLrKJxXPnRK/nQ2NI+GlC/4vHcLAb/w=;
-        b=CF7uTGU46D2CzC9L3LC1gNbH3bYqNRYIvRP2KCVxV1W9qjikzJMnKOg61WnN4SEXLV
-         oUeluy0NTSIoX37/iYILCuf+seTaFySE0ZPjRYTH8P2DKdV1W07y/dKueztyIqAMTwaT
-         PjfOil8DxrUavsjiN4JvN8aUw3u9nmOxF39i7E+kmZxSwem5IQvmyMzik6u1zvP2Mx5m
-         ueis1wZjhgNmikCisovaC62FkHIO7cns6uFqZAaWM8XVhEJcTRr/OC5zknwbaq4ccFTG
-         03PAsiUhbZ4/4+o3VlqlzRAtU158rmhauv8OUFuXKgfNDD2ImHhipDDMmKjQIuBPToJS
-         p8Mg==
-X-Gm-Message-State: AOJu0YzKcEp/FDTn6AWV/qq1bq2zWf80KkEfXbxT7ygo/eN5U1aQZmUC
-	11CIHBRmYUkPdbDbKJ0WTw6Jz+IxV6W8BToaeF5qyyXcMwwHn67Ibm+qTIcpytsvGJ+bdI87c7d
-	A22j4zsY+TGFsWSipNwi3ymfHcP9ZMMouUQVayRTVuw==
-X-Gm-Gg: AZuq6aJXpW9ZcrjAiYLcm6hpgbsZic6HAD7Qmd/2Jekrx15JaJdFs8ggq3fMj3Vi+aN
-	oUej9lBEeh3gwo6QphtCOCIucXXqPxyo4IAx4/5ThimsiRULkXzib+H3PI4/M3gu0+Wu/7kBOnR
-	blwZFmAb8lPehqcEUu3GjSR01Ne7qWA2CMKZFzU7P2gcuIg/eDMHi5QuNgoPYCb+dhQNgmLZbyp
-	knU0XcS3TC9z2W8gpvbkvnE49BP7ieYNTw/I00IYLl6IfTEBLdPy7JGByVMp01QUPzU1XE=
-X-Received: by 2002:a05:690e:158a:20b0:644:60d9:865e with SMTP id
- 956f58d0204a3-64916526709mr9722126d50.97.1768937973926; Tue, 20 Jan 2026
- 11:39:33 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4dwndc3TSWz2xqD
+	for <openbmc@lists.ozlabs.org>; Wed, 21 Jan 2026 13:07:32 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 0C6D2416EA;
+	Wed, 21 Jan 2026 02:07:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC259C16AAE;
+	Wed, 21 Jan 2026 02:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1768961249;
+	bh=UhRa/hhK1GRwkMusaBuB1dhc0k3sK6FAZHAw1qd42mg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y3ugkjBmcHRyS3AoS57oEOFQ22Ym/OSCmv9lxyaQmg8ZUrms0j+6EdpH9SbEm4CVK
+	 9yywF6QfgnX9d8ZtiCG+aQonvUFK5pxoVsh+w/0IkXBEXI54+er4iiHfYQinr6+Nyc
+	 KxsPpCJL1MsrJ2zjL218ozcBKbz4a33CU7R77nUJxHZ4+o7s30fAlea1aWlwnEyeiO
+	 ixjpdp7IYv3oZYOgae9T0j7K2tgyoLWAFBEOE0H66O+LfLEUq0ZepzznScuhYUQkoa
+	 pLlDDhxXmVFE9wy3oTDeB989JWf6VQDFkze/W8vKJ3AVguGLBPNpfLzPeUQ5TjEPUX
+	 LKG8HrpLIOZrA==
+Date: Tue, 20 Jan 2026 20:07:28 -0600
+From: Rob Herring <robh@kernel.org>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com, alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com, ychuang3@nuvoton.com, schung@nuvoton.com,
+	yclu4@nuvoton.com, peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH net-next v8 1/3] dt-bindings: net: nuvoton: Add schema
+ for Nuvoton MA35 family GMAC
+Message-ID: <20260121020728.GA1671298-robh@kernel.org>
+References: <20260119073342.3132502-1-a0987203069@gmail.com>
+ <20260119073342.3132502-2-a0987203069@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,81 +72,171 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAC-r_nQqTUQfmGZYenvpJJHDQ499iDibAg0s2ymcERxfknXZjw@mail.gmail.com>
-In-Reply-To: <CAC-r_nQqTUQfmGZYenvpJJHDQ499iDibAg0s2ymcERxfknXZjw@mail.gmail.com>
-From: Mike Dolan <manager@lfprojects.org>
-Date: Tue, 20 Jan 2026 14:39:22 -0500
-X-Gm-Features: AZwV_QhMtVIQh4YzH7clMu0-oNPEZcaU-xJkURhNwDf-QmQknxcGHSAfUpDYLiE
-Message-ID: <CALVHhedmzXx4-b9HG=RKf+KpKynjU1kE4DQy1n-SfR7gbqUjRQ@mail.gmail.com>
-Subject: Re: TechDesign OpenBmc CCLA
-To: alice.lim@design.tech
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000090d9780648d6f72b"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260119073342.3132502-2-a0987203069@gmail.com>
 
---00000000000090d9780648d6f72b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Jan 19, 2026 at 03:33:39PM +0800, Joey Lu wrote:
+> Create initial schema for Nuvoton MA35 family Gigabit MAC.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+>  .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 126 ++++++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+>  2 files changed, 127 insertions(+)
+>  create mode 100755 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
 
-Alice, for our trade compliance purposes, we need to ask for
-additional information about TechDesign House d.o.o Beograd.
+This should not be executable.
 
-First, can you provide an official address that is not a rental mailbox?
+Rob
 
-Second, we have additional questions we will need to review for trade
-compliance. Please send the details below.
-
-   - Legal company name
-   - Business address
-   - National/Tax ID number
-   - List of owners and respective percentages
-   - List of persons or entities (other than owners noted above) that
-   control the activities, policies direction of the entity in question
-   (whether by contract, position/office/board seat, or otherwise)
-
-
-Thanks,
-
-Mike
-
-
-On Mon, Jan 19, 2026 at 10:10=E2=80=AFAM Alice Lim <alice.lim@design.tech> =
-wrote:
-
-> Dear OpenBMC team,
->
-> Please find attached signed CLA from TechDesign House d.o.o Beograd.
-> We are designing both hardware and software for the server equipment.
-> Would love to contribute our findings to the OpenBMC community.
->
-> Thank you,
-> Alice Lim
->
-
---00000000000090d9780648d6f72b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Alice, for our trade compliance purposes, we need to ask f=
-or additional=C2=A0information about TechDesign House d.o.o Beograd.=C2=A0<=
-div><br></div><div>First, can you provide an official address that is not a=
- rental mailbox?=C2=A0</div><div><br></div><div>Second, we have additional =
-questions we will need to review for trade compliance. Please send the deta=
-ils below.</div><div><ul><li>Legal company name</li><li>Business address</l=
-i><li>National/Tax ID number</li><li>List of owners and respective percenta=
-ges</li><li>List of persons or entities (other than owners noted above) tha=
-t control the activities, policies direction of the entity in question (whe=
-ther by contract, position/office/board seat, or otherwise)</li></ul></div>=
-<div><br></div><div>Thanks,</div><div><br></div><div>Mike</div><div><br></d=
-iv></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"l=
-tr" class=3D"gmail_attr">On Mon, Jan 19, 2026 at 10:10=E2=80=AFAM Alice Lim=
- &lt;alice.lim@design.tech&gt; wrote:<br></div><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
-04);padding-left:1ex"><div dir=3D"ltr">Dear OpenBMC team,<br><br>Please fin=
-d attached signed CLA from TechDesign House d.o.o Beograd.<br>We are design=
-ing both hardware and software for the server equipment.=C2=A0 Would love t=
-o contribute our findings to the OpenBMC community.<br><br>Thank you,<br>Al=
-ice Lim</div>
-</blockquote></div>
-
---00000000000090d9780648d6f72b--
+> 
+> diff --git a/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+> new file mode 100755
+> index 000000000000..8eaddfdc937c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+> @@ -0,0 +1,126 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Nuvoton DWMAC glue layer controller
+> +
+> +maintainers:
+> +  - Joey Lu <yclu4@nuvoton.com>
+> +
+> +description:
+> +  Nuvoton 10/100/1000Mbps Gigabit Ethernet MAC Controller is based on
+> +  Synopsys DesignWare MAC (version 3.73a).
+> +
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - nuvoton,ma35d1-dwmac
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      Register range should be one of the GMAC interface.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: MAC clock
+> +      - description: PTP clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: stmmaceth
+> +      - const: ptp_ref
+> +
+> +  nuvoton,sys:
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +    items:
+> +      - items:
+> +          - description: phandle to access syscon registers.
+> +          - description: GMAC interface ID.
+> +            enum:
+> +              - 0
+> +              - 1
+> +    description:
+> +      A phandle to the syscon with one argument that configures system registers
+> +      for MA35D1's two GMACs. The argument specifies the GMAC interface ID.
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  reset-names:
+> +    items:
+> +      - const: stmmaceth
+> +
+> +  phy-mode:
+> +    enum:
+> +      - rmii
+> +      - rgmii
+> +      - rgmii-id
+> +      - rgmii-txid
+> +      - rgmii-rxid
+> +
+> +  tx-internal-delay-ps:
+> +    default: 0
+> +    minimum: 0
+> +    maximum: 2000
+> +    description:
+> +      RGMII TX path delay used only when PHY operates in RGMII mode with
+> +      internal delay (phy-mode is 'rgmii-id' or 'rgmii-txid') in pico-seconds.
+> +      Allowed values are from 0 to 2000.
+> +
+> +  rx-internal-delay-ps:
+> +    default: 0
+> +    minimum: 0
+> +    maximum: 2000
+> +    description:
+> +      RGMII RX path delay used only when PHY operates in RGMII mode with
+> +      internal delay (phy-mode is 'rgmii-id' or 'rgmii-rxid') in pico-seconds.
+> +      Allowed values are from 0 to 2000.
+> +
+> +required:
+> +  - clocks
+> +  - clock-names
+> +  - nuvoton,sys
+> +  - resets
+> +  - reset-names
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
+> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
+> +    ethernet@40120000 {
+> +        compatible = "nuvoton,ma35d1-dwmac";
+> +        reg = <0x40120000 0x10000>;
+> +        interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-names = "macirq";
+> +        clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
+> +        clock-names = "stmmaceth", "ptp_ref";
+> +
+> +        nuvoton,sys = <&sys 0>;
+> +        resets = <&sys MA35D1_RESET_GMAC0>;
+> +        reset-names = "stmmaceth";
+> +
+> +        phy-mode = "rgmii-id";
+> +        phy-handle = <&eth_phy0>;
+> +        mdio {
+> +            compatible = "snps,dwmac-mdio";
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            eth_phy0: ethernet-phy@0 {
+> +                reg = <0>;
+> +            };
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index dd3c72e8363e..10cb5e555750 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -69,6 +69,7 @@ properties:
+>          - ingenic,x2000-mac
+>          - loongson,ls2k-dwmac
+>          - loongson,ls7a-dwmac
+> +        - nuvoton,ma35d1-dwmac
+>          - nxp,s32g2-dwmac
+>          - qcom,qcs404-ethqos
+>          - qcom,sa8775p-ethqos
+> -- 
+> 2.43.0
+> 
 
