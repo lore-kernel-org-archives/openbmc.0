@@ -1,106 +1,81 @@
-Return-Path: <openbmc+bounces-1280-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1281-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA90D1951B
-	for <openbmc@archiver.kernel.org>; Mon, 26 Jan 2026 22:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70BE2D19511
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jan 2026 02:11:50 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4f0P6M0DXcz3bW7;
-	Tue, 27 Jan 2026 09:56:27 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::929"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769430084;
-	cv=none; b=MDI0KCeMUz3m7IPgOLDYKeZxR/lt6dWct9i/UtKK7X/VtPYTQFOAJRpkCNBYL9PYU1HmYUYncztWTIUTffxVRVF7TP5TVwiOR4AEVNnK0GpRAopBPxeB+tCB1+EdUlRw6N8oHrt9YQMP7GFdq/UAgqyEgCI/l7aCyHOdgRiAYRlDUPKatbL5cSklmUxVvqKSblWKiZYpJm6YGpPdR/sQzrK+vMbSbXNpa8FFqco+/LUNU2m7ej/xeVj2bkvVq1ZaajLxTC7414U1jsyIKn/2HCyWP06s4ygOCzJN7bZ8hLMBWlFfjXAVDGONT0HFOY1O90+NrPRYlDY+4L2BWA7IrQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4f0TRh1r98z309N;
+	Tue, 27 Jan 2026 13:11:44 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::630"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769479233;
+	cv=none; b=TWT8Bf7SAOB0kc+OC+y7ttz+FRrQsJub15eya79nR3nPsu/3uDRw9TyIkmj6KlkpwbPfN3QP48VFj/E57p6YXnAVM83NO+ez/A1r5K8qXCaLfV+NwtWmoSCWe5kB+7Pv0g+irQU8+0wlR4dzDZ2dsanqaNsNG+m2HJce3Lc1Gw6YW72kwdS0UHcOE4NPDWgPs+cWiyutN5gdUSIJOSKt+e1JrWR4WdGA0KeBog4quL0bTMGq6LBktOCptuNm7zBgZyFCot4U4k4J6bKnGNTXH50slhiV0Kf0aV9G+vqzl4ElGKI3zzyk4kjX62exkiiExWGqb+4Ba0V/ZyLsRpYz5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1769430084; c=relaxed/relaxed;
-	bh=tJ1+S2Wah0B24B4nb8d1ZRSd0AUn0CCMY72mwuIFWBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aZc2tLHswFJh2TUKZWxFQOt+f3m5bTdNqrIYZ4438WbyrRpQ/unRk3/xrJxVv2Q4+p+9kN98Abu/bEUGAyCz+PTys0D7airhMuiluMnkpDI1WUYYZZWJP/E39ztmcLomAru3TjQyzowHSCUrkivolLQveE+7r8n5QJnaOxe6keEiXrW1/nf9ykBK6mdbQkEPSfnubSjTqp4DJKJGb7QiOHk2O3vrh2tzVlfkoT2q+0b4B4RGw7Z52M2Zt29pXIvKq1jPXdLtKu8a0iakaClmLWZKm0qvyKg81i2DyfVeK0zl743IuoQweWzqR59T+NPzhLIkHVs6L8xHjx6X74xw1Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=iGiukZTA; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::929; helo=mail-ua1-x929.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1769479233; c=relaxed/relaxed;
+	bh=Hyo+erR00h9458p7uQWXt34pYACkPr3IjWEnwDWvgac=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=gIjchNQcw0IlyfYrzNK6Z8KweU4TXo6ZPiL1hKtbnS2V7dCEfMdJcbmnS/mA2ni8OEsHJ3asMYIg8KSjsW0jA0i16zqwi/sX+J6I+nf1ZbkIR0yuzRYhMKlbgoMj96GJtq6ru+vngdheXaQjPV7hI9/qsLiS+p3442zb8JpfVL6hbnIE0uuSLu9jYCqW5S5W2ivzrgTJX9B0Irau5c/UPTCvNQw/eQDDYKTjnspEklehDmCtDpwXS31YcQ+KYmPbxC4+K9AHoBmPEFCTCke02Dre9kVHCjc4MWXKmU+ji/Q0SKk/40NBGVqT9EWYQRGqcuaL26HCtxb/waqGfFqrKA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=NZc91GYP; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=iGiukZTA;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=NZc91GYP;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::929; helo=mail-ua1-x929.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com [IPv6:2607:f8b0:4864:20::929])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f071Z2Ngtz2xpk
-	for <openbmc@lists.ozlabs.org>; Mon, 26 Jan 2026 23:21:21 +1100 (AEDT)
-Received: by mail-ua1-x929.google.com with SMTP id a1e0cc1a2514c-944168e8c5fso3090527241.2
-        for <openbmc@lists.ozlabs.org>; Mon, 26 Jan 2026 04:21:20 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f0TBl63zwz2xJF
+	for <openbmc@lists.ozlabs.org>; Tue, 27 Jan 2026 13:00:30 +1100 (AEDT)
+Received: by mail-pl1-x630.google.com with SMTP id d9443c01a7336-2a0c09bb78cso35875605ad.0
+        for <openbmc@lists.ozlabs.org>; Mon, 26 Jan 2026 18:00:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1769430077; x=1770034877; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1769479227; x=1770084027; darn=lists.ozlabs.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tJ1+S2Wah0B24B4nb8d1ZRSd0AUn0CCMY72mwuIFWBk=;
-        b=iGiukZTATjvSxPgYNnvz7zpbEwjfZXs5hAAF3/cBOM1S0srw9YHyT0sdk77TcnKaqE
-         EUw2FiyVq3yEsjIOzk89ycaakxjeozexuXrCNNHQu0C8cFDcc7vY6axQaTMM9JD1pDOy
-         BDia6xeHrR7uBNdjA8B9HGd3lOaTi9O2U+KrW2kGtzpewP/ZKN1wL4BWLApwXxUdfjvf
-         RQZn21zZ0uWM9orEhXtR7eYU+s2Q3lw86VpcYYYkAhA4nXMmRkoRUc0/EK+zbm3uga8H
-         mscRIqR+IkO1jx56eCLb5oje6FHBq/GhUK+m3VFDwExbDLUFOs00ld6GzZDsFQgr2M11
-         hVfw==
+        bh=Hyo+erR00h9458p7uQWXt34pYACkPr3IjWEnwDWvgac=;
+        b=NZc91GYP2cd85OoUc/F0LTg1m9TSVYp+puFSCktN9FMnMN0BAqUXY//pxq/8eatrZq
+         DCeNf4qMuLksE9fdIEmnzIFI3cDsTHFZIx4qmmcuh117PI5sLEUYopRJH18WOC85xZ86
+         985x38tvyicCdYqV0rHqJ234T/T3xIWHPX5QFRjO+RgkPHkRLjfR2P6Fou6CsAl8HY6/
+         xPQQk46+SIx6glyuEdoZ9ti3wrKRKvIpXazVl/k72K5wpzLJUU3SV7zYxrpwrpCBAIOb
+         62ZGnEImBvcI7dA8uZ3u+jvPoh658lij5KGkUMfN+Zy1C3twdOtSlQ1MxUsu8Nk+OOTO
+         nLOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769430077; x=1770034877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tJ1+S2Wah0B24B4nb8d1ZRSd0AUn0CCMY72mwuIFWBk=;
-        b=ktgd9xkcJuI/QhN3ed068XesQSdyR2G3cyAu8L4K4c/ZKLuLw+WXuWY/p6GM2EBRtb
-         /BZFyQnOmGOL83O+YPFoOhBkSQHvJmDbU1TAWYOxzYru18CnKpArd5xNNtqVdW4mCe5D
-         9p4cVZHrsrLKku5TjVbkbHlJU8LvModgWoxF4RNhjW7y2ZEhJwbJRbMLnGxwc2mOMrzo
-         AEXHZm6sOswkNSdyXv2i2k9gMf6/hHVIxHPidigKeWkCfnDRXKcoJEujjhC8xsjWK+EA
-         BkCT0H6xYM7Q8feGnjVKZzp0FseRCeNK5Htxs5Bm/0Psd5xHv6ztSpf0bXPILVpbrjvw
-         GMZA==
-X-Forwarded-Encrypted: i=1; AJvYcCUxw7kYMpT0DJEMFFGpqYYubQbFG8nGbInsD94XKvYuyLzs7QbhaTh2r1HSSuv4dQxwBnrwA/sL@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxDSlKQoMzH1awPRR+5n7b2uT1dJOZ3bAh1gCeJ1GykM3++crof
-	cii4gb7A4yjYPc6PEHtLxfOOz5SobrB7XCIMGptpFgnN09WLQz3/eFOn
-X-Gm-Gg: AZuq6aInRzUwTdEz05GzA9OMUCmLdfj2Vu9yzC4WWmMZAdTQEcqk7wpVlcJbZSsFxx0
-	GlUbQkOxQR1mI9L0l4fslRPWBPBaR0akXG+vvwpDg97tKn3cw8pN+cAzmLArSSCpDDQaG7ufKTw
-	gdBXJurA2o+jEWQHoMv0qNVcBwnr+dQ5Hq6boEctPdG9XuouTjNp7x9D5+7jCHCn/oIw0DCoLqi
-	1wHPVh/k4Q5qkecjw82mnynh8W2DiENzVKxGWLyyWqUayHzx4zEFic8gSP+ibV2MvbcK5acVP65
-	dbJ/YETVD8PajIovtPKHN9bfFTODJ4xSJ4JZArA1jWarYNPcd2m9vOC+PBiO1pZCSV+QDtE4dww
-	3faUkGuhHZZoBrMnAeG0vutz/0WERUAUyKG/VCTKfDpKSWieJ2y0uJ7jQqGEWHwkDN7GLNzjDdu
-	3g+sepcsuCHQ6FZeKzaWp1/Pfi+fqspSjMxLrz5r+THGlPJJ+HKVvFTT4I2B2alitxxoG3Eol/
-X-Received: by 2002:a17:903:2f48:b0:2a7:a9b8:ebae with SMTP id d9443c01a7336-2a84531819bmr42437665ad.58.1769422988504;
-        Mon, 26 Jan 2026 02:23:08 -0800 (PST)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a802dcd776sm84958275ad.26.2026.01.26.02.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Jan 2026 02:23:08 -0800 (PST)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	richardcochran@gmail.com
-Cc: alexandre.torgue@foss.st.com,
-	joabreu@synopsys.com,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	peppe.cavallaro@st.com,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH net-next v9 1/3] dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
-Date: Mon, 26 Jan 2026 18:22:55 +0800
-Message-ID: <20260126102257.2619862-2-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260126102257.2619862-1-a0987203069@gmail.com>
-References: <20260126102257.2619862-1-a0987203069@gmail.com>
+        d=1e100.net; s=20230601; t=1769479227; x=1770084027;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Hyo+erR00h9458p7uQWXt34pYACkPr3IjWEnwDWvgac=;
+        b=FnCQvSBz7KDGB6uwLZnXxL+1VBoRiA5Nd+BZyh230N9p2w/DxxwsEaoyhuzMA9PgiB
+         8SJuMp04FQ/i/Dre1SJMpXEP7QCxlGUxds061OLukDqRrwg/Om28Tvugd9ce7W5RSmYn
+         cZo7m/OivRyjTbiVPxzLd053zyK3LJBdrCHaLDieZXSYtDhHxQqotwXxkFZd8QRiVBAj
+         VpbB+m+zaTgmoNOfmuaA44akRLOc6/iHI80v/mFfeJ2nhAPWZC7/7b7MWc6lHVd7nvul
+         WR7xiNi1ZJN7c/jxIz5mTLxEaBOfSrUBNx8S94aopMGbBvSeV+POtfIR+f7HozY/mix6
+         UOIw==
+X-Forwarded-Encrypted: i=1; AJvYcCVTlPiaKTDuIEPXhW074mGFkQKhrVfTcDzqCZSN3X0hQ5nG06quyuOWimId9fEugvHtiFFv0iC/@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwMPhHnVCEmYpU+9zvcDw9AOFhBqSKIDnx1RVkAB6/zWM3V3QMD
+	e56/0eTCSNajXVJVxgeHFH9ijo9dwONHFNERqJBc9SQOUu5lxbSK+2Y7
+X-Gm-Gg: AZuq6aJMt95M8WjTgCjqwB2lC8afQtQMrBmpKhtgJF9BIaqKhN96cufvHj9iF+ZFNF0
+	FHqHd2440NQC3wlvqQ/y03BbvO8L0q7oFqM9a+Rd+hFjn5WH5S/ojiuWFzFh/Sfgld3Q8jeYL8k
+	vuaec4oYsk4+Dy0nk6J7YKokmXbUGjBX/jJvLhJsCq0VMsuapAPIDJgf6/ykGrvW9LprzDRkxXc
+	A30Cl7htn/igsEP/pdRIgIr6NblaykUUD2iG00jfl58NZVTsNR1oOFdXRFcITMRrFbcGjsaXE4E
+	sE9QXV0Zpp1J8nfQIVfjcRNsjjNQDabKCROYLU2kKduMsVQ/1Hp0sDi5H9Gijttvtu/6759GSoC
+	PMG9uIE5V5B9Ts2oY8ngg49FQl81OtBTeYHiBU/QRkCxNVnB72oi5IWvNigH/D0FJleIHM5/pDI
+	tjdM6ak3ZciLffURwMEYWSTe+B03Kt/tPXaigBaMQaydDK9m21TWY9GCPqhxiQ795d5N7rgF8jd
+	YQ=
+X-Received: by 2002:a17:903:2f91:b0:2a0:f0e5:74eb with SMTP id d9443c01a7336-2a87134d275mr388575ad.28.1769479226354;
+        Mon, 26 Jan 2026 18:00:26 -0800 (PST)
+Received: from [192.168.0.102] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a802fb0262sm99857235ad.70.2026.01.26.18.00.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Jan 2026 18:00:25 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------WtKhOJP16ntJfHx0PNQbJ409"
+Message-ID: <52a6417f-66bc-46cb-b9b8-66d58da95a34@gmail.com>
+Date: Tue, 27 Jan 2026 10:00:14 +0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -112,163 +87,466 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 2/3] arm64: dts: nuvoton: Add Ethernet nodes
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ alexandre.torgue@foss.st.com, joabreu@synopsys.com, ychuang3@nuvoton.com,
+ schung@nuvoton.com, yclu4@nuvoton.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260126102257.2619862-1-a0987203069@gmail.com>
+ <20260126102257.2619862-3-a0987203069@gmail.com>
+ <ea3a1f85-0f27-498c-b03b-110456a751da@lunn.ch>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <ea3a1f85-0f27-498c-b03b-110456a751da@lunn.ch>
+
+This is a multi-part message in MIME format.
+--------------WtKhOJP16ntJfHx0PNQbJ409
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Create initial schema for Nuvoton MA35 family Gigabit MAC.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> On Mon, Jan 26, 2026 at 06:22:56PM +0800, Joey Lu wrote:
+>> Add GMAC nodes for our MA35D1 development boards:
+>> two RGMII interfaces for SOM board, and one RGMII
+>> and one RMII interface for IoT board.
+>>
+>> Signed-off-by: Joey Lu<a0987203069@gmail.com>
+>> ---
+>>   .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 33 +++++++++++++++++++
+>>   .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 32 ++++++++++++++++++
+>>   arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 32 ++++++++++++++++++
+> Did you answer my question about what these represent?
+>
+> I _think_ your .dts{i} files are all messed up and need
+> re-architecturing.
+>
+> arch/arm64/boot/dts/nuvoton/ma35d1.dtsi should represent the SoC.
+>
+> There should be a .dtsi file which represents everything on the SOM.
+> This includes the SoC .dtsi file.
+>
+> There should be a .dts file for the carrier board. It should include
+> the SOM .dtsi file.
+>
+> You said one of the boards does not use the SOM, so it can directly
+> import the SoC .dtsi file.
+>
+>>   3 files changed, 97 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+>> index 9482bec1aa57..ee32cedf3d9b 100644
+>> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+>> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+>> @@ -18,6 +18,8 @@ aliases {
+>>   		serial12 = &uart12;
+>>   		serial13 = &uart13;
+>>   		serial14 = &uart14;
+>> +		ethernet0 = &gmac0;
+>> +		ethernet1 = &gmac1;
+>>   	};
+>>   
+>>   	chosen {
+>> @@ -126,3 +128,34 @@ &uart14 {
+>>   	pinctrl-0 = <&pinctrl_uart14>;
+>>   	status = "okay";
+>>   };
+>> +
+>> +&gmac0 {
+>> +	phy-handle = <&eth_phy0>;
+> This is a .dts file, so represents a board. You said the PHYs are on
+> the board, not the SOM. So this is correct.
+>
+>
+>> +	status = "okay";
+>> +
+>> +	mdio0: mdio {
+>> +		compatible = "snps,dwmac-mdio";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+> The MDIO bus is a property of the SoC. It always exists, even if it is
+> not used. So the mdio node should be in the SoC .dtsi file.
+>
+>> +		eth_phy0: ethernet-phy@0 {
+>> +			reg = <0>;
+>> +		};
+> The PHY is a property of the board, so should be in the board .dts
+> file.
+>
+>> +	};
+>> +};
+>> +
+>> +&gmac1 {
+>> +	phy-mode = "rmii";
+>> +	phy-handle = <&eth_phy1>;
+>> +	status = "okay";
+> Correct.
+>
+>> +
+>> +	mdio1: mdio {
+>> +		compatible = "snps,dwmac-mdio";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+> Wrong.
+>
+>> +
+>> +		eth_phy1: ethernet-phy@1 {
+>> +			reg = <1>;
+>> +		};
+> Correct.
+>
+>> +	};
+>> +};
+>> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+>> index f6f20a17e501..b1b3e45280d5 100644
+>> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+>> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+>> @@ -18,6 +18,8 @@ aliases {
+>>   		serial12 = &uart12;
+>>   		serial14 = &uart14;
+>>   		serial16 = &uart16;
+>> +		ethernet0 = &gmac0;
+>> +		ethernet1 = &gmac1;
+>>   	};
+>>   
+>>   	chosen {
+>> @@ -129,3 +131,33 @@ &uart16 {
+>>   	pinctrl-0 = <&pinctrl_uart16>;
+>>   	status = "okay";
+>>   };
+>> +
+>> +&gmac0 {
+>> +	phy-handle = <&eth_phy0>;
+>> +	status = "okay";
+>> +
+>> +	mdio0: mdio {
+>> +		compatible = "snps,dwmac-mdio";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +
+>> +		eth_phy0: ethernet-phy@0 {
+>> +			reg = <0>;
+>> +		};
+>> +	};
+>> +};
+>> +
+>> +&gmac1 {
+>> +	phy-handle = <&eth_phy1>;
+>> +	status = "okay";
+>> +
+>> +	mdio1: mdio {
+>> +		compatible = "snps,dwmac-mdio";
+>> +		#address-cells = <1>;
+>> +		#size-cells = <0>;
+>> +
+>> +		eth_phy1: ethernet-phy@1 {
+>> +			reg = <1>;
+>> +		};
+>> +	};
+>> +};
+> Same problem as above.
+>
+>> --- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+>> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+> This represents the SoC.
+>
+>> @@ -379,5 +379,37 @@ uart16: serial@40880000 {
+>>   			clocks = <&clk UART16_GATE>;
+>>   			status = "disabled";
+>>   		};
+>> +
+>> +		gmac0: ethernet@40120000 {
+>> +			compatible = "nuvoton,ma35d1-dwmac";
+>> +			reg = <0x0 0x40120000 0x0 0x10000>;
+>> +			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+>> +			interrupt-names = "macirq";
+>> +			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
+>> +			clock-names = "stmmaceth", "ptp_ref";
+>> +
+>> +			nuvoton,sys = <&sys 0>;
+>> +			resets = <&sys MA35D1_RESET_GMAC0>;
+>> +			reset-names = "stmmaceth";
+>> +
+>> +			phy-mode = "rgmii-id";
+> PHY mode is a property of the board. The board might have extra long
+> clock lines, so needs 'rgmii'. The board might use MII?
+>
+> Please think about the hierarchy.  SoC -> SoM -> board. Put the
+> properties at the correct level.
+>
+>      Andrew
+>
+> ---
+> pw-bot: cr
+
+Thanks for the clear explanation. I understand now.
+
+I’ll move the MDIO bus nodes to the SoC |.dtsi| and keep PHYs in the 
+board |.dts| in the next revision.
+
+Best regards,
+
+Joey
+
+--------------WtKhOJP16ntJfHx0PNQbJ409
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix"><br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:ea3a1f85-0f27-498c-b03b-110456a751da@lunn.ch">
+      <pre wrap="" class="moz-quote-pre">On Mon, Jan 26, 2026 at 06:22:56PM +0800, Joey Lu wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Add GMAC nodes for our MA35D1 development boards:
+two RGMII interfaces for SOM board, and one RGMII
+and one RMII interface for IoT board.
+
+Signed-off-by: Joey Lu <a class="moz-txt-link-rfc2396E" href="mailto:a0987203069@gmail.com">&lt;a0987203069@gmail.com&gt;</a>
 ---
- .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 126 ++++++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
- 2 files changed, 127 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 33 +++++++++++++++++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 32 ++++++++++++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 32 ++++++++++++++++++
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Did you answer my question about what these represent?
 
-diff --git a/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
-new file mode 100644
-index 000000000000..8eaddfdc937c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
-@@ -0,0 +1,126 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton DWMAC glue layer controller
-+
-+maintainers:
-+  - Joey Lu <yclu4@nuvoton.com>
-+
-+description:
-+  Nuvoton 10/100/1000Mbps Gigabit Ethernet MAC Controller is based on
-+  Synopsys DesignWare MAC (version 3.73a).
-+
-+allOf:
-+  - $ref: snps,dwmac.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - nuvoton,ma35d1-dwmac
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      Register range should be one of the GMAC interface.
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: MAC clock
-+      - description: PTP clock
-+
-+  clock-names:
-+    items:
-+      - const: stmmaceth
-+      - const: ptp_ref
-+
-+  nuvoton,sys:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: phandle to access syscon registers.
-+          - description: GMAC interface ID.
-+            enum:
-+              - 0
-+              - 1
-+    description:
-+      A phandle to the syscon with one argument that configures system registers
-+      for MA35D1's two GMACs. The argument specifies the GMAC interface ID.
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    items:
-+      - const: stmmaceth
-+
-+  phy-mode:
-+    enum:
-+      - rmii
-+      - rgmii
-+      - rgmii-id
-+      - rgmii-txid
-+      - rgmii-rxid
-+
-+  tx-internal-delay-ps:
-+    default: 0
-+    minimum: 0
-+    maximum: 2000
-+    description:
-+      RGMII TX path delay used only when PHY operates in RGMII mode with
-+      internal delay (phy-mode is 'rgmii-id' or 'rgmii-txid') in pico-seconds.
-+      Allowed values are from 0 to 2000.
-+
-+  rx-internal-delay-ps:
-+    default: 0
-+    minimum: 0
-+    maximum: 2000
-+    description:
-+      RGMII RX path delay used only when PHY operates in RGMII mode with
-+      internal delay (phy-mode is 'rgmii-id' or 'rgmii-rxid') in pico-seconds.
-+      Allowed values are from 0 to 2000.
-+
-+required:
-+  - clocks
-+  - clock-names
-+  - nuvoton,sys
-+  - resets
-+  - reset-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-+    ethernet@40120000 {
-+        compatible = "nuvoton,ma35d1-dwmac";
-+        reg = <0x40120000 0x10000>;
-+        interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "macirq";
-+        clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
-+        clock-names = "stmmaceth", "ptp_ref";
-+
-+        nuvoton,sys = <&sys 0>;
-+        resets = <&sys MA35D1_RESET_GMAC0>;
-+        reset-names = "stmmaceth";
-+
-+        phy-mode = "rgmii-id";
-+        phy-handle = <&eth_phy0>;
-+        mdio {
-+            compatible = "snps,dwmac-mdio";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            eth_phy0: ethernet-phy@0 {
-+                reg = <0>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index dd3c72e8363e..10cb5e555750 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -69,6 +69,7 @@ properties:
-         - ingenic,x2000-mac
-         - loongson,ls2k-dwmac
-         - loongson,ls7a-dwmac
-+        - nuvoton,ma35d1-dwmac
-         - nxp,s32g2-dwmac
-         - qcom,qcs404-ethqos
-         - qcom,sa8775p-ethqos
--- 
-2.43.0
+I _think_ your .dts{i} files are all messed up and need
+re-architecturing.
 
+arch/arm64/boot/dts/nuvoton/ma35d1.dtsi should represent the SoC.
+
+There should be a .dtsi file which represents everything on the SOM.
+This includes the SoC .dtsi file.
+
+There should be a .dts file for the carrier board. It should include
+the SOM .dtsi file.
+
+You said one of the boards does not use the SOM, so it can directly
+import the SoC .dtsi file.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre"> 3 files changed, 97 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 9482bec1aa57..ee32cedf3d9b 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &amp;uart12;
+ 		serial13 = &amp;uart13;
+ 		serial14 = &amp;uart14;
++		ethernet0 = &amp;gmac0;
++		ethernet1 = &amp;gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -126,3 +128,34 @@ &amp;uart14 {
+ 	pinctrl-0 = &lt;&amp;pinctrl_uart14&gt;;
+ 	status = "okay";
+ };
++
++&amp;gmac0 {
++	phy-handle = &lt;&amp;eth_phy0&gt;;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This is a .dts file, so represents a board. You said the PHYs are on
+the board, not the SOM. So this is correct.
+
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+	status = "okay";
++
++	mdio0: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = &lt;1&gt;;
++		#size-cells = &lt;0&gt;;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The MDIO bus is a property of the SoC. It always exists, even if it is
+not used. So the mdio node should be in the SoC .dtsi file.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+		eth_phy0: ethernet-phy@0 {
++			reg = &lt;0&gt;;
++		};
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The PHY is a property of the board, so should be in the board .dts
+file. 
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+	};
++};
++
++&amp;gmac1 {
++	phy-mode = "rmii";
++	phy-handle = &lt;&amp;eth_phy1&gt;;
++	status = "okay";
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Correct.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
++	mdio1: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = &lt;1&gt;;
++		#size-cells = &lt;0&gt;;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Wrong.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
++		eth_phy1: ethernet-phy@1 {
++			reg = &lt;1&gt;;
++		};
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Correct.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+	};
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index f6f20a17e501..b1b3e45280d5 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &amp;uart12;
+ 		serial14 = &amp;uart14;
+ 		serial16 = &amp;uart16;
++		ethernet0 = &amp;gmac0;
++		ethernet1 = &amp;gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -129,3 +131,33 @@ &amp;uart16 {
+ 	pinctrl-0 = &lt;&amp;pinctrl_uart16&gt;;
+ 	status = "okay";
+ };
++
++&amp;gmac0 {
++	phy-handle = &lt;&amp;eth_phy0&gt;;
++	status = "okay";
++
++	mdio0: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = &lt;1&gt;;
++		#size-cells = &lt;0&gt;;
++
++		eth_phy0: ethernet-phy@0 {
++			reg = &lt;0&gt;;
++		};
++	};
++};
++
++&amp;gmac1 {
++	phy-handle = &lt;&amp;eth_phy1&gt;;
++	status = "okay";
++
++	mdio1: mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = &lt;1&gt;;
++		#size-cells = &lt;0&gt;;
++
++		eth_phy1: ethernet-phy@1 {
++			reg = &lt;1&gt;;
++		};
++	};
++};
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Same problem as above.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This represents the SoC.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -379,5 +379,37 @@ uart16: serial@40880000 {
+ 			clocks = &lt;&amp;clk UART16_GATE&gt;;
+ 			status = "disabled";
+ 		};
++
++		gmac0: ethernet@40120000 {
++			compatible = "nuvoton,ma35d1-dwmac";
++			reg = &lt;0x0 0x40120000 0x0 0x10000&gt;;
++			interrupts = &lt;GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH&gt;;
++			interrupt-names = "macirq";
++			clocks = &lt;&amp;clk EMAC0_GATE&gt;, &lt;&amp;clk EPLL_DIV8&gt;;
++			clock-names = "stmmaceth", "ptp_ref";
++
++			nuvoton,sys = &lt;&amp;sys 0&gt;;
++			resets = &lt;&amp;sys MA35D1_RESET_GMAC0&gt;;
++			reset-names = "stmmaceth";
++
++			phy-mode = "rgmii-id";
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+PHY mode is a property of the board. The board might have extra long
+clock lines, so needs 'rgmii'. The board might use MII?
+
+Please think about the hierarchy.  SoC -&gt; SoM -&gt; board. Put the
+properties at the correct level.
+
+    Andrew
+
+---
+pw-bot: cr</pre>
+    </blockquote>
+    <p data-start="206" data-end="258">Thanks for the clear explanation.
+      I understand now.</p>
+    <p></p>
+    <p>I’ll move the MDIO bus nodes to the SoC <code data-start="766"
+        data-end="773">.dtsi</code> and keep PHYs in the board <code
+        data-start="801" data-end="807">.dts</code> in the next
+      revision.</p>
+    <p>Best regards,</p>
+    <p>Joey<br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:ea3a1f85-0f27-498c-b03b-110456a751da@lunn.ch">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------WtKhOJP16ntJfHx0PNQbJ409--
 
