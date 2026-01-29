@@ -1,68 +1,106 @@
-Return-Path: <openbmc+bounces-1300-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1301-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81549D73EA0
-	for <openbmc@archiver.kernel.org>; Thu, 29 Jan 2026 22:31:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DF4DD73E9B
+	for <openbmc@archiver.kernel.org>; Thu, 29 Jan 2026 22:32:00 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4f2DQ85ZT5z2yFk;
-	Fri, 30 Jan 2026 09:31:28 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769725888;
-	cv=none; b=Wnj+AT3psBMr2irYGYBVsF8ZAqGzoJ7Y2HQaWpwneO9O78KUnuFjcu2BllXpCrCu2c7WFkpZpN+L+f6tFXJ/QCajkaj7lhvYFAS6niP3fPsr0gYelM2DyYXRLAbGFoV/k/SVKd1rsCx9ZdbHgulDOW2yb9AJEJ5cWq+KLK2WpLa+/cyMHxR+0mnB993btQrBDdmxtJdNRSX2Ciip1X5sFJac5ebB0ScpcLpYkfDn2SpAMgqavNcP2XcQgGdKmdS5/NBBoqgCibKK1qWSyVzuu5h55D7kzWphq3jzGNFnCJj9ESE3OHbQVZTnLfIrZBPUFfvSXpbx0H5U1DvHmpYYRQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4f2DQS6c2wz30T8;
+	Fri, 30 Jan 2026 09:31:44 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::435"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769665503;
+	cv=none; b=CKNunYgn07ymueK0MdWa/tzo59v2Ayj8iMlWwKKcNpL6HTwSdl/SHKV0kaUgnxzCMMGU3ukVWpTYERH+mE2DsYqhcnIPQ/0HAO0rRQigoSZIMlVcNzkZPq3+ORZnpqlQkjTpu5VCUhLx1XDTWf1Fta1nNZWL7X16Lu7ON+6tnA6VuIvYPB177AHPXkWxAOm3YtqYBWCP24CHM4YVCM8/sL9NYKHFSCrKRg+TTEbDSfnW4hkH/encp4OHizODCJBC/8QDAIEo6FeuEfLgBaIoHGrKZpuflW5LGpnslCXH9HYm4sbTzcCMhxwIVMShiGfbCINyYJI9H54+1TBPUWJ6fA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1769725888; c=relaxed/relaxed;
-	bh=XeDMpJ65mp+98QISIa6zGzqYGRyHyE/0c63dQ1J//No=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ksI/+MbonRXKGPF6mCJuIHuWbbHotzFShlJ83IDD/Y+Zx9XqAazuxCo0di+pvZmE9wUU1d7I+kLgV3pDTRd+OJZdSnDt3HXDm07MdXp1TP19eRqrsdCsf1z9UZCtS0XX+hfMOEsAoQK4rPWRpZL5NmxLc8dR+4V1XnvpGGotmr3OcQAVupf7RkraN5y0+Q8RfLzQuPQti413e35V0+Qvo+bg+L8UTaf5Z5LIMnVNA/IIOew/uzITF9fp44P0NasE5uREEzl+BMRHIk/67+X6QuEqbXpICte3bSmr6NlwdTlSwJ1QVdrtE7iHWzHw9gasK18+xo3MgJwxcEkQw4U3dA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=maXuXDBD; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	t=1769665503; c=relaxed/relaxed;
+	bh=CNKXP9GpRqv+eSR2XeMEVjl61X03fT0QbLuz4FZVIqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=g58PT9aVSQoVjGyZOMOiGahF1ugGGys+khRjVMlKddWI1jIGY/C/r+gZefB05CHHd2BuITnNIrasHWWFglZYXBbuiOuQfTsLmPY5BMkzh2Wy0sy0m6ks8DZ+DyAAsIPQrKYIIajS+w2s49aZ/emmtxqWvXf0TLPkvk3Ikac/mxYTZRTvMSPRnJz9+sMaaG462Ld0+/HH/zhtGAdzWE4Jr1ICBDF7bJkrP6rVy2Z4xBXbrkrwG7ZrmwnEZXPXmhRm2z1KOfDGECR1fvT8pdXgh8euT5Xn3yQNhErBepkHAPf24/HWeVatMxkvpmvDfgT0XoC1bgppUBJ94s959DNuug==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=TDW1/ZK3; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=maXuXDBD;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=TDW1/ZK3;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com [IPv6:2607:f8b0:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f2DQ76VbGz2xpk;
-	Fri, 30 Jan 2026 09:31:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f1p4t54ykz2xKh
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Jan 2026 16:45:02 +1100 (AEDT)
+Received: by mail-pf1-x435.google.com with SMTP id d2e1a72fcca58-8230c33f477so295499b3a.2
+        for <openbmc@lists.ozlabs.org>; Wed, 28 Jan 2026 21:45:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1769725886;
-	bh=XeDMpJ65mp+98QISIa6zGzqYGRyHyE/0c63dQ1J//No=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=maXuXDBDY5E82w+PEupDgyz4HMJpbKuw1UzO+dIkS5jxTm1C/okzqrlbeKVwP5/2u
-	 Qmlwe1QlE+tToivLA+Co71fnsoyIwW+7Ac7wb/oLse0BIQHmHL1b4kESpKUryAJSH5
-	 zz1AYVHdKrtJxdw68fXAgjGC3zdLRRl+DqEIzH7+zSxuwZgFryX4FpjGLfaHjLSBnh
-	 N4LG5nd9/2dhd4+30p/dIoCMLGZn24TWDGPOKEniU5PKzNcg2d1CNTXMLAUg1Az/hM
-	 20YqxQthcjTdbkupxPsQgS4k/x+Blm/TSTl02Q1sKw5XjzbabaZ9c7kQExTjo8WmXj
-	 K0yNxc7jhe70g==
-Received: from [192.168.68.117] (unknown [180.150.112.60])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 679D860035;
-	Fri, 30 Jan 2026 06:31:25 +0800 (AWST)
-Message-ID: <547396d9f2aaea032fa62e7adcafb423a9467446.camel@codeconstruct.com.au>
-Subject: Re: [PATCH RFC 05/16] ARM: dts: aspeed: Remove unspecified LPC host
- controller node
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,  Linus Walleij <linusw@kernel.org>, Joel Stanley
- <joel@jms.id.au>, linux-hwmon@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, 	openbmc@lists.ozlabs.org,
- linux-gpio@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, linux-iio@vger.kernel.org
-Date: Fri, 30 Jan 2026 09:01:20 +1030
-In-Reply-To: <CAL_JsqJxfVaLqzTwm7iEvc4maBzVvpc-i5uD6CZRtiv+V+7+1Q@mail.gmail.com>
-References: 
-	<20251211-dev-dt-warnings-all-v1-0-21b18b9ada77@codeconstruct.com.au>
-	 <20251211-dev-dt-warnings-all-v1-5-21b18b9ada77@codeconstruct.com.au>
-	 <CAL_JsqJxfVaLqzTwm7iEvc4maBzVvpc-i5uD6CZRtiv+V+7+1Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20230601; t=1769665500; x=1770270300; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CNKXP9GpRqv+eSR2XeMEVjl61X03fT0QbLuz4FZVIqk=;
+        b=TDW1/ZK3GT/glxd+F9LsR1H9W7lP1fRQEsi5SzhIOmOxLkfTVlQDKVmhw5vhGsSdTz
+         ECXkeV3Qs1vjEq/06H4hvISLC6TR6IfpkQDbvm3pgCCNZ4Zs9q5z0ot1RuzAXYqkb+cr
+         Z6rbnAt3I2mZZy3AQoHeigh/NZRxOgZh9U9kPuixMqhJRsl8q2cYvR5ljquezGIaILgZ
+         vpMnnRbT6sMq8ubgqaBe2FofFBDFMjTcpVwVOUDBBvjkvumdZJZPsrntsX32sSx2Sz6m
+         E67+eDn05I75lYIdnEykHSTBH9w/RAC0PcUF7A9dSPEB03DWzvpIXEq2bo6GtXgp7efe
+         dv5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1769665500; x=1770270300;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CNKXP9GpRqv+eSR2XeMEVjl61X03fT0QbLuz4FZVIqk=;
+        b=AU/5WHb7vesH9gA1dN9sxBee+CEQmffxILVxMcdfelpLkEgcDVTTdSQHvqOEX4nVXu
+         a1XfCYm+ngPwagS0Qr755j3evOSb8G8ubE9Fujr2xDVA5z7dcX9nIeszaBvG0bF98pmK
+         ZTtf080EwL470bAEL91DCqI4lYrpzYoIJyQio2NVdcJ5QHIRA6lqhXHCI0eTQNc9/co/
+         tMjLrBbTB1DEkSVCDNhpsfWxXvm0I2+O7DOUjECEO72xIkGP7lshgEfEHS4rDNnBtO1f
+         TrSds4Q7293dW/8LpADTkpkAvk3MVHm6278ywtM2m0TV29pEAfzEN2/Cao+Dkq9/stRH
+         GZLg==
+X-Forwarded-Encrypted: i=1; AJvYcCXJR1UzkcZ+Ky7KL6C00wXCFAOTX7sleRLQBZgLYjGGlDQPCwSQ91E1+PEFdyzPUew5vt1f723E@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwBPDE68Zu3Oi5/32aSrmPpnWn/NGNqH+S5XogrlNMnT5UqHxMZ
+	p8ZgKJX1PW0waOJeYIXT+H22WNuafZ+iUb6qVx83qAQUOSRoYSJa+YuE
+X-Gm-Gg: AZuq6aJkusJCR/vCyysmXFV7QAibPcLaABVaF9+R/x3rq4YScNc3sdL4AQLi9RGCMPQ
+	SyFHamRBy8PoxhkaEGA/3uiUBTQbSlAS0LWDK/JZ/KrC1ZWr+s/aIEMC1MIbCFp0cxcz1ylZlsd
+	u+sGOzzFVUrhHBQPcwgwPl0jG+tsvuVwLAXlppB4Ys6KugqSdqmehQUHg5t6VdQZ74VCcINeytv
+	GV4ZE3r8h9xbrqlKZY7GCLiooJ1GQbWftpUoT4zHIs/PXtkKTVqcodcFwPvSH16/7Yj9iFEYq9E
+	QBblqN1diRsp/eKwQ017aNzxIDiKbG1mGbB22WzrdW+gPLuVyjMTvvulp0xq/cOeKChQWnWxY0w
+	RrgdQpE0KZoc5B7plK5KACxdPySXUB1a6dTb9OCuaZ/5oY5uFBz8zcBBQoAp76luX2jLr3hLz1o
+	c3bQSpToTJLBmzuS8z+PtLaJatDrJLg8QXW2eXoNKe1mZceVsRQAvtobD25Jkuk3ASUWLMJJCw
+X-Received: by 2002:a05:6a00:4b05:b0:81b:ab6f:2974 with SMTP id d2e1a72fcca58-8236914c661mr6509292b3a.9.1769665500190;
+        Wed, 28 Jan 2026 21:45:00 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82379c227c2sm4108364b3a.53.2026.01.28.21.44.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Jan 2026 21:44:59 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com
+Cc: alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH net-next v10 2/3] arm64: dts: nuvoton: Add Ethernet nodes
+Date: Thu, 29 Jan 2026 13:44:44 +0800
+Message-ID: <20260129054445.416242-3-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260129054445.416242-1-a0987203069@gmail.com>
+References: <20260129054445.416242-1-a0987203069@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,24 +112,153 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-01-29 at 09:16 -0600, Rob Herring wrote:
-> On Thu, Dec 11, 2025 at 2:46=E2=80=AFAM Andrew Jeffery
-> <andrew@codeconstruct.com.au> wrote:
-> >=20
-> > For the AST2500 the node was used for pinctrl purposes, and while
-> > the
-> > hardware capability is also present in the AST2400 and AST2600, the
-> > their pinctrl no relationship to it. Further, there's no
-> > corresponding
-> > binding, remove the node for now to
-> > eliminate the warnings.
->=20
-> Odd line break.
+Add GMAC nodes for our MA35D1 development boards:
+two RGMII interfaces for SOM board, and one RGMII
+and one RMII interface for IoT board.
 
-Ha. The preceding sentence is also a mess. Not sure what happened
-there. I've extracted the pinctrl-related patches to their own series
-locally, I'll send that out when I have a moment.
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 25 +++++++++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 24 ++++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 44 +++++++++++++++++++
+ 3 files changed, 93 insertions(+)
 
-Andrew
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 9482bec1aa57..78534d613486 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &uart12;
+ 		serial13 = &uart13;
+ 		serial14 = &uart14;
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -126,3 +128,26 @@ &uart14 {
+ 	pinctrl-0 = <&pinctrl_uart14>;
+ 	status = "okay";
+ };
++
++&gmac0 {
++	status = "okay";
++	phy-handle = <&eth_phy0>;
++};
++
++&mdio0 {
++	eth_phy0: ethernet-phy@0 {
++		reg = <0>;
++	};
++};
++
++&gmac1 {
++	status = "okay";
++	phy-mode = "rmii";
++	phy-handle = <&eth_phy1>;
++};
++
++&mdio1 {
++	eth_phy1: ethernet-phy@1 {
++		reg = <1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index f6f20a17e501..a029b660e8dc 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &uart12;
+ 		serial14 = &uart14;
+ 		serial16 = &uart16;
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -129,3 +131,25 @@ &uart16 {
+ 	pinctrl-0 = <&pinctrl_uart16>;
+ 	status = "okay";
+ };
++
++&gmac0 {
++	status = "okay";
++	phy-handle = <&eth_phy0>;
++};
++
++&mdio0 {
++	eth_phy0: ethernet-phy@0 {
++		reg = <0>;
++	};
++};
++
++&gmac1 {
++	status = "okay";
++	phy-handle = <&eth_phy1>;
++};
++
++&mdio1 {
++	eth_phy1: ethernet-phy@1 {
++		reg = <1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index e51b98f5bdce..a39c3640b322 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -379,5 +379,49 @@ uart16: serial@40880000 {
+ 			clocks = <&clk UART16_GATE>;
+ 			status = "disabled";
+ 		};
++
++		gmac0: ethernet@40120000 {
++			compatible = "nuvoton,ma35d1-dwmac";
++			reg = <0x0 0x40120000 0x0 0x10000>;
++			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
++			clock-names = "stmmaceth", "ptp_ref";
++
++			nuvoton,sys = <&sys 0>;
++			resets = <&sys MA35D1_RESET_GMAC0>;
++			reset-names = "stmmaceth";
++
++			phy-mode = "rgmii-id";
++			status = "disabled";
++
++			mdio0: mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
++		gmac1: ethernet@40130000 {
++			compatible = "nuvoton,ma35d1-dwmac";
++			reg = <0x0 0x40130000 0x0 0x10000>;
++			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks = <&clk EMAC1_GATE>, <&clk EPLL_DIV8>;
++			clock-names = "stmmaceth", "ptp_ref";
++
++			nuvoton,sys = <&sys 1>;
++			resets = <&sys MA35D1_RESET_GMAC1>;
++			reset-names = "stmmaceth";
++
++			phy-mode = "rgmii-id";
++			status = "disabled";
++
++			mdio1: mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
+ 	};
+ };
+-- 
+2.43.0
+
 
