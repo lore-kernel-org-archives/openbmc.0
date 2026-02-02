@@ -1,167 +1,79 @@
-Return-Path: <openbmc+bounces-1306-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1307-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CD4E7C6FA
-	for <openbmc@archiver.kernel.org>; Sun,  1 Feb 2026 03:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37979E7DF13
+	for <openbmc@archiver.kernel.org>; Mon,  2 Feb 2026 17:37:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4f3b6q4HLJz309C;
-	Sun, 01 Feb 2026 14:37:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1769917075;
-	cv=pass; b=PSaMUNrAvl7mmZjCiGSC5qpEaGJZtfTHOL6RycNb86Ihz/v8+9AkjkOsosHzk34hKn3IeSRpxOYZbZc5BV+xloNnBSJtLE8JxPDFsHcFZtHBXKK1kllxXPluheu3em0wJjXhT1tdk4ROSKMAerVfPRfWuTNjpPjGHnOmWKj6N5n0Lgqd+yGL1CgQPdOiTkOmxMrf0pgsFLwoyKNoibpxtQu5ZRYFruoT4FmjKP0DEd0L+ZCPx0DkjFv8MLKmoFxcswHKf5Rnbj0+TapGOEHnCaQBDt1xGvYPuSxrx9Iy+QAsWnSti/FR5QgVoOUfJ8WzQOrOMM7TvLGm1LgX4bVmJg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1769917075; c=relaxed/relaxed;
-	bh=7L4+Z3W2Q2m1ozqgpH0VxwCytt7TbZyGG47jusWU7+8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PBVnKTsRTC80D8Hab5ac8NVKvRwkaxtGnLIj2+eJP5oj7jLf+Y6ZJJ8Deoj9z3X2u/Uo4U8/R3zAtGJaTCUETRKUpvp9hyc76EfUXYDE6V+slQ8l08P5AJVWLKlW1mnKJl63gSTg5hiFb34cg/oNAsroSr9/ve0JDZ5lLamTnv1EsF/qsDrlHG7wTcFNaWy3RdgxcAi1NFde43IQyY01mmpPWrIzrqGfmQbJBitZChgE1ZmNUNUz21CLSftGoiJgl36f8bZtDqJUkR+gQBXBenc+oPKOljD4bb60XD+GnaRdHylwpuZLm7VtUxK/9AHx60nnDLfbCt4oT89bJrEsyQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=etVbd6DE; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4f4Yhz580Mz30BR;
+	Tue, 03 Feb 2026 04:37:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770053843;
+	cv=none; b=Nd0VeJ12ocHiyk5XL9g2PnSRQkvMPZdAqAvHuuNqwdzfVIQSDsn59su69sHsnpNu5gO64s9iGZ6ld2tK23HbLGLMMu238OUeKHJAcKxbA6vdBorcYhJdImKTklls3d89YCtojfNyRe2N5MGHPFcYbQOPqG9yYFe1mJzjFjDCXa18Z10rdm+0HNMvbrXzyh2yCsqwxTCfPmi+ZgQUO6pdNHp3VFxpeNO2iyl2ObyFsEGK4CDojOozhtIVxvDEf/xQlfQr0x6aYvTeKYh4Zz4+hDDs6O1CO2a+kl2MkFPYnhsKU4SzOhiEjw29GGv1d2w6or4urvcvDhpKrV5piJY8og==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1770053843; c=relaxed/relaxed;
+	bh=UuT7BSbTpA9YqGylIgcZMjHRBgp33SIFds1E3lD+FRM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GREm73mOEVd4bMtqGLwLy4YgCS2D9xo65GyeOZ0xj56sRJLL+X2R6oW7OSNNcozKFvlnxGrQECHkaqFj8aEWn3Q6C6tw88yE3v8/aV1R2TPWcmVo40AUP1+dAKtjXqQA1TyOXgvs2bjZU6uesepqFWHAgeXQTNO0kIImUwjJPkEDfeqAQR89F+LHSZLjtAtUhd+KX98VDUtq2uSpfPxmrwzJ4mdoFtlJmb1Jm/2UcH8QlGj1Z5tbHHVHa0xzGl+cwxvtK1IoxWRtlnbROPnYx8KHmmTY3KHUJKKqdD4SZRMxp14HTneOr51YJLEYEY99J2h0KseRqcKjTdFwpXt71A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WAk7AcUa; dkim-atps=neutral; spf=pass (client-ip=192.198.163.10; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=etVbd6DE;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WAk7AcUa;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.10; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f3b6m632kz2xgX;
-	Sun, 01 Feb 2026 14:37:52 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VBrGHfGeTiJSK10rwapW4LfAJxRPTO14gfY1+NxWctcs0zVsiyUPETuSoD8bLXjA08qEFe16PUDrpjWK72HlUj5o+KdiLSLvD+/ST1bP4rZzclHyeFZAT3dpFSBldiA3z8KaG9k8XESfD3ZqbnVUCBb77UyzroFnBsjLDO3MhN6toE9MztwgLxU5tIPQhQIrlT2CjUHl0My9L36HDXY+ExfJLsjgKGavluG7Td5mj79qRtnPegNqUI+zIocD2yAmaDlKqFCaJf1uppxaoMxHxGs4JykHeO53XZinFmpkzAQvZPsI4UL6RphRuBDpoZcJosSw2R1RLMmJtbVoCMQOWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7L4+Z3W2Q2m1ozqgpH0VxwCytt7TbZyGG47jusWU7+8=;
- b=m1WMeRprbMzBMIOngqxujaO+7oPHGVTo5XVvLeYMZUaN0I7Ffs3Zmgg/gSiyCzQxPVDgoXYGd+ROOOK9DQT71hk0pTIygp7Ru/MG/j7zU3E5WlF0X3SYI+WlfSjBSLxoA+M+aO9YCkC39U1gS7jpT8NYktfkjc4KiJJUysntPLrrgJ7+MZMjikdtdF2YCNWMQjjerFcYZ4/9pWwgX+oWbcCijOQMtKrlR4zanXhEtSZeHLqnoTGNYjqbUOZtL0NEIHdD8a2Cows7nr0okA3SAvthrbpWhCwVukAQ5uGdolNJxfJ1zeXpt0vdNtMf9ozvbRkot50Oz1GL+1s9LjBkvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7L4+Z3W2Q2m1ozqgpH0VxwCytt7TbZyGG47jusWU7+8=;
- b=etVbd6DETv8lkaWmvPiaFnU+0ipd238qq2RymW7lISwP4AbXQz1SrAv1Ga7vmSs/IEJ7GXx9vEQXxK/3RlldEyFjnLSPRxJwKku75Gr7CvcogOJ2+WXjtKn0yTSvHflBhpexgkE+m3eVdmQcu34ctxLrTilxLpXbRF6pYx6vmL68VLilutgOWUkYVY0HZ1t+0gGfdjRcogn8IlE6UqYk1zl+qLywXkuoBFz916XcFHrgoLjs5JSmBlU4aBrvLNRoTjdqWaseRJ1aFm8KZYdcnBRrgcTpEGrBc3Rf4mHax/dN/uWClHeim3dFscP5zrMCK4gIKjPPowRvVf5E5UHCUQ==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by TYSPR06MB6363.apcprd06.prod.outlook.com (2603:1096:400:417::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.15; Sun, 1 Feb
- 2026 03:37:26 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::df4f:b1a1:1825:4a80]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::df4f:b1a1:1825:4a80%7]) with mapi id 15.20.9564.013; Sun, 1 Feb 2026
- 03:37:26 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-CC: Jeremy Kerr <jk@codeconstruct.com.au>, BMC-SW <BMC-SW@aspeedtech.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"benh@kernel.crashing.org" <benh@kernel.crashing.org>, "joel@jms.id.au"
-	<joel@jms.id.au>, "andi.shyti@kernel.org" <andi.shyti@kernel.org>,
-	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"naresh.solanki@9elements.com" <naresh.solanki@9elements.com>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v24 3/4] i2c: ast2600: Add controller driver for new
- register layout
-Thread-Topic: [PATCH v24 3/4] i2c: ast2600: Add controller driver for new
- register layout
-Thread-Index: AQHcWCxbbHqO8nwNMEO6CZ0FnrkxPrVmMd8AgAGRYjCAAXPHgIAEcLPQ
-Date: Sun, 1 Feb 2026 03:37:26 +0000
-Message-ID:
- <TY2PPF5CB9A1BE6FDA2E38B8A4C3540C522F29DA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20251118014034.820988-1-ryan_chen@aspeedtech.com>
- <20251118014034.820988-4-ryan_chen@aspeedtech.com>
- <6b99a6ea267fd0f75d4c366293fe6887cc038b7e.camel@codeconstruct.com.au>
- <TY2PPF5CB9A1BE6E6353CEB66FFD0E498C1F29EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <aXsQ2xgao5PPqnk6@smile.fi.intel.com>
-In-Reply-To: <aXsQ2xgao5PPqnk6@smile.fi.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|TYSPR06MB6363:EE_
-x-ms-office365-filtering-correlation-id: 92229acf-1715-47fd-38d3-08de6143382b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700021;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?bt9A1w8Di96WPACAAO41b3uANdMtfCpDZRgC98ztNexSA4qIuaISHogRJhhc?=
- =?us-ascii?Q?DdfWc5GQS9pNexTJB7VUk6TDsBuNm3z705o000xg74mL4DKCKcmtWgMs5udq?=
- =?us-ascii?Q?wyU2fe7KjMx0yP+O+MfX/opFw4njpxdUMn/o7E/2Pf3d43Npbp04HtOwuSCS?=
- =?us-ascii?Q?OiK8Xww4l7o4WCYmAXBZAhBY8xRKyPZq25DO6M5euiE7gdqCQu61AnjhQOIg?=
- =?us-ascii?Q?NhU9bBtzVw+bUcrgBtpP1T7zWydQV/3N61c740i7h3oehIOXXZ7KfxFG9r+D?=
- =?us-ascii?Q?t7eWKoe71HsAuoA7FQM3GHTIIirrIwGwT27RVFT4opRA5FxMb06A+g3N3QU8?=
- =?us-ascii?Q?ppIYRA8BofI0jM3LoOW+hnleL1Y0sG9LqJMvbrA1ggH7FNz+RAiqPGUi72uF?=
- =?us-ascii?Q?L8fSNDDmWTajRic/nLVa7nhd/BQlGURoWF/vlzrtnG311rQEcRDBgX4wuEoa?=
- =?us-ascii?Q?MjNimoiNAjYOyKs8AXse+HuMZ7TRmW1NGigwOf53lPuEXImtgs6g1+RtMXQJ?=
- =?us-ascii?Q?0lUR6Bpp2+SPBpfD3wxqsJ79F7YapkUaYYvAITpQ6S6GdTHpm1DM7QDO3qZP?=
- =?us-ascii?Q?iaM6rIRHTPjQ7jVtB+KvsergcmDXvEhJ1sPKdoiGGVmujRu3tc0sEqowANKx?=
- =?us-ascii?Q?pPk2NY/TOsSpIF+SaRNEV68y/LEwzYyqO9vRM/0A988K04mhgEl1RNGz6LPm?=
- =?us-ascii?Q?LMcnWcLG5sj5g7LU2WGfO+7mYYhzkSAjdzwPIF3sGhb40EZN0v9aox350d/i?=
- =?us-ascii?Q?b0nA9f4LxjQixHioDeu/GTuNnpMgIJiMoFf+edX09UIvnT1nUTF93tI5Q/Rr?=
- =?us-ascii?Q?cUeEX9jO3KEReY+kBxH3rygYLpAswYDgERFePY/HnihEe6YxAVAfHSPYdNIi?=
- =?us-ascii?Q?eRFCYlWmthguYoY5TDZsQ9cxxhkD13eIh4/PCySXpXk9Cp7idelfZpK5tM75?=
- =?us-ascii?Q?zkRnVCK3SqyO48AcoIIImyncQblmYUtqQFHQvqVe0m2Z5ROwPP2j4Lih0IU6?=
- =?us-ascii?Q?bY8vsDtnfNbnQcN9AGiuEdftnUwIo755mTPmYl7IVXwfBtletre/FYq4u5Cp?=
- =?us-ascii?Q?uo/hSt3MUMNDoJ4d9Grn8UQ4ETffVRxKc0SB+JyHktIEsY8sm3I9u0KmajZP?=
- =?us-ascii?Q?oi4R4DhuKzLorALyTAjgAVxflwu7xfUM8RFZbdeydZs6WRo2nDnx2rkRGXqC?=
- =?us-ascii?Q?FA1sShzdfo5X4GsyuQJTKmDP1PjyswCDOPftURuRw/JUtcntOpu58qpF83TG?=
- =?us-ascii?Q?fdGzdWq22EPL8/AvQMfXgDkAGGAfVYFYctlbA1qZnrVpL40CgJeGbHqdmTSR?=
- =?us-ascii?Q?Ztns087AGyt56M+M/syZ2OkKZtt3X+VQESPMlBIZidirCZls0oE02T9H7Tkc?=
- =?us-ascii?Q?lNBSlTxuoxgR5aGCa+r4OsOsez7pL6XEYARD5bsZQa+b9I2eurDs2vZiUcIQ?=
- =?us-ascii?Q?EoQAVCt64aJQJ2P4JFOkbCD8r9tNzdhPEtD7W/IZEDJ/VJJtlM6zdcQgzZ2C?=
- =?us-ascii?Q?JsBHdGzApIEh2OqT7sIBPdsWm5E9p5p7MRer2lmsAiCLnyfJ6qyuzI+jEUgN?=
- =?us-ascii?Q?MemjyN0w112Zio/hIjaiMZP4Y2Yqx9geyxR/aO0B2BW5lX0Tbw/cSz0cSWzw?=
- =?us-ascii?Q?C0hw3QWEO/Fp67dOmPtGfG0=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Fmz9YtOJw/QceQnok3V81D3jIJ1megYXuqdgpz0WCywAw7Y/nQoCsbZq8f9J?=
- =?us-ascii?Q?2oEWd5l9AX4mA4tuD44AaZdkQX+tYYt4hQ43Zb84TZj4pw4D+VycLRvpWeQv?=
- =?us-ascii?Q?07BnuVEdNude5MKzed8Jsx8EUzt9Oy8MlOj8UoquCvKh7uLAa88h+5rUQyzH?=
- =?us-ascii?Q?GxJC6HsTlXfm7YxBNhgXrtAB6sw29Cpdt5Ly4beJm9jiSVaB9YabT7rf0x8P?=
- =?us-ascii?Q?rpz2eiNLWFy3RfnddXCcO2KMmXFyE5JNGLkrQXl4ZW0+c3hak5ez2kSFu7Rz?=
- =?us-ascii?Q?ff115jB1J+LQwA3m8S+7FbZIaHnnJxOBxznCr1/dY5rQqvvf7pyXMLBX2Io6?=
- =?us-ascii?Q?hvw036N1hF6G5813VQntfDc0LDmmz1hnJqjk+/aBOulHQfX/yzvYX115sm/I?=
- =?us-ascii?Q?IyJzwK8Pl6tnllyPMyhBPcSuyrWm2DYn5n3UV6ZNzyg/PnORO3Kt5WDZba90?=
- =?us-ascii?Q?oUGQFRz0msh6waRGARwsj3IHurp9y1/PqWuByKH2pTKAs2RgU6j5RD+lFklm?=
- =?us-ascii?Q?cj36gynn5I//wxakC7Qd/ZHqXpfjpsbIGhsz5PJp+LK3nAGouDUxGuBqasfw?=
- =?us-ascii?Q?ZjpNh0biAfq2rgfpXNK2kxZFMR/40o3TRqq8LUj82inD88GhAnZoZ0e48JLD?=
- =?us-ascii?Q?IqyO0HU/OdEmLIV+80pikXjo5Jw4PxRnilQVhAYeSJz6A6PhSPIfhd5uPxz6?=
- =?us-ascii?Q?/PhU+GkJQGj5xEl1n1Zt2SVt8Z4RizDddZbwKnt1YrMJ0gafkdycRAAGjGpT?=
- =?us-ascii?Q?qJ41TZcgZP42BRmGMQM60vq7Y3Df6gwaoobDO5SDIPiBvTpM5+DmsG4M39+6?=
- =?us-ascii?Q?241yVy9ore+QHtfset6hFk9JOAe98LTvS2R3wKiPDP3nZDXpcK7fK/uO4ycF?=
- =?us-ascii?Q?CXdAqBVcdOZAQVzTFxunoWEpZoSiCFd0IsDuWPVP41keWEpbQ7GC8z/0CuV+?=
- =?us-ascii?Q?mwdRKqEF5VUKTBGfLtpYdqYFeWHuSRuz4CbPVRAf/Ugb4aQ3oQDzmG3kDoyA?=
- =?us-ascii?Q?zQnCmlWIOudj9uSCuMiLzux8F6RxlwxIWI0/crdgfE6SgQ7ykbPx4e/d6OGC?=
- =?us-ascii?Q?eRDy3GN3IsqCFZIqx0A5J11AipCeHfIIKqmJAupH9lgjiSxYSViVsrbba6Bn?=
- =?us-ascii?Q?27kwabkzscOax/7e7YjbJ+FI59oGxgy7mfz5V4FcmpgKOk2QaZYOLB6T5yb5?=
- =?us-ascii?Q?5CQ9RjcCorZpUzAF60tpL6ONqjg4MGWt7/NkX6uuBlx+I1eqq4zYPkCRfUsg?=
- =?us-ascii?Q?42woKQ1HiaBoTTlUDMh87HWDBhYeYW4rBwjxxB9oppNxRLQAteZFnzPjOvAu?=
- =?us-ascii?Q?kDlwrZz75qoSaSA72myUGqDBecywZDELbCKi5YzxRLb+WyrtbkE+t5Y9U6tc?=
- =?us-ascii?Q?MFAg/tVTp3sSwp6rquB0TTLtN8hAmc+t5jkH7OvhW4QEZ+doLwnPWxKfmQUF?=
- =?us-ascii?Q?Xco24tmooSa1VsiwIAwesfONwZYLQlVivv8kV4mTv+w1Q3iUckMeero17vu3?=
- =?us-ascii?Q?DNjeDLJ2jMLXRX5V65LkotrW9MpX3LLViikqtBrFMRgYbvVCZPllYbYbKhTH?=
- =?us-ascii?Q?16pAwT1x7ak2bBBxEdKcFczNDK85nyb5qTaj9rSmkgxsXumVpks4+bDGxKWH?=
- =?us-ascii?Q?+ojNbgsYw6nf7Bv2zCg9eg3zVWzW+tjsQ4hu7bMwf3hMtoUwXCtKhQUS+2H9?=
- =?us-ascii?Q?nC7nO9ocWBRzxs8pYulgbeC1kkxcf8jEcVLRsoaqGd5uSqLkSW4tPKST6tN0?=
- =?us-ascii?Q?tK7ABDuWcQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f4Yhx2Lt2z2xpn
+	for <openbmc@lists.ozlabs.org>; Tue, 03 Feb 2026 04:37:19 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1770053841; x=1801589841;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qnUdp0fecZJL9WMPJ0BhqY7uIDclw68asQkR5FLPZ6A=;
+  b=WAk7AcUa5reiwABO7r/OrOaqN7Y/BuasEZAB9cP6RieJx64spScgWFKI
+   4y0pWodUrwVbZDEpZZhJV/fqQZsjsMUYdoaacko1iZrJbNp467Lz3JoeC
+   DMX7rFTP2JAM5ksS3ULDQCTzhiw4reTHfajqFXHHYUI7qCoq2bvL59mR/
+   0B6OdDDiRTG8TYz85Pv5k30pfiH0dQJBS4o93SA3J+jLq6gWa1oROIA7u
+   dSihZpndTXc/efICbNP4Dg5a6lgIiZ2JpOpapIiq93ExaEjCjM2r+PHQC
+   ShM14P12RQaUI/btltDG+w1i/bGFUa3TPz1Vfoy43deglSAVQtWPjYExx
+   Q==;
+X-CSE-ConnectionGUID: tqDxxCpKQlySw+IR1Uh9MQ==
+X-CSE-MsgGUID: 2INVSzMdTeejDWzSzxBs7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11690"; a="82584542"
+X-IronPort-AV: E=Sophos;i="6.21,269,1763452800"; 
+   d="scan'208";a="82584542"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Feb 2026 09:37:15 -0800
+X-CSE-ConnectionGUID: mNWRr4kkTkKaw6XHoiHtJA==
+X-CSE-MsgGUID: /VpVgHcER1S748B3+00oVw==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 02 Feb 2026 09:37:13 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1vmxrK-00000000foG-3J1S;
+	Mon, 02 Feb 2026 17:37:10 +0000
+Date: Tue, 3 Feb 2026 01:37:05 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vladimir Moravcevic <vmoravcevic@axiado.com>,
+	Krutik Shah <krutikshah@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+	Vladimir Moravcevic <vmoravcevic@axiado.com>
+Subject: Re: [PATCH 2/3] usb: gadget: udc: Add UDC driver for Axiado Device
+ controller IP Corigine
+Message-ID: <202602030131.VCTzZ4me-lkp@intel.com>
+References: <20260202-axiado-ax3000-usb-device-controller-v1-2-45ce0a8b014f@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -173,41 +85,201 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92229acf-1715-47fd-38d3-08de6143382b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2026 03:37:26.5926
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /CsvIHo4nlYhusNnvlMu9DlUvVGwd5MPPSgMmeEo5/YmJcE+Ppb20rjpc7LoSTWjiQQ/ssCSG3233Wvc36dXcCEUG8TgAiROalDswbTLR7Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6363
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260202-axiado-ax3000-usb-device-controller-v1-2-45ce0a8b014f@axiado.com>
 
-> Subject: Re: [PATCH v24 3/4] i2c: ast2600: Add controller driver for new
-> register layout
->=20
-> On Thu, Jan 29, 2026 at 02:08:00AM +0000, Ryan Chen wrote:
->=20
-> ...
->=20
-> > Will add in i2c-aspeed.c aspeed_i2c_probe_bus
-> >
-> > 	if (of_device_is_compatible(pdev->dev.of_node, "aspeed,ast2600-i2c-bus=
-")
-> &&
->=20
-> Just device_is_compatible(...) instead of OF-centric APIs.
-Thanks, will update in next.
+Hi Vladimir,
 
->=20
-> > 	    device_property_present(&pdev->dev, "aspeed,global-regs"))
-> > 		return -ENODEV;
->=20
-> --
-> With Best Regards,
-> Andy Shevchenko
->=20
+kernel test robot noticed the following build warnings:
 
+[auto build test WARNING on 63804fed149a6750ffd28610c5c1c98cce6bd377]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Moravcevic/dt-bindings-usb-axiado-ax3000-udc-Add-Axiado-UDC/20260202-211951
+base:   63804fed149a6750ffd28610c5c1c98cce6bd377
+patch link:    https://lore.kernel.org/r/20260202-axiado-ax3000-usb-device-controller-v1-2-45ce0a8b014f%40axiado.com
+patch subject: [PATCH 2/3] usb: gadget: udc: Add UDC driver for Axiado Device controller IP Corigine
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260203/202602030131.VCTzZ4me-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260203/202602030131.VCTzZ4me-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602030131.VCTzZ4me-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/usb/gadget/udc/crg_udc.c: In function 'crg_udc_queue_trbs':
+>> drivers/usb/gadget/udc/crg_udc.c:881:13: warning: variable 'num_sgs' set but not used [-Wunused-but-set-variable]
+     881 |         u32 num_sgs = 0;
+         |             ^~~~~~~
+   drivers/usb/gadget/udc/crg_udc.c: In function 'crg_udc_ep_enable':
+>> drivers/usb/gadget/udc/crg_udc.c:1812:26: warning: variable 'uccr' set but not used [-Wunused-but-set-variable]
+    1812 |         struct crg_uccr *uccr;
+         |                          ^~~~
+>> drivers/usb/gadget/udc/crg_udc.c:1811:25: warning: variable 'epcx' set but not used [-Wunused-but-set-variable]
+    1811 |         struct ep_cx_s *epcx;
+         |                         ^~~~
+   drivers/usb/gadget/udc/crg_udc.c: In function 'crg_udc_common_irq':
+>> drivers/usb/gadget/udc/crg_udc.c:4250:13: warning: variable 'retval' set but not used [-Wunused-but-set-variable]
+    4250 |         int retval = 0;
+         |             ^~~~~~
+   drivers/usb/gadget/udc/crg_udc.c: At top level:
+>> drivers/usb/gadget/udc/crg_udc.c:126:19: warning: 'driver_name' defined but not used [-Wunused-const-variable=]
+     126 | static const char driver_name[] = "crg_udc";
+         |                   ^~~~~~~~~~~
+--
+>> Warning: drivers/usb/gadget/udc/crg_udc.c:4325 cannot understand function prototype: 'const struct of_device_id of_crg_udc_match[] ='
+
+
+vim +/num_sgs +881 drivers/usb/gadget/udc/crg_udc.c
+
+   858	
+   859	static int crg_udc_queue_trbs(struct crg_udc_ep *udc_ep_ptr,
+   860			struct crg_udc_request *udc_req_ptr,  bool b_isoc,
+   861			u32 xfer_ring_size,
+   862			u32 num_trbs_needed, u64 buffer_length)
+   863	{
+   864		struct crg_gadget_dev *crg_udc = udc_ep_ptr->crg_udc;
+   865		struct transfer_trb_s *p_xfer_ring = udc_ep_ptr->first_trb;
+   866		u32 num_trbs_ava = 0;
+   867		struct usb_request *usb_req = &udc_req_ptr->usb_req;
+   868		u64 buff_len_temp = 0;
+   869		u32 i, j = 1;
+   870		struct transfer_trb_s *enq_pt = udc_ep_ptr->enq_pt;
+   871		u8 td_size;
+   872		u8 chain_bit = 1;
+   873		u8 short_pkt = 0;
+   874		u8 intr_on_compl = 0;
+   875		u32 count;
+   876		bool full_td = true;
+   877		u32 intr_rate;
+   878		dma_addr_t trb_buf_addr;
+   879		bool need_zlp = false;
+   880		struct scatterlist *sg = NULL;
+ > 881		u32 num_sgs = 0;
+   882		u64 sg_addr = 0;
+   883	
+   884		dev_dbg(crg_udc->dev, "%s %s\n", __func__, udc_ep_ptr->usb_ep.name);
+   885		if (udc_req_ptr->usb_req.num_sgs) {
+   886			num_sgs = udc_req_ptr->usb_req.num_sgs;
+   887			sg = udc_req_ptr->usb_req.sg;
+   888			sg_addr = (u64) sg_dma_address(sg);
+   889			buffer_length = sg_dma_len(sg);
+   890	
+   891			dev_dbg(crg_udc->dev, "num_sgs = %d, num_mapped_sgs = %d\n",
+   892				udc_req_ptr->usb_req.num_sgs,
+   893				udc_req_ptr->usb_req.num_mapped_sgs);
+   894			dev_dbg(crg_udc->dev,
+   895				"sg_addr = %p, buffer_length = %llu, num_trbs = %d\n",
+   896				(void *)sg_addr, buffer_length, num_trbs_needed);
+   897		}
+   898	
+   899		if (!b_isoc) {
+   900			if (udc_req_ptr->usb_req.zero == 1 &&
+   901				udc_req_ptr->usb_req.length != 0 &&
+   902				((udc_req_ptr->usb_req.length %
+   903				  udc_ep_ptr->usb_ep.maxpacket) == 0)) {
+   904				need_zlp = true;
+   905			}
+   906		}
+   907	
+   908		td_size = num_trbs_needed;
+   909	
+   910		num_trbs_ava = room_on_ring(crg_udc, xfer_ring_size,
+   911			p_xfer_ring, udc_ep_ptr->enq_pt, udc_ep_ptr->deq_pt);
+   912	
+   913		/* trb_buf_addr points to the addr of the buffer that we write in
+   914		 * each TRB. If this function is called to complete the pending TRB
+   915		 * transfers of a previous request, point it to the buffer that is
+   916		 * not transferred, or else point it to the starting address of the
+   917		 * buffer received in usb_request
+   918		 */
+   919		if (udc_req_ptr->trbs_needed) {
+   920			/* Here udc_req_ptr->trbs_needed is used to indicate if we
+   921			 * are completing a previous req
+   922			 */
+   923			trb_buf_addr = usb_req->dma +
+   924				(usb_req->length - udc_req_ptr->buff_len_left);
+   925		} else {
+   926			if (sg_addr)
+   927				trb_buf_addr = sg_addr;
+   928			else
+   929				trb_buf_addr = usb_req->dma;
+   930		}
+   931	
+   932		if (num_trbs_ava >= num_trbs_needed) {
+   933			count = num_trbs_needed;
+   934		} else {
+   935			if (b_isoc) {
+   936				struct crg_udc_request *udc_req_ptr_temp;
+   937				u8 temp = 0;
+   938	
+   939				list_for_each_entry(udc_req_ptr_temp,
+   940						&udc_ep_ptr->queue, queue) {
+   941					temp++;
+   942				}
+   943	
+   944				if (temp >= 2) {
+   945					dev_err(crg_udc->dev, "%s don't do isoc discard\n", __func__);
+   946					/*  we already scheduled two mfi in advance. */
+   947					return 0;
+   948				}
+   949			}
+   950	
+   951			/* always keep one trb for zlp. */
+   952			count = num_trbs_ava;
+   953			full_td = false;
+   954			dev_dbg(crg_udc->dev, "TRB Ring Full. Avail: 0x%x Req: 0x%x\n",
+   955					num_trbs_ava, num_trbs_needed);
+   956			udc_ep_ptr->tran_ring_full = true;
+   957	
+   958			/*if there is still some trb not queued,
+   959			 *it means last queued
+   960			 *trb is not the last trb of TD, so no need zlp
+   961			 */
+   962			need_zlp = false;
+   963		}
+   964	
+   965		for (i = 0; i < count; i++) {
+   966			if ((udc_req_ptr->usb_req.num_sgs) && (buffer_length == 0)) {
+   967				sg = sg_next(sg);
+   968				if (sg) {
+   969					trb_buf_addr = (u64) sg_dma_address(sg);
+   970					buffer_length = sg_dma_len(sg);
+   971					dev_dbg(crg_udc->dev,
+   972						"trb_buf_addr = %p, num_trbs = %d\n",
+   973						(void *)trb_buf_addr, num_trbs_needed);
+   974					dev_dbg(crg_udc->dev, "buffer_length = %llu\n",
+   975						buffer_length);
+   976				} else {
+   977					dev_err(crg_udc->dev,
+   978						"scatterlist ended unexpectedly (i=%d, count=%d)\n",
+   979						i, count);
+   980					return -EINVAL;
+   981				}
+   982			}
+   983	
+   984			if (buffer_length > TRB_MAX_BUFFER_SIZE)
+   985				buff_len_temp = TRB_MAX_BUFFER_SIZE;
+   986			else
+   987				buff_len_temp = buffer_length;
+   988	
+   989			buffer_length -= buff_len_temp;
+   990	
+   991			if (usb_endpoint_dir_out(udc_ep_ptr->desc))
+   992				short_pkt = 1;
+   993	
+   994			if ((buffer_length == 0) && (i == (count - 1))) {
+   995				chain_bit = 0;
+   996				intr_on_compl = 1;
+   997				udc_req_ptr->all_trbs_queued = 1;
+   998			}
+   999	
+  1000	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
