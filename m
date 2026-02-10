@@ -1,83 +1,108 @@
-Return-Path: <openbmc+bounces-1354-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1355-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE358EB26F5
-	for <openbmc@archiver.kernel.org>; Tue, 10 Feb 2026 18:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1347CEB271F
+	for <openbmc@archiver.kernel.org>; Tue, 10 Feb 2026 22:47:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4f9VHY31QLz30Lw;
-	Wed, 11 Feb 2026 05:20:57 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770747657;
-	cv=pass; b=fPZ9buQS6EIsp2zNhl4URMnBiBQSH128/ljYC3laSyhdrDWyB/84oRxRlb/Ud1IPO6EtLDXs+/A1w6lcEbFBsyrRgVwuwPOWU+LQV+eP0KXvf2SRlFOjQWEbzZANM4tHUuvx4E5BPN2+hVHCeBHlq7I6hDFt7RClmTALxB36cQ8dOMmcjEyuxZxO1MbavVpnLHeMgJTJdOFIVqHv2YLkJRvkV7ruTrXrMpfx9zvYO4eR9XGdkWwfoSjRrVEYZiQi8Akcfw6RU/MFB+FCBPwAxDv4RvLMUDfugFAXW8QaMX/lidRPgaqkloMn99S87Xsal3+jDqMG8X2X+rJIY4EKJQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1770747657; c=relaxed/relaxed;
-	bh=7A9ztuZvTsNzD+ZwRlGXAPOTkYCnGBKI3zZTYv5zBgc=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=m+Cak+6sAXpdks+7qabBMMIfotKzteb1QKw3I4b4iDn/llhEkthPRujmElQfSZL6LQRSNUN2GjmFSD117m5N3AKR3858Byen/5vaIo803l4w7kavY06ntwwrdkbq709CUvEDugXQII/P3ICu2rfHoxv/Wg2qFS7uJXcwNhAGj3lRMWY/jrBIxUMo0I4Hq1EMqGl1Sw+bpne6JplO7Jgp861abO8N3P0dYB8mybKoaUnN0AUDmV0oAWM62d4RLR9v5zcrCJtN4YJVlDAhi3JV3ZsXOTudgtG8rMqkvEIIeHmRuqXYfbpCSa6JG70NzlCYLyqHWwTU8YKg80zjga2nbw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Oe62Ku+c; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::7; helo=ch4pr04cu002.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4f9cC41Kdvz2xlm;
+	Wed, 11 Feb 2026 09:47:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::630"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770700972;
+	cv=none; b=WziU40qtp7N8vlPD6qfxPH3M3c1fxkRyr61gRRRmaqQVD9gklBG47UnBSBMNhaG2WhpMcf4mj3YhBrHEp3XxF80X+sEcWJhgGfpKk/S1ZfnlgeXH9v2yJOsBgMzJAAUB0vP9PTTQICkNWf6YzyfZsHTxxgFSkGnLEHwCYpPNMHUvgK6SmMjMW87eVCWYC63Z8O853xdcWEgAzZUVsQv3ZzmpQaEDiJBJbbMpPldmb3VvD24MnMdObuwdXjoGzcusUQGxgPGR/9ZasjrzHKlxpmttDTMhDFZQYigx5SnxiGBsjO5EgBi++YvFQH5zb2dj/L2I8arAz8VuMKE9p7qmuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1770700972; c=relaxed/relaxed;
+	bh=wzFwESZOkwxx17CXvSjDYHHBJkKja6bTAjzp0iWKbyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mVt25S2P8Ed7/QaL14cMUmzr2soVzq6eTmb/pEh+61Qt3DNWYUw2xnL/uXxNLtUPGKC0hpR5Uh0Ejm5ENcKIoXEIhuuPZr+sxqu0C92E6L48MDLJIRKa1989uDo1j/380yewktlKZdJGTBmEwaOSxOuvVpuERgJ1yWFjfXDGkAWN4tHnPc6f7TO8EaK/uxlN+txmHyKNEsXS9DesUUylfIxTgfuuWFm5hfjFZYDBQ6FKl0J+V6Gztuf5l1qVdgckA0du3tsLYvlOTbhk2WoDjaJqWm+MW5zqfBdTSwLHfy4WTQbIY2XvuCN9ZdXc4Q2Pxkq4OjERoFcAqavUojvcVQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=mZBVgOgL; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Oe62Ku+c;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=mZBVgOgL;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c105::7; helo=ch4pr04cu002.outbound.protection.outlook.com; envelope-from=molberding@nvidia.com; receiver=lists.ozlabs.org)
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f9VHX2wjGz309y
-	for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 05:20:56 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F8qNKREnNHJQnLYNoFQJUI31YZA3o38K5Vt9mtXUSgmaqxdTtbiM487cnKrB1AArA5+HkG/eMn/T6Lq75r+xPyvzDemnPu0UwtSSeN6PE4plVBnMywj8dTUVUl28VZrGgJ+8mSg7vdWRM/i8l1fFMLtas0UZPCRi/Yc9b+ecQueL6ojEs+wknhbgKIeLYJY1qM9E63y3yyJc14biEKuCpPAd8+CsLDVqwuzJkTZJWX0/B7hKV+ISZ3qXcJLzUxvAtInxFG+bis7gQQpufdSlUj0lUmGoYiWRKKlrWJahs+plv2lMpWS5qI7zllTEn4hJ8xyoCL9QKPjruFs5aYbRcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7A9ztuZvTsNzD+ZwRlGXAPOTkYCnGBKI3zZTYv5zBgc=;
- b=Pq/flxdEGJwFoYPhj+fjDHUGKX3QuZtTqOIDHWuln3SYECGtE4WstgZbFh/IFnCaWKd8l7fiXkIinkEX3DF3qoyL9F8kqhglZpVD+5yO0PFVeT3+PxDb4IF+DQdcGfKIrXyztHsRqjiNUov+yMwQefBKmvPNUj4uAOfD396piH7VkvhwQqIEf7dJjyW7cJxoGoDQY10i0gNLfJC+tRRml2lnRbg8mQygD9fWyNJc8x2CFHidEo3N0P6RVqUNVlfuCwbyJw4/wI/zl2vyfRw5z7rDU59WgtbA5T7LehUYpXQise5YNxc6GyS1RoXGm+IFwqGKc4HMDHmBl4MtbG4YWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7A9ztuZvTsNzD+ZwRlGXAPOTkYCnGBKI3zZTYv5zBgc=;
- b=Oe62Ku+cOot27535dR8pENhoqNWbVxI36zG1eSvHmTIqAvEIDjDVpP9/E502VjRnPphx9FQKPTmRCMuE8dqVcb/dOhaCC4+WOGRc/JeIufW6ASNHLe9IeLyb0IPZr6TiSsgwnaVLUNjv/L285bKaK6JzUaGSMNArvnHzotQ+/0DPN/38dIc4Xoc70uK97UmmtuFe2xOOwjujmxmF0wrAXcapM+ffzdSlQNcl87l12wSVT3J/mxCRuzpYYP9Bs5WTxRmfkd/i/afPmHa1ZAzFHGWs073xhs2g8t6t83iWwo1DzEsHjGD+ajxUwZuqYvDVjZwIwqz7EY7iqAeIt5sSKg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::627) by BL3PR12MB6545.namprd12.prod.outlook.com
- (2603:10b6:208:38c::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.8; Tue, 10 Feb
- 2026 18:20:21 +0000
-Received: from CH1PPFDAD84AB72.namprd12.prod.outlook.com
- ([fe80::4558:b58:4d9:de9d]) by CH1PPFDAD84AB72.namprd12.prod.outlook.com
- ([fe80::4558:b58:4d9:de9d%4]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
- 18:20:20 +0000
-From: Marc Olberding <molberding@nvidia.com>
-Date: Tue, 10 Feb 2026 10:20:01 -0800
-Subject: [PATCH u-boot v4 1/2] drivers: spi: Add support for disabling
- FMC_WDT2 for aspeed
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260210-msx4-v4-1-7dbb1e223e49@nvidia.com>
-References: <20260210-msx4-v4-0-7dbb1e223e49@nvidia.com>
-In-Reply-To: <20260210-msx4-v4-0-7dbb1e223e49@nvidia.com>
-To: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au
-Cc: Marc Olberding <molberding@nvidia.com>, eajames@linux.ibm.com, 
- fr0st61te@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1770747617; l=3020;
- i=molberding@nvidia.com; s=20250815; h=from:subject:message-id;
- bh=vRrEMsOvqALaM/NQRa28hD60BoI7h2lZiAogOPZcyas=;
- b=U5gMQxqZmbAs2WUYgWcV0NytLnrlqpohkDascvD/xecgQTfPBUmTxpgPNQumPPxQCujt8fKFz
- Adb5RxLDlM5C1o4WFN9l68ZuoZ4nF1xAyCV24gkt8jQp7jef+xuT+Iv
-X-Developer-Key: i=molberding@nvidia.com; a=ed25519;
- pk=qCpZ1WFEf5YiaL88PDdYhG+A/bKk7rHp7KF2K3GmkH0=
-X-ClientProxiedBy: MW4PR04CA0372.namprd04.prod.outlook.com
- (2603:10b6:303:81::17) To CH1PPFDAD84AB72.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::627)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f991l6JKdz2xN5
+	for <openbmc@lists.ozlabs.org>; Tue, 10 Feb 2026 16:22:51 +1100 (AEDT)
+Received: by mail-pl1-x630.google.com with SMTP id d9443c01a7336-2a9057b2ec3so1902875ad.2
+        for <openbmc@lists.ozlabs.org>; Mon, 09 Feb 2026 21:22:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1770700970; x=1771305770; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wzFwESZOkwxx17CXvSjDYHHBJkKja6bTAjzp0iWKbyI=;
+        b=mZBVgOgLvOIRqU5gF/K4K2vJEcydAnojmqIdSBL55WXWeT2E31Vq/SR9CLNS/FDGGA
+         VynjM2xzIhoOeATFElTRoG6bgIypwuCgnrDo/tSNlq9/FGG7PD0RPQFxHmIidKQTBZ2Y
+         u+xRyQpgEsq+rSZelwj3oYh6JdXsNargCG6lOj9Fdmf0xkUHTr/442mItwFcEaeJZFca
+         I66ilnpeyVWTwPLoWPaAer5qx7NYAoCObJnCoHJAE3kGCS/F159TRx/ZykJ5Cf9G8kLO
+         75Z097Yy7s/2VaStlEGATdzPNLFjcAyJtwNhvRHQ/oQAcmTrVpQ4yF7kf54goCFNHsCm
+         xB2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770700970; x=1771305770;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wzFwESZOkwxx17CXvSjDYHHBJkKja6bTAjzp0iWKbyI=;
+        b=ACOiS7Xw0zoWTEHTnO67pZ/9+v9HvFa806hopJ+/MlATTkNKfk6AmqquYcgsXc4fxW
+         eSBZy3wDxwlhhumyYypBnTHEeDg0qDx1YXPBcBpKdczl+8pX71KCNJQjzb86+GnWqXuf
+         G0RUtr1jJ0ak3AzN7vDwSdhflSEnUA4WvmHJyXdK0+u3QuxvjQOEpxS2xA2AzPfwbp30
+         aOvnsLQffDopad3339CiRezjlPU8iD+VAGN5cYQ50Hd9oUaWuExXNFtMjjq2jdR+lElB
+         T+SkrhuQt35mh0ByN70k/dkIFlhOAo8Ozxo0KcLt6KCLfpndDOb2hzuyAjkjxlxQ8kSl
+         k/iQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUuTwR0Q4Ei5hPeITawdWv5yhZIcusxWKdbPzD4mB9+Dl59IEDXw3fjX7g5gk47GjOO71TUsycD@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yz37EHiIOHttepWl8nDcFpivzBJwyjnrPR/mFxMx/C3j02ODigy
+	hoHmVens10NN+pPGztspXJqIMvFPJTifzD3NLUxKGT1kZPdX9GvTYSQG
+X-Gm-Gg: AZuq6aLj46uA+1avc5FQdhyjFBHjldIZA7693m1mecu1BIL5U6t0sbx8gb06BdfTmDi
+	QU8JymrVlAqSrZpXb9LHlYp8+z+h2UZ5s2umU13DKUUKKWTZCP0c7X4oo33uBPEIfxW1Y4Dyi0Q
+	3UMlIrcvnp6IswL76ZUNfczuBAxhBxDGWGdAzBk+FSd8ypWkpWPExko1trlr9jQDQG9cbT2mQL3
+	M6qHQzShdmUP6wWjlhghfSgljv+5FAOAVJGfyDwh27LtCOE5dnB+QPfAva6FHyC9HN8fTkaU7J8
+	Y8/D6JaA5J0gTTUPk9IyNeWBTxU+2bGRHRIxYDqJHMfHWSZbSL+TLMRKL6eyjQ+KmsUelBRq0Lm
+	kmfsu8PRZ5YEnRE6v5ZK4kslhgcnsj1bi4RTUsP6hK/Y/RoBOEzr8hrAW8KOt6/79Tan8BCSvEl
+	KbKLTnhyz2ZcyDiWVit76zLjlTX1qBTL6/cSJE3Bc+BRxtRCl8G/j4Sh8EKJcOwes6rlDTrG+oH
+	pZfUU85YvVG
+X-Received: by 2002:a17:902:d509:b0:2aa:f798:8c7f with SMTP id d9443c01a7336-2aaf798af92mr52504575ad.54.1770700969732;
+        Mon, 09 Feb 2026 21:22:49 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2a951ca59f4sm122114275ad.43.2026.02.09.21.22.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Feb 2026 21:22:49 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com
+Cc: alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Joey Lu <a0987203069@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>
+Subject: [PATCH net-next v12 3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+Date: Tue, 10 Feb 2026 13:22:26 +0800
+Message-ID: <20260210052226.3005666-4-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260210052226.3005666-1-a0987203069@gmail.com>
+References: <20260210052226.3005666-1-a0987203069@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -89,186 +114,200 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PPFDAD84AB72:EE_|BL3PR12MB6545:EE_
-X-MS-Office365-Filtering-Correlation-Id: 788e13f2-5b31-4677-0aa5-08de68d10ca2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OFphM1Rrbk1PVjkxT1BBMUtCc1V3a0VMNUhMUTBFOTVORTcrTzJmc3V6TlN3?=
- =?utf-8?B?N3p5anZUKytqd2dWYTdpNSt1M2JSU0J0OUdLMDVFLzNHa1lyTDEzUGVSekNH?=
- =?utf-8?B?RFNkd1N4S2ovR1o0SEV5N1h2aUwvNUZRWCsrZmk2Zlp2aTJrcFV0cXkxN0FT?=
- =?utf-8?B?ZWJOcnlldzdmWGY4alR3Qk5kbWJCbXZjVXpGTHN0VlZyOThsZkMwWWNBNVh4?=
- =?utf-8?B?MUthTFhYZjhnNkFhRDVtRWdWQ0ZFZUF4Q2FZZkNOdlRmNWtlTllWb2ZydUhS?=
- =?utf-8?B?Ymw2ck0yNGY2ZkczT3N4SmwrNGovRC9wNE9ZYUVQQ3g3UkhmUHU0RzdKNng1?=
- =?utf-8?B?dWVqNUc0Mm5ZQmUyYmtWUGYrK2JWcWpoK2NOcHpud085NWxlVEZYOTZkLzh5?=
- =?utf-8?B?UC9OamZvU0J2aTIxMkNpRWk4b2JJNDJrcmRsa1NyQVJZZGtTbmVEb094WVZP?=
- =?utf-8?B?ZlRyME82Y01xYkZEYy9BY3E5SlZaeS8xMVFpQlk3RlROaDNaR2NzY215MlNP?=
- =?utf-8?B?dU5KRm1YZkZKUVg2Wkw0QnRwUEV3VEV3bnRsa3AxeE1rU1orUFJtZXJUYm1W?=
- =?utf-8?B?MnpVYjVMTHNidmVzZE5UNGRCZ2lzRkQ2ekNVNTJLeDBuekNQOUtJdXlwVkZ4?=
- =?utf-8?B?a200MEhQeS9Fd3A1NkZnQ0RCZnI2VStIV1ltTDA0WitNaE50OFhrNUxHMXMw?=
- =?utf-8?B?aThLdllwZlBYQW1Md1JYMy9vZHhyd01pU2F2NmljSFMwbkwxcUJwUnhnQi9W?=
- =?utf-8?B?bzNJL2pCbnVIczRxMWRLQ1huTG5IRk56REQ5d3Vjd3FQaVg0VE9yRzdaSzVu?=
- =?utf-8?B?QXNUL1FLZXZ0eXNNQW44dVF6eVpJcWdYWFBpa2RxVGtBT0dOSSs5Q1Q2Zm05?=
- =?utf-8?B?eWt5Q3dnK1JXUTNJN0NZREsxUExpNkxZTDZCTnRwbGh2RFVYUXdJRE1FSEJH?=
- =?utf-8?B?T2NmRlB6ZGNhOFZBWDVnMkdKbzI1b1ZIdzY2YzFEb1pnZ3BkZysvT3VXdUZV?=
- =?utf-8?B?ZisrWTJBdE1mQlp1WWJVZ2VnT0dGdXBZOW4zTmJBaHFuRzNmbjlvQVRmZFJs?=
- =?utf-8?B?S1g3SiszelBlaU9GcEYxUS96aDdlSEZCaENzQmdwclJpbmhMeXhRUmhSZnJk?=
- =?utf-8?B?dE43SmhTdzVIZ0hWWVV5YU4wVndZbWFGcDF1K3lTcDlaYjYyeHc0UUd2a0hJ?=
- =?utf-8?B?RlR0cFpWN3JkSkdxOHF1Q3JQQ3NTeFZrUFMwMXZwYXQwb2NEd1AvaEE3YmJT?=
- =?utf-8?B?bnN0VnVoL1FCT2pTRmlVd3p1UktvVHlBb1JTcTNqWmdUNXhnYWMvYUszMU52?=
- =?utf-8?B?YUFWd281NFJMbm9ZekhpVGVqcmlMenV2TFNaMy9mM2NVRWVPaUM1MnBKNDEw?=
- =?utf-8?B?dURxbzgvSEpXMUF3TnA2bHRoUXE3RWh4alZUVC8zYTRJdSsxZTZpSG95Sy9u?=
- =?utf-8?B?cGNnV3NZL3AxNEQvb3pZcVFXb3dUbFROV1Q0MlVZQXpFUEdpeVVHOG5kdUNy?=
- =?utf-8?B?SjlaQWJ0OVJ0RDFyK2RRODNPSDRXOEk0dkpiL1VQSytkM2JTNENjME95bXAz?=
- =?utf-8?B?ZTI5b1hadG94N3oyRkNkb09PTzdzVVIxOFpacTNEOEFvcUkxYkNpZWswaElE?=
- =?utf-8?B?NWRHZzAxWmF5Q2lYcmRhU2hYVWIwOXBJMXh3YndiSVFmczVUSkovVmYySm9q?=
- =?utf-8?B?d3NDWlErVnMyNmZtd2FOcFZRTzU4YXRxWXZ3TVoxcitUU21naHM4ekFmQ3dm?=
- =?utf-8?B?WkVXR2FiNElFZ2l5K2ZoVVVUaDJNTGFBWVM4Qm5JTmo2YUxSQ1FJeFN4OWIw?=
- =?utf-8?B?Q3lYbFVJMkxhUk1WTGJPb2RQQUh1UG5GZ0U2ZFl4Ujg3UmlQQlpIRFBLczJw?=
- =?utf-8?B?TEVyWTExS1JLakFISTRmcVdaM2QxWWtQVFRpVlJYZlBNWDB0a2JROG9aSW1G?=
- =?utf-8?B?NWs5MzM3QjFvNndlaFNCZEZCbFU0eXRLOXFuMFZrakxDZmV1dUtNQm5NN25H?=
- =?utf-8?B?azNQeXUyUGVKT0R0VUJCWGd2TE9UY1RtUEVQWEJxWEl6Q05DTkRGMHlWa05Q?=
- =?utf-8?B?RkVrSzZTZTRXV0NLR1lsKzNMc2xEWSs2MTVmN2VhMjA0bWFwMEFycHFJeG1O?=
- =?utf-8?Q?XWyc=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PPFDAD84AB72.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YlZ0ZzBINEZ1REREM0VuTWYzV0Fyanl5R3dkZmJvTytqcjF4RkcxMHFnTXI1?=
- =?utf-8?B?SWNvWWtBQk5Fb1VkN295TVNsRzlGc2xORUZKODh2RmpBdC9BYm1laGhUdzV4?=
- =?utf-8?B?cXFVbWM1d2pra1ZFNDFhWjhVS2Mrb2dKS2VKV0dWYnhDQnJma2hwZ3lNY2hW?=
- =?utf-8?B?bFRyUVphU0Y2clNYT3dYSTl1aVJNREhOdU9JM01ScVZMaHAvMDllOVZheS85?=
- =?utf-8?B?bVkwOWVjeTVId29DWndHVDlkdWsyWkdqZnJrenBKNjdyMFowMjFHNEJzMlZT?=
- =?utf-8?B?a0Q5UHE4WDJPL1gyVmJsWUxkVzJuOG9wTzhlaVYxdVh1c2tjWmJ0REVPZ01q?=
- =?utf-8?B?UEpvbGE5aDNxdTMxNWpXY044U1JwU3lQc25xVExuUjdaOVFhby9oSnRiUkdr?=
- =?utf-8?B?MGFYVDhxTjRSVlBMT29TSnJrclZhcStucFlKY1lUQTNmRE1BOTlUR2p1ejFM?=
- =?utf-8?B?S2oyNmc0QUsxR3FGa2tnSHlObHJsa2lnQjRsT3Nmcm9GaXVHaUVCZ3k2VTBj?=
- =?utf-8?B?ZDh6dE9EcHQ4eUFOQzc3bnB4SVJqNHlvbWJ3emtEVEVRSHZ5WHFnNlltejI0?=
- =?utf-8?B?NjNVSjhWRDM2Nk5zVTU4T2NaK25pSXBFTnBWbGNXWWdrUTdyV1dONnh5ODlm?=
- =?utf-8?B?NzU0M25xcXRZR3QzdWlMMHQvZmtnb2s1Y3BEMW1xTFhNV0JHZzNZcTRzRGR3?=
- =?utf-8?B?MFhaU0JnUnp0RU5ISGhneC9CSG44OXFidVlKa3dWWVhJYzBkQmRac1dLa2JE?=
- =?utf-8?B?MzZ3Q2hLTFA5dDk4YlZiV2ZpWDJBR2l6THNHSXpMK0pkUEdGcHZnQ1pkeU5D?=
- =?utf-8?B?NjhsZUtGbXpEK3RnWGFuMis1TDdLWEVWRE82YW9sWnBqNHFUWVZYSUNQZWhW?=
- =?utf-8?B?NFVMdlBTYkdnTHNSQ2dQVDNPK2FKcXZnUlBzQ20yL2k0bmxSZTkveDAzQnFa?=
- =?utf-8?B?L2V6UDdpSmRBd2s0RVhrTFhwWkNmdHIyZXd4WEx0UXhFbzkvMmNvVkVhZktq?=
- =?utf-8?B?S2xWRmlDWWtSd2o3VklVM1JlenYxK2VVRkFxbVV5eWpIQjhYdGE3VkZMVGJo?=
- =?utf-8?B?ZXZlTTUyYmYxS2JHbUxQV3g0WDRLRGhFUWdFMzZPbitHWmEwdDE3NjVjMTRY?=
- =?utf-8?B?c2haZTZ3MzkxMVUwbWl0UElVQlJIRzhxck4vRThTbnYvcytNM2p6TE9zSHJu?=
- =?utf-8?B?aFVJcE1OdmYvVktLRGhrU09wbThIL1dtOHBPZUlBNVo3eHVaTU5MbnN3RFM0?=
- =?utf-8?B?YjhhTHJocE9jNmRaYkV5NlVReEs2QlNWQ3d4TTlpRjk5Z2htRDQyYUJmNWdy?=
- =?utf-8?B?VXlPNUp3dEU2YXpJMGFzVjkwQy9SRkdUQW45ZDhsTWxtTXVsQ056R1I5VnNk?=
- =?utf-8?B?Y0VJbE9UcmRNUDVwaU5GaVBEaVd3K1pPRDhUMWtRZzFUNFRtSlYrZTVuOEtz?=
- =?utf-8?B?MVoreHpvMjh2bXA3V2JpeVRwQTlMS2dEQmZFRlp3V2RyZjhtU2FZMnd3VURl?=
- =?utf-8?B?enpxQmZHQTVZQ0NUa3hDc1dVNzFJaDN4MXc0Y2dvc2ZKRDYyTk9hV0E1UmFl?=
- =?utf-8?B?elEzTVpwU2wraXVxck1MVVdkdVFkVmVkQ21PNjVtL3JOT2NkWjRkcHF6Z0Ni?=
- =?utf-8?B?UlV6WC9VT0NpZ2RmaVJURkJ1YURBM3RLVGtzSXdSemhiVXVTN3ZIUVlEUzJK?=
- =?utf-8?B?MTNsUGd5bi9aTytNanZsNFhMY3hnS1AvVUNqVnNnU2hWZWROQnhJcGVDUTQw?=
- =?utf-8?B?RGdYSUZtUitUajlKYzFycm9oSzhZdGlPNStreFJWTll5Q1BnQlpTYk01Zjhn?=
- =?utf-8?B?ejd1U3IvUGRnTnppNHFkWDJQa21VeVBKZUtlRnRKWitNQzh1SDRXRTlQNy9V?=
- =?utf-8?B?MGFIaWduazEwZWVpVUZjMHlHMUQyN25xbHJ3NDNaN2xHT0pJd3VxQXNsZ20x?=
- =?utf-8?B?NERFZXJZUXBuRDJtcURCMXNGOWNwcU1oVG83Z1hKTDZlcjJJZEJORmJ1SG5L?=
- =?utf-8?B?ZVVPeklBdkdBODQ1WFlzV2JHaytLYTA2R1JTQXdST0VsOGI2eGl4bTkzbktw?=
- =?utf-8?B?aElYU0FFUXV5ZHBuMWtiM0g4ODA1SUkxZWJJR3BaQk5zY2lEZTlMMWpBYTVi?=
- =?utf-8?B?WGV0SnFuSFFhbTVVMUUyalRGaHN2Mnl2VS9oVFFZNWFBSEJxRnNPajN1S3hP?=
- =?utf-8?B?aVRpd2VTdjdBUXFZT0tHLzNPSDcwTnZ5Y0RKM1djKzVGMHQwYzl0RlBmdlg1?=
- =?utf-8?B?QVZqYmlySStqcmsyaTFjQU5qNWNWTWFpeENxdFRSellKY0JzclJPcjRqOVcz?=
- =?utf-8?B?QUp2cmhVSEtuNS9tZkNPTmVRQi9SSDR6VlRxVkx4VjlJWEsvY05Odz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 788e13f2-5b31-4677-0aa5-08de68d10ca2
-X-MS-Exchange-CrossTenant-AuthSource: CH1PPFDAD84AB72.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 18:20:20.5004
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E6HHxheSZsgA0drlfV0vcHYNCDIr0MVJu6N82qKfqmpg+zCVjxAwBFb6ul+iaTF0VAL0ixQYgKEN2bSY/KEgPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6545
+Content-Transfer-Encoding: 8bit
 
-Adds support for disabling the ast2600 FMC_WDT2 through
-a device tree entry in the fmc node.
-Set `aspeed,abr-watchdog-disable` in your device tree to have
-the driver disable it.
+Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac driver.
 
-Signed-off-by: Marc Olberding <molberding@nvidia.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
 ---
- drivers/spi/aspeed_spi.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 139 ++++++++++++++++++
+ 3 files changed, 152 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
 
-diff --git a/drivers/spi/aspeed_spi.c b/drivers/spi/aspeed_spi.c
-index 54520122f1..bdd878f347 100644
---- a/drivers/spi/aspeed_spi.c
-+++ b/drivers/spi/aspeed_spi.c
-@@ -30,14 +30,16 @@ struct aspeed_spi_regs {
- 					/* 0x30 .. 0x38 Segment Address */
- 	u32 _reserved1[5];		/* .. */
- 	u32 soft_rst_cmd_ctrl;	/* 0x50 Auto Soft-Reset Command Control */
--	u32 _reserved2[11];		/* .. */
-+	u32 _reserved2[4];		/* .. */
-+	u32 fmc_wdt2_ctrl;		/* 0x64 FMC_WDT2 control */
-+	u32 _reserved3[6];		/* .. */
- 	u32 dma_ctrl;			/* 0x80 DMA Control/Status */
- 	u32 dma_flash_addr;		/* 0x84 DMA Flash Side Address */
- 	u32 dma_dram_addr;		/* 0x88 DMA DRAM Side Address */
- 	u32 dma_len;			/* 0x8c DMA Length Register */
- 	u32 dma_checksum;		/* 0x90 Checksum Calculation Result */
- 	u32 timings;			/* 0x94 Read Timing Compensation */
--	u32 _reserved3[1];
-+	u32 _reserved4[1];
- 	/* not used */
- 	u32 soft_strap_status;		/* 0x9c Software Strap Status */
- 	u32 write_cmd_filter_ctrl;	/* 0xa0 Write Command Filter Control */
-@@ -45,7 +47,7 @@ struct aspeed_spi_regs {
- 	u32 lock_ctrl_reset;		/* 0xa8 Lock Control (SRST#) */
- 	u32 lock_ctrl_wdt;		/* 0xac Lock Control (Watchdog) */
- 	u32 write_addr_filter[8];	/* 0xb0 Write Address Filter */
--	u32 _reserved4[12];
-+	u32 _reserved5[12];
- 	u32 fully_qualified_cmd[20];	/* 0x100 Fully Qualified Command */
- 	u32 addr_qualified_cmd[12];	/* 0x150 Address Qualified Command */
- };
-@@ -163,7 +165,8 @@ struct aspeed_spi_regs {
- #define SPI_3B_AUTO_CLR_REG   0x1e6e2510
- #define SPI_3B_AUTO_CLR       BIT(9)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 07088d03dbab..861f1c6c14f1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -132,6 +132,18 @@ config DWMAC_MESON
+ 	  the stmmac device driver. This driver is used for Meson6,
+ 	  Meson8, Meson8b and GXBB SoCs.
  
--
-+/* FMC_WDT2 control register */
-+#define FMC_WDT2_ENABLE		BIT(0)
- /*
-  * flash related info
-  */
-@@ -267,6 +270,7 @@ struct aspeed_spi_priv {
- 	ulong hclk_rate; /* AHB clock rate */
- 	u8 num_cs;
- 	bool is_fmc;
-+	bool disable_fmc_wdt2;
- 
- 	struct aspeed_spi_flash flashes[ASPEED_SPI_MAX_CS];
- 	u32 flash_count;
-@@ -683,6 +687,9 @@ static int aspeed_spi_controller_init(struct aspeed_spi_priv *priv)
- 	setbits_le32(&priv->regs->conf,
- 		     CONF_ENABLE_W2 | CONF_ENABLE_W1 | CONF_ENABLE_W0);
- 
-+	if (priv->is_fmc && priv->disable_fmc_wdt2)
-+		clrbits_le32(&priv->regs->fmc_wdt2_ctrl, FMC_WDT2_ENABLE);
++config DWMAC_NUVOTON
++	tristate "Nuvoton MA35 dwmac support"
++	default ARCH_MA35
++	depends on OF && (ARCH_MA35 || COMPILE_TEST)
++	select MFD_SYSCON
++	help
++	  Support for Ethernet controller on Nuvoton MA35 series SoC.
 +
- 	/*
- 	 * Set safe default settings for each device. These will be
- 	 * tuned after the SPI flash devices are probed.
-@@ -1907,6 +1914,9 @@ static int aspeed_spi_probe(struct udevice *bus)
- 	 * SPI controllers
- 	 */
- 	priv->is_fmc = dev_get_driver_data(bus);
-+	priv->disable_fmc_wdt2 =
-+	    device_is_compatible(bus, "aspeed,ast2600-fmc") &&
-+	    dev_read_bool(bus, "aspeed,abr-watchdog-disable");
- 
- 	ret = aspeed_spi_controller_init(priv);
- 	if (ret)
-
++	  This selects the Nuvoton MA35 series SoC glue layer support
++	  for the stmmac device driver. The nuvoton-dwmac driver is
++	  used for MA35 series SoCs.
++
+ config DWMAC_QCOM_ETHQOS
+ 	tristate "Qualcomm ETHQOS support"
+ 	default ARCH_QCOM
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index c9263987ef8d..4ade030b634f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -20,6 +20,7 @@ obj-$(CONFIG_DWMAC_IPQ806X)	+= dwmac-ipq806x.o
+ obj-$(CONFIG_DWMAC_LPC18XX)	+= dwmac-lpc18xx.o
+ obj-$(CONFIG_DWMAC_MEDIATEK)	+= dwmac-mediatek.o
+ obj-$(CONFIG_DWMAC_MESON)	+= dwmac-meson.o dwmac-meson8b.o
++obj-$(CONFIG_DWMAC_NUVOTON)	+= dwmac-nuvoton.o
+ obj-$(CONFIG_DWMAC_QCOM_ETHQOS)	+= dwmac-qcom-ethqos.o
+ obj-$(CONFIG_DWMAC_RENESAS_GBETH) += dwmac-renesas-gbeth.o
+ obj-$(CONFIG_DWMAC_ROCKCHIP)	+= dwmac-rk.o
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+new file mode 100644
+index 000000000000..29d15f41b244
+--- /dev/null
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+@@ -0,0 +1,139 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Nuvoton DWMAC specific glue layer
++ *
++ * Copyright (C) 2025 Nuvoton Technology Corp.
++ *
++ * Author: Joey Lu <a0987203069@gmail.com>
++ */
++
++#include <linux/mfd/syscon.h>
++#include <linux/of_device.h>
++#include <linux/of_net.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/stmmac.h>
++
++#include "stmmac.h"
++#include "stmmac_platform.h"
++
++#define NVT_REG_SYS_GMAC0MISCR  0x108
++#define NVT_REG_SYS_GMAC1MISCR  0x10C
++
++#define NVT_MISCR_RMII          BIT(0)
++
++/* Two thousand picoseconds are evenly mapped to a 4-bit field,
++ * resulting in each step being 2000/15 picoseconds.
++ */
++#define NVT_PATH_DELAY_STEP     134
++#define NVT_TX_DELAY_MASK       GENMASK(19, 16)
++#define NVT_RX_DELAY_MASK       GENMASK(23, 20)
++
++static int nvt_gmac_get_delay(struct device *dev, const char *property)
++{
++	u32 arg;
++
++	if (of_property_read_u32(dev->of_node, property, &arg))
++		return 0;
++
++	if (arg > 2000) {
++		dev_err(dev, "Invalid %s argument.\n", property);
++		return -EINVAL;
++	}
++
++	if (arg == 2000)
++		return 15;
++
++	return arg / NVT_PATH_DELAY_STEP;
++}
++
++static int nvt_gmac_setup(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	phy_interface_t phy_mode;
++	struct regmap *regmap;
++	u32 macid, miscr, reg;
++	int ret;
++
++	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
++	if (IS_ERR(regmap))
++		ret = dev_err_probe(dev, PTR_ERR(regmap), "Failed to get sys register\n");
++
++	if (macid > 1)
++		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
++
++	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode))
++		ret = dev_err_probe(dev, -EINVAL, "Missing phy mode property\n");
++
++	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
++
++	switch (phy_mode) {
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++		ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
++		if (ret < 0)
++			return ret;
++		reg = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
++
++		ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
++		if (ret < 0)
++			return ret;
++		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
++		break;
++	case PHY_INTERFACE_MODE_RMII:
++		reg = NVT_MISCR_RMII;
++			break;
++	default:
++		return dev_err_probe(dev, -EINVAL, "Unsupported phy-mode (%d)\n", phy_mode);
++	}
++
++	regmap_update_bits(regmap, miscr,
++			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, reg);
++
++	return 0;
++}
++
++static int nvt_gmac_probe(struct platform_device *pdev)
++{
++	struct plat_stmmacenet_data *plat_dat;
++	struct stmmac_resources stmmac_res;
++	struct device *dev = &pdev->dev;
++	int ret;
++
++	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get platform resources\n");
++
++	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	if (IS_ERR(plat_dat))
++		return dev_err_probe(dev, PTR_ERR(plat_dat), "Failed to get platform data\n");
++
++	ret = nvt_gmac_setup(pdev);
++	if (ret)
++		return ret;
++
++	return stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
++}
++
++static const struct of_device_id nvt_dwmac_match[] = {
++	{ .compatible = "nuvoton,ma35d1-dwmac"},
++	{ }
++};
++MODULE_DEVICE_TABLE(of, nvt_dwmac_match);
++
++static struct platform_driver nvt_dwmac_driver = {
++	.probe  = nvt_gmac_probe,
++	.remove = stmmac_pltfr_remove,
++	.driver = {
++		.name           = "nuvoton-dwmac",
++		.pm		= &stmmac_pltfr_pm_ops,
++		.of_match_table = nvt_dwmac_match,
++	},
++};
++module_platform_driver(nvt_dwmac_driver);
++
++MODULE_AUTHOR("Joey Lu <a0987203069@gmail.com>");
++MODULE_DESCRIPTION("Nuvoton DWMAC specific glue layer");
++MODULE_LICENSE("GPL");
 -- 
-2.34.1
+2.43.0
 
 
