@@ -1,68 +1,76 @@
-Return-Path: <openbmc+bounces-1359-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1360-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FF42EB596E
-	for <openbmc@archiver.kernel.org>; Wed, 11 Feb 2026 07:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C47CCEB2700
+	for <openbmc@archiver.kernel.org>; Wed, 11 Feb 2026 10:22:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4f9qHX0tngz2yQj;
-	Wed, 11 Feb 2026 18:07:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770793623;
-	cv=none; b=aXzP6ZcQLRLFbOInL/ffqjXpqDyVsKKNFhRTQrqtzHplFLbr4FqaAyYRzOgfH6ByWJgjnZbYMeBlmw+WvBMYlkvzK53YMEP9/MjC3BBxNM5kcpvpFC3LEB/+h/6jmDbVBsMFDmgF2jHuyzoK4MKhF2g29FXdGwcKIbJXDzt+dBv6TRixZJVE2oIaDETEwtr4qaEgQy6Bw6Jc+/wP7Am9fjMWPASaGp6bpskV7HzZlwYvv1xG6swNcPv/W4EWTh9RuYv8FNrqA2v7ys2d8VUwQ42uU9zDob8fngbZK3QvZMUXIsPbAGdfSf9EcOMRQRuk4SLNpjCEutkr4KUwNbEo0g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4f9vd56LvXz2ySS;
+	Wed, 11 Feb 2026 21:22:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2001:4d48:ad52:32c8:5054:ff:fe00:142"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770805353;
+	cv=none; b=bKCfBi//gVHzfDafo7BDbxdh9qn15rrDZkzi7rWv6c26DkCE1e1G3HleCRq8+IKtUT13Kb3VffbFIVQCwQ5oTEXrLzn89vrgldE+Bd21TrLrRvX7zZbGdd/G/md1Oy69wxKDypwsy4un0xRbv7o4v+ApeKffvmw9GOAf7ZFprxePpSykBej3w+10BjbbOgWMNzA+BnfAVoPvq73GLYggwsRKn/O9gboEYAMMGl5ASaJAq6mexaZYeX4UKJ5Hbqzce93qbZCuVWX+FG/H8RI/1786kE3UTa3cLXMtzOcmlreVCvqa3CuXyH+O4rXDmRnIEs3C+P3urXGlNr1YYrkPJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1770793623; c=relaxed/relaxed;
-	bh=ekwU2eOw8Ug7JuWGM23DP3Zt8xIe9aWbc8KSy6O2ZiA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OrSnpnrMOh2TlJOp3ke06p0k3s4IymrUgPTotvv6bv7hBeh83viD9tULy1/vbnr0YJ0Sl/CMSqje7aCQGx9NMg0cpmh4V5to/JD3EhREgeBsVKUJ5fxVHbalQd5abl80Qi9Ic4q4SwXrjwl/3wPRtQOBtA7ly/4RWRfl/e4cu7XsjYiTRhP9uOmbGzNYA/AHGRF/OIMFdpl3jJoflw/z0ZrPQfAAFmb2vPihVDUs0OOKs85ZzIcC7J/msYrBStXipVCLFqzTNCkc1iiCX8MMMrwIAgwyZnzXEJKHVxxpIvi7cmvFkIGUhJ06Ml/iwEBy5X5xLxDCGsZeL/uRb6gYHw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=P9M0s6tm; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	t=1770805353; c=relaxed/relaxed;
+	bh=x26RJEZzvywxmqhbMuzA7A8coQZewEhYsgXJn0+8VIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GDO2ooctNH9gzrsdX/I/HGWvNjnP5G06tTMicloJUtumxCryTF3E1PZE9+/F9zXaJGQlHMstQxNoRJrrJ5jxIHu3thAiw+x+PGfGdNcCGwBJ4bVIyerSpqcC8OExePH7C98QN9/6RqbWxoBhdbPneF3WKDOh0pL8fJltY5tGiqRfp890Fguw3zKVsm0zoq4tsBKTJnNS3Fk3FXxX5rBbLk6MJPwL0TXboQdxWCTjvUJXKxC119LKiHSfbKBerwEaEQgGIrY9dAzOnYfPW3SLM9zdozLYQpPPi2AqdDnM/LSMxGMfWOh+5rYxMqkb/JRAlF0z2yNCOAlIl1QhjBOV5Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; dkim=pass (2048-bit key; secure) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.a=rsa-sha256 header.s=pandora-2019 header.b=z4W1LRrY; dkim-atps=neutral; spf=none (client-ip=2001:4d48:ad52:32c8:5054:ff:fe00:142; helo=pandora.armlinux.org.uk; envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk; receiver=lists.ozlabs.org) smtp.mailfrom=armlinux.org.uk
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=P9M0s6tm;
+	dkim=pass (2048-bit key; secure) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.a=rsa-sha256 header.s=pandora-2019 header.b=z4W1LRrY;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=armlinux.org.uk (client-ip=2001:4d48:ad52:32c8:5054:ff:fe00:142; helo=pandora.armlinux.org.uk; envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk; receiver=lists.ozlabs.org)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [IPv6:2001:4d48:ad52:32c8:5054:ff:fe00:142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f9qHV6GvQz2xSb;
-	Wed, 11 Feb 2026 18:07:02 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1770793620;
-	bh=ekwU2eOw8Ug7JuWGM23DP3Zt8xIe9aWbc8KSy6O2ZiA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=P9M0s6tmcbwCi6R7qtb9G7n9zjrlhTdWDjrCSNhFhzlYolQSCANRFcMHilkBkkoOH
-	 8C5d/18JDioaWOfFnBe2EfO/xlBqrzgtBJAguPI3qj1EYxv7Dmr02z8pkSxyfXNGLT
-	 csWtmJ1Dc9ePK7bk/9tlbaS/74ddev/TnjVEHKUALXGsFrOS4S7plZBx++8fxXhrVN
-	 cyFEYZlQkcA+/xsPsE85UoTevoL6bMD6PQN9OJaBLQr65pYpJL5fJEtrpL5Hmov0wX
-	 KqSDB4BjiWyVO2czOwvkUksWj133s+z8bmHW8NTQFEEyaY5vfYClOdMHmHyQbM0L35
-	 /9wVgqf3VefZw==
-Received: from [192.168.68.117] (unknown [180.150.112.60])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id BEB226040B;
-	Wed, 11 Feb 2026 15:06:58 +0800 (AWST)
-Message-ID: <31a3283787df06b7b44796ef78cca3fd380ee18d.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v3 1/3] Add compatible strings for AST2700 pinctrl to
- the SCU binding.
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Billy Tsai <billy_tsai@aspeedtech.com>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Conor Dooley <conor+dt@kernel.org>, 
- Joel Stanley <joel@jms.id.au>, Linus Walleij <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>,  Lee Jones <lee@kernel.org>, Rob Herring
- <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, bmc-sw@aspeedtech.com
-Date: Wed, 11 Feb 2026 17:36:57 +1030
-In-Reply-To: <459f84c56a5010910ecbf8b445c092674f060691.camel@codeconstruct.com.au>
-References: <20260120-upstream_pinctrl-v3-0-868fbf8413b5@aspeedtech.com>
-		 <20260120-upstream_pinctrl-v3-1-868fbf8413b5@aspeedtech.com>
-	 <459f84c56a5010910ecbf8b445c092674f060691.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f9vd315Gdz2xlp
+	for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 21:22:30 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=x26RJEZzvywxmqhbMuzA7A8coQZewEhYsgXJn0+8VIw=; b=z4W1LRrYkYWx83Y554+BLK4ps/
+	kVIQ8R/xWaPBtSIVRSxNeQxUZR9q/qriUgI3IuFK/p+PhIWjaONg3mJu2RR/6f8/QTOZlhlqusSwg
+	fkFoLU6UFJH/2vU5HeOMWorE3bHSPb5/aGh3gmzBViiPULwhubt4MLzZ00LMDV8A/V2u3P8UMCZUJ
+	gT3QvTwSTWt7MvCSEIysqM6eXS6tX5YmDPQOBIjSfWpOX1z5pE60m5+Z8SR6jlEBJurVc3bBM+/1V
+	BRp3ICKDwKulxr0GcBRYHmaLH4jh+TUOf1wacGWYe0JN6tDHwSQhA0J7sP2wDET0dBBh1GwXRPq0R
+	JHoTO1jQ==;
+Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:55616)
+	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <linux@armlinux.org.uk>)
+	id 1vq7MD-000000003Ij-10GA;
+	Wed, 11 Feb 2026 10:22:05 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+	(envelope-from <linux@shell.armlinux.org.uk>)
+	id 1vq7M6-000000003hT-07hu;
+	Wed, 11 Feb 2026 10:21:58 +0000
+Date: Wed, 11 Feb 2026 10:21:57 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com, alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com, ychuang3@nuvoton.com, schung@nuvoton.com,
+	yclu4@nuvoton.com, peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+	Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH net-next v12 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
+ glue for Nuvoton MA35 family
+Message-ID: <aYxYRZZkVFz2jHaF@shell.armlinux.org.uk>
+References: <20260210052226.3005666-1-a0987203069@gmail.com>
+ <20260210052226.3005666-4-a0987203069@gmail.com>
+ <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
+ <747b9ab4-6711-426d-95a5-4ce6c8732edd@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,39 +82,21 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <747b9ab4-6711-426d-95a5-4ce6c8732edd@gmail.com>
+Sender: Russell King (Oracle) <linux@armlinux.org.uk>
 
-On Fri, 2026-01-23 at 17:03 +1030, Andrew Jeffery wrote:
->=20
-> Going down this path for pinctrl to fix the SCU situation will require
-> some rework of what's already merged for the AST2700. However, we've
-> not yet merged either a DTS or DTSI using the compatibles (and by
-> extension, aren't using the AST2700 support from the drivers), so I
-> hope that allows us to do a course-correction without too much
-> collateral damage.
->=20
-> A possible path forward is to:
->=20
-> =C2=A0* Move AST2700 definitions out of mfd/aspeed,ast2x00-scu.yaml into =
-one
-> =C2=A0=C2=A0 of:
-> =C2=A0=C2=A0=C2=A0 - soc/aspeed/aspeed,ast2700-scu.yaml: Follow the examp=
-le of
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mobileye,eyeq5-olb?
-> =C2=A0=C2=A0=C2=A0 - arm/aspeed/aspeed,ast2700-scu.yaml: We already have =
-e.g. the secure
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 boot controller documented under arm/aspee=
-d
-> =C2=A0* Retain compatible strings but require simple-mfd is not specified
-> =C2=A0* Rework AST2700 support introduced in:
-> =C2=A0=C2=A0=C2=A0 - drivers/irqchip/irq-aspeed-scu-ic.c
-> =C2=A0=C2=A0=C2=A0 - drivers/soc/aspeed/aspeed-socinfo.c
->=20
+On Wed, Feb 11, 2026 at 05:52:21PM +0800, Joey Lu wrote:
+> > Is this register preserved over suspend/resume ?
+> 
+> It is not preserved by the GMAC suspend/resume flow and therefore needs to
+> be treated as a system register rather than a GMAC local context.
 
-... but perhaps that is too much churn for this stage.
+That is another reason to use .set_phy_intf_sel as that will be called
+just before GMAC soft-reset in the .ndo_open() and resume paths.
 
-Krzysztof: If you think the rework is worthwhile, let me know and we
-can look at that design, otherwise I think Billy can proceed by
-incorporating your current feedback for a v4.
-
-Andrew
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 
