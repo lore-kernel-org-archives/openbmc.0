@@ -1,62 +1,81 @@
-Return-Path: <openbmc+bounces-1361-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1362-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 016A8ECD6EE
-	for <openbmc@archiver.kernel.org>; Wed, 11 Feb 2026 21:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF13AECD6EE
+	for <openbmc@archiver.kernel.org>; Wed, 11 Feb 2026 23:01:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fBBgC0NVxz2xKh;
-	Thu, 12 Feb 2026 08:40:23 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770846022;
-	cv=none; b=oMhc6kvJ81xl0Nk9Jj+vwWeQnIM99QsTXTIOy+p6pm49tkc+D094nvbQlwyh1uFu/CcBl1WhCFEVaFdtgK/OsHpCGPeNc7cG9DiLH1Wr1lM+ICNss/YA2vrzRfvlOe4cQ6OzLzvCEAWNsYvkHW9g0GXlsbcmpYUTSwk3qSqbOCB4Aq5hbOU0xzlJmA5gKYxHTzLBGGmqsjvnE4hS/ZCGEv5Px8tlHnmb0SaD0adBBJe1borlMpSDdLGnhmFKZZ9LlpcSXSwB5HzGcKPkgBrYiqxWnODcFPGRkqkSAu1J7rKxQKpp0tDWv/QDBhRg5jDgmCG9ks2OJbnvSay/CZXvZg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fBDT52X7Hz2xm3;
+	Thu, 12 Feb 2026 10:01:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::634"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770803553;
+	cv=none; b=kO53ZDzM6D2su3rKYqpjRoixCSciP/dZ0YzuZcfS50xJ3DVcJh1Sk2cc/iJWDErZe178LLw+LLmT8KhderHrz3zfDjB75KO+W1iGJ/APmQHbvAk3WssLNSH9z/wd3gNi6ZcD6b0mibBfNoN/8uJ8YsgHJR1cjOHar6Ypjl2Hcn0QaJWqEr9MDAiGVewnqhY4WKHHeg9D8yh2BgWQN0bPDS29LZvE9ZY9hKIwNZrYggSSGS0IqLL5jAPH/egmFRLG7Wiqc5pJFRVKkwcCzoTzSHosLRMBvwLTC3WKsMItAUqs0+5xzGv1IjesE950g5nUCNtxVo8hJs4NooaEguUdrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1770846022; c=relaxed/relaxed;
-	bh=vn8nDwWRbfU1p1x0vnuHpFag005m4ze8+NWmtLBToUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ee6Z74h8Fohq42DahXhkZqXPdkwjK+jz7FgMFlTY3vTOEwfIYhjr7i36jXmPNwAHvlmwlC7vpaqfqgb3jMt8raLqPMcW7dfJuMc6PuUUgyaOx15DMaA0KMsJKTdOkXkkSrUWRTunlOloctS/v8jdvgvIgNKyyS1KDF1013B+gmJvmFJw8VD2pTNOM4usps6/XzOSppXFfvQUbvAo7Lw+uPwAJfK2l8lENYGjw2Tkcm49tISRVlBwPjcEBVOatQnpSCNnOvHQrywWWMlj0TDdVU/NUhCUcRjNEV9DA2x8bjRpoqXXHB3j4lbBf5dTyL/anLhUlTUBYQfOUVY18Mm1LA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=F4lZwcRc; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1770803553; c=relaxed/relaxed;
+	bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=ZyFMY2Sz3yr6iIjuv/QcX72dCkF3zVnHIHqaFHPGBerHTU2xU3XVsQgVTFm7Jdd2l5/WGo9f/lFTSVZIXMHrdrqs1d61GLukuY8cIPq1xaE6Q5ao3PaXzEjEjiQM4gU2r89ROCISgegze8/iYSGS64+mYRIQ1hOH7j6CFQUB0RkEUM5e1D6DKvoL6XfQZua9+LtSGdhEZjHY83Arp46XwY5vAUYlalYFzsN5fps/G6QpUFToT1Y1+E1iEd15EDlGL7DyzgxAoK9xaPcG+kTB3kXsUWrekT/wtszrhbBwCnPEoVbCYhIxxGh8g+7LS7afijgU4pKdp3lVFgEuMsSA5w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fZbsw70X; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::634; helo=mail-pl1-x634.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=F4lZwcRc;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fZbsw70X;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::634; helo=mail-pl1-x634.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com [IPv6:2607:f8b0:4864:20::634])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fBBg93Hhrz2xGF
-	for <openbmc@lists.ozlabs.org>; Thu, 12 Feb 2026 08:40:21 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id B9F3660051;
-	Wed, 11 Feb 2026 21:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3969BC4CEF7;
-	Wed, 11 Feb 2026 21:40:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1770846018;
-	bh=1ON6GaGmF0/TaofBjCmUtGuI5mGNnmlfjg25WlFka0A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=F4lZwcRcUBYW9l/AHoM9PNyTTcHFmOa8WygnosvJeEFr7KKXNim/zPeLJ0qTd+719
-	 XWekh9fPI8kGwCddMISXJLRDBL+hUkoRB+mzwzLy7WYqJ9CJk7wYtmVfg9WsSxEOvC
-	 1bKG8mcY0FJHPSChbkXYYBJtp4JHgNJSDoTYOaMJM6EkipECU5TcCqH8npxQvD6v17
-	 03utrnXm7hThQLg24XREuALXP3MrMkKkTYC8TzDs+gYYk1VAWiUTDTYxu/cwjzC3B7
-	 217aqVy5vYFMSM3c1DjAFloUj25HPzW0LQaMfqW/Ybrfj5fsMnu1W16ZJOMIThaMq5
-	 +Ult7sVr31n8Q==
-Date: Wed, 11 Feb 2026 15:40:17 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: andrew@codeconstruct.com.au, avifishman70@gmail.com,
-	tali.perry1@gmail.com, linux@roeck-us.net, krzk+dt@kernel.org,
-	conor+dt@kernel.org, venture@google.com, yuenn@google.com,
-	benjaminfair@google.com, openbmc@lists.ozlabs.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] dt-bindings: hwmon: convert npcm750-pwm-fan to DT
- schema
-Message-ID: <20260211214017.GA3930589-robh@kernel.org>
-References: <20260210154117.1126857-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4f9tyS0pTQz2xlM
+	for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 20:52:30 +1100 (AEDT)
+Received: by mail-pl1-x634.google.com with SMTP id d9443c01a7336-2a90055b9e9so27924865ad.1
+        for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 01:52:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1770803548; x=1771408348; darn=lists.ozlabs.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
+        b=fZbsw70XiQW9DfKp+KhogXHk26Q6I3ZkzdN/6Uvl5myJevJmqDgQWZEmUIeMk2jVxC
+         zV4lIhN+u8iflIawm4swl1e+qTMPXFurceI3eiNeFGyAeYum40oVJCYdZL4KiJMZ3PFC
+         qurwuvtnXmeC4ijejvpF5bfp3JKPXZ0C5nEPTVfntqdTOuZ+ZrVaBdlAMJxP3RpKBbmS
+         7TSPAhe/Ul9irk85qmWlHnJGDeEZA8t8TnhmdoHJkJ/wqlPwtFpBJhKGdhtG/Gf7x0fq
+         ia9pe6lTQbBWpBqXssxkicOP2kDECarc+e7cwIsy33FWP+oNffAWoefqNTrHrCJjoM1U
+         y3Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1770803548; x=1771408348;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
+        b=UExq76nHpnRj6FpF7Y/nivpCxUwjYf0d06I4MfG++n/x0eUw4uSwrEKY+zMM4I10oC
+         CLvO00y5crArTksIuSruRO745HDLB/ZapAW3cxqwf30bwPE67emC722NV9/QzNsMxofe
+         QMiqhL8/a7DcKg68vbKLz1w7emx2iqsM7JxZ6TJIXxhgR6g8ZyGPffwkRYQSb75pZYUC
+         UhJQuPUWoqayMIPJumDAlhrw7Rvhp0/6ak2pAyv8jCL1w6zzhJMoBob84lxv5Uo5IS/Z
+         gpfj2vScIkHnDIhrXR2QXJUD8H0kBc4tKnQPuM3FbEQkQTmSQXIKbHcBlV1REXKohZsC
+         Q2ow==
+X-Forwarded-Encrypted: i=1; AJvYcCXXSpYaGLtP+nGOSRAzoaGzpV2QNy06nySHefCiYd/vPQXzTNr2gXVhW8izugXSTRK0dmB60Fl2@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yw9QZwXU4L+q2p0hQz8m6JvjHWxphrPs8J9YLRL6VGFE9CWejN4
+	54is7XuluYZlzy+FV38ZeBAGF6aT2+NTvqlVwRH4tVDbM78AgY19xnuN
+X-Gm-Gg: AZuq6aLIG7BRFIUecqhXy+v+EvW7xljZ8InRrB2HTV6mUHmgII5LyRj4EF/y6NeTcza
+	iuwngDXpeutfMx5pkkRHg5EQoiG0l1FK/L4XGcma4KYjQeQwHuQCkk15wrL3reiQZDQhhx4BnQs
+	Tffd0UshIiJt66HJ1JWmvbkmkKbzBcbvUOOuNnopb8V1PdB+tXlQHx033dMCVx7HKvauFP97p0E
+	apoaRa6qjFw70w3MyzwXrVfpCkMBchbTW9QvNJ5UkxqTDPHN45VIWozuueC4/Ji0vLE5+y5UT7y
+	JHRcMojRVI9k36zloCVyNvig5KSGRFCOL036+smXcM7BxsMV5xGiNGLY3LGhh/WvRMpJ6HeAA2r
+	0TkTAaL/63wX2BlcZYnfGwyiNYV1HkajA6FZgH3alK8S0kS0nEjukAAKM6GOXt/2tWxEjfAGtik
+	vOhPyXYYclHq5Lo+dO8F/psopgIaBI4O9JL9VTlsF13Kw4Xx4nynwPF4FsI1ytW2NZPbGQg9U3H
+	R6o
+X-Received: by 2002:a17:902:f54a:b0:2aa:e3ba:d045 with SMTP id d9443c01a7336-2ab29b7973fmr14836365ad.8.1770803547808;
+        Wed, 11 Feb 2026 01:52:27 -0800 (PST)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ab2986edecsm17568455ad.22.2026.02.11.01.52.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Feb 2026 01:52:27 -0800 (PST)
+Content-Type: multipart/alternative;
+ boundary="------------aaXpGtG0sny9pfM8rBgrfgfB"
+Message-ID: <747b9ab4-6711-426d-95a5-4ce6c8732edd@gmail.com>
+Date: Wed, 11 Feb 2026 17:52:21 +0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -68,191 +87,227 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260210154117.1126857-1-tmaimon77@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
+ glue for Nuvoton MA35 family
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
+ alexandre.torgue@foss.st.com, joabreu@synopsys.com, ychuang3@nuvoton.com,
+ schung@nuvoton.com, yclu4@nuvoton.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew@lunn.ch>
+References: <20260210052226.3005666-1-a0987203069@gmail.com>
+ <20260210052226.3005666-4-a0987203069@gmail.com>
+ <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
 
-On Tue, Feb 10, 2026 at 05:41:17PM +0200, Tomer Maimon wrote:
-> Convert the Nuvoton HWMON PWM and FAN controllers binding to schema
-> format.
-> 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../bindings/hwmon/npcm750-pwm-fan.txt        |  88 ------------
->  .../bindings/hwmon/npcm750-pwm-fan.yaml       | 132 ++++++++++++++++++
->  2 files changed, 132 insertions(+), 88 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.txt
->  create mode 100644 Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.yaml
+This is a multi-part message in MIME format.
+--------------aaXpGtG0sny9pfM8rBgrfgfB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-> diff --git a/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.yaml
-> new file mode 100644
-> index 000000000000..954ba7d38b93
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/npcm750-pwm-fan.yaml
+On 2/10/2026 9:12 PM, Russell King (Oracle) wrote:
+> Please note that net-next is currently closed, so you should be sending
+> net-next patches with "RFC". See section 1.4 of:
+> https://docs.kernel.org/process/maintainer-netdev.html
+>
+> On Tue, Feb 10, 2026 at 01:22:26PM +0800, Joey Lu wrote:
+>> +static int nvt_gmac_setup(struct platform_device *pdev)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	phy_interface_t phy_mode;
+>> +	struct regmap *regmap;
+>> +	u32 macid, miscr, reg;
+>> +	int ret;
+>> +
+>> +	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
+>> +	if (IS_ERR(regmap))
+>> +		ret = dev_err_probe(dev, PTR_ERR(regmap), "Failed to get sys register\n");
+>> +
+>> +	if (macid > 1)
+>> +		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
+>> +
+>> +	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode))
+>> +		ret = dev_err_probe(dev, -EINVAL, "Missing phy mode property\n");
+> If you pass in the plat_dat to this function, then you have access to
+> plat_dat->phy_interface. I went through all the dwmac glue code and
+> removed such PHY interface gets, so please don't introduce new
+> instances.
+I'll drop it.
+>> +
+>> +	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
+> I find the use of "miscr" to be the register offset, and "reg" to be
+> the register value is confusing. Normally they're the other way around.
+I'll update the naming to follow the usual convention, for example, 
+using reg for offset and val for value.
+>> +
+>> +	switch (phy_mode) {
+>> +	case PHY_INTERFACE_MODE_RGMII:
+>> +	case PHY_INTERFACE_MODE_RGMII_ID:
+>> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+>> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+>> +		ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
+>> +		if (ret < 0)
+>> +			return ret;
+>> +		reg = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
+>> +
+>> +		ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
+>> +		if (ret < 0)
+>> +			return ret;
+>> +		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
+>> +		break;
+>> +	case PHY_INTERFACE_MODE_RMII:
+>> +		reg = NVT_MISCR_RMII;
+>> +			break;
+>> +	default:
+>> +		return dev_err_probe(dev, -EINVAL, "Unsupported phy-mode (%d)\n", phy_mode);
+>> +	}
+>> +
+>> +	regmap_update_bits(regmap, miscr,
+>> +			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, reg);
+> Please consider programming the NVT_MISCR_RMII bit via the
+> plat_dat->set_phy_intf_sel() method.
+I'll switch to using the plat_dat->set_phy_intf_sel() callback and pass 
+the required info through private structure.
+>
+> Is this register preserved over suspend/resume ?
 
-nuvoton,npcm750-pwm-fan.yaml for filename.
+It is not preserved by the GMAC suspend/resume flow and therefore needs 
+to be treated as a system register rather than a GMAC local context.
 
-> @@ -0,0 +1,132 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/npcm750-pwm-fan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton NPCM7xx/NPCM8xx PWM and Fan Tach Controller
-> +
-> +maintainers:
-> +  - Tomer Maimon <tmaimon77@gmail.com>
-> +
-> +description: |
+>
+> Thanks.
+>
+--------------aaXpGtG0sny9pfM8rBgrfgfB
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Don't need '|'.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2/10/2026 9:12 PM, Russell King
+      (Oracle) wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
+      <pre wrap="" class="moz-quote-pre">Please note that net-next is currently closed, so you should be sending
+net-next patches with "RFC". See section 1.4 of:
+<a class="moz-txt-link-freetext" href="https://docs.kernel.org/process/maintainer-netdev.html">https://docs.kernel.org/process/maintainer-netdev.html</a>
 
-> +  The NPCM7xx/NPCM8xx family includes a PWM and Fan Tachometer controller.
-> +  The controller provides up to 8 (NPCM7xx) or 12 (NPCM8xx) PWM channels and up
-> +  to 16 tachometer inputs. It is used for fan speed control and monitoring.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nuvoton,npcm750-pwm-fan
-> +      - nuvoton,npcm845-pwm-fan
-> +
-> +  reg:
-> +    maxItems: 2
-> +    description: Register addresses for PWM and Fan Tach units.
-> +
-> +  reg-names:
-> +    items:
-> +      - const: pwm
-> +      - const: fan
-> +
-> +  clocks:
-> +    maxItems: 2
-> +    description: Clocks for the PWM and Fan Tach modules.
-> +
-> +  clock-names:
-> +    items:
-> +      - const: pwm
-> +      - const: fan
-> +
-> +  interrupts:
-> +    description: |
-> +      Contains the Fan interrupts with flags for falling edge.
-> +      For NPCM7XX, 8 interrupt lines are expected (one per PWM channel).
-> +      For NPCM8XX, 12 interrupt lines are expected (one per PWM channel).
+On Tue, Feb 10, 2026 at 01:22:26PM +0800, Joey Lu wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static int nvt_gmac_setup(struct platform_device *pdev)
++{
++	struct device *dev = &amp;pdev-&gt;dev;
++	phy_interface_t phy_mode;
++	struct regmap *regmap;
++	u32 macid, miscr, reg;
++	int ret;
++
++	regmap = syscon_regmap_lookup_by_phandle_args(dev-&gt;of_node, "nuvoton,sys", 1, &amp;macid);
++	if (IS_ERR(regmap))
++		ret = dev_err_probe(dev, PTR_ERR(regmap), "Failed to get sys register\n");
++
++	if (macid &gt; 1)
++		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
++
++	if (of_get_phy_mode(pdev-&gt;dev.of_node, &amp;phy_mode))
++		ret = dev_err_probe(dev, -EINVAL, "Missing phy mode property\n");
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+If you pass in the plat_dat to this function, then you have access to
+plat_dat-&gt;phy_interface. I went through all the dwmac glue code and
+removed such PHY interface gets, so please don't introduce new
+instances.
+</pre>
+    </blockquote>
+    I'll drop it.
+    <blockquote type="cite"
+      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
++	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I find the use of "miscr" to be the register offset, and "reg" to be
+the register value is confusing. Normally they're the other way around.
+</pre>
+    </blockquote>
+    I'll update the naming to follow the usual convention, for example,
+    using reg for offset and val for value.
+    <blockquote type="cite"
+      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+
++	switch (phy_mode) {
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++		ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
++		if (ret &lt; 0)
++			return ret;
++		reg = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
++
++		ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
++		if (ret &lt; 0)
++			return ret;
++		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
++		break;
++	case PHY_INTERFACE_MODE_RMII:
++		reg = NVT_MISCR_RMII;
++			break;
++	default:
++		return dev_err_probe(dev, -EINVAL, "Unsupported phy-mode (%d)\n", phy_mode);
++	}
++
++	regmap_update_bits(regmap, miscr,
++			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, reg);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Please consider programming the NVT_MISCR_RMII bit via the
+plat_dat-&gt;set_phy_intf_sel() method.</pre>
+    </blockquote>
+    I'll switch to using the <span style="white-space: pre-wrap">plat_dat-&gt;set_phy_intf_sel() callback and pass the required info through private structure.</span>
+    <blockquote type="cite"
+      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
+      <pre wrap="" class="moz-quote-pre">
 
-Blank line between paragraphs. Or remove '|' and re-wrap at 80. Same 
-problem elsewhere...
+Is this register preserved over suspend/resume ?</pre>
+    </blockquote>
+    <p>It is not preserved by the GMAC suspend/resume flow and therefore
+      needs to be treated as a system register rather than a GMAC local
+      context.</p>
+    <blockquote type="cite"
+      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
+      <pre wrap="" class="moz-quote-pre">
 
-> +    minItems: 8
-> +    maxItems: 12
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^fan@[0-9a-f]+$":
-> +    type: object
-> +    $ref: fan-common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description: |
-> +          Specify the PWM output channel. Integer value in the range 0-7 for
-> +          NPCM7XX or 0-11 for NPCM8XX, representing the PWM channel number.
+Thanks.
 
-items:
-  items:
-    maximum: 11
+</pre>
+    </blockquote>
+  </body>
+</html>
 
-> +
-> +      fan-tach-ch:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-
-This is defined as 8-bit.
-
-> +        description: |
-> +          The tach channel(s) used for the fan.
-> +          Integer values in the range 0-15.
-
-items:
-  maximum: 15
- 
-> +
-> +      cooling-levels:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-
-already has a type. Drop.
-
-> +        description: |
-> +          PWM duty cycle values in a range from 0 to 255 which
-> +          correspond to thermal cooling states. This property enables
-> +          thermal zone integration for automatic fan speed control
-> +          based on temperature.
-
-items:
-  maximum: 255
-
-> +
-> +    required:
-> +      - reg
-> +      - fan-tach-ch
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    pwm_fan: pwm-fan@103000 {
-> +        compatible = "nuvoton,npcm750-pwm-fan";
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        reg = <0x103000 0x2000>, <0x180000 0x8000>;
-> +        reg-names = "pwm", "fan";
-> +
-> +        clocks = <&clk NPCM7XX_CLK_APB3>, <&clk NPCM7XX_CLK_APB4>;
-> +        clock-names = "pwm", "fan";
-> +
-> +        interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-> +                     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&pwm0_pins &fanin0_pins>;
-> +
-> +        fan@0 {
-> +            reg = <0>;
-> +            fan-tach-ch = <0 1>;
-> +            cooling-levels = <64 128 192 255>;
-> +        };
-> +
-> +        fan@1 {
-> +            reg = <1>;
-> +            fan-tach-ch = <2>;
-> +        };
-> +    };
-> -- 
-> 2.34.1
-> 
+--------------aaXpGtG0sny9pfM8rBgrfgfB--
 
