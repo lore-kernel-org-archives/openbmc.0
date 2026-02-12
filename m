@@ -1,81 +1,77 @@
-Return-Path: <openbmc+bounces-1362-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1363-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF13AECD6EE
-	for <openbmc@archiver.kernel.org>; Wed, 11 Feb 2026 23:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1D1EEA870
+	for <openbmc@archiver.kernel.org>; Thu, 12 Feb 2026 23:23:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fBDT52X7Hz2xm3;
-	Thu, 12 Feb 2026 10:01:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::634"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770803553;
-	cv=none; b=kO53ZDzM6D2su3rKYqpjRoixCSciP/dZ0YzuZcfS50xJ3DVcJh1Sk2cc/iJWDErZe178LLw+LLmT8KhderHrz3zfDjB75KO+W1iGJ/APmQHbvAk3WssLNSH9z/wd3gNi6ZcD6b0mibBfNoN/8uJ8YsgHJR1cjOHar6Ypjl2Hcn0QaJWqEr9MDAiGVewnqhY4WKHHeg9D8yh2BgWQN0bPDS29LZvE9ZY9hKIwNZrYggSSGS0IqLL5jAPH/egmFRLG7Wiqc5pJFRVKkwcCzoTzSHosLRMBvwLTC3WKsMItAUqs0+5xzGv1IjesE950g5nUCNtxVo8hJs4NooaEguUdrA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fBrv56Rnfz2xpn;
+	Fri, 13 Feb 2026 10:22:57 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::636"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770900113;
+	cv=none; b=nXLnmCNtn+/t5aAbwdKHgO9NpmjBr8tjnqBHd7fPBx5abRvt1Fxw9L5paw+BjZGBgbNQVempv6P30ztNEbPwiiDiMBygPRJxXi9UPoMEW6etej1ONFI6mE7uPQ6QWPqetEpae2RPE9bK0MAdoITRhsEszo7KbUOyP56fsBtJXDsQNAuEG/fa6fUBt6thk1EdJ+q1BbKbLKjdfrSL6o+cMlv2aG2eXtnhkNzE7lvQd62Jm7HIxsoe82JxBaYNdZONzea0Vy5x8T8zNS57LHUXNb/yVfnZgIkncrODTFSu7RevM9hTZMN12tiRX4yrH5qTv3l8onEIvWRf7t1mkLE8sA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1770803553; c=relaxed/relaxed;
-	bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
-	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To; b=ZyFMY2Sz3yr6iIjuv/QcX72dCkF3zVnHIHqaFHPGBerHTU2xU3XVsQgVTFm7Jdd2l5/WGo9f/lFTSVZIXMHrdrqs1d61GLukuY8cIPq1xaE6Q5ao3PaXzEjEjiQM4gU2r89ROCISgegze8/iYSGS64+mYRIQ1hOH7j6CFQUB0RkEUM5e1D6DKvoL6XfQZua9+LtSGdhEZjHY83Arp46XwY5vAUYlalYFzsN5fps/G6QpUFToT1Y1+E1iEd15EDlGL7DyzgxAoK9xaPcG+kTB3kXsUWrekT/wtszrhbBwCnPEoVbCYhIxxGh8g+7LS7afijgU4pKdp3lVFgEuMsSA5w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fZbsw70X; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::634; helo=mail-pl1-x634.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1770900113; c=relaxed/relaxed;
+	bh=NIZiZtGtHzT/irepT+VZQ4zYZLwWPZLEhQN/aE3V0gU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m3B2ClA784QLFsZ7a7Mz0gJELyl7fF6vLy98FZC8K4DnExbaTuEvHxO2UcZAcdlPG17nBg5W+TadNwvn2ISgkrVMrCxIo9vp3pilYn6p6Auy25uLUK4/nyA4RBCciwy9+6fwpyQZwf0eThTjbPnrRAGhKZiZbmQ8TZMoStl4cLGXEUwagHAkDSTqYOJ+FtDo+YfdEULCMuhdmaGCpCX6Jr7+Pdi2ndy+W0jN7QI3iNz25/T4ufkP+M51DkNcQPv1w5sHuQdnca7L3BXbjF057j+8sX3YjTKG7jfWvZCaIa/1sdE2nKJIyrKuJD3Rp3m6eldiJTYvPuiMSB5zsFeb7g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=WLAOwHSB; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=ustc.gu@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=fZbsw70X;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=WLAOwHSB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::634; helo=mail-pl1-x634.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com [IPv6:2607:f8b0:4864:20::634])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636; helo=mail-pl1-x636.google.com; envelope-from=ustc.gu@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com [IPv6:2607:f8b0:4864:20::636])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4f9tyS0pTQz2xlM
-	for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 20:52:30 +1100 (AEDT)
-Received: by mail-pl1-x634.google.com with SMTP id d9443c01a7336-2a90055b9e9so27924865ad.1
-        for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 01:52:30 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fBZgN1P2Cz2xlh
+	for <openbmc@lists.ozlabs.org>; Thu, 12 Feb 2026 23:41:51 +1100 (AEDT)
+Received: by mail-pl1-x636.google.com with SMTP id d9443c01a7336-2a79998d35aso55795025ad.0
+        for <openbmc@lists.ozlabs.org>; Thu, 12 Feb 2026 04:41:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770803548; x=1771408348; darn=lists.ozlabs.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
-        b=fZbsw70XiQW9DfKp+KhogXHk26Q6I3ZkzdN/6Uvl5myJevJmqDgQWZEmUIeMk2jVxC
-         zV4lIhN+u8iflIawm4swl1e+qTMPXFurceI3eiNeFGyAeYum40oVJCYdZL4KiJMZ3PFC
-         qurwuvtnXmeC4ijejvpF5bfp3JKPXZ0C5nEPTVfntqdTOuZ+ZrVaBdlAMJxP3RpKBbmS
-         7TSPAhe/Ul9irk85qmWlHnJGDeEZA8t8TnhmdoHJkJ/wqlPwtFpBJhKGdhtG/Gf7x0fq
-         ia9pe6lTQbBWpBqXssxkicOP2kDECarc+e7cwIsy33FWP+oNffAWoefqNTrHrCJjoM1U
-         y3Qw==
+        d=gmail.com; s=20230601; t=1770900104; x=1771504904; darn=lists.ozlabs.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NIZiZtGtHzT/irepT+VZQ4zYZLwWPZLEhQN/aE3V0gU=;
+        b=WLAOwHSBqXmfAthtIXZa79Ubp/E7ctMkNzLQx0f06aEH3XOjdCAzlhK4/p7Ax1jc/k
+         SACGM+LRNEh27Tzgvm3KGf1mcPoKksG4Xeco77UWg5sOGQOIfKrQtx8gkqmgx71e0/sC
+         AJs79xby21duSFRoaq7XVn6+2MC8zsmU1jzqEUzd1TQBCpDQXxFPuwgcanW6L64/euZB
+         YB8TUAEVIQfEHcHa+6Ii2dvdpX1JjzNs55v5FuXOKAfgY/ahYB7Q2oLtSSx4ENcN8Uyg
+         MUPNZ8Gd1dL6hudYIlKb6kdcDrHzykRmWHitskgxnjX1Kjjst0Xzj/2K5xymv1R4AYlM
+         Xmjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770803548; x=1771408348;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WlA/0DQhAaLzc62fU7hn+N6h+vP5jTvtak8QscuPTcs=;
-        b=UExq76nHpnRj6FpF7Y/nivpCxUwjYf0d06I4MfG++n/x0eUw4uSwrEKY+zMM4I10oC
-         CLvO00y5crArTksIuSruRO745HDLB/ZapAW3cxqwf30bwPE67emC722NV9/QzNsMxofe
-         QMiqhL8/a7DcKg68vbKLz1w7emx2iqsM7JxZ6TJIXxhgR6g8ZyGPffwkRYQSb75pZYUC
-         UhJQuPUWoqayMIPJumDAlhrw7Rvhp0/6ak2pAyv8jCL1w6zzhJMoBob84lxv5Uo5IS/Z
-         gpfj2vScIkHnDIhrXR2QXJUD8H0kBc4tKnQPuM3FbEQkQTmSQXIKbHcBlV1REXKohZsC
-         Q2ow==
-X-Forwarded-Encrypted: i=1; AJvYcCXXSpYaGLtP+nGOSRAzoaGzpV2QNy06nySHefCiYd/vPQXzTNr2gXVhW8izugXSTRK0dmB60Fl2@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yw9QZwXU4L+q2p0hQz8m6JvjHWxphrPs8J9YLRL6VGFE9CWejN4
-	54is7XuluYZlzy+FV38ZeBAGF6aT2+NTvqlVwRH4tVDbM78AgY19xnuN
-X-Gm-Gg: AZuq6aLIG7BRFIUecqhXy+v+EvW7xljZ8InRrB2HTV6mUHmgII5LyRj4EF/y6NeTcza
-	iuwngDXpeutfMx5pkkRHg5EQoiG0l1FK/L4XGcma4KYjQeQwHuQCkk15wrL3reiQZDQhhx4BnQs
-	Tffd0UshIiJt66HJ1JWmvbkmkKbzBcbvUOOuNnopb8V1PdB+tXlQHx033dMCVx7HKvauFP97p0E
-	apoaRa6qjFw70w3MyzwXrVfpCkMBchbTW9QvNJ5UkxqTDPHN45VIWozuueC4/Ji0vLE5+y5UT7y
-	JHRcMojRVI9k36zloCVyNvig5KSGRFCOL036+smXcM7BxsMV5xGiNGLY3LGhh/WvRMpJ6HeAA2r
-	0TkTAaL/63wX2BlcZYnfGwyiNYV1HkajA6FZgH3alK8S0kS0nEjukAAKM6GOXt/2tWxEjfAGtik
-	vOhPyXYYclHq5Lo+dO8F/psopgIaBI4O9JL9VTlsF13Kw4Xx4nynwPF4FsI1ytW2NZPbGQg9U3H
-	R6o
-X-Received: by 2002:a17:902:f54a:b0:2aa:e3ba:d045 with SMTP id d9443c01a7336-2ab29b7973fmr14836365ad.8.1770803547808;
-        Wed, 11 Feb 2026 01:52:27 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ab2986edecsm17568455ad.22.2026.02.11.01.52.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Feb 2026 01:52:27 -0800 (PST)
-Content-Type: multipart/alternative;
- boundary="------------aaXpGtG0sny9pfM8rBgrfgfB"
-Message-ID: <747b9ab4-6711-426d-95a5-4ce6c8732edd@gmail.com>
-Date: Wed, 11 Feb 2026 17:52:21 +0800
+        d=1e100.net; s=20230601; t=1770900104; x=1771504904;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NIZiZtGtHzT/irepT+VZQ4zYZLwWPZLEhQN/aE3V0gU=;
+        b=ZgC0OALMJu8ojLwf0NUuhmaFNVt5qB+V+okb3URtwK0249Lkq8/cEGwE3/fG4ndQNB
+         8H+YM7djVUZ0vY/VYQowlWKvXQyY8O4OSNNSkTpHB5iBt1aieEP6BoRzJLDChdSDvAQV
+         cPmG5aXj7I3I9LAmLLw6ZE3dbFS1r9fBXb1eZli3Hoffmm8aQrbTBIg7FVqY4zSMCzKI
+         C6lDxXe4tSgYt0fs9aVib5XIaXsH8tuTms7f078oC5W+dMbHJITqPAlQY5LYQbD1Zm0P
+         ch4oqsfopxpMZ8QpwDx7dKTFOB9OibyFRf0/VhtvtX6R3meHRGXdzZWMbTbwgsbt6Pno
+         mNpg==
+X-Gm-Message-State: AOJu0YwEVfAnkkTknIKiYiBUWFgrVfSXeoQRu8KrKXKBt7uDyBt+DLXJ
+	MJAf8EDypnrhJE5te/Bc/xI7xld/tpgT/NBzVPtTJMw2sKMguhatyfRQ
+X-Gm-Gg: AZuq6aJRpvKbyJVzpD0YV64OuK4AiiYEVg1JDCvnCHnd70zxR/EpCBARjbjbHFgzeV1
+	V3GsYWgDSmOwBaOn46NcZY5Ja+g8uPlHi+9t6AcPx9QhjDQe0V58DLGpl9Mxd0oYPgB4LUJWW19
+	58vAEj6ZPpZFnCI7xRdlVY93GbjEg8Cyur0J/BfNGZervmeKL2ZMtvfp36AvP6ijc/L5iQ3qSOP
+	IxcBEbKtspqWS+QfDkeJmKAFSGE2D3noerLY0ZQl1iQz43jK/SkWuY73MtyjUOqglBtq4HOVN7J
+	FZKGZeSzAMjy9IKyHs5fVW2g4XU5W2I6n//2A0SdeaFZaemcyzFpAus2gzAX6FpW41cIOsRjqhu
+	GSKklKWY5hyia3YpgGiedyQ/h0MOCy0r0y0fJUttoBD+3a5D6135dBWIK7Xn0UDGu4+/o34fDhn
+	9V5/8zxc9I5K/JxHEf4lIKAtPPgdSZ6/e0kYkk
+X-Received: by 2002:a17:902:d4c3:b0:2aa:dc84:251f with SMTP id d9443c01a7336-2ab398a922amr24090025ad.2.1770900103789;
+        Thu, 12 Feb 2026 04:41:43 -0800 (PST)
+Received: from junjungu-PC.localdomain ([2408:820c:9008:ba52:dc7:da9e:7bba:3b99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ab29979b13sm49087875ad.61.2026.02.12.04.41.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Feb 2026 04:41:43 -0800 (PST)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Thu, 12 Feb 2026 20:41:40 +0800
+Subject: [PATCH] spi: wpcm-fiu: Fix potential NULL pointer dereference in
+ wpcm_fiu_probe()
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,227 +83,62 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
- glue for Nuvoton MA35 family
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew@lunn.ch>
-References: <20260210052226.3005666-1-a0987203069@gmail.com>
- <20260210052226.3005666-4-a0987203069@gmail.com>
- <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
-
-This is a multi-part message in MIME format.
---------------aaXpGtG0sny9pfM8rBgrfgfB
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260212-wpcm-v1-1-5b7c4f526aac@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAIPKjWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDI0Mj3fKC5FzdFAuzNHMzczNDMxNTJaDSgqLUtMwKsDHRsbW1AOx28a1
+ WAAAA
+X-Change-ID: 20260212-wpcm-d86f76761645
+To: =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+ Mark Brown <broonie@kernel.org>
+Cc: openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1770900102; l=1414;
+ i=ustc.gu@gmail.com; h=from:subject:message-id;
+ bh=EkBsQjHkvpT+EDzlTJQoxDY16uNrl2PUIqqeXh4h1+I=;
+ b=BBb4/US8KhK9xEjwgm+JhoNpUwUaYp/aSYN8vFEydw0Kn85dWRKlCrGmjTK+xqoauYss/QjW7
+ IePX0f8tTVWAekP85XxHNtVHDcn2ylipgiSiNTKP6nUKjBDB+LmTiAm
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 
+platform_get_resource_byname() can return NULL, which would cause a crash
+when passed the pointer to resource_size().
 
-On 2/10/2026 9:12 PM, Russell King (Oracle) wrote:
-> Please note that net-next is currently closed, so you should be sending
-> net-next patches with "RFC". See section 1.4 of:
-> https://docs.kernel.org/process/maintainer-netdev.html
->
-> On Tue, Feb 10, 2026 at 01:22:26PM +0800, Joey Lu wrote:
->> +static int nvt_gmac_setup(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	phy_interface_t phy_mode;
->> +	struct regmap *regmap;
->> +	u32 macid, miscr, reg;
->> +	int ret;
->> +
->> +	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
->> +	if (IS_ERR(regmap))
->> +		ret = dev_err_probe(dev, PTR_ERR(regmap), "Failed to get sys register\n");
->> +
->> +	if (macid > 1)
->> +		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
->> +
->> +	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode))
->> +		ret = dev_err_probe(dev, -EINVAL, "Missing phy mode property\n");
-> If you pass in the plat_dat to this function, then you have access to
-> plat_dat->phy_interface. I went through all the dwmac glue code and
-> removed such PHY interface gets, so please don't introduce new
-> instances.
-I'll drop it.
->> +
->> +	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
-> I find the use of "miscr" to be the register offset, and "reg" to be
-> the register value is confusing. Normally they're the other way around.
-I'll update the naming to follow the usual convention, for example, 
-using reg for offset and val for value.
->> +
->> +	switch (phy_mode) {
->> +	case PHY_INTERFACE_MODE_RGMII:
->> +	case PHY_INTERFACE_MODE_RGMII_ID:
->> +	case PHY_INTERFACE_MODE_RGMII_RXID:
->> +	case PHY_INTERFACE_MODE_RGMII_TXID:
->> +		ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
->> +		if (ret < 0)
->> +			return ret;
->> +		reg = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
->> +
->> +		ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
->> +		if (ret < 0)
->> +			return ret;
->> +		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
->> +		break;
->> +	case PHY_INTERFACE_MODE_RMII:
->> +		reg = NVT_MISCR_RMII;
->> +			break;
->> +	default:
->> +		return dev_err_probe(dev, -EINVAL, "Unsupported phy-mode (%d)\n", phy_mode);
->> +	}
->> +
->> +	regmap_update_bits(regmap, miscr,
->> +			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, reg);
-> Please consider programming the NVT_MISCR_RMII bit via the
-> plat_dat->set_phy_intf_sel() method.
-I'll switch to using the plat_dat->set_phy_intf_sel() callback and pass 
-the required info through private structure.
->
-> Is this register preserved over suspend/resume ?
+Move the fiu->memory_size assignment after the error check for
+devm_ioremap_resource() to prevent the potential NULL pointer dereference.
 
-It is not preserved by the GMAC suspend/resume flow and therefore needs 
-to be treated as a system register rather than a GMAC local context.
+Fixes: 9838c182471e ("spi: wpcm-fiu: Add direct map support")
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+---
+ drivers/spi/spi-wpcm-fiu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> Thanks.
->
---------------aaXpGtG0sny9pfM8rBgrfgfB
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+diff --git a/drivers/spi/spi-wpcm-fiu.c b/drivers/spi/spi-wpcm-fiu.c
+index 0e3ee5516587..0e26ff178505 100644
+--- a/drivers/spi/spi-wpcm-fiu.c
++++ b/drivers/spi/spi-wpcm-fiu.c
+@@ -459,11 +459,11 @@ static int wpcm_fiu_probe(struct platform_device *pdev)
+ 
+ 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "memory");
+ 	fiu->memory = devm_ioremap_resource(dev, res);
+-	fiu->memory_size = min_t(size_t, resource_size(res), MAX_MEMORY_SIZE_TOTAL);
+ 	if (IS_ERR(fiu->memory))
+ 		return dev_err_probe(dev, PTR_ERR(fiu->memory),
+ 			       "Failed to map flash memory window\n");
+ 
++	fiu->memory_size = min_t(size_t, resource_size(res), MAX_MEMORY_SIZE_TOTAL);
+ 	fiu->shm_regmap = syscon_regmap_lookup_by_phandle_optional(dev->of_node, "nuvoton,shm");
+ 
+ 	wpcm_fiu_hw_init(fiu);
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2/10/2026 9:12 PM, Russell King
-      (Oracle) wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
-      <pre wrap="" class="moz-quote-pre">Please note that net-next is currently closed, so you should be sending
-net-next patches with "RFC". See section 1.4 of:
-<a class="moz-txt-link-freetext" href="https://docs.kernel.org/process/maintainer-netdev.html">https://docs.kernel.org/process/maintainer-netdev.html</a>
+---
+base-commit: 9152bc8cebcb14dc16b03ec81f2377ee8ce12268
+change-id: 20260212-wpcm-d86f76761645
 
-On Tue, Feb 10, 2026 at 01:22:26PM +0800, Joey Lu wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static int nvt_gmac_setup(struct platform_device *pdev)
-+{
-+	struct device *dev = &amp;pdev-&gt;dev;
-+	phy_interface_t phy_mode;
-+	struct regmap *regmap;
-+	u32 macid, miscr, reg;
-+	int ret;
-+
-+	regmap = syscon_regmap_lookup_by_phandle_args(dev-&gt;of_node, "nuvoton,sys", 1, &amp;macid);
-+	if (IS_ERR(regmap))
-+		ret = dev_err_probe(dev, PTR_ERR(regmap), "Failed to get sys register\n");
-+
-+	if (macid &gt; 1)
-+		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
-+
-+	if (of_get_phy_mode(pdev-&gt;dev.of_node, &amp;phy_mode))
-+		ret = dev_err_probe(dev, -EINVAL, "Missing phy mode property\n");
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-If you pass in the plat_dat to this function, then you have access to
-plat_dat-&gt;phy_interface. I went through all the dwmac glue code and
-removed such PHY interface gets, so please don't introduce new
-instances.
-</pre>
-    </blockquote>
-    I'll drop it.
-    <blockquote type="cite"
-      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+
-+	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I find the use of "miscr" to be the register offset, and "reg" to be
-the register value is confusing. Normally they're the other way around.
-</pre>
-    </blockquote>
-    I'll update the naming to follow the usual convention, for example,
-    using reg for offset and val for value.
-    <blockquote type="cite"
-      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+
-+	switch (phy_mode) {
-+	case PHY_INTERFACE_MODE_RGMII:
-+	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
-+		ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
-+		if (ret &lt; 0)
-+			return ret;
-+		reg = FIELD_PREP(NVT_RX_DELAY_MASK, ret);
-+
-+		ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
-+		if (ret &lt; 0)
-+			return ret;
-+		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, ret);
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		reg = NVT_MISCR_RMII;
-+			break;
-+	default:
-+		return dev_err_probe(dev, -EINVAL, "Unsupported phy-mode (%d)\n", phy_mode);
-+	}
-+
-+	regmap_update_bits(regmap, miscr,
-+			   NVT_RX_DELAY_MASK | NVT_TX_DELAY_MASK | NVT_MISCR_RMII, reg);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Please consider programming the NVT_MISCR_RMII bit via the
-plat_dat-&gt;set_phy_intf_sel() method.</pre>
-    </blockquote>
-    I'll switch to using the <span style="white-space: pre-wrap">plat_dat-&gt;set_phy_intf_sel() callback and pass the required info through private structure.</span>
-    <blockquote type="cite"
-      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
-      <pre wrap="" class="moz-quote-pre">
+Best regards,
+-- 
+Felix Gu <ustc.gu@gmail.com>
 
-Is this register preserved over suspend/resume ?</pre>
-    </blockquote>
-    <p>It is not preserved by the GMAC suspend/resume flow and therefore
-      needs to be treated as a system register rather than a GMAC local
-      context.</p>
-    <blockquote type="cite"
-      cite="mid:aYsurPBMnzWDZCco@shell.armlinux.org.uk">
-      <pre wrap="" class="moz-quote-pre">
-
-Thanks.
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------aaXpGtG0sny9pfM8rBgrfgfB--
 
