@@ -1,80 +1,54 @@
-Return-Path: <openbmc+bounces-1364-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1365-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64FD4EEA86E
-	for <openbmc@archiver.kernel.org>; Thu, 12 Feb 2026 23:23:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AE6EF48ED
+	for <openbmc@archiver.kernel.org>; Fri, 13 Feb 2026 09:00:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fBrv74t2xz2ydq;
-	Fri, 13 Feb 2026 10:22:59 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::431"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770874097;
-	cv=none; b=XqZ7GegDxOtOJT2K+AXGVVw/I7xwbUFZsqReMWXJZvff9O+E6Kcj9UncCeHeWEGeciuJCPTtkZyJFSccrvX/KDZ+hg8ilGSs+Jvj3qvmgx8gPKxfI/q0Vd/LX5+i1Kji/O1VfJfrqVX0tPz0//Uhe+gg73R2lYm5LyHNO+zZI6KWD5onFMSDTSwe4ltUKM1d9xi1jgeVemz7fJ67U4hLZ5yqq+5VkhTaD42199dGSYuGRiXzn1BmONA6lccCwteWweEGMYnj+MaJYg3OgW6KajNAn7jyMlOzRPBB8+m0E6nR9gPQ0ZazcYgM71+sJul+GFtK6DK4gNnOtwBfihk39g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fC5j05Kmxz2yvy;
+	Fri, 13 Feb 2026 20:00:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.227.15.4
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1770973204;
+	cv=none; b=DPVHlckMRO4MrCdpmH31B0PLnbgkFU0Afj0xj8IcwNr406hmGQsiFBS7mIgSMWuFagbuouCzgY/JfGYJI5zvORJarUCu0zmq+kqmarbYdGhDt43INaPVV/2NUP+VHbR7g1VOASZG3LXFhbbSVCg9UatHEXwuhu7vTqQQ3b2nncc1IQJLNHqb+xXrD8Sg3JJtM0OMsSswTtN+cGDp8Mg9wVbhzR/70U0MfUY922JtLnnkQTOAzWpPewYPMDI+Wl/9l0tvq6PIiIigJSU1lqdgt52mqv9Q0yVzPUzSp4j/iTw/KRJwZQ346ZhcIdkBZR7jQTkZ1gbUt4SsbY4kWGQqBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1770874097; c=relaxed/relaxed;
-	bh=KAvHmXBR6Z1t7fykOb+Q8OlteilYCII3PJTMYzVRo6g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AYEpussVgNI1CcnuYzHQMvBe84MplFR8A3vDwDAMpYROojxFmfDn3g4IXvYJo4B1P1oVDZcBfKzP6/1Ej/U+wG3GPpunasoMnbaWCyvI9OjeSg47XmAZdcNa4JZFicdye8NHTPSGSgKALSXr+j1TZOuJuckFd3plpJ+OGZjp2r1pLnLQ5gQkz8VkhtZQYd7yNo/A1eJjt3CU1CvU7ujYk5Vsp9JvNiNGONkTd/lw8lfhxv7jyTz7MzByeGdwRXSIMXXIXE/ehUBLLdfIbl3PuGfGrqsXsTncNCqlzaYh2JqTqGw4iOo8HAdzYanrEuYIyYAXkBHyCyB2yIzn+cxiWQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=R5J501z8; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1770973204; c=relaxed/relaxed;
+	bh=WfkDXFYmwC97kaq9x3OO67fq+4W/dySLiI/MkGDH91U=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=aZ43bEmsDjJGaDbFrXRj8OWuxc2KPq0XafYDyeAK4OTtnkTG6muhIUxv766I7NrgENZ72mRpkIYbPJaCIwpDJSspeqaQgS2U8jC056rvf5fcPbGuTUHxVwo7gtCxsYFHg5bz8avXHY1P4bHyC13GvbTgQB/x0zHZ7ZyomC/GkWRXAQ9BFtebTBGG9x7OGNSIufWfjWjSef3wPKoCFWk18+afpN0PrJOUeD6gF95t5wYnImoCUth3Vgapv/HLLQ3jXkED7aJ37U+iTF36j7GS4JocIMr8drV+ya4ITG430ROGOHBriR/NWBNeZ2q4GFfton7bmafAH0KhbgLSbQI+WA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=sR53dYTB; dkim-atps=neutral; spf=pass (client-ip=212.227.15.4; helo=mout.web.de; envelope-from=markus.elfring@web.de; receiver=lists.ozlabs.org) smtp.mailfrom=web.de
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=R5J501z8;
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=sR53dYTB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=web.de (client-ip=212.227.15.4; helo=mout.web.de; envelope-from=markus.elfring@web.de; receiver=lists.ozlabs.org)
+X-Greylist: delayed 323 seconds by postgrey-1.37 at boromir; Fri, 13 Feb 2026 20:00:01 AEDT
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fBP333zVJz2xHX
-	for <openbmc@lists.ozlabs.org>; Thu, 12 Feb 2026 16:28:14 +1100 (AEDT)
-Received: by mail-pf1-x431.google.com with SMTP id d2e1a72fcca58-8230c2d3128so1313628b3a.0
-        for <openbmc@lists.ozlabs.org>; Wed, 11 Feb 2026 21:28:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1770874092; x=1771478892; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KAvHmXBR6Z1t7fykOb+Q8OlteilYCII3PJTMYzVRo6g=;
-        b=R5J501z87Y/rTrNUNlzp6x0MoGVVJfezUzp9y5aCCYo+/KQEOM3O4Gix0uMi3NQ3WX
-         jVxcG+EfapoafJhhDfC5dJrqpWA0524u07qzXpiXEmzsH9YLASPwC16Izt64IJBaych0
-         o792JM5qB9Glr4508cBHZ3sOIJ+dTv4aOvvBsUElHIdDlNj9rk4yLUkdoZhlRohsqTxc
-         kOl/O9OxgfYxPjZR0+B1yRCRq0AFj4yuSXrIT8Lz7sa01hGq8jfy6I9vO8kiDhzYszVP
-         wRumpzTo8UUs/TIJrYk3rJpO42NrfACbU+D094vDIFYQ8iJ2r1QrSqi8syszunE20/wU
-         PJdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770874092; x=1771478892;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KAvHmXBR6Z1t7fykOb+Q8OlteilYCII3PJTMYzVRo6g=;
-        b=eiBXFCU33YKEtcsPa2IglNgPGrC5i9tvf8oSj56wVWAcxR0T/BJ9dmiIopoyM5cU9j
-         vKYx8KBSbz9uPDnbY8eSwqKYcIzUVx9TaKlvnORSp33pGtW6fLuEu3VdxD3TPjLSNbmf
-         9ZOCVCYH/gH/CEKXaa5A4YYlITaP+EJO8h79YaD3b6gQXFjpBOpDhYA+Yyx2gP+q+foY
-         mM63G6/v/0L1e9JzUygWR/1/YDEW1x7GMmT0W7iXkZyEmICYHFJBW9jORKclE6Tkva5n
-         YU7fav8v1wAkdP0QxO7YFQ1xBfZD0EV/qUUlOJDWElRrbkX249hK1T9bdZ7AAmCnNELC
-         Vw4A==
-X-Forwarded-Encrypted: i=1; AJvYcCW4IVDa0Poq49G00JkDtm7RaunJ3AmVnUgzx0uEu68Yh+iguyEeSKnnqHENpp5NqHUsev4t2PT0@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Ywvcho7NV2ZKfXOma81Nh/ddKsmLJ3IUKtzySgvJNeSmmK52yHK
-	efZl+PtK1aD93Ng3lnQS9NAjiWG2x+t3sjjhHs7E/ZHT1i5ctd+Q57KJ
-X-Gm-Gg: AZuq6aJk+hHRo2gLLKFkRbD9AlMhog3XvzTAE8WsOmSpcaKSXaUVARZlT3+tt2axLne
-	8fxmxJWYsc2VcTYAg9bVGOgPjhF6/rAJ9ptjnRBhxuYaGMMH8DXvCKd6qMG2VHnjKbhzJHk2leN
-	I9V+zc3d6+zaX9d5sm378M2dEbLFUYmpC6bt1AHEFFawy7oA76gwPclpU9R8Zy9HqSy+rhH9EaY
-	qfnxqtqf8ILR2XQRp2G30kY5vn3HKEvO70+Gb/2fF0dSte5irmkW0dq5DSPCD4ZWEJMr/OJ1BSk
-	XNGXLz1tVUtbos8Wn23QkzdspwlqFJhXFBK4xKb56R47JKD2inmZ9LDJD+6pybpIxs5EjnKKJpO
-	EobVSdXyc+aCIudkKlNPYot+OSpX1zGIhQESQRUcQwDHqYZXQrO8L8Pb59ToLKzhwdU4zGrunVB
-	2nKpEIlDELbFSjVWEq9ywaM7vkWVZMLPjgaJlFjATI5Mc3Oqd/ktqXRxC5bo+aaG0I8Cy5/RIG+
-	WS3
-X-Received: by 2002:a05:6a00:92a6:b0:824:4a22:ec02 with SMTP id d2e1a72fcca58-824b3042b8bmr1089776b3a.42.1770874091996;
-        Wed, 11 Feb 2026 21:28:11 -0800 (PST)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8249e368d0asm4119668b3a.11.2026.02.11.21.28.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Feb 2026 21:28:11 -0800 (PST)
-Message-ID: <532078ce-f02e-424f-8382-2b52438a657a@gmail.com>
-Date: Thu, 12 Feb 2026 13:28:07 +0800
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fC5hx0jDSz2xdY
+	for <openbmc@lists.ozlabs.org>; Fri, 13 Feb 2026 20:00:00 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1770973192; x=1771577992; i=markus.elfring@web.de;
+	bh=WfkDXFYmwC97kaq9x3OO67fq+4W/dySLiI/MkGDH91U=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=sR53dYTBppVId84bDQt/PqwAgf5C3Ehhi+VWe7sbE5yoIfkatIebb+ZSw/EaZ5G2
+	 iEvylDX6GW3GXAMh8lHu7ZjKkSghXm00BPe/cJVhsnubtIxK2t9k1w6kCTZFjltYr
+	 V+0CBk7fZdN699wOxQu9opmgOCzQMr4awxjLn6GfP0A5Hf1WDaxl+oOqTfMVcqcOM
+	 ViTKHoI8UOBgHptuUIEgJdDrzRfve6tcM4YAh+1fzv1AV7KA24HpXcGHwkrQy31uK
+	 +hjmUaoZUReuA2DxxVYg/LEXZLahsnC8/5Hk+bWFGlLOGmVOfK3e3zQ4J6+xIz8Br
+	 P4P2Oveor5+pJPZWEQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from [192.168.178.29] ([94.31.69.207]) by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N6K1l-1vkHX843XF-00wavz; Fri, 13
+ Feb 2026 09:54:12 +0100
+Message-ID: <c4db3d6a-b683-4b5b-943d-c0be91caad1d@web.de>
+Date: Fri, 13 Feb 2026 09:54:09 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,36 +61,107 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v12 3/3] net: stmmac: dwmac-nuvoton: Add dwmac
- glue for Nuvoton MA35 family
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com,
- alexandre.torgue@foss.st.com, joabreu@synopsys.com, ychuang3@nuvoton.com,
- schung@nuvoton.com, yclu4@nuvoton.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew@lunn.ch>
-References: <20260210052226.3005666-1-a0987203069@gmail.com>
- <20260210052226.3005666-4-a0987203069@gmail.com>
- <aYsurPBMnzWDZCco@shell.armlinux.org.uk>
- <747b9ab4-6711-426d-95a5-4ce6c8732edd@gmail.com>
- <aYxYRZZkVFz2jHaF@shell.armlinux.org.uk>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <aYxYRZZkVFz2jHaF@shell.armlinux.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: Felix Gu <ustc.gu@gmail.com>, linux-spi@vger.kernel.org,
+ openbmc@lists.ozlabs.org, =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?=
+ <j.neuschaefer@gmx.net>, Mark Brown <broonie@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+References: <20260212-wpcm-v1-1-5b7c4f526aac@gmail.com>
+Subject: Re: [PATCH] spi: wpcm-fiu: Fix potential NULL pointer dereference in
+ wpcm_fiu_probe()
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260212-wpcm-v1-1-5b7c4f526aac@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:HfWVrsW+IWR2QlxFK2Pl8zGVTnNAWL/CUi9X5L1uhbrwOLPgz0F
+ BcDXQ7mrl58YsDVeMpFLIiHcGPvMhiNzFnReSxLk0mHAFSxdPHR/486hBnOgjfHyRDHZ+ZZ
+ /3Qsj/EiZfw1ZnSzzkFAnxdIkZnl2iXUMa54SRm9mJ/sty25/Y3zJZO1zHZkvbdR0s2BdpJ
+ JBSser5ygTmGOlC96V11A==
+UI-OutboundReport: notjunk:1;M01:P0:gsoRQz/l4n8=;RA2UGiNow7xLPiSE7pw5wQ1KasP
+ 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
+ p9D6UUWo=
 
+> platform_get_resource_byname() can return NULL, which would cause a cras=
+h
+> when passed the pointer to resource_size().
+>=20
+> Move the fiu->memory_size assignment after the error check for
+> devm_ioremap_resource() to prevent the potential NULL pointer dereferenc=
+e.
 
-On 2/11/2026 6:21 PM, Russell King (Oracle) wrote:
-> On Wed, Feb 11, 2026 at 05:52:21PM +0800, Joey Lu wrote:
->>> Is this register preserved over suspend/resume ?
->> It is not preserved by the GMAC suspend/resume flow and therefore needs to
->> be treated as a system register rather than a GMAC local context.
-> That is another reason to use .set_phy_intf_sel as that will be called
-> just before GMAC soft-reset in the .ndo_open() and resume paths.
-Got it! Thank you for clarifying.
+Were any source code analysis tools involved here?
+
+Regards,
+Markus
 
