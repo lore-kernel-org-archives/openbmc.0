@@ -1,106 +1,92 @@
-Return-Path: <openbmc+bounces-1382-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1383-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AFDBE8383F
-	for <openbmc@archiver.kernel.org>; Mon, 16 Feb 2026 22:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C50E83856
+	for <openbmc@archiver.kernel.org>; Tue, 17 Feb 2026 06:54:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fFHv40gd0z2xlx;
-	Tue, 17 Feb 2026 09:46:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771232321;
-	cv=none; b=LfGrod20MY2Cc9MKZ+9EHsX/FNBlzguyI7XeceDbnBO340gHVLGkYT4DqTWlFuc3NR30POtoUfWTCjshBG7fgcPwQ4NyoUItUvt7Rnxe375kv4nMyiZ1guZCX1Si8oueZ0zEEtgRfM/X751qWtAHUnJJJxuNXx6DKphG7uKW7L+ccwIBCoZoJhI0mhdkHGwUvfkCyR5EMPQy20BeQJMgOZ7WYuFTfsEp3kaXCTYIQ7Klr5wUXkZPCZoSXIpSrNh5Mq+lwxgCbTZJI3q8ObGBAfOkK9ikKoy1iN3To+1T/5UNdIj7OEgy/402Rk45GQSGiDp65DNFvi4w2TxKChw9lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771232321; c=relaxed/relaxed;
-	bh=9mdP1sEEv3DicMUKY7bSjSANFfPYJzLjnK0jreJ9ZYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ApU2Z9YBR+Ln2KOWt/NHOBEIPRjh4FWHwZPI/oVqugGyF2RCegQy5vfNfcGftX1y32mT1PojyUDVu9qSNq3N5+DJlaydgsLXpFBnh//dgjgPGQPWT+ObNSn4VPw+S2yUyzY+j1NuWHM3eqhVFuWQMDU2YPlVnEMfLuDiYYVXgF+Blg0Gerft2dTwMoIEsE1Jm6ijdRSlmtbY5qoTbybA+5ZQRxc4RkDqVUk1EsoF8iAnRKQxZco1xwq2j7KXjbeXNUUY9Bd6G9qumKIXSq3meU750f1OzVZ1Jclat1YX3zbAHxhayoIRjnpK1qdTWAkRyWTEwMCKLkQfidrpjAaxBg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pI0PCEaq; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CWQd+m7f; dkim-atps=neutral; spf=pass (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=krzysztof.kozlowski@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fFVjf04HXz2yqs;
+	Tue, 17 Feb 2026 17:53:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::b12a" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771311237;
+	cv=pass; b=noyn9tSqf7iQI4dkQg8DMi1NABANTIcBrbWwC8az+51H+Cq0901N1MRJNaG/7bFDqbivTO8nHnlQ2FVDpxQ/2FILXvzhd3a2jhk79R9Dkc0weC2j4GIhSVVetZ+Nnq1jeQ44RWaDWwczw2erLxtOX1aCV0yZf08BvBQGj0hPXuZvSe+sZ7o7HaqQPFT+Qt+fOCc9jZpMdk+VCHkQNVpZXltxNz7fS52hf32dj9wGi/bkiGffMZc8uWAoo+sj+l05CGjf5OeeqA7Wnd43Bd/QzvKvJNTIHP40CVRrfD4iPQ9LimT1397u/c+jiICw0Op8DrwUBZSNwAN1GnEr5G9cqw==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1771311237; c=relaxed/relaxed;
+	bh=fWSVAQGlajcmbPXzYWuz8q6AKshPTNxq1CI+Oe0XkIs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ENzokq6H8G38J5l5/rvaveHhq/ktJH3jE1FMNSbh2InvkUJHZ9JXyc60KExdPb+x/f/bZo8ZMZypV2cJ71orfRNOgKyrBbT0hIkh/vWou+FY6fnO3V/+WFDiCR7L3mSk8bTIUYNtBewxblQ8bu4CoRf4bOHf+vUEsnoAmvsKTni18f6DVpy5Fp1N0kQmdZspFqX8H+Y+h+ogevsLKUW64IE9ac7HwLWjp59Bbp6cPm8Pe9mS7+DDdofwH8HXlPzOkGcrw0WaHbo9yh2WvYFMiiyjj9LTQAHxPRLTHqoWmDKs8U8ZhiwEuqAhN6QrkdEokQWi2i9Jp9fMw4HAnoaK9w==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FETY76YO; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::b12a; helo=mail-yx1-xb12a.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pI0PCEaq;
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CWQd+m7f;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=FETY76YO;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=krzysztof.kozlowski@oss.qualcomm.com; receiver=lists.ozlabs.org)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::b12a; helo=mail-yx1-xb12a.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-yx1-xb12a.google.com (mail-yx1-xb12a.google.com [IPv6:2607:f8b0:4864:20::b12a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fDxX01JzMz2xN4
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Feb 2026 19:58:37 +1100 (AEDT)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 61G1iD9V2108540
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Feb 2026 08:58:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=9mdP1sEEv3DicMUKY7bSjSANFfPYJzLjnK0
-	jreJ9ZYc=; b=pI0PCEaq6yuacdESyQI3Xxu5yUgIKlr1pbhByXdK2cpGfdymriL
-	1upMcvYNJS8w/ZU/kA0Sz3oQHDbeIjMiv8hfpmVH8ETEhzjR9wxqaFQDGsSR8HyQ
-	Y1jvlPveJNCi7oxAqLaHgPad1jtQOf1gfImtjH0jWjwtpzEYbDfTny4UgvexHfS+
-	BJ3IEwr3kSI/Mw9czgw9ErBy8WEyFaB9ZY7tsb67991r/y/9O+SUBIeFvgZfaOhe
-	HWyvtXdNq2GPHLoiHsbP0joOIjYwFWTahPoMazEu6GAr8IWYA4YpqqxVHV7sKPTc
-	53MeTb8NImYTGI5oF/w53QdnGGZvTZZqfZg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cbnv9h2us-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Feb 2026 08:58:30 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-8cb390a0c4eso2591798785a.1
-        for <openbmc@lists.ozlabs.org>; Mon, 16 Feb 2026 00:58:30 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fFVjb07DSz2xN5
+	for <openbmc@lists.ozlabs.org>; Tue, 17 Feb 2026 17:53:54 +1100 (AEDT)
+Received: by mail-yx1-xb12a.google.com with SMTP id 956f58d0204a3-649df3c22d4so3285545d50.3
+        for <openbmc@lists.ozlabs.org>; Mon, 16 Feb 2026 22:53:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771311230; cv=none;
+        d=google.com; s=arc-20240605;
+        b=NyQWcEPpYt8Sb7cpx0Z0fbq2T0j5qGKxgO7MT0LVi6I3Pqu8nNi+W/hTXvejq5tiFs
+         UDPKltRL4tD5PfGFu462TyEC0jD80B86Mo/NfZzsiGuEhKHxInW/2hybb86qbZt2XbnM
+         2KOkM6g5ZMxA7zmf5tjSRy9GG6iIV9wbjzNRAVwEeZSH/bodjylcUFIY0sACddYhGfbB
+         5MDs2b/HeniSNN5qhZ5dwNXv4OO0c8xr0Eyb5/rpTw7Ih6dLJdzBXkvTsVzPqZQRcSRV
+         uRHZfV+9noSg+efTCFtNQPDhMjvDXTRZ2eyGaBVVpv6io0Ph4DG9P7gPFNeMN5Pnohu9
+         3Y1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fWSVAQGlajcmbPXzYWuz8q6AKshPTNxq1CI+Oe0XkIs=;
+        fh=co+ZgbZZh5uIAiOjOy+ZEP18O0IdhZaCMGQ1FiRNL+s=;
+        b=DM7mkqPs12dH1+mJFvSWBWWMjBtoeRs4c3LGWUxThkDe1v7mZ0AMEhMTWxN1bO/wjr
+         ZVqyZ/iRuCjCK8KVS3YssgKqHpEjgMdx5rZSCIKWs9KRRZVcPravjU/+4mdjlrwQIbpv
+         NWZSU2ycefjgk8uIJbhu9v9rhzp/WZdmx0JUA4VdAEKQ4SxHbSUqTTsCHhwyI/Jj8zK0
+         udFeQPoIoPpxw6seOIf+aMGASLn/pVfVgUzwdv3/mboLj6fLd8WfdWV2Q4OU31pb/w5G
+         OZxa+d8O56ewiOaiopWD2An7SRSQ5GBGylp2VyuDDrtiVu5YebTk9KVEMtqCRf1F2HkU
+         IN0g==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1771232310; x=1771837110; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9mdP1sEEv3DicMUKY7bSjSANFfPYJzLjnK0jreJ9ZYc=;
-        b=CWQd+m7fX/NPUbJYAs3eD7DZCHRmbJ20bvlg76wBL19F5fu8stIFiZi4WE6UTTeNfK
-         ET25p433d/RY3x00GUYm+okEC7gO6NolFJtPRM3JhnoQDbhyhzgpxtp9X8gjx0CytGRP
-         rk1RMwlTgGXotiSii0cpi0yxBYasskspNoQayTs/MmsyPmafJhJpmSyTjb7LsxCt7iub
-         TYvoZDMuLqpdcBPVVTGJT+Tj1RSdoi3FUtTrZ3PsOu9Bvg2jX+33XaWMmDrXr8IuBAuD
-         /B5uvuM+2Bfs8kpLs1iFe1h4n85bqyIHEbjD/6PQJkYzgyW5d3h7sduNhSzX4LgOifhD
-         wNjA==
+        d=gmail.com; s=20230601; t=1771311230; x=1771916030; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=fWSVAQGlajcmbPXzYWuz8q6AKshPTNxq1CI+Oe0XkIs=;
+        b=FETY76YOSF/GTqdxQHVkBm35vVFq7CvDVFlwQtc1ftjj4jCw4uHEXIv+Mww7Jsfl6i
+         rVHVwJAWc+YT4+4CkD5XnlLEsG7J5ChhS5Hr+MgObbO2S80+avY9ixODn8pGFmUmJza2
+         y0L3wAvBM89xICKvbEBX4KBIG6T8EqQWBbEdnVwq69RSrVvwn9BwCewQQTzePI3jqiLf
+         k34PUNdfc2eB5HMO/fcy38ZzG78QLzLQEN9iM4Rj2SPkBZjvojeaJom/c9BuzUQ8ZvHb
+         igUrm2GPhJd2rQgCWEVICOAsOzQHvNiTg3MNMUO8+ei2CtuDlD1r5klGAolu9y0ADB+q
+         4kuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771232310; x=1771837110;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1771311230; x=1771916030;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9mdP1sEEv3DicMUKY7bSjSANFfPYJzLjnK0jreJ9ZYc=;
-        b=iexBazaDQK7l/bbk9Pp6yeQJB8BqBVPTd1bR6OcPYTy5uK7EaD679whqlkxeac225a
-         ES+g9DYkN8N/UEaPANJFhsUkKxnQKJogU+BLcCxNahFJo7Nf6D6k8WFvP00cAlGj7LP2
-         UKPbn+wq8iV5lw0v+qsBbRL66iwmW8U4PUw7mao1pKou+OxSEFBJ1NtKaKIsoiZvU0vy
-         Fn5zCTnAF8eonr26MLeLjVmD9HZU6VCCkFIRorvm/gNNC/m8B0yVpyEEkReofB2HUO5x
-         wqxKkx+PnzsHsSejEd84t+VG8/bPa+SxUmIXbcx2Asex3EU5Q1DJ9ugn6J3/TPPxFQsQ
-         aERQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVCe4RmISCWoLO/5rrGGz48+y2RExklWBir/GjJ/L0i7AQE/sDJh88sYakRKTcgsJ0UhkYMFPa4@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YydvgcwIYwxlxJmU8f40M1Y3korFsaoC1L2nZmQwDWQvMsf1o9I
-	cxetxwwz8QzPRxjEdqfmDukqZIG5sEFI5B5VeY5qBfC1s4fQXQSubGRpzVzJaDkRY6m1Y2jRaE1
-	JM8Y5A6gvA/+cvGDqA4tHEfw0gqOwq7ffiSOg+DziZYZthMlc2cbmu6+pzifCfA==
-X-Gm-Gg: AZuq6aL5CtwWfB8IsDtIaHQn6ZAdGc8yci6IQdzhNTA+/2RIT2ANpsnWijhXfKtEqs3
-	hBKB9PM7Ufg33bRFa8eEJMt0Ytz3tYz7hktqHCPvUEz1yMOEi/0j5CBCnCStYUntVqZIU//aIvb
-	0uZbIVcUzP6Yyt7S0n5H+LR7/W1GqqSldbHMRlrJy6efaHBcAUn5TLxr9kaqbcyyqLUX8+/ce9L
-	b0LJq0d0Qouh28Vzyy0mxVrFdSrBw6YLeb0qOWkELm1VHvjOfAeovWI1A2yD975QuVoSellnHrc
-	lqTqeyAvYWQRyGQfNIfw/S3XIo3f9ZMNR5X3NmRv69pbgDYE0jUZDbcLHXWpairp9Am3oguvvGi
-	c1Bx6MthpRDFCBVL6fMA2mGGPNIQTy0zgxN7Y8w==
-X-Received: by 2002:a05:620a:4487:b0:89f:8bb8:c103 with SMTP id af79cd13be357-8cb4bff2bd4mr845019285a.49.1771232310060;
-        Mon, 16 Feb 2026 00:58:30 -0800 (PST)
-X-Received: by 2002:a05:620a:4487:b0:89f:8bb8:c103 with SMTP id af79cd13be357-8cb4bff2bd4mr845017585a.49.1771232309653;
-        Mon, 16 Feb 2026 00:58:29 -0800 (PST)
-Received: from quoll ([178.197.223.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4835dcfafcdsm644400165e9.9.2026.02.16.00.58.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Feb 2026 00:58:29 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Avi Fishman <avifishman70@gmail.com>,
-        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
-        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-        Benjamin Fair <benjaminfair@google.com>,
-        Andi Shyti <andi.shyti@kernel.org>, openbmc@lists.ozlabs.org,
-        linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] i2c: npcm7xx: Use NULL instead of 0 for pointer
-Date: Mon, 16 Feb 2026 09:58:26 +0100
-Message-ID: <20260216085825.70568-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
+        bh=fWSVAQGlajcmbPXzYWuz8q6AKshPTNxq1CI+Oe0XkIs=;
+        b=KhRsxsuBhOCeTii5uOHJnQwtRTd0VWpe39HHxl0I4pJgaB9+QG7sa7zM87gsuDL8vp
+         5yu2It0LtLKs2FUFBdjuC6tJCbMrHdacudKz26k+Q2nr1R8Q++bUF/q2nwp35n9IFTOh
+         sw8SfwyoNT+p1Vvp+DePBXcOtEbAX/o52j5zE01eTRk0p+r2TYlQwjMGH1jJVF+Q9i0v
+         5JiAEajG6GW3024y5whmQ2myGr4s0371oLNrholrao13fe8MFPGYv4U+s29ZuHKw9oYq
+         3uXCmoHW5isAZ0k9cwQYvxma8n4Lr7JYtW08KcBwLY2oc3E6ZP42kx6mqCXsEZI0WvPO
+         Xf4g==
+X-Forwarded-Encrypted: i=1; AJvYcCVqxLomnOoXtnDCmzjQkydqwap5bBWymCdW85gvO3iFuzcHtqfOZc1qIZkvnU7rqzY1jbGLKnFw@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxgaOrXNrUPYMm6qaP0X9rjLulhDbKgrBuKe8GeYppNK6geP8PZ
+	In9Eoyid/VOLNOraGoUBAeHjCn+JCYac33SmMJQEzgAXdLz/7bVDFIxWN5KXX99bGARxj3dvWfT
+	kN3IGuMB8J+Mbm2wGLeBZH1EFlnyM5TI=
+X-Gm-Gg: AZuq6aKMsjz9wRdxKM9BCMnfMe73JyKN7WXrq/L0G4mEMrzNJDFASEaGU8UGRCKk+CL
+	HEbSRBNQRBd7tkRhh8il2oKwQWzItelHFKQ9IiuB00w7v+Nw1jiqtrtyTH1Z+2B4B5KeZMD5PQE
+	VihqfMZsYmu4F5pKkcRoI0SHjnXB+JIaEGEu23mybWSBqnHGCUuEwKp1tczP1/4+4woyIQPgLOT
+	OC2IjhfOgq34mcRwwsYukRnz9JEY7CSyMknQZX/SyoOOs/UWFnkAbHcpEcFfSLohdQYN/VlVb4A
+	kAK5q/D5lWuYS3Lr6Lo=
+X-Received: by 2002:a05:690e:b46:b0:649:cbdc:c491 with SMTP id
+ 956f58d0204a3-64c21b83fbemr6967437d50.84.1771311230562; Mon, 16 Feb 2026
+ 22:53:50 -0800 (PST)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -112,69 +98,236 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=929; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=SpvqgitAm5DBJSVPgUSEucLUHNRZc2U0J5AJUKtXN0Y=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpktwxbeX3OO3EWdHHHK0tcuimC80VWGXUHBWb/
- TcNUsr+0x2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaZLcMQAKCRDBN2bmhouD
- 10wDD/9aOai/6YTX7krBZ4deU7lzy8oIaMnkFJiPfNFcD74mDJvAb0xMBxiT2xykteztHQHyhlJ
- 7QBZsq/F9vhzh+jHHsqi+NNRxY7BRukmUW+Yy865W9sNxQEusH8cY71MR9xm79eMjX31apL4tUT
- k9bYQkU3DFOhiAmdh4VnH8qtecqeD/DKXVNPOlzTTs+CmPuRJA3tzpezwJw8W/HVavRfJ0+o7sa
- OqSiNS1oj8KCAzsyxEyPJ1ld+cwXTrBsyWvcqj9EpTpQJRrd0H232k4MxOC1kUFZ0R3PgM3NfMO
- m2i1nPEDdMA+Z6De7noJ1wg+GpjWHnefY7T2rfXNAqXqEGxk4VpEUZD3GfFiaynXOeYqAJq/YDl
- Iu89ub+d1xndMbS/oZSZ3YR/DdETPeZEC7lU7bsD/D5ZMyGesyP/Gda1gqai9ibOfPtzgRliYzK
- zzGc+OmBiXyZS5FEGCjMDuRarDrwYVfBOPo4PW6AVVCyPJtctGYWeKmjzDO6KX1QsEaTLrmWRq0
- i6tWHraMtGcSKqQWMAMvnEQUaQaQAkTrbZrF5MzNdwpbqbMmrUBwtG/DMRgn7wdHKHYoFgaVs2z
- 0ILT24WuIHzzqc2Q9Asq3Gv86Nb250UKTWZmyDbNs2kUJzAPnMsDJd3VI4yYpw7xLc0bnMVblhi s8cR3vbkqSfmVaA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: epz2uWD7C_LbDNUVqEQtUsff2bwTmlPT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE2MDA3NCBTYWx0ZWRfX2YvlCfEC0Im5
- 6auW9QU9LqXifuwaFP5QBJO7fIOwl99FnuPiYD0/NmE43ZDhZci1JjjVNDDlbunGxH3uEBfwLP5
- I4SwwyVriMZmixNUNHLHT+Yslr9QoXDRtEIbquiV6NLpSA6aRXQfhHj4EdqZYvZ7jQla0JLs8ir
- Y/aZnAzFwrmhVKWVAYKV1HfoRApWmfBRDjBczsk3RDnyrhL5FztAEga2aB1CQxp2u2s7Teic7qT
- /0Ylwb3gpoyFjzKsbiZzaLLh/nbxbyLzYiO/C3wSrObdJQpDyak0y4/UtD960JxO+KJ9QbIO44o
- ROKoigSO29xL7/TS9ZDm06nd8Gtc9KZ3mPz4IJfFZKMZf6255KFke7EsAsiLYKSUJ7bez196QU+
- sfFF6Rclbd+EpgGyoqtsoOdcwDMAUW2DZQtPEsKph8EJ58NpfMY7271dO4o4YZbmpC7gOtisjkt
- YgGrx2eBABZyx2Xeg9w==
-X-Authority-Analysis: v=2.4 cv=b7K/I9Gx c=1 sm=1 tr=0 ts=6992dc36 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=6nO30s3o7FuWeffXwhKHTA==:17
- a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=EUspDBNiAAAA:8
- a=pz2CoIr9GbPYS4DEQB0A:9 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: epz2uWD7C_LbDNUVqEQtUsff2bwTmlPT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-16_03,2026-02-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
- phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602160074
+References: <20260210133843.1078463-1-tmaimon77@gmail.com> <20260210133843.1078463-2-tmaimon77@gmail.com>
+ <b746dd7d-550c-4877-9210-754ae278e1a2@kernel.org> <CAP6Zq1jZorLxXQYqm5KzcYdoRzcFtD1KQqzmgaa6KKy-+Tpv+Q@mail.gmail.com>
+ <92197c45-2921-47ad-9680-7339d6308b8f@kernel.org> <CAP6Zq1hLkT-xMwV99yVE-hLsf_nT+V_3v7sEshfqEkkRCkEevA@mail.gmail.com>
+ <1522cec8-8259-4404-86fa-18bd91473087@kernel.org> <CAP6Zq1iWpHc-Rsq62iBN0VtYmYS2=KhU12TE_5nxztr+HbB+tA@mail.gmail.com>
+ <20260216-prompt-boisterous-worm-fed8d9@quoll>
+In-Reply-To: <20260216-prompt-boisterous-worm-fed8d9@quoll>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Tue, 17 Feb 2026 08:53:39 +0200
+X-Gm-Features: AZwV_QgIA5W3BwyMf3qo8onR6uZ8-oOwq4f-lq8mw7kjPHiqF11ooXYZh9emTc0
+Message-ID: <CAP6Zq1gRd8zDi1rOkX+2x3WP0ZGnULaJ0cGS6bwpRpcmQNmRCA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/2] dt-bindings: watchdog: Add NPCM reset status support
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: andrew@codeconstruct.com.au, avifishman70@gmail.com, tali.perry1@gmail.com, 
+	wim@linux-watchdog.org, linux@roeck-us.net, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, venture@google.com, yuenn@google.com, 
+	benjaminfair@google.com, joel@jms.id.au, openbmc@lists.ozlabs.org, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000af3528064aff884b"
 
-Pointers should use NULL instead of explicit '0', as pointed out by
-sparse:
+--000000000000af3528064aff884b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  i2c-npcm7xx.c:1387:61: warning: Using plain integer as NULL pointer
+On Mon, 16 Feb 2026 at 20:03, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- drivers/i2c/busses/i2c-npcm7xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> On Mon, Feb 16, 2026 at 04:59:18PM +0200, Tomer Maimon wrote:
+> > On Mon, 16 Feb 2026 at 16:48, Krzysztof Kozlowski <krzk@kernel.org>
+> wrote:
+> > > >>>>> +  syscon:
+> > > >>>>
+> > > >>>> First iteration. See "How to Get Your DT Schema Bindings Accepte=
+d
+> in
+> > > >>>> Less Than 10 Iterations"
+> > > >>>>
+> > > >>> Thanks, it was very helpful.
+> > > >>> the syscon property is already found in the WD node
+> > > >>> in nuvoton-common-npcm8xx.dtsi file, what should I do:
+> > > >>
+> > > >> How is that file related to this binding?
+> > > >>
+> > > >> Either you document existing ABI or you add new (for new device).
+> Commit
+> > > >> msg MUST be explicit about it and provide the reasons. If wrong
+> (e.g.
+> > > >> discouraged) ABI was already used then it depends how and when it
+> got
+> > > >> into the kernel, e.g. if someone bypassed DT completely just to ge=
+t
+> it
+> > > >> inside.
+> > > >>
+> > > > The syscon property is already used in the upstream NPCM8xx DTSI
+> watchdog
+> > > > node, so I will document it as existing ABI and mark it deprecated.=
+ I
+> > > will
+> > >
+> > > And how it is used? I cannot find its usage, so I do not agree on
+> > > documenting it. Property should be removed or at least provide the
+> > > justification/impact of removal, if you need it to stay.
+> > >
+> > > Understood. The syscon phandle is used by the watchdog driver to read
+> and
+>
+> You messed up quotes.
+>
+> Can you point me to the line? I REALLY want to be sure that we are not
+> wasting each other time, e.g. me looking at wrong code or you telling me
+> some bollocks from downstream.
+>
+The syscon property is not used in the current upstream npcm_wdt driver.
+It is used *in this patch set*, which introduces the function
+npcm_get_reset_status(). Inside that function, the code calls:
+gcr_regmap =3D syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
+to obtain the GCR regmap, read the reset=E2=80=91status registers, clear th=
+em, and
+report the reset cause via the watchdog bootstatus.
+This usage is shown here:
+https://www.spinics.net/lists/kernel/msg6045622.html
+In addition, the watchdog maintainer confirmed that the reset cause can be
+exposed without the deprecated reset=E2=80=91type DT properties:
+https://www.spinics.net/lists/kernel/msg6052106.html
 
-diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
-index 8b7e15240fb0..f667a873b81e 100644
---- a/drivers/i2c/busses/i2c-npcm7xx.c
-+++ b/drivers/i2c/busses/i2c-npcm7xx.c
-@@ -1384,7 +1384,7 @@ static irqreturn_t npcm_i2c_int_slave_handler(struct npcm_i2c *bus)
- 		 */
- 		bus->operation = I2C_NO_OPER;
- 		bus->own_slave_addr = 0xFF;
--		i2c_slave_event(bus->slave, I2C_SLAVE_STOP, 0);
-+		i2c_slave_event(bus->slave, I2C_SLAVE_STOP, NULL);
- 		iowrite8(NPCM_I2CST_SLVSTP, bus->reg + NPCM_I2CST);
- 		if (bus->fifo_use) {
- 			npcm_i2c_clear_fifo_int(bus);
--- 
-2.51.0
+Given this, should I remove the unused syscon phandle from the NPCM8xx DTSI
+first, since no upstream driver currently uses it and it is therefore not
+part of the ABI?
+In this patch set, I am adding the first upstream usage of the GCR regmap
+in the watchdog driver, so I plan to introduce the new, preferred
+nuvoton,sysgcr property in the binding and use it in the DTSI, without
+keeping the old syscon name unless you think backward compatibility is
+needed.
 
+Please let me know if you prefer that I update the DTSI first or include
+the DTSI and binding changes in the same series.
+
+>
+> > clear the GCR reset=E2=80=91status registers and then report the reset =
+cause
+> > through the watchdog bootstatus bits.
+> > Therefore, this property should appear in the binding only because the
+> > watchdog driver actually uses it =E2=80=94 which I am implementing in t=
+his patch
+> > set.
+> > I will document it accordingly, and also add the new nuvoton,sysgcr
+> phandle
+> > as the preferred name.
+>
+> Best regards,
+> Krzysztof
+>
+>
+Best regards,
+
+Tomer
+
+--000000000000af3528064aff884b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 16 Feb 2026 =
+at 20:03, Krzysztof Kozlowski &lt;<a href=3D"mailto:krzk@kernel.org" target=
+=3D"_blank">krzk@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex">On Mon, Feb 16, 2026 at 04:59:18PM +0200, Tomer =
+Maimon wrote:<br>
+&gt; On Mon, 16 Feb 2026 at 16:48, Krzysztof Kozlowski &lt;<a href=3D"mailt=
+o:krzk@kernel.org" target=3D"_blank">krzk@kernel.org</a>&gt; wrote:<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; +=C2=A0 syscon:<br>
+&gt; &gt; &gt;&gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt;&gt; First iteration. See &quot;How to Get Your DT Sc=
+hema Bindings Accepted in<br>
+&gt; &gt; &gt;&gt;&gt;&gt; Less Than 10 Iterations&quot;<br>
+&gt; &gt; &gt;&gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; Thanks, it was very helpful.<br>
+&gt; &gt; &gt;&gt;&gt; the syscon property is already found in the WD node<=
+br>
+&gt; &gt; &gt;&gt;&gt; in nuvoton-common-npcm8xx.dtsi file, what should I d=
+o:<br>
+&gt; &gt; &gt;&gt;<br>
+&gt; &gt; &gt;&gt; How is that file related to this binding?<br>
+&gt; &gt; &gt;&gt;<br>
+&gt; &gt; &gt;&gt; Either you document existing ABI or you add new (for new=
+ device). Commit<br>
+&gt; &gt; &gt;&gt; msg MUST be explicit about it and provide the reasons. I=
+f wrong (e.g.<br>
+&gt; &gt; &gt;&gt; discouraged) ABI was already used then it depends how an=
+d when it got<br>
+&gt; &gt; &gt;&gt; into the kernel, e.g. if someone bypassed DT completely =
+just to get it<br>
+&gt; &gt; &gt;&gt; inside.<br>
+&gt; &gt; &gt;&gt;<br>
+&gt; &gt; &gt; The syscon property is already used in the upstream NPCM8xx =
+DTSI watchdog<br>
+&gt; &gt; &gt; node, so I will document it as existing ABI and mark it depr=
+ecated. I<br>
+&gt; &gt; will<br>
+&gt; &gt;<br>
+&gt; &gt; And how it is used? I cannot find its usage, so I do not agree on=
+<br>
+&gt; &gt; documenting it. Property should be removed or at least provide th=
+e<br>
+&gt; &gt; justification/impact of removal, if you need it to stay.<br>
+&gt; &gt;<br>
+&gt; &gt; Understood. The syscon phandle is used by the watchdog driver to =
+read and<br>
+<br>
+You messed up quotes.<br>
+<br>
+Can you point me to the line? I REALLY want to be sure that we are not<br>
+wasting each other time, e.g. me looking at wrong code or you telling me<br=
+>
+some bollocks from downstream.<br></blockquote><div style=3D"font-size:14px=
+;line-height:20px"><font face=3D"arial, sans-serif">The=C2=A0<code style=3D=
+"">syscon</code> property is not used in the current upstream <code style=
+=3D"">npcm_wdt</code> driver.<br></font></div><div><font face=3D"arial, san=
+s-serif"><span style=3D"font-size:14px">It is used </span><strong style=3D"=
+font-size:14px">in this patch set</strong><span style=3D"font-size:14px">, =
+which introduces the function </span><code style=3D"font-size:14px">npcm_ge=
+t_reset_status()</code><span style=3D"font-size:14px">. Inside that functio=
+n, the code calls:</span></font></div><div><span style=3D"color:rgb(0,0,0)"=
+><font face=3D"arial, sans-serif">gcr_regmap =3D syscon_regmap_lookup_by_ph=
+andle(dev-&gt;of_node, &quot;syscon&quot;);</font></span></div><div><div st=
+yle=3D"font-size:14px;line-height:20px"><font face=3D"arial, sans-serif">to=
+ obtain the GCR regmap, read the reset=E2=80=91status registers, clear them=
+, and report the reset cause via the watchdog <code>bootstatus</code>.</fon=
+t></div></div><div style=3D"font-size:14px;line-height:20px"><div style=3D"=
+line-height:20px"><font face=3D"arial, sans-serif">This usage is shown here=
+:<br>
+<a href=3D"https://www.spinics.net/lists/kernel/msg6045622.html">https://ww=
+w.spinics.net/lists/kernel/msg6045622.html</a></font></div><div style=3D"li=
+ne-height:20px"><div style=3D"line-height:20px"><font face=3D"arial, sans-s=
+erif">In addition, the watchdog maintainer confirmed that the reset cause c=
+an be exposed without the deprecated reset=E2=80=91type DT properties:<br>
+<a href=3D"https://www.spinics.net/lists/kernel/msg6052106.html">https://ww=
+w.spinics.net/lists/kernel/msg6052106.html</a></font></div><div style=3D"li=
+ne-height:20px"><div style=3D"line-height:20px"><p style=3D""><font face=3D=
+"arial, sans-serif">Given this, should I remove the unused <code style=3D""=
+>syscon</code> phandle from the NPCM8xx DTSI first, since no upstream drive=
+r currently uses it and it is therefore not part of the ABI?<br>
+In this patch set, I am adding the first upstream usage of the GCR regmap i=
+n the watchdog driver, so I plan to introduce the new, preferred <code styl=
+e=3D"">nuvoton,sysgcr</code> property in the binding and use it in the DTSI=
+, without keeping the old <code style=3D"">syscon</code> name unless you th=
+ink backward compatibility is needed.</font></p>
+<p style=3D""><font face=3D"arial, sans-serif">Please let me know if you pr=
+efer that I update the DTSI first or include the DTSI and binding changes i=
+n the same series.</font></p></div></div></div></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+<br>
+&gt; clear the GCR reset=E2=80=91status registers and then report the reset=
+ cause<br>
+&gt; through the watchdog bootstatus bits.<br>
+&gt; Therefore, this property should appear in the binding only because the=
+<br>
+&gt; watchdog driver actually uses it =E2=80=94 which I am implementing in =
+this patch<br>
+&gt; set.<br>
+&gt; I will document it accordingly, and also add the new nuvoton,sysgcr ph=
+andle<br>
+&gt; as the preferred name.<br>
+<br>
+Best regards,<br>
+Krzysztof<br>
+<br></blockquote><div><br></div><div>Best regards,</div><div><br></div><div=
+>Tomer=C2=A0</div></div></div>
+</div>
+
+--000000000000af3528064aff884b--
 
