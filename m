@@ -1,62 +1,62 @@
-Return-Path: <openbmc+bounces-1389-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1390-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20FDE9A02C
-	for <openbmc@archiver.kernel.org>; Wed, 18 Feb 2026 19:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68A4FE9A02C
+	for <openbmc@archiver.kernel.org>; Wed, 18 Feb 2026 19:46:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fGRRn1JK9z2yrn;
-	Thu, 19 Feb 2026 06:30:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.11
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771443012;
-	cv=none; b=aQi2X5FNRUDAe1vsyQR1DeWFZGUlJjgJzfM3WjyenWoHJoxkz7r9zhtvkPXTJhurn0C/t8+NInNDCT0A4RlrAVfyVK4tJEl2C+bMs1aUakb266UrEeinEt9Rv8NPr+nMWs4fp8/ZyDecgs4lOP4ytKuhRmf1xROWYh0/eN1tjVKosDm1x+8NQoJV9L90PgtdM2XUEv3PY0IGao82DFydN6SV/bYVosW9Lc57+tr08miREIR1JBC3jrqqghj19Rar7MQTyWe+4v36Ej6iR7lt/XEWDEtCvp6JDR7VPPod4U96q1/udFa3EhnL8uLz+eaXipjJBWJ9DAz2OpSmSbh/6g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fGRpY1xmNz2yrn;
+	Thu, 19 Feb 2026 06:46:29 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771443989;
+	cv=none; b=fDgrdEU/2mgVwZN8R759r6U55+jWw8nDEYz5qbRB1ua46T0k1t8c070zjhCXcwT/UN5UWNCLr3fg/ylLJ8RRlJDQsR0fF8Y4jzu6/ml5epyuOzHJRbdT+e6bQKXPsPXPtxDl5f96lgTASjK25Xjz3UEYeXvwzlfeK6oDjLwBK7F5JfC23shbSdryX+If/JIB6jJLsDFP/ACxB6fATN8sbswTaPyR4fSVGYQeymWeMG/NFaCgkGCgbTHsx+OX3dTxYEagL81EmlspDmvM57HfsJKUfq+UeWhoHuq95QY99EKeESvoEzJowM2rE3lTx34/aT88ZedfwTxjUPCwIOKLqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771443012; c=relaxed/relaxed;
-	bh=BfeW3v6VeI1ZhNHt/aIURlNG/D/B0MsHoeB9iHPpdZU=;
+	t=1771443989; c=relaxed/relaxed;
+	bh=OSAwn+TL2V2wN/TMiDgMtWnsdSv7FS+J3W72d7VQXO0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dqcKncLTj0kAtqH08Ed35w2UYGEdR04XOVwSfAWGYKi7Kr8Q06qPx9GQTk1+TLp2bLG2Z6zyoMQg+VQOY9erMSmHp/aTz3JncDExjqZ6/RtbobZvxoOSEwT3w6RRSlv1N7W2b9/ESXDREdUXNKtY6uoKsJzgLGt6EYudUuobhVvF4i9jZfahCBjv2A/QdQ457jQ1zOLCtkzKy+fzWtoJHdCTZMZoWd/zCIr4HYexIZJrOKlE/z2H/hIff/gY80SgIvLGM6DvYymIZLA6amBX+nQn6o0zb81ZB4egJng1UzU4ZDo8XCk4hZghyXz8KXBMOQC3STA2W/XZ1uHRT/LX4A==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZLh36y2w; dkim-atps=neutral; spf=pass (client-ip=198.175.65.11; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=A3ZMAQY+m3vmJpiKrvMJPm6hRdYwMWfFB6Iw01JWPpXGtLaJPnSVSkxDyBBHbE2qM8l44rGRNQyd3qI+hgMlzl2apw9Oii24dAqQrEBOrza/UL8l5ZDL1ZMk4CHkULnGYe+7NpheGPBNjr/TBYA6jExyipXT8PdFeoh9rJEQ9l3VYr3hu5jUmNeChgoIqWKAMSfjzOdpQvhYmQLVqb1zi2AGLWTrMnw9bzh5Zx4AVQjKGBL97GYiyGq3cWafXYrw99y4yXz+W5RolB0M0WUkxQ8FC21dQFsw6zdugwEQkn9Cu4DdogpShnw3gXV27cby+i+KQmQADOsFG/Ozus+cIA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eNe1hPaT; dkim-atps=neutral; spf=pass (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZLh36y2w;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eNe1hPaT;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.11; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fGRRl5HgPz2xLv
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Feb 2026 06:30:10 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fGRpW6Pjnz2xLv
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Feb 2026 06:46:27 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1771443012; x=1802979012;
+  t=1771443989; x=1802979989;
   h=message-id:date:mime-version:subject:to:cc:references:
    from:in-reply-to:content-transfer-encoding;
-  bh=zrFRbht4ecVfwb3Aq+wsNKWqdkQUklyJej63/BrDQOQ=;
-  b=ZLh36y2w7YNJ5ZcuaRtDh56jAJeVQK21jG2h6eMEkE9oD8GITu70E9tV
-   CrjWJN+i9iB4EeZOPnztAPzEGkesfj50ciVfPWp3FW3f4faMZI141D4l0
-   ETtqBzjZmY2hceipKPuX5yTaNEwr9l5e+KaYFWh0x63Yvzihi8BmxA5ve
-   9GvPkLLv5Ix2CLEtyIJz2MHzu5mH4kQr5DSrpwgwvlJBdIm7IZ5nf2fZF
-   oh3YV9irodz95jjcuG7dTaToEcG4xsXKMzZW7rZBi6fcYC0JW6Na0CshE
-   /QyrVQ1X26Ufeieafor3OxvU4m9wwXjoTWk+mb/1UwVovYU/z7MTQOIiN
-   w==;
-X-CSE-ConnectionGUID: 5beEBTTORFiRiTbg3Ig7Nw==
-X-CSE-MsgGUID: yOCb8GV+QVyIW2gTBLH+LQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11705"; a="82850819"
+  bh=kPYJjoHum/OzeTCGaxXQIKGPQ7Ps60e3fK3ryttqq2E=;
+  b=eNe1hPaT5z/HW4ubvfj5gQCvbkLd1XC0d9oWU0uLgojdxhMrimkwuLh8
+   mUnM4WH7CMgp5aWbkonja8Xr159rZJYjuRDP5k/PsG4QJl6SAy4Y10aK5
+   hgQQge8E+NnOZmFYjmzLP4WD5LnnY49p1dWXFybK4y0ScdPz3MO1Lr6EN
+   jk90u0DMZtq+LaQqmcpKLgfQ3hDcVSfFdNqwQzsjOUs3YiildX2dEbAw/
+   CW1Vq7P8h1Cw85wV8v9ENd/Ux6ohE5xCBk61LhckVPv3XhtplauK01oP3
+   wXcqRGf4qWBtswnt5nezmCsGIBQdoKw5sJif5gGGOBEUvpOfqph9edMri
+   Q==;
+X-CSE-ConnectionGUID: TJvbuih2RrCwtvZA0jQ8WA==
+X-CSE-MsgGUID: hYxgq6TWTFaj3dxJPuVg4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11705"; a="83632548"
 X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
-   d="scan'208";a="82850819"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:30:08 -0800
-X-CSE-ConnectionGUID: o9IBGgdeSWayRQIFCqHHpw==
-X-CSE-MsgGUID: BFA0vf5MTiqLfGBnm/DhCA==
+   d="scan'208";a="83632548"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:46:25 -0800
+X-CSE-ConnectionGUID: Obr0ipZOTIS6WTWhLtPE3A==
+X-CSE-MsgGUID: NlaHVE3bTli897Ra93VJXQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
-   d="scan'208";a="212350098"
+   d="scan'208";a="213378888"
 Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.224]) ([10.125.109.224])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:30:07 -0800
-Message-ID: <5cfea5f4-1ced-4559-8de1-4e96116536f4@intel.com>
-Date: Wed, 18 Feb 2026 11:30:06 -0800
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:46:25 -0800
+Message-ID: <183a4d9d-3d72-4359-89ee-7d99fd60f9a7@intel.com>
+Date: Wed, 18 Feb 2026 11:46:24 -0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -79,6 +79,9 @@ Cc: Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>,
  Tony Luck <tony.luck@intel.com>, x86@kernel.org
 References: <20260218170301.D814B556@davehans-spike.ostc.intel.com>
  <02494c50-8239-4e9d-b653-451728e5b5fc@intel.com>
+ <5cfea5f4-1ced-4559-8de1-4e96116536f4@intel.com>
+ <513b4954-6c41-44f1-ae54-d7408ccd999c@intel.com>
+ <2ff19b89-8bb1-4670-a54b-326ea05ca49b@intel.com>
 From: Dave Hansen <dave.hansen@intel.com>
 Content-Language: en-US
 Autocrypt: addr=dave.hansen@intel.com; keydata=
@@ -124,68 +127,18 @@ Autocrypt: addr=dave.hansen@intel.com; keydata=
  MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
  hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
  vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
-In-Reply-To: <02494c50-8239-4e9d-b653-451728e5b5fc@intel.com>
+In-Reply-To: <2ff19b89-8bb1-4670-a54b-326ea05ca49b@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2/18/26 11:26, Sohil Mehta wrote:
->> diff -puN include/linux/peci.h~peci-sanity include/linux/peci.h
->> --- a/include/linux/peci.h~peci-sanity	2026-02-18 08:19:42.371396743 -0800
->> +++ b/include/linux/peci.h	2026-02-18 08:19:42.388397383 -0800
->> @@ -72,7 +72,7 @@ static inline struct peci_controller *to
->>  struct peci_device {
->>  	struct device dev;
->>  	struct {
->> -		u32 x86_vfm;
->> +		u32 device_id;
+On 2/18/26 11:43, Sohil Mehta wrote:
+> Scratch that. I see a difference.
 > 
-> There is a kernel-doc comment on top of this struct as well that needs
-> to reflect the change.
-
-Thanks, I'll fix it up.
-
->> diff -puN include/linux/peci-cpu.h~peci-sanity include/linux/peci-cpu.h
->> -#include "../../arch/x86/include/asm/intel-family.h"
->> +/*
->> + * These are in the format of and match the values of the x86
->> + * CPUID.01H:EAX[19:4]. They encode the model and family of
+> #define INTEL_HASWELL			IFM(6, 0x3C)
+> #define INTEL_HASWELL_X			IFM(6, 0x3F)
 > 
-> Can we include the extended family bits in the *comment* to say
-> EAX[27:4]? I expect Family 19 (DMR) will be added soonish, which will
-> make the comment stale.
+> PECI_INTEL_HASWELL_X (0x306C) doesn't match INTEL_HASWELL_X instead you
+> seem to have copied INTEL_HASWELL.
 
-Right now, all the constants are 16 bits long, that's 19:4. If a future
-CPU model needs more bits, they'll make all the constants bigger and can
-change the comment.
-
->> + * the CPU with which the driver is interfacing.
->> + *
->> + * All driver functionality is common across all CPU steppings
->> + * of a given model, so the lower 4 stepping bits are excluded
->> + * from these IDs.
->> + */
->> +#define PECI_INTEL_HASWELL_X		0x306C
->> +#define PECI_INTEL_BROADWELL_X		0x406F
->> +#define PECI_INTEL_BROADWELL_D		0x5066
->> +#define PECI_INTEL_SKYLAKE_X		0x5065
->> +#define PECI_INTEL_ICELAKE_X		0x606A
->> +#define PECI_INTEL_ICELAKE_D		0x606C
->> +#define PECI_INTEL_SAPPHIRERAPIDS_X	0x806F
->> +#define PECI_INTEL_EMERALDRAPIDS_X	0xC06F
->>  
-> 
-> The _D has been used in Intel official product names such as "XEON D".
-> AFAIU, The _X notation is specific to intel-family.h. Should that be
-> explained in the comment above?
-> 
-> Something like:
-> 
->  *	_X	- regular server parts
->  *	_D	- micro server parts
-
-I think I just verbatim copied the intel-family.h names and added PECI_.
-Are you seeing something different.
-
-BTW, we should probably comment the naming scheme and at least mention
-that it should be consistent with the x86 code.
+Hah! Human error. I knew should not have done that by hand! Fixed for v2.
 
