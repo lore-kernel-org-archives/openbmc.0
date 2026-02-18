@@ -1,40 +1,92 @@
-Return-Path: <openbmc+bounces-1386-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1387-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82014E68149
-	for <openbmc@archiver.kernel.org>; Tue, 17 Feb 2026 09:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5CA7E9A047
+	for <openbmc@archiver.kernel.org>; Wed, 18 Feb 2026 18:48:16 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fFZ7r4Tt9z2yqs;
-	Tue, 17 Feb 2026 20:28:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=141.14.17.11
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771320504;
-	cv=none; b=KNyQCvm9h4dTQQtXsY06pchdtYlFzS0oSymZKqb4tyq+Hu5cYwuGpZsqWTIoiUOFGGna4MrqmUdQs/hupBc6upEFNK9qcKSVEwERV/7Lt4M10Hu0sexq917lAKGDLc2peEkONQVF5MZBdomJNjMs3FcRcgZGYFd4oVnr8ny2u62e17lS3PXLSBUuqoFQvXwZmWEHQOXPkqVbckPSUzGgsUpAJUdxUC+ROtcPlk1cyRljs7MvWPPej6NLmBzg5jXrIwytW/ZzRspEmWrVxyEXDfz/jvdOqdkYco2d/bYHThFedjfOa1woTphi9zZw1UUmyFjjXxq9HD/izC3HsLKI/A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fGQWG2R1Qz2yrn;
+	Thu, 19 Feb 2026 05:48:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32b"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771440490;
+	cv=none; b=M+QAEYDcROChWjIyytCWniDXoFk6bzVSMCNPkIPaQAP1bRB1SisMyTEu9+u4OBtRSTkmyM/6Z4e8sgsQGckPRG2fB4NMH00O0oUB2xKACZX8FyCJY27NQSoZhXsafQo7wzB5mBxDNWtL6Bt2JbSRn0OtYf13mfle0CKVfRMavHmSW5136dfsINd1Hsj6MO0ygKgD3OvWWZrwVADqekLi+uRCntLWb4Vme1mDHyQFMoTZ5RWH998nXZFAPgXCaqow7m30wlnqwXequ5e3gEn+eJ0iY2RAgy/uyt6z+xZ1seFYAVAyFhLFyf8KE9d50CF2iQktGr6SOMpk2xI19K+4PQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771320504; c=relaxed/relaxed;
-	bh=O/S5VUjeYzS0dHzM+pMjM28XHQF513QXXGU826VAc9g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:Cc:
-	 In-Reply-To:Content-Type; b=kzYpK4bcU/3XkVe0J5B7cGgYlK2RqznZ6OoPP5+TLsZ+oWmY5ma0BWdsKSlgg/zi4cfjtVP0j0pMPl+fDV8Ao9G+AiQWNRTQ7idTdxr+CAmhyvtk6zk9bhupk4LEJd87Mv6MB5iRnyrJWtk45ioPGYFZFYFJtJDwBg9igFw/McOUI7Q/A9M9AB/TBiIvd1YL9NMaQNLhNFwU4r9yPuDA/NFygHKalcxitV0I1hs7xKV0LupV9RicR12vfdNYLC4VI6KqWLQVgrCxThUs9q0x8Iv18XPVHkehAcUD3I2EcysE8jPT0rFt9hf2yo63EZH/V8CGX59/hdPy9+8hPE3o0g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass (client-ip=141.14.17.11; helo=mx3.molgen.mpg.de; envelope-from=pmenzel@molgen.mpg.de; receiver=lists.ozlabs.org) smtp.mailfrom=molgen.mpg.de
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=molgen.mpg.de (client-ip=141.14.17.11; helo=mx3.molgen.mpg.de; envelope-from=pmenzel@molgen.mpg.de; receiver=lists.ozlabs.org)
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+	t=1771440490; c=relaxed/relaxed;
+	bh=lBeRIT1ZnYSEgc/ip22Oe8Z70VaBVeO7A7faCs3mOuk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Orj7qD0/IJpkfqwhbmYhSaeaLT9lC5jfYeZ8niNimXjLfxDsnA90B2QyGzqsQRE1m/GMqfDfPslEZG5DjJGdse4U+vFWvTLtH21ncnFXGDg6kc/UeWnq5b6pZDgYGAVL/QtQTUI5fBQbJ+VfX7zUUKYsugRXhd/MhMM6FSUM+f6zWqW2ptWgmVF5tTAfMTqi050fgs3FtEIKIKr4YrUyVzLcv8JcWMpbnLmXBDlh/PpX8eb2FUFQLSkM33KCCOyFMjQgaSpGjxECz1wfn0srwxDTFuAaycKxzotOotzcTbN7Y1aX1VXJ7YGpQ2C1v9rvjF52ZSqd6t6ZC4NvtiWb5A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=US08wFPu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32b; helo=mail-wm1-x32b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=US08wFPu;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32b; helo=mail-wm1-x32b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bit raw public key) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fFZ7p6Wbtz2xN5
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Feb 2026 20:28:20 +1100 (AEDT)
-Received: from [141.14.13.172] (g427.RadioFreeInternet.molgen.mpg.de [141.14.13.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 84BD84C2C37D75;
-	Tue, 17 Feb 2026 10:27:58 +0100 (CET)
-Message-ID: <296e66c2-b110-400b-86ab-136b128c105e@molgen.mpg.de>
-Date: Tue, 17 Feb 2026 10:27:57 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fGQWD2h8rz2xLv
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Feb 2026 05:48:07 +1100 (AEDT)
+Received: by mail-wm1-x32b.google.com with SMTP id 5b1f17b1804b1-48372efa020so1236695e9.2
+        for <openbmc@lists.ozlabs.org>; Wed, 18 Feb 2026 10:48:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1771440484; x=1772045284; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lBeRIT1ZnYSEgc/ip22Oe8Z70VaBVeO7A7faCs3mOuk=;
+        b=US08wFPuRGDt5CgnoNmVyQtnMl0oZOaHOF4F4pGEc1UqgjyQ1rhqvvpVygnPtQQLWA
+         /AyI0kvgbgXBO5AfCQmrvsBYCl8WX/9wxWGPjfOvYmgrWQD8FoccUxYWWpl32GuN3F1J
+         h0Q30m6rgxtGD/cebw51i+ANqstu4Zejyoq5stvyEKLWADMgYZKvy8y8u6Y6HiD+1pKw
+         ODywB9rvKqWCPA+Nt6Mkaz2XrYQhp3yERVmlkqbpkBDH3U0skkL34N6EAdD6XKidK1SO
+         89P8ODpctn27ulv8xIVTsJ3jt6sS2gCTJNHv823si/Xu/WLzGmLFsWvcrHygw6QVJ3yE
+         DZ1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771440484; x=1772045284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lBeRIT1ZnYSEgc/ip22Oe8Z70VaBVeO7A7faCs3mOuk=;
+        b=C4mcYHelXMfyncmADVV+bfPLMH3mLDJBczfmI1vMsUVgPSnByIxL5dodE6NViUEi2T
+         g32uW+apMSOK3Hf1bUdtZkDiIW1RR5a2kpW5LjbA1CesUQPc1LtaVClvEeiYUbSdjUYo
+         OKJB1YjDtRsqSQFzoBjgjGQToUd7CDq/isSdGwX10LeoFKHIUtTBqnI2gbsxOv+5VzmR
+         5cPJTsL41mmwTO4Tl8qWQZkPDhV0R3on3wrArBlgd9+zjCU2ne8lm+LWxdlj8yavgbw8
+         WXwCN+RL9qMHlx7jnI7wxFOybygZ5ZWudsgpo0g51DMLo9QKSR/KDQxJ42DKGTErVj3o
+         J+MQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUI5upmoVbxiMnVS94GO5CR2zT9ZVy4ooTNp8jiIeLgKaIIVvKarLdjGPSMRXme/umvlAbszhfd@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzHc6AarbaIG0ytaO9x9vZMO0fQ7RKseHKt+mCQH+IE5pQ1HmCr
+	lqgZEDW2+59L1tk/hzZeY37Ekb3V5Be/eKTCAx5rNRxdU/S17lcH/oYe
+X-Gm-Gg: AZuq6aJtvgCOEhlI8lMum2KDfJoDonGapU83XVCb0BeOggD7F0N5I6JYNz0iANcn48+
+	cKcs6isW/SCbAUMJWPab76GTqGl9/tgbF9l1iUoiKUM7g2KRlsB/oJh3G1YOYEg6D8xTuz9dJAN
+	gLm6+F3UIQF/Zn6nNji9Rf7JBc3F41PQMks+NSQCVeRvnAeEL08KJzbCmr/IUuK469BRtCXuxJu
+	XRIEpul44Gl7BbJNBDu5YSX02Ql2F4cV6T1/z+CVIJaVL1QqZ6GHbly/ztmw9FOMv94n7X6mtaQ
+	T7gUfKGfhMGoJ5BeKiKq0BllXAm0R4Soc2DU+k7fIX9F8mD7jOv5NF9f1cSSYMdKYB3+AOV4lrd
+	6mm413AvW8J937VSVIhUXkJ6YYCkpN9NpcIHDD27UH4jFaW5/pauIYiq/0oE3uIGGPMaivnCpX+
+	DDrIdPmR/Pu539KkeNY9l5ZK2f2j01ApZA8w==
+X-Received: by 2002:a05:600c:6389:b0:477:7af8:c8ad with SMTP id 5b1f17b1804b1-48379c1f4d3mr290728595e9.31.1771440483441;
+        Wed, 18 Feb 2026 10:48:03 -0800 (PST)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4837e565f5esm440990555e9.10.2026.02.18.10.48.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Feb 2026 10:48:03 -0800 (PST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au
+Cc: avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] arm64: dts: nuvoton: drop unused syscon property from watchdog node
+Date: Wed, 18 Feb 2026 20:48:00 +0200
+Message-Id: <20260218184800.2261674-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -46,56 +98,47 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: npcm7xx: Use NULL instead of 0 for pointer
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260216085825.70568-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Andi Shyti <andi.shyti@kernel.org>, openbmc@lists.ozlabs.org,
- linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260216085825.70568-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Dear Krzysztof,
+The NPCM8XX DTSI currently includes a 'syscon' phandle in the watchdog
+node, but this property is not used by any upstream driver and is not
+documented in the NPCM watchdog binding. Since it was never reviewed and
+does not form part of the DT ABI, it can be safely removed.
 
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Thank you for your patch.
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index 24133528b8e9..c781190b42c5 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -145,7 +145,6 @@ watchdog0: watchdog@801c {
+ 				reg = <0x801c 0x4>;
+ 				status = "disabled";
+ 				clocks = <&refclk>;
+-				syscon = <&gcr>;
+ 			};
+ 
+ 			watchdog1: watchdog@901c {
+@@ -154,7 +153,6 @@ watchdog1: watchdog@901c {
+ 				reg = <0x901c 0x4>;
+ 				status = "disabled";
+ 				clocks = <&refclk>;
+-				syscon = <&gcr>;
+ 			};
+ 
+ 			watchdog2: watchdog@a01c {
+@@ -163,7 +161,6 @@ watchdog2: watchdog@a01c {
+ 				reg = <0xa01c 0x4>;
+ 				status = "disabled";
+ 				clocks = <&refclk>;
+-				syscon = <&gcr>;
+ 			};
+ 		};
+ 	};
+-- 
+2.34.1
 
-Am 16.02.26 um 09:58 schrieb Krzysztof Kozlowski:
-> Pointers should use NULL instead of explicit '0', as pointed out by
-> sparse:
-> 
->    i2c-npcm7xx.c:1387:61: warning: Using plain integer as NULL pointer
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->   drivers/i2c/busses/i2c-npcm7xx.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-npcm7xx.c b/drivers/i2c/busses/i2c-npcm7xx.c
-> index 8b7e15240fb0..f667a873b81e 100644
-> --- a/drivers/i2c/busses/i2c-npcm7xx.c
-> +++ b/drivers/i2c/busses/i2c-npcm7xx.c
-> @@ -1384,7 +1384,7 @@ static irqreturn_t npcm_i2c_int_slave_handler(struct npcm_i2c *bus)
->   		 */
->   		bus->operation = I2C_NO_OPER;
->   		bus->own_slave_addr = 0xFF;
-> -		i2c_slave_event(bus->slave, I2C_SLAVE_STOP, 0);
-> +		i2c_slave_event(bus->slave, I2C_SLAVE_STOP, NULL);
->   		iowrite8(NPCM_I2CST_SLVSTP, bus->reg + NPCM_I2CST);
->   		if (bus->fifo_use) {
->   			npcm_i2c_clear_fifo_int(bus);
-
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-
-
-Kind regards,
-
-Paul
 
