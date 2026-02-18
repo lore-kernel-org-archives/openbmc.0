@@ -1,51 +1,62 @@
-Return-Path: <openbmc+bounces-1388-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1389-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD1ECE9A02C
-	for <openbmc@archiver.kernel.org>; Wed, 18 Feb 2026 19:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20FDE9A02C
+	for <openbmc@archiver.kernel.org>; Wed, 18 Feb 2026 19:30:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fGR8r1TqSz2yrn;
-	Thu, 19 Feb 2026 06:17:16 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771442235;
-	cv=none; b=A1odhM4/2uQhTi96eXz8dh3PIeVWvkLhbBbCs/CoClIpAW9QqY5H7pcWwK2F8lk+4hgODYcqvTw5ITPf9ndz+B9WXDwr1C9b/nnbXFpCGM74xtSgd1Dey8sY8N3AjuSqAiz/UIBIPVwkOgazXTUwYGLCEqjjHAv9eVDpjfcUYKBuC7cP0kimTmA20t7dZa+2YnGHjnuXLKBrr9DhBMgMgGBFlmzu7hAjFH71jf8PLUxkVWdXudHOqdYi/Palamlqt9ByEBNITpbyIzRLTJS5XdlJYNHipRToWxeey18XPt2WSSrKxtlpdkVqbuersLLm7Vb8/lo0av+hntS4zs7oGw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fGRRn1JK9z2yrn;
+	Thu, 19 Feb 2026 06:30:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771443012;
+	cv=none; b=aQi2X5FNRUDAe1vsyQR1DeWFZGUlJjgJzfM3WjyenWoHJoxkz7r9zhtvkPXTJhurn0C/t8+NInNDCT0A4RlrAVfyVK4tJEl2C+bMs1aUakb266UrEeinEt9Rv8NPr+nMWs4fp8/ZyDecgs4lOP4ytKuhRmf1xROWYh0/eN1tjVKosDm1x+8NQoJV9L90PgtdM2XUEv3PY0IGao82DFydN6SV/bYVosW9Lc57+tr08miREIR1JBC3jrqqghj19Rar7MQTyWe+4v36Ej6iR7lt/XEWDEtCvp6JDR7VPPod4U96q1/udFa3EhnL8uLz+eaXipjJBWJ9DAz2OpSmSbh/6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771442235; c=relaxed/relaxed;
-	bh=4EypEucG2blnpneT1kemBnlXVdUXYBRS3WbOmpfB+2E=;
+	t=1771443012; c=relaxed/relaxed;
+	bh=BfeW3v6VeI1ZhNHt/aIURlNG/D/B0MsHoeB9iHPpdZU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tp1Cdlj1/Q6TNKSvkKPb5rbvzteVvpNI7XFWaCCdY+dchJ1/4lY9G/32pV/68wdgsN3tyNVD2wx/IsBV/4Ob9QLXvCijw0ndJRmNi9F2P2taEl/7IRIyD1UnrmnoDN/bV+3o/0JV9lMx2WbNuO/b9zLO/z4OLWW6Uuz15DVTjewRfHHOey2S+6fcFL6x1nGE0KaDsLeM9P9rNX/GfTV0eFXnSFMW0Knp7mGXJQEAKXN84ITw3trw+MPmBhMnLwKZIq3dJLBKMy8a1Z1De/AafAk7oKmibALHYWa5Ej6s6VZBkdPuiR3qbv2e2MDOeDBaWGOakluWLQs3F25GD4ZL1Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=qTrjwQYg; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	 In-Reply-To:Content-Type; b=dqcKncLTj0kAtqH08Ed35w2UYGEdR04XOVwSfAWGYKi7Kr8Q06qPx9GQTk1+TLp2bLG2Z6zyoMQg+VQOY9erMSmHp/aTz3JncDExjqZ6/RtbobZvxoOSEwT3w6RRSlv1N7W2b9/ESXDREdUXNKtY6uoKsJzgLGt6EYudUuobhVvF4i9jZfahCBjv2A/QdQ457jQ1zOLCtkzKy+fzWtoJHdCTZMZoWd/zCIr4HYexIZJrOKlE/z2H/hIff/gY80SgIvLGM6DvYymIZLA6amBX+nQn6o0zb81ZB4egJng1UzU4ZDo8XCk4hZghyXz8KXBMOQC3STA2W/XZ1uHRT/LX4A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZLh36y2w; dkim-atps=neutral; spf=pass (client-ip=198.175.65.11; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=qTrjwQYg;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZLh36y2w;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.11; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fGR8p47l3z2xLv
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Feb 2026 06:17:14 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id A6939600AE;
-	Wed, 18 Feb 2026 19:17:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF54C19422;
-	Wed, 18 Feb 2026 19:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1771442231;
-	bh=fKuevwwhI2xp7pWreOA8JHIqo5Rd4VvkNUM2yNkN1No=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qTrjwQYg+ZVVc+NwK3ZafRxbm/+56bYgKydGiu/2L+bAy44MJ3AF3wvSDMyAhW6d+
-	 bvlSQg3IPFLZtDn74XtTB1lnH6XXDMVMp6NoG/rjRDcvL5u9y+sxHE8Im2zmkGtmb9
-	 ENA/ja76dNgxc0/wTom4NezGKWwQnwIoqt5mjx2fgRWiy/4YXD7aUEZBPWvAnaWAW9
-	 nJpw9dFQdmOYPnK4b+DxlzgQnYaygwPj3PlepgrqOjBQXGzAo6EbLpSbwc8QrOFVt/
-	 s8be85RZaJ9w3nKE1AUNFp0Dm9UlzwikvLPDjC8ssviQATV+oMd6dhQR4ZW0xXLBvp
-	 hB9y31xpEFwpw==
-Message-ID: <54bac6b7-46b5-4a1e-beb0-e8a64bd16d3f@kernel.org>
-Date: Wed, 18 Feb 2026 20:17:06 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fGRRl5HgPz2xLv
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Feb 2026 06:30:10 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1771443012; x=1802979012;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=zrFRbht4ecVfwb3Aq+wsNKWqdkQUklyJej63/BrDQOQ=;
+  b=ZLh36y2w7YNJ5ZcuaRtDh56jAJeVQK21jG2h6eMEkE9oD8GITu70E9tV
+   CrjWJN+i9iB4EeZOPnztAPzEGkesfj50ciVfPWp3FW3f4faMZI141D4l0
+   ETtqBzjZmY2hceipKPuX5yTaNEwr9l5e+KaYFWh0x63Yvzihi8BmxA5ve
+   9GvPkLLv5Ix2CLEtyIJz2MHzu5mH4kQr5DSrpwgwvlJBdIm7IZ5nf2fZF
+   oh3YV9irodz95jjcuG7dTaToEcG4xsXKMzZW7rZBi6fcYC0JW6Na0CshE
+   /QyrVQ1X26Ufeieafor3OxvU4m9wwXjoTWk+mb/1UwVovYU/z7MTQOIiN
+   w==;
+X-CSE-ConnectionGUID: 5beEBTTORFiRiTbg3Ig7Nw==
+X-CSE-MsgGUID: yOCb8GV+QVyIW2gTBLH+LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11705"; a="82850819"
+X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
+   d="scan'208";a="82850819"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:30:08 -0800
+X-CSE-ConnectionGUID: o9IBGgdeSWayRQIFCqHHpw==
+X-CSE-MsgGUID: BFA0vf5MTiqLfGBnm/DhCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,298,1763452800"; 
+   d="scan'208";a="212350098"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.109.224]) ([10.125.109.224])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Feb 2026 11:30:07 -0800
+Message-ID: <5cfea5f4-1ced-4559-8de1-4e96116536f4@intel.com>
+Date: Wed, 18 Feb 2026 11:30:06 -0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -58,114 +69,123 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] arm64: dts: nuvoton: drop unused syscon property from
- watchdog node
-To: Tomer Maimon <tmaimon77@gmail.com>, andrew@codeconstruct.com.au
-Cc: avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com,
- yuenn@google.com, benjaminfair@google.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260218184800.2261674-1-tmaimon77@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] peci: Remove dependency on x86 CPU variables
+To: Sohil Mehta <sohil.mehta@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org
+Cc: Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Iwona Winiarska <iwona.winiarska@intel.com>, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Thomas Gleixner <tglx@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, x86@kernel.org
+References: <20260218170301.D814B556@davehans-spike.ostc.intel.com>
+ <02494c50-8239-4e9d-b653-451728e5b5fc@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260218184800.2261674-1-tmaimon77@gmail.com>
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <02494c50-8239-4e9d-b653-451728e5b5fc@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/02/2026 19:48, Tomer Maimon wrote:
-> The NPCM8XX DTSI currently includes a 'syscon' phandle in the watchdog
-> node, but this property is not used by any upstream driver and is not
-> documented in the NPCM watchdog binding. Since it was never reviewed and
-> does not form part of the DT ABI, it can be safely removed.
-
-"Safely" is not certain or not true, because other users might rely on
-that, but that's acceptable impact of undocumented ABI.
-
-However such wording should be avoided, because it creates impression
-that it is safe which later might be used by other developers ("but I
-saw patch saying it is safe...").
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+On 2/18/26 11:26, Sohil Mehta wrote:
+>> diff -puN include/linux/peci.h~peci-sanity include/linux/peci.h
+>> --- a/include/linux/peci.h~peci-sanity	2026-02-18 08:19:42.371396743 -0800
+>> +++ b/include/linux/peci.h	2026-02-18 08:19:42.388397383 -0800
+>> @@ -72,7 +72,7 @@ static inline struct peci_controller *to
+>>  struct peci_device {
+>>  	struct device dev;
+>>  	struct {
+>> -		u32 x86_vfm;
+>> +		u32 device_id;
 > 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 3 ---
->  1 file changed, 3 deletions(-)
+> There is a kernel-doc comment on top of this struct as well that needs
+> to reflect the change.
+
+Thanks, I'll fix it up.
+
+>> diff -puN include/linux/peci-cpu.h~peci-sanity include/linux/peci-cpu.h
+>> -#include "../../arch/x86/include/asm/intel-family.h"
+>> +/*
+>> + * These are in the format of and match the values of the x86
+>> + * CPUID.01H:EAX[19:4]. They encode the model and family of
 > 
-> diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> index 24133528b8e9..c781190b42c5 100644
-> --- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> +++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-> @@ -145,7 +145,6 @@ watchdog0: watchdog@801c {
->  				reg = <0x801c 0x4>;
->  				status = "disabled";
->  				clocks = <&refclk>;
-> -				syscon = <&gcr>;
->  			};
->  
->  			watchdog1: watchdog@901c {
-> @@ -154,7 +153,6 @@ watchdog1: watchdog@901c {
->  				reg = <0x901c 0x4>;
->  				status = "disabled";
->  				clocks = <&refclk>;
-> -				syscon = <&gcr>;
->  			};
->  
->  			watchdog2: watchdog@a01c {
-> @@ -163,7 +161,6 @@ watchdog2: watchdog@a01c {
->  				reg = <0xa01c 0x4>;
->  				status = "disabled";
->  				clocks = <&refclk>;
-> -				syscon = <&gcr>;
->  			};
->  		};
->  	};
+> Can we include the extended family bits in the *comment* to say
+> EAX[27:4]? I expect Family 19 (DMR) will be added soonish, which will
+> make the comment stale.
 
+Right now, all the constants are 16 bits long, that's 19:4. If a future
+CPU model needs more bits, they'll make all the constants bigger and can
+change the comment.
 
-Best regards,
-Krzysztof
+>> + * the CPU with which the driver is interfacing.
+>> + *
+>> + * All driver functionality is common across all CPU steppings
+>> + * of a given model, so the lower 4 stepping bits are excluded
+>> + * from these IDs.
+>> + */
+>> +#define PECI_INTEL_HASWELL_X		0x306C
+>> +#define PECI_INTEL_BROADWELL_X		0x406F
+>> +#define PECI_INTEL_BROADWELL_D		0x5066
+>> +#define PECI_INTEL_SKYLAKE_X		0x5065
+>> +#define PECI_INTEL_ICELAKE_X		0x606A
+>> +#define PECI_INTEL_ICELAKE_D		0x606C
+>> +#define PECI_INTEL_SAPPHIRERAPIDS_X	0x806F
+>> +#define PECI_INTEL_EMERALDRAPIDS_X	0xC06F
+>>  
+> 
+> The _D has been used in Intel official product names such as "XEON D".
+> AFAIU, The _X notation is specific to intel-family.h. Should that be
+> explained in the comment above?
+> 
+> Something like:
+> 
+>  *	_X	- regular server parts
+>  *	_D	- micro server parts
+
+I think I just verbatim copied the intel-family.h names and added PECI_.
+Are you seeing something different.
+
+BTW, we should probably comment the naming scheme and at least mention
+that it should be consistent with the x86 code.
 
