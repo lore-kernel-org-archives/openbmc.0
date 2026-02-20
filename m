@@ -1,90 +1,63 @@
-Return-Path: <openbmc+bounces-1400-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1401-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F379BC5AD44
-	for <openbmc@archiver.kernel.org>; Fri, 20 Feb 2026 18:00:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAFFEC5AD4E
+	for <openbmc@archiver.kernel.org>; Fri, 20 Feb 2026 18:21:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fHdMm1bBsz30M0;
-	Sat, 21 Feb 2026 05:00:52 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1236"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771610451;
-	cv=none; b=bJVSNSmoNXxo2oXAUdH2ScmnTdfOXlfOfAbj/pyW0KfGRwPHYuJQTIisvsylWuFDe+kVJS5vV297Qe66XK88m0jZjJcuRKDuesr1aBxMkr8JsShLGqkZ7KVOwq21fGUqiA65030EKXBr6gZyzv1Hjn0ycqao9eM+9VLAhPw6/UeQsvEtcE4Q6ljIhbSgtQNTL5xfOcO24T+mf8xdUphjVORyr+IreTu89olLIOIBKIwttxsvmhlJhyC1WYGJ7gEeZbMUAWjn7EsKqs2ByNg9MJkLw2PDN4zMqYxcJyt6XZciWtCriQJxS8xSQoPu9xhYPzV7Pqq/rOpPqa4jGg7Ihw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fHdqR2BNjz30N8;
+	Sat, 21 Feb 2026 05:21:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=198.175.65.21
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771611683;
+	cv=none; b=Ocx/AA35NYe3ub6u5F5n08cnlALnP/TaS+K/tCHQHhviI8CghJAvzZWhq19rpAjwC0xAuidsF9wmmZtaziqTQMd5V1IopAp1dBOjJ6U14DUNmIyNwYf4zhFqXu0rfdPc6PXqGazgToImtiaNODwSKo6OpXJmSUslOqcuOt8HWejHGzaQUFT1Q1w+CXUhQZfLWGgl2LlTiRjKJ7X+aSfIwbZgEEsUIFFOHEEp/kMRPzp7ZFKxWbcMon5tbyW+JopBI4+EMZzZOtO96wCM7hecoZseth1eHrXlA/liEbkEd85Wu+xUjm6qrOSBXgrSzOVkwrLJGx3SsGzOxuHVdtRfuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771610451; c=relaxed/relaxed;
-	bh=mDviFNaQlXl4RDWxBL/FyAxNNazEkOwOqLYJW2oU+Qo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BnuGkfhvnSWZWJ+ALFcyD2I6tuLEvO5xQRrIMA7HnNQ0XFnn5lvUqmMq/xyO4ku4iP1rI0Nt/cBi0argm0EbdhE8B7g8OsBAj2sbp00wJwC82EmmwZPH6ul3aaVRF3WDMZ1oMXYlsI5o/QMzzLT0tkcXimT2OZ8h/jstLihJ+GJKYC8Hn2bIJ3dGi03nuQGmgx0o6P0nKNuj0HpzdZpMAUq23WwsNdVmzIlw0For/S/3jjQK5iewKbAswVWBVaB3Oba+wleA8QjuM3bgma81kTFplvaHKVTLCRshG32w7Qs60YKQZolcpKlW5g0Dth6qFmOZLjDE58WlG1whoVDeAQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UJqVjzmo; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1236; helo=mail-dl1-x1236.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	t=1771611683; c=relaxed/relaxed;
+	bh=nwk71gfs305xSTl1e48UXPZOAL0BM2a0cLnNVKOkgrE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lnBltn/affxJl29qPOi0NwDTlF87AYajPn4SBFjJOkCws2/SnqH1W2tQ9UthzND015XPS3nDg3DJK456aDt1fd+vugNvv23G8vrdBGNDzqKJ9Q6nn+1cGh05rfvZITP0orTCjok0i0FL920dtbFCjp1ntWjSuyeDIdPJHsphdJWLY2TWU1mBNUqHfW4UhA/Fyxue19IHUfnnTEymWplBxD7P49q65c/2SmOxZoareZCY6M9x7YdUEb/roLgTdcnzNqnzYSUZXXV9uckdlFh+jAhm0yIAiLTW5+4Z1oSRfa1N1uOHY52EfL9pd9FuPTvbZeH8tMLMnmYP7mJjS37W4g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=btHINM5T; dkim-atps=neutral; spf=pass (client-ip=198.175.65.21; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=UJqVjzmo;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=btHINM5T;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1236; helo=mail-dl1-x1236.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dl1-x1236.google.com (mail-dl1-x1236.google.com [IPv6:2607:f8b0:4864:20::1236])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.21; helo=mgamail.intel.com; envelope-from=dave.hansen@intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 64 seconds by postgrey-1.37 at boromir; Sat, 21 Feb 2026 05:21:21 AEDT
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fHdMj75pcz30GV
-	for <openbmc@lists.ozlabs.org>; Sat, 21 Feb 2026 05:00:48 +1100 (AEDT)
-Received: by mail-dl1-x1236.google.com with SMTP id a92af1059eb24-126ea4e9694so68595c88.1
-        for <openbmc@lists.ozlabs.org>; Fri, 20 Feb 2026 10:00:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1771610441; x=1772215241; darn=lists.ozlabs.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mDviFNaQlXl4RDWxBL/FyAxNNazEkOwOqLYJW2oU+Qo=;
-        b=UJqVjzmocSBCPCO8jcQDCoDoAvRVB/UpCqnI1WN9EGag5p3Iv4ugPzhnsvRhTk0oT5
-         /tCKvUNKKY94wacX5su3osXrzCicdrUSjEljelMD8EzQRNpnLSsdslOzjw/5kV77+j0V
-         M6q7ddiIhn5eLRAkOnal2D8UAqLnSR76+9yImx5nYn89h5gx+jK3MjIaq+whl7VszONd
-         kOqXI2sT+Xfzt7TxmTOUcRpx6BmS08JgWut+tix4yVshv/coZIzIN0kGhUkUrZ1O7JYl
-         FqVJ4stfcIVQnO4Z+XMe4166NDcoE8KkuDM+nRtU61nibIoTb/a/qpGX7kmq4QoP4g+p
-         Xmzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771610442; x=1772215242;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=mDviFNaQlXl4RDWxBL/FyAxNNazEkOwOqLYJW2oU+Qo=;
-        b=GwMQzXRtD/kv8AfWlD+KOUvlfSo9iHmLktIxPvjMwaZAqsLThNxpezbJ2CMHMz+Pv+
-         5IBuY8yOHvQp14uP8vLBloUsKGzN+naLADe0RjPApNCsr4fl67NseG39Lb/JjaXeod6h
-         gGLIkwRTRe1syUhJ8sz5MoovWcixkfgk22/O4YTfkKBlTMj1HdQF0YxymzSFckUBx2nZ
-         FZ8p0vWpr9LGRYte5h+aR2uLUhmfmMyjCUHfuYWMOn2pQj3ln6DaRYh5OfwcH3SqmVhw
-         NCoS1ZgCcQ27S2jNy74VU0AQoB9kDE+XPXtOkrN5xdry0jWSeHa6Cti0DTovUu2mIt++
-         Nk8Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUr4+twj9FltXf/AFP2obxivmshtJVMOOkgmc8oEGhx6iejWEMLX5qCYNbNobVm5d/FgoyKptmQ@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yzfv59MKnaOnBdoI3XMShC8f/htbj7pQxY6ifyjZ1jQkrJXii2U
-	GUmUH3gCMvwMvFpAomIXhq7f/lxAqfUtTD3NxSCqOeGIiub6s54UA+KG
-X-Gm-Gg: AZuq6aIdf26nqPmcYombYyorUKauQ8FlzvuY/8B7NTXqok77YvQFWGQvThQd0v0ern0
-	YNAuipbC6SGM606rRXjCk+NMD+lftLpxvcArP8wBtULeiM/AdfeLVNt/dMjstdeWXcQZtxLpp5t
-	VB1cwKa5pY4wrH+cmdBpSrW0d0UrmI/swJJAv8gfVr/koFirNWpQtFFpBHIqzD+Sp1P9xZFNDHC
-	n2VaE5aklf8++iy1lElrH8ydgbOEmXc8VNUGZHylJRo1UGhXYe2sC9wCbSwSdELd5YGrXq8xAUP
-	5KODdZsegFKfHs0aWBjZvLj08JhYEF93wyTS9HG31VLvJ7mspUE8OaDj6FHqYamlk3pvD/srpwS
-	f1nmuEb8P7B66ZMcilSnOwiFJ1Lh1G03VFwIG54LyoybjLzMB2oVyZSOiyL0w067+0EQO3hLSqQ
-	XNL4KMvmuxJKdY+C6bWCKYY3xYghUFFibQH5to
-X-Received: by 2002:a05:7022:128f:b0:11d:fb4c:db13 with SMTP id a92af1059eb24-1276acb98f5mr251538c88.14.1771610441292;
-        Fri, 20 Feb 2026 10:00:41 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1276af20fc8sm203892c88.6.2026.02.20.10.00.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Feb 2026 10:00:40 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 20 Feb 2026 10:00:38 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, sohil.mehta@intel.com,
-	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org,
-	Thomas Gleixner <tglx@kernel.org>, Tony Luck <tony.luck@intel.com>,
-	x86@kernel.org
-Subject: Re: [PATCH] [v2] peci: Remove dependency on x86 CPU variables
-Message-ID: <6ad986a0-b99a-4b12-a590-85e9b2da496b@roeck-us.net>
-References: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fHdqP56Ccz30Lw
+	for <openbmc@lists.ozlabs.org>; Sat, 21 Feb 2026 05:21:21 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1771611682; x=1803147682;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=M3KxmJSpm/J/Qer0dyNiUpPXvP+M/PLw6HPD7xRheQ8=;
+  b=btHINM5TLvjvTvEVJgzpiTeNiP8Z3GjOmxfla6svYVSh9D3aTPrRvgaL
+   P7TGiPny0bH0zzsthAQVa9pMBa7jsfyx95yngvWVFMJOCUAxQIY5F7blE
+   UMqakLBCBwptP7cZ7xD+19ZYYT6qzz1RfaYV1qEPJOH0pTup4gBZ0FvqO
+   xivUG/igiTo8fqinufJ3UdXfb5y8tKOmdY7IDAhFr2PQIz8l0wOQV/cJh
+   Vi5VP+zoLhZO6yaOSPaG0SAwwhSvAhu9bgRcj1mEDcH99T5vO+LMHl/db
+   rpnwcsanqAfl9dsm7QzexvE2jyWRsxHIE4JzfLhI/o+l8VV31fbAPNWok
+   w==;
+X-CSE-ConnectionGUID: dBlbOJ7NSo2eWQNDyq3agQ==
+X-CSE-MsgGUID: gVE3+CqgTYKdmjMj098LFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11707"; a="72586539"
+X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
+   d="scan'208";a="72586539"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:20:13 -0800
+X-CSE-ConnectionGUID: 7Z8YEr0EQR2fhEiXFHG6+A==
+X-CSE-MsgGUID: CT3ruYKTSZ6ESuEnPWoC6Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
+   d="scan'208";a="212662795"
+Received: from dnelso2-mobl.amr.corp.intel.com (HELO [10.125.110.77]) ([10.125.110.77])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:20:13 -0800
+Message-ID: <13b9f03f-04e2-4363-af95-edded1c895c4@intel.com>
+Date: Fri, 20 Feb 2026 10:20:14 -0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,95 +69,82 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] [v2] peci: Remove dependency on x86 CPU variables
+To: Sohil Mehta <sohil.mehta@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org
+Cc: Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ Iwona Winiarska <iwona.winiarska@intel.com>, linux-hwmon@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Thomas Gleixner <tglx@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, x86@kernel.org
+References: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+ <b59da36c-4ddd-4cd9-98f2-b5a1db698889@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <b59da36c-4ddd-4cd9-98f2-b5a1db698889@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 20, 2026 at 09:51:21AM -0800, Dave Hansen wrote:
+On 2/20/26 10:14, Sohil Mehta wrote:
+> On 2/20/2026 9:51 AM, Dave Hansen wrote:
 > 
-> From: Dave Hansen <dave.hansen@linux.intel.com>
+>>   * struct peci_device_id - PECI device data to match
+>>   * @data: pointer to driver private data specific to device
+>> - * @x86_vfm: device vendor-family-model
+>> + * @device_id: device identifier, includes CPU vendor-family-model
+> Just a nit. There is an inconsistency between the two Kdoc comments.
 > 
-> tl;dr: The non-x86 PECI driver #includes an arch/x86 header.  This is
-> ostensibly to avoid duplicating CPU model number constants, but the
-> result is complexity and duplicated *code* which is a far worse fate
-> than duplicated constants.
-> 
-> Remove the PECI dependency on arch/x86 by adding a list of supported
-> "target" CPU models in the driver.
-> 
-> This is only compile tested.
-> 
-> Long version:
-> 
-> == Background ==
-> 
-> The "PECI" driver runs on non-x86 hardware inside an x86 system.  It
-> talks to the x86 CPU. The PECI hardware has different features based on
-> platform generations and uses the CPU model to control feature
-> detections.
-> 
-> Basically, instead of a PCI or USB device ID that a USB or PCI driver
-> would use, the PECI driver uses the CPU model (and family).
-> 
-> The arch/x86 code unsurprisingly has a list of CPU model numbers and the
-> PECI code currently reuses that list. But the arch/x86 list is
-> maintained in the "Display" format which is different than the binary
-> format that CPUID (and PECI hardware) uses.
-> 
-> == Problem ==
-> 
-> The end result is that the PECI code #includes the arch/x86 constants
-> header and then duplicates some code that transforms the CPUID to the
-> "Display" format. This is fragile because it's easy for us x86 folks to
-> break the PECI driver when assuming that arch/x86 is x86-only.
-> 
-> == Solution ==
-> 
-> Remove the arch/x86 dependency. Instead of duplicating the
-> CPUID=>Display functionality, just duplicate the constants.
-> 
-> Also rename the formerly "x86_vfm" variables. They are not in the VFM
-> format any longer. They are purely device IDs.  Name them appropriately.
-> 
-> The result is a net code removal. The only downside is that the PECI
-> folks need to add a #define whenever there is a new CPU model. But, they
-> need to go add new CPU model to the driver explicitly *anyway*.
-> 
-> == Notes ==
-> 
-> One little wrinkle in this is that the CPU identifier that comes back
-> from the PECI hardware contains the CPU stepping just like
-> CPUID.01H:EAX. But the stepping is ignored by the PECI driver.
-> 
-> So, the PECI_INTEL_* identifiers are just defined with the stepping
-> shifted off the beginning. They could have been defined with a 0 there
-> and then have the stepping masked somewhere.
-> 
-> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-> Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
-> Cc: Iwona Winiarska <iwona.winiarska@intel.com>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: openbmc@lists.ozlabs.org
-> Cc: Tony Luck <tony.luck@intel.com>
-> Cc: x86@kernel.org
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> 
-> --
-> 
-> Changes from v1:
->  * Fix wrong Haswell model/family
->  * Fix peci_device kernel doc
-> ---
-> 
->  b/drivers/hwmon/peci/cputemp.c |   10 ++++-----
+> device_id no longer stores the vendor. The one below one is correct.
+> CPUID.01H:EAX only gives the family-model-stepping information which is
+> stored in the device_id after removing the stepping.
 
-For hwmon:
+Very true. I'll change that for v3. I'll just be:
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+ * @device_id: device identifier, includes CPU family-model
 
-Guenter
+
 
