@@ -1,64 +1,112 @@
-Return-Path: <openbmc+bounces-1402-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1403-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59099E68179
-	for <openbmc@archiver.kernel.org>; Sun, 22 Feb 2026 22:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851A7E68179
+	for <openbmc@archiver.kernel.org>; Sun, 22 Feb 2026 23:06:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fJztc1VRxz30T8;
-	Mon, 23 Feb 2026 09:58:48 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.18
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771609951;
-	cv=none; b=SQWHiLlULEAChW4uBQBvF8cZPH6xupu6cuqXTOsQYGEury+HgiIATeivnW659q2fXp0GxrYYbvWeCnwLh7DicmC+6DS2S5+TKjtClXAoEMfyD51ueZNpeIDquyZgpSFdXHrrQsfBdwrJ1yyvihdujbWo+O6TGwIuxiAC0aPmSYNflhTDFgYGxroRXGNY9wY3WYBbIRImoAwyUYHXTkyfiwX0dfTl5/PueT/8EIssaswPzvTmAtCZccMT26hcBo/l4H4iqwf5w0FKr79MhB5vrH3W0KFy3u2kbmwEnJVPxJt31O9pIrX2SfjmQjvyuEOClMC1q1A5hOfmY4TxaHaaDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771609951; c=relaxed/relaxed;
-	bh=byVeqMIrLQW4IkgE6fPEy7CtiGiV8RG2856fJi95OOE=;
-	h=Subject:To:Cc:From:Date:Message-Id; b=Et7zuPJv20T/rj2p/FXXrOYpET6+CK65mzJmCZy04VyVoIcNDU4En2x7iJvya8HZyuDimTuA4BheUdFxKziHYYwMzgTTdjA8YFyq5pDS1j5NGKOQiPY6QsaE5xjaGOIIYg15Gv3FlYE/ieScB2TUs5h/roZMzKHZMf6n/EztjbfKjvCrQvSlZYeMrzj0QUGBzsHddXgsUija/IChS1SX9k2PFdsrnitIV8EhUklYakFPl9QXDm1kBgIIOQcjtCYLenKjFgIDXno5DI4gFvPNJ9EgRVxUSetBn0q98cq72LgP35Sn1YDGIBTxdBwl06QjPVs1qOJtW/xMamhr/P9u3g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h/YRCAoO; dkim-atps=neutral; spf=pass (client-ip=192.198.163.18; helo=mgamail.intel.com; envelope-from=dave.hansen@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fK03W6ZWcz30T8;
+	Mon, 23 Feb 2026 10:06:31 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=fail smtp.remote-ip=198.175.65.13
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771611314;
+	cv=fail; b=dDpsemKlqxiZWMzDntexGc5rRgIoAzOghFjAIt9vvQI0+MsC56LNqCgq64rxQHQejTTZdeNJDJvBWj0ZbaFEmPFSYr8Fr0jgJrCIHsfhnZ/x7ksGWmAh0O0+caKrmyKbxQ5qQm7Aa7npYGIetPYfTnbQibmM37owzK1UIJKmT/XY/La4Nm3a3Yg5wYnIDPQ6dspCyXOoBO8yX8z/cgePfNMMfQt7jK7oq1mZsHHGLyjJL5zDaUh+mzRJkDdEWO/VGnwQN7gdeU/hvvVVk87gzc6hGBGsscwpfDPva56vh3h3Md95yJw+lqeLyiVj/Qx+t3JUvHw6rgH+XXPJlY4ASw==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1771611314; c=relaxed/relaxed;
+	bh=yqORJCjCAdfz2nvQV10udQDOoUga3ZnLjUY9Edxe88s=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=GtmKUW1Ghy+6itUk7GnN98T6Fdu/rrgYmcx5fnaMzPhx9zIaj8hJlZ51B6oDUS09I0GK36fWjcyi5ioOCVkOBPl3tpKOWkBjQAib00uaQ5cDOXFjzgoumDOeUaCsUN1144JVTgU4EiCZCD6AIdSj8QU5T9zyHOby6VkoBFSDGASoT8RBCmfITP+iGwtFsXHCevvMo3LPMhtCM70d5T+SyJwu3Pat8OI6w9tdD4tZyZX/Z67fud1oQeMW1gTt2uXmvfwjIWJntabEX5+QdC8lKq+LmymiIbtm09qcJMMPnJRl+If0BVdXB8HUF8+5jQ/2RE/P2x1S3PMF5iU1FZJHLQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZEtSEfX7; dkim-atps=neutral; spf=pass (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=sohil.mehta@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h/YRCAoO;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZEtSEfX7;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.18; helo=mgamail.intel.com; envelope-from=dave.hansen@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=sohil.mehta@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fHdB43Zyfz30GV
-	for <openbmc@lists.ozlabs.org>; Sat, 21 Feb 2026 04:52:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fHdhH4RDGz30Lw
+	for <openbmc@lists.ozlabs.org>; Sat, 21 Feb 2026 05:15:08 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1771609949; x=1803145949;
-  h=subject:to:cc:from:date:message-id;
-  bh=ETXxAKA8nDrQemqxEr3m5Ayv/YK4R/0cCs0w8n/jtjI=;
-  b=h/YRCAoOQzX5r//ggLbN9xvlgJrSN1s40N35l/viB3JkBtnmc0k+2zV8
-   mPCZeDQSwaf9VyVY/j/1ljocfNuLAQy7MXGg9VyaSj170nfNRCr2YB4WG
-   QFk0pNC5PxHQiyJfGBPEPavdcSLc19FetsfD6j6gczTxY/xmhh6i5viGg
-   k/rdrhnCoYQqfwMIyhRzRGXcilByzGTzLbxZM8GgVvFt0P2KOiTJoG1zt
-   WdJCQLBvwk+XGwIGhukmqZ/etKVYNXNUsWr5ew0GWB8Z9C7RnivVMF8GK
-   7zIbHd1R/6zS4T99oRwfbmy678lXJIBTCOPzibenSsricJsYeoQF1pEyb
-   A==;
-X-CSE-ConnectionGUID: f0thjoWCQhyNDIU4pHwRKQ==
-X-CSE-MsgGUID: AqOLB02jTcOMWIB5nYtQGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11707"; a="71911940"
+  t=1771611312; x=1803147312;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=qXfmqHFlRr12dRe14dst+EK8q/Tn6HyHv7AVmexjTpg=;
+  b=ZEtSEfX78je38SmN6+52MCVY9fGUMJRtInqxIoNjWyRyfQCVABxezL+4
+   ukPoJlhkW9PrA+cKKDyMEy+kB+VDa1KtoADgNhIR4IVNP+HwklLHVadUD
+   vX+R39bc+xy9sZqngkwPGQbhcVeOxG9jejQQ2u+GVN8bzbDeEkPQnnB2U
+   JqcEKvbg+ixDWVSxOg1gbSb/M2iIu2IeyVGD5qQXvWjEV4qR/BLhr+oJ8
+   eqO55ZjljzqtPo87XkMJAA4ZKMe4IJVRGfrx75v3Y3OT4yWZy9HaWJ8Pi
+   bOawGKZAaYU0Tdh88RHv7bONPxV7MdT8d+BIFLmwn9b9xbPzx9owPasLL
+   w==;
+X-CSE-ConnectionGUID: joEsZ8BRQ6apGi0mGMubUQ==
+X-CSE-MsgGUID: qeHhSwF/TqGoza2qKmiFfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11707"; a="83810980"
 X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
-   d="scan'208";a="71911940"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 09:51:22 -0800
-X-CSE-ConnectionGUID: dC49z/qkTJ6W8U8ORXyiFg==
-X-CSE-MsgGUID: aslatxuuT+yMjRVBGfgKHA==
+   d="scan'208";a="83810980"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:15:04 -0800
+X-CSE-ConnectionGUID: gfaCNP3UR4Weuh13ugvlvA==
+X-CSE-MsgGUID: 7cTZ2078Qa6c8l0f/vZxsg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
-   d="scan'208";a="218615445"
-Received: from davehans-spike.ostc.intel.com (HELO localhost.localdomain) ([10.165.164.11])
-  by fmviesa004.fm.intel.com with ESMTP; 20 Feb 2026 09:51:21 -0800
-Subject: [PATCH] [v2] peci: Remove dependency on x86 CPU variables
-To: linux-kernel@vger.kernel.org
-Cc: sohil.mehta@intel.com, Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>, "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Iwona Winiarska <iwona.winiarska@intel.com>, linux-hwmon@vger.kernel.org, openbmc@lists.ozlabs.org, Thomas Gleixner <tglx@kernel.org>, Tony Luck <tony.luck@intel.com>, x86@kernel.org
-From: Dave Hansen <dave.hansen@linux.intel.com>
-Date: Fri, 20 Feb 2026 09:51:21 -0800
-Message-Id: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+   d="scan'208";a="213951850"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:15:03 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Fri, 20 Feb 2026 10:15:03 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Fri, 20 Feb 2026 10:15:03 -0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.39) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Fri, 20 Feb 2026 10:15:03 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MtcGh5MAOCJavX2SDi0119lQmEYmXHWZP9doN4942jazRkk9zUej7iP9r0U9Z8z/trBFmZ2WWX0rUW2QzSWO2oCBwl3sf9Go5fAayi7bw+Uf7BisqxB+DYXWYwz9EhjRzEat8Zq3TPqZ93rMhBRHbQklBNAoRZDx9Zdjnyit0TPsAdqj/LAAEIU6WxhyLgoQ9A9sfhn0v2DH+Ps8fyYKzn73VgZKPfpFnbmo939Pi5t2RoPnm3q1rsuFTh1YMbIBSWZNw7JmLqmo+ZddzbIZxdTZhMRMhzNK6eutcfsoPKiSJA3ST6f6MiWgzFXJ7UcH8PLJu7HYSYSiJsriKrK68w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yqORJCjCAdfz2nvQV10udQDOoUga3ZnLjUY9Edxe88s=;
+ b=OmuauTFKjk0Brx6xTfLGk/20HCouUf2jS5EobdfbCzW5avw3cqJNTu8UMpoQE7MzduZTQDPEDxYGAnCOz1yMzHy20L3JqbXdN9xRvuoG6aHudkI4k+ZEXW4zsTQgf/YyN2jQQ/MIO8n3Rxk3DVTwJmejevOThhOky3RWj9aIdn/KeJOngubmsuvvvAiyVb7+ok223Bu6vaZ7c8GA2OXkP3puwkWbJPUTO6QqNlNw6RalkI6vgTy2MgyUchTThyku8AbN2M9hxLZtGAVxktLaAKJxiQBuGiiALA0wZQfuwU76II9MqLN7nrkF7o1Lk9WWJuBcvk/8ittjPKyHImFZHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
+ by DS7PR11MB6200.namprd11.prod.outlook.com (2603:10b6:8:98::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.17; Fri, 20 Feb
+ 2026 18:15:00 +0000
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246]) by DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::24fa:827f:6c5b:6246%4]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
+ 18:15:00 +0000
+Message-ID: <b59da36c-4ddd-4cd9-98f2-b5a1db698889@intel.com>
+Date: Fri, 20 Feb 2026 10:14:57 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] [v2] peci: Remove dependency on x86 CPU variables
+Content-Language: en-US
+To: Dave Hansen <dave.hansen@linux.intel.com>, <linux-kernel@vger.kernel.org>
+CC: Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>, "H.
+ Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Iwona Winiarska
+	<iwona.winiarska@intel.com>, <linux-hwmon@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>, Thomas Gleixner <tglx@kernel.org>, Tony Luck
+	<tony.luck@intel.com>, <x86@kernel.org>
+References: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BYAPR08CA0005.namprd08.prod.outlook.com
+ (2603:10b6:a03:100::18) To DS0PR11MB7997.namprd11.prod.outlook.com
+ (2603:10b6:8:125::14)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -69,332 +117,119 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|DS7PR11MB6200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65e8838e-fb4c-4c6a-133f-08de70abf5e8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVhuRDkvbS82OFdrZVJ2eUNjdC9wZFdGdXI3SVJDYzdBbkdKYVVWTUVOUTBU?=
+ =?utf-8?B?T0pCWVN4Y3JXTURrMlFJUHY1b1ZKT01BYWRRVjRmWkpqOU02RU1aakJsMjg0?=
+ =?utf-8?B?d3Q4NEFqejNuQ1BMWW9POUhQeFVTN3ZPWCs0aGREVE9UU3U1aFo5MU5oQ1RG?=
+ =?utf-8?B?c2NHTzJqRzdpRkZMZ1Z4WWJEeE9Oakh4Uml6REZLanM3dmZsSlZKUEdqWU05?=
+ =?utf-8?B?TmdvakczeEJETnBhbHB2aXNLd3oyQldZOHNadmlZOVVSc1l5eGhkWWRmejdO?=
+ =?utf-8?B?QnlmME85ZTRIb1RKMjc4UklqSE1yT2p0OTJIaTFuSlhUVXE1MXdQcm9IdStl?=
+ =?utf-8?B?cmhqVW9QL251UGhpS1ZyOTlraTZDTTM3Y1pHZzZwN2JiU2NZS3RmVFVKYktZ?=
+ =?utf-8?B?dkVQd2lla2FFY3AzeDNOTVVaOExFaGNVTnFZTU5Tc3dtdmNmTjF2Rk5PRDEx?=
+ =?utf-8?B?cElhTmowMkxycEVEZGhIYW5reTY1eEZJNXNmVnJFTVVpUUlzVVVSbzlCVlpn?=
+ =?utf-8?B?VHFDQThoUkh5OTU3M0VJV1U0Y3JTWC9zZUY5cjZBYy9BMkRxd1pOcUxjTkFE?=
+ =?utf-8?B?b0JEZXZPV09xZlZ4ajc2M1pUUzgzVGl3RTUxaG9rV1JCb2JDVzNOZVkwd2pj?=
+ =?utf-8?B?VFVCdHhrVHI1N1pqSkxtYWRrRno1NEhsVzNFazdOUDNlMFZ0MmlrUkNDa3hW?=
+ =?utf-8?B?ZXFZR2lsMVhjcHpaby8xYXJTdmxrdUxNOUFheStZRjJYdVdER2dMVnJWUkRR?=
+ =?utf-8?B?cmx4M1hGaUVua29GYkRUOUp4bGVaRU9zellIei9RMHlIRk1FdkZSeStyaFVT?=
+ =?utf-8?B?M2tTYnUvR0hYeWR4NWZZY3ZxK1ZyWGdmYVlRak9oS2RQdE9jZjJQSm9MQWdI?=
+ =?utf-8?B?V3A5M1B5RGUxT3J3VzdPdGlPM0I3ZHJtZ2ovaC9hNjM1UG1UU3pHS1RFbkpa?=
+ =?utf-8?B?c3BaaTMwM1J6TGtYQTZvVkIvRjJuQ2xWbEVqY3hydUZDOTM4OCszUkxzYXhq?=
+ =?utf-8?B?Wnl0a0J6eG0wazh2RVNxUnQxWmYvSVFnd0lPeCtGRlptMEduTGZUVjBBamFn?=
+ =?utf-8?B?R1drM0pRSmgwNURsb281R3o5a2w5dmNPYmNnQy8wZ2VKdHZabnJydjBoSGYr?=
+ =?utf-8?B?b2NUMWNNc0ovR0IrN21Dc2RxcDM3VHkyMWRqZ3FMUDBpMlFxdmRGSTQxU3hj?=
+ =?utf-8?B?REpPeHV3OWdkYzAvWWpFL1dsTS92WTRZUzVOOGorZHhPQ1hlR2ZrWlg2ZnJI?=
+ =?utf-8?B?TUdHMVByOWRVMUUxSEs4SEFXQmdyR0R3ZkhMeHFPQlFKeVZ2WGtGd2JnUHZJ?=
+ =?utf-8?B?ZTN5cVMvcXRHM1ZBcERjMVNVZGlWbEFxbmJPano3SkNLQXMwcUJCdVZOajg3?=
+ =?utf-8?B?TTZidStBcVNRS1hmMDFPS0p2REc0QTQyTDRhY3o4SWJNWG5ydkpMUHNjaUhB?=
+ =?utf-8?B?UEluRDV0UDJpOHZwV1EvTG9LQUhiLy8xeXNaM0d6TWgxWWdmSHl2MmpRTXN3?=
+ =?utf-8?B?NUNMNEtSeCs5MTd3RFBzRW9vSU5YbEhKMC96VkJyWUxJN2N0aU1CY2NCSUxj?=
+ =?utf-8?B?RlF1cmF3SVZ0YzI4TXJGQUlaMUtxa25DbmhaQzZRRlJrWmVXY0RKNFBUQnRx?=
+ =?utf-8?B?RzQvV00xVjZXWGZhaFIrSk9YNDhUS0tDc0RBdzhLS01DZ0NEMnVEMVZoOUlN?=
+ =?utf-8?B?Wk54NENTSWRmT3hZcWs2dVJsdGlVNnZWNlh3VEJxN0Q5MGRSYXI5MVVwZm0x?=
+ =?utf-8?B?ZnBZNHZMUmVDUjBHK2MyUE5UYTE5aUtSMzFXQzcrcy9ibEJvU1pGQkFpZ1po?=
+ =?utf-8?B?c29iL1VtUjZ5THlsZmpGdlY5ZGEvS3ZSL1BTUVZOUkE5TG9uUU83OE5qZm45?=
+ =?utf-8?B?RzlZRUlHS1RwN0xacW83KzA2YWRLMFpzT2d2TVN6bS9TeWFZL3p6QldkVWhN?=
+ =?utf-8?B?YittQmYwUnVzYkJjb3RJaUQxNnJIeTR3VkIzTGNKRjZraUo2VG9aV0lld1ND?=
+ =?utf-8?B?OGx2WkRXdHB1S2xRNFdBMG5Jd1hUM2grS0tRb0p6UEpIejBRNllCZEpGcGlQ?=
+ =?utf-8?B?Qjh2SlZCSTdoMS9IeWRRVmdtbWdvcHE3NTlocGFsblFkR01wbmhFRE1EOFM4?=
+ =?utf-8?Q?UoHo=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmxIYTB2bWFOeldRcEI3SDYzOWl2d25ZNWluK0MxNm43eWVNeUd6L25NVFM1?=
+ =?utf-8?B?RjIrV1VxSVhERU1hWUQzSy9WOEV5Z2ExcHcvNjg5S2JpWjJGaXJOVitRclRP?=
+ =?utf-8?B?VHFBNEFOR2VKSFhwSHNaSTBTT3lqVFdYRWNuZHdhSGUycDJ0K1dFTEF0djVX?=
+ =?utf-8?B?ckJWdzhZWURQOGpGRFkySk9ZRUFiMDNBZDJJSEh4RUx2UWxJN28vVmFRNlcr?=
+ =?utf-8?B?SUovUi9QbWQ5TFdUcDdFZEFYeFFXSmJxVm92U2FhQWJCSXRxcXJVVUs3bk02?=
+ =?utf-8?B?Sms3T3lVN0dtVC9PWjZlWEdMQldHY1E4c2FEMmFGN2c0SEk4b1pjMVk1Vm14?=
+ =?utf-8?B?NmRETElqaGthYnpRcHM2OWQyS2FzQVM0MTg5RTRGSWJiNWc2T3AvakxrTjBj?=
+ =?utf-8?B?TEhjbE9Bbm5RNlA0bVkrdTF2czB5ejBpSng1NXI5S1JCUS9HUm9NWUFYL1dl?=
+ =?utf-8?B?RnNtTEZFSHdxRGNoNTNtQlRNdUNlZUxySDdYQndVVGJWbHQrTEx2dVFhdXNE?=
+ =?utf-8?B?M1M2NzExdXFtNG9nM0VhTXhvb1BSSW0zV0k0UU45M01XQjUvRVRrZFJtV29E?=
+ =?utf-8?B?VVhPZ2FtMDUyV1UybHJJT25IUGpuYkpuajFiSjZqSUZuS1RLaDJXbXpyYmNw?=
+ =?utf-8?B?dmdoNzNzTkxKUFhZMTUxZEl2Zy9HNWJHNGxTOTQzTTR4T2gzcVJ5TE9VLzhO?=
+ =?utf-8?B?L2ttVVVPb3hFZ1RFSXZ5bzhubXlFeGx1ejZ1K3Q5K3RFOG5SQXNMbGVnM0JR?=
+ =?utf-8?B?QnF1dFFTc1paNFB2M0w4OUJxeTQ5dVRhdXNJTllUbWNncWdqQmFjcnFaUGhr?=
+ =?utf-8?B?Qm95ZFJLUndGZjRxaFdONnZHWGNRdXVpWFhVNkZLQ0pVK2tIcTNIazhpUkMy?=
+ =?utf-8?B?MTVsTFU4d29KWG0rM0EyTzYyOGo1cExzeEFnTDl4NzlBUURUY0s2bmlnVkpt?=
+ =?utf-8?B?bnh3aDc5Q1lndjFyTTgxWkE5MWJpYmwwL2NMZ0oxbHlZQlhnRjJ1cnByMGFw?=
+ =?utf-8?B?S2ZOeVRZTXF6RlBrMHRzdWg4ZW9yWWcxV1Y5MjJ5bUVkRnFuZXhkc0N4VlNq?=
+ =?utf-8?B?S3lDdlR6REtwRENzaWRwUEdIdUZhSll5ckNZN2g0Rng3ZkowMzlJbW1rNmRC?=
+ =?utf-8?B?ZFN2SW9HVjlQWXBNVDl2OFU1Qmsrb0wrWWwwOHRKOXJIUk9BTGdCd2pXTG0x?=
+ =?utf-8?B?a2RXQlhKRzdTNVVPTURQZ3pyazJIVnV3WC9hQVlLbE10RFBiODhNclNtS0JO?=
+ =?utf-8?B?OHNNMENuQkIrWUpRWm1GNTExREgrTy8zR2xwcGxEZDBvQURMRTYvMko2dWlh?=
+ =?utf-8?B?L3hhTmk0T1hIYWU3eloxV3E0cGNiWDFscnJwQTZBdkdFN1JSb1ZEMng0QTdJ?=
+ =?utf-8?B?L0xnak9YSy9lVWcyQjZ1cVZKQ01takxpQlovLyszVkZORHdaS0I2enczbU1p?=
+ =?utf-8?B?OUVORjFabzJMbHR3OGRRL3J1Z0drQVR1R0V2ekdPVjl1eVBXOC9sR05kczJP?=
+ =?utf-8?B?T28xOEtDcjI0dzZkM2NxcEpYUnpVU3U1Y0NIS0hwVTFxT1puMzNlV204N3Fm?=
+ =?utf-8?B?a2pNU1UvUk9JbThYY0F4U2JKKy9YUnpDRHNDVnNZYThtRXhJSmJpVWVPMWsz?=
+ =?utf-8?B?K1VyQWhNeVB5V2NDNlN0NEtwNFJIRWZhSkl2RVlFYUpUNU1PUFlXNVI2cDNl?=
+ =?utf-8?B?U1VYMlFFaDZpWUdCOUpNVm5tRzg3VUEwcmVFVGZWQmlZRzN5UTZrdEpvZG9T?=
+ =?utf-8?B?bG1ZNG81OEJPc1JTQ2Y3WlpQaWQ4TWtuazdmRnJQdGMwTE96emlEUnZMTDRw?=
+ =?utf-8?B?QTRlRGk4VDlLUzZOOCtRY2s5WnZINnNNQVR0UjlRbkNzcEkvNVppeUh1MmFo?=
+ =?utf-8?B?RjVwTlYzdFNWRWZ1eUNBMUl6Vjg2ZzdyL0VjY2laNzIzMzg0UVlXOGJ3Q0Fh?=
+ =?utf-8?B?ZmJ0RWcvRm5lSVlBdUp1RGFhcVlTaU9hVndKTWFBVy83Y0Rnd1dnQUtjbGFC?=
+ =?utf-8?B?YnB3SE50am1WZ0VqNGhMS0EvZ2tlekpTdGs4SXpna1VtbFRKMDRtWnFYVDF0?=
+ =?utf-8?B?WTlVL3poNXhEN0Z4L3VieS82NDBZSWdnU05Xb3VsRlRxL1NLMWFHRDNBNFA5?=
+ =?utf-8?B?bjl1YXpjSm9xY01tSW1HWnZBNkdrRVpSQUdYWDE4MG9zYkZwNVZpY1ExU0Ja?=
+ =?utf-8?B?Q2toT01wazUxc0Z1QVlWSWRDUkJ2OGtFRFBuR2tsbW5vc2hCcGJtaVhTYXpG?=
+ =?utf-8?B?ek5EM1o4U2NXNzcrRVh1YmZWYlpCeHlhS2JUb0k3RHpPTjRpZ1ZHTlg4VXpr?=
+ =?utf-8?B?NzJUNkp3MUZBSTMyazJTOHZLWEhvZ2N5ZDJLYk1FUmQwVzNBTTRpdz09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65e8838e-fb4c-4c6a-133f-08de70abf5e8
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 18:15:00.3220
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r5T8uDo4tiJ+Ir+RzTAn5WZWS0IWpx2nCYPbFTPEjHPiOcbExPjd4xxqZbW7dlbjS5AMxY4XfhszXggXXwh51w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6200
+X-OriginatorOrg: intel.com
+
+On 2/20/2026 9:51 AM, Dave Hansen wrote:
+
+>   * struct peci_device_id - PECI device data to match
+>   * @data: pointer to driver private data specific to device
+> - * @x86_vfm: device vendor-family-model
+> + * @device_id: device identifier, includes CPU vendor-family-model
+
+Just a nit. There is an inconsistency between the two Kdoc comments.
+
+device_id no longer stores the vendor. The one below one is correct.
+CPUID.01H:EAX only gives the family-model-stepping information which is
+stored in the device_id after removing the stepping.
 
 
-From: Dave Hansen <dave.hansen@linux.intel.com>
-
-tl;dr: The non-x86 PECI driver #includes an arch/x86 header.  This is
-ostensibly to avoid duplicating CPU model number constants, but the
-result is complexity and duplicated *code* which is a far worse fate
-than duplicated constants.
-
-Remove the PECI dependency on arch/x86 by adding a list of supported
-"target" CPU models in the driver.
-
-This is only compile tested.
-
-Long version:
-
-== Background ==
-
-The "PECI" driver runs on non-x86 hardware inside an x86 system.  It
-talks to the x86 CPU. The PECI hardware has different features based on
-platform generations and uses the CPU model to control feature
-detections.
-
-Basically, instead of a PCI or USB device ID that a USB or PCI driver
-would use, the PECI driver uses the CPU model (and family).
-
-The arch/x86 code unsurprisingly has a list of CPU model numbers and the
-PECI code currently reuses that list. But the arch/x86 list is
-maintained in the "Display" format which is different than the binary
-format that CPUID (and PECI hardware) uses.
-
-== Problem ==
-
-The end result is that the PECI code #includes the arch/x86 constants
-header and then duplicates some code that transforms the CPUID to the
-"Display" format. This is fragile because it's easy for us x86 folks to
-break the PECI driver when assuming that arch/x86 is x86-only.
-
-== Solution ==
-
-Remove the arch/x86 dependency. Instead of duplicating the
-CPUID=>Display functionality, just duplicate the constants.
-
-Also rename the formerly "x86_vfm" variables. They are not in the VFM
-format any longer. They are purely device IDs.  Name them appropriately.
-
-The result is a net code removal. The only downside is that the PECI
-folks need to add a #define whenever there is a new CPU model. But, they
-need to go add new CPU model to the driver explicitly *anyway*.
-
-== Notes ==
-
-One little wrinkle in this is that the CPU identifier that comes back
-from the PECI hardware contains the CPU stepping just like
-CPUID.01H:EAX. But the stepping is ignored by the PECI driver.
-
-So, the PECI_INTEL_* identifiers are just defined with the stepping
-shifted off the beginning. They could have been defined with a 0 there
-and then have the stepping masked somewhere.
-
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Iwona Winiarska <iwona.winiarska@intel.com>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: x86@kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-
---
-
-Changes from v1:
- * Fix wrong Haswell model/family
- * Fix peci_device kernel doc
----
-
- b/drivers/hwmon/peci/cputemp.c |   10 ++++-----
- b/drivers/peci/core.c          |    4 +--
- b/drivers/peci/cpu.c           |   16 +++++++-------
- b/drivers/peci/device.c        |   40 +++++++++++-------------------------
- b/drivers/peci/internal.h      |    4 +--
- b/include/linux/peci-cpu.h     |   45 ++++++++++++++++++-----------------------
- b/include/linux/peci.h         |    4 +--
- 7 files changed, 52 insertions(+), 71 deletions(-)
-
-diff -puN drivers/peci/device.c~peci-sanity drivers/peci/device.c
---- a/drivers/peci/device.c~peci-sanity	2026-02-19 15:30:50.446519294 -0800
-+++ b/drivers/peci/device.c	2026-02-19 15:30:50.481521176 -0800
-@@ -57,39 +57,25 @@ static int peci_get_cpu_id(struct peci_d
- 	if (ret)
- 		goto out_req_free;
- 
-+	/*
-+	 * The id that comes back from the hardware is in the raw
-+	 * format of x86 CPUID.01H:EAX leaf and includes the CPU
-+	 * Model, Family and Stepping.
-+	 */
- 	*cpu_id = peci_request_data_readl(req);
-+
-+	/*
-+	 * Remove the stepping (CPUID.01H:EAX[3:0]) to match the
-+	 * PECI_INTEL_* identifiers:
-+	 */
-+	*cpu_id >>= 4;
-+
- out_req_free:
- 	peci_request_free(req);
- 
- 	return ret;
- }
- 
--static unsigned int peci_x86_cpu_family(unsigned int sig)
--{
--	unsigned int x86;
--
--	x86 = (sig >> 8) & 0xf;
--
--	if (x86 == 0xf)
--		x86 += (sig >> 20) & 0xff;
--
--	return x86;
--}
--
--static unsigned int peci_x86_cpu_model(unsigned int sig)
--{
--	unsigned int fam, model;
--
--	fam = peci_x86_cpu_family(sig);
--
--	model = (sig >> 4) & 0xf;
--
--	if (fam >= 0x6)
--		model += ((sig >> 16) & 0xf) << 4;
--
--	return model;
--}
--
- static int peci_device_info_init(struct peci_device *device)
- {
- 	u8 revision;
-@@ -100,7 +86,7 @@ static int peci_device_info_init(struct
- 	if (ret)
- 		return ret;
- 
--	device->info.x86_vfm = IFM(peci_x86_cpu_family(cpu_id), peci_x86_cpu_model(cpu_id));
-+	device->info.device_id = cpu_id;
- 
- 	ret = peci_get_revision(device, &revision);
- 	if (ret)
-diff -puN drivers/peci/internal.h~peci-sanity drivers/peci/internal.h
---- a/drivers/peci/internal.h~peci-sanity	2026-02-19 15:30:50.449519456 -0800
-+++ b/drivers/peci/internal.h	2026-02-19 15:30:50.482521229 -0800
-@@ -66,11 +66,11 @@ struct peci_request *peci_xfer_ep_mmio64
- /**
-  * struct peci_device_id - PECI device data to match
-  * @data: pointer to driver private data specific to device
-- * @x86_vfm: device vendor-family-model
-+ * @device_id: device identifier, includes CPU vendor-family-model
-  */
- struct peci_device_id {
- 	const void *data;
--	u32 x86_vfm;
-+	u32 device_id;
- };
- 
- extern const struct device_type peci_device_type;
-diff -puN include/linux/peci.h~peci-sanity include/linux/peci.h
---- a/include/linux/peci.h~peci-sanity	2026-02-19 15:30:50.452519617 -0800
-+++ b/include/linux/peci.h	2026-02-19 15:30:50.482521229 -0800
-@@ -59,7 +59,7 @@ static inline struct peci_controller *to
-  * struct peci_device - PECI device
-  * @dev: device object to register PECI device to the device model
-  * @info: PECI device characteristics
-- * @info.x86_vfm: device vendor-family-model
-+ * @info.device_id: device identifier (CPU family-model)
-  * @info.peci_revision: PECI revision supported by the PECI device
-  * @info.socket_id: the socket ID represented by the PECI device
-  * @addr: address used on the PECI bus connected to the parent controller
-@@ -72,7 +72,7 @@ static inline struct peci_controller *to
- struct peci_device {
- 	struct device dev;
- 	struct {
--		u32 x86_vfm;
-+		u32 device_id;
- 		u8 peci_revision;
- 		u8 socket_id;
- 	} info;
-diff -puN drivers/hwmon/peci/cputemp.c~peci-sanity drivers/hwmon/peci/cputemp.c
---- a/drivers/hwmon/peci/cputemp.c~peci-sanity	2026-02-19 15:30:50.455519778 -0800
-+++ b/drivers/hwmon/peci/cputemp.c	2026-02-19 15:30:50.482521229 -0800
-@@ -340,11 +340,11 @@ static int init_core_mask(struct peci_cp
- 	int ret;
- 
- 	/* Get the RESOLVED_CORES register value */
--	switch (peci_dev->info.x86_vfm) {
--	case INTEL_ICELAKE_X:
--	case INTEL_ICELAKE_D:
--	case INTEL_SAPPHIRERAPIDS_X:
--	case INTEL_EMERALDRAPIDS_X:
-+	switch (peci_dev->info.device_id) {
-+	case PECI_INTEL_ICELAKE_X:
-+	case PECI_INTEL_ICELAKE_D:
-+	case PECI_INTEL_SAPPHIRERAPIDS_X:
-+	case PECI_INTEL_EMERALDRAPIDS_X:
- 		ret = peci_ep_pci_local_read(peci_dev, 0, reg->bus, reg->dev,
- 					     reg->func, reg->offset + 4, &data);
- 		if (ret)
-diff -puN drivers/peci/core.c~peci-sanity drivers/peci/core.c
---- a/drivers/peci/core.c~peci-sanity	2026-02-19 15:30:50.459519993 -0800
-+++ b/drivers/peci/core.c	2026-02-19 15:30:50.482521229 -0800
-@@ -163,8 +163,8 @@ EXPORT_SYMBOL_NS_GPL(devm_peci_controlle
- static const struct peci_device_id *
- peci_bus_match_device_id(const struct peci_device_id *id, struct peci_device *device)
- {
--	while (id->x86_vfm != 0) {
--		if (id->x86_vfm == device->info.x86_vfm)
-+	while (id->device_id != 0) {
-+		if (id->device_id == device->info.device_id)
- 			return id;
- 		id++;
- 	}
-diff -puN include/linux/peci-cpu.h~peci-sanity include/linux/peci-cpu.h
---- a/include/linux/peci-cpu.h~peci-sanity	2026-02-19 15:30:50.462520154 -0800
-+++ b/include/linux/peci-cpu.h	2026-02-19 15:30:50.482521229 -0800
-@@ -6,31 +6,26 @@
- 
- #include <linux/types.h>
- 
--/* Copied from x86 <asm/processor.h> */
--#define X86_VENDOR_INTEL       0
--
--/* Copied from x86 <asm/cpu_device_id.h> */
--#define VFM_MODEL_BIT	0
--#define VFM_FAMILY_BIT	8
--#define VFM_VENDOR_BIT	16
--#define VFM_RSVD_BIT	24
--
--#define	VFM_MODEL_MASK	GENMASK(VFM_FAMILY_BIT - 1, VFM_MODEL_BIT)
--#define	VFM_FAMILY_MASK	GENMASK(VFM_VENDOR_BIT - 1, VFM_FAMILY_BIT)
--#define	VFM_VENDOR_MASK	GENMASK(VFM_RSVD_BIT - 1, VFM_VENDOR_BIT)
--
--#define VFM_MODEL(vfm)	(((vfm) & VFM_MODEL_MASK) >> VFM_MODEL_BIT)
--#define VFM_FAMILY(vfm)	(((vfm) & VFM_FAMILY_MASK) >> VFM_FAMILY_BIT)
--#define VFM_VENDOR(vfm)	(((vfm) & VFM_VENDOR_MASK) >> VFM_VENDOR_BIT)
--
--#define	VFM_MAKE(_vendor, _family, _model) (	\
--	((_model) << VFM_MODEL_BIT) |		\
--	((_family) << VFM_FAMILY_BIT) |		\
--	((_vendor) << VFM_VENDOR_BIT)		\
--)
--/* End of copied code */
--
--#include "../../arch/x86/include/asm/intel-family.h"
-+/*
-+ * These are in the format of and match the values of the x86
-+ * CPUID.01H:EAX[19:4]. They encode the model and family of
-+ * the CPU with which the driver is interfacing.
-+ *
-+ * All driver functionality is common across all CPU steppings
-+ * of a given model. Exclude the lower 4 stepping bits from
-+ * these IDs.
-+ *
-+ * Always mirror the naming from the x86 intel-family.h file.
-+ */
-+
-+#define PECI_INTEL_HASWELL_X		0x306F
-+#define PECI_INTEL_BROADWELL_X		0x406F
-+#define PECI_INTEL_BROADWELL_D		0x5066
-+#define PECI_INTEL_SKYLAKE_X		0x5065
-+#define PECI_INTEL_ICELAKE_X		0x606A
-+#define PECI_INTEL_ICELAKE_D		0x606C
-+#define PECI_INTEL_SAPPHIRERAPIDS_X	0x806F
-+#define PECI_INTEL_EMERALDRAPIDS_X	0xC06F
- 
- #define PECI_PCS_PKG_ID			0  /* Package Identifier Read */
- #define  PECI_PKG_ID_CPU_ID		0x0000  /* CPUID Info */
-diff -puN drivers/peci/cpu.c~peci-sanity drivers/peci/cpu.c
---- a/drivers/peci/cpu.c~peci-sanity	2026-02-19 15:30:50.474520799 -0800
-+++ b/drivers/peci/cpu.c	2026-02-19 15:30:50.482521229 -0800
-@@ -294,35 +294,35 @@ peci_cpu_probe(struct peci_device *devic
- 
- static const struct peci_device_id peci_cpu_device_ids[] = {
- 	{ /* Haswell Xeon */
--		.x86_vfm = INTEL_HASWELL_X,
-+		.device_id = PECI_INTEL_HASWELL_X,
- 		.data	= "hsx",
- 	},
- 	{ /* Broadwell Xeon */
--		.x86_vfm = INTEL_BROADWELL_X,
-+		.device_id = PECI_INTEL_BROADWELL_X,
- 		.data	= "bdx",
- 	},
- 	{ /* Broadwell Xeon D */
--		.x86_vfm = INTEL_BROADWELL_D,
-+		.device_id = PECI_INTEL_BROADWELL_D,
- 		.data	= "bdxd",
- 	},
- 	{ /* Skylake Xeon */
--		.x86_vfm = INTEL_SKYLAKE_X,
-+		.device_id = PECI_INTEL_SKYLAKE_X,
- 		.data	= "skx",
- 	},
- 	{ /* Icelake Xeon */
--		.x86_vfm = INTEL_ICELAKE_X,
-+		.device_id = PECI_INTEL_ICELAKE_X,
- 		.data	= "icx",
- 	},
- 	{ /* Icelake Xeon D */
--		.x86_vfm = INTEL_ICELAKE_D,
-+		.device_id = PECI_INTEL_ICELAKE_D,
- 		.data	= "icxd",
- 	},
- 	{ /* Sapphire Rapids Xeon */
--		.x86_vfm = INTEL_SAPPHIRERAPIDS_X,
-+		.device_id = PECI_INTEL_SAPPHIRERAPIDS_X,
- 		.data	= "spr",
- 	},
- 	{ /* Emerald Rapids Xeon */
--		.x86_vfm  = INTEL_EMERALDRAPIDS_X,
-+		.device_id  = PECI_INTEL_EMERALDRAPIDS_X,
- 		.data  = "emr",
- 	},
- 	{ }
-_
+>   * struct peci_device - PECI device
+>   * @dev: device object to register PECI device to the device model
+>   * @info: PECI device characteristics
+> - * @info.x86_vfm: device vendor-family-model
+> + * @info.device_id: device identifier (CPU family-model)
 
