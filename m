@@ -1,112 +1,92 @@
-Return-Path: <openbmc+bounces-1403-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1404-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851A7E68179
-	for <openbmc@archiver.kernel.org>; Sun, 22 Feb 2026 23:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 021DEEA4FC3
+	for <openbmc@archiver.kernel.org>; Mon, 23 Feb 2026 14:13:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fK03W6ZWcz30T8;
-	Mon, 23 Feb 2026 10:06:31 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=fail smtp.remote-ip=198.175.65.13
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771611314;
-	cv=fail; b=dDpsemKlqxiZWMzDntexGc5rRgIoAzOghFjAIt9vvQI0+MsC56LNqCgq64rxQHQejTTZdeNJDJvBWj0ZbaFEmPFSYr8Fr0jgJrCIHsfhnZ/x7ksGWmAh0O0+caKrmyKbxQ5qQm7Aa7npYGIetPYfTnbQibmM37owzK1UIJKmT/XY/La4Nm3a3Yg5wYnIDPQ6dspCyXOoBO8yX8z/cgePfNMMfQt7jK7oq1mZsHHGLyjJL5zDaUh+mzRJkDdEWO/VGnwQN7gdeU/hvvVVk87gzc6hGBGsscwpfDPva56vh3h3Md95yJw+lqeLyiVj/Qx+t3JUvHw6rgH+XXPJlY4ASw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fKNB60G97z30FD;
+	Tue, 24 Feb 2026 01:13:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a00:1450:4864:20::130" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1771856013;
+	cv=pass; b=Dz2gYjFjMyhaZeAeC087upzTrK0ulfU+eNRxvb7bSsig3XbSy7rpddNd5WtRfkLuf2Zs0o5qA2hw8VAzvrFMQCTnoLBv9NFOu39kMArQ5t+1V2ujDO2HGgQd7fSxPnHC4M7iqbV8daAF5jL+TMQ5j+89sVRecUX1EC/nsqbWHnjtUCEO6QBWQSKgrCDTrHIJer6iwG55hU7RimCXEDPV3b48LpL8D7eUPmK1mlD77mPbzYfWgt/C+ITTbRA9s2SwgyPGZ3gcwA7YTY2lMkqU0mLyCU6EKFJdWRPhmbbYD7RX/4pOjQPk/YrlmkgzcZSPFTFyIknBYuz4FMdCOeG+ow==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1771611314; c=relaxed/relaxed;
-	bh=yqORJCjCAdfz2nvQV10udQDOoUga3ZnLjUY9Edxe88s=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=GtmKUW1Ghy+6itUk7GnN98T6Fdu/rrgYmcx5fnaMzPhx9zIaj8hJlZ51B6oDUS09I0GK36fWjcyi5ioOCVkOBPl3tpKOWkBjQAib00uaQ5cDOXFjzgoumDOeUaCsUN1144JVTgU4EiCZCD6AIdSj8QU5T9zyHOby6VkoBFSDGASoT8RBCmfITP+iGwtFsXHCevvMo3LPMhtCM70d5T+SyJwu3Pat8OI6w9tdD4tZyZX/Z67fud1oQeMW1gTt2uXmvfwjIWJntabEX5+QdC8lKq+LmymiIbtm09qcJMMPnJRl+If0BVdXB8HUF8+5jQ/2RE/P2x1S3PMF5iU1FZJHLQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZEtSEfX7; dkim-atps=neutral; spf=pass (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=sohil.mehta@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
+	t=1771856013; c=relaxed/relaxed;
+	bh=7UcNIiszEKvIE+Kf7TAf++7dJZgkiPPqma20oF8iNSw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aVGPhHLEHu7mdlfI6G6+F7vKN3mxV+/NlDMyPZLlkSXGr+FgsQIys9Jf5kayz3nb8VuZ3YRcPLSCSAoXKN0IPh8ypzigQGfjd3W6WiamIMbyIeDG7gbSzfq0Ob4qVKUaG1Q+dWjtMjl0oR6f+1NDj64p7pPhojyPoksDtH0mv82wxCHw1pJ+raoQaSKFw5xr6/9pf0UT9Pzh5Otxlihi0Fc8MTom35MFUH1dU3BTYKpw20rkrAML9PsBwSlj6fJ/5Ff9AOKbsGYqWn1Vnxe7+bPepN1se2uizsnHcQycQMDWCOHYlG1owRntegaL5jqotKVuq7maWtnAHW1vhecowQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R3KhHNri; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::130; helo=mail-lf1-x130.google.com; envelope-from=ulf.hansson@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZEtSEfX7;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=R3KhHNri;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=198.175.65.13; helo=mgamail.intel.com; envelope-from=sohil.mehta@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::130; helo=mail-lf1-x130.google.com; envelope-from=ulf.hansson@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com [IPv6:2a00:1450:4864:20::130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fHdhH4RDGz30Lw
-	for <openbmc@lists.ozlabs.org>; Sat, 21 Feb 2026 05:15:08 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1771611312; x=1803147312;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qXfmqHFlRr12dRe14dst+EK8q/Tn6HyHv7AVmexjTpg=;
-  b=ZEtSEfX78je38SmN6+52MCVY9fGUMJRtInqxIoNjWyRyfQCVABxezL+4
-   ukPoJlhkW9PrA+cKKDyMEy+kB+VDa1KtoADgNhIR4IVNP+HwklLHVadUD
-   vX+R39bc+xy9sZqngkwPGQbhcVeOxG9jejQQ2u+GVN8bzbDeEkPQnnB2U
-   JqcEKvbg+ixDWVSxOg1gbSb/M2iIu2IeyVGD5qQXvWjEV4qR/BLhr+oJ8
-   eqO55ZjljzqtPo87XkMJAA4ZKMe4IJVRGfrx75v3Y3OT4yWZy9HaWJ8Pi
-   bOawGKZAaYU0Tdh88RHv7bONPxV7MdT8d+BIFLmwn9b9xbPzx9owPasLL
-   w==;
-X-CSE-ConnectionGUID: joEsZ8BRQ6apGi0mGMubUQ==
-X-CSE-MsgGUID: qeHhSwF/TqGoza2qKmiFfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11707"; a="83810980"
-X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
-   d="scan'208";a="83810980"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:15:04 -0800
-X-CSE-ConnectionGUID: gfaCNP3UR4Weuh13ugvlvA==
-X-CSE-MsgGUID: 7cTZ2078Qa6c8l0f/vZxsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,302,1763452800"; 
-   d="scan'208";a="213951850"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Feb 2026 10:15:03 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Fri, 20 Feb 2026 10:15:03 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35 via Frontend Transport; Fri, 20 Feb 2026 10:15:03 -0800
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.39) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Fri, 20 Feb 2026 10:15:03 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MtcGh5MAOCJavX2SDi0119lQmEYmXHWZP9doN4942jazRkk9zUej7iP9r0U9Z8z/trBFmZ2WWX0rUW2QzSWO2oCBwl3sf9Go5fAayi7bw+Uf7BisqxB+DYXWYwz9EhjRzEat8Zq3TPqZ93rMhBRHbQklBNAoRZDx9Zdjnyit0TPsAdqj/LAAEIU6WxhyLgoQ9A9sfhn0v2DH+Ps8fyYKzn73VgZKPfpFnbmo939Pi5t2RoPnm3q1rsuFTh1YMbIBSWZNw7JmLqmo+ZddzbIZxdTZhMRMhzNK6eutcfsoPKiSJA3ST6f6MiWgzFXJ7UcH8PLJu7HYSYSiJsriKrK68w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yqORJCjCAdfz2nvQV10udQDOoUga3ZnLjUY9Edxe88s=;
- b=OmuauTFKjk0Brx6xTfLGk/20HCouUf2jS5EobdfbCzW5avw3cqJNTu8UMpoQE7MzduZTQDPEDxYGAnCOz1yMzHy20L3JqbXdN9xRvuoG6aHudkI4k+ZEXW4zsTQgf/YyN2jQQ/MIO8n3Rxk3DVTwJmejevOThhOky3RWj9aIdn/KeJOngubmsuvvvAiyVb7+ok223Bu6vaZ7c8GA2OXkP3puwkWbJPUTO6QqNlNw6RalkI6vgTy2MgyUchTThyku8AbN2M9hxLZtGAVxktLaAKJxiQBuGiiALA0wZQfuwU76II9MqLN7nrkF7o1Lk9WWJuBcvk/8ittjPKyHImFZHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
- by DS7PR11MB6200.namprd11.prod.outlook.com (2603:10b6:8:98::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.17; Fri, 20 Feb
- 2026 18:15:00 +0000
-Received: from DS0PR11MB7997.namprd11.prod.outlook.com
- ([fe80::24fa:827f:6c5b:6246]) by DS0PR11MB7997.namprd11.prod.outlook.com
- ([fe80::24fa:827f:6c5b:6246%4]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
- 18:15:00 +0000
-Message-ID: <b59da36c-4ddd-4cd9-98f2-b5a1db698889@intel.com>
-Date: Fri, 20 Feb 2026 10:14:57 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [v2] peci: Remove dependency on x86 CPU variables
-Content-Language: en-US
-To: Dave Hansen <dave.hansen@linux.intel.com>, <linux-kernel@vger.kernel.org>
-CC: Borislav Petkov <bp@alien8.de>, Guenter Roeck <linux@roeck-us.net>, "H.
- Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Iwona Winiarska
-	<iwona.winiarska@intel.com>, <linux-hwmon@vger.kernel.org>,
-	<openbmc@lists.ozlabs.org>, Thomas Gleixner <tglx@kernel.org>, Tony Luck
-	<tony.luck@intel.com>, <x86@kernel.org>
-References: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
-From: Sohil Mehta <sohil.mehta@intel.com>
-In-Reply-To: <20260220175121.C16ADAAA@davehans-spike.ostc.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR08CA0005.namprd08.prod.outlook.com
- (2603:10b6:a03:100::18) To DS0PR11MB7997.namprd11.prod.outlook.com
- (2603:10b6:8:125::14)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fKNB43jXJz2xN8
+	for <openbmc@lists.ozlabs.org>; Tue, 24 Feb 2026 01:13:31 +1100 (AEDT)
+Received: by mail-lf1-x130.google.com with SMTP id 2adb3069b0e04-59e57973dbfso4332722e87.1
+        for <openbmc@lists.ozlabs.org>; Mon, 23 Feb 2026 06:13:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771856007; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Qntq+dzDKuPP/RQL4LEzgHKnIBB8hr0t6u8RfR2KUvH2OjNpmHrjzJffdN4eg3SSBC
+         x2NAvM1xZOlA5Vev2Lyre9/Slmok3sKJ61E0Gi21rlsHIFF1CIG3QQ6QaKgF1XZvSFJg
+         1ZNLooMrrQQXzpglnRJB9aivBjWsKU82DEWgnVaWqz48aKEwkjnBBPX5DWSAnJhWu/5b
+         2kLwLS+l39zcjMxK8h3a53NlvvJU6V5VQ1aOMk5bHy7Pk6m/th9+L8181fdfL62+KtoI
+         ZUZ4SFitOvyTl2tWWmSFsbQrY9dmDZ+Cs9q28DfaFIlSobpO/ZyJwZr42lIOfvrBsrTy
+         RwDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=7UcNIiszEKvIE+Kf7TAf++7dJZgkiPPqma20oF8iNSw=;
+        fh=AWC7fnzEYy2S+rHbdBjAvoWuAEMXCBx9/IVNAesPl/o=;
+        b=GzfSzaRKiRLRmR0JVzaSnZewY59Wpjs6E1OB01qDXFssWPjXe37mhoWqWszSjURd4J
+         AFT9usb6QCOBnBClXBSW0U7rGk5dFlTUpFFNNYtP06+iFwa0ttdOVowBw6a77YhlB+CW
+         /JprEgG/Oh7rUUI88KZQf2u6n/s4JWWeiShQUFSKEJ7F71/JieYq8tQJ6q7sG+bsx0wV
+         JQHRMvTT66uCwcjrX8Mjz9dbNjQjD/d2x462377zKEtxfzeWK48JGmFJKDBHhkHN6qXv
+         Cf52ZIk02/4WJW5OcKurHPUsW90O9mAilb+VgpBXOzeS9bvbhbTITmSHNfRVCFSFF1WF
+         9Isw==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1771856007; x=1772460807; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=7UcNIiszEKvIE+Kf7TAf++7dJZgkiPPqma20oF8iNSw=;
+        b=R3KhHNriyr7iAfjmr7aVzkuZ/kzUt6x0xB7Z/R/L86UOCFwxYKcXtpR4DutgvTdH+G
+         2fPt+YHOoNaE25rcXeS5JSfLesBf2SzKRiA52aq8ZkBauc0WQvSkmUXe7xtiOwtj1f53
+         By7slsW6Ko4vvQn+c4oQs2IIIl9rFk7CXMqkihlQwVGsW16dUnXeKtDGTpdMc4rYurYR
+         bLr2A6DMnj/3kTaV72JK/oZkI40TjtkvoEDtka4VjidOStoV7q1Vlcv+yN5jXOclODRi
+         8orskL4ar9OyJFsiK5Sic4d7jc1kXg/qAF3uAtqDqSFpbRjQEkefk1FAyv2hxU8Qi84a
+         2pVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1771856007; x=1772460807;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7UcNIiszEKvIE+Kf7TAf++7dJZgkiPPqma20oF8iNSw=;
+        b=AhdpUgEa+oYKEShkCJ7ZJ1fxceSIStTmvUMbsGGSf+sorXnDLlnA0WveUjhRAbZUo1
+         8Lv8P18wWFGJAaO9s6S7SFg4Oj9FiQQT54Zyejr71WXixoVwtXWoTXrbA5TTuV2Tz1CP
+         hlkFPN+FsGySsrIIuqn2PV1wHHDe88IBztqgE3lc2liLpqvyRKSCniXjbEFu18qZRYo2
+         EmaFIbzOtv2Cn4LY3GLvznfEkvvIS7jSk3t+TAgfKoZNntOcsHahypRRUd4Y/9uwtCpA
+         Vv23b6YcOt67+Fui/Vj3PtwhEehhwFVz+mUg+kY/NpvZ5XnDuT8rapSVNxUsIYZFw3dD
+         BQaQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOgA+Mnd5nhd28Ca7yFrj7uPhTLG/dmTCnlGcVjRaKQ3PFLWD8IMoKhkH8n1WjD6FX3pmMR6Lw@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzC4YYoQ/Un956K4OBmCAlKSJGuageqg2NGoxmaYdpXp2Fn6sGb
+	uNlN5nCv3frWwAhhxsGL2tdHHtRKQXCjo1aHCxRCPMHNesCIgCIpMZvkUl6dMum4DHgqoeoqiW5
+	NmhKzX/65MSgucecHb8dDdD48b0SPuV6WBaRn464VYg==
+X-Gm-Gg: AZuq6aJd4UZ0qkNLIA9CzRjmWf9Vk5IfTGkV1tOmtR9Dcvtygq3uJgYcES01CdcL+Tq
+	m4a7MQR+Ugab8SmklmdxQHybWJcyWH3qUMatjgyomhVXdVF2IpnEaFdPoUd1m2PQyaGvwY6xBpb
+	JCcq65vKiCdo8ZpeK2GhpzsDiQDiEvdnB97UlmYNj6ER45MHquIDO1KdAGJbIph/Y/0AMmA0bMA
+	/LyOyIdOeLK58X/Di6SDr93taH/win+ng3XqUBiwy2y0XzdpHfTjV/+Dv1QTrLucGwsl0ivk+m2
+	3trKeBu0
+X-Received: by 2002:a05:6512:108c:b0:59f:822b:b739 with SMTP id
+ 2adb3069b0e04-59f8abde44cmr5314261e87.4.1771856006894; Mon, 23 Feb 2026
+ 06:13:26 -0800 (PST)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -118,118 +98,69 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|DS7PR11MB6200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65e8838e-fb4c-4c6a-133f-08de70abf5e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVhuRDkvbS82OFdrZVJ2eUNjdC9wZFdGdXI3SVJDYzdBbkdKYVVWTUVOUTBU?=
- =?utf-8?B?T0pCWVN4Y3JXTURrMlFJUHY1b1ZKT01BYWRRVjRmWkpqOU02RU1aakJsMjg0?=
- =?utf-8?B?d3Q4NEFqejNuQ1BMWW9POUhQeFVTN3ZPWCs0aGREVE9UU3U1aFo5MU5oQ1RG?=
- =?utf-8?B?c2NHTzJqRzdpRkZMZ1Z4WWJEeE9Oakh4Uml6REZLanM3dmZsSlZKUEdqWU05?=
- =?utf-8?B?TmdvakczeEJETnBhbHB2aXNLd3oyQldZOHNadmlZOVVSc1l5eGhkWWRmejdO?=
- =?utf-8?B?QnlmME85ZTRIb1RKMjc4UklqSE1yT2p0OTJIaTFuSlhUVXE1MXdQcm9IdStl?=
- =?utf-8?B?cmhqVW9QL251UGhpS1ZyOTlraTZDTTM3Y1pHZzZwN2JiU2NZS3RmVFVKYktZ?=
- =?utf-8?B?dkVQd2lla2FFY3AzeDNOTVVaOExFaGNVTnFZTU5Tc3dtdmNmTjF2Rk5PRDEx?=
- =?utf-8?B?cElhTmowMkxycEVEZGhIYW5reTY1eEZJNXNmVnJFTVVpUUlzVVVSbzlCVlpn?=
- =?utf-8?B?VHFDQThoUkh5OTU3M0VJV1U0Y3JTWC9zZUY5cjZBYy9BMkRxd1pOcUxjTkFE?=
- =?utf-8?B?b0JEZXZPV09xZlZ4ajc2M1pUUzgzVGl3RTUxaG9rV1JCb2JDVzNOZVkwd2pj?=
- =?utf-8?B?VFVCdHhrVHI1N1pqSkxtYWRrRno1NEhsVzNFazdOUDNlMFZ0MmlrUkNDa3hW?=
- =?utf-8?B?ZXFZR2lsMVhjcHpaby8xYXJTdmxrdUxNOUFheStZRjJYdVdER2dMVnJWUkRR?=
- =?utf-8?B?cmx4M1hGaUVua29GYkRUOUp4bGVaRU9zellIei9RMHlIRk1FdkZSeStyaFVT?=
- =?utf-8?B?M2tTYnUvR0hYeWR4NWZZY3ZxK1ZyWGdmYVlRak9oS2RQdE9jZjJQSm9MQWdI?=
- =?utf-8?B?V3A5M1B5RGUxT3J3VzdPdGlPM0I3ZHJtZ2ovaC9hNjM1UG1UU3pHS1RFbkpa?=
- =?utf-8?B?c3BaaTMwM1J6TGtYQTZvVkIvRjJuQ2xWbEVqY3hydUZDOTM4OCszUkxzYXhq?=
- =?utf-8?B?Wnl0a0J6eG0wazh2RVNxUnQxWmYvSVFnd0lPeCtGRlptMEduTGZUVjBBamFn?=
- =?utf-8?B?R1drM0pRSmgwNURsb281R3o5a2w5dmNPYmNnQy8wZ2VKdHZabnJydjBoSGYr?=
- =?utf-8?B?b2NUMWNNc0ovR0IrN21Dc2RxcDM3VHkyMWRqZ3FMUDBpMlFxdmRGSTQxU3hj?=
- =?utf-8?B?REpPeHV3OWdkYzAvWWpFL1dsTS92WTRZUzVOOGorZHhPQ1hlR2ZrWlg2ZnJI?=
- =?utf-8?B?TUdHMVByOWRVMUUxSEs4SEFXQmdyR0R3ZkhMeHFPQlFKeVZ2WGtGd2JnUHZJ?=
- =?utf-8?B?ZTN5cVMvcXRHM1ZBcERjMVNVZGlWbEFxbmJPano3SkNLQXMwcUJCdVZOajg3?=
- =?utf-8?B?TTZidStBcVNRS1hmMDFPS0p2REc0QTQyTDRhY3o4SWJNWG5ydkpMUHNjaUhB?=
- =?utf-8?B?UEluRDV0UDJpOHZwV1EvTG9LQUhiLy8xeXNaM0d6TWgxWWdmSHl2MmpRTXN3?=
- =?utf-8?B?NUNMNEtSeCs5MTd3RFBzRW9vSU5YbEhKMC96VkJyWUxJN2N0aU1CY2NCSUxj?=
- =?utf-8?B?RlF1cmF3SVZ0YzI4TXJGQUlaMUtxa25DbmhaQzZRRlJrWmVXY0RKNFBUQnRx?=
- =?utf-8?B?RzQvV00xVjZXWGZhaFIrSk9YNDhUS0tDc0RBdzhLS01DZ0NEMnVEMVZoOUlN?=
- =?utf-8?B?Wk54NENTSWRmT3hZcWs2dVJsdGlVNnZWNlh3VEJxN0Q5MGRSYXI5MVVwZm0x?=
- =?utf-8?B?ZnBZNHZMUmVDUjBHK2MyUE5UYTE5aUtSMzFXQzcrcy9ibEJvU1pGQkFpZ1po?=
- =?utf-8?B?c29iL1VtUjZ5THlsZmpGdlY5ZGEvS3ZSL1BTUVZOUkE5TG9uUU83OE5qZm45?=
- =?utf-8?B?RzlZRUlHS1RwN0xacW83KzA2YWRLMFpzT2d2TVN6bS9TeWFZL3p6QldkVWhN?=
- =?utf-8?B?YittQmYwUnVzYkJjb3RJaUQxNnJIeTR3VkIzTGNKRjZraUo2VG9aV0lld1ND?=
- =?utf-8?B?OGx2WkRXdHB1S2xRNFdBMG5Jd1hUM2grS0tRb0p6UEpIejBRNllCZEpGcGlQ?=
- =?utf-8?B?Qjh2SlZCSTdoMS9IeWRRVmdtbWdvcHE3NTlocGFsblFkR01wbmhFRE1EOFM4?=
- =?utf-8?Q?UoHo=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmxIYTB2bWFOeldRcEI3SDYzOWl2d25ZNWluK0MxNm43eWVNeUd6L25NVFM1?=
- =?utf-8?B?RjIrV1VxSVhERU1hWUQzSy9WOEV5Z2ExcHcvNjg5S2JpWjJGaXJOVitRclRP?=
- =?utf-8?B?VHFBNEFOR2VKSFhwSHNaSTBTT3lqVFdYRWNuZHdhSGUycDJ0K1dFTEF0djVX?=
- =?utf-8?B?ckJWdzhZWURQOGpGRFkySk9ZRUFiMDNBZDJJSEh4RUx2UWxJN28vVmFRNlcr?=
- =?utf-8?B?SUovUi9QbWQ5TFdUcDdFZEFYeFFXSmJxVm92U2FhQWJCSXRxcXJVVUs3bk02?=
- =?utf-8?B?Sms3T3lVN0dtVC9PWjZlWEdMQldHY1E4c2FEMmFGN2c0SEk4b1pjMVk1Vm14?=
- =?utf-8?B?NmRETElqaGthYnpRcHM2OWQyS2FzQVM0MTg5RTRGSWJiNWc2T3AvakxrTjBj?=
- =?utf-8?B?TEhjbE9Bbm5RNlA0bVkrdTF2czB5ejBpSng1NXI5S1JCUS9HUm9NWUFYL1dl?=
- =?utf-8?B?RnNtTEZFSHdxRGNoNTNtQlRNdUNlZUxySDdYQndVVGJWbHQrTEx2dVFhdXNE?=
- =?utf-8?B?M1M2NzExdXFtNG9nM0VhTXhvb1BSSW0zV0k0UU45M01XQjUvRVRrZFJtV29E?=
- =?utf-8?B?VVhPZ2FtMDUyV1UybHJJT25IUGpuYkpuajFiSjZqSUZuS1RLaDJXbXpyYmNw?=
- =?utf-8?B?dmdoNzNzTkxKUFhZMTUxZEl2Zy9HNWJHNGxTOTQzTTR4T2gzcVJ5TE9VLzhO?=
- =?utf-8?B?L2ttVVVPb3hFZ1RFSXZ5bzhubXlFeGx1ejZ1K3Q5K3RFOG5SQXNMbGVnM0JR?=
- =?utf-8?B?QnF1dFFTc1paNFB2M0w4OUJxeTQ5dVRhdXNJTllUbWNncWdqQmFjcnFaUGhr?=
- =?utf-8?B?Qm95ZFJLUndGZjRxaFdONnZHWGNRdXVpWFhVNkZLQ0pVK2tIcTNIazhpUkMy?=
- =?utf-8?B?MTVsTFU4d29KWG0rM0EyTzYyOGo1cExzeEFnTDl4NzlBUURUY0s2bmlnVkpt?=
- =?utf-8?B?bnh3aDc5Q1lndjFyTTgxWkE5MWJpYmwwL2NMZ0oxbHlZQlhnRjJ1cnByMGFw?=
- =?utf-8?B?S2ZOeVRZTXF6RlBrMHRzdWg4ZW9yWWcxV1Y5MjJ5bUVkRnFuZXhkc0N4VlNq?=
- =?utf-8?B?S3lDdlR6REtwRENzaWRwUEdIdUZhSll5ckNZN2g0Rng3ZkowMzlJbW1rNmRC?=
- =?utf-8?B?ZFN2SW9HVjlQWXBNVDl2OFU1Qmsrb0wrWWwwOHRKOXJIUk9BTGdCd2pXTG0x?=
- =?utf-8?B?a2RXQlhKRzdTNVVPTURQZ3pyazJIVnV3WC9hQVlLbE10RFBiODhNclNtS0JO?=
- =?utf-8?B?OHNNMENuQkIrWUpRWm1GNTExREgrTy8zR2xwcGxEZDBvQURMRTYvMko2dWlh?=
- =?utf-8?B?L3hhTmk0T1hIYWU3eloxV3E0cGNiWDFscnJwQTZBdkdFN1JSb1ZEMng0QTdJ?=
- =?utf-8?B?L0xnak9YSy9lVWcyQjZ1cVZKQ01takxpQlovLyszVkZORHdaS0I2enczbU1p?=
- =?utf-8?B?OUVORjFabzJMbHR3OGRRL3J1Z0drQVR1R0V2ekdPVjl1eVBXOC9sR05kczJP?=
- =?utf-8?B?T28xOEtDcjI0dzZkM2NxcEpYUnpVU3U1Y0NIS0hwVTFxT1puMzNlV204N3Fm?=
- =?utf-8?B?a2pNU1UvUk9JbThYY0F4U2JKKy9YUnpDRHNDVnNZYThtRXhJSmJpVWVPMWsz?=
- =?utf-8?B?K1VyQWhNeVB5V2NDNlN0NEtwNFJIRWZhSkl2RVlFYUpUNU1PUFlXNVI2cDNl?=
- =?utf-8?B?U1VYMlFFaDZpWUdCOUpNVm5tRzg3VUEwcmVFVGZWQmlZRzN5UTZrdEpvZG9T?=
- =?utf-8?B?bG1ZNG81OEJPc1JTQ2Y3WlpQaWQ4TWtuazdmRnJQdGMwTE96emlEUnZMTDRw?=
- =?utf-8?B?QTRlRGk4VDlLUzZOOCtRY2s5WnZINnNNQVR0UjlRbkNzcEkvNVppeUh1MmFo?=
- =?utf-8?B?RjVwTlYzdFNWRWZ1eUNBMUl6Vjg2ZzdyL0VjY2laNzIzMzg0UVlXOGJ3Q0Fh?=
- =?utf-8?B?ZmJ0RWcvRm5lSVlBdUp1RGFhcVlTaU9hVndKTWFBVy83Y0Rnd1dnQUtjbGFC?=
- =?utf-8?B?YnB3SE50am1WZ0VqNGhMS0EvZ2tlekpTdGs4SXpna1VtbFRKMDRtWnFYVDF0?=
- =?utf-8?B?WTlVL3poNXhEN0Z4L3VieS82NDBZSWdnU05Xb3VsRlRxL1NLMWFHRDNBNFA5?=
- =?utf-8?B?bjl1YXpjSm9xY01tSW1HWnZBNkdrRVpSQUdYWDE4MG9zYkZwNVZpY1ExU0Ja?=
- =?utf-8?B?Q2toT01wazUxc0Z1QVlWSWRDUkJ2OGtFRFBuR2tsbW5vc2hCcGJtaVhTYXpG?=
- =?utf-8?B?ek5EM1o4U2NXNzcrRVh1YmZWYlpCeHlhS2JUb0k3RHpPTjRpZ1ZHTlg4VXpr?=
- =?utf-8?B?NzJUNkp3MUZBSTMyazJTOHZLWEhvZ2N5ZDJLYk1FUmQwVzNBTTRpdz09?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65e8838e-fb4c-4c6a-133f-08de70abf5e8
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 18:15:00.3220
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r5T8uDo4tiJ+Ir+RzTAn5WZWS0IWpx2nCYPbFTPEjHPiOcbExPjd4xxqZbW7dlbjS5AMxY4XfhszXggXXwh51w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6200
-X-OriginatorOrg: intel.com
+References: <20260206-axiado-ax3000-add-emmc-host-driver-support-v3-0-ef83b09325be@axiado.com>
+In-Reply-To: <20260206-axiado-ax3000-add-emmc-host-driver-support-v3-0-ef83b09325be@axiado.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Mon, 23 Feb 2026 15:12:50 +0100
+X-Gm-Features: AaiRm52Jn7GtelEGkOZ9XPfUniIrpYcIWOFdBS3zcfWiZwJDEnJ15M24z8fGJdw
+Message-ID: <CAPDyKFr-N=P1vKSHGtOr1surWApBUz630v2xsBD+5KkPWaPZbg@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] Add Axiado AX3000 eMMC Host Controller Support
+To: Tzu-Hao Wei <twei@axiado.com>
+Cc: SriNavmani A <srinavmani@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, Michal Simek <michal.simek@amd.com>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mmc@vger.kernel.org, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2/20/2026 9:51 AM, Dave Hansen wrote:
+On Fri, 6 Feb 2026 at 09:23, Tzu-Hao Wei <twei@axiado.com> wrote:
+>
+> Axiado AX3000 SoC eMMC controller is based on Arasan eMMC controller.
+>
+> This series includes:
+> 1. Add bindings for AX3000 SoC eMMC controller
+> 2. Add arasan sdhci support for eMMC in Axiado AX3000
+>
+> For platform device tree change, we will send a different series of
+> patches.
+>
+> It has been verified on AX3000 platform.
+>
+> ---
+> Changes in v3:
+> - Enable SDHCI_QUIRK_CAP_CLOCK_BASE_BROKEN quirk
+> - Remove dependencies in b4
+> - Link to v2: https://lore.kernel.org/r/20260109-axiado-ax3000-add-emmc-host-driver-support-v2-0-934f1a61f7c0@axiado.com
+>
+> Changes in v2:
+> - Keep host controller changes in this patchset
+> - Use pdata instead of mix compatible string
+> - Fix coding style
+> - Link to v1: https://lore.kernel.org/r/20251222-axiado-ax3000-add-emmc-host-driver-support-v1-0-5457d0ebcdb4@axiado.com
+>
+> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+>
+> ---
+> SriNavmani A (2):
+>       dt-bindings: mmc: arasan,sdhci: Add Axiado AX3000 SoC
+>       mmc: sdhci-of-arasan: add support on Axiado AX3000 SoC
+>
+>  Documentation/devicetree/bindings/mmc/arasan,sdhci.yaml |  3 +++
+>  drivers/mmc/host/sdhci-of-arasan.c                      | 15 +++++++++++++++
+>  2 files changed, 18 insertions(+)
+> ---
+> base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377
+> change-id: 20251222-axiado-ax3000-add-emmc-host-driver-support-2cc84a8f889a
+>
+> Best regards,
+> --
+> Tzu-Hao Wei <twei@axiado.com>
+>
 
->   * struct peci_device_id - PECI device data to match
->   * @data: pointer to driver private data specific to device
-> - * @x86_vfm: device vendor-family-model
-> + * @device_id: device identifier, includes CPU vendor-family-model
+Applied for next, thanks!
 
-Just a nit. There is an inconsistency between the two Kdoc comments.
-
-device_id no longer stores the vendor. The one below one is correct.
-CPUID.01H:EAX only gives the family-model-stepping information which is
-stored in the device_id after removing the stepping.
-
-
->   * struct peci_device - PECI device
->   * @dev: device object to register PECI device to the device model
->   * @info: PECI device characteristics
-> - * @info.x86_vfm: device vendor-family-model
-> + * @info.device_id: device identifier (CPU family-model)
+Kind regards
+Uffe
 
