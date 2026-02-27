@@ -1,92 +1,64 @@
-Return-Path: <openbmc+bounces-1419-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1420-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 654BFC5DF6E
-	for <openbmc@archiver.kernel.org>; Mon,  2 Mar 2026 00:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33600C5DF6E
+	for <openbmc@archiver.kernel.org>; Mon,  2 Mar 2026 00:22:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fPKNw4TLQz2xYw;
-	Mon, 02 Mar 2026 11:21:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::122c" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1772338218;
-	cv=pass; b=ghI38RwfYuOt5mkweaJw/iehxPjMGMa0cR6VJGXt1IJbp0/SbDh4VI0M8NS2nEn21XMw0Tfb2y2/2vG7+mnMJccV0gNueppdBGkF326zsF2uanBU/HEyQvni+FH28IVMigOMQ84iA835sDauI+IaJdk8pD5asRjYDPfbm0SgJv4SXyN1/utp/oh6IUx803XLChrDUvTRonuQx8lc47o+I/LAdcsM0KtZgaJlIjYectsSWxQN1Y/eCZ1eRkE6RzbHiKCR61XMqKNd5N8GDT2VrZoQMC24IXlV70Q0lbhlSJ52zF9vKN6/WrcZLe6GM1A/+/a0s8iPRFa8/2GOSVUelQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1772338218; c=relaxed/relaxed;
-	bh=KAFYWqJBfFkp4n/cSmKLl2bFL1Hccm3foEKegWsZz6E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tn8BteiO/M7h+p756Huue8apFOkI1cKxEqMWabgG8lctg2rW7KCLJ3wzuOK1SLlM0wtDJmazLS0kUguxfWjQY3RmzBw9N8ibKolDNRjrHoofHi7XgnW0+aMgnRVXJwJK72p/QPhOBIvzVOPGIFRKacLMEC7E5r6+g/MamBi9i3Be52T0PE00UuMJN+exbluZSU4ntNy/xS8PNuETk79GHKluuyc6oRL2iEneT5a72YgSuohfRvePLJWKNMwbMUBVInOXjMqy8VRzGv5dpMJU3HejOEwlA25Rv5HWt6vZ4MxrJ61h9G/Pblpyv2VMKu8BvsIVczOxKdVnKY9cLPlRhw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JHCt8prF; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::122c; helo=mail-dl1-x122c.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fPKPT1dShz2xR4;
+	Mon, 02 Mar 2026 11:22:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1772204005;
+	cv=none; b=SN9NEa+IHL49RUxnoxkW859p2vagTx4XCzgeruuq0UBRn9OTGa/+9Xx4bFTIbQ4Y7D/f80uyfxKShEuVZFAOt9IMG3NI2BkrEbjVPGCHzaL0l7JXFfW5EdHAOJ8n3xgxNkF8TgYQb8EOiYxB7VZ39YOXHLTaE/fuk7dVm4L2Q73s1UmmS2ftc6kKIc3XCPcKrMhSSv/EfMaoYaXl2Q4F6yquF3V7rcmwGtTB6dcZAdnkxRNRAXls4vt4iCchXi7cRtVdtLAY4X68nbtGJAq4wAB/gpGWtP37ZEQjB1jMUwLG24Rr+WLHhE5Mkod7QKKUMj2/mAyjoVOB1h6SYdwOBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1772204005; c=relaxed/relaxed;
+	bh=kEGaf9zqcWTV5lUNoFG6YgkinNxqtmaRJ7WKJCFDZQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gbHymenqE/bTYLutlWJFUqkTS7tDLL8aFwj9n2MJPIzPdMBV9nnueKrUdx9RH7rDoDyqiVZJDGxnAUyh+aljc8zXkYLz1f5O5Mw03QHKxBMtojrwxDwXJd9/HyGJ5mEkUaDSXlz21eugBKVmZ++0PINvfiRoSpgMXZdyTCQEHLgmxhu4Zudoxxa1gk8nSUB+YPGt8+0u0qqKLXEveQJhmAeT0aFZfTYKwPrMKNLkx9fQPwTJJowuQJoRAxbtGiIExwWKxNELnXmL7qwX8BrjZVSMe+sXeaGVKPM+XdAYY8FMwzhtRGGBzn7+I/I04bbaLWjhDNpTBYxYq6Y3pi8HgQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=KNHx9uzj; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=vkoul@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JHCt8prF;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=KNHx9uzj;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::122c; helo=mail-dl1-x122c.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dl1-x122c.google.com (mail-dl1-x122c.google.com [IPv6:2607:f8b0:4864:20::122c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=vkoul@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fNpWF5KBRz2yF1
-	for <openbmc@lists.ozlabs.org>; Sun, 01 Mar 2026 15:10:16 +1100 (AEDT)
-Received: by mail-dl1-x122c.google.com with SMTP id a92af1059eb24-1275750cf9cso2646633c88.0
-        for <openbmc@lists.ozlabs.org>; Sat, 28 Feb 2026 20:10:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772338214; cv=none;
-        d=google.com; s=arc-20240605;
-        b=MxkZN1P3hod+unpAiHjaMyjfPOIVgAfLgw9SFkrzNsuUopDPoas8k2tQ3BcWmBBMRf
-         niwRelkNm3tZdXRjpB2YLA0IRk5eENXhaTwy4CHE9osi6dVLfXxCVRiYVnagwmzbaD4o
-         0PVntXVap7nO+78dEqfXySbP3Q6i95AXgYt0L4TzaAa7VZZcrYQgN9KTnezRgWe1uC+q
-         lfZkuA8yWA4z48fNpWtyhzGgITA1aL6z9cEfjtzbzuJz1pIqWyDMgQfBh9rMnWwhcOcE
-         869FuowwiEkEgqipo7mOvM/7w5iwa54MHyozb/Ch+jtLcDs/JXdYSTmbWcHYZLylocti
-         Djgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KAFYWqJBfFkp4n/cSmKLl2bFL1Hccm3foEKegWsZz6E=;
-        fh=YTdhD3rTqLSsJXmPdAuMzN97wMU9QlhyUTd4+csBByg=;
-        b=F8XYaWeuF6bbpFt1poprqEmnPqTQAYfosP+3SN/vS+xDCS0hNteTqWfGD9zfF0Xi3f
-         IEG3jVoBSQdviWC6fZXyNvKzRwXimzqKoyEDn19UfABH6l/qpdanKgFjvDvrszwo5/R0
-         4EsuSoVKro69f7T19Cc302zZUVfiuRK6AwwX6V7WlD9SrxSxNmq+IyO2YBzH9cbYe+Na
-         X4ILToBHbsJrHfYhpW3gS9TGKGnlC8MLm8THNx5b/+nhOjHMyctKqYM0JrxN/vkMzSJ3
-         Lpp+XM+cH4KevbVvIQ/2LGfxtlelw1m3A5qzwQCe9ZTeAcDiS2Zsp9ayxptgENqjK/Tx
-         OfhQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772338214; x=1772943014; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KAFYWqJBfFkp4n/cSmKLl2bFL1Hccm3foEKegWsZz6E=;
-        b=JHCt8prFgtcsnRcQprEstHFMG5HORK1F7y3Ka1t7SdWttJ4nOi93GbICZ9QF5kV+SL
-         eoxOSAb3slThvStELKQi+12ZxtlyDz9T8OO9eDFlqz+tr7/9qwS3IiY4iTZ7ZYbg0TI4
-         28QnaLKKnJBv78FQ2kf+h+9/yUl4gypSgI5scFXqpfNpRx5p8W9LR2YMnJeW4a0pZbCE
-         zkYCDa2Ra5gAPnpvYY6YSDF1c1NjAVIaf8YVw5RAMGx+AJC4SQUmF+k97lSLErQgT2hg
-         CrONdWbsWeVeRmOYflzw/h5dfIi/BXOykZGlMfmOxyRYxZD+dZ0AbrsyteuTbLgmE1a4
-         FCWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772338214; x=1772943014;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KAFYWqJBfFkp4n/cSmKLl2bFL1Hccm3foEKegWsZz6E=;
-        b=lx9ELJ/4ZCEuys9EN1Ie7NVkb1/FAiQ+aA/zIGhG9hPEzygzhlWR2YpmstvJBsZ5jv
-         2YvwzrtzpLQNUcojz6w1MCruoHVU40glowUBuyIhSEn4FCYfv2gL3tTVL6yTkipVaaBm
-         I+qhD7l2XQWzSMgwdlXgQxrQf+jpS7ljJfF6dMZeDQr8jztnEKx1Few0ySLyrEUhJ1v3
-         noPq1GoPkO2euLq/NA+87ac/DkS+YWXlw8cs7BCOq6+g9f2+8P0/HPP7yrG7CllM+0dW
-         +W51XbapB7MYjwlWHsdDsZeljDrNraP5hPLhlJHZ0o38vzAHTAmCSf4GgkfucgJLvFfJ
-         4KvQ==
-X-Gm-Message-State: AOJu0YwrZ0AzI2/96lpCTZEMXfwPAAUTNtabkWAhYnYO2C2PR+MZAcMN
-	OGoJ6JvIpi6hOJ0tFSveqjC4XhHKgIcfsUqCXa+uO2IYn9d4ShboY+CCn106usfJXFcLJhjKSas
-	J/sHJxuJKg+LwujaEWaCa5DoND+SPiE0=
-X-Gm-Gg: ATEYQzxN1Lhy1VrsCV7FdlVNf+QoTXnPEQYN+vMDiFhGBJRhVHiahfzR445L6dCaxlU
-	EI6Od88EzLTk+hcqitoxM9hAezCJSA9RJX2vrerWXD6/SNQ5pwALuDNsfYcAUOO1yEIOItsTsDx
-	OdHAJf4ihejrHnQjtewH35DTe729WZRW2engE73WZDkeCVMFB43weHd58T1wt6Iqz1z98v5rolX
-	rW6uZ9flfBPrx3UIwYRX9uNSNWpKh9aWE1N9aUZZn5Y98YYG9DSt4f50TpbZH3JuVQCPfRwhAMW
-	+IYXHVnfA1djfKxVfHzH
-X-Received: by 2002:a05:7022:f83:b0:127:366c:8727 with SMTP id
- a92af1059eb24-1278fc915a9mr3129486c88.40.1772338214232; Sat, 28 Feb 2026
- 20:10:14 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fMrtD51RMz2xKh
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Feb 2026 01:53:24 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 75F5B44394;
+	Fri, 27 Feb 2026 14:53:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D099C2BC9E;
+	Fri, 27 Feb 2026 14:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772204002;
+	bh=ld7NR675p8M5i366cnAgjhmDv51p+1WaNWwPE8ixVMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KNHx9uzj6ZyzCtHaKb4X2/uUbngS3GRRKfIFQBMUUUyQcfDdMJjXyhoDET2GwXoU9
+	 tw6lz0GtjSQ5zymFWPwDZrCiU3t3aDLIAExSZmeBf1Zt//0SW2LeNuv1uuVksWcZvZ
+	 Z7ql7nceE/JolyD6oqdDCGwPTx8t0Ao4gkUQFHtI7Z8tcenwS2k4NqrMr+bzi+WfkH
+	 nX57vvuaxkD+zKPdBzgzB3inGqV5kFbtqcTekEqY4HJwlq9dGFD0RMkqlKV9M9cAKR
+	 2mQVuNLRwK0UrmY03QLfHiwNEUw+xpRAgneTVjhPKJKpct/JeCUt4wAiScsFmUUjsh
+	 Oyr65Nsmc0ZSw==
+Date: Fri, 27 Feb 2026 20:23:18 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Tzu-Hao Wei <twei@axiado.com>
+Cc: SriNavmani A <srinavmani@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 2/4] phy: axiado: add Axiado eMMC PHY driver
+Message-ID: <aaGv3q8czkrKyW42@vaman>
+References: <20260206-axiado-ax3000-add-emmc-phy-driver-support-v2-0-a2f59e97a92d@axiado.com>
+ <20260206-axiado-ax3000-add-emmc-phy-driver-support-v2-2-a2f59e97a92d@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,166 +70,264 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260228-asus-kommando-v1-1-9a288620096d@gmail.com>
-In-Reply-To: <20260228-asus-kommando-v1-1-9a288620096d@gmail.com>
-From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Date: Sat, 28 Feb 2026 22:10:03 -0600
-X-Gm-Features: AaiRm51UMxF9OvQXcEtupTx4IO4klTc4PKCnmczC6Q6tBwNpN1Kg2I3YFKWL16E
-Message-ID: <CAJ13v3RjXmAL7L3DC8pcLv_xOQB7Bn7iFTPRKLwfqGpPaQRbWQ@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Add dts for ASUS Kommando IPMI card
-To: joel@jms.id.au, andrew@codeconstruct.com.au
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260206-axiado-ax3000-add-emmc-phy-driver-support-v2-2-a2f59e97a92d@axiado.com>
 
-Apologies, This patch was meant for the u-boot tree and I forgot to
-include u-boot as a prefix in the patch title.
-
-Should I resend another version with the corrected title?
-
-On Sat, Feb 28, 2026 at 10:00=E2=80=AFPM Anirudh Srinivasan
-<anirudhsriniv@gmail.com> wrote:
->
-> Add dts for Asus Kommando IPMI card, an ast2600 based pcie bmc card
->
-> Signed-off-by: Anirudh Srinivasan <anirudhsriniv@gmail.com>
+On 06-02-26, 16:22, Tzu-Hao Wei wrote:
+> From: SriNavmani A <srinavmani@axiado.com>
+> 
+> It provides the required configurations for Axiado eMMC PHY driver for
+> HS200 mode.
+> 
+> Signed-off-by: SriNavmani A <srinavmani@axiado.com>
+> Co-developed-by: Prasad Bolisetty <pbolisetty@axiado.com>
+> Signed-off-by: Prasad Bolisetty <pbolisetty@axiado.com>
+> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
 > ---
->  arch/arm/dts/Makefile                            |  1 +
->  arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts | 98 ++++++++++++++++++=
-++++++
->  2 files changed, 99 insertions(+)
->
-> diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-> index 5141c3dc3aa025e2f5c9b2bb98216ee5c72cdf70..fa6837be747da4fbe102ac27e=
-60ee3d81e230cb7 100755
-> --- a/arch/arm/dts/Makefile
-> +++ b/arch/arm/dts/Makefile
-> @@ -682,6 +682,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
->         ast2500-genesis3.dtb \
->         ast2500-romulus.dtb \
->         ast2600-ampere.dtb \
-> +       ast2600-asus-kommando-ipmi-card.dtb \
->         ast2600-bletchley.dtb \
->         ast2600-dcscm.dtb \
->         ast2600-evb-ecc.dtb \
-> diff --git a/arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts b/arch/arm/=
-dts/ast2600-asus-kommando-ipmi-card.dts
+>  drivers/phy/Kconfig                  |   1 +
+>  drivers/phy/Makefile                 |   1 +
+>  drivers/phy/axiado/Kconfig           |  11 ++
+>  drivers/phy/axiado/Makefile          |   1 +
+>  drivers/phy/axiado/phy-axiado-emmc.c | 221 +++++++++++++++++++++++++++++++++++
+>  5 files changed, 235 insertions(+)
+> 
+> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> index 678dd0452f0aa0597773433f04d2a9ba77474d2a..b802274ea45a84bd36d7c0b7fb90e368a5c018b4 100644
+> --- a/drivers/phy/Kconfig
+> +++ b/drivers/phy/Kconfig
+> @@ -103,6 +103,7 @@ config PHY_NXP_PTN3222
+>  
+>  source "drivers/phy/allwinner/Kconfig"
+>  source "drivers/phy/amlogic/Kconfig"
+> +source "drivers/phy/axiado/Kconfig"
+>  source "drivers/phy/broadcom/Kconfig"
+>  source "drivers/phy/cadence/Kconfig"
+>  source "drivers/phy/freescale/Kconfig"
+> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> index bfb27fb5a494283d7fd05dd670ebd1b12df8b1a1..f1b9e4a8673bcde3fdc0fdc06a3deddb5785ced1 100644
+> --- a/drivers/phy/Makefile
+> +++ b/drivers/phy/Makefile
+> @@ -15,6 +15,7 @@ obj-$(CONFIG_PHY_AIROHA_PCIE)		+= phy-airoha-pcie.o
+>  obj-$(CONFIG_PHY_NXP_PTN3222)		+= phy-nxp-ptn3222.o
+>  obj-y					+= allwinner/	\
+>  					   amlogic/	\
+> +					   axiado/	\
+>  					   broadcom/	\
+>  					   cadence/	\
+>  					   freescale/	\
+> diff --git a/drivers/phy/axiado/Kconfig b/drivers/phy/axiado/Kconfig
 > new file mode 100644
-> index 0000000000000000000000000000000000000000..11fee8d5403541f2453f6b8c6=
-f123c5d1108137d
+> index 0000000000000000000000000000000000000000..d159e0345345987c7f48dcd12d3237997735d2b5
 > --- /dev/null
-> +++ b/arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts
-> @@ -0,0 +1,98 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/dts-v1/;
+> +++ b/drivers/phy/axiado/Kconfig
+> @@ -0,0 +1,11 @@
+> +#
+> +# PHY drivers for Axiado platforms
+> +#
 > +
-> +#include "ast2600-u-boot.dtsi"
-> +
-> +/ {
-> +       model =3D "ASUS Kommando IPMI Card";
-> +       compatible =3D "asus,kommando-ipmi-card", "aspeed,ast2600";
-> +
-> +       memory {
-> +               device_type =3D "memory";
-> +               reg =3D <0x80000000 0x40000000>;
-> +       };
-> +
-> +       chosen {
-> +               stdout-path =3D &uart5;
-> +       };
-> +
-> +       aliases {
-> +               spi0 =3D &fmc;
-> +               ethernet0 =3D &mac2;
-> +       };
-> +
-> +       cpus {
-> +               cpu@0 {
-> +                       clock-frequency =3D <800000000>;
-> +               };
-> +               cpu@1 {
-> +                       clock-frequency =3D <800000000>;
-> +               };
-> +       };
-> +};
-> +
-> +&fmc {
-> +       status =3D "okay";
-> +
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&pinctrl_fmcquad_default>;
-> +
-> +       flash@0 {
-> +               status =3D "okay";
-> +               spi-max-frequency =3D <50000000>;
-> +               spi-tx-bus-width =3D <4>;
-> +               spi-rx-bus-width =3D <4>;
-> +       };
-> +};
-> +
-> +&hace {
-> +       status =3D "okay";
-> +       u-boot,dm-pre-reloc;
-> +};
-> +
-> +&mac2 {
-> +       status =3D "okay";
-> +       phy-mode =3D "rgmii";
-> +       phy-handle =3D <&ethphy2>;
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&pinctrl_rgmii3_default>;
-> +};
-> +
-> +&mdio {
-> +       status =3D "okay";
-> +       pinctrl-names =3D "default";
-> +       pinctrl-0 =3D <&pinctrl_mdio3_default>;
-> +       #address-cells =3D <1>;
-> +       #size-cells =3D <0>;
-> +
-> +       ethphy2: ethernet-phy@2 {
-> +               reg =3D <0>;
-> +       };
-> +};
-> +
-> +&scu {
-> +       mac2-clk-delay =3D <0x08 0x04
-> +                         0x08 0x04
-> +                         0x08 0x04>;
-> +};
-> +
-> +&sdrammc {
-> +       clock-frequency =3D <400000000>;
-> +};
-> +
-> +&uart5 {
-> +       status =3D "okay";
-> +       u-boot,dm-pre-reloc;
-> +};
-> +
-> +&wdt1 {
-> +       status =3D "okay";
-> +};
-> +
-> +&wdt2 {
-> +       status =3D "okay";
-> +};
-> +
-> +&wdt3 {
-> +       status =3D "okay";
-> +};
->
-> ---
-> base-commit: d40130c7056b84dc5213f3ff6764d0e45bb84035
-> change-id: 20260228-asus-kommando-9de4d6b779a8
->
-> Best regards,
-> --
-> Anirudh Srinivasan <anirudhsriniv@gmail.com>
->
+> +config PHY_AX3000_EMMC
+> +	tristate "Axiado eMMC PHY driver"
+> +	depends on OF && (ARCH_AXIADO || COMPILE_TEST)
+> +	select GENERIC_PHY
+> +	help
+> +	  Enables this to support for the AX3000 EMMC PHY driver.
+> +	  If unsure, say N.
+> diff --git a/drivers/phy/axiado/Makefile b/drivers/phy/axiado/Makefile
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..1e2b1ba016092eaffdbd7acbd9cdc8577d79b35c
+> --- /dev/null
+> +++ b/drivers/phy/axiado/Makefile
+> @@ -0,0 +1 @@
+> +obj-$(CONFIG_PHY_AX3000_EMMC)		+= phy-axiado-emmc.o
+> diff --git a/drivers/phy/axiado/phy-axiado-emmc.c b/drivers/phy/axiado/phy-axiado-emmc.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..28d2a30c3b35ee7dba917487959e226941e8ea4b
+> --- /dev/null
+> +++ b/drivers/phy/axiado/phy-axiado-emmc.c
+> @@ -0,0 +1,221 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Axiado eMMC PHY driver
+> + *
+> + * Copyright (C) 2017 Arasan Chip Systems Inc.
+> + * Copyright (C) 2022-2025 Axiado Corporation (or its affiliates).
 
+2026
 
---=20
-Regards
-Anirudh Srinivasan
+> + *
+> + * Based on Arasan Driver (sdhci-pci-arasan.c)
+> + * sdhci-pci-arasan.c - Driver for Arasan PCI Controller with integrated phy.
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +
+> +/* Arasan eMMC 5.1 - PHY configuration registers */
+> +#define CAP_REG_IN_S1_LSB		0x00
+> +#define CAP_REG_IN_S1_MSB		0x04
+> +#define PHY_CTRL_1			0x38
+> +#define PHY_CTRL_2			0x3C
+
+smaller hex case please, here and other places
+
+> +#define PHY_CTRL_3			0x40
+> +#define STATUS				0x50
+> +
+> +#define DLL_ENBL	BIT(26)
+> +#define RTRIM_EN	BIT(21)
+> +#define PDB_ENBL	BIT(23)
+> +#define RETB_ENBL	BIT(1)
+> +
+> +#define REN_STRB	BIT(27)
+> +#define REN_CMD		BIT(12)
+> +#define REN_DAT0	BIT(13)
+> +#define REN_DAT1	BIT(14)
+> +#define REN_DAT2	BIT(15)
+> +#define REN_DAT3	BIT(16)
+> +#define REN_DAT4	BIT(17)
+> +#define REN_DAT5	BIT(18)
+> +#define REN_DAT6	BIT(19)
+> +#define REN_DAT7	BIT(20)
+> +#define REN_CMD_EN	(REN_CMD | REN_DAT0 | REN_DAT1 | REN_DAT2 | \
+> +		REN_DAT3 | REN_DAT4 | REN_DAT5 | REN_DAT6 | REN_DAT7)
+> +
+> +/* Pull-UP Enable on CMD Line */
+> +#define PU_CMD		BIT(3)
+> +#define PU_DAT0		BIT(4)
+> +#define PU_DAT1		BIT(5)
+> +#define PU_DAT2		BIT(6)
+> +#define PU_DAT3		BIT(7)
+> +#define PU_DAT4		BIT(8)
+> +#define PU_DAT5		BIT(9)
+> +#define PU_DAT6		BIT(10)
+> +#define PU_DAT7		BIT(11)
+> +#define PU_CMD_EN (PU_CMD | PU_DAT0 | PU_DAT1 | PU_DAT2 | PU_DAT3 | \
+> +		PU_DAT4 | PU_DAT5 | PU_DAT6 | PU_DAT7)
+
+The bit define are used only once, why not define the cmd with
+respective bits here
+
+> +
+> +/* Selection value for the optimum delay from 1-32 output tap lines */
+> +#define OTAP_DLY	0x02
+> +/* DLL charge pump current trim default [1000] */
+> +#define DLL_TRM_ICP	0x08
+> +/* Select the frequency range of DLL Operation */
+> +#define FRQ_SEL	0x01
+> +
+> +#define OTAP_SEL_MASK		GENMASK(10, 7)
+> +#define DLL_TRM_MASK		GENMASK(25, 22)
+> +#define DLL_FRQSEL_MASK		GENMASK(27, 25)
+> +
+> +#define OTAP_SEL(x)		(FIELD_PREP(OTAP_SEL_MASK, x) | OTAPDLY_EN)
+> +#define DLL_TRM(x)		(FIELD_PREP(DLL_TRM_MASK, x) | DLL_ENBL)
+> +#define DLL_FRQSEL(x)	FIELD_PREP(DLL_FRQSEL_MASK, x)
+> +
+> +#define OTAPDLY_EN	BIT(11)
+> +
+> +#define SEL_DLY_RXCLK	BIT(18)
+> +#define SEL_DLY_TXCLK	BIT(19)
+> +
+> +#define CALDONE_MASK	0x40
+> +#define DLL_RDY_MASK	0x1
+> +#define MAX_CLK_BUF0	BIT(20)
+> +#define MAX_CLK_BUF1	BIT(21)
+> +#define MAX_CLK_BUF2	BIT(22)
+> +
+> +#define CLK_MULTIPLIER	0xC008E
+> +#define POLL_TIMEOUT_MS	3000
+> +#define POLL_DELAY_US	100
+> +
+> +struct axiado_emmc_phy {
+> +	void __iomem *reg_base;
+> +	struct device *dev;
+> +};
+> +
+> +static int axiado_emmc_phy_init(struct phy *phy)
+> +{
+> +	struct axiado_emmc_phy *ax_phy = phy_get_drvdata(phy);
+> +	struct device *dev = ax_phy->dev;
+> +	u32 val;
+> +	int ret;
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_1);
+> +	writel(val | RETB_ENBL | RTRIM_EN, ax_phy->reg_base + PHY_CTRL_1);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_3);
+> +	writel(val | PDB_ENBL, ax_phy->reg_base + PHY_CTRL_3);
+> +
+> +	ret = readl_poll_timeout(ax_phy->reg_base + STATUS, val,
+> +				 val & CALDONE_MASK, POLL_DELAY_US,
+> +				 POLL_TIMEOUT_MS * 1000);
+> +	if (ret) {
+> +		dev_err(dev, "PHY calibration timeout\n");
+> +		return ret;
+> +	}
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_1);
+> +	writel(val | REN_CMD_EN | PU_CMD_EN, ax_phy->reg_base + PHY_CTRL_1);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_2);
+> +	writel(val | REN_STRB, ax_phy->reg_base + PHY_CTRL_2);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_3);
+> +	writel(val | MAX_CLK_BUF0 | MAX_CLK_BUF1 | MAX_CLK_BUF2,
+> +	       ax_phy->reg_base + PHY_CTRL_3);
+> +
+> +	writel(CLK_MULTIPLIER, ax_phy->reg_base + CAP_REG_IN_S1_MSB);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_3);
+> +	writel(val | SEL_DLY_RXCLK | SEL_DLY_TXCLK,
+> +	       ax_phy->reg_base + PHY_CTRL_3);
+> +
+> +	return 0;
+> +}
+> +
+> +static int axiado_emmc_phy_power_on(struct phy *phy)
+> +{
+> +	struct axiado_emmc_phy *ax_phy = phy_get_drvdata(phy);
+> +	struct device *dev = ax_phy->dev;
+> +	u32 val;
+> +	int ret;
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_1);
+> +	writel(val | RETB_ENBL, ax_phy->reg_base + PHY_CTRL_1);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_3);
+> +	writel(val | PDB_ENBL, ax_phy->reg_base + PHY_CTRL_3);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_2);
+> +	writel(val | OTAP_SEL(OTAP_DLY), ax_phy->reg_base + PHY_CTRL_2);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_1);
+> +	writel(val | DLL_TRM(DLL_TRM_ICP), ax_phy->reg_base + PHY_CTRL_1);
+> +
+> +	val = readl(ax_phy->reg_base + PHY_CTRL_3);
+> +	writel(val | DLL_FRQSEL(FRQ_SEL), ax_phy->reg_base + PHY_CTRL_3);
+> +
+> +	ret = read_poll_timeout(readl, val, val & DLL_RDY_MASK, POLL_DELAY_US,
+> +				POLL_TIMEOUT_MS * 1000, false,
+> +				ax_phy->reg_base + STATUS);
+> +	if (ret) {
+> +		dev_err(dev, "DLL ready timeout\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct phy_ops axiado_emmc_phy_ops = {
+> +	.init = axiado_emmc_phy_init,
+> +	.power_on = axiado_emmc_phy_power_on,
+
+no power_off?
+
+-- 
+~Vinod
 
