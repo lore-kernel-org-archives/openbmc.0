@@ -1,64 +1,93 @@
-Return-Path: <openbmc+bounces-1448-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1449-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B79FC9EF5
-	for <openbmc@archiver.kernel.org>; Sat,  7 Mar 2026 10:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED09F55123
+	for <openbmc@archiver.kernel.org>; Sun,  8 Mar 2026 01:02:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fSgD85Rp1z3cCh;
-	Sat, 07 Mar 2026 21:55:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1772880936;
-	cv=none; b=A9bFQqonAigAJIYGjIKYHqWcYpcihO/Q+/LZICA8m+QHt4FRhRAB7QaoJAuahBCpFRtivGch79zdRbEJzjSN8Dqb+Lyl0sEgnWz30iJzLpi4kOxUrFduJqT4w08p2Fic0NGupOYfwYwXrWxxB3sANN26nZD4BFCLwUE87PP/EogKl335In5+nTqBWNzu1GfqsUKDxFEW3a+goIcA0L6k5LRVI6Fc6aIwTJCBO5A1XI7RHsrp+sJmIrxIxS8WhHGZWKGEJJ7/YHaBL4GVIS8BrNIX+M5WLvaO3DfvXCLcsm9gE90qVJtejPxAq32v1BkHFY98U7EJ9pj7OnD8u5P0EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1772880936; c=relaxed/relaxed;
-	bh=VPjCzpZwhzvEIRjxFR+lnnsQkRJjsbFMQyF1ixNeFiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LY0dcihN8t6BiPxtv1Wk/zECjgxwXPiL9MOMByQ9330BLyUElmBdp4z4CkFsi+KTZbKIdaINJUHNhu69Z80/+tAX3VV1iElIDJ/z5f4Hnu0VdOVvcbAU56EszeFoCN1oL9ZeVI9c0I5hynwxTzb8hAKVswmK43/negZ1Ae7mDdxzkA+5SR3yNXYM0d6R7ytIjTNS2C419Wt+kVesGp56yWC2LuCkgslg7g21LXQQngFGCaXwUppKha89vXUQdMKxFCeW6ek7tr7PK3W3E+dKZdSjl1DkSNpOS7gyvvE+HYnQvhWtXffqi6BhWBVcSv5Vgzj5qwofGklz3+GcXbHfcw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gBwF1jya; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fT2150FLdz3cB0;
+	Sun, 08 Mar 2026 12:02:17 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::122a" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1772757179;
+	cv=pass; b=fTSQbho3PkIZn0ukuESs881/N9IpOEJ+E6Dj8OGsrKcUhpkN4GyNnij4pCNrAkeAtmaA8+bvHT6EOr5qf5eypiPlS2+S8J/pkjvUOFq9jXU3k08+rSGU3mQSVNP4DclLhyw+wbBccDdXPtMBq6TZlIa1h7Kmk8HrWgzx+tqKiJUY1zbWDdaPCOKDTfCzFiOuWFHdkCLH2eEiDzQD7PJGK+pDJ5VCZL7oig6X9CGelshLBOWqXkoh7BWyfpRwpO0N+BZsZNJCSN6fY/2xHYdOFTX3IbZETMRHJHxosy4B5oTyPTXMawKtswR5Ca8NXy2P+D1dFNBYCbuIXRC7USexqQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1772757179; c=relaxed/relaxed;
+	bh=O2yfhBqm6LiuVmC2g+xeR9jlYS3tjxG1T/qXgadUJ1w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lDhNuQNhiOx+isMj08zqYEh7DBY5vnK8Jfi2CkYYKCGJdn7sahYA22gXbiMSlkIIirJwldYhj/uTNug3nf7gKtxR6Uo0PyrjpVPino0Qr8BStA1DFnj2RuEjxSKknuCS/fm5bNCb1j1fgL4B6itYjZzhZKLKq5DIwrbYev3Z0HY4t4HqE2hgwxuMiTPqgyrBb+6wVCLTbiw05TclY4xpfPC4v9HnWh3bUQywZl9976wXE7M7kD2QDCuqE3X9yHNxz6Xb8JRPs0bVbxxlId+mWcYWRUfHqUAimegw15Sgi9Jn47nOTRw48TITPyOk3Yfrg+NxbwWIJiQsG4TD+n1AKw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Mk1R8gPs; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::122a; helo=mail-dl1-x122a.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gBwF1jya;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=Mk1R8gPs;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::122a; helo=mail-dl1-x122a.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dl1-x122a.google.com (mail-dl1-x122a.google.com [IPv6:2607:f8b0:4864:20::122a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fSgD76Rtfz2xT4;
-	Sat, 07 Mar 2026 21:55:35 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id A88014095C;
-	Sat,  7 Mar 2026 10:55:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC4DC19422;
-	Sat,  7 Mar 2026 10:55:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772880933;
-	bh=0owm4mKObWbnUeGHMN4y2SQdPXnXIhv9skTRR518J/8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gBwF1jyaAvo+N9jckDoGQIt0wrQcCufpP7DMH9TRanNgHbvOTlB96BFmvXNJL2fQz
-	 eTm/ZClYSUzv5tAxOhY1lKB+Wqxr8/XAPSofHt7JHe3VMZs2UTSzqmD+aaLvp9b4TU
-	 JwmwqQrBFm1rTXolEfdIeDvaenB8Lo0XGpK8/2doz9If0QCrrityNU9A2wSdM9wbUc
-	 SvWF92XmE5YttrtY/S+gGPj5ksxJ+QsPG4Fhp+OHBftrI0nmV0AUHUDnsH8w8lIaZJ
-	 WbWdogZaLuawLZ/n7metr92eUMxo4zfwA6lB/LXyaCyCFO1pkzsPHHTuen2Zu0SPe3
-	 vUVl6OT8W6B7Q==
-Date: Sat, 7 Mar 2026 11:55:30 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: pinctrl: Add
- aspeed,ast2700-soc0-pinctrl
-Message-ID: <20260307-weightless-quirky-spoonbill-dacd89@quoll>
-References: <20260306-upstream_pinctrl-v4-0-ad4e8ab8b489@aspeedtech.com>
- <20260306-upstream_pinctrl-v4-2-ad4e8ab8b489@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fRnS960B5z3c8x
+	for <openbmc@lists.ozlabs.org>; Fri, 06 Mar 2026 11:32:56 +1100 (AEDT)
+Received: by mail-dl1-x122a.google.com with SMTP id a92af1059eb24-1271257ae53so10505288c88.1
+        for <openbmc@lists.ozlabs.org>; Thu, 05 Mar 2026 16:32:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772757174; cv=none;
+        d=google.com; s=arc-20240605;
+        b=QWk13Q0oXlD4z/o4sRSNdEaxM7u5AevgYm+nZSljFL+gHvUOn8PJzzWebMfM1d6NCX
+         tCo2NImFeiRJVEhS23sMC8/DdS1DXndcLEVT0vYK43xke91orv2RCfJniyJWKfQbTO3R
+         rRALDL78o+cTBvUbLu2wN8y81/LSg1I7nXrfJdBBokOIMdxz2oLuC2mH43F5Q+tk/0eI
+         2suPWBwwz9yfGwr78rW9GVLr2rhq5umV8AZo2xfdm5xzcfZ+6xeHDXdWhyFGfZL5m+Id
+         cbEhFVvpuT2ayTxAjXLRLSWKc7uerKx3v4Vfzoo/Elm71uVY1IcWhNWgHuAe5AFpQog4
+         l39Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=O2yfhBqm6LiuVmC2g+xeR9jlYS3tjxG1T/qXgadUJ1w=;
+        fh=+cNISmHLXZQL1ZC0iD0zQBKXyemluM1KEzrLKjAwrG0=;
+        b=KeWOAdco36OnP4zQPWh6qAJP72woZm1rjV+pS78Es6pdrntuvbL37A45L3j/HYh36g
+         HKcT2MPvd6HKu0WVple18abVwiZXZMQqBPiX+EkQbVi2KUeXgR002/ZFUABpJK8WEXIK
+         OkjORHUbmqnZ/CvDdwMXAe9QDVEoZ+o0Fk72HNF1KFEBTYqZwDLxNmWDPVztfFAhJ9lj
+         EEgNfIKEsRUU//MRuoMUlxXPw91FmjiRO7sBsqHzVo/pKIC31PY4p/vnVl2GKBN3OPWe
+         VOsY1S7Ys4uCtddEKYXYyIsLlcX1SswLwuHKEdzl4uG2V49ksJDJT1SON8/0U9VbhUhX
+         5qyQ==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772757174; x=1773361974; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=O2yfhBqm6LiuVmC2g+xeR9jlYS3tjxG1T/qXgadUJ1w=;
+        b=Mk1R8gPshB2sK2vLlpkW6zEcA40ETh+kipqvmrZ8unQuWe6C4SaoVV3ikFRpqgvCoj
+         YxSUkZJPwDZSzC6NsLcjCW3NayxfN7hn15dD4jS+iwaOu3cy1DyOgdtxQIcr5vekfVrL
+         lR6ffIv3LM83IkugJPZOlVWElrd9yFv7xKEgW608tnWYQcCCMNU7KrVXJvkfHW1mkww5
+         4mdf/v0hyhCrERiEjx7aXiEjZrEERHDtSrTgo88ow54FZ+AfsjSHOd2Wcbv4j5elTj4w
+         VNy7dI7Ed1U4X3Z3eoN5wDLivyHljVBIzhmp3Gaqox083S61xGxzPmwmTw0T1mxlbIxS
+         Fd4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772757174; x=1773361974;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=O2yfhBqm6LiuVmC2g+xeR9jlYS3tjxG1T/qXgadUJ1w=;
+        b=Fjoa0GxB63j8o09Z6bn1zhbFiCMbpS++2S1213nIqgeDGYnVD3DQd/QkEo8fWa5dy2
+         92PSyRmz+MTxsvsFZZG4zgTm3apMVeCCtJxQa9VfHJJ94v464r0WHVtxt85Cc3IcmrSY
+         VyqEw0n13s/pDnjcOzrp4gl2HJPcJTzhQzjzk8m8DFtyKbqczf/CFgxG3zU9JdCt+A+g
+         dr+5xmpMBrNmL0Zpethf3uBAxoi99uxjUZ7AHWfarNpqv69YvtAI98JjbUJhZhftkfJb
+         bONS4gn5RHfeHeF+rTxvXLnOqtHuJrScASI8WHcvWJ6YLUewgGg8GfelqTpi7XIyvL7L
+         98Wg==
+X-Forwarded-Encrypted: i=1; AJvYcCW55b2z+0ULwNYEkb/06PdUOJtny9ABwUtTERTetYlBLNlLNpGxhOUy8o2YnE1Ym0TzqrB1PHIm@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxfCU94FYMmByAx75F2etSkP9aZI/PdLvE/IDfA0Seh2NCNeFOB
+	wCnaOk9wiicetkrZWWH8BDU6oSbvegYPiR29MbShcPk8GGARYW8wdZxrvgZBERXDv78WcZerodt
+	1cOAO/rhYuBfg6m/lJSYKg3wI9syOtPd/i4KE
+X-Gm-Gg: ATEYQzzLxS9cQhjwex4sn5WweduuYjPaC8pMSTTBOvRZgI+l8VoNsZo3A8VoPaOi38H
+	nTxoE/276yVVWt0woQAoxyry0mAO+3NVLtidlRj9LMeSEvysfw+jHCZJTzBdehtayCKnjHN7BLe
+	79ds4GwuxhYiwX4yi+YEvdvMOiKdn0n1hI6APDSRUWfR1r+hGu15dleXmAPr61mKp6ReNLX/ug5
+	yv4ft5io+lEKFyMkpYcn9QXs8ZmD6vCnmSAP6uJmPjSYRY9hvcF5Ivq85/ATIhn+B05S0Lk8zOr
+	C28wrIPWIBOe4AGw+zQS
+X-Received: by 2002:a05:7022:fa5:b0:11b:ade6:45a7 with SMTP id
+ a92af1059eb24-128c2d9ba25mr147185c88.1.1772757174334; Thu, 05 Mar 2026
+ 16:32:54 -0800 (PST)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,57 +99,111 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260306-upstream_pinctrl-v4-2-ad4e8ab8b489@aspeedtech.com>
+References: <20260228-asus-kommando-v1-1-9a288620096d@gmail.com> <0f0a1a6862a8b94bf4f5c00da85bad4efce7c071.camel@codeconstruct.com.au>
+In-Reply-To: <0f0a1a6862a8b94bf4f5c00da85bad4efce7c071.camel@codeconstruct.com.au>
+From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
+Date: Thu, 5 Mar 2026 18:32:42 -0600
+X-Gm-Features: AaiRm5377Efqp7AqXEFI1TvnmUKZeizoWWxBeU39zJRSn9sd6-AXnUQS4qp75Eg
+Message-ID: <CAJ13v3R-3p5mV0b3AqHyF8m4A=HnX4rrNoKQXYi69Mod=OsEmQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: Add dts for ASUS Kommando IPMI card
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 06, 2026 at 08:40:26PM +0800, Billy Tsai wrote:
-> +          - USB2BDBP
-> +          - USB2BH
-> +          - USB2BHBP
-> +          - USB3A
-> +          - USB3AAP
-> +          - USB3ABP
-> +          - USB3B
-> +          - USB3BAP
-> +          - USB3BBP
-> +          - VB0
-> +          - VB1
-> +          - VGADDC
-> +
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - $ref: pinctrl.yaml#
-> +
-> +additionalProperties: false
+Hi Andrew,
 
-I guess the mess with examples is partially my fault of imprecise
-feedback. Rob asked you to add the example to main MFD device, but:
-1. maybe he assumed there will be separate binding for parent device?
-2. you added it in wrong patch (pinctrl patch changing MFD!),
-3. it was also incomplete that time.
+On Wed, Mar 4, 2026 at 11:22=E2=80=AFPM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> On Sat, 2026-02-28 at 22:00 -0600, Anirudh Srinivasan wrote:
+> > Add dts for Asus Kommando IPMI card, an ast2600 based pcie bmc card
+> >
+> > Signed-off-by: Anirudh Srinivasan <anirudhsriniv@gmail.com>
+> > ---
+> >  arch/arm/dts/Makefile                            |  1 +
+> >  arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts | 98
+> > ++++++++++++++++++++++++
+> >  2 files changed, 99 insertions(+)
 
-The example - if you tested your v3 - was needed to actually validate
-and point errors. My bad I asked to drop it.
+> > +
+> > +&scu {
+> > +     mac2-clk-delay =3D <0x08 0x04
+> > +                       0x08 0x04
+> > +                       0x08 0x04>;
+>
+> Before we go too far down this path, are you aware of the discussions
+> on the kernel side?
+>
+> https://lore.kernel.org/all/20260302-rgmii_delay_2600-v6-0-68319a4c4110@a=
+speedtech.com/
+>
+> Essentially, can we defer configuring the delays via the SCU here so we
+> can isolate that problem in the kernel?
 
-So now you have a mess - incorrect, non-validated (example-less) and
-maybe even incomplete binding.
+I've been trying to follow that discussion over the last few days, and
+the more I read it, the more I get confused.
 
-Please post complete ast2700 SCU binding - what children do you have? If
-none of ones mentioned in the binding apply, then why the binding
-mentions them? why do you allow p2a if 2700 does not have it? And
-smp-ram?
+I went back and looked at the u-boot DT from the Asus fw dump [1], and
+there seems to be no mac2-clk-delay in it. That uses u-boot 2019 too.
+Not sure how accurate/useful this info is though.
 
-And if 2700 has silicon-id, interrupt controller, pinctrl etc, then why
-none of them were present in the example you added?
+So (correct me if I am wrong)
+1. If we don't need this clk delay at all, then I can skip this
+clk-delay entry in u-boot and use "rgmii-id" in the linux and u-boot
+DTs.
+2. If we need this clk delay, u-boot is supposed to configure it
+(u-boot DT uses "rgmii") and linux uses "rgmii-id". We don't need to
+worry about u-boot patching the linux DT because both use separate
+DTs.
 
-But more importantly, none of this was actually built tested/checked
-against DTS thus I cannot accept it. We are back to basics... post your
-COMPLETE DTS somewhere and provide link to it.
+This feels like something I should be able to test without any patches
+to u-boot/linux. Just try booting u-boot with 2 different DTs (one
+with rgmii and one with rgmii-id) and see which scenario networking
+works.
 
-Best regards,
-Krzysztof
+Is anything I'm saying correct?
 
+>
+> I recognise that you might want networking in u-boot as well though :)
+
+I then read this statement and got confused a bit more.
+
+[1] https://gist.github.com/Genius1237/0b81fcbc8c25a8b516e63e466e8522b1
+
+>
+> > +};
+> > +
+> > +&sdrammc {
+> > +     clock-frequency =3D <400000000>;
+> > +};
+> > +
+> > +&uart5 {
+> > +     status =3D "okay";
+> > +     u-boot,dm-pre-reloc;
+> > +};
+> > +
+> > +&wdt1 {
+> > +     status =3D "okay";
+> > +};
+> > +
+> > +&wdt2 {
+> > +     status =3D "okay";
+> > +};
+> > +
+> > +&wdt3 {
+> > +     status =3D "okay";
+> > +};
+> >
+> > ---
+> > base-commit: d40130c7056b84dc5213f3ff6764d0e45bb84035
+> > change-id: 20260228-asus-kommando-9de4d6b779a8
+> >
+> > Best regards,
+
+
+
+--=20
+Regards
+Anirudh Srinivasan
 
