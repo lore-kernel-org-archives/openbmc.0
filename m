@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1466-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1467-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE296106ACF6
-	for <openbmc@archiver.kernel.org>; Thu, 12 Mar 2026 23:08:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72B8106ACF6
+	for <openbmc@archiver.kernel.org>; Thu, 12 Mar 2026 23:08:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fX3C11w6Xz3cNQ;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fX3C15dwbz3cNc;
 	Fri, 13 Mar 2026 10:06:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773308200;
-	cv=none; b=PzK3QXno5LKO4ZAS6eUUY09E3VPorY1PQzLdFPEvOWzhRKecpZCX4F9VwSsiQz5+ffqcGh4pDdBJBX9tF0joMpM/6TkgCfz00Ht/jqVQWBjy1GnlillkfxZCKl7BI/fisO5ArEW/oBg1GnaeyEoKmNWuWTN5RYmOHYMYsJYIJZfdJPyuuy2hur3l1BescoDct/laMnoe+PK9xFNA4sklb0e7WKx5+vM47i6L0uBwvB9a9TnWJjHVvyN450c20oqk5oN4TeM4QO64u4TxXE+wxF2dYdMcYEmcXFJXdRg/ObjsBn/p1pL3HhJH8vrOVKfNgu/2gw2szn2L8O3L5+rHvA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773308202;
+	cv=none; b=JsJH/Wu2hAmQaDvq1AZ7U58eiOh0hPcJjfBkdogmPdMkrnpCJv3vmDjd+lNuCx45tiUukYkc9knTtgwO53Pslv89bePiQwk2lJyrIQQjczfbSwO1VwDYegUt4DZHnWL8ZJHbIcm6FMeooMEf1LAk7x+exiyNAyIkHyhqCyLBJ6phPjRQhnSABrNVcjsBAf2YG90lhglq09ttS5RBRGsGhGExw4xYToPDfVAYN2ALk4ONehLv8GVUbZsSD+NpzNaGO5FvGUnAgR8agU9AolQevtx/a/OD5pEQEnkKUowuA//qUJHfHvWkBYLzQAvgaXAPOyOsIMNdJzTlXvY1I2+61w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773308200; c=relaxed/relaxed;
-	bh=A8QipyJ6Msg70SUq3mrU426kzfuCGM+Ls4/XKA1ZMhY=;
+	t=1773308202; c=relaxed/relaxed;
+	bh=UiW5q2G1vXl0hLSZeQ2QqS/0mPtL26pvw1MIr3hdQk8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NQsixkYr7SmoQ5sHrZeRuq6H+Stw34pvRw+8UnmsvkdFCdFI60KR/sTLXz6CzIDxQebqeeafTPJ5zPiK+u4PL3jz4WBhvNYrYJ3uN4dNmcerN7FYWi1gzRfub8beI0NsK4BJ7elXnvdYJ088BDRT1ikI0N92G/BysoiEGvTP2eA2zAjFJZFYKNecGyQE0APaLdpWKyfTzKDtcKk9COAmwAhocWTfngelxau0gIGnew9FO2czag8JzzEpBNwCCYU1L60A+AIHO2mMMbTUsARdJPEc3uP7zyJy6oHqG8lvovS9R1arFNzohF1EBoKB5ezAutZzLkooofftOw77ytHwaA==
+	 MIME-Version; b=ADgVdIK64lvcstMrF4O6RFhCdspYDMrvlL4HBTlMgoEjL1UNNvo5xTdtjaYjqCbLGVAM272eD+c3lvN22+1mxS9qbMfUumfMIGOV0eUDQvsa6n572vnOiDVGfKmN1A2KVwgaSgXB6MkVXgPpb4SLeh2xrcQxpP3E75B2CClSLJqwobyezUvgIFfVUaWCUSM3KiGoEh9OGQvhnOLJSXljnWS/BdwrOBMMYrFSQCn6V0iz1N0zbUVZuipnf953/i4fyDva76zxPBRU2SP/wRFC1F6MNnd9KFQ/97uwS+gHH0X5EDyyEQDYNyDJnKMvBwiDnALuKqYIwWsAYOR7agWdhw==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fWjDl5Pxdz3cG6
-	for <openbmc@lists.ozlabs.org>; Thu, 12 Mar 2026 20:36:39 +1100 (AEDT)
-X-UUID: f4d7f6ea1df511f1a21c59e7364eecb8-20260312
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fWjDn42YMz3cG6
+	for <openbmc@lists.ozlabs.org>; Thu, 12 Mar 2026 20:36:41 +1100 (AEDT)
+X-UUID: f31692f81df511f1a21c59e7364eecb8-20260312
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:86122cdc-4e3b-4c56-8beb-69567d3c02e4,IP:0,U
+X-CID-O-INFO: VERSION:1.3.11,REQID:5c7d72ec-6917-4184-a30d-799bb4b7a730,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:65d25d98902aa6b10b27344a104445b0,BulkI
+X-CID-META: VersionHash:89c9d04,CLOUDID:8f1d373fe3b520d8e6249f0ae27cb419,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f4d7f6ea1df511f1a21c59e7364eecb8-20260312
+X-UUID: f31692f81df511f1a21c59e7364eecb8-20260312
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1164667852; Thu, 12 Mar 2026 17:29:23 +0800
+	with ESMTP id 502394402; Thu, 12 Mar 2026 17:29:20 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -57,9 +57,9 @@ To: linux-spi@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	broonie@kernel.org
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH 08/17] spi: rockchip-sfc: Use helper function devm_clk_get_enabled()
-Date: Thu, 12 Mar 2026 17:29:00 +0800
-Message-Id: <e15ef93227a66c42d0a80c94e29a9e574954a709.1773306858.git.xiaopei01@kylinos.cn>
+Subject: [PATCH 03/17] spi: bcmbca-hsspi: Use helper function devm_clk_get_enabled()
+Date: Thu, 12 Mar 2026 17:28:55 +0800
+Message-Id: <6e9e73c6001daf6641f1a3424c8e14633511d77f.1773306858.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773306858.git.xiaopei01@kylinos.cn>
 References: <cover.1773306858.git.xiaopei01@kylinos.cn>
@@ -83,56 +83,96 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-rockchip-sfc.c | 20 ++------------------
- 1 file changed, 2 insertions(+), 18 deletions(-)
+ drivers/spi/spi-bcmbca-hsspi.c | 47 ++++++++++++----------------------
+ 1 file changed, 16 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 174995042f53..ef6956f2c918 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -635,13 +635,13 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 		return PTR_ERR(sfc->regbase);
+diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hsspi.c
+index ece22260f570..08d12606e91d 100644
+--- a/drivers/spi/spi-bcmbca-hsspi.c
++++ b/drivers/spi/spi-bcmbca-hsspi.c
+@@ -452,39 +452,30 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(spim_ctrl))
+ 		return PTR_ERR(spim_ctrl);
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->clk = devm_clk_get(&pdev->dev, "clk_sfc");
-+		sfc->clk = devm_clk_get_enabled(&pdev->dev, "clk_sfc");
- 	if (IS_ERR(sfc->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->clk),
- 				     "Failed to get sfc interface clk\n");
- 
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->hclk = devm_clk_get(&pdev->dev, "hclk_sfc");
-+		sfc->hclk = devm_clk_get_enabled(&pdev->dev, "hclk_sfc");
- 	if (IS_ERR(sfc->hclk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->hclk),
- 				     "Failed to get sfc ahb clk\n");
-@@ -657,18 +657,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 
- 	sfc->use_dma = !of_property_read_bool(sfc->dev->of_node, "rockchip,sfc-no-dma");
- 
--	ret = clk_prepare_enable(sfc->hclk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable ahb clk\n");
--		goto err_hclk;
--	}
+-	clk = devm_clk_get(dev, "hsspi");
++	clk = devm_clk_get_enabled(dev, "hsspi");
+ 	if (IS_ERR(clk))
+-		return PTR_ERR(clk);
 -
--	ret = clk_prepare_enable(sfc->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable interface clk\n");
--		goto err_clk;
--	}
+-	ret = clk_prepare_enable(clk);
+-	if (ret)
+-		return ret;
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "Failed to get hsspi clock\n");
+ 
+ 	rate = clk_get_rate(clk);
+ 	if (!rate) {
+-		pll_clk = devm_clk_get(dev, "pll");
++		pll_clk = devm_clk_get_enabled(dev, "pll");
+ 
+ 		if (IS_ERR(pll_clk)) {
+-			ret = PTR_ERR(pll_clk);
+-			goto out_disable_clk;
++			return dev_err_probe(dev, PTR_ERR(pll_clk),
++					     "Failed to get pll clock\n");
+ 		}
+ 
+-		ret = clk_prepare_enable(pll_clk);
+-		if (ret)
+-			goto out_disable_clk;
 -
- 	/* Find the irq */
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret < 0)
-@@ -730,10 +718,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- err_irq:
--	clk_disable_unprepare(sfc->clk);
--err_clk:
--	clk_disable_unprepare(sfc->hclk);
--err_hclk:
+ 		rate = clk_get_rate(pll_clk);
+-		if (!rate) {
+-			ret = -EINVAL;
+-			goto out_disable_pll_clk;
+-		}
++		if (!rate)
++			return dev_err_probe(dev, -EINVAL,
++					     "Failed to get pll clock rate\n");
+ 	}
+ 
+ 	host = devm_spi_alloc_host(&pdev->dev, sizeof(*bs));
+-	if (!host) {
+-		ret = -ENOMEM;
+-		goto out_disable_pll_clk;
+-	}
++	if (!host)
++		return dev_err_probe(dev, -ENOMEM,
++				     "Failed alloc spi host\n");
+ 
+ 	bs = spi_controller_get_devdata(host);
+ 	bs->pdev = pdev;
+@@ -535,18 +526,16 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
+ 		ret = devm_request_irq(dev, irq, bcmbca_hsspi_interrupt, IRQF_SHARED,
+ 			       pdev->name, bs);
+ 		if (ret)
+-			goto out_disable_pll_clk;
++			return dev_err_probe(dev, ret, "Failed request irq\n");
+ 	}
+ 
+ 	ret = devm_pm_runtime_enable(&pdev->dev);
+ 	if (ret)
+-		goto out_disable_pll_clk;
++		return dev_err_probe(dev, ret, "Failed pm runtime enable\n");
+ 
+ 	ret = sysfs_create_group(&pdev->dev.kobj, &bcmbca_hsspi_group);
+-	if (ret) {
+-		dev_err(&pdev->dev, "couldn't register sysfs group\n");
+-		goto out_disable_pll_clk;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "couldn't register sysfs group\n");
+ 
+ 	/* register and we are done */
+ 	ret = devm_spi_register_controller(dev, host);
+@@ -559,10 +548,6 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
+ 
+ out_sysgroup_disable:
+ 	sysfs_remove_group(&pdev->dev.kobj, &bcmbca_hsspi_group);
+-out_disable_pll_clk:
+-	clk_disable_unprepare(pll_clk);
+-out_disable_clk:
+-	clk_disable_unprepare(clk);
  	return ret;
  }
  
