@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1507-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1508-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840C6107BCD1
-	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 00:39:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99141107BCEA
+	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 00:39:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fXjCJ23fBz3cN6;
-	Sat, 14 Mar 2026 11:38:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fXjCN47Zkz3cLr;
+	Sat, 14 Mar 2026 11:38:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773382219;
-	cv=none; b=GOvXscFiVbKHo8fktqdStxsRX1bND0wDIgGjXSRaHrAXB9x3y2IzrtryC5Klxfo9mQoyGrsuO8c1xCQ90ck8WJjl1UXxomJoWloOq1D7a7X9clSHB+CUzaYYd+klaCKmNq5477/vW4EjlAoV+deCl2GzpsZUJF0SymNFOQGuoiStjGsgmuV8T4CV0hZDHqWZbZzr0b6++rrO1M9VYrnJXFeeYs+LqALasACJ9YeE6NCRYq/jk33L06LK7Z48MV4qI/MC45RKZtttItZuztJz1ROZrpZN2/17lMFhsHyOPFKDDAQMQCricx8YHwpDNkeAeKTnS8NX7wLbVD9ndwj7RQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773382218;
+	cv=none; b=GmHhhKJIVU9vFr5TvDCLyLXGNLsa4FiSkkjN0hDy9JU0FbSP5cPEMV2MwDl31hWxrStZp1ae3OKPuTALYJiqSislC+pd4irLVnPMztAFkcov/j/xXHAS2lNetUyNsyoXhnUprpON5QLQS2eZhFrKMdLPeqQnkgabfAdernwWr/4L8MEZY2vqBBYm5gxln1/iJiwMVGuB+BJb05oMz6+L5l0zmHNP1pFA9kkXjtpYytwScschzPo9Wiwo8IKheBMfRu9RaAR1ZSGnSOgYBnw759tNbVUb+Mae3jGUsOQsLUs/vu6o8b7BpiQJhCNmFiT5juWP0AHrzI6EDqInmOi6xA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773382219; c=relaxed/relaxed;
-	bh=F2Ps6gKNEbR3uP13jdRbIPy3SrrxHiyDRagAOb4BNMY=;
+	t=1773382218; c=relaxed/relaxed;
+	bh=lsgwxQxfR6Q6RICekc1hE5aQ16eIEemFAOCLIwZfbn0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BzdrU8EDuYrl+r+lPS8NDGuXXxeRj3ghz82qlgYpgwjHTcPA7l91nddozyuL88DUqJKwtXiy+dmG7MUucwqWf6CGNba7AZ/h6y8qv4XFCvzt/+12yNto9Bk9em52JXu0dRogFMvKC9FiTFBmOLZQmKQZysNeu1Q3A6DRa55uvqttiidDOX/+S5sonb3MDdjbgbhPazdTMH5CIEFZ6Fk80uL3DP2I6PUGBZuCx2bYhX7OtuTaN6AwhWDl4q/ahJIoxR3SU4PS1FPZ214ZZK5A9WuDBH4ZvDoiYO36ewUiwOg/111xMlBg8Ukd7rYUphihmk7Hs2cmBHE901G1YexcMw==
+	 MIME-Version; b=ii2Sm5vciLPgxRUm4sfUEGB1YV8u4lm0Lo210q8nOzKoS1x4f0TQ+ryG55kXcYamHDDhXJIZOjwoMWe9ICONcToCEH96ALzx6G/EwfPyTcfOKPpQXfjOzAwnhE3TGVsdXgcRfl+QorpkLPGWQ/wy5Lh9EuK4lkV4TrXUkDOr7GnhpdGvIU4q/qZm9wk0L1oL5Rwm14HascfERfBZsAjoHIfveMMH6+p1SZQzUOdsb886CAiacpQfwgoB1KtlqSEaXruZijwln+fQQ2DHayOEL5B7D/1TpVM+pLEK9wjmOuryRwx7AnhYhUXbxqNjc2WwzeA/NhxJKoIP9SR0amO5Ug==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXDc85Mmxz30Sv
-	for <openbmc@lists.ozlabs.org>; Fri, 13 Mar 2026 17:10:16 +1100 (AEDT)
-X-UUID: 206223be1ea311f1a21c59e7364eecb8-20260313
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXDc868hCz3cJy
+	for <openbmc@lists.ozlabs.org>; Fri, 13 Mar 2026 17:10:15 +1100 (AEDT)
+X-UUID: 20da79721ea311f1a21c59e7364eecb8-20260313
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:d641a8e1-4d46-4a38-b51e-095e6e7e6688,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:89c9d04,CLOUDID:30c7a324fc08eca76d7b7e49697a0fd7,BulkI
+X-CID-O-INFO: VERSION:1.3.11,REQID:61074584-e560-4bc2-b738-b63f074f04f0,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:89c9d04,CLOUDID:1439acfbf37b0ecc9c6ee4043e63666b,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 206223be1ea311f1a21c59e7364eecb8-20260313
+X-UUID: 20da79721ea311f1a21c59e7364eecb8-20260313
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 806233997; Fri, 13 Mar 2026 14:08:59 +0800
+	with ESMTP id 291046973; Fri, 13 Mar 2026 14:09:00 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: broonie@kernel.org,
 	linux-spi@vger.kernel.org,
@@ -57,9 +57,9 @@ To: broonie@kernel.org,
 	linux-mediatek@lists.infradead.org,
 	linux-stm32@st-md-mailman.stormreply.com
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v2 05/17] spi: imx: Use helper function devm_clk_get_enabled()
-Date: Fri, 13 Mar 2026 14:08:21 +0800
-Message-Id: <1e68b5b54a9ba46c307f18c1f0cbf0d34b9af06a.1773381582.git.xiaopei01@kylinos.cn>
+Subject: [PATCH v2 07/17] spi: orion: Use helper function devm_clk_get_enabled()
+Date: Fri, 13 Mar 2026 14:08:23 +0800
+Message-Id: <2549f17ba7e4d03963bdcf7ec6c86e1f8682e75c.1773381582.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773381582.git.xiaopei01@kylinos.cn>
 References: <cover.1773381582.git.xiaopei01@kylinos.cn>
@@ -83,52 +83,55 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-imx.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/spi/spi-orion.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
-index 64c6c09e1e7b..a01c466818de 100644
---- a/drivers/spi/spi-imx.c
-+++ b/drivers/spi/spi-imx.c
-@@ -2323,26 +2323,18 @@ static int spi_imx_probe(struct platform_device *pdev)
- 		goto out_controller_put;
+diff --git a/drivers/spi/spi-orion.c b/drivers/spi/spi-orion.c
+index 7a2186b51b4c..69e41421dc88 100644
+--- a/drivers/spi/spi-orion.c
++++ b/drivers/spi/spi-orion.c
+@@ -695,13 +695,11 @@ static int orion_spi_probe(struct platform_device *pdev)
  	}
  
--	spi_imx->clk_ipg = devm_clk_get(&pdev->dev, "ipg");
-+	spi_imx->clk_ipg = devm_clk_get_enabled(&pdev->dev, "ipg");
- 	if (IS_ERR(spi_imx->clk_ipg)) {
- 		ret = PTR_ERR(spi_imx->clk_ipg);
- 		goto out_controller_put;
+ 	/* The following clock is only used by some SoCs */
+-	spi->axi_clk = devm_clk_get(&pdev->dev, "axi");
++	spi->axi_clk = devm_clk_get_enabled(&pdev->dev, "axi");
+ 	if (PTR_ERR(spi->axi_clk) == -EPROBE_DEFER) {
+ 		status = -EPROBE_DEFER;
+ 		goto out;
+ 	}
+-	if (!IS_ERR(spi->axi_clk))
+-		clk_prepare_enable(spi->axi_clk);
+ 
+ 	tclk_hz = clk_get_rate(spi->clk);
+ 
+@@ -726,7 +724,7 @@ static int orion_spi_probe(struct platform_device *pdev)
+ 	spi->base = devm_platform_get_and_ioremap_resource(pdev, 0, &r);
+ 	if (IS_ERR(spi->base)) {
+ 		status = PTR_ERR(spi->base);
+-		goto out_rel_axi_clk;
++		goto out;
  	}
  
--	spi_imx->clk_per = devm_clk_get(&pdev->dev, "per");
-+	spi_imx->clk_per = devm_clk_get_enabled(&pdev->dev, "per");
- 	if (IS_ERR(spi_imx->clk_per)) {
- 		ret = PTR_ERR(spi_imx->clk_per);
- 		goto out_controller_put;
- 	}
+ 	for_each_available_child_of_node(pdev->dev.of_node, np) {
+@@ -764,7 +762,7 @@ static int orion_spi_probe(struct platform_device *pdev)
+ 		if (!dir_acc->vaddr) {
+ 			status = -ENOMEM;
+ 			of_node_put(np);
+-			goto out_rel_axi_clk;
++			goto out;
+ 		}
+ 		dir_acc->size = PAGE_SIZE;
  
--	ret = clk_prepare_enable(spi_imx->clk_per);
--	if (ret)
--		goto out_controller_put;
--
--	ret = clk_prepare_enable(spi_imx->clk_ipg);
--	if (ret)
--		goto out_put_per;
--
- 	pm_runtime_set_autosuspend_delay(spi_imx->dev, MXC_RPM_TIMEOUT);
- 	pm_runtime_use_autosuspend(spi_imx->dev);
- 	pm_runtime_get_noresume(spi_imx->dev);
-@@ -2386,9 +2378,6 @@ static int spi_imx_probe(struct platform_device *pdev)
- 	pm_runtime_disable(spi_imx->dev);
- 	pm_runtime_set_suspended(&pdev->dev);
+@@ -788,8 +786,6 @@ static int orion_spi_probe(struct platform_device *pdev)
  
--	clk_disable_unprepare(spi_imx->clk_ipg);
--out_put_per:
--	clk_disable_unprepare(spi_imx->clk_per);
- out_controller_put:
- 	spi_controller_put(controller);
- 
+ out_rel_pm:
+ 	pm_runtime_disable(&pdev->dev);
+-out_rel_axi_clk:
+-	clk_disable_unprepare(spi->axi_clk);
+ out:
+ 	spi_controller_put(host);
+ 	return status;
 -- 
 2.25.1
 
