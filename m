@@ -1,66 +1,40 @@
-Return-Path: <openbmc+bounces-1475-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1476-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6891E106ACF6
-	for <openbmc@archiver.kernel.org>; Thu, 12 Mar 2026 23:11:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 448A9106FD7F
+	for <openbmc@archiver.kernel.org>; Fri, 13 Mar 2026 05:28:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fX3Jg0YXcz3cM2;
-	Fri, 13 Mar 2026 10:11:15 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773308195;
-	cv=none; b=nA45m8XjvtACrAoubHDRQC/6eExknMmGQRj9aUo4rTRTE5WklFNPzZECxiK+kz5XyokxQ0+SNK3NojkgFKHHhziOhTFGSU/DZ8tPzEAjXmu7FPJ71bMygrryNYzCIiSRf8Acku5g9CqxqSucWZTMiNyS3sa+is9nPckBRgoyNNVuej+J2HAD83D7djCbJT7QlTLED50SvqPe5r539TSOJWFhOWqiVWQlpPSWYS9A9/XlI5vWyQklJw0XiZiMnq1tw6SZ8YNRTtI1FssXkQ/yO54mhrYEwAjQvgeTnqs/hRI32IIRGz5nbzyDd9tgBeqbAUz7zWLHV3E1gOuhegllaw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fXCgh6367z3cK8;
+	Fri, 13 Mar 2026 16:28:16 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773379696;
+	cv=none; b=Ya6JlxrUTXVS1Cfw6fjZmE/WzTyr/FK/ETPnFwS2Ll+ReEfKznaVHwSJhBL6AQmrdMpkLiewdkHFq+z7RfENoeQrxxNkmaKAZFEN7ILB94OOLbRgpkD1RM8nHc71gMdYtyU8gwMzrsJmoplGoiv15Hls+I4ZfWV9NANof/qYP4SCc64P1HENCbCyVEU8xpJzsM5KhI3dq1aiTkMBlBCewIMNXcIMBiyshsc4XueYpNQBwMeRvbvMsgpdzTxfw31nDjRo4D6i0kVS8TSF6wuaBjq06zUc+JxeAkgBNKxnCBBeGlM7ypMkI59nbxSiCTsVn0EOVsdPQqMw7X92Zuj4wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773308195; c=relaxed/relaxed;
-	bh=ugOuw7T4v0idjV2XykkyxgOkdjTkO0dLS5Nelx4Rb/8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=USTu/BnB+kAG/Hyx2EMtbqiYiFB92Vh4zH65kV7ZBZdHXZxN2ImcIOzHDqkfaRu70iULmW7kDgqYMS7ch8bVY6Yey42y3tsgvAdLqaURseQnS+syAGamVpHfwz7WrdgVrcNazKn4FEwGaCkRwiTsNjdLTF5gaCsF4fSaAim9UjZScUFelR7VeZ1x1WSJI/vy9qJ9pm+lhU7f/OO+PtBXqzqB7urLt2KcSvqG5YVacUQ9OiyjBjllW0SAeEAoSnu+j2UH+t5+4sCpPJxVux/6othVBak2Bna/tDhonex7xJTFeCu9YkrO6KlxvskTiSDbMsvy5MVIRFZnjCUz3v6hYg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
-X-Greylist: delayed 366 seconds by postgrey-1.37 at boromir; Thu, 12 Mar 2026 20:36:32 AEDT
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	t=1773379696; c=relaxed/relaxed;
+	bh=IXtnoRotPROYOYKxJSTjckOFDlJ3Utg3vHGH+uXFmpM=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=KRwcaxGI3yiBZKpxYcm9pWv/w93R1N8N8VavGd+DmzjFh2TrHFSt2yJHJC8xTeei4N20hFp4R0vprjSPVFQrpisNq40ZhGdCYRX1hdtbga6ZuDfu7icEB6PIemQVCWG1bM8LP4Tv2CXYjXyCzpd4p34FMJrrxcInsuVbXtzPvJhYsLrRX4rcBuKQ2pCaivDMP3n7gheE422CxqYG7J4o09YJ9sUSdfWZY88KUieGunXiUFARXfHCrnjzBB6tlm0W7K+0ZZacizrlKFN+KcgRR+mkZVJSoP7pWj1wSYAu9+xgY686IlNTjn4FfKBfxXMdOa84YV3jDnBBGcvZ/cY8EQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fWjDc6v84z3cFN
-	for <openbmc@lists.ozlabs.org>; Thu, 12 Mar 2026 20:36:32 +1100 (AEDT)
-X-UUID: ee98c7281df511f1a21c59e7364eecb8-20260312
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:364da13e-4297-4e51-b36c-abb76dbed6cc,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:89c9d04,CLOUDID:3fe1568a4ae880f33e74b65e970bdd58,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|898,TC:nil,Content:0|15|50,EDM:5
-	,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ee98c7281df511f1a21c59e7364eecb8-20260312
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 885957485; Thu, 12 Mar 2026 17:29:13 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	openbmc@lists.ozlabs.org,
-	linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	broonie@kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH 00/17] cleanup in spi by use devm_clk_get_enabled
-Date: Thu, 12 Mar 2026 17:28:52 +0800
-Message-Id: <cover.1773306858.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXCgg3sppz3cGM;
+	Fri, 13 Mar 2026 16:28:14 +1100 (AEDT)
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 13 Mar
+ 2026 13:27:57 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Fri, 13 Mar 2026 13:27:57 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH 0/2] Add AST2700 support for aspeed sdhci
+Date: Fri, 13 Mar 2026 13:27:55 +0800
+Message-ID: <20260313-sdhci-v1-0-91cea19c8a67@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -72,52 +46,49 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFugs2kC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0Nj3eKUjORMXSMzyxRjQ8u0lKSUVCWg2oKi1LTMCrA50bG1tQDY/8O
+ hVwAAAA==
+X-Change-ID: 20260313-sdhci-269d319fdbde
+To: Andrew Jeffery <andrew@codeconstruct.com.au>, Ulf Hansson
+	<ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	<joel@jms.id.au>, Ryan Chen <ryanchen.aspeed@gmail.com>, Adrian Hunter
+	<adrian.hunter@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: Andrew Jeffery <andrew@aj.id.au>, <linux-aspeed@lists.ozlabs.org>,
+	<openbmc@lists.ozlabs.org>, <linux-mmc@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773379677; l=705;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=SB7CAsVDuvC/UzUyKBRMDViK4RWtIuE3C0YGThbJYq0=;
+ b=Sz8w6I60BX3Vi3i6P7kBBwzTQn0pfRzJThSD8zp37uZ+jJVimsrLjFNIOak0m2xEst+vT2F/N
+ 95Y8AtIXkKEDQuF/Bwnobj6YtdVzMRtuzaTwuVCBBZe58KT3vWTrK/H
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-I know that many old SPI drivers should not be modified for hardware
-stability and to reduce maintenance effort. But I can't help cleaning them
-up. To minimize the introduction of issues, I tried not to modify the
-timing of those hardware clock enables.
+This series add aspeed sdhci support for AST2700. The AST2700 sdhci
+requires an reset. This series updates the binding and driver to
+support reset requirements.
 
-Pei Xiao (17):
-  spi: axiado: Use helper function devm_clk_get_enabled()
-  spi: bcm63xx-hsspi: Use helper function devm_clk_get_enabled()
-  spi: bcmbca-hsspi: Use helper function devm_clk_get_enabled()
-  spi: img-spfi: Use helper function devm_clk_get_enabled()
-  spi: imx: Use helper function devm_clk_get_enabled()
-  spi: npcm-pspi: Use helper function devm_clk_get_enabled()
-  spi: orion: Use helper function devm_clk_get_enabled()
-  spi: rockchip-sfc: Use helper function devm_clk_get_enabled()
-  spi: sifive: Use helper function devm_clk_get_enabled()
-  spi: slave-mt27xx: Use helper function devm_clk_get_enabled()
-  spi: st: Use helper function devm_clk_get_enabled()
-  spi: stm32-qspi: Use helper function devm_clk_get_enabled()
-  spi: stm32: Use helper function devm_clk_get_enabled()
-  spi: sunplus-sp7021: Use helper function devm_clk_get_enabled()
-  spi: uniphier: Use helper function devm_clk_get_enabled()
-  spi: zynq-qspi: Use helper function devm_clk_get_enabled()
-  spi: zynqmp-gqspi: Use helper function devm_clk_get_enabled()
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Ryan Chen (2):
+      dt-bindings: mmc: sdhci-of-aspeed : Add ast2700 support
+      mmc: sdhci-of-aspeed: Add ast2700 support
 
- drivers/spi/spi-axiado.c         | 23 +++----------
- drivers/spi/spi-bcm63xx-hsspi.c  | 44 +++++++-----------------
- drivers/spi/spi-bcmbca-hsspi.c   | 47 +++++++++----------------
- drivers/spi/spi-img-spfi.c       | 14 ++------
- drivers/spi/spi-imx.c            | 15 ++------
- drivers/spi/spi-npcm-pspi.c      | 19 ++++------
- drivers/spi/spi-orion.c          | 10 ++----
- drivers/spi/spi-rockchip-sfc.c   | 20 ++---------
- drivers/spi/spi-sifive.c         | 20 ++++-------
- drivers/spi/spi-slave-mt27xx.c   |  8 +----
- drivers/spi/spi-st-ssc4.c        | 14 +++-----
- drivers/spi/spi-stm32-qspi.c     | 17 +++------
- drivers/spi/spi-stm32.c          | 59 ++++++++++----------------------
- drivers/spi/spi-sunplus-sp7021.c | 15 +-------
- drivers/spi/spi-uniphier.c       | 15 +++-----
- drivers/spi/spi-zynq-qspi.c      | 28 ++++-----------
- drivers/spi/spi-zynqmp-gqspi.c   | 17 ++-------
- 17 files changed, 95 insertions(+), 290 deletions(-)
+ Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml | 16 ++++++++++++++++
+ drivers/mmc/host/sdhci-of-aspeed.c                      | 11 +++++++++++
+ 2 files changed, 27 insertions(+)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20260313-sdhci-269d319fdbde
 
+Best regards,
 -- 
-2.25.1
+Ryan Chen <ryan_chen@aspeedtech.com>
 
 
