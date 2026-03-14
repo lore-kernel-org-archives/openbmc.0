@@ -1,68 +1,69 @@
-Return-Path: <openbmc+bounces-1518-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1519-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856F2107BCEF
-	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 00:48:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B3D107BCEE
+	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 01:02:56 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fXjNQ394kz3cPQ;
-	Sat, 14 Mar 2026 11:46:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773382221;
-	cv=none; b=gwKK0uYV4pS7oKubwwwgP4P2GAX7yofBBJmqMUJIPuOFIdWOQjtlJdfzt5dnLgoYHXchJo+pYYxh0+pH+rLfyC+pmBGZMA7lhSN85CZdRWRwNIh/5tf8qrzpxl68z6/VtMQ3lkmzxKzEQMwr6QTu6+s6xOOv3tBm4vSLcL+RYhBccrxrmFqm689eHSHuFo0LFqfDIkCad2swqcOhs2mLJtuIQAqXB/gw7Q+LgQkhMz1IIfzSoL7GEol/I7RAUjvXCFlPsyuClA0Y5Vr5OLJTseNF9X9/FEIFqU3EUGje62QyERC9cvonIPF5TvPvcFENERURHshMJ5mN86ruOllBzw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fXjkw1jkyz3cLV;
+	Sat, 14 Mar 2026 12:02:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773450167;
+	cv=none; b=QwzUITSM7wGPiiGCXPDb8x816hfIY2/CDGOcUE60w25jWBJvn7iGMBbqAtPxyZpZXcvJEbJe6m9E4SdX1ONRwGB165ht7GL/pctbMPPPdd4+/XLb/ullHDSsLW2aH/C2CLOMPnfZTO1eddbqVrgjLx48ue4QRmhLi9A+HpDtmu2r3RIiutJ4jP4xBcypdV5qmjNrxdHWLZy/TDxQ1DVbl2githspJ2So2sswsixb+WE0soIKVF3SdW03ksF7AXAstNaxx+oj6Tjo1wBehJgGSG8jefkivmm7UW03lACVixwCAmL0vjfZksA9P7NcJn+lNMztmLN0OUGlxghDtUhL6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773382221; c=relaxed/relaxed;
-	bh=kWr3UpL72gEY0ThjpzFd6EFwY6zHsa+dAASz/B2/zTg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QXgT7YiQzc+NrEJq5MwEX52Ikn9EAK0IKIXUnd0mDDQaNKwdKVGAE/6Myg6rVBxp4HD3yZscGETs4QChUWwiFSjEg9dg2QE8/092EYRwuWSM9n9OJh3O1PcldaONJAWfQ1k5z3SKw7j1AzCDUu1GYCq+bFXceb71b72ofjve8RDS4pjvs9aTy0/HN+jCvUPIdKZzqK149RzpBjl+M2JiMGc9c+uCRKQjGNYEgElh0xkuoVy5bKUIBMyS4jQjzSmYmwUuvry/qzDSmqXuaagnQF4kr1H+lwJdMpMEX0ZnFmSzlr44tigqTx7EZYC2YnOpn++pa7BsfNKm4oOfe2809Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	t=1773450167; c=relaxed/relaxed;
+	bh=tWYs9DvU+mZ9LOVAyOnflvF29x67OnKqYeQPgwvkhk0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W2uNjnLm/5K7iilW8gihZ7AK+7iIoZSCGv3VS/D/pkEcI/aVT8tWpzBu/3lHmmD/7cEY//mQy10cuLIc6xu1awILaQfb3D68NagXPcPRidxTj3b+TDN4lcKjh1ETgkbnwW9MMgDMVUGnR6dhiN2DYW7+JBMtHxOLne/LPxiqodnAInlumVRgzWDWZGV65PnZokjnkb7u17m5yEZbCaYWKwm5b2Pb+duXWk501OJGLmwppEWjGoRC8rmFywJtuiljAgRHSHXSSP8iRog4R85wRY2F792G1QObjf23dV+a44Ii23qGTP1azM14p9lkluG3fGNv+loBbbRrbZut1kp3yg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=HW3CN3RD; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=HW3CN3RD;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXDcC6PRyz3cJy
-	for <openbmc@lists.ozlabs.org>; Fri, 13 Mar 2026 17:10:19 +1100 (AEDT)
-X-UUID: 2025a7e01ea311f1a21c59e7364eecb8-20260313
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:d89ac4ec-369b-4d47-846d-ed976b4fdb08,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:89c9d04,CLOUDID:fd8bf85eeab97c9d96b48752536a9aa3,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2025a7e01ea311f1a21c59e7364eecb8-20260313
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1216968440; Fri, 13 Mar 2026 14:08:59 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: broonie@kernel.org,
-	linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	openbmc@lists.ozlabs.org,
-	linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v2 04/17] spi: img-spfi: Use helper function devm_clk_get_enabled()
-Date: Fri, 13 Mar 2026 14:08:20 +0800
-Message-Id: <8e188ff7513f1a57e6b9b973d231b0eb8f317253.1773381582.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1773381582.git.xiaopei01@kylinos.cn>
-References: <cover.1773381582.git.xiaopei01@kylinos.cn>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXjkv27Q7z2xqD;
+	Sat, 14 Mar 2026 12:02:47 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id C0C7540377;
+	Sat, 14 Mar 2026 01:02:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73374C19421;
+	Sat, 14 Mar 2026 01:02:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773450164;
+	bh=tWYs9DvU+mZ9LOVAyOnflvF29x67OnKqYeQPgwvkhk0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HW3CN3RDbWA+xtGV5+q0X5flLSMIlP4UDcr0sHpw58UExgbzgaLZffft5PqZxZjoz
+	 fdXAuS0ACArf5KBcnPgQrH27JvSnuro2JwKApqnp+R4PG3AkXpKt7K/cH+vY7Jp7Ee
+	 B2t4WJUr6v5cML8RtKPTRw5pdElvD2OLBUE6VXNNoxtFNd49pL7qkvqNADoa3REIEA
+	 9zyI2Gke6d/8TioKlqGFQoAf0J0eRXOBJ4nX/H1wYPHePY6n7l+h6I9lNIV5GuElMr
+	 fGBXbj9BG5G0r8uIWbalHPkkBgKhuKBumA0WwgcPPRyRYFg2NrEXZv4p3VgQpISJMs
+	 dPvzjrR6hPRpg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id E13621AC52DC; Sat, 14 Mar 2026 01:02:39 +0000 (GMT)
+Date: Sat, 14 Mar 2026 01:02:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Conor Dooley <conor@kernel.org>, aspeedyh <yh_chung@aspeedtech.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+	maciej.lawniczak@intel.com
+Subject: Re: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
+Message-ID: <abSzrxJVcWi6VNTJ@sirena.co.uk>
+References: <20260313-upstream_espi-v1-0-9504428e1f43@aspeedtech.com>
+ <20260313-energy-casket-ca8adc1f1fd1@spud>
+ <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,60 +75,46 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="As7T8iPELD/sjSqV"
+Content-Disposition: inline
+In-Reply-To: <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
+X-Cookie: Identify your visitor.
 
-devm_clk_get() and clk_prepare_enable() can now be replaced by
-devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
-longer necessary to unprepare and disable the clocks explicitly.
-Simplify code.
 
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
----
- drivers/spi/spi-img-spfi.c | 14 ++------------
- 1 file changed, 2 insertions(+), 12 deletions(-)
+--As7T8iPELD/sjSqV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/spi/spi-img-spfi.c b/drivers/spi/spi-img-spfi.c
-index 902fb64815c9..a227cff5da70 100644
---- a/drivers/spi/spi-img-spfi.c
-+++ b/drivers/spi/spi-img-spfi.c
-@@ -557,24 +557,17 @@ static int img_spfi_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto put_spi;
- 
--	spfi->sys_clk = devm_clk_get(spfi->dev, "sys");
-+	spfi->sys_clk = devm_clk_get_enabled(spfi->dev, "sys");
- 	if (IS_ERR(spfi->sys_clk)) {
- 		ret = PTR_ERR(spfi->sys_clk);
- 		goto put_spi;
- 	}
--	spfi->spfi_clk = devm_clk_get(spfi->dev, "spfi");
-+	spfi->spfi_clk = devm_clk_get_enabled(spfi->dev, "spfi");
- 	if (IS_ERR(spfi->spfi_clk)) {
- 		ret = PTR_ERR(spfi->spfi_clk);
- 		goto put_spi;
- 	}
- 
--	ret = clk_prepare_enable(spfi->sys_clk);
--	if (ret)
--		goto put_spi;
--	ret = clk_prepare_enable(spfi->spfi_clk);
--	if (ret)
--		goto disable_pclk;
--
- 	spfi_reset(spfi);
- 	/*
- 	 * Only enable the error (IACCESS) interrupt.  In PIO mode we'll
-@@ -655,9 +648,6 @@ static int img_spfi_probe(struct platform_device *pdev)
- 		dma_release_channel(spfi->rx_ch);
- 	if (spfi->tx_ch)
- 		dma_release_channel(spfi->tx_ch);
--	clk_disable_unprepare(spfi->spfi_clk);
--disable_pclk:
--	clk_disable_unprepare(spfi->sys_clk);
- put_spi:
- 	spi_controller_put(host);
- 
--- 
-2.25.1
+On Fri, Mar 13, 2026 at 10:36:02PM +0100, Arnd Bergmann wrote:
+> On Fri, Mar 13, 2026, at 17:24, Conor Dooley wrote:
 
+> > FSL's appears to be there.
+
+> I think this is just a similarly named device: Freescale/NXP's eSPI
+> device driver is unrelated to the Intel eSPI spec but rather implements
+> a normal SPI driver the same way that eDMA and eSDHC are Freescale's
+> implementation of dmaengine and SDHCI drivers.
+
+Yeah, SPI with a random letter or string in front of it is usually just
+someone made a new controller for some reason (often a new feature, like
+all the QuadSPI devices) and wants to differentiate it from their old
+ones or connect it to other branding.
+
+--As7T8iPELD/sjSqV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmm0s6sACgkQJNaLcl1U
+h9CIOAf/Rrg0d27a/vhMLtPcEjSZQoXrrlz9ZUG/qs9V8Fvp+um7hK8PgZScqRn0
+zbQKVJrMc2M25hSr6WGx7z3DNp40n5vwepJLhtVA8IGa+3IPMQJ0LchIGlrTVl/X
+cgpRptD7myafQdktC0w1Lz2OafkIWFKxCcVj5jj8TCsjzlfwmIFrrCH8NbPGklhH
+o309ZPAzFdOJNxV+h19WsfgXgIawJyZ8Qer7m3Ub4xSL6QvOk05G1nEqFDW6o2RF
+uybGs9uOe2wUH7yBDIVoVhE7nPsr4npiTNG7zkvZRc4jtvb+i4mAgUbNtvuTzpJk
+wCsgdWoq1QUE3wwIDdZFol24nhVa5A==
+=FOG0
+-----END PGP SIGNATURE-----
+
+--As7T8iPELD/sjSqV--
 
