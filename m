@@ -1,92 +1,136 @@
-Return-Path: <openbmc+bounces-1499-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1500-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D81AC107BCEA
-	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 00:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F321C107BCEE
+	for <openbmc@archiver.kernel.org>; Sat, 14 Mar 2026 00:25:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fXhsj5Whpz3cLH;
-	Sat, 14 Mar 2026 11:23:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::a2e" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773447817;
-	cv=pass; b=OuBdEwqGnQP+v9y58jDwmvOVkFThDV+mPNcLRNJOgNKOmQwPB87OC3mpt17ybiXje2rOkRjWN8sBYi/SRNqhjxGSxqjnbtFzcQQ7/sidqP5FpNYp2VJ1AqO9R0HCDQo5CK1a9B9R7D5b7R3mZubT8kxUSnkssuF/tw9EvSQWg8yFL16YhtjEXwKWHd4gIPfJvzaNzQSoayq/HE7Z+VFZvmbbfWKiPyxqrvVZLErFAQTfJt2gITLC/igUDVWD6F6ScU8epvwj3VmJaNpV/+MvIRLifDxUqJftxFovkiqLBsrx79f+O+0B2ZiPt9CWnQ3SdE2Ivw2P6sT11Qt3/ltwPw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fXhvT1VD7z3cLR;
+	Sat, 14 Mar 2026 11:25:09 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::5" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773447908;
+	cv=pass; b=EUKxp4UjbnCdWh9IVaRawZoDc/1q1FEXRNmX9nFXxhtHF7xgK3i80CK683+cKOnxLg9V/8wGZ1UPtpNu12VDbEj495tklvT8fJhNf0yQ36Q6wzL3lb/IRzsODIHepdUzoswekHPOcND1vkuWCLKrMfOKW747q5qtWyZbPmm+MFzTZDS9lTUo3FAbrEpQAgXUkzYGwbEloet70pHHKfxmzGh/xv85HQH22LFvNQCkwW1mWoAhHPDuuWlTRe1oAHDe9+uTaaQ7SDwI8hiUK6YJJEI6xRCCiEi6XVDJddPRc8WO1tgcAOR6vwiUctixAbNVAum5taSzPpx11FXQHSH2rw==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773447817; c=relaxed/relaxed;
-	bh=XM5NmstStZTZdv4RD1IazSQ37HYdrV3gu1Lyck+tW/0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UAisUQ3FuQKzzHCw++W1F2RIRhQFAOmzLx0LUqf8YljYo17Itf/qoAsF6IBEOvk1KXqZOk5DhjNKBfxvXR/oKsuMYnkuutp/04Pa0jVVRWcU09OELOppYAxxd9MMgI2NfYAe7MYzVaJ5CAx0FNuZ1ZQM2rhrf5gxl5T5pRGTZqSICNOZG22zWUaIH7M0TPZgr8dQrXlnft2KA3MXq98I1Hr1mVskc4aLhRn7hiJdI/4KeJBL7QGFt7SPxKraJHqOpwQoP10792XksdNKjWERcNxHnAj3KhUfSUNg4+Ywt70NVmAPfNu04mkYNUqQs4NnOF1XBWs+Y5hhon69X0s6oQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=nKR94XJM; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::a2e; helo=mail-vk1-xa2e.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1773447908; c=relaxed/relaxed;
+	bh=SWjaXLWXuX8xBbvy5KG+KG+3bYuL50JP2i674dYVlHk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=APrqcURYPlw7CwFUmkNuoGQYXrpEQCCn2y9JBkmje7hHQ7KqATSSNvAu+PNJ1kGJLxIolWJkVzCAO3bPoDHJi4te2Xmwe47USFqcmCzNi1HVHHRt6Q+WdwqJndB6OseRLCRYi+rYsulVKLN7mVCanYWcYk6KdZYksLZHeu30wB/xXOf5hMStqw+mAoDMbysbeGyjwvVO9o29gcnRAxpncEQWPs0O7ewKytwcl3Pr3TjjtQH0WcJzFGhGTGVImMkMgh/YvDBdOasra0Ky+4SOJRLxk3Z6Q+463gUqcSqkrlrDy0JmFxBNIZtI2z7egga0odrWnUC/uHEUx8oRmS0ctQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=mary8yaI; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::5; helo=typpr03cu001.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=nKR94XJM;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=mary8yaI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::a2e; helo=mail-vk1-xa2e.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com [IPv6:2607:f8b0:4864:20::a2e])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::5; helo=typpr03cu001.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazlp170120005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXhsh0Z76z3bt1
-	for <openbmc@lists.ozlabs.org>; Sat, 14 Mar 2026 11:23:35 +1100 (AEDT)
-Received: by mail-vk1-xa2e.google.com with SMTP id 71dfb90a1353d-56af4aad3e5so1063521e0c.3
-        for <openbmc@lists.ozlabs.org>; Fri, 13 Mar 2026 17:23:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773447812; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XlUShOQ6DrpuYAJntpxGo6OSB/ScAOxt8WxxwZVwyuVCMM2eCgBvS/PBR/3StCLssk
-         0WOEep9InMkF3szo0s3KcRjDGJTrcnaSwh0HUoJsmJqDLsMbm3Y3xFXvJpHR+UOAKUgF
-         dexO3QobxG5ScS4ewQ01tvJBfdrQwmeA/fkC/Kl5cuIJHV1N348u9F9ZE788XZi/nzFl
-         sv/tQHN1pv5cyLy6oheYzu+T9y4lsEr/S0yvmcm8ovIPTHVgYrOygeOGV7veiBw/58kU
-         MRMLC5P0BCPj+PsQkysqjGTJ8NrCdj/ef9PKTLrrz7mfLYeKLBSMXJs3PzmC1Xm2ABmP
-         7AKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XM5NmstStZTZdv4RD1IazSQ37HYdrV3gu1Lyck+tW/0=;
-        fh=uo2vhNF39cVviXq+IjcdZ4ZRy1Hfb+gFMS/oMNsvFSA=;
-        b=cWpXG1LfeUI2LkJsIyOpfotqsYuBZO6TGoFTwO1GBlhqEsSzhs0SX8LmwZnfafKDqD
-         yp2Ty+ICRVyF0GpmqA2rnJnVZbM83fRV3kQCAO79KpIqKU6qCW0ZJ944DHWyDJac7do8
-         n/oxEx+oC0RC/8BEbo5r9IyrXNwVs48j91Z2IHninZE1kRPkchlevEgzDN/Jx6n1d+zD
-         Fq9Vw4cp+WnoVzLBYKTw4s1asgZurCeraP1p/nrK8FCug7crfU9zm8sp4BexfSouJsvM
-         y1kOqqPsEq/UMtIP6M3dk+tYNPZzr5wPJh5eOlvRl1FjG3lBa4y30k6v511Sl39kgDYg
-         z/Jg==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773447812; x=1774052612; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=XM5NmstStZTZdv4RD1IazSQ37HYdrV3gu1Lyck+tW/0=;
-        b=nKR94XJMynFEEGZQk5dwjLT2W0Q9UwWDylu5o1vI2g2rNHTQXM1uADcPnGn/o9aN+/
-         D1/u/wI9xZzsv6RkI+ZlcgLqDdLecRdZ6Rl5QOnc5LLS5WfQtSZVkanGiM26TYIoOuO2
-         ZHKo349zZcMhAghXsLDqaxf/H0mFobhxUQykTp0H/ZA4uik/Ulrlj9V9qmooL5d2gmCI
-         dndzSK30UCJkFgcO9lo/TUh1lSmKwoWt/x1N+yQwt27k73dwiF3X7QC/0uXUWrEiDAve
-         TC31oXyhkyb7O98grxWfF3qVOSiAyyItVPjugdaZlysKEqOKQ+0mBmxvU2bLwtDZ4j9x
-         IdNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773447812; x=1774052612;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XM5NmstStZTZdv4RD1IazSQ37HYdrV3gu1Lyck+tW/0=;
-        b=LD3p0cq0T7ZlC9CQLoZT2oEQOSmQVHDMuYKd9iVmUSZ4FkbbG4Bp7oYvWAM5ylJYnG
-         AWvzEq4PGtb9rRAkrGhU/Z/8m/iEwWAZNCTfAb96hMCxbitSr6zktoICOJDrlxR55PgT
-         GsK8p7iFM7aYR8K5RMg19P0/DEUHkeiK20Cplin860yO6gRSf9NbTLPqkmKOtRp2zSv4
-         Fkb+fa7De1SqGwEcNDMK7Z849cXHkMzPylu/rxN+1udTH2M8vXgYG4aFwq9YsDrnbWRD
-         2B6cr6OnymtfIcYJzmwsHDoJ8D0rX9FcalVmHe+7Uxl8EmAsg5a1xyvnhpWFh9KFY/Jw
-         gfKg==
-X-Gm-Message-State: AOJu0Yy/yVXIyaAmHsFzLzBco6TIDRXd0pJRWjUdu2DX8F1uRr6jJkIC
-	4Xj3iWKfp1hDmtjxIYszWK+WUSp2q+80ox9WnUxCYfDdv+5AlzcG9somD4mQbtFQFA3sC6XHfsm
-	m12RjHis7eyxiBKOLwTfannhSQtNx4fM=
-X-Gm-Gg: ATEYQzxdcby9PMVcZbdGKFMcnGdHLVF1/JKwT3Tw2r+ydKFPMDNsCNqzSUrgnFXEUUP
-	nwyKyiGPHObLtLNqFqp4O1qcQgi+hz9UE0qx12mTGXfui0NS1D91OHjG/voRD3C2qoMfUcZ6+p8
-	FVDaxXghTy/oS5F/e676gK4mF4g3oI7yhlQFn9IYJ2rsNtpAOBLD3kOAaXatS5Hs0S+NkMGynf3
-	/4GujBedJvck7Lf5L6G7J0eQFkkqAR0n6GeVHfsQ1uhbPMD7AKK5zoOBYG7yrO89dhp50rw7l5x
-	peNl0z5QE/Vj5o9e2VO7nanGat9wptKftDbAuskgfIGddDsP3isRFol/4vhhPdszONqSzNzVZYc
-	XES9bNiTgDHU4rfCk0Q53Yl35/+A=
-X-Received: by 2002:a05:6122:c9d:b0:56a:feae:fc2c with SMTP id
- 71dfb90a1353d-56b62946fd9mr1901924e0c.14.1773447811859; Fri, 13 Mar 2026
- 17:23:31 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fXhvR3nG7z30FD;
+	Sat, 14 Mar 2026 11:25:07 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w3xbDB4IfLLxGWQcXgrj1x3M4eqr8LPnrK+PmLcE1TbAMv6rM4l0X49UHWnxsDv8VZXYsgRrtcoAZU0NEqOWMuMtfjfdAifjPFPVAmiodII8KytfNEvaJifGnpveIzVO9290ppoU733hLabkkh1YbfJuiwxyE8DZH+rC7zkuee7p2gR8vRTGE+HE4U8O1wP3Vh5dMAyO1GFgU2sJImScXEMj19TF+gpT6m3Yl3npcbDSi7towUhvXhQQkP9aigJmanRX2R/ez8FIf2L2W7JL6tr5OthjtJa9aVe5JGAlMV5NOrotadUc0Azrv79OJKwBr9JD1eogyXSnpKEG/B86vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SWjaXLWXuX8xBbvy5KG+KG+3bYuL50JP2i674dYVlHk=;
+ b=SOY+ckzgQm6ewyxlAGUQXa1XWwXyE3uo5QkQt/AA79zoTN59K6GaYunz9gTEecrFdvLqiAtWc+6McTDSV7iVeaRmW/XaHQc8DaBZBiYhf+6u3O6E/xzuOighZyovek7uDalhbNuyPW1wK8r/mtc+FWOh0d82lJhD7CeM3ZDQyEwetATDmHvTk4hfopd+vElSBHp5pmu7fHiWbk6NdFdj0l2z3YeA3DgDWAu9+QbDfFQQrTVM20IiLrAJ+EFWztzRnF601kCHkK/dF0SOGk5LY9xa5LMEpn7XE5XM5yIgx0VLHFNKh167sMSQ0VXpH7SnPpP/Hsfnj+v/2gTVnawrYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SWjaXLWXuX8xBbvy5KG+KG+3bYuL50JP2i674dYVlHk=;
+ b=mary8yaI+djeyGAKFWnfv1oW532Bb/8qt1Jjp+C3a/50CdGu69kELLU9eFPwV8EWThF88rPo0/VMNCkT35OkhYDqZOs+bmP3CVwUVdiIk3X9bKJzhJHqNbC0IjDYiKqZz3QBDXYDJ2Y/ABN6y6BUHiyyj9A8guA48a4jqOTkJLpaeiM8YOgFbCX6+IPFrM5uRde68XKBWTBT9rBWfI2x1cqvsebYrHEln04kNQIIQRQPi1Xc8b9MGod3XDg/dqDSX1lnT+1FK9cyioYh0lZvLkeQ8+0t2RSx7WELHMnmJgZKjfjHejMDD+0jgz6KW5zrjZhlWdajAApsK9iHoEbkRQ==
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
+ by SEYPR06MB5253.apcprd06.prod.outlook.com (2603:1096:101:87::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.18; Sat, 14 Mar
+ 2026 00:24:39 +0000
+Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::8c70:cb01:78fb:d9c0]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+ ([fe80::8c70:cb01:78fb:d9c0%6]) with mapi id 15.20.9700.013; Sat, 14 Mar 2026
+ 00:24:39 +0000
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Rob Herring <robh@kernel.org>
+CC: "jk@codeconstruct.com.au" <jk@codeconstruct.com.au>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, Andi
+ Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Benjamin Herrenschmidt
+	<benh@kernel.crashing.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>
+Subject: RE: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+Thread-Topic: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+Thread-Index: AQHcr5GE+hDVSyX/WkC7T78e6kO8trWtIRWAgAAQdrA=
+Date: Sat, 14 Mar 2026 00:24:39 +0000
+Message-ID:
+ <TY2PPF5CB9A1BE6A19D439C675AF5028C13F242A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com>
+ <20260309-upstream_i2c-v26-2-5fedcff8ffe8@aspeedtech.com>
+ <20260313232125.GA3618633-robh@kernel.org>
+In-Reply-To: <20260313232125.GA3618633-robh@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SEYPR06MB5253:EE_
+x-ms-office365-filtering-correlation-id: d57816fa-1bd4-44a0-fcb3-08de81601481
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|56012099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ xxCcIP7/FK8mcjK5tsAZ80ppsWArVmh1crroafFKyXQ+RPV3Bx2uO8SmM2Tn6tbBLvGM3DC4LjiUBdwpYdqU2yxPQnepsVi6z9JXUJTWxktJQIPyiRan5DIMYGdnOjfUgIPklGt7qK0mqjxPSjaxzUsNR9U/77/eN3cv8keA8yecZr8SShtAJKHq1vIF5Lec/dnFhY4/15d6mycYD2KYEotMO/flPHl19WULBuUAxEzLxjg/aC1cl0ZnfBNl6pUjqqbiqX+KinYYSZ/CXfrqShEczwBx/cR4WNIg4CFR7RUfCwJZcS+fg87n023otzxLb/byOwKZC0wful5qQ0xQ4x3AxtEKNptWN0XRdWEcvvcuKPUzrNTu9MdjK2Kb2TnMUK8Rx7RVF4CZBPFts5F5fjoYj8XozQ2eYQk9wwMvz7EDb6tR4EPV+ju/uVE+q86LX0Ub4OCuDWKC6AhTAIW25GJa5D1SbhBHBqRPKNturaxVxkvlMbro7U98rT+uDbIJ/UhFgis045mM22bKpe8+I3WvGI3MyPO0PWlHkYHuu/cJXxuvdEvfMeAOI/xpS8080KpTEHFom5LKsP7J8hivt4XtDaS0OuAyEWjFRIA2r+4NTcPvhuxEhIFOnCGJFK3N/PTMI5twg+/gCTFWnjIakLpxT8rnLxkuBo20q3wbhlsSfwylh6PG/hun89t42W+RGJlobDnCD9p5qIwSiKvwaKfDlAOnFL0cb+JzG6sBBL9dQ4gMUg8zPrsnp7uRt0kZ7dAAOLiKvktbz89RYqrgvrXApEMkHdJCPnP0z1YTujE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?OGLiDKcq9NTuDqWaKsu2ph719p+L0Pg+eUl864/kIChrStJnVBYfe89VVgLM?=
+ =?us-ascii?Q?S1PTVHwTJJSPV832Orm7T5EQUeki16IlqfV8SSzAzCJAY0w9tt7jjBEzIILc?=
+ =?us-ascii?Q?PdK1Sothd1QCFl8XLLieHIS82dArpA9Kn0gg2dnitXEh27oMic8ERa5OHPxp?=
+ =?us-ascii?Q?5MK4WWu8Qvh7fOhf5fzmZ/qCayORfF2TX3LuGx4XsKVmd1cLrrFXP/CjIjP4?=
+ =?us-ascii?Q?hmd91M7pLy+TueCfmkpXgfBT3a9RXvTW6Gy+WC64r0pD8d1+/DQRxI0nJWPX?=
+ =?us-ascii?Q?9DYpO7fOHIyq8iPZDzAH9MpEnyoP0ze+GVH9/ItYU4HloqcY7mXTuyWWznOo?=
+ =?us-ascii?Q?F50Nl2cdEUNMxkzmazUAEUchytAL4UY3KfOOJUrQNrmVsfu8CueCeKj7jYyz?=
+ =?us-ascii?Q?Kkn3KPQ9x8pgGGvGcCRKfyir4AKmHACKV4aUp+BaM4AT8kM2KN1k5s0+6ebd?=
+ =?us-ascii?Q?Ywnkwz/TjGwBWhHPD8Lk0bwsU5FocliQT9baKIfLhMN9WakJy6KfA9xIqLOX?=
+ =?us-ascii?Q?clw3wJ44XHCmqw6oEdYCK0RGv9YxzGrmVRjL3N9wX1gg8Cunwl2LugARkOm9?=
+ =?us-ascii?Q?aJsbBFzzqYqvBKXJ+ahiFmf2LPEL3hJGNPaeUc1Pv54atI5nvfyWCZ05fgqj?=
+ =?us-ascii?Q?IzlNl5FwNiuwHo0WtmHVlu4YdAaUKKwbuMK5yhJ+TTzOlIsLgHgqeUluAKiC?=
+ =?us-ascii?Q?kBSghRp2p9zFKf3YVySnOWvy3RkNrE2ikNqlugeS+sdQMgHmTdTa0PvS8bE/?=
+ =?us-ascii?Q?aSxvNBeUarSMlFeBjNVm+8jFDUoxvsKSUnwzN9LmRp0Lw4BiPJBzHR4UvZ8w?=
+ =?us-ascii?Q?+tBxxZVo1wALYjsuTXguucLNOOZG8W+eK8FRqEUHaS/rHLaM5cpxpu9DeZnc?=
+ =?us-ascii?Q?+bS2wuoHo6AlA/+YOYr/ycEOUlxZ0OcRp0VD7yCZO8ny+rFTIT9km9O5rq7E?=
+ =?us-ascii?Q?MyHFlV8slJIfS0pumWG9L+xANsqzdO+rC/A/YVZFU5TWIL1Qmxl7uH2rTlfH?=
+ =?us-ascii?Q?Jy/dlrOAQnPDeNqaQcwJjzKIBJtkzRD5sAAhZnQ1YFM3oiwQ+S28Rab6hYIl?=
+ =?us-ascii?Q?6VMki9ahvgCW0m3CV12UTvcNIbTTW+edDpiPELjg2YLIBrA5OA65T/jE1CsS?=
+ =?us-ascii?Q?0GqllOBCMXTtq4FJvjenZ6bxMt7tHX0DbyOPVmxociNcTCfnI2QP6Pz7+ais?=
+ =?us-ascii?Q?iWaBQ1Vch3txlVdL6IxwmIpFDHWjxn33BxF4WByFfoIFG+DW24lHN7Xt6z+U?=
+ =?us-ascii?Q?C8gdnZ6XcWLKr0hmEuWFWEzEm0BOA3QXd++Eb4A5BeoVogrbpuJq2jgaJBdL?=
+ =?us-ascii?Q?j8/n66Xl6v5lwTdD4Jd1Im3TNVL5+EPj+fJlE57plE9CRYc9fXqnovMW4Pig?=
+ =?us-ascii?Q?hH0KLAETXA3o8+3CQj1hpvE1kFkcO1JH3H9hmGY8lMsOqxtZdHSYTbHdmkrs?=
+ =?us-ascii?Q?pHZeILMCWUXzTMF0Eqwcf7ZNG3AJVbZPmLYJZsX3kgYKnjewr0OsXpirjCuW?=
+ =?us-ascii?Q?I6c+b9UnvWUIIi8XE7AwHZjtfdZJlAb1e3/kxkLPUWCXO53ll3Kd9JUftJrv?=
+ =?us-ascii?Q?OYjrgfltnxApvl5gcpPz7UD+dFb4K7QKhzNg7+XwA2nIgrXj/JMchTvK6gSD?=
+ =?us-ascii?Q?UYsBDYAGvRcsds9QSjIBm6aimS9QFYP/nNyo58oWGb4yLo1ghbA+lPUKzBzE?=
+ =?us-ascii?Q?A99cXCFG2sIWtHZe14UUrUHz0/XXDdRhXph4D/jYbpEgexbVBqItKqOs4Cxe?=
+ =?us-ascii?Q?My2N8Pjasw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,95 +142,124 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <SEYPR04MB7755127F14678E6D3616B901F162A@SEYPR04MB7755.apcprd04.prod.outlook.com>
- <TY0PR04MB73524FA10F833221A4C2A51EF15CA@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB7352C16AEABDB768394727B2F135A@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB7352537F1867EC8D7C71541FF1E4A@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB735254690EB4CB7F14A65D7CF1F3A@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB7352CD034A25888705A3EEE1F190A@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB73523F823FE93C6F564A3A4EF191A@TY0PR04MB7352.apcprd04.prod.outlook.com>
- <TY0PR04MB73520E1261674964EA58028AF145A@TY0PR04MB7352.apcprd04.prod.outlook.com>
-In-Reply-To: <TY0PR04MB73520E1261674964EA58028AF145A@TY0PR04MB7352.apcprd04.prod.outlook.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 13 Mar 2026 19:23:16 -0500
-X-Gm-Features: AaiRm51fYeH3Gdgv5GIPGqw1EIaR584MAybFSdo8kiU7wOK35nCsKAb7X6N3ntM
-Message-ID: <CALLMt=oOFyVq6bJa_LXYm31ZqTMbvSn-q1gVm9hz526YMK57rg@mail.gmail.com>
-Subject: Re: Quanta CCLA Schedule A update - 20260313
-To: =?UTF-8?B?TGl0enVuZyBDaGVuICjpmbPliKnnkK4p?= <Litzung.Chen@quantatw.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
-	=?UTF-8?B?TWFydGluIFBlbmcgKOW9reayu+asvSk=?= <Martin.Peng@quantatw.com>, 
-	=?UTF-8?B?U3Rld2FyZCBTaGloICjlj7LlgYnoj68p?= <Steward.Shih@quantatw.com>
-Content-Type: multipart/alternative; boundary="000000000000da85cb064cf0fe1f"
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d57816fa-1bd4-44a0-fcb3-08de81601481
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2026 00:24:39.3478
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HtHHx58OKUNqEEV2OMmH4NKvUqTVwG744xliVI/t14tkdRwoSNEiYZ9lMsS2bq5CrTNHUh2W5aFsDN9BWq9z2UJHO+ljgRR3F7wtlWVBfIY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5253
 
---000000000000da85cb064cf0fe1f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> Subject: Re: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add glob=
+al-regs
+> and transfer-mode properties
+>=20
+> On Mon, Mar 09, 2026 at 02:53:53PM +0800, Ryan Chen wrote:
+> > The AST2600 I2C controller supports three transfer modes (byte,
+> > buffer, DMA). Add "aspeed,transfer-mode" so DT can select the
+> > preferred transfer method per controller instance. Also add the
+> "aspeed,global-regs"
+> > phandle to reference the AST2600 global registers syscon/regmap used
+> > by the controller.
+> >
+> > These properties apply only to the AST2600 binding and are not part of
+> > the legacy binding, which uses a mixed controller/target register
+> > layout and does not have the split register blocks or these new
+> > configuration registers. Legacy DTs remain unchanged.
+> >
+> > Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+> > ---
+> >  .../bindings/i2c/aspeed,ast2600-i2c.yaml           | 29
+> ++++++++++++++++++++++
+> >  1 file changed, 29 insertions(+)
+> >
+> > diff --git
+> > a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> > b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> > index de2c359037da..323e4f9b290a 100644
+> > --- a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> > +++ b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> > @@ -37,6 +37,33 @@ properties:
+> >    resets:
+> >      maxItems: 1
+> >
+> > +  aspeed,transfer-mode:
+> > +    description: |
+> > +      ASPEED ast2600 platform equipped with 16 I2C controllers each i2=
+c
+> controller
+> > +      have 1 byte transfer buffer(byte mode), 32 bytes buffer(buffer m=
+ode),
+> and
+> > +      share a DMA engine.
+> > +      Select I2C transfer mode for this controller. Supported values a=
+re:
+> > +        - "byte": Use 1 byte for i2c transmit (1-byte buffer).
+> > +        - "buffer": Use buffer (32-byte buffer) for i2c transmit. (def=
+ault)
+> > +                    Better performance then byte mode.
+>=20
+> Good, I like worse performance so I can use byte mode.
+Thanks your review.
+Will remove performance statement.
+>=20
+> > +        - "dma": Each controller DMA mode is shared DMA engine. The
+> AST2600 SoC
+> > +                 provides a single DMA engine shared for 16 I2C
+> controllers,
+> > +                 so only a limited number of controllers can use DMA
+> simultaneously.
+> > +                 Therefore, the DTS must explicitly assign which
+> controllers are
+> > +                 configured to use DMA.
+> > +      On AST2600, each controller supports all three modes.
+> > +      If not specified, buffer mode is used by default.
+> > +    enum:
+> > +      - byte
+> > +      - buffer
+> > +      - dma
+>=20
+> This is not required, so what is the default mode? If there's a default, =
+you don't
+> need the default value in the first place as the default is the property =
+omitted.
 
-On Fri, Mar 13, 2026 at 2:55=E2=80=AFAM Litzung Chen (=E9=99=B3=E5=88=A9=E7=
-=90=AE) <
-Litzung.Chen@quantatw.com> wrote:
+Thanks, Will update with following.
 
-> Hi team,
->
->
->
-> Please find the attached file for updated Schedule A of CCLA from Quanta.
->
-
-Thanks for keeping your CCLA up to date. I've uploaded it to the projects
-google drive.
-
-Andrew
-
-
->
->
-
---000000000000da85cb064cf0fe1f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Mar 13,=
- 2026 at 2:55=E2=80=AFAM Litzung Chen (=E9=99=B3=E5=88=A9=E7=90=AE) &lt;<a =
-href=3D"mailto:Litzung.Chen@quantatw.com">Litzung.Chen@quantatw.com</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div cla=
-ss=3D"msg-7449729205857639917">
-
-
-
-
-
-<div lang=3D"ZH-TW" style=3D"overflow-wrap: break-word;">
-<div class=3D"m_-2780278332998732727WordSection1">
-<p class=3D"MsoNormal" style=3D"text-align:justify"><span lang=3D"EN-US" st=
-yle=3D"font-size:10pt;font-family:&quot;Verdana&quot;,sans-serif;color:blue=
-">Hi</span><span class=3D"m_-2780278332998732727apple-converted-space"><spa=
-n lang=3D"EN-US" style=3D"font-size:10pt;font-family:&quot;Verdana&quot;,sa=
-ns-serif;color:rgb(0,51,204)">
-</span></span><span lang=3D"EN-US" style=3D"font-size:10pt;font-family:&quo=
-t;Verdana&quot;,sans-serif;color:rgb(0,51,204)">team</span><span lang=3D"EN=
--US" style=3D"font-size:10pt;font-family:&quot;Verdana&quot;,sans-serif;col=
-or:blue">,</span><span lang=3D"EN-US"><u></u><u></u></span></p>
-<p class=3D"MsoNormal" style=3D"text-align:justify"><span lang=3D"EN-US"><u=
-></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal" style=3D"text-align:justify"><span lang=3D"EN-US" st=
-yle=3D"font-size:10pt;font-family:&quot;Verdana&quot;,sans-serif;color:rgb(=
-0,51,204)">Please find the attached file for updated Schedule A of CCLA fro=
-m Quanta.</span><span lang=3D"EN-US" style=3D"font-size:10pt;font-family:&q=
-uot;Verdana&quot;,sans-serif"></span></p></div></div></div></blockquote><di=
-v><br></div><div>Thanks for keeping your CCLA up to date. I&#39;ve uploaded=
- it to the projects google drive.</div><div><br></div><div>Andrew=C2=A0</di=
-v><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div c=
-lass=3D"msg-7449729205857639917"><div lang=3D"ZH-TW" style=3D"overflow-wrap=
-: break-word;"><div class=3D"m_-2780278332998732727WordSection1"><p class=
-=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-</div>
-</div>
-
-</div></blockquote></div></div>
-
---000000000000da85cb064cf0fe1f--
+aspeed,transfer-mode:
+  description:
+    Selects the AST2600 I2C transfer mode:
+      - byte: 1-byte transfer buffer
+      - buffer: 32-byte transfer buffer
+      - dma: DMA-based transfers
+  enum:
+    - byte
+    - buffer
+    - dma
+>=20
+> > +
+> > +  aspeed,global-regs:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle reference to the i2c global syscon node, containing the
+> > +      SoC-common i2c register set.
+> > +
+> >  required:
+> >    - reg
+> >    - compatible
+> > @@ -59,4 +86,6 @@ examples:
+> >          resets =3D <&syscon ASPEED_RESET_I2C>;
+> >          clock-frequency =3D <100000>;
+> >          interrupts =3D <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+> > +        aspeed,global-regs =3D <&i2c_global>;
+> > +        aspeed,transfer-mode =3D "buffer";
+> >      };
+> >
+> > --
+> > 2.34.1
+> >
 
