@@ -1,58 +1,107 @@
-Return-Path: <openbmc+bounces-1537-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1538-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C809BF53D6D
-	for <openbmc@archiver.kernel.org>; Mon, 16 Mar 2026 16:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FA82FB5E83
+	for <openbmc@archiver.kernel.org>; Mon, 16 Mar 2026 22:48:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fZLcD1yqVz2ygm;
-	Tue, 17 Mar 2026 03:47:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773679660;
-	cv=none; b=ALTlci2dnJ4WBI1sjdq1J+UxxeWruoSNbDnpQVF4ObvQLLF3oI7qztLwBU6uVhXMqztHUurybY+ttG63479kEci7VM9SfKWdm3tqaLjYWl8xKtuyGfIQMbwemoiwm6byNf26Cmzqqq+eaoU3+SPGIilBGs8sbRAtbkAVIIkKslsjqPwCoJXVGvFZ+caYMcCurbDkaXse4T3FUv4o7pH0kLBnwd6Nm93tp6ZarOX0LJ3f3j8nS01A4bBKtqafmesddOXzLEd9/ee9gl73szVGshGvA6n29BfGzZ/jPpRXRpXaiK9MklCvz1DOS0utJOr0jm2oS/LNfDk9xeoxHytkLA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fZVc75bnqz2yhG;
+	Tue, 17 Mar 2026 09:48:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::52e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773640485;
+	cv=none; b=Pa5NtGoaHFwBBZ94LtnF/Ylb/jrprlxrIg5ZrrjRs3r0Wd+/SWmhygNiw4mvgU6yF+nzFHmFvJfwboa7BcnE7tYFBGxNTF/LCpjBudBm/XhgnP/v87dM9yTMP1/d55KzB7nQnpsXBNTmfhIBtVyK4C6U9lG0d9TgZIH23eBgaPd7/218kz7RazVpkYluL4/kM+gZ0dTGoELhCUh0XEjzL5UMdpeFvDy9TADV8YmjycKHrguBSXpMrsx6aVboniU6nwYzssXOCjdbpiYC8Sn2G+ZhIuLez0wzoP0pgH4eh1Rw1lNxYR7b6xXYwINBnXoDh2R1rqC32BRQFhmEGSpGkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773679660; c=relaxed/relaxed;
-	bh=KWa+RXyopymTRjjpFJkMzMT8GIqPd4802R8XJ+/wxvI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DrbyyuourKB/1tPIJy0YEHgkiBQJPeee1ZdfQLKayFGoBaEdVYU9o1DdhW7k6njlXsGn7ZYYTSYRRzKcOU2YJZIZfoURBC84847K6NLosfyIX6G/TVLx+zeOVehZms/46KLpumrSP90VcKWdHSgdHx9WhfUDFMgQ4DceIDVLggut2beOFyXn9DscHbX0l/fQEM6Kct2FvTWZHlm753TKViityzS64J9fjX7in5z6ZCNaQYCvO1/cnHdBxgyI8zdF3D8pfbj0znRXh9FUcmwxHwX3WScNXkXuXSDULWI+uCErxXjRgPiueDn/4nhsPkeMj1LnAJaIlbqXW5QT6UOskw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=cGtekfTq; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1773640485; c=relaxed/relaxed;
+	bh=HvbJo4sg+keqA0UYOTwphLAy1mW7zcwD5w4Qm8DSQTA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=H44TAdh6nIu1gILmDFuzCn+hUJYZ8oqxULreIvUxhggRvCOT8lrttzE2LSNwJYx84czBbFs+ETCdK1AojUpLdCgxqhTtVz/z2NFvUuulaLUpgN0iFWveLYkKsIr1GxOFwaVit6iYz54macyv14E1NNrGycWwJZuMqZbzdU6pRAyHxn9ZGU+0h9LKcjI+Ci116lTfGePwXnb28+M2ScfyghXtcspa3LsbJGNCplcYkvpNuOiBRIRE/gIVstAqMASFZuE+VyooRsOZUtKuTY+AsMYDob8KuJmocgy8SxClSEMfLJmPXBnt5J49F4GkzV4HzoQvoiNQ6ofJ+v0VUufvWg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=PzdWvvUR; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=cGtekfTq;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=PzdWvvUR;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZLcC097dz2xS3
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 03:47:38 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id AE0126012B
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Mar 2026 16:47:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E84C2BCB3
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Mar 2026 16:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773679656;
-	bh=+rAbjFpJLF5ELTGsyzXHo5dgEzatb5tWHpqXy6BTmYc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=cGtekfTqFvVrF7VJ1xDN/03QTDPDcdo5LNi8MIeHSIezK4Gd2z+GQ94TdThe3wfdg
-	 6+jwBMmOqzF85kgS9jF7LvwgP5JGWXJpkAzraz3vFcajQZUHBvO0WRYzQJE7J0Ytmi
-	 Gwi/li0g/v/vcXP34ZAq++FsOnJ7YYiJJNUFiQULiaw3n4kJ58eE6KrMSVjMGnsO4u
-	 IMN7zeBsIcQrt2UTsOQo2nDc2fI+SGolMG21oQW9QYbqop+gZh52CvuNSngMbBymF3
-	 pYqZPEns6Yy1LnHWMLVS9x1ZnrWuY6XLupN9bxQWg7FscMFBB3zIghh1qubhnfJmuf
-	 WBpxVo36e6R+A==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b97a9f4b4dcso199723666b.3
-        for <openbmc@lists.ozlabs.org>; Mon, 16 Mar 2026 09:47:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AJvYcCVxjG/uwp+2xwNQ0v8SD9VThoHDlNRPFhjg/ELXvANpIRiXpVZ+s+sJ20Fl4+fycldI7nieFyBi@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxkEhRgjJM5KvrHGvZ2Bs1LNCvkbs8RDjYUCGvDfy6Mn+7i/UJn
-	1mP1QiUmHjZLFl1+4zWbmqpYhwlZuDP1nDX4cG85BVXH0u1ywn+AXV+z5sxFpFc0kw4RaKgIXgZ
-	IIMO+2KMjH5R/bFLFkevtSb+lhVT14Q==
-X-Received: by 2002:a17:907:708:b0:b8a:f2cb:8088 with SMTP id
- a640c23a62f3a-b9765392113mr794224266b.33.1773679654788; Mon, 16 Mar 2026
- 09:47:34 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZ46r6QL4z2xlP
+	for <openbmc@lists.ozlabs.org>; Mon, 16 Mar 2026 16:54:44 +1100 (AEDT)
+Received: by mail-pg1-x52e.google.com with SMTP id 41be03b00d2f7-c7381c4345cso1711682a12.1
+        for <openbmc@lists.ozlabs.org>; Sun, 15 Mar 2026 22:54:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773640483; x=1774245283; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HvbJo4sg+keqA0UYOTwphLAy1mW7zcwD5w4Qm8DSQTA=;
+        b=PzdWvvURY6m6HwHwt3/eADJV/eoroH10+EqEVjg3EIqkBhIfxLDFkJbw+2TAWhX98T
+         zvjKNeOTyvTj8iVtsgWHpWL7KOWvKO4Y+T45yxnXXw87+gZnkkOqDCY9z/Yc09q7bZND
+         uwA9zm/7cv3g2ZGYoY6rmIfd6HWfixkEa89nre5VBbZ6/XVNhuJnrZxlhHxoFYieWyRZ
+         JHixX/XPI20bwVgNlUARogztfFsdc9ae/mI8RDOE/Qi+ypiZAJQX4L/tz+T4C5QeZvax
+         AGKpIzljyiF+DtYgMlKL6gumHlI6/XzC8GPXLbHLMXUJeTsIbTU/01tEve+Dta5Z/rI2
+         Eiow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773640483; x=1774245283;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HvbJo4sg+keqA0UYOTwphLAy1mW7zcwD5w4Qm8DSQTA=;
+        b=N7uiq+cHAvQ9uCjDZEMhZLRHmx1lu0YVbM3xG33h1HNWXJNZat579t7ppZQIiYjilu
+         XM0RWk5M9SOvga9Kb0Q7nUBM0lfbV3mmjknj2wz6v8A+OcYHgvRIMGLV8G1wViSgNBSD
+         g/9eyDPuOaISDNbqG3gXEiuPFYk3pyhgi3kmn/goIalm8AC/Y+TyQJGLTW5o9LsNO6yZ
+         GM7RellgS6xvZtRXUKmFlBeC9S0dYHij1uorGjhkKe2EW9z9L1jvrozWmUnuOVJK98vJ
+         cXU1aSzAX0m3SmA7/wikdNbdjszyKQ2SuhvjBEWq55/2mxnHDEOIR0j8W+99u/SrqJRp
+         wSwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWQZaSWhKrnJjSPEM57+7kxr4Syk2mCEolDqtWQj75ybsO6KcwhF3r6uMtUAJRe9YDSF5Xr21G1@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxxXMsCzQBcapHuiWNOLVUOomdalnpUSG7Q+Jaaj7vInAwKVHjZ
+	LV9R05yyE2JvJKTC68Upw5yOAY7JfGvNR1/p+br3Xs8J+GfEknj1tAY/
+X-Gm-Gg: ATEYQzwFOpDqFnFi8cCIFtyFcxPvik157Tetv8JIgSuMGJN0EeParPrzjLcVdWX7Uac
+	HA86bcRQrVxTifIkCdSF57XefUCsmMv+Rw+9tsAmTZY8Fxo3LW2DUKtywnWRRe+ymfrQ/tEEuOV
+	HSdsmswbn5Rx06OyT78l0Wz6BlOVLUFn9qMA8nCvliTSbnuYG0UIGR53D/gIfOvhKunVI7yU8Sl
+	Yn90Aa6YsqqF3LH6tTSehdBYgfaJUQ0yOzHBWrVskMsd6ylH4JiaM1mbALkGH/wnb+vjfnJ7KxI
+	54El6hPxVCRto5izKI0NTfK398aJhsSGcpLG927xNJOq2gAUuZYidU3tZX4IytZWI3TZR/BTkPs
+	1M07csbJ86hdeNFdwz2FPPN+6krWG9TwtIaadArYudvNJ4u3xYYEH29G9Tgr/QfXHB/qayIBFVc
+	0Pt6R7dcZmYT7Mw5MM3SMsCe7l6QynQ6DnpwAKOVr1uhsa9UsvqrtUSUcEWcf1X+S6mPppxsApO
+	xKJ6quaRVqOnzu5wv0iNuw=
+X-Received: by 2002:a17:90b:580c:b0:359:8df1:8553 with SMTP id 98e67ed59e1d1-35a21fd7ac6mr9309269a91.9.1773640482884;
+        Sun, 15 Mar 2026 22:54:42 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35b9db7dfe6sm2166285a91.8.2026.03.15.22.54.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Mar 2026 22:54:42 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	mcoquelin.stm32@gmail.com,
+	richardcochran@gmail.com
+Cc: alexandre.torgue@foss.st.com,
+	joabreu@synopsys.com,
+	ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	peppe.cavallaro@st.com,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH net-next v14 2/3] arm64: dts: nuvoton: Add Ethernet nodes
+Date: Mon, 16 Mar 2026 13:54:26 +0800
+Message-ID: <20260316055427.1310569-3-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260316055427.1310569-1-a0987203069@gmail.com>
+References: <20260316055427.1310569-1-a0987203069@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,101 +113,161 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com>
- <20260309-upstream_i2c-v26-2-5fedcff8ffe8@aspeedtech.com> <20260313232125.GA3618633-robh@kernel.org>
- <TY2PPF5CB9A1BE6A19D439C675AF5028C13F242A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <7ae8222bf6abd83a3c2ac976f54a2edbe4e9727a.camel@codeconstruct.com.au>
-In-Reply-To: <7ae8222bf6abd83a3c2ac976f54a2edbe4e9727a.camel@codeconstruct.com.au>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 16 Mar 2026 11:47:21 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKQp=HyA90rQ2Hzu148k63k5-qrGLH6sEHXNcjAu3QSwg@mail.gmail.com>
-X-Gm-Features: AaiRm51ex9uUeaeovsj_EfQkcC7S4igdlkgu0QdNDXmYleGKXTFGbzYmU6uj8IQ
-Message-ID: <CAL_JsqKQp=HyA90rQ2Hzu148k63k5-qrGLH6sEHXNcjAu3QSwg@mail.gmail.com>
-Subject: Re: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and transfer-mode properties
-To: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, 
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Mar 15, 2026 at 8:50=E2=80=AFPM Jeremy Kerr <jk@codeconstruct.com.a=
-u> wrote:
->
-> Hi Ryan & Rob,
->
-> > > > +  aspeed,transfer-mode:
-> > > > +    description: |
-> > > > +      ASPEED ast2600 platform equipped with 16 I2C controllers eac=
-h i2c controller
-> > > > +      have 1 byte transfer buffer(byte mode), 32 bytes buffer(buff=
-er mode), and
-> > > > +      share a DMA engine.
-> > > > +      Select I2C transfer mode for this controller. Supported valu=
-es are:
-> > > > +        - "byte": Use 1 byte for i2c transmit (1-byte buffer).
-> > > > +        - "buffer": Use buffer (32-byte buffer) for i2c transmit. =
-(default)
-> > > > +                    Better performance then byte mode.
-> > >
-> > > Good, I like worse performance so I can use byte mode.
-> > Thanks your review.
-> > Will remove performance statement.
->
-> I don't think that really addresses Rob's point there.
->
-> The selection of mode is somewhat a driver implementation decision (and
-> so would not belong in a DT binding) - *except* that there are
-> considerations around the use of hardware DMA channels, as covered in
-> earlier review.
+Add GMAC nodes for our MA35D1 development boards:
+two RGMII interfaces for SOM board, and one RGMII
+and one RMII interface for IoT board.
 
-Am I supposed to go read the prior 25 versions?
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 25 +++++++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 24 +++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 52 +++++++++++++++++++
+ 3 files changed, 101 insertions(+)
 
-> [My understanding is that the mode needs to be defined here to select
-> which i2c devices have a DMA channel allocated to them. I also
-> think that byte mode may be useful in some scenarios, but that
-> consideration certainly does not belong in the DT binding spec]
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 9482bec1aa57..78534d613486 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &uart12;
+ 		serial13 = &uart13;
+ 		serial14 = &uart14;
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -126,3 +128,26 @@ &uart14 {
+ 	pinctrl-0 = <&pinctrl_uart14>;
+ 	status = "okay";
+ };
++
++&gmac0 {
++	status = "okay";
++	phy-handle = <&eth_phy0>;
++};
++
++&mdio0 {
++	eth_phy0: ethernet-phy@0 {
++		reg = <0>;
++	};
++};
++
++&gmac1 {
++	status = "okay";
++	phy-mode = "rmii";
++	phy-handle = <&eth_phy1>;
++};
++
++&mdio1 {
++	eth_phy1: ethernet-phy@1 {
++		reg = <1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index f6f20a17e501..a029b660e8dc 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -18,6 +18,8 @@ aliases {
+ 		serial12 = &uart12;
+ 		serial14 = &uart14;
+ 		serial16 = &uart16;
++		ethernet0 = &gmac0;
++		ethernet1 = &gmac1;
+ 	};
+ 
+ 	chosen {
+@@ -129,3 +131,25 @@ &uart16 {
+ 	pinctrl-0 = <&pinctrl_uart16>;
+ 	status = "okay";
+ };
++
++&gmac0 {
++	status = "okay";
++	phy-handle = <&eth_phy0>;
++};
++
++&mdio0 {
++	eth_phy0: ethernet-phy@0 {
++		reg = <0>;
++	};
++};
++
++&gmac1 {
++	status = "okay";
++	phy-handle = <&eth_phy1>;
++};
++
++&mdio1 {
++	eth_phy1: ethernet-phy@1 {
++		reg = <1>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index e51b98f5bdce..7228ad4735b5 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -379,5 +379,57 @@ uart16: serial@40880000 {
+ 			clocks = <&clk UART16_GATE>;
+ 			status = "disabled";
+ 		};
++
++		gmac0: ethernet@40120000 {
++			compatible = "nuvoton,ma35d1-dwmac", "snps,dwmac-3.70a";
++			reg = <0x0 0x40120000 0x0 0x10000>;
++			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
++			clock-names = "stmmaceth", "ptp_ref";
++
++			nuvoton,sys = <&sys 0>;
++			resets = <&sys MA35D1_RESET_GMAC0>;
++			reset-names = "stmmaceth";
++			snps,multicast-filter-bins = <0>;
++			snps,perfect-filter-entries = <8>;
++			rx-fifo-depth = <4096>;
++			tx-fifo-depth = <2048>;
++
++			phy-mode = "rgmii-id";
++			status = "disabled";
++
++			mdio0: mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
++		gmac1: ethernet@40130000 {
++			compatible = "nuvoton,ma35d1-dwmac", "snps,dwmac-3.70a";
++			reg = <0x0 0x40130000 0x0 0x10000>;
++			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "macirq";
++			clocks = <&clk EMAC1_GATE>, <&clk EPLL_DIV8>;
++			clock-names = "stmmaceth", "ptp_ref";
++
++			nuvoton,sys = <&sys 1>;
++			resets = <&sys MA35D1_RESET_GMAC1>;
++			reset-names = "stmmaceth";
++			snps,multicast-filter-bins = <0>;
++			snps,perfect-filter-entries = <8>;
++			rx-fifo-depth = <4096>;
++			tx-fifo-depth = <2048>;
++
++			phy-mode = "rgmii-id";
++			status = "disabled";
++
++			mdio1: mdio {
++				compatible = "snps,dwmac-mdio";
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
+ 	};
+ };
+-- 
+2.43.0
 
-But this is selecting DMA for the bus, not specific devices. I would
-think the decision would be dynamic based on some xfer size. Certainly
-if the xfer is less than the buffer size (32bytes), then there is no
-advantage of DMA.
-
-Or do you mean some instances of the I2C controllers have DMA and some
-do not? If so, then ...
-
-> So, how about we refine this to *just* the hardware-specific component:
-> whether a DMA channel is allocated. A driver implementation can then
-> select the appropriate mode (dma, byte or buffer), depending on
-> implementation-specific details.
->
-> In that case, we would just have a boolean property, like:
->
->     aspeed,i2c-dma-enabled;
-
-... yes, this is fine.
-
->
-> - to signify that this controller may use a DMA channel. The choice of
-> actual mode is left up to the driver implementation.
->
-> Rob, would that suit better?
->
-> This way, we don't have ambiguity on "buffer" default vs. absent
-> property, and we're no longer specifying actual driver behaviour in the
-> DT.
->
-> Cheers,
->
->
-> Jeremy
 
