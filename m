@@ -1,52 +1,68 @@
-Return-Path: <openbmc+bounces-1572-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1573-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BF3FF6E9A
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B5FCFF6E9A
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:53 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6j84klBz2yv1;
-	Wed, 18 Mar 2026 09:54:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773738921;
-	cv=none; b=Krb9XmotQoCQbyuwuD/VWv2IuwtKAx8xvauLrnVguJ82Hw0L7ebMunffHEWNZDrDk/nR7YElIjneU+o8NMClbRXwhD8Hh7ye+xiJWyp+xtm05uAHH0k3GZL5grDVnt79UqORN0XsmoFbYXQDgHnS51AgME0ZqTGBfPrgYvmSMY+m/S/aQXZ4jfZbjjXMxvzxvxXxr6y85SZJ9g9n+dioKviDBibNraaw314PjS4NN/XwXtJTk2ERY6K0Mec4N+rLmEzercvXAFmdC2ldS7MoLGrV9Qvg8EEPfoD/6hwlMQlGBgdn6FkqStX7YqFraEvyFw3CH5q67xm6omAjPCb4Tg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6kL3ZtVz2ynT;
+	Wed, 18 Mar 2026 09:55:38 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733604;
+	cv=none; b=kT7phLGpLNjrJaNJXoYz7fdZKKiyRNGUIyZ3nFnxgINl6WqsVBBzuBvBK30aajNQReaNgVXgj2FZXn+jb/aPmGXhUgBlSNCqOUkMRSj4OIa2IrFBd7ElamDJDm/6SVAPGXcIb91u3YscFt4nZa88eC8a+KxFgfX0aI07qk4mED+2Ho+nq3Um7COvTExHWd1zwA5ml02dU1rYWZrXL9U2wjp7NOLqlO6AF5fx3xtjxgJetEnMAK63wTxmBU1IfZfkdY+v4/RRMpMbJ/Xv8M6DLIlWZhhIETfSosTTJIPgEL11ODV5MTIc1zEPh75aOVSDVzFgG0xkiDbOqagMmHe2JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773738921; c=relaxed/relaxed;
-	bh=5TTu6YSSYlrmYDTJoqN935e6Ph+m0FLpfn7cFak/K4o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VlrWLp8nteFtJnvUk29Kwc2gqzAi9w1eOwTxqkUxR9YgOPUaV2i808SK6+EgNDOh4LJfXCB01ZuJ4qHpuJyprOQUNXYrcPF81c9EWnV9Z7z9YypufMAI6bIMOLXyXpCJ/lMEN/p5JlxXWD3nAbpURFIIrz8jbSsfgjhwPvwRJ6bAT0DW5SgE8j1oG+D88ZD9tu4Nyxl57HDiEuL95gHLRKU03YoiEBgNzEyQhN3CIyERfBoNh8kJ/EnchLmAmBQNqEUzfIRa61zEdy/Onhjbh0t7UdYa8hQCEfHMc++Kpil8wOzi/cikI92dcnot3TwySwkb8oRG5fALcLh3YapICA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VQ4BnuZz; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VQ4BnuZz;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	t=1773733604; c=relaxed/relaxed;
+	bh=HfMKzK/ZHIY538qAxSfIpcFLU1yaTDPjL/48HV+6iRE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mbySp1SGPyymr+xDxEFfsO5gKzy3EBT7VFaMlp3k1r+3fERS2VjOEhJeBBaUcy3Fxm+ioggQZd6OIYMLhQooo8mzfI1uyBaAUOSycxtjtOiR36CtWeFKZOZpOx3S4L5jBoJtxb2VTfJqftMonQZPxnr+K1lMqkJA9VS1JEBGDZ2lZF3fe8venDTVcy0WKhVdhcksR+sotQpmxbfYi4+zubjsLYk9+v7VwuNRh2mQXrcG8e020nNWKus0ZLoyad8/v18X4Jo9E4nezfS6pg6oSlCW/meMnar2+Z4MvgtnsDAOBCG/GOaMqVsYdR88IB8U5f5naKOwavmsq79eJrIY+w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmWr2YBFz2yfP;
-	Tue, 17 Mar 2026 20:15:20 +1100 (AEDT)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id CCBA760103;
-	Tue, 17 Mar 2026 09:15:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19933C19425;
-	Tue, 17 Mar 2026 09:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773738916;
-	bh=QU6cedlzf40aFEFMHAi3oFEJtwf/R3OvK72FIzwtc/c=;
-	h=From:Subject:Date:To:Cc:From;
-	b=VQ4BnuZzjGlyHuYCbl/mEKd7zh11jNZHM6YOmeZHshjwK7wAidut5bW59fUtAEXsF
-	 LPrDV/0BkMPGm+OJixWV70wz76CjI7ChsKDFhgNC2W34z47FQe0lHP3u0iv7QCx6TM
-	 h+pw5pDiAHiX9uP7B2DDiXpzrT6KYsbPR7UCv0w1HuTX65DzWGjkfmOONp++HBzeoI
-	 W35XeW99LW6pqjsde/3KUhI6qN9+5JT/76M2rqzs0qozQfuchLSotd/EnU+b43RHXh
-	 QYMfZORHioe+ZjSW10OOkakkBEnXg9s7kH9nnBEvUCCjLwnJvrcNHqItv+HuXbE3Da
-	 wb4xOWrkkkXlg==
-From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-Subject: [PATCH 0/9] configs: cleanup obsolete or incorrect assignments
-Date: Tue, 17 Mar 2026 10:13:36 +0100
-Message-Id: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkYZ5qgPz2xQD
+	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 18:46:16 +1100 (AEDT)
+X-UUID: cace313821d411f1a21c59e7364eecb8-20260317
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.11,REQID:d2d62c2d-b471-4331-8435-b4acf2f12e91,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:89c9d04,CLOUDID:f7636baae2e2008e5d60797e1b96b7d5,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
+	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cace313821d411f1a21c59e7364eecb8-20260317
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 735953558; Tue, 17 Mar 2026 15:42:04 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	openbmc@lists.ozlabs.org,
+	linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	broonie@kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH v3 01/17] spi: axiado: Use helper function devm_clk_get_enabled()
+Date: Tue, 17 Mar 2026 15:41:43 +0800
+Message-Id: <a78f25f1b15b90121e9723ecb5bd606bbb1868d4.1773733017.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1773733017.git.xiaopei01@kylinos.cn>
+References: <cover.1773733017.git.xiaopei01@kylinos.cn>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -58,278 +74,100 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEAbuWkC/x3MTQqAIBBA4avErBPUor+rRIjpWANloRSBdPek5
- bd4L0HEQBhhKBIEvCnS4TNEWYBZtV+Qkc0GyWXDKyGZDruy6MzhnTIban+dzFjRunrWfddbyOU
- Z0NHzX8fpfT8esQDDZQAAAA==
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Mikko Rapeli <mikko.rapeli@linaro.org>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>, 
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
- Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
- Heiko Stuebner <heiko@sntech.de>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Anna Schumaker <anna.schumaker@oracle.com>
-Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-omap@vger.kernel.org, loongarch@lists.linux.dev, 
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev, 
- linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org, 
- openbmc@lists.ozlabs.org, "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8431; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=QU6cedlzf40aFEFMHAi3oFEJtwf/R3OvK72FIzwtc/c=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pVvaF++b0PNYl09G4rhpZ5/F95IzPF8ENlalen5lX
- tdxvoyno5SFQYyLQVZMkWVZOSe3Qkehd9ihv5Ywc1iZQIYwcHEKwEQOCDMyvJL+9Nvo+385B4nm
- Cy6lJuYqus3+jtGCa5OqhZc35J5iZGToaOwWd/8w895elfePn0w9IhU3K2dRZcenlrOWTzyUps3
- jAQA=
-X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Transfer-Encoding: 8bit
 
-The arm64 defconfig contains several inconsistencies, as shown by the
-following merge_config warnings:
+devm_clk_get() and clk_prepare_enable() can now be replaced by
+devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
+longer necessary to unprepare and disable the clocks explicitly.
+Simplify code.
 
-  $ ARCH=arm64 ./scripts/kconfig/merge_config.sh arch/arm64/configs/defconfig
-  Using arch/arm64/configs/defconfig as base
-  #
-  # configuration written to .config
-  #
-  WARNING: Value requested for CONFIG_NETFILTER_XT_TARGET_CHECKSUM not in final .config
-  Requested value: CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP_NF_FILTER not in final .config
-  Requested value: CONFIG_IP_NF_FILTER=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP_NF_TARGET_REJECT not in final .config
-  Requested value: CONFIG_IP_NF_TARGET_REJECT=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP_NF_NAT not in final .config
-  Requested value: CONFIG_IP_NF_NAT=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP_NF_TARGET_MASQUERADE not in final .config
-  Requested value: CONFIG_IP_NF_TARGET_MASQUERADE=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP_NF_MANGLE not in final .config
-  Requested value: CONFIG_IP_NF_MANGLE=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP6_NF_FILTER not in final .config
-  Requested value: CONFIG_IP6_NF_FILTER=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP6_NF_TARGET_REJECT not in final .config
-  Requested value: CONFIG_IP6_NF_TARGET_REJECT=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP6_NF_MANGLE not in final .config
-  Requested value: CONFIG_IP6_NF_MANGLE=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP6_NF_NAT not in final .config
-  Requested value: CONFIG_IP6_NF_NAT=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IP6_NF_TARGET_MASQUERADE not in final .config
-  Requested value: CONFIG_IP6_NF_TARGET_MASQUERADE=m
-  Actual value:
-  WARNING: Value requested for CONFIG_SENSORS_SA67MCU not in final .config
-  Requested value: CONFIG_SENSORS_SA67MCU=m
-  Actual value:
-  WARNING: Value requested for CONFIG_FB_MODE_HELPERS not in final .config
-  Requested value: CONFIG_FB_MODE_HELPERS=y
-  Actual value:
-  WARNING: Value requested for CONFIG_SND_SOC_ROCKCHIP not in final .config
-  Requested value: CONFIG_SND_SOC_ROCKCHIP=m
-  Actual value:
-  WARNING: Value requested for CONFIG_IPQ_APSS_5018 not in final .config
-  Requested value: CONFIG_IPQ_APSS_5018=y
-  Actual value:
-  WARNING: Value requested for CONFIG_SLIM_QCOM_CTRL not in final .config
-  Requested value: CONFIG_SLIM_QCOM_CTRL=m
-  Actual value:
-  WARNING: Value requested for CONFIG_NFS_V4_1 not in final .config
-  Requested value: CONFIG_NFS_V4_1=y
-  Actual value:
-  WARNING: CONFIG_CRYPTO_SHA3 differs:
-  Requested value: CONFIG_CRYPTO_SHA3=m
-  Actual value:    CONFIG_CRYPTO_SHA3=y
-  ./scripts/kconfig/merge_config.sh: 384: [: false: unexpected operator
-
-The issues fall into several categories:
-
-  - assignments to removed or renamed configuration symbols.
-
-  - assignments to symbols that became hidden or internal.
-
-  - assignments that are requested as module (=m) but which have a
-    built-in parent dependency (=y).
-
-This series cleans up all those issues. While the focus is the arm64
-defconfig, fixes that apply more broadly are extended treewide.
-
-After applying this series, merge_config.sh runs without warnings on
-the arm64 defconfig. Below script was used to confirm that no symbols
-got inadvertently removed:
-
-  #!/bin/sh
-
-  DIR=$(mktemp -d)
-
-  # Generate conf before this series
-  git checkout $(git merge-base HEAD @{upstream})
-  for arch in arch/*/; do
-      for conf in "$arch"configs/*defconfig; do
-        ARCH=$(basename $arch) \
-        KCONFIG_CONFIG="$DIR/$(basename $arch)_$(basename $conf)_before" \
-            ./scripts/kconfig/merge_config.sh $conf
-      done
-  done
-
-  # Generate conf after this series
-  git checkout -
-  for arch in arch/*/; do
-      for conf in "$arch"configs/*defconfig; do
-        ARCH=$(basename $arch) \
-        KCONFIG_CONFIG="$DIR/$(basename $arch)_$(basename $conf)_after" \
-            ./scripts/kconfig/merge_config.sh $conf
-      done
-  done
-
-  # Compare
-  for arch in arch/*/; do
-      for conf in "$arch"configs/*defconfig; do
-        if diff --unified \
-                "$DIR/$(basename $arch)_$(basename $conf)_before" \
-                "$DIR/$(basename $arch)_$(basename $conf)_after"; then
-            echo "$conf: OK"
-        else
-            echo "$conf: configuration changed"
-        fi
-      done
-  done
-
-Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
-Vincent Mailhol (Arm) (9):
-      scripts: kconfig: merge_config.sh: use POSIX '=' in test
-      configs: remove orphan dependencies of NETFILTER_XTABLES_LEGACY
-      configs: remove obsolete assignments to CONFIG_NFS_V4_1
-      configs: remove implicit assignments to FB_MODE_HELPERS
-      arm: configs: remove obsolete assignments to SND_SOC_ROCKCHIP
-      arm64: defconfig: remove implicit assignment to CRYPTO_SHA3
-      arm64: defconfig: remove incorrect assignment to IPQ_APSS_5018
-      arm64: defconfig: remove obsolete assignment to SENSORS_SA67MCU
-      arm64: defconfig: remove obsolete assignment to SLIM_QCOM_CTRL
+ drivers/spi/spi-axiado.c | 31 ++++++++-----------------------
+ 1 file changed, 8 insertions(+), 23 deletions(-)
 
- arch/alpha/configs/defconfig                |  1 -
- arch/arm/configs/am200epdkit_defconfig      |  1 -
- arch/arm/configs/collie_defconfig           |  1 -
- arch/arm/configs/ep93xx_defconfig           |  1 -
- arch/arm/configs/exynos_defconfig           |  1 -
- arch/arm/configs/imx_v6_v7_defconfig        |  2 --
- arch/arm/configs/ixp4xx_defconfig           |  3 ---
- arch/arm/configs/keystone_defconfig         |  3 ---
- arch/arm/configs/lpc18xx_defconfig          |  1 -
- arch/arm/configs/lpc32xx_defconfig          |  2 --
- arch/arm/configs/mps2_defconfig             |  1 -
- arch/arm/configs/multi_v7_defconfig         |  2 --
- arch/arm/configs/mxs_defconfig              |  1 -
- arch/arm/configs/omap1_defconfig            |  1 -
- arch/arm/configs/omap2plus_defconfig        |  1 -
- arch/arm/configs/shmobile_defconfig         |  1 -
- arch/arm/configs/spitz_defconfig            |  4 ----
- arch/arm/configs/wpcm450_defconfig          |  1 -
- arch/arm64/configs/defconfig                | 18 ------------------
- arch/loongarch/configs/loongson32_defconfig |  1 -
- arch/loongarch/configs/loongson64_defconfig |  1 -
- arch/mips/configs/bmips_stb_defconfig       |  2 --
- arch/mips/configs/cavium_octeon_defconfig   |  1 -
- arch/mips/configs/db1xxx_defconfig          |  1 -
- arch/mips/configs/eyeq5_defconfig           |  1 -
- arch/mips/configs/eyeq6_defconfig           |  1 -
- arch/mips/configs/fuloong2e_defconfig       |  3 ---
- arch/mips/configs/generic_defconfig         |  1 -
- arch/mips/configs/gpr_defconfig             |  3 ---
- arch/mips/configs/ip22_defconfig            |  6 ------
- arch/mips/configs/lemote2f_defconfig        |  1 -
- arch/mips/configs/loongson2k_defconfig      |  3 ---
- arch/mips/configs/loongson3_defconfig       | 11 -----------
- arch/mips/configs/malta_defconfig           |  6 ------
- arch/mips/configs/malta_kvm_defconfig       |  6 ------
- arch/mips/configs/maltaup_xpa_defconfig     |  6 ------
- arch/mips/configs/mtx1_defconfig            |  6 ------
- arch/mips/configs/rb532_defconfig           |  3 ---
- arch/mips/configs/rm200_defconfig           |  6 ------
- arch/mips/configs/rt305x_defconfig          |  3 ---
- arch/mips/configs/xway_defconfig            |  3 ---
- arch/parisc/configs/generic-64bit_defconfig |  1 -
- arch/powerpc/configs/85xx/stx_gp3_defconfig |  1 -
- arch/powerpc/configs/cell_defconfig         |  3 ---
- arch/powerpc/configs/linkstation_defconfig  |  3 ---
- arch/powerpc/configs/mvme5100_defconfig     |  3 ---
- arch/powerpc/configs/pmac32_defconfig       |  3 ---
- arch/powerpc/configs/ppc6xx_defconfig       |  6 ------
- arch/riscv/configs/defconfig                |  9 ---------
- arch/sh/configs/titan_defconfig             |  6 ------
- arch/x86/configs/i386_defconfig             |  7 -------
- arch/x86/configs/x86_64_defconfig           |  7 -------
- arch/xtensa/configs/virt_defconfig          |  1 -
- scripts/kconfig/merge_config.sh             |  2 +-
- 54 files changed, 1 insertion(+), 172 deletions(-)
----
-base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
-change-id: 20260312-arm_defconf_cleanup-cd17f4ba989d
-
-Best regards,
+diff --git a/drivers/spi/spi-axiado.c b/drivers/spi/spi-axiado.c
+index dc55c55ae63c..b2d1011357f4 100644
+--- a/drivers/spi/spi-axiado.c
++++ b/drivers/spi/spi-axiado.c
+@@ -768,25 +768,15 @@ static int ax_spi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(xspi->regs))
+ 		return PTR_ERR(xspi->regs);
+ 
+-	xspi->pclk = devm_clk_get(&pdev->dev, "pclk");
++	xspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
+ 	if (IS_ERR(xspi->pclk))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(xspi->pclk),
+-				     "pclk clock not found.\n");
++				     "Unable to enable APB clock.\n");
+ 
+-	xspi->ref_clk = devm_clk_get(&pdev->dev, "ref");
++	xspi->ref_clk = devm_clk_get_enabled(&pdev->dev, "ref");
+ 	if (IS_ERR(xspi->ref_clk))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(xspi->ref_clk),
+-				     "ref clock not found.\n");
+-
+-	ret = clk_prepare_enable(xspi->pclk);
+-	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "Unable to enable APB clock.\n");
+-
+-	ret = clk_prepare_enable(xspi->ref_clk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable device clock.\n");
+-		goto clk_dis_apb;
+-	}
++				     "Unable to enable device clock.\n");
+ 
+ 	pm_runtime_use_autosuspend(&pdev->dev);
+ 	pm_runtime_set_autosuspend_delay(&pdev->dev, SPI_AUTOSUSPEND_TIMEOUT);
+@@ -815,7 +805,7 @@ static int ax_spi_probe(struct platform_device *pdev)
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq <= 0) {
+ 		ret = -ENXIO;
+-		goto clk_dis_all;
++		goto err_disable_pm_runtime;
+ 	}
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, ax_spi_irq,
+@@ -823,7 +813,7 @@ static int ax_spi_probe(struct platform_device *pdev)
+ 	if (ret != 0) {
+ 		ret = -ENXIO;
+ 		dev_err(&pdev->dev, "request_irq failed\n");
+-		goto clk_dis_all;
++		goto err_disable_pm_runtime;
+ 	}
+ 
+ 	ctlr->use_gpio_descriptors = true;
+@@ -849,17 +839,14 @@ static int ax_spi_probe(struct platform_device *pdev)
+ 	ret = spi_register_controller(ctlr);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "spi_register_controller failed\n");
+-		goto clk_dis_all;
++		goto err_disable_pm_runtime;
+ 	}
+ 
+ 	return ret;
+ 
+-clk_dis_all:
++err_disable_pm_runtime:
+ 	pm_runtime_set_suspended(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+-	clk_disable_unprepare(xspi->ref_clk);
+-clk_dis_apb:
+-	clk_disable_unprepare(xspi->pclk);
+ 
+ 	return ret;
+ }
+@@ -882,8 +869,6 @@ static void ax_spi_remove(struct platform_device *pdev)
+ 	pm_runtime_set_suspended(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 
+-	clk_disable_unprepare(xspi->ref_clk);
+-	clk_disable_unprepare(xspi->pclk);
+ }
+ 
+ /**
 -- 
-Vincent Mailhol (Arm) <mailhol@kernel.org>
+2.25.1
 
 
