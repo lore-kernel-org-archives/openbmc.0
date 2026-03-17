@@ -1,53 +1,52 @@
-Return-Path: <openbmc+bounces-1571-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1572-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403C3FF6E9B
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78BF3FF6E9A
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6hs2ZMyz2ytw;
-	Wed, 18 Mar 2026 09:54:21 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773738982;
-	cv=none; b=LQcI1Jcdxvbw5CEiQtW0I0dcRTj9nEauHcDKCKCfr/sM7IzjuKLTD6k5oeKVmvPTuenlf8AjcbvyPFuUQ97dLrZqgWXk+gQYWQXIjAMww42YaTM8tIHx269JOP4uk7oHvB/WAIyH1wjbJLvqQZidHSB3A+CngovzXGZitmIOh+IPsz3ltIWDgl45gWo8H1Zj7FyuNh6DI9SH8FkpMKXY4L8Obr3fnmwu0FIReKXLmLyg/BmYAPU6ZhNJB6uOt3QNQizJyk+GP8AeQ3Uf4GmdmrzsH7S/q0fowbqyaG44r5lwk65QYzn+YKknCY58Pfp4jy2rcrrImSMB9eKF38LPvg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6j84klBz2yv1;
+	Wed, 18 Mar 2026 09:54:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773738921;
+	cv=none; b=Krb9XmotQoCQbyuwuD/VWv2IuwtKAx8xvauLrnVguJ82Hw0L7ebMunffHEWNZDrDk/nR7YElIjneU+o8NMClbRXwhD8Hh7ye+xiJWyp+xtm05uAHH0k3GZL5grDVnt79UqORN0XsmoFbYXQDgHnS51AgME0ZqTGBfPrgYvmSMY+m/S/aQXZ4jfZbjjXMxvzxvxXxr6y85SZJ9g9n+dioKviDBibNraaw314PjS4NN/XwXtJTk2ERY6K0Mec4N+rLmEzercvXAFmdC2ldS7MoLGrV9Qvg8EEPfoD/6hwlMQlGBgdn6FkqStX7YqFraEvyFw3CH5q67xm6omAjPCb4Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773738982; c=relaxed/relaxed;
-	bh=/SKVNw4UtUk+6ffOcY8GwqS5ljN0/M2F3bDoMmLLLBQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S2Rn8v5nIgk1WcAZMj8C135RqFDgE+qq0DCK+WDmwgcDUVr5nIgytTtYlP7B+y1pnNuESr/WcQ+z+3o5mPoZC6pA5t6vOq3nOesXkHOwhajyry9zA8eAr6RbKWAl2SJ1yEvffxToDe/TwXmGHBprvmyKM1Zlq5hk77l2eCN4CtB4TXKEkygjHyHmgPpWTDUfGUwEQWFdxxlb2VLPSS9L2n5rck2EovUcTj9752YSdzGeqsv1YphWyXvIFi4DkHsXfmXbVHEnSPd0ruZifeSKxddxRBYSD93oeA42dVNu0ikH9602c5kUGI6f22PgiwQM6yceRbl/Y9FHHjrDUWpLxQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=bdHEjNjQ; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1773738921; c=relaxed/relaxed;
+	bh=5TTu6YSSYlrmYDTJoqN935e6Ph+m0FLpfn7cFak/K4o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VlrWLp8nteFtJnvUk29Kwc2gqzAi9w1eOwTxqkUxR9YgOPUaV2i808SK6+EgNDOh4LJfXCB01ZuJ4qHpuJyprOQUNXYrcPF81c9EWnV9Z7z9YypufMAI6bIMOLXyXpCJ/lMEN/p5JlxXWD3nAbpURFIIrz8jbSsfgjhwPvwRJ6bAT0DW5SgE8j1oG+D88ZD9tu4Nyxl57HDiEuL95gHLRKU03YoiEBgNzEyQhN3CIyERfBoNh8kJ/EnchLmAmBQNqEUzfIRa61zEdy/Onhjbh0t7UdYa8hQCEfHMc++Kpil8wOzi/cikI92dcnot3TwySwkb8oRG5fALcLh3YapICA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VQ4BnuZz; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=bdHEjNjQ;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=VQ4BnuZz;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmY1464dz2yfP;
-	Tue, 17 Mar 2026 20:16:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmWr2YBFz2yfP;
+	Tue, 17 Mar 2026 20:15:20 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id E0A6943E69;
-	Tue, 17 Mar 2026 09:16:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5977C2BCAF;
-	Tue, 17 Mar 2026 09:15:58 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id CCBA760103;
+	Tue, 17 Mar 2026 09:15:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19933C19425;
+	Tue, 17 Mar 2026 09:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773738978;
-	bh=132YhYEKBEnfSExSKRYFjLv/8lCXtq+DQeVZmk0rgf0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bdHEjNjQeoBsDuPKEeW8jrwZVHrR6ofDOsKi+emlM6gAWb5HFF9Pz1Ctd6HZpIXq3
-	 qowX63yqi9SiItQ6q3hMRdR+QTeuEsPrQvIza+/bIViQiWEloP27mIt4PuZOlQmrIP
-	 OOvHM97eONHJsB7AMHbuDDIseQEYz5axjl2+QKHp1z4qiqS9i5l/4sloULij4oRRCE
-	 PSXMdfm/C+nLNOSKreyQM14CUcUbqkFNE2rF5jzATLJhuwV1YdwWL1RHe/19pBkm1O
-	 X0VxqxZZ702/LSz4459KEGKuYBjnihvf2sQsmWvbmyR2RNnkmoCPrCqgW5cScUOPmc
-	 XOxvlycTA+lvw==
+	s=k20201202; t=1773738916;
+	bh=QU6cedlzf40aFEFMHAi3oFEJtwf/R3OvK72FIzwtc/c=;
+	h=From:Subject:Date:To:Cc:From;
+	b=VQ4BnuZzjGlyHuYCbl/mEKd7zh11jNZHM6YOmeZHshjwK7wAidut5bW59fUtAEXsF
+	 LPrDV/0BkMPGm+OJixWV70wz76CjI7ChsKDFhgNC2W34z47FQe0lHP3u0iv7QCx6TM
+	 h+pw5pDiAHiX9uP7B2DDiXpzrT6KYsbPR7UCv0w1HuTX65DzWGjkfmOONp++HBzeoI
+	 W35XeW99LW6pqjsde/3KUhI6qN9+5JT/76M2rqzs0qozQfuchLSotd/EnU+b43RHXh
+	 QYMfZORHioe+ZjSW10OOkakkBEnXg9s7kH9nnBEvUCCjLwnJvrcNHqItv+HuXbE3Da
+	 wb4xOWrkkkXlg==
 From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-Date: Tue, 17 Mar 2026 10:13:39 +0100
-Subject: [PATCH 3/9] configs: remove obsolete assignments to
- CONFIG_NFS_V4_1
+Subject: [PATCH 0/9] configs: cleanup obsolete or incorrect assignments
+Date: Tue, 17 Mar 2026 10:13:36 +0100
+Message-Id: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,9 +60,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260317-arm_defconf_cleanup-v1-3-8eecb7fdd24d@kernel.org>
-References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
-In-Reply-To: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAEAbuWkC/x3MTQqAIBBA4avErBPUor+rRIjpWANloRSBdPek5
+ bd4L0HEQBhhKBIEvCnS4TNEWYBZtV+Qkc0GyWXDKyGZDruy6MzhnTIban+dzFjRunrWfddbyOU
+ Z0NHzX8fpfT8esQDDZQAAAA==
 To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
  Mikko Rapeli <mikko.rapeli@linaro.org>, 
  Richard Henderson <richard.henderson@linaro.org>, 
@@ -131,258 +130,206 @@ Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
  linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org, 
  openbmc@lists.ozlabs.org, "Vincent Mailhol (Arm)" <mailhol@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8510; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=132YhYEKBEnfSExSKRYFjLv/8lCXtq+DQeVZmk0rgf0=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pfuSGn9P/ywx9a+UTJ660p8XEw3K5P6ZaLO8c/+04
- 2lIY1JeRykLgxgXg6yYIsuyck5uhY5C77BDfy1h5rAygQxh4OIUgIk42jMyzF3XYfZRaHlEg453
- y/E+aU133xST4NXaQdcF11zOr+PbxfA/YrX/W8Ou4o8nm82u3Rbbmvj7zsIpsVvtVXpEoisqCo+
- yAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8431; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=QU6cedlzf40aFEFMHAi3oFEJtwf/R3OvK72FIzwtc/c=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pVvaF++b0PNYl09G4rhpZ5/F95IzPF8ENlalen5lX
+ tdxvoyno5SFQYyLQVZMkWVZOSe3Qkehd9ihv5Ywc1iZQIYwcHEKwEQOCDMyvJL+9Nvo+385B4nm
+ Cy6lJuYqus3+jtGCa5OqhZc35J5iZGToaOwWd/8w895elfePn0w9IhU3K2dRZcenlrOWTzyUps3
+ jAQA=
 X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-CONFIG_NFS_V4_1 was revomed in commit 7537db24806f ("NFS: Merge
-CONFIG_NFS_V4_1 with CONFIG_NFS_V4"). However, some defconfigs are
-still referring the old configuration.
+The arm64 defconfig contains several inconsistencies, as shown by the
+following merge_config warnings:
 
-Clean-up all the leftover references to CONFIG_NFS_V4_1.
+  $ ARCH=arm64 ./scripts/kconfig/merge_config.sh arch/arm64/configs/defconfig
+  Using arch/arm64/configs/defconfig as base
+  #
+  # configuration written to .config
+  #
+  WARNING: Value requested for CONFIG_NETFILTER_XT_TARGET_CHECKSUM not in final .config
+  Requested value: CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP_NF_FILTER not in final .config
+  Requested value: CONFIG_IP_NF_FILTER=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP_NF_TARGET_REJECT not in final .config
+  Requested value: CONFIG_IP_NF_TARGET_REJECT=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP_NF_NAT not in final .config
+  Requested value: CONFIG_IP_NF_NAT=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP_NF_TARGET_MASQUERADE not in final .config
+  Requested value: CONFIG_IP_NF_TARGET_MASQUERADE=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP_NF_MANGLE not in final .config
+  Requested value: CONFIG_IP_NF_MANGLE=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP6_NF_FILTER not in final .config
+  Requested value: CONFIG_IP6_NF_FILTER=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP6_NF_TARGET_REJECT not in final .config
+  Requested value: CONFIG_IP6_NF_TARGET_REJECT=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP6_NF_MANGLE not in final .config
+  Requested value: CONFIG_IP6_NF_MANGLE=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP6_NF_NAT not in final .config
+  Requested value: CONFIG_IP6_NF_NAT=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IP6_NF_TARGET_MASQUERADE not in final .config
+  Requested value: CONFIG_IP6_NF_TARGET_MASQUERADE=m
+  Actual value:
+  WARNING: Value requested for CONFIG_SENSORS_SA67MCU not in final .config
+  Requested value: CONFIG_SENSORS_SA67MCU=m
+  Actual value:
+  WARNING: Value requested for CONFIG_FB_MODE_HELPERS not in final .config
+  Requested value: CONFIG_FB_MODE_HELPERS=y
+  Actual value:
+  WARNING: Value requested for CONFIG_SND_SOC_ROCKCHIP not in final .config
+  Requested value: CONFIG_SND_SOC_ROCKCHIP=m
+  Actual value:
+  WARNING: Value requested for CONFIG_IPQ_APSS_5018 not in final .config
+  Requested value: CONFIG_IPQ_APSS_5018=y
+  Actual value:
+  WARNING: Value requested for CONFIG_SLIM_QCOM_CTRL not in final .config
+  Requested value: CONFIG_SLIM_QCOM_CTRL=m
+  Actual value:
+  WARNING: Value requested for CONFIG_NFS_V4_1 not in final .config
+  Requested value: CONFIG_NFS_V4_1=y
+  Actual value:
+  WARNING: CONFIG_CRYPTO_SHA3 differs:
+  Requested value: CONFIG_CRYPTO_SHA3=m
+  Actual value:    CONFIG_CRYPTO_SHA3=y
+  ./scripts/kconfig/merge_config.sh: 384: [: false: unexpected operator
 
-FYI, the suppressions were done using:
+The issues fall into several categories:
 
-  git grep -z -l '^CONFIG_NFS_V4=' -- 'arch/*/configs/*defconfig' |\
-    xargs -0 sed -i -E '/^CONFIG_NFS_V4_1=/d'
+  - assignments to removed or renamed configuration symbols.
 
-CONFIG_NFS_V4_1_IMPLEMENTATION_ID_DOMAIN and CONFIG_NFS_V4_1_MIGRATION
-were not in scope of the renaming and still use V4_1 in their name, so
-keep those two untouched.
+  - assignments to symbols that became hidden or internal.
 
-Fixes: 7537db24806f ("NFS: Merge CONFIG_NFS_V4_1 with CONFIG_NFS_V4")
+  - assignments that are requested as module (=m) but which have a
+    built-in parent dependency (=y).
+
+This series cleans up all those issues. While the focus is the arm64
+defconfig, fixes that apply more broadly are extended treewide.
+
+After applying this series, merge_config.sh runs without warnings on
+the arm64 defconfig. Below script was used to confirm that no symbols
+got inadvertently removed:
+
+  #!/bin/sh
+
+  DIR=$(mktemp -d)
+
+  # Generate conf before this series
+  git checkout $(git merge-base HEAD @{upstream})
+  for arch in arch/*/; do
+      for conf in "$arch"configs/*defconfig; do
+        ARCH=$(basename $arch) \
+        KCONFIG_CONFIG="$DIR/$(basename $arch)_$(basename $conf)_before" \
+            ./scripts/kconfig/merge_config.sh $conf
+      done
+  done
+
+  # Generate conf after this series
+  git checkout -
+  for arch in arch/*/; do
+      for conf in "$arch"configs/*defconfig; do
+        ARCH=$(basename $arch) \
+        KCONFIG_CONFIG="$DIR/$(basename $arch)_$(basename $conf)_after" \
+            ./scripts/kconfig/merge_config.sh $conf
+      done
+  done
+
+  # Compare
+  for arch in arch/*/; do
+      for conf in "$arch"configs/*defconfig; do
+        if diff --unified \
+                "$DIR/$(basename $arch)_$(basename $conf)_before" \
+                "$DIR/$(basename $arch)_$(basename $conf)_after"; then
+            echo "$conf: OK"
+        else
+            echo "$conf: configuration changed"
+        fi
+      done
+  done
+
 Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
 ---
- arch/arm/configs/exynos_defconfig           | 1 -
- arch/arm/configs/imx_v6_v7_defconfig        | 1 -
- arch/arm/configs/lpc32xx_defconfig          | 1 -
- arch/arm/configs/mps2_defconfig             | 1 -
- arch/arm/configs/multi_v7_defconfig         | 1 -
- arch/arm/configs/shmobile_defconfig         | 1 -
- arch/arm64/configs/defconfig                | 1 -
- arch/loongarch/configs/loongson32_defconfig | 1 -
- arch/loongarch/configs/loongson64_defconfig | 1 -
- arch/mips/configs/bmips_stb_defconfig       | 1 -
- arch/mips/configs/cavium_octeon_defconfig   | 1 -
- arch/mips/configs/db1xxx_defconfig          | 1 -
- arch/mips/configs/eyeq5_defconfig           | 1 -
- arch/mips/configs/eyeq6_defconfig           | 1 -
- arch/mips/configs/generic_defconfig         | 1 -
- arch/parisc/configs/generic-64bit_defconfig | 1 -
- arch/riscv/configs/defconfig                | 1 -
- 17 files changed, 17 deletions(-)
+Vincent Mailhol (Arm) (9):
+      scripts: kconfig: merge_config.sh: use POSIX '=' in test
+      configs: remove orphan dependencies of NETFILTER_XTABLES_LEGACY
+      configs: remove obsolete assignments to CONFIG_NFS_V4_1
+      configs: remove implicit assignments to FB_MODE_HELPERS
+      arm: configs: remove obsolete assignments to SND_SOC_ROCKCHIP
+      arm64: defconfig: remove implicit assignment to CRYPTO_SHA3
+      arm64: defconfig: remove incorrect assignment to IPQ_APSS_5018
+      arm64: defconfig: remove obsolete assignment to SENSORS_SA67MCU
+      arm64: defconfig: remove obsolete assignment to SLIM_QCOM_CTRL
 
-diff --git a/arch/arm/configs/exynos_defconfig b/arch/arm/configs/exynos_defconfig
-index 84070e9698e8..96ea941ff700 100644
---- a/arch/arm/configs/exynos_defconfig
-+++ b/arch/arm/configs/exynos_defconfig
-@@ -341,7 +341,6 @@ CONFIG_SQUASHFS=y
- CONFIG_ROMFS_FS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
-diff --git a/arch/arm/configs/imx_v6_v7_defconfig b/arch/arm/configs/imx_v6_v7_defconfig
-index ed588add8d31..fadca597a944 100644
---- a/arch/arm/configs/imx_v6_v7_defconfig
-+++ b/arch/arm/configs/imx_v6_v7_defconfig
-@@ -456,7 +456,6 @@ CONFIG_UBIFS_FS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_DEFAULT="cp437"
-diff --git a/arch/arm/configs/lpc32xx_defconfig b/arch/arm/configs/lpc32xx_defconfig
-index b9e2e603cd95..c0d4bc141a12 100644
---- a/arch/arm/configs/lpc32xx_defconfig
-+++ b/arch/arm/configs/lpc32xx_defconfig
-@@ -169,7 +169,6 @@ CONFIG_UBIFS_FS=y
- CONFIG_CRAMFS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
-diff --git a/arch/arm/configs/mps2_defconfig b/arch/arm/configs/mps2_defconfig
-index e995e50537ef..b043566e155d 100644
---- a/arch/arm/configs/mps2_defconfig
-+++ b/arch/arm/configs/mps2_defconfig
-@@ -89,7 +89,6 @@ CONFIG_ARM_TIMER_SP804=y
- # CONFIG_MISC_FILESYSTEMS is not set
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS=y
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index f75d75cf91c8..a9bb85873c0a 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -1289,7 +1289,6 @@ CONFIG_PSTORE_RAM=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
-diff --git a/arch/arm/configs/shmobile_defconfig b/arch/arm/configs/shmobile_defconfig
-index ef487eab17cc..4e7af21e29ed 100644
---- a/arch/arm/configs/shmobile_defconfig
-+++ b/arch/arm/configs/shmobile_defconfig
-@@ -217,7 +217,6 @@ CONFIG_TMPFS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
- CONFIG_NLS_ISO8859_1=y
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index cfedcb61cc55..1f6ce04c0b4b 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1892,7 +1892,6 @@ CONFIG_SQUASHFS=y
- CONFIG_PSTORE_RAM=m
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_9P_FS=y
-diff --git a/arch/loongarch/configs/loongson32_defconfig b/arch/loongarch/configs/loongson32_defconfig
-index 276b1577e0be..3fe4035f6631 100644
---- a/arch/loongarch/configs/loongson32_defconfig
-+++ b/arch/loongarch/configs/loongson32_defconfig
-@@ -1036,7 +1036,6 @@ CONFIG_EROFS_FS_PCPU_KTHREAD=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NFSD=y
-diff --git a/arch/loongarch/configs/loongson64_defconfig b/arch/loongarch/configs/loongson64_defconfig
-index a14db1a95e7e..8abecf8357ef 100644
---- a/arch/loongarch/configs/loongson64_defconfig
-+++ b/arch/loongarch/configs/loongson64_defconfig
-@@ -1069,7 +1069,6 @@ CONFIG_EROFS_FS_PCPU_KTHREAD=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NFSD=y
-diff --git a/arch/mips/configs/bmips_stb_defconfig b/arch/mips/configs/bmips_stb_defconfig
-index 4be4e8b0d6a1..6ca4750ac259 100644
---- a/arch/mips/configs/bmips_stb_defconfig
-+++ b/arch/mips/configs/bmips_stb_defconfig
-@@ -164,7 +164,6 @@ CONFIG_SQUASHFS_XZ=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
-diff --git a/arch/mips/configs/cavium_octeon_defconfig b/arch/mips/configs/cavium_octeon_defconfig
-index 68c363366bce..7a7ffbb0f13a 100644
---- a/arch/mips/configs/cavium_octeon_defconfig
-+++ b/arch/mips/configs/cavium_octeon_defconfig
-@@ -145,7 +145,6 @@ CONFIG_TMPFS=y
- CONFIG_HUGETLBFS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_ROOT_NFS=y
- CONFIG_NLS_CODEPAGE_437=y
- CONFIG_NLS_ASCII=y
-diff --git a/arch/mips/configs/db1xxx_defconfig b/arch/mips/configs/db1xxx_defconfig
-index 281dd7d0f805..fefd0e3023ef 100644
---- a/arch/mips/configs/db1xxx_defconfig
-+++ b/arch/mips/configs/db1xxx_defconfig
-@@ -195,7 +195,6 @@ CONFIG_SQUASHFS_XZ=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_NFS_V4_1_IMPLEMENTATION_ID_DOMAIN="local"
- CONFIG_NFS_V4_1_MIGRATION=y
-diff --git a/arch/mips/configs/eyeq5_defconfig b/arch/mips/configs/eyeq5_defconfig
-index 6688f56aba1c..dd7d6dfe04c8 100644
---- a/arch/mips/configs/eyeq5_defconfig
-+++ b/arch/mips/configs/eyeq5_defconfig
-@@ -102,7 +102,6 @@ CONFIG_UBIFS_FS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_FRAME_WARN=1024
-diff --git a/arch/mips/configs/eyeq6_defconfig b/arch/mips/configs/eyeq6_defconfig
-index 0a00a201937b..5a447535f40f 100644
---- a/arch/mips/configs/eyeq6_defconfig
-+++ b/arch/mips/configs/eyeq6_defconfig
-@@ -101,7 +101,6 @@ CONFIG_UBIFS_FS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_FRAME_WARN=1024
-diff --git a/arch/mips/configs/generic_defconfig b/arch/mips/configs/generic_defconfig
-index fa916407bdd4..bbd765e64320 100644
---- a/arch/mips/configs/generic_defconfig
-+++ b/arch/mips/configs/generic_defconfig
-@@ -71,7 +71,6 @@ CONFIG_TMPFS_POSIX_ACL=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V3_ACL=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- # CONFIG_XZ_DEC_X86 is not set
-diff --git a/arch/parisc/configs/generic-64bit_defconfig b/arch/parisc/configs/generic-64bit_defconfig
-index ce91f9d1fdbf..60ba7b824a22 100644
---- a/arch/parisc/configs/generic-64bit_defconfig
-+++ b/arch/parisc/configs/generic-64bit_defconfig
-@@ -269,7 +269,6 @@ CONFIG_TMPFS_XATTR=y
- CONFIG_CONFIGFS_FS=y
- CONFIG_NFS_FS=m
- CONFIG_NFS_V4=m
--CONFIG_NFS_V4_1=y
- CONFIG_NFSD=m
- CONFIG_NFSD_V4=y
- CONFIG_NLS_DEFAULT="utf8"
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index a9b7d476ac7a..506b6466c2f4 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -282,7 +282,6 @@ CONFIG_TMPFS_POSIX_ACL=y
- CONFIG_HUGETLBFS=y
- CONFIG_NFS_FS=y
- CONFIG_NFS_V4=y
--CONFIG_NFS_V4_1=y
- CONFIG_NFS_V4_2=y
- CONFIG_ROOT_NFS=y
- CONFIG_9P_FS=y
+ arch/alpha/configs/defconfig                |  1 -
+ arch/arm/configs/am200epdkit_defconfig      |  1 -
+ arch/arm/configs/collie_defconfig           |  1 -
+ arch/arm/configs/ep93xx_defconfig           |  1 -
+ arch/arm/configs/exynos_defconfig           |  1 -
+ arch/arm/configs/imx_v6_v7_defconfig        |  2 --
+ arch/arm/configs/ixp4xx_defconfig           |  3 ---
+ arch/arm/configs/keystone_defconfig         |  3 ---
+ arch/arm/configs/lpc18xx_defconfig          |  1 -
+ arch/arm/configs/lpc32xx_defconfig          |  2 --
+ arch/arm/configs/mps2_defconfig             |  1 -
+ arch/arm/configs/multi_v7_defconfig         |  2 --
+ arch/arm/configs/mxs_defconfig              |  1 -
+ arch/arm/configs/omap1_defconfig            |  1 -
+ arch/arm/configs/omap2plus_defconfig        |  1 -
+ arch/arm/configs/shmobile_defconfig         |  1 -
+ arch/arm/configs/spitz_defconfig            |  4 ----
+ arch/arm/configs/wpcm450_defconfig          |  1 -
+ arch/arm64/configs/defconfig                | 18 ------------------
+ arch/loongarch/configs/loongson32_defconfig |  1 -
+ arch/loongarch/configs/loongson64_defconfig |  1 -
+ arch/mips/configs/bmips_stb_defconfig       |  2 --
+ arch/mips/configs/cavium_octeon_defconfig   |  1 -
+ arch/mips/configs/db1xxx_defconfig          |  1 -
+ arch/mips/configs/eyeq5_defconfig           |  1 -
+ arch/mips/configs/eyeq6_defconfig           |  1 -
+ arch/mips/configs/fuloong2e_defconfig       |  3 ---
+ arch/mips/configs/generic_defconfig         |  1 -
+ arch/mips/configs/gpr_defconfig             |  3 ---
+ arch/mips/configs/ip22_defconfig            |  6 ------
+ arch/mips/configs/lemote2f_defconfig        |  1 -
+ arch/mips/configs/loongson2k_defconfig      |  3 ---
+ arch/mips/configs/loongson3_defconfig       | 11 -----------
+ arch/mips/configs/malta_defconfig           |  6 ------
+ arch/mips/configs/malta_kvm_defconfig       |  6 ------
+ arch/mips/configs/maltaup_xpa_defconfig     |  6 ------
+ arch/mips/configs/mtx1_defconfig            |  6 ------
+ arch/mips/configs/rb532_defconfig           |  3 ---
+ arch/mips/configs/rm200_defconfig           |  6 ------
+ arch/mips/configs/rt305x_defconfig          |  3 ---
+ arch/mips/configs/xway_defconfig            |  3 ---
+ arch/parisc/configs/generic-64bit_defconfig |  1 -
+ arch/powerpc/configs/85xx/stx_gp3_defconfig |  1 -
+ arch/powerpc/configs/cell_defconfig         |  3 ---
+ arch/powerpc/configs/linkstation_defconfig  |  3 ---
+ arch/powerpc/configs/mvme5100_defconfig     |  3 ---
+ arch/powerpc/configs/pmac32_defconfig       |  3 ---
+ arch/powerpc/configs/ppc6xx_defconfig       |  6 ------
+ arch/riscv/configs/defconfig                |  9 ---------
+ arch/sh/configs/titan_defconfig             |  6 ------
+ arch/x86/configs/i386_defconfig             |  7 -------
+ arch/x86/configs/x86_64_defconfig           |  7 -------
+ arch/xtensa/configs/virt_defconfig          |  1 -
+ scripts/kconfig/merge_config.sh             |  2 +-
+ 54 files changed, 1 insertion(+), 172 deletions(-)
+---
+base-commit: f338e77383789c0cae23ca3d48adcc5e9e137e3c
+change-id: 20260312-arm_defconf_cleanup-cd17f4ba989d
 
+Best regards,
 -- 
-2.43.0
+Vincent Mailhol (Arm) <mailhol@kernel.org>
 
 
