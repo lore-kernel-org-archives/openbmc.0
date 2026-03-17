@@ -1,92 +1,51 @@
-Return-Path: <openbmc+bounces-1553-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1554-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1187DF3382D
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 09:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A42FD8740
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 11:28:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fZnJp6LqKz2yjm;
-	Tue, 17 Mar 2026 20:50:50 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=103.168.172.147
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773741050;
-	cv=none; b=JZowLrUIRAro2UQDI1AJwdA/pJNu+6SIfaUv2HBeR2seoVUm2WGVqOONvihFiKbdmbw/ubSScGGdFTyaGBqsh2uhSpOMjCrO2JMmWXl3XVgz3ZTwckU0/mATvnxhHbF3qBOCJPUkjso98eCwu0+FcZIg9wLQ7ZeA5GHuJXpmmZpviM1gCCY+2Ei2hPW9iGrb12vlk1+r7LxQugnrVbZju6wHNTvMyPuNHQGpvDjzSWptx5s9SbeBoySRmUSpEcdpaxIBUQ1zQ0BBVwQnHzdytbydGvX8uT873PLUTNpsGguUBwe3R7+2tCozJLj7AhDft3xYirEHaSlry7DuEufVKQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fZqTW3cLPz2yjx;
+	Tue, 17 Mar 2026 22:28:31 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773746911;
+	cv=none; b=JBREdOqPoIXehWY17276d7RRR0B8Qh9NrryWuT+MJqPH9Hlc7GRZjWEgJhphG8u9D637RjjRnQsT2+19fPZBwy4EVuCAMt3FSKnxuGpP9OLVOJT16PQYPA8sDX60bGGuJojSBIhe+I3vIHBRebq7ea08laPXTGc5PSOWcHZIJyUXUGnPm06MXxyi9OvvbpAZadehb8+a3SCEktU+sjiybZo6NE0E0g5CVE0/3QTA+s3yRX9zd1DNauHBQX2W9olnPy+55HXqHeTvC3/18jte/ZRyaTKi/1+lzi/N0CzaxPed7ZDb8wer970zr7RqkfP5byvgVkd+I4UuwPR57jjYdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773741050; c=relaxed/relaxed;
-	bh=5fLxoANUqctZUS+Z3Co69HqUNOcNosCE/Q8jVsqBBUg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EIM/LyjVM3cJOVTZyE7E2puPrdLrI37Td8dk9Qdb8xlUX2MUVZ3sLtDSt0ExPOtp+yBSkeXBoDq260EPXaOhU81L2QrqKmRI/TWYEDT3hqBF4UrnuUDVR753cb/3uABbL/Dj2cwJ8kxtfJ/VFj3bg1WSaMgUJTxcyhzeIqRKGt6Hc+sf7gVjy/FRaN7tc4xuO5zbn+y9Dq3FkPfBRKwgnuw5b2kP4FX3A4wqSVoIrgwD1nvjwJqPfESgBs/qLfFqYgveDQ34WTLB5O073W8AmijQ53e1/JbHELXlXLq1R0hsDna3ebo/eHbxMYc3t1tggw6IfjLms4hOElA8dvLl6g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arndb.de; dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm3 header.b=j9izhecz; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=Sphob5gh; dkim-atps=neutral; spf=pass (client-ip=103.168.172.147; helo=fout-a4-smtp.messagingengine.com; envelope-from=arnd@arndb.de; receiver=lists.ozlabs.org) smtp.mailfrom=arndb.de
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+	t=1773746911; c=relaxed/relaxed;
+	bh=va4ga7EMR6tErLbxdZVEGlhGCxaKlPtiUMmYijg12Ac=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ldg9oa6C+xAfsD6dg3CHlajS/TKjCP2sVi9x+qpmCFPziV5pOBQX+3DeKqp/X76QqrNysuMUnEZH1wQK1HXSc7lZElZKBTPSkuuIsOxcNjW3+RqAwogQ8wuYvYgqpJ5hYt3V7qIvousYIhlB8QKYwZGr/vm6UmPSBLCRLX6BJiAB6f7PmxHB6Ffou15MDguZF/5EcSonrvuTlCkpThQx36nkJwe8wS5rXyOu6oD8BRh+Pz4BbWSAOB5zDCviBH5lLW/fDilJVvTN3IeVIfuO63YdodNrtTQqD9xxIn285KXpPNSyPR21kzYRAEFsb830QxuMnwbmkRGvUemOensT9w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=a8y+VDO0; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm3 header.b=j9izhecz;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=Sphob5gh;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=a8y+VDO0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=arndb.de (client-ip=103.168.172.147; helo=fout-a4-smtp.messagingengine.com; envelope-from=arnd@arndb.de; receiver=lists.ozlabs.org)
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZnJk3FdNz2yfP;
-	Tue, 17 Mar 2026 20:50:45 +1100 (AEDT)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 4E466EC00DD;
-	Tue, 17 Mar 2026 05:50:42 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
-  by phl-compute-04.internal (MEProxy); Tue, 17 Mar 2026 05:50:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1773741042;
-	 x=1773827442; bh=5fLxoANUqctZUS+Z3Co69HqUNOcNosCE/Q8jVsqBBUg=; b=
-	j9izheczf9aXHJ3ux1Ulk46cPvtmXGU6l5efH9OapXxeqAsXntGEdDL9qxCMXStG
-	fkAGLeArjUnIc1TYDeDdzPKRN0fuAWkudgs/Ms1mFEQE4ktPc+z4ETtXoMD+NS4g
-	Amb1DvREGwg737NlFYD+bHd1Rr+jp31cio2idHBrQ6Pxx3/kNBZEM+J1VYqXvku5
-	ZAuxAwazvXYjI9AXrlJxASnPrmfTOrDBlMspqpTflfASkF9vaxmAfCSLkweE+5+h
-	WTBubjmgB0HA9w7lPlcGQgY22YVHWU4I3rHCZqawtwAXN3YZ5V6kQ/xp7kAs15Oz
-	uCqL8oKfIBi9o/k/VFGpKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1773741042; x=
-	1773827442; bh=5fLxoANUqctZUS+Z3Co69HqUNOcNosCE/Q8jVsqBBUg=; b=S
-	phob5ghFn0DzHcEbtHEBV5Nllsaqn0xB7zZEmEtSv/6QFpFi9jsLW1o6PCgXLAAk
-	4oLzUYxc+yDp0+fDEqV7M7M+NCmdy4DY8Gb4UIj7KAwadWr9K1PJ99nXcnj8pYI8
-	rQDukuCasyugtvAfAHshMDm09awoOn3m844pFGd5P9UL9pR6JFWFGpFQJXxsiyLO
-	eT2j/cIjOQpRlfHQXA9p+RwXmXaX4RXIKnIBddp6mUwtHjn6UKwiz5uJiJJwwyh1
-	vJqcCNX5LP3i+qhHKNVxFhbdNia9sC4eGyCt7bDcYSCZH9VKCWbHuE4pFuDbNCSv
-	PQfr4Zmoga9Z1uSYNyk1Q==
-X-ME-Sender: <xms:8CO5aVCSbFm5-5AI28l-qPCyJjvkZMYQiac3oozMCeGzH0X1xSH3hg>
-    <xme:8CO5aeX__LuecRfzEcH7oHPPx27sSRAJcCtQXcrV10s2k0BNIqoJ-Z5pF9xBZKxJg
-    yUKOyzuBbSPnKfbaZ-ptbCBZ_X0I0oZcdj8EON6JIVgsUPfF4r_8cQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeftddtleefucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhgu
-    uceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvg
-    hrnhepfefhheetffduvdfgieeghfejtedvkeetkeejfeekkeelffejteevvdeghffhiefh
-    necuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnugesrghrnhgusgdruggvpdhnsggprhgt
-    phhtthhopeduiedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhihrghnpggthh
-    gvnhesrghsphgvvgguthgvtghhrdgtohhmpdhrtghpthhtohephihhpggthhhunhhgsegr
-    shhpvggvughtvggthhdrtghomhdprhgtphhtthhopegrnhgurhgvfiestghouggvtghonh
-    hsthhruhgtthdrtghomhdrrghupdhrtghpthhtohepmhgrtghivghjrdhlrgifnhhitgii
-    rghksehinhhtvghlrdgtohhmpdhrtghpthhtohepjhhovghlsehjmhhsrdhiugdrrghupd
-    hrtghpthhtohepsghrohhonhhivgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheptgho
-    nhhorhdoughtsehkvghrnhgvlhdrohhrghdprhgtphhtthhopegtohhnohhrsehkvghrnh
-    gvlhdrohhrghdprhgtphhtthhopehkrhiikhdoughtsehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:8CO5aZMbSeyN3RQqG9n6P2uzhCmKggv9NMbIEQoDWv_MS110fnCGmw>
-    <xmx:8CO5aX6Or3i-QsBLWieYFayNJ9ph_3S937sX1O7wvmzYSb4WVb4drg>
-    <xmx:8CO5aeZ7zn9ATGkDVlAtAgvHlTh9weIuEzEbAczQtSxuT6AUBHJ6Gg>
-    <xmx:8CO5acE96byr1qKyXDx_eNW4OXzKtW19QrMcsfFfucQANLw8sL22Jg>
-    <xmx:8iO5afCGo-vGSYe9A1p9dM1cRzSVO7DRrUI6Yb2rfFtanz03t8PGKo1x>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id CE679700065; Tue, 17 Mar 2026 05:50:40 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZqTV0R9Kz2yjN;
+	Tue, 17 Mar 2026 22:28:30 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 56EF642DC7;
+	Tue, 17 Mar 2026 11:28:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FC6C19425;
+	Tue, 17 Mar 2026 11:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773746907;
+	bh=P4yW063VV47SeXm+tGH5KqP4Bsamp7Vs0r8UFNcQ2hk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=a8y+VDO0Xgfr+lNQvyfY1xPuBKQrwVKzn+uW1LOWDl6SKD2cf/wPkwMVBct13/PEf
+	 NjtztpRZ0OvapQpUah3oS8DgsfxoD9ExU3Oyn/tCb/1nrrZulmcxhhtuGOnVMJGXFC
+	 DhLvUWnNlS1C6Dhu5vi73BGYhEiANrZuCLdAOOBCvbO+gRR1Okk7P8txt5gnVQUvM9
+	 XXSKbFIOgOKIjhaCsMR/7mp7MIjGFXCSn+6UrpKW/Pv70PvzlY6F1OGe4hnRY3xpO2
+	 EtkPG0mT7eRk81EMbFApmG9taYShtvE9KOLYMCSaqrpHZ2hnw9yqTWjULbYgggUZlF
+	 VywYxCJGj5P3g==
+Message-ID: <febd0f7e-59f3-4ba4-8706-53c7353e3fe5@kernel.org>
+Date: Tue, 17 Mar 2026 12:28:05 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,88 +57,153 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A224H4bSXjB-
-Date: Tue, 17 Mar 2026 10:50:10 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: aspeedyh <yh_chung@aspeedtech.com>,
- "Andrew Jeffery" <andrew@codeconstruct.com.au>,
- "Conor Dooley" <conor@kernel.org>
-Cc: "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Joel Stanley" <joel@jms.id.au>,
- "Ryan Chen" <ryan_chen@aspeedtech.com>,
- "Philipp Zabel" <p.zabel@pengutronix.de>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "maciej.lawniczak@intel.com" <maciej.lawniczak@intel.com>,
- "Mark Brown" <broonie@kernel.org>
-Message-Id: <0f7f0f96-a918-47d5-a0bd-bbde494c8fed@app.fastmail.com>
-In-Reply-To: 
- <KL1PR0601MB4276ED93723F0B1F42349AD89041A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-References: <20260313-upstream_espi-v1-0-9504428e1f43@aspeedtech.com>
- <20260313-energy-casket-ca8adc1f1fd1@spud>
- <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
- <c3b28ee92fa46700887d0c68b23045b2418358a7.camel@codeconstruct.com.au>
- <KL1PR0601MB4276ED93723F0B1F42349AD89041A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-Subject: Re: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/9] arm: configs: remove obsolete assignments to
+ SND_SOC_ROCKCHIP
+To: "Vincent Mailhol (Arm)" <mailhol@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Mikko Rapeli <mikko.rapeli@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ "Rob Herring (Arm)" <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Anna Schumaker <anna.schumaker@oracle.com>
+Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-omap@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+ <20260317-arm_defconf_cleanup-v1-5-8eecb7fdd24d@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260317-arm_defconf_cleanup-v1-5-8eecb7fdd24d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, Mar 17, 2026, at 09:14, YH Chung wrote:
->
-> In the meantime, my understanding is that this driver is for the Intel 
-> eSPI interface used by the AST2600 BMC,
-> rather than fitting a conventional SPI controller/device model. That 
-> was the reason for initially placing it under
-> drivers/soc/aspeed/, since there does not appear to be an in-tree eSPI 
-> subsystem at present.
-> However, if that is not the preferred upstream direction, we are happy 
-> to restructure the series accordingly. 
-> It would be very helpful if you could advise on the preferred placement.
+On 17/03/2026 10:13, Vincent Mailhol (Arm) wrote:
+> CONFIG_SND_SOC_ROCKCHIP was removed in commit cae3cc435db5 ("ASoC:
+> rockchip: Standardize ASoC menu"). However it is still referenced in
+> some defconfigs.
+> 
+> Remove any references to CONFIG_SND_SOC_ROCKCHIP.
+> 
+> FYI, the suppressions were done using:
+> 
+>   git ls-files -z 'arch/*/configs/*defconfig' |\
+>     xargs -0 sed -i -E '/^CONFIG_SND_SOC_ROCKCHIP/d'
+> 
+> Fixes: cae3cc435db5 ("ASoC: rockchip: Standardize ASoC menu")
+> Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+> ---
+>  arch/arm/configs/multi_v7_defconfig | 1 -
+>  arch/arm64/configs/defconfig        | 1 -
 
-I think we need to make sure everyone understands what the options are
-here based on what the hardware can do, and what your use cases require.
+This was already posted:
+https://lore.kernel.org/all/20260313-rockchip-snd-cleanup-v1-1-77d9a953fd1b@schnwalter.eu/
+but just like that patch you did not send it to soc@ (if I am not
+mistaken... CC list is enormous).
 
-From reading the old comments that Andrew linked to at
+I think you are mixing here independent works, like kconfig and per-arch
+defconfig changes. Please split these per arch defconfig maintainers -
+patches and patchset, so you won't be Cc-ing 50 addresses.
 
-https://lore.kernel.org/linux-aspeed/HK0PR06MB377924CFCBFE9BD40E1C4A5D91D49@HK0PR06MB3779.apcprd06.prod.outlook.com/
-
-I understand that the SoC has a "hardware mode" in which eSPI is
-directly implemented by redirecting upper-level eSPI transactions into
-functional blocks of the chip, while the software mode behaves like
-a regular SPI endpoint controller and your driver implements the 
-same interfaces in a mix of kernel and userspace components. Can you
-confirm that this is a correct understanding of what the hardware
-does, or where I misunderstand parts?
-
-If I understood this correctly, I think there is a general agreement
-upstream that the low-level device access should indeed be in a
-drivers/spi driver, with no ports of it in drivers/soc/aspeed. Using
-a portable driver subsystem is always better than a custom solution
-if it works at all.
-
-For the higher-level interfaces (flash, gpio, ...), I don't think
-there is any consensus yet about how this should be done, but again
-I think this won't be drivers/soc but instead something more
-generic.
-
-One option here would be to sidestep this problem entirely by
-moving all of the eSPI implementation out of the kernel but instead
-have a hardware-independent userspace implementation that uses
-the spidev ioctl interface. This is always going to be slower than
-an in-kernel implementation, but also much easier to implement
-and debug.
-
-An in-kernel implementation of the eSPI backend (on top of
-the SPI layer) is certainly a realistic option for the higher
-layers, but requires finding consensus both on the the logistics
-(subsystem, code ownership, interfaces to other subsystems)
-and more importantly the user space interfaces that look like
-they will require several revisions on top of what you have
-today.
-
-      Arnd
+Best regards,
+Krzysztof
 
