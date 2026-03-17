@@ -1,161 +1,53 @@
-Return-Path: <openbmc+bounces-1566-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1567-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72BDDFF6E9A
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C664FF6E9B
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:54:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6h71k1cz2yjn;
-	Wed, 18 Mar 2026 09:53:43 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::133"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773739823;
-	cv=none; b=aeBifSN8loU64y80BGAnIs4G4ap/yQNYf3WxUC11JkxihjxxixfB8qdQ7QzgkUZuQpNG7vd2bBoR7jELscJAEbokcnvAcF+lQ/Ismf7GWNHZF32oj/EoKMHEpQrflqbPzOjXL7K+Ra8t6qNwjv5usCS5TTp164TH6+SKMBDVdFidpBAqzODU3W7vsjtpaWVW/ukh3gHqM4sw37KX1n3Tq5b5RLVNkan/D70JtXBoEp0r1zAF2ylj51Ogmhm8DyJjwcIqvSFc8DDvyvCCJM1pTwFGZFxXlFUiRTTQbKriQRUjqDPEpJnMMPJ3I8qzy5Ti5PwJ2EwsCOsMzUpPO3zuhg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6hW1GZfz2yk6;
+	Wed, 18 Mar 2026 09:54:03 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773739061;
+	cv=none; b=AUiHlt3arv9xs3fuQkozkrqPc2s+Pgi7pstG3wQn3Y1bWsoUbzxVsxbtlbxzLMrTsgzAD97dCjA4lmfGh+RQYR43mJbkbtGM+FppOqa4gM6l1wuLuzoakrWKlJD6EvWlwzBOW3NqhF1RNUaH1w+7c8G99uDG1dbAPQ8CqRjNHjxSCxPMJXKPbAPFB4Sl2KSyOMtRbx1JVAtQLy87h6ktvSi68bBnMeRCBaSogCNTWCXNWC1rlE90OO7FTI8LIdl1cfaxvO3hK9yhjyu/5rJPdugKpBaaaYdhZ6kEkAIvo2SR1EVIifU5awx91Di1JG+5s5DjoJtM0UVJWWYRNYIhcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773739823; c=relaxed/relaxed;
-	bh=x1Y0fq+nOdX5B9Zlv9rWb/FlWGr7tCSJEoVxQK36Zz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bMf9rYCln1tT2XH75DSxmEslZPOcr9abtc8IP+b+vTH+82wvdpfAWVSZXZmDxcXcbJqJ1b6AEufT8bkegWfabkeRiGlN8K/YrfUAvK2Q5RsBSN++8ss9wvx70c5RbeZ1aIYsFxryloCYvF0hI8AUv9l0fLcYfIvbBUz0gaehS6i685yMDvokPiux7NT+JAVYj3qf1cczXnF4Ce0+5c3aSzGlXblmsmTTCbX2zGEveSlmmJjGRAlbizpUXFzQVz50BHd+BO3edYPese3U5zFiCDM8h4jjfrdcS1ITbJlkYdANdgMTNSOaOdm/84zgh8L5V7NBfXxABEvx2cmhBK7U+w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=r6TBO9pV; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::133; helo=mail-lf1-x133.google.com; envelope-from=mikko.rapeli@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+	t=1773739061; c=relaxed/relaxed;
+	bh=t+RmgPpu0wXpMUlpLJkPQ6KEI4UNzhvFvtooO8e8o08=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=h+RKDFYnNeqZnHWo6aKQPCNPLcixvIrj4G6s5BN2hRqF4s8rmZSXlN4Eos2L4yAnnxJ6yZU6Te3jPAkOti3UhPbgJC4GFrOzkiPx+DCtNfGzgj40KKNMx2ydVV8AYCPiG5DtItRfChKGxKtfFAIvh7XhW87szlQxSWTmHbM0zXS9SzG1BHuE3+fB1V6ZO8fI/bwbY4q5WqK5+UWPgq1S80O2VNZzkbX5wdZ/H9BDsiTi+JZjMzmFs3F/QfaR8XuGO9O03154LA/9nFf3Gr1Rt5XCPyU0TQW/C8MmQEFz4aRSORiSNDlcEfN9XwWaMRkfCcYGr4Rh3S8Zd9A/yh+x4Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=H1I3ECya; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=r6TBO9pV;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=H1I3ECya;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::133; helo=mail-lf1-x133.google.com; envelope-from=mikko.rapeli@linaro.org; receiver=lists.ozlabs.org)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com [IPv6:2a00:1450:4864:20::133])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZms95tYCz2yj1
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 20:30:21 +1100 (AEDT)
-Received: by mail-lf1-x133.google.com with SMTP id 2adb3069b0e04-5a126c8aab9so7540588e87.0
-        for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 02:30:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1773739818; x=1774344618; darn=lists.ozlabs.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=x1Y0fq+nOdX5B9Zlv9rWb/FlWGr7tCSJEoVxQK36Zz4=;
-        b=r6TBO9pViLC5kHReICZamE2t8m7DNWGdfqi/Y37vqIMeBEo6TEj7/HP7jocOuuwMiG
-         iEMOgYyxPeFi2qrBiITHfL3hryej/wzYH90GNrmI5MG/eGjXXewWCjUQvQQsunvvjCkv
-         GD+Z0/rbP7eoI6hN+SEiptvp7na+9Hi/fMqk9JCHoBRfIzbVBof8sw5boTzAk0sXWcKM
-         UE1NViETNwHOfK2bYO/c8GXMwCkMCR/HP8Ag+JSoiRIFVxN45kGBmrM9K1QOtddUEIsv
-         C0P+VRZc3o4ltvBcN8kwc3MKiLXPgrXdtFYX9MlfSbLAim6ixZlYWSuIgW3V7AwPGxUx
-         LM2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773739818; x=1774344618;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=x1Y0fq+nOdX5B9Zlv9rWb/FlWGr7tCSJEoVxQK36Zz4=;
-        b=GyAqEFI/rsNDrnYmSuuQx2MQTluGIYh4AfpIwZfYpP/DNKyijzoa7cTe1bFcJGjetC
-         8VLFAoMki5ImatQNCqyQannzqC1BCvy5za5JwmqrDQ+fs3BRzNbSmCbtRNlXJHJN9KNm
-         L0Rp1qIN5fhokDmmTuZ4+ulqLuABn/Xl/984244/+PtVapPqzwDF2bZn0vgucZrGMg+W
-         vs+EeCk5hkXuy0AVh86V8F/rxYzq+vwiFl+kHfX1gRLXH4sEh9LXa/A+h5Jy9LqHjY1q
-         JhUkWqvuK8CUGs8akpELwIDAoGvYnbACUnviV6yn5u77DjL9Yhy1LLd3DRitfpZ3xFX6
-         lAyA==
-X-Forwarded-Encrypted: i=1; AJvYcCUCLwkMj6Xr44gfRJhp9NEYWy3nxbfoCPPEtyWknQt3p0VZ1u14uJ3IlOm2wm7bhdSRXRNhvZvY@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxFwzmt2Vvm1/lpmHdkVQ6iUD6LFNSz6phGTqOwnbMtPT/bz67l
-	G5Q5dXTRc2UhNYsxtQzCeqnMan+7OEclNvBJX2hRITMAl00+cAltfpoq441vEpO9ycI=
-X-Gm-Gg: ATEYQzwTXiH5yCIduKyAe1oYb3+3DGTugZYVrMoUNAip6gyMHzHz+GPjeyBQaIMx37H
-	Ba5itR4p7ugeFwa00g04vzxvazFjYdPM90Pv601/Q0NenwHorFXjCtx+ySWOWYG41eP0cTI2Odb
-	7jhz1rzcWMmhGOSMu45s740NrT8EUBgifTPSh+w2BNN1Hwv75yDiYQMwo8FbjYBoVWcJffyArDs
-	MxXRk4juri6F3NBFEm+sd3VyJ2/y5b1tDR6kg3qrgCw26LV9YOL2kmb8GfVeOZEJvCQu/EG/r2H
-	hhMZkMzRhHH0xcx8uTd5TGxn0m8SOQs9HID8F52FgjKoF+DInbFD/AEzsP2UpG9S5bL7Fzcp/77
-	paH+qumdOF9mll9V1hJ5ZTX+C0C3lM7E1lzFNp81rnltD4z6BN1ML5jxtlB45TZD/b2RkrfW5Gv
-	iEzwSzzNewM5cwp5E89/7jG80VvhaFl5JKONxsdluhCCYwMA0BmvcAw5rT
-X-Received: by 2002:a05:6512:31d6:b0:5a1:3e11:2963 with SMTP id 2adb3069b0e04-5a162b13fe6mr5199056e87.39.1773739817876;
-        Tue, 17 Mar 2026 02:30:17 -0700 (PDT)
-Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5a15602e713sm3977671e87.32.2026.03.17.02.30.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Mar 2026 02:30:17 -0700 (PDT)
-Date: Tue, 17 Mar 2026 11:30:14 +0200
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Matt Turner <mattst88@gmail.com>,
-	Magnus Lindholm <linmag7@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
-	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>, Heiko Stuebner <heiko@sntech.de>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Anna Schumaker <anna.schumaker@oracle.com>,
-	Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
-	linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 1/9] scripts: kconfig: merge_config.sh: use POSIX '=' in
- test
-Message-ID: <abkfJsyQSbW-VjxD@nuoska>
-References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
- <20260317-arm_defconf_cleanup-v1-1-8eecb7fdd24d@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmZX6cHnz2yfP;
+	Tue, 17 Mar 2026 20:17:40 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 954EA43672;
+	Tue, 17 Mar 2026 09:17:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65A00C19425;
+	Tue, 17 Mar 2026 09:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773739058;
+	bh=6y8Kwkh/OaXUAUrCp7sWLG87zBC+NAUQTwYE5Ak5GSk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=H1I3ECyaVjAv8V07VjWoO7K3OMvYB22GI6ioEMAE14Wyqr4QC8SGYtafcvejqr4tN
+	 qkx09x1luYXw8AvU+giJ+A7A4+asAI6nN1a1tTkMTXa5crQz2UlxrwaynyHw6Xg5iS
+	 ndnhrVrDu/Daj2vNgsuAeUI7tdajy/rGJsr/PW2pkui/ixmfWQvZ89O4lzr4NWwqRl
+	 W25J76tfRi7iGQd4MxwKw+Duwb+cAfZScCi/jM2WeSlEQlMAEKbjlqshOzHiUiEAXA
+	 yI3Yv5R4+kKjT4h5ZT+11yWuT/6kGkEA/4gLqjKkv8UAaQwPVa/Fvpmy3aJBxuYs8L
+	 vYjjCxUe6vaHg==
+From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
+Date: Tue, 17 Mar 2026 10:13:43 +0100
+Subject: [PATCH 7/9] arm64: defconfig: remove incorrect assignment to
+ IPQ_APSS_5018
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -167,55 +59,109 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260317-arm_defconf_cleanup-v1-1-8eecb7fdd24d@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260317-arm_defconf_cleanup-v1-7-8eecb7fdd24d@kernel.org>
+References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+In-Reply-To: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Mikko Rapeli <mikko.rapeli@linaro.org>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>, 
+ =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Anna Schumaker <anna.schumaker@oracle.com>
+Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>, 
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-omap@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev, 
+ linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, "Vincent Mailhol (Arm)" <mailhol@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=709; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=6y8Kwkh/OaXUAUrCp7sWLG87zBC+NAUQTwYE5Ak5GSk=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pfv+h06fUW+wxn1x9lH+P27C01ptVGM+Ga740GTrJ
+ v7U9dWJjlIWBjEuBlkxRZZl5ZzcCh2F3mGH/lrCzGFlAhnCwMUpABPZsZSR4brMbJ/EW5ziP5d7
+ r+t6Me136Islt3+dvjLx2rIGM61v6y4x/GI+sbVb4fQH233qzxrtQj9dOamXqLWOT8bzoa3QZJf
+ 7//gB
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-Hi,
+CONFIG_IPQ_APSS_5018 does not exist and never existed. Remove it.
 
-On Tue, Mar 17, 2026 at 10:13:37AM +0100, Vincent Mailhol (Arm) wrote:
-> merge_config.sh yields this warning:
-> 
->   ./scripts/kconfig/merge_config.sh: 384: [: false: unexpected operator
-> 
-> This happens because the script runs under /bin/sh but compares
-> strings using the '==' operator, which is a bash extension. The POSIX
-> test command only specifies '=' for string equality.
-> 
-> Replace '==' with the POSIX-compatible '=' so the script works when
-> run with /bin/sh as intended.
-> 
-> Fixes: dfc97e1c5da5 ("scripts: kconfig: merge_config.sh: use awk in checks too")
-> Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+Fixes: 7f0c87348fb5 ("arm64: defconfig: Enable IPQ5018 SoC base configs")
+Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+---
+ arch/arm64/configs/defconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-This fix is already merged in kbuild trees:
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 0b307e2ab384..1fda77bca432 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1456,7 +1456,6 @@ CONFIG_QCOM_CLK_APCC_MSM8996=y
+ CONFIG_QCOM_CLK_SMD_RPM=y
+ CONFIG_QCOM_CLK_RPMH=y
+ CONFIG_IPQ_APSS_6018=y
+-CONFIG_IPQ_APSS_5018=y
+ CONFIG_IPQ_CMN_PLL=m
+ CONFIG_IPQ_GCC_5018=y
+ CONFIG_IPQ_GCC_5332=y
 
-https://lore.kernel.org/linux-kbuild/20260309121505.40454-1-o451686892@gmail.com/
-https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git/log/?h=kbuild-fixes-for-next
+-- 
+2.43.0
 
-Cheers,
-
--Mikko
-
-> ---
->  scripts/kconfig/merge_config.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/scripts/kconfig/merge_config.sh b/scripts/kconfig/merge_config.sh
-> index 735e1de450c6..073c6bec5245 100755
-> --- a/scripts/kconfig/merge_config.sh
-> +++ b/scripts/kconfig/merge_config.sh
-> @@ -381,7 +381,7 @@ END {
->  	STRICT_MODE_VIOLATED=true
->  fi
->  
-> -if [ "$STRICT" == "true" ] && [ "$STRICT_MODE_VIOLATED" == "true" ]; then
-> +if [ "$STRICT" = "true" ] && [ "$STRICT_MODE_VIOLATED" = "true" ]; then
->  	echo "Requested and effective config differ"
->  	exit 1
->  fi
-> 
-> -- 
-> 2.43.0
-> 
 
