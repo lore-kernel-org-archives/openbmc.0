@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1577-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1578-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDEAFFF6E9A
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E52DFF6E9B
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:56:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6l43bbmz2yvC;
-	Wed, 18 Mar 2026 09:56:16 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6lG053Fz2yvL;
+	Wed, 18 Mar 2026 09:56:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733415;
-	cv=none; b=ahL9fm+57XKqVp8dN4ColM2pSHk/D3xJ7Lwu43ScOdnPNDyMt+eUPg/VMc1DQokVnvpECmMF2cWW/HfNs6d2OYM0UQ5QoFklpK0BIdUesfyKR3A0C6cDeT3CexOTxe5XTIyoPAdxXQltR+sq0u7bZyPpQWY4Ig2TY5koNYHYyZ/29XP6yXylb4B4/j2kf/KjSGFM2sqtaSZB8hvtEV1Sv2pKZtZA0f/nxYbiZePPjDE/yjpG5nK3Thq5F7PD09Afwu29w8nK97zBfCBLXvxzjMKFiB3Oabd2jkMfXEKYm0ynUDo7wrSyYFx5jRmizOi64AEy2NpSNoaCN22k0e7l7A==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733418;
+	cv=none; b=R0pZ0V2tGxOKvP9nDyKhMbkRnQKuRRm8nieCnLtvtVenSGW+BkcC7FFxNGRerMO0Lv0dxVhDvjl8grj4+9oSQ8lymTJRfC8z6X/euDoLCpjYKcVXp7qBBEBO7Iehf4+oHQGIqH9qlpBYZcV3G1cnxWRuU1ivyO0TU1yUnGNGdl7PC10GkMRpjQbyyCMSOB+yvdQHp+b+jry3Kf4qmOtxtjcj0twfI2opYLJbjaxVaLsgye5yd4DzT3LYrKvcUppanACZkkXs3m+v74pHEausfEETPLjfZJIZOiZr0i3gqYJyPKcmDScRHQLdp6oDg9lSzT1CMGwDKIPRNTekt/pwgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773733415; c=relaxed/relaxed;
-	bh=MQvRuT4Uos8gDqiyROcAb0gMdDeaY++uqthwz7CUKVw=;
+	t=1773733418; c=relaxed/relaxed;
+	bh=yAqhtKCxGiDUYfjYgiqbyOaLi8s18UY88eBNGWBw+v4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DjwMI/YvUkVyHv8eTBateJo80L9Aq5PL6f617hm9J/Sje+2XGU2P1h1zPv9XZ45UO/3qWgX2x8RhxU8sruaHyfvt7lA/3YZZTxPXr6WKv5idVNTc0uGbhmuc5bxK7IJK+z57TZp8HFHPeWJ7YxTdtaSGX2ztxWOdGiMwjiMl05CGljAveW5i4FjmmeAEfKKBJCgSBT9TVzRhq1WZsQuPxCYa1D4/82aweE6P4ygJphW2By1dygViPBgxpzWljgdGkLgw1sa3IXlfY2k377HIwvPapoH5J00C9IE/WkZIsZ2i0mqRE9NWW18PYnpLXSh6VPaKCo4kL9M4TSunYi84gA==
+	 MIME-Version; b=OSfOlfzd0eB8lPmRLzmw9JGwVhDDYIrgHYbEBoefw6GkziU1XFY5oMjh9UFE5CTjYq+bXU3LoZz6js01gjzhxdk7+LfTlGdJWL2npnw8hqo+M58Vq6s/0VaYCwUq/2Oo78hpt3xqsbNOpxg7N21sSwuHvy2NFSiB+DA2IRiA7QuW07yTIpgX3f9RJGSDQmGOhp6tvv71HRWdYO5y9BmY15qd8aZkLidbEc3xuQ66FyjcIjJ7LiZlUbpAuuzjSx+Imbb34c9RyuXEWynVfIfTTiWHtZAOnrEuVu4rhQhudL6AUGoexBYE6FBFaQ3cJs4JgdMyEQwGLoknvw4mksI1Cg==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkTy3pk6z2yfP
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 18:43:34 +1100 (AEDT)
-X-UUID: cc98802c21d411f1a21c59e7364eecb8-20260317
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkV06hSTz2yfP
+	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 18:43:36 +1100 (AEDT)
+X-UUID: cf093ab821d411f1a21c59e7364eecb8-20260317
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:d2ff7602-0d80-4a8f-b428-9dad50276576,IP:0,U
+X-CID-O-INFO: VERSION:1.3.11,REQID:ea66e4d0-d4fa-4307-8624-59d5b774433a,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:f8595e270a6e1d37d18f1abce40b8d4e,BulkI
+X-CID-META: VersionHash:89c9d04,CLOUDID:7e65542d4423091f9b160c2d394aabc2,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cc98802c21d411f1a21c59e7364eecb8-20260317
+X-UUID: cf093ab821d411f1a21c59e7364eecb8-20260317
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 367099907; Tue, 17 Mar 2026 15:42:07 +0800
+	with ESMTP id 1892139141; Tue, 17 Mar 2026 15:42:11 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -57,9 +57,9 @@ To: linux-spi@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	broonie@kernel.org
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v3 08/17] spi: rockchip-sfc: Use helper function devm_clk_get_enabled()
-Date: Tue, 17 Mar 2026 15:41:50 +0800
-Message-Id: <0a2aea4e9af46477c6f62ad636778bc3c31fe505.1773733017.git.xiaopei01@kylinos.cn>
+Subject: [PATCH v3 15/17] spi: uniphier: Use helper function devm_clk_get_enabled()
+Date: Tue, 17 Mar 2026 15:41:57 +0800
+Message-Id: <3556c4a42b4341823a0c56986126764c9f12682e.1773733017.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773733017.git.xiaopei01@kylinos.cn>
 References: <cover.1773733017.git.xiaopei01@kylinos.cn>
@@ -83,68 +83,73 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-rockchip-sfc.c | 22 ++--------------------
- 1 file changed, 2 insertions(+), 20 deletions(-)
+ drivers/spi/spi-uniphier.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 174995042f53..b32b7c015edb 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -635,13 +635,13 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 		return PTR_ERR(sfc->regbase);
+diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
+index 9e1d364a6198..f975d0431e6f 100644
+--- a/drivers/spi/spi-uniphier.c
++++ b/drivers/spi/spi-uniphier.c
+@@ -666,28 +666,24 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	}
+ 	priv->base_dma_addr = res->start;
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->clk = devm_clk_get(&pdev->dev, "clk_sfc");
-+		sfc->clk = devm_clk_get_enabled(&pdev->dev, "clk_sfc");
- 	if (IS_ERR(sfc->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->clk),
- 				     "Failed to get sfc interface clk\n");
+-	priv->clk = devm_clk_get(&pdev->dev, NULL);
++	priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(priv->clk)) {
+ 		dev_err(&pdev->dev, "failed to get clock\n");
+ 		ret = PTR_ERR(priv->clk);
+ 		goto out_host_put;
+ 	}
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->hclk = devm_clk_get(&pdev->dev, "hclk_sfc");
-+		sfc->hclk = devm_clk_get_enabled(&pdev->dev, "hclk_sfc");
- 	if (IS_ERR(sfc->hclk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->hclk),
- 				     "Failed to get sfc ahb clk\n");
-@@ -657,18 +657,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 
- 	sfc->use_dma = !of_property_read_bool(sfc->dev->of_node, "rockchip,sfc-no-dma");
- 
--	ret = clk_prepare_enable(sfc->hclk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable ahb clk\n");
--		goto err_hclk;
--	}
+-	ret = clk_prepare_enable(priv->clk);
+-	if (ret)
+-		goto out_host_put;
 -
--	ret = clk_prepare_enable(sfc->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable interface clk\n");
--		goto err_clk;
--	}
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0) {
+ 		ret = irq;
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, uniphier_spi_handler,
+ 			       0, "uniphier-spi", priv);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to request IRQ\n");
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	init_completion(&priv->xfer_done);
+@@ -716,7 +712,7 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	if (IS_ERR_OR_NULL(host->dma_tx)) {
+ 		if (PTR_ERR(host->dma_tx) == -EPROBE_DEFER) {
+ 			ret = -EPROBE_DEFER;
+-			goto out_disable_clk;
++			goto out_host_put;
+ 		}
+ 		host->dma_tx = NULL;
+ 		dma_tx_burst = INT_MAX;
+@@ -766,9 +762,6 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 		host->dma_tx = NULL;
+ 	}
+ 
+-out_disable_clk:
+-	clk_disable_unprepare(priv->clk);
 -
- 	/* Find the irq */
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret < 0)
-@@ -730,10 +718,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- err_irq:
--	clk_disable_unprepare(sfc->clk);
--err_clk:
--	clk_disable_unprepare(sfc->hclk);
--err_hclk:
+ out_host_put:
+ 	spi_controller_put(host);
  	return ret;
+@@ -783,8 +776,6 @@ static void uniphier_spi_remove(struct platform_device *pdev)
+ 		dma_release_channel(host->dma_tx);
+ 	if (host->dma_rx)
+ 		dma_release_channel(host->dma_rx);
+-
+-	clk_disable_unprepare(priv->clk);
  }
  
-@@ -747,8 +731,6 @@ static void rockchip_sfc_remove(struct platform_device *pdev)
- 			 DMA_BIDIRECTIONAL);
- 	free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
- 
--	clk_disable_unprepare(sfc->clk);
--	clk_disable_unprepare(sfc->hclk);
- }
- 
- #ifdef CONFIG_PM
+ static const struct of_device_id uniphier_spi_match[] = {
 -- 
 2.25.1
 
