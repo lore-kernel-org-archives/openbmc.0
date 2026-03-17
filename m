@@ -1,107 +1,76 @@
-Return-Path: <openbmc+bounces-1541-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1542-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF10FB5E85
-	for <openbmc@archiver.kernel.org>; Mon, 16 Mar 2026 22:56:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB3E8FB5EA0
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 00:52:16 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fZVnb5bt3z2yj3;
-	Tue, 17 Mar 2026 09:56:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1029"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773640482;
-	cv=none; b=YHtMweVcIq9es2gsT1ev6cg52pbwemBzANxrwqNir3u3lGFPjrKrRNwwblok5872dTWJbknXi4vRKqxMPW2Z2fb8tSD8zgBqotCfH0WOdoymNncMVEzm+m5LkRYELUKttEhWte4gvee+jE1iGVeLWGVcCeQ6YZs1Xf9A+tgHv5CoBvyhgsdgJH3fat/FSnHFBWTzykU6LV1/mIU/wJGJaRzMagd+1RnWgpnizIldiFfOPItWulVKZl6u2cu7MzZcQI1Zyba9E7AOiaVvmhDKpysC2YA5qPG5Vw1QUPj+qeDhNO1lyma4pkO+gi95Y30u7i40n/FhXK03dnkqkD6XsQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fZYMC5ChLz2yhG;
+	Tue, 17 Mar 2026 11:52:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773708727;
+	cv=none; b=YSK023rrf8tHYGQ/79JINXYFQf/lHVgI+EvAGokZH4DFgva4mDh0+v5KGk2Da8+9QphQdUI9TyWwoFjNtuBBriPpXhryV3zdj8APyEX8FOXmA9ZTtEvMbu0Y1ruak/V/ZWUr6qBGOlOR9s2heXOGZVn6P35jSc25FOfAhjidodFJT5CE7WmbKUdu13FXMtWDnxCpL4j2gHQglYPE2OFSQ05JvSz/6Ntvah3dUZJqCQV/hEaf5uGYvajR5kOJNs/8cKBJXWLUHMH89PLY9v74X3Nl0Fpv02x4dK6lUl+1YAVmotbOk/wGTrMPm2Qjq/VpYI3rqK9RLJW/ffw4JlheRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773640482; c=relaxed/relaxed;
-	bh=GEh3nHbL/FUSvLsKsp4r0rwLAFQj7UgdMNRgMCRNe3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QEuVKGBykTYAQWN299+JH6iwvsrFy9X3wfOH+XfxLFKTvgwjQV0qhbBCPKG4G3Gik/eVNgaZMuMO3ADGzYxmApcQ9Kgwpsk8WpAbGfcEQ+SjO+l59kHrCMZq8P8uVCewl9ovesuID+PfJZu+AUUoA1AfBhyQQtxJn9c9j7VYw2LlcN2DJiuvf/9eQeqWFRTCZf7zc7m04aGGAu+AyO6GESHIKOodXDLY65N2nww+sL3nvYbiRrd3dgolsz0Pu9ThdKbpZHsGDfDPtOpi5QXhCOo59dEY6H847H5ZuoaTKUEHsxt1TMQR+CO5unWPWcWIfIeIAwOgF/nPtp74Ejws7Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=BrQxFfgo; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1773708727; c=relaxed/relaxed;
+	bh=7Wva0cCBDpLbK0JVmBe4Ub0EUtCjNYf1GYoc0uieWEk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SOeMbZUv8gLMUGexTPxw7leSIBtZUt3Qm8jTytIkYrMGeRAZfwNfiwzH1PAU9QQxlRWoc3Wu8Kg8OLGmDAMcuEGt9vxaIXvspB8p9au7zNu0Qj8ddM9Hf8hv0xsTtqek+wT3yQM5cJgdENvwjQ6AoTpf4JBD/7BuKKKQLeQjp2+EKIBvtRqnidwOQxZCEvkzRTffMlApCcL0AwXXJQYOo8m3Eweqs/gbWdGGNH6r3gi1nYNZ8JDaaced4Mz+XNYWPFP7CA2zFqm7k/871mMRmmvCTYZPWaRy5ONLTrzNYSCMPbJkdUil2N8AO9kIKDbTcdE5j9RVHaJy6mtH/r1mCQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=GzkAukyh; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=jk@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=BrQxFfgo;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=GzkAukyh;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=a0987203069@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=jk@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZ46n2sVdz2xlP
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Mar 2026 16:54:41 +1100 (AEDT)
-Received: by mail-pj1-x1029.google.com with SMTP id 98e67ed59e1d1-35b905a05a8so672947a91.1
-        for <openbmc@lists.ozlabs.org>; Sun, 15 Mar 2026 22:54:41 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZYM96SMNz2xb3;
+	Tue, 17 Mar 2026 11:52:05 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773640479; x=1774245279; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GEh3nHbL/FUSvLsKsp4r0rwLAFQj7UgdMNRgMCRNe3Q=;
-        b=BrQxFfgo1UwHIeAzIrGhTT8UVNB7WANMf05XQvWSMKgLrI01VGTtGVnEQWZj5W3VRu
-         UkEQ2oT3UOqQezXM+RERPlnAqTVI/ImEk2fpbhlKHRsFu2dFIOVIhaZTSH+3KsmgisvN
-         5+MCoKmRqretGV1Eq+tHnbgUfhR/YdsJAKwa43rtt22JxmSqK5fXVZPMfDHrIpabyyaZ
-         /aR91E3m5E8aCPcVhUFDoAjP76iM4XCki2LWqSAEbrC660RU7SawmRiZ5tB5jTKFL2sc
-         9UZPYrhfvXIl5p4JO9uyeFMg8G4u/A2uxAs8qXCD1BouTsW/jB8ztBYSH0sudvBErxHH
-         axkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773640479; x=1774245279;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GEh3nHbL/FUSvLsKsp4r0rwLAFQj7UgdMNRgMCRNe3Q=;
-        b=KALtfyceGlRZv504yz5TA++jK9BehC7/soMig8dAPHcpukTWKE1lnoZ8wyJlTJbi4n
-         9mywtRF+GKrQbWdOJ55CC3SaDf2YpOOmjMpZos7K1ov0ZX+azSs/nAekyhFrrFYs7slS
-         ZmyDXP7p12yyMBDKZK1vueA1+qJDN6ncTWPHozM1KqBjtdTcF+de5LkxmJaHxBthDKFu
-         WV+9QxpRS/eEiZApWIZcricHFlvp4+PYeBo6bYDh+9VTSYr1+XcvAMnYOXU5ZPGeGX4p
-         XUz/vV7mvaR1A/82JXHP2xUOQ3Pt7JftxD+wmrXaA+FmnWYLuWKpH42c5hORkr+TAFwB
-         EssA==
-X-Forwarded-Encrypted: i=1; AJvYcCUc1ZAi4hyhVoJgfb7k2lITjXa5/1Kpbtlr1Z8L2OYzXXvfplRSCn1zI1ef46WKnZTRc1kVALIE@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyVOIZknivtkDagqBQhPn8pkX0KQInIQteIV2K/gTu5Mj4w3qgK
-	VOqi+fIs2eaPVrk6tYGz4OIRSQYoDmHJTqxF91OYx8OMWQ5bOHzUlhi6
-X-Gm-Gg: ATEYQzyUi912O6PNWSNj/IhsjRt5IkjvK/V7AwK+CxyCIEcxxbHpl+eBoxljuH9AJRt
-	rHPvoHbAJ9xwIA/P+wmqMcSE204M3+gKTaHmc44piy76weq4yKJUtciTwIOHqJvrWD8klvnPpH8
-	mJNocimKdWmsKCmz5yQmxbe8KO2/gLtrz+PXR3tX9J1ET7+QZKddr2wku2v3d+F4Ks4HIOgtBSN
-	mCwO3fYjEz+T1CKIqXq9PGC/YZ8nwFl0kKw+6bDHpaRyVvSP/nar6vE3lS7dbC6QNfL2+x1Bw02
-	fwsTWg1a0OB+jByl3v2JY1KhLVaVvwOiwEO0c4P3+dkViOBhjehPWfmIvWWJtYfuTJL3vefug1h
-	yMKzDP9H2CjS4KYjPzdjRFkV+psyydezZLikYu2Egqgi4x+ZTn8gWidapZqDfLcrFR2EAxmv8dE
-	hEo3iu/4wLDADQedz1E6S0JQ3sBhtL7wNGjbwCV9XC0Y4IwAIo2weQe1zyz1ku3OG3GzWIGkfml
-	g/FclM2OWAI
-X-Received: by 2002:a17:90b:4a47:b0:359:83d3:27d3 with SMTP id 98e67ed59e1d1-35a21f007ccmr10901351a91.2.1773640479016;
-        Sun, 15 Mar 2026 22:54:39 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35b9db7dfe6sm2166285a91.8.2026.03.15.22.54.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Mar 2026 22:54:38 -0700 (PDT)
-From: Joey Lu <a0987203069@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mcoquelin.stm32@gmail.com,
-	richardcochran@gmail.com
-Cc: alexandre.torgue@foss.st.com,
-	joabreu@synopsys.com,
-	ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	yclu4@nuvoton.com,
-	peppe.cavallaro@st.com,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH net-next v14 1/3] dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
-Date: Mon, 16 Mar 2026 13:54:25 +0800
-Message-ID: <20260316055427.1310569-2-a0987203069@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260316055427.1310569-1-a0987203069@gmail.com>
-References: <20260316055427.1310569-1-a0987203069@gmail.com>
+	d=codeconstruct.com.au; s=2022a; t=1773708723;
+	bh=7Wva0cCBDpLbK0JVmBe4Ub0EUtCjNYf1GYoc0uieWEk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GzkAukyhJbTthnB88ExXDqDQGE2jqt5wnSezRMJF/nKkq1miLa0jjJu7FsM6JU7y8
+	 HXKCxxPAoh+7kuQFvbvs8SRgYpkb3CqApgFvWPP4aVySvcSkGnL/zrGUiw0l6yPDbd
+	 XYU8i6Gd5hjtCTmSG9Qi1BKyrz6plS00DEAK9msDg7NuO/xA1FiH2Dyx6l0W4kC68D
+	 nHehRORN+FihBZog5/cJVewhMxKdu2qKYkWNMGm45o4KB2asEF0iv9YHOO27XbFB07
+	 QYnL8jlJJpDqpxkAEgKxybD6zW9VeQQqzU2V8Mp9vhvk5PJx0QCwY+Tpoq4fqxNiHo
+	 fgr2dIbmEuINQ==
+Received: from [192.168.72.167] (210-10-213-150.per.static-ipl.aapt.com.au [210.10.213.150])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E07786009B;
+	Tue, 17 Mar 2026 08:52:01 +0800 (AWST)
+Message-ID: <eeac1db0a5692ae45b5528a85ed1510b8b1cf771.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Rob Herring <robh@kernel.org>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Benjamin
+ Herrenschmidt <benh@kernel.crashing.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, "linux-i2c@vger.kernel.org"
+ <linux-i2c@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Date: Tue, 17 Mar 2026 08:52:03 +0800
+In-Reply-To: <CAL_JsqKQp=HyA90rQ2Hzu148k63k5-qrGLH6sEHXNcjAu3QSwg@mail.gmail.com>
+References: <20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com>
+	 <20260309-upstream_i2c-v26-2-5fedcff8ffe8@aspeedtech.com>
+	 <20260313232125.GA3618633-robh@kernel.org>
+	 <TY2PPF5CB9A1BE6A19D439C675AF5028C13F242A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+	 <7ae8222bf6abd83a3c2ac976f54a2edbe4e9727a.camel@codeconstruct.com.au>
+	 <CAL_JsqKQp=HyA90rQ2Hzu148k63k5-qrGLH6sEHXNcjAu3QSwg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2+deb12u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -113,177 +82,60 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Create initial schema for Nuvoton MA35 family Gigabit MAC.
+Hi Rob,
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Joey Lu <a0987203069@gmail.com>
----
- .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 140 ++++++++++++++++++
- .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
- 2 files changed, 141 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+> > I don't think that really addresses Rob's point there.
+> >=20
+> > The selection of mode is somewhat a driver implementation decision (and
+> > so would not belong in a DT binding) - *except* that there are
+> > considerations around the use of hardware DMA channels, as covered in
+> > earlier review.
+>=20
+> Am I supposed to go read the prior 25 versions?
 
-diff --git a/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
-new file mode 100644
-index 000000000000..ab18702e53f9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
-@@ -0,0 +1,140 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Nuvoton DWMAC glue layer controller
-+
-+maintainers:
-+  - Joey Lu <yclu4@nuvoton.com>
-+
-+description:
-+  Nuvoton 10/100/1000Mbps Gigabit Ethernet MAC Controller is based on
-+  Synopsys DesignWare MAC (version 3.73a).
-+
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        enum:
-+          - nuvoton,ma35d1-dwmac
-+  required:
-+    - compatible
-+
-+allOf:
-+  - $ref: snps,dwmac.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: nuvoton,ma35d1-dwmac
-+      - const: snps,dwmac-3.70a
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      Register range should be one of the GMAC interface.
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: MAC clock
-+      - description: PTP clock
-+
-+  clock-names:
-+    items:
-+      - const: stmmaceth
-+      - const: ptp_ref
-+
-+  nuvoton,sys:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: phandle to access syscon registers.
-+          - description: GMAC interface ID.
-+            enum:
-+              - 0
-+              - 1
-+    description:
-+      A phandle to the syscon with one argument that configures system registers
-+      for MA35D1's two GMACs. The argument specifies the GMAC interface ID.
-+
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    items:
-+      - const: stmmaceth
-+
-+  phy-mode:
-+    enum:
-+      - rmii
-+      - rgmii
-+      - rgmii-id
-+      - rgmii-txid
-+      - rgmii-rxid
-+
-+  tx-internal-delay-ps:
-+    default: 0
-+    minimum: 0
-+    maximum: 2000
-+    description:
-+      RGMII TX path delay used only when PHY operates in RGMII mode with
-+      internal delay (phy-mode is 'rgmii-id' or 'rgmii-txid') in pico-seconds.
-+      Allowed values are from 0 to 2000.
-+
-+  rx-internal-delay-ps:
-+    default: 0
-+    minimum: 0
-+    maximum: 2000
-+    description:
-+      RGMII RX path delay used only when PHY operates in RGMII mode with
-+      internal delay (phy-mode is 'rgmii-id' or 'rgmii-rxid') in pico-seconds.
-+      Allowed values are from 0 to 2000.
-+
-+required:
-+  - clocks
-+  - clock-names
-+  - nuvoton,sys
-+  - resets
-+  - reset-names
-+  - phy-mode
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-+    ethernet@40120000 {
-+        compatible = "nuvoton,ma35d1-dwmac", "snps,dwmac-3.70a";
-+        reg = <0x40120000 0x10000>;
-+        interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "macirq";
-+        clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
-+        clock-names = "stmmaceth", "ptp_ref";
-+
-+        nuvoton,sys = <&sys 0>;
-+        resets = <&sys MA35D1_RESET_GMAC0>;
-+        reset-names = "stmmaceth";
-+        snps,multicast-filter-bins = <0>;
-+        snps,perfect-filter-entries = <8>;
-+        rx-fifo-depth = <4096>;
-+        tx-fifo-depth = <2048>;
-+
-+        phy-mode = "rgmii-id";
-+        phy-handle = <&eth_phy0>;
-+        mdio {
-+            compatible = "snps,dwmac-mdio";
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            eth_phy0: ethernet-phy@0 {
-+                reg = <0>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 38bc34dc4f09..de04cbbab0c6 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -69,6 +69,7 @@ properties:
-         - ingenic,x2000-mac
-         - loongson,ls2k-dwmac
-         - loongson,ls7a-dwmac
-+        - nuvoton,ma35d1-dwmac
-         - nxp,s32g2-dwmac
-         - qcom,qcs404-ethqos
-         - qcom,sa8775p-ethqos
--- 
-2.43.0
+Not at all - the next paragraph was my attempt at a recap of those, but
+Ryan, please correct me if I am wrong on any of those points.
 
+> > [My understanding is that the mode needs to be defined here to select
+> > which i2c devices have a DMA channel allocated to them. I also
+> > think that byte mode may be useful in some scenarios, but that
+> > consideration certainly does not belong in the DT binding spec]
+>=20
+> But this is selecting DMA for the bus, not specific devices. I would
+> think the decision would be dynamic based on some xfer size. Certainly
+> if the xfer is less than the buffer size (32bytes), then there is no
+> advantage of DMA.
+>=20
+> Or do you mean some instances of the I2C controllers have DMA and some
+> do not?
+
+Yes, some of the controllers may be allocated a DMA channel. A driver
+implementation may (or may not) make use of that channel.
+
+Since the hardware has a limited numbers of DMA channels, Ryan's aim
+here is to specify which controllers may consume a channel.
+
+(in relation to the 'bus' terminology though: there is a 1:1 mapping
+between i2c buses and controllers here, plus a small area of global
+registers which apply to all controller peripherals)
+
+>  If so, then ...
+
+[...]
+
+> > In that case, we would just have a boolean property, like:
+> >=20
+> > =C2=A0=C2=A0=C2=A0 aspeed,i2c-dma-enabled;
+>=20
+> ... yes, this is fine.
+
+Brilliant, thanks.
+
+Ryan: I think this gives us a much cleaner approach to the binding.
+
+Cheers,
+
+
+Jeremy
 
