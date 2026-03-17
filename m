@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1588-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1590-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB634FF6E97
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58A49FF6E9C
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 23:05:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6wy4lwKz2yqT;
-	Wed, 18 Mar 2026 10:04:50 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6wz3YZYz2yr8;
+	Wed, 18 Mar 2026 10:04:51 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733417;
-	cv=none; b=Vt7XLD313gOo8nXN4K+EPXaexZdxNdStNRoekWEBryfzew8JxPzQClBHT2qq/r6JIxB+W6pt8+LZ3ihbdEgXs6CdV+B04Xrf1MMtoEQ2/9unEmdOmCMq4t9SOaWn2LHOA60D/9bu5k7ZN6Ha++9+1pjAlNq/pfM7J9rGIBOapEgYKqkfZPQC9CAO/xWCEX2CGz4BArCwdLeOumK8OfONXFUa+sxdbP5M4OE8mcHy0+BAUUe93I9Z2AAW8a7O+sVTYcGBF/axCQzmyLz+FbGvcoWYYcMkVg9noluFkzO4VJjLEiKwJxGFHX+jsx/nllPAqxKA2ghubiFSTjYK8znkzg==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733418;
+	cv=none; b=Lx1BqePbU6Mg3nxGWhLegR8KJ9c66JzYFNjrSULJwnzXQoctGPqPx97kRNEFjhjQKvSL78T7k/USplrYSoXYUSVnmjx03A/2ETlZ/gnP1sTFuPn7HqIuLSL8PlwyCrLF/WqqbrpsJz3hyrGwRaghVUGlAC0GQGg1RnLk0RGxvvVjJljtJpiVfKQtSJTnJ/qjWmETXjwDa/IpZhlRyK5jRRTznC1Y0kXqQF548B/QIagKQHgjqbAO9nxDm3I0KKQsqaA2+Tb0oP+j2YGJkVDw7YA5r+nTFDwf3pHi/ZGis5Zc5KrAaVaqiMNCzeOe1Gqmil5VugFz4tEJMnnTDQeo/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773733417; c=relaxed/relaxed;
-	bh=S5BhKo/0Xx0JvVKABRbg7RuTSJdo6EH980bBIDIPjs8=;
+	t=1773733418; c=relaxed/relaxed;
+	bh=5L/oeA/2YcsmAjGJdXUeO+xFx2wstgeZ0oXrcmVk4HM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KOhkV1DG+k8PaQpr24DzBH7osJfnSfpqEk79DgOPtL95Q12ZmBDibQ07YJLcGdimYcXlkaMPwrD2xHL5gC7BfS8AlGqa8Dj26VHBLnq9SaTAvmjO0JQLu3tBzDbc+lnpl2GL5gY3o8mG3Y17fSSVYDe2Soz91QuSIiKSh74sPEn5oaFAwVZ9SexX5gB6Y4WSCrk9itHsow+7ON0KcPMatgVUgC4dzOemlgM1jX9B9qz8gyGkoTXKZZZf/zjgDzz79UpULuFSZW7O/AqlO+x1hy10xcVYUm1t9bQ/b6cLr7em0M655sJWvGWapMOUZWGgcon4L9WZW6cz02Treq0isQ==
+	 MIME-Version; b=gGDakgSnC0BAjVkkrOvL81StQ0/bWMS2MSy+b028Ptcvs1vHIW/opjBmZwCxt8teDBl31bh2N6LLndkn5q+0qW3aWr+TpY1cErNkgLHQAfUs40Idz6xvv2s4St9SBQ4D+byVFyOE9MsU/MUVnN6KxofxO5/RPPp2pgVP+Vu7FPtz/dGFLiVH7MNuMfTYVoLmGYKPl+tnXpQat9N7czHDf7ibrPyQbxZL9u7Z5aadVB1Uxfg2Pf4wQeceDw7JgUjRNCPn0s1erD7aCXS6Xr7Idg46TOPhtevYPT4VO+NBQdqYmU8rCBdDXLbP4Pvn3unOs4+6uJvAfC9QeT9iwq+LNg==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkV02B31z2yks
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkV00Ldvz2yjV
 	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 18:43:35 +1100 (AEDT)
-X-UUID: cf463bca21d411f1a21c59e7364eecb8-20260317
+X-UUID: cb0bbaee21d411f1a21c59e7364eecb8-20260317
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:bf44888e-4209-4ca3-b91a-f5dac4e7dbaa,IP:0,U
+X-CID-O-INFO: VERSION:1.3.11,REQID:8ed28783-528a-49b8-b422-9e532f0e4568,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:daec58fc6affc68bdc57164a0264eb0c,BulkI
+X-CID-META: VersionHash:89c9d04,CLOUDID:d1496f212eed61f0c89101fc49fc3b6e,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cf463bca21d411f1a21c59e7364eecb8-20260317
+X-UUID: cb0bbaee21d411f1a21c59e7364eecb8-20260317
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1909361626; Tue, 17 Mar 2026 15:42:11 +0800
+	with ESMTP id 209579328; Tue, 17 Mar 2026 15:42:04 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -57,9 +57,9 @@ To: linux-spi@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	broonie@kernel.org
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v3 16/17] spi: zynq-qspi: Use helper function devm_clk_get_enabled()
-Date: Tue, 17 Mar 2026 15:41:58 +0800
-Message-Id: <7c4aeb891885c13f5f6aef499ee007b9fd6106c1.1773733017.git.xiaopei01@kylinos.cn>
+Subject: [PATCH v3 02/17] spi: bcm63xx-hsspi: Use helper function devm_clk_get_enabled()
+Date: Tue, 17 Mar 2026 15:41:44 +0800
+Message-Id: <4edc7f6b63cc8b83b2185c398256234426a3d859.1773733017.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773733017.git.xiaopei01@kylinos.cn>
 References: <cover.1773733017.git.xiaopei01@kylinos.cn>
@@ -83,98 +83,96 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-zynq-qspi.c | 31 ++++++-------------------------
- 1 file changed, 6 insertions(+), 25 deletions(-)
+ drivers/spi/spi-bcm63xx-hsspi.c | 46 +++++++++------------------------
+ 1 file changed, 12 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
-index 5232483c4a3a..8c3975030d0a 100644
---- a/drivers/spi/spi-zynq-qspi.c
-+++ b/drivers/spi/spi-zynq-qspi.c
-@@ -661,7 +661,7 @@ static int zynq_qspi_probe(struct platform_device *pdev)
- 		goto remove_ctlr;
- 	}
+diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
+index 612f8802e690..266eabd3715b 100644
+--- a/drivers/spi/spi-bcm63xx-hsspi.c
++++ b/drivers/spi/spi-bcm63xx-hsspi.c
+@@ -758,8 +758,7 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(regs))
+ 		return PTR_ERR(regs);
  
--	xqspi->pclk = devm_clk_get(&pdev->dev, "pclk");
-+	xqspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
- 	if (IS_ERR(xqspi->pclk)) {
- 		dev_err(&pdev->dev, "pclk clock not found.\n");
- 		ret = PTR_ERR(xqspi->pclk);
-@@ -670,36 +670,24 @@ static int zynq_qspi_probe(struct platform_device *pdev)
- 
- 	init_completion(&xqspi->data_completion);
- 
--	xqspi->refclk = devm_clk_get(&pdev->dev, "ref_clk");
-+	xqspi->refclk = devm_clk_get_enabled(&pdev->dev, "ref_clk");
- 	if (IS_ERR(xqspi->refclk)) {
- 		dev_err(&pdev->dev, "ref_clk clock not found.\n");
- 		ret = PTR_ERR(xqspi->refclk);
- 		goto remove_ctlr;
- 	}
- 
--	ret = clk_prepare_enable(xqspi->pclk);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to enable APB clock.\n");
--		goto remove_ctlr;
--	}
+-	clk = devm_clk_get(dev, "hsspi");
 -
--	ret = clk_prepare_enable(xqspi->refclk);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to enable device clock.\n");
--		goto clk_dis_pclk;
--	}
++	clk = devm_clk_get_enabled(dev, "hsspi");
+ 	if (IS_ERR(clk))
+ 		return PTR_ERR(clk);
+ 
+@@ -767,41 +766,26 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(reset))
+ 		return PTR_ERR(reset);
+ 
+-	ret = clk_prepare_enable(clk);
+-	if (ret)
+-		return ret;
 -
- 	xqspi->irq = platform_get_irq(pdev, 0);
- 	if (xqspi->irq < 0) {
- 		ret = xqspi->irq;
--		goto clk_dis_all;
-+		goto remove_ctlr;
- 	}
- 	ret = devm_request_irq(&pdev->dev, xqspi->irq, zynq_qspi_irq,
- 			       0, pdev->name, xqspi);
- 	if (ret != 0) {
- 		ret = -ENXIO;
- 		dev_err(&pdev->dev, "request_irq failed\n");
--		goto clk_dis_all;
-+		goto remove_ctlr;
+ 	ret = reset_control_reset(reset);
+-	if (ret) {
+-		dev_err(dev, "unable to reset device: %d\n", ret);
+-		goto out_disable_clk;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "unable to reset device: %d\n", ret);
+ 
+ 	rate = clk_get_rate(clk);
+ 	if (!rate) {
+-		pll_clk = devm_clk_get(dev, "pll");
+-
+-		if (IS_ERR(pll_clk)) {
+-			ret = PTR_ERR(pll_clk);
+-			goto out_disable_clk;
+-		}
+-
+-		ret = clk_prepare_enable(pll_clk);
+-		if (ret)
+-			goto out_disable_clk;
++		pll_clk = devm_clk_get_enabled(dev, "pll");
++		if (IS_ERR(pll_clk))
++			return dev_err_probe(dev, PTR_ERR(pll_clk),
++					     "failed enable pll clk\n");
+ 
+ 		rate = clk_get_rate(pll_clk);
+-		if (!rate) {
+-			ret = -EINVAL;
+-			goto out_disable_pll_clk;
+-		}
++		if (!rate)
++			return dev_err_probe(dev, -EINVAL,
++					     "failed get pll clk rate\n");
  	}
  
- 	ret = of_property_read_u32(np, "num-cs",
-@@ -709,7 +697,7 @@ static int zynq_qspi_probe(struct platform_device *pdev)
- 	} else if (num_cs > ZYNQ_QSPI_MAX_NUM_CS) {
- 		ret = -EINVAL;
- 		dev_err(&pdev->dev, "only 2 chip selects are available\n");
--		goto clk_dis_all;
-+		goto remove_ctlr;
- 	} else {
- 		ctlr->num_chipselect = num_cs;
- 	}
-@@ -728,15 +716,11 @@ static int zynq_qspi_probe(struct platform_device *pdev)
- 	ret = devm_spi_register_controller(&pdev->dev, ctlr);
- 	if (ret) {
- 		dev_err(&pdev->dev, "devm_spi_register_controller failed\n");
--		goto clk_dis_all;
-+		goto remove_ctlr;
- 	}
+ 	host = spi_alloc_host(&pdev->dev, sizeof(*bs));
+-	if (!host) {
+-		ret = -ENOMEM;
+-		goto out_disable_pll_clk;
+-	}
++	if (!host)
++		return dev_err_probe(dev, -ENOMEM, "alloc host no mem\n");
  
+ 	bs = spi_controller_get_devdata(host);
+ 	bs->pdev = pdev;
+@@ -887,10 +871,6 @@ static int bcm63xx_hsspi_probe(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ out_put_host:
+ 	spi_controller_put(host);
+-out_disable_pll_clk:
+-	clk_disable_unprepare(pll_clk);
+-out_disable_clk:
+-	clk_disable_unprepare(clk);
  	return ret;
- 
--clk_dis_all:
--	clk_disable_unprepare(xqspi->refclk);
--clk_dis_pclk:
--	clk_disable_unprepare(xqspi->pclk);
- remove_ctlr:
- 	spi_controller_put(ctlr);
- 
-@@ -758,9 +742,6 @@ static void zynq_qspi_remove(struct platform_device *pdev)
- 	struct zynq_qspi *xqspi = platform_get_drvdata(pdev);
- 
- 	zynq_qspi_write(xqspi, ZYNQ_QSPI_ENABLE_OFFSET, 0);
--
--	clk_disable_unprepare(xqspi->refclk);
--	clk_disable_unprepare(xqspi->pclk);
  }
  
- static const struct of_device_id zynq_qspi_of_match[] = {
+@@ -902,8 +882,6 @@ static void bcm63xx_hsspi_remove(struct platform_device *pdev)
+ 
+ 	/* reset the hardware and block queue progress */
+ 	__raw_writel(0, bs->regs + HSSPI_INT_MASK_REG);
+-	clk_disable_unprepare(bs->pll_clk);
+-	clk_disable_unprepare(bs->clk);
+ 	sysfs_remove_group(&pdev->dev.kobj, &bcm63xx_hsspi_group);
+ }
+ 
 -- 
 2.25.1
 
