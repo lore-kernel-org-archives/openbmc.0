@@ -1,53 +1,53 @@
-Return-Path: <openbmc+bounces-1584-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1585-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A417FF6E9A
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 23:00:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD229FF6E97
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 23:00:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6qB11KNz2yrQ;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6qB1mTdz2yrW;
 	Wed, 18 Mar 2026 09:59:50 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773739082;
-	cv=none; b=TIk7H4t4Fh8CMfz+SMqR/wswqiU93IXQWz/QvyHVsVVEfe0RMPLV7JNpWs/k7qPVvzrEve3utgTnausBmVg8EHbBlrluSeuvplNR1FpPvOz77V6YoN80z+5TTjUiW/xtUtbe3fP8hJfgK7SrWD9BfSR9xieruWdtLwk1oqAFJPGTdz34ZTkoJiY+jT5qjg4rwGgMMY7KjqVijVWxHKJ4+lyw93Zp8HJ1qFvATIBFqzDH3Eslbcc8Riw3gOe7jQ4D18iJxy2OPhac0CgLmZ93zz/N1Zl4nhrwKMcVkR8l/savsJXlBjz/lMCIlIZOjSDVvIPgRnaVnjsVPAeZ8V6KDw==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773738963;
+	cv=none; b=h9WloVUVmS2v+D/V1o9J+mmiP3AkAjBQXqT7Anv+sTLFqcdX35MTDXuaxnYIwc37iRxFJQpcWlM4BOCaWck1mVFh03G2OucTmoWwP0KuZb9q2JTBUnNH40UHMNmcnKmtnPvJGIrXjyB2/RkhACtIXH8RZXLOiURIbizDyqsKgSVbp1roctBT6KzT0EIKz99I7bjwPJgYoel+4ewnWqOJOcEsxd1qDgdVYj5/BJhCaD8/n69lXxWiVvi6Nkg29E661oB7U6lE980xgfJfv4us8E5qrKIUPqpSiHtUDI3HYR66YCN8xiuKl/l76hQmU2ZTHsENLuk125Stk1zBbzElJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773739082; c=relaxed/relaxed;
-	bh=6wv/uc2cCXmJz3o0ZF2F3E5RqSkAYRf5rVj1/QzEIvg=;
+	t=1773738963; c=relaxed/relaxed;
+	bh=Pu99hWW/2gS3h6d4gmOqpP/LF6POdltPuOTul6HAgak=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bDazm1C3XFSAaMBv+q037TBbd+1///BH54nA+rCBWT3vA5rBTAERrDm5HvM9vEkk6tf/xQeQOPVoPuU2jQmMpp29jXh0RVEXxqkFL2ZDOeflZIRGrmXCKx1wGc78oNTjhZ/Z6EErT94cWfcVHJh7MERRsN5q+sC2tYP6fBQDODFHfRV8II7bZY9VEhdPhw2YDBP/FowCIzm6b2AkWKtn2h4TSfctu4GG7ljrfhTGxQAZNumSL1KzzLXoPBKnF9ujf1PhBqwQ5fL6TgZBmjdtvPGT4kf0+W3BA0ruyGvp3TsPNq4mrEedfclfKzhJqnYBMsJMcBmFfDB4rragbVsMOw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=XpwVmfZw; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 In-Reply-To:To:Cc; b=Mw3biCWVHkh8o0CcQlJbRLWNlmomNrcxRh5B+ZqB/uE4fg/tZ0Yx2lozXg1/C1eFo73zGMrMV73CXlHjqhLk3gl6VOT8BNB8JWWONB54+TZotM6VqGz7ZOKUymQOJqO5DS0tGZMpk2fpChBFTh0xSkJPu+sc3otQe8wuSRAJzHDj/rFJnQuUiyOHucfxXfb07t0tEqWf/TFXFas7nyTRa9jp6W9xj9BedHGQkOV+kf0gc/r6ejIiqM5qX9KkQd3WnBZ+k8ACq/w6lpGXoe8EMAdi21N2dOV4dnXrQS4aCGpMIkjonqrhHyyIiq3VUgbdutYxDblHGysNA0gZt6CKig==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=TCwv6vfJ; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=XpwVmfZw;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=TCwv6vfJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmZx5JT1z2yfP;
-	Tue, 17 Mar 2026 20:18:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmXf352rz2yfP;
+	Tue, 17 Mar 2026 20:16:02 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 0A71261336;
-	Tue, 17 Mar 2026 09:17:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF11CC4CEF7;
-	Tue, 17 Mar 2026 09:17:38 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 7C580437D0;
+	Tue, 17 Mar 2026 09:15:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83613C2BC9E;
+	Tue, 17 Mar 2026 09:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773739078;
-	bh=rijEHchLteNXFaviNnGMZpirNppt7OUDLa0dnxKFYl8=;
+	s=k20201202; t=1773738958;
+	bh=07JET9rDvfnU+/i61LnceZPyuXw39TROA6JesTMuLAk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XpwVmfZw0JgXdiE+9Wy7h/YBbFNV2OF2PkFXJirhrMjyHVETav4IuXybm/nhrKbEk
-	 Pcg5g9eXGagveMnhb0pPNJ8ekcfyChtxtDD5u2bKbV2IwVUcQjWuIPLtZXV88xWRRa
-	 fnDRnXz0+h1/HEJktAYm6Drw56s0I6YC8BoaYLXdGr+PUP2mZV9/o9ApAbuj2nAF9K
-	 ErkJ/xyOxGtDap4AMHhLUg25qX9nEzNONDGvrUbRvLzJglPEHUZ2AsG9H5jLTpfJDF
-	 KVAR7LFPE5HIoLf8DdWDaFSuDNPAVr5+fhJpCw8JZw0bqDYX7yEO/ZXVvE6cGlE5AW
-	 xj983+NGdjTjg==
+	b=TCwv6vfJ5JS47faYH3SAjihxrQe+gA+FuNBzonEM050qisSRzEm2ntCnI9fSw0cK/
+	 RU2c8wDCbQR0DTnUEnf4RIuLL4/xn3ty0rn3L9cNS1xUhYiybrsKQbhsRFEj6XBdi8
+	 Vbs6hoLelse62DO6QoMNgsOy/aClDfsqv5Qv+UEoGIDvwWi9rEl6KsTN4TWRH/rOHh
+	 9t27tgZFyfJ7U1L+BZ3r1mBFFv6uPNx0h4q2VyvkpbHKIkaHoeaLWowopDoaw4dmg1
+	 ysC8NTprysVUlJTcTVF6NcjFNRgmDznCQc7RzTFyDriT5OU70a4HI4aN48vH4qJVQ2
+	 3uUVmZeMW30fw==
 From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-Date: Tue, 17 Mar 2026 10:13:44 +0100
-Subject: [PATCH 8/9] arm64: defconfig: remove obsolete assignment to
- SENSORS_SA67MCU
+Date: Tue, 17 Mar 2026 10:13:38 +0100
+Subject: [PATCH 2/9] configs: remove orphan dependencies of
+ NETFILTER_XTABLES_LEGACY
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260317-arm_defconf_cleanup-v1-8-8eecb7fdd24d@kernel.org>
+Message-Id: <20260317-arm_defconf_cleanup-v1-2-8eecb7fdd24d@kernel.org>
 References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
 In-Reply-To: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
 To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -131,37 +131,644 @@ Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
  linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org, 
  openbmc@lists.ozlabs.org, "Vincent Mailhol (Arm)" <mailhol@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=824; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=rijEHchLteNXFaviNnGMZpirNppt7OUDLa0dnxKFYl8=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pfu4z51qK2SKqPyQF71s5huv6GT+Csa9LQnOJ5L/9
- gfNT5/fUcrCIMbFICumyLKsnJNboaPQO+zQX0uYOaxMIEMYuDgFYCISDxn+KfF26bU9O/vIh/dw
- l+z03NxrCSeWyx/higu0+Sy2KKSwk+F/xaT++zem3G88G3/mbKnKgUheFcFqpQOPWvq2f7hTUC/
- DAQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=22417; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=07JET9rDvfnU+/i61LnceZPyuXw39TROA6JesTMuLAk=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pfuEPj0ressqrlrx5L215+7/als727NvdD/zmDSJV
+ efktMyCjlIWBjEuBlkxRZZl5ZzcCh2F3mGH/lrCzGFlAhnCwMUpABO5XsfwzyikqvKTZOluU/Pt
+ K5corK0ymNbSK3heOm257t2MgkDj34wMqwXDOHI/VbcvcGtkLimKlp/euYnxw/UffUtUHyev9PV
+ iBgA=
 X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-The Kontron SMARC-sAM67 board management controller is not in the
-kernel tree anymore. Clean-up the leftover reference to
-CONFIG_SENSORS_SA67MCU which was left in the defconfig.
+Since its introduction in commit 9fce66583f06 ("netfilter: Exclude
+LEGACY TABLES on PREEMPT_RT."), the configurations below all depend,
+either directly or indirectly, on CONFIG_NETFILTER_XTABLES_LEGACY:
 
-Fixes: e710b2283725 ("Revert "hwmon: add SMARC-sAM67 support"")
+  - CONFIG_NETFILTER_XT_TARGET_CHECKSUM
+  - CONFIG_IP_NF_FILTER
+  - CONFIG_IP_NF_TARGET_REJECT
+  - CONFIG_IP_NF_NAT
+  - CONFIG_IP_NF_TARGET_MASQUERADE
+  - CONFIG_IP_NF_MANGLE
+  - CONFIG_IP6_NF_FILTER
+  - CONFIG_IP6_NF_TARGET_REJECT
+  - CONFIG_IP6_NF_MANGLE
+  - CONFIG_IP6_NF_NAT
+  - CONFIG_IP6_NF_TARGET_MASQUERADE
+
+This new dependency caused many symbols to become orphaned, meaning
+their dependencies are no longer satisfied and Kconfig drops them from
+the final configuration.
+
+Note that CONFIG_NFT_COMPAT is another parent dependency, so the
+above-listed symbols would not become orphaned as long as NFT_COMPAT
+is present.
+
+Considering that these are legacy options and that nobody complained
+in recent kernel releases when these options were already missing, it
+is safe to assume they can be removed.
+
+Suppress all these configuration symbols in all the defconfig files
+that have neither CONFIG_NETFILTER_XTABLES_LEGACY nor
+CONFIG_NFT_COMPAT set.
+
+FYI, the suppressions were done using:
+
+  git grep -z -L -E '^CONFIG_(NETFILTER_XTABLES_LEGACY|NFT_COMPAT)=(y|m)$' -- 'arch/*/configs/*defconfig' |\
+    xargs -0 sed -i -E '/^CONFIG_(NETFILTER_XT_TARGET_CHECKSUM|IP_NF_FILTER|IP_NF_TARGET_REJECT|IP_NF_NAT|IP_NF_TARGET_MASQUERADE|IP_NF_MANGLE|IP6_NF_FILTER|IP6_NF_TARGET_REJECT|IP6_NF_MANGLE|IP6_NF_NAT|IP6_NF_TARGET_MASQUERADE)=(y|m)$/d'
+
+Fixes: 9fce66583f06 ("netfilter: Exclude LEGACY TABLES on PREEMPT_RT.")
 Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
 ---
- arch/arm64/configs/defconfig | 1 -
- 1 file changed, 1 deletion(-)
+One alternative is obviously to set NF_TABLES and NFT_COMPAT to give
+back to those orphaned symbols a parent configuration.
 
+The removal seemed a better alternative, mostly because no one
+complained so far, but if someone has a strong belief that those
+symbols should not be removed, I can prepare a v2 to un-orphaned them
+instead of removing them.
+---
+ arch/alpha/configs/defconfig                |  1 -
+ arch/arm/configs/ixp4xx_defconfig           |  3 ---
+ arch/arm/configs/keystone_defconfig         |  3 ---
+ arch/arm/configs/spitz_defconfig            |  4 ----
+ arch/arm64/configs/defconfig                | 11 -----------
+ arch/mips/configs/bmips_stb_defconfig       |  1 -
+ arch/mips/configs/fuloong2e_defconfig       |  3 ---
+ arch/mips/configs/gpr_defconfig             |  3 ---
+ arch/mips/configs/ip22_defconfig            |  6 ------
+ arch/mips/configs/loongson2k_defconfig      |  3 ---
+ arch/mips/configs/loongson3_defconfig       | 11 -----------
+ arch/mips/configs/malta_defconfig           |  6 ------
+ arch/mips/configs/malta_kvm_defconfig       |  6 ------
+ arch/mips/configs/maltaup_xpa_defconfig     |  6 ------
+ arch/mips/configs/mtx1_defconfig            |  6 ------
+ arch/mips/configs/rb532_defconfig           |  3 ---
+ arch/mips/configs/rm200_defconfig           |  6 ------
+ arch/mips/configs/rt305x_defconfig          |  3 ---
+ arch/mips/configs/xway_defconfig            |  3 ---
+ arch/powerpc/configs/85xx/stx_gp3_defconfig |  1 -
+ arch/powerpc/configs/cell_defconfig         |  3 ---
+ arch/powerpc/configs/linkstation_defconfig  |  3 ---
+ arch/powerpc/configs/mvme5100_defconfig     |  3 ---
+ arch/powerpc/configs/pmac32_defconfig       |  3 ---
+ arch/powerpc/configs/ppc6xx_defconfig       |  6 ------
+ arch/riscv/configs/defconfig                |  8 --------
+ arch/sh/configs/titan_defconfig             |  6 ------
+ arch/x86/configs/i386_defconfig             |  7 -------
+ arch/x86/configs/x86_64_defconfig           |  7 -------
+ 29 files changed, 135 deletions(-)
+
+diff --git a/arch/alpha/configs/defconfig b/arch/alpha/configs/defconfig
+index 3280bd9e6578..82a225b5eba4 100644
+--- a/arch/alpha/configs/defconfig
++++ b/arch/alpha/configs/defconfig
+@@ -19,7 +19,6 @@ CONFIG_INET_ESP=m
+ # CONFIG_IPV6 is not set
+ CONFIG_NETFILTER=y
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+ CONFIG_VLAN_8021Q=m
+ CONFIG_PNP=y
+ CONFIG_ISAPNP=y
+diff --git a/arch/arm/configs/ixp4xx_defconfig b/arch/arm/configs/ixp4xx_defconfig
+index 81199dddcde7..0a8a472e3ce1 100644
+--- a/arch/arm/configs/ixp4xx_defconfig
++++ b/arch/arm/configs/ixp4xx_defconfig
+@@ -46,9 +46,6 @@ CONFIG_IP_VS_DH=m
+ CONFIG_IP_VS_SH=m
+ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_ARPTABLES=m
+ CONFIG_IP_NF_ARPFILTER=m
+ CONFIG_ATM=y
+diff --git a/arch/arm/configs/keystone_defconfig b/arch/arm/configs/keystone_defconfig
+index b0cadd878152..9e7d839d2ea3 100644
+--- a/arch/arm/configs/keystone_defconfig
++++ b/arch/arm/configs/keystone_defconfig
+@@ -95,9 +95,6 @@ CONFIG_IP_NF_IPTABLES=y
+ CONFIG_IP_NF_MATCH_AH=y
+ CONFIG_IP_NF_MATCH_ECN=y
+ CONFIG_IP_NF_MATCH_TTL=y
+-CONFIG_IP_NF_FILTER=y
+-CONFIG_IP_NF_TARGET_REJECT=y
+-CONFIG_IP_NF_MANGLE=y
+ CONFIG_IP_NF_TARGET_ECN=y
+ CONFIG_IP_NF_TARGET_TTL=y
+ CONFIG_IP_NF_RAW=y
+diff --git a/arch/arm/configs/spitz_defconfig b/arch/arm/configs/spitz_defconfig
+index c130af6d44d4..8d19274578cb 100644
+--- a/arch/arm/configs/spitz_defconfig
++++ b/arch/arm/configs/spitz_defconfig
+@@ -32,9 +32,7 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_ADDRTYPE=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+ CONFIG_IP_NF_TARGET_LOG=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_RAW=m
+ CONFIG_IP_NF_ARPTABLES=m
+ CONFIG_IP_NF_ARPFILTER=m
+@@ -46,8 +44,6 @@ CONFIG_IP6_NF_MATCH_OPTS=m
+ CONFIG_IP6_NF_MATCH_HL=m
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_RT=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BT=m
+ CONFIG_BT_RFCOMM=m
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 1fda77bca432..c5e23beeaebf 100644
+index b67d5b1fc45b..cfedcb61cc55 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
-@@ -743,7 +743,6 @@ CONFIG_SENSORS_LM75=m
- CONFIG_SENSORS_LM90=m
- CONFIG_SENSORS_PWM_FAN=m
- CONFIG_SENSORS_RASPBERRYPI_HWMON=m
--CONFIG_SENSORS_SA67MCU=m
- CONFIG_SENSORS_SL28CPLD=m
- CONFIG_SENSORS_INA2XX=m
- CONFIG_SENSORS_INA3221=m
+@@ -146,24 +146,13 @@ CONFIG_BRIDGE_NETFILTER=m
+ CONFIG_NF_CONNTRACK=m
+ CONFIG_NF_CONNTRACK_EVENTS=y
+ CONFIG_NETFILTER_XT_MARK=m
+-CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
+ CONFIG_NETFILTER_XT_TARGET_LOG=m
+ CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=m
+ CONFIG_NETFILTER_XT_MATCH_CONNTRACK=m
+ CONFIG_NETFILTER_XT_MATCH_IPVS=m
+ CONFIG_IP_VS=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_NAT=m
+-CONFIG_IP_NF_TARGET_MASQUERADE=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP6_NF_IPTABLES=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+-CONFIG_IP6_NF_NAT=m
+-CONFIG_IP6_NF_TARGET_MASQUERADE=m
+ CONFIG_BRIDGE=m
+ CONFIG_BRIDGE_VLAN_FILTERING=y
+ CONFIG_NET_DSA=m
+diff --git a/arch/mips/configs/bmips_stb_defconfig b/arch/mips/configs/bmips_stb_defconfig
+index ecfa7f777efa..4be4e8b0d6a1 100644
+--- a/arch/mips/configs/bmips_stb_defconfig
++++ b/arch/mips/configs/bmips_stb_defconfig
+@@ -69,7 +69,6 @@ CONFIG_TCP_CONG_BIC=y
+ # CONFIG_TCP_CONG_HTCP is not set
+ # CONFIG_IPV6 is not set
+ CONFIG_IP_NF_IPTABLES=y
+-CONFIG_IP_NF_FILTER=y
+ CONFIG_NETFILTER=y
+ CONFIG_NETFILTER_XTABLES=y
+ CONFIG_BRIDGE=y
+diff --git a/arch/mips/configs/fuloong2e_defconfig b/arch/mips/configs/fuloong2e_defconfig
+index b6fe3c962464..a0c4ce45277c 100644
+--- a/arch/mips/configs/fuloong2e_defconfig
++++ b/arch/mips/configs/fuloong2e_defconfig
+@@ -67,9 +67,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/mips/configs/gpr_defconfig b/arch/mips/configs/gpr_defconfig
+index 437ef6dc0b4c..c201fc6923c6 100644
+--- a/arch/mips/configs/gpr_defconfig
++++ b/arch/mips/configs/gpr_defconfig
+@@ -56,9 +56,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/mips/configs/ip22_defconfig b/arch/mips/configs/ip22_defconfig
+index e123848f94ab..3ee644a5b5fa 100644
+--- a/arch/mips/configs/ip22_defconfig
++++ b/arch/mips/configs/ip22_defconfig
+@@ -123,9 +123,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -141,9 +138,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_PHONET=m
+ CONFIG_NET_SCHED=y
+diff --git a/arch/mips/configs/loongson2k_defconfig b/arch/mips/configs/loongson2k_defconfig
+index a5c50b63d478..c09336e7647e 100644
+--- a/arch/mips/configs/loongson2k_defconfig
++++ b/arch/mips/configs/loongson2k_defconfig
+@@ -69,9 +69,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/mips/configs/loongson3_defconfig b/arch/mips/configs/loongson3_defconfig
+index 575aaf242361..fac430dfb4e9 100644
+--- a/arch/mips/configs/loongson3_defconfig
++++ b/arch/mips/configs/loongson3_defconfig
+@@ -66,7 +66,6 @@ CONFIG_NF_CONNTRACK_SNMP=m
+ CONFIG_NF_TABLES=m
+ CONFIG_NFT_CT=m
+ CONFIG_NFT_NAT=m
+-CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
+ CONFIG_NETFILTER_XT_TARGET_CLASSIFY=m
+ CONFIG_NETFILTER_XT_TARGET_MARK=m
+ CONFIG_NETFILTER_XT_TARGET_NFQUEUE=m
+@@ -93,11 +92,6 @@ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_RPFILTER=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_NAT=m
+-CONFIG_IP_NF_TARGET_MASQUERADE=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -107,13 +101,8 @@ CONFIG_IP_NF_ARP_MANGLE=m
+ CONFIG_NF_TABLES_IPV6=y
+ CONFIG_IP6_NF_IPTABLES=m
+ CONFIG_IP6_NF_MATCH_RPFILTER=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_IP6_NF_SECURITY=m
+-CONFIG_IP6_NF_NAT=m
+-CONFIG_IP6_NF_TARGET_MASQUERADE=m
+ CONFIG_NF_TABLES_BRIDGE=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_T_FILTER=m
+diff --git a/arch/mips/configs/malta_defconfig b/arch/mips/configs/malta_defconfig
+index 81704ec67f09..0d69dd1ae7fa 100644
+--- a/arch/mips/configs/malta_defconfig
++++ b/arch/mips/configs/malta_defconfig
+@@ -123,9 +123,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -141,9 +138,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_BROUTE=m
+diff --git a/arch/mips/configs/malta_kvm_defconfig b/arch/mips/configs/malta_kvm_defconfig
+index 82a97f58bce1..c4e2941d1b37 100644
+--- a/arch/mips/configs/malta_kvm_defconfig
++++ b/arch/mips/configs/malta_kvm_defconfig
+@@ -127,9 +127,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -145,9 +142,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_BROUTE=m
+diff --git a/arch/mips/configs/maltaup_xpa_defconfig b/arch/mips/configs/maltaup_xpa_defconfig
+index 0f9ef20744f9..244c39b722ef 100644
+--- a/arch/mips/configs/maltaup_xpa_defconfig
++++ b/arch/mips/configs/maltaup_xpa_defconfig
+@@ -124,9 +124,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -142,9 +139,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_BROUTE=m
+diff --git a/arch/mips/configs/mtx1_defconfig b/arch/mips/configs/mtx1_defconfig
+index 77050ae3945f..39d2feb57f38 100644
+--- a/arch/mips/configs/mtx1_defconfig
++++ b/arch/mips/configs/mtx1_defconfig
+@@ -89,9 +89,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -107,9 +104,6 @@ CONFIG_IP6_NF_MATCH_HL=m
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_BROUTE=m
+diff --git a/arch/mips/configs/rb532_defconfig b/arch/mips/configs/rb532_defconfig
+index 30d18b084cda..c03099a7af0d 100644
+--- a/arch/mips/configs/rb532_defconfig
++++ b/arch/mips/configs/rb532_defconfig
+@@ -64,9 +64,6 @@ CONFIG_NETFILTER_XT_MATCH_SCTP=m
+ CONFIG_NETFILTER_XT_MATCH_STATE=y
+ CONFIG_NETFILTER_XT_MATCH_U32=m
+ CONFIG_IP_NF_IPTABLES=y
+-CONFIG_IP_NF_FILTER=y
+-CONFIG_IP_NF_TARGET_REJECT=y
+-CONFIG_IP_NF_MANGLE=y
+ CONFIG_IP_NF_RAW=m
+ CONFIG_BRIDGE=y
+ CONFIG_VLAN_8021Q=y
+diff --git a/arch/mips/configs/rm200_defconfig b/arch/mips/configs/rm200_defconfig
+index b507dc4dddd4..9dd2d9d9e6f7 100644
+--- a/arch/mips/configs/rm200_defconfig
++++ b/arch/mips/configs/rm200_defconfig
+@@ -86,9 +86,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -105,9 +102,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+ CONFIG_BRIDGE_EBT_BROUTE=m
+diff --git a/arch/mips/configs/rt305x_defconfig b/arch/mips/configs/rt305x_defconfig
+index 8f9701efef19..fc6e5ef9da53 100644
+--- a/arch/mips/configs/rt305x_defconfig
++++ b/arch/mips/configs/rt305x_defconfig
+@@ -56,9 +56,6 @@ CONFIG_NETFILTER_XT_MATCH_MAC=m
+ CONFIG_NETFILTER_XT_MATCH_MULTIPORT=m
+ CONFIG_NETFILTER_XT_MATCH_STATE=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_RAW=m
+ CONFIG_BRIDGE=y
+ # CONFIG_BRIDGE_IGMP_SNOOPING is not set
+diff --git a/arch/mips/configs/xway_defconfig b/arch/mips/configs/xway_defconfig
+index aae8497b6872..c48e4f323204 100644
+--- a/arch/mips/configs/xway_defconfig
++++ b/arch/mips/configs/xway_defconfig
+@@ -58,9 +58,6 @@ CONFIG_NETFILTER_XT_MATCH_MAC=m
+ CONFIG_NETFILTER_XT_MATCH_MULTIPORT=m
+ CONFIG_NETFILTER_XT_MATCH_STATE=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_RAW=m
+ CONFIG_BRIDGE=y
+ # CONFIG_BRIDGE_IGMP_SNOOPING is not set
+diff --git a/arch/powerpc/configs/85xx/stx_gp3_defconfig b/arch/powerpc/configs/85xx/stx_gp3_defconfig
+index 0a42072fa23c..7441ec38a4f6 100644
+--- a/arch/powerpc/configs/85xx/stx_gp3_defconfig
++++ b/arch/powerpc/configs/85xx/stx_gp3_defconfig
+@@ -20,7 +20,6 @@ CONFIG_IP_PNP_BOOTP=y
+ # CONFIG_IPV6 is not set
+ CONFIG_NETFILTER=y
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+ CONFIG_NET_PKTGEN=y
+ # CONFIG_FW_LOADER is not set
+ CONFIG_PARPORT=m
+diff --git a/arch/powerpc/configs/cell_defconfig b/arch/powerpc/configs/cell_defconfig
+index 7a31b52e92e1..0ae6df50c38b 100644
+--- a/arch/powerpc/configs/cell_defconfig
++++ b/arch/powerpc/configs/cell_defconfig
+@@ -87,9 +87,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/powerpc/configs/linkstation_defconfig b/arch/powerpc/configs/linkstation_defconfig
+index b564f9e33a0d..05d74cbb337a 100644
+--- a/arch/powerpc/configs/linkstation_defconfig
++++ b/arch/powerpc/configs/linkstation_defconfig
+@@ -38,9 +38,6 @@ CONFIG_NETFILTER_XT_MATCH_MAC=m
+ CONFIG_NETFILTER_XT_MATCH_PKTTYPE=m
+ CONFIG_NETFILTER_XT_MATCH_STATE=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/powerpc/configs/mvme5100_defconfig b/arch/powerpc/configs/mvme5100_defconfig
+index fa2b3b9c5945..0b550473123c 100644
+--- a/arch/powerpc/configs/mvme5100_defconfig
++++ b/arch/powerpc/configs/mvme5100_defconfig
+@@ -46,9 +46,6 @@ CONFIG_NETFILTER_XT_MATCH_MAC=m
+ CONFIG_NETFILTER_XT_MATCH_PKTTYPE=m
+ CONFIG_NETFILTER_XT_MATCH_STATE=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/powerpc/configs/pmac32_defconfig b/arch/powerpc/configs/pmac32_defconfig
+index ae45f70b29f0..7e94a9946fd6 100644
+--- a/arch/powerpc/configs/pmac32_defconfig
++++ b/arch/powerpc/configs/pmac32_defconfig
+@@ -78,9 +78,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+diff --git a/arch/powerpc/configs/ppc6xx_defconfig b/arch/powerpc/configs/ppc6xx_defconfig
+index 3c08f46f3d41..dfc4c6fab94f 100644
+--- a/arch/powerpc/configs/ppc6xx_defconfig
++++ b/arch/powerpc/configs/ppc6xx_defconfig
+@@ -179,9 +179,6 @@ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -199,9 +196,6 @@ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_MH=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_IP6_NF_SECURITY=m
+ CONFIG_BRIDGE_NF_EBTABLES=m
+diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+index c2c37327b987..a9b7d476ac7a 100644
+--- a/arch/riscv/configs/defconfig
++++ b/arch/riscv/configs/defconfig
+@@ -78,18 +78,10 @@ CONFIG_IP_VS_NFCT=y
+ CONFIG_NF_LOG_ARP=m
+ CONFIG_NF_LOG_IPV4=m
+ CONFIG_IP_NF_IPTABLES=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+-CONFIG_IP_NF_NAT=m
+-CONFIG_IP_NF_TARGET_MASQUERADE=m
+ CONFIG_IP_NF_TARGET_REDIRECT=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_NF_LOG_IPV6=m
+ CONFIG_IP6_NF_IPTABLES=m
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_BRIDGE=m
+ CONFIG_BRIDGE_VLAN_FILTERING=y
+ CONFIG_VLAN_8021Q=m
+diff --git a/arch/sh/configs/titan_defconfig b/arch/sh/configs/titan_defconfig
+index 896e980d04e1..88a5dfb4901b 100644
+--- a/arch/sh/configs/titan_defconfig
++++ b/arch/sh/configs/titan_defconfig
+@@ -79,10 +79,7 @@ CONFIG_IP_NF_MATCH_ADDRTYPE=m
+ CONFIG_IP_NF_MATCH_AH=m
+ CONFIG_IP_NF_MATCH_ECN=m
+ CONFIG_IP_NF_MATCH_TTL=m
+-CONFIG_IP_NF_FILTER=m
+-CONFIG_IP_NF_TARGET_REJECT=m
+ CONFIG_IP_NF_TARGET_LOG=m
+-CONFIG_IP_NF_MANGLE=m
+ CONFIG_IP_NF_TARGET_ECN=m
+ CONFIG_IP_NF_TARGET_TTL=m
+ CONFIG_IP_NF_RAW=m
+@@ -98,9 +95,6 @@ CONFIG_IP6_NF_MATCH_HL=m
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+ CONFIG_IP6_NF_MATCH_RT=m
+ CONFIG_IP6_NF_TARGET_HL=m
+-CONFIG_IP6_NF_FILTER=m
+-CONFIG_IP6_NF_TARGET_REJECT=m
+-CONFIG_IP6_NF_MANGLE=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_BRIDGE=y
+ CONFIG_VLAN_8021Q=y
+diff --git a/arch/x86/configs/i386_defconfig b/arch/x86/configs/i386_defconfig
+index 79fa38ca954d..12fa6aa0d2a5 100644
+--- a/arch/x86/configs/i386_defconfig
++++ b/arch/x86/configs/i386_defconfig
+@@ -100,15 +100,8 @@ CONFIG_NETFILTER_XT_MATCH_CONNTRACK=y
+ CONFIG_NETFILTER_XT_MATCH_POLICY=y
+ CONFIG_NETFILTER_XT_MATCH_STATE=y
+ CONFIG_IP_NF_IPTABLES=y
+-CONFIG_IP_NF_FILTER=y
+-CONFIG_IP_NF_TARGET_REJECT=y
+-CONFIG_IP_NF_TARGET_MASQUERADE=m
+-CONFIG_IP_NF_MANGLE=y
+ CONFIG_IP6_NF_IPTABLES=y
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=y
+-CONFIG_IP6_NF_FILTER=y
+-CONFIG_IP6_NF_TARGET_REJECT=y
+-CONFIG_IP6_NF_MANGLE=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_CLS_CGROUP=y
+ CONFIG_NET_EMATCH=y
+diff --git a/arch/x86/configs/x86_64_defconfig b/arch/x86/configs/x86_64_defconfig
+index 7d7310cdf8b0..49f8d3ee5b68 100644
+--- a/arch/x86/configs/x86_64_defconfig
++++ b/arch/x86/configs/x86_64_defconfig
+@@ -101,15 +101,8 @@ CONFIG_NETFILTER_XT_MATCH_CONNTRACK=y
+ CONFIG_NETFILTER_XT_MATCH_POLICY=y
+ CONFIG_NETFILTER_XT_MATCH_STATE=y
+ CONFIG_IP_NF_IPTABLES=y
+-CONFIG_IP_NF_FILTER=y
+-CONFIG_IP_NF_TARGET_REJECT=y
+-CONFIG_IP_NF_TARGET_MASQUERADE=m
+-CONFIG_IP_NF_MANGLE=y
+ CONFIG_IP6_NF_IPTABLES=y
+ CONFIG_IP6_NF_MATCH_IPV6HEADER=y
+-CONFIG_IP6_NF_FILTER=y
+-CONFIG_IP6_NF_TARGET_REJECT=y
+-CONFIG_IP6_NF_MANGLE=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_CLS_CGROUP=y
+ CONFIG_NET_EMATCH=y
 
 -- 
 2.43.0
