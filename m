@@ -1,53 +1,53 @@
-Return-Path: <openbmc+bounces-1569-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1570-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E554FF6E9B
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D609FF6E9A
+	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 22:55:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6hh4Cqyz2yrZ;
-	Wed, 18 Mar 2026 09:54:12 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773739022;
-	cv=none; b=hANQ4XFF0JdScJ8MLxNfTfKMxmCVSfCl3HxfMGERcHqwKo66yelsHnO92AuDL+oSPGlB4PJ5FcK6sSrLpSwjJm+daSnceWYDfelUgXEjFpAopaOllad/U0uDT07wiquxB3u4x+4v0GpFIgdhirINU6TcfqK7B87kQYnpaZ3xbpt4DO1Lna+/1tyBIWHtQibIBUesyZlrPSYf4aqpV4+rqFlDYwMbGy7L3Y5NnDG7Fzr050rRUDuWVKg6xauY+OabJGqd8wuXr+aWmiLmLnMtO4Q6JgUen0I0IAsqCl85TsNeS2Dg8yDPGrz4BGUXWKt+WEkMjHAE8n9rwq+xRONZng==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6hm6v63z2yrt;
+	Wed, 18 Mar 2026 09:54:16 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773739001;
+	cv=none; b=GGafbQNKrWzVVN7J7rju2J0GEyjyo+lRZZ7MoE3eCag8X9KoU1G0GaSmqPolDX/JGb2xnxfRV4UGW7dzo/DEWBANaoyfHVtQDMwGvrIOQknD2H8bymuqqhJEDRUt6lf86dzn3iA1cipo28ss6H5cx85wpMimmT6Xhr0/Ayrx+3/r8tMF+bCnxKOQ8NFRK3kvT20OZ1aAp4MtgQS6B2F6ac25/tdH1cF138krexqbl5csupNfmU7mSeQKa76iffxEqXO/hzr5xCIM2ddpeQXNt37ty6BA1dVNDYbQiAQHhlbhpV0RLLp5PZa9oOLFoui9/kqpq4eY2RybLy+uC4id4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773739022; c=relaxed/relaxed;
-	bh=V27gIRVRx5KuFzAchtms7mRgL0MBJ3ywci9UIgbbhRM=;
+	t=1773739001; c=relaxed/relaxed;
+	bh=4wb2fOBzziQUZcQGkSysKiLjstdsHPiXu502nDd8uf0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fYSbIbADAWLrKCfxnsy6a9deeUgf2ZPeMScA2YRj3r8COLfMBlcBt2R7gbWIfwOkweaLrklAoTylEyz4DWpDWuCtxyVwRJ1k3FYAXK6YNvpS54lcZzqW9BjYQEdamfMGIcv/W+JwNjrFNlerPfmHqLcD7aPNP5vQDnCTlA2kkJOyRbCi7Ap++xPUzFSlwFZtPpg597x8UvSEjeg+BByZK8iYuJMLW8Vdig1C8RQbC5B27mehyUMFQTw7ETFvS0t0DuxyPKmUZ0BpM8Bq4DIzYJFMKEQ4Rj8EB79HnzeXZCDRw9IzH/zytugvil1kuWGeRVW0f+7saFy6Bf6yG0EieQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=XX7M7zEC; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 In-Reply-To:To:Cc; b=Ai7ameFTv0HqkIdzoWbpxQR64MIqvDi1mqogMjkDdSa/dMz/MGJ2KK1HR1OfYbtjImzFJRTAk5Vzcm3dKz1MT3XkoAiDsdNMfXG+tXAK8tWLuA5COoVAXcEYdGKDKgpdUWyRfWC6KAsXt/na+p+a+YvlvzJzWn0GFtraXhmmivvJ3Lexwf0Y+IkU8VF6EQYHcr7Tkztgx05VDngviaRlY7tW5koXXKJvmmJfV7ep9gT1hdkZSOHJ0rK9lnhndCncHXZGQOIhg8kXZ7pgFxSbX1PEOkoBairBmSC7WGX7w+dhFdB0BW7zCguD8EfSR5ZImNWIMoL1EEuWHbNaIqwz3Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=S8Qqa056; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=XX7M7zEC;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=S8Qqa056;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmYn22kJz2yfP;
-	Tue, 17 Mar 2026 20:17:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZmYP0hXTz2yfP;
+	Tue, 17 Mar 2026 20:16:41 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 100E46132E;
-	Tue, 17 Mar 2026 09:16:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA256C4CEF7;
+	by tor.source.kernel.org (Postfix) with ESMTP id B9FCD60133;
 	Tue, 17 Mar 2026 09:16:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37072C19425;
+	Tue, 17 Mar 2026 09:16:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773739018;
-	bh=BznAsGmiCeBt3HfillpWJCB2/zJ7nKDTHjSQK2m08KQ=;
+	s=k20201202; t=1773738998;
+	bh=BAMWxZ2OsIU1U9Jszn8uWbpr4W6JPsqvaL0hEo+gcx8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XX7M7zECNwKjK5OS+FeyBaOmMGOyngmufddo0EkGyv+uwFy4SUPrN43+m5BxPCC/J
-	 AtY6vBCtM75tLbOaimM0mq5BNahVBzf3ZdUFVG/0qr0bUJ1EFjlFpWketC9SLf+UiW
-	 /1ThQVxStc01xyZs7XwnrXMBIzigJROfdez3IXj8LyEWgwyUEsurLhdKoP8UmbCdov
-	 uTOsSNgSHRBEcmj9OQ5ee5TFgXCxHCQNmg47OTy7MYreKutl7ijjjsx4VHdmo29uE7
-	 zFtco1D5MfjELO7PpN6LQdLakf1erUIRe8Ko5bCj42aoPhDR9DX7jOAmsYoRVfYxfv
-	 UP/sVsuffC8zw==
+	b=S8Qqa056BHTdg+bMoGtWiQ6ASRhHQKlLJgznwKUr7FsRPJ3GR3s74vwL7h4rjansQ
+	 sujpBm4V9Vqy9AjV0C191Fco4Ek9okUfTfP2GXBeBMCUTT5oPSt9iLEc3stnojO/5O
+	 ro+JsqEpUyJVtnHB1lDk8+Y3k/2Jhm3w3vnPzE914eHTzqzJX10c56QLzMAGFxSiwu
+	 kJDt/tqdx0EDsUbjOKi7SMfi11rpfQnXADOHbASIm2ViSFPM0G2E6vYEUouviBv655
+	 IO70RbmggYj/3/gm2TO88i/FQMpDmFK58UHDPzOQgXejZMD2sSdH6i+99oYMV8uOpW
+	 eNarAu+VcfOKQ==
 From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
-Date: Tue, 17 Mar 2026 10:13:41 +0100
-Subject: [PATCH 5/9] arm: configs: remove obsolete assignments to
- SND_SOC_ROCKCHIP
+Date: Tue, 17 Mar 2026 10:13:40 +0100
+Subject: [PATCH 4/9] configs: remove implicit assignments to
+ FB_MODE_HELPERS
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,7 +61,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260317-arm_defconf_cleanup-v1-5-8eecb7fdd24d@kernel.org>
+Message-Id: <20260317-arm_defconf_cleanup-v1-4-8eecb7fdd24d@kernel.org>
 References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
 In-Reply-To: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
 To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -131,57 +131,199 @@ Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
  linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org, 
  openbmc@lists.ozlabs.org, "Vincent Mailhol (Arm)" <mailhol@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1527; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=BznAsGmiCeBt3HfillpWJCB2/zJ7nKDTHjSQK2m08KQ=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pfv2X1zzc02wu+AB9wRVzxmZoUwhQq/7dX4HLinKl
- dp6fntbRykLgxgXg6yYIsuyck5uhY5C77BDfy1h5rAygQxh4OIUgIn0BzIyXPxQ/PNgWqLjqoTX
- F6Mqypbdvrsmo+jK18rAynstrp//H2L47x5/7Mrb/I26Ias/a50Reum3t/hzyZ6rWx2DUma0R+W
- lsgAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6693; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=BAMWxZ2OsIU1U9Jszn8uWbpr4W6JPsqvaL0hEo+gcx8=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDJk7pft8z0x6lWu7PSfzouHxQPu4e+cCE1cFaV19Man+x
+ 3qJ7NrkjlIWBjEuBlkxRZZl5ZzcCh2F3mGH/lrCzGFlAhnCwMUpABP5XsTwv0jR+//Z7OOHMq94
+ bV/D07Hort2Vw1Iyh4/0S1uJuEcf02Fk2P7B0c1Gf1Jz+23X9QdepnItUJ14Yu9Fn81Pfr5WYV9
+ iyQQA
 X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-CONFIG_SND_SOC_ROCKCHIP was removed in commit cae3cc435db5 ("ASoC:
-rockchip: Standardize ASoC menu"). However it is still referenced in
-some defconfigs.
+Now that CONFIG_FB_MODE_HELPERS is an hidden configuration, there is
+no need to manually select it anymore.
 
-Remove any references to CONFIG_SND_SOC_ROCKCHIP.
+Remove any references to FB_MODE_HELPERS in the defconfigs.
 
-FYI, the suppressions were done using:
+FYI, the suppression was done using:
 
   git ls-files -z 'arch/*/configs/*defconfig' |\
-    xargs -0 sed -i -E '/^CONFIG_SND_SOC_ROCKCHIP/d'
+    xargs -0 sed -i -E '/^CONFIG_FB_MODE_HELPERS/d'
 
-Fixes: cae3cc435db5 ("ASoC: rockchip: Standardize ASoC menu")
+Fixes: c031bffabaf7 ("fbdev: Turn FB_MODE_HELPERS into an internal config option")
 Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
 ---
- arch/arm/configs/multi_v7_defconfig | 1 -
- arch/arm64/configs/defconfig        | 1 -
- 2 files changed, 2 deletions(-)
+ arch/arm/configs/am200epdkit_defconfig | 1 -
+ arch/arm/configs/collie_defconfig      | 1 -
+ arch/arm/configs/ep93xx_defconfig      | 1 -
+ arch/arm/configs/imx_v6_v7_defconfig   | 1 -
+ arch/arm/configs/lpc18xx_defconfig     | 1 -
+ arch/arm/configs/lpc32xx_defconfig     | 1 -
+ arch/arm/configs/mxs_defconfig         | 1 -
+ arch/arm/configs/omap1_defconfig       | 1 -
+ arch/arm/configs/omap2plus_defconfig   | 1 -
+ arch/arm/configs/wpcm450_defconfig     | 1 -
+ arch/arm64/configs/defconfig           | 1 -
+ arch/mips/configs/lemote2f_defconfig   | 1 -
+ arch/xtensa/configs/virt_defconfig     | 1 -
+ 13 files changed, 13 deletions(-)
 
-diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-index a9bb85873c0a..e7028dc2f9d5 100644
---- a/arch/arm/configs/multi_v7_defconfig
-+++ b/arch/arm/configs/multi_v7_defconfig
-@@ -814,7 +814,6 @@ CONFIG_SND_MMP_SOC_SSPA=m
- CONFIG_SND_PXA910_SOC=m
- CONFIG_SND_SOC_QCOM=m
- CONFIG_SND_SOC_APQ8016_SBC=m
--CONFIG_SND_SOC_ROCKCHIP=m
- CONFIG_SND_SOC_SH4_FSI=m
- CONFIG_SND_SOC_RCAR=m
- CONFIG_SND_SOC_ROCKCHIP_SPDIF=m
+diff --git a/arch/arm/configs/am200epdkit_defconfig b/arch/arm/configs/am200epdkit_defconfig
+index 2367b1685c1c..1051a61e2f80 100644
+--- a/arch/arm/configs/am200epdkit_defconfig
++++ b/arch/arm/configs/am200epdkit_defconfig
+@@ -57,7 +57,6 @@ CONFIG_SERIAL_PXA_CONSOLE=y
+ CONFIG_WATCHDOG=y
+ CONFIG_SA1100_WATCHDOG=m
+ CONFIG_FB=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_FB_TILEBLITTING=y
+ CONFIG_FB_PXA=y
+ CONFIG_FB_PXA_PARAMETERS=y
+diff --git a/arch/arm/configs/collie_defconfig b/arch/arm/configs/collie_defconfig
+index 578c6a4af620..56c4b8d537f8 100644
+--- a/arch/arm/configs/collie_defconfig
++++ b/arch/arm/configs/collie_defconfig
+@@ -61,7 +61,6 @@ CONFIG_MCP_UCB1200_TS=y
+ CONFIG_FB=y
+ CONFIG_FB_SA1100=y
+ # CONFIG_VGA_CONSOLE is not set
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+ CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y
+ CONFIG_NEW_LEDS=y
+diff --git a/arch/arm/configs/ep93xx_defconfig b/arch/arm/configs/ep93xx_defconfig
+index 9f3c7324d1cf..4fc0b14a6a4f 100644
+--- a/arch/arm/configs/ep93xx_defconfig
++++ b/arch/arm/configs/ep93xx_defconfig
+@@ -79,7 +79,6 @@ CONFIG_WATCHDOG=y
+ CONFIG_EP93XX_WATCHDOG=y
+ CONFIG_FB=y
+ CONFIG_FB_EP93XX=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_LOGO=y
+ CONFIG_USB=y
+ CONFIG_USB_DYNAMIC_MINORS=y
+diff --git a/arch/arm/configs/imx_v6_v7_defconfig b/arch/arm/configs/imx_v6_v7_defconfig
+index fadca597a944..3e227c5b7487 100644
+--- a/arch/arm/configs/imx_v6_v7_defconfig
++++ b/arch/arm/configs/imx_v6_v7_defconfig
+@@ -295,7 +295,6 @@ CONFIG_DRM_IMX_HDMI=y
+ CONFIG_DRM_ETNAVIV=y
+ CONFIG_DRM_MXSFB=y
+ CONFIG_FB=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_LCD_CLASS_DEVICE=y
+ CONFIG_LCD_L4F00242T03=y
+ CONFIG_LCD_PLATFORM=y
+diff --git a/arch/arm/configs/lpc18xx_defconfig b/arch/arm/configs/lpc18xx_defconfig
+index f142a6637ede..98a0b0c3736d 100644
+--- a/arch/arm/configs/lpc18xx_defconfig
++++ b/arch/arm/configs/lpc18xx_defconfig
+@@ -109,7 +109,6 @@ CONFIG_REGULATOR=y
+ CONFIG_REGULATOR_FIXED_VOLTAGE=y
+ CONFIG_DRM=y
+ CONFIG_DRM_PL111=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_USB=y
+ CONFIG_USB_EHCI_HCD=y
+ CONFIG_USB_EHCI_ROOT_HUB_TT=y
+diff --git a/arch/arm/configs/lpc32xx_defconfig b/arch/arm/configs/lpc32xx_defconfig
+index c0d4bc141a12..4c81b5fefd2c 100644
+--- a/arch/arm/configs/lpc32xx_defconfig
++++ b/arch/arm/configs/lpc32xx_defconfig
+@@ -105,7 +105,6 @@ CONFIG_DRM=y
+ CONFIG_DRM_PANEL_SIMPLE=y
+ CONFIG_DRM_PANEL_EDP=y
+ CONFIG_DRM_PL111=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+ CONFIG_LOGO=y
+diff --git a/arch/arm/configs/mxs_defconfig b/arch/arm/configs/mxs_defconfig
+index 603fb003b223..1717e364e21c 100644
+--- a/arch/arm/configs/mxs_defconfig
++++ b/arch/arm/configs/mxs_defconfig
+@@ -90,7 +90,6 @@ CONFIG_DRM=y
+ CONFIG_DRM_PANEL_SEIKO_43WVF1G=y
+ CONFIG_DRM_MXSFB=y
+ CONFIG_FB=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_LCD_CLASS_DEVICE=y
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ CONFIG_BACKLIGHT_PWM=y
+diff --git a/arch/arm/configs/omap1_defconfig b/arch/arm/configs/omap1_defconfig
+index df88763fc7c3..fc2150b347b6 100644
+--- a/arch/arm/configs/omap1_defconfig
++++ b/arch/arm/configs/omap1_defconfig
+@@ -137,7 +137,6 @@ CONFIG_FB_OMAP_LCDC_HWA742=y
+ CONFIG_FB_OMAP_MANUAL_UPDATE=y
+ CONFIG_FB_OMAP_LCD_MIPID=y
+ CONFIG_FIRMWARE_EDID=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_LCD_CLASS_DEVICE=y
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+ CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y
+diff --git a/arch/arm/configs/omap2plus_defconfig b/arch/arm/configs/omap2plus_defconfig
+index 0464f6552169..810c0cace407 100644
+--- a/arch/arm/configs/omap2plus_defconfig
++++ b/arch/arm/configs/omap2plus_defconfig
+@@ -506,7 +506,6 @@ CONFIG_DRM_TI_TFP410=m
+ CONFIG_DRM_TI_TPD12S015=m
+ CONFIG_FB=y
+ CONFIG_FIRMWARE_EDID=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_FB_TILEBLITTING=y
+ CONFIG_LCD_CLASS_DEVICE=y
+ CONFIG_LCD_PLATFORM=y
+diff --git a/arch/arm/configs/wpcm450_defconfig b/arch/arm/configs/wpcm450_defconfig
+index cd4b3e70ff68..d28aea17480d 100644
+--- a/arch/arm/configs/wpcm450_defconfig
++++ b/arch/arm/configs/wpcm450_defconfig
+@@ -133,7 +133,6 @@ CONFIG_MFD_SYSCON=y
+ CONFIG_REGULATOR=y
+ CONFIG_REGULATOR_FIXED_VOLTAGE=y
+ CONFIG_FB=y
+-CONFIG_FB_MODE_HELPERS=y
+ # CONFIG_HID is not set
+ CONFIG_USB_CHIPIDEA=y
+ CONFIG_USB_CHIPIDEA_UDC=y
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index baff2cd34721..7f6334d1d040 100644
+index 1f6ce04c0b4b..baff2cd34721 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
-@@ -1085,7 +1085,6 @@ CONFIG_SND_SOC_SC8280XP=m
- CONFIG_SND_SOC_SC7180=m
- CONFIG_SND_SOC_SC7280=m
- CONFIG_SND_SOC_X1E80100=m
--CONFIG_SND_SOC_ROCKCHIP=m
- CONFIG_SND_SOC_ROCKCHIP_I2S_TDM=m
- CONFIG_SND_SOC_ROCKCHIP_SAI=m
- CONFIG_SND_SOC_ROCKCHIP_SPDIF=m
+@@ -1037,7 +1037,6 @@ CONFIG_DRM_ZYNQMP_DPSUB_AUDIO=y
+ CONFIG_DRM_POWERVR=m
+ CONFIG_FB=y
+ CONFIG_FB_EFI=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_BACKLIGHT_PWM=m
+ CONFIG_BACKLIGHT_APPLE_DWI=m
+ CONFIG_BACKLIGHT_QCOM_WLED=m
+diff --git a/arch/mips/configs/lemote2f_defconfig b/arch/mips/configs/lemote2f_defconfig
+index 8d3f20ed19b5..9ea6ffa83c7f 100644
+--- a/arch/mips/configs/lemote2f_defconfig
++++ b/arch/mips/configs/lemote2f_defconfig
+@@ -137,7 +137,6 @@ CONFIG_FB_SIS_315=y
+ CONFIG_FB_SIMPLE=y
+ CONFIG_FB_SM712=y
+ CONFIG_FIRMWARE_EDID=y
+-CONFIG_FB_MODE_HELPERS=y
+ CONFIG_FB_TILEBLITTING=y
+ CONFIG_BACKLIGHT_CLASS_DEVICE=y
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+diff --git a/arch/xtensa/configs/virt_defconfig b/arch/xtensa/configs/virt_defconfig
+index 982dd67ed174..b86135b0ea84 100644
+--- a/arch/xtensa/configs/virt_defconfig
++++ b/arch/xtensa/configs/virt_defconfig
+@@ -68,7 +68,6 @@ CONFIG_HW_RANDOM_VIRTIO=y
+ CONFIG_DRM=y
+ CONFIG_DRM_VGEM=y
+ CONFIG_DRM_VIRTIO_GPU=y
+-CONFIG_FB_MODE_HELPERS=y
+ # CONFIG_VGA_CONSOLE is not set
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+ CONFIG_LOGO=y
 
 -- 
 2.43.0
