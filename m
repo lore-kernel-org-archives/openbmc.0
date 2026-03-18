@@ -1,68 +1,77 @@
-Return-Path: <openbmc+bounces-1594-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1595-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF96FF6E9C
-	for <openbmc@archiver.kernel.org>; Tue, 17 Mar 2026 23:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F66A10854C9
+	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 01:55:56 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fb6x100y8z2yv0;
-	Wed, 18 Mar 2026 10:04:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773733415;
-	cv=none; b=a4ignmjkPAu+CbrPkqbDb3yUcAAh/UN8FiEpZYTbfNLRfovRxS7hbkEY72QxkPMfTMvUNaj2fPT2BGeBUCahfEfNcTPHEBZCj/MmI0XXGQiTst3nbT0embimJee2J7vPztcLdkxzeznliEzJTmUQ0lxu4Z+q4hm0qwo3Bd3qza7IGjLmARdPNNmWUDkfafmS1z2j4mUV12g0Tf4cJH+1PbskGdpHTaveqLuHL9/aiCHPKCUWogecKB0Pq362Wpuk/mvJCaT1AfDflRInTvtj/0RnLwrKVv2VdnjYNP0yq+fb1EYwxVmbVjdM9B9sdnlrsQMZBKwKJOCoxZNp2ZB3lw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fbBkC0JpWz2yjw;
+	Wed, 18 Mar 2026 12:55:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773798946;
+	cv=none; b=KfwAX6mkIiS9YxNrGdfs+MB40PSF7sls42PHrV0b4ejlGEYxeNl2OqYDxSkz7E1uvZHUoocI5CTtn4PeQ9O/c2RhRRvlRcI8DnafVphZrJCXHNMCWnQizJDgo1ItLocDHYkk2S1YTpH0Ia3XsVEpIfktEWpNi1A3Si0mIrWLZPNMWmjNptfC9jCs/ko9Znnq5fXpY8OvP69T3Kby6mKkq4DK33jEWVO26OvgzJY2PzA1t1qRcuvc3rV/tiCmVCg2GgaS/1EzT4xauYpMNpVR2yXyyYv7QUIlCKug41o+XnTa2rCoKl8FSldZQClH5TRa7llhdXn1QpWALXdanP2+Vg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773733415; c=relaxed/relaxed;
-	bh=cCz+/Q9Zpewt2kEA1alKqTlk1IxVnjfGIDqFOUHoS8I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gWxZC5gRB59kH0Lizv1zmUnqRpMX7BVpTudOQU28vpTqTXBokQofza8f3QreiqL8HG1vawizKypLAhw06Pt63H+ns3So3R3ovuZtYMfsWlimPrRqaob/0Z539cbnEEW6Ks27L4hLA71PM1PE//XtyxE4FvQK9nhXuNpumSPDkXdvdDJreQZwu1iX0iDxlRVBq/SSX4jbbOWsdJ1cmx2PN2gSxk/vPSPhW+se6CB81I4ro/dTZ6kOe2vhheyikXSpgcEt/33KB3UtsBqsOa8fAcqYZiF3A9WCbryeI6w3r4GoyIN9B7/CFl4NuXreKexSsgmBeFnhlDxGX7mOF5JR1w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	t=1773798946; c=relaxed/relaxed;
+	bh=3JThk0kPSAg9d5X5Swzc6oumoGxMPTx0zxcz2YCRC5w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oTswW5Sf6EKkMFnBcxfrwXHzrYXU9c+p6DFZahWmnbhCHItBOUOuC095UwVl6uXnzg5nL+vXs7ZeJeATXuHyPQmVJvYDrS+t3LSovuTAWvw14Pc++cVHcNucyfn3RvhkhV4ie8E/96wHGBtlPezh7fQt4I1CviRdYD1oM8rV6eOQ4FwR9VeRlSEb4Xo3V7xnssch8RDTiw+DkT1tKguVM7N0rcSf2/lPotb0AGkFQAevLcr9lXdbgDW9OQmtHvd7BpggV9qX0ngBJpBZcJ/nm0SSdgzddNQVbkbsG/HDHSDUwXE+dvl4lbXQFQNnelujCBaTdookhOT7fdpt7qCEUA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=eltBYvKc; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=jk@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=eltBYvKc;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=jk@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fZkTy0JrYz2yjV
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Mar 2026 18:43:33 +1100 (AEDT)
-X-UUID: ccd555ba21d411f1a21c59e7364eecb8-20260317
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:2353634c-bd9c-454e-bf68-c3439609b284,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:87ef9ab8286604c6f2f3d0b3aae2297d,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ccd555ba21d411f1a21c59e7364eecb8-20260317
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 88395760; Tue, 17 Mar 2026 15:42:07 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	openbmc@lists.ozlabs.org,
-	linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	broonie@kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v3 09/17] spi: sifive: Use helper function devm_clk_get_enabled()
-Date: Tue, 17 Mar 2026 15:41:51 +0800
-Message-Id: <e0d249f53fc99a84092f29859ace9a1f22aab573.1773733017.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1773733017.git.xiaopei01@kylinos.cn>
-References: <cover.1773733017.git.xiaopei01@kylinos.cn>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbBk93ySmz2xQ1;
+	Wed, 18 Mar 2026 12:55:45 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1773798943;
+	bh=3JThk0kPSAg9d5X5Swzc6oumoGxMPTx0zxcz2YCRC5w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eltBYvKcITP0xHs321ACs74jrhtX41HLi324xDPVprg8uoy3LRLpDbASpZSS9W8KJ
+	 wwVB8Xd3P17NelBT1MyKWm2gg/tGN+RisolDk4blV1nidbZrwvZ649K5Sid8QYCGoK
+	 yQd3SqvvIIQbpo5XgT/4l01J+f+ZIb/IBVytDapnBVLinY6V+udzANQfDX3gN6QRU2
+	 M4ocEkXCJ6y+Cy/LTMx2mwcaG8IAfI4ghduDGKL2YgGGKh2vy8LEykNdugwnZjUj8q
+	 gWPW5jY8nPq5LSRHhpgGxDEYyE+mG5sCMGbZaM1Qfs74um+Xw0ZUl63H5a05+7fPG3
+	 LJCPvPpPtIIvg==
+Received: from pecola.lan (unknown [159.196.93.152])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8DA5660BA5;
+	Wed, 18 Mar 2026 09:55:41 +0800 (AWST)
+Message-ID: <071adc5f76b71b3e8d2691945e7b178602b285f9.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v26 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
+ global-regs and transfer-mode properties
+From: Jeremy Kerr <jk@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Rob Herring <robh@kernel.org>
+Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+  Andi Shyti <andi.shyti@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+ <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Benjamin
+ Herrenschmidt <benh@kernel.crashing.org>,  Philipp Zabel
+ <p.zabel@pengutronix.de>, "linux-i2c@vger.kernel.org"
+ <linux-i2c@vger.kernel.org>,  "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Date: Wed, 18 Mar 2026 09:55:41 +0800
+In-Reply-To: <TY2PPF5CB9A1BE6EAA73D3AD6F75F1ABD53F241A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com>
+	 <20260309-upstream_i2c-v26-2-5fedcff8ffe8@aspeedtech.com>
+	 <20260313232125.GA3618633-robh@kernel.org>
+	 <TY2PPF5CB9A1BE6A19D439C675AF5028C13F242A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+	 <7ae8222bf6abd83a3c2ac976f54a2edbe4e9727a.camel@codeconstruct.com.au>
+	 <CAL_JsqKQp=HyA90rQ2Hzu148k63k5-qrGLH6sEHXNcjAu3QSwg@mail.gmail.com>
+	 <eeac1db0a5692ae45b5528a85ed1510b8b1cf771.camel@codeconstruct.com.au>
+	 <TY2PPF5CB9A1BE6EAA73D3AD6F75F1ABD53F241A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2+deb12u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -74,96 +83,52 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-devm_clk_get() and clk_prepare_enable() can now be replaced by
-devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
-longer necessary to unprepare and disable the clocks explicitly.
-Simplify code.
+Hi Ryan,
 
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
----
- drivers/spi/spi-sifive.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+> > Not at all - the next paragraph was my attempt at a recap of those, but=
+ Ryan,
+> > please correct me if I am wrong on any of those points.
+>=20
+> Your understanding is correct; the byte and buffer mode is mostly the sam=
+e.
+> And also mode should be decided before xfer, due to the controller/target
+> both use the same xfer mode, not decide by transfer time.
+> The original my submit is only buffer mode and dma mode, and use only one
+> Boolean property, aspeed,i2c-dma-enabled, but someone suggest add byte
+> mode select, so I start to add at v17. I can drop the byte mode, if this =
+is confused.
+>=20
+> byte mode request:
+> https://lore.kernel.org/all/010e55e9-d58b-444c-ab57-ddf8c75f2390@gmail.co=
+m/
 
-diff --git a/drivers/spi/spi-sifive.c b/drivers/spi/spi-sifive.c
-index 6c7aba8befa0..54adbc057af6 100644
---- a/drivers/spi/spi-sifive.c
-+++ b/drivers/spi/spi-sifive.c
-@@ -312,7 +312,8 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 		goto put_host;
- 	}
- 
--	spi->clk = devm_clk_get(&pdev->dev, NULL);
-+	/* Spin up the bus clock before hitting registers */
-+	spi->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(spi->clk)) {
- 		dev_err(&pdev->dev, "Unable to find bus clock\n");
- 		ret = PTR_ERR(spi->clk);
-@@ -342,13 +343,6 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 		goto put_host;
- 	}
- 
--	/* Spin up the bus clock before hitting registers */
--	ret = clk_prepare_enable(spi->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Unable to enable bus clock\n");
--		goto put_host;
--	}
--
- 	/* probe the number of CS lines */
- 	spi->cs_inactive = sifive_spi_read(spi, SIFIVE_SPI_REG_CSDEF);
- 	sifive_spi_write(spi, SIFIVE_SPI_REG_CSDEF, 0xffffffffU);
-@@ -357,14 +351,14 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 	if (!cs_bits) {
- 		dev_err(&pdev->dev, "Could not auto probe CS lines\n");
- 		ret = -EINVAL;
--		goto disable_clk;
-+		goto put_host;
- 	}
- 
- 	num_cs = ilog2(cs_bits) + 1;
- 	if (num_cs > SIFIVE_SPI_MAX_CS) {
- 		dev_err(&pdev->dev, "Invalid number of spi targets\n");
- 		ret = -EINVAL;
--		goto disable_clk;
-+		goto put_host;
- 	}
- 
- 	/* Define our host */
-@@ -392,7 +386,7 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 			       dev_name(&pdev->dev), spi);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Unable to bind to interrupt\n");
--		goto disable_clk;
-+		goto put_host;
- 	}
- 
- 	dev_info(&pdev->dev, "mapped; irq=%d, cs=%d\n",
-@@ -401,13 +395,11 @@ static int sifive_spi_probe(struct platform_device *pdev)
- 	ret = devm_spi_register_controller(&pdev->dev, host);
- 	if (ret < 0) {
- 		dev_err(&pdev->dev, "spi_register_host failed\n");
--		goto disable_clk;
-+		goto put_host;
- 	}
- 
- 	return 0;
- 
--disable_clk:
--	clk_disable_unprepare(spi->clk);
- put_host:
- 	spi_controller_put(host);
- 
-@@ -421,7 +413,6 @@ static void sifive_spi_remove(struct platform_device *pdev)
- 
- 	/* Disable all the interrupts just in case */
- 	sifive_spi_write(spi, SIFIVE_SPI_REG_IE, 0);
--	clk_disable_unprepare(spi->clk);
- }
- 
- static int sifive_spi_suspend(struct device *dev)
--- 
-2.25.1
+I understand that there may be valid uses for byte mode, but that does
+not mean the configuration belongs in the device tree.
 
+We do not seem to have much data on what those valid uses are, but I am
+assuming it is not an attribute of the controller peripheral hardware.
+
+[As an example: I suspect MCTP cannot be fully spec-compliant without
+byte mode, in order to support the NAK window on target-mode RX. In that
+case we can enforce byte mode when the controller is selected for MCTP
+use, without requiring a mode selection property in the DT]
+
+> > Ryan: I think this gives us a much cleaner approach to the binding.
+> Thanks the feedback, do you mean, just one boolean property for mode sele=
+ction,
+> Am I right?
+
+The property would not select a mode, it just indicates whether DMA is
+available.
+
+A driver implementation can use that indication, along with any other
+configuration data, in order to select a mode. The Linux driver
+implementation may use other runtime facilities to control that
+selection, if you need, like sysfs or configfs.
+
+Cheers,
+
+
+Jeremy
 
