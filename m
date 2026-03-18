@@ -1,51 +1,81 @@
-Return-Path: <openbmc+bounces-1602-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1603-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A28FCD0D0
-	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 08:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EF42FCD0D3
+	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 08:24:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fbM9N6Mfkz2yjs;
-	Wed, 18 Mar 2026 19:16:24 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773821784;
-	cv=none; b=n+XcBU1DRgNJjJQBaElUzDsLW6pGoqM9rq6hqNHCN0Q/d113MrzkUsVeM7lcYZ9krhyRsGXZ6+GMpLGPzY02t85ye3Gncn8ct6cUGAkhiT25Xy8IL3J3X4w3t6m4qbyxlJTaLZdmJveOKmOpcgaqy1SK9OxwVvWu/1mBY1bvPn8CgzoKfeK4uMmclkyaUbVKRRWOG5xkXInip/RhG36aCBc2VtHzlohoqH/GSJ1MmT7KQEgAp0gRIWhpxleoWRMcSnfBRR67uL9lzjfNGlbChAFU32V6nomcTQzozSUqTFcAnx/p4QgEc+RCJCYjjAL3lAAPt+1smYbNPDZystCk0g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fbMLM3RV1z2yjm;
+	Wed, 18 Mar 2026 19:24:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773822251;
+	cv=none; b=RzmiLHwh5GZDrLrWIlkSbjDtXO53tSxlLE6Vxyl+e30v/jD5VtvkSsDtWv7heo0JFksmifRLsu5HpI/5bZMHOLSZo/z0T9Rl/zorGgiOb6Wi5Xpul31ioNPhtzrBq9sY/+iAj6QmRDGiLWHc8ix1jfC7G2TtQmIrO2gOV4sqa3O7Xl4W9B9GZkE2z2t9Em9s5/BfQBaqfJHH2RpPNMy8sT7ldgKMIXL3yroFoDKLZthMg4VJQ9EROiAf6pt+eoli5hxgnQ3jQFoc1RahlHsKkR0lweNQUk8tYDpurox7wS1lf/sxoUlJ2hKaUEowf5sG5ZRwpDXjVUZ+dbOE7XsTJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773821784; c=relaxed/relaxed;
-	bh=X31UO4wA3rKXF5nT3CdmIVnOE8zC3QnumFRTggQWkfw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vhni8mAnLY9jJ8OMPDhL/Io6lX1gTjNpyO+aJRB+NpCNw/29BTL/4+GzyKXIx06c6OATzNv+8nJ2gWUZUZ/7jJz/vzIuPBZQY08yD68rdZzZvsGjGCj6xxNcnpWECcT2dpgiR8029GjgaeeetH2HzikyR9puX3yP9DuPAsh4uly/meCS4nY1z5Y3z5aV/USF13jwuDFadOIMhpF6tZU2XrGGf8kzNgXkj5iJ6KGFWyfZe0pn5bPA3AiKtul89NkpW7R+t8gSThXskJYJuMLFwwUSehP7s3jgeoDTL7LK3IKl9jEmT6wlROLVVyPpXw6hhzS/wFgW6DlhiqeIoH6Zcg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MF5CVt1t; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1773822251; c=relaxed/relaxed;
+	bh=mrhLqIr375zkIF1P8tW7+p8P3V9w1E/lvaNsvQiZRKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cmVjMmtLJiS2daJnPM2vmv44AdokGrfdl7nWylT28+w1IcRQeGbNpf2cB04IXWMRL6ZpwhrDFBh8yynt5pmN44VHLMbc38zU9DzjJJwJA/SOaz1iNIHMU2TKxlsN+Cqdd/nhm1L34QktVuBkvApRKq/51C2CbuUP/g2/ZT89Ahmpqvgb6PCZmgju677nQr9A0YGJM7mxbqX/wqOSJdzaQrugELGb/m2cs5MS3f+YalwAQkB74hpI3cQUIYbaM6VsRCVolZV9NmE603BAXb70aQgEruod8BcFQioaYmzvwTAFL87qQYnO3zpscvugFsPpIv51xEF6nu/LdIuHkl7+oQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=FdWYyowz; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=horms@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MF5CVt1t;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=FdWYyowz;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=horms@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbM9M52nQz2xQB;
-	Wed, 18 Mar 2026 19:16:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbMLL1q0Sz2xQB
+	for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 19:24:10 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 7A409600AE;
-	Wed, 18 Mar 2026 08:16:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72E4C19421;
-	Wed, 18 Mar 2026 08:16:17 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id E3CA5417BA;
+	Wed, 18 Mar 2026 08:24:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53225C19421;
+	Wed, 18 Mar 2026 08:24:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773821781;
-	bh=24fPFwUkbw//dSGKXR5fDVH0uAFMUSzI9ZdDlbFt4Fs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MF5CVt1tB6vSe8iiWK2mYjHTALFieTz2c1hiW4cz+W+53MvHQ7V33+CVbI2jxl3B4
-	 tIrGZ/BkxGyuyclxXMKOrwLUg+6Ct8aUkHR49op/0X3osJb8CV68xeHWJEAO2RT1Xe
-	 OBekmrALQ4rAsl6iyw1mNu46WK3YsFI9xs4OXMPlglhxjp/gPlb+jyogctqCOO6EKk
-	 KMXfnsqUZn04a2L6K0LUObRfOz6u4jL8MSmzpqhIs42ZC0EG/tssWCpb6gekYO92Am
-	 sNzGXOsKy9YVmGS4SDb02LniynXKYTD3orp3hpP1SeYjzGRp7+/XoYa9M2ZsUM25pD
-	 xKOiPzz6oN60Q==
-Message-ID: <f46bf4fb-b6e5-4238-9c23-c435c4b8e275@kernel.org>
-Date: Wed, 18 Mar 2026 09:16:15 +0100
+	s=k20201202; t=1773822247;
+	bh=zbrEzDQ0AblNhXke6/7cPNOTm3Avyhavj22x1LcfmRs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FdWYyowzn9WA2aJGuHLNRqX/QEe2NLHcUNCkhDUY64ztt4svOZmzxFrWlzmUHI6xU
+	 /uZ6hPer+e0gNtoBPTWwrX/4/7Y7NvBA8sBZlt870hhJjKBW7mlNFErn5jRqmcWzUI
+	 ZvuE9nLCPHP31SJgQXUPwHPO6asgJzE8clgaERBQLzu6N9cYSGvueZs5NEtbkDxERW
+	 0uJbhCBwzFOmdXng/YhTB1b3/JQeJfKObJH/IhHBdmBsZiqjuYj2FAYfYX/gYxNizC
+	 3PxPrHxwNqCsWYeU/7l/EP6+bQvr/f/z2ZIb4fdI4QjIBTDeTbHHgHvFBmLlYCncbE
+	 OJTQxjRlH3XgQ==
+From: Simon Horman <horms@kernel.org>
+To: a0987203069@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	richardcochran@gmail.com,
+	devicetree@vger.kernel.org,
+	edumazet@google.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	joabreu@synopsys.com,
+	linux-kernel@vger.kernel.org,
+	krzk+dt@kernel.org,
+	pabeni@redhat.com,
+	kuba@kernel.org,
+	andrew+netdev@lunn.ch,
+	netdev@vger.kernel.org,
+	conor+dt@kernel.org,
+	schung@nuvoton.com,
+	linux-arm-kernel@lists.infradead.org,
+	davem@davemloft.net,
+	robh@kernel.org,
+	yclu4@nuvoton.com,
+	andrew@lunn.ch,
+	mcoquelin.stm32@gmail.com,
+	ychuang3@nuvoton.com,
+	openbmc@lists.ozlabs.org,
+	peppe.cavallaro@st.com,
+	alexandre.torgue@foss.st.com
+Subject: Re: [net-next,v14,3/3] net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+Date: Wed, 18 Mar 2026 08:23:46 +0000
+Message-ID: <20260318082346.1825390-1-horms@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260316055427.1310569-4-a0987203069@gmail.com>
+References: <20260316055427.1310569-4-a0987203069@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -57,138 +87,89 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mmc: dt-bindings: sdhci-of-aspeed: Add AST2700
- fallback compatibles
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Ryan Chen <ryanchen.aspeed@gmail.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@aj.id.au>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260317-sdhci-v2-0-39b1f063061b@aspeedtech.com>
- <20260317-sdhci-v2-1-39b1f063061b@aspeedtech.com>
- <20260318-abiding-sloppy-poodle-efd3e5@quoll>
- <TY2PPF5CB9A1BE666DEF10944BBA2A2256BF24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <TY2PPF5CB9A1BE666DEF10944BBA2A2256BF24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/03/2026 09:09, Ryan Chen wrote:
->> Subject: Re: [PATCH v2 1/2] mmc: dt-bindings: sdhci-of-aspeed: Add AST2700
->> fallback compatibles
->>
->> On Tue, Mar 17, 2026 at 01:56:42PM +0800, Ryan Chen wrote:
->>> Describe AST2700 as compatible with the existing AST2600 SD controller
->>> and SDHCI bindings by requiring fallback compatibles in the device tree.
->>>
->>> Also require `resets` on the AST2700 SD controller node.
->>>
->>> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
->>> ---
->>> Changes in v2:
->>> - add missing blank line
->>> - modify ast2700 compatible items const
->>
->> Why?
->>
->>> ---
->>>  .../devicetree/bindings/mmc/aspeed,sdhci.yaml      | 39
->> +++++++++++++++++-----
->>>  1 file changed, 31 insertions(+), 8 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
->>> b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
->>> index d24950ccea95..9c8e068964a1 100644
->>> --- a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
->>> +++ b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
->>> @@ -22,10 +22,14 @@ description: |+
->>>
->>>  properties:
->>>    compatible:
->>> -    enum:
->>> -      - aspeed,ast2400-sd-controller
->>> -      - aspeed,ast2500-sd-controller
->>> -      - aspeed,ast2600-sd-controller
->>> +    oneOf:
->>> +      - const: aspeed,ast2400-sd-controller
->>> +      - const: aspeed,ast2500-sd-controller
->>> +      - const: aspeed,ast2600-sd-controller
->>
->> No, previous code was correct.
->>
->> Is this some microslop LLM product? I questioned style last time and now we
->> got random changes without explanation.
->>
->> Please confirm - did you use any LLM microslop tools to create this patch?
-> No I create it with B4. And commit each by each, I don't use LLM to porting this.
-> 
->> Please also confirm - who internally reviewed this patch before posting?
-> I port this and do test in my side and confirm it.
-> 
-> 
-> In https://lore.kernel.org/all/20260314-flat-topaz-peacock-440a9c@quoll/#t 
-> You request drop driver compatible; 
-> Base on your instruction, So I do my study in Linux.
-> Use following to do compatible. Not add driver compatible string.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 
-Replacing enum into list of const is not related/relevant to what you
-wanted to achieve.
+For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+---
+net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
 
-Best regards,
-Krzysztof
+Add support for Gigabit Ethernet on Nuvoton MA35 series using dwmac
+driver.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+> @@ -0,0 +1,136 @@
+
+[ ... ]
+
+> +static int nvt_gmac_probe(struct platform_device *pdev)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct stmmac_resources stmmac_res;
+> +	struct device *dev = &pdev->dev;
+> +	struct nvt_priv_data *priv;
+> +	int ret;
+> +
+> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get platform resources\n");
+> +
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return dev_err_probe(dev, PTR_ERR(plat_dat), "Failed to get platform data\n");
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return dev_err_probe(dev, -ENOMEM, "Failed to allocate private data\n");
+> +
+> +	priv->regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys",
+> +							    1, &priv->macid);
+> +	if (IS_ERR(priv->regmap))
+> +		ret = dev_err_probe(dev, PTR_ERR(priv->regmap), "Failed to get sys register\n");
+> +
+> +	if (priv->macid > 1)
+> +		ret = dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
+>                                                                                   ^^^^
+
+Does this code return the error on failure? The dev_err_probe() result is
+assigned to ret but the function continues execution without returning.
+
+Russell King's v12 review suggested using set_phy_intf_sel callback,
+which led to significant refactoring in v12. This refactoring appears to
+have inadvertently broken the error handling here and below.
+
+The code should be:
+	if (IS_ERR(priv->regmap))
+		return dev_err_probe(dev, PTR_ERR(priv->regmap), "Failed to get sys register\n");
+
+	if (priv->macid > 1)
+		return dev_err_probe(dev, -EINVAL, "Invalid sys arguments\n");
+
+See Russell's v12 review:
+https://lore.kernel.org/netdev/aYsurPBMnzWDZCco@shell.armlinux.org.uk/
+
+> +
+> +	plat_dat->bsp_priv = priv;
+> +	plat_dat->set_phy_intf_sel = nvt_set_phy_intf_sel;
+> +
+> +	return stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+> +}
+
+[ ... ]
 
