@@ -1,93 +1,102 @@
-Return-Path: <openbmc+bounces-1610-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1611-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF2B1077610
-	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 20:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B065D1088E4C
+	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 22:39:43 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fbgBM5CNtz2ynT;
-	Thu, 19 Mar 2026 07:18:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=202.12.124.159
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773865099;
-	cv=none; b=WOpr+6rbWlM1MB5wBzBv35ggxPzk9niDiGw17V0OS/K8nqjDNF5Tr2uda2f/hRkxi6KAzzm1/9Q93SUxV9bSZYX66ehHAM8pDC58TW1Zm6ERme9YRmlc+vL/acehyxDKmbUgpeHgEZZ3FoK7p2KmrdW8uniMhZ3XnOhZ3akaSzICKQRATEKX3v1iSfAThW2SFIQNJP8cS9Fel/cDRpcyPO5YmSeplXAgN818ws0FMrnDYQYU3CUEWzUOZpAlQlQ4Xab98bc6fxw7JJ5AsTMv+E7x9KYrTp9TjepZ3SxH7e0IUvHlWUNdl7n+s+SUht0LjAWtbBOiM4zza+YG1R1T0A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fbkKP0zCmz2yjN;
+	Thu, 19 Mar 2026 09:39:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1029"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773862615;
+	cv=none; b=BB3gKuflxs/jHCFRFzBmYVAG/fcHiXy6fDLqTovZBTv5GMVrHDNv2nO0QxYcOuwkaPHWb4EIA1dTnh8R+ZI9f8BGW83VZs4gvz0/wWmOo1LMLlvs5msiWSTKRYqU/DIA2a9y4MKs/FV82sn0eXFg9eamYKmoy2rS2t5eW1jVG8rcN+LurRZwbcMrZZ2aYOxVOvch5IcW66C0nwpZ+LKrxhmkRXOVaWo6UKhi0GpI/smMbZGc7sn97H73OK4xzwZ3JDubFMDMsa+6IW36J8RZXAnBFXiP/AQODQ5fXLUgtPbyga6/67j8E94xhOJEzgPK6LxRXAGcCvmJxIeYoOyijA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773865099; c=relaxed/relaxed;
-	bh=k64el+qQAWL27CX2Jjqad4PDW12YWCijh0TENy91zCs=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GndlCU8ZhOyybya2z9AX/ttsd2ftANxsa5ML6yt7fig8kB4/6QdKD2KoYMu7MDgD9FQMtaaByhC6U6g5QysA8+GCbK8BokLABjr7hacqHa1+NNHM8T6DKHPlzov9JN3/PH7NhE/+gkcTSu54sDPuoUeTh/Rgm7FbmOopeOxTe85p/Uhz9CbcHg3YVga81JDdVMpbxMQMeNSW8JYlfzr10iPsC3TNpWdTXK871lFVU/yII7Q7cBbLHQdDavR9Pe6+1aN8Cu6fzxF80eUYzKnVNCYxJxMIPw1DZ7sUy/xKT2zM6PlVrlO1s9sZaoO7EOyB1/GefKQAr80WsZBkpk4aMw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=RkUtk6i1; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=XxMUIHlT; dkim-atps=neutral; spf=pass (client-ip=202.12.124.159; helo=fhigh-b8-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	t=1773862615; c=relaxed/relaxed;
+	bh=qhe6Bw5swAXowEnRvu3RMufWPhEQIrULXXpRHTNF+tE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lKwZbMIjarat4IjqggoZLkDv6/Fe5ldiz93fpXDVuLd4ASqcVw8rvmFI/3O8V3q8Pe8aagOE/FhEHTTuPQ7sjxm3Goo7Iw3no5JWER+IZfabMPEgRTLtt1wLl/GvHDKuoAseXYrE/leRfLNjxK2bCQnoqoYbma4vVS6M/ptnSq46EYHj30e+z22fgL1Z9n4Qugx5UBVQkrCSd+MfI6TqWhJia6g0ay16lR3dyfDxNH3heGGJ16ZFLtfTAzsEHh9PxMhfBwsQUsAwxhGcLyd7kT8nl9l9HyJ8l5QUFb3jzUtdfN4ucioC4uCHmQ4tbyKGyGGaZEjvo78TJcHIsVDgdw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=lgZLXltM; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=visitorckw@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm3 header.b=RkUtk6i1;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm1 header.b=XxMUIHlT;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=lgZLXltM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=202.12.124.159; helo=fhigh-b8-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-X-Greylist: delayed 387 seconds by postgrey-1.37 at boromir; Thu, 19 Mar 2026 07:18:16 AEDT
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=visitorckw@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbgBJ4rBPz2xYk
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 07:18:16 +1100 (AEDT)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 2E0FE7A00D4
-	for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 16:11:45 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Wed, 18 Mar 2026 16:11:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1773864704; x=1773951104; bh=k64el+qQAW
-	L27CX2Jjqad4PDW12YWCijh0TENy91zCs=; b=RkUtk6i1OrpK5Nqds5g/aforO+
-	6+Nq28Z0RDGi1/e4KyCdvEBDx8/BBTniJblr8VnJZdcgm3jFynVpVNENc7ZX7HI/
-	FYhlAljuMLMmEiVI16SK+LQBEyUMKQSGtUCzMBrANlktFDSRhDt+0Wfu3ydFwGag
-	9T3Dxw1S3KP0K+yMpFMFLqUkDOPhmc3xDt/fyTAKbYnra/BEQkb6hYelMehne+yK
-	7Ie6mAsAXWNkDw4AGrh/D2KpjUYl+5e7g+v909VQe1dnN1Ie1OENDtl5Q8MXraYU
-	BGmanCX0asqhuQOzTaBVKwETv4wmR5/6uV8srwxmcKCmO2ewipuUIc/2cerg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1773864704; x=1773951104; bh=k64el+qQAWL27CX2Jjqad4PDW12YWCijh0T
-	ENy91zCs=; b=XxMUIHlTAxK/vuleonuAI9QRXaNklgXmoEdx1FnWlrBvV8DS7h3
-	Wd7Hg4mILpzmNXG6RwMbEN0agZU2XrvaKcybYqwOIYzAv5puENzz00sjjxrhjnnQ
-	Uw3oSrj2cMeMJyoahLyw/thS6bfCGF29MdsEo8hcVGk1vgVcCqb/69m6dk6nBxiO
-	EVuvmnTK8mSH8uChT3de6MSzrFVk9d96wFu/oxexsH7oh4Q1tH3+7rUYNBHz3sXJ
-	TzSEWTvZh/YFBunDttorKkuJ1Fi6ChcPM+7LXRnF3baiIdfq3zmi0/Tt58QPid+N
-	bgP+bcwacug7M1LyK01t2GZHwNaqEBi5Qig==
-X-ME-Sender: <xms:AAe7acsj1ROjugap0krlkor5bVp0_GlpBt8F3oOoM2M1AMPS2BdpLw>
-    <xme:AAe7aQa0rJ9Zu2oYnufF9cRIpa3sYqjkKOeoX88rZ9oYDG96cvI7HWvHS68zom0AK
-    Tdzw4MLLhpXU-TgW0I7NhZQURJgjqlMPg8ZucNKMKm2pLZRItI6HA0>
-X-ME-Received: <xmr:AAe7adZ18MvDsMFHhbzDzXNn6NO55Y7UdCoUdFvzhtBiBJ-pJLpVOttY50Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeftdehtdeiucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnegfrh
-    hlucfvnfffucdlvdefmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddtvden
-    ucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhesshhtfi
-    gtgidrgiihiieqnecuggftrfgrthhtvghrnhepffehueeltdejvdegtdetlefgveeigfev
-    feejudfgueeghfdvveeljefghfduteevnecuffhomhgrihhnpehgihhthhhusgdrtghomh
-    dpmhgvmhgsvghrshhhihhpqdgrnhguqdhvohhtihhnghdrmhgupdifihhkihhpvgguihgr
-    rdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
-    epphgrthhrihgtkhesshhtfigtgidrgiihiidpnhgspghrtghpthhtohepuddpmhhouggv
-    pehsmhhtphhouhhtpdhrtghpthhtohepohhpvghnsghmtgeslhhishhtshdrohiilhgrsg
-    hsrdhorhhg
-X-ME-Proxy: <xmx:AAe7aUXx_XyWMuHcYfvZgUqQrYe6Zt1Atl-0gtjTrZdwpdpS7L2QBQ>
-    <xmx:AAe7ac2tpEG1F_yD5mQyhHAbYxVae1U-O9VC3xyEkjhLcuAqrNcD4A>
-    <xmx:AAe7aTYb66epVO8rYmAmiz89K1BYt7hSDpKyaxSKnqVYQW2m6LKYhA>
-    <xmx:AAe7aXojVLJLzVLGacKMgFr8R5YQ5S5B4via0UanAfUjhP0gY6G8EA>
-    <xmx:AAe7aWsJP8ivPuJlLFqHvOvkoK3F8X7GXAAH7XK6t4ofpXlyiL3YlVUv>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 16:11:44 -0400 (EDT)
-Date: Wed, 18 Mar 2026 16:11:43 -0400
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC List <openbmc@lists.ozlabs.org>
-Subject: Re: TOF elections for 2026H1
-Message-ID: <absG_8pQilMHGMnO@heinlein>
-References: <aXDmS4BmR6AGXKGW@heinlein>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbfGZ4bq0z2ykf
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 06:36:54 +1100 (AEDT)
+Received: by mail-pj1-x1029.google.com with SMTP id 98e67ed59e1d1-3591cc98871so163614a91.3
+        for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 12:36:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773862612; x=1774467412; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qhe6Bw5swAXowEnRvu3RMufWPhEQIrULXXpRHTNF+tE=;
+        b=lgZLXltMuUnJID/So+a3OaQwXilwZ6t63w6M+msKyBvG1zP9B4ThLMm2S4gPmM3rCL
+         +rLWTMO/uAvpRKIpg9KNMzOlm0GT+JMVlRcC7TUeBVWSatlt5i3WO0xo/cDJEhD6lbiB
+         WyTiS/QwjKcMeOfXpBp7A0RxARXvjh52hJL8gSejjnBTRxIzkdWjuxvX8AryZ1xL0Cew
+         SeNIRKS9v1lcnNPOBYsJ/kHiwCoBthI92brkjFzC5gcoiiqCvSUZw43ritfSICA2Kaiv
+         z8H8V/OsXZe+21zW0duS4vhKlCABfM0rlTwSUgvEXbqRxlg+d/pi+B3Gxn52mRxmt2NT
+         SsCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773862612; x=1774467412;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=qhe6Bw5swAXowEnRvu3RMufWPhEQIrULXXpRHTNF+tE=;
+        b=GWLenB7j0txlGjEgbjliaYkENErg2emob5yuXu6R/FiyIPYvyxb/gZK9BCsu3GPxp5
+         hurObZxQfTYVDQjoatC8GGhrjmgxKYlSaIuH5K85KbIi2HD94TAJVa8hjfpcB4HLmEs8
+         c+fkkcYtqc1FK2tmzFMYt+GryjQiLoYLVlDGJwZz6YnewTdf87PPFyX42Ix6qLAaAz4/
+         d2nwiIQyPOlgM2+HrERnLYEdslAlDo2dh8mLySfVe0v7/TKtwRzSOFjWcgju/LwoQJ02
+         KVHWMPPiGHkTvij645XZtrIvF98oo8hGYl7q8Sd/Ev9uL/3txbvOiYnYOs6nW2jCMTKN
+         QwJg==
+X-Forwarded-Encrypted: i=1; AJvYcCUAONeCRQ17737hie235wbaWKLQi59FA/g4qTpBXggU25W9/brSe3TGTDYKuvV5PVefYjmhFQ5J@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yx5d7eFMMryZxqxONCtImfe6wwJ04VWH00xymc2B7pAOZ8G41z2
+	Ssu6GJ4U8J+bOwCnqbTYI5aPebHCs/eGE2fYDPGn5Vabxl/0CUILeN1S
+X-Gm-Gg: ATEYQzxkJrt1SLhZFbFj8d7yDbC0uf6bX7MeC+E5pXy0owUC9e9xpSLHIvzl5WIg0GB
+	9iTsCdFhh+qxPC0g9X2U/stpinC/odeQjWu23xdAfu2kBRSQQeBzsgY3sURBRCeo73BB8ChRhQK
+	s/WCFbqNzd08JlOwsVA0/KmLeGoja3z0dYZh2vbSV6f3Jo+u4xg0+gkC2o7/nKRoUHtWUY1+kFl
+	f6CqS6x4qYYH1BFAcKOFQq0AfMZz/SR79oC07QUL8Wc8QIEgsciqisKOVFjiJupHO+O+k4AqqjW
+	1c/VAyzVy6tE6CEegu9ZmlEYWEfdpl8YIOz2Vpx7vNiKWRou++Axx3a9pQGVofHa2itWnyNSkzH
+	YBli81uuwq31i24mYvUoRHs7BxjS5vv104fIRh/DTHr6SrcO6yin/g5p83DS0D5Uoi74AqjXrxI
+	daOplNZnVYoOuo9YSlfXp2wYvoEeidfV0fjLx9Dn0eRbUGoGMhP3/BBE0lxDaC76leTblMsO36O
+	PJuh5/DySnQ9C1aFKjeBHU5btegK+2KHrD9BM4=
+X-Received: by 2002:a17:90b:184e:b0:354:c593:b1a8 with SMTP id 98e67ed59e1d1-35bb9e7d24dmr4153966a91.13.1773862612414;
+        Wed, 18 Mar 2026 12:36:52 -0700 (PDT)
+Received: from visitorckw-work01.c.googlers.com.com (100.130.194.35.bc.googleusercontent.com. [35.194.130.100])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-35bb9ff59a4sm1521664a91.2.2026.03.18.12.36.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Mar 2026 12:36:52 -0700 (PDT)
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: andrew@codeconstruct.com.au,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	srini@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	jserv@ccns.ncku.edu.tw,
+	eleanor15x@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
+	openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kuan-Wei Chiu <visitorckw@gmail.com>
+Subject: [PATCH 3/3] ARM: dts: nuvoton: Add OTP nodes for NPCM7xx
+Date: Wed, 18 Mar 2026 19:35:38 +0000
+Message-ID: <20260318193538.246853-4-visitorckw@gmail.com>
+X-Mailer: git-send-email 2.53.0.851.ga537e3e6e9-goog
+In-Reply-To: <20260318193538.246853-1-visitorckw@gmail.com>
+References: <20260318193538.246853-1-visitorckw@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,97 +108,42 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="hLANepoibmdWEjjz"
-Content-Disposition: inline
-In-Reply-To: <aXDmS4BmR6AGXKGW@heinlein>
+Content-Transfer-Encoding: 8bit
 
+Add device tree nodes for the OTP memory controllers found on Nuvoton
+NPCM7xx SoCs.
 
---hLANepoibmdWEjjz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The controllers (Key Storage and Fuse Array) are attached to the
+APB bus. Since they are internal SoC components with no board-level
+dependencies, they are enabled by default.
 
-Greetings,
+Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-For the TOF elections for this half, we had 7 qualified individuals
-nominated and there are 4 seats expiring.  Therefore, we are going to
-have to hold an election for the half.=20
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+index ab3c3c5713ae..8a28b1f8a4fd 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+@@ -480,6 +480,16 @@ &fanin12_pins &fanin13_pins
+ 				status = "disabled";
+ 			};
+ 
++			otp1: otp@189000 {
++				compatible = "nuvoton,npcm750-key-storage";
++				reg = <0x189000 0x1000>;
++			};
++
++			otp2: otp@18a000 {
++				compatible = "nuvoton,npcm750-fuse-array";
++				reg = <0x18a000 0x1000>;
++			};
++
+ 			i2c0: i2c@80000 {
+ 				reg = <0x80000 0x1000>;
+ 				compatible = "nuvoton,npcm750-i2c";
+-- 
+2.53.0.851.ga537e3e6e9-goog
 
-The 7 nominated developers[1] are (alphabetical by Github IDs):
-    * Andrew Jeffery
-    * Brad Bishop
-    * Deepak Kodihalli
-    * Jagpal Gill
-    * Jayanth Othayoth
-    * Alexander Hansen
-    * Patrick Williams
-
-A few key points about the election:
-    - Voting is by Ranked Choice Voting.  The order you give as your
-      preference matters [2,3].
-
-    - TOF members represent the development community and not their
-      companies.
-
-    - Since there are 4 seats up for election, you may submit a vote
-      with up to 4 candidates.
-
-With this being the most nominated-for election in TOF history, I would
-strongly encourage candidates to reply to this email with a [brief]
-campaign: who are you, what work have you done for the community, why do
-you want to be on the TOF, etc.
-
-Votes will be accepted until April 1st, 2026 at 12:00 GMT from qualified
-votes[4].
-
-As with the last election, we have a tool to facilitate voting[5].  You are
-expected to fork the Github repository, run the tool, commit the
-resulting JSON file, and create a Pull-Request to submit your vote.
-
-If you have the `gh` tool this would be as follows:
-```
-gh repo fork --clone openbmc/tof-election
-cd tof-election
-=2E/vote --user <github-id>
-# make your selections with 'vote N', 'save', 'quit'
-git add 2026H1/votes/<github-id>.json
-git commit -s -m "2026H1: <github-id>: add vote"
-git push origin
-gh pr create
-```
-
-[1]: https://github.com/openbmc/tof-election/blob/main/2026H1/candidates.js=
-on
-[2]: https://github.com/openbmc/docs/blob/master/tof/membership-and-voting.=
-md#terms-and-elections
-[3]: https://en.wikipedia.org/wiki/Instant-runoff_voting
-[4]: https://github.com/openbmc/tof-election/blob/main/2026H1/rollcall.json
-[5]: https://github.com/openbmc/tof-election
-
---=20
-Patrick Williams
-
---hLANepoibmdWEjjz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmm7Bv0bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEKsDR8wtAMEZuXYP/AhtP6/Zm/BY2Qed+Liw
-xTtuOE86r/iPWgXaysisYPmeL+Lt+D5J2ZqGW+g/YZj+6hG7nG7Eeqcy2dg/4Yj1
-JZiX+JXKCbL5nLUrDub9pKM9D+tX3WfuOBXP9fF0cK+cJkCYp6S92hodLa3PA0uy
-BiPRB14bfVCCiN1E23kyAomeDdDisVXI1VU6N6pa3Dz/DClJOPlIilTt2UQUuWhA
-3PGmZeelyuPooM1X/FJ9bDmURjRR2+ZvScdOoHtb10eTpYOJF+dA3Fey8uR7bWuF
-MYFJ4sMiW7ag519lzkP7sTsnc9OxbtTJBx3rca5kkuvHsHStaFEu/1LYPjZpsr/F
-VEsFmAtvcyC/YC4XB/gYpopED58WP8X+hVmdmbceiefiiGt5xviRMyxkEUQDkLXA
-xvpKQDOipExAKOjGtBb/9+IRgzvshobU9G09mSr1znOI11vc5YpOlyGBCUk3/Gfe
-F9rTwe0LaDiZ+g9RqsvXVi2+4Aco7RTcYMfaOfILVTl+hIudAKUPYYUcLMttN9vf
-iAlSGrC3q7lA//1RFg33/A7lUOjgLsGWRaq2fHd57GaVxw0nhEYxTN/OimcQzVGE
-OBc4gE/w6AKCxD3j/RmFJ9we/rqoWnJQvBv9ocI6v9HVeNFW1vjiRyHdyYQGc6/6
-UqbO3m+F3uAoCJ9bh0mY3QMH
-=dMxq
------END PGP SIGNATURE-----
-
---hLANepoibmdWEjjz--
 
