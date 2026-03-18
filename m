@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1617-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1618-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1B301088E49
-	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 22:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18C81088E50
+	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 22:42:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fbkNN4hD6z2ynC;
-	Thu, 19 Mar 2026 09:42:12 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fbkNT16gLz2ynh;
+	Thu, 19 Mar 2026 09:42:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773801699;
-	cv=none; b=iY3gh1aOBu3OIJ5gA8KSq2dFFv3VAL3nX9Hv2OyuV6EXPYDP8nJJnZDp7V3Meg8wecd56yh/fgtwWNxHlII6Bq6tegjleHkB5qpaV1MUvcRgE8deATX0OGzlj4RXntewNBORbfQHkJmfQoqGczuSG0UJ9CsAG6jPmIl/KxPjq0+sU+6b4k4jYAHcLPRQLVw7yv8HavjUfvJJZI7U9B2Dl7W7fnu3BSnlNZ4EA/1vjLw4q3//ErJU71poB/YiGmHZO+kdcz1Q/RzoGRlCYDbDX3Ky8sVbBx0uqsEeMmGA73J1hBLwHJubHd2giB2rTSeiZExkJJTnWGTmcXjt3wpi/w==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773801697;
+	cv=none; b=FUXUfjn2IY17/52SqcXLhRnabgy30Rut1bMO9gnab0CCdiMGZLd9eev6SdH86BY7dBJl+6uTBVSpEcZ5XkyOXvrBo2N+QSTAWgbKXyQUh/8BCiSJGtLdupLf4IqfAOJqrKnyOFrHG+OVcLnh8TBt3uusJwIb/aYQ1UhzZQprac30/qfqVxqJ75PVuIKFnSFRj6A5d5yWpYpZtwLoOA9pB+au+alX04ZJ63WYLE+/AhsQ9VTXLZsWDFOKO2NLy6mpfq5kKcYhTjTEDQR3jAy+it2QvsGuUsdyVtLk+DGnGAd8ZGk9PD+nTO03MzYGO2yp/Vvtl8c7jnUz6UAl9ihPjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773801699; c=relaxed/relaxed;
-	bh=48VNZyPRffCBIqaMJ3LYfN9EMTtMIS8ElqhOprai9TM=;
+	t=1773801697; c=relaxed/relaxed;
+	bh=Yb8Iio/NDnqYEebuxQUc6olfEqXiKE/NJ9fHxR1UgVs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=HGAKnfsNYB9B87UFcHKV2ZfErvFQljj9bALY+hh4AUIDyMMOhPhhT0j5CWzurmBm855hfjeP8/uqioIxgmP+5g4i0TPppFe6ffRyupbjop+h5mGfBv/GMZPz/hw3PY/DtyevoaqLlepE3LeqwVLIB6IaECg8LmF1cZ8mEsdQU5dM1oT6y9rYHmDdN+2387FOSrM6S+XaLsK34t61UDmA2QRhakFf5/cI8R8gFMQjQHW1WxsR+nOMObnRPIpw7IK3eQQXv2xV4LglWyu3QJ8SaQfW9u8BxvNax0VCf2VuS+Z3CZrUhV1Rh32h2A3lFrhhPJ+euV8UIMSqd6uHmRRwjQ==
+	 MIME-Version; b=N7SPdLkHandLMS4u+HroqUhINipKoF0OX1avoasEeRtGeEzvid6L4YsmtMGlclMHz6JKJVrEFbXnR4NQOdW1zO4I2M/zDhyE1P+reqgvxw+Lb4V627u2qkPfxVbtO2g5dlGPUxzpXyr1XxrGpIsJjjNq6RQ2iJP0eMXwePoT01ofi3wX/0Ah61ll06dexpnI/Lz7Avlrzvsycu4/gUcItD1jwgDV6/R7Yz5B6A3IAZzAhyjRDR9htQTiBx0eGcc3V2LXhAmb7pKWVnlx1LS+Fz3yT698W8SIWNmBXu9Fd9hooLteQl+u1uFvwGugRuo4xPHbBsYxJtBGzMmytuBisQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbCl64nfcz2xQr
-	for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 13:41:38 +1100 (AEDT)
-X-UUID: cbf09958227311f1a21c59e7364eecb8-20260318
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbCl42fDzz2ynP
+	for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 13:41:36 +1100 (AEDT)
+X-UUID: cbb7b502227311f1a21c59e7364eecb8-20260318
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:8a30965e-9f1a-4620-8640-3b754d2d0986,IP:0,U
+X-CID-O-INFO: VERSION:1.3.11,REQID:978c6859-ceed-4cb1-bc54-43ea149250e1,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:b0aa196b703edc31140b64ea06567652,BulkI
+X-CID-META: VersionHash:89c9d04,CLOUDID:e90d316a69b4551724c48877068f06c1,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cbf09958227311f1a21c59e7364eecb8-20260318
+X-UUID: cbb7b502227311f1a21c59e7364eecb8-20260318
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1231776879; Wed, 18 Mar 2026 10:40:16 +0800
+	with ESMTP id 90819857; Wed, 18 Mar 2026 10:40:15 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
@@ -56,9 +56,9 @@ To: linux-spi@vger.kernel.org,
 	linux-mediatek@lists.infradead.org,
 	linux-stm32@st-md-mailman.stormreply.com
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v4 13/17] spi: stm32: Simplify clock handling with devm_clk_get_enabled()
-Date: Wed, 18 Mar 2026 10:40:03 +0800
-Message-Id: <cb88610059a9b20a9f2ffcd03cd77fecbecf7eaf.1773801401.git.xiaopei01@kylinos.cn>
+Subject: [PATCH v4 12/17] spi: stm32-qspi: Simplify clock handling with devm_clk_get_enabled()
+Date: Wed, 18 Mar 2026 10:40:02 +0800
+Message-Id: <35b4ff674610f77310e84815c15cd59e609c95db.1773801401.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773801401.git.xiaopei01@kylinos.cn>
 References: <cover.1773801401.git.xiaopei01@kylinos.cn>
@@ -81,135 +81,65 @@ explicit clock enable and disable calls, as the managed API automatically
 handles clock disabling on device removal or probe failure.
 
 Remove the now-unnecessary clk_disable_unprepare() calls from the probe
-error paths and the remove callback. Also simplify error handling by
-using dev_err_probe().
+error path and the remove callback. Adjust error labels accordingly.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-stm32.c | 61 ++++++++++++-----------------------------
- 1 file changed, 18 insertions(+), 43 deletions(-)
+ drivers/spi/spi-stm32-qspi.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-index 8a7f5a10d4af..ee5092bc5956 100644
---- a/drivers/spi/spi-stm32.c
-+++ b/drivers/spi/spi-stm32.c
-@@ -2360,25 +2360,21 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	int ret;
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index df1bbacec90a..a8436f70fdfd 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -819,25 +819,19 @@ static int stm32_qspi_probe(struct platform_device *pdev)
  
- 	cfg = of_device_get_match_data(&pdev->dev);
--	if (!cfg) {
--		dev_err(&pdev->dev, "Failed to get match data for platform\n");
--		return -ENODEV;
--	}
-+	if (!cfg)
-+		return dev_err_probe(&pdev->dev, -ENODEV,
-+				     "Failed to get match data for platform\n");
+ 	init_completion(&qspi->match_completion);
  
- 	device_mode = of_property_read_bool(np, "spi-slave");
--	if (!cfg->has_device_mode && device_mode) {
--		dev_err(&pdev->dev, "spi-slave not supported\n");
--		return -EPERM;
--	}
-+	if (!cfg->has_device_mode && device_mode)
-+		return dev_err_probe(&pdev->dev, -EPERM, "spi-slave not supported\n");
+-	qspi->clk = devm_clk_get(dev, NULL);
++	qspi->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(qspi->clk))
+-		return PTR_ERR(qspi->clk);
+-
++		return dev_err_probe(dev, PTR_ERR(qspi->clk),
++				     "can not enable the clock\n");
+ 	qspi->clk_rate = clk_get_rate(qspi->clk);
+ 	if (!qspi->clk_rate)
+ 		return -EINVAL;
  
- 	if (device_mode)
- 		ctrl = devm_spi_alloc_target(&pdev->dev, sizeof(struct stm32_spi));
- 	else
- 		ctrl = devm_spi_alloc_host(&pdev->dev, sizeof(struct stm32_spi));
--	if (!ctrl) {
--		dev_err(&pdev->dev, "spi controller allocation failed\n");
--		return -ENOMEM;
--	}
-+	if (!ctrl)
-+		return dev_err_probe(&pdev->dev, -ENOMEM,
-+				     "spi controller allocation failed\n");
- 	platform_set_drvdata(pdev, ctrl);
- 
- 	spi = spi_controller_get_devdata(ctrl);
-@@ -2409,32 +2405,19 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	spi->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(spi->clk)) {
--		ret = PTR_ERR(spi->clk);
--		dev_err(&pdev->dev, "clk get failed: %d\n", ret);
+-	ret = clk_prepare_enable(qspi->clk);
+-	if (ret) {
+-		dev_err(dev, "can not enable the clock\n");
 -		return ret;
 -	}
-+	spi->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(spi->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(spi->clk), "clk enabled failed\n");
- 
--	ret = clk_prepare_enable(spi->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "clk enable failed: %d\n", ret);
--		return ret;
--	}
- 	spi->clk_rate = clk_get_rate(spi->clk);
--	if (!spi->clk_rate) {
--		dev_err(&pdev->dev, "clk rate = 0\n");
--		ret = -EINVAL;
--		goto err_clk_disable;
--	}
-+	if (!spi->clk_rate)
-+		return dev_err_probe(&pdev->dev, -EINVAL, "clk rate = 0\n");
- 
- 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
- 	if (rst) {
--		if (IS_ERR(rst)) {
-+		if (IS_ERR(rst))
- 			ret = dev_err_probe(&pdev->dev, PTR_ERR(rst),
- 					    "failed to get reset\n");
+-
+ 	rstc = devm_reset_control_get_exclusive(dev, NULL);
+ 	if (IS_ERR(rstc)) {
+ 		ret = PTR_ERR(rstc);
+ 		if (ret == -EPROBE_DEFER)
 -			goto err_clk_disable;
--		}
- 
- 		reset_control_assert(rst);
- 		udelay(2);
-@@ -2461,11 +2444,9 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 	dev_dbg(spi->dev, "one message max size %d\n", spi->t_size_max);
- 
- 	ret = spi->cfg->config(spi);
--	if (ret) {
--		dev_err(&pdev->dev, "controller configuration failed: %d\n",
--			ret);
--		goto err_clk_disable;
--	}
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "controller configuration failed: %d\n", ret);
- 
- 	ctrl->auto_runtime_pm = true;
- 	ctrl->bus_num = pdev->id;
-@@ -2490,8 +2471,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
- 			dev_info(&pdev->dev, "tx dma disabled\n");
- 			spi->dma_tx = NULL;
- 		} else {
--			dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
--			goto err_clk_disable;
-+			return dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
- 		}
++			goto err_defer;
  	} else {
- 		ctrl->dma_tx = spi->dma_tx;
-@@ -2579,8 +2559,6 @@ static int stm32_spi_probe(struct platform_device *pdev)
- err_dma_tx_release:
- 	if (spi->dma_tx)
- 		dma_release_channel(spi->dma_tx);
+ 		reset_control_assert(rstc);
+ 		udelay(2);
+@@ -886,8 +880,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+ err_dma_free:
+ 	stm32_qspi_dma_free(qspi);
 -err_clk_disable:
--	clk_disable_unprepare(spi->clk);
+-	clk_disable_unprepare(qspi->clk);
++err_defer:
  
  	return ret;
  }
-@@ -2610,9 +2588,6 @@ static void stm32_spi_remove(struct platform_device *pdev)
- 		gen_pool_free(spi->sram_pool, (unsigned long)spi->sram_rx_buf,
- 			      spi->sram_rx_buf_size);
- 
--	clk_disable_unprepare(spi->clk);
--
--
- 	pinctrl_pm_select_sleep_state(&pdev->dev);
+@@ -906,7 +899,6 @@ static void stm32_qspi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(qspi->dev);
+ 	pm_runtime_set_suspended(qspi->dev);
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+-	clk_disable_unprepare(qspi->clk);
  }
  
+ static int stm32_qspi_runtime_suspend(struct device *dev)
 -- 
 2.25.1
 
