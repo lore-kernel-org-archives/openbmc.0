@@ -1,80 +1,67 @@
-Return-Path: <openbmc+bounces-1613-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1614-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C2F1088E49
-	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 22:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56A4B1088E4E
+	for <openbmc@archiver.kernel.org>; Wed, 18 Mar 2026 22:40:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fbkKl1tWwz2ynh;
-	Thu, 19 Mar 2026 09:39:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c200::3" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773854449;
-	cv=pass; b=IjQekqz1jbEKUP11rJFQQQtnOSy8WPpdqSLsZPiuhzQJD5A39dpIbhxamsumkJVdkhdoG0d+1XejZUfycOhMM7o8igJ3z8oK2XzbsdRZF+hwsQW5mAGB1d9OjpBQ2HrVS3BpRH9ylqq86EWhw/lVn8+E5EX8iMsPE57G8K2xGuLnpowqreFmbsrOVyUzSvN0ZkQBT01R7fVVD3RlYvugkJZc5hyKoNx6TMjf1A7ZPmBM2ZqH6ttZmUbDSeo4EwijHGFFMUV5pBYqbPGlMu+iScaJSof1PXmpjU7sVk1tN9AbDM1OrCLSvKuEdPMJDbe+91lieFTrtWN1gBGu5sI1rQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773854449; c=relaxed/relaxed;
-	bh=72i0Af2CILVbwbBueaZ8KOXIlo24SRO8oa6WAfXbGWE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=LhSSbqhuG4RYvFSCHZCetPBTsxCkxXMOhWqrq7a6uyLlUxRVgfo6ODtXeWm5KlZcE+TIuP+PjlTzgeheAeK0dDRPBwuanCMKNteeoRSrgP27+qcKsJF2XaJd2uC2VlnfpfuU/XqUsKLGdj5dZ5zYEVBbOiXmBAmVNKz39ZQoa3TxS1vt7YLOq0d5XkwkM94aCOhhqDvITH7EA/ZLtgMCM+hk/lId4lyJYcUI2h5lBN460VDYCBkkZr0UJ7HSHX7oOQ7tQBC9udAzC17aQo+QHcPZw+gfbbef5cjjBUGeEaQ9wyT42oY9na9Wpad2HwFxXmAd3avSd2oJGaP6xPi/xw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nmCsFbdF; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c200::3; helo=du2pr03cu002.outbound.protection.outlook.com; envelope-from=amelie.delaunay@foss.st.com; receiver=lists.ozlabs.org) smtp.mailfrom=foss.st.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=nmCsFbdF;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=foss.st.com (client-ip=2a01:111:f403:c200::3; helo=du2pr03cu002.outbound.protection.outlook.com; envelope-from=amelie.delaunay@foss.st.com; receiver=lists.ozlabs.org)
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c200::3])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fbkLB38sbz2ynC;
+	Thu, 19 Mar 2026 09:40:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773801702;
+	cv=none; b=hgd7ba2CUvnHZNJkFn5iekqzTzMWNEobgKSGYO75EFxjpflGFhRY0qxw6rvsncNmyO7CLR6rgzR6g0cr5S1NdGQn6UD6JF3wy6u4762SvjROnGFXHSJ27sfJI2Af2CiUwISCVtGRPSnyGDgjsEMEeEicqyismgk69Pq2cN/VS7pJZjHZpz1SQBEPNnNco+fMi/kQZVbIveNQOk5v9yxxzQTpnAs9b38S8iWTCaBR3ssylFJ1EUudUXj4vlTjMF086NgMOxPh3jOaYGu7HXaMIJ0NEhN1USrMKJ3EdqMkLzZcQZ2yDJKv25mt8jsHzQmvgOsuVqU23JsMl66AGwzuTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1773801702; c=relaxed/relaxed;
+	bh=NdTH0Rm8/aqaRSNe47RvNrb6xGfDDNaPz2Gs8UeP87I=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nkpCBx3HXLqQRmPFF6vodj4E/XsiePStrcXDln1uWoaw4cYAUEK94Tv9j279L3ss7SK3skWK8k/1aXox+gkjbeS+IPz8Z1BWzwz0VRdaM+SMSrHhpgJxd+EalrpcfGp8j8gaSKQcyo2GYXjOiO2tmbKpXwoeuiCit8Px77jwmCrmzBo1ExDUr77F2I8S+LcNnNk+BllcCFZRvqVF9n2UegRJLfpCco7sdE44w1NEdGTt/Z+Yj0f5WvVlJc36W6ODlWOUfTnhzQJtDBNsLaFkhEDpcgbPgPzn9xQUUQmCJTOgX2XI8exHbY9Raq1Ulons03Aj3XNfEO8CWy02MsBe+Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbbFW09gXz2yjV
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 04:20:46 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hoZh7XEt3HtrkaR9koCBJT9TA4dnn/OlS10UqYZO6BYd7Xb2ucV8v10DTKjrmmvTqJyqQDlt/tAWq9lhzm7uvJEFyiaR7lvQWMDgt5HaRWTnT21eEtZ1kmJgmeNs5GgBuHO2c91+LO4oMdRVqy57573rBpQqkebzVXkM7aMx+F2sNF0w0qHwqfEK5TOdShBNgDMfUx6X8cXuS/J6La0AcVrB70oswG5KS3gSAgCrUMk0BYCEkQThRKSyAudmjuxeD8LxoLNhkmzYsBajCsNO+mM5iqoAhE2F3GB66qPu2MQJ18cQAdypP2tz5KObXq/DHXqUDGmu57MDwPy9weCbtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=72i0Af2CILVbwbBueaZ8KOXIlo24SRO8oa6WAfXbGWE=;
- b=pEK30hfpWOMp8S64SNvEmmxcCI6P0jgDZHkLZN242H2flFcmfixMAxVBLaHerSnvHAdhffl9wgNpnP2NhMJAkX/hUUET3WZbhNHS8pXYi8WTB89+Ae1VxhaWUhb9ES80vnTnMbqEcbQSlz9Dx5IVQ/CKkDmyntXcjwVFFodEVF8ZUNPJCakFyZP+alCjEg6Z1R2Ep7RoGV0nNimbDx3yMRenbdwlblF5OgDc7aCGLh7r3kCmJKRtb5a7gbEnlVOGxnnWOs9JZmHK4jnUphT9tsJc/1+CvcGhhIa2SDEH7uz6jdGwZ+uTwlBe0rou14quXl72WFc7uCNLwGiPsQf7BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=72i0Af2CILVbwbBueaZ8KOXIlo24SRO8oa6WAfXbGWE=;
- b=nmCsFbdFWc4ahJG/KSQW0jdGnHs5wB14Xk9YjQ6uISXDwnFRGGFfW1UNh4t7BEbXTXPI1Y95caAa+0y2CRb/VKQCq5dXi/sM427dRf20kxl5LBGfn80dcyNgubxPZNVHeIG+xmI5H/hBic/bZE+Ddz7Chey5GTm7Bd1ICJ6kdbJRMX2Tlua26Tn/SRbBd5T2DPUcBaC1nhJkvIySkFpifmW9nxeZxqvjWi9+mqiy+fm49OW82HBz4TjBNjPEJ6FyiVgb+vjNw9RRElNWVj9kSoF/0PYld/5oictPAnO9v4EB+qqcHZDMUbEcRizICbCzby9z33Ohb9TphGedDgu4eQ==
-Received: from DB8PR06CA0064.eurprd06.prod.outlook.com (2603:10a6:10:120::38)
- by VE1PR10MB3805.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:164::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.15; Wed, 18 Mar
- 2026 17:20:16 +0000
-Received: from DB5PEPF00014B91.eurprd02.prod.outlook.com
- (2603:10a6:10:120:cafe::88) by DB8PR06CA0064.outlook.office365.com
- (2603:10a6:10:120::38) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
- 18 Mar 2026 17:19:52 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB5PEPF00014B91.mail.protection.outlook.com (10.167.8.229) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Wed, 18 Mar 2026 17:20:15 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 18 Mar
- 2026 18:22:32 +0100
-Received: from [10.252.10.174] (10.252.10.174) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 18 Mar
- 2026 18:20:12 +0100
-Message-ID: <ae1b9767-574d-418a-84d9-8bc128a9e500@foss.st.com>
-Date: Wed, 18 Mar 2026 18:20:11 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbCl70RX0z2yZ5
+	for <openbmc@lists.ozlabs.org>; Wed, 18 Mar 2026 13:41:38 +1100 (AEDT)
+X-UUID: ccd48820227311f1a21c59e7364eecb8-20260318
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.11,REQID:b56c56ad-e067-4a22-9443-172de1cdf1ce,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:89c9d04,CLOUDID:226ddb78f30e53253029e35ee9bdbcfa,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
+	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ccd48820227311f1a21c59e7364eecb8-20260318
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1768939720; Wed, 18 Mar 2026 10:40:17 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: linux-spi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	openbmc@lists.ozlabs.org,
+	linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH v4 17/17] spi: zynqmp-gqspi: Simplify clock handling with devm_clk_get_enabled()
+Date: Wed, 18 Mar 2026 10:40:07 +0800
+Message-Id: <53b63019d5d59698df7af832e598829d0f268ff8.1773801401.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1773801401.git.xiaopei01@kylinos.cn>
+References: <cover.1773801401.git.xiaopei01@kylinos.cn>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,204 +73,75 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH v4 13/17] spi: stm32: Simplify clock
- handling with devm_clk_get_enabled()
-To: Pei Xiao <xiaopei01@kylinos.cn>, <linux-spi@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<imx@lists.linux.dev>, <openbmc@lists.ozlabs.org>,
-	<linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
-	<linux-mediatek@lists.infradead.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>
-References: <cover.1773801401.git.xiaopei01@kylinos.cn>
- <cb88610059a9b20a9f2ffcd03cd77fecbecf7eaf.1773801401.git.xiaopei01@kylinos.cn>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <cb88610059a9b20a9f2ffcd03cd77fecbecf7eaf.1773801401.git.xiaopei01@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.252.10.174]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B91:EE_|VE1PR10MB3805:EE_
-X-MS-Office365-Filtering-Correlation-Id: c54840f0-9b6f-46e8-e1d9-08de85129f35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|921020|18002099003|22082099003|56012099003|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	pC7QXVJDAFr+AzhfA92QyLXK1Orr0940Uu6M8ZFUxqZqLXhMv2c2zn7KAn7OB0+7xwycTbZ8CYrX2RsdfSXGixDpa+H/pacCZFQd9LNMcqI4HwkzCvpWRuZ+B3ml0rIGu/ar1hZ0tD2zB577JvOuTP2Qfqv+UlmkbtcJVqMOMgAgbVNX8XVo9vt6vE+fCqfGkS9UxAIDKwLcJQAsoJNKw4qm1wBK45v4xwSYqFbLswG2qh/c9Vsf7LMQWrg3guSqb3c8sioBIcr8VCF/TYOOYK7x7gPs4Ht9dxCZ0EbuEpfgosBodftJA+/zI4glNJmLQWXLvxEOu6rc91La0d+yj0Df9QaQSOj6/CTbYj0dg94C7heHBYg2AD7D2P0lqv8X3/3RIjgSJN2QTAMqgaPJrgRP374MOmqbmPqO2+qLHeyUs0z1cOfVOLaGBfqMwmzw4rEgJKVwBIX+oM4mygZiIuZSK/mm5rd6dzHqY+/7fPSwIg/flHNjBM7wg1v11LT1FTDoFfyUbbaP1P4CzC8jo31msZEEdSU2rMQN4z3HOrV5p3SJAEswtN0bIcj2f+a76CJFGcv9D7snnSztkGA9UeyxID0xhBaecfKvbij6My28A3aOzTcoGD628lCZqm+fA5eAfVuTj9Hkf45psaCu9mXgP8qIE8nggJMvgjWq1eqxn3ZcU6EPyqhGYxATp4T41euZisFHwA4Mj04Ni/un6c1YsigO8gSBkoSgzS5zCoIhirzpu/JA28VI7QIj+PR5xQ+ELq66MuB0+4KYcS0FXMTrlAcbE+Znqh5nvoXauIiNcK4tZlcOKRhWYv9eL8PQ
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(921020)(18002099003)(22082099003)(56012099003)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	30Oq685Ewt/zJ+karDW1HSaKyZNcrSP2RHDAL4nB31zxx7ksaxKM6uhm+YpAn1qwLzbxoygaed8px4DCnGwy3VEsSHNRca05Ep7v6VJpY4rrSILBTXrVv2CDWXHQ+PfSILC/6kiubUOtiUhWnoq+Rn+hGwwvCidoyYtt3AMrv1aflADT69UXd5u5rbliCOoN8MsM65m+zoDlF9mAFc3L+75/cPpi+iYrFWGfCb/+bj53UmC5quQsCpsIiqlxC7pXznPL6PulUl3vYOvjzv317UEDiKNCoUbz6lYr2yhwnOZF4OlNuiqt5qYwfgMBM1IzlDR4n4J8/2xGJj6Z/zuKFQ24KFwDoIv5WYwM+J5tUI8TWJNHH92yp+5ENBb1KlPtpunaiI0dphJfDX5xlyf5EFvrSCVNSUwIffKbD+FgXhAKQ/Fq27YvWxBL3105c/X/
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 17:20:15.9015
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c54840f0-9b6f-46e8-e1d9-08de85129f35
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B91.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3805
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Replace devm_clk_get() followed by clk_prepare_enable() with
+devm_clk_get_enabled() for both "pclk" and "ref_clk". This removes
+the need for explicit clock enable and disable calls, as the managed
+API automatically disables the clocks on device removal or probe
+failure.
 
-On 3/18/26 03:40, Pei Xiao wrote:
-> Replace devm_clk_get() followed by clk_prepare_enable() with
-> devm_clk_get_enabled() for the clock. This removes the need for
-> explicit clock enable and disable calls, as the managed API automatically
-> handles clock disabling on device removal or probe failure.
-> 
-> Remove the now-unnecessary clk_disable_unprepare() calls from the probe
-> error paths and the remove callback. Also simplify error handling by
-> using dev_err_probe().
-> 
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> ---
->   drivers/spi/spi-stm32.c | 61 ++++++++++++-----------------------------
->   1 file changed, 18 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-> index 8a7f5a10d4af..ee5092bc5956 100644
-> --- a/drivers/spi/spi-stm32.c
-> +++ b/drivers/spi/spi-stm32.c
-> @@ -2360,25 +2360,21 @@ static int stm32_spi_probe(struct platform_device *pdev)
->   	int ret;
->   
->   	cfg = of_device_get_match_data(&pdev->dev);
-> -	if (!cfg) {
-> -		dev_err(&pdev->dev, "Failed to get match data for platform\n");
-> -		return -ENODEV;
-> -	}
-> +	if (!cfg)
-> +		return dev_err_probe(&pdev->dev, -ENODEV,
-> +				     "Failed to get match data for platform\n");
->   
->   	device_mode = of_property_read_bool(np, "spi-slave");
-> -	if (!cfg->has_device_mode && device_mode) {
-> -		dev_err(&pdev->dev, "spi-slave not supported\n");
-> -		return -EPERM;
-> -	}
-> +	if (!cfg->has_device_mode && device_mode)
-> +		return dev_err_probe(&pdev->dev, -EPERM, "spi-slave not supported\n");
->   
->   	if (device_mode)
->   		ctrl = devm_spi_alloc_target(&pdev->dev, sizeof(struct stm32_spi));
->   	else
->   		ctrl = devm_spi_alloc_host(&pdev->dev, sizeof(struct stm32_spi));
-> -	if (!ctrl) {
-> -		dev_err(&pdev->dev, "spi controller allocation failed\n");
-> -		return -ENOMEM;
-> -	}
-> +	if (!ctrl)
-> +		return dev_err_probe(&pdev->dev, -ENOMEM,
-> +				     "spi controller allocation failed\n");
+Remove the now-unnecessary clk_disable_unprepare() calls from the
+probe error paths and the remove callback.
 
-it fits on single line
-+		return dev_err_probe(&pdev->dev, -ENOMEM, "spi controller allocation 
-failed\n");
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+---
+ drivers/spi/spi-zynqmp-gqspi.c | 19 ++-----------------
+ 1 file changed, 2 insertions(+), 17 deletions(-)
 
->   	platform_set_drvdata(pdev, ctrl);
->   
->   	spi = spi_controller_get_devdata(ctrl);
-> @@ -2409,32 +2405,19 @@ static int stm32_spi_probe(struct platform_device *pdev)
->   		return ret;
->   	}
->   
-> -	spi->clk = devm_clk_get(&pdev->dev, NULL);
-> -	if (IS_ERR(spi->clk)) {
-> -		ret = PTR_ERR(spi->clk);
-> -		dev_err(&pdev->dev, "clk get failed: %d\n", ret);
-> -		return ret;
-> -	}
-> +	spi->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-> +	if (IS_ERR(spi->clk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(spi->clk), "clk enabled failed\n");
->   
-> -	ret = clk_prepare_enable(spi->clk);
-> -	if (ret) {
-> -		dev_err(&pdev->dev, "clk enable failed: %d\n", ret);
-> -		return ret;
-> -	}
->   	spi->clk_rate = clk_get_rate(spi->clk);
-> -	if (!spi->clk_rate) {
-> -		dev_err(&pdev->dev, "clk rate = 0\n");
-> -		ret = -EINVAL;
-> -		goto err_clk_disable;
-> -	}
-> +	if (!spi->clk_rate)
-> +		return dev_err_probe(&pdev->dev, -EINVAL, "clk rate = 0\n");
->   
->   	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
->   	if (rst) {
-> -		if (IS_ERR(rst)) {
-> +		if (IS_ERR(rst))
->   			ret = dev_err_probe(&pdev->dev, PTR_ERR(rst),
->   					    "failed to get reset\n");
-> -			goto err_clk_disable;
-> -		}
-
-Here you change the behavior: it should return dev_err_probe(...) (on 
-single line too)
-+		if (IS_ERR(rst))
-+   			return dev_err_probe(&pdev->dev, PTR_ERR(rst), "failed to get 
-reset\n");
-
->   
->   		reset_control_assert(rst);
->   		udelay(2);
-> @@ -2461,11 +2444,9 @@ static int stm32_spi_probe(struct platform_device *pdev)
->   	dev_dbg(spi->dev, "one message max size %d\n", spi->t_size_max);
->   
->   	ret = spi->cfg->config(spi);
-> -	if (ret) {
-> -		dev_err(&pdev->dev, "controller configuration failed: %d\n",
-> -			ret);
-> -		goto err_clk_disable;
-> -	}
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "controller configuration failed: %d\n", ret);
-
-it fits on single line too here.
-
->   
->   	ctrl->auto_runtime_pm = true;
->   	ctrl->bus_num = pdev->id;
-> @@ -2490,8 +2471,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
->   			dev_info(&pdev->dev, "tx dma disabled\n");
->   			spi->dma_tx = NULL;
->   		} else {
-> -			dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
-> -			goto err_clk_disable;
-> +			return dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
->   		}
->   	} else {
->   		ctrl->dma_tx = spi->dma_tx;
-> @@ -2579,8 +2559,6 @@ static int stm32_spi_probe(struct platform_device *pdev)
->   err_dma_tx_release:
->   	if (spi->dma_tx)
->   		dma_release_channel(spi->dma_tx);
-> -err_clk_disable:
-> -	clk_disable_unprepare(spi->clk);
->   
->   	return ret;
->   }
-> @@ -2610,9 +2588,6 @@ static void stm32_spi_remove(struct platform_device *pdev)
->   		gen_pool_free(spi->sram_pool, (unsigned long)spi->sram_rx_buf,
->   			      spi->sram_rx_buf_size);
->   
-> -	clk_disable_unprepare(spi->clk);
-> -
-> -
->   	pinctrl_pm_select_sleep_state(&pdev->dev);
->   }
->   
+diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
+index 502fd5eccc83..a7e135607e2a 100644
+--- a/drivers/spi/spi-zynqmp-gqspi.c
++++ b/drivers/spi/spi-zynqmp-gqspi.c
+@@ -1244,26 +1244,16 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(xqspi->regs))
+ 		return PTR_ERR(xqspi->regs);
+ 
+-	xqspi->pclk = devm_clk_get(&pdev->dev, "pclk");
++	xqspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
+ 	if (IS_ERR(xqspi->pclk))
+ 		return dev_err_probe(dev, PTR_ERR(xqspi->pclk),
+ 				     "pclk clock not found.\n");
+ 
+-	xqspi->refclk = devm_clk_get(&pdev->dev, "ref_clk");
++	xqspi->refclk = devm_clk_get_enabled(&pdev->dev, "ref_clk");
+ 	if (IS_ERR(xqspi->refclk))
+ 		return dev_err_probe(dev, PTR_ERR(xqspi->refclk),
+ 				     "ref_clk clock not found.\n");
+ 
+-	ret = clk_prepare_enable(xqspi->pclk);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Unable to enable APB clock.\n");
+-
+-	ret = clk_prepare_enable(xqspi->refclk);
+-	if (ret) {
+-		dev_err(dev, "Unable to enable device clock.\n");
+-		goto clk_dis_pclk;
+-	}
+-
+ 	init_completion(&xqspi->data_completion);
+ 
+ 	mutex_init(&xqspi->op_lock);
+@@ -1339,9 +1329,6 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+ 	pm_runtime_set_suspended(&pdev->dev);
+-	clk_disable_unprepare(xqspi->refclk);
+-clk_dis_pclk:
+-	clk_disable_unprepare(xqspi->pclk);
+ 
+ 	return ret;
+ }
+@@ -1368,8 +1355,6 @@ static void zynqmp_qspi_remove(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_put_noidle(&pdev->dev);
+ 	pm_runtime_set_suspended(&pdev->dev);
+-	clk_disable_unprepare(xqspi->refclk);
+-	clk_disable_unprepare(xqspi->pclk);
+ }
+ 
+ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
+-- 
+2.25.1
 
 
