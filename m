@@ -1,88 +1,80 @@
-Return-Path: <openbmc+bounces-1652-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1653-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E62109192C
-	for <openbmc@archiver.kernel.org>; Thu, 19 Mar 2026 22:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 913BA109192C
+	for <openbmc@archiver.kernel.org>; Thu, 19 Mar 2026 22:43:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fcLLj4jW5z2ySC;
-	Fri, 20 Mar 2026 09:42:53 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::536"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773905843;
-	cv=none; b=jixbAicfCy5lCgUX1JUhh83yAbCN5yCWiJ4fFmVqAyt2Upoxq+94yBwes4U5ZQ0HpTrgxJU1ZOPeJeKdM2EMT6Bt11dpUNhaGvyBFvRyjt1Vl3zogzTt7N7BRyohdY9UNGxfifk+24M4MBRyTz4ImcA3Hd01AdpOVLcFTKiBPCxYiU/z1tJfg9lPI6dODlIburOqw0C/F4RNBdUtkJ1x80rFjwRQMLWAhr8ALVooUuIL52dePKLwCLy+/lcLLAM+rVDrkAQklDiRuH16QjkxICU5XaHOKoAlhQWKBOnrUmNnZwNy/vDMv2AXTJ3veNv5VzMS9rzXLEXAhC99r32niA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773905843; c=relaxed/relaxed;
-	bh=wZPW6MvRh6eh3TexeAe9y0l2Hw1NgoXFCr0oQMMfkbU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CGXcTKqdTgxJYvJSh7mYc21jvulOeX8ndGUkOHyVfXVegT2v9lNfQnAJaMdrXgGb/ZrFjX/bpJ0u0d96LSIP+P/emdFgDIuMm0wv53/3LpmPPG82FGv12Dy/XuAa6QvB6TPB9aoT+F3rnOSHFfFG3Hg587vqDpK23xY3ZFDGsT2t/V5nuK0alnpGKyIWhoXIMgJ2LQX09tbDbTgM/lqLr7lD7vGb3XWLn3BVCrIxdizPgHJ2Y4RTGoXnUC0eM8RqARFYYdA0VakCrXGckQ+MIAIXR5f1AzFuNneyx2s1gD7CSOXAV8thoxbzT2Ew6n7TjUY6NY961T5Wmx0gZY0mYg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jh7aK2QZ; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=jackson870728@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fcLLk3HVDz2yVT;
+	Fri, 20 Mar 2026 09:42:54 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c200::5" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773913740;
+	cv=pass; b=KwXlF360pZHl34ACTBlPSKwCpmedy5OuwFO7xEkO9xaVomf2p6Y0JdfoKY503cLYLcAmaSNFdCNNvbTo1NYBWqmI7Nd/5ka7qB8IieYk7K/vTnXOE2tgvuFuMIIFsV74ew7UFO2j28/Bl8GquN3x0SIJvUemzwwyzZGQCIpldyNBvMr7GEMPB9m+/fs/H5IgfRNdbBa8Pg/70bbGGRoBxwcQdQQZ/o9r3b19kXZP6DP74F/IkSr5UoYmATQWTT8VryfEnaa5fC+A8t9LK1ZDtm0ZFzVDTcfiNp/RloFuQon9BrQbhOZ6KCYzzjZm9vbUi77fo6St7tbXb4G8MCY3vg==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1773913740; c=relaxed/relaxed;
+	bh=F8irBykowPt+uvQoGdqM/C5yPJ/WiG3eDnhOjMuzfnU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=DrB4vYnUkxWBLQCejhlxTbP1Ck4ERDBdd5KDaUF/qiBpFEezRDxOVJ4FdFm+hubkryGhssTrvwx9w2yJTuDXQTKCqIrfH6gE213IO1dkiVcXc7wNeKP7qi8S1OSX76nx8y3uBgNfX6vKpE4fMIdxuPCg0zWHw/T+cyTXk3CQE2xfq+qZ/q4FSaczInM2C2ykco4pEW7Xu1YCSQr+N2YyBz6r+ZCPQT7uAQQ9z/R4vXSkhWltLveLLgXEduIUIflsLinFImv188v2zVwbGM3c92rDsQNtkJTz18Y/OTELhHhs2rjalwgCUp4SWyJ+aC9kKaf1n40yolr2ckbVTFShow==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hDBfhb92; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c200::5; helo=duzpr83cu001.outbound.protection.outlook.com; envelope-from=amelie.delaunay@foss.st.com; receiver=lists.ozlabs.org) smtp.mailfrom=foss.st.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=jh7aK2QZ;
+	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=hDBfhb92;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=jackson870728@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com [IPv6:2607:f8b0:4864:20::536])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=foss.st.com (client-ip=2a01:111:f403:c200::5; helo=duzpr83cu001.outbound.protection.outlook.com; envelope-from=amelie.delaunay@foss.st.com; receiver=lists.ozlabs.org)
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazlp170120005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c200::5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbyFt0Df5z2ykV
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 18:37:21 +1100 (AEDT)
-Received: by mail-pg1-x536.google.com with SMTP id 41be03b00d2f7-c70c112cb61so472866a12.0
-        for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 00:37:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773905840; x=1774510640; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wZPW6MvRh6eh3TexeAe9y0l2Hw1NgoXFCr0oQMMfkbU=;
-        b=jh7aK2QZmjVjNUXJmUiQQukWFk7VcvwW98/aK/Zh3kpp5YEbLg7ztotBgi1yuYWO7x
-         n8l0xAkZfndrHSXtqoV0egJIKMzkG5o85AVpxpewnISPSFPph6RHcw0WviCUbp1eIt3S
-         iEPdZ8nd9imKjvPXNFibdYqNlSyniz+Z1all8r55eK4GfgBAcGI2k3zDMIAhHDMLvsvt
-         8hQIu7rBfhzBz/0ZX5n6v6GFMogIAg8j40R5wsW5o02Tj6cdZI8RdWMDRr9XJWGD1vuG
-         Zlq0i/NEaU5xngRZS9qTYGJJNvp9Hh+Elnr/EuvTbu/QEnCKWkL5wGRXKoC6B6MZnGjz
-         TeSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773905840; x=1774510640;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wZPW6MvRh6eh3TexeAe9y0l2Hw1NgoXFCr0oQMMfkbU=;
-        b=g/Eqo75iVgKpZEYDdEhgNGsvhkR9QBThZ47i5yUtDkSWOFLF39VUkH5jOdtWmSeoZh
-         FIGLVMT7WGk518p1sNudddq0eaG7FHWqc9Ze+hrg9oMY/LFyoElDiLKIPrzth5llrK7M
-         Th3yfd6EfR0N+qTf9+e6M00HFGWNFbzaxamTGBxY/DXXojKHvpA0dKYjs8Ds7QGIaC86
-         K9jiybzd2K5/qZXzUUAis6tLeX3s9aRT42l5N+hisI05vdo6XautTVFqTnQmzMXeLeGk
-         y8o9J+wHUTTCFBmVIlhFxcj+yIaJ/bV+twOMjVeIYK+L68FLEWcG3s7UuftTtAzFe60Y
-         /SOA==
-X-Forwarded-Encrypted: i=1; AJvYcCVA6o0jRGQsogxIU8F8yDveXM8/BpSn31MrJFbZpH8UuxXHiQQoqNnJN9GgUOyKOUnC6PRAafzQ@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzEMYMyP8xr2G0A8ituZP/mJx9HMLgP6vEA2oj3EePDaVLvUwhA
-	heEQ34AWWCIVUo2c4tRkC/PFsrDJMrJuE78fTVpN0p+XHUbaFQnwqbS5
-X-Gm-Gg: ATEYQzyTZElkSNN0PHAAVWB2mtxF0xiY58y7pWc63o8cq/rS9foUsdVtWVA1AZ0w4GL
-	iYLFSSq57rAYZPM59HGIAVUksM7MFv6DsyU6gzVg3ah4Sba02xCxdx/13sHmLwjdMGoroP1735g
-	hIRNLsY76EzOecBXxdcAMpo/G3IcDbdaRixrewujzi2IlY/jTqtOWReiy0myTYFH40nUDV0E8lj
-	67ZIJbSkba5Su+UIUSBpbbibotj4TeMJ1xJtL019ovoqfk7Rl8IPNZ4H6SxelLW203xzNQgsc/h
-	D1G59vNUO9Pf4sYfPQdaE4ul5UH+CB7OHu/nSLpqLiIOT5QLjNVvBUXbeBvH4vKQsbWHFOWPSAx
-	7cN6Jim2M5SWO+JkJnJSCOc0QW2m2900rAjSvN6HaS8BuW4LD2dkkz6BRUsUN56yWfXyNGf8unA
-	YA9piyeFgDioYNgZyHv402tkxM1k0kzTgKeEqJHn5oOreGCBLN1GSUWkOYNX0iNdMaK10TCvKVA
-	tVIm4+JiVxQi1c4MjGdoi0jdnQLJOLv
-X-Received: by 2002:a05:6a21:329b:b0:398:9a90:659e with SMTP id adf61e73a8af0-39b99fc2b0emr5989967637.32.1773905839665;
-        Thu, 19 Mar 2026 00:37:19 -0700 (PDT)
-Received: from jackson-ubuntu24.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c741e568e36sm4633192a12.23.2026.03.19.00.37.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Mar 2026 00:37:19 -0700 (PDT)
-From: Jackson Liu <jackson870728@gmail.com>
-X-Google-Original-From: Jackson Liu <Jackson.Liu@quantatw.com>
-To: andrew@codeconstruct.com.au,
-	openbmc@lists.ozlabs.org
-Cc: jackson.liu@quantatw.com
-Subject: [PATCH linux dev-6.18 2/3] hwmon: Add MP2925 and MP2929 driver
-Date: Thu, 19 Mar 2026 15:35:11 +0800
-Message-ID: <20260319073515.1577998-2-Jackson.Liu@quantatw.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260319073515.1577998-1-Jackson.Liu@quantatw.com>
-References: <20260319073515.1577998-1-Jackson.Liu@quantatw.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fc19l0lwdz2ygT
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 20:48:58 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Tr3m8jPs3G3KNhyzj8m5wUlO30XvHAHNy71ZerOnOtm9EdJrZFjQzN5x7Mf8uCEtQm/CFbh8QA0jwZ7FsntiwR734ZdwCJHcP6G+kOraGgtWYYyKGuxLLl9iX3TOMCLjxBFazP4COIT5nuWVNYKub69vkZ04Pv+H+Cr2MfEfOsh0mJKPXFuIHwvbnVbIjTOIlHXY71V16hAcyMAVsy++H6uavAVZLKD/K2aEL6jAS1M97h3Wex4IE+gmKm2q23LK7YTffhIb9aJ1ReJKlYjg3LAGOnu8GD6qEoIuN8YIafWMOZrln4rilGUjAMfHhvmeQpHQNrwYeybK3Iep8yjtZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F8irBykowPt+uvQoGdqM/C5yPJ/WiG3eDnhOjMuzfnU=;
+ b=VQPOayFfVtzbkWmE1ZRqaZV/Ej3y2pVhGY0HyUYDhR9fP1yEaQwlkLVDEbuD+mIoi3hktlYMZyvI5alICDM6m8iJ/v/fYHeWZbPkrWUi7QO75AIzrJvNcmHuBRiMgSU3bXHtroQ185qfA9PDZqw+qtwq8dEQhcSg4AS4PKz8VTh9DMP7PX3e5iPF0UvlMMmRJvjwa4Us5NYj308wPpVAMprhxTDmJ8jDdava75FaAeiiuJUouKKPOFHAX+6KmqPYbFcO7zNcPSVS8mYeyF1bsLSyh3D5AvkhtgbJjjbGyT19OZ7T2hfWgorjT6r7XcnNmBL63lIlpFwRRgvH5nbwyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F8irBykowPt+uvQoGdqM/C5yPJ/WiG3eDnhOjMuzfnU=;
+ b=hDBfhb92AcbQH9dL47ruZVUQqjTu5mNw17TMz0ax31r3FW6OrJVUS7tx4lGYz7WzrgHyLDB3f40rtaHyQ8BWFvwf8bWTUTcnw7MgopGD7LVSTuCKS//fmsPp2uhD/NFxXZL/ELE8RjGHtGuw/4Mzvbs5GfvOAiOUbilaou0SGdAS/oNOkyMOeZEel5Wubi8PjBRIHfcbYpAy+JKHak64b7t3dxB2eRHRq2SQne384TVLADb4xvy6erqjOIDAEUDcIaoSermdKdOYWvSFR3TLFyzwih0rgN7Pg0ZbcFI7DoL6thVs4cMJpuvMRMGrdgVgsaN4KjnoYGaIyMfKuZC6Mg==
+Received: from AS9PR06CA0361.eurprd06.prod.outlook.com (2603:10a6:20b:460::13)
+ by VI0PR10MB9075.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:214::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 09:48:25 +0000
+Received: from AM1PEPF000252DA.eurprd07.prod.outlook.com
+ (2603:10a6:20b:460:cafe::75) by AS9PR06CA0361.outlook.office365.com
+ (2603:10a6:20b:460::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Thu,
+ 19 Mar 2026 09:48:25 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM1PEPF000252DA.mail.protection.outlook.com (10.167.16.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 09:48:23 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
+ 2026 10:50:42 +0100
+Received: from [10.252.1.11] (10.252.1.11) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
+ 2026 10:48:22 +0100
+Message-ID: <e0675843-19a1-42da-a784-c3364deac785@foss.st.com>
+Date: Thu, 19 Mar 2026 10:48:21 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -94,571 +86,192 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=y
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 13/17] spi: stm32: Simplify clock handling with
+ devm_clk_get_enabled()
+To: Pei Xiao <xiaopei01@kylinos.cn>, <linux-spi@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<imx@lists.linux.dev>, <openbmc@lists.ozlabs.org>,
+	<linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <broonie@kernel.org>,
+	<Frank.Li@nxp.com>
+References: <cover.1773885292.git.xiaopei01@kylinos.cn>
+ <c8259f582596fd08541b94dce5dbb4cae513e295.1773885292.git.xiaopei01@kylinos.cn>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <c8259f582596fd08541b94dce5dbb4cae513e295.1773885292.git.xiaopei01@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.252.1.11]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000252DA:EE_|VI0PR10MB9075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20481b7e-945b-46fc-10b8-08de859ca988
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|921020|22082099003|56012099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	dXA8tdkTerByHge+1jzLn7mBEtACVp5VAwYVNtkOF/bCWL1Mp36dSDesSLfQ8XU/x2iORKECITkcCVB/l9TIc9WKkciAVdxhJb/xDjSm+X+WvFGg40fYKVxXK12p7+tPdW62FI09VKwt3JXHfHmRD+3O/A2GGgdJUOutlDWeRg1Kqa150tIYv4aP0mRwRxP03a3iLpTRlkJj1dSaKS2C8L7JHwmJOqbSibXMvRox7t56kxMrGzmEEA/q/zytFyHxcWZntCcKtvgtZkx2+Ji602A+Ds7PAz/YFFoNPZp77JUPGtVWPG+4n2n9U+/9N7yr6JaZ/D3hk5ai7FDbUQk2ATsI0DKSQVVMJkidNVIf512i7tuUkjI/6loQHfp8La8umcTwih1hfU9czc/3xA4XNRYwNzg7ZarpZfWpWPea1Ga9ZY+D+9bxY+cXyr7PPN4wsjvGFZYT4JDC3w9xyqlv+MIsM3+PSfQWbp1wMF0+2LaYhsRQ7tmuyloRiKnnCd1iCn2GM4S8rJJxjWyfFelAoR/QJ9JhceYzM67KjtZzF5YO1QZVB/CvbkpyKUaNsJLPclfuBlcmJPHeKHzqtGJPk/FQ4stXBdrqOPkCHLmBrnUV097arrwm6hlewWcl7vWF1VygqkVJ9tY9GYafh7fBM6ZToy/s6gLmUaLm/Jdk0oI5EyH3IKk7IeEpgYoFqOwJa5W/4OX/qALn9KOy/teQxqL3Cpb1OptGfARGg8WFaakTIY5MpYoQc+RT6lVgKhhghUYDggnX7HW4UhqgjiM/hYSyQwRI7uL2q7qWkTvVZPpga43oza27fG4WzFu/SR4y
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(921020)(22082099003)(56012099003)(18002099003)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iVPU4El0mriIi6rcadh4F+91RRV6u/zh1YZ+j/a4s82HKv8HXsUq3wQGPy+I5D7Vswet4sCVw3Uq9/AqCHA/BJDHepDqaCOhmceRdCUqun+VmGkB/JekN+fiK8g0bpIuPu3s0XvECKh14B8g9lrIDQeoZZBvKd2Bj3dUwTp90t3bFWyIqWTswDf4mBcSI7Tr14QfIhGxbH++gKGjkNnHQBH81yb1nfjx/EAETbxJ1KyiwejPLC3nnDQkFxu64EBU/idJWveyxOPTN0PPVsRsPhQ5qqxjK2Q9oPjhqeJLBdZycH6EZD/44S9ls2GVZEsUGtuXp1CHnXqTwE431Tg7M0bhgiOt5vPybKTd6FsjWkN47CPoT8HTOSApH8HNGyQridnMyIrDYZ/QszyRhJCAs2jjQvsFTeh/wTrHG0HOZM5PK75fi4Cr40u8NLR42/KR
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 09:48:23.8001
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20481b7e-945b-46fc-10b8-08de859ca988
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000252DA.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9075
 
-From: Wensheng Wang <wenswang@yeah.net>
 
-Add support for MPS VR mp2925 and mp2929 controller. This driver exposes
-telemetry and limit value readings and writtings.
 
-Signed-off-by: Wensheng Wang <wenswang@yeah.net>
-Link: https://lore.kernel.org/r/20250928092845.1394718-2-wenswang@yeah.net
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit a79472e30be48e6693f83d298836880b56afc5a7)
----
- Documentation/hwmon/index.rst  |   1 +
- Documentation/hwmon/mp2925.rst | 151 ++++++++++++++++
- MAINTAINERS                    |   7 +
- drivers/hwmon/pmbus/Kconfig    |   9 +
- drivers/hwmon/pmbus/Makefile   |   1 +
- drivers/hwmon/pmbus/mp2925.c   | 316 +++++++++++++++++++++++++++++++++
- 6 files changed, 485 insertions(+)
- create mode 100644 Documentation/hwmon/mp2925.rst
- create mode 100644 drivers/hwmon/pmbus/mp2925.c
+On 3/19/26 03:04, Pei Xiao wrote:
+> Replace devm_clk_get() followed by clk_prepare_enable() with
+> devm_clk_get_enabled() for the clock. This removes the need for
+> explicit clock enable and disable calls, as the managed API automatically
+> handles clock disabling on device removal or probe failure.
+> 
+> Remove the now-unnecessary clk_disable_unprepare() calls from the probe
+> error paths and the remove callback. Also simplify error handling by
+> using dev_err_probe().
+> 
+> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 2be07966fed6..960f9166ae8e 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -177,6 +177,7 @@ Hardware Monitoring Kernel Drivers
-    mp2869
-    mp2888
-    mp2891
-+   mp2925
-    mp29502
-    mp2975
-    mp2993
-diff --git a/Documentation/hwmon/mp2925.rst b/Documentation/hwmon/mp2925.rst
-new file mode 100644
-index 000000000000..63eda215b6cb
---- /dev/null
-+++ b/Documentation/hwmon/mp2925.rst
-@@ -0,0 +1,151 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Kernel driver mp2925
-+====================
-+
-+Supported chips:
-+
-+  * MPS mp2925
-+
-+    Prefix: 'mp2925'
-+
-+  * MPS mp2929
-+
-+    Prefix: 'mp2929'
-+
-+Author:
-+
-+	Wensheng Wang <wenswang@yeah.net>
-+
-+Description
-+-----------
-+
-+This driver implements support for Monolithic Power Systems, Inc. (MPS)
-+MP2925 Dual Loop Digital Multi-phase Controller.
-+
-+Device compliant with:
-+
-+- PMBus rev 1.3 interface.
-+
-+The driver exports the following attributes via the 'sysfs' files
-+for input voltage:
-+
-+**in1_input**
-+
-+**in1_label**
-+
-+**in1_crit**
-+
-+**in1_crit_alarm**
-+
-+**in1_lcrit**
-+
-+**in1_lcrit_alarm**
-+
-+**in1_max**
-+
-+**in1_max_alarm**
-+
-+**in1_min**
-+
-+**in1_min_alarm**
-+
-+The driver provides the following attributes for output voltage:
-+
-+**in2_input**
-+
-+**in2_label**
-+
-+**in2_crit**
-+
-+**in2_crit_alarm**
-+
-+**in2_lcrit**
-+
-+**in2_lcrit_alarm**
-+
-+**in3_input**
-+
-+**in3_label**
-+
-+**in3_crit**
-+
-+**in3_crit_alarm**
-+
-+**in3_lcrit**
-+
-+**in3_lcrit_alarm**
-+
-+The driver provides the following attributes for input current:
-+
-+**curr1_input**
-+
-+**curr1_label**
-+
-+The driver provides the following attributes for output current:
-+
-+**curr2_input**
-+
-+**curr2_label**
-+
-+**curr2_crit**
-+
-+**curr2_crit_alarm**
-+
-+**curr2_max**
-+
-+**curr2_max_alarm**
-+
-+**curr3_input**
-+
-+**curr3_label**
-+
-+**curr3_crit**
-+
-+**curr3_crit_alarm**
-+
-+**curr3_max**
-+
-+**curr3_max_alarm**
-+
-+The driver provides the following attributes for input power:
-+
-+**power1_input**
-+
-+**power1_label**
-+
-+**power2_input**
-+
-+**power2_label**
-+
-+The driver provides the following attributes for output power:
-+
-+**power3_input**
-+
-+**power3_label**
-+
-+**power4_input**
-+
-+**power4_label**
-+
-+The driver provides the following attributes for temperature:
-+
-+**temp1_input**
-+
-+**temp1_crit**
-+
-+**temp1_crit_alarm**
-+
-+**temp1_max**
-+
-+**temp1_max_alarm**
-+
-+**temp2_input**
-+
-+**temp2_crit**
-+
-+**temp2_crit_alarm**
-+
-+**temp2_max**
-+
-+**temp2_max_alarm**
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 10b1f6f61afc..a697e450301d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17501,6 +17501,13 @@ S:	Maintained
- F:	Documentation/hwmon/mp2891.rst
- F:	drivers/hwmon/pmbus/mp2891.c
- 
-+MPS MP2925 DRIVER
-+M:	Noah Wang <wenswang@yeah.net>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/hwmon/mp2925.rst
-+F:	drivers/hwmon/pmbus/mp2925.c
-+
- MPS MP29502 DRIVER
- M:	Wensheng Wang <wenswang@yeah.net>
- L:	linux-hwmon@vger.kernel.org
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 6860673bcecf..933dd3b71d21 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -401,6 +401,15 @@ config SENSORS_MP2891
-       This driver can also be built as a module. If so, the module will
-       be called mp2891.
- 
-+config SENSORS_MP2925
-+    tristate "MPS MP2925"
-+    help
-+      If you say yes here you get hardware monitoring support for MPS
-+      MP2925 Dual Loop Digital Multi-Phase Controller.
-+
-+      This driver can also be built as a module. If so, the module will
-+      be called mp2925.
-+
- config SENSORS_MP29502
- 	tristate "MPS MP29502"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 57f23fb0ab86..be3884465641 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -40,6 +40,7 @@ obj-$(CONFIG_SENSORS_MP2856)	+= mp2856.o
- obj-$(CONFIG_SENSORS_MP2869)	+= mp2869.o
- obj-$(CONFIG_SENSORS_MP2888)	+= mp2888.o
- obj-$(CONFIG_SENSORS_MP2891)	+= mp2891.o
-+obj-$(CONFIG_SENSORS_MP2925)	+= mp2925.o
- obj-$(CONFIG_SENSORS_MP29502)	+= mp29502.o
- obj-$(CONFIG_SENSORS_MP2975)	+= mp2975.o
- obj-$(CONFIG_SENSORS_MP2993)	+= mp2993.o
-diff --git a/drivers/hwmon/pmbus/mp2925.c b/drivers/hwmon/pmbus/mp2925.c
-new file mode 100644
-index 000000000000..6bebd6023021
---- /dev/null
-+++ b/drivers/hwmon/pmbus/mp2925.c
-@@ -0,0 +1,316 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Hardware monitoring driver for MPS Multi-phase Digital VR Controllers(MP2925)
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include "pmbus.h"
-+
-+/*
-+ * Vender specific register MFR_VR_MULTI_CONFIG(0x08).
-+ * This register is used to obtain vid scale.
-+ */
-+#define MFR_VR_MULTI_CONFIG	0x08
-+
-+#define MP2925_VOUT_DIV	512
-+#define MP2925_VOUT_OVUV_UINT	195
-+#define MP2925_VOUT_OVUV_DIV	100
-+
-+#define MP2925_PAGE_NUM	2
-+
-+#define MP2925_RAIL1_FUNC	(PMBUS_HAVE_VIN | PMBUS_HAVE_PIN | \
-+							 PMBUS_HAVE_VOUT | PMBUS_HAVE_IOUT | \
-+							 PMBUS_HAVE_POUT | PMBUS_HAVE_TEMP | \
-+							 PMBUS_HAVE_STATUS_VOUT | \
-+							 PMBUS_HAVE_STATUS_IOUT | \
-+							 PMBUS_HAVE_STATUS_TEMP | \
-+							 PMBUS_HAVE_STATUS_INPUT)
-+
-+#define MP2925_RAIL2_FUNC	(PMBUS_HAVE_PIN | PMBUS_HAVE_VOUT | \
-+							 PMBUS_HAVE_IOUT | PMBUS_HAVE_POUT | \
-+							 PMBUS_HAVE_TEMP | PMBUS_HAVE_IIN | \
-+							 PMBUS_HAVE_STATUS_VOUT | \
-+							 PMBUS_HAVE_STATUS_IOUT | \
-+							 PMBUS_HAVE_STATUS_TEMP | \
-+							 PMBUS_HAVE_STATUS_INPUT)
-+
-+struct mp2925_data {
-+	struct pmbus_driver_info info;
-+	int vout_scale[MP2925_PAGE_NUM];
-+};
-+
-+#define to_mp2925_data(x) container_of(x, struct mp2925_data, info)
-+
-+static u16 mp2925_linear_exp_transfer(u16 word, u16 expect_exponent)
-+{
-+	s16 exponent, mantissa, target_exponent;
-+
-+	exponent = ((s16)word) >> 11;
-+	mantissa = ((s16)((word & 0x7ff) << 5)) >> 5;
-+	target_exponent = (s16)((expect_exponent & 0x1f) << 11) >> 11;
-+
-+	if (exponent > target_exponent)
-+		mantissa = mantissa << (exponent - target_exponent);
-+	else
-+		mantissa = mantissa >> (target_exponent - exponent);
-+
-+	return (mantissa & 0x7ff) | ((expect_exponent << 11) & 0xf800);
-+}
-+
-+static int mp2925_read_byte_data(struct i2c_client *client, int page, int reg)
-+{
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_VOUT_MODE:
-+		/*
-+		 * The MP2925 does not follow standard PMBus protocol completely,
-+		 * and the calculation of vout in this driver is based on direct
-+		 * format. As a result, the format of vout is enforced to direct.
-+		 */
-+		ret = PB_VOUT_MODE_DIRECT;
-+		break;
-+	default:
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int mp2925_read_word_data(struct i2c_client *client, int page, int phase,
-+				 int reg)
-+{
-+	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-+	struct mp2925_data *data = to_mp2925_data(info);
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_READ_VOUT:
-+		ret = pmbus_read_word_data(client, page, phase, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = DIV_ROUND_CLOSEST((ret & GENMASK(11, 0)) * data->vout_scale[page],
-+					MP2925_VOUT_DIV);
-+		break;
-+	case PMBUS_VOUT_OV_FAULT_LIMIT:
-+	case PMBUS_VOUT_UV_FAULT_LIMIT:
-+		ret = pmbus_read_word_data(client, page, phase, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = DIV_ROUND_CLOSEST((ret & GENMASK(11, 0)) * MP2925_VOUT_OVUV_UINT,
-+					MP2925_VOUT_OVUV_DIV);
-+		break;
-+	case PMBUS_STATUS_WORD:
-+	case PMBUS_READ_VIN:
-+	case PMBUS_READ_IOUT:
-+	case PMBUS_READ_POUT:
-+	case PMBUS_READ_PIN:
-+	case PMBUS_READ_IIN:
-+	case PMBUS_READ_TEMPERATURE_1:
-+	case PMBUS_VIN_OV_FAULT_LIMIT:
-+	case PMBUS_VIN_OV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_FAULT_LIMIT:
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+	case PMBUS_OT_FAULT_LIMIT:
-+	case PMBUS_OT_WARN_LIMIT:
-+		ret = -ENODATA;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int mp2925_write_word_data(struct i2c_client *client, int page, int reg,
-+				  u16 word)
-+{
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_VIN_OV_FAULT_LIMIT:
-+	case PMBUS_VIN_OV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_WARN_LIMIT:
-+	case PMBUS_VIN_UV_FAULT_LIMIT:
-+		/*
-+		 * The PMBUS_VIN_OV_FAULT_LIMIT, PMBUS_VIN_OV_WARN_LIMIT,
-+		 * PMBUS_VIN_UV_WARN_LIMIT and PMBUS_VIN_UV_FAULT_LIMIT
-+		 * of MP2925 is linear11 format, and the exponent is a
-+		 * constant value(5'b11100)， so the exponent of word
-+		 * parameter should be converted to 5'b11100(0x1C).
-+		 */
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    mp2925_linear_exp_transfer(word, 0x1C));
-+		break;
-+	case PMBUS_VOUT_OV_FAULT_LIMIT:
-+	case PMBUS_VOUT_UV_FAULT_LIMIT:
-+		/*
-+		 * The bit0-bit11 is the limit value, and bit12-bit15
-+		 * should not be changed.
-+		 */
-+		ret = pmbus_read_word_data(client, page, 0xff, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    (ret & ~GENMASK(11, 0)) |
-+				FIELD_PREP(GENMASK(11, 0),
-+					   DIV_ROUND_CLOSEST(word * MP2925_VOUT_OVUV_DIV,
-+							     MP2925_VOUT_OVUV_UINT)));
-+		break;
-+	case PMBUS_OT_FAULT_LIMIT:
-+	case PMBUS_OT_WARN_LIMIT:
-+		/*
-+		 * The PMBUS_OT_FAULT_LIMIT and PMBUS_OT_WARN_LIMIT of
-+		 * MP2925 is linear11 format, and the exponent is a
-+		 * constant value(5'b00000), so the exponent of word
-+		 * parameter should be converted to 5'b00000.
-+		 */
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    mp2925_linear_exp_transfer(word, 0x00));
-+		break;
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+	case PMBUS_IOUT_OC_WARN_LIMIT:
-+		/*
-+		 * The PMBUS_IOUT_OC_FAULT_LIMIT and PMBUS_IOUT_OC_WARN_LIMIT
-+		 * of MP2925 is linear11 format, and the exponent can not be
-+		 * changed.
-+		 */
-+		ret = pmbus_read_word_data(client, page, 0xff, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    mp2925_linear_exp_transfer(word,
-+								       FIELD_GET(GENMASK(15, 11),
-+										 ret)));
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int
-+mp2925_identify_vout_scale(struct i2c_client *client, struct pmbus_driver_info *info,
-+			   int page)
-+{
-+	struct mp2925_data *data = to_mp2925_data(info);
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_byte_data(client, PMBUS_VOUT_MODE);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (FIELD_GET(GENMASK(5, 5), ret)) {
-+		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE,
-+						page == 0 ? 3 : 4);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = i2c_smbus_read_word_data(client, MFR_VR_MULTI_CONFIG);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (FIELD_GET(GENMASK(5, 5), ret))
-+			data->vout_scale[page] = 2560;
-+		else
-+			data->vout_scale[page] = 5120;
-+	} else if (FIELD_GET(GENMASK(4, 4), ret)) {
-+		data->vout_scale[page] = 1;
-+	} else {
-+		data->vout_scale[page] = 512;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mp2925_identify(struct i2c_client *client, struct pmbus_driver_info *info)
-+{
-+	int ret;
-+
-+	ret = mp2925_identify_vout_scale(client, info, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	return mp2925_identify_vout_scale(client, info, 1);
-+}
-+
-+static const struct pmbus_driver_info mp2925_info = {
-+	.pages = MP2925_PAGE_NUM,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_CURRENT_IN] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+
-+	.m[PSC_VOLTAGE_OUT] = 1,
-+	.R[PSC_VOLTAGE_OUT] = 3,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+
-+	.func[0] = MP2925_RAIL1_FUNC,
-+	.func[1] = MP2925_RAIL2_FUNC,
-+	.read_word_data = mp2925_read_word_data,
-+	.read_byte_data = mp2925_read_byte_data,
-+	.write_word_data = mp2925_write_word_data,
-+	.identify = mp2925_identify,
-+};
-+
-+static int mp2925_probe(struct i2c_client *client)
-+{
-+	struct mp2925_data *data;
-+
-+	data = devm_kzalloc(&client->dev, sizeof(struct mp2925_data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	memcpy(&data->info, &mp2925_info, sizeof(mp2925_info));
-+
-+	return pmbus_do_probe(client, &data->info);
-+}
-+
-+static const struct i2c_device_id mp2925_id[] = {
-+	{"mp2925"},
-+	{"mp2929"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, mp2925_id);
-+
-+static const struct of_device_id __maybe_unused mp2925_of_match[] = {
-+	{.compatible = "mps,mp2925"},
-+	{.compatible = "mps,mp2929"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, mp2925_of_match);
-+
-+static struct i2c_driver mp2925_driver = {
-+	.driver = {
-+		.name = "mp2925",
-+		.of_match_table = mp2925_of_match,
-+	},
-+	.probe = mp2925_probe,
-+	.id_table = mp2925_id,
-+};
-+
-+module_i2c_driver(mp2925_driver);
-+
-+MODULE_AUTHOR("Wensheng Wang <wenswang@yeah.net>");
-+MODULE_DESCRIPTION("PMBus driver for MPS MP2925");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
--- 
-2.43.0
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+
+> ---
+>   drivers/spi/spi-stm32.c | 62 +++++++++++------------------------------
+>   1 file changed, 17 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+> index 8a7f5a10d4af..be88e62075af 100644
+> --- a/drivers/spi/spi-stm32.c
+> +++ b/drivers/spi/spi-stm32.c
+> @@ -2360,25 +2360,20 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>   	int ret;
+>   
+>   	cfg = of_device_get_match_data(&pdev->dev);
+> -	if (!cfg) {
+> -		dev_err(&pdev->dev, "Failed to get match data for platform\n");
+> -		return -ENODEV;
+> -	}
+> +	if (!cfg)
+> +		return dev_err_probe(&pdev->dev, -ENODEV,
+> +				     "Failed to get match data for platform\n");
+>   
+>   	device_mode = of_property_read_bool(np, "spi-slave");
+> -	if (!cfg->has_device_mode && device_mode) {
+> -		dev_err(&pdev->dev, "spi-slave not supported\n");
+> -		return -EPERM;
+> -	}
+> +	if (!cfg->has_device_mode && device_mode)
+> +		return dev_err_probe(&pdev->dev, -EPERM, "spi-slave not supported\n");
+>   
+>   	if (device_mode)
+>   		ctrl = devm_spi_alloc_target(&pdev->dev, sizeof(struct stm32_spi));
+>   	else
+>   		ctrl = devm_spi_alloc_host(&pdev->dev, sizeof(struct stm32_spi));
+> -	if (!ctrl) {
+> -		dev_err(&pdev->dev, "spi controller allocation failed\n");
+> -		return -ENOMEM;
+> -	}
+> +	if (!ctrl)
+> +		return dev_err_probe(&pdev->dev, -ENOMEM, "spi controller allocation failed\n");
+>   	platform_set_drvdata(pdev, ctrl);
+>   
+>   	spi = spi_controller_get_devdata(ctrl);
+> @@ -2409,32 +2404,18 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>   		return ret;
+>   	}
+>   
+> -	spi->clk = devm_clk_get(&pdev->dev, NULL);
+> -	if (IS_ERR(spi->clk)) {
+> -		ret = PTR_ERR(spi->clk);
+> -		dev_err(&pdev->dev, "clk get failed: %d\n", ret);
+> -		return ret;
+> -	}
+> +	spi->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+> +	if (IS_ERR(spi->clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(spi->clk), "clk enabled failed\n");
+>   
+> -	ret = clk_prepare_enable(spi->clk);
+> -	if (ret) {
+> -		dev_err(&pdev->dev, "clk enable failed: %d\n", ret);
+> -		return ret;
+> -	}
+>   	spi->clk_rate = clk_get_rate(spi->clk);
+> -	if (!spi->clk_rate) {
+> -		dev_err(&pdev->dev, "clk rate = 0\n");
+> -		ret = -EINVAL;
+> -		goto err_clk_disable;
+> -	}
+> +	if (!spi->clk_rate)
+> +		return dev_err_probe(&pdev->dev, -EINVAL, "clk rate = 0\n");
+>   
+>   	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+>   	if (rst) {
+> -		if (IS_ERR(rst)) {
+> -			ret = dev_err_probe(&pdev->dev, PTR_ERR(rst),
+> -					    "failed to get reset\n");
+> -			goto err_clk_disable;
+> -		}
+> +		if (IS_ERR(rst))
+> +			return dev_err_probe(&pdev->dev, PTR_ERR(rst), "failed to get reset\n");
+>   
+>   		reset_control_assert(rst);
+>   		udelay(2);
+> @@ -2461,11 +2442,8 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>   	dev_dbg(spi->dev, "one message max size %d\n", spi->t_size_max);
+>   
+>   	ret = spi->cfg->config(spi);
+> -	if (ret) {
+> -		dev_err(&pdev->dev, "controller configuration failed: %d\n",
+> -			ret);
+> -		goto err_clk_disable;
+> -	}
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "controller configuration failed: %d\n", ret);
+>   
+>   	ctrl->auto_runtime_pm = true;
+>   	ctrl->bus_num = pdev->id;
+> @@ -2490,8 +2468,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>   			dev_info(&pdev->dev, "tx dma disabled\n");
+>   			spi->dma_tx = NULL;
+>   		} else {
+> -			dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
+> -			goto err_clk_disable;
+> +			return dev_err_probe(&pdev->dev, ret, "failed to request tx dma channel\n");
+>   		}
+>   	} else {
+>   		ctrl->dma_tx = spi->dma_tx;
+> @@ -2579,8 +2556,6 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>   err_dma_tx_release:
+>   	if (spi->dma_tx)
+>   		dma_release_channel(spi->dma_tx);
+> -err_clk_disable:
+> -	clk_disable_unprepare(spi->clk);
+>   
+>   	return ret;
+>   }
+> @@ -2610,9 +2585,6 @@ static void stm32_spi_remove(struct platform_device *pdev)
+>   		gen_pool_free(spi->sram_pool, (unsigned long)spi->sram_rx_buf,
+>   			      spi->sram_rx_buf_size);
+>   
+> -	clk_disable_unprepare(spi->clk);
+> -
+> -
+>   	pinctrl_pm_select_sleep_state(&pdev->dev);
+>   }
+>   
 
 
