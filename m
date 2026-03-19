@@ -1,22 +1,22 @@
-Return-Path: <openbmc+bounces-1643-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1644-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D9381091929
-	for <openbmc@archiver.kernel.org>; Thu, 19 Mar 2026 22:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F1EE109192B
+	for <openbmc@archiver.kernel.org>; Thu, 19 Mar 2026 22:38:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fcLF91nMnz2yFd;
-	Fri, 20 Mar 2026 09:38:05 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fcLFF1x8Dz2yC9;
+	Fri, 20 Mar 2026 09:38:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773885949;
-	cv=none; b=ipTF/mcAOzm/3XaCh2oYsMzFOvY7i4zpcGZzAHsR0kXZYkF3bnsCJP7lIwnTYcZSQtpf/uI7QYjDktxuxrBcTSZulq1aIROODDm2Y0QYlB2ktYCs3KYdGs09+RgDqXV6tmEuPVmbYRKMU4WeR8hv+MnlSRHUoejbf+PQ33lcjfG4oLnFScWdKppCzo2JqlM+ul7JgNiVGYlJSNv1iH4aixTMb98wdZtSUVOEy5vTksHXe+WG6NQTMOib6AW7SqJ03jf1s1gLbWFEm/VqLEM6GO5UzHfMyVQTYUPyXVibVs8RChvlHes+eZJuyX1aml9DsJ7r0x2s6K8Giyp0Dx6Bjg==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773885946;
+	cv=none; b=hctR1fqDTnecokTlOEO1W8jOmgRcvyR6HqWhaQSaE84izBFIrlnSS0mP9j2U0cbnWDhEoMuDu3Cvyd1z5Zkk+kpcjtYQEBGrAjBTkhap6jbl0EnYryVpNzcrNzRbtT84r3Bd8VIi0r1Jq8NCIsIcTKFzLPpiwYVpK9loNX35KD2C8GRYgPxxbcJ3WI75fPUb3rmUg1kt9nY3emeVIks05S0WlJdiiXL+rZiXL4PwvBqn2UNN+qWQrXYaUYOc/lde55xeMCwbszQFYMXAIuwLeMlrSpJti+as1ItWdk+AoXDHl/LuUj3Pgb87dMhOYNJM/DLO32SIAo2mXewuAUJfIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773885949; c=relaxed/relaxed;
-	bh=R76hhmJBVe6UNoB4O692Y2jRZcN2IWDNCKgp7GCPJ+s=;
+	t=1773885946; c=relaxed/relaxed;
+	bh=Yb8Iio/NDnqYEebuxQUc6olfEqXiKE/NJ9fHxR1UgVs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Xl2t+SDiBYDVD5T6xEg57oB++F8yQ0nYEHFymshQPQ84EUkXiiaNUDHqH+ZTcfWmjOEWLCzGcg+seSkD72/xEBBt2JTS1uTadc3CPSPBCGV1/mq5+hb9pKbnrAfHNQwhWvSkRbUMKXYjeSeZh1jdUMkH/BEx2qMC9Ypo/xatFoDlD8Io7HuGMLWntWAm1cVXMbIv8XGMqsb8VEarCiKxB15sr7i7jfC4Zk2mwyC/jAF0XrhnhW696d4yCnovwKrkYLktzPoGmO0sadm4DUtqr85kX60cyZvFeZ9f9bpbUGfkuaT8hxcQ13sbFLQJIHyJ2Zk0P4ymoZTLUSh3gQYU1g==
+	 MIME-Version; b=FjPtwchEjtpzSzyBLRO3FClUq3jDuSmH8/ZDYamnFk/vyhxkPPQP+dhrzX4uq2yh7kjlG3aSml6VPlMeNMdL0LzfPwGJAFc9DgR5jqxlDGBrBabF3WL5cGeotVxokEuGnno9P4HJQRkb6VU6drIws5HTNiraUl2VQk+4bte8h8uIyV994O0E6vOeXF0l+Xa/JgIgnp0a7EALRU6XJf2K6+dUD7ef1xArdNWC9jmV7/pdYIXW3wPngpvatssi9NC9oOCZl/7UAmLY+53z51Sm5PDlo6ILdfMyy8mao1e9XbcebKNB5D09/iYuAnED/9QKbhhtglRvJ/jlLJLJZoZnqQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org) smtp.mailfrom=kylinos.cn
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kylinos.cn (client-ip=124.126.103.232; helo=mailgw.kylinos.cn; envelope-from=xiaopei01@kylinos.cn; receiver=lists.ozlabs.org)
@@ -24,14 +24,14 @@ Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbpvH6JYDz2ypk
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 13:05:47 +1100 (AEDT)
-X-UUID: f2eb22a2233711f1a21c59e7364eecb8-20260319
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fbpvF0g9pz2ynh
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Mar 2026 13:05:44 +1100 (AEDT)
+X-UUID: f42535fe233711f1a21c59e7364eecb8-20260319
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11,REQID:f112277f-fc1f-4f34-9138-d4d22d580cc8,IP:0,U
+X-CID-O-INFO: VERSION:1.3.11,REQID:14196cfd-c5a2-463a-8f04-4d526262ece3,IP:0,U
 	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
 	ON:release,TS:0
-X-CID-META: VersionHash:89c9d04,CLOUDID:d0c6f5da407226d4688d1d01a9ebe28e,BulkI
+X-CID-META: VersionHash:89c9d04,CLOUDID:d364503d679d4c701aec4d20cdee8480,BulkI
 	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
 	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
 	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -39,12 +39,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f2eb22a2233711f1a21c59e7364eecb8-20260319
+X-UUID: f42535fe233711f1a21c59e7364eecb8-20260319
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <xiaopei01@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 693530950; Thu, 19 Mar 2026 10:04:23 +0800
+	with ESMTP id 502944780; Thu, 19 Mar 2026 10:04:25 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
@@ -59,9 +59,9 @@ To: linux-spi@vger.kernel.org,
 	Frank.Li@nxp.com,
 	amelie.delaunay@foss.st.com
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v5 08/17] spi: rockchip-sfc: Simplify clock handling with devm_clk_get_enabled()
-Date: Thu, 19 Mar 2026 10:04:04 +0800
-Message-Id: <863ab1ddc4f3b9a25c0bf79e1581b65359cef6c3.1773885292.git.xiaopei01@kylinos.cn>
+Subject: [PATCH v5 12/17] spi: stm32-qspi: Simplify clock handling with devm_clk_get_enabled()
+Date: Thu, 19 Mar 2026 10:04:08 +0800
+Message-Id: <333b09950ee5c2fc0e560536281afb33f92288d1.1773885292.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773885292.git.xiaopei01@kylinos.cn>
 References: <cover.1773885292.git.xiaopei01@kylinos.cn>
@@ -79,79 +79,70 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Replace devm_clk_get() followed by clk_prepare_enable() with
-devm_clk_get_enabled() for both the interface clock "clk_sfc" and the
-AHB clock "hclk_sfc". This reduces boilerplate code and error handling,
-as the managed API automatically disables the clocks when the device is
-removed or if probe fails.
+devm_clk_get_enabled() for the clock. This removes the need for
+explicit clock enable and disable calls, as the managed API automatically
+handles clock disabling on device removal or probe failure.
 
 Remove the now-unnecessary clk_disable_unprepare() calls from the probe
-error paths and the remove callback. Adjust error handling labels
-accordingly.
+error path and the remove callback. Adjust error labels accordingly.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-rockchip-sfc.c | 22 ++--------------------
- 1 file changed, 2 insertions(+), 20 deletions(-)
+ drivers/spi/spi-stm32-qspi.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 174995042f53..b32b7c015edb 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -635,13 +635,13 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 		return PTR_ERR(sfc->regbase);
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index df1bbacec90a..a8436f70fdfd 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -819,25 +819,19 @@ static int stm32_qspi_probe(struct platform_device *pdev)
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->clk = devm_clk_get(&pdev->dev, "clk_sfc");
-+		sfc->clk = devm_clk_get_enabled(&pdev->dev, "clk_sfc");
- 	if (IS_ERR(sfc->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->clk),
- 				     "Failed to get sfc interface clk\n");
+ 	init_completion(&qspi->match_completion);
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->hclk = devm_clk_get(&pdev->dev, "hclk_sfc");
-+		sfc->hclk = devm_clk_get_enabled(&pdev->dev, "hclk_sfc");
- 	if (IS_ERR(sfc->hclk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->hclk),
- 				     "Failed to get sfc ahb clk\n");
-@@ -657,18 +657,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
+-	qspi->clk = devm_clk_get(dev, NULL);
++	qspi->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(qspi->clk))
+-		return PTR_ERR(qspi->clk);
+-
++		return dev_err_probe(dev, PTR_ERR(qspi->clk),
++				     "can not enable the clock\n");
+ 	qspi->clk_rate = clk_get_rate(qspi->clk);
+ 	if (!qspi->clk_rate)
+ 		return -EINVAL;
  
- 	sfc->use_dma = !of_property_read_bool(sfc->dev->of_node, "rockchip,sfc-no-dma");
- 
--	ret = clk_prepare_enable(sfc->hclk);
+-	ret = clk_prepare_enable(qspi->clk);
 -	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable ahb clk\n");
--		goto err_hclk;
+-		dev_err(dev, "can not enable the clock\n");
+-		return ret;
 -	}
 -
--	ret = clk_prepare_enable(sfc->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable interface clk\n");
--		goto err_clk;
--	}
--
- 	/* Find the irq */
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret < 0)
-@@ -730,10 +718,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- err_irq:
--	clk_disable_unprepare(sfc->clk);
--err_clk:
--	clk_disable_unprepare(sfc->hclk);
--err_hclk:
+ 	rstc = devm_reset_control_get_exclusive(dev, NULL);
+ 	if (IS_ERR(rstc)) {
+ 		ret = PTR_ERR(rstc);
+ 		if (ret == -EPROBE_DEFER)
+-			goto err_clk_disable;
++			goto err_defer;
+ 	} else {
+ 		reset_control_assert(rstc);
+ 		udelay(2);
+@@ -886,8 +880,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+ err_dma_free:
+ 	stm32_qspi_dma_free(qspi);
+-err_clk_disable:
+-	clk_disable_unprepare(qspi->clk);
++err_defer:
+ 
  	return ret;
  }
- 
-@@ -747,8 +731,6 @@ static void rockchip_sfc_remove(struct platform_device *pdev)
- 			 DMA_BIDIRECTIONAL);
- 	free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
- 
--	clk_disable_unprepare(sfc->clk);
--	clk_disable_unprepare(sfc->hclk);
+@@ -906,7 +899,6 @@ static void stm32_qspi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(qspi->dev);
+ 	pm_runtime_set_suspended(qspi->dev);
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+-	clk_disable_unprepare(qspi->clk);
  }
  
- #ifdef CONFIG_PM
+ static int stm32_qspi_runtime_suspend(struct device *dev)
 -- 
 2.25.1
 
