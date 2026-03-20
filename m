@@ -1,79 +1,58 @@
-Return-Path: <openbmc+bounces-1666-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1667-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088531091934
-	for <openbmc@archiver.kernel.org>; Thu, 19 Mar 2026 23:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 690261091936
+	for <openbmc@archiver.kernel.org>; Fri, 20 Mar 2026 00:12:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fcMyD0Kz4z2xpg;
-	Fri, 20 Mar 2026 10:55:16 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.16
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773964515;
-	cv=none; b=XSyTj9Si1v0w2oqiXcRuPMJfheI7DT+R5X/foyWx1CXNYD+OhKOfc5MdM4X8C6qp8W12sI2ZMRFDxZJDgCHBszFu+MAAaaz6UsF9cKgMX7auwKWq47Tf6xLWRTx8QytOkkvNUIPWAx3doMxjumslFBRJjWKtp4lvLHgTnonWq+eOV//9jF3jCzRFaQy/zaUsIpf1BtcINwWGenrYu5QT1I9l7mqE8F0eGBdZEV3XMhvgig59JzgWWkHE3b76XkXhBqM2NVO6PfvehaG+jd5CxpogJ+RXVNCvfOuIj61qVhJdRsYos+I49+RoiNBYXQW+CkDcVs3DRd1inp9E01Q34w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fcNLK0jnDz2xnj;
+	Fri, 20 Mar 2026 11:12:41 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1773965560;
+	cv=none; b=T2ibwXdvDXLPOSjogLsB/sS+HA3tM3ah7XVTdIW6E135p8OPmrXXnW+cJFKfCiIAmz1Da/+eN8RQuxUHk38BrfcRtaJDWzNfGYU4PoT6zj26nb4W8B4wsy/ikhcQfK5V6UjHpzl5R1Rb1eY7zZ9v5f27PcBsIOVLJmzONfbWZspR3KPOXGgX5sWEEhb62KkjI/cGdBRzAwAX/+yyj/ura3Ir1DoKAqwG853qS3ciR4D0A/KdFH5xKpxj7gSHrd1g/HOnme7NaM4Ke6k4gSU8jStmU7hb1hXZ/K5hJx4Bf/e2Whgg6kY/cDOc5fjRvlNJuJcx3wMmskEkhvFCEy+Z4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1773964515; c=relaxed/relaxed;
-	bh=waf2PG8psEUFk3GCO5J738brbUdR7U/sXIHicgDZK3A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mw/OBvgtfainY+Kdd8kULKd3ZUPQCgU+Knge+gikHBrsIPf/EC6IlXtTdlqCzEPRN87UEY6hhYxgUiUqtut6ZMBeQ3XhJRCa46P8PVxLnvwz7ablFsTZKzdAh+asGIazh7ZMtCCrxfsCOrZ6CeIB3L3sr5ALX81414iwc1+wrgMu1tGkz0mfyFxVhw3PlSHQT0pda6zfYwvo1I1joVAes19TQYoogkQfxoMpgrjdJbSLEwOP5G4c9WGycpOXKfLWs/eoGsqYMM7K0jeelscFP9bkPxa4drmtlhRX3J/tDqAktiyZYFro0o/+szQpIAAUv89AIsG6W4cUxYptTvwiTA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OFCn2Miu; dkim-atps=neutral; spf=pass (client-ip=192.198.163.16; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
+	t=1773965560; c=relaxed/relaxed;
+	bh=3q0ePvMKE1iZqvjWhvLwnXUMyxmtUwEJF4J917E4tXU=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KU126N9spuHTyj8oT4kPp+rfzxGJcLlQJZ87pQ+TdAOZuBUpCiImscBnm83ibactnJ8HcofBQSPxljATZouqgWnHs1tUGc13Rxr/C5OCRQOrbN+/fO0KeTX7if15VTsYbxXMZboqro+X78Jjx8aw5/R4D2myIsjlTHCj5DV5rFLgI2qYtSb+p/x6Qkij+02GST1oLmJHHOazP/N1YGfU1dWvP83cVUYUfaeeY28FCV+4huYMiA/Xat5TMK02wbnSIxWSjPlVSnLUV5lSPaoQnpsBAPofPewFFconUQUxj1dPmO4bQ1t/GgvUvc4Hw/XzZvyvjjn6/lZ0BlLF26DZiw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=bPJuMq3U; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OFCn2Miu;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=bPJuMq3U;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.16; helo=mgamail.intel.com; envelope-from=lkp@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fcMy82x5Yz2xN2;
-	Fri, 20 Mar 2026 10:55:10 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1773964513; x=1805500513;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=r/SbXPFP/ykN1nLBK9p10AiU3ezsLWp1iV0fpBfCrpY=;
-  b=OFCn2MiueOgHq2BQCnc0WCazDmmQ4FSb9ptQZg27xfAQtObXCFTJeRSG
-   Razj71OE0T7/pauQ7eCmP/BFlz/VUhHb2ZN3lNDUlEogQyyZe4G0gDfxY
-   NSs8UchNBNLegnH8J6vjBwSU3VYWalkPdcLCPz94cD5VqlZhUgog82AMY
-   HJO3lJxOtDkTPQ23HuHMB0Qn+H5F7FZtB2Lni06zpNOQ3Pdd7zQUBM3xW
-   mRd1wDHnTffe/bbioAXe4eioPW9V6dM/jRK1ANV4mqGgP8bSjonWOPIvF
-   7q0rYkYvzzI3mPQwqs/8zJRuw+N7ejSZ1I0vGcNKo7A1CAxuGSYqjZJAz
-   g==;
-X-CSE-ConnectionGUID: NCCGbZjZRg67PM4cgaPe4Q==
-X-CSE-MsgGUID: J61uyi8iQ8e38tamKqDKDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11734"; a="62612636"
-X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
-   d="scan'208";a="62612636"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Mar 2026 16:55:07 -0700
-X-CSE-ConnectionGUID: HphZLJquTpmTIN6wubYLGw==
-X-CSE-MsgGUID: 4aygXDj7Tv618DsIpcD7yA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,130,1770624000"; 
-   d="scan'208";a="261016791"
-Received: from lkp-server02.sh.intel.com (HELO a51c2a36b9df) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 19 Mar 2026 16:55:03 -0700
-Received: from kbuild by a51c2a36b9df with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1w3NCe-000000001nJ-25Ey;
-	Thu, 19 Mar 2026 23:55:00 +0000
-Date: Fri, 20 Mar 2026 07:53:04 +0800
-From: kernel test robot <lkp@intel.com>
-To: aspeedyh <yh_chung@aspeedtech.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
-	maciej.lawniczak@intel.com, aspeedyh <yh_chung@aspeedtech.com>
-Subject: Re: [PATCH 5/7] soc: aspeed: Add eSPI flash channel support
-Message-ID: <202603200700.6fddOZHQ-lkp@intel.com>
-References: <20260313-upstream_espi-v1-5-9504428e1f43@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fcNLH5p1nz2xN2
+	for <openbmc@lists.ozlabs.org>; Fri, 20 Mar 2026 11:12:39 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1773965558;
+	bh=3q0ePvMKE1iZqvjWhvLwnXUMyxmtUwEJF4J917E4tXU=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=bPJuMq3UBE8ewS1Bsq7zqjVw6mfyga+/l/5jr5ZEeOj4xrvNdeSwmP1vYsF909H1N
+	 o7biIk7q4DzUDEV0lm8A43HOlJoamLgtVHxN17VMJ1k7p0kmM0vVJFhSmStpLjv7Rw
+	 ggKSxo+2B96GjVlctIU8GWYT+njb0wQ60lW8wPxEczGxTB5r4myAzDzTbsFynpFyYj
+	 zTbaKmyqLf4GPBRnNuA3SHe8NshkqsjFNWSMEm3czS6RafmQGDOSc7oFdV3T8UezgC
+	 U4pRHdjwLWZIFcvFh5NKBfoHBYpVcMQtyyTYA1YeRbhwFoyY+zrNqgtfjmx3AQMM+p
+	 5mVjTo4sdSI+A==
+Received: from [192.168.68.115] (unknown [180.150.112.60])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E408B60C33;
+	Fri, 20 Mar 2026 08:12:37 +0800 (AWST)
+Message-ID: <4abc5db08e32525ff923f4e3bf5fe91b3b94e2e3.camel@codeconstruct.com.au>
+Subject: Re: TOF elections for 2026H1
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Patrick Williams <patrick@stwcx.xyz>, OpenBMC List
+	 <openbmc@lists.ozlabs.org>
+Date: Fri, 20 Mar 2026 10:42:36 +1030
+In-Reply-To: <absG_8pQilMHGMnO@heinlein>
+References: <aXDmS4BmR6AGXKGW@heinlein> <absG_8pQilMHGMnO@heinlein>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -85,68 +64,45 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260313-upstream_espi-v1-5-9504428e1f43@aspeedtech.com>
 
-Hi aspeedyh,
+On Wed, 2026-03-18 at 16:11 -0400, Patrick Williams wrote:
+> With this being the most nominated-for election in TOF history, I would
+> strongly encourage candidates to reply to this email with a [brief]
+> campaign: who are you, what work have you done for the community, why do
+> you want to be on the TOF, etc.
 
-kernel test robot noticed the following build warnings:
+Hi,
 
-[auto build test WARNING on 0257f64bdac7fdca30fa3cae0df8b9ecbec7733a]
+I'm Andrew, and I've nominated myself for another term on the TOF.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/aspeedyh/dt-bindings-soc-aspeed-Add-AST2600-eSPI-controller/20260315-101647
-base:   0257f64bdac7fdca30fa3cae0df8b9ecbec7733a
-patch link:    https://lore.kernel.org/r/20260313-upstream_espi-v1-5-9504428e1f43%40aspeedtech.com
-patch subject: [PATCH 5/7] soc: aspeed: Add eSPI flash channel support
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20260320/202603200700.6fddOZHQ-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260320/202603200700.6fddOZHQ-lkp@intel.com/reproduce)
+I'm interested in maintaining a seat there to provide input from the
+perspective of the bootloader and kernel layers. I maintain the
+project's Linux and U-Boot forks. An important portion of that work
+boils down to ensuring contributors follow sustainable practices.
+Sustainable contribution practices require early work upstream, with
+all the technical and social expectations that entails.=C2=A0
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603200700.6fddOZHQ-lkp@intel.com/
+In the case of Linux I'm the upstream maintainer of the BMC tree. The
+BMC tree looks after BMC-related devicetrees as well as SoC-specific
+drivers and build infrastructure. I tend to review a lot of ASPEED-
+related patches.
 
-All warnings (new ones prefixed by >>):
+I also maintain some elements of OpenBMC's communication plumbing.
+Specifically:
 
-   drivers/soc/aspeed/espi/ast2600-espi.c: In function 'ast2600_espi_flash_reset':
-   drivers/soc/aspeed/espi/ast2600-espi.c:137:16: error: implicit declaration of function 'FIELD_PREP' [-Wimplicit-function-declaration]
-     137 |         reg |= FIELD_PREP(ESPI_CTRL_FLASH_TAFS_MODE, flash->tafs.mode);
-         |                ^~~~~~~~~~
-   drivers/soc/aspeed/espi/ast2600-espi.c: In function 'ast2600_espi_flash_remove':
->> drivers/soc/aspeed/espi/ast2600-espi.c:172:35: warning: variable 'flash' set but not used [-Wunused-but-set-variable]
-     172 |         struct aspeed_espi_flash *flash;
-         |                                   ^~~~~
-   drivers/soc/aspeed/espi/ast2600-espi.c: In function 'ast2600_espi_flash_get_hdr':
-   drivers/soc/aspeed/espi/ast2600-espi.c:194:20: error: implicit declaration of function 'FIELD_GET' [-Wimplicit-function-declaration]
-     194 |         hdr->cyc = FIELD_GET(ESPI_FLASH_RX_CTRL_CYC, reg);
-         |                    ^~~~~~~~~
+ * libpldm, a broadly applicable implementation of the various and
+   related PLDM specifications from the DMTF, and
+ * mctpreactor, a nexus daemon sitting between entity-manager and mctpd
+   for configuring MCTP networks in OpenBMC
 
+I maintain other bits and pieces in the project as well, but those
+listed above are the most significant.
 
-vim +/flash +172 drivers/soc/aspeed/espi/ast2600-espi.c
+I use my experience in these areas to provide input on queries raised
+to the TOF. So far I feel I've helped influence decisions in helpful
+directions, and I'd like to continue to do so with your vote.
 
-   169	
-   170	int ast2600_espi_flash_remove(struct aspeed_espi *espi)
-   171	{
- > 172		struct aspeed_espi_flash *flash;
-   173		u32 reg;
-   174	
-   175		flash = &espi->flash;
-   176	
-   177		writel(ESPI_INT_EN_FLASH, espi->regs + ESPI_INT_EN_CLR);
-   178	
-   179		reg = readl(espi->regs + ESPI_CTRL);
-   180		reg &= ~(ESPI_CTRL_FLASH_TX_DMA_EN
-   181			 | ESPI_CTRL_FLASH_RX_DMA_EN
-   182			 | ESPI_CTRL_FLASH_SW_RDY);
-   183		writel(reg, espi->regs + ESPI_CTRL);
-   184	
-   185		return 0;
-   186	}
-   187	
+Thanks,
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Andrew
 
