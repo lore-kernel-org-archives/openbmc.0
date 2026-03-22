@@ -1,92 +1,51 @@
-Return-Path: <openbmc+bounces-1674-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1675-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E69C61094481
-	for <openbmc@archiver.kernel.org>; Sat, 21 Mar 2026 22:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13A32FC72AE
+	for <openbmc@archiver.kernel.org>; Sun, 22 Mar 2026 09:51:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fdYrm3SzFz2ySV;
-	Sun, 22 Mar 2026 09:24:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1234" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774131880;
-	cv=pass; b=mx4ldugZjxianvHte41dc85MiL4mOhIccMiSuvZ5DycQgcNApducLsLgVH5gfp9aqJPwTySfqbyphHAgB9vSbJ0oB0feZ3IrZ1kb2QReYFs0SNC+8vYEHTjeH0zGi6KYXV8PHPTWC6U74m48BNMRw2K6uPsGEH7/gL51BlExRcUI7cNVeCcyLnjl7Bo3L0CBJTB4IKf8J8rNmSN/Bnk+09tnk7vxryG3k04dLb2g9ZJtW5VzgpazlmGFPQ+eHHfHHQDFZqF3wfCrkRGr+sMkgR3UW8FXKvXvfYiOzblqSY4wSmUQD55Q4xdRAOnz9h+Yvb80B8+W8H/JRH86YJGJ/Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774131880; c=relaxed/relaxed;
-	bh=j+S+gbJa72Pewocw7cmfT/esml/kQWzS0Ym6MmxT03Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S2T1Fourg2DplgJbdbJGxYRPy+ChTGNjKWzWh4WoOyqkFCJM1T5A5/PWIbF9V4aHMP1ghSYPn7HXfuu6jFeSWSFEgc2r4ALmkbDbfLPTG1izpRAI8wv3qHrh/knKZvlClkdteTGZXtfdLjFwKJ4aoeSHuqmR1gPnyO3zh+ComIyISgWxcuqon/vwd2WpA/oTCB2OEmyQPueZBiwWfO5JSKigIXqX4UdNHCuk13nQJozm0fs0y5z1Hs9BFN07o6Br6VAuWaXanA7n+3qNMeZZmVofL6GFMynKkPOA/yNG5b0a8ZP+0RQLLT1sWyU0h2S592i1FjKdiBH/aQOZQNoX6Q==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JkFiwIRI; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1234; helo=mail-dl1-x1234.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fds5N0lbMz2yYq;
+	Sun, 22 Mar 2026 20:51:36 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774173095;
+	cv=none; b=N35/ilrEwA+biZhfN8WlqdvtZTqBtcLqyObPmcOB7gvvKc9iRHurSYpvuhHu4BawvcLzpYfhx7fy1DzNize+RZYBFbd3X0+6lX7bwDiwjn2G6L1h3kmnNFDn9s3vmGVDQwr8Y7I7nDYNxDoFHKDfJ55L/NoqUaVDsdLRa2olXvQ+GV0qtoObTHp7NT3QSO5ayZ/PFqahKqSjIMzv/Zgdyyc7SKKfnOtEBDZ8PK1rr7VFmoJfMEC8l+Z/UwCf5bpkVtWQ8CqYbDsTw+rjTdFt4kIjXhXnrAKqdxwlcVev8VvuIPT0L+uRz7C/nx3xL4VTwWzzdlsUQJL65wEOoEzwWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1774173095; c=relaxed/relaxed;
+	bh=pkRjnBX0JuS73NVASMagu1ozIqW9IjjbaHmcg0ytxC0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aPGy3tzQ2eMFmhda1OJZ6tb9qY7lAcaOrd0RBhMZ2JLXWX7Vc+cV9AjYQN9n0WcXtsBSO7bkSphyDOWG4ZU5awIIzCFpzPONUUqUDN6mfPbGLiOO6pMuRIUgcFh/LPUS652xgtNpQUgVi9UyjcZAJda3p2n/cwuc1B6aS8gXf7nVTjBgAJ62sdRO9lbayHN/TW+vwnNdWbhFiQakNZL7UoL6SO58WFIMYj85ayTTSF3J1IoU8dtN2bZUgYBzEa/K6iDK3fOvNbhi/FhGar2MFMLNXIbEC1GuVLiXD4zG8p8zYctb1+AAc//Ut3bFvQKDoG2EiY1veBpGzrV7ChygwQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=c1uASeRs; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20230601 header.b=JkFiwIRI;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=c1uASeRs;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1234; helo=mail-dl1-x1234.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dl1-x1234.google.com (mail-dl1-x1234.google.com [IPv6:2607:f8b0:4864:20::1234])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fdYrl0QhRz2xlt
-	for <openbmc@lists.ozlabs.org>; Sun, 22 Mar 2026 09:24:37 +1100 (AEDT)
-Received: by mail-dl1-x1234.google.com with SMTP id a92af1059eb24-12776bebe9fso2919525c88.1
-        for <openbmc@lists.ozlabs.org>; Sat, 21 Mar 2026 15:24:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774131874; cv=none;
-        d=google.com; s=arc-20240605;
-        b=C4imaKFiO8GolfhIuYFgdk3aOdfekdR2RsiYwdUwyXSWwyhTsCFMlhjjlHuhQ0FZ3g
-         o2pLaxLXgBQLh+NWqWPT8m4mJchqUKIpo0N3VglsMO1UMOWVqrlcpqNU0mn+QGlec7V6
-         4f4CASMpHNpflU3V1SA+zrt0fJOhEY9IneuKX2xeWSQFPLPd8bB/mSqezpMbd4bY2tSu
-         xcRdUYPkrY6Pktd/hFjBoecDGmXWJ0nmvK+t6G/VBxQMfiCcihm9HdaQL8EiqHYPSp43
-         LLPvbq5VZ1PQzILd+wJsPXh54ojC+DpUkvgB1Ht5ujQTBVRYpIVlKo/YlSH+jNncD2kS
-         IMzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=j+S+gbJa72Pewocw7cmfT/esml/kQWzS0Ym6MmxT03Y=;
-        fh=NIH44XBxRZTcqNesJYmNJYO0HVxi8ckWWKStEdg6q2c=;
-        b=f0TiADQnlvJOMl19fjsJ2063gKB86+DHmEb6VjyR72m9faoXbFj0FYValRaSdtFLEi
-         ownZRqlla/gWir6HYH6wf+7UQlK07mJiiKz3coyPLt8JrfT0NOvZGzIJ3IA+97nrgi/d
-         Xnky263GoRBdvjueaBYbAtWgPJgqR0zn3IyYJZ0lXjNNbcrRwD/sw5p9xouvCjLYV5jO
-         p+2lZQlhDyHl3f0efho597Rlujo0rL88lqH9r5QhjXRjeUpzeQY7lMfZlc2MN4eMXB/r
-         27WxqlkAFwJRQGD5yjy1ipdTu0/33Dqi33LBpwa9VaSoAlJo+yzkF9TnqD8hMSGIFLtW
-         6W1Q==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774131874; x=1774736674; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=j+S+gbJa72Pewocw7cmfT/esml/kQWzS0Ym6MmxT03Y=;
-        b=JkFiwIRInUwdjKhEdAvy5QMamsSHWxQaqX9x8RKbRTJcpcMBdcWw0vz7UqxZ59qyFv
-         491TZg81aKLNZvC0Py6c0ahirb2B/sstC9ltxS8ZQpybL2pxf43K2gDXmKzJeNhmY2Ug
-         9tAiGsr/LdC0JOkXKIaPYQLEFFan91QwjhdPT3Hnm4qfuEKmO/OOmtBvHOu07ImZoiIQ
-         jcO4cWJHf4JUp+du1LcLGEhNmAh+x4uoprE2tlmaYX2RFwKhoDF6cO+BDpXZ8UtcapDv
-         BrQWeaEBsXVx2X40k/7oIItjE4DaGMf4vNTJloKc0VZ48TWTJsJ9IMiJdID8AYKHFGpo
-         IYtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774131874; x=1774736674;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j+S+gbJa72Pewocw7cmfT/esml/kQWzS0Ym6MmxT03Y=;
-        b=AKlYU8H85Ft875IByqXf4N5kD8ngW51VKPoiCBO5qdxhV8brkhakqtTPbh8UCcisLt
-         zd0faIFtPN+PoXFjdF8Jwh+yj/aDjLyouzuWRGk8o/3YLawu23M/kAhGerrDbynAgejt
-         RzyXBHzJlwHWcpu8HsnJRgbPgQW3vwgqNNuQ6WZ256eJPfduyBq9MZ1EDxSMVwXPZOLS
-         o4xIyOrXRZEJzCYfbJ7qrpfkdIczI5VObo5scNQPJHlX2t7CA097xTS0SLsmbIUxySXS
-         VIlW9Y+euzFz9TZZ4/W4Oisb9vo5A/7GHqxlpkvncySFdDEYQqvnWBeHsf53S4O7xgl7
-         xFOA==
-X-Forwarded-Encrypted: i=1; AJvYcCW8VGxw6BcpJzItfta3q8Vbu7fE7tNXeWjdYrprZb9g7UwsImns7qfvDl4hqPH7FzmVufKfwpFq@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Ywqls/gnhOBGQVb+fa52gvKXbxrGqpn8+aZXTuNjJv+3Yd7fDva
-	86j76ncdwpPUiYGabcCaKit4loe3T4HfSZHY37v1UloFWEJfVmUHw5qT483ufOnlZVlCH18H+58
-	/s5rZ6rvaaYaIbLKYpICxkoVyOHiHTwxerWWR
-X-Gm-Gg: ATEYQzycS1Dy8AUdBpJ8/PTeZ7QFY5qPx5FZMsMAMj8xI6DJi0djHhjcFhhxRpIUiKm
-	yR58/YvV9Hj2YBD5ItzwWevH9VWLGxoJO05HoySJunbqJ3iVHLJYWOZqXEtEI4T3qlxIyi44LJm
-	8jTIRjl49wg2fbaXM5gdJ64u66S2pEAXii01TpfShSQGnnKgjHiPLUnuBQZUDBqiArxeiAwb885
-	L/yGI2aJflAB4qjqa/lCpjqqOpDV51G+AfuRQF3XXTdSwJBAX8YHiKDUn1y727AJqpr8f51o/uH
-	LKhbPkzokCMWL3W0MIJcPzKW58pfmhE=
-X-Received: by 2002:a05:7022:f112:b0:127:9d23:ad43 with SMTP id
- a92af1059eb24-12a726476b1mr3704573c88.1.1774131874207; Sat, 21 Mar 2026
- 15:24:34 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fds5L752hz2xlr;
+	Sun, 22 Mar 2026 20:51:34 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 87931417F8;
+	Sun, 22 Mar 2026 09:51:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2221C19424;
+	Sun, 22 Mar 2026 09:51:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774173092;
+	bh=tMcHLgHTic5Wi3ojuiCV/sa1gfiN5aekqOPJja5Y1b8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=c1uASeRsuoihORrgsMjF+2aSMGQAJxGqgyrVRDik6EOzzkk/4IRL4CoZa8J2WyvRF
+	 taSICLBDAWnZicr4CqTNOEv8FqLnj/a9xIk8UqlRNJrEtUak7mYkJjOdfgkPVxCy/0
+	 j6rn7rd35q5xZaks3gbYrrRMxyC8MjijwMG1E4Fvai2QXl+8BiLIU4AK87hrS49oj8
+	 rrSj4PMoeCw9yRu89/slJ2gC+Jyup5arqRUwTBE4MKnARxTfySZ71e+6F09ttheets
+	 yPItxvBy6o8hp9czzjYr9gC/+t/gkYfWj1+FQ6vh8YxHHXzZ3Ngg8KHcqSQDH5Zifa
+	 3NyANxvMo5wXw==
+Message-ID: <5c00033b-28d4-48f6-811d-6e3b54b8fb10@kernel.org>
+Date: Sun, 22 Mar 2026 10:51:27 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,58 +57,105 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260228-asus-kommando-v1-1-9a288620096d@gmail.com>
- <0f0a1a6862a8b94bf4f5c00da85bad4efce7c071.camel@codeconstruct.com.au> <CAJ13v3R-3p5mV0b3AqHyF8m4A=HnX4rrNoKQXYi69Mod=OsEmQ@mail.gmail.com>
-In-Reply-To: <CAJ13v3R-3p5mV0b3AqHyF8m4A=HnX4rrNoKQXYi69Mod=OsEmQ@mail.gmail.com>
-From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Date: Sat, 21 Mar 2026 17:24:22 -0500
-X-Gm-Features: AaiRm51bmDNR2PY9RIOKGhGaGfyNxiVQI0732iPSSqWV5t_mfid-YiPMHsQmBFg
-Message-ID: <CAJ13v3RhazyeTJZKnh7SOK2O51F2-jW7SYSbs4ro70pdvfKncg@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Add dts for ASUS Kommando IPMI card
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mmc: dt-bindings: sdhci-of-aspeed: Add AST2700
+ fallback compatibles
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ulf Hansson <ulf.hansson@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Ryan Chen <ryanchen.aspeed@gmail.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Andrew Jeffery <andrew@aj.id.au>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260317-sdhci-v2-0-39b1f063061b@aspeedtech.com>
+ <20260317-sdhci-v2-1-39b1f063061b@aspeedtech.com>
+ <20260318-abiding-sloppy-poodle-efd3e5@quoll>
+ <TY2PPF5CB9A1BE666DEF10944BBA2A2256BF24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+ <f46bf4fb-b6e5-4238-9c23-c435c4b8e275@kernel.org>
+ <TY2PPF5CB9A1BE6E474E78EED4F320F2B30F24EA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+ <TY2PPF5CB9A1BE63A0E8E056E322866B6F0F24CA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <TY2PPF5CB9A1BE63A0E8E056E322866B6F0F24CA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Helo Andrew,
+On 20/03/2026 09:46, Ryan Chen wrote:
+> Hello Krzysztof,
+> I review https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/example-schema.yaml?h=v7.0-rc1
+> I will do following modify
+> -    enum:
+> -      - aspeed,ast2400-sd-controller
+> -      - aspeed,ast2500-sd-controller
+> -      - aspeed,ast2600-sd-controller
+> +    oneOf:
+> +      - items:
 
-After doing some more reading and experimentation, I think I might
-have a clearer understanding of how things work.
+Don't add items here. Was it in original code? No.
 
-Andrew Lunn's suggestion in the patch series from Aspeed was to patch
-u-boot to not insert clock delays anymore. And then use rgmii-id as
-the phy mode in u-boot and linux for all new device trees.
 
-I tested this by setting the mac2 clk delays to 0 in the u-boot device
-tree like this
+> +          - enum:
+> +              - aspeed,ast2400-sd-controller
+> +              - aspeed,ast2500-sd-controller
+> +              - aspeed,ast2600-sd-controller
+> +      - items:
+> +          - const: aspeed,ast2700-sd-controller
+> +          - const: aspeed,ast2600-sd-controller
+> +
+> Thanks the review. 
 
-&scu {
-    mac2-clk-delay = <0 0
-              0 0
-              0 0>;
-};
 
-Setting the phy-mode to rgmii-id now gives us working networking in
-u-boot and linux.
-
-So how do you suggest we proceed here?
-1. Add this DT to u-boot now, set phy mode to rgmii-id and set
-mac2-clk-delay values to 0. Networking will work in u-boot and linux.
-Update the DT to remove the clk delay values once Aspeed updates
-u-boot
-2. Add this DT to u-boot now. set phy mode to rgmii-id. This means
-networking won't work in u-boot, but it works once you're in linux
-3. Add this DT to u-boot now without networking. Add networking later
-when Aspeed updates u-boot based on the discussion in that thread.
-3. Wait for aspeed to update u-boot, then add this DT to u-boot.
-
-In any of these cases, we can also now add networking to the linux DT
-for this card (it's missing currently) with phy-mode set to rgmii-id.
-No need to wait for Aspeed to update the linux driver (or I think
-they're not gonna make any updates at all if it's just u-boot that
-needs fixing).
-
-Let me know what you think (or if I've gotten any info incorrect here).
-
-Regards
-Anirudh Srinivasan
+Best regards,
+Krzysztof
 
