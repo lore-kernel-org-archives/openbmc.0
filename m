@@ -1,50 +1,50 @@
-Return-Path: <openbmc+bounces-1689-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1690-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC92CF483D7
-	for <openbmc@archiver.kernel.org>; Mon, 23 Mar 2026 19:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6161FF4613C
+	for <openbmc@archiver.kernel.org>; Mon, 23 Mar 2026 21:49:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ffkFX0Z2wz2yhG;
-	Tue, 24 Mar 2026 06:46:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774295199;
-	cv=none; b=C2ZDjfH0XrJmrDnKOeG0M5WvpeWyf+qeFfz1TsC5YGYwrSjVfmFoQtI25yiQ59FOThHe8KAbdbP1rhIJmMUFnBy3VyZt3RAGhixCGaxCFpDFa0tBi4qsVTUCpimmSCpblHimp29Q/+ASB5kuhX7K2DZ0pwHs4EHuL6uyggKpcD7BvWiCL+GyOG/+NjZMMtoF0uJKZMsYjxl8f1GSjYTNt0SByXaakiE/DpLVZzjjtZG/ipN3JyQ7KgwlRC0hgZTotJpTQGGknvm6Uz28+cDQOQmLZ5sI7ebHaTdkNfbxm9mDGv2XYprl3tt0cChAHibFdg01i9g8L6PV7qAmxx2LBw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ffmzQ3wtQz2xS3;
+	Tue, 24 Mar 2026 08:49:38 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774302578;
+	cv=none; b=QYWKH91POrQJaZrPXsp46zjKg7Chk/4IAp/TtI55vTAh1pcBc+8VhADzQh0jdlZo7SRSMJY8woExXldrhGivuyptVjl/ZxhkZhCCjiss28RdIqI1208ftH2Iabciu/p57CcQA72OBKM1GQYWfnB+uJC8EsAj8ubvJofJ5JLvrgC/8PJE1cqfZUlWtR6r0TPzO4rramFmAyV8skBgN74khKEwc4gUeKKSKaY12Tkj8cWWCkKcjZL+xEbZ5yxAsc2XtwclRSzIGsu2fS126rv9/TTJLsbjWG1HaVC98F3OU3XeFs/BcN9UNsv2GnEa3myo+HJ7OIOETDMviDsRrqPXgg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774295199; c=relaxed/relaxed;
-	bh=/dmtorY8LlAopvLU37QPmGzNGM+3mvzFRJJMdAu2qDw=;
+	t=1774302578; c=relaxed/relaxed;
+	bh=Gv7ISimnhseEM70YcQxBz1x71zZDUe8CYuIh4tJLlnI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G+qEZ+UlN0Jm3hL9JPK8SZ0MhvgQKDK5bE6JcpIolfqHZk1MifWVedstos9lYT9SJ2wYHybDKU9Mjwn9ISh9AOZ12ZO6/zi3c7wOq5CSK4CjOl7BVnKJAPcuXv24bXyvdxJj2eBW8dvl8eIBprotXU+O4/ou+7zWHuo/lMUSWTNui+nqHJpaCauDpRwHjRmzp6xMdIrWkLt2CuHvh/CN+bTp5Isi9cwH0V6r9G1AWfUOFZrk9QVXARHJED2T+iyhah1dhPd1/9Wgu9L2OSn56ZSmJeRFA8fHWUwIz9KgUnM+k83vIkCLBDtwCrdk+RcXjAkird6MhBVJXdDWgIrYIQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=rShQHzbr; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=TinuDsYwbqWOPBIr6MHxBFyyI+Mianb9x4LqrXi55T47nIOqkz6H4jxeL4Y1eFdYKDCuUxLf7/6rsVjK1Rz03fL1ev/rW85KVe86PPPi16e/nUetK0EKQJ7DiBQR4sT8qxTC7nolWU2kY2FagY0Bg/EcqEg2dQVKj8c7Z49Ba5mhs/vLdP6z1U6i7DfI7XGGkLiVctsAyIjtLBP+RiAzWdh0iFB/WBydgdokJiQU0zFgYAJKt3fLcyvnB6KYyb1qM41HaQO3UiO38oPvywrO8G1wc/SXtD0gk/LyZxdAqHoU1luVXwkHW2UJNPDdqc1TW49i3vHtjzJJtqlA7pLtCQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MXR3s6Ii; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=rShQHzbr;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=MXR3s6Ii;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ffkFW1NSrz2ygL
-	for <openbmc@lists.ozlabs.org>; Tue, 24 Mar 2026 06:46:39 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ffmzP3lQtz2xLt
+	for <openbmc@lists.ozlabs.org>; Tue, 24 Mar 2026 08:49:37 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 6F35A406E5;
-	Mon, 23 Mar 2026 19:46:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D6CC4CEF7;
-	Mon, 23 Mar 2026 19:46:34 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 06FEF44186;
+	Mon, 23 Mar 2026 21:49:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E23DC4CEF7;
+	Mon, 23 Mar 2026 21:49:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774295197;
-	bh=/dmtorY8LlAopvLU37QPmGzNGM+3mvzFRJJMdAu2qDw=;
+	s=k20201202; t=1774302574;
+	bh=e2ZhSCx0wJsAx1emJeyO4FU08Tb6VMlBPPL5XXi0V+k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rShQHzbr+/e0vr8yznZXZLi0IadcEXyXmTC90VkLLCkDaKMyZV6XVtlDucYuLRq74
-	 cw8in6D0nwJYmsWUzDM5DUNt7b7dv5ZP9BgpIbj55v3YyI9+xYELCUmp3kPYHs7x0C
-	 00JUcr6l+IiGJ2xPxQM/T0R+R/AxSBcBKqUj20bwgr7zgL1F4QraMYx7OEzbxPleal
-	 UhrfMUKHBGqXIXHQZtqkMmt/ioegcjIoDyE/8AluJ3QflhBk8vVAiE0QoMZKdFT6Y0
-	 mUyw1ezBl/MjVbtx5ejQ3Exaog+afTr36miFzTZGTx45Rg10COYbaTuthczwezddX0
-	 8h16B0dBoRPdQ==
-Date: Mon, 23 Mar 2026 19:46:32 +0000
+	b=MXR3s6Iie7Hp0vfWKYIxZqEwcifDLvFfeZtG7iRbEA0DhAy6OrFcIRNASgmDu1wES
+	 zn4IB9ubKrtOy0wXus4wPsc0eBevTbJva1lSU9ESfklLjSd5pBNB1nV24Q36di4wYW
+	 0lXP0/FiXiQNTgJjuefwj+TrVnsIet/iqOzKs3Iq+mE+Od+sUt35pv7eHj4n55e+gz
+	 13fLIGiGQyk69OH0znKnUMNM0rDD9dbru0bdVoDvY3E2gfDe4vCze6n6yxC9kUGOMb
+	 kSLEBVcMkyjMZKjC+Q98InaQDpdQcVNO4WZCXfb7pbVZYBqGq7rQw4g31sEWJnyczt
+	 1LJaq/W2VhUWw==
+Date: Mon, 23 Mar 2026 21:49:30 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Pei Xiao <xiaopei01@kylinos.cn>
 Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -53,11 +53,11 @@ Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
 	linux-stm32@st-md-mailman.stormreply.com, Frank.Li@nxp.com,
 	amelie.delaunay@foss.st.com
-Subject: Re: [PATCH v5 17/17] spi: zynqmp-gqspi: Simplify clock handling with
+Subject: Re: [PATCH v5 15/17] spi: uniphier: Simplify clock handling with
  devm_clk_get_enabled()
-Message-ID: <cc7f3fec-e314-4f46-8c62-75feb919b778@sirena.org.uk>
+Message-ID: <2f623083-5846-48d4-8c36-e55d663047c0@sirena.org.uk>
 References: <cover.1773885292.git.xiaopei01@kylinos.cn>
- <611b4c4b67aaa8d86a7aeba9707ada47e6fd5dc3.1773885292.git.xiaopei01@kylinos.cn>
+ <bcfc4a5191976b2ada9cd4094b61ac67a0ea9da7.1773885292.git.xiaopei01@kylinos.cn>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,39 +70,50 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yXZTZfMj8/cYjg5u"
+	protocol="application/pgp-signature"; boundary="Y/Y2tr05pHZcxD/m"
 Content-Disposition: inline
-In-Reply-To: <611b4c4b67aaa8d86a7aeba9707ada47e6fd5dc3.1773885292.git.xiaopei01@kylinos.cn>
-X-Cookie: The only perfect science is hind-sight.
+In-Reply-To: <bcfc4a5191976b2ada9cd4094b61ac67a0ea9da7.1773885292.git.xiaopei01@kylinos.cn>
+X-Cookie: Advancement in position.
 
 
---yXZTZfMj8/cYjg5u
-Content-Type: text/plain; charset=us-ascii
+--Y/Y2tr05pHZcxD/m
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 19, 2026 at 10:04:13AM +0800, Pei Xiao wrote:
+On Thu, Mar 19, 2026 at 10:04:11AM +0800, Pei Xiao wrote:
 > Replace devm_clk_get() followed by clk_prepare_enable() with
-> devm_clk_get_enabled() for both "pclk" and "ref_clk". This removes
-> the need for explicit clock enable and disable calls, as the managed
-> API automatically disables the clocks on device removal or probe
-> failure.
+> devm_clk_get_enabled() for the clock. This removes the need for
+> explicit clock enable and disable calls, as the managed API automatically
+> handles clock disabling on device removal or probe failure.
 
-Another runtime PM.
+This breaks an allmodconfig build:
 
---yXZTZfMj8/cYjg5u
+/build/stage/linux/drivers/spi/spi-uniphier.c: In function =E2=80=98uniphie=
+r_spi_remove=E2=80=99
+:
+/build/stage/linux/drivers/spi/spi-uniphier.c:773:35: error: unused variabl=
+e =E2=80=98pr
+iv=E2=80=99 [-Werror=3Dunused-variable]
+  773 |         struct uniphier_spi_priv *priv =3D spi_controller_get_devda=
+ta(host
+);
+      |                                   ^~~~
+
+--Y/Y2tr05pHZcxD/m
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBmJcACgkQJNaLcl1U
-h9Azogf/QlfWQKZIDTkEDnV1hRWkQlKZGgabUOpCAe5hOywhIwsKTsN0RsdWj4pu
-gZ5CUwol9/peWzpl3LUtT438fl+Tj1jWbjNJWSBHy4o6uSnLSIedjHJuFrA5nBb7
-Nw2JPIwe1Sxk3ooG6qCf1RLFclZHxcvjbAeTDIUbRmnA2ZeOMuDQ030AbISPi50p
-TwkulHE1Mfd6zQ/Dtfv6azyFxBMfirgdLPblRWmXkYp9zgnDKfOxgy29A30V/0zb
-NBeZSB5HZVYUCjuCMpe3hbq8MYLGL+d/khvAy8r/tnghN49BcXv9/LG798apXkXC
-FKZxce5d98Cm2HnL8Suce3/z9c3sKA==
-=quxv
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBtWkACgkQJNaLcl1U
+h9BGOQf+P4qqM5W2u6LtXeZ+RqwAf5bIlruWN7Zu6y+s0RsmbnL8SLo7ezN1P5XA
+CaagW1s3A1znQ+f+UOmPpt7CUIM1lfu4JMWMQEq/cZthfywlxT0GzJCFxfwmIfXc
+CIg28KtEajxKDNgRhc5AUvY+uPwX0bN3q2rUJ/kMcSeopHH61rIVinefkvqchzj3
+FcC4NVtnG1cKpbV/hwswiKs7/f4NPM3PJs/PUgGtrqtvcaylsOcjEkL/tUQN5bHY
+TupvhVwEX8LSCuTL2A0ihBwbZj1FWzwTqmb2nkc+zwDd0wOWosktdz/D4qYx04Ox
+knJf2rx/baCD+1NxJPUJXi0GgY9dkg==
+=IvRp
 -----END PGP SIGNATURE-----
 
---yXZTZfMj8/cYjg5u--
+--Y/Y2tr05pHZcxD/m--
 
