@@ -1,61 +1,62 @@
-Return-Path: <openbmc+bounces-1691-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1692-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B72F4613F
-	for <openbmc@archiver.kernel.org>; Mon, 23 Mar 2026 23:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457EAF532C3
+	for <openbmc@archiver.kernel.org>; Tue, 24 Mar 2026 00:11:54 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ffqTm6TPQz2yhG;
-	Tue, 24 Mar 2026 10:42:36 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774309356;
-	cv=none; b=cU+jjGMRFGz4MV+qMQvs+sJdH8yELID6OqJey0NKRT4JvQn0WXxdXyL5RjtIaa17H9vhvQi+E+B/WhBBgf8lBBtJkEGnkqU+E+8DqWta5tOQv1Bj1s65ZByc9e2FQ2Kjj0ohtFDoSz8eGunUpzd/u+DXC+vY/dqlzHlR1ODONhI4c04qsOCxvqirg5D8Ra2zkWuHdSwulFsGyeWqqOhmyags8zyVg+NfGPfasoaId3KOWQp7K+27yMmtdOIVxy/mE6aOfyj731ttP5yXulzg31lm9Xo8yo0a6GWmajpiB5mb9/Z9AR7KSIFMlEzQ0nrS0jKoLEo82Jhh9L1/hJue8g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ffr7R541Sz2yhZ;
+	Tue, 24 Mar 2026 11:11:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774311107;
+	cv=none; b=bJ5J4x5hHUBtY2MfgMKzszI/aKQGQ5uqCse4yeMebHwjyxS/Ki6s2EbgywRth53XIu7Wg4pZJ8/9s8+YtlbQFwnmVorkMl+kM639wkEhkNkxyY9JiFPy8UsSdQY9t2svpvT2ZIHoVA4G8Pe/ea+spUVqTpUVotFrAnFvJht1YzHuCKXhQAOAW2vuQdaBKOJCt5dgLejmbk7joyjmBjRvjP47VQdUA27/wCAQwNuVovHflwQbpu0sDv3g4qjBMJioqw+Iff2hjcHqL+gbt1ugErnpViYnSfaJr8oq6sUc7iahXNrLZFtOWp493IsJd4WPOIIVv2laagys5jua3sKmSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774309356; c=relaxed/relaxed;
-	bh=0javaRN6hkCgHy3LVYDA6Yfus4ok8bY/RS9BNxd7lpk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VGv7zfqiJGjf6BxwQ/xuSKR3Oh22gTeKB+0uLR4gcpS4cwVvh3VKDTXFwmoKXjJM9onvXg8FwEo+Gtkyhw2p6nScltG7D7R1/vu7k/4J+fOqFzp7msRROFWN8LxnSe9wRK8RanHMvBUE3VS0nvDD4gg5eBODvN2wjTYivZi15pkRgpuBVKdLhZpNs0C30vpfYc/XxsUSYZD0zhm64vPQ3piiuiPH18ydt8wfItW/4T7P424RC5zySid018WpMOChZIhT7nRPF+U52dV5e0nvxUABiopaUvYtz7bdI+xnS4TqgPLwfe/DhNMTDmkxg8zsrz29xgGOTM0W6USqstQSig==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Cl55PgCh; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	t=1774311107; c=relaxed/relaxed;
+	bh=GW//tTVcndjG7rANObrku1uf8/SpuJ+cu9fM8IhMTfs=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=PWBvykn+RIyuP92gZsc5WT+dSMC/FaJorhPQGxzApIy4dqDbynRX3dg0wVWB32K9VptLdMZj9j0r2sl91Huk801hQ2SeLbxuqPj+uYiRLY7UyOaoamqUpONxY0p2CxrkAuYHWtWG6XDHWCTOeSn6iyme8V0/KT3olglaoYRkmi6YRHFZUhZQBEITkI6sMO/RjlHNnqMpOpfDQTwyffw1QzfoGiswLQKm7ayIlbDXe1yE3RExguXiTm4bCwqpNku6NL+5pmzFuExSwwZENJoIq9LgmeGO1vQ+2tgN3v2m2sFf8lr2+3j1UiCBe98Ffv4atcQ/dvAEzL/KmdAk2C/pig==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=f7r1JImQ; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=Cl55PgCh;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=f7r1JImQ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ffqTl2vjqz2xqD
-	for <openbmc@lists.ozlabs.org>; Tue, 24 Mar 2026 10:42:35 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1774309353;
-	bh=0javaRN6hkCgHy3LVYDA6Yfus4ok8bY/RS9BNxd7lpk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Cl55PgChKhMDmaMZ3K0LsqUKFOaIDnUAh55JeSdtp+6wT9TgSgNZjBajmuYyA+5V8
-	 oFN88H9FlVdjFnVT/8iqPDeiyGr/PjaN2dlRX8wr6Ei7djgRaoWq7traKrgmOsi5et
-	 X+6e+BgA2BgBbDEfUe6YScr3axln5cQg8AbzfEnBAa9mrj7jqtUYLN4RbMozNiwqkH
-	 HrFWaItvKxb3hMkw9cocI70IaBFyMngxxrihK0Qd6QnWH7zVYz0m+VcRUaRyEywJq7
-	 aaWETYIWSdKZgdkiLqQR7W/QgHNY9G0pDtELCYBHHrxy0rtgn6hevi2MWKwdU407c9
-	 FTCvGGGqOdUBA==
-Received: from [192.168.68.115] (unknown [180.150.112.60])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 056756024D;
-	Tue, 24 Mar 2026 07:42:32 +0800 (AWST)
-Message-ID: <61cb0ad57b4c79d3a026d8ebf316ea95552fff93.camel@codeconstruct.com.au>
-Subject: Re: [PATCH] ARM: dts: aspeed: Add dts for ASUS Kommando IPMI card
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Cc: joel@jms.id.au, openbmc@lists.ozlabs.org
-Date: Tue, 24 Mar 2026 10:12:32 +1030
-In-Reply-To: <CAJ13v3RhazyeTJZKnh7SOK2O51F2-jW7SYSbs4ro70pdvfKncg@mail.gmail.com>
-References: <20260228-asus-kommando-v1-1-9a288620096d@gmail.com>
-	 <0f0a1a6862a8b94bf4f5c00da85bad4efce7c071.camel@codeconstruct.com.au>
-	 <CAJ13v3R-3p5mV0b3AqHyF8m4A=HnX4rrNoKQXYi69Mod=OsEmQ@mail.gmail.com>
-	 <CAJ13v3RhazyeTJZKnh7SOK2O51F2-jW7SYSbs4ro70pdvfKncg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ffr7Q4NSLz2ygp
+	for <openbmc@lists.ozlabs.org>; Tue, 24 Mar 2026 11:11:46 +1100 (AEDT)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id B31D0600C4;
+	Tue, 24 Mar 2026 00:11:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BE8C2BC9E;
+	Tue, 24 Mar 2026 00:11:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774311103;
+	bh=Di5mcPNb0r2N+QWMH4UxyuhE6p8fkYgO2pkH90SHdT4=;
+	h=From:To:In-Reply-To:References:Subject:Date:From;
+	b=f7r1JImQB/SRvnQqdQ62Ik0ATXOFu5eMEUFc4YTTBMHtSqYJ2gVutAKIN/VqjZyeF
+	 P2sWCb8H6rrSfm5Knf95lClTIk/6qD2abXnr5aBhHVu/X67jk+7F9AYilQBE84u2yA
+	 rT39OWjQR0xJvp7VaLbyF2OcpkWudRMK2uWc0MlRJDN9EvAQ0LyuFLkhCgUNPFBo/b
+	 1oxbwvUphkldddonytnk1kx6CJ8qHHZnUTDKibToHOrTSl1x+lGlVT1gCXFfpcXSq7
+	 SZtrQQi3Hgc7YNXvUJ+sD/K4XIhpBirnHXziunLrPKWxYxlEVUSz0YcQq0/YACipLq
+	 qa0h0Sq6mV5BQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, openbmc@lists.ozlabs.org, 
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, Frank.Li@nxp.com, 
+ amelie.delaunay@foss.st.com, Pei Xiao <xiaopei01@kylinos.cn>
+In-Reply-To: <cover.1773885292.git.xiaopei01@kylinos.cn>
+References: <cover.1773885292.git.xiaopei01@kylinos.cn>
+Subject: Re: (subset) [PATCH v5 00/17] cleanup in spi by use
+ devm_clk_get_enabled
+Message-Id: <177429527684.757727.3178430227590182148.b4-ty@b4>
+Date: Mon, 23 Mar 2026 19:47:56 +0000
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -67,71 +68,69 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2226; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Di5mcPNb0r2N+QWMH4UxyuhE6p8fkYgO2pkH90SHdT4=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpwda8CnOiOloYzFySgYbCE/6hff/7Co6oZovH/
+ NYX07fdL5eJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacHWvAAKCRAk1otyXVSH
+ 0NvUB/4tGt133fOvYsd5ccQQIQOzVbVHSDtwT2WLeR3+X0YErOBbugNfEdY+SSuDTTx5dvleDwv
+ RRu/m16aqCnbltqs+xqYo0EXuNKhb/EH7dIXDpbBvc/66u5FoNCTIqeF5Jfab/mZBDBQKddVugr
+ 5e0Weu5eT9FYS5UydoOJLtwKzXRKlT0OeLmLgYIV5CuL4HKShuJNQ4VHb1+VsVS74JesMhW3FZL
+ e9cayQAVBijhwh//ogTcJasWpFIG0iF14Lf9dGiYeeZalKEWH9KveHB6VChUAjuE75JWrl/xt0a
+ 8vEuC/a9d+boVY7I08rDLiYeqO164RdPm5UbQvrxTWXR5C9G
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Anirudh,
+On Thu, 19 Mar 2026 10:03:56 +0800, Pei Xiao wrote:
+> cleanup in spi by use devm_clk_get_enabled
+> 
+> I know that many old SPI drivers should not be modified for hardware
+> stability and to reduce maintenance effort. But I can't help cleaning them
+> up. To minimize the introduction of issues, I tried not to modify the
+> timing of those hardware clock enables.
+> 
+> [...]
 
-Sorry for the delay in reply to this thread.
+Applied to
 
-On Sat, 2026-03-21 at 17:24 -0500, Anirudh Srinivasan wrote:
-> Helo Andrew,
->=20
-> After doing some more reading and experimentation, I think I might
-> have a clearer understanding of how things work.
->=20
-> Andrew Lunn's suggestion in the patch series from Aspeed was to patch
-> u-boot to not insert clock delays anymore. And then use rgmii-id as
-> the phy mode in u-boot and linux for all new device trees.
->=20
-> I tested this by setting the mac2 clk delays to 0 in the u-boot device
-> tree like this
->=20
-> &scu {
-> =C2=A0=C2=A0=C2=A0 mac2-clk-delay =3D <0 0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0 0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0 0>;
-> };
->=20
-> Setting the phy-mode to rgmii-id now gives us working networking in
-> u-boot and linux.
->=20
-> So how do you suggest we proceed here?
-> 1. Add this DT to u-boot now, set phy mode to rgmii-id and set
-> mac2-clk-delay values to 0. Networking will work in u-boot and linux.
-> Update the DT to remove the clk delay values once Aspeed updates
-> u-boot
-> 2. Add this DT to u-boot now. set phy mode to rgmii-id. This means
-> networking won't work in u-boot, but it works once you're in linux
-> 3. Add this DT to u-boot now without networking. Add networking later
-> when Aspeed updates u-boot based on the discussion in that thread.
-> 3. Wait for aspeed to update u-boot, then add this DT to u-boot.
->=20
-> In any of these cases, we can also now add networking to the linux DT
-> for this card (it's missing currently) with phy-mode set to rgmii-id.
-> No need to wait for Aspeed to update the linux driver (or I think
-> they're not gonna make any updates at all if it's just u-boot that
-> needs fixing).
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.1
 
-Working backwards here, yes, I think we should add the correct (but not
-necessarily yet functional) description to the linux devicetree
-(probably best to point out the lack of functionality in a comment in
-the relevant devicetree node).=20
+Thanks!
 
-Then, do your first option 3 above, except add the description of
-option 1 in the commit message so people understand how to make
-networking function for both environments. That way it's apparent that
-anyone who has enabled networking in u-boot is also aware of the
-(future) problems of doing so, as they likely will have read that
-description. Please add links to the relevant discussions between
-Andrew Lunn and Jacky to the commit message as well.
+[02/17] spi: bcm63xx-hsspi: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/e532e21a246d
+[03/17] spi: bcmbca-hsspi: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/8b237cb10e32
+[09/17] spi: sifive: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/140039c23aca
+[13/17] spi: stm32: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/7da637804805
+[14/17] spi: sunplus-sp7021: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/ea0e916de134
+[15/17] spi: uniphier: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/fbf34af0c6eb
+[16/17] spi: zynq-qspi: Simplify clock handling with devm_clk_get_enabled()
+        https://git.kernel.org/broonie/spi/c/c9a4136c4746
 
-Any concerns with that approach?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
->=20
-> Let me know what you think (or if I've gotten any info incorrect here).
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-That all sounds about right to me.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Andrew
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
 
