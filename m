@@ -1,74 +1,51 @@
-Return-Path: <openbmc+bounces-1722-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1723-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB9AD109C045
-	for <openbmc@archiver.kernel.org>; Wed, 25 Mar 2026 16:52:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C31B109E528
+	for <openbmc@archiver.kernel.org>; Wed, 25 Mar 2026 23:11:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fgtHp0h2Yz2yTK;
-	Thu, 26 Mar 2026 03:52:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774457557;
-	cv=none; b=Bc/O7KWZdB1y60iTb6L9nIT0wwazwzVUY3+bltk+M7ICD5wQaIHlwU0zFk+259hFAJfuAaBk2sA8Va81EQ/4zlxJdxaH3av0zc/i9eyzgNsxX3471pVQO/KYDARYa4/2Pr2wvj9FAdGNCLlhQU6/k8uEZGUEpAW7d2VizaRQ7ZGpw3JWC01x1F/D6oPz7czbvO1vOTce2YXsc5a0le1ULJhAil4dMl3jIqAdN3dBA2+m+22mTvTU5yMLJVkGV+tFR2Epwa1SnPQugHp3p0+DEH1qdMP2sFyByfvPZ5pmB3ZzE87eOal/PqrtGzMy9Ft369FQNZQe3Q1j/1UR+FiNkg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fh2jG1bMlz2yfs;
+	Thu, 26 Mar 2026 10:11:46 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774438244;
+	cv=none; b=nivJfq45ahNLlg3uKrHcsX+AeK9ESUogQPC3pOHDnJA5sP21lfZTGwrYDyc0dAQPN8ChJtBVWxMF+orfUSfs6PnCH/CMmaaszL+sY+kckpbQe8NlzSeVQlVgou9fiXFA9YhkrcpadozoON+5nbUHpLCheAeubfibArmrpudy0SU7xBGBlBMj34AhCZSThRV0PSI0fqXYJEu+5pCCLGH5xguZE4R1XK4WTdZDMM16hboO2RwoauwNKHqKSSwX526hRNGixg7tX+YAq2vcZSrfi5QKq5yeJiwqm4yZ94ahLogw2LjwYK/9WAw4u1kPNJowm7VJ/YCz9+X1a+c09sRYfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774457557; c=relaxed/relaxed;
-	bh=aX6Zt92Rl7zamMR40yxS1SAo7vg/tk+fp4b2fvllx30=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UzyKYL56Sv55N1LUD7mdZJbBeKWBzZ+QOiHW13J5K7fE8/547/cdpAxlnj8+Gkf6P8ztPxBwBdGU5Spn2OBIe5WOJQiHpPwxyJbhBkCCgVoXbgNgDBYIUwzZ3Uxq7K5ctUjzruQBgSyrs6mMhH6nGQI9AU1NiuOiB8Q/YGRcqvzCatdSIqiAWQ8jZXM+M/6TLnAoyymeeXR1ef/19FlX9KPWDYOI8XzykScegI5ebxxei5kPgQfnFqUbWZ0TEzmN+FynnKl9t+LX7nrS5m5RDqK0xgKd+mNX0wTudtOrOvuRHURsawovqIh78K3Jd0TTQO0112GXImdFVKcL/srKTQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eANHokos; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1774438244; c=relaxed/relaxed;
+	bh=Zvt3G1hcsDJzzNs4t6l52o6k8uiMQDEzVp6CVhfBepg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UTvryYDwoIGMH/c2oEtkSJRZZFR97neR8epzKAYtZJ0mQZETjeAsRZS/XYDmIIo71r20MFE/et8qwyz6tvFJNNAlC3k6NAzlXWbWEsU5p1himRTEYGDoanKPmSJrkfXMaL5nxK8CC3wNo1Ng2F9EjDnJwHZ5h3HdBiI2uChadrYK591v+pOoYeZOXjBQsZTBV6qhux1ah27d8N5mg0nO486tIZu/Ev2wlxtcGy+iwoREZ/gwK3DM7F/ci4In7Tinqz7f6UTi4Yd4/Guk6bRqUl8lhg9FM/cyfhsonJX1n+RuCl/6aVGygnjqHSMEil3omXl75nSsCdYw+TntlZ9kkA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=OHlhU4Kx; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eANHokos;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=OHlhU4Kx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=mailhol@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fgtHm6Kfcz2xlf;
-	Thu, 26 Mar 2026 03:52:36 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fgl8N0PRqz2xPL;
+	Wed, 25 Mar 2026 22:30:43 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 5C16744557;
-	Wed, 25 Mar 2026 16:52:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F026DC4CEF7;
-	Wed, 25 Mar 2026 16:52:33 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 9D9794452A;
+	Wed, 25 Mar 2026 11:30:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86C58C4CEF7;
+	Wed, 25 Mar 2026 11:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774457554;
-	bh=pWOqtv6jmpKLYd9pPWq7muuvSWKqfEOPOAHMJ6IkXEI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eANHokosIVd5KD95xp+HQHRfvXeuEHK7Eo6rbRCk32CsXyhlZFVFE2ezxytgD44zU
-	 ZjYbNSKo/8j6WtbSSI3hYpj9HcFPD5hrfB/Y9thx8togWdftQf8QN2swMcN+5jdHWl
-	 PZiiqM95vlHF3pO+VaVFD2HUUvhksmVKV1AcKQsFftLkZ8RvQQ2FO5ikayoqBf+3OG
-	 /LkA3oXJTWAM4YYUJLWe3nCCg7XqPkqfD4nBpNDjw/lV08H7YZHYkgLYtdg3MHBic4
-	 OqG/BVzr/uCUsDzNpOUrXND7FnQuVkffbmLkBWeDf/5GhrdHVuwN1gWHBoM4kvKgZE
-	 J2shInOqyYJsw==
-Date: Wed, 25 Mar 2026 11:52:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Rayn Chen <rayn_chen@aspeedtech.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH v27 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and transfer-mode properties
-Message-ID: <20260325165233.GA3782899-robh@kernel.org>
-References: <20260324-upstream_i2c-v27-0-f19b511c8c28@aspeedtech.com>
- <20260324-upstream_i2c-v27-2-f19b511c8c28@aspeedtech.com>
- <405f6b1b4081ffb379a21bcdb5d2a8e81d2e2e3e.camel@codeconstruct.com.au>
- <TY2PPF5CB9A1BE6F0B9087048F46ABD72A6F249A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+	s=k20201202; t=1774438241;
+	bh=8S5TmAtO06iPDjR/APd3b8qCxwJUHlbb5SphhpG276w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OHlhU4KxW0ESflRCv12pLjiQ+K8rctrZiJQGTHZ5zqSdcRsrJ+cxVUo6WS8ygPrf1
+	 8g7tl4rlzjpeKvDFoE4D8YIq1qUwh+8UzaTuaKfUlkEcFDTQFwoJ4gJkmdiVlNp866
+	 AgerHFgrIEg9Q1Ks+TtwipZcpLqyLQgni7r62gXQTlpi/ASdCLwCySKW66kVtBDFTM
+	 RcmInCOhNJGbFq+WYNDvLuX3agPqqgYzgsGM4Fo0+aJucZNi6M1Pf/qL712D8Yyj9J
+	 z7332+wGqDsyg7Nd3cJPGVzCj6g5HdxtxMt1nQMHYvgjYotrDLvOO3LnEqXi4zoYya
+	 87r72ru0E6+Vw==
+Message-ID: <6f463bf9-7c17-405f-81d0-bcce82caa2a4@kernel.org>
+Date: Wed, 25 Mar 2026 12:30:19 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -80,54 +57,130 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY2PPF5CB9A1BE6F0B9087048F46ABD72A6F249A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/9] arm64: defconfig: remove incorrect assignment to
+ IPQ_APSS_5018
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-omap@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, Mikko Rapeli <mikko.rapeli@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ "Rob Herring (Arm)" <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Anna Schumaker <anna.schumaker@oracle.com>, soc@lists.linux.dev,
+ Ross Burton <ross.burton@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+ <20260317-arm_defconf_cleanup-v1-7-8eecb7fdd24d@kernel.org>
+ <ff697bee-2173-4311-9089-0875114d54d8@kernel.org>
+From: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
+Content-Language: en-US
+In-Reply-To: <ff697bee-2173-4311-9089-0875114d54d8@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 25, 2026 at 08:11:54AM +0000, Ryan Chen wrote:
-> Hello Jeremy,
-> 	Thanks the review.
++CC: soc@lists.linux.dev
++CC: Bjorn Andersson <andersson@kernel.org>
++CC: Konrad Dybcio <konradybcio@kernel.org>
+
+On 3/17/26 12:31, Krzysztof Kozlowski wrote:
+> On 17/03/2026 10:13, Vincent Mailhol (Arm) wrote:
+>> CONFIG_IPQ_APSS_5018 does not exist and never existed. Remove it.
+>>
+>> Fixes: 7f0c87348fb5 ("arm64: defconfig: Enable IPQ5018 SoC base configs")
+>> Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+>> ---
 > 
-> > Subject: Re: [PATCH v27 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add global-regs
-> > and transfer-mode properties
-> > 
-> > Hi Ryan,
-> > 
-> > > The AST2600 I2C controller supports three transfer modes (byte,
-> > > buffer, DMA). Add "aspeed,transfer-mode" so DT can select the
-> > > preferred transfer method per controller instance.
-> > 
-> > This patch does not add an aspeed,transfer-mode property.
-> Will update use aspeed,enable-dma
-
-[...]
-
-> > > +  aspeed,enable-dma:
-> > > +    type: boolean
-> > > +    description: |
-> > > +      I2C bus enable dma mode transfer.
-> > > +
-> > > +      ASPEED ast2600 platform equipped with 16 I2C controllers that
-> > > +share a
-> > > +      single DMA engine. DTS files can specify the data transfer mode
-> > > +to/from
-> > > +      the device, either DMA or programmed I/O.
-> > 
-> > As we had discussed: this does not define the transfer mode, only whether
-> > DMA is available to the peripheral.
-> > 
-> > Why mention the 16 i2c controllers here?
-> > 
-> > Please keep this description simple and relevant to the specific purpose of the
-> > property.
+> Just like try one year ago:
+> https://lore.kernel.org/all/20240104133241.2030193-1-ross.burton@arm.com/
 > 
-> Will update with following.
-> description: Enable DMA for transfers on this I2C bus.
+> No one will apply it if you do not send the patch to right people.
+> multi_vx and arm64 defconfig fall outside of get_maintainers thus policy
+> from maintainer soc profile applies.
 
-You still don't understand the distinction. It's not enable, but that 
-the h/w instance *has* DMA capability or not. It is still up to the OS 
-what to do with that information.
+As you guessed, I used get_maintainers.pl to generate the recipient
+list. I am just surprised to hear that the defconfigs fall out of the
+usual process. This is a pit fall as shown by the fact that both Ross
+and me failed to send it to the right people.
 
-Rob
+As you pointed in another answer, I saw that the documentation was
+updated. I will follow this from now on. Thanks for that!
+
+> This one should be send to platform maintainers, so to qcom.
+
+I will add linux-arm-msm@vger.kernel.org, Bjorn Andersson, Konrad Dybcio.
+
+I don't think this should be split though. My series does one thing:
+address the warnings from scripts/kconfig/merge_config.sh. When a series
+have a clear scope which spans other several trees, it is more common to
+collect Acked-by tags from the maintainers of the other domains rather
+than splitting.
+
+> Other ones: please send all arm and arm64 defconfig changes in one
+> patchset to soc folks. Here, at least provide credits with Reported-by
+> to Ross.
+OK. Although this was re-discovered independently on my side, will add
+the Reported-by tag to give proper credit.
+
+
+Yours sincerely,
+Vincent Mailhol
+
 
