@@ -1,51 +1,51 @@
-Return-Path: <openbmc+bounces-1719-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1720-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA829103A9A7
-	for <openbmc@archiver.kernel.org>; Wed, 25 Mar 2026 11:26:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47947106B527
+	for <openbmc@archiver.kernel.org>; Wed, 25 Mar 2026 12:42:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fgl3h3Stsz2xlt;
-	Wed, 25 Mar 2026 22:26:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774438000;
-	cv=none; b=ifBvGMQkn9/Bjm0cVfa8P45bt8NpZ7QWuJu+WmKQLf0rHo+UJh2xjeRTQXS7Diz6QfYtzp0AYHs0VLRApar3+LEiS1UpgiIL826nDnkxnqIdMkM48ZkDooF4jt6Cy4y95lqMc2cSoksWFlK9oog3/3LlXT5bneaJ+CxjyMNaI7NSvj0tywpz9DBajqv+z46IAbzFfgaWsfzrgkeZeX0RQv4LSHdYoihp5xFHej2qrXDHAZrg3noymq3oLMrZM2TpFFSHnmZmyb3c2WabvSWUhjVjwKJHHeMbL8WFt6DHnofq1Nsib0OSJbfbKCNSVAP+TSxxIufZmjcDFHwUEmm4Mw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fgmlM52wzz2yTK;
+	Wed, 25 Mar 2026 23:42:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774442559;
+	cv=none; b=hMV4LFzbBiMgvSoex2mSV6pjQBE4dDpjnz6vnxIBjKNLB3aJAcynre+1XJi1KirAGLaxbFxL5ZeTbsm2ggoqtKaSo/HYteiIWjhlyROG7CtApnS8XKHkeXPLKInAdwWc+jbYUwbp7TW+EfBhzrOlnUWVPN0CrxRN2CzyxY/H/gVeRcLQIJ9Jp/HnsEH15AuI1/f4fKv7XXhRphucRRUfglv19E69cGGh/CtvqwCsVWbHnqN/Z7umG5XbYHnPE0jC2z4Uts46TLL9j5Oj6wqTvX6JwMsa7XslDaT3K2t9qLuk9ELM6d6SBKyua4O/DN29enztBYM0Cv5ZhVOaF8duUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774438000; c=relaxed/relaxed;
-	bh=xZKGzqh+1BIHvAByA4AMD3ftzv67IDKmqZRlmoVQzzs=;
+	t=1774442559; c=relaxed/relaxed;
+	bh=yDZaplV1AV0lec6st19pSQApjix5t+ozHj7fH5K+vlU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IblZy+jL+/+kHEN9qa78rzDnHK+N4l83YnSOOWwHUm6RNgXwn5ULbPuU7GkiP2Nvqzus0mqgLo8JdgBgnGwYcUKZajHNfZ2l5xbo+mur5mCJika7bNc8qPPjdHVuP/Q1wepd5eNZ12cIgfNl5c1vsyb6N1MhD4O1HqRQlP/vSKtp5gTxsRoeIQnZydc2zPCiVKScYK4x3IJcUDzRkA3BF/brZwxr4hYD/Uv7zK+afaZUVrjknpm4m0nmTURDZkBsj+gDSH/3kn0BpgR6TKum+05VYWSxQSMT8hRLA/cIU7mSKUgl+fDQWx0CC084N0tSniU3L/8IyYVa/xAKiFuR+g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=t/QxqqGd; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 In-Reply-To:Content-Type; b=Zs2qWr74hzfY+RL7+uhz8lFZXlKrEPfiXKIbflwbavO/aPbRZEQCqE0RlJwWjCu7KEH7aIHUy3bYm97Yih5fdZ+Lc06mcEAGy4ABfVZeI65/vBzxEkKMe3DOoDA0nxhHrzLtSLufZPW9X/PccGNlc+ui7DeIcxg9sBDYcxfjlW7DR0o2tuhwEzE5OCWarUcPkR+e3pCH0FuCtK0SecpbnySepx2h6A3M7t9FN7VwFnIlRRBuha7QtOxe15KgSbTO8KJfyXOmVLW+yfhr6fxUeqmSzdIeF3Yyq+T4f9uE2hZmVCAx9iB+0Z0s8eXf28yQxCUFeOSZhzDJb2mh6FoQbg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=kqEhZy0K; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=t/QxqqGd;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=kqEhZy0K;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fgl3g207Gz2xPL;
-	Wed, 25 Mar 2026 22:26:39 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fgmlL0vtMz2xS3;
+	Wed, 25 Mar 2026 23:42:37 +1100 (AEDT)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 7E7F960123;
-	Wed, 25 Mar 2026 11:26:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E1FC4CEF7;
-	Wed, 25 Mar 2026 11:26:31 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 986A060121;
+	Wed, 25 Mar 2026 12:42:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E418FC4CEF7;
+	Wed, 25 Mar 2026 12:42:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774437996;
-	bh=XmNUJ0mpif4qhL8464aWIYdfMLi/kRQgNJ+zmPxYBN4=;
+	s=k20201202; t=1774442554;
+	bh=w7OzwCqt8SyLebOkd0ga04DG/iV8dPT4IUIMUesHAhk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t/QxqqGdqZAcefBlHzFAiSkEt+0dhU7HG/y/IBQU9HP69ETPhD4gJ++yhMtsVk4V6
-	 PgE7/kXvupUOZKDcIk4MS/nFY9j4tGQyyjtD8hjCL8jIadJCo76F6h7pOaqCt4ZNPD
-	 hrJZBUsxMr9gpSOHacvDAw686LzZnTSJeDKc4kWZcJmoh1bDsqgV6UVMILlQjMQ2bz
-	 ClW0gE9ng1LQVg/rtTHI/VDTFrjC8hdywba+556C0w/PDtHBFN71dcmpso2bmWxLpa
-	 H7V8I4lXYQdJdrbMYtRyGaqV4CLV4IQtpKOi/E5aw8VDBDOX7q7+8SbTD638x661Eo
-	 j1MApet909n4w==
-Message-ID: <fbb0fc19-45b1-4d5b-9954-9244cfec8027@kernel.org>
-Date: Wed, 25 Mar 2026 12:26:30 +0100
+	b=kqEhZy0KWeBErR981dacfREdOZWMmz6qOIxI4/aT7/aolwxv4kqXgQoqF3yfj/NNW
+	 qgGHWlfdf7fya7BTe6mmtyKuBxTwb8JRvk8QJK4RagZwcDRCTeDpS43812XcQjA2fE
+	 xkWy5aAn2w1MBXjPWyj+48XlvnssAxxrCjCI8ZK1sME1Sq+CNkRXJf+NW4CwA+iLF0
+	 4/e+TmLS5G9HIh/K2I27R5Ahbm5eBBLcd4KNdpwhs3CPjw669K1nE6SpkZrWp7/j1C
+	 bIjJAauviZ79LmzBEAAEmH1UTErdMS3unexGlTUMbIgrVB90vexkMKwZ7Jc/uAM6lJ
+	 pSCoDpRuXkrQQ==
+Message-ID: <85818080-c267-4c80-851e-daf050de97a0@kernel.org>
+Date: Wed, 25 Mar 2026 13:42:06 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -58,21 +58,77 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600
- new register set
-To: kernel test robot <lkp@intel.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
- jk@codeconstruct.com.au, andriy.shevchenko@linux.intel.com,
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Rayn Chen <rayn_chen@aspeedtech.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-References: <20260324-upstream_i2c-v27-3-f19b511c8c28@aspeedtech.com>
- <202603251922.TFJuUipj-lkp@intel.com>
+Subject: Re: [PATCH 5/9] arm: configs: remove obsolete assignments to
+ SND_SOC_ROCKCHIP
+To: "Vincent Mailhol (Arm)" <mailhol@kernel.org>
+Cc: Alexandre Gonzalo <alexandre.gonzalo@arm.com>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-omap@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, Mikko Rapeli <mikko.rapeli@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Gregory CLEMENT <gregory.clement@bootlin.com>,
+ =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>, Eric Biggers <ebiggers@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ "Rob Herring (Arm)" <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Anna Schumaker <anna.schumaker@oracle.com>
+References: <20260317-arm_defconf_cleanup-v1-0-8eecb7fdd24d@kernel.org>
+ <20260317-arm_defconf_cleanup-v1-5-8eecb7fdd24d@kernel.org>
+ <febd0f7e-59f3-4ba4-8706-53c7353e3fe5@kernel.org>
+ <3ec53a2e-a8e1-43d3-abdb-c00433e7675c@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -118,39 +174,75 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <202603251922.TFJuUipj-lkp@intel.com>
+In-Reply-To: <3ec53a2e-a8e1-43d3-abdb-c00433e7675c@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25/03/2026 12:20, kernel test robot wrote:
-> Hi Ryan,
+On 25/03/2026 12:27, Vincent Mailhol (Arm) wrote:
+> +CC: soc@lists.linux.dev
+
+Please don't. This is not a patch review mailing list.
+
 > 
-> kernel test robot noticed the following build errors:
+> On 3/17/26 12:28, Krzysztof Kozlowski wrote:
+>> On 17/03/2026 10:13, Vincent Mailhol (Arm) wrote:
+>>> CONFIG_SND_SOC_ROCKCHIP was removed in commit cae3cc435db5 ("ASoC:
+>>> rockchip: Standardize ASoC menu"). However it is still referenced in
+>>> some defconfigs.
+>>>
+>>> Remove any references to CONFIG_SND_SOC_ROCKCHIP.
+>>>
+>>> FYI, the suppressions were done using:
+>>>
+>>>   git ls-files -z 'arch/*/configs/*defconfig' |\
+>>>     xargs -0 sed -i -E '/^CONFIG_SND_SOC_ROCKCHIP/d'
+>>>
+>>> Fixes: cae3cc435db5 ("ASoC: rockchip: Standardize ASoC menu")
+>>> Signed-off-by: Vincent Mailhol (Arm) <mailhol@kernel.org>
+>>> ---
+>>>  arch/arm/configs/multi_v7_defconfig | 1 -
+>>>  arch/arm64/configs/defconfig        | 1 -
+>>
+>> This was already posted:
+>> https://lore.kernel.org/all/20260313-rockchip-snd-cleanup-v1-1-77d9a953fd1b@schnwalter.eu/
+>> but just like that patch you did not send it to soc@ (if I am not
+>> mistaken... CC list is enormous).
 > 
-> [auto build test ERROR on 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f]
+> OK, I will add soc@lists.linux.dev to the recipient list in v2.
+
+Could be, but isn't this specific to given SoC? defconfigs go via SoC
+platform trees (maintainer soc profile).
+
 > 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Ryan-Chen/dt-bindings-i2c-Split-AST2600-binding-into-a-new-YAML/20260325-112805
-> base:   6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-> patch link:    https://lore.kernel.org/r/20260324-upstream_i2c-v27-3-f19b511c8c28%40aspeedtech.com
-> patch subject: [PATCH v27 3/4] i2c: ast2600: Add controller driver for AST2600 new register set
-> config: i386-buildonly-randconfig-003-20260325 (https://download.01.org/0day-ci/archive/20260325/202603251922.TFJuUipj-lkp@intel.com/config)
-> compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260325/202603251922.TFJuUipj-lkp@intel.com/reproduce)
+>> I think you are mixing here independent works, like kconfig and per-arch
+>> defconfig changes. Please split these per arch defconfig maintainers -
+>> patches and patchset, so you won't be Cc-ing 50 addresses.
 > 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202603251922.TFJuUipj-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->>> drivers/i2c/busses/i2c-ast2600.c:955:15: error: no member named 'dma_abailable' in 'struct ast2600_i2c_bus'; did you mean 'dma_available'?
->      955 |         if (i2c_bus->dma_abailable)
+> The config issues which I am addressing are transversal problems so I
+> was expecting to just get the Acked-by from the other architecture and
+
+Well, sure, IMO this only stalls the patchset but fine with me.
+
+> have all this go through the same tree.
+
+But which tree?
 
 
-v27 which is still not building.
+> 
+> As I explained in my cover letter, this is not doing any functional changes.
+> 
+> But if this is not acceptable, I will just reduce the scope to arm/arm64
+> then. Doing a per arch split as you suggested would be too much overhead
+> (more than what I am ready to invest on this clean-up).
 
-This is madness.
+The first thing your cover letter should explain is the
+merging/dependencies or other expectations you have. That's the most
+important thing when maintainers give your patchset 15 seconds in their
+mailbox. Or when you want to optimize maintainers process, making also
+your patchset easier to get in.
+
+There is a lot of text in the cover letter but nothing explaining what
+you wrote here.
 
 Best regards,
 Krzysztof
