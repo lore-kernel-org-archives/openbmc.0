@@ -1,53 +1,56 @@
-Return-Path: <openbmc+bounces-1731-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1732-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5C53109E543
-	for <openbmc@archiver.kernel.org>; Thu, 26 Mar 2026 03:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 348CE103A9A0
+	for <openbmc@archiver.kernel.org>; Thu, 26 Mar 2026 07:17:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fh8Lk5B6Nz2xlf;
-	Thu, 26 Mar 2026 14:26:06 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fhFTh1XZKz2ySj;
+	Thu, 26 Mar 2026 18:17:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774495566;
-	cv=none; b=UPmQjBRhfSLnswTHcIdCC9baf8rVyMIMP3Pqot86gqpmW+HJIxyrA2d1rWzShnGIfEYfezrFe/q+W+tLnOPVLXi/+g8uOJ7CD9lDHp6KdH70Yg/ZBmSLTFWvnA2+26gbZKxRDi4Uos/IrfSMCnjSRGRUVka+mHPklQn43nvqeLD9BOnAESR51Rl7kTlKOgoUvYWL00o4gHoS6FPm/SAi0raUFVaQrpxK/8ep6TVqGGKXO+rld7oYdydRJxconlQXOHYvpVbjJ7mpVWPe1tbwomagdgA1IdrSHH+ZVOpdDBwprLS86rv3Iz3+FzVHE34CJHKijqEm/fBzSZDZLOHCJw==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774509447;
+	cv=none; b=DDbft8h7NTHKKNSdRbowDabIITT6A1Fr0Rnky9lD6uF7x6uqC2BNYYx+e46IYQERJOwxFhRePTlCrRUlHznpDCig/AT6dCdCCHvbEKGYcEVhbr1t2XgOTILPwWaTm7C3ayNyk9O/dHrkdfgoQKAoVi5o9O2niFGRWLzEToOCs1hhwRl424YMDVfjc3hzJHeboKMgp4FfhROzNJywKYefdBfvU3amMcxKp8oWOQLaPcf58MHjC0+Lf1BRSdWfPINE2RIofgDQhNkzUEdXL0btwpQC2PuUKiy79kR7uFhb5sRlKkDbFj1M7ZNTf42uIms0siTexf1zGAsvH9uKrVk1AA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774495566; c=relaxed/relaxed;
-	bh=eB+dLsG5tXfnyNIFXfqQOMNtjQr+D5glJc3VgXXmzsk=;
-	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=lhhNqyDAyJxVijnC5314AfVqtkzVnDbiOZ1XdqI39DuoaQrUdkXkdVNrlIX6jHIuJRCUiqxwW3AyfWQSZmXawX6okz0qe98UyR8eEtgSsKwAStZoLB03K6mjfdh+M9s0AE40aUQ22rz+YcbgO1d3drcLpnJMyygkF5EW065Ja4cvYaePlpFXZfeE4o8gOGsfC6K5hy1Sirkt7NwgWmWEycRmgG5+ycoR2xV9rA2EqVwxXCv2x1v9Uck4FojE6FCbCpKKaf61jjjtPW4tmJLLrLNI5tpfb/nkQDJXDtIYvcMNLI7LkGUg8pZ3tL1vhfTg0+OLCRdJ6XkQG3CP4D0cPg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=EOR0wMes; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+	t=1774509447; c=relaxed/relaxed;
+	bh=l+yJtd+EbVz46pzCdYAJFyJzLcYkFVl7rnzHqgV8A/Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=irfUVKFzIQuQTfVwqan1apvKaeWdL0vgeeQbmpcHy6jwP4BKd+TZY2aPJ80PPIfbid6BdPzmlCIOdEUTSm1+5wTfFUiE/bWHpLjYCdVp2fUkWSO3IZxWpMQMevn+/CfkpNYne2MvtDYd691O0Yl1RVVKedGMBSZm4lRtXwbJDBxrffxfVl1PpmTkrmzcO0es2HsqhgLPkM4cDNx4pbwL7IHUrh5yce3KfWMfFba/J50bKUhKp7EbBFLE8BdvtYdR1qjqF0YdSkLwR0Yeparhk85Q558ysk7kC2LD8tT5bCbH0klZa+qR42Q4mT9p22xYMdDz3fGIsFT2ah3LnbnszA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lE1j66cw; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=EOR0wMes;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=lE1j66cw;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
 Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fh8Lj28yVz2xcB
-	for <openbmc@lists.ozlabs.org>; Thu, 26 Mar 2026 14:26:05 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fhFTf04tNz2xS5
+	for <openbmc@lists.ozlabs.org>; Thu, 26 Mar 2026 18:17:26 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1774495564;
-	bh=eB+dLsG5tXfnyNIFXfqQOMNtjQr+D5glJc3VgXXmzsk=;
-	h=Subject:From:To:Cc:Date;
-	b=EOR0wMesdSerzGer9QZ3uJSHa96ISOkKd/JLd+h6xt0wovzpoeic096Drj2uVMemy
-	 jEQjI7RRhvADgnBKnNloQuEClQpWoSksAjGnA/cQMtHh+0FydaCtHbhvsyWvg//XUq
-	 cqGyGvWV7ZOc0Z9n0pW2VBIr+ALXaOrlkLeFjuIMX49YMmIvpm0ApWprGbV0MlfMv2
-	 nGVy4g4HkiChklNJ0s5q2b3NA1ya+j/GRxoZxPVD3nzvS9pQGDwrcHwQpOG1F6Rt7C
-	 kjf2pu/yAxt89bNWLqHmHeKF1NlA86DgRZnLs/JueF5onfqBmDFz0x1WOWqj5BsBJH
-	 AUo2McuK1U74Q==
+	d=codeconstruct.com.au; s=2022a; t=1774509445;
+	bh=l+yJtd+EbVz46pzCdYAJFyJzLcYkFVl7rnzHqgV8A/Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lE1j66cw0Q5VAvXXCSmwXXyy17pO5JLWmJ3B8y7nEnd5ZH51P5puFWRf4aXUyce+n
+	 WzYCm+cjgN4ZiL8XoGA3rSFsPQw4Hz8cS+2i3qJPhm8aaiazI3IjcXWPnuBnKgxJ3n
+	 yUT/eUnnnPGXyl9ScMrufUzP0DtdlKND3xqAWJAHB37SAelhwZaZ+fLHjkSSoNXv/d
+	 CIWYA8r4mZSLR9KPjcfMrropoOhJduS6hFADUPoYkV9gogHYUYQKMvzE25eFPbVB8X
+	 XPeJUkkXcb/mTWGDZqkNk3CmS2XwDWsssBdrBzIgrCgwMxvxXjIbVpUZtfDBrpqJR+
+	 PFMoZ8hfkyD6w==
 Received: from [192.168.68.115] (unknown [180.150.112.60])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 3F53A645CA;
-	Thu, 26 Mar 2026 11:26:04 +0800 (AWST)
-Message-ID: <8d8d5f9f7f8ee803ab14c4b3405d74b305a2ab81.camel@codeconstruct.com.au>
-Subject: [GIT PULL] nuvoton: first batch of arm64 devicetree changes for v7.1
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 57A7F6597C;
+	Thu, 26 Mar 2026 15:17:25 +0800 (AWST)
+Message-ID: <ec8c74b657f51985eae26225807bf41e8bdbcff6.camel@codeconstruct.com.au>
+Subject: Re: [PATCH linux dev-6.18 1/2] dt-bindings: trivial-devices: add
+ mps,mp9945
 From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: soc <soc@lists.linux.dev>
-Cc: linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>
-Date: Thu, 26 Mar 2026 13:56:03 +1030
+To: Cosmo Chou <chou.cosmo@gmail.com>, openbmc@lists.ozlabs.org
+Cc: cosmo.chou@quantatw.com
+Date: Thu, 26 Mar 2026 17:47:25 +1030
+In-Reply-To: <20260319061319.43920-1-chou.cosmo@gmail.com>
+References: <20260319061319.43920-1-chou.cosmo@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -63,40 +66,23 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hello SoC maintainers,
+Hi Cosmo,
 
-Just the one Nuvoton devicetree change for v7.1
+On Thu, 2026-03-19 at 14:13 +0800, Cosmo Chou wrote:
+> Add dt-bindings for MPS mp9945 controller.
+>=20
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Cosmo Chou <chou.cosmo@gmail.com>
+> Link: https://lore.kernel.org/r/20251009205458.396368-1-chou.cosmo@gmail.=
+com
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-Please pull.
+In the future, can you please:
+
+   1. Send the patches with a cover letter
+   2. Include the "cherry-picked from" information
+
+Thanks,
 
 Andrew
-
-The following changes since commit 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f=
-:
-
-  Linux 7.0-rc1 (2026-02-22 13:18:59 -0800)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git tags/nuvoto=
-n-arm64-7.1-devicetree-0
-
-for you to fetch changes up to 6ee3f20368a4a6198988a54c1a744cbae1354359:
-
-  arm64: dts: nuvoton: drop unused syscon property from watchdog node (2026=
--02-23 09:43:36 +1030)
-
-----------------------------------------------------------------
-nuvoton: first batch of arm64 devicetree changes for v7.1
-
-Just the one change this time, dropping syscon properties where they weren'=
-t
-defined.
-----------------------------------------------------------------
-Tomer Maimon (1):
-      arm64: dts: nuvoton: drop unused syscon property from watchdog node
-
- arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 3 ---
- 1 file changed, 3 deletions(-)
-
 
