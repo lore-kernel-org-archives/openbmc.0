@@ -1,91 +1,90 @@
-Return-Path: <openbmc+bounces-1752-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1751-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CAD91061B24
-	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 22:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413531061B27
+	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 22:47:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fl5w65FmGz2yhX;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fl5w65F1Tz2yhV;
 	Tue, 31 Mar 2026 09:46:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::329"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774709218;
-	cv=none; b=bS+1BowazkbApTm31X5EMiQnYSNMSFtsCrmWWTGHLrAkWz5sa0TNzXGJd6DBn7rClO0zs9elZ/3YUbiZb4k1Ur5aYMz8rhjhEtQkqyStaNtuBDg1nwpi2i+jlDn4PbzDd/lV/4VCrkW6LvN8rguWEfhSEt3ujWWlRyCNvgpesql8yLiEEsqg6eNsXj2oaQ4TvbNWHSwG9nF5dOuP/CTFy3XZRe/rviQgmvWQjuOX5QKbJR07eWOokhpEmHncKeKBVmLgOwUinOakAK+osZ4eF9NNYcU0qko37kblNyGI3oalwgEldmyhsTqrFUf5U6H+yAzt0nCviUOoZetQBnewfQ==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774721896;
+	cv=none; b=ooE1WXfIqEIDkALy1mIdlWtXqfsqZoO/g2/zY7uHiHYh5vCUB9Cl/iGf2sn/1VmNgvBcVPXLKWqfDThqOltsA4lYXohwjGoKijmS78BfNBLf/WCIkhs9awE9al42RUE4TH3gHVT7QxOLskUbITeUfLzPxEOpkLzodayRza6V5oJb1h22kQfxUachzwkbhJGvwpw2tQiwALi4kBILaEVWYEPyBCJ9jczE3tkLPsohWiuQsRhNgorTZsH4eIo1V0VrnD4LUbW6KSD+ihJ7ilI4LcwHTBFQn/z4dvXig3edV2r3UbEoM2sZrpztw246FGNViTrhthkVx45cHG8Nu7fiZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774709218; c=relaxed/relaxed;
-	bh=rprbcKOKh6LbVDBtx1L6evH/A6xyQAWdrHbB0AMy/jA=;
+	t=1774721896; c=relaxed/relaxed;
+	bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U57s6E8olx+smQepb4Q7qbceqxfc0u1xnznWtU6r0CCxDTPw1ZBTyQQCmAvn1l0nAYkIsrJQ83d82mBXC1AYykmRR7qyO1/HoRDcxP05WW5tKDNyEdgef3iWLaPADD87ihI8uhXRVK/JzGbk3kHuW6eQnPi3atcOLuSRArLoazQBGU5MgQ8dFTar6RprJ4xSV74ZZrUDKG8tEUikBouGOHNyUADwM85pVNCd3oVsal+Axstrn2bMN8CCttVDvdLNYt59z/wiLbk8iu8pVbSikSg8E8ZGge8+PJkJSKbQHPBJq1aNB2sy9N2QHs/brKdbhQv9EQQ9uDT99ISbYNo4ww==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CvFpQZjJ; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::329; helo=mail-wm1-x329.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=OfjzBMaHZoGU26TyBxKvO7NpvhIbTpWWt5SX5UZ5yYWhqo5DPfLL5SEYfoGXFxj1NGISyj3dFuvZeEz5ON2pqXmaUdZUmncUm5Yt4spw1A+UJzUbJCCVPkIe08V9QUVP6cvptzo1ctP59bx0HwSf9rRXlP+GaGrcRtRcEz2DdthKQ4CntEyIhqAyLAXpTiJR123YpwTPI8xp4ON5H/XKb9kfFlbfP0o/bv4aZMp+kG3IAuFUWCjCc4TMdtlaKh1haWiD2ukk82JXuGmH51pWlpe7bcDLwFEjSsHmwWGNMdqUeDbJPiZNZe8CIbzTl/x4AOdVMu7dVNINNq+atMlvWA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAVric9s; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CvFpQZjJ;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAVric9s;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::329; helo=mail-wm1-x329.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fjgMN4gLhz2xN8
-	for <openbmc@lists.ozlabs.org>; Sun, 29 Mar 2026 01:46:56 +1100 (AEDT)
-Received: by mail-wm1-x329.google.com with SMTP id 5b1f17b1804b1-4852b81c73aso26711125e9.3
-        for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 07:46:55 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fjm3C5k3Qz2ySY
+	for <openbmc@lists.ozlabs.org>; Sun, 29 Mar 2026 05:18:15 +1100 (AEDT)
+Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-4838c15e3cbso25407015e9.3
+        for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 11:18:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774709208; x=1775314008; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1774721892; x=1775326692; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rprbcKOKh6LbVDBtx1L6evH/A6xyQAWdrHbB0AMy/jA=;
-        b=CvFpQZjJyfvhMrEngnn4LNj1tBxjjabKR2TM3hPmJBDABYqgPOjN0WrpAFsNwgmTao
-         IWVVGsIOC+GsEmx3SC39HlYt6oIWHKNmWxbW/bWv94BS+QI7GsqlMl4Ap3zSb53c8xxF
-         XA1fHXOZMfnsW7AOPt05uUhBxAxOh4LkPFo0be4wqF1iLylypIEO2j5mriEcrRAg3cAs
-         uDK9irUEUokYG5KckjepQXgxAjHKflP9FcpydxPYOPjSjVPEJAeIGP7pcpF2RnmB176t
-         uDGGQe9SupcM+sCsOXKiTNHnF1t9qmZ62WO0XW+d22QqK3unxTImAIvmDveSFyjRRR9z
-         G/Xg==
+        bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
+        b=gAVric9szifx96n5L1dYokKtS3E+uDjBmetJca9gudd94BWpUaFV79JIzzG5eJWqPm
+         d1FJJYgF2zgQnGB9awJsimN5O84uIqrZdNJ6pzYjsKcdnQeumZrw//RwnN+PEYoq+8+9
+         KQX9J4a4BYqL0AojO1bjG2qdwb5aXhwzXPaj9gyPI8v+Iyr4+1eT+PtNM4kFK5j6tlKp
+         nSvRYZkZ9hAyjtjMmOfLfNpGhCfl4sOE3oGA43rLzGajG3MOvWr17/37xVKM68b18n2S
+         AvyXFhU2vP7wV+I+t6sWTCoO9utrkzWIwxcUA5Y2c1hUXL3bc8YFUgl0bnMbvDELXCeK
+         8G4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774709208; x=1775314008;
+        d=1e100.net; s=20251104; t=1774721892; x=1775326692;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=rprbcKOKh6LbVDBtx1L6evH/A6xyQAWdrHbB0AMy/jA=;
-        b=cBa7g18WN9NFlTWKbtQM7ftXaRIYp3iDebSLhIkYVrfwViLXLgdVY2VVWNoNipP8XT
-         0eZkDrpZnaaTMOwG1l6Xu4yUGcNsHmYzD5tXR/ENmSLPl4USaR2E6mNHm+Ie6yitS1bR
-         0J7LHnpSWEtnZwb+zBkbVl6o7xDkLAX6jdp1IMa4oXfXkdyqpIeeVMlJJAVMpAZl7jRK
-         oiSmfbGFRie5sNuLk0sJ6mtHjJqHvbjatHj9ZOqYTqJ5GGqVh0NqYuOIVZZ0eEOT37eX
-         DvIEFWr6KCVm0av8ucjeTLZuUTANziFlSJNXL53lIiCmDPMwEzJ8AVDYt+e0dzkUSL6H
-         2V3A==
-X-Forwarded-Encrypted: i=1; AJvYcCU0hidQ4tPz16atWGdHfhjhNN5kFlneU2moDr7g26xuRaxvIOJKb7Jw8RbT8D5Ib8hhv/kJuMUL@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxuJa6+MmrM+G9HOAuVIWyW0ltf/kTS6GxDpCysiIVSp6HkATMd
-	8CsZoZu4ODMdkHfI8MF7wvTk2oW+U2nKbjyA7XrKX5315Gy8iDNY0cRy
-X-Gm-Gg: ATEYQzy7PybrVIJKPN63E3xs9tP7pItompBZJb5/eiGcfA3zZftHVOWQ5niKzKJXD11
-	7EzCJ9nhfSD4YQVSGNupfP02Jy5UYHiZ8+nLIDuFH/CV/u3EbqY+2sxo4B2e+lvPAuauKAGTUYm
-	T3na6qpumZHw84dn831tKQzHg6hRXlIOVkAcZ/nZrrLbTNTNO045b1yOp6tQWYkrxWC7ow9MD+3
-	EW2T+TeTrGopcGIfAOLrPxXbJeZmFffwsB6WqSwrk/P0OB0g+7JaSFkeqUo139aNw6bj97Ee8Hr
-	/a9MxhkBPdf1P1lGcpH4O+WNmRQumyRhyxgte6L/rK/wR7IjEWBagCchnd/2Ne4Rqr421PhTxja
-	8YE9pHR9kkWyJ4CHXPBKrvM2mw3BcBp7FdkgnCAYrmOf+6n8jQkqI9vdFHBbW0xyzS/4dajtpD9
-	ItA0ak7F5Mh6JqxoVei33wEkyrOW2KIoCyrV2XFTeFBK3BLXurcJ9CncQpBTDYdGrdLyFINAmPW
-	oD93re+yi1ltt/LBS2tB6M=
-X-Received: by 2002:a05:600c:1d86:b0:483:7783:537b with SMTP id 5b1f17b1804b1-4872807470fmr103447895e9.24.1774709207384;
-        Sat, 28 Mar 2026 07:46:47 -0700 (PDT)
+        bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
+        b=QL1GNtZzlBcHvKq42kgRFKAUhb356mzTTGRMft/39O3YhvGTOmaAgeN1JnvNzMBmke
+         2agqEE5QH8OOpi55v+Bz2ZyDVGMqS1VTBGmv8XZ0/u3HcEPwtmoojv1oU8ii27hdRBxG
+         Ilk5GacKiySoPy1s+mfIRS4X8dzqh1w+d5KhP6DnkiRyhbd73iX2tW5MVzj7qJo4CplS
+         xmDzV5WZQlzZEbj+llU4qdpDl6KhIAwxxvSrhPRr6U3aEdof7WvqCh2IEehVVxb/3XIX
+         FgxR9hx+6UvY4JLhMMstY3FWI9fiM5g3z23A/CqzC5P1+0bjJ4lyQhSGWMAPvlv+uabb
+         MKdw==
+X-Forwarded-Encrypted: i=1; AJvYcCW55pVH0J8we85WYtlHFsEw/FkoRZQ+nYwfVsdPi/jb00gXrkKEoO7u3BznSBg//R7g1BKTtDWZ@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwzfM1YjMoo4yhRA1J4AaYQ8V02imTXk62BhsKQBjwNF5o/TFQr
+	qkCdJiqSdcrx53vN1bFfRVOYxghLGcbiXJQmqi2sv8I3BWU3Ajnfj7ZJ
+X-Gm-Gg: ATEYQzw7w1GrsklgSo3XlaM/+lp1Lcm1mg7GUlOUSI4avtsminjfDCSwJYL3h46+cgX
+	Llg+QLOCAbyg+Wxhm8GmEwMo839MduVoX9sQ4aMZElKV3IU5zJ2NiM0AW+HhBTOhXAA6Sksa4jZ
+	CubON8jxx+fUP/WdwxegwN7Uc1nueM5wlr1ME4YUGU2Lu1L3nPKuALTPOS/WrTF5p+AFC+GilLE
+	1YTSnPE4wJ8N5BjXOSDyDaFRxvh0ezJTYq6lUAhlCGJKLHpRwz/0ZQqy4D24Wy4Maza+R90UMnA
+	Rqk0sE/c480EFTnpnHEPIA5A6rXiYpfRerIpUiDglOUrxGvO9x+yyn9IzeXvFaI8sW/oexYrksv
+	b7aLtZrfl7hMPIabsYt1e0nz3I88s06QUB5F68aqHn01oWE68HYzfc5Y0x0pDRfpR7+5MCe6ZjD
+	77Ikd+X02elZ0XSzN/AlAGssQ8ctSV8IMEGPPyRAFpusfvxGHP6orPSLg5rUZNhXgoWh0Gdlpo7
+	yqQ6XaCYmp9
+X-Received: by 2002:a05:600c:3b95:b0:486:fa35:aef2 with SMTP id 5b1f17b1804b1-48727d59448mr106333395e9.4.1774721892211;
+        Sat, 28 Mar 2026 11:18:12 -0700 (PDT)
 Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48727bfc5ecsm91577275e9.1.2026.03.28.07.46.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487270dd790sm83670455e9.5.2026.03.28.11.18.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 07:46:46 -0700 (PDT)
+        Sat, 28 Mar 2026 11:18:11 -0700 (PDT)
 From: David Carlier <devnexen@gmail.com>
 To: kwliu@nuvoton.com,
 	kflin@nuvoton.com,
 	mchehab@kernel.org
 Cc: linux-media@vger.kernel.org,
 	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v2 1/2] media: nuvoton: npcm-video: fix error handling in npcm_video_init()
-Date: Sat, 28 Mar 2026 14:46:44 +0000
-Message-ID: <20260328144644.67556-1-devnexen@gmail.com>
+Subject: [PATCH v3 2/2] media: nuvoton: npcm-video: fix memory leaks in probe and remove
+Date: Sat, 28 Mar 2026 18:18:09 +0000
+Message-ID: <20260328181809.13988-1-devnexen@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260327221905.267410-1-devnexen@gmail.com>
-References: <20260327221905.267410-1-devnexen@gmail.com>
+In-Reply-To: <69c8189a.050a0220.bacd1.a31f@mx.google.com>
+References: <69c8189a.050a0220.bacd1.a31f@mx.google.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,44 +98,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-npcm_video_init() has two error handling issues after
-of_reserved_mem_device_init() is called:
+npcm_video_probe() allocates the npcm_video structure with kzalloc_obj()
+but never frees it on any probe error path or in npcm_video_remove(),
+leaking the allocation on every failed probe and every normal unbind.
 
-When dma_set_mask_and_coherent() fails, the function releases the
-reserved memory but does not return, allowing execution to fall through
-into npcm_video_ece_init() with a failed DMA configuration.
+Additionally, when npcm_video_setup_video() fails, the reserved memory
+association established by of_reserved_mem_device_init() in
+npcm_video_init() is not released, leaking the rmem_assigned_device
+entry on the global list.
 
-When npcm_video_ece_init() fails, the function returns an error without
-calling of_reserved_mem_device_release(), leaking the reserved memory
-association.
-
-Fix both by adding the missing return after the DMA mask failure and
-adding the missing of_reserved_mem_device_release() call on the ECE init
-error path.
+Fix both by adding kfree(video) to all probe error paths and to
+npcm_video_remove(), and adding the missing
+of_reserved_mem_device_release() call when npcm_video_setup_video()
+fails.
 
 Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
 Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/media/platform/nuvoton/npcm-video.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/nuvoton/npcm-video.c | 32 +++++++++++++++------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-index b2a562e1ee1c..5c6bddfe8073 100644
+index 5c6bddfe8073..52505af35c08 100644
 --- a/drivers/media/platform/nuvoton/npcm-video.c
 +++ b/drivers/media/platform/nuvoton/npcm-video.c
-@@ -1720,10 +1720,12 @@ static int npcm_video_init(struct npcm_video *video)
- 	if (rc) {
- 		dev_err(dev, "Failed to set DMA mask\n");
- 		of_reserved_mem_device_release(dev);
-+		return rc;
+@@ -1750,42 +1750,55 @@ static int npcm_video_probe(struct platform_device *pdev)
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs)) {
+ 		dev_err(&pdev->dev, "Failed to parse VCD reg in DTS\n");
+-		return PTR_ERR(regs);
++		rc = PTR_ERR(regs);
++		goto err_free;
  	}
  
- 	rc = npcm_video_ece_init(video);
- 	if (rc) {
-+		of_reserved_mem_device_release(dev);
- 		dev_err(dev, "Failed to initialize ECE\n");
- 		return rc;
+ 	video->vcd_regmap = devm_regmap_init_mmio(&pdev->dev, regs,
+ 						  &npcm_video_regmap_cfg);
+ 	if (IS_ERR(video->vcd_regmap)) {
+ 		dev_err(&pdev->dev, "Failed to initialize VCD regmap\n");
+-		return PTR_ERR(video->vcd_regmap);
++		rc = PTR_ERR(video->vcd_regmap);
++		goto err_free;
  	}
+ 
+ 	video->reset = devm_reset_control_get(&pdev->dev, NULL);
+ 	if (IS_ERR(video->reset)) {
+ 		dev_err(&pdev->dev, "Failed to get VCD reset control in DTS\n");
+-		return PTR_ERR(video->reset);
++		rc = PTR_ERR(video->reset);
++		goto err_free;
+ 	}
+ 
+ 	video->gcr_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgcr");
+-	if (IS_ERR(video->gcr_regmap))
+-		return PTR_ERR(video->gcr_regmap);
++	if (IS_ERR(video->gcr_regmap)) {
++		rc = PTR_ERR(video->gcr_regmap);
++		goto err_free;
++	}
+ 
+ 	video->gfx_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgfxi");
+-	if (IS_ERR(video->gfx_regmap))
+-		return PTR_ERR(video->gfx_regmap);
++	if (IS_ERR(video->gfx_regmap)) {
++		rc = PTR_ERR(video->gfx_regmap);
++		goto err_free;
++	}
+ 
+ 	rc = npcm_video_init(video);
+ 	if (rc)
+-		return rc;
++		goto err_free;
+ 
+ 	rc = npcm_video_setup_video(video);
+ 	if (rc)
+-		return rc;
++		goto err_release_mem;
+ 
+ 	dev_info(video->dev, "NPCM video driver probed\n");
+ 	return 0;
++
++err_release_mem:
++	of_reserved_mem_device_release(&pdev->dev);
++err_free:
++	kfree(video);
++	return rc;
+ }
+ 
+ static void npcm_video_remove(struct platform_device *pdev)
+@@ -1800,6 +1813,7 @@ static void npcm_video_remove(struct platform_device *pdev)
+ 	v4l2_device_unregister(v4l2_dev);
+ 	if (video->ece.enable)
+ 		npcm_video_ece_stop(video);
++	kfree(video);
+ 	of_reserved_mem_device_release(dev);
+ }
+ 
 -- 
 2.53.0
 
