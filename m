@@ -1,92 +1,91 @@
-Return-Path: <openbmc+bounces-1749-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1750-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EFEE1061B20
-	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 20:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88EDA1061B18
+	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 22:46:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fl2jj1Y68z2yhv;
-	Tue, 31 Mar 2026 07:22:33 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::631" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774902152;
-	cv=pass; b=J6fenOOyUby8rpO6p59a2Tg2BKyzlc3RWRSErDELen7y6hDT0tQc/Qduho3d1/ySp6tJpwCK9hirHCnGENbNIDuO7WmKRwh0WxXszu/eki+Zl96x8n0lCmgIr6LMNHJmrbHJTfzTlL/sKsDEzrMM/1XqfRsSZCiXAPkCpltHcV/87sR84FpBSubdgoZzQUxAzKmEf6Z/rB35Mvae1w5c+c4YEfIuiiOKpDabF3Vd3z1z1dNwYAZxSaX61XR4sdaxbn0enO7SV3PkX5MODd9r7wWzOBByHy7WLC2wADaDBa7JgU7dw/zF4Tm0fxr8NkeSMsJ6Dt3cPjn+7M3Ty5SHsg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774902152; c=relaxed/relaxed;
-	bh=V4dQey7h6WI5enffRHdWk1eZzLIGAzbiRl2nIyaUHKw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Bw6K1COo50kr2AId1GBxtWNYQ1NmrSmgI9ysYcw84i7wZ1uzl2h8MhIjcde72pzW91YeJJVoFGiqbg6R1SXv2DTlMH0/A7vAYZqL1rX47DoEh4ifb3wGrngI2mDctOM/Rf7Vz7r/gR3nCdfkKaC3TjW5G53eF9p+Cr8btkVXXVgeoujwXJfE98P995lC/u4ywx8S3uECtO4BZLEx7BUH0iYHvqwtYeiJ5fvt4XHpamPazR7Mw3Wxr8xm5kVF8e0cAhKzZc4nFlxikzbfgVPkoXw4Tf9Z5Y5lkVlzsfpIxY3uncSMLyenq1fBsYMNFXEECCrEhg6M3523/9FIdHkZoA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net; dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=Qc5L+PpC; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org) smtp.mailfrom=tanous.net
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fl5w52PRPz2yY1;
+	Tue, 31 Mar 2026 09:46:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::335"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774709244;
+	cv=none; b=AaL/X2/LGeLIwlVhFIncJZNPHOf7Yn40AxVlEw0rUZHWA4lScmFr/wahaX91yh8z++7hRLfk0CAxl4gA6ejiCB9YrltFuI5p+ZOaeZaO5Bjs3wSuYvCciiOCBt94SNUZIZ0rOq3+xZVHrFUAJ58NRRVmY7RpGRcYaQPUY4KuLDkfoDY2Z0RlDkwcxSUz/xCxctaQspWb8wuTO/yA3XR+YdRdfRRHzg2HnfMSAuDeVEqD1rAUNmitYal/21BlIo5gfeu3BP6P890im4QHGK5WZdR6bRnizn9iTq1DCyBzdX6Pkx5YDkZ5ODttRZPsuhVdwKKX1FYXD49MnUBhkMEB9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1774709244; c=relaxed/relaxed;
+	bh=MorpkP6r/T60MTiGCUcfsot6ur/wG/ccNFtLOYY+Uxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Vv9GTcCuBIGcwULthHdHbXR8vzgawJyBqBLOo2fpgshpuqcfG6Yvs3FjVnKdVA3HFPqXkntOaYAAQFtEGHQNdCpA+pgNWJzbk7TGCO4IvGG2E0JcySyzFC6jc1ouwYDvtT9lufo9+c5MvglxiXxopvjEF5G2Y8RxqQ9VD8dK6XJHHUWVEv7sRWBOXQRLFsy09Ll6iRNIzb3jMljK2/yKG9xlT/sQX9IYpZkMRZeF95pjq9Mb0EBlmOxcFV06ECvnB85sGcXOJy8/piqZozKIW1gE6HKTCf1nTFqjjzZJhyE5QtDmabYOrweF7a8+5tEpeMvgrI/xvIDu51I81QQKLw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XtJqfp+g; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20230601.gappssmtp.com header.i=@tanous-net.20230601.gappssmtp.com header.a=rsa-sha256 header.s=20230601 header.b=Qc5L+PpC;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XtJqfp+g;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fl2jg0f5Pz2yhX
-	for <openbmc@lists.ozlabs.org>; Tue, 31 Mar 2026 07:22:29 +1100 (AEDT)
-Received: by mail-pl1-x631.google.com with SMTP id d9443c01a7336-2b0afa0210bso25153725ad.2
-        for <openbmc@lists.ozlabs.org>; Mon, 30 Mar 2026 13:22:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774902142; cv=none;
-        d=google.com; s=arc-20240605;
-        b=D9PT7dZ9cN/eUY7bEDBRcnPZ5Bk0lkFXwkojlJ8Zb1F27DOT1F2kURarINectQvNzd
-         /nEt18JHN4n/khdBDhhqg6MCHPQL4DI1rBUPdT2NsKE52sba+r3qqyPeCxHlsACMA8Nj
-         pSLFCkFSIaPB3hbYVGBF2Xq5Om3erAYiXDnv7Ba4S7VVhXZpGOSrAHGl9yvRq2mlzRn3
-         hU2w9VrJGmCw39qn2Z3mwpkm2DXX10ofQNCwfQ2RZ0VNOTLakXVjJeIu3BNenMYjrkJa
-         VLFKRRGqngin85Od+u2mMKkmqjq7/JOFYmHLrR/UBnlmeiEQMBbiuSDBPjPXrDpRO3QW
-         3+yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V4dQey7h6WI5enffRHdWk1eZzLIGAzbiRl2nIyaUHKw=;
-        fh=orpOMUrE2KItWuX9AuYXYWasAtb5g29CLIgZ7SpJeRo=;
-        b=gS8LayOwX3qZqJTv8akTxVzq/ise3ldkYE3sgH1hvw5YDNQt1B0vOqIFRauGN6YnYr
-         T/eqMS4ZVstI9sc5bNPINWCmgk2mDETCY+TgKOowM9whpoINQz1w6D3UhiMelmGYYCcd
-         2kf3x0DR5pcpHgry4zFQB+aia2cf0f2aoKdxuUjfXsQhkagE9/gBgVp+0a6OVfEgIqiF
-         okFmUVgpBUYcDLe2FAbOyM0twPXzdIShaPxCXIgCApph2nX/Sq6MCMY4OyBj+Rfcm0GO
-         +wdHQIHldbfGbVt3daWnSqt8PWZ5Gojk/1waGB6kEDLLAMCvzxgCbK1tbdifEggIH7o9
-         U5fA==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fjgMv5wWqz2xN8
+	for <openbmc@lists.ozlabs.org>; Sun, 29 Mar 2026 01:47:23 +1100 (AEDT)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-48558d6ef83so29449525e9.3
+        for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 07:47:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tanous-net.20230601.gappssmtp.com; s=20230601; t=1774902142; x=1775506942; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1774709241; x=1775314041; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V4dQey7h6WI5enffRHdWk1eZzLIGAzbiRl2nIyaUHKw=;
-        b=Qc5L+PpCeyXH5M0r11CGqht8VJ/nCq6BWHIq8+h9QB0ZTarOUxAykPu1GOWick24n5
-         rQKLbAYsZzTL2Y/ttp046fuRDFKZeVl7mgmHiOgAjijcPELyr1Cz0IeQLuNa/470T6A1
-         TBbIegcfeXzD0GGrO8w2G+1ksPDrf8dbn9N7HLiY9UzT7NQIY1eYS6vqZiWk8OiunfQr
-         KTvCnHT/VVinyxBI07lbPw0cE6CHorzqK+Ujpx5VQ6v5h+Qk9hUK7d0gHPqxWPePfcOH
-         FjkVQDDiqHNABCnikriEvvAEzZ01JuZDmwe61PcEAy4vLDMwthbVtQJi9CBHAA1nTjRe
-         TGlg==
+        bh=MorpkP6r/T60MTiGCUcfsot6ur/wG/ccNFtLOYY+Uxo=;
+        b=XtJqfp+gyKKNkmTzKrBjb4YA3BYKbZMibXm2RH2vlqLxg8nkCT4WSjHXRiSgghZoyn
+         NFY51CYJL1CQHvpvcAehwztsrQrXiAs1homy1Ma0e8MsqxqiSh6OqOpv9rVYTvh026rp
+         ts8WNGgLWgYO+JZ7bthDmSaP4NdkFgDsEF5MgcYu+wMX/c1ij3mjXmQ+xAcVL67ae+W6
+         ER766cQ0XMUgGuLymEg4LBJ5SMxJ9KNEkqajXLUAeRb9n/tgD536nAj6b/M3jSzXYwOW
+         zzkJey1mnR6LzHzS/D3d5g3SidPVHkHbYD/GNr8NihC/1a5Ol/TqyRL9ZBJTDTZH4TcI
+         2Hvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774902142; x=1775506942;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1774709241; x=1775314041;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=V4dQey7h6WI5enffRHdWk1eZzLIGAzbiRl2nIyaUHKw=;
-        b=VXuuxkLNKG8KqfZMVFkVozloAHb6WS9GFoOU2tgcFm3eFje51DvApo4ssxYlyQbiMl
-         4IsoEBwsfmXszRlCAcEsvjWwo0gCbM03EdTSL4kHlr3XPwCmDPm5FdRLOQ8OeT1Wt6TL
-         5V4CvQcQG+IDkEsMn61dnHOAf1m6qVhFnMh5UOFLtsYyc86SuHcBUyuxYX0KXLtC+rMJ
-         LhGItLbzdVpCVycXWiae8rA3iy9Vcrle9Ej92DJxxR/e/qtbGE729s4vdD338UDTTJ0y
-         wLc7jcQYQog/HJ17fephiEvjq2BD1QhlfRlsCAbdW7SEb/vTo9i2CIEcT1nZOtbzzIKc
-         BHUw==
-X-Gm-Message-State: AOJu0Ywd6xBUQ6Hr7dj6R/dNq8l8DYgmnRNChZM2OfusO7OL71sVEQY4
-	aWCNlb+dIktWcbXbOPKU+cD+SJhBc5bk0yc2mLv/gr+ZTY4spbjHNNNsYcWnruMMIJGdwn0nvuJ
-	RzRETg8yczRpCqmUP+sNIukC4WXwIJsSDYudrdNtiNw==
-X-Gm-Gg: ATEYQzzEedTnwee7sjmVN8s0U+E15F+pQosC7BOaGzQ3ydoKBToLLiZdGz/V9cJTODE
-	/HxYAl0pwIejjRXabQLazrM02MlXP6csQUXGFx8nRmVyBx22azupUGc0s305+FYqsQFmVMJV+0M
-	M7L6gmy+3vMNtqbblYq+ARytwcaU+11Za3Y5n9JCU0jVtMunB0ggXo6IfToqvYRMBNavvhtwNTN
-	ssKvl5RbXv2DFgcL2AXCG6lsTH2QwbBZaH2R8XlDE5uVm2SVjqYBJLOmqXkvuvi7JUGcFlLmvX2
-	ARcuNPENuEVfqcr9RwG+eXpoPOSeuB5gwrGdKtOO
-X-Received: by 2002:a17:903:37ce:b0:2b0:41bf:ca83 with SMTP id
- d9443c01a7336-2b0cdcc8106mr138818315ad.23.1774902142204; Mon, 30 Mar 2026
- 13:22:22 -0700 (PDT)
+        bh=MorpkP6r/T60MTiGCUcfsot6ur/wG/ccNFtLOYY+Uxo=;
+        b=asDP/FlgfTRwLL6gx7JcRmDESPnfv1DxyJOrQmysJCmjgaBcfGWifIpNq5BL/PeCOf
+         leL6Subgglpe9uNbB/saQKflxEnmyEkOoKVLGuZJKmG1at7BFO9fgfXBuObPVID2LDh1
+         2/jzmzst117yvStdth4gFtxnwCjVhY5X0sp8bWYOh+gXj5rcA5u9FcwrkavQAudHKpZ2
+         GWOqxHfRndXwpmb5YAuBeJovbiriMp1pdRZrvUPBSJvX+/BSC+awtkD6M47lZ8CdiTC3
+         z6yYngnZgnrx88XAi1pwdhbftDQpcHC55qFW8YNBSg/O74W9/Ky5UR64FQv5T9xIfjpb
+         uavg==
+X-Forwarded-Encrypted: i=1; AJvYcCUqm7zGZC1Fdt3fnbB/33YF/jFv8IqQM+zTUfFWagLvSA5YlPMn1jtC/qz6irRQeXjSiqSlNAiy@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyhkrOxZl2UXba0arGmUZP5jkJGOFa2ioEe3DgRhSoddKJSAuiY
+	OSInO8g7PpZX254vZTJ3Q64iLy+O9uug4thLd38jjieRDc48xg/E493r64JI/CZZg+w=
+X-Gm-Gg: ATEYQzyYA3gVLpsUgkwhg/gjjInzRSXk5389lA20SylejAYPB8MbntvUYyXmnXoaAV/
+	tnAczg1iwh5V/0tmGqpEnju2pSivqLuFnAjVulLyOuRne8rhYEx+wKfWd7CurTxW9GWI09eYnhb
+	RPyue6zBLJxgjqkEQPD8MlZr//1vcbj77sjAH7Uj4bYsTpfoMuS7CZDByuqYGMlxdaCK2MEqPS9
+	t+Yj/xeYnKRyAfKMyoty5LQQeiD9VF1RfvM27HlGN8tHdxAtNzx3zPxQDm0k47/oua5gCJIXbkq
+	TilozKxbAUQCsCixV+gkcfWhaX60nIfUY0Bz43I+1M1Q/A1w5J6a0uHTEBD1zuD5fcdhWR1Dv/9
+	JwTPFzjWxoDniQ6PfXQYzv96G1NOuu7IfLOhMegVtsk8c9MyjxYC6jms2g+L9wIkY3CsfZlLVNj
+	tuViwQqPUa1nvYnOWHC93X6L58Jyk5keN9caqjLHF1StrQTkYli2vjxVa0/zuWwjTWUR7befX6/
+	UOT6I2o1/O+
+X-Received: by 2002:a05:600c:6287:b0:485:3b5b:eb8 with SMTP id 5b1f17b1804b1-48727ef6617mr104982175e9.26.1774709240531;
+        Sat, 28 Mar 2026 07:47:20 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43cf21f279bsm5077450f8f.16.2026.03.28.07.47.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Mar 2026 07:47:20 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: kwliu@nuvoton.com,
+	kflin@nuvoton.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH v2 2/2] media: nuvoton: npcm-video: fix memory leaks in probe and remove
+Date: Sat, 28 Mar 2026 14:47:17 +0000
+Message-ID: <20260328144718.68282-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260327221905.267410-2-devnexen@gmail.com>
+References: <20260327221905.267410-2-devnexen@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,98 +97,98 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <LV2PR21MB6760A3F8E6E54A1BFC53709FA655A@LV2PR21MB6760.namprd21.prod.outlook.com>
-In-Reply-To: <LV2PR21MB6760A3F8E6E54A1BFC53709FA655A@LV2PR21MB6760.namprd21.prod.outlook.com>
-From: Ed Tanous <ed@tanous.net>
-Date: Mon, 30 Mar 2026 13:22:10 -0700
-X-Gm-Features: AQROBzAXTEqtBdKYfOoVled6jvfUNW1dDZHu3gx19TUIbrpDTmVS5-j_WUsuOSg
-Message-ID: <CACWQX81SGoXDZLNMV0JS6QCwEpeTCdend9yLZQwg2OXUjkrYdw@mail.gmail.com>
-Subject: Re: bmcweb ComponentIntegrity routes for SPDM attestation
-To: Gary Beihl <garybeihl@microsoft.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
-	Thirupathaiah Annapureddy <thiruan@microsoft.com>, Sagar Dharia <Sagar.Dharia@microsoft.com>, 
-	Giri Mudusuru <girimudusuru@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Mar 29, 2026 at 2:19=E2=80=AFPM Gary Beihl <garybeihl@microsoft.com=
-> wrote:
->
-> Hello everyone,
->
->
->
-> I have been looking at SPDM attestation end-to-end testing using Renode a=
-nd have a working bmcweb implementation of the Redfish ComponentIntegrity r=
-outes that consumes the D-Bus interfaces already merged in phosphor-dbus-in=
-terfaces [1]. I noticed that the previous bmcweb WIP for ComponentIntegrity=
- was auto-abandoned [2] and there does not appear to be an active effort to=
- implement these routes upstream.
->
->
->
-> The routes are designed to complement the spdmd D-Bus backend work curren=
-tly in review [3][4], providing the Redfish frontend needed to complete the=
- attestation stack described in the design document [5].
->
->
->
-> I wanted to check whether anyone is already working on bmcweb routes down=
-stream before submitting to Gerrit. If not, I am happy to contribute and co=
-llaborate on getting this piece upstream.
->
->
->
-> References:
->
-> 1. https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/x=
-yz/openbmc_project/Attestation
->
-> 2. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61702
+npcm_video_probe() allocates the npcm_video structure with kzalloc_obj()
+but never frees it on any probe error path or in npcm_video_remove(),
+leaking the allocation on every failed probe and every normal unbind.
 
-I wrote this patch in about 25 minutes while sitting in a meeting
-discussing how difficult the SPDM/ComponentIntegrity feature would be
-to build.  If you want to take it over, feel free.  If you have
-updates, please send them to Gerrit, and I will be happy to review.  I
-don't know anyone who has continued the component integrity work on
-Redfish, so the engineering work is likely yours if you want to take
-it on.
+Additionally, when npcm_video_setup_video() fails, the reserved memory
+association established by of_reserved_mem_device_init() in
+npcm_video_init() is not released, leaking the rmem_assigned_device
+entry on the global list.
 
->
-> 3. https://gerrit.openbmc.org/c/openbmc/spdm/+/80272
->
-> 4. https://gerrit.openbmc.org/c/openbmc/spdm/+/80274
->
-> 5. https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-attes=
-tation.md
->
->
->
-> Looking forward to your thoughts,
->
->
->
-> Gary Beihl
->
-> Firmware Engineering
->
-> Microsoft Corporation
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
+Fix both by adding kfree(video) to all probe error paths and to
+npcm_video_remove(), and adding the missing
+of_reserved_mem_device_release() call when npcm_video_setup_video()
+fails.
+
+Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/media/platform/nuvoton/npcm-video.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
+index 5c6bddfe8073..87b09979cc52 100644
+--- a/drivers/media/platform/nuvoton/npcm-video.c
++++ b/drivers/media/platform/nuvoton/npcm-video.c
+@@ -1749,6 +1749,7 @@ static int npcm_video_probe(struct platform_device *pdev)
+ 
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to parse VCD reg in DTS\n");
+ 		return PTR_ERR(regs);
+ 	}
+@@ -1756,33 +1757,44 @@ static int npcm_video_probe(struct platform_device *pdev)
+ 	video->vcd_regmap = devm_regmap_init_mmio(&pdev->dev, regs,
+ 						  &npcm_video_regmap_cfg);
+ 	if (IS_ERR(video->vcd_regmap)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to initialize VCD regmap\n");
+ 		return PTR_ERR(video->vcd_regmap);
+ 	}
+ 
+ 	video->reset = devm_reset_control_get(&pdev->dev, NULL);
+ 	if (IS_ERR(video->reset)) {
++		kfree(video);
+ 		dev_err(&pdev->dev, "Failed to get VCD reset control in DTS\n");
+ 		return PTR_ERR(video->reset);
+ 	}
+ 
+ 	video->gcr_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgcr");
+-	if (IS_ERR(video->gcr_regmap))
++	if (IS_ERR(video->gcr_regmap)) {
++		kfree(video);
+ 		return PTR_ERR(video->gcr_regmap);
++	}
+ 
+ 	video->gfx_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 							    "nuvoton,sysgfxi");
+-	if (IS_ERR(video->gfx_regmap))
++	if (IS_ERR(video->gfx_regmap)) {
++		kfree(video);
+ 		return PTR_ERR(video->gfx_regmap);
++	}
+ 
+ 	rc = npcm_video_init(video);
+-	if (rc)
++	if (rc) {
++		kfree(video);
+ 		return rc;
++	}
+ 
+ 	rc = npcm_video_setup_video(video);
+-	if (rc)
++	if (rc) {
++		of_reserved_mem_device_release(&pdev->dev);
++		kfree(video);
+ 		return rc;
++	}
+ 
+ 	dev_info(video->dev, "NPCM video driver probed\n");
+ 	return 0;
+@@ -1800,6 +1812,7 @@ static void npcm_video_remove(struct platform_device *pdev)
+ 	v4l2_device_unregister(v4l2_dev);
+ 	if (video->ece.enable)
+ 		npcm_video_ece_stop(video);
++	kfree(video);
+ 	of_reserved_mem_device_release(dev);
+ }
+ 
+-- 
+2.53.0
+
 
