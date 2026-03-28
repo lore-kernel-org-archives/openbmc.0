@@ -1,90 +1,95 @@
-Return-Path: <openbmc+bounces-1751-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1753-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413531061B27
-	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 22:47:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB41D1061B24
+	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 22:51:44 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fl5w65F1Tz2yhV;
-	Tue, 31 Mar 2026 09:46:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774721896;
-	cv=none; b=ooE1WXfIqEIDkALy1mIdlWtXqfsqZoO/g2/zY7uHiHYh5vCUB9Cl/iGf2sn/1VmNgvBcVPXLKWqfDThqOltsA4lYXohwjGoKijmS78BfNBLf/WCIkhs9awE9al42RUE4TH3gHVT7QxOLskUbITeUfLzPxEOpkLzodayRza6V5oJb1h22kQfxUachzwkbhJGvwpw2tQiwALi4kBILaEVWYEPyBCJ9jczE3tkLPsohWiuQsRhNgorTZsH4eIo1V0VrnD4LUbW6KSD+ihJ7ilI4LcwHTBFQn/z4dvXig3edV2r3UbEoM2sZrpztw246FGNViTrhthkVx45cHG8Nu7fiZQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fl61l0wXFz2ygl;
+	Tue, 31 Mar 2026 09:51:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::333"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774697020;
+	cv=none; b=OZkHzsQfk3D/Bwvi7Y8EOaMsdBqZIG4NoEiWcRSwZKaXmBBIXXH/B0828kQsTCXpkqA78nk40rpZJWZOPKjA46/Kc9geHV0NRcGGdJOwHz4Vwp9V6rcZhNWlB3vQ7GOZXaCbB5Qk7jGPgfmC7PVdfn/fefGbPgvH1/WS6ocAYku6xVo0rXm92+2WYlLMqzfCUJmeRGvt4fqPpg2VvNHzrRdkbOopYDKutXLW8D4fk8wBOhPXMNW5uMmQxTS/gcopeIQjfgo/jmmWNUkm0LS44aej3mWHDPKhh/7ZoFU3314y+El2KSK3zglzNoaOvGhWnFFBIlMcuw1i4bYo0Oshfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774721896; c=relaxed/relaxed;
-	bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
+	t=1774697020; c=relaxed/relaxed;
+	bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OfjzBMaHZoGU26TyBxKvO7NpvhIbTpWWt5SX5UZ5yYWhqo5DPfLL5SEYfoGXFxj1NGISyj3dFuvZeEz5ON2pqXmaUdZUmncUm5Yt4spw1A+UJzUbJCCVPkIe08V9QUVP6cvptzo1ctP59bx0HwSf9rRXlP+GaGrcRtRcEz2DdthKQ4CntEyIhqAyLAXpTiJR123YpwTPI8xp4ON5H/XKb9kfFlbfP0o/bv4aZMp+kG3IAuFUWCjCc4TMdtlaKh1haWiD2ukk82JXuGmH51pWlpe7bcDLwFEjSsHmwWGNMdqUeDbJPiZNZe8CIbzTl/x4AOdVMu7dVNINNq+atMlvWA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAVric9s; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=YFmVMzuaK3DVQXXOt3DSPzYgT91vf8uH2K6VruXm3veHmVSzfJ3Pu4VQksIF4OgiuJ4egFOxmJDESpqQJ2zjXWrNwUOwZURlioEQiiFFftUegWB/waCq/HgDgO5/F5k7Jh3zu2cpR0/xCfdtLCv9MaecdJpnGraAZJ3Rr+9tTixXCxbJcJ0TnFXewtFGLCdjwzf7sCWDwMTyLRGzP4VqfMipBFIwMEWvxuK4tW2Ee7YGoLRqhnUqUEf0zMWff8eSYCuwGUmoURRuG3HHzOfhSs1oi4DQRVyztMXuA+IapCv0hRX5R5ppk25/4n/+Mxe5GiU79sy78/PEJgV+A0A59Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D02qX3qp; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::333; helo=mail-wm1-x333.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gAVric9s;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D02qX3qp;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::333; helo=mail-wm1-x333.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fjm3C5k3Qz2ySY
-	for <openbmc@lists.ozlabs.org>; Sun, 29 Mar 2026 05:18:15 +1100 (AEDT)
-Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-4838c15e3cbso25407015e9.3
-        for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 11:18:15 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fjZrp5990z2xlK
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 22:23:37 +1100 (AEDT)
+Received: by mail-wm1-x333.google.com with SMTP id 5b1f17b1804b1-482f454be5bso37025615e9.0
+        for <openbmc@lists.ozlabs.org>; Sat, 28 Mar 2026 04:23:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774721892; x=1775326692; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1774697014; x=1775301814; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
-        b=gAVric9szifx96n5L1dYokKtS3E+uDjBmetJca9gudd94BWpUaFV79JIzzG5eJWqPm
-         d1FJJYgF2zgQnGB9awJsimN5O84uIqrZdNJ6pzYjsKcdnQeumZrw//RwnN+PEYoq+8+9
-         KQX9J4a4BYqL0AojO1bjG2qdwb5aXhwzXPaj9gyPI8v+Iyr4+1eT+PtNM4kFK5j6tlKp
-         nSvRYZkZ9hAyjtjMmOfLfNpGhCfl4sOE3oGA43rLzGajG3MOvWr17/37xVKM68b18n2S
-         AvyXFhU2vP7wV+I+t6sWTCoO9utrkzWIwxcUA5Y2c1hUXL3bc8YFUgl0bnMbvDELXCeK
-         8G4w==
+        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
+        b=D02qX3qpLZgSZR52hSmutggyX4j4QW4OWdL0ncdarUmsF0nsUFuYjZynQ/98VVqvJ0
+         7nzpgWycJ2EK3RAUfFp4Z5OFM4An752zzl8jGiXxPqJfZ2CsuCNLhk5JtCfX6tR/3LAo
+         ofH3B96cOKFmsZbD6+wge4wtX7GHxvYEz0uVidjjr4i/Sr+d3WJEyKzfQ+TnMrMhBFPU
+         KKz0myULL7brxFlfoM7aRFNdAZSY92lZvz+IWTUfdcmcWZsn1/8ul4MJ3l3y4fnBHU+4
+         F1h9xMMqM3/acBCZsJ/ffDXDTk63Js3Cy9Hm6aOAyLZ162ebbfqvJ1623ofR6ZxEDGNB
+         SfWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774721892; x=1775326692;
+        d=1e100.net; s=20251104; t=1774697014; x=1775301814;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=4wNuQm4/hkzS93ZEPVy54NJxy1R6wP2SseNtwzyElDg=;
-        b=QL1GNtZzlBcHvKq42kgRFKAUhb356mzTTGRMft/39O3YhvGTOmaAgeN1JnvNzMBmke
-         2agqEE5QH8OOpi55v+Bz2ZyDVGMqS1VTBGmv8XZ0/u3HcEPwtmoojv1oU8ii27hdRBxG
-         Ilk5GacKiySoPy1s+mfIRS4X8dzqh1w+d5KhP6DnkiRyhbd73iX2tW5MVzj7qJo4CplS
-         xmDzV5WZQlzZEbj+llU4qdpDl6KhIAwxxvSrhPRr6U3aEdof7WvqCh2IEehVVxb/3XIX
-         FgxR9hx+6UvY4JLhMMstY3FWI9fiM5g3z23A/CqzC5P1+0bjJ4lyQhSGWMAPvlv+uabb
-         MKdw==
-X-Forwarded-Encrypted: i=1; AJvYcCW55pVH0J8we85WYtlHFsEw/FkoRZQ+nYwfVsdPi/jb00gXrkKEoO7u3BznSBg//R7g1BKTtDWZ@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwzfM1YjMoo4yhRA1J4AaYQ8V02imTXk62BhsKQBjwNF5o/TFQr
-	qkCdJiqSdcrx53vN1bFfRVOYxghLGcbiXJQmqi2sv8I3BWU3Ajnfj7ZJ
-X-Gm-Gg: ATEYQzw7w1GrsklgSo3XlaM/+lp1Lcm1mg7GUlOUSI4avtsminjfDCSwJYL3h46+cgX
-	Llg+QLOCAbyg+Wxhm8GmEwMo839MduVoX9sQ4aMZElKV3IU5zJ2NiM0AW+HhBTOhXAA6Sksa4jZ
-	CubON8jxx+fUP/WdwxegwN7Uc1nueM5wlr1ME4YUGU2Lu1L3nPKuALTPOS/WrTF5p+AFC+GilLE
-	1YTSnPE4wJ8N5BjXOSDyDaFRxvh0ezJTYq6lUAhlCGJKLHpRwz/0ZQqy4D24Wy4Maza+R90UMnA
-	Rqk0sE/c480EFTnpnHEPIA5A6rXiYpfRerIpUiDglOUrxGvO9x+yyn9IzeXvFaI8sW/oexYrksv
-	b7aLtZrfl7hMPIabsYt1e0nz3I88s06QUB5F68aqHn01oWE68HYzfc5Y0x0pDRfpR7+5MCe6ZjD
-	77Ikd+X02elZ0XSzN/AlAGssQ8ctSV8IMEGPPyRAFpusfvxGHP6orPSLg5rUZNhXgoWh0Gdlpo7
-	yqQ6XaCYmp9
-X-Received: by 2002:a05:600c:3b95:b0:486:fa35:aef2 with SMTP id 5b1f17b1804b1-48727d59448mr106333395e9.4.1774721892211;
-        Sat, 28 Mar 2026 11:18:12 -0700 (PDT)
+        bh=6LWhF3uaArkhQK+8SH0+E8r9jK9foFcw9lUUPANL8Bg=;
+        b=Tg5RiPzUyu4GVtpIiW/h0jDartVYXDvzKfBtjD3gCCxUNyxhlUQ7Edyasgu0ZnLn+H
+         JVFyj7vVdKbjzweznT3eAL7JOtswC854iG0r/1I31DrXzjkALS/ew2UB+GvtCsb+4oY6
+         If9zw2UudZGULNVP1Fn10vDUC8uFpqZeQBYfuu+GjDcqM8G7RlQ7q/xH/eiPbR0uRZk8
+         RGZwNNBWWMMv2GFOGES6QPBRR/Ujxk1jt/NbdARbgntGxsvqG8fDGS+b9Gs+lb1wymzq
+         tQ9Mr/HHTYi/j6csIyR6LuLzXRw/r5M4LbiFe/8N8eKXCX1ZsUu9qzbK1vHrdPdg+Abi
+         VD2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWEg1VpXa6CK7nZJBZCNWjgSQIMNCECA/+Wnkk1x/XySutDepIygty9TXJ9EQxdAjboou/W6ZSd@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yy8t75KUKL0i/J3Wy/GxrCETX+u6TIw6QBQSy5tpVjNBlsc2eBa
+	YL1WBynBY8tZKK5sJfx7GMiwGksliBiie8pt65UjwFfgg9tgkMdlFETL
+X-Gm-Gg: ATEYQzz24RtgrYY4rfo1+D2U/+hmHWwzHIzHPQm0W0Z1k6yNxuy3qdkOSxdF0+eBCw6
+	j9xjgoBhmd5725OTfTLDNG3MiNXTdtA01kKA1CRwXNd1zlDGf8HeRMjFOnCdKixBqYID/V4uDOi
+	0j1GbIgHZewK+9zMLnmffRzWD+caJwitLIlyYcCHqn+iDbkJlHq8P9SabGolTNKvyng40TA6KHg
+	xkYNv2twNjyNOv7yUIl2FipLPMesgDynTSKBfVu0sDDYaXHXF64Wh9/jzoU9Bgv8asFRhamxGYw
+	n9u9TVuC39/E9AahNYdKpRB9zNTeTp9EgWVqLuFU7CJHgcs5QJzsE6EazKMKXdtABdCni/WEl6W
+	DbTv918LsYzx3erIo5q0wU/HA/QxIC0w26cY6fAyvTBJzd1jpShunLbkPHHqmflhE2/kh3xnlPG
+	JZ/jHEbVSidrzPi2JbVW3IF3u54R6FKnv0ecHezipIB8pXCvrorRh57Xsea4r00xSaEf9TzPL15
+	KTvynn+2AIGLRXe3W/Dun0=
+X-Received: by 2002:a05:600c:6986:b0:46e:59bd:f7e2 with SMTP id 5b1f17b1804b1-48729109c35mr80167305e9.11.1774697013685;
+        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
 Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487270dd790sm83670455e9.5.2026.03.28.11.18.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-487305da785sm41491685e9.0.2026.03.28.04.23.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 28 Mar 2026 11:18:11 -0700 (PDT)
+        Sat, 28 Mar 2026 04:23:33 -0700 (PDT)
 From: David Carlier <devnexen@gmail.com>
-To: kwliu@nuvoton.com,
-	kflin@nuvoton.com,
+To: eajames@linux.ibm.com,
 	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+Cc: joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	hverkuil@kernel.org,
+	linux-media@vger.kernel.org,
 	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v3 2/2] media: nuvoton: npcm-video: fix memory leaks in probe and remove
-Date: Sat, 28 Mar 2026 18:18:09 +0000
-Message-ID: <20260328181809.13988-1-devnexen@gmail.com>
+Subject: [PATCH v2] media: aspeed: fix missing of_reserved_mem_device_release() on probe failure
+Date: Sat, 28 Mar 2026 11:23:30 +0000
+Message-ID: <20260328112330.50726-1-devnexen@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <69c8189a.050a0220.bacd1.a31f@mx.google.com>
-References: <69c8189a.050a0220.bacd1.a31f@mx.google.com>
+In-Reply-To: <20260327220827.266556-1-devnexen@gmail.com>
+References: <20260327220827.266556-1-devnexen@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,103 +103,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-npcm_video_probe() allocates the npcm_video structure with kzalloc_obj()
-but never frees it on any probe error path or in npcm_video_remove(),
-leaking the allocation on every failed probe and every normal unbind.
+aspeed_video_init() calls of_reserved_mem_device_init() to associate
+reserved memory regions with the device. When aspeed_video_setup_video()
+subsequently fails in aspeed_video_probe(), the error path frees the
+JPEG buffer and unprepares the clocks but does not release the reserved
+memory association, leaking the rmem_assigned_device entry on the global
+list.
 
-Additionally, when npcm_video_setup_video() fails, the reserved memory
-association established by of_reserved_mem_device_init() in
-npcm_video_init() is not released, leaking the rmem_assigned_device
-entry on the global list.
+The normal remove path already calls of_reserved_mem_device_release()
+correctly; only the probe error path was missing it.
 
-Fix both by adding kfree(video) to all probe error paths and to
-npcm_video_remove(), and adding the missing
-of_reserved_mem_device_release() call when npcm_video_setup_video()
-fails.
+Add the missing of_reserved_mem_device_release() call to the
+aspeed_video_setup_video() failure cleanup.
 
-Fixes: 46c15a4ff1f4 ("media: nuvoton: Add driver for NPCM video capture and encoding engine")
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
 Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/media/platform/nuvoton/npcm-video.c | 32 +++++++++++++++------
- 1 file changed, 23 insertions(+), 9 deletions(-)
+ drivers/media/platform/aspeed/aspeed-video.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/nuvoton/npcm-video.c b/drivers/media/platform/nuvoton/npcm-video.c
-index 5c6bddfe8073..52505af35c08 100644
---- a/drivers/media/platform/nuvoton/npcm-video.c
-+++ b/drivers/media/platform/nuvoton/npcm-video.c
-@@ -1750,42 +1750,55 @@ static int npcm_video_probe(struct platform_device *pdev)
- 	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs)) {
- 		dev_err(&pdev->dev, "Failed to parse VCD reg in DTS\n");
--		return PTR_ERR(regs);
-+		rc = PTR_ERR(regs);
-+		goto err_free;
- 	}
- 
- 	video->vcd_regmap = devm_regmap_init_mmio(&pdev->dev, regs,
- 						  &npcm_video_regmap_cfg);
- 	if (IS_ERR(video->vcd_regmap)) {
- 		dev_err(&pdev->dev, "Failed to initialize VCD regmap\n");
--		return PTR_ERR(video->vcd_regmap);
-+		rc = PTR_ERR(video->vcd_regmap);
-+		goto err_free;
- 	}
- 
- 	video->reset = devm_reset_control_get(&pdev->dev, NULL);
- 	if (IS_ERR(video->reset)) {
- 		dev_err(&pdev->dev, "Failed to get VCD reset control in DTS\n");
--		return PTR_ERR(video->reset);
-+		rc = PTR_ERR(video->reset);
-+		goto err_free;
- 	}
- 
- 	video->gcr_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
- 							    "nuvoton,sysgcr");
--	if (IS_ERR(video->gcr_regmap))
--		return PTR_ERR(video->gcr_regmap);
-+	if (IS_ERR(video->gcr_regmap)) {
-+		rc = PTR_ERR(video->gcr_regmap);
-+		goto err_free;
-+	}
- 
- 	video->gfx_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
- 							    "nuvoton,sysgfxi");
--	if (IS_ERR(video->gfx_regmap))
--		return PTR_ERR(video->gfx_regmap);
-+	if (IS_ERR(video->gfx_regmap)) {
-+		rc = PTR_ERR(video->gfx_regmap);
-+		goto err_free;
-+	}
- 
- 	rc = npcm_video_init(video);
- 	if (rc)
--		return rc;
-+		goto err_free;
- 
- 	rc = npcm_video_setup_video(video);
- 	if (rc)
--		return rc;
-+		goto err_release_mem;
- 
- 	dev_info(video->dev, "NPCM video driver probed\n");
- 	return 0;
-+
-+err_release_mem:
-+	of_reserved_mem_device_release(&pdev->dev);
-+err_free:
-+	kfree(video);
-+	return rc;
- }
- 
- static void npcm_video_remove(struct platform_device *pdev)
-@@ -1800,6 +1813,7 @@ static void npcm_video_remove(struct platform_device *pdev)
- 	v4l2_device_unregister(v4l2_dev);
- 	if (video->ece.enable)
- 		npcm_video_ece_stop(video);
-+	kfree(video);
- 	of_reserved_mem_device_release(dev);
- }
- 
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+index 41cb96f60110..a292275f6b7b 100644
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -2343,6 +2343,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
+ 	rc = aspeed_video_setup_video(video);
+ 	if (rc) {
+ 		aspeed_video_free_buf(video, &video->jpeg);
++		of_reserved_mem_device_release(&pdev->dev);
+ 		clk_unprepare(video->vclk);
+ 		clk_unprepare(video->eclk);
+ 		return rc;
 -- 
 2.53.0
 
