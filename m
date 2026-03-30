@@ -1,92 +1,40 @@
-Return-Path: <openbmc+bounces-1743-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1744-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB9DFF493F
-	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 04:24:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B62CFF495F
+	for <openbmc@archiver.kernel.org>; Mon, 30 Mar 2026 08:22:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fkdRy6w8hz2ygT;
-	Mon, 30 Mar 2026 15:24:14 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::92d" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774844654;
-	cv=pass; b=T4Wn7hHF81PsR5kxJSrkWg3RG/4jwiHBSV3OWu+5lmwF0hrfSN4YbbctauDTQ0wK4Ut5Gzx43mMhMQ2DLSBk1iTZzVwc0kU1kTu+EFPD4o+3CPzT/8gFFUUUi8h6D7EfJCWrY4Wl2snAZr/ieEPHkrOqIGAEAVBS/vgj8LRukOTdJpUUBoO/KE3kaKzHFowsHbJ3s2/Kj8VQRginlkGVfWim4pmq+IJt53JpwUNyE0LsC7lQBdQHbyNA96eX2bj01Z/OEeYVlIsUaY0Yy1DXVXVADMgxTaLZyivn/7V9dSJTRBl0pcJAvACVjxhp4jeAOrE+MQHQXNxc71umVVeFfA==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774844654; c=relaxed/relaxed;
-	bh=GMPO+qZ8ZLiCzzaoRi4tZ9bvqUSnK/9EfOVD5lcUXuw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LAM5jLebmfNLO/1v6H+dCa0MZfVSob1onqghYfIoQKmZ/+UFcSaKmW+NJRUlf2NjtNu65kQUEsH/CMdLSFgqdxtoKQj3xqbik4oidMqah4K77DH0Ctxf/GowQSYsXqW03K0A7lEpE3DVuuSjz0/UbsApnRtH8WqNNkNjTOBNVTK3GImDAoFcTKx6J3vfdZ3v8XmaGY+8rlRddDfeiLF6HItMVe/w3z0AWVX9sJt8yUDH5HRLJnKgrf8OAWUcq+gHvTugg194f5/9yg6vhM4OdPtKSlOOLpseHofFmFf/EmgHjL+X3IefDAnNwTNQHx+q5UalTNMBQ8ueU1VHHB+2yA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AabJccTq; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::92d; helo=mail-ua1-x92d.google.com; envelope-from=ratankgupta31@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AabJccTq;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::92d; helo=mail-ua1-x92d.google.com; envelope-from=ratankgupta31@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ua1-x92d.google.com (mail-ua1-x92d.google.com [IPv6:2607:f8b0:4864:20::92d])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fkkkN6qW8z2ygh;
+	Mon, 30 Mar 2026 19:22:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774858924;
+	cv=none; b=LArHAqztndrH3QGW1mEO46yFvWnJFgWWwyl9a2qBGDWUgTRM6XEg7UmRh8oj+ut0fX2EZh4QiLtUsVqx1Bdm/ue0vgj+wC835zwj0rn9trZ7xLosYZS2Ex5zasHvjeiYwBbj/ZlEklOMPlCamANXuJ7IQoUJQrNxPrEQrzMAy2rZ1P8NIB3ZEOMWEVmZzQntTNn12xYcX9CfnjBOGXiWWDnHmiEH2M8GfUuDUXT7DoWiENUM+nI/iqz0/24Lyjio3x4cRiB+sX8NteVX3i6KcRazIdlYWAizcFSLUMWhrCXWlQK/f7IOXxzsg+1SFLlGhjTT/FkG6PS7/prwtXnKsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1774858924; c=relaxed/relaxed;
+	bh=rEq0ewItEVOGlFJJrBYLHAh4CLj84xztQVgF4mPjEJI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=lNCyfPwX+jRBTf8r8Cr0HF8xHqx0CxGnfwDeQk2B3HYYG/BHzsNAe36ALyfAkPV/+s+HdKb23S9LQ1DxePYL2Bs0A2Hkn/m/AzJykLKsGIXo1uWHFAoL7T48Z6/QmN0wcBHJ2afNBd5eVTdr7SzP9gXj72V6wNSKwRp7fODvfQQLg0cmyS+qAziVjyhuwr80leJvzqldCZEGaKDgD2WeeaxkjzNkjmKkd3IuRVv4VVbTDfqpNMsLRTbqcsVkY1abpoNBIc0ZVM71488NpvW2YZmRc67qV6kKcgQZ15uoaFt+3NX9TzfLZzWbW8nbg2BM0zFskqnCzOhEdmbFAxMMDg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fkdRw43JWz2xMQ
-	for <openbmc@lists.ozlabs.org>; Mon, 30 Mar 2026 15:24:11 +1100 (AEDT)
-Received: by mail-ua1-x92d.google.com with SMTP id a1e0cc1a2514c-94e2ad66abcso1192748241.1
-        for <openbmc@lists.ozlabs.org>; Sun, 29 Mar 2026 21:24:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774844649; cv=none;
-        d=google.com; s=arc-20240605;
-        b=bM7vIQ2E2A/aJ29WjKLiw+tL/Qk6rwxVAul47pTVX6JlmVkLn5c9vtyQKfkLzb+E3g
-         d6StnKQx/z0bDwz11g2mSbLm0g6Y5rcL0YSToJyMaXt+tSNzf7fzDBfsFzMOsozbMqtg
-         +WIpNH7I7PKXX8E3DJLx7JR7j5bYfAfIajayvKSkLdNyfGLMQV9YtFYzTzgDoiheGUKn
-         /e+JjMbmso1d8j0YeMlZQq4DZ2hEX3mRWkE4Phb0K7dhBs4h2jJBI9i62qBofMWvkFwx
-         F9pvmcupgX5W+IiQaj1WLRxhZZnYVCR9dPZpqJldEfCQRffCroP/OYErRI2wWRx5WBS5
-         IBfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GMPO+qZ8ZLiCzzaoRi4tZ9bvqUSnK/9EfOVD5lcUXuw=;
-        fh=E2VzyWvBEDrvlLr3XGnbaBvNB61ldDL28vPp/K+6ZyI=;
-        b=Y4hXRhYzUnRiLnCdZQvyn5gBmV4dSEATV/XBQ2fMaHcx4ZrGVqLFm4VO17ZJ/MD7qw
-         fs10Zuyk/nUOUrvXI6N0kUHlapuAGoc+1gpP2PpOKBa47qFWVFZ411p5VP3Ane/2L7A9
-         Tn+C+lhdNKeoLDrKFcfzIOzZ5KpScL99eVyVcM4VioGE8TDATGxGTFZ8yrWrsz/Dl+sG
-         Endf5F7kuaeIPWyKPWh0qCHNB1uGAJgvz3gGtlAxefKS7Z+0GFxDHioDVsD8IfN86l8E
-         n5PQMHGUjHFXZGuFTemeGY8SD9hXEhVKJBeAWrSjH2YTHQjA9jpV1OLWKSZSFdp0IgOb
-         2iNw==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774844649; x=1775449449; darn=lists.ozlabs.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=GMPO+qZ8ZLiCzzaoRi4tZ9bvqUSnK/9EfOVD5lcUXuw=;
-        b=AabJccTq9vWCtE721u3PoHameSs4Cx6N+y4/K37ZvxhUs+PYZaW7S4NenT9q3b9tqB
-         TGIGVzn9zaxKaBcgLSaTrPT+a+S/lMAgN2xKQtlraE1w4csp7AhXPXNe6jZqMzZAThX1
-         O/yIpRVyXcbLAcy3r+1Y94p+f2R/lXeYxL+C9HS3Jb+ndfQjzTuSCEZdk0FCjNJclo1Z
-         MtTCgGQMnmj6FRIC9DsD2zaZuWXjvu9WzrsZklw6AyKhZKYHRiYz8p9YKp7O2T9cnHpB
-         Gyp1rKoXQ5wIdC3yhOu9dPbD4l/bN43tKaWSNvAh7/nXJYErXA4WK/LudCeRoWE0EA72
-         geXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774844649; x=1775449449;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GMPO+qZ8ZLiCzzaoRi4tZ9bvqUSnK/9EfOVD5lcUXuw=;
-        b=kjMGQkIZPL2nQsTf6qowE704tEAq8/ZUuuvKDxmLXEdGpOuTUvDkJeqdmFHwKRzL78
-         iN/Z1N7inf8r2gQYQ8Jp+YF8eWwz5xWassd2uLm7jgGppzEHt1bzq7Hj1C22q1I/jZhU
-         Vz6RkjR/Y23NGnqaVToy+GT4FcyabyRtexdrcu3amHTUBUH8HMskzy+oRz1YJHNrPaUx
-         8SNCygY1NKk7FXYla/k54Jwj43bRQLBhzOfZpFthM/RjbEtQ0kLRA1KgS9oeYsM8dLp3
-         ncZtCukBU8B7XlRQgDW1i33SVg10Raeyl91UB3ENOe5KinQizSxZi4rII+Gcvs1aW3P/
-         hE+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVfLUMsn4EKW8+yFYJkiYnYsA7KcI/aTm7bQnsqy4ITtNPWJl4DFAoXFHJHSGw/vAdjo8GMnnPc@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YzfH+t78nYm/u8kn5K6Ml2No0bXW75OiaAfkR0exuFEeq5vAxg1
-	3uWnbUwx52IhpZjD+v8490ff8MN9R0O/bj3Q8tOoXDUBost29FTRETZDJ0tPQ3/AXN5G/h6cHly
-	x1njyEr3yPKzRsBtvBc5FphWvDdqdZos=
-X-Gm-Gg: ATEYQzzwZdltxQjrWiunEpzi7h3AVQh2ut25pAlImWIUElsBErh5kJJk/nf8IvElDAm
-	P26rYO7SVSdtWDciIocOF9RiAhonl34D0kphK7S6OV1654mxzRlhyKtClnY/AiphjRYT6Z8A+wA
-	R9GUIrlqY75Fkj7pkfcLLq4fwT++vlrlHOZ7Q6ff5G9cLKp1DKOkGUQ8a2+eky+34HLYAJqXTmd
-	0Y6CuvuaXjPSwBGyLBudk1cudNHJcA8zZq1xXo722ueUrYV3FY6TtHUhRl+LkHOyJWMEA82rhTV
-	P1yfRlE=
-X-Received: by 2002:a05:6102:2c17:b0:5ff:f366:dbe1 with SMTP id
- ada2fe7eead31-604f90f12f8mr3284539137.15.1774844648609; Sun, 29 Mar 2026
- 21:24:08 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fkkkM1fh9z2xlK;
+	Mon, 30 Mar 2026 19:22:02 +1100 (AEDT)
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 30 Mar
+ 2026 16:21:46 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Mon, 30 Mar 2026 16:21:46 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v28 0/4] Add ASPEED AST2600 I2C controller driver
+Date: Mon, 30 Mar 2026 16:21:45 +0800
+Message-ID: <20260330-upstream_i2c-v28-0-17bdae39c5cb@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,383 +46,359 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <LV2PR21MB6760A3F8E6E54A1BFC53709FA655A@LV2PR21MB6760.namprd21.prod.outlook.com>
- <PU4P216MB1072C37E5470E90705DE7839FB52A@PU4P216MB1072.KORP216.PROD.OUTLOOK.COM>
-In-Reply-To: <PU4P216MB1072C37E5470E90705DE7839FB52A@PU4P216MB1072.KORP216.PROD.OUTLOOK.COM>
-From: Ratan Gupta <ratankgupta31@gmail.com>
-Date: Mon, 30 Mar 2026 09:53:57 +0530
-X-Gm-Features: AQROBzB9VsvXNVHLOsMeLqLU1sGQAG2sZS8IjTzHF1W_ic5G-flgIw3i9LPkvQc
-Message-ID: <CAMhqiMqr3C1XPmx4iAc58UF73yqWCq54MtCar2wR20THDxw+zA@mail.gmail.com>
-Subject: Re: bmcweb ComponentIntegrity routes for SPDM attestation
-To: Manojkiran Eda <manojkiran.eda@gmail.com>
-Cc: Gary Beihl <garybeihl@microsoft.com>, 
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000cfddf0064e363856"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJkyymkC/23MQQ6CMBQE0KuQrq0pHwqtK+9hjIH2f+lCIS0SD
+ eHuFhKjosuZybyRBfQOA9slI/M4uODaawygNgkzTXU9I3c2FgwEFAIg47cu9B6ry8mB4VhbUZL
+ SZaYNi5fOI7n74h2OMTcu9K1/LPwAcq5fkvyW4soF15TX1mqZU0b7KnSItkfTbE17YbM3QPE2M
+ qHXRhENSWgNkSJC9d8oPwzI10YZDUp1LdPUKAO/xjRNT/OQim44AQAA
+X-Change-ID: 20260223-upstream_i2c-ebd07f89739c
+To: <jk@codeconstruct.com.au>, <andriy.shevchenko@linux.intel.com>, Andi Shyti
+	<andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, "Benjamin
+ Herrenschmidt" <benh@kernel.crashing.org>, Rayn Chen
+	<rayn_chen@aspeedtech.com>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>, Ryan Chen
+	<ryan_chen@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774858906; l=14563;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=SloTaI40f50C2PuCHnYhHMy8vW+tEt3FFwSDdbXe37Y=;
+ b=dk0m+L60iJIY0QxExH83eSTH6+B1+5TQUCXQ6hDIh5Mg29jkPy6xxKIf699SjJrhZde6yDvv2
+ BpHk/xSwxYiD9PwSP8QZgxNnuPdpZ8TaAfi8nZq6swBXSClQB2/ZdJE
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
---000000000000cfddf0064e363856
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series adds support for the AST2600 I2C controller “new register
+set” implementation.
 
-Hi Gary,
+The AST2600 I2C controller introduces a revised register layout which
+separates controller and target functionality into distinct register
+blocks, and extends clock divider configuration, packet-based transfer
+support, and DMA capabilities compared to the legacy mixed register
+layout used on earlier ASPEED SoCs.
 
-Sorry if I overlooked your patches. If they=E2=80=99re already available, p=
-lease go
-ahead and push them. Otherwise, we=E2=80=99ve been waiting for the SPDM bac=
-kend
-code (MCTP Discovery + SPDM attestation) to be merged first. After that,
-NVIDIA can proceed with the bmcweb patches.
-I understand that the bmcweb patches are not strictly dependent on the
-backend and can be developed in parallel. However, as per the current
-guideline, they won=E2=80=99t be merged until the backend is ready.
+The current driver implementation for the AST2600 I2C peripheral is
+through the hardware's "compatibility mode", which exposes a register
+set that matches the previous generation hardware (AST2500 and earlier).
 
-Thanks
-Ratan
+Instead, add a driver that works in new-register-set mode, to allow the
+new features, and will provide support for future hardware that will
+not implement compatibility mode.
 
-On Mon, Mar 30, 2026 at 9:26=E2=80=AFAM Manojkiran Eda <manojkiran.eda@gmai=
-l.com>
-wrote:
+In order to support the new mode, we need a couple of DT binding changes
+to reflect the expanded hardware interfaces: references to a global
+register set, and buffer mode selection. Since the binding still
+represents the same (AST2600 SoC) physical hardware, we continue to use
+the existing compatible string of "aspeed,ast2600-i2c-bus".
 
-> Hi Gary,
->
-> Welcome to OpenBMC!
->
-> The previous bmcweb patches you referenced have been in review for quite =
-a
-> long time now (a couple of years) and haven=E2=80=99t seen any recent act=
-ivity.
-> Based on that, it doesn=E2=80=99t look like there=E2=80=99s active intere=
-st or ongoing work
-> in that area at the moment.
->
-> Given that, it would make sense for you to go ahead and contribute your
-> bmcweb implementation either as a fresh patch or revive the old one (it's
-> your call). It sounds like your work nicely complements the spdmd D-Bus
-> backend/PDI and helps complete the overall attestation stack, so it would
-> be a valuable addition upstream.
->
-> Looking forward to seeing your patches on Gerrit and collaborating furthe=
-r.
->
->
-> Thanks,
->
-> Manoj
->
-> *From: *Gary Beihl <garybeihl@microsoft.com>
-> *Date: *Monday, 30 March 2026 at 2:49=E2=80=AFAM
-> *To: *openbmc@lists.ozlabs.org <openbmc@lists.ozlabs.org>
-> *Cc: *Thirupathaiah Annapureddy <thiruan@microsoft.com>, Sagar Dharia <
-> Sagar.Dharia@microsoft.com>, Giri Mudusuru <girimudusuru@microsoft.com>
-> *Subject: *bmcweb ComponentIntegrity routes for SPDM attestation
->
-> Hello everyone,
->
->
->
-> I have been looking at SPDM attestation end-to-end testing using Renode
-> and have a working bmcweb implementation of the Redfish ComponentIntegrit=
-y
-> routes that consumes the D-Bus interfaces already merged in
-> phosphor-dbus-interfaces [1]. I noticed that the previous bmcweb WIP for
-> ComponentIntegrity was auto-abandoned [2] and there does not appear to be
-> an active effort to implement these routes upstream.
->
->
->
-> The routes are designed to complement the spdmd D-Bus backend work
-> currently in review [3][4], providing the Redfish frontend needed to
-> complete the attestation stack described in the design document [5].
->
->
->
-> I wanted to check whether anyone is already working on bmcweb routes
-> downstream before submitting to Gerrit. If not, I am happy to contribute
-> and collaborate on getting this piece upstream.
->
->
->
-> References:
->
-> 1. *https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/=
-xyz/openbmc_project/Attestation
-> <https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz=
-/openbmc_project/Attestation>*
->
-> 2. *https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61702
-> <https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61702>*
->
-> 3. *https://gerrit.openbmc.org/c/openbmc/spdm/+/80272
-> <https://gerrit.openbmc.org/c/openbmc/spdm/+/80272>*
->
-> 4. *https://gerrit.openbmc.org/c/openbmc/spdm/+/80274
-> <https://gerrit.openbmc.org/c/openbmc/spdm/+/80274>*
->
-> 5. *https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-atte=
-station.md
-> <https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-attesta=
-tion.md>*
->
->
->
-> Looking forward to your thoughts,
->
->
->
-> Gary Beihl
->
-> Firmware Engineering
->
-> Microsoft Corporation
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
->
+However: since we're changing semantics for an existing binding, we
+allow backwards compatibility by selecting on presence/absence of the
+newly-added properties, and fall back to the old driver (ie., in
+compatibility mode) when we detect a DT using the old binding spec.
 
---000000000000cfddf0064e363856
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Specifically:
 
-<div dir=3D"ltr"><font face=3D"arial, sans-serif">Hi Gary,</font><div><font=
- face=3D"arial, sans-serif"><br></font></div><div><font face=3D"arial, sans=
--serif">Sorry if I overlooked your patches. If they=E2=80=99re already avai=
-lable, please go ahead and push them. Otherwise, we=E2=80=99ve been waiting=
- for the SPDM backend code (MCTP Discovery + SPDM attestation) to be merged=
- first. After that, NVIDIA can proceed with the bmcweb patches.<br>I unders=
-tand that the bmcweb patches are not strictly dependent on the backend and =
-can be developed in parallel. However, as per the current guideline, they w=
-on=E2=80=99t be merged until the backend is ready.=C2=A0</font><div><font f=
-ace=3D"arial, sans-serif"><br></font></div><div><font face=3D"arial, sans-s=
-erif">Thanks</font></div><div><font face=3D"arial, sans-serif">Ratan</font>=
-</div></div></div><br><div class=3D"gmail_quote gmail_quote_container"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Mon, Mar 30, 2026 at 9:26=E2=80=AFAM M=
-anojkiran Eda &lt;<a href=3D"mailto:manojkiran.eda@gmail.com">manojkiran.ed=
-a@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
+- ast2600-i2c-bus nodes that provide the `aspeed,global-regs` property
+  (which is mandatory in the new binding and absent in the legacy
+  binding) will be successfully probed by the new driver
 
+- ast2600-i2c-bus nodes without `aspeed,global-regs` continue to use the
+  existing driver (in legacy register mode), ensuring that platforms
+  with the current DTBs remain functional
 
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Changes in v28:
+- 2/4: update commit message correspond with aspeed,enable-dma.
+- 2/4: remove aspeed,transfer-mode and add aspeed,enable-dma property
+  and description.
+- 2/4: Fix aspeed,enable-dma description to reflect hardware capability
+  rather than software behavior.
+- 3/4: Separate xfer_mode_store into distinct parse and availability-check
+  steps by introducing ast2600_i2c_xfer_mode_check().
+- 3/4: fix tx dma memcpy source point address.
+- 3/4: Use a temporary variable for devm_platform_get_and_ioremap_resource()
+  to avoid storing an ERR_PTR in i2c_bus->buf_base; drop the redundant
+  NULL assignment in the error path since i2c_bus is kzalloc()ed.
+- 3/4: Add ABI documentation file
+  Documentation/ABI/testing/sysfs-driver-ast2600-i2c.
+- 4/4: fix typo condication -> condition.
+- 4/4: fix compile error, when disable CONFIG_I2C_SLAVE.
+- Link to v27: https://lore.kernel.org/r/20260324-upstream_i2c-v27-0-f19b511c8c28@aspeedtech.com
 
-<div>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-Hi Gary,</div>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-Welcome to OpenBMC!</div>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-The previous bmcweb patches you referenced have been in review for quite a =
-long time now (a couple of years) and haven=E2=80=99t seen any recent activ=
-ity. Based on that, it doesn=E2=80=99t look like there=E2=80=99s active int=
-erest or ongoing work in that area at the moment.</div>
-<p style=3D"text-align:left;text-indent:0px"><span style=3D"font-size:16px"=
->Given that, it would make sense for you to go ahead and contribute your bm=
-cweb implementation either as a fresh
-</span>patch or revive the old one (it&#39;s your call)<span style=3D"font-=
-size:16px">. It sounds like your work nicely complements the spdmd D-Bus ba=
-ckend/PDI and helps complete the overall attestation stack, so it would be =
-a valuable addition upstream.</span></p>
-<p style=3D"text-align:left;text-indent:0px;text-transform:none"><span styl=
-e=3D"font-family:Aptos,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(=
-0,0,0)">Looking forward to seeing your patches on Gerrit and collaborating =
-further.</span></p>
-<p style=3D"text-align:left;text-indent:0px;text-transform:none"><span styl=
-e=3D"font-family:Aptos,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(=
-0,0,0)"><br>
-</span></p>
-<p style=3D"text-align:left;text-indent:0px;text-transform:none"><span styl=
-e=3D"font-family:Aptos,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(=
-0,0,0)">Thanks,</span></p>
-<p style=3D"text-align:left;text-indent:0px;text-transform:none"><span styl=
-e=3D"font-family:Aptos,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(=
-0,0,0)">Manoj</span></p>
-<div style=3D"direction:ltr;font-family:Aptos,Arial,Helvetica,sans-serif;fo=
-nt-size:12pt;color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"m_4883384286116860933mail-editor-reference-message-container">
-<div style=3D"direction:ltr">
+Changes in v27:
+- 1/4 use aspeed,enable-dma instead aspeed,transfer-mode.
+- 2/4 remove aspeed,transfer-mode selection instad aspeed,transfer-mode
+- 2/4 add sysfs for xfer mode.
+- Link to v26: https://lore.kernel.org/r/20260309-upstream_i2c-v26-0-5fedcff8ffe8@aspeedtech.com
 
-</div>
-<div style=3D"text-align:left;padding:3pt 0in 0in;border-width:1pt medium m=
-edium;border-style:solid none none;border-color:rgb(181,196,223) currentcol=
-or currentcolor;font-family:Aptos;font-size:12pt;color:black">
-<b>From: </b>Gary Beihl &lt;<a href=3D"mailto:garybeihl@microsoft.com" targ=
-et=3D"_blank">garybeihl@microsoft.com</a>&gt;<br>
-<b>Date: </b>Monday, 30 March 2026 at 2:49=E2=80=AFAM<br>
-<b>To: </b><a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">op=
-enbmc@lists.ozlabs.org</a> &lt;<a href=3D"mailto:openbmc@lists.ozlabs.org" =
-target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;<br>
-<b>Cc: </b>Thirupathaiah Annapureddy &lt;<a href=3D"mailto:thiruan@microsof=
-t.com" target=3D"_blank">thiruan@microsoft.com</a>&gt;, Sagar Dharia &lt;<a=
- href=3D"mailto:Sagar.Dharia@microsoft.com" target=3D"_blank">Sagar.Dharia@=
-microsoft.com</a>&gt;, Giri Mudusuru &lt;<a href=3D"mailto:girimudusuru@mic=
-rosoft.com" target=3D"_blank">girimudusuru@microsoft.com</a>&gt;<br>
-<b>Subject: </b>bmcweb ComponentIntegrity routes for SPDM attestation<br>
-<br>
-</div>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">Hello everyone,</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">I have been looking at SPDM attestation end-=
-to-end testing using Renode and have a working bmcweb implementation of the=
- Redfish ComponentIntegrity routes that consumes the D-Bus interfaces alrea=
-dy merged in phosphor-dbus-interfaces
- [1]. I noticed that the previous bmcweb WIP for ComponentIntegrity was aut=
-o-abandoned [2] and there does not appear to be an active effort to impleme=
-nt these routes upstream.</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">The routes are designed to complement the sp=
-dmd D-Bus backend work currently in review [3][4], providing the Redfish fr=
-ontend needed to complete the attestation stack described in the design doc=
-ument [5].</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">I wanted to check whether anyone is already =
-working on bmcweb routes downstream before submitting to Gerrit. If not, I =
-am happy to contribute and collaborate on getting this piece upstream.</spa=
-n></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">References:</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">1. </span><span style=3D"font-size:11pt;colo=
-r:rgb(70,120,134)"><u><a href=3D"https://github.com/openbmc/phosphor-dbus-i=
-nterfaces/tree/master/yaml/xyz/openbmc_project/Attestation" style=3D"color:=
-rgb(70,120,134);margin-top:0px;margin-bottom:0px" target=3D"_blank">https:/=
-/github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_p=
-roject/Attestation</a></u></span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">2. </span><span style=3D"font-size:11pt;colo=
-r:rgb(70,120,134)"><u><a href=3D"https://gerrit.openbmc.org/c/openbmc/bmcwe=
-b/+/61702" style=3D"color:rgb(70,120,134);margin-top:0px;margin-bottom:0px"=
- target=3D"_blank">https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61702</a><=
-/u></span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">3. </span><span style=3D"font-size:11pt;colo=
-r:rgb(70,120,134)"><u><a href=3D"https://gerrit.openbmc.org/c/openbmc/spdm/=
-+/80272" style=3D"color:rgb(70,120,134);margin-top:0px;margin-bottom:0px" t=
-arget=3D"_blank">https://gerrit.openbmc.org/c/openbmc/spdm/+/80272</a></u><=
-/span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">4. </span><span style=3D"font-size:11pt;colo=
-r:rgb(70,120,134)"><u><a href=3D"https://gerrit.openbmc.org/c/openbmc/spdm/=
-+/80274" style=3D"color:rgb(70,120,134);margin-top:0px;margin-bottom:0px" t=
-arget=3D"_blank">https://gerrit.openbmc.org/c/openbmc/spdm/+/80274</a></u><=
-/span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">5. </span><span style=3D"font-size:11pt;colo=
-r:rgb(70,120,134)"><u><a href=3D"https://github.com/openbmc/docs/blob/maste=
-r/designs/redfish-spdm-attestation.md" style=3D"color:rgb(70,120,134);margi=
-n-top:0px;margin-bottom:0px" target=3D"_blank">https://github.com/openbmc/d=
-ocs/blob/master/designs/redfish-spdm-attestation.md</a></u></span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">Looking forward to your thoughts,</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">Gary Beihl</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">Firmware Engineering</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">Microsoft Corporation</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"text-align:center;margin:0in;font-family:Ap=
-tos,sans-serif;font-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0</span></p>
-<p class=3D"MsoNormal" style=3D"margin:0in;font-family:Aptos,sans-serif;fon=
-t-size:12pt">
-<span style=3D"font-size:11pt">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0</span=
-></p>
-</div>
-</div>
+Changes in v26:
+- 1/4: binding reworks based on review feedback
+- Link to v25: https://lore.kernel.org/r/20260225-upstream_i2c-v25-0-9f4bdd954f3f@aspeedtech.com
 
-</blockquote></div>
+Changes in v25:
+- Use b4 to send series.
+- Rebase on v7.0-rc1.
+- Clarify cover letter and commit logs based on review feedback.
+- Remove the i2c-aspeed-core multiplexer infrastructure and
+  implement driver selection via conditional -ENODEV handling
+  in individual probe() functions.
+- 3/4: incorporate review feedback and refactor new driver
+- Link to v24: https://lore.kernel.org/r/20251118014034.820988-1-ryan_chen@aspeedtech.com
 
---000000000000cfddf0064e363856--
+Changes in v24:
+- aspeed,ast2600-i2c.yaml
+ - fix make dt_binding_check blank warning.
+- Link to v23: https://lore.kernel.org/all/20251117025040.3622984-1-ryan_chen@aspeedtech.com/
+
+Changes in v23:
+- update typo patch (1/4) commit message.
+- aspeed,ast2600-i2c.yaml
+ - update reg and description.
+- i2c-ast2600.c controller
+ - replace ast2600_select_i2c_clock to ast2600_i2c_ac_timing_config.
+- i2c-ast2600.c target
+ - I2C_TARGET_MSG_BUF_SIZE 256 to 4096
+ - remove blank line.
+ - refine Master comment description to controller
+- Link to v22: https://lore.kernel.org/all/20251112085649.1903631-1-ryan_chen@aspeedtech.com/
+
+Changes in v22:
+- update patch (1/4) commit message add dts example reason.
+- aspeed,ast2600-i2c.yaml @patch (1/4)
+ - rename ast2600-i2c.yaml to aspeed,ast2600-i2c.yaml.
+ - update reg, clock-frequency description.
+- aspeed,ast2600-i2c.yaml @patch (2/4)
+ - aspeed,transfer-mode, aspeed,transfer-mode add for ast2600.
+- i2c-aspeed-core.c,h @patch (3/4)
+ - add i2c-aspeed-core allow both old and new device trees using the
+   same compatible string "aspeed,ast2600-i2c-bus".
+- Link to v21: https://lore.kernel.org/all/20251027061240.3427875-1-ryan_chen@aspeedtech.com/
+
+Changes in v21:
+- update patch (1/4) commit message
+- i2c-ast2600.c
+ - move rst to local variable in ast2600_i2c_probe().
+- Link to v20: https://lore.kernel.org/all/20251021013548.2375190-1-ryan_chen@aspeedtech.com/
+
+Changes in v20:
+- ast2600-i2c.yaml
+ - fix warning at make dt_binding_check.
+- Link to v19: https://lore.kernel.org/all/20251020013200.1858325-1-ryan_chen@aspeedtech.com/
+
+Changes in v19:
+- Split AST2600 binding into its own YAML file
+ - Removed `aspeed,ast2600-i2c-bus` from `aspeed,i2c.yaml`
+ - Added `aspeed,global-regs` and `aspeed,transfer-mode` to AST2600 binding
+- Link to v18: https://lore.kernel.org/all/20250820051832.3605405-1-ryan_chen@aspeedtech.com/
+
+Changes in v18:
+- refine patch (1/3) commit message (reason for commit not list.)
+- i2c-ast2600.c
+ - remove redundant reset_control_deassert in driver probe.
+ - remove reset_control_assert(i2c_bus->rst) in driver remove.
+- Link to v17: https://lore.kernel.org/all/20250814084156.1650432-1-ryan_chen@aspeedtech.com/
+
+Changes in v17:
+- move i2c new mode register and feature into driver commit message.
+- aspeed,i2c.yaml
+ - remove multi-master properties.
+ - use aspeed,transfer-mode properties for aspeed,enable-byte/enable-dma.
+-i2c-ast2600.c
+ - rename dma_safe_buf to controller_dma_safe_buf.
+ - fix ast2600_i2c_recover_bus return overflow warnings.
+ - add ast2600_i2c_target_packet_buff_irq unhandle case.
+ - add parameter "cmd" in ast2600_i2c_setup_dma_rx,
+   ast2600_i2c_setup_buff_rx, ast2600_i2c_setup_byte_rx
+ - use reset_control_deassert replace
+   devm_reset_control_get_shared_deasserted.
+ - useaspeed,transfer-mode properties for transfer mode setting.
+ - change compatible = "aspeed,ast2600-i2cv2" to "aspeed,ast2600-i2c-bus".
+- Link to v16: https://lore.kernel.org/all/20250224055936.1804279-1-ryan_chen@aspeedtech.com/
+
+Changes in v16:
+- aspeed,i2c.yaml: add aspeed,enable-byte properties for force byte mode.
+- i2c-ast2600.c
+ - change include asm/unaligned.h to linux/unaligned.h.
+ - add reset timeout councter when slave active timeout.
+ - modify issue i2c_recovery_bus before slave re-enable.
+ - add aspeed,enable-byte properties.
+- Link to v15: https://lore.kernel.org/all/20241007035235.2254138-1-ryan_chen@aspeedtech.com/
+
+Changes in v15:
+- i2c-ast2600.c
+ - add include unaligned.h
+ - rename all master -> controller, slave -> target.
+ - keep multi-master to align property.
+ - remove no used element in ast2600_i2c_bus.
+- Link to v14: https://lore.kernel.org/all/20241002070213.1165263-1-ryan_chen@aspeedtech.com/
+
+Changes in v14:
+- aspeed,i2c.yaml
+ - v13 change people reviewed-by tag, v14 fixed to original people tag,
+   modify to Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ - struct ast2600_i2c_bus layout optimal.
+ - ast2600_select_i2c_clock refine.
+ - ast2600_i2c_recover_bus overridden fix.
+ - dma_mapping_error() returned error code shadowed modify.
+ - buffer register in a 4-byte aligned simplified
+ - remove smbus alert
+- Link to v13: https://lore.kernel.org/all/20240819092850.1590758-1-ryan_chen@aspeedtech.com/
+
+Changes in v13:
+ - separate i2c master and slave driver to be two patchs.
+ - modify include header list, add bits.h include. remove of*.h
+ - modify (((x) >> 24) & GENMASK(5, 0)) to (((x) & GENMASK(29, 24)) >> 24)
+ - modify ast2600_select_i2c_clock function implement.
+ - modify ast2600_i2c_recover_bus function u32 claim to
+   u32 state = readl(i2c_bus->reg_base + AST2600_I2CC_STS_AND_BUFF);
+- Link to v12: https://lore.kernel.org/all/20230714074522.23827-1-ryan_chen@aspeedtech.com/
+
+Changes in v12:
+- aspeed,i2c.yaml
+ - add Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+- i2c-ast2600.c
+ - update include by alphabetical order
+ - make just a one TAB and put the last two lines on the single one
+ - remove no used timing_table structre
+ - remove enum explicit assinment
+ - rewritten to avoid this and using loop in ast2600_select_i2c_clock
+ - use GENMASK for most 0xffff
+ - remove too many parentheses
+ - use str_read_write replace read write string
+ - remove redundant blank line after ast2600_i2c_bus_of_table
+ - fix wrong multi-line style of the comment
+ - use macro for i2c standard speeds
+ - remove useless noise dev_info
+- Link to v11: https://lore.kernel.org/all/20230430041712.3247998-1-ryan_chen@aspeedtech.com/
+
+Changes in v11:
+- aspeed,i2c.yaml
+ - no change, the same with v10.
+- i2c-ast2600.c
+ - modify alert_enable from int -> boolean.
+ - modify dbg string recovery -> recover.
+ - remove no need to init 0.
+ - remove new line after break.
+ - remove unneeded empty line.
+ - modify dma_alloc_coherent to dmam_alloc_coherent
+ - modify probe nomem return dev_err_probe
+ - modify i2c_add_adapter to devm_i2c_adapter
+ - modify checkpatch: Alignment should match open parenthesis
+ - modify checkpatch: braces {} should be used on all arms of this statement
+ - modify checkpatch: Unbalanced braces around else statement
+- Link to v10: https://lore.kernel.org/all/20230415012848.1777768-1-ryan_chen@aspeedtech.com/
+
+Changes in v10:
+- aspeed,i2c.yaml
+ - move unevaluatedProperties after allOf.
+ - remove extra one blank line.
+- i2c-ast2600.c
+ - no change, the same with v8.
+- Link to v9: https://lore.kernel.org/all/20230405022825.333246-1-ryan_chen@aspeedtech.com/
+
+Changes in v9:
+- aspeed,i2c.yaml
+ - backoff to v7.
+  - no fix typo in maintainer's name and email. this would be another patch.
+  - no remove address-cells, size-cells, this would be another patch.
+ - use aspeed,enable-dma property instead of aspeed,xfer-mode selection.
+ - fix allOf and else false properties for aspeed,ast2600-i2cv2.
+- i2c-ast2600.c
+ - no change, the same with v8
+- Link to v8: https://lore.kernel.org/all/20230330073259.485606-1-ryan_chen@aspeedtech.com/
+
+Changes in v8:
+- aspeed,i2c.yaml
+ - modify commit message.
+ - Fix typo in maintainer's name and email.
+ - remove address-cells, size-cells.
+- i2c-ast2600.c
+ - move "i2c timeout counter" comment description before property_read.
+ - remove redundant code "return ret" in probe end.
+- Link to v7: https://lore.kernel.org/all/20230327092524.3916389-1-ryan_chen@aspeedtech.com/
+
+Changes in v7:
+- aspeed,i2c.yaml
+ - Update ASPEED I2C maintainers email.
+ - use aspeed,enable-dma property instead of aspeed,xfer-mode selection.
+ - fix allOf and else false properties for aspeed,ast2600-i2cv2.
+- i2c-ast2600.c
+ - remove aspeed,xfer-mode instead of aspeed,enable-dma mode. buffer mode
+   is default.
+ - remove aspeed,timeout instead of i2c-scl-clk-low-timeout-us for
+   timeout setting.
+- Link to v6: https://lore.kernel.org/all/20230226031321.3126756-1-ryan_chen@aspeedtech.com/
+
+Changes in v6:
+- remove aspeed,i2cv2.yaml, merge to aspeed,i2c.yaml -add support for
+  i2cv2 properites.
+- i2c-ast2600.c
+ - fix ast2600_i2c_remove ordering.
+ - remove ast2600_i2c_probe goto labels, and add dev_err_probe -remove
+   redundant deb_dbg debug message.
+ - rename gr_regmap -> global_regs
+- Link to v5: https://lore.kernel.org/all/20230220061745.1973981-1-ryan_chen@aspeedtech.com/
+
+Changes in v5:
+- remove ast2600-i2c-global.yaml, i2c-ast2600-global.c.
+- i2c-ast2600.c
+ - remove legacy clock divide, all go for new clock divide.
+ - remove duplicated read isr.
+ - remove no used driver match
+ - fix probe return for each labels return.
+ - global use mfd driver, driver use phandle to regmap read/write.
+- rename aspeed,i2c-ast2600.yaml to aspeed,i2cv2.yaml -remove bus-frequency.
+- add required aspeed,gr
+- add timeout, byte-mode, buff-mode properites.
+- Link to v4: https://lore.kernel.org/all/20230201103359.1742140-1-ryan_chen@aspeedtech.com/
+
+Changes in v4:
+- fix i2c-ast2600.c driver buffer mode use single buffer conflit in
+  master slave mode both enable.
+- fix kmemleak issue when use dma mode.
+- fix typo aspeed,i2c-ast2600.yaml compatible is "aspeed,ast2600-i2c"
+- fix typo aspeed,i2c-ast2600.ymal to aspeed,i2c-ast2600.yaml
+- Link to v3: https://lore.kernel.org/all/20220516064900.30517-1-ryan_chen@aspeedtech.com/
+
+Changes in v3:
+- fix i2c global clock divide default value.
+- remove i2c slave no used dev_dbg info.
+- Link to v2: https://lore.kernel.org/all/20220413101735.27678-1-ryan_chen@aspeedtech.com/
+
+Changes in v2:
+- add i2c global ymal file commit.
+- rename file name from new to ast2600.
+  aspeed-i2c-new-global.c -> i2c-ast2600-global.c
+  aspeed-i2c-new-global.h -> i2c-ast2600-global.h
+  i2c-new-aspeed.c -> i2c-ast2600.c
+- rename all driver function name to ast2600.
+- Link to v1: https://lore.kernel.org/all/20220323004009.943298-1-ryan_chen@aspeedtech.com/
+
+---
+Ryan Chen (4):
+      dt-bindings: i2c: Split AST2600 binding into a new YAML
+      dt-bindings: i2c: ast2600-i2c.yaml: Add global-regs and enable-dma properties
+      i2c: ast2600: Add controller driver for AST2600 new register set
+      i2c: ast2600: Add target mode support
+
+ Documentation/ABI/testing/sysfs-driver-ast2600-i2c |   19 +
+ .../bindings/i2c/aspeed,ast2600-i2c.yaml           |   74 +
+ .../devicetree/bindings/i2c/aspeed,i2c.yaml        |    3 +-
+ drivers/i2c/busses/Makefile                        |    2 +-
+ drivers/i2c/busses/i2c-aspeed.c                    |    5 +
+ drivers/i2c/busses/i2c-ast2600.c                   | 1646 ++++++++++++++++++++
+ 6 files changed, 1746 insertions(+), 3 deletions(-)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20260223-upstream_i2c-ebd07f89739c
+
+Best regards,
+-- 
+Ryan Chen <ryan_chen@aspeedtech.com>
+
 
