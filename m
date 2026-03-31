@@ -1,92 +1,96 @@
-Return-Path: <openbmc+bounces-1766-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1767-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9D5109B474
-	for <openbmc@archiver.kernel.org>; Tue, 31 Mar 2026 14:26:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5241D10F92E9
+	for <openbmc@archiver.kernel.org>; Tue, 31 Mar 2026 18:21:52 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4flVm53Nwxz2yfK;
-	Wed, 01 Apr 2026 01:26:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=103.168.172.157
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774967173;
-	cv=none; b=Jyo+UvR7vi/ATauDBlMqaBWq3qCtoR+N2gTBhIXB0ZgW76FS85chfw7Urm3limLqC1IawQV5hjsHfboeCHAwyfu9NnPjhoFdWrx5rY+aMlSmwnfEfQT2kji5tki4vnFSLxHrn1iIMop9yIaqIYumI/j+sal6qeLcfqaY+fuizJeIAcnZJL0PCZNwXUv6kEp/UzDDcrLS4WL74MaF7K+kPtzm3zmbvGTUX05KzckYkY9Zooh0oKmgxs+M2gF908zLGSh8TQL8cHdpwYbRXIB5I7OJE7LLwqTeGW3s4nQmVY7AlB+2FzUn3KjVlSfgf5fsKbeRRMsJabaZHZEL8qufvA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4flbzs1MhNz2ybR;
+	Wed, 01 Apr 2026 05:21:45 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=202.12.124.148
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1774981304;
+	cv=none; b=DFD0jXiigGXxWz6+KUIiKSAjPB/g2wyCj/Ch4dIMOnreYJc8Qs90gtfoREce+gbHtlMu74wkocv/8d3nej/wbcCLMTSaX9iImcO/KYSR7JNIGUtATllQl1Uxhi7+e8Xe9/kdu4nWy4HOX99ufP9RjLECp8XA+9czF79qkzyuE5QxI1YNbWfPZS+yGlQLQ/wInZhQ8P5R8j+m1D1hM8iklJWmNUgQXHdssjJW7nmIEMVeXwAAdXJPOzK/WN2Vhlt2u6KyiQI4A6pzmo7MjZaycBrACbwQKWYx9mkjQDWbENHlvibD6RfbMASu8k5oDIreF0eyng7Dspn3VvxdR/ltFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1774967173; c=relaxed/relaxed;
-	bh=PO3n77KrkiPyW95c35TEzBR7r8L4DSH3lephygYATl0=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B4DdOqtKZ16WsMU3+IGPCkCM9TlPERYkCqb198QlnFT6roH0Ao1MhsroI53E8AbcV9w5jY/vCrQNdrzQYIu10Xt6Y5/s0ivPtLk4SEb7AA5fwYk7SyT5ijISyCcA5mY1rq4606nRLZusZv2N3SnMsh3/2ROCbcrIZH3V1yD+BCkGiZ/Q0NO7RbSb3SedRiwfkMXkTx+nXFrL2es2yVxFDW+TxkW05/c/v+C77wp459YriD7IfqelXHowuJT7cH5mhhckYwCp55o19dNnB7JiCzqLJpuFZt5ai2/W3Y1jdCSom98d4oRyxUyPCAELYCbkmSXKMIvFFHR6Z3fGLuv56g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=gf5w3+nn; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RP01UaB3; dkim-atps=neutral; spf=pass (client-ip=103.168.172.157; helo=fhigh-a6-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
+	t=1774981304; c=relaxed/relaxed;
+	bh=FPeQe5lXzBz1CfFLe/GSmE4Xqq8qMIJ2WZ4/kNDrQS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FlNU7g60TuHNN/X+5lY4ur/x1WtWERWVBRSjDCvX5wvUQWN9V/Gk1LH8qPJXdG/7C2LnpwOWlv7BUd2hlkxIXDhN79Kaw0HPwAOe0W5jh+NQygcLybM+gwVVcspY8Sv2Tr2OOj5840B1s6+AGSJt4/A7ogU5+d8JLkDlDqB1yEfFz8HfMYe0rnzn5oTixYT34AlnoL0Ujz6lfxi2n1DFUFRQyqJPKSIkLtBnqvmi2CLYVZDQZ0HjZf58ZwRbVYZ5kfeCJucpYDI9LP3DEHN1bzwQMGOTJojfDGYoPkGu1oF6AZfTdcVpKgyKTs+PrSCkGWeoWIl8vyCsuLt3VRHVaQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=0KDpyO9f; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=S/Vv8jen; dkim-atps=neutral; spf=pass (client-ip=202.12.124.148; helo=fout-b5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=gf5w3+nn;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RP01UaB3;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=0KDpyO9f;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=S/Vv8jen;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=103.168.172.157; helo=fhigh-a6-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-X-Greylist: delayed 515 seconds by postgrey-1.37 at boromir; Wed, 01 Apr 2026 01:26:11 AEDT
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=202.12.124.148; helo=fout-b5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4flVm311Ksz2xSb
-	for <openbmc@lists.ozlabs.org>; Wed, 01 Apr 2026 01:26:11 +1100 (AEDT)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 211E4140011C
-	for <openbmc@lists.ozlabs.org>; Tue, 31 Mar 2026 10:17:32 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Tue, 31 Mar 2026 10:17:32 -0400
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4flbzp138kz2yL8
+	for <openbmc@lists.ozlabs.org>; Wed, 01 Apr 2026 05:21:41 +1100 (AEDT)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3707E1D000D9;
+	Tue, 31 Mar 2026 14:21:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 31 Mar 2026 14:21:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1774966652; x=1775053052; bh=PO3n77Krki
-	PyW95c35TEzBR7r8L4DSH3lephygYATl0=; b=gf5w3+nnaAVcnrkJpf/rN5wWKs
-	+M6uamCE8/A3n4LTTDspGUnCVMsCglpdI1QH45farxcYHXjHJMkqNSp7KKxcQkGs
-	rynmSKjoq2TNAZP1jgxuNoG+TMyONbHvfMGxg8j961CL+2Lu+LFcE31Vx7lGZBAI
-	MzO2/aKcUMzyK1rq2e54lbBQHgMO2sKnKovFBvfsTb60jiSevDXoXKGraRQ4TJDH
-	HVsIabdxlzNKuzKAVg+YUui+Qn9jVDR6O0WghO08RL0m0Y9m9JxUdx++A5ssdSga
-	o2bk9UxKq67yQExBQ2eoGo/dtXO9udMapYeBn3/+NJQSeUgQ/AjkVIZGHrVg==
+	:subject:to:to; s=fm1; t=1774981297; x=1775067697; bh=FPeQe5lXzB
+	z1CfFLe/GSmE4Xqq8qMIJ2WZ4/kNDrQS4=; b=0KDpyO9fauJwM28xrsCa8EMctk
+	iG0j0Xe16aawtE4fm3/lwjtfJu5fLdRh7lSZahc/uBl/XL2OMb3WitntlU9MLNpQ
+	9KEB/Tou8c4V/be8XNtqsclzYduBvBRgflVDzy37GiQpRcTiFYfEo9SQmoc+YwCl
+	pPppvrJPK1pAPDIK9eqwTJqwMleCRrPgWDV6fNV1pqN09+YensysJlmwqaogBLEa
+	dJmMwVhL+kpxGFoZp+tJ/oEV6bZ2s3rLgioo/Q2yOVU+F9j4q9R9XS7098VyW6zo
+	W39xLI3ezOQ7/oyKJv7of74mGRdGHDRIcHN2hv88FsZqhCJgehd0LNoz3qcw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1774966652; x=1775053052; bh=PO3n77KrkiPyW95c35TEzBR7r8L4DSH3lep
-	hygYATl0=; b=RP01UaB3VM7D3MHlPz13YvPk4lnJ/DAnGeYbi+fberj8BmRF3jC
-	eaFUb8EPfl7hkhj1VDIqqNOdFMYwgUeRtOHlkrqxE+mkiT10ip+sXqaMLqwAFPtQ
-	40qKzF4GG+b80Ir+kAQ+/NtL6PrmRZxT6pQBbwTtRtir66aRSj+37HeqKEK1kVJt
-	P1M+o5ykklqNCWLJWBVyeX+Hwz3xOmghLG2BIt5VFaC1iFRHc+NkqkzUajVGI017
-	67Y344Vc+KliZEWsatFrKKSHnDcEQLzU9jCN+0lohNi3PbIhu6uAsrLgpuLPIZJF
-	bpNgysvoFeXcGuywN6XHQ5R603CKr+HkZ6A==
-X-ME-Sender: <xms:e9fLaZPVqLcAPsKy-7tSLfnkVfiwtg2cfni_pZDOtS_3bv-lgOXMuQ>
-    <xme:e9fLaS4W6eZBnJDbO4LcRk9buF2x2Hsonhi1K9M-pXpi7iUTKPJQFtis35-tQvRtT
-    57i0ISTkIQBpVDL-MiAtJT30Lnoeg9qn0jDDGaMbD9Lz5_gfadI>
-X-ME-Received: <xmr:e9fLad4wto3yQOcTX8ydLjWjOnN_31wmJGAOjI7Bim3QeB4rnvFHSBsYsao>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdegvdcutefuodetggdotefrodftvf
+	1774981297; x=1775067697; bh=FPeQe5lXzBz1CfFLe/GSmE4Xqq8qMIJ2WZ4
+	/kNDrQS4=; b=S/Vv8jen6RElTqoXlyDpHRaonqsPsxJIc1f4V11BE7W+6I+b8TZ
+	38KGVnQi92BVu3Fbv0JnSpcE74jlg9X+jZUh0A5zxxYeFVupQhT779v9NK7Q4NgD
+	iMwnxcvJV8UlfkdW30je6dKgvZBomGuwwytgmcxFU3f7cuJR0jUlx2gl9PtRlDdQ
+	nMQDSnOPwtKVGfLv0+1+r42DBdNCc8MwEJ47ylv/cxWPfsq2OVbZ6n7S818VPpVN
+	9wFES2dKnoNGfnWqz5bYfj4Jt0r3I3CrHSyqu73xC2/88KbnpPWjNLEp5JqLAeEj
+	czk5Y+714wLG4/1ZC4H4oLYvJMF/T6sY+1w==
+X-ME-Sender: <xms:sBDMacdUCjd5ieK08G4ojixh7QF5QaUHl3MkmuyRw_eanlpraDA_pQ>
+    <xme:sBDMaVOjM9SI7jWR9jbgr5aCQr3awdRjH2ZMkVjygYCF68jEK_bIDJ_Af0FaB0M64
+    b-tiWVw1_ooqYWtNmofKjnUeg9-WNF_2-C1oraDlJJv3AzNG2J-ySM>
+X-ME-Received: <xmr:sBDMaSgqJ7d-B2yX2dxwXpf0Or8GRb0MNnqDWwq315uyhKhR4OjM4In_J9A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeltdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegrihhl
     ohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfghrlhcuvf
-    fnffculdejtddmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttddvnecuhfhr
-    ohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsthiftgigrd
-    ighiiiqeenucggtffrrghtthgvrhhnpeegheehfeffgeekveehtdfhgfduhfegfefgtdeh
-    hfektdelffevkefgueffhedtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
-    epmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiiipdhnsggprhgtphht
-    thhopedupdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehophgvnhgsmhgtsehlih
-    hsthhsrdhoiihlrggsshdrohhrgh
-X-ME-Proxy: <xmx:e9fLaa3Dl_-eWxvXCkjEAyJWZt5tnPZ_qjaN2NeLD3z0a827kkKkkA>
-    <xmx:e9fLaRW0DDjMctPwtiXJDboRbMyPYlDFou-2Enw_htrHrNGJzjaV2Q>
-    <xmx:e9fLad53OkIo_oE7WNio9hnIDDAaOEKHQYxIScBJ4TzG7fXk1QuDXg>
-    <xmx:e9fLaQKHPc5SmV-nRyR_M0NgppVzOxSYlLYxQccJEQXoZA0MK1Bk_A>
-    <xmx:fNfLaVOkkNZ9twqpi7SO_kUgwB7Dzh-YieuN-9ax0jLHbhQwJalnJFtK>
+    fnffculdejtddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfh
+    rhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhesshhtfigtgi
+    drgiihiieqnecuggftrfgrthhtvghrnhepheefjeehfedtjeeivdefkeffheeludekudel
+    leffkefgtdeludelvddtgedtheeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
+    hmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihiidpnhgspghrtghp
+    thhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepvhhinhgtvggptghhrg
+    hnghesrghsphgvvgguthgvtghhrdgtohhmpdhrtghpthhtohepohhpvghnsghmtgeslhhi
+    shhtshdrohiilhgrsghsrdhorhhgpdhrtghpthhtohepthhrohihpghlvggvsegrshhpvg
+    gvughtvggthhdrtghomhdprhgtphhtthhopehhuhhgohgphhhsuhesrghsphgvvgguthgv
+    tghhrdgtohhm
+X-ME-Proxy: <xmx:sBDMaQ3xjJEYqIJ4skAyOIVI3943hzP0MVog9QIBMZhkzBPeSJI_kw>
+    <xmx:sBDMaUiG0cRl-1ujrpk6rjqxNrvAIzN_YCS7OmsAKelom5zr33ZFOw>
+    <xmx:sBDMaYcq0ZQCObcvaIirnkWYN7q7jyrcfCuPzxkjEdzbnsx-piFBqw>
+    <xmx:sBDMafl4oxdu-horI8oNEhO-38DTmqldsKpOsFHiTGdQDrY2_ILQSQ>
+    <xmx:sRDMaSba_8dgMlvjc3vhbGwYgSAcAigYdWK1_PcfFNTCzReNsv2w5pm0>
 Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <openbmc@lists.ozlabs.org>; Tue, 31 Mar 2026 10:17:31 -0400 (EDT)
-Date: Tue, 31 Mar 2026 10:17:30 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 31 Mar 2026 14:21:36 -0400 (EDT)
+Date: Tue, 31 Mar 2026 14:21:35 -0400
 From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC List <openbmc@lists.ozlabs.org>
-Subject: Re: TOF elections for 2026H1
-Message-ID: <acvXeuKAOlv3vNf5@heinlein>
-References: <aXDmS4BmR6AGXKGW@heinlein>
- <absG_8pQilMHGMnO@heinlein>
+To: Vince Chang <vince_chang@aspeedtech.com>
+Cc: "'openbmc@lists.ozlabs.org'" <openbmc@lists.ozlabs.org>,
+	Troy Lee <troy_lee@aspeedtech.com>,
+	Hugo Hsu <hugo_hsu@aspeedtech.com>
+Subject: Re: OpenBMC add meta-zephyr for AST2700 A2
+Message-ID: <acwQr0d53omz_2Rl@heinlein>
+References: <TY0PR06MB5707D3F95D8E083E479A5FD9E253A@TY0PR06MB5707.apcprd06.prod.outlook.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,45 +103,51 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="KEsxb9dfb0y/Woal"
+	protocol="application/pgp-signature"; boundary="q1UK+C1hHL6Wa8gC"
 Content-Disposition: inline
-In-Reply-To: <absG_8pQilMHGMnO@heinlein>
+In-Reply-To: <TY0PR06MB5707D3F95D8E083E479A5FD9E253A@TY0PR06MB5707.apcprd06.prod.outlook.com>
 
 
---KEsxb9dfb0y/Woal
+--q1UK+C1hHL6Wa8gC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 18, 2026 at 04:11:43PM -0400, Patrick Williams wrote:
-> Votes will be accepted until April 1st, 2026 at 12:00 GMT from qualified
-> votes[4].
+On Tue, Mar 31, 2026 at 02:11:07AM +0000, Vince Chang wrote:
 
-Reminder that there are a little less than 22 hours left to vote.
+Hi Vince,
+
+> Could you help us add meta-zephyr into OpenBMC?
+> AST2700 A2 the BootMCU changed from SPL to Zephyr. Because of this change=
+, we need meta-zephyr integrated in the OpenBMC build.
+
+
+We can probably do that.  Which recipes (and/or Gerrit changes) are
+going to leverage this?
 
 --=20
 Patrick Williams
 
---KEsxb9dfb0y/Woal
+--q1UK+C1hHL6Wa8gC
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmnL13gbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTEsMiwyAAoJEKsDR8wtAMEZIUQP/2IMXIXZwVHKRjtmyIJl
-2c8jNDbVe5/5pWR2EhQI6VrOjkByLNRJvPtD571HCpRJSrxXIYVcKannqBSnZQuj
-qh0WTrHMwDFGW6yd46bzjcImUgJRAs454DDAUL1jhEP45qmzhO2Wv0p5JsyXO129
-lna9hJk4U0g84w9JDytWfep1Sqf3GDb0oMDK2koVYwy0oYZ71PjoBkNuWet5o7JN
-CbDRZ6Qp5K2GAYs9Y5MmhwYh6F9Oh6tAUS6rvcuyxFgXY8DaRGsYH2OT2xIpoRYr
-4d/O/i4tvRIDhcjtmQWVPWiJRn0s3b11y9VWCQXgql0176NKSXIkZfd86kh07emG
-R7p5pDE1MZ50K2UVcBW+B9JvAky4zQ+aVVQ1czm63bbF/VF3wgsx+51e7hYaEora
-UsCqeix1bspu2EU41dayCBPNCXCc4ef/BywDqBNIkTVF3XLwKTxSug/vHzMm/1Jj
-wO/53PubVXegCL76SBVJ+C6wlDW56rOl3WGsQohiqn0oLdzAsm9F1uYWGIJU48r5
-TudLxrLOsZ7MGH4NI1eOzbOPdkvI5OYGOQy0x4mxYajkNGU8zCf4onQPpZdheIra
-PaIK/7lNv3i+/AZpBPKjT23XW3zfp5FRAqYQ6HOl7YGOWE7on/8fa/AI8kza8y6/
-7Si8xq3yVG2VS3P6aMru9yKZ
-=mqPx
+iQJPBAABCAA5FiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmnMEK4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTEsMiwyAAoJEKsDR8wtAMEZxmwP/A23GPCtsa0LGicZYBtU
+AcK/IBcvg8pS2eIsTIByR8K360pAh6QRRM/d15jKFD5qFjVnEF4PGB5Liy/cSMpY
+d/2PX6CJjw1jeH49TbQpOEAiqpZ21xDCIJp0qZ3cTJ2Oi2CSY4bl73siOoALQa7w
+YPApoenw7TWgIe1kicfeO2XTvo6TwJ7CIGX4MNN0hg2RihJKqPynz2d0NevqJCKT
+SHdAzyUZPLrmCeEN/cjqwyzY+mAcpk8MYNfQXv3vXqrrwzInoxCOhBwX5PMAxSrh
+X3jiIO3KtA5X1eSQoVC9Pc+0zqAIncLoTSSyOvBbXL9KzdQHRc+fCY0NL/nIGS4g
+TvCOVqWQc134qLxbpNTNkx3t/fNxp8FN1I4N+cu5Q+NYL2/jI3yLrr1q2shgKSDW
+aFEaV9E3kVPAQ2YmbKWiXJlVm4voVhrm55IrwdWfhpfrrkWzpBQeQ1vicVBBBc95
+owY14hs93p8t+QQ9lDmnVKYddPAhPEm0zJWhrPKwinvBuoYJrvZno3sceO69FXYj
+YeT5md3EB9Po2TJE/qtISODiNQdtSTtwZXoHW8XjQ0StgXhb7EXRme+OjnOZj6SO
+3cTTi4ZlPssZ5pN3CJtLhpGB/RKFegmR104uV9FlRFNnQQrYzvF6lPrEyRKlSlO/
++E6EEOriW5pERBPDX3K3JO00
+=sqmH
 -----END PGP SIGNATURE-----
 
---KEsxb9dfb0y/Woal--
+--q1UK+C1hHL6Wa8gC--
 
