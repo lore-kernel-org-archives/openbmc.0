@@ -1,149 +1,91 @@
-Return-Path: <openbmc+bounces-1778-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1779-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E7FEDB7D4
-	for <openbmc@archiver.kernel.org>; Tue,  7 Apr 2026 09:37:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F10E7FEEF49
+	for <openbmc@archiver.kernel.org>; Tue,  7 Apr 2026 14:07:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fqh1Q297rz2yhD;
-	Tue, 07 Apr 2026 19:37:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775554633;
-	cv=pass; b=d5TJQ3+GIkiGVF566VX0TxLCV3fJG4UuDa494c/QU5NIxc0HJhOvMf1xCTK7LmtO3X8AS/WAj+Lx8UzdYWkX66Ds2/gzdcohcZ6OiHPoAGz0pLer+vDy7dsZvTGLUaMXRZPWqDzKrDgyFlklaH/GCNH/subwNS7ClYwtqfWqsi+tW3MXXj88RsiKjES6Ww6YrAQ+gx8PhrsNWoGxU30f/w5MQgOPGYCmOOXaG0ezgjzC4NhV+Hps5rQFtbnskFA1CZsr9oNpb54G/XmokmLQ+45BYW002Rsbrji7r2CdyIELyEn+5A/ofOoBrAnGGDDHQ3Mrql6owqpm7GeeO7H21w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fqp16630Cz2yh4;
+	Wed, 08 Apr 2026 00:07:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::a31" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775570842;
+	cv=pass; b=L/zaMAe6rk7utBs8JiPi11tVI6Cksau/Pp7RvD8j6m1aBslz+jkFmJzBfkvsqfsdy0u+kiKMvnIyKeWLCAGmOXhRDBJ/mw5yiUOv3NRu9f683yWEETEfEhPvvYOsUQec7S9cH7pKGd5XIrTlNlBUgjH8T7JT+AEql5NXa4A+1M+4HF+di23sGXGB2tbnf78NgoaHoLk0eOFqfgB6JLGGWAQtzQxdAVbDROmNyih40IXlONXNQfS4m+dclmZeAhZXsCyppBGvIJnXrX5aCaHeYZ44aQqo1a8bgsiRMqsh6b1zrG0z1+cZjZWaEqlEhXemtOqY05BNUM/jSl1THIZQ6Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1775554633; c=relaxed/relaxed;
-	bh=hF3cT3FsyuZ8AZZiuEaGbvXL0/cTln0Cs8B0gKRySgQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=L5GhucN7vL9vp58k/PKW7NK7sSjRti7f21enWS6Q9mwnkxSAlytxw2wYmgYAnXwLB/f8woysa0lq2VIqj2zgUSElrCL6EWNWpcQlANiv8oizdWNO8LXyse95qSV4MvoawMuoxoeGDobDYbsFupQr6OWAgwOGyYmMEpiR3oPjEOEFnZyUUruR74y7T9RkxD4RQwgg7P/eiwsVtUIiHX8R3bjE6HLlBt1/hBb7fhauJY4OM+kuQJwB2MXGUijdYl0yi8ScJ4b8LzoOm2GReWe4FPViVr799eTAAupW8OB/C7qNwPwALSfonCgY6nzDdW6VHFE5L2xigseqeuUoOkqaDw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=kW9t6UD7; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	t=1775570842; c=relaxed/relaxed;
+	bh=qrfpiSlGxQztpmhiw5jN1i0QUscRdxMU8eEDn4I8UNo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kx9N39/7NYFZLqBOf+ZJbQ1IZp4+lCwelRXqHOwVkB+US6aA1ym6MQP4vhfis1T6eCzvLNFi1xiZEqIJ9z8EDIL+beJ6EhPDMPTYOcPsZZkVPEuiEK0Poz2V8kwIhAXYgbPovf3WRkWpiuDi07r0CzQsh03LxU2UH2ImQWoIBKOFbKe7oBfS9Uo9l9J46dgwK9ifopLwca44q7RP4tfAhopkwKxRQkzyO0mvheijFLFYOBjtFGTRPonXmyZdkL/EjfQxy/bVSbhxnggay5sSD0IGOmd3vRlxVk5r6GMuvOIQs33S3CfQ9jQFqf+qn2TSNep4Ew4n8jHAXfF44BK76A==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzkXwodP; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::a31; helo=mail-vk1-xa31.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=kW9t6UD7;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hzkXwodP;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::a31; helo=mail-vk1-xa31.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-vk1-xa31.google.com (mail-vk1-xa31.google.com [IPv6:2607:f8b0:4864:20::a31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fqh1M2HZ1z2ySk;
-	Tue, 07 Apr 2026 19:37:11 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tfcJEffn4DtcgTssdTYC4t37LEYKHcdz0SLBt0osNjl2Cjb0GzsXLoWsrN5LIBwjuJ+WG1QBxXCMr57SLmVJMq3qaM/gyNV/6C0oM3tdUUUWlNOM51ofiebxujy70NITg+JTEn943is7r1fXD1izzH2uOw4NUtccOPE0djaXI5RKsrLudJMRO8rKWLc+x1JU9rp5JhVT9pHMk+dCnR+1CWkoYYHmHywFMvYhl7uoWh+U4KqWir2xOT3tyb+ewryiI6NSCRzF9vWV5gO/eLnPgfWz/7ASYiH1bUZnMlC5bD0AMrJo1+tjJI6MKl4dDdWuWDuZ3L5l+PbJxehKRyuucg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hF3cT3FsyuZ8AZZiuEaGbvXL0/cTln0Cs8B0gKRySgQ=;
- b=xvTeR5KXsAzZQrAQzae5hCSKRq/6wYr2Yo5P+XYzUmWrVIHYaOlaN+VETGj4J/vAWWJ0t+TNvk5iA7sKnlLLz6TG6quKomr8eMjf+7TJynJ9TEvdSp7MYW0Ly/FCGdfftqStW/pyPLq/g+JY6CUh0hcr0JsuZ+Hx7b6w/WJOqqafJfgjm39q6o/5h5KBz83y2DBB92iuxfZFB7M/CRPgIDA0B3n9/DnOtQ5Krg+boSRAP52VUe6tqXK907zWlpf+X6Zml3N7du+L/4eFPAToeyW8anp3T2ObdsVrhmYFviXcCeTkeiLZLI5nsj1W/kjQqhCYKnk/MlKucRwstyizsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hF3cT3FsyuZ8AZZiuEaGbvXL0/cTln0Cs8B0gKRySgQ=;
- b=kW9t6UD77aJPL1IHVt0WldCxAI8d1QJXM6EcmFtunJGrN7W2HBNiC2umHcMF5qIQhjFeCjrB7hDaMJpSL894i1VZ1e+RJUc+1RQjD7vB1WOJerK2LgynKsjYvUZYjMPZ2M0CkStH+3K9KxNetg+ZlJz7fmi+trXqsqB8KxdUJwch/bdZQI3UO1qrzqccH4Ecml+hwcCBqudXjMq0lhPcVuoxvCNClRMr8I87MLCVlYHHI+iVF7BPGTXbrwVfXyLytX4EYmQIvwxASUgSqsyykiv6cjWLREf7gMfXKS0bmeRcf3B7Ct8dFQTR6VRaYRmtHESD8o+tT0ucKXSaS00xkA==
-Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
- (2603:1096:820:78::12) by SEZPR06MB6120.apcprd06.prod.outlook.com
- (2603:1096:101:f2::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 7 Apr
- 2026 09:36:37 +0000
-Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
- ([fe80::b7f3:3c41:fd0e:e3f6]) by KL1PR0601MB4276.apcprd06.prod.outlook.com
- ([fe80::b7f3:3c41:fd0e:e3f6%5]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
- 09:36:36 +0000
-From: YH Chung <yh_chung@aspeedtech.com>
-To: Arnd Bergmann <arnd@arndb.de>, Andrew Jeffery
-	<andrew@codeconstruct.com.au>, Conor Dooley <conor@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Ryan Chen
-	<ryan_chen@aspeedtech.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "maciej.lawniczak@intel.com"
-	<maciej.lawniczak@intel.com>, Mark Brown <broonie@kernel.org>
-Subject: RE: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
-Thread-Topic: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
-Thread-Index:
- AQHcstFOqEOl3ItXl0mr3midS8GMZLWsphAAgABXFACAA7sEAIAAT9LAgAF5RgCADH1X4IAAILCAgAK7OMCAEYY3UA==
-Date: Tue, 7 Apr 2026 09:36:36 +0000
-Message-ID:
- <KL1PR0601MB427603A6A5768D6A537CAFCB905AA@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-References: <20260313-upstream_espi-v1-0-9504428e1f43@aspeedtech.com>
- <20260313-energy-casket-ca8adc1f1fd1@spud>
- <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
- <c3b28ee92fa46700887d0c68b23045b2418358a7.camel@codeconstruct.com.au>
- <KL1PR0601MB4276ED93723F0B1F42349AD89041A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
- <0f7f0f96-a918-47d5-a0bd-bbde494c8fed@app.fastmail.com>
- <KL1PR0601MB4276B5BE3B96C18E3A66AD709049A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
- <14870d17-2471-4522-b8b5-03cb9002a4f7@app.fastmail.com>
- <KL1PR0601MB42763DAD359305DEBA4B769D9057A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-In-Reply-To:
- <KL1PR0601MB42763DAD359305DEBA4B769D9057A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KL1PR0601MB4276:EE_|SEZPR06MB6120:EE_
-x-ms-office365-filtering-correlation-id: 1f8282a9-94e1-454f-44d0-08de948929bf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|42112799006|366016|1800799024|376014|7416014|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 20zd4ou7FWK/FVEEBN/2mhI38Sdx9O8dwv1ihkcNm+E8adHSSh0ren8G0lI16UhkBioJXL5ys1Xy0OCDVVeDsXiaS5euJur38Pq7UAAgpHKYLbGy43j2JsFqsjMcYuW2L3nJaOqUTazxheMrYRvvetyqto5iU/10mH9KUzchN8h3cw4Cu7ABLQd91r/oO7jmEcErXAGakDaaDMf+3XdPLW5AwQbpHXyzNkW5OtzMUCX7ZZeKuMKVMvZ3B3J3e1hhyrLE43oJpHn1ugurmjZv/ptTko6Hu8cP+b0FkLEJdixevhfSJ9XuQ0mucPXq2406j0mIDl65BsgWauXrwNKMlWg06yWvxfSA+q89JvMKdZwRBx02H8WR3ZmZAWgX2JEKixfiQ5IPYkfCrjflEkUQBp0Nypfd28S+7eJC2AxGzwe2RbyTmvq/A80PNVUzTLz/h1fuVUaANgKi6xmTyuYIBFTDG6xU7sfD2QpqYYf/RvjC73lT7d2u9mgPzEWjIaJTTWbRLxu0LckjIADm0N/hRsB5ehezIMv9V6XlpjpWZ9lFYGOb0BmUVaFvKDatjhtZU5mlkWgFfkMKuBh0b50ds3YngLreYMSWCUNqO8pMGfXbqK3eI2y9IMIkrUvqq8T6IoYdLlPVgo/KYX5YleE/0SDq8tYHxOvFVP3ud9vYWqnPJcZCFx9uDOV/42GDYm35q5rgJz5jucKdGvyChdDKdxjbjdSVjugDhTUbTDmUtQ2W4aZ+TfDPhoTH8aij0XN/aKOAQ9/zVXrlSfK5WqHQWhbm2nCzZAIotuXCkPhoqv4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4276.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(1800799024)(376014)(7416014)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?OVZtVmV3alh3WXFlRXNBTXN2V0V2ai9zQ3hUcEFsNlNvaEoweVNxaVFucE9y?=
- =?utf-8?B?VFluR1dja0dHZ09HbXQ0RzVHa1U4SW5mdm9JRFZBaExIY05GZitOdG9QTzUr?=
- =?utf-8?B?Sk84L0Y2eEgyR2taeitqMjhFdlJRV0tNZkppR3F2SHFDcjFORkZQUllRUEs1?=
- =?utf-8?B?SVlEdjBTbkgySlhpdFNKdElGUEFIVVNFUWY3eVFjMTR0Q2lUMHNsZHFTQmFt?=
- =?utf-8?B?SUNOelZHcXlFeUEwWWNrWUsyWDBUZkF2WmxxZWVtU2lmUElTN3VNYmxhQnJo?=
- =?utf-8?B?OWxJS0lNQnFTMWI5M1VFaEhaL2R2YlJnN1FXK0JNWVdBS2Y3YlMrZDBCbWVK?=
- =?utf-8?B?SytWbURPK3FudVluRDd4cmFzRnRlZUVmSm1lTG9QOWhZV1VpOEk2VEcwKzZy?=
- =?utf-8?B?Q3hiMXJCUFA1QkU3N0Vlbkt4c1djRVAzZ1hlWTVOem5WSVFVZStHdGpBcmxr?=
- =?utf-8?B?Y1NrRXNLdENES2VRK3I3OEdIRGxxTENBekh3L3JsK3VvM0prTEFnc2w5QlRW?=
- =?utf-8?B?ejRhcTAwYkdEcmU3SEdKM3dOSDNvWFFSVVhjKzFJVVV0N1BvcmV1bDZvbWdx?=
- =?utf-8?B?UTBaU0JlZGYrdGVCQTNkbDRjdW83OWplZkpRaVVydFRMY1ltOGF1azJVZFhN?=
- =?utf-8?B?aTBZS1pTb0dVUjAvS0hNbVRmdUdYRWdxdE9SSVZvZUFZaDJlWldBYUpseDZm?=
- =?utf-8?B?WGI4V1FINy8rWDREQWRXeUFoRE80KzJFTmZhMnlqbGJYWVZ1R2lkaXJXY2Fq?=
- =?utf-8?B?UkRKMWh2R2FBVDI3OVVSM29nbWNvNjhuVHVNUDdkVzZXKzg1eThRK0IyYkp2?=
- =?utf-8?B?cHBYV3RGOHRlNXh1SkR6MW9hUnlISG9WM0FGRTBlaU9adXI5MTJra1h6YXQz?=
- =?utf-8?B?Ty9jVm1DWmxBRHY4NnZzdGpvYkZLKzdxVi8rRU5leVZPNHJkWGRHS3dUaW50?=
- =?utf-8?B?ckxTOGU2Ukk0eS9XMUlTbXFHcGZJMWhReUk2eCtpK1lPaGZ2aXdDSktTK3pB?=
- =?utf-8?B?aUJyd3lwWHdmcDZuVHB4ZnNjNzA2amhiUEFjUUt2L2MwOXlqSFJHc0VEbDZL?=
- =?utf-8?B?MEljN0IyM3lvMTVCck5HUWZlMDJYRnNveTV1ck9vT2RHZ3cwbklhZTlOMitO?=
- =?utf-8?B?OE55WUZ4aHh5T085WDluUkNKMHdlajJmcHpWcG5qNTRHY2FTNHJrMndvSmpY?=
- =?utf-8?B?dlRzTytRNEVrTkxRNnQvRjlMdEgwVG9vQlBkdll4ZWRvVkN6OXRBWlNGRGhI?=
- =?utf-8?B?bDRiV2Znak9nV1JlZ0ZBUlNPUk5JQ20zSll2RFltWEk0K0V3dFVGeUhxVmYv?=
- =?utf-8?B?T0Y5Rk1UcTA0TWZabVFDMEprdzVxQ1BVQXZrZ0h3R0ExNWJqY2tSOElnNnJ0?=
- =?utf-8?B?MElMRTNWTnQyQVhGNzBKTytQL3NnVCtFMjN2YkpISHlmNjNzdVZOL3VEZEdT?=
- =?utf-8?B?UXBOeE10b2ZWVUVpOWNXZ2dWanBxOEdEaWhIL1daS2FMYWlocHg2RHRCZFZ3?=
- =?utf-8?B?ekF0ekd0Um9TNm9CMWpJcEUxTzVKNDlCRGEyQUF5Sm9paGl0L043aThkQmE1?=
- =?utf-8?B?TnBCM254Vk11SUZUZ0RVUnFWY29kMGJXcVo3ejV2MWY5bGozRHpTSGtTZmhh?=
- =?utf-8?B?RmhUaVF2ZTNIbVBqZVEvZDFacmMxaW5adjVNVUJtUFJmTzZOL21EWmw4UVB1?=
- =?utf-8?B?dWRhVlRlQUtEMXM3K0p3YWRjc3M4OTBEcnpJMlc1V0NDU1ErbTBRd095cjNP?=
- =?utf-8?B?T1c3czZ1S2JQNGc2VThNbGUvbDBoRnhSRnNGdTcvb3ZJMk5abGNPcXQvblV3?=
- =?utf-8?B?TWVJTU5IVDJsaVk0dnVCTzBSdWNuZTBYa0tQNGN3OGkrUlg3WC9iUURMTFVQ?=
- =?utf-8?B?ak5RdmpsSUtEbHNTS2hqWkhXenpYMG1RUmZBek9WRHRPUUt0emFVQmJKOWtP?=
- =?utf-8?B?cmdXL3pwQW9ZTVdteXQwUWNjZ3RUWGpnUjFncXlXUGpVRVBuMlFDbDRxd1Bu?=
- =?utf-8?B?ek1kSXpIeWx4ckU5aS9rUUtaUi9xY1ovTEEzNldaWkpNWjR6Y0dQb1VxbmpO?=
- =?utf-8?B?R1d0Z0VXbVV2NGhOaVJyUkVXZ1NWZGVibW56aVVqdHQ0S2g1cGhrbmlScGhX?=
- =?utf-8?B?M2hHNkJwaVRYbFJ4KytUNmM3NkhyRTBKOFBXVHhieUMwSXpKOFNhaTlVTnRK?=
- =?utf-8?B?aXVKN1JMNzRXd2xBemsycmJEcjhlc3VKVjZDbW9kVU8zeU4zNzJOMUdDZy82?=
- =?utf-8?B?R0o5UFJLekJwNExzNS9xQVpUSjN4Mzh2MjI2MUhWY1J1Wk1xRy9ocHFQZkpK?=
- =?utf-8?B?K0FXTmZpOURoeWpvbFJicGxRem5leTFjWTV5SDVzYVpWcFpMemwwUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fqp154xxGz2ySC
+	for <openbmc@lists.ozlabs.org>; Wed, 08 Apr 2026 00:07:20 +1000 (AEST)
+Received: by mail-vk1-xa31.google.com with SMTP id 71dfb90a1353d-56d9ed609d2so1464965e0c.1
+        for <openbmc@lists.ozlabs.org>; Tue, 07 Apr 2026 07:07:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775570838; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Gnn0jWPOZoKI/tWW86A9l8ZTi9XhEGrEKQ0yh5UxcCv7V0cmFpyKb5gD0WgZ7mt10K
+         YN1LROooNHGUrPYiFkpy9EyNLninUPSPHmnml/0oP3gSojs9pOllh6yelm8E/k8iHr2t
+         IY/vKTsq5SA/Q7BqEc4gpWuMP1dBQbxKHLowwHGbHccz+Cmar3vaFgJgj443ElfW2AeU
+         Xc0cHBmaIf5EoDc2RU5z5T5yuHU9tPxCeFwbGsjZJCtjZ3o1gGogZvSnxXRABbr2eNAb
+         yDkBi9QDGnZ0LI4NbU4UnBY+LXPDMdceKNMWFfzvP3XBN2p8lJzRgpv6Ortp5Nh6YZZe
+         hFZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qrfpiSlGxQztpmhiw5jN1i0QUscRdxMU8eEDn4I8UNo=;
+        fh=1Fz7TnWnhPi8njP3lp5fJ8JqoLKu7HPMS4Wq5hVt1ag=;
+        b=HWC41wQEWuzg/BDMlbTLRU+TP4cCv2+nb2oSnN9ugPPJv9T9MkJaFso0VsSnqT8pBa
+         eNWOCSkvcKWQX7YvrS0F/nXAfyUGm6Go0yu9Jj6AnVkosBipOm/D+xxG6eJ0cMNGCPGF
+         u+afhFcaWwEYz3uUEA1Yrya69EtVWMVoKIPr5Mru1Si0BzmwTY3++P2dnQ03z3Tvy4ls
+         fHzeYz8lSgI1NZkrNg5IBgZyC6QdU8TgJTpYpFZWv9756P/hFMI3ZZoSeZSWn/M0PWfZ
+         sqFQMaoIFNGu73bjMPj8p0nRYcrmqCHXQvC4de1R2IAV2cLj/H0lHYG3GnrOwbGmpjDG
+         nEqQ==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775570838; x=1776175638; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=qrfpiSlGxQztpmhiw5jN1i0QUscRdxMU8eEDn4I8UNo=;
+        b=hzkXwodPv8Yra1XTuYbeJYUQ9ORwwrFfLruz/6h3lbP9X5plQdrM00ht3JZ1bG56Ad
+         M66kzoofl5qkvLqHYrjkn9qrgB8QO4D/VG6zOJYMvlK4mvPQw+Zx+2il7OWIoIIHaY37
+         9QpXqR7X/Y1mZzVbrj3GkTAmVaTlautgroRtyIaO85c094bAFYWOHilsusYbBEv3Dto/
+         10UoU1/30MIyqV5HffhDyK0iaILoD1WbMrynjW8LQaXhjpsIffNoQA1BLS2FWfxZ/8Sg
+         5AsnOoRroON13KtvpNmGDuVdS7YVBanALz9GTKwL0gaSXZwlQ+O3PvXyzZag/vVr3dPT
+         7GjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775570838; x=1776175638;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qrfpiSlGxQztpmhiw5jN1i0QUscRdxMU8eEDn4I8UNo=;
+        b=A1X+97hMZTZmjBwgwGhmCGdHqh9XOKVIh04GI7q7ghfUmcmnWfhFVm643fVXE2F6br
+         Q+KzDLlsCxqqVS21s51Hjzwligrs5oRKh5DpIKytzbtFUaEtEBBa6Y61fL6SDtxB6cw1
+         CWl9LuPOJv6QlnNXtoH4w5SOd8t5nckxP737KVNZ/+78l6prw6JJBBHe0d49IMU6SMRw
+         1LeKvATLdnj8XQHAK4r5C+vFQl8IlgcArmURCVxd6eaJkq+JI8h9zEg0vpHr1efef7Vc
+         U/rMNpCh9l7fQd+nSdugJhdjnaCY54nm64DViMe9MQZ2qXtiaBI9xVIMNgJhllfXxUPb
+         6VHA==
+X-Gm-Message-State: AOJu0YzmbshAQoDT7BljlamOHe0u4EwYTYrmNkrvlt0knuc069inHwOB
+	RLKYT3gveo5wjUKF+IBsNNTsMt7q+CfQAL9khjDPn9GCdgzjxU+2SEYoeWVz1RoBS0sx9CmhpoW
+	t1D0sVdViKCwUABA9t/OlVB6xnw8ya2I=
+X-Gm-Gg: AeBDiesmzfZyR1tsPmG/lG1Kxtd65XeI3WhVnkhJpSfhRrv59Hc8VR1fO6MBeTxHVfY
+	ZBdFkNxex+/AG+f6BVYqeSP3a6ZvaKsPaNHbv8pgh5tfKdUI+mzxfJC+UnQpuV5a+nu+CQxSQvc
+	LBKTayQJ6fEUw+6QPfH8JlwtAVJNWauEC4owFZ7PCS+iLzEqwlmlYaVwAeN73DgIJKaQzvbQRhg
+	ROVeU+b68k3eCj6WvSeiv3X/D8tW0KTiJvtxJQLY0LMA2tVSKwHtPPgPbTdvDmV99n2zfY1UKFF
+	RqDcv3SSfo0YubTaPEmC+O72vhfea6p+YJu/ffa251/vQk+xHnctwV5/28EsW+6mVJrE
+X-Received: by 2002:a05:6122:3117:b0:56c:d34e:bb1a with SMTP id
+ 71dfb90a1353d-56dab8c639amr5971956e0c.4.1775570838333; Tue, 07 Apr 2026
+ 07:07:18 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -155,26 +97,76 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4276.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f8282a9-94e1-454f-44d0-08de948929bf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2026 09:36:36.4372
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: D5YJPuhmezaRov3owavrewl3etvkb8i3Q4ZWbiiLwDsZLYq6QtockisNUfh2IXyDW7+OXuaVuPyf8dxSnq0DXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6120
+References: <CAMYVuYj-z4DAo-a+5BVUojfRUC7hS5B-vttOuTc_RcGyEfNT4g@mail.gmail.com>
+In-Reply-To: <CAMYVuYj-z4DAo-a+5BVUojfRUC7hS5B-vttOuTc_RcGyEfNT4g@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 7 Apr 2026 09:07:01 -0500
+X-Gm-Features: AQROBzBqpnEw4baIi1N8HMIFJG9JVvF8Y-HKZZS7dYUepKSmBBMEqMjMd_13qk4
+Message-ID: <CALLMt=rOCOR3BZMAC1gAOw7H4qF2vQhpFjP2YWwxGHwz86UL1A@mail.gmail.com>
+Subject: Re: Help needed with OpenBMC Gerrit account merge
+To: Manish Tiwari <tmanish.in@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="00000000000017af6b064edf4d19"
 
-SGkgQXJuZCwNCg0KVGhhbmtzIGZvciB0aGUgY29tbWVudHMgYW5kIHF1ZXN0aW9ucy4NCg0KPiBU
-aGVzZSBhbGwgc2VlbSB0byBiZSB2aWFibGUgb3B0aW9ucywgYnV0IEkgc3RpbGwgdGhpbmsgd2Ug
-c2hvdWxkIGZvY3VzIG9uDQo+IGFncmVlaW5nIG9uIGEgZGVzaWduIGZvciB0aGUgbG93LWxldmVs
-IGhhcmR3YXJlIGludGVyZmFjZSBhbmQgd2hldGhlciB0aGlzDQo+IGNhbiBvciBzaG91bGQgYmUg
-YWJzdHJhY3RlZCBiZXR3ZWVuIFNvQyB2ZW5kb3Igc3BlY2lmaWMgZHJpdmVycyBiZWZvcmUNCj4g
-dHJ5aW5nIHRvIHNvbHZlIHRoZSB1c2VyIGludGVyZmFjZSBzaWRlLg0KIA0KQ291bGQgeW91IHNo
-YXJlIHlvdXIgdGhvdWdodHMgb24gd2hldGhlciBpdCB3b3VsZCBtYWtlIHNlbnNlIHRvIGFjY2Vw
-dCBvdXINCmVTUEkgZHJpdmVyIGFzIGlzLCBhbmQgd2hldGhlciBpdCBzaG91bGQgbGl2ZSB1bmRl
-ciB0aGUgU29DIHZlbmRvci1zcGVjaWZpYw0KZGlyZWN0b3JpZXM/IEFueSBjb21tZW50IHdvdWxk
-IGJlIGdyZWF0bHkgYXBwcmVjaWF0ZWQuDQoNClRoYW5rcywNCll1bkhzdWFuDQo=
+--00000000000017af6b064edf4d19
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Apr 6, 2026 at 7:01=E2=80=AFPM Manish Tiwari <tmanish.in@gmail.com>=
+ wrote:
+
+> Hi,
+>
+> I need help with an OpenBMC Gerrit account issue.
+>
+> I have two Gerrit accounts:
+>
+>    - tmanish.in@gmail.com - old account, which I can no longer log into
+>    - tmanish.in+openbmc@gmail.com - current account, which my
+>    GitHub/OAuth login opens
+>
+> Hi Manish, I'm a bit surprised github let you setup a separate account
+using just the +openbmc on your existing email address. When I  look up
+these 2 emails in our gerrit server, I don't see a valid account for your
+tmanish.in+openbmc@gmail.com  email. Please be sure to follow the steps up
+in https://github.com/openbmc/docs/blob/master/development/gerrit-setup.md
+for that new github account. Once you have a valid account in gerrit I can
+remove your previous email and account and you can add it back in if you
+wish to your new account (although you're basically using the same gmail
+account with both of those emails).
+
+Andrew
+
+--00000000000017af6b064edf4d19
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Apr 6, =
+2026 at 7:01=E2=80=AFPM Manish Tiwari &lt;<a href=3D"mailto:tmanish.in@gmai=
+l.com">tmanish.in@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
+204,204);padding-left:1ex"><div dir=3D"ltr"><p>Hi,</p><p>I need help with a=
+n OpenBMC Gerrit account issue.</p><p>I have two Gerrit accounts:</p><ul><l=
+i><code dir=3D"ltr"><a href=3D"mailto:tmanish.in@gmail.com" target=3D"_blan=
+k">tmanish.in@gmail.com</a></code>=C2=A0- old account, which I can no longe=
+r log into</li><li><code dir=3D"ltr"><a href=3D"http://tmanish.in" target=
+=3D"_blank">tmanish.in</a>+<a href=3D"mailto:openbmc@gmail.com" target=3D"_=
+blank">openbmc@gmail.com</a></code>=C2=A0- current account, which my GitHub=
+/OAuth login opens</li></ul></div></blockquote><div>Hi Manish, I&#39;m a bi=
+t surprised github let you setup a separate account using just the=C2=A0+op=
+enbmc on your existing email address. When I=C2=A0 look up these 2 emails=
+=C2=A0in our gerrit server, I don&#39;t see a valid account for your
+<code dir=3D"ltr"><a href=3D"http://tmanish.in" target=3D"_blank">tmanish.i=
+n</a>+<a href=3D"mailto:openbmc@gmail.com" target=3D"_blank">openbmc@gmail.=
+com</a></code>=C2=A0 email. Please be sure to follow the steps up in=C2=A0<=
+a href=3D"https://github.com/openbmc/docs/blob/master/development/gerrit-se=
+tup.md">https://github.com/openbmc/docs/blob/master/development/gerrit-setu=
+p.md</a> for that new github account. Once you have a valid account in gerr=
+it I can remove your previous email and account and you can add it back in =
+if you wish to your new account (although you&#39;re basically using the sa=
+me gmail account with both of those emails).</div><div><br></div><div>Andre=
+w</div><div>=C2=A0</div></div></div>
+
+--00000000000017af6b064edf4d19--
 
