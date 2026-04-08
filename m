@@ -1,143 +1,74 @@
-Return-Path: <openbmc+bounces-1782-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1783-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9922CFD5F8C
-	for <openbmc@archiver.kernel.org>; Wed,  8 Apr 2026 07:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AE621073CB0
+	for <openbmc@archiver.kernel.org>; Wed,  8 Apr 2026 13:31:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4frDvR0sNWz2ygp;
-	Wed, 08 Apr 2026 17:18:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::5" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775632738;
-	cv=pass; b=IgVGbYmZ7J+IF1yt4kCRFBzFZNzYO+gsufdOmbWrULyRLF290mI+Oatvr2m6fngUg9twsl0RZsOrLcUCIQ9wOMT+HI2TIdf1zrTKOzwwqa5dFHXFDFw+kYVVGc3aibkxRyPM08SxEaraJCQoFmHyG7auxhhSMfywz+img5R4+6zRJbQikAVnZRJzp08ddVoHtFdsVNxvLyJV3PUf7kWgBsyLrmMkcznm4QvjdzJVd2/nhCH0LAgK25UdPb1oM0sZsI4WjXHcD1kQAJrvc+H/KTmQuJ8dgrjlqoX4P2Y6OugNyCt8bQLxLMDQxHR2xT+hHW1a2cDjsmu9F6qc7WXb7Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1775632738; c=relaxed/relaxed;
-	bh=tkb5KvRXjWsndN94SzgyiYSYE/HyHwpBffQwwH4WpuU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Gg1qv1kI9k+NlUYkENiHN7mFDF/2iyCd0JT9HNtvsK2b/igUp+wXKMV6Ci5VAwxCioJifPz6oS/ANnBVxztErDvD/De6auwgU9fcIdAx8C3YavmIxLwj2/mzvH65wUfD3iukCOjn5nI3Q5BL4SVORVdbVeSMG2Ig7RzUYB5ZNQXoX1Dq5yNmAykGNiZrHzXcAeyFhnaQFXnyrrBjxKNGPe5qkRoz+McUtNDZh+UjhnX4LlwRgk46k10XFSv7+MlMxYAAfS6JG90tEMyLHq0e9Pn6g/PTQTYGH9YWC+YOBaZQALRph3cRh3uWIydO/SveqKwTK+hEhJr8hRwljjRnrw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=NWrDfnOb; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::5; helo=typpr03cu001.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4frP930BKwz2yjp;
+	Wed, 08 Apr 2026 23:31:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775655078;
+	cv=none; b=JkK0w20IQqsKU0czDBWTJEwzWsG6Tcww8UA2iUNp2DmAouIYel4VU0O3Yvx6t3PtKpV818M9wBoaoLlwDHRnjpQY1SvXjx6YRQkFAT1xHnxSL0CW/7VRkkItKNnb7vTuHgyTheRtiJia7x2Md3Tlgf70hxJj4vfzTT7rIkY/mTaN3ZUjmtlKJuBMNJRbDynEGDEbR7mr4i4teBuA/FSTTuh8WcaYV1w7PbGQRnaUc6P5i90m5JwAlzRPSO/U+IhP5EsOU7ZiYy2+6iQQs3e3pBMsSDtsThIpVLbekL+22Sh+pP/Ph0qfsLUo8FGeoWAflw1CRj4JStfNoN1TANoRxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1775655078; c=relaxed/relaxed;
+	bh=H6LbHcTTP9FZbItc1diImmtUZwjMhLQ4smYNl2k6uQo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mSvnEkXzMWOkLzzLDs4QoCr2sPS2aXmGkOfju8uXgiI06ILPbXDGEaurjCuw0+l9Raa2rfpoN5hOr9H5dD8omgAMOwgFlyZH2bRMhJd1+7UzyZxuT9SrMnqckhV/4BBWKu6zXBn7XoCsXtVv9m2BmaGaMKr1dhDPP+Rj+o/4fUBDC6c3JMBNTu3oqfKyhgmseNmohTv7UWevEcHWhEMJgDFeUpDe/ugQmYOkyByUMuTX5AGYno2VUw4BdEpL1PlGIlzP6WuP7KtyHEEtgXo7xCP6UzqfBIRK3k3bsfTVrg/4pQGtT823RLDtuR7rD06x49il3QmSoYyP2OoWofaBIA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=rtN7MGYB; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=NWrDfnOb;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=rtN7MGYB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::5; helo=typpr03cu001.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazlp170120005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4frDvN1hLrz2xm5;
-	Wed, 08 Apr 2026 17:18:55 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dCtwc/YJq2yjQA1lXDafTblnvcDp6ZlvgPz5fkk8AV+MHP0yOcDePHgFkRjBjOIPCpXBirOglLroTIEnbC+pM18H2vjsFFXuPhmwp0iZ5FnD5zjwxpjrHU7UWHYk2GcNdrzulJ/h171z+hJS5avYhpzlWoOrQsefCHcP3pfvfJ0eQ7rkn1NkEt0RXXcIXK312aJ9RMbc2nuOoJdRnDWCEjxZRPt5vMNHQReZKpZp+XGRf/wTF47qyP9EyHan/1Ms1tlYWOh7XWEdN8I0K3OCEgIJQuOSWSpmkkpuWhczd/Siw0p4x48usYAS/cy5oGimw3qvVs9E/1jRzjSLrTMqeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tkb5KvRXjWsndN94SzgyiYSYE/HyHwpBffQwwH4WpuU=;
- b=EQBdro3oOkg70T03YVjr1YjL1j3jVdJ0VD0V4YkdmVXkTC65SS1Hvp8/muBsDvnye90rDIFZxJL8UM5PQxW6hwuMScHLAAC+Th2KbSP9G14KMY3/2yQ833q2HByiwRvQUQbLdF6AgLIGvdxMRS+kmPggW+F0nSbNDmKi5qDxcJecs97Yw/Gm5kZ+sHI+TfVtekQwDbg81tSqcMF3jUV4+uebyWPG1/p6akg/qTBw0rWdUfA/uOPonfRbrKMjsWnhV216TFMZoIhOLIW93kWXYlb+e06fS/IUxzAAmhWdSlhgzhOeqDDZzIT79GMUiFNAya9rfc2kPNeXpKByvu9n8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tkb5KvRXjWsndN94SzgyiYSYE/HyHwpBffQwwH4WpuU=;
- b=NWrDfnOb7YMjiJSq35uJKgZVh1TV+Pn+mOpOAhvH6exbpWRvJ9kZ/XEcBqsUiUXVSWTKamvJY8PEq2OisZwjzVnSxOu2xz3C9t7Tj+Ouq8xBu8C/Amb2OZJ8jjllcbIumJFib1oV4QLu6fQ9C2t6b5CoDpTGqKl7BhzLh+BQ+OIDCYYGxQVJZbmw5QdZKfa4llhEpueOzg9MSOk4FQZ8R4BxyPSKOoWimFM5XbDpH8CWNg41VtNxmAA6qvCqOTjWSUMIbJjkIRNaZfyzAm72qUmZlPx5/DK2Bu1OKSt70o1Yrdh/ksLEjA3GH9/dryObTxxVxzFrFvDyZFNN7zFBsw==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by SE1PPFDC587DD38.apcprd06.prod.outlook.com (2603:1096:108:1::42c) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 8 Apr
- 2026 07:18:32 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0%6]) with mapi id 15.20.9769.015; Wed, 8 Apr 2026
- 07:18:32 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>
-CC: Jeremy Kerr <jk@codeconstruct.com.au>, Krzysztof Kozlowski
-	<krzk@kernel.org>, "andriy.shevchenko@linux.intel.com"
-	<andriy.shevchenko@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, "linux-i2c@vger.kernel.org"
-	<linux-i2c@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and enable-dma properties
-Thread-Topic: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and enable-dma properties
-Thread-Index:
- AQHcwB5Ez31FCAF2H06H/moL1lfWeLXINCEAgAABqPCAAAIpgIAAAW0AgAADQQCAAAMycIAL3nkAgABfLfA=
-Date: Wed, 8 Apr 2026 07:18:32 +0000
-Message-ID:
- <TY2PPF5CB9A1BE604170FEFB84227925F09F25BA@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260330-upstream_i2c-v28-0-17bdae39c5cb@aspeedtech.com>
- <20260330-upstream_i2c-v28-2-17bdae39c5cb@aspeedtech.com>
- <20260331-fanatic-certain-bustard-fb13bc@quoll>
- <TY2PPF5CB9A1BE6F267C60EEC34B6A75400F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <09cbc12bea5707f794e139ea1bfafac82c2d2c12.camel@codeconstruct.com.au>
- <TY2PPF5CB9A1BE6EA5BABE55EB8A7003D22F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <72517fcf99a7453841ee75243dc54e735c10238f.camel@codeconstruct.com.au>
- <TY2PPF5CB9A1BE64B7988CD85A7189164E1F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <20260407204402.GA3641251-robh@kernel.org>
-In-Reply-To: <20260407204402.GA3641251-robh@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SE1PPFDC587DD38:EE_
-x-ms-office365-filtering-correlation-id: 336d83ba-4238-414a-6d56-08de953f0a46
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- f2oxo6HNpztuDoZKRrarAe8e2WhBJ+ucNMA1RyKYod1mOGNxVFqnL0C7YoNy5+eQNHOQ4DCsmwGMa6OMVC0S5L071YlPIf73s8jBd0ucjaFf+8iYdKfTCrLbHDlzVo1SybU3+HnHpFVwKSl6x9q7mg8gW9lAFF1OaZ6Qz8nM5od2R1M+Vad9ZIp2XYmd3pkvXEacmsHBKDBmDJm1fHIhFWTw3FA7WrNNQdMaMW/6+vbZZlKepX20nIOiEQAZr8jKta5LW0LkRB7mKeF1J/0nTszrNfWvnrt9f0RQmCTVA4peVUUs9ZKRBOrBhMa1BDXnnmMemKSrlTPcgjLf4ihmn6UeNZxysHUcCk3fwg42lc3bo1P0lH0jlIChGk9eB/HIyWNqxJfXoavIwGAE/7/UPBJtveVSAu4YxpV31WPkIjE6v+n1UtLyT1B9OZFyaaOgsAhRAXr768n+5HF1/OgIjvFsv6FVISD4uT2SqSWUEHbKnlpsZF4mi0QxQA2Cy32PhegLyF0kwPzeqgdtQA3zTWONJ+oEZiPfxyjukF1qkKqbdoQw9zTK+2lJj6arwuUWG1960pYIqLFYb4gSbzy4REGGrTCS9YM528E4WEC53PYwphDRKw1tQWtD/0pvkqfhA6NlrYCYbjlgr4lbePB1Tx6bstiq6FkGT/2XSOx+H50inGE2so9Qx8qY2vcvf19sIvftHWgOS30uQBTIB6BxAg3/1lL1pQ71CZ001zymMuKwTXQXUdDfWLCRCvUxw8XA
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?8ZjnFRV48H9ueRQKfqXegXYc1qWi3ghtgy8NizznWIuQ5ssJfktygbTmktLs?=
- =?us-ascii?Q?WB4VS3t4Uk6upImk5fZyOjufMR5mum6u+b9JhdnDFeT5WlQVq2H+OpZFWkUb?=
- =?us-ascii?Q?ZTfEBUa2OEpDI1W7+RZeVmRaKXjfddzHhwBUHlf8iiZfULCi6q++v/exF4C3?=
- =?us-ascii?Q?27Gtt9Rna+SrO9DvCB54Gj8TF7IgavnBinViOtBOTmsSUS+ISIXHFozuuM/y?=
- =?us-ascii?Q?CPlQCOGw6RMV3P+j37T0indyKNngUCzLQXLIqcdkTawj2wgVT0kPKxsFAhn8?=
- =?us-ascii?Q?vNjYJs4UsuijWze4dBFh1wbnvmbEj4GMtXVKzLi+Tyr6yEpkqWRg8VqqsAEh?=
- =?us-ascii?Q?9IsScWG4CpTX0juo8oWIzHNoKPqF6g1gMG0tbv+onxsm7k+PIB24i/pVonJb?=
- =?us-ascii?Q?Ew3HC2N6OhrwROr6FyfsXaJWPp+lfq/ovz7cjfQvaKC0j6MP23ukWwsUFBIF?=
- =?us-ascii?Q?/qDGNG8YXsOC/jiHLu9fZQVHSj9s+Z15NCcjKerUk/tLfA1wYzqMHAPTVNhm?=
- =?us-ascii?Q?fKIQICEyNg1ip0fumDFk23q/Q4IM6TrXS6eD3Qa7Ic7u0rERVNexCVLIr8LM?=
- =?us-ascii?Q?Pq1E3oyge/69VI9Ar+VzTjO8GJIn0oYzz6Z+4ZOrtW1DiPtJq6hkoj9LdlKu?=
- =?us-ascii?Q?D8SMEkT3oLO6aHt5H0DrehOq14jpt6JPj8HyzBOHv7oNOSzYBC+KiPRMPjCj?=
- =?us-ascii?Q?1DhAhI5fk0Lec1ec2kILdmwTcXCDRR4jQ2GEs507Y2qQbWsGHpC1jHcLC9qA?=
- =?us-ascii?Q?Z/jE9x/rH6mt4m/0fIRRuEjeLniiEBi++wP0haxaP5bO+hpjAKOB30ytDCmN?=
- =?us-ascii?Q?1qGvS0JNYBlAjc5sd5BOyvIEVm94/X451qOaBtBCFYOJOK+DoM5z1YRxviuZ?=
- =?us-ascii?Q?E4di+zONDTmyz9bruZBfRiv9gYmgZuCpyE9NQD3gLp0ZhX1HUQsUMJ6UCrRX?=
- =?us-ascii?Q?E+3YMSMtZbDJO4fmOmNYJwiRyif60YfBf8ucHIM6x6bMz0MYzI1fXJlishYZ?=
- =?us-ascii?Q?AaV/MZWvWhmJ4jwBE2NxyCergnMpXLKrGUxfNVzFfXilT0oqZuwOEZWDoIFO?=
- =?us-ascii?Q?cu6N+z2NZ6sQaQo8+62eBgEEQYXKxHxsvv6L0StjG6bJ1A2FaIgaEg4XsiNq?=
- =?us-ascii?Q?tK4ashXqvEyBBArtKxKfCW+a8QTUrvBwKcPwJvwq3LK0v/8pMNCgQfMthdA/?=
- =?us-ascii?Q?qF9faPSLgii6tm8I5YxDVTdxQryqNH55KV2MhOdfnvNPMAxB31ReHylUyqe1?=
- =?us-ascii?Q?OgE8ZqNIrVyEvOq1oZMuazbPDhcB8klQ/KYtOcmpFaaMBtlwtEP2pES5MXTZ?=
- =?us-ascii?Q?RgpWA6iYNFfoxizQ/3s9rzPzWaxfUuc/aXWJi5Ub//8lN9/pEYQwXz0MJuIY?=
- =?us-ascii?Q?vqRrMQYFPfzRw+7kFIJ0VMoggtM9wZn4lmRygpg34bLDUiFctm7auL8pQzMz?=
- =?us-ascii?Q?a/XUqnx4Y9OiDJpm3T7f0JsiBk2E23Izk4SC/ITnByDeII9AYwSTdjR67K1D?=
- =?us-ascii?Q?DuPcdUr2JwRgUr2zpSCqc1fIffriz6/GsFHKh1euita1x+1smrU3V2wqume8?=
- =?us-ascii?Q?6wEgt1J4D3ptoDFOiBJoWBceNKOSDZ8mhn8sCVSIsk6jSZwyXV2UxDi4usQL?=
- =?us-ascii?Q?NhteXa24TsqOABHzcQeC8AghHXL5jZwuUt57UzBxfZE7QAO8cf2k3rB6jda5?=
- =?us-ascii?Q?2FvPtlOcoTR0TEktkXUp4kMSkX/03kMgG1gwU8cQYA2A2/K6ik9WN2ReebII?=
- =?us-ascii?Q?dgDKOeprqQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4frP920GDYz2xc8;
+	Wed, 08 Apr 2026 23:31:18 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 7E3194452C;
+	Wed,  8 Apr 2026 13:31:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7A3C2BC9E;
+	Wed,  8 Apr 2026 13:31:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775655076;
+	bh=sqUO8WthhJzcAvxM38OAUGehd9oMK+15WBmzaWNn1p0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rtN7MGYBrPtoBdayEGA8Bnd5JDJvLqhc+pJsd5pw0aUN5CcVQ2NLuFngCfmnH5qv0
+	 iefrYkl1O+7pu18psbX3QN8D4M0iDwlJ3909aUSS3aPVNKUtF8YAB06ZiNj+G57h7X
+	 EUDkawGKS+itWyQRGJCn2GDmU1bBZhnRusnH+GDjHj0JvVBlCS7LJMSfU+zpH2Vsc+
+	 nZlsRiPeyTA9ygmbXB5NjRNzIRCxFmhRDmrZd6yAzzu87c5hIJ5tF2SooEn+uLHLD3
+	 tfvz6+2KrpaupePD8ZBHGDPh7tHbtppsgqO6U7k05O8cKHBGKlZdzds0DfddJ35sX0
+	 1M1uXixj4VREA==
+Date: Wed, 8 Apr 2026 08:31:14 -0500
+From: Rob Herring <robh@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Lee Jones <lee@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v5 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
+ AST2700 SCU0
+Message-ID: <20260408133114.GA1938858-robh@kernel.org>
+References: <20260331-upstream_pinctrl-v5-0-8994f59ff367@aspeedtech.com>
+ <20260331-upstream_pinctrl-v5-2-8994f59ff367@aspeedtech.com>
+ <20260401-adept-zebra-of-bloom-5bb68b@quoll>
+ <OSQPR06MB725204B2FAE543A71AEA52C38B51A@OSQPR06MB7252.apcprd06.prod.outlook.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -149,116 +80,63 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 336d83ba-4238-414a-6d56-08de953f0a46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2026 07:18:32.0752
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OO7VFp3hI6QSAVe72Ce0gWIVwt5gL1eeGFMFk8jvVyQPiB6aosrbUMcwf5L6UAzgv56JE8+NffDWQkZcF10fsECrO9NLmvKOvLGrb7yKnTw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE1PPFDC587DD38
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <OSQPR06MB725204B2FAE543A71AEA52C38B51A@OSQPR06MB7252.apcprd06.prod.outlook.com>
 
-> Subject: Re: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add glob=
-al-regs
-> and enable-dma properties
->=20
-> On Tue, Mar 31, 2026 at 07:30:58AM +0000, Ryan Chen wrote:
-> > > Subject: Re: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
-> > > global-regs and enable-dma properties
+On Thu, Apr 02, 2026 at 06:14:06AM +0000, Billy Tsai wrote:
+> > > AST2700 consists of two interconnected SoC instances, each with its own
+> > > System Control Unit (SCU). The SCU0 provides pin control, interrupt
+> > > controllers, clocks, resets, and address-space mappings for the
+> > > Secondary and Tertiary Service Processors (SSP and TSP).
 > > >
-> > > Hi Ryan,
+> > > Describe the SSP/TSP address mappings using the standard
+> > > memory-region and memory-region-names properties.
 > > >
-> > > > > Sounds reasonable, but before you do so, how are you planning to
-> > > > > manage the allocation of DMA channels across multiple i2c
-> peripherals?
-> > > > >
-> > > > The AST2600 I2C hardware has only one can use DMA at a time.
-> > > > To avoid the complexity of managing DMA channel contention, I plan
-> > > > to use buffer mode by default for all controllers, which still
-> > > > provides better performance than byte mode without requiring DMA
-> > > > channel
-> > > allocation.
+> > > Disallow legacy child nodes that are not present on AST2700, including
+> > > p2a-control and smp-memram. The latter is unnecessary as software can
+> > > access the scratch registers via the SCU syscon.
 > > >
-> > > OK, but your wording there ("by default") implies that DMA is still
-> > > selectable for one controller peripheral. In which case: you still
-> > > have the problem of managing DMA channel contention, but now it's at
-> runtime instead.
+> > > Also allow the AST2700 SoC0 pin controller to be described as a child
+> > > node of the SCU0, and add an example illustrating the SCU0 layout,
+> > > including reserved-memory, interrupt controllers, and pinctrl.
 > > >
-> > > So my question still stands: how are you planning to enforce that
-> > > DMA is only enabled for one controller?
+> > > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> > > ---
+> > >  .../bindings/mfd/aspeed,ast2x00-scu.yaml           | 117 +++++++++++++++++++++
+> > >  1 file changed, 117 insertions(+)
 > > >
-> > > Or are you planning to disable I2C DMA entirely on AST2600?
-> > Yes, This is my intent to do.
-> > Disable I2C DMA entirely on AST2600.
-> > If I remove DMA, should can I keep byte and buffer for sysfs?
->=20
+> > > diff --git a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
+> > > index a87f31fce019..86d51389689c 100644
+> > > --- a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
+> > > +++ b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml
+> > > @@ -46,6 +46,9 @@ properties:
+> > >    '#reset-cells':
+> > >      const: 1
+> > >
+> > > +  memory-region: true
+> > > +  memory-region-names: true
+> 
+> > Missing constraints. From where did you take such syntax (so I can fix
+> > it)?
+> 
+> The intention was to constrain these properties conditionally for
+> AST2700 SCU0 as done further down in the patch.
+> 
+> I can update the binding so that memory-region and memory-region-names
+> have baseline constraints (e.g. minItems and maxItems), and then refine them in the
+> conditional branches for AST2700SCU0, AST2700SCU1 and others
+> 
+>   memory-region:
+>     minItems: 2
+>     maxItems: 3
+>   memory-region-names:
+>     minItems: 2
+>     maxItems: 3
 
-> 28 versions and it's still not clear when you need what mode. Sigh. The o=
-nly
-> thing better about sysfs then it's not my problem, but that really doesn'=
-t sound
-> much better.
->=20
-> DMA is only going to be useful for transfers above a certain size. If you=
- are
-> doing the typical SMBus style register accesses, then DMA is completely
-> useless. The setup DMA overhead is going to be greater than just directly
-> reading/writing the I2C controller FIFOs.
+As of this patch, you don't need that. You can just define the regions 
+and names at the top-level. And the conditional schema only needs to 
+disallow them for the appropriate case.
 
-Sorry, why you think DMA overhead is greater than read/write FIFO?
-When enable DMA, all dma allocate will be initial in probe.
-And the DMA mode data is going to dram, that will be read/write data from
-dram. Compare with buffer mode, data is from FIFO register to read/write.
-So DMA will not have overhead.
-
-> What's the size that makes DMA
-> useful? 16, 32, 64 bytes?=20
-The i2c ast2600 can be 4096 byte for each tx/rx dma,
-buffer mode is 32byte (16 byte for TX, 16 byte for RX).
-
->Something greater than the max size in buffer mode
-> probably. Really, provide some data that DMA gives better performance
-> and/or less CPU usage.=20
-In general i2c transfer len < buffer size. dma did not gain.=20
-But if large than buffer size (16 byte), it will reduce the cpu interrupt l=
-atency.
-For example, mctp transfer :=20
-https://github.com/torvalds/linux/blob/master/drivers/net/mctp/mctp-i2c.c#L=
-29
-mctp max len is 256, that will 1 interrupt for each package transfer.
-But in fifo mode will be 256/16 =3D 16 interrupts.
-Compare the smbus I2C_SMBUS_BLOCK_MAX is 32 byte + 2
-https://github.com/torvalds/linux/blob/master/include/uapi/linux/i2c.h#L145
-That is only (32 + 2)/16 =3D 2~3 interrupts. It may not gain more.=20
-
->If you set some minimum size and request DMA only
-> above that size, is there really that much contention?
-Sorry, I don't know your point here, could you give more your statement?
-
-> If there's some specific
-> device that really needs DMA, then make that device's driver request it a=
-nd
-> reserve it.
->=20
-> For byte mode, there's not a clear need nor description of why. Someone o=
-nce
-> long ago asked for it... Who cares, if they really want it, then the issu=
-e needs to
-> be described. If a certain device requires certain timing that byte mode
-> provides, then that should be some property the driver for the device
-> communicates to the controller. No need for DT nor sysfs in that case.
->=20
-I agree with your point.
-My proposal will remove byte mode. And keep dma/buffer. And remove sysfs fo=
-r=20
-transfer mode selection, default will be buffer mode. And keep properties
-aspeed,enable-dma, which indicate the channel have DMA capability to use.
-And if dts add aspeed,enable-dma, the i2c will use DMA otherwise will keep =
-buffer
-transfer, is it ok?
-
-=20
+Rob
 
