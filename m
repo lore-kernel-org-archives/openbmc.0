@@ -1,140 +1,91 @@
-Return-Path: <openbmc+bounces-1788-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1789-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB33FF36B97
-	for <openbmc@archiver.kernel.org>; Fri, 10 Apr 2026 02:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F7DCF4485A
+	for <openbmc@archiver.kernel.org>; Fri, 10 Apr 2026 13:29:29 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fsKlh4FXCz2yhP;
-	Fri, 10 Apr 2026 12:01:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c40f::6" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775786464;
-	cv=pass; b=k7AOYBrQbPG1o47ZCu4UbiG0cgHvDraV3RYO91wYcEfc47ilYJubd2zt5iHzGYNzWga24Xuvkuvaf8tiAJ1p2yGB4ql3VPMvnNf02bLnoQ4NuIXF2Jj67TeROrXp45rID2LOftfKZzb1rpWEk3TryW4kkvdnLhhkVOkVaXRveu9xJvTonvTmhqbDeXpUNVw5OpV33cMr/BPoISxJs80urXpl8bmnoaEh+6vwxCpqYdjIuax1RjdrSOGlBjDA5ElQFn8Fz0pMFIlq9gDfGsxJTvaMMRGzHDbXZ7/tuWSK9PySDXFNRctzN2/oAOSfukXPDnms1KY12d1Ilcqi9I8ajQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fsd1v3CPsz2yhP;
+	Fri, 10 Apr 2026 23:29:23 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::e30" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1775827763;
+	cv=pass; b=dKAsUHquOLWGFJOq0GlBVs7Dw4VHoRaC/AzG2ZPjUBJFgl0qnj+kOxJlrynCdbJS1XrXtzFwMhAZD+KJ/mSR4Kd3poxz3JaARRTfPb0DCBlGcGA7Hu1FXDibmYkuMsIBDV8eo7WJsDwSrO2i+ytQBIUpQ4oBvhsJx25OcbVlV0UJguE3KnXXnWfvcw2DR9WZjs7lPq8q7htt/IEKxQVAFl9KGtS+8roBHQk9YJCMqzQ8sgJFIUgwOBY+WZluELSKl+hwEYtz+AKcykZVm/PEzmypYGGnW2TgLHwLfiLfKFMS5AudTvPZCUntp9T1fjhD6PpfJXHH4H7/IfheVIMVLw==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1775786464; c=relaxed/relaxed;
-	bh=PHK71ON6lJ+MXR67GSxYCwlNPv1i5XQntjwfSxkfAgM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=NDwy4uoUAE58G7zRCnvTcjeFaO/UmHOtf1NuQZtEv7w4fdxNsMHBFlDhAYjsWJXh+xfXD8XyF6dPLd9aljLJaBSkY0cvsvCSt1ASftqG4RgKP6rk4NLHO/2nxR6M+biEWIUi4ABzOQTOh7VUUIbqgjeSgEmklkYpTJ/Xb73nJ5xSI6Ixnpnb/P9oJWtXLufwwMVrwNb8lrbcHeP24sWAMqCq/uePsbYbvk5lRVg3dGwsoQ3xT7Wv4bdICJGrtDRJO2L5qjmEVchjUFq+37ZLC4z6QDBaK6ElYOG4c7JtYUcb5LJCLAGnDqLGh76wySOAB/RjyI9xZ9+dneBB8ojSJw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=ibX7K69o; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	t=1775827763; c=relaxed/relaxed;
+	bh=TbYSO4p/FzWyKrY2u1WYNzDfzLe2atasoutLMwM3iiA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OLnyQ7PaTQ4J7v4lENH6lto2vWN8uZrKifsUNIKgltrIHxICGytBGSycAy9xuGB0aBHbXc4U4HRc7e7/CCajJb1JIWN9PnTry/s5DsWizMM8MJqcvuC6pBYYdmypyUG/3DXZbOOrdHPcTKO+I+jQNAxQ/7FksUmKExNu48V4mJ2+CDcScQmTM7jZ64R1uhCvYgXc5wHwxAl28HtZ/2Va1yTeIvqRCa55okrVfQj3zob434/0SwTzFXKbmMxY6RCG8scaDWAPnR4Mpuom+Sw4qiUGy44rEQLLzy31hiBTOSlBoF1s7P+SmVfLV2dfeeunvDSFqxm9aMYDY0CAtR/xsw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VSB13fsq; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::e30; helo=mail-vs1-xe30.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=ibX7K69o;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VSB13fsq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazlp170130006.outbound.protection.outlook.com [IPv6:2a01:111:f403:c40f::6])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e30; helo=mail-vs1-xe30.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com [IPv6:2607:f8b0:4864:20::e30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fsKlc5hyCz2xTh;
-	Fri, 10 Apr 2026 12:01:00 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vJp9Nwul9/Puf8nLGXCLwhNs4LqoXAxD9etLB5x22qM/UA1srOlgM7FOA22M2Ex/3ZfW/IQx9Bmvvic8LeFSoC0q3TGvidvQopdBoNKmMmcX0jWRkcmCroVtDwFfcqATTatvUNN3aEVIHT7XJYEdWERLZvpX2uRXiv7rITCk8bqA6La35reuFM/oQJJBNEQrmM3HZsHOG+CHifSh/J+JuWlmSbtzHkg6+zbcGg5aGyMJDE+UAx7gQJnoCtEPAB5dN0PxOw7QfhrpyrFfbQQZHplRW7k3qasndMJzD5W16SsScYyFHBhPAja3VBcE9rVcnRyIngkTLjRhoBpwSJXwDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHK71ON6lJ+MXR67GSxYCwlNPv1i5XQntjwfSxkfAgM=;
- b=VqgM6SFb8PTVkbeaPWS5Aroihvl8RI2coYsAisL3GXCMFS60uWyPLZJockh8C3Ulqpj76rWhelaDm1UZTBEmhuq0tLI9R7CyYlH8GPL/WixAd8JAFYPhGEVyOA679oymb1ItWzyLWTmzN2uukKKLYNDnnFZoHPzZJ1JgX72n+rD+2st4y7bJZJhG+Ku21vamN1f/Ignf8uwAuF3nWe3tIkO3ZJqT+nD4E5q0oqZ4qfgPTBMvgvK3wrLdswmnl51gOtR69dV1DHv0MaKw6hN/MrJWDu1yM8Q2dljPv/5N80Q452gOp2RFlUwrUhxCUhGyw6XBwP3kcItOR5PDYK5vkg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHK71ON6lJ+MXR67GSxYCwlNPv1i5XQntjwfSxkfAgM=;
- b=ibX7K69ouaEMJp//eGYiU38Wp7qPuiC/U/nmzDcWtpszXG0zWiv/t2BU1fw5rHBe5bQiDUJUb6Is/c5RNwyxSpkmS98rqTMk2lebYGn7huhK8LYuBTbNjnFrvSJBAFPxLH/qHR4sIZs74lzYI7NZbjhnMRfdOSLaAlJUcE44dXgRfzYWLB1zEPNnFzCp1XuaAqOXhYFmwqQkBZEK2gNChxqNe3GequFxBwjPz/3z9Id/23XsAhIfUX6h6tTWN509kEW14oP+8c5Knl9X+sknaZtvasZ+Uh0kZqWp1UHP8lr9cOBBljPKCaj/OGe/oHu/vipiSDhSrl46GUAqy/FpLQ==
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
- by PUZPR06MB5793.apcprd06.prod.outlook.com (2603:1096:301:f3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Fri, 10 Apr
- 2026 02:00:29 +0000
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19%4]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 02:00:29 +0000
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-To: Rob Herring <robh@kernel.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Lee Jones <lee@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Ryan Chen <ryan_chen@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v5 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
-Thread-Topic: [PATCH v5 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
- AST2700 SCU0
-Thread-Index: AQHcwOBzpo2LGWLrJkiaaIjatlvHtrXJwg2AgAGLixmACeiYAIACYRWN
-Date: Fri, 10 Apr 2026 02:00:28 +0000
-Message-ID:
- <OSQPR06MB7252443E4B4B7A4EE7CCE4818B592@OSQPR06MB7252.apcprd06.prod.outlook.com>
-References: <20260331-upstream_pinctrl-v5-0-8994f59ff367@aspeedtech.com>
- <20260331-upstream_pinctrl-v5-2-8994f59ff367@aspeedtech.com>
- <20260401-adept-zebra-of-bloom-5bb68b@quoll>
- <OSQPR06MB725204B2FAE543A71AEA52C38B51A@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <20260408133114.GA1938858-robh@kernel.org>
-In-Reply-To: <20260408133114.GA1938858-robh@kernel.org>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|PUZPR06MB5793:EE_
-x-ms-office365-filtering-correlation-id: 8e937c3e-b787-408f-b7c0-08de96a4f0bf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- ww5RLuwxWKd3vwGZ6E2ZJH8plG+WxCGEpgu4SrUQpuqJ3p1JNm95jN4d/jTBIQUZ/eDxc0HB4e/xRoD2Fe2jov2GAE6DbaMEviVIjo7P8vX59/s6VpTr7uBvYIxxIw2O6d//rENvW+yIX6/Wf0NVF7iFrUKNH5SckVNC3vGmIimVj5saiHOPIJ0I3K5af2omIxf//YUc3GaVXXxwR0ScEw3t0lonu5I1Az1DypWrElPfnQwWI7iT2vlDUYQjqyt+8gXJxCP9/qh7/8XHtdRjYWqy/VUbxVhkRtzssYrCVxgZtVTXZWnSRsOLzdrEqpqf7zuljRCYK4WEjbjfz80wDGG6gYWHGS5KRpBXOAAKcJQQFX3lwYogfOaep2Rv+Y5daq9e3aQ5V8JK95aAUKie1ykiXMtoWnJjTME9iRRFRWNmV4aJgueRiVAzhmtxF4RPULlNJDvGmQFc82OYb4D2y8Gd3k+7yAv9UdAd9a8M8VKpVip/vOOUE0yrwH2oz5PjBMNppnEuEJEJkeWoESkX/YsuqejKarNF8UROPytfh6+D6xkzzu80qnlMVudHs5kCZCgUKJVJeNg14w726yyeF9KavfvR7l4gXuLQVIAGqZTe/x7qUTccz0k1H6Wlm3UVMR+udipmIJCAn7gi4gjgsFLmzxU7BWKlQwN1aXopHU4dW2G02a4OGADFZq/XI80ahJKakUZ9udP8ToiNodg5ftwVfRhn8gNEmsDJ1b2ZCJcwvPhJZ9XhFYa8T4e/K56KWt4CSjwvj91lj2YEmF3Nq1+o2qfTer1WsWdXddpicII=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?7eRj9MKeKHteIwaP28hicev6bmEE8mM3ekgY3EhYTjWbDpLfltDTce4ekd?=
- =?iso-8859-1?Q?9/9FzHWEKmKe0w2xmOPj/KIZNc+7v2TR/WQiQtXfzJcbU8eIDPVty874ZY?=
- =?iso-8859-1?Q?e2NqixOkZN5sUf+p/OPAsdUzGsQCoGuxP4yIXm28wK7GUUctPiN4zY6kpH?=
- =?iso-8859-1?Q?S/mqHrSUWGxjMt6S/SPSuq0stTYsyLDsUXicmtdEXfScy0zV3spf1zIA+V?=
- =?iso-8859-1?Q?+8thBKLwR47EwqzRsaEEXEEteYoErP2DmD6cT6cfORfF8IWrHTpmA/d9vw?=
- =?iso-8859-1?Q?NXXSTlpRJ2XvWjPwdl/mkNnYjURjRVqXba0wes22jY79Fw42KTvJZ15zX9?=
- =?iso-8859-1?Q?I7iGBZ6KKzIM5k4JCuQXMTxWFGmIBIFZiaWsEbM8BC/MYLR279KbbtqXno?=
- =?iso-8859-1?Q?l2nqE3FhztHX+QYW3J1kRYAOhMP0LmsBJEtiFf9N0vxC7zVOfV+YPm0oHg?=
- =?iso-8859-1?Q?UDpM38H7z85DWnS6AenplWjGPIZ8olytyZtWgFFEZ/PpgorWfcRCqOstiV?=
- =?iso-8859-1?Q?8wip/8zlZE2ZqteWgQKxMxJMIt4DC2nzJaXhtQI0AUBdlfHRFhi5qCkPQZ?=
- =?iso-8859-1?Q?f2ytZXv8iGBQJlcLLdiYzvIR7Xro0iGbBPsFkMLenEzjv8PpyJdlHsBEM4?=
- =?iso-8859-1?Q?fMqbUxGmhlZjdFqdJ7lnfwYTRacub6dDh+Kk4Ly+Os7iKrRe9z4RSfSfrF?=
- =?iso-8859-1?Q?tvy+EqapqIPgmnRGONznib/5LRwgSNZngiZbIFR6sEcTX5OAMuK+UoOVtC?=
- =?iso-8859-1?Q?gekspSf6nm7Z+WPL+fGM3blQFMYjcS2s7TBbRr6lmIJ62smPVuFm0rEX5N?=
- =?iso-8859-1?Q?wDaX0MLguN/p1iL1zSaKRTcdYVcvIuaAhswQhq6XqpxSgm9c1CZUhJvCX6?=
- =?iso-8859-1?Q?1/t4wtfOKKg+6ALF+3dJzB4+s+VNmGzgvaOaao82oPUWwLlmZciTQ3SN1I?=
- =?iso-8859-1?Q?sn5Sz4jUIGtrccD3gHzKB/z/Q7A1ZOz5k9UbREw0s14BJGOFOtVtTtJcUM?=
- =?iso-8859-1?Q?p6Vb0xCAiNk6qe/V4+uVRZuvpVqCqGobLHs7CQEeZwON6JrvDRZ6CreLdN?=
- =?iso-8859-1?Q?TmaM9lzCA/I6sJUZy+lWTDzgdWjTzfv3t5e9boKTOx0Bx6bpdDSHoAgFvN?=
- =?iso-8859-1?Q?kcvvuFYW6gL04jM5t4I2OA9gxwjzMc7qKaBkCyL09Fa6dk4SIkKopa0YM8?=
- =?iso-8859-1?Q?8r8gM82q4rHkH01LZ4dihhMDb7RbNuAC828+wKAvIkhRd6psRZoWQLkvDn?=
- =?iso-8859-1?Q?Cuno7A6vl5OlheDQcmUswB+ki3x5vrSd3bIroWbjQQogloZKsXmpUg0oEv?=
- =?iso-8859-1?Q?/1IJAgPhs4bxezjcN4q3bRf7o21vReHKO6HSglGjw85P/c46KZWCFFS4Z1?=
- =?iso-8859-1?Q?S2abj4JYFxdxzx5qMYDgnJ42WqxJWxL5b06mOVPkka9ktxONePCQGfacWM?=
- =?iso-8859-1?Q?pLQwq9PNyjdbcBEVAgTBQPOFzb5yyqvh4YTi/kMsh/V8U8XzpYxy87hCdb?=
- =?iso-8859-1?Q?qAeHpr3j+j99bOg3pop8dnybj1DEjNL39RyU30j+0G0R/6CwWXNk7u18Sh?=
- =?iso-8859-1?Q?CE33rvJ4Pn+M8UH3+uyCP99RTxyJWyXKWMNk3GqiT4Dt8kre/2pbTJ/mq9?=
- =?iso-8859-1?Q?WCgEfmya7BHywC0VQquG4t/plFZYEVme8rjhPcPeJmyCd480KreGbaeKin?=
- =?iso-8859-1?Q?uX7go813v5FPGt09qpBcHZlnDkdjZ8ND7zvpWHZL8SilU+4zGsVnjj6h30?=
- =?iso-8859-1?Q?vgw6xafJ7hcZrr9V+qu1WwNrAaJ3NYIuP0gWfyhi4BxE4YK58j+9SSz6SQ?=
- =?iso-8859-1?Q?NB/tJrlaeg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fsd1s44y5z2ySc
+	for <openbmc@lists.ozlabs.org>; Fri, 10 Apr 2026 23:29:21 +1000 (AEST)
+Received: by mail-vs1-xe30.google.com with SMTP id ada2fe7eead31-604f834349cso707583137.0
+        for <openbmc@lists.ozlabs.org>; Fri, 10 Apr 2026 06:29:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775827758; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KtwcUAuxmglJitv3J2ChCqUlZuypU7Z7AADGN1qn3BcaBL/Jmpcq/oZivd+tHXWa5A
+         f74onZPpN0mvEp9KO7cF6151/RwywF2kvOs0vQc5AgBNAJWHnBEusVPKb6/fmeQybcmu
+         NfZtg7O3alotLWpJ9YIBqNhmeU51bArG5Q50/VXrpcX3FuyZK+WNaISd7KDTQ0g1CIRG
+         1G7zxGrQa/CkDZTUXPOWBlsu4sBsXm/XJAfukamfK6t0h+PSe9FtwwHvV3jj6M1WVt5m
+         NufoQP5oklH0S82Ix3KHrV4KGvl5IeJNuzn4pUKvJTomuxgKHI94CVji6JnqKUD+EbLw
+         RAXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=TbYSO4p/FzWyKrY2u1WYNzDfzLe2atasoutLMwM3iiA=;
+        fh=7YfzPGQHhwg8YLf34mxOwNlta9ZLqFNWHUBeIy42V/U=;
+        b=OD+y2mOFwdYXKX64lrTy6aZd2Wdyp3st5vsS2O2F0oPmOe3paPKHGfDlGUVXNNTx8o
+         LRAnBIWI8yt0SXWkQoHuLzeN22RAnFXQAGCwC7VRSVGCKpkm6/R0zcqSA4MkuPWLZXfw
+         kbmovRyE2YvbEd3nDKCgYzICFfn3iJhkGd2DEtFEXCSH4keSYKqp+qnBC3QrjMeBXOZT
+         95+FLdzDnVyROX2V5mqMgPr523MBxO47lxIN/JORpXlIfYH3Cpp0RGibwu/AZ2bz1BON
+         vZDX3ovdPt9KOlYFyLqG+YuwagNMg1X0ASqdIcXUTzpGxBFeYc4SxyjFe096c7x98K6Z
+         PjcQ==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775827758; x=1776432558; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=TbYSO4p/FzWyKrY2u1WYNzDfzLe2atasoutLMwM3iiA=;
+        b=VSB13fsqyZGtB4Qw9IuAuOEirZosPsVVDj17gPoTDc6YOVaulLQyGxeIcilD6FU5E1
+         5m0QDggOMPKfI3OQmHLGem4Kqty5o9Lrf9BkCEpThweiDi7oCbkrquisw5ris/LM3NFL
+         gLaY4YY1l6bDHg2D+AQrDE1XKg2yOtdIt/sJckCmAHnb4y+qcH9T+be236QHN+RHofre
+         WExQ8GKeCl/5sB12mQHIBEfpPHfQADR+hM9GsrVPXDQ9RtLDiWPimgbNsZytNLoKL77m
+         hpK4iOdasFtFesY3KNJaUI0XEuvcwgL6ujD7udu4R/1RjtSbPQMfUDaGoWdms403siaM
+         NM6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775827758; x=1776432558;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TbYSO4p/FzWyKrY2u1WYNzDfzLe2atasoutLMwM3iiA=;
+        b=E1IhASdIlgtl8ZmnRZpzzXARC4NE+BPFumYKRjgQJ7pDfJ81PuqW1h5wedWXuOqgY3
+         vACOdU41SWJpgXAEVrIcasiL97oBv31erUFgfjPLaN/TuhorNuKvM5FJndHryq520D7a
+         k4iRhFEjdbpEB0MTBqBGPT1SzjNKwA0d+1rwIMLy5OxZOeC6HJ4jG/xU4k+8602fVtSM
+         4GiTgWR3vHm2ooSROWMkPgpYK14iGiqFS+ZlUc5ZNsZYAwf2QJIlFjJ3+AIdqV4x2IY2
+         S+FztG2WH1jyjmtZvtAgmlVokCHrBfen1W+hqEgkY0UXLPKRN3oTMWpeDtRr26s8o5y4
+         T0WA==
+X-Gm-Message-State: AOJu0YxJ9CV23sg3eAzf68mtfWmQ9lHNPvwWKzWHmHYc2Q4OH4ZtYsjZ
+	aVgRnvZ1kzRwHIugKl6ziLPxX7BX4nm6zhPQ1FxzinYHGS/TxtYtbh1IsufVnx6cjUAlPZ7Pye+
+	VgmxspxLdkG0/UvqB8VObMYB8X9XAaEjMHWeOnjw=
+X-Gm-Gg: AeBDiesAA5eoayFbYUosnwTmvXYWlVeb5TWsdAz5epj1tOrTpvnZEXNQgfCZ0/MFYtb
+	t1HacqqQEd/gWRxFzvyOosvY4rVWzXgO+3r8IkYcHY3u5A9pVCjEbwf7OK6T3IuxlVR14T3aHKk
+	faK4khsbGWXdP2mLOpBOOP/MeOisv1Dp28yLBydERtdXvWL4axQFKRGLHPbAHZj/dfBXGSlKCvH
+	OwfaGTGNrD6pZ2sGNkjVcrn75CnuDJ+0hNu8KFZSncNIXm3NE7+sa6EFIMY8eByd6OHeUVH2UUX
+	gzjW8zTU9r2vgX3jBFivzqm+erXkitf0d1kTginbpDPHnq14d30xD3dmsy34UP2Pqg51
+X-Received: by 2002:a67:e103:0:b0:602:97a8:10c0 with SMTP id
+ ada2fe7eead31-609fe584139mr1093558137.1.1775827757322; Fri, 10 Apr 2026
+ 06:29:17 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -146,121 +97,209 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e937c3e-b787-408f-b7c0-08de96a4f0bf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2026 02:00:28.9955
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LgKteBeHeOzp1E/94/C1nxjMbmYCHcWbB6Sfr6BFQLy9B6kI8/iTtuRzzg3dXn8aqzlZA9WMvOqiWpkGhCrMvnUHb3Hjyh09nQGqmpw/dqk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5793
+References: <CAFme=rmRF03V1RLm4v6071ET-vVzrPjz_oVKCfWoO5G0CMzJUQ@mail.gmail.com>
+In-Reply-To: <CAFme=rmRF03V1RLm4v6071ET-vVzrPjz_oVKCfWoO5G0CMzJUQ@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Fri, 10 Apr 2026 08:29:03 -0500
+X-Gm-Features: AQROBzDxYD9M8C9kFdhMTMqNcAXk5W6BLqQFWqzk8_nfN891hiWi_OLSorr-EmY
+Message-ID: <CALLMt=pmg3CBB5SNVffAPMgVemj_L4Am5bc6egh9y8xAXt5jaQ@mail.gmail.com>
+Subject: Re: [DISCUSSION] Drive-level power control support in phosphor-state-manager
+To: Eric Yang <eric.yang.wiwynn@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000a85525064f1b1e95"
 
-> > > > AST2700 consists of two interconnected SoC instances, each with its=
- own=0A=
-> > > > System Control Unit (SCU). The SCU0 provides pin control, interrupt=
-=0A=
-> > > > controllers, clocks, resets, and address-space mappings for the=0A=
-> > > > Secondary and Tertiary Service Processors (SSP and TSP).=0A=
-> > > >=0A=
-> > > > Describe the SSP/TSP address mappings using the standard=0A=
-> > > > memory-region and memory-region-names properties.=0A=
-> > > >=0A=
-> > > > Disallow legacy child nodes that are not present on AST2700, includ=
-ing=0A=
-> > > > p2a-control and smp-memram. The latter is unnecessary as software c=
-an=0A=
-> > > > access the scratch registers via the SCU syscon.=0A=
-> > > >=0A=
-> > > > Also allow the AST2700 SoC0 pin controller to be described as a chi=
-ld=0A=
-> > > > node of the SCU0, and add an example illustrating the SCU0 layout,=
-=0A=
-> > > > including reserved-memory, interrupt controllers, and pinctrl.=0A=
-> > > >=0A=
-> > > > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>=0A=
-> > > > ---=0A=
-> > > >  .../bindings/mfd/aspeed,ast2x00-scu.yaml           | 117 +++++++++=
-++++++++++++=0A=
-> > > >  1 file changed, 117 insertions(+)=0A=
-> > > >=0A=
-> > > > diff --git a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-s=
-cu.yaml b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=0A=
-> > > > index a87f31fce019..86d51389689c 100644=0A=
-> > > > --- a/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=
-=0A=
-> > > > +++ b/Documentation/devicetree/bindings/mfd/aspeed,ast2x00-scu.yaml=
-=0A=
-> > > > @@ -46,6 +46,9 @@ properties:=0A=
-> > > >    '#reset-cells':=0A=
-> > > >      const: 1=0A=
-> > > >=0A=
-> > > > +  memory-region: true=0A=
-> > > > +  memory-region-names: true=0A=
-> >=0A=
-> > > Missing constraints. From where did you take such syntax (so I can fi=
-x=0A=
-> > > it)?=0A=
-> >=0A=
-> > The intention was to constrain these properties conditionally for=0A=
-> > AST2700 SCU0 as done further down in the patch.=0A=
-> >=0A=
-> > I can update the binding so that memory-region and memory-region-names=
-=0A=
-> > have baseline constraints (e.g. minItems and maxItems), and then refine=
- them in the=0A=
-> > conditional branches for AST2700SCU0, AST2700SCU1 and others=0A=
-> >=0A=
-> >   memory-region:=0A=
-> >     minItems: 2=0A=
-> >     maxItems: 3=0A=
-> >   memory-region-names:=0A=
-> >     minItems: 2=0A=
-> >     maxItems: 3=0A=
-=0A=
-> As of this patch, you don't need that. You can just define the regions=0A=
-> and names at the top-level. And the conditional schema only needs to=0A=
-> disallow them for the appropriate case.=0A=
-=0A=
-Based on your suggestion, I will simplify the schema and define=0A=
-memory-region and memory-region-names at the top-level without item=0A=
-constraints, and only disallow them for the non-AST2700 cases.=0A=
-=0A=
-The updated structure would look like:=0A=
-=0A=
-    memory-region:=0A=
-      description:=0A=
-        Reserved memory regions used by AST2700 SCU to configure=0A=
-        coprocessor address mapping windows.=0A=
-=0A=
-    memory-region-names:=0A=
-      description:=0A=
-        Names corresponding to the AST2700 coprocessor mapping windows=0A=
-        listed in memory-region.=0A=
-=0A=
-    ...=0A=
-=0A=
-    - if:=0A=
-        properties:=0A=
-          compatible:=0A=
-            contains:=0A=
-              anyOf:=0A=
-                - const: aspeed,ast2700-scu0=0A=
-                - const: aspeed,ast2700-scu1=0A=
-      then:=0A=
-        patternProperties:=0A=
-          '^p2a-control@[0-9a-f]+$': false=0A=
-          '^smp-memram@[0-9a-f]+$': false=0A=
-      else:=0A=
-        properties:=0A=
-          memory-region: false=0A=
-          memory-region-names: false=0A=
-=0A=
-Does this match what you had in mind?=0A=
-=0A=
-Thanks=0A=
-=0A=
-Billy Tsai=
+--000000000000a85525064f1b1e95
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Apr 9, 2026 at 3:50=E2=80=AFAM Eric Yang <eric.yang.wiwynn@gmail.co=
+m> wrote:
+
+> Hi all,
+>
+> I've been looking into how OpenBMC currently handles component-level
+> power control for storage drives, and would appreciate some input on
+> possible directions.
+>
+> On storage servers or compute servers with NVMe/SSD drive bays, there
+> is a practical need to monitor drive power state and perform controlled
+> power cycling or reset of individual drives.
+>
+
+Curious what the protocol looks like to monitor and perform the power
+cycling to these drives from the BMC? Is it something simple like GPIO's or
+is there something like MCTP to them?
+
+
+>
+> The State.Drive interface added in change 43155 [1] defines
+> RequestedDriveTransition and CurrentDriveState, but I could not find
+> any upstream consumer for the transition/state properties. Please
+> correct me if I'm missing an existing implementation.
+>
+
+How is this managed externally into the BMC? Is there a Redfish API?
+
+
+>
+> If a platform wanted to support drive power control through
+> phosphor-state-manager today, the options would be:
+> - Map drives as additional chassis/host instances, which carries
+>   incorrect semantics and breaks the Redfish model.
+> - Write a platform-specific daemon outside of the state-manager
+>   framework.
+>
+> phosphor-state-manager already has a well-established per-instance
+> daemon pattern with systemd target orchestration. Following this
+> pattern for drives seems like a natural fit.
+>
+
+PSM is a wrapper to systemd which starts/stops/monitors specific systemd
+targets associated with the function. So would there still be a separate
+application with the business logic on how to monitor and power cycle the
+drives (like phosphor-power)?
+
+
+>
+> I'd appreciate any thoughts on the following:
+> - Is there interest in drive power control as a first-class feature
+>   in phosphor-state-manager?
+>
+
+I don't see a use case for my company for this function currently but I'm
+not opposed to it in PSM if it makes sense. There would need to be some
+synergy though. Does the general idea of monitoring and starting systemd
+targets work for the use cases here?
+
+
+> - Should it follow the existing host/chassis daemon pattern, or
+>   should it be designed as a more generic component state manager
+>   that could cover other device types in the future?
+>
+
+My preference is keep it targeted on the use case we know unless someone
+has other use cases.
+
+
+> - Drive instances may benefit from string identifiers (e.g. nvme0)
+>   instead of numeric IDs to align with Redfish DriveId. Any concerns
+>   with this approach?
+>
+
+Seems fine.
+
+
+> - Should a drive's power state optionally be tied to a specific
+>   host's power state (e.g. power off drives when the associated
+>   host shuts down), or should drive power be fully independent?
+
+
+Feels dependent on your system design. If powering off a chassis also
+powers off the drives, then you can just put the systemd target responsible
+for powering the drives off in the chassis-poweroff systemd target.
+
+
+> [1] https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/43155
+>
+> Best Regards,
+> Eric Yang
+>
+>
+
+--000000000000a85525064f1b1e95
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 9, =
+2026 at 3:50=E2=80=AFAM Eric Yang &lt;<a href=3D"mailto:eric.yang.wiwynn@gm=
+ail.com">eric.yang.wiwynn@gmail.com</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">Hi all,<br>
+<br>
+I&#39;ve been looking into how OpenBMC currently handles component-level<br=
+>
+power control for storage drives, and would appreciate some input on<br>
+possible directions.<br>
+<br>
+On storage servers or compute servers with NVMe/SSD drive bays, there<br>
+is a practical need to monitor drive power state and perform controlled<br>
+power cycling or reset of individual drives.<br></blockquote><div><br></div=
+><div>Curious what the protocol looks like to monitor and perform the power=
+ cycling to these drives from the BMC? Is it something simple like GPIO&#39=
+;s or is there something like MCTP to them?</div><div>=C2=A0</div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex">
+<br>
+The State.Drive interface added in change 43155 [1] defines<br>
+RequestedDriveTransition and CurrentDriveState, but I could not find<br>
+any upstream consumer for the transition/state properties. Please<br>
+correct me if I&#39;m missing an existing implementation.<br></blockquote><=
+div><br></div><div>How is this managed externally into the BMC? Is there a =
+Redfish API?</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+<br>
+If a platform wanted to support drive power control through<br>
+phosphor-state-manager today, the options would be:<br>
+- Map drives as additional chassis/host instances, which carries<br>
+=C2=A0 incorrect semantics and breaks the Redfish model.<br>
+- Write a platform-specific daemon outside of the state-manager<br>
+=C2=A0 framework.<br>
+<br>
+phosphor-state-manager already has a well-established per-instance<br>
+daemon pattern with systemd target orchestration. Following this<br>
+pattern for drives seems like a natural fit.<br></blockquote><div><br></div=
+><div>PSM is a wrapper to systemd which starts/stops/monitors specific syst=
+emd
+ targets associated with the function. So would there still be a=20
+separate application with the business logic on how to monitor and power
+ cycle the drives (like phosphor-power)?
+
+<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margi=
+n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
+">
+<br>
+I&#39;d appreciate any thoughts on the following:<br>
+- Is there interest in drive power control as a first-class feature<br>
+=C2=A0 in phosphor-state-manager?<br></blockquote><div><br></div><div>I don=
+&#39;t see a use case for my company for this function currently but I&#39;=
+m not opposed to it in PSM if it makes sense. There would need to be some s=
+ynergy though. Does the general idea of monitoring and starting systemd tar=
+gets work for the use cases here?</div><div>=C2=A0</div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">
+- Should it follow the existing host/chassis daemon pattern, or<br>
+=C2=A0 should it be designed as a more generic component state manager<br>
+=C2=A0 that could cover other device types in the future?<br></blockquote><=
+div><br></div><div>My preference is keep it targeted on the use case we kno=
+w unless someone has other use cases.</div><div>=C2=A0</div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">
+- Drive instances may benefit from string identifiers (e.g. nvme0)<br>
+=C2=A0 instead of numeric IDs to align with Redfish DriveId. Any concerns<b=
+r>
+=C2=A0 with this approach?<br></blockquote><div><br></div><div>Seems fine.<=
+/div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+- Should a drive&#39;s power state optionally be tied to a specific<br>
+=C2=A0 host&#39;s power state (e.g. power off drives when the associated<br=
+>
+=C2=A0 host shuts down), or should drive power be fully independent?</block=
+quote><div><br></div><div>Feels dependent on your system design. If powerin=
+g off a chassis also powers off the drives, then you can just put the syste=
+md target responsible for powering the drives off in the chassis-poweroff s=
+ystemd target.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
+[1] <a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interface=
+s/+/43155" rel=3D"noreferrer" target=3D"_blank">https://gerrit.openbmc.org/=
+c/openbmc/phosphor-dbus-interfaces/+/43155</a><br>
+<br>
+Best Regards,<br>
+Eric Yang<br>
+<br>
+</blockquote></div></div>
+
+--000000000000a85525064f1b1e95--
 
