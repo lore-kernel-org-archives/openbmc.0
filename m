@@ -1,152 +1,91 @@
-Return-Path: <openbmc+bounces-1802-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1803-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABDDE9380A
-	for <openbmc@archiver.kernel.org>; Mon, 13 Apr 2026 01:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2F29EBFD22
+	for <openbmc@archiver.kernel.org>; Mon, 13 Apr 2026 09:29:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fv9Y52dVSz2yrQ;
-	Mon, 13 Apr 2026 11:58:17 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776045497;
-	cv=pass; b=hXAxP3nGn39fCXWyrtPcVzhCY/53cUE47cjhgIyt676E81niL0R2xL0s06jmVkNuHMvxtr8XwmY3HM5R0JpoYh0cG53BionJU8HQwEFuiY43zQv50VyJlaKwxaeh2CxSj36GoACOz6rghi0w80d0evD7zMi0n8r7Pm3YTkx2u3hzJ3B8r2c147bTBZh1ZOrJb8ZKV0Rrb2QqZnQ3bgIrLupv8D/NhrqPSIG5xkNzxwH+aT0I+0NybtleXIvcMWwp8z9v/Cp719TrV3GoaWQ8VGNG0B16/Pazw4QexfhmRW1Fl8EmwJc6q69cTgnA5LR2bTSzYM63Nnz3aQr1JXQDtg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fvMYX5kjTz2yrg;
+	Mon, 13 Apr 2026 19:29:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::230" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776072560;
+	cv=pass; b=dj5COk0gSQ1oufcGD4J8jYRXzTW5AXRQfsrM1ats5m6Hbb0+wFqULn5oJcs3q9UdT1WZaCjTZIN1JQuXajp7gLJUJ1Nsl8BIYYrNFAIPIJUkHZUCek1K4ZdmoqiAjaWWka4gHI0lPeqAMAY+gLTu6/zjSHt3JDvJiu75mR28JnTOtkazOBGKoxyJDTlJOWenIum/CAw5Ilv+x3+wZONziE2fMOteKappZN5D6KSgNqTvnt8tmMVMILLBO0wPFbc2m/odB1ydblVrm34bdzRNeUNwRxXDNHLWj6OosnGt0IsIvuFdIX6V7WD06DCeGFs15erwLNFfYOXsiIcyLlb86g==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1776045497; c=relaxed/relaxed;
-	bh=NxMIA335Kx5utnu1B5+E72rSIBe3vrlT2Mk6fidITiw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=EEcnAibzFKSmAy+t/xDp+0IDdWhhqamBzAYCQG92aO0h/T6DrBglQisxXf4UnBtDIUT45al3L1KKofzSf9/WBBtclfbqhiy6ULuSq399w78uy4ILwk7bm01XfSAUra5v04231ds8oLouX053H8QqayLJZSlLJvMVjg5MN6wx31kDUXPnvhaza2nOdnAd+c4zLx5c3g6z/vIxA4UNdu+sO81vIdIk/LSP4RMxXKdaSUN9Yi7B3pBfjAtFnx9Shtt//MmdxgaczxTTV5OmtmFI/iV9A8v6Yp8tCfdv6D75RrOv6asRWafi6sEXLj1fOWE/nKgNdWFffQczFKcWKle4wg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=YHf0Xelv; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	t=1776072560; c=relaxed/relaxed;
+	bh=DUkNE8/cmtnBkSV+0rIYShyUGUlkkFf2pnqbCzBkZYI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YNvCjkMDWP4moZmX6/nwbn1euCVwOYhUHVn36wXj29ett2h6rvn5OcygzLK4jaFpkrR2rw59EOYwaFvDk6zZWm7CNUpSNCLay7w2/Bg5CCyoaho1DwK3yWKd6/AKd1lrrJUPlNkPVq3I//GpAZfmsmwsIbtdbZgwZjLFmeN4PS+UZRt5tHT5kUAKM8P0qBQ1yLCDTbjlmEhMwNx0gfPPp/fqI3x7rZ8tU/LVbnJAyNzBcsuKp0NIV9YRUVrrQJVDNIHFwQWSZHVIPQ+TUVd8aY+yE+H1eU+mvuiJyn2LStdAgLVbnHD3qBRja9MjEf8bVMGZe4NNrAKzOogY8uYwmQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JroxqZL5; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::230; helo=mail-oi1-x230.google.com; envelope-from=eric.yang.wiwynn@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=YHf0Xelv;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JroxqZL5;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::230; helo=mail-oi1-x230.google.com; envelope-from=eric.yang.wiwynn@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com [IPv6:2607:f8b0:4864:20::230])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fv9Y14L2Bz2yqf;
-	Mon, 13 Apr 2026 11:58:11 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QC9VOhNWbT5Y7V+NIDHjlgkCqppjR5tefnWWVO1+kQbUljtB9PfsUAAMfexoqASPre8hUJE7gr0dFwnvYuG9ycuZq/9RkQmDbCY+5SHwYGhxBUIdmBU4Jxk51LWs6Djwg0Y8y14lPed41gCLAFCnC4ISyOlZmB5Wpx2oe5IyeO/u8WjU9r9lb/dJzmva5uYnBiUs1kNYloZ3C4sljFPd5oTTJ0kmO07HI2fSV8it5lPo8rzrpj+4VK1jRxak5XUEh2On2ph34EOds0Ff29dJcdlYpWO96i9ahDQKyrqN+qa8lGbn/pHu1bbpmF/FhSnbHJECA0PKReCvt0RWAKtmhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NxMIA335Kx5utnu1B5+E72rSIBe3vrlT2Mk6fidITiw=;
- b=GKuMVGMZCfr09/8KH6pwVpkeFJMAlrKNiOm0WQAdF+s2B76aZod7grLBjNxUWpZNinb560L6gjKXSmVYTfykjOCUrnZJ2gFtXnjp0egYlWO52Gu1EdZYqpbBEt9FFg81WzlGZeItuUqpf2vqV2v5N/Hzq3J+zbbNNqM6/kQuoIC+HOh5PZRj7xtT0Eo+6mdrFA6N7PlGps7luNvGnNQBEjjJaRW23IOVpkI9R5Pqi5w9eki6NlkkyhrUUna/xWIWjivkPugdk0uu4C3uExkCajZeY8SpWSDTSE58pPml7ehsm9ZMEuK/gYaa6LKHwyuUbjaV3qP5lCss7FYHNEUYDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NxMIA335Kx5utnu1B5+E72rSIBe3vrlT2Mk6fidITiw=;
- b=YHf0XelvKCTaOwcbRieRn1CkeLtb0FSlMfim2KsTiV6UMOr4G6GKjOorlUJ3DojnnANPb8TWeLf6jur3LQX416vg8rCv2Y3QTIQS/B9J3fHViypJpshPLzKZvZkLYYQ5mbmJxNVM6LiKLQdcz3T4XWXDM/XL4VXbBc+KJEiIlBb2mPZJIuSSZVns7ufCk4aMbo7q1vGqzxu/GzSdFu+dxty/qzwU68c2rvmvUAKXJ8OHtFw0cKf1rXwT06p7T/1ZVLwuSTra0zPln49gYtDOSWSAe+7+5/fpT2MhV63oP8+o/Xz3sHSL4r5gGRcUVgJEuFJxMBYwAhE1qqIh3DH/Uw==
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com (2603:1096:408::791)
- by SE3PR06MB8200.apcprd06.prod.outlook.com (2603:1096:101:2ee::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 01:57:46 +0000
-Received: from TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0]) by TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
- ([fe80::8c70:cb01:78fb:d9c0%6]) with mapi id 15.20.9769.015; Mon, 13 Apr 2026
- 01:57:46 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Ryan Chen <ryan_chen@aspeedtech.com>, Jeremy Kerr
-	<jk@codeconstruct.com.au>, Krzysztof Kozlowski <krzk@kernel.org>
-CC: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel
- Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>, "linux-i2c@vger.kernel.org"
-	<linux-i2c@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and enable-dma properties
-Thread-Topic: [PATCH v28 2/4] dt-bindings: i2c: ast2600-i2c.yaml: Add
- global-regs and enable-dma properties
-Thread-Index:
- AQHcwB5Ez31FCAF2H06H/moL1lfWeLXINCEAgAABqPCAAAIpgIAAAW0AgAADQQCAAAMycIAUEY9g
-Date: Mon, 13 Apr 2026 01:57:46 +0000
-Message-ID:
- <TY2PPF5CB9A1BE6B6C124B8DE265562A722F2242@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-References: <20260330-upstream_i2c-v28-0-17bdae39c5cb@aspeedtech.com>
-	 <20260330-upstream_i2c-v28-2-17bdae39c5cb@aspeedtech.com>
-	 <20260331-fanatic-certain-bustard-fb13bc@quoll>
-	 <TY2PPF5CB9A1BE6F267C60EEC34B6A75400F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-	 <09cbc12bea5707f794e139ea1bfafac82c2d2c12.camel@codeconstruct.com.au>
-	 <TY2PPF5CB9A1BE6EA5BABE55EB8A7003D22F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
- <72517fcf99a7453841ee75243dc54e735c10238f.camel@codeconstruct.com.au>
- <TY2PPF5CB9A1BE64B7988CD85A7189164E1F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-In-Reply-To:
- <TY2PPF5CB9A1BE64B7988CD85A7189164E1F253A@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY2PPF5CB9A1BE6:EE_|SE3PR06MB8200:EE_
-x-ms-office365-filtering-correlation-id: 712aad48-bc31-46e4-a65c-08de99000ee2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|1800799024|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info:
- ZpdAzHBwTBzgikItf1bdZACnbmREhmKE0o74T7UrfLLkSg85I5K+VrF8T8eY0x7D+lVTotohPqSbfWEfShIfQ3dGfaMDelezPo9VBmV4EWxsIGX6iQYbcXNWlIqMP3H/Ut/QbaFeiAb0IvEWWFIgBj8D94yAIHTEc8pFhY5tmZAlo0uBTncMYc8hrbmhRRVqeE1eXMbusmLA+4442Dr5ZIvhouHXz34wKZ2GiDT+1yt22m2FfOCW8+muGqSHsYtafpC0u3ibsQdyeVVCezJGpwlMOnLFlC50qLNozkhw7DyZBgaw+M2TPnainYo+QczkGYNUKqU8+hmHkQJtLi1+6rLRoh3LBNIWes4UgRD8fJN5JQHqrvwpuoSQnLKQHYUX4VAn+t3EuAMpRoSgb4GaD5vQTSgLLEIPU+mDHssKFw3E2hY3Onr0fxBqxBIaZFF2bcgSPZBYwsCmOdyIq3rsDMi0RXO1ifrVRMlTKwUnWjAcFbCrCOc43eMLl3/ICDhkeacmeyWx4mINJbT0h0ckE+ZfJRbWSlGPxZL9Ip67J6zUAS+O1W/tzJvpw7wmvfPXYYn4OVoQZBw2TMWFMht2+vjwT61aKA1d6kVJ9JZkmvLu7sWvT9O0MTS2P7EpQxIA+DLNE8n3e8mzm6G/TteskQXL4uCp/iZbd23J4O9NLfiMKo9e14hMfZtMKZdF+JD6XfK0NxbssDH80d/WvPUev+OUtF3kM1SuNBGURIc/7sPJob2C+MZDYIKZsEXsVhVYe7OsH8dbcb+djm1npAiNPnah5b0edMDOPusV6tRCUeQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SFh5Wk9qMmpWREtadTlTaGo2dkJHM3hwclNuWDJRVk9ET3J1MHUyU240QVZU?=
- =?utf-8?B?Y0hCbnFGbUIvQ3drcWlaTkZUN3NhbjFUVXBPVnNlK2ZnbzZaSER5NjljdFJn?=
- =?utf-8?B?SkRORlY4NkRSMG5vR2pXTWxNM0RjWUtVSDlmajBRWi9pbXArd0o0NnJzRm9h?=
- =?utf-8?B?MVdxNlQzck5JV0FkTHdvakJabGZyZzhkbVo3RlNBOHBxOVd1RUFrZWpBQ0FT?=
- =?utf-8?B?UzBPaDArbTRQS0l3WnBIWE9WNUpraHFqdGROTTFVcm9SeU0vclI5b09aOVNl?=
- =?utf-8?B?dkkvZk1vYVg5OHh2aVlaVUh4WTJvYVorQzMyZGlyRjAyK29PbEY5VXBrVEtD?=
- =?utf-8?B?b0t4WjF5NE4wb3R5T3RxY1J5QXBlSSt4Unc4Y2dId1BuMVBuelE3ME9MK21G?=
- =?utf-8?B?RlZ3MHdVeHJWb2hDYnlDcDFTYlhnU2xraFhIczFYWmJxcE1Oa0lFZmpzbytP?=
- =?utf-8?B?OXJPSFZneFdKTWxiZmtIN0d0YnFTVVNyRWdnTVRFSVo0Q21SNCs2eVBvWE1O?=
- =?utf-8?B?Wm1qNGRoWTZodHRWaDRRenVxM3BMc2pOK1hRb3ZHZEdDSjRSUkc1aWNSNzZw?=
- =?utf-8?B?WHVxcm1pQ2Fhd1FsdGl6K3JoMUlDanU5SzhwV2wvVExoZFhzdElaNE1XYTRl?=
- =?utf-8?B?Wmc2aGpYL1VjV2dYMzgreEY4d3ZnQnNTcDBwNmdvU2VHVmtZWHdoaHBYcGZG?=
- =?utf-8?B?VGxGT2Rhc0ZNZHNQTHM0ZE5xQTNoNkpCRVY1V2VEejdpL3FZaVh5cGYrc1RC?=
- =?utf-8?B?MjNTRXVWd2owSFgzMzZzNW4vanRXNlJBaGtWTVpDNGxIeFlGMmNWK0JVVE9T?=
- =?utf-8?B?bDRma3N5RTFHd0Z5ZjdDYmUzeUpFUVMzMno5MFJHR1hSY2dEa0hGdW1yaWxi?=
- =?utf-8?B?dWlQcmFrVFM2aS9YZjI4aWF6ZTBnYWNHYnNrd09GSnoyYlQyTFJDbWdwOUVw?=
- =?utf-8?B?c01mUE1aRTVDZ01JNlhwR2VKdnE3ajJacXpndThnMFhKU0hxaUtmTS9sVldi?=
- =?utf-8?B?eHhyZThWbzlXbys4UjY0bWR0TlZFNUg1R05QZitFQXZDc0xIeUpwYy95MHpl?=
- =?utf-8?B?cEhESWtNRnBpWnl6SG9rR0Zqd1I5QnRrZkJha1NXOTJRM09meWk0QUVReHdB?=
- =?utf-8?B?am9uTWtkNW43YWNrMlQ2NmlJWW9pRGhqdkhrOWp3aHJiRUlUQmlXY0ZXZ3A5?=
- =?utf-8?B?a2tmUmxYYXVwQmxBWlBDRy9zMi9qd0Z3K0FBUVhPb1BjVkVtYlNoNlFtWkFX?=
- =?utf-8?B?MEhPRk1jRWlVOEhsNytXQTFNSFdXRk5aRXJWRDdoWHJJUS9BRzdpaVgxcGdG?=
- =?utf-8?B?amFySFdQeFpCU3ZEc2JubFQvRHNYcFdSSWNkQ2U0OVBuUFo3dlBaUWZENk5D?=
- =?utf-8?B?cFZVeWozYlZBV05xZWVRUVhjdytBRjd4Q2JOQnVlT0cyZmc1OVViak40Wk10?=
- =?utf-8?B?SjdGYWpXRkQ1dStHZ1A5Z0FWcUI1aUhWOVhxWXlnTHQwTUpqU3F1MXEzUGR1?=
- =?utf-8?B?YTJ2dSsrRmYvNWZzcjBXcGN4NmRyWUorNjdYdE9URm9uLzByRndwM25NTGFV?=
- =?utf-8?B?UkkxK1ZhSWpPdW9VSURvS0ZwL2hHVTlUQnV0SWxpenhhdUhKYWdhYnVrTlNF?=
- =?utf-8?B?ZEpVeFZ4U0xIZGpqR09wZWorbWJ6M2tUT29JMUZJNjVSYmJjeVZPMkpQSEFV?=
- =?utf-8?B?TWdWdWZGRzRtQ2lscVYzakpnU1MwUHlBUzJWVXRIUHkrOVRIMFFSblZWeWYz?=
- =?utf-8?B?WUZHK2QrTHg2UkI5dWRoVFlmYkpZaUFvT3VETFJYekRkRnkxaW5aSVpzU1lh?=
- =?utf-8?B?enZiQzFnS3hUdFhVZFJUQlpWMEhSeXYxY0RGS2RYZEJTOVpuajlpMHczZEZE?=
- =?utf-8?B?elJsRTZ0dkEwVW9iclNGK2daelhZNGJUUlBjTUtZQzF3LzBCQS9vNkQ0UGVw?=
- =?utf-8?B?bjg4K2RlenRMdVBiY280bXcvVHcwejlDYnJ3ZWtqZnRIZVFCM3ZaUzljU3Vt?=
- =?utf-8?B?MTdFVW5OdlduYmtUN1NEcjkyclNOUEYyTit1VWwyMHRTTzdOYloyNjF6emVP?=
- =?utf-8?B?OGxuWERxVHl4T00rdXZ2RmZJYXFNRTBCL2pERVp6Tm9ldWJJK2pReU9YVEpv?=
- =?utf-8?B?aWkyNXM2UnpKQ2JpUHFFV240YkZ4VzU2YnZXek5hdnZYWFJNbWRQOU1nQXgx?=
- =?utf-8?B?QW1OWG9EVEtJMDZyTHFKY2NBd1pQVFZxd3VibVRwd0NYL3FHdlBrbDBEWEo3?=
- =?utf-8?B?ZGt5Tk9DSUxMVnhzNFp2MDcrUmNUTzg2ZFV2dUxWeXhCU2hQUFVtUVIxOGlO?=
- =?utf-8?B?UDJUdTJReHZSMC9uUHhxc29BN1dtendSSW5jYm5NZnUrVUVORkkrZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fvMYV4LYVz2yjV
+	for <openbmc@lists.ozlabs.org>; Mon, 13 Apr 2026 19:29:17 +1000 (AEST)
+Received: by mail-oi1-x230.google.com with SMTP id 5614622812f47-4756e74f8edso2872183b6e.1
+        for <openbmc@lists.ozlabs.org>; Mon, 13 Apr 2026 02:29:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776072554; cv=none;
+        d=google.com; s=arc-20240605;
+        b=UBycRtmRXwqb7VneJz9coc5TESBwVNHJ8o8J/uXMj23jXWA3prFWBwpVXNufUV81Tf
+         LEqIBjek/Fj3AwUHxXSDZUpgnyRGP0aq6jqF6glpbhT2BN5dWrXGWbUYhIgNPnAfJgny
+         0EqxhArlkA+WwcsHlXHhPcYL53HoUgC/M8vRoOZNq3KDL+RfkXc53s3SRa+5j0sbSuO2
+         xEW+3NbaeVyG85DDPRwSocOjbB2lBTZEPbBj9/rw2bQaFI2RVNss9NzPuy7wY2caKrQd
+         aB/Qog5hAyy40+Jptbn4GAhBCxL315R8yVxQopUiRHSxBionZusKQdyjKf/lkkbX8/lP
+         kx0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=DUkNE8/cmtnBkSV+0rIYShyUGUlkkFf2pnqbCzBkZYI=;
+        fh=jgE4hDT3df2VOYVB8PiXtkngkS44kC13o2CPtBSLsks=;
+        b=CYNlm8XckKPEw7/Pq02eqACtWmyGEYDHCF5SFNdnNffrWVmqzbbUIGb+bpildXGIyP
+         IlDUMgK/LVlZ6fANSl6oJ8r7RSICvngKSV7aIYAqLskveV7VCligWweQPAIVflVy1Qz0
+         33JNWRFi22OzF+FPCe2QkkpEF21BM6sbmrhEskW7y6qebCFn3fOMPVzDEcm4dHC1f3qc
+         8x3rFIrtrQ9L854agyuCwD6F+vh8w1bpH70HFyvldyuoCdBo4xQjQkEnOxe5csqTliQJ
+         3nZ9faMbq0MHzUBKiUZtTJbvXmxPQfF/ii7p+bktBxCafslCg66w18TFoYWy7lzvssuf
+         kBWQ==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776072554; x=1776677354; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=DUkNE8/cmtnBkSV+0rIYShyUGUlkkFf2pnqbCzBkZYI=;
+        b=JroxqZL5CC9X1vQzZ1RvrKXKizl4iVkOtxYh4ox8Mqvokz+p3I4L5nygFugWOwNmua
+         LYDdNLOuQVqPs8slx8owy0RotEbYr1b8Y46buWA5fFsnDc6Kf/1CSD4w2wsUkbQ/jwLW
+         +dQFCUTLsdlu0QvbEJLvYVmJ0tSBJYHBB9m3twhpCFoLKU7blmDigjNe20owzfNa8rzD
+         EvqJJgvausG8Yeitc05X7nCp/SKzb8AiwEkpFPPI9PuBrfmnAuf2cpUGJBWljFVxvojj
+         f8DMCnjQK+ydcBXs6EgrfXOqET7bx+wXC10iYESpmcwdBz9Hai8pJhdARRdD2vpbnyPx
+         xgqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776072554; x=1776677354;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DUkNE8/cmtnBkSV+0rIYShyUGUlkkFf2pnqbCzBkZYI=;
+        b=pCed6SF9JqH8FcVcPrIcE+fI0FJPqF1o02IHf1R1PpXpT3xyQJFUyqSOD6G+lRWDrD
+         DHh84DEUYJSMYhJTxm/NTc6wLmmCudua8I4/dR1ZyX9VtpXPfwvSOSnG0ADwtHUuG/Mq
+         FtcN+fxi3JRwBv4EykFj1joAKm4uzrSinGVOaXrQR25yWEx1UE3sGmObin2GBvU+8iM+
+         21nL/XjxMxLHyfhdV/bxFZi6jStR9qYFMj3bjw3D7Sddy9RinZtcq/YEldQv6Qk5w3oS
+         BwGvBr1jfzg4btC2Crx4+SoQhG9WsULo+SHGw4CsZLnrJp9sHa1tq0YRL0bfaTuCf9aN
+         +9yQ==
+X-Gm-Message-State: AOJu0YzMdhZH3bMQZ3DWpo7OYguBEdgAM9Z/WQBUABxSAGpXjOZG720x
+	HtrVQpJDWl2WyaxDh+TWM4ZgQB4sm+y2CfPicK/sdFy6fTSCP65YovKrGR6uWR5cWA11irzjVu2
+	qBv+Zu1ofce0lF7BQqj1B7PIODPN7t5JUzREI
+X-Gm-Gg: AeBDieuJfjldEkh5tPIsVfSw/Wx9Een2jTm0UJavODfj8hQjVb9/3vTjUx+VnyXQRf/
+	7R46EOMC4juVpMuRye8fmqb5D2NADvZnXvppw+LYadTsd/g3TKKxX5oxGrf7qwv9VMmvw0pwI3q
+	zhVTD7cOdZ8fPdFsVa0kSwLGokKOUZ3IyglZoN/CEt7OuoQ/SQG7m0+8LBaugngYRsVFh/rNgeF
+	b9loznzLPiDPUFL0X3pePfw1EWrXybPoBGTVw0cokKOvc01FGVSTRlrMGrpGFxOxiXOAfKjwX1J
+	dz3DBHc=
+X-Received: by 2002:a05:6808:3086:b0:460:f435:2a71 with SMTP id
+ 5614622812f47-478a1919df0mr6015135b6e.46.1776072554257; Mon, 13 Apr 2026
+ 02:29:14 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -158,47 +97,111 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 712aad48-bc31-46e4-a65c-08de99000ee2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 01:57:46.1831
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WSB5yaEs9xQ2mNBVcbOhdi711SsPe5ntcwNIfiR8pErS5LuEBGucQS0X5c2TiNBOd/Xv6D0AiHJTR9wke3/R7gncDr9iBX5QAtjA9cp7hsA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8200
+References: <CAFme=rmRF03V1RLm4v6071ET-vVzrPjz_oVKCfWoO5G0CMzJUQ@mail.gmail.com>
+ <CALLMt=pmg3CBB5SNVffAPMgVemj_L4Am5bc6egh9y8xAXt5jaQ@mail.gmail.com>
+In-Reply-To: <CALLMt=pmg3CBB5SNVffAPMgVemj_L4Am5bc6egh9y8xAXt5jaQ@mail.gmail.com>
+From: Eric Yang <eric.yang.wiwynn@gmail.com>
+Date: Mon, 13 Apr 2026 17:29:02 +0800
+X-Gm-Features: AQROBzBV4nR-PSLud6-HOn46kPYlvLkmE7TKu4c1Vf83VOQvta6Keyn1Tkzc24Y
+Message-ID: <CAFme=rmw3=bjc8ZY_kVT-xEuFRch=pHPt5dSshDc+xbpe+on8w@mail.gmail.com>
+Subject: Re: [DISCUSSION] Drive-level power control support in phosphor-state-manager
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 
-PiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjI4IDIvNF0gZHQtYmluZGluZ3M6IGkyYzogYXN0MjYw
-MC1pMmMueWFtbDogQWRkDQo+ID4gZ2xvYmFsLXJlZ3MgYW5kIGVuYWJsZS1kbWEgcHJvcGVydGll
-cw0KPiA+DQo+ID4gSGkgUnlhbiwNCj4gPg0KPiA+ID4gPiBTb3VuZHMgcmVhc29uYWJsZSwgYnV0
-IGJlZm9yZSB5b3UgZG8gc28sIGhvdyBhcmUgeW91IHBsYW5uaW5nIHRvDQo+ID4gPiA+IG1hbmFn
-ZSB0aGUgYWxsb2NhdGlvbiBvZiBETUEgY2hhbm5lbHMgYWNyb3NzIG11bHRpcGxlIGkyYyBwZXJp
-cGhlcmFscz8NCj4gPiA+ID4NCj4gPiA+IFRoZSBBU1QyNjAwIEkyQyBoYXJkd2FyZSBoYXMgb25s
-eSBvbmUgY2FuIHVzZSBETUEgYXQgYSB0aW1lLg0KPiA+ID4gVG8gYXZvaWQgdGhlIGNvbXBsZXhp
-dHkgb2YgbWFuYWdpbmcgRE1BIGNoYW5uZWwgY29udGVudGlvbiwgSSBwbGFuDQo+ID4gPiB0byB1
-c2UgYnVmZmVyIG1vZGUgYnkgZGVmYXVsdCBmb3IgYWxsIGNvbnRyb2xsZXJzLCB3aGljaCBzdGls
-bA0KPiA+ID4gcHJvdmlkZXMgYmV0dGVyIHBlcmZvcm1hbmNlIHRoYW4gYnl0ZSBtb2RlIHdpdGhv
-dXQgcmVxdWlyaW5nIERNQQ0KPiA+ID4gY2hhbm5lbA0KPiA+IGFsbG9jYXRpb24uDQo+ID4NCj4g
-PiBPSywgYnV0IHlvdXIgd29yZGluZyB0aGVyZSAoImJ5IGRlZmF1bHQiKSBpbXBsaWVzIHRoYXQg
-RE1BIGlzIHN0aWxsDQo+ID4gc2VsZWN0YWJsZSBmb3Igb25lIGNvbnRyb2xsZXIgcGVyaXBoZXJh
-bC4gSW4gd2hpY2ggY2FzZTogeW91IHN0aWxsDQo+ID4gaGF2ZSB0aGUgcHJvYmxlbSBvZiBtYW5h
-Z2luZyBETUEgY2hhbm5lbCBjb250ZW50aW9uLCBidXQgbm93IGl0J3MgYXQNCj4gcnVudGltZSBp
-bnN0ZWFkLg0KPiA+DQo+ID4gU28gbXkgcXVlc3Rpb24gc3RpbGwgc3RhbmRzOiBob3cgYXJlIHlv
-dSBwbGFubmluZyB0byBlbmZvcmNlIHRoYXQgRE1BDQo+ID4gaXMgb25seSBlbmFibGVkIGZvciBv
-bmUgY29udHJvbGxlcj8NCj4gPg0KPiA+IE9yIGFyZSB5b3UgcGxhbm5pbmcgdG8gZGlzYWJsZSBJ
-MkMgRE1BIGVudGlyZWx5IG9uIEFTVDI2MDA/DQo+IFllcywgVGhpcyBpcyBteSBpbnRlbnQgdG8g
-ZG8uDQo+IERpc2FibGUgSTJDIERNQSBlbnRpcmVseSBvbiBBU1QyNjAwLg0KPiBJZiBJIHJlbW92
-ZSBETUEsIHNob3VsZCBjYW4gSSBrZWVwIGJ5dGUgYW5kIGJ1ZmZlciBmb3Igc3lzZnM/DQoNCkhl
-bGxvIFJvYiwNCg0KT24gdGhlIEFTVDI2MDAsIHdlIGhhdmUgYSBzaW5nbGUtY2hhbm5lbCBjb25z
-dHJhaW50LCB3aGljaCBtYWtlcyBETUENCnN1cHBvcnQgYWNyb3NzIGFsbCBjb250cm9sbGVycyBk
-aWZmaWN1bHQgdG8gaW1wbGVtZW50IHdpdGhvdXQgc29tZSBraW5kIG9mDQpwcmVkZWZpbmVkIGNv
-bmZpZ3VyYXRpb24uIFRoYXQgd291bGQgYmUgYSBiaXQgb2YgYSBtaXN1c2Ugb2YgYSBEVCBwcm9w
-ZXJ0eS4NCg0KRm9yIGZ1dHVyZSBwbGF0Zm9ybXMgc3VjaCBhcyB0aGUgQVNUMjcwMCwgRE1BIHN1
-cHBvcnQgc2hvdWxkIGJlIG11Y2gNCm1vcmUgc3RyYWlnaHRmb3J3YXJkLiBETUEgY2FwYWJpbGl0
-eSBjYW4gYmUgaW5mZXJyZWQgZnJvbSB0aGUgY29tcGF0aWJsZQ0Kc3RyaW5nLg0KDQpVbmxlc3Mg
-dGhlcmUgYXJlIGFueSBvYmplY3Rpb25zLCBJIHdpbGwgcmV3b3JrIHRoaXMgc2VyaWVzIHRvIHVz
-ZSBidWZmZXIgbW9kZQ0Kb25seSBvbiB0aGUgQVNUMjYwMCwgYW5kIGFkZCBBU1QyNzAwIERNQSBz
-dXBwb3J0IHNlcGFyYXRlbHkuDQoNClJ5YW4NCg==
+Hi Andrew,
+
+Thanks for the feedback, responses inline.
+
+On Fri, Apr 10, 2026 at 9:29 PM Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> Curious what the protocol looks like to monitor and perform the power
+> cycling to these drives from the BMC? Is it something simple like
+> GPIO's or is there something like MCTP to them?
+
+The hardware I expect to support initially uses GPIO (toggling a drive
+enable pin through an I2C IO expander). That said, the PSM drive
+daemon itself would have zero knowledge of the hardware protocol. It
+only starts systemd targets. The platform attaches its own services to
+those targets via .wants/, so the actual protocol is entirely up to
+the platform.
+
+>
+> How is this managed externally into the BMC? Is there a Redfish API?
+
+Yes. DMTF already defines a Drive.Reset action in the Drive schema[1].
+
+On the bmcweb side, I plan to submit a patch that adds a Drive.Reset
+POST route, mapping the relevant ResetType values to the
+State.Drive.Transition enum already defined in
+phosphor-dbus-interfaces master (Reboot, HardReboot, Powercycle).
+
+[1] https://github.com/openbmc/bmcweb/blob/33d7d41c71bb9a22725d77d97e41114c50b502c0/redfish-core/schema/dmtf/csdl/Drive_v1.xml#L152
+
+>
+> PSM is a wrapper to systemd which starts/stops/monitors specific
+> systemd targets associated with the function. So would there still
+> be a separate application with the business logic on how to monitor
+> and power cycle the drives (like phosphor-power)?
+
+Yes, completely separate. The drive state manager daemon in PSM would only:
+
+1. Expose the xyz.openbmc_project.State.Drive D-Bus interface
+   (already defined in phosphor-dbus-interfaces master, change 43155)
+2. Map Transition values to systemd targets
+3. Monitor JobRemoved signals to update CurrentDriveState
+
+The actual hardware operations would live in platform-provided systemd
+services attached to the drive targets.
+
+>
+> I don't see a use case for my company for this function currently
+> but I'm not opposed to it in PSM if it makes sense. There would
+> need to be some synergy though. Does the general idea of monitoring
+> and starting systemd targets work for the use cases here?
+
+Yes, drive transitions are discrete start/complete operations, same
+semantics as chassis transitions. The systemd target model fits.
+
+Regarding synergy, the drive state manager would directly reuse:
+- PSM's D-Bus to transition table to systemd target to JobRemoved to
+  state update pattern
+- PSM's utils library (subscribeToSystemdSignals, etc.)
+- PSM's systemd target naming conventions and dependency mechanism
+
+The State.Drive interface is already defined in
+phosphor-dbus-interfaces master. A small follow-up patch to
+phosphor-dbus-interfaces would be needed to add the paths metadata [2]
+so the daemon can follow the same object path construction pattern as
+Host and Chassis.
+
+[2] https://github.com/openbmc/phosphor-dbus-interfaces/blob/a93f3ea1a80a4d02983572f0ceb8b4692e2bd057/yaml/xyz/openbmc_project/State/Chassis.interface.yaml#L95
+
+>
+> My preference is keep it targeted on the use case we know unless
+> someone has other use cases.
+
+Agreed, I intend to keep it drive-specific. I plan to name the daemon
+phosphor-drive-state-manager.
+
+>
+> Seems fine.
+
+Thanks.
+
+>
+> Feels dependent on your system design. If powering off a chassis
+> also powers off the drives, then you can just put the systemd target
+> responsible for powering the drives off in the chassis-poweroff
+> systemd target.
+
+Agreed, the systemd target dependency mechanism handles this cleanly
+at the platform level.
+
+If this direction looks reasonable to you, I would like to start
+submitting initial patches to Gerrit for review. I would appreciate
+any further guidance.
+
+Best Regards,
+Eric Yang
 
