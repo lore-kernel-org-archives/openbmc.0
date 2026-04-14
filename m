@@ -1,40 +1,91 @@
-Return-Path: <openbmc+bounces-1809-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1810-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D108AED7B96
-	for <openbmc@archiver.kernel.org>; Tue, 14 Apr 2026 09:40:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A29FF9D0C2
+	for <openbmc@archiver.kernel.org>; Tue, 14 Apr 2026 11:26:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fvzkz5nStz2yvX;
-	Tue, 14 Apr 2026 19:39:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776159579;
-	cv=none; b=dYW+5my4dkJhrkaN02daYP9xUYXlc2VLzmC/BSsJGoafZ+wOUp/4GEivTu5kxH/lZpeTGKAqp4TMlNdKgvNjpyn9bHpX6hSWUkAh+70CZzy0qCbywzoUrHPGv3dgjFtriFqv+mR/Eu/bVsI4SbMsVnSMqqp6oJAynTPwlVkgK1f7hTenY0FyJrZRzk+l5cgs6zAZDv7NyDntb5dWYxm7EHqGIFZsUmp4kExi+zdkXeaST5lQi7F9B2Vl3lQDzOvFOSdLO5Xe5J0Qqk8/UplDw4CFNPfFiiCa+MK5ofVy160/S19KDO++R1wv3Q4kYmBRQ162O16fAAY3hfRvKKU7JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1776159579; c=relaxed/relaxed;
-	bh=w0qfkOm/dHuL3gxCyn5MEgQ1O7lt3VOq34gDWSVScuo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=UFh9+2yzOwzMwvHsPAXhn5nTkUO3IDSGaclzL5KJvcv+u2nGN4KUuq66pFZ3ehW5LuEn5bXYoeK0zhEyFdQTLf1PfynFIapvy2lbP796ByKwGhRjp9nhxhZcAydTNGXBEAr6ovo02l81X9c9N+BjMDh8sh762iBhQDl0Ifl1Alyp0+J5bhJW8g4hrFQ9ik2xq1WD1nXmh5m/JCe5MotCDvsEwyB7tymZgST3qA2C7D31CjDZ623QXzakYqZOlNrctri3emWbHyVjwlOZpbp5F36FGwXGy/RWTftT6utax/290kMQhuKwI3SRw/8oYJPnJw5BH8svEvmG6vtr/NUkhQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeed.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from TWMBX01.aspeed.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fw26b6ZVKz2yYY;
+	Tue, 14 Apr 2026 21:26:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::929" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776166007;
+	cv=pass; b=OFqnZdqaQ/B52WL4UJfjdxOvxi7zRQIRdSDJnbZ4TNGbqUvutwuKhcclyHxdEM4NH3L/eGjoYuEEiD0w4CLw6cTNSzYQZCOndHta1i+JVM2FGh9ZdhRhfxkwMyW+OSz5kD2OJKJqH9AJV32b40owlHOXaqgBglJCvGe8ku9jE2fY9T8SllxutPEky5wjC7ah7G+Kn9w/czZwnvSM+tNHcoH20kHtXEDWm+IXtg9Y374gtb4W7kHcrtt25u8QiV8p+4ps5rtQzxGZuD221MKJXqqCQsYAD8+e/sJPJNckFElNnvVZVtc1QYyfYy4I8idr8wbucQKsXqCzGa+4yCL+IQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1776166007; c=relaxed/relaxed;
+	bh=ilCqNNBjn9SRGQmyYZZZU96+TcSOw9/ATEfWbKG3uGU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KES7V5eLwPuizKjP6cbqcKkf0VgdiIgy0Q9AXpZYQ7jkbj30f9OQdX5OtMGEjwFWRdHO7tnTuzjxGKeyG0QfTMzUIK3rJH+hgttzEqXJjl7K4tsiTkQAxJDkCSDvjELRKsLkygUrIVA402L9CTad458TnCl3kr2ag3eGNMU3202z4GRqUwYp64S+I5A33qhk/cbmuE1EluqK5La3zgBaCHjHXNI3mtvmMndzm1VpEpyO9zxIZo1fpijCmMMwhz2Q8x7XstMXkBj28M0MPyqwWocL07CaQqyUz+eNTV9ijyFZU+5tOPRWWxUIAtN6eN7Ej+16UvOeOKSvSDkuWAWssw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rJ6At4+m; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::929; helo=mail-ua1-x929.google.com; envelope-from=ratankgupta31@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rJ6At4+m;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::929; helo=mail-ua1-x929.google.com; envelope-from=ratankgupta31@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ua1-x929.google.com (mail-ua1-x929.google.com [IPv6:2607:f8b0:4864:20::929])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fvzkx4pXcz2yvK;
-	Tue, 14 Apr 2026 19:39:37 +1000 (AEST)
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 14 Apr
- 2026 17:39:15 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 14 Apr 2026 17:39:15 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Tue, 14 Apr 2026 17:39:01 +0800
-Subject: [PATCH v6 3/3] pinctrl: aspeed: Add AST2700 SoC0 support
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fw26Y0Kmdz2xSB
+	for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2026 21:26:44 +1000 (AEST)
+Received: by mail-ua1-x929.google.com with SMTP id a1e0cc1a2514c-956948531a1so495423241.2
+        for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2026 04:26:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776166002; cv=none;
+        d=google.com; s=arc-20240605;
+        b=AeTsmzeDhDOIEQS/Ggbw10Ir4xXN2ESpAABFBhvhmYi+mLkgNmq+R9cZnHn1sMEQmG
+         r7TeBPEKQlpj9LuzZ0gQZ5oSK34Ne7uOYzf0wi2P/WpKoSKISpsuOYj+EW9fyO3pzjL+
+         niqhK1Wc9fKWaKc9HW/9HYss2wbfyoK1rKCgCiJgHd0sQCpDNV152wdrtybZuSkrxqBI
+         Rsz9yp+HbViXB9e5B5XG8D2bC8Zg9OpiJpMwCLorRtsmL1n36b7F/0kO/V00hfEpfbxX
+         5R1HyyxlnUQxi0Ox3sfk2CU/i6APjxAAS0EkPCWfukTiELafBHimIyCuPdspO+9kZ6DV
+         WwAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ilCqNNBjn9SRGQmyYZZZU96+TcSOw9/ATEfWbKG3uGU=;
+        fh=7Xa0X2m0VZDBfqDqGpTlyX9qP6j1013d8GBswhn6YC0=;
+        b=j/GYrFG5MrFOjzl1eJnUQhb41xYrneTz5FKC/TnECcv3JlVCqs+J05yJYgvTikyNXf
+         GhuQ4OrR3vTpVZKhEBxYN1GwDo6p28px2RFadFF/1c1QWWV2BovxdE2LpEe2Yxx/8CuY
+         Ibkp4KlU2pJDEjy6N7hrS01lpq9aQsCjdas8YwYp90wbakCDVa3yGp/Nn/s7Flhh45NX
+         frSLPH6E7KZCujqz0892tgPjeW3yAJy6ARiaeodShpY6UJJBS8sq76wvuY37WK444cTS
+         OA4S4J2HRpYiumDEnbfNl19Os9txkE6reyT9JlXls5ImB2tXWBURAs0f84Iq6i7Hil6n
+         AYoA==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776166002; x=1776770802; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=ilCqNNBjn9SRGQmyYZZZU96+TcSOw9/ATEfWbKG3uGU=;
+        b=rJ6At4+m5FImK+UMb1UIMFyusxItIpIDSGzFsMMXqVL/Z9w60F87+LCbFJSc2Mymz+
+         BPfrBNl/sufkYlJAN0JO0XCzSTA0Qgs5bBZJjv19JLP6J5Kt6qTb5JP/rNO8hMXPluTW
+         vTC42b1U+pkujvfxO1puVp/uq4qHNBs6Obkb5ywvYQQM09o5fIGoLOfbA4gkNc10usLF
+         cmPglXHkhzLmz8jHAt21tnq5nJ4KFLmpe3bOMmMrC1HePMURvLk37fvFD9xdpgpJZykY
+         TltrGYQbLAfwb7bHGRvh1ZadETz8CghqyIlHyBVWArfQzVAUfGrtfvWlMTly0B/P1E7q
+         PLBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776166002; x=1776770802;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ilCqNNBjn9SRGQmyYZZZU96+TcSOw9/ATEfWbKG3uGU=;
+        b=ighS67g5vCe/7NKCzC1eGlLV+LiPxZoqrBLlUgwYrXa8eO1YvHWkabTC4/OVAKavq1
+         0petMpuf8d/ChkGu/qeggQkW09uBm3cSJai5oOUZL38vZGZljW2K8H3mqhzkm7nvMnE3
+         +if8dQY48EbiggSn7xOBSW6z9a2VShj0voTn6x90Fp45qjuYAfvwEc+kMtUkLuAYMDVn
+         gWvhWXK+HaV1WUCQCOHf6Ke+j+W/FZ0h09J4NUWwHrb4EEiN+dwg36sa3/OEveW41fSB
+         rCvBnE1tRzYORXh+cd6rJlNoL0IMsnVwuRiPvzyPUP1ymlYhBtQFIed9liZpJUEsFvKO
+         cOQQ==
+X-Gm-Message-State: AOJu0YzWEDvM/x1HUGP4JmxCq2+P1O6OZiVzqAcgdRmXjYjawB3NNikW
+	AFRnk8xE03vbqBiELTUBT2t3PxQlf1CtqSwI/3DI+IzNpCkBxjHBHQCb3IMhZi4OqGlVfYlcRTI
+	b9+ADyzPtN1HTU71gpaLfkGXcv4ScnWQ=
+X-Gm-Gg: AeBDiesFHK480OwnrnGvjbzuxP67EDmCRn23xPsmkQWI8RDQ4B70+wQGhJCdcumPsad
+	ro68s9IUw+DWhKPDwtqWxaJHTE+gxo58QgsUw3NH3SlROgKSkepVeNbfSVB/6p/72XAZM9IPFx0
+	FT/YmijkLUXeLXxolNT1sQev6o7X9RLE5EGymSu57K7MGOTNPmOcXkXD2yl6TIQvvG70bLBtYnR
+	QrVaELr5aJPWXkPa0Fip+Td4IU3eAbMOsF6UAJPJ/r3lDx7OELGNC7Wvx1fox3LGrxbqKtLHbIc
+	at2Syrw=
+X-Received: by 2002:a05:6102:2ad1:b0:605:b96a:a0d4 with SMTP id
+ ada2fe7eead31-60a0167fd81mr6134389137.27.1776166001643; Tue, 14 Apr 2026
+ 04:26:41 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -46,828 +97,733 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260414-upstream_pinctrl-v6-3-709f2127da33@aspeedtech.com>
-References: <20260414-upstream_pinctrl-v6-0-709f2127da33@aspeedtech.com>
-In-Reply-To: <20260414-upstream_pinctrl-v6-0-709f2127da33@aspeedtech.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
- Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	"Linus Walleij" <linusw@kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>
-CC: Andrew Jeffery <andrew@aj.id.au>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
-	<linux-gpio@vger.kernel.org>, <linux-clk@vger.kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776159555; l=35223;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=V2I/GB9rD+tZfmCaaJbsv7/siJOYpn25H7YNy6kRhU4=;
- b=G5KMztvcYCBatDSfuzRiHBgGLU06m1Ek/rwjXGX01B7dUtwkvHj6uHJqr2w8B7YiOY2YRCjC7
- ZevlwD0IZpoBb/hosqvKFT8ZNx7XfpoleQsUpX8xIRLarq2KY+NVclV
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+References: <LV2PR21MB6760DEE956E328854F20CE6BA650A@LV2PR21MB6760.namprd21.prod.outlook.com>
+ <91704f59fe5c3ab763927f66b6582d32975a1764.camel@codeconstruct.com.au>
+ <DS0SPRMB0144E17B9D846259CD076C54A65AA@DS0SPRMB0144.namprd21.prod.outlook.com>
+ <LV2PR21MB676012961B86F8E3884F65E2A6242@LV2PR21MB6760.namprd21.prod.outlook.com>
+In-Reply-To: <LV2PR21MB676012961B86F8E3884F65E2A6242@LV2PR21MB6760.namprd21.prod.outlook.com>
+From: Ratan Gupta <ratankgupta31@gmail.com>
+Date: Tue, 14 Apr 2026 16:56:30 +0530
+X-Gm-Features: AQROBzDcw3DBarZ4WNajDdkIfWq9hRDyfM4gUplhUWzz_eE2PRHJFnj13c6HYo8
+Message-ID: <CAMhqiMrd3zmG01=ZL8RxDEs6zcecJm1UoZErLWVhqAzOddYsRQ@mail.gmail.com>
+Subject: Re: [RFC] SPDM attestation E2E findings from Renode testing
+To: Gary Beihl <garybeihl@microsoft.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+	Thirupathaiah Annapureddy <thiruan@microsoft.com>, Sagar Dharia <Sagar.Dharia@microsoft.com>, 
+	Giri Mudusuru <girimudusuru@microsoft.com>, Matt Johnston <matt@codeconstruct.com.au>, 
+	Chinmay Shripad Hegde <hosmanechinmay@gmail.com>, Archana Kakani <archana.kakani@ibm.com>, 
+	Manjeet Singh <itsmanjeet1998@gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000009716a3064f69df00"
 
-Add pinctrl support for the SoC0 instance of the ASPEED AST2700.
+--0000000000009716a3064f69df00
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-AST2700 consists of two interconnected SoC instances, each with its own
-pinctrl register block.
+Hi Gary,
 
-The SoC0 pinctrl hardware closely follows the design found in previous
-ASPEED BMC generations, allowing the driver to build upon the common
-ASPEED pinctrl infrastructure.
+Thanks for highlighting the issues. Since most of the Gerrit commits are
+still not merged, you can continue leaving comments on those. However, for
+issue 2, you may go ahead and push the fix as that code has already been
+merged.
 
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
----
- drivers/pinctrl/aspeed/Kconfig                  |   9 +
- drivers/pinctrl/aspeed/Makefile                 |   1 +
- drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c | 749 ++++++++++++++++++++++++
- 3 files changed, 759 insertions(+)
+As part of SPDM 1.1, the Challenge was optional - however, you can still
+proceed with the change for Challenge handling if needed.
 
-diff --git a/drivers/pinctrl/aspeed/Kconfig b/drivers/pinctrl/aspeed/Kconfig
-index 1a4e5b9ed471..f9672cca891e 100644
---- a/drivers/pinctrl/aspeed/Kconfig
-+++ b/drivers/pinctrl/aspeed/Kconfig
-@@ -31,3 +31,12 @@ config PINCTRL_ASPEED_G6
- 	help
- 	  Say Y here to enable pin controller support for Aspeed's 6th
- 	  generation SoCs. GPIO is provided by a separate GPIO driver.
-+
-+config PINCTRL_ASPEED_G7_SOC0
-+	bool "Aspeed G7 SoC pin control"
-+	depends on (ARCH_ASPEED || COMPILE_TEST) && OF
-+	select PINCTRL_ASPEED
-+	help
-+	  Say Y here to enable pin controller support for the SoC0 instance
-+	  of Aspeed's 7th generation SoCs. GPIO is provided by a separate
-+	  GPIO driver.
-diff --git a/drivers/pinctrl/aspeed/Makefile b/drivers/pinctrl/aspeed/Makefile
-index db2a7600ae2b..0de524ca2c72 100644
---- a/drivers/pinctrl/aspeed/Makefile
-+++ b/drivers/pinctrl/aspeed/Makefile
-@@ -6,3 +6,4 @@ obj-$(CONFIG_PINCTRL_ASPEED)	+= pinctrl-aspeed.o pinmux-aspeed.o
- obj-$(CONFIG_PINCTRL_ASPEED_G4)	+= pinctrl-aspeed-g4.o
- obj-$(CONFIG_PINCTRL_ASPEED_G5)	+= pinctrl-aspeed-g5.o
- obj-$(CONFIG_PINCTRL_ASPEED_G6)	+= pinctrl-aspeed-g6.o
-+obj-$(CONFIG_PINCTRL_ASPEED_G7_SOC0) += pinctrl-aspeed-g7-soc0.o
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c
-new file mode 100644
-index 000000000000..35a28b677318
---- /dev/null
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g7-soc0.c
-@@ -0,0 +1,749 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/bitops.h>
-+#include <linux/bits.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/of.h>
-+#include <linux/pinctrl/pinconf-generic.h>
-+#include <linux/pinctrl/pinconf.h>
-+#include <linux/pinctrl/pinctrl.h>
-+#include <linux/pinctrl/pinmux.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#include "pinctrl-aspeed.h"
-+#include "pinmux-aspeed.h"
-+#include "../pinctrl-utils.h"
-+
-+#define SCU200 0x200 /* System Reset Control #1  */
-+
-+#define SCU010 0x010 /* Hardware Strap Register */
-+#define SCU400 0x400 /* Multi-function Pin Control #1  */
-+#define SCU404 0x404 /* Multi-function Pin Control #2  */
-+#define SCU408 0x408 /* Multi-function Pin Control #3  */
-+#define SCU40C 0x40C /* Multi-function Pin Control #3  */
-+#define SCU410 0x410 /* USB Multi-function Control Register  */
-+#define SCU414 0x414 /* VGA Function Control Register  */
-+
-+#define SCU480 0x480 /* GPIO18A0 IO Control Register */
-+#define SCU484 0x484 /* GPIO18A1 IO Control Register */
-+#define SCU488 0x488 /* GPIO18A2 IO Control Register */
-+#define SCU48C 0x48c /* GPIO18A3 IO Control Register */
-+#define SCU490 0x490 /* GPIO18A4 IO Control Register */
-+#define SCU494 0x494 /* GPIO18A5 IO Control Register */
-+#define SCU498 0x498 /* GPIO18A6 IO Control Register */
-+#define SCU49C 0x49c /* GPIO18A7 IO Control Register */
-+#define SCU4A0 0x4A0 /* GPIO18B0 IO Control Register */
-+#define SCU4A4 0x4A4 /* GPIO18B1 IO Control Register */
-+#define SCU4A8 0x4A8 /* GPIO18B2 IO Control Register */
-+#define SCU4AC 0x4AC /* GPIO18B3 IO Control Register */
-+
-+enum {
-+	AC14,
-+	AE15,
-+	AD14,
-+	AE14,
-+	AF14,
-+	AB13,
-+	AB14,
-+	AF15,
-+	AF13,
-+	AC13,
-+	AD13,
-+	AE13,
-+	JTAG_PORT,
-+	PCIERC0_PERST,
-+	PCIERC1_PERST,
-+	PORTA_MODE,
-+	PORTA_U2,
-+	PORTB_MODE,
-+	PORTB_U2,
-+	PORTA_U2_PHY,
-+	PORTB_U2_PHY,
-+	PORTA_U3,
-+	PORTB_U3,
-+	PORTA_U3_PHY,
-+	PORTB_U3_PHY,
-+};
-+
-+SIG_EXPR_LIST_DECL_SEMG(AC14, EMMCCLK, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 0));
-+SIG_EXPR_LIST_DECL_SESG(AC14, VB1CS, VB1, SIG_DESC_SET(SCU404, 0));
-+PIN_DECL_2(AC14, GPIO18A0, EMMCCLK, VB1CS);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AE15, EMMCCMD, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 1));
-+SIG_EXPR_LIST_DECL_SESG(AE15, VB1CK, VB1, SIG_DESC_SET(SCU404, 1));
-+PIN_DECL_2(AE15, GPIO18A1, EMMCCMD, VB1CK);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AD14, EMMCDAT0, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 2));
-+SIG_EXPR_LIST_DECL_SESG(AD14, VB1MOSI, VB1, SIG_DESC_SET(SCU404, 2));
-+PIN_DECL_2(AD14, GPIO18A2, EMMCDAT0, VB1MOSI);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AE14, EMMCDAT1, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 3));
-+SIG_EXPR_LIST_DECL_SESG(AE14, VB1MISO, VB1, SIG_DESC_SET(SCU404, 3));
-+PIN_DECL_2(AE14, GPIO18A3, EMMCDAT1, VB1MISO);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AF14, EMMCDAT2, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 4));
-+PIN_DECL_1(AF14, GPIO18A4, EMMCDAT2);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AB13, EMMCDAT3, EMMCG4, EMMC, SIG_DESC_SET(SCU400, 5));
-+PIN_DECL_1(AB13, GPIO18A5, EMMCDAT3);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AB14, EMMCCDN, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 6));
-+SIG_EXPR_LIST_DECL_SESG(AB14, VB0CS, VB0, SIG_DESC_SET(SCU010, 17));
-+PIN_DECL_2(AB14, GPIO18A6, EMMCCDN, VB0CS);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AF15, EMMCWPN, EMMCG1, EMMC, SIG_DESC_SET(SCU400, 7));
-+SIG_EXPR_LIST_DECL_SESG(AF15, VB0CK, VB0, SIG_DESC_SET(SCU010, 17));
-+PIN_DECL_2(AF15, GPIO18A7, EMMCWPN, VB0CK);
-+
-+SIG_EXPR_LIST_DECL_SESG(AF13, TSPRSTN, TSPRSTN, SIG_DESC_SET(SCU010, 9));
-+SIG_EXPR_LIST_DECL_SEMG(AF13, EMMCDAT4, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 8));
-+SIG_EXPR_LIST_DECL_SESG(AF13, VB0MOSI, VB0, SIG_DESC_SET(SCU010, 17));
-+PIN_DECL_3(AF13, GPIO18B0, TSPRSTN, EMMCDAT4, VB0MOSI);
-+
-+SIG_EXPR_LIST_DECL_SESG(AC13, UFSCLKI, UFSCLKI, SIG_DESC_SET(SCU010, 19));
-+SIG_EXPR_LIST_DECL_SEMG(AC13, EMMCDAT5, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 9));
-+SIG_EXPR_LIST_DECL_SESG(AC13, VB0MISO, VB0, SIG_DESC_SET(SCU010, 17));
-+PIN_DECL_3(AC13, GPIO18B1, UFSCLKI, EMMCDAT5, VB0MISO);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AD13, EMMCDAT6, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 10));
-+SIG_EXPR_LIST_DECL_SESG(AD13, DDCCLK, VGADDC, SIG_DESC_SET(SCU404, 10));
-+PIN_DECL_2(AD13, GPIO18B2, EMMCDAT6, DDCCLK);
-+
-+SIG_EXPR_LIST_DECL_SEMG(AE13, EMMCDAT7, EMMCG8, EMMC, SIG_DESC_SET(SCU400, 11));
-+SIG_EXPR_LIST_DECL_SESG(AE13, DDCDAT, VGADDC, SIG_DESC_SET(SCU404, 11));
-+PIN_DECL_2(AE13, GPIO18B3, EMMCDAT7, DDCDAT);
-+
-+GROUP_DECL(EMMCG1, AC14, AE15, AD14);
-+GROUP_DECL(EMMCG4, AC14, AE15, AD14, AE14, AF14, AB13);
-+GROUP_DECL(EMMCG8, AC14, AE15, AD14, AE14, AF14, AB13, AF13, AC13, AD13, AE13);
-+GROUP_DECL(EMMCWPN, AF15);
-+GROUP_DECL(EMMCCDN, AB14);
-+FUNC_DECL_(EMMC, "EMMCG1", "EMMCG4", "EMMCG8", "EMMCWPN", "EMMCCDN");
-+
-+GROUP_DECL(VB1, AC14, AE15, AD14, AE14);
-+GROUP_DECL(VB0, AF15, AB14, AF13, AC13);
-+FUNC_DECL_2(VB, VB1, VB0);
-+
-+FUNC_GROUP_DECL(TSPRSTN, AF13);
-+
-+FUNC_GROUP_DECL(UFSCLKI, AC13);
-+
-+FUNC_GROUP_DECL(VGADDC, AD13, AE13);
-+
-+/* JTAG Port Selection */
-+#define JTAG_PORT_PSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x0, 0 }
-+#define JTAG_PORT_SSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x41, 0 }
-+#define JTAG_PORT_TSP_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x42, 0 }
-+#define JTAG_PORT_DDR_DESC   { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x43, 0 }
-+#define JTAG_PORT_USB3A_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x44, 0 }
-+#define JTAG_PORT_USB3B_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x45, 0 }
-+#define JTAG_PORT_PCIEA_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x46, 0 }
-+#define JTAG_PORT_PCIEB_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x47, 0 }
-+#define JTAG_PORT_JTAGM0_DESC { ASPEED_IP_SCU, SCU408, GENMASK(12, 5), 0x8, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPSP, JTAG0, JTAGPSP, JTAG_PORT_PSP_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGSSP, JTAG0, JTAGSSP, JTAG_PORT_SSP_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGTSP, JTAG0, JTAGTSP, JTAG_PORT_TSP_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGDDR, JTAG0, JTAGDDR, JTAG_PORT_DDR_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGUSB3A, JTAG0, JTAGUSB3A, JTAG_PORT_USB3A_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGUSB3B, JTAG0, JTAGUSB3B, JTAG_PORT_USB3B_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPCIEA, JTAG0, JTAGPCIEA, JTAG_PORT_PCIEA_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGPCIEB, JTAG0, JTAGPCIEB, JTAG_PORT_PCIEB_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(JTAG_PORT, JTAGM0, JTAG0, JTAGM0, JTAG_PORT_JTAGM0_DESC);
-+PIN_DECL_(JTAG_PORT, SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPSP), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGSSP),
-+	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGTSP), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGDDR),
-+	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGUSB3A), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGUSB3B),
-+	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPCIEA), SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGPCIEB),
-+	  SIG_EXPR_LIST_PTR(JTAG_PORT, JTAGM0));
-+
-+GROUP_DECL(JTAG0, JTAG_PORT);
-+
-+FUNC_DECL_1(JTAGPSP, JTAG0);
-+FUNC_DECL_1(JTAGSSP, JTAG0);
-+FUNC_DECL_1(JTAGTSP, JTAG0);
-+FUNC_DECL_1(JTAGDDR, JTAG0);
-+FUNC_DECL_1(JTAGUSB3A, JTAG0);
-+FUNC_DECL_1(JTAGUSB3B, JTAG0);
-+FUNC_DECL_1(JTAGPCIEA, JTAG0);
-+FUNC_DECL_1(JTAGPCIEB, JTAG0);
-+FUNC_DECL_1(JTAGM0, JTAG0);
-+
-+/* PCIe Reset Control */
-+SIG_EXPR_LIST_DECL_SESG(PCIERC0_PERST, PCIERC0PERST, PCIERC0PERST, SIG_DESC_SET(SCU200, 21));
-+PIN_DECL_(PCIERC0_PERST, SIG_EXPR_LIST_PTR(PCIERC0_PERST, PCIERC0PERST));
-+FUNC_GROUP_DECL(PCIERC0PERST, PCIERC0_PERST);
-+
-+SIG_EXPR_LIST_DECL_SESG(PCIERC1_PERST, PCIERC1PERST, PCIERC1PERST, SIG_DESC_SET(SCU200, 19));
-+PIN_DECL_(PCIERC1_PERST, SIG_EXPR_LIST_PTR(PCIERC1_PERST, PCIERC1PERST));
-+FUNC_GROUP_DECL(PCIERC1PERST, PCIERC1_PERST);
-+
-+#define PORTA_MODE_HPD0_DESC { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 0, 0 }
-+#define PORTA_MODE_D0_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 1, 0 }
-+#define PORTA_MODE_H_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 2, 0 }
-+#define PORTA_MODE_HP_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(25, 24), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AHPD0, USB2AH, USB2AHPD0, PORTA_MODE_HPD0_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AH, USB2AHAP, USB2AH, PORTA_MODE_H_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AHP, USB2AHAP, USB2AHP, PORTA_MODE_HP_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_MODE, USB2AD0, USB2AHAP, USB2AD0, PORTA_MODE_D0_DESC);
-+PIN_DECL_(PORTA_MODE, SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AHPD0),
-+	  SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AH), SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AHP),
-+	  SIG_EXPR_LIST_PTR(PORTA_MODE, USB2AD0));
-+
-+#define PORTA_U2_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 0, 0 }
-+#define PORTA_U2_D1_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 1, 0 }
-+#define PORTA_U2_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 2, 0 }
-+#define PORTA_U2_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(3, 2), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHD1, USB2A, USB2AXHD1, PORTA_U2_XHD_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHPD1, USB2A, USB2AXHPD1, PORTA_U2_XHD_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXH, USB2AAP, USB2AXH, PORTA_U2_XH_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHP, USB2AAP, USB2AXHP, PORTA_U2_XH_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXH2B, USB2ABP, USB2AXH2B, PORTA_U2_XH2E_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AXHP2B, USB2ABP, USB2AXHP2B, PORTA_U2_XH2E_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U2, USB2AD1, USB2ADAP, USB2AD1, PORTA_U2_D1_DESC);
-+PIN_DECL_(PORTA_U2, SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHD1), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHPD1),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXH), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHP),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXH2B), SIG_EXPR_LIST_PTR(PORTA_U2, USB2AXHP2B),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2, USB2AD1));
-+
-+#define PORTB_MODE_HPD0_DESC { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 0, 0 }
-+#define PORTB_MODE_D0_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 1, 0 }
-+#define PORTB_MODE_H_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 2, 0 }
-+#define PORTB_MODE_HP_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(29, 28), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BHPD0, USB2BH, USB2BHPD0, PORTB_MODE_HPD0_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BH, USB2BHBP, USB2BH, PORTB_MODE_H_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BHP, USB2BHBP, USB2BHP, PORTB_MODE_HP_DESC);
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_MODE, USB2BD0, USB2BHBP, USB2BD0, PORTB_MODE_D0_DESC);
-+PIN_DECL_(PORTB_MODE, SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BHPD0),
-+	  SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BH), SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BHP),
-+	  SIG_EXPR_LIST_PTR(PORTB_MODE, USB2BD0));
-+
-+#define PORTB_U2_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 0, 0 }
-+#define PORTB_U2_D1_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 1, 0 }
-+#define PORTB_U2_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 2, 0 }
-+#define PORTB_U2_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(7, 6), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHD1, USB2B, USB2BXHD1, PORTB_U2_XHD_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHPD1, USB2B, USB2BXHPD1, PORTB_U2_XHD_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXH, USB2BBP, USB2BXH, PORTB_U2_XH_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHP, USB2BBP, USB2BXHP, PORTB_U2_XH_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXH2A, USB2BAP, USB2BXH2A, PORTB_U2_XH2E_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BXHP2A, USB2BAP, USB2BXHP2A, PORTB_U2_XH2E_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U2, USB2BD1, USB2BDBP, USB2BD1, PORTB_U2_D1_DESC);
-+PIN_DECL_(PORTB_U2, SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHD1), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHPD1),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXH), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHP),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXH2A), SIG_EXPR_LIST_PTR(PORTB_U2, USB2BXHP2A),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2, USB2BD1));
-+/*
-+ * USB2 virtual PHY pins.
-+ *
-+ * PORTA_U2_PHY and PORTB_U2_PHY are logical endpoints, not package pins.
-+ * They alias existing USB2 expressions so pin groups can model direct and
-+ * cross-coupled routing for host and mode paths.
-+ *
-+ * - USB2AAP/USB2ADAP/USB2AHAP: use PORTA_U2_PHY
-+ * - USB2ABP                  : use PORTB_U2_PHY
-+ * - USB2BBP/USB2BDBP/USB2BHBP: use PORTB_U2_PHY
-+ * - USB2BAP                  : use PORTA_U2_PHY
-+ *
-+ * They do not have any registers to configure this behaviour; the goal is
-+ * simply for the driver to prevent conflicting selections. For example,
-+ * selecting group USB2ABP and USB2BBP at the same time should not be
-+ * allowed.
-+ */
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AXH, USB2AAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AXHP, USB2AAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2BXH2A, USB2BAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2BXHP2A, USB2BAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AD1, USB2ADAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AH, USB2AHAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AHP, USB2AHAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U2_PHY, USB2AD0, USB2AHAP);
-+PIN_DECL_(PORTA_U2_PHY, SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AXH),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AXHP), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2BXH2A),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2BXHP2A), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AD1),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AH), SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AHP),
-+	  SIG_EXPR_LIST_PTR(PORTA_U2_PHY, USB2AD0));
-+
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2AXH2B, USB2ABP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2AXHP2B, USB2ABP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BXH, USB2BBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BXHP, USB2BBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BD1, USB2BDBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BH, USB2BHBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BHP, USB2BHBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U2_PHY, USB2BD0, USB2BHBP);
-+PIN_DECL_(PORTB_U2_PHY, SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2AXH2B),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2AXHP2B), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BXH),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BXHP), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BD1),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BH), SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BHP),
-+	  SIG_EXPR_LIST_PTR(PORTB_U2_PHY, USB2BD0));
-+
-+GROUP_DECL(USB2A, PORTA_U2);
-+GROUP_DECL(USB2AAP, PORTA_U2, PORTA_U2_PHY);
-+GROUP_DECL(USB2ABP, PORTA_U2, PORTB_U2_PHY);
-+GROUP_DECL(USB2ADAP, PORTA_U2, PORTA_U2_PHY);
-+GROUP_DECL(USB2AH, PORTA_MODE);
-+GROUP_DECL(USB2AHAP, PORTA_MODE, PORTA_U2_PHY);
-+
-+FUNC_DECL_1(USB2AXHD1, USB2A);
-+FUNC_DECL_1(USB2AXHPD1, USB2A);
-+FUNC_DECL_1(USB2AXH, USB2AAP);
-+FUNC_DECL_1(USB2AXHP, USB2AAP);
-+FUNC_DECL_1(USB2AXH2B, USB2ABP);
-+FUNC_DECL_1(USB2AXHP2B, USB2ABP);
-+FUNC_DECL_1(USB2AD1, USB2ADAP);
-+FUNC_DECL_1(USB2AHPD0, USB2AH);
-+FUNC_DECL_1(USB2AH, USB2AHAP);
-+FUNC_DECL_1(USB2AHP, USB2AHAP);
-+FUNC_DECL_1(USB2AD0, USB2AHAP);
-+
-+GROUP_DECL(USB2B, PORTB_U2);
-+GROUP_DECL(USB2BBP, PORTB_U2, PORTB_U2_PHY);
-+GROUP_DECL(USB2BAP, PORTB_U2, PORTA_U2_PHY);
-+GROUP_DECL(USB2BDBP, PORTB_U2, PORTB_U2_PHY);
-+GROUP_DECL(USB2BH, PORTB_MODE);
-+GROUP_DECL(USB2BHBP, PORTB_MODE, PORTB_U2_PHY);
-+
-+FUNC_DECL_1(USB2BXHD1, USB2B);
-+FUNC_DECL_1(USB2BXHPD1, USB2B);
-+FUNC_DECL_1(USB2BXH, USB2BBP);
-+FUNC_DECL_1(USB2BXHP, USB2BBP);
-+FUNC_DECL_1(USB2BXH2A, USB2BAP);
-+FUNC_DECL_1(USB2BXHP2A, USB2BAP);
-+FUNC_DECL_1(USB2BD1, USB2BDBP);
-+FUNC_DECL_1(USB2BHPD0, USB2BH);
-+FUNC_DECL_1(USB2BH, USB2BHBP);
-+FUNC_DECL_1(USB2BHP, USB2BHBP);
-+FUNC_DECL_1(USB2BD0, USB2BHBP);
-+
-+#define PORTA_U3_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 0, 0 }
-+#define PORTA_U3_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 2, 0 }
-+#define PORTA_U3_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(1, 0), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHD, USB3A, USB3AXHD, PORTA_U3_XHD_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHPD, USB3A, USB3AXHPD, PORTA_U3_XHD_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXH, USB3AAP, USB3AXH, PORTA_U3_XH_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHP, USB3AAP, USB3AXHP, PORTA_U3_XH_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXH2B, USB3ABP, USB3AXH2B, PORTA_U3_XH2E_DESC,
-+			SIG_DESC_SET(SCU410, 9));
-+SIG_EXPR_LIST_DECL_SEMG(PORTA_U3, USB3AXHP2B, USB3ABP, USB3AXHP2B, PORTA_U3_XH2E_DESC,
-+			SIG_DESC_CLEAR(SCU410, 9));
-+PIN_DECL_(PORTA_U3, SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHD), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHPD),
-+	  SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXH), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHP),
-+	  SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXH2B), SIG_EXPR_LIST_PTR(PORTA_U3, USB3AXHP2B));
-+
-+#define PORTB_U3_XHD_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 0, 0 }
-+#define PORTB_U3_XH_DESC    { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 2, 0 }
-+#define PORTB_U3_XH2E_DESC   { ASPEED_IP_SCU, SCU410, GENMASK(5, 4), 3, 0 }
-+
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHD, USB3B, USB3BXHD, PORTB_U3_XHD_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHPD, USB3B, USB3BXHPD, PORTB_U3_XHD_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXH, USB3BBP, USB3BXH, PORTB_U3_XH_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHP, USB3BBP, USB3BXHP, PORTB_U3_XH_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXH2A, USB3BAP, USB3BXH2A, PORTB_U3_XH2E_DESC,
-+			SIG_DESC_SET(SCU410, 10));
-+SIG_EXPR_LIST_DECL_SEMG(PORTB_U3, USB3BXHP2A, USB3BAP, USB3BXHP2A, PORTB_U3_XH2E_DESC,
-+			SIG_DESC_CLEAR(SCU410, 10));
-+PIN_DECL_(PORTB_U3, SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHD), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHPD),
-+	  SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXH), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHP),
-+	  SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXH2A), SIG_EXPR_LIST_PTR(PORTB_U3, USB3BXHP2A));
-+
-+/*
-+ * USB3 virtual PHY pins.
-+ *
-+ * PORTA_U3_PHY and PORTB_U3_PHY are logical endpoints, not package pins.
-+ * They alias existing USB3 expressions so pin groups can model both direct and
-+ * cross-coupled routing to PHY A/B.
-+ *
-+ * - USB3AAP: PORTA_U3 + PORTA_U3_PHY   (A -> PHY A)
-+ * - USB3ABP: PORTA_U3 + PORTB_U3_PHY   (A -> PHY B)
-+ * - USB3BBP: PORTB_U3 + PORTB_U3_PHY   (B -> PHY B)
-+ * - USB3BAP: PORTB_U3 + PORTA_U3_PHY   (B -> PHY A)
-+ *
-+ * They do not have any registers to configure this behavior; the goal is
-+ * simply for the driver to prevent conflicting selections. For example,
-+ * selecting group USB3ABP and USB3BBP at the same time should not be
-+ * allowed.
-+ */
-+SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3AXH, USB3AAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3AXHP, USB3AAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3BXH2A, USB3BAP);
-+SIG_EXPR_LIST_ALIAS(PORTA_U3_PHY, USB3BXHP2A, USB3BAP);
-+PIN_DECL_(PORTA_U3_PHY, SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3AXH),
-+	  SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3AXHP), SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3BXH2A),
-+	  SIG_EXPR_LIST_PTR(PORTA_U3_PHY, USB3BXHP2A));
-+
-+SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3AXH2B, USB3ABP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3AXHP2B, USB3ABP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3BXH, USB3BBP);
-+SIG_EXPR_LIST_ALIAS(PORTB_U3_PHY, USB3BXHP, USB3BBP);
-+PIN_DECL_(PORTB_U3_PHY, SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3AXH2B),
-+	  SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3AXHP2B), SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3BXH),
-+	  SIG_EXPR_LIST_PTR(PORTB_U3_PHY, USB3BXHP));
-+
-+/* USB3A xHCI to vHUB */
-+GROUP_DECL(USB3A, PORTA_U3);
-+/* USB3A xHCI to USB3A PHY */
-+GROUP_DECL(USB3AAP, PORTA_U3, PORTA_U3_PHY);
-+/* USB3A xHCI to USB3B PHY */
-+GROUP_DECL(USB3ABP, PORTA_U3, PORTB_U3_PHY);
-+
-+FUNC_DECL_1(USB3AXHD, USB3A);
-+FUNC_DECL_1(USB3AXHPD, USB3A);
-+FUNC_DECL_1(USB3AXH, USB3AAP);
-+FUNC_DECL_1(USB3AXHP, USB3AAP);
-+FUNC_DECL_1(USB3AXH2B, USB3ABP);
-+FUNC_DECL_1(USB3AXHP2B, USB3ABP);
-+
-+/* USB3B xHCI to vHUB */
-+GROUP_DECL(USB3B, PORTB_U3);
-+/* USB3B xHCI to USB3A PHY */
-+GROUP_DECL(USB3BAP, PORTB_U3, PORTA_U3_PHY);
-+/* USB3B xHCI to USB3B PHY */
-+GROUP_DECL(USB3BBP, PORTB_U3, PORTB_U3_PHY);
-+
-+FUNC_DECL_1(USB3BXHD, USB3B);
-+FUNC_DECL_1(USB3BXHPD, USB3B);
-+FUNC_DECL_1(USB3BXH, USB3BBP);
-+FUNC_DECL_1(USB3BXHP, USB3BBP);
-+FUNC_DECL_1(USB3BXH2A, USB3BAP);
-+FUNC_DECL_1(USB3BXHP2A, USB3BAP);
-+
-+static const struct pinctrl_pin_desc aspeed_g7_soc0_pins[] = {
-+	ASPEED_PINCTRL_PIN(AC14),
-+	ASPEED_PINCTRL_PIN(AE15),
-+	ASPEED_PINCTRL_PIN(AD14),
-+	ASPEED_PINCTRL_PIN(AE14),
-+	ASPEED_PINCTRL_PIN(AF14),
-+	ASPEED_PINCTRL_PIN(AB13),
-+	ASPEED_PINCTRL_PIN(AB14),
-+	ASPEED_PINCTRL_PIN(AF15),
-+	ASPEED_PINCTRL_PIN(AF13),
-+	ASPEED_PINCTRL_PIN(AC13),
-+	ASPEED_PINCTRL_PIN(AD13),
-+	ASPEED_PINCTRL_PIN(AE13),
-+	ASPEED_PINCTRL_PIN(JTAG_PORT),
-+	ASPEED_PINCTRL_PIN(PCIERC0_PERST),
-+	ASPEED_PINCTRL_PIN(PCIERC1_PERST),
-+	ASPEED_PINCTRL_PIN(PORTA_MODE),
-+	ASPEED_PINCTRL_PIN(PORTA_U2),
-+	ASPEED_PINCTRL_PIN(PORTA_U3),
-+	ASPEED_PINCTRL_PIN(PORTA_U2_PHY),
-+	ASPEED_PINCTRL_PIN(PORTA_U3_PHY),
-+	ASPEED_PINCTRL_PIN(PORTB_MODE),
-+	ASPEED_PINCTRL_PIN(PORTB_U2),
-+	ASPEED_PINCTRL_PIN(PORTB_U3),
-+	ASPEED_PINCTRL_PIN(PORTB_U2_PHY),
-+	ASPEED_PINCTRL_PIN(PORTB_U3_PHY),
-+};
-+
-+static const struct aspeed_pin_group aspeed_g7_soc0_groups[] = {
-+	ASPEED_PINCTRL_GROUP(EMMCCDN),
-+	ASPEED_PINCTRL_GROUP(EMMCG1),
-+	ASPEED_PINCTRL_GROUP(EMMCG4),
-+	ASPEED_PINCTRL_GROUP(EMMCG8),
-+	ASPEED_PINCTRL_GROUP(EMMCWPN),
-+	ASPEED_PINCTRL_GROUP(TSPRSTN),
-+	ASPEED_PINCTRL_GROUP(UFSCLKI),
-+	ASPEED_PINCTRL_GROUP(VB0),
-+	ASPEED_PINCTRL_GROUP(VB1),
-+	ASPEED_PINCTRL_GROUP(VGADDC),
-+	/* JTAG groups */
-+	ASPEED_PINCTRL_GROUP(JTAG0),
-+	/* PCIE RC groups */
-+	ASPEED_PINCTRL_GROUP(PCIERC0PERST),
-+	ASPEED_PINCTRL_GROUP(PCIERC1PERST),
-+	/* USB3A groups */
-+	ASPEED_PINCTRL_GROUP(USB3A),
-+	ASPEED_PINCTRL_GROUP(USB3AAP),
-+	ASPEED_PINCTRL_GROUP(USB3ABP),
-+	/* USB3B groups */
-+	ASPEED_PINCTRL_GROUP(USB3B),
-+	ASPEED_PINCTRL_GROUP(USB3BAP),
-+	ASPEED_PINCTRL_GROUP(USB3BBP),
-+	/* USB2A groups */
-+	ASPEED_PINCTRL_GROUP(USB2A),
-+	ASPEED_PINCTRL_GROUP(USB2AAP),
-+	ASPEED_PINCTRL_GROUP(USB2ABP),
-+	ASPEED_PINCTRL_GROUP(USB2ADAP),
-+	ASPEED_PINCTRL_GROUP(USB2AH),
-+	ASPEED_PINCTRL_GROUP(USB2AHAP),
-+	/* USB2B groups */
-+	ASPEED_PINCTRL_GROUP(USB2B),
-+	ASPEED_PINCTRL_GROUP(USB2BAP),
-+	ASPEED_PINCTRL_GROUP(USB2BBP),
-+	ASPEED_PINCTRL_GROUP(USB2BDBP),
-+	ASPEED_PINCTRL_GROUP(USB2BH),
-+	ASPEED_PINCTRL_GROUP(USB2BHBP),
-+};
-+
-+static const struct aspeed_pin_function aspeed_g7_soc0_functions[] = {
-+	ASPEED_PINCTRL_FUNC(EMMC),
-+	ASPEED_PINCTRL_FUNC(TSPRSTN),
-+	ASPEED_PINCTRL_FUNC(UFSCLKI),
-+	ASPEED_PINCTRL_FUNC(VB),
-+	ASPEED_PINCTRL_FUNC(VGADDC),
-+	/* JTAG functions */
-+	ASPEED_PINCTRL_FUNC(JTAGDDR),
-+	ASPEED_PINCTRL_FUNC(JTAGM0),
-+	ASPEED_PINCTRL_FUNC(JTAGPCIEA),
-+	ASPEED_PINCTRL_FUNC(JTAGPCIEB),
-+	ASPEED_PINCTRL_FUNC(JTAGPSP),
-+	ASPEED_PINCTRL_FUNC(JTAGSSP),
-+	ASPEED_PINCTRL_FUNC(JTAGTSP),
-+	ASPEED_PINCTRL_FUNC(JTAGUSB3A),
-+	ASPEED_PINCTRL_FUNC(JTAGUSB3B),
-+	/* PCIE RC functions */
-+	ASPEED_PINCTRL_FUNC(PCIERC0PERST),
-+	ASPEED_PINCTRL_FUNC(PCIERC1PERST),
-+	/* USB3A functions */
-+	ASPEED_PINCTRL_FUNC(USB3AXH),
-+	ASPEED_PINCTRL_FUNC(USB3AXH2B),
-+	ASPEED_PINCTRL_FUNC(USB3AXHD),
-+	ASPEED_PINCTRL_FUNC(USB3AXHP),
-+	ASPEED_PINCTRL_FUNC(USB3AXHP2B),
-+	ASPEED_PINCTRL_FUNC(USB3AXHPD),
-+	/* USB3B functions */
-+	ASPEED_PINCTRL_FUNC(USB3BXH),
-+	ASPEED_PINCTRL_FUNC(USB3BXH2A),
-+	ASPEED_PINCTRL_FUNC(USB3BXHD),
-+	ASPEED_PINCTRL_FUNC(USB3BXHP),
-+	ASPEED_PINCTRL_FUNC(USB3BXHP2A),
-+	ASPEED_PINCTRL_FUNC(USB3BXHPD),
-+	/* USB2A functions */
-+	ASPEED_PINCTRL_FUNC(USB2AD0),
-+	ASPEED_PINCTRL_FUNC(USB2AD1),
-+	ASPEED_PINCTRL_FUNC(USB2AH),
-+	ASPEED_PINCTRL_FUNC(USB2AHP),
-+	ASPEED_PINCTRL_FUNC(USB2AHPD0),
-+	ASPEED_PINCTRL_FUNC(USB2AXH),
-+	ASPEED_PINCTRL_FUNC(USB2AXH2B),
-+	ASPEED_PINCTRL_FUNC(USB2AXHD1),
-+	ASPEED_PINCTRL_FUNC(USB2AXHP),
-+	ASPEED_PINCTRL_FUNC(USB2AXHP2B),
-+	ASPEED_PINCTRL_FUNC(USB2AXHPD1),
-+	/* USB2B functions */
-+	ASPEED_PINCTRL_FUNC(USB2BD0),
-+	ASPEED_PINCTRL_FUNC(USB2BD1),
-+	ASPEED_PINCTRL_FUNC(USB2BH),
-+	ASPEED_PINCTRL_FUNC(USB2BHP),
-+	ASPEED_PINCTRL_FUNC(USB2BHPD0),
-+	ASPEED_PINCTRL_FUNC(USB2BXH),
-+	ASPEED_PINCTRL_FUNC(USB2BXH2A),
-+	ASPEED_PINCTRL_FUNC(USB2BXHD1),
-+	ASPEED_PINCTRL_FUNC(USB2BXHP),
-+	ASPEED_PINCTRL_FUNC(USB2BXHP2A),
-+	ASPEED_PINCTRL_FUNC(USB2BXHPD1),
-+};
-+
-+static const struct pinmux_ops aspeed_g7_soc0_pinmux_ops = {
-+	.get_functions_count = aspeed_pinmux_get_fn_count,
-+	.get_function_name = aspeed_pinmux_get_fn_name,
-+	.get_function_groups = aspeed_pinmux_get_fn_groups,
-+	.set_mux = aspeed_pinmux_set_mux,
-+	.gpio_request_enable = aspeed_gpio_request_enable,
-+	.strict = true,
-+};
-+
-+static const struct pinctrl_ops aspeed_g7_soc0_pinctrl_ops = {
-+	.get_groups_count = aspeed_pinctrl_get_groups_count,
-+	.get_group_name = aspeed_pinctrl_get_group_name,
-+	.get_group_pins = aspeed_pinctrl_get_group_pins,
-+	.pin_dbg_show = aspeed_pinctrl_pin_dbg_show,
-+	.dt_node_to_map = pinconf_generic_dt_node_to_map_all,
-+	.dt_free_map = pinctrl_utils_free_map,
-+};
-+
-+static const struct pinconf_ops aspeed_g7_soc0_pinconf_ops = {
-+	.is_generic = true,
-+	.pin_config_get = aspeed_pin_config_get,
-+	.pin_config_set = aspeed_pin_config_set,
-+	.pin_config_group_get = aspeed_pin_config_group_get,
-+	.pin_config_group_set = aspeed_pin_config_group_set,
-+};
-+
-+/* pinctrl_desc */
-+static const struct pinctrl_desc aspeed_g7_soc0_pinctrl_desc = {
-+	.name = "aspeed-g7-soc0-pinctrl",
-+	.pins = aspeed_g7_soc0_pins,
-+	.npins = ARRAY_SIZE(aspeed_g7_soc0_pins),
-+	.pctlops = &aspeed_g7_soc0_pinctrl_ops,
-+	.pmxops = &aspeed_g7_soc0_pinmux_ops,
-+	.confops = &aspeed_g7_soc0_pinconf_ops,
-+};
-+
-+static const struct aspeed_pin_config aspeed_g7_soc0_configs[] = {
-+	/* GPIO18A */
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AC14, AC14 }, SCU480, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AC14, AC14 }, SCU480, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AC14, AC14 }, SCU480, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AC14, AC14 }, SCU480, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AE15, AE15 }, SCU484, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE15, AE15 }, SCU484, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AE15, AE15 }, SCU484, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AE15, AE15 }, SCU484, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AD14, AD14 }, SCU488, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AD14, AD14 }, SCU488, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AD14, AD14 }, SCU488, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AD14, AD14 }, SCU488, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AE14, AE14 }, SCU48C, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE14, AE14 }, SCU48C, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AE14, AE14 }, SCU48C, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AE14, AE14 }, SCU48C, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AF14, AF14 }, SCU490, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF14, AF14 }, SCU490, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AF14, AF14 }, SCU490, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AF14, AF14 }, SCU490, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AB13, AB13 }, SCU494, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AB13, AB13 }, SCU494, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AB13, AB13 }, SCU494, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AB13, AB13 }, SCU494, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AB14, AB14 }, SCU498, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AB14, AB14 }, SCU498, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AB14, AB14 }, SCU498, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AB14, AB14 }, SCU498, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AF15, AF15 }, SCU49C, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF15, AF15 }, SCU49C, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AF15, AF15 }, SCU49C, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AF15, AF15 }, SCU49C, BIT(5) },
-+	/* GPIO18B */
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AF13, AF13 }, SCU4A0, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AF13, AF13 }, SCU4A0, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AF13, AF13 }, SCU4A0, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AF13, AF13 }, SCU4A0, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AC13, AC13 }, SCU4A4, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AC13, AC13 }, SCU4A4, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AC13, AC13 }, SCU4A4, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AC13, AC13 }, SCU4A4, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AD13, AD13 }, SCU4A8, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AD13, AD13 }, SCU4A8, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AD13, AD13 }, SCU4A8, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AD13, AD13 }, SCU4A8, BIT(5) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, { AE13, AE13 }, SCU4AC, GENMASK(3, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, { AE13, AE13 }, SCU4AC, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, { AE13, AE13 }, SCU4AC, GENMASK(5, 4) },
-+	{ PIN_CONFIG_BIAS_DISABLE, { AE13, AE13 }, SCU4AC, BIT(5) },
-+};
-+
-+static const struct aspeed_pin_config_map aspeed_g7_soc0_pin_config_map[] = {
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 2, GENMASK(1, 0) },
-+	{ PIN_CONFIG_BIAS_PULL_UP, -1, 3, GENMASK(1, 0) },
-+	{ PIN_CONFIG_BIAS_DISABLE, -1, 0, BIT_MASK(0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 3, 0, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 6, 1, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 8, 2, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 11, 3, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 4, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 18, 5, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 20, 6, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 23, 7, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 30, 8, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 32, 9, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 33, 10, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 35, 11, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 37, 12, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 38, 13, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 39, 14, GENMASK(3, 0) },
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 41, 15, GENMASK(3, 0) },
-+
-+};
-+
-+static int aspeed_g7_soc0_sig_expr_set(struct aspeed_pinmux_data *ctx,
-+				       const struct aspeed_sig_expr *expr, bool enable)
-+{
-+	int ret;
-+	int i;
-+
-+	for (i = 0; i < expr->ndescs; i++) {
-+		const struct aspeed_sig_desc *desc = &expr->descs[i];
-+		u32 pattern = enable ? desc->enable : desc->disable;
-+		u32 val = (pattern << __ffs(desc->mask));
-+
-+		if (!ctx->maps[desc->ip])
-+			return -ENODEV;
-+
-+		WARN_ON_ONCE(desc->ip != ASPEED_IP_SCU);
-+
-+		ret = regmap_update_bits(ctx->maps[desc->ip], desc->reg,
-+					 desc->mask, val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = aspeed_sig_expr_eval(ctx, expr, enable);
-+	if (ret < 0)
-+		return ret;
-+
-+	return ret ? 0 : -EPERM;
-+}
-+
-+static const struct aspeed_pinmux_ops aspeed_g7_soc0_ops = {
-+	.set = aspeed_g7_soc0_sig_expr_set,
-+};
-+
-+static struct aspeed_pinctrl_data aspeed_g7_soc0_pinctrl_data = {
-+	.pins = aspeed_g7_soc0_pins,
-+	.npins = ARRAY_SIZE(aspeed_g7_soc0_pins),
-+	.pinmux = {
-+		.ops = &aspeed_g7_soc0_ops,
-+		.groups = aspeed_g7_soc0_groups,
-+		.ngroups = ARRAY_SIZE(aspeed_g7_soc0_groups),
-+		.functions = aspeed_g7_soc0_functions,
-+		.nfunctions = ARRAY_SIZE(aspeed_g7_soc0_functions),
-+	},
-+	.configs = aspeed_g7_soc0_configs,
-+	.nconfigs = ARRAY_SIZE(aspeed_g7_soc0_configs),
-+	.confmaps = aspeed_g7_soc0_pin_config_map,
-+	.nconfmaps = ARRAY_SIZE(aspeed_g7_soc0_pin_config_map),
-+};
-+
-+static int aspeed_g7_soc0_pinctrl_probe(struct platform_device *pdev)
-+{
-+	return aspeed_pinctrl_probe(pdev, &aspeed_g7_soc0_pinctrl_desc,
-+				    &aspeed_g7_soc0_pinctrl_data);
-+}
-+
-+static const struct of_device_id aspeed_g7_soc0_pinctrl_match[] = {
-+	{ .compatible = "aspeed,ast2700-soc0-pinctrl" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, aspeed_g7_soc0_pinctrl_match);
-+
-+static struct platform_driver aspeed_g7_soc0_pinctrl_driver = {
-+	.probe = aspeed_g7_soc0_pinctrl_probe,
-+	.driver = {
-+		.name = "aspeed-g7-soc0-pinctrl",
-+		.of_match_table = aspeed_g7_soc0_pinctrl_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+
-+static int __init aspeed_g7_soc0_pinctrl_init(void)
-+{
-+	return platform_driver_register(&aspeed_g7_soc0_pinctrl_driver);
-+}
-+arch_initcall(aspeed_g7_soc0_pinctrl_init);
+We should coordinate closely to ensure all commits are applied in a proper
+sequence.
+Thanks
+Ratan
 
--- 
-2.34.1
 
+On Mon, Apr 13, 2026 at 9:40=E2=80=AFPM Gary Beihl <garybeihl@microsoft.com=
+> wrote:
+
+> (CC'ing the SPDM chain maintainers directly for visibility; posting to th=
+e
+> list so the discussion stays searchable alongside the April 2 thread.)
+>
+>
+>
+> Following up on the April 2 RFC [1] and Matt's reply [2]: I now have a
+> group of six patches on a local branch that take the SPDM E2E suite
+>
+> from 0/13 to 17/17 passing on Renode evb-ast2600 (14 attestation scenario=
+s
+> + 1 boot + 2 new SPDMGetSignedMeasurements scenarios I added to cover the
+> on-demand D-Bus path).
+>
+>
+>
+> I'd like input from the SPDM chain maintainers on how you'd prefer to
+> receive these patches before I start pushing to Gerrit.
+>
+>
+>
+> Here are the 6 patches: All are small and independent. Each has a
+> one-paragraph rationale in the commit message plus a "Tested:" trailer
+> describing what the Renode E2E suite exercises.
+>
+>
+>
+> 1. spdmd: Handle missing MCTP endpoints gracefully -
+> mctp_transport_discovery.cpp. Catches ResourceNotFound and per-endpoint
+> query exceptions so spdmd doesn't terminate on a freshly booted system wi=
+th
+> no MCTP endpoints yet configured. Same pattern as Archana's fix in 88794
+> for the TCP discovery path.
+>
+>
+>
+> 2. spdmd: Search the full object tree in mapper lookups -
+> utils/mapper.cpp. Changes get_sub_tree("/xyz/openbmc_project", ...) to
+> get_sub_tree("/", ...) so the search finds mctpd-managed endpoints under
+> /au/com/codeconstruct/mctp1/... =E2=80=94 mctpd implements both
+> xyz.openbmc_project.MCTP.Endpoint and au.com.codeconstruct.MCTP.Endpoint1
+> on the same object, but the xyz-rooted search never finds it.
+>
+>
+>
+> 3. spdmd: Remove unnecessary MCTP socket bind() - mctp_helper.hpp. This i=
+s
+> the fix Matt recommended in [2]. Removes the wildcard bind(ANY, ANY, SPDM=
+,
+> OWNER) that prevented multi-device discovery from working =E2=80=94 multi=
+ple
+> MctpIoClass instances would collide on the same bound tuple. spdmd is a
+> pure synchronous requester so no bind() is needed. Same pattern as the
+> pldmtool fix Matt referenced (openbmc/pldm 83626).
+>
+>
+>
+> 4. spdmd: Set MCTP socket receive timeout in mctp_helper.hpp. Adds
+> SO_RCVTIMEO=3D10s at socket creation. The existing MctpIoClass::read() ma=
+rks
+> its timeout parameter as [[maybe_unused]] and recvfrom() blocks forever o=
+n
+> unreachable devices, so libspdm never returns LIBSPDM_STATUS_RECEIVE_FAIL
+> and systemd's start-timeout kills spdmd before it becomes active.
+>
+>
+>
+> 5. spdmd: Implement eager SPDM attestation on discovery
+> spdm_dbus_responder.cpp/hpp, spdmd.cpp. Adds a performEagerAttestation()
+> method that runs VCA + GET_DIGESTS + GET_CERTIFICATE + CHALLENGE on every
+> discovered device and updates the
+> ComponentIntegrity.ResponderVerificationStatus D-Bus property. Called fro=
+m
+> main() after ctx.request_name() so attestation timing can't trigger
+> systemd's TimeoutStartSec.
+>
+>
+>
+> CHALLENGE is the critical step for the security gap I mentioned in the
+> original RFC =E2=80=94 without it, a wrong or compromised private key sti=
+ll passes
+> attestation because GET_CERTIFICATE alone does not prove key ownership.
+>
+>
+>
+> This is the commit I'm least sure about architecturally.
+>
+>
+>
+> Archana: I see 88873 adds an SPDMResponderManager with a
+> connectSPDMDevice() stub. Would you rather I rebase the attestation logic
+> into your manager class instead of adding it as a method on
+> SPDMDBusResponder? Happy to do either.
+>
+>
+>
+> 6. spdmd: Surface SPDMGetSignedMeasurements errors
+> component_integrity_dbus.cpp. The catch block in method_call() currently
+> swallows all std::exception subtypes and returns a tuple of empty strings
+> as if the call had succeeded, so bmcweb returns HTTP 200 with
+> "SignedMeasurements":"" on any libspdm failure. Fix is to split the catch=
+:
+> sdbusplus::exception::exception subtypes are rethrown (preserving
+> InvalidArgument), generic std::exception is converted to InternalFailure.
+> Bmcweb then maps the D-Bus error to HTTP 500 with a Redfish
+> @Message.ExtendedInfo body.
+>
+>
+>
+> TCP discovery exception handling =E2=80=94 I had also fixed the TCP
+> ResourceNotFound crash, but then noticed Archana's 88794 already does thi=
+s.
+> So that one's dropped from my stack.
+>
+>
+>
+> ## Questions for the chain maintainers
+>
+>
+>
+> The chain I'm targeting is NVIDIA's (80262, 80355, 80264, 80272, 80311,
+> 80358, 84019, ...) since my fixes touch files that only exist there. I
+> understand the IBM chain (88112, 88124, 88873, 88794, 89179) is a paralle=
+l
+> track =E2=80=94 fixes 1-4 and 6 are on files IBM's chain doesn't touch, a=
+nd fix 5
+> will need to be reconciled once the two chains merge.
+>
+>
+>
+> Before I start pushing, could you let me know:
+>
+>
+>
+>   a) Are you okay with fixes 1, 2, 3, 4, and 6 landing as a five-commit
+> stack on Gerrit depending on the NVIDIA chain (specifically 80262 PS19,
+> 80355, and 84019)? I'd submit them under my Microsoft email and reference
+> the April 2 RFC in each commit message.
+>
+>
+>
+>   b) For fix 5 (eager attestation): does it make more sense to (i) post i=
+t
+> as a stand-alone Gerrit change stacked on 84019 now, and reconcile with
+> 88873's SPDMResponderManager later, (ii) post it as an amendment to 88873
+> that fills in the connectSPDMDevice() TODO, or (iii) hold until the NVIDI=
+A
+> and IBM chains converge upstream?
+>
+>
+>
+>   c) Is there a planned coordination point where the two chains merge? I
+> see 88873 intends to drive NVIDIA's SpdmTransport eventually. Happy to he=
+lp
+> bridge them if that's a blocker for landing the attestation flow.
+>
+>
+>
+> If any of the six descriptions look off to you, please push back before I
+> push them to Gerrit =E2=80=94 I'd rather have the discussion in email tha=
+n after N
+> patchsets back-and-forth.
+>
+>
+>
+> Full commit messages and diffs are on a local branch; I can either (a)
+> upload to Gerrit as a draft and share links, (b) post patches inline to t=
+he
+> list as a v1 series, or (c) share them privately if you'd prefer. Let me
+> know which you'd like.
+>
+>
+>
+> Thanks,
+>
+> Gary
+>
+>
+>
+> [1] https://lists.ozlabs.org/pipermail/openbmc/2026-April/038553.html
+>
+> [2] https://lists.ozlabs.org/pipermail/openbmc/2026-April/038554.html
+>
+>
+>
+> *From:* Gary Beihl <garybeihl@microsoft.com>
+> *Sent:* Tuesday, April 7, 2026 4:51 PM
+> *To:* Matt Johnston <matt@codeconstruct.com.au>; openbmc@lists.ozlabs.org
+> *Cc:* Thirupathaiah Annapureddy <thiruan@microsoft.com>; Sagar Dharia <
+> Sagar.Dharia@microsoft.com>; Giri Mudusuru <girimudusuru@microsoft.com>
+> *Subject:* RE: [EXTERNAL] Re: [RFC] SPDM attestation E2E findings from
+> Renode testing
+>
+>
+>
+> Hi Matt,
+>
+>
+>
+> Thank you for the recommendation =E2=80=93 I followed your suggestion and=
+ dropped
+> the call to bind() altogether. Since spdmd only does request/response (no
+> async SPDM messages), regular sendto()/recvfrom() with SO_RCVTIMEO) works
+> just fine. Each endpoint gets its own socket with no EADDRINUSE conflict.
+>
+>
+>
+> All 14 SPDM E2E Robot Framework tests continue to pass with this change,
+> including the multi-endpoint scenarios that previously hit EADDRINUSE.
+>
+>
+>
+> Per-endpoint bind() from Linux 6.17 is good to know about for future work
+> in case we need to handle async SPDM notifications (e.g, KEY_UPDATE).
+>
+>
+>
+> Thanks,
+>
+> Gary
+>
+>
+>
+>
+>
+> *From:* Matt Johnston <matt@codeconstruct.com.au>
+> *Sent:* Wednesday, April 1, 2026 10:09 PM
+> *To:* Gary Beihl <garybeihl@microsoft.com>; openbmc@lists.ozlabs.org
+> *Cc:* Thirupathaiah Annapureddy <thiruan@microsoft.com>; Sagar Dharia <
+> Sagar.Dharia@microsoft.com>; Giri Mudusuru <girimudusuru@microsoft.com>
+> *Subject:* [EXTERNAL] Re: [RFC] SPDM attestation E2E findings from Renode
+> testing
+>
+>
+>
+> You don't often get email from matt@codeconstruct.com.au. Learn why this
+> is important <https://aka.ms/LearnAboutSenderIdentification>
+>
+> Hi Gary,
+>
+>
+>
+> On Wed, 2026-04-01 at 21:35 +0000, Gary Beihl wrote:
+>
+> (c) Shared AF_MCTP socket (affects 80311: mctp_helper.hpp)
+>
+>
+>
+> Only one socket can bind to (MCTP_ADDR_ANY, MCTP_TYPE_SPDM).  When spdmd
+> attests multiple endpoints sequentially, the second
+>   MctpIoClass::createSocket() fails with EADDRINUSE. The fix is a
+> process-lifetime shared socket (singleton pattern), draining stale
+> responses between endpoint attestations with recv(MSG_DONTWAIT).
+>
+>
+>
+> Since Linux 6.17 it is possible to restrict a bind() to only receive from
+> a single remote endpoint [1]. Call connect() with the remote address befo=
+re
+> the bind().
+>
+>
+>
+> Is the SPDM implementation using asynchronous messages sent by the
+> responder? (KEY_UPDATE, HEARTBEAT, END_SESSION)
+>
+> If not, I think the bind() could be removed altogether.
+>
+> bind() isn't needed in the case where the Linux host is performing a plai=
+n
+> send() then receiving a response. A similar situation was fixed in pldmto=
+ol
+> [2].
+>
+>
+>
+> [1]
+> https://lore.kernel.org/all/20250710-mctp-bind-v4-6-8ec2f6460c56@codecons=
+truct.com.au/
+>
+> [2] https://gerrit.openbmc.org/c/openbmc/pldm/+/83626
+>
+>
+>
+> Cheers,
+>
+> Matt
+>
+>
+>
+
+--0000000000009716a3064f69df00
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p>Hi Gary,</p><p>Thanks for highlighting the issues. Sinc=
+e most of the Gerrit commits are still not merged, you can continue leaving=
+ comments on those. However, for issue 2, you may go ahead and push the fix=
+ as that code has already been merged.</p>
+<p>As part of SPDM 1.1, the Challenge was optional - however, you can still=
+ proceed with the change for Challenge handling if needed.</p>
+<p>We should coordinate closely to ensure all commits are applied in a prop=
+er sequence.</p><div>Thanks</div><div>Ratan</div><div><br></div></div><br><=
+div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"g=
+mail_attr">On Mon, Apr 13, 2026 at 9:40=E2=80=AFPM Gary Beihl &lt;<a href=
+=3D"mailto:garybeihl@microsoft.com">garybeihl@microsoft.com</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div class=3D"ms=
+g8586052932577486402">
+
+
+
+
+
+<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
+<div class=3D"m_8586052932577486402WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">(CC&#39;ing the SPDM =
+chain maintainers directly for visibility; posting to the list so the discu=
+ssion stays searchable alongside the April 2 thread.)<u></u><u></u></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Following up on the A=
+pril 2 RFC [1] and Matt&#39;s reply [2]: I now have a group of six patches =
+on a local branch that take the SPDM E2E suite<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">from 0/13 to 17/17 pa=
+ssing on Renode evb-ast2600 (14 attestation scenarios + 1 boot + 2 new SPDM=
+GetSignedMeasurements scenarios I added to cover the on-demand D-Bus path).=
+<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">I&#39;d like input fr=
+om the SPDM chain maintainers on how you&#39;d prefer to receive these patc=
+hes before I start pushing to Gerrit.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Here are the 6 patche=
+s: All are small and independent. Each has a one-paragraph rationale in the=
+ commit message plus a &quot;Tested:&quot; trailer describing what the Reno=
+de E2E suite exercises.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">1. spdmd: Handle miss=
+ing MCTP endpoints gracefully - mctp_transport_discovery.cpp. Catches Resou=
+rceNotFound and per-endpoint query exceptions so spdmd doesn&#39;t terminat=
+e on a freshly booted system with no MCTP
+ endpoints yet configured. Same pattern as Archana&#39;s fix in 88794 for t=
+he TCP discovery path.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">2. spdmd: Search the =
+full object tree in mapper lookups - utils/mapper.cpp. Changes get_sub_tree=
+(&quot;/xyz/openbmc_project&quot;, ...) to get_sub_tree(&quot;/&quot;, ...)=
+ so the search finds mctpd-managed endpoints under /au/com/codeconstruct/mc=
+tp1/...
+ =E2=80=94 mctpd implements both xyz.openbmc_project.MCTP.Endpoint and au.c=
+om.codeconstruct.MCTP.Endpoint1 on the same object, but the xyz-rooted sear=
+ch never finds it.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">3. spdmd: Remove unne=
+cessary MCTP socket bind() - mctp_helper.hpp. This is the fix Matt recommen=
+ded in [2]. Removes the wildcard bind(ANY, ANY, SPDM, OWNER) that prevented=
+ multi-device discovery from working
+ =E2=80=94 multiple MctpIoClass instances would collide on the same bound t=
+uple. spdmd is a pure synchronous requester so no bind() is needed. Same pa=
+ttern as the pldmtool fix Matt referenced (openbmc/pldm 83626).<u></u><u></=
+u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">4. spdmd: Set MCTP so=
+cket receive timeout in mctp_helper.hpp. Adds SO_RCVTIMEO=3D10s at socket c=
+reation. The existing MctpIoClass::read() marks its timeout parameter as [[=
+maybe_unused]] and recvfrom() blocks
+ forever on unreachable devices, so libspdm never returns LIBSPDM_STATUS_RE=
+CEIVE_FAIL and systemd&#39;s start-timeout kills spdmd before it becomes ac=
+tive.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">5. spdmd: Implement e=
+ager SPDM attestation on discovery spdm_dbus_responder.cpp/hpp, spdmd.cpp. =
+Adds a performEagerAttestation() method that runs VCA + GET_DIGESTS + GET_C=
+ERTIFICATE + CHALLENGE on every discovered
+ device and updates the ComponentIntegrity.ResponderVerificationStatus D-Bu=
+s property. Called from main() after ctx.request_name() so attestation timi=
+ng can&#39;t trigger systemd&#39;s TimeoutStartSec.<u></u><u></u></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">CHALLENGE is the crit=
+ical step for the security gap I mentioned in the original RFC =E2=80=94 wi=
+thout it, a wrong or compromised private key still passes attestation becau=
+se GET_CERTIFICATE alone does not prove key
+ ownership.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">This is the commit I&=
+#39;m least sure about architecturally.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Archana: I see 88873 =
+adds an SPDMResponderManager with a connectSPDMDevice() stub. Would you rat=
+her I rebase the attestation logic into your manager class instead of addin=
+g it as a method on SPDMDBusResponder?
+ Happy to do either.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">6. spdmd: Surface SPD=
+MGetSignedMeasurements errors component_integrity_dbus.cpp. The catch block=
+ in method_call() currently swallows all std::exception subtypes and return=
+s a tuple of empty strings as if the
+ call had succeeded, so bmcweb returns HTTP 200 with &quot;SignedMeasuremen=
+ts&quot;:&quot;&quot; on any libspdm failure. Fix is to split the catch: sd=
+busplus::exception::exception subtypes are rethrown (preserving InvalidArgu=
+ment), generic std::exception is converted to InternalFailure.
+ Bmcweb then maps the D-Bus error to HTTP 500 with a Redfish @Message.Exten=
+dedInfo body.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">TCP discovery excepti=
+on handling =E2=80=94 I had also fixed the TCP ResourceNotFound crash, but =
+then noticed Archana&#39;s 88794 already does this. So that one&#39;s dropp=
+ed from my stack.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">## Questions for the =
+chain maintainers<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">The chain I&#39;m tar=
+geting is NVIDIA&#39;s (80262, 80355, 80264, 80272, 80311, 80358, 84019, ..=
+.) since my fixes touch files that only exist there. I understand the IBM c=
+hain (88112, 88124, 88873, 88794, 89179) is
+ a parallel track =E2=80=94 fixes 1-4 and 6 are on files IBM&#39;s chain do=
+esn&#39;t touch, and fix 5 will need to be reconciled once the two chains m=
+erge.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Before I start pushin=
+g, could you let me know:<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">=C2=A0 a) Are you oka=
+y with fixes 1, 2, 3, 4, and 6 landing as a five-commit stack on Gerrit dep=
+ending on the NVIDIA chain (specifically 80262 PS19, 80355, and 84019)? I&#=
+39;d submit them under my Microsoft email and
+ reference the April 2 RFC in each commit message.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">=C2=A0 b) For fix 5 (=
+eager attestation): does it make more sense to (i) post it as a stand-alone=
+ Gerrit change stacked on 84019 now, and reconcile with 88873&#39;s SPDMRes=
+ponderManager later, (ii) post it as an amendment
+ to 88873 that fills in the connectSPDMDevice() TODO, or (iii) hold until t=
+he NVIDIA and IBM chains converge upstream?<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">=C2=A0 c) Is there a =
+planned coordination point where the two chains merge? I see 88873 intends =
+to drive NVIDIA&#39;s SpdmTransport eventually. Happy to help bridge them i=
+f that&#39;s a blocker for landing the attestation
+ flow.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">If any of the six des=
+criptions look off to you, please push back before I push them to Gerrit =
+=E2=80=94 I&#39;d rather have the discussion in email than after N patchset=
+s back-and-forth.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Full commit messages =
+and diffs are on a local branch; I can either (a) upload to Gerrit as a dra=
+ft and share links, (b) post patches inline to the list as a v1 series, or =
+(c) share them privately if you&#39;d
+ prefer. Let me know which you&#39;d like.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Thanks,<u></u><u></u>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Gary<u></u><u></u></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">[1] <a href=3D"https:=
+//lists.ozlabs.org/pipermail/openbmc/2026-April/038553.html" target=3D"_bla=
+nk">
+https://lists.ozlabs.org/pipermail/openbmc/2026-April/038553.html</a><u></u=
+><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">[2] <a href=3D"https:=
+//lists.ozlabs.org/pipermail/openbmc/2026-April/038554.html" target=3D"_bla=
+nk">
+https://lists.ozlabs.org/pipermail/openbmc/2026-April/038554.html</a><u></u=
+><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<div>
+<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
+top:1pt solid rgb(225,225,225);padding:3pt 0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:Calibri=
+,sans-serif">From:</span></b><span style=3D"font-size:11pt;font-family:Cali=
+bri,sans-serif"> Gary Beihl &lt;<a href=3D"mailto:garybeihl@microsoft.com" =
+target=3D"_blank">garybeihl@microsoft.com</a>&gt;
+<br>
+<b>Sent:</b> Tuesday, April 7, 2026 4:51 PM<br>
+<b>To:</b> Matt Johnston &lt;<a href=3D"mailto:matt@codeconstruct.com.au" t=
+arget=3D"_blank">matt@codeconstruct.com.au</a>&gt;; <a href=3D"mailto:openb=
+mc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a><br>
+<b>Cc:</b> Thirupathaiah Annapureddy &lt;<a href=3D"mailto:thiruan@microsof=
+t.com" target=3D"_blank">thiruan@microsoft.com</a>&gt;; Sagar Dharia &lt;<a=
+ href=3D"mailto:Sagar.Dharia@microsoft.com" target=3D"_blank">Sagar.Dharia@=
+microsoft.com</a>&gt;; Giri Mudusuru &lt;<a href=3D"mailto:girimudusuru@mic=
+rosoft.com" target=3D"_blank">girimudusuru@microsoft.com</a>&gt;<br>
+<b>Subject:</b> RE: [EXTERNAL] Re: [RFC] SPDM attestation E2E findings from=
+ Renode testing<u></u><u></u></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Hi Matt,<u></u><u></u=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Thank you for the rec=
+ommendation =E2=80=93 I followed your suggestion and dropped the call to bi=
+nd() altogether. Since spdmd only does request/response (no async SPDM mess=
+ages), regular sendto()/recvfrom() with SO_RCVTIMEO)
+ works just fine. Each endpoint gets its own socket with no EADDRINUSE conf=
+lict.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">All 14 SPDM E2E Robot=
+ Framework tests continue to pass with this change, including the multi-end=
+point scenarios that previously hit EADDRINUSE.<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Per-endpoint bind() f=
+rom Linux 6.17 is good to know about for future work in case we need to han=
+dle async SPDM notifications (e.g, KEY_UPDATE).<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Thanks,<u></u><u></u>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Gary<u></u><u></u></s=
+pan></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
+/span></p>
+<div>
+<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
+top:1pt solid rgb(225,225,225);padding:3pt 0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11pt;font-family:Calibri=
+,sans-serif">From:</span></b><span style=3D"font-size:11pt;font-family:Cali=
+bri,sans-serif"> Matt Johnston &lt;<a href=3D"mailto:matt@codeconstruct.com=
+.au" target=3D"_blank">matt@codeconstruct.com.au</a>&gt;
+<br>
+<b>Sent:</b> Wednesday, April 1, 2026 10:09 PM<br>
+<b>To:</b> Gary Beihl &lt;<a href=3D"mailto:garybeihl@microsoft.com" target=
+=3D"_blank">garybeihl@microsoft.com</a>&gt;;
+<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists=
+.ozlabs.org</a><br>
+<b>Cc:</b> Thirupathaiah Annapureddy &lt;<a href=3D"mailto:thiruan@microsof=
+t.com" target=3D"_blank">thiruan@microsoft.com</a>&gt;; Sagar Dharia &lt;<a=
+ href=3D"mailto:Sagar.Dharia@microsoft.com" target=3D"_blank">Sagar.Dharia@=
+microsoft.com</a>&gt;; Giri Mudusuru &lt;<a href=3D"mailto:girimudusuru@mic=
+rosoft.com" target=3D"_blank">girimudusuru@microsoft.com</a>&gt;<br>
+<b>Subject:</b> [EXTERNAL] Re: [RFC] SPDM attestation E2E findings from Ren=
+ode testing<u></u><u></u></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" align=3D"left" widt=
+h=3D"100%" style=3D"width:100%">
+<tbody>
+<tr>
+<td width=3D"0" style=3D"width:0.3pt;background:rgb(166,166,166);padding:5.=
+25pt 1.5pt">
+</td>
+<td width=3D"100%" style=3D"background:revert;border:revert;color:revert;di=
+rection:revert;display:revert;font-size:revert;height:revert;letter-spacing=
+:revert;line-height:revert;margin:revert;opacity:revert;outline:revert;over=
+flow:revert;padding:revert;table-layout:revert;text-align:revert;text-inden=
+t:revert;text-orientation:revert;text-overflow:revert;text-transform:revert=
+;vertical-align:revert;white-space:revert;width:revert;word-break:revert;wo=
+rd-spacing:revert;writing-mode:revert;zoom:revert">
+<div>
+<p class=3D"MsoNormal">
+<span style=3D"font-size:9pt;font-family:&quot;Segoe UI&quot;,sans-serif;co=
+lor:rgb(33,33,33)">You don&#39;t often get email from
+<a href=3D"mailto:matt@codeconstruct.com.au" target=3D"_blank">matt@codecon=
+struct.com.au</a>. <a href=3D"https://aka.ms/LearnAboutSenderIdentification=
+" target=3D"_blank">
+Learn why this is important</a> <u></u><u></u></span></p>
+</div>
+</td>
+<td width=3D"75" style=3D"background:revert;border:revert;color:revert;dire=
+ction:revert;display:revert;font-size:revert;height:revert;letter-spacing:r=
+evert;line-height:revert;margin:revert;opacity:revert;outline:revert;overfl=
+ow:revert;padding:revert;table-layout:revert;text-align:revert;text-indent:=
+revert;text-orientation:revert;text-overflow:revert;text-transform:revert;v=
+ertical-align:revert;white-space:revert;width:revert;word-break:revert;word=
+-spacing:revert;writing-mode:revert;zoom:revert">
+</td>
+</tr>
+</tbody>
+</table>
+<div>
+<div>
+<p class=3D"MsoNormal"><span>Hi Gary,<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>On Wed, 2026-04-01 at 21:35 +0000, Gary Beihl =
+wrote:<u></u><u></u></span></p>
+</div>
+<blockquote style=3D"border-top:none;border-right:none;border-bottom:none;b=
+order-left:1.5pt solid rgb(114,159,207);padding:0in 0in 0in 6pt;margin:5pt =
+0in 5pt 4.8pt">
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">(c) Shared AF_MCTP so=
+cket (affects 80311: mctp_helper.hpp)</span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">=C2=A0</span><u></u><=
+u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Only one socket can b=
+ind to (MCTP_ADDR_ANY, MCTP_TYPE_SPDM).=C2=A0 When spdmd attests multiple e=
+ndpoints sequentially, the second =C2=A0=C2=A0MctpIoClass::createSocket() f=
+ails with EADDRINUSE. The fix is a process-lifetime
+ shared socket (singleton pattern), draining stale responses between endpoi=
+nt attestations with recv(MSG_DONTWAIT).</span><u></u><u></u></p>
+</blockquote>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>Since Linux 6.17 it is possible to restrict a =
+bind() to only receive from a single remote endpoint [1]. Call connect() wi=
+th the remote address before the bind().<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>Is the SPDM implementation using asynchronous =
+messages sent by the responder? (KEY_UPDATE, HEARTBEAT, END_SESSION)<u></u>=
+<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>If not, I think the bind() could be removed al=
+together.<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>bind() isn&#39;t needed in the case where the =
+Linux host is performing a plain send() then receiving a response. A simila=
+r situation was fixed in pldmtool [2].<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>[1]=C2=A0<a href=3D"https://lore.kernel.org/al=
+l/20250710-mctp-bind-v4-6-8ec2f6460c56@codeconstruct.com.au/" target=3D"_bl=
+ank">https://lore.kernel.org/all/20250710-mctp-bind-v4-6-8ec2f6460c56@codec=
+onstruct.com.au/</a><u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>[2]=C2=A0<a href=3D"https://gerrit.openbmc.org=
+/c/openbmc/pldm/+/83626" target=3D"_blank">https://gerrit.openbmc.org/c/ope=
+nbmc/pldm/+/83626</a>=C2=A0<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>Cheers,<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span>Matt<u></u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span><u></u>=C2=A0<u></u></span></p>
+</div>
+</div>
+</div>
+</div>
+
+</div></blockquote></div>
+
+--0000000000009716a3064f69df00--
 
