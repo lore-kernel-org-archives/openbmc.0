@@ -1,88 +1,92 @@
-Return-Path: <openbmc+bounces-1827-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1828-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB9C8F433CD
-	for <openbmc@archiver.kernel.org>; Thu, 16 Apr 2026 00:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B04F433CD
+	for <openbmc@archiver.kernel.org>; Thu, 16 Apr 2026 00:01:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fwypm3yp6z2yyy;
-	Thu, 16 Apr 2026 10:01:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.75.126.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776073905;
-	cv=none; b=GUc+Oe37HNyuMRsaTcWYcbfwabcpXhO3dR89SKcv5YWtXUJrKnlXAFS8kvvdR5x9SL/jkIp596nGjNUOcfCLc+ByzCupXvzplcEk3m6/gPQu54Pw/Tmhm0tgGNinDRksohTy6zLecFRh2/jdUZsJz5Ma0f4vU0xYwG2fHO3nLby+mVMLX5AYDgX8BtbzYIzwlEOn7+0mGkfROodc83046ZU35IPaNV1HhhMDmbhS1P60r4evPtZ1MPiZgkyNvjCeMLCiYb+JX+4uFJyghoQp4hbRHuTLaihgBdSnU6P7u6d90sbDDHqgrtBvIolAVRHFr0KyY5YNodhJwtJj/U9T7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1776073905; c=relaxed/relaxed;
-	bh=OfaFHGW4BHXsCEKDLY2bYmYjd4tuxeBTjzOITav+K40=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Kwn08N+UiyXIKY+wZPC2QWDsCWqgfYn8rZIRd5Lmnmz0yCCKDXkRgy7rr4zbJyRA5q1Vgmgju0sv1gY5TotCfN9SlZqmgYxbc12ghrn+tx7bFzQz+bZWebfMg8vPoApOmItGFSzX9hiDGMWY8cM06nXg3GdxqJKChjZiNiBwe2SbcR2hK5aGorONGX24obMJ/UJTWW1q9KdyCfeaNbX/u4ORqCsisu/T/nyjXPi7r64KRQ+cFvJYIA4GCk9yAuGNq1kn0HwSLQsEw7gKklNlAB4M6w5lexZOQ0HxEf1th+LcHO75KfeCa2rQfxZFaRan3Ud27iB0RpXCguD/znhT4g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=realtek.com; dkim=pass (2048-bit key; unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VQD7aqt2; dkim-atps=neutral; spf=pass (client-ip=211.75.126.72; helo=rtits2.realtek.com.tw; envelope-from=eleanor.lin@realtek.com; receiver=lists.ozlabs.org) smtp.mailfrom=realtek.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fwyqB1nS0z302K;
+	Thu, 16 Apr 2026 10:01:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::232" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776168687;
+	cv=pass; b=Uy2aV8TBVmgnnQwtSrTKDLHG6cyDyDBcOc8p+0O2WOOKwEXF+3tWwlELHab3pa5OmR75wDSHrn90u1P+VaCw8vN3SCjen/xGVOK3CCoLFywikloMtpjyOR00MHE2F6aVgXPkmFKabtOy3juTiqGAUiteRo/BkMmIQAHIgKheYZvKCjxOixog3EWhiKBoxZPoz/86eUvcAV+MOHW/8p9ofF/bEsrmTVFK7a277hgzxN210VnDH45EtgYO2Vndt/16YwIbNyzXYWgjhRZP2aWSbCMAZCavjJHEeaORh5AjP1lAJn6IL+4DCbxI06izZSAUtM9i/j+D0LCfo7dk/cCvIA==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1776168687; c=relaxed/relaxed;
+	bh=vMS4QV4cs3UTdyfk4y1tazZ2iZR/VzeUPa/I+j7yXak=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VLxfX/7N/1GC5Wop15e1J/g03mei1RNjptIeFOJne/xDEmUP6sIBbZiVaPrPir1Zc2xRa/5AI3xsOhaEtwBVN82d0pFbFMkSkPVbfIiKc674g/K1XRe27pEcuFazR3pAGRxjt1j5Jz3WX2hkiBzdXA57IUcCGESA7rNEE80Lvm4xaQR4+Ywpa3q7uOkj9wbFRSPp9IEsC3jrQW5ttTjcF4Z33XNPdgKpOfdwb5V8xeKOGDHlTlc6+MdTCQ3lO3SE3c+tVSx560Aa8iytOf6mNrxnOHfh8JPLgWJQfm/S1U1k++3H6ccIXXt/FloZNh86qU/NhmEDJU+Fef9+EwTn8w==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R9ZoHfJy; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::232; helo=mail-oi1-x232.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VQD7aqt2;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R9ZoHfJy;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=realtek.com (client-ip=211.75.126.72; helo=rtits2.realtek.com.tw; envelope-from=eleanor.lin@realtek.com; receiver=lists.ozlabs.org)
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::232; helo=mail-oi1-x232.google.com; envelope-from=devnexen@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com [IPv6:2607:f8b0:4864:20::232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fvN3N3cJRz2xS3;
-	Mon, 13 Apr 2026 19:51:43 +1000 (AEST)
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 63D9nA5s94021616, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1776073751; bh=OfaFHGW4BHXsCEKDLY2bYmYjd4tuxeBTjzOITav+K40=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VQD7aqt2XR9PJpPEIceqZ9cd1oxayPD/Gb6aeMAjLrQ2LwAr2Gf+M7FPIFXHrYMjL
-	 /HgzlcDmTmtuIGxqe2qwHHTXUvGrAj/NYwQSb/E5xujCyEWacoIX0BDyiWawLyeqzh
-	 xbszBRnBU7j0NCWKpWqV2/xVR7OFy80JjhTFMZbCsUdZZVoDzlrVCmI8rgMVPzKrBn
-	 M9hCEjmQQd+5Ud7tMXPb2urUKV9/kNmQXeaouig7SR55y2t474QLiEYsR8l/bOj502
-	 /Ota3JPsTe/NpMRYHrMSUVfvZ+iLT6AUqAv8puOhLwvgAiZl4oL72aag48tE8xgyUp
-	 ELmNRui+C+PBw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.26/5.94) with ESMTPS id 63D9nA5s94021616
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 13 Apr 2026 17:49:10 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.10; Mon, 13 Apr 2026 17:49:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::ed72:3015:2840:4458%10]) with mapi id
- 15.02.1748.010; Mon, 13 Apr 2026 17:49:11 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Linus Walleij
-	<linusw@kernel.org>,
-        =?utf-8?B?QW5kcmVhcyBGw6RyYmVy?= <afaerber@suse.de>
-CC: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Andrew Jeffery
-	<andrew@codeconstruct.com.au>,
-        "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>,
-        "openbmc@lists.ozlabs.org"
-	<openbmc@lists.ozlabs.org>,
-        "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-        Joel Stanley <joel@jms.id.au>,
-        "linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-        =?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>
-Subject: RE: [PATCH 1/4] pinctrl: realtek: Enable compile testing
-Thread-Topic: [PATCH 1/4] pinctrl: realtek: Enable compile testing
-Thread-Index: AQHcyOqp9cEi81by0U+J7Mg1UrX8w7XcwsLg
-Date: Mon, 13 Apr 2026 09:49:11 +0000
-Message-ID: <eda54aea98ba4ad58ba8fca0951dd714@realtek.com>
-References: <20260410-pinctrl-testing-v1-0-6f708c855867@oss.qualcomm.com>
- <20260410-pinctrl-testing-v1-1-6f708c855867@oss.qualcomm.com>
-In-Reply-To: <20260410-pinctrl-testing-v1-1-6f708c855867@oss.qualcomm.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-x-originating-ip: [172.21.6.42]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fw3670Q7Rz2ySS
+	for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2026 22:11:26 +1000 (AEST)
+Received: by mail-oi1-x232.google.com with SMTP id 5614622812f47-4670676ba03so1793173b6e.1
+        for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2026 05:11:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776168683; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Jrk9RkQK1OnyoIs1yJ1nW675PQqGKVAL8dorwnYm4VLIt4oWjZJFsTOpDhJDL5fBbD
+         pg+utEBRTTmoVXbccHG0GZX0wxn2x2j4czpuLu49u+5sq6nProPez8PiBGSlfjiYJCW4
+         iNYnnFdCsz/AMqjP3+go4pptw9vNSw/TQzyZJ3cuj11/YFY8tGg+cpPOsyUFfI/REFD1
+         VnOHxAY35TXTAnnWccr6T1i0E4BOC2d1h0zi8aX956ybCXnieaURXCh/G7Bi3sNFWdmm
+         xyyXWbl69MPTcWejpTyD9Los8IF5YfSDs/oIW8HGOZrbCUDeM+1WI2qosPj3sjoZmjWm
+         2y0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vMS4QV4cs3UTdyfk4y1tazZ2iZR/VzeUPa/I+j7yXak=;
+        fh=AYWoCJ8ZdZSVV9tP1W7/Q2dRd8fAlH75RQcWMQvSwiU=;
+        b=OIqu08GEo3r209L/ecUE4aiVvKBgsMCqr1VnqpfU03++zPoYKHDDInWUrClr07BFmm
+         Or/6YR/AU+QaTXr2uXHmCPCTGTU+56nrs5vXo77kP1T9g+k36mWgjl2XyZCmxQyxyvE8
+         bII97U8n9X5rGIKYnaR6NtDn7xKmCe5SI4vFqBMxpghlC1JDH2q791NYSdKf+D+ufTCX
+         ySK+G1Qy4uJRcmPQkGB5X4pN/JYnbeLRH1PrlcFK4Op1geppnjhjeQlQgNxDMQoNwxNh
+         KFq4PSx1gHKI9TAkjUvnBVjJrDEZohZR/+qgG0To+GI8kEI3+M3r1WBgsniDzcLA/edx
+         fRXg==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776168683; x=1776773483; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=vMS4QV4cs3UTdyfk4y1tazZ2iZR/VzeUPa/I+j7yXak=;
+        b=R9ZoHfJymZVaZ59GqlNy/75HxoTzc+gcQkHBTPABP7Oceqg+WXQcOjSvKjVDCB2nE0
+         av+mSO7IaD7GDc1hQTkm68CMb320PokQ72nuQiuxIZ/m/P+goJUoEmUDDUTnjgAvGkKb
+         ykFUSFfkVEFfjsnb1mcwa+Qzdi8OXVcgo5CYrzz8RxReJSzyjwHJ+SAcBFELcVkqDXRJ
+         W1bVObPyYnRsLBZk+oYsF6RMyqzrl3iM7M+BQJ9FRSOzfkYjOBDXMyFV0qRV117WyXlH
+         Jqq8lXcSlsolZV8MS1wNY9Bk4GqmX57uPUs/uqV1LEdrkoTyzdI3hKZLYAFuPV5DZcdN
+         q8aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776168683; x=1776773483;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vMS4QV4cs3UTdyfk4y1tazZ2iZR/VzeUPa/I+j7yXak=;
+        b=KqfGGAyPTYZ0RuiXJXacYpShLKtX8oBFhIAncQarbXW+KV6rDd9t2YZdcQ3BfScbPo
+         ikrZfLAdhvCdEjoi5DokeZqqem6ZLRbGwLm8WpD22mG+Pkcq9Avwum0+vU+l9byYZMPo
+         LIAUI9Bv/iHfR6S0hjXGcULLj7WfxxUm6/CrcUDV8uGycvAic5Egzt/cXwruyYKKnt8+
+         ZIyn9f3yK2e69GjmP3q9st4xT6Kwvy3pAhb2kZE6ZrAah4OEk9g42K6s/rVF0qZZ5xcG
+         u+PmEOKL+16MEhczYj8rip2YRGcPM1G/xycBPFHqLAzZQqDKfLpeKJGIIwomlZOeSE4F
+         QpVA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Lda8t5qBQVQdyIPJ/ERWVOJ5lnpV4PGk4tEaHLWfkjqwLup0bwZMYxtpy815selpJ+tAblmRt@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyMbpb70yE87f7YVhz6AeH1Jm+tWAToq2CuERDPl3HpKzOXyqeG
+	PrnMMtojc5kenjqKx70UOfD1r0RJk0YhFKpv7f96Jd/UasC/yTF6iYf7j1azwCfiYm/hIvJlR2V
+	qh1z7kx56gx0gQQNve0VKKiYQZfmGAWQ=
+X-Gm-Gg: AeBDiese27nqsv8Kh2C6hhYkuhPAtioigFwVAGoEeYcFt3ASh5hOPlgHr2ssDPJ9U3s
+	3G1glixYwliDIXM0xIzLkXywkqDv95HcTFp6fCUZvyf5oRfe371T9t7F049AhzzKevsikrdEDlS
+	/qxFfC7EG7Xe8Vk7teGwKs5jFp5uZwMPcdupWizXpYYsWEkw6G1N+hVwQFWTpyknzQUcx9CE8Lp
+	GLELzXqHFyVcwq7OEu4t1ePQZ63MHEjj1UlU+Dxr97vRyAPbbj8mL3fDk5KHuz5nMkWyL212AKt
+	9drv6bEnTZsR73hyIASEupU6xQaJPrHIh8y0Dg==
+X-Received: by 2002:a05:6808:2006:20b0:479:3f61:ef98 with SMTP id
+ 5614622812f47-4793f61f889mr3626813b6e.2.1776168678853; Tue, 14 Apr 2026
+ 05:11:18 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -94,50 +98,77 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20260414095929.11257-1-devnexen@gmail.com> <ad4unjKuC6Ff_yse@ashevche-desk.local>
+In-Reply-To: <ad4unjKuC6Ff_yse@ashevche-desk.local>
+From: David CARLIER <devnexen@gmail.com>
+Date: Tue, 14 Apr 2026 13:11:07 +0100
+X-Gm-Features: AQROBzDfj0XwBqswteHJSS4t3C5iOmGO9MtqXStcn35i-bOXhczIpRLis_L3E5k
+Message-ID: <CA+XhMqwuhte0j2iO-NYVrjV+qQKcuiDY5qAD9+oCLkRqEhwKSA@mail.gmail.com>
+Subject: Re: [PATCH v2] iio: adc: npcm: fix unbalanced clk_disable_unprepare()
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, Andy Shevchenko <andy@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Avi Fishman <avifishman70@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Patrick Venture <venture@google.com>, 
+	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, openbmc@lists.ozlabs.org, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-PiBFbmFibGUgY29tcGlsZSB0ZXN0aW5nIGZvciBSZWFsdGVrIHBpbiBjb250cm9sbGVyIGRyaXZl
-cnMgZm9yIGluY3JlYXNlZCBidWlsZA0KPiBhbmQgc3RhdGljIGNoZWNrZXJzIGNvdmVyYWdlLiAg
-UElOQ1RSTF9SVEQgdXNlcw0KPiBwaW5jb25mX2dlbmVyaWNfZHRfbm9kZV90b19tYXAoKSwgdGh1
-cyBuZWVkcyBPRi4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
-enlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL3Bp
-bmN0cmwvTWFrZWZpbGUgICAgICAgIHwgIDIgKy0NCj4gIGRyaXZlcnMvcGluY3RybC9yZWFsdGVr
-L0tjb25maWcgfCAxMiArKysrKystLS0tLS0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRp
-b25zKCspLCA3IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcGluY3Ry
-bC9NYWtlZmlsZSBiL2RyaXZlcnMvcGluY3RybC9NYWtlZmlsZSBpbmRleA0KPiA5ZDMzZmEyOGEw
-OTYuLmIwNTRjZmI5OTM0OCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL01ha2VmaWxl
-DQo+ICsrKyBiL2RyaXZlcnMvcGluY3RybC9NYWtlZmlsZQ0KPiBAQCAtODIsNyArODIsNyBAQCBv
-YmoteSAgICAgICAgICAgICAgICAgICAgICAgICArPSBudXZvdG9uLw0KPiAgb2JqLXkgICAgICAg
-ICAgICAgICAgICAgICAgICAgICs9IG54cC8NCj4gIG9iai0kKENPTkZJR19QSU5DVFJMX1BYQSkg
-ICAgICArPSBweGEvDQo+ICBvYmoteSAgICAgICAgICAgICAgICAgICAgICAgICAgKz0gcWNvbS8N
-Cj4gLW9iai0kKENPTkZJR19BUkNIX1JFQUxURUspICAgICAgKz0gcmVhbHRlay8NCj4gK29iai0k
-KENPTkZJR19QSU5DVFJMX1JURCkgICAgICArPSByZWFsdGVrLw0KPiAgb2JqLSQoQ09ORklHX1BJ
-TkNUUkxfUkVORVNBUykgICs9IHJlbmVzYXMvDQo+ICBvYmotJChDT05GSUdfUElOQ1RSTF9TQU1T
-VU5HKSAgKz0gc2Ftc3VuZy8NCj4gIG9iai15ICAgICAgICAgICAgICAgICAgICAgICAgICArPSBz
-b3BoZ28vDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3BpbmN0cmwvcmVhbHRlay9LY29uZmlnIGIv
-ZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvS2NvbmZpZw0KPiBpbmRleCAwNTRlODVkYjk5ZTcuLmEx
-NTZjNGVmNTU2ZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9waW5jdHJsL3JlYWx0ZWsvS2NvbmZp
-Zw0KPiArKysgYi9kcml2ZXJzL3BpbmN0cmwvcmVhbHRlay9LY29uZmlnDQo+IEBAIC0yLDggKzIs
-OCBAQA0KPiANCj4gIGNvbmZpZyBQSU5DVFJMX1JURA0KPiAgICAgICAgIHRyaXN0YXRlICJSZWFs
-dGVrIERIQyBjb3JlIHBpbiBjb250cm9sbGVyIGRyaXZlciINCj4gLSAgICAgICBkZXBlbmRzIG9u
-IEFSQ0hfUkVBTFRFSw0KPiAtICAgICAgIGRlZmF1bHQgeQ0KPiArICAgICAgIGRlcGVuZHMgb24g
-QVJDSF9SRUFMVEVLIHx8IChDT01QSUxFX1RFU1QgJiYgT0YpDQo+ICsgICAgICAgZGVmYXVsdCBB
-UkNIX1JFQUxURUsNCj4gICAgICAgICBzZWxlY3QgUElOTVVYDQo+ICAgICAgICAgc2VsZWN0IEdF
-TkVSSUNfUElOQ09ORg0KPiAgICAgICAgIHNlbGVjdCBSRUdNQVBfTU1JTw0KPiBAQCAtMTEsMjIg
-KzExLDIyIEBAIGNvbmZpZyBQSU5DVFJMX1JURA0KPiAgY29uZmlnIFBJTkNUUkxfUlREMTYxOUIN
-Cj4gICAgICAgICB0cmlzdGF0ZSAiUmVhbHRlayBESEMgMTYxOUIgcGluIGNvbnRyb2xsZXIgZHJp
-dmVyIg0KPiAgICAgICAgIGRlcGVuZHMgb24gUElOQ1RSTF9SVEQNCj4gLSAgICAgICBkZWZhdWx0
-IHkNCj4gKyAgICAgICBkZWZhdWx0IEFSQ0hfUkVBTFRFSw0KPiANCj4gIGNvbmZpZyBQSU5DVFJM
-X1JURDEzMTlEDQo+ICAgICAgICAgdHJpc3RhdGUgIlJlYWx0ZWsgREhDIDEzMTlEIHBpbiBjb250
-cm9sbGVyIGRyaXZlciINCj4gICAgICAgICBkZXBlbmRzIG9uIFBJTkNUUkxfUlREDQo+IC0gICAg
-ICAgZGVmYXVsdCB5DQo+ICsgICAgICAgZGVmYXVsdCBBUkNIX1JFQUxURUsNCj4gDQo+ICBjb25m
-aWcgUElOQ1RSTF9SVEQxMzE1RQ0KPiAgICAgICAgIHRyaXN0YXRlICJSZWFsdGVrIERIQyAxMzE1
-RSBwaW4gY29udHJvbGxlciBkcml2ZXIiDQo+ICAgICAgICAgZGVwZW5kcyBvbiBQSU5DVFJMX1JU
-RA0KPiAtICAgICAgIGRlZmF1bHQgeQ0KPiArICAgICAgIGRlZmF1bHQgQVJDSF9SRUFMVEVLDQo+
-IA0KPiAgY29uZmlnIFBJTkNUUkxfUlREMTYyNQ0KPiAgICAgICAgIHRyaXN0YXRlICJSZWFsdGVr
-IERIQyAxNjI1IHBpbiBjb250cm9sbGVyIGRyaXZlciINCj4gICAgICAgICBkZXBlbmRzIG9uIFBJ
-TkNUUkxfUlREDQo+IC0gICAgICAgZGVmYXVsdCB5DQo+ICsgICAgICAgZGVmYXVsdCBBUkNIX1JF
-QUxURUsNCj4gICAgICAgICBoZWxwDQo+ICAgICAgICAgICBUaGlzIGRyaXZlciBlbmFibGVzIHN1
-cHBvcnQgZm9yIHRoZSBwaW4gY29udHJvbGxlciBvbiB0aGUgUmVhbHRlaw0KPiAgICAgICAgICAg
-UlREMTYyNSBTb0NzLg0KPiANCj4gLS0NCj4gMi41MS4wDQoNClJldmlld2VkLWJ5OiBZdS1DaHVu
-IExpbiA8ZWxlYW5vci5saW5AcmVhbHRlay5jb20+DQo=
+On Tue, 14 Apr 2026 at 13:10, Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Tue, Apr 14, 2026 at 10:59:29AM +0100, David Carlier wrote:
+> > The driver acquired the ADC clock with devm_clk_get() and read its
+> > rate, but never called clk_prepare_enable(). The probe error path and
+> > npcm_adc_remove() both called clk_disable_unprepare() unconditionally,
+> > causing the clk framework's enable/prepare counts to underflow on
+> > probe failure or module unbind.
+> >
+> > The issue went unnoticed because NPCM BMC firmware leaves the ADC
+> > clock enabled at boot, so the driver happened to work in practice.
+> >
+> > Switch to devm_clk_get_enabled() so the clock is properly enabled
+> > during probe and automatically released by the device-managed
+> > cleanup, and drop the now-redundant clk_disable_unprepare() from
+> > both the probe error path and remove().
+>
+> Also need to mention the message drop here.
+>
+> "While at it, drop the duplicate error message on ..."
+>
+> > Fixes: 9bf85fbc9d8f ("iio: adc: add NPCM ADC driver")
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
+> > ---
+> > v2: drop redundant dev_err() on devm_request_irq() failure since the
+> >     IRQ core already logs it, and remove the now-single-statement
+> >     braces (Andy Shevchenko).
+>
+> ...
+>
+> >               if (PTR_ERR(info->vref) != -ENODEV) {
+> >                       ret = PTR_ERR(info->vref);
+> > -                     goto err_disable_clk;
+> > +                     return ret;
+>
+> Now it's simply
+>
+
+
+ah yes true true :)
+
+>                         return PTR_ERR(info->vref);
+>
+> >               }
+>
+> ...
+>
+> With those two being addressed, feel free to add
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
 
