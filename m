@@ -1,93 +1,68 @@
-Return-Path: <openbmc+bounces-1839-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1840-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49535F8A15B
-	for <openbmc@archiver.kernel.org>; Thu, 16 Apr 2026 10:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC9CFF8D75F
+	for <openbmc@archiver.kernel.org>; Thu, 16 Apr 2026 15:54:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fxFL211c8z2yjw;
-	Thu, 16 Apr 2026 20:55:54 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=202.12.124.159
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776336953;
-	cv=none; b=SahDMVSvJ96giY8lssYqRTOCltcZI1v6WgpqS2IddbXGKajAZEJ5tEN0fjc6pvski63qUcCg80yfsQk6OVfqCFi/2Z+T62T44p/HU3FXXnUc4qAe0Mtt0IyfW8/xkE+rlGyfnnn9Yg9DitToTpl7VnXRuUAQHfoR34bAyh/TlCkPmaiMLKxavDdj3gir0BPvzuEpvMevew5FHIcndm5ZuO092oMh314n7WDZm4Z4vrDBCYo6jJUlW4kk4ESO7GAoGBaoYLbWvuQelspUGxh2DHbYqHsrTffbDq3LGz27Qbj5q+FqbJUZHJIyGYIbrhAHal/rEAvqoDSglcv5iy5fkg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fxMyJ0JZpz2yrm;
+	Fri, 17 Apr 2026 01:54:16 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776354855;
+	cv=none; b=EOq1KlpD4c1Zau6FM6lhRhld7NwnrjJg3sQbeMnQq/CP/5TsQAqWxK+KaSwlPYRXc6RSBs6sry4M3BNZ+cA4B/Z6wrtQIU/lexti9OlC2/Qp8WSX94WU4MtYx7V/rSM4QQcCJOZyTeTsbEwxx6fJEcWzaAtnS4uIG6CVyxj/ZcYPDnyCWeYViRofdIz8f6EUz9i+zuigVGG5GQomKYksDrx4gSE3avJNzxhVbCdK/QU9RNc6V7pdZgu13shbfecoskQ8bL5f2M/ts29NvJ3kRugYEeTXCDmeKshijxAkXgWSppA0zHln9kcKpLh/SkB2OYYwbDrOLZPeEEW4ghBJoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1776336953; c=relaxed/relaxed;
-	bh=4Ygirb/bNuzDvMTC7Pdxa4/CaYn/KhlSSFerHMJWSuE=;
+	t=1776354855; c=relaxed/relaxed;
+	bh=ZIBe12t9QAVK2C+Ee112YHeNFZOqGP7jIyw1SMfJwys=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NING6HJvPYzPLklyhdRSRbAPw3N+aPoMfteJaoOqlcS0//HAngs805aBsygu3dJAYgphyAz2YD3wHXG8BaeCnh5AniUMwTZ5eCBbjCVNuEz/kBAplWgov7Z2BVXGGuBKwkHzAT2uyU4ukjm21MbIZUweIiQV4lRHlBRi9Hua0BtUr9o8tB2B37w3V98ZoZhshEglquNhKjbkDeeIhXNwQ8VJfCsflOAwRjOghJQai3TybSvUpr/RzMjV4E5DRgnkuRz0A6kAh0b6QIYCMrfF9Am0fyRe1A1qUM+jJ3bSQ6oNbsqalXvmAXqLFROo+j2Jj16CkImc3d60W2trjvQUPg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=cesRnRkn; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dnMgZb+L; dkim-atps=neutral; spf=pass (client-ip=202.12.124.159; helo=fhigh-b8-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLJ5PmNznS2wz40oOOOx/xYEalGz5Zd0phHUvzSVHApqYizBg9SXFbjS1phRR+XUV0DK6+6YAn9B3dFhfi/2viV9OuSwCKOmJbF8W6rg18tqfsxs7PWoXKPUV0HVPNP+zJHAco8nhmMQ4P8CRT0n/1Xvy5kEnHkgG2ex+x01eDrU9TTIrAlCV38w0O+kPMAGJnUlPQdojYlVOTvwuHmhvdQKDoRvwo+x+9L9QJBDkEpCwQdkzGyjpZHRY3MKROa+Q9WEHYPiPXT+q1RK5ynsvHeHGCJZi+NtSSezmnhEKLLyuGLMXivL5LYNErbaYlmdwAle7dxGzKRR2pbH5IxNQw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=oj41PPQr; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=cesRnRkn;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dnMgZb+L;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=oj41PPQr;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=202.12.124.159; helo=fhigh-b8-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fxFKz3NcGz2yVt
-	for <openbmc@lists.ozlabs.org>; Thu, 16 Apr 2026 20:55:51 +1000 (AEST)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9F26C7A018F;
-	Thu, 16 Apr 2026 06:55:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 16 Apr 2026 06:55:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1776336947; x=1776423347; bh=4Ygirb/bNu
-	zDvMTC7Pdxa4/CaYn/KhlSSFerHMJWSuE=; b=cesRnRkn2QCa0hUwv1lbA1BqcU
-	BVviJ/1cTURZYHT9lxjyDzbFU98r2S2bL3X9Hy35nKjpzs+Da/U9osdwmRk18Ds7
-	BLv0r0zRMcMKxXw4H/UEXhq1Va/jDZzwudGRiiAcnc4OGJXTN2ooKJaogeLCVhpw
-	Yd/Ro23k8kUarla3sh/Tqnh+M7M2HZNdaTDidvMwQmo4J78gIRjp2lK3zcbx0iRn
-	KLEQnufVQfwjhvGDEXkF+pzFpsv29vVv1JqzjfB395YjY7+for9b7XcfBuYARIf3
-	gMlTU2tDTm24rPk3LuGdeqq/RMv+9xA9FRIMWyu2BuULlpoR3/qHl7WdX0cw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1776336947; x=1776423347; bh=4Ygirb/bNuzDvMTC7Pdxa4/CaYn/KhlSSFe
-	rHMJWSuE=; b=dnMgZb+Lg+2dDzV8mF9GPNfFcuXmDR6+r8XF3aDtyCBsAAq63ai
-	+2Kf1o6hi2rJrl5KGqPjHvwBr5QIRZ4IFekEOerQdOHiKH+Kl5Jv3HZrFcVuMz+q
-	sw7bvZIsmxeDjLnsQ2zYODPTb7t9Qt+oczNnFx7nhv9JepvecZzOVIM4GfpJDsUU
-	cnWFapUMxf71WnQ8mY5Xd4kjXEdvKTW/hdwQSefqZS2cPXt50vl+y0UF1tVc1+Mc
-	g6yapKn82+ePoRPJetmgqZGLt7p4farMpotbJfJX68oIR+6Le06iey8cZ87n5f/R
-	fxrkVRqcGzDpuJx2xz7wPURYGaQEBNHBOCg==
-X-ME-Sender: <xms:M8DgaRUuM9zatBhQIuYLX04TNCqrd4X0b0n9QbsRWYHj5JVfF7LAiQ>
-    <xme:M8DgaXkcIUcHzK_lwGg3RLuALqfSly8EDRFAmoDhbhUUZVHwD1vCjzYw8Itac-Qqs
-    Rx2OxCgzXCNiplNlHyOxQd99Quj9x1VN8xurIWVYAY0DMFbR1wG4A5W>
-X-ME-Received: <xmr:M8DgabDLgmpnMrucotIeC3MSo5YZW2CQCOHcV5AgMvx3xBzCaAhqYjtfex0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdegieekvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfghrlh
-    cuvffnffculdefhedmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvden
-    ucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhesshhtfi
-    gtgidrgiihiieqnecuggftrfgrthhtvghrnhepudektdehieelfeekhfefvdetgefhudek
-    veehtdduvdeivdeggefhueekheejgffhnecuffhomhgrihhnpehgihhthhhusgdrtghomh
-    dptghonhhtrhhisghuthhinhhgrdhmugenucevlhhushhtvghrufhiiigvpedtnecurfgr
-    rhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiiipdhnsggprh
-    gtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehmrghorghpohho
-    thesghhmrghilhdrtghomhdprhgtphhtthhopehophgvnhgsmhgtsehlihhsthhsrdhoii
-    hlrggsshdrohhrgh
-X-ME-Proxy: <xmx:M8Dgafciy2rPzBhNhNDm68Hsrv2IQldYk3A39M7f1dhjbupu4EfVBA>
-    <xmx:M8DgaeJKYlF5oLIc3HyhRk_gUyBqwfD17-ok-Z7lg2nY-diiswQawA>
-    <xmx:M8DgaafZEJg7CS3eRHz93E_6_L80qnwHtEtuy_EDJIwMC1dZp3-EOQ>
-    <xmx:M8Dgad1oQTYWlThQziXysXjuCQB1JnbItBPMGvEEl0YW6BgGlNsMMw>
-    <xmx:M8DgaSlKVWcYWdD8KE3tf_jvOsPe5h2YuurDl-lpGBxVsGSMzD0uE7tZ>
-Feedback-ID: i68a1478a:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Apr 2026 06:55:47 -0400 (EDT)
-Date: Thu, 16 Apr 2026 06:55:46 -0400
-From: Patrick Williams <patrick@stwcx.xyz>
-To: apoot mao <maoapoot@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Request for CLA Agreement Permission - Gerrit ID: 1002899
-Message-ID: <aeDAMnHha6JOfox-@heinlein>
-References: <CAOnE0XdMCnnkNasTrSM+4kg9VggEYU566mTc=hs2nxCOX+G_Vw@mail.gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fxMyG0k2Tz2yhP;
+	Fri, 17 Apr 2026 01:54:13 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id BF44D43A40;
+	Thu, 16 Apr 2026 15:54:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DF5C2BCAF;
+	Thu, 16 Apr 2026 15:54:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1776354850;
+	bh=A6PmtdwoxMFwfTIxnTYwHoYQS2S6o0smJnblGS/cOiY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oj41PPQr4urm3jmdEHQld+x/hq5vcKf+0oRYTBilCdX6ioul/2rHuuqOaI588SFkM
+	 j63PF99F+bmFIw8RsSLouiYzz4N25hKzx+inOkOCc0GrTulum2nJXqU8JbIGg/4Oqj
+	 sG6MuwQq3eidTpb+kJQvX+jjv00YMyDSdDBab1cD5wYIxYs2B1e/0Nl9tbxVAwTsgs
+	 FQfV7cq0V2yJEUjRvwY0IcIbsrLwAyDTSYNvJfUkt+/dNzy4AK5nUt0OcfIEwE3tqE
+	 8imsmrb5NLeLor0VoNqTTmgBTjB8oYu+SCl25g4HiLjkUFe8xvXSKS9LLNUp4gylcE
+	 VndHwdRKDCdlA==
+Date: Thu, 16 Apr 2026 16:54:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
+Message-ID: <20260416-brutishly-saga-ba7168a4cd14@spud>
+References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
+ <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,46 +74,228 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TDlrsV59F8MuaDL1"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="F+crD9IVk8CdCT4u"
 Content-Disposition: inline
-In-Reply-To: <CAOnE0XdMCnnkNasTrSM+4kg9VggEYU566mTc=hs2nxCOX+G_Vw@mail.gmail.com>
+In-Reply-To: <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
 
 
---TDlrsV59F8MuaDL1
+--F+crD9IVk8CdCT4u
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 09, 2026 at 01:44:43PM +0800, apoot mao wrote:
-> I have verified my email, but the Agreements menu is
-> missing in my settings, so I cannot sign the ICLA.=20
+On Thu, Apr 16, 2026 at 03:29:43PM +0800, Billy Tsai wrote:
+> Add a device tree binding for the pin controller found in the
+> ASPEED AST2700 SoC0.
+>=20
+> The controller manages various peripheral functions such as eMMC, USB,
+> VGA DDC, JTAG, and PCIe root complex signals.
+>=20
+> Describe the AST2700 SoC0 pin controller using standard pin multiplexing
+> and configuration properties.
+>=20
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> ---
+>  .../pinctrl/aspeed,ast2700-soc0-pinctrl.yaml       | 162 +++++++++++++++=
+++++++
+>  1 file changed, 162 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc=
+0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-s=
+oc0-pinctrl.yaml
+> new file mode 100644
+> index 000000000000..947f3cd09fcc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2700-soc0-pinct=
+rl.yaml
+> @@ -0,0 +1,162 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/aspeed,ast2700-soc0-pinctrl.y=
+aml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ASPEED AST2700 SoC0 Pin Controller
+> +
+> +maintainers:
+> +  - Billy Tsai <billy_tsai@aspeedtech.com>
+> +
+> +description:
+> +  The AST2700 features a dual-SoC architecture with two interconnected S=
+oCs,
+> +  each having its own System Control Unit (SCU) for independent pin cont=
+rol.
+> +  This pin controller manages the pin multiplexing for SoC0.
+> +
+> +  The SoC0 pin controller manages pin functions including eMMC, VGA DDC,
+> +  dual USB3/USB2 ports (A and B), JTAG, and PCIe root complex interfaces.
+> +
+> +properties:
+> +  compatible:
+> +    const: aspeed,ast2700-soc0-pinctrl
+> +  reg:
+> +    maxItems: 1
+> +
+> +patternProperties:
+> +  '-state$':
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+> +
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      function:
+> +        enum:
+> +          - EMMC
+> +          - JTAGDDR
+> +          - JTAGM0
+> +          - JTAGPCIEA
+> +          - JTAGPCIEB
+> +          - JTAGPSP
+> +          - JTAGSSP
+> +          - JTAGTSP
+> +          - JTAGUSB3A
+> +          - JTAGUSB3B
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2AD0
+> +          - USB2AD1
+> +          - USB2AH
+> +          - USB2AHP
+> +          - USB2AHPD0
+> +          - USB2AXH
+> +          - USB2AXH2B
+> +          - USB2AXHD1
+> +          - USB2AXHP
+> +          - USB2AXHP2B
+> +          - USB2AXHPD1
+> +          - USB2BD0
+> +          - USB2BD1
+> +          - USB2BH
+> +          - USB2BHP
+> +          - USB2BHPD0
+> +          - USB2BXH
+> +          - USB2BXH2A
+> +          - USB2BXHD1
+> +          - USB2BXHP
+> +          - USB2BXHP2A
+> +          - USB2BXHPD1
+> +          - USB3AXH
+> +          - USB3AXH2B
+> +          - USB3AXHD
+> +          - USB3AXHP
+> +          - USB3AXHP2B
+> +          - USB3AXHPD
+> +          - USB3BXH
+> +          - USB3BXH2A
+> +          - USB3BXHD
+> +          - USB3BXHP
+> +          - USB3BXHP2A
+> +          - USB3BXHPD
+> +          - VB
+> +          - VGADDC
+> +
+> +      groups:
+> +        enum:
+> +          - EMMCCDN
+> +          - EMMCG1
+> +          - EMMCG4
+> +          - EMMCG8
+> +          - EMMCWPN
+> +          - JTAG0
+> +          - PCIERC0PERST
+> +          - PCIERC1PERST
+> +          - TSPRSTN
+> +          - UFSCLKI
+> +          - USB2A
+> +          - USB2AAP
+> +          - USB2ABP
+> +          - USB2ADAP
+> +          - USB2AH
+> +          - USB2AHAP
+> +          - USB2B
+> +          - USB2BAP
+> +          - USB2BBP
+> +          - USB2BDBP
+> +          - USB2BH
+> +          - USB2BHBP
+> +          - USB3A
+> +          - USB3AAP
+> +          - USB3ABP
+> +          - USB3B
+> +          - USB3BAP
+> +          - USB3BBP
+> +          - VB0
+> +          - VB1
+> +          - VGADDC
+> +      pins:
+> +        enum:
+> +          - AB13
+> +          - AB14
+> +          - AC13
+> +          - AC14
+> +          - AD13
+> +          - AD14
+> +          - AE13
+> +          - AE14
+> +          - AE15
+> +          - AF13
+> +          - AF14
+> +          - AF15
 
-https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#starting-out
+Why do you have groups and pins?
 
---=20
-Patrick Williams
+Is it valid in your device to have groups and pins in the same node?
 
---TDlrsV59F8MuaDL1
-Content-Type: application/pgp-signature; name=signature.asc
+> +
+> +      drive-strength:
+> +        enum: [3, 6, 8, 11, 16, 18, 20, 23, 30, 32, 33, 35, 37, 38, 39, =
+41]
+> +
+> +      bias-disable: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    pinctrl@400 {
+> +        compatible =3D "aspeed,ast2700-soc0-pinctrl";
+> +        reg =3D <0x400 0x318>;
+> +        emmc-state {
+> +            function =3D "EMMC";
+> +            groups =3D "EMMCG1";
+> +        };
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--F+crD9IVk8CdCT4u
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmngwDEbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEKsDR8wtAMEZQ2gP/j0fpUR3w1jtOy6D7AkA
-DiJLK9N5KJk3hsbPcadF7mG9KWqdzeZJzW73zJNhUgAti1GaxqnSDpthCdMs3ZSJ
-s+UxGhqNx0umQYCJVhHdOgP41Nt4vgQ5r2l2lJRYQHVWNtL6G5+kj3RKL5RHktuU
-Dncozq9R9jtvhy3ZoIT565CGu6uKsSGO9Fx1MtWqr5cr1OP7ga09KRZWhvmGVbMB
-i4mgLQQ/zXLuBc41UXjN/T6ZHY1ivO3bE02pc6UX8ZbIEiG3ASAz0fvAwEj+5buk
-qI77C2XCKKELzcZLhYTeI9XsbV3hDU/Xb3e1PDmvolw6bQJUgATD2c85aUcOB6CE
-mEQTVOkDTT1zcFjUBCaJ9WoWT3wAv05s6N2JptNr1pTE3tCFB6anGkV1dBkYqCBo
-3CcRBdkPktQEAnFnCAGaEHeW2zzKYW5PQ3zT//mcLT/pex7yjzXzuq8usSWXf7v7
-FOLP2h753OQqAmnkaHvT8bqscB6r7Fb2s/l6xC2INj7vZG09ZRtUZojrUdwTWU6X
-bhjd8U8NN/YtTqQmvuLtXPO5lC2W5X8Bu2vkH1RrXITUf47+/SRAj+ghfPGf2TVr
-MmTSj3SSza2OMl90wbMCqm2T1GJMsS5PF7BNEZ0r67XKH4ycNQcsdiwP+Cc/yGif
-5a83JwqjldzPs42UYhR+bnCw
-=Wnw7
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeEGHQAKCRB4tDGHoIJi
+0hrJAQCL/qPAeh9PhP0f+9cy9zlA9Di9yMRwuiovxWHDxpgp2QEAzMKci8tRvglD
+bIbgOLVyP2ugZhGFkQQHHd7o6vRTLQg=
+=QgdD
 -----END PGP SIGNATURE-----
 
---TDlrsV59F8MuaDL1--
+--F+crD9IVk8CdCT4u--
 
