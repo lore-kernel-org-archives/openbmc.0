@@ -1,63 +1,76 @@
-Return-Path: <openbmc+bounces-1845-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1846-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49405F588C1
-	for <openbmc@archiver.kernel.org>; Mon, 20 Apr 2026 12:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 861AAF588F2
+	for <openbmc@archiver.kernel.org>; Mon, 20 Apr 2026 16:25:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4fzlCQ6RSbz2yrM;
-	Mon, 20 Apr 2026 22:28:50 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4fzrSW1FFjz2yrg;
+	Tue, 21 Apr 2026 02:25:31 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776688130;
-	cv=none; b=f6/UGYmPaTrwKEyoaP4ckv2SPra4psMCDDtyaEpc8qgncLo3vvtboNmO2r51G++U0Pz+QGh9EhFsxwrzG2NewvQd6x3lYcDelHpl+UJI3MSxnGsbgN80phk7UTi8uLn837TE9P31EcmKbDc24Njke20ubyV9S11HCA+L7WF6lKPfo0Cc6sUFz+aTb96CcgKwTzCTTDYSW9u2RpDdixetu2YeArpiitmo4JAs5Lyo8OkA49eeLOmS506Hgmv9pNJZTRNjbAwU2zoVeq7EqrNRiAoIRI/qKA1Qs4NiCc2FxHOqO3Nj3FbKWbU9w/ADFi+VTN85eO7QqEwTWiONdQAWQQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1776702330;
+	cv=none; b=OhN8Uny6vIMZYnBq2oP0cpKSJYYlypsrjrPTncVQNFPebcTXZv6Heyh+3vRpWyV+QPtb1R7DwbvClm76s/4bahUj364LTPRLtMINf7LoHfnyxszUeH4RjrZdhDWXNXOLu7DPHnzJXLJ3chbUrNkl8UovnY6wIq64GQlkd8qYhvbYR1wMkQp8YH/uWodt3BOFwWuSbfvvVuGOM6Lox+ghgwOGIDN76SV5CTgif08hOLr+Y/UwuxOzYxMmTr7sFZN5zFC4UmujJ5CmgQWoKcpwAqB2U3Po5OJcVddZIXvqV2xKVBpOHcHNBZOEzdmqDiVkXwdCdtujIx8ih8Z5u5mt/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1776688130; c=relaxed/relaxed;
-	bh=C110ese3mih6LWdzBd8PmRBjkkaJpp8XvK4Gb2qqOQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i2/0incbK99C6B0XlxPLC5y+xf5la+d9hcFFeS0mimvePUI8vYW3JI0dBKb9mr9em9ZpitlCSrlKrr8DcFFHxlXBbkuWwibqnhZl8gQ/i5nqDQR4yuCaHOHdopGTMBOyYLBwWcrefdCLq3apGHjgf5yLNGWH8C9ccR4p8LbjcD/mQIof9bP91l9ZX2nrUAZigW6k3d9j+ioHoN2UyiyZIx4aPN+6b62WXFyIOInNtciuCS58lqx0WWC9DybAPoxZLAkVP2KP50a4TQwXLJgwkaAgszgyVNGEjEwhJ8Cmo4KAg7Hvn2fa3ff2J4z4Et84X7TRm60BBOCXg0i6o/UkBw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=b03Nikmd; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1776702330; c=relaxed/relaxed;
+	bh=O0j6Y5fo3lPBTeyE1P2x/R8t3RgjCaFMUua6bxb1xDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jI8N28V3O6FPB4C0LJrHwysyDdJErFGWA6N0bEccR1AXZVSlxGvF0cFMzoAJ04RqVzEFSLUUmrM9Uv8ngeZ5LNqP+DRU6yp7ucXTZCQWnfzABsXy5S1KjNLedi4sRXupXS7WxfOtE0rvj8cJTUl/8VPz2C34i8Paz7oS/zqHNOI2pwchTvZrTEvNavhR5iS74w7Rw0msr5Vgpzle0aD0/ac4zaKS0BEexcvIr8zX7RGk4ko3KA73tn8Dy0XJLHLzzmsTs9Z7vq2qgTqB8r8nyAd59p4QoyWQIRnf5opqLndpS2HH8oNFgXWHHH5FEzbsdzOdViLXXaw9pOBAIDOM2A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=o7ocB/hf; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=b03Nikmd;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=o7ocB/hf;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=jic23@kernel.org; receiver=lists.ozlabs.org)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
 Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4fzlCP2J5Xz2xc8
-	for <openbmc@lists.ozlabs.org>; Mon, 20 Apr 2026 22:28:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4fzrST19vXz2xc8;
+	Tue, 21 Apr 2026 02:25:29 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 0786B60055;
-	Mon, 20 Apr 2026 12:28:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFA23C2BCB4;
-	Mon, 20 Apr 2026 12:28:41 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id D2812600CB;
+	Mon, 20 Apr 2026 16:25:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6C4C19425;
+	Mon, 20 Apr 2026 16:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1776688125;
-	bh=PWbi3uYEMLYl5AB0E9ZA8pTD7EAbj4oPfcLDQJ5dlTE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=b03NikmdD9k3sKoZWaBDQQ583FdvvV7wLwVmW259D07WRaPT9GkHTVqeh4t9cA9K7
-	 n62DM7AW/HMU2PBzjaE4ds/khF2bwr9zuxVPmyeSPOvqvre41Lo5dD5vQtgffBlYD2
-	 1skE86YqGO5RLoOa6pjLk+dPixvXgiVWbrCXnyGRREXEjW3kxr5umi/zzPR24oqjlS
-	 PWWpA+YFDD94YYjbWbQw/58AJut6Er0d0T9By/LeM2Efo5+ejHXO41TZRhT4zr43vu
-	 Dsylx0uX5mlAvXepUawKNh4U+8KizNECwWkpn62y5Rj7zeyGyir0n42C248YSMNoGo
-	 aNvitnb6wk9lA==
-Date: Mon, 20 Apr 2026 13:28:38 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Carlier <devnexen@gmail.com>
-Cc: tmaimon77@gmail.com, avifishman70@gmail.com, tali.perry1@gmail.com,
- andrew@codeconstruct.com.au, venture@google.com, yuenn@google.com,
- benjaminfair@google.com, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, andriy.shevchenko@intel.com, openbmc@lists.ozlabs.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] iio: adc: npcm: fix unbalanced
- clk_disable_unprepare()
-Message-ID: <20260420132838.147d18b6@jic23-huawei>
-In-Reply-To: <20260414123006.262152-1-devnexen@gmail.com>
-References: <20260414123006.262152-1-devnexen@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20201202; t=1776702326;
+	bh=vKSaU5HrcwkU18F3cmHI8YeCt5M+OLQJr3KqetRN3Tk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=o7ocB/hfx9vZMQhnW0xfVtNS2JAGKGjcmR9qkjMPN9TLfeQjgmb7m5ml7xHRmjhj6
+	 2F3HoRNq1GMTAPV8KdLt/yYi9LyJKVZBo78YexTJ4EvONtM1XOX3JSHFLZrDOyaV0r
+	 RUECmfqEY7mDAje6eQz9dokd4OczJtTBr1vh6waRzA0zKn7onIc0yd9ObTNsUv7IaL
+	 gFnXx/Uwu0BZDpRrdWVDAKqKA5wZZPCStjamKT6n5ABRGVlCziob9XjjmcJwXCVHhR
+	 whFKSFLU4MspnnQSqMcRwe+lCIJIIqZ86T8dFbanbO3m7AZVdZmn4RMHZgNSKRSmzv
+	 nEQY+2/sY/BIA==
+Date: Mon, 20 Apr 2026 17:25:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Andrew Jeffery <andrew@aj.id.au>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v7 1/3] dt-bindings: pinctrl: Add
+ aspeed,ast2700-soc0-pinctrl
+Message-ID: <20260420-footprint-both-967ccd6c120c@spud>
+References: <20260416-upstream_pinctrl-v7-0-d72762253163@aspeedtech.com>
+ <20260416-upstream_pinctrl-v7-1-d72762253163@aspeedtech.com>
+ <20260416-brutishly-saga-ba7168a4cd14@spud>
+ <OSQPR06MB7252EB0C2A1A3313DE49406B8B202@OSQPR06MB7252.apcprd06.prod.outlook.com>
+ <20260417-anemia-borrower-fb90ac02b417@spud>
+ <OSQPR06MB7252BD7967D2567AD6DA7A1D8B2F2@OSQPR06MB7252.apcprd06.prod.outlook.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -69,122 +82,203 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="roj+lL+oXiCy3ZFO"
+Content-Disposition: inline
+In-Reply-To: <OSQPR06MB7252BD7967D2567AD6DA7A1D8B2F2@OSQPR06MB7252.apcprd06.prod.outlook.com>
 
-On Tue, 14 Apr 2026 13:30:06 +0100
-David Carlier <devnexen@gmail.com> wrote:
 
-> The driver acquired the ADC clock with devm_clk_get() and read its
-> rate, but never called clk_prepare_enable(). The probe error path and
-> npcm_adc_remove() both called clk_disable_unprepare() unconditionally,
-> causing the clk framework's enable/prepare counts to underflow on
-> probe failure or module unbind.
-> 
-> The issue went unnoticed because NPCM BMC firmware leaves the ADC
-> clock enabled at boot, so the driver happened to work in practice.
-> 
-> Switch to devm_clk_get_enabled() so the clock is properly enabled
-> during probe and automatically released by the device-managed
-> cleanup, and drop the now-redundant clk_disable_unprepare() from
-> both the probe error path and remove().
-> 
-> While at it, drop the duplicate error message on devm_request_irq()
-> failure since the IRQ core already logs it.
-> 
-> Fixes: 9bf85fbc9d8f ("iio: adc: add NPCM ADC driver")
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Applied to the fixes-togreg branch of iio.git. Note I'll rebase that on rc1
-once available, before sending a pull request.
+--roj+lL+oXiCy3ZFO
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks,
+On Mon, Apr 20, 2026 at 07:22:57AM +0000, Billy Tsai wrote:
+> > > > > +=A0=A0=A0 properties:
+> > > > > +=A0=A0=A0=A0=A0 function:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 enum:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMC
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGDDR
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGM0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEA
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPCIEB
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGPSP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGSSP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGTSP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAGUSB3B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHPD0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXH2B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHP2B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AXHPD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHPD0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXH2A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHP2A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BXHPD1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXH2B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHD
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHP2B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AXHPD
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXH2A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHD
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHP2A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BXHPD
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC
+> > > > > +
+> > > > > +=A0=A0=A0=A0=A0 groups:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 enum:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCCDN
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG4
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCG8
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - EMMCWPN
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - JTAG0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC0PERST
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - PCIERC1PERST
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - TSPRSTN
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - UFSCLKI
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ABP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2ADAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2AHAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BBP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BDBP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BH
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB2BHBP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3A
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3AAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3ABP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3B
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BAP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - USB3BBP
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB0
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VB1
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - VGADDC
+> > > > > +=A0=A0=A0=A0=A0 pins:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 enum:
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB13
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AB14
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC13
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AC14
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD13
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AD14
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE13
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE14
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AE15
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF13
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF14
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 - AF15
+>=20
+> > > > Why do you have groups and pins?
+> > > > Is it valid in your device to have groups and pins in the same node?
+>=20
+> > > The intent is to support both group-based mux selection and
+> > > configuration, as well as per-pin configuration.
+>=20
+> > > In our hardware:
+> > > - `function` + `groups` are used for pinmux selection.
+> > > - `pins` is used for per-pin configuration (e.g. drive strength,
+> > >=A0=A0 bias settings).
+> > > - `groups` may also be used for group-level configuration.
+>=20
+> > > As a result, both `groups` and `pins` may appear in the same node,
+> > > but they serve different purposes and do not conflict:
+> > > - `groups` selects the mux function and may apply configuration to
+> > >=A0=A0 the entire group.
+> > > - `pins` allows overriding or specifying configuration for individual
+> > >=A0=A0 pins.
+>=20
+> > > In most cases, only one of them is needed, but both are allowed when
+> > > both group-level and per-pin configuration are required.
+>=20
+> > To be honest, that sounds like your groups are not sufficiently
+> > granular and should be reduced such that you can use them for pin
+> > settings.
+>=20
+> The intent was to keep the binding flexible, but in practice the mixed
+> use of `groups` and `pins` in the same node is not expected to be used.
+>=20
+> Given that, I agree this flexibility is unnecessary and makes the
+> binding semantics less clear. I'll rework the binding to make the
+> expected usage explicit rather than allowing combinations that do not
+> correspond to a real use case.
+>=20
+> In particular, I'll split the constraints as follows:
+>=20
+> - For pinmux, the presence of `function` will require `groups`, and
+>   `pins` will not be allowed. This reflects the hardware design, where
+>   the groups are defined by the pins affected by a given mux expression
+>=20
+> - For pin configuration, exactly one of `groups` or `pins` will be
+>   required (using oneOf), so that configuration is applied either at
+>   group level or per-pin, but not both.
+>=20
+>=20
+> - if:
+>     required:
+>       - function
+>   then:
+>     required:
+>       - groups
+>     not:
+>       required:
+>         - pins
+>   else:
+>     oneOf:
+>       - required:
+>           - groups
+>         not:
+>           required:
+>             - pins
+>       - required:
+>           - pins
+>         not:
+>           required:
+>             - groups
+> Does this match what you had in mind?
 
-Jonathan
+It's an improvement I think, but I am wondering why you cannot do
+without pins entirely and apply pinconf stuff at the group level?
+Of course that may not be possible with the current groups, but if you
+made the groups more granular, would it be possible?
 
-> ---
-> v3: mention the dev_err drop in the commit log and collapse the
->     single-statement -ENODEV branch (Andy Shevchenko).
-> v2: drop redundant dev_err() on devm_request_irq() failure since the
->     IRQ core already logs it, and remove the now-single-statement
->     braces (Andy Shevchenko).
-> 
->  drivers/iio/adc/npcm_adc.c | 25 ++++++++-----------------
->  1 file changed, 8 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
-> index ddabb9600d46..61c8b825bda1 100644
-> --- a/drivers/iio/adc/npcm_adc.c
-> +++ b/drivers/iio/adc/npcm_adc.c
-> @@ -231,7 +231,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
->  	if (IS_ERR(info->reset))
->  		return PTR_ERR(info->reset);
->  
-> -	info->adc_clk = devm_clk_get(&pdev->dev, NULL);
-> +	info->adc_clk = devm_clk_get_enabled(&pdev->dev, NULL);
->  	if (IS_ERR(info->adc_clk)) {
->  		dev_warn(&pdev->dev, "ADC clock failed: can't read clk\n");
->  		return PTR_ERR(info->adc_clk);
-> @@ -244,17 +244,13 @@ static int npcm_adc_probe(struct platform_device *pdev)
->  	info->adc_sample_hz = clk_get_rate(info->adc_clk) / ((div + 1) * 2);
->  
->  	irq = platform_get_irq(pdev, 0);
-> -	if (irq < 0) {
-> -		ret = irq;
-> -		goto err_disable_clk;
-> -	}
-> +	if (irq < 0)
-> +		return irq;
->  
->  	ret = devm_request_irq(&pdev->dev, irq, npcm_adc_isr, 0,
->  			       "NPCM_ADC", indio_dev);
-> -	if (ret < 0) {
-> -		dev_err(dev, "failed requesting interrupt\n");
-> -		goto err_disable_clk;
-> -	}
-> +	if (ret < 0)
-> +		return ret;
->  
->  	reg_con = ioread32(info->regs + NPCM_ADCCON);
->  	info->vref = devm_regulator_get_optional(&pdev->dev, "vref");
-> @@ -262,7 +258,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
->  		ret = regulator_enable(info->vref);
->  		if (ret) {
->  			dev_err(&pdev->dev, "Can't enable ADC reference voltage\n");
-> -			goto err_disable_clk;
-> +			return ret;
->  		}
->  
->  		iowrite32(reg_con & ~NPCM_ADCCON_REFSEL,
-> @@ -272,10 +268,8 @@ static int npcm_adc_probe(struct platform_device *pdev)
->  		 * Any error which is not ENODEV indicates the regulator
->  		 * has been specified and so is a failure case.
->  		 */
-> -		if (PTR_ERR(info->vref) != -ENODEV) {
-> -			ret = PTR_ERR(info->vref);
-> -			goto err_disable_clk;
-> -		}
-> +		if (PTR_ERR(info->vref) != -ENODEV)
-> +			return PTR_ERR(info->vref);
->  
->  		/* Use internal reference */
->  		iowrite32(reg_con | NPCM_ADCCON_REFSEL,
-> @@ -314,8 +308,6 @@ static int npcm_adc_probe(struct platform_device *pdev)
->  	iowrite32(reg_con & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
->  	if (!IS_ERR(info->vref))
->  		regulator_disable(info->vref);
-> -err_disable_clk:
-> -	clk_disable_unprepare(info->adc_clk);
->  
->  	return ret;
->  }
-> @@ -332,7 +324,6 @@ static void npcm_adc_remove(struct platform_device *pdev)
->  	iowrite32(regtemp & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
->  	if (!IS_ERR(info->vref))
->  		regulator_disable(info->vref);
-> -	clk_disable_unprepare(info->adc_clk);
->  }
->  
->  static struct platform_driver npcm_adc_driver = {
+--roj+lL+oXiCy3ZFO
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZTcAAKCRB4tDGHoIJi
+0jjnAQCJjvUhxSmvm6JbWAIrKcOuvydUZBHto/wUhz9++BkJLwD9Fg/O6O+DtRL6
+AYqmQLNXienEf51791AHyKXF5o+pJgs=
+=NBXc
+-----END PGP SIGNATURE-----
+
+--roj+lL+oXiCy3ZFO--
 
