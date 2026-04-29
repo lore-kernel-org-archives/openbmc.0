@@ -1,55 +1,55 @@
-Return-Path: <openbmc+bounces-1879-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1880-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C11A3FF8875
-	for <openbmc@archiver.kernel.org>; Thu, 30 Apr 2026 00:17:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5615FF8875
+	for <openbmc@archiver.kernel.org>; Thu, 30 Apr 2026 00:18:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4g5ZSn3f7dz2xlm;
-	Thu, 30 Apr 2026 10:15:37 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4g5ZSp22f8z2yx5;
+	Thu, 30 Apr 2026 10:15:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777486102;
-	cv=none; b=blEhXXH6CReEBP2vmUfysbtjz7vr8rmvl7UVO3p2nRylESIH35dQGwbY52/D9upL/iZGmKTpF1EMkBp6M4bp6xrIwAMpzLhUpJ9lqy/h23HkxIOrpr37fBZLdVaoyH+Td0PlKjw7W/tUOc1NBav+H0TjGn/JYKEwE55hz7Zo54WAFFYmskT67dJKiEkvsma5KKP5TyFtj+m4JWIHJuN6NtS2+2QQ37vnh9/X/CV1lVa67J4qILJ2Ji8RIeV/A8J5YvxA1ySY9l/KYi4V+YCvkNbq3r+ptsXxIMvi8MEF3sHHs8XSPApzd/t2OrTaVk+mqH2Jpa3hC4bEdu0TljToCA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777485806;
+	cv=none; b=KcAK4A+3/qBetfjDNB0hNdi2dfWRXaoUyKcgNjgT3OkRiE+A1F+q7oy3IuBKKM0C7QVncGYV2rbPiKjFopFI/KpKBgIsN9PNvntNigQkGa9ZzFGUL249gqfXiNNfm3TbLG2F7/HNp+iVSBskRSAjJ9BtuOp0j48sr3wA5hO88rSjaNW6kV32RckE3ISnIokWrgU7ufZHM/Xz7cKG9JhgF4/Fp0TzkpAbi1rHPPHWaxO/D3vWl2fnLjBl68kK9FUPMwidiTUUvWbcnMAIKVAhYDMoffvo/FpznBsNuQFezjzyYIQT0rPvdLq9tvQxBveo5c9pae+Verl4v+0sXesulA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1777486102; c=relaxed/relaxed;
-	bh=djNQC+WiehgbSjZPUHPGAOR2nkZcZmEr0KjHIcYf3t4=;
+	t=1777485806; c=relaxed/relaxed;
+	bh=ChgtJK72vZUlsiBaKPcyKbWrS3ajSynsgsTRx3iHXAU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LkCnSYZazTHYaw1ugnDC3Jpg5ELxnOxegtxgVJS2H9IUpL3gWTsjquVApYjDSegW5KGyrCQzwMK93VrAlvNL9hbPiPLpFhq5izzwTrxgcV1rjnuDW41FKBYs+9Cm8fFxxeSMTg/8RnVBSnRqPtvHGuo78TTv6dRUzXrru6aq+Loi2VdG+USL/o7/uHsfDRrRv4KL5Kc0TPVbpJaetD+iTMzwEkcQGyVzVGl3MXJmcQKUeW5klpyiwKH1zmh/QOLGPRVom2oST1CKsoELTaDuMj0dMyoOVR1XDk52XrNZQg2sDPaaY76czvlqVUqx9KnZqlweTj81jR/qYzvrSmY0kw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NmSZF+iW; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=iRbV6QTGw76ZDDOqQkWL7uyXM168Uc5T6TSKAvzMdZtgaQCxLo2E8rQsgZG1glA3JL/M5PNKo27Vf1F/pSruplZLdDg1XF8431nuV4AibtZrGEUWn4+SCEHhCHrclLEfPISL1cpnmMUnb0cabHBXOwTDvMO+BMqonVhMTf+frwVAgrZZvTwIa7LFh5tc8PFUKb9MkFmwjVBBXzwNSULypJkVHk2cXG23N/EBuDh9JGcvHJ76d3MeKySa9HX9Xrk1292VIk1p13piAZhknqM3he4PTYyBMLSva/3qE2+sUSRPDpYle/3deadIkLQbwve7K/i4Py3w0wqPq2Y0KpTACg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=K0amzfyc; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NmSZF+iW;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=K0amzfyc;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 337 seconds by postgrey-1.37 at boromir; Thu, 30 Apr 2026 04:03:23 AEST
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4g5QK169Wbz2yjp
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Apr 2026 04:08:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4g5QCH2stfz2yjp;
+	Thu, 30 Apr 2026 04:03:21 +1000 (AEST)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 409131A3470;
-	Wed, 29 Apr 2026 17:58:18 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2B37A1A3453;
+	Wed, 29 Apr 2026 17:57:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0CCFF5FD43;
-	Wed, 29 Apr 2026 17:58:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C0971072B171;
-	Wed, 29 Apr 2026 19:58:12 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F35B55FD43;
+	Wed, 29 Apr 2026 17:57:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3FF5A1072B173;
+	Wed, 29 Apr 2026 19:57:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777485495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1777485474; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=djNQC+WiehgbSjZPUHPGAOR2nkZcZmEr0KjHIcYf3t4=;
-	b=NmSZF+iWjEyn2SmSbXR4+EkHCCLdjDtILUG9X51p5SCiphlxZnjKNNGhMMDdv6+IE8Z0pT
-	ASIHf/oK5ins8abEGkf3OT/DpAh4+l/rTkVjcESvNc56zjX3c6MzBilErApZ2Bhx8qWhnA
-	q4skr5wiZcq3mmwHq2jiVNGW1mYCJN/tNbDh2F3BzrrvyfD4fdGmhsSID0jKhhjNOiGAz6
-	jJJPYq8QKvuUtagfzMs9+zJqCAJairETws7j+Woa85G71iDosgPBr85dnsTyIGKlD82Shb
-	llYfvCKlpMGTCJF/Xyt0qdAzxC71iYXH4L/FxQpv9jVgln0FJY4chh9edS6YQw==
+	bh=ChgtJK72vZUlsiBaKPcyKbWrS3ajSynsgsTRx3iHXAU=;
+	b=K0amzfycc9kXe6uiG4uUt/UiAhIdiGMzKOl7+OtAUig03P9w5Oi4pi71lfOK4VzCWadfpc
+	nS5TLgH8UeOpLv9oqplFB7SfTVmfJbMNIhuGL5isL94d1zok7pU+S8QA5DWBkSbgh28SJz
+	DZearlJ5Cu/VO0kJdyM9+tAQscMA0+OXCO9beDN4ZJPGNWzVEq1MJI7sPFDuRqVpC63fLQ
+	Pic34fN8lxySr8+En0zBofRfLA+dt1XFD2tD6zmSWls95oUd8rvbzJXRh5bZmIbqP8kUKa
+	E5JC9PYLpexMp71IOMLC7TSlwz1RJMfwhawHgZ7crGtjiqwa80VGQE5DnFcuTw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 29 Apr 2026 19:56:47 +0200
-Subject: [PATCH v3 10/11] mtd: spinand: winbond: Create a helper to detect
- the need for the HS bit
+Date: Wed, 29 Apr 2026 19:56:42 +0200
+Subject: [PATCH v3 05/11] spi: spi-mem: Create a secondary read operation
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-10-0f38b3c229ad@bootlin.com>
+Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-5-0f38b3c229ad@bootlin.com>
 References: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 In-Reply-To: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
@@ -90,66 +90,109 @@ Cc: Pratyush Yadav <pratyush@kernel.org>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The logic is not complex but might be reused to cleanup a bit the
-section by moving it to a dedicated helper.
+In some situations, direct mappings may need to use different
+operation templates.
 
+For instance, when enabling continuous reads, Winbond SPI NANDs no
+longer expect address cycles because they would be ignoring them
+otherwise. Hence, right after the command opcode, they start counting
+dummy cycles, followed by the data cycles as usual.
+
+This breaks the assumptions of "reads from cache" always being done
+identically once the best variant has been picked up, across the
+lifetime of the system.
+
+In order to support this feature, we must give direct mapping more than
+a single operation template to use, in order to switch to using
+secondary operations upon request by the upper layer.
+
+Create the concept of optional secondary operation template, which may
+or may not be fulfilled by the SPI NAND and SPI NOR cores. If the
+underlying SPI controller does not leverage any kind of direct mapping
+acceleration, the feature has no impact and can be freely
+used. Otherwise, the controller driver needs to opt-in for using this
+feature, if supported.
+
+The condition checked to know whether a secondary operation has been
+provided or not is to look for a non zero opcode to limit the creation
+of extra variables. In practice, the opcode 0x00 exist, but is not
+related to any cache related operation.
+
+Acked-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/nand/spi/winbond.c | 31 +++++++++++++++++--------------
- 1 file changed, 17 insertions(+), 14 deletions(-)
+The choice of defining two variables named primary and secondary instead
+of using an array of templates is on purpose, to simplify the reading. I
+find less obvious the use of an array here but this is personal taste.
+---
+ drivers/spi/spi-mem.c       | 17 +++++++++++++++++
+ include/linux/spi/spi-mem.h |  5 +++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
-index b30a343a6672..ffbcd25b0366 100644
---- a/drivers/mtd/nand/spi/winbond.c
-+++ b/drivers/mtd/nand/spi/winbond.c
-@@ -421,30 +421,33 @@ static int w25n0xjw_set_sr4_hs(struct spinand_device *spinand, bool enable)
- 	return spinand_write_reg_op(spinand, W25N0XJW_SR4, sr4);
- }
+diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
+index e2eaa1ba4ff6..f64eda9bbd9f 100644
+--- a/drivers/spi/spi-mem.c
++++ b/drivers/spi/spi-mem.c
+@@ -713,6 +713,23 @@ spi_mem_dirmap_create(struct spi_mem *mem,
+ 	if (info->primary_op_tmpl.data.dir == SPI_MEM_NO_DATA)
+ 		return ERR_PTR(-EINVAL);
  
-+/*
-+ * SDR dual and quad I/O operations over 104MHz require the HS bit to
-+ * enable a few more dummy cycles.
-+ */
-+static bool w25n0xjw_op_needs_hs(const struct spi_mem_op *op)
-+{
-+	if (op->cmd.dtr || op->addr.dtr || op->dummy.dtr || op->data.dtr)
-+		return false;
-+	else if (op->cmd.buswidth != 1 || op->addr.buswidth == 1)
-+		return false;
-+	else if (op->max_freq && op->max_freq <= 104 * HZ_PER_MHZ)
-+		return false;
++	/* Apply similar constraints to the secondary template */
++	if (info->secondary_op_tmpl.cmd.opcode) {
++		if (!info->secondary_op_tmpl.addr.nbytes ||
++		    info->secondary_op_tmpl.addr.nbytes > 8)
++			return ERR_PTR(-EINVAL);
 +
-+	return true;
-+}
++		if (info->secondary_op_tmpl.data.dir == SPI_MEM_NO_DATA)
++			return ERR_PTR(-EINVAL);
 +
- static int w25n0xjw_hs_cfg(struct spinand_device *spinand,
- 			   enum spinand_bus_interface iface)
- {
- 	const struct spi_mem_op *op;
--	bool hs;
++		if (!spi_mem_supports_op(mem, &info->secondary_op_tmpl))
++			return ERR_PTR(-EOPNOTSUPP);
++
++		if (ctlr->mem_ops && ctlr->mem_ops->dirmap_create &&
++		    !spi_mem_controller_is_capable(ctlr, secondary_op_tmpl))
++			return ERR_PTR(-EOPNOTSUPP);
++	}
++
+ 	desc = kzalloc_obj(*desc);
+ 	if (!desc)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
+index 9a96ddace3eb..2012a3b2ef91 100644
+--- a/include/linux/spi/spi-mem.h
++++ b/include/linux/spi/spi-mem.h
+@@ -227,6 +227,8 @@ struct spi_mem_op {
+  * struct spi_mem_dirmap_info - Direct mapping information
+  * @op_tmpl: operation template that should be used by the direct mapping when
+  *	     the memory device is accessed
++ * @secondary_op_tmpl: secondary template, may be used as an alternative to the
++ *                     primary template (decided by the upper layer)
+  * @offset: absolute offset this direct mapping is pointing to
+  * @length: length in byte of this direct mapping
+  *
+@@ -239,6 +241,7 @@ struct spi_mem_op {
+ struct spi_mem_dirmap_info {
+ 	struct spi_mem_op *op_tmpl;
+ 	struct spi_mem_op primary_op_tmpl;
++	struct spi_mem_op secondary_op_tmpl;
+ 	u64 offset;
+ 	u64 length;
+ };
+@@ -382,12 +385,14 @@ struct spi_controller_mem_ops {
+  * @swap16: Supports swapping bytes on a 16 bit boundary when configured in
+  *	    Octal DTR
+  * @per_op_freq: Supports per operation frequency switching
++ * @secondary_op_tmpl: Supports leveraging a secondary memory operation template
+  */
+ struct spi_controller_mem_caps {
+ 	bool dtr;
+ 	bool ecc;
+ 	bool swap16;
+ 	bool per_op_freq;
++	bool secondary_op_tmpl;
+ };
  
- 	if (iface != SSDR)
- 		return -EOPNOTSUPP;
- 
--	/*
--	 * SDR dual and quad I/O operations over 104MHz require the HS bit to
--	 * enable a few more dummy cycles.
--	 */
- 	op = spinand->op_templates->read_cache;
--	if (op->cmd.dtr || op->addr.dtr || op->dummy.dtr || op->data.dtr)
--		hs = false;
--	else if (op->cmd.buswidth != 1 || op->addr.buswidth == 1)
--		hs = false;
--	else if (op->max_freq && op->max_freq <= 104 * HZ_PER_MHZ)
--		hs = false;
--	else
--		hs = true;
- 
--	return w25n0xjw_set_sr4_hs(spinand, hs);
-+	return w25n0xjw_set_sr4_hs(spinand, w25n0xjw_op_needs_hs(op));
- }
- 
- static int w35n0xjw_write_vcr(struct spinand_device *spinand, u8 reg, u8 val)
+ #define spi_mem_controller_is_capable(ctlr, cap)	\
 
 -- 
 2.53.0
