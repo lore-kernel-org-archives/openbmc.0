@@ -1,55 +1,55 @@
-Return-Path: <openbmc+bounces-1870-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1871-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4657FFF8875
-	for <openbmc@archiver.kernel.org>; Thu, 30 Apr 2026 00:16:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C2D8FF8875
+	for <openbmc@archiver.kernel.org>; Thu, 30 Apr 2026 00:16:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4g5ZSc0VdDz2ypw;
-	Thu, 30 Apr 2026 10:15:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777485805;
-	cv=none; b=dva6LtBJ5863sP3g7nXRiQv7Rc8lzc2ovYSGCmybofYx/IZ/GSir8L7ib9WTF5Sm9Juw7PlabPOdzsAiT1M8/Q/LHEjBQeU87iNS/ZHdZFZPNbVCJn7yetKTcUQzG/32PA6vc/BmA4ollDq77Ufoq1TvENc0aTGWmyuQKbWhImaguA+CFLdNvctxoWjMSukDJtbeGv/1DC2d+6agY6dIeO3PrlhlfzpOVKELokjrzsImoUv/P4Jr9InmKhDQt5tda51asxm026HLWASRgSAOXapeA1UR/x5VzH7S/ArK6yg5aSlQCh4Qmbtb4OvwQJblMIwK7yH661WOcsGsmwAhag==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4g5ZSd4lySz2yrg;
+	Thu, 30 Apr 2026 10:15:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777486023;
+	cv=none; b=B7blr6PZ3ReuexVMBG/ULIOyvazYMGjnN+v/B0Xi/Fx3MdmpyQu09Y0LXn5/BR440ZFYB/J+tsghfx9Gw+hr2Nzk4+9EqYjTufp13icW00euUovvUi0iYQYX2AeRwMrMzxoFJWEmS6MQ7K0DrV4xV+ooqmq0TIB3fleadWH7jcN27XxmRKvnNXsmrCwnBQoiNa+sJ9gS3+UDh0jUxe+WDsNUhnti+FNB0nZ1bMbY/8AKmHINWqLIs/bBI4YPmeAxVBhFNPrihlCnP4PSb6mHHvD2iTGth1GVqdNGwgbG2E7CnRHCkH8X6g/puOZq/smWM4eKB4dw4JCNVGf1pr3b/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1777485805; c=relaxed/relaxed;
-	bh=yWmmYQ59pDWo8CPH+WDZNUJOtVHq1mv94yrIZNpMFTQ=;
+	t=1777486023; c=relaxed/relaxed;
+	bh=5kdA1IC/RYXviplmXjfBx2K4qGRHF5L/z4JMU8G7heo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NcN0YyQMID24FI9+lVjmtXRK8f+jBrmWqBPprBwvs9q1mr6IsFIiA2S79z1DyAzOdU7SbG+g6MmEeYk5OirMVZgzJtAUgfcL88qpuxIjNmlmunGR5wmateVEWCSE87hL+OAXd7U73fuRd6wrv6jQK1mQutujgxRwG+Xsja65J3IIMhNlpYEgNONaHLSQbgANIOYT/2Oh57uWgo3JUwNjhFjko0S62rArlqEp6Fg71WSdzazyz9zoHikvRtAVB9Pt8QyrY4oPlaqpx0GP+RxzGP4qgPv+zw+BAAsZzW/zAPpTKmRVmhOSzEFxwiUsKxM0YKnabaJzBFLWXj8QXzYkOg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=A0uy++Hp; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=OsWfnZEWQ0Ga9tO4136q643UvvGCQVbJQbCrgO85amhuFId0OhIabtWgR392s7awYl5qiwxNWiCLtfBUwQm8LtjUxbuGvZrz68gbHmtQlh6aNl6aisOvCeiO+C0sTHZZ1RvxjpGVylZshGiKjZ+/EowE0jHdA4rvtfBzOZepcaxsgbPgS9UTN/Y0dS/Lpj0xWSi5QRRErykeWJEjJuGP+4V6synrhXpvNbPEX2kr5YmeDnw8p6cqQc02vArZy2VWq3U6wTt/E0WhDOz/sIRVzN293GKlY7F/7eYipIs2CIHHqSpPozmXNhPW8KHdnMl+rRvLp6U6D7gO49WfCagkNA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ufpsxmOn; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=A0uy++Hp;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ufpsxmOn;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 341 seconds by postgrey-1.37 at boromir; Thu, 30 Apr 2026 04:03:23 AEST
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4g5QCH2pjLz2ySc
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Apr 2026 04:03:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4g5QHQ13BDz2ykf
+	for <openbmc@lists.ozlabs.org>; Thu, 30 Apr 2026 04:06:57 +1000 (AEST)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 70AB11A33EF;
-	Wed, 29 Apr 2026 17:57:39 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BC5E34E42B6F;
+	Wed, 29 Apr 2026 17:58:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 43A3C5FD43;
-	Wed, 29 Apr 2026 17:57:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 773411072B168;
-	Wed, 29 Apr 2026 19:57:33 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8FE375FD43;
+	Wed, 29 Apr 2026 17:58:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6862E1072B175;
+	Wed, 29 Apr 2026 19:57:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777485457; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1777485478; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=yWmmYQ59pDWo8CPH+WDZNUJOtVHq1mv94yrIZNpMFTQ=;
-	b=A0uy++HpVsqXp/AWhYrAI2hp+p7ETugdFS9ytd4dkSCZwTjv36+cFoiIWz21fMnMSR76Pc
-	e9+HB7ILr3sOak88h+392wCRwwauqRweo0aEedItbcLJw5mneGcjRYsFKXfoStHcHckx0G
-	YdRGnC9kioVwBBtwXgo9e23sCWa5jBacVqwNtOjjGywvq/J3Kk2xPGQJ6jU9zWelyclGMn
-	a7dCpyogvUIXu6KO4oUR91xBUJDErBJKBAX4/2ba3x4QQEmjuGjYXboWm+Z0S1WSQ1mS/G
-	EU+q6ezfH6vSeti6bArRAEV8f3ILa5MPp+YtCN06qckkQkyMqihgfsw411IjUQ==
+	bh=5kdA1IC/RYXviplmXjfBx2K4qGRHF5L/z4JMU8G7heo=;
+	b=ufpsxmOnbM4aWlTqONbvM/hU0uS6dcXEqlxSHSr1HWYBIfGT90YPkgaK0cuFSbVDO2ePk8
+	pWi3bwyR8ypZOab+t1cJA74MjXfz7fLvozJ6V7qmbhj3f34ty/OOJYwRbTAzFsAix386Ly
+	D1FsPPSsy7tCoNaMLBxBDPlrFb/XK+/uCgMaGjsQ2R+B/RuAlAGmsUx5DuKH7qOrDHX7rD
+	xayotK3EyInONV8I9cHKvaHPdCz3+n8OX+quL0wUzfkGZxlSYM7f+O8L+6M140LefKPS6/
+	+pSdGDvUfdVqb0jYh6gv0v4c1CPJTYtO1hzRdfUdURt2Ao08UPOejiDAM7KKqQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 29 Apr 2026 19:56:38 +0200
-Subject: [PATCH v3 01/11] mtd: spinand: Drop a too strong limitation
+Date: Wed, 29 Apr 2026 19:56:43 +0200
+Subject: [PATCH v3 06/11] mtd: spinand: Use secondary ops for continuous
+ reads
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-1-0f38b3c229ad@bootlin.com>
+Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-6-0f38b3c229ad@bootlin.com>
 References: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 In-Reply-To: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
@@ -90,58 +90,183 @@ Cc: Pratyush Yadav <pratyush@kernel.org>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Since continuous reads may sometimes not be able to go past an erase
-block boundary, it has been decided not to attempt longer reads and if
-the user request is bigger, it will be split across eraseblocks.
+In case a chip supports continuous reads, but uses a slightly different
+cache operation for these, it may provide a secondary operation template
+which will be used only during continuous cache read operations.
 
-As these request will anyway be handled correctly, there is no reason to
-filter out cases where we would go over a target or a die, so drop this
-limitation which had a side effect: any request to read more than the
-content of an eraseblock would simply not benefit from the continuous
-read feature.
+From a vendor driver point of view, enabling this feature implies
+providing a new set of templates for these continuous read
+operations. The core will automatically pick the fastest variant,
+depending on the hardware capabilities.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/nand/spi/core.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+ drivers/mtd/nand/spi/core.c | 61 ++++++++++++++++++++++++++++++++++++++++++++-
+ include/linux/mtd/spinand.h | 12 +++++++++
+ 2 files changed, 72 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 66c90419f6d5..fba3cc213c88 100644
+index a66510747b31..45c3afb9cceb 100644
 --- a/drivers/mtd/nand/spi/core.c
 +++ b/drivers/mtd/nand/spi/core.c
-@@ -878,6 +878,12 @@ static int spinand_mtd_continuous_page_read(struct mtd_info *mtd, loff_t from,
- 	 * Each data read must be a multiple of 4-bytes and full pages should be read;
- 	 * otherwise, the data output might get out of sequence from one read command
- 	 * to another.
-+	 *
-+	 * Continuous reads never cross LUN boundaries. Some devices don't
-+	 * support crossing planes boundaries. Some devices don't even support
-+	 * crossing blocks boundaries. The common case being to read through UBI,
-+	 * we will very rarely read two consequent blocks or more, so let's only enable
-+	 * continuous reads when reading within the same erase block.
- 	 */
- 	nanddev_io_for_each_block(nand, NAND_PAGE_READ, from, ops, &iter) {
- 		ret = spinand_select_target(spinand, iter.req.pos.target);
-@@ -968,19 +974,6 @@ static bool spinand_use_cont_read(struct mtd_info *mtd, loff_t from,
- 	nanddev_offs_to_pos(nand, from, &start_pos);
- 	nanddev_offs_to_pos(nand, from + ops->len - 1, &end_pos);
+@@ -489,6 +489,11 @@ static int spinand_read_from_cache_op(struct spinand_device *spinand,
  
--	/*
--	 * Continuous reads never cross LUN boundaries. Some devices don't
--	 * support crossing planes boundaries. Some devices don't even support
--	 * crossing blocks boundaries. The common case being to read through UBI,
--	 * we will very rarely read two consequent blocks or more, so it is safer
--	 * and easier (can be improved) to only enable continuous reads when
--	 * reading within the same erase block.
--	 */
--	if (start_pos.target != end_pos.target ||
--	    start_pos.plane != end_pos.plane ||
--	    start_pos.eraseblock != end_pos.eraseblock)
--		return false;
--
- 	return start_pos.page < end_pos.page;
- }
+ 	rdesc = spinand->dirmaps[req->pos.plane].rdesc;
  
++	if (spinand->op_templates->cont_read_cache && req->continuous)
++		rdesc->info.op_tmpl = &rdesc->info.secondary_op_tmpl;
++	else
++		rdesc->info.op_tmpl = &rdesc->info.primary_op_tmpl;
++
+ 	if (nand->ecc.engine->integration == NAND_ECC_ENGINE_INTEGRATION_PIPELINED &&
+ 	    req->mode != MTD_OPS_RAW)
+ 		rdesc->info.op_tmpl->data.ecc = true;
+@@ -1221,6 +1226,7 @@ static struct spi_mem_dirmap_desc *spinand_create_rdesc(
+ 		 * its spi controller, use regular reading
+ 		 */
+ 		spinand->cont_read_possible = false;
++		memset(&info->secondary_op_tmpl, 0, sizeof(info->secondary_op_tmpl));
+ 
+ 		info->length = nanddev_page_size(nand) +
+ 			       nanddev_per_page_oobsize(nand);
+@@ -1237,11 +1243,24 @@ static int spinand_create_dirmap(struct spinand_device *spinand,
+ 	struct nand_device *nand = spinand_to_nand(spinand);
+ 	struct spi_mem_dirmap_info info = { 0 };
+ 	struct spi_mem_dirmap_desc *desc;
+-	bool enable_ecc = false;
++	bool enable_ecc = false, secondary_op = false;
+ 
+ 	if (nand->ecc.engine->integration == NAND_ECC_ENGINE_INTEGRATION_PIPELINED)
+ 		enable_ecc = true;
+ 
++	if (spinand->cont_read_possible && spinand->op_templates->cont_read_cache)
++		secondary_op = true;
++
++	/*
++	 * Continuous read implies that only the main data is retrieved, backed
++	 * by an on-die ECC engine. It is not possible to use a pipelind ECC
++	 * engine with continuous read.
++	 */
++	if (enable_ecc && secondary_op) {
++		secondary_op = false;
++		spinand->cont_read_possible = false;
++	}
++
+ 	/* The plane number is passed in MSB just above the column address */
+ 	info.offset = plane << fls(nand->memorg.pagesize);
+ 
+@@ -1259,6 +1278,10 @@ static int spinand_create_dirmap(struct spinand_device *spinand,
+ 	/* Read descriptor */
+ 	info.primary_op_tmpl = *spinand->op_templates->read_cache;
+ 	info.primary_op_tmpl.data.ecc = enable_ecc;
++	if (secondary_op) {
++		info.secondary_op_tmpl = *spinand->op_templates->cont_read_cache;
++		info.secondary_op_tmpl.data.ecc = enable_ecc;
++	}
+ 	desc = spinand_create_rdesc(spinand, &info);
+ 	if (IS_ERR(desc))
+ 		return PTR_ERR(desc);
+@@ -1607,6 +1630,33 @@ int spinand_match_and_init(struct spinand_device *spinand,
+ 		if (ret)
+ 			return ret;
+ 
++		if (info->op_variants.cont_read_cache) {
++			op = spinand_select_op_variant(spinand, SSDR,
++						       info->op_variants.cont_read_cache);
++			if (op) {
++				const struct spi_mem_op *read_op;
++
++				read_op = spinand->ssdr_op_templates.read_cache;
++
++				/*
++				 * Sometimes the fastest continuous read variant may not
++				 * be supported. In this case, prefer to use the fastest
++				 * read from cache variant and disable continuous reads.
++				 */
++				if (read_op->cmd.buswidth > op->cmd.buswidth ||
++				    (read_op->cmd.dtr && !op->cmd.dtr) ||
++				    read_op->addr.buswidth > op->addr.buswidth ||
++				    (read_op->addr.dtr && !op->addr.dtr) ||
++				    read_op->data.buswidth > op->data.buswidth ||
++				    (read_op->data.dtr && !op->data.dtr))
++					spinand->cont_read_possible = false;
++				else
++					spinand->ssdr_op_templates.cont_read_cache = op;
++			} else {
++				spinand->cont_read_possible = false;
++			}
++		}
++
+ 		/* I/O variants selection with octo-spi DDR commands (optional) */
+ 
+ 		ret = spinand_init_odtr_instruction_set(spinand);
+@@ -1629,6 +1679,15 @@ int spinand_match_and_init(struct spinand_device *spinand,
+ 					       info->op_variants.update_cache);
+ 		spinand->odtr_op_templates.update_cache = op;
+ 
++		if (info->op_variants.cont_read_cache) {
++			op = spinand_select_op_variant(spinand, ODTR,
++						       info->op_variants.cont_read_cache);
++			if (op)
++				spinand->odtr_op_templates.cont_read_cache = op;
++			else
++				spinand->cont_read_possible = false;
++		}
++
+ 		return 0;
+ 	}
+ 
+diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
+index 896e9b5de0c4..4ff3f3383d46 100644
+--- a/include/linux/mtd/spinand.h
++++ b/include/linux/mtd/spinand.h
+@@ -576,6 +576,7 @@ enum spinand_bus_interface {
+  * @op_variants.read_cache: variants of the read-cache operation
+  * @op_variants.write_cache: variants of the write-cache operation
+  * @op_variants.update_cache: variants of the update-cache operation
++ * @op_variants.cont_read_cache: variants of the continuous read-cache operation
+  * @vendor_ops: vendor specific operations
+  * @select_target: function used to select a target/die. Required only for
+  *		   multi-die chips
+@@ -600,6 +601,7 @@ struct spinand_info {
+ 		const struct spinand_op_variants *read_cache;
+ 		const struct spinand_op_variants *write_cache;
+ 		const struct spinand_op_variants *update_cache;
++		const struct spinand_op_variants *cont_read_cache;
+ 	} op_variants;
+ 	const struct spinand_op_variants *vendor_ops;
+ 	int (*select_target)(struct spinand_device *spinand,
+@@ -629,6 +631,14 @@ struct spinand_info {
+ 		.update_cache = __update,				\
+ 	}
+ 
++#define SPINAND_INFO_OP_VARIANTS_WITH_CONT(__read, __write, __update, __cont_read) \
++	{								\
++		.read_cache = __read,					\
++		.write_cache = __write,					\
++		.update_cache = __update,				\
++		.cont_read_cache = __cont_read,				\
++	}
++
+ #define SPINAND_INFO_VENDOR_OPS(__ops)					\
+ 	.vendor_ops = __ops
+ 
+@@ -700,6 +710,7 @@ struct spinand_dirmap {
+  * @read_cache: read cache op template
+  * @write_cache: write cache op template
+  * @update_cache: update cache op template
++ * @cont_read_cache: continuous read cache op template (optional)
+  */
+ struct spinand_mem_ops {
+ 	struct spi_mem_op reset;
+@@ -714,6 +725,7 @@ struct spinand_mem_ops {
+ 	const struct spi_mem_op *read_cache;
+ 	const struct spi_mem_op *write_cache;
+ 	const struct spi_mem_op *update_cache;
++	const struct spi_mem_op *cont_read_cache;
+ };
+ 
+ /**
 
 -- 
 2.53.0
