@@ -1,55 +1,133 @@
-Return-Path: <openbmc+bounces-1878-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1883-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDADFF8875
-	for <openbmc@archiver.kernel.org>; Thu, 30 Apr 2026 00:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F364BCCFA13
+	for <openbmc@archiver.kernel.org>; Fri,  1 May 2026 14:30:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4g5ZSn5mmVz2yql;
-	Thu, 30 Apr 2026 10:15:37 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777486024;
-	cv=none; b=ZjW9wOy3MqS4tbtj6Stzmjlsgg4pbK2zSV79QoDZi+aDT1NBBIoudxq/7FEcsnbCWFlBXmm9/wk6TCa3az20iJsNJXd2vKNC9zvTzoCU/5mTcFkdThYSejBzAKiYHK4u0YadBPOZY92cvWF7aiEjjRPE2UgIIm3UHpxdB/P3SKtDut3UfgD6eJIAYsBc77QMb2Nn8iK45oI9T0Q2/j0m6BqEdrdLoq6ZMaRrd5AZr19xlMp3GIwAUxMKblYVl+rnK5y1UKMxqZe56fH8ZbspcCbAG6m68c6oBgayHUlAutYHljAU0eCVqGhcbtRuHdviwQL/4oWy4qpzVO4JVOOArg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1777486024; c=relaxed/relaxed;
-	bh=MmcPFcCFT0gegKw7/GAlAOSTHc6JlaEROIWqR2nOl4k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eEQez9XsWqRi526KKMvyRfTab5XJsHMCDnki7SPPDUKr3+PNhR0bGvOUNyvaXb3aWu7H/g1fR1kGOsrVqkxD2jxry6pnphyqLPS+/BfZR84CJqbnUJZIs7gqiT/J4KwjDqriLIbrxUKUhMKVvr9FxfZtS1WDKmIEg0JBTS76Ws+0jOErwQqKfNuvs/wP90oJXvFgfpRoHoT4sExOPoZeFtJdyTYtWnbPjD6qKE1pVMad6815TkKUyD4vgoScu3Scwd3amt3XuL9ly+rT46pJcgMVmbN67f1ZjOO4MrgWCbl/l4Ds9o+HCt1ZIH2OthtGuKkXXM/JFLzX0VYpdU0nLw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Kc0vRRlq; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4g6YNl0GdWz30Bd;
+	Sat, 02 May 2026 00:30:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c40f::6" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777645830;
+	cv=pass; b=L36vckl1umv5leyUiyO23wwXSF6tHuPJoNRQMo8DAHhTCZxkj7fJ9cVC6yFspCkTH1kf1ykGMgz2ZOtmCbkpSZhvpvrjbunqgmEW0h2mqydRnMgus+/c7gf+moFlgeyIAUr/qUp5aYzWCaJ/2ruHB3WIliunUGIjsU4LennYr/ezjslzNKaatM7GOiBBLfW2PBZ6Hfr2C6TOlvh3ojHGKNBQPyaXekElSnbP1Cyp77zmLco6IDaGR+xAy+X2+Q/iy4QZQnCKxBltXDsyhGqu2jN+xxCjw9coKiaCpzb6bjtdfjLeenGBdcMX3eU1rvbWMeUMIo7RzhblEfK45rIU9g==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1777645830; c=relaxed/relaxed;
+	bh=wSvu8mxYBqF4pXhcBcOC6SQX1fb06X5g4ujm6KyLJ/E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=efEFaLlFCHy9V8gy/r02x2Cfqj4lUuBPrZTtyvXsN6DSWs8C0AI+WH9tvzgeT0ggm2nQJKsTLt3lqMt8i8gH368/fylaRpbKYe9YdDDlKzAdFAkrugEfArJyL/IE2OtvGr/0ujznTM10lumoIRQiVzjt63ct1oPYaDY718cpQiY9++OLKm8kDdvki/AubKl2gf0E6Zce0GuEcD1ttc6+UZxYDHgw3vuMTMeMSyxVtq4x7YTjGR8I3LOZwTeD17GMCfl5hCey3uvncqN+owUFLTHtJmVumb2z2xlyWmi1UrooErXmwNRI18/dnhGhnt5NqUP3rmGTBKxMR0AZTS5xSw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=GT/48lNd; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Kc0vRRlq;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=GT/48lNd;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazlp170130006.outbound.protection.outlook.com [IPv6:2a01:111:f403:c40f::6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4g5QHQ3lLHz2yps
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Apr 2026 04:06:58 +1000 (AEST)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 21D8C4E42B74;
-	Wed, 29 Apr 2026 17:58:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E99E35FD43;
-	Wed, 29 Apr 2026 17:58:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6FE631072B176;
-	Wed, 29 Apr 2026 19:58:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1777485500; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=MmcPFcCFT0gegKw7/GAlAOSTHc6JlaEROIWqR2nOl4k=;
-	b=Kc0vRRlqvfSudEFr1jF1Gd7LJngYIVk/OpJ9Xy8LuG253NtHk6/h4qCUHyLC/uelRVb4cc
-	4dtdIBzKI2GiH9nxWVLuBkH0XM6+60TUTV3lPbduunRwVmtsS7NZANu7HdJhAtQLgyg/XC
-	qfAyvlNfSlYsoOKdexYgZ4wm/bWSodcggsYCwEBKkDHvzztBYmluC6xuKPrOLpX9/h7Qic
-	pT6L6tnkencqHbZvV4EVzLeBhMxFjsgykFNa9YcAAIpXCmpJMwhvoG1NFc/Ior2L3DtbkU
-	3DKkjUd9tAEKhfs0hEhZ7womvlhnP/h4dMJsvpfuXnYvpxywIGUMsaSX8ch/9Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 29 Apr 2026 19:56:48 +0200
-Subject: [PATCH v3 11/11] mtd: spinand: winbond: Add support for continuous
- reads on W25NxxJW
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4g6YNg0VYKz2xWY;
+	Sat, 02 May 2026 00:30:25 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lIcF2DLnqb0ltnefOLrCW3c6EpHLb3TFJquKerIh6zBUIrpp0xufjM1WfMqPWTibYdXwKkJiqm5v7NEOhKHbtMK1X+CZvz6ohl03gzFcyi4LKEEXamn8XPhHB+biz4M+sC2ivke+l1mAVX9GnpuNfd9S5a/fP7LY2BGv22/iCPLjCzqJRX+2JUF8P1NPc3EWppULb7b5VBPIs0F9sTJMh2IVDqXypwOc3QTVkQ7PoMTOsjWyWmsAbeDpeu9byYRigvRgtHl7JqtbdJlOyrdIeq+xCggoKGSemL/pFfY2tnkJibJk4MS1MCqT7Um7AshWbG1lnK6jbv24Q0txXATq+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wSvu8mxYBqF4pXhcBcOC6SQX1fb06X5g4ujm6KyLJ/E=;
+ b=qVk1BCy1zssfT/Q5ISpWT+lhYD5sX3e0SCkPBppR49s0DJn/xX7cxAwcd3Ft08F7C+jUahX8E6h1RThw0lfcVzc96+Lm/OQdF8Wcm+2QGy7O5I2jbxiI2HE/mSdHVbGcbc1Kv7mKROcQxVlitfZYwJNM45HGMTlWYARU5STqfRv3y+p7xxDRo8fGmoPmDmAea7r8SSdtKLMu/eYLKkpXE2xtxGRv06K5EfZmAzH0L8OODPQXNVYZr31f/PzZ2ACsRXBA4ZmbtkaOaRPSgD0JtW/HLybYvj5eoitPy3w/3dCFRF0e7Pi3s8iWGoz5AlFnz9uyKCdfz5JKkGuVYdCShQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wSvu8mxYBqF4pXhcBcOC6SQX1fb06X5g4ujm6KyLJ/E=;
+ b=GT/48lNd29UJOiei87xH+/pzndcjqxXwQ5qN636HCBVABT4OppAA5YM9OkzRrYcjmDR3RtiDvSSXyhjXB0YlHj+uZxtanN0vixUREscYDkWIZTYCbyhtKYuETnOgmXnkEEXbVKwCbb1BfV/yuHZ+YE3fT7JRELRrhaX8UVEEWWzresH9++z7MjrKrL8ti4MhdBFAtTEwvlhMasjzhGrCC5KcAUxCJ0bSbVKBNAH1ZVFvY3VUS1dtI09V3Erl/56IgS3B6WJcGtes6NX4WeEd8VvjXenqsiKdKQOxKKLaR0duVpDFrjcKwWaMGAAlm3MGLk32k7GcM/gcMqvj2AccNg==
+Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
+ (2603:1096:820:78::12) by TYZPR06MB7095.apcprd06.prod.outlook.com
+ (2603:1096:405:b6::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Fri, 1 May
+ 2026 14:29:55 +0000
+Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
+ ([fe80::b7f3:3c41:fd0e:e3f6]) by KL1PR0601MB4276.apcprd06.prod.outlook.com
+ ([fe80::b7f3:3c41:fd0e:e3f6%7]) with mapi id 15.20.9846.025; Fri, 1 May 2026
+ 14:29:55 +0000
+From: YH Chung <yh_chung@aspeedtech.com>
+To: "Shulzhenko, Oleksandr" <oleksandr.shulzhenko@intel.com>
+CC: "andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "joel@jms.id.au" <joel@jms.id.au>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Lawniczak, Maciej"
+	<maciej.lawniczak@intel.com>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "p.zabel@pengutronix.de"
+	<p.zabel@pengutronix.de>, "robh@kernel.org" <robh@kernel.org>, Ryan Chen
+	<ryan_chen@aspeedtech.com>
+Subject: RE: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
+Thread-Topic: [PATCH 2/7] soc: aspeed: Introduce core eSPI controller support
+Thread-Index: AdzX4O5gznii2OlWTEOwzGmIksiJdwBlO+Qw
+Date: Fri, 1 May 2026 14:29:55 +0000
+Message-ID:
+ <KL1PR0601MB4276206DD65D3D665785C77890322@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+References:
+ <IA1PR11MB8152D824BEBEBDD4668F97EC99342@IA1PR11MB8152.namprd11.prod.outlook.com>
+In-Reply-To:
+ <IA1PR11MB8152D824BEBEBDD4668F97EC99342@IA1PR11MB8152.namprd11.prod.outlook.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR0601MB4276:EE_|TYZPR06MB7095:EE_
+x-ms-office365-filtering-correlation-id: 5bcfde27-28a8-4af6-46fd-08dea78e1d5e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|42112799006|1800799024|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info:
+ 4XejT+tIVy2mMbkXFyOP0khT4hFdMax1TqF6CMUZtCXCmT67jX3gO/5ie53cfAluReELkwhW2q9yx8LPM3JwgDh8NqSwTdiLtX4Zomxhp3KizU11DK8LgSpdRtk+raRu9USUxHcJfn9rbcGJibebV1xJ4Cv5Gg5o+i0Ccdq7ZDvj5YJe4S7WjCqPGLXa9Y9ccNawohYo86sROa1l/YBVpP1Vi5CMwcSwSQWuVHlWNFNH7WQx50egk0cM24sCUw/K6aNaSJigTkoWGmiTB9yXNdkSpHfPnb9zSjjUexnRoGs6XxAT1+MmIpPbjeOm3hCAu4XVcji4Pv2C5q0+GEUOJ4gvaaDeo4xkIJ9fO9EK7zcM4tYVyMwGuArzgzbTZD/DcuuSz7WQIb8xSWw8VSF0kLxCuCVAXE5sYFB1PpKIEnVM/cozcwm7IMjMSSSFS52ybYxDNnNRXp78eMQAGRuetY09Jpz/yqT/sT5kfKg+dycGR6JKdkwinl4IeAKx7gj8GI0m4RZb5XWTj075ZxN24wLPAwtDR5OA7ZMs/873jX/FtPCcK8sEWSVPBsPNDnm+Mm4vDae3ZeNvsBKQLnYbquRx0XrqQmevvZ69rYQVy1HJiVqH3+S60ne2P4UgCan2vMm/d0T3TUAYzVc/A4ydDUjSWFzBzVuvMWC3OtnAQsUALkbRKJBL/SXqJz11Aldn20aks6sgM6WY8KIOWnNyluqFq9cQCur04PtVS+0pABfoUClUmiGN8l6q5PVZzAx4
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4276.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(42112799006)(1800799024)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?szYOiT6/Lnh7KdugszivmC0qDkqX6R2BXhgnk4qGafdka8n3jIebED9+6Gub?=
+ =?us-ascii?Q?iu8Pt5ckNl2qZqdu0P33IbzdnNtJ6l27isXp7uIM16X3RzVgFOq4Q4oyfGIc?=
+ =?us-ascii?Q?7RpTRtsaCSMaOnn8zfXE40Vu22YPkletSMs5LWrR5ma4EA03uqentCETCcqu?=
+ =?us-ascii?Q?TiCPXkur2nKiqA3bh5PaU4sN03EFDaUJAJ02STlE/U2z6Pmd/4j80tQgNGh9?=
+ =?us-ascii?Q?u23P4KVR1o9fO8ougmUDIV/EQOTm9PWsSRZ/d0j2zFdVWgZEbc0ByuNSEUhT?=
+ =?us-ascii?Q?wSXRL80dsJmLl5Bt4IUWbKyA7Eg6VqAp5dhaNxWntrIBxthXukxzFv56ZvV2?=
+ =?us-ascii?Q?THmUm/Q6v3HTH/hDhgVuqC5AkGFaUbZd/5Ct+tM+vb7RvKdA1i/D5wKrtDQ3?=
+ =?us-ascii?Q?+h3XSKwR3lhs3NbZqNW0Dpe75k2YdacCgA2Gh0078gOOQuXar+w8weL2KlIe?=
+ =?us-ascii?Q?uk1Tf+yg5qlZtbFrpNnErbyBwh+kbSf6b6F2qiY2Q6O7QnOZttrRPrvNQGVY?=
+ =?us-ascii?Q?BQtQY5J9EGT/xg3FT1GemXXGzUzDtOcFJMYl5T3m0yWmhn8782hUEzOF1ONU?=
+ =?us-ascii?Q?AQe9c7t/UqyNXo7MMmSgwEAXaS6DrGFaPkOgiMvReavFw/xEeN5OQf/WwWyP?=
+ =?us-ascii?Q?9bunWy9baD/mEvYLWouchDrdMcgv3sgBhDf2GRnDBzFAr3klGDZTqujvulqa?=
+ =?us-ascii?Q?bAjrVEuYdHxO+/Z8nYFG+giXT3mkt4+50y7N4IDA9YwkKfiJH11CcRZAnLas?=
+ =?us-ascii?Q?vwOnTnmRcA8tMckEA/TvjiX72DkCJi8ibXh2NKZNDs1SkyGLtpimM64EdvO1?=
+ =?us-ascii?Q?xanFNgPJ4EZ9y/tYipgmgduPhzrzgQ7BTVQqfJdT7iWzQrgdN+suyZhjKnAV?=
+ =?us-ascii?Q?TQCA331pvqEs7PbKvCLPgl19q32ufmpsl1OU1xWrGOaZ/gMSg2DL9wOTG0Dh?=
+ =?us-ascii?Q?vLTy/o6OdpMRuewjtxoTAwltC6E0ND5whFS+JxyIlWj1iUdly/1rTQsbkSFD?=
+ =?us-ascii?Q?TxliqupLuUhUBRRhkR4c13e232o+L/04rLo52mtNGBolsdrUnOiN5CffzwkM?=
+ =?us-ascii?Q?J0aNDL9/QkyT2kk+GK1CBkBcmI0ctm40X5bROlKNqpEUBQWzGygVYGChZxmj?=
+ =?us-ascii?Q?zmUciyZhYuPLQZr5oTpR3IkFAE1NAFAz9YPqcszHZKW21X1mxAYo0TJ3wusT?=
+ =?us-ascii?Q?pK3b7nI1Tfg/sJqwhl2ziycoyoWd62NsxRAx//SWS5QhPAtc5St838tVjA79?=
+ =?us-ascii?Q?dcVDigLvxQC21dk1U7zcsddkqLmbw9cWQqUvlf5gAm4AO3pAWVMiJHqGjd6d?=
+ =?us-ascii?Q?MkHFz/SsYcL9u55L0w2i221pfSpDleqZuMPUgFxygz5IiA6R08l72QBj+ime?=
+ =?us-ascii?Q?/gmou4Jql5VDxqgjfEuRpZTV/x1uoQFjK7jQN9ELkLLY+whV8+IqTMAmPEDt?=
+ =?us-ascii?Q?uMyQPpNkercCECJAJddBcoT+HpaaFmAfxSFZwDu/PBfjfY+tRwF194fIXXuD?=
+ =?us-ascii?Q?e+wCFaIN/rckGlGO61Xb1FR0vTNCOPXCbS4JVRiEzt9jkFjld9geRY+SKrwm?=
+ =?us-ascii?Q?lM8QArxJP5wD9ssdsTd5+V9lXkufxw2mCDrhozdKcFWnm/o8PO4CGJCZGekK?=
+ =?us-ascii?Q?UhzWLNDq2Rg120tZ0aFI79OTKHoJY97w8gCPJA+7VgdgAQRDnVDPRYslN9fh?=
+ =?us-ascii?Q?B22pRGClCaFw7pNSXH/NSfb0hPJtxRuKh+qQj4IKEVRpU7yNGt9HVgotf1dz?=
+ =?us-ascii?Q?oes5wLyplA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,212 +139,34 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-11-0f38b3c229ad@bootlin.com>
-References: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
-In-Reply-To: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
-To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Michael Walle <mwalle@kernel.org>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, Ray Liu <ray.liu@airoha.com>, 
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, 
- =?utf-8?q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-Cc: Pratyush Yadav <pratyush@kernel.org>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, Santhosh Kumar K <s-k6@ti.com>, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
- linux-stm32@st-md-mailman.stormreply.com
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4276.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bcfde27-28a8-4af6-46fd-08dea78e1d5e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 May 2026 14:29:55.2592
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ylRGwNW7T7deyPDGm25FS4L/BHWGeePi3IspHiu3HfKvWTn7qmOaNSmxRAPR5k8u3CaRnm/B6YnLGe2pwDnoLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB7095
 
-As for the W35NxxJW family, add support for W25N{01,02}JW continuous
-read support. Similar operations require to be done, such as setting a
-specific bit in a configuration register, and providing a set of read
-variants without the address cycles.
+Hi Oleksandr,
 
-As read from cache variants are badly supported by SPI memory
-controllers, we create a new set of read from cache templates with a
-fake address cycle and just enough dummy cycles. There are two
-unsupported configurations (which would require 4.5 dummy bytes), so we
-just do not provide them.
+> > +     if (espi->ops->espi_pre_init)
+> > +             espi->ops->espi_pre_init(espi);
+> is there a chance ops are unitialized? In any place you do this check
 
-The same extra value in the ECC is possible as with the W35NxxJW family,
-so we reference the same helper to retrieve the ECC status.
+It should be properly initialized when adding support for a new SoC. We wil=
+l remove this check in the next revision.
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
-All variants have been validated on a Nuvoton MA35D1 platform.
----
- drivers/mtd/nand/spi/winbond.c | 108 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 98 insertions(+), 10 deletions(-)
+> > +     if (!espi)
+> > +             return;
+> espi pointer is unlikely to be null here, I suggest removing the NULL che=
+ck
 
-diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
-index ffbcd25b0366..578f702528ee 100644
---- a/drivers/mtd/nand/spi/winbond.c
-+++ b/drivers/mtd/nand/spi/winbond.c
-@@ -46,6 +46,62 @@
- 		   SPI_MEM_OP_DATA_IN(len, buf, 1),			\
- 		   SPI_MEM_OP_MAX_FREQ(freq))
- 
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_1D_1D_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0x0d, 1),				\
-+		   SPI_MEM_DTR_OP_ADDR(2, 0, 1),			\
-+		   SPI_MEM_DTR_OP_DUMMY(ndummy, 1),			\
-+		   SPI_MEM_DTR_OP_DATA_IN(len, buf, 1),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_1S_2S_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0x3b, 1),				\
-+		   SPI_MEM_OP_ADDR(1, 0, 1),				\
-+		   SPI_MEM_OP_DUMMY(ndummy - 1, 1),			\
-+		   SPI_MEM_OP_DATA_IN(len, buf, 2),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_2S_2S_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0xbb, 1),				\
-+		   SPI_MEM_OP_ADDR(1, 0, 2),				\
-+		   SPI_MEM_OP_DUMMY(ndummy - 1, 2),			\
-+		   SPI_MEM_OP_DATA_IN(len, buf, 2),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_2D_2D_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0xbd, 1),				\
-+		   SPI_MEM_DTR_OP_ADDR(1, 0, 2),			\
-+		   SPI_MEM_DTR_OP_DUMMY(ndummy - 1, 2),			\
-+		   SPI_MEM_DTR_OP_DATA_IN(len, buf, 2),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_1S_4S_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0x6b, 1),				\
-+		   SPI_MEM_OP_ADDR(1, 0, 1),				\
-+		   SPI_MEM_OP_DUMMY(ndummy - 1, 1),			\
-+		   SPI_MEM_OP_DATA_IN(len, buf, 4),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_1D_4D_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0x6d, 1),				\
-+		   SPI_MEM_DTR_OP_ADDR(1, 0, 1),			\
-+		   SPI_MEM_DTR_OP_DUMMY(ndummy - 1, 1),			\
-+		   SPI_MEM_DTR_OP_DATA_IN(len, buf, 4),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_4S_4S_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0xeb, 1),				\
-+		   SPI_MEM_OP_ADDR(1, 0, 4),				\
-+		   SPI_MEM_OP_DUMMY(ndummy - 1, 4),			\
-+		   SPI_MEM_OP_DATA_IN(len, buf, 4),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
-+#define WINBOND_CONT_READ_FROM_CACHE_1S_4D_4D_OP(ndummy, buf, len, freq) \
-+	SPI_MEM_OP(SPI_MEM_OP_CMD(0xed, 1),				\
-+		   SPI_MEM_DTR_OP_ADDR(1, 0, 4),			\
-+		   SPI_MEM_DTR_OP_DUMMY(ndummy - 1, 4),			\
-+		   SPI_MEM_DTR_OP_DATA_IN(len, buf, 4),			\
-+		   SPI_MEM_OP_MAX_FREQ(freq))
-+
- #define WINBOND_CONT_READ_FROM_CACHE_1S_1S_8S_OP(ndummy, buf, len, freq) \
- 	SPI_MEM_OP(SPI_MEM_OP_CMD(0x8b, 1),				\
- 		   SPI_MEM_OP_ADDR(1, 0, 1),				\
-@@ -133,6 +189,20 @@ static SPINAND_OP_VARIANTS(read_cache_dual_quad_dtr_variants,
- 		SPINAND_PAGE_READ_FROM_CACHE_FAST_1S_1S_1S_OP(0, 1, NULL, 0, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_1S_1S_1S_OP(0, 1, NULL, 0, 54 * HZ_PER_MHZ));
- 
-+static SPINAND_OP_VARIANTS(cont_read_cache_dual_quad_dtr_variants,
-+		WINBOND_CONT_READ_FROM_CACHE_1S_4D_4D_OP(11, NULL, 0, 80 * HZ_PER_MHZ),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_1D_4D_OP(5, NULL, 0, 80 * HZ_PER_MHZ),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_4S_4S_OP(7, NULL, 0, 0),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_4S_4S_OP(6, NULL, 0, 104 * HZ_PER_MHZ),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_1S_4S_OP(4, NULL, 0, 0),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_2D_2D_OP(6, NULL, 0, 80 * HZ_PER_MHZ),
-+		/* The 1S_1D_2D variant would require 4.5 dummy bytes, this is not possible */
-+		WINBOND_CONT_READ_FROM_CACHE_1S_2S_2S_OP(5, NULL, 0, 0),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_2S_2S_OP(4, NULL, 0, 104 * HZ_PER_MHZ),
-+		WINBOND_CONT_READ_FROM_CACHE_1S_1S_2S_OP(4, NULL, 0, 0),
-+		/* The 1S_1D_1D variant would require 4.5 dummy bytes, this is not possible */
-+		WINBOND_CONT_READ_FROM_CACHE_FAST_1S_1S_1S_OP(4, NULL, 0, 0));
-+
- static SPINAND_OP_VARIANTS(read_cache_variants,
- 		SPINAND_PAGE_READ_FROM_CACHE_1S_4S_4S_OP(0, 2, NULL, 0, 0),
- 		SPINAND_PAGE_READ_FROM_CACHE_1S_1S_4S_OP(0, 1, NULL, 0, 0),
-@@ -445,11 +515,25 @@ static int w25n0xjw_hs_cfg(struct spinand_device *spinand,
- 	if (iface != SSDR)
- 		return -EOPNOTSUPP;
- 
-+	/*
-+	 * At this stage, we do not yet know the continuous read template, nor
-+	 * if there is going to be one. Let's assume the continuous read
-+	 * template will be selected with the same heuristics as the buffered
-+	 * read variant, as there cannot be a HS configuration mismatch between
-+	 * them.
-+	 */
- 	op = spinand->op_templates->read_cache;
- 
- 	return w25n0xjw_set_sr4_hs(spinand, w25n0xjw_op_needs_hs(op));
- }
- 
-+static int w25n0xjw_set_cont_read(struct spinand_device *spinand, bool enable)
-+{
-+	u8 mask = enable ? 0 : WINBOND_CFG_BUF_READ;
-+
-+	return spinand_upd_cfg(spinand, WINBOND_CFG_BUF_READ, mask);
-+}
-+
- static int w35n0xjw_write_vcr(struct spinand_device *spinand, u8 reg, u8 val)
- {
- 	struct spi_mem_op op = SPINAND_OP(spinand, winbond_write_vcr,
-@@ -580,12 +664,14 @@ static const struct spinand_info winbond_spinand_table[] = {
- 		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0xbc, 0x21),
- 		     NAND_MEMORG(1, 2048, 64, 64, 1024, 20, 1, 1, 1),
- 		     NAND_ECCREQ(1, 512),
--		     SPINAND_INFO_OP_VARIANTS(&read_cache_dual_quad_dtr_variants,
--					      &write_cache_variants,
--					      &update_cache_variants),
-+		     SPINAND_INFO_OP_VARIANTS_WITH_CONT(&read_cache_dual_quad_dtr_variants,
-+							&write_cache_variants,
-+							&update_cache_variants,
-+							&cont_read_cache_dual_quad_dtr_variants),
- 		     SPINAND_HAS_QE_BIT,
--		     SPINAND_ECCINFO(&w25n01jw_ooblayout, NULL),
--		     SPINAND_CONFIGURE_CHIP(w25n0xjw_hs_cfg)),
-+		     SPINAND_ECCINFO(&w25n01jw_ooblayout, w25w35nxxjw_ecc_get_status),
-+		     SPINAND_CONFIGURE_CHIP(w25n0xjw_hs_cfg),
-+		     SPINAND_CONT_READ(w25n0xjw_set_cont_read)),
- 	SPINAND_INFO("W25N01KV", /* 3.3V */
- 		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0xae, 0x21),
- 		     NAND_MEMORG(1, 2048, 96, 64, 1024, 20, 1, 1, 1),
-@@ -624,12 +710,14 @@ static const struct spinand_info winbond_spinand_table[] = {
- 		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0xbf, 0x22),
- 		     NAND_MEMORG(1, 2048, 64, 64, 1024, 20, 1, 2, 1),
- 		     NAND_ECCREQ(1, 512),
--		     SPINAND_INFO_OP_VARIANTS(&read_cache_dual_quad_dtr_variants,
--					      &write_cache_variants,
--					      &update_cache_variants),
-+		     SPINAND_INFO_OP_VARIANTS_WITH_CONT(&read_cache_dual_quad_dtr_variants,
-+							&write_cache_variants,
-+							&update_cache_variants,
-+							&cont_read_cache_dual_quad_dtr_variants),
- 		     SPINAND_HAS_QE_BIT,
--		     SPINAND_ECCINFO(&w25m02gv_ooblayout, NULL),
--		     SPINAND_CONFIGURE_CHIP(w25n0xjw_hs_cfg)),
-+		     SPINAND_ECCINFO(&w25m02gv_ooblayout, w25w35nxxjw_ecc_get_status),
-+		     SPINAND_CONFIGURE_CHIP(w25n0xjw_hs_cfg),
-+		     SPINAND_CONT_READ(w25n0xjw_set_cont_read)),
- 	SPINAND_INFO("W25N02KV", /* 3.3V */
- 		     SPINAND_ID(SPINAND_READID_METHOD_OPCODE_DUMMY, 0xaa, 0x22),
- 		     NAND_MEMORG(1, 2048, 128, 64, 2048, 40, 1, 1, 1),
+Got it. We will also address this in the next revision.
 
--- 
-2.53.0
+Thanks for your review and comments.
 
 
