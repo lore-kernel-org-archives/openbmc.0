@@ -1,88 +1,77 @@
-Return-Path: <openbmc+bounces-1885-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1886-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32491FF885A
-	for <openbmc@archiver.kernel.org>; Mon,  4 May 2026 23:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B22DCD3427
+	for <openbmc@archiver.kernel.org>; Mon,  4 May 2026 23:38:07 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4g8dMv4yClz2yZN;
-	Tue, 05 May 2026 09:36:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777870085;
-	cv=pass; b=oehqP5EWoGiDoilxK1pgfuUPbPDonAtTaypdOaQOFYjnvofpKhhlJWy0Of0NAB2OpWANpNih0b/5ABDPPxtgbqnUbY/a4OFMQpE+oeJzwLh5NoPdJjQTOnPUOV/2RhQFYDjbcolchB4OV2TedF0DWrYQ1PLB2P7NnzhIwDYk+9L6fIDA8ztVe/XgMFOtvXsi5SQmlXxDTj230YTKqaUviak04FyiZn3XoZcaPgYd2XrEtUfK7yGcv3EjX6p6H0mIIcCs2qc86J+wkxkyHgC2NnI1QY4U3/52nfNGTml+HV1gFbrZ1N+cqunFJVaoJg+PbnD5U7Lu0buA5XNXCHqT7g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4g8dP6454bz2xnt;
+	Tue, 05 May 2026 09:38:02 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c110::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1777858758;
+	cv=pass; b=BAxb+dKCpW1NAfFSjYGHJyc5q3RpSnGHMjLxf6oMvtyukkEN1uwRAdnILXU+WvGeqW8iMQYJudGJmfOKfiSE32zpsmYOnqjMGLegDUw2JciOiXZcj1uce0oNieC/94/NG5VOiB+OQlk2i5HD7VM9ro0kPlxRsEZ9zxzleN6wz4FIu5E1a34Iw6+OdwUnq6K09TZnnf5s4LXJ7VXKPGee9ZbDHzPyaoJs5BgUjwP8/v5FyltJXI9Dy4xFCRNpZ1+mNUi+66lt7M3PDb+fROdTqb6ZrzaDwPjk9E/7cDPjsY2wyemgWeemfzPC1BFS8ElSYM473lPTEA2JwawB1ynS8w==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1777870085; c=relaxed/relaxed;
-	bh=SM/LlsBXBWaf+oujLB/raz8T814DIFn/HVPHUtKWuXc=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BZi6/wx2H6ce5T3qmyRIAauZT0OPdeyRtL/2bv8mwN5bhVrpxoFLkdT0zxdQPW1A9qCpNf1TFQkkdris/7LSEV2fQ9Mn6LGtKZVxHYLVBuQSxwqno75OcqpIHAfMVlVz3LNx5Vc4PyUkGCLCA1bJN90SmqKYcMK+vj2iWcsHAWtxMh05wmIVWgTV4graYvFnkTbqi1I+8eWflEofGBfgTZLXy0nW1nc495ip/nQl6FMTQY4XEh6fvdQ3NWUiErw/db6aM3qx9lgfdG68JfUW4DbPRHoYWDklV4jdGpL/SwnC8pawJShkqJr7Dn+bT9GM7RIdBUiyZWwvyT8rzhQ3tg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aYmmnDPt; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::7; helo=ch4pr04cu002.outbound.protection.outlook.com; envelope-from=andhsieh@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	t=1777858758; c=relaxed/relaxed;
+	bh=IYcdBHIqFgEvILxmZRBX4ED3Al8Q+GCzZear3xHG+wc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=H9wUPC3byjZTPF4A1AApJY9hY9+YnAjcnFNK+GglTSmHBtWi0L2ymc7+x49eVl2ETy3dvYe2BsJo2cJI5Zo3Fts2kg+08XJZ+tCJBfC00jLgx/pvd1rHVfh3TKJ44c7go2dDA1TI42hvDHAYo2EBL6Go6IENeozCJhjAyn0I+p7ABUjTWsT2cRJkAjCv4jo1cmsW5g2iAByXXs5OFzxyYA/8d2w4oQk9VqCD7Ikznt7cLYIIT8SYVYuJ+JRspdw88kfhboaYMjuAvFD+50aqbQpvaHXeGqd8y9OgfM4j/94gl1ZKaXdrfH+a9WoCVKF0SLdRD1CvF/fAaEaBQn1+8g==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=EO1A0PwH; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c110::1; helo=bn1pr04cu002.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aYmmnDPt;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=EO1A0PwH;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c105::7; helo=ch4pr04cu002.outbound.protection.outlook.com; envelope-from=andhsieh@nvidia.com; receiver=lists.ozlabs.org)
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c110::1; helo=bn1pr04cu002.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org)
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azlp170100001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c110::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4g88KJ5bLkz2xZK
-	for <openbmc@lists.ozlabs.org>; Mon, 04 May 2026 14:48:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4g847Q1TTPz2yZ3
+	for <openbmc@lists.ozlabs.org>; Mon, 04 May 2026 11:39:12 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TR3Aqe3eBKSuut2YSm0GwkAKT/HB242B+omM4UO2hLxP4Hb5Ma/oK71cM32p6kShRSZiHGNLRmM81lkVdt+BQbne5K8OnA+pK7RePVhPvgEkeQ7JwoFjfmslv/LfpPOQpjDg5R86ky3HZg2cGA/VLWdMrjqG8NryWClBts3sPsepAFNKy73ZP/jTP4LiAycdX017BIg+pzMmdusQzir7D5UYgODpDRxkG8MgV3O2shqoziUbWQizpELMYoE2kVYe1/VXDaJ1B3KIi90auvQHV64HuXiTopNyHsRN0KINZBMSYPIdxy3J3+YP9NXCd1kfvyfD2CTyw2bzVjQRKbmIpg==
+ b=Z7ho8KuA4zbYpx10i/9yQy0csnu4bw3Of1vWh1xGV7fi8wmaqL10yjXBN+ROWJNChnWWraJisap1Lwd00IKaKrDlI+JQkq4TTJBHFK7aEj5ff6P2f+mJhSIR5gnRvDv0cX21CkHF33OpcbEBYQB/ClsOSNQ2lr8MktXuElFYw3n0u66o9ztdU+zrAdy5E/IBXHJU549jVVzv9/KCPE29nSs5Azm7U2GD9s3dbwiHRwT9pDYi6otaGobNRsobXD+hq4zx21HrkeOGY+b5vp/SweVaI7cvBo5GT66UVgmkUo4j7Zki5bDH7oJlIUWzYkrbf0G3syA2TRLkn2ZiQ1HJdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SM/LlsBXBWaf+oujLB/raz8T814DIFn/HVPHUtKWuXc=;
- b=XLq+Qjn8NDRpES4yC8yqFqxYx0bzDULD89Y8BqO8NlExuw7gU7KrMK3Tcf3QICAc23DLAif0zk0loJ1Qhu9Jlx4WXFi+Mukw/uTv+npRYy7991TCV1P0EMOgikZ8jTRDlzTiJir/wZxcYP2uAh4AmmKONF22Atb64Jw8uATO99BiQjSNoHHEQZVLl0n+efZDkPMtnEStjDl1w1Owls2rK+N1QyVdwJcZYZfLAUcu85ygCDNp6BwmbX8YrsikrFs1QyHUgVXhDEFxIAzjnIrJBVfRD9BL4iiAtQghaEsUEUEHy25gXiozShp6hzFDypEZzCYCJFmXUDx6DhTbd+aL4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.ozlabs.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=IYcdBHIqFgEvILxmZRBX4ED3Al8Q+GCzZear3xHG+wc=;
+ b=V5uAGLZvQGMkRpdZBeni4pHzQk+E+q8HyZxsrTvYxFblkIbN3oUMfMmB8ci5xzXlwobxb/IUMwzNeciuGmseYWYhvYOLwp1otebiS1u+e0a8gKezwAG2AxYs1JcPe0jKg1kCRpxSY96Cg7oCbmVear4W49LgwM0kXTAPTeB+jYTu2JXsIiBKGRgrA7Ymnt02i0PJiu5gF82o7ogdOv6KTmRE30GD7mTuDeJPXZHLDpGRPdHKMIgWwHsH7uCaL2qPw8B+6yD7kTKton4JKbgm615SMktzyXDM8vtsZogRPy/HEQhTjdBNGNCu/29hlZXW0hyZaanDNJZKQGxNUdPlJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SM/LlsBXBWaf+oujLB/raz8T814DIFn/HVPHUtKWuXc=;
- b=aYmmnDPtUBU+9LC5VjVp1cZRGAn0rhouxgFXUwulfZ7nm3vbdlkA4PwTIP8fBbFl+OuHwSaWXthmx6lRLBkk+WC5BRnkU73K7bc01NGIL6hAGnspk/5ynZt2nspyKkKAKSWlOUKybBeWLH1IWD31sJnyZalWFY3/w8vrooExuKdMEFCmaCyzA7Rhpj0zdsQKrDHXY7tEVbvuGq20yuO1HO8irPTAXEdS/gJhPJ6xPsw9wY2vYkpALAkgzHzJM1jpmBuqAswYkWhD0eur02/70OOBUi7JqMO3ZfJ4TI3R6Z/av9Ht3j7yAqTExGNO0m526ts8X7fVPBqZvZZkD7O/YQ==
-Received: from SJ0PR05CA0052.namprd05.prod.outlook.com (2603:10b6:a03:33f::27)
- by MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19) with
+ bh=IYcdBHIqFgEvILxmZRBX4ED3Al8Q+GCzZear3xHG+wc=;
+ b=EO1A0PwHRzNoeqLcb9Rh+jx6pg9MmYBCUIZ7oIMTof6n0BiCpSC0y3CsLy5xMK6OY9wZ444tblzx7TLhz+YxrdIWuW4KbogsDHIxjbRJBKtU8oYwoZjP/xkQdcb/JY1eVZQQBHHa1oxzLpUDhJ+S9Tp9fO9Tg02JGjegnu9rzYwc/fQZ24cyUg5vdAYxJ5exmx3bI0p/IeD9innYXsElGiHIOlPRgb7IFp3s8MbyUYcBfmVU+oorrGuD4wd95us7KzVZV/L7/FXXRKX+y//clEcj5EH+EWIyJmUU1xjPjNDy5LfPJm2iUOgU38iv7FBf1t3eVTIC7y4wp+4JL34d7g==
+Received: from DM6PR03CA0076.namprd03.prod.outlook.com (2603:10b6:5:333::9) by
+ EAYPR18MB988325.namprd18.prod.outlook.com (2603:10b6:303:2be::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 04:47:37 +0000
-Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
- (2603:10b6:a03:33f:cafe::86) by SJ0PR05CA0052.outlook.office365.com
- (2603:10b6:a03:33f::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.13 via Frontend Transport; Mon,
- 4 May 2026 04:47:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9891.9 via Frontend Transport; Mon, 4 May 2026 04:47:36 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sun, 3 May
- 2026 21:47:25 -0700
-Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sun, 3 May
- 2026 21:47:23 -0700
-From: Ender Hsieh <andhsieh@nvidia.com>
-To: <openbmc@lists.ozlabs.org>, <joel@jms.id.au>,
-	<andrew@codeconstruct.com.au>
-CC: <molberding@nvidia.com>, <jacky_chou@aspeedtech.com>, <andrew@lunn.ch>
-Subject: [PATCH u-boot 1/1] ARM: dts: ast2600 msx4: switch to rgmii-id phy mode
-Date: Mon, 4 May 2026 13:47:02 +0900
-Message-ID: <20260504044702.2613879-2-andhsieh@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260504044702.2613879-1-andhsieh@nvidia.com>
-References: <20260504044702.2613879-1-andhsieh@nvidia.com>
+ 2026 01:38:47 +0000
+Received: from DS2PEPF000061C5.namprd02.prod.outlook.com
+ (2603:10b6:5:333:cafe::c) by DM6PR03CA0076.outlook.office365.com
+ (2603:10b6:5:333::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Mon,
+ 4 May 2026 01:38:47 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ DS2PEPF000061C5.mail.protection.outlook.com (10.167.23.72) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.9
+ via Frontend Transport; Mon, 4 May 2026 01:38:47 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTPS id DA0084186B5D;
+	Sun,  3 May 2026 18:36:50 -0700 (PDT)
+From: Tzu-Hao Wei <twei@axiado.com>
+Date: Mon, 04 May 2026 09:38:34 +0800
+Subject: [PATCH RESEND v3 3/4] MAINTAINERS: Add Axiado AX3000 eMMC PHY
+ driver
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -94,77 +83,91 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
+Message-Id: <20260504-axiado-ax3000-add-emmc-phy-driver-support-v3-3-3ab7eb45b0c5@axiado.com>
+References: <20260504-axiado-ax3000-add-emmc-phy-driver-support-v3-0-3ab7eb45b0c5@axiado.com>
+In-Reply-To: <20260504-axiado-ax3000-add-emmc-phy-driver-support-v3-0-3ab7eb45b0c5@axiado.com>
+To: SriNavmani A <srinavmani@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Tzu-Hao Wei <twei@axiado.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1110; i=twei@axiado.com;
+ h=from:subject:message-id; bh=ObP8N1UtvWKp2CtmzxJN3VKa1vOSFezLpJd8KJulKic=;
+ b=owEB7QES/pANAwAKAXgQMF3EWvHXAcsmYgBp9/imCt0F8unvqVG9sFNz2lbvnTw+kWUwuQQq/
+ Rurflle7CmJAbMEAAEKAB0WIQSZyWINOowtFmDvdYF4EDBdxFrx1wUCaff4pgAKCRB4EDBdxFrx
+ 16sHDACpIbPbJIEub3P25V72awHnfbBt1BfnE2L8zeQ2jT766wxs2VnuqT4qRyUxX2ru9UMiye5
+ S/Ld4SuHqoljOsz0Ip6xWn7cE1WCnLaitkL7tiQ/8VBFyelO9eFDnVlefMFupbakVXyC4A8Za0y
+ //eGa2cFtUNwXbrtlXVQutozMXCS79wYCJamr8YM1xcHIXaL4HP4WkkU5ciOd3zgxHZl8KOEeS2
+ 6vqPg2Lz4SyGGoAsBoLe9YKY+4f1jLXSTDCC94ho3owJqXioQOPqGpTgxSiIXdf6P5rUbTGHPv2
+ w2EFmL/fKW2hO8BmWSd+9n7Au2sLmxN3Dy8ANHNgwuFDpg/klw5nXojUXa504jLj8IyZGsNA/xQ
+ 3FrDhlZ6mwaELtt2K650z7X81r5l6++isJH/fG7TCx1JkIsGturdMWTZuDXPpgIP4ucgjpVFlyH
+ BC5NhSkpJYP1/JGNN4DiRGSzIIwXZxIxi8Pr/TbXODRFMCUj4OvrSs2AUVGbaWGUzMyRM=
+X-Developer-Key: i=twei@axiado.com; a=openpgp;
+ fpr=99C9620D3A8C2D1660EF75817810305DC45AF1D7
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|MN2PR12MB4488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f6d1977-dbb9-409d-18dc-08dea998437d
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C5:EE_|EAYPR18MB988325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 253ec410-f2e9-411f-5c45-08dea97de2c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|34020700016|42112799006|36860700016|13003099007|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	sdxI3JIY+7aMg6j0YwceeDfa+EVh5ffUPHWdVlXMKcFSXckrshYVmhP+sygx7h/bljrmxXxauZyVHNdqjztG79c2mLXB8tBY4Yx75qhBV5eXvmxvgFK+xLbRe+FkYOll176nElQPsVefeBLRDUNnTZPuf+NV7Fh8sGTc7wZi8pbXZ6ON9nWfBSnfGiCQqIEmpwsahiAqKIkDZ8FFNAJs3xLAuNjYLXQzMw7lraH0rbhlYMnqyNJEVaSSY+1qpjJ0rxcQafBpEL59yfXK7REgdf0QR/QOcqQSYZQyMEDtc2qt3VRFnxQLj+E5gbGxLjgOvVkjG68sybhkE8+7uWV8tgukVi8spoqO+ZGjmOLakC4FoM65ajnxX9W61LdzersosOkZd7D4rN6QVaQGBCX+9odtJODPDQr4+jbR8dRtIZbYHzeFuYGsMUHLstHryuWQCKbG9K87Q7CdM3utSl3ngp6bzoFB0f2dStMwKlHhPNsVi9RFj8b6idHl2tpu3tJorS3/OllJv6nue15GxewEaKqUefV9zQFXrOS42GIf8lownAYVDrfuHI3Ux6yTuRFD8fbIihG9b3PKnP+oahQv8A7lC3nKq0BGIgaB61eEePyDqsRcA3I6hpOGUg87EOMX65vpt80fqBEYSnZ4rjFLhluuHn4t4hDUqoEkFv5mv/T+XjK+Ffbi9yeC+tM+qVIv5YCoCdJAOILy4xkq1R/vgufTclMM7spapRYmlKUulBo=
+	7+/37unoblo7j3VmPHXUFyMwbd6HWnxl+0rsx3PYwqbFe7kyITomYproIYgyX9gIuqL/SRS3sYeKIT/2W2YsWD0zoqze2LNBIQRUs/acX3cjLDjw21jsjf6KORB31Umo7khtbMkQhgFfvTuUyVAM+jMCsRHKaT0deLaOdknQK6z1y7NVS2b+Q8VZEZ+9eLLfltSGKYnwrDDKnpBzEZxmtLc7lRvqOVjktJ/jNTrtXl0nFacMlXYOWG7rnsGrKeOdazKdedhI/oWhyleDDUabqYR8DcaUcEuz9+DJp9Dh6myixUwzITBYD+5OZKSQi5YSIlzPZ9MHCc24A8zwOrABppFSWnmN9Umgix2VlJcCzjIIXqsj4fYELlwNfjPgIJxBvnW+rAM/o80YcF5+cKBlUd9qRK9zE/jb1oWD2yAwi2osrVlsqgvZsqUdr5HdX9RYwp8ylT7t2ZDgVawxkZPi1emMJPLThWCAWG9fAgIFfO7E4sqlg5u3fekW2k0Z0dUu0P9r/jUOpT/U0u+MFgl15dx+B4ZcSdSnydSX+xINlhFu/YDtuXi2BkdHJ94DxwKR9LiXD1pfmHDUv+xd21MB/9kPt5y9hJlI+egDcYlV1NkjZHJN6p0v5qmLiKwtN6Ujys8onIej0S8y6IOEBKvXm/uSOisRq4KzAWhkMxtTO4gfxWH1EX42IOkr8WrVUJXKq8NvCn35Z4g6gLOW2C58tCVlyOc4NPZdVIBWbCqWQYE=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(34020700016)(42112799006)(36860700016)(13003099007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	0tlZTOS+2auhtr5wFonpCs8HBLecptpq1c/gB1yFry80+453ywvb4sPOHuCbr4q8ARnONzRbFYj39XxF9mcgh1SHgYnwT3tWtuqlJJ+ZtTxuPzs6Jr65mkxHvz/O9WhAjFWRs2rARWG1/00H6wC6VlSzKFGEb0uPq0E7UO6tU38kfN0eCbDebC+6TYNQPoqUjVQGKi1sCe6RtCQRFPRQfqgVB4sPeCDFF/sLquNV+VtLz24jYh9nf4lwKptYw64sBt13FqjOznuV8tvaPzf9LNUXBv3d2AisyD3b9HY/Y+VozV8HWkhfQUIY6orvCX+4v4UEydc6VKZCNSU/Uuh9QFWfXt+N6GM0XJFebyg85uLrt1YR4QR054BlAHcKOsSAMEQdtwqQ4s0B7D3mkH2bd1iv95QW/xb1q1TGTRZmHOLi34qI8+cHl9hp691I4cnF
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 04:47:36.4314
+	GAmNrxx/X8aO+Abrv61Dp3ek62Du67HpJATJCmkYSXoGLNFizAGCCHsA4L9AJh6IVswiTtlwAlL4iiJgVwJ+heveFe6yIcDa3xq57atMp56VEve1SK8lmRwjTPgLrUz+W6vB4vJYDS6hzJkh15qRigUqe5F2NgZ1v7oAJPcsPY9tnbVJbP3SFvUoiRG4IvM7s9AwuUR+5Rf3aOTg039lmjs53L2d5sv2BAWrxZQRwjx7usaNXUEVTuR/qpWbQO6Qldmj1+Lwsxcb06qM2KufFlrOo/LgQ8QWa/MRsAWrlChEjiusMOofi2NL+/lr/A99HIRxCPMfRGQFpmIahdDsE9iYDDhEMk5is8smyY3IQFhly4PH4o84eNnTHCTOx144OOIovme2f2KYoWC/r7uxZ40oud6D/8ieSLm6koRMjOdru8okXM2MIRaDK3+HlyIs
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 01:38:47.2771
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f6d1977-dbb9-409d-18dc-08dea998437d
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 253ec410-f2e9-411f-5c45-08dea97de2c9
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1D.namprd04.prod.outlook.com
+	DS2PEPF000061C5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4488
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR18MB988325
 
-Switch the MAC0 phy-mode to "rgmii-id" so the PHY handles internal
-RX/TX delay, and drop the SCU mac0-clk-delay block since SoC-side
-delay is no longer needed.
+Add SriNavmani, Prasad and me as maintainers for Axiado AX3000 eMMC PHY
+driver
 
-Coordinated with the kernel-side change adding the &mac0/&mdio3
-nodes with phy-mode = "rgmii-id" to the MSX4 board dts in
-mainline Linux.
-
-Signed-off-by: Ender Hsieh <andhsieh@nvidia.com>
+Acked-by: Prasad Bolisetty <pbolisetty@axiado.com>
+Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
 ---
- arch/arm/dts/ast2600-msx4-bmc-nvidia.dts | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ MAINTAINERS | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm/dts/ast2600-msx4-bmc-nvidia.dts b/arch/arm/dts/ast2600-msx4-bmc-nvidia.dts
-index 9b64f7e734..9df5e74c98 100644
---- a/arch/arm/dts/ast2600-msx4-bmc-nvidia.dts
-+++ b/arch/arm/dts/ast2600-msx4-bmc-nvidia.dts
-@@ -62,7 +62,7 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 67db88b04537b431c927b73624993233eef43e3f..c33b0aa94de81c89b674e44d4813c4e3b95b7b2d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4254,6 +4254,16 @@ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/devicetree/bindings/hwmon/adi,axi-fan-control.yaml
+ F:	drivers/hwmon/axi-fan-control.c
  
- &mac0 {
- 	status = "okay";
--	phy-mode = "rgmii";
-+	phy-mode = "rgmii-id";
- 	phy-handle = <&ethphy3>;
- 
- 	pinctrl-names = "default";
-@@ -82,12 +82,6 @@
- 	};
- };
- 
--&scu {
--	mac0-clk-delay = <0x1d 0x0a
--			  0x1d 0x0a
--			  0x1d 0x0a>;
--};
--
- &sdrammc {
- 	clock-frequency = <400000000>;
- 	aspeed,ecc-enabled;
++AXIADO EMMC PHY DRIVER
++M:	SriNavmani A <srinavmani@axiado.com>
++M:	Tzu-Hao Wei <twei@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-phy@lists.infradead.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/phy/axiado,ax3000-emmc-phy.yaml
++F:	drivers/phy/axiado/Kconfig
++F:	drivers/phy/axiado/phy-axiado-emmc.c
++
+ AXI SPI ENGINE
+ M:	Michael Hennerich <michael.hennerich@analog.com>
+ M:	Nuno Sá <nuno.sa@analog.com>
+
 -- 
 2.34.1
 
