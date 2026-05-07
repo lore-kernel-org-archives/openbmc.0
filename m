@@ -1,93 +1,65 @@
-Return-Path: <openbmc+bounces-1904-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1905-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221EFCD3427
-	for <openbmc@archiver.kernel.org>; Thu,  7 May 2026 04:32:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF8BCD3445
+	for <openbmc@archiver.kernel.org>; Fri,  8 May 2026 00:14:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4g9zrC5njvz30Bd;
-	Thu, 07 May 2026 14:32:43 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2001:4860:4864:20::2c" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778128363;
-	cv=pass; b=Fh/+kM49oaKpSdpO98vtoUnAYs4LG3aX0+ZsGXDg3i56BC/AhQM2g2MZCVbzjUtAdPH4AlZXhgqJLbR1HLqTlrEahHwQgsc1MDf70H1KgaGVvs3x+9PgZzceuhrGnEdgvstzV9ddvU81BQ5wCsnBY8QsmjwzfaxgC8CDXlZ7cIMkb3zw0veqWiNyBwcQtMYDNx0eDYXP50wYyUp4CTfIqF3o0Y4MZU6JgH9dOd/zgsu52BETQ9uuYlQy9gUOUV8aKgAqohrhwasNZInvK0RsrYZezDTrpQF6uXrg4p7JwlY29XztJZPB/ecuvXwCUa3pAi3K9ImAxgFChW7vzMK/ZQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1778128363; c=relaxed/relaxed;
-	bh=6LxWRta8jVoFPg3bNy8jRRVGBdR1fKMJ1vsZZUxThcU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fv8R9JHyLw4qEfJcrkK+yl2hdF2vyA/J6wv5U2r0rvnOo8PfasvitbS7xk33nCBecQmDXUktOJ4PWAxjO0TPiFRG7pyH38c5PM/mp8ES4Bgp2VMheA4/Q3xL6PgCZ2rdky2OrrNatbAEjtpK4Vl+WRl8s8+PufZmir47ZMutCJ98AmElvUoj+KB6bNPUEN/uze2bQINPfh4QeB1cpWQd7CY/cdaxPEVJa6zS3BdcFhnXAfDAeYZWNF0UIm9pQt16M/JPVNfhibtphQfAhl7YBpFt+sVkgpFg8rHGGV/7Y3yjKkJCXr+3Il3UYfMFIkmVoBHGayjotSLBRc1lj6dIAw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WeO85adW; dkim-atps=neutral; spf=pass (client-ip=2001:4860:4864:20::2c; helo=mail-oa1-x2c.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gBV391GMmz30DX;
+	Fri, 08 May 2026 10:13:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778169659;
+	cv=none; b=GbiftT49lRYyk1eZk6kDFjdq9+Us4RknttR+IwDg42BBRd8kiDsdvHAoAiaRAHxaidcaPYyd+YZ2A7HbPDlJ8e7MnliyL+8CL4LNBGauESEQoH1i32F2V4p/vSulCVDs0nyxittqkiFRtQA0uzLCjH8LBvdIeEcBMCdFr4yGliRzubPrHAtqefknmFd8oNty6+lN5YW3KuJm6N+VkSxDFSuvug2PdEWDz39lv40VgE2kdZHpoZVvhxykhL4ywAbxB/2rmq9uKmdrXp3Drsu/sO1UfUjDFJywUfDu08YePz3diBIOx6ZamL393a2aKhb0P5kq7HkcZEK4R/a3/eCCBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1778169659; c=relaxed/relaxed;
+	bh=jgziH4kIZ7vCwuDFMy2H2sa/DZNDXnfB805FtgBuIlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GGIknmgzkExzmO3jWJRiPzQ0hg3tKOFhiR4tFWj3DOE2MH4haMRKc351yM+uKepC9iVVJaeAWi7+NNHsf9jbe6z7hWOxwpQymbBkcUAtnoc6NieKuwmGg5fbKzd1MLZSHPVs1dys9DupRACKFruLNy9qnhzVlW0Wh/bC7erW1+693teK50n22R04qGdwGcABnw7WGsnD+0GSchDFg/9zYQRdUJl+ZJVWzAHngksTMbPQZUVvmq7BSX0HPRcp5hFUSHZxEq4VFU2ocLyuRk3dayakxxkajTsSAHQbNoJRGP3zknsSwFdD8AcIzQvAfIxWdBwqdeVLiLvTe4v5jKRTMg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDGC/hTm; dkim-atps=neutral; spf=pass (client-ip=192.198.163.10; helo=mgamail.intel.com; envelope-from=oleksandr.shulzhenko@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WeO85adW;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDGC/hTm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2001:4860:4864:20::2c; helo=mail-oa1-x2c.google.com; envelope-from=aladyshev22@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com [IPv6:2001:4860:4864:20::2c])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.10; helo=mgamail.intel.com; envelope-from=oleksandr.shulzhenko@linux.intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4g9zrB1Fd2z2xlm
-	for <openbmc@lists.ozlabs.org>; Thu, 07 May 2026 14:32:40 +1000 (AEST)
-Received: by mail-oa1-x2c.google.com with SMTP id 586e51a60fabf-40974bf7781so1437378fac.0
-        for <openbmc@lists.ozlabs.org>; Wed, 06 May 2026 21:32:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778128357; cv=none;
-        d=google.com; s=arc-20240605;
-        b=kfs505o9gGiGtOuSu7MSA8xmFEZt3kJ9MgvXdtOmAsv1BggJ8+A4TVmLAavTwXPAiL
-         fi1E21rjvvjD9/t/pRexqHPxM2JGa4IaxZG9BSDBZ3WoieDmMvfyClwGPHjNfPEyBNly
-         W1MzsjVZacFJ3HQKUZf1+FG8oeomJosKo4phAqPsfrhUJ+ARW0yZzT3f74uHvYpKhOTn
-         7OXcmz67kWcZrjP7EkJh+Zo2AX7tl+5+IVwZtf41DdimuJlBY0CPm+CZdIZQxdaXjpT6
-         wXA05OTlIBfIFgHXSihpU3f85q+cyz+qSTpffaAImt612uCN+IkyjO/iCtFqw6vA9KNk
-         BykA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6LxWRta8jVoFPg3bNy8jRRVGBdR1fKMJ1vsZZUxThcU=;
-        fh=LjD2CtxUvU6KQSJzHdjEM3dQTbvHKJeKBIqR2x8u/iQ=;
-        b=AdWr7odm8p2oLuxlrop0sVAohhGFeZ2BD64ziVIeHblqdQQr0TNHDCSyR+uf88KCZR
-         mSLyjZRjqveABVmI8ZseN8yvqbhfJLw4NQP22P2R7UuDXBwpZ/eVinUTuRddxxI98y8o
-         JwaIoV2jsKF7yeIEt492h2ak26SPmymXDyB2jeXFaHUVkDADm48sLzjXAL0qI78khc8i
-         hJWDfIe8aHRjRKwWjqLzW+llNKQ12Q9Q3N+Mdysl/hD+C1/ojknfP68dF2TEReZYYEHb
-         Ly+42fPF0vOV6+R2yu1Wqxq6bFXQ05ZwtqNtml+zy0iQsu9zazhC8vMQ3XSCEvrcM6Y0
-         wqOQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778128357; x=1778733157; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6LxWRta8jVoFPg3bNy8jRRVGBdR1fKMJ1vsZZUxThcU=;
-        b=WeO85adWbQWWTCFWYn+d1bIYR1UTKXNHbOwGntl+RCgiUwpbSp0dbDAInV+jnoaK6V
-         TRzJvPB9vTtHfWHh5hxlh3wLd1y3kOi4ZFCezcA3HEEi5Kxy1EiLtw2LvH4MjFL/nGqU
-         WplZqmbcOMTZfST4tyDwoWOp/G54Ep42FJ8B2u7oepi9vw+TeRLUu+fgvzqpSrG1ORDv
-         gqsdxEDvgndq5vxu3y8UYth2erOLXlOEbjZBul0Lai5fOkls388vsutKHmWZj6VyvhKF
-         DRp+M+Yuw8Cwej8lBHUkk82pV7UR8hkS5V7usS27BqndIC+wP0c3fY5lyFgbwenzSOMF
-         NRqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778128357; x=1778733157;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6LxWRta8jVoFPg3bNy8jRRVGBdR1fKMJ1vsZZUxThcU=;
-        b=C17jlY9nK1cKb5cYczpzHlyTACbDICn3AmXDVOWmZMS2NdGYndBkqV/jpX26FjDK+E
-         ilqDufi/fdGHh3m4Cwj+3SQLPpvICegT5ZDvZtdNd9qU24oMzwSEJ3JVuDNHgmj7UoWZ
-         kaaNIr6v/8DeJj41TBjJv1BV5r2RqQgisQ1y03CwKcqSY+pUqlCPrxligNHC6f9Xwm0U
-         NSW8XwQbRa3hjXrXp+ZMLPPG2Ve57PvBq21/QOjZo0rxRCl7znCr8vP+eyeF6seKjK64
-         hDS9cKOOxd9YMB7EhMnPVgqA3/8hV/VvbMAnw9RLPyw6Hgy4f4nndqw9/SjCoJocb46o
-         2Rvw==
-X-Forwarded-Encrypted: i=1; AFNElJ+vRfFbSiIHJSI7sEe0b7IqzyrWmEBunjtERcIKTp0FurdUcG5abMZO9dy0GKWO5mpFEEN9ZXop@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yz55OQmvoLn6SEpjyN6gK0aEs5UC0dc97DCavNZecXvEE+2FAc1
-	rkTyBuzEIsh9fRyGdKbAbWPdxIlLDOYEiKCSACt8hi0nhZJdDqT9AXw50D/xGHI1j7KPJRQPpdj
-	JVaIrIphNEldHPagHIFncqgnt9cDHBgc=
-X-Gm-Gg: AeBDievQtHzE0HpKdIoqXWP70NNH6BD/QXClsLNoUVj1uuAX1rfmIvNQxpDm9rL6kV8
-	xq9BtSGNVkcpOABeHbExgcLOwJSYnj28mYMLcyE+kYxnRz4MyLKZ5ON683E4pa56xrX32ldGANA
-	5fw7h1L2+hIhJow/DCoTb8cl9BcFUT52LqY25h8Zz6BxYXm6t/iojYBRrM+5m4oH6PaXeEMfzvu
-	qHUMLBLO2tjDXKFTJpBJffFdxQtUriejSrLnca4yyC2VfbwVifO4Dt6/BtHyCXX318myYBfsk1R
-	NYcXUhh51Qwjok4KNg==
-X-Received: by 2002:a05:6870:1708:b0:41c:9797:d1e6 with SMTP id
- 586e51a60fabf-43526a897a0mr887878fac.14.1778128356742; Wed, 06 May 2026
- 21:32:36 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gBH6H5LQQz2xPb;
+	Fri, 08 May 2026 02:00:53 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778169656; x=1809705656;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8BPtm1ERjnpYkkfFpMlDgHXX0eJd4mOVQdjMNGpCaCY=;
+  b=kDGC/hTmw1/cPwt9R2lcqhuNw/UnTC/qhQTb/pHxrlSDFjUv4GlfnQA4
+   0wGxt1h2+0+bWDL6a7bMvufo5HTITp2yEOaMTuJMasAXc1tE7f4YNfnha
+   H5YpS5zorbTj5bqCGZli+aEUtRKePulJv70YXp5mxaIRgJQp1w/SqDZ7y
+   GSkZF7hWLDuLV5z6cxqWrJgY/+q4ktHq48V+y7JSC9zKAtg9MjAdPa9V1
+   TRulq0WsqcrvK4VGjJs2YXigmU2wYu8gDDnS8LuFOP1AhO1yWyitZnDIv
+   YBixbJv0Xvtc8dHsSDjDzZIemVn+7vxoQ/yXuz5p61WInHtQyah/d1tHO
+   A==;
+X-CSE-ConnectionGUID: POzmfRygTOuZ3Kpls8h9gA==
+X-CSE-MsgGUID: 6v0rlNsvTEqRByOhvSHhew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="90502277"
+X-IronPort-AV: E=Sophos;i="6.23,221,1770624000"; 
+   d="scan'208";a="90502277"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 May 2026 09:00:50 -0700
+X-CSE-ConnectionGUID: W8JdCnF+Q1ynh0P7UD8UIg==
+X-CSE-MsgGUID: mY5sbussT2WvLYe2eD1VnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,221,1770624000"; 
+   d="scan'208";a="266870993"
+Received: from linux.intel.com ([10.54.29.200])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 May 2026 09:00:50 -0700
+Received: from [10.246.17.81] (unknown [10.246.17.81])
+	by linux.intel.com (Postfix) with ESMTP id 9DE2F20B5713;
+	Thu,  7 May 2026 09:00:46 -0700 (PDT)
+Message-ID: <b1d56feb-9847-41b1-8bba-733963055cae@linux.intel.com>
+Date: Thu, 7 May 2026 18:00:45 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,58 +71,85 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260429070650.28931-1-aladyshev22@gmail.com> <afrlSbCqDeLYb-Ps@vault.lan>
- <0198cd6c-dc28-4199-9f9a-6527064f3600@9elements.com>
-In-Reply-To: <0198cd6c-dc28-4199-9f9a-6527064f3600@9elements.com>
-From: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date: Thu, 7 May 2026 07:32:26 +0300
-X-Gm-Features: AVHnY4KtfhVzaFRc74PQFC42QbK6mLMSBhvgpPki1JICiGZAhIam23Eq7-JH-AY
-Message-ID: <CACSj6VWpBRv_NOYb6Yv_-_shTzS6DjnwTgB6oStZA-Zne3R2rg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-6.18] eeprom: ee1004: Fix build error
-To: Tan Siewert <tan.siewert@9elements.com>
-Cc: Johannes Truschnigg <johannes@truschnigg.info>, openbmc@lists.ozlabs.org, joel@jms.id.au, 
-	andrew@codeconstruct.com.au
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] soc: aspeed: Add AST2600 eSPI controller support
+To: YH Chung <yh_chung@aspeedtech.com>, Arnd Bergmann <arnd@arndb.de>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "maciej.lawniczak@intel.com" <maciej.lawniczak@intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20260313-upstream_espi-v1-0-9504428e1f43@aspeedtech.com>
+ <20260313-energy-casket-ca8adc1f1fd1@spud>
+ <23909400-4e7f-49c9-a982-14036372af98@app.fastmail.com>
+ <c3b28ee92fa46700887d0c68b23045b2418358a7.camel@codeconstruct.com.au>
+ <KL1PR0601MB4276ED93723F0B1F42349AD89041A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+ <0f7f0f96-a918-47d5-a0bd-bbde494c8fed@app.fastmail.com>
+ <KL1PR0601MB4276B5BE3B96C18E3A66AD709049A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+ <14870d17-2471-4522-b8b5-03cb9002a4f7@app.fastmail.com>
+ <KL1PR0601MB42763DAD359305DEBA4B769D9057A@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+ <KL1PR0601MB427603A6A5768D6A537CAFCB905AA@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+Content-Language: en-US
+From: "Shulzhenko, Oleksandr" <oleksandr.shulzhenko@linux.intel.com>
+In-Reply-To: <KL1PR0601MB427603A6A5768D6A537CAFCB905AA@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I think this is specifically an OpenBMC kernel problem.
-I don't see this error neither in upstream Linux master
-https://github.com/torvalds/linux/blob/master/drivers/misc/eeprom/ee1004.c#=
-L341
-nor in Linux 6.18
-https://github.com/torvalds/linux/blob/v6.18/drivers/misc/eeprom/ee1004.c#L=
-341
+On 4/7/2026 11:36 AM, YH Chung wrote:
+> Hi Arnd,
+>
+> Thanks for the comments and questions.
+>
+>> These all seem to be viable options, but I still think we should focus on
+>> agreeing on a design for the low-level hardware interface and whether this
+>> can or should be abstracted between SoC vendor specific drivers before
+>> trying to solve the user interface side.
+>   
+> Could you share your thoughts on whether it would make sense to accept our
+> eSPI driver as is, and whether it should live under the SoC vendor-specific
+> directories? Any comment would be greatly appreciated.
+>
+> Thanks,
+> YunHsuan
 
-On Wed, May 6, 2026 at 6:30=E2=80=AFPM Tan Siewert <tan.siewert@9elements.c=
-om> wrote:
->
-> On 5/6/26 8:52 AM, Johannes Truschnigg wrote:
-> > On Wed, Apr 29, 2026 at 10:06:47AM +0300, Konstantin Aladyshev wrote:
-> >> Currently driver compilation fails because of the undeclared
-> >> 'ee1004_groups' variable.
-> >> [...]
-> >> Fixes: 79d0df36b541 ("eeprom: ee1004: Add nvmem support")
-> >
-> > Ftr, this patch on (top of 80ec78d (6.18.26)) fixes building linux-aspe=
-ed with
-> > CONFIG_EEPROM_EE1004=3Dy configured for me, which has otherwise been br=
-oken
-> > since around October 2025.
-> >
-> > I recommend merging it :)
-> >
->
-> It'd be great if the patch could be sent to LKML and let it be
-> backported to the upstream 6.18 LTS tree instead of having it only in
-> the OpenBMC tree.
->
-> To cite the kernel development doc [0]:
-> "Submit your patch upstream. It doesn't need to be upstream, but it
-> should be on it's way, and not have any unresolved design concerns."
->
-> [0]
-> https://github.com/openbmc/docs/blob/92b89c6ac71f8b94f67f508102704a1cf38e=
-68cb/kernel-development.md?plain=3D1#L29
->
->         Tan
+Hi YunHsuan,
+
+Let me add my 5 cents on this matter.
+
+Integrating this driver into the SPI subsystem may allow reusing some 
+existing definitions, e.g.|spi_controller|,|spi_message|, and perhaps 
+parts related to single/dual/quad I/O handling. At the same time, parts 
+such as the Flash channel (included in the current series), and OOB / 
+Virtual Wire support (I would expect to come later), appear to be 
+specific to the Intel eSPI protocol. Modeling all of that as just 
+another SPI IP driver may introduce some awkward layering and overhead.
+
+Also, the current series already seems to separate common eSPI logic 
+from AST2600-specific pieces, assuming that 2700 driver is also coming 
+at some point.
+
+This makes me wonder whether a dedicated eSPI layer/subsystem could be a 
+better fit — either under the SPI or as something separate (but not SoC 
+driver).
+
+Given my limited experience with SPI/eSPI, could you help clarify a few 
+points for me (and probably others as well)?
+
+  * How much of the SPI subsystem can be reused for this implementation,
+    both for the current patchset and for likely future extensions?
+  * Are there any pitfalls or abstraction mismatches in trying to reuse
+    the SPI core here?
+
+I think this would help make the subsystem placement discussion much 
+clearer.
+
+
 
