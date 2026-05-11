@@ -1,64 +1,58 @@
-Return-Path: <openbmc+bounces-1907-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1908-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32BE2CD37B2
-	for <openbmc@archiver.kernel.org>; Mon, 11 May 2026 00:06:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F95CD4855
+	for <openbmc@archiver.kernel.org>; Mon, 11 May 2026 23:51:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gDKky3cmHz2xrC;
-	Mon, 11 May 2026 10:06:18 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gDxMC0xtfz2yGT;
+	Tue, 12 May 2026 09:51:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778416309;
-	cv=none; b=izMcDPT5HIWZbWhFukuZOhEgFlf0SOg0J3aCFL1akzSJYtx8r397hAzQjJJD4kCUCIhnlRCoaElTQ4qoZcDLKhtZAhhwe8rzTTelXIOOlZfx/JHzcdYw3ABfaFddmFoNVktuI9mN627/PeGw7+U2PWRQXA0xZ4MhsYuvo1XuHVNzEg1fa650HWPxMB2X8oo7JShPxkzD/2tFlEEsHHq63EJftXBYzZoMXJWIL2mKsQhh29jh2YrwQjtTvxWJPje7iCpH5R0qKJFOz37KUMikozzMcpYOiTz+AyJMaixrZO0/W83WYxj/YRVK6d5aCcV8xIvUwhu1WVUVmQe620oykg==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778529907;
+	cv=none; b=EEJZjs9k1g9YlG0N3+V6nEY6l4/Pm5s2XG55+okku6NNuLdSNbKHZL/IXHgtDtCujOtzzVF1BW7YXMCJTe8vAx5J1FtCtOxrQ3AeiT53W6umaTScyoawMUJh1W/oIj1+CyVGSqaMyE/P5vOQQhpcM11LhRdorh2oC8CXLdAbEuDt3g9cq42rjVxza2RVSYITAyzWfS4P7A2/5MJbduOLEavl4Al2C/e4+Imynmn3Rwd0TXPENwRnCkRPFSZ967ChkMqaoBmQXlbnBsz5WRSbcMYzpBvqjcg86oh7MINGi9xBwdyQvKYApWgHg7bq9JymmKBlXzlxPykhCtB/bhL8uA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1778416309; c=relaxed/relaxed;
-	bh=CcDit2766yGx3WiHTpW3nOgNzjxcblP26K4FyWST/hI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ITL9sB4EjSfzUMn2ZWZvCZ6jh+kmtbgaKx+i5mi5agUgivdb46f+vQCXcIQjh2f9QuC1tmHIA4otZ1FcwXNEx2kkv7NcLj4FBz3D+I5GAnRcxkF92G1kWnw6OCxBKofu1Pr3rhuhDDtN037/cZmQp5MI7XKOX7LwuZVBbwU8+mw/0J10DG71U8iLexnbZBYveLRjoOKgtt2AqGSJZUMPFxdtbDb7PXutJ4/qqDgwWTaKUSm/7lcEa5FISVI5oHqbzIm6gn42BVMtCuOg11EvEWMIV5I9Vm+8oXKMViHlChGHTPY4cvUNk4b2VotmBu+nNRf2dtbBXl/ZfP3atnMoIQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=iwN6jy38; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=vkoul@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1778529907; c=relaxed/relaxed;
+	bh=vifrlnSm2hwvPtyavVza6RSqJuHvkSa7YEqnDg6i8hI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ihzAaTGy3e8VTyrQiZnHuxB3KtcDRKqQxTrp5xRFJKb7wtUhLBt3NVsIfL4+D2XUa+XZ1dm13uwn1XiJc9Rx2cZ5N9KsPv8zTGcmKfV8/bYBA6r1VixMmszCs5RZLXl7WPtxsfWVuttkAIpZUV4cyYLkyKkOwOAi1+tv5bmriryrHRZvethle9yiZkSWtzaI3EB44s+NzaTAzRKC5xZeX6zKJDPMXpygxDfOQtiTRlnTxSdAEh/6Dtn+hc4ZvwboEvpqoMBjuvg113gKdurkIXyCO2n0ohwMcVSIq0djTDHgHZp10Zd70qgT2KUn2PBLnJSmbHctoUiWzb6NhxShxg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nt3Ua8ch; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=iwN6jy38;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Nt3Ua8ch;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=vkoul@kernel.org; receiver=lists.ozlabs.org)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gD2Kc12kLz2xS2
-	for <openbmc@lists.ozlabs.org>; Sun, 10 May 2026 22:31:48 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gDrLC0HLkz2xQB
+	for <openbmc@lists.ozlabs.org>; Tue, 12 May 2026 06:05:07 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id F033E6001A;
-	Sun, 10 May 2026 12:31:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04CBC2BCB8;
-	Sun, 10 May 2026 12:31:40 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 9AC8660120
+	for <openbmc@lists.ozlabs.org>; Mon, 11 May 2026 20:05:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48226C2BCC9
+	for <openbmc@lists.ozlabs.org>; Mon, 11 May 2026 20:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778416304;
-	bh=4sTIU6geCY/ofxbF1Nh9piJovvy17EjyERLoBxmWfXU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=iwN6jy38FZsJGhyHrd3rGfDNTGiQp/9tOIrvIHRK8/NOPNZLFYqnKAYMudEYwFesC
-	 WqKhjTBM9MsbBOIkj7SQX2vWr4lBjnIlpETIUB65A1Vn8NXeiAYrg2inrHscyzQSMA
-	 fb+PM0HqQitNTnq5uPzNakka+yA5SvHzBOShXVpRW8VhnA1eGnexRF1hqFw4oNoFtG
-	 4/K3BOJhjE4VsfLy122sCWfYm+t37sbw0R0d+F3MtzZEBfZsTjqnIzC0fuAQRpLNAS
-	 8t152qSjsT9S1hw3PtLncacqzc6jfUdyyykxejokl1/hagWZQEbr3JeeUEMCIi6pgf
-	 6H7JbMmt55auQ==
-From: Vinod Koul <vkoul@kernel.org>
-To: SriNavmani A <srinavmani@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org
-In-Reply-To: <20260504-axiado-ax3000-add-emmc-phy-driver-support-v3-0-3ab7eb45b0c5@axiado.com>
-References: <20260504-axiado-ax3000-add-emmc-phy-driver-support-v3-0-3ab7eb45b0c5@axiado.com>
-Subject: Re: (subset) [PATCH RESEND v3 0/4] Add eMMC PHY support for Axiado
- AX3000 SoC
-Message-Id: <177841630053.434434.9292071839258247877.b4-ty@kernel.org>
-Date: Sun, 10 May 2026 18:01:40 +0530
+	s=k20201202; t=1778529904;
+	bh=vifrlnSm2hwvPtyavVza6RSqJuHvkSa7YEqnDg6i8hI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=Nt3Ua8chsChWviUtf3nByVpkkunRyWEk+lT4AotDC9Y05Z3PHcf4uvVkTAmdFJuDv
+	 s0KcDVTcLlF6KKv723rdN5giJIJLedqFepwwUSt9yplhxFPiNWsVhOtEd0OUoygCsC
+	 9A+yD2JsJ2gqpGysBftNJ27epa4O4oyINB0D6HGTZ/355ObItcJrciIx4zF8LAJRBd
+	 H1PPFlmgr/uTHGxyIpf6cX+sDcQhcPLsYt6YhCoOQwAigAocoMdMXzoCO75pyc8V5u
+	 Iz5LD9vcUWvh8HzOLBEuXOZIw23m8RPWXzpxADikZnwyd4o5qsM2hf3wIENp7X0URd
+	 jMXZsTsI0YMpg==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-38e97e73234so43580551fa.1
+        for <openbmc@lists.ozlabs.org>; Mon, 11 May 2026 13:05:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/Q0a9SqM6kqRx0XLyy8ICAO7nfKDdfqmkwxkDyRAgjH7CPMV1fERstjoQxYO8N9vXY/u9GtMAy@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwYNjnWarYOdaTuUwUYiUiKrmRqq+j8/VwIYfJxzEvXhk6jDOz5
+	/f3kCCFsrjafSPF0bXRW5tGf3yYFjVS3KJANT9fCsadpAt+6dIfEeiSGiKIG+vgLRKoULkjswof
+	i+R5pWBnB533tF6WLJxW4RGzluG1o3PY=
+X-Received: by 2002:a05:6512:3b21:b0:5a8:6793:e701 with SMTP id
+ 2adb3069b0e04-5a887ce64c1mr7724276e87.33.1778529903006; Mon, 11 May 2026
+ 13:05:03 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,35 +64,53 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
+References: <20260506-upstream_pinctrl-v9-0-0636e22343ad@aspeedtech.com> <20260506-upstream_pinctrl-v9-2-0636e22343ad@aspeedtech.com>
+In-Reply-To: <20260506-upstream_pinctrl-v9-2-0636e22343ad@aspeedtech.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 11 May 2026 22:04:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=3p9BvDgaot3=emM4Zn5jU-ZAUKtB4UwT1HzDiyzKq4Q@mail.gmail.com>
+X-Gm-Features: AVHnY4JtxK2F1JLguIEb3zBOcAZHVynLHNdMopJnlqbcSYRx0cEplr-yGb19hdA
+Message-ID: <CAD++jL=3p9BvDgaot3=emM4Zn5jU-ZAUKtB4UwT1HzDiyzKq4Q@mail.gmail.com>
+Subject: Re: [PATCH v9 2/3] dt-bindings: mfd: aspeed,ast2x00-scu: Describe
+ AST2700 SCU0
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	linux-gpio@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, May 6, 2026 at 10:07=E2=80=AFAM Billy Tsai <billy_tsai@aspeedtech.c=
+om> wrote:
 
-On Mon, 04 May 2026 09:38:31 +0800, Tzu-Hao Wei wrote:
-> Axiado AX3000 SoC contains Arasan PHY which provides the interface to the
-> HS200 eMMC controller.
-> 
-> This series includes:
-> 1. Add bindings for Axiado AX3000 eMMC PHY
-> 2. Add Axiado AX3000 eMMC phy driver
-> 3. Update MAINTAINERS for the new driver
-> 4. Update Axiado AX3000 device tree
-> 
-> [...]
+> AST2700 consists of two interconnected SoC instances, each with its own
+> System Control Unit (SCU). The SCU0 provides pin control, interrupt
+> controllers, clocks, resets, and address-space mappings for the
+> Secondary and Tertiary Service Processors (SSP and TSP).
+>
+> Describe the SSP/TSP address mappings using the standard
+> memory-region and memory-region-names properties.
+>
+> Disallow legacy child nodes that are not present on AST2700, including
+> p2a-control and smp-memram. The latter is unnecessary as software can
+> access the scratch registers via the SCU syscon.
+>
+> Also allow the AST2700 SoC0 pin controller to be described as a child
+> node of the SCU0, and add an example illustrating the SCU0 layout,
+> including reserved-memory, interrupt controllers, and pinctrl.
+>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 
-Applied, thanks!
+This is an MFD patch in the middle of a pinctrl series, I think Lee
+should apply this.
+FWIW:
+Acked-by: Linus Walleij <linusw@kernel.org>
 
-[1/4] dt-bindings: phy: axiado,ax3000-emmc-phy: add Axiado eMMC PHY
-      commit: 1a75ecefa4fbedefc1600e43445de4e1e7f03b55
-[2/4] phy: axiado: add Axiado eMMC PHY driver
-      commit: 9e7dfa4bcd4e2c3541c4ee954ea5e66edab94d3f
-[3/4] MAINTAINERS: Add Axiado AX3000 eMMC PHY driver
-      commit: 13ee293a904b7b7b0507aaa8c71f7be7e683800e
-
-Best regards,
--- 
-~Vinod
-
-
+Yours,
+Linus Walleij
 
