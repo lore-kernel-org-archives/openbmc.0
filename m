@@ -1,72 +1,85 @@
-Return-Path: <openbmc+bounces-1925-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1926-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A6CACD37AC
-	for <openbmc@archiver.kernel.org>; Wed, 13 May 2026 23:51:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D0A9CD37AC
+	for <openbmc@archiver.kernel.org>; Thu, 14 May 2026 19:11:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gG9G90pH1z2yLH;
-	Thu, 14 May 2026 09:51:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.14
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778689919;
-	cv=none; b=LGgPkOiGb4qE9h3DIrFvp2qVVP1G8XV6Fk5sKhj/fLPzT8KN/I6G8zmpelsu8GxdqmlL0SOOFdnIZU9Qp9wzCPy9K7uzTWHULbfCSMFU/UOx36kukf+NMw9zI8N5nNJfYTbQWKqb6Uc40r8WczZJNgo9co8w/1ZRiaBwbvdDTHkntRcz5fII3Qj7lX4Y9OKN9yLWvDsX30AYrABky4LXs+1hRxwsTybdldNdOSWbyyWapSnDJOiZP050cUUM30QYFxUi4HQ8UCT2+f+DGFHYLQ+HkmaL+IBPEYj7TsChEVsHsLOUOLMyWUgszxQ9gqb3ZeB+tuMxAcveJZC4RijxBA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gGg0x2WK6z2yFC;
+	Fri, 15 May 2026 05:11:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::122f"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778785889;
+	cv=none; b=ktAWTB8AiVA/y4yNq2VAkEgY3uohsVjkactKJ3Tswov6ecwTax1ofadPA3bRdFeDJhkoXrUeEN9GhyKT4fAjwPX14Vn4eiPRycgudNIYry3Y5rrASAijDEq6mkCrSf4/tuynSj8Cwgoi8h5X+nHNi0t4Q3SxzarsRzmaIjlStyyv8Ncbk9BztGoSJHiIskS66TN6xzqNaCpZ5xNaKWzyfSnmixZnGwANWxIiCr+M+FA6ypp/jJeFr0M/6TOiiTGPeUehHlMTmGQlO1pYYE5U8bEEMArf1qjTo+D9hV9MyqFmIH2OVYTr09kbao7qEqObTdynfqmFAd7iDTLhw5KpKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1778689919; c=relaxed/relaxed;
-	bh=D5UPxw3T48FJ/vk7uItxWIhxvBUTqVp74nlh/1zpits=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A91/xRocJHjnW3c2zVXi7ngBdeRcoNalG9fxpF8/TkLEk3IRJkJ6oQ8/mj9Kd9PAtJ/Uf+0YdM++tj+ylTWXhc9LZO4Fg1cHU6y69zoqyFNI7erPsTa9Ty4TtiCXVeMCNtEUM0kwFoC1qX2DwUfKeL72NVM7V1DcVLMtjQ1yfudoMP9NwWEPaeQmmzq8AfQhbllgbAmPrapdxDj0T28HuYKiNMuMs7nc5L6O/LQ32h1KW/DHyBgN7ZMTdAI5PnWlS1UHQIiRpIdTdDv1TNdlA/lI7qPpswtjCrlfMVFHBCgxqa2beZVLlsVU3bXUJIU5Zz3MAT7OtFNHvy1Fk2H6Vw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OjECRQAh; dkim-atps=neutral; spf=pass (client-ip=192.198.163.14; helo=mgamail.intel.com; envelope-from=dawid.glazik@linux.intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	t=1778785889; c=relaxed/relaxed;
+	bh=DGh+W8WeWhjkK0v/Jdzaau+CwygzC6Gz22VTaTZ1Nfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gwnrQTpOdEmY5lbVkCMiUbSp7Cyt5BfNFqVEFDMIbBD9/OxT1EB2aoc3phgV2f0b7M2CXXmAHyGjCi1ZmF1ZruJ9ffavN7VLKr0G3CJJT4j+KFHqSmhPPGpde5QUgsdS0xu9zT+/ntLayshGL4fSoSRxGi1BDSreR6chDnOa78FF/qpMo/qNUyq339A6FtnVVRGawiDxEvF7cEq0VoBumn3RU7RgmFE2W+qXcmORaA+JGV6PQc5L76FjxfA5Ei1O+I1w3VPo2D1zTzcWTBgtUofwwdEDFITfp5PLKgR6EmvnXNPIXQKnL1tDGEDWBFR8/D72gNcqyxII46lI5DItzQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gTWM2ysi; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::122f; helo=mail-dl1-x122f.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OjECRQAh;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gTWM2ysi;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.intel.com (client-ip=192.198.163.14; helo=mgamail.intel.com; envelope-from=dawid.glazik@linux.intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::122f; helo=mail-dl1-x122f.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dl1-x122f.google.com (mail-dl1-x122f.google.com [IPv6:2607:f8b0:4864:20::122f])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gFzWK6gl4z2xSb
-	for <openbmc@lists.ozlabs.org>; Thu, 14 May 2026 02:31:57 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1778689918; x=1810225918;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=i6qFgr4BdGt7bca1DzWlDakJS74x3G3JFyTvjzdSAes=;
-  b=OjECRQAhUcPKtlS4OWUPrfgqY2iUhMD3ZXx6xsyI9FtZgIAe/5woPkpP
-   xQi/pmBrVL9wr/tV1fZ7yEduo14oFWDBfQRVmdWaIZnmclEB11x23kRCM
-   tq2QPcC+zqgJU/VgQQXQzAjM+OsjOUBxzx7pKROXPy9LUPyOWUYnSWJqh
-   eBEFyUd3UPiH9o5XP5E1Ba33arYaWZcSNsl3Lps8/z0S2sVIGjqzRA0CN
-   AMBFJVthZZuxI7F6SPCbwpOORWpRWlmGk3UFvOKknn+9GAfIXuFiyqnd0
-   bLvbbEYnZUs9y8461puXATCMD40XKvyRNdPGpARAmu8FDHOSdSw9f1Oge
-   g==;
-X-CSE-ConnectionGUID: DKriBwXwSqSZJ1JkRKE0Sw==
-X-CSE-MsgGUID: CU0Pd5MpRm+J0npdZN13Tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11785"; a="79655182"
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="79655182"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:31:55 -0700
-X-CSE-ConnectionGUID: 1gxhngOSTC+LHV++DHxyVg==
-X-CSE-MsgGUID: O0a3/EBkQmKTRZXfYlf2pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,233,1770624000"; 
-   d="scan'208";a="242478518"
-Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 May 2026 09:31:54 -0700
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-To: openbmc@lists.ozlabs.org,
-	joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: dawid.glazik@linux.intel.com,
-	maciej.lawniczak@intel.com
-Subject: [PATCH linux dev-6.18 3/3] ARM: dts: aspeed-g6: Add nodes for i3c controllers
-Date: Wed, 13 May 2026 19:30:06 +0200
-Message-ID: <7a94a5f4cf84c11c7fba7485e666ecbaddfbe5cf.1778692820.git.dawid.glazik@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1778692820.git.dawid.glazik@linux.intel.com>
-References: <cover.1778692820.git.dawid.glazik@linux.intel.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gGg0v00b9z2xy8
+	for <openbmc@lists.ozlabs.org>; Fri, 15 May 2026 05:11:25 +1000 (AEST)
+Received: by mail-dl1-x122f.google.com with SMTP id a92af1059eb24-1329fc4bf77so101689c88.1
+        for <openbmc@lists.ozlabs.org>; Thu, 14 May 2026 12:11:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778785883; x=1779390683; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DGh+W8WeWhjkK0v/Jdzaau+CwygzC6Gz22VTaTZ1Nfw=;
+        b=gTWM2ysi7n2jPqsEVWZjm87cIVHf2zabOQHFGVYTFOYO2z3D41WSfsrxZo8bmt+9Nu
+         by/rF8Pjpw7b9ZmtK+5UgBk/JTKLj1KiaCVO8hPPSSfqPWzAn1RARm4OL7ssWvSYPHPd
+         Tl5smlEoQWvnzd2wQLA5oqDHwuOt7YiiQF7txTOf6awpMTqFwDBhbcGaOLMWFRDWHRuP
+         dIFSct/i3AdHiWMo0q/9oyZ9ggos7Bt7aeJnTHgnnxAscPCS3xBMUel8ZYCXeIzSXiHt
+         ovlq7CjgV+XVoAQJFIjfG3RMPE6yHXYj/9CcUGpf+g/D010YhXmrb1NuUk9HhaiJ3vK3
+         8rJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778785883; x=1779390683;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DGh+W8WeWhjkK0v/Jdzaau+CwygzC6Gz22VTaTZ1Nfw=;
+        b=b3OkyivEvacBDK7XMYRn7gWy30TfZcgXxVykFUb8sG4ZvS8cW0cXJhouN9N/Obc93t
+         MvSNkpfUZ9MZikSyUVc8RxSP1sLnYkkXTwupXqAiCjqWDEEbF9nIwv8GsB9cVsw4gfBs
+         2SC4CGWKdsD7uI94wChNiK+GvVJAYDTYuqMTF/BQFzuA79TUJwq3r2lms1/2UoQPfcmO
+         zTDJM6MK1pfTK/M4GkKzVAo2IGkmwERiQr7ZOFpW07O3xCIVFRE/AkUEvo8Q70Uou4/C
+         f9dM6DNMq8ZlfJiTQ8Nf+FNNbfhCGVgMKO0fgyc3fdiI6ud/Z/rOpv8GxU8E8W/0pclC
+         ijow==
+X-Gm-Message-State: AOJu0Yxyq9TBKNpjnG6Ajxa70HeWvsqHt5XoT4eLC1mUMfvVOR0rawVt
+	PmGoBAfbKJiw8GS2MLcPzJdqFTuD4iZUgeJh1lzEQIE4qAgkOImLydao
+X-Gm-Gg: Acq92OHoyxcaVhdCWH/NMHR9frPNmWRcXyYQF1N66oy56KrJpjMyiRIb38MsqrI5WJz
+	B07T+N1sE/671FHnbID56jY91rU7e5PTHPW5thEoMsaMPcvtitcuLAxpEwrjxWaK+8vk+6EjWB5
+	hyj1dZlUrqNqnKIgOb/LxngyLgr0NaWq0SDsIgfHjunTikYzLIY2HfeB+VLI23il/+R9Fuiwtxs
+	zB/+Xxmtp/y/oitNn3MKV8LDbO26VmpZtwfHBB2R7rT79ySm24UasmXqdAL37sFsXNWdapaKFc3
+	n2yPewEDK7kJsYGDyCf2l0aWi0/aazBG3O60SCgIWqatQtGnCPd3aO7Ed6C0Eb6ypJTrNilZuQ7
+	DSTsoXvzlt/isbXuOkKkNwXZlYJ8BWyaTZp/JmQjnZF9HEIb0FdL+MSGieGSdkow0Czp1ptSJsU
+	DYbjknxfCCg2OWBlMbzhEqSacKrKw+Xdo+TB67I6NZpjGNkk8=
+X-Received: by 2002:a05:7301:2f85:b0:2ea:ed7c:912f with SMTP id 5a478bee46e88-303986a1430mr415042eec.27.1778785882944;
+        Thu, 14 May 2026 12:11:22 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-302947e917dsm4051269eec.12.2026.05.14.12.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 May 2026 12:11:22 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 14 May 2026 12:11:21 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: u8813345@gmail.com
+Cc: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au,
+	Colin Huang <colin.huang2@amd.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH linux dev-6.6 0/3] add support for Delta E50SN12051
+Message-ID: <7a3f097f-79cf-4bcd-bf6a-afa37ab5da9d@roeck-us.net>
+References: <20260514-backport-dev-6-6-e50sn12051-driver-v1-0-44d2ef6c18dd@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -78,132 +91,37 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260514-backport-dev-6-6-e50sn12051-driver-v1-0-44d2ef6c18dd@gmail.com>
 
-Add the i3c controller devices to the ast2600 g6 common dts. We add all
-6 busses to the common g6 definition, but leave disabled through the
-status property, to be enabled per-platform.
+On Thu, May 14, 2026 at 06:49:40PM +0800, Colin Huang via B4 Relay wrote:
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 
-Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
-Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
----
-v4:
- - removed i3c aliases
- - renamed i3c-global node name to generic: syscon
-v3:
- - add i3c aliases
- - rebase on top of latest tree and solve conflicts
- - as agreed with Jeremy off-list, he said I can take authorship of this going forward
-v2:
- - use inline bus representation, without the i3c: label
----
- arch/arm/boot/dts/aspeed/aspeed-g6.dtsi | 91 +++++++++++++++++++++++++
- 1 file changed, 91 insertions(+)
+Why are you sending this to me ?
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-index f5641128614f..51a6a4157f1b 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-@@ -1066,6 +1066,97 @@ i2c15: i2c@800 {
- 				};
- 			};
- 
-+			bus@1e7a0000 {
-+				compatible = "simple-bus";
-+				#address-cells = <1>;
-+				#size-cells = <1>;
-+				ranges = <0 0x1e7a0000 0x8000>;
-+
-+				i3c_global: syscon@0 {
-+					compatible = "aspeed,ast2600-i3c-global", "syscon";
-+					reg = <0x0 0x1000>;
-+					resets = <&syscon ASPEED_RESET_I3C_DMA>;
-+				};
-+
-+				i3c0: i3c@2000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x2000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C0CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c1_default>;
-+					interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 0>;
-+					status = "disabled";
-+				};
-+
-+				i3c1: i3c@3000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x3000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C1CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c2_default>;
-+					interrupts = <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 1>;
-+					status = "disabled";
-+				};
-+
-+				i3c2: i3c@4000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x4000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C2CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c3_default>;
-+					interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 2>;
-+					status = "disabled";
-+				};
-+
-+				i3c3: i3c@5000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x5000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C3CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c4_default>;
-+					interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 3>;
-+					status = "disabled";
-+				};
-+
-+				i3c4: i3c@6000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x6000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C4CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c5_default>;
-+					interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 4>;
-+					status = "disabled";
-+				};
-+
-+				i3c5: i3c@7000 {
-+					compatible = "aspeed,ast2600-i3c";
-+					reg = <0x7000 0x1000>;
-+					#address-cells = <3>;
-+					#size-cells = <0>;
-+					clocks = <&syscon ASPEED_CLK_GATE_I3C5CLK>;
-+					pinctrl-names = "default";
-+					pinctrl-0 = <&pinctrl_i3c6_default>;
-+					interrupts = <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
-+					aspeed,global-regs = <&i3c_global 5>;
-+					status = "disabled";
-+				};
-+			};
-+
- 			fsim0: fsi@1e79b000 {
- 				#interrupt-cells = <1>;
- 				compatible = "aspeed,ast2600-fsi-master";
--- 
-2.43.0
+Guenter
 
+> ---
+> Colin Huang (3):
+>       dt-bindings: trivial-devices: Add Delta E50SN12051
+>       Documentation/hwmon: add Delta E50SN12051 documentation
+>       hwmon: (pmbus) add support for Delta E50SN12051
+> 
+>  .../devicetree/bindings/trivial-devices.yaml       |  2 +
+>  Documentation/hwmon/e50sn12051.rst                 | 81 ++++++++++++++++++++++
+>  Documentation/hwmon/index.rst                      |  1 +
+>  drivers/hwmon/pmbus/Kconfig                        |  9 +++
+>  drivers/hwmon/pmbus/Makefile                       |  1 +
+>  drivers/hwmon/pmbus/e50sn12051.c                   | 52 ++++++++++++++
+>  6 files changed, 146 insertions(+)
+> ---
+> base-commit: e11fa6b1ff6c27c808d17e479bd7d5582e772062
+> change-id: 20260514-backport-dev-6-6-e50sn12051-driver-1a55edcc33b6
+> 
+> Best regards,
+> -- 
+> Colin Huang <u8813345@gmail.com>
+> 
+> 
 
