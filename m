@@ -1,94 +1,160 @@
-Return-Path: <openbmc+bounces-1944-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1945-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28E99CD4851
-	for <openbmc@archiver.kernel.org>; Sun, 17 May 2026 03:15:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40EAECD4851
+	for <openbmc@archiver.kernel.org>; Sun, 17 May 2026 03:15:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gJ5ff5D7nz2yFK;
-	Sun, 17 May 2026 13:15:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778860060;
-	cv=none; b=FMWplvOdY29WAGoz/IZJOqgp+/O+mGLj1AU+e+Ik1Ap6fX9HlgSQklhqUC3+PiXXxDWExhY8Ha38gaF0SMlM7EI8lUwg5by2q400erxklWE9P/56ErxjE229QZxrND6aSkyerc6MDgV6Tux4EsWcqMeD16bYRu1Lpiebotvg4pLrv8a+PgzMhNw06Y3fMe7/M3uzVFBxcKJDn45Z+tQfi42VhrtECTUnf3X5RfpuswAVbw43V8hskLtGIrvpP3XmAEekUSamwXZQEdORGWHM+H+qbfaCrlmj26xYCvKFBKyEqMPcQarfdwpNaKANd2xbvmqIIk+A7+AtumK/KodFug==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1778860060; c=relaxed/relaxed;
-	bh=XG7FpyhQ5qT7TLD8SHnWznrQujk1wwTSxAfWkMjTJWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LqOMFvxHrkf7B9shs/6CA+ERGkdfpqqNeR8QXt2hNtcRYyNejk7kbajWtBUWkhtflkYR8zTpz+9yfkdpKI9LffjJK/kXn5Y2yuiaxN2eC7s4XXOkirJ7QJyKAARp92QT4QcUgYmO/2Fv1vNIjdLdUvwkoo82ze1vkkGvL1Apm6mJ/8wque+wqdH3h7zd39AE33g9OQUSgkadv38WsqeLrx/wNa2Dc3aV5UlBbznimc4h4kTGFA/5U15PdO6P/L3VuRZKsqKJyBllJsY4ctMFeoo84aOUd5dCxUVXiVU0yB2IEyKwz/udPFL7Xz4r5SEWM3b+krZbOsaaUw74unOreA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Kr7FCwMF; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gJ5fn1DvXz2yRC;
+	Sun, 17 May 2026 13:15:45 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=fail smtp.remote-ip=192.198.163.19
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1778854950;
+	cv=fail; b=FqNyJjUI6LRaPtnFJwFT5Kkkif2SgYnNdYll1NN7TfR9tsultMdpclgkq4FOWZm8AS8V1GW8gtCPjZ812g1Qgjo8XDlbXZvhxJEkowHeJtk/RlbELRyoFoZwyLDI2YiSLZbccppCKKeuKiWWUF2u52SFoiVwK0QD/lSvIHyO1I3xaEt18tSUkSUQna5q3Nn57/rEzoXw6XtSM+RaHak0yCjwNS56hIY4gfbpguXaJDeKOem6V6aitmQbqq0YMNcafVQOfgAyC9vZbDM+JeJVS+N94L4MBZMjy9Y7VV8V2aDGei0KSZk9OQv9SL5q28uU6bThvfFoTvbDRip4txvlxg==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1778854950; c=relaxed/relaxed;
+	bh=jNErRo1jYEpMYivgMVH1FHVWx7t2jErZZcDXW/lrtSo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=mQ26GyhUk45mPZMB2OprFdch4ElERj7qqjm1Swm2uw9Tsdz0Z1RH3VVl3FdEyPlP4Ag3JKehRHS9DDmZBcg53gUXCSJ4YLII2cBs7zMnNPQXWIPeRoPNWon7UDYngfngi0vE8w1xs6uFonBLPj/6hpauad5Lehx5rWAM7M3dNbLB2z03OLfw9Ad1cxsjGYa0jxLoVq8adrVec/OXuO2mKvnmCyHQIUa3wEb4+wxg1t3NsfdGkElzbjDqKREHoun6pn3aaKtmB/HlFJ8F1gtZdT/zYJysSyjO+Q29i0wWEjM6n7OeMzrGRU5rrtz2aM19lvvN8w/miHpLYev1gtowVQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mPYvqqZM; dkim-atps=neutral; spf=pass (client-ip=192.198.163.19; helo=mgamail.intel.com; envelope-from=shiva.shankar.k@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=baylibre-com.20251104.gappssmtp.com header.i=@baylibre-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Kr7FCwMF;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mPYvqqZM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::32a; helo=mail-wm1-x32a.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com [IPv6:2a00:1450:4864:20::32a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.19; helo=mgamail.intel.com; envelope-from=shiva.shankar.k@intel.com; receiver=lists.ozlabs.org)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gHBRD6rzjz2xHF
-	for <openbmc@lists.ozlabs.org>; Sat, 16 May 2026 01:47:34 +1000 (AEST)
-Received: by mail-wm1-x32a.google.com with SMTP id 5b1f17b1804b1-488b0e1b870so154692395e9.2
-        for <openbmc@lists.ozlabs.org>; Fri, 15 May 2026 08:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778860050; x=1779464850; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=XG7FpyhQ5qT7TLD8SHnWznrQujk1wwTSxAfWkMjTJWg=;
-        b=Kr7FCwMFVt9CBVdnvmepW+FKj2TXXBwek017/l/PeH1UT1aDmkXIZEiY6m0vWPxeh9
-         q4GPJJkajsD80O9X/1UgmdwuSJqz1bhXf7D4x/HAFQ6LZfWZwwjhdcAPMynNduKva3Kw
-         895O8a2qEFDhCsXm3tfL/T5Q8B5LGvx0f2pEHFZz3rFawtrMUjKQU0Q5psiCFY8XztzO
-         Z1Dx4FIaTQirDr8EuCuh7DmCqiBcnOHd8glTo8GBVV0ErU2UbfCnetKB3/QaqJWlMs6/
-         irKQKJKgLwkWH1mYAhqYOwDKSC8PyEIgZ0OLkIw40BQyixP+zjTCc9em/JYe9tCjrv7R
-         YDlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778860050; x=1779464850;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XG7FpyhQ5qT7TLD8SHnWznrQujk1wwTSxAfWkMjTJWg=;
-        b=VuBLkO2ifQJc58KWKDWEfT19Q2rTA3DrTHqwuq6l4QLIjw4obxnyX3RduE3UrD73oC
-         ZQM9xdew4/r9GQdrnItqcXfB/wwIW/prhAx7kTRmqoRSYTUk2gbvXmyEvTppyYAuoxP2
-         nhKQ5EejR1upb8MBz54fp9pRyqxeFQ1bojR+S+P06rWUDLVBg+3G51/J7nyR/A9MmSLn
-         mWkrnwh166Jo/s4Z47wcCy+iPpIp0zvi6rGoG7kC85vCpWOi8+KlZ3byIQVCFK/4URDk
-         YfRgQerEou+X07Tx08sfoNY3l9hsYaZ16NnsfYr6eYr0LeFe9FmEox1muuPB57DLBmBV
-         ORYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ91PM+hXAUtMHyrg9/UMxQcGfURzCjG0dBJlsDodce2NPbWL3X0iWQ3zdzPmQMyK+wYxebZVKBP@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxxmJVJHoHtHyEynFBo0HNwRUco/dMytME4VbJsZbXnnKCZP542
-	hvVvIloJaPDylffKxpQN1bnAY6FQIdmTAEQNTNhWKLSI2gSFf1L2Z8VsMLhy5Tpr5FQ=
-X-Gm-Gg: Acq92OH8TsHRaCJ/mhjcMwFeF+TJb/5WdWK5yEiKHraylY+k2ekYOA0Pg/JHJ6dMsCX
-	gVUBN8IHgrsoH380gTWhDKktyirK6H31rHgGS7fWp7Z4e18/xHYOUaUjGfAxPMgb6qPIBvnLa/3
-	Oj/mos5OzyS6/ubKiXevQlbSkn3/BXpiyup9gJu38bq9+rYLOOlpnymxL2DmaqxUakMS2JCaLxF
-	dBchDZC6mDjNWu3OCVRP5I3y+q67885O+OIXNNSiy9I3FxC3KcXAsgg7COb6Z2Ovz7RWEMTYTxE
-	i4p8Ej982LEQphfC0heULuO4f85ve/FbQduNtZmAxhySbuBg4YHYiEl5rVjL7YLrFcZ25eF0Ikk
-	KVIPSRg423VOEGUU5UZ1V13G9XmTVCqygezEndL0IFaxRuuB4BasvyD2Yj3DlEvK1pk8CxescPE
-	HeIXS2xPUx2AORz3X84FyGgZT0h6gnZ1T5CsVOb++BRM4iSly3GdjySIYI7Isvah6n0xeoYvKJZ
-	A45PdyKJe4gukXzRYcoYPPo5Q==
-X-Received: by 2002:a05:600c:198d:b0:487:5c0:671f with SMTP id 5b1f17b1804b1-48fe60e552cmr72364905e9.9.1778860050252;
-        Fri, 15 May 2026 08:47:30 -0700 (PDT)
-Received: from localhost (p200300f65f47db047ce9331f6697a627.dip0.t-ipconnect.de. [2003:f6:5f47:db04:7ce9:331f:6697:a627])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-48fe4c834besm69294575e9.3.2026.05.15.08.47.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2026 08:47:29 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	=?utf-8?b?VMOzdGggSsOhbm9z?= <gomba007@gmail.com>,
-	Dianlong Li <long17.cool@163.com>,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: [PATCH v1] rtc: Use named initializers for arrays of i2c_device_data
-Date: Fri, 15 May 2026 17:47:20 +0200
-Message-ID: <20260515154720.406128-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gH8Y02Ztrz2xFl
+	for <openbmc@lists.ozlabs.org>; Sat, 16 May 2026 00:22:26 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1778854948; x=1810390948;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:mime-version;
+  bh=jNErRo1jYEpMYivgMVH1FHVWx7t2jErZZcDXW/lrtSo=;
+  b=mPYvqqZMIQGqjaRQSo9v3g5s+7hudCFVTpiez4V0h5Be4e0rp0W0M0TK
+   jIyum9nmZLBRVYaAdkAzmEIpfFM/jsbeMZzQ8qPpZ3nI4TG6tJKBiIMEq
+   amlS5TK57sTGTwuTj8tT34TT5QJUb1ZgJhcAESLxD3ZyNFjkOUk7fj26k
+   h/VrdljYEzMZtOQT0u6x6koxPcXX8CEJjJMWFf3nKtASYKu/XDqZmNBP9
+   t3/io7m4ugdqWkextU9uvVxv8M+ApvavDcr9p6BXiiR4BrmOIo27uA5Jn
+   B4BAG2g8/0cODQ/8SVDASgLIHpacjv4b+KCxUKf4IS0uNeqyK+fiwk+/b
+   g==;
+X-CSE-ConnectionGUID: 4yYutkAbQM2WPZayqHiO2g==
+X-CSE-MsgGUID: llYBDzPqR7+exPiSzWlufA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11787"; a="78835358"
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; 
+   d="scan'208,217";a="78835358"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 May 2026 07:22:22 -0700
+X-CSE-ConnectionGUID: JjSjm/oDRXONmpK9oS3p4g==
+X-CSE-MsgGUID: CyBHCwZjTE6fJtOQrxWV6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; 
+   d="scan'208,217";a="242698976"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 May 2026 07:22:23 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 15 May 2026 07:22:22 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 15 May 2026 07:22:22 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.23) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 15 May 2026 07:22:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mUip4FwS3CIfiyvtpGVB2C18ND68eHY8zF6zWgKd4wzDD/BVUcpFpjtMuGrfUEcPBU8ksEuYF0d9anH7JpBjTMPD9Of1TtVheCNvOtAyBmbxmMdc+30luTQtrlyaLXmYdtxfmMBEDA1di2011ILpiPOVgJO3J8sQa1qVo4mBSQIVKydtGrqZGhZ3uSlYabdH8/vdAzV+CflMqGMJ1xGTwfgt7aqgCBMe8x792NPZWKjkf86vAVktHdkgMuxNlhE1B4laTnUNgMnZXNTgpwrVSqJm9Wcobs46oXnZiAPtT5V2de7mmbYd9nkFq5AF41mK17jjzK/qfzOgTmCtQJjiCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jNErRo1jYEpMYivgMVH1FHVWx7t2jErZZcDXW/lrtSo=;
+ b=eFR1roJsYJuoG2ZKbfJyoYy1xKjKXEadoju/fea9Ek00ppA/9rESEPYKIcmaOiNzVzWJlolU63uYa2KdQQQcctnZksLT6VTrtqT4WQlEFa5cp/YfjuOsyIOfmXaPxcpirVsc8npq9OlXv1gRb0xX5vwNt5D3TvI4f3L9irVgq0l8BpxD5iLJ/tt1FlB/OIY6yFGsJ7pw0/GptjYduXWWD4TlLix6mI6QKCHqTqlRBpPmkfR3c+Z+VxQPnnq8wSsx2XOAeWdOjL0WTlP3585901RY8q6XZgqqms23AGxdWT/AmACjP8KRyFnqH3Akqi8F+1A4veN8E42D16edvwKbew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY5PR11MB6137.namprd11.prod.outlook.com (2603:10b6:930:2b::22)
+ by PH8PR11MB9722.namprd11.prod.outlook.com (2603:10b6:510:3a5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Fri, 15 May
+ 2026 14:22:13 +0000
+Received: from CY5PR11MB6137.namprd11.prod.outlook.com
+ ([fe80::2d37:ceca:fef3:e1f7]) by CY5PR11MB6137.namprd11.prod.outlook.com
+ ([fe80::2d37:ceca:fef3:e1f7%7]) with mapi id 15.20.9913.009; Fri, 15 May 2026
+ 14:22:13 +0000
+From: "K, Shiva Shankar" <shiva.shankar.k@intel.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Simultaneous Firmware update and get sensor reading failing 
+Thread-Topic: Simultaneous Firmware update and get sensor reading failing 
+Thread-Index: AQHc481/cjWhQtzqLUGSPQOwgw5tuLYPHZcAgAAF50M=
+Date: Fri, 15 May 2026 14:22:13 +0000
+Message-ID: <CY5PR11MB6137E8AAD103630E97676A8AAD042@CY5PR11MB6137.namprd11.prod.outlook.com>
+References: <CY5PR11MB6137C593E2E9DA3BBAF5C24AAD072@CY5PR11MB6137.namprd11.prod.outlook.com>
+ <0203B443-489F-4869-A125-7AE028741D63@stwcx.xyz>
+In-Reply-To: <0203B443-489F-4869-A125-7AE028741D63@stwcx.xyz>
+Accept-Language: en-US
+Content-Language: en-US
+X-Mentions: patrick@stwcx.xyz
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR11MB6137:EE_|PH8PR11MB9722:EE_
+x-ms-office365-filtering-correlation-id: 3d3b755f-a846-46bf-4aba-08deb28d5be7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|4143699003|38070700021|13003099007|8096899003|56012099003|22082099003|18002099003|3023799003|11063799003;
+x-microsoft-antispam-message-info: lpUi3AiTEFU8rTgUEs67zkhUZSCvcROIkuNREaMvz2jrfLzQKpcXZ8oW2QO7RHqVsPRiWSphVooXl0VTjfsWY1s9fIMuFl+aO2GHpU6w7RiLzUx8PLxOicHxByOtLPry/IXNRpyXILThFk6PciMdavbYy1Yf04OSV38Lmz3DDd7bHro16P9lSaN4edO1EH/6FgU6UpyV1R+DuHP4AvzvusSH6u9JNf2yYbhHUWNn5qcaERCnlLm2492KnZCvdcdCXaytf/qplVkKZHM06sy0EQM7S02LjXSuk6UM914s3FuYtqyivicaY8SstK1nvst5RPFNZf0Dfs4RByTxXMVZ+4g4+43rqap5PZhn+dsew6fI1MGxVWwBQK4kl68MT+Vrcuy1WRHstkC0bf9fJp5ey9nwyp1pOdJdLSjOGvZ/sHOLkNWyfvPQo2fvzxexErpLGcxUJt20hzK9WgNne+p7dnF9VULCbFfl2RC95l8Jd0elQzqL2PcgWJyq0FUZG17fBp29ErpHC0RzYpbKd90EnjlgrTtddsh2OlM2Mod6oHAMbYaP6O++V0cZH7J0EP1TRWYyfCeSAz1szbrDvy0Ip68+Otp1QU3OA6mMuIoXWySq7qSi86WYLGcO74u2bwdeKZww5D9J26W9bE6BqO38OBrn1hWryQzF0pY2X0vXn8f5FGEFKfxC20GiXisXlQRcLbQbJ4t+toetREYBUupPuOy3gsnknGJl7nVOFPbMQSGrenHJN0W8K8GngHdf9f6e
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR11MB6137.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(4143699003)(38070700021)(13003099007)(8096899003)(56012099003)(22082099003)(18002099003)(3023799003)(11063799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bG1GSzNqM3dRUDA4SEdQU1JRUUdocXVLTTVla3NMczV6d1JxT3JtdUE2MmxM?=
+ =?utf-8?B?OHQrL3BadTAyOXRKK3dZV0tVWGRaSklVSXhjOThDcUZ6Tm12L2hRWFZDY2pj?=
+ =?utf-8?B?Tmc2c0lzNVBvU214K0tuSlIzN1FWWldkM3grUjNEZ3B3Y1JWeEh0WGV6WjVT?=
+ =?utf-8?B?Q2Z1RzB3SElnY1lFTGZ5YkVxcUIzTnJHOUpHNE16RjRTaTdYTm1EWWgrcVRH?=
+ =?utf-8?B?dW1kbTBUZjREbXQ2NFg2Vk1WSUwyQU0xMi9vTnExcHhkVHJ1SFRrRDRLRGkr?=
+ =?utf-8?B?UGJ5KzlJc1NqTGcrV2kvK1F5Y3JhdUFJK0QzY3J0cE5zYlRTdGVlZGpQVjJY?=
+ =?utf-8?B?NzZMMnk0N0EyR0s0aWxBNDlKSElnb0RLcmVJOCtRdE5BMG1RalhuZjFVdUNW?=
+ =?utf-8?B?V0pESlJsZzZVNUNQSGlXZW50ZGZJNnJhVFV5LzhEdmx1TDZ6Wlg5dTJsR1B4?=
+ =?utf-8?B?SEpaTkNXSGsrU1dKU2ZYREQrU2p3TEpaUDlhd05yRnQ2TzA1eVZlZDJseVdK?=
+ =?utf-8?B?eFd4TWp3SHZKaXdMZTcxZU82bWY4K1lISCtUZ3RqMnErUFIwMzc2NVlpWTRa?=
+ =?utf-8?B?VmllY1Zud3hLczdrOENNczJxRGVURUNLOUt1NHI4WlA1YXZhYVMwME02WW91?=
+ =?utf-8?B?YXFOUjdGV29Oc09YQWdlbzQ5VFU4L1JaNWgySVRFeHpmeUJjemY5RW5EWnR1?=
+ =?utf-8?B?OU1iUHc5UmVKY0V2NDgxUUo4LzRoS3lydXc1VTYrWXFDSm5WeTBydjBOWlhH?=
+ =?utf-8?B?WVZWbEdiQWxCTlJyYi9zVjhveWxsSDlKSDJ2MlpwOUN1SnBabTlrOC9yY0xD?=
+ =?utf-8?B?QWhWc2R0dUZqcnAvNjVDTG9MeGlHTW9UUVBTelRhMkJGS0F0SGJhVWNoR1p4?=
+ =?utf-8?B?UTBtMjVRbVl5SEx0VzV4cWI2dm1zSlRqdjJWblBUV1BNY1o1cmJBc0ZrT25N?=
+ =?utf-8?B?RVdReEFkYS9kdlBFc096d21MTXc3MVVnOXVIVE9XVzRqdTA0clBVZ01hUThr?=
+ =?utf-8?B?OUh2ZTFkcWkxSUJUcUM0VXl3THYwU25HZjhMc2F3QVdyd0xhMHR3QVhJNFl3?=
+ =?utf-8?B?aStpVTlGSlJSbzhhNE8vTXpFWTEzOVd1cVF1MmM0TElyUDNqM3EyenhhdUdm?=
+ =?utf-8?B?N1J1YS9WRlN0WUpsOHVwdHBFdnNPZmFCWnRqeUxsUEtpOGFxdWtHTndLeWxi?=
+ =?utf-8?B?blJSbklPSHZWUTRtOFBVQXorTUV5b2xYSk12SmlsQjRUWFJMZHpRa3MydklR?=
+ =?utf-8?B?YWZEY1V2RnpJUW5uZUtmSG5nODJjQWZBLzQ4UGEvRXU4NzhXb2VSRFBIcmFp?=
+ =?utf-8?B?VUhqNm9BaU5mdDhYejdob1BQVDRSL1poWVR6S3NhQUdyNlNKa3dCUndDd3pi?=
+ =?utf-8?B?VkpTSVNiMEdJL0NqdWdhSXJWeGVSNlBLbUhxY29hanM3TEY4bGxyN1hYbkQ5?=
+ =?utf-8?B?NDhydDdPQUlzNk13cDVxcHdYSWhMaGk3SGkxVUxvZEFnMkFtbDRIYmR1T3Ix?=
+ =?utf-8?B?RFRrRXJ1M0pDRnJlcitySmZmM0hCdWM5N056ZGEveWd6bHU2OEFxdTdkZXM2?=
+ =?utf-8?B?N1ZoOHMvTW0xTXBidE96SU02anoyZDFrVDlhSGsyT3lqSEpieS9LRkszbk5i?=
+ =?utf-8?B?MkxQWmJpcFhwUkM1bGJoU0FBdnRCSXI5Rnd2dTREcmN4MFE1MlhGU0FSYi9M?=
+ =?utf-8?B?Q2xESHg0Y0JBcG4vZEVPQUVBenJtTzZoUzJYT0FVVFZNSnlMd0xITit2NHg2?=
+ =?utf-8?B?NlJmTWlEeTRGbHQ3bmJaY3ZhczZQUWpuaXAzYmlBY2owVEhoZzc2anNab0h2?=
+ =?utf-8?B?UWdldFh5TzJTRXdNM09DUUZVU1VBeTRMRnYwbThzRmxkOXVBdklQZFo5b2Ru?=
+ =?utf-8?B?WEdvN1V3b0gvVXhaZko0WEFZTmkvbGgyVkJCQWNUL3pQY1FXS01PVnFGa0hq?=
+ =?utf-8?B?ZVBEeU1ublM4dWlxL3Zjcnh6dGZIM0RuSysvQ2kybE1rdEFlMWdnMjE3OEkw?=
+ =?utf-8?B?c09sZWpndW1BZnVpYmFiVCtGdVhOK3ZnQTM5NzB3RjRiQW54UFlwR1lVaXFv?=
+ =?utf-8?B?TE0zQ1BGSHl3QzlNaGNSNFVLZVlYeE9aVU5tODNHWnVPWGpDeEE0MkRSdXZN?=
+ =?utf-8?B?Z1NuWEJVTk5FNThOTXd4MUtNaUhrWkQ0dzVrTVRNOXMvZENsZjBuUEdhNGZv?=
+ =?utf-8?B?MGtwOEpFSEwwVDk5VnJYNEJ5cG13TlJjNTNvTzc3UlJlbUJ5Zk1CbXNkTGM4?=
+ =?utf-8?B?U3Z0bGJNSHFRNDRGam5sRS9Hc3k1aE12UjhPcVZKWXhBUXJJVkMvR00wK3I1?=
+ =?utf-8?B?NzkvMld1S1VNRUdaNEpWQ1NIbkQ3dUpNMHg1RzRnaVdIUlFRY3pKQT09?=
+Content-Type: multipart/alternative;
+	boundary="_000_CY5PR11MB6137E8AAD103630E97676A8AAD042CY5PR11MB6137namp_"
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -100,703 +166,186 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=25562; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=p+h/xp0eOXHBMBhi6jswwec12KIuN8PQMEpTOzHM1os=; b=owGbwMvMwMXY3/A7olbonx/jabUkhix2Bw57xuQw480R3+rK9YUEbmlyOxsbn+R5dUWvVSLJT rN1vUUnozELAyMXg6yYIot945pMqyq5yM61/y7DDGJlApnCwMUpABPpjmL/w8MgaX625+qxpL8/ jXkFA/4/dpdeFPV74fs+8VtPsl715z3N+tdxO8qM0+bhx0lBjA5/buusZEpZtXlW0pUzlzMal65 /spA1+8I04w9J/NKvRCr3HPuc/jJAmjcz9oFoudu6Rb0yOsKGG5LS/Be5Wu5mO8W2QuXWoSDu7T vVG1lldmdfWD8pxHabaMqZz0f+rG1f/Pxv6Yf/GYc7Y8Vy9uUdDX7Pw3lT+ruLfrTXmo2ZW5Z9m B/t6u7GGbiSY6FB3qxTH1W9ZiklCPLyZ3llc/dOyOUVL35fueh3xYG3sTwmZ/1PeOesOp4kmOqj qnF/ulPUnw7D/rmqrcZnK26tsH1gvOL8s9jKJxEi3MYhAA==
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: iXZkoY2+e7CgG2N/OcXoCF/dmMrZ4DjBpL0ziWX4MvhufVIEUeYHXN5Ur/pwVLhZ3oZwWGUAyNmT9e8IspyOBeVyXodbZbjNRuXleFGILLy95r1pGZyHv1PlDJRbnAjJ2Cb3hX7KLULEAXTO5T4EQORAFo1pEJ3TQfDTwhT1+TNmLF8eNwFPXNI4hRgODh/MgSzfq9yORODKgx2UtXQOTw4XdXkJql4xkekByHU6rMzghCjDF6m0Zg2vNtdzTd0If2A6h59JMKWPq4NOZcysdUNtyNGonhu6shKbjlTP9aO74zsmo+adlpMe1pxiCrn4XeE68hzXfdbMkvq8sgcW+A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6137.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d3b755f-a846-46bf-4aba-08deb28d5be7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 May 2026 14:22:13.4623
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DUTGlJvP5cKX/1rjtb4kNFklkzRsjBuPbixZhpBTRv0B1C6mAqOpohlA7Ym2XswRbR3kEaKWiwHG74JIP3T9+Njp8n/Olzvw0ooWHo79nlM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB9722
+X-OriginatorOrg: intel.com
 
-While being less compact, using named initializers allows to more easily
-see which members of the structs are assigned which value without having
-to lookup the declaration of the struct. And it's also more robust
-against changes to the struct definition.
+--_000_CY5PR11MB6137E8AAD103630E97676A8AAD042CY5PR11MB6137namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The mentioned robustness is relevant for a planned change to struct
-i2c_device_id that replaces .driver_data by an anonymous union.
+QFBhdHJpY2sgV2lsbGlhbXM8bWFpbHRvOnBhdHJpY2tAc3R3Y3gueHl6PiwgVGhhbmtzIGZvciB5
+b3VyIHJlc3BvbnNlLg0KDQpBTUMgLSBBdXhpbGlhcnkgTWFuYWdlbWVudCBDb250cm9sbGVyIGNh
+cmQuDQoNCkJNQyBpcyB0aGUgbWFzdGVyLCBhbmQgQU1DIGlzIHRoZSBzbGF2ZSBpbiB0aGlzIGNv
+bnRleHQuDQoNCkFsbCB0aGUgTUNUUCBhbmQgUExETSBpbXBsZW1lbnRhdGlvbnMgYXJlIGJhc2Vk
+IG91dCBvZiBvcGVuYm1jDQoNCkhlcmUgaXMgdGhlIGxpbmsgZm9yIHBsZG06DQpodHRwczovL2dp
+dGh1Yi5jb20vb3BlbmJtYy9wbGRtDQoNCi1TaGl2YSBTaGFua2FyIEsuDQoNCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBQYXRyaWNrIFdpbGxpYW1zIDxwYXRyaWNrQHN0
+d2N4Lnh5ej4NClNlbnQ6IEZyaWRheSwgTWF5IDE1LCAyMDI2IDc6MjYgUE0NClRvOiBLLCBTaGl2
+YSBTaGFua2FyIDxzaGl2YS5zaGFua2FyLmtAaW50ZWwuY29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMu
+b3psYWJzLm9yZyA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IFNpbXVs
+dGFuZW91cyBGaXJtd2FyZSB1cGRhdGUgYW5kIGdldCBzZW5zb3IgcmVhZGluZyBmYWlsaW5nDQoN
+CldoYXQgaXMgQU1DPw0KDQpXaGljaCBjb2RlIGFyZSB5b3UgdXNpbmcgZm9yIFBMRE0gZmlybXdh
+cmUgdXBkYXRlPyAgSSBiZWxpZXZlIHRoZXJlIGlzIGFuIGltcGxlbWVudGF0aW9uIHN0aWxsIGlu
+IGZsaWdodCBpbiBHZXJyaXQgd2l0aGluIHBsZG1kLg0KDQrigJQgUGF0cmljayBXaWxsaWFtcw0K
+DQpPbiBNYXkgMTQsIDIwMjYsIGF0IDc6NTLigK9QTSwgSywgU2hpdmEgU2hhbmthciA8c2hpdmEu
+c2hhbmthci5rQGludGVsLmNvbT4gd3JvdGU6DQoNCu+7vw0KSGkgVGVhbSwNCg0KSSBoYXZlIGJl
+ZW4gd29ya2luZyBvbiBwbGRtIGZpcm13YXJlIHVwZGF0ZSBhbmQgdGhlIHBsZG0gbW9uaXRvcmlu
+ZyBhbmQgY29udHJvbC4NCg0KUHJvYmxlbToNCg0KSSBhbSBwZXJmb3JtaW5nIEFNQyAgZmlybXdh
+cmUgdXBkYXRlICBmcm9tIGJtYyBhbmQgdGhlbiBzaW11bHRhbmVvdXNseSByZXF1ZXN0aW5nIHNl
+bnNvciBkYXRhIGZyb20gQU1DIHVzaW5nIEdldFNlbnNvclJlYWRpbmcgY29tbWFuZC4gQm90aCB0
+aGUgY29tbWFuZHMgZ2V0IHN0dWNrIGF0IEJNQydzIGVuZCBhbmQgbmVpdGhlciBjb21tYW5kIGlz
+IHNlbnQgdG8gQU1DIGFmdGVyIHRoYXQuDQoNCg0KICAxLg0KTWF5IEkga25vdyB3aGV0aGVyIHdl
+IGNhbiBwYXVzZSBnZXQgc2Vuc29yIHJlYWRpbmc/DQogIDIuDQpXaGF0J3MgdGhlIGlkZWFsIHRp
+bWUgaW50ZXJ2YWwgYmV0d2VlbiB0d28gZ2V0c2Vuc29ycmVhZGluZyBjb21tYW5kPw0KDQpBbmQg
+bGV0IG1lIGtub3cgaWYgdSBhbnkgb3RoZXIgc3VnZ2VzdGlvbiB0byBnZXQgcmlkIG9mIHRoaXMg
+aXNzdWUuICBJdCB3b3VsZCBiZSBncmVhdCB0byBoZWFyIGZyb20gdGhlIE9wZW5CTUMuDQoNClJl
+Z2FyZHMsDQpTaGl2YSBTaGFua2FyIEsuDQoNCg==
 
-While touching all these arrays, unify usage of whitespace and commas.
+--_000_CY5PR11MB6137E8AAD103630E97676A8AAD042CY5PR11MB6137namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-This patch doesn't modify the compiled arrays, only their representation
-in source form benefits. The former was confirmed with x86 and arm64
-builds.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPiBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gPC9zdHls
+ZT4NCjwvaGVhZD4NCjxib2R5IGRpcj0ibHRyIj4NCjxkaXYgY2xhc3M9ImVsZW1lbnRUb1Byb29m
+IiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01T
+Rm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAx
+MnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8YSBocmVmPSJtYWlsdG86cGF0cmlja0BzdHdj
+eC54eXoiIGlkPSJPV0FBTTU5OTEyOCIgY2xhc3M9InRXS091IG1lbnRpb24gbXMtYmdjLW5sciBt
+cy1mY2wtYiI+QFBhdHJpY2sgV2lsbGlhbXM8L2E+LCBUaGFua3MgZm9yIHlvdXIgcmVzcG9uc2Uu
+Jm5ic3A7PC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5bGU9ImZvbnQtZmFt
+aWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNlLCBDYWxp
+YnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigw
+LCAwLCAwKTsiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5
+bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRT
+ZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsg
+Y29sb3I6IHJnYigwLCAwLCAwKTsiPg0KQU1DIC0gQXV4aWxpYXJ5IE1hbmFnZW1lbnQgQ29udHJv
+bGxlciBjYXJkLjwvZGl2Pg0KPGRpdiBjbGFzcz0iZWxlbWVudFRvUHJvb2YiIHN0eWxlPSJmb250
+LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNGb250U2VydmljZSwg
+Q2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiBy
+Z2IoMCwgMCwgMCk7Ij4NCjxicj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iZWxlbWVudFRvUHJvb2Yi
+IHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVkRm9udCwgQXB0b3NfTVNG
+b250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEy
+cHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCkJNQyBpcyB0aGUgbWFzdGVyLCBhbmQgQU1DIGlz
+IHRoZSBzbGF2ZSBpbiB0aGlzIGNvbnRleHQuPC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Q
+cm9vZiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRv
+c19NU0ZvbnRTZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6
+ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IGNsYXNz
+PSJlbGVtZW50VG9Qcm9vZiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRk
+ZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2Vy
+aWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPg0KQWxsIHRoZSBNQ1RQ
+IGFuZCBQTERNIGltcGxlbWVudGF0aW9ucyBhcmUgYmFzZWQgb3V0IG9mIG9wZW5ibWM8L2Rpdj4N
+CjxkaXYgY2xhc3M9ImVsZW1lbnRUb1Byb29mIiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBB
+cHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGlj
+YSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8
+YnI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9ImVsZW1lbnRUb1Byb29mIiBzdHlsZT0iZm9udC1mYW1p
+bHk6IEFwdG9zLCBBcHRvc19FbWJlZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGli
+cmksIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAs
+IDAsIDApOyI+DQpIZXJlIGlzIHRoZSBsaW5rIGZvciBwbGRtOjwvZGl2Pg0KPGRpdiBjbGFzcz0i
+ZWxlbWVudFRvUHJvb2YiIHN0eWxlPSJmb250LWZhbWlseTogQXB0b3MsIEFwdG9zX0VtYmVkZGVk
+Rm9udCwgQXB0b3NfTVNGb250U2VydmljZSwgQ2FsaWJyaSwgSGVsdmV0aWNhLCBzYW5zLXNlcmlm
+OyBmb250LXNpemU6IDEycHQ7IGNvbG9yOiByZ2IoMCwgMCwgMCk7Ij4NCjxhIGhyZWY9Imh0dHBz
+Oi8vZ2l0aHViLmNvbS9vcGVuYm1jL3BsZG0iPmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3Bs
+ZG08L2E+PC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5bGU9ImZvbnQtZmFt
+aWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRTZXJ2aWNlLCBDYWxp
+YnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsgY29sb3I6IHJnYigw
+LCAwLCAwKTsiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJlbGVtZW50VG9Qcm9vZiIgc3R5
+bGU9ImZvbnQtZmFtaWx5OiBBcHRvcywgQXB0b3NfRW1iZWRkZWRGb250LCBBcHRvc19NU0ZvbnRT
+ZXJ2aWNlLCBDYWxpYnJpLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTJwdDsg
+Y29sb3I6IHJnYigwLCAwLCAwKTsiPg0KLVNoaXZhIFNoYW5rYXIgSy48L2Rpdj4NCjxkaXYgY2xh
+c3M9ImVsZW1lbnRUb1Byb29mIiBzdHlsZT0iZm9udC1mYW1pbHk6IEFwdG9zLCBBcHRvc19FbWJl
+ZGRlZEZvbnQsIEFwdG9zX01TRm9udFNlcnZpY2UsIENhbGlicmksIEhlbHZldGljYSwgc2Fucy1z
+ZXJpZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8YnI+DQo8L2Rp
+dj4NCjxkaXYgaWQ9ImFwcGVuZG9uc2VuZCI+PC9kaXY+DQo8aHIgc3R5bGU9ImRpc3BsYXk6aW5s
+aW5lLWJsb2NrO3dpZHRoOjk4JSIgdGFiaW5kZXg9Ii0xIj4NCjxkaXYgaWQ9ImRpdlJwbHlGd2RN
+c2ciIGRpcj0ibHRyIj48Zm9udCBmYWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBzdHlsZT0iZm9u
+dC1zaXplOjExcHQiIGNvbG9yPSIjMDAwMDAwIj48Yj5Gcm9tOjwvYj4gUGF0cmljayBXaWxsaWFt
+cyAmbHQ7cGF0cmlja0BzdHdjeC54eXomZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IEZyaWRheSwgTWF5
+IDE1LCAyMDI2IDc6MjYgUE08YnI+DQo8Yj5Ubzo8L2I+IEssIFNoaXZhIFNoYW5rYXIgJmx0O3No
+aXZhLnNoYW5rYXIua0BpbnRlbC5jb20mZ3Q7PGJyPg0KPGI+Q2M6PC9iPiBvcGVuYm1jQGxpc3Rz
+Lm96bGFicy5vcmcgJmx0O29wZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs8YnI+DQo8Yj5TdWJq
+ZWN0OjwvYj4gUmU6IFNpbXVsdGFuZW91cyBGaXJtd2FyZSB1cGRhdGUgYW5kIGdldCBzZW5zb3Ig
+cmVhZGluZyBmYWlsaW5nIDwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjxkaXYg
+ZGlyPSJhdXRvIj5XaGF0IGlzIEFNQz8NCjxkaXY+PGJyPg0KPC9kaXY+DQo8ZGl2PldoaWNoIGNv
+ZGUgYXJlIHlvdSB1c2luZyBmb3IgUExETSBmaXJtd2FyZSB1cGRhdGU/ICZuYnNwO0kgYmVsaWV2
+ZSB0aGVyZSBpcyBhbiBpbXBsZW1lbnRhdGlvbiBzdGlsbCBpbiBmbGlnaHQgaW4gR2Vycml0IHdp
+dGhpbiBwbGRtZC48L2Rpdj4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8ZGl2Pg0KPGRpdiBkaXI9Imx0
+ciI+PHNwYW4gc3R5bGU9ImJhY2tncm91bmQtY29sb3I6cmdiYSgyNTUsMjU1LDI1NSwwKSI+4oCU
+IFBhdHJpY2sgV2lsbGlhbXM8L3NwYW4+PC9kaXY+DQo8ZGl2IGRpcj0ibHRyIj48YnI+DQo8Ymxv
+Y2txdW90ZSB0eXBlPSJjaXRlIj5PbiBNYXkgMTQsIDIwMjYsIGF0IDc6NTLigK9QTSwgSywgU2hp
+dmEgU2hhbmthciAmbHQ7c2hpdmEuc2hhbmthci5rQGludGVsLmNvbSZndDsgd3JvdGU6PGJyPg0K
+PGJyPg0KPC9ibG9ja3F1b3RlPg0KPC9kaXY+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIj4NCjxk
+aXYgZGlyPSJsdHIiPu+7vw0KPGRpdiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtZmFtaWx5OkFwdG9z
+LEFwdG9zX01TRm9udFNlcnZpY2UsLWFwcGxlLXN5c3RlbSxSb2JvdG8sQXJpYWwsSGVsdmV0aWNh
+LHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0OyBjb2xvcjpyZ2IoMCwwLDApIj4NCkhpIFRlYW0s
+PC9kaXY+DQo8ZGl2IGRpcj0ibHRyIiBzdHlsZT0iZm9udC1mYW1pbHk6QXB0b3MsQXB0b3NfTVNG
+b250U2VydmljZSwtYXBwbGUtc3lzdGVtLFJvYm90byxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJp
+ZjsgZm9udC1zaXplOjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KPGJyPg0KPC9kaXY+DQo8ZGl2
+IGRpcj0ibHRyIiBzdHlsZT0iZm9udC1mYW1pbHk6QXB0b3MsQXB0b3NfTVNGb250U2VydmljZSwt
+YXBwbGUtc3lzdGVtLFJvYm90byxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsgZm9udC1zaXpl
+OjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KSSBoYXZlIGJlZW4gd29ya2luZyBvbiBwbGRtIGZp
+cm13YXJlIHVwZGF0ZSBhbmQgdGhlIHBsZG0gbW9uaXRvcmluZyBhbmQgY29udHJvbC4mbmJzcDs8
+L2Rpdj4NCjxkaXYgZGlyPSJsdHIiIHN0eWxlPSJmb250LWZhbWlseTpBcHRvcyxBcHRvc19NU0Zv
+bnRTZXJ2aWNlLC1hcHBsZS1zeXN0ZW0sUm9ib3RvLEFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlm
+OyBmb250LXNpemU6MTJwdDsgY29sb3I6cmdiKDAsMCwwKSI+DQo8YnI+DQo8L2Rpdj4NCjxkaXYg
+ZGlyPSJsdHIiIHN0eWxlPSJmb250LWZhbWlseTpBcHRvcyxBcHRvc19NU0ZvbnRTZXJ2aWNlLC1h
+cHBsZS1zeXN0ZW0sUm9ib3RvLEFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmOyBmb250LXNpemU6
+MTJwdDsgY29sb3I6cmdiKDAsMCwwKSI+DQpQcm9ibGVtOjwvZGl2Pg0KPGRpdiBkaXI9Imx0ciIg
+c3R5bGU9ImZvbnQtZmFtaWx5OkFwdG9zLEFwdG9zX01TRm9udFNlcnZpY2UsLWFwcGxlLXN5c3Rl
+bSxSb2JvdG8sQXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0OyBjb2xv
+cjpyZ2IoMCwwLDApIj4NCjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQt
+ZmFtaWx5OkFwdG9zLEFwdG9zX01TRm9udFNlcnZpY2UsLWFwcGxlLXN5c3RlbSxSb2JvdG8sQXJp
+YWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0OyBjb2xvcjpyZ2IoMCwwLDAp
+Ij4NCkkgYW0gcGVyZm9ybWluZyBBTUMgJm5ic3A7ZmlybXdhcmUgdXBkYXRlICZuYnNwO2Zyb20g
+Ym1jIGFuZCB0aGVuIHNpbXVsdGFuZW91c2x5IHJlcXVlc3Rpbmcgc2Vuc29yIGRhdGEgZnJvbSBB
+TUMgdXNpbmcgR2V0U2Vuc29yUmVhZGluZyBjb21tYW5kLiBCb3RoIHRoZSBjb21tYW5kcyBnZXQg
+c3R1Y2sgYXQgQk1DJ3MgZW5kIGFuZCBuZWl0aGVyIGNvbW1hbmQgaXMgc2VudCB0byBBTUMgYWZ0
+ZXIgdGhhdC4mbmJzcDs8L2Rpdj4NCjxkaXYgZGlyPSJsdHIiIHN0eWxlPSJmb250LWZhbWlseTpB
+cHRvcyxBcHRvc19NU0ZvbnRTZXJ2aWNlLC1hcHBsZS1zeXN0ZW0sUm9ib3RvLEFyaWFsLEhlbHZl
+dGljYSxzYW5zLXNlcmlmOyBmb250LXNpemU6MTJwdDsgY29sb3I6cmdiKDAsMCwwKSI+DQo8YnI+
+DQo8L2Rpdj4NCjxvbCBzdGFydD0iMSIgZGF0YS1lZGl0aW5nLWluZm89InsmcXVvdDthcHBseUxp
+c3RTdHlsZUZyb21MZXZlbCZxdW90OzpmYWxzZSwmcXVvdDtvcmRlcmVkU3R5bGVUeXBlJnF1b3Q7
+OjN9Ij4NCjxsaSBzdHlsZT0iZm9udC1mYW1pbHk6QXB0b3MsQXB0b3NfTVNGb250U2VydmljZSwt
+YXBwbGUtc3lzdGVtLFJvYm90byxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsgZm9udC1zaXpl
+OjEycHQ7IGNvbG9yOnJnYigwLDAsMCk7IGxpc3Qtc3R5bGUtdHlwZTomcXVvdDsxKSAmcXVvdDsi
+Pg0KPGRpdiBkaXI9Imx0ciIgcm9sZT0icHJlc2VudGF0aW9uIj5NYXkgSSBrbm93IHdoZXRoZXIg
+d2UgY2FuIHBhdXNlIGdldCBzZW5zb3IgcmVhZGluZz88L2Rpdj4NCjwvbGk+PGxpIHN0eWxlPSJm
+b250LWZhbWlseTpBcHRvcyxBcHRvc19NU0ZvbnRTZXJ2aWNlLC1hcHBsZS1zeXN0ZW0sUm9ib3Rv
+LEFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmOyBmb250LXNpemU6MTJwdDsgY29sb3I6cmdiKDAs
+MCwwKTsgbGlzdC1zdHlsZS10eXBlOiZxdW90OzIpICZxdW90OyI+DQo8ZGl2IGRpcj0ibHRyIiBy
+b2xlPSJwcmVzZW50YXRpb24iPldoYXQncyB0aGUgaWRlYWwgdGltZSBpbnRlcnZhbCBiZXR3ZWVu
+IHR3byBnZXRzZW5zb3JyZWFkaW5nIGNvbW1hbmQ/Jm5ic3A7PC9kaXY+DQo8ZGl2IGRpcj0ibHRy
+IiByb2xlPSJwcmVzZW50YXRpb24iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9Imx0ciIgcm9sZT0i
+cHJlc2VudGF0aW9uIj5BbmQgbGV0IG1lIGtub3cgaWYgdSBhbnkgb3RoZXIgc3VnZ2VzdGlvbiB0
+byBnZXQgcmlkIG9mIHRoaXMgaXNzdWUuICZuYnNwO0l0IHdvdWxkIGJlIGdyZWF0IHRvIGhlYXIg
+ZnJvbSB0aGUgT3BlbkJNQy48L2Rpdj4NCjwvbGk+PC9vbD4NCjxkaXYgZGlyPSJsdHIiIHN0eWxl
+PSJmb250LWZhbWlseTpBcHRvcyxBcHRvc19NU0ZvbnRTZXJ2aWNlLC1hcHBsZS1zeXN0ZW0sUm9i
+b3RvLEFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmOyBmb250LXNpemU6MTJwdDsgY29sb3I6cmdi
+KDAsMCwwKSI+DQpSZWdhcmRzLDwvZGl2Pg0KPGRpdiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtZmFt
+aWx5OkFwdG9zLEFwdG9zX01TRm9udFNlcnZpY2UsLWFwcGxlLXN5c3RlbSxSb2JvdG8sQXJpYWws
+SGVsdmV0aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0OyBjb2xvcjpyZ2IoMCwwLDApIj4N
+ClNoaXZhIFNoYW5rYXIgSy48L2Rpdj4NCjxkaXYgaWQ9InhfbXMtb3V0bG9vay1tb2JpbGUtYm9k
+eS1zZXBhcmF0b3ItbGluZSIgZGF0YS1hcHBseWRlZmF1bHRmb250c3R5bGVzPSJ0cnVlIiBkaXI9
+Imx0ciIgc3R5bGU9ImZvbnQtZmFtaWx5OkFwdG9zLEFwdG9zX01TRm9udFNlcnZpY2UsLWFwcGxl
+LXN5c3RlbSxSb2JvdG8sQXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7IGZvbnQtc2l6ZToxMnB0
+Ij4NCjxkaXYgZGlyPSJsdHIiIHN0eWxlPSJmb250LWZhbWlseTpBcHRvcyxBcHRvc19NU0ZvbnRT
+ZXJ2aWNlLC1hcHBsZS1zeXN0ZW0sUm9ib3RvLEFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmOyBm
+b250LXNpemU6MTJwdCI+DQo8YnI+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBpZD0ieF9tcy1vdXRs
+b29rLW1vYmlsZS1zaWduYXR1cmUiIGRpcj0ibHRyIiBzdHlsZT0iZm9udC1mYW1pbHk6QXB0b3Ms
+QXB0b3NfTVNGb250U2VydmljZSwtYXBwbGUtc3lzdGVtLFJvYm90byxBcmlhbCxIZWx2ZXRpY2Es
+c2Fucy1zZXJpZjsgZm9udC1zaXplOjEycHQ7IGNvbG9yOnJnYigwLDAsMCkiPg0KPC9kaXY+DQo8
+L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
-Hello,
-
-the mentioned change to i2c_device_id is the following:
-
-	diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-	index 23ff24080dfd..aebd3a5e90af 100644
-	--- a/include/linux/mod_devicetable.h
-	+++ b/include/linux/mod_devicetable.h
-	@@ -477,7 +477,11 @@ struct rpmsg_device_id {
-	
-	 struct i2c_device_id {
-	 	char name[I2C_NAME_SIZE];
-	-	kernel_ulong_t driver_data;     /* Data private to the driver */
-	+	union {
-	+		/* Data private to the driver */
-	+		kernel_ulong_t driver_data;
-	+		const void *driver_data_ptr;
-	+	};
-	 };
-	
-	 /* pci_epf */
-
-and this requires that .driver_data is assigned via a named initializer
-for static data. This requirement isn't a bad one because named
-initializers are also much better readable than list initializers.
-
-The union added to struct i2c_device_id enables further cleanups like:
-
-	diff --git a/drivers/regulator/ad5398.c b/drivers/regulator/ad5398.c
-	index 0123ca8157a8..dfb0b07500a7 100644
-	--- a/drivers/regulator/ad5398.c
-	+++ b/drivers/regulator/ad5398.c
-	@@ -207,8 +207,8 @@ struct ad5398_current_data_format {
-	 static const struct ad5398_current_data_format df_10_4_120 = {10, 4, 0, 120000};
-	
-	 static const struct i2c_device_id ad5398_id[] = {
-	-	{ .name = "ad5398", .driver_data = (kernel_ulong_t)&df_10_4_120 },
-	-	{ .name = "ad5821", .driver_data = (kernel_ulong_t)&df_10_4_120 },
-	+	{ .name = "ad5398", .driver_data_ptr = &df_10_4_120 },
-	+	{ .name = "ad5821", .driver_data_ptr = &df_10_4_120 },
-	 	{ }
-	 };
-	 MODULE_DEVICE_TABLE(i2c, ad5398_id);
-	@@ -219,8 +219,7 @@ static int ad5398_probe(struct i2c_client *client)
-	 	struct regulator_init_data *init_data = dev_get_platdata(&client->dev);
-	 	struct regulator_config config = { };
-	 	struct ad5398_chip_info *chip;
-	-	const struct ad5398_current_data_format *df =
-	-	                (struct ad5398_current_data_format *)id->driver_data;
-	+	const struct ad5398_current_data_format *df = id->driver_data;
-	
-	 	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
-	 	if (!chip)
-
-that are an improvement for readability (again!) and it keeps some
-properties of the pointers (here: being const) without having to pay
-attention for that. (I didn't find a nice rtc driver that benefits, so
-this is "only" a regulator driver example.)
-
-My additional motivation for this effort is CHERI[1]. This is a hardware
-extension that uses 128 bit pointers but unsigned long is still 64 bit.
-So with CHERI you cannot store pointers in unsigned long variables.
-
-Best regards
-Uwe
-
-[1] https://cheri-alliance.org/discover-cheri/
-    https://lwn.net/Articles/1037974/
-
- drivers/rtc/rtc-ab-b5ze-s3.c |  2 +-
- drivers/rtc/rtc-ab-eoz9.c    |  2 +-
- drivers/rtc/rtc-abx80x.c     | 20 ++++++++++----------
- drivers/rtc/rtc-bq32k.c      |  2 +-
- drivers/rtc/rtc-ds1307.c     | 36 ++++++++++++++++++------------------
- drivers/rtc/rtc-ds1374.c     |  2 +-
- drivers/rtc/rtc-ds1672.c     |  2 +-
- drivers/rtc/rtc-ds3232.c     |  2 +-
- drivers/rtc/rtc-em3027.c     |  2 +-
- drivers/rtc/rtc-fm3130.c     |  2 +-
- drivers/rtc/rtc-hym8563.c    |  4 ++--
- drivers/rtc/rtc-isl12022.c   |  2 +-
- drivers/rtc/rtc-isl12026.c   |  4 ++--
- drivers/rtc/rtc-isl1208.c    | 10 +++++-----
- drivers/rtc/rtc-m41t80.c     | 22 +++++++++++-----------
- drivers/rtc/rtc-max31335.c   |  4 ++--
- drivers/rtc/rtc-max6900.c    |  2 +-
- drivers/rtc/rtc-nct3018y.c   |  2 +-
- drivers/rtc/rtc-pcf2127.c    |  8 ++++----
- drivers/rtc/rtc-pcf85063.c   | 12 ++++++------
- drivers/rtc/rtc-pcf8523.c    |  2 +-
- drivers/rtc/rtc-pcf8563.c    |  6 +++---
- drivers/rtc/rtc-pcf8583.c    |  2 +-
- drivers/rtc/rtc-rs5c372.c    | 12 ++++++------
- drivers/rtc/rtc-rv3029c2.c   |  4 ++--
- drivers/rtc/rtc-rv8803.c     |  8 ++++----
- drivers/rtc/rtc-rx6110.c     |  2 +-
- drivers/rtc/rtc-rx8010.c     |  2 +-
- drivers/rtc/rtc-rx8025.c     |  4 ++--
- drivers/rtc/rtc-rx8581.c     |  2 +-
- drivers/rtc/rtc-s35390a.c    |  2 +-
- drivers/rtc/rtc-sd2405al.c   |  2 +-
- drivers/rtc/rtc-sd3078.c     |  2 +-
- drivers/rtc/rtc-x1205.c      |  2 +-
- 34 files changed, 97 insertions(+), 97 deletions(-)
-
-diff --git a/drivers/rtc/rtc-ab-b5ze-s3.c b/drivers/rtc/rtc-ab-b5ze-s3.c
-index 684f9898d768..6439ca427c32 100644
---- a/drivers/rtc/rtc-ab-b5ze-s3.c
-+++ b/drivers/rtc/rtc-ab-b5ze-s3.c
-@@ -933,7 +933,7 @@ MODULE_DEVICE_TABLE(of, abb5zes3_dt_match);
- #endif
- 
- static const struct i2c_device_id abb5zes3_id[] = {
--	{ "abb5zes3" },
-+	{ .name = "abb5zes3" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, abb5zes3_id);
-diff --git a/drivers/rtc/rtc-ab-eoz9.c b/drivers/rtc/rtc-ab-eoz9.c
-index de002f7a39bf..b75f4f665076 100644
---- a/drivers/rtc/rtc-ab-eoz9.c
-+++ b/drivers/rtc/rtc-ab-eoz9.c
-@@ -546,7 +546,7 @@ MODULE_DEVICE_TABLE(of, abeoz9_dt_match);
- #endif
- 
- static const struct i2c_device_id abeoz9_id[] = {
--	{ "abeoz9" },
-+	{ .name = "abeoz9" },
- 	{ }
- };
- 
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 00d7de64ed3e..e5179d0208d6 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -752,16 +752,16 @@ static int abx80x_setup_nvmem(struct abx80x_priv *priv)
- }
- 
- static const struct i2c_device_id abx80x_id[] = {
--	{ "abx80x", ABX80X },
--	{ "ab0801", AB0801 },
--	{ "ab0803", AB0803 },
--	{ "ab0804", AB0804 },
--	{ "ab0805", AB0805 },
--	{ "ab1801", AB1801 },
--	{ "ab1803", AB1803 },
--	{ "ab1804", AB1804 },
--	{ "ab1805", AB1805 },
--	{ "rv1805", RV1805 },
-+	{ .name = "abx80x", .driver_data = ABX80X },
-+	{ .name = "ab0801", .driver_data = AB0801 },
-+	{ .name = "ab0803", .driver_data = AB0803 },
-+	{ .name = "ab0804", .driver_data = AB0804 },
-+	{ .name = "ab0805", .driver_data = AB0805 },
-+	{ .name = "ab1801", .driver_data = AB1801 },
-+	{ .name = "ab1803", .driver_data = AB1803 },
-+	{ .name = "ab1804", .driver_data = AB1804 },
-+	{ .name = "ab1805", .driver_data = AB1805 },
-+	{ .name = "rv1805", .driver_data = RV1805 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, abx80x_id);
-diff --git a/drivers/rtc/rtc-bq32k.c b/drivers/rtc/rtc-bq32k.c
-index 7ad34539be4d..20cd92d00fa1 100644
---- a/drivers/rtc/rtc-bq32k.c
-+++ b/drivers/rtc/rtc-bq32k.c
-@@ -304,7 +304,7 @@ static void bq32k_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id bq32k_id[] = {
--	{ "bq32000" },
-+	{ .name = "bq32000" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, bq32k_id);
-diff --git a/drivers/rtc/rtc-ds1307.c b/drivers/rtc/rtc-ds1307.c
-index 7205c59ff729..ee8196498443 100644
---- a/drivers/rtc/rtc-ds1307.c
-+++ b/drivers/rtc/rtc-ds1307.c
-@@ -1063,24 +1063,24 @@ static const struct chip_desc chips[last_ds_type] = {
- };
- 
- static const struct i2c_device_id ds1307_id[] = {
--	{ "ds1307", ds_1307 },
--	{ "ds1308", ds_1308 },
--	{ "ds1337", ds_1337 },
--	{ "ds1338", ds_1338 },
--	{ "ds1339", ds_1339 },
--	{ "ds1388", ds_1388 },
--	{ "ds1340", ds_1340 },
--	{ "ds1341", ds_1341 },
--	{ "ds3231", ds_3231 },
--	{ "m41t0", m41t0 },
--	{ "m41t00", m41t00 },
--	{ "m41t11", m41t11 },
--	{ "mcp7940x", mcp794xx },
--	{ "mcp7941x", mcp794xx },
--	{ "pt7c4338", ds_1307 },
--	{ "rx8025", rx_8025 },
--	{ "isl12057", ds_1337 },
--	{ "rx8130", rx_8130 },
-+	{ .name = "ds1307", .driver_data = ds_1307 },
-+	{ .name = "ds1308", .driver_data = ds_1308 },
-+	{ .name = "ds1337", .driver_data = ds_1337 },
-+	{ .name = "ds1338", .driver_data = ds_1338 },
-+	{ .name = "ds1339", .driver_data = ds_1339 },
-+	{ .name = "ds1388", .driver_data = ds_1388 },
-+	{ .name = "ds1340", .driver_data = ds_1340 },
-+	{ .name = "ds1341", .driver_data = ds_1341 },
-+	{ .name = "ds3231", .driver_data = ds_3231 },
-+	{ .name = "m41t0", .driver_data = m41t0 },
-+	{ .name = "m41t00", .driver_data = m41t00 },
-+	{ .name = "m41t11", .driver_data = m41t11 },
-+	{ .name = "mcp7940x", .driver_data = mcp794xx },
-+	{ .name = "mcp7941x", .driver_data = mcp794xx },
-+	{ .name = "pt7c4338", .driver_data = ds_1307 },
-+	{ .name = "rx8025", .driver_data = rx_8025 },
-+	{ .name = "isl12057", .driver_data = ds_1337 },
-+	{ .name = "rx8130", .driver_data = rx_8130 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ds1307_id);
-diff --git a/drivers/rtc/rtc-ds1374.c b/drivers/rtc/rtc-ds1374.c
-index c2359eb86bc9..8c247215d611 100644
---- a/drivers/rtc/rtc-ds1374.c
-+++ b/drivers/rtc/rtc-ds1374.c
-@@ -52,7 +52,7 @@
- #define DS1374_REG_TCR		0x09 /* Trickle Charge */
- 
- static const struct i2c_device_id ds1374_id[] = {
--	{ "ds1374" },
-+	{ .name = "ds1374" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ds1374_id);
-diff --git a/drivers/rtc/rtc-ds1672.c b/drivers/rtc/rtc-ds1672.c
-index 6e5314215d00..c610beb55bb5 100644
---- a/drivers/rtc/rtc-ds1672.c
-+++ b/drivers/rtc/rtc-ds1672.c
-@@ -133,7 +133,7 @@ static int ds1672_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id ds1672_id[] = {
--	{ "ds1672" },
-+	{ .name = "ds1672" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ds1672_id);
-diff --git a/drivers/rtc/rtc-ds3232.c b/drivers/rtc/rtc-ds3232.c
-index 18f35823b4b5..d1ef9e0dad34 100644
---- a/drivers/rtc/rtc-ds3232.c
-+++ b/drivers/rtc/rtc-ds3232.c
-@@ -566,7 +566,7 @@ static int ds3232_i2c_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id ds3232_id[] = {
--	{ "ds3232" },
-+	{ .name = "ds3232" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, ds3232_id);
-diff --git a/drivers/rtc/rtc-em3027.c b/drivers/rtc/rtc-em3027.c
-index dc1ccbc65dcb..d555e5d59881 100644
---- a/drivers/rtc/rtc-em3027.c
-+++ b/drivers/rtc/rtc-em3027.c
-@@ -129,7 +129,7 @@ static int em3027_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id em3027_id[] = {
--	{ "em3027" },
-+	{ .name = "em3027" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, em3027_id);
-diff --git a/drivers/rtc/rtc-fm3130.c b/drivers/rtc/rtc-fm3130.c
-index f82728ebac0c..28bb6d3f644e 100644
---- a/drivers/rtc/rtc-fm3130.c
-+++ b/drivers/rtc/rtc-fm3130.c
-@@ -53,7 +53,7 @@ struct fm3130 {
- 	int			data_valid;
- };
- static const struct i2c_device_id fm3130_id[] = {
--	{ "fm3130" },
-+	{ .name = "fm3130" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, fm3130_id);
-diff --git a/drivers/rtc/rtc-hym8563.c b/drivers/rtc/rtc-hym8563.c
-index 7a170c0f9710..3156aa5f2d9f 100644
---- a/drivers/rtc/rtc-hym8563.c
-+++ b/drivers/rtc/rtc-hym8563.c
-@@ -564,8 +564,8 @@ static int hym8563_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id hym8563_id[] = {
--	{ "hym8563" },
--	{}
-+	{ .name = "hym8563" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(i2c, hym8563_id);
- 
-diff --git a/drivers/rtc/rtc-isl12022.c b/drivers/rtc/rtc-isl12022.c
-index 5fc52dc64213..bc36288854ee 100644
---- a/drivers/rtc/rtc-isl12022.c
-+++ b/drivers/rtc/rtc-isl12022.c
-@@ -604,7 +604,7 @@ static const struct of_device_id isl12022_dt_match[] = {
- MODULE_DEVICE_TABLE(of, isl12022_dt_match);
- 
- static const struct i2c_device_id isl12022_id[] = {
--	{ "isl12022" },
-+	{ .name = "isl12022" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, isl12022_id);
-diff --git a/drivers/rtc/rtc-isl12026.c b/drivers/rtc/rtc-isl12026.c
-index 45a2c9f676c5..b86a325d8a23 100644
---- a/drivers/rtc/rtc-isl12026.c
-+++ b/drivers/rtc/rtc-isl12026.c
-@@ -485,8 +485,8 @@ static const struct of_device_id isl12026_dt_match[] = {
- MODULE_DEVICE_TABLE(of, isl12026_dt_match);
- 
- static const struct i2c_device_id isl12026_id[] = {
--	{ "isl12026" },
--	{ },
-+	{ .name = "isl12026" },
-+	{ }
- };
- MODULE_DEVICE_TABLE(i2c, isl12026_id);
- 
-diff --git a/drivers/rtc/rtc-isl1208.c b/drivers/rtc/rtc-isl1208.c
-index f71a6bb77b2a..bcaa766a5068 100644
---- a/drivers/rtc/rtc-isl1208.c
-+++ b/drivers/rtc/rtc-isl1208.c
-@@ -110,11 +110,11 @@ static const struct isl1208_config config_raa215300_a0 = {
- };
- 
- static const struct i2c_device_id isl1208_id[] = {
--	{ "isl1208", .driver_data = (kernel_ulong_t)&config_isl1208 },
--	{ "isl1209", .driver_data = (kernel_ulong_t)&config_isl1209 },
--	{ "isl1218", .driver_data = (kernel_ulong_t)&config_isl1218 },
--	{ "isl1219", .driver_data = (kernel_ulong_t)&config_isl1219 },
--	{ "raa215300_a0", .driver_data = (kernel_ulong_t)&config_raa215300_a0 },
-+	{ .name = "isl1208", .driver_data = (kernel_ulong_t)&config_isl1208 },
-+	{ .name = "isl1209", .driver_data = (kernel_ulong_t)&config_isl1209 },
-+	{ .name = "isl1218", .driver_data = (kernel_ulong_t)&config_isl1218 },
-+	{ .name = "isl1219", .driver_data = (kernel_ulong_t)&config_isl1219 },
-+	{ .name = "raa215300_a0", .driver_data = (kernel_ulong_t)&config_raa215300_a0 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, isl1208_id);
-diff --git a/drivers/rtc/rtc-m41t80.c b/drivers/rtc/rtc-m41t80.c
-index b26afef37d9c..3c8c379392c1 100644
---- a/drivers/rtc/rtc-m41t80.c
-+++ b/drivers/rtc/rtc-m41t80.c
-@@ -71,17 +71,17 @@
- #define M41T80_FEATURE_SQ_ALT	BIT(4)	/* RSx bits are in reg 4 */
- 
- static const struct i2c_device_id m41t80_id[] = {
--	{ "m41t62", M41T80_FEATURE_SQ | M41T80_FEATURE_SQ_ALT },
--	{ "m41t65", M41T80_FEATURE_WD },
--	{ "m41t80", M41T80_FEATURE_SQ },
--	{ "m41t81", M41T80_FEATURE_HT | M41T80_FEATURE_SQ},
--	{ "m41t81s", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "m41t82", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "m41t83", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "m41st84", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "m41st85", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "m41st87", M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
--	{ "rv4162", M41T80_FEATURE_SQ | M41T80_FEATURE_WD | M41T80_FEATURE_SQ_ALT },
-+	{ .name = "m41t62", .driver_data = M41T80_FEATURE_SQ | M41T80_FEATURE_SQ_ALT },
-+	{ .name = "m41t65", .driver_data = M41T80_FEATURE_WD },
-+	{ .name = "m41t80", .driver_data = M41T80_FEATURE_SQ },
-+	{ .name = "m41t81", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_SQ},
-+	{ .name = "m41t81s", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "m41t82", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "m41t83", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "m41st84", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "m41st85", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "m41st87", .driver_data = M41T80_FEATURE_HT | M41T80_FEATURE_BL | M41T80_FEATURE_SQ },
-+	{ .name = "rv4162", .driver_data = M41T80_FEATURE_SQ | M41T80_FEATURE_WD | M41T80_FEATURE_SQ_ALT },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, m41t80_id);
-diff --git a/drivers/rtc/rtc-max31335.c b/drivers/rtc/rtc-max31335.c
-index 952b455071d6..595816973851 100644
---- a/drivers/rtc/rtc-max31335.c
-+++ b/drivers/rtc/rtc-max31335.c
-@@ -745,8 +745,8 @@ static int max31335_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id max31335_id[] = {
--	{ "max31331", (kernel_ulong_t)&chip[ID_MAX31331] },
--	{ "max31335", (kernel_ulong_t)&chip[ID_MAX31335] },
-+	{ .name = "max31331", .driver_data = (kernel_ulong_t)&chip[ID_MAX31331] },
-+	{ .name = "max31335", .driver_data = (kernel_ulong_t)&chip[ID_MAX31335] },
- 	{ }
- };
- 
-diff --git a/drivers/rtc/rtc-max6900.c b/drivers/rtc/rtc-max6900.c
-index 7be31fce5bc7..8ef6d0fcd032 100644
---- a/drivers/rtc/rtc-max6900.c
-+++ b/drivers/rtc/rtc-max6900.c
-@@ -215,7 +215,7 @@ static int max6900_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id max6900_id[] = {
--	{ "max6900" },
-+	{ .name = "max6900" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, max6900_id);
-diff --git a/drivers/rtc/rtc-nct3018y.c b/drivers/rtc/rtc-nct3018y.c
-index cd4b1db902e9..700a395fad3a 100644
---- a/drivers/rtc/rtc-nct3018y.c
-+++ b/drivers/rtc/rtc-nct3018y.c
-@@ -572,7 +572,7 @@ static int nct3018y_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id nct3018y_id[] = {
--	{ "nct3018y" },
-+	{ .name = "nct3018y" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, nct3018y_id);
-diff --git a/drivers/rtc/rtc-pcf2127.c b/drivers/rtc/rtc-pcf2127.c
-index e4785c5a55d0..1995e9f2756d 100644
---- a/drivers/rtc/rtc-pcf2127.c
-+++ b/drivers/rtc/rtc-pcf2127.c
-@@ -1449,10 +1449,10 @@ static const struct regmap_bus pcf2127_i2c_regmap = {
- static struct i2c_driver pcf2127_i2c_driver;
- 
- static const struct i2c_device_id pcf2127_i2c_id[] = {
--	{ "pcf2127", (kernel_ulong_t)&pcf21xx_cfg[PCF2127] },
--	{ "pcf2129", (kernel_ulong_t)&pcf21xx_cfg[PCF2129] },
--	{ "pca2129", (kernel_ulong_t)&pcf21xx_cfg[PCF2129] },
--	{ "pcf2131", (kernel_ulong_t)&pcf21xx_cfg[PCF2131] },
-+	{ .name = "pcf2127", .driver_data = (kernel_ulong_t)&pcf21xx_cfg[PCF2127] },
-+	{ .name = "pcf2129", .driver_data = (kernel_ulong_t)&pcf21xx_cfg[PCF2129] },
-+	{ .name = "pca2129", .driver_data = (kernel_ulong_t)&pcf21xx_cfg[PCF2129] },
-+	{ .name = "pcf2131", .driver_data = (kernel_ulong_t)&pcf21xx_cfg[PCF2131] },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, pcf2127_i2c_id);
-diff --git a/drivers/rtc/rtc-pcf85063.c b/drivers/rtc/rtc-pcf85063.c
-index f643e0bd7351..01e209d88f5f 100644
---- a/drivers/rtc/rtc-pcf85063.c
-+++ b/drivers/rtc/rtc-pcf85063.c
-@@ -665,12 +665,12 @@ static const struct pcf85063_config config_rv8263 = {
- };
- 
- static const struct i2c_device_id pcf85063_ids[] = {
--	{ "pca85073a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
--	{ "pcf85063", .driver_data = (kernel_ulong_t)&config_pcf85063 },
--	{ "pcf85063tp", .driver_data = (kernel_ulong_t)&config_pcf85063tp },
--	{ "pcf85063a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
--	{ "rv8263", .driver_data = (kernel_ulong_t)&config_rv8263 },
--	{}
-+	{ .name = "pca85073a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
-+	{ .name = "pcf85063", .driver_data = (kernel_ulong_t)&config_pcf85063 },
-+	{ .name = "pcf85063tp", .driver_data = (kernel_ulong_t)&config_pcf85063tp },
-+	{ .name = "pcf85063a", .driver_data = (kernel_ulong_t)&config_pcf85063a },
-+	{ .name = "rv8263", .driver_data = (kernel_ulong_t)&config_rv8263 },
-+	{ }
- };
- MODULE_DEVICE_TABLE(i2c, pcf85063_ids);
- 
-diff --git a/drivers/rtc/rtc-pcf8523.c b/drivers/rtc/rtc-pcf8523.c
-index 2c63c0ffd05a..e8354953836c 100644
---- a/drivers/rtc/rtc-pcf8523.c
-+++ b/drivers/rtc/rtc-pcf8523.c
-@@ -495,7 +495,7 @@ static int pcf8523_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id pcf8523_id[] = {
--	{ "pcf8523" },
-+	{ .name = "pcf8523" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, pcf8523_id);
-diff --git a/drivers/rtc/rtc-pcf8563.c b/drivers/rtc/rtc-pcf8563.c
-index b281e9489df1..81d13733b1e9 100644
---- a/drivers/rtc/rtc-pcf8563.c
-+++ b/drivers/rtc/rtc-pcf8563.c
-@@ -557,9 +557,9 @@ static int pcf8563_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id pcf8563_id[] = {
--	{ "pcf8563" },
--	{ "rtc8564" },
--	{ "pca8565" },
-+	{ .name = "pcf8563" },
-+	{ .name = "rtc8564" },
-+	{ .name = "pca8565" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, pcf8563_id);
-diff --git a/drivers/rtc/rtc-pcf8583.c b/drivers/rtc/rtc-pcf8583.c
-index 652b9dfa7566..df5e20cbc26c 100644
---- a/drivers/rtc/rtc-pcf8583.c
-+++ b/drivers/rtc/rtc-pcf8583.c
-@@ -297,7 +297,7 @@ static int pcf8583_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id pcf8583_id[] = {
--	{ "pcf8583" },
-+	{ .name = "pcf8583" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, pcf8583_id);
-diff --git a/drivers/rtc/rtc-rs5c372.c b/drivers/rtc/rtc-rs5c372.c
-index 936f4f05c8c7..24bd795d9d95 100644
---- a/drivers/rtc/rtc-rs5c372.c
-+++ b/drivers/rtc/rtc-rs5c372.c
-@@ -75,12 +75,12 @@ enum rtc_type {
- };
- 
- static const struct i2c_device_id rs5c372_id[] = {
--	{ "r2025sd", rtc_r2025sd },
--	{ "r2221tl", rtc_r2221tl },
--	{ "rs5c372a", rtc_rs5c372a },
--	{ "rs5c372b", rtc_rs5c372b },
--	{ "rv5c386", rtc_rv5c386 },
--	{ "rv5c387a", rtc_rv5c387a },
-+	{ .name = "r2025sd", .driver_data = rtc_r2025sd },
-+	{ .name = "r2221tl", .driver_data = rtc_r2221tl },
-+	{ .name = "rs5c372a", .driver_data = rtc_rs5c372a },
-+	{ .name = "rs5c372b", .driver_data = rtc_rs5c372b },
-+	{ .name = "rv5c386", .driver_data = rtc_rv5c386 },
-+	{ .name = "rv5c387a", .driver_data = rtc_rv5c387a },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rs5c372_id);
-diff --git a/drivers/rtc/rtc-rv3029c2.c b/drivers/rtc/rtc-rv3029c2.c
-index 83331d1fcab0..98953af2a24a 100644
---- a/drivers/rtc/rtc-rv3029c2.c
-+++ b/drivers/rtc/rtc-rv3029c2.c
-@@ -807,8 +807,8 @@ static int rv3029_i2c_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id rv3029_id[] = {
--	{ "rv3029" },
--	{ "rv3029c2" },
-+	{ .name = "rv3029" },
-+	{ .name = "rv3029c2" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rv3029_id);
-diff --git a/drivers/rtc/rtc-rv8803.c b/drivers/rtc/rtc-rv8803.c
-index 2bf988a89fd7..b9b5fee16ee4 100644
---- a/drivers/rtc/rtc-rv8803.c
-+++ b/drivers/rtc/rtc-rv8803.c
-@@ -631,10 +631,10 @@ static int rv8803_suspend(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(rv8803_pm_ops, rv8803_suspend, rv8803_resume);
- 
- static const struct i2c_device_id rv8803_id[] = {
--	{ "rv8803", rv_8803 },
--	{ "rv8804", rx_8804 },
--	{ "rx8803", rx_8803 },
--	{ "rx8900", rx_8900 },
-+	{ .name = "rv8803", .driver_data = rv_8803 },
-+	{ .name = "rv8804", .driver_data = rx_8804 },
-+	{ .name = "rx8803", .driver_data = rx_8803 },
-+	{ .name = "rx8900", .driver_data = rx_8900 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rv8803_id);
-diff --git a/drivers/rtc/rtc-rx6110.c b/drivers/rtc/rtc-rx6110.c
-index 07bf35ac8d79..1eacd470a27c 100644
---- a/drivers/rtc/rtc-rx6110.c
-+++ b/drivers/rtc/rtc-rx6110.c
-@@ -449,7 +449,7 @@ static const struct acpi_device_id rx6110_i2c_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, rx6110_i2c_acpi_match);
- 
- static const struct i2c_device_id rx6110_i2c_id[] = {
--	{ "rx6110" },
-+	{ .name = "rx6110" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rx6110_i2c_id);
-diff --git a/drivers/rtc/rtc-rx8010.c b/drivers/rtc/rtc-rx8010.c
-index 171240e50f48..ce3954132336 100644
---- a/drivers/rtc/rtc-rx8010.c
-+++ b/drivers/rtc/rtc-rx8010.c
-@@ -50,7 +50,7 @@
- #define RX8010_ALARM_AE		BIT(7)
- 
- static const struct i2c_device_id rx8010_id[] = {
--	{ "rx8010" },
-+	{ .name = "rx8010" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rx8010_id);
-diff --git a/drivers/rtc/rtc-rx8025.c b/drivers/rtc/rtc-rx8025.c
-index c57081f9e02b..5eeaa929f3ef 100644
---- a/drivers/rtc/rtc-rx8025.c
-+++ b/drivers/rtc/rtc-rx8025.c
-@@ -71,8 +71,8 @@ enum rx_model {
- };
- 
- static const struct i2c_device_id rx8025_id[] = {
--	{ "rx8025", model_rx_8025 },
--	{ "rx8035", model_rx_8035 },
-+	{ .name = "rx8025", .driver_data = model_rx_8025 },
-+	{ .name = "rx8035", .driver_data = model_rx_8035 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rx8025_id);
-diff --git a/drivers/rtc/rtc-rx8581.c b/drivers/rtc/rtc-rx8581.c
-index 20c2dff01bae..cf4dab94c337 100644
---- a/drivers/rtc/rtc-rx8581.c
-+++ b/drivers/rtc/rtc-rx8581.c
-@@ -294,7 +294,7 @@ static int rx8581_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id rx8581_id[] = {
--	{ "rx8581" },
-+	{ .name = "rx8581" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, rx8581_id);
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index a4678d7c6cf6..31394f34fb70 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -51,7 +51,7 @@
- #define S35390A_INT2_MODE_PMIN		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
- 
- static const struct i2c_device_id s35390a_id[] = {
--	{ "s35390a" },
-+	{ .name = "s35390a" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, s35390a_id);
-diff --git a/drivers/rtc/rtc-sd2405al.c b/drivers/rtc/rtc-sd2405al.c
-index 708ea5d964de..7982a910a537 100644
---- a/drivers/rtc/rtc-sd2405al.c
-+++ b/drivers/rtc/rtc-sd2405al.c
-@@ -202,7 +202,7 @@ static int sd2405al_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id sd2405al_id[] = {
--	{ "sd2405al" },
-+	{ .name = "sd2405al" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(i2c, sd2405al_id);
-diff --git a/drivers/rtc/rtc-sd3078.c b/drivers/rtc/rtc-sd3078.c
-index 10cc1dcfc774..2c61f0e204a4 100644
---- a/drivers/rtc/rtc-sd3078.c
-+++ b/drivers/rtc/rtc-sd3078.c
-@@ -186,7 +186,7 @@ static int sd3078_probe(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id sd3078_id[] = {
--	{ "sd3078" },
-+	{ .name = "sd3078" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, sd3078_id);
-diff --git a/drivers/rtc/rtc-x1205.c b/drivers/rtc/rtc-x1205.c
-index b8a0fccef14e..bb1a5c86f621 100644
---- a/drivers/rtc/rtc-x1205.c
-+++ b/drivers/rtc/rtc-x1205.c
-@@ -663,7 +663,7 @@ static void x1205_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id x1205_id[] = {
--	{ "x1205" },
-+	{ .name = "x1205" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, x1205_id);
-
-base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
--- 
-2.47.3
-
+--_000_CY5PR11MB6137E8AAD103630E97676A8AAD042CY5PR11MB6137namp_--
 
