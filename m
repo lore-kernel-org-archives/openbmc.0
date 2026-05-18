@@ -1,55 +1,55 @@
-Return-Path: <openbmc+bounces-1957-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1958-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D313ACD4F56
-	for <openbmc@archiver.kernel.org>; Mon, 18 May 2026 23:52:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D012CD343F
+	for <openbmc@archiver.kernel.org>; Mon, 18 May 2026 23:53:01 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gKF2Q1fQFz2yD6;
-	Tue, 19 May 2026 09:51:42 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779091732;
-	cv=none; b=m2ZZABYQsDC9boQ2mdrgizpg1mIsdozApOed0Swr+OMtc+ZX9xtdIGALySQcrD9B9NTkGKpmJmuPudke+NUoWIBFJL9HdKUZpm1Sk1xtEL/1LFVHLEO1QEIC/QNiNht/AvhGnPsCYh6Y2YqMmf+jw6RiIKuq+ppchESn77NQU2r9yNgykr53Go6MH7aYd4L+dcIs3Iqw3SRFZl+ugtQz/hcT1Xld4Mln2a5A41zhyC+aR/95M3lT0XkXk0W8MY80/VO4BPpvCM9Ju2QDBfzVbB0bVGEUJKXzJMKLenkBNW838HZC6SV6rzkK9n9ta3laMDcSXQwf/zQXf7hWf2Yx6w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gKF2R2qcqz3bqW;
+	Tue, 19 May 2026 09:51:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779091833;
+	cv=none; b=U3xknrJVbUQMZnypYN4KqE5TsTfs01EeVQWA8ptPt7gU4GP4bc9MAYuvdQTAQG2m7H9waXA/rVdXqxaNNDnoLwz2PbvuCN9kJg//tuCecNoN0M8eNAigovo+x1xV2WckpDzBzkhQAJJnU25qIzoavCwPuR8N8ULEQm34q/kk1nsAVsHJ7cCzsK36YjqZ0JRZdYrDBXZq4h1Tdf81xr6/JtvYj7vk61bujHuiHIUF++HSmF3dKrYFA8F9LBYfGbwqoG3W4m57OL8AdO9cMV3etAMSpXZnTIGehnfmpHQnpwi5+9TUyHswsGuV9BNOtKFdCp9goYk8x1rQZVtww90P6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779091732; c=relaxed/relaxed;
-	bh=b5M3weBMGnPryJYOG5zrOOfh/E+jftieh2z+UewB+T0=;
+	t=1779091833; c=relaxed/relaxed;
+	bh=WxfwxuUyJjYWU9h00n/B9xY2ogvpoaKhiqGpdQfp7wI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZBMi9htuLOwIFvK+axElE3KFWPgtrdoCEvI9o1l1CluHUMuiFAMulJ7fzQmgG/Jfk2Waj/y3xt9uK1oy1lQtYlLLTLhkfZOWPsGQ7pILV3jvnlzjpDst4W3tXE07z7ISZ5pldqTQGVFoc+fH5jlPjiWDUaFnlktRPqhDJjq03aZGExsEaTpLM38YPhtVIQHhQxggo+5JuQJM4FRF8D+Jr9d6nvZzCQ5uo9W1Fc/LfRNuGjGOK5xvi/Zawdaa9YlK0XJJYPznPdcajVFpied2D1mWNJKNwfmbtkUK5STgG2oMP021m2j7VIr/MAKGg2mADeqDpUb9eq0D7Q2YXSto2g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=dubLpLVQ; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 In-Reply-To:To:Cc; b=Rn0rYEaUx7hkokRjRgMSY5Cs6wjRsHis1/uwP5TqxCu8dLVu+34IKtjy4bHmhNODLm4rUdi0VeilTsz4nKoFZChgN+mZ8rtd/SonFPvgRxhJ6i8hJhmCDnHjvzrKSEYpcA0BOfGc3XQYJhPJbNS0lkCeOOW3sOTEacKgNNnkMstDtQ/nVuO8FyDdXmAIo1ARdse0Sw7LwtNiCDfSvsTfrVrxqULty79Oa1d5ZDBA6mDIoDwUIUctiTqQT7hClorTAxdEN0UJzpfMubq8pDnpJOZ6Bx07sK2YNw29lZ6SeglHJg0Hgt5e61ewRubfePEP4sVzdQvOLMfjj9vpzikwEA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gdT5Ktsa; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=dubLpLVQ;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=gdT5Ktsa;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gJr6W5YCwz3bqy
-	for <openbmc@lists.ozlabs.org>; Mon, 18 May 2026 18:08:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gJr8S06pcz2yF7
+	for <openbmc@lists.ozlabs.org>; Mon, 18 May 2026 18:10:31 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id 934D84441E;
-	Mon, 18 May 2026 08:08:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 75A60C2BCF6;
-	Mon, 18 May 2026 08:08:48 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 726BF4444D;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 54F40C2BCB7;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779091728;
-	bh=r+KNlaAcYhXqvQQYeflB0MZPoMvyqiyx7ogMUCVUTXE=;
+	s=k20201202; t=1779091830;
+	bh=PT+wU4CGmhGvqNfzHRNY7/CbTLVzhTofyOFU411q0G0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dubLpLVQx9Ejia7VrHbHaAGzFTWF0P1BDSlrXHDwlYWLcVOhO5dN/f8yipFG4QoQl
-	 L0KrvWAP4f6W1PZvuScXlf7er/uDXY9Y5IO64rkP46fKwsNl82RuHSHzTi8/xTZRs5
-	 /MJcASYo96ZtYc8AD2mypLVueLO7iH8wwUdxsOGpO3QQQxhjdqUwnQEMk1Mh8nS0R+
-	 v3Mbt6WNIXpLq3tYS3k7N3dSQa8d1Vki3BjdNxVN8AxtIEyQEqzZ8lVr9eMsKwufhS
-	 Aggzv+SWoeOZxYxJjh1Zmgy8D+FXz4IhKmGySWZQ5rSm5ygsbVhcMfJi5Z7uwZuUEO
-	 63FtgIDaFXo2A==
+	b=gdT5KtsaFl5uF0+Me55QP+VgBup/eJa9CiwC4U+AKPqLsOa8A6xku9gOW2Atl3XpE
+	 lFPlwfvzsx7fdPC0jwpYNzaYosiYFlKkwrcWXpdXgqJ0xOGaEAVLKcWWlEAVma7Xqe
+	 JjESirTksVhAtgB1ISAEQ0x7FVa+w7HEYY3M+NX/lBjB6yTu115RCaHU7fb7L7balf
+	 WJ2UhdAyyuOqJYFasdlwediKkgKNC1i9PCAAMDTSfKVgZQyGc1daQ9CAh3761s98Fq
+	 yrW0j/A8vDtFJI1lFf5SctQu4ERRAaaml80/gfgtsqjp9XtrULqX8Zr0tUOT2CtYZv
+	 sPHrLNEqegPCQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AD1CCD4F52;
-	Mon, 18 May 2026 08:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A154CD4F3C;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
 From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Mon, 18 May 2026 16:08:25 +0800
-Subject: [PATCH linux dev-6.18 2/3] Documentation/hwmon: add Delta
+Date: Mon, 18 May 2026 16:10:18 +0800
+Subject: [PATCH linux dev-6.6 2/3] Documentation/hwmon: add Delta
  E50SN12051 documentation
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
@@ -64,17 +64,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260518-dev-6-18-e50sn12051-driver-v1-2-238e4e08a759@gmail.com>
-References: <20260518-dev-6-18-e50sn12051-driver-v1-0-238e4e08a759@gmail.com>
-In-Reply-To: <20260518-dev-6-18-e50sn12051-driver-v1-0-238e4e08a759@gmail.com>
+Message-Id: <20260518-dev-6-6-e50sn12051-driver-v1-2-8025fb61706e@gmail.com>
+References: <20260518-dev-6-6-e50sn12051-driver-v1-0-8025fb61706e@gmail.com>
+In-Reply-To: <20260518-dev-6-6-e50sn12051-driver-v1-0-8025fb61706e@gmail.com>
 To: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au
 Cc: Colin Huang <colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779091725; l=4111;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779091827; l=4111;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=xjEAidCfi7PR5i6t8DhEmi1zJRFvWjEGKur60fPhlxY=;
- b=Lkey3rdFCWVMVzGwlxB95ogrZrN5LaOQ/USBzIbdfZTQA6CmaWnt3GKYDYee97Yote6Pezn9W
- wFoNb92M+6iC42xmWfiy66Yrrv6IMyLqebhZckc7YBy/mN18ubElhCa
+ bh=Ej67JXCMI61DnuwfUwQZbBhhgaxfYaDiAMLiF/gPXT8=;
+ b=BPDYeY35kxTIV3wbhxBK9zgVSSokfEVC8Ua8I3h3W3u4vaxbnzwEFkKl4GzZz+rLtRIrz9HA3
+ /B6FL20Q7a6B3i4UAktLOBIB4nV564hfJh0sjNhLfd9ZxBKZE1/nvmw
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
@@ -187,10 +187,10 @@ index 000000000000..cbbfa7895d82
 +======================= =======================================================
 +
 diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index bd3394b8fed6..c5ab1aa5d416 100644
+index c89bd6063e88..e97dd2527dce 100644
 --- a/Documentation/hwmon/index.rst
 +++ b/Documentation/hwmon/index.rst
-@@ -68,6 +68,7 @@ Hardware Monitoring Kernel Drivers
+@@ -64,6 +64,7 @@ Hardware Monitoring Kernel Drivers
     drivetemp
     ds1621
     ds620
