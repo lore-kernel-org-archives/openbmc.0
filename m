@@ -1,60 +1,55 @@
-Return-Path: <openbmc+bounces-1952-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1953-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE78CD4F49
-	for <openbmc@archiver.kernel.org>; Mon, 18 May 2026 14:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE00CD4F56
+	for <openbmc@archiver.kernel.org>; Mon, 18 May 2026 23:51:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gK08F2w60z2yDs;
-	Tue, 19 May 2026 00:10:53 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779113453;
-	cv=none; b=bChXG420oKggCmv9y1vSUD+ANhLrbWEP6nheqK/J3wLMlZ7LMULxRawp0aOa+5cNEaOTN5w4/EuKfWkfa8QC7WZkBI0yyDL45X3MC05t++2gCuoyo7Xtyq7DCo6UiymnW0tjpI+BPYq8QZ/1L0OndkqDSMEi6ejd1rlpMD2o26Mb1DpxjIabBuAxdTseK16snDNE9bKkslhrWL3bO+Baq9q7xkU9tNh1a+sYNK35MqZ1IftQgIrbDhy1qWpzx3SGDk8RR+mn33CrmdlmuyUnQvn+m6nLgTaF0kk43EUM4ETSS3TuEx1BeF7lF2z7sZCfxQyOMAetiSler8dp3NCxpQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gKF2H6sfnz2yRC;
+	Tue, 19 May 2026 09:51:35 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779091832;
+	cv=none; b=L3Dn4RxMXYbCAjmeV7jgFReEWjBcXhbdykXZjB35Qs7k+OlMypZk1omukxdX4i6kAESeizbRF+K9O0E+T/s7n74bnKmqvwQRKLhTDWHN5yhntnGHm/5nAQWedS9yBt+55DxJi8ZAOhNhuko7WCNOVI6X7A6WInvZB3eisP+J05Y5A0cHgaEEdGyB2qpnyw7DcO2X8HAsknG9n3E4pXoWmgjk9y84tpLtIHkKkbAEBxGjeJFRiZuwX4twCcDwb47vsKMKslHdhRsxQHg4qQVJU6UTcizlOpnID5nkGgiTzjSc9UUon3RpFYdGsBXt9WpoxEeUY/KDVlSLCZchb2MyFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779113453; c=relaxed/relaxed;
-	bh=1alSj94YuEfukPWP4WcXUEcaLgnZ1EGa4nv6Uf1+JHw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bYyCAW+J5nlAsrmVqHmVKSZFBnLdNXRD+M9fgTDFBZRovNcqGukdxwf0zDYwLM2IFlvsByHePjWsyUEGu1LpT0XfqvrbP5l42w7XFvQ05/OpWqq9LKkgcHXe/2BNsRg1lK69Ja7pbmy81o3VxbLyrf888ZuGnObXyKB2akEWAOQ1FnkHPJXyp/zkR+BD+LNrBWjMmjKMGdJcO84PoPpXrenhHmTM4Mr2PttE9H1ny+ltg6z6Z0DDzlazgx8m+JBmhR5FbOmM5CEW3bYjbPWY7IfOAC1gPDr0hyfB8zdQnL6g/7arby5NwfXddJ7I0l9smtepsjqhJ8BcfNAA2wdFZw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=G+6YWXxT; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	t=1779091832; c=relaxed/relaxed;
+	bh=bd5h5fScqYpseuVzfbFvAm1hR9E1kG203Z/+Hb0rlBQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cHxE9Ma2wiiFm+DL0ZnT/eMJhtsR4wTEHYktlxHWeh4PhD9KCZg+Hs6faCUkamK2zmJW6JRbrAB0jJ3HtBGDgCocbkem4pDhmbzfddRH54fyjmAG5k6xxkDaiB+6JpCTYcCd0vhBsZ3kSnY0J67VaeKGWi1OeS79AKkSKhLzFw9Qe1QId7S0h3DqHv8rqRlaIUh0PcK9Ks23CsZNK56w1mH8Yiy5G6ciZDspxksvdQTViSS1kyBOL6KB0NbVkL9aofA6yXJzXDJt181y4mThgtrV5XEYbjj0oG/+cYCGlmrwI7cMFRzrclFQUADBS1EH4TLpg1EuQTm5fS5pPIJFEg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=O+lcE0No; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=G+6YWXxT;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=O+lcE0No;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+u8813345.gmail.com@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gK08D2hSxz2xPb
-	for <openbmc@lists.ozlabs.org>; Tue, 19 May 2026 00:10:52 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1779113451;
-	bh=1alSj94YuEfukPWP4WcXUEcaLgnZ1EGa4nv6Uf1+JHw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=G+6YWXxTTQ3RyWv6z/ZgHjx9+dVPjy1gRaTV9TaZ4JXiHhUKCdV0UCDffEaa6dHgU
-	 stGQnFS3d+CzZcalhZkvzA74lsLPFWiYPZ1sGrdwc8RUTe8ibb3OA+j4zDH28BsU5/
-	 UVQWJ1nHn0L2u90sNjirUKh4D8Iiyh/rcVHoEXmLqT2zGlgeFPC8MFZNk0+Rr/CiLA
-	 IOg/14xJAt2bxuLKEd5e0Ehq6cTajodsYrin2LVRDPKXErbsHJT27AeoQstV1P57fX
-	 QI9jkcajKcOf0RpIXomFepaBpGfbl/UUQ0AJxhtPGoUZXrJt9TkpJfrj28I7uuEMPM
-	 0nRhfOn1Lxp2Q==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2A90A6025D;
-	Mon, 18 May 2026 22:10:50 +0800 (AWST)
-Message-ID: <b9439e9501bb50ebb4a60dfbfac9b33a68c62878.camel@codeconstruct.com.au>
-Subject: Re: [PATCH linux dev-6.18 0/3] ARM: dts: aspeed-g6: I2C/APB cleanup
- and AST2600 I3C enablement
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Dawid Glazik <dawid.glazik@linux.intel.com>, openbmc@lists.ozlabs.org, 
-	joel@jms.id.au
-Cc: maciej.lawniczak@intel.com
-Date: Mon, 18 May 2026 23:40:50 +0930
-In-Reply-To: <cover.1778692820.git.dawid.glazik@linux.intel.com>
-References: <cover.1778692820.git.dawid.glazik@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gJr8S08Pgz3bqq
+	for <openbmc@lists.ozlabs.org>; Mon, 18 May 2026 18:10:31 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id 5942640142;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3AD98C2BCC6;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779091830;
+	bh=cPO+2Z78cAr68BCxS8UwzG/BZ4oa8eNTgVIcbGKSBQc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=O+lcE0NoYImxMrDDs76jEN/nWYUDURvwR97FquI7SL8K6ZHPGYmJR5ld+BnC044UT
+	 JP+sGw6mOSSBlJgey7JNljmYyFnxarTVtJdBtvP6tLHYwtIXHOIj5nIWdUzwAbD+c9
+	 TM15sHk7LQq6fGUDu+Ip8kc4/jLloZCx+tXWGtUbr7wZgTwHgkvmkK8yG+d7BkQ15O
+	 KD42NRmZ87uYeuayAo9ybrgvxndFicj96M9U/E2otDZBlrOLTu8gvcW3sVlUXpmbqy
+	 y1Q84Gebk1m0yFllOnyHzBNZpA7FWaTd7HuLPKhSTFT6SvaE2WaDQ7CwqNnA1O9Rmy
+	 UfSJZPlsVrM4w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BFEBCD4F52;
+	Mon, 18 May 2026 08:10:30 +0000 (UTC)
+From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
+Subject: [PATCH linux dev-6.6 0/3] add support for Delta E50SN12051
+Date: Mon, 18 May 2026 16:10:16 +0800
+Message-Id: <20260518-dev-6-6-e50sn12051-driver-v1-0-8025fb61706e@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -66,31 +61,48 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGnJCmoC/x2MwQqDMBBEfyXsuSlJwDT0V6QHSUZdKGnZYBDEf
+ 3eROb0Z3hzUIIxGb3OQoHPjX1XwD0N5neoCy0WZggvRDT7Zgm6jBoNr1QftbBHuEF1eGTmF5KZ
+ E6v8FM+/390hfrttubvkZ6XOeF1uuKOR6AAAA
+X-Change-ID: 20260518-dev-6-6-e50sn12051-driver-de7cec8280a8
+To: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au
+Cc: Colin Huang <colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779091827; l=859;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=cPO+2Z78cAr68BCxS8UwzG/BZ4oa8eNTgVIcbGKSBQc=;
+ b=SatA+iDWZIJssVMDEvg1QfFWXoawK5C9Ugje34VIENe19p/iZr/sXlfAVGLmaCBl30v1yauv1
+ Wl+cPO8Ou6RBBNPKc20XfcXPUntkfvtecCgeg5imtqpm4yLZ4e3uMoz
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
+ auth_id=761
+X-Original-From: Colin Huang <u8813345@gmail.com>
+Reply-To: u8813345@gmail.com
 
-On Wed, 2026-05-13 at 19:30 +0200, Dawid Glazik wrote:
-> Hi OpenBMC maintainers,
->=20
-> This series enables AST2600 I3C support:
-> - moving AST2600 I2C controller nodes directly under APB for
-> =C2=A0 consistent SoC layout
-> - documenting `aspeed,ast2600-i3c-global` in syscon binding
-> - adding AST2600 I3C controller nodes in aspeed-g6.dtsi
->=20
-> Upstream status:
-> - submitted upstream and under review
-> - no unresolved design concerns known
-> - review received from Krzysztof Kozlowski (`Reviewed-by`)
-> - upstream thread:
-> =C2=A0 https://lore.kernel.org/all/cover.1777058942.git.dawid.glazik@linu=
-x.intel.com/#t
->=20
-> Please carry this series in OpenBMC temporarily to unblock
-> platform bring-up while upstream integration completes.
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Colin Huang (3):
+      dt-bindings: trivial-devices: Add Delta E50SN12051
+      Documentation/hwmon: add Delta E50SN12051 documentation
+      hwmon: (pmbus) add support for Delta E50SN12051
 
-I've applied the changes upstream and backported them to openbmc/linux
-dev-6.18 as part of that process.
+ .../devicetree/bindings/trivial-devices.yaml       |  2 +
+ Documentation/hwmon/e50sn12051.rst                 | 81 ++++++++++++++++++++++
+ Documentation/hwmon/index.rst                      |  1 +
+ drivers/hwmon/pmbus/Kconfig                        |  9 +++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/e50sn12051.c                   | 52 ++++++++++++++
+ 6 files changed, 146 insertions(+)
+---
+base-commit: e11fa6b1ff6c27c808d17e479bd7d5582e772062
+change-id: 20260518-dev-6-6-e50sn12051-driver-de7cec8280a8
 
-Cheers,
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
 
-Andrew
+
 
