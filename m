@@ -1,67 +1,92 @@
-Return-Path: <openbmc+bounces-1972-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1973-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD76CCD4F5B
-	for <openbmc@archiver.kernel.org>; Tue, 19 May 2026 13:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D121CD4F5B
+	for <openbmc@archiver.kernel.org>; Tue, 19 May 2026 20:26:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gKZmh6j6kz2yF7;
-	Tue, 19 May 2026 23:11:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779196260;
-	cv=none; b=XQUyqUvaPMib3wPODkaBuB5FDrix72z+smBUiUpp6nF6Xf5IYTsp55NX5vejsnLiyqNQLIbExgQa/rPI79v8LUOqTJz8E3UhnZzVXDonauNdbH3juHaRDqw6wWgFcXpxpUVnzMPpUd0FUFwvfIVdq96QgRppNBxTca5u0sHuBLdYn4wBRyecAYECWJxxwaHuvgWwWuSlC2zyPd7d4HFeb4B2lvS3Xe3PsoPUr/e5a3jc4abAUZSdzTqMMSjqyr6lnzSTqXM+00aQ1sgW/OBwbioOUYeJIsHKt33geFYPZl8c045d9hF6eY1W6mT55po8+Ar39394UnEoYKZ2Ew1Lfw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gKmRQ6cg7z2yF7;
+	Wed, 20 May 2026 06:26:42 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::335"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779210842;
+	cv=none; b=m4XtLkEBKoD03YrrOB+FNHLSas2cKcAwcVyA34l33C3igUm9V55hqSHfr7NhrD8cMplC/H4LQ3UyWyonhqDqjFsCGxYkmbGUORIVJF9O+m77aKDgR7krkd7U/75NyeRirkw9dy7WLThaShBPZ8Y8GbSOW9Yl/yUgXgOiLuIEaJTHhRft/zkxja7VGyxVTDHyZ6YbI8Ryd3bZHz16IsLHM69ATTqx6mvs5/oj041noIzR6Om1fxWg910Fcm2vZev8wsaj0altNxHQ+E9GbgZapk0Q//WzWVvJrd97eAD1p+tqhTGGowx4h5/YDs9Rw7UF4z+HeWxBCE2pI2Zrcp00hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779196260; c=relaxed/relaxed;
-	bh=razt78RJ4CTL26eCw5dWKM6IJ/SOe1x3c5Yxz0/SgCQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dsyN255pi1AZak6nlKWGonWkepVmD4dv9aDRslB0fclUqLtmB+aV8P+OcuP/KYqU+Khd1SUiyjv5FKADKIYmXrc8DllqTnPZfWd4r5lH9ltl0appp5+oNFes9q0CpRQNZbbe9KNOxeByHBQdpukOeld7SMZvq6TYHArmGlYbvLzPrrHT/N04TYJQpSVTQF+r0alCXxYQ8jOO9BOlEHUjEMStw9E9lq5NKwBexhPQoFTkddDqCqiGsdf+FksbKMHSNBb3CJEzpMso22tVja9pc5p4vAIddru94X2Jd1hVtTUbtRcQF5rlrb5VQZPt4d2ZL6LuwcqFkRXKHtOWNzeoTw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=JOdOU3mF; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1779210842; c=relaxed/relaxed;
+	bh=YF0Gc/aWd6ni0YZ6OLz7XyAixJB1h3NVnu0bnzDB350=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iFS7gJ0KnHw2J8BHIRgs1EuKEdizgov1CKch0cNfEyH+g7uVza8Swe9Xj5SLYwxSm6dE6q3wUspRrWUiiMGuoGGmNWFR7nrXP2H/gYaSNn0alFlkp5WPBN4aOorUIKULOjNedNaKZpBoTb5FcdDbBH0UhNbI755eXtqAwHPrW4OBdpk7bjYxZuRS9xrhe9Kg2cUWhdqrxp7KeKOetl7m/PmU0O8cdqu8/JM+pukz+DVE9J+i0zsZR/y6pnIN+B+ZWf4l3vqa1OozC8VGtEK7GvtCyxIynQrVudggx+lJ5yeD6pTAJmqsKIQhn6cUQhC+ru95rFlbJ6+RsIv2ZIepaA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSlNce/I; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=david.laight.linux@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=JOdOU3mF;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSlNce/I;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=david.laight.linux@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gKZmg3qYBz2xqv;
-	Tue, 19 May 2026 23:10:59 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by tor.source.kernel.org (Postfix) with ESMTP id 719E96020B;
-	Tue, 19 May 2026 13:10:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2CC5C2BCC9;
-	Tue, 19 May 2026 13:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779196257;
-	bh=razt78RJ4CTL26eCw5dWKM6IJ/SOe1x3c5Yxz0/SgCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JOdOU3mF0sL7xT9C/z85WgNKLpQ6jxiWj/zrLPnjXE8vjCaajzt63MSOQk1mpVBIj
-	 lJGOiHHut9Oc2tI0SVHGtBN/6dxZIRBkYk8nBZ1WgysCnvjQZPwgYUswJjcY2LM/Xz
-	 ciKDoWr6lGGLBJHGUUeqlH7ACcqL5QBWyWsjkvvPbNXkOI/ZFB7Kq8+WnLdsX7Da+0
-	 f7kyWjVWcallJ6dmv4bZDU4XIE81J/IB2u+sU/OeMSFtl07xR7De0Ig55m70O/mONu
-	 PEwgHDCmFIRAqt5MREHm1y3dvCaal1Tee74/JycPIDCy3NkCD+ytI5ydh4JolP6Uhf
-	 +wRBbipOgSAzQ==
-Date: Tue, 19 May 2026 14:10:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
-Cc: "clg@kaod.org" <clg@kaod.org>, "joel@jms.id.au" <joel@jms.id.au>,
-	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	BMC-SW <BMC-SW@aspeedtech.com>, kernel test robot <lkp@intel.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gKh943052z2xRw
+	for <openbmc@lists.ozlabs.org>; Wed, 20 May 2026 03:13:59 +1000 (AEST)
+Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso33233915e9.2
+        for <openbmc@lists.ozlabs.org>; Tue, 19 May 2026 10:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779210831; x=1779815631; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YF0Gc/aWd6ni0YZ6OLz7XyAixJB1h3NVnu0bnzDB350=;
+        b=TSlNce/IyZ/oA+3TPdvCaJhkiz883aS6xIoG2p9ECC2GN1BIO3/yj38A6ZjVRk0xrF
+         0To8iddyNWAU/zhiITdy6by86dzfR4Smw/atIasQmsSZ2t7Shli1mD9qcxhYrbTeExRg
+         wdcpHftkWRIpfNKIXN6qCJeGC1ZgEC54kxoAIkDXMmKQNDOAbxhQlYXbfDfUs0iETN39
+         tWCIPNVtXf8e+XHn0V1DveII2jYJUfAKZhXxUCyXASghY/x7ktRA4P8Tw+NjWHaD3ruX
+         TVutuqm5LkGXLcSq7GZrnLwZyQs/E2Ws4Swhpt9uevH68JocS7h6oCseqRtsBLZrnOJk
+         keBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779210831; x=1779815631;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YF0Gc/aWd6ni0YZ6OLz7XyAixJB1h3NVnu0bnzDB350=;
+        b=cJ8PXTy7P9kIvoM3OBi4VaDuPg8YfA5On4UsiFVBjNB6UmWov9aoK1sZgjbgZfuuWN
+         sxA+wKBm2179AvqXjTHXXoUpwI/0hbtiC1mUdTF9iUYaWX4HUGhe5MsBbZTP4VPnH4GN
+         1DHc3sEHzJy1ryzPJ2fkoMZdroaX+Kov6XI0X7nv7aQ2AjgZkgdlj+qszZj+Mn0VmkE1
+         eS3ytuqzWZG65VSPg0BIMk6lseNbQyyyS3vlBlF4/mMbkfoY7hIStcnQSwC1ijSMMHmo
+         9gCNarCsAGvtctJJnGDwcTcNWJuKNvKcQkGlpDpd8LmCxxwo5a7KdJvxyGlZEm/HGUe4
+         koBA==
+X-Forwarded-Encrypted: i=1; AFNElJ/zJ0yqKmAjOwOtcN4hKHu3LRDQGK7F4KPPBrRd6X2xK0v023xloBVZwRIaRyc+317bdSgKzTsk@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YybXu3SYNZS/V1r8J08H5REH0VQBqPI9Dz9KOHG0FJLNQ41m1pX
+	cxHe/TmDLI9qM6gZG6kq0kGCNoU8kTliVo1AVj6QGYAFqurrYbyYz/Jd
+X-Gm-Gg: Acq92OFJspvJz1GDZT0yvJIzo65OQrI2kmdvW/UhdgNQcuDV5B6WaqPy6OuNXfO+QXo
+	Ki/JCKRhWnHOYqeIKYyJpcDZCk/UDNM9M4IYu92+ibfPC8OI3CspAzSgkcviopBxCB6qfoEnnNS
+	UoNpeJnaAe8w0udn2NiIPSm2WPVL7HsUknWB22aIrcFM6ZBHWuHTb4nc0ZSqoltzOCMfQr3pFsb
+	KDuMa6Be3AWtqD8KVmwa8f/RrG70mQSNXjgvhyhN5VpK7cM/Ed2ErMu/TMgFjlbd9ZqakaRlDWz
+	4Lm/6dEn7TXnQk7WqhWLhVdux+jjhFRZUBwfj8tEHMpN8xiTnA7P5WaC3U7b/diNpH3uFaz9mVS
+	Ur68e0DeFSNJdZVWkx1kVTPkhMvoENCzSg4xZc1M9TAkwTYmAF8keEu4k0Pq1Jkc5f1AkwfOQnE
+	4lZrkeXVap3Zi14/lQ8X2JtmOxgKcQEgzFnER/sc8apezQs+vOENfk4FmYHRBlw/nU
+X-Received: by 2002:a05:600c:4fd4:b0:48a:581c:ead with SMTP id 5b1f17b1804b1-48fe60ed7b7mr287651375e9.10.1779210830786;
+        Tue, 19 May 2026 10:13:50 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45e7c22d8b7sm17989013f8f.6.2026.05.19.10.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2026 10:13:50 -0700 (PDT)
+Date: Tue, 19 May 2026 18:13:48 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, clg@kaod.org,
+ joel@jms.id.au, andrew@codeconstruct.com.au, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ BMC-SW@aspeedtech.com, kernel test robot <lkp@intel.com>
 Subject: Re: [PATCH] spi: aspeed: Replace VLA parameter with flat pointer in
  calibration helper
-Message-ID: <4efedd52-7b88-4b83-9982-89d921aa9bce@sirena.org.uk>
+Message-ID: <20260519181348.777f7dc5@pumpkin>
+In-Reply-To: <659a6593-0223-4a26-830b-1390326b84e5@sirena.org.uk>
 References: <20260518095708.2502537-1-chin-ting_kuo@aspeedtech.com>
- <20260518095708.2502537-3-chin-ting_kuo@aspeedtech.com>
- <659a6593-0223-4a26-830b-1390326b84e5@sirena.org.uk>
- <TYZPR06MB520319C6F48144C8B8470740B2002@TYZPR06MB5203.apcprd06.prod.outlook.com>
+	<20260518095708.2502537-3-chin-ting_kuo@aspeedtech.com>
+	<659a6593-0223-4a26-830b-1390326b84e5@sirena.org.uk>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -73,41 +98,22 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="p4rKxTD+lxMaCbrE"
-Content-Disposition: inline
-In-Reply-To: <TYZPR06MB520319C6F48144C8B8470740B2002@TYZPR06MB5203.apcprd06.prod.outlook.com>
-X-Cookie: Huh?
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 19 May 2026 12:03:51 +0100
+Mark Brown <broonie@kernel.org> wrote:
 
---p4rKxTD+lxMaCbrE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> On Mon, May 18, 2026 at 05:57:08PM +0800, Chin-Ting Kuo wrote:
+> 
+> > -			while (k < cols && buf[i][k])
+> > +			while (k < cols && buf[i * cols + k])  
+> 
+> This really needs () to make it clear what's going on; the precedence is
+> well defined but not everyone is going to know that off the top of their
+> head.
 
-On Tue, May 19, 2026 at 12:43:44PM +0000, Chin-Ting Kuo wrote:
+Come on, it's multiply and add - everyone is going to get that right.
 
-> > This really needs () to make it clear what's going on; the precedence is well
-> > defined but not everyone is going to know that off the top of their head.
-
-> Okay, below change will be added in the next patch version.
-> while (k < cols && buf[(i * cols) + k])
-
-Sure, looks OK.
-
---p4rKxTD+lxMaCbrE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoMYVsACgkQJNaLcl1U
-h9ABXAf+K7kfpALiXCtanzo+MPWvQBSK1tW5fmc2s/VpszEGZP67VABdJyyHdltK
-oChTSEmox6yS8/PEfQxu67hYI7YrJnFiBbenks1PBcT6TlTm1v8g4axGlj0Z5nLk
-MQQH3pnX03llGMnO7lqFW1oEM8P9WX5RDby1qc4lC2pPtumnm3dUBieJ3a1nJz6/
-4zbxgf4g1wNJfjVJV/AxMYaamH04So7cA+dP8DRo9SigNChP2qsBrZUFwkKoTJxC
-xMmfs37og9ilhbtq20PhSZvsNWpw37ZMg/DANqdFShGKkkKlha4QDmuxPP0wKbfI
-wozX/aOtz84I5nXvLz5whlwPviaAMQ==
-=2idF
------END PGP SIGNATURE-----
-
---p4rKxTD+lxMaCbrE--
+-- David
 
