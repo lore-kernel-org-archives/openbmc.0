@@ -1,58 +1,58 @@
-Return-Path: <openbmc+bounces-1991-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1992-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 053E2CD5BC9
-	for <openbmc@archiver.kernel.org>; Tue, 26 May 2026 01:05:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA95CCD5BC8
+	for <openbmc@archiver.kernel.org>; Tue, 26 May 2026 01:06:03 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gPZLW2jTSz2yD6;
-	Tue, 26 May 2026 11:05:39 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779696400;
-	cv=none; b=gWrLDU2da+90ECNHNFsIAHZ7KBd+1ei1/i7Sm4NSh9dY44Hbal1pAuNi0Eg0njEvouSnhsBoMgpRVGKsjGhpBN40QFMiYxwCk1vAlQ25d6TwSGhdfZMRIQo8IVyac84ynQnAiVv5Zxuj9hk2mT2ECyyvKZNJcLICYQlFA9LhPrfObpyTwauvrc0s5TWCd3gVagn83e2RCbJUw5m3/J1CsGJhppZxLw3sl03uCLHtgDZus6iMxvNZGbaOVOVRgDfL72Z59SYZzVmq+/bWvAVkEfVxScxE5gyexOY/jqdDwf72NEDAzMp65x50pDUzf/syGGMxo6ppitPkm1gnVfedVg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gPZLg5dMdz2yRn;
+	Tue, 26 May 2026 11:05:47 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779696248;
+	cv=none; b=eiu5G3e6fV9bBwfPbsQA+q7Vai7+aoXNXA2D5Y2q82XG3FsmaAkA7TrX43HxYl3LtmrlJ+4HiHLw7d9JgkuH5jQtk24zi3gl0I9rZC+3paGxGwxVJHGOiB2UmyVGZZzR8zGSh4EP4ByLeNbGSQ0PnORPDLxJHDN9mVGUthlwxm5CHNJnLkfeyVk9SPbbpuMdxTab5cIApL90TL8F4D3dl+B7yFcYlPa9oi3NNliT4KnW1Xrf6DxylSS8oyOAD5latSetwHKjOQT6ifW+7zfvf8EBtM6sV/bgXtQgRhrxXSdC+eLKPlVkeCXM5RkVlJYPQeB8EM5r5prOD24jWjwwBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779696400; c=relaxed/relaxed;
-	bh=XBdwrpDpVLZphgnQqjfINiqHGCa1lpywck29IxJWjLU=;
+	t=1779696248; c=relaxed/relaxed;
+	bh=4vllGicUbdN0Bqlbgpv612IvW1fY5Ga0NBXa/j5YjIk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IOwNOyNfEHBp7ORJDdz4aGGmFUY5GIwalSNyGdEpjXv23SzHyMw3EY17PFJM5qNDaGPqxPv3wXW8J/wX5lLuivgzC57i4KGgHKLDyD+DlPRcuvWLHfFEbHuwnfR1Eu9sY/WXni8fK0i8PpBeb+69cHUITDtuAEUQ1QfA9dAaVys7elAf6eENb/57oYkRLcpqSsgJbHw8thvgSb129prIIR+Z5nMko419oZakNJDVJBtfG45iZxqYVd9piQVWmbF9ss11R3i/F4+ekS2iDISZJNcjnIKReFoEAdXiph/ei1ckYGvVlTpwzCoAnp2ENY/OqYjxOjaQOJhHUQ3YjVRzXw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLEwigv; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 To:Cc:Content-Type; b=HDYiWJSQ7m9+WlfH8y4ngEr5MS9eLgTxl3L+DJwwF6vx7iG0x/excwsF3Ytp/OaUq6n1rYn0hkMtbKGc9IKdtUBh2QVkVgK7s4Y3C9pBBflCkjBmHLHrcY26T2QJ5IDbQ2USWrRuMBpOTeOZhLrx+lMlgQ9EQFzr1eYbvSMxey2x4plYm7mPWusJWp+IcRN1HZx6vuM5ZqWwbiGYyCcZAivgsyFwpuoiYKitDQkL5ggCZrc/8PIhKvgXZ0Pa92cxoMdjKxp3YuYW+yv3b9kRcBnjE146cjaMFVKJ189ZqUpOTQBxkKPhjaNplkZ18Z1lwU/vC7KzTjDYS4/1GRYbNw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDYXVYt2; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDLEwigv;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDYXVYt2;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gP7kl56v5z2xk7
-	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 18:06:39 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gP7gq1rJQz2xk7
+	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 18:04:07 +1000 (AEST)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 21D1A44567
-	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 08:06:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09CFB1F0155A
-	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 08:06:37 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 15A4E40BF4
+	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 08:04:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B731F00A3D
+	for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 08:04:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779696397;
-	bh=XBdwrpDpVLZphgnQqjfINiqHGCa1lpywck29IxJWjLU=;
+	s=k20260515; t=1779696245;
+	bh=4vllGicUbdN0Bqlbgpv612IvW1fY5Ga0NBXa/j5YjIk=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fDLEwigvfx3SKEy+abqKr/OzEu8M1uZr5lZwv82fmKYtK+YvG9058zhlwLGw4oST5
-	 0478577WUe+Uc5wobNxLnJxUxHa0w2WEc4p42UrWv0+7pcuOFtgl5uQywyTZ7VPHod
-	 m5h2YUwU66j6aPQnq84kLOkJiAEg6CCu5bJ6qOal41l2D+aYc8NwfZslUrXD3TEXEo
-	 mdqDKnNJXIYIGlGCmp01Qc8O939wTaNiQ0pd7s7tO2h+dEgrhDnjIz6ydkBi29LCXe
-	 UCHXvyb1Ig/C7O67TkPG3ciG5fITPX7NAAC6/M4R671dFZbM76Lk0FYLmh0crQXTpu
-	 Imm1SJsoC+Ebg==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5a8dc2606a0so9620170e87.2
-        for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 01:06:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+S5CbLNejRi8zeG+gG3DlQDUtbDX/iLxlYLK7wszXDdPyu16SdaDoO0MPM7yYYAe5Bp1U/GwnB@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yxk1vfit3ZsBkM2YKtktSpqPt3L/v27OMCTEPOiof1+Ecg34BiS
-	oRVLeL7Gup71pZZa4ZBKJ41VxnIovrwx8YsHO/B1EZUbBkN+VpRJA2cB6XbYvpF5HIUsZ68zxaq
-	WymAyU+LaJwY0NZurd0Wd2sxRw8wWeXE=
-X-Received: by 2002:a05:6512:692:b0:5a8:fc25:3843 with SMTP id
- 2adb3069b0e04-5aa323a49d0mr3894276e87.39.1779696395729; Mon, 25 May 2026
- 01:06:35 -0700 (PDT)
+	b=EDYXVYt22AF00cyF1S0+9lR40WsEcxJhlVFR8qF3ovFFblBONIQOPmXX08P6xIDQv
+	 yiEtwWk13fb3cmDSNNSzGCdahoBEAviP5kHGzsRH2g+1IK6q0E6lAfFicqgJkoxhKA
+	 4o501dS7kAgSDCANhxgYQYOsPg04CbGenXXZ2d/GxhML5KkILEs/s7PmNd+2jLVNUY
+	 ExbpcAccJCM4tS9zX+3WU9DoKSWLaMULDjeiwif0aBigf0xh2suM8FGCcHINu8qttK
+	 dyj93pNTvGi7GzuHtAeloPhI4ryY8275FZEDye1FJA5OuOPisrLKKciNF0+woOLrrr
+	 C4hAEE+g6K6WA==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5a884815606so10175810e87.0
+        for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 01:04:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+KxIC7Bkp6de1vuaUXM1u4g7IzokQDByaYMcDmaZrO1nOmpKssMFpjw8qphpMxAtTUNEwo5HPx@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzgWKvs2YnOyXAXABMXnyClgTgX8vyG+B8XWxgLHTGJyClAqcv2
+	xGA3Hoz2IJkfm/zvrRKL0HYwxkbmptHQfMoV8Hm9Iw/GCQBvL75Ur6k3iatuuPoZZwjLk0TfB7i
+	k+/RiwpRi7LCPma/k1Z9kQ6On+09VaPA=
+X-Received: by 2002:a05:6512:3ca7:b0:5a8:8825:15fc with SMTP id
+ 2adb3069b0e04-5aa3238ba06mr4490982e87.3.1779696243482; Mon, 25 May 2026
+ 01:04:03 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,14 +64,15 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260521-pinctrl-single-bit-v5-0-308be2c160fc@aspeedtech.com>
-In-Reply-To: <20260521-pinctrl-single-bit-v5-0-308be2c160fc@aspeedtech.com>
+References: <20260521-pinctrl-single-bit-v5-0-308be2c160fc@aspeedtech.com> <20260521-pinctrl-single-bit-v5-1-308be2c160fc@aspeedtech.com>
+In-Reply-To: <20260521-pinctrl-single-bit-v5-1-308be2c160fc@aspeedtech.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 25 May 2026 10:06:23 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnxMGux88CCXH70hwEGiQXn9FCJ=vucLaS=JLhp_C48VQ@mail.gmail.com>
-X-Gm-Features: AVHnY4LaI0HREPthKKhQrYPPwj27_NpiZglEh2S216je37LkMgP9M9Luyc3lYsg
-Message-ID: <CAD++jLnxMGux88CCXH70hwEGiQXn9FCJ=vucLaS=JLhp_C48VQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] pinctrl: aspeed: Add AST2700 SoC1 support
+Date: Mon, 25 May 2026 10:03:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm5Jsrdpg=H8xowFzx9omJhGpamjjcg0LYN2R9HCeW5tw@mail.gmail.com>
+X-Gm-Features: AVHnY4Lr6P_gJlk6yPcaGrv6903bIHaJS623wqRPa4vQc7mnCclEd4yYEBmZPTc
+Message-ID: <CAD++jLm5Jsrdpg=H8xowFzx9omJhGpamjjcg0LYN2R9HCeW5tw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: mfd: aspeed,ast2x00-scu: Support
+ AST2700 SoC1 pinctrl
 To: Billy Tsai <billy_tsai@aspeedtech.com>
 Cc: Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, 
@@ -88,39 +89,24 @@ Content-Transfer-Encoding: quoted-printable
 On Thu, May 21, 2026 at 11:17=E2=80=AFAM Billy Tsai <billy_tsai@aspeedtech.=
 com> wrote:
 
-> Legacy ASPEED pin controllers have historically not had a coherent
-> register interface. Control fields often had no consistent mapping to
-> individual pins, and configuring a function frequently required
-> coordinating multiple control bits across several registers. As a
-> result, the existing ASPEED pinctrl drivers rely on complex macro
-> infrastructure to describe the dependencies between pins, functions,
-> and register fields.
+> The AST2700 SoC integrates two interconnected SoC instances, each
+> managed by its own System Control Unit (SCU).
 >
-> The pin controller for SoC1 in the AST2700 breaks from this legacy
-> design.
+> Allow the AST2700 SoC1 pin controller to be described as a child
+> node of the SCU by extending the compatible strings accepted by
+> the SCU binding.
 >
-> For SoC1, each pin maps directly to a dedicated function field in the
-> SCU register space that determines the active mux function for that
-> pin. This results in a much more regular register layout compared to
-> previous generations.
+> There is no functional change to the SCU binding beyond permitting
+> the aspeed,ast2700-soc1-pinctrl compatible string.
 >
-> While the behaviour is conceptually similar to pinctrl-single, the
-> register layout and configuration model differ enough that reusing
-> pinctrl-single directly is not practical. Therefore this driver is
-> implemented as a SoC-specific pinctrl driver using static data tables
-> to describe the register layout.
->
-> The binding reuses the standard pinmux and generic pin configuration
-> schemas and does not introduce any custom Devicetree properties.
->
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 
-Patches 2 & 3 applied to the pinctrl tree, thanks Billy!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Sashiko is moaning about something, look into it but my confidence
-is low since it is using weasel words like "critical" for things that are
-certainly not critical, if there is some validty to these comments it
-can certainly be fixed up in-tree.
+Lee can you pick this up at your convenience?
+
+I'll apply patches 2 & 3.
 
 Yours,
 Linus Walleij
