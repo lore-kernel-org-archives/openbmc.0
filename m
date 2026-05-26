@@ -1,79 +1,93 @@
-Return-Path: <openbmc+bounces-1996-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-1997-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1444DCD5BC9
-	for <openbmc@archiver.kernel.org>; Tue, 26 May 2026 02:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4620BCD5BC9
+	for <openbmc@archiver.kernel.org>; Tue, 26 May 2026 02:06:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gPbdV24M3z2xPb;
-	Tue, 26 May 2026 12:03:42 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::b12a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779761021;
-	cv=none; b=UMoEvbMEz90Id1VikMLGDuC0ZJT1Qbysyo2/hhOg5VM//DgaZQIE5FxOOu6YHFQYvkQOPXcnW5NMrGxW1D1JNLbRsqRZKhrDoGVWpwyE9Nl5yGnAgtCQLmFxuVafeH6Mn+enBVyBTgj4ynwRotDLEvgyDSttTUP0lyBJ3BKicmTSD/9q3AuRD/R/kMP29bs2fZQpAh/bUVEP/Dnj5sCQ8fZclcI2YaEXFXFK0zcuWIe/zUauWctKzPUCCPJz36+oUuZ2DFhooPJosAC8hh6P2JIMbcEAx0cZV0L0/UmssjZC+oc6Aajy3BgAK3We7fbS+w8LtSy1klkhLuqpiApelg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779761021; c=relaxed/relaxed;
-	bh=7vrHqZ8pdOthFWl6cEHWN6fXQMLzs94TQsFPENb27c8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TOoHc+fhhgDWhmGCqQMO/DP6ydA0RGACw9rhSU4FdV4Mc9jqzZrW/yUfY2D2YhiqtD+zZ2Y2MHt2pHBy2KNB3m2DiGJPXYjK1vQtv+MvFdOvI2iCasOB+kVqM7yToge4m24g+q4+TZ+VHBHP/9BDxBxAgv1soqOYwLfB0Y6hzEz9SUxVLgwaSGnDfum7kknstUK30hYHv8SMdYNy5ctuUlBNJ2VkqFVWwT9p8sMlK9XJTuOx5KvAJA0gk7ZDsSW3KoS/Ic6iJF6ij4TdgXBXQgj34C/KsbSHwNGig1KulRPOSguP4yzqQVVvXqnXZtF6KnQU9CucMo/D9MJnTzuLYg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lcu1WT0c; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::b12a; helo=mail-yx1-xb12a.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gPbhT0Sgpz2yQn;
+	Tue, 26 May 2026 12:06:17 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::122f" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779761176;
+	cv=pass; b=kIct1dnImNaicEwqg2cqRjlOjd4aJcQ0AjKukGkJLbLrsSNvjgH9THxJBaEsq3UTgt0mPz4tW7SqOzFxHzd5nuB0NXxc8AGGgnlTrCC4hwXx9y8dAWGJm5JL2MBx7b/zPLENn8oZLVRssQcJvhedjUTmGJ6E1c7e3GOCWPD1us5NzEku+4+ZTaYefbymjWJGq38wLIx9EE2LUdF4wLzzg2IFlh0//7jY8P4SOR9SemsGiOukvG1l2IdaOYU2dWFNICMbRvnrb1jCjfNnZgWMZ7XeNU2rpC69o0y231QEQA7Df1DKGS7AFTX3V7g4UM7tGyAg0DfSpUDyzEz3Uqww7g==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1779761176; c=relaxed/relaxed;
+	bh=nxPLmMq2NA3K2uuQNwx4vNIloK1rOsqN3huay3y7tGQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VyRxK+TbdaTYgGzQmcPbzjBYVYfy3MCUG7PSYIm94D4REzzcrQjTu0/4pGJTQQpH1Pz1n49Y9RKV/JC6+ehhXo8LKSqIv64DraN4VZCtNcwit4CK6dHpK6fA3orJI+5HtkkaDRx66cgcYOMdqb5+AEur8jKZY3T6G2ApVTgGN1G/F+P9/qe5kONeyaJ9pvTlsy435MVtdGnPQgVk4zGlJmDYpqlsZXDJsA3hdllyZDN/QOHJtryisLMyOkptZpkfcboiE+wMCxP0zrzHE6dZVoMUQmVrPhoIOakj0L7QgoAv/2gDR6L+MvIhSH4LiheNGSL0XlCsagcmmLlh9yFauA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CJCPDGQ6; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::122f; helo=mail-dl1-x122f.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lcu1WT0c;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CJCPDGQ6;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::b12a; helo=mail-yx1-xb12a.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yx1-xb12a.google.com (mail-yx1-xb12a.google.com [IPv6:2607:f8b0:4864:20::b12a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::122f; helo=mail-dl1-x122f.google.com; envelope-from=anirudhsriniv@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dl1-x122f.google.com (mail-dl1-x122f.google.com [IPv6:2607:f8b0:4864:20::122f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gPbdS0dJlz2xjQ
-	for <openbmc@lists.ozlabs.org>; Tue, 26 May 2026 12:03:39 +1000 (AEST)
-Received: by mail-yx1-xb12a.google.com with SMTP id 956f58d0204a3-651c366f7efso10212869d50.1
-        for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 19:03:39 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gPbhS0RZRz2xPb
+	for <openbmc@lists.ozlabs.org>; Tue, 26 May 2026 12:06:15 +1000 (AEST)
+Received: by mail-dl1-x122f.google.com with SMTP id a92af1059eb24-1329fc4bf77so8420180c88.1
+        for <openbmc@lists.ozlabs.org>; Mon, 25 May 2026 19:06:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779761173; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ROpGKUyZ7P/8CnL/mS9qqxwfGgGMUqNuB7ryIMw7VsUXKvyOR89PKCdaMOh2uO+Hjh
+         cg62y/ZEKtLbyrINmZU0oA/pp7wyuuhaQMWj3DhV02lovnTMD1JMiVOQFSA2cibNsGwf
+         8v+UUUIP8IY7et1G87VBKtGaNoSawnk8jH+MuzJr8SJKT28Hp8BY+RhjmSlHyT11Fg8O
+         mA3oSXfE2F+NwoGx93o7p/R5z932tWqmulagYGTW+AXU31kD3DtMOGkONfN3lVfjFUKF
+         L7kb3QLEmZBzcWwEB9rJAJw8N6a1ZZjL/F3B5rEw7uyTL0CEhYPbJp2HBINZu5LZx/fk
+         AE5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nxPLmMq2NA3K2uuQNwx4vNIloK1rOsqN3huay3y7tGQ=;
+        fh=jV/QTC5qKEZ+lA5tMVTh/THBpgWdnsRO/uogSylWi08=;
+        b=KwJDyQp1MuW8QK2ionxvUB8eWNKOnQRa5KvUJg8YTASVX3F+mOK/uk3ZoNIfLt6T2f
+         oyvzoK3GE/89mTRBHX/AX8BARuGfDgurZuCwivZz6Kv7GGwbIMiuot/xNrkaOkUBSE/N
+         YensdJWCyig0H5sE7X+9ekqHQzy7zRrm+QhYVIlOp+MsixwjYmquVrrf1+uEqXRQbaMM
+         vifr1urmMGYHY7B9KFti9wpDpkvemQR3zPjRFtgglEpI5Ai2KQoZAlwWWCfZK7RXX8qY
+         wJtQaH545EkanqrZ665NvHnY1tt26VbfR4/7biNFcXDaB+qI6tfsPUa0rTG4+RjMXNes
+         GZJw==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779761018; x=1780365818; darn=lists.ozlabs.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7vrHqZ8pdOthFWl6cEHWN6fXQMLzs94TQsFPENb27c8=;
-        b=Lcu1WT0c3KPuH5ovjmcIgI68Fdduqbv4izayDau2iHOj0lwnzee0TLmPK4BW9eI5Ve
-         0p7ZMWxJJ8Gjgr34MOoGc3jnqpTmLtYpmVMdiBNldqJtqc2Y3yP1txhWjK7vQ1MPTR04
-         760Q+WWA6GxWmZROt54s7+xh4X6ZvfqHWQVLjAlt4U86jwZ/uOzF58FOjX5oVJExw649
-         kF5iPFEn1V1+S+bzOscE5wM9vHLsE9H+v8XlwsAgqSLI+PtdiTlBrrzGXqg+jWH/OG8b
-         Qi5QikA5D45n+f0mEDAajF0nr0Fc2hMrnLeBknJUkRW60u8LsYXxhiTxCAfZkhOG9TpW
-         6C8w==
+        d=gmail.com; s=20251104; t=1779761173; x=1780365973; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nxPLmMq2NA3K2uuQNwx4vNIloK1rOsqN3huay3y7tGQ=;
+        b=CJCPDGQ64VMiNS6g3falZFpryTaB9ut7IzuJyQtCNyBtLxT+UVwYOnUwVZ96jrlz7q
+         cphBqHp25ZQDqcv7jULtFJtQUu74X3AJkNmY7nqmyuNVHxBUY+HrJMgf0261bJhXKAgX
+         P1/cpffoGd/SH1h8bzdHl1LhdJHk1815vF3e+qCjItXGlNlp5dd950SbuG9nb0LDk0Oe
+         L4+7Det7HJXAKuPoESd2T/BWrcPDgtAG+oNDx/vdLkwzePl4KmmAwiwBhMOXxJTT+5lN
+         4lCjnOMUpL1BVdJXpKuyO4r9K2cE0CJTKoWE16zOMv3Kg6LzefOec6PwzHyj+DEft1/R
+         swsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779761018; x=1780365818;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7vrHqZ8pdOthFWl6cEHWN6fXQMLzs94TQsFPENb27c8=;
-        b=skoIvFQgZFRM62qYCQth7wmsnsc0EoP+SVHxdeK7muhrT2dZ0WqcEgCC6g9E6J2dQU
-         pJomElrbukOp2vATf4D1+J8AQZtMJ4A4tnff0gUaGRv1cLublVJmDIhrFyNsuMEhDwcQ
-         eMkVtcpCDy6EgzMe3wesT2TyfWrnFqxemHWVdzqD2u8dFPbJDcqyHs5MJ2BKQ7NVDLBm
-         8RGlw+6XlB2gzyKBaaDrvpxxHwN80P5aufB9yDJ2Gdf2/wKGeaxrA7D3Y2NtAR7N9Ghq
-         zPlSpGKa8Sa4v0CiIJ0t5a0zZOgSpH2oDaQZ3YNRA3kWTtgREFA5QfXPo+nsNTk58ACQ
-         NyoQ==
-X-Gm-Message-State: AOJu0YzKUUroo9tvRw19runoPsmpjxSzOkECqACdIbv0rpbV/+L2nJBn
-	2W2TKBAmxJMVrX+02x3ETzvQOAhI/LvSgQrtEj99XK2fwgj7DGXquhwt
-X-Gm-Gg: Acq92OFh6Sy0sjsj1FK0KotEllm6OAtQ/cOYPn6c/7cegJPaO+D2VwlFkYuGiCiBuYG
-	NqSza67bVgbKPPZQuO6j1AQN3CJ1ogVwzkbmNz0K2auzJovyx6eh3wh/YW6C96YAO2n2aIEwomI
-	ZHLMrmaF5yv31KArtxlbrFitN1ZaAHPQYZ7Ql7/EDqzRStiUHN3mfJO+SQkXUcx2W5jmjxBEe4C
-	5fRl5IUVgLyVs6h5pbFqLxWxiUcMtzhtigNTwCQKrWH2wtXBhbDWXe+0ZP8fKidm2usbiirCPDQ
-	dv3oQGFehdwPO5cRKQFY7TERHTDySG0MvWLK1One4yC5SPfITBwHG9hVSi3XC1Gjgx2iKgniYGQ
-	tsVSBoWkF5aDgJNtosJeCC+XQQ8nORrhnekf6tlAPwWB6DFmWU0LQcHAZ857/WFUUlsBxjIIPa9
-	zhY4E6QdiDoilp6aXozyWTitMFwMWW18NoudeX
-X-Received: by 2002:a05:690e:13c8:b0:653:1b1c:1dae with SMTP id 956f58d0204a3-65ec96129e1mr18184788d50.11.1779761017917;
-        Mon, 25 May 2026 19:03:37 -0700 (PDT)
-Received: from [192.168.2.165] ([2600:1700:220:59e0:cdff:ce3f:ce69:17a1])
-        by smtp.googlemail.com with ESMTPSA id 956f58d0204a3-65ecfb62626sm5376016d50.5.2026.05.25.19.03.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 19:03:37 -0700 (PDT)
-From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
-Date: Mon, 25 May 2026 21:03:24 -0500
-Subject: [PATCH u-boot v3 2/2] ARM: dts: aspeed: Add dts for ASUS Kommando
- IPMI card
+        d=1e100.net; s=20251104; t=1779761173; x=1780365973;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=nxPLmMq2NA3K2uuQNwx4vNIloK1rOsqN3huay3y7tGQ=;
+        b=o7Odbimeu8kpvQ3njeWX23g0IYszXhg/xyvViM2zQYHbfVieaoxVMsKlT1YUQ1ppaW
+         Jo1IZLl0Au8W25nH3yzfyFvYBPXegNOgkbqrgVvPvhnTP1Bpkqv/ifpHHJ2JliLjjSy1
+         3b0DHUvB9E6fNCkTtSACPQhkGdOPJZrRQkyTpKjyO4fZl4CAcUabXCVb13un4jG0BiXK
+         3QSAkhpYXCToBaSQk/jVnMOSrwVnrjIlttffY7oP8420JVWLXI62QjNAkMixnGqi/M0H
+         EF4/ogmRYbFdmU+nQu9GKPZBW3MGn8gjpjqQyL9/am24dry8EFF/q+1nNyFRqknWQDxG
+         KZ5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/950SPI+n9yHomW9wKR7yZZQGA70wIP4XHFm/9b7O/0QcOCZw/oZ23xlwW/ruW9HCL3eMSKHso@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwfVwotBVs7DfT45HgtAQlRTiVQU+bI7sfj7SG6tQNbQlIR3Q32
+	gtNKZCiQPbLKzJDrgiHzQMhSbhezb4Qto8oIbYSB+gz4tR3FtFgf7hPNhmusJgd1hTa29Bwf7ex
+	M9ouDzPgyzl3pL/p3zqJKgn0oHAtOm3w=
+X-Gm-Gg: Acq92OF4AE5m78+9tXBK7FS9HvQRFVsHIIrCOuqztQWuYVkGZxCDWvy+Aoc+OlU0lv3
+	AauZlkGwVeZRNt6MaY6chxAVqPFYyaXsgDj9QG6jQ1jZa8eIA44acHbk45XilyY7AQJtCpaR0UJ
+	lgjOm8KsRd1iRsnA+SwcH0AqKc29CCOxon1qgPeNPtHUi3Dv6ozspdFFOwgofqrY+EGF4eY1/0r
+	/o+Xat7qxgxL7Y/xmSQP3YfI5jcQMMObw6/1VbAqioiv9mGll3HLl7wym7Ia6Vh6U+yUeQ9jyh7
+	Ra8EO1JSYfRmMU4SiFUerzkgoPnyt8JKrREBX19uhkmwXiNgchAwr06hF968Ow==
+X-Received: by 2002:a05:7022:f685:b0:136:4a60:43ce with SMTP id
+ a92af1059eb24-1365f8209admr6563368c88.11.1779761173042; Mon, 25 May 2026
+ 19:06:13 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -85,139 +99,57 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260525-asus-kommando-v3-2-e6a0ca1b4a3e@gmail.com>
-References: <20260525-asus-kommando-v3-0-e6a0ca1b4a3e@gmail.com>
-In-Reply-To: <20260525-asus-kommando-v3-0-e6a0ca1b4a3e@gmail.com>
-To: joel@jms.id.au, andrew@codeconstruct.com.au
-Cc: openbmc@lists.ozlabs.org, Ender Hsieh <andhsieh@nvidia.com>, 
- Marc Olberding <molberding@nvidia.com>, 
- Chia-Wei Wang <chiawei_wang@aspeedtech.com>, 
- Anirudh Srinivasan <anirudhsriniv@gmail.com>
-X-Mailer: b4 0.14.2
+References: <20260328-asus-kommando-v2-1-2a656f8cd314@gmail.com>
+ <943cfc3799373dffe67d5624af5fe10432150857.camel@codeconstruct.com.au>
+ <CAJ13v3QJ-sDBp_sUJ8ywk0QD7eADSq55SyGposb1_F=dmQQHOQ@mail.gmail.com> <a7d364d72bbfa4ed3d41e9f7282f8e87a783cf48.camel@codeconstruct.com.au>
+In-Reply-To: <a7d364d72bbfa4ed3d41e9f7282f8e87a783cf48.camel@codeconstruct.com.au>
+From: Anirudh Srinivasan <anirudhsriniv@gmail.com>
+Date: Mon, 25 May 2026 21:06:01 -0500
+X-Gm-Features: AVHnY4LphYm5O2myoEZE7XGbfmIKyhrANl39E5J-zJyYDqNpfLn9rrN-HncI684
+Message-ID: <CAJ13v3QewF4YodTyXAN3aLA2xd=QR9y=E0Uj78tC6zz30fdNGA@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2] ARM: dts: aspeed: Add dts for ASUS Kommando
+ IPMI card
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Ender Hsieh <andhsieh@nvidia.com>, Marc Olberding <molberding@nvidia.com>, 
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>, joel@jms.id.au, openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add dts for Asus Kommando IPMI card, an ast2600 based pcie bmc card.
-This DT has networking working in rgmii-id mode.
+Hi Andrew,
 
-Signed-off-by: Anirudh Srinivasan <anirudhsriniv@gmail.com>
----
- arch/arm/dts/Makefile                            |  1 +
- arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts | 92 ++++++++++++++++++++++++
- 2 files changed, 93 insertions(+)
+On Mon, May 18, 2026 at 8:40=E2=80=AFPM Andrew Jeffery
+<andrew@codeconstruct.com.au> wrote:
+>
+> Perhaps we could add the mac.-clk-delay properties with the default
+> values currently used by the driver to the SCU devicetree node for
+> those boards. From there, we can rework clk_ast2600 so that the default
+> value is no delay from the SCU, and we rely on the devicetrees to
+> specify what delay, if any, is required, where necessary.
 
-diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 5141c3dc3aa025e2f5c9b2bb98216ee5c72cdf70..fa6837be747da4fbe102ac27e60ee3d81e230cb7 100755
---- a/arch/arm/dts/Makefile
-+++ b/arch/arm/dts/Makefile
-@@ -682,6 +682,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	ast2500-genesis3.dtb \
- 	ast2500-romulus.dtb \
- 	ast2600-ampere.dtb \
-+	ast2600-asus-kommando-ipmi-card.dtb \
- 	ast2600-bletchley.dtb \
- 	ast2600-dcscm.dtb \
- 	ast2600-evb-ecc.dtb \
-diff --git a/arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts b/arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..bad3b011bae63c058fecd4790e3243bb0df4b770
---- /dev/null
-+++ b/arch/arm/dts/ast2600-asus-kommando-ipmi-card.dts
-@@ -0,0 +1,92 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/dts-v1/;
-+
-+#include "ast2600-u-boot.dtsi"
-+
-+/ {
-+	model = "ASUS Kommando IPMI Card";
-+	compatible = "asus,kommando-ipmi-card", "aspeed,ast2600";
-+
-+	memory {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+	};
-+
-+	aliases {
-+		spi0 = &fmc;
-+		eth0 = &mac2;
-+	};
-+
-+	cpus {
-+		cpu@0 {
-+			clock-frequency = <800000000>;
-+		};
-+		cpu@1 {
-+			clock-frequency = <800000000>;
-+		};
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_fmcquad_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		spi-max-frequency = <50000000>;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+	};
-+};
-+
-+&hace {
-+	status = "okay";
-+	u-boot,dm-pre-reloc;
-+};
-+
-+&mac2 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&ethphy2>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii3_default>;
-+};
-+
-+&mdio {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_mdio3_default>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	ethphy2: ethernet-phy@2 {
-+		reg = <0>;
-+	};
-+};
-+
-+&sdrammc {
-+	clock-frequency = <400000000>;
-+};
-+
-+&uart5 {
-+	status = "okay";
-+	u-boot,dm-pre-reloc;
-+};
-+
-+&wdt1 {
-+	status = "okay";
-+};
-+
-+&wdt2 {
-+	status = "okay";
-+};
-+
-+&wdt3 {
-+	status = "okay";
-+};
+I've sent a v3 that tries to do this. Let's see if this solution works
+for everyone.
 
--- 
-2.52.0
+>
+> From there, no new u-boot ast2600 devicetrees should require the mac.-
+> clk-delay properties, and on the MAC nodes we can set `phy-mode =3D
+> "rgmii-id";` as appropriate.
+>
+> I've added Marc to the thread for the MSX4 side of things.
+>
+> >
+> > I looked through Ender's efforts and it seems surprising that it works
+> > for their board. Maybe the board design is different in some manner
+> > there?
+>
+> Yes, that is surprising. I've added Ender to this thread.
 
+Hopefully we can test this on the nvidia board too.
+
+>
+> Andrew
+
+
+--=20
+Regards
+Anirudh Srinivasan
 
