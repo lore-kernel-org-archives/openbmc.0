@@ -1,79 +1,92 @@
-Return-Path: <openbmc+bounces-2000-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2001-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6284CD6E43
-	for <openbmc@archiver.kernel.org>; Wed, 27 May 2026 00:52:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 858C3CD5BDE
+	for <openbmc@archiver.kernel.org>; Wed, 27 May 2026 01:43:17 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gQB026mN3z2yVZ;
-	Wed, 27 May 2026 10:51:46 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=fail smtp.remote-ip="2a01:111:f403:c107::9"
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779790492;
-	cv=fail; b=EoKpO/eznHv0KLAwt3bM4QGdNyAnO3RSl4aRolr4PQXSVRCxIMM7E91iGNXFsJQSBEgPbJayooBMbbsiomh0E92u06nttbOldfLCjOfBu0YGtW88aN0zdDMzt4m5ybJuoum0A6dYZ7IXsRePE0ExUJqT8IyCku1X0i5hQPnZGAgD14rleXjApz1VW532H/+OmMc9XsS+6Fi77D9Rlsjr6F82k4wpUNuBEbUZ3NgUyNpbC3mU4SUEz18GKoANupUaJ2V1DJC51TAgtFTORwxq+pHzIaLyX+bFuY1tLISPyAMZgmVfqU8sEcrYLMD2x58tXKFplQsrrBNSFAk0ksm2rg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gQC7L3gFkz2yTH;
+	Wed, 27 May 2026 11:43:10 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::e43" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1779846190;
+	cv=pass; b=QlAa/ymEqt37bJ2qlFrRqkg+qvrSjQo3XWS6LkpW0iA5We+HnqIiWTmyC1IDJFsTRREgMNaIjoL9Ciwmi/d9JfDnXMZ+E2GJ5P7I2RXNRzFCoo4fYa3JpkQ0eN/Fdc5OP6Q5bYs31rQRAYD0ooEzVHNKbpQtuZefwnh3jdo+uQvwVOVZ1Z9tb1lXn+U28ZcHnGRoakkwWm4kJped2LfbCfVCP4kf2o85KjuMeIEeg6rPKlOFeBURtB6XJJx6caWJl+cEaZQHUJ7hEpZ3rWhDy94JGCO3bT0wRMNm3Gvz0mJXUztPAZ2ngRauJnKB6c0jw/0mTU5v6lNeeUYcsxg3xg==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1779790492; c=relaxed/relaxed;
-	bh=ZDvOFDpaksUUU/ZPLbdXHxvMT7keXlHRcQVjQ5Gw0jk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=R+HDmSUqABek6+NfYNfVtEdzYMIk6EBrwsk77SAjJyaJ46lsagq8S3j8Z9mmiPyF4JASviUhnPaRO1yzdsRFj0Yl/Tv78aJqFCBR4IC84v0ycVQCXB/tj2KqWtZ1fI9NVw4vODUTgUgcLtOVQPgwZKpLq0M99VODwqhgXq7EUL0pWSHuFwft4DIdU/ZJ1qe/q6AnnetN+p/aq6rufhh+ZvLJ4ctUKAD3pKdvC/teVCgRxl10RfwjTOHd7ZPZdxUKaik/YHGCSF4i4+H6AKiSvdx4Jr1iVOLu8O7a2JzrAjmXh8cipoouO+faFiSVoJK/G9VYMd7XEMjzgopSBGQViw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=j6Qgvf3l; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::9; helo=ph7pr06cu001.outbound.protection.outlook.com; envelope-from=syang@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	t=1779846190; c=relaxed/relaxed;
+	bh=DyXC4WQPo3JzkcdH1L6kD3vLYJrLicl+1Pq7inUkdGM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kRqWu0gQLNRx2Zw5YowrOIQ2cEGtVo5/GQWqH9S+Wkvn+S12aoBT8rD+TkArIciYBhPTey9kvZjBd694FUGE3cW+ufL+T6xzWhBKJt+k6r4wugKSjDbQqq//G08JxU+zrXDmc9EvjKyiY1DK+6+KO/pQnyRLh5BsLJP1lEnDupOIqk+7HPFP5aq3lU5kw4PqdHXk4JJ2rvgJ6LUOgyvo4kyhwAOxmhDwqueh/VlZcKHujtQvZzMD6ZuuKnE0X9hMRVeOlr/csUURGtywA5PdB+n+0VQF43kZ4qJUBF2n8NztyUNKci/mTpjEjA0cIXvNU4wu0pZp8GeqqOPRBvoNTA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TfbA0KEl; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::e43; helo=mail-vs1-xe43.google.com; envelope-from=shbaismail@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=j6Qgvf3l;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TfbA0KEl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::9; helo=ph7pr06cu001.outbound.protection.outlook.com; envelope-from=syang@axiado.com; receiver=lists.ozlabs.org)
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170100009.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::9])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e43; helo=mail-vs1-xe43.google.com; envelope-from=shbaismail@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com [IPv6:2607:f8b0:4864:20::e43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gPpXB2Jwmz2xjQ
-	for <openbmc@lists.ozlabs.org>; Tue, 26 May 2026 20:14:49 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O0sasW0I/lJmWWTkmifCcE3sQ7zmK2TUkoYIojRxj4TczYD4pj8GmmTWxaLSHauDiAE1yGlC7A/8PsvJcObODk52LBhxexQQR1ZOUKDNWA1i3Dw7/HtJp8PRbXDEOvzf04IVzNQbVOdWB97UsBzFSzJayUWEkz2IUISdL6NslliUk9dXuenoxKg+cCEqK2m7P1Ugrk8iR1Abqe8gg+plPRUguyWu+2ZDII6Dsye8ipmJ8wJPYUTNbdIJ+cR/z0e9TyYIOjDmyywynoAPNxjj5Y231nbJ91szE1nv98xCVsJcItphRjW7DAtUsPyncEfEGh82v8YdCQ+Lv8Ze+qJdQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZDvOFDpaksUUU/ZPLbdXHxvMT7keXlHRcQVjQ5Gw0jk=;
- b=h2Ftag3ie3Hrk3DOt8qcYV0rKL/Zr7FsbGBWg8iTGr+alK7WPKBfJW+1Kga9H3Zyd49pdZUUbCijbcb9sCD5paSa2tDGtaV4OWSsfMvgVDP4goLOH0L0iIonl8PHY1Rk2Bexm6lprT2FQ61ZS40Nav8GE9WliElISrr7yhdXxd+n5Q3DGwVO8xXTuquSLOCpf1K+p5z//Yr/SMv3xe8lm1c8qmLCh6a729kyh9TaLdmPVDAFmtHOVb42h4DHiZjVtDXGSVB5p+n5J+OYHBm0WdIBHdea24LucMb2wqnRtSHO8jm2jycjR2oMPAyndrK0hIs0nYPsZ1j7dFqq39CvIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZDvOFDpaksUUU/ZPLbdXHxvMT7keXlHRcQVjQ5Gw0jk=;
- b=j6Qgvf3lxV6HQ1ZI7WRHNkWJQ/Vu8SFmizalySItnrRIv9ZMAsdcVZpoWZxShT5LnGLzZirO+NxGLfdsdhnc87+rulrPjBWak2W51PSkxksqp86NV5traITMcgPJJUdt2kh7OGwr/4KOlHiiDBduFP031DobmlsdJeXu/HQnOzwU057P/luDmbocXoHtyEXHxUUyZI7OqUnjnK8e1DtGz19M3GTVnpLU6SpZL9MhVUa2hKCwJX8YWRJbwsdYyDABOfJZ1YuzMced3ombQTqqtDlsWaQ4Rj33/MlsUOJO3W63yy0bHnotv+KCCVNPnlwq9shAoe4YvaTfyQx1ylqdRw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DS5PPFE7B3EE5B6.namprd18.prod.outlook.com
- (2603:10b6:f:fc02::1ca) by CH3PR18MB5746.namprd18.prod.outlook.com
- (2603:10b6:610:1b8::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 10:14:24 +0000
-Received: from DS5PPFE7B3EE5B6.namprd18.prod.outlook.com
- ([fe80::fb4c:ebd2:78ca:fd5e]) by DS5PPFE7B3EE5B6.namprd18.prod.outlook.com
- ([fe80::fb4c:ebd2:78ca:fd5e%6]) with mapi id 15.20.9846.025; Tue, 26 May 2026
- 10:14:24 +0000
-Message-ID: <0c6e3442-1638-4c81-af9e-977ed913248b@axiado.com>
-Date: Tue, 26 May 2026 18:14:18 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] i2c: cadence: Add support for Axiado AX3000
-To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20260426-axiado-ax3000-cadence-i2c-support-v1-0-0cb9346a7fb5@axiado.com>
-Content-Language: en-US
-From: Swark Yang <syang@axiado.com>
-In-Reply-To: <20260426-axiado-ax3000-cadence-i2c-support-v1-0-0cb9346a7fb5@axiado.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0028.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::17) To DS5PPFE7B3EE5B6.namprd18.prod.outlook.com
- (2603:10b6:f:fc02::1ca)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gQC7K016vz2xRw
+	for <openbmc@lists.ozlabs.org>; Wed, 27 May 2026 11:43:08 +1000 (AEST)
+Received: by mail-vs1-xe43.google.com with SMTP id ada2fe7eead31-63130466364so4183762137.2
+        for <openbmc@lists.ozlabs.org>; Tue, 26 May 2026 18:43:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779846185; cv=none;
+        d=google.com; s=arc-20240605;
+        b=QG56LzgAgbK/x/Oj7hVKh2JDz5Kue9zktDjWaOh8iG1LlYd92yT+LtSUgXfrc/+l8r
+         OErnVszjhvp8TuLePvonBfFhzd+10yD+OjJp0XlWm4uLj4XXGoTcJr2IRFBPRS11kWeC
+         Ztyi7NEg6NaSTmH4gF7SWGBS52qGklpBDigH7Mvdd7nnRYQRn1lNeXDSzgxMpOKB27vD
+         Yw3uSXzocYmQEvhe+fKIuy/PuHEgQNWljzhDEW09e+53KizYepTaEmoMmf+cfsadnrPU
+         783pI+Ibqwge23ih3kACOQVmA2d0kvttyVStbjmFTJyeCS2L0w8d/fV1jDCO5hFTU3fj
+         wm2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=DyXC4WQPo3JzkcdH1L6kD3vLYJrLicl+1Pq7inUkdGM=;
+        fh=4LvzQQfbRnVTmQSPcWbFd8wVCxS0jXGAiiUv9Aowa6c=;
+        b=j0lEy/4Bbj09iU9gJ5YXPJSqh7sKPIq8JuluGlcu670j5juwcbQYGhoQiqECJAsxfj
+         ZK+1atfcV/o5aq370EDmvHFApkvya/J0KBg5baMbTBzxSVbRUBTYGqKUIB357AZMF2L5
+         /RuJNVSe9s+xdmwwCw8Ub+SKv8uIqdjtBUIZ72j8EZDyFzPyhpKcF/y2FcXN1vpKCPrn
+         5ACDdYNgd7CFQMhelwxkuKM9ik/S1iBMqxPyQKtng2HeR96W5Cy1Clm/xk3Iv6fYyFJD
+         knygGzgsQ1dN7P+rQWxiNoQrKKuTQmFmmnZ4cvlVG43z3H6RqrNdJ47zHHtzpPzAKdTy
+         ciPw==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779846185; x=1780450985; darn=lists.ozlabs.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=DyXC4WQPo3JzkcdH1L6kD3vLYJrLicl+1Pq7inUkdGM=;
+        b=TfbA0KElFkjmtavLVKhZpIZX2I59EB0vcxjfWEu+AwKYmzN2S/MwuGNPW6lyonXQnc
+         WcmpLYxBHrUgGEA9NKcNrt1pdKhm+cXov6IqwlUWaxyntHteSNByyH2ANhnjYoO5aHH3
+         UPNS74lKWKJccROndIriNB69ZaSsRIMtfpeFiCK44Cqju60ej64OlVY14vGZ5tCzvsDG
+         E9Y+hn53dx4rJP5zw+We6z8DglNh1B4EudPaANrRw0YXtBpgHAPQOxxOZJsJVkBo0kuC
+         YZE4Ix5BXCj7cOl4L4KFBiEtIT2uctbcl7AKBjWkwllLy376TZQj4e7ln7E4YBwgjxlw
+         //5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779846185; x=1780450985;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DyXC4WQPo3JzkcdH1L6kD3vLYJrLicl+1Pq7inUkdGM=;
+        b=tIpNjOjTfyGhy78rwanFOkh7Iw7tX1MCGzVL1sg0N9r/7EptUEn+ef+ZDYthqvbaqo
+         WC7DqZNbdvyJTlLHf7QXGic7/Aru5CFT15rOHDml7SIUwx65715CkjuWPviu+G95miKX
+         V2PeAtYBrPGsm2VPseyj8WyDxzgEokFibhIdFJfCAw4UAgOvuGhuk+IzSAHfPwO3ncfA
+         455p+Pzm1TH4XNNGpwGWwhHkFY2ndAIwlG46Kag0Q3AsRyr3Kfw7JMrNRFUgYPD2yPLf
+         Xu2E9Cx4+I8wI/89eUFDLn7OZdm+oA8uSek0TIRxqU+lBl8GbrZVO75/dt0Jv1thpGqS
+         WMsg==
+X-Forwarded-Encrypted: i=1; AFNElJ+T/r+FEKfocf1Q/ki/dsm1ZKs8dCUAukETUc9j32WBMmk2rsHFbOBcvvVjdQt1Q6ZY4VyIHsZR@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YzTHSmnkXHACXiWEQgD7ftjozykTZ7krCmZRP2YZhAoodjI1NFr
+	/d2VmgaxXsNc5sBV0rGS1l3t2AEFpgnl1VFq+gBsLmRd+9W/z9wS3IQNl27udvewrmN+lWNV1h1
+	AO9gAlq2jV/qGiXx8XgvEHO3krTNPX8U=
+X-Gm-Gg: Acq92OF1RbTibf5VHxXWJJRHYFrx5fW1FgWjJBgzJF+KaIgLF/Rr9JQGuiqHmZDPgdJ
+	NY1UIQvXQBZ1xIgwiQ+sUoq0EI5wLunpBIiThUHgHwT1gIm4NMBzjSsLYcahYAl/cuoiq8Sfs+j
+	P3NS+7MZ4j+RVSx60yHYpwH3LkkN/Ns7Jho+/KUqO/FLZg66qRBMeRpNM8rTgFHRi247F/Mitmm
+	sul4RWyI+cXinM6Lrsx5v4FukQROe6hnbBxT7c/+yTIYBrDrIl67/9Xy771nxwyecsUTyb/uvS8
+	9k9l/U6frvD+WyYMK7jek+CCIlhBhhQhS78hVI+0evKjwTVLmcI=
+X-Received: by 2002:a05:6102:5241:b0:62f:357a:3297 with SMTP id
+ ada2fe7eead31-67c7405f50fmr11156555137.5.1779846184959; Tue, 26 May 2026
+ 18:43:04 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -85,132 +98,241 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPFE7B3EE5B6:EE_|CH3PR18MB5746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16d50f80-b6b9-4665-b31b-08debb0f8f51
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|3023799007|6133799003|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Or5PWQRCa2/nlA5dKzECeCnx9NHuvsSFcyHHJckSn4iEM0EAN4SR2uIgOcr+GXiK4FAWa6oYqozeT009knl3hVt04Z3ZAQYfA0kbU9YL0mF+OisLLr213h138A+lGsEQPkmxIBwRhtCsTZRj6Vnl/FEAJn55yxQWG2yPiUJF3yrti+afY7sC10yGTVkijw8Tnadj8Ysr5MPZzAQ5jBhKkmCCiAgZFo7Ws7lY/NDiv6SYv/Kp+d0Im07Trfr+er5oQ4V8c2lhhDVLNYsy7s8mi6PhsFRZcXIdnaZ/0wCJ2dUj14OaVmTx97hwOZE88ZDtgf15rtICJ5AjRNY7M1pAz2AklVmfIxW1qDncF4RGD+eQaDASw+s40uhHHoJdffK0krYklica454OCX0SKuJD8kHtA7/YmPugLolBue7OERgoaXLt8wWJHzTh1p+35sReyjiQTFxetGIxJmudIKPUqdet6VpT7OWxZBpnBvA1DI4kpY63U8orDJQQ/RzADbIvBP0F15qkJiUdyruvPfdjETRiQ2Nkb6TBu0+Asz2TLOWwINNOdCfrmpQVgiKVB+06NDCcK0sN+H2NgZJCYbuJ+fvNaWjnHWtrTtpMG84J97sZ3dKIDTUZik/JnDefoGZKFRdtiqOP6INMEhzHEqUXDNzhaGoeUZVXBGAsQGjcU4FegxW4gE/HE4CFTy2gGyDd
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS5PPFE7B3EE5B6.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(3023799007)(6133799003)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NW9oRitkTTBFb0sxaHJWMG8vcFFGQTArSmJXd3JKQXdBREVvbEZMS2Q2TGdS?=
- =?utf-8?B?b3ZVdkxrS040dlgxRDU3eXBxaXdYa0FhbUtveU13TUI0ZkR6UEozYUV6OUdG?=
- =?utf-8?B?RVQvSS9tajllaHFiMmo2aC9lUGkvYUZ2TVc5dG03RmJUQ2Y4RlQveXErZENH?=
- =?utf-8?B?YUVETHNOdEhEL2hXRjRhNnhsYUdCQjMra2NKQzdQL28zOEtObTBFWU1wRUt2?=
- =?utf-8?B?bU1TOTZaRE5VT2xiRzBmdjBQRFNNdU50bEFOZHpSbnJPUklCYWc1ZmVrMnNS?=
- =?utf-8?B?OWJXaWRqbngxZ0JUQVJ6QnIzdDI5UTFHWm1JSzljRTlvTGNIeTE1QmJRMS92?=
- =?utf-8?B?OGhzejFtWGdhS2ZxYTNoTHpBUm15RGJiRXhWQTRMYVBHUDlOKzQreitDU2dq?=
- =?utf-8?B?RTIvQUFsRFU5OXFZZEJqSkFZOUdabmJ5Q2ppcVdEY0k0L2RwajJOMlFnc3g3?=
- =?utf-8?B?SFpRdWw4T2RhNHVqKzN3TldIbUMrWU0wN3RkZFVBSnNFWStQOGgzaTRIOWlZ?=
- =?utf-8?B?MFhjNWoxMU91aU5idzZGdjNNWTQvODl0M0gzVVplUEh5ZGhoRXV1T2t3SzBC?=
- =?utf-8?B?OGhHWGhkZnNiNUUzdEpwQmZWT2g3aVV0UVlJaVBZbmM2NEhNRWluTGlwZjhH?=
- =?utf-8?B?Z1JkMkh2a0NyR1ZlREJac21zdW4yMjROaUw0L1dkWDU0ODFPcDBwYlpVWk1G?=
- =?utf-8?B?c0VWZDVsUnBEbWUrcktTSGVyejQ4dWZLY21CVmFBdTZWQmd5aGlSbXdjZVpv?=
- =?utf-8?B?Ui9jWjZ5bkltWEZ4d3RZQ0pjZ3h5RGJKSzltT29NTVFHRWZUTkJzZG1ITjh3?=
- =?utf-8?B?b0JDVGxqNDlVYXBiQWdWeFNLYktGendOSFV3NElMU2xIMWlXcHpMY2JQSDFz?=
- =?utf-8?B?NDZOdVFOUSt3NXlQMmZKODd3Z3hPYnZYdVh2Y1FJZTBtWWVqSWYvRWt5TFYx?=
- =?utf-8?B?MTlJd0YrMFYrc0p1L3lSWUM0Sjg4SkVlNlRRTGdITVV5WldnOUt2WXpCUUxI?=
- =?utf-8?B?ZmF1eHJKN1ppNjJhZU9tbVIvYmFHNjVkcGhxcUE5NVJyYk5yUUJGUTh2REhF?=
- =?utf-8?B?L3k1LzBaK093dHdCZnhwQjRZUHg0SEQvYStyQTltT0hCL0xaSkNhT0R5SUl1?=
- =?utf-8?B?cjhpMk5ZUy9MYW90U2p1K3hMNms3ZEVEVDBYRDFhNXQyMWFXSEhuY3VwSUxE?=
- =?utf-8?B?N3RpeVMzRWV5bVhER3VzL1ZDRGF6b1dJNmkrejFWUGErdS95cHhiUUI5dTl6?=
- =?utf-8?B?Z1V6Tm9jOXp1a1hjUWY5WlA1WDRKL3RQd0s4RmJuYllxMVN6cnhOUkNETWtj?=
- =?utf-8?B?dTVJcjZTVTY2b1U0QXozQjdkWTVFd1FXQ0VZeStLVUs3NWx4YWlGOEEzRWFz?=
- =?utf-8?B?bVFDcmUrYzdpSUUyWmVjTGxjV2tGQkhCb08zNEhQdXlxVW1FS0d4cVJza2xl?=
- =?utf-8?B?RHNwMTdCdG5mNG5ld0VRUVdKNitkQlFNWjVTdjlXZFBzV0ZvUFFCY01YMUFO?=
- =?utf-8?B?em5hdFl4azJqT0lRa2hhS3NHWU5TTDVLNzBXcysyMWJxQlMxN01CWlNqL1dD?=
- =?utf-8?B?dGNZSFRrT3JqcjA4M29hdkFKWS9LNlorS2ozVmNISzJLWjhkci9sSURBcDNQ?=
- =?utf-8?B?cHg4QXRSS2hnZUNleUMyS2dnSnZpc1FuOFp5eHZLWVBuQkNiaVhNZDluaGtD?=
- =?utf-8?B?MW05dGJ2QlhLQ1RtZ0svdDBVdkxPT2d6OWwzZ2w3UEZkamRuWFdJVWdxN1Vk?=
- =?utf-8?B?Z21FOVg4MExwcVhqalovZFZGWFFySlluQjBpdXpLZGJDQ2MrMkNpbUhmanc1?=
- =?utf-8?B?YTZEaGQ4VmZvOHJRTVQ5N1hNOFlLYWRWaElsUURwb2NSby9GS0R6TXc2UmdC?=
- =?utf-8?B?dnFmckw5cEZPQVlBdTFkUExvZThHNFpveWc1K2dRZ1NINU9hN2tMQnNLUEJa?=
- =?utf-8?B?Qk5maG5xd2JKZWNmSWlhTUJLa0ZSME1nUmtPblhBRGNESTl6RnJDWHBSbUJT?=
- =?utf-8?B?Q040cnNMOXhuVjBjbVVyWjcyNGVvK0FRM20zREFwcG5YTlVRc0lYMnFNeGw5?=
- =?utf-8?B?TVlGRnlHMnE4RVBSb1UyRVdob1BPdyt0U252eStwU2JBR2FxMVlRbEZTbTFx?=
- =?utf-8?B?VG9wRGNwREEyVU5RSHRGekk1R0pkQlpoYjR0d3h0WHdsMnBwNjBkcnlETGhy?=
- =?utf-8?B?NWZlSmhBT2txclpmZ1VEYml4NFVhSlhFV1pmc1ErZm1kSkJZTnRtaWxXY0pp?=
- =?utf-8?B?SnQwVDdodSticE9FSUxiSUVnSWIxWXcvYmxPMERwYnR4WG9kd2ZuSC9vUEVX?=
- =?utf-8?B?OHliMk1KeFIzMXNtVVZMaSs0RlVsRjVLbCtPWXRBU05WUHhaVnBhdz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16d50f80-b6b9-4665-b31b-08debb0f8f51
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPFE7B3EE5B6.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 10:14:24.2953
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WVQiu/I+HE1OWiOQRtvJ0EAOvlIpiUE1yo4CF9s62k1Acom5k5qSk31CgJfPTwOJFfuidmBmoHIMHh+tm29YQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR18MB5746
+References: <20260426-axiado-ax3000-cadence-i2c-support-v1-0-0cb9346a7fb5@axiado.com>
+ <0c6e3442-1638-4c81-af9e-977ed913248b@axiado.com>
+In-Reply-To: <0c6e3442-1638-4c81-af9e-977ed913248b@axiado.com>
+From: sami Baismail <shbaismail@gmail.com>
+Date: Wed, 27 May 2026 04:42:52 +0300
+X-Gm-Features: AVHnY4IUGhcojJjiMs7nE8dq6ZC2il-1_0zPe4ngHpBtLS-U5UFgCCLN1liR0-g
+Message-ID: <CAGCcG-=6vdJOunFu3+A8fHCqQQFBRO0mLtdXAnNDL8iq1PsBGA@mail.gmail.com>
+Subject: Re: [PATCH 0/2] i2c: cadence: Add support for Axiado AX3000
+To: Swark Yang <syang@axiado.com>
+Cc: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000009c033d0652c2bb72"
 
-Hi,
+--0000000000009c033d0652c2bb72
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Gentle ping on this patch series.
+Hi Swark,
 
-Patch 1/2 (dt-bindings) has already received an Acked-by from Conor.
-I wanted to kindly check if you have any comments or feedback regarding 
-the driver changes in Patch 2/2.
+Thank you very much for the gentle reminder regarding the patch series.
 
-Please let me know if any further adjustments are needed.
+*First, and most importantly,* could you please update my contact
+information in the project management system or relevant mailing list to my
+primary email address (shbaismail@gmail.com) and also add the compliance
+group (glcn-compliance@googlegroups.com) to ensure all notifications are
+received.
 
-Best Regards,
-Swark
+*Second,* I have reviewed the driver changes in Patch 2/2 (for Axiado
+AX3000 support and enabling the SMBus Quick command), and I approve them
+technically.
+
+Acked-by: sami Baismail
+
+*Finally,* could you please provide me with the complete login information
+for the project management system. I need the direct access link, my
+account credentials, and any details related to the administrative
+privileges granted to me for this project.
+
+Best regards,
+sami Baismail
 
 
-Swark Yang 於 2026/4/27 上午 11:57 寫道:
-> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+
+Sami.H.baismail
+
+=D9=81=D9=8A =D8=A7=D9=84=D8=A3=D8=B1=D8=A8=D8=B9=D8=A7=D8=A1=D8=8C =D9=A2=
+=D9=A7 =D9=85=D8=A7=D9=8A=D9=88 =D9=A2=D9=A0=D9=A2=D9=A6=D8=8C =D9=A0=D9=A3=
+:=D9=A5=D9=A2 Swark Yang <syang@axiado.com> =D9=83=D8=AA=D8=A8:
+
+> Hi,
+>
+> Gentle ping on this patch series.
+>
+> Patch 1/2 (dt-bindings) has already received an Acked-by from Conor.
+> I wanted to kindly check if you have any comments or feedback regarding
+> the driver changes in Patch 2/2.
+>
+> Please let me know if any further adjustments are needed.
+>
+> Best Regards,
+> Swark
 >
 >
-> This patch series adds support for the Cadence I2C controller
-> integrated into the Axiado AX3000 SoC and enables SMBus Quick
-> command functionality.
+> Swark Yang =E6=96=BC 2026/4/27 =E4=B8=8A=E5=8D=88 11:57 =E5=AF=AB=E9=81=
+=93:
+> > CAUTION: This email originated from outside of the organization. Do not
+> click links or open attachments unless you recognize the sender and know
+> the content is safe.
+> >
+> >
+> > This patch series adds support for the Cadence I2C controller
+> > integrated into the Axiado AX3000 SoC and enables SMBus Quick
+> > command functionality.
+> >
+> > The Axiado AX3000 utilizes the Cadence I2C IP core (version r1p14).
+> > While it is largely compatible with the existing i2c-cadence
+> > driver logic, the AX3000 hardware specifically supports SMBus Quick
+> > commands. This feature is currently disabled by default in the
+> > i2c-cadence driver (masked out from I2C_FUNC_SMBUS_EMUL).
+> >
+> > To enable this functionality, this series introduces a new
+> > platform-specific quirk (CDNS_I2C_QUIRK_SMBUS_QUICK) and uses driver
+> > match data for the "axiado,ax3000-i2c" compatible string. This allows
+> > tools like 'i2cdetect' to properly scan the bus using quick write
+> > commands.
+> >
+> > The DT binding update follows the recommended fallback structure,
+> > referencing the 'cdns,i2c-r1p14' fallback to ensure compatibility with
+> > older kernels while allowing the new quirk to be enabled on AX3000.
+> >
+> > Patch breakdown:
+> >
+> > Patch 1: dt-bindings: i2c: cadence: Add Axiado AX3000
+> > Patch 2: i2c: cadence: Add support for Axiado AX3000
+> >
+> > These patches are expected to go via the I2C subsystem tree.
+> >
+> > Feedback is welcome.
+> >
+> > Signed-off-by: Swark Yang <syang@axiado.com>
+> > ---
+> > Swark Yang (2):
+> >        dt-bindings: i2c: cadence: Add Axiado AX3000
+> >        i2c: cadence: Add support for Axiado AX3000
+> >
+> >   Documentation/devicetree/bindings/i2c/cdns,i2c-r1p10.yaml | 10
+> +++++++---
+> >   drivers/i2c/busses/i2c-cadence.c                          | 10
+> ++++++++++
+> >   2 files changed, 17 insertions(+), 3 deletions(-)
+> > ---
+> > base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377
+> > change-id: 20260111-axiado-ax3000-cadence-i2c-support-53ec117bb074
+> >
+> > Best regards,
+> > --
+> > Swark Yang <syang@axiado.com>
+> >
 >
-> The Axiado AX3000 utilizes the Cadence I2C IP core (version r1p14).
-> While it is largely compatible with the existing i2c-cadence
-> driver logic, the AX3000 hardware specifically supports SMBus Quick
-> commands. This feature is currently disabled by default in the
-> i2c-cadence driver (masked out from I2C_FUNC_SMBUS_EMUL).
 >
-> To enable this functionality, this series introduces a new
-> platform-specific quirk (CDNS_I2C_QUIRK_SMBUS_QUICK) and uses driver
-> match data for the "axiado,ax3000-i2c" compatible string. This allows
-> tools like 'i2cdetect' to properly scan the bus using quick write
-> commands.
+
+--0000000000009c033d0652c2bb72
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi Swark,<br><br>Thank you very much for the gentle remin=
+der regarding the patch series.<br><br><b>First, and most importantly,</b>=
+=C2=A0could you please update my contact information in the project managem=
+ent system or relevant mailing list to my primary email address (<code><a h=
+ref=3D"mailto:shbaismail@gmail.com">shbaismail@gmail.com</a></code>) and al=
+so add the compliance group (<code><a href=3D"mailto:glcn-compliance@google=
+groups.com">glcn-compliance@googlegroups.com</a></code>) to ensure all noti=
+fications are received.<br><br><b>Second,</b>=C2=A0I have reviewed the driv=
+er changes in Patch 2/2 (for Axiado AX3000 support and enabling the SMBus Q=
+uick command), and I approve them technically.<br><br>Acked-by: sami Baisma=
+il<br><br><b>Finally,</b>=C2=A0could you please provide me with the complet=
+e login information for the project management system. I need the direct ac=
+cess link, my account credentials, and any details related to the administr=
+ative privileges granted to me for this project.<br><br>Best regards,<br>sa=
+mi Baismail<br><br><br><br><div data-smartmail=3D"gmail_signature">Sami.H.b=
+aismail</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
+"gmail_attr">=D9=81=D9=8A =D8=A7=D9=84=D8=A3=D8=B1=D8=A8=D8=B9=D8=A7=D8=A1=
+=D8=8C =D9=A2=D9=A7 =D9=85=D8=A7=D9=8A=D9=88 =D9=A2=D9=A0=D9=A2=D9=A6=D8=8C=
+ =D9=A0=D9=A3:=D9=A5=D9=A2 Swark Yang &lt;<a href=3D"mailto:syang@axiado.co=
+m" rel=3D"noreferrer noreferrer" target=3D"_blank">syang@axiado.com</a>&gt;=
+ =D9=83=D8=AA=D8=A8:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">Hi,<br>
+<br>
+Gentle ping on this patch series.<br>
+<br>
+Patch 1/2 (dt-bindings) has already received an Acked-by from Conor.<br>
+I wanted to kindly check if you have any comments or feedback regarding <br=
 >
-> The DT binding update follows the recommended fallback structure,
-> referencing the 'cdns,i2c-r1p14' fallback to ensure compatibility with
-> older kernels while allowing the new quirk to be enabled on AX3000.
+the driver changes in Patch 2/2.<br>
+<br>
+Please let me know if any further adjustments are needed.<br>
+<br>
+Best Regards,<br>
+Swark<br>
+<br>
+<br>
+Swark Yang =E6=96=BC 2026/4/27 =E4=B8=8A=E5=8D=88 11:57 =E5=AF=AB=E9=81=93:=
+<br>
+&gt; CAUTION: This email originated from outside of the organization. Do no=
+t click links or open attachments unless you recognize the sender and know =
+the content is safe.<br>
+&gt;<br>
+&gt;<br>
+&gt; This patch series adds support for the Cadence I2C controller<br>
+&gt; integrated into the Axiado AX3000 SoC and enables SMBus Quick<br>
+&gt; command functionality.<br>
+&gt;<br>
+&gt; The Axiado AX3000 utilizes the Cadence I2C IP core (version r1p14).<br=
 >
-> Patch breakdown:
+&gt; While it is largely compatible with the existing i2c-cadence<br>
+&gt; driver logic, the AX3000 hardware specifically supports SMBus Quick<br=
 >
-> Patch 1: dt-bindings: i2c: cadence: Add Axiado AX3000
-> Patch 2: i2c: cadence: Add support for Axiado AX3000
+&gt; commands. This feature is currently disabled by default in the<br>
+&gt; i2c-cadence driver (masked out from I2C_FUNC_SMBUS_EMUL).<br>
+&gt;<br>
+&gt; To enable this functionality, this series introduces a new<br>
+&gt; platform-specific quirk (CDNS_I2C_QUIRK_SMBUS_QUICK) and uses driver<b=
+r>
+&gt; match data for the &quot;axiado,ax3000-i2c&quot; compatible string. Th=
+is allows<br>
+&gt; tools like &#39;i2cdetect&#39; to properly scan the bus using quick wr=
+ite<br>
+&gt; commands.<br>
+&gt;<br>
+&gt; The DT binding update follows the recommended fallback structure,<br>
+&gt; referencing the &#39;cdns,i2c-r1p14&#39; fallback to ensure compatibil=
+ity with<br>
+&gt; older kernels while allowing the new quirk to be enabled on AX3000.<br=
 >
-> These patches are expected to go via the I2C subsystem tree.
->
-> Feedback is welcome.
->
-> Signed-off-by: Swark Yang <syang@axiado.com>
-> ---
-> Swark Yang (2):
->        dt-bindings: i2c: cadence: Add Axiado AX3000
->        i2c: cadence: Add support for Axiado AX3000
->
->   Documentation/devicetree/bindings/i2c/cdns,i2c-r1p10.yaml | 10 +++++++---
->   drivers/i2c/busses/i2c-cadence.c                          | 10 ++++++++++
->   2 files changed, 17 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377
-> change-id: 20260111-axiado-ax3000-cadence-i2c-support-53ec117bb074
->
-> Best regards,
-> --
-> Swark Yang <syang@axiado.com>
->
+&gt;<br>
+&gt; Patch breakdown:<br>
+&gt;<br>
+&gt; Patch 1: dt-bindings: i2c: cadence: Add Axiado AX3000<br>
+&gt; Patch 2: i2c: cadence: Add support for Axiado AX3000<br>
+&gt;<br>
+&gt; These patches are expected to go via the I2C subsystem tree.<br>
+&gt;<br>
+&gt; Feedback is welcome.<br>
+&gt;<br>
+&gt; Signed-off-by: Swark Yang &lt;<a href=3D"mailto:syang@axiado.com" rel=
+=3D"noreferrer noreferrer noreferrer" target=3D"_blank">syang@axiado.com</a=
+>&gt;<br>
+&gt; ---<br>
+&gt; Swark Yang (2):<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 dt-bindings: i2c: cadence: Add Axiado AX300=
+0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 i2c: cadence: Add support for Axiado AX3000=
+<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0Documentation/devicetree/bindings/i2c/cdns,i2c-r1p10.yaml =
+| 10 +++++++---<br>
+&gt;=C2=A0 =C2=A0drivers/i2c/busses/i2c-cadence.c=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 10 +++=
++++++++<br>
+&gt;=C2=A0 =C2=A02 files changed, 17 insertions(+), 3 deletions(-)<br>
+&gt; ---<br>
+&gt; base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377<br>
+&gt; change-id: 20260111-axiado-ax3000-cadence-i2c-support-53ec117bb074<br>
+&gt;<br>
+&gt; Best regards,<br>
+&gt; --<br>
+&gt; Swark Yang &lt;<a href=3D"mailto:syang@axiado.com" rel=3D"noreferrer n=
+oreferrer noreferrer" target=3D"_blank">syang@axiado.com</a>&gt;<br>
+&gt;<br>
+<br>
+</blockquote></div>
+
+--0000000000009c033d0652c2bb72--
 
