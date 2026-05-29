@@ -1,137 +1,46 @@
-Return-Path: <openbmc+bounces-2013-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2014-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEB4ECD5BD2
-	for <openbmc@archiver.kernel.org>; Fri, 29 May 2026 03:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37A49CD6E52
+	for <openbmc@archiver.kernel.org>; Sat, 30 May 2026 01:41:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gRThz6nCvz2ybR;
-	Fri, 29 May 2026 13:43:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c40f::6" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780026195;
-	cv=pass; b=L8s1B2Gd/8DoB98LcohSrrhhXvGt9agFwVh0ECHrN9QwgHeA0BtSt8ff+cXZINSqQ6ZdlEwMDV0AcVgNcwWXTfyoDxXG0Bbgq9ruqF4p1bjw9bZYinTtTVXPkuNErAOukX+grojP9wbQ0p6PYbaN+elBw271aceKQkXYpDr45phdCp/DiivxpeBbN29nlCq7yxc2sXgZp5M87kRyJ1HaHb2J0EuBG25Qsm6ziOKo7X7FOK/WaeaVbD/kC2h5KdWS8wlesbUsTlAOKFt/OnRrjw1zo3ZXd022OnJ1xY7YzylYa1AuqjJ4erBE2qIGZ0DtM5b12nLHf2ehFRm2olZFmg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1780026195; c=relaxed/relaxed;
-	bh=VNbD5KhJgvYDpLoMgDsK3j7FinDGz4T4u7GMU/ksoBw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VUzBhISqlf4KZ1LyTGqJWGNgOI2esnv8Ds3zwBg0IWyuwbwGiPFqaQJ13CduSqGasyZTUyzHc5AmGJFD5GESMd00EhbzwN32CGDgVOY45KLWrr0BEQJ/fN2vIES03t6QNsyaXnUzIQ2l8UzgWwH+Vl6xP3Ge+S5Jo7LDOJMA76V6+J6THJQGKgzc8vfDWjcgqpO+8uIPOaIKXSmlTtn1lNcBu1ti4DgHRMko7hcsiH/tCkw17nR/SsbQ7VoGvQ4hRhHNBBxuCTlVH3CUc85okey/KCgc4+hdx8inhTi3xc6HLWxo0PGEBzEFMlA48ohx7ipLd0+0joNoCEXZUPlDZA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=Y5bzykBr; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gS2xl4CqHz2yfD;
+	Sat, 30 May 2026 11:41:15 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780068481;
+	cv=none; b=fc7fyQw7FnM4eQpUUaNM0xQXD3eVmdSGo9LljTEQWrnCVzYJH/MQYxiqq62cn0U2Eayi65HRcdT2/h0Xi74odZO+wwq/ovioR5cSNHWoCCd2+sAmEZabMS0hz3Wqeav67WXnpcxvumtDZf9DGzZWw8dsssMqjA5R+b155MNozK7c1y8acHUW9DS3rioNyjeee3s+5xdEeeaj0QR3FzAWX5owvpZYVaxTeXU6Iz1+odx3gJvX3u6Npjwz5UkwFQwNoXGLG/Sjy4FXtESUR1e1KJ6d17VbDSVe+O1z/Y2yJjQh4qezdnRJ7YtWqv2rayrC6cUD8ODRT5iW1ogKYAYHnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1780068481; c=relaxed/relaxed;
+	bh=U9UfxUzmEbNMuo7l98ruKjqPcorhs4Pq//vubPQpRUw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BU3p1A9qs9cIK3H7Mw+3wQEFoSL5uZvFzYDnLAufgUB8fD5k4SrHjRL1Vkem2Nv/IcH+RiXqMnLyGfrRcMc4RDggZ1T7ky91h2ZuwxjE4e7QKbt89YMyvD6hRSH8wApD+Bk9ctpZVAC5JbcNlU4hRGLE+dObLQgqfaSxT8ZqezRlz+B2j1j4CYjaJu9uZ3HJbCjyAjV+pqe9C5UlcGpIUM/3glHj99BknzQeB6LStPmEOZ4+kn/4+qCJUdjjZvhkbF6QG+EdELPcBouL4WGL6YGB79FG9Y+aN7PN3IJ3ItxV2fOJ1KSbNiS+OQTlZB/m7K8knpZBJGy6a/TgYffU/g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arm.com; dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=E/Y8OmFz; dkim-atps=neutral; spf=pass (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=lukasz.luba@arm.com; receiver=lists.ozlabs.org) smtp.mailfrom=arm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=Y5bzykBr;
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=E/Y8OmFz;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=jacky_chou@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazlp170130006.outbound.protection.outlook.com [IPv6:2a01:111:f403:c40f::6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gRThy1KgNz2xf8
-	for <openbmc@lists.ozlabs.org>; Fri, 29 May 2026 13:43:13 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tAc93Pm8Zq+8x7/j101Bb/4mC3IaKf5hiN1317KYeu5vqdG6AJZSE8SC8/1jUerXAYE7Ew1fvAAafvQDJ+c1NBdl+Zo4Kr/u49NeKmZNJ15CH+egZAyEhXAowc0RE3HxA06ru4v7JyRrmxSF927U6Sew2Kb5u2FmbEg8K0H1jx+hnJbsDw325KZ+8grcdkaL2nQrG3etyDLFPQhf3C+5ilzuex15HejaRHlPuNqgjV0D9aJ27lF0XB00pGEsG4kcEmjuo29F3iZAz178ACHmmeBu9/vsvgDKr1WOgTXbZ7U5SA+pzCNFYTLUxNiNIj0HVlSPRbVmmZkSkwM/FuuSpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VNbD5KhJgvYDpLoMgDsK3j7FinDGz4T4u7GMU/ksoBw=;
- b=web3KMd/p21vqxqVuOvFZkIc2l4aaFHw9G70jYXkqZE42P23jOcM0KfWJ2NbJ7ZqJBlah+69Y2UD0hkxPMrjjbHioTJKhAbJeJBk9toMDRVA2RUhgYvw/3W+35oAhbvhA/Y2qbMQSSUykFudbXfAoe/ZbPF94bj9cDQizTTcfJlg/03MvUhobyGscp65r0sOThrR0Z4ivNd4vwWsvIg8ttzUxMo5AVDjJKs7+qaq9Wy0ZISzN0jfmT9VO97S6QaPL+a82Ij2YjHMkv1vnrVO0z0gnf3j8l2IK8N1ONUQIgfzaAaU635Y5GXWxtcRwy7H2kb9NYbBN1d79VOwoQv2EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VNbD5KhJgvYDpLoMgDsK3j7FinDGz4T4u7GMU/ksoBw=;
- b=Y5bzykBrlU0yuxyb5HhUy9M/QlrHfhAxgtsBsfBKxNV95vDsFSW9q2MzeXZ8LD2CwHd+ySmJ6AssNz4vPAdlJ5F6UYxkCwqmkOJsGaJWF7U4EoYwtEFrdKF9krIveyCcwXAX2ReRF4JgQX6INeNXLfjN4pfpmabuApwNT/KsKiVoOHnM/3FqbHFzUZ/pagb5FTxAngPrhNzQ2vkZPviDGiMV14EJoYV1r+hs6JWG91Ac8g7u76CuD2pBfqVs3YTSXzVuUiveLMTjQB2woZLd3fDikXigsnHehcYm/bBBTH8hRGIpI+Rho5wwqZ3jJMFGtgL61t2qDxRfmJXF1VLuFg==
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
- by TY0PR06MB5330.apcprd06.prod.outlook.com (2603:1096:400:213::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 03:42:48 +0000
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c%5]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 03:42:48 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>, Ender Hsieh
-	<andhsieh@nvidia.com>
-CC: Anirudh Srinivasan <anirudhsriniv@gmail.com>, "joel@jms.id.au"
-	<joel@jms.id.au>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Marc
- Olberding <molberding@nvidia.com>, ChiaWei Wang <chiawei_wang@aspeedtech.com>
-Subject: [PATCH u-boot v3 1/2] clk: ast2600: set default clk-delay for all
- ethernet macs to 0
-Thread-Topic: [PATCH u-boot v3 1/2] clk: ast2600: set default clk-delay for
- all ethernet macs to 0
-Thread-Index: AQHc7LPmizavYn5TAUuM5Qu9CY9ex7YkPvoAgAAXwmA=
-Date: Fri, 29 May 2026 03:42:48 +0000
-Message-ID:
- <SEYPR06MB5134993F370A949CDC3A3C3E9D162@SEYPR06MB5134.apcprd06.prod.outlook.com>
-References: <20260525-asus-kommando-v3-0-e6a0ca1b4a3e@gmail.com>
-	 <20260525-asus-kommando-v3-1-e6a0ca1b4a3e@gmail.com>
- <610af357c6a0acfeec2d4efaa3ae17ce973bc102.camel@codeconstruct.com.au>
-In-Reply-To:
- <610af357c6a0acfeec2d4efaa3ae17ce973bc102.camel@codeconstruct.com.au>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|TY0PR06MB5330:EE_
-x-ms-office365-filtering-correlation-id: 5ae1bd44-1340-491c-844e-08debd345a4d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|18002099003|38070700021|56012099006|4143699003;
-x-microsoft-antispam-message-info:
- dNBtPIKVfSdce8CvWSjVs7pat9a/tsjGujFgPNdrOWSCO5Sb9fYNxPExuwyBRCK2bED6BV9Pm13JOTi5xIBCJLq9Y/2V+abPn09dJkd6BPuEzGrFIQyJN7oE8lhHN+duWReJvLjiiI4kN+H0fYI5T/QbinDGjecP+2UIiEJDNe68cZxk5xKBC1mE8NownlVi0YgxL8sT83MHDIz1Xw9S4k4xMeHYVmTvDFwuOe9Ynj/6Wo/TgAuwS9KM4rIUUcf7hNBP6cr4v2utlSv6F42f/bUNULUZCLjmrZ77ZCIV8yIqQUZz6KtmtyAZ4cH/jPCFTr5qLD9iteKNIfvu/vM1hwRCkLwifvluklLwXl2f9zJF958Oo+j6yjuZwRdu/4gj/gSMRvoaG500xBXFR2MbBglGipQjqhvntr3ih0cRXcnGlW6XL1CagY1GaTbwRr5KjrllRpyiQIfJY3h1VpBfgJjyHU54bbeJq/OWqv+0RWoyJlqIUJo07R+nsVctmHDJbPkRVr5DS1G/wGhbtesafWXSADZW37KzuSpTemstPRvXVgencvB7JS+oEHFxQrek4/Ou8dQs+aP0hdoNyYHRdfh0PjTzqCGRcpsUEtRwVyYAt7TNSW+NR/GIUdH9bjQDWJ/B+1qaxWhp6XcWVBjaEuE0GO9u5vdM/t59iiDd7gxX58r1E1ZThkP40UFmJWryfj0bTm2DpoF5/0c40Ksdr48O0Jxdc7cb1/C5zwo7/v+xw5SE4ggWzx2UHXM++qW0
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?TktDSDFnUEd2d2ZHNXFNSVlycXAyNEE0WlRPTTN4M0RnVHhnWTBHcGI3RDQ4?=
- =?utf-8?B?VE9aZFJ6WWlBL3V4cmRHVmF2eEN6RXYxcWhiOEZHV3hKTWlxZDBzcFh0OTRj?=
- =?utf-8?B?azcxcTRZN0tJblNHWVkvWGUwRFMzanRieXZ1QnJqV1NaRnJjbVR0b2NCZTM0?=
- =?utf-8?B?aFBWNklkSVBteXNXd2hhWmtKZkVudk1iK3YrajRncER0VjBncTl1cGZtZTlv?=
- =?utf-8?B?L0QyUGc0cDc4VDJoY2JaWGpHREdDeTFVRHQxQk1yWHRWWGRGSU82MGlMbHJl?=
- =?utf-8?B?TjRVMXcrdnhvdHBHdkQ3SXNVVmZib3lsVjdJNm9ncEY0VEhuTXJUQVh1Q1NQ?=
- =?utf-8?B?dE0wWGFFRW1OeGw5TmRiZnFCcFBxT3FCbEhVYnFwVU5yaFd4RXp2NWpJTWVW?=
- =?utf-8?B?Y2EvSVF4QmlnUTFrQTgzb3I4WkdoK3dXODN4QmtOaGdmQ2JNWXIrQVdqOW5M?=
- =?utf-8?B?cG5kSVF3dHZkaUFRc2xZRlhKVThDYXpKclE4SENSM1NtaUtvNmpwZzBKeU82?=
- =?utf-8?B?ZHFEWksyemwvZHBhVkVDR04valpwMUFZOW5BV2lJbVpCbmdOdGxKZ29rM1dM?=
- =?utf-8?B?WEc4NE92T0ZqOHFPZTkweTE4NkZHVWdHT2NwV0tuaGp4WmFibE0zWm5tVTFN?=
- =?utf-8?B?L01Qd1hPdlQyWE1sQ25RNFZja1JpNGw3U2N3TVROQjBZcEVDcURqM3k3c1VX?=
- =?utf-8?B?SUZwTkxNVExFNDhWM2g4cEZpUUVyVUdxdzZZemR0QklnalYwYmgrUmRvWVBN?=
- =?utf-8?B?RjI0ZE5qakJtQVhVbVVPWlhLNkVXL1NlL2x3SHBjRVI1WG9zOTVheVFMcExW?=
- =?utf-8?B?cE1LRmVnbkdiNjl0RXU2aWhqNGR1WjZBdXJDYmZLMkRTRmVwM0NtRlNrc25T?=
- =?utf-8?B?UWZMN2VkcWZXbGhnZWVjZU1nbk8xUzVvcDZ4QmRrallsTkwyYitjTU5BK2ZR?=
- =?utf-8?B?Q0daRCtrVlBjKzRCcFdwU2k2SVJka3ZiRzBiQTBBUWZaZDhhd3BZNXVSSk9l?=
- =?utf-8?B?bGJ4eHIxRE5tRE8zcnFQc2ZndGxjL3FwcUJwczJXTjZLdVFHT3BHME1Yaktw?=
- =?utf-8?B?VVJWUjNVVktZNUJxdWIrZGlHRjl0c2llQTNER2xKUnhtMHVENlBjVlU3N2JY?=
- =?utf-8?B?NGFsT3JEMUFIZnVqekpHNno0R0RRZVF4RllLL2grNEYzK0xEL1daK3NEQ0pt?=
- =?utf-8?B?S0RzcGROZkUyUjRhbkl0OVBraTFqd2piS2lReU9raDl3dGhKQk9hV3RWcmVN?=
- =?utf-8?B?b21VOC9WaVdsaUtYSWFzRDNtL1RaUmNnTFgwNVZUeXh0MXN1ckFjaEtMUm5I?=
- =?utf-8?B?RWdnV0d1Wm5EL2pNYVgzRU1LMiszMVBBY0kvU3crT3padm50Z0thV1FkYk1Q?=
- =?utf-8?B?SU5UazlTTGhNZG5EV2t6anFYanZGcTl0OUYxYXhoYjVIOStwSUZSeXJQVUMy?=
- =?utf-8?B?ZXo5K3RtQmljYWhaVjgyVUlQR2puM2k5T2NwSFl4NVg1V1lmUExxVXdhU1hy?=
- =?utf-8?B?RmtXYVMybXMxVlNtY0xTT05YQ3pTYmxGSGxwN1ExRnZFSjJuSWMzKzYzeFBo?=
- =?utf-8?B?cCtPYmRwMGsxMTUzSVl6SEgyQlh4VUc1b0plT1pObWhseDhDcXJqeWt3N0U5?=
- =?utf-8?B?eTFrSjA5bmJzU2Q2VlJzNEh3WXVZMXNXT3R2N3I2d0pqN2xSR3FObU9UNUN3?=
- =?utf-8?B?dk94aEdmUjdtdjh4RzdpWkVFemlwekFqRnlIT2k2L3NvRHNXYXJCUk53MG9h?=
- =?utf-8?B?Y2xCOHRTNTZGN3Y1eTRRZDdxRU5jaDZHcFZJQk5BRzdtaTNSQzNBazhjWDZY?=
- =?utf-8?B?a29rZGUyVVB4M1VSNWF1eHUybUFtUmg3M3VCK0x4aDJrTDdBQnBxRmJyTkxv?=
- =?utf-8?B?ajNVSFExM3hnQVJvdXp2c3EydmZnT2tGZGQ4VEJmUGtaeDNIUnFlS1RWL3c4?=
- =?utf-8?B?Vk81NVpwN25xTTAveEV0V2p0ell1VHh0QVc2dnZNTkgycGdYSGJLUWUwUDJt?=
- =?utf-8?B?UGx3TU9MK0h2TXgwOVQ5MWh1a3NzRnlubnJOS0lVcjczZU5rZ1MvUDU4VjZr?=
- =?utf-8?B?NzNDYlBIUm1Dak9Ea0s3dGVSSmZBSmR2T1UrWFNqaTZBRW4rSHlLVEFqVUpC?=
- =?utf-8?B?dEgwaXVOM3UwRkpJc1RSZGQ5VXdheldIM09VY3cxbFJLM1hKd2dqUS8wK1V5?=
- =?utf-8?B?Qm8vVzU4MmNjTndvdCtBb3ZlN29mVFdycG9Ga3hkK2Y0NUw0R0x5cXVYOW9R?=
- =?utf-8?B?cGpqRFZkVnFlQzVNTmMxWWMvVjJCQUhYVW1zRFlHNnp3NWsrTVRHQk9MWTBW?=
- =?utf-8?B?T0VMR1U5eVQySHg1am51MkNoYW5NdldBZVlLTjE4TElKejhCcEJnQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=arm.com (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=lukasz.luba@arm.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 581 seconds by postgrey-1.37 at boromir; Sat, 30 May 2026 01:27:59 AEST
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gRnL76CvWz2xRs;
+	Sat, 30 May 2026 01:27:59 +1000 (AEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D29DD1C00;
+	Fri, 29 May 2026 08:17:41 -0700 (PDT)
+Received: from [10.57.26.238] (unknown [10.57.26.238])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8093B3F632;
+	Fri, 29 May 2026 08:17:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780067866; bh=i14utAyWVag4qxanxiMOSsLoacp5PlK9awjdPrY0Lt0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=E/Y8OmFzjPPiFlVn4wlpigbZpVnBOLe/nvmQB9aWj85QNMT7/qwPvsbPCBXgoTSUY
+	 ILoZRm/Zx+YVmLnnnjl6SbY9FgvOkUu3spSzSN72QzgqEzBR85lxu8q43Fz/aKK1vx
+	 t17fO/GqqvBY0+f/5OA/Bl8CQBWaofzEEz9yntmI=
+Message-ID: <c99085e5-cf1f-479d-bef0-b6a4161482e5@arm.com>
+Date: Fri, 29 May 2026 16:17:33 +0100
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -143,23 +52,103 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	YUb/k+L0Whv7lSVu4uUNNrGB/c6N/QWYRq7NBKtPsGzRE/O5PrcUfTXMXZO90w8l33htOwe+krY+MnQTL+TOraRaTXSuWrDDU4ZUKNsAThBL9+OoMJI+G3zcu+hdxw+UmV6x6b0BSCQLARwr6Vpedl/ulCDlrLAcnmZGIvx6yXoKhGNO9Co45WyP/HFa+oFTXyG+o33L/toWE4Vb5Yz4ap+nJAQ3wvwWwmApe5fbVdxM7imtfPSeYC1ubF0rVqCi2jPoy02MK/UEhuTERiW1bsJU9eNTUNfqlUl1bxIGoph8PqFpECnAHdOVLbyxPAmvMpiG3hNcHLpQDioiS3DKdw==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ae1bd44-1340-491c-844e-08debd345a4d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 03:42:48.3802
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SKbF8WaoArKTPEGZzvFewNWgO8LfCtis5JdLEMFXWKdQrUIWy/lBrjiG44EkYtYh9G53o7Qb6e2S7/5jbGUG0o0ug9XMAyChFclJXF90Qtk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5330
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/10] thermal/of: Rename the
+ devm_thermal_of_cooling_device_register() function
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org,
+ daniel.lezcano@kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Benson Leung <bleung@chromium.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Amit Daniel Kachhap <amit.kachhap@gmail.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria
+ <amitk@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>,
+ "moderated list:ARM/ASPEED MACHINE SUPPORT"
+ <linux-arm-kernel@lists.infradead.org>,
+ "moderated list:ARM/ASPEED MACHINE SUPPORT" <linux-aspeed@lists.ozlabs.org>,
+ "moderated list:ARM/NUVOTON NPCM ARCHITECTURE" <openbmc@lists.ozlabs.org>,
+ "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
+ "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
+ "open list:KHADAS MCU MFD DRIVER" <linux-amlogic@lists.infradead.org>,
+ "open list:CLANG/LLVM BUILD SUPPORT" <llvm@lists.linux.dev>
+References: <20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com>
+ <20260526140802.1059293-18-daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260526140802.1059293-18-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgU2lycywNCg0KPiA+DQo+ID4gU2hvdWxkIHdlIHRlc3QgdGhpcyBvbiB0aGUgYXNwZWVkIGZw
-Z2EgYW5kIHNsdCBwbGF0Zm9ybXMgdG9vPyBXb3VsZA0KPiA+IHNvbWVvbmUgZnJvbSBhc3BlZWQg
-YmUgYWJsZSB0byBkbyB0aGlzPw0KPiANCj4gQXNwZWVkIHBlb3BsZTogc2FtZSBxdWVyeSBoZXJl
-Lg0KPiANCg0KSXQgc2VlbXMgbm8gcHJvYmxlbSBvbiBhc3QyNjAwLWZwZ2EuZHRzIGFuZCBhc3Qy
-NjAwLXNsdC5kdHMgd2l0aA0KdGhpcyBwYXRjaC4NCg0KVGhhbmtzLA0KSmFja3kNCg0K
+
+
+On 5/26/26 15:08, Daniel Lezcano wrote:
+> To clarify that the function operates on child nodes, rename:
+> 
+>            devm_thermal_of_cooling_device_register()
+> 	                     |
+> 			     v
+>         devm_thermal_of_child_cooling_device_register()
+> 
+> Used the command:
+> 
+>       	 find . -type f -name '*.[ch]' -exec \
+> 	 sed -i 's/devm_thermal_of_cooling_device_register/\
+> 	 devm_thermal_of_child_cooling_device_register/g' {} \;
+> 
+> Did not used clang-format-diff because it does not indent correctly
+> and checkpatch complained. Manually reindented to make checkpatch
+> happy
+> 
+> This prepares for upcoming support of cooling devices identified by
+> an ID rather than device tree child nodes.
+> 
+> No functional change.
+> 
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> ---
+>   drivers/hwmon/amc6821.c                  |  2 +-
+>   drivers/hwmon/aspeed-pwm-tacho.c         |  5 +++--
+>   drivers/hwmon/emc2305.c                  |  6 +++---
+>   drivers/hwmon/gpio-fan.c                 |  6 ++++--
+>   drivers/hwmon/max6650.c                  |  6 +++---
+>   drivers/hwmon/npcm750-pwm-fan.c          |  6 ++++--
+>   drivers/hwmon/pwm-fan.c                  |  5 +++--
+>   drivers/hwmon/qnap-mcu-hwmon.c           |  6 +++---
+>   drivers/hwmon/tc654.c                    |  5 +++--
+>   drivers/memory/tegra/tegra210-emc-core.c |  4 ++--
+>   drivers/soc/qcom/qcom_aoss.c             |  2 +-
+>   drivers/thermal/khadas_mcu_fan.c         |  7 ++++---
+>   drivers/thermal/tegra/soctherm.c         |  6 +++---
+>   drivers/thermal/thermal_of.c             | 15 +++++++++------
+>   include/linux/thermal.h                  | 16 ++++++++--------
+>   15 files changed, 54 insertions(+), 43 deletions(-)
+> 
+
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+
 
