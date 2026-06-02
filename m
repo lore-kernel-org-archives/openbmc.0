@@ -1,88 +1,88 @@
-Return-Path: <openbmc+bounces-2023-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2024-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE6CCD6E57
-	for <openbmc@archiver.kernel.org>; Tue,  2 Jun 2026 23:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4A9CD6E57
+	for <openbmc@archiver.kernel.org>; Tue,  2 Jun 2026 23:46:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gVS985TtJz2ySl;
-	Wed, 03 Jun 2026 09:44:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::833" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780441148;
-	cv=pass; b=F2LapHWfcOqd8k7qg2mCHxCzxAPgdkjrBIV9KkyGHTAxLsd9DpcDOSDsTcp+M/BEfnpgnernhwLnJ5e+idv3Avet5BzlhoN8meUlgwdzvndhDtzbiuygPIkA0oHguExril2mn+Z+HlX6Zam7169Bl0nsogoG6gDdT1w26+vVOsydwWPwSMjuK0ASsFz4avG0R93hoTzcHUI3B2KYzG2OoZ+m7aLb7fLXqq9FKoHJEy+Yi6QLNDJE3iBROBGtyZis+EqqzLYedlIkuGtWMdfwr+40XSfZTNJIXDOmBJhORxc8Ex4pKyLsCLC4xetFeBaOaqAY9t+a0mqSQNNlyQp9KA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gVSCG5F1rz2yS4;
+	Wed, 03 Jun 2026 09:46:18 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1332" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780385062;
+	cv=pass; b=OvR74/Mybb50ehBylJl5KSJTPkuUOYksma4FoGHo454lOJ7Jf8TQGX1gATEJ+0AgmaFXS5N9pivf0d37bt+8Zr6Zxv+pDSfMTRLsszTpOmFo9lt/fc9xxFNBF9nhk5nDV12RIu4TAcIqbLuIvZG56RLjBuy39VIHBZlOPAaLr8x4mb/54aoeVzSqmM5QzqjarvJzMWuGlEOlyXnTJ8dwB8tSf6BrXVL0XEpflmaX9dUrObxcdI2K3b2Vs7q+0+k6KgGTpGJCYTwEBP2XLybSZjbTu+OzIkl/5eRUJYtoo5twNsFumypnohpkHmRmkohw1WOngWrFBVAbQUyp9FrFbQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1780441148; c=relaxed/relaxed;
-	bh=9slTBVqZvIEnPgeuH1I4EjHx1pNVKEcD4pIbI1Xhw9Q=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=GdSxiyavJ+sHI3OIY6jBG6BQffAsIh4EQMzqFkd3p+vjsC6+yDx5ugbbg5zlcXzFHT0/SmmnQoW3zeqgf1bJdSTpHeKIVZnrzWrBAEpQ5DdQB0ye8p+7jwUmrbCz9GmXw7cKFPShMH1FBWIZYOcbamBePFAvS00vVyLEsSMbjm1VzjyIEau7tk2nZcCwkysMqpw8X/z4QMWp535ANe4tLIm8iMbRMQPghWkwUbzjkFgJqKSWoR+dLH2DQ41GHZI3+MCSL2+BGbFjeI5xj4C9cPVYfxl1jqzUSN6OdgCHSTDUvFtGUWAOPGcg7Wpq7VRHYws1YBZL+JsXouOhfPp4Cg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com; dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ThWi3+Sw; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::833; helo=mail-qt1-x833.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org) smtp.mailfrom=google.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com
+	t=1780385062; c=relaxed/relaxed;
+	bh=WSPmU9u1nCkYGVCVW2CIv/l3Ij7X/SRzvT4X95GUycY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=LWNp1+hkzf1TFYXIK5Qiq8TWVnqkF/JDGiXOCFN40plTCpPwPGiSCZqzpUODjZ8OJlXjTuQ+bnLjm+0TQle5HE//5I+P7kIQxVWPW24tEzAsn1wEP8KRqg2auPSZ3LjXR0Wjrw/aqMNGNzrIk9ePl7d0XoObcqtHVJjGcimVeXC2rLGsjFaeXFUPcKy7/ZjhBoFKLfOZBGFInZJMl2QqrJZrMM0lzK59/LSS6vJB2iuU9l/a3rAC1Y/KmAz8aZ3mwDX7G+ImYZouzeBObJLc0ahyeW1+QKLRS7/JZ/q31HOC0z2tDnntjf8eR0JN3NcuOjlAi81hAL0tX6yKVD7SdQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rT2iKsde; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1332; helo=mail-dy1-x1332.google.com; envelope-from=rio.chen.hj.wiwynn@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ThWi3+Sw;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rT2iKsde;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::833; helo=mail-qt1-x833.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org)
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com [IPv6:2607:f8b0:4864:20::833])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1332; helo=mail-dy1-x1332.google.com; envelope-from=rio.chen.hj.wiwynn@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dy1-x1332.google.com (mail-dy1-x1332.google.com [IPv6:2607:f8b0:4864:20::1332])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gVR8p56R5z2xLm
-	for <openbmc@lists.ozlabs.org>; Wed, 03 Jun 2026 08:59:06 +1000 (AEST)
-Received: by mail-qt1-x833.google.com with SMTP id d75a77b69052e-50e61648f10so128501cf.1
-        for <openbmc@lists.ozlabs.org>; Tue, 02 Jun 2026 15:59:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780441144; cv=none;
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gV2QF62LDz2yb9
+	for <openbmc@lists.ozlabs.org>; Tue, 02 Jun 2026 17:24:21 +1000 (AEST)
+Received: by mail-dy1-x1332.google.com with SMTP id 5a478bee46e88-307263ad0cbso1961279eec.0
+        for <openbmc@lists.ozlabs.org>; Tue, 02 Jun 2026 00:24:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780385059; cv=none;
         d=google.com; s=arc-20240605;
-        b=UQ6tRwMstek0kfHJ+swNIp7EFpDIsV4izevVbNdH7c+A68WRFKdlSC/uESyhD2/u6V
-         g51Ma16755YtzPT5xHpiON09Mq1vTeP0LpSUoiE59Be/dp3KL4ENMTSEu/mY1WwcS283
-         wmYhelN5vbHq+Z5Zpx2tDnEscgUVgiBqGh1mSo+spNXNKFP7kYXfNYTIJEsSxMQeNobx
-         Dy1vamasWjEwhNChe7rCYmL4FTmE2bkxpm03ad0cLI124322ERSZ9WFt1XZK9a/appqm
-         PPf4Z0rPdem5Uxj76ojHLvDQgO+k9UoE3UnXYToxlNxphN027gwccfFIv3oGN59IQcf2
-         Wv/A==
+        b=b00U/TMX9/J9K+RehP1VkDb0jS0FByF/sFyLTjxNv6G3Aai43U9yKMCjFnXuDKYn2G
+         u3oI8ZWmDJnsdZGVsl8lPCoQsJrqEvr0cASDOJgWq4e6UB0fOtx2mc10uSM0aL11KFoy
+         gSZgHY+EC2sw3QRuspIelyWk/I2zmTR767c6EDohv4ND2GNxKCatZ4Zu28WB/uU/wE5v
+         BEYdkOuhAUoeWKWffKaGGsuuk1BTzpJ24vzNQLDQfGXcOoOeXX4SaNwiPxxbtN/cENiW
+         KgNZscu/GWwxISlUzC+zzgniuSmL3sW3hPgrto8WzfLG+5GoA6yAPuwmOgrJDM2pcLi0
+         WFIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=9slTBVqZvIEnPgeuH1I4EjHx1pNVKEcD4pIbI1Xhw9Q=;
+        bh=WSPmU9u1nCkYGVCVW2CIv/l3Ij7X/SRzvT4X95GUycY=;
         fh=B5hptedw+6RyGR/i2ArH91xOt8ZhRewMTnM2T7RVmak=;
-        b=a3vztjstz2LNpyTFft9reFd/ePSf7+oGyyjU+lI572UyirBUSKYbZL3a8HIPpelXO6
-         jKGCGDJHbCLKnC2Ar33kZnqX/Y0WSbuAUsmVq5D2D2+XYXqSjvMFfd/Kz9FWEfDffh1D
-         C/jglMs/JjQ0zX8h8Ay4V0eIT4nliQ+VHYbeS/MeNFtMubobWQPbEmqc5SRVV1dv4qY7
-         Sg/AwB9fK/CoRx5A/TNC+VCWagvqEs+9jR/aqs6d1L/KP42tEwbzDe8qqAara+JL5v1Q
-         FQzBI33nQdDOltIQqrb6YZRniq+EUHddZ7Iu0yPIk/KBZRqdNX5gwU8jipIGsQOWKnzq
-         jeNQ==;
+        b=LLMWn071hGAj1MjIcDQod3U+TTeQ54nU1QhIdpNQ9p+BkXooyT7BLkBpy36F2nVQY6
+         pfAAVmd9CU/aq4gIQ5SoLU7POQQrEz8AZieCl+SHy41f+CTlHwrpzfAhBTfX9vQcEiWs
+         EklIF2sVUHkqzm4+KCptAfCReXg2+xH9FZBTe1jz083jURapRHVCjGIHA7t37LjkvsiK
+         1MLrDRUldy9ZESIMUSr6oBuiA4QAxSBXTTWL0Um1d9V1kcUMVRvG0sqQpWOousro+iDq
+         shYzCVwwUiYQF6HssIEZl9UbuUaXtznkX+YhjgkAoIikSqz2Nk53LSn4Gk0mDf81hBIz
+         yWhQ==;
         darn=lists.ozlabs.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780441144; x=1781045944; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1780385059; x=1780989859; darn=lists.ozlabs.org;
         h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=9slTBVqZvIEnPgeuH1I4EjHx1pNVKEcD4pIbI1Xhw9Q=;
-        b=ThWi3+Sw6eSm5Y/GebQ18hFg8hzP3ePnWqrijyQu6FVFE3++MvrG110AcFfgTnJFab
-         3KOJ3oFG1x2/m5+wxVfxZq60Sr8/RYPWsk9zbfXt5KRt16Ot8EyBLMNqeFI3tRI8OvOZ
-         latScnWVxFD/ZtP3WVKU8Tqfm/SXKTOwfJZm7pfssH/jZ4l6I5P7oPB6OD/CrK0RWRpN
-         DwUGcON1slSS6xX7JKPKH7QiHzG/vP/2nThQNHWSrwCEaglRVk/HMDDjjBrzidqKGiE6
-         ccxPZWkUNs6bVeyaaUQwikYnTgdGFPrLDaaEh4/steV4Q8rgoEdcyuIIuYjQRu/G/OKQ
-         wh2Q==
+        bh=WSPmU9u1nCkYGVCVW2CIv/l3Ij7X/SRzvT4X95GUycY=;
+        b=rT2iKsdeQQ0qUW10Ox2VXJdeFowPlW5Qo5Ov/WXlFFjbMmsYFpV0LNMnzELeS4M/y/
+         GyOt3Sl9PrucHAmO8O/8/tb1rMKIaO6cJCI2kfhws85GEB6jm87tILzDj7U5cX5zm3+V
+         K7QKuhA4hpXZs5OETMBCeWfT+PlcPHtegu22NcVU7jyj/QSPp6urKmBESw3pCkRskXBi
+         6Ai0QF3oQQ51PS35jURfjo0gqiV0T+ikU9sD23Ut3M2y4mnCruGr6sPrRXuLr+w9g5Ie
+         8ndVcSL/1dqY7N/5m1/pmvG1Fbr92mFeo6N9UKeZTbXOFUv/rptB5XdfFpkmSpuaKoJU
+         vyzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780441144; x=1781045944;
+        d=1e100.net; s=20251104; t=1780385059; x=1780989859;
         h=to:subject:message-id:date:from:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9slTBVqZvIEnPgeuH1I4EjHx1pNVKEcD4pIbI1Xhw9Q=;
-        b=sFoUcYCu67FNL11cRI4AisCfpGVPq7hqFU/jGP5cPeddtGYaLJj1g6Ctv8ws7Glduo
-         UX2lkBO4usiOd8+qL9ZHz+veHaSCQVg5rNaaYZZOyiCGpV4Fk04qXXxJ28fKT3AHMcIs
-         N8EzGtPC7cEp0iGio+vNk/3J6TmX8bNtSNHkzZM+2EE27/+Vl5cI2PYXU+SgmqqvCTfV
-         jC8rieyHPwMMeHiPdFrtQmGQkrriIZdK7/mcS3+1SBokIXu9uhkJksj1EApQ74TU6/FZ
-         GTTLekZypaspB/M7Ey0/RxY/K9P4xqFMhmJ97FMHGJ0pCLGYF0fI/48bDwJJ9nLwPnil
-         6b0w==
-X-Gm-Message-State: AOJu0YxrXPMzUpUK+mmPvorTjfjQxkIZjy8BaDxMHz48zkc1UyfsnyGl
-	vcRoMnY3cdL7LpFq0JXqDOFiiiVrfZF9AQ/jevUnPi+dF0r39jC8Kv2eqG+GI062r2xDHE3bJVJ
-	zpQ9yTQYI4d5LP6miHJ6PmkdrfyEE6UnjV1uXMjIA+sXWMsnn8XZav6ANe2Fxgg==
-X-Gm-Gg: Acq92OH7tAOQ5yzjIvC8kKms9AFAuR/afrmWeBVKlUkaEUbETzfih20O0Eg8fBML66E
-	8S+SCtbLDdYi4lvkYEnraJEJVRz8Af3Btts+KEadlE0CTbUGC72CyipUF2JdqNaIIM/JuMRVwtp
-	3Fwl3BkGP3aHaG8t9xeq4VAjIoBamKyICn60ookvh3CMOfm8/+IvKeTL5RmQ0WI+SHVy+tvkH3t
-	loYChIWwK66c77XgqbV1We/sECbRg0i/pSKW9g2q9Fs5MZfOnpIg3QOZcHQCzFSwoDA85JHv3hx
-	8mBFK74kl6KAnHMZ1HMhbgF8GyBD09DQo/5JDcWI4QiP1EJZdFuw
-X-Received: by 2002:ac8:548c:0:b0:516:4f62:85e7 with SMTP id
- d75a77b69052e-5177bad0edcmr193241cf.18.1780441144039; Tue, 02 Jun 2026
- 15:59:04 -0700 (PDT)
+        bh=WSPmU9u1nCkYGVCVW2CIv/l3Ij7X/SRzvT4X95GUycY=;
+        b=MiGFRlAXXVeXAFLH/FxyZk3tesNAcpJbEpo7A77iV7UoahA8r8Z3nB/jJw036oyd7D
+         q0KSm4X00jgrwAHlh6qPQolmFj9s+V5VJJuNCCbbdIjDKP+Jam5C/gPoehwO/5PDKXuc
+         udfPpfD1fTe083E6KNYgWSthatxxAuBHzhU1rMLh7DxAALMqFpYIDtkfrRlp8BdhkZh3
+         7knlmlgUZrew4W70KzfQjy8daIfZ/cgJyw2g6MZ/+vOzOGUms2ct+GPUa0rIzobZ162g
+         rmoIlUEPn/2wzSFiy1YxwNhgQH2VPtXC9lxkv0s+CBeef+zTA4/H2Vt8We12bBZFOV+U
+         cHPA==
+X-Gm-Message-State: AOJu0YxjQVb5jn2RH1UHdn7y/xjvScmC6vVDp/jeub6M/bskAWX/iUiQ
+	gNsGzklVEmct/67Gwms9SR7PGMUJ6EtLsEJwSRWXIgs3rNpcZlR+0ZEvAK55MZIPPHmVPgg/BhY
+	93sE0yOuyfp/hkuPDdsEFgyzKrvfBR2ojfezA
+X-Gm-Gg: Acq92OGm1y0iPviLusQrMoqTo8qIbR8P+GtDcklmIepSxboHw7pix1yWvrgFSvjBUg/
+	1tYX1yHO1eceItx2y7CPkw2Cli/v6dKZNx4XgdEs2waHJhMs7LVQCv7ozCWgXT6RRO4+sV3+mk3
+	iAPowN+2/B0sGCIbesP7Z54T6hK0RiD1BCv3EPKFvMX/75ZcJuLUpDVPow3fh3wJQqs0WoO0zk9
+	qMU1NTMCPp9qnwgWCrQs8o01GDGIe8K2k7BflgJ0F/hfUQgvzp/wKc5z6AYfK9Z7u45bdR4BM69
+	Se35PmMSeX3TK/mvi7B1QC4XNlmJog==
+X-Received: by 2002:a05:693c:2c86:b0:2f3:5266:fdfc with SMTP id
+ 5a478bee46e88-304fa6a6ff7mr6278310eec.33.1780385059395; Tue, 02 Jun 2026
+ 00:24:19 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -94,117 +94,67 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Bhargava Naidu Gulla <bhargavagulla@google.com>
-Date: Tue, 2 Jun 2026 15:58:52 -0700
-X-Gm-Features: AVHnY4IrbI3VoPojpNvLpDHo-6qt-xHrePtoOnIeQPDy0YJfraRBhplBIwfpIg8
-Message-ID: <CAEPZvmPzVXeoPexbjtrLFeWaAbJ5hPuT2txSW1UZ-tkeSD0L5g@mail.gmail.com>
-Subject: [Vulnerability Report] phosphor-logging / peltool: Local Privilege
- Escalation via Untrusted Python Search Path
+From: rio chen <rio.chen.hj.wiwynn@gmail.com>
+Date: Tue, 2 Jun 2026 15:24:07 +0800
+X-Gm-Features: AVHnY4I258p2jldpd1I1oJSSZaYqe1o7nUIYAgtseZbiBuc0fQFhUcIBU2XWTA4
+Message-ID: <CAHLYVqdjJOecp7eRJDhXDv9K27c6cCE52YzWsJyzWm=5czV8Wg@mail.gmail.com>
+Subject: Gerrit Account Issue: Email locked after changing GitHub username
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000f0f2d106534d412c"
+Content-Type: multipart/alternative; boundary="000000000000075b74065340332a"
 
---000000000000f0f2d106534d412c
+--000000000000075b74065340332a
 Content-Type: text/plain; charset="UTF-8"
 
-Hi OpenBMC Security Team,
+Hi OpenBMC Admins,
 
-I would like to report a high-severity local privilege escalation
-vulnerability inside the peltool diagnostic CLI utility.
+I ran into a duplicated account issue on gerrit.openbmc.org during my
+onboarding process.
 
-Overview of the Vulnerability:
-An unprivileged local attacker can execute arbitrary code under the context
-of a privileged administrator running the `peltool` utility. When executed
-by root from an insecure or world-writable directory (like `/tmp`), this
-leads to a full Local Privilege Escalation (LPE) and system compromise.
+I recently changed my GitHub username. However, before that change, I had
+already initiated the Gerrit account registration with my email:
+rio.chen.hj.wiwynn@gmail.com
 
-Affected File and Location:
-File: extensions/openpower-pels/tools/peltool.cpp
-Line: 226
+Now, when I log into Gerrit with my updated GitHub account, it seems to
+have created a new blank profile, and I cannot verify my email because it
+says "Email already in use" (locked in the previous ghost profile).
 
-Root Cause:
-The `getPlugins` function in `peltool.cpp` explicitly appends `"."` (the
-current working directory) to Python's `sys.path` search list when
-initializing the embedded Python interpreter for plugin loading:
-  PyObject* pResult = PyDict_GetItemString(pDict, "path");
-  PyObject* pValue = PyUnicode_FromString(".");
-  PyList_Append(pResult, pValue);
+Could you please help clear or unbind my email from the old profile so I
+can link it to my current GitHub account?
 
-When `peltool` processes a Platform Event Log (PEL) record, the
-`getPythonJSON` helper dynamically resolves and imports user-data parser
-plugin modules based on Creator Subsystem and Component IDs. Because the
-current working directory is added to the Python search path, the
-interpreter will prioritize importing custom parser scripts dropped by an
-attacker in the current directory over legitimate system plug-ins.
+- Current GitHub Username: RioChenHJ
+- Email to be unbinded/verified:  rio.chen.hj.wiwynn@gmail.com
 
-Proof of Concept:
-1. An unprivileged local user creates a malicious python script in a shared
-directory, such as `/tmp/udparsers/b2000/b2000.py`, defining:
-   def parseUDToJson(subType, version, data):
-       import os
-       os.system("cp /bin/sh /tmp/sh && chmod +s /tmp/sh") # Local
-Privilege Escalation Payload
-2. The attacker waits for a system administrator to run `sudo peltool -a`
-(or any command parsing raw PELs) while their active shell's working
-directory is `/tmp`.
-3. `peltool` imports the module, executes the malicious script, and creates
-a SUID root shell for the attacker in `/tmp/sh`.
+Thank you for your help!
 
-Proposed Patch:
-Remove the current working directory `"."` from the Python path list and
-strictly restrict python imports to a trusted system folder:
-
-// Remove this block in getPlugins():
-// PyObject* pValue = PyUnicode_FromString(".");
-// PyList_Append(pResult, pValue);
-
-// Enforce a trusted system-only folder instead:
-PyObject* pTrustedPath =
-PyUnicode_FromString("/usr/share/phosphor-logging/pels/plugins");
-PyList_Append(pResult, pTrustedPath);
-
-Legal Name for Attribution: Bhargava Naidu Gulla
-
---000000000000f0f2d106534d412c
+--000000000000075b74065340332a
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi OpenBMC Security Team,<br><br>I would like to report a =
-high-severity local privilege escalation vulnerability inside the peltool d=
-iagnostic CLI utility.<br><br>Overview of the Vulnerability:<br>An unprivil=
-eged local attacker can execute arbitrary code under the context of a privi=
-leged administrator running the `peltool` utility. When executed by root fr=
-om an insecure or world-writable directory (like `/tmp`), this leads to a f=
-ull Local Privilege Escalation (LPE) and system compromise.<br><br>Affected=
- File and Location:<br>File: extensions/openpower-pels/tools/peltool.cpp<br=
->Line: 226<br><br>Root Cause:<br>The `getPlugins` function in `peltool.cpp`=
- explicitly appends `&quot;.&quot;` (the current working directory) to Pyth=
-on&#39;s `sys.path` search list when initializing the embedded Python inter=
-preter for plugin loading:<br>=C2=A0 PyObject* pResult =3D PyDict_GetItemSt=
-ring(pDict, &quot;path&quot;);<br>=C2=A0 PyObject* pValue =3D PyUnicode_Fro=
-mString(&quot;.&quot;);<br>=C2=A0 PyList_Append(pResult, pValue);<br><br>Wh=
-en `peltool` processes a Platform Event Log (PEL) record, the `getPythonJSO=
-N` helper dynamically resolves and imports user-data parser plugin modules =
-based on Creator Subsystem and Component IDs. Because the current working d=
-irectory is added to the Python search path, the interpreter will prioritiz=
-e importing custom parser scripts dropped by an attacker in the current dir=
-ectory over legitimate system plug-ins.<br><br>Proof of Concept:<br>1. An u=
-nprivileged local user creates a malicious python script in a shared direct=
-ory, such as `/tmp/udparsers/b2000/b2000.py`, defining:<br>=C2=A0 =C2=A0def=
- parseUDToJson(subType, version, data):<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0impor=
-t os<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0os.system(&quot;cp /bin/sh /tmp/sh &amp;=
-&amp; chmod +s /tmp/sh&quot;) # Local Privilege Escalation Payload<br>2. Th=
-e attacker waits for a system administrator to run `sudo peltool -a` (or an=
-y command parsing raw PELs) while their active shell&#39;s working director=
-y is `/tmp`.<br>3. `peltool` imports the module, executes the malicious scr=
-ipt, and creates a SUID root shell for the attacker in `/tmp/sh`.<br><br>Pr=
-oposed Patch:<br>Remove the current working directory `&quot;.&quot;` from =
-the Python path list and strictly restrict python imports to a trusted syst=
-em folder:<br><br>// Remove this block in getPlugins():<br>// PyObject* pVa=
-lue =3D PyUnicode_FromString(&quot;.&quot;);<br>// PyList_Append(pResult, p=
-Value);<br><br>// Enforce a trusted system-only folder instead:<br>PyObject=
-* pTrustedPath =3D PyUnicode_FromString(&quot;/usr/share/phosphor-logging/p=
-els/plugins&quot;);<br>PyList_Append(pResult, pTrustedPath);<br><br>Legal N=
-ame for Attribution: Bhargava Naidu Gulla<br></div>
+<div dir=3D"ltr">Hi OpenBMC Admins,<br><br>I ran into a duplicated account =
+issue on <a href=3D"http://gerrit.openbmc.org">gerrit.openbmc.org</a> durin=
+g my onboarding process. <br><br>I recently changed my GitHub username. How=
+ever, before that change, I had already initiated the Gerrit account regist=
+ration with my email:=C2=A0
 
---000000000000f0f2d106534d412c--
+<span style=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Robo=
+to;font-size:14px;text-align:center;background-color:rgb(233,238,246)"><a h=
+ref=3D"mailto:rio.chen.hj.wiwynn@gmail.com">rio.chen.hj.wiwynn@gmail.com</a=
+></span><br><br>Now, when I log into Gerrit with my updated GitHub account,=
+ it seems to have created a new blank profile, and I cannot verify my email=
+ because it says &quot;Email already in use&quot; (locked in the previous g=
+host profile).<br><br>Could you please help clear or unbind my email from t=
+he old profile so I can link it to my current GitHub account?<br><br>- Curr=
+ent GitHub Username:=C2=A0<span style=3D"color:rgb(33,33,33);font-family:Ro=
+boto,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,=
+sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;S=
+egoe UI Symbol&quot;,Roboto,Arial,sans-serif;font-size:14px;background-colo=
+r:rgb(241,243,244)">RioChenHJ</span><br>- Email to be unbinded/verified:=C2=
+=A0
+
+<span style=3D"color:rgb(31,31,31);font-family:&quot;Google Sans&quot;,Robo=
+to;font-size:14px;text-align:center;background-color:rgb(233,238,246)"><a h=
+ref=3D"mailto:rio.chen.hj.wiwynn@gmail.com">rio.chen.hj.wiwynn@gmail.com</a=
+></span><br><br>Thank you for your help!</div>
+
+--000000000000075b74065340332a--
 
