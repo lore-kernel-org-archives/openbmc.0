@@ -1,88 +1,88 @@
-Return-Path: <openbmc+bounces-2026-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2025-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1ECACD6E57
-	for <openbmc@archiver.kernel.org>; Tue,  2 Jun 2026 23:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F6DCD6E5D
+	for <openbmc@archiver.kernel.org>; Tue,  2 Jun 2026 23:52:23 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gVSL05SSwz2yrt;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gVSL05N35z2yfD;
 	Wed, 03 Jun 2026 09:52:08 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::82e" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780441574;
-	cv=pass; b=knP8JczXJt444nxct8eIzbsuKcEMofCW4mi6FELy8MDQgI2+tkC2Rc/Uoz8/gTVy92y3vhV8QtWj0S9FB0n8pX36qqXEDIsJ+J+7I+yf5jTqdgVNZtaPLpMu6An2I+MsjMw4ZwFc05h1Y1I54ixtn7h8LqxFvh/zW4SnMwPZC090ESxGjHV6S0GNp5Rgx82zvWitl0plhCmW2Bw9yJBFo5bG7n2xcuioHeVUm9kEpYbwG94BbiKXILlv+tvxyuwo4VP4AzZ0G4+DRRRX6ERhE2JCepjC+VSoFeMvLkotf/kQrza93HtNZ3SolEU9nK4T0DamO8DzrYkaLd2VdmmmsA==
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::834" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780441362;
+	cv=pass; b=Exg5GSlobrnddq3ar/oe+OKwVeULpwFAV2urpZQsYeMjLYXOELSZQr7Se1ChEkwM38POInWkGtBDpa+O2FGtkWbSaPW2AuCKoLuda52Ili3no79oG1kN/5it0GbnxQG1mw6XqnoM5hovdTBuHFgfOuh1CcvNpxIggswtxtQmWL2741wN/3OkHZFbqY8I3JPrfK7bP+MXURSKV/eIOK6NIx/KUyOzGK1F7Wkmh7XZ0ZpgocmjzqrZQbiOwvhqmY7GaZvw7/liXkZpHGHfdnck/wOolJNtt9JHF9ATQb3AW5dbSqrS3sywz3Qz4cVkCy5jFWxP8Uz+Ofu45Jo3P+AGQA==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1780441574; c=relaxed/relaxed;
-	bh=lwSMZdceV8VvHlS48xYli6PjbMHYogSzjkrpDTtp5lY=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=PKTBAbg3d3/pwGK5Racrfrnt3OUlmqr5Etu2xbEKkhNSdAfYUmWYuelhdfy61X+24pYJqAh15N4EYVdjbOT1m0c6YJEF8VPfZdA3oVr0ojrbYz5cyYfvT2U2VLP9iQBCmEH7VE9o2X3ek2L1lQY6OuX4X+Y60dq7C10X9HJ++fMAeGQV98Ji836hclarLUFI/7aOgnvya9b+q9eQxroRpbbGKVZClrzG60JFCfDjRLFHbH/20YZYn1ivutWTuVIusKLobox3Vl4S2+pY/Rh6NOYJbgcTS+Oyt5EnmhslU044U86Kl/nH0fJ+QqRSNKR7fTc44jC5TKfODKd5qlfouA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com; dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VaF+hWcm; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::82e; helo=mail-qt1-x82e.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org) smtp.mailfrom=google.com
+	t=1780441362; c=relaxed/relaxed;
+	bh=KDQSF4S1817kEr+VksISogN6tyUZ+m41ha2fjxdEKoY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=GR2fxa/Mlbrx5PWNwn34pL1mKwROG3QIewk1trXB82JOv+sxCaiCEiosoH0J2im5IPuiWAqpy3ntM0N9y6D248GpCwn9z39fFph8uYOS7/G+mBzeXRCtiL1ftNdkTp9MbSu0d0iP2L0GP1cobTWgGhoJGK5H9Cpq1b1sfHw6KJ4QTzl3tja2Hqg9zfOcve+FgFlmEK27asQDElesBqMjn0ml9y7v7Bl/hX6hHLN4D4cX1/mKd7zLhabNSCYfcAgNpgdy0ODIEGbc5eDnqrrSZPJ71IH+eIbsRf4fHw2yrPVeUdWJGxYlFhRU3Y+7GLADOUE/TGqPavHbkt2ijyOIGw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com; dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pg7yF4Jv; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::834; helo=mail-qt1-x834.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org) smtp.mailfrom=google.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VaF+hWcm;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Pg7yF4Jv;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::82e; helo=mail-qt1-x82e.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org)
-Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com [IPv6:2607:f8b0:4864:20::82e])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::834; helo=mail-qt1-x834.google.com; envelope-from=bhargavagulla@google.com; receiver=lists.ozlabs.org)
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com [IPv6:2607:f8b0:4864:20::834])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gVRK15wBCz2yMn
-	for <openbmc@lists.ozlabs.org>; Wed, 03 Jun 2026 09:06:13 +1000 (AEST)
-Received: by mail-qt1-x82e.google.com with SMTP id d75a77b69052e-51765531803so113391cf.0
-        for <openbmc@lists.ozlabs.org>; Tue, 02 Jun 2026 16:06:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780441572; cv=none;
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gVRDx4QB8z2yMn
+	for <openbmc@lists.ozlabs.org>; Wed, 03 Jun 2026 09:02:41 +1000 (AEST)
+Received: by mail-qt1-x834.google.com with SMTP id d75a77b69052e-51765531803so112031cf.0
+        for <openbmc@lists.ozlabs.org>; Tue, 02 Jun 2026 16:02:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780441359; cv=none;
         d=google.com; s=arc-20240605;
-        b=XdU3aQQhHyOjjYgG7m+4GRIwkApbOhfEYD7L6xQTU6RMFCzQKqCs1tnd3xaCBz01j5
-         MYmN46libP0xXEqaVtYPetsk7vGHkj0nIIyD7S9knaN2eBi2QyykX/PFuzymKFiRSDmY
-         dSEzh6RDyzmCQJAWAGQmxuoz5dRvk2fP4W49FLKXj6ysi5AhSWjikiOHQOfzBRe0aufp
-         RAcJumB3tjofQX+QsBA7G8lo2oazc7OTU86jSili5sDJk4xtvkG/Z611ItmuGRopckg4
-         USItz0+y7cyHfHQVPt5AY80iUvyDZFhBiq42jVbeWRv9ykjFF8BEGH5RySo5Y8UeRDGO
-         TKYQ==
+        b=Vdg8KOV8OV5AZ41J1XNoP21m8t/FCM/F+Bs2sfOkzsSKYQVsyDftHLq54QjQkScks4
+         AfCI5mJxNDU/gDYEOLl0JPoOMeXWrX6wabQyX7s+TySadoRfsEGfYLIF+vhhrse6s4xO
+         X5Wl1CkHitlDujxKDL9Y4jNHFyvnNFk5X6lvCluBZRZACcvC2msL/0CiIY5Jh3L/ytGy
+         mhXF4UBOMnJiZEHmz3pkbGvga+ty1eL6a8mZ1K7pD1EntPA4ugI9K/P28oc83aqVs6lF
+         t4GPaHJP3G253x0YZTCYcIKzLfooZhVw4TnSBTfn9PYffrHWdVrPZIN1LTlbbR/SKK2u
+         kN4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=lwSMZdceV8VvHlS48xYli6PjbMHYogSzjkrpDTtp5lY=;
+        bh=KDQSF4S1817kEr+VksISogN6tyUZ+m41ha2fjxdEKoY=;
         fh=B5hptedw+6RyGR/i2ArH91xOt8ZhRewMTnM2T7RVmak=;
-        b=UCQ7A1zuZwXQjlxfVSC4BnFJKaT835fAH33cjPQWOr13OuFLT+X8Rqk+jg3fBvC0oj
-         SCZOt5qOtsxdhPTHNsKPlmwNnNR8WJ4l0+EtsfNGdm4plCPYi5lDRFTczLBrT1Lw8lQK
-         xhe1szzOTe0Y5pXG0m9XTie5XvzsF3FLLmubzLnOaRyuJbv4dDHxHc9MppGBdTbLkyTK
-         OdcgV8ReWZL+gtmWHuDg8LaMvoTJsCKhfY3PDOXQ/VwIzYli8/XQpx2bWF0HN9dqgfHS
-         9BfYd/wsMC0ORBe9igjnBYOtN82gHNZeolp4RIalh8If3bVdj33A9nybUAmmr8Fvw4PM
-         xHgA==;
+        b=Kp302K8ae5T65iHvfJ0nl9r+w6ZHQ0Q9yUyggtYvDZoK7AOOPvxJ/z8N9Ke5zqiaMX
+         VD+WDWSxcEU3lSzWvKgl2M5w569Gjgc3HuhtCkXsZ0lv0BDnpuga7m0Sn7lPxGEE3SfN
+         tDYyMjHIIwGbHyArC1PyUjcardJ/aTXIqP+MpgT0Uwe2A6EAzBImbak0OFKx93tmIV57
+         KNyVQFf7bhIu3HDwBb07ifq70sRuLlrhSZ1y1f4PXMzmsNlYHqq60yS/yIFcZVhz3REd
+         aR8S24nOyQ8XifdUEHcggbOkXW4ii8jUwsDX4bW2voOxqatd5rwzNIFNe0H58VuKXkPG
+         qyjQ==;
         darn=lists.ozlabs.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1780441572; x=1781046372; darn=lists.ozlabs.org;
+        d=google.com; s=20251104; t=1780441358; x=1781046158; darn=lists.ozlabs.org;
         h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=lwSMZdceV8VvHlS48xYli6PjbMHYogSzjkrpDTtp5lY=;
-        b=VaF+hWcmlXgl9Qs676MQruYoulyeZow7rr9i2CEufStX0csRaPphcdg2BO8j6nE+Gi
-         TM3hAPP5tXnkRavTrlqDpmxnc9YhljA9vN697kMJqAiLUR/nuF2uVWXCg4iE9qKgCo7F
-         U3GUWFhvin0B49IFpe4f0GHrJb4RHyf4Vi4XmPsS1OVnONG4ewoctcQLcAz/ED26DARJ
-         EGAq4J+zWfnlcPB9qDTCCJrOhswW5bmDAGO48ay201UTMbg9LX7e39nhKWGuBgn7MBJv
-         4SMYhoKe8ZGbJmlgr6WwGCL/FU2tvxR1V7rFwgJ9UfOQde6U3nq/oKLCbuoxfMc/4ime
-         Pr+Q==
+        bh=KDQSF4S1817kEr+VksISogN6tyUZ+m41ha2fjxdEKoY=;
+        b=Pg7yF4JvHMBUB4bcqoB328ZqoZDdQ1JmNN/rTzM1ZaOHF8kQYtnik6oQ3nQo/zi1eH
+         SZfebbnP3W5Yjga47nHHZofWaGPPaSOyAojzg6Dw9qnEvYqHLYQuqFdF2JPtk0e1Hlxk
+         DRknCLokk8WVAGLXccQTrC0riuZ/tExUqZs2m+GcJ54ATT32YmYCvnwNMDHF0rVgQhh2
+         UCLZDQkB4gQGfvQvrB7WN2435d0hZUAqEXcdktwb4yosmzwLxRUBz5/eAgi0WcNzqpam
+         ABUz4wpCsgk2mkbmzbI1jVW/iCH/DUGuQQaOsmK17EkHnNhH5rgMgm6gmrv7SMouwtIp
+         uQow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780441572; x=1781046372;
+        d=1e100.net; s=20251104; t=1780441358; x=1781046158;
         h=to:subject:message-id:date:from:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lwSMZdceV8VvHlS48xYli6PjbMHYogSzjkrpDTtp5lY=;
-        b=sVOPsw9BhHWeUPjENqX6VcjiltqtuKDLcY3kJjCHDvSO3B9u7suSLIY0ckovwywHlf
-         xDwXO67MMJD/jNFL7koQPLThqwXIKIJgu7V7NTlUsAmlDjONhG/liJbGq6uat2Rb4PJC
-         0WAw16Jzn9mx70hesNPBimQNsst91ePbykhZDaeWOftC6NDxG4FWMbC0BCTmKa/so7Uq
-         szgdOUArKE1XL+MmNMFjzNaqLuZXUflEy/IhPgYPcZzL7E/nRRZo4KKkVUj6K6IWfWZF
-         sdNrzN+eMAOJhg1bK9lzd6ucqB7DAyCr0+QvB69Dka2eTA+1bZYEkxDxi5URMrQXTYxO
-         uZGA==
-X-Gm-Message-State: AOJu0YwUNE8IHvfQgPoSG8EZd3W0hU++lOa2XwIdfPI5+ZokYzoaimwg
-	5l/X8aRQTWKDMdqdD1534JoVfucLoSkD0Grf97cdRUKG2dCwRTH/5kCLtCOzhpUkZPlXXV5nyGi
-	EkLjrTM2d0S2xUQY9XBZY9Uy9p3aeCBOkmHzbpKSn3UBlNRjtWdYESlFMs3U=
-X-Gm-Gg: Acq92OEBKXe+/u2NqMyJRmvcizsFPVxkWZOYMOhVh+n7jDcektS7zbmEiF3o2ewLFGY
-	iMKFIBBXyGDgeqyRydV4Q5FUrm7wWKrlCIrGY7d/lPHYozppgaCLZeCUdExwoWQta5j0JlsnZ5r
-	bNNQ92c83eMgPYtFHOQ3M10r07bHbzhmmxco5XktgZOLHDwmySULsl87Zvr2t7DM58px57h/86z
-	HTx7aaiVHHZc9ZvtkUmF6+0uKkj28NUHYUGxqiQIyun01CAPS6PQRJtmGh1/s5bQxWnCatcdpRN
-	ONpOAflS/y6KA65hPNQ2BdYtUALB5cpvCV+PS5hlIL4PcPq1CwMI4PGyLnwrVj4=
-X-Received: by 2002:ac8:548c:0:b0:516:4f62:85e7 with SMTP id
- d75a77b69052e-5177bad0edcmr262241cf.18.1780441571311; Tue, 02 Jun 2026
- 16:06:11 -0700 (PDT)
+        bh=KDQSF4S1817kEr+VksISogN6tyUZ+m41ha2fjxdEKoY=;
+        b=rAtYBHKj/ITdlVK0Vtniwi5V2cdRrazrTvvtKEqF40ILZfskjsIYWFoCbnIbcsnNOn
+         2QiuT5MBMgQuWzXIpkG264w4MikRivSOh1m6BY3bbPIWNyVJUgFco6K8C5tg/sJJkWaJ
+         7AvcYeqQLfz7dLiVN2DYgwaZ6m1sKEsNMAmNMlnE4talKJ+UiSJJBbJqzalQyH7NTt+8
+         5zsnljquZjY3WX3SkkkQraIXQjV0IgXdtPzT0UR74HCWZzhhI+/0+MGvlPsZamXHjo8y
+         rYZr1A9GkPjaHFPQ3QNwzpuhKwpydfemY9WpC843pDaKd++QbbarmpndUKWuwvMI0L60
+         Rb5w==
+X-Gm-Message-State: AOJu0Yz2SiwQQ8QCEIiZo19BFqdcOI+6bvHlkwz5Vf617L9NbZpktPos
+	fiVfYPqQxS4O6tBmQf2Rnv9Vbo7rixO6TcVoYCWCu/CYZjnF5eYoGbFv9OQrF05VsGb9LC0Feuz
+	00eSZ4z6SulNn5yOoSY1aYUIe/ExFtkaHCIFTf5gsl2XSJI+6ocUWkSclvIIN8Q==
+X-Gm-Gg: Acq92OHpI/nEnBOy+gZWjemhI6rK2803PYIi9TBlCuw/wdKB20Hc9yGg/E6Pkfq40kv
+	Dh+plFhBeeAc4qcYa2cYAnKGmcTzqu4ryXMU7VW9egOyEPVE129WF22Ccc8Hj8iN8+0yK2IBbRB
+	0dD/RLYi73WjRpGo69FlBn7kLJWeEtV5Upa4jSxLpiLwS9oSP4fVOIXVirvUWwLISbzqn2sETGw
+	up1Ao4e49Mol0yPSbXfY3/2Oc1WGtRbkGCNF86/qoL1kCnyA1dx5CyqjsMpWYLYzPLN00gqxPDH
+	18DyUFfuebWHqTk4e/t56e+XbR8ZtAN2xpLHMoXbQkNxwL5PBZSh
+X-Received: by 2002:ac8:66d1:0:b0:517:6488:904a with SMTP id
+ d75a77b69052e-5177bad00c7mr191841cf.20.1780441358073; Tue, 02 Jun 2026
+ 16:02:38 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -95,110 +95,107 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 From: Bhargava Naidu Gulla <bhargavagulla@google.com>
-Date: Tue, 2 Jun 2026 16:06:00 -0700
-X-Gm-Features: AVHnY4KVhkXh4ziXDnfVp2LOQGsKaFxnRrZUP7LyS55pO33gBDyPQgO37fUgYAc
-Message-ID: <CAEPZvmNu--4-Fm0Kq1SVkkNByOB3SDR3MxRQ9Y1w4j28gUBAcg@mail.gmail.com>
-Subject: [Vulnerability Report] phosphor-logging / openpower-pels: Silent Log
- Task Dropping due to Timer Overlaps in HostNotifier
+Date: Tue, 2 Jun 2026 16:02:27 -0700
+X-Gm-Features: AVHnY4KOxDLYSpw-DLZJWg1k5hgyD4Kg1XGLLOBvF22sAC8UW3OdZflftGg72oM
+Message-ID: <CAEPZvmNSjSgupfW4w3LC5Ud7vP25Fg5YLFZ+Q02ak_ovetJ-Fw@mail.gmail.com>
+Subject: [Vulnerability Report] phosphor-logging / openpower-pels:
+ Out-of-Bounds Heap Read in FRUIdentity String Extraction
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000067ea1a06534d5b47"
+Content-Type: multipart/alternative; boundary="000000000000b26cd006534d4e49"
 
---00000000000067ea1a06534d5b47
+--000000000000b26cd006534d4e49
 Content-Type: text/plain; charset="UTF-8"
 
 Hi OpenBMC Security Team,
 
-I would like to report a race condition and state corruption vulnerability
-inside the Host Notifier state machine of the openpower-pels extension.
+I would like to report an out-of-bounds heap read vulnerability inside the
+FRU Identity parsing logic of the openpower-pels extension.
 
 Overview of the Vulnerability:
-Rapid, concurrent, or noisy host state transitions can corrupt in-flight
-task tracking for Platform Event Log (PEL) notifications. This results in
-event log notifications being silently dropped, preventing critical system
-error logs from being delivered to the host operating system.
+A malformed or maliciously crafted Platform Event Log (PEL) record can
+exploit a lack of null-termination validation in the FRU Identity parser.
+This enables an attacker to leak sensitive adjacent heap memory contents
+(information disclosure) over D-Bus and logs, or cause a daemon
+segmentation fault (Denial of Service).
 
 Affected File and Location:
-File: extensions/openpower-pels/host_notifier.cpp
-Line: 234
+File: extensions/openpower-pels/fru_identity.cpp
+Lines: 121 & 133
 
 Root Cause:
-The `hostStateChange(true)` method arms the `_hostUpTimer` but does not
-disable or cancel already active timers (such as `_retryTimer` or
-`_hostFullTimer`).
+The `FRUIdentity` stream constructor reads exactly 8 bytes from the
+untrusted incoming PEL stream into the fixed-size `_pnOrProcedureID`
+character array:
+  pel.read(_pnOrProcedureID.data(), _pnOrProcedureID.size());
+This binary read does not append or enforce a trailing null-terminator
+byte.
 
-When the first timer expires, it invokes `doNewLogNotify()`, which launches
-an asynchronous PLDM file transmission task and sets the tracking variable:
-  _inProgressPEL = pelID;
+However, the getter methods (such as `getPN()` and `getMaintProc()`)
+construct a C++ `std::string` using the raw pointer:
+  std::string pn{_pnOrProcedureID.data()};
 
-Because `doNewLogNotify()` lacks a command-in-progress guard check
-(`_inProgressPEL != 0`), if the concurrent overlapping second timer expires
-before the first PLDM command's asynchronous response is received, it
-blindly executes `doNewLogNotify()` again. This second execution sends
-another PLDM command and overwrites `_inProgressPEL` with a new ID. The
-tracking for the first PEL is permanently dropped, and subsequent status
-responses are mismatched.
+Because `std::string` assumes a null-terminated C-style string, it invokes
+`strlen` internally. If a PEL payload features an 8-byte `_pnOrProcedureID`
+filled entirely with non-null bytes, `strlen` will read out-of-bounds past
+the array limit into adjacent memory structures (such as `_ccin` and `_sn`)
+until a null byte is encountered.
 
 Proof of Concept:
-1. Force the HostNotifier into a retry state where the `_retryTimer` is
-currently armed due to a full or blocked state.
-2. Rapidly trigger a D-Bus host state property change, invoking
-`hostStateChange(true)`. This arms `_hostUpTimer` in parallel.
-3. The `_retryTimer` expires first, starting a PLDM send task for PEL ID A
-and setting `_inProgressPEL = A`.
-4. The `_hostUpTimer` expires next before the D-Bus/PLDM response for PEL A
-returns, and fires `doNewLogNotify()` again, sending a task for PEL ID B
-and overwriting `_inProgressPEL = B`.
-5. Observe that tracking for PEL ID A is dropped from the queue and
-permanently orphaned.
+1. Craft a binary PEL stream featuring a `FRUIdentity` component block with
+flags set to specify a Part Number is present (`pnSupplied`).
+2. Populate the 8-byte `_pnOrProcedureID` block entirely with non-null
+bytes (such as `AAAAAAAA`).
+3. Fill contiguous adjacent payload blocks (`_ccin` and `_sn`) with
+non-null bytes.
+4. Query the log details via D-Bus. The returned string will leak the CCIN
+and Serial Number fields alongside Part Number details because of the
+un-bounded read.
 
 Proposed Patch:
-Add an active command guard check at the beginning of
-`HostNotifier::doNewLogNotify()`:
+Construct the string using a safe bounded array range and explicitly handle
+null search positions:
 
-if (_inProgressPEL != 0 || _hostIface->cmdInProgress())
-{
-    return;
-}
+std::string pn{_pnOrProcedureID.data(), strnlen(_pnOrProcedureID.data(),
+_pnOrProcedureID.size())};
 
 Legal Name for Attribution: Bhargava Naidu Gulla
 
---00000000000067ea1a06534d5b47
+--000000000000b26cd006534d4e49
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi OpenBMC Security Team,<br><br>I would like to report a =
-race condition and state corruption vulnerability inside the Host Notifier =
-state machine of the openpower-pels extension.<br><br>Overview of the Vulne=
-rability:<br>Rapid, concurrent, or noisy host state transitions can corrupt=
- in-flight task tracking for Platform Event Log (PEL) notifications. This r=
-esults in event log notifications being silently dropped, preventing critic=
-al system error logs from being delivered to the host operating system.<br>=
-<br>Affected File and Location:<br>File: extensions/openpower-pels/host_not=
-ifier.cpp<br>Line: 234<br><br>Root Cause:<br>The `hostStateChange(true)` me=
-thod arms the `_hostUpTimer` but does not disable or cancel already active =
-timers (such as `_retryTimer` or `_hostFullTimer`). <br><br>When the first =
-timer expires, it invokes `doNewLogNotify()`, which launches an asynchronou=
-s PLDM file transmission task and sets the tracking variable:<br>=C2=A0 _in=
-ProgressPEL =3D pelID;<br><br>Because `doNewLogNotify()` lacks a command-in=
--progress guard check (`_inProgressPEL !=3D 0`), if the concurrent overlapp=
-ing second timer expires before the first PLDM command&#39;s asynchronous r=
-esponse is received, it blindly executes `doNewLogNotify()` again. This sec=
-ond execution sends another PLDM command and overwrites `_inProgressPEL` wi=
-th a new ID. The tracking for the first PEL is permanently dropped, and sub=
-sequent status responses are mismatched.<br><br>Proof of Concept:<br>1. For=
-ce the HostNotifier into a retry state where the `_retryTimer` is currently=
- armed due to a full or blocked state.<br>2. Rapidly trigger a D-Bus host s=
-tate property change, invoking `hostStateChange(true)`. This arms `_hostUpT=
-imer` in parallel.<br>3. The `_retryTimer` expires first, starting a PLDM s=
-end task for PEL ID A and setting `_inProgressPEL =3D A`.<br>4. The `_hostU=
-pTimer` expires next before the D-Bus/PLDM response for PEL A returns, and =
-fires `doNewLogNotify()` again, sending a task for PEL ID B and overwriting=
- `_inProgressPEL =3D B`.<br>5. Observe that tracking for PEL ID A is droppe=
-d from the queue and permanently orphaned.<br><br>Proposed Patch:<br>Add an=
- active command guard check at the beginning of `HostNotifier::doNewLogNoti=
-fy()`:<br><br>if (_inProgressPEL !=3D 0 || _hostIface-&gt;cmdInProgress())<=
-br>{<br>=C2=A0 =C2=A0 return;<br>}<br><br>Legal Name for Attribution: Bharg=
-ava Naidu Gulla<br></div>
+<div dir=3D"ltr">Hi OpenBMC Security Team,<br><br>I would like to report an=
+ out-of-bounds heap read vulnerability inside the FRU Identity parsing logi=
+c of the openpower-pels extension.<br><br>Overview of the Vulnerability:<br=
+>A malformed or maliciously crafted Platform Event Log (PEL) record can exp=
+loit a lack of null-termination validation in the FRU Identity parser. This=
+ enables an attacker to leak sensitive adjacent heap memory contents (infor=
+mation disclosure) over D-Bus and logs, or cause a daemon segmentation faul=
+t (Denial of Service).<br><br>Affected File and Location:<br>File: extensio=
+ns/openpower-pels/fru_identity.cpp<br>Lines: 121 &amp; 133<br><br>Root Caus=
+e:<br>The `FRUIdentity` stream constructor reads exactly 8 bytes from the u=
+ntrusted incoming PEL stream into the fixed-size `_pnOrProcedureID` charact=
+er array:<br>=C2=A0 pel.read(_pnOrProcedureID.data(), _pnOrProcedureID.size=
+());<br>This binary read does not append or enforce a trailing null-termina=
+tor byte. <br><br>However, the getter methods (such as `getPN()` and `getMa=
+intProc()`) construct a C++ `std::string` using the raw pointer:<br>=C2=A0 =
+std::string pn{_pnOrProcedureID.data()};<br><br>Because `std::string` assum=
+es a null-terminated C-style string, it invokes `strlen` internally. If a P=
+EL payload features an 8-byte `_pnOrProcedureID` filled entirely with non-n=
+ull bytes, `strlen` will read out-of-bounds past the array limit into adjac=
+ent memory structures (such as `_ccin` and `_sn`) until a null byte is enco=
+untered.<br><br>Proof of Concept:<br>1. Craft a binary PEL stream featuring=
+ a `FRUIdentity` component block with flags set to specify a Part Number is=
+ present (`pnSupplied`).<br>2. Populate the 8-byte `_pnOrProcedureID` block=
+ entirely with non-null bytes (such as `AAAAAAAA`).<br>3. Fill contiguous a=
+djacent payload blocks (`_ccin` and `_sn`) with non-null bytes.<br>4. Query=
+ the log details via D-Bus. The returned string will leak the CCIN and Seri=
+al Number fields alongside Part Number details because of the un-bounded re=
+ad.<br><br>Proposed Patch:<br>Construct the string using a safe bounded arr=
+ay range and explicitly handle null search positions:<br><br>std::string pn=
+{_pnOrProcedureID.data(), strnlen(_pnOrProcedureID.data(), _pnOrProcedureID=
+.size())};<br><br>Legal Name for Attribution: Bhargava Naidu Gulla<br></div=
+>
 
---00000000000067ea1a06534d5b47--
+--000000000000b26cd006534d4e49--
 
