@@ -1,51 +1,93 @@
-Return-Path: <openbmc+bounces-2061-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2062-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA80CD98C5
-	for <openbmc@archiver.kernel.org>; Tue,  9 Jun 2026 15:56:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82E8CD8CB9
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jun 2026 16:39:38 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gZYS94mGXz3bpM;
-	Wed, 10 Jun 2026 01:56:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781020601;
-	cv=none; b=intn0nqIBkiBOLwWrt7KTpsVg4A3gTd4k7YktBt6Af97zCJ9qMuSI/vrXYOj2c9km/4hS+V/HuH+j5qkN0KkOi+AoCrBgpK/yGgGjeN11IvsCX00eyt1dGta4PsZTSKlY/h6HvGW8RFfK1CYUZKfyH/PxQTBAkyFS3L6IICtF33PFLXVZJYks+k9mqsUf29S2iE2PUt1QjLApgoW1c6v9k28vMdaYCIpY78BfP6uqpCVOwE5NzW+JeUWhp10WO+C2go5mNnjQ3rdtaAbtdzSEt0t+W0nmJFVfzts97Z4gPjtoCnuxIBx2neMwrGslkwzigRVw0IvgvThHOLngHqrEQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gZZPb6rx3z2yv2;
+	Wed, 10 Jun 2026 02:39:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::333"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781023171;
+	cv=none; b=moxzk2xa5M42Np5nMk9hRrRNwo4/sS5i45Ga5Dl2KHRPn3vXpT4+MFAuupqtAlnvbJdn9X5GvFOi6coJXrcry+cE69rk+VkZjOhw62Ey+soLs8pa0tO3TTBnlMc1gQIzBgCh4lEi84WdeoAd1Rr2AWhKu+KvtvKpEjWMNcJvPO4cGtkBgQ55WBDgzW6xtHbMcBwAL7kBAxHqC4Ukq+wL610+mCNyk27X8Ud3top2w/NeosAxD/waKREXzuqsMFPpitAr13e8+gRS5O5o/Gx4r8myCwwSPITFQjM8L3YJ78GImE9hS9jlXFxzt9UxVgIYGXKxL8JNl0NPLXd16Ozbzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781020601; c=relaxed/relaxed;
-	bh=Nte8CMBRvk3qKbwbQpcv8ZvcIgW6/hvLkznP1r+xXWY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ktr3KWAsuZvFOkeapR5w7vKUE2ZwuPkcX5Cde3wQOKMrz4C84lkAhpI5o8+Y/+kHZBgahqbByWJXI65j7QmoKar2j/ytQ+OQsBcyHuZk1rAHexn8vQOhLcu4mdxtBJ6S6oW6i8qVyyZhWU2KhxwH/H7fyHKt7KzKNqJskaJyvkieF6Yq022jnFFgXyG22bAx+MtNnQSj6m3aq1Qs/VeHpHOHLCWBbIEUHip2AnYo0UHsdBWc/P16G1ep7HnZNxUCdpki+RK4jBFrVgsPYZr8hszB56TI0GrlGj3QP7z7itqYJxC8lxIUWh4YaWC5LZ6hN4C0Q5TI1ZJqVEkHBdoZQw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qq+iXDRc; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1781023171; c=relaxed/relaxed;
+	bh=rEZz4XYqJIq2oFsihOIDTN5BDVC6/Vtpv4g/jjgK7qE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PVQMGcJop3poJvZrOOK0c6a12+8imV+nuOBJTJ/qvuXzNzQvadnEfYIbDfvFbW0+88fjG3GyF3CCODFA2Gi8qvhvqx3LCoCdoMWhUE02HbjIPxpl5zDdrgRRmVNE42IkfYOaT9muX3o+JR9caKmh9yY3UfopSY3VOM0zk9C0c34uSa3m5KeNS1J0aKARWkt/vQhIL37TSmSyr234rTOQ/g4/2G0Bo7vuoHdCJWZAlZZrykijFCf9O4o08XqtQ06LPLDliBgAWK2cgiq84hNQd4oSVR1MDOEam8Qrsv1UXUx+tsm7Lqe7IdNjhegKGJEpjL1fMeSgYLYBzdQgfVS2Kg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XJzNiPKB; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::333; helo=mail-wm1-x333.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qq+iXDRc;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XJzNiPKB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::333; helo=mail-wm1-x333.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com [IPv6:2a00:1450:4864:20::333])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gZYS81JPyz2ytV
-	for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 01:56:40 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id A117E60200;
-	Tue,  9 Jun 2026 15:56:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F021F00893;
-	Tue,  9 Jun 2026 15:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781020597;
-	bh=Nte8CMBRvk3qKbwbQpcv8ZvcIgW6/hvLkznP1r+xXWY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qq+iXDRcnqbWiZP3DcgO7qQSJ61GSXefIEl3vSccpxMGDv9nIdlIjjN1QR4WBXEdM
-	 IJJns8uVMXJL3J3AL1OK80umBUXYoRJoFTUfvVCTQSfB71/XotX0p6BDSmazy2kzhu
-	 +trRkw8/6F+vLI9eDEYX4dZ5bpAoAidg9vp2qt0Fh7EfSlE9fE12NUMamGeFfKvVPk
-	 0OjpZFKrhp2MiW/MmoVzgZLiTJm6KkJEMyVuB1cTjMCtqNofjBTshu+d2Fy/T2Haiy
-	 i/YljKxHwiWt5AG2by61zOQVgw2qHcrq+LcRtQGH9wGaOMsOlhgVrlyfLiDXCqWKEI
-	 kqv4lzy6yfo4w==
-Message-ID: <663970bd-6eb8-499e-b043-e0f9ac234303@kernel.org>
-Date: Tue, 9 Jun 2026 17:56:30 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gZZPY0dyKz2xk7
+	for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 02:39:28 +1000 (AEST)
+Received: by mail-wm1-x333.google.com with SMTP id 5b1f17b1804b1-490b211ee6aso44665405e9.3
+        for <openbmc@lists.ozlabs.org>; Tue, 09 Jun 2026 09:39:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781023165; x=1781627965; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rEZz4XYqJIq2oFsihOIDTN5BDVC6/Vtpv4g/jjgK7qE=;
+        b=XJzNiPKBoy2+IKaFZrJkqyetVU8lR6hTkK8RuNUktLkSIOejObTia0ZN0mbXxheMAi
+         pzaY+2b5RWlGfGzoItMg0RVe3h9srXfJLPV+uyvLCKsc+Nz0vdDu8gsRzD5wUAVqYBVc
+         tTcHhXzqmosEvPXsS8VJtf9J+GO8zQF0jEDdKjqk+qUghE+dAurSvAYs1KMhl//WSxo8
+         zTMN4VEp7YMXAFX++bQ7slZKAo3HHacZzJnvafw4C/ne3ChcDGEEay9/nNpdN288rycT
+         J4N3fFHFa3HuQGQ1dHEUekhyvhetbpBgX5IXJMuR3rn1K9DxFTUJ7lT9dPKpCSShsFjw
+         wlww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781023165; x=1781627965;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rEZz4XYqJIq2oFsihOIDTN5BDVC6/Vtpv4g/jjgK7qE=;
+        b=DZXUCNJQmg5RZW4YZd73+WMngJeayRtjrPmMzsIXYPFYR8SYsZsAVGzvaFs6p6G7dV
+         mocpJPkGebFTRYhoXxUfgXb2v65hIkzAdN3YblqJdncJpyE8FZTk6UjwJ8eTM/GBxt14
+         IFDoHL4ceDbIIdwI9gM5ppMUTOJoyF3Otlmv6DHIhdnSR1Gf+S0a+JUESeGjXEHm3Z47
+         VuQQL4fyPcAZqO5P869A+gpbPIl9OkQufB1kBDt6/t+Ayi0pGPi3xFl7WapPCZq5/Gy6
+         2UeLjid12VGtyHFvpbWw/ooZpH3Ti9aCo5qkat5Vdq+Q/Tck5/54YUHMzh2uy4siJI2O
+         Wtsw==
+X-Gm-Message-State: AOJu0YzHelMT0jr0dgFkHTmlulJ5ES+RWs4OiTvow+T2pgJm/suYiRbm
+	E12jqd+rmq1YdVNKxobedvKKgoFnHkUQ/qfbAWHW9VHDSKKt4IBZZUaLzkB+bA==
+X-Gm-Gg: Acq92OEhdQIw7E1hYuzZDW7Ne6McPF7UvXCO+T/tk9FIq91uMBt2qVy8MG/q4ptzpZk
+	Q6cfvOWaQ4RUDjwF8nhp5TxFI8CUvk3IXzRmFYHRrnJ8xZG9PH6SbM4tSGnNbktFtc/vEM949SE
+	MXlUPrv8VVqmRZ44xwMrglesCCxSDFTuzUUpYqpjEeCNW2255ZJ/y/4OlzZ7MFiZQqUhJa0eKx3
+	Tu+ZOzlwQtE0wv9nG+/w2nEzTcOtdngsFIKPCx/zOG+ctcOyp4ebBiqguamuT7sdv/mc2ZZkDqU
+	gpyB+quuyfgFcibZFmP+xQ/eA/Ktf1MU8a4vOKqAk+NozOwlPl+eq/jUQaP8y+9pEIHAgjd0HuK
+	olmOM8zE92GYN6ucljRj9DmGhh7pPr8hwpAVOwjv/kWKyzi4a30msnPv4P19ltZjmbGJ864ti73
+	kajxSsr6+Sy9O9dDieTfvoacl88jwo1TN974R+sK7+IUYo
+X-Received: by 2002:a05:600c:8285:b0:490:abef:dae6 with SMTP id 5b1f17b1804b1-490c25b09bcmr362197115e9.19.1781023165112;
+        Tue, 09 Jun 2026 09:39:25 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c2d2d11asm440860805e9.1.2026.06.09.09.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 09 Jun 2026 09:39:24 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH v4 0/3] Nuvoton NPCM FIU DTS fixes and binding conversion
+Date: Tue,  9 Jun 2026 19:39:16 +0300
+Message-Id: <20260609163919.3321228-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -57,108 +99,45 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] Nuvoton NPCM FIU DTS fixes and binding conversion
-To: Tomer Maimon <tmaimon77@gmail.com>, andrew@codeconstruct.com.au,
- broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com,
- yuenn@google.com, benjaminfair@google.com
-References: <20260609155437.3285042-1-tmaimon77@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260609155437.3285042-1-tmaimon77@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 09/06/2026 17:54, Tomer Maimon wrote:
-> This series fixes the in-tree NPCM7xx FIU controller nodes so their
-> resources match what the DTS actually describes, and converts the legacy
-> Nuvoton NPCM FIU binding to YAML DT schema.
-> 
-> Patch 1 drops the bogus "memory" entry from reg-names on the NPCM7xx FIU
-> nodes and removes redundant clock-names from those single-clock
-> controllers.
-> 
-> Patch 2 renames the schema to nuvoton,npcm750-fiu.yaml, explains why the
-> direct-mapped flash window is optional, keeps the requested example
-> ordering, and simplifies reg/reg-names to the ordered minItems form.
-> 
-> Changes since version 2:
->  - Drop redundant FIU clock-names from the NPCM7xx DTSI together with the
->    bogus reg-names cleanup.
->  - Rename the schema to nuvoton,npcm750-fiu.yaml and keep reg/reg-names
->    immediately after compatible in the example.
->  - Explain why the direct-mapped flash window is optional and model
->    reg/reg-names as ordered minItems arrays.
->  - Drop clock-names from the schema to match the driver and updated DTS.
+This series fixes the in-tree NPCM7xx FIU controller nodes so their
+resources match what the DTS actually describes, and converts the legacy
+Nuvoton NPCM FIU binding to YAML DT schema.
 
+Patch 1 drops the bogus "memory" entry from reg-names on the NPCM7xx FIU
+nodes.
 
-<form letter>
-This is a friendly reminder during the review process.
+Patch 2 drops redundant clock-names from those single-clock FIU
+controllers.
 
-It looks like you received a tag and forgot to add it.
+Patch 3 renames the schema to nuvoton,npcm750-fiu.yaml, explains why the
+direct-mapped flash window is optional, keeps the requested example
+ordering, and simplifies reg/reg-names to the ordered minItems form.
+=0D
+Changes since version 3:
+ - Split the DTS cleanup so the reg-names fix stands alone as patch 1.
+ - Added review tag to Drop bogus FIU memory reg-names commit.
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new versions
-of patchset, under or above your Signed-off-by tag, unless patch changed
-significantly (e.g. new properties added to the DT bindings). Tag is
-"received", when provided in a message replied to you on the mailing
-list. Tools like b4 can help here. However, there's no need to repost
-patches *only* to add the tags. The upstream maintainer will do that for
-tags received on the version they apply.
+Changes since version 2:=0D
+ - Drop redundant FIU clock-names from the NPCM7xx DTSI together with the=0D
+   bogus reg-names cleanup.=0D
+ - Rename the schema to nuvoton,npcm750-fiu.yaml and keep reg/reg-names=0D
+   immediately after compatible in the example.=0D
+ - Explain why the direct-mapped flash window is optional and model=0D
+   reg/reg-names as ordered minItems arrays.=0D
+ - Drop clock-names from the schema to match the driver and updated DTS.=0D
+=0D
+Changes since version 1:=0D
+ - Drop interrupts property.=0D
+ - Drop unused label.=0D
+ - Keep reg as the second property, followed by reg-names.=0D
 
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+Tomer Maimon (3):
+  arm: dts: nuvoton: npcm7xx: Drop bogus FIU memory reg-names
+  arm: dts: nuvoton: npcm7xx: Drop redundant FIU clock-names
+  spi: dt-bindings: nuvoton,npcm750-fiu: Convert to DT schema
 
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
-
-Best regards,
-Krzysztof
+--=20
+2.34.1
 
