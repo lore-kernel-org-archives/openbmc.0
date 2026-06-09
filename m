@@ -1,58 +1,62 @@
-Return-Path: <openbmc+bounces-2053-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2054-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13432CD8CA7
-	for <openbmc@archiver.kernel.org>; Mon,  8 Jun 2026 23:44:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 469E4CD8CAD
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jun 2026 07:13:53 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gZ7sx5jQ1z2ysW;
-	Tue, 09 Jun 2026 09:44:05 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780906781;
-	cv=none; b=XVM7/duYR9clt0XGPP7JoFrTS7I2oBjBFLXRa2dKYe4umUk2giftHIMji9SkVYK2PtK5zFh7GKDxvGCbnIc/7trPgEzmAD8tF++0WtTuEhSIUM/QFsbM0i9IacFoujtC2azuANquQzOfZr1jhaC6yPIkCAg9Lsiqsg8F5GSj8tXxWp+w8qMZqIVoWAo9mL+2syR8iOeuGRP3v/+jQr8YdJYAaoBjrQv7V+p6HjWMQJhEYVqGAm34oCIG7I2rK8+vCz+vhggFMHAq0+R96JxLuwblZuN8gf1OQ5V/XF1CKyYRBUSXPYI/8IpJzbbxIXZBBkE4nLAoeuaQkzzBaJGukA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gZKrp2ljfz2yRF;
+	Tue, 09 Jun 2026 17:13:46 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1780989226;
+	cv=none; b=WO6C38AOHW6W0EbRpgBErZyfPHPf96S24dS/DRSVXRU/GhWBDGvmqACu9Z12GmtMzn9+BKD3hH5p59EdIlChUNRCekNoZr0s2MmRCdx6ZXDfTIWXzGzzWYWhi+NreCOBznTKNnMdwWMRehUOv9QmxgItn2sMc8IxLZRSol7GYUe6If5SjjQakR4p59FdwR63fu7/DhiHKBIMDZ51rvevFGl0vulxt6lMTg+Nd+zjGMB8XYZeY5x8dbt/rorNXjZeKrsvVr6ipkJ9gD7RL8RGQ3MVKZvNeDY9kMu1/Vo9szUviVsxlDC9tjDVIeVD+tghWx7p5OnWeGt/ntyfoQ4ALw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1780906781; c=relaxed/relaxed;
-	bh=P9V8bpEqH6X4qmiHHTngsXUmKEwdN1ijUIAKzpeA0e0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I62Fzl1Lc14V6VpSKUhB60NyFAnPWiuMyNbSJmaP5BXQnD9hEXK/n8p9raDsS6sAxTGQuPYmmCDgrFGVBw25sD7b2x7i1bn5xVgSav78RNdi2b/5jBL9va+gBoJPEov1BgpwHNJFNxuCmTq8YS7pI/KccK0Kh6wGjzZgigeE427wi2FnJhEYUPruKEuiymA+PWnqKUrMYUzVrHclYXPKYDq0NTXmR3RfOgGeomchcghTef/s40q3QSl7FafIUubtVOxqWxJ9H4nk9ULAQHgsloqRaaKQaIV9d+x0znedxVzR2ZdejqEiN8l1QTkq8y4WebcdjmEAEBB6ctqylVl0BQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdyPmYcZ; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1780989226; c=relaxed/relaxed;
+	bh=xpvqltnPyHaKeLXzA9Xq8lTFZuFUY8y5YG012UOsqCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hIO81cuojK589W351d3bM6iDJvbRpsc+e5jFPYtmcdDnMNBZPOwnBasIUNAdPUjJs8aOAIjka8CbuMbnzcAc381Ho8l6t55SDFayRv+AoJgz6aG++se0r3HwYFUvm5XdSpnw/WAc0yRDlFC5CEbrtkJ0uYfyD2UYPZpeX1TsR6EW3VoawAyazXJ8HSU6QDJV3DzjT8/v0m0CFthjcFEz+UDKnUuK/k7l3sjut4m7LQPCbEeOPj55bbxsa7YpIKu+wCoTkd/rc8q1b2kKnLKRdmUD354zyH3Ca0bLSUyykQbJk7EN5N7FGW48D7t5KWHMM8j2DqYcSUcazsCe196yUA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjxcx0sB; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdyPmYcZ;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjxcx0sB;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gYlMJ24sYz2xWP
-	for <openbmc@lists.ozlabs.org>; Mon, 08 Jun 2026 18:19:40 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gZKrn0rs4z2xM7
+	for <openbmc@lists.ozlabs.org>; Tue, 09 Jun 2026 17:13:44 +1000 (AEST)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 878DE40C23
-	for <openbmc@lists.ozlabs.org>; Mon,  8 Jun 2026 08:19:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADF31F0089B
-	for <openbmc@lists.ozlabs.org>; Mon,  8 Jun 2026 08:19:37 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id C4FEE601DC;
+	Tue,  9 Jun 2026 07:13:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D341F00893;
+	Tue,  9 Jun 2026 07:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780906777;
-	bh=P9V8bpEqH6X4qmiHHTngsXUmKEwdN1ijUIAKzpeA0e0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jdyPmYcZAAj5zajRoCfCfEUTkYIVOgfPo3QAIyGqN11uGTToJ96WZpRYI0Lx1V1I3
-	 2eDiVxAVrjMD+r/rHA0O6EN+Xl/szMs37czo6pzDR2xjCsJaqy4C2T8XQUhardqcC4
-	 wOVSKLeTDhpcRDpmIuCcZCuGpajZ+Z6yMKp+XxQYO40vtow7leMRui1N0onxuNgo6d
-	 Y6kupuQzlyi3bLPrd1WFHetFqT79kvx1hKimlQO9ryGMPBJdXGGAG1N3GEuEkvV+F8
-	 /KKqDFEeFmZlnACZo8EBEMPgG7o8c/hTqIRVA1Rj3USn5jfsJV3biifp/Q5X5nPDHu
-	 IP9tg38RSj/aQ==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aa68cf03bfso4061464e87.0
-        for <openbmc@lists.ozlabs.org>; Mon, 08 Jun 2026 01:19:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8w3/0MUN8SfubYPY747/v9kwiBoHSq6Sz5yeDIg/DWhaszhXXqQ3+0qqj0Ifw0DU/9U+ubOziL@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyWTAJpDXtDp+VK2S9N1j7BmR5v+/NMoCGnhfNzrBQpolb9mKad
-	+V0Z3ak1r4N2j18v/9erwIftnb14jWPZIYsPXThKmihQylHArwMD9D+VgUCVNqfjuWwGLErFI9v
-	EXxbaf7AnIc8QYyaB5YqnSoOPbNFt2VI=
-X-Received: by 2002:a05:6512:611:10b0:5aa:703e:ce64 with SMTP id
- 2adb3069b0e04-5aa87b6fe39mr2685769e87.14.1780906776095; Mon, 08 Jun 2026
- 01:19:36 -0700 (PDT)
+	s=k20260515; t=1780989221;
+	bh=xpvqltnPyHaKeLXzA9Xq8lTFZuFUY8y5YG012UOsqCg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Rjxcx0sBgDiEMRzB/7X8XkxLuCVjsO7TGrmnDfdnehXL9KI9qfxXwIJvseL1RwT0x
+	 gJzwPNXoDsWIwK8j72/iv0G+SPQcKO2l0t4LNadxY7JYN56Z1PJwFkxzedWXHNhx4g
+	 t6nDooNTkEIxmd/kBELBlOMadB9VpZQiIrlrYQqa7As/HHTX1df7zVa8ydlJsOKsr8
+	 3/Xd3+m2QzWoRasoQ3mAtG5KFss1UjF0u8UDsAKGz+B9Inq9384bYHa9y7T5NlbLM5
+	 IQ3M/80ubT7AlkRBtDeMvI5c2sHKXo1oKpxCoyBHK8BMRq3wBlXf0f6UgXmcsJRyRa
+	 kNHdlmDtKOVWQ==
+Date: Tue, 9 Jun 2026 09:13:37 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: andrew@codeconstruct.com.au, broonie@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, openbmc@lists.ozlabs.org, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com, yuenn@google.com, 
+	benjaminfair@google.com
+Subject: Re: [PATCH v2 1/2] arm: dts: nuvoton: npcm7xx: Drop bogus FIU memory
+ reg-names
+Message-ID: <20260609-tidy-defiant-kestrel-cd813e@quoll>
+References: <20260608175418.1936892-1-tmaimon77@gmail.com>
+ <20260608175418.1936892-2-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,39 +68,23 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260605-pinctrl-fix-v1-1-3d8cf7a6c348@aspeedtech.com>
-In-Reply-To: <20260605-pinctrl-fix-v1-1-3d8cf7a6c348@aspeedtech.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 8 Jun 2026 10:19:24 +0200
-X-Gmail-Original-Message-ID: <CAD++jL==MdwmEM_9aHqfCnTfd4=g174Ytk3dZti0pwqcfU_UOw@mail.gmail.com>
-X-Gm-Features: AVVi8Cd0BwjOsWouqsrdYZ6Spm4i_Ll_H2pHRD9M65EFtdOV_cK55fSj8mFOoj4
-Message-ID: <CAD++jL==MdwmEM_9aHqfCnTfd4=g174Ytk3dZti0pwqcfU_UOw@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: aspeed: Fix GPIO mux value for ADC-capable balls
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260608175418.1936892-2-tmaimon77@gmail.com>
 
-On Fri, Jun 5, 2026 at 8:38=E2=80=AFAM Billy Tsai <billy_tsai@aspeedtech.co=
-m> wrote:
+On Mon, Jun 08, 2026 at 08:54:17PM +0300, Tomer Maimon wrote:
+> The NPCM7xx FIU controller nodes only describe the control register block,
+> but they still advertise a second "memory" entry in reg-names. Drop the
+> bogus name so the DTS matches the resources actually present in each node.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 
-> aspeed_g7_soc1_gpio_request_enable() unconditionally writes mux
-> function 0 to route the requested pin to GPIO. This is wrong for the
-> ADC-capable balls W17 through AB19 (ADC0-ADC15), where function 0
-> selects the ADC input and function 1 selects GPIO. Requesting one of
-> those GPIOs therefore muxed the ball to ADC instead.
->
-> Write mux value 1 for balls W17 through AB19 so the GPIO function is
-> actually selected.
->
-> Fixes: 4af4eb66aac3 ("pinctrl: aspeed: Add AST2700 SoC1 support")
-> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Patch applied! Will be for v7.2 at this point.
+Best regards,
+Krzysztof
 
-Yours,
-Linus Walleij
 
