@@ -1,73 +1,75 @@
-Return-Path: <openbmc+bounces-2058-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2059-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FF0CD8CB9
-	for <openbmc@archiver.kernel.org>; Tue,  9 Jun 2026 15:54:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23A4CD98C5
+	for <openbmc@archiver.kernel.org>; Tue,  9 Jun 2026 15:55:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gZYQ41grpz2yv2;
-	Wed, 10 Jun 2026 01:54:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::336"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781020491;
-	cv=none; b=O5HiyPIyNiFW/JGkwzZdpVlqyGMeDFoclwYGOWWL8irLJ+pRiEWbWLwOMc2PP4XxUsOf/xSE6HHYQoqeUoQtDzgnkgExZ1yLzB4QRG6SEcGE7ekGiWSDQuH3d/dDSkheKzbYawhvQCzE0kGu9xfgsY+EalKnt+4j4lAhY6UwvKhT7jsSDqgKHYDWzcvqYHOU6znb8mf0wPZG+aI5oZAq8nX6j2Pu+FiK6+qBnQ+LzDeClnTHqzP1hLvVvbo0rtE35JiYQRFMyn8Jp6KD1gkCF5zWg7oYyzj7vDGtmSE97Qeh3M/njaUkF8nWMDftCP/xI7Xa73FsjbZXgnDPOey+/w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gZYQ60qpWz3bpp;
+	Wed, 10 Jun 2026 01:54:54 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781020493;
+	cv=none; b=IhEg0X56qCx29/6oONAlKROWUtf8UriKnIbtDE2JoaC1IIn6AgcAS8NTlw2iuEEVb+n0tyrzaZhtq52Rt79zQTd4JtfPcrd4GrF5tBGWwUuzSvptQZcC8VF+aQPPNyF0Xf1d2kv4qJ0aCwq4snYCJ1leT9YPgTHLCLh1ZAJhYY4s3t0Orfp8B2Eud5V8Gl6Dr92SwMUdb5quBSaW3HkxH/QX75aAX7j662IJjmygbMuPeNYO3wuR63TDZ+kpyJg6oE5YFWt+ixI6mCQBpLrjWULm9xz4xeKa1DSUcigiY43sFUuAjL07MdyKUIARha4swHuKNDquh3KQ0IP9kp6qkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781020491; c=relaxed/relaxed;
-	bh=LtLhNP/JYbWvZK0JJLLTL9lcnhVPXd/ZGsnix6syTLk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LrQpmiXEnb4r6/cquDo0c4iY9gov7p/KX+dVtKB++cH+LCBJcWI3cFThrTKOoUuOM8Db6Zylwq+0YK7gKx47XsJ8dl3Pid6qtlv6HtwH+8/1umxoJHGE7k+/c4r+kN52Ye7ASbBYMupE9cE2tfGQCRAD1uHqUAiZ7PDvcVNIenFKg0p4fRV2NaxVacAUebqqpyTAXMNJgOYKWXbWlTx5hxb/V/LgIfxR9MQIW81QYE34sObQxeBGb/Dd50eYNFXvRvOTexU0G1xvEzYAC5nU8uUnOfS1RnndvDIWVNcEFkMWPprnWAd0CYHiJAr/w3hITD4DPISt3Xk8zlt2SGF5Yw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pK+6d54q; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::336; helo=mail-wm1-x336.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1781020493; c=relaxed/relaxed;
+	bh=aWwFGlSUcw639N/YKTjCDkqA0Z4pIkuOoAAVpcehPeE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=YSRE4MWxTWSEldpJ1qGP/BcyPp+dwe80C0P1Gt2SRDLNW4wo+Mhp/pPvJiI+kMDhVljQ5c/RcFwZo5ZFlTUIEWzmGxrWdp/QcGQs4zbo5t3liNL2TNN/KJJBdMfmlJmEQ08CPyDcwsMNJgegdq9Vs+1AlOtKoAb8jSveaTupMz9DLur7yBOVONnrhfYD9n1gPkmDU14GHlB+GZHXtUxL8ssB15FhWwoCHZz90Eog+7NxCMV9SOfbD1tMbNWl1SvHkXI1V9M5eBwmLKx7pXfoMysgBfO/aye8RV5Isp/BjYnELN94tXgyTBDCd8SrGDGNW4aqR7a8AmPheGdOUngYdA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GseDb3Ov; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pK+6d54q;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GseDb3Ov;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::336; helo=mail-wm1-x336.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gZYQ23FfZz2xll
-	for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 01:54:49 +1000 (AEST)
-Received: by mail-wm1-x336.google.com with SMTP id 5b1f17b1804b1-4905529b933so62119395e9.0
-        for <openbmc@lists.ozlabs.org>; Tue, 09 Jun 2026 08:54:49 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gZYQ467jsz2xll
+	for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 01:54:52 +1000 (AEST)
+Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-490b64c8311so63973655e9.3
+        for <openbmc@lists.ozlabs.org>; Tue, 09 Jun 2026 08:54:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781020486; x=1781625286; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LtLhNP/JYbWvZK0JJLLTL9lcnhVPXd/ZGsnix6syTLk=;
-        b=pK+6d54qijona/ZwBP3MPLr4SvlingGuVRZWNC5eoazUlq9oxuZjUCMvdtmojRVXFT
-         CI7kDFjaG3AU77ask1Ho7dKlQYcWd/7wPlB+auav6wkLIX/TuvYcNcmXUYmC/tDB1QJy
-         y0fuTdYzKdf5RpF23Wph46OTQc5U23OxKcSXzlRSYjfG4eKp7egCjcGI5T5/Pyn3YtpG
-         i+BVPm0u7uHyOPg9Xv3mtNHNuuc3kA/E1gXNNCEx2L6te6BKONUSdrS9QUc/UPHPknid
-         4FMiV6N9A9UtD5KZAY+HXB/U4q5QDNNEWDt8XkRnMbVwunZiM4o/77alnEONO8o/0gJT
-         O5Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781020486; x=1781625286;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781020490; x=1781625290; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LtLhNP/JYbWvZK0JJLLTL9lcnhVPXd/ZGsnix6syTLk=;
-        b=otFa4AlelKNJF6wOpgJDiSLd9JuyY6G32oWObH2vCXLusb1SYEEwWvoW9oTh9UwJfP
-         +/ohyTlcSWkCX2KI9sVJMxva/ghtFjI4jEZsY98FiTY792OkXtfBZDY4YUM2/UcK6VDp
-         beuefiVOQOFwrqp8FPVh4UkpNCyZFyttDRgZMUt6ziRwFlFxjD+TC7QWH+XmiCd3FJUH
-         8/gUUOWRIWUykI1hbtliA66vUaQQWCBpfuUiY2mbLNyRq4h7MsaGG0sN3yAeJ8QPTo5/
-         jMwfNJLfK90Ru1X8DWm05+SygLsZ27+xIKpjI8EZIc2JrDHhUCmK9gXNrDwYh9Iub3Ia
-         obIg==
-X-Gm-Message-State: AOJu0Yz9Quq0Bu94Jrw0oMt5eBLagl/yAQ9Khp8fdQrtBRzeiHUbHAGo
-	Y3j8lb0mhRZmNNiOdiCQWTGU/1wGVMlzCsRxYDopqOHezfLI6mv8NgWg
-X-Gm-Gg: Acq92OFbddQKhZUclAPD8HNMSEVRQcpaazsN3vww3okcE/hx/cLQ7nVYUecgcnzo/zb
-	p0qG3zs/Prm/103qGPG6veWgNiizKh3rbs8Hp8Yud/4AdoOFWEkc5C1A4ahoMs8/WeTO5mMwksi
-	SMpCuQTNvcibo8V/p7a2yipFY/U4wWbtAsNdV13xQjukgEeDudiuujB+XoWuH4TWfwbCikhKpsi
-	AHhrhbZ6hMHxUMxyARKEYE6Gom/SuHqnRH1nz0/9bIu4tKogub44msMunR3qFP73s7vLGiPWv4W
-	+/vEy/T/X2IvljsPxsUdF5FTpK+qKFtZkbpPIsDhVp+xx0Xyj2ne1eiPM5zkBS9CqZ6NMft+/1K
-	BkIEtpfl28neJiZZhD2ncQLvrDb4WSK0q7PCA2C0xj4dwytojj5WvBZEcY95ag2kgBScwuGj3Ma
-	QrcSUMHyuQHe1QwCpqUxJbUE9KOZBcHRIHMFb9rVFfkYiI
-X-Received: by 2002:a05:600c:5248:b0:48f:d612:3c4a with SMTP id 5b1f17b1804b1-490c25604demr339249455e9.1.1781020486137;
-        Tue, 09 Jun 2026 08:54:46 -0700 (PDT)
+        bh=aWwFGlSUcw639N/YKTjCDkqA0Z4pIkuOoAAVpcehPeE=;
+        b=GseDb3OvRLIiNiivY3WdE2Bffiq0pGsMqGu8wxpSsdR6O845X7hO7EbqIaiumKYSkt
+         biidjm3alxDy8Wnym4QKxBaxAK4UgXz9PfGfLyGkoGQ9OHO6rcbX2eALo6tN88eV9qwM
+         rOZNlQLP8/GMKhRTwv2tZCvxVdzuAFPW+GlkioiZ+nsdYNn24dS55H9fs8o2NnH6QZxT
+         wA4L+Tg2wGB7HUl9JxSoIUqMyLkG7C+cQPmVnylUeBdtWE3MtxpQAWQS0KmOMINrC1ew
+         mnS3YPUwVRiQJSb+1qZLYCk/OOdRbUWv77F0imRbswOYM4YNgURLPoElXwfnvXoq6RTt
+         rPCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781020490; x=1781625290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=aWwFGlSUcw639N/YKTjCDkqA0Z4pIkuOoAAVpcehPeE=;
+        b=oZVn5GV7uLepZmTu2ZRbK1CGwa3iKk7fOBltN7Df5v1LzTZlny2PA9GwYuPJumK3wA
+         hZRqFU6KTJFWDpJ4NPZM/975MhHpvVYz4NOTXTJHTMKBR+j9Ryy4JQEy20knYJOGf7RL
+         PCeRWTmHxDh0DimqC9opf5ekzAeWwNe5lqfvXmHSeWHMWTm3J++WPHTwZNkhs1/Vzsjz
+         o39eerGYmI4W2weOqGCS99jUfoPGf+Byoeorgx+nk1lBhttFwXUCRUIXrWc6nc3qFFIK
+         yAmL07nXGT1id05K7apX8mSPd7IwP20LxeYF+V5bQjjiCrZc6PmglbfhtPmvDL8UwsEl
+         uPSw==
+X-Gm-Message-State: AOJu0YzrgPRZSaDj7xWbc9CFelYIufTVURLgpUQE8RVFs6XqC9W57H6E
+	JHF+YhwnSEGqwPiLUvLbNEQWdACE4g2LxiPSWXFc3Nmin/n098VLtngg
+X-Gm-Gg: Acq92OFg7Rsn70HkW7LMM79qsxSUywXo1yKCuhaPM/C/qf6milSxBAT3xPTQt1lFcfB
+	RetN7lWNVTvwy8kEFVSLYYBLRE5rrb/5k0cEH/4wqVV8FbAnOOoDhzX8fnOUj6q0NZbXXMUPIh5
+	MVaAooRYIEmCbJVs7fqp4m4wGBlk60mRC/pcC/zvDogOdMI6sw9UXEezi+qTL7ddzS61O9Yu9mm
+	j650eF0Gox3ACKaQvHTe9OQ3YbXVnMrEx3rsUI4rz+iG/VKLmZshU3U3iPSgTKuY7bAdTVnhc0M
+	w+jV31VkaS6luk4ZcxjHEOT0oUhUaJP30b8BTS3B777U8cz8GU5QKMPLo4LfKUScG892uhKHHO/
+	R9u9YYsu1rQjh+wXxXiwbJk54HzGg86dux0+oueUUW2RSQ4slW2JnJVxzOPCZT/kk1EZer2UUWL
+	Nkkbbkjm+uSfuEFLIB9G/DcckW0o/Kw5ZBFS4O2YMdJWoH
+X-Received: by 2002:a05:600c:458a:b0:48f:e518:d110 with SMTP id 5b1f17b1804b1-490c2614beemr300545925e9.32.1781020489356;
+        Tue, 09 Jun 2026 08:54:49 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3d663csm545506645e9.11.2026.06.09.08.54.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490bc3d663csm545506645e9.11.2026.06.09.08.54.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 09 Jun 2026 08:54:45 -0700 (PDT)
+        Tue, 09 Jun 2026 08:54:48 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	broonie@kernel.org,
@@ -84,10 +86,12 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH v3 0/2] Nuvoton NPCM FIU DTS fixes and binding conversion
-Date: Tue,  9 Jun 2026 18:54:35 +0300
-Message-Id: <20260609155437.3285042-1-tmaimon77@gmail.com>
+Subject: [PATCH v3 1/2] arm: dts: nuvoton: npcm7xx: Drop bogus FIU reg-names and clock-names
+Date: Tue,  9 Jun 2026 18:54:36 +0300
+Message-Id: <20260609155437.3285042-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260609155437.3285042-1-tmaimon77@gmail.com>
+References: <20260609155437.3285042-1-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,38 +103,61 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-This series fixes the in-tree NPCM7xx FIU controller nodes so their
-resources match what the DTS actually describes, and converts the legacy
-Nuvoton NPCM FIU binding to YAML DT schema.
+The NPCM7xx FIU controller nodes only describe the control
+register block and reference a single unnamed clock. The
+second "memory" name in reg-names is bogus because there is no
+matching second reg entry, and the clock-names strings are
+redundant because spi-npcm-fiu gets the sole clock with
+devm_clk_get_enabled(dev, NULL) rather than a named lookup.
 
-Patch 1 drops the bogus "memory" entry from reg-names on the NPCM7xx FIU
-nodes and removes redundant clock-names from those single-clock
-controllers.
+Drop both so the DTS matches the resources actually consumed by
+the driver.
 
-Patch 2 renames the schema to nuvoton,npcm750-fiu.yaml, explains why the
-direct-mapped flash window is optional, keeps the requested example
-ordering, and simplifies reg/reg-names to the ordered minItems form.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-Changes since version 2:
- - Drop redundant FIU clock-names from the NPCM7xx DTSI together with the
-   bogus reg-names cleanup.
- - Rename the schema to nuvoton,npcm750-fiu.yaml and keep reg/reg-names
-   immediately after compatible in the example.
- - Explain why the direct-mapped flash window is optional and model
-   reg/reg-names as ordered minItems arrays.
- - Drop clock-names from the schema to match the driver and updated DTS.=0D
-
-Changes since version 1:=0D
- - Drop interrupts property.=0D
- - Drop unused label.=0D
- - Keep reg as the second property, followed by reg-names.=0D
-
-Tomer Maimon (2):
-  arm: dts: nuvoton: npcm7xx: Drop bogus FIU reg-names and clock-names
-  spi: dt-bindings: nuvoton,npcm750-fiu: Convert to DT schema
-
---=20
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+index ab3c3c5713ae..83cd10b47273 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+@@ -191,9 +191,8 @@ fiu0: spi@fb000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0xfb000000 0x1000>;
+-			reg-names = "control", "memory";
++			reg-names = "control";
+ 			clocks = <&clk NPCM7XX_CLK_SPI0>;
+-			clock-names = "clk_spi0";
+ 			status = "disabled";
+ 		};
+ 
+@@ -202,9 +201,8 @@ fiu3: spi@c0000000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0xc0000000 0x1000>;
+-			reg-names = "control", "memory";
++			reg-names = "control";
+ 			clocks = <&clk NPCM7XX_CLK_SPI3>;
+-			clock-names = "clk_spi3";
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&spi3_pins>;
+ 			status = "disabled";
+@@ -215,9 +213,8 @@ fiux: spi@fb001000 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 			reg = <0xfb001000 0x1000>;
+-			reg-names = "control", "memory";
++			reg-names = "control";
+ 			clocks = <&clk NPCM7XX_CLK_SPIX>;
+-			clock-names = "clk_spix";
+ 			status = "disabled";
+ 		};
+ 
+-- 
 2.34.1
+
 
