@@ -1,75 +1,75 @@
-Return-Path: <openbmc+bounces-2078-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2079-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDDD8CD8CB9
-	for <openbmc@archiver.kernel.org>; Wed, 10 Jun 2026 16:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FF99CD8CB9
+	for <openbmc@archiver.kernel.org>; Wed, 10 Jun 2026 16:09:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gb9gN3TKdz3bpt;
-	Thu, 11 Jun 2026 02:08:32 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::62b"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781107712;
-	cv=none; b=TRqzAbgScMp6LdQWZMAdoYh9OH3MTSAhjYZFE7IdftVjNdJ/lgxdnL3jBPKLRQKmliaibqwltuO7s+LVAAgS5qadMY6uWDpsSE/GWSw5lfN60yJut6uDDAy54KhGWnIWlqT2iQksE0LpYpZOK7oRwRGIiir+aPZ4NY/R0+ngcEOnjWYwRhPJPf75Exls1ban4emAks3m/h0H9adwdRI6bkZIvvTEiqLFIGgw9jaNrWZBsdVr5XChsBHTRRdpe/ltY3bBaYRqiPBspsHGKHUKqNqS4WiNGlUWC6Wxj+ieX8bRt4BmVCiXjKLoAe7yZN+9FTt0zfJGs8IEb8sOfLkzQA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gb9gQ2NTGz3brB;
+	Thu, 11 Jun 2026 02:08:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::62c"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781107714;
+	cv=none; b=hgledwnGMZ0B7EUJjYCm8kcWphDMPniFGgLvxqEXfFvmY4YVYTqZhMx7ztKl6c8+N+6Ojnr9NPn4FNGnznIs0Co/Eir8eDlT0ptZ7Ifz002gwdIQPnlhhfPGek38GpJCwJXRIXZG7vdpyy3brqi0vzVjPiC2kl+3Jz7ghLMBqg4mFAKhL8Xn+oneVqkfrBUWiDyLoTeEHu4Rynq/QDmuUF1bfgXPeOLNw8UVZQyRe5GIpricHoq4lIvVWwxenJmp+8WTsMIrWzUrGWiFIoMPs6o19oxyUcl9IZ7ypHtDhSF9GJ8xFho7MZOcXOgt1aDboCLQQ76bXv7Jw3ag9vg6HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781107712; c=relaxed/relaxed;
-	bh=lvJ8CPNkRpNg7rPei9YSNmArh5UyZBfwQikse6CUSHI=;
+	t=1781107714; c=relaxed/relaxed;
+	bh=UTXGHU/oEkz1moSyTioSxdal8lLGUBzZP39XpVBmETQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Hi2KRl3mCIjMFWXaZvf8+D3RbIti2ZtQZ/8WZ4eiKCXWrxbMbmzWod2jZb4r/DoxI2Nu4zmtnWYbuPh/Eg/gtKk2bydOHvXzAKR5xhsjdzSesLtiUFeunpTWUrGDJaZr/rJ89Aw0jTIF1livO6f+1WEuilUumf26d2xCmDk3FkKm3uDhmuYMETYfDaYmG58bZ4+p54dcJGwM6iXlMQQq4ZI+Igb8K7+YjTPxHr5PAGEMEAtOZ3C/eQwSR8t6Sb3G4rVH4RjomOqbERr1T+ahJN9bGJDMF8i9xZY1YIeUO9iteJWz2rt8WDtKT88FaTwU+OlL04mNg+EarpmmeYFfPw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cIXAQ/6P; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62b; helo=mail-ej1-x62b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=P3o0fQYKDeiZ9FM+bHCVh/lN8L1Td2B1y8fr5b3Gp8pzJO1cPllyEbFSF3uGkylghJpeEf9MkyHVZiNAz3rdkhJbZaID1EafdoT4iXYLjciLe011EUfZcZ3uJKmGFbR54tm5jsg8Qqgf0dnvaoON5qXBNbQ3mS+YdGQJqaik8vp1/0v8st8RU67V5y770b9eDJI/E8TSHeANglNzsny5kPPws0AqAY3eVe5/2vIgcDdUltkjPou60WdKVISmswqpAMsIx4mzAM/TiU78KZTOxq+bqhT5FFBEJ6YGk436ZeCLHW8k/V0QUnJe5134YMORmfW5l++nybAgIiNKaWwEHg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oCO6JFSl; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62c; helo=mail-ej1-x62c.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cIXAQ/6P;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oCO6JFSl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62b; helo=mail-ej1-x62b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62c; helo=mail-ej1-x62c.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gb9gL2ZjLz2yR5
-	for <openbmc@lists.ozlabs.org>; Thu, 11 Jun 2026 02:08:30 +1000 (AEST)
-Received: by mail-ej1-x62b.google.com with SMTP id a640c23a62f3a-bec2ddee9bbso1394235866b.3
-        for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 09:08:30 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gb9gN6yFXz3bqs
+	for <openbmc@lists.ozlabs.org>; Thu, 11 Jun 2026 02:08:32 +1000 (AEST)
+Received: by mail-ej1-x62c.google.com with SMTP id a640c23a62f3a-befee9e5ef7so837160266b.0
+        for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 09:08:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781107707; x=1781712507; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1781107709; x=1781712509; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lvJ8CPNkRpNg7rPei9YSNmArh5UyZBfwQikse6CUSHI=;
-        b=cIXAQ/6PXacz+wb63R5VDvuumqPFQy/vOfO+I3mqV/Xr40XS2NmKR8tdgIvfyhGE8d
-         dRZYmnj+M9IPgw05NDTZrg+fE9wFVnjH9yasCLEcUNCNke3BriAyeI5nqvsilaJ/ZIFB
-         17B2eTA3TUDWRm2wwudRF9hEOvtykRrhNNVGvocWyqPu+/9Fhx7Wzyj/21X/9YY+UNCp
-         Xh6cPpTsIl1CNyFBPtsiU8JUBmMHdg56olA7KYVJEjR14WXOoF6gfreIEVXMj9Mep4c1
-         DHpYVdPOUMfzrLtKpI0dNc47g8ckea3Z0nnZb2eT74xh3ddB5ltP/8HxoXnAj07alKMG
-         lA0Q==
+        bh=UTXGHU/oEkz1moSyTioSxdal8lLGUBzZP39XpVBmETQ=;
+        b=oCO6JFSlwvcKamskoWLpSQEIgSKe5WicNQxWM/BDkBdHwQGB0vf6MxxKfs2rGbIger
+         JjSCp8M2TW+IcooLg+k76ZGoVMmWiw6ipK9Ro7d89xu4pry7Cy5qK5k0wWt+JMLk0+5V
+         ff23lIXAR/r6URw7RupYjVx9Fvr1urLlNAdINpCKmpGQdpYhWHgtzvVdW0t25UwPKBM+
+         wihMofzk4Q7UjLTP9oLlk1W87tO0c7oaCbOj5+CbkhQ1B9aXQHqXHh2fUJHhQVVhqR2t
+         3923NfpZ44aLWN3/MU0fMWS3JYvxZbPyql1snf6BCdc0Q67Z51Lr+yTUfxQtz2wMFRcf
+         DHDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781107707; x=1781712507;
+        d=1e100.net; s=20251104; t=1781107709; x=1781712509;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lvJ8CPNkRpNg7rPei9YSNmArh5UyZBfwQikse6CUSHI=;
-        b=EOq7FG1+/N2famggdNWaHAP8HypJPQUuTybmEqKoeX4zLle8H90Xf8j6Ok4SwFPcqs
-         D3YOVoNtjItH5Auq1wrtOqkIVFyevt5asQiMwop9LwGdZEG1RCtiMMAcLrkozJTtPX5c
-         TTY0nMOi/ZR8erWNeuatLDz7QxyPhVurPYziR6kbB9irFykUzg1OR14ekB8+9GNjdlmc
-         FoOFi0RXGA115SutNNV/7/UMVYhjxiu/wa/HhLeooX3hk0bzSDaZgGxN0Fn0FizfFmcH
-         C5X28rTKYjScREyT4F2dpE4kaQnmYmdYZ+x6ydUlU0/ddVbHwtfQDLnblB2hGmWTXkp5
-         LlCw==
-X-Gm-Message-State: AOJu0Yz3KJvcGXY6/83aNfjGg/fRdcM9TQNgYq6OKTw6IMJCimThDVxW
-	0HvUQMxwSzOMY29KkRa8eN+K8uKTpeQfWYH8AskFRWNTp3QEase9s/qO
-X-Gm-Gg: Acq92OFpqgSsA5JYVQd+zWHYoXqxU5W13qB8BZVe541bZI9BjK+lEVBB8/BLuBciI/s
-	icU1k99U92nWY1hQ3Mk62fwxTf8pQasvYSss1Q4UG0d1TkPjdWsFSVWVrgzdTyCdY8hVBB/iJId
-	FnjdvRBqanTe3drn1Q4JWqL2fBKNGNgypsoMAymz7u6S5UoVZLS1rcQc29U7T+HQsUl7KaeNre/
-	aA6/GymdvhkLE3JltYFhUsGF/Ru+Cv8PppSmUAdsIiIH8CLmch3/tSgCs/BmmmC03SH/mH1i988
-	GaZ+H+NdYjKClnKvB6aHVaC4Or3RN0QXTnDPCyu6Esb53kJ5r89G3He4hM47QOwPNOpSayUlWUw
-	vC4S+ZsAObJeJFZ3PgYmiLMTZl07qN6pJDyDirCaCRY3MkveJf5i6ZZTVBOij+bR4i1TO6miONN
-	KBG29oEWusMY7fBSVPLPuHXQxDmKH8j7I+VX9bIcmyI9a9
-X-Received: by 2002:a17:907:b809:b0:bf9:cc72:6e05 with SMTP id a640c23a62f3a-bf9cc72723emr277213766b.25.1781107706994;
-        Wed, 10 Jun 2026 09:08:26 -0700 (PDT)
+        bh=UTXGHU/oEkz1moSyTioSxdal8lLGUBzZP39XpVBmETQ=;
+        b=fUJb+AaLrTg2v6aIbABkmmKgGedvtBcGE/PE/7JV8eyhmQ+B4tSueXmCn0VK7ztY5K
+         SxJSC3kYERd5Me8FXpeLX5k9fymVdAHCOckh3GzdSt0dtghMBhVF9eUH0GNDQeAL7gRT
+         W7xM1m/lHKxy2qI7UhO6Giq5GBvyPtbMd4CsuwVikW4B1/6KmaLmMPA/ooCIpXxyusr/
+         Mub/XsIbM+IKv7fVHor0gVSdYHkb1GdWPWRXXhKV8Wc8UzGMhAKc4ZLbwC5i2wIcr+Ks
+         5YlLuJ3PMi6vY49Qx/uMg+dKwTqWAehENshjySg/w4rIm4YoomOdN1LiGr2ABpk9eNoI
+         wRJw==
+X-Gm-Message-State: AOJu0YxOdn6bLk6haJybgBMGSVQ1ACspvLeZ1v5t4utAypOGq4qjxVOX
+	fNlPnoAD4XD5CFWrlPB2TIn0jCvQhOgIdkFsXbo3yjATeaql6WoDPNj3
+X-Gm-Gg: Acq92OEfboOy17lvIbHvVQtUE9FqpfcTsE9HLPnSwEwe+aF55WZ7LLjMVCqY7CACdJG
+	d82dPPGz9nfczpdfjQ3Z9thJTLboS94XBiEnJ1x8n87NBK0aWCzO5lyJ0X9DSbtsKuIhhMul3Pq
+	FerBlZZP7z/2we33PTuNWI2WS0DBdB9oIkDnYb6VJUp1yeal56JjM7YD1YaWm6dJr1McGywOs/0
+	kcPHUrkzO20A8TNHNpYCs+qn8ZHdOYoUP8V5E9MQaQa8As9RavuidFD8OfnwRPxNICUMj8+EEgV
+	7BKOVK9dTabwQ3w1MQ6qE8tR0WqZhpS8g+UkUPmHGxX9WYmUbUQ7OrGCR4FUJdUsIWgaeUVX5sn
+	fe3YSGPYALFiGxC4xH6xWrb+uynxvWnOBK5RMDn2oAieaQMZrVdJmPF+wIry2Zq6s2iM9inFnya
+	ZaFVsbVqNuZpIWcIgidaolHXf6NobssfJ7VqmtkfAF+9nt
+X-Received: by 2002:a17:907:9689:b0:be2:9d25:3da0 with SMTP id a640c23a62f3a-bf37234b5b5mr1414865066b.25.1781107709391;
+        Wed, 10 Jun 2026 09:08:29 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055305d40sm1188524466b.45.2026.06.10.09.08.25
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055305d40sm1188524466b.45.2026.06.10.09.08.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2026 09:08:26 -0700 (PDT)
+        Wed, 10 Jun 2026 09:08:29 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	robh@kernel.org,
@@ -84,9 +84,9 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH v4 2/3] arm64: dts: nuvoton: npcm845: Add peripheral nodes
-Date: Wed, 10 Jun 2026 19:08:15 +0300
-Message-Id: <20260610160816.2828713-3-tmaimon77@gmail.com>
+Subject: [PATCH v4 3/3] arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
+Date: Wed, 10 Jun 2026 19:08:16 +0300
+Message-Id: <20260610160816.2828713-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260610160816.2828713-1-tmaimon77@gmail.com>
 References: <20260610160816.2828713-1-tmaimon77@gmail.com>
@@ -103,784 +103,457 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend the NPCM845 SoC DTSI with the peripheral controller nodes needed
-by the evaluation board and downstream platforms. Add the Ethernet MACs,
-USB device controllers and PHY, MMC controller, FIU controllers, memory
-controller, RNG, ADC, PWM/FAN controller, and I2C buses. Also add the
-OP-TEE firmware node needed to describe these blocks.
+Enable peripheral support for the NPCM845 evaluation board by wiring up
+the SoC controller nodes to the board design. Add board aliases,
+GPIO-backed MDIO buses for the external PHYs, a reserved-memory region
+for TIP firmware, and flash partitions for the FIU boot flash. Enable
+the Ethernet MACs, MMC controller, FIU controllers, USB device
+controllers, ADC, RNG, PWM/FAN controller, I2C buses, and PECI
+interface with the board-specific pinctrl and PHY connections they
+require.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 700 +++++++++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |  11 +-
- 2 files changed, 700 insertions(+), 11 deletions(-)
+ .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 413 ++++++++++++++++++
+ 1 file changed, 413 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-index 7976baafb994..1e21b2704784 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
-@@ -4,6 +4,7 @@
- #include <dt-bindings/clock/nuvoton,npcm845-clk.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/gpio/gpio.h>
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
+index 5edf5d13342d..ea92888d9b9e 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
+@@ -10,6 +10,42 @@ / {
  
- / {
- 	#address-cells = <2>;
-@@ -35,6 +36,11 @@ gic: interrupt-controller@dfff9000 {
- 		};
+ 	aliases {
+ 		serial0 = &serial0;
++		ethernet1 = &gmac1;
++		ethernet2 = &gmac2;
++		ethernet3 = &gmac3;
++		mdio-gpio0 = &mdio0;
++		mdio-gpio1 = &mdio1;
++		fiu0 = &fiu0;
++		fiu1 = &fiu3;
++		fiu2 = &fiux;
++		fiu3 = &fiu1;
++		i2c0 = &i2c0;
++		i2c1 = &i2c1;
++		i2c2 = &i2c2;
++		i2c3 = &i2c3;
++		i2c4 = &i2c4;
++		i2c5 = &i2c5;
++		i2c6 = &i2c6;
++		i2c7 = &i2c7;
++		i2c8 = &i2c8;
++		i2c9 = &i2c9;
++		i2c10 = &i2c10;
++		i2c11 = &i2c11;
++		i2c12 = &i2c12;
++		i2c13 = &i2c13;
++		i2c14 = &i2c14;
++		i2c15 = &i2c15;
++		i2c16 = &i2c16;
++		i2c17 = &i2c17;
++		i2c18 = &i2c18;
++		i2c19 = &i2c19;
++		i2c20 = &i2c20;
++		i2c21 = &i2c21;
++		i2c22 = &i2c22;
++		i2c23 = &i2c23;
++		i2c24 = &i2c24;
++		i2c25 = &i2c25;
++		i2c26 = &i2c26;
  	};
  
-+	udc0_phy: usb-phy {
-+		compatible = "usb-nop-xceiv";
-+		#phy-cells = <0>;
+ 	chosen {
+@@ -26,12 +62,389 @@ refclk: refclk-25mhz {
+ 		clock-frequency = <25000000>;
+ 		#clock-cells = <0>;
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		tip_reserved: tip@0 {
++			reg = <0x0 0x0 0x0 0x6200000>;
++		};
 +	};
 +
- 	ahb {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -51,7 +57,255 @@ clk: rstc: reset-controller@f0801000 {
- 			#clock-cells = <1>;
- 		};
- 
--		apb {
-+		gmac1: ethernet@f0804000 {
-+			device_type = "network";
-+			compatible = "snps,dwmac-3.72a", "snps,dwmac";
-+			reg = <0x0 0xf0804000 0x0 0x2000>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq";
-+			clocks	= <&clk NPCM8XX_CLK_AHB>;
-+			clock-names = "stmmaceth";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&rg2_pins
-+					&rg2mdio_pins>;
-+			status = "disabled";
-+		};
++	mdio0: mdio-0 {
++		compatible = "virtual,mdio-gpio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>,
++			<&gpio1 26 GPIO_ACTIVE_HIGH>;
 +
-+		gmac2: ethernet@f0806000 {
-+			device_type = "network";
-+			compatible = "snps,dwmac-3.72a", "snps,dwmac";
-+			reg = <0x0 0xf0806000 0x0 0x2000>;
-+			interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq";
-+			clocks	= <&clk NPCM8XX_CLK_AHB>;
-+			clock-names = "stmmaceth";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&r1_pins
-+					&r1err_pins
-+					&r1md_pins>;
-+			status = "disabled";
-+		};
-+
-+		gmac3: ethernet@f0808000 {
-+			device_type = "network";
-+			compatible = "snps,dwmac-3.72a", "snps,dwmac";
-+			reg = <0x0 0xf0808000 0x0 0x2000>;
-+			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq";
-+			clocks	= <&clk NPCM8XX_CLK_AHB>;
-+			clock-names = "stmmaceth";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&r2_pins
-+					&r2err_pins
-+					&r2md_pins>;
-+			status = "disabled";
-+		};
-+
-+		mc: memory-controller@f0824000 {
-+			compatible = "nuvoton,npcm845-memory-controller";
-+			reg = <0x0 0xf0824000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		udc0: usb@f0830000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0830000 0x0 0x1000
-+			       0x0 0xfffeb000 0x0 0x800>;
-+			interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc1: usb@f0831000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0831000 0x0 0x1000
-+			       0x0 0xfffeb800 0x0 0x800>;
-+			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc2: usb@f0832000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0832000 0x0 0x1000
-+			       0x0 0xfffec000 0x0 0x800>;
-+			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc3: usb@f0833000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0833000 0x0 0x1000
-+			       0x0 0xfffec800 0x0 0x800>;
-+			interrupts = <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc4: usb@f0834000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0834000 0x0 0x1000
-+			       0x0 0xfffed000 0x0 0x800>;
-+			interrupts = <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc5: usb@f0835000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0835000 0x0 0x1000
-+			       0x0 0xfffed800 0x0 0x800>;
-+			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc6: usb@f0836000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0836000 0x0 0x1000
-+			       0x0 0xfffee000 0x0 0x800>;
-+			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc7: usb@f0837000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0837000 0x0 0x1000
-+			       0x0 0xfffee800 0x0 0x800>;
-+			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc8: usb@f0838000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0838000 0x0 0x1000
-+			       0x0 0xfffef000 0x0 0x800>;
-+			interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			nuvoton,sysgcr = <&gcr 0x9C 0xC000 0xC000>;
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		udc9: usb@f0839000 {
-+			compatible = "nuvoton,npcm845-udc", "nuvoton,npcm750-udc";
-+			reg = <0x0 0xf0839000 0x0 0x1000
-+			       0x0 0xfffef800 0x0 0x800>;
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
-+
-+			nuvoton,sysgcr = <&gcr 0x9C 0x3000 0x3000>;
-+			phys = <&udc0_phy>;
-+			phy_type = "utmi_wide";
-+			dr_mode = "peripheral";
-+			status = "disabled";
-+		};
-+
-+		sdhci: mmc@f0842000 {
-+			compatible = "nuvoton,npcm845-sdhci";
-+			reg = <0x0 0xf0842000 0x0 0x100>;
-+			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk NPCM8XX_CLK_AHB>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc8_pins
-+				     &mmc_pins>;
-+			status = "disabled";
-+		};
-+
-+		fiu0: spi@fb000000 {
-+			compatible = "nuvoton,npcm845-fiu";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xfb000000 0x0 0x1000>;
-+			reg-names = "control";
-+			clocks =  <&clk NPCM8XX_CLK_SPI0>;
-+			status = "disabled";
-+		};
-+
-+		fiu1: spi@fb002000 {
-+			compatible = "nuvoton,npcm845-fiu";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xfb002000 0x0 0x1000>;
-+			reg-names = "control";
-+			clocks =  <&clk NPCM8XX_CLK_SPI1>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&spi1_pins>;
-+			status = "disabled";
-+		};
-+
-+		fiu3: spi@c0000000 {
-+			compatible = "nuvoton,npcm845-fiu";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xc0000000 0x0 0x1000>;
-+			reg-names = "control";
-+			clocks =  <&clk NPCM8XX_CLK_SPI3>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&spi3_pins>;
-+			status = "disabled";
-+		};
-+
-+		fiux: spi@fb001000 {
-+			compatible = "nuvoton,npcm845-fiu";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0xfb001000 0x0 0x1000>,
-+			<0x0 0xf8000000 0x0 0x2000000>;
-+			reg-names = "control", "memory";
-+			clocks =  <&clk NPCM8XX_CLK_SPIX>;
-+			status = "disabled";
-+		};
-+
-+		apb: bus@f0000000 {
- 			#address-cells = <1>;
- 			#size-cells = <1>;
- 			compatible = "simple-bus";
-@@ -59,14 +313,6 @@ apb {
- 			ranges = <0x0 0x0 0xf0000000 0x00300000>,
- 				<0xfff00000 0x0 0xfff00000 0x00016000>;
- 
--			timer0: timer@8000 {
--				compatible = "nuvoton,npcm845-timer";
--				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
--				reg = <0x8000 0x1C>;
--				clocks = <&refclk>;
--				clock-names = "refclk";
--			};
--
- 			serial0: serial@0 {
- 				compatible = "nuvoton,npcm845-uart", "nuvoton,npcm750-uart";
- 				reg = <0x0 0x1000>;
-@@ -170,6 +416,442 @@ peci: peci-controller@100000 {
- 				cmd-timeout-ms = <1000>;
- 				status = "disabled";
- 			};
-+
-+			rng: rng@b000 {
-+				compatible = "nuvoton,npcm845-rng";
-+				reg = <0xb000 0x8>;
-+				status = "disabled";
-+			};
-+
-+			adc: adc@c000 {
-+				compatible = "nuvoton,npcm845-adc";
-+				reg = <0xC000 0x8>;
-+				interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clk NPCM8XX_CLK_ADC>;
-+				resets = <&rstc 0x20 27>;
-+				status = "disabled";
-+			};
-+
-+			i2c0: i2c@80000 {
-+				reg = <0x80000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 128 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb0_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c1: i2c@81000 {
-+				reg = <0x81000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb1_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c2: i2c@82000 {
-+				reg = <0x82000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb2_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c3: i2c@83000 {
-+				reg = <0x83000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb3_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c4: i2c@84000 {
-+				reg = <0x84000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb4_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c5: i2c@85000 {
-+				reg = <0x85000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb5_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c6: i2c@86000 {
-+				reg = <0x86000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb6_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c7: i2c@87000 {
-+				reg = <0x87000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb7_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c8: i2c@88000 {
-+				reg = <0x88000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb8_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c9: i2c@89000 {
-+				reg = <0x89000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb9_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c10: i2c@8a000 {
-+				reg = <0x8a000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb10_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c11: i2c@8b000 {
-+				reg = <0x8b000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb11_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c12: i2c@8c000 {
-+				reg = <0x8c000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb12_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c13: i2c@8d000 {
-+				reg = <0x8d000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb13_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c14: i2c@8e000 {
-+				reg = <0x8e000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb14_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c15: i2c@8f000 {
-+				reg = <0x8f000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb15_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c16: i2c@fff00000 {
-+				reg = <0xfff00000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb16_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c17: i2c@fff01000 {
-+				reg = <0xfff01000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb17_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c18: i2c@fff02000 {
-+				reg = <0xfff02000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb18_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c19: i2c@fff03000 {
-+				reg = <0xfff03000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb19_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c20: i2c@fff04000 {
-+				reg = <0xfff04000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb20_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c21: i2c@fff05000 {
-+				reg = <0xfff05000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb21_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c22: i2c@fff06000 {
-+				reg = <0xfff06000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb22_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c23: i2c@fff07000 {
-+				reg = <0xfff07000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&smb23_pins>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c24: i2c@fff08000 {
-+				reg = <0xfff08000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c25: i2c@fff09000 {
-+				reg = <0xfff09000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			i2c26: i2c@fff0a000 {
-+				reg = <0xfff0a000 0x1000>;
-+				compatible = "nuvoton,npcm845-i2c";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				clocks =  <&clk NPCM8XX_CLK_APB2>;
-+				clock-frequency = <100000>;
-+				interrupts = <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>;
-+				nuvoton,sys-mgr = <&gcr>;
-+				status = "disabled";
-+			};
-+
-+			pwm_fan:pwm-fan-controller@103000 {
-+				compatible = "nuvoton,npcm845-pwm-fan";
-+				reg = <0x103000 0x3000>,
-+					<0x180000 0x8000>;
-+				reg-names = "pwm", "fan";
-+				clocks =  <&clk NPCM8XX_CLK_APB3>,
-+					<&clk NPCM8XX_CLK_APB4>;
-+				clock-names = "pwm","fan";
-+				interrupts = <GIC_SPI 96 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-+						<GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&pwm0_pins &pwm1_pins
-+						&pwm2_pins &pwm3_pins
-+						&pwm4_pins &pwm5_pins
-+						&pwm6_pins &pwm7_pins
-+						&pwm8_pins &pwm9_pins
-+						&pwm10_pins &pwm11_pins
-+						&fanin0_pins &fanin1_pins
-+						&fanin2_pins &fanin3_pins
-+						&fanin4_pins &fanin5_pins
-+						&fanin6_pins &fanin7_pins
-+						&fanin8_pins &fanin9_pins
-+						&fanin10_pins &fanin11_pins
-+						&fanin12_pins &fanin13_pins
-+						&fanin14_pins &fanin15_pins>;
-+				status = "disabled";
-+			};
-+
-+			pspi: spi@201000 {
-+				compatible = "nuvoton,npcm845-pspi";
-+				reg = <0x201000 0x1000>;
-+				pinctrl-names = "default";
-+				pinctrl-0 = <&pspi_pins>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks =  <&clk NPCM8XX_CLK_APB5>;
-+				clock-names = "clk_apb5";
-+				resets = <&rstc 0x24 23>;
-+				status = "disabled";
-+			};
-+
- 		};
- 	};
- 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
-index 8239d9a9f0d2..21dea323612d 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi
-@@ -64,8 +64,8 @@ arm-pmu {
- 	};
- 
- 	psci {
--		compatible = "arm,psci-1.0";
--		method = "smc";
-+		compatible      = "arm,psci-1.0";
-+		method          = "smc";
- 	};
- 
- 	timer {
-@@ -75,4 +75,11 @@ timer {
- 			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>,
- 			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_LOW)>;
- 	};
-+
-+	firmware {
-+		optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
++		phy0: ethernet-phy@0 {
++			reg = <0>;
 +		};
 +	};
++
++	mdio1: mdio-1 {
++		compatible = "virtual,mdio-gpio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>,
++			<&gpio2 28 GPIO_ACTIVE_HIGH>;
++
++		phy1: ethernet-phy@0 {
++			reg = <0>;
++		};
++	};
++};
++
++&gmac1 {
++	phy-mode = "rgmii-id";
++	snps,eee-force-disable;
++	status = "okay";
++};
++
++&gmac2 {
++	phy-mode = "rmii";
++	pinctrl-names = "default";
++	pinctrl-0 = <&r1_pins
++			&r1oen_pins>;
++	phy-handle = <&phy0>;
++	status = "okay";
++};
++
++&gmac3 {
++	phy-mode = "rmii";
++	pinctrl-names = "default";
++	pinctrl-0 = <&r2_pins
++			&r2oen_pins>;
++	phy-handle = <&phy1>;
++	status = "okay";
  };
+ 
+ &serial0 {
+ 	status = "okay";
+ };
+ 
++&fiu0 {
++	status = "okay";
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		spi-rx-bus-width = <1>;
++		reg = <0>;
++		spi-max-frequency = <5000000>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			bmc@0 {
++				label = "bmc";
++				reg = <0x00000000 0x04000000>;
++			};
++			u-boot@0 {
++				label = "u-boot";
++				reg = <0x00000000 0x007C0000>;
++			};
++			u-boot-env@7c0000 {
++				label = "u-boot-env";
++				reg = <0x007C0000 0x00040000>;
++			};
++			kernel@800000 {
++				label = "kernel";
++				reg = <0x00800000 0x00800000>;
++			};
++			rofs@1000000 {
++				label = "rofs";
++				reg = <0x01000000 0x02C00000>;
++			};
++			rwfs@3c00000 {
++				label = "rwfs";
++				reg = <0x03C00000 0x00400000>;
++			};
++		};
++	};
++};
++
++&fiu1 {
++	status = "okay";
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		spi-rx-bus-width = <2>;
++		spi-tx-bus-width = <2>;
++		reg = <0>;
++		spi-max-frequency = <5000000>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			partition@0 {
++				label = "spi1-system1";
++				reg = <0x0 0x0>;
++			};
++		};
++	};
++};
++
++&fiu3 {
++	pinctrl-0 = <&spi3_pins>, <&spi3quad_pins>;
++	status = "okay";
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		spi-rx-bus-width = <1>;
++		reg = <0>;
++		spi-max-frequency = <5000000>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			partition@0 {
++				label = "spi3-system1";
++				reg = <0x0 0x0>;
++			};
++		};
++	};
++};
++
++&fiux {
++	spix-mode;
++};
++
++&sdhci {
++	status = "okay";
++};
++
++&udc0 {
++	status = "okay";
++};
++
++&udc1 {
++	status = "okay";
++};
++
++&udc2 {
++	status = "okay";
++};
++
++&udc3 {
++	status = "okay";
++};
++
++&udc4 {
++	status = "okay";
++};
++
++&udc5 {
++	status = "okay";
++};
++
++&udc6 {
++	status = "okay";
++};
++
++&udc7 {
++	status = "okay";
++};
++
++&mc {
++	status = "okay";
++};
++
++&peci {
++	status = "okay";
++};
++
++&rng {
++	status = "okay";
++};
++
++&adc {
++	#io-channel-cells = <1>;
++	status = "okay";
++};
++
+ &watchdog1 {
+ 	status = "okay";
+ };
++
++&pwm_fan {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm0_pins &pwm1_pins
++		&pwm2_pins &pwm3_pins
++		&pwm4_pins &pwm5_pins
++		&pwm6_pins &pwm7_pins
++		&fanin0_pins &fanin1_pins
++		&fanin2_pins &fanin3_pins
++		&fanin4_pins &fanin5_pins
++		&fanin6_pins &fanin7_pins>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++	fan@0 {
++		reg = <0x00>;
++		fan-tach-ch = <0x0 0x1>;
++		cooling-levels = <127 255>;
++	};
++	fan@1 {
++		reg = <0x01>;
++		fan-tach-ch = <0x2 0x3>;
++		cooling-levels = <127 255>;
++	};
++	fan@2 {
++		reg = <0x02>;
++		fan-tach-ch = <0x4 0x5>;
++		cooling-levels = <127 255>;
++	};
++	fan@3 {
++		reg = <0x03>;
++		fan-tach-ch = <0x6 0x7>;
++		cooling-levels = <127 255>;
++	};
++	fan@4 {
++		reg = <0x04>;
++		fan-tach-ch = <0x8 0x9>;
++		cooling-levels = <127 255>;
++	};
++	fan@5 {
++		reg = <0x05>;
++		fan-tach-ch = <0xa 0xb>;
++		cooling-levels = <127 255>;
++	};
++	fan@6 {
++		reg = <0x06>;
++		fan-tach-ch = <0xc 0xd>;
++		cooling-levels = <127 255>;
++	};
++	fan@7 {
++		reg = <0x07>;
++		fan-tach-ch = <0xe 0xf>;
++		cooling-levels = <127 255>;
++	};
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	eeprom@50 {
++		compatible = "atmel,24c256";
++		reg = <0x50>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	ipmb@10 {
++		compatible = "ipmb-dev";
++		reg = <0x10>;
++		i2c-protocol;
++	};
++};
++
++&i2c3 {
++	status = "okay";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	ipmb@11 {
++		compatible = "ipmb-dev";
++		reg = <0x11>;
++		i2c-protocol;
++	};
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&i2c14 {
++	status = "okay";
++};
++
++&i2c15 {
++	status = "okay";
++};
++
++&i2c16 {
++	status = "okay";
++};
++
++&i2c17 {
++	status = "okay";
++};
++
++&i2c18 {
++	status = "okay";
++};
++
++&i2c19 {
++	status = "okay";
++};
++
++&i2c20 {
++	status = "okay";
++};
++
++&i2c21 {
++	status = "okay";
++};
++
++&i2c22 {
++	status = "okay";
++};
++
++&i2c23 {
++	status = "okay";
++};
++
++&i2c24 {
++	status = "okay";
++};
++
++&i2c25 {
++	status = "okay";
++};
++
++&i2c26 {
++	status = "okay";
++};
 -- 
 2.34.1
 
