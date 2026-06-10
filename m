@@ -1,92 +1,90 @@
-Return-Path: <openbmc+bounces-2081-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2082-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E776CD8CB2
-	for <openbmc@archiver.kernel.org>; Wed, 10 Jun 2026 16:46:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E1ACD98C5
+	for <openbmc@archiver.kernel.org>; Wed, 10 Jun 2026 23:12:08 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gbBWQ4g64z3bpG;
-	Thu, 11 Jun 2026 02:46:42 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::536" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781110002;
-	cv=pass; b=gcXp/OvWaYO0QFiIj7l9E4N7/WD7h4maNBzFIervuxU6miIyFJG2cGc7RzDJs3RAm9R6WJ6+iyDLZZagJ8GydSe5aANCNdn4ozTjg6yom9iLZrwL05EifA+kXKn/bakj1KFaPsFvnpKu1m5SKkSXfu/gKZ6nUJ5i0vZigGTNHzPpN8LLV9fVz44dBOiVhmpscCPo0M8fJdyEsInR+sPjDv18GPdnF00Kcmm/9+YPodF/hTZhCSUx0cehKTEpCuBBWsMbLJI4XmHCX8X5DEIye9EWOP8AEYBZ5rZhW6c8zmhigi9I01VJi6qd8weSu8u5rOeE/3m8qpuS9Jqr33mxiQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781110002; c=relaxed/relaxed;
-	bh=s62YavCeclcS5soGJlMm76DLEOFR6pcgmAuoSKxLqnQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YOGoSthWoP1BSvm8afvV6VfgNNvRqQ49NkhwZnsMYHuczBrvG8m2oGQ4fO3XXk+7Di/I1pzQ7qVQQbiqm3d3MLb1xRdL8KdpUmD0wVljYf20cOlfNkzU9SrtSPZPov2rS4eo0qqtAehonxpOW6vWtaXEZJk9uoFDpiqQbRyj8X04fmQ2pJuDA6lIPdcqid3mNP8cD5stMuxRW3KLDA454xAa7+aGE2sugKloxK8L/0waSs5EhUqVcQ6P0Eedh0X/M/MMtmhp3RVxaUIdM+rqFUSHSooleiE9nt1FpNfSViWOYzreaQX5DTyX3dKtV4UZH9PndmjKZ4A982MXmHglfA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net; dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20251104.gappssmtp.com header.i=@tanous-net.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=g9rtlq9H; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org) smtp.mailfrom=tanous.net
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=tanous.net
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gbM3z43J1z2yv2;
+	Thu, 11 Jun 2026 09:11:59 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::330"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781111251;
+	cv=none; b=DNEHsgjgBO/ItkDP4kZ8KGHOVx6lrj9leXtzGNWMiJ05G696q64HBykcbjmI0yhtoVQXGr1zvo9AlguTqeIIAuvOw0fB+n4UL4zH9U6aWj9Wj8MvtjghceCtAw2bRIx6eF4Lw/cwH+NEk4+x9kCLhDCprRZ9KRanCy4jbzE8tvD4Ru1AhUIFuN13L1/fkEbJVlyiD6NCWa86heK7F/PQWAiuG8ptDKTWRXpuvJtITRmDHDrcbDoZudR0Rw6F1DkLVWAlKP5DeJPnY46DLOxi1ON6waKAdNLNcPCIQQFxF7orUPLCWpkhZ3ULdwcmpmsN0RyQK6HgYp9IJbfZxN5V4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1781111251; c=relaxed/relaxed;
+	bh=oNIoActVz0TXbcAcJhvF5OroIdcZfRfYtdC66CxO8Jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BhSwWqPUPhiy0liIOP0DPpC5CRzTycFBgOVzmK7gV0mmNMj77qN+8vN9Gw64SqINXdF5LEWXH+14tn9lwLudiuXpdyCnkUdLXz+LBlsid9cP25ig7mGVaoWaWA3HtU8BqHtgWl35EsVA956Ld0B463jYbgpulNplbVUKn2CHJXiNm/SujWtRHlwxMvHsMdmGySd4u8vCdeDRpOPnwZvTeXOxrtC0taWG0KL1X4t343MnyILbEoeghBTMNY7UH4MCkeSCUVh59/vrCtfVRSdRdIUprm0/DQMkmjOXIETZEu5rBzZI1tl5TAGVU+mnLBzHXT4e/52H7u7wS1oHYTrW8Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mZJzErHu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tanous-net.20251104.gappssmtp.com header.i=@tanous-net.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=g9rtlq9H;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=mZJzErHu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=tanous.net (client-ip=2607:f8b0:4864:20::536; helo=mail-pg1-x536.google.com; envelope-from=ed@tanous.net; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com [IPv6:2607:f8b0:4864:20::536])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gbBWN4jwCz2ysW
-	for <openbmc@lists.ozlabs.org>; Thu, 11 Jun 2026 02:46:39 +1000 (AEST)
-Received: by mail-pg1-x536.google.com with SMTP id 41be03b00d2f7-c85893bce34so2812647a12.1
-        for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 09:46:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781109997; cv=none;
-        d=google.com; s=arc-20240605;
-        b=B0sB3dkByr9XaV09eBR1IyA5tByf6c3tr/spnfGUpz0lrctXdgpf8I2QDAcp/shYKk
-         rPd91S5HPHD5idq4r3PALmhyvWdDOMp+MztjCok78OvN7ijntRKd5QU3tFevwzhlggrR
-         xzsZLMrBa9jgW4xniRq7TimkcuwGRRXfZBmp2acfMMVr0D8tAWwvG3JVW8Q+2Pcylsha
-         kS+Ck8RSTrMSwmvEAG+9d55ZyyK9sh4c9vAc85EZzb0R5n/FduIWPu0yH68aYMzKMYBu
-         JhyQ9Is/kUUtzcfNmnaX/PGCRAGzAUUWyG4WizOLtYgfwv80u/bwJIlFYIMdH5IBTA46
-         YuNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s62YavCeclcS5soGJlMm76DLEOFR6pcgmAuoSKxLqnQ=;
-        fh=un1d289b64oRdr7aYcBXiIe2wZnDdmPCG6oyK0Zp4v4=;
-        b=ca6qlRXDFwTSSK3fPeV9LZT1K9jgHdLrQK0s5/S5pKV85E2cu6Ulu6jQgdGSOnkiDk
-         +bfceLIt4vNXLhfFZAuc8mBe5aeRVgKA628GZ6wLqBj7sKY+U/cxkn9lKXSNitml8seR
-         WgNTBsb2noI3otjH8dSccgC6ATUN7C3J5LDg5ojxF06UQURPVOe1XdLYE2YNsQukPD4f
-         AwiNnu+yHIvtV6FWq1DQKA5KpkGWJx1kQKltWGC/aE6ehMFm8m1AG41LjY1W+bu9KbCF
-         j5bn/QgwYdVUZsPbhHRtI7xYfYxCtKLsIGznhLwJ3E8tNOvgIbrvSrsDl65yZ5CuNjxj
-         0tpA==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gbBzM2r3xz2ykX
+	for <openbmc@lists.ozlabs.org>; Thu, 11 Jun 2026 03:07:24 +1000 (AEST)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-490af320e2aso77262555e9.2
+        for <openbmc@lists.ozlabs.org>; Wed, 10 Jun 2026 10:07:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tanous-net.20251104.gappssmtp.com; s=20251104; t=1781109997; x=1781714797; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s62YavCeclcS5soGJlMm76DLEOFR6pcgmAuoSKxLqnQ=;
-        b=g9rtlq9HN1EZmP0Q9E6oAizBx5rOkDB2qfT6BxaWhZq5PVE4UP9XRDiqJwFURZKKXp
-         TLHjbtiD1AFwZmy25IR1g0jaGqxqy+NQ7cApggjJlRO98/AnbpKTiKq400PunasfUdt6
-         cf/4tCO71e19nQkIMmVqVmlWd0/VRle8hAwpKxQ2WI6wN5c88lh08EXDGKMCDhVX4DGg
-         Z+ghKaPlkDwiCfl9Ye0raZwQcNM3VT1rKXGxzRMqMKBKWCXpqJxfXa9IZJwZU0SU7aEd
-         h9RjOeeFu62zZrRcihcPMVkvsI82SaSZ0xlMtH5g+yPrTAu4ll9XXCSaOK20t+KJenCV
-         Pd3w==
+        d=baylibre.com; s=google; t=1781111241; x=1781716041; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=oNIoActVz0TXbcAcJhvF5OroIdcZfRfYtdC66CxO8Jw=;
+        b=mZJzErHuZkdw5hc76BQQcGI/UgUK30xMqlFonAt4pbKiG7XtPJT9yk0DO0ABK6v/h9
+         zEfZVhRFTfj9n8fePDdGmA8TsJ7Q/0MesB0sFVt5r6TajA6auljpN7bbZs/uNxS4eiYa
+         gMLZDyRC9XrqOdSvRI+ffr0Yb8LRt2vCbcXE4//ihgSijM180fqPovKGl3d0ZdQi0boQ
+         kxE6B+ulFvfqTscX0bTsJDRVfoo8i1TWOawE+7HXYAyqTbRoNqy9MPhMB9Y1i1gXEfpZ
+         xP87VpXUX7cy/kgGvYpBttdibwB1SAK9yWUEG10mq0EZdM4c8vYKAxP7rOPBPqIImFha
+         sIlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781109997; x=1781714797;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=s62YavCeclcS5soGJlMm76DLEOFR6pcgmAuoSKxLqnQ=;
-        b=iLuShvdE/F35rj3lZt5IiL2cY2o+wIF2ttgUaJwJYbOPk0T3VwLeK+9Rl+kAwq84Xb
-         aTqBUgcq8nppqiJIdWZdxZn8r4JldKnp4laLiUpfQYOwu6Jmt3fVOCjjq1Q/8lypdJ7V
-         C8USHHpLRrcZLI7113snLh3kEVS123oM+6CtR+kHapcPVZEmL6dthUVFb53Lo81uBcY8
-         TsBjuTP0dSGUB/1IBmEMVVOaJNR6S9c4CTYNRnX7028aPAoRFAicj8m5Seq2fzK67FNS
-         5kMmORT2ytLImOXrVn08a6x9gFx3I12ooGgTIqbz4FDtA/mit90zNho/Wt1gf12Gr/io
-         /ofA==
-X-Gm-Message-State: AOJu0YzG2K9Qg6AuPNnY6Ys3PEQLg3gjcnMFx2WTEUCVIp5XGmb60GR4
-	QLRsKaB1MDUvCZMNCy/14wz0Butz7XH6rLvUv2Fht6kbTDHbWT8QDC8OnSuk+2YrTqWHGnvOAFG
-	2l6QRSw2kAlVdAWzKjVunqG+I5yqWZ8D72j98T61ZGw==
-X-Gm-Gg: Acq92OH9l5f788jm0swjQWBerjwx4E0/vLVNwzUEPYAORkqF8z9ESQ17+FdXE14iesI
-	XS3W03mqTJOpvPf9XueBgn6HZZvhMoT+VIe2r1n4B31aNPsy5lhW6D21SHg3zktNepsrI9r3HRT
-	nKWnbFcENJkzTETOl63jfTJu5tFNZ/ATAChl8v9+E3JD/SavKHX9VKhW+K1fTg1pKVDDpMjqmEH
-	QslRBHkyvho4xq+WsqLDBpFVerKRH0SVERJ/NqLW19ygNnkQPfharbN/UeLS4yf3sIOmnZ+ajwA
-	o+KlVMCjoeELvzI3q1dMeUX56bwJXMfOtp9tdb8W1jdtS4Fe2A==
-X-Received: by 2002:a05:6a21:6113:b0:3b3:65c4:c680 with SMTP id
- adf61e73a8af0-3b4ccf7f2b8mr34244453637.25.1781109997586; Wed, 10 Jun 2026
- 09:46:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1781111241; x=1781716041;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oNIoActVz0TXbcAcJhvF5OroIdcZfRfYtdC66CxO8Jw=;
+        b=cNHXoF0PcRLxtRtWRqZGNBpZQZHbYB6yuI6UbXzSgsu2cTFf6nwMMjGm0psP3D05es
+         zaHboMHSt4g2s6igcqyD5yWJQdL1XHfE5VWH+UbBkw2LJVIfu5MV0QE/XiJGEqHejETj
+         fnmVQagBUpATi1WU74l/jFpUH6IrEvpgqYGuAtbC51dSfiWanLgATRow0zERW14insJ2
+         lyJmJy2b5RUmEZ7gZ1Uzt8jEre/QjpTciZ8yAup7coAL0ZTdn+jUET2g50cTXZ6YfHP1
+         TSavzxEXbXYWSWb8RC9o6zacLzqIF33CZovGWG9y2+Ugd7fOGVNjjCgOKBFOgHKEyKlY
+         l1Cg==
+X-Forwarded-Encrypted: i=1; AFNElJ9s+RUCYJzd+8Pw9Hqo4EWSX2AAcfwtgkcHZAxEU2xjqINj34RgNCP212V5+boLui0OS3n8n5Q4@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwqQkynpnj6F7nuW9EX9LD+qSOpz2aX8u9u+Vg6spL2X1mYKG5W
+	9YJ5q2YiZ2adFoQ5VK+f05dCkswGVu5lubC90j3jBNYtxe1LoMhmGn/9+xwf4KpLYKI=
+X-Gm-Gg: Acq92OHKLde53vWg7q8/mq8rzbBOd8O7sOeeI9x0tfCBW60lENywJFknM3IlvJW/SBM
+	F2HPiQF+jOZTHav+lsnkRFpvBFpLVjui+R7AMA+NlldDugqle6y7U2YTbMo0W+0yHHM4ynLOFHO
+	N2Yk/NnmBP5uNCq8xQNTJRK30IJU5j8tpOruFa38mfz+bJkrwgQpMt/8uTDiM0+RWwPiV083C6Y
+	xCR74GItxB/Pakr2hRXJU7wMgHPzO0V/88TvDJfambO/zvWGOxRtMIHlav272NI9LcjOf6GV0qU
+	P8iJOesvXY1zqnZJhEPcvmgnJMsPaEfyJMrbuxLxk8NxXJx6m6RGS1sRke1Uf7HXWAXWJStEjem
+	ZTiZQK3JjMKR8oR4JHd/z3NvhDwfqiuvn7dbYsV7phMPhjNwgy+q02vI5sRiQVeBWe0MzZ0ZzoJ
+	xgX3uo3YqUzdDk2Bmxt1S4MrcmrFnIZuYntmefharp85M0bnAT3Y91Psbb49Av1gBGEwQknIbxV
+	TBySkmE/moNSp9240njSXaqKw==
+X-Received: by 2002:a05:600c:1907:b0:490:b99c:9337 with SMTP id 5b1f17b1804b1-490c25a0800mr404729695e9.10.1781111241169;
+        Wed, 10 Jun 2026 10:07:21 -0700 (PDT)
+Received: from localhost (p200300f65f47db046aec8c3a4b621e71.dip0.t-ipconnect.de. [2003:f6:5f47:db04:6aec:8c3a:4b62:1e71])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-490e2b2bbdbsm1071665e9.14.2026.06.10.10.07.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Jun 2026 10:07:19 -0700 (PDT)
+Date: Wed, 10 Jun 2026 19:07:17 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Avi Fishman <avifishman70@gmail.com>, 
+	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+	Benjamin Fair <benjaminfair@google.com>, =?utf-8?B?VMOzdGggSsOhbm9z?= <gomba007@gmail.com>, 
+	Dianlong Li <long17.cool@163.com>, linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v1] rtc: Use named initializers for arrays of
+ i2c_device_data
+Message-ID: <aimZqlTywiFMrHr2@monoceros>
+References: <20260515154720.406128-2-u.kleine-koenig@baylibre.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,34 +96,60 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAGwee5_2x89EVnnkXpV3_NXNAPqqjOx1sknC7aegU5Zui+bjVA@mail.gmail.com>
-In-Reply-To: <CAGwee5_2x89EVnnkXpV3_NXNAPqqjOx1sknC7aegU5Zui+bjVA@mail.gmail.com>
-From: Ed Tanous <ed@tanous.net>
-Date: Wed, 10 Jun 2026 09:46:26 -0700
-X-Gm-Features: AVVi8Cc1tJlS0YYsQF4RhpLjq4p_kSsrIIMowaehCeHRfdTiOnM-t1N2gHqeDGA
-Message-ID: <CACWQX83a-0x+TWsv6XFjwh_qovJew_jJenSOEhgSskncjFgLEg@mail.gmail.com>
-Subject: Re: Proposal: Utilizing Container Registry for Shared BitBake Sstate-Cache
-To: Yash Patel <yash.pateltx@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mjyhwxentwyot5rk"
+Content-Disposition: inline
+In-Reply-To: <20260515154720.406128-2-u.kleine-koenig@baylibre.com>
+
+
+--mjyhwxentwyot5rk
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1] rtc: Use named initializers for arrays of
+ i2c_device_data
+MIME-Version: 1.0
 
-On Thu, Jun 4, 2026 at 7:16=E2=80=AFAM Yash Patel <yash.pateltx@gmail.com> =
-wrote:
->
-> Hello Team,
+Hello Alexandre,
 
-Welcome!
+On Fri, May 15, 2026 at 05:47:20PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> While being less compact, using named initializers allows to more easily
+> see which members of the structs are assigned which value without having
+> to lookup the declaration of the struct. And it's also more robust
+> against changes to the struct definition.
+>=20
+> The mentioned robustness is relevant for a planned change to struct
+> i2c_device_id that replaces .driver_data by an anonymous union.
+>=20
+> While touching all these arrays, unify usage of whitespace and commas.
+>=20
+> This patch doesn't modify the compiled arrays, only their representation
+> in source form benefits. The former was confirmed with x86 and arm64
+> builds.
+>=20
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
 
->
->It will also allow openbmc developers to
-> be able to quickly spin up a container and do bitbakes quickly for a
-> target machine with the sstate already pre-loaded.
->
+Is there a chance to still get this into 7.2-rc1?
 
-I'm not an expert in our CI process, but anything that improves the
-cache hit rate and reduces the amount of code we repeatedly build
-seems like a welcome improvement.
+Best regards
+Uwe
 
-I'm looking forward to seeing what you do here.
+--mjyhwxentwyot5rk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmopmcIACgkQj4D7WH0S
+/k4epwf+L6a484mFk1OKMvi0C7fAM23h7XiwvviyyN84trnw8VwKAkEiJNf5JUFg
+7R1WMrq4+2e15acW97hQlPEzzBDuW2ABijg0v0ZarwUfflD+5//84KhAd2wRB6go
+Ce3ayzfswCIOXZmOHtUl5OqWrp3ZhZioj2uEcV1gwtUkvbP7OdoaGJriM1ftzIN0
+an6XNu4Cqpx/8pmXDoUtOIIy/te4xlV0MZBYhxUbxN0PlbW3WGdLTjj0BT9XneW0
+KphmEVuwqL/2D9C8wxbpwZwCTEVNUXr8kPz5S/JedPC7/+oSdrPid2ItFPj9UHwx
+fhMw7IH4sbpgOZtT26IRcW/HrV2WRA==
+=FSr9
+-----END PGP SIGNATURE-----
+
+--mjyhwxentwyot5rk--
 
