@@ -1,116 +1,83 @@
-Return-Path: <openbmc+bounces-2104-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2105-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 517D0CD98DA
-	for <openbmc@archiver.kernel.org>; Tue, 16 Jun 2026 06:13:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BF0ACD98DA
+	for <openbmc@archiver.kernel.org>; Tue, 16 Jun 2026 10:35:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gfcB33wyWz3bqh;
-	Tue, 16 Jun 2026 16:13:31 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=fail smtp.remote-ip=192.198.163.17
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781590411;
-	cv=fail; b=akfBOrYzENrLO6POGhQiVtER9gcF/XFfQK1HzfHJRzgZ63RVuOb3/CZ8n5eRU/zuE0mJycs8PHlPA3MSU9RObRORQ3kvrE1xevh3REt6bY6JoHBg3xL6UtgeGI6224+iVhZg9i4JeySmxbTmcWDpJ/madUj7G8pkJba/iidjVzYEwj+0x0Ta6IaRN9qHFOSR/40Un0SKu7D0+vGPK1XKL9pprEuOgsBKoamNxXPzsuDWMG0WDyOO+jct2/+0FEyJZ7hNzxtolpeKt5HazIajjrAWAwQAhsXkBzL56FyjfllOcdJREL3OdXmrP8ZBDsgpEDHswSjRDYUI8zBeuEvEDg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781590411; c=relaxed/relaxed;
-	bh=qwQ6pv4reOK/zAELW9vRuQpzIpB0AmDkNhAk4FuCq0s=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eJXad5XpMAQ6CDwyYEDS6ahUX4slOcIQ4gWxHll+JPQb0WmyR0SPYcCreHU0qIT2QGfg/BOJbTVUIGiqkX6CM53rW6RpVraW9fOnPjchn5Nuo0xYJY3Z+p69A0Iu8hye8vcAENZ6CUsGpAFBcNaGobK62MXz/FIvLpP2rqT2iYnpgp/TNNZ0cvEDrbdRYlu55ec1YfsZcUp1HPBsO0PV4+u4xXOuW7SkxvcrUvsQdndZszto2LkLD8YFiOAGdXbkzwaIYBHtMtHyhdaHUsBfOgXLOOa5VdX+GrVymDC2SYLDNJXx9DVKaa9UCcC7a9pdDW8JmxTycbMDZbk83GBVFA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TODvRXuX; dkim-atps=neutral; spf=pass (client-ip=192.198.163.17; helo=mgamail.intel.com; envelope-from=adrian.hunter@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gfk040G3dz3bt2;
+	Tue, 16 Jun 2026 20:35:16 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::132b"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781606115;
+	cv=none; b=Mz9QQ38qYgAufpR5vMGdyvgyf26DBfMIJ6oH5tdKR/sSvlyZB7E7+CwO9EAoPU3GKIx7aP8dRiF0j12IMIRKxRKJCK6pZw4IHmxG0nO2sARsQYTd9ADBfUh6J+RUcgEMK4KNWxQAEzpy0G9+P0WLhrLEbEqJi6cWoTc10iQlOOEUr7ll2hKTe2R7dGgPMUKlSf7DYP4W9HmlkRv6/CcN+455Q5Jqm1bw49FjKm4cg5aVFVWrJ4rUD40Gou5g4b5+nR/ziHq6MCxhLgOF/ZHpBAIhjB9ebJ6hk1Pp+X7qWkYilR7kNZ39CWVoC2dDccsBkXR1alS5HUhz3An1k6GXvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1781606115; c=relaxed/relaxed;
+	bh=CR0IsEvrozyczXDOOrou30qVP7P+36a7TB8eBq/npug=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F3I0Ny40k24HDbQnEgXsI3R7It4dun9opPd85amJMnPdHUZME3UUHmREin92jQvmPfI8f/wyBZGwpwAZ8IEBqyN6X2ATOVLJX3BU5II1XseeKSUI1uCFq/QFqaO6HG4JjSeXA+GbnSfpwYmo82ZpCHyjDHr2s0owsk+XBkDbej0EFVohc0N59DAbfvPEAWqslSgIGZD4thbjLReQElSarUdURFjJZ2Mp3maUddvRkLFz8xprj1jIuPI6BFU5cmphzepjUJKSL5mHBavAwmVYq+0XckhBd5hg6vJGhqHL2wb/a72O2rYxD0EwHBg9CAEc4DiPbxaI6aR3luoIpHPREA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B65/HULJ; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::132b; helo=mail-dy1-x132b.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TODvRXuX;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B65/HULJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.17; helo=mgamail.intel.com; envelope-from=adrian.hunter@intel.com; receiver=lists.ozlabs.org)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::132b; helo=mail-dy1-x132b.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dy1-x132b.google.com (mail-dy1-x132b.google.com [IPv6:2607:f8b0:4864:20::132b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gfc9z5VMhz2ySJ;
-	Tue, 16 Jun 2026 16:13:25 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1781590409; x=1813126409;
-  h=message-id:date:subject:to:references:from:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=ci2P261uI/4o6nbhhgegY/A4U+Mo38OI5Fgn9q8JnHQ=;
-  b=TODvRXuXs66+hm0NdagsmMH3c12Sp+vKLFJEJIqwLb1vKIFiiVxguVf5
-   Y+aY49KJuCKa2TY4kxzRjwx83NVSo2F3+ay4hI6I+7VELcJ0WlJE5Euur
-   An7MhMsZ/dRxuLZLdoLgJSCdrmzIy/v55og7QMlP3A47fqYfSqXdgFyJ9
-   U2yoP0l4SKmCtWWjgbJwX4odgCGZDtVJ5vdg1cVVHUYiVFze52UbaXUwF
-   LbRNWrKCiDVhfVkpVNnKGnEBCRp3pgiKD+yYu4qnBKnvvBvhlVQdk2Z+B
-   AQzLynJuhe/fqR0OvBYBLX3woJvO1IXc8/mGt62XyYpEv1xBbzafJWsLx
-   g==;
-X-CSE-ConnectionGUID: fym6USGCRnWqAsnRHZrUqQ==
-X-CSE-MsgGUID: Z3tZrHV+ToqPUE+JDzcsHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82190482"
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="82190482"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 23:13:22 -0700
-X-CSE-ConnectionGUID: OWDSkLT+QXe/2KEIDOpzig==
-X-CSE-MsgGUID: +WBTLQZmST2tZNJC1oMsbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; 
-   d="scan'208";a="245282729"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jun 2026 23:13:22 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 23:13:21 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 15 Jun 2026 23:13:21 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.42) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 15 Jun 2026 23:13:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=srsb9+5utz92sgEel8EBgTSkdllzTGn0jm3/tdZMLqey5WTty7ZXwGvYWLepLX5BDrwEUFzpFUe+ftT2aQ8VR0AHLEwLC9LHoeiKYu/1iwe2DPSeQWyblTOm/edZGyJ4CyCXdnZ6jAR8mViSM6+Z5iuQG4RvZtHq2C2UCBjgXxawx62sDy5G4cQsVxTap1YdiLFNT2wgdux+nHBP4rXF45bzrceX/F4nIkuG1fwNj17/nskOxxNQigxaPVRf9wIFCFFNqTUnQjxnlkaA67o7O1/ZS1y2wDx3NhTM9NPCtxm4S2SQy3RGhaqkKHyhCL7jRuW8L8BktRVjgmQC9cE7uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qwQ6pv4reOK/zAELW9vRuQpzIpB0AmDkNhAk4FuCq0s=;
- b=yFFuarr1Oz9GvJrAI/G6mY4SKKMqz1ClcQIs4CQBTdHC89pwysFlupm7P//XqFppnpxdtepc4WZFxE8wm9NBuUCFJFv95+i+rocNV8isM4vdriKGOPiVHBz9M/2R5PD67FFmS8uNMFApL1Lp0NXZiNQK6DfcrpYZvgatRhQPKkCPV9qMjEl83GiTFZ77EvSUdnL3tMnI9+xDR+FH9JaLtYixE3cuHvhFpUSE5skZ01mMdlw20/kybNb0KRf9yJvdMIMzniM5674rqgWoMhXGyknU+tpgiFB6ScqC5y16jlqxDTgPAc9i3+6raq3EyDreBJ8rwh3B0nlWd9lzN5AFag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
- by PH0PR11MB9774.namprd11.prod.outlook.com (2603:10b6:510:398::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
- 2026 06:13:13 +0000
-Received: from IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
- ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0113.015; Tue, 16 Jun 2026
- 06:13:13 +0000
-Message-ID: <076d773e-85fd-44ab-9665-2598b770b2a7@intel.com>
-Date: Tue, 16 Jun 2026 09:13:08 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: sdhci-of-aspeed: depopulate slots before disabling
- clock
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Andrew Jeffery
-	<andrew@codeconstruct.com.au>, Ulf Hansson <ulfh@kernel.org>, Joel Stanley
-	<joel@jms.id.au>, <linux-mmc@vger.kernel.org>,
-	<linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Ryan
- Chen" <ryan_chen@aspeedtech.com>
-References: <20260616004953.3469-1-pengpeng@iscas.ac.cn>
-Content-Language: en-US
-From: Adrian Hunter <adrian.hunter@intel.com>
-Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
- 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
- 4, Domiciled in Helsinki
-In-Reply-To: <20260616004953.3469-1-pengpeng@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DUZPR01CA0017.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:46b::8) To IA1PR11MB7198.namprd11.prod.outlook.com
- (2603:10b6:208:419::15)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gfk024sGSz30FP
+	for <openbmc@lists.ozlabs.org>; Tue, 16 Jun 2026 20:35:13 +1000 (AEST)
+Received: by mail-dy1-x132b.google.com with SMTP id 5a478bee46e88-30b6dad2382so4091390eec.0
+        for <openbmc@lists.ozlabs.org>; Tue, 16 Jun 2026 03:35:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781606111; x=1782210911; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=CR0IsEvrozyczXDOOrou30qVP7P+36a7TB8eBq/npug=;
+        b=B65/HULJfifayI94GbraeUWntiYzN8f/ba1P0rM/g15sEJkMchCnhGIoF/H93LYEr9
+         8Bbzn6yOfXF2UxkOPGWxZxtC8KcWAERkgBnq31yqqIIR/ISegHmgapVtfWEX/50+tUxd
+         S4wD0yqDIZspLS/FMZ0lDE8Cd2f38f14PsZVesnFxr2Mx04gcaGybLvEUeeqo0oggar7
+         hfJL6ggjHdY713G8NRXh+Cz4hKojFoR8jecRDJN9ucpQjR4EZS7jZLDClaDdj3mf43Km
+         zXgKN+qlS90zEjZJqP3/hbJhcyI/4ANXORuFdXnduDmUc5q8zVzOTqrqUabitpk+ufHI
+         Xh5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781606111; x=1782210911;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CR0IsEvrozyczXDOOrou30qVP7P+36a7TB8eBq/npug=;
+        b=ZXjpXgmxfk0LMCS+2VtvJlNiaPfmerhhcC2m0Lsdu7x5E4wV4KjDaQLeLWGp+lXcvd
+         tgICOWDPcYfudcWqyE/cA459+wbWiyQ+ba8ehTvs+LVGcCKZT6FM0oaW0nzCobg+Y29y
+         vi0jxg2OxZJBeYBGjrMuqkc/CVVcjVvx2Ha5zs0Q3jCixyBcqCxktpkSSvZ+qIhqRz9o
+         IqeiIaoi4JVE1ofSP8EZXixRvu5+RZRzVIYmvFXpDfCepYZXasXYyGdiejeohsc+xiOi
+         sMeiu7yGI91ELC+7cQpH+a/735h20i+ePsXuGn+7lEPnWqxwzUvZZFXsgkp346IAAj4d
+         L8jQ==
+X-Gm-Message-State: AOJu0YwNLZyaRfxScdl6cuK1T02/83T0lp6FP+NkSldMELKydvaNZ3d9
+	33MS9rEhvNTwXvQOyep+YDDJKVx514QIApDPv6lAdHlZ3StcZHNZekMZsckSSA==
+X-Gm-Gg: Acq92OElEkFEZVpynCfNxEQCqXfoNfOs3uHeZkYSnc+7Bn0ZNHiUGrDXwGGfqwevlb8
+	2gXTiSXdI7g1MvpSi5N43z4tV9XlVlNZtDObgeI7rom1PWFnihERdtR5ie6S/rAecVR27ZjQRsM
+	es3qkdbxn4+z+LlXnCgRIAQzN+nvy6w4n3IOuk6+fIy49rO50ZdDmJeeuNTQP+15pnun83NY2KX
+	u70q5S3IcNLSOylvnCgsOuBFlBOyQ5a/iz3QL+J2o9rG6z7tiOJx00dZbShHLwCQpWKpbl0WiUa
+	hpiH06Ju7FXmuAqpiyUyTNyrvlDizD/UIgLTsGTnZ7Od37zB7WxMgY3qyBn+LRbob4b/ROU4931
+	zV8/YNfJwCCSxzoHUsXC71z93VNg+yNHJL2tWaNO7xP8OVnUOnkAzsaNzCL6lks2AU2M88QPTQk
+	mvJ5M+JrRq97aLocLYia7wfvLNCyqy+ldckOST0yekFTChaKJiugVTftO/sMVFXRfvkKVA/FmaE
+	TDj82AWUTW/DgxRqIaa+KQ=
+X-Received: by 2002:a05:693c:69d8:b0:30b:8860:94c1 with SMTP id 5a478bee46e88-30b8860a6abmr3118254eec.23.1781606111162;
+        Tue, 16 Jun 2026 03:35:11 -0700 (PDT)
+Received: from java-bs-ipv4.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3081e5cea89sm19946748eec.8.2026.06.16.03.35.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 03:35:10 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: Potin Lai <potin.lai.pt@gmail.com>
+Subject: [PATCH linux 6.18 1/1] hwmon: (pmbus/lm25066) Fix PMBus coefficients for LM5064/5066/5066i
+Date: Tue, 16 Jun 2026 18:32:57 +0800
+Message-ID: <20260616103259.2426892-1-potin.lai.pt@gmail.com>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -122,126 +89,149 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|PH0PR11MB9774:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2c287c1-af77-4139-7a76-08decb6e5917
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|921020|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SxgzL5HztG/DTyukqAJjX+kHwO0c1X0PD6afFIVU2D5xJJQuzXVQKA9NC1lk/cCwOVIbRYuCnHnuZYZZ1xoyFQDYOalp5VRT9lPfRuKQDUjCgOg8nUKVwOB2b9ewWEgXcwyEKiGKNoMkj2H6SlfuwhitTfGUdhSaxqwsi1oRES//MtV/lpt3z8u9T9lf77f6BFdzkiMfBAhvQdFrsAvFMgUtdjdHia0b/gTojqCB5/WGNtkMoPhvU8hvHCP0VOPVShWriCrfcxSQ2xYidUQDmsUBCP7y1TRAOdEiN8uaD1YUrZrrUDeXq70bW1OjX4/qcG1pWDeqegRLYYF3ZgeJdpX0rnAkh+L5K8r9Xopn9xLeeOKj1H/T0kivkV78AN+JBO/gThyDzrtwohtG7AbaP0kaSPH2SaDH4WMeyf1OdShzopcjVwmzNBOzkb8tI3xobXMHgaSCWDGZiB8ZgF8/NtAwMX4FxVYRLOEfLPCCcbmvahf+jac1Cqd8KC0djRTJLLLaHFqNiC6gNJvvlw1ON0FH0YiBXrXZqIKe6PSt/u9AqRojM9m+rU2Obj5vaAtam7Qy5Fak5Ys84ptgSYUEwuCBKO/JpZu540Z3O4kwPrOO9DJH0zkQna301Y32D4gs2f+24auOYT2vvNbStrZpLq0zh09+gxiVWC5G1CLfdtTTRxlDtYHstT/+yqPErSWw
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(921020)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VlREN3dKT1lQWVVvV1BLL01hTzROWjVFMVJ3VEpvUWR5L3JJbE5GMllLenQ4?=
- =?utf-8?B?d2Rydm9DN1FCeGkrUEIxTFRXT3ZIYitQZkpBQ3UreUtHd3FmQUVsZDFVQUZB?=
- =?utf-8?B?Vi9BQnIwZytwZVRnVWlWazJBVjg2amE2MTFUWHl1cTJDc0VkeXNzaGo0dHFh?=
- =?utf-8?B?NDF2aUxtTkJURjFsVlZwN1o5bjNzTmNrSlJ1dnVSRTJkSE04UTZnc2lTR2JT?=
- =?utf-8?B?TWUxdmhQdE52SkJFbzVQVWtZM3F5RHVLdS8xeTR2MEdqbnBVSDhPR0dpRkJE?=
- =?utf-8?B?cTlSWWY3ZFhJVzh6NjF0YTlKaVVwWGZIL2hLaG5WSjlML0hpQzhvd1Q1bFEx?=
- =?utf-8?B?L2hLaklDd0RzYmh0SDh2L21QalZCb1o5TjN4ZGpnUXN3bVd4b3JJS2QyRGdC?=
- =?utf-8?B?ZFdQMk5LaGJBOExGNXdVV0pGYmc0VFFEeW41Y283T01uL3J3LzBNQWlIMkFr?=
- =?utf-8?B?TVVCQ0lwQU9iTnd2RmZXVGRndjY2L3BPd2JJYWRFd1NVQ21IbE9rSlM4a2Vn?=
- =?utf-8?B?VkdXVk96T0wyRTc2UUxwRDI2MGJYajd0LzJEdzUxTTNSN0RPNUFxaEFic05K?=
- =?utf-8?B?SW9rZnN2c0ZNbnZEdjNRdHZPS00wTlZLUVRMQ2N6MTRaYmpUVWo4V0VKZUow?=
- =?utf-8?B?VXRTQ0hEODBiYVVoYk1NNjROb1BhY1pEbUsyRTQvNzA2Sk04L2tDaWNack1Y?=
- =?utf-8?B?cWxWZGdZbUZlYU5rcU5yYUZjeDVlUVlqRkFGeVJ3RG5BczBhOWlnaGlDbHUv?=
- =?utf-8?B?UnhsOXJVTWxjRHMwVzk2aVVJYU5md2l1MGs2VzFwVHhza0F6Z0Q2Q0E0RFhD?=
- =?utf-8?B?K3pERmxqTklLa1pUa3BaTHFaMlMwUXgvZ282alhKOEdRYWNmd2hoUS9zaHFu?=
- =?utf-8?B?RGJUY1N5Nm5Nd04xY0dCOUwwdFZCWHIvRTZoRVNiMm9OdnVoY05rSmhKeTVI?=
- =?utf-8?B?NGl1TjJiTTlpY0dtQnBRVUpTYzhaRHh4U2t5YUdOY2g0eHZSL2RaWTAyYlUx?=
- =?utf-8?B?MlJpNUh1MHhESGxMa2pQZXZ4SVcvNlIyVlBaeU9JRDRaK3F3ZzBFY3ZrWEhI?=
- =?utf-8?B?OFpCdnZJSy9qUFNQcm1XU28yWjdyWGwwUm4rZVBnRzJyK05HWUhLU2FCTGE3?=
- =?utf-8?B?OFRKYU01ZkRDNWhrR3ZIMHEzQStnWDZOcWdpVjFsV1cwdzRmRDd0ZlhHaHVv?=
- =?utf-8?B?eTZta2Vmd005RUdjV2lVYlBUaDIwU0hMRmRHY1dNU2NBZURmMjNjdTRvM0o1?=
- =?utf-8?B?NVg5UUZGU2JSRzNrMXErZVB5aUF1SEdUMWZiV1JLYUxGQUhYRmV0Vm42QTRz?=
- =?utf-8?B?NmZGOXBZaXdheEQySDBsN2srT2dEVnRqQ3lhd3AzR2dvNlRJYURLQktGc25i?=
- =?utf-8?B?ZVJVTXZRdE82MkV0US9xUGVQVkhLenZwdmg5eTRaZ1UwU2pyWU1QbFBtK1Q4?=
- =?utf-8?B?TDZXbmhvYi9XKzN3N0x0aTlhckNuNHRZQnNaNnNSUmxESmRaQi9ySVNrVFIy?=
- =?utf-8?B?Vllqb3M5L1dHODhVbHlHNXdtaHgvMEwxR1lnYmFDMWtEYTh4bVIxZTNVU0o0?=
- =?utf-8?B?ZlltT0drUWcxN1pUV0pBMzR0ODV6aHZ6YVBTckFWQ2c3SjlQOEZOQXFyenRK?=
- =?utf-8?B?a2ZKQkpyUkdpWUZvb3RHRE1SNHNESk5IUmM3eml5amp3WndvVVNINFhuWXIx?=
- =?utf-8?B?OFh6dWNHWlZEZE5YZ3JMNE1hWWUwZ0c5M3htS0lyeXFjVE9xV0tzS3FrbzhM?=
- =?utf-8?B?UTZmemJtaERuYjBUbERvZjM2eTJ3eVlaNUUvWXU0Tm54OE9yallaZzFjbjlx?=
- =?utf-8?B?KytYaHZOWWN0V0xacGZEZHMrOUFqRVkyT1BJNS8rUTVYQnNsaHZBVHNjQXdy?=
- =?utf-8?B?U0lXVnRBazdIeUhpOVhMRzlsZnVpZnZ4NTJVcHk3NmZ2cG5MSktSNkxId1JE?=
- =?utf-8?B?ZlhEVC9GR2ZSY3BPWGljai9kOU5iRElFZk5TNE14Q2pabEJrTEU0Yk9KbHRC?=
- =?utf-8?B?TmlaT2VBcTErVkFhUllkQmlhRFNvSERNVnhxQWxpUi9xNU9jdnluSE0rdjVK?=
- =?utf-8?B?ZGZRNVMwL3BUNHRVMlpDOGdUZm5mYWJFV2pkY2Joa0I5QXgvSTk2WXZTaEtp?=
- =?utf-8?B?aGNCa2pTRndiSThMVllTVkE3ZVhaZGQ0eFI4M2tzNzVQSU9sUG5MYlBNVUVn?=
- =?utf-8?B?SENoNDIySXRlTkdBdzhEWTkwUFZoUTFCNFBnM1AxT0YzZDM5cUZUdVVqcGdZ?=
- =?utf-8?B?dDRPNWRlMUpSWUVlbms1Z2FXZGtQUW9CRUJuUzNFekZiY21BdzRoSjlxZmRK?=
- =?utf-8?B?ajBhWndMd2xqNjh3SnJSandocEhzK2NqK0NRSHZyOTlFSFI2VW9tL2JpbENR?=
- =?utf-8?Q?w0UTNM5nGG/+2h+A=3D?=
-X-Exchange-RoutingPolicyChecked: iCeTDARgfxOCSH7gAyD7knnMKflZnod90+rFBOJreXD/N98Ur5yeBN1Y6hzNj1tskpl28zcixOzzpTqb7Qe2hJS2pkNTnDKrroHxE/3SjiCWJx0CI9yrkof6J6jc/Xk41Pw6XZfqzGa4J4A4PFNaHplXdna0Al44g/ewMwQdQHHy2XO5XLiujhViA5fpCGHkBa4wOWtW6l7LdCZ9dJHphJW+p3rL9RDo5SrTeo0aFiU1Yop4Pcou3ZQmGYEyadBVOL13J/ZqiwBhJf1Vre0zV4I0uS/0xuicN+Syl4AzwvOMo75a8MBqcjQUP+SezR8ypnXL8iJaYzemSBUsDvzLiQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2c287c1-af77-4139-7a76-08decb6e5917
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 06:13:13.7203
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tn6iGwL4KsRUO402KYy9CI3T57qYd1s87gErfdpQ9sQjT9Z6YkNBybGqSPhjEd05XrZtHh3ZOB3rZ+UiZ/Nx7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9774
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On 16/06/2026 03:49, Pengpeng Hou wrote:
-> aspeed_sdc_probe() creates child slot devices one by one after enabling
-> the controller clock.  If a later slot creation fails, the already-created
-> slot devices remain registered while the parent probe returns an error.
-> 
-> Depopulate any created slot devices on probe failure and during remove,
-> before disabling the shared controller clock used by the slots.
-> 
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  drivers/mmc/host/sdhci-of-aspeed.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-> index f5d973783cbe..3e941b176687 100644
-> --- a/drivers/mmc/host/sdhci-of-aspeed.c
-> +++ b/drivers/mmc/host/sdhci-of-aspeed.c
-> @@ -560,12 +560,14 @@ static int aspeed_sdc_probe(struct platform_device *pdev)
->  		cpdev = of_platform_device_create(child, NULL, &pdev->dev);
->  		if (!cpdev) {
->  			ret = -ENODEV;
-> -			goto err_clk;
-> +			goto err_depopulate;
->  		}
->  	}
->  
->  	return 0;
->  
-> +err_depopulate:
-> +	of_platform_depopulate(&pdev->dev);
+Swap the high setting and low setting coefficients in the lm25066_coeff
+table for LM5064, LM5066, and LM5066i. The coefficients were previously
+mapped incorrectly, resulting in inverted current and power scaling.
 
-of_platform_depopulate() does not appear to work with
-of_platform_device_create() due to the OF_POPULATED_BUS flag
+Additionally, dynamically assign the exponent (R) registers inside the
+probe's LM25066_DEV_SETUP_CL check. This ensures that the proper
+exponent is applied (e.g., for LM25056, high setting power exponent
+is -4, but low setting power exponent is -3).
 
->  err_clk:
->  	clk_disable_unprepare(sdc->clk);
->  	return ret;
-> @@ -575,6 +577,7 @@ static void aspeed_sdc_remove(struct platform_device *pdev)
->  {
->  	struct aspeed_sdc *sdc = dev_get_drvdata(&pdev->dev);
->  
-> +	of_platform_depopulate(&pdev->dev);
->  	clk_disable_unprepare(sdc->clk);
->  }
->  
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+Lore: https://lore.kernel.org/all/20260611-lm25066-driver-fix-v3-1-9d7d4b4e253d@gmail.com/
+Github: https://github.com/torvalds/linux/commit/83dda7ed185501ba1f8165aeca83ff4a8ef7c263
+---
+ drivers/hwmon/pmbus/lm25066.c | 54 ++++++++++++++++++-----------------
+ 1 file changed, 28 insertions(+), 26 deletions(-)
 
-There is another existing issue that Sashiko noticed:
-
-struct platform_driver aspeed_sdc_driver has:
-	.pm	= &sdhci_pltfm_pmops,
-
-where it won't work correctly.  It looks like it
-should have instead been in:
-
-struct platform_driver aspeed_sdhci_driver
-
-Refer:
-	https://sashiko.dev/#/patchset/20260616004953.3469-1-pengpeng%40iscas.ac.cn
+diff --git a/drivers/hwmon/pmbus/lm25066.c b/drivers/hwmon/pmbus/lm25066.c
+index dd7275a67a0a..6e23ada64e2f 100644
+--- a/drivers/hwmon/pmbus/lm25066.c
++++ b/drivers/hwmon/pmbus/lm25066.c
+@@ -132,23 +132,23 @@ static const struct __coeff lm25066_coeff[][PSC_NUM_CLASSES + 2] = {
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN] = {
+-			.m = 10742,
+-			.b = 1552,
++			.m = 5456,
++			.b = 2118,
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN_L] = {
+-			.m = 5456,
+-			.b = 2118,
++			.m = 10742,
++			.b = 1552,
+ 			.R = -2,
+ 		},
+ 		[PSC_POWER] = {
+-			.m = 1204,
+-			.b = 8524,
++			.m = 612,
++			.b = 11202,
+ 			.R = -3,
+ 		},
+ 		[PSC_POWER_L] = {
+-			.m = 612,
+-			.b = 11202,
++			.m = 1204,
++			.b = 8524,
+ 			.R = -3,
+ 		},
+ 		[PSC_TEMPERATURE] = {
+@@ -167,23 +167,23 @@ static const struct __coeff lm25066_coeff[][PSC_NUM_CLASSES + 2] = {
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN] = {
+-			.m = 10753,
+-			.b = -1200,
++			.m = 5405,
++			.b = -600,
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN_L] = {
+-			.m = 5405,
+-			.b = -600,
++			.m = 10753,
++			.b = -1200,
+ 			.R = -2,
+ 		},
+ 		[PSC_POWER] = {
+-			.m = 1204,
+-			.b = -6000,
++			.m = 605,
++			.b = -8000,
+ 			.R = -3,
+ 		},
+ 		[PSC_POWER_L] = {
+-			.m = 605,
+-			.b = -8000,
++			.m = 1204,
++			.b = -6000,
+ 			.R = -3,
+ 		},
+ 		[PSC_TEMPERATURE] = {
+@@ -202,23 +202,23 @@ static const struct __coeff lm25066_coeff[][PSC_NUM_CLASSES + 2] = {
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN] = {
+-			.m = 15076,
+-			.b = -504,
++			.m = 7645,
++			.b = 100,
+ 			.R = -2,
+ 		},
+ 		[PSC_CURRENT_IN_L] = {
+-			.m = 7645,
+-			.b = 100,
++			.m = 15076,
++			.b = -504,
+ 			.R = -2,
+ 		},
+ 		[PSC_POWER] = {
+-			.m = 1701,
+-			.b = -4000,
++			.m = 861,
++			.b = -965,
+ 			.R = -3,
+ 		},
+ 		[PSC_POWER_L] = {
+-			.m = 861,
+-			.b = -965,
++			.m = 1701,
++			.b = -4000,
+ 			.R = -3,
+ 		},
+ 		[PSC_TEMPERATURE] = {
+@@ -519,18 +519,20 @@ static int lm25066_probe(struct i2c_client *client)
+ 	info->m[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].m;
+ 	info->b[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].b;
+ 	info->R[PSC_VOLTAGE_OUT] = coeff[PSC_VOLTAGE_OUT].R;
+-	info->R[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].R;
+-	info->R[PSC_POWER] = coeff[PSC_POWER].R;
+ 	if (config & LM25066_DEV_SETUP_CL) {
+ 		info->m[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN_L].m;
+ 		info->b[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN_L].b;
++		info->R[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN_L].R;
+ 		info->m[PSC_POWER] = coeff[PSC_POWER_L].m;
+ 		info->b[PSC_POWER] = coeff[PSC_POWER_L].b;
++		info->R[PSC_POWER] = coeff[PSC_POWER_L].R;
+ 	} else {
+ 		info->m[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].m;
+ 		info->b[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].b;
++		info->R[PSC_CURRENT_IN] = coeff[PSC_CURRENT_IN].R;
+ 		info->m[PSC_POWER] = coeff[PSC_POWER].m;
+ 		info->b[PSC_POWER] = coeff[PSC_POWER].b;
++		info->R[PSC_POWER] = coeff[PSC_POWER].R;
+ 	}
+ 
+ 	/*
+-- 
+2.52.0
 
 
