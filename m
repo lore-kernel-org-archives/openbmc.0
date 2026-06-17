@@ -1,64 +1,88 @@
-Return-Path: <openbmc+bounces-2106-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2108-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B072BCD98DA
-	for <openbmc@archiver.kernel.org>; Tue, 16 Jun 2026 16:00:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E3E2CD98E2
+	for <openbmc@archiver.kernel.org>; Wed, 17 Jun 2026 04:12:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gfsBq56yLz3c4v;
-	Wed, 17 Jun 2026 02:00:03 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781625602;
-	cv=none; b=jH1wcV7Yoz43gqfojr4eVdKcCjkf4xX7tlegW6DSQnfANOk2CxKFr+c/WUojs/YfV1oTOYtIiVhtf6VHlAbScDWcOR9JKpZ2RYlS041xlc8xdYqDvk5O3iORSdONf1uJ8t0P4C+EyTLmM5aUBfvgXUgFY+GWde9kiDGC5oJ/v4s/XpykWfY2GIQQ1b+lKOxB3pHqnnk5PWYIylt6ieY2J/sj510LvGnp7aQtbHD7d5vS8L1fJLqglgAmZQpGOvS97ADhBqJaPmu//GfWP240i+5CBN62ylUA9RTvh31pwQoNifSlVELGqa5yJ0Jp/kCssuSrnxpb6ck+/g+qgkIPag==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gg9S00Tjbz3c6n;
+	Wed, 17 Jun 2026 14:12:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781669551;
+	cv=none; b=EvYkHiw+lDcb60IlOU4dspH/QZcUQNqfYogeNYi8urm0k+FKwbMpUynl1vln6JZttbp8tsAPbURpexG9BMLQudJAufAAR9ez2wydjGQQ6SBqXwh242xd16S5ryfuqEKK9ReJQQBXqu8rSUW35skmA8P2ZQ6ly05YMc2OHWjjzhLcQZDbubdBEOHVEOH/aJppbchRWUi+WTNPiABI8KMDTkBljH0vRnqICj43huJQbqwaY6uadWmg4HgZFbaKQlUoT/Uxxh6Fj2TwQ26fiSj9Sm3WjvmTFdX6N07W7wZPsm48Lc3dCtz248NYhiKXuG26A1CT+FndgNICeej6vpdvUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781625602; c=relaxed/relaxed;
-	bh=RIse3iwtT2+Os5evlGt3yi2fypjT2QT8SgerPML2hCA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TzeWMcr8CYaopFHB2xFjKPTkYAudTsok4FP7FPZgNA+9RYK2mYKHdE6apSWIiQ8Qm89MMXyE2SgNHUwjgk8Yy+HSl0WCjyN9juKlzt4GmMLGrUI/ptSO8rR+mny4hyuu/l9hpxtI67+E6i5Ha/H31Wm9+juvN8bpXXUZ896IZ6aI3/hVMqOz7PYf+FUvSEN4gVnNZKxYnUGH9hlWdx6uHvNtJmhMRQB55t8C2DfOltaEZx/VEKmfuxp/9P89I+H6vCOZEku+mO4qK2se96xRJNWG2UULpjvhH0eCQvadvVwRI2jKvQrL4Dk/KtZOuSrYHH9myQ1fFraGGOYVk19gyQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVIlwhd6; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1781669551; c=relaxed/relaxed;
+	bh=eR8Fma57QOiniaeyGxJgyR5XVWPOVelOnVhw61WdhKQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L0/qCX3IeRPWpwkezKRtj4ZVu6TGmLtnjOb9OTMY/4BEqhUvYauvnwoGEVeRsI6l686/8HPysM/cu4ASJ19c8Ox3oUiRPlLOXRo0qyHAoIo+Aeew8p023d6TiwKwIBFRZo84SMvGqlOtyCvouKy63JOMdu34VfJ/ntn8d3pmQrKh2mjZmYzL8FlnKxTtCGqtt0zTeEvWbbwqCj4y40QJ0/vFxkixLkAlprN6y/a8uUrw/G2bMvEcggOh2VL5/GMwmYsj9wE6xEWR1P1HHPvYxZcSxq+A0y6wg1fH8iKxZS8Dq/yfCJEGIriB1joN2WJVHpcMetpK4uCD071pAI8Y6A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gw7p75ZD; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVIlwhd6;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gw7p75ZD;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=potin.lai.pt@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gfsBn4xTBz3bsY;
-	Wed, 17 Jun 2026 02:00:01 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 880ED42B6C;
-	Tue, 16 Jun 2026 15:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00A31F00A3A;
-	Tue, 16 Jun 2026 15:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781625598;
-	bh=RIse3iwtT2+Os5evlGt3yi2fypjT2QT8SgerPML2hCA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZVIlwhd6oD9IM9hhq5ifVe+dQbWEypsk7MvrPoQ2DIj+CRLFkMXl+uddZ/IeXoUXw
-	 Ds3gOZI6riFQezdvBQmcNg+WuPytgkqRr1OULzZqCDqHBYvdtCGQglpJI2rTDNn0ot
-	 AQDV030F2Ul9tFkcYm86ptat4zuo/XbkBo1ZuvO3iJwwgyv6V65xaGLv56N7F7fRd/
-	 GR9wT6b0BkcRKW6NDH0yz3chjaWNV4h7KAC4xQoJN84gvASWUe+wYx4F2U2pOIZGBN
-	 DFGckWFG17boMCTZdPEDRFotpe1siIgTvppyMACFl/J6znVoICieUGDYbCCq1IZI2F
-	 iK7zZ7fJOZ86w==
-Date: Tue, 16 Jun 2026 16:59:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: aspeed,ast2700-soc1: Add
- JTAGM1TRST group
-Message-ID: <20260616-surgery-fritter-8583b091fd6b@spud>
-References: <20260616-pinctrl-fix-v1-0-621036e45c7c@aspeedtech.com>
- <20260616-pinctrl-fix-v1-1-621036e45c7c@aspeedtech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gg9Ry0vrcz3bqh
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2026 14:12:29 +1000 (AEST)
+Received: by mail-pf1-x42a.google.com with SMTP id d2e1a72fcca58-8423efad617so3266695b3a.0
+        for <openbmc@lists.ozlabs.org>; Tue, 16 Jun 2026 21:12:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781669548; x=1782274348; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eR8Fma57QOiniaeyGxJgyR5XVWPOVelOnVhw61WdhKQ=;
+        b=gw7p75ZDN9uPZ6wC7Sk0OM+GUalnaPBblpOZaAueQqnop1THuZhHNqzryx0XDkSMo6
+         Zp7C2XOe/9HZjFdgmJOrRBOPAfTphBjfqrf++DDx1c1veMKooPJdzKr01cdNwZzXRQgb
+         OegYRXWSBCWey5x+4xeMROJagdJkNy0ELWBIOq6YR8Jrc4EkwRRXKX60R2SLrfkSMpur
+         1hK9b/nsouSb96pgY1Rz/aS11OAXOYx4V43E6h2d0bXjhdrsa7AleNiaBgqmvwmAE1ng
+         46UDbIZjPi3tJzwcfrWG7KzA9TvR6gNb1n8DqLEKf3XO3hZfyQk2E3LJvNaXAYxUYtpb
+         CJYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781669548; x=1782274348;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eR8Fma57QOiniaeyGxJgyR5XVWPOVelOnVhw61WdhKQ=;
+        b=jH37FOSZLXxzq7SrRlCJcWPGciFdO//WAseMjJt0gmwL2+MjyUPi5pdrS2zRTAenwv
+         jGMvqRU2Q/nEejYbrO8zrNwjfKUq6SUGiDFNkzVU/rhw89VaO22+b/NSquZ2r6ghbXG3
+         GtFNpj1+IW0QCTt/V/t31KjZsAYAfMgk0Cu6WGtNlgh5Ejj4Bz11u+3FiGxI2akhwOkH
+         z1l5/7Ed5AHbOuUmAstE2/7Q+rCgJ8fW/ok86sHXFeQ8r5Rje2p5gFI7qcE/M+1mgkQc
+         ADkG9lOJcN4KRWSIOYq24VTEyRTxBDntXz23heHurgXUhMw/nPPk3kyGbuxPQ0u33Nb8
+         Gr1w==
+X-Gm-Message-State: AOJu0YzNmVNi4gVOAPFyNt6m/AQnxf/0KRixtCEdNUyHewcu5Ok+b2yo
+	enYakCIEH3YeesDCGUeXqn3ZgGrytrqgBlktI4yfaf3t+k/KOaiorDiWhMoxGQ==
+X-Gm-Gg: Acq92OG7Il5Vx87ihFhLTkBUUiJD8x84dnuWjcAMOYMbX6wiM+Lg3FKi3nHPYEDqMrD
+	VDuvW+LhvUYO//dYFtFt40o2R5fwZ0cCjJNlTynpt31FEhVAq0nQ/s6slrL+wxj+1JZFzLYYizF
+	syJv0A+VE16pQ+01kQiNprg6zmziSdaoznv/gY2ZFQPq+aqvqXDpgqFb5F/9KRgHtipMfchmltA
+	Q8HkRtoomfdGFdhoP+Dq9XUsrwGR8tJQP6BpISVN2ChShsJNYUYQAbIyFgZ+eN0ixhgVoXmpVTv
+	FwAwaabXFGaYCt0Kv1iuwun6se2LAxZipwXOfiKzXx1Fk3nAC7VS5gwJB9DdfHBsLLKAxBcBJns
+	FL5+XnZcTUY7/VWdpHMAHatgmSGP3pAtKFVqk10wWqLYHslZ9T6w44zyilgadnBcTzmXQ99whuu
+	EMBiYD/BFauL8w63K/ndVBdiUDBndqH12vkUemN+ngXxSgOTIxWjjkCMu4r/KBEMtwKQO7rla4s
+	U18Q8Eh7HWU
+X-Received: by 2002:a05:6a21:6315:b0:398:9662:10ff with SMTP id adf61e73a8af0-3b8b582e254mr2185664637.4.1781669547998;
+        Tue, 16 Jun 2026 21:12:27 -0700 (PDT)
+Received: from java-bs-ipv4.dhcpserver.bu9bmc.local (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c86651a0090sm12804302a12.26.2026.06.16.21.12.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 16 Jun 2026 21:12:27 -0700 (PDT)
+From: Potin Lai <potin.lai.pt@gmail.com>
+To: openbmc@lists.ozlabs.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: Potin Lai <potin.lai.pt@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH linux 6.18 1/2] dt-bindings: hwmon: pmbus: ti,lm25066: add current limit properties
+Date: Wed, 17 Jun 2026 12:10:09 +0800
+Message-ID: <20260617041015.3684032-2-potin.lai.pt@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260617041015.3684032-1-potin.lai.pt@gmail.com>
+References: <20260617041015.3684032-1-potin.lai.pt@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,29 +94,65 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sLe+DVJgetvs8zz8"
-Content-Disposition: inline
-In-Reply-To: <20260616-pinctrl-fix-v1-1-621036e45c7c@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
 
+Add a 'ti,current-range' string property to configure the device's Current
+Limit (CL) behavior to "high" or "low" via the register, overriding the
+physical CL pin setting.
 
---sLe+DVJgetvs8zz8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+This configuration is supported on LM25066, LM5064, LM5066, and LM5066i.
+LM25056 is excluded because it does not support configuring the current
+limit via the DEVICE_SETUP register (bit 2 of DEVICE_SETUP is reserved).
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+The values "low" and "high" map to the respective low/high threshold
+voltages of the chips:
+- LM25066: low = 25 mV, high = 46 mV
+- LM5064, LM5066, LM5066i: low = 26 mV, high = 50 mV
 
---sLe+DVJgetvs8zz8
-Content-Type: application/pgp-signature; name=signature.asc
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Potin Lai <potin.lai.pt@gmail.com>
+---
+ .../bindings/hwmon/pmbus/ti,lm25066.yaml      | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+index a20f140dc79a..fe42daabaaa8 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/ti,lm25066.yaml
+@@ -46,12 +46,32 @@ properties:
+ 
+     additionalProperties: false
+ 
++  ti,current-range:
++    description: |
++      Configure the current limit setting. When present, this property
++      overrides the hardware setting of the physical CL pin by configuring
++      the DEVICE_SETUP register.
++      - "low": maps to 25 mV (LM25066) or 26 mV (LM5064, LM5066, LM5066i)
++      - "high": maps to 46 mV (LM25066) or 50 mV (LM5064, LM5066, LM5066i)
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - low
++      - high
++
+ required:
+   - compatible
+   - reg
+ 
+ allOf:
+   - $ref: /schemas/hwmon/hwmon-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,lm25056
++    then:
++      properties:
++        ti,current-range: false
+ 
+ unevaluatedProperties: false
+ 
+-- 
+2.52.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCajFy+QAKCRB4tDGHoIJi
-0nyzAQD/cfSEv7EyKRM044BXBjhasA9Yr52g/vKaTKlxcUnd+gD/dLz2G4ZVL2LX
-+vn4OonXgVtVBt+atEzn1pOoaRvRjAk=
-=uh/e
------END PGP SIGNATURE-----
-
---sLe+DVJgetvs8zz8--
 
