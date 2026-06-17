@@ -1,73 +1,75 @@
-Return-Path: <openbmc+bounces-2110-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2111-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90ECCCD98E2
-	for <openbmc@archiver.kernel.org>; Wed, 17 Jun 2026 13:32:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D71BCD98E2
+	for <openbmc@archiver.kernel.org>; Wed, 17 Jun 2026 13:32:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ggPt045vdz2xK7;
-	Wed, 17 Jun 2026 23:32:24 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::335"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781703144;
-	cv=none; b=OmgLPiTuE+Sdv2xeLTcaLxBg5oDjRBjXzROKQyvsiShznACehyj733xykWz+ZHn1Q83Xt2zuXpMFSWbUPCUCjSjuV3rSO6e8pMAlKpFaAu7ujxcWS+JYFEi71wPdE9uQ8Y8lZjqEVSjtc9UIQIbwjen821SHEv5+85HegLL41+mbNwYUR3OIoffR75VwmpJh4pJ0jiXtS8DRhIoQfgjyX903L2HY/+SPfEFd7R10IXwqAMI5k60o2a4rEs8B6oECGK2HiwpyP18dmUwAQSsUbZbx5i7sa4woWJ3KiY++g5mrTIMYvEYIv8PLpLMRfrMWWbA2jFLr3mPjlNrHQw1gTA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ggPt51vZ9z2xVK;
+	Wed, 17 Jun 2026 23:32:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42f"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1781703148;
+	cv=none; b=ApqXoQlDhZkBEUzwlKRsNHiNRTpFPhBnmWuUQ5PB+Q3rrl23mCfVByJi4yLGLStcTLhczNOPGcrjQQ+O4/XZ+qow5n8vMH6kTrO75qwjNDDjjsu2fgazzUKkP1fz4PconHnW1nqhvANZBmHZ/QxsxxJO4liIp3rmaXhILaaxmnRanNrOxEGk+x0a4ZzMDOjmWf8KoEPRT4JogfSM/z8/oEXQLmsLiFyOuceb3RMPIc0HVNPXiDc5WiWwYVKoWUC68sCO9oNCX0KDuPMhzFliq7HeYubOnjjmWAosYoT2iGek+mD4/7bjLQ40K91wdCV+T8I9jvfP3A9jNBsU1ljpEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1781703144; c=relaxed/relaxed;
-	bh=fFTX+AiRaMQbMH9lj/OuYWyjAe3WfpdoaTeBbXZUDPU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A9W4tly0NDQ0oAORCFwt+aRtVN+dKcT+pOpZJNsXPi8atTWfn15nGWLUfKVsaca9NQ3NZ8fOgTXMTDupVT6xIFTqTR46vOcC7YL79fVsjYiymqrtFIQdu4WNIDMuGxD6bLlW1UMW+eJcx8brHTNY5gtOAQl5cKVkWoPdN2F4GFlMBx4mggJxGij48T+FIbLmw1kvCQ0080NmcNLz4gGVgHRs23mOz1ihz+k2xrKoeIq2S7gCW8pLJQYNnxbKH8qUEEA34rzm+ZihxCXkVnQEJ2/J3adyccZ8SVbGY1KayDcWoQdZe9R5/iBm28K34mAWji/LMVpVasO1Xy5GIisTRA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ebpLQ81N; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1781703148; c=relaxed/relaxed;
+	bh=HVsayAMQyYoUASQDp6CaRR3SeM73nxQGt/zbkOc5q+o=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=O3whId7uFS+YGn8CUw2VpywT7MTkEynh7IOr8gY10+OE8D/HDNS7vJJPcLaPoacVnSWjkIPjj3iFAAkyfS5AGf6gXE8SSeUciu7UBcLQFYfy9e53fk8McsSFQP/qSDEAqj8D0WEOJKsDeDYVEe530Pe8RGpBfw4JaSwEPCw2YOtbui/qBMPr8gHlHSF981FaKljVnGy584Yv5x0DqpFbG2kDXUmnJAerKuzsGXdD5yBLh6OexKOGEH5h0oGM6HgL28QOT3zGHZcXCgh9orwjRH1qNwrrOtHmCPueLfILBgWY8skN5Yx5PP5X76bEUB9RXnkXT4/pkFbCIdcczvLqAA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pO3bEkYM; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42f; helo=mail-wr1-x42f.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ebpLQ81N;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pO3bEkYM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::335; helo=mail-wm1-x335.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42f; helo=mail-wr1-x42f.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4ggPsy6sGqz2xC3
-	for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2026 23:32:21 +1000 (AEST)
-Received: by mail-wm1-x335.google.com with SMTP id 5b1f17b1804b1-49222b6e871so42356575e9.3
-        for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2026 06:32:21 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4ggPt26lYRz2xLq
+	for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2026 23:32:26 +1000 (AEST)
+Received: by mail-wr1-x42f.google.com with SMTP id ffacd0b85a97d-45eeba68948so4288231f8f.1
+        for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2026 06:32:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781703139; x=1782307939; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=fFTX+AiRaMQbMH9lj/OuYWyjAe3WfpdoaTeBbXZUDPU=;
-        b=ebpLQ81NYjw0vvczuZlE6VMAI2Sg6F/cUHwtSMZanlcxFKFySXjHo/Q4m473FhPRTi
-         LAZl8gwnYHNNyzQ2E8ZUIMjtghusopVl0wPJui0x1Eaa0jWqM5nRsnmFtg1gjt21xzB1
-         YXkwvyf3RnKut3vr3Aw917nFcyrZUCRbaoO2eS1q10jiuwTdqywNdvuzEgLfzRrPFB96
-         GCo1bYKZnXjkP39S0XF2djtA79JkgLe4JS1nYtn5FfYlDvQ/IyD08J32KnifFpkAxFUS
-         BVd57Q3IhYYjovg4Nlzi1P0YUivznL5vYy6y56SjLN8pugrNL5EmRv3HqMQxHIShQeue
-         kpTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781703139; x=1782307939;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781703144; x=1782307944; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fFTX+AiRaMQbMH9lj/OuYWyjAe3WfpdoaTeBbXZUDPU=;
-        b=fw6dnR/D5zrXm8U2WSkieOvc2EYhm8zI/fz60H/Z3SAedg8nUBgE6UUJrCwAiBSyB0
-         itIk4qdf1n2LbWbCBwJmQUJQFIgqItdklglhFx1BwQZ3cg4dsBN2ZI5zWOsYWc+TOZk6
-         O4LLT/owl0hIwMKM14gNmJzHxXoNBoCxTQq/BkTMqwELxEXl3hdpo9ZWuzKf84QAM+AM
-         qi2Is+WqsAV3izExDYR1Ggzh5zekaNUer4wK/sYGpIgviemyD9k8FgVBH2isjCP4QwJM
-         D7o3+qtaKJ4z6DdS3aTQwGIkDCroumdOL7lwkSF1XXEr/FIjMccZCgp7ySROefnjRH6i
-         FBYQ==
-X-Gm-Message-State: AOJu0YzbS4ADCabfE94NGVJAj4Hd4h82tLXPObnOa2+/4D7x/m+H+NFS
-	RVH0KZd3zLVMsBE42ZLb/BqJ6YDqepNEdptZuIW/gmLZazTV3U+jx+E9
-X-Gm-Gg: Acq92OHGbpqv01tVu0TXUOdxsYk5I9OzMLi+9dLN0Q4XZmV3IlT7jON1d+c6gkpPS2c
-	gkZBxTmQ++qB4698Q/QYBD7vfvLtHr822I2T9pi5lYfTzWscswRmbTIJ2T1ZXMrDmzPFGsWfm1k
-	bnI7XaAK7Z3JxCsny1i0dym0isrrkrq4PZVmATAuNr/3RswEQg/9kgnAZN1F0uGVswDImGFKghh
-	8T0nbCRZHqdmdo119vt5ufY1qo1VqNerSJ28DvgYyYmHpjZLBvhis8cAiL1QqHYuPhh9822kO8c
-	0Hl3KxzCWcr65D0JazQ8XchyMWX+kQ7TrG/SxkS2rx3T6DiG8Ggt7pJLXEhktPXPFE7MFfbYQ0T
-	/l6dHrwQNWWptluYfPfv3/+cbGpbf/5YbhiRb0wWgNJzIzc3E0Oq8CtsPzw2uYB1fgJNfrHcM30
-	1QmeNRyjVGuaJ4drgUMzcUshs=
-X-Received: by 2002:a05:600c:8a1b:20b0:490:601f:d776 with SMTP id 5b1f17b1804b1-4923410091dmr42265145e9.3.1781703138441;
-        Wed, 17 Jun 2026 06:32:18 -0700 (PDT)
+        bh=HVsayAMQyYoUASQDp6CaRR3SeM73nxQGt/zbkOc5q+o=;
+        b=pO3bEkYMxbKi4C1rZYkXKkud41OplkoncoOLsShttBP5hlHNYILe3CgYzVAY3wzlZM
+         Su0Cgv35Sv0WGEMAbbmhexInK9FHNmXgvQthJH9FF8/J9nyViiGrkXnTr263Vp/QvDQN
+         A9fHZZEhZ+I5ab/3dwXFPEVA/uRqM6N06S86MEQVZYREf1BksHfPX57ajIC/2dP1eQcE
+         Ambpo4kZ62tt8vIuzvi8y0tYp9P+MWYeUoNfBfX3BH6xFlD+BFWf1TtoNHW2Dcgi2sp9
+         tolLvoHM4PuPBv0eQcJXpFXAUH6mnJs2p3s8SmlQtivEeBkCA3ZYaOMlZywhGQ7MgoMW
+         98TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781703144; x=1782307944;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HVsayAMQyYoUASQDp6CaRR3SeM73nxQGt/zbkOc5q+o=;
+        b=JrFAtVBfWu5w5xotzObkhlBZD5Cav2+BNypj7nVvcgt6zxuYqAZbjbpeGzgKnwHp2t
+         AnndmbBux39Jkdd6MI6D5htJHns01LZhYdwZKCT1Ah2+BhbdF6x2cYSQyr8PMwIcvIod
+         RoEwQ4pHp44c2aeVZkJQP2q4/zjzE9BSWsYskuamwj4l8ECXGYWCooup2XzgDkjKrUJT
+         2X8YiIOru8Lps0h8lkX9XS2nrcbE2Z1PZMYlpa6IwM2hcPIAbVfX5ABLhXGo+uJ7X2c8
+         DPokohN+z6Lcmq8QY9TClgPCNdHCgmHOKOhvrvKkHbqMfcyG9getGLaLTjYD9yxZvHBY
+         vBHQ==
+X-Gm-Message-State: AOJu0YwHZ7+kz39bp21A+qO6/0BHQa8ILfGWTiMJHK3Uiq/bHVJMYHDI
+	zRwOEGnFr3v+9h2H+iKAAbcKUg1EK1MdW20GQ1UsYT045FlhhX8aLhBM
+X-Gm-Gg: Acq92OEoIyDscN3O5y3NXCWPNtM6a/NZjGR3x935g9WsLXUQDyrJbtjlJ0JfeH4ljzT
+	QDZV1mdPPNrVNx0VLZXquQ8By1n9H4xRF8/baGJFSTu32P5SSdS8JpsrH4mjYqb4owKP+lOlx6o
+	hHsOvB+isZs+1p17jvwGs5mRT3xogroka6gRDDPdY/jS5i2YuOWwk2CWWVe5XT9OsbfU0V3Q4fN
+	nc40wc+k+FkzsGB/gLqAf0mKA8KYUvlkSiOkpTiuoRGKSTvKQEqW18SmCQVcTpro6et599TtvE9
+	UdQ3v0wsLpXcomhMe02fGOBVTRvqvlFBWmzIS0MIT0I5hdHL5L+Q71cyEayYOQGUKHKebrmZW8W
+	y8unaxgL8dazuZN8fAq4fYbBG06nV6DFcP6EoKD756Ev/IP39ctcnf8YexYPdVXOG5TKNuPTYC7
+	yI1GMSq5Zd+r7fpQ+FV1VhnQo=
+X-Received: by 2002:a05:600c:8287:b0:490:9782:3eb8 with SMTP id 5b1f17b1804b1-492333d785dmr70645425e9.25.1781703143318;
+        Wed, 17 Jun 2026 06:32:23 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a0e9e4sm147795145e9.0.2026.06.17.06.32.16
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49230a0e9e4sm147795145e9.0.2026.06.17.06.32.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 17 Jun 2026 06:32:17 -0700 (PDT)
+        Wed, 17 Jun 2026 06:32:22 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	robh@kernel.org,
@@ -82,10 +84,12 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH v6 0/4] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
-Date: Wed, 17 Jun 2026 16:32:08 +0300
-Message-Id: <20260617133212.287768-1-tmaimon77@gmail.com>
+Subject: [PATCH v6 2/4] arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+Date: Wed, 17 Jun 2026 16:32:10 +0300
+Message-Id: <20260617133212.287768-3-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260617133212.287768-1-tmaimon77@gmail.com>
+References: <20260617133212.287768-1-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -97,70 +101,67 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-This series fixes the remaining timer binding issue and adds device tree
-support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
-Board (EVB).
+Move the timer0 and PECI nodes so the APB children are ordered by
+ascending unit address.
 
-The first patch drops the undocumented timer0 clock-names property.
-The second patch reorders timer0 and PECI so the APB child nodes stay in
-ascending unit-address order.
-The third patch introduces peripheral nodes for Ethernet, MMC, SPI, USB,
-RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC device
-tree.
-The fourth patch enables these peripherals for the NPCM845-EVB, adding
-MDIO nodes, reserved memory, aliases, and board-specific configurations
-such as PHY modes and SPI flash partitions.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 25 ++++++++++++-------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-The NPCM8XX device tree was tested on NPCM845 evaluation board.
-
-This series depends on:
-https://lore.kernel.org/all/20260610121822.2524634-2-tmaimon77@gmail.com/
-https://lore.kernel.org/all/20260610121822.2524634-3-tmaimon77@gmail.com/
-https://lore.kernel.org/all/20260610121822.2524634-4-tmaimon77@gmail.com/
-
-Addressed comments from:
-        - sashiko-bot
-
-Changes since version 5:
-        - Add no-map to the tip_reserved firmware memory region.
-        - Drop the unsupported snps,eee-force-disable property from gmac1.
-        - Rework the FIU0 boot flash layout into nested fixed-partitions
-          under the bmc container.
-        - Keep patches 1-3 unchanged.=0D
-=0D
-Changes since version 4:=0D
-        - Split the timer0 clock-names cleanup into a separate first patch.=
-=0D
-        - Remove nuvoton,sysgcr from udc8 and udc9.=0D
-        - Rename apb: bus@f0000000 back to apb.=0D
-        - Rename spix-mode to nuvoton,spix-mode.=0D
-        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch=0D
-          as /bits/ 8.=0D
-=0D
-Changes since version 3:=0D
-        - reomve tmp100.=0D
-=0D
-Changes since version 2:=0D
-        - Fix dts warning=0D
-        - Arrange node order by ascending unit address.=0D
-=0D
-Changes since version 1:=0D
-        - Fix commit message=0D
-        - Fix dtbs_check warnings.=0D
-
-Tomer Maimon (4):
-  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
-  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
-  arm64: dts: nuvoton: npcm845: Add peripheral nodes
-  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-
- .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 721 +++++++++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 417 ++++++++++
- .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |  11 +-
- 3 files changed, 1130 insertions(+), 19 deletions(-)
-
---=20
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index 9e4fa2669f4d..0e5feabf2d71 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -59,15 +59,6 @@ apb {
+ 			ranges = <0x0 0x0 0xf0000000 0x00300000>,
+ 				<0xfff00000 0x0 0xfff00000 0x00016000>;
+ 
+-			peci: peci-controller@100000 {
+-				compatible = "nuvoton,npcm845-peci";
+-				reg = <0x100000 0x1000>;
+-				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+-				clocks = <&clk NPCM8XX_CLK_APB3>;
+-				cmd-timeout-ms = <1000>;
+-				status = "disabled";
+-			};
+-
+ 			timer0: timer@8000 {
+ 				compatible = "nuvoton,npcm845-timer";
+ 				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+@@ -138,6 +129,13 @@ serial6: serial@6000 {
+ 				status = "disabled";
+ 			};
+ 
++			timer0: timer@8000 {
++				compatible = "nuvoton,npcm845-timer";
++				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++				reg = <0x8000 0x1C>;
++				clocks = <&refclk>;
++			};
++
+ 			watchdog0: watchdog@801c {
+ 				compatible = "nuvoton,npcm845-wdt", "nuvoton,npcm750-wdt";
+ 				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
+@@ -161,6 +159,15 @@ watchdog2: watchdog@a01c {
+ 				status = "disabled";
+ 				clocks = <&refclk>;
+ 			};
++
++			peci: peci-controller@100000 {
++				compatible = "nuvoton,npcm845-peci";
++				reg = <0x100000 0x1000>;
++				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clk NPCM8XX_CLK_APB3>;
++				cmd-timeout-ms = <1000>;
++				status = "disabled";
++			};
+ 		};
+ 	};
+ 
+-- 
 2.34.1
+
 
