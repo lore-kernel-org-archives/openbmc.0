@@ -1,92 +1,63 @@
-Return-Path: <openbmc+bounces-2128-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2129-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E68CD4F26
-	for <openbmc@archiver.kernel.org>; Tue, 23 Jun 2026 06:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C38A9CDB470
+	for <openbmc@archiver.kernel.org>; Tue, 23 Jun 2026 08:05:38 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gkwZQ0F2dz2ySV;
-	Tue, 23 Jun 2026 16:46:06 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1035"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1782193658;
-	cv=none; b=Sh1ddbFlKSQiXGIfZ/Y0PPxwQ7SG4D4yhbLbBnwvGr0p3+a6QuF4psrDavo2o2VVtP5HdMdMSUXzj/kFJCOmiNprfLWNnpKQ0N/0D2AbPeFgpXuPNF7LHLhpZL4Dl+Z4Q0KtB+1zFnMMCEpJSugclPaQ57m2ra9mC19t7PNGbg1FQ+UYL/iEWs0cqQpeMhGAbsQP/+LbW9avYiMdGBLWEJjNBV6oMR/OvKLhsOt+hzt7J9+LGdMaRVQCcrdAQsNzTpF2j3c5hXu69UsPeoZvdiuQ+IpkN1kPwTN+Rfb9DFHq3KZCXv4jFDWAyH5YUzHUUPdNVsXD30Mp8asww/LZDw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gkyL33kN3z2yT0;
+	Tue, 23 Jun 2026 18:05:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1782201931;
+	cv=none; b=ZA8LJpcHrTlGny9yvtXCJDowLw8X9yOKQM+ZUI7EWgCFnCvVZ8rd0mZcymwgSs/nww3eThw/1RgrFNzPUZmCwPXyimIHvq+P5ZKxAia68/iHcV9tWMz/GeJBl5eHjpPvVoWc2OeXwihHBLGhTuPIjnlhLc1E1EZZwEuyx8Wa58UmfRiMBoDhdb01JoLuzubRiFTjV2mo94LYj7B2kJldAPxp9UgXIGQFICFBeYWXaBvvHwlbINtIG+c1SwFi4Hb89JQFC5nNxbRY8lE6/uFj1TefwYWk0o7rF9LQMgfDdnL+bRWs6ofmyOwi5+1NzGI/j77phMOT2JI5wCiRZ08bCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1782193658; c=relaxed/relaxed;
-	bh=qHZPqZ3RqRQO0OE16/UixYRdvhqayKPw9JQ+fgUzrdQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KGGGTc2fA5W89uMM2rLBe36gLqsX9e71j9pPpUwS5WLbWROYwMCjs+h1IS3IEm0NIw5swY/KSLX9xG+JjSKqhC3l1IQDnJ8sLk2ZoFsy9gmRteu+yQWwuIuNfIuhrSrTbfxaRIGdP18sRB/WGAH+C+j8eWynqPtytdS5eF0XEf/qqHkI35xFHaFE2D1EdxWmB4zQXHbJaxz2OHA3GKeFTONqfRRz1O+f2AOhKzZMAxS1o5Sbz3dhAcAj8hBf2ls4yN5oKD4zeA6GjPyDnpIuKuc6QsPCu3dUwuq1w45q/FaqeaEstYoZjbeZfIMq1QS2sbY1+PVKWBqqCQ6LRmx5LA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PkvQb1TB; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1782201931; c=relaxed/relaxed;
+	bh=1aHtGofhHLMB8j7InSkqYYRn7GlNQy+IpF/+m73egvA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fBEbLvKCXBJJKH/kXAgru9mVxs4anI+DoKBKC/yDH0eHVZHpSBJw2rrJCO3fh0aTLPvPBkm1vk8FRYoRu21KRIEm/jFKRygm4cZtlzytO0oXnhhegeXR/9LRPGCMlmMxuCjvuv1AeB/KUYz/JkNMnB/Y0dPYMZtL7cLABlPReIe49rD7bScMJ2W1fuXJ1qG6BHqakos2ANRl/j/z/Adl/EngGxaWullDaB9KpWQPwKSNxR/apLhpaGujMJ3SfrpawTg83gowywOPylUIgEfmbUYrj9XI2j2A+dGvRrrKQzn400+McqaM07J9ju5IjIBiTg47++69UOZ88EfJzyZkQg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpPTKrrU; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PkvQb1TB;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UpPTKrrU;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=baneric926@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gkvGw2gpnz2xwL
-	for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2026 15:47:35 +1000 (AEST)
-Received: by mail-pj1-x1035.google.com with SMTP id 98e67ed59e1d1-37d7c265ca5so1982913a91.2
-        for <openbmc@lists.ozlabs.org>; Mon, 22 Jun 2026 22:47:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782193653; x=1782798453; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qHZPqZ3RqRQO0OE16/UixYRdvhqayKPw9JQ+fgUzrdQ=;
-        b=PkvQb1TBP4DBzJ2JWgaljWS9rdeWZpGsBXycmN0ZnqWOP4/Ax1aCLVY5J7twl4jgv6
-         poaxdwfajbqajRkd1Xmt405FxToFkDc4GnfWNvlyen6T59AzKWw84ndOvTEY2k6ukDtd
-         EDHOwP2TAEgRtji3FHntPOz5HeE+qw8eTBDjAICysTJN+/oc1plU6oWvRtosVAFOX0ZL
-         hu3Cx6be1sSEcyzSeNZVPhcjbHvQFxLoxiqkI3NzEGsUuN1olHqbVn9znpFkAUytNkXt
-         XqAwTUPvV8f0v2PTOBV133CU3JWkdp9JUBAcni1q38MjY8JsijoiZUu5SXosORHj3i34
-         FMqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782193653; x=1782798453;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qHZPqZ3RqRQO0OE16/UixYRdvhqayKPw9JQ+fgUzrdQ=;
-        b=me6U1xmcfHMjVZBrD6Hh1lN4qs96KxoFuUiC8nN7MkszDYABqaH8oV7+7MZQpASjVA
-         PGO9SwLO+z/17dQkOK0nvSxriOvJuIqZpCnLdejb2tPbSklwxvSj6KXyAFtLgrci7SpN
-         vNAmyDlIZN1s3RR9PdsUzSjDPuA5IYVNOOecSpN6m/yE2C2z4hrZk8CDC38ovnjhKiRu
-         Bt9HpLpxg8A/qtKTcigUWY4CGHTF8bBumeTgzs1VZeSSU9/gqIPvwbzTz8IaE+8gRPUE
-         akPQp0fc75I/acHctKP4oInupQlKyAUravOafNI7ryv+/s6zRMXqHXlm5xLm2PQwtbH4
-         zsyg==
-X-Gm-Message-State: AOJu0YzsOU1SpuG0Z+8P4qIEjr1SLm8lBP6v6TR1al5OuWNkQuX8kwix
-	fpJByF+Em4Lj6iVV/x2PTaoBlhyHn8oweTXTCNw1mNW7S2iPhZ7w4xSQ
-X-Gm-Gg: AfdE7cnsKq5fVAC7aOLES80HqE0wXOKbZz/dYdcM4HQ8iLrXI1VnoH0uin96xfYnVw6
-	NMaZGXX/+pT1prYZ5FRrXdtHlHG/12Y5LLwKxFFkDigsSFrlXvDMmHoQ5X1pnz0jPs4yzo14NCo
-	4zZ2m+0jRloka95bv026xhsMnrV/HSruubL3R8albmJHYB68njRVmQkHSuzDXDjwPfprampAaTB
-	eYdDTwEv4Z2lfjC6FVl/HrfizYxOLA+gQnL0ajm4picCfDeBLKNTIEZgb7KLY0EnncEzBcBBkwL
-	OLqw+cSgQH9YeDkazcIrApfnxYP2EK2iaz0h7UJ3/xfCbf+OYy+Ea1FL6UMF/9dTAhW/uE4+4/k
-	CeJRRKhuMYH6nGWb0NJQTMHWOogQqEZI9bhuNzmTNexy2XAKtsfP9WIrNNchCH300qfIJ1YPM46
-	BLorzGh0itXXBl+ue5JIgXEff+fpZPIJwaZuvzbpQnZJRVzxTGUiYN
-X-Received: by 2002:a17:90a:d610:b0:36b:9c4a:e05d with SMTP id 98e67ed59e1d1-37d160b500dmr18300016a91.17.1782193653403;
-        Mon, 22 Jun 2026 22:47:33 -0700 (PDT)
-Received: from hcdev-d520mt2.. (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-37d15df8b8esm11506913a91.16.2026.06.22.22.47.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 22 Jun 2026 22:47:32 -0700 (PDT)
-From: baneric926@gmail.com
-X-Google-Original-From: kcfeng0@nuvoton.com
-To: avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com,
-	andi.shyti@kernel.org
-Cc: openbmc@lists.ozlabs.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kwliu@nuvoton.com,
-	kfting@nuvoton.com,
-	kcfeng0@nuvoton.com
-Subject: [PATCH v1 0/1] i2c: npcm: unexpected SLVRSTR IRQ in master mode
-Date: Tue, 23 Jun 2026 13:46:34 +0800
-Message-Id: <20260623054635.1214525-1-kcfeng0@nuvoton.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gkyL23vdCz2y71
+	for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2026 18:05:30 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by tor.source.kernel.org (Postfix) with ESMTP id 0BC3E60052;
+	Tue, 23 Jun 2026 08:05:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A6D1F000E9;
+	Tue, 23 Jun 2026 08:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782201927;
+	bh=1aHtGofhHLMB8j7InSkqYYRn7GlNQy+IpF/+m73egvA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UpPTKrrUW1rshvAn7yi8V2OoPID98lpOrMAsL+vXA8/m3fBcsYLSJUaFRhKdMj3BS
+	 yrQ+N/zkwkx1TL9mJF59PUNwuIeGb6eQO832wNTCO9Ydik+Iqb++Y68khZ2fmZPSB3
+	 8lx8UcdaQPcpOAj/iXTAE5LDcTgGdsRePdjpu/+8fh+9tWkmvOyuzFPMCH8bWgdVz1
+	 u6rwIcHrAKjMLkOFQKCVhQJN574oBHShYVIAuaBQHfSDtysW8Q8OEHl1helhH8vvzw
+	 Fz6QiM9vg6WEU80bozpJplfrkx0PNNqbdphZs13yExwrTj9kZ/p5mat2h5XHPcVHHY
+	 IarHs2rY6eoSA==
+Date: Tue, 23 Jun 2026 10:05:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: andrew@codeconstruct.com.au, wim@linux-watchdog.org, 
+	linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	openbmc@lists.ozlabs.org, linux-watchdog@vger.kernel.org, linux-doc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, avifishman70@gmail.com, 
+	tali.perry1@gmail.com, venture@google.com, yuenn@google.com, benjaminfair@google.com, 
+	corbet@lwn.net, skhan@linuxfoundation.org, joel@jms.id.au
+Subject: Re: [PATCH v2 1/3] dt-bindings: watchdog: npcm: add GCR syscon
+ property
+Message-ID: <20260623-ochre-spoonbill-of-security-a4bc42@quoll>
+References: <20260622083046.3189603-1-tmaimon77@gmail.com>
+ <20260622083046.3189603-2-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,22 +69,43 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260622083046.3189603-2-tmaimon77@gmail.com>
 
-From: Ban Feng <kcfeng0@nuvoton.com>
+On Mon, Jun 22, 2026 at 11:30:44AM +0300, Tomer Maimon wrote:
+> Describe syscon property that handles general control registers (GCR) in
+> Nuvoton BMC NPCM watchdog driver.
 
-SLVRSTR IRQ occurs even when BMC acts as master role only.
-This case was not handled in the master IRQ handler,
-resulting in IRQ storming.
-Handle this condition to prevent the spurious interrupt.
+Why? Well, you try to answer by saying something about driver, but we do
+not add bindings for drivers. Instead hardware should be the reason.
 
-Ban Feng (1):
-  i2c: npcm: unexpected SLVRSTR IRQ in master mode
+Anyway, why is this needed now?
 
- drivers/i2c/busses/i2c-npcm7xx.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  .../devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml   | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> index 7aa30f5b5c49..4f00f099b2d2 100644
+> --- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+> @@ -40,6 +40,12 @@ properties:
+>    clock-frequency:
+>      description: Frequency in Hz of the clock that drives the NPCM timer.
+>  
+> +  nuvoton,sysgcr:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      a phandle to access GCR registers on NPCM750 and NPCM845 watchdog
+> +      instances.
 
--- 
-2.34.1
+Here you write also for what purpose.
+
+
+Best regards,
+Krzysztof
 
 
