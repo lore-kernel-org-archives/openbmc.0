@@ -1,80 +1,79 @@
-Return-Path: <openbmc+bounces-2137-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2138-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2E0CDE002
-	for <openbmc@archiver.kernel.org>; Thu, 25 Jun 2026 08:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC1E2CDB466
+	for <openbmc@archiver.kernel.org>; Thu, 25 Jun 2026 08:19:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gmBXh3Y0pz2yd7;
-	Thu, 25 Jun 2026 18:19:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1782375539;
-	cv=none; b=Hy+JURI8ZYTFVS997OYaJ1Q+QRO85fLKmnnukkC8Y22Je7iEEaDVL+EH1pTo/ocL1TSPUfdSPAnmguibTSuF4sqXzpMq9MP9TNOwk6qkiKJkYch0p6+XTyRcEQ7OK65URpfMNJ4cZwkc9FsbxzmcUE9emWyMBcdEEQ7WZDLd9wz4dAvRLLm+WhthBOC7BIJBc988zKNL9QNzJb0tHaVe7F6/LQjcq28HxmSE9wZV9XxeBaBLuHm0Ou0u08b7KBA75edFsGN1fgTBTD92LDuWnhNMg3orf95YCY16p6e5XKYwrmCiFDNOSlJEL98RUwSg9E0//OCgOComWHv0/DmNIw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gmBXj6PBkz2yfN;
+	Thu, 25 Jun 2026 18:19:01 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32b"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1782375541;
+	cv=none; b=dzOUJI69fVLg1xfLRciDM9B00KCaVXO9vYTqGc5v2xTs9NURfSJmEV5Xz+QaeUwOkt7SFKYWGroZdkmQPFyl+adv1qMvCacu1B4/q7r76HhmaJC8A6gWyo8OHqipTUrpl3vZEu1XVak6+3F91CRhT7SGWGnOHR92NsIZVKuTSCMANXUW/AhaD88m0I4tk4lNO1tK52Bg8DW95AOfr1c/hg+yR6pWDwoTeDhEnXUE0p53kU1AUefhDrsWNAImCbHqlSG1U6QC/B76ZGaWdc17++6Z8LTANjNDTRLl3yLeC6Ce+bqUH5SAfBz2JFJv++T/i99OYya6DxYtu26Zyw99gA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1782375539; c=relaxed/relaxed;
-	bh=7L4JT8MNt9t8f7LRe0y0UPYefMKvOtlXkWEgrnohOfI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To; b=m0oDcQMva6+GA0jE6q01xk4gEAQsYlMKInvSHWD01Ce/+EdON+xb3hd07Mch7bsRIZlWjORARTyorHgwqCeqKmk+ZvFuAbEhpZPnGq/gJqi5s9I4Tde/VZHcGeb6hfL0opVnUCs/V2ffqtWc0zk10z/vtTRCdbvrlVLdJpG/4/xC845tascCk/xAOGHim9rolJv88XSJEaoYEQ5EdN/WAf71n4i2D7UA8J7SwKnwFpvpZbVs579YTIaKnVvbpva6xUw9646ybFMi7BCN6o46naUgqZ1NpQZ6n07NArhiYxlpkUcoIt+liYFqB9BllbRe9vhB6DYZnDHFzrq3IQjUxQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=D77163ZX; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
+	t=1782375541; c=relaxed/relaxed;
+	bh=r5psEs3fCN6rI3WB+du5DkH+CVBVL2hkqV1LRoPDQ54=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To; b=PJYDxsLaZrjkaplh1fZ7OFrTiFlK0ZmdxpSzb4bfjpii6qdvYrtxPT9R3iI0VeNaXa2f6DEXV4+MwxjIpbQNXUib3PkB6jq+RGfGTGhyiGAKsjZjiSWHi3fTmMcEn4f5zePLypO8qvp3aqY+eh9YTI32ZIET8rZpJnlE3jgeGZSrjnXHneI1po5jbm9sQ/evZBgtbeHli01iQBWubyNiylr5UQ7Xam5Xizjwex5YuiPiW8FeXKLLU50oQ+xR6yvFT/Rs0SJnPmlO5NjfC0hEoM+RLr9RfR3LSccwJod8fp2FJAM0qXxfoh+YEGHEJ6Xpx1zsKBnZQ2h9hqxpRow5vw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=b2jeyCqu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32b; helo=mail-wm1-x32b.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=D77163ZX;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=b2jeyCqu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::32b; helo=mail-wm1-x32b.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com [IPv6:2a00:1450:4864:20::32b])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gmBXd0pznz2xwH
-	for <openbmc@lists.ozlabs.org>; Thu, 25 Jun 2026 18:18:56 +1000 (AEST)
-Received: by mail-wr1-x42d.google.com with SMTP id ffacd0b85a97d-46dc0d0eb2aso250324f8f.1
-        for <openbmc@lists.ozlabs.org>; Thu, 25 Jun 2026 01:18:55 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gmBXg29z8z2ySg
+	for <openbmc@lists.ozlabs.org>; Thu, 25 Jun 2026 18:18:59 +1000 (AEST)
+Received: by mail-wm1-x32b.google.com with SMTP id 5b1f17b1804b1-49241896317so8718105e9.3
+        for <openbmc@lists.ozlabs.org>; Thu, 25 Jun 2026 01:18:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=9elements.com; s=google; t=1782375531; x=1782980331; darn=lists.ozlabs.org;
-        h=to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7L4JT8MNt9t8f7LRe0y0UPYefMKvOtlXkWEgrnohOfI=;
-        b=D77163ZXwBNSx3wRnD1fkdiEER+K6LUyaeRVPLEZbMEkXoGf8Krn9/hHvYRNPDha1d
-         LzWxG3dyEVHqF/+UIV3//AXFcz6TBuHu6u+YGxWaIYq4hv0mtkDK9ci7LCVnC0qoJZVX
-         kT3qVGHqPisWvopcZ+q2jEt8JQQ4lHUeSaoUhHvjH7UE4eWT5+Ub2ETsRojazddwC0Dd
-         8ylIHBfIFCRxUCH29OwWZy6CINA7w+aVEFMLFmHg/3qKNg0POMRbPcI2Pn7dhQnkVS7K
-         2tl9Tng49GG5rhUKbSBbyU81N0PTVyNaws+PZayR9Ob2EpP6Yg3XmsiPe0J75BmN/aJf
-         Y9eA==
+        h=to:content-transfer-encoding:mime-version:message-id:date:subject
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=r5psEs3fCN6rI3WB+du5DkH+CVBVL2hkqV1LRoPDQ54=;
+        b=b2jeyCqu5e4Y7SM1yni1ODsCK6+hInG85TgiNy8xtJgAMDMS+LF1WcSut9E5nWKUV/
+         Yp+JYqdZvUWGtCerxzU5GzR/fe4JeFQpV52BixXJ7vfLRK7Gs25t748/Jy93Ph9ZyqRD
+         jeOoSXEmiDJSKquYoZjPzagrIcQXdw27tqZBYWvoXKjw2LeX9HjTpRU7xQ9pSypApC7m
+         F3XPlQ3Vb7RVIYq6LqKNzkfpltCfUlAEc9NsWeCgKV41gWx8ObUt4aUD6hncVjuFYsHi
+         5vdjSwvdlvDuuGGrrHc4/zhC7YdYUBpcuhUdAMAkjZQMdt5y/DcvaRJdYGFoHn9ljpnp
+         O1dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1782375531; x=1782980331;
-        h=to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7L4JT8MNt9t8f7LRe0y0UPYefMKvOtlXkWEgrnohOfI=;
-        b=tBji+GOHCfMu44djrE9Zs1F+Km8aXTceG56Fo31cvFSBctzMQSnMb/O2mDAO4+tHq/
-         DCAQdTG7nRsYsb+rNqHxBqhc2ANtIRWWTQuPzDdU8ZUVRSn5UrYJtXyau+BzK+Iaqd4y
-         uU9fkhdH++gR95TecTqR9+CQRRzwyEwmypzPKvStAXTfggTNmjG0wLPvkCFmq1AEQlwH
-         8cvH1LSCDiHQCs75X2hiBcZdSgiwDiCNgG5I3nbqmEh1darpkiBdrknUmQGwjScSD9Oz
-         o7UtDCMqQ41PtUvPQjUl8XCOnzj7RmUhB3T8Lp0Je3gaz6vLo1nPOd2zVI9MzpYtp+TD
-         zU3w==
-X-Gm-Message-State: AOJu0Yyna/K2AmrgrPKi486KeDAklZNFnmwGowdDzdkoq/CDi0lGRILx
-	OQLHBgRVynGK/NKTMs4TeImeJFXRJXEzZEW9ipgHdrWHCnMuhUNCL3X/g2eCkQsaQrAYIe5BlJp
-	ULPG1
-X-Gm-Gg: AfdE7clGzMneG1LrWUB3NNb6qhWosaRehSdl820tZEr18lcPD7mCrj5KKD57xj9i9e8
-	9asHr04k2MMy9ZgtV21vMU/WGXlrogtUzKUUq+nWfHkFVOPXqPCOaAy6jIHZ72WgWVdfiMBRy7a
-	OKLIZfvSUG1a38vNPvA7PHQI/qy55BBaK3Sp/eotyrfVke337REtE6d5cEsmIymT+9/ckI+ooGD
-	S/8dlUvqBtqsQzL7kDPZkd4QMWWyjZh2clC2d4XGQhfCAjaA+kCT0SG4uLiY3R0Ky7RR2uFxr5x
-	m6IUW7X7mY9oAdzaMOWzwMnNLlBVrJgRyZE8/aZbX6GN0iazqHzTeDwSrw8qdN7DdQVX65+vp1t
-	kQiCa9aeldr18XPMAjwsGDI0gMtfrsX9fHsEkP0m/0E1Ij6ZKNo1Ajz9ofQttKJAWNVR2GcOAGQ
-	NUxWQO7O/N1/P58q2wAJ71BLZAtTYtnNvJd7QHyFw=
-X-Received: by 2002:a5d:5c10:0:b0:46a:b0ea:1ed8 with SMTP id ffacd0b85a97d-46dbc5a1eabmr2158931f8f.0.1782375531468;
-        Thu, 25 Jun 2026 01:18:51 -0700 (PDT)
+        h=to:content-transfer-encoding:mime-version:message-id:date:subject
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=r5psEs3fCN6rI3WB+du5DkH+CVBVL2hkqV1LRoPDQ54=;
+        b=ZH/EajC+8Ki14y9EY5CGWJsbJhF3p3wmsR9XanRrTy8xc53Wf8XkmGznB+QiaR+Nku
+         G3kEXXeyaX4nk/xIGVvxEXcVmRU67n1uWnto0GpXvhuwLtsPLbEzZV0RHupothV5tFjX
+         NUN3cWehSHlXXr8yATd6qc5NH8k1zjHTje4T9WtYYj6GxXgnGZh3rx++dQFAKV/lv3k6
+         yuUAElLDCR+MRSbbncBLG6hUK9uyun2t4MqfXtgzAFWRgiME7WpCoaDA5WOBk72zcYzM
+         bhHqFrEG3QUVQka/aW+5PpP35i+98gOJU6gh1QlVgGcVGsJLHSweUQdXovKNeOL74SlS
+         aJAQ==
+X-Gm-Message-State: AOJu0Yy5Rz4A6+ibyqX22fPu1OFCSea3rpE4ZTg9OjwEcZeRHw6Q/jus
+	CvznBhjfNKlx61vQUa2Os/Cej3BP+Qf1Gcdj+O5vwffA41qBefNUtOiHcs0PUkOJxaFov2vru1h
+	xOZ1F
+X-Gm-Gg: AfdE7ckRJYfKhSPwNbTpP6WB4G8R/CLOhtttqEgVH2/cMYnVbSMJVVXoBzyunjP1a3x
+	YRInIY/BKiGCLFckOV4KNxp1SMQXKTGYhLR09ctapJvCtyL4b3ZhX5+KAAzwFycKzvBh7PSp5Is
+	QBNZ73FWUNj3h51BQI3S9ZjsFnj4KWoFr6xJXM/7kHVUub7rukPBT8shSuSAm5FAKxMzTnTKvhw
+	8l6tddSJibm2he9gYAHFA7pqdcMzsOIe8+9DJYopKf8hh3gYZSTjU5TukHSm6xUI9VhvLzFBFsK
+	GYJLkNtstCdRgv8jf4OWbZebMSHzJz3Z4ZQheUzIKpcEHEuMjQwPJiPNPBW9RZxRB/4QhQvXqT+
+	ULpgOJeU80FMEhtrM0Mj9a7g1B+E6GfDTyE5wux3/mRA4EV9P0m9bcC0mZDvBZwRD58SUS6Y83H
+	o7vUKayZcBtkgJXsVtQLzhcXCV//4D
+X-Received: by 2002:a05:600c:8b18:b0:492:37b7:6090 with SMTP id 5b1f17b1804b1-4926683b257mr17068855e9.5.1782375530823;
+        Thu, 25 Jun 2026 01:18:50 -0700 (PDT)
 Received: from [10.212.124.172] ([2a01:599:844:5d7d:4f6b:517f:39b1:33ad])
         by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-46c1ee01d9csm15229314f8f.12.2026.06.25.01.18.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Jun 2026 01:18:51 -0700 (PDT)
+        Thu, 25 Jun 2026 01:18:50 -0700 (PDT)
 From: tan.siewert@9elements.com
-Date: Thu, 25 Jun 2026 10:18:07 +0200
-Subject: [PATCH linux dev-6.18 1/3] peci: cpu: add Intel Emerald Rapids
- support
+Subject: [PATCH linux dev-6.18 0/3] hwmon: (peci) backport Intel Emerald
+ Rapids support
+Date: Thu, 25 Jun 2026 10:18:06 +0200
+Message-Id: <20260625-peci-er-backport-v1-0-5b2e8740f2ba@9elements.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -88,58 +87,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260625-peci-er-backport-v1-1-5b2e8740f2ba@9elements.com>
-References: <20260625-peci-er-backport-v1-0-5b2e8740f2ba@9elements.com>
-In-Reply-To: <20260625-peci-er-backport-v1-0-5b2e8740f2ba@9elements.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv9Ls2TWlCaX6FcMBlkVXTWm2QEgIf
+ 7fqcTKZ2SGzCme4mh2UV8kyxQLVyQA9unhnlKEwOOu89a7GxCTIin1HrzTpjDZYaupmJBcuULK
+ kPMr2W97gLXHZzMAr+nMVoP37vPRPpvn7heP4AACfbqyEAAAA
+X-Change-ID: 20260625-peci-er-backport-080c757fc289
 To: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@codeconstruct.com.au>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782375530; l=1277;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782375530; l=722;
  i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
- bh=s76Xfs59K5IvVcAw91GXm5hPMI4CifG5G9LR82eLCOY=;
- b=z413bhHfVoegv5vwTAQ3AFtYVVQOJt1pO68/uAdi2oRmE7+dbyhj7Q9p6PLowa8GFOaOQyCE0
- A6BVWTO/xkEANJPuqymDGQUv8C8vMbg11hWTYs8Gaw+VZGVtjhrW6wH
+ bh=YCQnTKjlYLxOYp7Iy6AWO9ni4a2d5h51u2wePCh/IJ8=;
+ b=1M04oAEClJZWhpRUh5YRQefPGHxrLm2h6EggJakew88ds+OR/dVtJX4UkAKd9hfar2mviqbwI
+ uXikv/FOb0pDCIPjCEGSYPxUmmchU72LcbyREuyznwB3Y62Y9ZwoeDa
 X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
  pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
 
-From: Ivan Mikhaylov <fr0st61te@gmail.com>
+This series backports support for the Intel Emerald Rapids series for
+PECI, required on the BMC side to monitor CPU and DIMM temperatures.
 
-Add support for detection of Intel Emerald Rapids processor based on
-CPU model.
-
-Emerald Rapids Xeon processors with the model set to
-INTEL_EMERALDRAPIDS_X. The data field for this entry is "emr".
-
-Tested the patch series with AST2600 BMC with 5S Intel Emerald Rapids
-processors & verified by reading cpu & dimm temperature which matches
-host sensor values from lmsensors.
-
-Signed-off-by: Ivan Mikhaylov <fr0st61te@gmail.com>
-Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-Link: https://lore.kernel.org/r/20251006215321.5036-2-fr0st61te@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit 906f25050add51f1a412ea37e618d8748f75e23a)
-Signed-off-by: Tan Siewert <tan.siewert@9elements.com>
 ---
- drivers/peci/cpu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Ivan Mikhaylov (3):
+      peci: cpu: add Intel Emerald Rapids support
+      hwmon: (peci/dimmtemp) add Intel Emerald Rapids platform support
+      hwmon: (peci/cputemp) add Intel Emerald Rapids support
 
-diff --git a/drivers/peci/cpu.c b/drivers/peci/cpu.c
-index 2dac8ba82787..fbccc1d1b637 100644
---- a/drivers/peci/cpu.c
-+++ b/drivers/peci/cpu.c
-@@ -321,6 +321,10 @@ static const struct peci_device_id peci_cpu_device_ids[] = {
- 		.x86_vfm = INTEL_SAPPHIRERAPIDS_X,
- 		.data	= "spr",
- 	},
-+	{ /* Emerald Rapids Xeon */
-+		.x86_vfm  = INTEL_EMERALDRAPIDS_X,
-+		.data  = "emr",
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(peci, peci_cpu_device_ids);
+ drivers/hwmon/peci/cputemp.c  | 18 ++++++++++++++++++
+ drivers/hwmon/peci/dimmtemp.c | 19 +++++++++++++++++++
+ drivers/peci/cpu.c            |  4 ++++
+ 3 files changed, 41 insertions(+)
+---
+base-commit: 6c7792586229ebcb09f106b7b686cfd25b9aebf4
+change-id: 20260625-peci-er-backport-080c757fc289
 
--- 
-2.53.0
+Best regards,
+--  
+Tan Siewert <tan.siewert@9elements.com>
 
 
