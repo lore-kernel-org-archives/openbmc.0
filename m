@@ -1,95 +1,95 @@
-Return-Path: <openbmc+bounces-2172-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2173-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3864C43458
-	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 05:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 581B5C43458
+	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 05:41:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gtGZ12n8Gz2ymg;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gtGZ1729Bz2ynH;
 	Sun, 05 Jul 2026 15:41:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783108270;
-	cv=none; b=deUfohvfU7yU3AxxP3+vhFvqmZcbqHQfl4pCUlKaUeRq9Cy2miAvDNSk/5u8PXWdwhjV0lLPO8eymvip1k6IXPzr5ViVbDXob+wETBcpzfMwsg+HpiUHDjwvIJL2otwcDc3Q5ilFerI7NlAMtTFzUZlt1PKcIMyN0FLUBlREtm9Kj21x1KQXfO/xU2yN7/WZu92p7fyJ72vfc7gs8aNaHtbqRTpVOMz654fEVz6ILQLPmAOw/KFasJKns9oGvlFVmyE+FSApP/cRP0P7WyQxVC4vM2uWP+V1ERIffTrJhpxnpeJixYXnrRk/3YEm6L08XbS3WDGwnk65I7ajwrxA5Q==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783108103;
+	cv=none; b=MZVPTDwFf8+sOTM6E4WXOQoNSrt9kY9zpvyRFvY7BRdCxa98K78o1LxVCsX8kDVum2g+4WVRV23bV2q4wCCSmJ+pS0vNHjIEWCwaCMwrIRoZNQrEfZ8Zn3x4R1HCqdgKynmreCZDA8fwKJ6QesJFE256aKpTbxqgZ11EcUeZO7kvExK6ToAT42xPB2EAEnAYUWnqCCldjQoUbbJ9xCwQziIM5eNW8AEbYdDS5Uz0RqEIUgIMSfWXsLMXdAkkhRr75CjHpzFmtvEJ3MF6A99H1OuzNusx9ldh/Y/indEqtaAsqOIfs/VodUFrA36XD03u4ywctVa80aK71M82XL/UQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783108270; c=relaxed/relaxed;
-	bh=pe8ST3hB3CCkwE4BX70lYuVQgCSkkHxWMCKtiPgz/Ew=;
+	t=1783108103; c=relaxed/relaxed;
+	bh=05KKm/2fQBziycvO0o5qtmP7hJCKgsH/Os/8U9RN5hA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jkX+ODFZn8qux79mBN8p4c/Vslp0/jKtU7etRmwZt2WQwtvnReIqstZ++EHi00O5MuPpsx8QFGEp8FlEfeCas64GKyf1PcFZxsIM4tlG7kkLfcZ8uU+XL0h9tMpbWj9n0X09uxZhx2lEeJU56RdcJ/YKY8BkEDkduOpF0amXM+Pc5fJFOI7EsgSmkWaQFhbLHDyt8hC1rebV2OwmyL6+w0rff/364nInBsMUZzFWMMnBkrPFLoxM/JF3beKqF8ry4tCUZmwfX5yDDN64Pb4HhffFgU44QTIRAv2lAWcvnG5Ug5PVwoTE16x2ye4ow2VhXmvkx8PudMlQaUbRO2yWnA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p7nQ7zZX; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UxObcz+L; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=DcC6Pxq5VtYNAtJ78FEnmr0hS8IViivElG44f/3DuN2TwCSnVULzIsN6+eXsQhV33uP6Dy7uOkX5XcXaodfEqoaEAqYKj18zPrgvAmJW3gjlDo9HMlWZe6VzPkJRU8kn1F8Oum63WuO4JO+/Q7QVNVABiR8fgKhk0JupNw1zK8GWM96o/nHZ7/ykwGtrkiGA9cb2eiOGa/jKNaWBvQIQE2/8i2jVDiMkoV9ZHbGEAR3e5Q67MlBLPa7ntiPuKPbK6qTYtmj9cm3Ggwumj24yvKxdYb0um2XLpo3AgB3m+RBNOj6PjfpgpZbXJkRMFOu0hsSmPqOVbuF4U1r9bEeucg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FSL4OW4s; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CH2sWKJx; dkim-atps=neutral; spf=pass (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p7nQ7zZX;
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UxObcz+L;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FSL4OW4s;
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CH2sWKJx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.180.131; helo=mx0b-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gsPWf18Nkz2xwM
-	for <openbmc@lists.ozlabs.org>; Sat, 04 Jul 2026 05:51:09 +1000 (AEST)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663HicjO494919
-	for <openbmc@lists.ozlabs.org>; Fri, 3 Jul 2026 19:51:08 GMT
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gsPSQ5PgYz2xwM
+	for <openbmc@lists.ozlabs.org>; Sat, 04 Jul 2026 05:48:22 +1000 (AEST)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663HiX1h675368
+	for <openbmc@lists.ozlabs.org>; Fri, 3 Jul 2026 19:48:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=pe8ST3hB3CC
-	kwE4BX70lYuVQgCSkkHxWMCKtiPgz/Ew=; b=p7nQ7zZXx1dyH2mXz3LmtPkSnUd
-	jisvgy2NTifLo08O3O54R98wx1vDjNj0Wc6nkxAI5QmcWaDX4R1xcGtW8a7qUW11
-	pP1Tmm1qXYe0QSfC3Y/udjscZR+Ph2P+KwbQihalCCu0X5gayaM/FZiuNqhKC4dC
-	bI5fBbUqwcvvYugwPT3aaoSQw4Y+2vA+YENnTjr5fTDu/vYApw3jocaRRE8EBwwD
-	shcNAKkygkP0VARnjPMXCY1b3eOOzmUQ/fIJHpQK5JTNcblKvr+H9jiOiBxFD/XY
-	k9QsTa+kZLp8Khy1haYPvPKdydK13icOw3hF3M3xr1GuNNJUog1AC7E7Twg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f68jytmn9-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=05KKm/2fQBz
+	iycvO0o5qtmP7hJCKgsH/Os/8U9RN5hA=; b=FSL4OW4sqkH5b5j9AIsw/YhH1nf
+	ibgm5Unh2DNBArFuPePTEp7ydMwknI8hVtfX3hafu/sPH/fll/+Yol1Nt4cgUW3O
+	Q2oC0AjaQcNbY6bV1u3Lrt7No3E1HH/aXPsXP7AZG4RXN8ivUpyMfu2BoEamWIFl
+	NW3X3tStizixNie01eHQ9xV+jNSuNRjFoUEqBSXss9qBg6i4tK2kHk4NWRI7Hght
+	D9IYQ+nKevxHW9yac3lGAA5QYlnpXFWRGBioWY+Th7V0jEKaJwNAXJ3PPQeJmZTX
+	xFvGCoL556Tc+tATu/JtYm9O8HvYscVvC/BQqEq/B3XicM6VWsCrI2LiN5A==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6ckj1hgb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 19:51:08 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-380ddac2b02so1251443a91.1
-        for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 12:51:08 -0700 (PDT)
+	for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 19:48:19 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-37ca4367860so2245351a91.1
+        for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 12:48:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783108268; x=1783713068; darn=lists.ozlabs.org;
+        d=oss.qualcomm.com; s=google; t=1783108099; x=1783712899; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pe8ST3hB3CCkwE4BX70lYuVQgCSkkHxWMCKtiPgz/Ew=;
-        b=UxObcz+LxZEZisTv3wEgpdkVFETxV6+qlF6fpK9m2vf13IwLHRnokWtuLvwD7u9c1O
-         Gg4qKeRptsFYBc15peXrdWfWIsjnjMOiaesiov3UHDAtZhgd/vEnpsi8Auc7079o4qJn
-         ASQo6p4350mqe92hW3C7HkMKiN1vHjbep4tCoRov6f0bTzYkq/rHPkLm1frhCM/SIgkV
-         GzH+cpZrUhc+my7vVJRVrpe56J9Ze/V5S0edq28XiwGe1JF7kdMUWK61S4FoVOYrDmDl
-         InJ2ipZGqANgEq+8EIjur8IFZ7VO/QZOTtfkG4HHvFNP64toQRKEgKDgcEcxAifkTOgg
-         Smog==
+        bh=05KKm/2fQBziycvO0o5qtmP7hJCKgsH/Os/8U9RN5hA=;
+        b=CH2sWKJxtUmSeUhWZq5PewHiPyd104kinwT1q8TgSpk8mB7y6unFDbc2P7GfNUEAdg
+         RZ+u9SDcObfqyn8y8yxUBkLLpPBDMQaLDenWa0yGoYiCu6uXu3vxtyWSE3SwwsmtueDD
+         FC279QcodZBdy8cw1KcDBVu8Wz/w4Q8CyKj2Mr2NpxDMKlYmIPc6VY0zx0icgx6XlQxw
+         1bkW83wNbgxIMBtCuLBuJFS5xelb0SYx5lYGXCntj/wpDHx6fx93xqYHKPLD9MCQ+rUt
+         wa8YDnlyMm1I6eogkEC9AAAOkdd352sDKv0XY0XK29mArt1FYX5mYeUApnyIzv22A2N2
+         YSzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783108268; x=1783713068;
+        d=1e100.net; s=20251104; t=1783108099; x=1783712899;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=pe8ST3hB3CCkwE4BX70lYuVQgCSkkHxWMCKtiPgz/Ew=;
-        b=NqsRZCRgQLYk4SAqJ4N0YOKdCRfpZyLU2ihsKKjDAPyZXTUTVpEdKfTTrbZX0D7x2W
-         kZyrHdyiLrkVf8XY+TgSgmIvkbmWYRM4VtxZBAS+fmzLpDTz9XD1gYYnmxjT3ZeMZSU7
-         RMr3yyRmRw2HaAiRjnxjs4LJBhePmyn8DLZa/TlWfNbR0+yKc4NNCl2dd209Sc6KoUgU
-         fAuoNA1Yf2MXUoVXD368wMfzk745CyM2Qp8Io+DcGGzZo45uAvWsm9T9y74PuKr2GS/p
-         1npkbLy+sSVmBiG2j8zywX7Q2PGAqyL+BubNawWvApNs2XHocEW7KqBkySBJeIRFCwVx
-         ZepQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1PdnSwncT15tkhfn9NkPdqFItKaScDWc+Yhf61tVxFkdPZOvWjQs5MklHoEw+Rv7uq/s1bhyH@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwquUoPg3NgCdKExVSoOrhjRGWAtlbSyljjslDwv/UkpD78xaUP
-	+gE1h7oDtSIwr/YRlpI883ZsNVrT3aKrJN69SBWUb8sDpsfJI5w/tKmCAVJvUIPZIiXwK40q9j2
-	HpSGSRqzcMWEI4LgFJ9rAwRUcHG7YScgci3DZWemW8CWa9iQzXrG4phXaP71wBQ==
-X-Gm-Gg: AfdE7cl0jf0qRLhHrYRJaRgn6wdI6y5tS+HbDWNeweNdpYsVQuQZecULSTGeTQOtJJZ
-	qSA7HVhPbVUotYEz/FbamuW5HBJytDK1PpHJIXkOL+a0ouSLPdy8k2CJ15qIMyD1YrgXu3PLNE3
-	0peBN7B6BVSWYWcI49kfHFQREKoRlBnXv1xujPTFyiYdTZWITYlXfQ3D9e9xM0Tz8FfSYs+Xh8W
-	E+i06QGd5f8F1u9YjnOBRSOFCYqnCt90n7ZmXfIoZbBVqQauzvC9PoNyKapyK8MPgaV0G7gqC/d
-	yApE5hqTljCpgtL5izww6jPHAIobNDXN1n+oNzm0xdCNhkHqRV656cvGVlJGt42nSBHYqkCak8k
-	4+CUGyaCwhytOe1RvEV9ed9aqKbFQldngIRNcLg==
-X-Received: by 2002:a17:90b:4d0f:b0:381:e73:3c2e with SMTP id 98e67ed59e1d1-3829f4e8432mr819437a91.24.1783108267296;
-        Fri, 03 Jul 2026 12:51:07 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0f:b0:381:e73:3c2e with SMTP id 98e67ed59e1d1-3829f4e8432mr819306a91.24.1783108266647;
-        Fri, 03 Jul 2026 12:51:06 -0700 (PDT)
+        bh=05KKm/2fQBziycvO0o5qtmP7hJCKgsH/Os/8U9RN5hA=;
+        b=OsaITS7y/0I8iqsgmfKZJmUnl9//VikX+hVR8ybOk/Uf7ecofshwOu9hVFUt6rWUCJ
+         B4sN5qFs6/4ayVST9iiZM1dkXLC7y3/nztjq+86sQ9GRjerVL8GWi0RlO7czyH4FgLS6
+         ef524dnKwlcJm0HDndt+3DUPFy1RNydJwXAftYEng2v43O64y0j5e04vb2LcpFQ+9W2G
+         YDH4E+yY14+gpeuXytTo5C4o3IgybXq2fdRMKJsZWlMk064DT770KA6h/oyC7uZHjllg
+         AyBVvvielhYAW7XRPd5VLOkC9RofSvsbJ7lHy2zCE680Pulh2u2I8QXon9tMK/Klrwz1
+         EAcQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp3+rvCzxEAX45KZmiIQ5pUlp6zU87tr1FMnfBXfxH5/VWrL4idsEv/RTXH7QSoETra0GnsQv8q@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YxIcyXi/lEDCymvtOBYVOrvyeFWt0AaJEKIEXaF4+uVJg5tu44J
+	HI+pl7wCTJOCUO993LziudQ4YU8l3Spdotr+tcKNSSYX5qJshsctKxpMhbO+JvzNCzZHyS3gKxp
+	yUjDeI31oBTkazEcfjEVLX5AEwJwOPoQ5CLK60QlvV2dEWlSimEDBCpJyySBBnA==
+X-Gm-Gg: AfdE7cm0zTCI+JGmHjsMEF99GpU8ZQBC6aY9C/2QVahD+GeugI1ywJRTlafv1B1arFd
+	XDsk9Pud8pHg3M1JpN7g9hKhfIZn0MCPD+RQlzxnkW5YvJcpXwcs+jG/dn9LiPIPU05S/8PDLrN
+	bMUaPAyI9j86c70xW3SGdaNI7x5zj8/sN3wycWzAqgOtvwlK9DpAzu+iD8K1dGcWE0faFS1I9GO
+	qV8uYXBTj6d78IH7Q3SUny6Q6qTl+XgnkcrzhvALRNZ1pYOMtUcGeqZ+eSKmJ08JsPi3fkCG5tU
+	R9L21OaBAVjGwDdvZvArrV7P8IJCnplFM6XUf44K+0HmExVJnxZclCZkW1s8hRHERjwGsXbs2AS
+	hEgoNQNdPTLeNX0srlzfk1yh3bG5iw6Rn/tGq9g==
+X-Received: by 2002:a17:90b:5106:b0:36a:caf2:3815 with SMTP id 98e67ed59e1d1-38112340885mr6289046a91.15.1783108098271;
+        Fri, 03 Jul 2026 12:48:18 -0700 (PDT)
+X-Received: by 2002:a17:90b:5106:b0:36a:caf2:3815 with SMTP id 98e67ed59e1d1-38112340885mr6288938a91.15.1783108097697;
+        Fri, 03 Jul 2026 12:48:17 -0700 (PDT)
 Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.50.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.47.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 12:51:06 -0700 (PDT)
+        Fri, 03 Jul 2026 12:48:17 -0700 (PDT)
 From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
@@ -165,9 +165,9 @@ Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
         linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
         imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
         Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 29/42] ASoC: SOF: imx: Use devm_of_reserved_mem_device_init_by_name()
-Date: Sat,  4 Jul 2026 01:08:42 +0530
-Message-ID: <20260703193855.110619-30-mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH 22/42] media: mediatek: vpu: Use devm_of_reserved_mem_device_init()
+Date: Sat,  4 Jul 2026 01:08:35 +0530
+Message-ID: <20260703193855.110619-23-mukesh.ojha@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
 References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
@@ -183,70 +183,63 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDIwMCBTYWx0ZWRfX4i96gbKagSHr
- +YVILbRHC2ApUJmlFuHvNukKzq679E3p6zQxTuBevwpbbNHWyjV+zkWxZWzfkwVlaUug5uLWHMa
- S4FKNTAttUxjb+r+hflnvLl9S4piFZtgfRpP5cfnEeK6avy0nKEToR9Fyjv/ETdU9FcVDMuBbHb
- v3FaFuVc3lEg4mNF5tRN6fz6BUojZ9XuiVkci1bKSI8V1lIaTFN0yOnorvmpSVhLryRks9w0jWl
- F89/X8d3z3TWYEUb9pZPjyZAwXX0Bh61/6v2bkK3yJxzojQaAOM2/6Cbg4QKC7WDiQBPhl8r9GY
- qirKyj481qS50LGMsMqROgiZahk6F4YLwGsdT49FtvT0n2cxP8ilLli41RYMp+oL5AkAycn5P8A
- tFEyPTIad3SRhVMDjnTuDSFN31Ll8VDrJJlpFxyNXElLoqBJNQZ8BcuCp+XqjAKXPfJSrk8OpSE
- ydDv5mJ0Q6BtOp5Ld7g==
-X-Proofpoint-GUID: HZbbcmKS_JNELOb8DGajAtRAleWIV_HV
-X-Authority-Analysis: v=2.4 cv=QbFWeMbv c=1 sm=1 tr=0 ts=6a4812ac cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDIwMCBTYWx0ZWRfXyZeJd47E+we6
+ ZVcPVO6WqtbDY283+dspm/nerpd9gq/CQs+UQ8hLX7yTDCAZh9+xzun3hO1XpIBO/eXqyXUoWr7
+ 4yEQwwy5+Umg0Za+8Ev8gsg3s5SbOCE=
+X-Authority-Analysis: v=2.4 cv=E8v9Y6dl c=1 sm=1 tr=0 ts=6a481203 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=3WP4xAbIaamtf5A8kHQA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: HZbbcmKS_JNELOb8DGajAtRAleWIV_HV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDIwMCBTYWx0ZWRfX+4HW6XIBYFET
- 2vm35HyBCbQAG6OocBQ7pUEyKq3pgmOO5vbjfBh2QFTWYq3/oEDvOqKVmHlaU7QvBjtmA1fqYsi
- aCQcuQ7tq2fD7gD9aJh3u+DnHjHzrGM=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=gqQKJLWYzfjTGvuwkdcA:9 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: YeCBUlKSGLlJbqCHx1daiFZRZGAaRgkt
+X-Proofpoint-GUID: YeCBUlKSGLlJbqCHx1daiFZRZGAaRgkt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDIwMCBTYWx0ZWRfX3mSRAgv0eCJa
+ /HM75D8NodYR+tpWLTZa73j6HTSIqSZg53F1wyP/K4+cs1zUPg0IWrnqXvxRw6QWavl+Ns5opug
+ llj6Eqpk8mEA5XR2dP9HWpB75LNzNy/Zhw+KpAgYd/4euVnGmttgJai0sHC6gxXew0BRZbOanj5
+ /cT/ysR9KkkjvcEhMGzvZaRVsrvHB8DAcxir6tNbUi8xbjpo4Xr7qRO40IjOkZIzlIryi5PPY95
+ SVOp3KioRS3IAbj8KdKuKQEje7jwb8xxlwrxR91HiqKrZ/DiO9AaWZR3Rg6VtjoGIHZ5nsFIEtF
+ S2Cm4qNdP5IQ2do8FEePmCGid0rlb4xyViQHOsjs25pXh6o2cejaFempuOnTdlLbkx1VK+T9pl1
+ vUOJsE7Itd0OukgIu0fZ/i9ALcH2k2Tn8yl0ISLo6NXXxC2S0nWkjKvEYW8wLk6BTnXnJVEgOeT
+ 06lyMPu5WGvoNAYdKBw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015
- bulkscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607030200
 
-Use the devres-managed devm_of_reserved_mem_device_init_by_name()
-instead of the manual of_reserved_mem_device_init_by_name()/
-of_reserved_mem_device_release() pair, letting the device resource
-manager handle cleanup automatically.
+Use the devres-managed devm_of_reserved_mem_device_init() instead of
+the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
+pair, letting the device resource manager handle cleanup automatically.
 
 Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 ---
- sound/soc/sof/imx/imx-common.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/imx/imx-common.c b/sound/soc/sof/imx/imx-common.c
-index 7a03c8cc5dd4..29314022c11f 100644
---- a/sound/soc/sof/imx/imx-common.c
-+++ b/sound/soc/sof/imx/imx-common.c
-@@ -330,9 +330,6 @@ static void imx_unregister_action(void *data)
- 	sdev = data;
- 	common = sdev->pdata->hw_pdata;
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+index 8d8319f0cd22..557bffb2c2f1 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+@@ -888,7 +888,7 @@ static int mtk_vpu_probe(struct platform_device *pdev)
+ 	dev_info(dev, "4GB mode %u\n", vpu->enable_4GB);
  
--	if (get_chip_info(sdev)->has_dma_reserved)
--		of_reserved_mem_device_release(sdev->dev);
--
- 	platform_device_unregister(common->ipc_dev);
- }
- 
-@@ -362,9 +359,9 @@ static int imx_probe(struct snd_sof_dev *sdev)
- 				     "failed to create IPC device\n");
- 
- 	if (get_chip_info(sdev)->has_dma_reserved) {
--		ret = of_reserved_mem_device_init_by_name(sdev->dev,
--							  pdev->dev.of_node,
--							  "dma");
-+		ret = devm_of_reserved_mem_device_init_by_name(sdev->dev,
-+							       pdev->dev.of_node,
-+							       "dma");
- 		if (ret) {
- 			platform_device_unregister(common->ipc_dev);
- 
+ 	if (vpu->enable_4GB) {
+-		ret = of_reserved_mem_device_init(dev);
++		ret = devm_of_reserved_mem_device_init(dev);
+ 		if (ret)
+ 			dev_info(dev, "init reserved memory failed\n");
+ 			/* continue to use dynamic allocation if failed */
+@@ -930,7 +930,6 @@ static int mtk_vpu_probe(struct platform_device *pdev)
+ free_d_mem:
+ 	vpu_free_ext_mem(vpu, D_FW);
+ remove_debugfs:
+-	of_reserved_mem_device_release(dev);
+ #ifdef CONFIG_DEBUG_FS
+ 	debugfs_remove(vpu_debugfs);
+ #endif
 -- 
 2.53.0
 
