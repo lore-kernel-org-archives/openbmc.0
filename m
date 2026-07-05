@@ -1,176 +1,102 @@
-Return-Path: <openbmc+bounces-2189-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2190-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE982C43458
-	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 05:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00DA5C43458
+	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 14:01:19 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gtGnY1F4Tz2yjn;
-	Sun, 05 Jul 2026 15:51:13 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783107690;
-	cv=none; b=I0zO6cAbKfWedHxb/M2n9uifq1xMm58mYPT0+O0LCd3Mw5gA9kyV0cdqNbW3hqlLYfFPAvr2PdLTcMtYEZeI8U7j2KFLlc0o1jeDT1vuMxWRsF7Psutp+lPjeuJkJ9lDi4iJDuZEDJPwJ/KyGryOPWVwwRVPAPXKFfFjXL445h7+LjTW5fwkCvBLcxh+Qhz90GsqISfrlm/OO2Mb01opD+c12VrjHbjRjELnFApKyOaIAJ5v0Ra62wFBXupJlPGIvyiVS18jk2+adtTaFbovRkwa0bSSFeSH/o6Dd1CjpmTNce/tcbICKlBD1bp1GLiy1oY9p9p6NMNxb1MZJYfj5Q==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gtTfx68Y1z2yd7;
+	Mon, 06 Jul 2026 00:01:13 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::330"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783260073;
+	cv=none; b=F00m1DvpE3CRAfOuw1YediKOol69PFV0uQYK3xqufYLZMCHzpLrdJiMkudhb+RuVGFnvbRurWpTb0bkeJKZ0yIKkCkvSAh2/8Y7qzwPEIEXJIHKOErYrOqdcIEl0guPgLBUmP/JAGvoJrqBN00VyWxoof549TDxGNpKVwOmANuFctLEVpforRzfpwgNx2csyd90pVOj00q553pPiuD60x98W8frUMztkFIy48yTZ2e3UngYS+yFMAYx5lFPU6L2+SpxLMxVw0vlQTk9/g3wn8NTdD+Jkbw+J+6kMZP92JscKswiNGSrCoAosFlG5fGa1OHhZa3a2PFvHh1nsCb2MlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783107690; c=relaxed/relaxed;
-	bh=iMva+1PZ1+KdQNeTwrqYOxfRk7+6bOU700RhvaCTUnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iywpQ7nERp2W3hAHaVgPQSkFK7mw/kp88BjBlPLUAw2FKxsdRBQRgQsA4vSQR2kWxbGPcM6gE62Uvs8q7S1kKcnav6rvUcMj3Zijn5g4nW17+7DEU/M8UjyfkYPQg7M9MeQoU1pnP6ei05ei/eI0+MDWP3N/NrXSSFC+VokQJkYKP5YZI7VH8AkCEMepBjw5VXb5Lkikz3U3eYnKEbovw4NZy4yTAwuyraljtvWRp/V4lmtTeqWsMdOyLVtKPCNXhf1PGJfxao/tSSouIDXiQlhKFz54vChpymjNTUzquFrrM7sF0D83dt3M6Xx39dL48HGFcMN26NpAuHjGw/5Bjw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GDm5wsiL; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=duDexqkz; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+	t=1783260073; c=relaxed/relaxed;
+	bh=NcARrbs/xdLGk7+Pwn2pFBUUtRITiV3oWliffDjtOxk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=lfaeUB8YuTtD0SXc9anya9R1yQFe+OM/Cm+veAFotSNxWGzb99K+Z2uiLZ7QLCNCh5HRyzKWgB2Pr3CWcm0YnKxBOQYgK5TQRsK02ewJl0r+FFKsaG9jP8blUpY3nISYiTGoASv7MfXWcbnDXI/THD3qyU5zZVChk373JXXW48+s/p6Y9sI3F49pRiFc4T2xF+vjV9AkrZHBZqz44RTnyo2RnPxjS1zm4cKhJW7iKHBRQu+k9p1HJTP3hcnuCx2ZwvlE6/L9ziNwXnWXQ4Z6rTKuJHGD5r95MPM+gpgId5SxiWjgH3PnNYt0gfb3g1dzoi+/pYDpc+xnsDQ6OAmAYw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QvhP2jtL; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GDm5wsiL;
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=duDexqkz;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=QvhP2jtL;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=mukesh.ojha@oss.qualcomm.com; receiver=lists.ozlabs.org)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gsPJT3VPKz2xLq
-	for <openbmc@lists.ozlabs.org>; Sat, 04 Jul 2026 05:41:29 +1000 (AEST)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 663Hj6Eh679223
-	for <openbmc@lists.ozlabs.org>; Fri, 3 Jul 2026 19:41:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=iMva+1PZ1+K
-	dQNeTwrqYOxfRk7+6bOU700RhvaCTUnI=; b=GDm5wsiLQ2TMvz973C+7bjcmlR+
-	KGiJp336Y4oOTICwBdUWMVqI146VpcWF6oH7l76OWtFhwQr/KC5Zs9E8CvG9J7Kv
-	ghE5vT6lPIQaV3lb9//L6Y16OAJRpWdlXWygrH0x16FdDhVXJ6kE44kz/Z1ZCaPJ
-	hhl03lmmTzIpMfqywvxTc/MkGVPxMgdFzcQsj9e+Ow4Q19hKKQpCdYr4vstuLfN5
-	nFuUJpQSD/qPK2d7c2OTxO/zefd1KvlVaVXKOCYcganHPsX8mha4UUsMTkmcYIvJ
-	oWbjPlo3Oz2VXqGEBrs0OQWWevT4vm0EG6eaNXNQU4rdU4R44hcOITOVEqg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f68u32jev-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 19:41:27 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cacf17c7e0so10540555ad.0
-        for <openbmc@lists.ozlabs.org>; Fri, 03 Jul 2026 12:41:27 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gtTfv3wLtz2xYg
+	for <openbmc@lists.ozlabs.org>; Mon, 06 Jul 2026 00:01:11 +1000 (AEST)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-493c83474ddso20208975e9.3
+        for <openbmc@lists.ozlabs.org>; Sun, 05 Jul 2026 07:01:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783107687; x=1783712487; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1783260068; x=1783864868; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iMva+1PZ1+KdQNeTwrqYOxfRk7+6bOU700RhvaCTUnI=;
-        b=duDexqkzCLRUkkOhEmGkPbgdlopPrL3oSpBb/LOF7AYyc0R63OXa8Wv0GtObIcRxqF
-         +/xi80eLngXqDphiNyYKMGcWyM1jyevXShnLfgD1SDSAKfEnbTVvzRM2H2U/7zBR+pqK
-         m0S6WXIP8X+c5SRDBVYhnC9fJUysos+xHWjAHnQqcuiYHOuZwRJurI5ojw1CSa8SAhc4
-         gtFP0YaKW8iSvMuhcydy+leOb1RJMTJexZ8ie7ksrRe8XVpwoAVM0XPdE9rB9YWyJOTU
-         /m+Ws4KlKR6UjS1bdx1NXnZdFAsDZfUEB5v3S6ZRm51XSN/wVpCmNYidWjJgRaR6Y+YJ
-         oGHw==
+         :message-id:reply-to;
+        bh=NcARrbs/xdLGk7+Pwn2pFBUUtRITiV3oWliffDjtOxk=;
+        b=QvhP2jtLHOFv5vLpbn1jw3UdxFQV4sLzA8d5mWJsVchlWycQkyPQjMlWHxYkwOrKP4
+         fV+fmGsfOYbeaLTThlHrvpbUQOhly03Z7+7z1uDG6PfvWO1GPgmFBuYLrX0trRXnO3wv
+         4zkwsApE0OX56T9mNZkKrqagZRCl9+EuUn4YEsGLRM9QFAh7azs/fV4XiALx/XckyBDU
+         COjqsFEnxEOULuJBUkhcyDxLi7F4J0f98fzQP6IrCJ1tDUwMJr0J+9kI/l9Zw4e/nfki
+         2RAAkJKUHqjuR9PGIKBG76rwCOYy6mSlp+1+Hh8ri3ZcoUMWpxj6R2cATuERkunsdLJz
+         62/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783107687; x=1783712487;
+        d=1e100.net; s=20251104; t=1783260068; x=1783864868;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iMva+1PZ1+KdQNeTwrqYOxfRk7+6bOU700RhvaCTUnI=;
-        b=fayH0bNS2fkDl/5YF1062JBC6rPDQPKBGZUzrpvwoH7zRcfyLDIBdQ6I0L/DpGFzxM
-         ZN1ycuvd4C5G3cj1dsG6pOsNFRH/5bhomOutYseILLedVTg0tKLGFzsmW/NqKraXFrN6
-         et1oIvsrEevaSOMc1lyHNwlf5pAsI83heG1fbvn4x0YJc3yEIAwBa0pNsX+xnM6FtZI1
-         uVhZhnJTUz70BDgdOZnnEohb1I8K4OMlzwhWX+AbXCP5sq/fmdJ34DJRDS852UafdrUD
-         rrktVhR3gpA4HhBUY1g9sss8UK9RFm3LoKUgHFRF5RF0uspceBS1Ax856GoTdwkEKP7I
-         wq3g==
-X-Forwarded-Encrypted: i=1; AFNElJ/x8cIFEoAo0bOKItSVexyBDU/wUomCNvLNuleCmK7KdkW8jfy8LYArHEl2T0EGH6FMB/GJJSgX@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yw6KZMiwBya4zAbYrQrCrhXyDbZ9/vMRss55CNMtooTm1azXm/W
-	zvmA/ID5zgC46/c6Vp00rh8VEQQFiRqnuInMqyOICGUPhoszIywWgX4NXegIM8ykqPL9A38DoHd
-	DzuKFFfW+AUXHOB4aq0xB03/J5IS95fV+InvaULMmznIKWpdDNyuUFhSrb2eZdg==
-X-Gm-Gg: AfdE7ckoXNsPQoaZYW2RQsO2sP/+M0z5OJocYOFrZHHA8Ygo/6cIs3KtauITLuxy/bl
-	Ym1iLgKWtFvg5KAaZN9RVqynA8v3bTAxetcZg8sGBQYK6aTYoPfzAySnZyVQohdzD8pbb2+OB/f
-	d2T6F2STplRBsCaZiE9zeAEJjaWbL9ZhfQtOYVQmle277dLmWwj3CXpzYEng1MBiM+UYUTtrbrH
-	Bz5nSIE9QTFz9Aq6K4IpcNan7HBWOprOkJ0o+haRjQm+EC4uEaMR9I75HsGSYrVodYYDPvPddrh
-	GwJ4aB7ROcm8+OQ5XwCicm98okHOTBKRAQ+7AZXQlT+PqjEEXykEXuQNqWuqiG5yYuhHkkSLCav
-	XbVpIJFyGg8LDqGfBEpxc6CjAQX7n8S0dVXB0Mg==
-X-Received: by 2002:a05:6a21:10e:b0:3bf:bc9a:db16 with SMTP id adf61e73a8af0-3c03e1ff210mr802369637.11.1783107686261;
-        Fri, 03 Jul 2026 12:41:26 -0700 (PDT)
-X-Received: by 2002:a05:6a21:10e:b0:3bf:bc9a:db16 with SMTP id adf61e73a8af0-3c03e1ff210mr802255637.11.1783107685626;
-        Fri, 03 Jul 2026 12:41:25 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30f290b6bc2sm10065845eec.27.2026.07.03.12.41.02
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NcARrbs/xdLGk7+Pwn2pFBUUtRITiV3oWliffDjtOxk=;
+        b=mwtTwS1YDKxhIdkVFAmfc23F+2R6HQ+4ayBsRx/tN++sGxgm8tDf+qnj1ImIdyxcYg
+         JIXw4cItXZo8kslCVnes/aKbb/vZq5WMp6tBW6MTo/mIF5dsc5JJ2Mn3p2Q9rNIEHt/Q
+         48G5hxWKcgQKsDAJR/ICoP8Z+wU7M5MpmBD3A90LKgzeGvZJfGE2DLZH+Y3omBDBSu6T
+         JwJNdANYz8XNOr+4ptwPkNt2mWYFXU8/4cEfWSf4h5/n8Hf4d9XukZP/erfhj5vF3p7Z
+         3cOnB9biraexBHuCZIinbB7OGM4cMOx8DZSUbwL+a+6wqvWrRZv2WhzMWkfenofpYuc+
+         xiKA==
+X-Gm-Message-State: AOJu0YyzUZVyF+CEZwXtmEw/pIaOIXTVO0Y1jWXsxoRWfk0zwiuxdb70
+	5YqDdiCccHQT8jurtEtc8ROJH8FSJzjbzlixLa1ZO2SNw9FRNP0AuaK5
+X-Gm-Gg: AfdE7ck0Vyi7ZvydBiIn88PW3Y+HnQymmOnkVxUJZzXlrjM0l5SXRW1d+fKkwK9ZLdH
+	iD05bRDPWf+l4Ix+zlnZMs4Ac7pacfeoNUrr9qJoRwzr2T+W0wRLNKkttAcYbX/735o6Sf0iEPv
+	xOF4Nof4uUhHcxAJoXxbiiFNvG5GYpbigNw68zehB3vNb7gf6R5se+LV90l72dUIHpn8+FVmhzb
+	yupEllvbt5VqAXJj4Q4Zibtsl7MRML2X6u9wSVlb2V2CTdzD15/dhg3s4IxD8ny9YSsVu5mxUsu
+	03J50ujpyfOHITA1ifP0emRR6fui8bX8VS2DPzzHr6Nf6T1P+e4nyex0rKc6dp91sJ8RmKb/v7s
+	Cp54otZ6CCRAR7awLs+V0J5mgAXGeVRfCDiwMa38RhKCkldoanc/L2F83WaPUJH3vWqgkQAv503
+	OQ4GBtQhs3Qa2lipCTCFf7Vkk=
+X-Received: by 2002:a05:600c:6792:b0:493:b4cf:d37f with SMTP id 5b1f17b1804b1-493d11d7dd2mr74212545e9.16.1783260068120;
+        Sun, 05 Jul 2026 07:01:08 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm275911115e9.10.2026.07.05.07.01.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Jul 2026 12:41:25 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Liviu Dudau <liviu.dudau@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Paul Cercueil <paul@crapouillou.net>,
-        Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>,
-        Alexey Brodkin <abrodkin@synopsys.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Michal Simek <michal.simek@amd.com>,
-        Daniel Scally <dan.scally@ideasonboard.com>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Eddie James <eajames@linux.ibm.com>,
-        Tiffany Lin <tiffany.lin@mediatek.com>,
-        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-        Yunfei Dong <yunfei.dong@mediatek.com>,
-        Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-        Houlong Wei <houlong.wei@mediatek.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-        Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Ge Gordon <gordon.ge@bst.ai>, Adrian Hunter <adrian.hunter@intel.com>,
-        Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Shengjiu Wang <shengjiu.wang@gmail.com>,
-        Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Daniel Baluta <daniel.baluta@nxp.com>,
-        Orson Zhai <orsonzhai@gmail.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Peter Chen <peter.chen@cixtech.com>,
-        Fugang Duan <fugang.duan@cixtech.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-        Fabio Estevam <festevam@gmail.com>,
-        Nicolin Chen <nicoleotsuka@gmail.com>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-        Chunyan Zhang <zhang.lyra@gmail.com>,
-        CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-        linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-        linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-        openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-        kernel@collabora.com, linux-tegra@vger.kernel.org,
-        linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-        linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        imx@lists.linux.dev, sound-open-firmware@alsa-project.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH 05/42] remoteproc: keystone: Use devm_of_reserved_mem_device_init()
-Date: Sat,  4 Jul 2026 01:08:18 +0530
-Message-ID: <20260703193855.110619-6-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
+        Sun, 05 Jul 2026 07:01:07 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	wim@linux-watchdog.org,
+	linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	linux-watchdog@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	joel@jms.id.au
+Subject: [PATCH v3 1/3] dt-bindings: watchdog: npcm: add GCR syscon property
+Date: Sun,  5 Jul 2026 17:00:58 +0300
+Message-Id: <20260705140100.1543486-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260705140100.1543486-1-tmaimon77@gmail.com>
+References: <20260705140100.1543486-1-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -183,80 +109,40 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: IWfBL9whIr8mshebN2auNWzo5uX2D3Ly
-X-Proofpoint-ORIG-GUID: IWfBL9whIr8mshebN2auNWzo5uX2D3Ly
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX59bkS5U9pNM8
- +MJ091pfr0moy+G1acho2Oi49rSlI0fdWK3TKpXeni/t22DYOuF5RhR7gwjx1RNQajZ/jxp5HFS
- QhyJFQqkbP0xA/osj76nl46fPrdbESQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAzMDE5OCBTYWx0ZWRfX3raIRFSUh9fq
- ur92d3aW6nO6kCj4u1XZxwvgz1vQq3PPUW0y3ICBC9hsiSk4koS2QygojyYxHInC4svrotQdPgv
- JIFzXJE2IE4ZaNt1H1JOZ0wVZ8BDX1h8ZiRVnd+CtKeMKF/Em0PDaLuxds8o13Vkho8siuyELMr
- zu03qmLxR0OOoP4pdtmOcihb3520KdPupeSElrZu0vU7LYHBhEknflX2Cv5VQZCtQlkqKYPQGLp
- TKFTkCsUEqRA9nstsn2cU3RW1lD4UohYb1T8jwgZisbHY+4QCRs9fbsYK+8UCTdBO7qkACiscWI
- ih68Jp8kfkIiBDOC/jkQ2EDvpAlXk+TBP/Xt/Jc5+YDatADjitvHLR9B3CZ0kVuUuDYwwfEbaGb
- DnH6Bl2C+Mg+Isl284mQ+yAj4tkP9MP4hkhvOg6lKEElD16kiMucRHguBjuQZkqR48IUysGPT34
- dWCY//zlYyO+bzRDk/g==
-X-Authority-Analysis: v=2.4 cv=OaKoyBTY c=1 sm=1 tr=0 ts=6a481067 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=eZD8004roD30yaJJyL0A:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-03_03,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 spamscore=0 phishscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607030198
 
-Replace the hand-rolled keystone_rproc_mem_release() devres action with
-devm_of_reserved_mem_device_init(), which handles the cleanup
-automatically. This removes both the wrapper function and the
-devm_add_action_or_reset() call.
+NPCM750 and NPCM845 latch watchdog reset indications in the SoC
+GCR block rather than in the watchdog block itself.
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Add the optional nuvoton,sysgcr phandle so watchdog nodes can
+reference the shared GCR reset-status registers that hold those
+latched watchdog reset indications.
+
+This is needed by the following reset-status support, which reads
+those latches and reports watchdog-caused resets through bootstatus.
+
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/remoteproc/keystone_remoteproc.c | 16 ++--------------
- 1 file changed, 2 insertions(+), 14 deletions(-)
+ .../devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml   | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/remoteproc/keystone_remoteproc.c b/drivers/remoteproc/keystone_remoteproc.c
-index 83763d640c4e..7834a50da209 100644
---- a/drivers/remoteproc/keystone_remoteproc.c
-+++ b/drivers/remoteproc/keystone_remoteproc.c
-@@ -330,13 +330,6 @@ static int keystone_rproc_of_get_dev_syscon(struct platform_device *pdev,
- 	return 0;
- }
+diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+index 7aa30f5b5c49..99c225f166db 100644
+--- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+@@ -40,6 +40,12 @@ properties:
+   clock-frequency:
+     description: Frequency in Hz of the clock that drives the NPCM timer.
  
--static void keystone_rproc_mem_release(void *data)
--{
--	struct device *dev = data;
--
--	of_reserved_mem_device_release(dev);
--}
--
- static void keystone_rproc_pm_runtime_put(void *data)
- {
- 	struct device *dev = data;
-@@ -426,14 +419,9 @@ static int keystone_rproc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get gpio for virtio kicks\n");
- 
--	ret = of_reserved_mem_device_init(dev);
--	if (ret) {
-+	ret = devm_of_reserved_mem_device_init(dev);
-+	if (ret)
- 		dev_warn(dev, "device does not have specific CMA pool\n");
--	} else {
--		ret = devm_add_action_or_reset(dev, keystone_rproc_mem_release, dev);
--		if (ret)
--			return ret;
--	}
- 
- 	/* ensure the DSP is in reset before loading firmware */
- 	ret = reset_control_status(ksproc->reset);
++  nuvoton,sysgcr:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      a phandle to access the GCR reset-status registers that latch
++      watchdog reset indications on NPCM750 and NPCM845.
++
+ required:
+   - compatible
+   - reg
 -- 
-2.53.0
+2.34.1
 
 
