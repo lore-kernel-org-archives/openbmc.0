@@ -1,75 +1,75 @@
-Return-Path: <openbmc+bounces-2192-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2193-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C35C43458
-	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 14:01:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72189C43458
+	for <openbmc@archiver.kernel.org>; Sun,  5 Jul 2026 14:02:02 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gtTg02q4jz2yfy;
-	Mon, 06 Jul 2026 00:01:16 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32e"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783260076;
-	cv=none; b=S/O1V+RJusz7ZcaCheS5J4biMa/Ho6a26IPslZSQZE4fFiAo4+jXR+SMWoWKJHndVhsigx+ubmJ46AOw61qsK4CYC9PWK1DblxzptHlO4fOeoKa4uH1UWCHj16IblwX6rhYbeIas/eL7OlmLvlByFmqyLNSideGMsIRBXVIa5FpAHoBu1fygJqo74c4Cyj+uj9WNW5JbRnYVwPN31pAu8XQlNLPe8TNChpAqKJhOVf47Qws3ATrUs9e7N+Z5de1OCr/CNlvGZzh1evRy1YftOtc0hACxC/EqCPKF03I5BraSvT1wWp/DaOk6ffL32ADDm9ma4ChbqEGXR9uijJ01jw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gtTg338Qpz2ygh;
+	Mon, 06 Jul 2026 00:01:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::331"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783260079;
+	cv=none; b=Bdma6rIravo+AM7Y8jC7IDLksKh4SBatP72fJPle9fU8dU0TjqU/9vwpQ5OqL/2+zXybEv0nP8O/KYbuovxNEnyOB8nAfaoB3Etmb2uw8gr+fBUN0aV2QdzyXeBBbY3yFhZy5Ovl2PvKvLxfrvgbJRahPQ9k/bib7zPfCAIGRWS/yaWOnepdsNJzv+SfWZ5qIIVYkcqzUDSCRRUjgPv4hlEAzYDXunQ0eAygMUrz+q1C7mrHBPVp+aevmFEqsYSdwTj2+xqVR49AEjlZxjrcd/8X864zQMmMjHwq9HUgySfARVKVEp5Y3fzsdDgxdvDw0Bhdcp2ssT7AfV+QqBKx4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783260076; c=relaxed/relaxed;
-	bh=r+Rc67BgTH3+EnF6kyABEC4BScrr4lbwf75koOQCx0Q=;
+	t=1783260079; c=relaxed/relaxed;
+	bh=nuDU45OA6ggrf4VYV6YQ5pMRzsYDccU2hT9CMU+OAX0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LpDzNOL4nsDICUd6/j1LSS4rEAzmkvypLIzf8gbIwoU83HwDc8eDy046ATZGzd8i+U3L7QBEYXVXJ40K3EsiFhnhes4WmS3naY5V3fhrjGP+HE7bxOIcmA2QGbCz/TI1Ks9zLIzgSskQbw9DBwcknt6yUOZOzYwN3HEfpezq8Sl7JBG/IulFtz6ycudsjbq3jKoyjuWgWnByeUGUjPi2h+L5I98gWrPnC9cwK7WAr6NynFDZ260m4Uwz/FsR12K2VKgpacM0diNWlkft0ZSwJVGa2An/ipOow7fXrrR0dT3NKc4M6I5rgvyEYIUDCP3e6h7GQ2G/pBmQkp8VbBU+jA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KaqKs5j5; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=fkywwB33AWzTm8CsoUpZ05zlz2lPoiJQywvkSJsq8sOWg8BrPpT0KXY6Ch8X19Y+GO4MXOIYTld1MRgfKYihYKr/PuP6DIC4ck4+CS+CBM9Z+1it2MvUVSCIwoaDI4bl55e/sG8Vq7H43v1MNeGgaD0sI/u6MWk5e8Zfxy/uNpXQQGrJac/6bxLT44bT7cQoLCCJYWrPhoNk1g38OEULtOZ64l8qaHBaY50LtUN68SPxNnyGQQWFn3al1j/OYRwiokJJtjbOfpcxQBPQ/VWxvclRhZNib+4D9KyXNtY7svCUk+Blw861afooi+m9fiywXjCxJ6i6tu4irqkYUAzLXA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WRK0yCEe; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::331; helo=mail-wm1-x331.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KaqKs5j5;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WRK0yCEe;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32e; helo=mail-wm1-x32e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::331; helo=mail-wm1-x331.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gtTfz1DJQz2yf9
-	for <openbmc@lists.ozlabs.org>; Mon, 06 Jul 2026 00:01:14 +1000 (AEST)
-Received: by mail-wm1-x32e.google.com with SMTP id 5b1f17b1804b1-493bfe9f886so11278495e9.0
-        for <openbmc@lists.ozlabs.org>; Sun, 05 Jul 2026 07:01:14 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gtTg14wkbz2yf9
+	for <openbmc@lists.ozlabs.org>; Mon, 06 Jul 2026 00:01:17 +1000 (AEST)
+Received: by mail-wm1-x331.google.com with SMTP id 5b1f17b1804b1-493c2c0b9a8so19024275e9.1
+        for <openbmc@lists.ozlabs.org>; Sun, 05 Jul 2026 07:01:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783260072; x=1783864872; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1783260075; x=1783864875; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r+Rc67BgTH3+EnF6kyABEC4BScrr4lbwf75koOQCx0Q=;
-        b=KaqKs5j5hxd6+f/2DwIz1mM/VfAW5kKI/4dS7R9l1FYv/M5+GzwWyQQKn3iA33H4JF
-         eJbShQstg5pM8O28NYoJY+leDS2r9s/FyAfw66qhQTFcEERbx1x5QKCY4miB10RoQFBx
-         hHf3kmJbMcUB6qHRmilFze+Q//nc2Q2tlpyu9sQKRFrSZ8pLbKB4uF1Bcq3rohMYhEMg
-         6fDqZWmFvivxR+3oKmoGhdH4VGL5mXvIPrt8xsg/FxBfOvA2l8xusVEQBMfh30yicOH0
-         CmZ+yHvpkTtdz24UHUz9U8zV0OzYp9p9qt41IvBcTm0yQ4VUZkYBVdtOgK7WzWVpNKHq
-         FNng==
+        bh=nuDU45OA6ggrf4VYV6YQ5pMRzsYDccU2hT9CMU+OAX0=;
+        b=WRK0yCEe39ysTUZxXDjsLSAeB37/NfL/yceXXdTm2LByPIzTyDIWiunHGaYBz5fXy6
+         Na+SsfyqEy0JFJYWS+lOL8its+8qBntvS1yHNTLDBL/J45pON3u1ZQSqOUHmoFVFyvGJ
+         7sQE2VX4tU1lIk19FQDu3Pv2UM57OZFM0D7cUEYcgFZnjXhcIMBN4PBkPCJO+i7HJv94
+         EsXAcCDOrQY0g3DL+uVN/Y1tskpByspYvNOC1wEMKbysFmopyGEjSnNaqjKIRCcjlkMe
+         yytIV/OeXUPp8WDzUUOlvpa6ChVArybSn3MrNyCFtRK7iSnnDwOsxvSihUuw5Bdjsb/U
+         OLiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783260072; x=1783864872;
+        d=1e100.net; s=20251104; t=1783260075; x=1783864875;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=r+Rc67BgTH3+EnF6kyABEC4BScrr4lbwf75koOQCx0Q=;
-        b=TL5VyNSyWj/5+fy8q1FWZlkKswhY9oZqXBgWvG8ZN136AmehV9sk0q0cMYvnHQDxoO
-         8j22G3b+qsop/NqrDQNefZjAf6scRH4QEHWNsFBrGb0QPngcw1Z8HUdfZdV8twvSdntk
-         ACq/EyP/9lfI2Aj06PB94RfWo5TQlOhn3WJyJ/Wj6g/c6aGpGcKIxQ3utk4zVl4zhy8h
-         TwrjjH3pvsNb/08nV5P+KbRniGidn9xGNeNLIHRqAtxbf0eguVdjJJXE5qvyO32Qbwy6
-         7dDvUVmdXexPVuUf04KO5sdSotR0Lm5kVo6lPHjTB9cHeb8FJFgJizKytt8GOmU+8WP8
-         Pa+Q==
-X-Gm-Message-State: AOJu0YwYBkyRBGYlBq0yJS5IbGx+vb4grfFUzoUd5GEMsTUTlFxvnmOF
-	zIksQp2sp9JcE7YTojN/nk+7W2prJs8PXzxpW3H1ln515FiOnz4CSqL+
-X-Gm-Gg: AfdE7clMpNsjU+//9/IktNoJgjHjDH0iibQahmwgp2Jg1LSSqG+gbO3BmjGWZEgAoUS
-	5rEFVUNnJle012F5zYha6KV2WbIKDNm2vzIPCPh6Ukh/hwl5E/xqTi5+/0iuNuRjI428nifjhIS
-	ymYfXl1WuDsTMF6IUlzNPh+AVPYhgG6FFvFE0Mwrxz2XShVDuznjN0lAPk7baYoYhGFE2q16xZu
-	UJwtZ/WAymxrInIm8Nic9Tyj9CYTQXur6XXzjzr/C6l6FZ7MPpZbrY0Rl5yxH9FtshS9iyHSP/4
-	e90C4kQAovmilm4R1/u6XC9ZVaZS4Qv3crvtVwqOweZa3zAMyYAiawj9XsImJ880sf9rSUqs/Xd
-	KbpuY17AfhXSUXYrM4MlnXr4IU+piic+ie4QpDNI3n7IpxiYMOyFgBCmrfW5jxKt1SsVIjnLO3N
-	rpqgElQ/WDZaxi3kKT9h+Ja9g=
-X-Received: by 2002:a05:600c:13d6:b0:493:b771:ddf9 with SMTP id 5b1f17b1804b1-493d11d076amr45112645e9.1.1783260071622;
-        Sun, 05 Jul 2026 07:01:11 -0700 (PDT)
+        bh=nuDU45OA6ggrf4VYV6YQ5pMRzsYDccU2hT9CMU+OAX0=;
+        b=LPBYsREh1nsQTEFvf8iNmfZvDRfCuPK7Y/RoRwPUxL0aFBuAd0FC0ANbwUyZ/VCa3v
+         twSPS5KXJ4xcADe/CajNwuea+nuxrUXfPZoQhHk2mktLGFeTaD1RVdrx0N421XI2aul2
+         9Tsvp1g5j5CzjTdF7Dcl0EdsVuBMKZW5uRaJgcsrjqjVyOp9GS91tQ2LNrttnReLa2ZF
+         eFcp9+Y3D7ASh/y6FhNklof3DMQ5SG8Ey3+52urSs9HBu4dRUHeTgeipjYMGI3FHy4Dy
+         CG4Ds6HvmHXIjqJ/ddqGKKxuvBoObrlWqq3ciob1UHLjR/3GYz3rZ2c27QP0w0K7L0EX
+         DX4A==
+X-Gm-Message-State: AOJu0YxJcWfkWD7TzkrGM9ocii/heHSgVqknh7FTTAsBKWXdh4gDrGaF
+	RzzQG/ehnNy4GVD9RsEcRxbxKAep8NmDIzKLYeY92xATfPgOPTp8113P
+X-Gm-Gg: AfdE7cn3XSQCsiAVcIqAfx9F5Ki31oSCy6zd05UwQ8xriGNjfUZ/sOXbZ4nUccZDy/A
+	rhTKp/49W3qld1BHPNpmzIsbMfNlkvwAqW4gk1V388Wn+qtXyf2hKOIpp+vQOxkQKoMyZOwCAb9
+	gfnC4fyBSMPMDhUQVwov9RMZk5Qj/e8x1lqOaNdKpS2yF6ekMBV13/3DXpQXulRnuuhVvKA8a3d
+	zp9FpdGsWyoosykF9izL/TZEVGgwtXJdimhnNou9SKrHZDWdjw9cp+36rhGpFyv3q051+5VJprz
+	ldxqE8b0+5ciBqDqj+bvDPwC9XZSRk8Xng8fYAHR0TaboiEIl9j0k1HjjFMyL7RYHADwNjItn47
+	5V8pgyHwP0xkvrnJenwJZvTkDrhXaf1H5u3tj/424i7g3wacvmBE4x9SSGwqu0FbP8eBfLjFCC0
+	Q/1mSIsBHW6PZjtoKkA+MtE6TFbYCA0r5GRg==
+X-Received: by 2002:a05:600c:3515:b0:493:c42e:5be0 with SMTP id 5b1f17b1804b1-493d11894f7mr81253085e9.0.1783260074531;
+        Sun, 05 Jul 2026 07:01:14 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm275911115e9.10.2026.07.05.07.01.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-493cce040b4sm275911115e9.10.2026.07.05.07.01.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2026 07:01:10 -0700 (PDT)
+        Sun, 05 Jul 2026 07:01:14 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	wim@linux-watchdog.org,
@@ -91,9 +91,9 @@ Cc: openbmc@lists.ozlabs.org,
 	corbet@lwn.net,
 	skhan@linuxfoundation.org,
 	joel@jms.id.au
-Subject: [PATCH v3 2/3] docs: watchdog: npcm: Add reset status description
-Date: Sun,  5 Jul 2026 17:00:59 +0300
-Message-Id: <20260705140100.1543486-3-tmaimon77@gmail.com>
+Subject: [PATCH v3 3/3] watchdog: npcm: add bootstatus support
+Date: Sun,  5 Jul 2026 17:01:00 +0300
+Message-Id: <20260705140100.1543486-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260705140100.1543486-1-tmaimon77@gmail.com>
 References: <20260705140100.1543486-1-tmaimon77@gmail.com>
@@ -110,107 +110,317 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add documentation describing how the NPCM watchdog driver reports reset
-causes through bootstatus on NPCM750 and NPCM845 systems.
+The NPCM750 uses RESSR and the NPCM845 uses INTCR2 to latch reset
+indications. Read those bits during probe and map them into watchdog
+bootstatus flags.
 
-Document the reset flag mapping, the watchdog instance mapping for
-WDIOF_CARDRESET, and the NPCM750/NPCM845 latch handling. Also mention
-sysfs bootstatus reporting when watchdog sysfs support is enabled.
+For NPCM845, cache the sampled INTCR2 state in SCRPAD10 after the reset
+status bits are cleared so later probes can report the same boot-time
+state. Also report WDIOF_CARDRESET for the watchdog instance whose reset
+bit is latched, while leaving WPCM450 behavior unchanged.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/watchdog/index.rst    |  1 +
- Documentation/watchdog/npcm_wdt.rst | 71 +++++++++++++++++++++++++++++
- 2 files changed, 72 insertions(+)
- create mode 100644 Documentation/watchdog/npcm_wdt.rst
+ drivers/watchdog/npcm_wdt.c | 217 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 215 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/watchdog/index.rst b/Documentation/watchdog/index.rst
-index dbc702b31a43..eb9e76275fa0 100644
---- a/Documentation/watchdog/index.rst
-+++ b/Documentation/watchdog/index.rst
-@@ -25,4 +25,5 @@ Driver specific
-     hpwdt
-     ics-wdt
-     mlx-wdt
-+    npcm_wdt
-     pcwd-watchdog
-diff --git a/Documentation/watchdog/npcm_wdt.rst b/Documentation/watchdog/npcm_wdt.rst
-new file mode 100644
-index 000000000000..cdc45ade9e0d
---- /dev/null
-+++ b/Documentation/watchdog/npcm_wdt.rst
-@@ -0,0 +1,71 @@
-+.. SPDX-License-Identifier: GPL-2.0
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index e62ea054bc61..cecfd6e574d8 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -7,14 +7,52 @@
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
++#include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+ #include <linux/of_irq.h>
+ #include <linux/platform_device.h>
++#include <linux/regmap.h>
+ #include <linux/slab.h>
+ #include <linux/watchdog.h>
+ 
+ #define NPCM_WTCR	0x1C
+ 
++/* NPCM GCR module */
++#define NPCM_RESSR_OFFSET		0x6C
++#define NPCM_INTCR2_OFFSET		0x60
++#define NPCM7XX_SCRPAD2_OFFSET		0x84
++#define NPCM8XX_SCRPAD10_OFFSET		0xE28
 +
-+=============
-+NPCM Watchdog
-+=============
++#define NPCM_PORST			BIT(31)
++#define NPCM_CORST			BIT(30)
++#define NPCM_WD0RST			BIT(29)
++#define NPCM_SWR1RST			BIT(28)
++#define NPCM_SWR2RST			BIT(27)
++#define NPCM_SWR3RST			BIT(26)
++#define NPCM_SWR4RST			BIT(25)
++#define NPCM_WD1RST			BIT(24)
++#define NPCM_WD2RST			BIT(23)
++#define NPCM_RST			GENMASK(31, 23)
++#define NPCM8XX_TIP_RESET		BIT(25) /* Replaces SWRST4 on NPCM8xx */
 +
-+The NPCM watchdog driver can report reset-cause information on
-+``nuvoton,npcm750-wdt`` and ``nuvoton,npcm845-wdt`` systems.
++/* Per-instance mapping of MMIO base address to its RESSR/INTCR2 reset bit. */
++struct npcm_wdt_rst_map {
++	phys_addr_t	base;
++	u32		rst_bit;
++};
 +
-+Userspace can read the latched reset cause through
-+``WDIOC_GETBOOTSTATUS``. When ``CONFIG_WATCHDOG_SYSFS`` is enabled, the
-+same value is also visible through ``/sys/class/watchdog/watchdogN/bootstatus``.
++struct npcm_wdt_status_map {
++	u32	rst_bit;
++	u32	wdiof_flag;
++};
 +
-+The mapping is fixed in the driver. It exposes the SoC reset indications
-+through the generic watchdog bootstatus flags and is not configurable from
-+Device Tree.
++struct npcm_wdt_data {
++	const struct npcm_wdt_rst_map		*rst_map;
++	unsigned int				rst_map_size;
++	const struct npcm_wdt_status_map	*status_map;
++	unsigned int				status_map_size;
++};
 +
-+.. list-table:: Reset-cause mapping
-+   :header-rows: 1
+ #define NPCM_WTCLK	(BIT(10) | BIT(11))	/* Clock divider */
+ #define NPCM_WTE	BIT(7)			/* Enable */
+ #define NPCM_WTIE	BIT(6)			/* Enable irq */
+@@ -47,6 +85,50 @@ struct npcm_wdt {
+ 	struct clk		*clk;
+ };
+ 
++static const struct npcm_wdt_rst_map npcm750_rst_map[] = {
++	{ 0xf000801c, NPCM_WD0RST },
++	{ 0xf000901c, NPCM_WD1RST },
++	{ 0xf000a01c, NPCM_WD2RST },
++};
 +
-+   * - Platform
-+     - Reset indication
-+     - Bootstatus flag
-+     - Reported meaning
-+   * - NPCM750 and NPCM845
-+     - ``PORST``
-+     - ``WDIOF_OVERHEAT``
-+     - power-on reset
-+   * - NPCM750 and NPCM845
-+     - ``CORST``
-+     - ``WDIOF_FANFAULT``
-+     - core reset
-+   * - NPCM750 and NPCM845
-+     - ``SWR1RST``
-+     - ``WDIOF_EXTERN1``
-+     - software reset source 1
-+   * - NPCM750 and NPCM845
-+     - ``SWR2RST``
-+     - ``WDIOF_EXTERN2``
-+     - software reset source 2
-+   * - NPCM750 and NPCM845
-+     - ``SWR3RST``
-+     - ``WDIOF_POWERUNDER``
-+     - software reset source 3
-+   * - NPCM750
-+     - ``SWR4RST``
-+     - ``WDIOF_POWEROVER``
-+     - software reset source 4
-+   * - NPCM845
-+     - ``TIP reset`` (``INTCR2[25]``)
-+     - ``WDIOF_POWEROVER``
-+     - TIP reset
++static const struct npcm_wdt_status_map npcm750_status_map[] = {
++	{ NPCM_PORST, WDIOF_OVERHEAT },
++	{ NPCM_CORST, WDIOF_FANFAULT },
++	{ NPCM_SWR1RST, WDIOF_EXTERN1 },
++	{ NPCM_SWR2RST, WDIOF_EXTERN2 },
++	{ NPCM_SWR3RST, WDIOF_POWERUNDER },
++	{ NPCM_SWR4RST, WDIOF_POWEROVER },
++};
 +
-+``WDIOF_CARDRESET`` is reported only for the watchdog instance whose own
-+reset-status bit is latched. On systems with three watchdog instances, this
-+maps ``WD0RST``, ``WD1RST``, and ``WD2RST`` to ``watchdog0``, ``watchdog1``,
-+and ``watchdog2`` respectively.
++static const struct npcm_wdt_data npcm750_data = {
++	.rst_map = npcm750_rst_map,
++	.rst_map_size = ARRAY_SIZE(npcm750_rst_map),
++	.status_map = npcm750_status_map,
++	.status_map_size = ARRAY_SIZE(npcm750_status_map),
++};
 +
-+The driver may report ``WDIOF_CARDRESET`` together with one or more of the
-+reset-cause flags listed above.
++static const struct npcm_wdt_rst_map npcm845_rst_map[] = {
++	{ 0xf000801c, NPCM_WD0RST },
++	{ 0xf000901c, NPCM_WD1RST },
++	{ 0xf000a01c, NPCM_WD2RST },
++};
 +
-+On NPCM750, the driver samples ``RESSR``. When reset bits are still latched,
-+it clears them and stores the sampled value in ``SCRPAD2`` so later watchdog
-+probes can report the same boot-time state.
++static const struct npcm_wdt_status_map npcm845_status_map[] = {
++	{ NPCM_PORST, WDIOF_OVERHEAT },
++	{ NPCM_CORST, WDIOF_FANFAULT },
++	{ NPCM_SWR1RST, WDIOF_EXTERN1 },
++	{ NPCM_SWR2RST, WDIOF_EXTERN2 },
++	{ NPCM_SWR3RST, WDIOF_POWERUNDER },
++	{ NPCM8XX_TIP_RESET, WDIOF_POWEROVER },
++};
 +
-+On NPCM845, the driver samples ``INTCR2``. When reset bits are still latched,
-+it clears them and stores the sampled value in ``SCRPAD10`` so later watchdog
-+probes can report the same boot-time state.
++static const struct npcm_wdt_data npcm845_data = {
++	.rst_map = npcm845_rst_map,
++	.rst_map_size = ARRAY_SIZE(npcm845_rst_map),
++	.status_map = npcm845_status_map,
++	.status_map_size = ARRAY_SIZE(npcm845_status_map),
++};
 +
-+The WPCM450 watchdog continues to operate without this reset-indication
-+mapping.
+ static inline struct npcm_wdt *to_npcm_wdt(struct watchdog_device *wdd)
+ {
+ 	return container_of(wdd, struct npcm_wdt, wdd);
+@@ -169,6 +251,111 @@ static bool npcm_is_running(struct watchdog_device *wdd)
+ 	return readl(wdt->reg) & NPCM_WTE;
+ }
+ 
++static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device *dev,
++				  const struct npcm_wdt_data *data,
++				  resource_size_t start)
++{
++	struct regmap *gcr_regmap;
++	u32 rstval = 0;
++	unsigned int i;
++	int ret;
++
++	if (!data)
++		return;
++
++	gcr_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
++						     "nuvoton,sysgcr");
++	if (IS_ERR(gcr_regmap)) {
++		dev_warn(dev,
++			 "Failed to find nuvoton,sysgcr, WD reset status not supported\n");
++		return;
++	}
++
++	if (of_device_is_compatible(dev->of_node, "nuvoton,npcm845-wdt")) {
++		ret = regmap_read(gcr_regmap, NPCM_INTCR2_OFFSET, &rstval);
++		if (ret) {
++			dev_warn(dev, "Failed to read INTCR2 reset status: %d\n",
++				 ret);
++			return;
++		}
++
++		if (rstval & NPCM_RST) {
++			ret = regmap_write(gcr_regmap, NPCM_INTCR2_OFFSET,
++					   rstval & ~NPCM_RST);
++			if (ret) {
++				dev_warn(dev,
++					 "Failed to clear INTCR2 reset status: %d\n",
++					 ret);
++				return;
++			}
++
++			ret = regmap_write(gcr_regmap, NPCM8XX_SCRPAD10_OFFSET,
++					   rstval);
++			if (ret) {
++				dev_warn(dev,
++					 "Failed to cache reset status in SCRPAD10: %d\n",
++					 ret);
++				return;
++			}
++		} else {
++			ret = regmap_read(gcr_regmap, NPCM8XX_SCRPAD10_OFFSET,
++					  &rstval);
++			if (ret) {
++				dev_warn(dev,
++					 "Failed to read cached reset status from SCRPAD10: %d\n",
++					 ret);
++				return;
++			}
++		}
++	} else if (of_device_is_compatible(dev->of_node, "nuvoton,npcm750-wdt")) {
++		ret = regmap_read(gcr_regmap, NPCM_RESSR_OFFSET, &rstval);
++		if (ret) {
++			dev_warn(dev, "Failed to read RESSR reset status: %d\n",
++				 ret);
++			return;
++		}
++
++		if (rstval & NPCM_RST) {
++			ret = regmap_write(gcr_regmap, NPCM_RESSR_OFFSET, 
++					   rstval & ~NPCM_RST);
++			if (ret) {
++				dev_warn(dev, "Failed to clear RESSR reset status: %d\n", ret);
++				return;
++			}
++
++			ret = regmap_write(gcr_regmap, NPCM7XX_SCRPAD2_OFFSET,
++					   rstval);
++			if (ret) {
++				dev_warn(dev,
++					 "Failed to cache reset status in SCRPAD2: %d\n", ret);
++				return;
++			}
++		} else {
++			ret = regmap_read(gcr_regmap, NPCM7XX_SCRPAD2_OFFSET,
++					  &rstval);
++			if (ret) {
++				dev_warn(dev,
++					 "Failed to read cached reset status from SCRPAD2: %d\n",
++					 ret);
++				return;
++			}
++		}
++	}
++
++	for (i = 0; i < data->status_map_size; i++) {
++		if (rstval & data->status_map[i].rst_bit)
++			wdt->wdd.bootstatus |= data->status_map[i].wdiof_flag;
++	}
++
++	for (i = 0; i < data->rst_map_size; i++) {
++		if (data->rst_map[i].base == start &&
++		    rstval & data->rst_map[i].rst_bit) {
++			wdt->wdd.bootstatus |= WDIOF_CARDRESET;
++			break;
++		}
++	}
++}
++
+ static const struct watchdog_info npcm_wdt_info = {
+ 	.identity	= KBUILD_MODNAME,
+ 	.options	= WDIOF_SETTIMEOUT
+@@ -176,6 +363,20 @@ static const struct watchdog_info npcm_wdt_info = {
+ 			| WDIOF_MAGICCLOSE,
+ };
+ 
++static const struct watchdog_info npcm_wdt_rst_info = {
++	.identity	= KBUILD_MODNAME,
++	.options	= WDIOF_SETTIMEOUT
++			| WDIOF_KEEPALIVEPING
++			| WDIOF_MAGICCLOSE
++			| WDIOF_CARDRESET
++			| WDIOF_OVERHEAT
++			| WDIOF_FANFAULT
++			| WDIOF_EXTERN1
++			| WDIOF_EXTERN2
++			| WDIOF_POWERUNDER
++			| WDIOF_POWEROVER,
++};
++
+ static const struct watchdog_ops npcm_wdt_ops = {
+ 	.owner = THIS_MODULE,
+ 	.start = npcm_wdt_start,
+@@ -188,7 +389,10 @@ static const struct watchdog_ops npcm_wdt_ops = {
+ static int npcm_wdt_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	const struct npcm_wdt_data *data = device_get_match_data(dev);
++	struct resource *res;
+ 	struct npcm_wdt *wdt;
++	resource_size_t start;
+ 	int irq;
+ 	int ret;
+ 
+@@ -196,10 +400,16 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 	if (!wdt)
+ 		return -ENOMEM;
+ 
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res)
++		return -EINVAL;
++
+ 	wdt->reg = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(wdt->reg))
+ 		return PTR_ERR(wdt->reg);
+ 
++	start = res->start;
++
+ 	wdt->clk = devm_clk_get_optional(&pdev->dev, NULL);
+ 	if (IS_ERR(wdt->clk))
+ 		return PTR_ERR(wdt->clk);
+@@ -208,7 +418,7 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
+-	wdt->wdd.info = &npcm_wdt_info;
++	wdt->wdd.info = data ? &npcm_wdt_rst_info : &npcm_wdt_info;
+ 	wdt->wdd.ops = &npcm_wdt_ops;
+ 	wdt->wdd.min_timeout = 1;
+ 	wdt->wdd.max_timeout = 2750;
+@@ -220,6 +430,8 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 	/* Ensure timeout is able to be represented by the hardware */
+ 	npcm_wdt_set_timeout(&wdt->wdd, wdt->wdd.timeout);
+ 
++	npcm_get_reset_status(wdt, dev, data, start);
++
+ 	if (npcm_is_running(&wdt->wdd)) {
+ 		/* Restart with the default or device-tree specified timeout */
+ 		npcm_wdt_start(&wdt->wdd);
+@@ -243,7 +455,8 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ #ifdef CONFIG_OF
+ static const struct of_device_id npcm_wdt_match[] = {
+ 	{.compatible = "nuvoton,wpcm450-wdt"},
+-	{.compatible = "nuvoton,npcm750-wdt"},
++	{.compatible = "nuvoton,npcm750-wdt", .data = &npcm750_data},
++	{.compatible = "nuvoton,npcm845-wdt", .data = &npcm845_data},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, npcm_wdt_match);
 -- 
 2.34.1
 
