@@ -1,206 +1,102 @@
-Return-Path: <openbmc+bounces-2217-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2218-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D142FC43458
-	for <openbmc@archiver.kernel.org>; Mon,  6 Jul 2026 12:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF8EFC43458
+	for <openbmc@archiver.kernel.org>; Mon,  6 Jul 2026 14:48:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gv3ND5mlSz3brN;
-	Mon, 06 Jul 2026 22:20:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783340428;
-	cv=none; b=N4HsL0qSZTo0YNUvG5HGaNbao452xk8zTvwwTFwwAQSgPqPHF8jIfnEf5KnHr8R6zJ2bpKaE+Sn7nzdL9M29EkKcQAHKflPVTfbFH9x4bU/zqNziK32m2iqXZ4nLcsteE5jY/t5mlk8wAlXwP+mvz0vC/508bNA5Tn5OZ2QY7m0nd3PLiJNaWuydeRBu7TZNMYaa59OKr2dpFzOtXg8Sv6nHTQWWdtPpujEAq3abzw/BzM/nH7QbIwQ9KTuQtCdHeJrb8PSxYSsLV78I1hH8nBxoNlnJKIyY1zCvjPoXzogQinnS2VGFSPD4EYOZvXjKfJ4Vp/UonpY/NXs7Kr+wgA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gv6gF6fgpz3bqV;
+	Tue, 07 Jul 2026 00:48:41 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783349321;
+	cv=none; b=kv+GnZ1X5j7Wx4VbxcpWA+2M2G/cYNh3FjLUqgECR93RLwmvPXWazmWSItEUPftQmNzBXCzrP9FluH0qHspjoEiMEKilXtUd/OYYM9yVdt1lvQRMP4woXMeOb9Qt/YPsFaQRBJ8HAbqtpN8yF3fpyHldoaWRR87fiw9xz2j3oWi9k83oT2S5AIUd+WgNfdZigL1HO+J0IK4IcEsv2d7Q6rrOMH923Brh6SeAnQ7v/nSNrqK6UG5slNdRl3k69ScY02oV3v/pjbGBnqwv3GQTHqdlVVUvBikQtnuq935VKYec3rdcBI6VMtKmgpRc0h63oOKZaH6ElWbASXvMA9j6KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783340428; c=relaxed/relaxed;
-	bh=L9ZQiAG8v4+fZCVXxwejSDShgoX4JcG6q4TFIZYF5QM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O+V0nmfPsI5tLZGn90h1kCpDalIfrQwVBGYMPZTuPNkbroial6jWPKg8D7DtmC8nvbFvC0uh1C8NJtrzDYtGJFk3BXobHfXtxJln3GS0dzAmy5zThPfYQ6UVytdkA69OQ/WTRRdht9zUz5zHk+ae2L7C9UTEE0ejeGrL049IGSRciB8Qlf/nY9MbdlVJWbKMQwwSEs868b40bQHtXiNvGUP6Eppro6FDURm6dEVfUGM91Hj6OhcWd4w5ySgadyGqx9b06jaLm3YvL2etDeN5rpU2MJyG2pSd4Wl/qvus1V+u34ymDsgrb10eYxWR08yuHzztTN6NIuxkw9/0u5nQgw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6ozwaBI; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1783349321; c=relaxed/relaxed;
+	bh=jqvnsBC1QnHy0BgYcjusDNjgJMCaD3QUZ4+Za8Z0104=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ftGSSXalhN/STXwCA7M7yevzFzqsrNps6ceb5j59N7Dg4Lbfop7NSlcbhcBtwRGpLnTvD/KIhuMf0G49/2kaJDNf0nt7pgg7nlZR1G87kIn5K7TqmnQGYuwVtGVhPCbWXjNRLH4U725hIKJfCykn4LCcex8BUFvUpFEejirVwNUf5137v7m4BBwuz9L1mK8/sFl0C3hsgDkI4X/o1+DfAyeDGHPFYI0pat1IbKO0LtsMjXwGqdpmycE0RnP/vLRQwVoVIz74gY3L3LPwSx45PADLexPC7fbDt81EPhFpMCgkmx8bIK+jrKmiHFXlyaLmtZ5PvJkp72uxZkV75/FnJA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RSU0orbu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42e; helo=mail-wr1-x42e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C6ozwaBI;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RSU0orbu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42e; helo=mail-wr1-x42e.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com [IPv6:2a00:1450:4864:20::42e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gv3NC0DSvz3bps;
-	Mon, 06 Jul 2026 22:20:27 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id F167260018;
-	Mon,  6 Jul 2026 12:20:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737921F000E9;
-	Mon,  6 Jul 2026 12:20:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783340424;
-	bh=L9ZQiAG8v4+fZCVXxwejSDShgoX4JcG6q4TFIZYF5QM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C6ozwaBI/97xZxlb0kmr8PA9iMolOuyBfguWvZQClRq/46Zu2S9kvWx24//aF2X8n
-	 Nh791WaveY8mVYOKz5FsgRvfOJ4+cHgj772ChzSAqbzxXjZhY3tHcT8oAk7XVXCgCU
-	 tA10Z5hXZzaIq2nwfzaQP6f13+jV4kPeGYZFn85gRWiUGIva3eVDWgfZxKyBc8kWsU
-	 vJrmdRgZTahoKLsew4hkBkgxq2U13ymmTXrWD3Q6LDiUvUjVuIxt+GXqST4N1rV9gv
-	 jb054KB6P3mLVkhZnpXBPEUtAk5IIaBJ7V/8QGukeju2b8oWQgJov/9j9LrH2BgQ4P
-	 AG/ZuXIf/CJ1g==
-Date: Mon, 6 Jul 2026 13:20:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alexey Brodkin <abrodkin@synopsys.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Peter Chen <peter.chen@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-	kernel@collabora.com, linux-tegra@vger.kernel.org,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: [PATCH 31/42] ASoC: cix-ipbloq: Use
- devm_of_reserved_mem_device_init()
-Message-ID: <016b46c2-a411-47ab-8b17-e679c9ca7583@sirena.org.uk>
-Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Paul Cercueil <paul@crapouillou.net>,
-	Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alexey Brodkin <abrodkin@synopsys.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eddie James <eajames@linux.ibm.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Joseph Liu <kwliu@nuvoton.com>, Marvin Lin <kflin@nuvoton.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Peter Chen <peter.chen@cixtech.com>,
-	Fugang Duan <fugang.duan@cixtech.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Chunyan Zhang <zhang.lyra@gmail.com>,
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-sunxi@lists.linux.dev, linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-mediatek@lists.infradead.org,
-	kernel@collabora.com, linux-tegra@vger.kernel.org,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	imx@lists.linux.dev, sound-open-firmware@alsa-project.org
-References: <20260703193855.110619-1-mukesh.ojha@oss.qualcomm.com>
- <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gv6gD3nn1z3bby
+	for <openbmc@lists.ozlabs.org>; Tue, 07 Jul 2026 00:48:40 +1000 (AEST)
+Received: by mail-wr1-x42e.google.com with SMTP id ffacd0b85a97d-47de0093c42so1237671f8f.3
+        for <openbmc@lists.ozlabs.org>; Mon, 06 Jul 2026 07:48:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783349317; x=1783954117; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jqvnsBC1QnHy0BgYcjusDNjgJMCaD3QUZ4+Za8Z0104=;
+        b=RSU0orbuBm0yLE+4VJkdRQMNS70NPVU4SgvQ+xu/rox8f1ZNLXPme7srSwQ3/MzTJE
+         u39I5z0L4VBbmJNMJ5OMgg/6ZQa3HQNQ1Ytc7VimmS4z2/oYsk91EuvjzSPIlbH5LIpk
+         pw/rHYIqIkcGh8upxxxMY3XQoA0J930OukLmiiucG+JG225+v9rFW9xzW8iQnjoHq18T
+         OBaqifLPuvK7B9ZX6HjVCYRHqRwtCKwq2W4gk6oneV+qdD9f6IEamEWFMYUvanD9aqoh
+         Fo1tlAURTozqo1eK7N+HIkobqX8a2ERS2e5/lPn7Qgn0MhsxNssmNmpL8nTr2cnmlyVe
+         REMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783349317; x=1783954117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jqvnsBC1QnHy0BgYcjusDNjgJMCaD3QUZ4+Za8Z0104=;
+        b=LAXYaCcW4KTEkyWffJ0qyV5294b9NRSS9Rt/Vwl87MtlCF6hp5BKRg79YuoN25SbA7
+         DjIL45DoPiP3r5TUv7KbhtGfUwx1d0zlymDCFU5eq31nbSH93t+tDRYN9mzUQRDFgXuo
+         /a7v+X5smmE/fdOnQUZoml4D9/DwqFwC0hz9tJtB7ZcwLb83kWLCYIkEgE8cHMECGy/8
+         Hfhh94ViLMHV7gcXg8VKGCrCdTf0Gw4WCnLC7c8+HtUr+0EblCTzYEIZexHt7lrxpbY1
+         GDRLBe8KBrItm41RzWZdK7mOd9EY3ZVHKNQYnqDY+oSbMACP+ODGpivZsqvLkQpmR2e2
+         XKew==
+X-Gm-Message-State: AOJu0Yxo4JbRFJK7AOc7r67L6lGStJcQAOfy070ELwvyT46UqbBOGYZU
+	xScSdXSE5UV8p4Zn+t5E1uLoeFrzudoTOW3yIuQ8xHLuzfY/9Ky4FZVN
+X-Gm-Gg: AfdE7ck6jjKd83/1BEjcKRu6pR0D6CG8f4vNIhoqMHd2nufaqh1lmemOvNlw7sjhPQz
+	ISXn2T0zWa63yLxpBopu7Z5gNhwjp+NbOzLCMrjcCe5NYK6rfSvH7K2Rw44WinMJ/ZQ6CQDDgGo
+	YePMzAmFz0Y7+T5b5+PHyv+INln5LXMiq/FiBkZmN5FwdCF4Xs8uLhp/V1gZRUAhgxFibkQWzwk
+	GuSTuyLP9UdADKnGEvXqV9rNBbT4wjI1JX4uBaOOkaMJFk0Irm0DzMj+uRpRo/LtnS5gqo2GE1D
+	coA6gUDjdflA2E6j9cPCaMA3s/TrI483W/nVLhCrg9Q8jKcWeR/lx7TQTix+dWlZFJHscbZhHax
+	C0Det7ZOyje4u4Reml/gmxecqt6F0fXlo8LSRGF+wIg0tdYSXAIBPaJ2i4+2Zw4LhCfom1XACsY
+	3CslaINZt0WKoytSe/eXmqNe7lCXKA4KYHBg==
+X-Received: by 2002:a05:6000:186e:b0:476:d52b:b85 with SMTP id ffacd0b85a97d-47de6695ff5mr680196f8f.16.1783349317101;
+        Mon, 06 Jul 2026 07:48:37 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47aa0960634sm26798473f8f.26.2026.07.06.07.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Jul 2026 07:48:36 -0700 (PDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: andrew@codeconstruct.com.au,
+	wim@linux-watchdog.org,
+	linux@roeck-us.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	linux-watchdog@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	joel@jms.id.au
+Subject: [PATCH v4 1/3] dt-bindings: watchdog: npcm: add GCR syscon property
+Date: Mon,  6 Jul 2026 17:48:26 +0300
+Message-Id: <20260706144828.3517631-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260706144828.3517631-1-tmaimon77@gmail.com>
+References: <20260706144828.3517631-1-tmaimon77@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -212,38 +108,56 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kLTrwa+nl9jSAPoJ"
-Content-Disposition: inline
-In-Reply-To: <20260703193855.110619-32-mukesh.ojha@oss.qualcomm.com>
-X-Cookie: Did I do an INCORRECT THING??
+Content-Transfer-Encoding: 8bit
 
+NPCM750 and NPCM845 latch watchdog reset indications in the SoC
+GCR block rather than in the watchdog block itself.
 
---kLTrwa+nl9jSAPoJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Add the optional nuvoton,sysgcr phandle so watchdog nodes can
+reference the shared GCR reset-status registers that hold those
+latched watchdog reset indications.
 
-On Sat, Jul 04, 2026 at 01:08:44AM +0530, Mukesh Ojha wrote:
-> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-> the reserved memory region is released on device removal, fixing a
-> missing cleanup in the original code.
+This is needed by the following reset-status support, which reads
+those latches and reports watchdog-caused resets through bootstatus.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../bindings/watchdog/nuvoton,npcm750-wdt.yaml     | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
---kLTrwa+nl9jSAPoJ
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+index 7aa30f5b5c49..81269fdc81a5 100644
+--- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm750-wdt.yaml
+@@ -16,6 +16,14 @@ description:
+ 
+ allOf:
+   - $ref: watchdog.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,wpcm450-wdt
++    then:
++      properties:
++        nuvoton,sysgcr: false
+ 
+ properties:
+   compatible:
+@@ -40,6 +48,12 @@ properties:
+   clock-frequency:
+     description: Frequency in Hz of the clock that drives the NPCM timer.
+ 
++  nuvoton,sysgcr:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description:
++      a phandle to access the GCR reset-status registers that latch
++      watchdog reset indications on NPCM750 and NPCM845.
++
+ required:
+   - compatible
+   - reg
+-- 
+2.34.1
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpLnXUACgkQJNaLcl1U
-h9CXQAf8DO5Zk9xuOb8fTwRJIIud+GlrdJtvcprjSHWU5ymHQPkN42Prm3dW0Ut4
-OKEMbp1vbc5dzatR666ThvdBWJKtZsR+5FkQtiYSkrpbp2IZhStfEB1E1asPPN0X
-kthMlnGnLeb7Bu8qpxAn0s4xgLaycfsPXvbWJZ3xDEPrhrKWPmIv67jPR4mchEH8
-PjU+XLJw8I811PX1RbTELfbNgHWdvDFXZ6s1xPjODVw62PaGGDVBMlv5rAkEdYRg
-esYE2BAs1/qFt0OSfMgv+Sht1er7hryzp1Mnr3qgRs4uDsnEdIvyEdrWvsRnKq3Q
-TSiu7ZO3KFhVC8KoNZS7qFcHgW97rA==
-=DjQp
------END PGP SIGNATURE-----
-
---kLTrwa+nl9jSAPoJ--
 
