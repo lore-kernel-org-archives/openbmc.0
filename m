@@ -1,39 +1,88 @@
-Return-Path: <openbmc+bounces-2247-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2248-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711E1C43458
-	for <openbmc@archiver.kernel.org>; Fri, 10 Jul 2026 02:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D01C44501
+	for <openbmc@archiver.kernel.org>; Fri, 10 Jul 2026 05:50:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gxGZL29xpz2yXj;
-	Fri, 10 Jul 2026 12:51:54 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783651914;
-	cv=none; b=RVUkZon31IDogyYBLQBoB3CDhbJ1AVWmFARHMNnvbim0ei76u3z14+RzXypVXhFeY82p/Hmiu+aCdUCGpPkZjPBHuh24Ppda8t7IqNBi0/py79RB9XP2ujGjJk7JCBi1AKsFxrXPk7grSfIaBUNzmvoXUv07KnWJWF7qkpjUeMLgyGnQdKYdt+7QLcDsUwfgYg0jkDRNwcwRftnCYhXPNXXRyo80mxLKe6n6npSClFOhpV1e84q59Bs5F+2IbtFOOA0DDCBTi5h0Nm/4XLjyKTC8T/DKELu/VsbbxY8USDopZ5luWPk+WiuYh9HtJxXE0Ch8Oj4Z2Y8Hb5fZIL+BQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783651914; c=relaxed/relaxed;
-	bh=QND2PN7GauJiMGSoPO2cqo2UANUsLq4XSYhctLbUmp0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=SdrdYb4yHeHVk+n5K9DvOAEqRWqN36Cfye8RhU0D/NZCEp4zcuDLSedGGWgrvRvaZrnavxbXUlmMDSuw2Seenj4U/JxRUXwjvCzfsII8nGbdJ/PE1oetqvFiEj5mglq/nJ7N1T61ZWxatgIO9ZaJppykDetal85ibrjvwbI2gBDzjidjMO/2TqYqkZfTaA/tRRFSPRX8Fe5lXHoHnmyaT+2piNRgiaxtQAG0uUS6dDQgZvtCRNk52t7mKS1wsGDpMgfmcH7EKfjO/Y5qYuOu0jmZGo6bvIykVYLRFa17Bolto2g19lRS8n+94qoSZ+l2fUz3MKw5w+L2r9kKAG/Jcw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=ryan_chen@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gxLX61DKlz308q;
+	Fri, 10 Jul 2026 15:50:14 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c101::7" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783662613;
+	cv=pass; b=bSrbO9BGkxRKhPd7QqK4xIuMX55PIJvHVVKFhDAUfzWZqv7MAiFbzbA1FN3E+YX62wFJk169jHW//fKMspRROVVQcxm0u1GRaefEsRGMnt1gsKPGy86+FJK0Ty6c7a3EYjibmRII8dhXBq7pPCIWvnLDSggrf9vANDNftkNo8V23Uv9ZL2rAAE/U1UwA8HaDg2dEJn+fVd5AKiTuDjbiZFtU7uwWqxIFDLTIaXHfMoSl6A+mKED1IQvasJfE/AcK5CgFtts0leANQeLEG0Y7xc7cTlajeXL4U4gYN78lPiOX/o2VXztO5unPeRGGnNUY1zctc17TlPdzS5Yi4YIt8w==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1783662613; c=relaxed/relaxed;
+	bh=b2Y45i/RbcAAzMU11PEJZYNZzNCuWeRpfDzY7DpC3Xw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dNF+sxIsXyb3z5Y7+KiRr1qdeS/YptXTjdur09ZHhi2CQYbZvtGt8/n3i3nb0DsEzjdAVdhrRh2j0JldpU4s7PloWksJtoP8cFC6tO2Gtbskbtcr2xCd7Q5uOw/MkYMqlCoHAYGlLnYcPiSKUK4AL3dNlWpYTWXPQV0S980pPML4hToB9QseRDpRNiCqBfdLIrmghTy9gclr/KbZIzk27JffhC+U1ui4wGyHZBYEqDcmDKdTnCCIytsk8KS8luH9gd+ILMCVsVnOAsP/ER4f3cVw026dy6ZPeZ2qXMdM6K/VwdXvfK8CDJVi5zoXhC1alwfJezXS1RGJ48O/puy1/Q==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tCnKLcRx; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c101::7; helo=bl0pr03cu003.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tCnKLcRx;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c101::7; helo=bl0pr03cu003.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org)
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazlp170120007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c101::7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gxGZK0DgNz2xSb;
-	Fri, 10 Jul 2026 12:51:52 +1000 (AEST)
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Fri, 10 Jul
- 2026 10:51:36 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Fri, 10 Jul 2026 10:51:36 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Fri, 10 Jul 2026 10:51:35 +0800
-Subject: [PATCH v2] dt-bindings: usb: Add Aspeed AST2700 DWC3 controller
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gxLX26Dqdz2xlt;
+	Fri, 10 Jul 2026 15:50:10 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mhEQ+fnmUXvQQcTVcs3GWmNzMgwP1n3eYhJSPsrYBC9c8PBvRqBuGar2jEkeQoDoNVAULxHJpmWwmJA7Z0Rto1fy0I+/FFjCrCkg6nZdRqY7rfbpUIUlSfiQlc2wL0PG0dXFfNipjRvMv1F1VcRf8VFHHgH2PwcsXuRVwvdvJZts3y756LVuzsgrKzu9fhFRTCRWHZKyB3g7iUi3AlIIRI4kkUFfzq4bscGVzgOyy7CEHB/rAgTFWnG3qjAQ52MGm1riXvkXBjOPKiJr4kHUOYX0ddWztwugNr43aDnQTeiqb3f79Dbw9FjHVYwuub6wejKIObWntAD46jPMUSQiMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2Y45i/RbcAAzMU11PEJZYNZzNCuWeRpfDzY7DpC3Xw=;
+ b=F/TQtVMfZImH83fLcwbEEw7mfkt/5F+K5HvDMS0ja2ghk51rSHf9QnIn2OvWm4LZ1gw0W9+nXKrZlRTotJTZtxzwirDTcwmrauzAhjLUC26gNL4bKkDJ0Xp1HQ70RiKlydbLWI9W4zbqRcpRT0kDOxkxih4CW2vE8+WoQd1PZcfLXWLqRpwj/RIJg2jcpfcoxx8fsZbvN5Xg5vRrb0jY9tVZLwj8fVlxTCHnWCDTAruvOpEeNLbUeOWOWsqsL7ejI0w7Du15+WcWc4Nd5Ochyt6uDBv4fRC4xC1fZoGJJNxIY1kdnUhWdaSZrxczag6pH6yeFpzqd8vLkE3Xtoxbyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2Y45i/RbcAAzMU11PEJZYNZzNCuWeRpfDzY7DpC3Xw=;
+ b=tCnKLcRxIx3wvtvAT1PJyHv1yYTL9xwYNxaQiixIdbXsvIgkiDRcE0FN3M9H3mTRaEkODBFroEc0THcptN9KxgX8y7r9sgUzDRSfICJbvsV82yFtioXhYtdAO2/qywJcj+jz/0Og2gtJr+8gOUFSNu8GxXl1kNP3ZdHZZkDz44REML/ZYFyUkrYTUeH04+wZ6W1a/Ba9iR2TrPvPzfXjm6xIjq49xnx1bIGrfafuDLN0HUu3q3eNwEHFSfhf4o0XmX5+N7/pWPGVjfGQ1y7tcexOq+rhRI8sKNy8S+1D98B5jZMsrOylLBo3A5ZKBbc45IgXFIefOJr/kINNw5zPww==
+Received: from DSSP221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:3d5::9) by
+ IA1PR12MB8555.namprd12.prod.outlook.com (2603:10b6:208:44f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
+ 2026 05:49:42 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:8:3d5:cafe::41) by DSSP221CA0013.outlook.office365.com
+ (2603:10b6:8:3d5::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.13 via Frontend Transport; Fri,
+ 10 Jul 2026 05:49:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.0 via Frontend Transport; Fri, 10 Jul 2026 05:49:41 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Jul
+ 2026 22:49:30 -0700
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Jul
+ 2026 22:49:28 -0700
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: <andrew@codeconstruct.com.au>, <joel@jms.id.au>, <robh@kernel.org>,
+	<krzysztof.kozlowski@oss.qualcomm.com>, <conor+dt@kernel.org>,
+	<andrew@lunn.ch>
+CC: <devicetree@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>, Jacky Huang <jackyhuang@nvidia.com>
+Subject: [PATCH v3 0/2] Add device tree for NVIDIA VR-NVL BMC
+Date: Fri, 10 Jul 2026 14:46:54 +0900
+Message-ID: <20260710054849.3178747-1-jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -45,163 +94,65 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260710-xhci-v2-1-f292c4f7339a@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIADZeUGoC/yXMQQ6DIBCF4auYWZcGqBXtqvdoXAgMZRYVA4bYG
- O5eqsv/5eXbIWEkTPBodoiYKVGYa8hLA8ZP8xsZ2doguex4J1u2eUNM9Hfn7ICu1xbqdYnoaDu
- Y11jbU1pD/B5qFv/1BBRXJ5AFE0zXTQ/6JlWLzyktiHZF468mfGAspfwAHLZtUp0AAAA=
-X-Change-ID: 20260624-xhci-185ffd9ef8bd
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
-	<andrew@codeconstruct.com.au>
-CC: <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
-	<linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, "Ryan
- Chen" <ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783651895; l=3993;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=do+Sg8cAREeCQ4d4ZCPhx6v05K6G0pm+XApZl1MMIaA=;
- b=89QHRlgQ9hjs0p/czsnJcovOWdx2SKke/7VpY9lqq+YCYnsx3QvZ7QEOtIggXYVMGXqpElOvG
- mjKsZ3PWLrhDmFu/xLUlpOBU/siyU9AbzXc0mTQ1ITOndf6LmIHDykV
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.126.231.37]
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|IA1PR12MB8555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b771590-a04b-4863-6104-08dede4709bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|7416014|376014|82310400026|1800799024|13003099007|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mnSUMlkcptb3pcjuYolHtxQK6HNyelp96suuitkOEGtTohE9yw8BhH+FQ1/6ZJW3Bfj/oYOw6F6ScFQknbLP1xia+uT9htcwd+d2tReR1OdDVwFbhdeUl01JA8VDL1+bULBWql0t36ZeqCw4ZvU4KxW0xRKfrLxJniWLikvwenIFffki+D25H2P6dhLj3cwKC/UWFVJe9QNN7oKAjWxO7E1a16iBmK8fuLIZqti11+ws0UEhBhR+FNSmCpiz2iGeXgnh92HVTF9GeLw3zoPZMNSN2hnm9wlECluMUtyOUxJhADiUB0Gk7K1OkSso7O0RBUQBYDkKLaZaOkHG0ApXngrB2T+Jc53llOKtnyH/4eqk6ZcNMCbS1AdW0Nkb2qE79imd7ryGVQxVMFVwxaITQCDNeLkBZbexaapsS08eEwYd91zXnh6OyCHbsY/NDOfGV87La6HlIDJdpRN6LilRRZYkCEZwdBZsVsXiCGD+KUzByTQLV/aIFHFeDPqdFsEmzmiQujHqGntI3bFR2r/D4kxoqE4zmoBb1CwFAzFukCt4xmvobgdEpavXy1MbB+2Kkvan86i9GEgcAMDp1O7FQjZJdhiomMzf3x868EjkkiaCtc8aImKZQYtLq8LLUrK8mqqhlRw5iC9wtWvEOhwslqmEFIPE+HqNvLnLwnD7ZSPnImQQPUu2Hd/jrWuVExWgpDENBsK4S7tck2KYMipdXg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(376014)(82310400026)(1800799024)(13003099007)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	51fBqc5TpzV4o4uYyKelKS9N6hws9qywvuUDUVFjimD/ZSs5FQKvi+FNH+9ahzUrVeddss+Dl/6ZZRounUOriX/m+R4JNitvCKld6JdKsPV7zourNp0bylHK6Vg8iBqchUtK6kcBtP2VO1qLLLE/BRYoyybxSVjqLQb35oBXBA5C+4+uyNdZC2aUUPfFKcMSDEahACCcm8upFCwgTYX7vJyBjEHdjMimhb93ZVtgdAeRNmSECBMsH1NlNBv5Lz7j99C5H9HMOFdBJbLQhiMBiYyOiFqnS7VXQyKEWKbw+Rpjf03NFvzU7p4tfFh9Agk2IrszkWQzAxR7p3NvcvGrQtAK8td1JAHwgOetJjkdzoazNq6zLyaUz6wv+d4BtAFQMOZ5o4hCg5l1XJJu3hrYgxngYm8B2tfQuMYRlictMExTXIeJuvgUqF+nnTE8l0b5
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 05:49:41.8848
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b771590-a04b-4863-6104-08dede4709bd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8555
 
-The Aspeed AST2700 SoC integrates the Synopsys DesignWare USB3 core with
-no vendor glue logic: it is functionally compatible with snps,dwc3, uses
-the standard DWC3 clocks, and the only SoC-specific part is a USB3 PHY
-that is handled by a separate driver.
+This series adds the DT binding compatible and the device tree for
+the NVIDIA VR-NVL BMC, an Aspeed AST2600-based BMC for the Vera
+Rubin NVL compute platform.
 
-Add a dedicated binding document rather than adding the compatible and a
-conditional to snps,dwc3.yaml. This follows the established per-vendor DWC3
-convention (apple,dwc3.yaml, socionext,uniphier-dwc3.yaml, ...) and keeps
-the AST2700-specific constraints - notably the mandatory USB3 PHY - out of
-the generic schema.
+Changes in v3:
+- dts: reword the &mac0 comment per Andrew Lunn's feedback.
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
----
 Changes in v2:
-- Constrain clocks and clock-names in the binding rather than leaving them
-  to snps,dwc3.yaml.
-- Link to v1: https://lore.kernel.org/r/20260707-xhci-v1-1-b202b9b3274e@aspeedtech.com
+- dts: correct the compatible of the PDB I/O expander at 0x75 from
+  nxp,pca9555 to nxp,pca9539 to match the actual part.
+- Pick up Acked-by from Krzysztof Kozlowski on the binding.
+- Pick up Reviewed-by from Andrew Lunn on the &mac0 and &mdio0 nodes.
 
-The common DWC3 node properties are inherited from snps,dwc3.yaml via the
-allOf $ref, so this schema only defines the AST2700-specific constraints:
-the compatible, the clocks, a single interrupt and the USB3 PHY. reg is
-required but not redefined here, as snps,dwc3.yaml already constrains it
-to a single region.
----
- .../devicetree/bindings/usb/aspeed,dwc3.yaml       | 93 ++++++++++++++++++++++
- 1 file changed, 93 insertions(+)
+v2: https://lore.kernel.org/all/20260706101526.2556226-1-jackyhuang@nvidia.com/
+v1: https://lore.kernel.org/all/20260702165524.2168091-1-jackyhuang@nvidia.com/
 
-diff --git a/Documentation/devicetree/bindings/usb/aspeed,dwc3.yaml b/Documentation/devicetree/bindings/usb/aspeed,dwc3.yaml
-new file mode 100644
-index 000000000000..fff5a200f8c7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/aspeed,dwc3.yaml
-@@ -0,0 +1,93 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/aspeed,dwc3.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Aspeed SuperSpeed DWC3 USB SoC controller
-+
-+maintainers:
-+  - Ryan Chen <ryan_chen@aspeedtech.com>
-+
-+description:
-+  The common content of the node is defined in snps,dwc3.yaml.
-+
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: aspeed,ast2700-xhci
-+  required:
-+    - compatible
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: aspeed,ast2700-xhci
-+      - const: snps,dwc3
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Controller bus early clock
-+      - description: PHY reference clock
-+      - description: Controller suspend clock
-+
-+  clock-names:
-+    items:
-+      - const: bus_early
-+      - const: ref
-+      - const: suspend
-+
-+  resets:
-+    maxItems: 1
-+
-+  phys:
-+    maxItems: 1
-+
-+  phy-names:
-+    const: usb3-phy
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+  - phys
-+  - phy-names
-+
-+allOf:
-+  - $ref: snps,dwc3.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/aspeed,ast2700-scu.h>
-+    #include <dt-bindings/reset/aspeed,ast2700-scu.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    bus {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        usb@12030000 {
-+            compatible = "aspeed,ast2700-xhci", "snps,dwc3";
-+            reg = <0x0 0x12030000 0x0 0x10000>;
-+            interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&syscon0 SCU0_CLK_GATE_PORTAUSB2CLK>,
-+                     <&syscon0 SCU0_CLK_U2PHY_REFCLK>,
-+                     <&syscon0 SCU0_CLK_U2PHY_CLK12M>;
-+            clock-names = "bus_early", "ref", "suspend";
-+            resets = <&syscon0 SCU0_RESET_PORTA_XHCI>;
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&pinctrl_usb3axh_default &pinctrl_usb2axh_default>;
-+            phys = <&uphy3a>;
-+            phy-names = "usb3-phy";
-+            dr_mode = "host";
-+        };
-+    };
+Jacky Huang (2):
+  dt-bindings: arm: aspeed: Add NVIDIA VR-NVL BMC
+  ARM: dts: aspeed: Add NVIDIA VR-NVL BMC
 
----
-base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
-change-id: 20260624-xhci-185ffd9ef8bd
+ .../bindings/arm/aspeed/aspeed.yaml           |   1 +
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts   | 901 ++++++++++++++++++
+ 3 files changed, 903 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-nvl-bmc.dts
 
-Best regards,
 -- 
-Ryan Chen <ryan_chen@aspeedtech.com>
+2.43.0
 
 
