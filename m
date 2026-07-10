@@ -1,94 +1,55 @@
-Return-Path: <openbmc+bounces-2251-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2252-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C181BC43458
-	for <openbmc@archiver.kernel.org>; Sun, 12 Jul 2026 00:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAF61C43458
+	for <openbmc@archiver.kernel.org>; Sun, 12 Jul 2026 00:54:34 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4gyRsZ1MPnz2ySN;
-	Sun, 12 Jul 2026 10:54:10 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c20f::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783717794;
-	cv=pass; b=dWpBl5RHmI/c+oyNAJZiehnIvC2Tl6oyDnYYtBdTmfLz+ExQfywOdcN8x+Px83v8SL5SFM6CJO/uNon8wmauI2Vzd8i7pqATgUxXrxbtvHbqSJSXl3jOqIagZBM5CfDaGXTsYAuY/0vjQ+aY5lJNiBJ5zDkWHxb+wD+M0ykP1wEvoVEVuv8KC+qiQErHOlBme+Qb7k5ZjWDZQZm+IucFQG1+Dcy2kwJi7w0NTgGd2fGz9WrqJse0WSiT7fBu0wJQbev03yKZSmx2O81236FCGE8oPlcp8k6HYHe+La/G5/LmgWzNzMgCsmj4r7kocuKJO221ldfjCvKf1mqVZH0aiA==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1783717794; c=relaxed/relaxed;
-	bh=UQ6iqvoMgSKA8njIldwfk5dhfCpW1ru5Wmn6M0680rY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YIWUZEC4nSv0WoFHfEhYj0K69VAMrDcglEk5w4a4shRF9V+VCuETIFedXxU2dDFCC6FKxrftWb883PU/DtS9hZVGb0WBeRt8fq4pCrp9BAt/EP2lHC95bPnprZ3prAYxY9HUrIOQoaHx6oIruLXFcdIjDpEaklPM5FoxWia5hAGuFncX4AevmIutdsxnwurSBUCSMWQkR5rLpl3K6JucQ6nJyBiKs6Hz7GalT+/9SQNQv1gK7+moDRZ0IBmRCUnrt4YAfvUzJx9vipu37qH7uzJ1Eit+4XlUo6LCkM5jaNtgWoXyLRFRNIu8q5LDzWaWKqG/+9vrNICoaOglcQuePQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=oss.nxp.com; dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CRxRQaHS; dkim-atps=neutral; spf=permerror (client-ip=2a01:111:f403:c20f::7; helo=osppr02cu001.outbound.protection.outlook.com; envelope-from=frank.li@oss.nxp.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.nxp.com
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=oss.nxp.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4gyRsp1BwNz2yf9;
+	Sun, 12 Jul 2026 10:54:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1783698114;
+	cv=none; b=mJNwYOvwh8bvMj0zA1KFtYCfcoUkLdrTAQ6fDnpQkIRjdLx4YpvJ1t7ShvnSCuYglGfCQLXSWr9DIre1+rJMbJz27bMbj29POmY0E2+RlMfmXT4psbk1+nZqaXhuSdK79vbRy5eOPSJU7/z4GFhknHO++EsVNRXPHE3u6F7sf+SF9U6I0t6c02DThg/0UaEAm6kVMu+ueAkgxpxlKANRH02n998WeIYcO/Dlvbm5XPdo3WIj2aIu/U+08xCMSoqwPQpgvYws7Ow6T/eId6PnivHLXgC+J1o6ZaootF3m9LKyp4rFIEYwot858GqmO8Yt0uPxJiOHf/R2i5bmOPxlRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1783698114; c=relaxed/relaxed;
+	bh=a9IuIIWMF3nn6MhJn3nVioRG/vLkyDShB0IZOzPkMNg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ozEUaPh0Nu39h93HMZTa4ky7Qw1dxH1wEC02dU8GgJNdeAfjpwIE68HQP7C20WNRYCMPcS/u7ljsiCHN2bU9UZDCEHRRxNax7I215acIwDAeZV0bD+CFCGnvOBzFTRdh1yNX5T3mSlDIxAacqIMoue3yuzeIwn8jtyIwz3gagDDvUTBv2pfpLF4d3eK+VFVWd+Vl37uPQpHASN2cmnOhvDgH2NfqKaL/k+dM5/4QKo6/10bzB/B6ESsZJLGhb/L5yNG3PzpuOM66CTsBYSywbSr3T9td8Cr4uZfaZR3PsxWCyRrGcnyrPXe40xgDkDkDjXW55MSElN9HV/LXKK7YYg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZqfRHd86; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=mathieu.dubois-briand@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=CRxRQaHS;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZqfRHd86;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=permerror (SPF Permanent Error: Void lookup limit of 2 exceeded) smtp.mailfrom=oss.nxp.com (client-ip=2a01:111:f403:c20f::7; helo=osppr02cu001.outbound.protection.outlook.com; envelope-from=frank.li@oss.nxp.com; receiver=lists.ozlabs.org)
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c20f::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=mathieu.dubois-briand@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4gxkxC0q6Tz2xlw
-	for <openbmc@lists.ozlabs.org>; Sat, 11 Jul 2026 07:09:50 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mcusBZqd9sHVe8dwEN/CctMepvfS8yNhfkI0S0aaXraCwsBVRqQI//nW1UwLnjNNTFu6TNkn3KJeP7asCVgR27VVv3VHRcU7+4hLkH0eghePDT79IZavY4QFzxW1fIN1sex1bp7K9F0OC6qEHVjL0/uFQhTpOw3udkVRx17B5cepWmIhVFAp5qrti7f69NStpVS8ztkvm5BSnHYL9K3q7Vu9MiPxJzUpd/KpTeqkSiOrmeKqaLIkLRw1zDZwaWS8IF8DJCd0SCQ4SAIwIkuDz+/QsC8Y1uOmBJeTOjV26IJVYx1KNn6pjf8o+FzeLVOOUS6fVzeFl1+IRvQXcAW/pA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UQ6iqvoMgSKA8njIldwfk5dhfCpW1ru5Wmn6M0680rY=;
- b=DQ0WUO6T5YmGn58RmuePx8+SCPQ00zQMBXWkRX7GvkN41jyyJCdOMXi3AA3QqgLrGaJhjPZSdEaC5ob+U3kRXanjbYM76lKkp1Nq3BiAieR0IpC7kcnn5lsR0hT1wssaMlhSvi5HuTDYfpf56aCk+thzru3ROkfam52mk2iv7+m58jCDlROuayT/9wl9LDMsgw0xmA5lQBZwFkMANYbNBImXJ50i+WSAP3E9Wmg66j/BcE8p7lXYACkckfOwtHWkUHyR7puRN5fORkb5cifvN0CqtysRIkSc3YCHKrcLRt2Ucgn2EyOAi4gtFQN6cFQGqhARiOqJzuOy0h3rybDFsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UQ6iqvoMgSKA8njIldwfk5dhfCpW1ru5Wmn6M0680rY=;
- b=CRxRQaHSUPoMi+Xsb8p1VAwKrv1pn6Fn6/rlFKecpgJk5yxD+C8COhXdkPdmvPD2COSuR1kTCqGxQZaSv2py+K1GrRbVsRzgaMxZhNxDVa5gOELvATtUIjmvaLZtkrE2LTJlqyV4F/jcEyQJqVJ4SMkyc64qKboilX/9rht4riEQ+cwcsS91yL2CgMu1oxEqMzxIwYIaiwx2jAzEOzZmEVufq9S6lKcx2J/wPSJVT0DBEK5+yBQODEg44Fzo+UlMDuTptayn+k8mfADJQha/6JOFDgb28aGkhRSrNUoTdKKSYBYqRk0Md2N2qqIbOO7DnIx0AjSld1ID0Fc60h0RIA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB9375.eurprd04.prod.outlook.com (2603:10a6:102:2b3::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
- 2026 21:09:24 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Fri, 10 Jul 2026
- 21:09:24 +0000
-Date: Fri, 10 Jul 2026 16:09:12 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Wei Xu <xuwei5@hisilicon.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org,
-	Tom Rini <trini@konsulko.com>,
-	Peter Robinson <pbrobinson@gmail.com>
-Subject: Re: [PATCH 1/5] arm64: dts: freescale: Import optee node from u-boot
- device trees
-Message-ID: <alFfeOFz2UA7hAbK@SMW015318>
-References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
- <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com>
-X-ClientProxiedBy: PH7PR02CA0007.namprd02.prod.outlook.com
- (2603:10b6:510:33d::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4gxbfn6nc1z2yXj
+	for <openbmc@lists.ozlabs.org>; Sat, 11 Jul 2026 01:41:53 +1000 (AEST)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D14AAC2C64F;
+	Fri, 10 Jul 2026 15:32:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C2B3C60349;
+	Fri, 10 Jul 2026 15:32:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2ED1D11BD1C3A;
+	Fri, 10 Jul 2026 17:32:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1783697529; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=a9IuIIWMF3nn6MhJn3nVioRG/vLkyDShB0IZOzPkMNg=;
+	b=ZqfRHd86BxzR2ZmpA+iEZqyUSwZ4jKH7irfqT/PLD/Z3wNaT14yrk/8uGu+fqQy4TnV+/w
+	CQxcEwnpJUx0dz/adEgEMoHKYi0htAmh5WfQtMIN8EBfQ2SZs4/oMEbhGLR8TS6zp4lFe1
+	KC1629eorzgZwZyxBZmqbWDKIaZ4J8990+RMjECCsCzwnCMaQYtiznf+2vIzvgVIMUxujM
+	ejZfj6Pw9mp9pDQZ1A3GwfKXGYpuBUGVnZMtQgHSjDnGrZMw1pGJTXJceaGeaouTSrSG8+
+	wjS2edXdd9rSyZx7RJ1LDIUrt5iUOd1MHNIMTAsaL3mnb70hbcz78a/RImkflw==
+From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Date: Fri, 10 Jul 2026 17:31:36 +0200
+Subject: [PATCH 3/5] arm64: dts: hisilicon: hi3798cv200-poplar: Import
+ optee node from u-boot device tree
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -100,289 +61,67 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9375:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7992953-0b39-4c42-b3fa-08dedec784a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|11063799006|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DgleR1dEoffZGnYGWvLtsb6e8+KF1k+76IfXsvYpYCUBvoA+/gNU4bEKeqiXC/AF3uO9Mh7/57FFGl5V2GyrQFp8S0XJn/lLfJ0BSBbvUUcDN+WYGNO/v3JfUL31ah0D7LEJ4iaGu/H4THIts8WbhYxHNKYjbLRIAVjUbyGHSOWJjgz+Lxm56NhaYFLPwWtLXT+cyUtpc6iC5TDoVJyPm+Lyd2WHRPWlm8rNuxbqTcqYo9FM9H6CgnKeNpn5ajTyrVXe9DOdKO1lBAqQ7FjjznuWtLAdVWF9ccdSnueFh59iJOe4fMyVLluBBFhY9fGARjTn8ysXrqyW5QSB3N92Kp6yGkaOF+u7NfDW9eNn6sbw9SpzsfS338OuFhObJb6bfWGXL2MMvGrp9MJKxBAVXJTap5Hv281SNWbVfkSbbtTcMgOU3EKtJL0Nq6JYKWU4QIv1rYQa0Ouayp/kTdLTfPFtSjpmdWZ1MR0GUnX7aoZ7eV/roznOBmxMAqJpnBwr4rB258UyswfFfTvCT7m0uf52ZRgGWTipBjUSkxTz/Ihbc8FKWE/mT36btlYWFzXaVYt53orhLoczxElO7NulumqQ9eLIfBjqDOiEEQ1dly+DbMEHbySHVgASnpWsYeaf3XD62lw80YeHCzr8TUjVKpFOVOSMSZMdou+qYQzZVMg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vMkMvUjV78IT0PTEmqPWxmEQIshwD9C4CY2ORd+IMhPlVpMD0ter0ylG9Pca?=
- =?us-ascii?Q?j6/pBzgXzEZNpdjfWhWgbSbcdNx9DeOFc7rsjAt1+4BPySSFaZmysHWC/tuW?=
- =?us-ascii?Q?mDXmtX2Zu7+mGBuJI+k6VRUTV5J1jCKMc6qUTzflTRXBiL/yOT2xniR3U9Ng?=
- =?us-ascii?Q?VKeJZzAD3EQuJOxorKKAnv7t9VyfXJgK2hm0UABbgRegjKX9ZPvMks6yfM56?=
- =?us-ascii?Q?SrtncF7uSn1p6AbQQs8Fd07yZ09NRck9FcxCUs/rNfuWsu1Y8jcnCCk+X6Hy?=
- =?us-ascii?Q?7SekQihb2/4zMnjri+kiweQsj2lVXNBI/YxcdZoxPOLuBtwtwShJUZVlV60a?=
- =?us-ascii?Q?kF3ncj+UBiQLkFZ3Q0fyZExoRIJGHcYjzGuf4PY1qr5xOZu28BmAbmixUzk4?=
- =?us-ascii?Q?mvewnLgCyfW2ft6GtzJah1ONI3SQIQcFXUssx7rG9S02otm9W61fiCMxgLAJ?=
- =?us-ascii?Q?UmJlfEluoQyBi3MKImzZapQtfjTlN+B01iJljh+9DKKdwn6JHfbSE9aYvrRX?=
- =?us-ascii?Q?SFPXePAT+xpRV1Nqf/mfwvlKUtn5+04hIx6+khBmbZKVB0MbHUDrBW0xZmwz?=
- =?us-ascii?Q?QrP+VHG439dHkwlG3GGKeVn9/XnmXHQkp0thQbYXFFT4uhSzvNNLBgPxYpKE?=
- =?us-ascii?Q?c7uPYUXqxTJugZ6HEEFLlmf+GRzaSxxcK7LyMieEaQptyqTnG9lvaJPdzBvW?=
- =?us-ascii?Q?9ZHSaAZXxsWIF1WPAkqrEPrlqQ/9dRWg4G1mfrvc1yipeUwqo8JINlNHtkbn?=
- =?us-ascii?Q?VPbUlEqzZvvx/+U289+kmY1WS6cDTayX5gGZ8bdkXxH5gsnGPjxO3dc/JG2/?=
- =?us-ascii?Q?hgmSR1aRCjkDYYoZXMuqEGOPMfPl2Df+JnHzl+g6IKwOEjXSyAm3odZEcolP?=
- =?us-ascii?Q?JTT1l7ikQhfzyJfBk3suuuqFeP8JoXYLUi8ccjOjYPa9kfyRNl9CCOv9qxqR?=
- =?us-ascii?Q?2XMyF5uyBi2r7xhMjCLpkFox8ue0/hblgB7KabOSwE5N8WvRDDUCRUUJrXu7?=
- =?us-ascii?Q?Fx0MTqoXjIB3rALSRpD6XfuLX+08O/jBDr2C1E/u6vZ+ZLhwRTIl+n1JnV5g?=
- =?us-ascii?Q?qY/Fo0AUyfl+znEx4pFN67by1wGiQURrWW+5AT00XwNnS1oaFAkCM+EBbUND?=
- =?us-ascii?Q?0wNo2VaqmapxDBmYicgSIn3zxoGZXmyNptf9uVyCN2k/5CcTyqbERjXLdefK?=
- =?us-ascii?Q?Jk8g6uNKOY89u3kQLb2YJy9atmDpYA1OQ6R409MMeHdfrE7dhAo+SPkB0eg4?=
- =?us-ascii?Q?tqQxNa//M0F3VVFaj0gi2EjGk9AQYJ4hivP94AHDk/Ou26hVY5ra/gNoUt09?=
- =?us-ascii?Q?Ygjwi2XPxXDD9WSrI1X28m9D/1LeUCQhocnnK1g7br6jhBfDTLxe6FDtsiYe?=
- =?us-ascii?Q?AHIa7b9ysYxL6ZrIUhXdZYrB9e6F+DRJd631O9fQ6FfwEo4ZFm4PJ+hegJhI?=
- =?us-ascii?Q?fA9iT1FuefRiDPwJQLCP8LsdT97vuDvMU1zvmJqvLzdziTvgMZmpU1ryf2rZ?=
- =?us-ascii?Q?/ebVhtD5XoMplCQ+YeC/g0azN+hlNTGdh1P/A9H8vXKHCT4GiTkTI1HpkSBK?=
- =?us-ascii?Q?+9iU/j5XXip36PSuM0NSViYxdKif9IpqZoGBze7gaI8LhCCkWcb+W9k9RsLc?=
- =?us-ascii?Q?qwYq3DTfhmrw53hzj6MuBcYHQrhVOq19F5pzU6LbhDsx9ueL/7gMqmETiBsA?=
- =?us-ascii?Q?sANCdAM7r1bRknkh7Lc++IxfqVr1RkjK1UHZ5ibPUo0uRpSlUaeJkQomXjbL?=
- =?us-ascii?Q?Qpn4+bRfhlxd5ZVPRMwTGxYGeA4TDBdaxKwkkYvzgoG60grAK4Jb?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7992953-0b39-4c42-b3fa-08dedec784a5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 21:09:24.2587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d0Txg4TyT0RmUNZQ112XyRZ5xCmdv0SsL1prYLz3/gPRDzo+QgjHcCJLLjssJWODYYepVWMigK9CEWXJJp6lQ3Pm2iMi5Kv88dkXGWftvvafjk0dtddnTA0ARRu35lBJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9375
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260710-mathieu-uboot-dts-import-v1-3-ffe0210e50c9@bootlin.com>
+References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
+In-Reply-To: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Wei Xu <xuwei5@hisilicon.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org, 
+ Tom Rini <trini@konsulko.com>, Peter Robinson <pbrobinson@gmail.com>, 
+ Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783697511; l=911;
+ i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
+ bh=bQvA7RaITKm0leFu4CsMz36juYaBIh9nm8WiAQHba6s=;
+ b=Oqct+rYQmFQ9UaEQYPTA/h45y/vpgN4kx9+02R3tfwH61DyYi/90YdCukwryl/7UV/W/o4He2
+ c5uJcIP/MmfDIvDbxx3YziqtaedaIjLApZQNcodt2GfUJaXvWPDqjyL
+X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
+ pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Jul 10, 2026 at 05:31:34PM +0200, Mathieu Dubois-Briand wrote:
-> [You don't often get email from mathieu.dubois-briand@bootlin.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> U-Boot is importing kernel device trees for these platforms, but adding
-> a firmware node to enable communication with OP-TEE. Importing
-> changes here will allow to remove these additions in U-Boot.
->
-> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-> ---
->  arch/arm64/boot/dts/freescale/imx8mm.dtsi                | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx8mn.dtsi                | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx8mp.dtsi                | 7 +++++++
+U-Boot is defining its own device tree for this platform. Among all
+differences, a firmware node to enable communication with OP-TEE is
+added. Importing this node here will reduce these differences.
 
-Please split soc dts change to new patch.
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Frank
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
+index 579d55daa7d0..f20fbfc1c954 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
++++ b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
+@@ -70,6 +70,13 @@ reg_pcie: regulator-pcie {
+ 		gpio = <&gpio6 7 0>;
+ 		enable-active-high;
+ 	};
++
++	firmware {
++		optee: optee {
++			compatible = "linaro,optee-tz";
++			method = "smc";
++		};
++	};
+ };
+ 
+ &ehci {
 
->  arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts        | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts       | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts   | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts        | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts          | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts   | 7 +++++++
->  arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 7 +++++++
->  11 files changed, 77 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm.dtsi b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-> index 5cf2998d396d..4a55464e8a6f 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
-> @@ -233,6 +233,13 @@ timer {
->                 arm,no-tick-in-suspend;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         thermal_zones: thermal-zones {
->                 cpu-thermal {
->                         polling-delay-passive = <250>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn.dtsi b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-> index 79b169b07c4f..c3b4560ec9b4 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
-> @@ -265,6 +265,13 @@ timer {
->                 arm,no-tick-in-suspend;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         soc: soc@0 {
->                 compatible = "fsl,imx8mn-soc", "simple-bus";
->                 #address-cells = <1>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-> index 5ce2825182fd..285b98384255 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
-> @@ -404,6 +404,13 @@ timer {
->                 arm,no-tick-in-suspend;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         soc: soc@0 {
->                 compatible = "fsl,imx8mp-soc", "simple-bus";
->                 #address-cells = <1>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-> index 5716febb5a50..c7050bafacae 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
-> @@ -110,6 +110,13 @@ linux,cma {
->                 };
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         sound-wm8962 {
->                 compatible = "fsl,imx-audio-wm8962";
->                 model = "wm8962-audio";
-> diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-> index c25561574d3f..c0156921414f 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
-> @@ -152,6 +152,13 @@ linux,cma {
->                 };
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         soc@0 {
->                 bootph-all;
->                 bootph-pre-ram;
-> diff --git a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-> index 022e9c6841ef..62b6eff013f1 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
-> @@ -35,6 +35,13 @@ chosen {
->                 stdout-path = &lpuart1;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         flexcan1_tc: can-phy0 {
->                 /* TI SN65HVD234D CAN-CC 1MBit/s */
->                 compatible = "ti,tcan1043";
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> index c6db9c85f2ac..0bea169d7029 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
-> @@ -42,6 +42,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
->                 enable-active-high;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         usdhc3_pwrseq: usdhc3_pwrseq {
->                 compatible = "mmc-pwrseq-simple";
->                 reset-gpios = <&pcal6524 12 GPIO_ACTIVE_LOW>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-> index 01c11c517986..6b99c0594125 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
-> @@ -147,6 +147,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
->                 enable-active-high;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         sound-bt-sco {
->                 compatible = "simple-audio-card";
->                 simple-audio-card,name = "bt-sco-audio";
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-> index 4620c070f4d7..b8fa0cda33b2 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
-> @@ -62,6 +62,13 @@ reg_vcc_panel: regulator-vcc-panel {
->                 regulator-min-microvolt = <3300000>;
->                 regulator-name = "VCC_PANEL";
->         };
-> +
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
->  };
->
->  &eqos { /* Second ethernet (OSM-S ETH_B) */
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-> index d929aa9ff255..e96b8437f922 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
-> @@ -36,6 +36,13 @@ chosen {
->                 stdout-path = &lpuart1;
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         flexcan1_tc: can-phy0 {
->                 compatible = "ti,tcan1043";
->                 #phy-cells = <0>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> index 409c7e74ffe3..20eaabc23b49 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> @@ -125,6 +125,13 @@ ele_reserved: ele-reserved@87de0000 {
->                 };
->         };
->
-> +       firmware {
-> +               optee: optee {
-> +                       compatible = "linaro,optee-tz";
-> +                       method = "smc";
-> +               };
-> +       };
-> +
->         gpio-keys {
->                 compatible = "gpio-keys";
->
->
-> --
-> 2.47.3
->
->
+-- 
+2.47.3
+
 
