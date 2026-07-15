@@ -1,75 +1,75 @@
-Return-Path: <openbmc+bounces-2279-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2280-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FC7C44508
-	for <openbmc@archiver.kernel.org>; Wed, 15 Jul 2026 12:31:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5154C44501
+	for <openbmc@archiver.kernel.org>; Wed, 15 Jul 2026 12:31:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4h0b8t11w4z3bh4;
-	Wed, 15 Jul 2026 22:29:50 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::332"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1784118589;
-	cv=none; b=biUNKRSAnJpWS9f2x78X/SsFeFGk6Aw/QMMS8u2pqzcyWtQkNENv6eP/ByA2PuNb7vrTgIqm6W9ZdaitrORm9mWBp0u5FXwTR4X9xYOTpbGZDiRETiZKYC26FnVRS9ar/kT9xla3g990V36wa0wv2Zvs/UX7LUZRmulOtO1a2WdwSZqWYC+dodpcU4YZ0c2Jv71aXWIpfG5adZdRGtJo+WEWjDd6hbb3lDdn2xHTSeZaO3YRnzq0agCbsXG7rmNbg0Qr/BbkmJVL8RolI5Sk9ZuC1QanILWpDAQVNdYBNMxYXOqCp8MMksveOL2+jxskfOWnpQk8WQCKgCh/Ibt+0A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4h0b8v6MHJz3bqV;
+	Wed, 15 Jul 2026 22:29:51 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::330"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1784118591;
+	cv=none; b=Jfkw9wvzhJN3N86uM7xuwSTCzpemb3AYDZP5wYKu6mCvR/f00PcB9JEPIwKj+hhgLn2CU+zHvPCf0HiNxFDT6dDJgrjn9ZBA/Gxrg5GrMovt7QMC/Z6TdavOOqNNfIUzSKdqMdWne3eDJZDbBdZtSkyo1ayjk2T1IGDqirj0f8tPAb7Kj5cH2s+iqmbPlOiuUfZfXNhIuAZfKVWVKdXtV+yme3IS2px7RWOtEpEpKD+/h8AjgUVizJLFFULy/ecI9zs64rPrLvTF/vonMbRVBflTh/cdEj4o/kHVvoncYrkEDJEFQqnAWKvalrNFuIgkS4cgh0qUCYOCcyxrzQncyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1784118589; c=relaxed/relaxed;
-	bh=UoytU0F027gfAJU2q59F2/SIdHK+cPMMg+f9Ec707W8=;
+	t=1784118591; c=relaxed/relaxed;
+	bh=wOCtAIRvCDRCzbr/NHWJUu3GPBu0x+R/AFbuRiWrlMg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cC/6e7/LAdA+6+uMe6XlsSJ8pqoOyHm4EtvkO/r6vYU0jo0OfYZM1RL6q1HMPuXdnUM1hdwhuKc6omycBccF5m5F1NNGis78Vffc/TrSSiBb4sFOUaxBUBjTWaFSF57EQBtjSRq6mkSxZ+8CuYwKGWQ5Yb8kCuYrvhmoyooOhpXuKpPhOhppV05TB1t0rifMu1hqajwBUMX2VfrYN5h4SmjYSxaDJpBTpygMcTWVsRVcUkZO0kCmccmpWOBHPMj8kBhvdcI6OeDBD34B06gdCzmCdZsAMAdfsa9BNC/wOJphKsAtTYdJfubOM8hzd3BOQcZ8rgj/M1THW0z7gfhWvg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tElxocuG; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::332; helo=mail-wm1-x332.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=Kfqnf3RFVchRRe7+z+P4nl5UzXRLfT8jl3LFpMQfxNHTtxklKQfEYcbthLCcBsyXUDojlotygqNlojVhBooxhYjtAQZmdd12jgVvrxD/TXg/GPWqAr7y8aEouMNp+dLVw6bTuxbzeO53zHZ4gA6siwge4AkdeOVKABWT9eXYUg6tKNR8QFqvFbmniOaJhp2ssDiPxvUkRFMSSFrursm5UeTN6Ju7Djgqc4khvHB7ssdtr6BjoChOZKOVbEFN+commZpFikR1HrJHJTh/tBHVoEV/TrxMQM4t9+H0YUiiE1QxjaojWiOOkPAJp9ycXVanZCnuiFp8qjvCRIZiNJIyWw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C4d/qKhW; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tElxocuG;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C4d/qKhW;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::332; helo=mail-wm1-x332.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com [IPv6:2a00:1450:4864:20::332])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4h0b8r6ldPz2ywn
-	for <openbmc@lists.ozlabs.org>; Wed, 15 Jul 2026 22:29:48 +1000 (AEST)
-Received: by mail-wm1-x332.google.com with SMTP id 5b1f17b1804b1-493ba701891so16886285e9.3
-        for <openbmc@lists.ozlabs.org>; Wed, 15 Jul 2026 05:29:48 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4h0b8t5yYWz2ywn
+	for <openbmc@lists.ozlabs.org>; Wed, 15 Jul 2026 22:29:50 +1000 (AEST)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-493ece78b0cso38123055e9.0
+        for <openbmc@lists.ozlabs.org>; Wed, 15 Jul 2026 05:29:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784118586; x=1784723386; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1784118588; x=1784723388; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UoytU0F027gfAJU2q59F2/SIdHK+cPMMg+f9Ec707W8=;
-        b=tElxocuGfrH9W2sIXc0o0Ojy8Qn9hk+/MN5G8glki6WO0W1Nv0PMP9QcRc/Jk6hQL+
-         QooG8NoYoIcDD6G7KyNIZAnMog7BJ5pH9qaqogbNLypUCEHbhWgkpximU3XNcxetUvqk
-         G2vljMwROZwp3eyGRAGnk3yAsEINNI9zD2RTKtOr1+P2lZbgcmAzDJAjA7ja6Oiij2BW
-         pPxRSeooqrbvRGWKMLkP8H59EhU9snziLOICsCTK56X6lE9fAach3mArA74E4gQgl6xf
-         /wIynctngqCc5kHbd/kSYahpXDrgfEDaPKLFGiL4rXCKHG67wJvAYiF4lvCB1g9z1Fm2
-         Gvcg==
+        bh=wOCtAIRvCDRCzbr/NHWJUu3GPBu0x+R/AFbuRiWrlMg=;
+        b=C4d/qKhW1nhO4sgEr/1E7UibjnbJK2kLJuclBmXrcZChGaT4Yg9ORw/qy03I4kXX4R
+         FHkCdD+2Yba1pJOoh6R9gm9XPmp5F5ITF+F2+CxQWz0JI4i5zxdYqiT8udB6r09Ja3yV
+         TzpwPbYBCQooVLlgf0WAuAiR1n5L5wBW7rF0TK3koPktefVtcqZCOOIsv2beiHha9MbY
+         AfTLRVdeyrLf28xnKGsLa+cjQPrnrGeEtGfEHF+YLjtcTNABI7zYVZ1LPcebvyNU1yTB
+         pP502cgVX4vSNThiMKUs+hX4mMcsL59cwiF7E/zbxtBzBIbPEUvuVYhHpc1e7TVQN5fk
+         9gYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784118586; x=1784723386;
+        d=1e100.net; s=20251104; t=1784118588; x=1784723388;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UoytU0F027gfAJU2q59F2/SIdHK+cPMMg+f9Ec707W8=;
-        b=KpbGbaayuwEVCypbBaCIkiXS5d9wa5pKNhm0mQ/DhCxJWaK4CLV0Z43o5DmjZ37bDv
-         YTqUt6fDl4n9TAhnoDlTAkAio0VjMektI1rgWdnUy+0TuKtQKe0DTWwIiy/3p5g9lpnU
-         V+CYwK1XQCZi2YMpH4MR2gCwxL+UEDONc+qasB0qJH6jco7CONDcGUmoo7404jWV48Xd
-         d6kO+d8yLv5VuyDdT9nrsLQ1hODcl7HUQpP/nh48yHBTS6rZQ3Y5JvvUNnFKNYTbayXx
-         W/D+mY8WW+iW3SJJ6kvt6hQYE8w7znFii93iE01WDRNF9ZLFn+v484tUfoEsWulJ0IS8
-         NIJA==
-X-Gm-Message-State: AOJu0Yyn6fHFzbNRabA1h7tts1vh1ETc7DcNZTdgOmpdqMCNCJ19F7ps
-	b+4C0SqFXZtSASIl7qGe35UODI4R5GBENm7hgJJN9ry6P6OlQCGT6SPr
-X-Gm-Gg: AfdE7clKWa8mF7z0DgKD9dcBVAuU0bTiSXCNJg3bpwh8Jprtg6IUClOEDODherQRo2Z
-	15WoxtspPVqX9RjPsJZc1VfI+aZGpfLHfhMEeF+hAbOuCjrwTjJxsQbL9wjyUGIcVbZ+P7q50yJ
-	lpSoV4o4PFYa+v/kbXFmFVgkDpEupU59JX8zk70NlLAWJ0AR6FNqMyBFpX23x+k5VXjaPPsfZEo
-	35vAeIYnc48B5I0QNnwofDMw/EiQFV4dhGrqO2cycDDSRwtL5JlFHC2Buv/8CZhfFAO8tPg62Xf
-	Aapnbbgb00Qfqixn97iKIk1+Hc13Kh45bs8O1RBhJ9F0MTVl6ooMoLXZZXigSngotOHsYIX6aPJ
-	5uRriLCDiIhUJPje7Lc3GSLX+LwVNaXIskgGnNjDEskBpAAWgKhk2kv94899lnzOxVBEjJowYSh
-	XW8miokOwuUDqHUFC2nc3ya/4=
-X-Received: by 2002:a05:600c:4c13:b0:490:e19b:bd99 with SMTP id 5b1f17b1804b1-493f8828635mr123345555e9.30.1784118585835;
-        Wed, 15 Jul 2026 05:29:45 -0700 (PDT)
+        bh=wOCtAIRvCDRCzbr/NHWJUu3GPBu0x+R/AFbuRiWrlMg=;
+        b=FhV1WupIxWmnCcdZEv5d48Cj3OqAGl0ByarpzumdchXTgdiY+j1alIfPd9R4VGzL/P
+         mTSe03X8ObFL2elRNEE+6VPHf3dQBxbdWZVWUN005PtASTvJBCIs7MhlsKUtMvy0Ndj3
+         DPddgp87cfejf0PQ1dJjuryGhfravvpoS3C/sKh45T4h1/9BJurbyGOBPtqbI1WqtPUg
+         H/yKjkIzy+EDq/9YGza7DoZWzIznj75N4j+eaC5gz1Kt5F4I5XQa2L8K9hxNxlMqcQPq
+         KlrUHJZSvmTb7hOetgBGaDzCBEMIYdKObdhy+V6RzmP//G9bOlg9WqW+hILf+nVm0foB
+         LngQ==
+X-Gm-Message-State: AOJu0Yw6ImkhVFVatAy6qh7UpxExT8LLFSRGONR1dQIefZ8Ix40R3a/x
+	dl8YFNwohlpU0+Q0SKKrjdwCa1cKHoW5h22KimaHoV1pgWPls62JjYje
+X-Gm-Gg: AfdE7cnfiilhDWBLwVg2lqT01qa1kFTjy9zGkBDEDHhTlELJo4uWa5aPDBoEV2V3Pwf
+	Ah5PAvzC/s4p8jjmJIJibUA/+FGIR/iAU4cVZP3yweEHSqs9sutvM3hkmHZjT7rUdHLgq//NU5U
+	FvBb9CAducSGA7hxwc7tB3MBEDDccXmzPLvt4U+fthbZ/pW2yXIcmRW9MXPIORI6w7FvxJ+dKhx
+	L3liP/IlU2pFxWoVKgCSuILqDIML+HnTj+DS3atZlAMuJ53HUV77cjl3dRiWqPuan03XdSmuwkT
+	Pet+pUXkRiWRLYcBXFXhdL3RmKg15nuiCouXlN4qPao2KV5l1u4lc4+G+ZPBv6Az7+gYVQLklKm
+	VPp6cLHetwZgxKwTmMCLqMFbVb5bYM82IpLWV8d2vTiEuzNfNtCJ6Bv9W4yKtNTKj8/U57RWH1h
+	PMIqMVsCMEHBlXCZBi1MoDqIs=
+X-Received: by 2002:a05:600d:6443:10b0:493:f762:45d4 with SMTP id 5b1f17b1804b1-495158c693bmr70101095e9.2.1784118587669;
+        Wed, 15 Jul 2026 05:29:47 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a32a2casm216770715e9.12.2026.07.15.05.29.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a32a2casm216770715e9.12.2026.07.15.05.29.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Jul 2026 05:29:45 -0700 (PDT)
+        Wed, 15 Jul 2026 05:29:47 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	linusw@kernel.org,
@@ -83,9 +83,9 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH v1 7/8] pinctrl: npcm8xx: correct JM1 and SMB7 pin flags
-Date: Wed, 15 Jul 2026 15:29:22 +0300
-Message-Id: <20260715122923.1938327-8-tmaimon77@gmail.com>
+Subject: [PATCH v1 8/8] pinctrl: npcm8xx: fix debounce register selection
+Date: Wed, 15 Jul 2026 15:29:23 +0300
+Message-Id: <20260715122923.1938327-9-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260715122923.1938327-1-tmaimon77@gmail.com>
 References: <20260715122923.1938327-1-tmaimon77@gmail.com>
@@ -102,46 +102,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pins 136-140 and 142 are currently advertised as having both drive-
-strength and slew-rate controls, while pins 141 and 143 expose no slew
-control at all.
+Each DBNCS register programs debounce source selection for 16 GPIOs.
+The current offset calculation advances the register address every four
+GPIOs, so offsets 4-15 and 20-31 end up touching the wrong selector
+register.
 
-According to the hardware description, those pins only support slew-rate
-configuration. Update the pin flags accordingly so pinconf exposes the
-capabilities that the hardware actually implements.
+Advance the DBNCS offset per 16 GPIOs so each line uses the debounce
+selector bank that matches the hardware layout.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index e21ccdb5d..f94494b67 100644
+index f94494b67..f9107f819 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -1465,14 +1465,14 @@ static const struct npcm8xx_pincfg pincfg[] = {
- 	NPCM8XX_PINCFG(133,	smb10, MFSEL4, 13,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(134,	smb11, MFSEL4, 14,	smb23b, MFSEL6, 0,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
- 	NPCM8XX_PINCFG(135,	smb11, MFSEL4, 14,	smb23b, MFSEL6, 0,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
--	NPCM8XX_PINCFG(136,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(137,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(138,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(139,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(140,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(141,	smb7b, I2CSEGSEL, 27,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
--	NPCM8XX_PINCFG(142,	smb7d, I2CSEGSEL, 29,	tp_smb1, MFSEL7, 11,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(8, 12) | SLEW),
--	NPCM8XX_PINCFG(143,	smb7d, I2CSEGSEL, 29,	tp_smb1, MFSEL7, 11,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		0),
-+	NPCM8XX_PINCFG(136,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(137,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(138,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(139,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(140,	jm1, MFSEL5, 15,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(141,	smb7b, I2CSEGSEL, 27,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(142,	smb7d, I2CSEGSEL, 29,	tp_smb1, MFSEL7, 11,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
-+	NPCM8XX_PINCFG(143,	smb7d, I2CSEGSEL, 29,	tp_smb1, MFSEL7, 11,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		SLEW),
- 	NPCM8XX_PINCFG(144,	pwm4, MFSEL2, 20,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(4, 8)),
- 	NPCM8XX_PINCFG(145,	pwm5, MFSEL2, 21,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(4, 8)),
- 	NPCM8XX_PINCFG(146,	pwm6, MFSEL2, 22,	none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		none, NONE, 0,		DSTR(4, 8)),
+@@ -2211,7 +2211,8 @@ static const struct pinmux_ops npcm8xx_pinmux_ops = {
+ static int debounce_timing_setting(struct npcm8xx_gpio *bank, u32 gpio,
+ 				   u32 nanosecs)
+ {
+-	void __iomem *DBNCS_offset = bank->base + NPCM8XX_GP_N_DBNCS0 + (gpio / 4);
++	void __iomem *DBNCS_offset = bank->base + NPCM8XX_GP_N_DBNCS0 +
++				     (gpio / 16) * 4;
+ 	int gpio_debounce = (gpio % 16) * 2, debounce_select, i;
+ 	u32 dbncp_val, dbncp_val_mod;
+ 
 -- 
 2.34.1
 
