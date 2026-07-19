@@ -1,55 +1,97 @@
-Return-Path: <openbmc+bounces-2298-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2299-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08233C4451C
-	for <openbmc@archiver.kernel.org>; Sat, 18 Jul 2026 04:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245E8C4450A
+	for <openbmc@archiver.kernel.org>; Sun, 19 Jul 2026 13:50:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4h2Dy30LTTz3cH2;
-	Sat, 18 Jul 2026 14:56:11 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1784125390;
-	cv=none; b=OPzBEVnWLkL04o3/4capsT1nJFAo1c3J9zk5nzBEhvylpqsQZztqI8NIEolkno7N1LIJ8/0jNNk5+S06mFUmJd2rYCRRRtswmAsA5lXKVlQwedcgBSiLlp6QLru5cJnOcoRELGHF31HTw25naMZBm2YZrn0nS8FlGRWZabEetTmTu27QEswkSOO0WpG43RC9uIN30miy8N2wY2opLrFNeub728Rk1IuNPWgQIZ8JOxmqfWMtdmDKBT3z+XJYG3d+s+sP6JAQPxam1uyaqOs5OeGtXm6QkpvA36mCmksg/jd6Wgd8ygCh8JbzpJaS2atGH1JiYtALIyZxsfqCqGHEGw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4h34m35HTnz2yQL;
+	Sun, 19 Jul 2026 23:50:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::102a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1784469027;
+	cv=none; b=HDPp7RiryC8EkqS2gJV5WIvLON42FCHlA8g5X5xD1p9d29gak1XsOkc81Ynzv6dpM/yvEgSuEhc1gZI+2Unl/NHIFqV5DI9fQ3X4ToBvXhBdztMOuSN1ryMhbkaz06nhfw944xw4B5ntLzJE7g4MKxK1ZN/df2WRG0GwBY8H9QCzb+6Mo7c/FXN11xaJ14tKdlsbEn+5zdFZOTGfRD2AqyNKfsG+XfKCL1b6aNknatBu6F+iFgrlzDNhbLdhP1sAeeBCBnxp/NJA+YGSCJAwgkbnE63FzyQDkULnMriyNuGo01bPAsdNZ7Lf8MB4bwXK4j3qcHbRW9c0iIOu7ZLhyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1784125390; c=relaxed/relaxed;
-	bh=a9IuIIWMF3nn6MhJn3nVioRG/vLkyDShB0IZOzPkMNg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LRZaGmN6FTL18mm30YkKywystm0k+qGJgBpDeLbgGGhfAFhXEl3BUb/+3l22J8ZVIz2OeupoBsopDAvepJtQkfj9neuPy2CKk1jooN67WsMSO0i/LcDj2aOGTWblG7mXKB2vEhdotn2l8irPrZAbuhkvQmCafLR2bDi336WXl5YG9DxrYqu+Vh53krlNP+aWfQ+P//CmOOgqd/ggqXtCT40e5kmR80vIPG/5RMRa2c2ICdNIiezrVF9J5LuscwY4zuY3g9vh/c4EjIjKxL+BFuTx5vdWPTBNA9U2BuhUWKlpTVe7aYMwwrVsF7D27qRGkwtgP69c7zErvr8OweBkWg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bpyJVEVD; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=mathieu.dubois-briand@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+	t=1784469027; c=relaxed/relaxed;
+	bh=orC1d/ry4EDJvubbUTs825XTGt9QUdyeUeZHc5cnAM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XRBMY7If8Y1tX77vE4H7g+WywhZnBXsW6Dag47vF+g5xYegbiDj+BbVLab1dkukQHUG09rmRTu5TRDood6NywTHWMEB1102Xl5kZm55j//kPk/Ttio81wTwroRrAqA8UwsAwyk2prInhC9zn86zalIaLjorIyexhh4T90LqrwoH6hjibIxeGvuJjqXi6uvyh7eW8n9PEWpQbRohT+3e/Z/3LretuKJHAjgox+GOVyvkcycMH11OoOtMN6gK7dK63U8nTloE75O7jLBQn6yS+02pj6EC0jRY6KDDeQ7HhLv7S90UJzaYN/WuDZNK3HU5fN9Cuf+H+Iw0H/uN4ZgKubg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A/04Lc+l; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bpyJVEVD;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=A/04Lc+l;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=mathieu.dubois-briand@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4h0dgd5jDfz2yll
-	for <openbmc@lists.ozlabs.org>; Thu, 16 Jul 2026 00:23:09 +1000 (AEST)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 69CF2C2B9DB;
-	Wed, 15 Jul 2026 14:23:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 769566035C;
-	Wed, 15 Jul 2026 14:23:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A18FE11BD3C2A;
-	Wed, 15 Jul 2026 16:23:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1784125386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=a9IuIIWMF3nn6MhJn3nVioRG/vLkyDShB0IZOzPkMNg=;
-	b=bpyJVEVDRQcCuY7bgy4f1zEOx/PzX9swqY44GNzAO/Rxye/iPSn+R+3b3uiK3rKEaJ6NGP
-	qqzBZn4hRodDBJYjRSRimupCI/zbro/5gVwCmaZQ2g/RAgARWEJSzVE9+x3iRS7sZ4XCQ8
-	p0u2SFv+rk1zx0AK/4FoJnkfjJmWjeFnaDcmcXGj9fEY2Ku6Gsj5kXUEIqIq7wihHQl6fj
-	CfzPV0qJUxvj85lAkoP6bKJYkwyricp2NjajB0I4KydKRxT5fFnYk5x9MS4y9Wbbmo0zFG
-	Sc/mdVU3WiPS6tHV2Svbpm1V2p+867kBJiwsm7/Ae/QlZmhSn0lfPuU7GVnKIQ==
-From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Date: Wed, 15 Jul 2026 16:22:22 +0200
-Subject: [PATCH v2 5/7] arm64: dts: hisilicon: hi3798cv200-poplar: Import
- optee node from u-boot device tree
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4h34m06Q6rz2xd2
+	for <openbmc@lists.ozlabs.org>; Sun, 19 Jul 2026 23:50:24 +1000 (AEST)
+Received: by mail-pj1-x102a.google.com with SMTP id 98e67ed59e1d1-38e08baf860so6910470a91.2
+        for <openbmc@lists.ozlabs.org>; Sun, 19 Jul 2026 06:50:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784469021; x=1785073821; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=orC1d/ry4EDJvubbUTs825XTGt9QUdyeUeZHc5cnAM8=;
+        b=A/04Lc+lyTcOjf+QYnZzwugXI+kMRU5weZ3Fpl2OogxPhijum69UwnlgeKWmvFalfH
+         WpNpSgKH4h2zIzL4/T71hADroFPeBud7zFlKuJK9Cg7OkZPqqCqgNn+jX57hPQzAVl+d
+         f/3xUtu/5XrwE1u/uhT6C6/dmtUeZEpGV3MeX2je3A/xGyrogXt/gFIRSDC+XwBJ6VbS
+         qbQeGVW0M2n9rIiOcjO6g6fR6+ROFPT1icgiFjIIqxUx25nC3lfa1NqhF6nmn5dAd0xU
+         +Rl1JWejFvubjLa8IAqvfTOTzREACxOL/wbQdHu4uBZ9m4kAR/57kun9W3Yf/udzM2P5
+         AMAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784469021; x=1785073821;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=orC1d/ry4EDJvubbUTs825XTGt9QUdyeUeZHc5cnAM8=;
+        b=FOi/sAuOu5Rr7LkYWMnfgeESVBj+mtMqrkEwQa3kceAOmZHSZECAzsXhgcJHlsp1PS
+         01blNZWd+1T29uGjt6J62O1bmvb6I+Ja5FuLWMWDwP9wgWqos2Wnen7/diqcGpDmuJRt
+         rEc10PRaDdnambmsgalxPSn9dvgYzPVe6BDddwJBOYYHnOhGQNpgnSTrZ2KluoP9DS3g
+         lh5OCNOtSsso76GR1JVnPTeu+I7vQi2M3WHk/Qq331a46PMc/+5CnL5jpFBG7T7xRy1S
+         LHeKmmBuLDFE56dahDeJFBeru6s7NZ9igK1aMa/4VY0YQrwPiGEq72jZ1F0NxmTDFTeG
+         HxqA==
+X-Forwarded-Encrypted: i=1; AHgh+Rquud4htFn/2flei3Qjru4Gi06hDPlEMfi9MJJXXalzjJCu39KEbBABm3HuvqLPC7zYDnk08sy5@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yy3YRxSdAJAFihE35Q4ZWkwrTA8RtW1AFLVgBpJx1KSv+cSAwSr
+	WqpfCLrSQjdKMq2vI/5utmKk3SDXHWIbg4vBYUSHnd1+cilErJkU2B5e
+X-Gm-Gg: AfdE7cnH5CBgH8u5BEZp3BZXQ843qsJciW7N0mdi+R7f/L86zASlo4PKx6Xw0x840pU
+	OKfEE4UFB5pjgr/EhrYVyVi8/qerT5r6dtqsErxqAMW4s3coMKPUePfXZbZsn0eJFpRek1QAnqx
+	CMP9S7MLPqqSvzqzJ/VJzR4uel2K7nyjrBwP+ga+KVeYNSg5WRtwQ4k/Q9cWMzuG53CKtRgvyVc
+	Ps4ra9F+8uxPfVMRgGpKAkYGezQ40/2E9sNvW8IrAxRcnHeUrNTGLj8S9YG1ZJtW/J82jeBl5ZF
+	wKFeN3A3ZZnW1AUGMD38l0PICgN+PVQTRgmDWBBPXWN7FqUcV+NaPTmfX3LtSPF7sXtPlpNr9d7
+	Wq6ISVbu3ep3f80qz0H+iu5Ze4rRHctmEXnAOzIp9uXzyGdgcq6lYOEHT4GbAnIA282E5AleC2y
+	yw3rOjbeSNXHoeiLQ=
+X-Received: by 2002:a17:90b:2f85:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-38e4b4227b8mr9496688a91.7.1784469021299;
+        Sun, 19 Jul 2026 06:50:21 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38e39de7875sm6106250a91.2.2026.07.19.06.50.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 19 Jul 2026 06:50:20 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sun, 19 Jul 2026 06:50:19 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Pan Chuang <panchuang@vivo.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Jean Delvare <jdelvare@suse.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	"open list:AXI-FAN-CONTROL HARDWARE MONITOR DRIVER" <linux-hwmon@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:ARM/NUVOTON NPCM ARCHITECTURE" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH 1/2] hwmon: Remove redundant dev_err()/dev_err_probe()
+Message-ID: <2334832c-fbc6-4356-83fa-1e331e5ebea4@roeck-us.net>
+References: <20260714130228.449233-1-panchuang@vivo.com>
+ <20260714130228.449233-2-panchuang@vivo.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,67 +103,20 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260715-mathieu-uboot-dts-import-v2-5-bc931417bd0e@bootlin.com>
-References: <20260715-mathieu-uboot-dts-import-v2-0-bc931417bd0e@bootlin.com>
-In-Reply-To: <20260715-mathieu-uboot-dts-import-v2-0-bc931417bd0e@bootlin.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Wei Xu <xuwei5@hisilicon.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org, 
- Tom Rini <trini@konsulko.com>, Peter Robinson <pbrobinson@gmail.com>, 
- Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784125361; l=911;
- i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
- bh=bQvA7RaITKm0leFu4CsMz36juYaBIh9nm8WiAQHba6s=;
- b=Y2p/yYf552wB6F+3f88xBut8s30oCKUbtMj+A0QRzGsASLKbwSWWM+CqICzmC5KCUiWnWdGsv
- /IdpeHYxmBtBv4IFWFix7v9Twjws8P3Xd31cSw4WySJ9C9N/ahMDCWi
-X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
- pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260714130228.449233-2-panchuang@vivo.com>
 
-U-Boot is defining its own device tree for this platform. Among all
-differences, a firmware node to enable communication with OP-TEE is
-added. Importing this node here will reduce these differences.
+On Tue, Jul 14, 2026 at 09:02:24PM +0800, Pan Chuang wrote:
+> The devm_request_irq() and devm_request_threaded_irq() automatically
+> log detailed error messages on failure. Remove the now-redundant
+> driver-specific dev_err() and dev_err_probe() calls.
+> 
 
-Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
----
- arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+One patch per driver, please, and provide a reference to the patch
+introducing the error message (because I can not find it). I am not
+going to spend lots of time trying to figure out if this is real
+or not.
 
-diff --git a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
-index 579d55daa7d0..f20fbfc1c954 100644
---- a/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
-+++ b/arch/arm64/boot/dts/hisilicon/hi3798cv200-poplar.dts
-@@ -70,6 +70,13 @@ reg_pcie: regulator-pcie {
- 		gpio = <&gpio6 7 0>;
- 		enable-active-high;
- 	};
-+
-+	firmware {
-+		optee: optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
-+	};
- };
- 
- &ehci {
-
--- 
-2.47.3
-
+Guenter
 
