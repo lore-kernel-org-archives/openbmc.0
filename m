@@ -1,58 +1,96 @@
-Return-Path: <openbmc+bounces-2314-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2315-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE7BC531C9
-	for <openbmc@archiver.kernel.org>; Fri, 24 Jul 2026 21:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D0CDC531F9
+	for <openbmc@archiver.kernel.org>; Sun, 26 Jul 2026 06:46:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4h6M5F0Wx4z2yYf;
-	Sat, 25 Jul 2026 07:46:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1784928832;
-	cv=none; b=m5ritb6NOpzAJXI5xjAJ9QhXVwiIAylD/9uVzGOQU3aNrEqOHglpxY9y+4k45pl+KTE6XFIwIXB4NbJ58crrhYcUl2/I/aIaeuAIi9WzfcgQUQvok7DR8tJA0Hvpj8AkC5vrMxExi6+/YypOrTa9wCCyiO9Cavm3Tes0zIFBJ6NqyIVVJaXvhwuSHgYNV7dG3khKsQpuEZmaBKfgnJbSFB7ErjbeIfojmAIAdGrR+gU+lyjavb/txyKBrm680c4E/bRtyYZ/CijCcFRmU8P7FfPYYmQxLQKGxNqxikdQcY+g2szv+lp0a5FWjmjLsYynVT3AYlR+W3MGDDuTw2VFow==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4h7C1H493Sz2yd7;
+	Sun, 26 Jul 2026 16:46:11 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::42a"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785045849;
+	cv=none; b=BioeQZjxu+KPe1dKssSjHbf3A1fdTsbleAjz15dak72bXCd2lxyidVBNrHfKI4NqEL3tmZUyc33ga6b3EA+Oj124AIwD9UydX62LdkZNH7QVzTRU+t6OmhIbi8W0ohOtZBv3aXcX+etwnjlOSUclZntBetAEFeGJunb83WrjwmTpV/X+Q8ZnP5227bfMJjacKsixvpQpq0ihR+Dqh4e+1QX1tO1lg36cPQFrFBQDLcVaXEDFzIysfAje90l521RBGS1yd5IX7iGf3ZQo1Y3l9p7fc9ONbD4eLBFQ10pUpCFulvdbMzWm8CjLK2fii350wYqVrkvf67JCL/k6baHXnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1784928832; c=relaxed/relaxed;
-	bh=yHFCHv1SQW+IjFPxEkHkiDP5RWfvxON6aFiwmXE/HIs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TIM00QJ7mrwpEfSY6NFvxpkvTTBV2KHGf2PwE1dMIjg0pkMsVpnbK2G3TzdJZsObyULNyhcL5f0sPmE9xk38r+yYcKOiSTcuB3t+v82G1XFaQPjyEMK9QWat6Fmb0NlCwt/KstIXbgFVT5VHY9CDk6AxxNJ5O+yB1ybnyHZfhFQGm2n31m7R/M12mV/Yqm7iY7u7kdvTe+tHRatk469JmVXGmY0usy75nDsdkzR90cajXhJQhicXnSH5xrnKclpd4NqNpL+L37EknYjkcLlyWxwZ3bRIvEQ3TS872/3Ut+qsH9bzTzRMH0qt/hFTs/PicfG6Eq5J4/k1TUlmIkDcSA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R5Ar/gw6; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1785045849; c=relaxed/relaxed;
+	bh=V+26Pgn5yyytqUfGY957+3+8j+6xWmgyw5AfMu8lBmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JBS15LMI32ClRrFeh9mwkokO4Pj+hNqz97b4/mQHWYiqQ1ZDMQKeKdm2piepmKnn2UYYyI1M2LVDhv3vob1mOQ46prUaOBlMOUDQx2Cuq03chlAG6RGBzkB15L//HUTSWYwj1NJGl5CxZLb5tnKcExA7HP/UlWeDv8dkdbu62meeeHKT/zgfMyRRzc60M8dBn1SnJ/HYCstyxBiQWtonfhxvCxXIRcJs7nHDzyHbQk4wiFUn091dk+GuPm2QHTDHHx3lDWZWVaius2l/A2vwx2kVd7yWcakUODgLnihIry3WhAT7c0ecFgAxDHJm5akUfnkK7QFDlQhmQQKwjGHVvw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IXzo9OZc; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=shaikhkamal2012@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R5Ar/gw6;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IXzo9OZc;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::42a; helo=mail-pf1-x42a.google.com; envelope-from=shaikhkamal2012@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com [IPv6:2607:f8b0:4864:20::42a])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4h6LpQ5RQfz2xRs
-	for <openbmc@lists.ozlabs.org>; Sat, 25 Jul 2026 07:33:50 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id CFFE760A84
-	for <openbmc@lists.ozlabs.org>; Fri, 24 Jul 2026 21:33:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 874351F00ACF
-	for <openbmc@lists.ozlabs.org>; Fri, 24 Jul 2026 21:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784928827;
-	bh=yHFCHv1SQW+IjFPxEkHkiDP5RWfvxON6aFiwmXE/HIs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=R5Ar/gw6gIgxdzP9lo0Kzmf3s1KtXe2ELNiAXq6JrRmVTErUR3d7t/0QYrE9JlXKl
-	 ZNGzmwtfoc7V94Pw9xL5a1Uz+v1qlHkjuTvIxcNWzu6AZOxYU8PC6fCk2jpEy4LAsU
-	 u1Q4xp4GA7yIykJmbcQ3PISNwiXYf9G6aUnaF8kreKt7cClnq6YgSnpJIKw7uFQYoV
-	 UlS3xGDwxIkLBq9vxAhOpoCzmb/3YJqoBOidk/3Ij9q25ePy1ptgEyvMSlrsEews6I
-	 krJsX6RQZucdOwNzqPNxLb9ooOryKNTdxBYPylyCjGAxPIwa+AQ2JexqkKqlLZCIrd
-	 qQU7nTSjnf/Bg==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aea0fff535so1021107e87.3
-        for <openbmc@lists.ozlabs.org>; Fri, 24 Jul 2026 14:33:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqQ5UL3LVb4FV/lr0fk7+kaqToEZELh5U45Lm50Cnqw/16bXhaauWGik6tNcsc4bFReOAZfFBn2@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yw1sdcnpLRZxR+wcJfiCQCZwUzBbjszXWSM0ZgguCf1pHD3xhIG
-	8DN/wC1EeXL2mrX6J2ekBdNeYw/NOJxGlPHkrXjKT4pERv/czpzfYTBk/W4JqbRkfNcnJjxkdOk
-	Pbjk9v5uA7Rqp3TlaqOQivZH6B4c+GDg=
-X-Received: by 2002:a05:6512:65d2:10b0:5ae:c745:f39 with SMTP id
- 2adb3069b0e04-5b2b2f6f194mr1567318e87.44.1784928826320; Fri, 24 Jul 2026
- 14:33:46 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4h7B4m3W8pz2xfB
+	for <openbmc@lists.ozlabs.org>; Sun, 26 Jul 2026 16:04:07 +1000 (AEST)
+Received: by mail-pf1-x42a.google.com with SMTP id d2e1a72fcca58-84867f07d63so2092733b3a.2
+        for <openbmc@lists.ozlabs.org>; Sat, 25 Jul 2026 23:04:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785045845; x=1785650645; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V+26Pgn5yyytqUfGY957+3+8j+6xWmgyw5AfMu8lBmw=;
+        b=IXzo9OZcMsmKcbHqG+L722vIAerEYYXr1SKKq5sLklEmbDKynjD5M+dSNyLIrS3x+R
+         ANLej0EZ7FbEUrNsFWZW5q3SJJzXo0hd2Y8C/0dYcnHZvolZ9v7sMJwWJySaffaO7SqP
+         twGbAwnatQO2Kc4jRlHoszlRtTg9bOgYdj4xa9uN9Bf+Adl6epbWlRaHz738ELoTkzF1
+         gEBu9fsfRu6EDRN6DSA94fpY4e0IihIBjKtyfwc8odMnslIVd4MWS0VngBii1g4WbPEj
+         RAB1uwb1WIeZHkveD8nO9QxIknnTc7We+V7gYw+T2KdFBCQhg3sTYjdkSqjAHEPlqgBC
+         Y1Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785045845; x=1785650645;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V+26Pgn5yyytqUfGY957+3+8j+6xWmgyw5AfMu8lBmw=;
+        b=lsZdei4+TompsK7ouSttbCvR6IbtpsNny4d/d6VgPV3+Sh+j87GbRzMak0mvTRghsM
+         RIUFT7J20GDytwSzgGIWep1wLSr+T1rMB8mCcJKz3JdW6JjH+7GUq94MzrcK+NU7bVS2
+         PrxRS/W2i2iAqv2yjh/OdYUrbSGvhzrmasoapxEj7pakF+rZ6xa/lKl3k9HsSAl+GYOn
+         0OR1cKoqEqWYPF/Ov0E2RXgfwRZhDeS2PT0YtuDcN7frX+jmTbEg5SD8SuEjUnb0v1Fz
+         vNvyTbMnjIyNb2aHOkRjPyr6U5lsRzCtNt7Fi1WUHaBTeQvM6zpUbwQh3OCqbY+20beh
+         IVLg==
+X-Gm-Message-State: AOJu0YwvWphPXOMivXgHX3jk1ksl8zS7SvhOsiTKzOlofhtpJC0UCykB
+	MAf8dIyIrSbmotTD6qcr5kVmdwwq0aPohPl0p5U4QXVTC1N0bZKULAh+
+X-Gm-Gg: AR+sD11dTH2f2nCdG6e4wpFR8v/npYqUjLeRdd5nMBcWkUOpdrwm5M/9Cs+zTw6MXOc
+	GLhtUqzd8GCYdkKzfAhiBTtihGwxnaUYkAFhJKGs8ppLNGSJJQ/nsgyRy1pf+1qxuRvYD+rOFPv
+	pEYzZxsu82NUbI4byniSJ3bA6shxLhA1AKs9WD/0UXgAFhbS8FOrQjsrdpAn9BQm4hnod/6uKu0
+	MIDq5iT4zpNWZkbGMi2pHgE4youNzQm73zyqTCJ2XQZDYjlgexzZohtBwRIt+PNsoydlIYtm2Co
+	a79/C88WwakdT8EBpYL1mCIEsmnzwXnNk3CP7i8QAMbMdV4ZW7NL7qYlo/DwooTX9GUTILbpMoV
+	S2wsKxPfF5Fl9Jl9HmY5SNZEIixEc5oIFrMU4bGLLM2lwkHLEm4M+Lpq9sI4eUYO7KmtYwy5wDH
+	D3PSlZngQPwALNZFjdtnCL0wRZS+NClySoFjNnyQ1yLiOmrwHNe1OAl2MOMumoJpzeiZC1CJH5g
+	V6cvLnDbrAsgxXPPA==
+X-Received: by 2002:a05:6a20:9186:b0:3c0:9c19:65ad with SMTP id adf61e73a8af0-3c67e16413bmr4106101637.69.1785045844721;
+        Sat, 25 Jul 2026 23:04:04 -0700 (PDT)
+Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbbb6623294sm1781164a12.10.2026.07.25.23.04.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 23:04:04 -0700 (PDT)
+From: "shaikh.kamal" <shaikhkamal2012@gmail.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: openbmc@lists.ozlabs.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: clock: nuvoton,npcm750-clk: fix 'suppling' spelling
+Date: Sun, 26 Jul 2026 11:33:54 +0530
+Message-ID: <20260726060354.18755-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,33 +102,30 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260715122923.1938327-1-tmaimon77@gmail.com>
-In-Reply-To: <20260715122923.1938327-1-tmaimon77@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 24 Jul 2026 23:33:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnSS+pgSkDWKrC5jfxmSgBNqFPOo_zgCmHCzNeNX5pF9A@mail.gmail.com>
-X-Gm-Features: AUfX_mx98nMos0Kx5oubZwpKrlQlM33i_C7MOroNH_eLPRXK_I_VYrccjf3ZYI8
-Message-ID: <CAD++jLnSS+pgSkDWKrC5jfxmSgBNqFPOo_zgCmHCzNeNX5pF9A@mail.gmail.com>
-Subject: Re: [PATCH v1 0/8] pinctrl: npcm8xx: fix pinmuxing and configuration handling
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: andrew@codeconstruct.com.au, brgl@kernel.org, openbmc@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com, 
-	yuenn@google.com, benjaminfair@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 15, 2026 at 2:29=E2=80=AFPM Tomer Maimon <tmaimon77@gmail.com> =
-wrote:
+Fix spelling error reported by codespell: suppling -> supplying.
+No functional change.
 
-> This series cleans up several NPCM8xx pinctrl issues found while
-> comparing the upstream driver with the newer Nuvoton tree. It trims the
-> bmcuart1 group, enables RMII outputs from the mandatory RMII mux path,
-> fixes the RG2 drive-strength encoding, and corrects a few GPIO and
-> pinconf details.
+Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
+---
+ .../devicetree/bindings/clock/nuvoton,npcm750-clk.yaml          | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-No comments so patches applied.
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
+index 694dac68619c..b46b4ffb3501 100644
+--- a/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
++++ b/Documentation/devicetree/bindings/clock/nuvoton,npcm750-clk.yaml
+@@ -18,7 +18,7 @@ description: >
+   There are six fixed clocks that are generated outside the BMC. All clocks are of
+   a known fixed value that cannot be changed. clk_refclk, clk_mcbypck and
+   clk_sysbypck are inputs to the clock controller.
+-  clk_rg1refck, clk_rg2refck and clk_xin are external clocks suppling the
++  clk_rg1refck, clk_rg2refck and clk_xin are external clocks supplying the
+   network. They are set on the device tree, but not used by the clock module. The
+   network devices use them directly.
+ 
+-- 
+2.43.0
 
-Yours,
-Linus Walleij
 
