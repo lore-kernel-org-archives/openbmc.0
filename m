@@ -1,76 +1,56 @@
-Return-Path: <openbmc+bounces-2334-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2335-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 025DCC55167
-	for <openbmc@archiver.kernel.org>; Thu, 30 Jul 2026 23:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD6C1C55165
+	for <openbmc@archiver.kernel.org>; Thu, 30 Jul 2026 23:59:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hB5lh2vFDz2yd7;
-	Fri, 31 Jul 2026 09:59:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::1" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785396412;
-	cv=pass; b=Ca3NvPKEiRaBTX9qezss3G0exer/FN/hWTkw4UniTkYd2aOCZKeM8A+WU9UKl/NYQtuBbhGXG1ZyJ5B92lZOrkSxbmGuAyYrEFD7V/u1wN1eYwFrP5u/jPVAsJ06xbUTTP01zeQoY7KeAZcl0HYNTLzn5PJPO5M1HF29NX9uONa7UvVljP6cSFf0h87SH5xYrMDuCBOtQsg/GzngObT8sGaRHJsfSdP2nvoaOEeO7KYq3dFmiBKjqNu6FhnxWm1k6mEUzpUyrY2itAGW6VA7oUBmYVkN86p8K2P/Yr89NK74bgr9qFAA7OEgSNSqR1/h7j0VfUuM7R1JGiCjzx228Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785396412; c=relaxed/relaxed;
-	bh=+bHVUngGeTETwXfXs9HjI7OF1XFZgEbN/iyskzwq8ig=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hAE/fZ7S2gnjfcxxi1A9NDavtwqoXolpUyDBWUpmNup5WrvEWm8WzNSSBQKZET/jqw74ba3SgQwN2FAJ6AFxLiGDK/MkqoSLU3fr/IjdpFua0TcPP96D71CgHRxuY4EOZL2CfpekRFxnORO8NI1oPWWXA5ichyGiYRNk42PUKQ9VFxHPoGyzNyres9ZXo/AJU6bd6bGRh0GbBv8njd0+W2r/clAVYyXL6ceTsixNu6rpxtFVnOU5ww9luIX99nlHN/bpLzfVkdGxZzaTh62wxxSb6E/RQw/Iy2e2dFGUdFkOUSxku9+JB056JwHMgQd8RebmN+6M8cv0ZE9yADZ2ow==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=aOX5oC1N; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hB5lk1SQsz2ygg;
+	Fri, 31 Jul 2026 09:59:30 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785402511;
+	cv=none; b=Gg/QLI6+ug7+TlOS5HxVcTa66qRgbbeZa/rjylFhpO2CtrP1UwfxpCJdhupdBHO2LkZ1nu3HwwnLDxP+K5XARrLIjuKiuOprw7MxRFCGv6Cy2DHYEBZXiKJXHWOEBhKvZwUFJoh/UYOTKUKGCDWpejpNDbZ+bLamSWW4NYrCminA8zZ0QkGVZNIupHo7d9jA8wugfRpxR1bhHoFlgAang0i7I82h12KNbgMx+4Tk7+RtPhF8p0BwtWQrsEX+PxR130CvIHUWbIPjxcX+cy9yTdE7xAUzUCoN+RayzuFwEo/6d8o1dU5NvrcTilkUQauSI5olSL8b7UYSoFBon4Tnjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1785402511; c=relaxed/relaxed;
+	bh=7BEX+i1jwbDjp0yQfhE7D9I3GKlc5+TT/mNxvEp+rL8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ILOrs4/7TjYcquOD5FhySdIAgTvYs5S+qOo5zn+gPHprcucbeCvyqMghs4L50NKqPAqM689yC6cS4asoniSGARD7UbaF+D+/hcBnf0SowjafojYiadStSp3dcpJhTD5qzOLKN9tOD8rAjIJ4ntOtHPug+C/izYm2XZclisI/I3ATyVbnS5xA/4K59MwkNWAQWd23EWMjOtoKWU5kU5Mb+HVT8LWCFYF/xe8LYc/DYS1JU0p64JXui0cl9cLHlUezLpaOqh89+uuLNiTzGWZuCUc5aUFzqmlhRTKvDlLIyit+58tP70lpZK5/HPITYfV8bGOOoCUiyA3HbVxQ7xcKBw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=q/ihtmVm; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=aOX5oC1N;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=q/ihtmVm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org)
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazlp170100001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4h9gkK63wWz2xF8
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2026 17:26:49 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NVbCMwuFRL8uS1kpFQkLdwk//SID8vLDRHXbdA2TwuvRZE3C7r8Om06KaPBqGS9TahO+x8z7t4UHUzLqVUiM3hln/A7l0ZejOxbQN5ArEmcEtidgMnwEGIe290sdj54jWQFi+Y8qE4/F6hJnDZweuFVQRGFVJ8zN1szZKQhEYLx7F9vruJiA2omX8BShtmQRAIhfaRbcgQpDisPCo+0XwjQj2dyLTHpyBldNjtsPM+nX7jZw7OhTLsBhUaD8ZwPddgouAoF8BYAEoORsjs+JsfoUnG9aCqaoqGSaO6cVZKt8L5M/dSrE4565drKt6Wmk/L9w0n1/gz/7W4L3S8szzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+bHVUngGeTETwXfXs9HjI7OF1XFZgEbN/iyskzwq8ig=;
- b=J8cpH86Yi17i6pJE6Lg2l0JmOQfIdEJa0eoXsRGy6Fnh8rhc1Lu9q0prh4OP7r7oXCbmIEzl7ENyiWfl3xg8J4e0GGuzIRKkigq3puH9bq2bBDZ2+ws5MdwxRXWhhvPYSQHVQtLEovqsL0jcFqoUtigakmSsCSU5Q9dI5avAa8HUGfHwh8hNcECBHRONLHzAIGG8jK1zZFk4+puVdaPvYpwmVJ+scuFdULeWO1+rBXDQVM41m+oKQ8GijaQETcdsf6B47emjMY/DmSoJMtWjfa8tlcNp5XyG+HNWjNq0ScEZDqtUEhVC8LUqrzZfAxbGbgFdYgc62UFd+rEJQFRzqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+bHVUngGeTETwXfXs9HjI7OF1XFZgEbN/iyskzwq8ig=;
- b=aOX5oC1NEBYjDNRy+vZb8L43qcGWIBJPSE3yVezxQNER6Ma7t00mWNGCsjtlsLZNyEIip9JyrQc0fJHtys+Z7VpZetAULbrspRcs1Jgr+WTcLGsDHeZeajujijnsYgZfdnVgQLIKLKYcspCh9vdxh12P00lNVRRjmDDs29ih8bZAU2eE4dvOLiNKoedZDmLZBWbJRjgUaSZc4PobZBIW1DuEjW2Ryrqnmx4+NZ/IaMCzXT/h2buTg6F4N2Zn2tuO7Wby5Z+nHagXGkQlcA2NwHw8zS6VvB2jUeO8p/i5MncqbSYaP7BGN3AiwsWMRhtlAzuKHz6OjxDDcEi+uN+uxw==
-Received: from CH2PR16CA0009.namprd16.prod.outlook.com (2603:10b6:610:50::19)
- by BY3PR18MB4738.namprd18.prod.outlook.com (2603:10b6:a03:3c9::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Thu, 30 Jul
- 2026 07:26:24 +0000
-Received: from DM2PEPF00003FC5.namprd04.prod.outlook.com
- (2603:10b6:610:50:cafe::17) by CH2PR16CA0009.outlook.office365.com
- (2603:10b6:610:50::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.13 via Frontend Transport; Thu,
- 30 Jul 2026 07:26:23 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- DM2PEPF00003FC5.mail.protection.outlook.com (10.167.23.23) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8
- via Frontend Transport; Thu, 30 Jul 2026 07:26:23 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTPS id 6AA7B4186B53;
-	Thu, 30 Jul 2026 00:26:22 -0700 (PDT)
-From: Tzu-Hao Wei <twei@axiado.com>
-Subject: [PATCH 0/2] media: axiado: add AX3000/AX3005 V4L2 capture driver
-Date: Thu, 30 Jul 2026 15:26:07 +0800
-Message-Id: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4h9jzf2KXdz2yjs
+	for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2026 19:08:29 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by tor.source.kernel.org (Postfix) with ESMTP id 029AE600B1;
+	Thu, 30 Jul 2026 09:08:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AC689C2BCB3;
+	Thu, 30 Jul 2026 09:08:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785402506;
+	bh=5kQPTryfWHP134MZpfA0u0aU/jQHtrv6X18btCqvLDg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=q/ihtmVmkUuK4903hToKoTP99jtAqE1GgQGaQAVD/bED/lKvLxOoHRAingdX+oval
+	 Jfzc5ZVNQn9O9xHlUsvOECN4GN0DgoAfFI+4ut272B7hHVreuEQy+nEx0PSTqHIXvc
+	 WdueLH0xuPoT0HwL3qh6wnb2RLwqpJkiquk06IfFqwro4atdA5ha+j7lWRVjUEeV1K
+	 Q3TNgSIJ9Brp8A3JAxb7Nhfb4Sh5FJj6mcIHCFVKBgalUnQ23Egz6qAoStJ4FAoj0c
+	 4Wi6+XkWY1tQXqAGQKKxdRkxjVqTBBgdkSxtwBDsVZcFasa94vmIkUwhVlZaZsmhU2
+	 N6GaeZhjIpocA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CEC5C54FDF;
+	Thu, 30 Jul 2026 09:08:26 +0000 (UTC)
+From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
+Date: Thu, 30 Jul 2026 17:07:56 +0800
+Subject: [PATCH linux dev-6.18 1/4] dt-bindings: Add vendor prefix for
+ Kandou
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -84,97 +64,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI/8amoC/x3MQQqEMAxA0atI1hPItKB0rjLMIrZRA+JICqUi3
- t3i8i3+PyGLqWT4dCeYFM363xrerw7iwtssqKkZHLmeeheQqyciTJr3lQ9MpkUMIwdOIQ5+9BF
- au5tMWp/v93ddN7B7oxhnAAAA
-X-Change-ID: 20260629-ax3000-display-driver-ca9ad9c73b3c
-To: Shubhangini G <shubhangini@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Tzu-Hao Wei <twei@axiado.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1717; i=twei@axiado.com;
- h=from:subject:message-id; bh=18jb9AFelmHSEL34wzcAp8GJh9EnJnAxlvDCrDinXy0=;
- b=owEB7QES/pANAwAKAXgQMF3EWvHXAcsmYgBqavybY6PKaivkNdLOu+51tihUbAlocp/BbO3sw
- xrCDkaS6++JAbMEAAEKAB0WIQSZyWINOowtFmDvdYF4EDBdxFrx1wUCamr8mwAKCRB4EDBdxFrx
- 1w5nDACmG3kKyAia9xTgofIYc3gwk9Ze7/BFe2XVIPcDjM36/e2ETBP0Jyv9meZweN3SyGx8Ez1
- tPGM6uAfsynNjh9hV7CoWsKXKX9DK8nnvwJ+YeLswdLI9YuJfiT5/h2vTVXEP6/srm8wOnpDjew
- wi2owwNJa/KQBiPerZENOEw1Wp2qd/3ehVf80d6IawACW/klqxoZHVdRc+nGKjZklRfmDU0hiLD
- 9gQPgXLD00+dKtWgcohTBuoN7Lsv+5iLfIKWUvvtmmNZY/aqOtNiWBSQjJ836zGLQ5N0PqiiY2n
- v4VMnjN/Uq3n/VVl+FPH7VXjwSPaslkBtyekKJDtvIeNZUvaGxWTFR4t2Ch/lcTkV0iv02V6TNQ
- WyvIUtsXQJCz8fI1zLnyAxE3LUNQOwqSTN9SqDBm51XUtnKTlwTnHJkVV3URL8x/L6cEvWlY0eQ
- ccn+Rw7uAdumeDLgNFeXtV4PhADtJagY/rukGaVhAIDSBfuTAxs/9JAKMTgTXYfbQ/Akk=
-X-Developer-Key: i=twei@axiado.com; a=openpgp;
- fpr=99C9620D3A8C2D1660EF75817810305DC45AF1D7
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC5:EE_|BY3PR18MB4738:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0df52ce9-a67c-4e95-3319-08deee0bdbcf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|42112799006|1800799024|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	VDoygt0tJm0OCDqrie3BaFEHi3YTIVuad3ASAqbjWYu0bQ4dGAAVGOTgy3UkWD2rF1qTHkrYD5cM8L9AZpnfa58FTGTWiLbQ4aJK4QDPOi1E835nc6rVxIs11BR3mfyl/QWgihLRMx5x5itaO6gx0m5NfGsZTiVRROVNsi8fjNeguYqkn5vghTXBdEDAOkdpb3xkWqHifh7oxFTnssL96NeyLdRPKQ1UrTdB/NjFAWCPFak3wYZCerKhG1xRoPpA4gBvk/AgNMgWO3sfpLt4Tc92SwbgEFugee2u7nb2O807/qCWrWDQhC4ojTyd9c+ODeZwnp6aPS306hgqAnoLZpgJRQpYpDh/JN9Z7pp+LFciMVqulC7OSryNMQdc3SDvZJcZVOWA7eO3i1NNKWBy2rn6wq7TsFtPUw4yT7FxEP1e1+IixxXSk/z6AkCUb+NpGa9JG47zEJfaUN/di0POtqhgTOh3s7JLrfxFDh1EgjaCo/otk6RoLRfSq522tzZ93qKV2QzXvRLLPl7FbgASNySQh109/BGJw+5PZAv/Jpgce9cQTDBfKN8l8hFNxZRFAFlJOJgTULLhL7fpLLhZxE7mQzyvHNffbhh25O+MnKSIPRR0sX09Bp+Wt0hxv/rsSfMREBoncp5EwPd7LHKb/GY3Ob6mgpkdJBJKIqhf3qDEYzaf8yuHvu3SY7wcZTi+rzmSnTyeHEHDlg42zoCtUA==
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(42112799006)(1800799024)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	EOq2LHsXbYQujejxXbIr3FaPgyjPCWig6FtuKtI12mPTha5HVq7Xa2JGiasXDjZirOD3GsIPv3XwXrTq3MSXKG2V2P+EHJyJ2ikh9Z0VIYbQhYjwxoAIS+hGWmhyuiD6VjsthKkZSKJ1D4qF+x0Et1ZERZmvM8CuF1m8OZ8vSMuwxGhvQTJ5DM0IBW/3nx5fs+OxjUCX22j0zSt/AFOSSYPuILGbrDuUAokgqrXrAV84A0aaq7EBgmO6OjEaBSi7ToxMTDa/3E+a4CF442Xo/9Nz31R7GgQs3eIsQCecChoJvQfR9kTkdWaMZZK35Xo/FfIFJ8t/4UVyVlK+tni4p9OeQT0MJa5WIdsUtKlBD77DYvnAxyEKKd9tieLqGydVlHHIMeLozJdSROZMwAtuXEiecSk6Un6bVrL+hpRRuv/suqrVlXWu5Pld1oZnBP+s
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 07:26:23.1337
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0df52ce9-a67c-4e95-3319-08deee0bdbcf
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY3PR18MB4738
+Message-Id: <20260730-kb9002-backport-v1-1-41f472e52215@amd.com>
+References: <20260730-kb9002-backport-v1-0-41f472e52215@amd.com>
+In-Reply-To: <20260730-kb9002-backport-v1-0-41f472e52215@amd.com>
+To: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au
+Cc: Andy Chung <Andy.Chung@amd.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785402478; l=955;
+ i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
+ bh=Vip+y4zyOOeo3fWhSWkyV8pwofoZryEMIXrs0tGBVZg=;
+ b=x4Gtydnffs9wctOQ8ycmZzPolmLhKwVH0hvPH04jA1UuM8nSyvMkd6KihqevVToFf04wCwHyQ
+ uAzPcybyHwLAs0YWz5EqdllQ44aPeQD7DaDv4FkYrSxM5UtfLHrLOOv
+X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
+ pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
+X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
+ auth_id=696
+X-Original-From: Andy Chung <Andy.Chung@amd.com>
+Reply-To: Andy.Chung@amd.com
 
-This series adds a V4L2 capture driver for the Axiado AX3000/AX3005
-display capture path and its Device Tree binding.
+From: Andy Chung <Andy.Chung@amd.com>
 
-  [1/2] dt-bindings: media: add axiado,ax3000-video
-  [2/2] media: axiado: add V4L2 capture driver for AX3000/AX3005 SoC
+Kandou AI is the vendor of the KB9002 PCIe retimer.
 
-There is no local register interface for this driver to program.
-Frame delivery is controlled entirely by the host-side display engine
-and the PCIe endpoint mapping, both external to this driver; on the
-AX3000/AX3005 side this is a passive memory window that gets read on
-a timer. The AX300X operates as a PCIe endpoint BMC. Neither the PCIe
-endpoint driver nor the host-side display driver are upstream yet;
-both are planned as follow-on series.
-
-Tested on AX3005 hardware using v4l2-ctl (format enumeration, S_FMT,
-REQBUFS, streaming) and obmc-ikvm for end-to-end capture verification.
-dt_binding_check passes.
-
-Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260724-kb9002-upstream-v5-1-9523c3ffe83a@amd.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
-Tzu-Hao Wei (2):
-      dt-bindings: media: add axiado,ax3000-video
-      media: axiado: add V4L2 capture driver for AX3000/AX3005 SoC
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../bindings/media/axiado,ax3000-video.yaml        |  44 ++
- MAINTAINERS                                        |   9 +
- drivers/media/platform/Kconfig                     |   1 +
- drivers/media/platform/Makefile                    |   1 +
- drivers/media/platform/axiado/Kconfig              |  17 +
- drivers/media/platform/axiado/Makefile             |   2 +
- drivers/media/platform/axiado/axiado-video.c       | 850 +++++++++++++++++++++
- 7 files changed, 924 insertions(+)
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260629-ax3000-display-driver-ca9ad9c73b3c
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index a9cf85fd6fbe..4e1fa0104f5d 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -839,6 +839,8 @@ patternProperties:
+     description: JTY
+   "^kam,.*":
+     description: Kamstrup A/S
++  "^kandou,.*":
++    description: Kandou AI
+   "^karo,.*":
+     description: Ka-Ro electronics GmbH
+   "^keithkoep,.*":
 
-Best regards,
 -- 
-Tzu-Hao Wei <twei@axiado.com>
+2.34.1
+
 
 
