@@ -1,56 +1,81 @@
-Return-Path: <openbmc+bounces-2338-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2339-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B1E0C55165
-	for <openbmc@archiver.kernel.org>; Fri, 31 Jul 2026 00:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B9AC55167
+	for <openbmc@archiver.kernel.org>; Fri, 31 Jul 2026 00:02:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hB5p70WXyz2yYd;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hB5p70mDbz2yfD;
 	Fri, 31 Jul 2026 10:01:35 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785402510;
-	cv=none; b=jg73Vzq5kgsqHKWirEtYMaLlgOn5gYnpINVeR+UlWRm8OW3KcFPS6MpicA/DoqoeObNVKTRz0UxlIHmsx7UI29Jc+ELOuSXqMB3VCCEWzrCNLxdRjOdAwYRRje7e7XGYlc9FJPDz4H7m+z+wj+EtpvIw3z2Rx/31/UAGJCHJsBAlsLTfoJ7oWtWURbWlR0b7gtIu3k3hf09JMylH0Qe2zTCkHLi66/KFYaYUWwp/UIvWQVeq8ncaChUO+6rrYCEWaePskFOPDrKn7McWk44GvF7dyGyJcX+dM3qbZDUUUdqdQGdrM/+QuHixcm733FPiJDkIYgBWTFldx5XipVUMqA==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::102c"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785389834;
+	cv=none; b=Y1bdz1VqFNuY7Wbooai4fDHCs9Iso2/AvrHNOzzx+ZJQLO9DEDt3npWLJ0GRQ5fmgog+tkuRd6/voshXntfBCA1MDW425nvyo//2WyFFkqLNSp4szi4oFSV73SYUJxkY/Sz/WANqurtaRQjmmpXMDSoiQNpFrrcIisHU98QOL5Ul0jFlHVjZ3p9uWOyQMV3D4zwOhzF1S+WnqUtYJFjUA3TOqXwhF02G8JrFcnxG61mmE+zfGaJ4QPoZjOBJS9fQ09/3VCN2Kn+HEnwyobX8+o74d8Tul4tEnJf060ZK8c0t4/oi1tYVI4clEvx190YDvIhvTJY0GPqYUMJAx58nww==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785402510; c=relaxed/relaxed;
-	bh=vF9l72ZMpm9gF3L/KhykMjsWKieHWaNvuENCtcHNy9Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m34OnCjN/PTH8IvexDANaIaKDPhqfTm4ei8bAvTuoO6VteaXAdWO8nFndhnLxGNGTeRE1UVgfSOJ5A0MJNalsrUXwaYwdtEkmPIyUV2BPSw/UyvXS+/favPQ236eu1etwwDpToH+36TGpc7N3BvwMCkOlPBcGlH5WafyA80k+wmdTHM0uo9khPyZYSzvXctrjhkLlXLP2srLUsDVybkOscSiUuTUyfFABAzhj8mTmi6dvfgm8F06pGUU9ZPJUxSzHk7xNqhBihiu2vkm+CILyb0DbZYfmldwyQNLBhNUQpLwvLj+qX26txz1PEkL+U+FaTml6rGz+/CMzgP3l3iKIw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=tqqMT73p; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1785389834; c=relaxed/relaxed;
+	bh=LMI4niVQyS2WXHic1gEBE4O5q8vBgy7QYre3jyRdx5w=;
+	h=From:Message-Id:Content-Type:Mime-Version:Subject:Date:
+	 In-Reply-To:Cc:To:References; b=I7DlKanZu6Q/nczOOgmoIqeAc3WfuYs4vL9vQpBrOTsJ2TYZccL0Wd6/AY8tQafxfdbzu9n0QqDLlq3DdllZ2tjxmm5ZHpk35GATJvhOeGke1Ny6lzYXZqi00ccayzyzdZB6XWeNRK2osJSz+fJNDZVdirfkU8zwyCIVjDRWzJy4jZbKdF5pRkSNbdBmyPfjdjhcpI6fnIu68CYWyRK9yIvAa88Z0+V3zVycQ2J5wJwR+OLyM/L+CN471aMshj+V4D1OS53fw1UoAm7i8nzDt1mdBkM5Bwfza+bei2p7fUtmDEhI47lYGoBeThR4LQphDQdop/x12X6K6EGt+A0YVQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; dkim=pass (2048-bit key; unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=QRCliBUJ; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::102c; helo=mail-pj1-x102c.google.com; envelope-from=chinmoy@nexthop.ai; receiver=lists.ozlabs.org) smtp.mailfrom=nexthop.ai
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=tqqMT73p;
+	dkim=pass (2048-bit key; unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=QRCliBUJ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nexthop.ai (client-ip=2607:f8b0:4864:20::102c; helo=mail-pj1-x102c.google.com; envelope-from=chinmoy@nexthop.ai; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com [IPv6:2607:f8b0:4864:20::102c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4h9jzd1vFbz2yDs
-	for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2026 19:08:29 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id E74E5417D3;
-	Thu, 30 Jul 2026 09:08:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C87A1C2BCFB;
-	Thu, 30 Jul 2026 09:08:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785402506;
-	bh=H88ZK16Wde+fERiVrwNokvS9c8cSuQ2EyWk9/KUNfzI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tqqMT73pGBz/Db+gJy6O9blDxyz+l9C/MOHQ9iT42/XfGt228Ut7BmxwG33rJUfxx
-	 G8al1yt8dP4Kd0rPi+XNqLy7fSzkfIbBKidDryEUUyCR5wVOK5YePnSs+kqUb0B63z
-	 WmqxrUrIM/CyEKq2NWPfYUvtk4sApaxVKPf70qiTSKKyvWP/iUxqbHGD2ESP3FqdDJ
-	 QpMFP0mjtKiNdqjlA1AwldaXXYN9Pp8Zh0EDXPQXxna1jVIV3rVImcVWgWkgsrpCNS
-	 zIzOa7PNnd4sbeadjx/Q7+KqBVcDd87XgvhSue/JBMjv7OnHQ1A2RxaggReF8RX7oK
-	 NQUvelIWrkDJA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1F6BC54FD2;
-	Thu, 30 Jul 2026 09:08:26 +0000 (UTC)
-From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Thu, 30 Jul 2026 17:07:58 +0800
-Subject: [PATCH linux dev-6.18 3/4] hwmon: (kb9002) Add driver for Kandou
- KB9002 retimer
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4h9dHs0mVZz2xnp
+	for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2026 15:37:12 +1000 (AEST)
+Received: by mail-pj1-x102c.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1752279a91.1
+        for <openbmc@lists.ozlabs.org>; Wed, 29 Jul 2026 22:37:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1785389829; x=1785994629; darn=lists.ozlabs.org;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:content-type
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LMI4niVQyS2WXHic1gEBE4O5q8vBgy7QYre3jyRdx5w=;
+        b=QRCliBUJx6GaDHf3NRRT8MYYV7qPp7IO4+wkaMWj3Z3VAwZJzPx0UGMBK8yg0zdVoN
+         B08oYz5NZYGBO65PFYQEJfz75afHOGr25kzyR4RCkdo8H4oatbSxgcEcjhRrXOfkLTZ6
+         sDi5zvtM5hwO0U7avae5U1I6is3TaJXhpLKSpyhGaAhEtRnN9dcWjsxum8n/+hTV5uco
+         rY+29m2ym3yRu+4DfUVPnNtnA9P5u3vKjOG6OjQEL12eUkXsTHmfZXZ/c/9GktlJU4P3
+         8xD0WWl/M4tyEG6ORw35TQAGdX7HAGOQdiex0RWGpT3Kce5r0D374m0Ss4UVZU96xGP1
+         66pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785389829; x=1785994629;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:content-type
+         :message-id:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LMI4niVQyS2WXHic1gEBE4O5q8vBgy7QYre3jyRdx5w=;
+        b=KDZo4ABy6tosj4OHx8poJTZy1RSQQN27wu4yKh1g/+mb/PAhRZt0uckm3DqryTvnxV
+         zTv+qMjFx3xXlLns+TezgYC7CZy2W9kWkE8CBRUrCoE5Ox2pcOhMAspNzbBiJ6wNvIo1
+         SnC1nCCnemEFQ4oUuKDWFp5VEYG15pq/PLwOUqZw2n+j+ZV7Djeih5MQg8EeellEMiIo
+         jWvLnmEh4+UFWxnUaiJbjtByjisbmVDSstWOK7jgSR7IZmAQvFMIKj07I+L+zOATaItL
+         o/W15JSjuqJZOrwmGke/VfEa2QN8y3EK0m0sucXs6s9sa6iboqe4WH9aOyaYc90ePWAz
+         UmNQ==
+X-Gm-Message-State: AOJu0YxQDFTJ0UmS+wSoBjd9PkuZef67cw2fqpe6MGSxhRLsbPES6nwV
+	iISaTjwc0FXqAaLGSFJLeuuUDoOrM9FAcGIrVviYsKp8wFEDBiIwF3VNOMVffLjjvh8X+gszkvy
+	9RESh
+X-Gm-Gg: AR+sD11/Dxky/MYEAsVx6eK3JHr4S39wy1O+okg366EZMJRPDtmumJb8zpaNevjigLT
+	Ag8opUItDSBSvIM/MTmZt/9im6CbP+UmWwL8m+XuDVMgsyqGRmAQ/Pc0hPWlCQvG9aDcIqR+tHA
+	HygmECqYIwtveZL0mCSZMVd03kjkK4XRXWQrNLuXJfCUl50MCyTOd/0xV2uBM9YTb2MRK5UyO3R
+	tTiZi1SfNy8N+/yW0sdGA+NSaedxS8FN3Ws+V2HNwtXvummcP9/lyZHUEvnD0XRL22ukHIkljAP
+	CXXEJWpjeDdy4NmQCfwlXMDL2ZQrtsNQj7hWYH81bGFMEQUkebxY0JbjxVuNqhGkycP3nsptvSx
+	yMPikz+zph4cHEIUTASU0458mzO3fLOCUYkeVDjUCTmpZhB6XS2Z24wujohIt00uOKBbSlXgrkj
+	gHwJAqA9OvmK0TewyYaNNmkHTNyVQnfRgaxgZQnvqmyMrd0ge4KET/we+JdZ2Mb4kN/btif/Hee
+	OS7xA==
+X-Received: by 2002:a17:90b:3f0c:b0:38d:858c:834d with SMTP id 98e67ed59e1d1-38f9bdb4e33mr1038433a91.17.1785389828683;
+        Wed, 29 Jul 2026 22:37:08 -0700 (PDT)
+Received: from smtpclient.apple ([106.51.71.32])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f9b465f28sm409099a91.5.2026.07.29.22.37.06
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 29 Jul 2026 22:37:08 -0700 (PDT)
+From: Chinmoy Dey <chinmoy@nexthop.ai>
+Message-Id: <F382C4AF-9F06-4EE7-802F-5F229AABA207@nexthop.ai>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_D781594E-9618-4B5A-8F72-F2B42EADACEC"
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -61,564 +86,239 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-kb9002-backport-v1-3-41f472e52215@amd.com>
-References: <20260730-kb9002-backport-v1-0-41f472e52215@amd.com>
-In-Reply-To: <20260730-kb9002-backport-v1-0-41f472e52215@amd.com>
-To: openbmc@lists.ozlabs.org, joel@jms.id.au, andrew@codeconstruct.com.au
-Cc: Andy Chung <Andy.Chung@amd.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785402478; l=15608;
- i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=KsR8fAqvuNoDsr/DPhppgv6ZFEDk+vOePofmPIV9bwA=;
- b=k66NQzjtWdxXKJKX5qptXr2DJpIVuW7hzWpSKHEcYcpNnduzgPx/87A/bVkopULKruNUre+GK
- Ohgxh5LLnmKCLtwGCnKNHzfKX+8tBhAtP6OYisrNGwS+T+A89dTxdKY
-X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
- pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
-X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
- auth_id=696
-X-Original-From: Andy Chung <Andy.Chung@amd.com>
-Reply-To: Andy.Chung@amd.com
-
-From: Andy Chung <Andy.Chung@amd.com>
-
-The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
-target with mandatory PEC. Add a hwmon driver reporting the firmware
-aggregated maximum die temperature as temp1_input, with the firmware
-version and boot status under debugfs.
-
-Signed-off-by: Andy Chung <Andy.Chung@amd.com>
-Link: https://lore.kernel.org/r/20260724-kb9002-upstream-v5-3-9523c3ffe83a@amd.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- MAINTAINERS            |   7 +
- drivers/hwmon/Kconfig  |  11 ++
- drivers/hwmon/Makefile |   1 +
- drivers/hwmon/kb9002.c | 459 +++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 478 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 684c9b9be869..06356bd0904c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13430,6 +13430,13 @@ S:	Maintained
- F:	Documentation/hwmon/k8temp.rst
- F:	drivers/hwmon/k8temp.c
- 
-+KANDOU KB9002 PCIE RETIMER HWMON DRIVER
-+M:	Andy Chung <andy.chung@amd.com>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/hwmon/kb9002.rst
-+F:	drivers/hwmon/kb9002.c
-+
- KASAN
- M:	Andrey Ryabinin <ryabinin.a.a@gmail.com>
- R:	Alexander Potapenko <glider@google.com>
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index c8a7e45e8006..b2dd700b12f0 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -335,6 +335,17 @@ config SENSORS_K10TEMP
- 	  This driver can also be built as a module. If so, the module
- 	  will be called k10temp.
- 
-+config SENSORS_KB9002
-+	tristate "Kandou KB9002 PCIe retimer"
-+	depends on I2C
-+	help
-+	  If you say yes here you get support for the integrated
-+	  temperature sensor and firmware version readout on Kandou
-+	  KB9002 PCIe 5.0 retimers, accessed over SMBus.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called kb9002.
-+
- config SENSORS_KBATT
- 	tristate "KEBA battery controller support"
- 	depends on KEBA_CP500
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 73b2abdcc6dd..634586d60118 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -111,6 +111,7 @@ obj-$(CONFIG_SENSORS_IT87)	+= it87.o
- obj-$(CONFIG_SENSORS_JC42)	+= jc42.o
- obj-$(CONFIG_SENSORS_K8TEMP)	+= k8temp.o
- obj-$(CONFIG_SENSORS_K10TEMP)	+= k10temp.o
-+obj-$(CONFIG_SENSORS_KB9002)	+= kb9002.o
- obj-$(CONFIG_SENSORS_KBATT)	+= kbatt.o
- obj-$(CONFIG_SENSORS_KFAN)	+= kfan.o
- obj-$(CONFIG_SENSORS_LAN966X)	+= lan966x-hwmon.o
-diff --git a/drivers/hwmon/kb9002.c b/drivers/hwmon/kb9002.c
-new file mode 100644
-index 000000000000..a63a66a28bf7
---- /dev/null
-+++ b/drivers/hwmon/kb9002.c
-@@ -0,0 +1,459 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Kandou KB9002 PCIe 5.0 retimer hwmon driver.
-+ *
-+ * The retimer exposes a system management bus (SMBus 3.0 with PEC)
-+ * target for firmware-managed status registers. This driver assumes
-+ * the chip is strapped to SMBus mode and exports the aggregated
-+ * maximum die temperature as hwmon temp1_input (millidegrees Celsius)
-+ * plus the firmware version and boot status under debugfs.
-+ *
-+ * The raw-I2C path (kb9002_i2c_read/write, used only at probe to switch
-+ * the host interface) carries the 32-bit register address and data
-+ * big-endian. The SMBus path (kb9002_fw_read/kb9002_smbus_hw_read)
-+ * carries the register address and returned data little-endian.
-+ *
-+ * Datasheet: Kandou KB9002 PCIe retimer (KA-015171-PD).
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bitops.h>
-+#include <linux/debugfs.h>
-+#include <linux/err.h>
-+#include <linux/hwmon.h>
-+#include <linux/i2c.h>
-+#include <linux/iopoll.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/seq_file.h>
-+#include <linux/types.h>
-+#include <linux/unaligned.h>
-+
-+#define KB9002_DEV_NAME			"kb9002"
-+
-+/*
-+ * SMBus read command codes. Each read is a two-phase PEC-protected
-+ * transaction: prime writes the target address, data reads it back with
-+ * the register contents. FW reads use a 16-bit address, HW reads 32-bit.
-+ */
-+#define KB9002_CC_FW_READ_PRIME		0x82
-+#define KB9002_CC_FW_READ_DATA		0x81
-+#define KB9002_CC_HW_READ_PRIME		0x8a
-+#define KB9002_CC_HW_READ_DATA		0x89
-+
-+/* Firmware register offsets (16-bit). */
-+#define KB9002_FW_REG_VID		0x0004
-+#define KB9002_FW_REG_FW_VERSION	0x0500
-+#define KB9002_FW_REG_TEMP_MAXIMUM	0x0550
-+
-+#define KB9002_VID_MASK			GENMASK(31, 16)
-+#define KB9002_VID_KANDOU		0x1e6f
-+
-+/* Firmware boot status: 0xe8 in the top byte means init completed OK. */
-+#define KB9002_HW_REG_FW_BOOT_STATUS	0xe0090008
-+#define KB9002_FW_BOOT_STATUS_OK_MSB	0xe8
-+
-+/*
-+ * Hardware registers reached over raw I2C (32-bit addressing). The
-+ * host-interface bit selects SMBus (set) vs raw-I2C target; parts
-+ * strapped to raw I2C need it set before SMBus access works.
-+ */
-+#define KB9002_HW_REG_REVID		0x00480004
-+#define KB9002_HW_REG_HOST_IF		0x00480008
-+#define KB9002_HOST_IF_SMBUS		BIT(1)
-+
-+#define KB9002_REVID_MASK		GENMASK(7, 0)
-+#define KB9002_REVID_B0			0x10
-+#define KB9002_REVID_B1			0x11
-+
-+/* Retries to drain a stray leading 0xff from the raw-I2C FIFO. */
-+#define KB9002_REVID_READ_RETRIES	16
-+
-+/* Temperature: 32-bit Q16.16 absolute Kelvin. */
-+#define KB9002_TEMP_FRAC_BITS		16
-+#define KB9002_ABS_ZERO_MILLI_C		(-273150)
-+
-+/* Firmware takes up to ~2s to respond after a host-interface change. */
-+#define KB9002_FW_READY_POLL_US		(25 * USEC_PER_MSEC)
-+#define KB9002_FW_READY_TIMEOUT_US	(2 * USEC_PER_SEC)
-+
-+struct kb9002_data {
-+	struct i2c_client *client;
-+	struct device *hwmon_dev;
-+};
-+
-+/* Raw-I2C read: write the 32-bit BE address, then read 4 BE data bytes. */
-+static int kb9002_i2c_read(struct i2c_client *client, u32 reg, u32 *val)
-+{
-+	u8 addr[4];
-+	u8 rbuf[4];
-+	struct i2c_msg msgs[2] = {
-+		{
-+			.addr = client->addr,
-+			.flags = 0,
-+			.len = sizeof(addr),
-+			.buf = addr,
-+		},
-+		{
-+			.addr = client->addr,
-+			.flags = I2C_M_RD,
-+			.len = sizeof(rbuf),
-+			.buf = rbuf,
-+		},
-+	};
-+	int ret;
-+
-+	put_unaligned_be32(reg, addr);
-+
-+	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
-+	if (ret < 0)
-+		return ret;
-+	if (ret != ARRAY_SIZE(msgs))
-+		return -EIO;
-+
-+	*val = get_unaligned_be32(rbuf);
-+	return 0;
-+}
-+
-+/* Raw-I2C write: 4 BE address bytes followed by 4 BE data bytes. */
-+static int kb9002_i2c_write(struct i2c_client *client, u32 reg, u32 val)
-+{
-+	u8 buf[8];
-+	struct i2c_msg msg = {
-+		.addr = client->addr,
-+		.flags = 0,
-+		.len = sizeof(buf),
-+		.buf = buf,
-+	};
-+	int ret;
-+
-+	put_unaligned_be32(reg, &buf[0]);
-+	put_unaligned_be32(val, &buf[4]);
-+
-+	ret = i2c_transfer(client->adapter, &msg, 1);
-+	if (ret < 0)
-+		return ret;
-+	if (ret != 1)
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Read the silicon revision ID. A fresh FIFO may start with a stray
-+ * 0xff that shifts the result, so drain one byte between retries until
-+ * the top byte is no longer 0xff.
-+ */
-+static int kb9002_read_revid(struct i2c_client *client, u32 *revid)
-+{
-+	u8 dummy;
-+	int ret;
-+	int i;
-+
-+	for (i = 0; i < KB9002_REVID_READ_RETRIES; i++) {
-+		ret = kb9002_i2c_read(client, KB9002_HW_REG_REVID, revid);
-+		if (ret)
-+			return ret;
-+		if ((*revid >> 24) != 0xff)
-+			return 0;
-+		/* Drain one byte from the chip to re-align the I2C FIFO. */
-+		i2c_master_recv(client, &dummy, 1);
-+	}
-+
-+	return -EIO;
-+}
-+
-+/*
-+ * Read a 32-bit firmware register over SMBus: block-write the 16-bit LE
-+ * address, then block-read the echoed address plus 4 LE data bytes.
-+ */
-+static int kb9002_fw_read(struct kb9002_data *data, u16 reg, u32 *val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 addr[2];
-+	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
-+	int ret;
-+
-+	put_unaligned_le16(reg, addr);
-+
-+	ret = i2c_smbus_write_block_data(client, KB9002_CC_FW_READ_PRIME,
-+					 sizeof(addr), addr);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_block_data(client, KB9002_CC_FW_READ_DATA, rbuf);
-+	if (ret < 0)
-+		return ret;
-+	if (ret < (int)(sizeof(addr) + sizeof(*val)))
-+		return -EIO;
-+
-+	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
-+	return 0;
-+}
-+
-+/* Like kb9002_fw_read but for a hardware register (32-bit LE address). */
-+static int kb9002_smbus_hw_read(struct kb9002_data *data, u32 reg, u32 *val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 addr[4];
-+	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
-+	int ret;
-+
-+	put_unaligned_le32(reg, addr);
-+
-+	ret = i2c_smbus_write_block_data(client, KB9002_CC_HW_READ_PRIME,
-+					 sizeof(addr), addr);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_block_data(client, KB9002_CC_HW_READ_DATA, rbuf);
-+	if (ret < 0)
-+		return ret;
-+	if (ret < (int)(sizeof(addr) + sizeof(*val)))
-+		return -EIO;
-+
-+	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
-+	return 0;
-+}
-+
-+/*
-+ * Switch the host interface from raw-I2C to SMBus and wait for firmware
-+ * to come back up. Called only when SMBus access failed in probe, i.e.
-+ * the chip is strapped to raw-I2C mode. Confirms the revision, sets the
-+ * SMBus-mode bit, then polls until firmware responds again.
-+ */
-+static int kb9002_enable_smbus_target(struct kb9002_data *data)
-+{
-+	struct i2c_client *client = data->client;
-+	u32 revid;
-+	u32 val;
-+	int op_ret;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "raw I2C required to switch to SMBus mode\n");
-+
-+	ret = kb9002_read_revid(client, &revid);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "revision ID read failed\n");
-+
-+	switch (FIELD_GET(KB9002_REVID_MASK, revid)) {
-+	case KB9002_REVID_B0:
-+	case KB9002_REVID_B1:
-+		break;
-+	default:
-+		return dev_err_probe(&client->dev, -ENODEV,
-+				     "unsupported revision ID 0x%08x\n", revid);
-+	}
-+
-+	ret = kb9002_i2c_read(client, KB9002_HW_REG_HOST_IF, &val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "host interface read failed\n");
-+
-+	val |= KB9002_HOST_IF_SMBUS;
-+
-+	ret = kb9002_i2c_write(client, KB9002_HW_REG_HOST_IF, val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "host interface write failed\n");
-+
-+	/* Wait until firmware re-initialisation completes. */
-+	ret = read_poll_timeout(kb9002_fw_read, op_ret, op_ret == 0,
-+				KB9002_FW_READY_POLL_US,
-+				KB9002_FW_READY_TIMEOUT_US, true,
-+				data, KB9002_FW_REG_VID, &val);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "firmware not responding over SMBus\n");
-+
-+	return 0;
-+}
-+
-+/* Convert Q16.16 absolute Kelvin to millidegrees Celsius. */
-+static long kb9002_temp_to_milli_c(u32 raw)
-+{
-+	s64 milli_k = ((s64)raw * 1000) >> KB9002_TEMP_FRAC_BITS;
-+
-+	return (long)milli_k + KB9002_ABS_ZERO_MILLI_C;
-+}
-+
-+static int kb9002_read_temp(struct kb9002_data *data, long *val)
-+{
-+	u32 raw;
-+	int ret;
-+
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_TEMP_MAXIMUM, &raw);
-+	if (ret)
-+		return ret;
-+
-+	*val = kb9002_temp_to_milli_c(raw);
-+	return 0;
-+}
-+
-+static umode_t kb9002_is_visible(const void *drvdata,
-+				 enum hwmon_sensor_types type,
-+				 u32 attr, int channel)
-+{
-+	return 0444;
-+}
-+
-+static int kb9002_read(struct device *dev, enum hwmon_sensor_types type,
-+		       u32 attr, int channel, long *val)
-+{
-+	struct kb9002_data *data = dev_get_drvdata(dev);
-+
-+	if (type == hwmon_temp && attr == hwmon_temp_input)
-+		return kb9002_read_temp(data, val);
-+
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct hwmon_ops kb9002_hwmon_ops = {
-+	.is_visible = kb9002_is_visible,
-+	.read = kb9002_read,
-+};
-+
-+static const struct hwmon_channel_info * const kb9002_hwmon_info[] = {
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
-+	NULL,
-+};
-+
-+static const struct hwmon_chip_info kb9002_chip_info = {
-+	.ops = &kb9002_hwmon_ops,
-+	.info = kb9002_hwmon_info,
-+};
-+
-+static int kb9002_fw_version_show(struct seq_file *s, void *unused)
-+{
-+	struct kb9002_data *data = s->private;
-+	u32 ver;
-+	int ret;
-+
-+	hwmon_lock(data->hwmon_dev);
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_FW_VERSION, &ver);
-+	hwmon_unlock(data->hwmon_dev);
-+	if (ret)
-+		return ret;
-+
-+	seq_printf(s, "%u.%02u.%02u.%u\n",
-+		   (ver >> 24) & 0xff, (ver >> 16) & 0xff,
-+		   (ver >>  8) & 0xff, (ver >>  0) & 0xff);
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(kb9002_fw_version);
-+
-+static int kb9002_fw_load_status_show(struct seq_file *s, void *unused)
-+{
-+	struct kb9002_data *data = s->private;
-+	u32 status;
-+	int ret;
-+
-+	hwmon_lock(data->hwmon_dev);
-+	ret = kb9002_smbus_hw_read(data, KB9002_HW_REG_FW_BOOT_STATUS, &status);
-+	hwmon_unlock(data->hwmon_dev);
-+	if (ret)
-+		return ret;
-+
-+	seq_printf(s, "%s\n",
-+		   (status >> 24) == KB9002_FW_BOOT_STATUS_OK_MSB ?
-+		   "normal" : "abnormal");
-+	return 0;
-+}
-+DEFINE_SHOW_ATTRIBUTE(kb9002_fw_load_status);
-+
-+static void kb9002_debugfs_init(struct kb9002_data *data)
-+{
-+	struct dentry *dir = data->client->debugfs;
-+
-+	debugfs_create_file("fw_ver", 0444, dir, data,
-+			    &kb9002_fw_version_fops);
-+	debugfs_create_file("fw_load_status", 0444, dir, data,
-+			    &kb9002_fw_load_status_fops);
-+}
-+
-+static int kb9002_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct kb9002_data *data;
-+	struct device *hwmon_dev;
-+	u32 vid;
-+	int ret;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_BLOCK_DATA |
-+				     I2C_FUNC_SMBUS_PEC))
-+		return -ENODEV;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+
-+	/* All firmware register accesses are PEC-protected. */
-+	client->flags |= I2C_CLIENT_PEC;
-+
-+	i2c_set_clientdata(client, data);
-+
-+	/*
-+	 * Try SMBus first. If the chip is strapped to raw-I2C mode it
-+	 * will not respond to SMBus framing, so fall back to switching
-+	 * the host interface over raw I2C and retry.
-+	 */
-+	ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
-+	if (ret) {
-+		dev_dbg(dev, "SMBus probe failed (%d), trying raw-I2C host-interface switch\n",
-+			ret);
-+		ret = kb9002_enable_smbus_target(data);
-+		if (ret)
-+			return ret;
-+		ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "VID read failed after host-interface switch\n");
-+	}
-+	if (FIELD_GET(KB9002_VID_MASK, vid) != KB9002_VID_KANDOU)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "unexpected VID 0x%08x\n", vid);
-+
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, KB9002_DEV_NAME,
-+							 data,
-+							 &kb9002_chip_info,
-+							 NULL);
-+	if (IS_ERR(hwmon_dev))
-+		return PTR_ERR(hwmon_dev);
-+
-+	data->hwmon_dev = hwmon_dev;
-+	kb9002_debugfs_init(data);
-+	return 0;
-+}
-+
-+static const struct i2c_device_id kb9002_id[] = {
-+	{ .name = KB9002_DEV_NAME },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, kb9002_id);
-+
-+static const struct of_device_id kb9002_of_match[] = {
-+	{ .compatible = "kandou,kb9002" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, kb9002_of_match);
-+
-+static struct i2c_driver kb9002_driver = {
-+	.driver = {
-+		.name = KB9002_DEV_NAME,
-+		.of_match_table = kb9002_of_match,
-+	},
-+	.probe = kb9002_probe,
-+	.id_table = kb9002_id,
-+};
-+module_i2c_driver(kb9002_driver);
-+
-+MODULE_AUTHOR("Andy Chung <andy.chung@amd.com>");
-+MODULE_DESCRIPTION("Kandou KB9002 PCIe retimer hwmon driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: [Gentle Follow-up] [stdexec] Long-Term Ownership and Maintenance of
+ stdexec Dependency
+Date: Thu, 30 Jul 2026 11:06:54 +0530
+In-Reply-To: <PUVP216MB324896F920CC47B13D11DCD4AEEE2@PUVP216MB3248.KORP216.PROD.OUTLOOK.COM>
+Cc: Roger Liao <roger@nexthop.ai>,
+ judy Joseph <Judy.Joseph@microsoft.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <PUVP216MB324896F920CC47B13D11DCD4AEEE2@PUVP216MB3248.KORP216.PROD.OUTLOOK.COM>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
 
+--Apple-Mail=_D781594E-9618-4B5A-8F72-F2B42EADACEC
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+Hi Team,
+
+Just following up on my earlier email and resending it to make sure it =
+hasn=E2=80=99t been missed.
+
+I would appreciate it if you could please take a look when you get a =
+chance.
+
+Regards,
+Chinmoy
+
+
+
+> On 23 Jun 2026, at 5:59=E2=80=AFPM, Chinmoy Dey <chinmoy@nexthop.ai> =
+wrote:
+>=20
+> Hi OpenBMC Community,
+>=20
+> I would like to start a discussion around the long-term ownership and =
+maintenance model for the stdexec dependency that is currently part of =
+the OpenBMC dependency chain. As I understand it today:
+>=20
+> bmcweb references sdbusplus through subprojects/sdbusplus.wrap:
+> https://github.com/openbmc/bmcweb=20
+> sdbusplus is maintained under the OpenBMC organization:
+> https://github.com/openbmc/sdbusplus=20
+> =
+https://github.com/openbmc/sdbusplus/blob/master/subprojects/stdexec.wrap
+> sdbusplus in turn references stdexec through subprojects/stdexec.wrap =
+:
+> https://github.com/NVIDIA/stdexec=20
+> First, I would like to acknowledge and appreciate the work that has =
+gone into this implementation. The intent of this note is not to =
+question the quality of the code or the contributions made by NVIDIA, =
+but rather to discuss whether there may be an opportunity to align this =
+dependency more closely with OpenBMC=E2=80=99s long-term governance and =
+maintenance model. Since stdexec is now part of a commonly consumed =
+dependency path within OpenBMC, it may be worth considering whether a =
+community-maintained approach could provide additional benefits, such =
+as:
+>=20
+> Reduced risk from repository access, policy, or ownership changes =
+outside the OpenBMC project
+> Broader review and maintainer participation and long-term support
+> Improved community ownership , transparency and reduce dependency risk
+> If there have already been discussions on this topic, or if there is a =
+preferred roadmap for the dependency, I would greatly appreciate any =
+references or guidance. My goal is simply to explore whether we can =
+further strengthen the sustainability, transparency, and long-term =
+maintainability of the OpenBMC dependency ecosystem as it continues to =
+grow.
+>=20
+> Thank you for your time and consideration. I look forward to hearing =
+the community=E2=80=99s thoughts.
+>=20
+> Best regards,
+>=20
+> Chinmoy Dey
+>=20
+>=20
+
+
+--Apple-Mail=_D781594E-9618-4B5A-8F72-F2B42EADACEC
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html aria-label=3D"message body"><head><meta http-equiv=3D"content-type" =
+content=3D"text/html; charset=3Dutf-8"></head><body =
+style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; =
+line-break: after-white-space;"><div><br =
+id=3D"lineBreakAtBeginningOfMessage"><div><p class=3D"p1"><span =
+style=3D"font-size: 14px;">Hi Team,</span></p><p class=3D"p1"><span =
+style=3D"font-size: 14px;">Just following up on my earlier email and =
+resending it to make sure it hasn=E2=80=99t been missed.</span></p><p =
+class=3D"p1"><span style=3D"font-size: 14px;">I would appreciate it if =
+you could please take a look when you get a chance.</span></p><p =
+class=3D"p1"><span style=3D"font-size: =
+14px;">Regards,<br>Chinmoy</span></p><p class=3D"p1"><br></p><blockquote =
+type=3D"cite"><div>On 23 Jun 2026, at 5:59=E2=80=AFPM, Chinmoy Dey =
+&lt;chinmoy@nexthop.ai&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div>
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3DWindows-1252">
+
+<div><p dir=3D"ltr" class=3D"p1" style=3D"text-align: left; text-indent: =
+0px;"><span style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">Hi OpenBMC Community,</span></p><p class=3D"p1" =
+style=3D"text-align: left; text-indent: 0px;"><span style=3D"font-family: =
+Aptos, Arial, Helvetica, sans-serif; font-size: 14pt;">I would like to =
+start a discussion around the long-term ownership and maintenance model =
+for the
+</span><span style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt; color: rgb(81, 167, =
+249);"><b><code>stdexec</code></b></span><span style=3D"font-family: =
+Aptos, Arial, Helvetica, sans-serif; font-size: 14pt;">&nbsp;dependency
+ that is currently part of the </span><span style=3D"font-family: Aptos, =
+Arial, Helvetica, sans-serif; font-size: 14pt; color: rgb(81, 167, =
+249);"><b>OpenBMC</b></span><span style=3D"font-family: Aptos, Arial, =
+Helvetica, sans-serif; font-size: 14pt;">&nbsp;dependency
+ chain. As I understand it today:</span></p>
+<ul style=3D"text-align: left;">
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><span style=3D"color: rgb(81, 167, =
+249);"><code>bmcweb</code></span>&nbsp;references
+<span style=3D"color: rgb(81, 167, =
+249);"><code>sdbusplus</code></span>&nbsp;through<span style=3D"color: =
+rgb(81, 167, 249);">
+<code>subprojects/sdbusplus.wrap</code></span>:</div>
+</li><ul data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:true}" =
+style=3D"text-align: left; list-style-type: circle;">
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><a href=3D"https://github.com/openbmc/bmcweb" =
+data-outlook-id=3D"d8c2b49c-07aa-43d2-acc3-e2c8c7768819">https://github.co=
+m/openbmc/bmcweb</a>&nbsp;</div>
+</li></ul>
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><span style=3D"color: rgb(81, 167, =
+249);"><code>sdbusplus</code></span>&nbsp;is maintained under the =
+OpenBMC organization:</div>
+</li><ul data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:true}" =
+style=3D"text-align: left; list-style-type: circle;">
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><a href=3D"https://github.com/openbmc/sdbusplus" =
+data-outlook-id=3D"1fe0a3a9-3766-408b-8060-f3453e915191">https://github.co=
+m/openbmc/sdbusplus</a>&nbsp;</div>
+</li><li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div dir=3D"ltr" style=3D""><a =
+href=3D"https://github.com/openbmc/sdbusplus/blob/master/subprojects/stdex=
+ec.wrap" =
+data-outlook-id=3D"1447a88a-4fa7-4732-b205-d105cb87620c">https://github.co=
+m/openbmc/sdbusplus/blob/master/subprojects/stdexec.wrap</a></div>
+</li></ul>
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><span style=3D"color: rgb(81, 167, =
+249);"><code>sdbusplus</code></span>&nbsp;in turn references
+<span style=3D"color: rgb(81, 167, =
+249);"><code>stdexec</code></span>&nbsp;through <span style=3D"color: =
+rgb(81, 167, 249);">
+<code>subprojects/stdexec.wrap</code></span><code> </code>:</div>
+</li><ul data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:true}" =
+style=3D"text-align: left; list-style-type: circle;">
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div><a href=3D"https://github.com/NVIDIA/stdexec" =
+data-outlook-id=3D"65d6a77f-f757-46fc-9226-94383fc74d4e">https://github.co=
+m/NVIDIA/stdexec</a>&nbsp;</div>
+</li></ul>
+</ul><p class=3D"p1" style=3D"text-align: left; text-indent: 0px;"><span =
+style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; font-size: =
+14pt;">First, I would like to acknowledge and appreciate the work that =
+has gone into this implementation.
+ The intent of this note is not to question the quality of the code or =
+the contributions made by NVIDIA, but rather to discuss whether there =
+may be an opportunity to align this dependency more closely with =
+OpenBMC=E2=80=99s long-term governance and maintenance model.
+ Since </span><span style=3D"font-family: Aptos, Arial, Helvetica, =
+sans-serif; font-size: 14pt; color: rgb(81, 167, =
+249);"><code>stdexec</code></span><span style=3D"font-family: Aptos, =
+Arial, Helvetica, sans-serif; font-size: 14pt;">&nbsp;is now
+ part of a commonly consumed dependency path within </span><span =
+style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; font-size: =
+14pt; color: rgb(81, 167, 249);">OpenBMC</span><span style=3D"font-family:=
+ Aptos, Arial, Helvetica, sans-serif; font-size: 14pt;">,
+ it may be worth considering whether a community-maintained approach =
+could provide additional benefits, such as:</span></p>
+<ul style=3D"text-align: left;">
+<li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div>Reduced risk from repository access, policy, or ownership changes =
+outside the OpenBMC project</div>
+</li><li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div dir=3D"ltr" style=3D"font-size: 18.666666px;"><span =
+style=3D"background-color: rgb(255, 255, 255);">Broader review and =
+maintainer participation and long-term support</span></div>
+</li><li style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">
+<div>Improved community ownership ,&nbsp;transparency and reduce <span =
+style=3D"font-size: 18.666666px; background-color: rgb(255, 255, 255);">
+dependency risk</span></div>
+</li></ul><p class=3D"p2" style=3D"text-align: left; text-indent: =
+0px;"><span style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; =
+font-size: 14pt;">If there have already been discussions on this topic, =
+or if there is a preferred roadmap for the
+ dependency, I would greatly appreciate any references or guidance. My =
+goal is simply to explore whether we can further strengthen the =
+sustainability, transparency, and long-term maintainability of the =
+OpenBMC dependency ecosystem as it continues to grow.</span></p><p =
+class=3D"p1" style=3D"text-align: left; text-indent: 0px;"><span =
+style=3D"font-family: Aptos, Arial, Helvetica, sans-serif; font-size: =
+14pt;">Thank you for your time and consideration. I look forward to =
+hearing the community=E2=80=99s thoughts.</span></p><p class=3D"p1" =
+style=3D"text-align: left; text-indent: 0px;"><span style=3D"font-family: =
+Aptos, Arial, Helvetica, sans-serif; font-size: 12pt;">Best =
+regards,</span></p><p class=3D"p1" style=3D"text-align: left; =
+text-indent: 0px;"><span style=3D"font-family: Aptos, Arial, Helvetica, =
+sans-serif; font-size: 12pt;">Chinmoy Dey</span></p>
+<div dir=3D"ltr" style=3D"font-family: Aptos, Arial, Helvetica, =
+sans-serif; font-size: 12pt;">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"ltr" style=3D"color: =
+inherit; background-color: inherit;">
+</div>
+</div>
+
+</div></blockquote></div><br></div></body></html>=
+
+--Apple-Mail=_D781594E-9618-4B5A-8F72-F2B42EADACEC--
 
