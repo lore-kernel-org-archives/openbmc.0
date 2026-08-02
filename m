@@ -1,98 +1,97 @@
-Return-Path: <openbmc+bounces-2345-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2346-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9C9C5516F
-	for <openbmc@archiver.kernel.org>; Sun,  2 Aug 2026 03:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D737DC55162
+	for <openbmc@archiver.kernel.org>; Mon,  3 Aug 2026 00:01:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hCPkJ2PtWz2ygl;
-	Sun, 02 Aug 2026 13:02:48 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::631"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785509964;
-	cv=none; b=CYrt6ZbtWJWeWaVivU+FcqOk2vqJCHPkN1ovb9DygdLkZhTQjgAXdR8zvc4/hhHUE2dBJiWA/+jdOIkeqBgRg0XDmK0p8UCTct9ov2/Bc9iVEBBNLTXKl+AITctcXxT5SpVTPwAgW+k5UfgkqRQDBTPnPQgHA6yBq5fSk/2b4LY7QIiiW36v+cT4qd7L/mGjHDEGKRjA4tH6pMT9OmgrfTENRRO+1Auf6hyz+PAX5xq4rertr3nnpvjMMQFp8s72rUNSR02Ju6rwrkJq96GS8ePyA2EVCVVgYJrcmzBM0u3sLl5ODVAZEBk2W/6lfsYZARawyEh9knAQdB6YNSL2aQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hCxfl1Nchz308t;
+	Mon, 03 Aug 2026 10:01:35 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785679567;
+	cv=none; b=S3pfk6bhlG6aJm1M3vnx5jcc8uSriizl3oKHmrgL+oqkszHgz+vgLHDeuOG2dq0PeSjE+cyPcSBZoPLpCN0LTdPcyDAVCPgzl78seEXg730JdhhrVQFdk/RErmxmJHAjUzohE72M2q4Fryfkr+5i6ZYdjudHC4ICVRHDd5hRJ6Ip0tCTRdzplwa6ph8aiLgclfJnn4isYppqNZthu7p3ZomhWjuDklfhxWjzbB/udKki4s/mabP4/3DOOaFonnb6kTx1JgC4OsvGRCJkNQ71PGtvhOXEgMG4xZ/XKVmEvk6M/7SQy8FtvPf5hKf01XErXpKc7i6hJp+gvg+p1om3WA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785509964; c=relaxed/relaxed;
-	bh=aOO6TFiM1TPLQ+b9lC0xXQx5BzJNes86bMOqbAvU35g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZdfqB7ptSuNBlkcnP45ZCvvSyJY2c7uWJHLY27gVUBnT4w9W7X7dY1E5X48YnlKRgC8EWUXyGpmAGhxRTCl6XrixVwjjQG1nV9A0RrWPEBZLZkwGJBKD55Eo5izdRGU3HVQbphbOZ2Xti/ZUFPEN0VUBorKE/cQr5IpiOzxCHve3AVCoWbCDr6wNJLhdaTb7XtiioMKhYKLGSDaNzNIJ37JetDBofmaLvG9z2R2TO7mqlNqHv5BTkgn00HsI3exF7kRLSVqwk6cTaIbrdI3BLQMf1cS08jCS8x600gslv2kdZTDTdnYSXSqgBzxy8A0wkcpgtAG6EGnwZizbLRFrJw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZettzXP9; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com; envelope-from=shaikhkamal2012@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1785679567; c=relaxed/relaxed;
+	bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VHurckkuE3qGRD5kX6wNZT9fYNVv5NR+xeEAusHbniaxeBBPRHlJ7hGq+KeDCG5Mf7zfGtDke+2cC9dc/F6LK8FEW8vgRdNokYYDRQJr5gqziHyZfpMV+vQEGa080CUdrG8W9mr5/lXAWBv75P+RTBZk0SvOEa9m0Vctcsxt+aK4aFBTMDdpIMcB2VtA4laC9px3ASlM6uHGn8LI1iK6NoL092hPT1Q7H8UA0arW8gqa3owYEwWz04B/aZWo5gZDZ+Dr4E7mr4V2ZXuzyGa8UiErzGrxUL0W4At3ykPz2mUsNNJZzHUY6SUmuRHIYE/TbqQiHJvvflbj87LQZtnhDQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YKVtLapQ; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hs5tCQLa; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=maulik.shah@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZettzXP9;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YKVtLapQ;
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hs5tCQLa;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::631; helo=mail-pl1-x631.google.com; envelope-from=shaikhkamal2012@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=maulik.shah@oss.qualcomm.com; receiver=lists.ozlabs.org)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hBTk33FBrz2xl5
-	for <openbmc@lists.ozlabs.org>; Sat, 01 Aug 2026 00:59:22 +1000 (AEST)
-Received: by mail-pl1-x631.google.com with SMTP id d9443c01a7336-2cace91f112so11374615ad.0
-        for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2026 07:59:22 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hChRf3wHnz2ygp
+	for <openbmc@lists.ozlabs.org>; Mon, 03 Aug 2026 00:06:04 +1000 (AEST)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672B6WWe2009670
+	for <openbmc@lists.ozlabs.org>; Sun, 2 Aug 2026 14:06:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=IUBrw7txsJyrtbO2uks4gb
+	XgkSo0IF8NQtTXkzJyWQc=; b=YKVtLapQxcdEBSB6WppKRo5LugMC7Yg56KlN0m
+	et8x9EJVV63bsrTS6MhujKgjwtbj40Uc+p9c7V9R4yPxaVgIGS3fDghv5xtBsU9P
+	xNUY58kIJwahtmetyXBo5M8u+NJn1kTyMr5/M/z6I4xRMfYQuyY8uyX/NAuz5C1U
+	en2w5P3lDYbIBbOPh7i2wpmz7s6lD+xNMWW2eKFGFiZ3/jwgDRgxQ9sHKGCZL1dS
+	Hzrs/fm22rhDw+E/Ha2WzICFPko5IJYvQ7mbyYFDrdPQpbMEopoLRW0tG+wMNWCN
+	bqRrw9t78SEajFGLVe+ZOw2cf1GI+U04UqylDaiO//v0o8sA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8qptx96-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <openbmc@lists.ozlabs.org>; Sun, 02 Aug 2026 14:06:01 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so2332131a91.0
+        for <openbmc@lists.ozlabs.org>; Sun, 02 Aug 2026 07:06:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785509959; x=1786114759; darn=lists.ozlabs.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aOO6TFiM1TPLQ+b9lC0xXQx5BzJNes86bMOqbAvU35g=;
-        b=ZettzXP98coBnl4DNhaRsx3PY5JaRLwYX0XLfzHbmxAQBWXU7lwGSFUruGHOa7W8jU
-         DCcP3zSHKJzjAWp7Ia1hVM48agsPU/tP7z1S6BB1ibabqa8Bl5d4RjlyC6QT+ihLCx1U
-         LEXR5N/1o5SOeAUM2RICThOTElRGo2Frh0HeunnXq0Hjh49jLrUlW6hFJ2Ro4kVPXzBE
-         H8+HS27uINZ+3cxDAM3P2+eLm8/WK9esI/oD/2wXTJkmgC0bJuE9x7PxOADpc9vdRJTT
-         7oeUyTvdNwgHhfqH1ELOpwvDyJOndUCwo+S41hMC23jJn2tHH0s30tu2X3brh0Az3gNI
-         Pjcw==
+        d=oss.qualcomm.com; s=google; t=1785679561; x=1786284361; darn=lists.ozlabs.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
+        b=Hs5tCQLaPLhcJ3J1+KSkWyxTY1pX0Q9uYF8eGFwjjhow5+OtBmwM7TtekSbPTp8bMA
+         dYihrEWR6AvIK+msi3g7Br6NCLeToOJpH72nGWPDnAhJyM/NTPW84k482xclxpmuIDuj
+         N1QvCD1xgcupapaY7xq783HrYIwLctv08wDeCBMZTx1SYi+gmyhbtEad6CJTnaGBEkTU
+         uicpaWG0hXxtd2Xt1MUZOH+jMZkma58l5JHQLocljdB0xL6IxeI/rSfrvYDnbKKUI88C
+         CtNjx7mr9CrPVlrg/7kJGg3wSfDksa8rcwsUE/hQW/Bzw4//Bat1pEBafU7OJkiLSuRf
+         65hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785509959; x=1786114759;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aOO6TFiM1TPLQ+b9lC0xXQx5BzJNes86bMOqbAvU35g=;
-        b=po6xZd5PBmZHxC0Z9CWTvAsqStqGpkb5XFFHw/TDZruKk7EOb8s56k/xSAR97/OaUS
-         K8hFWU5R3FCd28h9DdlPYqxtpzltXl5trlR9ebA+lS4Vf27TWadLXFVbnb7Yy4vTmtrN
-         wshEjjdcU5fZqcXXQ6wjMDsD/uVzH6avNNs7E7WYgbM6O/0neh89oHEybPXwuux9EyTQ
-         mQmwGilmV5gXMScG4qYzWfCM+N8mVOFeD31ZWv2EPRwjNdBWKtbs/pFyRzF/X2toCdWY
-         0epyFsNgk0gfQCXaCgXIEf4c0nDEd4owc3WnL+j6+PDJ7lSu5qo1j+Xf1+N7UZ2kIYWm
-         i3ag==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+Jt+HUQW5efkeZ04tsMYRy2irCr6Q5xDKNI1AxVLdxfmp/rVQ4CNrh9yO2xkpswlhA9RK6bEp@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YxyQO83qLEvg9sY9GGl+sgFas1+pq9+KiHb9t1cZ5nhHpwa7uIi
-	sDRXONZTJEydju0I2hBPihQe3INAnNkTu2SPY7BkeAnQs0ihR7WgbC2e
-X-Gm-Gg: AR+sD12u71Cs7DTNacpHV8qZiyBa0Fpjo9Awf3fAiyUTwedpfzEJWvv21L6cBSBZLvl
-	Y7L3V7XzAFYY9mDfN0xsNkKdCYeZQqNLQJytaQUjheiXWKmjv0hWojaRJWK0YecbvsCD7KGZQwp
-	xAcIVlILL9msb8f8suxNhaTC7Eqe4VJDF9jhBp2KW9G+y9mYq2hKY88Nsy/jJgAjKmJRHg+QISu
-	RMwxMdPz73s1AYKu42iq+Ik4LqRqEIlsIxJ7Y2P+FU5WGqrgoyhBb7co99Q5t73LOacjnb2VthB
-	yr2H9a66PpG8+1TqPI0iF6Mr5qP5xkRzg3rzHLxy2g9fAE02Wh9dNb+tkTJdmXaqWij6HmeSGV9
-	Cf4dCa4i9NM+WjXDTeEPl0N4P/gJiMSuCbO7YW+p5FC55p/T2Lu6PhYmAMiWg89unPuhHZzZMnE
-	xqVEAuQ9gNHB1oVDNKJUo6xUbwNb1C1u9O+KHXgS0bTknF6edGZBcUPrKosF3Bf+o=
-X-Received: by 2002:a17:902:ce0d:b0:2c9:97a7:b1eb with SMTP id d9443c01a7336-2d0524723e0mr2815285ad.42.1785509959091;
-        Fri, 31 Jul 2026 07:59:19 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b0eb491sm6466105ad.42.2026.07.31.07.59.18
+        d=1e100.net; s=20251104; t=1785679561; x=1786284361;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
+        b=qH7Lg3GWaYMxeBUQHex7+nwBGeL5gN8+AFUY4tXFYzvZ5KoECXf3PjmNURCYkspi0O
+         GxNv9lvutbd8J5u3PZy32XKjOn7/mYyzuAJ0tN6gb38dmmjgjH5SgcvmVRlGbSz6uY/p
+         MA8Bnh+CGa6DqOJwEgPb5z9B8LaoclZtekulI5JtfV0i/uatxqULCIZ4oh0pI05huZXo
+         f301ze0T2TscsZObUhKUUVddOWQ9PVBNZvI0+qydh5Oc+NCYhnwL3N98EJlVX4QaGkR0
+         Dfwy71OJyBs4XRifEutzKKwtZYY1RSc8CHeri8uK2YQK79lp9m7yj1L89Bob9gz6dKnc
+         CJeQ==
+X-Forwarded-Encrypted: i=1; AHgh+RprseH9eSkj05wI9d3PVO/VH0xk9c8tzhAsa0L2dY4u8kU0BZbvO4zzj+qIUOK8otfDe1uJfmFO@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YyXJUARuJDZW4yL06mvzOXk9+tECk7wXe/Ovcn/SWLQQ8sYCNoQ
+	bJ2HfMDzFXPMRFrXYSF7IFhFE3I2GDF1bBKn864AXN3j+wio1rXIJns7/h+XYQwzJ2w3IbYrZxL
+	I9AAEiaMJG66mwCwZB7lEjpadS/gp7mvI83m8dzIQvCnUcdydOnxvHKV66v4YgQ==
+X-Gm-Gg: AR+sD10sHcW2MZKe3m+0ZTHEaQHpSfGRkwqJ6rMyy0aEfGmLWeucbXxGOk9z6CxXliP
+	53Aoox/sOV3OdUIAGnCK7f8A2n7DgqUDFW6VW2ZcUjyYxGOnVKgeVOKmFa6BQsQUQ66Wul1Etra
+	FDALl17g24JPboAOkLqwMNbd1diX2ldNDbF/rwexq6oolPfl5bmWW8j2AHg4s4yI3ZmXXifBz2N
+	txyMYn2v1pwlxjs0ABY+U4i1ZVpFuQgnS67wd4b1PzpYkyjxLz0McSpaFB54XJgOhIRBihWSF5O
+	GzGvvW7v4/SYXONDDOe0J6iPJK4tok1e+rD+11SPvWPCTZU8GNHgykrsrlP9Gf7H3G2rnNVLMuu
+	Z+3j0whd23ISq6wCWwf7QoxiaMeM5
+X-Received: by 2002:a17:90b:57ed:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-38fbc9f3ebemr4727141a91.4.1785679560492;
+        Sun, 02 Aug 2026 07:06:00 -0700 (PDT)
+X-Received: by 2002:a17:90b:57ed:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-38fbc9f3ebemr4727101a91.4.1785679559963;
+        Sun, 02 Aug 2026 07:05:59 -0700 (PDT)
+Received: from hu-mkshah-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4cb51asm34484816c88.9.2026.08.02.07.05.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 07:59:18 -0700 (PDT)
-Date: Fri, 31 Jul 2026 20:29:16 +0530
-From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, openbmc@lists.ozlabs.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: clock: nuvoton,npcm750-clk: fix 'suppling'
- spelling
-Message-ID: <amy4RBUdtE8tTU5q@acer-nitro-anv15-41>
-References: <20260726060354.18755-1-shaikhkamal2012@gmail.com>
- <8de9061a-dea3-4bdf-8dff-ad8ed4acc200@kernel.org>
+        Sun, 02 Aug 2026 07:05:59 -0700 (PDT)
+From: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Date: Sun, 02 Aug 2026 19:35:43 +0530
+Subject: [PATCH] pinctrl: Use IRQ trigger mask helpers
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -104,44 +103,231 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8de9061a-dea3-4bdf-8dff-ad8ed4acc200@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260802-b4b4-irq-trigger-mask-pinctrl-v1-1-1c398ab53d28@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIALZOb2oC/yXMOw7CMAwA0KtUnrGUpgEVroIYamOC+YTWCQip6
+ t0JML7lzZDFVDLsmhlMXpr1kSraVQN8HlIU1GM1eOc3rnceKVBAtQmLaYxieB/yFUdNXOyG3Xr
+ LoWcKbUdQj9HkpO/fvz/8nZ90ES7fFJblAxVw+3aBAAAA
+X-Change-ID: 20260802-b4b4-irq-trigger-mask-pinctrl-359c48cb413b
+To: Linus Walleij <linusw@kernel.org>,
+        =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Bianconi <lorenzo@kernel.org>, Ray Jui <rjui@broadcom.com>,
+        Scott Branden <sbranden@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+        Sean Wang <sean.wang@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Andrew Jeffery <andrew@codeconstruct.com.au>,
+        Avi Fishman <avifishman70@gmail.com>,
+        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+        Benjamin Fair <benjaminfair@google.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Viresh Kumar <vireshk@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
+        linux-arm-msm@vger.kernel.org, soc@lists.linux.dev,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785679551; l=6841;
+ i=maulik.shah@oss.qualcomm.com; s=20240109; h=from:subject:message-id;
+ bh=NBDioksG5pOpKo0k7xIWjDfLaLsiWZzCb//BdAiMZP4=;
+ b=c21evJbK163GncmcfCcbMaR7yLK/XPxyAIAtf7iEWai9uXE/ByvKLgPIYH43r4tLlQgGRBNDB
+ 1flMBKgF77UCMyTh6ruqr+wSpTq0lACBWDakgwRVSnCqIKrHE0AmMJv
+X-Developer-Key: i=maulik.shah@oss.qualcomm.com; a=ed25519;
+ pk=bd9h5FIIliUddIk8p3BlQWBlzKEQ/YW5V+fe759hTWQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDEyNSBTYWx0ZWRfX1YTqNbV9gc/j
+ PB+dGSCz09Y005dbPFJi9vzUiLzY7n5vlkNSPfBXOkqgayqe6/LuESMqz3M1elhfSUoSZdiz2FF
+ TjeVvFvg7i7NRUIADT2DImhAU/j9rbH5dnUx0TLa8ClhqfNsISQXQxK5l69BtNBYiadsCv5iQvi
+ axcYM4rPSMUQEBICkcpgKT6c5jjOJ8YBTJHo53srl1ZZO7DD9o9b29/LckdxIbvGGn7M2+vyAGL
+ MV5jc4JpuLK2lu9D7KzFIVqBCgVXV87XwYguCdrYQcYKPBdKwhxYKQZb/9+Odksc6TCCQnrM4WB
+ QeD8VZC4Vs+IL0rZ58MOzmgm4gmn+bZDH1IB5wtLbBx6KAad1JT4n4KsX4KdWdBg3FhjicTCM0N
+ WuH7o6FbKHNrGpzkuXieM/Q8AMVguDbW4J2bFU5hQvSw0IfDW0lyHP4gmmcgLoo67ehrzjjqclM
+ 3g5ElLHrRfSbzQUXcjw==
+X-Proofpoint-GUID: VxxiIejqAaEP1PkHIBOaQC-w5b6d2B0G
+X-Authority-Analysis: v=2.4 cv=MpViLWae c=1 sm=1 tr=0 ts=6a6f4ec9 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=aROEccOD733urgNQ4cUA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: VxxiIejqAaEP1PkHIBOaQC-w5b6d2B0G
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDEyNSBTYWx0ZWRfXy0vVOrW9eWVu
+ h/Soo3ODKypfJHo+NlVzYB7pyjV3mggaCtYg5domSXJ2Hzb63uENabUatuoESGpsywFpmDa+CFz
+ BvqKvzFsC7iz1VkTAos5g9Ft2KWPx3s=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-02_04,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1011 phishscore=0 malwarescore=0 spamscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020125
 
-On Sun, Jul 26, 2026 at 01:26:49PM +0200, Krzysztof Kozlowski wrote:
-> On 26/07/2026 08:03, shaikh.kamal wrote:
-> > Fix spelling error reported by codespell: suppling -> supplying.
-> > No functional change.
-> > 
-> > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
-> > ---
-> >  .../devicetree/bindings/clock/nuvoton,npcm750-clk.yaml          | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> 
-> One patch for all bindings for such trivialities. This is just churn.
-> 
-> And wait for review to learn from feedback and do not repeat the same
-> mistakes.
-> 
-> Name in SoB and From feels incomplete or as login...
-> 
-> Best regards,
-> Krzysztof
+Use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH instead of open-coded
+trigger type combinations in irqchip callbacks.
 
-Hi Krzysztof,
+No functional change intended.
 
-Thanks for the review, and apologies for the churn.
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+---
+ drivers/pinctrl/actions/pinctrl-owl.c     | 2 +-
+ drivers/pinctrl/airoha/pinctrl-airoha.c   | 2 +-
+ drivers/pinctrl/bcm/pinctrl-nsp-gpio.c    | 4 ++--
+ drivers/pinctrl/mediatek/mtk-eint.c       | 2 +-
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 5 ++---
+ drivers/pinctrl/pinctrl-ocelot.c          | 2 +-
+ drivers/pinctrl/pinctrl-sx150x.c          | 2 +-
+ drivers/pinctrl/qcom/pinctrl-msm.c        | 4 ++--
+ drivers/pinctrl/spear/pinctrl-plgpio.c    | 2 +-
+ 9 files changed, 12 insertions(+), 13 deletions(-)
 
-I have fixed my git configuration, so From and Signed-off-by now carry
-my full name (Shaikh Kamaluddin).
+diff --git a/drivers/pinctrl/actions/pinctrl-owl.c b/drivers/pinctrl/actions/pinctrl-owl.c
+index 1f0ef4727ba7..9f5637756bd3 100644
+--- a/drivers/pinctrl/actions/pinctrl-owl.c
++++ b/drivers/pinctrl/actions/pinctrl-owl.c
+@@ -824,7 +824,7 @@ static int owl_gpio_irq_set_type(struct irq_data *data, unsigned int type)
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
+ 	struct owl_pinctrl *pctrl = gpiochip_get_data(gc);
+ 
+-	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_LEVEL_HIGH))
++	if (type & IRQ_TYPE_LEVEL_MASK)
+ 		irq_set_handler_locked(data, handle_level_irq);
+ 	else
+ 		irq_set_handler_locked(data, handle_edge_irq);
+diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
+index abfb018f207e..90372827639d 100644
+--- a/drivers/pinctrl/airoha/pinctrl-airoha.c
++++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+@@ -2435,7 +2435,7 @@ static int airoha_irq_type(struct irq_data *data, unsigned int type)
+ 		if (gpiochip->irq_type[data->hwirq])
+ 			return 0;
+ 
+-		type = IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING;
++		type = IRQ_TYPE_EDGE_BOTH;
+ 	}
+ 	gpiochip->irq_type[data->hwirq] = type & IRQ_TYPE_SENSE_MASK;
+ 
+diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+index 1fbb101386a3..83fcc80d5967 100644
+--- a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
++++ b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
+@@ -159,7 +159,7 @@ static void nsp_gpio_irq_ack(struct irq_data *d)
+ 	u32 trigger_type;
+ 
+ 	trigger_type = irq_get_trigger_type(d->irq);
+-	if (trigger_type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
++	if (trigger_type & IRQ_TYPE_EDGE_BOTH)
+ 		writel(val, chip->base + NSP_GPIO_EVENT);
+ }
+ 
+@@ -177,7 +177,7 @@ static void nsp_gpio_irq_set_mask(struct irq_data *d, bool unmask)
+ 	u32 trigger_type;
+ 
+ 	trigger_type = irq_get_trigger_type(d->irq);
+-	if (trigger_type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
++	if (trigger_type & IRQ_TYPE_EDGE_BOTH)
+ 		nsp_set_bit(chip, REG, NSP_GPIO_EVENT_INT_MASK, gpio, unmask);
+ 	else
+ 		nsp_set_bit(chip, REG, NSP_GPIO_INT_MASK, gpio, unmask);
+diff --git a/drivers/pinctrl/mediatek/mtk-eint.c b/drivers/pinctrl/mediatek/mtk-eint.c
+index 8b022545a3e9..827231dc0d24 100644
+--- a/drivers/pinctrl/mediatek/mtk-eint.c
++++ b/drivers/pinctrl/mediatek/mtk-eint.c
+@@ -216,7 +216,7 @@ static int mtk_eint_set_type(struct irq_data *d, unsigned int type)
+ 		writel(mask, reg);
+ 	}
+ 
+-	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)) {
++	if (type & IRQ_TYPE_EDGE_BOTH) {
+ 		reg = mtk_eint_get_offset(eint, d->hwirq, eint->regs->sens_clr);
+ 		writel(mask, reg);
+ 	} else {
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index 0df749cbcba8..e051ff141d6c 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -259,11 +259,10 @@ static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
++	if (type & IRQ_TYPE_LEVEL_MASK) {
+ 		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
+ 		irq_set_handler_locked(d, handle_level_irq);
+-	} else if (type & (IRQ_TYPE_EDGE_BOTH | IRQ_TYPE_EDGE_RISING
+-			   | IRQ_TYPE_EDGE_FALLING)) {
++	} else if (type & IRQ_TYPE_EDGE_BOTH) {
+ 		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
+ 		irq_set_handler_locked(d, handle_edge_irq);
+ 	}
+diff --git a/drivers/pinctrl/pinctrl-ocelot.c b/drivers/pinctrl/pinctrl-ocelot.c
+index 0fe0527863b8..58d3cde9f964 100644
+--- a/drivers/pinctrl/pinctrl-ocelot.c
++++ b/drivers/pinctrl/pinctrl-ocelot.c
+@@ -2317,7 +2317,7 @@ static const struct irq_chip ocelot_irqchip = {
+ 
+ static int ocelot_irq_set_type(struct irq_data *data, unsigned int type)
+ {
+-	if (type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW))
++	if (type & IRQ_TYPE_LEVEL_MASK)
+ 		irq_set_chip_handler_name_locked(data, &ocelot_level_irqchip,
+ 						 handle_level_irq, NULL);
+ 	if (type & IRQ_TYPE_EDGE_BOTH)
+diff --git a/drivers/pinctrl/pinctrl-sx150x.c b/drivers/pinctrl/pinctrl-sx150x.c
+index 89fdfa96843f..2dd1f220bff1 100644
+--- a/drivers/pinctrl/pinctrl-sx150x.c
++++ b/drivers/pinctrl/pinctrl-sx150x.c
+@@ -525,7 +525,7 @@ static int sx150x_irq_set_type(struct irq_data *d, unsigned int flow_type)
+ 	struct sx150x_pinctrl *pctl = gpiochip_get_data(gc);
+ 	unsigned int n, val = 0;
+ 
+-	if (flow_type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW))
++	if (flow_type & IRQ_TYPE_LEVEL_MASK)
+ 		return -EINVAL;
+ 
+ 	n = irqd_to_hwirq(d);
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+index 641113831a7b..27f06bbc113c 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -1191,9 +1191,9 @@ static int msm_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ 
+ 	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
+ 
+-	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_LEVEL_HIGH))
++	if (type & IRQ_TYPE_LEVEL_MASK)
+ 		irq_set_handler_locked(d, handle_level_irq);
+-	else if (type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
++	else if (type & IRQ_TYPE_EDGE_BOTH)
+ 		irq_set_handler_locked(d, handle_edge_irq);
+ 
+ 	return 0;
+diff --git a/drivers/pinctrl/spear/pinctrl-plgpio.c b/drivers/pinctrl/spear/pinctrl-plgpio.c
+index 1ec22010a3f9..5fcbea32089d 100644
+--- a/drivers/pinctrl/spear/pinctrl-plgpio.c
++++ b/drivers/pinctrl/spear/pinctrl-plgpio.c
+@@ -339,7 +339,7 @@ static int plgpio_irq_set_type(struct irq_data *d, unsigned trigger)
+ 	if (plgpio->regs.eit == -1)
+ 		supported_type = IRQ_TYPE_LEVEL_HIGH;
+ 	else
+-		supported_type = IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING;
++		supported_type = IRQ_TYPE_EDGE_BOTH;
+ 
+ 	if (!(trigger & supported_type))
+ 		return -EINVAL;
 
-On the granularity: understood, and I won't repeat it. A few of these
-have already been applied by subsystem maintainers, so to avoid
-duplicate work I plan to resend only the still-pending ones (iio, usb,
-ipmi, clock, dma) as a single dt-bindings patch. Let me know if you'd
-prefer them dropped instead.
+---
+base-commit: 415606a7be939835db9b0d6b711887586646346d
+change-id: 20260802-b4b4-irq-trigger-mask-pinctrl-359c48cb413b
 
-Thanks,
-Shaikh Kamaluddin
+Best regards,
+--  
+Maulik Shah <maulik.shah@oss.qualcomm.com>
+
 
