@@ -1,95 +1,91 @@
-Return-Path: <openbmc+bounces-2354-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2355-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61201C55179
-	for <openbmc@archiver.kernel.org>; Mon,  3 Aug 2026 11:22:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1426C55179
+	for <openbmc@archiver.kernel.org>; Mon,  3 Aug 2026 15:01:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hDDlL3Q7Zz3bs0;
-	Mon, 03 Aug 2026 21:21:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42b"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785756094;
-	cv=none; b=kn+hm/HzxZ85HWys04hKQOKgP+453t6fA+6SOHn9QyyaKmIkUHSMBnBVngmTLib0spB3NUaoG7oaVxtYPrY8CL1JmQIpkfIE4s5gn97tH9+fAPXOslptnjoI5Y4ehrCVjSaCMpQ5PStftFT6kgjV6WFF9XEbsdV/ic5B3yNOI29boHtzaIBen0i7D+VXShNUMZbxrAC3ExKx12/J8ApANf5Bg05ZMIGeLqCEh8GOdazUinql4DmDY/hOQ3MLjRfe1Ksk0pt/UC858MYwlTvky1Sqr9lbf9xvN8/TvL+lbOkMH7d08yG5ZCmvDUcQOYNYGUZaY0fvWsA6GRMbxj/4BA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hDKdJ3ZYvz3bqV;
+	Tue, 04 Aug 2026 01:01:40 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=103.168.172.152
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785769300;
+	cv=none; b=jqBVtuYwPiBmj0ZnhtlIUEenfT1PJG4/2AxV6cIjafUBJ+U1l7GZxz+3IbwaWIYorvDt1MuPEvXOoFcbWAMGGjpoS3Egc2hKN00A4yoWP5ulsQ/+eUflYI4mK3e52eQZ7OO6jsOB2M9FD9L46+igC+Y08F8wzLFPe3YmKK4Aq1WQ3pxqNjB2+6OP/r2cqlOUU56034YxWIVOgkNHkWv/hUNukK1Sr5vAbB6n5rebU1+XUErFvvk/u/IwPWbOmgO9BSV/BYW1C8ClRKCuK6L7BJhheLQP0UficW4eC0PUZ04thOMCnjzcQ9rc7RQ/6GslOwGK1l7p19AKP6/rWEk85g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785756094; c=relaxed/relaxed;
-	bh=IwAojWFj1FaBqKUS949mqDER/OD8Ai/Ip7436rIkcQQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=A1nvWR9LKr/CQ7wtQZGO67YABr4OQuQkf4/OosEm6UO7HEqzdAFdWP7DYUh+xi9Szm+Mwiu2fkxIbmMIvcVj5EVPTQPUn9gKhmltMEhc+NVPqNTX85F9V81BJd0RWu9hBr1R349HGL4exPbhS06tbFXc9BCuDPQPNuY+9c1zgDh2bDUkvOFQqtgKQsVmUe01H6MNYjvGCAfbsbG/89ltxUmaGNwlijEIA3QWHg3BtazAeur0RNsUu6B8vxH1PuZyyzVIOZ0VQgTDbti7TeaXd17vuMvDmgiQ4f6dMfMCNt+AYzz70Bg59ayzHDEyehHr0Zo4N2tBGdd16J1+4IzPjA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f7uzeU1o; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42b; helo=mail-wr1-x42b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1785769300; c=relaxed/relaxed;
+	bh=jQ3lgBiXKP+md7al46gfKhm+cPI4A3fPUVOoqUSoX7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hb8bwxU+7gc+fWXplA/PPER2QB7GDELEu/0SpFcMtQu1ChlWBqOeZcFX6qz7yjfdJtGOfASit0BIREn9VdCvRs3k5abGRiTIztgPkWkVtq4IRZBM545myyh+D2+hgm/t0vt5GPh+1EJpSgCZP/sY02j3woUAhSQVdem/L4k8jSa9MyNs3ReLgxiXcbES4BhimFxXb0nuSx4Magw/3Tz+JZgp5zH5LPo+VUQ8ibrmjRqkLIyaQcunCvi+R/MTz+bgujIz9XKphpv3R7h1WufPHEjfH5fC9eJMfmbCgu5JJBUJ9ayjyH+TrKWD+JrlYR/12ybBxCS5gbzYkpXEb/kK0Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz; dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=MEs5t5Kn; dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IVkMA/eS; dkim-atps=neutral; spf=pass (client-ip=103.168.172.152; helo=fhigh-a1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org) smtp.mailfrom=stwcx.xyz
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f7uzeU1o;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=MEs5t5Kn;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IVkMA/eS;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::42b; helo=mail-wr1-x42b.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com [IPv6:2a00:1450:4864:20::42b])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=stwcx.xyz (client-ip=103.168.172.152; helo=fhigh-a1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz; receiver=lists.ozlabs.org)
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hDDlK1ZW4z3brr
-	for <openbmc@lists.ozlabs.org>; Mon, 03 Aug 2026 21:21:33 +1000 (AEST)
-Received: by mail-wr1-x42b.google.com with SMTP id ffacd0b85a97d-47f92e3c14bso2278267f8f.0
-        for <openbmc@lists.ozlabs.org>; Mon, 03 Aug 2026 04:21:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785756090; x=1786360890; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IwAojWFj1FaBqKUS949mqDER/OD8Ai/Ip7436rIkcQQ=;
-        b=f7uzeU1oXgQCAi3Qw/4TQag0JDOAtQrQdRsqkugSpBXxD7NvuTWAH8nQaf0CWa0pKz
-         gRhfoLeqx/bSNmdOxr8dcFXsZ7KvvqzH31f9+8e+gqivluxCTFX6zdvyacfP0dzGcqT5
-         nMAe+yIxm12dAuRD06hC7gdN2S4xF2CqGz5cnyMggw1M3qKbp5OCK5v8xO+7mIFCTRj7
-         uqO0zr6DK7HPWHbK7op+12ura8ZXIhf97qs/i1TNww8Mkhff7+nDMCUVthOMRCVYSqCh
-         l+J6SeLHEsxP4j/GbXh0DWtsYJ4uvOYBbt/UDqEC84F5R0ZuJc3JbJz+2DPglXGWADa1
-         f0xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785756090; x=1786360890;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IwAojWFj1FaBqKUS949mqDER/OD8Ai/Ip7436rIkcQQ=;
-        b=RRkphHefYpXnF7nbD2zTmCAVbn8bgghyX8Po/5JA/cczrf40Fke9L2E/VE7aZMvl7Z
-         FrX1Y+oN2jVDP2uBuVrIfJvo7C1+9uu87+XkpQQWIeiZO68L4jeqYYQAOQkLXpDGxTZU
-         heGwle+XXSsHuI4Q8syM6Uih9iGGEpWe0p9hqY1d972aEzOM5QyfwXQ8JK+RXz4GL/cW
-         SjAtX8aNkPeqqpY+vYY0X8zjxpT6iQ25YhrlT4t737hDj+sD5uHz3S2Rdihw7kLaLLOJ
-         r09rkGnwJIYTJ0RPNZSVfEncvapiOfx8J8XjMLI7U6Vc2fN8VlYXFBcsuzrzImeALSLT
-         FnsQ==
-X-Gm-Message-State: AOJu0YxqnMHw6eGAuopbevsJqSVufXcBGslmNH4aMocIjHk5TJw2Rai3
-	ZGu296ePzjUkgxwr1M68m/I/bOfwN+9c3KsEvHlXO0cclD4odarP7Dc8
-X-Gm-Gg: AR+sD13Vv0+UMaLjneNrrKnuoU6QBh/XrAivf72ak5DSUJWrLAvkbHaMitG4b15oOwA
-	Cjs4OY9lj/Gs7siVZoQ7NLPMAiuc20+2tVQ5NHlzxbf1BLreksbXChHvntU1i+dF9v0LwCyxmas
-	T2mMstE53iAjwcC4YcKfwS1kX9h427iGalsDkc2a20Tn9uHUZZVUlKvU6G0TSkCfzmPmXj9PBEG
-	phy5jSASn218wAJA618U9pQ3LJw6Or4xj6vgLnP2qsotPDh+8kjwjcht8KnPDfxPHhR+9x9HIeJ
-	exlgNByHlAD4qo0T2IYEtLbM8CgwrRG5iBidOIaFODNL6tJ/qxnvmJ7FBA0a1WsGtpkI68FxF1T
-	L+pFuMO8XTHTUgseymM+ahcIqH3ItuKm7UaZJCsdf9podMccgpW75TNwhOt3c8kzkkGoUSOMj7s
-	QZ26pAmhwMehl2YO3M+52mq6NrEcQYVYQtjYLBlBhZdHZo3cMaNiFuFPI5WkFjtSifpwAJrj8=
-X-Received: by 2002:a05:6000:50a:b0:47f:cbbd:30ea with SMTP id ffacd0b85a97d-47fd72a8d0emr21385657f8f.14.1785756090134;
-        Mon, 03 Aug 2026 04:21:30 -0700 (PDT)
-Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458adc9sm34154913f8f.27.2026.08.03.04.21.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 04:21:29 -0700 (PDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: andrew@codeconstruct.com.au,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: openbmc@lists.ozlabs.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	avifishman70@gmail.com,
-	tmaimon77@gmail.com,
-	tali.perry1@gmail.com,
-	venture@google.com,
-	yuenn@google.com,
-	benjaminfair@google.com
-Subject: [PATCH v9 5/5] arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-Date: Mon,  3 Aug 2026 14:19:06 +0300
-Message-Id: <20260803111906.1931384-6-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260803111906.1931384-1-tmaimon77@gmail.com>
-References: <20260803111906.1931384-1-tmaimon77@gmail.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hDKdF6JpHz3bps
+	for <openbmc@lists.ozlabs.org>; Tue, 04 Aug 2026 01:01:37 +1000 (AEST)
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 824B214000FD;
+	Mon,  3 Aug 2026 11:01:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 03 Aug 2026 11:01:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1785769293; x=1785855693; bh=jQ3lgBiXKP
+	+md7al46gfKhm+cPI4A3fPUVOoqUSoX7U=; b=MEs5t5KnEX0cs7V2vALxVxwwcH
+	CokIewZ80jEHXYs5DggwrUtj+K84f7uYUhhD6FmbWfB8glk3BiVux2OcOEPJfFPL
+	rIlgSoFIhwsNs97sfq1Cc+aIhSxt71E0AhpSkzppAI+AKiv+DLUaFyvaMqjzxZ/0
+	JXdgGF7WbzAt5XA2YxhvCcJW+TFU5n9V218qTpVLtR0Sl4yYKADq46vISytXJr09
+	XuoObGL8/zKjE5LDjFLCxoIXWROtec7LNk+UvIG8KMshCGVg+y6VoDgUwHuDuytw
+	JilvvNp5ZS9GVuuHWnxA+DtYVtLdmUy+9cRESpCEh3MDyoSG9kUI+7160EIA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785769293; x=1785855693; bh=jQ3lgBiXKP+md7al46gfKhm+cPI4A3fPUVO
+	oqUSoX7U=; b=IVkMA/eS3d98rEfOPnd4PFXGKlZhgDCTosye9kYHQRy4flb65tr
+	YbYOXkKMdiK2tg3vfkQXdH/VOBGsSJXNhd4LLhTMCMtGTp9RlIpgsbHpJuNqTzmg
+	3kfCVzFjBs/RzSFDVeKwJaNJa5bikM/puCcssXwqYjWcbjRmoihQtfuZHQM+idv4
+	duPDg1mzJcJqoaLUZ6uynCSeJUP8X5YF4otU3QoO5cPcjSvI/2LiLgJ/8uVpQtA6
+	yXxT4iel62kKhg/OEet5w2n9r891lZi1q0AeOqRvgYPJnnGPVdmSC1lqe6y7OwbI
+	QHTwDUjj7xU1ExsuxTT4hMJJ+nKs11rlrXg==
+X-ME-Sender: <xms:Ta1watqGMwG0FCqlxDapUKGmwOrDmtqXr609hejRlVb4hqKydDZnGw>
+    <xme:Ta1walrmowPUDF2QKdKVjGe2X_bIdRvIqN11rNNySLvsK-1Z4b_GnKJN8DW48HMur
+    gi_XC8T_lx_Jc90BIY5o6h_kPhQh6ZipUdB0qglHpmLNWFJ1Kze0nY>
+X-ME-Received: <xmr:Ta1wan3m_mi-JtXK7A0kxxro56tM1lL9dmN4asiwNEB3dRmTRR2t3sYDqkc>
+X-ME-Proxy-Cause: dmFkZTE/kQ3lZB4eOYhah+98GsVFqYFhtmxPm79xnwEun+WRvhOayXjSE4PjQOwjuLczMv
+    ZY4vzMFWrmYRqu81vQ/62Kca1ruiyy+nedlSLZHjdghOE8vCAuoEjN5oj6BAJoq4BF73Il
+    dU8jH2exwrEmctcLcjZYw/3yAVGT2dAlJrepEZyX8qaAiDS0Hp+MK/t9ANm6K/SofR2yU/
+    ndb17tp0GDqyGJupyI3VnhqLoddf22SGrKiWKhUEZnUu/acDEVKsaih5sRcgmeVXwCDL0M
+    EgBgZYlwOegZNrHLVK88er9L++LRY3dZ4mOJTC8OsTz1n5Ftpodz3NPCrifxWmKw3XMBbk
+    ftwI/1HUS6e16k0vSnu/vneGgNfEJUWxtJZZwwY151vQ43/m907dB56ZDSER3/TmCtLV4J
+    h4HnJ9DL7FjYPt9em0baIcHvWleBJhdaJorPGa9J/egkLahUDI9O1aNykgNX6R+A9ZblRA
+    UQLhnb5AFRZ6/ypoOVPU1a0AVSlSDhQxuvqQqjidL3u1CxZH39YAT4Rg61GCGILy7YHhzc
+    2xIwT5qS9/q6q3Bisvj9P/F72rUnAKxbVe35tTl33gJM4x7SzGQAENJc+sHg3uQtkqwEYI
+    QtXf5FSlXUpiwWizKtIkFgTI3kQX3lAUtkaKAzseW97IejieB3mXi99TQyKw
+X-ME-Proxy: <xmx:Ta1wakC6ssCbPAfRPUO9xpGxHFZR3oVJIF_LpKzCiVsmBaI5bEdXsA>
+    <xmx:Ta1wavdKNbxJ_4GfcqumZOSND81Z7pFzBanaaNtcUYqy6qTVqQN2hw>
+    <xmx:Ta1wapjAVu89-ZB641MYMhUGRuqcfpSJjD7a0bIV6UxV9p9ZCYQaQg>
+    <xmx:Ta1wanpDrRAmIj1J3oJMlheFyvUIktO_VN2LL4ci4b0gCbnuX6v6WA>
+    <xmx:Ta1waqxSVKK532pk4MFHIhugw_g02RwR6WI7sIqkvNUrJYSGKfGfvCxB>
+Feedback-ID: i68a1478a:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 3 Aug 2026 11:01:33 -0400 (EDT)
+Date: Mon, 3 Aug 2026 11:01:32 -0400
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Zhang Yingjie <zhangyj2007@outlook.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Update BMC version fail-20260620
+Message-ID: <anCtSk3f9q3-ilNj@heinlein>
+References: <OS3PR01MB100080DB03D4F9074A91726E4B0E12@OS3PR01MB10008.jpnprd01.prod.outlook.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -101,488 +97,50 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="A6mnYql3hDAPU3xa"
+Content-Disposition: inline
+In-Reply-To: <OS3PR01MB100080DB03D4F9074A91726E4B0E12@OS3PR01MB10008.jpnprd01.prod.outlook.com>
 
-Enable peripheral support for the NPCM845 evaluation board by wiring up
-the SoC controller nodes to the board design. Add board aliases,
-GPIO-backed MDIO buses for the external PHYs, a reserved-memory region
-for TIP firmware, and flash partitions for the FIU boot flash. Enable
-the Ethernet MACs, MMC controller, FIU controllers, USB device
-controllers, ADC, RNG, PWM/FAN controller, I2C buses, and PECI
-interface with the board-specific pinctrl and PHY connections they
-require.
+--A6mnYql3hDAPU3xa
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 435 ++++++++++++++++++
- 1 file changed, 435 insertions(+)
+On Sat, Jun 20, 2026 at 10:16:13AM +0000, Zhang Yingjie wrote:
+> Hi=EF=BC=8CAll=EF=BC=9A
+>=20
+>         I user Amd Server,bmt update this device bmc verion fail at BMC w=
+eb,the old version is V6.40.3, want to update new version is V8.06.1.
 
-diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-index 2dc1a4fbb..3d88af388 100644
---- a/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-+++ b/arch/arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts
-@@ -9,6 +9,42 @@ / {
- 	model = "Nuvoton npcm845 Development Board (Device Tree)";
- 
- 	aliases {
-+		ethernet1 = &gmac1;
-+		ethernet2 = &gmac2;
-+		ethernet3 = &gmac3;
-+		fiu0 = &fiu0;
-+		fiu1 = &fiu3;
-+		fiu2 = &fiux;
-+		fiu3 = &fiu1;
-+		i2c0 = &i2c0;
-+		i2c1 = &i2c1;
-+		i2c2 = &i2c2;
-+		i2c3 = &i2c3;
-+		i2c4 = &i2c4;
-+		i2c5 = &i2c5;
-+		i2c6 = &i2c6;
-+		i2c7 = &i2c7;
-+		i2c8 = &i2c8;
-+		i2c9 = &i2c9;
-+		i2c10 = &i2c10;
-+		i2c11 = &i2c11;
-+		i2c12 = &i2c12;
-+		i2c13 = &i2c13;
-+		i2c14 = &i2c14;
-+		i2c15 = &i2c15;
-+		i2c16 = &i2c16;
-+		i2c17 = &i2c17;
-+		i2c18 = &i2c18;
-+		i2c19 = &i2c19;
-+		i2c20 = &i2c20;
-+		i2c21 = &i2c21;
-+		i2c22 = &i2c22;
-+		i2c23 = &i2c23;
-+		i2c24 = &i2c24;
-+		i2c25 = &i2c25;
-+		i2c26 = &i2c26;
-+		mdio-gpio0 = &mdio0;
-+		mdio-gpio1 = &mdio1;
- 		serial0 = &serial0;
- 	};
- 
-@@ -16,6 +52,30 @@ chosen {
- 		stdout-path = &serial0;
- 	};
- 
-+	mdio0: mdio-0 {
-+		compatible = "virtual,mdio-gpio";
-+		#address-cells = <1>;
-+		gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>,
-+			<&gpio1 26 GPIO_ACTIVE_HIGH>;
-+		#size-cells = <0>;
-+
-+		phy0: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+
-+	mdio1: mdio-1 {
-+		compatible = "virtual,mdio-gpio";
-+		#address-cells = <1>;
-+		gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>,
-+			<&gpio2 28 GPIO_ACTIVE_HIGH>;
-+		#size-cells = <0>;
-+
-+		phy1: ethernet-phy@0 {
-+			reg = <0>;
-+		};
-+	};
-+
- 	memory@0 {
- 		reg = <0x0 0x0 0x0 0x40000000>;
- 		device_type = "memory";
-@@ -26,12 +86,387 @@ refclk: refclk-25mhz {
- 		#clock-cells = <0>;
- 		clock-frequency = <25000000>;
- 	};
-+
-+	reserved-memory {
-+		ranges;
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+
-+		tip@0 {
-+			reg = <0x0 0x0 0x0 0x6200000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&gmac1 {
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+};
-+
-+&gmac2 {
-+	phy-handle = <&phy0>;
-+	phy-mode = "rmii";
-+	pinctrl-0 = <&r1_pins
-+		    &r1oen_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&gmac3 {
-+	phy-handle = <&phy1>;
-+	phy-mode = "rmii";
-+	pinctrl-0 = <&r2_pins
-+		    &r2oen_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
- };
- 
- &serial0 {
- 	status = "okay";
- };
- 
-+&fiu0 {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		spi-rx-bus-width = <1>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			bmc@0 {
-+				compatible = "fixed-partitions";
-+				reg = <0x00000000 0x04000000>;
-+				#address-cells = <1>;
-+				label = "bmc";
-+				#size-cells = <1>;
-+
-+				u-boot@0 {
-+					reg = <0x00000000 0x007c0000>;
-+					label = "u-boot";
-+				};
-+
-+				u-boot-env@7c0000 {
-+					reg = <0x007c0000 0x00040000>;
-+					label = "u-boot-env";
-+				};
-+
-+				kernel@800000 {
-+					reg = <0x00800000 0x00800000>;
-+					label = "kernel";
-+				};
-+
-+				rofs@1000000 {
-+					reg = <0x01000000 0x02c00000>;
-+					label = "rofs";
-+				};
-+
-+				rwfs@3c00000 {
-+					reg = <0x03c00000 0x00400000>;
-+					label = "rwfs";
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&fiu1 {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		spi-rx-bus-width = <2>;
-+		spi-tx-bus-width = <2>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				reg = <0x0 0x0>;
-+				label = "spi1-system1";
-+			};
-+		};
-+	};
-+};
-+
-+&fiu3 {
-+	pinctrl-0 = <&spi3_pins>, <&spi3quad_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <5000000>;
-+		spi-rx-bus-width = <1>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				reg = <0x0 0x0>;
-+				label = "spi3-system1";
-+			};
-+		};
-+	};
-+};
-+
-+&fiux {
-+	nuvoton,spix-mode;
-+
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	status = "okay";
-+};
-+
-+&udc0 {
-+	status = "okay";
-+};
-+
-+&udc1 {
-+	status = "okay";
-+};
-+
-+&udc2 {
-+	status = "okay";
-+};
-+
-+&udc3 {
-+	status = "okay";
-+};
-+
-+&udc4 {
-+	status = "okay";
-+};
-+
-+&udc5 {
-+	status = "okay";
-+};
-+
-+&udc6 {
-+	status = "okay";
-+};
-+
-+&udc7 {
-+	status = "okay";
-+};
-+
-+&mc {
-+	status = "okay";
-+};
-+
-+&peci {
-+	status = "okay";
-+};
-+
-+&rng {
-+	status = "okay";
-+};
-+
-+&adc {
-+	#io-channel-cells = <1>;
-+
-+	status = "okay";
-+};
-+
- &watchdog1 {
- 	status = "okay";
- };
-+
-+&pwm_fan {
-+	#address-cells = <1>;
-+	pinctrl-0 = <&pwm0_pins &pwm1_pins
-+		    &pwm2_pins &pwm3_pins
-+		    &pwm4_pins &pwm5_pins
-+		    &pwm6_pins &pwm7_pins
-+		    &fanin0_pins &fanin1_pins
-+		    &fanin2_pins &fanin3_pins
-+		    &fanin4_pins &fanin5_pins
-+		    &fanin6_pins &fanin7_pins>;
-+	pinctrl-names = "default";
-+	#size-cells = <0>;
-+
-+	status = "okay";
-+
-+	fan@0 {
-+		reg = <0x00>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0x0 0x1>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x01>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0x2 0x3>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x02>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0x4 0x5>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x03>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0x6 0x7>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x04>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0x8 0x9>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x05>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0xa 0xb>;
-+	};
-+
-+	fan@6 {
-+		reg = <0x06>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0xc 0xd>;
-+	};
-+
-+	fan@7 {
-+		reg = <0x07>;
-+		cooling-levels = <127 255>;
-+		fan-tach-ch = /bits/ 8 <0xe 0xf>;
-+	};
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c256";
-+		reg = <0x50>;
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
-+
-+&i2c14 {
-+	status = "okay";
-+};
-+
-+&i2c15 {
-+	status = "okay";
-+};
-+
-+&i2c16 {
-+	status = "okay";
-+};
-+
-+&i2c17 {
-+	status = "okay";
-+};
-+
-+&i2c18 {
-+	status = "okay";
-+};
-+
-+&i2c19 {
-+	status = "okay";
-+};
-+
-+&i2c20 {
-+	status = "okay";
-+};
-+
-+&i2c21 {
-+	status = "okay";
-+};
-+
-+&i2c22 {
-+	status = "okay";
-+};
-+
-+&i2c23 {
-+	status = "okay";
-+};
-+
-+&i2c24 {
-+	status = "okay";
-+};
-+
-+&i2c25 {
-+	status = "okay";
-+};
-+
-+&i2c26 {
-+	status = "okay";
-+};
--- 
-2.34.1
+Since no one else has responded in the last few weeks, please be aware
+that the public mailing list is not used for debugging downstream forks.
+We cannot help you debug an AMD BMC version.
+
+
+--=20
+Patrick Williams
+
+--A6mnYql3hDAPU3xa
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmpwrUobFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEKsDR8wtAMEZmC4P/31PvhGTP3mjZ1iY+KZA
+qY/WMrtJbZMcbs+6UYzhAhbQDCyVxBNprBptRNIkQ8foioReRT/nXp3a0ziKthNs
+12V2SPHklOavJ+HB5vaH36owilCtXA47QvH2x4dibVRgE/rzOspHp6oIbUFX/dlJ
+maBEtpAIG6qkjeLlb/wNqmKhBVyGPT8/+mnZkRJqiqxlPm8YAuefzmAjaWtPiuoN
+HoahXhZLEBxe2JLHVzINjIaK9QtOF582o57Tun67pyAEoVt7ULsbDg3WYHyIvTJH
+WV/CyfIa8CIySv2aIAgfUuw7XaE2y9HDG4ssFz9eMHCnGvtge/wXsT+hEfJF2/n1
+231ZzhHjZtgQdDbfAJFqTiqL7z9aE2B2TYcamH3dhlf1sp3GfOBIqQJ0JWvcfUHN
+4P6LBgy/Tb0mHMCE0sOJAl2IDkYs0Mi2gV3f8hZiYRzk15s+RFlbsMqcHzmgyLD6
+u2RmR6X2WYwYq5m1ZAp3gbF6bptjhbw2PoGeRX4k16UXAGsARq15/K5l8scoR877
+1oLalPWkF3f0qWVUS7vbju/o/MOjGN0bTG/aGhB92dwPutfk6S0p4zNv407STwlg
+U29Q7OXzYwslqD2w7B2CvaqZ6ueAFE6pXUQgDY4QY4TqcaPjIb6HSgp40c6g/CV0
+k60R4cWRDKC3Q4nKkrBvHHAp
+=Slxp
+-----END PGP SIGNATURE-----
+
+--A6mnYql3hDAPU3xa--
 
