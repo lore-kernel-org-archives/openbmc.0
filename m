@@ -1,97 +1,83 @@
-Return-Path: <openbmc+bounces-2346-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2347-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D737DC55162
-	for <openbmc@archiver.kernel.org>; Mon,  3 Aug 2026 00:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0650BC5516F
+	for <openbmc@archiver.kernel.org>; Mon,  3 Aug 2026 06:05:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hCxfl1Nchz308t;
-	Mon, 03 Aug 2026 10:01:35 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785679567;
-	cv=none; b=S3pfk6bhlG6aJm1M3vnx5jcc8uSriizl3oKHmrgL+oqkszHgz+vgLHDeuOG2dq0PeSjE+cyPcSBZoPLpCN0LTdPcyDAVCPgzl78seEXg730JdhhrVQFdk/RErmxmJHAjUzohE72M2q4Fryfkr+5i6ZYdjudHC4ICVRHDd5hRJ6Ip0tCTRdzplwa6ph8aiLgclfJnn4isYppqNZthu7p3ZomhWjuDklfhxWjzbB/udKki4s/mabP4/3DOOaFonnb6kTx1JgC4OsvGRCJkNQ71PGtvhOXEgMG4xZ/XKVmEvk6M/7SQy8FtvPf5hKf01XErXpKc7i6hJp+gvg+p1om3WA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785679567; c=relaxed/relaxed;
-	bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VHurckkuE3qGRD5kX6wNZT9fYNVv5NR+xeEAusHbniaxeBBPRHlJ7hGq+KeDCG5Mf7zfGtDke+2cC9dc/F6LK8FEW8vgRdNokYYDRQJr5gqziHyZfpMV+vQEGa080CUdrG8W9mr5/lXAWBv75P+RTBZk0SvOEa9m0Vctcsxt+aK4aFBTMDdpIMcB2VtA4laC9px3ASlM6uHGn8LI1iK6NoL092hPT1Q7H8UA0arW8gqa3owYEwWz04B/aZWo5gZDZ+Dr4E7mr4V2ZXuzyGa8UiErzGrxUL0W4At3ykPz2mUsNNJZzHUY6SUmuRHIYE/TbqQiHJvvflbj87LQZtnhDQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YKVtLapQ; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hs5tCQLa; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=maulik.shah@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hD5kj4Cpfz3090;
+	Mon, 03 Aug 2026 16:05:33 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785735008;
+	cv=pass; b=aZudUHwPpv4o3Y0Brg187vdyMkArQ0fWUDjl/apASYohTVXggXdGKX+58z4F9ZdIuzwZylrvc6eVjXeQCB2ePBteUre/Y9Oh6Bz3ydgtUbDXBBLImOdehg0wLVj5vUChHpg946jC/xL3Pr79+CxcunKmrhamBKwusATG0bekZrTgG9EzB/CARklyAvXAfM69QL3Y54GtpAVSb9leC5pupiOJb63wEsYd3Nd8bb01Wc+v2p4g6BTZFt+7ZuTtfGIsYHWjpBYoG101mOw5roFvgiXJnDtiGYFmXAYwnX8VyRoZ69VjJ4du6nNd4JxTpyRGVrekTzDsHeUs2AVtc3hovA==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1785735008; c=relaxed/relaxed;
+	bh=bgwUny/O53z2MDiekhBL2KoC65jPpvHmSOD5LlJh77w=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=C6IGvICaO4NoI2IwStynM/OlJ1u4U/gQNq+/rRQkETqkub1YSie+Y+T803jWgkxqfL6j/qM2uQmiDY7AAT4oFpMcHoF0dz2gyZSu/gzrIHo65gxjtyf/G9CskZyFvk1DPAqkZvzcml4mkosZOfFWSMJugpbi4aDBwx6a3RnPPeREdmXWLUoUQYVWhYoOt/vms/aXZBJBdAh8diFOTO7iGz+lIBGldaXL8rY70J1kAxn1B02LA2FOr1e2kLL1DopADBf4BN8UfOVxyAf+aRRirX58tbU4GL3XggY8kbn8/6cFTVxq2iklwPBEif0Rw0uB3VExIjwJQy1BxiYP8IuVHQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=O5IgL2M2; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YKVtLapQ;
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hs5tCQLa;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=O5IgL2M2;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=maulik.shah@oss.qualcomm.com; receiver=lists.ozlabs.org)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=twei@axiado.com; receiver=lists.ozlabs.org)
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170120001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hChRf3wHnz2ygp
-	for <openbmc@lists.ozlabs.org>; Mon, 03 Aug 2026 00:06:04 +1000 (AEST)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672B6WWe2009670
-	for <openbmc@lists.ozlabs.org>; Sun, 2 Aug 2026 14:06:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=IUBrw7txsJyrtbO2uks4gb
-	XgkSo0IF8NQtTXkzJyWQc=; b=YKVtLapQxcdEBSB6WppKRo5LugMC7Yg56KlN0m
-	et8x9EJVV63bsrTS6MhujKgjwtbj40Uc+p9c7V9R4yPxaVgIGS3fDghv5xtBsU9P
-	xNUY58kIJwahtmetyXBo5M8u+NJn1kTyMr5/M/z6I4xRMfYQuyY8uyX/NAuz5C1U
-	en2w5P3lDYbIBbOPh7i2wpmz7s6lD+xNMWW2eKFGFiZ3/jwgDRgxQ9sHKGCZL1dS
-	Hzrs/fm22rhDw+E/Ha2WzICFPko5IJYvQ7mbyYFDrdPQpbMEopoLRW0tG+wMNWCN
-	bqRrw9t78SEajFGLVe+ZOw2cf1GI+U04UqylDaiO//v0o8sA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8qptx96-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Sun, 02 Aug 2026 14:06:01 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbe39ce62so2332131a91.0
-        for <openbmc@lists.ozlabs.org>; Sun, 02 Aug 2026 07:06:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785679561; x=1786284361; darn=lists.ozlabs.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
-        b=Hs5tCQLaPLhcJ3J1+KSkWyxTY1pX0Q9uYF8eGFwjjhow5+OtBmwM7TtekSbPTp8bMA
-         dYihrEWR6AvIK+msi3g7Br6NCLeToOJpH72nGWPDnAhJyM/NTPW84k482xclxpmuIDuj
-         N1QvCD1xgcupapaY7xq783HrYIwLctv08wDeCBMZTx1SYi+gmyhbtEad6CJTnaGBEkTU
-         uicpaWG0hXxtd2Xt1MUZOH+jMZkma58l5JHQLocljdB0xL6IxeI/rSfrvYDnbKKUI88C
-         CtNjx7mr9CrPVlrg/7kJGg3wSfDksa8rcwsUE/hQW/Bzw4//Bat1pEBafU7OJkiLSuRf
-         65hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785679561; x=1786284361;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=IUBrw7txsJyrtbO2uks4gbXgkSo0IF8NQtTXkzJyWQc=;
-        b=qH7Lg3GWaYMxeBUQHex7+nwBGeL5gN8+AFUY4tXFYzvZ5KoECXf3PjmNURCYkspi0O
-         GxNv9lvutbd8J5u3PZy32XKjOn7/mYyzuAJ0tN6gb38dmmjgjH5SgcvmVRlGbSz6uY/p
-         MA8Bnh+CGa6DqOJwEgPb5z9B8LaoclZtekulI5JtfV0i/uatxqULCIZ4oh0pI05huZXo
-         f301ze0T2TscsZObUhKUUVddOWQ9PVBNZvI0+qydh5Oc+NCYhnwL3N98EJlVX4QaGkR0
-         Dfwy71OJyBs4XRifEutzKKwtZYY1RSc8CHeri8uK2YQK79lp9m7yj1L89Bob9gz6dKnc
-         CJeQ==
-X-Forwarded-Encrypted: i=1; AHgh+RprseH9eSkj05wI9d3PVO/VH0xk9c8tzhAsa0L2dY4u8kU0BZbvO4zzj+qIUOK8otfDe1uJfmFO@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YyXJUARuJDZW4yL06mvzOXk9+tECk7wXe/Ovcn/SWLQQ8sYCNoQ
-	bJ2HfMDzFXPMRFrXYSF7IFhFE3I2GDF1bBKn864AXN3j+wio1rXIJns7/h+XYQwzJ2w3IbYrZxL
-	I9AAEiaMJG66mwCwZB7lEjpadS/gp7mvI83m8dzIQvCnUcdydOnxvHKV66v4YgQ==
-X-Gm-Gg: AR+sD10sHcW2MZKe3m+0ZTHEaQHpSfGRkwqJ6rMyy0aEfGmLWeucbXxGOk9z6CxXliP
-	53Aoox/sOV3OdUIAGnCK7f8A2n7DgqUDFW6VW2ZcUjyYxGOnVKgeVOKmFa6BQsQUQ66Wul1Etra
-	FDALl17g24JPboAOkLqwMNbd1diX2ldNDbF/rwexq6oolPfl5bmWW8j2AHg4s4yI3ZmXXifBz2N
-	txyMYn2v1pwlxjs0ABY+U4i1ZVpFuQgnS67wd4b1PzpYkyjxLz0McSpaFB54XJgOhIRBihWSF5O
-	GzGvvW7v4/SYXONDDOe0J6iPJK4tok1e+rD+11SPvWPCTZU8GNHgykrsrlP9Gf7H3G2rnNVLMuu
-	Z+3j0whd23ISq6wCWwf7QoxiaMeM5
-X-Received: by 2002:a17:90b:57ed:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-38fbc9f3ebemr4727141a91.4.1785679560492;
-        Sun, 02 Aug 2026 07:06:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:57ed:b0:385:3ab:fecb with SMTP id 98e67ed59e1d1-38fbc9f3ebemr4727101a91.4.1785679559963;
-        Sun, 02 Aug 2026 07:05:59 -0700 (PDT)
-Received: from hu-mkshah-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4cb51asm34484816c88.9.2026.08.02.07.05.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 07:05:59 -0700 (PDT)
-From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Date: Sun, 02 Aug 2026 19:35:43 +0530
-Subject: [PATCH] pinctrl: Use IRQ trigger mask helpers
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hD4xp6V2mz3078
+	for <openbmc@lists.ozlabs.org>; Mon, 03 Aug 2026 15:30:06 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oK1qj0XQxOiWuHollQ0KuBWSbHZ7sMKic0ssPamw2DhcVmZJ12F+1h3T+xrQAZBqLRGaOb5wJfiowxgV6+LnvaJgyUlg9b/rkkFTf5Q30juzd7lZXNO+vbMjbKTeqfXcgURjj+4Z18p4Pj4LxTyLXqGV6uMHUGrtgu9kCA1pzQIGU9lT4vd4EwhjnAykgr1NO3RnbmlxI/zZ6yaVJnitPRpnJ7Xjzj6SKHiVp9o39BckPA/6/mOzUDTaFwOx6mQZVxVEf+wrFmUoBKAmwpK/nPD6Or/5lQc/OT1KQ4e6Gdc2HPwVY2fqGjJqmMnpLQB56XDXT4GWI5WLz4E9nWAb2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bgwUny/O53z2MDiekhBL2KoC65jPpvHmSOD5LlJh77w=;
+ b=POQ3sz7RO83k5y0KttJzOKUr8DwF6EL5/Z3dSrJ4+7rad2dV4zmjP9jWdLnrHRXKYmHXCLNORCjEjwbGa5odn13YE2bV75ivhsiuKw8onPE0pz3bvvvnzWSazd84ceacVfdX9B3gFxtFph+4kOQmZRCGjav5IFWE5UKfjXzniigm+BRCG8pv9Ea7v1U9gryYO+nXK9Roq/zRVSC6/aZKRPep0qXpnyqFopMNUZgAa/IG6/Zf9u+miteOd0TLGdNjMtMLHqxaE0B+3WwuZu4ZnV6iT9A9b52JC8iHmBmGur1F0c1OzYzj+4PNatZWj7HcoFU6tmcVGUnjNaz7PobGyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bgwUny/O53z2MDiekhBL2KoC65jPpvHmSOD5LlJh77w=;
+ b=O5IgL2M2tELmtuFbeFOr5w5OUhKf2XCUSAcid3qQ7R+yFJTavHIarlglkXjgL1ZSRR3PNVxc95Zzn3n51rjjPC08JUeaT0Qn42CLqSx8T38R/Lng/wNZWeG5Rf9rFKD5e6aWKr9zUcAZZ7IBNAHKQOh5VtMWE5H3qvB/0+EY4TJQ90E68JBLlwKrFh1iS54fqruV3QbYKjpUw31pJFmhx6Tsy7bECokc4N9m+6EnT5G8C39WyWAUKrDSloXbE/lqQqe5O7158fUCl0ch8yUX+2zuxOOnB1wBFbsRzxQtfUjp7q8ALgn3mmOHghsBW8w0JJstVqh1kmif2uJu1Gq+mw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
+ by MN6PR18MB5466.namprd18.prod.outlook.com (2603:10b6:208:470::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
+ 2026 05:29:41 +0000
+Received: from PH0PR18MB4558.namprd18.prod.outlook.com
+ ([fe80::ba9:422:da8:b963]) by PH0PR18MB4558.namprd18.prod.outlook.com
+ ([fe80::ba9:422:da8:b963%6]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
+ 05:29:40 +0000
+Message-ID: <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
+Date: Mon, 3 Aug 2026 13:29:35 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Shubhangini G <shubhangini@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
+ <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
+ <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
+Content-Language: en-US
+From: Tzu-Hao Wei <twei@axiado.com>
+In-Reply-To: <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0050.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::6)
+ To PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -103,231 +89,176 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-b4b4-irq-trigger-mask-pinctrl-v1-1-1c398ab53d28@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALZOb2oC/yXMOw7CMAwA0KtUnrGUpgEVroIYamOC+YTWCQip6
- t0JML7lzZDFVDLsmhlMXpr1kSraVQN8HlIU1GM1eOc3rnceKVBAtQmLaYxieB/yFUdNXOyG3Xr
- LoWcKbUdQj9HkpO/fvz/8nZ90ES7fFJblAxVw+3aBAAAA
-X-Change-ID: 20260802-b4b4-irq-trigger-mask-pinctrl-359c48cb413b
-To: Linus Walleij <linusw@kernel.org>,
-        =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Bianconi <lorenzo@kernel.org>, Ray Jui <rjui@broadcom.com>,
-        Scott Branden <sbranden@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Sean Wang <sean.wang@kernel.org>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Avi Fishman <avifishman70@gmail.com>,
-        Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
-        Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-        Benjamin Fair <benjaminfair@google.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Viresh Kumar <vireshk@kernel.org>
-Cc: linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
-        linux-arm-msm@vger.kernel.org, soc@lists.linux.dev,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785679551; l=6841;
- i=maulik.shah@oss.qualcomm.com; s=20240109; h=from:subject:message-id;
- bh=NBDioksG5pOpKo0k7xIWjDfLaLsiWZzCb//BdAiMZP4=;
- b=c21evJbK163GncmcfCcbMaR7yLK/XPxyAIAtf7iEWai9uXE/ByvKLgPIYH43r4tLlQgGRBNDB
- 1flMBKgF77UCMyTh6ruqr+wSpTq0lACBWDakgwRVSnCqIKrHE0AmMJv
-X-Developer-Key: i=maulik.shah@oss.qualcomm.com; a=ed25519;
- pk=bd9h5FIIliUddIk8p3BlQWBlzKEQ/YW5V+fe759hTWQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDEyNSBTYWx0ZWRfX1YTqNbV9gc/j
- PB+dGSCz09Y005dbPFJi9vzUiLzY7n5vlkNSPfBXOkqgayqe6/LuESMqz3M1elhfSUoSZdiz2FF
- TjeVvFvg7i7NRUIADT2DImhAU/j9rbH5dnUx0TLa8ClhqfNsISQXQxK5l69BtNBYiadsCv5iQvi
- axcYM4rPSMUQEBICkcpgKT6c5jjOJ8YBTJHo53srl1ZZO7DD9o9b29/LckdxIbvGGn7M2+vyAGL
- MV5jc4JpuLK2lu9D7KzFIVqBCgVXV87XwYguCdrYQcYKPBdKwhxYKQZb/9+Odksc6TCCQnrM4WB
- QeD8VZC4Vs+IL0rZ58MOzmgm4gmn+bZDH1IB5wtLbBx6KAad1JT4n4KsX4KdWdBg3FhjicTCM0N
- WuH7o6FbKHNrGpzkuXieM/Q8AMVguDbW4J2bFU5hQvSw0IfDW0lyHP4gmmcgLoo67ehrzjjqclM
- 3g5ElLHrRfSbzQUXcjw==
-X-Proofpoint-GUID: VxxiIejqAaEP1PkHIBOaQC-w5b6d2B0G
-X-Authority-Analysis: v=2.4 cv=MpViLWae c=1 sm=1 tr=0 ts=6a6f4ec9 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=aROEccOD733urgNQ4cUA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: VxxiIejqAaEP1PkHIBOaQC-w5b6d2B0G
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDEyNSBTYWx0ZWRfXy0vVOrW9eWVu
- h/Soo3ODKypfJHo+NlVzYB7pyjV3mggaCtYg5domSXJ2Hzb63uENabUatuoESGpsywFpmDa+CFz
- BvqKvzFsC7iz1VkTAos5g9Ft2KWPx3s=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1011 phishscore=0 malwarescore=0 spamscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020125
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR18MB4558:EE_|MN6PR18MB5466:EE_
+X-MS-Office365-Filtering-Correlation-Id: a30a7b70-05ea-4070-a6e1-08def1203786
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|42112799006|1800799024|4143699003|56012099006|3023799007|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1T1lS4FBgSU311u1ERevDCtLnrSK5aGOdOazoEAm38S2oBwxnIoQNAvE6+mE5/tpKNGo2CBvqFI0d9FIvjm4dWDMbvRg+jaGe7+GkYgZyndpvDhIxaDT/1Q5bANF+AR91OP9qOMR0JjF7Al1S6/nzrS0VjzwEw8QE+Cp4QK+8TOJRd2Xh+ZDX7bLilaKAtDbxezLHzoiJp1o1yNKQrwkgaoywZ2sS7n7TfEpGmBPTGCnYBsN/jLMgFWXZuJJ3LW2sTnmmamvuOwDWemP3FWmqCOWc0WS1k64+uI2JNK+elsIN9ebm0BGBwNQwwB0mnhCMKDxHJrvo8QAVmbCNx8B7jViwWAbFZhcys6mvSa4WPfDfzhmRyukM9yuf3WUlrPB51CrwjxmEbN5ZLCEqZ/5dNcHvs5Hy5gGgEBDqUm7OEwSGLp4ULq6Q3v5zO2TZx0bg2ug/J40WH4QiqyHE2lwquY5wQo21GHptPn04fcq9fonw8EqM/H8WGqN3XGW2sSKad7x6STIJCS3j1mcdCDh+OD0qqeVDa0s/BHgNUOZuGbCzXj3yLyUBEmiRon16+/M8dgzJdiOwuMzVofyxBweQyBE264CM4p6ZsvzSQw6AlL74WHSh4C2WOKfRagUhvuo
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR18MB4558.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(42112799006)(1800799024)(4143699003)(56012099006)(3023799007)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RHdGM0dvaHVFR2JkTEk3ZHBidmdvWWRhaXUvR3VaazB0Vk92SE9XYkRFOUx0?=
+ =?utf-8?B?WFkxeEw1bDYzVWdzcklUNTdzT2lFQjB3VEFUNndUeXdWYUw5RWY2a1V1YW43?=
+ =?utf-8?B?TXlNNjROMUJCZ3FWTzZJZEVZVjVMUUF2WWgyM1dIQis5V0NhZERjNDE3TU1D?=
+ =?utf-8?B?SDkyOGp1akl5QnJkZWJ3blc1RUJ2R3Z2Y3V3dm9uOTJSUndLUkNpdDRhRUE2?=
+ =?utf-8?B?Z2wvbnJ1TG5Ea3dja2V0cXFXb1BJY0lRRTQweTNCZ0hTTWg5bEYrQTkzYUt2?=
+ =?utf-8?B?OUhqU0F4cjYvRGJINHlTVURqNlh6aTFiSUtjVUxCSG9jUklPazVORmRpcHhq?=
+ =?utf-8?B?MnJ3WGlLVEd6YjVBMmcxbGR4bWJZNkFuaGdqSGZxMmVpQ2Fvc2NiUnAvekZV?=
+ =?utf-8?B?UEQvcE14Q2VrLzg1S2Q0bzc5UVk0bTdyWU9lQTlQMGhIdEdmQTNhWExYZkVz?=
+ =?utf-8?B?SVFDcEZOQWlqS21OcUx2WmlodlY1TnNyQ0N6dnZRZ1kxTWo5UUdRRHErTFF6?=
+ =?utf-8?B?anpjZThzOFRCU1I3ak8zamtPYlZyeGpVVGx1VkF0UjdPZHFvYVV3S0w4NDQ5?=
+ =?utf-8?B?Y2Q0SUlIeGpwS1l6Nm5LZWdtV2dvUVdJSUp4SVBwSnFJYmY3QmFKRUNoZlpV?=
+ =?utf-8?B?bHJ6UHVwNUdmY1A3SllrbzFzTmYwcytyamY5ekh1dEhBUnFEWTlpWWpCMi90?=
+ =?utf-8?B?M3VKaUdkNERDdlkxY0IxeUFlaDZEb1ZhN0xGVWowNHRzUDR1bjkvNmpha2N3?=
+ =?utf-8?B?bFgwVHdaUXhaQ3hibkNMWmQvSjZQUEJaeFNzOHN3aE5jOVJ2SnFjNkJZUGtH?=
+ =?utf-8?B?NWpRSUJLb2lxcUtKbE82UW4rcC9RS3l1emVjb1FOT1RWb0wrOTYwblpUbWk2?=
+ =?utf-8?B?cXVkSmh6NWc2YlVrcUUzWldBZDNmTm45WEhZbUZqVWxEMUZKd0VVcWh4TC83?=
+ =?utf-8?B?NVJRRjRmYWZBVnFwcStkS1RWY1I0QWl5Tjh0cllQbjdJY2ptdi9wWktVamhl?=
+ =?utf-8?B?ZWdIZE9UNzRZb2dDRFA2QndUd3NjdG9QTy96Z3YxVlZUVUpIR2VVNmxQbXJk?=
+ =?utf-8?B?L3JPQkVqZnR4NVNZV0dKZlhJSzlORXJEenIzN04wbHpPQUxsN0lQMWppU25B?=
+ =?utf-8?B?ZEVUbWtIaWZrb1RTUzJZQ3hvNCtpNjVVcXZxRVNHYlVEVmZIMEVnMk5MUFFs?=
+ =?utf-8?B?U3lYMWlpcC9qbUFLbERYajZEbXBUL0UxbHFkb2NtaXI2RlV0OWVRTURvd3Zx?=
+ =?utf-8?B?TXkvZUUrWlQzQUJndlJKM1dkMzBGTE4rVHZobGhaUlF5b0k2bjZKN1BKMlFw?=
+ =?utf-8?B?TDh1SjBYakcwUGZTMGtIQUJ1eDAzcnRsSW56YmVsWjhCRU1MRUR2aE14YTlR?=
+ =?utf-8?B?dkNSQU1PSlp0MWtFTmdlUkZ1N3JkYjlEK1VRZEdVQWxSb1owdUxrelQvZEJj?=
+ =?utf-8?B?bVRXcnVYWm0zYWVvQXU2akpJbWFmalZabW1PcjA4TnROTWwzZnhXMFJXczQ4?=
+ =?utf-8?B?L2EwT29ZZWo3VklzbDQ2b2l2MFBuYVJSM1I5dDE2b1B2eVpWUkJWb3ZzMHM2?=
+ =?utf-8?B?aFF0b1pwdURpSWNhbEIvZnVNcmlCdWxoa2tCa0NGWVF6YmdJeTVRbHNkYmJP?=
+ =?utf-8?B?Q3RIcWU1aDcyUXp6dkkwL0ZPdW52Ly9ySDN2dTJUSnJWbjJvR0IybUFqVmp0?=
+ =?utf-8?B?SW14SXo1VU5ULzNzYWNUUXVoRlRuUHdzMk8rVDJYUVIraXZVSEVaNEJRYytM?=
+ =?utf-8?B?UFRLOXMySExiNmNDbXhzY0haSkljb0VWK1cxSldJWmRQdDVhMGVaRFBTU2Vn?=
+ =?utf-8?B?bUdOSEFkeEJCelk2MHVXWXk3RXJIbUhTQ2FmU2NTRFhLWVVrK2gxMzk2TUtY?=
+ =?utf-8?B?c0pFaWVsQzZtb2QxclhQTVRaMUltNk14Y3VieExpZG9yR3piOTZvbjZQYnUy?=
+ =?utf-8?B?VGZibFhzUnNyUTE4OUMzVVJDY2w4cEdHZnVNQU5ZRkkrUWVVUUgvekdxdzdh?=
+ =?utf-8?B?dzdZMDJycTlwYmJMNGI3NW83MklKNTBCSE1VejdPa0xRb3FtUjhiZEw1ejRr?=
+ =?utf-8?B?Mml1cXVteVM3TWhhTVRwVUZsWTlXaGY1eWhYZlVlWXpWVGEzSXNVWEZJYkx5?=
+ =?utf-8?B?V1g2akdsbmp1clhIbStmWnc5a2RzYUdBTDdoZ0Y5RktNZXBhRytCWXZmK2ZT?=
+ =?utf-8?B?S3BHUUVHRVk0ZHJRQXdCLzBjZTNNWTJjY3dqemV1dFVKMnd0dVo4Zk5xZ2hP?=
+ =?utf-8?B?Q2taZjFzYmx1QnAzMjVJU3VOVCtQZU44cEVDMzFpQldjWUQ5THVIV2JZc0dh?=
+ =?utf-8?Q?DVbn15V0khp7xb3v4M?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a30a7b70-05ea-4070-a6e1-08def1203786
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR18MB4558.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 05:29:40.7453
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D2eLE1IrFMrCwvMmAGGV5Oa6gQDXXWbuiFAX+JBfyy416ev6OCompb8zqfWcV5FQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR18MB5466
 
-Use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH instead of open-coded
-trigger type combinations in irqchip callbacks.
+On 7/30/2026 4:12 PM, Krzysztof Kozlowski wrote:
+> On 30/07/2026 09:26, Tzu-Hao Wei wrote:
+>> Add a Device Tree binding for the Axiado AX3000 and AX3005 video
+>> capture path. There is no local register interface to describe: frames
+>> arrive asynchronously into a reserved memory region written by the
+>> host's display engine over PCIe, and this node only identifies that
+>> region.
+>>
+>> memory-region accepts an optional second entry for a host-written
+>> control mailbox, letting the driver detect the mode the host is
+>> actually driving instead of only echoing back the configured capture
+>> format.
+>>
+>> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+>> ---
+>>   .../bindings/media/axiado,ax3000-video.yaml        | 44 ++++++++++++++++++++++
+>>   MAINTAINERS                                        |  8 ++++
+>>   2 files changed, 52 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..c6d8d1843aac9f42869ff90a550b92d0bed7c16f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+>> @@ -0,0 +1,44 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/axiado,ax3000-video.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Axiado AX3000 Video Controller
+>> +
+>> +maintainers:
+>> +  - Shubhangini G <shubhangini@axiado.com>
+>> +  - Tzu-Hao Wei <twei@axiado.com>
+>> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+>> +
+>> +description:
+>> +  Axiado AX3000 video capture controller. Reads frames written by the
+>> +  display engine into a shared reserved memory region and exposes them
+>> +  as a V4L2 capture device.
+> 
+> This is really incomplete. You need at least way to power things on,
+> reset them, provide clocks, sensors, data paths. Or at the very minimal:
+> START capturing the frames after configuring the resolution.
+> 
+> It seems you described driver or just a piece of entire video pipeline.
+> 
 
-No functional change intended.
+Thanks for your feedback.
 
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
----
- drivers/pinctrl/actions/pinctrl-owl.c     | 2 +-
- drivers/pinctrl/airoha/pinctrl-airoha.c   | 2 +-
- drivers/pinctrl/bcm/pinctrl-nsp-gpio.c    | 4 ++--
- drivers/pinctrl/mediatek/mtk-eint.c       | 2 +-
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 5 ++---
- drivers/pinctrl/pinctrl-ocelot.c          | 2 +-
- drivers/pinctrl/pinctrl-sx150x.c          | 2 +-
- drivers/pinctrl/qcom/pinctrl-msm.c        | 4 ++--
- drivers/pinctrl/spear/pinctrl-plgpio.c    | 2 +-
- 9 files changed, 12 insertions(+), 13 deletions(-)
+The Axiado AX3000 and AX3005 SoCs expose a display capture path that
+delivers frames into a shared reserved memory region and exposes them
+as a standard V4L2 capture device via the videobuf2 framework.
 
-diff --git a/drivers/pinctrl/actions/pinctrl-owl.c b/drivers/pinctrl/actions/pinctrl-owl.c
-index 1f0ef4727ba7..9f5637756bd3 100644
---- a/drivers/pinctrl/actions/pinctrl-owl.c
-+++ b/drivers/pinctrl/actions/pinctrl-owl.c
-@@ -824,7 +824,7 @@ static int owl_gpio_irq_set_type(struct irq_data *data, unsigned int type)
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
- 	struct owl_pinctrl *pctrl = gpiochip_get_data(gc);
- 
--	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_LEVEL_HIGH))
-+	if (type & IRQ_TYPE_LEVEL_MASK)
- 		irq_set_handler_locked(data, handle_level_irq);
- 	else
- 		irq_set_handler_locked(data, handle_edge_irq);
-diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/airoha/pinctrl-airoha.c
-index abfb018f207e..90372827639d 100644
---- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-+++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-@@ -2435,7 +2435,7 @@ static int airoha_irq_type(struct irq_data *data, unsigned int type)
- 		if (gpiochip->irq_type[data->hwirq])
- 			return 0;
- 
--		type = IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING;
-+		type = IRQ_TYPE_EDGE_BOTH;
- 	}
- 	gpiochip->irq_type[data->hwirq] = type & IRQ_TYPE_SENSE_MASK;
- 
-diff --git a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-index 1fbb101386a3..83fcc80d5967 100644
---- a/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-+++ b/drivers/pinctrl/bcm/pinctrl-nsp-gpio.c
-@@ -159,7 +159,7 @@ static void nsp_gpio_irq_ack(struct irq_data *d)
- 	u32 trigger_type;
- 
- 	trigger_type = irq_get_trigger_type(d->irq);
--	if (trigger_type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
-+	if (trigger_type & IRQ_TYPE_EDGE_BOTH)
- 		writel(val, chip->base + NSP_GPIO_EVENT);
- }
- 
-@@ -177,7 +177,7 @@ static void nsp_gpio_irq_set_mask(struct irq_data *d, bool unmask)
- 	u32 trigger_type;
- 
- 	trigger_type = irq_get_trigger_type(d->irq);
--	if (trigger_type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
-+	if (trigger_type & IRQ_TYPE_EDGE_BOTH)
- 		nsp_set_bit(chip, REG, NSP_GPIO_EVENT_INT_MASK, gpio, unmask);
- 	else
- 		nsp_set_bit(chip, REG, NSP_GPIO_INT_MASK, gpio, unmask);
-diff --git a/drivers/pinctrl/mediatek/mtk-eint.c b/drivers/pinctrl/mediatek/mtk-eint.c
-index 8b022545a3e9..827231dc0d24 100644
---- a/drivers/pinctrl/mediatek/mtk-eint.c
-+++ b/drivers/pinctrl/mediatek/mtk-eint.c
-@@ -216,7 +216,7 @@ static int mtk_eint_set_type(struct irq_data *d, unsigned int type)
- 		writel(mask, reg);
- 	}
- 
--	if (type & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)) {
-+	if (type & IRQ_TYPE_EDGE_BOTH) {
- 		reg = mtk_eint_get_offset(eint, d->hwirq, eint->regs->sens_clr);
- 		writel(mask, reg);
- 	} else {
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 0df749cbcba8..e051ff141d6c 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -259,11 +259,10 @@ static int npcmgpio_set_irq_type(struct irq_data *d, unsigned int type)
- 		return -EINVAL;
- 	}
- 
--	if (type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
-+	if (type & IRQ_TYPE_LEVEL_MASK) {
- 		npcm_gpio_clr(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
- 		irq_set_handler_locked(d, handle_level_irq);
--	} else if (type & (IRQ_TYPE_EDGE_BOTH | IRQ_TYPE_EDGE_RISING
--			   | IRQ_TYPE_EDGE_FALLING)) {
-+	} else if (type & IRQ_TYPE_EDGE_BOTH) {
- 		npcm_gpio_set(&bank->chip, bank->base + NPCM7XX_GP_N_EVTYP, gpio);
- 		irq_set_handler_locked(d, handle_edge_irq);
- 	}
-diff --git a/drivers/pinctrl/pinctrl-ocelot.c b/drivers/pinctrl/pinctrl-ocelot.c
-index 0fe0527863b8..58d3cde9f964 100644
---- a/drivers/pinctrl/pinctrl-ocelot.c
-+++ b/drivers/pinctrl/pinctrl-ocelot.c
-@@ -2317,7 +2317,7 @@ static const struct irq_chip ocelot_irqchip = {
- 
- static int ocelot_irq_set_type(struct irq_data *data, unsigned int type)
- {
--	if (type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW))
-+	if (type & IRQ_TYPE_LEVEL_MASK)
- 		irq_set_chip_handler_name_locked(data, &ocelot_level_irqchip,
- 						 handle_level_irq, NULL);
- 	if (type & IRQ_TYPE_EDGE_BOTH)
-diff --git a/drivers/pinctrl/pinctrl-sx150x.c b/drivers/pinctrl/pinctrl-sx150x.c
-index 89fdfa96843f..2dd1f220bff1 100644
---- a/drivers/pinctrl/pinctrl-sx150x.c
-+++ b/drivers/pinctrl/pinctrl-sx150x.c
-@@ -525,7 +525,7 @@ static int sx150x_irq_set_type(struct irq_data *d, unsigned int flow_type)
- 	struct sx150x_pinctrl *pctl = gpiochip_get_data(gc);
- 	unsigned int n, val = 0;
- 
--	if (flow_type & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW))
-+	if (flow_type & IRQ_TYPE_LEVEL_MASK)
- 		return -EINVAL;
- 
- 	n = irqd_to_hwirq(d);
-diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
-index 641113831a7b..27f06bbc113c 100644
---- a/drivers/pinctrl/qcom/pinctrl-msm.c
-+++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-@@ -1191,9 +1191,9 @@ static int msm_gpio_irq_set_type(struct irq_data *d, unsigned int type)
- 
- 	raw_spin_unlock_irqrestore(&pctrl->lock, flags);
- 
--	if (type & (IRQ_TYPE_LEVEL_LOW | IRQ_TYPE_LEVEL_HIGH))
-+	if (type & IRQ_TYPE_LEVEL_MASK)
- 		irq_set_handler_locked(d, handle_level_irq);
--	else if (type & (IRQ_TYPE_EDGE_FALLING | IRQ_TYPE_EDGE_RISING))
-+	else if (type & IRQ_TYPE_EDGE_BOTH)
- 		irq_set_handler_locked(d, handle_edge_irq);
- 
- 	return 0;
-diff --git a/drivers/pinctrl/spear/pinctrl-plgpio.c b/drivers/pinctrl/spear/pinctrl-plgpio.c
-index 1ec22010a3f9..5fcbea32089d 100644
---- a/drivers/pinctrl/spear/pinctrl-plgpio.c
-+++ b/drivers/pinctrl/spear/pinctrl-plgpio.c
-@@ -339,7 +339,7 @@ static int plgpio_irq_set_type(struct irq_data *d, unsigned trigger)
- 	if (plgpio->regs.eit == -1)
- 		supported_type = IRQ_TYPE_LEVEL_HIGH;
- 	else
--		supported_type = IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING;
-+		supported_type = IRQ_TYPE_EDGE_BOTH;
- 
- 	if (!(trigger & supported_type))
- 		return -EINVAL;
+There is no local register interface for this driver to program: frame
+delivery is controlled entirely by the host-side display engine and
+the PCIe endpoint mapping that feeds the shared region, both external
+to this driver. A software polling timer schedules a workqueue item at
+the configured framerate, which copies frames from the WC-mapped
+shared region into vmalloc-backed vb2 buffers. Running the copy in a
+work item rather than directly in the timer callback keeps potentially
+multi-megabyte memcpy and per-pixel conversion work out of softirq
+context.
 
----
-base-commit: 415606a7be939835db9b0d6b711887586646346d
-change-id: 20260802-b4b4-irq-trigger-mask-pinctrl-359c48cb413b
+To provide more context, this hardware path is designed for BMC iKVM
+applications. The physical data flow is:
+Host Display Engine -> PCIe -> BMC Shared Memory -> v4l2 (video0).
+
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: axiado,ax3000-video
+>> +      - items:
+>> +          - const: axiado,ax3005-video
+>> +          - const: axiado,ax3000-video
+>> +
+>> +  memory-region:
+>> +    minItems: 1
+>> +    items:
+>> +      - description: video frame buffer, shared with the display engine
+>> +      - description: optional control mailbox, shared with the host
+> 
+> Why is it optional?
+> 
+
+The second memory region is optional because it is not available on all
+supported hardware configurations or use cases.
+
+For instance, another supported use case has the following data flow:
+vtconsole -> framebuffer -> Shared Memory -> v4l2 (video0).
+
+The first region handles the raw video frame data (which is sufficient
+for capture if configured by userspace). The second region provides
+host control info for automatic resolution detection.
+
+In the vtconsole scenario, this second control region is not present.
+Making it required would incorrectly exclude systems that can capture
+frames but lack auto-detection. I will clarify this variance in v2.
 
 Best regards,
---  
-Maulik Shah <maulik.shah@oss.qualcomm.com>
+TH
+
+> Best regards,
+> Krzysztof
 
 
