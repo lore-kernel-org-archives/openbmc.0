@@ -1,80 +1,79 @@
-Return-Path: <openbmc+bounces-2380-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2381-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D8E6C55ABF
-	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 23:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B5ACC55174
+	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 23:59:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hFnRZ5Bd7z2yjp;
-	Thu, 06 Aug 2026 09:58:18 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c112::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785954980;
-	cv=pass; b=XeDsOyoqR+6CrZxgyhbWWWDnUbA1Zg0Xz8n6VPpW2tEdViug9bwkh6guwkJrgiRticC5vtvLF3aDTeDt42QYxVSLPgn+hvnmjzdas0hNmghcMzgxDELiqPIP3X/wKSUMCJI9Bl5bHVZsSkNcku8RRRLURdzzw4tM5lBu4wrlwlXNSQJbLXmlUMbq1fPv6eo6/FtXIjRf6NaF12ZCpcWyvAgMkTsNO0uVqYf/sN8qT8eb76pSg9sgBQ3GUt0h/gdLyYxAGN7vzwWvkh835k3vYDQrGNJRaybdSPHRaXs/6yHYXLrXTwXUC13TSTmSg5fZ8wB9KePc6gEhWA0l43LvDw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hFnTP3RxFz2yjw;
+	Thu, 06 Aug 2026 09:59:53 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c110::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785924925;
+	cv=pass; b=RXI7hpfm6a7ehaGCFducDtj7wpH/GORCfoXH3njDt40F54ATSzEIlT3R61tIek5UzMYvNAgn9nSW87PjQ6oaxbLzf9wkzk0PtxQ7XErGpDUEMKME+7MxewWAaHfx0EXhx29wNTLZHzfxZSx7pIuXsJQWUiwNRTFvFa5mGVdnFDUaM42eO3ukY7TC8lU9uDLEKmUCMijWHdILVHnJEJaCNYjDJnG+cSW6YRvi57frOSW+iMoOyrNYBHK42WBCWCzXxz4Un1SNtvHRwQ2BDgBZUpOqtmujdS9667hssBeQFv0f0oFAlmkUbwQKywL2iUfGu0pZGhPGN8K8Di/X4x5Rjw==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785954980; c=relaxed/relaxed;
-	bh=3dSz7HRP7/oqONUkxxJvZqnOeQw+x1BDaDBLUyHzdI8=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=b6R77a3PsZ9dke6hTe3uHXZrL2PKytJqotSH2CeLCmeytymgslEvrb4AamCWE7GiXpuNr6xmWATnMOc00gDMnmoN9/uD6wVVdSeDjfqHsmvP2hsPutVkLLDp0KcujIaYhz34t4INTqhmWPSeQe7GlYQP8bFknFRVthn2ozSXWRx0hpZrdeHCBhiykCmw7C2fTisDbdNz7mCGTR9qt4t8rQzyfdGbx/IxPzRhmQGcdRfIMUdKVQ4Bfon4730pvTrKkgMycaUByFDuMTOSQN7zxbLZvvII7yVCPpqXb5SiDDQqxWt6Iut2CQWxBxEcYQerblzW55SBZqd3O6JWHnzz1w==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=En69wfUA; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c112::7; helo=cy3pr05cu001.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org) smtp.mailfrom=amd.com
+	t=1785924925; c=relaxed/relaxed;
+	bh=5DxoqzE5C5inPeOflpZl3pfhxlvyujxI/BawB25Hhwc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Vs6Na5CvTQOk70l1ZBayDCve0+H1MkrSmS4tYR/olFaqyU5IqvEeQjFRrhpEeeEGXdVlXH8OqPSUbxIOiW86ACPKxcXHl6D8W8xmJUtgMoeSouvL960hoC2mTyegUiNkWlMlxcJpHDl1pyA6aat0m3V78T/7o0qWmLCg8JDRua0Wptgtiz30lxSqaX0ka4B4R+H/CctYahtwK6rTy/Lr7Wf+H3ilSsSp2luIXjEWUQfJaoWWqZhB+Nk6TN5r8BMS+nXa+ADBskGu9Pv22nwqG3OBRN0Vnjdq62lb/XO7JCe6KOUwyzMHUCWGDn97BVS11n8NhO2JgWRqeBmWrcE5Mg==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0Lj2mr+r; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c110::1; helo=bn1pr04cu002.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org) smtp.mailfrom=amd.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=En69wfUA;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0Lj2mr+r;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amd.com (client-ip=2a01:111:f403:c112::7; helo=cy3pr05cu001.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org)
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c112::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amd.com (client-ip=2a01:111:f403:c110::1; helo=bn1pr04cu002.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org)
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azlp170100001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c110::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFfJ21G8Jz2xpn;
-	Thu, 06 Aug 2026 04:36:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFRB32pYsz2xl5;
+	Wed, 05 Aug 2026 20:15:22 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pv9OA+W0ELBj0uXcziQEX9856OIoieQmI16ECM9TpYjYH5fRisQkbn84IkDWNpbPnuDAn29r8tRtOz9a54g5THd3BX8+KbYqwymmMJN0bFr2fDXoj9ObVD4cX0kiu/XWGvDEE1h3rIQRJf/yRcIgbFmh3ZV+saG+5OzZQhOxIDYNBQ9kJFITcRFXk7w9IpjRx2ItRrkOwU3MtYBkwD4E9pQS8rtyzk51qiC71/86XoVmnLwB51Ih4VU5gPrsisgrrNzwUTuyVh0bwMBjSC5js+CS/p848l1EB6TEljJFDdxdByHTeKf94k8q5X+p+VRYcrOyBeTzaOgnnnI1T3cnMw==
+ b=q+VEa7ZBFtU+OB874m4k/OKcJdNvZ+TDfZT6lXQZQ89nGRdXn4cug0W2XqUXh6lN68IKK9tq1A96Ujh1u5QGWb395Pxmv1psjenUxXR9X4T+2aT5dgzM5NfV5kqdzj0uJ+SnI49I0CRApzOse9CbHPKY9cMNyfJMTBQK2qYxQY1kwUFey2cBz5AR5p1jJlF3lAGOmt10ULlANzX91shVSU+E1N4yiW9tq3kJYEL730a5HOR6GPNfAtsps26xFo/WMYGPKY4j9R4PtOY1TmXVKx/mptH5YfHrd8YswYqSWD1tRUs5qXWTVHcjGaVNZhoPDODGmZXQGRBe14ds2s0wng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3dSz7HRP7/oqONUkxxJvZqnOeQw+x1BDaDBLUyHzdI8=;
- b=S0lSnsQEFORiwEBBop6IBoa2E0mifLWwNoNttNrRFBI5mB2NjF5ebeBKVWU4Lb4rrkOSeiQjDeReSio+jN+sV/zQTSJx3BMDrVPWeMrBlnrhHo+9xlNtkRost7l61giX1NMABGhYfYwY2IgatnE8PmozGOrUffbNq/WRWqbcFtOC63jmLLdRpL3TN+f8W+pFval3cMTcXjwSReP258b9DtRHWFSd8uTgXv0THBSKlV6OyxGAaiCxhSPxXMNH4N/sXtXtS1b3u0aGnR6L0HfhbUEr5VmfRIH41gM3Ft3eyW14URCdvB4t/G0lV0cmFFZfXETOjt3w+qe9XM54xeMU1A==
+ bh=5DxoqzE5C5inPeOflpZl3pfhxlvyujxI/BawB25Hhwc=;
+ b=T7T4xYKjnLzOzv4BmvpvpKt/vKSjN2zUTWUOoZOyqpPDKSARDNvN7Cw2wKI7Ful8yMRmX0/yZLqlB0ircGbjDZk5HXQ7vNaezkHRbe9LfaptOTVWjD4jO+oT/FZUo6lpYoUH+tfecf56jyqWHRd3CjwDi2j1HppWlPtNKu1OdQkW0SZfH6W/wAwrmmXPE+XAtFADst1fyPpl3OVg7CfroFgH9iw7wb9Ioe6E/Kz4XmCOAAhlWV4SZXTyAgF8lyhogFJMI33AQIO2D/lNXNBFd+7M53x5GdWIu3ZjZguXbnNVKsnRSiv6fQq2vlskel/7/ykiMyYxE+pqMh/+WlaEKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3dSz7HRP7/oqONUkxxJvZqnOeQw+x1BDaDBLUyHzdI8=;
- b=En69wfUADxelM37uGhRgG7ia7xzPrzGLbGJ46z2PhvIDSBaRVbPm9poUEBsUKHOyOZ97IjJngkXlV/qUWBOIKGvWWHCo80RxZ1z1unnMEXkGuqVnXd+ldhTpBeV+1tU9GaDUOgLKIdwUNY6ZTD/3G3zpyoNJkb8MJzeMg2M/NzY=
+ bh=5DxoqzE5C5inPeOflpZl3pfhxlvyujxI/BawB25Hhwc=;
+ b=0Lj2mr+rugBmW2mOITvVi+unby2q+P/+XP1XCtjgHdGxPVvXwV2ypHFv+T98DF7KDR2wd9KRbXFtCjcbSxzVSHN/M2nz+IHSKtaXJXHvchmxEHq1yCCIZYZNqnTbKMRAbr4g06eHOgOz15yNbfEnkxXw7PeQe/oHM8O95BMNH6o=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DM4PR12MB9733.namprd12.prod.outlook.com (2603:10b6:8:225::13)
- by BN7PPFEDA8E6F1A.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e8) with
+ by CY1PR12MB9627.namprd12.prod.outlook.com (2603:10b6:930:104::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
- 2026 18:35:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
+ 2026 10:14:56 +0000
 Received: from DM4PR12MB9733.namprd12.prod.outlook.com
  ([fe80::aeaa:23b5:1d59:602c]) by DM4PR12MB9733.namprd12.prod.outlook.com
  ([fe80::aeaa:23b5:1d59:602c%3]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 18:35:46 +0000
-Message-ID: <9180f5d5-9885-492b-b80e-c2aaaeb39501@amd.com>
-Date: Thu, 6 Aug 2026 00:05:37 +0530
+ 10:14:56 +0000
+Message-ID: <96494f6f-fbdc-4705-921b-97ded0acba18@amd.com>
+Date: Wed, 5 Aug 2026 15:44:47 +0530
 User-Agent: Mozilla Thunderbird
-From: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>
 Subject: Re: [RFC PATCH 0/4] espi: introduce eSPI bus framework
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
- Greg KH <gregkh@linuxfoundation.org>, aspeedyh <yh_chung@aspeedtech.com>
+To: Greg KH <gregkh@linuxfoundation.org>
 Cc: linux-kernel@vger.kernel.org, broonie@kernel.org,
  linux-spi@vger.kernel.org, akshata.mukundshetty@amd.com,
  bleung@chromium.org, groeck@chromium.org, chrome-platform@lists.linux.dev,
  corbet@lwn.net, linux-doc@vger.kernel.org, skhan@linuxfoundation.org,
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
+ andrew@codeconstruct.com.au, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
 References: <20260804115259.4065638-1-krishnamoorthi.m@amd.com>
  <2026080416-lagoon-delirium-8e84@gregkh>
- <83210c6e2a7b203bd5913b455ea45cfddf3d29ec.camel@codeconstruct.com.au>
 Content-Language: en-US
-In-Reply-To: <83210c6e2a7b203bd5913b455ea45cfddf3d29ec.camel@codeconstruct.com.au>
+From: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>
+In-Reply-To: <2026080416-lagoon-delirium-8e84@gregkh>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0236.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b1::10) To DM4PR12MB9733.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA5P287CA0188.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b6::15) To DM4PR12MB9733.namprd12.prod.outlook.com
  (2603:10b6:8:225::13)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
@@ -88,135 +87,122 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB9733:EE_|BN7PPFEDA8E6F1A:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5dd3f93e-5de7-461c-aed4-08def3205d4e
+X-MS-TrafficTypeDiagnostic: DM4PR12MB9733:EE_|CY1PR12MB9627:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ec82c44-3031-4c98-30e3-08def2da65ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|6133799003|10067099003|11063799006|5023799004|56012099006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	ItGbx9lpoPHF37HZCJGqfjbxILsDPIqBW/65YPQs34DpUl1hyjGHfg9l7iyRZ87LnfxruQ9Rzxgt1RVL/VIwvhuvDVUmNTUJ+i8EbJqWNDPdGjFsLrrAYXwqij1bEl++Jup0btGgfWgS5hvNHDNhqK3QrA+mF8RvwqnQ9oQlvSA+94h+axssOuSWJJ4PYzm1wIvJKkKS1DwK8+vWZCblg6sUFDF04XXHJB74oEbCCuyhuXkuLIuWaqyL0O/AHKQYqleZPIc/eniPuAACghWDeDdh2RDpvpOstF7cyLJejJg463mwCCgHPcSrg6DDZxDUAGxW5byulIlMuw/o2qGyStKM1IgEfY+MRx5gzKKLciT6FqrMYcAH2AWvjVOSiRNyNCfgFGvwJf1lEZjwA3YjtJtFwUOVQVHWQ8pgnIw6MDGqQ1vZZ+VURtyiCaIPB+IQaLP9PJ8ylCE3g6GheqD0yjsKoBkuuq+p79TZ+bgBkqZYRvibxbUyudfz6Vk9ic+M2DKCxbKJ8+pQNdxjr3ZWkBVQYUe/XDYLViBEGOujn6gXqm8RCKiki+VvE4LkS8gKXIqJJ45TP0T4KhEIwvWbEPsjDWRNyUPmqkA0ggRB2ZUvDmyG6QanII/lyBT+yx92ty9CkoRKrsde6X1Jwklm+wyjTnITFYr6fvWPe0byfQU=
+	6gI8XYX+0Ys5vW9klqsL/LNGP7iBlIdaVpvVVhdKRw3UhgSm6BUOxNC/ZAI3FQ9UEHyoJhQWxpQUDcItOB+4LZUdnvxn/EfcS9l5XjsgTEuX6Eg9FbV4VIneRhLDUbXH9hb9/LqHOtrXeOh5jqQOBDCe6+dSt+nZGaHrVjuCI4LhBbrGx/W/XmQffwHG7vDFDzO11loomUm5JCO+cOGW1GFTjcT+2AOnNfEibIdZlcRznBryN6ub4RVjvAFh8X0ZFUu6BGhdLE6caDU8g3JNf/yonWu6gXbJRuu76m0IRor9y6BgdYstkhdEUH5Ln8Cq95DubrjaKfQB6/F2ANmfb4DK04IZeOLgiONXxm2LzW9dZ0/JJAAVQZhd/7Ah2A5MoRLPWheh8AkkwydmJnGljJpR1aj6gfSIM9Xfy47+P4ergyvhGUXzwNnnqsDeyu2ZnryZ1EMpbB1YBQ/szR+wEpppGnlMtmMUsXvfKp3Qg0nQ8Apn7GbnfKDJOPmMGNQMS3B3i6zXeMWk5Ge3k0BZuP2YLeOYByH5AEJZB00Aep/z679wwW/7HZRPikfY0l1qwxhyidbwOROd/aHC2P5iL4VC+tTRlPc2tHOhPx0PYWq3avV4aLitqHiSTCeVo+kyRy3i/khX+k6QuPEVoKCetaSscQCoF/DaTG+eAw+00VM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9733.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9733.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bHFjL0NWK1FMbWFObkk3M1pOSW1BUStyNmdLVUp6TElDSmdTK2xVbXFYSlYz?=
- =?utf-8?B?Q2ovV1RuVEpvcExvQ2VFL3Y2d1pKWmJHVm1mSTFEWUcxV0RaNHFxMDFPODlo?=
- =?utf-8?B?NFU4MG84K0FiVGhvbU1KRUdKcHFSTXpBSUZpM2lHSVJCQXV4RXNTOW0zcTNa?=
- =?utf-8?B?b1FmZ2l0eXM3K2JlSlJLMEN0bW5Xa1ZxZkZVd01VbHVSUzNzTzFrKzJ0VGww?=
- =?utf-8?B?a1luU2lLUGZ4TkxEbFRieFNFZUl4azd5NGlyQmRIbDYwV00vSmJiTFppM2g0?=
- =?utf-8?B?QjBuMEFkK3pOWEJMMGxnYS9DQUFQTlhWRU5lMFp2SllwOTVyRS9IU3NhRW81?=
- =?utf-8?B?TjFLR1ZHTVNkQ0syYTdMQmhuN0d4VlFubW9lWjhMaGMxa1FDZzJIMGlsbWNn?=
- =?utf-8?B?L1R1QlNhaGwzMWtjYUc2QUtLcGNSdzR3YW1zaWdkUDlmeit4RFRseGh5UGMx?=
- =?utf-8?B?TkpzUm1PM0k0L3E3cEVxTWJySHpEelBiVHlyV2lEVDB4OWhZS2FYNTZ0Zy9H?=
- =?utf-8?B?QkpCSDRZR29tQ0hqWW1zRjRuTmJNd21TdFduN0hOMUV6YXBwbmNXbXFjWFhr?=
- =?utf-8?B?SEkydVZGMGdNMVErRTdsZDRJS2hmaXl0TXo2ZGV5TGZzajY0c09ZVnZKbW5z?=
- =?utf-8?B?ZWF1OVdHQ2RBWWIxdzZPam91R2xBUE1tNERPQnlHZjlmTXdIZmNYZmwyd0NJ?=
- =?utf-8?B?bmNkQXJJYkRnY0dRdE50ZEhNbFgwWGlNd051Nlh4aTEvcFpSdlMvMnp3M0tR?=
- =?utf-8?B?REtmZ3N4a0YxcVFrczN6aTJNakNqaHpuNVdzYTJjR0l2Y0ppSWVqc0tEd2tE?=
- =?utf-8?B?WnVUS28zUVFOSEg0WjJ6TmttcGQrMlhRWUFiZTNPRGZEbVZQVTVidXJRaDBZ?=
- =?utf-8?B?b3NtMVFLM05mcEJkcThoajUzdmJVeEt0VnJQWXU2endFQXVPYjlaNGlCQTc5?=
- =?utf-8?B?MFB4MUpta0d0QVo1dnNZQVp3NHMzN0FlVjArV1VzREtqaytQZHMxYzFxb3BE?=
- =?utf-8?B?YkxsS0ZhS28zRkwwcGZvMG9JcVNCcUJZZWNZcFRpbUMwakNXbWlOM0pYZmdO?=
- =?utf-8?B?S0tqRzh6b1p5VkJETDFQenAyTmRJSXBMYlVPRGx4WTFsQUhSY2xUb0hCTndk?=
- =?utf-8?B?YnpBNUJVdTJjWWl3MStEVDBDOS9TWWJmNDdoTDd1SU8yQmh3dkJRZGFoRWRx?=
- =?utf-8?B?VElvcUw1YjhpbXRKMGJudkZHaFFQcCtFRjIvVHUxWGI1dHZScjZkQUVuOXRp?=
- =?utf-8?B?bWVqajQwTFZQZlk1ZEVSTVlCKzZ2MFdTUEZxSGwzSk91a1pLUTZMSGkxRERo?=
- =?utf-8?B?bWlnTlRxZkhxa1V2eEtndk81N1NLekpnZ1M4TUdJU1E3OUxnU2wyQVVYcFM4?=
- =?utf-8?B?dEZoa1NjaWw0b1lxK1dqelk3YWtONFlHZ0tZdUN1Tmg4K3I0cFpwZ0l5SGJm?=
- =?utf-8?B?UFNGdXRmTlFheXVzS1p4c3V4ZDFNSS9aLzQ3dG5tSmVXeFNpNzFmZjRtOENj?=
- =?utf-8?B?a016R0NiejNwRlRodzhtVEg1aUhOTmlyUmEyLzgwUGVOQ2FnaHh4cmZrSXRC?=
- =?utf-8?B?ZFVtdVhKa2tWQWlUM0M4ZVRScU43WTNxNGtpYVNmN3AyNUdWK2IyNm5wMkhp?=
- =?utf-8?B?RGwwd0lkeEs0cW1EY1hCdXViUHJHMEVXamJ2NXZtQVRla0JlOGxFZ1hha2dw?=
- =?utf-8?B?QzNpVGJVdWYwUWxkTkUzRjN6YzkzRVREb3dKamY4Ylo3NnlBbDVBVHE0Vkpw?=
- =?utf-8?B?TlovSlIzVklRN3Z6a1U1Y3I2QnJ1Vk14aVErNHhDNzkzUnoyL0JMaUl0cHFT?=
- =?utf-8?B?WWhZOVdKRnBJOHFBYjFUTnEzbDEvNTFmdDJaTnN2VjZ4L3h1emlGekJBN3Vv?=
- =?utf-8?B?dGVaTzFMcVRsZDdldDRSM2dmenJ0MEM3Rk45Y3lFcDNUVlRsamtYZjdOUU9V?=
- =?utf-8?B?MWRCTDZNVEhSTzZnOHJGUGdRZ0VhRHRMaHhhMGZMYndnMFhBU1BVcGR2QjJp?=
- =?utf-8?B?TzVpSHhkbmliN1Awbk5RWW5MU21IeGtsbEpnOHJWSXBOTkQwMkZ0SmJFVXBE?=
- =?utf-8?B?RmFNc29IQjdFUUxOa0JXbC80QVpTRFdxUHEzN3BFWHY2TXlXQlRROHQyeHJn?=
- =?utf-8?B?bWhJRzRRWSswZmJ2T2Z5TXIvS3paM0lPU1QyZUtlTm4zOWIybGJYUlpFck8v?=
- =?utf-8?B?VVdDZVhscVRmd3ZJdmt4S3BhVVVQR0JGUnF6a1dCaTFJUW84WElISWJHNzNr?=
- =?utf-8?B?akFRc3cyS0VveWVURTh3TEk0MWRMVXd2dXhVTlp4VzJvVkJnTDcxQVVGMXpn?=
- =?utf-8?B?bUp0V2VtTWJraWxtcC95NGNoaUV5bkNtMTFZUWRxeE90WkJqZjFMUT09?=
+	=?utf-8?B?U0hqTlAwTnpYdndXODkwYmhORVp1NVcycW5CanJkRlRGVTJ3OUZuNE1waDRt?=
+ =?utf-8?B?SExVaWR5ay9WQjNzV1Jjc0RBS1BJMkJvUzhHTUpETjRFeVdvcG16bWVlZ3BW?=
+ =?utf-8?B?STVZOXRlb2VMQmNxbHJpRk10aHZrdDVwRTVkZnZYN0hZU2tGZytyTlk3SUY3?=
+ =?utf-8?B?cDdNM3VPcE91R0dHdmE3c3ZhcFJLN21MREdGSDhrc0JDOXU1M2YxRmpQb0p1?=
+ =?utf-8?B?WDIrTE0vSXR4SHVPdXVWZXpyNERGUVlwcFp3NjVuVkc5dFVmTHE0ZnhydXRt?=
+ =?utf-8?B?SnV6dDNwY0NqT2xEVHZkRUdQNFZ2TWhRSGZJYXJIeWZjRnNiNzAyM0RpN1Nx?=
+ =?utf-8?B?MHhMVlZFejlSK2tmV0JseTZnVXFtbTZyZHE2UTFSQVFMUm9PNi9WcWc0L0Zn?=
+ =?utf-8?B?ZWpZRUtIVTg5ODhXdHdYQ2J5ZS9qcStIbjRNL0hDeW4rL3BEbnJvWXlRak80?=
+ =?utf-8?B?R2lTUFZzRWw0ZW9sQmdPODRucFNsb0ZVRzFvMU9LUC85cU5Fdld1bVZNRjND?=
+ =?utf-8?B?Z3NCZTA3TzQvdnJwcU84cERLZlM1bEVpNHdUMkRmVjVZODNWRDVYbWxISVhP?=
+ =?utf-8?B?ZGVuUnI1MVVMaTBHZUJoU1B5QU5WblBUNjk2OHpuT0xESDNyNGxPWU52UjBO?=
+ =?utf-8?B?SUlIcnllak5Nd2NUOVBWS1VwcjBLZGJ2Vk9TT3BhTENCZ2h4UVU2M3hjMDdD?=
+ =?utf-8?B?eGU4aElEVmphL216bWNuSk96NHRhbmVaN1FxUDBPSnNtbDdMKzN3b1gvWmhY?=
+ =?utf-8?B?RGJ0RnhSKzFVOXBGSUVMc01DRExva1dWOTRrWFlqeWx0a0R1bng5TDJENUdi?=
+ =?utf-8?B?MHdSelRmNm9oQzhxWVYwL241NTFNbWFmUGJoTEREMVZzYU1FVkZzQ1JnMERI?=
+ =?utf-8?B?QnIweU5pZzVXTkUrb0tMYWFvemtQUVQvQ2tpVWpXL0Fjc0lJSzJXNDd6UmN1?=
+ =?utf-8?B?RFZoRlNXSlVNVjBDVE5EanFkN1JXeUIrdSs1d3UwVTNqVS8wVGhhTTJFWjl6?=
+ =?utf-8?B?djhvNit2U29oSWVFcDhFZE4wUngvUld2c0ZpYkxRNTFmL0xZQzdkZXdUL3F4?=
+ =?utf-8?B?U0tVWkRSb0tEM2cyeXJPanNOMUZKalhiL3dram9iMkcvWHVrd1ZyMkJPYjNV?=
+ =?utf-8?B?YXB1WFgzVVVDUEhtRTg5VXdTMGNSTDlwa1laN29GbnNSWDlIQXcyYzJWdG82?=
+ =?utf-8?B?SGhGRnIrTWdCNFBIT0NtakJITHdvVnk4eUJmMS9PbTE1NzJkM0dyY3NRZE1z?=
+ =?utf-8?B?djV6dXhJTW85UnBmdmFVZFBKanQwOWNLN3ZWYTNNQWhVekxLM2FnUzdHMXNz?=
+ =?utf-8?B?UGdVNkdGOUFhN2pIbURVbGFIMzBMRU04bjNJTnBPTDZHS21vbCtHckoxZ0VM?=
+ =?utf-8?B?TC9iY0tWUTNTdTQza3JwN3g3cEo5cUJ6NVJpTVpJOXc0VDAraktyTEJzU0tD?=
+ =?utf-8?B?cm1FZ00vYmg4cmM3cWo0MkFmdzIrWTZXaGRKU1pnNmc4WDB1R3VxcHZibzR6?=
+ =?utf-8?B?VDA3RmNIK0ZKdWZKbWhaczNCYmZEUHpwQWdEcStGRGVOdWZGR0hqWkRoTW9m?=
+ =?utf-8?B?Y0ZaNUlQNlhtZU02MUJ0UmNQTzZkVUxCd0x1N05ySnhmWFVGSEw1VmV5Uk41?=
+ =?utf-8?B?NkxoYWZYU2dnYVVLNE0wWDNUWDNaM2pRQmFiUGVkdnVzeTdrZ1VPRUFpVDFP?=
+ =?utf-8?B?TnYxTGVuWThLWGRmVi9zSWpxaVVyQzhtZkpVbWFSVTNKcFRrYWVuWDVEL3pE?=
+ =?utf-8?B?ODJRTGhBNytKekZ6eU5VWEFCS1p1ZWcvdTVlR3VKV0todEVKcGp2OEhQUFFD?=
+ =?utf-8?B?ZHhDNnNPV0t5anU4ZTRZM1lyQkdlSGNLN2cySDRhRGlyd3o3ODJyWEtuYnFD?=
+ =?utf-8?B?cXkwYlVMZXJ5VzdmbmJOS0lodVNKcXA0MXFGcGlzRGYzWUpNNnVrNUMyWWdH?=
+ =?utf-8?B?cmIySk5GOXMzL3A3ZUpkdlF6aUJEK2h0WDE0dG00clBRZXlmOWVYRlNjVHJp?=
+ =?utf-8?B?MHlEekZ2RzJxblZrdURIcG9sY1FxU0MwU0ZpYi9LUGVNaTRwZ1E1eVRpSFQ0?=
+ =?utf-8?B?d216aVlscG1Ta1hzNTZIS1IxUXlYbGFmTVlibzU0UklJYXF5R1dpaXpEdWdo?=
+ =?utf-8?B?VGZONjBiM3JabitlK3RjQW9sSW81bXlucStqUEFBS3JWVERraEpnYlVsNmFa?=
+ =?utf-8?B?S3pCcWJYWnZsVGMvb3V4Q2lzNWtiZDBPTzEyb1p4bVRFUGcySUVIdzNySWRO?=
+ =?utf-8?B?T1FYekhQUWE0MTEyQVpVOEhGbnEvdUV5UU1IM0t2N040WUZDbEorTGxPQ2Jv?=
+ =?utf-8?B?WTNMT0dTblUrY2NjYkUva1VvRE85SWw3bWJ2bnhCZFdtaGxjMEplUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dd3f93e-5de7-461c-aed4-08def3205d4e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ec82c44-3031-4c98-30e3-08def2da65ee
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB9733.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 18:35:46.4188
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 10:14:56.3245
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A3l73FMOsmxQa7Tz1g3J4eOiUwishBXJVZ6Cj+vNwtlCjPpG8LOppIDWJ/k3NoU0FU2uZVMBhO6aw4wdH56sVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFEDA8E6F1A
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZHL/Vp1f1VGA/YIIjr7skkYSBUOOctHnfcH/MPzTkQCuJXKTywYoWvDL418BxRUk4+zxCwBwDzG0Xp9H6l6GWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9627
 
-Hi Andrew,
+Hi Greg,
 
-On 8/5/2026 6:12 AM, Andrew Jeffery wrote:
-> Hi Greg, Krishnamoorthi,
-> 
-> YH Chung has been working on eSPI support for ASPEED's BMC SoCs, so
-> I've included them in the To line.
-> 
-> On Tue, 2026-08-04 at 14:18 +0200, Greg KH wrote:
->> On Tue, Aug 04, 2026 at 05:22:55PM +0530, Krishnamoorthi M wrote:
->>> Feedback Requested
->>> ==================
->>>
->>>    1. We chose a dedicated bus_type for the reasons described above
->>>       (capability negotiation, four independent channels, asynchronous
->>>       ALERT#). Does the community agree this is the right direction, or
->>>       is there a strong preference to extend the SPI subsystem instead?
+On 8/4/2026 5:48 PM, Greg KH wrote:
+> On Tue, Aug 04, 2026 at 05:22:55PM +0530, Krishnamoorthi M wrote:
+>> Feedback Requested
+>> ==================
 >>
->> That's up to the SPI maintainers and developers...
+>>    1. We chose a dedicated bus_type for the reasons described above
+>>       (capability negotiation, four independent channels, asynchronous
+>>       ALERT#). Does the community agree this is the right direction, or
+>>       is there a strong preference to extend the SPI subsystem instead?
 > 
-> There's concurrent discussion from YH regarding device-side eSPI
-> support in the thread ending here:
+> That's up to the SPI maintainers and developers...
 > 
-> https://lore.kernel.org/all/KL1PR0601MB4276FA2C6347192CC45826E490ED2@KL1PR0601MB4276.apcprd06.prod.outlook.com/
+>>    2. Is the blocking notifier chain the right mechanism for event
+>>       delivery to slave drivers?
 > 
-> So far it's arrived at a matching proposal for drivers/espi.
-
-Thank you for the introduction and for pointing to YH Chung's work. It 
-is encouraging to see concurrent work arriving at a similar framework 
-structure for drivers/espi — this gives us more confidence that the 
-proposed design is on the right track.
-
-> 
->>
->>>    3. Any concerns with the ops table design or the -EOPNOTSUPP fallback?
->>>    4. Naming and structure of the public API in include/linux/espi/espi.h.
->>
->> What specifically are you asking for for this?  Do you have userspace
->> code you want to integrate, if so, does it work with this?  And where
->> does it live?
-> 
-> I've seen your follow-up realisation Greg, however, regarding
-> userspace, the thread above suggests that we should be able to back
-> existing subsystems (GPIO for VW, MCTP for OOB, MTD for some flash
-> functionality) onto eSPI to minimise eSPI-specific interfaces:
-> 
-> https://lore.kernel.org/all/KL1PR0601MB4276B5BE3B96C18E3A66AD709049A@KL1PR0601MB4276.apcprd06.prod.outlook.com/
-> 
-> That doesn't cover the peripheral channel, as that's dealt with in
-> hardware on the device side, but for the purpose of the controller the
-> devices on the peripheral channel should all be driven by the kernel
-> anyway.
+> Notifier chains are almost never the correct solution, especially for
+> real data you wish to send to devices/drivers.  Just use a real
+> callback function you have to register for, and a workqueue, or
+> something like that.  Ideally just use the process context of the thread
+> that created the data in the first place, why can't something simple
+> work like that?
 > 
 
-I will go through YH Chung's complete thread on device-side eSPI support 
-to understand the full picture. Reusing existing well-established kernel 
-subsystems (GPIO for VWire, MCTP for OOB, MTD for Flash) to minimize 
-eSPI-specific userspace interfaces is a sound direction.
+Thank you for the feedback. The notifier chain was chosen to support 
+multiple slave drivers subscribing to events from a single controller. 
+However, your concern is valid — it is not the right abstraction here. A 
+cleaner approach is a typed per-device event callback on struct espi_driver:
 
-YH Chung, would you be open to collaborating on the slave-side 
-interfaces of the new eSPI framework? Happy to discuss further on the 
-list or off-list to align on the design before the next revision.
+void (*event)(struct espi_device *edev, struct espi_event *event);
+
+When the controller decodes an ALERT#, it identifies the originating 
+chip select# and calls the callback only on the driver bound to that 
+device — no chain walking, no per-driver filtering, no untyped casts. 
+The callback is invoked directly from the threaded IRQ context that 
+decoded the event, keeping the delivery path simple as you suggested.
+
+We will rework the event delivery along these lines in v2. Does this 
+direction sound acceptable?
 
 Thanks,
 Krishna
 
-> Andrew
+>>    3. Any concerns with the ops table design or the -EOPNOTSUPP fallback?
+>>    4. Naming and structure of the public API in include/linux/espi/espi.h.
+> 
+> What specifically are you asking for for this?  Do you have userspace
+> code you want to integrate, if so, does it work with this?  And where
+> does it live?
+> 
+> thanks,
+> 
+> greg k-h
 
 
