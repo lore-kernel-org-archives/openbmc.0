@@ -1,84 +1,89 @@
-Return-Path: <openbmc+bounces-2375-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2376-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A630C55822
-	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 06:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA769C55174
+	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 06:13:22 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hFKpS6Lllz2yYf;
-	Wed, 05 Aug 2026 16:13:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1034"
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hFKpT1fbVz2ypY;
+	Wed, 05 Aug 2026 16:13:05 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1036"
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785910384;
-	cv=none; b=c7ZIh/P6Xnq4AIt13oH5gzNDxQ9u0QY9Sg4AWkPnIX7LJgNLKgZYVdcpIuspjWqy8rKsEWWUX3agWxKW90hmDiFBmkDvmMlWLSAQr+acWdpkQxGhmwqyRRbgBWG10eZyMZJTX5XQACmlX1wRjM+58lcY3D/Tpi9uYZCusVRIUPXcAzsLAx0+ywgV5GSOwo8SlTaHba/axR8w9ovSrraFUlHe+W1tZkwCgN8JSzauujmuXBTpTIpOmSL3IyRexO2edQypY1STlFpatsKoAPCe9iRIboVTiKZ+WA5eLShXHBIlKRa5enI1gTQatODW7z1QTeQZZidIwHbtn0O03g0XXw==
+	cv=none; b=dxDEWT34gW1V41CeaqifRZC0i1phIpSlu/atkFnpcU1n4lAqglf+uXcZ5XDEJunEXW91cT0eFWDAsbiRXozaOW35Yjx2+UkKrtw/qlispG9db8mWK+PFWW4vK5+x1uT9DdfGy07ieBqKzlrV+8jtbVDcIx1U/KXSZXyLT0MtP4uQym3wTGTQUaVNVcmEZ1w0T7QhOK3lc3PLUNUityyvAOSNGjvz4ukUcf74uto6MoYWkytD3b3EDObcEYwG/xzKjyN8q0fO5bIH/zl5Gzp+00ql3eFR2fVqRD0m8KmUK85N/TH6UnsHFo2z0KIIdaDbVjZzJDJL0ZSZGWt63tgAvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1785910384; c=relaxed/relaxed;
-	bh=HWNwEo6KNIFpGwBvm3kCYvOjhoGETwip9UbeceBY3ks=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nm2715f/1gUKonCuBnYAW++2kiFMhunM1AjlH3QCQBFkV6sd2cAL0RnrUGRB72X1LRqcnAJg7/glb+o4003Az/4fLbqKjD2Wc5IMs7dNysByuaIGv7Iyf+wcNUs4P/oXl6iNoKvew179PP50zTrFo7f/DhSq3vFDr5O311Zeeu7nCQ2UlF1uk0zjN3uhqjFGI6fdQV0QQGN/uMeb0o2fCtQM5uCP4qVU4yG8UoNh5KJM7gsIZgeEBtzJpFuwG81pVHsZur+dXzIa5xzIzEaFtWgk7Jrf7PdexoDKbVye9BnmD2kFxn7jgfCixuAgl+jWcJoQWCvjIX405ed4TlDyXw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=alUqTZ5v; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1034; helo=mail-pj1-x1034.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	bh=keXdhw4rJtHCZAUhrJeIkpCw716WCkjw7CbjCZfr3EM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JoeyvYmduTkloGHWmtZ5QiIj7Pl7vuCdjlIFDS5oAslQUDQnN89Ilo5k6YA+zM+jmJbgIsJHPUgJeHwbJJoIj5ieKS9SADXeetl1LEBOtVr54Ehf87lOYooibwASixdmopS7mqXrTQJMLr34c2dh636MQg/wBTScis+sO2VptasCkZX08YlfAK7nMwI7fUcGOYvYc3N5Cp7mPg9AO9TpFAtGUfetBalqEE4isGNCh2OYH3PK4anpH/ujWBZQWuabcdiyY1kaT9HNvZ3HUk8np4e/dAP4PB5oGqFCaVn2NdTwNsPW2IsGYoxPCp/JfZVFVtWoLn4/jNdhinqAVTlCyQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gaqq6EHN; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1036; helo=mail-pj1-x1036.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=alUqTZ5v;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gaqq6EHN;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1034; helo=mail-pj1-x1034.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com [IPv6:2607:f8b0:4864:20::1034])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1036; helo=mail-pj1-x1036.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFKpQ6Xvvz2xpn
-	for <openbmc@lists.ozlabs.org>; Wed, 05 Aug 2026 16:13:02 +1000 (AEST)
-Received: by mail-pj1-x1034.google.com with SMTP id 98e67ed59e1d1-3900e39d935so571453a91.0
-        for <openbmc@lists.ozlabs.org>; Tue, 04 Aug 2026 23:13:02 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFKpS06Btz2xqM
+	for <openbmc@lists.ozlabs.org>; Wed, 05 Aug 2026 16:13:03 +1000 (AEST)
+Received: by mail-pj1-x1036.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so450479a91.2
+        for <openbmc@lists.ozlabs.org>; Tue, 04 Aug 2026 23:13:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785910379; x=1786515179; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HWNwEo6KNIFpGwBvm3kCYvOjhoGETwip9UbeceBY3ks=;
-        b=alUqTZ5vXB+kVrHvDzhkGMdKh9chv+W0UtIRe2xH7K6WoOuwVDP6pmywTs7KVz9Zhq
-         6N3vY/FoyU1CrO3x5fGSjkfkcxpLxvrWHQ3oiTlHNJ28yrLxCnAnhzA+Cz6EmtARJsIv
-         oER+DTuqAiMSUd44OSSBHrNCI4fa4UzsSpLR4Q2TZaHn3kXq06j9zgwiRUu05K0Y0xZt
-         rmth9P582/JPE6oIR99oKNl7h35zKVge+jze5RXUhkLu9OU3mXW1KmLBGh/5NGOd0koW
-         VgEjL6pm7ZSdtTe2zsPnikvOkw3HmgWZ9CdLrglFLcNBQQwzp/81Hjm5978MBWCvNUm+
-         zJ7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785910379; x=1786515179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785910381; x=1786515181; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HWNwEo6KNIFpGwBvm3kCYvOjhoGETwip9UbeceBY3ks=;
-        b=PsTyzNqrUUyF4VyFHdDNESSmyUySSlnleSGXNgchok6kq1vXM6LxxZr+iZ9bsN/ndN
-         kfPRtrFQZlTgeh1foUvmdVZdQC1Zw+ecMUlrKNqE414X5U2wSx9KSGxS07cj8OknxrLm
-         XxiKSIYOtwKpu9NjBnjKy5YNGx7zfxqPRu+U7kLZRcP57BDmq5mStA8v3yPmHyRthGRL
-         SaOs/mdw7ne3aC3HP2nmLV42mZ8JrLcBxw1EU6F6fl9osPqrVLizF4b91HyP7AbIKJQ8
-         FbXO9HkZmb9gyDoMV+yrgu6rb7a3pzo+JbMpADAdzhVAW/U0niMZlS31mID+QntEz7n5
-         4ySw==
-X-Forwarded-Encrypted: i=1; AHgh+RpQ66HJ/qP5A6bpCvNXJokWM8fO+2BM50THDHmMxdoCeoSVN1itdLXqDqscFEJydXNguEPQXCxH@lists.ozlabs.org
-X-Gm-Message-State: AOJu0YwmiyGI4jfmbi+bVq58GErPurUBZB7HP4Ct8Qa/ZUhpBZPXfb6b
-	FcLwU1o0T8qx8mdGcQEwD7S5uZh4NlSNEHLe/EDx5fv1rHaxo4Nv7RHU
-X-Gm-Gg: AR+sD13hXcj7IqvouKdwCXYo+5ob8NDvCXM72wOc5nvicIJfnJYA02IqmmetNKIvwOj
-	sJjW0pSrSjUxaqNfJQVLyraq2wsLG/FrmhNV/oS8n1xVAXjlQ84Sik/PS5O+sVLhi/ptaeFmaSB
-	ho2VkpUE29Bor4H5O8SPwt+7adxUE+ZJMP677+s0VkvWi0nvzhEqZSUtlOOF3LQzzJkjTq+XxGQ
-	PXd8vzOEWdC9jP+YCQKvvlL6rDnnWtD4yeJ4nMKneUbYW+1l8tb+KFdSItj1XoS4FFGwXwTXMjE
-	CMTN9UD/+CBgncNrzwLkfwc/0TqcNU9fVCcLotUgFCqrIgycOY4DnTKO+8QxC5ki/4KJ3wbhL8b
-	xB+lI/BwUPXHt/fvcQKX7tTIH3LGnN1LkE0aQPkMBX6SVp8pcUwb4BsyGU8WN+88luwCQoqDk94
-	80bKlIXKJNhtz4tVke2X4E8coAu8vl3GtdpaZ1Hj2G8eevvSU5k9CEH1w+fIPy3F+m5gUyV8sFA
-	xT6uwbKMNgELtIiRsNV+5UpjGL+MPcd27O76PFUoiO7DQ==
-X-Received: by 2002:a17:90b:1843:b0:37f:bfa2:1887 with SMTP id 98e67ed59e1d1-3903c53639amr5365871a91.8.1785910379366;
-        Tue, 04 Aug 2026 23:12:59 -0700 (PDT)
+        bh=keXdhw4rJtHCZAUhrJeIkpCw716WCkjw7CbjCZfr3EM=;
+        b=Gaqq6EHN+BIcHDsA2+YlXWMfcpydnBU/9uTJ2HV4RnROt9w7m3JAPT+qn/3Kv5rqr6
+         iBcvQHmhR394zbb6xo/n9QnIRCXKno1l7sJSkryvDdLUmUIWdBzRdAaQrhWK7BHff17X
+         DWh4F+MNC6qTrg9R51sNh/u2bn8H3u2ohyWJHl6kaSCGPu0M1vjvjnooBPKUcfdgOPmJ
+         6zpH1aYPYH9xlgs1f6I3YBHEy5iPmcJHupkviG2kwwUD6lMmjxkeApSCGf7SBdN0j1ly
+         KuQE3uiCa3Shwq0sUL9WtAD5rdVIUutgSHi16ZKu5XyopnzpTiPOmRt1ZShJb0hMneUA
+         PRfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785910381; x=1786515181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=keXdhw4rJtHCZAUhrJeIkpCw716WCkjw7CbjCZfr3EM=;
+        b=ZIrZTPeary+KgD8/roxrtz0K3gUJCG0nC8IYdiXh6K7wNKrZSqHQLxRZTFQxRx3kdr
+         /+d9pfPNfHS2aYQ05IM5MCPpTgQ0uT7Djk9zni5l2ZRJtUI7WH2rn8beJ69+X542RI13
+         KQj6EF6QcVMBfYMsZkXrlpSo6bGCoUYGuk0lnyxAKN0zeDcD/Y7c6up2vMQ9+wcyMKgw
+         5NmKlSSlk9DdrOudOgDF4pVjvKN/a566sVrkCIPE5XPK5ToaZAoOwLiNMDnEFlE/vddS
+         A2gDGlxz4kDB2WzVHXZ5CIYi7dmGekFlPZKi5PjEl27g3MX7pEl75A0MQBOPuVQzXwYy
+         3LQg==
+X-Forwarded-Encrypted: i=1; AHgh+RoAZhEi2au3ZoZyUPylC6XHc0C496uuouvvnjNB0UCuZnGHDNH4Bjy0EMKdXIdAC1GPE0FPVgdQ@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Yx65O/LnNU2/4MV+ubrAti3JcmVEFA+zjP6WizuCPOETZnpvCei
+	rbRNJZDXhU2PsvMK0Wu8ItauA3yo/o3Au01XEmf6JYfTkK19ej5Twybg
+X-Gm-Gg: AR+sD11ARttK4E6KPj58RbV61Dy3+P2Bsym5W9sf6AYTYIidNIKtQgp+ZOwodVXKp9C
+	KlVnhJwQQx9YdPRu31CHSZdXy1boxwXib3VeignvxyfWDmqreY0+2n9X7QGgNWFmhok+g0JN1Qr
+	yylie4JlldcqKwJUAok5D/m84fW7MlyyLAwP32OTL+pIQ2adtw+YCDArEdLsKedqEwnMoMt1jkG
+	3Cdi4lNZIU42hdXq8po/uY5hx2x/93BjsDljOVnC/zTVs7lTEDVtkASXW5YoUZII4kFCHiMCfUz
+	ckBnAnhCmofl3MF2SKR+rGjjxzWYz4e7RJJPat5BOkIK8rLMlFSg+cdexN4LPQaS+uvgnTEqh2N
+	TIigwmjkiKSHTxql9U+Q7aAr5eDfNC9odx5fE6aAbbY7+ikRaOH2L29sZm6f3XQ3I79E0wgxQp0
+	ZWpKgf7BE3aphLxjjdCER4UG5AxSaRR0p4eMbuHLR5z/pFyAz+BUcNEAqBa32WlixCCJEDlt7Eo
+	3ofwZMzEc360SNAMtQzs9tLC+bCZb5b/Io=
+X-Received: by 2002:a17:90b:3c84:b0:38f:efed:5448 with SMTP id 98e67ed59e1d1-3903c54ac31mr4383278a91.8.1785910381438;
+        Tue, 04 Aug 2026 23:13:01 -0700 (PDT)
 Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903917ae54sm2009561a91.8.2026.08.04.23.12.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903917ae54sm2009561a91.8.2026.08.04.23.12.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 23:12:58 -0700 (PDT)
+        Tue, 04 Aug 2026 23:13:01 -0700 (PDT)
 From: Cosmo Chou <chou.cosmo@gmail.com>
 To: andrew@codeconstruct.com.au,
 	openbmc@lists.ozlabs.org
 Cc: chou.cosmo@gmail.com,
-	cosmo.chou@quantatw.com
-Subject: [PATCH linux dev-6.18 0/4] iio: adc: aspeed: Backport battery sensing patches
-Date: Wed,  5 Aug 2026 14:13:05 +0800
-Message-ID: <20260805061310.1740724-1-chou.cosmo@gmail.com>
+	cosmo.chou@quantatw.com,
+	Billy Tsai <billy_tsai@aspeedtech.com>
+Subject: [PATCH linux dev-6.18 1/4] iio: adc: Add battery channel definition for ADC
+Date: Wed,  5 Aug 2026 14:13:06 +0800
+Message-ID: <20260805061310.1740724-2-chou.cosmo@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260805061310.1740724-1-chou.cosmo@gmail.com>
+References: <20260805061310.1740724-1-chou.cosmo@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -92,18 +97,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Backport the ASPEED ADC battery sensing fix series to dev-6.18.
+From: Billy Tsai <billy_tsai@aspeedtech.com>
 
-Billy Tsai (4):
-  iio: adc: Add battery channel definition for ADC
-  iio: adc: Enable multiple consecutive channels based on model data
-  iio: adc: aspeed: Replace mdelay() with fsleep() for ADC stabilization
-    delay
-  iio: adc: aspeed: Reserve battery sensing channel for on-demand use
+Defines a constant for the battery sensing channel, typically the last
+channel of the ADC. Clarifies channel usage and improves code
+readability.
 
- drivers/iio/adc/aspeed_adc.c | 72 +++++++++++++++++++++++++++++-------
- 1 file changed, 59 insertions(+), 13 deletions(-)
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+---
+ drivers/iio/adc/aspeed_adc.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
+index 4be44c524b4d..8eebaa3dc534 100644
+--- a/drivers/iio/adc/aspeed_adc.c
++++ b/drivers/iio/adc/aspeed_adc.c
+@@ -75,6 +75,8 @@
+ 
+ #define ASPEED_ADC_INIT_POLLING_TIME	500
+ #define ASPEED_ADC_INIT_TIMEOUT		500000
++/* Battery sensing is typically on the last channel */
++#define ASPEED_ADC_BATTERY_CHANNEL		7
+ /*
+  * When the sampling rate is too high, the ADC may not have enough charging
+  * time, resulting in a low voltage value. Thus, the default uses a slow
+@@ -285,7 +287,7 @@ static int aspeed_adc_read_raw(struct iio_dev *indio_dev,
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_RAW:
+-		if (data->battery_sensing && chan->channel == 7) {
++		if (data->battery_sensing && chan->channel == ASPEED_ADC_BATTERY_CHANNEL) {
+ 			adc_engine_control_reg_val =
+ 				readl(data->base + ASPEED_REG_ENGINE_CONTROL);
+ 			writel(adc_engine_control_reg_val |
+@@ -309,7 +311,7 @@ static int aspeed_adc_read_raw(struct iio_dev *indio_dev,
+ 		return IIO_VAL_INT;
+ 
+ 	case IIO_CHAN_INFO_OFFSET:
+-		if (data->battery_sensing && chan->channel == 7)
++		if (data->battery_sensing && chan->channel == ASPEED_ADC_BATTERY_CHANNEL)
+ 			*val = (data->cv * data->battery_mode_gain.mult) /
+ 			       data->battery_mode_gain.div;
+ 		else
 -- 
 2.53.0
 
