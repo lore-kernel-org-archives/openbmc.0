@@ -1,86 +1,86 @@
-Return-Path: <openbmc+bounces-2377-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2378-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6ABDC55174
-	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 06:13:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B0EC55174
+	for <openbmc@archiver.kernel.org>; Wed,  5 Aug 2026 06:13:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hFKpV4kyrz308t;
-	Wed, 05 Aug 2026 16:13:06 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::102a"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785910386;
-	cv=none; b=Ed4/2Oqy7bi5Pt1F3ogN10we1yxBtnWEUqmhXkZJYbEbETYE5VgiUnHmv6Dt8UiLzMpNeXeYST7CZ8MGNZH2fCjbtGJcNctPmxAVeu3wpzGKQWGfgZOgZQ67YyPaxisDD7i7NzkPNm6GLgncF7o1AKOrMDC+/givql/uTK6D/iUXtTemQL+m6ltACmIiI0eFghZotRirZj0IdmxKzMVn4I+ZGMjC8JcZW4BfMtG2lLhRT2Ftfcqi12A/qWJXwoLLRUdU7isJaA532qLrEik9bye2+Xe5o6ppeklAjiCFlqvoaBP0eN3FdAqmcupprnPQ6RvdYcViCxhl2zAz9t6klQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hFKpX2Hl2z30B9;
+	Wed, 05 Aug 2026 16:13:08 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1035"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1785910388;
+	cv=none; b=Z8deZpiFsrEJLK7R/9qgSyCmCXSht2HT1bLVjoOTiD8dNrT0XYD/rX3WmSx9Ed/Iyi62TTIZH2OkQ1JpI4ULsu5CInlYB5A83Jp4X3+1J8usfhp6+KW41B+p4hFDMXjCeQBzB3etoLsmuOJDe5NtT0m0/h7M1R4v4OqJv3H6ZFlPOkMKS7F4Ss1HLhaOpD7q6e+dg8AGQvS+y80VFGYLDwaz0VRe/1fq9Eq5fnedMu44S+1e5K1WeD1uzU6hU7Thv6mkTjqizVR/8yxsQ5XlDb1uIgoe7z1vP1PfolkM5+7fqWRnrlNbTeq770+DjddBLhygQ3spldosk20rjSgN5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1785910386; c=relaxed/relaxed;
-	bh=zg54fHJsqxob2qajOY2ZU/PplLLALkFA7N5BbCg732Q=;
+	t=1785910388; c=relaxed/relaxed;
+	bh=nwn1zbe2DkdzXm9pv3kiPyJ99OEpbm5r/BI14tM+iAs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IcoGdw8Yzw2FBn8ICaiV7bk28yNn5+7gnlBB63BzIFFwvtmgObgFzWHapp5O/AraF5eAjSAZmBMlpl87LCMkuRDCxlIVorz5NGEMd3qUA0FPpB/uzEvwTz7rCIpLfKcyOp0Qmky4niQ1O0vRfCyK5BoVnOHX5lfFH7rxGhKdDfmZen8U9ha+Q4eB+aFl8n/SkhcYiyM2K0dj/Y0SdNuGbSA8USlcNKpRSVsbSYTwhceK0/Of8mUKJvoR6jFOAoE6AN6PCsHFj2gg1yCr3OaifO2IDIIxZ3N4PjSfydXYQQ6BNEQY2EX9NXUDXgIjT/xyMwtUorFQDfuZlREj6hjr/A==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r7N4s8P4; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=WV+Y02on5sMO3sRCtXwSaUNsW42zzZ18MYU1QhkOvr1mH5ocS2A/oyhKiJ8W251BhSomxY8OfKaQMInxen12ih0yO7pJBbgshtheMoUm12gsvPRr7g+rh/JZz3DSnU5TK9iP78TzZC6rc164Knm8HjDb1O9osPxS1KoVnaGxgueTTrFQ7dTA9AtqzQYqNGVruh/g43E/b0hn6THQm7V9LqxrbpzAEIi504H8kIm9lj4bO1LgsfqlyDZkHU+bSXtcmLfNHrGsnQ6/CIjkzr0hsXcLIuOuH+dH9xmncjpVdKz4rIv6bcKSZTmC8jobTIsAP+yTHuNKPfDpEDO7Y39QSg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OA1UJBUs; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r7N4s8P4;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OA1UJBUs;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=chou.cosmo@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFKpT5HSrz2xqM
-	for <openbmc@lists.ozlabs.org>; Wed, 05 Aug 2026 16:13:05 +1000 (AEST)
-Received: by mail-pj1-x102a.google.com with SMTP id 98e67ed59e1d1-38dcbade417so478237a91.1
-        for <openbmc@lists.ozlabs.org>; Tue, 04 Aug 2026 23:13:05 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hFKpW2l1Sz2xqM
+	for <openbmc@lists.ozlabs.org>; Wed, 05 Aug 2026 16:13:07 +1000 (AEST)
+Received: by mail-pj1-x1035.google.com with SMTP id 98e67ed59e1d1-38e041ea211so689903a91.0
+        for <openbmc@lists.ozlabs.org>; Tue, 04 Aug 2026 23:13:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785910383; x=1786515183; darn=lists.ozlabs.org;
+        d=gmail.com; s=20251104; t=1785910385; x=1786515185; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zg54fHJsqxob2qajOY2ZU/PplLLALkFA7N5BbCg732Q=;
-        b=r7N4s8P4f2A+27J54jD9V5iSGkrmIR4D00JZZRe7OEe1oiFjF9dOVi+VeILe3zfPKv
-         jDH0nwa/yuzmg8iagvmHnhF1cJb39vfo2dKOSHJTQESuzs3evWH1sIJFbsCQOG1MT0OA
-         mK73IG4C9TBArFlYue0MZDLod1lU35j0spYE6n/97FTrBdifq9aofZZVJhkwseaQXsT6
-         FX1UVBD7/bjmqIbaJx+jGTHEsKV9HE1IVWWx4R+vgnj6ZaTyREgjw8QX64u1o71saD4E
-         eoY20a7O5kpRNJS3NjnAwH0qorEMaPm9OHdjkJC0Th7/+XIlyQcjbA5/K3cusOnEpZOO
-         rOww==
+        bh=nwn1zbe2DkdzXm9pv3kiPyJ99OEpbm5r/BI14tM+iAs=;
+        b=OA1UJBUshk6uWTGsuBu7olR+tkbcvlVWYRN5wk+X0YYFvCoiemLX3Ctfc0jD1VsZ8U
+         fkzoJiybonDwT7qpuppfts47SuLGU/SD1QW3mfWjrjeSgzeabTNeAueGINpfvtAgNlaP
+         Y6b4Wr0Js3duFLtLockmQWsiYjfZqL8TRPR3xJlFZCXC8ll1jeeOpsuOfL3z88M8HE04
+         S6bl8zKg7luGy+q3CwB1TqqLV36H3sEa5cORnUIsTTjH9qi3QIXsaQHUxaThzBSvlSYi
+         4pEtygchrk9I+yXa0WoDJuyx7mnqXEZpg7NKL1oxaF4dOxhe8AUab4U7QPptFlitG49g
+         H0zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785910383; x=1786515183;
+        d=1e100.net; s=20251104; t=1785910385; x=1786515185;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zg54fHJsqxob2qajOY2ZU/PplLLALkFA7N5BbCg732Q=;
-        b=mWzhwlW7gQYb4B2ZpCptbUuKM1UJR+TtVG2NoxAdwtPiSpaVwFaHyHJiJ0x4xRGcWc
-         QuiirhtZlzq33b6gbGNvBdItlkZBCYJUqK2Gtw5q9NiWb4yoJkEi5uo+42JKgGLyd7Kn
-         1HRe4FCfYki/67zmsGEDn3eIOeQc2kBZ3xzbE54QS0MNfAKeZGEtUSYSd5PMRsIABiVo
-         bVfYk3H32R/QXC0MrArvr0SXMHFMXas/nRMW2X7fgnIWjb0r5tbhB8TP6WVG8FLciL3k
-         EIfhNB5NyYgwIqqOd+AJJhMTnmC5teeurSyQH+FGV6Pj7mNRCO2RvsZ/IFLFBbWueHIU
-         DGvg==
-X-Forwarded-Encrypted: i=1; AHgh+RpVBbrmpPgLOdMzSGEIOx4S2tuNQHjwOOVZpHuyDd2Lm4WeFWQ+WaVdmbAGWgp+d/AkwP3rrdEV@lists.ozlabs.org
-X-Gm-Message-State: AOJu0Yzqcf/c434vl2YFiDUxWQKKOV7j7NyHd/dtmHn0q/Bo60ddaQxk
-	VCrcnGX/2hKywmHBJWZHyRR1K+FQiPio9/wS219JvjqAvBVPoOQxpyzovlStGQ==
-X-Gm-Gg: AR+sD11FllUPfoJRGaoGsyAnoKdJauLTcuntI6tG3JGwtjlyQux6qO0ad5gxTLZ9q/X
-	hz5MzkHY2onRMyN1/or5qr2xO+1OmT+Y+r3togWJNLyduEEHoS0kphETI/W1srrYygp1Fiee6a3
-	tStks1rWKO48J9oPngMVqGIuJst02/IyP2QVtVUVS7Z9IZf/2pKR4Aur3fZMO49av2P5onmhY9s
-	wbtoklOhTyDT7pv5iuCX58DFdQGmeiSwH8NsM8Vkx08RpoOPGqN/R1fHWI6H08GnmQZmZEBMkHC
-	Jt7hQkJX6O7/TnEybaZ+tI+Fea3wRgRRAhJKufX7VQ3T1fxfxxYjUkPdqpDCBtSoLwxpUtrT53h
-	xDIGei/lOwmnc7Rb+sZtNwa3Tj3ZvD+rh5PrPWqkI24KLRUBrIuf+p/sDV1P+KcrwFM3NUnTUH/
-	gTAPFfGm3YgGur9vAASRK7cQ9knDDikOjbH5EXImN9uIvFHvX/kZGumvhUizFVcQ1eK7jDiPcTR
-	zGec3NFbUxcn/b8OpezmzyNRBTNULAQ/pY=
-X-Received: by 2002:a17:90a:d445:b0:37e:b6a:6cdf with SMTP id 98e67ed59e1d1-3903c66ba04mr4597432a91.20.1785910383335;
-        Tue, 04 Aug 2026 23:13:03 -0700 (PDT)
+        bh=nwn1zbe2DkdzXm9pv3kiPyJ99OEpbm5r/BI14tM+iAs=;
+        b=aMySSpk/8n2jk2fbHXqom8vvY4tqNl4fy4eXLAwcboMiNQ1MvX2y8buore1R2tjhfY
+         ZyTVI+NBvzd3NittprWppIRTsmkQGluZ4ipd7WpPhBBxt7Yip2xY7zBHp6pPbNwU8b9R
+         D+VjNI63G1VhSyjCZjwnZZU3xAeI4MXgRue22b0ncjRaogBJiNe4ZrhYfM0LtLuM9oyp
+         YOFCQakoyJQMYzp8EhWLo9reVB2mXITMrpz0A73XVuXciZXCN0AUWAWOoLyyckmUO8/L
+         m6WmS4lR7o6sT/AhU1XiK2Uq58oHqueCD36wI3fjWajfbQqDPvmU4HaIaCiWinuk+PB7
+         1yYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/e4DC+t6FLX/ua6tgF0aKphVyZLt/3/Y4dvRSYNlJ2cnOrX7v/NsuDT7bNwpulzRczbGpYlhp@lists.ozlabs.org
+X-Gm-Message-State: AOJu0Ywa+JGVbGxFS2ZRCQ4/jPgdETbPwDwyMlVOnEh25+gr/r+vnPbg
+	sCCHsxUdIAh9rnJdS+H/DKmOzGAAHCIqBPHMoSTCFPQ7xe/sH2FwXERn
+X-Gm-Gg: AR+sD13qViHyHjopX8UdIqbzl/zURb1guWgckAiZD2p59YX/D9gCfQMUWqgLGNRA/mG
+	yg1nUagrtAJyTsNwjfA4wlUIcurBN/1vqoh1ubvWxzGeX0RdjawpVowpTtBWtFf66xnnXZD/uCN
+	8kgEXIEcl4/gFekn+PltBqAVggcB6TIYoaJCakbOTw5xAhxJbT7gubHTpd9HyDbOouTn120HyaJ
+	xonC5n+WU64k3WDvTNc2qsgiHXMwH/f3F2qpZbmR3WH67fSMnbXdS97ozMVXvSMCY5yc3Awus8S
+	+iyRmrhNluxyE2LfFHIDMQfE0yVe78ZLW8qdYOkzL7Bb4kv6Pp5lF1zpaS++iWh+mAvHDlqxH19
+	aIlflLuug7QjQxpDjYB32oOibqPIIT25JTKwnScNMS/TDIyQvFAs79tc/FKZuKS7JndizAMiX5r
+	lZlSlZ0XJz86lreYh4ZuRjz6x7kXo/Go6FNsTY3QoPbCu12BcOklFzhtbzLu7KWs9yjHZoTx4BB
+	G/81EyrdldkWjOEgSb7fW1nM0q25owhrkM=
+X-Received: by 2002:a17:90b:6cf:b0:38e:e9b:ffa4 with SMTP id 98e67ed59e1d1-3903c598e78mr4630252a91.6.1785910385168;
+        Tue, 04 Aug 2026 23:13:05 -0700 (PDT)
 Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903917ae54sm2009561a91.8.2026.08.04.23.13.01
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903917ae54sm2009561a91.8.2026.08.04.23.13.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 23:13:03 -0700 (PDT)
+        Tue, 04 Aug 2026 23:13:04 -0700 (PDT)
 From: Cosmo Chou <chou.cosmo@gmail.com>
 To: andrew@codeconstruct.com.au,
 	openbmc@lists.ozlabs.org
 Cc: chou.cosmo@gmail.com,
 	cosmo.chou@quantatw.com,
 	Billy Tsai <billy_tsai@aspeedtech.com>
-Subject: [PATCH linux dev-6.18 2/4] iio: adc: Enable multiple consecutive channels based on model data
-Date: Wed,  5 Aug 2026 14:13:07 +0800
-Message-ID: <20260805061310.1740724-3-chou.cosmo@gmail.com>
+Subject: [PATCH linux dev-6.18 3/4] iio: adc: aspeed: Replace mdelay() with fsleep() for ADC stabilization delay
+Date: Wed,  5 Aug 2026 14:13:08 +0800
+Message-ID: <20260805061310.1740724-4-chou.cosmo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260805061310.1740724-1-chou.cosmo@gmail.com>
 References: <20260805061310.1740724-1-chou.cosmo@gmail.com>
@@ -99,55 +99,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Billy Tsai <billy_tsai@aspeedtech.com>
 
-Add helpers to generate channel masks and enable multiple ADC channels
-according to the device model's channel count.
+The ADC stabilization delays in compensation mode and battery sensing
+mode do not require atomic context. Using mdelay() here results in
+unnecessary busy waiting.
+
+Replace mdelay(1) with fsleep(1000) to allow the scheduler to run other
+tasks while waiting for the ADC to stabilize.
+
+Also fix a minor typo in the comment ("adc" -> "ADC").
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 ---
- drivers/iio/adc/aspeed_adc.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/iio/adc/aspeed_adc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iio/adc/aspeed_adc.c b/drivers/iio/adc/aspeed_adc.c
-index 8eebaa3dc534..3ff24474f394 100644
+index 3ff24474f394..a1a6296d3003 100644
 --- a/drivers/iio/adc/aspeed_adc.c
 +++ b/drivers/iio/adc/aspeed_adc.c
-@@ -123,6 +123,24 @@ struct aspeed_adc_data {
- 	struct adc_gain		battery_mode_gain;
- };
+@@ -259,7 +259,7 @@ static int aspeed_adc_compensation(struct iio_dev *indio_dev)
+ 	 * After enable compensating sensing mode need to wait some time for ADC stable
+ 	 * Experiment result is 1ms.
+ 	 */
+-	mdelay(1);
++	fsleep(1000);
  
-+/*
-+ * Enable multiple consecutive channels starting from channel 0.
-+ * This creates a bitmask for channels 0 to (num_channels - 1).
-+ * For example: num_channels=3 creates mask 0x0007 (channels 0,1,2)
-+ */
-+static inline u32 aspeed_adc_channels_mask(unsigned int num_channels)
-+{
-+	if (num_channels > 16)
-+		return GENMASK(15, 0);
-+
-+	return BIT(num_channels) - 1;
-+}
-+
-+static inline unsigned int aspeed_adc_get_active_channels(const struct aspeed_adc_data *data)
-+{
-+	return data->model_data->num_channels;
-+}
-+
- #define ASPEED_CHAN(_idx, _data_reg_addr) {			\
- 	.type = IIO_VOLTAGE,					\
- 	.indexed = 1,						\
-@@ -617,7 +635,9 @@ static int aspeed_adc_probe(struct platform_device *pdev)
- 	/* Start all channels in normal mode. */
- 	adc_engine_control_reg_val =
- 		readl(data->base + ASPEED_REG_ENGINE_CONTROL);
--	adc_engine_control_reg_val |= ASPEED_ADC_CTRL_CHANNEL;
-+	FIELD_MODIFY(ASPEED_ADC_CTRL_CHANNEL, &adc_engine_control_reg_val,
-+		     aspeed_adc_channels_mask(aspeed_adc_get_active_channels(data)));
-+
- 	writel(adc_engine_control_reg_val,
- 	       data->base + ASPEED_REG_ENGINE_CONTROL);
- 
+ 	for (index = 0; index < 16; index++) {
+ 		/*
+@@ -314,10 +314,10 @@ static int aspeed_adc_read_raw(struct iio_dev *indio_dev,
+ 				       ASPEED_ADC_BAT_SENSING_ENABLE,
+ 			       data->base + ASPEED_REG_ENGINE_CONTROL);
+ 			/*
+-			 * After enable battery sensing mode need to wait some time for adc stable
++			 * After enable battery sensing mode need to wait some time for ADC stable
+ 			 * Experiment result is 1ms.
+ 			 */
+-			mdelay(1);
++			fsleep(1000);
+ 			*val = readw(data->base + chan->address);
+ 			*val = (*val * data->battery_mode_gain.mult) /
+ 			       data->battery_mode_gain.div;
 -- 
 2.53.0
 
