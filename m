@@ -1,90 +1,144 @@
-Return-Path: <openbmc+bounces-2388-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2389-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F3DC5AD2C
-	for <openbmc@archiver.kernel.org>; Sun,  9 Aug 2026 02:59:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAF34C5AC82
+	for <openbmc@archiver.kernel.org>; Mon, 10 Aug 2026 06:14:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hHjKN4SmDz2ykn;
-	Sun, 09 Aug 2026 12:59:36 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::102a" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1786121781;
-	cv=pass; b=gw3dO5LSTkxU1K+GAc82K3gksib0gLjEt1AcyBdSfq5hrV9IXkGRPoF+mpFB39y14MJwXzY0maOS2zg58b6epu4qzfyNMeuCsxq10iDJtJats9YwvYLaDLRiKxhAuhE2ylpMES/Zn/FsrizXkskvqI5JCi5u4Zh+aLtYOfeeMuOUzcPkgTbj4DcAuatGl3SeclwoZjBinZq6a+9/fiu0f3GmjoO479jd8WU8TTlrku55WKKmg5q2aKmff8xMTPkBmsBrpTOqce8TAglNdTYidZncfeiy02VFrniTWBKQnvwx38g2faOUhtwZT46d7vN9Y+cKVJ30Bg8UADJuKfdq4w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hJPbC2JzCz309y;
+	Mon, 10 Aug 2026 16:13:59 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c40f::6" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1786342438;
+	cv=pass; b=fDPa0LxTKO1twk43kz7i8Aw9D1hKiTfckNFP9FWMtartypmwtQSSuj71cuTR1BpoeKH8/CvwxBAzk7kQkMS/vm9n05ZzNUviuhabZAbIh1DBIgD8ezyoaYxN4xm1bng+USawA6hBnqhS9ZcLSFv4pvxl4jcn1wMzkQc0MUerssunHCi9dCwgxNiAQXqCTA6fuKh9UE04AnyWVIKSQ0m7Rh8W8VVXa5sBSiAMzUI0Jdoe5+e2MBNBWlhCjMI9/vf2qXfFkjijXYSgYtweaZEZxVCYIOFptoaSVlIJIjr2C5ZNssLJ9VFh5Xa2839Jln+9sLVH2U6s8gtIdHKWcFPo8A==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1786121781; c=relaxed/relaxed;
-	bh=TPqOnTi8pJ/1gSqGBjuspWdICGbqHxixv0M1WZDKr+c=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=aW3IvCFe398yjF9+igyWwE3SV5UJLrBbcrzdIFiq3Z+pxOCaTgw6my7sq0STz9KmwPM/hbfG/ix8Yvt9O5VJotoTaPzPoo6+6VKqDFWUK2ZI7WzxCrf744DgQ3VBEbz3A2lTFoNiDcl4z3CbJJfdVqVvYWN+NSf6ZE2T2CfL+Ro/GOPCk/kRX/7Vzyj8N+kAl5jD6ngyMq/W0hHfWSjl39VYL3AjsaIe0BWr6fBQpBXM2ehxb6BH2RDSilcfSCQzXO0yyPMfZyarUhF/zKLpjUpm2wQkQ2Mcyv++yS441SNhTPxs7NSWxg/AKz7mgI7OyRwTBPvEnAsJv1pKQ72mzQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rfQaIjM2; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=gmbeihl@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1786342438; c=relaxed/relaxed;
+	bh=t/nytG2Plz2ZDsjcS9PypUBG01vJhxB/8wUNDx+VZ+o=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ceF2TMPxASNmerm/90wT+diCT7G6YtB27gHwzwux6VIBqhlPGbPOGzoOYlvGri4IswXg551njoxMNhAeieq910B80nxnZoyhfUzB7pr8yA6fN3w7D4FoFNiwi3KqjjLBRAH5aJGSl7kNcqjD/+8LuhVjCN+5G+kwna45ALjpb0MIeXCuUKNChrMSx+6HDnQRKRKMPqIKpu2+p4pntZ1N5zNp/sX+brYIXbcWzLoUk8xqWXXUUMN/I2ouIBUQvWqIa5j5LByzi3dfe7CmIMtDZ3cNd0PHb1ZCo/0Mu1ur54+tfoDD+vOq5hK7nSQic9F2mPT8FZhZfeJnmC1IS9I67g==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=Svd4JBxE; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rfQaIjM2;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=Svd4JBxE;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102a; helo=mail-pj1-x102a.google.com; envelope-from=gmbeihl@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com [IPv6:2607:f8b0:4864:20::102a])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=yh_chung@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazlp170130006.outbound.protection.outlook.com [IPv6:2a01:111:f403:c40f::6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hGqzl568yz3c78
-	for <openbmc@lists.ozlabs.org>; Sat, 08 Aug 2026 02:56:18 +1000 (AEST)
-Received: by mail-pj1-x102a.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so3163954a91.2
-        for <openbmc@lists.ozlabs.org>; Fri, 07 Aug 2026 09:56:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786121776; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L3tIOlq8aHAx9c/qMI5u2WYRhcwoGBejfRhSXPr1qw0uZsTqgKmz/upE/r8RBg35f+
-         QQQp0WAtwZtehrRvuqKQF/TWGgvhOsHZBurPkaxv/XZqA1FjjTBk+muyReiu7NShzjY+
-         tkOJ3ulHPAI4Vajo96p2hp5uQIeuXzsOCzv8FVrhQ5d3q1X+9feCJI4Y/byruSDsHcV1
-         v/9AQVHdhSkdA1KExyNvxfLi8KATddAHjWgTmeLVE/nXFgc2A3MFkSgkkY0xcQBFhSxa
-         HR2wEl9IRplG/941xOjFP8Khl0ygrkDPZDUK8gkda0Eab/eRvrmgT5sefvN3sux2U1lp
-         SDWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=TPqOnTi8pJ/1gSqGBjuspWdICGbqHxixv0M1WZDKr+c=;
-        fh=B5hptedw+6RyGR/i2ArH91xOt8ZhRewMTnM2T7RVmak=;
-        b=hrrMNTRKbcGdrx4rcyEVVYbR/P4/cr5q2NCS8Tg78PJ/CKMOZAZeXKomhzjqsijc/z
-         p5sRZQjLE9p2i+ngS5knaFomcCJGSBdG2sA09uO8iQ/UVBHQyMQrvxW4NSNiXlMluSZ+
-         XQMok6JIH/DOaM98JcWv2QjWLXCKvArvY5Ik84JDWor1ExJw0aJgfDguHIsmfUK9GrcN
-         ahEu4Rzise3PwD4hE8vaA1qBDj2k1BzD7UytCGw7Mk04WvYe8U0gsZot3dds19EeqKfd
-         DjNmQXdzTsbBnFdKCij4wU4/IBZgBEt7zoLscRIoCe+nbOzdI9Mxl1oDVJZaDnKAGkKo
-         3hWQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786121776; x=1786726576; darn=lists.ozlabs.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TPqOnTi8pJ/1gSqGBjuspWdICGbqHxixv0M1WZDKr+c=;
-        b=rfQaIjM2QcFwpLLSD/VeTupwDfwbRGk1jPTF/VDhSKHG4QdFgach4a6qdaQ8VV4FpS
-         tX0Dry8/FfQNBB/sPO935QytIQVaacrouRZiK5vgRydo/tO9Hj6V6c5QYVgd9G2aXHWn
-         8w6/MF67GsWCvEnRnnczYT5/BWy7569FmYjq4J+DCpAbYDcg8p690CuWXMTaoAmKPolL
-         fRtV3acB2Z3lfUm2H8OAIqxbmR5LNW2a0trXM92TnSLkyzy2MsEvUXgQ1QeokZ24VOR4
-         IfL3U9CnCale9Tkg2c50AWu1LQbIbRfpo5jxP1i/9jnj1hoC+EJak+Q8oDgT1L3roazo
-         nJqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786121776; x=1786726576;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TPqOnTi8pJ/1gSqGBjuspWdICGbqHxixv0M1WZDKr+c=;
-        b=SdJF4jebAwzE3UY/AD98wo1r4Lj0zJeEq33tGdrAioHEZYvRuMSTKkkV/2uSOphwae
-         kR3xptWa8zvi5xwc37fF/ib8ISGcaTFyoAV3JDec8mY5/LHLq6EKscbhA1gVFbypC7Jd
-         uYDbN08PWu/hVDpEJLMkIJFYC1qT0+JaehlxiJI0wUbpLtSZ888aSSZhpa9xDtpFxHM3
-         Ul3RYVCN8NJu0SU2nBEnGfHoJnRoCK2R6hy4sTn0VplzrlJlE0vmgjLlFvK0a/pvJZ3o
-         kOQdl6nH3E2fEnAKQejdiwurAGt1Z/bncHE9vbANGcqbBwLx8z6JCFF3e0zQK13CbPU+
-         LdDg==
-X-Gm-Message-State: AOJu0YyQX4qofhtZhdD4lyvpGVhAIP4yS3KkjYIIMTwmjxBxpQPo5Uo1
-	bDTXfcUJCnPaoYuCwD/9FTi0bofqmKzwAJg9i7+PX75aDoiFaGuPE3WHeAC7LeRApObzgiSx8Nj
-	a0C8eUbBJe7qy6LCnt8RGFXulEgauOx/06Zus/tI=
-X-Gm-Gg: AR+sD12WQVqDihS/armNFEpox2NOFbPg44lWXNy/U1wtpNp1lPhKiwWHfuPi6AMsr4N
-	tVxNBXNHcIDX++EA0xTjPGZtvyDGSooKoAWWphcRP/rR8Hb3SyhHlXofIOpir3SUBPWJuQXRAlC
-	UT5heANheltOcbu6GxfJ45ebHIIXatAvxJksLibOjVPhswHvPl9Q0Y7L8mPSyGoJEbS7Q9jsxcW
-	ebXAFlz3iln5Vcxw/I8GqwBKXIXZmxlFc92AnK4cWF4vCgyjyN32Td3o49B3sVkdrlwXqUY9grS
-	Yy0TzYhd/GGrsu8tYllBmYQsbiOzuCkHqADxy7gY4Ms+APUG0mmmGBRT668crhKfTsru/GaLhWK
-	9JOge6go9Y5MwyYdvQFvnP3zTa5P2wcte6hI=
-X-Received: by 2002:a17:90b:582e:b0:38e:485c:ebd3 with SMTP id
- 98e67ed59e1d1-392823d97aamr1260705a91.15.1786121776027; Fri, 07 Aug 2026
- 09:56:16 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hJPb42Fggz3048;
+	Mon, 10 Aug 2026 16:13:51 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kxMqdpnIsHHnPBgLlgKVWFz6UtvshEM75/xnrlcfEcGdXVDtzi7Z0UdkfLrZ9LKvztLv+qQFrc3MiNv2rVk0oncbm9wbkhhIuVtN4Hpfs5zZw6P8Bts1LN/isIViPLqe3Kjv19WN759PFFdTMME2EdtF6l6GIPy5mGvGMc112/9E0Dhy2Mo4CGfRjSYPcF0zjb8+iaDMqEubs+gn3hGkuDUbyT+IdKhUUeRQUO/dELNMX7H7QYmtYZspqA0OoHlmO2G39PFg2GOG3i4PMSGoCuAd6FAhgY2QO5P8WZYuvEbAK4MIKF5O847Tptq/m+gsNDANI+X2265TQQlS1FIsbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t/nytG2Plz2ZDsjcS9PypUBG01vJhxB/8wUNDx+VZ+o=;
+ b=t7jphySrBBQOC7LyZHK79jq3ZZEyzyKC2sKhG61x2q+bvSlbfZnkz1GVckPgYIxDKsmjcNPZu65Cf0qVPLQjpGF1mgslY/thgh3zagt32kzFtgTRydUih5gq0S04Wukxr8et/5Elw1LM9yln8W426lFlQZ4j2T55sx6CYqWFlh2r76TdAgzLvq23CTNwETne/8IIw0bKhst8vOWgAl1LCGpaWL9LvFapsy+lkH1xI+ScYYCkg81HX1bHQnWsZGPBqpmEYjIN3VeV/MVxHjgNwXDECUlJaqoqqeB+pADkyscR0OjnsJPYf7R5Cvs3lz/12dtnt3lKkj2k4KwvQAsx+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t/nytG2Plz2ZDsjcS9PypUBG01vJhxB/8wUNDx+VZ+o=;
+ b=Svd4JBxErLPAAnUeGgLGaLCcuBx2l3rOfMId6CU+Is+ShHcgQN+cTWf5Nuy3Ll2i5Fbqea4zj5dnnSHi/yhT0/LmDCZr0pI3VZNpJfNoRXKIdjyqPxoZKCKB8FFMKEuThNn1g+PAhXBo5k4ibNu8vEVUNKWapJaOE2DKAaSAF3Wk1iSIJzQ86pWN5fclh709n4fMDUKKJ/dc4lPpXsZQrI81+9z5AOmF9SLY76Liu0X2JxIi25JazSkS2NCV0atg5IUkgKi9WdHwZha7T0gRvDFHqY73uqaLuJor0KOBqDFQeG8YC42c5hwN0weTC4F4eoPzZrHGFyMGU3Ht1xGe/g==
+Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
+ (2603:1096:820:78::12) by PS1PPFA1B399C66.apcprd06.prod.outlook.com
+ (2603:1096:308::25f) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 06:13:24 +0000
+Received: from KL1PR0601MB4276.apcprd06.prod.outlook.com
+ ([fe80::b7f3:3c41:fd0e:e3f6]) by KL1PR0601MB4276.apcprd06.prod.outlook.com
+ ([fe80::b7f3:3c41:fd0e:e3f6%4]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 06:13:24 +0000
+From: YH Chung <yh_chung@aspeedtech.com>
+To: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Greg KH <gregkh@linuxfoundation.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"broonie@kernel.org" <broonie@kernel.org>, "linux-spi@vger.kernel.org"
+	<linux-spi@vger.kernel.org>, "akshata.mukundshetty@amd.com"
+	<akshata.mukundshetty@amd.com>, "bleung@chromium.org" <bleung@chromium.org>,
+	"groeck@chromium.org" <groeck@chromium.org>,
+	"chrome-platform@lists.linux.dev" <chrome-platform@lists.linux.dev>,
+	"corbet@lwn.net" <corbet@lwn.net>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, YC Hsieh <yc_hsieh@aspeedtech.com>, Maciej
+ Lawniczak <maciej.lawniczak@intel.com>, Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: RE: [RFC PATCH 0/4] espi: introduce eSPI bus framework
+Thread-Topic: [RFC PATCH 0/4] espi: introduce eSPI bus framework
+Thread-Index: AQHdJAuknqBBP2CVjUqShr/HE/RpMbaOnoQAgAErz4CAApUZMA==
+Date: Mon, 10 Aug 2026 06:13:24 +0000
+Message-ID:
+ <KL1PR0601MB42768F2FB7E907618E1DAB4E90DE2@KL1PR0601MB4276.apcprd06.prod.outlook.com>
+References: <20260804115259.4065638-1-krishnamoorthi.m@amd.com>
+ <2026080416-lagoon-delirium-8e84@gregkh>
+ <83210c6e2a7b203bd5913b455ea45cfddf3d29ec.camel@codeconstruct.com.au>
+ <9180f5d5-9885-492b-b80e-c2aaaeb39501@amd.com>
+In-Reply-To: <9180f5d5-9885-492b-b80e-c2aaaeb39501@amd.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR0601MB4276:EE_|PS1PPFA1B399C66:EE_
+x-ms-office365-filtering-correlation-id: 5a3e3ab3-863d-4236-577d-08def6a67c42
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|42112799006|7416014|1800799024|376014|38070700021|18002099003|22082099003|56012099006|10067099003|3023799007|4143699003|6133799003;
+x-microsoft-antispam-message-info:
+ gDy1Tlp/kDi+wQ39SFFwR8Jk6MWGW0rvBUsmvptwLmQtmmmi3+SltV7SIRMdci/ksIb1ov/mgFURV+SP2MyTd9kizvZzu884i+lZjhdzPKOnZ5uIRWzCT6LdBwyj9Foz7ar3Y7zUDJcE918WdzhSq51BNLs07sVmhyrGcTMsbiyVEtQP6K22rmmwMG1uDFqyGygtZrxxYH0HcmVrThaVgNLvuV4q4e+F1FKuLsv1lVYyyyG/Wvx+vWeBl+5Gy/vRQMpeQwjcBOWFk/+/wQ3/wC1A9ZQNwurENMa+x5oP/3C3BMtRJAMc8mGnTnNEfCwblKy64xsmyvc+2pUwzYOv09W8LyrpwvlgtEVbKJobdcA4zYHVM/WS2JoKzGvueBXPmWtnWn60d04KD9apX4DkPjZPFdk7996v0EjMZzbNyHpindu4UGCkRn9ss5Tz5mCta4jHMYyDoya2xyNQsWnR0Dq+jBx3LjXc6fDhzzkHllCcjJTaD8rubhev368MXibqY95CFY7vRshvlyl+nrNhn9XFpwc7LxVRvOiM9rDy4/FP1wfU7ZFfRyPrCf10jfIRxBWl3xiOwUsGOOPg6pjpQ8i5HaRLkaZoI0vn9b2QmLP4ZlQB0RQ+00eLN1jnZCOsyx0jBQAa+V84y5VIJ2WcCDqWecX/HjLsAKdcpJrLYuHf0dMuQRqGdntSY0M3eO7mQ9UX2PQvfrd16y6HGZsV2CptUrvpkf1IxwhhuO8wMu8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR0601MB4276.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(42112799006)(7416014)(1800799024)(376014)(38070700021)(18002099003)(22082099003)(56012099006)(10067099003)(3023799007)(4143699003)(6133799003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Yy80NDViMHhHUmVkUVRzTStJMzFQSk5MUVF4b1lNOTFNWWoxanN5RWtaYzBl?=
+ =?utf-8?B?aktaNGplRmZYSS9DNUwwZXlmS1BVeDZsS1FaYldVNmZMdGJKL0tvQzdvMmlC?=
+ =?utf-8?B?TDdmQ1U2blZmQnU3VkJUNnczb1hNQlZtSzAvWitVekZEUmF4a0hVdGErYk5N?=
+ =?utf-8?B?dEZkSWVOazJJczdXNTlUVktrbVRvcHVTMHJqV0dEalpmRlN4N3dpeUlvdjRD?=
+ =?utf-8?B?S2s4Qjl4b3FPUTRLckN6eDFoYXlQRlg5QVMzVThXRjdCVnNiK2xSR1UraDhy?=
+ =?utf-8?B?K1Fqbk9YdnFDMU93RTlJTUlFWGhxZTljZXNtTWhKS2RjQ0Z0UXpJNDZrNzN6?=
+ =?utf-8?B?MjJmN2hHRGdUYU5KMDFpbUhyTUhFaWtUQnJ4WFg0MTlGdlZIdXVkK2pNZzB2?=
+ =?utf-8?B?dDltVmlmNk04M0FLNXRaKzA2bTlGMnd4RWZQVmtRRW5RdHhPUHVDRjkyMkVt?=
+ =?utf-8?B?THhIUFJyWGlRSHNqTXFaTEl2UUhCQnNDR1U4a0cvRUlCZEg4RXUvb3FDL1E1?=
+ =?utf-8?B?cnpqaE5Rdi9NUkdXQ0JRQnpwOEVSaXdaOTc4VlVSSVg0Y3l6RXhtVUNHTllu?=
+ =?utf-8?B?NUFEdmtFWXF6QU9ZbmFYU0RESzNaWnpMK0VOTG1Mc2ZqMlQrMXhzczY1TXhu?=
+ =?utf-8?B?bWVHWXk3MVA4ZWpwS2dRTkt0ZzR0cXN4dG1oOWIxQkFySS9NeHFTcDkycUdF?=
+ =?utf-8?B?clZheHlVQWd3R0dkY2NReE5EMHJUYi8xTXY2bGN1elRCbjE4VHNpN1M5RlJG?=
+ =?utf-8?B?SnNMSkZDdUZmbVplekF5TkVRZytVRUpKNEZjMFFoTUEzZFdUdTZRV2ZRNWtp?=
+ =?utf-8?B?bWtEV0ZTbTg0STVEMjhkYWszZWFnTmxOM3N3NFdBa1YzRm95Q3kyaGZ3dm1V?=
+ =?utf-8?B?S2VHOE0ra3h1WXZZNWdsbzdSVE9PTEphbVRLQXV0YllNYndVamFzZFA5Qzhq?=
+ =?utf-8?B?Z2M2cUJ4SW1mUjFwNlVBTFQ0bVhmK0pmeXl5R29tTDNnRkltc3RvQ2tCT2sr?=
+ =?utf-8?B?UFlwRFNqcVFhVTcvMnFKNllqSlA3N1BiVWdRcndwdUY5VHdkbGk5M2I5OGRZ?=
+ =?utf-8?B?OW9WNEJPT2ROM2xLWTQxVDFqUGxHOXNjTHk5eFlLc2dheFRGbG0yN1hmWVlt?=
+ =?utf-8?B?ejZNRnBGaXZ5MHBkZGhIaU03bXIvUFhSR3JGN3NqNitkNGdFcytBNTNVaHZO?=
+ =?utf-8?B?ZE1wc1Q2eGpMV3hWQkNLbzhjSkdiSG9VWGljVHpGRmttYU9FNitRK0dhZzdI?=
+ =?utf-8?B?dTRwRGI5b3ZkZ2JOa09MNjdGaTZCbGdZR2luQ1J6cTJoYU1UWXduTmdnNVh2?=
+ =?utf-8?B?QTg4bWNRSmFhcExKOGxWU3p6b2M2d0sxTkoxWDFxbVRGQlIyLzZua2QvbXNj?=
+ =?utf-8?B?cDFFT3NCMTJOemR1aU4zWTdVV3Q5N1pIbTc1UUdnUitHQU9veXYzRk40dk9T?=
+ =?utf-8?B?YmpGajIvR2VReTdDcDBYKzd0NUxZZ3UwLzQ4elVqS2FVOWVqaVR1dGFoQmNl?=
+ =?utf-8?B?Ry9xaXVzVVdPeWR3TnlLYW1DWWlKcm04SlFHQmxYZVhCMHpBQ1FGRU1UMHJa?=
+ =?utf-8?B?am9iRmt4SXVWbzZlbDlpSmRwOWhVbUZTODJxR2d2bWJOV2NybUprSHNiN2ZE?=
+ =?utf-8?B?ZXRxdkxxcjhwNUc5QU5CbUhKZG9xUEFNS2IwczFWbnRRMjBKWFVSRHE3SVN1?=
+ =?utf-8?B?aytLM09qR25EQldoZDMzOE12TjZUUHgyYnJUM3E3YUlrSWc0TW5neFdTZTd2?=
+ =?utf-8?B?cnFOanovejR3bTNrZEFDUGw2ekJrNzEvVEF5MXpoQUhiY0MwMEhDUnV1NGlK?=
+ =?utf-8?B?WXk1TlFyL3EyVi94dWRVTlV1Z3JwbWIrUUlIRWlTTG0yUXJQK2k0SVJKYUUw?=
+ =?utf-8?B?ZVl1a2U4TndCUGpyZUsvT2xJUzVibm9NZEN4eGFiWXU5dXljRWNydGM2dngw?=
+ =?utf-8?B?SVNBRlF1S3VOcmRBdjlwREJpRFBLdVhhNjRENXJqVUI0RGY3bDNpcEhqNEZP?=
+ =?utf-8?B?R3RtNjBUd2N0ajhtUXA4Y3hHbWkwL0tuV09KaHg1dEk0c2ZtVXhuc25INnF6?=
+ =?utf-8?B?UDlaMDFpUlJuUkJ6UUlOcVIybXZINEtSN3gzVUp1ZmZrb3FUeVYrT1pJeXhK?=
+ =?utf-8?B?OEdLeWFQRjdWdEZDM3E3S0Iyc1VpMzhEOU9nRXA3VTB0RXBUVmJ4WW9FOXJv?=
+ =?utf-8?B?bC96VDhzZlg4RTBCL3Uva1h1RnRBejlmZVhyV0MwNlUzVFBLNW9qc3BRdEVH?=
+ =?utf-8?B?TXhZOEtuRUVGMXIwNG1FaVpQNGNHNVpaTHI5Z1YrL3JXaU52NzdGMlF2Rnd3?=
+ =?utf-8?B?LzYxZG52RGdxS1lWTUJUaHB5eDMvUnZaODBYRHpYQUZRRU56ditZdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,192 +150,119 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Gary Beihl <gmbeihl@gmail.com>
-Date: Fri, 7 Aug 2026 12:56:04 -0400
-X-Gm-Features: AUfX_mw-3vK5FVGG4dNiEFRNhGCA6l84OzjjpiPWC99-A2a7KRlsptSX1UXvkyU
-Message-ID: <CACtoqbdiodtucTtKVVx75e7Am=T_UyTS5+6LMxNFdNGpJ+vFjQ@mail.gmail.com>
-Subject: RFC: gNMI/OpenConfig telemetry target for OpenBMC
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000fc5bdd065877e18e"
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR0601MB4276.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a3e3ab3-863d-4236-577d-08def6a67c42
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 06:13:24.2861
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Lg1be5QiCp1uRvhN2afl2JYIkvaXFOo/lWy0+SjurRskQyy/sd8tcmuAjKprgtI21XFU2Bewr63WNkeXklVNJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPFA1B399C66
 
---000000000000fc5bdd065877e18e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-I'd like to gauge interest in adding a gNMI (gRPC Network Management
-Interface) / OpenConfig telemetry target to OpenBMC, and get early feedback
-on the approach before investing in a formal design review.
-
-Motivation: OpenBMC exposes platform telemetry through Redfish today =E2=80=
-=94 the
-`openbmc/telemetry` service aggregates D-Bus sensor readings into
-MetricReports, and bmcweb presents them via the Redfish TelemetryService
-(with optional push over EventService/SSE). That path grew out of the
-"Telemetry Streaming from OpenBMC" discussion back in 2019 (
-https://lists.ozlabs.org/pipermail/openbmc/2019-October/019058.html); this
-proposal builds on it rather than competing with it. Operators running BMCs
-at fleet scale increasingly standardize their collection plane on gNMI with
-OpenConfig models =E2=80=94 a single streaming-telemetry protocol already u=
-sed
-across their networking and, increasingly, their server and accelerator
-estate. For those operators a Redfish-only BMC is a second-class telemetry
-source: it must be polled per-endpoint rather than streamed, and it doesn't
-speak the OpenConfig path/model vocabulary their collectors already
-consume. There's no gNMI target in upstream OpenBMC today =E2=80=94 and not=
-ably,
-even Google (which originated gNMI) ships its upstream BMC telemetry as the
-Nemora post-daemon and IPMI metric blobs (`google-misc`), not a gNMI face.
-
-The footprint question, up front. I'm aware the usual (and reasonable)
-objection to gNMI in OpenBMC is the weight of the gRPC + protobuf
-dependency =E2=80=94 that's why it isn't already here. The proposal is desi=
-gned
-around that: the entire target, and its gRPC dependency chain, is opt-in
-behind a meson feature (default disabled). With the feature off, no gRPC is
-pulled and the default image is byte-for-byte unchanged. A BMC only pays
-for it if a platform explicitly enables it.
-
-Prior art: gRPC has been proposed in an OpenBMC repo before =E2=80=94 a gRP=
-C
-transport for `smbios-mdr` (2023, gerrit 65049) built and passed CI, but
-was abandoned in late 2025 with the author's note that it "never passed
-upstream review." I read that as gRPC changes struggling to attract
-reviewer buy-in absent a maintainer champion, more than a hard policy veto
-=E2=80=94 which is exactly why I'm leading with the footprint contract and =
-gauging
-interest here first, rather than just posting patches.
-
-The approach: a second northbound face, not a new telemetry engine. The
-target subscribes to the same `openbmc/telemetry` MetricReports over D-Bus
-and streams them via gNMI Subscribe (STREAM SAMPLE/ON_CHANGE, POLL, ONCE)
-on OpenConfig paths, over mutual-TLS reusing the BMC certificate store.
-There's no new sensor-collection path =E2=80=94 if a value isn't already on=
- D-Bus,
-it isn't exposed. So it's "one source of truth, two northbound faces:
-Redfish (pull) and gNMI (streaming push)." For images that don't run the
-telemetry aggregator, the bridge can also source directly from
-`xyz.openbmc_project.Sensor.Value` objects (the same D-Bus data
-`openbmc/telemetry` would aggregate) =E2=80=94 MetricReports stays the prim=
-ary
-path; this just avoids a hard dependency on the aggregator being present.
-
-Status: I have a working prototype (C++ / sdbusplus / gRPC) that streams
-end-to-end =E2=80=94 Capabilities + Subscribe verified with a gNMI client. =
-I've
-validated it against an emulated BMC: an AST2600 OpenBMC booted in a
-deterministic full-system simulator, with a modeled LM75 temperature sensor
-surfacing on D-Bus via phosphor-hwmon; the target runs in-guest, subscribes
-to that sensor, and streams it to an in-guest gNMI client as a live
-Subscribe (STREAM/SAMPLE) update on the OpenConfig path
-/components/component[name=3Dambient]/state/temperature/instant =E2=80=94 a=
- real
-sensor value, traced from the modeled device through to the gNMI update, no
-synthetic feed. It's a prototype, not production, and hasn't yet run
-against a physical BMC. A design write-up in the OpenBMC design-doc format
-is in the repo:
-
-  https://github.com/garybeihl/telemetry-gnmi   (docs/DESIGN.md)
-
-What I'm asking:
-1. Is there interest in a gNMI northbound upstream, given the
-opt-in-footprint framing?
-2. Feedback on the feature-gating approach =E2=80=94 is "default-disabled m=
-eson
-feature, image unchanged when off" the right contract, or is even an
-optional gRPC dependency a concern?
-3. Where should this live =E2=80=94 a new repository, and would anyone from=
- the
-telemetry subproject be willing to weigh in?
-4. Beyond the abandoned `smbios-mdr` gRPC transport, any prior art or
-in-flight work I've missed =E2=80=94 and whether a well-gated, clearly-scop=
-ed
-telemetry face could get the reviewer engagement that earlier gRPC work
-didn't.
-
-If there's interest, I'll follow up with a formal design-doc review via
-gerrit.
-
-Thanks,
-Gary Beihl
-gmbeihl@gmail.com
-
---000000000000fc5bdd065877e18e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<br><br>I&#39;d like to gauge interest in adding a =
-gNMI (gRPC Network Management Interface) / OpenConfig telemetry target to O=
-penBMC, and get early feedback on the approach before investing in a formal=
- design review.<br><br>Motivation: OpenBMC exposes platform telemetry throu=
-gh Redfish today =E2=80=94 the `openbmc/telemetry` service aggregates D-Bus=
- sensor readings into MetricReports, and bmcweb presents them via the Redfi=
-sh TelemetryService (with optional push over EventService/SSE). That path g=
-rew out of the &quot;Telemetry Streaming from OpenBMC&quot; discussion back=
- in 2019 (<a href=3D"https://lists.ozlabs.org/pipermail/openbmc/2019-Octobe=
-r/019058.html">https://lists.ozlabs.org/pipermail/openbmc/2019-October/0190=
-58.html</a>); this proposal builds on it rather than competing with it. Ope=
-rators running BMCs at fleet scale increasingly standardize their collectio=
-n plane on gNMI with OpenConfig models =E2=80=94 a single streaming-telemet=
-ry protocol already used across their networking and, increasingly, their s=
-erver and accelerator estate. For those operators a Redfish-only BMC is a s=
-econd-class telemetry source: it must be polled per-endpoint rather than st=
-reamed, and it doesn&#39;t speak the OpenConfig path/model vocabulary their=
- collectors already consume. There&#39;s no gNMI target in upstream OpenBMC=
- today =E2=80=94 and notably, even Google (which originated gNMI) ships its=
- upstream BMC telemetry as the Nemora post-daemon and IPMI metric blobs (`g=
-oogle-misc`), not a gNMI face.<br><br>The footprint question, up front. I&#=
-39;m aware the usual (and reasonable) objection to gNMI in OpenBMC is the w=
-eight of the gRPC + protobuf dependency =E2=80=94 that&#39;s why it isn&#39=
-;t already here. The proposal is designed around that: the entire target, a=
-nd its gRPC dependency chain, is opt-in behind a meson feature (default dis=
-abled). With the feature off, no gRPC is pulled and the default image is by=
-te-for-byte unchanged. A BMC only pays for it if a platform explicitly enab=
-les it.<br><br>Prior art: gRPC has been proposed in an OpenBMC repo before =
-=E2=80=94 a gRPC transport for `smbios-mdr` (2023, gerrit 65049) built and =
-passed CI, but was abandoned in late 2025 with the author&#39;s note that i=
-t &quot;never passed upstream review.&quot; I read that as gRPC changes str=
-uggling to attract reviewer buy-in absent a maintainer champion, more than =
-a hard policy veto =E2=80=94 which is exactly why I&#39;m leading with the =
-footprint contract and gauging interest here first, rather than just postin=
-g patches.<br><br>The approach: a second northbound face, not a new telemet=
-ry engine. The target subscribes to the same `openbmc/telemetry` MetricRepo=
-rts over D-Bus and streams them via gNMI Subscribe (STREAM SAMPLE/ON_CHANGE=
-, POLL, ONCE) on OpenConfig paths, over mutual-TLS reusing the BMC certific=
-ate store. There&#39;s no new sensor-collection path =E2=80=94 if a value i=
-sn&#39;t already on D-Bus, it isn&#39;t exposed. So it&#39;s &quot;one sour=
-ce of truth, two northbound faces: Redfish (pull) and gNMI (streaming push)=
-.&quot; For images that don&#39;t run the telemetry aggregator, the bridge =
-can also source directly from `xyz.openbmc_project.Sensor.Value` objects (t=
-he same D-Bus data `openbmc/telemetry` would aggregate) =E2=80=94 MetricRep=
-orts stays the primary path; this just avoids a hard dependency on the aggr=
-egator being present.<br><br>Status: I have a working prototype (C++ / sdbu=
-splus / gRPC) that streams end-to-end =E2=80=94 Capabilities + Subscribe ve=
-rified with a gNMI client. I&#39;ve validated it against an emulated BMC: a=
-n AST2600 OpenBMC booted in a deterministic full-system simulator, with a m=
-odeled LM75 temperature sensor surfacing on D-Bus via phosphor-hwmon; the t=
-arget runs in-guest, subscribes to that sensor, and streams it to an in-gue=
-st gNMI client as a live Subscribe (STREAM/SAMPLE) update on the OpenConfig=
- path /components/component[name=3Dambient]/state/temperature/instant =E2=
-=80=94 a real sensor value, traced from the modeled device through to the g=
-NMI update, no synthetic feed. It&#39;s a prototype, not production, and ha=
-sn&#39;t yet run against a physical BMC. A design write-up in the OpenBMC d=
-esign-doc format is in the repo:<br><br>=C2=A0 <a href=3D"https://github.co=
-m/garybeihl/telemetry-gnmi">https://github.com/garybeihl/telemetry-gnmi</a>=
- =C2=A0 (docs/DESIGN.md)<br><br>What I&#39;m asking:<br>1. Is there interes=
-t in a gNMI northbound upstream, given the opt-in-footprint framing?<br>2. =
-Feedback on the feature-gating approach =E2=80=94 is &quot;default-disabled=
- meson feature, image unchanged when off&quot; the right contract, or is ev=
-en an optional gRPC dependency a concern?<br>3. Where should this live =E2=
-=80=94 a new repository, and would anyone from the telemetry subproject be =
-willing to weigh in?<br>4. Beyond the abandoned `smbios-mdr` gRPC transport=
-, any prior art or in-flight work I&#39;ve missed =E2=80=94 and whether a w=
-ell-gated, clearly-scoped telemetry face could get the reviewer engagement =
-that earlier gRPC work didn&#39;t.<br><br>If there&#39;s interest, I&#39;ll=
- follow up with a formal design-doc review via gerrit.<br><br>Thanks,<br>Ga=
-ry Beihl<br><a href=3D"mailto:gmbeihl@gmail.com">gmbeihl@gmail.com</a></div=
->
-
---000000000000fc5bdd065877e18e--
+SGkgS3Jpc2huYW1vb3J0aGksDQoNCj4gWUggQ2h1bmcsIHdvdWxkIHlvdSBiZSBvcGVuIHRvIGNv
+bGxhYm9yYXRpbmcgb24gdGhlIHNsYXZlLXNpZGUNCj4gaW50ZXJmYWNlcyBvZiB0aGUgbmV3IGVT
+UEkgZnJhbWV3b3JrPyBIYXBweSB0byBkaXNjdXNzIGZ1cnRoZXIgb24gdGhlDQo+IGxpc3Qgb3Ig
+b2ZmLWxpc3QgdG8gYWxpZ24gb24gdGhlIGRlc2lnbiBiZWZvcmUgdGhlIG5leHQgcmV2aXNpb24u
+DQoNClRoYW5rcyBmb3IgcmVhY2hpbmcgb3V0LiBJIGFtIGdsYWQgdG8gc2hhcmUgc29tZSBkZXNp
+Z24gY29uc2lkZXJhdGlvbnMNCmZyb20gYSB0YXJnZXQtc2lkZSBwb2ludCBvZiB2aWV3Lg0KDQpB
+ZnRlciByZWFkaW5nIHRoZSBzZXJpZXMsIEkgdGhpbmsgaXQgbWlnaHQgYmUgdXNlZnVsIHRvIGFs
+aWduIG9uIHRoZQ0KbGF5ZXJpbmcgYmV0d2VlbiB0aGUgZVNQSSBjb3JlLCBjaGFubmVsIGltcGxl
+bWVudGF0aW9ucywgYW5kIGhhcmR3YXJlDQpkcml2ZXJzIGFzIHBhcnQgb2YgZGVmaW5pbmcgdGhl
+IHRhcmdldC1zaWRlIGludGVyZmFjZXMuDQoNCjEuIFJldXNlIGV4aXN0aW5nIGtlcm5lbCBzdWJz
+eXN0ZW1zIGZvciB0aGUgaW5kaXZpZHVhbCBjaGFubmVscw0KDQpJIGFncmVlIHRoYXQgd2Ugc2hv
+dWxkIHJldXNlIGV4aXN0aW5nIGtlcm5lbCBzdWJzeXN0ZW1zIHdoZXJlIHRoZWlyDQpzZW1hbnRp
+Y3MgbWF0Y2gsIGZvciBleGFtcGxlIEdQSU8gZm9yIGdlbmVyYWwtcHVycG9zZSBWaXJ0dWFsIFdp
+cmUNCmdyb3VwcywgTUNUUCBmb3IgTUNUUC1vdmVyLU9PQiwgYW5kIE1URCBmb3IgZmxhc2ggYWNj
+ZXNzLiBPdGhlciBWaXJ0dWFsDQpXaXJlIGdyb3VwcyBhbmQgT09CIHByb3RvY29scyBtYXkgbmVl
+ZCBkaWZmZXJlbnQgY29uc3VtZXJzLg0KDQpUaGUgZVNQSSBzdWJzeXN0ZW0gY291bGQgcHJvdmlk
+ZSBjb21tb24gYWRhcHRlcnMgYmV0d2VlbiB0aG9zZQ0Kc3Vic3lzdGVtcyBhbmQgdGhlIGNvcnJl
+c3BvbmRpbmcgY2hhbm5lbCBpbnN0ZWFkIG9mIHJlcXVpcmluZyBlYWNoDQpjb250cm9sbGVyIG9y
+IHRhcmdldCBoYXJkd2FyZSBkcml2ZXIgdG8gaW1wbGVtZW50IHRoZSBpbnRlZ3JhdGlvbg0KaW5k
+ZXBlbmRlbnRseS4NCg0KRm9yIGV4YW1wbGUsIENvbnRyb2xsZXIgQXR0YWNoZWQgRmxhc2ggU2hh
+cmluZyAoQ0FGUykgYW5kIFRhcmdldA0KQXR0YWNoZWQgRmxhc2ggU2hhcmluZyAoVEFGUykgaGF2
+ZSBkaWZmZXJlbnQgb3duZXJzaGlwIGFuZCB0cmFuc2FjdGlvbg0KZGlyZWN0aW9ucywgYnV0IHNo
+YXJlIHRoZSBlU1BJIEZsYXNoIHBhY2tldCBhbmQgcmVxdWVzdC9jb21wbGV0aW9uDQpzZW1hbnRp
+Y3MuIEEgY29tbW9uIEZsYXNoIGxheWVyIGNvdWxkIHByb3ZpZGUgdGhhdCBwcm90b2NvbCBoYW5k
+bGluZywNCndpdGggYSByZXF1ZXN0ZXItc2lkZSBNVEQgZnJvbnRlbmQgdGhhdCB0dXJucyBNVEQg
+b3BlcmF0aW9ucyBpbnRvIGVTUEkNCnJlcXVlc3RzIGFuZCBhIHByb3ZpZGVyLXNpZGUgYmFja2Vu
+ZCB0aGF0IHNlcnZpY2VzIHJlcXVlc3RzIHVzaW5nDQpsb2NhbGx5IGF0dGFjaGVkIGZsYXNoLg0K
+DQoyLiBDb25zaWRlciB0aGUgYm91bmRhcnkgYmV0d2VlbiBjaGFubmVsIHNlbWFudGljcyBhbmQg
+aGFyZHdhcmUgdHJhbnNwb3J0DQoNClRoZSBjdXJyZW50IHN0cnVjdCBlc3BpX2NvbnRyb2xsZXJf
+b3BzIGV4cG9zZXMgaGlnaC1sZXZlbCBvcGVyYXRpb25zDQpzdWNoIGFzIHBlcmlwaF9pb19yZWFk
+KCksIG9vYl9zZW5kKCksIGFuZCBmbGFzaF9yZWFkKCkuIFRoZXNlIG1heSBiZQ0KdXNlZnVsIGFz
+IGNoYW5uZWwtY29uc3VtZXIgQVBJcywgYnV0IEkgd29uZGVyIHdoZXRoZXIgdGhleSBhcmUgdG9v
+DQpoaWdoLWxldmVsIGZvciB0aGUgaGFyZHdhcmUtZHJpdmVyIGludGVyZmFjZSBpdHNlbGYuDQoN
+CldvdWxkIGl0IG1ha2Ugc2Vuc2UgdG8ga2VlcCBoaWdoLWxldmVsIGJlaGF2aW9yIGluIHRoZSBj
+aGFubmVsIGxheWVycw0Kd2hpbGUgZGVmaW5pbmcgdGhlIGhhcmR3YXJlLWZhY2luZyBib3VuZGFy
+eSBpbiB0ZXJtcyBvZiBwZXItY2hhbm5lbA0KdHJhbnNtaXQgYW5kIHJlY2VpdmUgcHJpbWl0aXZl
+cz8NCg0KQ29uY2VwdHVhbGx5Og0KDQogICAgVFg6IGNvcmUvY2hhbm5lbCAtPiAqX3R4KCkgICAg
+ICAtPiBoYXJkd2FyZQ0KICAgIFJYOiBoYXJkd2FyZSBJUlEgLT4gZXNwaV8qX3J4KCkgLT4gY29y
+ZS9jaGFubmVsDQoNClRoZSBwYWNrZXQgb3IgcmVxdWVzdCBzdHJ1Y3R1cmUgY291bGQgcmVtYWlu
+IGNoYW5uZWwtc3BlY2lmaWMuIFRoZSBtYWluDQppZGVhIGlzIHRvIGtlZXAgcmVnaXN0ZXIsIEZJ
+Rk8sIGFuZCBETUEgaGFuZGxpbmcgYmVsb3cgdGhpcyBib3VuZGFyeSBhbmQNCmVTUEkgY2hhbm5l
+bCBzZW1hbnRpY3MgYWJvdmUgaXQuDQoNCkZvciBleGFtcGxlLCBhIGNvbnRyb2xsZXIgcmVhZCBm
+cm9tIHRhcmdldC1hdHRhY2hlZCBmbGFzaCBjb3VsZCB1c2UgdGhlDQpzYW1lIHRyYW5zcG9ydCBp
+bnRlcmZhY2Ugb24gYm90aCBzaWRlczoNCg0KICAgIENvbnRyb2xsZXIgKHJlcXVlc3RlcikgICAg
+ICAgIFRhcmdldCAoZmxhc2ggb3duZXIpDQogICAgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAgICAg
+ICAgICAgICAtLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQogICAgTVREIGZyb250ZW5kDQogICAgICAg
+fA0KICAgIEZsYXNoIGxheWVyDQogICAgICAgfA0KICAgIGJ1aWxkIFJFQUQgcmVxdWVzdA0KICAg
+ICAgIHwNCiAgICBmbGFzaF90eCgpICAgIC0tLS0tLS0gUkVBRCAtLS0tLS0tPiAgIGVzcGlfZmxh
+c2hfcngoKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfA0KICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgRmxhc2ggcHJvdmlkZXINCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxv
+Y2FsIE1URCByZWFkDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8DQogICAg
+ZXNwaV9mbGFzaF9yeCgpIDwtLSBDT01QTEVUSU9OIC0tLSBmbGFzaF90eCgpDQogICAgICAgfA0K
+ICAgIG1hdGNoIHJlcXVlc3QNCiAgICAgICB8DQogICAgY29tcGxldGUgTVREIHJlYWQNCg0KT25l
+IG9wdGlvbiB3b3VsZCBiZSBmb3IgY29udHJvbGxlciBhbmQgdGFyZ2V0IGRyaXZlcnMgdG8gdXNl
+IHRoZSBzYW1lDQpsb3ctbGV2ZWwgZW5kcG9pbnQgaW50ZXJmYWNlLCBpbmNsdWRpbmcgdGhlIHNh
+bWUgcGVyLWNoYW5uZWwgKl90eCgpDQpjYWxsYmFja3MgYW5kIGVzcGlfKl9yeCgpIGVudHJ5IHBv
+aW50cy4gQSBjb21tb24gZW5kcG9pbnQgb2JqZWN0IGNvdWxkDQpjYXJyeSB0aGUgcm9sZSwgZm9y
+IGV4YW1wbGU6DQoNCiAgICBlbnVtIGVzcGlfcm9sZSB7DQogICAgICAgIEVTUElfUk9MRV9DT05U
+Uk9MTEVSLA0KICAgICAgICBFU1BJX1JPTEVfVEFSR0VULA0KICAgIH07DQoNClRoZSBlbmRwb2lu
+dCByb2xlIGFuZCBjYXBhYmlsaXRpZXMgd291bGQgZGV0ZXJtaW5lIHdoaWNoIHRyYW5zYWN0aW9u
+DQp0eXBlcyBhcmUgdmFsaWQgYW5kIHdoaWNoIG9wdGlvbmFsIG9wZXJhdGlvbnMgYXJlIGltcGxl
+bWVudGVkLiBPYmplY3QNCmxpZmV0aW1lLCBjYXBhYmlsaXRpZXMsIHBhY2tldCBkZWZpbml0aW9u
+cywgYW5kIHJlcXVlc3Qgc3RhdGUgY291bGQNCmFsc28gYmUgc2hhcmVkLiBMaW51eCBTUEkncyBz
+aGFyZWQgc3BpX2NvbnRyb2xsZXIgaW5mcmFzdHJ1Y3R1cmUgZm9yDQpob3N0IGFuZCB0YXJnZXQg
+cm9sZXMgbWF5IGJlIGEgdXNlZnVsIHJlZmVyZW5jZSwgYWx0aG91Z2ggZVNQSSdzDQpyb2xlLXNw
+ZWNpZmljIHByb3RvY29sIGJlaGF2aW9yIGlzIG1vcmUgYXN5bW1ldHJpYy4NCg0KVGhlIGJlbmVm
+aXQgb2YgdGhpcyBib3VuZGFyeSBpcyB0aGF0IGNvbW1vbiBwYWNrZXQgYW5kIGNoYW5uZWwgcHJv
+dG9jb2wNCmhhbmRsaW5nIGNhbiBiZSBpbXBsZW1lbnRlZCBvbmNlIHdoaWxlIGVhY2ggaGFyZHdh
+cmUgZHJpdmVyIHJlbWFpbnMNCmZvY3VzZWQgb24gaXRzIHJlZ2lzdGVycywgRklGT3MsIERNQSwg
+YW5kIGludGVycnVwdHMuIEl0IHNob3VsZCByZWR1Y2UNCmR1cGxpY2F0aW9uIGFuZCByb2xlLXNw
+ZWNpZmljIGRpdmVyZ2VuY2UsIG1ha2Ugc3VwcG9ydCBmb3IgYWRkaXRpb25hbA0KY29udHJvbGxl
+ciBvciB0YXJnZXQgaGFyZHdhcmUgZWFzaWVyIHRvIGFkZCwgYW5kIGFsbG93IGJvdGggcm9sZXMg
+dG8gYmUNCnRlc3RlZCBhZ2FpbnN0IHRoZSBzYW1lIHRyYW5zcG9ydCBjb250cmFjdC4NCg0KQ2hh
+bm5lbC1pbmRlcGVuZGVudCBjb21tYW5kcyBzdWNoIGFzIEdFVC9TRVRfQ09ORklHVVJBVElPTiBh
+bmQNCkdFVF9TVEFUVVMgbWF5IGxpa2V3aXNlIG5lZWQgcm9sZS1zcGVjaWZpYyBjYWxsYmFja3Mg
+d2l0aGluIHRoaXMgY29tbW9uDQplbmRwb2ludCBpbnRlcmZhY2U6IGNvbW1hbmQgc3VibWlzc2lv
+bi9jb21wbGV0aW9uIG9uIHRoZSBjb250cm9sbGVyDQpzaWRlIGFuZCBjb25maWd1cmF0aW9uLXBy
+b3ZpZGVyIGNhbGxiYWNrcyBvbiB0aGUgdGFyZ2V0IHNpZGUuIFRoZXNlDQpjYWxsYmFja3MgY291
+bGQgYmUgb3B0aW9uYWwgdG8gc3VwcG9ydCBoYXJkd2FyZS1hc3Npc3RlZA0KaW1wbGVtZW50YXRp
+b25zLg0KDQozLiBMZWF2ZSByb29tIGZvciBhc3luY2hyb25vdXMgZGVmZXJyZWQgdHJhbnNhY3Rp
+b24gaGFuZGxpbmcNCg0KVGhpcyBkb2VzIG5vdCBuZWNlc3NhcmlseSBuZWVkIHRvIGJlIGltcGxl
+bWVudGVkIGluIHRoZSBpbml0aWFsDQpmcmFtZXdvcmsuIEEgc3luY2hyb25vdXMgQVBJIG1heSBi
+ZSBhIHByYWN0aWNhbCBmaXJzdCBzdGVwLCBwcm92aWRlZA0KdGhlIGhhcmR3YXJlLWZhY2luZyBp
+bnRlcmZhY2UgZG9lcyBub3QgcHJldmVudCBhc3luY2hyb25vdXMgaGFuZGxpbmcNCmZyb20gYmVp
+bmcgYWRkZWQgbGF0ZXIuDQoNCkFzIGEgZnV0dXJlIGltcHJvdmVtZW50LCB0aGUgY29tbW9uIGNo
+YW5uZWwgbGF5ZXIgY291bGQgdHJhY2sNCm91dHN0YW5kaW5nIG5vbi1wb3N0ZWQgUGVyaXBoZXJh
+bCBhbmQgRmxhc2ggcmVxdWVzdHMgYW5kIGNvbXBsZXRlIHRoZW0NCndoZW4gdGhlIGNvcnJlc3Bv
+bmRpbmcgY29tcGxldGlvbiBwYWNrZXRzIGFycml2ZS4gRm9yIHRhZ2dlZCByZXF1ZXN0cywNCnRo
+aXMgc3RhdGUgd291bGQgYmUgc2NvcGVkIGJ5IGVuZHBvaW50L0NoaXAgU2VsZWN0IywgY2hhbm5l
+bCwgYW5kIHRhZy4NCkEgY29tcGxldGUgcmVxdWVzdCBvYmplY3Qgd291bGQgYWxzbyBuZWVkIHRv
+IGhhbmRsZSBzcGxpdCBjb21wbGV0aW9ucywNCnRpbWVvdXRzLCBlcnJvcnMsIGFuZCBjYW5jZWxs
+YXRpb24gZHVyaW5nIGNoYW5uZWwgb3IgbGluayByZXNldC4NCg0KVGhlIGV4YWN0IG1vZGVsIGNv
+dWxkIHJlbWFpbiBjaGFubmVsLXNwZWNpZmljIGJlY2F1c2UgT09CIGlzDQptZXNzYWdlLW9yaWVu
+dGVkIGFuZCBWaXJ0dWFsIFdpcmUgaXMgZXZlbnQvc3RhdGUtb3JpZW50ZWQuIEtlZXBpbmcgdGhp
+cw0KcG9zc2liaWxpdHkgb3BlbiB3b3VsZCBhbGxvdyBhc3luY2hyb25vdXMgaGFuZGxpbmcgdG8g
+YmUgYWRkZWQgbGF0ZXINCndpdGhvdXQgY2hhbmdpbmcgdGhlIGhhcmR3YXJlLWRyaXZlciBpbnRl
+cmZhY2UuDQoNClRoZXNlIGFyZSBteSBpbml0aWFsIHRob3VnaHRzIGZyb20gdGhlIHRhcmdldC1z
+aWRlIGltcGxlbWVudGF0aW9uDQpwZXJzcGVjdGl2ZS4gSSBob3BlIHRoZXkgYXJlIHVzZWZ1bCB3
+aGVuIGNvbnNpZGVyaW5nIHRoZSBsYXllcmluZyBhbmQNCnB1YmxpYyBpbnRlcmZhY2VzIGZvciB0
+aGUgbmV4dCByZXZpc2lvbiwgYW5kIEkgd291bGQgYmUgaW50ZXJlc3RlZCBpbg0KeW91ciB0aG91
+Z2h0cyBvbiB0aGUgcHJvcG9zZWQgdHJhbnNwb3J0IGJvdW5kYXJ5IGFuZCBjb21tb24gZW5kcG9p
+bnQNCm1vZGVsLg0KDQpSZWdhcmRzLA0KWXVuLUhzdWFuIENodW5nDQo=
 
