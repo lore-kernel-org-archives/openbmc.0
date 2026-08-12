@@ -1,51 +1,92 @@
-Return-Path: <openbmc+bounces-2390-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2391-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D1FC5AC82
-	for <openbmc@archiver.kernel.org>; Mon, 10 Aug 2026 07:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F84C5AD5A
+	for <openbmc@archiver.kernel.org>; Wed, 12 Aug 2026 23:48:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hJQpp2Qhvz309y;
-	Mon, 10 Aug 2026 17:09:06 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1786345746;
-	cv=none; b=gexdeb9wmk5+54a+/YprMvAA6GjY3U/yORrBwMNREMC19+BLhtxHuEudYW5K87WUW4N1AROpwMNOBpsZ00K//7jq0BGo85dRp4HPOe3IEDimnF+7TOjGQoPZq5j1WbOXmmwTPgkXMSxuVXvkvDyCeMAh7cKaYQZFV942yJ0Z8S/x310ijB59JsEVLFBUn/XGy770TBI3yWFnuqe/TUuJikSuLVfyFCsRWoTPoNCbnO7F7pE3fVERLIX3FAi3EaiH2/cgGEag7rq3rc4tL7n3UyWmpTYqSBDkpoE5G2ggOR56OURu0BJ1XGUbAGQxamb0gdXulUMArg9HM6cs1aUlAQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hL4vH3Vb6z3brZ;
+	Thu, 13 Aug 2026 09:48:43 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32c"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1786552217;
+	cv=none; b=SYuwbc+fRSfywPewVgQI3nNw5HayOHPJLj1gCfMrDYAuWDeqZxvhQBepnKvCjxzHk4dds28ikUvptPJpF5rA0CIQnqJ4PNVWlv6z1w5mWMG0OLc1V7j1Bh0z4427wYVOAtlMAUvJaSgqkKRnIRJ9cAWtg+6SSHFgVJFt/8Z/J9H1yNyShXlMfIKkViv9JJuEBhr2v2Q2PPsMfQZ7anzUcob2FkPk8EUN5e8fd+43maYeEHAnyEuOkehh/uZXe3Ayv88YpOY28DKYrjFxDhnWe7t7W0HHEsSLmLp2WcaPJDYGiafzSWqhSzgLrh1S+djamS5AhJP0scdGJQwVZ+Rxtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1786345746; c=relaxed/relaxed;
-	bh=c2EOGS8DYmqZJF/Z5+8kYQQuEQuYPxby8DsQEXtUYIU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l2kCX0StSozcvAh9PvipAcm1ZE//zOptzglXaAR3CRT4IG6527idk+D1+nggKrqtDeb9vsDbeHKbIVNh4I0Gy6fjL8U6wrG8Xxf1S1gIczUAkoB+5Dk9LZfTFibBwbxh0VRGB1TViwllS3tW9ckN7ryt94Zbki7hGFfCbdIBelc3zU8GKP7+EWY2eONMV0i4/2lCIthbJqwNYQ8puGmnaMOCLLiF9sxZVcUgKyfelZRTUNUEdyD7a3Nhuo+fmUbv07q4d8ou+HTRNwOc2bnPJJ6grOMwMlJ+KxbnLh0a/icSmFk1EKGNRFfZW84QRj3+RcLflpzeJtk21wrtbk1Z0Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hk3ZuOtr; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1786552217; c=relaxed/relaxed;
+	bh=SmkTZ3IeMxC+OXIAB9iDoircMZw2Dwc6lMPotGUqEQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ffPdfuDZZN3bH+BwJIh8Fxc7QDVqcrh0D+ptEJH9Pk9KDOWa0RbEh9JcFqdEMGECkacdpbrjITZ3RDw0hbB7CnG50mN+cisiZAiCiVAZpsCak2CT0ibW9cDupcresDQT4SO4ETClVNA/4zdG/ZIGmxYMyeYhqQ/PQ3wvF0x4/jPtIqwmwXgbUzML5KlH0yHoSpP92WcY1Zxy1C0L3CSnqDitx9gENO0z5kjMH6Pe/2m7h2GUN8Lm+WeGWyd0lEl2jGCRNaRSsP2e08XLatE3YPqECUtuf5UL7cWnE0929VOcuVmgZGFnSW4i4hIH13dikBAx8q1tYhASDPPrn5XE6w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fjXEMS53; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32c; helo=mail-wm1-x32c.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hk3ZuOtr;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=fjXEMS53;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::32c; helo=mail-wm1-x32c.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hJQpm5ssZz300V
-	for <openbmc@lists.ozlabs.org>; Mon, 10 Aug 2026 17:09:04 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 29C1B43719;
-	Mon, 10 Aug 2026 07:09:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8399B1F000E9;
-	Mon, 10 Aug 2026 07:08:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786345742;
-	bh=c2EOGS8DYmqZJF/Z5+8kYQQuEQuYPxby8DsQEXtUYIU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hk3ZuOtrQSR7utnupgQRC/ImuPCZsaAf4ygcX68Y5ip4N8TALf9HQWu/McLXoRPIw
-	 T86GlZXPwPCz9+FaZ7UH+D5AnRZk3j7Doz7l81X7Kt4sqS981tlk+TggJ6H8FFp6KO
-	 wT7o1QIrJEcQdrczwZBJP44LjKb+5rqxHLrTgR9bpS272+pMSZ+iILiTzIEwK4Dmak
-	 AwUbzpB51DNXrCVn0Q3QsEwXuhLUcW1coWYE697Kunha7TRRZqB82lFoIEU7QEnDe8
-	 dgb/KfZoehFquov+abe9fz/Mh5oEr0J7qxd0y3o2Da0ljuQ7n6JDvrduB6C5gnK0ij
-	 efTEaeeoUlQvg==
-Message-ID: <0b2f43f2-5c89-481a-9472-999331aa3b3c@kernel.org>
-Date: Mon, 10 Aug 2026 09:08:54 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hKv9K4SQTz2yv8
+	for <openbmc@lists.ozlabs.org>; Thu, 13 Aug 2026 02:30:11 +1000 (AEST)
+Received: by mail-wm1-x32c.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so11514325e9.1
+        for <openbmc@lists.ozlabs.org>; Wed, 12 Aug 2026 09:30:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786552203; x=1787157003; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SmkTZ3IeMxC+OXIAB9iDoircMZw2Dwc6lMPotGUqEQg=;
+        b=fjXEMS534ck9UzA1OjeCnYjWY3sVFQXRtzrtxOdbeusbUIzLxE31xIJoCV3Hpm97Rg
+         U7LdhoUeelF2D8xN+IN10kdCqLGTWQprdPsJwVhvlAQR1ZoSDu8buJDx+mVPg3CiRyc9
+         4sShXerHU2KkEzFfstmBfAnz81XuIZtz56cCzNSCvcgDony4ttihJH8n7s5Oczl0LEDB
+         bvMwYL62Z9KNQfvVJhbS74fs/U/p1mJyIfoPxAUWlJS5fF1PdU4CROllyWccr6r+YcLG
+         ITa7EhWce0LGlxc2G1IWu+4UkEIlnR+vvXRwjKg2KZIM+vN7peIpN8x2LHCfxoDk/mh+
+         FdPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786552203; x=1787157003;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SmkTZ3IeMxC+OXIAB9iDoircMZw2Dwc6lMPotGUqEQg=;
+        b=pzvLL0y8JsVJJbLksTeCW2oY1mixVndrgrG4VGLEvYYOiHMHVUIs0Kzm6CLCAPB8zA
+         q7uUP4gYl5kPa3oV3cBcUhWznBLEcUGzv/ABZDcgUhmuIMy2uaCyPSHRhWly1HeNOLif
+         xLg7krHdvEZupZnEY2t89kjqQALYvH8GeFfxeevbCXv9eHER33VyHBSM4tKBXcKjnJxl
+         5z5y2omdON7299z0QbDyPOJgE0HaGabxTrTNkIOS9mwAR0srFrI3z/uzwhldBfYmKnZH
+         bObNSf4x5xEWxmL/IXGWVSWAqEaVltlSMLb/2SZtnhqDhQNmuuPc0hsmFFe1g3Os79uY
+         ZU6A==
+X-Forwarded-Encrypted: i=1; AHgh+RrFk4U+scYkgcrTMGS+IHE3IdryAzmPI+ciV/Kq2gqGxwzR5VNDqeDkfZp+OO8HYhIawMGGTFyX@lists.ozlabs.org
+X-Gm-Message-State: AOJu0YwK0huk6PD4X57tMPI5Lf1tIubUVWepeQKGzpIduxL4O63SxhWs
+	CWYs1Py6U2qdqUvpcLg85nAbZsSrAMSmp6iI0pQ4BffG9JcraIJo43ZFeLt6FnnQ1dQ=
+X-Gm-Gg: AR+sD10nlu5hifCxkTG0kOeb16bdsfrY2tf1NhaGDnE5Fe1Vn/WcoLtCvMRsEEcaAns
+	Tl19lnH/gj776VWgmb3vaZ0K262aV3ywGydwdvSG8ZQyrG+GLJaD/ImUUfc1DAoTbu8esSC0jSS
+	e1yo5CUukXsOTcrfCIbyOmIdeRdcehaTJQHdxEkvJSqdBF12zEag51PITjxftBpIGRPelAk4UFz
+	hehq2EK0rE8sRZ3hhbUGWrmLCHqjPEbSeuSCLcFM7/4NIS/le5akbAq0H+4ANs3RPK0EnsC4LLT
+	mXXROjONczkFkcugFRKWqO4nKZYKGahhJvukproJyxCvex9LL1pyAfqY7UEee75BD7AYFVkK+L4
+	DXhfvi6LoHOowPp5dJL4g71OEDtvq4f9IhRu/vZrH+KS5RtJuab24cX3j7qX0YrGHUO9raeEDbi
+	XKzaAv/w22TBUyw3ohSPEzhIGMMVVx3/gN+xotETWoSx4em8SPYU6wW8nG3wqLo2lSDz+18OHCa
+	y0Ui58+6FFfT1a/MtrvS3y/xGUeihUhnIree12DhXYqyEU0WHM=
+X-Received: by 2002:a05:600c:b85:b0:498:2b1f:e0c6 with SMTP id 5b1f17b1804b1-4997c12caffmr92430045e9.18.1786552202335;
+        Wed, 12 Aug 2026 09:30:02 -0700 (PDT)
+Received: from localhost (p200300f65f017104d14d09407ec2ee4e.dip0.t-ipconnect.de. [2003:f6:5f01:7104:d14d:940:7ec2:ee4e])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49981aba3e3sm4063945e9.0.2026.08.12.09.30.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 09:30:01 -0700 (PDT)
+Date: Wed, 12 Aug 2026 18:30:00 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>
+Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
+	broonie@kernel.org, linux-spi@vger.kernel.org, akshata.mukundshetty@amd.com, 
+	bleung@chromium.org, groeck@chromium.org, chrome-platform@lists.linux.dev, 
+	corbet@lwn.net, linux-doc@vger.kernel.org, skhan@linuxfoundation.org, 
+	andrew@codeconstruct.com.au, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
+Subject: Re: [RFC PATCH 1/4] espi: add core bus framework
+Message-ID: <anye28kId4k8pxBv@monoceros>
+References: <20260804115259.4065638-1-krishnamoorthi.m@amd.com>
+ <20260804115259.4065638-2-krishnamoorthi.m@amd.com>
+ <anSGjRK8spayFnKw@monoceros>
+ <0f7469b8-8275-4061-b336-97cbce41ff82@amd.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -57,155 +98,65 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
-To: Tzu-Hao Wei <twei@axiado.com>
-Cc: Shubhangini G <shubhangini@axiado.com>,
- Prasad Bolisetty <pbolisetty@axiado.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
- <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
- <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
- <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
- <9f689436-04c6-48d6-8342-7fac998f3910@kernel.org>
- <b585130e-710a-434d-bf06-cc06f9bffc33@axiado.com>
- <20260804-healthy-versatile-barnacle-b58db9@quoll>
- <5d2a80ed-6c74-4ad7-8d18-c05e38bd8208@axiado.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <5d2a80ed-6c74-4ad7-8d18-c05e38bd8208@axiado.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 06/08/2026 10:20, Tzu-Hao Wei wrote:
-> On 8/4/2026 3:55 PM, Krzysztof Kozlowski wrote:
->> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
->>
->>
->> On Tue, Aug 04, 2026 at 07:31:25AM +0800, Tzu-Hao Wei wrote:
->>>>> There is no local register interface for this driver to program: frame
->>>>> delivery is controlled entirely by the host-side display engine and
->>>>> the PCIe endpoint mapping that feeds the shared region, both external
->>>>> to this driver. A software polling timer schedules a workqueue item at
->>>>> the configured framerate, which copies frames from the WC-mapped
->>>>> shared region into vmalloc-backed vb2 buffers. Running the copy in a
->>>>> work item rather than directly in the timer callback keeps potentially
->>>>> multi-megabyte memcpy and per-pixel conversion work out of softirq
->>>>> context.
->>>>
->>>> Then this is not a separate device. You just described a Linux driver.
->>>>
->>>> I still wait for answers of my question above. You described getting
->>>> buffers only.
->>>>
->>>
->>> Thank you for the continued review.
->>>
->>> To correctly represent this in device tree without describing a
->>> software driver as a hardware device, would moving the schema into
->>> /reserved-memory be the preferred approach for v2?
->>>
->>> Specifically, we are considering moving it to:
->>> Documentation/devicetree/bindings/reserved-memory/axiado,ax3000-video-mem.yaml
->>
->> I would rather suggest this should be part of the device handling the
->> host side of the device. Or is there none?
->>
->> Again, how do you configure the frame parameters or start capturing the
->> data?
->>
-> 
-> Thank you for the review.
-> 
-> Regarding frame parameters and capture:
-> 1. Frame parameters: The remote host writes the active resolution and
->     format into the control mailbox (the second memory region).
-> 2. Starting capture: There is no hardware "start" register. The remote
->     host continuously writes frames into the VRAM asynchronously. Our
->     driver simply starts reading from the VRAM in software when requested.
-> 
-> We did consider making this a child node of the PCIe Endpoint. However,
-> that does not fit our architecture because this memory acts as a shared
-> VRAM across multiple subsystems.
-
-Just because you decided to split drivers into multiple subsystems does
-not warrant designing bindings one or another way. IOW, number of your
-drivers does not matter here.
-
-Trivial answer to your problem is to combine the drivers so you have one
-place of allocation which you pass to sub drivers.
-
-Having this static in DTB is quite a limitation and constraint.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2paxlrpjxbcfpa7x"
+Content-Disposition: inline
+In-Reply-To: <0f7469b8-8275-4061-b336-97cbce41ff82@amd.com>
 
 
+--2paxlrpjxbcfpa7x
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/4] espi: add core bus framework
+MIME-Version: 1.0
 
-> 
-> Currently, we are preparing two other drivers for upstream: PCIe EP and
-> DRM/HDMI. In our primary use case, a remote host writes frames via PCIe
-> directly into this VRAM. Our DRM driver concurrently reads this same
-> VRAM to drive a physical monitor, while this V4L2 driver captures the
-> frames for userspace (e.g., obmc-ikvm).
-> 
-> Because this memory is shared simultaneously by PCIe hardware,
-> the DRM, and V4L2, no single software driver can simply allocate it
-> dynamically. So, I think it should be defined at the system level as a
-> shared reserved-memory region.
-> 
-> Given this hardware topology, do you have a recommended devicetree
-> pattern for representing this shared VRAM? We are open to your
-> suggestions on the best way to model this upstream.
+Hello,
 
-How does the host receive the address/size of this memory (from host
-side)? How does it know where to write the frames?
+On Wed, Aug 12, 2026 at 06:20:29PM +0530, M, Krishnamoorthi wrote:
+> On 8/6/2026 7:01 PM, Uwe Kleine-K=F6nig wrote:
+> > On Tue, Aug 04, 2026 at 05:22:56PM +0530, Krishnamoorthi M wrote:
+> > > [...]
+> > > +const struct bus_type espi_bus_type =3D {
+> > > +	.name	=3D "espi",
+> > > +	.match	=3D espi_bus_match,
+> > > +	.uevent	=3D espi_bus_uevent,
+> > > +	.probe	=3D espi_bus_probe,
+> > > +	.remove	=3D espi_bus_remove,
+> > > +};
+> > > +EXPORT_SYMBOL_GPL(espi_bus_type);
+> >=20
+> > Do you really need this exported?
+>=20
+> Yes, it is required. Controller and slave drivers built as modules refere=
+nce
+> espi_bus_type directly when registering devices. Without the export they
+> fail to link.
 
-Best regards,
-Krzysztof
+I would have expected that
+
+	drv->driver.bus =3D &espi_bus_type;
+
+in __espi_register_driver() is enough for drivers to not have to use
+that symbol directly?
+
+Best regards
+Uwe
+
+--2paxlrpjxbcfpa7x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp8n4YACgkQj4D7WH0S
+/k4Ymwf+OtbJNAPe3Ou/27KwbxJa7KENRUomWmPpgocqBVTa4ITzi7yNWHl4gAqS
+n5Xc9dI8tHJ49x6eepGWEp56WN4iknHSvv4VfsYY1q3IiP0BA7wHPGNtXoWIHOAa
+4o7paa8rCqvUEEnsWHx6t7NgF4d9H3ByZLukSoHjbEaMGXR8k4sAoIZl6OP1zHLL
+sDcIp43PhG5JIYLJA+zNDa/GcsWt7GAOI61w0iEk642G+3Sp4LU4Aeml8sLnCZwv
+z5mEpWndwlZQ5q6u+eQBlADmahJtNTb4U9cwNydL7sdyQFKIWhpQEIlpaBbpzcKH
+rwtLLuNJ9v2D8mdQKMK2Yod5Qp7vCg==
+=HyN7
+-----END PGP SIGNATURE-----
+
+--2paxlrpjxbcfpa7x--
 
