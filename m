@@ -1,41 +1,40 @@
-Return-Path: <openbmc+bounces-2412-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2413-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3912EC5DF81
-	for <openbmc@archiver.kernel.org>; Wed, 19 Aug 2026 00:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D7DC5DF87
+	for <openbmc@archiver.kernel.org>; Wed, 19 Aug 2026 00:02:13 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hPmvK58x3z2ygh;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hPmvL00Ztz2xWt;
 	Wed, 19 Aug 2026 10:01:33 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c111::5" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787024086;
-	cv=pass; b=AzEjPJQbenGfA3yFNbh7JFVZIKDK53Bf2+KI5kma5bLgkXkA4nUD5pTYWf4Iji7ZDkny+AwG8QOtpWxnAe/1IrTCHejqRbvdCdGtjqPr29e59jb66viLWY0N69Xghuk6OV+v0MrGqsE83PT0ayhERJqwQ2yO0CT5h++oe0uh7vQup034C/7Jk6BX1GNA7s+i6rWpu4RtC454bR0HbAvaZsTodgD515+gOV01AZ2K93QWUksRnID+UMmwmRynntYy0YWu1KZ4ZfEIAr37fyKAfHlLdtcRGdpvtuT7sDBM6z9GGnDXh4ZLuEOkWTzfp14ghW92UsB0s6NkdK9EZqmK2g==
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c110::3" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787032681;
+	cv=pass; b=PmQpRxxq7x9vzTLFHELdiICVgYzNiZmbzBsFmCLDXBylwNvTiXh7Uv4amdLHZUdGqCAtQqALFh3ZKyt4qn0KywaOG0N5fdT5/zzxIeZuNlwNpPXCMpjtvpBya0DSZstjL/b0Aw10km8qcLFsbbYeUeL+5US6i5s8pfUfFa73m1ygWzqcQQWbBfaVvXyYp8VAzYs6I9fQ8YCQuGos7kX93hqKhOFmMIrwwaIOOZqfaXoDeLGjjuGyyWOOjIzTUAKqz8Q8H3fZg4VCKVZGK43U2sY5YOb5wdP9pMhY0N+Tsc1nKs0Aj7QRaXvXv6FhWNTtUu3waBKPuXXvHpJKlPIHkA==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787024086; c=relaxed/relaxed;
-	bh=Gq6yqqcZKc0uXDMf9Mkywd3g1kzFUuFs6VHpLtUJKnc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fz8iNaJhjXhlnB0DoMIiq2Ef1s1q/vivYlcfoYi2b6ftnPO7EvkMlz9Uh5waJXqR0Ptq8qjoEITwM6u4UQGfyZb6pJI1KEat053oFZ1242hv66yrantSB+WO7xhUAgfyUKhqc5tKIsOHzbZXbF7BRBvHnWriaWkD8ZjcjiNCSK15IjAtBRk9NxVkZRNZuNohWARq44MBsUKitPr8f4/24u+WDdiw57CLpU5Iy0vS8pQP81nTjB6j6GK7BCEz8hQMXtCureaAUcJ2c15unerhw0m3vp80Yox1hng8ivSmtSzqveBuDdI8vAWS4DWKr1rlaJAFC1EuXFZaujrg4D7ImA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=qqtA+qEG; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c111::5; helo=dm1pr04cu001.outbound.protection.outlook.com; envelope-from=syang@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+	t=1787032681; c=relaxed/relaxed;
+	bh=6DwHuN9XlTnITw3KD4/rP+8gnA/ArBGB53y63PJC+4E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=C4y7ynlIRj6Np7WBpbKsw4vZskw3taq1F+dIoO/T3oqe2ELF3Fa4b9SdzbVobTn1nEftEr9PdKwNfS3DC0GJX363tUoW3l8Fvo/kdyvGZFd5AHxT3S8Hr4/eJFAzSE0a6mI57aBAnaMb8HNmHGmgpCEtn0KjRyyAMkVHxfWxvACsspMPScCshQihHoe7xLbZc1VVLzv3bf5+sDK2SFpZuFh0OXkru1pSutUBGf/LqKEh+4UfkAXVdL80iZAPr3Ua+ybGQzTHOvwzfRTXJWVpQ8ExTq6CWHhZT2BwW5Eg9YZb1nmkyJyUTnmDQXiCHhQXKBhVwUnrIc8HYbNmriXMPQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gi+xoK8f; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c110::3; helo=bn8pr05cu002.outbound.protection.outlook.com; envelope-from=rbnaveenkumar@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=qqtA+qEG;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gi+xoK8f;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c111::5; helo=dm1pr04cu001.outbound.protection.outlook.com; envelope-from=syang@axiado.com; receiver=lists.ozlabs.org)
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazlp170100005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c111::5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c110::3; helo=bn8pr05cu002.outbound.protection.outlook.com; envelope-from=rbnaveenkumar@axiado.com; receiver=lists.ozlabs.org)
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c110::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hPFgk4f38z2xpv
-	for <openbmc@lists.ozlabs.org>; Tue, 18 Aug 2026 13:34:41 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hPJs32rC0z2xrL
+	for <openbmc@lists.ozlabs.org>; Tue, 18 Aug 2026 15:57:58 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QQprYtlcpqIwF0FSyaCzJ2lxyqjeGZcQJVXxVY0OtxJyzGvoikAbRWdIUyao2+/7Uv0ZM9XeWeDmXe8aDTslwpOc6AnzZInxk4evIvmC4Zkev9st1IrK5TskmO80EExB1iRy2fc9yggtjQ7skXt1olaTzNYMBXBOzuV+Kz4IcTofVyJLsLw8v7PHMGEj3WPgth3N9jvdonOzbkL364cw5j5SiV2LaVi/MF0gF1dag4DL5/t9fj/m5m9ge1K9i/tl3xX7xzlorVkh4tj+ADhOOan6ao0U9B/+R5hNJDNa+TPipprGRjnEqeDeIgY9/V/XWyk4T2gsM+JusTxjQgx2Kg==
+ b=vAFiELvKZgGZ/M2KDTsFkgWtiOmSKyWzJ8PblQ/c5MKyE3VVnTMHMvAlIi0A6a2VWNghHEfpxUo14PdEqgDXpuQHUuiVk9Rn8nWENgfSgofF3PYWp80VGqyucJLvYUwJA9iAz/95SvvOGRXA/8AbUZnMJJ0/TZK70/EMZ49qvQxE6b+U0992rpoKUdCddpsvsiKj342jAkbuRM9AGxs/lVDpXfueZtgffoH16/xfMs+vHhs2yq3jZiAelEDqxwc8Q6TmUAyWC4LvDkbQXaBVjvs+Eks1Q/pu41va5mkyIqLtZ9Oq7bAOVhMO43cknwAa+7shudqyjVlwpPjjYcUAfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gq6yqqcZKc0uXDMf9Mkywd3g1kzFUuFs6VHpLtUJKnc=;
- b=gPQQDgBgFOvBuSxRpjHlR5aosKuKtApQW60NKBvDBc0ZHN1RZjyqhD1mWlKWWkm454mrMlKp67UnKqg39c9tLVzjQjeGxRHz2t0zLTiBq5d23bVjXUJzmUKfYhXbVVUwiMQi3et90ek05w+thAmAUCnWoh/r21XuK0dxr74kjPNOcE2ZmqM3mVVsPgqlsbONZvjAoU3Z4Ht7I5ooHY1rpCmNxmecVVGJQqvT6T2UiE5N+Yck/UxV7ihCFqEtwBVjHl8oXCnZUM7cxkVGJ/tdzeSAT7/gW/YdOYXu7mbtG/vEKwUgCpPtDwkX0IGfLqmNaVc1ZcZXygPteFtDh3JzWQ==
+ bh=6DwHuN9XlTnITw3KD4/rP+8gnA/ArBGB53y63PJC+4E=;
+ b=i9liL+kyjqonxRKlH3qiWSBkXN4k7rD/T3m49YVi6SeqBjV4fSeKYGyEeNSgB3ZghzVkrvlJifi/2iPN03rTnkzvf+ISArwd5MEhv/J6bTjKAfvqVMFhlkLCpuYRCKzl3qSEtoVGYrAE15UqdVh9ncK2fSRbGSCG62HzycZ7ykrpsPKlU7Gl47gKghlrS54F8PM9q3kLimo9kcZkemOFPpdsjQhlvjtlfu9DuCgUP5JTlXcY4nRNntYmf4NO+35QPHrY4aO5tu/PKCnLqb8u6WbHVNWyOLXlSXvugPaifE/QmU174P+Eys0l9arOEofA3Z6yKEgWvM9jyXZqa9u86A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
  dmarc=none action=none header.from=axiado.com; dkim=none (message not
@@ -43,18 +42,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gq6yqqcZKc0uXDMf9Mkywd3g1kzFUuFs6VHpLtUJKnc=;
- b=qqtA+qEGGd///6hp4ZT/7KQfdCQUQrJuYcViWVrLUGW4GsvI74D26QCrxrWalfQzMuK0NgeA9w2Bi9Tf3HGJDTI2PbSRHkrr7Na+az5VnZN5Y6UUtq2qablbnKxLoq/uKEd445jsZWuITZj2NzRBt9kNW83aX1/2m7sy8qpAV0BS3BlAGhNGE7SkXu5g51cqxZYtK3KUXxDGn8aT03+xhQY9amDZBGQ3CzB9cbKxX6vULhStSO0UUgn4QpCULBYCB6ENQ/dgsHtxMofFYl0NUeRdr6MdS+pU0d1yeLECK1c9+Arn/LHf3wr0lJ3JhnNixVm4i1FK88/aiHn0aBUO4w==
-Received: from BL1P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::6)
- by IA2PR18MB5885.namprd18.prod.outlook.com (2603:10b6:208:4af::11) with
+ bh=6DwHuN9XlTnITw3KD4/rP+8gnA/ArBGB53y63PJC+4E=;
+ b=gi+xoK8fJ/Bkg7Y8lXFQ710SYE7VNxu4+Uas+LI/j+9OkOIE+eg6aQxzbfKkvEyYnAiUPez3ogPVhVqACQmPeMf5NOopKL9Myf9EPT7gCy7nzDFJyFs0BiYGz8gv+spr6qRdI1bZWcskkaCHjGDtiFMOL4uhYgkPB6T18wxjVzSVATS4dFkYE/ClOUi0y8/SK5w9WLGTgQ7OM6oAxuEPS2eXwwYJdqpNN3RhvTnBazdgyC+UiD3XnnDo6kHR3ufjN62agWr3HER5lQ380ayLBw/VoWOcwNHia3no39aPAVa+xSXPlRDG9N6vec+7SuOGAkT4hYrllY33OR2Hnayoag==
+Received: from CH2PR14CA0040.namprd14.prod.outlook.com (2603:10b6:610:56::20)
+ by LV8PR18MB6060.namprd18.prod.outlook.com (2603:10b6:408:226::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 03:34:15 +0000
-Received: from BL6PEPF0001AB78.namprd02.prod.outlook.com
- (2603:10b6:208:2c5:cafe::57) by BL1P221CA0012.outlook.office365.com
- (2603:10b6:208:2c5::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Tue, 18 Aug
+ 2026 05:57:32 +0000
+Received: from CH2PEPF0000009C.namprd02.prod.outlook.com
+ (2603:10b6:610:56:cafe::4e) by CH2PR14CA0040.outlook.office365.com
+ (2603:10b6:610:56::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 03:34:14 +0000
+ 18 Aug 2026 05:57:32 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
  smtp.mailfrom=axiado.com; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=axiado.com;
@@ -62,15 +61,17 @@ Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
  designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
 Received: from smtp.corp.axiado.com (64.62.143.114) by
- BL6PEPF0001AB78.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ CH2PEPF0000009C.mail.protection.outlook.com (10.167.244.24) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.3
- via Frontend Transport; Tue, 18 Aug 2026 03:34:14 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTPS id 8632640BFE04;
-	Mon, 17 Aug 2026 20:34:13 -0700 (PDT)
-From: Swark Yang <syang@axiado.com>
-Date: Mon, 17 Aug 2026 20:34:08 -0700
-Subject: [PATCH v2 2/2] mailbox: add Axiado AX3005 mailbox driver
+ via Frontend Transport; Tue, 18 Aug 2026 05:57:31 +0000
+Received: from [127.0.0.1] (unknown [10.4.1.181])
+	by smtp.corp.axiado.com (Postfix) with ESMTPS id 1D44E4186B53;
+	Mon, 17 Aug 2026 22:57:31 -0700 (PDT)
+From: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+Subject: [PATCH v2 0/2] Axiado AX3000 and AX3005 USB Device Controller
+ (UDC)
+Date: Mon, 17 Aug 2026 22:57:12 -0700
+Message-Id: <20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -84,518 +85,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-2-25e713eccff3@axiado.com>
-References: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com>
-In-Reply-To: <20260817-upstream-axiado-ax3005-mailbox-upstream-v2-0-25e713eccff3@axiado.com>
-To: Krishnakumar Kesavan <kkesavan@axiado.com>, 
+X-B4-Tracking: v=1; b=H4sIADn0g2oC/42NTQ6CMBCFr0K6dsy0/ARdeQ/DorSDTILUtEgwh
+ Ls7wgXczOR7yfveqhJFpqSu2aoizZw4jALmlCnX2/FBwF5YGTQValODXdj6IC9HRHinFrzUHIE
+ L4xTDMFAEXVY+73RdoLsoMb0idbzsK/dGuOc0hfjZR2f9Sw+/nL/8swaEonSEtm5RF93taJ1de
+ Kpm27YviGdyotcAAAA=
+X-Change-ID: 20260128-axiado-ax3000-usb-device-controller-156d3f1840c9
+To: Krutik Shah <krutikshah@axiado.com>, 
  Prasad Bolisetty <pbolisetty@axiado.com>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
- Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org, 
- Swark Yang <syang@axiado.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13816; i=syang@axiado.com;
- h=from:subject:message-id; bh=zBM3hKSuVqpzgeK9PV+FInK6q07NIPR2S8rP9pE4f1E=;
- b=owGbwMvMwCHWlWK8+EozbyzjabUkhqzmS1ui8nhZ0p2S5q57IqbH/Vc17nvKrvqvhuvW5Ap/L
- LVt8pjYUcrCIMbBICumyPJV51v+yVzte517V5bCzGFlAhnCwMUpABM56c/wz1b6dWXozwuqLb/v
- HU3iP2VXGvlqgeE0vhqlm0YHT/ULlDEy3PC/H3V10ezNPTIWnWdrL0037hZ+flS/VnWy+TWXCb7
- 8fAA=
-X-Developer-Key: i=syang@axiado.com; a=openpgp;
- fpr=F52CF66FC96D2BDE89BDA9758A6433A3D4830D5D
+ Karthikeyan Mitran <kmitran@axiado.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, 
+ Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5039;
+ i=rbnaveenkumar@axiado.com; h=from:subject:message-id;
+ bh=G38TuLd/fQ5NtjS/eTnrSI30hzrdndZMxe8/kDFmYQM=;
+ b=owEB7QES/pANAwAKAbh/+EWc+O2/AcsmYgBqg/RKxC9RlL0OcUz4oAUqvnaD/W0x+s2Cy+TDO
+ o/yKerNLqyJAbMEAAEKAB0WIQRgwxMPfi/g+F4zFkC4f/hFnPjtvwUCaoP0SgAKCRC4f/hFnPjt
+ vyjhC/94oBJ6NUvw9jtSHLH5Vy/FwXv5nPfGG91dklSMa7eTLordC7JYgTGxIv7OvkX5ZIRZbdw
+ 7q6R5GB2ovLywde0/DG6xNyGbFeHhwuIZA2hh1y6fuUfyk/mqBrCTFhddyJWlHlctAnh2xymMe0
+ YBEcwSmelFxn7ii9FpCwebxIq6HNCzPpuC8MZ0/AKogs24pA7vIY9EkhfkisTC+PO8pqB9Ez62K
+ Leqlcuy0P682skcgCCP1KVw0C7PXd5GEp/Wm8kWFuBwusz76uRVqV6BS0fdE+XzAutS3UpG+qu8
+ 3xXlF9OZkCFCaoGrbmWUWca0iB5R2aDrYf9TfO1CPWFABC8uGOkXJ/Mh1XOA+CFTxx9SCSqcTgl
+ px9es6qjXRTh+dxCyLbLv9WIM+Ql0/DyRq239IqbvFPaDhtrS9tGVUaf4B4kkThLRbUGRP0ToQA
+ YlUd5D5UO1ham9ZDEqbaoEo3/neqrGjf18gFt6O/7W/UcCo9Bd1nIM7+rq+gX8awAie6I=
+X-Developer-Key: i=rbnaveenkumar@axiado.com; a=openpgp;
+ fpr=60C3130F7E2FE0F85E331640B87FF8459CF8EDBF
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB78:EE_|IA2PR18MB5885:EE_
-X-MS-Office365-Filtering-Correlation-Id: 06ce6a25-a94f-4479-efff-08defcd993b7
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009C:EE_|LV8PR18MB6060:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b7d9c4c-d362-4ed9-df5a-08defced97ed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|56012099006|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|36860700016|1800799024|376014|82310400026|23010399003|18002099003|56012099006|10067099003|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	YQIkVbVecWHZTqAWBoNR4Ix0dzzZsBJHh39xAVYYQJ+EAWgHWJALMzjXwf6g3Ch83w1hX+GBaUKChjvvRozuuOPoTANZPu/8/rkfUmV6yztLKhtHlwMFqqWh/SwQWIVmNf8NjbayuBp/t9zvOHtA9aFiAvemM3roUfbR1aWE4hv4G5usymeO8HknIWiKg5J/JqlfELYpE6PP7Z0I3/F3qDQHZ0eLYqj3lnBAkXrvP5Ax0tNCxu3b/xjwCavy5WUcKqsgyo+mOTbaiNFNeQrCpn3RI3HQ7U4SNcUaOnG//Ks8g8b04feRZTThfahmNP/Si/JGue87I/e9dZEmnBzuOcDEw5j69stN5ugK7T3lsWI2lmXV/xxeyTHvP+TYABjiqoMiwguYIppWZolt4Nlj7UlPqgWzKfSczIdAImVj9E5qIHxWuPik1Ic0P4QNoJSesh4O248yu/cRnQPcnC2A6+CB1cm5xVx59gtyYy11wq7ctKlz695pFOY5+sV2PdMtTxD2AkrvmnFu4cVJoM4YWf68fy6q86feB9S4wwvJOrqtQL2rezv/cvCkUZ3Yws15BPk83FekIYzH5yJUKMw6xudt00GkDG0obQzzocxlXCujfidAENshfwnEjXNUSpV1KAqaJxRQjuPFyBaAkx2oBNTxWhuCRMZM8o0idbHfAY5d562nTWixNYvJQhC1gUSdbdK5jyDvDJd1Rsj0FknvcA==
+	/Zz6Pd1pe34K1M/4LTkAK6B9q7vXMIUoI4/xM8EUYpEnDcZE9ezTJUgq3ECLpZsPf1tkajnsrAEJqkVmke4lr+fXPmKFx7In4C4PHmaqA5hr4xpu111KcmtCyfh9zD8V7tasFTrQgCcPmL4wPlsYHtXGhY/MSmCCC3gy3Z97JxUkREpnGf03yH5l7IBEsz4TNr9th0B9yevZMIkNkZJLy8f7cSRkMl6mEZrsDWfKidHm8PzeAjgonrF33i2wCKDX9F5PI54/VmiWdeZUT+gM2XOKiP40DMNcW285JE5IxMIOnniSLjEpRYJ7AC41nFx7mob5zzelwdLocmJ7Lcr5NGp0axHHxSAzTBuCeoFRG4bXRCIfyfaZgCjOFpdicz8W7PM34v+hSPOhhxdL1+GUYyDrXP9eh4EaW1Vp58QzJs+Q/Nr5fgkrbhewkQ96llEU/hbkNh5PKVnM/Kkjvq2u+Egh9f7jOivlaLqDginAINy0Lf9mekVAoFi7I9ir2fB6kmMxsVm6aArEfzQsnrQI91B/A4RM4Ic2Uiq0hmtjxGvxsNNWqyF4duZDgpdOl5qeRoMgHaA8iRelybCxCK3WXQWEoVs1GjAarkusnRNy9GxHFOsGdnYl4FFEo8z+42vJFUZTGvNpvKc/U/RFcE7F1gEX1yQ/iE4Wu5f+jXlTq7Bf/LWOPzL/4cIOAuSML+oi9DEEf9WicXhxpb7EBZymiQ==
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(18002099003)(56012099006)(10067099003)(13003099007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	qV49t8RXYduu/PKS9ndcSg0/h8+3l+dHZawgkXuM3kS+FDtOoK64rK1uv6mAF9GmSZGV94gE2iK1FodT2ZZnrvYqBXZ627qd55LyXPt0CPStczw1bQq4oNSGAMJeDX/qqXMoJkxz41CP3GuFkCD8Fk4CPsvpzKL0195RuvUwdJM0T8i9ig7SQyPuPxX0cIN0nhevePMrmvI/UxEMftsyR8YLCrdAr82GS4dJXH6yOZwHQmtoDplqsnKo5wNP5B9ZOkWIZrTdIRas4UlKieFo1utXS4gxj/jjcWfo7tBbS5AEaVlx8nqVURWZMRyWg3K3i+mc0IC3g0PDnMP6bRKxfj64tisgHPRQVlSnABb03ItdZFM52n7U3JK7XBgjlZ3GvIWtRDV52qeYHnuRp7/yYKfSiPEwU0IG6kwxaL/554HJi5dtYSz52849V8CZNsE9
+	zjgy3jV3IZ6TNTNKQ9gvj57W4tqnOZr6D70/JZ8IoxB05B4McTugLfKoImVBkUGgRgOIQIfgZCQUN6wHgy1AhBlLg1JPTKLIQPq1HOqkAkQQ3oHtPTQiO8xGX72CSsssf2zFwSdUj8p2zX4agXVmr6HXUtMu6+xipxmw3JO+hdEtGGyGrOj08NZn1ZQd3Kr9/GP7Fxv3jc47JvzfaJD/NsagQU0cO6LwdeSHQen3y5oXbu3qXsQVrXKnKSrq6WkyL5BOGHWjW5xE5ORsk47/Xa21wUPkRH4DwNyGwRAIcVjVizlvr2wz2aG8KtC7xg86EIXB11Kkro9SAwaN0aCNqzumUlnvDwnHDRH/wREpE14RExItgZYPDY2vQNZ+S3LU65lIObMaRqLv1zfFV+8Uv0mu34jIvQp/5j1tEjBV694Zd1RjaEl0aAZy5Wk3HoQe
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 03:34:14.7830
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 05:57:31.7724
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06ce6a25-a94f-4479-efff-08defcd993b7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b7d9c4c-d362-4ed9-df5a-08defced97ed
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB78.namprd02.prod.outlook.com
+	CH2PEPF0000009C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA2PR18MB5885
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR18MB6060
 
-Add a mailbox controller driver for the Axiado AX3005 SoC.
-The controller provides communication channels between
-the host CPU and the coprocessor.
+Dear maintainers,
 
-The hardware provides 8 TX channels and 8 RX channels
-through separate register regions. RX channels use
-per-channel interrupts, while TX completion is detected by
-polling the FIFO status.
+This series adds support for the USB device controller (UDC) integrated
+into the Axiado AX3000 and AX3005 SoCs.
 
-Add the driver path to the existing Axiado mailbox entry in
-MAINTAINERS.
+The controller is based on the Corigine USB 3.1 device IP core and uses an
+xHCI-like programming model with a command ring, an event ring, and
+per-endpoint transfer rings composed of Transfer Request Blocks (TRBs).
 
-Signed-off-by: Swark Yang <syang@axiado.com>
+The driver integrates with the USB gadget framework and supports
+High-Speed and SuperSpeed operation. It supports control, bulk, interrupt,
+and isochronous transfers, including scatter-gather requests. It also
+implements endpoint enable and disable, request queuing and dequeuing,
+halt and wedge handling, and standard endpoint 0 control requests.
+
+The standard |maximum-speed| Devicetree property can be used to limit the
+controller to High-Speed operation. When the property is absent, the
+driver defaults to SuperSpeed.
+
+The driver was tested on AX3000 and AX3005 boards.
+
+Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
 ---
- MAINTAINERS                      |   1 +
- drivers/mailbox/Kconfig          |  10 +
- drivers/mailbox/Makefile         |   2 +
- drivers/mailbox/axiado-mailbox.c | 395 +++++++++++++++++++++++++++++++++++++++
- 4 files changed, 408 insertions(+)
+Changes in v2:
+- Drop the dual (GPL-2.0+ OR MIT) license; the driver and header are now
+  GPL-2.0+ only.
+- Register via module_platform_driver() and add MODULE_AUTHOR/MODULE_ALIAS
+  instead of the hand-written module_init/module_exit pair.
+- Acquire clock, reset and PHY through the driver model
+  (devm_clk_get_optional, devm_reset_control_get_optional_exclusive,
+  devm_phy_optional_get), with teardown wired up via
+  devm_add_action_or_reset.
+- Switch to devm_request_irq() and drop the manual free_irq() paths.
+- Support multiple instances using an IDA (DEFINE_IDA/ida_alloc/ida_free)
+  instead of a file-static device counter.
+- Read match data with device_get_match_data() and move the former
+  compile-time feature switches to DT properties (dis-u1u2-entry-quirk,
+  dis-u1u2-initiation-quirk, reinit-ep0-on-bus-reset).
+- Set the DMA mask via dma_set_mask_and_coherent() with a 32-bit fallback,
+  and convert PM to SIMPLE_DEV_PM_OPS.
+- Fix endianness handling for TRBs, events and endpoint contexts using
+  cpu_to_le32()/le32_to_cpu(), and decode setup packets without casting.
+- Locking: pass the caller's IRQ flags through the completion paths so the
+  interrupt state is correctly restored across the unlock/lock window around
+  gadget callbacks.
+- Properly free all coherent DMA allocations and add
+  dma_mapping_error() checks after dma_map_single()
+- Fix DMA directions on the GET_STATUS/SET_SEL control transfers.
+- Replace open-coded register busy-wait loops with
+  readl_poll_timeout_atomic() so they time out instead of spinning forever,
+  and return proper errnos (-EBUSY/-ETIMEDOUT/-EIO) instead of -1.
+- Replace the custom SETF_VAR/GETF/MAKEF_VAR shift-and-mask macros with
+  FIELD_PREP/FIELD_GET (include linux/bitfield.h), and use BIT()/GENMASK()
+  and dma_wmb()/dma_rmb().
+- Use DMA_MAPPING_ERROR instead of a private DMA_ADDR_INVALID.
+- Remove the U-Boot-derived VBUS cable-detect routine, the VBUS-detect
+  kthread and its wait queue, dead defines and struct fields, the unused
+  interrupt-register-array macros, the mdelay()-based reset delays and the
+  bulk of the dev_dbg() tracing.
+- Implement the pullup(is_on == 0) path and route suspend/shutdown through
+  pullup(0); mark crg_udc_ep_ops const and return IRQ_NONE from the shared
+  IRQ handler when the interrupt is not ours.
+- Use dev_err_probe() with structured goto-based unwinding in probe.
+- Reword the Kconfig help text for USB_CRG_UDC to name the crg_udc module.
+- Link to v1: https://lore.kernel.org/r/20260202-axiado-ax3000-usb-device-controller-v1-0-45ce0a8b014f@axiado.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index af6c3571c9f2..80db69111889 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4443,6 +4443,7 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
- M:	Swark Yang <syang@axiado.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/mailbox/axiado,ax3005-mailbox.yaml
-+F:	drivers/mailbox/axiado-mailbox.c
- 
- AXI SPI ENGINE
- M:	Michael Hennerich <michael.hennerich@analog.com>
-diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-index 3062ee352f78..ab869769e278 100644
---- a/drivers/mailbox/Kconfig
-+++ b/drivers/mailbox/Kconfig
-@@ -399,4 +399,14 @@ config RISCV_SBI_MPXY_MBOX
- 	  or HS-mode hypervisor). Say Y here, unless you are sure you do not
- 	  need this.
- 
-+config AXIADO_MAILBOX
-+	tristate "Axiado mailbox driver"
-+	depends on ARCH_AXIADO || COMPILE_TEST
-+	depends on OF
-+	help
-+	  Enable support for the Axiado mailbox controller. The driver provides
-+	  communication channels between the host CPU and the coprocessor on
-+	  Axiado SoCs.
-+	  If unsure, say N.
-+
- endif
-diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-index 944d8ea39f34..45dc59bb3e7f 100644
---- a/drivers/mailbox/Makefile
-+++ b/drivers/mailbox/Makefile
-@@ -84,3 +84,5 @@ obj-$(CONFIG_CIX_MBOX)	+= cix-mailbox.o
- obj-$(CONFIG_BCM74110_MAILBOX)	+= bcm74110-mailbox.o
- 
- obj-$(CONFIG_RISCV_SBI_MPXY_MBOX)	+= riscv-sbi-mpxy-mbox.o
-+
-+obj-$(CONFIG_AXIADO_MAILBOX)	+= axiado-mailbox.o
-diff --git a/drivers/mailbox/axiado-mailbox.c b/drivers/mailbox/axiado-mailbox.c
-new file mode 100644
-index 000000000000..3a3cf7421863
---- /dev/null
-+++ b/drivers/mailbox/axiado-mailbox.c
-@@ -0,0 +1,395 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2021-2026 Axiado Corporation (or its affiliates).
-+ */
-+
-+#include <linux/atomic.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/bitfield.h>
-+#include <linux/debugfs.h>
-+#include <linux/iopoll.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/math.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/slab.h>
-+#include <linux/unaligned.h>
-+
-+#define AXIADO_MBOX_TX_CHANS		8	/* 0-7 */
-+#define AXIADO_MBOX_RX_CHANS		8	/* 8-15 */
-+#define AXIADO_MBOX_CHAN_STRIDE	0x4
-+#define AXIADO_MBOX_TX_REG_STRIDE	0x40
-+#define AXIADO_MBOX_RX_REG_STRIDE	0x30
-+#define AXIADO_MBOX_RX_POLL_US		10
-+#define AXIADO_MBOX_RX_TIMEOUT_US	1000
-+
-+/* Mailbox CSR bit definitions */
-+#define AXIADO_MBOX_CSR_EMPTY		BIT(0) /* 1 = FIFO empty; 0 = data available */
-+#define AXIADO_MBOX_CSR_OVERFLOW	BIT(2) /* write 1 to clear (W1C) */
-+#define AXIADO_MBOX_CSR_UNDERFLOW	BIT(3) /* write 1 to clear (W1C) */
-+#define AXIADO_MBOX_CSR_FLUSH		BIT(4) /* W1TRG flush; startup/shutdown */
-+#define AXIADO_MBOX_CSR_LEVEL		GENMASK(11, 5)
-+
-+#define AXIADO_MBOX_CSR_ERRORS		(AXIADO_MBOX_CSR_OVERFLOW | \
-+					 AXIADO_MBOX_CSR_UNDERFLOW)
-+
-+struct axiado_mbox_data {
-+	u8 num_chans;
-+	u16 msg_size;
-+};
-+
-+struct axiado_channel_data {
-+	void __iomem *mbox_reg;
-+	void __iomem *csr_reg;
-+	void *rx_buffer;
-+	u8 channel_num;
-+	int irq;
-+	struct mbox_chan *chan;
-+	bool active;
-+	atomic_t fifo_errors;
-+};
-+
-+/* mailbox side */
-+struct axiado_mbox {
-+	struct mbox_controller mbox;
-+	const struct axiado_mbox_data *drv_data;
-+	void __iomem *tx_base;
-+	void __iomem *rx_base;
-+	struct dentry *debugfs_dir;
-+};
-+
-+/*
-+ * Checks OVERFLOW/UNDERFLOW, logs and W1C-clears them if set. Shared by the
-+ * TX and RX paths; RX additionally flushes the FIFO afterwards to resync
-+ * framing, which TX must not do since it could discard data the peer has
-+ * not read yet.
-+ */
-+static bool axiado_mbox_clear_fifo_errors(struct axiado_channel_data *priv)
-+{
-+	struct device *dev = priv->chan->mbox->dev;
-+	u32 errors;
-+
-+	errors = readl(priv->csr_reg) & AXIADO_MBOX_CSR_ERRORS;
-+	if (!errors)
-+		return false;
-+
-+	writel(errors, priv->csr_reg);
-+	atomic_inc(&priv->fifo_errors);
-+
-+	dev_warn_ratelimited(dev, "Channel %u FIFO error: %#x\n",
-+			     priv->channel_num, errors);
-+
-+	return true;
-+}
-+
-+static int axiado_mbox_send_data(struct mbox_chan *chan, void *data)
-+{
-+	struct axiado_mbox *mb = dev_get_drvdata(chan->mbox->dev);
-+	struct axiado_channel_data *priv = chan->con_priv;
-+	unsigned int idx = priv->channel_num;
-+	u8 tail[sizeof(u32)] = { 0 };
-+	const u8 *buf = data;
-+	unsigned int tail_len;
-+	unsigned int offset;
-+	u32 msg_len;
-+
-+	if (!data)
-+		return -EINVAL;
-+
-+	/*
-+	 * The Axiado mailbox message ABI stores the total message length,
-+	 * including this length word, as a little-endian byte count in the
-+	 * first word of every message.
-+	 */
-+	msg_len = get_unaligned_le32(data);
-+	if (msg_len < sizeof(u32) || msg_len > mb->drv_data->msg_size)
-+		return -EINVAL;
-+
-+	/* Only touch the hardware after validating the message. */
-+	axiado_mbox_clear_fifo_errors(priv);
-+
-+	if (!(readl(priv->csr_reg) & AXIADO_MBOX_CSR_EMPTY)) {
-+		dev_warn_ratelimited(mb->mbox.dev, "Channel %u is busy\n", idx);
-+		return -EBUSY;
-+	}
-+
-+	for (offset = 0; offset + sizeof(u32) <= msg_len;
-+	     offset += sizeof(u32))
-+		writel(get_unaligned_le32(buf + offset), priv->mbox_reg);
-+
-+	tail_len = msg_len - offset;
-+	if (tail_len) {
-+		memcpy(tail, buf + offset, tail_len);
-+		writel(get_unaligned_le32(tail), priv->mbox_reg);
-+	}
-+
-+	dev_dbg(mb->mbox.dev, "%s: Ch-%u sent\n", __func__, idx);
-+
-+	return 0;
-+}
-+
-+static irqreturn_t axiado_rx_thread(int irq, void *dev_id)
-+{
-+	struct axiado_channel_data *priv = dev_id;
-+	struct mbox_chan *chan = priv->chan;
-+	struct axiado_mbox *mb = dev_get_drvdata(chan->mbox->dev);
-+	u8 *buf = priv->rx_buffer;
-+	unsigned int num_words;
-+	unsigned int remaining;
-+	unsigned int i;
-+	u32 msg_len;
-+	u32 word;
-+	u32 csr;
-+	int ret;
-+
-+	/*
-+	 * Clear and log/count any pending errors, but don't discard data
-+	 * on their account alone: a rejected overflow write doesn't
-+	 * corrupt what was already safely queued ahead of it, so let the
-+	 * length-based read below decide whether what's here is usable.
-+	 */
-+	axiado_mbox_clear_fifo_errors(priv);
-+
-+	csr = readl(priv->csr_reg);
-+	if (csr & AXIADO_MBOX_CSR_EMPTY)
-+		return IRQ_NONE;
-+
-+	/*
-+	 * The first word contains the total message length in bytes,
-+	 * including the length word itself.
-+	 */
-+	word = readl(priv->mbox_reg);
-+	msg_len = word;
-+	put_unaligned_le32(word, buf);
-+
-+	if (msg_len < sizeof(u32) || msg_len > mb->drv_data->msg_size)
-+		goto invalid_message;
-+
-+	num_words = DIV_ROUND_UP(msg_len, sizeof(u32));
-+	remaining = num_words - 1;
-+
-+	/*
-+	 * The not-empty interrupt may occur as soon as the first DW enters
-+	 * the FIFO. Wait until all remaining DWs of this message arrive.
-+	 */
-+	if (remaining) {
-+		ret = readl_poll_timeout(priv->csr_reg, csr,
-+					 (csr & AXIADO_MBOX_CSR_ERRORS) ||
-+					  FIELD_GET(AXIADO_MBOX_CSR_LEVEL, csr) >=
-+					  remaining,
-+					  AXIADO_MBOX_RX_POLL_US,
-+					  AXIADO_MBOX_RX_TIMEOUT_US);
-+		if (ret)
-+			goto incomplete_message;
-+
-+		axiado_mbox_clear_fifo_errors(priv);
-+	}
-+
-+	for (i = 1; i < num_words; i++) {
-+		word = readl(priv->mbox_reg);
-+		put_unaligned_le32(word, buf + i * sizeof(u32));
-+	}
-+
-+	axiado_mbox_clear_fifo_errors(priv);
-+
-+	if (READ_ONCE(priv->active))
-+		mbox_chan_received_data(chan, priv->rx_buffer);
-+
-+	return IRQ_HANDLED;
-+
-+incomplete_message:
-+	dev_warn_ratelimited(chan->mbox->dev,
-+			     "Channel %u received an incomplete message\n",
-+			     priv->channel_num);
-+
-+invalid_message:
-+	writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int axiado_mbox_startup(struct mbox_chan *chan)
-+{
-+	struct axiado_channel_data *priv = chan->con_priv;
-+
-+	/*
-+	 * Only flush on a genuine error. A blind flush here would discard
-+	 * a message the peer legitimately sent before this side started
-+	 * up (e.g. during normal boot sequencing), which is not corrupt
-+	 * and does not need resyncing.
-+	 */
-+	if (axiado_mbox_clear_fifo_errors(priv))
-+		writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
-+
-+	WRITE_ONCE(priv->active, true);
-+
-+	if (priv->channel_num >= AXIADO_MBOX_TX_CHANS)
-+		enable_irq(priv->irq);
-+
-+	return 0;
-+}
-+
-+static void axiado_mbox_shutdown(struct mbox_chan *chan)
-+{
-+	struct axiado_channel_data *priv = chan->con_priv;
-+
-+	WRITE_ONCE(priv->active, false);
-+
-+	if (priv->channel_num >= AXIADO_MBOX_TX_CHANS)
-+		disable_irq(priv->irq);
-+
-+	if (axiado_mbox_clear_fifo_errors(priv))
-+		writel(AXIADO_MBOX_CSR_FLUSH, priv->csr_reg);
-+}
-+
-+static bool axiado_mbox_last_tx_done(struct mbox_chan *chan)
-+{
-+	struct axiado_channel_data *priv = chan->con_priv;
-+
-+	return !!(readl(priv->csr_reg) & AXIADO_MBOX_CSR_EMPTY);
-+}
-+
-+static const struct mbox_chan_ops axiado_mbox_chan_ops = {
-+	.send_data	= axiado_mbox_send_data,
-+	.startup	= axiado_mbox_startup,
-+	.shutdown	= axiado_mbox_shutdown,
-+	.last_tx_done	= axiado_mbox_last_tx_done,
-+};
-+
-+static void axiado_mbox_debugfs_remove(void *dentry)
-+{
-+	debugfs_remove_recursive(dentry);
-+}
-+
-+static int axiado_mbox_probe(struct platform_device *pdev)
-+{
-+	const struct axiado_mbox_data *drv_data;
-+	struct axiado_channel_data *ch_data;
-+	struct device *dev = &pdev->dev;
-+	struct axiado_mbox *mb;
-+	unsigned int irq_idx = 0;
-+	unsigned int rx_chan;
-+	unsigned int i;
-+	int ret;
-+
-+	drv_data = device_get_match_data(dev);
-+	if (!drv_data)
-+		return -ENODEV;
-+
-+	mb = devm_kzalloc(dev, sizeof(*mb), GFP_KERNEL);
-+	if (!mb)
-+		return -ENOMEM;
-+
-+	mb->mbox.dev = dev;
-+	mb->mbox.num_chans = drv_data->num_chans;
-+
-+	mb->mbox.chans = devm_kcalloc(&pdev->dev,
-+				      drv_data->num_chans,
-+				      sizeof(*mb->mbox.chans),
-+				      GFP_KERNEL);
-+	if (!mb->mbox.chans)
-+		return -ENOMEM;
-+
-+	mb->tx_base = devm_platform_ioremap_resource_byname(pdev, "tx");
-+	if (IS_ERR(mb->tx_base))
-+		return PTR_ERR(mb->tx_base);
-+
-+	mb->rx_base = devm_platform_ioremap_resource_byname(pdev, "rx");
-+	if (IS_ERR(mb->rx_base))
-+		return PTR_ERR(mb->rx_base);
-+
-+	ch_data = devm_kcalloc(&pdev->dev,
-+			       drv_data->num_chans,
-+			       sizeof(*ch_data),
-+			       GFP_KERNEL);
-+	if (!ch_data)
-+		return -ENOMEM;
-+
-+	mb->debugfs_dir = debugfs_create_dir(dev_name(dev), NULL);
-+	ret = devm_add_action_or_reset(dev, axiado_mbox_debugfs_remove,
-+				       mb->debugfs_dir);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < drv_data->num_chans; i++) {
-+		char name[16];
-+
-+		ch_data[i].channel_num = i;
-+		ch_data[i].chan = &mb->mbox.chans[i];
-+
-+		mb->mbox.chans[i].con_priv = &ch_data[i];
-+
-+		snprintf(name, sizeof(name), "chan%u-errors", i);
-+		debugfs_create_atomic_t(name, 0444, mb->debugfs_dir,
-+					&ch_data[i].fifo_errors);
-+
-+		if (i < AXIADO_MBOX_TX_CHANS) {
-+			ch_data[i].mbox_reg = mb->tx_base + (i * AXIADO_MBOX_CHAN_STRIDE);
-+			ch_data[i].csr_reg = mb->tx_base + AXIADO_MBOX_TX_REG_STRIDE +
-+					       (i * AXIADO_MBOX_CHAN_STRIDE);
-+			ch_data[i].irq = -1;
-+			continue;
-+		}
-+
-+		ch_data[i].rx_buffer = devm_kzalloc(dev, drv_data->msg_size,
-+						    GFP_KERNEL);
-+		if (!ch_data[i].rx_buffer)
-+			return -ENOMEM;
-+
-+		rx_chan = i - AXIADO_MBOX_TX_CHANS;
-+		ch_data[i].mbox_reg = mb->rx_base +
-+				       (rx_chan * AXIADO_MBOX_CHAN_STRIDE);
-+		ch_data[i].csr_reg = mb->rx_base + AXIADO_MBOX_RX_REG_STRIDE +
-+				      (rx_chan * AXIADO_MBOX_CHAN_STRIDE);
-+		ch_data[i].irq = platform_get_irq(pdev, irq_idx++);
-+		if (ch_data[i].irq < 0)
-+			return dev_err_probe(dev, ch_data[i].irq,
-+					     "Failed to get IRQ for channel %u\n", i);
-+
-+		ret = devm_request_threaded_irq(dev, ch_data[i].irq, NULL,
-+						axiado_rx_thread,
-+						IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+						dev_name(dev), &ch_data[i]);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to request IRQ for channel %u\n", i);
-+
-+		dev_dbg(dev, "RX chan %u -> irq %d\n", i, ch_data[i].irq);
-+	}
-+
-+	platform_set_drvdata(pdev, mb);
-+	mb->drv_data = drv_data;
-+	mb->mbox.ops = &axiado_mbox_chan_ops;
-+	mb->mbox.txdone_irq = false;
-+	mb->mbox.txdone_poll = true;
-+	mb->mbox.txpoll_period = 5;
-+
-+	return devm_mbox_controller_register(dev, &mb->mbox);
-+}
-+
-+static const struct axiado_mbox_data axiado_drv_data = {
-+	.num_chans = AXIADO_MBOX_TX_CHANS + AXIADO_MBOX_RX_CHANS,
-+	.msg_size = 256,
-+};
-+
-+static const struct of_device_id axiado_mbox_of_match[] = {
-+	{ .compatible = "axiado,ax3005-mailbox", .data = &axiado_drv_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, axiado_mbox_of_match);
-+
-+static struct platform_driver axiado_mbox_driver = {
-+	.driver = {
-+		.name = "axiado-mailbox",
-+		.of_match_table = axiado_mbox_of_match,
-+	},
-+	.probe = axiado_mbox_probe,
-+};
-+module_platform_driver(axiado_mbox_driver);
-+
-+MODULE_AUTHOR("Axiado Corporation");
-+MODULE_DESCRIPTION("Axiado Mailbox driver");
-+MODULE_LICENSE("GPL");
+To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+To: Krutik Shah <krutikshah@axiado.com>
+To: Prasad Bolisetty <pbolisetty@axiado.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Tzu-Hao Wei <twei@axiado.com>
+To: Karthikeyan Mitran <kmitran@axiado.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-usb@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-2.34.1
+---
+Naveen Kumar Rajgiri Bassappa (2):
+      dt-bindings: usb: gadget: udc: add Axiado AX3000 and AX3005 UDC
+      usb: gadget: udc: add Axiado AX3000 and AX3005 UDC driver
+
+ .../devicetree/bindings/usb/axiado,ax3000-udc.yaml |   72 +
+ MAINTAINERS                                        |   10 +
+ drivers/usb/gadget/udc/Kconfig                     |   14 +
+ drivers/usb/gadget/udc/Makefile                    |    1 +
+ drivers/usb/gadget/udc/crg_udc.c                   | 4491 ++++++++++++++++++++
+ drivers/usb/gadget/udc/crg_udc.h                   |  355 ++
+ 6 files changed, 4943 insertions(+)
+---
+base-commit: 7bf68027b97bc94f6121448cb5a02ed9d04187c4
+change-id: 20260128-axiado-ax3000-usb-device-controller-156d3f1840c9
+
+Best regards,
+--  
+Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
 
 
