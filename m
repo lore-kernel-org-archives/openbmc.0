@@ -1,96 +1,51 @@
-Return-Path: <openbmc+bounces-2416-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2417-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A237FC5DF85
-	for <openbmc@archiver.kernel.org>; Thu, 20 Aug 2026 13:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8635C5DF85
+	for <openbmc@archiver.kernel.org>; Thu, 20 Aug 2026 14:49:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hQlLX3H8Yz2xWR;
-	Thu, 20 Aug 2026 23:55:00 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c10d::3" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787234100;
-	cv=pass; b=AwcHlXQf2qZ6O8a5+SXrC84Z8Y0RP7JSqXGzh9AaPow1H9rXmV1Tdjies1FwIqQG9EovU7cbCa2sFQ6zBemyx41HBQuHeWCX/6XjAe9Zp872aWkoW1lkpVfxVV7zIcaPB9eNoPxQLWcSIoi7Y65BOc92t/i1LVnx9+TgwNEv7KjTdFytr1TM7qW1XcVpEFBF81NtslALF+Aw1k/EUfhVSaeY0RsJGwQ+5Oge3hHaE4i+B1gGCa+uvq9J71sz2Dyq8jklQexOn2mvnFoVETk9jKi4OtfDpuRWcBCdtvT/rsYuXyT1bjNIaO7rkOJzNMyFCeRPl8W/T2E1ce+ycIg89Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787234100; c=relaxed/relaxed;
-	bh=MNRhLmBkWV1AqCs61FoBqa2jenSJpAqkR4qY4Q1oiRY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Dt4s2EGYuEjJoN5HDUVWWn4vvZ/Bsi8f8m3t33+FQvMZz/otNefTJ2F7FhDUsIfBf5XrwTXfW+2JZAD+Lhs1Vz7YHN15CyvnVRbOdFFsfR5ifUjzNl38Mo3zuy/palrZD/b6MhqVqNZk9MCoARFBGpw3I2XDXZjLzIIKiXuaP55EmiCRkIprx950+dvbgDK1l39DoLoPxbvGHDr86N6vEMZL/519IRzNmxLqlNopLNvZyN47WwGFIYbPQJIlJtk7Wvs6YNxx0x3PWYOaRbW/vlKY4vXf94do16QL9xwAD+3HLlThnOjMJA3UEcKgWSdvBx4lDZzPu40VLy6G8d6Pvw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=K2+9Z2GT; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c10d::3; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org) smtp.mailfrom=amd.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hQmYr0mBCz2xWV;
+	Fri, 21 Aug 2026 00:49:52 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787237391;
+	cv=none; b=H8ulJFvlDau+XBtf4CXTfxwqTlg0L1C8iAebPSUIC6dYFepRfESuMlmr/1iL1iUpXMgoH8Tc/UI56CDlv39c+g+GMk9VHnSxOKR3QWmDRooXKiTStrF+dwlasXkEUvQm8ZzgDq9ABUwg2nEqKHyBfGlp87PwAoE43cex1VjxshM9NZD0z+KaV0nFNc2cSznalLIxe/ldTiHM75363Kh9IVYrLC6W3M2uuJnnak7WxuY45FJXs7z2oKBP3H69dzJ0U1J9w2FeoI+/VyfqRYZ2Ghw6Qhq4qDliX+8y6Vaf+lfeVvC28FGo4ZgdzUXHD7HQGNZVROlKTnlpyAct4Ot2GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1787237391; c=relaxed/relaxed;
+	bh=POY30+8+IPnBPBkgedSZL8fAdy6Ow+8r1LvS0tY8m2k=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=kRBCeRdmJK6XSqQthp44dh19VPw7qQh30C9x157P054Hc+0ApItUjFFTtMGuPanckUVEcGJE47wMmoekPgzClQK0WvNM3dwBykcQJ9cMltEnGWX34SrzdUfhVl/n6KJICH4gdWM20docCDpat0ZBGrcECzVft8laElXmIE7GPl8BYuSWaz/nbUt5Aj8IWSIxp/yVjnCNKH+Rg1rSyiyDxV0JkJ5H2owEWeZoTNAYddQrIL3hhx63/JnqxrADKz63dsF6+NEeV+BDPNnVKcavXX8FwWbpw1paHv40FWFudu5+eqQ2xUYbOu5yTP205ZtR4wvagkYi3nIvlnjDDOsynA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iC8YWowG; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=K2+9Z2GT;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iC8YWowG;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amd.com (client-ip=2a01:111:f403:c10d::3; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=krishnamoorthi.m@amd.com; receiver=lists.ozlabs.org)
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c10d::3])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hQlLT5zyFz2xKh;
-	Thu, 20 Aug 2026 23:54:56 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bptVwVY038SxTuxKsHgAOyO+5Cse+VBzSrTNzohU8t4auwP9RMcx+1CnusAe/gGy4eUpOTsrxkM5NLb/cORl9DobxDYqf8c8WBJCN4lM5l9TPy5CdF2o9JkGWVdtdb+col4fJjvs8I1rorkfm1bkfPaPb9eMxyUUj2YK9WU7I/+R2TafuXCNkxJS1Lv4ufm/EKEEwlNgXENBmX/rx1cguq3s8XX98L38mGxMhfJ3XPE0P38fs7lU+FP7DSe+N17nCrEnKoq2jkeiq7eCMh9eUhae8tWtgZF02PJ1Nz4f9kjLV7HAMhABNvvsjXGGHPv9pKD4OEZxe7N0QrJxTBVIPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MNRhLmBkWV1AqCs61FoBqa2jenSJpAqkR4qY4Q1oiRY=;
- b=AyVNegV6/aXJJ5xhBT5mXIXoa53JAi6SHftHBUwwCdbSO8XepGVemuwuN/CytthfZrCMGsz94QxRgZuvgbaA99PdFn8TNrGGxF6bCBBwfJw6EiSi4W1ybebOZYbNzPKeetUOn1K7rIpcQMWsPr552YaVf8vMJrpIs1/M5lbxrrodr5xkIp/xa8+hBluvudG2pPKg9Bj9fCGRD56lQar5DTyyHUmDliQ2AqBQBcE/f+8m/AdY7VM5K3T4lsRscmMOamtKbjLTYe3dACVus7WwFhuDcMLdRYAO7utzXjJuE9y2EOXTOfIT/BC97EDMI6g52YH3YduNLZhym3t2UnjUIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MNRhLmBkWV1AqCs61FoBqa2jenSJpAqkR4qY4Q1oiRY=;
- b=K2+9Z2GTH6uhS7ceqUqzyHNeyWsIsTG5g9PQjWxj2Qkl+pCJSSq+HX/IORCj3cQfTlbr1XKUYx+6d+mHBa5AjE1pfpZgO2qlrfAmR5GuDNkFGcCNGLqoTkvdAbHEcxiB7AnWhTbFN+LcniMwMJRbNcvFkPeKsz++3M4EwgZ/hZQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH8PR12MB9742.namprd12.prod.outlook.com (2603:10b6:610:27a::19)
- by MN2PR12MB4109.namprd12.prod.outlook.com (2603:10b6:208:1d9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Thu, 20 Aug
- 2026 13:54:32 +0000
-Received: from CH8PR12MB9742.namprd12.prod.outlook.com
- ([fe80::f305:b211:5c64:be08]) by CH8PR12MB9742.namprd12.prod.outlook.com
- ([fe80::f305:b211:5c64:be08%6]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
- 13:54:32 +0000
-Message-ID: <c690ee50-d044-4bfb-b19e-0960e40335a5@amd.com>
-Date: Thu, 20 Aug 2026 19:24:23 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/4] espi: introduce eSPI bus framework
-To: YH Chung <yh_chung@aspeedtech.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Greg KH <gregkh@linuxfoundation.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "akshata.mukundshetty@amd.com" <akshata.mukundshetty@amd.com>,
- "bleung@chromium.org" <bleung@chromium.org>,
- "groeck@chromium.org" <groeck@chromium.org>,
- "chrome-platform@lists.linux.dev" <chrome-platform@lists.linux.dev>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- YC Hsieh <yc_hsieh@aspeedtech.com>,
- Maciej Lawniczak <maciej.lawniczak@intel.com>,
- Ryan Chen <ryan_chen@aspeedtech.com>
-References: <20260804115259.4065638-1-krishnamoorthi.m@amd.com>
- <2026080416-lagoon-delirium-8e84@gregkh>
- <83210c6e2a7b203bd5913b455ea45cfddf3d29ec.camel@codeconstruct.com.au>
- <9180f5d5-9885-492b-b80e-c2aaaeb39501@amd.com>
- <KL1PR0601MB42768F2FB7E907618E1DAB4E90DE2@KL1PR0601MB4276.apcprd06.prod.outlook.com>
- <d1bdc779-724a-4851-8c26-7e02981bae7a@amd.com>
- <KL1PR0601MB427610EA42683AA298B53C4390A42@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-Content-Language: en-US
-From: "M, Krishnamoorthi" <krishnamoorthi.m@amd.com>
-In-Reply-To: <KL1PR0601MB427610EA42683AA298B53C4390A42@KL1PR0601MB4276.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0024.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::29) To CH8PR12MB9742.namprd12.prod.outlook.com
- (2603:10b6:610:27a::19)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hQmYp6xDqz2xRw
+	for <openbmc@lists.ozlabs.org>; Fri, 21 Aug 2026 00:49:50 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by tor.source.kernel.org (Postfix) with ESMTP id 2E46960A58;
+	Thu, 20 Aug 2026 14:49:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C031F00A3A;
+	Thu, 20 Aug 2026 14:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787237387;
+	bh=POY30+8+IPnBPBkgedSZL8fAdy6Ow+8r1LvS0tY8m2k=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=iC8YWowGtdk0u/sjWcl2XTObHg47Ruq3yu6wCQl2Vbffw+DXqm5IrasJFZJBXFgwU
+	 dL6e9EPplBXIjmyiBPq3SgHmPoBb5XScl+HSfpJon6UZz2Bn/6Bb6sazZ8zu7TOhTf
+	 p+Xfe/H2Zyuey120FSK9On2dhBwgKvQ4IGU/iJV7vPTFisexsT98RsEjsHl3XwA4Ra
+	 cTIYo8UwMwOxsS9tKNJwJK2Um8io4Cuw4oa0C0iSPx52GJpJbFV3Pn8/51vZJKkZ6l
+	 mxbTHtt9q0bQaF47ez9krISx4Zc4a8pvxpSoebeVvZOcSSCOZVrD5BPmunqAiLUKiz
+	 i2vrzph8NeygA==
+Message-ID: <9e6142fb-bb69-459b-b7e7-4aaf2bbc3bc4@kernel.org>
+Date: Thu, 20 Aug 2026 16:49:39 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -102,97 +57,97 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR12MB9742:EE_|MN2PR12MB4109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23679928-612d-4c87-4bb5-08defec28f96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	4CaUVZkbPcqxf9zJVxRdZyNTg66U0zZtzlSTSIWSJms+4DRRaJMO+L6KcZjLbolkBsV2GzWASDnwxWBDsIiNGyQFf7l71sQnYOL4pmudJgjKswQJZ1BZz+fpPoREjIa7s1lnbZL+HhLOOJIfmmGWK4EyJouW4X9gumI5qWn1xrJOhn/sNB3KJCOUw+nrq1hM6qQznDeyQFXUYywMyod+Hf1dCj/Y2SpxEXdwJfoQ/FftmvQydkbeT2zyzWtn1ihEZ4wjMh0anVunX1YBEDky+x6bQxdgkXA2hdCAUDtZyge5IihaMF1oIs+EJPmclJ8mRHTt8fDwZ4ip5iaeKKDj7QmWXqEHY2XZpRLkRyHsANs9oFVNNxFLVZM12XSFknX6l0po9RkjsQV4uMMrbd/sq9KqNsfVs8ZyMbMFv3GWWZbAYeSf+UwT8GWaV8gsW2C2KzPvkOp16O5W+tlFeTuQKePI9PV7m/eB3sxRYhxbCnXYS0BlHePtIWE4zbG5Y1ojHWAdjfC1pDmDUKU2kwb+Lb168A3wjlJibCuLGr08rrO6QGSdvpAT0OPuZuwgp+aSrOCooHJy6rhv7CupXjylPqlftSdPAfnKLNH62HsxP7t4EfWhLokWOysURuIHfqn9lLdnQz2gQN43siYuTeUsWQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR12MB9742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eTZBTmlVdUtxenhQM25yQ1lHUWNzbUF0NUZWUkRIVWxIMFdYbmlucUt5TDZw?=
- =?utf-8?B?Q004aWI4T3ZzaFowR1lHRmtSM1dmQjg2R0xvUjlyTHNucWp4cGM0VVhleXJs?=
- =?utf-8?B?cTVQMU8zclJXZHcrUk5DdC9Pc3IxZWxHRUphbFJIY3h1Z3lpbXpYZmZ4bk1Z?=
- =?utf-8?B?OFhaMEc4MndjbVdnbS95ZFhzUk5GczI5SFRBMmJtMVM3UUhpM0NkY3pPSmti?=
- =?utf-8?B?T2N5QzJaaWxIYjEzRjFzSzZaM3hCQ2xGbDAxeHhWQ2R3WVc2TjRSNWMwWkpX?=
- =?utf-8?B?amRXT2NhbVJQdzEzM1ZLVVBxamZGRG16cDNhblpFRTNRZFNCV0NGZUVqRVZ2?=
- =?utf-8?B?UjBndEJ6ZzdGVGhpeUhEdzBsQ0J3RWlURkpaSTZMSVNSWnlTRThxQmpHNVFK?=
- =?utf-8?B?UndhT016c2cwVGtGRVpQQmNxM2lnQUwwZXNaZHdSZ2ZCRUdnQzhLZkFGN3hp?=
- =?utf-8?B?M0k3NHE4VlluZkQ4Y0tEWFNuZURYVDZHQzBQSk5sVkQ1TzZsT1NzSUduZER4?=
- =?utf-8?B?WVRRa2dtZTVEK1drVm1KTHljZ2hhQ2liMS92ZDk2Vlc0Q3FxeHM3UzljR25D?=
- =?utf-8?B?LzVXTkxMdXBpNHNpN0ZTQlBJdzBxeEdXZG52cWNOTlAvYjluQTNndDMvY3RK?=
- =?utf-8?B?K0VlRm4zeE9UQyswcTZHdW13ZXE5ZXA4Ui84SWJUb3RrdWNobGxVcmxxODg2?=
- =?utf-8?B?ekJZWE1QNmRIb2dHT3lXTW01WlBWT0xORSsvV2lmMGhoenE4bjgxdFN1dTBI?=
- =?utf-8?B?RlVscXhra0ZTdC9ubXNMYldTQ1ZRR2ZJRHozM3B4bVdFRjk4TFdSRUxiMXJH?=
- =?utf-8?B?T2lML0tNUzNoUWZNU3lMRjNxK2EyNkJSa21ZS2ZOeWlFMjZTTGcwYWE1Uy9N?=
- =?utf-8?B?czNFb3ZXeEQ4emxkV01oYWtxWi9OeWdZVE5VRWl5b0ZtelE4MmVLUWs4TndJ?=
- =?utf-8?B?RkJSSXc4V2pYZVJFbDhQVEJsNUNERTlobTB4WXhOQlg2TUtPVU82YzJrclhk?=
- =?utf-8?B?WHJFNjhRZHJwWWVLcnFUTDE2Z3U3cTVGTDh1U0lBblo0S05Pb3JybXNlak5P?=
- =?utf-8?B?U05vVDVzajJGZ3U1dTBPYkx4emF6cTRZUWg3akhUcmdQZU9yN1puWWhOdTI2?=
- =?utf-8?B?T2VaUSs5RGNSUkE4TVoxM2VTSXl5ZkhWQXk3cHZlZXpFdzErVWVrZ0VuWUU2?=
- =?utf-8?B?ci9QMXV4UUt0UnlsamgrOG12cUd2V1Z2QWUrUXRVZWttcG1pZ3NncFpucndy?=
- =?utf-8?B?QXh1cHk3YjhwOENEZHVVcGpUaUhsNU9pZjN4elV1ZEx1QTdBeWUyRGJMOCtX?=
- =?utf-8?B?anRKTG1CdmkwTVNvTnNOcWxxZjN5YzQvVGNacDZmbDQyOWQyNHlHKy9LUk12?=
- =?utf-8?B?eEl2bUptcmpUdDI5ZEtjMCtERGNDS0dSa3BWVUtWcHQ0Y2lWUTdqTGkrVzR4?=
- =?utf-8?B?Y2lZbDcvWWFIaXZRVnluM3BoUGhhdGRFckZRNkE4QjVadStBdHh2Tmk1QTZ2?=
- =?utf-8?B?aERaTzRtanJ3QWQ2SXA3QnJPY2VyWEJBc3FIZzdGbUNIaTJmay9rWURrV1FU?=
- =?utf-8?B?VDk5M3RIclpQZEdqcytiNno3SXhpQWdpVURVMFRmdXdZaWhPUElyeXhZS01Z?=
- =?utf-8?B?VklaZ2dJZk85YjdJTVQzSy9qK0ZIdFdhYnNPdEd3OUY0bzd2U3h1TzJmazZO?=
- =?utf-8?B?V1hQbE5pQXFPMk14em1WaFVBZTNCa3pNdHY4bXg0cnhhNTVFV1Y0Wm5vUnBK?=
- =?utf-8?B?ZTNid3VNVE91d1JPVHRCK2Fzd3JMUHZ4VHZzdHdTc2hXRFJlRVptdXIwTFZO?=
- =?utf-8?B?VUdONXovcGFHQ1BGUGFxSExDUE1EajlQSTlQbmJwUVFLem56di9ZdjVleHF6?=
- =?utf-8?B?djFxU2N1NUU3V2pPNng3N3ZzNE5jb3dFakJnZGNjc2w2R0NadmY5VHljM0ZW?=
- =?utf-8?B?SlN6NVljYm00RHVkMkNQMlJiVU9YZGJBL0lZUEEwblg3QmFicUM3UzN0T3ph?=
- =?utf-8?B?VG1kYlpua1hOeGYvR0IvTW5Fc0E1Q0FML01tdnNNVjdnajhhclluV2txRkhK?=
- =?utf-8?B?d2JsQlVEQjBxd0pCQU1QRmdIdnVDMnhJeWwyVFRpRHoxOVNqb1RBeGN3QW9H?=
- =?utf-8?B?NHdMZnljT3RwY0x4b1l5ZmJoRk5uTnhrbDBpakxTNVcyRjRoekQ3aVdiVEVx?=
- =?utf-8?B?T0ZaWVVtTS9lQ2FoaUFIK2NWSkZ2UFRKaEVQRUpLQUowQ0hKMnNzTVlLVmJL?=
- =?utf-8?B?MUkwWGVjN1JKQTY4a0VCNDNoWGptVndTblhvc1ZHOVBMMkcwb0tOWWNEaXdh?=
- =?utf-8?B?bUt2VXRlZnhsV3E0c3pKRVBsUEN1YjF6aXBtR0xaMmpORitiWjQ1dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23679928-612d-4c87-4bb5-08defec28f96
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR12MB9742.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 13:54:32.1022
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c28ZGSvszN24fYk6ExoWASzzMB+L49hvIEbEVq7Lzmxe3z9cSZrM9/w9GAHHhalqU8vdRY38s/DfZQk/DCzIow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4109
+User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] hwrng: npcm: fix usage_count leak when autosuspend_delay
+ is negative
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Olivia Mackall <olivia@selenic.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, Daniel Thompson <danielt@kernel.org>,
+ openbmc@lists.ozlabs.org, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260808073748.2649808-1-lgs201920130244@gmail.com>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260808073748.2649808-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Chung,
-
-On 8/20/2026 11:55 AM, YH Chung wrote:
-> Hi Krishna,
+On 08/08/2026 09:37, Guangshuo Li wrote:
+> npcm_rng_probe() calls pm_runtime_use_autosuspend(), but neither the
+> probe failure path nor npcm_rng_remove() calls the matching
+> pm_runtime_dont_use_autosuspend() before disabling runtime PM.
 > 
-> Thanks. I'd like to introduce Yu-Che Hsieh, who will be taking over the
-> eSPI ownership and upstreaming work from the ASPEED's side.
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count remains
+> unbalanced.
 > 
-> As I'll be leaving ASPEED next week, Yu-Che will continue the discussion
-> on the eSPI subsystem design. I've already briefed him on the current
-> discussion and design considerations.
+> Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> probe failure and remove paths before disabling runtime PM.
 > 
-> Yu-Che, please take it from here for the upcoming discussion and revisions.
+> This issue was found by manual code inspection.
 > 
-> Thanks again for all the discussion and guidance.
+> Fixes: c98429297d8b ("hwrng: npcm - add NPCM RNG driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Thank you Chung for the valuable design inputs and best wishes for your 
-next role.
+You sent vast amount of patches, all separate, making it very difficult
+to track and respond in efficient way. Do not do that.
 
-Yu-Che, please share your thoughts or comments on the eSPI framework 
-design whenever you are ready.
+Group your work per subsystem.
 
-Thanks,
-Krishna
+You were asked to clarify and respond to incorrect fixes statement. I do
+not see how you clarified and responded at all.
 
-> 
-> Best regards,
-> Yun Hsuan.
-
+Best regards,
+Krzysztof
 
