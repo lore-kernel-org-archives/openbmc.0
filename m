@@ -1,64 +1,118 @@
-Return-Path: <openbmc+bounces-2418-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2419-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3C2C5DF7D
-	for <openbmc@archiver.kernel.org>; Fri, 21 Aug 2026 07:41:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BA3AC5DF87
+	for <openbmc@archiver.kernel.org>; Fri, 21 Aug 2026 08:54:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hRC0y4vrkz2xyh;
-	Fri, 21 Aug 2026 17:41:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787298082;
-	cv=none; b=evdmxEccpWonieswnpEPNM+hss7pw3BbhipA7SXUKrAh4mGBKSY5cnjd4QwrUpN/wJs63Tjf38NeIcqrnfkJRy/ZOF0QnfTtwJcmAa5VOfOqYhDpcj/YyOFhE1bkj+xCwb4Uz7TZK9xI8w4mltVu6lNqXNTqOY7CiY9f2zt8/StYJlMSfD3xBWv3xmnO7mXDo09k+PEZY5Llfa3l0T4mlbCr8V8CRs5gpAxKQo+FuhuAm34cGT4NeUGfporMP0aJtaT0T4z4TxBquzWxDfhfVnBI8bie+bNaiFEkgjKcSvAwY6T5gATWumaHhrf6+75+f16+yV3N7HLElXCYRc4Iqw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hRDdD4kVQz2y8m;
+	Fri, 21 Aug 2026 18:54:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787302464;
+	cv=none; b=bdJ5RnqWXOe9OChHyraTEV7ioJOklitqV55QM1h67jG+qFC/MRULNp3DgRLaXBGZKbG2MRANRQQGwfaPJFUmVGB94uQvsxp16dpkHbbf6wYv8mYF13YaVuAbvE8LEDKmPNc7qOOkH8maa5No5AtquG4PAi03LIuk46fjJaQBhqDgNHgoyQs0oYAXtNUbT7t9tC8EpW8QV7OBBFajdR+F8udpelu7RDxw72uWZw+Ml3IKRFfEj3/5Wo1KKXLY1LLMWWC+OGeaLGkj8CrREwwiaVmRIxukOPP9BR0KbbPZoyusdfUhbJr8xBH2rlLu92kPSlQcVu+i7Cq0z9rM8Yp4xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787298082; c=relaxed/relaxed;
-	bh=ei+B8ocDD8dYcFQzb2AT0WGx2IPkB//7Ko8mka3Bc/I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kxYXcZWdrtCAkDKhzZVqtARh62VPxgWJqTpGh/g/ojSXqhyFRQrUJknWKoSHWK5ZZrQ4fDOnrfXx8d66Ryj76Sm/0jzkKdNHly9t3s9FpqcbmeeYqVal1atGB7ItjaGFpLq1wS1/pA2LZfJGzGyTvFE0A/QGvGg7Rff6wjAipCcFKf6FCjUamlCpBA29PXHAcxK8VzLZGhyn03frb13hYqg1PwEGC24AXPJxF1R8C4+UHHhwq5L6LIQz88vEXD+lA0SYDkuh5WSnA1RjP7agdX0dOVkFiY15yMSBe8vRJfM0/ePkaG9UcPVYYggxYKR8V8tN3jnJC7Oe+FArsUbhUQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZc6U6O2; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZc6U6O2;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+	t=1787302464; c=relaxed/relaxed;
+	bh=UEAKAK3qVtW6dETuDI56Cj+E7CBI3JhviZhDgPCqUgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VM+E5ddBJdb8LDG6P6YMzB68MTm1fnrnWnae03XmvUXQ5x4zb/QPOLLGVfmn2w626FjGfhpaMW6nNmk7ItQdBikvWLKbaXe1pp4/dXYU51k0HxSd0rb8Vhd9XKolk7N1x0BvOg/wQueDFE15BqEBPlcIbRF9pmuy4qB3eXIIJn1EkniRQv7DGIKT6HCMHzbwycnGvtlibMttShBXEeiqlafBCSQzGim5vpiiEdj4q1Mk/VmwFyGgSDDmD83qoGEhlNYKZJD73oDQzRIAFUDNXLwdR04/wqBubAbbK0Nv8dSN1LRapF2XwFwCoyRPSS4fpKwSWMNtDm6Ol7xCqWY5Xg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=glider.be; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=srs0=h7h1=go=glider.be=geert+renesas@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=glider.be
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=srs0=h7h1=go=glider.be=geert+renesas@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hRC0x12TQz2xLd
-	for <openbmc@lists.ozlabs.org>; Fri, 21 Aug 2026 17:41:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hRDdB6l3Mz2xWt;
+	Fri, 21 Aug 2026 18:54:22 +1000 (AEST)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 985974141B;
-	Fri, 21 Aug 2026 07:41:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79C7F1F00A3A;
-	Fri, 21 Aug 2026 07:41:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787298077;
-	bh=ei+B8ocDD8dYcFQzb2AT0WGx2IPkB//7Ko8mka3Bc/I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jZc6U6O2lQzWmS5s+LLmj/Gi/1BmdrFqSe5tbnWw3zjZJeqwfUXu8ymjBpDaS62wP
-	 t8wonbpR8B4UK08unCgqNsjyV0Y6TSA/84NeEVE/b3PRRpaWisweinjBKE+JwIs0+0
-	 6BL243QSHh+mALBxe3+shcHOOvwGdQ8YatAfRZ+Jk2y9qhMAdL4QzYPQ/sCu7Hym6i
-	 sf2u8F5S1t0iBQNHvExFkWQWqA9mAwAbJn+eRjcgTqZFzO66tkzQchUXqcw+TNUNUL
-	 EXgT4NicoPCIORRz2BRR8HDKk0oiRq7jhmBr/fc+5DRWL1ucyr612bZREAk0e79MtM
-	 j3xPUGe3KBc0w==
-Date: Fri, 21 Aug 2026 09:41:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-Cc: Krutik Shah <krutikshah@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
-	Karthikeyan Mitran <kmitran@axiado.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: gadget: udc: add Axiado AX3000
- and AX3005 UDC
-Message-ID: <20260821-woodoo-enlightened-bobcat-9315cb@quoll>
-References: <20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
- <20260817-axiado-ax3000-usb-device-controller-v2-1-0ef033dd0a68@axiado.com>
+	by sea.source.kernel.org (Postfix) with ESMTP id 50BB7419CF;
+	Fri, 21 Aug 2026 08:54:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1626D1F000E9;
+	Fri, 21 Aug 2026 08:54:04 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Ryan Chen <ryan_chen@aspeedtech.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	=?UTF-8?q?Emilio=20L=C3=B3pez?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH 00/45] clk: Make sure clk_init_data is fully initialized (part two)
+Date: Fri, 21 Aug 2026 10:53:10 +0200
+Message-ID: <cover.1787239813.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,113 +124,243 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260817-axiado-ax3000-usb-device-controller-v2-1-0ef033dd0a68@axiado.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 17, 2026 at 10:57:13PM -0700, Naveen Kumar Rajgiri Bassappa wrote:
-> +title: Axiado AX3000/AX3005 USB Device Controller
-> +
-> +maintainers:
-> +  - Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> +  - Krutik Shah <krutikshah@axiado.com>
-> +  - Prasad Bolisetty <pbolisetty@axiado.com>
-> +
-> +description:
-> +  Axiado USB Device Controller (UDC) is used on the AX3000 and AX3005
-> +  SoCs. This controller is based on a Corigine USB IP core and provides
-> +  SuperSpeed (5 Gb/s) or High-Speed (480 Mb/s) operation, selected by the
-> +  maximum-speed property. It supports control, bulk, interrupt, and
-> +  isochronous transfer types across multiple configurable endpoints. The
-> +  node describes the memory-mapped register region, interrupt line, and
-> +  other required properties for the UDC hardware.
+	Hi all,
 
-Did you implement my comment?
+The clk_init_data structure contains several mutually-exclusive members
+for different methods to specify the possible parents of a clock,
+prompting drivers to initialize only the members they need.  However,
+not initializing all members may cause subtle issues, which are only
+exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+enabled.
 
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: axiado,ax3000-udc
-> +      - items:
-> +          - const: axiado,ax3005-udc
-> +          - const: axiado,ax3000-udc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  phys:
-> +    maxItems: 1
-> +
-> +  maximum-speed:
-> +    enum: [super-speed, high-speed]
+Hence this series aims to make sure all members are fully initialized,
+to avoid such bugs, and to prevent future breakage when converting
+drivers to a different method for specifying the parents.
 
-You miss referencing proper schema to get such property or you should
-not come with own generic properties. IOW, look at other bindings how
-they define a proper UDC device schema.
+Part One[1] fixed all cases that I identified to be real bugs, in
+response to a crash I saw on BeagleBone Black.
 
+This series is the clock subpart of Part Two, which fixes remaining
+cases that are currently harmless.  These are still fragile, and may
+cause future breakage when converting drivers to a different method for
+specifying the parents.
 
-I also do not see a need for this, compatible defines max speed.
+Thanks for your comments!
 
+[1] "[PATCH treewide 0/5] clk: Make sure clk_init_data is fully
+     initialized (part 1)"
+    https://lore.kernel.org/cover.1787165329.git.geert+renesas@glider.be
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        usb@81200000 {
-> +            compatible = "axiado,ax3000-udc";
-> +            reg = <0x0 0x81200000 0x0 0x00100000>;
-> +            interrupt-parent = <&gic500>;
-> +            interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+Geert Uytterhoeven (45):
+  clk: aspeed: Make sure clk_init_data is fully initialized
+  clk: at91: Make sure clk_init_data is fully initialized
+  clk: bcm: iproc: Make sure clk_init_data is fully initialized
+  clk: berlin: Make sure clk_init_data is fully initialized
+  clk: cdce925: Make sure clk_init_data is fully initialized
+  clk: clk-axi-clkgen: Make sure clk_init_data is fully initialized
+  clk: cs2000-cp: Make sure clk_init_data is fully initialized
+  clk: davinci: Make sure clk_init_data is fully initialized
+  clk: fractional-divider: Make sure clk_init_data is fully initialized
+  clk: gemini: Make sure clk_init_data is fully initialized
+  clk: highbank: Make sure clk_init_data is fully initialized
+  clk: hisilicon: Make sure clk_init_data is fully initialized
+  clk: imx: Make sure clk_init_data is fully initialized
+  clk: ingenic: Make sure clk_init_data is fully initialized
+  clk: keystone: Make sure clk_init_data is fully initialized
+  clk: lmk04832: Make sure clk_init_data is fully initialized
+  clk: mediatek: Make sure clk_init_data is fully initialized
+  clk: milbeaut: Make sure clk_init_data is fully initialized
+  clk: mmp: Make sure clk_init_data is fully initialized
+  clk: mvebu: Make sure clk_init_data is fully initialized
+  clk: mxs: Make sure clk_init_data is fully initialized
+  clk: nomadik: Make sure clk_init_data is fully initialized
+  clk: npcm7xx: Make sure clk_init_data is fully initialized
+  clk: nxp: Make sure clk_init_data is fully initialized
+  clk: pistachio: Make sure clk_init_data is fully initialized
+  clk: pwm: Make sure clk_init_data is fully initialized
+  clk: renesas: Make sure clk_init_data is fully initialized
+  clk: rockchip: Make sure clk_init_data is fully initialized
+  clk: samsung: Make sure clk_init_data is fully initialized
+  clk: scpi: Make sure clk_init_data is fully initialized
+  clk: silabs: Make sure clk_init_data is fully initialized
+  clk: socfpga: Make sure clk_init_data is fully initialized
+  clk: spear: Make sure clk_init_data is fully initialized
+  clk: stm32: Make sure clk_init_data is fully initialized
+  clk: st: Make sure clk_init_data is fully initialized
+  clk: sunxi: Make sure clk_init_data is fully initialized
+  clk: tegra: Make sure clk_init_data is fully initialized
+  clk: uniphier: Make sure clk_init_data is fully initialized
+  clk: ux500: Make sure clk_init_data is fully initialized
+  clk: versatile: Make sure clk_init_data is fully initialized
+  clk: vt8500: Make sure clk_init_data is fully initialized
+  clk: x86: Make sure clk_init_data is fully initialized
+  clk: xgene: Make sure clk_init_data is fully initialized
+  clk: xilinx: Make sure clk_init_data is fully initialized
+  clk: zynqmp: Make sure clk_init_data is fully initialized
 
-resets, phys. Make example complete.
+ drivers/clk/aspeed/clk-aspeed.c                |  2 +-
+ drivers/clk/aspeed/clk-ast2600.c               |  2 +-
+ drivers/clk/aspeed/clk-ast2700.c               |  2 +-
+ drivers/clk/at91/clk-audio-pll.c               |  4 ++--
+ drivers/clk/at91/clk-h32mx.c                   |  2 +-
+ drivers/clk/at91/clk-main.c                    |  2 +-
+ drivers/clk/at91/clk-pll.c                     |  2 +-
+ drivers/clk/at91/clk-plldiv.c                  |  2 +-
+ drivers/clk/at91/clk-slow.c                    |  2 +-
+ drivers/clk/at91/clk-smd.c                     |  2 +-
+ drivers/clk/at91/clk-usb.c                     |  6 +++---
+ drivers/clk/at91/sckc.c                        |  2 +-
+ drivers/clk/bcm/clk-iproc-armpll.c             |  2 +-
+ drivers/clk/bcm/clk-iproc-asiu.c               |  2 +-
+ drivers/clk/bcm/clk-iproc-pll.c                |  2 +-
+ drivers/clk/berlin/berlin2-avpll.c             |  4 ++--
+ drivers/clk/berlin/berlin2-pll.c               |  2 +-
+ drivers/clk/clk-axi-clkgen.c                   |  2 +-
+ drivers/clk/clk-cdce925.c                      |  2 +-
+ drivers/clk/clk-cs2000-cp.c                    |  2 +-
+ drivers/clk/clk-fractional-divider.c           |  2 +-
+ drivers/clk/clk-gemini.c                       |  2 +-
+ drivers/clk/clk-highbank.c                     |  2 +-
+ drivers/clk/clk-lmk04832.c                     |  6 +++---
+ drivers/clk/clk-milbeaut.c                     |  4 ++--
+ drivers/clk/clk-nomadik.c                      |  4 ++--
+ drivers/clk/clk-npcm7xx.c                      |  2 +-
+ drivers/clk/clk-pwm.c                          |  2 +-
+ drivers/clk/clk-scpi.c                         |  2 +-
+ drivers/clk/clk-si514.c                        |  2 +-
+ drivers/clk/clk-si5341.c                       |  2 +-
+ drivers/clk/clk-si544.c                        |  2 +-
+ drivers/clk/clk-si570.c                        |  2 +-
+ drivers/clk/clk-stm32f4.c                      |  4 ++--
+ drivers/clk/clk-stm32h7.c                      |  2 +-
+ drivers/clk/clk-vt8500.c                       |  4 ++--
+ drivers/clk/clk-xgene.c                        |  6 +++---
+ drivers/clk/davinci/da8xx-cfgchip.c            |  4 ++--
+ drivers/clk/davinci/pll.c                      |  2 +-
+ drivers/clk/davinci/psc.c                      |  2 +-
+ drivers/clk/hisilicon/clk-hi3559a.c            |  2 +-
+ drivers/clk/hisilicon/clk-hi3620.c             |  2 +-
+ drivers/clk/hisilicon/clk-hi6220-stub.c        |  2 +-
+ drivers/clk/hisilicon/clk-hisi-phase.c         |  2 +-
+ drivers/clk/hisilicon/clk-hix5hd2.c            |  2 +-
+ drivers/clk/hisilicon/clkdivider-hi6220.c      |  2 +-
+ drivers/clk/hisilicon/clkgate-separated.c      |  2 +-
+ drivers/clk/imx/clk-busy.c                     |  4 ++--
+ drivers/clk/imx/clk-cpu.c                      |  2 +-
+ drivers/clk/imx/clk-divider-gate.c             |  2 +-
+ drivers/clk/imx/clk-fixup-div.c                |  2 +-
+ drivers/clk/imx/clk-fixup-mux.c                |  2 +-
+ drivers/clk/imx/clk-frac-pll.c                 |  2 +-
+ drivers/clk/imx/clk-fracn-gppll.c              |  2 +-
+ drivers/clk/imx/clk-gate-93.c                  |  2 +-
+ drivers/clk/imx/clk-gate-exclusive.c           |  2 +-
+ drivers/clk/imx/clk-gate2.c                    |  2 +-
+ drivers/clk/imx/clk-lpcg-scu.c                 |  2 +-
+ drivers/clk/imx/clk-pfd.c                      |  2 +-
+ drivers/clk/imx/clk-pfdv2.c                    |  2 +-
+ drivers/clk/imx/clk-pll14xx.c                  |  2 +-
+ drivers/clk/imx/clk-pllv1.c                    |  2 +-
+ drivers/clk/imx/clk-pllv2.c                    |  2 +-
+ drivers/clk/imx/clk-pllv3.c                    |  2 +-
+ drivers/clk/imx/clk-pllv4.c                    |  2 +-
+ drivers/clk/imx/clk-scu.c                      |  4 ++--
+ drivers/clk/imx/clk-sscg-pll.c                 |  2 +-
+ drivers/clk/ingenic/cgu.c                      |  2 +-
+ drivers/clk/keystone/gate.c                    |  2 +-
+ drivers/clk/keystone/pll.c                     |  2 +-
+ drivers/clk/keystone/syscon-clk.c              |  2 +-
+ drivers/clk/mediatek/clk-cpumux.c              |  2 +-
+ drivers/clk/mmp/clk-apbc.c                     |  2 +-
+ drivers/clk/mmp/clk-apmu.c                     |  2 +-
+ drivers/clk/mmp/clk-frac.c                     |  2 +-
+ drivers/clk/mmp/clk-gate.c                     |  2 +-
+ drivers/clk/mmp/clk-mix.c                      |  2 +-
+ drivers/clk/mmp/clk-pll.c                      |  2 +-
+ drivers/clk/mvebu/ap-cpu-clk.c                 |  2 +-
+ drivers/clk/mvebu/clk-corediv.c                |  2 +-
+ drivers/clk/mvebu/clk-cpu.c                    |  2 +-
+ drivers/clk/mxs/clk-div.c                      |  2 +-
+ drivers/clk/mxs/clk-frac.c                     |  2 +-
+ drivers/clk/mxs/clk-pll.c                      |  2 +-
+ drivers/clk/mxs/clk-ref.c                      |  2 +-
+ drivers/clk/nxp/clk-lpc18xx-creg.c             |  2 +-
+ drivers/clk/pistachio/clk-pll.c                |  2 +-
+ drivers/clk/renesas/rzg2l-cpg.c                | 18 +++++++++---------
+ drivers/clk/renesas/rzv2h-cpg.c                |  8 ++++----
+ drivers/clk/rockchip/clk-cpu.c                 |  2 +-
+ drivers/clk/rockchip/clk-ddr.c                 |  2 +-
+ drivers/clk/rockchip/clk-gate-grf.c            |  2 +-
+ drivers/clk/rockchip/clk-inverter.c            |  2 +-
+ drivers/clk/rockchip/clk-mmc-phase.c           |  2 +-
+ drivers/clk/rockchip/clk-muxgrf.c              |  2 +-
+ drivers/clk/rockchip/clk-pll.c                 |  2 +-
+ drivers/clk/rockchip/clk.c                     |  2 +-
+ drivers/clk/samsung/clk-cpu.c                  |  2 +-
+ drivers/clk/samsung/clk-pll.c                  |  2 +-
+ drivers/clk/socfpga/clk-gate-a10.c             |  2 +-
+ drivers/clk/socfpga/clk-gate-s10.c             |  6 +++---
+ drivers/clk/socfpga/clk-gate.c                 |  2 +-
+ drivers/clk/socfpga/clk-periph-a10.c           |  2 +-
+ drivers/clk/socfpga/clk-periph-s10.c           |  8 ++++----
+ drivers/clk/socfpga/clk-periph.c               |  2 +-
+ drivers/clk/socfpga/clk-pll-a10.c              |  2 +-
+ drivers/clk/socfpga/clk-pll-s10.c              |  8 ++++----
+ drivers/clk/socfpga/clk-pll.c                  |  2 +-
+ drivers/clk/spear/clk-aux-synth.c              |  2 +-
+ drivers/clk/spear/clk-frac-synth.c             |  2 +-
+ drivers/clk/spear/clk-gpt-synth.c              |  2 +-
+ drivers/clk/spear/clk-vco-pll.c                |  2 +-
+ drivers/clk/st/clk-flexgen.c                   |  2 +-
+ drivers/clk/st/clkgen-fsyn.c                   |  4 ++--
+ drivers/clk/st/clkgen-pll.c                    |  2 +-
+ drivers/clk/stm32/clk-stm32mp1.c               |  4 ++--
+ drivers/clk/sunxi/clk-sun4i-tcon-ch1.c         |  2 +-
+ drivers/clk/tegra/clk-audio-sync.c             |  2 +-
+ drivers/clk/tegra/clk-divider.c                |  2 +-
+ drivers/clk/tegra/clk-periph-fixed.c           |  2 +-
+ drivers/clk/tegra/clk-periph-gate.c            |  2 +-
+ drivers/clk/tegra/clk-periph.c                 |  2 +-
+ drivers/clk/tegra/clk-pll-out.c                |  2 +-
+ drivers/clk/tegra/clk-pll.c                    |  2 +-
+ drivers/clk/tegra/clk-sdmmc-mux.c              |  2 +-
+ drivers/clk/tegra/clk-super.c                  |  4 ++--
+ drivers/clk/tegra/clk-tegra-super-cclk.c       |  2 +-
+ drivers/clk/tegra/clk-tegra124-emc.c           |  2 +-
+ drivers/clk/tegra/clk-tegra20-emc.c            |  2 +-
+ drivers/clk/tegra/clk-tegra210-emc.c           |  2 +-
+ drivers/clk/uniphier/clk-uniphier-cpugear.c    |  2 +-
+ .../clk/uniphier/clk-uniphier-fixed-factor.c   |  2 +-
+ drivers/clk/uniphier/clk-uniphier-fixed-rate.c |  2 +-
+ drivers/clk/uniphier/clk-uniphier-gate.c       |  2 +-
+ drivers/clk/uniphier/clk-uniphier-mux.c        |  2 +-
+ drivers/clk/ux500/clk-prcc.c                   |  2 +-
+ drivers/clk/ux500/clk-prcmu.c                  |  4 ++--
+ drivers/clk/ux500/clk-sysctrl.c                |  2 +-
+ drivers/clk/versatile/clk-icst.c               |  2 +-
+ drivers/clk/versatile/clk-sp810.c              |  2 +-
+ drivers/clk/versatile/clk-vexpress-osc.c       |  2 +-
+ drivers/clk/x86/clk-pmc-atom.c                 |  2 +-
+ drivers/clk/xilinx/clk-xlnx-clock-wizard.c     |  6 +++---
+ drivers/clk/xilinx/xlnx_vcu.c                  |  2 +-
+ drivers/clk/zynqmp/clk-gate-zynqmp.c           |  2 +-
+ drivers/clk/zynqmp/clk-mux-zynqmp.c            |  2 +-
+ drivers/clk/zynqmp/divider.c                   |  2 +-
+ drivers/clk/zynqmp/pll.c                       |  2 +-
+ 148 files changed, 188 insertions(+), 188 deletions(-)
 
-> +            maximum-speed = "high-speed";
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a674e36529f7..36af69fb965b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4468,6 +4468,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
->  F:	drivers/spi/spi-axiado.c
->  F:	drivers/spi/spi-axiado.h
->  
-> +AXIADO USB UDC DRIVER
-> +M:	Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> +M:	Krutik Shah <krutikshah@axiado.com>
-> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
-> +L:	linux-usb@vger.kernel.org
-> +S:	Supported
-> +F:	Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
-> +
->  AYANEO PLATFORM EC DRIVER
->  M:	Antheas Kapenekakis <lkml@antheas.dev>
->  L:	platform-driver-x86@vger.kernel.org
-> 
-> -- 
-> 2.34.1
-> 
+-- 
+2.43.0
+
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
 
