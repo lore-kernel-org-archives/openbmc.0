@@ -1,51 +1,115 @@
-Return-Path: <openbmc+bounces-2475-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2476-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D92C5DF87
-	for <openbmc@archiver.kernel.org>; Fri, 21 Aug 2026 13:31:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB92C5DF97
+	for <openbmc@archiver.kernel.org>; Sat, 22 Aug 2026 03:21:49 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hRLmg0xFLz2xnW;
-	Fri, 21 Aug 2026 23:31:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787319074;
-	cv=none; b=TT6qRHhuK0bQ06UO59LOOVBv+bsxA02AOwfcrHpkXIJX1AMUki2Dyzi0tUt92osNqV1DmunDpGYK+9f1/WExNKD5o6H4x3qa5oUbyBeBB11TGNmwPUnp2/68XXEDH9zupnYwiXw8HSW+FrkPsZkSO5WqjR0I68rp9x/rJi/Scnijm0V3plBkI8WWMVFLhZ7mYO6zIscK9pg9n1ODPwWIpIQ0+ZzLFD09NISdwBJbPSPsFunTs1xTptUV8lXAyNr/RdVHwbcaVfVquw5oBju1ogGQE7U+fhuSY0G03f8HJNzb3u7VCEzOrAwqDWjNrHXnnRtE6VWsU2Xm+HToTYtQWQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hRjBn3pDcz2yDs;
+	Sat, 22 Aug 2026 13:21:37 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787311788;
+	cv=none; b=hqKU3Bm+l22zW/6tJ3qhGh6/ytJ4CdP2W5siV5zzlvZdAc/m/qDXIr6krqw+7U7QcGlCasPY5VBG44v+xZSeAZVJEsHt48dX/1Ac8sz6f5F1nUxE7zf2W7zBfzrA4ok6Azr4la/s7B6uSBM3Vml4bAHwp/Rqw9UwrfwGVTyCFQ+g8CwKC2xLCdOEGdM4UHK0LM4b9qFTj0VrwooJKvSlzcArnFzpIJl0b/em6IuZu2B5VztZ+rp5DjsnaS9yqPvUT5YKzEK44nU8LPikn6UaP2t1PPNlgHgEBOvk0DupRNuDuru4NnJsNOB9eHEbeFQhjwITMS1+SnmCCLPuRQYWqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787319074; c=relaxed/relaxed;
-	bh=Uo/du0VNmVsqMTeIOJgXLNIRsqWuxBkETztHJiXKlH8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ku0LdRpZs+kb6HzS7VSD91kw+wigdY2MZEOXOkw4/LKNGXx6NAtHKw30CS6nH+hvZohM+keJ1JAAQLs2g7Q7qxwpu4dW2WsJuVVrmn+G6IuTCCVC0EzeEIMt5BX3Mvszx3EpUkeS+4tnrk+JbKSe7KTOW+t5ZYx4CF0svKv3O1u1OK3wPEN5sCZx3hI+VNDabwbQD5GAdYjNcfEADL6pJanr/5MgZK5VEhBACqxkF8MNl4XaZzCFExjltGWyGrSywc3N5BvTKz+MT4hDsS1ZjoNskOuVT0kl6TKsAB4ZRU+wqTdDYBGxsxc67wRpeAGQVOwGqS2zh4MIx8LavM71+w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwHm1tBF; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=dinguyen@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1787311788; c=relaxed/relaxed;
+	bh=yvXny4Uzt3tUYS9bpKHRNKA1xycDne4ixBPlCcMH+lk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XMeS5neKQ1kn2bWe4QCwn6Cl3wgTXIi/m8Drwabl89i819K13TQ9Arc+fZXk7wxJR960HysrtBvD6kgcQC8Xyrv3XRyISAZAhfuDR2k0KKzng4ePWovSqInuDUH/7k/WrWYGX+9WaOqFLw4ZrM+rU16krbvqRdKpm165nzARWC7QpDJtiQHnaxryFKFviNym8zYmHM8qpAqfDHehbgvu0yZqt2pjJzNQ+RK0ZnDDtZG28JCafMYobINRV3ITTOsoxtQmeAd4xgSMwJ75fHGfvMLiL8TjWRmIEs0DTRh/tWjFcOMWJCkkvVz81dnpaxRytZbDPLpl8Avg0DyeKraOrw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arm.com; dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NWaC1+te; dkim-atps=neutral; spf=pass (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=liviu.dudau@arm.com; receiver=lists.ozlabs.org) smtp.mailfrom=arm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwHm1tBF;
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NWaC1+te;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=dinguyen@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hRLmd6gS8z2xQ7;
-	Fri, 21 Aug 2026 23:31:13 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id 5CCFC6001D;
-	Fri, 21 Aug 2026 13:31:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A77E1F00A3A;
-	Fri, 21 Aug 2026 13:31:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787319070;
-	bh=Uo/du0VNmVsqMTeIOJgXLNIRsqWuxBkETztHJiXKlH8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QwHm1tBFzOeH4Q0RYUy0xNdqoFrvBjA9HTqq6VmrDUlCgzv+1nCQZ/2uv6cHX6ji8
-	 37U+QqRy5UX4cTix0OR322ZtM/qjLHwZvNVdGFWybpV5QKSQd5sQ3TDsLyyX7t22In
-	 nplaIC9Cmv5FUehFUuYwLIiVAxWv+IDdAh+zMD/QcRgAXlPEOMmsQf8JWG2rBlwNrV
-	 H3LWEJehc9NPBS3W4fPn5M405hnEr6shAga5JXiz6caYsYDqMGgZL8J1AHSmn2WeYU
-	 cGvX+q5cSLfWe61Cn842w15VfrXA+2O/Fr9+LgqtwG+YIKSPkGUxYp5BlYHNU1as8r
-	 0Lazhv1fc8TCg==
-Message-ID: <170920ea-e8d9-46a1-8415-659672bd8de4@kernel.org>
-Date: Fri, 21 Aug 2026 08:31:01 -0500
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=arm.com (client-ip=217.140.110.172; helo=foss.arm.com; envelope-from=liviu.dudau@arm.com; receiver=lists.ozlabs.org)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hRJ4W5n74z2xBK
+	for <openbmc@lists.ozlabs.org>; Fri, 21 Aug 2026 21:29:47 +1000 (AEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 995371596
+	for <openbmc@lists.ozlabs.org>; Fri, 21 Aug 2026 04:29:12 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 497DC3F763
+	for <openbmc@lists.ozlabs.org>; Fri, 21 Aug 2026 04:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1787311756; bh=rReboDtVWR+LchIn66VCIiRA4RrsNZEU4pEK04rnFMY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NWaC1+teVndv5tq9fFdOgSI2Ei/T9dLCIUhI/Ks/lshs4FWs4uuqYpb5wgTPIMI9B
+	 JDwuS96iUZ2cVwVJ3z/T93IUxsTCA6u/dw1EnCt4yIyneMbiDmWtpEtdVQTn1b4Zs8
+	 1xxSuoPoDUaL/ai8WbJWkLVnt3xixpMau8RQliv0=
+Date: Fri, 21 Aug 2026 12:28:01 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emilio =?utf-8?B?TMOzcGV6?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 40/45] clk: versatile: Make sure clk_init_data is fully
+ initialized
+Message-ID: <aog2QXT_86BrtvTs@e142607>
+References: <cover.1787239813.git.geert+renesas@glider.be>
+ <7c480e73222bb51982fb82dc0cc6cd503f2e8b92.1787239813.git.geert+renesas@glider.be>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -57,73 +121,12 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 32/45] clk: socfpga: Make sure clk_init_data is fully
- initialized
-Content-Language: en-US
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Takao Orito <orito.takao@socionext.com>, Linus Walleij <linusw@kernel.org>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Cristian Marussi <cristian.marussi@arm.com>,
- David Lechner <david@lechnology.com>, Abel Vesa <abelvesa@kernel.org>,
- Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Santosh Shilimkar <ssantosh@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Viresh Kumar <vireshk@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- =?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Prashant Gaikwad
- <pgaikwad@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org, imx@lists.linux.dev,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- soc@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-mediatek@lists.infradead.org
-References: <cover.1787239813.git.geert+renesas@glider.be>
- <2d38d78f8d59583e29778bebc65eaab911d8a120.1787239813.git.geert+renesas@glider.be>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <2d38d78f8d59583e29778bebc65eaab911d8a120.1787239813.git.geert+renesas@glider.be>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7c480e73222bb51982fb82dc0cc6cd503f2e8b92.1787239813.git.geert+renesas@glider.be>
 
-
-
-On 8/21/26 03:53, Geert Uytterhoeven wrote:
+On Fri, Aug 21, 2026 at 10:53:50AM +0200, Geert Uytterhoeven wrote:
 > The clk_init_data structure contains several mutually-exclusive members
 > for different methods to specify the possible parents of a clock,
 > prompting drivers to initialize only the members they need.  However,
@@ -136,22 +139,71 @@ On 8/21/26 03:53, Geert Uytterhoeven wrote:
 > for specifying the parents.
 > 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
 > ---
 > Compile-tested only.
 > ---
->   drivers/clk/socfpga/clk-gate-a10.c   | 2 +-
->   drivers/clk/socfpga/clk-gate-s10.c   | 6 +++---
->   drivers/clk/socfpga/clk-gate.c       | 2 +-
->   drivers/clk/socfpga/clk-periph-a10.c | 2 +-
->   drivers/clk/socfpga/clk-periph-s10.c | 8 ++++----
->   drivers/clk/socfpga/clk-periph.c     | 2 +-
->   drivers/clk/socfpga/clk-pll-a10.c    | 2 +-
->   drivers/clk/socfpga/clk-pll-s10.c    | 8 ++++----
->   drivers/clk/socfpga/clk-pll.c        | 2 +-
->   9 files changed, 17 insertions(+), 17 deletions(-)
+>  drivers/clk/versatile/clk-icst.c         | 2 +-
+>  drivers/clk/versatile/clk-sp810.c        | 2 +-
+>  drivers/clk/versatile/clk-vexpress-osc.c | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
 > 
-Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+> diff --git a/drivers/clk/versatile/clk-icst.c b/drivers/clk/versatile/clk-icst.c
+> index 6bd3db54dd229d28..97a1bfd6cf0ed995 100644
+> --- a/drivers/clk/versatile/clk-icst.c
+> +++ b/drivers/clk/versatile/clk-icst.c
+> @@ -360,8 +360,8 @@ struct clk *icst_clk_setup(struct device *dev,
+>  {
+>  	struct clk *clk;
+>  	struct clk_icst *icst;
+> -	struct clk_init_data init;
+>  	struct icst_params *pclone;
+> +	struct clk_init_data init = {};
+>  
+>  	icst = kzalloc_obj(*icst);
+>  	if (!icst)
+> diff --git a/drivers/clk/versatile/clk-sp810.c b/drivers/clk/versatile/clk-sp810.c
+> index b0e69686f7a9a93e..28e5c0cf1fda38e4 100644
+> --- a/drivers/clk/versatile/clk-sp810.c
+> +++ b/drivers/clk/versatile/clk-sp810.c
+> @@ -86,7 +86,7 @@ static void __init clk_sp810_of_setup(struct device_node *node)
+>  	const char *parent_names[2];
+>  	int num = ARRAY_SIZE(parent_names);
+>  	char name[12];
+> -	struct clk_init_data init;
+> +	struct clk_init_data init = {};
+>  	static int instance;
+>  	int i;
+>  	bool deprecated;
+> diff --git a/drivers/clk/versatile/clk-vexpress-osc.c b/drivers/clk/versatile/clk-vexpress-osc.c
+> index 9adbf5c33bd1cada..72e872ec6b7c9b47 100644
+> --- a/drivers/clk/versatile/clk-vexpress-osc.c
+> +++ b/drivers/clk/versatile/clk-vexpress-osc.c
+> @@ -64,7 +64,7 @@ static const struct clk_ops vexpress_osc_ops = {
+>  
+>  static int vexpress_osc_probe(struct platform_device *pdev)
+>  {
+> -	struct clk_init_data init;
+> +	struct clk_init_data init = {};
+>  	struct vexpress_osc *osc;
+>  	u32 range[2];
+>  	int ret;
+> -- 
+> 2.43.0
+> 
 
-Thanks,
-Dinh
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
 
