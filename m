@@ -1,58 +1,106 @@
-Return-Path: <openbmc+bounces-2494-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2495-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58988C5DF9C
-	for <openbmc@archiver.kernel.org>; Mon, 24 Aug 2026 23:51:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47B7CC5DF9C
+	for <openbmc@archiver.kernel.org>; Mon, 24 Aug 2026 23:52:06 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hTSNr2Gctz2ypw;
-	Tue, 25 Aug 2026 09:51:24 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787604001;
-	cv=none; b=bHHGP36isY/hoYCeyIXl9kVGxTTuR79sEk/VbuJH3/kFjNgKrrfZ/aUSKHU4/CE+l3UNJ1jK8EfpVgPgF3RvRwMId2kdBPbuBBaO3S5/8ojE5Xxe6KciS0R2ZEiopSML6KuSF8nw7SRBELAoRF6TbLhX99+cWsUtigc74P0XJKnGW71WxyL2P4fhV0Oxt/7sKZB3cQ4xpF8w0lOWVhs+sJZFf3fjcEdQHWId4I+ou+1/uBv+M2guXSV8/pLulwAN9SksZh6otzXqFwXXoaRI3gXyjWbXXamsVjbpxnazYr3yOMSHCuY+FC9xAnr4KVDVKNBqRYK7TJ7XAN5YvS9qFQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hTSNt3FhZz2yr1;
+	Tue, 25 Aug 2026 09:51:26 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787585018;
+	cv=none; b=CB1tU5qmwFkYtp3+14g8gthM739il5oAfd0XjO9Qzc89Qauw03I3yKP/z9YraqIHMEr8Iv7db4VjxynzIQvf7sBRdC5TpdrP+EvRp+xeIUwjViUlQz70HA+9srJgcCsmJDz0waaGXMfio7FKIZ6sXrhvDdeYsH4DQRMFMC1QCuhZDsZWMIq7YXh2SYc0y0DCV8ISZprsV/SWQf/ph751f2TT4qbdjaUmqm72zpKHAqdi2u4vjsrobmzrQLfSwr/qQxSK214/ZSUD0gcZRH5lIBE6Abz35I2ddmRM2iAtxTWUBhvUXs0Vt8nSNg2MlaxyvuwfN2jaK+1oUQf6sz8ViQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787604001; c=relaxed/relaxed;
-	bh=LEMIXlW7UB4hHdDf5XWpYKY9mKhf7DDvl0I5DYYVcWI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g7efOIMoETmYd86jdywSyyvMWI9ZaEHkIgfqRWX7XfbapZ2YZuY5jmL+3CUj+QB3gR8r8mZhBXCEUsVdMwbNfJ7XK70cvH/F/hW7DEjVmlRfLZ7QG6uYy8nwdJj3L56UyscrQqGyApGaOD/UukdEHo+ziN4q75wiKS9ZvXliiJf+F9hG5NJsgzFKuX7VWGe4ArK2hto9ETPcfJ0r+BmiLOXtbUGKKK/h7j/QybM7IA7ewdAmXK5XDWEwbj5UKa8EVLDaQ/mRwFMr5qILjRLWwrYouMf4lSnTgUEBlYCzZFr/Uln/4scR8bLB1HLid1Kf7u/5PwcGxbLhZQykgf0j6Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fud7BxQ3; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1787585018; c=relaxed/relaxed;
+	bh=hyWMUGGCNpdQSR+UOCnNr9F3b3WrWX6YNL1yYdbXEgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=UGgz4WGLuJE8ybxjmUgtrnD1ML7SaIkHLF315tAcnAtEYp6BCRhvIkrrbEKMGmY665Zs7+H/1x0oo+3uaVVMPcjAutdrQisI783CTFxsz+ZzjUEfcL3wqw1Y5odwpxiiPSklehpgfNEGwnx1XIjkWG5wVEWQRKyXUtUlTj7cQ/pmezaoW5x7gUdYxApbVvZF5HYa8820JXcI22e2mURnqoFIJNpe/usFZM7J5d62PcO+hUWC+WBsuHksBv6Q33kugtyRnTpVXIIqqpJBq57ieRyUzNhm0ypiPRbfAy/eQwFcWN92lclZeveYBkVCLlop23kOY85ij+KQXp9Efz8JVA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GjdIR1wr; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=APoGnSDM; dkim-atps=neutral; spf=pass (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org) smtp.mailfrom=redhat.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fud7BxQ3;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GjdIR1wr;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=APoGnSDM;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=redhat.com (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hTN804kDKz2xr2
-	for <openbmc@lists.ozlabs.org>; Tue, 25 Aug 2026 06:40:00 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 2A9D0440B7
-	for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 20:39:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFED1F00A3E
-	for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 20:39:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787603999;
-	bh=LEMIXlW7UB4hHdDf5XWpYKY9mKhf7DDvl0I5DYYVcWI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fud7BxQ3mGLqvIlEbg6ad9ks7USWBuldJ1rhesQ/I5Z0P2TbTL/B4yjUjL1TSSrTD
-	 v9RK49uFy/MyVlVnS8Z/JZDw9ZTdeNWDOS0e+/wAdfU7LjgosBNO5vMauS2LOkhSwL
-	 h9es8uX1/IuSMbLrikq26C8DDQWS9jjYsQIWnhTN/9oY8wwhg8Ib5NngWTfnaG5VPb
-	 QNRFXSnXUIyQ729E68Byd/f2DVHD/1gkoUs1R571cy1A1O4+ogllCKGvmvCpO5h+eL
-	 qJLr9moIGO2e0IP8EFl/5HO0egD7wqzSaMyNhD5h7CfhF2rFlDdbxcC/fexzhM8k3F
-	 Rj5nuaFX6ztWw==
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-448cf99c133so125393fac.1
-        for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 13:39:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rrdvk3m1t8rNMRpd8TYdzrzm6lI7whEGCAFcWWAvn6JjBlVGmzOKtZxHtQfCfokx6QUyaV3yzKh@lists.ozlabs.org
-X-Gm-Message-State: AFuF++nRaBoF+PBni7pyBZ18YRJD3MekTWg7a3+nJIlqxT0qRj8Nt6p4
-	44CTdOe5vPhDdDmA/5nLIwZcZQOkXN8tP8z7HRxDt612qITXVYeisS5hV7zG76twAcSxiClQL83
-	ibG+N0yZAxZc2gq9hVB7Z4zAaf07m3D4=
-X-Received: by 2002:a05:6820:4b83:b0:6b1:779:89f6 with SMTP id
- 006d021491bc7-6b18fa810bemr1569885eaf.3.1787603998213; Mon, 24 Aug 2026
- 13:39:58 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hTF6x4Kbyz2xpv
+	for <openbmc@lists.ozlabs.org>; Tue, 25 Aug 2026 01:23:35 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787585012;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hyWMUGGCNpdQSR+UOCnNr9F3b3WrWX6YNL1yYdbXEgo=;
+	b=GjdIR1wrlljmRwfJk3l5VXV7fTfNcfmGg7Z4+RC0+1CRg7e0YTSfJSE7hYaNG6Jc9aSkwi
+	YQjfAEIBGXO/WfvWRMO+fo6ujiLiO6m6/sjfTgby207P3xXL0ajMotF0yxuq7SEWrXxkLw
+	TcdPGYwcCfowog/++IRfoMqawln7fV0=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787585013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hyWMUGGCNpdQSR+UOCnNr9F3b3WrWX6YNL1yYdbXEgo=;
+	b=APoGnSDMNWT8igCrQaUfj3EJkeUZJ6iLaWo4v0Sb3PQ1wD37bvR56ZA2iLUDZEgF+rr0ud
+	LpsBFZ720Tz2il7v5FolGI4Gg+GycJc/kmGEFRN8TPUJOKQ+1GzlECFiCNfAj60JXyEzuC
+	zSqZCorrn7j48N0f77bBVpw83tm0CEo=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-658-ojVt8v8GNt-C4pkodz_7XA-1; Mon, 24 Aug 2026 11:23:30 -0400
+X-MC-Unique: ojVt8v8GNt-C4pkodz_7XA-1
+X-Mimecast-MFC-AGG-ID: ojVt8v8GNt-C4pkodz_7XA_1787585010
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c07f25de2so28743181cf.3
+        for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 08:23:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787585010; x=1788189810;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hyWMUGGCNpdQSR+UOCnNr9F3b3WrWX6YNL1yYdbXEgo=;
+        b=ixrlk+LKKlSCyfToVXpLLWtyAsE6wiw/Di+RuqQaGSUTLqHElV1SbitwnmE84nIK6F
+         Uw9zBa0CvbIcCS3iZC510cAUAsxcOa1VIeWXyXMF8shSJMsmK86yGxEliD+09gWqMw96
+         eu/B2VkRJpwRILOKLiHlucVyRvnBBVVJf//Lx8/snrn0jV4n8g9n5AqY+5KlyXFXWP76
+         COAefXxD1BByGPIYEo67nIsMgFmOdw1Q3TQrPobk9IkBXhVhEmlsZ4y6awoENj9J5LVc
+         GT+lg1er1hiu/ZS0YiBE1XEOHBKIYaArcszKRnSdebEPVwDWpfZ2x5M/2Dpr80gw/yN0
+         xaBA==
+X-Forwarded-Encrypted: i=1; AHgh+RpKzf4e2c0uj9Y3OwIeQNAnj+oaS9M6dMojcipf1fCSTS+CDpXThrak6ePNrRt52YqQwl4yHM0+@lists.ozlabs.org
+X-Gm-Message-State: AFuF++kqY4Dz67O/WH4dq2X39pmxE3yxcKKsIZf03dqsDQeMye1Opqad
+	H2FJL7L8rWVsuumR8Tt6J8rL6I4vfOd+Q1L9P4oheCjbp78GEP7KhD8hfT5LeMJ79doA4c/ELXk
+	tExtpuWRiRM1Nb1jMakAttc42Hs7k+EAzOa1qK3XIwYiliDtT3j2dofmm/tOO
+X-Gm-Gg: AR+sD134WsA45CD9mKKifkArl2Nvh112SxLJGaJEK/ySNgeBJX9eNbVubavlMl/kfpR
+	OahaQ877YIJAByfdf+O2leNnmB8MFG5kip5uvEUFLcj9EyPP5EvfCJmY1awnmQyhEv0N7xxmZZr
+	JpKoSDNJPA44HuhBYJc+A0tkeCNJSN1L1tIqJdZ6pW0m99opgubxF2vDBX/fEp0R+eZGv+T+kpF
+	91akW/lCGNGcIftMLAQFI/dyMLOrZAkOXqoQX85BOUnV+ifo4AFeFJdlt8OyiDEJt/Mc5jdyH8p
+	EJPiGqii8STh38CnNqBY3uH1bL5Vo/OgdQdWcguWtrVVCJGHdhmARBsNkrcEgMU5UBEP3zE0FcC
+	kwj4jY0lf+KFwex5iOAN8mgYUMhsvF37a3X0=
+X-Received: by 2002:ac8:7f46:0:b0:52d:78c9:9379 with SMTP id d75a77b69052e-52df5a4a524mr291839271cf.30.1787585009886;
+        Mon, 24 Aug 2026 08:23:29 -0700 (PDT)
+X-Received: by 2002:ac8:7f46:0:b0:52d:78c9:9379 with SMTP id d75a77b69052e-52df5a4a524mr291838151cf.30.1787585009336;
+        Mon, 24 Aug 2026 08:23:29 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c9393202esm65764626d6.27.2026.08.24.08.23.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 08:23:28 -0700 (PDT)
+Date: Mon, 24 Aug 2026 11:23:27 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Iwona Winiarska <iwona.winiarska@intel.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH] peci: controller: aspeed: Make sure clk_init_data is
+ fully initialized
+Message-ID: <aoxh76RQucnlttcA@redhat.com>
+References: <48aa77c45e109f78ccd806bc3b7bf380c5bc5e71.1787240145.git.geert+renesas@glider.be>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,74 +112,28 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1787239813.git.geert+renesas@glider.be> <631df13629bf77d55bda770f94c7b1863690f2e2.1787239813.git.geert+renesas@glider.be>
-In-Reply-To: <631df13629bf77d55bda770f94c7b1863690f2e2.1787239813.git.geert+renesas@glider.be>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 24 Aug 2026 22:39:40 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkQd4ZfKAxzCaOobfQKyYqa3jdaCiPEd8Tp=yyC4YeLuQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WWNgSFLas9lNi7aTz9dpo8225CQLxghuyz8Km9gH4_yLCmhqwBO9vh3BQ
-Message-ID: <CAD++jLkQd4ZfKAxzCaOobfQKyYqa3jdaCiPEd8Tp=yyC4YeLuQ@mail.gmail.com>
-Subject: Re: [PATCH 22/45] clk: nomadik: Make sure clk_init_data is fully initialized
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Taichi Sugaya <sugaya.taichi@socionext.com>, Takao Orito <orito.takao@socionext.com>, 
-	Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
-	Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
-	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	David Lechner <david@lechnology.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Paul Cercueil <paul@crapouillou.net>, Santosh Shilimkar <ssantosh@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Viresh Kumar <vireshk@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	=?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, linux-clk@vger.kernel.org, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
-	arm-scmi@vger.kernel.org, imx@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
-	linux-tegra@vger.kernel.org, linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <48aa77c45e109f78ccd806bc3b7bf380c5bc5e71.1787240145.git.geert+renesas@glider.be>
+User-Agent: Mutt/2.4.0 (2026-06-19)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: UOSNjN4jaQUshlVa6ul0nPa2xHcrd1KAWPpqis8v6N0_1787585010
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Fri, Aug 21, 2026 at 10:53=E2=80=AFAM Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
-
+On Fri, Aug 21, 2026 at 12:08:05PM +0200, Geert Uytterhoeven wrote:
 > The clk_init_data structure contains several mutually-exclusive members
 > for different methods to specify the possible parents of a clock,
 > prompting drivers to initialize only the members they need.  However,
 > not initializing all members may cause subtle issues, which are only
 > exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
 > enabled.
->
+> 
 > Make sure all members are fully initialized, to avoid such bugs, and to
 > prevent future breakage when converting drivers to a different method
 > for specifying the parents.
->
+> 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-Yours,
-Linus Walleij
 
