@@ -1,58 +1,149 @@
-Return-Path: <openbmc+bounces-2483-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2484-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5842EC5DF97
-	for <openbmc@archiver.kernel.org>; Sun, 23 Aug 2026 23:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ACEBC5DF94
+	for <openbmc@archiver.kernel.org>; Mon, 24 Aug 2026 04:16:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hSrYG4hW6z2y2T;
-	Mon, 24 Aug 2026 09:56:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787517079;
-	cv=none; b=Nl8XZbkkmmz5pPUAllZUbl9XQ2MXd2wTG7wDajPUK3NGAfHkuzPNv3tsddECf5VX1dMVq7amoxTNAvV8Nn/rE7JNA9UzceBs29tJy7PZ7wTUVYoRIg8+sxeMYlXYBQfXo/nIOok12wbpbShZ374JvfltjmQ8F2OM2Jpt1KpR07lW1Rp2CpeBr3LoamRe6oRCO1zxRbuCCB5XSL0V5qVKKPmOxrPKftgO+LhH5W3XoZ3y6KtN7f3h84nj/0byNjGJSZMf0MPC9PzF6FT0kS/snrO5QfLDyFPcHsVQJAWNxY+qNNo7Y4DIwFpJoHz7xVu4T9+V/mFgUuQAy/5XehpzBg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hSyJd42BRz2y2g;
+	Mon, 24 Aug 2026 14:16:01 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::435"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787544387;
+	cv=none; b=duqdzBsH9/JrWIwTV0MInDT+WklL6hANfxpYOHOxOHFJIKNM7eT/0+CEAlvj7MWrRLUY21QLQwYjsYDRZM+PJpFszM9dhr7k0bkFY/3UBIKnLZK5sTid39zr18PGNyY1y0IgUgwfJLwkmWhfwTb7+bBjxdY/Y5NX1tkS/mgttgLpk1yxlHUPUd17HlBD/auoLjqXQR40rPVwMQCxN+PPob0cDUynIbUEfCwPWYENJpb48EwpAsyvxKzLr1r5Ohl7/XMRoTb+GhyKxEts3g61iqj06W7f3qoILdOuHBGe4ojnDceaC0tH8WmA8/DIZgzf1q3IZhmaqkQ/7SID4n2fiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787517079; c=relaxed/relaxed;
-	bh=Hz9a2/4b0H2hGIuQcX4i4J6vhXjz7a1tVe8/vJ1mK5k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OxuRF4jsH8RID9W/28AvcI+LInWspfmIKstRknvds+8bVOmo4BnAmF1xpTrrHgPkQwQwbQYL4iUcZ1B0zb+pDHcq5E0mKF3h32yGWdYnH4M4qJpu6a4+z37mtYIE6NNrKiYF3w3+T98TRxEq4exPxDfTt6UQpWm7V6mCZgK/e8CKQSiDMGkakQxAq0Z1P5yGSo4ZZXxg7Ve4RC9oxx6R7945hfh790hGvWuElowzosOCzhxiobjY3QaeQ59ioVR4kegVRuhgQU6ziVsYGCJ10EbszmC59b1M6tw6aKiQ6SINyZfNTmDOt+xUigZ49cJvFy7pPJ/Grljq3tCLc6nnFA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9SR/CDW; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1787544387; c=relaxed/relaxed;
+	bh=aZ+YAW/hXFppA4FxL5IflpWDS7HfTYg8qTJoBoXjwNs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eg7Nna1WMPEvazrT79Vb29Oc7YgWGFr1NpxyiwMN6xhyF9Gjzu+J5DPHgP0AwY2p8noUIOKPJCY7oM/sIxdxmp3GJSVzUS/ceNW+2892pNPmbAK6WSXQWQzcTjallTItqkz+K9odKDD8qFnuwXrSffyDsrvndGAaiRAP+/Gdi4CQPeDYrpxwAh6QHE9jNT372zs28nL3QYve5x6izo19J4LilKfntfPUX/tTOaNpsfZo0pDuK4kEeSfeGDE2ok7kZAT34yjklt91do5ESJ2+kQrkSLU4qM0R2VCWux8R6EuNwrCi+VZmn4DPXGMc/0B2hU+VRRKgyLJdPRPbPDB2gA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org; dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ImPCb+sS; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com; envelope-from=viresh.kumar@linaro.org; receiver=lists.ozlabs.org) smtp.mailfrom=linaro.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9SR/CDW;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ImPCb+sS;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com; envelope-from=viresh.kumar@linaro.org; receiver=lists.ozlabs.org)
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com [IPv6:2607:f8b0:4864:20::435])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hSm0Q38bcz2xnv
-	for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 06:31:18 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id BF4F160254
-	for <openbmc@lists.ozlabs.org>; Sun, 23 Aug 2026 20:31:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 776291F01559
-	for <openbmc@lists.ozlabs.org>; Sun, 23 Aug 2026 20:31:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787517070;
-	bh=Hz9a2/4b0H2hGIuQcX4i4J6vhXjz7a1tVe8/vJ1mK5k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Z9SR/CDW2+RChZ3knjritt88WVf6xuW1xAcW5680A4MsxFF1qx3Cyc2rapAylHwmY
-	 i01kHvJ/Qt8Az6ftSP9Wlfop6xlECrhrEo73TxjT0/f/TMQve4hcix+HMncPTM1HJF
-	 PaB7k9Vh9OJ+gqrSWVZQTIzVw2l2P5vSW5Kxn344fH7uIP+cOEvTizQYaQ/F5cUzA7
-	 p+sPgYQkVyJ1IO3DrZBKDbMjn5pO1E6mwMBR6s32rJgu0EpbBk5Sz2CzP916HdHBSq
-	 EsQUo4o2t5BYNwQt0xwWwIZl0XHOiTkx56XOJJ9rE7ywoOqP3O2l4SCAosPzB/PYLc
-	 Yuaa9lHQxDn9A==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b013aa02b2so4799014e87.0
-        for <openbmc@lists.ozlabs.org>; Sun, 23 Aug 2026 13:31:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqKUyfsF+x/P0UifLVdzaccItFXN9G+sBMhBS/b6btO6M8Swr8ItVQTlPEIRz3gP4SjKpE0AsKQ@lists.ozlabs.org
-X-Gm-Message-State: AFuF++kV1B743umwMN47E/yMtuO/Nbj8HN7PFzgKHRlYt7l4ImuR2cwm
-	yUev/zYNP0NNiwT7l/e9SGdn+uSO4wQJ4s531oLN1MrnJaKie7m7qhh2LUmOKuW4gMMof6N5xHx
-	djnQqNGG3H5XhxR2Ab7u/HlZbDZZV1+Y=
-X-Received: by 2002:ac2:51c5:0:b0:5b3:12b1:be93 with SMTP id
- 2adb3069b0e04-5b484736c8amr4269481e87.0.1787517068028; Sun, 23 Aug 2026
- 13:31:08 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hSy5Z1Bj2z2xGt
+	for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2026 14:06:24 +1000 (AEST)
+Received: by mail-pf1-x435.google.com with SMTP id d2e1a72fcca58-8518b3ff3e9so2452701b3a.2
+        for <openbmc@lists.ozlabs.org>; Sun, 23 Aug 2026 21:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1787544381; x=1788149181; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aZ+YAW/hXFppA4FxL5IflpWDS7HfTYg8qTJoBoXjwNs=;
+        b=ImPCb+sSkJfJ0LFBxVX3sY5so5B6YaFkRGgzJ5mWiIGTuv0HMEzKUwBeh3x6HkqD0c
+         4IlA8RYunwZglWKo7+N0d65XGqOY+ezVcp0zDQx52myGozarpb+u0dZkRfQ8AT50afpn
+         29C4/Gt/jEEUFeRwgle/MavDW/N/AME/hWWNn3Hu1rXmewZ3Q1jE4UUiFRb9LXbNC19O
+         2UE18c7SVMNSZiK/rjg23Os/Ip0RWyVDQrx7R5yQHJti8s6zSxQWh40d2sDBDCJ1uVoy
+         qayyASuCBflHylXlRzlW0GaE+wIWlpSbt1TCtYL+Oc+E25jxPO9suneszdQ8zX6dDfep
+         WYzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787544381; x=1788149181;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aZ+YAW/hXFppA4FxL5IflpWDS7HfTYg8qTJoBoXjwNs=;
+        b=nyNAgDLNBIchug4a838a3SqI/mZqbv76Ezl//kvSgKgqu6lF1uH9fT4IqIoU/Kb9PO
+         GqMa2UnkwHV/WDw5rcKKLKZzdLsBX2ZJ6CrzTYjoPI0WdTQYpuoAKv3OtKIjCouCb1ik
+         MO69F89Lkx5R9hRWYf5opPGkTH7AlEiyAjqfBFMY41jaEmnPtgHYsiPCXYWgxYVn6Gfr
+         xz4rAqS1efbhjp5EHTKXQekG45sbi6aUbXtHavOL8IzolHtVAX46WhBo4ZUwwfe9Dpt3
+         IUHS/1VzSr0UC9mr8w4l7YtbLAm45tqAflWxc0Ujj7QD1vCeLrLxN65MHPb90SAf1mXk
+         X2mw==
+X-Forwarded-Encrypted: i=1; AHgh+RoO3JDVBAXh2KiwuyjtWpzW2PP4nGO3y38zj/N5nzp2leqfqaswovFOrA+QxpI7Egc15R1w09e4@lists.ozlabs.org
+X-Gm-Message-State: AFuF++mEV+bhrAVqg0Tnav7W0fsiTu5L8GUBy045IjIpQwPyQToniwNJ
+	yijx9pDCb6WpIKGqt+HbBYhBzt5koiGLhcnCYM0y9etugRrEXd+FHSSNz8eTcBDodvE=
+X-Gm-Gg: AR+sD12r2+25z/HR8Gh7ejwSB7v5CBGkIVvyEi4u7EuBU0HDVLygkK/LVTm6LPE7Ye9
+	vBdEY+MXO2piXZMn5Mqe4iLJt0+sMg20OjAPRu9tomDFp3hjnRal6nEEkJWhW7Da3vMNnlr4Ud7
+	3cE4jYLTRTb0VSyi/aoz3ew/BMyo5RdU8uYyzsylw5w4wgUjOSJkjnV1w6ID8qDgufGmVJ5l17C
+	1RPwidPGnfsuWwLbpz1U9dIkRIS2AHJxNSZ6Q2qTBKqYVhgW9zNSHXuMeRf4fzx9jhn8R5/i7rP
+	naFo2conkcJ/MvgK1JW5FzJ0qVMs5qEVfzLwXdAr/QG0YGLjs20xVvSGGww35MGz2NOiV7fUo5Q
+	85cEKb3bnuAPEihw8e7aG1cv1c2MSgFNlqMagqqu+vnq91AKzuodnGRqF9YhlWrXS0MsEllhDsH
+	Z66Szr37q5xS0CqMhqDzK6vXpCAmL48Y285toX3QaXO5TMBs1PeEM6hKoCBC5FLGw=
+X-Received: by 2002:a05:6a20:7288:b0:3c3:6b6e:8ba0 with SMTP id adf61e73a8af0-3cd3008a6f1mr36995990637.11.1787544381391;
+        Sun, 23 Aug 2026 21:06:21 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1418619d6ecsm19733419c88.14.2026.08.23.21.06.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 23 Aug 2026 21:06:20 -0700 (PDT)
+Date: Mon, 24 Aug 2026 09:36:17 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 33/45] clk: spear: Make sure clk_init_data is fully
+ initialized
+Message-ID: <aovDOSMKhHLI70dW@vireshk-B250M-D3H>
+References: <cover.1787239813.git.geert+renesas@glider.be>
+ <d4500d249021013d52aa87407f875dc203a251df.1787239813.git.geert+renesas@glider.be>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,75 +155,34 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1787239813.git.geert+renesas@glider.be> <bd84df92640a05a1a73a8bc775b2d50568a9d0ec.1787239813.git.geert+renesas@glider.be>
-In-Reply-To: <bd84df92640a05a1a73a8bc775b2d50568a9d0ec.1787239813.git.geert+renesas@glider.be>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 23 Aug 2026 22:30:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkYE8Fh_HpKPYjL0-ksVQA8f_iLRFNkPU5Jvq+ihay5ww@mail.gmail.com>
-X-Gm-Features: AcwNN1U1aXPtuwFV8knvjn18BtYzZuPH0iZTVosQkZ_l23SVekgfIt7U_k24f4g
-Message-ID: <CAD++jLkYE8Fh_HpKPYjL0-ksVQA8f_iLRFNkPU5Jvq+ihay5ww@mail.gmail.com>
-Subject: Re: [PATCH 39/45] clk: ux500: Make sure clk_init_data is fully initialized
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Taichi Sugaya <sugaya.taichi@socionext.com>, Takao Orito <orito.takao@socionext.com>, 
-	Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
-	Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
-	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	David Lechner <david@lechnology.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Paul Cercueil <paul@crapouillou.net>, Santosh Shilimkar <ssantosh@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Viresh Kumar <vireshk@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	=?UTF-8?Q?Emilio_L=C3=B3pez?= <emilio@elopez.com.ar>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Prashant Gaikwad <pgaikwad@nvidia.com>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, linux-clk@vger.kernel.org, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
-	arm-scmi@vger.kernel.org, imx@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
-	linux-tegra@vger.kernel.org, linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d4500d249021013d52aa87407f875dc203a251df.1787239813.git.geert+renesas@glider.be>
 
-On Fri, Aug 21, 2026 at 10:53=E2=80=AFAM Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
-
+On 21-08-26, 10:53, Geert Uytterhoeven wrote:
 > The clk_init_data structure contains several mutually-exclusive members
 > for different methods to specify the possible parents of a clock,
 > prompting drivers to initialize only the members they need.  However,
 > not initializing all members may cause subtle issues, which are only
 > exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
 > enabled.
->
+> 
 > Make sure all members are fully initialized, to avoid such bugs, and to
 > prevent future breakage when converting drivers to a different method
 > for specifying the parents.
->
+> 
 > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> Compile-tested only.
+> ---
+>  drivers/clk/spear/clk-aux-synth.c  | 2 +-
+>  drivers/clk/spear/clk-frac-synth.c | 2 +-
+>  drivers/clk/spear/clk-gpt-synth.c  | 2 +-
+>  drivers/clk/spear/clk-vco-pll.c    | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
 
-OK I trust you on this one:
-Acked-by: Linus Walleij <linusw@kernel.org>
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Yours,
-Linus Walleij
+-- 
+viresh
 
