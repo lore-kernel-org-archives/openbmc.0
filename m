@@ -1,85 +1,126 @@
-Return-Path: <openbmc+bounces-2502-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2503-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B50C5DF97
-	for <openbmc@archiver.kernel.org>; Wed, 26 Aug 2026 12:32:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B609EC5DF97
+	for <openbmc@archiver.kernel.org>; Wed, 26 Aug 2026 14:06:58 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hVPDf52LQz2yb9;
-	Wed, 26 Aug 2026 22:32:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::531"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787747554;
-	cv=none; b=NGyTVpgthGrJ39fOyyJO204S1WmfTA2UV/AAWMH1PGYbshOFAomFg+/eV2h6D1KYIdHCRCq7+e91jIw+dq8XuHQjbGWydybXpQhcavuG8NZW0tuYGZhfjek1cRpLbIfteIrQl8622yKoOMSaCqIZPZ2jOmepmEKy8d5p25ubS0qQurbasWRKt/OI+s7j8H1BVkaT2+AzObIo5uKQvQ7DKsoVoIKDv5aezRlNzY4LTXRGeV4J5I4EidH1LKA1sFbEHtmXGJbqaRFkiJYwvq+gVy+hFzAs3sOQ28qPZ5Bdp1WXuwv6ejdz6b0NP5ArMj5gAGDaF0hxVHTEegT8Uq4J1g==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hVRKN5BqMz2yf9;
+	Thu, 27 Aug 2026 00:06:48 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=192.198.163.15
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787753208;
+	cv=none; b=SOC1SCt0ObukRYNswoyJ9gVTHpkY/yj+GswmlQJFXNje2p7VQKF0zqBDEvttJMra1tA18KssdPIJUXClSEHPiUzNUk0GAx7kB6DeilzSaPr9MgtJxksy1HBEFfutz+Ds6AEWGJ7uS2GnS/EV5FPaUyqn7YdhQdNXmnQIQWQhlQ1jTGMYmOPHc/KvGb3E4thRBoXhkNN4omxtR80bFIxqjfFeqhrNV+nmmOvvxoZOXpnqXnsAIw/bvBvSdfSrVQNSwkeIM3rQAMcEuIQm+yWU/HqXll1BEPhAZJlPO8aZYYKJSqsSqFsUz30faySE+jPr2nQ/7Y0FP1p54zbZRn0GVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787747554; c=relaxed/relaxed;
-	bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cJ9WABGuxA31K4B4icAn6ddxkwjtlAfluwHfGufvGVHqJfJ7RaJi/Y9ZkoPbuhSKmnM/V+FTyZbTKbuWGX2+ve5ADoCHEBjpsdaUpjB5x89x1DpC3qIE9WEjZ4PJ+1H/XeArdh95Vu8PY4qk1RW7MMEyQFSW37zZCdT1hmavbTSqQcGWaYI3FwhSjNwVxNDiSOyTyY8m1upKjtnvJsLA9Ik5BE743HaLUJuyjs2utPK9wS9N5KR7XsFvx/cX7WqEVTBxlKVgRXdmPa9yvfgeeOy8I//AvVmpxcKfOclY1b61JicmGkT10ruJFumkt98cdtCwk0O7LNm8iuVzsDBxIg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FYj1iEFu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::531; helo=mail-ed1-x531.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+	t=1787753208; c=relaxed/relaxed;
+	bh=ikuKllLI9x+SYgdm8MLP8hkdZuRgDM3GdMcQWsl2hxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hESetI4n1fnZEArUWR09xxeY0bbw4ux5GtoA8NvzU6Hzq6f3ZErUHEbW0HdJKcVE9wHKI8jkn/Pp5R0CrFpOpWADeI+LIbzJpSXow5essJ0Tm08AtLgtEYTmeIqLCp8fsfYmOC5JnfjEJtBHfukh8rB+2WXEIKfYsmVDwWvZdVpj/zJs2+l6c4Jav31l/ZNVJtZFExvGvv+bk+Ejty9npqJZkgkPnK83ewTQi+ukzf3W6hH6kqwqVztr4IDqd7WrRqG+8C4r1w8g2rAIuBVLO7iYywR9h6wRE1v8nMOmBJKcZZ5St03N4mmhg4Hh1s3OtmKJ8i4Yl6R2MXjJipHDhA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com; dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IKTmwyI0; dkim-atps=neutral; spf=pass (client-ip=192.198.163.15; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@intel.com; receiver=lists.ozlabs.org) smtp.mailfrom=intel.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FYj1iEFu;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IKTmwyI0;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::531; helo=mail-ed1-x531.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=intel.com (client-ip=192.198.163.15; helo=mgamail.intel.com; envelope-from=andriy.shevchenko@intel.com; receiver=lists.ozlabs.org)
+X-Greylist: delayed 65 seconds by postgrey-1.37 at boromir; Thu, 27 Aug 2026 00:06:44 AEST
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hVPDc37CJz2xGw
-	for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 22:32:31 +1000 (AEST)
-Received: by mail-ed1-x531.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso1486999a12.0
-        for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 05:32:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1787747546; x=1788352346; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
-        b=FYj1iEFuS1eIgGeWUBx7DvQFiUnnAmreqOg8t2a2dm/zZHIabU5r8M3i0gj9Mq7BTL
-         ya2u3iWR2l/8ctlxBbB+m0Fh3N6Boc4PUQgPyha8SGKnuIJMUCU34rvL0mPwzMEYs0Uu
-         ZGjf2nKnuQqzEXCQmYJYClcAmB6wjfckYJHyq6MQK2/nTri8tgCmtpuHptkXhsApmQVN
-         NIQFJun85jrVsbpi6I/3l0dWMwuqVv+Af2gyrkv2wOXk5NHgnEUZWA4MPvAg58rmG57e
-         HHgl8X/IhGKeIGxWDUnrAy3pbvMrKKsO1NxxsNW6l7asNhjuR2kad6zoABpGrdyyh05t
-         6O3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787747546; x=1788352346;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
-        b=FD/9NKpj18tepUqBJs1XhLxeHymPg952Ns/dUjTnpBQB6bdDMEHEZ337QaTYX5ZGPA
-         JREUvVXjUO5ynPJ5o01nHPn4zgA1dVYLUauDXr+bRc4ovzeNAyxK6DD4taBElnOOc8hr
-         MIwERQfg/kXEj3mXbEMgAxUDV8o+gD1T6885X8nKixXnBx86XXnTfrw1CHHFuAQ+1jhq
-         +CF8ftCDLpIHM00SHby0TYxGqY9UwVxUUt0Bx45WYhCn8bXLDoXuWEgYtwHNxZNANvxR
-         YVFgO4MswOedvwptnPDh5oXE/+53Y3+H/e981Ci3/SSFoC3XJN7aNIRWvRoZiDaljvLU
-         KumQ==
-X-Gm-Message-State: AFuF++mTxllsR60rkeATZmE3cQdIVka7P6zwRh+Q1p3xpXQLjvvl4vkE
-	9R4K6lgawNFohc9seaspy1hhxZzEWPE4FI3k/sAsoHC7j7rNifR4MhTtSJ4swxyVgU4=
-X-Gm-Gg: AR+sD114343MJEEm7lM/8tzEqm7qp2gV1zfnq3dzrjxRwcXPCduPnOFveybj/sgd5q5
-	GaUPx3DxFTBc2UoG4Hp1n8kdGSTrMmEzXPazWBtBIDjaNliFUGKahph5jEzp6E94HQNTiTGjn8i
-	f37H8JkZJgutUV+w0Men5Wzn9koRVhy3Ex3MZqSmBU+JPhaBfjb5DQpHWXd2zVugkD0WubLKTBS
-	jfjta2JU0+OPl0W0GPTQf8lIgEq/QmX1etxY/2BcpzV4nWRPN1vh1zvdmqzac/UUCCkIQz38KGt
-	FGh/LjzYImMp9aLXFLl7V26zRVHm29PjZyZUQWMv5Z4bNmw2z1n4GUMaZ6Hb+1iJndjBN7QqQtU
-	4hUZdasE3stVKdBULwJ31bZRSv8W0oO4wTYMYt1oCbcvs4W9ASFswrpBw5j7jRntf7qhL1A7aqM
-	oxFZPoB+aJ7B6TdQtG2M3fn9hwtMKoP4JpLoQQzEy6S9QCVmd2cizYyMVT6oCDKsEroCkeCcBus
-	gj9Snfq508NzfXYG/0gEYNgxbHO//N2dd419Dn5GgvMeHdku9bT2VRuYvTGID0=
-X-Received: by 2002:a05:6402:a511:10b0:6a5:dfb6:3618 with SMTP id 4fb4d7f45d1cf-6a5dfb6381bmr5726243a12.5.1787747546436;
-        Wed, 26 Aug 2026 05:32:26 -0700 (PDT)
-Received: from [10.24.10.180] (p200300e66714e50004d65da9f76f2533.dip0.t-ipconnect.de. [2003:e6:6714:e500:4d6:5da9:f76f:2533])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5deac6848sm4010236a12.24.2026.08.26.05.32.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 05:32:26 -0700 (PDT)
-From: Tan Siewert <tan.siewert@9elements.com>
-To: openbmc@lists.ozlabs.org, Jacky Huang <jackyhuang@nvidia.com>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au
-In-Reply-To: <20260825103647.3023260-1-jackyhuang@nvidia.com>
-References: <20260825103647.3023260-1-jackyhuang@nvidia.com>
-Subject: Re: [PATCH u-boot v3] ARM: dts: aspeed: Add Nvidia VR-NVL BMC
-Message-Id: <178774754517.2950812.1412002721900378534.b4-ty@b4>
-Date: Wed, 26 Aug 2026 14:32:25 +0200
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hVRKJ5FBwz2xLG;
+	Thu, 27 Aug 2026 00:06:44 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787753206; x=1819289206;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zp4ZxFvHpCyZaEKvO6J2cBCPxykmOIHLHvOYN+zVeBI=;
+  b=IKTmwyI0J/duU9cGISx8RhxrkR46n5FLxop0LMhztYo7ftW2XlyXnmac
+   7j5wESggLn10k/59AevRCkwVL+t+7NlXNKBlwEBb1dU+nYA7z7v5RIFeR
+   wLAkhD2LOed8JKnDQecUapa2bBWBeIR4oF/QRYShSk2+oUl0ZO3OnlqBp
+   W9vB7Ba/qUdsr5IA7rxwLWmMkTzbrocHxCcrGL14gdPZmtFChkhFYYpls
+   CGdJan5vewEDc3MnjuS5ntUZWssnHIXimoCjhOyuUmya1ePFu7s8Ig2PL
+   2w39oWVATxrnTSUXBnsaxTiJq0ABqWuQKuLclS9ydbajtTMj/2A4AYcxo
+   A==;
+X-CSE-ConnectionGUID: GMkYI1BzQZiOeZqvH7eGuA==
+X-CSE-MsgGUID: dpkWMIk7RXuZoEOMwcauBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88362991"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="88362991"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:05:31 -0700
+X-CSE-ConnectionGUID: MfkaBtSDSpmzcaUT3yBSlg==
+X-CSE-MsgGUID: ntLGhDOUTCuyxLKkJe4VcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="271090744"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.235])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 07:05:12 -0700
+Date: Wed, 26 Aug 2026 17:05:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
+	Xiaowei Song <songxiaowei@hisilicon.com>,
+	Binghui Wang <wangbinghui@hisilicon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
+	Olof Johansson <olof@lixom.net>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+	imx@lists.linux.dev, linux-media@vger.kernel.org,
+	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <ao7ylZTVJFeUJ5h3@ashevche-desk.local>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -91,31 +132,24 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, 25 Aug 2026 19:33:03 +0900, Jacky Huang wrote:
-> Adds a dts for the NVIDIA VR-NVL BMC board, an AST2600-based BMC for
-> the Vera Rubin NVL platform.
-> 
-> MAC0 uses phy-mode = "rgmii-id" with no SoC-side clk-delay node, so it
-> relies on the zero default introduced by commit 3f6198c0db1c ("clk:
-> ast2600: set default clk-delay for all ethernet macs to 0"). With that
-> change in place, MAC0 brings up its MDIO bus and establishes a link
-> with the on-board PHY.
-> 
-> [...]
+On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
 
-Applied to openbmc/u-boot.git (v2019.04-aspeed-openbmc), thanks!
+Don't know which file triggers my name to appear in Cc, but the change
+I like, and indeed it makes style better to read and consistent.
 
-Please note: Your change will not be available in OpenBMC until the commit
-reference of u-boot got bumped. This will likely happen within the next hours.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-[1/1] ARM: dts: aspeed: Add Nvidia VR-NVL BMC
-      https://github.com/openbmc/u-boot/commit/edc4a61d116f
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Cheers,
-Tan
 
 
