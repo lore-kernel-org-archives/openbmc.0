@@ -1,114 +1,85 @@
-Return-Path: <openbmc+bounces-2501-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2502-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 915D7C61DBE
-	for <openbmc@archiver.kernel.org>; Wed, 26 Aug 2026 10:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B50C5DF97
+	for <openbmc@archiver.kernel.org>; Wed, 26 Aug 2026 12:32:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hVLwN6w7Mz2yf9;
-	Wed, 26 Aug 2026 20:48:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787741300;
-	cv=none; b=GQzUydLLtUQyMC0pIH4OCJX2nlG6DznBbWCJholj9hO6EO/VX611sNURcz/g3TcxRRpnN+v/b3nU9/1HAETjjXJVOc6FzK7DVSgWraTf1YIafZz+gmLfEy83F1RZQIag6zrkGpNLfu1RFYk/CR6wU5y0yIcnRfuqlgizWGMfn6X855kiUhimpnyJHCN5hsoSiNnFt73YKrpj64eIJsHs4xouuivO5VQTRdPN1SrcC8/AfVwoaLuOTMOWJSZ7aF40fvge82xGneaDfb/TSPMoevwBCAqVCS30bxq4Z+Evv66+GCOp8hYdr4bUCfQMaRmp9hH5JBsLoiJxJpXhhdAAfA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hVPDf52LQz2yb9;
+	Wed, 26 Aug 2026 22:32:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::531"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787747554;
+	cv=none; b=NGyTVpgthGrJ39fOyyJO204S1WmfTA2UV/AAWMH1PGYbshOFAomFg+/eV2h6D1KYIdHCRCq7+e91jIw+dq8XuHQjbGWydybXpQhcavuG8NZW0tuYGZhfjek1cRpLbIfteIrQl8622yKoOMSaCqIZPZ2jOmepmEKy8d5p25ubS0qQurbasWRKt/OI+s7j8H1BVkaT2+AzObIo5uKQvQ7DKsoVoIKDv5aezRlNzY4LTXRGeV4J5I4EidH1LKA1sFbEHtmXGJbqaRFkiJYwvq+gVy+hFzAs3sOQ28qPZ5Bdp1WXuwv6ejdz6b0NP5ArMj5gAGDaF0hxVHTEegT8Uq4J1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787741300; c=relaxed/relaxed;
-	bh=2PBENmYs6fiknMrazp/50bVkNc1sBGJoebvvjy0eKx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nv3YIrX2/JKTS7rXXRbUAjF7UUXlGVsp/DfvXmM8+0O+fiMppTIQHC80IOMK6FG4OXQRIJdoiEf13dpE0kUTm7BmrVZnA7KT902Q1lXv+ohs9whtjqPAppTEP6CspJrNDF/5olRDmuOsF0iKRwP0jsfRqbVxAURf9pjVJ+H2x6VT2UaxejXhWok0DA9SsSPZKa18T6bnSqGqZEPTQF3nL5YxpBvFzApmYOsVBqCERh9IhGKiUzv2N4Yw9zwbcY8bJo0JEpPz1YgpOTBW6CdU7zZhXDcMCqfHFRh9gnNe3ZpBEkjkUSqcrIp8sf6kpcYNCmqGINQqA3aXJwHW3PX9HA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbC9eXOZ; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1787747554; c=relaxed/relaxed;
+	bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=cJ9WABGuxA31K4B4icAn6ddxkwjtlAfluwHfGufvGVHqJfJ7RaJi/Y9ZkoPbuhSKmnM/V+FTyZbTKbuWGX2+ve5ADoCHEBjpsdaUpjB5x89x1DpC3qIE9WEjZ4PJ+1H/XeArdh95Vu8PY4qk1RW7MMEyQFSW37zZCdT1hmavbTSqQcGWaYI3FwhSjNwVxNDiSOyTyY8m1upKjtnvJsLA9Ik5BE743HaLUJuyjs2utPK9wS9N5KR7XsFvx/cX7WqEVTBxlKVgRXdmPa9yvfgeeOy8I//AvVmpxcKfOclY1b61JicmGkT10ruJFumkt98cdtCwk0O7LNm8iuVzsDBxIg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FYj1iEFu; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::531; helo=mail-ed1-x531.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbC9eXOZ;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=FYj1iEFu;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::531; helo=mail-ed1-x531.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hVLwM3NhBz2xLG;
-	Wed, 26 Aug 2026 20:48:19 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id A71E8600C4;
-	Wed, 26 Aug 2026 10:48:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DB71F000E9;
-	Wed, 26 Aug 2026 10:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787741295;
-	bh=2PBENmYs6fiknMrazp/50bVkNc1sBGJoebvvjy0eKx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CbC9eXOZ2dL6OuBJ1bWchF5seeE8ifsrT8Yw/a4Qo3Y5Rs2etS57xSuEdgQns99ei
-	 QVPl74HmDPUGNZBf7+WL1hBpXywRwssYdENv9y3V+JkVXQ3w8kTmaN2R7sWY+TBwJt
-	 rpd+iGj4akwD2mqMk+XymnQmIxApZFfAWUutiB9ezEi8bwZpp00uztIbITa3g+1Fx7
-	 es9x6uOFAGNXG4NWRTnEbcER/UYbhW9caRHYj7iJhyEeIyDfIV9wtbDJ2QbkvyWlx0
-	 dpH+wik6piKWJNDJwpfLl9XKfDWmEHKEB04XxOxRSgTnJpeatCCyZiHCa7kSHWZp/A
-	 Z2tQRT+7IaTNA==
-Date: Wed, 26 Aug 2026 11:47:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Michal Simek <michal.simek@amd.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
-	Xiaowei Song <songxiaowei@hisilicon.com>,
-	Binghui Wang <wangbinghui@hisilicon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
-	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
-	Olof Johansson <olof@lixom.net>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
-	imx@lists.linux.dev, linux-media@vger.kernel.org,
-	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <92dfaa64-18c6-4ac0-8b17-f0a202dcf737@sirena.org.uk>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hVPDc37CJz2xGw
+	for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 22:32:31 +1000 (AEST)
+Received: by mail-ed1-x531.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso1486999a12.0
+        for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 05:32:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1787747546; x=1788352346; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
+        b=FYj1iEFuS1eIgGeWUBx7DvQFiUnnAmreqOg8t2a2dm/zZHIabU5r8M3i0gj9Mq7BTL
+         ya2u3iWR2l/8ctlxBbB+m0Fh3N6Boc4PUQgPyha8SGKnuIJMUCU34rvL0mPwzMEYs0Uu
+         ZGjf2nKnuQqzEXCQmYJYClcAmB6wjfckYJHyq6MQK2/nTri8tgCmtpuHptkXhsApmQVN
+         NIQFJun85jrVsbpi6I/3l0dWMwuqVv+Af2gyrkv2wOXk5NHgnEUZWA4MPvAg58rmG57e
+         HHgl8X/IhGKeIGxWDUnrAy3pbvMrKKsO1NxxsNW6l7asNhjuR2kad6zoABpGrdyyh05t
+         6O3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787747546; x=1788352346;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MjFbu9PPBkRG8Uavj7ImjBFn5RIU7iFXkV7tK9fFy6o=;
+        b=FD/9NKpj18tepUqBJs1XhLxeHymPg952Ns/dUjTnpBQB6bdDMEHEZ337QaTYX5ZGPA
+         JREUvVXjUO5ynPJ5o01nHPn4zgA1dVYLUauDXr+bRc4ovzeNAyxK6DD4taBElnOOc8hr
+         MIwERQfg/kXEj3mXbEMgAxUDV8o+gD1T6885X8nKixXnBx86XXnTfrw1CHHFuAQ+1jhq
+         +CF8ftCDLpIHM00SHby0TYxGqY9UwVxUUt0Bx45WYhCn8bXLDoXuWEgYtwHNxZNANvxR
+         YVFgO4MswOedvwptnPDh5oXE/+53Y3+H/e981Ci3/SSFoC3XJN7aNIRWvRoZiDaljvLU
+         KumQ==
+X-Gm-Message-State: AFuF++mTxllsR60rkeATZmE3cQdIVka7P6zwRh+Q1p3xpXQLjvvl4vkE
+	9R4K6lgawNFohc9seaspy1hhxZzEWPE4FI3k/sAsoHC7j7rNifR4MhTtSJ4swxyVgU4=
+X-Gm-Gg: AR+sD114343MJEEm7lM/8tzEqm7qp2gV1zfnq3dzrjxRwcXPCduPnOFveybj/sgd5q5
+	GaUPx3DxFTBc2UoG4Hp1n8kdGSTrMmEzXPazWBtBIDjaNliFUGKahph5jEzp6E94HQNTiTGjn8i
+	f37H8JkZJgutUV+w0Men5Wzn9koRVhy3Ex3MZqSmBU+JPhaBfjb5DQpHWXd2zVugkD0WubLKTBS
+	jfjta2JU0+OPl0W0GPTQf8lIgEq/QmX1etxY/2BcpzV4nWRPN1vh1zvdmqzac/UUCCkIQz38KGt
+	FGh/LjzYImMp9aLXFLl7V26zRVHm29PjZyZUQWMv5Z4bNmw2z1n4GUMaZ6Hb+1iJndjBN7QqQtU
+	4hUZdasE3stVKdBULwJ31bZRSv8W0oO4wTYMYt1oCbcvs4W9ASFswrpBw5j7jRntf7qhL1A7aqM
+	oxFZPoB+aJ7B6TdQtG2M3fn9hwtMKoP4JpLoQQzEy6S9QCVmd2cizYyMVT6oCDKsEroCkeCcBus
+	gj9Snfq508NzfXYG/0gEYNgxbHO//N2dd419Dn5GgvMeHdku9bT2VRuYvTGID0=
+X-Received: by 2002:a05:6402:a511:10b0:6a5:dfb6:3618 with SMTP id 4fb4d7f45d1cf-6a5dfb6381bmr5726243a12.5.1787747546436;
+        Wed, 26 Aug 2026 05:32:26 -0700 (PDT)
+Received: from [10.24.10.180] (p200300e66714e50004d65da9f76f2533.dip0.t-ipconnect.de. [2003:e6:6714:e500:4d6:5da9:f76f:2533])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5deac6848sm4010236a12.24.2026.08.26.05.32.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 05:32:26 -0700 (PDT)
+From: Tan Siewert <tan.siewert@9elements.com>
+To: openbmc@lists.ozlabs.org, Jacky Huang <jackyhuang@nvidia.com>
+Cc: andrew@codeconstruct.com.au, joel@jms.id.au
+In-Reply-To: <20260825103647.3023260-1-jackyhuang@nvidia.com>
+References: <20260825103647.3023260-1-jackyhuang@nvidia.com>
+Subject: Re: [PATCH u-boot v3] ARM: dts: aspeed: Add Nvidia VR-NVL BMC
+Message-Id: <178774754517.2950812.1412002721900378534.b4-ty@b4>
+Date: Wed, 26 Aug 2026 14:32:25 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -120,37 +91,31 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hP4PYOBKxN+fM2z6"
-Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Cookie: Obey all traffic laws.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
 
+On Tue, 25 Aug 2026 19:33:03 +0900, Jacky Huang wrote:
+> Adds a dts for the NVIDIA VR-NVL BMC board, an AST2600-based BMC for
+> the Vera Rubin NVL platform.
+> 
+> MAC0 uses phy-mode = "rgmii-id" with no SoC-side clk-delay node, so it
+> relies on the zero default introduced by commit 3f6198c0db1c ("clk:
+> ast2600: set default clk-delay for all ethernet macs to 0"). With that
+> change in place, MAC0 brings up its MDIO bus and establishes a link
+> with the on-board PHY.
+> 
+> [...]
 
---hP4PYOBKxN+fM2z6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to openbmc/u-boot.git (v2019.04-aspeed-openbmc), thanks!
 
-On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
+Please note: Your change will not be available in OpenBMC until the commit
+reference of u-boot got bumped. This will likely happen within the next hours.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+[1/1] ARM: dts: aspeed: Add Nvidia VR-NVL BMC
+      https://github.com/openbmc/u-boot/commit/edc4a61d116f
 
---hP4PYOBKxN+fM2z6
-Content-Type: application/pgp-signature; name="signature.asc"
+Cheers,
+Tan
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqOxF4ACgkQJNaLcl1U
-h9Bdwwf+L6MG9Bumzzk/fUvAIBXVI/dikPCxxDKcuqi5O/yVCeQWiMHK4Kp/ca3l
-imB6hoNyz9NRQmnZ45EXJhpRnz1LbTO357uK3N4zx/bi7V88563ixNa8HQIJZiCi
-yBPtE5ToKgi349/KXca5/vSKWGfyCnD8DRL3icILcg9GwxUC14PEo2WFYcGR4/JP
-ZmD11XU7MLSAhan3AUqcBiK9d+baT2FfEwmxCk4tm3wswPG29CNeUWP8OU145Yuq
-YcOeBmOpgMeDFyqxfCLMwJTToaxX8FcAn5HDjE+mJ+/pTLge8S8d85cmy7dJrUoU
-IMs1ngofm5Q82f4e9E8pPeXEh4y1iQ==
-=ZN0I
------END PGP SIGNATURE-----
-
---hP4PYOBKxN+fM2z6--
 
