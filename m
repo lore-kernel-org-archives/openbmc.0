@@ -1,93 +1,112 @@
-Return-Path: <openbmc+bounces-2508-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2509-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8840BC5DF97
-	for <openbmc@archiver.kernel.org>; Wed, 26 Aug 2026 23:47:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EFF8C61DC2
+	for <openbmc@archiver.kernel.org>; Thu, 27 Aug 2026 14:14:41 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hVhBS6qllz2y32;
-	Thu, 27 Aug 2026 09:46:40 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::b12d" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787731482;
-	cv=pass; b=R9UlRXANZ78slno3UIlf/VRaw72xNsicW6FG0BA3OPADrEwV4D/OV3gyBgDElSs5P/4BsciHrGS2aglFFgJqSKusnOOAQGRBGk8eyzeNbWo7Do7QRd8ridMFztn6BeVSPG6A28qzqsf1cRisgpVjaotzscupZnaCsgW3eMoeSCG0OxqLUuaPBNMbAJc+wwCggrExhqcUHAhh1q9ybB+itiW6tCEb8tDWsT7aeLwzSHMcxJArY9n6OcyeGNoGkVPNWyHMWT/gz3UbN7tKTPrUWyWNOLSU3l1AVPj2/NS7NlbDE6nLSkoRKgAzpqKnLnbP2EO7Hs5YC3C6lgXdrV+4sg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787731482; c=relaxed/relaxed;
-	bh=gljENqI22pecVC7PFj3mqQuHtHE6FZCK6uxJWQ0B0nc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TUZKrtdU57hNjcYGPHRFtKN8h4ce7h5j+noAebVjKWxojNLIv6MH+T9gDGe9wuhY8ISRPzojCWxdy+kiBZSwRBuYF3tp8+EKJIwURwnt4Pzesfl0ap37TEdra5Ay/1AAyh5ZaXVqwA/t/1Oj7t9JzwTT/oIKp9o0pU8GrM+ghP4s8PgGZBOAaEz2Yy8ShajGskW4HriLKK5ddCe9b0OoMh3FWLbyoumzt6GGxWq2qHbW/RX+aN91rjcQAotFwf5lbG9YRLOIMQk2QjCKwQSni0uuoO2dKANuep596h7I3fj9j25k6+A3OmlzaFj2ICGZcbgLN+HI5npL7GgbVJHs1g==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O3NpGeCH; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::b12d; helo=mail-yx1-xb12d.google.com; envelope-from=lgs201920130244@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hW3Rq67V5z2yfH;
+	Fri, 28 Aug 2026 00:14:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787840071;
+	cv=none; b=Q+MIQTJWwsaVygEOTl0n9+Y+iMNjtHFBYMhTTGDk9a20CqCyuA4dvzka2+09jdlcQibo3JEK8RM02hkt/GFO7IPtnUzKDVE6tP5sx3BRcX9ZpS2jDyLPtUt997ezAAB7fAOa6qFEth8JpTrhy0ireA2B80a2lFIy5KnPTzHUYe+LzQYND4TpvHBRrC0Gi3apFJTdKUqjU5y4i+UjY2Q3wj8dzHd5ObaXk89sFMHh/eDORAkcORfvU1lFjp1qGS7h2bxgPGyHWirkGYep5jWtUKZ2Iv6vUNpzBcfmWNaW0ZL/fQdWp6TNlFtAf7ZWGSFBwW+MGGucU38fUTSZIfRIwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1787840071; c=relaxed/relaxed;
+	bh=iPd05vfVGTTXMu8o+Kz/ydj1//S090ZmEizU6uZMvXQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Syfbv222jm3wtT6lBul7T779HrqkpQyZxGx8BCTFv28hxCe+mTBnUAIvtIrn0xbCXmlZrobOJBgFG1mXWSni2w7N+dW2XTefcENF0JiL+BgzCcXUHcUXp7HVVF0jrC/ZL5MVwE2sTvnUMuWskFOVvBJ89c4rHtuNMWBSkorisAQT3VfKpFtaFs4tJkEpJmDPpR8hG2FmRh+VJgz7X4/cZOAYTLk5fZpqH9KtBRhHeOCjCtlgf9ec4asle50UhCA/JPoRa3v31Df3w6ivKh9MS3vrdvUIqsvyYo2jOlfd6c37iYS3t1UcXbq9uttnmtruBJLCad7hl4k+qdReX4nR8A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/mf54W+; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=O3NpGeCH;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/mf54W+;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::b12d; helo=mail-yx1-xb12d.google.com; envelope-from=lgs201920130244@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yx1-xb12d.google.com (mail-yx1-xb12d.google.com [IPv6:2607:f8b0:4864:20::b12d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hVHHY2wZRz2xLq
-	for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 18:04:40 +1000 (AEST)
-Received: by mail-yx1-xb12d.google.com with SMTP id 956f58d0204a3-66d146f04cfso547939d50.0
-        for <openbmc@lists.ozlabs.org>; Wed, 26 Aug 2026 01:04:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787731477; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CxwyYY/ysvujY40jNAmPKgXKz/0NHAG83NN4tgMR2jweKq9eyHFOSKzYgsjins8X5L
-         ppIit4j1BiHApox0Al7bJKNwJsPvE8/aEdYRb15d5wlPsBoJbGY59eT0H8JRMTpwroRM
-         FygSSpdmyee2xqvLdH4j8jPFjrOGPGENpKCzUuUOxXfPKD8qUO6parnNJ5lyU5v4wE5D
-         6XKbfgaX5URH036Mq6A/bcF9H3Ewt2Q2jnSgpvwY2o8vZQnAd++/Sl7HfToI7JGDhouI
-         GYrtZjiQGrQMVA6X86eJYNMtPEkdjKJD0PLHJrA6w60m74XwmpCDkFfVPWoKTUwNzha0
-         pPhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gljENqI22pecVC7PFj3mqQuHtHE6FZCK6uxJWQ0B0nc=;
-        fh=BdSXJCPG6ucCtfo8AuU9Bk6ERXIsCffDiMjTDvw14b8=;
-        b=ZwymSKGus9beqNwcZeqpJi1tRJYth0oSaTl+4J/TeYRjfgPSN1YxHhoIabl1hqDp1A
-         2gQqaEgSWrEWmpsO+iS01yuJyC7MLurf1w36mOurbk5LOLAupPUD5RM0T5rW+rX/tnwy
-         C6oKZ8e05CCT0pEuqRcWGfy+x4yX6DClAlesnV+8xBAGVOBFEAu6ffaIebHUA0gWOMVR
-         zV0SGSTeDKU7YP4SPUbqUwNOTV+ELcOjlU+Gp76WpuJhmOJ6Gy5Gb3K6W8383TqNVFt6
-         nHKo924IcQnqiWsU01/9Q8GVa4hXE6ZZVfTQo+dsLF92C0T9438aB1+Fai466Elk2xGq
-         ywvQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787731477; x=1788336277; darn=lists.ozlabs.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gljENqI22pecVC7PFj3mqQuHtHE6FZCK6uxJWQ0B0nc=;
-        b=O3NpGeCHt2BOlV97O6sE63m2CX34qaWneUrutVM7yLF5jGEEVXg1f1fyLk9RYo32ke
-         Z3INF1/WeHqmcPSLDpZsF8ZGphqBgcjIcxCUs6GrgeOPyktcJwEjUbUEvDlnG7ndJVZr
-         97DgjMVLI9tWGPlacVfWq+MVmrI7k5iNthyvgRj9lAzCwUkkpwVFTuGWYn/PbsylC50s
-         hKJ/El8QGkrXud9sthKMpeqw3fyB9Swfn37sIQvdr0NaHBbgY7EpO3hZuskjyzlS5A6s
-         Ni9M8PcXlVqkGvFuZ7/MQ15L1kpHf2Y/m98okljzlily/JWnL4y02Q1v+cKHsx+NNSEJ
-         RVHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787731477; x=1788336277;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gljENqI22pecVC7PFj3mqQuHtHE6FZCK6uxJWQ0B0nc=;
-        b=c7c7bWAAjnmLuNVrnWFWGh12NhcP8w/0aEr+fwihu4hmYHvzjp0V0qkvQe6HG4DMcy
-         mwcSAQeRqnx0EXtPOPgvbkE5QoGAF1KZfQvCZR5fV3Ue1/LtvT0YMGuaHr2q5Qqs+5Ig
-         GHCj2ZFMFpZ55b8ByLL+K98rutYDEkW6mMiouTwrYAWRJAWnLlwh0LIwyV+SSg1g878Q
-         ipNInNHDSbFQ3ztVXo8p8QdRiZAofgEJIrbTGJc4DIgbnDBdcXB8+qzcM8hihTLmDaI2
-         SecOMQcno/y0FCOUqmum+TkbTU5gHAy1J+ugVzha266KSXf2odbNfYXuVbbFhsmDKO6I
-         Wp4g==
-X-Forwarded-Encrypted: i=1; AHgh+Rphu3Sqhv9pQrzFSNSlhm3BujMxu0LUEIxE7UsbWYK8CXXPfFOkVUB0kAI3ytsNrvaZTCwdCOnC@lists.ozlabs.org
-X-Gm-Message-State: AFuF++muRAb5J0uNnnqU7jFxbL6DEZHWAopGEC5urvmKx2eaMxzasDw/
-	CuCHVf6RkjqM1LJ/wfl/wx3/WsUoVm8G3wu/Sy5OsqcDoY2x8/oDzHA6yYESafAqOAeK2C4so2u
-	trl0xCiW61h0m9T+Xses4k1A9Tohnweo=
-X-Gm-Gg: AR+sD12nsuaSytrq9MIEdUP30oagnRTmZaTKzee5kYE5Js2rrzEL7B7+kNYmQUJvV3W
-	bnDOr8LZ3lKeIPyyP8pI5NNtiZ3emn8fKCLrO4xd01xJ5Wxhd2EfFs3Robcseg0c58DeAlo2bl9
-	HNmdNRtL3DXg7pgKgt6IIDhyMXW8YtdNNlMBSKQ2+zcRRAWMolw0J9jzr9CL7QqOvghSsEiuAl9
-	dBeKPtaGYO1rAM+nRd+QrHC76fDY9MUXQt+K06B33R6l7wED15UIBmSyljFXPPCA/AYPCLtobq3
-	LLvrIlWMOBbOyWlUjRLDvyp5D/x86UCsBeDLJ0eLHYTw5qU=
-X-Received: by 2002:a53:ac9c:0:b0:668:9fa5:b9cc with SMTP id
- 956f58d0204a3-66d2551013fmr1633452d50.0.1787731477460; Wed, 26 Aug 2026
- 01:04:37 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hW3Rp3cqKz2xGr;
+	Fri, 28 Aug 2026 00:14:30 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by sea.source.kernel.org (Postfix) with ESMTP id B869B42A81;
+	Thu, 27 Aug 2026 14:14:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6D41F00A3F;
+	Thu, 27 Aug 2026 14:14:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787840067;
+	bh=iPd05vfVGTTXMu8o+Kz/ydj1//S090ZmEizU6uZMvXQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H/mf54W+MN//hu47JmgAU9exTPmvl0LBHB5ZzKhGEwexbRuvTYIkxj4GXgA835qnR
+	 9UEt8YKMOrQNOLAFi3nx7pgRQfY25zqX+764+u84p08c1ffcviu+w56HZl/bCUCG0L
+	 ihHFnT+8mC7h+ynswLMu1pkSIvecp+7uEK09sDoYo898fL5w+AT7uAHCJEisDnTdGu
+	 nqenwjGFq5F6mhrGpgDFQqyTszGxV2iYC0cv81MuAExmXpeZ0TN/UNxfU3/4Szp6vv
+	 o+MTXUDPIFfzalBFoZ+PepIPsLWVL0VjVaXlf2cPUDNh52Tp26khuu1cNEKxWPj+FD
+	 a0defbS1Qxr8A==
+Date: Thu, 27 Aug 2026 09:14:26 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Billy Tsai <billy_tsai@aspeedtech.com>, Mark Brown <broonie@kernel.org>,
+	imx@lists.linux.dev, mfd@lists.linux.dev,
+	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-pm@vger.kernel.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	linux-aspeed@lists.ozlabs.org, Wells Lu <wellslutw@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>, linux-pci@vger.kernel.org,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-spi@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	linux-iio@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Olof Johansson <olof@lixom.net>,
+	coresight@lists.linaro.org, linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Mike Leach <mike.leach@arm.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Binghui Wang <wangbinghui@hisilicon.com>,
+	Zhang Rui <rui.zhang@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	David Airlie <airlied@gmail.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-i2c@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, openbmc@lists.ozlabs.org,
+	James Clark <james.clark@linaro.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>, devicetree@vger.kernel.org,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Xiaowei Song <songxiaowei@hisilicon.com>, info@mocean-labs.com
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <178784006582.3145716.1041886875556731621.robh@kernel.org>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -99,67 +118,36 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260808073748.2649808-1-lgs201920130244@gmail.com> <9e6142fb-bb69-459b-b7e7-4aaf2bbc3bc4@kernel.org>
-In-Reply-To: <9e6142fb-bb69-459b-b7e7-4aaf2bbc3bc4@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 26 Aug 2026 16:04:24 +0800
-X-Gm-Features: AcwNN1WTArxH-Wd9ybxPgMiQ8kdpjWn5ZJku5MGMoyUD_P2LJqYmH3XojzLPzC0
-Message-ID: <CANUHTR-Kqb+fw1EfPoD5W4SMYR6euBcy47jfGVYF0P0y7gfVtQ@mail.gmail.com>
-Subject: Re: [PATCH] hwrng: npcm: fix usage_count leak when autosuspend_delay
- is negative
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, Avi Fishman <avifishman70@gmail.com>, 
-	Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
-	Benjamin Fair <benjaminfair@google.com>, Olivia Mackall <olivia@selenic.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Daniel Thompson <danielt@kernel.org>, 
-	openbmc@lists.ozlabs.org, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-Hi Krzysztof,
 
-On Thu, 20 Aug 2026 at 22:49, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->
-> On 08/08/2026 09:37, Guangshuo Li wrote:
-> > npcm_rng_probe() calls pm_runtime_use_autosuspend(), but neither the
-> > probe failure path nor npcm_rng_remove() calls the matching
-> > pm_runtime_dont_use_autosuspend() before disabling runtime PM.
-> >
-> > If the autosuspend delay is set to a negative value while autosuspend
-> > is enabled, the runtime PM core increments usage_count to prevent
-> > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> > during teardown, this reference is not dropped and usage_count remains
-> > unbalanced.
-> >
-> > Add the missing pm_runtime_dont_use_autosuspend() calls to both the
-> > probe failure and remove paths before disabling runtime PM.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: c98429297d8b ("hwrng: npcm - add NPCM RNG driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
->
-> You sent vast amount of patches, all separate, making it very difficult
-> to track and respond in efficient way. Do not do that.
->
-> Group your work per subsystem.
->
-> You were asked to clarify and respond to incorrect fixes statement. I do
-> not see how you clarified and responded at all.
->
-> Best regards,
-> Krzysztof
+On Wed, 26 Aug 2026 12:20:45 +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Rob, Can you take it directly?
+> ---
+>  .../bindings/arm/arm,coresight-cti.yaml       |  2 +-
+>  .../bindings/display/bridge/sil,sii9022.yaml  |  2 +-
+>  .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml     |  4 ++--
+>  .../bindings/iio/light/upisemi,us5182.yaml    |  2 +-
+>  .../bindings/input/matrix-keymap.yaml         |  3 +--
+>  .../devicetree/bindings/input/ti,tca8418.yaml | 21 +++++++++----------
+>  .../bindings/media/nxp,imx8-jpeg.yaml         |  4 ++--
+>  .../devicetree/bindings/mfd/ti,tps65910.yaml  |  2 +-
+>  .../bindings/pci/hisilicon,kirin-pcie.yaml    |  4 ++--
+>  .../pinctrl/sunplus,sp7021-pinctrl.yaml       |  2 +-
+>  .../bindings/spi/aspeed,ast2600-fmc.yaml      |  6 +++---
+>  .../bindings/thermal/thermal-idle.yaml        |  2 +-
+>  12 files changed, 26 insertions(+), 28 deletions(-)
+> 
 
-Sorry about that. I should have replied to the earlier review comments
-explicitly, and I also should not have sent so many separate patches.
+Applied, thanks!
 
-I will group future patches by subsystem and make sure to respond
-clearly to review feedback before resending.
-
-Thanks for pointing this out.
-
-Best regards,
-Guangshuo
 
