@@ -1,52 +1,97 @@
-Return-Path: <openbmc+bounces-2511-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2512-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A59C61DD9
-	for <openbmc@archiver.kernel.org>; Sun, 30 Aug 2026 23:46:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EC22C61DD9
+	for <openbmc@archiver.kernel.org>; Sun, 30 Aug 2026 23:48:46 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hY80d5NW8z2y8d;
-	Mon, 31 Aug 2026 09:46:41 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788095488;
-	cv=none; b=mO5bxHk2pPy1yhwn3rVS9QjD87x+VN8C0o2PTy7R9IGGMLfhnlID6i74rm/fohL6kGtahT7zTeL1Dc+tM1NM6E26iSV/ivYf1ZttgADTAqS9u8UMFKdgsqM1yEkTWD+AEeDc2q5AlobfEceaIlpkAx0aJqQ7dZl18cfCITgpu0BuuyDmIX3Oq8JAc07lpsWWXXOW02q9KWzpSKLsOwFqbwn6Gy2xlUjR0L/wUj8x+T+mA/lm+TZGQslERECI+FaRurhznIuKLxjrBc1/SZvqydVaA+9VKi4v8IaN9im+dV5jS8C3Xohn+aYHGyMJpKlK+ySGDxwe/itcmwrhQQ+uLw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hY82x4HHYz2y8d;
+	Mon, 31 Aug 2026 09:48:41 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::336"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787922416;
+	cv=none; b=fPy39TVPiG4rmfKP7Z6zHfGRDtHbMPGMmDtvUEKRw1XsTr7Tw54EbXWxZBy0JX4oNVwmaKMjAIPrtAczJtH4nF2QhVN8vh3ZdbXGwqOWtmQ0XgPfsaCeBd9krL/5wRZ3+ln8YohwdbHvw2r/PHtRbmVpuPP7GyRfXw27h/+FNYP28bGDb+uJKOuPdJXOwYIl6c77EqCHykjHSwWqUERAjJmQpI+ncLIsdZ4YSDacTTPdYBIBs7E+lJwZ86xnXW0pMFeUsVf6/9LO7s0rmS004VHpx/kkOMNJ6yrremxfhSh1TkrzGLOasMofoQuOg3eFXYBWtCWQBQRr6XWXyfVyIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788095488; c=relaxed/relaxed;
-	bh=jKB91Fij6drewQFiv4G9toC8JIKw8NtMNFmKj8lVYwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ndAKeH+IBUlWfXffnW05RjS5tuRRjQ6dBrIwCc9FZ9Sojp3lEEzT5Lp8I9Y9E2x46LeCSmnGFlCtldj7U9ucoOrG/caku2sI0a8ahs8cFCP876X7JIZr0VN4F3janBsFPGTAsTwJOeko/hieC40OD6tjIZe8E+lkphf8eZf+qCAoUCreJgYJ6imGzv+3+Mj5Fkf6OwOT7uwxUgoz3yW/Xtk0hY/1/pw7mMVhxSZulN6MnWFnTSJMeMhfvwo4fuGJbRH/9aIugya/ZrDf36l7bZhJ88Wmo0SllKQtreV278ptNQrxm4r3tQCrJqf0gBI1H4bc8UxixIXzPv+jBE6/tw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass (client-ip=159.226.251.81; helo=cstnet.cn; envelope-from=pengpeng@iscas.ac.cn; receiver=lists.ozlabs.org) smtp.mailfrom=iscas.ac.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=iscas.ac.cn (client-ip=159.226.251.81; helo=cstnet.cn; envelope-from=pengpeng@iscas.ac.cn; receiver=lists.ozlabs.org)
-X-Greylist: delayed 314 seconds by postgrey-1.37 at boromir; Sun, 30 Aug 2026 23:11:27 AEST
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	t=1787922416; c=relaxed/relaxed;
+	bh=OSe5hUo+anN+B3supDKWk8oyF7C/bYQ978Bx8sQdufY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bPPuYYWVYzDBU8lgfFsukr8NYy4Av4LG1/QV5UMCVPyqpqmS1XOxETsNiemsz6fM5D1elEmobUQBWnXhEi+aLw3MSvspZtwyx1kmkfk9l2RSNmRsQoSjeHcaISjfK1rl6tCamZZbko+VW5OMg/CAhMZ56/ec0F9Fz0pn3fOTkxM+l9rT34HaG0tvclgpqa/cABhYzjuH6ZrJ1cT7KP7D6jyRm72llfwtza4+No/QC19yKj4xLDc3Rj3kIcyESLJVC/jW2wG5FXU24oD8fb8xXQ5+UFzq9ungtjrivY+pQAFq3qvqDI8wIbCYOtZ3kT54RPeU0IEYPP0HOiv0eIiJnQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sUAJR+U+; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::336; helo=mail-wm1-x336.google.com; envelope-from=joshua.crofts1@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sUAJR+U+;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::336; helo=mail-wm1-x336.google.com; envelope-from=joshua.crofts1@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com [IPv6:2a00:1450:4864:20::336])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hXsvg1PKbz2xT6
-	for <openbmc@lists.ozlabs.org>; Sun, 30 Aug 2026 23:11:26 +1000 (AEST)
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAAXGzm6KpRqe9GaBg--.26886S2;
-	Sun, 30 Aug 2026 21:06:02 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-i2c@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] i2c: aspeed: propagate reset deassert errors
-Date: Sun, 30 Aug 2026 21:06:00 +0800
-Message-ID: <20260830130600.560-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hWdvL3r9Jz2y2T
+	for <openbmc@lists.ozlabs.org>; Fri, 28 Aug 2026 23:06:53 +1000 (AEST)
+Received: by mail-wm1-x336.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so6531665e9.1
+        for <openbmc@lists.ozlabs.org>; Fri, 28 Aug 2026 06:06:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787922409; x=1788527209; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OSe5hUo+anN+B3supDKWk8oyF7C/bYQ978Bx8sQdufY=;
+        b=sUAJR+U+zWJc1hpuR+b1Ia018Trpp0TT2vrZB/6YPuiisY/D17lkhv97o5Gr83+pt6
+         Gl4JAnmshYogMzIad6NJjId5LiP00JwCOjwC2PzlB7NLkLRfg5YkQMLSVLux3I34maM9
+         qsKwnZvrlMEQl3qFc73qJAEmW0nKcksQo+MzN1VBEtNBrVt0QstQp3qRTgxJQLXkG9zx
+         xSZ/KSRcHm1IEvI2jKdWKCnPPNAHYOj4qOfOvCHleo74/HoWPt3XHqd1Uuq4m6ebXFTC
+         N1sUAD4MIY7xVRon84g8zdBGcTAcgOqVpH7eI08a5kYgWd3r92bwLV6ic1+OcqUsU2ox
+         68ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787922409; x=1788527209;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OSe5hUo+anN+B3supDKWk8oyF7C/bYQ978Bx8sQdufY=;
+        b=E9kGd3g7znJ5wMmEwlAxZiJv5NJoB1tqzFHzx1dhr/d7RL13YIJSAqCeQyuzUw3sjw
+         SsHFNSG1aDp4dwxDKA0mCM2mhIBthK79d1eIQOwH4NFsnW3hrO2dJTbnFYgYMfT6kBzj
+         wQcTatHYKu4QF+bHpMdTJ/sXIzDz74YMFrHqQBsU63wzzfHKLjItjIVbC4klUsQYKo/7
+         YKCj9EUz6DO/hq+7g1jUiB5f4NPo4VcF4aGhhQvm+h2MutIjSpMsbBYw6kz4GkDWF6LF
+         3ah12KDLhuo7x0zjyX6hSmjATFONWjV10e735nEfVHxasNN07BXje2rbpASkTfIhCZUV
+         MC3w==
+X-Forwarded-Encrypted: i=1; AHgh+Roo9BWgsvExQIomIgrUFxvPgXDuujnuqoycv/Rut7Mn0auMmpL2hCSXLQapKaoCK9Vs+LcVIz1m@lists.ozlabs.org
+X-Gm-Message-State: AFuF++nQD1FukXE2hg8lC94tnLMgbPdDoJGdB/qS04vHd6slmVW39NUA
+	/zufte09IZNdGjqanH2QDRjdJ/lLQR5JEvOULASXxozZ2XCB83pUS5BA
+X-Gm-Gg: AR+sD11HmXl1RCc6YJGTrcKmkaFCtkTqhaAA4gXIVBhKP9hUvnUCqjMto0xW3MVOykZ
+	vYEpCMTWSxrr15w6Z9rnKQfk7M7ncE2SUlOcFY7UsikzGDwusmAANQy0AJg7CpLxlF7JyJ+Ft4D
+	B9p25OGaClnmQUt3z1m1V9j+e3qGX9SxDW0MkyS2+UQBmMeZgB17FLJwaKtlsPgT81YFa7bjqJT
+	mVGRTLksS5aSxBVPfEINk3UHbInDoIVkArVko4o9FkMaDPnTi4B3GlQjyETEXlgbeJVjsv5vrpn
+	gwHmX2ClJq3fmDqURrLRFSUGMSKZ1YMvv46lbDUSRz3epEOGTzNUsDLFJZEh6PicsTvZP0SfBLj
+	v7/ve6hIlfc7wS7FIEPRsazO35XVGlRE6YdgL/oYcMGQinudBJObulwfqouXJBAGonObv/rZO2Q
+	LVw7UgEGgF2edjIXw94MQWj9BBMJ2Y5/Prlq7SUuX/YEwJkusdRtgei1pvAoYG2pwMEa0jT0/99
+	bpjVgiGdqAXHvwLw4GLOpDjuPt221kW76X+kqyG88gv8fW6aGZV3zVjn6GZX9LED7eyhyn1fn0N
+	9epAvQacoOUzJ10SPXDPOt6nNpvZ/SKmlSSlhREiA30BoaGcCmRqjh2/86Jt3FAsvWp/fjd3GVp
+	8GCZblMzlC4YvCtKXVo4wUSaAvIqeAbmaEBh5bAgbqEMdI+6Lz2G/AdfLDER9vn0UoV1Lx5M=
+X-Received: by 2002:a05:600c:4715:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49b91c26a01mr97741555e9.5.1787922408578;
+        Fri, 28 Aug 2026 06:06:48 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9500c7cfsm53999285e9.11.2026.08.28.06.06.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 06:06:47 -0700 (PDT)
+Date: Fri, 28 Aug 2026 15:06:44 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty
+ <pbolisetty@axiado.com>, Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Harshit
+ Shah <hshah@axiado.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, Conor Dooley
+ <conor.dooley@microchip.com>
+Subject: Re: [PATCH v6 0/2] iio: adc: Add Axiado SARADC driver
+Message-ID: <20260828150644.00005d5c@gmail.com>
+In-Reply-To: <20260828-axiado-ax3000-ax3005-saradc-v6-0-4cea467e4167@axiado.com>
+References: <20260828-axiado-ax3000-ax3005-saradc-v6-0-4cea467e4167@axiado.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -58,57 +103,45 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAXGzm6KpRqe9GaBg--.26886S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZw1DGFyxKw13Jw18GF4kZwb_yoWkCrXE9F
-	1kW3ZxXrn8CrZY9w15J3y3ZrZIkF909F1kW3WUtw1SkFyjvayUXF1DZr95Ar43Xr12gFy7
-	u3WYvr4fAwnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
-	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-Originating-IP: [111.196.241.250]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-aspeed_i2c_probe_bus() initializes and registers an adapter after
-deasserting its shared reset, without checking whether the reset provider
-accepted that transition.
+On Fri, 28 Aug 2026 05:28:27 -0700
+Petar Stepanovic <pstepanovic@axiado.com> wrote:
 
-Do not publish an adapter whose controller may still be held in reset.
+> This series adds support for the SAR ADC controller found on Axiado
+> AX3000 and AX3005 SoCs.
+> 
+> A new driver is needed because this SAR ADC controller is a SoC-specific
+> hardware block used on Axiado SoCs. It has its own register layout,
+> channel enable handling, conversion control, and data readout sequence,
+> and it does not match any existing upstream IIO ADC driver.
+> 
+> AX3000 provides sixteen input channels, while AX3005 provides eight
+> input channels. The driver uses SoC match data to select the number of
+> available channels for each compatible.
+> 
+> The driver supports single-shot voltage reads through the IIO subsystem
+> and uses the reference voltage regulator for scale calculation.
+> 
+> The datasheet is not publicly available. Public high-level product
+> information is available at:
+> 
+>   https://axiado.com/products/#AX3080
+> 
+> The register definitions and programming sequence used by this driver
+> are based on Axiado internal SoC documentation.
+> 
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+> ---
 
-Fixes: edd20e95bca4 ("i2c: aspeed: Deassert reset in probe")
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/i2c/busses/i2c-aspeed.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+You didn't have to send a new version, Jonathan tweaked the commit and
+applied it:
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index a26b74c712061..bf29719bab1ea 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -1023,7 +1023,9 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
- 			"missing or invalid reset controller device tree entry\n");
- 		return PTR_ERR(bus->rst);
- 	}
--	reset_control_deassert(bus->rst);
-+	ret = reset_control_deassert(bus->rst);
-+	if (ret)
-+		return ret;
- 
- 	ret = of_property_read_u32(pdev->dev.of_node,
- 				   "bus-frequency", &bus->bus_frequency);
+https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git/commit/?h=testing&id=839dc31a0c6508354b18d09a9e5aa5d8f4c05860
+https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git/commit/?h=testing&id=205f4aeaae3148848c153a0d98a6f604b39aba7c
 
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
-2.50.1
-
+Kind regards,
+Joshua Crofts
 
