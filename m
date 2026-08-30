@@ -1,114 +1,52 @@
-Return-Path: <openbmc+bounces-2510-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2511-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE460C61DB9
-	for <openbmc@archiver.kernel.org>; Thu, 27 Aug 2026 23:42:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A59C61DD9
+	for <openbmc@archiver.kernel.org>; Sun, 30 Aug 2026 23:46:48 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hWJ2v2wkhz2yfH;
-	Fri, 28 Aug 2026 09:42:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787835185;
-	cv=none; b=EPDSbKjVyjnpC0RIjR0wNT/+cHC95ZsguybjZ9vqf5afXIYoVC2VZ1YnHsJGaurv3GsYobBugwaXGDLHLcccpNjsojyTcSE8jQakaJXwbsXagqRZadT5rk9m2tnssZQY97fV6KkS6ivhHcQlcZJdJcjjtDgUCO4KSV4uPbzICMrakUq4NWHvKMgu2B1cjvwJPA7b6ScjvsoJpUiZlyVauYO8T9XYkBlAifGpxXjQfWS0Pexl/9FEi0VYgTojILP0nllzLg05mWErbkSt4Ip6jWlEpr1ibGZ1PM7BsDucErofEeGvUbkYEI3JiFZQolr4VAzrq25X/tx/UxrTDst6Vw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hY80d5NW8z2y8d;
+	Mon, 31 Aug 2026 09:46:41 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788095488;
+	cv=none; b=mO5bxHk2pPy1yhwn3rVS9QjD87x+VN8C0o2PTy7R9IGGMLfhnlID6i74rm/fohL6kGtahT7zTeL1Dc+tM1NM6E26iSV/ivYf1ZttgADTAqS9u8UMFKdgsqM1yEkTWD+AEeDc2q5AlobfEceaIlpkAx0aJqQ7dZl18cfCITgpu0BuuyDmIX3Oq8JAc07lpsWWXXOW02q9KWzpSKLsOwFqbwn6Gy2xlUjR0L/wUj8x+T+mA/lm+TZGQslERECI+FaRurhznIuKLxjrBc1/SZvqydVaA+9VKi4v8IaN9im+dV5jS8C3Xohn+aYHGyMJpKlK+ySGDxwe/itcmwrhQQ+uLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787835185; c=relaxed/relaxed;
-	bh=Jv30IeE2s+n2A5GRghn5mbNA+ntwEskVEvnsJS/gqNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lJZsJwSkFnF0btcXG6V/ZnTlMgXXIcXHciLUbliZCTpaD2zaKRuhqpRvb+lRO+MUQggceKSpNmQBWBDIRYuvSZNhmJp3uU3dumJE5Zr+U7D23OFfmnXLZihPmwDYyBO403gR8BMM8uEd36pLcQI847krYwq/h6tnvyK8j2FPdUW9g42mdm6czPVOK0x437AAWup+l0u1Gk5SA3pyOjlzbHI5v2NRtFhBmJxdvYyaBnGZKqRjjUvRTwL7/LYO7Sb62S0/xPrFXM3Whc/+QZxq9dAAZuEF9xL0QjjSqEm/O+y7kgHezsiA3IJUQkOZTYHhGDLC1coVIICwLw+JXyiAng==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpxQ/he4; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HpxQ/he4;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+	t=1788095488; c=relaxed/relaxed;
+	bh=jKB91Fij6drewQFiv4G9toC8JIKw8NtMNFmKj8lVYwc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ndAKeH+IBUlWfXffnW05RjS5tuRRjQ6dBrIwCc9FZ9Sojp3lEEzT5Lp8I9Y9E2x46LeCSmnGFlCtldj7U9ucoOrG/caku2sI0a8ahs8cFCP876X7JIZr0VN4F3janBsFPGTAsTwJOeko/hieC40OD6tjIZe8E+lkphf8eZf+qCAoUCreJgYJ6imGzv+3+Mj5Fkf6OwOT7uwxUgoz3yW/Xtk0hY/1/pw7mMVhxSZulN6MnWFnTSJMeMhfvwo4fuGJbRH/9aIugya/ZrDf36l7bZhJ88Wmo0SllKQtreV278ptNQrxm4r3tQCrJqf0gBI1H4bc8UxixIXzPv+jBE6/tw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass (client-ip=159.226.251.81; helo=cstnet.cn; envelope-from=pengpeng@iscas.ac.cn; receiver=lists.ozlabs.org) smtp.mailfrom=iscas.ac.cn
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=iscas.ac.cn (client-ip=159.226.251.81; helo=cstnet.cn; envelope-from=pengpeng@iscas.ac.cn; receiver=lists.ozlabs.org)
+X-Greylist: delayed 314 seconds by postgrey-1.37 at boromir; Sun, 30 Aug 2026 23:11:27 AEST
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hW1dr2qVNz2xwN;
-	Thu, 27 Aug 2026 22:53:04 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id 92D59600D2;
-	Thu, 27 Aug 2026 12:53:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931B61F000E9;
-	Thu, 27 Aug 2026 12:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835181;
-	bh=Jv30IeE2s+n2A5GRghn5mbNA+ntwEskVEvnsJS/gqNQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HpxQ/he4c1l/67bjg6zHCWSh7AxGIRhKnrX19FKhID1R0BcbkibPRl+2xW0tbC0ak
-	 hJFvx1qCJqhl53iZGTG/JR7u301HQSljASB0swdFEdVZiKibGOnJN2iCVJHXEYbnTf
-	 GTCBUKdpsBjmlMtHpvbarSgA6dZyeIoEjTP+/Oeo1lq7Q8tVwMRTyOl2wZZNfvhYA1
-	 9RM2gDKmt7oe1am3axpJpa781gtZmH8OBSvfT08Xeg0hRghVLZPfZNQDoRaVSKZks6
-	 UT3rnJOuGjx34CvvC3Nvte8iWDqvxO3jI9R1oIEGE2wOgx6fk6r/6aGuzyfLhzB/cZ
-	 qVz1y3R5ubGhg==
-Date: Thu, 27 Aug 2026 13:52:45 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Michal Simek <michal.simek@amd.com>,
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hXsvg1PKbz2xT6
+	for <openbmc@lists.ozlabs.org>; Sun, 30 Aug 2026 23:11:26 +1000 (AEST)
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAAXGzm6KpRqe9GaBg--.26886S2;
+	Sun, 30 Aug 2026 21:06:02 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Joel Stanley <joel@jms.id.au>,
 	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Xiaowei Song <songxiaowei@hisilicon.com>,
-	Binghui Wang <wangbinghui@hisilicon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
-	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
-	Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
 	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
 	Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
-	Olof Johansson <olof@lixom.net>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
-	imx@lists.linux.dev, linux-media@vger.kernel.org,
-	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <20260827125245.GI770273@google.com>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-i2c@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] i2c: aspeed: propagate reset deassert errors
+Date: Sun, 30 Aug 2026 21:06:00 +0800
+Message-ID: <20260830130600.560-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -120,38 +58,57 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXGzm6KpRqe9GaBg--.26886S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZw1DGFyxKw13Jw18GF4kZwb_yoWkCrXE9F
+	1kW3ZxXrn8CrZY9w15J3y3ZrZIkF909F1kW3WUtw1SkFyjvayUXF1DZr95Ar43Xr12gFy7
+	u3WYvr4fAwnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8Jw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
+X-Originating-IP: [111.196.241.250]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Wed, 26 Aug 2026, Krzysztof Kozlowski wrote:
+aspeed_i2c_probe_bus() initializes and registers an adapter after
+deasserting its shared reset, without checking whether the reset provider
+accepted that transition.
 
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Rob, Can you take it directly?
-> ---
->  .../bindings/arm/arm,coresight-cti.yaml       |  2 +-
->  .../bindings/display/bridge/sil,sii9022.yaml  |  2 +-
->  .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml     |  4 ++--
->  .../bindings/iio/light/upisemi,us5182.yaml    |  2 +-
->  .../bindings/input/matrix-keymap.yaml         |  3 +--
->  .../devicetree/bindings/input/ti,tca8418.yaml | 21 +++++++++----------
->  .../bindings/media/nxp,imx8-jpeg.yaml         |  4 ++--
->  .../devicetree/bindings/mfd/ti,tps65910.yaml  |  2 +-
+Do not publish an adapter whose controller may still be held in reset.
 
-Acked-by: Lee Jones <lee@kernel.org>
+Fixes: edd20e95bca4 ("i2c: aspeed: Deassert reset in probe")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/i2c/busses/i2c-aspeed.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
->  .../bindings/pci/hisilicon,kirin-pcie.yaml    |  4 ++--
->  .../pinctrl/sunplus,sp7021-pinctrl.yaml       |  2 +-
->  .../bindings/spi/aspeed,ast2600-fmc.yaml      |  6 +++---
->  .../bindings/thermal/thermal-idle.yaml        |  2 +-
->  12 files changed, 26 insertions(+), 28 deletions(-)
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index a26b74c712061..bf29719bab1ea 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -1023,7 +1023,9 @@ static int aspeed_i2c_probe_bus(struct platform_device *pdev)
+ 			"missing or invalid reset controller device tree entry\n");
+ 		return PTR_ERR(bus->rst);
+ 	}
+-	reset_control_deassert(bus->rst);
++	ret = reset_control_deassert(bus->rst);
++	if (ret)
++		return ret;
+ 
+ 	ret = of_property_read_u32(pdev->dev.of_node,
+ 				   "bus-frequency", &bus->bus_frequency);
 
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
-Lee Jones
+2.50.1
+
 
