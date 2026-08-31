@@ -1,76 +1,163 @@
-Return-Path: <openbmc+bounces-2515-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2516-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB90BC61DE2
-	for <openbmc@archiver.kernel.org>; Sun, 30 Aug 2026 23:49:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CB10C61DFD
+	for <openbmc@archiver.kernel.org>; Mon, 31 Aug 2026 23:56:35 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hY83C0rKWz2ygW;
-	Mon, 31 Aug 2026 09:48:55 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c101::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1787920153;
-	cv=pass; b=Veo+eYxub4Ri0wMkKXqjJiA5ahbgzs69qPCnNAHHBA7SjR2+As8xL8jWKBY8H6Duhph8Ux8dnO5m0ac+SZ1V151bDVM1goEGzU+6EFZQpGn/fcC4Jb5NgxZbkSfFQh/KmByShRsowDSuB1aP46g7nMiMrcxytxeSKVMJm9X2UInrkzGQZpVPKReGEkXlnGnF0bpNdW+4e68DyVi0fCespq9eGO3unboQdQhZ3VYHcfZ/YO2E2tbbajlBsv72Y6xePJlNO3SrqfJwhh0d/M23e0aQ//tJlRdbtoLSUD4ZzPcMG3k3V+z0tlNOLCvwTkZGrcvoj+YI6kw/1jPPa5GOfw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1787920153; c=relaxed/relaxed;
-	bh=KD3L4UW+vQCbqaTkJOAa6KbQ0vT3HPh4xdWrPnnGy4w=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iHTwX4woWk/3AZkvjTaKKJp1x/KScUOQxQOlA4woOqJOfih+t6v4rrqMzwARep/0Si/uHINDoABDBUL51st3k3lh6K0AP2WB8i6DadLp9XSwrF8YOBGkdNgSI2i993MNvWUiaB8EXeG1ChCeM+qXRhbGh4rUTiLrareOFuJLprMd2c1wJjLWbKdCXkrjNBUXNynMu1PcYm/efg1XCUoAlRYxEeE4JsBGGXE/dZqXZN+NBexvyKLD3Pk3Yfiyt3hxg6V387xhHz/yD7ZwwyV6e/qqPSFCKtfhSsn83w+89MbBRKTn7Y9E94Co2nAc+XX6jbqsk3ud2IHDIQOD6XNQ5Q==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=FswGwfM5; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c101::7; helo=bl0pr03cu003.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hYm9S1v20z2y2h;
+	Tue, 01 Sep 2026 09:56:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788190576;
+	cv=none; b=Hw3JYM0VtnAtU5Y+DIsVu3gAWkeWrvCVUnHQaxl+f9nkq/qREPO4l32qzw/Yzd9epk+UuZnHERhbMDTM4sWnLzmnkfhj7xtj//2Euz9y3/zo8Pm2Lel4uSN0YrE1vZdhsUS8UkXiYXk2HgF5eNcfUXMdBqxqTF4i+cIoUe4pTCxN7IMeGDdzehkbJlj6TzJUbsMLGWYYkC4OUKSqBwx/BqtaBY7oz5Eqec1POi+neyfjMlbaVbOytuKO6V3cIuP+rBAUIoN9kUM+nfJBnIjiY90GEMDexAvVkWDyrPaBoFnb4Iw6RXgLlligqqbC4DAgrf1VeSD8W97LkAxVHwb0mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1788190576; c=relaxed/relaxed;
+	bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Disposition; b=DEDmiUR6gV7711Mil32GMUDXsLbmPri9cy1h6HG2WPA1eT6us1FyYPb62DDIpLBoREbpImUOz2YeLL1VmNX6Flmg0YOW20wmYplktONpZycSMmUEjX0Ro1knpWxPmdHVxG+lq9xDIlcrOqTYC5smJUt/C6NuRydSRoAWgLwZoLLKqqJH95RjY+8LWyUw7/Z+btLvA8ZjxYAmv82T7d4x5kL4du+NoVWGXOQJm0dApv8TQr6+6a5828gXqa8PHKhODRlDerIHGEi6lo9+jw5bo/SosmG7WKDfpOMB5+TXDiwZLdNuvOSmiBc2g12CKtdIDNY7NtWK7WGlAnQrOLOJ2w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MllDFC1F; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MllDFC1F; dkim-atps=neutral; spf=pass (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org) smtp.mailfrom=redhat.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=FswGwfM5;
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MllDFC1F;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MllDFC1F;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c101::7; helo=bl0pr03cu003.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazlp170120007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c101::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=redhat.com (client-ip=170.10.133.124; helo=us-smtp-delivery-124.mimecast.com; envelope-from=bmasney@redhat.com; receiver=lists.ozlabs.org)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hWd3p1stkz2xGr
-	for <openbmc@lists.ozlabs.org>; Fri, 28 Aug 2026 22:29:09 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sy/8Za+DIOtrVlg6d2/C7xmNE7DCFtyiL9mgAtU+xZiHvpvoF6mjaZ2MDKB1FXNcL97whmarQzTVO4tL6ra5M9D07mx89fkGrUgHr+qTRm+o6Gm6JbuwST13gL2HqPa8+fAuPLQQ5oOHimXOqgbe2h14uWxNQFCftYZWw+Kl5QRzfFFX8s/66u3J+7hJTdmxhcBvhzVVJrf5EY6Su1FVBmzvSka0qZCntyX9Dljx1GxHyq2thR2c/rB1/aJMy0APItsCiNXofqdZshzf4SPB+NB70/n0AM+9AqpQieIsUcfcmDofeW6YpwJMVI1GgNoo5e3f7SxmQ4o5R+qpRv5TQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KD3L4UW+vQCbqaTkJOAa6KbQ0vT3HPh4xdWrPnnGy4w=;
- b=gXt5AtTX/iUgdMA6Gmzod4LDMhrKqTuMkMQof/Z4KBru/vlDm58UBJRTJAJ5fVaXlBVcs4oCxg/1AmVRhY4fEJwUeYi1xhhjKQv5rMAa/7v7Ml9iMCKKC+PEIMNwlEkzIQHQ6wq5GQmscuwtcvHDIeRO5DoPvl9XyWbOLx/vZgRIav1ZahIpy2ZH/ZwDYOI2khEMtFcekFcIBP6bziwvbJHImZur0dgzL86QgyR/5Ld02EVciikAO05mAr3gk0AUCa0oe1YCAmcSd71ZfYoXHMH6Ad+OWCXjJQmkXJAHOs8/PKfycI6PnkUzEMzWdOx/X2/tCNutTxphWVlvvMJSmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=analog.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KD3L4UW+vQCbqaTkJOAa6KbQ0vT3HPh4xdWrPnnGy4w=;
- b=FswGwfM5t35M9kWv7GOmlKK0j3OsMDldeN6H/lflo11OHY5vlLryV77mt8sHvk4ViqIIT03QmqXqkJk+JgUCDaTM3lLlYYgy+8hd+QCRAsJ4/nNnLQThmOkU6P6cocrWiVSKkGWugKGBg38cDEkPZAjD/RrlAli3rGEjTY+fo0AT5EIdwBofCebdwZecW90rAN0Z/FPPGilhwCXHfxWFLfOD2fxbMl9kvqlH46qo0roflKiLpNm8BpZRuq/5wKoz2gLDcqfZtM4hZ3RzGKNfC6HwKfe7ufkDfaKKwrzJBLKMuYSdWQDk+5XDSnHF1Cnvzqn+difkb58WqNkdRmX2EA==
-Received: from CH2PR12CA0017.namprd12.prod.outlook.com (2603:10b6:610:57::27)
- by CO6PR18MB3985.namprd18.prod.outlook.com (2603:10b6:5:350::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 12:28:43 +0000
-Received: from DS3PEPF0000C380.namprd04.prod.outlook.com
- (2603:10b6:610:57:cafe::8) by CH2PR12CA0017.outlook.office365.com
- (2603:10b6:610:57::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 12:28:42 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- DS3PEPF0000C380.mail.protection.outlook.com (10.167.23.10) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
- via Frontend Transport; Fri, 28 Aug 2026 12:28:41 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 9DB064186B51;
-	Fri, 28 Aug 2026 05:28:40 -0700 (PDT)
-From: Petar Stepanovic <pstepanovic@axiado.com>
-Subject: [PATCH v6 0/2] iio: adc: Add Axiado SARADC driver
-Date: Fri, 28 Aug 2026 05:28:27 -0700
-Message-Id: <20260828-axiado-ax3000-ax3005-saradc-v6-0-4cea467e4167@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hYY4G1tDhz2yCt
+	for <openbmc@lists.ozlabs.org>; Tue, 01 Sep 2026 01:36:12 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788190567;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+	b=MllDFC1FBEdnQNrGZhkaDrBpl2tNnlUR3bV0uqNK9YMcEXl+vOOyvlPNsxPaII6K6UZAJc
+	gQFslQcZjRNKSmxLmBwoMkDrJ9RnjvzFNDzdMM/v37r2kYDWSMMsSvkVmjCxsy5YP/E5J1
+	4nA6GLfiOEJVEWgW4RwZ7OZ8H3j6moA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788190567;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+	b=MllDFC1FBEdnQNrGZhkaDrBpl2tNnlUR3bV0uqNK9YMcEXl+vOOyvlPNsxPaII6K6UZAJc
+	gQFslQcZjRNKSmxLmBwoMkDrJ9RnjvzFNDzdMM/v37r2kYDWSMMsSvkVmjCxsy5YP/E5J1
+	4nA6GLfiOEJVEWgW4RwZ7OZ8H3j6moA=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-228-p-ydWR2TO8yR1g9FCGVQLA-1; Mon, 31 Aug 2026 11:36:06 -0400
+X-MC-Unique: p-ydWR2TO8yR1g9FCGVQLA-1
+X-Mimecast-MFC-AGG-ID: p-ydWR2TO8yR1g9FCGVQLA_1788190565
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c767e23f6so4913292d50.0
+        for <openbmc@lists.ozlabs.org>; Mon, 31 Aug 2026 08:36:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788190565; x=1788795365;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uVxBilOuJ3eJRjLFViKxIC+i5050iOvt2YALC/2UHq4=;
+        b=XZI1XEJlMYssfMG6Ig2YtAAzMBItNWr9MC8hKOH0BkqcB5+DYz3MH7N8JngvJcNKcI
+         tq2KJ2Fek94swmLW8hSfLl1JaiAiXd5yLcypm9YFxNQBZR14dC4se07zhP+rHc1V7zF6
+         X74Yv1vzTp9B4jM88j89ypCnqh12B7hgN1RkdTgHwEmsqU/k0+Ew5iTaphPkYE1+zVnY
+         mIRM4ftSPy4qNjdP8YCSYPhAtKwdIB2o4sZvSz+6NHZvf3dEKPpIgAlNzq+1D5csqBPo
+         a9Q0uNsxNS5/wvrJEG+knqvAYFzsFgA1jBWogLQE2ScewMb3SGTUMzbUQsJJXlR/iB5+
+         PbOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaMxIOtLQZszpPt9Rj7n4Svw63kMt3IYwTMXbnTgyVT/xch4O3bl5Rt5wFpuvKzz5/MYz4+BAW@lists.ozlabs.org
+X-Gm-Message-State: AFuF++k8nszWgqFVFd+8/82ge/GnyaK9Wcy+qtOWfcqfMUTV7547V9qj
+	frR4IEcGZpWIfYHxWa5bQLTsXeYFKWv7E76mfFA6x1DxDzIGycyVejM6rCPlqtcRTesz9lWhfxD
+	h6JJ3dphSQbC2KR5EwaUCyNdhJ/XACGNoN4VRuU46oN/Tv0yNwGqSphPCTW3W
+X-Gm-Gg: AYBFou07sO2bMftZcNb+5m9LnqZSoQNci4gLCqpLpL16GCqk1kmSm0v/7A0q6YY7Qks
+	CU6cJ73K27JmlsocIOL9xWalMEQbcKM6mX2rOfiOoT3rbmA5O7RkyIORwxliw1KfllCUksuP4j8
+	jGXhroSaYJoSC0WyGM0ifIgnrQKObjuYjN9WvJjOBSBoZQwaDLrf+99NhVzZShjCzknMRHbn3Lc
+	sqPfVDqPHN2oiQsLqdcReQYbrqXEDsB1TZmLwDpKo134k+68HNXlTJ21ia7aqqDnvFe/XUyVPdF
+	1qLtCJITrzPDAbLVPrDFu+/bqrjUVQa9pX67/PBIOU0sFS4IQLf+8Sd0NZH3/sx6Omma7Rdsm0k
+	=
+X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559411d50.7.1788190565223;
+        Mon, 31 Aug 2026 08:36:05 -0700 (PDT)
+X-Received: by 2002:a05:690e:13c7:b0:66f:8255:9f3d with SMTP id 956f58d0204a3-66f873db9b1mr559344d50.7.1788190564555;
+        Mon, 31 Aug 2026 08:36:04 -0700 (PDT)
+Received: from redhat.com ([2600:382:8519:3f74:ab6c:bb55:e9cb:f8d6])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f7efc9dbfsm2062227d50.9.2026.08.31.08.35.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 08:36:03 -0700 (PDT)
+Date: Mon, 31 Aug 2026 11:35:55 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 00/45] clk: Make sure clk_init_data is fully initialized
+ (part two)
+Message-ID: <apWfW5ahiYagw0OR@redhat.com>
+References: <cover.1787239813.git.geert+renesas@glider.be>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -82,193 +169,100 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOt+kWoC/33QzWrDMAwH8FcpPs/DH5Gd7LT3GD2olrL6sKbYI
- 7SUvPvUdpCNgNFB/IX4CXRTlUvmqt52N1V4zjVPJwnhZafSEU+frDNJVs64YMD0Gi8ZaZLmjTH
- PBrpiQUragkUmIAeESoRz4TFfHvrHXvIx1++pXB/HZnuf/rqu7c5WG+07IIIxBNPj+3P7NU1f6
- g7PbsWCtW3MCTZYnwbimEKXNpj/gznXxrxgDDFJIYcIG6xbsWhDG+sE6628I+JALo4bDFZM9to
- YCHY4GBo9Jyb8/7NlWX4A2PecuvsBAAA=
-X-Change-ID: 20260508-axiado-ax3000-ax3005-saradc-151aed5d25da
-To: Akhila Kavi <akavi@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Joshua Crofts <joshua.crofts1@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787920120; l=6170;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=7k/kXdf0sOg6PToW61Y9uD2xG6ogB8k1mrNN4RoiE4U=;
- b=IKz14gNKUlPVVMDe5ETYCxBZ6aiRWiA+EDs7dTkzgbhOPTqqfJ8hXRcdWF7g5kqZBplpQ5+9H
- I8KIBKN0vZlCH8SzqdpN81g+NYqXY1krC2flwKEP/lyINcPmg44Kapv
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF0000C380:EE_|CO6PR18MB3985:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe4786d2-0553-44bd-0043-08df04ffe505
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|18002099003|56012099006|13003099007|3023799007|6133799003|10067099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	9TaC+s8fUQLCtRWuseHvVnlSYSAVJ4D/N4qTlR2mIhpoJMxN2Gzlwp/dykpvBVl+BGScDZSoNZaXPGkQtRgenxRx+YahxvrZ5C6pXvU0hd7LN/V75OLk4eiGEqCagh3YLAnzeYJKUsWmGCZDhbw1XvzE5fKLq0jKhQfeKx1NZB/KJeHV+XzQoaJcVHz35+1oO5aJuwP3x9PkXwzNXUf9IO2trYpaIJVgAF0SGrduoAGRDGw4d99X+SAKHkf9V1GmiQVn1nZAJKrLFtp3q0MEJJVrvLj+USLB1JbdAzK95CbptHUNh4Mm6LI24+KhZyG2bcmNd6kd5Z1mnjdMEYaItA+Vbmoh6KwDlZGSS60iSTcpzmNKGll01pIjDohi68vS76XtyIxD6Wv+AA6Yn4j31bQjhQ/w54xrYCSj4jPJaJV3xt8TUlUgg3oE0Fj+DR95aN9i1NVPa8vIsi8VV2yBGsPtCBpKZ+TRK47qTMp8fzxUXG+KLz6wFA6FT0047tAYmrO0MVcrPPy7EqH83LHr97A5DWAcJ5bnDh1wiYWVgnem5v8/evNzAjIZLwN1QLf/ukWNCSwhG2ZPHhaI44iwP6Cvu0W5EcOlaX8vdpEHYRuSZYI+v+t0ahqr8dFUus1v/hSatQjexxJChVqWOb1kjmXP+d2X+U+5bcHAHsH3RYjSubIQY0mqYTPZTKOSNNTTye2D0eNjGNIRqjgzeJU5IA==
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(56012099006)(13003099007)(3023799007)(6133799003)(10067099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	c60lyA56pVNAWWffp8doPWvaRC8WcK8eNllPxK0dUhdNUn7wgGJO9rqR2Ej++ZUluhgKC9mvXkbkENdjbGKr40J6e1hdc40NsBPq+H7egZ/MEh11Dhfjct8r6lMOz62EoQoVaABcXCT2Lu8L0YU3DQM1PyPIGNfGnj8qYTT5Ps2qoFsd09rEwTuuuh6lK4ragj1rkUZy/oNzBz7KoFLdi82E0V30EcLboV4uBY2/B4d0QIZqiIQid8kgajLg5jCicZrkuPmSr3xIsH5uH6eUIWtMmgGFJB9RufhaoVbyiLOnWzRRK+CYXOenoDsTGskTAx07256fqeAYxQp+Ido9ZO/GG/aE8DJkVYS3PRYIGFu0Z3/h/axLvKEE/WX32jVuplsmOJZFsX7AkOic+TCoJBJfow0falnyniQiGqKjIAe8bc4vb0AFfMciV0WxgaxL
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 12:28:41.2157
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe4786d2-0553-44bd-0043-08df04ffe505
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF0000C380.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR18MB3985
+In-Reply-To: <cover.1787239813.git.geert+renesas@glider.be>
+User-Agent: Mutt/2.4.0 (2026-06-19)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: OQGw0ZLmoyTdPuqdDVwMvCHxskLxVoJM99VAJR_oa4c_1788190565
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This series adds support for the SAR ADC controller found on Axiado
-AX3000 and AX3005 SoCs.
+Hi Geert / all,
 
-A new driver is needed because this SAR ADC controller is a SoC-specific
-hardware block used on Axiado SoCs. It has its own register layout,
-channel enable handling, conversion control, and data readout sequence,
-and it does not match any existing upstream IIO ADC driver.
+On Fri, Aug 21, 2026 at 10:53:10AM +0200, Geert Uytterhoeven wrote:
+> 	Hi all,
+> 
+> The clk_init_data structure contains several mutually-exclusive members
+> for different methods to specify the possible parents of a clock,
+> prompting drivers to initialize only the members they need.  However,
+> not initializing all members may cause subtle issues, which are only
+> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+> enabled.
+> 
+> Hence this series aims to make sure all members are fully initialized,
+> to avoid such bugs, and to prevent future breakage when converting
+> drivers to a different method for specifying the parents.
+> 
+> Part One[1] fixed all cases that I identified to be real bugs, in
+> response to a crash I saw on BeagleBone Black.
+> 
+> This series is the clock subpart of Part Two, which fixes remaining
+> cases that are currently harmless.  These are still fragile, and may
+> cause future breakage when converting drivers to a different method for
+> specifying the parents.
+> 
+> Thanks for your comments!
+> 
+> [1] "[PATCH treewide 0/5] clk: Make sure clk_init_data is fully
+>      initialized (part 1)"
+>     https://lore.kernel.org/cover.1787165329.git.geert+renesas@glider.be
+> 
+> Geert Uytterhoeven (45):
+>   clk: aspeed: Make sure clk_init_data is fully initialized
+>   clk: at91: Make sure clk_init_data is fully initialized
+>   clk: bcm: iproc: Make sure clk_init_data is fully initialized
+>   clk: berlin: Make sure clk_init_data is fully initialized
+>   clk: cdce925: Make sure clk_init_data is fully initialized
+>   clk: clk-axi-clkgen: Make sure clk_init_data is fully initialized
+>   clk: cs2000-cp: Make sure clk_init_data is fully initialized
+>   clk: davinci: Make sure clk_init_data is fully initialized
+>   clk: fractional-divider: Make sure clk_init_data is fully initialized
+>   clk: gemini: Make sure clk_init_data is fully initialized
+>   clk: highbank: Make sure clk_init_data is fully initialized
+>   clk: hisilicon: Make sure clk_init_data is fully initialized
+>   clk: imx: Make sure clk_init_data is fully initialized
+>   clk: ingenic: Make sure clk_init_data is fully initialized
+>   clk: keystone: Make sure clk_init_data is fully initialized
+>   clk: lmk04832: Make sure clk_init_data is fully initialized
+>   clk: mediatek: Make sure clk_init_data is fully initialized
+>   clk: milbeaut: Make sure clk_init_data is fully initialized
+>   clk: mmp: Make sure clk_init_data is fully initialized
+>   clk: mvebu: Make sure clk_init_data is fully initialized
+>   clk: mxs: Make sure clk_init_data is fully initialized
+>   clk: nomadik: Make sure clk_init_data is fully initialized
+>   clk: npcm7xx: Make sure clk_init_data is fully initialized
+>   clk: nxp: Make sure clk_init_data is fully initialized
+>   clk: pistachio: Make sure clk_init_data is fully initialized
+>   clk: pwm: Make sure clk_init_data is fully initialized
+>   clk: renesas: Make sure clk_init_data is fully initialized
+>   clk: rockchip: Make sure clk_init_data is fully initialized
+>   clk: samsung: Make sure clk_init_data is fully initialized
+>   clk: scpi: Make sure clk_init_data is fully initialized
+>   clk: silabs: Make sure clk_init_data is fully initialized
+>   clk: socfpga: Make sure clk_init_data is fully initialized
+>   clk: spear: Make sure clk_init_data is fully initialized
+>   clk: stm32: Make sure clk_init_data is fully initialized
+>   clk: st: Make sure clk_init_data is fully initialized
+>   clk: sunxi: Make sure clk_init_data is fully initialized
+>   clk: tegra: Make sure clk_init_data is fully initialized
+>   clk: uniphier: Make sure clk_init_data is fully initialized
+>   clk: ux500: Make sure clk_init_data is fully initialized
+>   clk: versatile: Make sure clk_init_data is fully initialized
+>   clk: vt8500: Make sure clk_init_data is fully initialized
+>   clk: x86: Make sure clk_init_data is fully initialized
+>   clk: xgene: Make sure clk_init_data is fully initialized
+>   clk: xilinx: Make sure clk_init_data is fully initialized
+>   clk: zynqmp: Make sure clk_init_data is fully initialized
 
-AX3000 provides sixteen input channels, while AX3005 provides eight
-input channels. The driver uses SoC match data to select the number of
-available channels for each compatible.
+44 / 45 patches have been added to clk-next. I took it all for simplicity
+rather than everyone trying to cherry pick just their parts.
 
-The driver supports single-shot voltage reads through the IIO subsystem
-and uses the reference voltage regulator for scale calculation.
+Geert: The only patch that didn't apply was:
 
-The datasheet is not publicly available. Public high-level product
-information is available at:
+  [PATCH 27/45] clk: renesas: Make sure clk_init_data is fully initialized
 
-  https://axiado.com/products/#AX3080
+I didn't look into it too much.
 
-The register definitions and programming sequence used by this driver
-are based on Axiado internal SoC documentation.
-
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
----
-Changes in v6:
-- Added periods to complete-sentence comments.
-- Reformatted the conversion-time calculation.
-- Return -ENODATA when SoC match data is unavailable
-- Link to v5: https://patch.msgid.link/20260810-axiado-ax3000-ax3005-saradc-v5-0-bb0df3ecedaa@axiado.com
-
-Changes in v5:
-- Added explicit little-endian regmap value formatting.
-- Reworked register field definitions to use FIELD_PREP() at the point
-  where register values are constructed.
-- Removed the MANUAL_CTRL helper macro and build the channel selection
-  value directly with FIELD_PREP().
-- Made stopping a manual conversion best-effort so a failure there does
-  not override the conversion result.
-- Removed the redundant power-down write before enabling the ADC.
-- Keep only the cached clock rate in the driver data and use the clock
-  pointer locally during probe.
-- Pass the regmap directly to the managed disable action.
-- Updated header includes following IWYU recommendations and dropped the
-  explicit mod_devicetable.h include.
-- Applied minor coding-style and module metadata cleanups.
-- Link to v4: https://lore.kernel.org/r/20260716-axiado-ax3000-ax3005-saradc-v4-0-810527a9d27f@axiado.com
-
-Changes in v4:
-- Converted direct MMIO register access from readl()/writel() to the regmap API.
-- Added REGMAP_MMIO as a Kconfig selection.
-- Added error handling for regmap read and write operations.
-- Ensured manual conversion is stopped even if reading the conversion result fails.
-- Fixed the regulator error path to return the actual error code instead of the
-  uninitialized reference voltage.
-- Simplified the channel macro by generating datasheet_name from the
-- channel index.
-- Changed the channel array to use one channel entry per line.
-- Link to v3: https://lore.kernel.org/r/20260622-axiado-ax3000-ax3005-saradc-v3-0-e57c7c7ae675@axiado.com
-
-Changes in v3:
-- Fixed vref regulator error handling.
-- Added linux/units.h and used MICRO / MILLI in scale calculation.
-- Reordered struct axiado_saradc members to improve the structure
-  layout.
-- Fixed indentation/alignment of multi-line FIELD_PREP(), GENMASK(), and
-  writel() expressions.
-- Removed the blank line before module_platform_driver().
-- Link to v2: https://lore.kernel.org/r/20260611-axiado-ax3000-ax3005-saradc-v2-0-913c9de7c64c@axiado.com
-
-Changes in v2:
-- Fixed the devicetree example node name to use the generic ADC node name.
-- Removed the explicit `depends on OF` from Kconfig.
-- Cleaned up and reordered header includes.
-- Added missing includes for `bits.h`, `clk.h`, `cleanup.h`, and `err.h`.
-- Removed unused `linux/kernel.h` include.
-- Renamed register offset macros to use the `_REG` suffix.
-- Renamed register bitfield macros to include the register name prefix.
-- Added separate macros for `GLOBAL_CTRL` and `MANUAL_CTRL` register
-  fields and values.
-- Replaced `iowrite32()` / `ioread32()` with `writel()` / `readl()`.
-- Moved ADC conversion locking into `axiado_saradc_conversion()` using
-  `guard(mutex)`.
-- Replaced `usleep_range()` with `fsleep()`.
-- Renamed `vref_uv` to `vref_uV`.
-- Added SoC-specific device names in `axiado_saradc_soc_data`.
-- Used the fixed SoC-specific name for `indio_dev->name`.
-- Removed unused buffered scan configuration from IIO channels.
-- Added a managed cleanup action to disable the SARADC hardware on driver
-  unbind or probe failure.
-- Switched to a local `struct device *dev` helper in probe.
-- Used `devm_mutex_init()` for mutex initialization.
-- Simplified error handling by using `dev_err_probe()`.
-- Updated probe variable declarations to follow reverse Christmas tree
-  order.
-- Fixed the `of_device_id` terminator style.
-- Replaced `KBUILD_MODNAME` with a fixed driver name string.
-- Link to v1: https://lore.kernel.org/r/20260528-axiado-ax3000-ax3005-saradc-v1-0-345dd5f6608a@axiado.com
-
-To: Petar Stepanovic <pstepanovic@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>
-To: Prasad Bolisetty <pbolisetty@axiado.com>
-To: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-To: Nuno Sá <nuno.sa@analog.com>
-To: Andy Shevchenko <andy@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Harshit Shah <hshah@axiado.com>
-Cc: linux-iio@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Petar Stepanovic (2):
-      dt-bindings: iio: adc: add Axiado AX3000/AX3005 SARADC
-      iio: adc: add Axiado SARADC driver
-
- .../bindings/iio/adc/axiado,ax3000-saradc.yaml     |  63 +++++
- MAINTAINERS                                        |   9 +
- drivers/iio/adc/Kconfig                            |  11 +
- drivers/iio/adc/Makefile                           |   1 +
- drivers/iio/adc/axiado_saradc.c                    | 277 +++++++++++++++++++++
- 5 files changed, 361 insertions(+)
----
-base-commit: 51f0c0b8545b23963afd5d43a8f56ee05bfa54da
-change-id: 20260508-axiado-ax3000-ax3005-saradc-151aed5d25da
-
-Best regards,
---  
-Petar Stepanovic <pstepanovic@axiado.com>
+Brian
 
 
