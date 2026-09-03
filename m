@@ -1,41 +1,41 @@
-Return-Path: <openbmc+bounces-2534-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2535-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A95C624A4
-	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 07:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51B24C624A4
+	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 07:12:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hb9jF0gWJz2y2X;
-	Thu, 03 Sep 2026 17:10:25 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::5" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788419424;
-	cv=pass; b=bR85MiNBP5ftpMzkzddu0gpCtPpsPuF6joA9fKugcbNZx4tcgR94bTH903OsP6hfu9gArV89z3/59r45b5+3GNsAokH8PofVtvk6sAlwPYnIcZporeIIa2CKz5YLropWcocdiBgXcofcmiWSCVOc9g1MlQ6gHPVGzoeFXqZhvppwaMPIJlz0kW62nbEEqysjIHXFXwJe8SPqAaqzb6bv6pU0fD5V1VMSZ/S4PCAD4yTmhIe9WlRR4kxI346qbZeqL3aVTe14KDM6BhwHrB5p00fuAv561zna+r1MoZzSrE/t5G5dLsLcztoUOH8jP2h/Lr98VxxVZunxjWlYOhZWkQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hb9l36x9tz2yrD;
+	Thu, 03 Sep 2026 17:11:59 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::3" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788419519;
+	cv=pass; b=BLWXOlTpJTwhJxbnEDRBLhgRKuY9U1ObwGXFWQTSBxfTivfoEGTjI9d4QLzwRCWIfpX8rhAy4zYKMAbab/c3qSutK9FQjK2uLo1cV2eteAihTAvnHv13t43GCTjc8OZyo7AFTyCflrPpblJBuiS4w0y4P8yaL4q9PsUg79FFTU+9LqAxVIdLN8pN29xnMdXDuKikjWsDHQlAZu9UursvSczxbFKO8Li5Ld4Uzd0XjiYxXNJFp7aEyFxvNN0IbT0cJP5qZ4Sjz23nWyjtA4ou2NCVPzCot5Z1Gtu6AevV/zJvpILumYuoeZkIrFhs9wu7low7yy2JSCMOmS9HjDWLZQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788419424; c=relaxed/relaxed;
-	bh=hgHe5oO2XYh+0zLGjPywDxE9/YyoToVlW3JxEpkYaHg=;
+	t=1788419519; c=relaxed/relaxed;
+	bh=0ewhUnryhb1VtoEUD03QhlWRXSYNd6vUN7hHGsE/QNA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TB7V+zvF3ZULBp3SGH8PEqQDQDcpHzgv3UxYLqS/lSyxwvW+YBh82jL10bW0zYj0d0OTXJ3g0OfiCMvOLfi1oa7qMiMZ4DT+5uSeQdWxSz7V4v9ESiObMN3HAHVZ2LleAxhyOx5EqQWvV/lrbYjxQBt02mFe8mwILnu1CWGsC3FzvDpKEWNS4hvVZ0mUBkzdkHqGrASwAJ17wEsGLErcPZi8pG05rJsC1D35igBnX0qYSbXumX9TaqaP1dgRqPGp6UR3q2U2UwdpV+xqr8GxYJGTG5RrbNEDnJ18h3rUm+NNVACWd2JALHDraniUYFCd0k4bJQF4F8QZ0WRuHSFDeA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=rr/XawuT; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::5; helo=ch5pr02cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+	 In-Reply-To:To:Cc; b=HQ0qYIuc/lhmwKZ7HWXCvIWD8gslaK1NxIIPS6UXCijvlRrYN1EjbymUM3RrB355abLSjIZK4Tf3GYy2h7gZ1e46KJ7Jyum9Bsaih0PsSO6Wc/hyjSfoRXUOWyowe/1hlm8fDoh9+0otQco249270DqU+nC9EQaPa+RED9WnM1OhDgZHO0rKNRI8756luApy8oCJyQ4ZMszHNdnDNeQYX63PwpKlgnK9GEOlVoGOm2eXm89i+9Xe3GgRqRFNnFHgvR4g3lEaRbjTxf8MkPKOkjR6JOsBMUNymJdBDLlx85MMjO+aLlDNI3DR7leNAEAKyo9dJbIAE/cX8N27dZfaPQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=NMHQeNFX; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=rr/XawuT;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=NMHQeNFX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c105::5; helo=ch5pr02cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazlp170120005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hb9j80Rvlz2y2W
-	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 17:10:19 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hb9l26BQVz2y2X
+	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 17:11:58 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a1+KvvOBAVPTinmeIMr9CvwzDB9kPznfY/xusMt0BqYZzIL6o5dDRiy3fqr0MI8Lqeso83bCyIXKz/Am0h6TVkj13pvenHsX+vbol80rryh3tA0vNLWmDdDSdpTVKWAof/JLBTq6zGG1tTnJnaQ0oeUznLqhlVwYpMleBDm6lWT6n3nHFeI90ewgG+09XwkTVyZQSBqHnZ7errdt7vkWSiZm5Q1yKGZRPPnU1ZLjorXgoRa0LmoHjN8pEfoTVO+43450j7tZmJQ0KtsW+YfnhH5c3RzTilUiDTgqNhlOzG/yNMswfhloen9YuOPfPiy/7dvsAo8F/MsLD/pmvZsZqg==
+ b=bn3Kv38I4HGFumTSsww0K3AUgCZillgkeQSZHe7KihkXgUvg/+CMcI//PRxsSCr06Q7d4den+VBj0LekA/5mDKTKOaH8vLtw7fYBBM91GgcVM1k+Hb0/4hcW5dDWNop2ZmkR8O6ArIPXWZeq6szFfd78Dhn3B/xqcf/d5mkgnMNlXsCOWA+umtFmH9j9GPeIc2ywc0KlcVuey73Hvx5v46du+cDmp7aeR90Y9AHpp9DBmQwQyrInyJORgvXkfDl4rRaNQlWtXT6zIni5kR2uWFuOUfK9tO2gwASuMtwTBtos+73KyhVV54uiVLpexg9Pgcz5QN8YBaAXKOO25BjIbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hgHe5oO2XYh+0zLGjPywDxE9/YyoToVlW3JxEpkYaHg=;
- b=Us0Ks5A8HzoH34Rz3JeDh0uHwWZvuoetNkS2+gOwygL+2cIk1M7SxdvqDcE4NNOaUg03AmaCIg7wouOeinRo+4SMXG82kZqChb5gWn3Ep2uQpgbbXjgz7rGPRHzCSJJuRE9SJBMfVq5dd0K/7R9YSmwQdOVp+WupdZrAjPYDR49XCCWUKnDQ97DMUT3nP7Q0exyCH0Gus7G3dO5xSGAaLJ+M4hiUPeFXC2qZGLk9PoLdkml5XGKXSozVuLxo05ChS+YsBL9DQTA8uuA2T5JphMRTVnV+8o6Y4iWdDIA+kMmPCC6yC1izm5WZ9nFZ126KdawoGhypmxyIpDP8RRJ+kw==
+ bh=0ewhUnryhb1VtoEUD03QhlWRXSYNd6vUN7hHGsE/QNA=;
+ b=YYpL3jPNhdO0Zji8ryJzGNGFDCf84L0OlKN3RnMRDSl1QK2GLCswbMdULOF7gFyYAUnWXG2n/Frw96lUnX/XeOCKlU5CRK+qQQO15xnCwRBUuTNH02fAxd14Q45FW9Ks73JSL8gBhEiBkeMIT4MsApidpuPK1rZrdbe2kTM0Q3Jx2BrFsMmH76bWSQUcD/1YqvI/+/YxQtjRosEpXmf5kE/foFfYHxI1CSDs4k4VwTaftx21NW+kkiAbh20Pl1IRX30ycDjlE3jqqtFqDRHfDQ+yZ5ZMLiKYVzVOkJEPgsqwwEBjysZnUemZfgOYQBVJhl6vxYKl7IICa38wJAJg0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
  dmarc=none action=none header.from=axiado.com; dkim=none (message not
@@ -43,18 +43,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hgHe5oO2XYh+0zLGjPywDxE9/YyoToVlW3JxEpkYaHg=;
- b=rr/XawuT17eIqZAJ8ykHSjmJx0yUtuXZDmVoq2VuBYoNOZsmN3+jzbI+L41zXSi0uMGCaH41ESXsRwLvZyY1yHiwybmpfbJB6FeT/gsu9+T+yuHP/CAplOzw02XWMdgXB7a4yGIw7Hw4gS/1x/6A3KuE02UpqD5Rnbw0MV6QSAl666e6D2fNB1PXjCDLy7eApDXjGE373/quFLDfRbh5O0h5YdhRNnpmaGpO4fzTXgx+fqeZn3Ht+AIROhavtrGYPRTvkhEl244GIiAVyRe48G7Fg8Pvg0zFF55OsZv9SsagcOhnFWfIdHTiJYbypQi+K767i1R6XCKVxJNIfiBCcg==
-Received: from BN9P223CA0019.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::24)
- by IA2PR18MB6084.namprd18.prod.outlook.com (2603:10b6:208:4b7::11) with
+ bh=0ewhUnryhb1VtoEUD03QhlWRXSYNd6vUN7hHGsE/QNA=;
+ b=NMHQeNFXSupgEiGzBisKeqfH6yVMhO9Emyka2N6LvhsFsMftG/Qm/O/0R0wlEbbkeEkwCek5l8LvCD4rxPvY8XbEXA+wlqD4a/vqXT5JDssdLXV9rWzo+7qsDrhwCIHV/iFJpslWXw6YyyaGIZ5H6vyhUau+HOKrcXYgu7pA/O0HNySmmI7P1j0Ama4oWqRG5ZcxqQOnI+XiaGjAXDU011dnae5mTqTf33RYk5JX2qSLGj+fsaN3F0OlE0IP445de+A6ajC0fvpSYHv2ePZmW5ZEn5eJESeT2NCdjCap/dZA3LI0ljaQf8ttO3fXBnXBSxcwpumzB3aMQLWa0Vi7iQ==
+Received: from BN0PR03CA0048.namprd03.prod.outlook.com (2603:10b6:408:e7::23)
+ by SA3PR18MB5390.namprd18.prod.outlook.com (2603:10b6:806:2f2::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 07:09:52 +0000
-Received: from LV8PEPF00000067.namprd03.prod.outlook.com
- (2603:10b6:408:10b:cafe::34) by BN9P223CA0019.outlook.office365.com
- (2603:10b6:408:10b::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
- Sep 2026 07:09:52 +0000
+ 2026 07:11:34 +0000
+Received: from BN1PEPF00018072.namprd04.prod.outlook.com
+ (2603:10b6:408:e7:cafe::99) by BN0PR03CA0048.outlook.office365.com
+ (2603:10b6:408:e7::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
+ Sep 2026 07:11:34 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
  smtp.mailfrom=axiado.com; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=axiado.com;
@@ -62,15 +62,16 @@ Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
  designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
 Received: from smtp.corp.axiado.com (64.62.143.114) by
- LV8PEPF00000067.mail.protection.outlook.com (10.167.248.39) with Microsoft
+ BN1PEPF00018072.mail.protection.outlook.com (10.167.245.200) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
- via Frontend Transport; Thu, 3 Sep 2026 07:09:52 +0000
+ via Frontend Transport; Thu, 3 Sep 2026 07:11:33 +0000
 Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 591CE40BFE04;
-	Thu,  3 Sep 2026 00:09:51 -0700 (PDT)
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 368394186B5D;
+	Thu,  3 Sep 2026 00:11:33 -0700 (PDT)
 From: Petar Stepanovic <pstepanovic@axiado.com>
-Date: Thu, 03 Sep 2026 00:09:48 -0700
-Subject: [PATCH 2/2] hwmon: axiado-tsadc: Add AX3000/AX3005 TSADC support
+Date: Thu, 03 Sep 2026 00:11:32 -0700
+Subject: [PATCH v3 1/2] dt-bindings: gpio: add Axiado AX3005 SGPIO
+ controller
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -83,471 +84,209 @@ List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-axiado-ax3000-tsadc-v1-2-a8a0f3b251f5@axiado.com>
-References: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
-In-Reply-To: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-axiado-ax3000-sgpio-controller-v3-1-b30820e1b858@axiado.com>
+References: <20260903-axiado-ax3000-sgpio-controller-v3-0-b30820e1b858@axiado.com>
+In-Reply-To: <20260903-axiado-ax3000-sgpio-controller-v3-0-b30820e1b858@axiado.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>, 
+ Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
- Karthikeyan Mitran <kmitran@axiado.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
+ SriNavmani A <srinavmani@axiado.com>, 
+ Karthikeyan Mitran <kmitran@axiado.com>, Michael Walle <mwalle@kernel.org>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org, 
- Petar Stepanovic <pstepanovic@axiado.com>
+ openbmc@lists.ozlabs.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788419391; l=13935;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788419493; l=5006;
  i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=j/sBEYZNs00U5mCm4PwiSaoa5m+FMa6qmdu0ZxWNAfk=;
- b=ZHQtGk0VttKobh6NVEzUXuImQYzsxuJ6TO75IRsO24tGru39gmSs/Ut3mTNglMX+fGNqXiYmq
- 3aJIKDy2ndLCOuI3uP2waKo/1VCw+fuYqfdD9Pnf+Ty7DX0yrFmmyNf
+ bh=ANrmja0bW//C1aSsKiaexrS8S2QFRohDOTirNeLM2d8=;
+ b=BGkdGBuIGkjcm6Cmov4is0D4xRNnSu23u1tiE26yW50tj296IX1Nm9PfOnVuqLBvYvr5ALZ/L
+ xBGv3KW0OWsAcYxxnTc2ui0rUA1ENOJgYvr1hohn9kFTpSxUVRT2HqD
 X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
  pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000067:EE_|IA2PR18MB6084:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4f7d172b-19b8-4dbd-569a-08df098a59ad
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018072:EE_|SA3PR18MB5390:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc40d291-a60d-4747-3338-08df098a963b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|30052699003|23010399003|36860700016|376014|82310400026|7416014|1800799024|921020|6133799003|10067099003|22082099003|18002099003|3023799007|56012099006;
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|10067099003|56012099006|5023799004|3023799007|13003099007|921020|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	LMhAnWQd3W4l8OnJRLoPYD9fi4S5WDBQJcjw9RYEsCCF5z1Ymotbjw217AroBXq4hxqOKJCrmXFv+hs1Zo9PIQcFc6AajdapaTRy+g6s+ITmAfSr9lHH49XNZJ0YJkIg73VmBWAif8LpugaDXHLPxthyWvDydVMuugdP3n3k0zub5Vpzvj4nIdQueW6h8Y/Fuju+0mB8gitmeA+Wnrp8r3m3/4H4CXPjjfmjkiWAeOH1oqU0Z9zAIK5XBcupfIc/oRr8Bos+TWap8MlMmlK8YRv+ymiknnDULisDEv9z1oVpLgZhXhKQyeu62zmGUO4wrlM+MNPcwDVn3+x/oZzQY5MkSu8+DUPC0jYSvApHM8IkPyHqFXdC5n+i362lBP5etMGbIWoXpsztxeMX6T+vjax18f789OiOQZAhwu326QgeVEdPbOoAAozuEeJzJU9F28dUOnThWi2XfLxUDburJPwGxTw5BfwspRlTJHFBFs83a1H8dApNnWidfLUbkpEIwF8+fkwU8r/v5JJdKJUkP0lF8bt9WZlmBlT05McoZTMxIiD3AL4Ff1wGH6NtOlPXs8MvLAUORJoKLDwd1SU3y3kXCadOX3eXXBC7n83JZ60sxqqpyFBAQj3TW1smav73QX4tqEMkJBQtnvH4ZnwOf8QLVdmYj6yOp+4RKgkH8ukYpLSeO7OHaEZ2B9AE80Th8j9odwW9pRH5Ns/vD9p4MF4QLSg84VibM+kbBP5ksfUusf/+CSEY9YnLN4lzR3AU
+	BRKRNZDcMdkYJFkMwZgYHhgnWEYnYpzo/LhIjRCwXnz2Xf8TypJ44vOXrAEmcYo9ojoR1vm/9bjO3M91SCBZ6yXjMPS9y7B0NYoEJWfmpFgkDHqZsmxcPjGIx227Em6ykLaDtEfNP6QuHUmUfsx+1ijSPFbKQbZOD+MRtqcXEl5IEEcSt6hE6Kz40q0brfNFzCLw8Hpudy9hDRnb8dLGhJ6xkH5l8lFwkrDXtJES//iz5DG6WUgG/qUBcR3drT1+lwfGSMTAatMGeCwD3u3mzy49of7zmdluOuQ9CyDvMYf2twHhDVtxazr1zxgJjTaHJCxwTUzz80439JKlNxJDRDvjpDZuF9iPXh3MM/DqP721a9x+OkrfuPO3OeUSl/4F5ka7Fxg5aaRHHCz9LiCHEusDSOQq1w7HtklkgAiBEEYUJxuDR0n5tMMhNI0EB+f3xgwVY3MyA0a1j2jcV+B7huikLbbZXXyCrvjciMbOL6PWc+pjaBgrbgFLyrE124ylsb8f/1aA+I/ky57QEBYD8UrZU9aMkUTG1es1quLo+zvszHNeUctnphrq1okP4jFPvsDjoiszRHEyPw8ZLQD2i0EyNIVteYuMz6z6mNhiQQj7avO7pUZmul5gzG0rAfh9kTMdC0UDb86ObrvjlHi5Xi730tM11YeUIHOIK+hyuiXGOAdEZHXH6O0py9tIaW41
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(30052699003)(23010399003)(36860700016)(376014)(82310400026)(7416014)(1800799024)(921020)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(5023799004)(3023799007)(13003099007)(921020)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	JYAKAipehggFEKOYWEqHnV8x5Zhydv3GPmDlfDCOe5uK3DUpF3MFZ4F34s/wEo2np+HJGgy+IgeshMPe6HznjQyYs0inHZw/EoCtGBHgVnq4JYmvuxWO8HC3nWPWQOyWNBpfLiLU4Ffdu+rNafQ04VcNHbd0tsXSqJAGwhrX6jBXTef9ZWKbe67ul5M/0QwsGFk+DDPylCTGDHoTq4o6gL1KiSRfH/xm11BoGAlGWUc5Ulb4ijiItdyfcHDh4h/NUGFe1T939Jx8Dih7KiaCQankfKPmOpjCf8bfcYZvLAm2I1oIzKyoqZBydzt6t2iqzbh2kFVOLD5IYNg5ZGejWB8HOe0NW3ZmI2Ufhk80b2m8UYiSWhNFTl1UoE1CsPrZ0EAyqE23i0y+aBBPN+Ut/koiC/EZD5YeBZDoRTRSnIvHQkujCvIgWZLhYtcRhkJj
+	N8xXq8+t4VKRrnlxRkz+DMNF94YSNTn7gtOHOfE5EJYA1QxiUwYXS+ZVmmlaTvqU0zwvLvajxhGQLggkxEzTWwTCfpdDwATOXgnCuN51yLiQV1QGvK5qQ8+QlBvKKWiuZ3UoTCq90S83tRNP6Fzuf6Fdi5gr0MBwiXnixXjfDvmAoy0aXxI9c0jZUhWS5ytf7Pt0/JoMFXQs3KtmzFei4N0dl/xq8GC/ji7r1zBbMQhVbtLXnlaEXjjgCTdPPGQVu1LEjvpD3FnXjjL6dBXLLxy6zQNxDkIV2jX1CdogFua4l+D3R7FNtKsYBydRpJkGCcV8qxh92y+bM/XgI7X7lpr9aIuuhnYvtbZ4cVqzFSE8yGAySUOXDYZzJ2HLbs0kOmjHWt5osAYzp7WpuCc32LUyqAI07gLBd2b/hMc+pjvGqqvT1djxAslQ7tWCwv/L
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:09:52.2275
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:11:33.8824
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f7d172b-19b8-4dbd-569a-08df098a59ad
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc40d291-a60d-4747-3338-08df098a963b
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF00000067.namprd03.prod.outlook.com
+	BN1PEPF00018072.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA2PR18MB6084
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR18MB5390
 
-Add a hwmon driver for the temperature sensor ADC (TSADC) controller
-found on Axiado AX3000 and AX3005 SoCs. The controller measures
-temperature at locations within the SoC silicon die.
+Add a Devicetree binding for the SGPIO controller found on the
+Axiado AX3005 SoC.
 
-Each TSADC controller is registered as a separate hwmon device and
-exposes one read-only temperature channel. The sensor is configured for
-continuous conversion during probe.
+Each SGPIO position provides one fixed-direction input GPIO and one
+fixed-direction output GPIO. Input GPIOs support edge-triggered
+interrupts.
 
-The current TSADC hardware does not support threshold or alarm reporting.
-All TSADC interrupt sources are masked during initialization, and only
-the current temperature is exposed through temp1_input.
-
-The averaged 12-bit ADC code is converted to millidegrees Celsius using
-a lookup table with linear interpolation between adjacent entries. Raw
-values outside the characterized lookup-table range are clamped to the
-nearest supported temperature.
+The controller serializes output values and samples input values over
+dedicated data, clock, and latch signals.
 
 Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 ---
- Documentation/hwmon/axiado-tsadc.rst |  41 ++++++
- Documentation/hwmon/index.rst        |   1 +
- MAINTAINERS                          |   2 +
- drivers/hwmon/Kconfig                |  11 ++
- drivers/hwmon/Makefile               |   1 +
- drivers/hwmon/axiado-tsadc.c         | 275 +++++++++++++++++++++++++++++++++++
- 6 files changed, 331 insertions(+)
+ .../bindings/gpio/axiado,ax3005-sgpio.yaml         | 112 +++++++++++++++++++++
+ MAINTAINERS                                        |   8 ++
+ 2 files changed, 120 insertions(+)
 
-diff --git a/Documentation/hwmon/axiado-tsadc.rst b/Documentation/hwmon/axiado-tsadc.rst
+diff --git a/Documentation/devicetree/bindings/gpio/axiado,ax3005-sgpio.yaml b/Documentation/devicetree/bindings/gpio/axiado,ax3005-sgpio.yaml
 new file mode 100644
-index 000000000000..b8fd0aeacc1f
+index 000000000000..47ae1285d482
 --- /dev/null
-+++ b/Documentation/hwmon/axiado-tsadc.rst
-@@ -0,0 +1,41 @@
-+.. SPDX-License-Identifier: GPL-2.0
++++ b/Documentation/devicetree/bindings/gpio/axiado,ax3005-sgpio.yaml
+@@ -0,0 +1,112 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/gpio/axiado,ax3005-sgpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+Kernel driver axiado-tsadc
-+==========================
++title: Axiado AX3005 SGPIO Controller
 +
-+Supported chips:
-+
-+  * Axiado AX3000 and AX3005 on-chip temperature sensor (TSADC)
-+
-+    Prefix: 'axiado_tsadc'
-+
-+    Addresses scanned: -
-+
-+    Datasheet: Not publicly available
-+
-+Authors:
-+
++maintainers:
 +  - Petar Stepanovic <pstepanovic@axiado.com>
++  - SriNavmani A <srinavmani@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
 +
-+Description
-+-----------
++description: |
++  The Axiado SGPIO controller provides a serial GPIO expansion interface
++  that multiplexes multiple GPIO signals over a small set of physical lines.
 +
-+This driver supports the Temperature Sensor ADC (TSADC) block found on Axiado
-+AX3000 and AX3005 SoCs. The block monitors the on-die temperature of the SoC.
++  The controller serializes output values on a data output line (DOUT) and
++  samples input values from a data input line (DIN) in synchronization with
++  a shift clock (SCLK). A latch signal (LATCH) updates the output states
++  after each transfer cycle.
 +
-+An SoC may instantiate several TSADC blocks at different locations on the die.
-+Each block is described by its own device tree node and is registered as a
-+separate hwmon device with a single temperature channel.
++  SGPIO positions are organized in banks of 32, with registers controlling
++  output values, input sampling, and interrupt status. The number of SGPIO
++  positions supported depends on the controller configuration.
 +
-+The sensor is configured for continuous conversion at probe time, averaging
-+16 samples per conversion. The averaged 12-bit ADC code is converted to
-+millidegrees Celsius using a lookup table with linear interpolation between
-+entries. The table covers -40 to +125 degrees Celsius; readings outside that
-+range are clamped to the nearest supported temperature.
++  The controller detects changes on input GPIOs. Interrupt events are
++  aggregated and signaled through a single interrupt line to the parent
++  interrupt controller.
 +
-+sysfs entries
-+-------------
++  Register access is performed over the APB bus. The SGPIO shift clock is
++  derived from the APB clock using a programmable divider.
 +
-+======================= =======================================================
-+temp1_input             Die temperature in millidegrees Celsius (read-only)
-+======================= =======================================================
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index d979e6d6e9f2..b79a27aeb4b4 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -51,6 +51,7 @@ Hardware Monitoring Kernel Drivers
-    asus_ec_sensors
-    asus_rog_ryujin
-    asus_wmi_sensors
-+   axiado-tsadc
-    bcm54140
-    bel-pfe
-    bpa-rs600
++  Each SGPIO position provides one input and one output, and both are
++  exposed as GPIO lines. Position N is described by two consecutive lines:
++  line 2 * N is the input and line 2 * N + 1 is the output. Directions are
++  fixed by the hardware, so even lines are always inputs and odd lines are
++  always outputs.
++
++  Only input lines can generate interrupts. Rising, falling, and both-edge
++  interrupts are supported.
++
++properties:
++  compatible:
++    const: axiado,ax3005-sgpio
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: APB interface clock
++    maxItems: 1
++
++  bus-frequency:
++    description: Desired SGPIO shift clock frequency in Hz
++    minimum: 1
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    const: 2
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 2
++
++  interrupts:
++    maxItems: 1
++
++  ngpios:
++    description: |
++      Total number of GPIO lines provided by the controller. Each SGPIO
++      position wired up on the board contributes one input and one output
++      line, so this is twice the number of positions and must be even. It
++      may be lower than the maximum supported by the hardware.
++    minimum: 2
++    maximum: 1024
++    multipleOf: 2
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - bus-frequency
++  - gpio-controller
++  - '#gpio-cells'
++  - interrupts
++  - interrupt-controller
++  - '#interrupt-cells'
++  - ngpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    gpio@33201c00 {
++        compatible = "axiado,ax3005-sgpio";
++        reg = <0x33201c00 0x400>;
++        clocks = <&apb_clk>;
++        bus-frequency = <1000000>;
++        gpio-controller;
++        #gpio-cells = <2>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        interrupt-parent = <&gic500>;
++        interrupts = <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
++        ngpios = <256>;
++    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index c6efb04fc376..3108a004439f 100644
+index 77159f279621..5bec6ea50c70 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -4474,6 +4474,8 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
- L:	linux-hwmon@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
-+F:	Documentation/hwmon/axiado-tsadc.rst
-+F:	drivers/hwmon/axiado-tsadc.c
+@@ -4406,6 +4406,14 @@ S:	Orphan
+ F:	Documentation/devicetree/bindings/sound/axentia,*
+ F:	sound/soc/atmel/tse850-pcm5142.c
  
- AYANEO PLATFORM EC DRIVER
- M:	Antheas Kapenekakis <lkml@antheas.dev>
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 81a9a1d40eec..f12a47e70f0c 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -311,6 +311,17 @@ config SENSORS_AXI_FAN_CONTROL
- 	  This driver can also be built as a module. If so, the module
- 	  will be called axi-fan-control
- 
-+config SENSORS_AXIADO_TSADC
-+	tristate "Axiado AX3000 TSADC temperature sensor"
-+	depends on ARCH_AXIADO || COMPILE_TEST
-+	help
-+	  If you say yes here you get support for the on-chip temperature
-+	  sensor (TSADC) found on Axiado AX3000 and AX3005 SoCs. The die
-+	  temperature is reported through the hwmon sysfs interface.
++AXIADO SGPIO DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	SriNavmani A <srinavmani@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-gpio@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/gpio/axiado,ax3005-sgpio.yaml
 +
-+	  This driver can also be built as a module. If so, the module
-+	  will be called axiado-tsadc.
-+
- config SENSORS_K8TEMP
- 	tristate "AMD Athlon64/FX or Opteron temperature sensor"
- 	depends on X86 && PCI
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index 0cad7e21634c..b5f5d18e1ccf 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -59,6 +59,7 @@ obj-$(CONFIG_SENSORS_ASPEED_G6) += aspeed-g6-pwm-tach.o
- obj-$(CONFIG_SENSORS_ASUS_ROG_RYUJIN)	+= asus_rog_ryujin.o
- obj-$(CONFIG_SENSORS_ATXP1)	+= atxp1.o
- obj-$(CONFIG_SENSORS_AXI_FAN_CONTROL) += axi-fan-control.o
-+obj-$(CONFIG_SENSORS_AXIADO_TSADC)	+= axiado-tsadc.o
- obj-$(CONFIG_SENSORS_CGBC)	+= cgbc-hwmon.o
- obj-$(CONFIG_SENSORS_CHIPCAP2) += chipcap2.o
- obj-$(CONFIG_SENSORS_CORETEMP)	+= coretemp.o
-diff --git a/drivers/hwmon/axiado-tsadc.c b/drivers/hwmon/axiado-tsadc.c
-new file mode 100644
-index 000000000000..c111df6f0044
---- /dev/null
-+++ b/drivers/hwmon/axiado-tsadc.c
-@@ -0,0 +1,275 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2021-2026 Axiado Corporation
-+ *
-+ * Driver for the Axiado on-chip temperature sensor (TSADC)
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/hwmon.h>
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+
-+/* TSADC register offsets */
-+#define AXIADO_TSADC_MODE	0x0000
-+#define AXIADO_TSADC_FUNC_CTRL	0x0004
-+#define AXIADO_TSADC_AVG_DOUT	0x000c
-+#define AXIADO_TSADC_INTR_MASK	0x0010
-+#define AXIADO_TSADC_ANA_REG	0x0020
-+#define AXIADO_TSADC_SEL	0x0028
-+#define AXIADO_TSADC_TSEN_EN	0x002c
-+#define AXIADO_TSADC_EN	0x0030
-+
-+/* TSADC mode register: continuous conversion */
-+#define AXIADO_TSADC_MODE_CONT	0x2
-+
-+/*
-+ * TSADC functional control register: bit 0 starts the conversion and
-+ * bits [31:16] specify the number of samples. Average over 16 samples.
-+ */
-+#define AXIADO_TSADC_FUNC_CTRL_START		BIT(0)
-+#define AXIADO_TSADC_FUNC_CTRL_NUM_SAMPLES	GENMASK(31, 16)
-+#define AXIADO_TSADC_FUNC_CTRL_CLR		0x0
-+#define AXIADO_TSADC_FUNC_CTRL_SET				\
-+	(FIELD_PREP(AXIADO_TSADC_FUNC_CTRL_NUM_SAMPLES, 16) |	\
-+	 AXIADO_TSADC_FUNC_CTRL_START)
-+
-+/* TSADC average output register: 12-bit ADC result */
-+#define AXIADO_TSADC_AVG_DOUT_MASK	GENMASK(11, 0)
-+
-+/* Interrupt mask bits */
-+#define AXIADO_TSADC_INTR_BIST_DONE		BIT(0)
-+#define AXIADO_TSADC_INTR_LOOP_DONE		BIT(1)
-+#define AXIADO_TSADC_INTR_THRESHOLD		BIT(2)
-+#define AXIADO_TSADC_INTR_MASK_ALL		\
-+	(AXIADO_TSADC_INTR_BIST_DONE |		\
-+	 AXIADO_TSADC_INTR_LOOP_DONE |		\
-+	 AXIADO_TSADC_INTR_THRESHOLD)
-+
-+/* TSADC analog block configuration required for temperature measurement */
-+#define AXIADO_TSADC_ANA_REG_INIT	0x6
-+
-+/* TSADC SEL: select temperature measurement */
-+#define AXIADO_TSADC_SEL_TEMP	0x00
-+
-+/* TSADC EN / TSEN_EN field values */
-+#define AXIADO_TSADC_DIS	0x00
-+#define AXIADO_TSADC_ENA	0x01
-+
-+struct axiado_tsadc {
-+	void __iomem *regs;
-+};
-+
-+/*
-+ * Lookup table: raw ADC output (12-bit) vs temperature in millidegrees
-+ * Celsius. Raw values decrease as temperature increases, from -40°C
-+ * to 125°C in 5°C steps.
-+ */
-+struct axiado_tsadc_point {
-+	u32 raw;
-+	int temp_mc;
-+};
-+
-+static const struct axiado_tsadc_point axiado_tsadc_table[] = {
-+	{ .raw = 2776, .temp_mc = -40000 },
-+	{ .raw = 2748, .temp_mc = -35000 },
-+	{ .raw = 2721, .temp_mc = -30000 },
-+	{ .raw = 2694, .temp_mc = -25000 },
-+	{ .raw = 2667, .temp_mc = -20000 },
-+	{ .raw = 2640, .temp_mc = -15000 },
-+	{ .raw = 2612, .temp_mc = -10000 },
-+	{ .raw = 2584, .temp_mc =  -5000 },
-+	{ .raw = 2556, .temp_mc =      0 },
-+	{ .raw = 2528, .temp_mc =   5000 },
-+	{ .raw = 2500, .temp_mc =  10000 },
-+	{ .raw = 2472, .temp_mc =  15000 },
-+	{ .raw = 2444, .temp_mc =  20000 },
-+	{ .raw = 2416, .temp_mc =  25000 },
-+	{ .raw = 2389, .temp_mc =  30000 },
-+	{ .raw = 2362, .temp_mc =  35000 },
-+	{ .raw = 2335, .temp_mc =  40000 },
-+	{ .raw = 2307, .temp_mc =  45000 },
-+	{ .raw = 2279, .temp_mc =  50000 },
-+	{ .raw = 2251, .temp_mc =  55000 },
-+	{ .raw = 2223, .temp_mc =  60000 },
-+	{ .raw = 2195, .temp_mc =  65000 },
-+	{ .raw = 2167, .temp_mc =  70000 },
-+	{ .raw = 2138, .temp_mc =  75000 },
-+	{ .raw = 2110, .temp_mc =  80000 },
-+	{ .raw = 2081, .temp_mc =  85000 },
-+	{ .raw = 2052, .temp_mc =  90000 },
-+	{ .raw = 2024, .temp_mc =  95000 },
-+	{ .raw = 1996, .temp_mc = 100000 },
-+	{ .raw = 1967, .temp_mc = 105000 },
-+	{ .raw = 1938, .temp_mc = 110000 },
-+	{ .raw = 1909, .temp_mc = 115000 },
-+	{ .raw = 1880, .temp_mc = 120000 },
-+	{ .raw = 1852, .temp_mc = 125000 },
-+};
-+
-+/* Convert raw ADC code to millidegrees Celsius with linear interpolation. */
-+static int axiado_tsadc_raw_to_mc(u32 raw, long *val)
-+{
-+	int i, n = ARRAY_SIZE(axiado_tsadc_table);
-+	long num, denom;
-+
-+	if (raw >= axiado_tsadc_table[0].raw) {
-+		*val = axiado_tsadc_table[0].temp_mc;
-+		return 0;
-+	}
-+
-+	if (raw <= axiado_tsadc_table[n - 1].raw) {
-+		*val = axiado_tsadc_table[n - 1].temp_mc;
-+		return 0;
-+	}
-+
-+	/* Find i such that axiado_tsadc_table[i].raw >= raw > axiado_tsadc_table[i+1].raw */
-+	for (i = 0; i < n - 1; i++) {
-+		if (raw >= axiado_tsadc_table[i + 1].raw)
-+			break;
-+	}
-+
-+	if (raw == axiado_tsadc_table[i].raw) {
-+		*val = axiado_tsadc_table[i].temp_mc;
-+		return 0;
-+	}
-+
-+	/* Linear interpolation within the interval */
-+	num = (long)(axiado_tsadc_table[i + 1].temp_mc - axiado_tsadc_table[i].temp_mc) *
-+	      (axiado_tsadc_table[i].raw - raw);
-+	denom = axiado_tsadc_table[i].raw - axiado_tsadc_table[i + 1].raw;
-+	*val = axiado_tsadc_table[i].temp_mc + num / denom;
-+	return 0;
-+}
-+
-+static int axiado_tsadc_read(struct device *dev, enum hwmon_sensor_types type,
-+			     u32 attr, int channel, long *val)
-+{
-+	struct axiado_tsadc *tsadc = dev_get_drvdata(dev);
-+	u32 raw;
-+
-+	if (type != hwmon_temp)
-+		return -EOPNOTSUPP;
-+
-+	switch (attr) {
-+	case hwmon_temp_input:
-+		if (ioread32(tsadc->regs + AXIADO_TSADC_SEL) != AXIADO_TSADC_SEL_TEMP ||
-+		    ioread32(tsadc->regs + AXIADO_TSADC_EN) != AXIADO_TSADC_ENA)
-+			return -ENODATA;
-+
-+		raw = ioread32(tsadc->regs + AXIADO_TSADC_AVG_DOUT) &
-+			       AXIADO_TSADC_AVG_DOUT_MASK;
-+
-+		return axiado_tsadc_raw_to_mc(raw, val);
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
-+static umode_t axiado_tsadc_is_visible(const void *data,
-+				       enum hwmon_sensor_types type, u32 attr,
-+				       int channel)
-+{
-+	if (type == hwmon_temp) {
-+		switch (attr) {
-+		case hwmon_temp_input:
-+			return 0444;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct hwmon_channel_info * const axiado_tsadc_info[] = {
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
-+	NULL
-+};
-+
-+static const struct hwmon_ops axiado_tsadc_hwmon_ops = {
-+	.is_visible = axiado_tsadc_is_visible,
-+	.read = axiado_tsadc_read,
-+};
-+
-+static const struct hwmon_chip_info axiado_tsadc_chip_info = {
-+	.ops = &axiado_tsadc_hwmon_ops,
-+	.info = axiado_tsadc_info,
-+};
-+
-+static void axiado_tsadc_disable(void *data)
-+{
-+	struct axiado_tsadc *tsadc = data;
-+
-+	iowrite32(AXIADO_TSADC_DIS, tsadc->regs + AXIADO_TSADC_TSEN_EN);
-+	iowrite32(AXIADO_TSADC_DIS, tsadc->regs + AXIADO_TSADC_EN);
-+}
-+
-+static int axiado_tsadc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct axiado_tsadc *tsadc;
-+	struct device *hwmon_dev;
-+	struct clk *refclk;
-+	int ret;
-+
-+	tsadc = devm_kzalloc(dev, sizeof(*tsadc), GFP_KERNEL);
-+	if (!tsadc)
-+		return -ENOMEM;
-+
-+	tsadc->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(tsadc->regs))
-+		return dev_err_probe(dev, PTR_ERR(tsadc->regs),
-+				     "failed to map registers\n");
-+
-+	refclk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(refclk))
-+		return dev_err_probe(dev, PTR_ERR(refclk),
-+				     "failed to enable reference clock\n");
-+
-+	/* Mask all interrupts before setup */
-+	iowrite32(AXIADO_TSADC_INTR_MASK_ALL, tsadc->regs + AXIADO_TSADC_INTR_MASK);
-+
-+	iowrite32(AXIADO_TSADC_ANA_REG_INIT, tsadc->regs + AXIADO_TSADC_ANA_REG);
-+	iowrite32(AXIADO_TSADC_ENA, tsadc->regs + AXIADO_TSADC_EN);
-+	iowrite32(AXIADO_TSADC_SEL_TEMP, tsadc->regs + AXIADO_TSADC_SEL);
-+	iowrite32(AXIADO_TSADC_MODE_CONT, tsadc->regs + AXIADO_TSADC_MODE);
-+	iowrite32(AXIADO_TSADC_FUNC_CTRL_CLR, tsadc->regs + AXIADO_TSADC_FUNC_CTRL);
-+	iowrite32(AXIADO_TSADC_FUNC_CTRL_SET, tsadc->regs + AXIADO_TSADC_FUNC_CTRL);
-+
-+	/* Enable the bandgap circuit once the block is fully configured */
-+	iowrite32(AXIADO_TSADC_ENA, tsadc->regs + AXIADO_TSADC_TSEN_EN);
-+
-+	ret = devm_add_action_or_reset(dev, axiado_tsadc_disable, tsadc);
-+	if (ret)
-+		return ret;
-+
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, "axiado_tsadc",
-+							 tsadc,
-+							 &axiado_tsadc_chip_info,
-+							 NULL);
-+	return PTR_ERR_OR_ZERO(hwmon_dev);
-+}
-+
-+static const struct of_device_id axiado_tsadc_match[] = {
-+	{ .compatible = "axiado,ax3000-tsadc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, axiado_tsadc_match);
-+
-+static struct platform_driver axiado_tsadc_driver = {
-+	.driver = {
-+		.name = "axiado-tsadc",
-+		.of_match_table	= axiado_tsadc_match,
-+	},
-+	.probe = axiado_tsadc_probe,
-+};
-+module_platform_driver(axiado_tsadc_driver);
-+
-+MODULE_DESCRIPTION("Axiado TSADC temperature sensor driver");
-+MODULE_AUTHOR("Axiado Corporation");
-+MODULE_LICENSE("GPL");
+ AXIS ARTPEC ARM64 SoC SUPPORT
+ M:	Jesper Nilsson <jesper.nilsson@axis.com>
+ M:	Lars Persson <lars.persson@axis.com>
 
 -- 
 2.34.1
