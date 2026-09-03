@@ -1,38 +1,37 @@
-Return-Path: <openbmc+bounces-2548-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2549-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A76C624D6
-	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 23:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF58AC61DD3
+	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 23:52:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hbbrH1v3Tz2yvK;
-	Fri, 04 Sep 2026 09:47:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2406:e500:4440:2::730" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788443421;
-	cv=pass; b=E/CkFfu/DxS7YQv9u8OgQjjXtjtQ7LTwIjcFSUGwrxVV7kHcWnq1w98ZmhPfWcY78qov8uuimDgl5ZpWzAau5NNa4gis81wAieciw/Bcb2Ml8ZKN3awy9c7DwlKkxn6wY7n2Hxt/PrWHaQabtel0InZ1o8BtS7r1jx+atMnHZzmbU8CVqOUTM2vi15p+8Z4UotL+iIU2w+1HS2OaeYhAAT3itbKL7O+P9T9cOK3+GbWFZoge1N4bNc9B3IfCt7FWFMCk5L5Jmcvx/YdZu0+ph1baRGkdyToiCG5N1ltYp1okNcRoZqaAJllUDHGQyE87OxYj4j1UpqefW1qbBE1d4w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hbbww1sKKz2yrM;
+	Fri, 04 Sep 2026 09:52:00 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2406:e500:4420:2::71e" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788443475;
+	cv=pass; b=MSmQoCImnAor8ssbVx8kCSQsd6Nx0K50Bf9zqdo4oh0cuW4ktGkPF343n7tWENvd4pe6fY7sszm3i6fSMk+hxHNGQfwEaLHJkAd/mV6/uFglDYHqV0zXs8U7WDODrxWdhMF0E5/6scdJ2hJVjvGMx7Q7w8axn/XUcedsnsjzYFJ/sKYxgZYslPiCrEnKfuyGpIeXSNnCjMJxm7NDD0icczVcm5z50HAa2Ea0rZLMcULjXiMEqFCoR/iZsuU+/afvXJz5ebnud93HpPUc621iZUbqrpZSbMKhmhZDOUVx8VushS+YfwnZIoUesoCJpCQLcAMlLZ8/ycoNjT+ees+DEg==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788443421; c=relaxed/relaxed;
-	bh=PgsshksB7oidWvpa0dusU5HX1hlwopRi1hmDN+gOsVc=;
+	t=1788443475; c=relaxed/relaxed;
+	bh=zV6mc3gQMlM1k9J8uW+evKf4D/uq5HD/Qg8bfNL7ZW0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fb5oA+evn2OsIzIm5hrRNhuCX8Rtruq/XQSu1dX37haQ04lQEeo0e8mPcBr2Iv4yZEPdpWvGTFQg0Fl/Xrf606frK3NSkN/TqvkrKlRrHXjrfmen0stRJJ/NTrNjGc0etJuA3fF2hzQoNTn6/w7ZmGMOBoKU0Vr2XU20Q8KhfxGMBJeMLt+nnLJJzLCUHIrvm3eSFGjJHeOpRekwUXAhuu8ew6FUuM6aLXHfCE2iRqmSG1SToLdyx7tih3erxLQFOvs75EngoF4EDxrB/Ebr/vgLr/S6oRwz8Jlc6j3qJr+2I9vdl/rNp8xGS3+fA59c4O36Fns5pBu8xEr413RHrw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass (client-ip=2406:e500:4440:2::730; helo=chn02-bjs-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org) smtp.mailfrom=starfivetech.com
+	 Content-Type:MIME-Version; b=NrnX1owSgOXa+cwpV9az5Tc6E+iwPbl/Chcjrfa9J/nmpIFehAMEKo8Qpwxruiq8Oq9twK09MBX36LFJW3LXCgpCGstnm+KzpLQofFD7Y7qns06dvngff26OQKAt8OthrI45wGwA91ggoLFWQa0DSurv0erLBFg23CWbGjV5rUHYCeXP5W2X4ffKGRcPEQtD4l2Gq0JaJlViN+vE1rDxeHvQ1DOxtjyx4yE0+Wdek/FuTyHvqwaO53lXAjhe4YOZ81Hq+UbCmfDF7SkWqQJGgLWOkI88sts50smmBqDYLqzZfa8HgVnbLbsE3aGiXygbyi8GHsHEe0r/LXH0QxcWuQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass (client-ip=2406:e500:4420:2::71e; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org) smtp.mailfrom=starfivetech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=starfivetech.com (client-ip=2406:e500:4440:2::730; helo=chn02-bjs-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 907 seconds by postgrey-1.37 at boromir; Thu, 03 Sep 2026 23:50:19 AEST
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on20730.outbound.protection.partner.outlook.cn [IPv6:2406:e500:4440:2::730])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=starfivetech.com (client-ip=2406:e500:4420:2::71e; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org)
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2071e.outbound.protection.partner.outlook.cn [IPv6:2406:e500:4420:2::71e])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbLZg3WSSz2xHK
-	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 23:50:16 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbLbk18CGz2xHK
+	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 23:51:14 +1000 (AEST)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UCN0ksyDjj9Hz+nGvRm3w2t8Cmx7HWFOngewyA09N+iioOe8SB/BpzSAdHkJkk383It1OJmNDg14UKTdxQy5HO7y5OQyu63aKfRlc/soF+V5X/+QobmTfEohreKJXODiveVJOOSM+kHT9ANs+lRjdMwW+qAwzDyyVZNRFaIIwzFr2tGRhsg9IEhJgJZCVzL0VIcbPEuqVkcjNIgIfKA85jpo7KbraQQssQU8XAwu3HNqK0VxCwa2imQCam7N4DKbMuhseAVaRPR6TvgThk9kWo+taR1gEwOp44IkP6udoH0qrL4vpNoSVLaneP3jiwttQ4JyI+S/11J8TCHp4isVXg==
+ b=b9l+5xSpyplqmBoGQQC/w9wtzIXORHK7iUKtZZNIThET9Bqe8UQsahf52ZKuNRDrc9mUmWqPXJ1wxcC4axGkmsvgpE72GIesTGoy5K0cZY91bWJGSqslkP4eaQaR72EGh6nTCU7ucZARwY+U39wNthRwASH0yFsN2uolixsAnaHonG4egf+fTAyw5DV0xEJolv0Bq3t1ID81SgfSVRk2l5g2VksVTT8h2U1xkIOjgZIG8zNI0d4hZngbDL8AnubF0ck+MGxcO2oaoUL/Qh2flSBYTKZ/KOaDV5WVoZGPLjxGDib0S+EkUbyWGcX1SLOUhRtisNfdg2xISbH3VkD2Ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PgsshksB7oidWvpa0dusU5HX1hlwopRi1hmDN+gOsVc=;
- b=lV/L+wutGCPPikpQGPR2y6vCLsFGjc6RTgzT+K7s8TfEAJesQgTr0GQiSGxAUGcUlO+CCsvU80igmf6u6Nw7JdGH3ngRldt88sW8A+4WmutxhQORofyYZIB0V1EHAO2HSeoC1RrBtGvIUdC3U1MlKKHvMrjKyLH0W5rzt7pHRKuI9hTOBBEjhePirNK8kh99mojN0L15+RHAYQYMZlmOH1ac9Ot3Ukb3Pt1euliz4ImRO2eGCyBQfPLoCBtF6BDhHlmn4jDqWHWujXt8jm+2HE7nMRb4QT1jiV/MW/RFVjdgirm4ZEGvyj5KDJPWw+fDs878JlyuKpzk1Q6mMFuDQQ==
+ bh=zV6mc3gQMlM1k9J8uW+evKf4D/uq5HD/Qg8bfNL7ZW0=;
+ b=F0JY6c5bMPRkcv6/In+FLYjKaR/E7NxPO4MR9rV5ultfMT6PzhafPAZYFgXYQspmANb2w7Uxtd8DMRVUQoUezBDYMGssfOhWZQpQY0miiFQZYmsKTfAQOYN53dtv/A2ewNuFhU8KnF06deJIwrkPK/6hK53t+ZDNn32RNQE4ta4GvWJ0fFoTQCPfSb4zmITdKtplGa8gAyKp0jMZwsZcjFEfHtKP9V2iHSUNDKkc8tEHRzGw0PCjySYUg7s6sF2Q4DAQEYY6ASVD3XMElZZT2g/OIZNuR1ND10V9ItkRDnhQqnM81Io56CfFpQ6Rfvoc55/Jqygw8MP33XlpE1rFuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -41,11 +40,11 @@ Authentication-Results: dkim=none (message not signed)
 Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102) by
  ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn (10.2.1.238) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.12; Thu, 3 Sep 2026 13:35:28 +0000
+ 15.21.315.12; Thu, 3 Sep 2026 13:35:19 +0000
 Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
  ([fe80::e7d4:256c:b066:850d]) by
  ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0315.011; Thu, 3 Sep 2026 13:35:28 +0000
+ with mapi id 15.21.0315.011; Thu, 3 Sep 2026 13:35:19 +0000
 From: Changhuang Liang <changhuang.liang@starfivetech.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -58,9 +57,9 @@ Cc: openbmc@lists.ozlabs.org,
 	linux-hwmon@vger.kernel.org,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v1 3/6] peci: Add support for PECI CC 0x83 retry condition
-Date: Thu,  3 Sep 2026 06:34:05 -0700
-Message-Id: <20260903133408.110847-4-changhuang.liang@starfivetech.com>
+Subject: [PATCH v1 1/6] dt-bindings: peci: Add StarFive JHB100 PECI controller
+Date: Thu,  3 Sep 2026 06:34:03 -0700
+Message-Id: <20260903133408.110847-2-changhuang.liang@starfivetech.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
 References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
@@ -82,91 +81,132 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
-X-MS-Office365-Filtering-Correlation-Id: c34e7a6c-e743-4cd0-7ddb-08df09c037d6
+X-MS-Office365-Filtering-Correlation-Id: 03311570-0b24-4269-852e-08df09c01bab
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|23010399003|366016|52116014|376014|22082099003|38350700014|10067099003|56012099006|18002099003;
+	BCL:0;ARA:13230040|1800799024|7416014|23010399003|366016|52116014|376014|22082099003|38350700014|10067099003|56012099006|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	BDZjS27fnjTkOLiLW2K4Iec7dyJie/54mRfvRmX4W5wpuOr4xBUlTWxj0S9H2Cyv8Hpu+a1kSCElZPHBvbHwskETg0i3t2Al7OO0hOylNfcIizSNsH8S3hIPrk81Bxhu8TVUSUtZLugdB5JcImtXlWa5KEU9ELu8+3b0ZT71eGAbrJwpiI1MW0zR7yg17mslz8nUZPjxvAoJe2adgva/vX76lSvEeNp+KwB+Jr2/4SLu97VMnUU6avTGBYhgqe1B1UQqOf6J2CRiT0r3ePcL8mbBq8hysmCrVGZNkjKWxizoJIhzDTsz94FKeGQKcQuw48ILHIZrOIESk9EZkT2qHqa8pRSNIcFfZv21BdBb0fxAMwzIBoUWsTJkUW0B3VOkeMaJhtaER01BEogg8ebVerjUzb9L2PbyCTUUlymzoAPBORbxdISD+Wtq8aQ6lacuO3U2aZU9pZpofR/zREp0zcrkEMxTZFtrACXSXneCC4mxy2OUSphp3uzZhD5F99trZRgg2PbzJrVh096324BB8r3nUYrvuq92eIhE7BNu2lv9hMb83/yKCv0nLRLwKeRP
+	k+fdysMow6nq6FssNiPlzKUwBifh5iXjgQR0Vt3nDHSMa9P0kqR9tn/FIZTag+qGrhN/XDvAEAbKYYzy3T/O+yDCf+QKr91Yrxx6YrPeDVetY0sWTaEqkfHTM011M6IHft3/qmNl8vwQnTH9JF3zf1EAz5NSTlNbJRIUp9ftemTmx5cwi/L8HFs7gwTKrwIvJu3OgilVpU8eoq5QBqjKlYg1c6v/PtCfzN/O7E+ivYXnzMJCWORGJkOh+AXLs5+R6k3ZrZwzMIWrLK3DleSTbcFVibpGnnN6f3W1gPIHNfYIqkG48tUk1TF9t3K8VHzj5aI1ZSLHJvbwBKDio5G22W64WIm24Vu3xd+DhcFO4ubQm9btxL0jbzn6lW6jSNT+Wj8l7681EWvQibVPAiszS41dP+hZnJbJ1d7XHel1tG1tAkdEkwOCHm0U37M8cBHIcQXJroA56l9e/bUAI9Zh6YqcvcX4AJnRAhfKqWpojXaePCIM4EBEcxNA3A/750esrxQ8E4UGf3rxBybwJWalJvGp0igMRkdAXWLkNlZwyPVGvcrxyQBbe95/PHLgkhoI
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(52116014)(376014)(22082099003)(38350700014)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(366016)(52116014)(376014)(22082099003)(38350700014)(10067099003)(56012099006)(18002099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tKQLJ8COvGWQBoHSqj2FXUuy4wEt8w8jUe/fGilBUn151AjK0kp41vQ7tEB7?=
- =?us-ascii?Q?3Zn4v5QTOHio3yFs/CGi0GfrqAu2oA7bk1PvgikvAxT2lEjgOQnHuJCI25Ja?=
- =?us-ascii?Q?UHGUcRtKfZTA6kI/8DuflBPSA6HKRvidvejU5Oc/UgP5TwDi+C0Zk7CXLBoI?=
- =?us-ascii?Q?Upi8XsCS9XQ4855jnJ3+WG+p1ZPDlW386guG2FoiXon4VkJC6d9WZrc2tAtK?=
- =?us-ascii?Q?0LCk0i2k7qBrOnVMlDGTFlJOTzTyvcPHeA9t+HdKiOvkviw3iyqDakyTmkzz?=
- =?us-ascii?Q?nh4ShYZp+qmQ/ZJsOJDiKAU34A8tZGuQx3KeakDpuK3a5qdlnDyzLSivZ20R?=
- =?us-ascii?Q?MS8RmZrA1c3ejeI4/M3uLgXGF8xgkA434tX+HeWUEILeSC18jBmptqZvXWnH?=
- =?us-ascii?Q?yjzpyTDBdQjszNlMKD1ztUQ2WpK69xh/lbO8xOVSc2owUF7px0SX1VxXuULC?=
- =?us-ascii?Q?b9RmByvD3Rkskv+3l8n5ywTYSlaeHtkbniHrBFKhf+njuNS19P5AswsPYWKY?=
- =?us-ascii?Q?UZxM0PitYxey1EKaIzkMaqrSgGnEhMTKdJ2hSGqJnE6ZSxAihHEoIEyK7Cim?=
- =?us-ascii?Q?5sW7NDMGKyrTveVDCFPMNnT1OBjrqJQKtd5DYeRu6tJCntZVEF4sIalDnqbB?=
- =?us-ascii?Q?2oRjmMFtjSP7Y/QiMY0V0IirUa/D90P+MY5Z344eD7WFJ9wMxp9c4CbH6ie0?=
- =?us-ascii?Q?FnPs/IAE9WJDBEBCg3iPAo8tRdh9s8ZaJlbedste40wFoWiYqUDnnMcW+EGx?=
- =?us-ascii?Q?m7xUbykWrtb7FmS5SLypGHrFwhDxO3LYSAqfNCOlGM3SM8Sa58EBNPMKwMH/?=
- =?us-ascii?Q?7Fy63Nc4Yf0/B6MbJWEurFaVtdMSm8N23SfIIq52FvzRFRjvnD37JcDusuKD?=
- =?us-ascii?Q?WtwtvnEJO9nBDS6X0VFD88GJROY228px4QZ5HlvsD7eBjK0csl8I+hpq6xEn?=
- =?us-ascii?Q?NzyLO6dB21vovHWpmxAkO/xuIGiZzvU3Euj1V4CcYEgYNiZZ1nkEJ81JU0qd?=
- =?us-ascii?Q?xfYma8sL7dMOz8otQTv/7WF/ontrD78U/2iB73oSumgGabdajFZ8QahX9IcQ?=
- =?us-ascii?Q?O1M+4YJEhZZY1bsktrhKOp/m+kpOmfA2HWRT8XqDEAyeTj/8VlWQKnySKyCz?=
- =?us-ascii?Q?vFY28ufm97GnrogXr51mCy7ORGVp2cTF9JSSfCj4RvD7X9AoYzCpOdj2L72f?=
- =?us-ascii?Q?PiDeDoNQpxy//5FX7vXnDT7MDuIyniU/+uE09RolYCwxI4BDxvUTQcqS5cmN?=
- =?us-ascii?Q?PbONiks6iD36qJEPU182u4brFn9LPTEfzk8sLypp33xNhjhCzO4ohVrJmGC7?=
- =?us-ascii?Q?+9ivdGlfbBibZR86oAtlfU7Nv7BiyVQeejwW5sCXtuhop0XvZNDtG+pFkl7W?=
- =?us-ascii?Q?m7tgCeNTaFLI0v1aF1MxuJisuZyWTOyhCNeefKqcq91Hd4UKt2ysfampyHGh?=
- =?us-ascii?Q?C53YFz5o2gQGmFvVpScO4sHGM91LqWcvLjesO7E+BJTXTXCKmUc3s5ULVoN3?=
- =?us-ascii?Q?mJ+EmMI9p464daalql7zUXR54G/RHaUL951DZaF2IX9qLJ1h3W05CbJaBGK4?=
- =?us-ascii?Q?8BNtg7+h4O15TYbbiqJT3xoCQUB0l5YdUA5hs0K1b1vnldhXlBHXufpisb6T?=
- =?us-ascii?Q?JjPd/ewMGf4BDRLf1kknmun5rpQv4V/LLbUnPCdKprzOs42eYg9xJNl7jgtL?=
- =?us-ascii?Q?TMrYE0Y4frWeOfs4+Xa1QacXQUFioMLRenGjjkUAEsdsQib+JzuHG4caWAf+?=
- =?us-ascii?Q?drqEvHOUMNyqeR6BpRDJi2sJKjToN/tUeoBmt8q7yiFS1TcTEt9O?=
+	=?us-ascii?Q?zpSdDetLbY7aEwobR+NmbUifg0Ie0l3NjKvVYvkZuKuaBlVfSFUugqLaP91+?=
+ =?us-ascii?Q?ereT7LKE8e0FJ6txPWGvQgD6DxTMMV04TdnWUM9aPQ5FG4wv2aeP4MBFvC3K?=
+ =?us-ascii?Q?ArZlOixRSqPufn0ORq3tCeXx3cKP9cFwAzw8vWPscE0i4PJPQ1sYXv9ioVX6?=
+ =?us-ascii?Q?feWkmo6rqFRQJNPzjbAiF7IauVn/9gTwAxU0MCGwflDMYXcUdqpp7KwY1jI7?=
+ =?us-ascii?Q?NXkz74hZa/F/DZK55F+f6AGLYaa1v9V2AU074HGrwBHwNNI4y6boPg7lsGkh?=
+ =?us-ascii?Q?G3En0Kxna1qgL2isNRSeoe7ZUC6c5m8MtELuC9265kcNaolp0tbYOMdfp4s4?=
+ =?us-ascii?Q?4RW33lDXcVkKadDnCMCW0SfLgzceJH9eaWvmaD16EzbtP1wEWnj+/9Drth9z?=
+ =?us-ascii?Q?fVJRDtVev4iJyNEdIF2QZOHzmtxAQFThssGgwkl5xKbo8Qhdky2dBRZPaVOZ?=
+ =?us-ascii?Q?c2VlWGWu2ubJss59TDORTo6x74rIS4OV79KzSEzu06XQjCzNRk8aoxDZKxbK?=
+ =?us-ascii?Q?qaWi2h9RUmJmWkuSyRmhj4G4JYsg7c5pRkqBVAqoDv9QlcTw426diXAeC38O?=
+ =?us-ascii?Q?7gqho98I2RNx20zBBHCm9cF/M2MfNXH+SgWZHdFUC6qoYSnpiVFKZStTACa4?=
+ =?us-ascii?Q?XRmOFhbRabD9N1sn+BbLcIdqv+DdH/RsYNWFDbIR6cZL4C6J14M/Q0Fw1lbt?=
+ =?us-ascii?Q?SSmteHwHsh4+JGortvfT4xOjNTnoxXK0o5u6Qno6tpXOzKRyRGYYTi4uvO1m?=
+ =?us-ascii?Q?JuQ3mpBvrCIWuVj7GRh3vPFWWCjMljMhgSMJ1qUs+5nq/nAfsTtRsMzkRAz2?=
+ =?us-ascii?Q?JBPEOKmOhwhnLzR+Vh8dVvjP1QbC+jqsLxQOcm+yWVWV3xu/a9OQZsDnUVfo?=
+ =?us-ascii?Q?Q5YfOSM+KD/mTqeJS3RnkxtsT4rKHJ3vuvDSAi379xr3A/rxqRmx1UO4P2T0?=
+ =?us-ascii?Q?qjIAwFwWpL0UO2L689OXF1kVbJcKkuJUaQ6EIyVZRm1FQyp6UsmAwMVXem0C?=
+ =?us-ascii?Q?QouapPg7SynzCOAykOGJw7xbGicoPNSagYJxWSyMaoQeZntUjlop1AkWXO/C?=
+ =?us-ascii?Q?vVw3BtVSOxLLmaC3EafUB0x/z/d27qUH8nIRF0pqA61z5mENlFBLNymR5Rcx?=
+ =?us-ascii?Q?kdhkXQmPVR6RLdqBz3D9OkM69BVK+FwfSm1ihqPHI88aoW2IiWsdQ8+XPpvE?=
+ =?us-ascii?Q?IRQ61VbSmCzKj4CVCprlb3ACebJM0H/JJpDhpFzXk92FNsBBvrFQ1p8RQLi0?=
+ =?us-ascii?Q?n301wSJ2j5d76er9wN0LAUkKVGsNwRl3ZyaeujvP3oe78MVU/++//wiX7kmx?=
+ =?us-ascii?Q?YiN5UyMIg2sIJe+fIDb8BtwmQQBPSRlbxkkIGPXx/82biDMFzhVIv/pjAZf2?=
+ =?us-ascii?Q?jmUfiINSqV/JnLgXXxIOLWv4re67u+WCs8fYIublEoUCHfH4NvNmo6bP8arv?=
+ =?us-ascii?Q?lNDcOm1uUHlwV9rs9FAVGzwemBHio5UZuk9nZ/dqZJPD4ZYCnyb114U2z6E1?=
+ =?us-ascii?Q?9vm1dbI/vkmhptWK9TEN1azIv59v/GmJYV/jUq5NYbXnOZ/WPPhUSVjxCLH/?=
+ =?us-ascii?Q?YbxmblZvaipmz6kIa620ckETC4DM/XwAMfGPESMZCvntLy67fsP+sAYMN6Iq?=
+ =?us-ascii?Q?+u83eHnqgz+YJwHEufe3WF7OZCOME8FD5GoamzDooOw6RGy2R1WUsLVsYhkq?=
+ =?us-ascii?Q?d8Jlp6XagvRY+iDrAY1wk35jWfNbmy7MYml9n6F4RiiR1MthAvOKqZ+Djl0e?=
+ =?us-ascii?Q?jn8dA1lCQ6nGQodbSiGkTtAFITwSyzrdQvsJlAvYGhKVD8RVrMYK?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c34e7a6c-e743-4cd0-7ddb-08df09c037d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03311570-0b24-4269-852e-08df09c01bab
 X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:35:28.6830
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 13:34:49.3034
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SzCS0qk/rWxwsXD8NPLQcB+GEwllH4xa0r0KE/FvBnySZ5jSGV6AAPMhqBkDt5fUcHhfgpWfvKeNZsnByPJ/OK/TjqykhuGNDvpwrvyM7Wj3WJqlhU5G6RLAeILntpxf
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7vp1jIPqYYBW+jqHRVMbKz8F97YRwLPp6GPqMUpQTU7FieAxlQd/kPv64MwN2F0iUIMPjFLkFHwRIwBDuPqoCnrPHs1kQKHyD1Ta8FcGQN0eTA12suAVidPJ7nLt4iHY
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
 
-Some PECI client devices may return completion code 0x83 (CMD_TIMEOUT)
-under certain conditions, which is not currently handled by the driver.
+Add device tree bindings for the Platform Environment Control Interface
+(PECI) controller found on StarFive JHB100 SoC.
 
-Add PECI_CC_CMD_TIMEOUT definition and map it to -EAGAIN so that the
-request will be retried appropriately, similar to other retryable
-completion codes (0x80, 0x81, 0x82).
-
+Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
+Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
 Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
- drivers/peci/request.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/peci/starfive,jhb100-peci.yaml   | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
 
-diff --git a/drivers/peci/request.c b/drivers/peci/request.c
-index db2cc30a42a4..2bf8b6a255d4 100644
---- a/drivers/peci/request.c
-+++ b/drivers/peci/request.c
-@@ -71,6 +71,7 @@
- #define PECI_CC_NEED_RETRY			0x80
- #define PECI_CC_OUT_OF_RESOURCE			0x81
- #define PECI_CC_UNAVAIL_RESOURCE		0x82
-+#define PECI_CC_CMD_TIMEOUT			0x83
- #define PECI_CC_INVALID_REQ			0x90
- #define PECI_CC_MCA_ERROR			0x91
- #define PECI_CC_CATASTROPHIC_MCA_ERROR		0x93
-@@ -112,6 +113,7 @@ int peci_request_status(struct peci_request *req)
- 	case PECI_CC_NEED_RETRY:
- 	case PECI_CC_OUT_OF_RESOURCE:
- 	case PECI_CC_UNAVAIL_RESOURCE:
-+	case PECI_CC_CMD_TIMEOUT:
- 		return -EAGAIN;
- 	case PECI_CC_INVALID_REQ:
- 		return -EINVAL;
--- 
+diff --git a/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml b/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
+new file mode 100644
+index 000000000000..fd71a98b5584
+--- /dev/null
++++ b/Documentation/devicetree/bindings/peci/starfive,jhb100-peci.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/peci/starfive,jhb100-peci.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JHB100 PECI Controller
++
++maintainers:
++  - Changhuang Liang <changhuang.liang@starfivetech.com>
++  - Mason Huo <mason.huo@starfivetech.com>
++
++allOf:
++  - $ref: peci-controller.yaml#
++
++properties:
++  compatible:
++    enum:
++      - starfive,jhb100-peci
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  cmd-timeout-ms:
++    minimum: 1
++    maximum: 1000
++    default: 1000
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    peci-controller@11c60000 {
++      compatible = "starfive,jhb100-peci";
++      reg = <0x11c60000 0x400>;
++      interrupts = <222>;
++      clocks = <&per3crg 34>;
++      resets = <&per3crg 3>;
++      cmd-timeout-ms = <1000>;
++    };
++...
+--
 2.25.1
-
 
