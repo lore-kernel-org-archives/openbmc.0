@@ -1,76 +1,63 @@
-Return-Path: <openbmc+bounces-2540-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2541-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DE21C624A4
-	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 08:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5AD1C624A4
+	for <openbmc@archiver.kernel.org>; Thu,  3 Sep 2026 16:35:36 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hbCgz5t0vz2yv0;
-	Thu, 03 Sep 2026 18:39:27 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=40.107.208.131 arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788424767;
-	cv=pass; b=SAJSKjAG9eMtH3vZTK85ocYVK/fSC5GVl7VlzvtzUi6uw7KkDDcqmAAr6jkrMNdWAaDx85p6hQQVkMtGJxEWG4ZQOjo72JxNK+zT5DpVp1TkU+ZBEQNCVXMFguRmTwFBsxnXMvAmGWlA1GFBjx39kWwVsfNQHRExXdHTDTTVvjwHyiDD1UDPt/NHQy8yN/+VPWBC3QHXayQGnHS++MdvNLEgdrwxK3ZplVoL4ICfMBWScaCid3wthQH+6/ciH16E+SOSgio65NDQxS20x+tPLO6r83Liuo3AGmdwmq1/Ff43+nnfJ1WQNAH4PQlrWBUkfq/eEvtJpoZUHZyhGkrsgg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788424767; c=relaxed/relaxed;
-	bh=s9ezJFL4KMnUCUV31nLlX7gzBOJI4SelpaoBkq/V2/c=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d5DrZvxkSRxVRDLfkSHuC1Z64QrMZxvSXS1LBtB2iKviCYZUeRiiKHQtbupXN+lmIn837ofb0A2qppxSKP0xTAUbdPb2+jpvh1towZ5wvD9ZderP5D4vEhbq9KM87yO/lYm79/X4jxVuTsdXkFI7Cn58cwx7a1K3Gb7iabbYsfdCzqeEfrPUTTMT4XV6PUjNuBvAfEe4oPjx5VMhDqdFrCH+Cnc7eAgV9+b7yeG1TzFcv7fWF7DbVFz+AHfuQwgBmvF0AuYB6jdjTEOjUpUOY5pebEbxcQm2aMiJDvaHd0FyvLE3ZVT8s4xC2BtSRKgfnwBZzcSuyVP5pae0ezqinQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=BiedX/F6; dkim-atps=neutral; spf=pass (client-ip=40.107.208.131; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hbQFF0gXJz2yhD;
+	Fri, 04 Sep 2026 02:35:29 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788453328;
+	cv=none; b=E9fkQV6MvU1CZZSjtw+UxP2CuZF1JKvO8SVpcKjYkhk+6jQ9PXDw/a06wyvrWOtVB0RIxQDzzo4MUiBNstadQ3apOrDk9PQwyqLaJheNbhBbJuQgF8vQvjN2fKIuDg/O4z249lIZdVDQUzPYfp/Ze0qYjZCW/3YzacUGu9KGAhkBdU4zU5ZsCxQ+qupmPN321GpYzcoUxPV3CcweIisnhi6G27niNoj5/qTyz3XGcx+2xtPxEYEt0UhF/0FAlV8ip04XieiWyNvZEbQg6D0YFE9zkmsh4efaAW/aeQkBsVEWrUdLxEWgTwPFv6bZblVoy3owPB9vivIqt/Cpw8Njbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1788453328; c=relaxed/relaxed;
+	bh=4VgcqGwejHpXlI0fhcLml5Ty0iRHkq8/A0Kj2ugtbO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OTSuSg9ET3Ekxx0h9mlEtyMRRlc0EByZntj2CT21NtSHFMZrY7Jr22h/FZa2ZqBldztCxnC1J5HU2QIdosVqAb8bxGAEbmmXJfqMucfZsknEjsyemKqXXNxtCYNZyYF41o4jXttnQq63+cTw/psAncxE1bdVuQrCclqMMRSXEzMGn6F7kPjDJbcxcxTqvg/1hFff5xTdLoVlFOF53IM7/cPy9mCqw925qnwZyGJDR9v0m5y655IHX8wymd9d3COioGIRU3GCDlPFk2ckkmS1YdB56TO3mHKFUc5zPU/E/kERE4jXn7F8Ot+ULAaN1UZdA4/oSb2ckk9PFI7aancO8Q==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJn00D5L; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=BiedX/F6;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJn00D5L;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=40.107.208.131; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021131.outbound.protection.outlook.com [40.107.208.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbCgy748Tz2ygW
-	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 18:39:26 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bMEAAFXNG8IY1NP9ylGwk6Xj370A3XY3gfUt8fzE0uhm0Tulp1PP1zbeRn+9piAwzgwm3nZlUQDoda0NOIWjQ1b2xI5gzevxuEKI/1E8ZrSfYdl/r21vQ2IdIk3SBl9d/XqDLPdHjNfswzDFUKtT78Tz0oVZAQqNK4riAx7SY4B7OGNbbbjwcfJ/S2vqZz9VNuNUiSl3EVeRpNZne7YENmNAPOgh5FJTJeZavqmxfFSuo9Bn/WIplA85cOqyCLJGi7RoqFLn7gGn+gbkhH1XeRYwBYKP45388xL3qMXsfDiUBtBg1UovfBn3vicNs9QqcikTi4xqWKt6k0aUd3pweQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s9ezJFL4KMnUCUV31nLlX7gzBOJI4SelpaoBkq/V2/c=;
- b=uSTcNZqzLE9TeIi63UyYl+0GJM/MI7JfU3tYgdkAdHmPTmLqDHCsHPxr+uUGISyHnaTfygljkBS59CktfkOvqYaNtHFgY53c3yvCd5TrSTGZbz3X87dciKiSDVX4qC3dPb/70NjUYDoGglyPlXeCzH07dL446sgwbIIM2GdPoo+UeFOyGHpTi/d25c6fVf+2COLHSmFbP+H8fe3DAAlsDqQjIZd7bUvRGJ4FawyDw5GUj0AgUYDYsH54fjibJSrsRy0ugbnx8U77nyeBrMVC/aTNz+4Zi5xjplLN3fDAa6TzXy8eYvPnT0CAt+D6v5+chxyA7pd9hQC6uoM0TUp/QQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s9ezJFL4KMnUCUV31nLlX7gzBOJI4SelpaoBkq/V2/c=;
- b=BiedX/F60cRRK575QdUH/T/DpXALxIQqWNHsKzbOg2URgYoj/lxKysvQwnckFDA14s+rqA4E4oWVzx7Sjg58vO1MK7Rm7SeMuBl2FOraSIfffFGmfHZMVTmk2TANdpSNwhNWyciGdpn3vQm+34JIcjoI7aUNjb/b1cQRW1X8z6ReWkaNjVIwMWbEwXFuoprP7TUCZY+kNdDhbdaAk4AkrBaK4aj2n2C+YuG3dMBRVF/q5+BLK3yf22vDK3+5PbMtkjYV8dMVIkdp7DcFOUX8WKsgICwxK+IlfqaYcGPqyZVPzVB9wcTC+fl5cx5lHssGXRBg3X5BhdyDu0hRNJUW0g==
-Received: from BN0PR04CA0074.namprd04.prod.outlook.com (2603:10b6:408:ea::19)
- by LV3PR18MB6349.namprd18.prod.outlook.com (2603:10b6:408:26a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 08:38:51 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:408:ea:cafe::29) by BN0PR04CA0074.outlook.office365.com
- (2603:10b6:408:ea::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Thu, 3
- Sep 2026 08:38:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.0
- via Frontend Transport; Thu, 3 Sep 2026 08:38:49 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id ED0AF4186B51;
-	Thu,  3 Sep 2026 01:38:47 -0700 (PDT)
-From: Petar Stepanovic <pstepanovic@axiado.com>
-Subject: [PATCH v2 0/2] hwmon: add Axiado AX3000 and AX3005 PWM fan support
-Date: Thu, 03 Sep 2026 01:38:38 -0700
-Message-Id: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbQFC6gZQz2xfB
+	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 02:35:27 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by sea.source.kernel.org (Postfix) with ESMTP id 70B2F4175A;
+	Thu,  3 Sep 2026 16:35:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0C51F000E9;
+	Thu,  3 Sep 2026 16:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788453324;
+	bh=4VgcqGwejHpXlI0fhcLml5Ty0iRHkq8/A0Kj2ugtbO4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bJn00D5LHCNxJKO8OB0oD4jqtmpIcvs0FKWYL07kd8xyziZ1PcVIVLGJqrrvOyO6X
+	 BmEKRU8wNOCpJepqx4LQvKCaa0mVKE6PkerBqdK04v2t1qGy9cyq3kzmWkhcmBQw2t
+	 sB6E9oujzXL9p3jHW3gPcowbvTnOaQVpB7JmsCOMOGR85OPYgVpk18plFAtGbZGCz1
+	 97uzgbxyhmG+2jWU0YOBSUV7F3jzL2l3gpQ7GsUEPThXoKdF4MsG2yf3XnsnRoGVMz
+	 O8kOFhFN7wAQvwZbu0+RMK2EGNJ+nAvrw0DE16a591UIriRc9/meKuQmdJGJfNzOhZ
+	 /IftCisocxTMA==
+Date: Thu, 3 Sep 2026 17:35:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>, openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v1 1/6] dt-bindings: peci: Add StarFive JHB100 PECI
+ controller
+Message-ID: <20260903-rotten-judgingly-5655b33067a3@spud>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-2-changhuang.liang@starfivetech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -82,143 +69,28 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAA4ymWoC/3WNQQ6CMBBFr0Jm7Zhp0Qm64h6GRaGtzAJKWoMYw
- t2tsHY1eT//v1khuSguwb1YIbpZkoQxgz4V0PVmfDoUmxk0aaarJjSLGBvyKYkIp/eA3oxYsql
- u1rFtWUHeTtF5WXbvo8ncS3qF+NnfzOqXHsaK+I9xVkjos/DSea2Y2/ronbswQLNt2xcLp8PBu
- wAAAA==
-X-Change-ID: 20260520-axiado-ax3000-pwm-fan-36a89de6db61
-To: Petar Stepanovic <pstepanovic@axiado.com>, 
- Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, 
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org, 
- openbmc@lists.ozlabs.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788424727; l=3416;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=0biORINxenIWidbUx4xnKlZ9WpZ01AHkHaOslYvDE00=;
- b=SpVawK7uxO9lUp16MSINq6DksDjkjPbxWOh60c+LHVBL+enVzE5mm5QBxQCP1EmhKb5+RQlI/
- p+Ngl05LjgRAkWHuTRkMuuzThqTurjx3ytRFBIiiIiYESrqSyg1gVhR
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|LV3PR18MB6349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 528a7a4c-3eb8-4274-fac8-08df0996c6b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|36860700016|1800799024|921020|10067099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	JgRnQF4NWhzAQegmvhshQbxW3vCat/VRXbee4xm9XYmCYaEB38foaEKu838uyzvpqE+C37lneqkM2nstS7X23LAmjS9gCBZJc9wpOCp7SbRWjVw8v4Cj9CNRrI60CDls91/v3LfuHTuNZWjSoIaDVCeNQ+H6YoI8KHyGEoEa+BblNfrgRjagVmPf6fENnVCzvjDMuaxlaAA4BjkTPFFOGoxkI5oXUSJ8N2Ie4fFzwxQJ5ZZBNs7eje3uE/a3OPt5mC4+dgHsZGviOR7n0prO7PppUN5Hcih13+FSll7FaiqxHuh/zFkjIX1dzfbMJuxhQ49eGc848tPhTTHgvEJ/7+9+Q6AgFhv6xahsbHSwdtCl41oue/sm7gBfk3Mxt/1ACCiYIovPeor034S3nxN24WtpqvqJfIIWudSb07o0AuFvijRJ50p/CLjIJ9/QyPVNhs2y3rR9q3vgCPg4DzUTuL5IQHfal8exjOpwR5roMXvCGNbKx0+BrLceed/HXe+X9eoZ8N5TIOJtWJoFSK7PFrfbUAdoZqgmA/nW81ehHp8b9LpWOf/Fi5l0Lp6u/YALsDO1jXkPJMWdtRukXb+l0h7d5JVFmTeZVAWZX3olKy/6E95/z/DFKlAIEOY3GnKgXx7krstgLBGNiQhz2JMkqZJ4zoRRfQXqWBt8C02JFqgIabB/luU84Gmuh/cfhU2XY8udLjBOWGmTVFgRpj7hj/wIo3qHc/lfRZ6GYQhKH/VJmrF/iE8XMvW8oO4dX1fF
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(921020)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	y57G+u67mxxdSi7oMZdPpbV0zLYID3eMHDeaK2ess7UpyCxmILWXrhsrsjggDKySIN8Am01tPDfgOgqyMpCF5I06GZxIihgO5tpzjif5r4RDpUV9FHAnQO4KbX7APr8bVtbJLxt5+1xEKZdhxGj0PVzwWycZQ2JOQT83Hhtop+RKbWLaK0TvbH+gPZ8gQH3XKGiWKltouoXWn/50IbJ0EU/MMYzqCCaDvNfQk6ez2JaJWiQ5NzQYNsjTdcFFNMrJdt6q6qOu9u3sm7gfC1TClRhSvkfasMHTRIHTpmAU1RSm+MYfljpozyC1hGs/tBOvXL5+RWKm8PHs4ColSumndbrdwPrAxJPHsBzfegDP3lbSR8vy+OGvQp8hmivBekyVcHonCtoYfsRI55tsfecPTDeydGoWBegFstoTgTqLb/T7DOhQgbm0ex+Iq66ubymg
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 08:38:49.1598
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 528a7a4c-3eb8-4274-fac8-08df0996c6b2
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DD.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB6349
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6/hMdV/OsdyQFZVD"
+Content-Disposition: inline
+In-Reply-To: <20260903133408.110847-2-changhuang.liang@starfivetech.com>
 
-This series adds support for the fan controller found on the Axiado
-AX3000 and AX3005 SoCs.
+--6/hMdV/OsdyQFZVD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The controller provides a hardware tachometer block for measuring the
-rotational speed of one fan. Fan speed is controlled through a PWM
-signal supplied by an external PWM controller.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-The tachometer counts fan pulses in hardware and reports the accumulated
-count through an MMIO register when the measurement interval expires.
-The generic pwm-fan driver counts tachometer interrupts in software and
-therefore cannot directly operate this hardware counter block.
+--6/hMdV/OsdyQFZVD
+Content-Type: application/pgp-signature; name=signature.asc
 
-The driver registers with the hwmon subsystem and provides the
-following standard sysfs attributes:
+-----BEGIN PGP SIGNATURE-----
 
-  - fan1_input for the measured fan speed in RPM
-  - pwm1 for fan-speed control in the range 0 to 255
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmhyAAKCRB4tDGHoIJi
+0ux/AP91kU+PdujjA6iPz887aHKutbwu6u6M2sBSS0IoEsSS/wD8D6L6UV278fvm
+MgP0qQVpRpxWTJIbBhkO1zR9Kljykw4=
+=K3hZ
+-----END PGP SIGNATURE-----
 
-The number of tachometer pulses generated per fan revolution can be
-configured using the pulses-per-revolution devicetree property. If the
-property is not specified, the driver uses two pulses per revolution.
-
-The series includes:
-
-  - Devicetree binding documentation
-  - Axiado PWM fan hwmon driver
-  - hwmon driver documentation
-  - MAINTAINERS entry
-
-The driver was tested on AX3000 and AX3005 platforms.
-
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
----
-Changes in v2:
-- Represent the physical fan as a child node of the tachometer 
-  controller and reference fan-common.yaml. 
-- Move pwms and pulses-per-revolution to the fan child node. 
-- Update the driver to obtain the PWM and pulses-per-revolution 
-  property from the fan child node.  
-- Rename PWM_MAX to AX_TACH_PWM_VAL_MAX. 
-- Remove unnecessary locking when reading the cached PWM value. 
-- Remove the trailing comma from the OF match-table terminator. 
-- Fix minor formatting issues.
-- Link to v1: https://lore.kernel.org/r/20260806-axiado-ax3000-pwm-fan-v1-0-f6db4cf2166b@axiado.com
-
-To: Petar Stepanovic <pstepanovic@axiado.com>
-To: Akhila Kavi <akavi@axiado.com>
-To: Prasad Bolisetty <pbolisetty@axiado.com>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Tzu-Hao Wei <twei@axiado.com>
-To: Karthikeyan Mitran <kmitran@axiado.com>
-To: Jonathan Corbet <corbet@lwn.net>
-To: Shuah Khan <skhan@linuxfoundation.org>
-To: Uwe Kleine-König <ukleinek@kernel.org>
-Cc: linux-hwmon@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-pwm@vger.kernel.org
-
----
-Petar Stepanovic (2):
-      dt-bindings: hwmon: add Axiado AX3000 and AX3005 PWM fan controller
-      hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver
-
- .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      |  72 ++++
- Documentation/hwmon/axiado-pwm-fan.rst             |  38 ++
- Documentation/hwmon/index.rst                      |   1 +
- MAINTAINERS                                        |  10 +
- drivers/hwmon/Kconfig                              |  12 +
- drivers/hwmon/Makefile                             |   1 +
- drivers/hwmon/axiado-pwm-fan.c                     | 412 +++++++++++++++++++++
- 7 files changed, 546 insertions(+)
----
-base-commit: 28807a684f870463e059fbc8cb22f5b780b94fe4
-change-id: 20260520-axiado-ax3000-pwm-fan-36a89de6db61
-
-Best regards,
---  
-Petar Stepanovic <pstepanovic@axiado.com>
-
+--6/hMdV/OsdyQFZVD--
 
