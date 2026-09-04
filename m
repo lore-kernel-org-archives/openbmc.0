@@ -1,70 +1,54 @@
-Return-Path: <openbmc+bounces-2556-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2557-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF283C79F82
-	for <openbmc@archiver.kernel.org>; Fri,  4 Sep 2026 15:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7261C624DB
+	for <openbmc@archiver.kernel.org>; Sat,  5 Sep 2026 06:27:26 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hc0LH3GCkz2yrT;
-	Sat, 05 Sep 2026 01:11:51 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788534711;
-	cv=none; b=RscYzXzsI/O5D9+BiaXsZxZEHqgpDlhNAoTFKzoc/g9BKlnndREFmCr+wHiqkJv1jwvD5JTPXqQJWpJZR6HGJSK267Mu9iXanDmx1IOHyG/Yxr1AHeUKI2AoIMuQuy83SQWjQ60pdCPCrOagRf2W1DBKRFvfSRrh+hP25XlGhGvbN+MEohbI6jJJS1pCf1hgsjgTGjXCwpA0vGIHo8uWx35eB4H00bqKeGUvhTVZVD3i8R4J/FBkKU+OfRBx5ExpoihS2RLEAIDpfPM2BhnjLpRFmRyhdjQD3vgbUuRWCWIxIEm3xJSxrwstpT+rPmTwyF3Dzh/G0hrkW3pT+qRgZA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hcNfb5Ltqz2y2M;
+	Sat, 05 Sep 2026 16:27:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788526996;
+	cv=none; b=KIlNPfqHypzIS4oLrtnBxsmqydwf/BfDLwtYFtVI0mjbzkFGc1u3h7b7qZ4BgttRDQIgzsSccVoxp3i2xARCSuZik50yp3ZLBB0Uow9X7RwP6I9/K/nAA3TmbDv9KZOqv0084iEapQoZPmPr0Z9p1oHzLi12McZDwIZXPnNzCr1EoAHLfIoA6B+ZNfPdYymadVJrsiYxcdGGRWTO0mYSL99HONO8hwdiARrgdiHA7UxvDWYbuRYfAqTK9gCwNajPfUjEefOILHm+haBTlmSGAfGcT99Gvmg8Mr4les8illSuIqSOsXFtttp1iTPW5/gKeGBH9rzxcWJKFVZATeezEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788534711; c=relaxed/relaxed;
-	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LVMKzPkUaZ5qLZ+8TBiOdGKmHPQNlwIMJa2xVh8mEEpddttjk7MGVQxg/OhYLOb20p0B7NAdXkdzprjdsKWM2L6yublPTHgHvKNjVg7fC+Jiw2S0KCUIR5XR/4Nm3u4GgDOQmZ5QK67yHe0c9/s8o9JeVw2CW3Lz80xLMZ+XjyRWYqiDHJ152qD9jX/9nPT+QpD1AwlNFQmbf4SKO+tFgHzKXd46Dv7x8sFqrUnAbu1TQrqDWuhMmpw5svf4HF5ZEd5yh2paRTc1S/pqLfSwHOUgG8MiaHBAsrBzlvPDiZF8GDXM04rf+qWYcaNaH+/Agn11BUrJzuZeTl8u4J/tIg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irx8WTn+; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1788526996; c=relaxed/relaxed;
+	bh=/yGBXxJGrq9CpNREKuNgAMIWh4atD8OtcoEN+4Ih6cA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mr72HQ/sXoeAa9U5yKj72LBNKSsD+N2aHjBfK6cNQOVVZ+KT6PxFAebS+PAEm+GuLejJEOsItHtYQoBtRmIXPcCjgvkeQtHbd5p0OsfGUvh1GRawgXxdw7r60+OduMpXfO1ZheYoxT55GWoHua33TpTFFfNNJfjbZsmklFkxLgIZ05k4wPAJkuKqGNLjdegUx1RnWvEDWfew8WOWl7k4e8/4Pst6lngxSGPsEmfNc2iddsZOeUqTht0l/Y3mI3thpDYnX4/kXZSVinwvq+BrLCuCLebiAKYS4fs6ZOhPun1sDFyCoQ3nO4Z5VK1Jjy4MEM0Uu1hEiJcKXwONIs7PEw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uLSM5qOU; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irx8WTn+;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=uLSM5qOU;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hc0LG4XPVz2y22
-	for <openbmc@lists.ozlabs.org>; Sat, 05 Sep 2026 01:11:50 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 15135416ED;
-	Fri,  4 Sep 2026 15:11:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80ABF1F00A3D;
-	Fri,  4 Sep 2026 15:11:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788534707;
-	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=irx8WTn+Ue7miHSWHIbCAeyaw/+qn2fhNRrrjCGrDAnYRpp+prJQlQtEeDx2xVKgu
-	 FzoHUnjezBp4YuNO4dDa/ESNYDPF/NyWsp9Dfqz4Y9EbgokqDMLGJ04oclD4vSUDYf
-	 N6SryFQKbVhjWp3Oht9QF5+c+LuxZaBzVvUO1XSQl+qMl2wghpgGh5zYs7hE2udAJx
-	 TVurgm1agAdsX0aFFFW9aD20qWreYybyXguvyLDxqPKoEICN6GOUVBpCrNlAKmDHFw
-	 huJi5AoY7ooD8CfwmKOfFOAsnt2iv/mhlvfG6wl4sLpF0iK3yMTsJcGQtS3zhXMpm4
-	 kebAe5WzCxwnA==
-Date: Fri, 4 Sep 2026 16:11:41 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Steam Lin <STLin2@winbond.com>,
-	linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: nuvoton: Add NuMaker compatible
-Message-ID: <20260904-vastness-reformist-b28a326166ae@spud>
-References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
- <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbxTt2dq3z2y2b
+	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 23:03:12 +1000 (AEST)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A68C71A19A8;
+	Fri,  4 Sep 2026 13:03:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 796906057F;
+	Fri,  4 Sep 2026 13:03:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3B80511C7AF0B;
+	Fri,  4 Sep 2026 15:03:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788526987; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=/yGBXxJGrq9CpNREKuNgAMIWh4atD8OtcoEN+4Ih6cA=;
+	b=uLSM5qOU/rSSfmjC4EZZrgeGTOKUf2TrMmwr89x8O/arV/ia7lxHbRzKi8bBVndXsyuXp+
+	Qmf6gEiQ8YgYKZwf1rQ+KQXvw6+QmWg4N35Mv/6RwyrZ8e3MnKqAv4lLAktKmeLGrzz3pK
+	Ho7fAjPuhehvTrgvfNMFEzSFjow/UdXAWqDq7jWGnVYXAKpDJzClUqMLfhNqvg2Dp7hHGd
+	nftsnzCJWD+BgjhijTX6GHXVKKJvtQH9rg73H7nqxAzeBnvq5ZAEWfY1MK6vFF964+uAsZ
+	x+uCnihHZZqVBnjyViFV58gXnvDWUlhZsmFEy7mbs1cT7ZjyltZ/grGg9Lp0CQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Fri, 04 Sep 2026 15:02:36 +0200
+Subject: [PATCH v2 1/3] dt-bindings: nuvoton: Add NuMaker compatible
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,28 +60,52 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IflJwt5/OHqS5Pxw"
-Content-Disposition: inline
-In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
+References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
---IflJwt5/OHqS5Pxw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The NuMaker board is a carrier board on which the MA35D1 SoM may be
+connected. It has a lot of available peripherals.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+ Documentation/devicetree/bindings/arm/nuvoton/nuvoton,ma35d1.yaml | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
---IflJwt5/OHqS5Pxw
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/Documentation/devicetree/bindings/arm/nuvoton/nuvoton,ma35d1.yaml b/Documentation/devicetree/bindings/arm/nuvoton/nuvoton,ma35d1.yaml
+index fb190db61525..972f71a7449c 100644
+--- a/Documentation/devicetree/bindings/arm/nuvoton/nuvoton,ma35d1.yaml
++++ b/Documentation/devicetree/bindings/arm/nuvoton/nuvoton,ma35d1.yaml
+@@ -18,7 +18,11 @@ properties:
+     const: '/'
+   compatible:
+     oneOf:
+-
++      - description: NuMaker carrier board with an MA35D1 SoM
++        items:
++          - const: nuvoton,ma35d1-numaker
++          - const: nuvoton,ma35d1-som
++          - const: nuvoton,ma35d1
+       - description: MA35D1 based boards
+         items:
+           - enum:
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.54.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprfrQAKCRB4tDGHoIJi
-0ohoAQDS5QLC2EVOH033EK0ak0gC8BMQhGIKYpXbYsEl2PqaBgD/cgJ7Zuhrzj8N
-7+dkfbhhNuOQFiBiqtHyG7URJwwKxA0=
-=XDBJ
------END PGP SIGNATURE-----
-
---IflJwt5/OHqS5Pxw--
 
