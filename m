@@ -1,54 +1,53 @@
-Return-Path: <openbmc+bounces-2558-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2559-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D844C624D6
-	for <openbmc@archiver.kernel.org>; Sat,  5 Sep 2026 06:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA968C624D6
+	for <openbmc@archiver.kernel.org>; Sat,  5 Sep 2026 06:27:55 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hcNfg1y3cz2yv4;
-	Sat, 05 Sep 2026 16:27:23 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hcNfl5z5qz2yvG;
+	Sat, 05 Sep 2026 16:27:27 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788526996;
-	cv=none; b=ea1PDiGYlGgjijuJPehvryR8+xAMfZ4ltftkal2K8uWt9TxU6wyGaP1SGhLg0SuRy2DZ8QOQik6q1AqJ4kU4qm0xM9exuziGCm3YMuFma+uoFOVx39a00r/Lc+DTKnWv8Jl2mq+8t6Exmk1V++1p1s6RKK4wTj8vwHUemhuRJOfL4T0mrdNmL/SWn798LAi7UUeYuctNX+r7A+uaEvA2AAa+kh1LEA2tfwiqs0bGQdqDRMS9k1krc5+6qGEP/YaMN0vP0huq1hSfCPjs2ICEypHEy4p+Yp7mPI4jRnFLl9jCTMyy05RlWCkHieKC5fs3FSvhP3gHlIJc6HHrRU0/wg==
+	cv=none; b=LMhVMLtbPnhMtu4iEHudKKcZsurzIb2cINYmP5Oy56yADobiSu15eEsrCxilTu79QsY0l7zoAej8G7TCJC95g9xBvuBKhb43GL4ywzaeQQoEwxDGXyLPE1UDmohPhx+G/LO5NPcaLxDp0F3LuHWb+skOC9HZRQ7H5iswZpgyq3hKkHyT4Bv0/zgZDIWX4UYWxFVMYcNLooIoYJ0cMPkcrXnznXVG/qNJ5tnggjc0wHrlPKbkGjdCTKfwm89S0DmAGmt2Bu7KsdurbFoG/c7wBWemRv+qIHJdDTlV9bamkXhBFWUtEqi2KCQ3eTakXos5kQFT2vxXXQmipCAAdGSl8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1788526996; c=relaxed/relaxed;
-	bh=lpzfCBoqh5Lrgy66VhQjiUMxbdjVzKhjhFHiN3Fbspw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lbE2kZMFIbFR+GOy/rX5lH8C0zTeelIaxJ53Dj9js6ZUhmlcLwph19JOfGMQ4hPUPDozNgzYtgg9EloVlvXpw0+spxX09RAHxh64yWOQgLe7bBjGU6pgIv2xok1tU72PVuJQWyhGe7xK/TqnMyIcF/daSEkpZ4kA7ETHEY7l6tq8OPh8B1BSO2V695y0j9GRRY7JVYzmYIAw9Wbs30pb8l/UY7jTidAfkQX4pGXPM/uBdS60A3owIHu75cqqoB6G7LD0mqtmYAVllT1hm/+h/SZ94XNVzEN+euacx7PH95rSvS7oQ/zpEV+jJUCNekUpfYhlMnABwZZJQ8hi2u7Exw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Lnoi88sE; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	bh=9voOvOOTmE0p/jaZPF0zwsc+G6r4jecsh5ZNm8BZdD4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LpucqZQgZ/9v60EbKGIe0ixDvKNYUf7bcH6QW1XUohLmpqEUkze4oJ5poejGAYRzXLBCLD41kdnMGmSZIz3F0EDQkCs7/UafVHu0E+/Bs3oxV1Y86vHm82PUQRje5I0+KmI93nbUKY608lHevb9wLsUf+/ABx+qloT6LKowC6Q59XHkoWKacMyLRmXQDzceSyPhvf7OPAHdCMSixRpCJ3O9loAXArVJeBKZA83Ofb0GxivRw9oboH2j+AKIU6/oD6JsnqPoCK8h/I6AQ1csJDb5h2ADs1hG8O8yEZNh1juQ+yvgv6DX3moxUzqlKrdsAPXDe6s/Mi+5fsHwp5IenGw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hRJt+QRA; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Lnoi88sE;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hRJt+QRA;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbxTt5S7bz2yr2
-	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 23:03:14 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbxTt2V3Fz2y2M
+	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 23:03:12 +1000 (AEST)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C83E24E4150C;
-	Fri,  4 Sep 2026 13:03:10 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 39B471A19A7;
+	Fri,  4 Sep 2026 13:03:06 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9B96F6057F;
-	Fri,  4 Sep 2026 13:03:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A178F11C7AE94;
-	Fri,  4 Sep 2026 15:03:07 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F3C966057F;
+	Fri,  4 Sep 2026 13:03:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C16F511C7AF01;
+	Fri,  4 Sep 2026 15:02:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788526989; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lpzfCBoqh5Lrgy66VhQjiUMxbdjVzKhjhFHiN3Fbspw=;
-	b=Lnoi88sEb0A6TD870U4z9+BTIX6iwzgoROcFBsgoM+el1xv0bD3XfrG3+zX7BcXSHLOt4B
-	75h6eqvCqTP0ApKYsdL9h2qhXUT8RwUyKuBnYamsl1pwYApRFwjUuY5htL9exUrpsoKBiI
-	t8ro0xhtzQB+U+fLCBxelVq5mQHavxAUp229yqgb900B0Twcw24h2QpdmAHVXaV8kQl9wE
-	4QcLRmS2ip/ruSQGsP4DAieKSKs1RCBrIj4CcsvKGJsVehilbFLodcWxIR0Fq6AOJeW9qX
-	I9Nsp7w4QiXhSRYDH+aOznNvPLeTkSACkqYWwI/eP5AKJcKLA945nb9jND80eA==
+	t=1788526980; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=9voOvOOTmE0p/jaZPF0zwsc+G6r4jecsh5ZNm8BZdD4=;
+	b=hRJt+QRA+No1CnkIDYoIXKnfSNyd1Mz1wkaLsDdBqyJBHvUjD+bkoe6u/PD64UW9s4/EDM
+	lSz+quQxiye2eZko4D6WuOStXc4WADQswlrpZKvgdEcUyfhqYi/grT9TItgcGyGC16sw3C
+	6Ow8nFWcY7ybb2gmFAj47iPJRuJn/Vowy1UXRrczpw9ex90xdi1yNGiYXsO8GJu3+0hCqx
+	wwq6gFFMowq1BWvm69+lWkkQ59wm4arsOn1bLGaYMrH4e3mJB23a87MjxXuoEFhkKNGoko
+	xViPnCf0gOdrBDUcIs4xonh4x86YzNiYACPGaVqQdUpgP+b2wk3wTpa+Q0uzgw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 04 Sep 2026 15:02:37 +0200
-Subject: [PATCH v2 2/3] arm64: dts: nuvoton: Add QSPI0 node
+Subject: [PATCH v2 0/3] arm64: dts: nuvoton: Improve MA35D1 support
+Date: Fri, 04 Sep 2026 15:02:35 +0200
+Message-Id: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,9 +61,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-perso-ma35d1-upstream-dts-v2-2-30ce255a401f@bootlin.com>
-References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
-In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0Jm7Zj+RBBX3MOwgHaQSYSSTiUaw
+ t2tnMDle8n3vg2EIpPArdgg0srCYc5gTgW4sZsfhOwzg1GmVFdtcaEoAafOXrzG1yIpUjehT4J
+ 1PZTak3FKO8j7JdLA76N9bzOPLCnEz3G16p/9p7pqVNj3xlaDr5x1pulDSE+ezy5M0O77/gWho
+ giIxAAAAA==
+X-Change-ID: 20260813-perso-ma35d1-upstream-dts-99f61de2c01c
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
  Andrew Jeffery <andrew@codeconstruct.com.au>, 
  Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
@@ -79,37 +80,38 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Describe the quad-SPI controller available on Nuvoton MA35D1. Bindings
-for it have already been contributed.
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but:
+1- it lacks a DT description
+2- it does not work with current clock driver
+3- it can be improved
+
+This series is addressing #1.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Changes in v2:
+- Edit the binding file to mention the new compatible.
+- Add a model and a compatible for that board.
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-dts-v1-0-bb237fd7c3c2@bootlin.com
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9eec44128d28 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -431,5 +431,16 @@ mdio1: mdio {
- 				#size-cells = <0>;
- 			};
- 		};
-+
-+		qspi0: spi@40680000 {
-+			compatible = "nuvoton,ma35d1-qspi";
-+			reg = <0x0 0x40680000 0x0 0x100>;
-+			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk QSPI0_GATE>;
-+			resets = <&sys MA35D1_RESET_QSPI0>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "disabled";
-+		};
- 	};
- };
+---
+Miquel Raynal (3):
+      dt-bindings: nuvoton: Add NuMaker compatible
+      arm64: dts: nuvoton: Add QSPI0 node
+      arm64: dts: nuvoton: Add NuMaker board
 
+ .../bindings/arm/nuvoton/nuvoton,ma35d1.yaml       |  6 +++-
+ arch/arm64/boot/dts/nuvoton/Makefile               |  1 +
+ arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts     | 42 ++++++++++++++++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi            | 11 ++++++
+ 4 files changed, 59 insertions(+), 1 deletion(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-perso-ma35d1-upstream-dts-99f61de2c01c
+
+Best regards,
 -- 
-2.54.0
+Miquel Raynal <miquel.raynal@bootlin.com>
 
 
