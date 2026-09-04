@@ -1,66 +1,70 @@
-Return-Path: <openbmc+bounces-2555-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2556-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C72C79F80
-	for <openbmc@archiver.kernel.org>; Fri,  4 Sep 2026 06:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF283C79F82
+	for <openbmc@archiver.kernel.org>; Fri,  4 Sep 2026 15:11:57 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hbmSV2cjZz2yr2;
-	Fri, 04 Sep 2026 16:16:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=54.240.8.70
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788501611;
-	cv=none; b=VblGHa98UHdGhqp0BJqmI2OZiHRNyxuyiE96k3YqUQ1fmbfwz3x2F0lmvr6gpJlJb4DcNp+eSLFZYdEu0DPTgzHvRX0Q/01N9kLbaYaMLhOT/eqBqwNsg7fC5dOwP6O7/PRGDywlo3v9IXlW9lgWnxBwH280cUfHnXkkuc8zetDshzhjU1ZpN9grnFQ8m3pEeNW7HtedHo51pkNQ3S2GIlyzWbMBrl2nLY/rwdMyPNcvHiLLhiWHl6RphVR9iS+Cub628aJOc17p/LjllYTjby2+tfpfiJj6yO9Obl8AX01Snbukk+up4mJAMQyThhuRkgfazbj0z0V8hQ9M5b3HBA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hc0LH3GCkz2yrT;
+	Sat, 05 Sep 2026 01:11:51 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788534711;
+	cv=none; b=RscYzXzsI/O5D9+BiaXsZxZEHqgpDlhNAoTFKzoc/g9BKlnndREFmCr+wHiqkJv1jwvD5JTPXqQJWpJZR6HGJSK267Mu9iXanDmx1IOHyG/Yxr1AHeUKI2AoIMuQuy83SQWjQ60pdCPCrOagRf2W1DBKRFvfSRrh+hP25XlGhGvbN+MEohbI6jJJS1pCf1hgsjgTGjXCwpA0vGIHo8uWx35eB4H00bqKeGUvhTVZVD3i8R4J/FBkKU+OfRBx5ExpoihS2RLEAIDpfPM2BhnjLpRFmRyhdjQD3vgbUuRWCWIxIEm3xJSxrwstpT+rPmTwyF3Dzh/G0hrkW3pT+qRgZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788501611; c=relaxed/relaxed;
-	bh=FsbUJGj2HTWpYOMUBReQxMW6JOe5JsEJi3/x6WKXcBA=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lDmwdGT0vrAmzEFNT8yg5qoT2VPrJuc4JLZHgW9FMIVZwH2zyQKmFyta1VzxJa/OjHtcGhw9OwVZj+ge5gUdRHHDVLudnOf5GTeKd6C1fgBgSQnUlEYakTlAhsy5fBWIcMzd/8e2an9kgib3aV2yTGVwrE/wsYXCJHRHYd+q1zqoU8vcuOEteHzd1V17hJSfvF/zh+4a/tQEWNynneCT5ENYqKqcbJt7HaTpZclqpRa4MohyR4TE5kuv3ZXiE6XB6OvanW2N/Ct50gVPTUNTPzJRQf228HeNUsSLcmUoIJd0NikUqQ2Rhe/65NMM/xba1BmpEvD7WJHVnyjf1nL8YA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=ericandbrianne.com; dkim=pass (1024-bit key; unprotected) header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=lqq4mffiqgrpprowoodjt6ft56ibgrfb header.b=QQdMCp1i; dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=r38MLNfz; dkim=fail header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=dkim header.b=mdisSLm1 reason="key not found in DNS"; dkim-atps=neutral; spf=pass (client-ip=54.240.8.70; helo=a8-70.smtp-out.amazonses.com; envelope-from=010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@bounces.ericandbrianne.com; receiver=lists.ozlabs.org) smtp.mailfrom=bounces.ericandbrianne.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=ericandbrianne.com
+	t=1788534711; c=relaxed/relaxed;
+	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LVMKzPkUaZ5qLZ+8TBiOdGKmHPQNlwIMJa2xVh8mEEpddttjk7MGVQxg/OhYLOb20p0B7NAdXkdzprjdsKWM2L6yublPTHgHvKNjVg7fC+Jiw2S0KCUIR5XR/4Nm3u4GgDOQmZ5QK67yHe0c9/s8o9JeVw2CW3Lz80xLMZ+XjyRWYqiDHJ152qD9jX/9nPT+QpD1AwlNFQmbf4SKO+tFgHzKXd46Dv7x8sFqrUnAbu1TQrqDWuhMmpw5svf4HF5ZEd5yh2paRTc1S/pqLfSwHOUgG8MiaHBAsrBzlvPDiZF8GDXM04rf+qWYcaNaH+/Agn11BUrJzuZeTl8u4J/tIg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irx8WTn+; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=lqq4mffiqgrpprowoodjt6ft56ibgrfb header.b=QQdMCp1i;
-	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=r38MLNfz;
-	dkim=fail reason="key not found in DNS" header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=dkim header.b=mdisSLm1;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irx8WTn+;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bounces.ericandbrianne.com (client-ip=54.240.8.70; helo=a8-70.smtp-out.amazonses.com; envelope-from=010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@bounces.ericandbrianne.com; receiver=lists.ozlabs.org)
-Received: from a8-70.smtp-out.amazonses.com (a8-70.smtp-out.amazonses.com [54.240.8.70])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbm5j2qCKz2xfj
-	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 16:00:09 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=lqq4mffiqgrpprowoodjt6ft56ibgrfb; d=ericandbrianne.com;
-	t=1788501605;
-	h=From:To:Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=6Y6oNpVfwbfHZiyBshuM1W/6EJiuesWG/wSdRvAv1OM=;
-	b=QQdMCp1ioGmYSnNHDjbfW3an9BT1SvpViFGobxYD5qM2XztnC4OmoQpn5fz687Os
-	1nm8JbDVNnFaagoH0bg+1qjJKiZ/oxWO5rj0w7B+LT9SbrFMHYxybN1sPsQyLYUEnjn
-	HC0hstXx/yZdAyVePQGXZcvPJRAGi4If4zbyPM3I=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788501605;
-	h=From:To:Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Feedback-ID;
-	bh=6Y6oNpVfwbfHZiyBshuM1W/6EJiuesWG/wSdRvAv1OM=;
-	b=r38MLNfz7h/HI+ctljmWtz7gQ4I87hVDbjQuQvLv537vSWO0UCLYFM2QdFG2Hpjt
-	3DIF37BRJyD56gTMSqAhC9WWymDfZZqRQ2iffkomsdqhXS0xh1a+7X9Yy6IlT/7UFhx
-	M0Lm4aOLMN8jTs9becyDDi+Yj4gZHi1u7o0ehtPk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ericandbrianne.com;
-	s=dkim; t=1788501604; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding; bh=FsbUJGj2HTWpYOMUBReQxMW6JOe5JsEJi3/x6WKXcBA=;
-	b=mdisSLm1aRfBH1OWU77ULTTMSr6J5HmJJKpHBN7wTl9bSnAtBCyoWXlIFNFGWuJWRcFXOV
-	3+st0tSqT8G+j5L5kWP5Bqq5pP6Vra1PfOUmiNwvNX0liggzCPXdWjTfOHaKv5q3ERr1d0
-	NHrk+HH9lSONmv3XGeAagD0AkqJnhePCuxdNuN2j9L0vtsOWPj2aV+3C4n9H7dOsMfhjFl
-	ihoP++UgKc3+wcaa13g6lr+3QEKe2ZkGoJuZFmfMRWBnlg4kF5467xhuPu7CkBvCcal5jN
-	NNKA5C1ntPIJyPeIxlLQtpoLvvLvVsOpC5fLBzgvBAHXWbunADPWazcbAZZ9SA==
-From: "Eric L. Parent" <eparent@ericandbrianne.com>
-To: openbmc@lists.ozlabs.org
-Subject: Cabled DC-SCI on an HPM with no board-mounted SCM site =?utf-8?q??=
- =?utf-8?b?4oCU?= what is conventional?
-Date: Fri, 4 Sep 2026 06:00:05 +0000
-Message-ID: <010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@email.amazonses.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hc0LG4XPVz2y22
+	for <openbmc@lists.ozlabs.org>; Sat, 05 Sep 2026 01:11:50 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by sea.source.kernel.org (Postfix) with ESMTP id 15135416ED;
+	Fri,  4 Sep 2026 15:11:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80ABF1F00A3D;
+	Fri,  4 Sep 2026 15:11:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788534707;
+	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=irx8WTn+Ue7miHSWHIbCAeyaw/+qn2fhNRrrjCGrDAnYRpp+prJQlQtEeDx2xVKgu
+	 FzoHUnjezBp4YuNO4dDa/ESNYDPF/NyWsp9Dfqz4Y9EbgokqDMLGJ04oclD4vSUDYf
+	 N6SryFQKbVhjWp3Oht9QF5+c+LuxZaBzVvUO1XSQl+qMl2wghpgGh5zYs7hE2udAJx
+	 TVurgm1agAdsX0aFFFW9aD20qWreYybyXguvyLDxqPKoEICN6GOUVBpCrNlAKmDHFw
+	 huJi5AoY7ooD8CfwmKOfFOAsnt2iv/mhlvfG6wl4sLpF0iK3yMTsJcGQtS3zhXMpm4
+	 kebAe5WzCxwnA==
+Date: Fri, 4 Sep 2026 16:11:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Steam Lin <STLin2@winbond.com>,
+	linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: nuvoton: Add NuMaker compatible
+Message-ID: <20260904-vastness-reformist-b28a326166ae@spud>
+References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+ <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -72,48 +76,28 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
-Feedback-ID: ::1.us-east-1.fR+KYxXczG90S4f/T6apAPAXomdl9SmoLjmZDV4wCfg=:AmazonSES
-X-SES-Outgoing: 2026.09.04-54.240.8.70
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IflJwt5/OHqS5Pxw"
+Content-Disposition: inline
+In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
 
-I'm looking at a datacentre carrier board that appears to be an OCP HPM:
-CPU and memory complex, what I take to be the HPM FPGA, and no BMC, no
-RTC battery, and no DC-SCM slot anywhere on it. Connector inventory is
-roughly six MCIO/SlimSAS, two large power connectors, an ATX-style aux
-power connector, and a 2x5 JTAG header. Nothing that looks like DC-SCI.
+--IflJwt5/OHqS5Pxw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On a higher-density board from the same design family, the management
-link is visibly cabled: shielded bundles from the mainboard to a small
-daughtercard riser at the board edge, with the cable labels naming a
-management interface and a connector designator rather than anything
-resembling a DC-SCI part.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Four questions:
+--IflJwt5/OHqS5Pxw
+Content-Type: application/pgp-signature; name=signature.asc
 
-1. Where the SCM isn't board-mounted, is the cabled link conventionally
-   still DC-SCI in a cabled form factor, or is this where implementations
-   tend to go vendor-specific?
+-----BEGIN PGP SIGNATURE-----
 
-2. Is there a conventional connector family or pin assignment for cabled
-   DC-SCI? M-PIC permits BMC USB 2.0 over M-XIO on x8-and-wider cables and
-   M-PESTI overloads PRSNT# on both I/O and power connectors =E2=80=94 is LTV=
-DS/LTPI
-   ever tunnelled the same way, or does the signalling rule that out?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprfrQAKCRB4tDGHoIJi
+0ohoAQDS5QLC2EVOH033EK0ak0gC8BMQhGIKYpXbYsEl2PqaBgD/cgJ7Zuhrzj8N
+7+dkfbhhNuOQFiBiqtHyG7URJwwKxA0=
+=XDBJ
+-----END PGP SIGNATURE-----
 
-3. With no SCM present, do HPM FPGA designs typically support a standalone
-   or debug power-sequencing mode, or does the HPM stay in reset?
-
-4. Where does the host UEFI flash actually sit in practice =E2=80=94 on the H=
-PM
-   behind a root of trust, or on the SCM via the optional SPI-boot path? I
-   know both are permitted; I'm after what implementers do.
-
-If anyone has dumped SPI flash on an HPM of this generation and looked
-for an EDK2 firmware volume, I'd be glad to hear it either way.
-
-I'm also considering Antmicro's open-source DC-SCM 2.1 design as the
-basis for a compatible module, so any interop gotchas would be welcome.
-
-Thanks,
-Eric
+--IflJwt5/OHqS5Pxw--
 
