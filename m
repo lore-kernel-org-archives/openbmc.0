@@ -1,64 +1,66 @@
-Return-Path: <openbmc+bounces-2554-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2555-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7072C624D6
-	for <openbmc@archiver.kernel.org>; Fri,  4 Sep 2026 00:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08C72C79F80
+	for <openbmc@archiver.kernel.org>; Fri,  4 Sep 2026 06:16:32 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hbc7r0xgDz2ytV;
-	Fri, 04 Sep 2026 10:01:28 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788426007;
-	cv=none; b=e1dvKhO1Pyo2W5s1UzBOkEgkXaJVQAbRo2EoRoLVdxwkyBNXxHX0s6fmB9qUmy2kyClPsAXrT81jM71vT/6wOhWpHJG5pw3t9yX/Fe9/6ujnYkOpYYuqB7FVQgcl3CfOGeYWDO0LcwYir//r8LFiwEoKRUT0u55RzkZlWfBy4AYfYQmk0ghpsHSGBVxA3zYRXaimFiADYr4QPPVEZ0qXdmcLpEMo76Hl7LX05Xcu78hdUjc3pMtD2AtX1tq3cyN/SBJoN3JGN/h9wfprEdBZDeyQarihQDdD5XzO6cvsEEhdecVLzb5XG24DvhPIczQ8C5aMaPK4rV5APsRcycFT4w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hbmSV2cjZz2yr2;
+	Fri, 04 Sep 2026 16:16:26 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=54.240.8.70
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788501611;
+	cv=none; b=VblGHa98UHdGhqp0BJqmI2OZiHRNyxuyiE96k3YqUQ1fmbfwz3x2F0lmvr6gpJlJb4DcNp+eSLFZYdEu0DPTgzHvRX0Q/01N9kLbaYaMLhOT/eqBqwNsg7fC5dOwP6O7/PRGDywlo3v9IXlW9lgWnxBwH280cUfHnXkkuc8zetDshzhjU1ZpN9grnFQ8m3pEeNW7HtedHo51pkNQ3S2GIlyzWbMBrl2nLY/rwdMyPNcvHiLLhiWHl6RphVR9iS+Cub628aJOc17p/LjllYTjby2+tfpfiJj6yO9Obl8AX01Snbukk+up4mJAMQyThhuRkgfazbj0z0V8hQ9M5b3HBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788426007; c=relaxed/relaxed;
-	bh=GEYx+ojq8Royd9vV2bcO4nv/HSwYCfpOYZxRsx+XsKc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GQ0IhcD5N5x3I1qCbJC8GwIhWF87H93+7oEyXXk6LnpDr8Als6iTtwynKzB4dubNryMJ8ZIbVbigcCYdPAA0s4u1uBTSGHJQ7j+U5JCqvRNPQi3AxRnXOPhiN3w1f4AK8z+egyxj3GFVQYU1+VxofTuAao51G3Oi11XcVfBRWTHDXBkX/kBFK6cdvsal/b0owOcp57ogVgx1+lGvuHI48Vv0fxAywuUWjfksFEyGFcQIechv63vam+djIVybrwOnJSY1/9lmW6gXqxbS6UMaZ+2BjTWHb6zA3haLFW25I1kO3RTnTjo4lSSfJqP/Jp1/8xMvzS+7l8gtWCIG9gNk4Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUGVww6F; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1788501611; c=relaxed/relaxed;
+	bh=FsbUJGj2HTWpYOMUBReQxMW6JOe5JsEJi3/x6WKXcBA=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lDmwdGT0vrAmzEFNT8yg5qoT2VPrJuc4JLZHgW9FMIVZwH2zyQKmFyta1VzxJa/OjHtcGhw9OwVZj+ge5gUdRHHDVLudnOf5GTeKd6C1fgBgSQnUlEYakTlAhsy5fBWIcMzd/8e2an9kgib3aV2yTGVwrE/wsYXCJHRHYd+q1zqoU8vcuOEteHzd1V17hJSfvF/zh+4a/tQEWNynneCT5ENYqKqcbJt7HaTpZclqpRa4MohyR4TE5kuv3ZXiE6XB6OvanW2N/Ct50gVPTUNTPzJRQf228HeNUsSLcmUoIJd0NikUqQ2Rhe/65NMM/xba1BmpEvD7WJHVnyjf1nL8YA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=ericandbrianne.com; dkim=pass (1024-bit key; unprotected) header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=lqq4mffiqgrpprowoodjt6ft56ibgrfb header.b=QQdMCp1i; dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=r38MLNfz; dkim=fail header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=dkim header.b=mdisSLm1 reason="key not found in DNS"; dkim-atps=neutral; spf=pass (client-ip=54.240.8.70; helo=a8-70.smtp-out.amazonses.com; envelope-from=010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@bounces.ericandbrianne.com; receiver=lists.ozlabs.org) smtp.mailfrom=bounces.ericandbrianne.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=ericandbrianne.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUGVww6F;
+	dkim=pass (1024-bit key; unprotected) header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=lqq4mffiqgrpprowoodjt6ft56ibgrfb header.b=QQdMCp1i;
+	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=224i4yxa5dv7c2xz3womw6peuasteono header.b=r38MLNfz;
+	dkim=fail reason="key not found in DNS" header.d=ericandbrianne.com header.i=@ericandbrianne.com header.a=rsa-sha256 header.s=dkim header.b=mdisSLm1;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bounces.ericandbrianne.com (client-ip=54.240.8.70; helo=a8-70.smtp-out.amazonses.com; envelope-from=010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@bounces.ericandbrianne.com; receiver=lists.ozlabs.org)
+Received: from a8-70.smtp-out.amazonses.com (a8-70.smtp-out.amazonses.com [54.240.8.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbD7p0BFBz2xmh
-	for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 19:00:05 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 8403043CCE
-	for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2026 09:00:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6648C1F00A3A
-	for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2026 09:00:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788426003;
-	bh=GEYx+ojq8Royd9vV2bcO4nv/HSwYCfpOYZxRsx+XsKc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=DUGVww6FJhsGnXgZhiEjqrGKNx0H1mihS+E/HisLo7qmpgwpwIOXbWmI49CWvOfr7
-	 9PMQy60Ar7ZhfLon9PR4b43NXAWKtKz/MfOYfLF1Pn2vOItlm7hmfrY8SGq2nTbYBU
-	 0OnM16+vFDKxfanEkHLZNkJRNsSa56qb6LHSBKJ2nYHm0WD/a7S70rpL5BL2U0hDX/
-	 wi2QQeQGoSS6tvrsj/52UUKcBBKyyg9bDDFvs/cNmQWBrDvNtSrS/uSYYBMAifHkUP
-	 O/cm1CP65IbWbbcwux3IhEjWGfWjEC++6TitWyCGMHBlWKw2Lo/FffmZzlscWNFPzV
-	 S6aDXhTjJ6W5g==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso2072621e87.3
-        for <openbmc@lists.ozlabs.org>; Thu, 03 Sep 2026 02:00:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByGt4c+rMWzRvdAdx+avymdCGcHIx2Mmy4cOWhZj8pluhNC6XaAfz01NsLvEerFxjvF7lGujD6m@lists.ozlabs.org
-X-Gm-Message-State: AFuF++lNE6+R0xnQ4F3tc6lzrnRgD8NNzD+U3Qrgf1JKBkHWcvUee6cj
-	wujHsMIFRIUZrbdFoE9bkBdmW3uoinRfhNIqXkkad8jqXa3IEwitn7r1zVvZB41MRCsagVRoBe0
-	aExjAnL4btwoQAU3JZwZSjpUSepK8Iu+xL9zNnIcLqw==
-X-Received: by 2002:a05:6512:239c:b0:5b0:c96:cc8c with SMTP id
- 2adb3069b0e04-5b60834d7a2mr3312319e87.12.1788426000493; Thu, 03 Sep 2026
- 02:00:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 04:59:57 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 04:59:57 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260903-axiado-ax3000-sgpio-controller-v3-2-b30820e1b858@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hbm5j2qCKz2xfj
+	for <openbmc@lists.ozlabs.org>; Fri, 04 Sep 2026 16:00:09 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=lqq4mffiqgrpprowoodjt6ft56ibgrfb; d=ericandbrianne.com;
+	t=1788501605;
+	h=From:To:Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=6Y6oNpVfwbfHZiyBshuM1W/6EJiuesWG/wSdRvAv1OM=;
+	b=QQdMCp1ioGmYSnNHDjbfW3an9BT1SvpViFGobxYD5qM2XztnC4OmoQpn5fz687Os
+	1nm8JbDVNnFaagoH0bg+1qjJKiZ/oxWO5rj0w7B+LT9SbrFMHYxybN1sPsQyLYUEnjn
+	HC0hstXx/yZdAyVePQGXZcvPJRAGi4If4zbyPM3I=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1788501605;
+	h=From:To:Subject:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Feedback-ID;
+	bh=6Y6oNpVfwbfHZiyBshuM1W/6EJiuesWG/wSdRvAv1OM=;
+	b=r38MLNfz7h/HI+ctljmWtz7gQ4I87hVDbjQuQvLv537vSWO0UCLYFM2QdFG2Hpjt
+	3DIF37BRJyD56gTMSqAhC9WWymDfZZqRQ2iffkomsdqhXS0xh1a+7X9Yy6IlT/7UFhx
+	M0Lm4aOLMN8jTs9becyDDi+Yj4gZHi1u7o0ehtPk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ericandbrianne.com;
+	s=dkim; t=1788501604; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding; bh=FsbUJGj2HTWpYOMUBReQxMW6JOe5JsEJi3/x6WKXcBA=;
+	b=mdisSLm1aRfBH1OWU77ULTTMSr6J5HmJJKpHBN7wTl9bSnAtBCyoWXlIFNFGWuJWRcFXOV
+	3+st0tSqT8G+j5L5kWP5Bqq5pP6Vra1PfOUmiNwvNX0liggzCPXdWjTfOHaKv5q3ERr1d0
+	NHrk+HH9lSONmv3XGeAagD0AkqJnhePCuxdNuN2j9L0vtsOWPj2aV+3C4n9H7dOsMfhjFl
+	ihoP++UgKc3+wcaa13g6lr+3QEKe2ZkGoJuZFmfMRWBnlg4kF5467xhuPu7CkBvCcal5jN
+	NNKA5C1ntPIJyPeIxlLQtpoLvvLvVsOpC5fLBzgvBAHXWbunADPWazcbAZZ9SA==
+From: "Eric L. Parent" <eparent@ericandbrianne.com>
+To: openbmc@lists.ozlabs.org
+Subject: Cabled DC-SCI on an HPM with no board-mounted SCM site =?utf-8?q??=
+ =?utf-8?b?4oCU?= what is conventional?
+Date: Fri, 4 Sep 2026 06:00:05 +0000
+Message-ID: <010001a06b00bc9d-be45382e-2678-44f5-8c3b-d0aa4116af80-000000@email.amazonses.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,239 +72,48 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260903-axiado-ax3000-sgpio-controller-v3-0-b30820e1b858@axiado.com>
- <20260903-axiado-ax3000-sgpio-controller-v3-2-b30820e1b858@axiado.com>
-Date: Thu, 3 Sep 2026 04:59:57 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MejseGw7P5MYSC=MKi1KeDn9PTd4WKJX_cgoh1WD3egVg@mail.gmail.com>
-X-Gm-Features: AcwNN1Wb5d53ipUlE15H5F27WGBwMP5PUHZHGBO94uLYxXdMLAqLj2hyPpx69zo
-Message-ID: <CAMRc=MejseGw7P5MYSC=MKi1KeDn9PTd4WKJX_cgoh1WD3egVg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] gpio: axiado: add AX3005 SGPIO controller support
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, 
-	Karthikeyan Mitran <kmitran@axiado.com>, Michael Walle <mwalle@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Last-TLS-Session-Version: TLSv1.3
+Feedback-ID: ::1.us-east-1.fR+KYxXczG90S4f/T6apAPAXomdl9SmoLjmZDV4wCfg=:AmazonSES
+X-SES-Outgoing: 2026.09.04-54.240.8.70
 
-On Thu, 3 Sep 2026 09:11:33 +0200, Petar Stepanovic
-<pstepanovic@axiado.com> said:
-> Add support for the Axiado AX3005 SGPIO controller.
->
-> Each SGPIO position provides one input GPIO and one output GPIO with
-> fixed directions. The driver registers the controller as a gpio_chip,
-> supports interrupts on input GPIOs, and uses regmap for register access.
->
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
+I'm looking at a datacentre carrier board that appears to be an OCP HPM:
+CPU and memory complex, what I take to be the HPM FPGA, and no BMC, no
+RTC battery, and no DC-SCM slot anywhere on it. Connector inventory is
+roughly six MCIO/SlimSAS, two large power connectors, an ATX-style aux
+power connector, and a 2x5 JTAG header. Nothing that looks like DC-SCI.
 
-...
+On a higher-density board from the same design family, the management
+link is visibly cabled: shielded bundles from the mainboard to a small
+daughtercard riser at the board edge, with the cable labels naming a
+management interface and a connector designator rather than anything
+resembling a DC-SCI part.
 
-> +
-> +static int axiado_sgpio_probe(struct platform_device *pdev)
-> +{
-> +	struct gpio_regmap_config config = { };
-> +	struct irq_domain_info d_info = { };
-> +	struct axiado_sgpio *sgpio;
-> +	unsigned int ngpio, i;
-> +	unsigned long apb_freq;
-> +	struct clk *apb_clk;
-> +	void __iomem *base;
-> +	u32 sgpio_freq;
-> +	int irq, rc;
-> +
-> +	sgpio = devm_kzalloc(&pdev->dev, sizeof(*sgpio), GFP_KERNEL);
-> +	if (!sgpio)
-> +		return -ENOMEM;
-> +
-> +	/* The regmap callbacks below need both of these. */
-> +	platform_set_drvdata(pdev, sgpio);
-> +
-> +	sgpio->regs = &axiado_sgpio_offsets;
-> +
-> +	base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	sgpio->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-> +					      &axiado_sgpio_regmap_config);
-> +	if (IS_ERR(sgpio->regmap))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(sgpio->regmap),
-> +				     "Failed to init regmap\n");
-> +
-> +	rc = device_property_read_u32(&pdev->dev, "ngpios", &ngpio);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc,
-> +				     "Failed to read ngpios property\n");
-> +
-> +	/*
-> +	 * Each SGPIO signal is exposed as one input and one output line, so
-> +	 * the number of lines is twice the number of signals.
-> +	 */
-> +	if (!ngpio || ngpio % 2 || ngpio > SGPIO_MAX_SIGNALS * 2)
-> +		return dev_err_probe(&pdev->dev, -EINVAL,
-> +				     "Invalid ngpios value: %u (even, max %u)\n",
-> +				     ngpio, SGPIO_MAX_SIGNALS * 2);
-> +
-> +	sgpio->nsignals = ngpio / 2;
-> +
-> +	sgpio->din_shadow = devm_kcalloc(&pdev->dev,
-> +					 DIV_ROUND_UP(sgpio->nsignals,
-> +						      SGPIO_BANK_SIZE),
-> +					 sizeof(*sgpio->din_shadow), GFP_KERNEL);
-> +	sgpio->irq_unmasked = devm_bitmap_zalloc(&pdev->dev, sgpio->nsignals,
-> +						 GFP_KERNEL);
-> +	sgpio->irq_rising = devm_bitmap_zalloc(&pdev->dev, sgpio->nsignals,
-> +					       GFP_KERNEL);
-> +	sgpio->irq_falling = devm_bitmap_zalloc(&pdev->dev, sgpio->nsignals,
-> +						GFP_KERNEL);
-> +	if (!sgpio->din_shadow || !sgpio->irq_unmasked ||
-> +	    !sgpio->irq_rising || !sgpio->irq_falling)
-> +		return -ENOMEM;
-> +
-> +	apb_clk = devm_clk_get_enabled(&pdev->dev, NULL);
-> +	if (IS_ERR(apb_clk))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(apb_clk),
-> +				     "Failed to get and enable APB clock\n");
-> +
-> +	rc = device_property_read_u32(&pdev->dev, "bus-frequency",
-> +				      &sgpio_freq);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc,
-> +				     "Failed to read bus-frequency\n");
-> +
-> +	apb_freq = clk_get_rate(apb_clk);
-> +
-> +	if (!apb_freq || !sgpio_freq || sgpio_freq > apb_freq)
-> +		return dev_err_probe(&pdev->dev, -EINVAL,
-> +				     "Invalid SGPIO bus frequency\n");
-> +
-> +	sgpio->preset_value = (apb_freq / sgpio_freq) - 1;
-> +	sgpio->count_value = sgpio->preset_value;
-> +
-> +	sgpio->pos_reg = SGPIO_POS(sgpio->nsignals - 1);
-> +
-> +	sgpio->din_bank_shift =	SGPIO_NUM_BANKS -
-> +				DIV_ROUND_UP(sgpio->nsignals, SGPIO_BANK_SIZE);
-> +
-> +	/*
-> +	 * From here on the hardware may be running, so the shutdown action has
-> +	 * to be in place before the first register is programmed. It only ever
-> +	 * writes zeroes, which is harmless if initialisation never got that
-> +	 * far, and it runs before the APB clock is disabled because that was
-> +	 * requested earlier.
-> +	 */
-> +	rc = devm_add_action_or_reset(&pdev->dev, axiado_sgpio_disable, sgpio);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = axiado_sgpio_hw_init(sgpio);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc,
-> +				     "Failed to initialize hardware\n");
-> +
-> +	rc = axiado_sgpio_init_input_cache(sgpio);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc,
-> +				     "Failed to initialize input cache\n");
-> +
-> +	sgpio->dir_out = devm_bitmap_zalloc(&pdev->dev, ngpio, GFP_KERNEL);
-> +	if (!sgpio->dir_out)
-> +		return -ENOMEM;
-> +
-> +	/* Even lines are the serial inputs, odd lines the serial outputs. */
-> +	for (i = 1; i < ngpio; i += 2)
-> +		__set_bit(i, sgpio->dir_out);
-> +
-> +	d_info.fwnode = dev_fwnode(&pdev->dev);
-> +	d_info.size = ngpio;
-> +	d_info.hwirq_max = ngpio;
-> +	d_info.ops = &axiado_sgpio_domain_ops;
-> +	d_info.host_data = sgpio;
-> +
-> +	sgpio->domain = devm_irq_domain_instantiate(&pdev->dev, &d_info);
-> +	if (IS_ERR(sgpio->domain))
-> +		return PTR_ERR(sgpio->domain);
-> +
-> +	config.parent = &pdev->dev;
-> +	config.regmap = sgpio->regmap;
-> +	config.ngpio = ngpio;
-> +	config.reg_dat_base = GPIO_REGMAP_ADDR(sgpio->regs->din_ss);
-> +	config.reg_set_base = GPIO_REGMAP_ADDR(sgpio->regs->dout_ss);
-> +	config.reg_mask_xlate = axiado_sgpio_reg_mask_xlate;
-> +	config.fixed_direction_output = sgpio->dir_out;
-> +	config.irq_domain = sgpio->domain;
-> +	config.drvdata = sgpio;
-> +
-> +	sgpio->gpio = devm_gpio_regmap_register(&pdev->dev, &config);
-> +	if (IS_ERR(sgpio->gpio))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(sgpio->gpio),
-> +				     "Could not register gpiochip\n");
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	rc = devm_request_threaded_irq(&pdev->dev, irq, NULL, axiado_sgpio_irq_handler,
-> +				       IRQF_ONESHOT, dev_name(&pdev->dev), sgpio);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc, "Failed to request IRQ\n");
-> +
-> +	rc = axiado_sgpio_irq_enable(sgpio);
-> +	if (rc)
-> +		return dev_err_probe(&pdev->dev, rc,
-> +				     "Failed to enable interrupts\n");
+Four questions:
 
-Phew, that's a complex probe but I don't see anything inherently wrong. Linus
-is a better expert in interrupts so may want to chime in.
+1. Where the SCM isn't board-mounted, is the cabled link conventionally
+   still DC-SCI in a cabled form factor, or is this where implementations
+   tend to go vendor-specific?
 
-> +
-> +	/*
-> +	 * Registered last so that it runs first on teardown: the interrupts
-> +	 * must be masked while the parent interrupt is still requested. The
-> +	 * shift engine is stopped by axiado_sgpio_disable(), registered before
-> +	 * the hardware was programmed so that it also covers failures during
-> +	 * probe.
-> +	 */
+2. Is there a conventional connector family or pin assignment for cabled
+   DC-SCI? M-PIC permits BMC USB 2.0 over M-XIO on x8-and-wider cables and
+   M-PESTI overloads PRSNT# on both I/O and power connectors =E2=80=94 is LTV=
+DS/LTPI
+   ever tunnelled the same way, or does the signalling rule that out?
 
-In this case it would actually be clearer to just have it in the .remove()
-callback which runs before devres unwind. You don't get anything out of using
-devres here wrt error handling as it's already the bottom of probe().
+3. With no SCM present, do HPM FPGA designs typically support a standalone
+   or debug power-sequencing mode, or does the HPM stay in reset?
 
-Fix it only if you'll need to send another version, otherwise LGTM.
+4. Where does the host UEFI flash actually sit in practice =E2=80=94 on the H=
+PM
+   behind a root of trust, or on the SCM via the optional SPI-boot path? I
+   know both are permitted; I'm after what implementers do.
 
-Bart
+If anyone has dumped SPI flash on an HPM of this generation and looked
+for an EDK2 firmware volume, I'd be glad to hear it either way.
 
-> +	return devm_add_action_or_reset(&pdev->dev, axiado_sgpio_mask_irqs,
-> +					sgpio);
-> +}
-> +
-> +static const struct of_device_id axiado_sgpio_of_match[] = {
-> +	{ .compatible = "axiado,ax3005-sgpio" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, axiado_sgpio_of_match);
-> +
-> +static struct platform_driver axiado_sgpio_driver = {
-> +	.driver = {
-> +		.name = KBUILD_MODNAME,
-> +		.of_match_table = axiado_sgpio_of_match,
-> +	},
-> +	.probe = axiado_sgpio_probe,
-> +};
-> +module_platform_driver(axiado_sgpio_driver);
-> +
-> +MODULE_DESCRIPTION("Axiado AX3005 Serial GPIO Driver");
-> +MODULE_AUTHOR("Axiado Corporation");
-> +MODULE_LICENSE("GPL");
->
-> --
-> 2.34.1
->
->
+I'm also considering Antmicro's open-source DC-SCM 2.1 design as the
+basis for a compatible module, so any interop gotchas would be welcome.
 
-Bart
+Thanks,
+Eric
 
