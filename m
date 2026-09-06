@@ -1,50 +1,90 @@
-Return-Path: <openbmc+bounces-2567-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2568-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F96BC79F8C
-	for <openbmc@archiver.kernel.org>; Sun,  6 Sep 2026 05:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78FD2C79F9E
+	for <openbmc@archiver.kernel.org>; Sun,  6 Sep 2026 23:32:40 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hcyyg4JZMz2yvM;
-	Sun, 06 Sep 2026 15:13:15 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:7c80:54:3::133"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788671595;
-	cv=none; b=PsGP3aHlVbWpSYTbb052l0c9t1xgfbRGK59RTd6nQF89OCTcJVI5Lseirg6E1ACy1aW0RfLRG2DGmRms+wQcTJPTSCFj9XqGlq7W2VG1Qsvuh4o3Sivjx5I6o6NI10vEh2VoSmSnebCgDBtHZY1Z0qJ8FHGa8Kxd5jUTquT6itvtkUbO7cx/uGMEYqHD3oNyBG6ELSh1L1MbwMr0CFOzZR8y+0VZge2596PaHEBXjw+U2uM9BTIBx3UamCx8hyCF14SwmA+ZvbS0SfkDVHbxv7CtPMoQO3iUUtdwsrP2RY4VR7LiLs/KarXBvPJRUUpHVHXsACc7RVhEU9jYBTdRNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788671595; c=relaxed/relaxed;
-	bh=v00C6G4+vUG94ot1BoePP2klSPMmGYmd1QrEFLUBzpQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T9qeEV9WEvaJpVai93Amiz+ifrZZITfkygqFNBK54ksiFQS4z0EF6O5QyR2bHc1GDa7h71l+8+ZpiyGbi/X0sNdNTN402Az0bKRsyURGIO8HeaeUCkdnNqyIFTw0VkdsDz+RLJXm/ZwlsAzYJa21Y0E2V7nbsznS/VRemsFf2yGxuYFgniWOUpW5UQhD7JrN3wp7WiMlk5/ZhNWIeOHh0JqzN8anlFIOGxWGuN6FLghh7cTW9n+ZJhYkXzwePB3XPOsoUthfnHmZjADGcsho+laNtD9AAIx7SDOb8FNgokQwQdC/2nAzuu3KTTxZ9dNgAgNYvEU0YaMTLVotVmwZMA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=infradead.org; dkim=pass (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=kmUqBDJK; dkim-atps=neutral; spf=pass (client-ip=2607:7c80:54:3::133; helo=bombadil.infradead.org; envelope-from=rdunlap@infradead.org; receiver=lists.ozlabs.org) smtp.mailfrom=infradead.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hdRM473Qpz2yvX;
+	Mon, 07 Sep 2026 09:32:32 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1031" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788669553;
+	cv=pass; b=mmhgkjxVcNsyHjDikjJ/FCMtL/WFAWbANcJj7AIXn8Ul3IOwEYj/+vsTfrGpJFAVRmPflHyEGjtt1UA5so7p/oAEdvpXqik0omc9rM7PAKq+e9vDdDD+BopkCkTNN9x/u8Ngn+ww+gCiX53V/cO7hUZ980jG4Wa5RkBhraGCzpA1RNxMgxiek5iD+JXMwZB1rztik325V/LUZdFPmqQWwx8OyK6EMvkuDzmNVGKkdzbR9AkSYxFM7/zFK56eduDxLcP/TjlwF9HrxdSYKVrQtgwpB9rBAqz3YDfYgSYB7j5LdANPrO+z/wKNTUGOBIDNw6Fs0UD47Vh05DF5LxmotQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1788669553; c=relaxed/relaxed;
+	bh=tzgo5yEZCleETOAGyuZipOHEFITTfnXHeZ/fKIiluWg=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=SXexZfTok0VDJ3FtpxV0aV4o0fH6Pcj4U+004tcDdhDBUazSXQU4xhpy9X36h6+KESoF4wZ2arF0H0QQDQlh/kqKsiACevIXfu77jTVQXQMi2qT7GYlM7v904WoCkFLePcZkebOBo3i3MNy0s50lBjjL8opeEGggi/yONQQxc7b3vzV4AJdq4zF/6z3cT7YZlTuDEPRrYEA5EzMZf0x/sL1Tyq0hLkYu+ldzFbwMMGnZnok8sLRwBl0UtInxWfvRZcgOWwtmpMa7DF2HdD77E7YQ7i9EtT2WX1j03nKKNP89MCZ76KV9guFup9o7HS9pMEVcclBUd1moalSiYyGuLw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0qu+gyh; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1031; helo=mail-pj1-x1031.google.com; envelope-from=tausiff1920@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=kmUqBDJK;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0qu+gyh;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=infradead.org (client-ip=2607:7c80:54:3::133; helo=bombadil.infradead.org; envelope-from=rdunlap@infradead.org; receiver=lists.ozlabs.org)
-Received: from bombadil.infradead.org (bombadil.infradead.org [IPv6:2607:7c80:54:3::133])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1031; helo=mail-pj1-x1031.google.com; envelope-from=tausiff1920@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com [IPv6:2607:f8b0:4864:20::1031])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hcyyd1lfDz2y2S;
-	Sun, 06 Sep 2026 15:13:09 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=v00C6G4+vUG94ot1BoePP2klSPMmGYmd1QrEFLUBzpQ=; b=kmUqBDJKSYhBP2v2DN8UqDQ3gd
-	BSaTTJY7HD21Nx4x4x0as0QZXYmlQxd7wvBF5bbNETGoEWasV3Sr5n+s015dnOgOpdKzVen5Rivi/
-	b1S1rzwSYg1OOQtMKrKB+qgLdt7qxlBO/KIu38r1GADGGJEzw8q0PhHJD+maJ/irMrTZYAY8DmaWk
-	qYeQdVPcdreXDAF6gRbU0OmbwAvroj5tspKCzSn6Q3MfJXSmeF+vQivhlMNbmqDRpqopR94u1FC3P
-	GhOlXrVzrfw/sVmwybrcj7sVBTVJskXiAFiHfvYF/jkmk60nqdPu0r+0+PX7d17tdAgTjqA9Uotag
-	VYoWXhMQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x35BM-00000004hpC-2mvt;
-	Sun, 06 Sep 2026 05:12:44 +0000
-Message-ID: <6168d40d-b781-4abb-9be8-ecb25b7688d5@infradead.org>
-Date: Sat, 5 Sep 2026 22:12:43 -0700
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hcyCN0hDxz2y2S
+	for <openbmc@lists.ozlabs.org>; Sun, 06 Sep 2026 14:39:10 +1000 (AEST)
+Received: by mail-pj1-x1031.google.com with SMTP id 98e67ed59e1d1-38e58034d05so1939319a91.2
+        for <openbmc@lists.ozlabs.org>; Sat, 05 Sep 2026 21:39:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788669548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LU0QLolqXCp4Da2Zdw2dYoqGVqboo9QLc+ub66AE+DpQz5MV7ANfRGYwcxPrboMClo
+         gDGompa/BeLQ/sPm7b27zQ+ybOBis5JBiWrPtLg7DUcA9NoOcln+O9FgIzfbRC0DZL1a
+         w5FEXD0rykGVyejbgLRjdjjYBZWCAitWJM4CBI/BxI5QUZpowPkqQG2ETMKpCKLqL03C
+         3gTw2tQfd+x8rPeoxi28nRnysJNnFmWLXuvYLKSMpJu6OQquSrqFMGrmOEs+KTULp+E6
+         rHHxPOXF3HBsivcRdPLf3VZrfx51bcyWeV9uWFRcJ0xoanuXE1CfJ2CaQtgnf+WghaPp
+         4WuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=tzgo5yEZCleETOAGyuZipOHEFITTfnXHeZ/fKIiluWg=;
+        fh=B5hptedw+6RyGR/i2ArH91xOt8ZhRewMTnM2T7RVmak=;
+        b=KgDMTVvAJdFKygoe2vc0RS+VLe8+MsyvYXN/9U2UE0t1nqGsieH9DmYslA0NY33lnR
+         /8JzZ2Sqq+8PzyTx2A3xardhyQL3JaTZJrOghWfYmkD8rb3CJbjI9q5pj8BHRrolnYbm
+         nsZ352rEtl21LR/T4uwmoXlSoDHQU9YUBrmI5E/XCYjM+tzAE9EzeIPhXYmj9fmvHm6k
+         bGNPlD8zwZR7/zZNyejRtRhTDj8FLZrmUie8+B4tL58uib4RK9K1iVdtlFzUssafUOMN
+         3R/wPyVkwXS5UWkP4/XK+3l29D+HwSTY9undB6HRBZtsGpc1595jfQ/KVThZMK+NqC1j
+         iK1Q==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788669548; x=1789274348; darn=lists.ozlabs.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tzgo5yEZCleETOAGyuZipOHEFITTfnXHeZ/fKIiluWg=;
+        b=f0qu+gyhAiKp6Npa3jkKZ1RlQdYX/fqm4iB9qNuKIMNXaS33NB6cH7aiWXUaT7XV7m
+         LX3kB5haAdYwwi7qMStzmuquVHmSYQLa/CdYMzXbIRxHtJeTZYccUXsVIqkdy2zkQFY6
+         aTaNBarwVUg4e+oCWsRWFhXUB1Z+mQjkwyfGJo4R6HRpWbMlVuvT2OsfZ0pdTdz/P95a
+         g2xVhXbLyA/5PTH+KB1dQZ53TfnAjrkw3kchxQNIJXA3mbWWIqokOnO3SzCckqRZ7hrc
+         P1gr1dPx/CN9kCCKCmYrrSnGBUgu1HpMyrdXpRgFiy7rCxuhzbI/tF5S2aSYM6TVLDLm
+         mcGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788669548; x=1789274348;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tzgo5yEZCleETOAGyuZipOHEFITTfnXHeZ/fKIiluWg=;
+        b=dVa5zyyHEDO82ZGUn/1FyvhhyU8A8oXtYiWrh1v11TafZ+tD5dkh/S9QVl3ZhvJPQK
+         VN618CFlSTkXL/VEz7cR2JAklrAoAtN7cPsbscQ7PNqprUVufddYPnYjQs608RfGDWs8
+         ZMNRnWykAgiJZILEGqjeD+D97FB7jDCoF2yYrQWvq8q/tBtBc5P6MA7KNwElDcu6ycHE
+         wBWvLdh6ZdJRQEuV3v+EET4NNA4a4D7FFhhHbXVMg58np+ggVpunAeccWDxTfK7B5QqG
+         TV1cLtG3Vr3oUNp6Cdk3KelzSEqZosTg0ukGxCYDJBATH5s5rI3kNgGiJ7i/NHNSz1vb
+         MDxw==
+X-Gm-Message-State: AFuF++lJMRA38Pw0lkhopqnJnpkBdSPJyjNlM4Nywh74vjOLm4nQm8g6
+	EU4QVzmqzNXfW+Rhil0vCFcngIvyyeu2rCV5fTxIaLkJjczvnxzIVk9XPXkx+qm5eAHJ1goCoL7
+	Z4hWOSlyj10D4rJDZ8siwRILrQ4u0yVVlhq3D
+X-Gm-Gg: AYBFou0hj7Iu35gIhh4KoZZjo7u1f7/spaT5qaSqc3xNDOgLh07eKpLlC7AqLAe4vtY
+	yh+XGgYETZ7oVRVCa9FzpKPlehWaynxmGUoWxx0f427lRE7JqGkCbNKJ7NS1HLh5k723BszkMze
+	6OzLWnA0W9rE8rECgJ+C250z/3WbPCm5U5MxGAtjIK3bV1O9oyk8Q816fPJ1bLRyIjbpUUpp99R
+	CLUQO1ABz0lOEqQk9rkm6N3dnJa1mSzbDKGyYBW2zwQAgdD6V4+AD7hBXRfqCndsevMjcMEuCly
+	FUjPlCN3/WMP0J6gWu0g1x9VG+OESUzWV2UhLvVbvRC24jYGB8ZHvpvo2Wi9oQqaX5+AwMfRnIt
+	x2Q==
+X-Received: by 2002:a17:90a:d010:b0:38e:bbf1:de3f with SMTP id
+ 98e67ed59e1d1-39b26272ef9mr26974168a91.12.1788669548204; Sat, 05 Sep 2026
+ 21:39:08 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -56,196 +96,57 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] uart-routing: Add UART Routing driver for StarFive
- JHB100 SoC
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
- Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
- Jani Nikula <jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>,
- Hanjun Guo <guohanjun@huawei.com>, Andrew Morton
- <akpm@linux-foundation.org>, Alexander Usyskin
- <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Breno Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
- Mukesh Rathor <mrathor@linux.microsoft.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Alexandra Winter <wintera@linux.ibm.com>,
- Julian Braha <julianbraha@gmail.com>,
- Karthikeyan KS <karthiproffesional@gmail.com>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
- <20260905102901.126035-5-changhuang.liang@starfivetech.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260905102901.126035-5-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Tausif Mujawar <tausiff1920@gmail.com>
+Date: Sun, 6 Sep 2026 10:08:56 +0530
+X-Gm-Features: AcwNN1XfxxY22IPHln6DV7m64K2XmmHAL8Kxvyt5ATo1jpZYxJZY2MnAkUQQ_XE
+Message-ID: <CACk1-zBUcR7YZbVxxSOCPHeMKeMVzEQ5iB0QJS7Q3UrubF6yXQ@mail.gmail.com>
+Subject: Request for review on the gerrit change 88298
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000000a947e065ac91559"
+
+--0000000000000a947e065ac91559
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-On 9/5/26 3:29 AM, Changhuang Liang wrote:
-> Add driver support for JHB100 UART Routing control, allowing runtime
-> configuration of RX muxes between UART controllers and I/O pins.
-> 
-> A sysfs interface is provided for easy checking and updating of routing
-> paths.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  .../sysfs-driver-starfive-uart-routing        |  45 ++++
->  MAINTAINERS                                   |   8 +
->  drivers/uart-routing/Kconfig                  |  13 ++
->  drivers/uart-routing/Makefile                 |   1 +
->  drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
->  5 files changed, 259 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
->  create mode 100644 drivers/uart-routing/starfive-uart-routing.c
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-> new file mode 100644
-> index 000000000000..737afdf428bc
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-> @@ -0,0 +1,45 @@
-> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of the UARTx device.
-> +
-> +		When read, each file shows the list of available options with currently
-> +		selected option marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
-> +		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-> +		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-> +
-> +		In this case, UART1 gets its input from IO1 (physical serial port 1).
-> +
-> +		To switch the RX source of UART1 to UART2, write the desired source to the file:
-> +		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-> +
-> +		This indicates that UART1 now receives its input from UART2.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
-> +
-> +What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
-> +Date:		August 2026
-> +Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +Description:	Selects the RX source of IOx serial port. The current selection
-> +		will be marked by brackets "[]". The list of available options
-> +		depends on the selected file.
-> +
-> +		e.g.
-> +		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
-> +		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-> +		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-> +
-> +		In this case, IO9 (physical serial port 9) gets its input from UART9.
-> +
-> +		To switch the RX source of IO9 to UART10, write the desired source to the file:
-> +		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-> +
-> +		This indicates that IO9 now receives its input from UART10.
-> +
-> +Users:		OpenBMC.  Proposed changes should be mailed to
-> +		openbmc@lists.ozlabs.org
+I have submitted a Gerrit change for OpenBMC dbus-sensors issue #37 and
+would appreciate feedback on the approach.
 
-Please consider the following changes to this ABI file documentation
-(or make your own).
+Gerrit: https://gerrit.openbmc.org/c/openbmc/phosphor-host-ipmid/+/88298
+Issue: https://github.com/openbmc/dbus-sensors/issues/37
 
----
-Avoid 'make htmldocs' warnings (from docutils) and
-make console input or output be presented more clearly and
-in a monospace font.
+I=E2=80=99ve also shared the change on Discord (
+https://discord.com/channels/775381525260664832/867820390406422538/15436848=
+23342780556)
+for review, but wanted to bring it to the mailing list in case others
+working on dbus-sensors could provide feedback.
 
-Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:25: WARNING: Inline emphasis start-string without end-string. [docutils]
-Documentation/ABI/testing/sysfs-driver-starfive-uart-routing:1: WARNING: Inline emphasis start-string without end-string. [docutils]
+Please let me know if the approach looks reasonable or if any changes are
+needed.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
- Documentation/ABI/testing/sysfs-driver-starfive-uart-routing |   32 +++++-----
- 1 file changed, 18 insertions(+), 14 deletions(-)
+Thanks,
+Tausiff
 
---- linux-next-20260902.orig/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-+++ linux-next-20260902/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-@@ -1,4 +1,4 @@
--What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/uart\*
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/uart*
- Date:		August 2026
- Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
- Description:	Selects the RX source of the UARTx device.
-@@ -7,37 +7,41 @@ Description:	Selects the RX source of th
- 		selected option marked by brackets "[]". The list of available options
- 		depends on the selected file.
- 
--		e.g.
--		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
--		io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
--		uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+		  io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-+		  uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
- 
- 		In this case, UART1 gets its input from IO1 (physical serial port 1).
- 
--		To switch the RX source of UART1 to UART2, write the desired source to the file:
--		echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+		To switch the RX source of UART1 to UART2, write the desired source to the file::
-+
-+		  echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
- 
- 		This indicates that UART1 now receives its input from UART2.
- 
- Users:		OpenBMC.  Proposed changes should be mailed to
- 		openbmc@lists.ozlabs.org
- 
--What:		/sys/bus/platform/drivers/starfive-uart-routing/\*/io\*
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/io*
- Date:		August 2026
- Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
- Description:	Selects the RX source of IOx serial port. The current selection
- 		will be marked by brackets "[]". The list of available options
- 		depends on the selected file.
- 
--		e.g.
--		cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
--		uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
--		uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+		  uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-+		  uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
- 
- 		In this case, IO9 (physical serial port 9) gets its input from UART9.
- 
--		To switch the RX source of IO9 to UART10, write the desired source to the file:
--		echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+		To switch the RX source of IO9 to UART10, write the desired source to the file::
-+
-+		  echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
- 
- 		This indicates that IO9 now receives its input from UART10.
- 
+--0000000000000a947e065ac91559
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><p class=3D"gmail-isSelectedEnd">Hi,</p><p class=3D"gmail-=
+isSelectedEnd">I have submitted a Gerrit change for OpenBMC dbus-sensors is=
+sue #37 and would appreciate feedback on the approach.</p><p class=3D"gmail=
+-isSelectedEnd">Gerrit:=C2=A0<a href=3D"https://gerrit.openbmc.org/c/openbm=
+c/phosphor-host-ipmid/+/88298">https://gerrit.openbmc.org/c/openbmc/phospho=
+r-host-ipmid/+/88298</a><br>Issue:=C2=A0<a href=3D"https://github.com/openb=
+mc/dbus-sensors/issues/37">https://github.com/openbmc/dbus-sensors/issues/3=
+7</a></p><p class=3D"gmail-isSelectedEnd">I=E2=80=99ve also shared the chan=
+ge on Discord ( <a href=3D"https://discord.com/channels/775381525260664832/=
+867820390406422538/1543684823342780556">https://discord.com/channels/775381=
+525260664832/867820390406422538/1543684823342780556</a>) for review, but wa=
+nted to bring it to the mailing list in case others working on dbus-sensors=
+ could provide feedback.=C2=A0</p><p class=3D"gmail-isSelectedEnd">Please l=
+et me know if the approach looks reasonable or if any changes are needed.</=
+p><p>Thanks,<br>Tausiff</p></div>
 
--- 
-~Randy
-
+--0000000000000a947e065ac91559--
 
