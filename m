@@ -1,65 +1,87 @@
-Return-Path: <openbmc+bounces-2576-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2577-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9794C79F99
-	for <openbmc@archiver.kernel.org>; Tue,  8 Sep 2026 17:57:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9D4C79F82
+	for <openbmc@archiver.kernel.org>; Tue,  8 Sep 2026 23:43:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hfWpz3g21z2yb9;
-	Wed, 09 Sep 2026 03:56:59 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788890219;
-	cv=none; b=h4ZE55VGMAPxbKQTAMmOdQVFdIZRhE6MDZfnDoe2kS87/9CsPOI3tCPaHBgQW8GSoWFxpy+nnzVrc68oQ2xRAmewdugaQxEXkPTAY7Zwp1UaXs9YdO8zQpSOkJ3S5pGPcm4BMkaNdeGB31phmMncnxK4+QDvg0ZXjvSCcZ+zLO2Fp4PN4gUfzZIiX/2xJcnjnExbR7HnbjLGlqg2UWLfEw6mehZm4ba6VHWZnLfF9+wiK/m2zNSGDLHNw1nuIKh9q6vn+Ekt2PejbI9pJSKh06ucQnRlchBhaU136IXLK8qoBWgqug3cZIUBaYJqsp9bMfeadmCDGmGkIDTgzhN9nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788890219; c=relaxed/relaxed;
-	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fqivGwiit4RRTJu4nPGbb+tr+jiKr3RGXPvbe7APgBx9ugwqp7TwdJjc1u7bZqd8StQoX4K+kl43vRwGaWWwxj6nrKIphsKqGRub3onsqRXjEnI5PGsJf+JhvZx0exwHIbayy/a9+v4UDBC7lk38aGK7LhxaRwPKuSeYWE7zXKiQOQGfqm0zfZTcKpuvdK9z0R2T+lOafLTQ4fSRdM3yT+fDQ4mLWTQ03s7esqw+aHUC8qjGJti8eSZlob9ghvHFqANvOZwh/Y1pqSo5aEV8+zXePKSEKtOfn2ycn+lOrNbnRTDuXMhBtwCavd1oM3TSusGdHf/gVfQhfoLb7m/fpA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCR5T3ug; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hfgVf55PDz2yFW;
+	Wed, 09 Sep 2026 09:43:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1035" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788882596;
+	cv=pass; b=Z5rvb8i3MxZXRJdqtisIKDxqWMe4jIanLTLD2pItnGToLOQf4zph/V0i3W+uXnNmIPtXzfry/ENhqd5m3bfwivAgVIsHyq/Y7bbAkv3JK14qBkTDSq9IpMlCpyd64xz8LFic6E46ZycR0tDCnjDiMzXzzOGmynEe7u/6rf6NrXKbwanVFDd3Km3kHcdw3FG+3ZxVIVnp2Kl6jvyHwk7ZC2rp6EASNcz7oeW9mNebSPvukbZMfl1ciY4fGF4fdhHZRBcy+vZxjgAkqfIe9lafcJ9il7A2q9/ou/CfCyAPBXJidzG4DQ3JswQkpUdnGWAxr91gePG/mnOvCQn5/vAspw==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1788882596; c=relaxed/relaxed;
+	bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=ZFytQ4SAFpywL2IvK9omt5CCUrl42bebyftAUGdhg9t7tbo0syyVEKGHo52wTXuuYblNo2SnQz9OGWXOVuYreZ/S/+H1Y6RMJtw5tYxZxYtBMEieTnpKLxgoGK6jUOZFMYBkkKxALJCXSqJPr/YKZgtCSAt58Pb5H+uKWnTWkfpYrUWaygQZIBKcpIB5v4TlUghikDd7MIawLqvQFxNn2NJ1E3eOh8O4Bc3FyBWwBxiGhBszkN8KIZDlb6yMJNqgrl+H8KpYIilRklazqN0CGV8BlJNI6J98oDz1WA0klcOy59h6wgTD6jX01pcy4qvMly5i8/zTVc3Fmbi2WHohaA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech; dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=aaO2GiVq; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org) smtp.mailfrom=openinsight.tech
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCR5T3ug;
+	dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=aaO2GiVq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=conor@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=openinsight.tech (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hfWpy2vFXz2y1F
-	for <openbmc@lists.ozlabs.org>; Wed, 09 Sep 2026 03:56:58 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id DFB4B4161F;
-	Tue,  8 Sep 2026 17:56:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D961F00A3A;
-	Tue,  8 Sep 2026 17:56:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890215;
-	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MCR5T3ug3ogPL0IrNrVo72MWGWIY1CA9c5kINyRxx0jaUzvEgFt/fv7Z9i5VJzOa0
-	 j4aGiYDceRUzHWPvg/QxXjOHvU10uyJRc1AYOUlU6X61WgVrSBhv68zt6yi5yo5GY8
-	 owJ1C5NmpGfZr8awAGK/5TJYXcfBcsGLQFdBGEJ18paDYS43f9oQVQoRQAjzTYh4BC
-	 y0pNJGoN2yYjSZ5VbvN+xdqmPCIyV1XAkxj2QGQRtOUWZT5SFhiy8hVY2jOShketuP
-	 Xye8BM6H3XWky726vCFJSqIt1/68eFsj+0cl3RazMPIlfJwZLr7ldm8TQHCdeLeNeG
-	 /kto8pO0QYXeQ==
-Date: Tue, 8 Sep 2026 18:56:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
-Message-ID: <20260908-pesticide-creative-6185ca4971e9@spud>
-References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
- <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hfT0M3dx6z2y1F
+	for <openbmc@lists.ozlabs.org>; Wed, 09 Sep 2026 01:49:54 +1000 (AEST)
+Received: by mail-pj1-x1035.google.com with SMTP id 98e67ed59e1d1-38e041ea211so3868178a91.0
+        for <openbmc@lists.ozlabs.org>; Tue, 08 Sep 2026 08:49:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788882590; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OBMt0xCKzjOiWPVk2WiAAwQOFypSkgu3oeNY+/I25PFJxzpVayN37aacGzf6XBRygS
+         pOpbiIqRi6If7BL0oBsl61PCW0H6/T9sv+ZpjcjjSlE0YYfg70gu0fpWprPgBMO0Rr5n
+         9Sc2zHp/1BTzX8es6k2Ixsx37pH7/MpSjhm+EbaLsJhnqKAaKiX1lpiv+1Rw1xFLx48H
+         fYha6yKfCEYMidNlsUqxmgyzo+Ntc7gp0sIq5ystSJBZxJ9gPtJxYescQA7QMNb9eeAw
+         huXcd+VPwG2PdlpC+/9gX306qPrbhvkexli4E73KjkHOU0pcPWbqxQQDABvFh4JJ/BkN
+         86Ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
+        fh=rLb3uvO1QFpP6DLO/WN78kv3JKmiS9J3UGhSz5V3Sdo=;
+        b=e8spJPByU9oW6fJaXitb5iF5QsgtultnMgWAEBq9px/uSQPp8f9PUeg+LWtGFvTfja
+         tjwJT52SxnG2XPhPYIHOBq+I4mQWNoQnhE9ccHS8eEovQIZebELNiPsf1NpCtQdfFKiY
+         by0oJt/oZMyeXRIRdJkUufBMgarmR6rTZuLbBA8be4FEl/gRifJ8RcaCA6BO06dCdfcA
+         h2SQSVO8IxqZ0aRHqUr9M4K1voTmXgH7BO1h7s48sXNekr74FJCs2A3YReQcQl0whS/S
+         HEVsjLrbTLPNs1a/iwVQLXDwmE6GsOIP/k2+7a7DqA2gwWUXLa4uey6WAmudGa/oxYZ6
+         2miA==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=design.tech; s=google; t=1788882590; x=1789487390; darn=lists.ozlabs.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
+        b=aaO2GiVqq3+lWezJhS+ncr9VTVSqIeQrSdnA3wdOdmUZSy4bU+JoFVxLoZRME3Fq+e
+         GH0lhORWsC0Nu36HJmIIxPueCJDETtPZoz/Ayh9VFvRWcg19nIRSapJCOd54M4deAXy+
+         Hzg7tvtByxbDz7NYtu31cU5iqZx0ELtRFvmCs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788882590; x=1789487390;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
+        b=RcrO8aRr+j0gxvzjqSEc+y6KuFmNJVSceL7OGGfr62Ogfd70Ab3hm4y6GXpVKDtszB
+         0vukRb/0+DBruMLK8HX+bedy/GtES1wAqDMnfzS3UNVvTiaxFnslT3BJ35dLPPYQI2mU
+         xY41VunG7/zUpRNH2LzEKC+8773wBGDJqmzWx8uZpB9p+YFsBV0Oh85siETxLi5mqYKP
+         nnGz7WEc7ZIpo6AEVtAFejd5uVWIjHTh0S+hkv7Jsi58ju2FrqunfsQui2GwBVJVLgIG
+         J9OdmIoWtd7gTutEiAABh3H2I7xiqAJ6cCS+wFNaCLeerHKg9htM8G5Nsg7+S/RvrRMO
+         8aew==
+X-Gm-Message-State: AFuF++meOz6EzhoAS4xLEkzPhLyUlXO9JJhynD1j8dBa1e6pfTZoLSIA
+	eJhrKcjgWKPSjrKDKOvKWpeqapKuF0y9Lp6guWZfNdPkb6n8ZzuynuTnsFyR4hBbSJ6B25P8BR8
+	ujPut31te3Ohy1CugkRRB48Q6jGOpTWtQ2Fhn5+Mx/bmMPftVhq0kr2CPoQ==
+X-Gm-Gg: AYBFou3kKGk5UMcXejvGPa9bBeJRMsTxIDzFZZWnvfNauP6m5BECS0inDvDocZUJpe0
+	mVfLqg2Sl5FYNxi1d4cq7jZGZU8mDNTjVVl4wWeseKRM4sja38vkG7BwzjJKcfKltYm2OYXh/jg
+	pAri97SqfQpD6VonBPyQ5cLunBtqTmmsRQWWMIY4ClPm3IY6vt+SzPvI1xT1ktef/A+krLOlzBQ
+	UxAiVV1NimLBIOKVNdvzOjTnBX1zbhsz9Hjc2PtgrX2N7rSej/glGFcBnCR47wVgQfAWbnZ2CC7
+	7FkPaagUFvQjdC5tSrseFuVQSH9PLUHgNrc/Bu+YYh1RC6j1sLIwU8OwvAYLyycA9NVlpvbkBeE
+	U
+X-Received: by 2002:a17:90b:2e4b:b0:398:a145:5d3d with SMTP id
+ 98e67ed59e1d1-39b26151b89mr45796982a91.6.1788882590472; Tue, 08 Sep 2026
+ 08:49:50 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -71,28 +93,69 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kFlJqgktNAXA6FxP"
-Content-Disposition: inline
-In-Reply-To: <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
+From: Paul Fedsen <paul-fedsen@design.tech>
+Date: Tue, 8 Sep 2026 18:49:39 +0300
+X-Gm-Features: AcwNN1WITjy8tPV-qiUiieKOTJ_NyvZJu32613Iw6UN85OyDvI4oNU0zgS1GGUk
+Message-ID: <CAPzB2v5-R-+xQQYwJwjj-g8heEmxU_RLzjKsc6eGqFVNf+cB-w@mail.gmail.com>
+Subject: phosphor-bmc-code-mgmt development
+To: openbmc@lists.ozlabs.org, Kyle Hsieh <Kyle.Hsieh@quantatw.com>
+Content-Type: multipart/alternative; boundary="00000000000059ad58065afaaf71"
 
---kFlJqgktNAXA6FxP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--00000000000059ad58065afaaf71
+Content-Type: text/plain; charset="UTF-8"
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Hello!
+We are trying to upstream a patchset
+https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843 , and
+you recently merged commit 484f77929f9de9bb0eec98288cac784929900168 "
+https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843". It
+looks like we're trying to do the same thing, but chose architecturally
+different implementations. I'd like to discuss this so that we remake our
+patchset consistently.
+So, our vision was that SPI EEPROMs are conceptually the same as I2C
+EEPROMs; they even have matching addressing schemes: bus # and address
+(which translates to CS index for SPI). EEPROMDevice services already had
+all the core logic, so we separated generic SPIDevice code from SPIBios
+service, put it in common/ and reused it.
+In the meantime seems that you decided the opposite: SPIBios service gets
+renamed to SPIFlash and handles all sorts of SPI EEPROMs, while
+EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in
+handling I2C EEPROMs.
+How (and whether) are you planning to address the fact that I2C and SPI are
+still very much the same things, even on the kernel API level ? Does it
+even make sense to keep two separate services ?
+We'd like to discuss these things with you in order to get moving in a
+proper direction. Do you maybe have more pending patches for us to consider
+?
 
---kFlJqgktNAXA6FxP
-Content-Type: application/pgp-signature; name=signature.asc
+--00000000000059ad58065afaaf71
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNATURE-----
+<div dir=3D"ltr"><div>Hello!</div><div>We are trying to upstream a patchset=
+=C2=A0<a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgm=
+t/+/93843">https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93=
+843</a> , and you recently merged commit=C2=A0<span style=3D"font-family:mo=
+nospace"><span style=3D"color:rgb(178,104,24);background-color:rgb(255,255,=
+255)">484f77929f9de9bb0eec98288cac784929900168 &quot;</span></span><a href=
+=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843">ht=
+tps://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843</a>&quot;=
+. It looks like we&#39;re trying to do the same thing, but chose architectu=
+rally different implementations. I&#39;d like=C2=A0to discuss this so that =
+we remake our patchset consistently.</div><div>So, our vision was that SPI =
+EEPROMs are conceptually=C2=A0the same as I2C EEPROMs; they even have match=
+ing addressing schemes: bus # and address (which translates to CS index for=
+ SPI). EEPROMDevice services already had all the core logic, so we separate=
+d generic SPIDevice code from SPIBios service, put it in common/ and reused=
+=C2=A0it.</div><div>In the meantime seems that you decided the opposite: SP=
+IBios service gets renamed to SPIFlash and handles all sorts of SPI EEPROMs=
+, while EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in=
+ handling I2C EEPROMs.</div><div>How (and whether) are you planning to addr=
+ess the fact that I2C and SPI are still very much the same things, even on =
+the kernel API level ? Does it even make sense to keep two separate service=
+s ?</div><div>We&#39;d like to discuss these things with you in order to ge=
+t moving in a proper direction. Do you maybe have more pending patches for =
+us to consider ?</div></div>
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMYwAKCRB4tDGHoIJi
-0mf7AP9iW5keEM1nmOylKZgW02slNGlrttLScQ5pyEVZQL9NxwEA7+4S6lfDL6fB
-sJf9uC3qpk4vYAvdb0oCNDo4HdaxOg4=
-=VFZT
------END PGP SIGNATURE-----
-
---kFlJqgktNAXA6FxP--
+--00000000000059ad58065afaaf71--
 
