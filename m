@@ -1,87 +1,61 @@
-Return-Path: <openbmc+bounces-2577-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2578-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9D4C79F82
-	for <openbmc@archiver.kernel.org>; Tue,  8 Sep 2026 23:43:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8222EC79FB6
+	for <openbmc@archiver.kernel.org>; Wed,  9 Sep 2026 23:43:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hfgVf55PDz2yFW;
-	Wed, 09 Sep 2026 09:43:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1035" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788882596;
-	cv=pass; b=Z5rvb8i3MxZXRJdqtisIKDxqWMe4jIanLTLD2pItnGToLOQf4zph/V0i3W+uXnNmIPtXzfry/ENhqd5m3bfwivAgVIsHyq/Y7bbAkv3JK14qBkTDSq9IpMlCpyd64xz8LFic6E46ZycR0tDCnjDiMzXzzOGmynEe7u/6rf6NrXKbwanVFDd3Km3kHcdw3FG+3ZxVIVnp2Kl6jvyHwk7ZC2rp6EASNcz7oeW9mNebSPvukbZMfl1ciY4fGF4fdhHZRBcy+vZxjgAkqfIe9lafcJ9il7A2q9/ou/CfCyAPBXJidzG4DQ3JswQkpUdnGWAxr91gePG/mnOvCQn5/vAspw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788882596; c=relaxed/relaxed;
-	bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=ZFytQ4SAFpywL2IvK9omt5CCUrl42bebyftAUGdhg9t7tbo0syyVEKGHo52wTXuuYblNo2SnQz9OGWXOVuYreZ/S/+H1Y6RMJtw5tYxZxYtBMEieTnpKLxgoGK6jUOZFMYBkkKxALJCXSqJPr/YKZgtCSAt58Pb5H+uKWnTWkfpYrUWaygQZIBKcpIB5v4TlUghikDd7MIawLqvQFxNn2NJ1E3eOh8O4Bc3FyBWwBxiGhBszkN8KIZDlb6yMJNqgrl+H8KpYIilRklazqN0CGV8BlJNI6J98oDz1WA0klcOy59h6wgTD6jX01pcy4qvMly5i8/zTVc3Fmbi2WHohaA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech; dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=aaO2GiVq; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org) smtp.mailfrom=openinsight.tech
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hgHSQ5nMzz302T;
+	Thu, 10 Sep 2026 09:43:34 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788949567;
+	cv=none; b=L/YyLq9XEISY4ajLs4X13UuCo5roDg7hU1dqvjSTEJ0tYSLxVT8PJ6o1SyyYcnVAJLCJ7Ue8nmlqH//NfAaXqXO0a/joIMBO31FyWBweHFBOuw0yq7NAkBy5wX47JN8mG4QWm8BAYSSe57N81Kh1757p2OsBUJuc8oheTDyGsH9ci12FEzafStvHkwFxXuPggsyhlmg3wrCFzuKW5njEQb3oi237/ojCvnGO8lg4mxXOGZv3BZk0r29qHez6xKkZI1VysQEiksYR9gr2PJ2Th0Jn+aKVi9pSXJKTB+heHLlwF4uJqwGDJcpN7S+BXu8c0Ce06gf4/8eCYtJzIz0VBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1788949567; c=relaxed/relaxed;
+	bh=HI6oCWAggKVgjHHUXtpNDIwKg2A2M537aYICfyDxn1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a+mFvNW/M1NLbrHqA8vONuwjvZ0C5Z798V9eGrbHPEeKV1ER4sUXwbVOD80mQ/jWZ8zGMWjIaUOkuuPed+kyG5ODwzS2funZWLBULSIOnXMdX87/NuYfXxWjctZ82MM8AnoySv2cF50PcQZnpiPeUAQDxTVqvy6SWFzV3tgzUmW25Jq96TOogmEBaT8oGSHdTv2Y8MU6od+cRp+pnz1erHu3n+WSbablORodCGr042yqrI/mqbdUQj0wwWYOpfVGlVF4r/x9N79zGwxy+cvP12Tj6Rvwpzj4gJQKIWvMFvYXKKkZaDhbzK4hXCHUREexTpsEyMfeuRnFM0wv/MWwSw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwe3CBq; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=aaO2GiVq;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwe3CBq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=openinsight.tech (client-ip=2607:f8b0:4864:20::1035; helo=mail-pj1-x1035.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hfT0M3dx6z2y1F
-	for <openbmc@lists.ozlabs.org>; Wed, 09 Sep 2026 01:49:54 +1000 (AEST)
-Received: by mail-pj1-x1035.google.com with SMTP id 98e67ed59e1d1-38e041ea211so3868178a91.0
-        for <openbmc@lists.ozlabs.org>; Tue, 08 Sep 2026 08:49:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788882590; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OBMt0xCKzjOiWPVk2WiAAwQOFypSkgu3oeNY+/I25PFJxzpVayN37aacGzf6XBRygS
-         pOpbiIqRi6If7BL0oBsl61PCW0H6/T9sv+ZpjcjjSlE0YYfg70gu0fpWprPgBMO0Rr5n
-         9Sc2zHp/1BTzX8es6k2Ixsx37pH7/MpSjhm+EbaLsJhnqKAaKiX1lpiv+1Rw1xFLx48H
-         fYha6yKfCEYMidNlsUqxmgyzo+Ntc7gp0sIq5ystSJBZxJ9gPtJxYescQA7QMNb9eeAw
-         huXcd+VPwG2PdlpC+/9gX306qPrbhvkexli4E73KjkHOU0pcPWbqxQQDABvFh4JJ/BkN
-         86Ig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
-        fh=rLb3uvO1QFpP6DLO/WN78kv3JKmiS9J3UGhSz5V3Sdo=;
-        b=e8spJPByU9oW6fJaXitb5iF5QsgtultnMgWAEBq9px/uSQPp8f9PUeg+LWtGFvTfja
-         tjwJT52SxnG2XPhPYIHOBq+I4mQWNoQnhE9ccHS8eEovQIZebELNiPsf1NpCtQdfFKiY
-         by0oJt/oZMyeXRIRdJkUufBMgarmR6rTZuLbBA8be4FEl/gRifJ8RcaCA6BO06dCdfcA
-         h2SQSVO8IxqZ0aRHqUr9M4K1voTmXgH7BO1h7s48sXNekr74FJCs2A3YReQcQl0whS/S
-         HEVsjLrbTLPNs1a/iwVQLXDwmE6GsOIP/k2+7a7DqA2gwWUXLa4uey6WAmudGa/oxYZ6
-         2miA==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=design.tech; s=google; t=1788882590; x=1789487390; darn=lists.ozlabs.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
-        b=aaO2GiVqq3+lWezJhS+ncr9VTVSqIeQrSdnA3wdOdmUZSy4bU+JoFVxLoZRME3Fq+e
-         GH0lhORWsC0Nu36HJmIIxPueCJDETtPZoz/Ayh9VFvRWcg19nIRSapJCOd54M4deAXy+
-         Hzg7tvtByxbDz7NYtu31cU5iqZx0ELtRFvmCs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788882590; x=1789487390;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/r7n3mEMkSlk92J1gdVduYiOAVY2mbIRTPwpjmGGrw8=;
-        b=RcrO8aRr+j0gxvzjqSEc+y6KuFmNJVSceL7OGGfr62Ogfd70Ab3hm4y6GXpVKDtszB
-         0vukRb/0+DBruMLK8HX+bedy/GtES1wAqDMnfzS3UNVvTiaxFnslT3BJ35dLPPYQI2mU
-         xY41VunG7/zUpRNH2LzEKC+8773wBGDJqmzWx8uZpB9p+YFsBV0Oh85siETxLi5mqYKP
-         nnGz7WEc7ZIpo6AEVtAFejd5uVWIjHTh0S+hkv7Jsi58ju2FrqunfsQui2GwBVJVLgIG
-         J9OdmIoWtd7gTutEiAABh3H2I7xiqAJ6cCS+wFNaCLeerHKg9htM8G5Nsg7+S/RvrRMO
-         8aew==
-X-Gm-Message-State: AFuF++meOz6EzhoAS4xLEkzPhLyUlXO9JJhynD1j8dBa1e6pfTZoLSIA
-	eJhrKcjgWKPSjrKDKOvKWpeqapKuF0y9Lp6guWZfNdPkb6n8ZzuynuTnsFyR4hBbSJ6B25P8BR8
-	ujPut31te3Ohy1CugkRRB48Q6jGOpTWtQ2Fhn5+Mx/bmMPftVhq0kr2CPoQ==
-X-Gm-Gg: AYBFou3kKGk5UMcXejvGPa9bBeJRMsTxIDzFZZWnvfNauP6m5BECS0inDvDocZUJpe0
-	mVfLqg2Sl5FYNxi1d4cq7jZGZU8mDNTjVVl4wWeseKRM4sja38vkG7BwzjJKcfKltYm2OYXh/jg
-	pAri97SqfQpD6VonBPyQ5cLunBtqTmmsRQWWMIY4ClPm3IY6vt+SzPvI1xT1ktef/A+krLOlzBQ
-	UxAiVV1NimLBIOKVNdvzOjTnBX1zbhsz9Hjc2PtgrX2N7rSej/glGFcBnCR47wVgQfAWbnZ2CC7
-	7FkPaagUFvQjdC5tSrseFuVQSH9PLUHgNrc/Bu+YYh1RC6j1sLIwU8OwvAYLyycA9NVlpvbkBeE
-	U
-X-Received: by 2002:a17:90b:2e4b:b0:398:a145:5d3d with SMTP id
- 98e67ed59e1d1-39b26151b89mr45796982a91.6.1788882590472; Tue, 08 Sep 2026
- 08:49:50 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with UTF8SMTPS id 4hfxmF4xx8z2xrL
+	for <openbmc@lists.ozlabs.org>; Wed, 09 Sep 2026 20:26:05 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by sea.source.kernel.org (Postfix) with UTF8SMTP id 7347143D29;
+	Wed,  9 Sep 2026 10:26:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A700E1F00A3A;
+	Wed,  9 Sep 2026 10:26:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788949562;
+	bh=HI6oCWAggKVgjHHUXtpNDIwKg2A2M537aYICfyDxn1k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iVwe3CBq8/usNlhm35flLzb5fcpMR0UuH9N8wIWgci28WA6myoHXIM/lscjeAAoMD
+	 TChl7PyzhxkxwnkH2DHdVJqn0PLM52FDyhhIJzT/XhvY32Iyz3s3k5NBICZupZfG2o
+	 1k0ryL2mUkvHWqDeXg/JLu9RDKYGFSidYg+iy6fGFC8J6bbqnnsXp5O3xJk55b3FsC
+	 t0vu0Suk9CXQiPf3qPX/H875UajC9g868mjqqS8IVnI3XCg4NTsEfoGMfcTBbWUl+N
+	 JU5mrxU5MrF9ExQN/Mb9Tc71prr0wEOIfdSTOsLcrDeALaC6tx1lj5Lwnc3alwNQLM
+	 +LFDUWjK5so3A==
+Date: Wed, 9 Sep 2026 12:25:59 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v4 2/2] pwm: add Axiado AX3000 PWM driver
+Message-ID: <aqElQj-H80PEXY0U@monoceros>
+References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
+ <20260908-axiado-ax3000-pwm-v4-2-19a03671cd5b@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -93,69 +67,371 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Paul Fedsen <paul-fedsen@design.tech>
-Date: Tue, 8 Sep 2026 18:49:39 +0300
-X-Gm-Features: AcwNN1WITjy8tPV-qiUiieKOTJ_NyvZJu32613Iw6UN85OyDvI4oNU0zgS1GGUk
-Message-ID: <CAPzB2v5-R-+xQQYwJwjj-g8heEmxU_RLzjKsc6eGqFVNf+cB-w@mail.gmail.com>
-Subject: phosphor-bmc-code-mgmt development
-To: openbmc@lists.ozlabs.org, Kyle Hsieh <Kyle.Hsieh@quantatw.com>
-Content-Type: multipart/alternative; boundary="00000000000059ad58065afaaf71"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d2hth543vljjdczy"
+Content-Disposition: inline
+In-Reply-To: <20260908-axiado-ax3000-pwm-v4-2-19a03671cd5b@axiado.com>
 
---00000000000059ad58065afaaf71
-Content-Type: text/plain; charset="UTF-8"
 
-Hello!
-We are trying to upstream a patchset
-https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843 , and
-you recently merged commit 484f77929f9de9bb0eec98288cac784929900168 "
-https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843". It
-looks like we're trying to do the same thing, but chose architecturally
-different implementations. I'd like to discuss this so that we remake our
-patchset consistently.
-So, our vision was that SPI EEPROMs are conceptually the same as I2C
-EEPROMs; they even have matching addressing schemes: bus # and address
-(which translates to CS index for SPI). EEPROMDevice services already had
-all the core logic, so we separated generic SPIDevice code from SPIBios
-service, put it in common/ and reused it.
-In the meantime seems that you decided the opposite: SPIBios service gets
-renamed to SPIFlash and handles all sorts of SPI EEPROMs, while
-EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in
-handling I2C EEPROMs.
-How (and whether) are you planning to address the fact that I2C and SPI are
-still very much the same things, even on the kernel API level ? Does it
-even make sense to keep two separate services ?
-We'd like to discuss these things with you in order to get moving in a
-proper direction. Do you maybe have more pending patches for us to consider
-?
-
---00000000000059ad58065afaaf71
-Content-Type: text/html; charset="UTF-8"
+--d2hth543vljjdczy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 2/2] pwm: add Axiado AX3000 PWM driver
+MIME-Version: 1.0
 
-<div dir=3D"ltr"><div>Hello!</div><div>We are trying to upstream a patchset=
-=C2=A0<a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgm=
-t/+/93843">https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93=
-843</a> , and you recently merged commit=C2=A0<span style=3D"font-family:mo=
-nospace"><span style=3D"color:rgb(178,104,24);background-color:rgb(255,255,=
-255)">484f77929f9de9bb0eec98288cac784929900168 &quot;</span></span><a href=
-=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843">ht=
-tps://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843</a>&quot;=
-. It looks like we&#39;re trying to do the same thing, but chose architectu=
-rally different implementations. I&#39;d like=C2=A0to discuss this so that =
-we remake our patchset consistently.</div><div>So, our vision was that SPI =
-EEPROMs are conceptually=C2=A0the same as I2C EEPROMs; they even have match=
-ing addressing schemes: bus # and address (which translates to CS index for=
- SPI). EEPROMDevice services already had all the core logic, so we separate=
-d generic SPIDevice code from SPIBios service, put it in common/ and reused=
-=C2=A0it.</div><div>In the meantime seems that you decided the opposite: SP=
-IBios service gets renamed to SPIFlash and handles all sorts of SPI EEPROMs=
-, while EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in=
- handling I2C EEPROMs.</div><div>How (and whether) are you planning to addr=
-ess the fact that I2C and SPI are still very much the same things, even on =
-the kernel API level ? Does it even make sense to keep two separate service=
-s ?</div><div>We&#39;d like to discuss these things with you in order to ge=
-t moving in a proper direction. Do you maybe have more pending patches for =
-us to consider ?</div></div>
+Hello,
 
---00000000000059ad58065afaaf71--
+On Tue, Sep 08, 2026 at 01:28:35AM -0700, Petar Stepanovic wrote:
+> The Axiado AX3000 and AX3005 SoCs include a single-channel PWM
+> controller.
+>=20
+> Add a driver supporting period, duty-cycle, and enable-state
+> configuration through the Linux PWM framework.
+>=20
+> Disabling the hardware controller drives its output high. Implement a
+> logically disabled PWM using the controller's constant-low encoding
+> instead. The same encoding is used for an enabled PWM with a 0% duty
+> cycle, so cache the logical state and requested period for readback.
+
+The purpose of disabling the hardware is to save power. If the result is
+that the output goes to the high state that's mildly strange, but not
+unseen. Still disable the hardware in that case. (And any consumer
+driver that relies on a low output on disable is wrong and needs
+fixing.)
+
+> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+> new file mode 100644
+> index 000000000000..e1d408809694
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-axiado.c
+> @@ -0,0 +1,332 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Copyright (c) 2021-2026 Axiado Corporation.
+
+It's not universally done in the kernel, but I'd be happy to see this
+formalized as:
+
+	SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
+
+> + */
+> +
+> +/*
+
+Please put "Limitations:" here such that
+
+	sed -rn '/Limitations:/,/\*\/?$/p' drivers/pwm/*.c
+
+
+gives the details.
+
+> + * - Supports normal polarity. Configuration changes take effect immedia=
+tely
+> + *   without waiting for the current period to complete.
+> + * - The hardware output remains high when the controller is disabled.
+> + *   Therefore, a logically disabled PWM is implemented using the hardwa=
+re
+> + *   constant-low representation.
+> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
+> + *   0xffffffff is reserved by the hardware for a constant-low output.
+> + *   Longer periods are clamped to the maximum.
+> + * - 0% duty cycle: Programmed as a constant-low period because the
+> + *   hardware interprets a zero high time as a constant-high output.
+> + *   Consequently, the requested period cannot be read back while the
+> + *   duty cycle is 0%.
+> + * - 100% duty cycle: Fully supported and produces a constant-high outpu=
+t.
+> + */
+> +
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pwm.h>
+> +
+> +/* Register offsets */
+> +#define AXIADO_PWM_CTRL_REG	0x0000
+> +#define AXIADO_PWM_PERIOD_REG	0x0004
+> +#define AXIADO_PWM_HIGH_REG	0x0008
+> +
+> +/* Period and duty cycle limits */
+> +#define AXIADO_PWM_PERIOD_MIN	2
+> +#define AXIADO_PWM_PERIOD_MAX	0xfffffffe
+> +#define AXIADO_PWM_PERIOD_CONST_LOW	0xffffffff
+> +#define AXIADO_PWM_DUTY_MIN	1
+> +
+> +/* Control register bits */
+> +#define AXIADO_PWM_CTRL_ENABLE	BIT(0)
+> +
+> +struct axiado_pwm_chip {
+> +	void __iomem *base;
+> +	unsigned long rate;
+> +	u32 cached_period;
+> +	bool logically_disabled;
+> +};
+> +
+> +struct axiado_pwm_waveform {
+> +	u32 period;
+> +	u32 duty;
+> +	bool enabled;
+> +};
+> +
+> +static int
+> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
+> +			       struct pwm_device *pwm,
+> +			       const struct pwm_waveform *wf,
+> +			       void *_wfhw)
+> +{
+> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
+> +	struct axiado_pwm_waveform *wfhw =3D _wfhw;
+> +	u64 period;
+> +	u64 duty;
+> +	int ret =3D 0;
+> +
+> +	/* Encode a disabled request as a zeroed hardware waveform. */
+> +	if (!wf->period_length_ns) {
+> +		*wfhw =3D (struct axiado_pwm_waveform) {};
+
+{ } please (i.e. a space in the empty initializer).
+
+> +		return 0;
+> +	}
+> +
+> +	/* Only an edge-aligned waveform starting at offset zero is supported. =
+*/
+> +	if (wf->duty_offset_ns)
+> +		return -EINVAL;
+
+That is wrong. You're supposed to implement the biggest duty_offset_ns
+not bigger than the requested value. That's 0 and should happen
+successfully (and silently).
+
+> +	if (wf->duty_length_ns > wf->period_length_ns)
+> +		return -EINVAL;
+
+No need to check that. If you see this happen, that's a bug in the pwm
+core.
+
+> +	period =3D mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
+> +				     NSEC_PER_SEC);
+> +
+> +	if (period < AXIADO_PWM_PERIOD_MIN) {
+> +		period =3D AXIADO_PWM_PERIOD_MIN;
+> +		ret =3D 1;
+> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
+> +		period =3D AXIADO_PWM_PERIOD_MAX;
+> +	}
+> +
+> +	/*
+> +	 * Keep the rounded period for a 0% duty cycle. .write_waveform()
+> +	 * translates it to the hardware constant-low representation.
+> +	 */
+> +	if (!wf->duty_length_ns) {
+> +		*wfhw =3D (struct axiado_pwm_waveform) {
+> +			.period =3D period,
+> +			.duty =3D 0,
+> +			.enabled =3D true,
+> +		};
+
+This happens also without the special handling, right? So the if could
+be dropped.
+
+> +		return ret;
+> +	}
+> +
+> +	duty =3D mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
+> +				   NSEC_PER_SEC);
+> +
+> +	/*
+> +	 * Preserve an exact 100% duty request when the hardware period has
+> +	 * been clamped.
+> +	 */
+> +	if (wf->duty_length_ns =3D=3D wf->period_length_ns)
+> +		duty =3D period;
+
+With the check below for duty > period this isn't needed.
+
+> +	/*
+> +	 * Period clamping can leave the converted duty greater than the
+> +	 * final hardware period. In that case, clamp it to 100% duty.
+> +	 */
+> +	if (duty > period)
+> +		duty =3D period;
+> +
+> +	*wfhw =3D (struct axiado_pwm_waveform) {
+> +		.period =3D period,
+> +		.duty =3D duty,
+> +		.enabled =3D true,
+> +	};
+> +
+> +	return ret;
+> +}
+> +
+> +static int
+> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+> +				 struct pwm_device *pwm,
+> +				 const void *_wfhw,
+> +				 struct pwm_waveform *wf)
+> +{
+> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
+> +	const struct axiado_pwm_waveform *wfhw =3D _wfhw;
+> +
+> +	if (!wfhw->enabled) {
+> +		*wf =3D (struct pwm_waveform) {
+> +			.period_length_ns =3D 0,
+> +			.duty_length_ns =3D 0,
+> +			.duty_offset_ns =3D 0,
+> +		};
+
+nitpick: setting .period_length_ns =3D 0 is sufficient here and that's
+what other drivers do.
+
+> +		return 0;
+> +	}
+> +
+> +	*wf =3D (struct pwm_waveform) {
+> +		.period_length_ns =3D
+> +			mul_u64_u64_div_u64_roundup(wfhw->period, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_length_ns =3D
+> +			mul_u64_u64_div_u64_roundup(wfhw->duty, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_offset_ns =3D 0,
+> +	};
+> +
+> +	return 0;
+> +}
+> +
+> +static int axiado_pwm_read_waveform(struct pwm_chip *chip,
+> +				    struct pwm_device *pwm,
+> +				    void *_wfhw)
+> +{
+> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
+> +	struct axiado_pwm_waveform *wfhw =3D _wfhw;
+> +	u32 period;
+> +	u32 duty;
+> +	u32 ctrl;
+> +
+> +	/*
+> +	 * A logically disabled request is implemented as a constant-low
+> +	 * hardware waveform because disabling the controller drives the
+> +	 * output high.
+> +	 */
+> +	if (axpwm->logically_disabled) {
+> +		*wfhw =3D (struct axiado_pwm_waveform) {};
+> +		return 0;
+
+that looks wrong. At least the first readout before .write_waveform()
+was called might be bogus then.
+
+> +	}
+> +
+> +	ctrl =3D readl(axpwm->base + AXIADO_PWM_CTRL_REG);
+> +	period =3D readl(axpwm->base + AXIADO_PWM_PERIOD_REG);
+> +	duty =3D readl(axpwm->base + AXIADO_PWM_HIGH_REG);
+> +
+> +	/* The constant-low encoding doesn't hold the period, so restore it. */
+
+This isn't needed. If the output is constant low, just report period =3D
+1 and drop .cached_period.
+
+> +	if (period =3D=3D AXIADO_PWM_PERIOD_CONST_LOW) {
+> +		period =3D axpwm->cached_period;
+> +		duty =3D 0;
+> +	} else if (duty > period) {
+> +		duty =3D period;
+> +	}
+> +
+> +	*wfhw =3D (struct axiado_pwm_waveform) {
+> +		.period =3D period,
+> +		.duty =3D duty,
+> +		.enabled =3D !!(ctrl & AXIADO_PWM_CTRL_ENABLE),
+> +	};
+> +
+> +	return 0;
+> +}
+> +
+> +static int axiado_pwm_write_waveform(struct pwm_chip *chip,
+> +				     struct pwm_device *pwm,
+> +				     const void *_wfhw)
+> +{
+> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
+> +	const struct axiado_pwm_waveform *wfhw =3D _wfhw;
+> +	u32 period =3D wfhw->period;
+> +	u32 duty =3D wfhw->duty;
+> +
+> +	if (!wfhw->enabled) {
+> +		/*
+> +		 * Disabling the controller drives its output high. Implement
+> +		 * the logically disabled state using the constant-low hardware
+> +		 * representation instead.
+> +		 */
+> +		writel(AXIADO_PWM_PERIOD_CONST_LOW,
+> +		       axpwm->base + AXIADO_PWM_PERIOD_REG);
+> +		writel(AXIADO_PWM_DUTY_MIN,
+> +		       axpwm->base + AXIADO_PWM_HIGH_REG);
+> +		writel(AXIADO_PWM_CTRL_ENABLE,
+> +		       axpwm->base + AXIADO_PWM_CTRL_REG);
+> +		axpwm->logically_disabled =3D true;
+> +
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * A zero high time produces a constant high output, so use the
+> +	 * constant-low period encoding for a 0% duty cycle. Keep the high time
+> +	 * non-zero because a zero value takes precedence over that encoding.
+> +	 * Cache the requested period for .read_waveform().
+> +	 */
+> +	if (!duty) {
+> +		axpwm->cached_period =3D period;
+> +		period =3D AXIADO_PWM_PERIOD_CONST_LOW;
+> +		duty =3D AXIADO_PWM_DUTY_MIN;
+> +	}
+> +
+> +	/*
+> +	 * The hardware has no shadow registers. These writes may alter the
+> +	 * active waveform before the current period has completed.
+> +	 */
+> +	writel(period, axpwm->base + AXIADO_PWM_PERIOD_REG);
+> +	writel(duty, axpwm->base + AXIADO_PWM_HIGH_REG);
+> +	writel(AXIADO_PWM_CTRL_ENABLE, axpwm->base + AXIADO_PWM_CTRL_REG);
+> +	axpwm->logically_disabled =3D false;
+
+Ideally all the special case handling happens in the
+=2Eround_waveform_tohw() callback such that .write_waveform() is as quick
+as possible and just writes the content of axiado_pwm_waveform to the
+registers.
+
+> +
+> +	return 0;
+> +}
+
+I was about to write something else, but was interrupted and don't
+remember. :-\ So I might still find something when I look at your next
+revision.
+
+Best regards
+Uwe
+
+--d2hth543vljjdczy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqhNDQACgkQj4D7WH0S
+/k5KzAgAr9O1wuud8O2wU6xGCBdGpB75kvETqBK50abgti5xxWRWRRNVzTSQUALQ
+A8XcMT7WT35vg57EUiz0INaWeXutiPCc2YZoGviqLCk9F+RGW5kJiEys5BtfOlQ+
+ExA1tMY5byCi/jFnn579OnKlgtTcFp7e6i0NXiw50dbTxacoHFW2Vit+WZ6SeNC2
+pO+iJvTbBqJhb4JMgHPawAQxB5x4DsBBiWIZZYzjwifaS4y2mQLiZCcXcP6sMc55
+fyLIjPOXdFH6pMQohOS0v/Khcvbm5ntzvyLXMIt71MfXP+iob0+xrZTde+qlt+P5
+AliXnbSX4oDOxyC7bOGceHol4Qobxg==
+=HTm2
+-----END PGP SIGNATURE-----
+
+--d2hth543vljjdczy--
 
