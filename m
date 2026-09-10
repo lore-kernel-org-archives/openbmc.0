@@ -1,61 +1,81 @@
-Return-Path: <openbmc+bounces-2578-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2579-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8222EC79FB6
-	for <openbmc@archiver.kernel.org>; Wed,  9 Sep 2026 23:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05572C88E41
+	for <openbmc@archiver.kernel.org>; Thu, 10 Sep 2026 23:35:50 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hgHSQ5nMzz302T;
-	Thu, 10 Sep 2026 09:43:34 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1788949567;
-	cv=none; b=L/YyLq9XEISY4ajLs4X13UuCo5roDg7hU1dqvjSTEJ0tYSLxVT8PJ6o1SyyYcnVAJLCJ7Ue8nmlqH//NfAaXqXO0a/joIMBO31FyWBweHFBOuw0yq7NAkBy5wX47JN8mG4QWm8BAYSSe57N81Kh1757p2OsBUJuc8oheTDyGsH9ci12FEzafStvHkwFxXuPggsyhlmg3wrCFzuKW5njEQb3oi237/ojCvnGO8lg4mxXOGZv3BZk0r29qHez6xKkZI1VysQEiksYR9gr2PJ2Th0Jn+aKVi9pSXJKTB+heHLlwF4uJqwGDJcpN7S+BXu8c0Ce06gf4/8eCYtJzIz0VBw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hgvDw5KXBz2ygK;
+	Fri, 11 Sep 2026 09:35:44 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::532"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789059242;
+	cv=none; b=fDTXCk1p+KRWPagJQj6MJRqa4tn0FILEAgybWrRDcAZ1HxAhCRGJc9F1r7o2gyLU0oq/5rTRSS+F0lqqAg5SV+xW15xLUWkA4pjrgQb6iKzAvNUQS9oz2i2y7XyWeQyD3cu/E33v/kEc0tnkN/V9oYkkkIlm148t2Fg63BGabmjKqflRQVagXnfeBAv8wASmesGUYtLqID03t1UfsBemoIKNympgCigQI5xNn2Zd8IXd2dQ4ONFD16k3hi+zTRbnYOlX48Z19fi8ZuKpW8Y+e9FfaRLy0Qepc7WEY3aLPGigjZL3lyQ+H72bTH/yEj/dVv8HpKZacCE8pwrjWdDjvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1788949567; c=relaxed/relaxed;
-	bh=HI6oCWAggKVgjHHUXtpNDIwKg2A2M537aYICfyDxn1k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a+mFvNW/M1NLbrHqA8vONuwjvZ0C5Z798V9eGrbHPEeKV1ER4sUXwbVOD80mQ/jWZ8zGMWjIaUOkuuPed+kyG5ODwzS2funZWLBULSIOnXMdX87/NuYfXxWjctZ82MM8AnoySv2cF50PcQZnpiPeUAQDxTVqvy6SWFzV3tgzUmW25Jq96TOogmEBaT8oGSHdTv2Y8MU6od+cRp+pnz1erHu3n+WSbablORodCGr042yqrI/mqbdUQj0wwWYOpfVGlVF4r/x9N79zGwxy+cvP12Tj6Rvwpzj4gJQKIWvMFvYXKKkZaDhbzK4hXCHUREexTpsEyMfeuRnFM0wv/MWwSw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwe3CBq; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1789059242; c=relaxed/relaxed;
+	bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TfFvIV/HHeEJ1HswKabq7u6M/t04yGM/ObnKjKdhrGPgGEhO1ikFRFJPq0PkMQoB945hGe+L7RY0HOpjjDkz3K2n/ZEf1ppUKrJ7CIOEjv6cI2H6JjgfxznUPP1jWCh6G03pZSab3xTAP14Mgsy8fh8YtToxnWQL6in/5EstkkFq5w47HTPZtzsS8AUE/KSC/ua75sP3lpuF0ScB+DmOcUoYmHGjWFZKjcrlHKHuBidELWkmocwCd/qnCyx0kNVKppPp04d9C8mrsWuFZzZy87AxBdVi/togNS8Ry1demO7YFzYunOgzfBr+EuHwxfk2IU/SprqCLY/YltUkyFZuRw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lk7TroNW; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com; envelope-from=ychuang570808@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVwe3CBq;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Lk7TroNW;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com; envelope-from=ychuang570808@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with UTF8SMTPS id 4hfxmF4xx8z2xrL
-	for <openbmc@lists.ozlabs.org>; Wed, 09 Sep 2026 20:26:05 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with UTF8SMTP id 7347143D29;
-	Wed,  9 Sep 2026 10:26:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A700E1F00A3A;
-	Wed,  9 Sep 2026 10:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949562;
-	bh=HI6oCWAggKVgjHHUXtpNDIwKg2A2M537aYICfyDxn1k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iVwe3CBq8/usNlhm35flLzb5fcpMR0UuH9N8wIWgci28WA6myoHXIM/lscjeAAoMD
-	 TChl7PyzhxkxwnkH2DHdVJqn0PLM52FDyhhIJzT/XhvY32Iyz3s3k5NBICZupZfG2o
-	 1k0ryL2mUkvHWqDeXg/JLu9RDKYGFSidYg+iy6fGFC8J6bbqnnsXp5O3xJk55b3FsC
-	 t0vu0Suk9CXQiPf3qPX/H875UajC9g868mjqqS8IVnI3XCg4NTsEfoGMfcTBbWUl+N
-	 JU5mrxU5MrF9ExQN/Mb9Tc71prr0wEOIfdSTOsLcrDeALaC6tx1lj5Lwnc3alwNQLM
-	 +LFDUWjK5so3A==
-Date: Wed, 9 Sep 2026 12:25:59 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v4 2/2] pwm: add Axiado AX3000 PWM driver
-Message-ID: <aqElQj-H80PEXY0U@monoceros>
-References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
- <20260908-axiado-ax3000-pwm-v4-2-19a03671cd5b@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hgkKP50qpz2xkr
+	for <openbmc@lists.ozlabs.org>; Fri, 11 Sep 2026 02:54:00 +1000 (AEST)
+Received: by mail-pg1-x532.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so45411a12.0
+        for <openbmc@lists.ozlabs.org>; Thu, 10 Sep 2026 09:54:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789059238; x=1789664038; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
+        b=Lk7TroNW0fhkVopBYlX/yQrxxO947UplNy/sz/4RHPJW2KINpWEX6kHbY188jmo4oQ
+         O4LeSGDZbeZbEOBcmglFGebA5gPGtf6YBjhWNH6m1JS5Mr8SlGTGRRLgnQnHMD2cyNEP
+         qJkQZ3NUSFMCd71jP7D7pBUYRTM4CSoHAGrJ3iRAFrFPneaLOdD+tabyZSPXdYm4hirx
+         PyeyX1deK9tjX9khBc7AtJ1mVRmhQCY3MI7vzmystz5NTQU1Z8ptZuicuHg0rWxJ+6VM
+         T/t0f3en4ITA9oPui0iM2KVrsaIpo3OydCaX+kQHaOAmXqqX5bYYSJacC4fDPBoy0wjN
+         UP3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789059238; x=1789664038;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
+        b=s4oJwqpPO3LsNkajGYUFeXhaMKSoUGtw9Gwv2K3HfwRSYqGv+XtpgD7ZvF5HumzZBl
+         2L92AyXKJ+rcAx9JLdIJzpYOsNbC4M4fTUID/yATKs3gk9GBBEw4h8F2Yj6TdXq37W35
+         6ZJIlwaxFa+h3RFNun+oh1ZPQFfMphxT3Rsks+UOM7n0TA0ufiaBn8Ly6b++uac0X4qD
+         Xd4002haKe1xawAD5k48t+u0gx441fNdaRlrjmuJEEaqh2irJtOwogFSpGx+uERn7bNA
+         DI8SgFdGU5zwAgEXUR3FCTTgyWdP5MBciw0JMMvI/NV2BqO8vw8tM8ciSP0NOPIP+pCp
+         oPEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzGGwc5PCcoogvFLiGzwfcIduojH9nwGTKutBH183AkQ+k1LUNWWH470bnvv3kVHeyC07cHf3Mc@lists.ozlabs.org
+X-Gm-Message-State: AFuF++nMFtlzGSlXIh1WBccKsx2jMQJB2FMIoglxRbguo9NO4Wt0jXjB
+	zctdynMpbqlIeikmhpQEAKhPUzbpCNUQ3BYypAGnUcnXlyntqW5cMExiQa5YuQ==
+X-Gm-Gg: AYBFou2T9xfPMu/Iuar/gZ1msgfIQoZJK2AWclAR/I/Z4ph/ExsQYMM4fGkeggFeBee
+	r4ilHEquXSbl5PSFvbvSFTPrGo92IgQpLEn+B2WFmxJOBej+0tRR6vNjtycn61PZ+GGgKVmuwYM
+	Xa7WYC9qLydrmiPzkwLjmPSJTKKDc5MqaHmUt1VXxLXjvuvMgjuQXuOyDcTrbsIDPxQyAC6DAEo
+	Jkmu/A+94d7MxmCc2kiP0qY0L0Rh/Cia6TEeT8D5OPk8rjQGi5gg+q41RbZFN8qziiODpeUxd8H
+	Ygt4sMgLkgDsaqzJfc7ueAxXdXP7hF1zvxNMvOOkhswyOoJuqdZmJzoAvIiXkHZbkp2d2bUzy/s
+	jnL9Ba/QcXA5AFtPpKgOdneTeDk008MprHbBBj2tk5Kqa7AnNfK62UFPCL9CtSC19g9p0czVbdz
+	hh1SClX7GxnJ1n2rjHPdVFcHCJhlTyA1biMA1iVCfPpBmX/n7a5qdWVLHEb31nnexx4EIqBHZiD
+	VGmr/Syz5LA2KoVydt0elu4v7fNoWzjQ8vwpzmlNGN/4QQ5zCWjmoY=
+X-Received: by 2002:a05:6a21:1b85:b0:3d3:adbf:7779 with SMTP id adf61e73a8af0-3da3a0af14amr66467142637.21.1789059237749;
+        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
+Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c657156bsm10825a12.21.2026.09.10.09.53.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
+Message-ID: <1ae22be2-b72e-4c23-9aff-ef1052a10c45@gmail.com>
+Date: Fri, 11 Sep 2026 00:53:52 +0800
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -67,371 +87,105 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d2hth543vljjdczy"
-Content-Disposition: inline
-In-Reply-To: <20260908-axiado-ax3000-pwm-v4-2-19a03671cd5b@axiado.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: nuvoton: Add NuMaker board
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+ <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
+Content-Language: en-US
+From: Jacky Huang <ychuang570808@gmail.com>
+In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
---d2hth543vljjdczy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 2/2] pwm: add Axiado AX3000 PWM driver
-MIME-Version: 1.0
-
-Hello,
-
-On Tue, Sep 08, 2026 at 01:28:35AM -0700, Petar Stepanovic wrote:
-> The Axiado AX3000 and AX3005 SoCs include a single-channel PWM
-> controller.
->=20
-> Add a driver supporting period, duty-cycle, and enable-state
-> configuration through the Linux PWM framework.
->=20
-> Disabling the hardware controller drives its output high. Implement a
-> logically disabled PWM using the controller's constant-low encoding
-> instead. The same encoding is used for an enabled PWM with a 0% duty
-> cycle, so cache the logical state and requested period for readback.
-
-The purpose of disabling the hardware is to save power. If the result is
-that the output goes to the high state that's mildly strange, but not
-unseen. Still disable the hardware in that case. (And any consumer
-driver that relies on a low output on disable is wrong and needs
-fixing.)
-
-> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+> Nuvoton MA35D SoC is used on the NuMaker SoM, itself plugged onto a
+> carrier board labelled NuMaker. Create a DTS including the SoM
+> description. As a first external component, mention the SPI NAND
+> connected to the Quad SPI controller.
+>
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>   arch/arm64/boot/dts/nuvoton/Makefile           |  1 +
+>   arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts | 42 ++++++++++++++++++++++++++
+>   2 files changed, 43 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/nuvoton/Makefile b/arch/arm64/boot/dts/nuvoton/Makefile
+> index 3bc9787801a5..4c82109c885a 100644
+> --- a/arch/arm64/boot/dts/nuvoton/Makefile
+> +++ b/arch/arm64/boot/dts/nuvoton/Makefile
+> @@ -1,4 +1,5 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   dtb-$(CONFIG_ARCH_MA35) += ma35d1-iot-512m.dtb
+> +dtb-$(CONFIG_ARCH_MA35) += ma35d1-numaker.dtb
+>   dtb-$(CONFIG_ARCH_MA35) += ma35d1-som-256m.dtb
+>   dtb-$(CONFIG_ARCH_NPCM) += nuvoton-npcm845-evb.dtb
+> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
 > new file mode 100644
-> index 000000000000..e1d408809694
+> index 000000000000..16c003998d3b
 > --- /dev/null
-> +++ b/drivers/pwm/pwm-axiado.c
-> @@ -0,0 +1,332 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
 > +/*
-> + * Copyright (c) 2021-2026 Axiado Corporation.
-
-It's not universally done in the kernel, but I'd be happy to see this
-formalized as:
-
-	SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
-
+> + * Copyright (C) 2025 Bootlin
+> + * Author: Miquel Raynal <miquel.raynal@bootlin.com>
 > + */
 > +
-> +/*
-
-Please put "Limitations:" here such that
-
-	sed -rn '/Limitations:/,/\*\/?$/p' drivers/pwm/*.c
-
-
-gives the details.
-
-> + * - Supports normal polarity. Configuration changes take effect immedia=
-tely
-> + *   without waiting for the current period to complete.
-> + * - The hardware output remains high when the controller is disabled.
-> + *   Therefore, a logically disabled PWM is implemented using the hardwa=
-re
-> + *   constant-low representation.
-> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
-> + *   0xffffffff is reserved by the hardware for a constant-low output.
-> + *   Longer periods are clamped to the maximum.
-> + * - 0% duty cycle: Programmed as a constant-low period because the
-> + *   hardware interprets a zero high time as a constant-high output.
-> + *   Consequently, the requested period cannot be read back while the
-> + *   duty cycle is 0%.
-> + * - 100% duty cycle: Fully supported and produces a constant-high outpu=
-t.
-> + */
+> +/dts-v1/;
+> +#include "ma35d1-som-256m.dts"
 > +
-> +#include <linux/bits.h>
-> +#include <linux/clk.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pwm.h>
-> +
-> +/* Register offsets */
-> +#define AXIADO_PWM_CTRL_REG	0x0000
-> +#define AXIADO_PWM_PERIOD_REG	0x0004
-> +#define AXIADO_PWM_HIGH_REG	0x0008
-> +
-> +/* Period and duty cycle limits */
-> +#define AXIADO_PWM_PERIOD_MIN	2
-> +#define AXIADO_PWM_PERIOD_MAX	0xfffffffe
-> +#define AXIADO_PWM_PERIOD_CONST_LOW	0xffffffff
-> +#define AXIADO_PWM_DUTY_MIN	1
-> +
-> +/* Control register bits */
-> +#define AXIADO_PWM_CTRL_ENABLE	BIT(0)
-> +
-> +struct axiado_pwm_chip {
-> +	void __iomem *base;
-> +	unsigned long rate;
-> +	u32 cached_period;
-> +	bool logically_disabled;
+> +/ {
+> +       model = "Nuvoton MA35D1 NuMaker";
+> +       compatible = "nuvoton,ma35d1-numaker", "nuvoton,ma35d1-som", "nuvoton,ma35d1";
 > +};
 > +
-> +struct axiado_pwm_waveform {
-> +	u32 period;
-> +	u32 duty;
-> +	bool enabled;
+> +&pinctrl {
+> +       spi-grp {
+> +               pinctrl_qspi0: qspi0-pins {
+> +                       nuvoton,pins = <3 0 5>,
+> +                                      <3 1 5>,
+> +                                      <3 2 5>,
+> +                                      <3 3 5>,
+> +                                      <3 4 5>,
+> +                                      <3 5 5>;
+> +                       bias-disable;
+> +                       power-source = <1>;
+> +               };
+> +       };
 > +};
 > +
-> +static int
-> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> +			       struct pwm_device *pwm,
-> +			       const struct pwm_waveform *wf,
-> +			       void *_wfhw)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	struct axiado_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 period;
-> +	u64 duty;
-> +	int ret =3D 0;
+> +&qspi0 {
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_qspi0>;
+> +       status = "okay";
 > +
-> +	/* Encode a disabled request as a zeroed hardware waveform. */
-> +	if (!wf->period_length_ns) {
-> +		*wfhw =3D (struct axiado_pwm_waveform) {};
+> +       flash: flash@0 {
+> +               compatible = "spi-nand";
+> +               reg = <0>;
+> +               spi-max-frequency = <30000000>;
+> +               spi-rx-bus-width = <4>;
+> +               spi-tx-bus-width = <4>;
+> +       };
+> +};
+>
+> --
+> 2.54.0
+>
 
-{ } please (i.e. a space in the empty initializer).
+Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
 
-> +		return 0;
-> +	}
-> +
-> +	/* Only an edge-aligned waveform starting at offset zero is supported. =
-*/
-> +	if (wf->duty_offset_ns)
-> +		return -EINVAL;
+Best regards,
+Jacky Huang
 
-That is wrong. You're supposed to implement the biggest duty_offset_ns
-not bigger than the requested value. That's 0 and should happen
-successfully (and silently).
-
-> +	if (wf->duty_length_ns > wf->period_length_ns)
-> +		return -EINVAL;
-
-No need to check that. If you see this happen, that's a bug in the pwm
-core.
-
-> +	period =3D mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
-> +				     NSEC_PER_SEC);
-> +
-> +	if (period < AXIADO_PWM_PERIOD_MIN) {
-> +		period =3D AXIADO_PWM_PERIOD_MIN;
-> +		ret =3D 1;
-> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
-> +		period =3D AXIADO_PWM_PERIOD_MAX;
-> +	}
-> +
-> +	/*
-> +	 * Keep the rounded period for a 0% duty cycle. .write_waveform()
-> +	 * translates it to the hardware constant-low representation.
-> +	 */
-> +	if (!wf->duty_length_ns) {
-> +		*wfhw =3D (struct axiado_pwm_waveform) {
-> +			.period =3D period,
-> +			.duty =3D 0,
-> +			.enabled =3D true,
-> +		};
-
-This happens also without the special handling, right? So the if could
-be dropped.
-
-> +		return ret;
-> +	}
-> +
-> +	duty =3D mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
-> +				   NSEC_PER_SEC);
-> +
-> +	/*
-> +	 * Preserve an exact 100% duty request when the hardware period has
-> +	 * been clamped.
-> +	 */
-> +	if (wf->duty_length_ns =3D=3D wf->period_length_ns)
-> +		duty =3D period;
-
-With the check below for duty > period this isn't needed.
-
-> +	/*
-> +	 * Period clamping can leave the converted duty greater than the
-> +	 * final hardware period. In that case, clamp it to 100% duty.
-> +	 */
-> +	if (duty > period)
-> +		duty =3D period;
-> +
-> +	*wfhw =3D (struct axiado_pwm_waveform) {
-> +		.period =3D period,
-> +		.duty =3D duty,
-> +		.enabled =3D true,
-> +	};
-> +
-> +	return ret;
-> +}
-> +
-> +static int
-> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> +				 struct pwm_device *pwm,
-> +				 const void *_wfhw,
-> +				 struct pwm_waveform *wf)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	const struct axiado_pwm_waveform *wfhw =3D _wfhw;
-> +
-> +	if (!wfhw->enabled) {
-> +		*wf =3D (struct pwm_waveform) {
-> +			.period_length_ns =3D 0,
-> +			.duty_length_ns =3D 0,
-> +			.duty_offset_ns =3D 0,
-> +		};
-
-nitpick: setting .period_length_ns =3D 0 is sufficient here and that's
-what other drivers do.
-
-> +		return 0;
-> +	}
-> +
-> +	*wf =3D (struct pwm_waveform) {
-> +		.period_length_ns =3D
-> +			mul_u64_u64_div_u64_roundup(wfhw->period, NSEC_PER_SEC,
-> +						    axpwm->rate),
-> +		.duty_length_ns =3D
-> +			mul_u64_u64_div_u64_roundup(wfhw->duty, NSEC_PER_SEC,
-> +						    axpwm->rate),
-> +		.duty_offset_ns =3D 0,
-> +	};
-> +
-> +	return 0;
-> +}
-> +
-> +static int axiado_pwm_read_waveform(struct pwm_chip *chip,
-> +				    struct pwm_device *pwm,
-> +				    void *_wfhw)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	struct axiado_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 period;
-> +	u32 duty;
-> +	u32 ctrl;
-> +
-> +	/*
-> +	 * A logically disabled request is implemented as a constant-low
-> +	 * hardware waveform because disabling the controller drives the
-> +	 * output high.
-> +	 */
-> +	if (axpwm->logically_disabled) {
-> +		*wfhw =3D (struct axiado_pwm_waveform) {};
-> +		return 0;
-
-that looks wrong. At least the first readout before .write_waveform()
-was called might be bogus then.
-
-> +	}
-> +
-> +	ctrl =3D readl(axpwm->base + AXIADO_PWM_CTRL_REG);
-> +	period =3D readl(axpwm->base + AXIADO_PWM_PERIOD_REG);
-> +	duty =3D readl(axpwm->base + AXIADO_PWM_HIGH_REG);
-> +
-> +	/* The constant-low encoding doesn't hold the period, so restore it. */
-
-This isn't needed. If the output is constant low, just report period =3D
-1 and drop .cached_period.
-
-> +	if (period =3D=3D AXIADO_PWM_PERIOD_CONST_LOW) {
-> +		period =3D axpwm->cached_period;
-> +		duty =3D 0;
-> +	} else if (duty > period) {
-> +		duty =3D period;
-> +	}
-> +
-> +	*wfhw =3D (struct axiado_pwm_waveform) {
-> +		.period =3D period,
-> +		.duty =3D duty,
-> +		.enabled =3D !!(ctrl & AXIADO_PWM_CTRL_ENABLE),
-> +	};
-> +
-> +	return 0;
-> +}
-> +
-> +static int axiado_pwm_write_waveform(struct pwm_chip *chip,
-> +				     struct pwm_device *pwm,
-> +				     const void *_wfhw)
-> +{
-> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
-> +	const struct axiado_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 period =3D wfhw->period;
-> +	u32 duty =3D wfhw->duty;
-> +
-> +	if (!wfhw->enabled) {
-> +		/*
-> +		 * Disabling the controller drives its output high. Implement
-> +		 * the logically disabled state using the constant-low hardware
-> +		 * representation instead.
-> +		 */
-> +		writel(AXIADO_PWM_PERIOD_CONST_LOW,
-> +		       axpwm->base + AXIADO_PWM_PERIOD_REG);
-> +		writel(AXIADO_PWM_DUTY_MIN,
-> +		       axpwm->base + AXIADO_PWM_HIGH_REG);
-> +		writel(AXIADO_PWM_CTRL_ENABLE,
-> +		       axpwm->base + AXIADO_PWM_CTRL_REG);
-> +		axpwm->logically_disabled =3D true;
-> +
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * A zero high time produces a constant high output, so use the
-> +	 * constant-low period encoding for a 0% duty cycle. Keep the high time
-> +	 * non-zero because a zero value takes precedence over that encoding.
-> +	 * Cache the requested period for .read_waveform().
-> +	 */
-> +	if (!duty) {
-> +		axpwm->cached_period =3D period;
-> +		period =3D AXIADO_PWM_PERIOD_CONST_LOW;
-> +		duty =3D AXIADO_PWM_DUTY_MIN;
-> +	}
-> +
-> +	/*
-> +	 * The hardware has no shadow registers. These writes may alter the
-> +	 * active waveform before the current period has completed.
-> +	 */
-> +	writel(period, axpwm->base + AXIADO_PWM_PERIOD_REG);
-> +	writel(duty, axpwm->base + AXIADO_PWM_HIGH_REG);
-> +	writel(AXIADO_PWM_CTRL_ENABLE, axpwm->base + AXIADO_PWM_CTRL_REG);
-> +	axpwm->logically_disabled =3D false;
-
-Ideally all the special case handling happens in the
-=2Eround_waveform_tohw() callback such that .write_waveform() is as quick
-as possible and just writes the content of axiado_pwm_waveform to the
-registers.
-
-> +
-> +	return 0;
-> +}
-
-I was about to write something else, but was interrupted and don't
-remember. :-\ So I might still find something when I look at your next
-revision.
-
-Best regards
-Uwe
-
---d2hth543vljjdczy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqhNDQACgkQj4D7WH0S
-/k5KzAgAr9O1wuud8O2wU6xGCBdGpB75kvETqBK50abgti5xxWRWRRNVzTSQUALQ
-A8XcMT7WT35vg57EUiz0INaWeXutiPCc2YZoGviqLCk9F+RGW5kJiEys5BtfOlQ+
-ExA1tMY5byCi/jFnn579OnKlgtTcFp7e6i0NXiw50dbTxacoHFW2Vit+WZ6SeNC2
-pO+iJvTbBqJhb4JMgHPawAQxB5x4DsBBiWIZZYzjwifaS4y2mQLiZCcXcP6sMc55
-fyLIjPOXdFH6pMQohOS0v/Khcvbm5ntzvyLXMIt71MfXP+iob0+xrZTde+qlt+P5
-AliXnbSX4oDOxyC7bOGceHol4Qobxg==
-=HTm2
------END PGP SIGNATURE-----
-
---d2hth543vljjdczy--
 
