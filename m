@@ -1,66 +1,54 @@
-Return-Path: <openbmc+bounces-2581-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2582-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C2CC88E45
-	for <openbmc@archiver.kernel.org>; Fri, 11 Sep 2026 07:03:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B068CC88E50
+	for <openbmc@archiver.kernel.org>; Fri, 11 Sep 2026 08:37:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hh59C5DPyz2ypW;
-	Fri, 11 Sep 2026 17:03:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hh7Fs13PZz2ypW;
+	Fri, 11 Sep 2026 18:37:21 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789110191;
-	cv=none; b=WTchoGp/0Bkpj03TOBhT6LACxkWOqOqLW5CgOb4V+Q3AG5WJALeUht8GSVHGlFVG3xV43dNaHAprlqSvynw+0oANh5vt9K9Dq4SkysQndMKFUilyjMuVLfmdgNdOXRgmbcxw1RDAcdySAXFtrnXlCauqSUHH7rin9a693yyX0I+51g7L4FC7K1l9Eu5I8aBMNLZGOCDI1PwQ7mF9B1kshgfWsyZavXMRHBI0OjWQop3H/9hxgiS15VjzbwKYP4riic6B1I8RRgo15DqKMo7S4KdSmYaBwpMnKrgLkJ2jcZtbqTKDLdAVF+irhpxrkGbnp5Jb+0w+xdB90f+QBMVLNA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789115840;
+	cv=none; b=DBGmPPrwnHqZDHRQzwv29vxgfDxUoIUljfW2LVHs/AaW6VPO4AhvDq224KO6QYajBlUDC5BgDRgkLiAhL+ts1gEUu5Kvt26IfVgXO4Fcdf0gm+iAxCshUeja8aaTek3Z3DIPiCr00EkBx88LHvEZgkNMuiPTRhKxJe4ExWGMN5YLj8sMZ8vrrjU2JFRScvk3xArz5cGg3tD4s4bT8+h6JQ6nkBNtd4zl+7pl8+uwSJ+KiDyCYhGCmxy6s5wjWkN2VhMd9mbnJuu2YAoFkuZwuARtsB4vmJ74HNRejYTDxfpM0/CHvZ+5ghNbxM/abFi/0PrsvSofi0+kvd5kDuNnRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789110191; c=relaxed/relaxed;
-	bh=fLOv9PqRHm0Dp6AEU3FrEQYqlkc9d2Rysj5SU5cG6RY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kphvx1I/5XkCa5j53MvbgfXL5Y2/w9Qj7UY+vjwaG4Dvqyj1aqXq7ThYm3SQq/NdKLQ7F2poniEC1yRsYNR5IaCKW0WF+7iqpaxSj8963xYFDXXRjO04rlDpEhCj/OO0zAIBf4x4UDWP+NZQYNZdsL+a7TfZXiL3wCdY8HsZhkYUPWzLblpkKLiYG//qrnAQVMGxTPkajEgJhwR70IMTNfBPz6ydBlYTqZpEpU5gMVWY8Ut85E9jy1XW+As1Ws8aNeXraTSMUelHw3e5cfg3sEn7XajIJKvccvgLrnELFbt5lwpe71OILdTOU7SATpfB+3QPwSe2v3Pe8N5etcNDVQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gg0J95fH; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1789115840; c=relaxed/relaxed;
+	bh=wUW15siUF6fVe7aapjHUIX4c0una8FGBH1MY08v3xo0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RsJzQFX+7MTO5tZAO8zDOmnHj+Fx9T8n+atqlLLIjORBi2jdwpwjzUazWK84CVqv5PwwHDnRne8TvDr6EZfKUGSdnvM3xAzusG3QLGE4vFQq6kSYCYYeVzHeH+T5kXsCk5zEYTveKFR8zzjaN6gbIKXd0/5zeMDErCJFARYM2N4XwZIxellkIvY/8aQCRFaJ2iLemfrH983AdsoMsN0cTZX5Va1+tlLnWsRVpmXCGmCxWVJy/ETTgaGqC2ycIdcsBVCW5h0sPL/7rbTZWTrd2M4V+Rc9215pYDwcee39BQ1WLqHPkNftsBLqXW+SyaxjZ+jCQlIp/DUr1MBj+3vbTg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eOGYyVnt; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+eric.yang.wiwynn.gmail.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gg0J95fH;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eOGYyVnt;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=krzk@kernel.org; receiver=lists.ozlabs.org)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+eric.yang.wiwynn.gmail.com@kernel.org; receiver=lists.ozlabs.org)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hh59B2rpCz2yd7
-	for <openbmc@lists.ozlabs.org>; Fri, 11 Sep 2026 17:03:10 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id D0A9841399;
-	Fri, 11 Sep 2026 07:03:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF3421F000FF;
-	Fri, 11 Sep 2026 07:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789110187;
-	bh=fLOv9PqRHm0Dp6AEU3FrEQYqlkc9d2Rysj5SU5cG6RY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gg0J95fHymQW9M8DoQvwqtACHc8nmHNl3IQWWBWUFvaP/N3OpVH0jrAGtc44djAkT
-	 3+G3/D5vLC4wPjCNtA0WMtNa/MO2TkPe+ebtT0UBqnDRZIkTsEYY1dAJmZPRs98rUD
-	 MTp1DoYUVl4Xyk70tm07cBt9bKGNME+RcofIzO0pHken0ud47IeATdooHTXZXjsNX+
-	 6/K92K/LJCRnlHk5J3CkxuKAOYAfuojyK1U4E7MqSpT85p7Z5gLNfE5K07Vcov9cEX
-	 5Unv0Z/nW7hykBvwro5/waAjxNj8kmwAmp9xKsZUeK9e5HOSQzr27Q2OGR3euIz1ut
-	 laaSeYJmaKqFA==
-Date: Fri, 11 Sep 2026 09:03:03 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
-	Karthikeyan Mitran <kmitran@axiado.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: add Axiado AX3000 and AX3005
- PWM fan controller
-Message-ID: <20260911-melodic-naughty-kestrel-efc72e@quoll>
-References: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
- <20260903-axiado-ax3000-pwm-fan-v2-1-ef43df46163e@axiado.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hh7Fq6zqXz2yFj
+	for <openbmc@lists.ozlabs.org>; Fri, 11 Sep 2026 18:37:19 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id A6C0C40C1E;
+	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 888DCC2BCF4;
+	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789115837;
+	bh=tRTY9fJyiDEWCnnABx5u1u5kp1Wfuv3S/TXsQJ1CXhU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=eOGYyVnt6tp9MFR9ssE5xEf0K2tyVD/nrqUpG6TNFCkXM0AlulC4bvQ55fPa1TkTt
+	 usDZZNV7WMwmNL87iM2Xg99zpPF+Fr30a9cYNVktMauK8pgRhMBNd+c8SWYolynP1Y
+	 ut8O9qzcUEdpKEzGHm3bZ7dQrTVEU97f5JMrjp26BdMzUNXKPdVukfke3SZ1Ljh+l7
+	 BhPK8c04jo2i/7yo54xwkyaelxmHUgEeUSVYJA0wVn0u3FYYkVgDQu7kLcibx/RTKw
+	 j21XhsYVonMaj+7Ft2NFUGWVVaP+HNnJFUtE8vpmMp4dmU0sd6+FzDgVKrz9SrrFoW
+	 XmIxawgN3BhyA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6270BC88E50;
+	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
+From: Eric Yang via B4 Relay <devnull+eric.yang.wiwynn.gmail.com@kernel.org>
+Date: Fri, 11 Sep 2026 08:37:16 +0000
+Subject: [PATCH linux dev-6.18] hwmon: (pmbus) Add MPQ82D00 driver
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -72,29 +60,455 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260903-axiado-ax3000-pwm-fan-v2-1-ef43df46163e@axiado.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-backport-mpq82d00-dev-6-18-v1-1-6a3f5eb7532b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIALu9o2oC/x2MQQ7CIBAAv9Ls2TUsjQT8ivFQYNWNSilo06Tp3
+ 8UeZzKZFSoX4QrnboXCs1QZUwM6dBAeQ7ozSmwMWmmjHBH6ITzzWD74zpPVUSmMPKNBsuhOgb2
+ 3veudgTbIhW+y7PMLvCR9l7/d8yNZuG7bDz5b6ql/AAAA
+To: tan.siewert@9elements.com, andrew@codeconstruct.com.au, 
+ openbmc@lists.ozlabs.org
+Cc: Marshall_Zhan@wiwynn.com, joel@jms.id.au, Angela_Cheng@wiwynn.com, 
+ Wensheng Wang <wenswang@yeah.net>, Guenter Roeck <linux@roeck-us.net>, 
+ Eric Yang <eric.yang.wiwynn@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115836; l=11563;
+ i=eric.yang.wiwynn@gmail.com; s=20260911; h=from:subject:message-id;
+ bh=XoIaLLi4TjhqfPrDQKq1cOXhjhSXhuvqpcUKEl4L5eQ=;
+ b=7gOuXR/QfEBXeWBJEFF3NpfwlPNDTRZOqL4D6qCj+hhKfu8DthvKJfvHcQtW1IklaEqLcqWbz
+ Vl1i23Q3FAvB/ra2DD9qBzkZC2+WHAieX9+8LIY3J/e281kmATnv8eF
+X-Developer-Key: i=eric.yang.wiwynn@gmail.com; a=ed25519;
+ pk=XYQiwgPZNUCt1JCbsO7zX8ODEiRKocz7fYwt+aWnXBs=
+X-Endpoint-Received: by B4 Relay for eric.yang.wiwynn@gmail.com/20260911
+ with auth_id=1023
+X-Original-From: Eric Yang <eric.yang.wiwynn@gmail.com>
+Reply-To: eric.yang.wiwynn@gmail.com
 
-On Thu, Sep 03, 2026 at 01:38:39AM -0700, Petar Stepanovic wrote:
-> Add a Devicetree binding for the PWM fan controller found on the
-> Axiado AX3000 and AX3005 SoCs.
-> 
-> The controller measures fan speed using a hardware tachometer block.
-> Fan speed is controlled through a PWM signal supplied by an external
-> PWM controller.
-> 
-> Add a MAINTAINERS entry for the binding.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
->  .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      | 72 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 +++
->  2 files changed, 80 insertions(+)
+From: Wensheng Wang <wenswang@yeah.net>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Add support for MPS mpq82d00 controller. This driver exposes
+telemetry and limit value readings and writtings.
+
+(cherry picked from commit ff71049f36172fd3590bd170d1bc9cdd9c3e6839)
+
+Signed-off-by: Wensheng Wang <wenswang@yeah.net>
+Link: https://lore.kernel.org/r/20260704081952.1701914-2-wenswang@yeah.net
+[groeck: Fixed "WARNING: Title underline too short"]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Eric Yang <eric.yang.wiwynn@gmail.com>
+---
+ Documentation/hwmon/index.rst    |   1 +
+ Documentation/hwmon/mpq82d00.rst |  73 ++++++++++++
+ MAINTAINERS                      |   7 ++
+ drivers/hwmon/pmbus/Kconfig      |   9 ++
+ drivers/hwmon/pmbus/Makefile     |   1 +
+ drivers/hwmon/pmbus/mpq82d00.c   | 249 +++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 340 insertions(+)
+
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index c5ab1aa5d416..136ffb914ede 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -188,6 +188,7 @@ Hardware Monitoring Kernel Drivers
+    mp5990
+    mp9941
+    mp9945
++   mpq82d00
+    mpq8785
+    nct6683
+    nct6775
+diff --git a/Documentation/hwmon/mpq82d00.rst b/Documentation/hwmon/mpq82d00.rst
+new file mode 100644
+index 000000000000..0749c130bd11
+--- /dev/null
++++ b/Documentation/hwmon/mpq82d00.rst
+@@ -0,0 +1,73 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++Kernel driver mpq82d00
++======================
++
++Supported chips:
++
++  * MPS mpq82d00
++
++    Prefix: 'mpq82d00'
++
++Author:
++
++	Wensheng Wang <wenswang@yeah.net>
++
++Description
++-----------
++
++This driver implements support for Monolithic Power Systems, Inc. (MPS)
++MPQ82D00 Step-Down Controller.
++
++Device compliant with:
++
++- PMBus rev 1.3 interface.
++
++The driver exports the following attributes via the 'sysfs' files
++for input voltage:
++
++**in1_input**
++
++**in1_label**
++
++**in1_alarm**
++
++The driver provides the following attributes for output voltage:
++
++**in2_input**
++
++**in2_label**
++
++**in2_alarm**
++
++The driver provides the following attributes for output current:
++
++**curr1_input**
++
++**curr1_label**
++
++**curr1_crit**
++
++**curr1_crit_alarm**
++
++The driver provides the following attributes for input power:
++
++**power1_input**
++
++**power1_label**
++
++**power1_alarm**
++
++The driver provides the following attributes for output power:
++
++**power2_input**
++
++**power2_label**
++
++The driver provides the following attributes for temperature:
++
++**temp1_input**
++
++**temp1_crit**
++
++**temp1_crit_alarm**
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1f2873fe5a84..1d8b181b55e2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17562,6 +17562,13 @@ S:	Maintained
+ F:	Documentation/hwmon/mp9945.rst
+ F:	drivers/hwmon/pmbus/mp9945.c
+ 
++MPS MPQ82D00 DRIVER
++M:	Wensheng Wang <wenswang@yeah.net>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/hwmon/mpq82d00.rst
++F:	drivers/hwmon/pmbus/mpq82d00.c
++
+ MR800 AVERMEDIA USB FM RADIO DRIVER
+ M:	Alexey Klimov <alexey.klimov@linaro.org>
+ L:	linux-media@vger.kernel.org
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index 3043d1899a7e..730b6b0d1a4f 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -523,6 +523,15 @@ config SENSORS_MPQ7932
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called mpq7932.
+ 
++config SENSORS_MPQ82D00
++	tristate "MPS MPQ82D00"
++	help
++	  If you say yes here you get hardware monitoring functionality support
++	  for power management IC MPS MPQ82D00.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called mpq82d00.
++
+ config SENSORS_MPQ8785
+ 	tristate "MPS MPQ8785"
+ 	help
+diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+index bd2dd3bb2e48..60a0c5770ac4 100644
+--- a/drivers/hwmon/pmbus/Makefile
++++ b/drivers/hwmon/pmbus/Makefile
+@@ -52,6 +52,7 @@ obj-$(CONFIG_SENSORS_MP5990)	+= mp5990.o
+ obj-$(CONFIG_SENSORS_MP9941)	+= mp9941.o
+ obj-$(CONFIG_SENSORS_MP9945)	+= mp9945.o
+ obj-$(CONFIG_SENSORS_MPQ7932)	+= mpq7932.o
++obj-$(CONFIG_SENSORS_MPQ82D00)	+= mpq82d00.o
+ obj-$(CONFIG_SENSORS_MPQ8785)	+= mpq8785.o
+ obj-$(CONFIG_SENSORS_PLI1209BC)	+= pli1209bc.o
+ obj-$(CONFIG_SENSORS_PM6764TR)	+= pm6764tr.o
+diff --git a/drivers/hwmon/pmbus/mpq82d00.c b/drivers/hwmon/pmbus/mpq82d00.c
+new file mode 100644
+index 000000000000..d51fcffcc6d9
+--- /dev/null
++++ b/drivers/hwmon/pmbus/mpq82d00.c
+@@ -0,0 +1,249 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Hardware monitoring driver for MPS Synchronous Step-Down Converter(MPQ82D00)
++ */
++
++#include <linux/bitfield.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/init.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include "pmbus.h"
++
++#define MPQ82D00_VOUT_DIV	64
++
++#define MPQ82D00_PAGE_NUM	1
++
++#define MPQ82D00_RAIL1_FUNC	(PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | \
++							PMBUS_HAVE_IOUT | PMBUS_HAVE_TEMP | \
++							PMBUS_HAVE_POUT | PMBUS_HAVE_PIN | \
++							PMBUS_HAVE_STATUS_VOUT | \
++							PMBUS_HAVE_STATUS_IOUT | \
++							PMBUS_HAVE_STATUS_TEMP | \
++							PMBUS_HAVE_STATUS_INPUT)
++
++struct mpq82d00_data {
++	struct pmbus_driver_info info;
++	int vout_scale;
++};
++
++#define to_mpq82d00_data(x) container_of(x, struct mpq82d00_data, info)
++
++static u16 mpq82d00_linear_exp_transfer(u16 word, u16 expect_exponent)
++{
++	s16 exponent, mantissa, target_exponent;
++
++	exponent = ((s16)word) >> 11;
++	mantissa = ((s16)((word & 0x7ff) << 5)) >> 5;
++	target_exponent = (s16)((expect_exponent & 0x1f) << 11) >> 11;
++
++	/*
++	 * The MPQ82D00 does not support negtive limit value, if a negtive
++	 * limit value is written, the limit value will become to 0. And
++	 * the maximum positive limit value is limitted to 0x3FF.
++	 */
++	if (mantissa < 0) {
++		mantissa = 0;
++	} else {
++		if (exponent > target_exponent) {
++			mantissa = (1023 >> (exponent - target_exponent)) >= mantissa ?
++						mantissa << (exponent - target_exponent) :
++						0x3FF;
++		} else {
++			mantissa = clamp_val(mantissa >> (target_exponent - exponent),
++					     0, 0x3FF);
++		}
++	}
++
++	return mantissa | ((expect_exponent << 11) & 0xf800);
++}
++
++static int mpq82d00_read_byte_data(struct i2c_client *client, int page, int reg)
++{
++	int ret;
++
++	switch (reg) {
++	case PMBUS_VOUT_MODE:
++		/*
++		 * The MPQ82D00 does not follow standard PMBus protocol completely,
++		 * and the calculation of vout in this driver is based on direct
++		 * format. As a result, the format of vout is enforced to direct.
++		 */
++		ret = PB_VOUT_MODE_DIRECT;
++		break;
++	default:
++		/*
++		 * These registers are not explicitly handled by the driver,
++		 * as a result, return -ENODATA directly.
++		 */
++		ret = -ENODATA;
++		break;
++	}
++
++	return ret;
++}
++
++static int mpq82d00_read_word_data(struct i2c_client *client, int page,
++				   int phase, int reg)
++{
++	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
++	struct mpq82d00_data *data = to_mpq82d00_data(info);
++	int ret;
++
++	switch (reg) {
++	case PMBUS_STATUS_WORD:
++	case PMBUS_READ_VIN:
++	case PMBUS_READ_IOUT:
++	case PMBUS_READ_POUT:
++	case PMBUS_READ_PIN:
++	case PMBUS_READ_TEMPERATURE_1:
++	case PMBUS_IOUT_OC_FAULT_LIMIT:
++	case PMBUS_OT_FAULT_LIMIT:
++		/*
++		 * These registers are not explicitly handled by the driver,
++		 * as a result, return -ENODATA directly.
++		 */
++		ret = -ENODATA;
++		break;
++	case PMBUS_READ_VOUT:
++		ret = pmbus_read_word_data(client, page, phase, reg);
++		if (ret < 0)
++			return ret;
++
++		ret = DIV_ROUND_CLOSEST((ret & GENMASK(11, 0)) * data->vout_scale,
++					MPQ82D00_VOUT_DIV);
++		break;
++	default:
++		/*
++		 * The MPQ82D00 do not support other telemetry and limit
++		 * value reading, so, return -EINVAL directly.
++		 */
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++static int mpq82d00_write_word_data(struct i2c_client *client, int page, int reg,
++				    u16 word)
++{
++	int ret;
++
++	switch (reg) {
++	case PMBUS_OT_FAULT_LIMIT:
++		/*
++		 * The PMBUS_OT_FAULT_LIMIT of MPQ82D00 is linear11 format,
++		 * and the exponent is a constant value(5'b00000), so the
++		 * exponent of word parameter should be converted to 5'b00000.
++		 */
++		ret = pmbus_write_word_data(client, page, reg,
++					    mpq82d00_linear_exp_transfer(word, 0x00));
++		break;
++	case PMBUS_IOUT_OC_FAULT_LIMIT:
++		/*
++		 * The PMBUS_IOUT_OC_FAULT_LIMIT of MPQ82D00 is linear11 format,
++		 * and the exponent is a constant value(5'b11100), so the
++		 * exponent of word parameter should be converted to 5'b11100.
++		 */
++		ret = pmbus_write_word_data(client, page, reg,
++					    mpq82d00_linear_exp_transfer(word, 0x1C));
++		break;
++	default:
++		/*
++		 * The MPQ82D00 do not support other limit value configuration,
++		 * so, return -EINVAL directly.
++		 */
++		ret = -EINVAL;
++		break;
++	}
++
++	return ret;
++}
++
++static int mpq82d00_identify(struct i2c_client *client, struct pmbus_driver_info *info)
++{
++	struct mpq82d00_data *data = to_mpq82d00_data(info);
++	int ret;
++
++	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
++	if (ret < 0)
++		return ret;
++
++	ret = i2c_smbus_read_byte_data(client, PMBUS_VOUT_MODE);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * The MPQ82D00 supports three vout mode. If PMBUS_VOUT_MODE
++	 * bit5 is 1, the vout scale is 5mv/LSB.If PMBUS_VOUT_MODE bit5
++	 * is 0, it is linear mode, the vout scale is 1.953125mv/LSB.
++	 */
++	if (FIELD_GET(GENMASK(5, 5), ret))
++		data->vout_scale = 320;
++	else
++		data->vout_scale = 125;
++
++	return 0;
++}
++
++static struct pmbus_driver_info mpq82d00_info = {
++	.pages = MPQ82D00_PAGE_NUM,
++	.format[PSC_VOLTAGE_IN] = linear,
++	.format[PSC_CURRENT_OUT] = linear,
++	.format[PSC_TEMPERATURE] = linear,
++	.format[PSC_VOLTAGE_OUT] = direct,
++	.format[PSC_POWER] = linear,
++
++	.m[PSC_VOLTAGE_OUT] = 1,
++	.R[PSC_VOLTAGE_OUT] = 3,
++	.b[PSC_VOLTAGE_OUT] = 0,
++
++	.func[0] = MPQ82D00_RAIL1_FUNC,
++	.read_word_data = mpq82d00_read_word_data,
++	.read_byte_data = mpq82d00_read_byte_data,
++	.write_word_data = mpq82d00_write_word_data,
++	.identify = mpq82d00_identify,
++};
++
++static int mpq82d00_probe(struct i2c_client *client)
++{
++	struct mpq82d00_data *data;
++
++	data = devm_kzalloc(&client->dev, sizeof(struct mpq82d00_data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	memcpy(&data->info, &mpq82d00_info, sizeof(mpq82d00_info));
++
++	return pmbus_do_probe(client, &data->info);
++}
++
++static const struct i2c_device_id mpq82d00_id[] = {
++	{.name = "mpq82d00"},
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, mpq82d00_id);
++
++static const struct of_device_id __maybe_unused mpq82d00_of_match[] = {
++	{.compatible = "mps,mpq82d00"},
++	{}
++};
++MODULE_DEVICE_TABLE(of, mpq82d00_of_match);
++
++static struct i2c_driver mpq82d00_driver = {
++	.driver = {
++		.name = "mpq82d00",
++		.of_match_table = mpq82d00_of_match,
++	},
++	.probe = mpq82d00_probe,
++	.id_table = mpq82d00_id,
++};
++
++module_i2c_driver(mpq82d00_driver);
++
++MODULE_AUTHOR("Wensheng Wang <wenswang@yeah.net");
++MODULE_DESCRIPTION("PMBus driver for MPS MPQ82D00 device");
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("PMBUS");
+
+---
+base-commit: 3a7b2a135e6b2628768fef537590c5b5bdb6fe7a
+change-id: 20260911-backport-mpq82d00-dev-6-18-95cebb839396
 
 Best regards,
-Krzysztof
+-- 
+Eric Yang <eric.yang.wiwynn@gmail.com>
+
 
 
