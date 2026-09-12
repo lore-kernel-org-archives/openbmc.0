@@ -1,54 +1,81 @@
-Return-Path: <openbmc+bounces-2582-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2583-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B068CC88E50
-	for <openbmc@archiver.kernel.org>; Fri, 11 Sep 2026 08:37:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63591C88E59
+	for <openbmc@archiver.kernel.org>; Sat, 12 Sep 2026 14:58:30 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hh7Fs13PZz2ypW;
-	Fri, 11 Sep 2026 18:37:21 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789115840;
-	cv=none; b=DBGmPPrwnHqZDHRQzwv29vxgfDxUoIUljfW2LVHs/AaW6VPO4AhvDq224KO6QYajBlUDC5BgDRgkLiAhL+ts1gEUu5Kvt26IfVgXO4Fcdf0gm+iAxCshUeja8aaTek3Z3DIPiCr00EkBx88LHvEZgkNMuiPTRhKxJe4ExWGMN5YLj8sMZ8vrrjU2JFRScvk3xArz5cGg3tD4s4bT8+h6JQ6nkBNtd4zl+7pl8+uwSJ+KiDyCYhGCmxy6s5wjWkN2VhMd9mbnJuu2YAoFkuZwuARtsB4vmJ74HNRejYTDxfpM0/CHvZ+5ghNbxM/abFi/0PrsvSofi0+kvd5kDuNnRQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hhvg25S33z2yqX;
+	Sun, 13 Sep 2026 00:58:22 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:39::10"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789225102;
+	cv=none; b=Vpvr4BdURGkXU+PQ5tJvRNKKDSz0JvhoGMq4yPJiKv9aa44/e2ul14iK+y66f1aw18SgX10f6oJvqp+V4K0ubbB/cK0ul1D+jFyX/NPdZL6II9nW3Vthcj4UtdwcFid2ZSDwy2b8aPDL+jgz1hUbfjYg9o3sqFY+3lSH4AM4g52A4PY3J1zfjxJGZyBkVqjNEICz9CDCiNUOilq//uCh79ElCutRY3drgq4F7cy5Gb58kkwxmtIJi8fF8hVWRZWtLqsyz7jqrn7/U0JS4/O3Kv1JoNQYmlTA3k++rudIJtpSTMnbt9Xxcog5nV6Bwa7MtjM4M+SIj/qxmOQzgleacA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789115840; c=relaxed/relaxed;
-	bh=wUW15siUF6fVe7aapjHUIX4c0una8FGBH1MY08v3xo0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=RsJzQFX+7MTO5tZAO8zDOmnHj+Fx9T8n+atqlLLIjORBi2jdwpwjzUazWK84CVqv5PwwHDnRne8TvDr6EZfKUGSdnvM3xAzusG3QLGE4vFQq6kSYCYYeVzHeH+T5kXsCk5zEYTveKFR8zzjaN6gbIKXd0/5zeMDErCJFARYM2N4XwZIxellkIvY/8aQCRFaJ2iLemfrH983AdsoMsN0cTZX5Va1+tlLnWsRVpmXCGmCxWVJy/ETTgaGqC2ycIdcsBVCW5h0sPL/7rbTZWTrd2M4V+Rc9215pYDwcee39BQ1WLqHPkNftsBLqXW+SyaxjZ+jCQlIp/DUr1MBj+3vbTg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eOGYyVnt; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+eric.yang.wiwynn.gmail.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1789225102; c=relaxed/relaxed;
+	bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KCb1X3ELdXMS605ov9F8JBBjWokOWQqhUHWUR0OiGZay5DKRvsqjHr3b1TJxOi104lltGB1cxdqljuxkP8ZETBb6o5f1PvC8UnXq7/4v1QU7jCQBeiryZtq/cw5GARZxqe0LuENksPQOV98F77orksFrM12DQ0fJtT2G+v1D//EXCzgMaiHuze5OJxhwAmU7f4KdMMNe4hHJWqOvVHKHDtr0aAwkOkjmF33USEM/cau2g5F0quSevkq8l65giv77sa8nCtjsq6pcguucR88f7L2vBZo0MZlj5RAe8+H7k4L7QcnWBh6Askw0kZDWdlPM6V+GLce/3uSq5C37eMdSPg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X1Kh87e7; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:39::10; helo=mail-pj2-x10.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=eOGYyVnt;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X1Kh87e7;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+eric.yang.wiwynn.gmail.com@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:39::10; helo=mail-pj2-x10.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-pj2-x10.google.com (mail-pj2-x10.google.com [IPv6:2607:f8b0:4864:39::10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hh7Fq6zqXz2yFj
-	for <openbmc@lists.ozlabs.org>; Fri, 11 Sep 2026 18:37:19 +1000 (AEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id A6C0C40C1E;
-	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 888DCC2BCF4;
-	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789115837;
-	bh=tRTY9fJyiDEWCnnABx5u1u5kp1Wfuv3S/TXsQJ1CXhU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=eOGYyVnt6tp9MFR9ssE5xEf0K2tyVD/nrqUpG6TNFCkXM0AlulC4bvQ55fPa1TkTt
-	 usDZZNV7WMwmNL87iM2Xg99zpPF+Fr30a9cYNVktMauK8pgRhMBNd+c8SWYolynP1Y
-	 ut8O9qzcUEdpKEzGHm3bZ7dQrTVEU97f5JMrjp26BdMzUNXKPdVukfke3SZ1Ljh+l7
-	 BhPK8c04jo2i/7yo54xwkyaelxmHUgEeUSVYJA0wVn0u3FYYkVgDQu7kLcibx/RTKw
-	 j21XhsYVonMaj+7Ft2NFUGWVVaP+HNnJFUtE8vpmMp4dmU0sd6+FzDgVKrz9SrrFoW
-	 XmIxawgN3BhyA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6270BC88E50;
-	Fri, 11 Sep 2026 08:37:17 +0000 (UTC)
-From: Eric Yang via B4 Relay <devnull+eric.yang.wiwynn.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 08:37:16 +0000
-Subject: [PATCH linux dev-6.18] hwmon: (pmbus) Add MPQ82D00 driver
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hhvg03Cp0z2xbQ
+	for <openbmc@lists.ozlabs.org>; Sun, 13 Sep 2026 00:58:18 +1000 (AEST)
+Received: by mail-pj2-x10.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso308859a91.2
+        for <openbmc@lists.ozlabs.org>; Sat, 12 Sep 2026 07:58:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789225095; x=1789829895; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
+        b=X1Kh87e7VLZC7V0s3owiU4mcgs2THdm3GeDFvO2Iw39ZHc5RAj7OZBV/K6vp86OIZ+
+         bC/1LX/7PVNhPSr1rQtjWSIr3cMoW6MV76/0kcD/xyvnOgWIAlWeey1gpVIGcTCuYjkr
+         Ls2ivqrBZaw8HoiSCPSVQRO736GdsBp+yqtRMzhJCyubu/F6ScHNAyU0giPB4YCCQrE9
+         z2zGAdAQjVIILx6VKoW6wRn9Cj3B0EjFD30+G0Ih8jS3y9aD7NLD4tkqXp9i5nfhnNPy
+         skKIULSmM9kn1HV5awqs+gy2ZjE0MX0gca1gjx7mKbb3UQKiqHWr9Bf0z3rtqwzdA9Xq
+         6MoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789225095; x=1789829895;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
+        b=O94th/cYxOoJX38tUCduOQhm2iuZ6IP3df3XORrX+oCjSP0lyhNi7UiT4UKp06sljg
+         ZZSOfAGmt5+WQ/IcPpieBrJcOBOIPMFJywMpg+HVmPfSGpG6aGG9mwL9RXM1OFIlEy5L
+         2OW2OojuQbD7rR2zfDvaBsawIGKPEWGEiaAbUhqA2b9knPMjN+FhWQMuVLH3lcUx/I9q
+         GThEOAmOaMGvWW2+xYpVQFmOVLypIoLJAStAQGbtzJx3mv4MTAtxjuCulrzzY2bZIf9X
+         XStg/bWCJgTRL3BbJ81l/fJpLi+vJTLdnAjwRbZ6PQOPfqYHV6Hdn3/oL1IyBvTHrWwd
+         BqWQ==
+X-Gm-Message-State: AFuF++mT7LxnC3ueQN5H5WMI3F0wZpVeKdRLsdHRJU0lmZhG7oFe3V7c
+	ySDY/yfrN7ZyR0ddS9SR3/wVCAYvxCeB/Rik+yru09Ncja607pOrZxEt
+X-Gm-Gg: AYBFou1cUTl7q4syGFuBwXXlxOTSaPtULc2tj4RiHdczY/tJ1cLbvpuR6jrhvki3MVu
+	f1mPvI4oi+brZPlip/gZGwt/OBkY3V2cjQTTkYPrfLUS4JDxEL3lclxJyUwyPFsOZMuwiCFSOCH
+	biJMvF2rJdk1Bl8CvWYSzFf2/+sy057zhw7NJlKrHCllxiGKn5G+IXOo0o3nxqdwrOTDe8i+VIN
+	Tsez/H2cPq1lBpTWlaM02xQ29I93oKpIfcT+tX5OJalM13yVNQrePy0n2JNAuXZF2SMaiEZ082c
+	txKTt+RyqH2VFMjeO3Hm7H6GF10A44QUHrQDwuVlI3JilCjlZX0EdMLYQuSGw8nTkpGRpXgeOS0
+	Radd8IelLk6BhgHQftcItPCHpX9EIf/m+eQzJNEqC+a+xMMM+wBiNU6IOlgUqSYxIVohqbYXS3y
+	4mFJ6+Nmf1agD4T/IrHwfB71HQe8lqbtPA15doP2sVKeInnwA1EzHp9HfgebJEHUyseHBolo1i/
+	ermHCfKyUygI2IKiho1rHSl3Hp2xSFL/6CF3ObP9wCZc42B
+X-Received: by 2002:a17:90b:53cf:b0:380:540:d499 with SMTP id 98e67ed59e1d1-39dbbeb3c67mr5634290a91.6.1789225095539;
+        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d554220sm3250791a91.2.2026.09.12.07.58.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <33b90bab-8562-4638-a981-70f11459d380@roeck-us.net>
+Date: Sat, 12 Sep 2026 07:58:13 -0700
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -60,455 +87,137 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Iwona Winiarska <iwona.winiarska@intel.com>
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-backport-mpq82d00-dev-6-18-v1-1-6a3f5eb7532b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIALu9o2oC/x2MQQ7CIBAAv9Ls2TUsjQT8ivFQYNWNSilo06Tp3
- 8UeZzKZFSoX4QrnboXCs1QZUwM6dBAeQ7ozSmwMWmmjHBH6ITzzWD74zpPVUSmMPKNBsuhOgb2
- 3veudgTbIhW+y7PMLvCR9l7/d8yNZuG7bDz5b6ql/AAAA
-To: tan.siewert@9elements.com, andrew@codeconstruct.com.au, 
- openbmc@lists.ozlabs.org
-Cc: Marshall_Zhan@wiwynn.com, joel@jms.id.au, Angela_Cheng@wiwynn.com, 
- Wensheng Wang <wenswang@yeah.net>, Guenter Roeck <linux@roeck-us.net>, 
- Eric Yang <eric.yang.wiwynn@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115836; l=11563;
- i=eric.yang.wiwynn@gmail.com; s=20260911; h=from:subject:message-id;
- bh=XoIaLLi4TjhqfPrDQKq1cOXhjhSXhuvqpcUKEl4L5eQ=;
- b=7gOuXR/QfEBXeWBJEFF3NpfwlPNDTRZOqL4D6qCj+hhKfu8DthvKJfvHcQtW1IklaEqLcqWbz
- Vl1i23Q3FAvB/ra2DD9qBzkZC2+WHAieX9+8LIY3J/e281kmATnv8eF
-X-Developer-Key: i=eric.yang.wiwynn@gmail.com; a=ed25519;
- pk=XYQiwgPZNUCt1JCbsO7zX8ODEiRKocz7fYwt+aWnXBs=
-X-Endpoint-Received: by B4 Relay for eric.yang.wiwynn@gmail.com/20260911
- with auth_id=1023
-X-Original-From: Eric Yang <eric.yang.wiwynn@gmail.com>
-Reply-To: eric.yang.wiwynn@gmail.com
 
-From: Wensheng Wang <wenswang@yeah.net>
+On 9/3/26 06:34, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver. The GNR
+> platform does not support the core mask scan via PCI local read, so
+> handle this case explicitly by returning -EPERM and skipping the core
+> mask initialization.
+> 
+> Define new cpu_info structure for GNR with minimum PECI revision 0x40 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-Add support for MPS mpq82d00 controller. This driver exposes
-telemetry and limit value readings and writtings.
+The series does not suggest how it should be applied. Technically I could
+apply this and the subsequent patch. However, it depends on the use of "gnr"
+for Granite Rapids which is introduced with earlier patches of the series,
+so it will have to wait or be applied together with the rest of the patches.
 
-(cherry picked from commit ff71049f36172fd3590bd170d1bc9cdd9c3e6839)
+For my reference:
 
-Signed-off-by: Wensheng Wang <wenswang@yeah.net>
-Link: https://lore.kernel.org/r/20260704081952.1701914-2-wenswang@yeah.net
-[groeck: Fixed "WARNING: Title underline too short"]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Signed-off-by: Eric Yang <eric.yang.wiwynn@gmail.com>
----
- Documentation/hwmon/index.rst    |   1 +
- Documentation/hwmon/mpq82d00.rst |  73 ++++++++++++
- MAINTAINERS                      |   7 ++
- drivers/hwmon/pmbus/Kconfig      |   9 ++
- drivers/hwmon/pmbus/Makefile     |   1 +
- drivers/hwmon/pmbus/mpq82d00.c   | 249 +++++++++++++++++++++++++++++++++++++++
- 6 files changed, 340 insertions(+)
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index c5ab1aa5d416..136ffb914ede 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -188,6 +188,7 @@ Hardware Monitoring Kernel Drivers
-    mp5990
-    mp9941
-    mp9945
-+   mpq82d00
-    mpq8785
-    nct6683
-    nct6775
-diff --git a/Documentation/hwmon/mpq82d00.rst b/Documentation/hwmon/mpq82d00.rst
-new file mode 100644
-index 000000000000..0749c130bd11
---- /dev/null
-+++ b/Documentation/hwmon/mpq82d00.rst
-@@ -0,0 +1,73 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+Kernel driver mpq82d00
-+======================
-+
-+Supported chips:
-+
-+  * MPS mpq82d00
-+
-+    Prefix: 'mpq82d00'
-+
-+Author:
-+
-+	Wensheng Wang <wenswang@yeah.net>
-+
-+Description
-+-----------
-+
-+This driver implements support for Monolithic Power Systems, Inc. (MPS)
-+MPQ82D00 Step-Down Controller.
-+
-+Device compliant with:
-+
-+- PMBus rev 1.3 interface.
-+
-+The driver exports the following attributes via the 'sysfs' files
-+for input voltage:
-+
-+**in1_input**
-+
-+**in1_label**
-+
-+**in1_alarm**
-+
-+The driver provides the following attributes for output voltage:
-+
-+**in2_input**
-+
-+**in2_label**
-+
-+**in2_alarm**
-+
-+The driver provides the following attributes for output current:
-+
-+**curr1_input**
-+
-+**curr1_label**
-+
-+**curr1_crit**
-+
-+**curr1_crit_alarm**
-+
-+The driver provides the following attributes for input power:
-+
-+**power1_input**
-+
-+**power1_label**
-+
-+**power1_alarm**
-+
-+The driver provides the following attributes for output power:
-+
-+**power2_input**
-+
-+**power2_label**
-+
-+The driver provides the following attributes for temperature:
-+
-+**temp1_input**
-+
-+**temp1_crit**
-+
-+**temp1_crit_alarm**
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 1f2873fe5a84..1d8b181b55e2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17562,6 +17562,13 @@ S:	Maintained
- F:	Documentation/hwmon/mp9945.rst
- F:	drivers/hwmon/pmbus/mp9945.c
- 
-+MPS MPQ82D00 DRIVER
-+M:	Wensheng Wang <wenswang@yeah.net>
-+L:	linux-hwmon@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/hwmon/mpq82d00.rst
-+F:	drivers/hwmon/pmbus/mpq82d00.c
-+
- MR800 AVERMEDIA USB FM RADIO DRIVER
- M:	Alexey Klimov <alexey.klimov@linaro.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 3043d1899a7e..730b6b0d1a4f 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -523,6 +523,15 @@ config SENSORS_MPQ7932
- 	  This driver can also be built as a module. If so, the module will
- 	  be called mpq7932.
- 
-+config SENSORS_MPQ82D00
-+	tristate "MPS MPQ82D00"
-+	help
-+	  If you say yes here you get hardware monitoring functionality support
-+	  for power management IC MPS MPQ82D00.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called mpq82d00.
-+
- config SENSORS_MPQ8785
- 	tristate "MPS MPQ8785"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index bd2dd3bb2e48..60a0c5770ac4 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -52,6 +52,7 @@ obj-$(CONFIG_SENSORS_MP5990)	+= mp5990.o
- obj-$(CONFIG_SENSORS_MP9941)	+= mp9941.o
- obj-$(CONFIG_SENSORS_MP9945)	+= mp9945.o
- obj-$(CONFIG_SENSORS_MPQ7932)	+= mpq7932.o
-+obj-$(CONFIG_SENSORS_MPQ82D00)	+= mpq82d00.o
- obj-$(CONFIG_SENSORS_MPQ8785)	+= mpq8785.o
- obj-$(CONFIG_SENSORS_PLI1209BC)	+= pli1209bc.o
- obj-$(CONFIG_SENSORS_PM6764TR)	+= pm6764tr.o
-diff --git a/drivers/hwmon/pmbus/mpq82d00.c b/drivers/hwmon/pmbus/mpq82d00.c
-new file mode 100644
-index 000000000000..d51fcffcc6d9
---- /dev/null
-+++ b/drivers/hwmon/pmbus/mpq82d00.c
-@@ -0,0 +1,249 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Hardware monitoring driver for MPS Synchronous Step-Down Converter(MPQ82D00)
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+#define MPQ82D00_VOUT_DIV	64
-+
-+#define MPQ82D00_PAGE_NUM	1
-+
-+#define MPQ82D00_RAIL1_FUNC	(PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | \
-+							PMBUS_HAVE_IOUT | PMBUS_HAVE_TEMP | \
-+							PMBUS_HAVE_POUT | PMBUS_HAVE_PIN | \
-+							PMBUS_HAVE_STATUS_VOUT | \
-+							PMBUS_HAVE_STATUS_IOUT | \
-+							PMBUS_HAVE_STATUS_TEMP | \
-+							PMBUS_HAVE_STATUS_INPUT)
-+
-+struct mpq82d00_data {
-+	struct pmbus_driver_info info;
-+	int vout_scale;
-+};
-+
-+#define to_mpq82d00_data(x) container_of(x, struct mpq82d00_data, info)
-+
-+static u16 mpq82d00_linear_exp_transfer(u16 word, u16 expect_exponent)
-+{
-+	s16 exponent, mantissa, target_exponent;
-+
-+	exponent = ((s16)word) >> 11;
-+	mantissa = ((s16)((word & 0x7ff) << 5)) >> 5;
-+	target_exponent = (s16)((expect_exponent & 0x1f) << 11) >> 11;
-+
-+	/*
-+	 * The MPQ82D00 does not support negtive limit value, if a negtive
-+	 * limit value is written, the limit value will become to 0. And
-+	 * the maximum positive limit value is limitted to 0x3FF.
-+	 */
-+	if (mantissa < 0) {
-+		mantissa = 0;
-+	} else {
-+		if (exponent > target_exponent) {
-+			mantissa = (1023 >> (exponent - target_exponent)) >= mantissa ?
-+						mantissa << (exponent - target_exponent) :
-+						0x3FF;
-+		} else {
-+			mantissa = clamp_val(mantissa >> (target_exponent - exponent),
-+					     0, 0x3FF);
-+		}
-+	}
-+
-+	return mantissa | ((expect_exponent << 11) & 0xf800);
-+}
-+
-+static int mpq82d00_read_byte_data(struct i2c_client *client, int page, int reg)
-+{
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_VOUT_MODE:
-+		/*
-+		 * The MPQ82D00 does not follow standard PMBus protocol completely,
-+		 * and the calculation of vout in this driver is based on direct
-+		 * format. As a result, the format of vout is enforced to direct.
-+		 */
-+		ret = PB_VOUT_MODE_DIRECT;
-+		break;
-+	default:
-+		/*
-+		 * These registers are not explicitly handled by the driver,
-+		 * as a result, return -ENODATA directly.
-+		 */
-+		ret = -ENODATA;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int mpq82d00_read_word_data(struct i2c_client *client, int page,
-+				   int phase, int reg)
-+{
-+	const struct pmbus_driver_info *info = pmbus_get_driver_info(client);
-+	struct mpq82d00_data *data = to_mpq82d00_data(info);
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_STATUS_WORD:
-+	case PMBUS_READ_VIN:
-+	case PMBUS_READ_IOUT:
-+	case PMBUS_READ_POUT:
-+	case PMBUS_READ_PIN:
-+	case PMBUS_READ_TEMPERATURE_1:
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+	case PMBUS_OT_FAULT_LIMIT:
-+		/*
-+		 * These registers are not explicitly handled by the driver,
-+		 * as a result, return -ENODATA directly.
-+		 */
-+		ret = -ENODATA;
-+		break;
-+	case PMBUS_READ_VOUT:
-+		ret = pmbus_read_word_data(client, page, phase, reg);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = DIV_ROUND_CLOSEST((ret & GENMASK(11, 0)) * data->vout_scale,
-+					MPQ82D00_VOUT_DIV);
-+		break;
-+	default:
-+		/*
-+		 * The MPQ82D00 do not support other telemetry and limit
-+		 * value reading, so, return -EINVAL directly.
-+		 */
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int mpq82d00_write_word_data(struct i2c_client *client, int page, int reg,
-+				    u16 word)
-+{
-+	int ret;
-+
-+	switch (reg) {
-+	case PMBUS_OT_FAULT_LIMIT:
-+		/*
-+		 * The PMBUS_OT_FAULT_LIMIT of MPQ82D00 is linear11 format,
-+		 * and the exponent is a constant value(5'b00000), so the
-+		 * exponent of word parameter should be converted to 5'b00000.
-+		 */
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    mpq82d00_linear_exp_transfer(word, 0x00));
-+		break;
-+	case PMBUS_IOUT_OC_FAULT_LIMIT:
-+		/*
-+		 * The PMBUS_IOUT_OC_FAULT_LIMIT of MPQ82D00 is linear11 format,
-+		 * and the exponent is a constant value(5'b11100), so the
-+		 * exponent of word parameter should be converted to 5'b11100.
-+		 */
-+		ret = pmbus_write_word_data(client, page, reg,
-+					    mpq82d00_linear_exp_transfer(word, 0x1C));
-+		break;
-+	default:
-+		/*
-+		 * The MPQ82D00 do not support other limit value configuration,
-+		 * so, return -EINVAL directly.
-+		 */
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static int mpq82d00_identify(struct i2c_client *client, struct pmbus_driver_info *info)
-+{
-+	struct mpq82d00_data *data = to_mpq82d00_data(info);
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = i2c_smbus_read_byte_data(client, PMBUS_VOUT_MODE);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * The MPQ82D00 supports three vout mode. If PMBUS_VOUT_MODE
-+	 * bit5 is 1, the vout scale is 5mv/LSB.If PMBUS_VOUT_MODE bit5
-+	 * is 0, it is linear mode, the vout scale is 1.953125mv/LSB.
-+	 */
-+	if (FIELD_GET(GENMASK(5, 5), ret))
-+		data->vout_scale = 320;
-+	else
-+		data->vout_scale = 125;
-+
-+	return 0;
-+}
-+
-+static struct pmbus_driver_info mpq82d00_info = {
-+	.pages = MPQ82D00_PAGE_NUM,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_POWER] = linear,
-+
-+	.m[PSC_VOLTAGE_OUT] = 1,
-+	.R[PSC_VOLTAGE_OUT] = 3,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+
-+	.func[0] = MPQ82D00_RAIL1_FUNC,
-+	.read_word_data = mpq82d00_read_word_data,
-+	.read_byte_data = mpq82d00_read_byte_data,
-+	.write_word_data = mpq82d00_write_word_data,
-+	.identify = mpq82d00_identify,
-+};
-+
-+static int mpq82d00_probe(struct i2c_client *client)
-+{
-+	struct mpq82d00_data *data;
-+
-+	data = devm_kzalloc(&client->dev, sizeof(struct mpq82d00_data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	memcpy(&data->info, &mpq82d00_info, sizeof(mpq82d00_info));
-+
-+	return pmbus_do_probe(client, &data->info);
-+}
-+
-+static const struct i2c_device_id mpq82d00_id[] = {
-+	{.name = "mpq82d00"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, mpq82d00_id);
-+
-+static const struct of_device_id __maybe_unused mpq82d00_of_match[] = {
-+	{.compatible = "mps,mpq82d00"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, mpq82d00_of_match);
-+
-+static struct i2c_driver mpq82d00_driver = {
-+	.driver = {
-+		.name = "mpq82d00",
-+		.of_match_table = mpq82d00_of_match,
-+	},
-+	.probe = mpq82d00_probe,
-+	.id_table = mpq82d00_id,
-+};
-+
-+module_i2c_driver(mpq82d00_driver);
-+
-+MODULE_AUTHOR("Wensheng Wang <wenswang@yeah.net");
-+MODULE_DESCRIPTION("PMBus driver for MPS MPQ82D00 device");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
-
----
-base-commit: 3a7b2a135e6b2628768fef537590c5b5bdb6fe7a
-change-id: 20260911-backport-mpq82d00-dev-6-18-95cebb839396
-
-Best regards,
--- 
-Eric Yang <eric.yang.wiwynn@gmail.com>
-
+Thanks,
+Guenter
+> ---
+>   drivers/hwmon/peci/cputemp.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+> index 457089c561b4..43e52a6db79b 100644
+> --- a/drivers/hwmon/peci/cputemp.c
+> +++ b/drivers/hwmon/peci/cputemp.c
+> @@ -339,6 +339,17 @@ static int init_core_mask(struct peci_cputemp *priv)
+>   	u32 data;
+>   	int ret;
+>   
+> +	/*
+> +	 * Some platforms (e.g. Granite Rapids) do not expose the RESOLVED_CORES
+> +	 * register over PECI - per-core temperatures are simply not available.
+> +	 */
+> +	if (!reg) {
+> +		dev_dbg(priv->dev,
+> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
+> +			peci_dev->info.x86_vfm);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>   	/* Get the RESOLVED_CORES register value */
+>   	switch (peci_dev->info.x86_vfm) {
+>   	case INTEL_ICELAKE_X:
+> @@ -543,6 +554,11 @@ static const struct cpu_info cpu_emr = {
+>   	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+>   };
+>   
+> +static const struct cpu_info cpu_gnr = {
+> +	.min_peci_revision = 0x40,
+> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+> +};
+> +
+>   static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   	{
+>   		.name = "peci_cpu.cputemp.hsx",
+> @@ -576,6 +592,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   		.name = "peci_cpu.cputemp.emr",
+>   		.driver_data = (kernel_ulong_t)&cpu_emr,
+>   	},
+> +	{
+> +		.name = "peci_cpu.cputemp.gnr",
+> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
+> +	},
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
 
 
