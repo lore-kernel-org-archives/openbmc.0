@@ -1,81 +1,93 @@
-Return-Path: <openbmc+bounces-2588-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2589-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F239AC88E56
-	for <openbmc@archiver.kernel.org>; Sun, 13 Sep 2026 04:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A61C88E64
+	for <openbmc@archiver.kernel.org>; Mon, 14 Sep 2026 00:16:28 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hjFMl24mlz2xkr;
-	Sun, 13 Sep 2026 14:16:19 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:3b::f"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789272979;
-	cv=none; b=dC+KK+TXyrsJtEJKUjVj+gE8o+RFMbWRa1xNSujTOJdQyQRVIT3DhpjTNlOAl4MOoqTqR2WiDNL8o3OR+XiO/cKJfR8ixNvqLJtqw+1vhYittC8r7H/Qbxcvskx/ZvX0trKim+sTDdvJRfbrkk5NDyLgkCHc1gtXEvPUxt80qqCYu7xkKvkwvCWbC5/VmfG+pvQt4ATAtnvUnxP4b5pdMEHANSiObmUKYVn5CCzmOJa8i//2sd6i1bl5OJcU9ESosx8Vn+RQTwMBp5u1mZpTqEh6vUDVeesTq+LzsU9j6prZ+kl2d711dhXfAje2ndeQID+P80Cod/Vd9zbM286K9A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hjm0M5bD1z2yjp;
+	Mon, 14 Sep 2026 10:16:19 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:34::10"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789338951;
+	cv=none; b=KqgOJbCPc3mfJTrhr/h1lm7rA96zedWf9sfieOcEnCw7G1C4A1/sTV8eCcR4ghmwcGRaktjviGorChx0qh2y51EgPvhp7EfPYQciXGe3WLeQVdzAeJe8oZO+k4tH6doHxUrPP/BLAz5yazOx/DenwgQah/SrBRvPJCYu6if80fa5NwbuG++aOnArkkUTvb9YMxAa/ntPj8GYAbkQY/zVsj5iTeHIoK6RfJd1LFiwA4YEkN+yOiJPvgboPZ1wykzxPPnISf0UMctZeW9PfQmG+bxQmelziO+ELS58sgblGcobqUWAVL6GKZynpUjWND1pv3+FTrrUug7m6gfizAD0lQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789272979; c=relaxed/relaxed;
-	bh=iyVHM8u7HMPgnwIbEYmNF2RMu8EpZx7YE/N3umyngf0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ha7WrwN+6/EK2FRS8H4nHs6cJz5fDC47X/cad9G1ac7bNUvGGKiC+W+cXx7OcJRNQZLG0BhDcq+Gq+y6gNeeBo7YxnrXan+lHdCG1VkQrrHqt9YJ3khd/lNgP/CM+XGMWs+l2LYDY6FOPfblMK4CMrorOMUrjXJIhzcPE51foOgP3XT1hKnFi8p1EqBotB6RXmwSHkBk5as2eOsdVURpnSg1cq9u8JuF7wgOHT4g5SPpCjrOBA/mTljw5rT/L4vBh2Q+JOnL/V1PLgJV5JZM6cbGLeAuQa7Cd40VLGfshlPE9lnJgMv2837P91gWjhp1RzDDfVHoxQzUYeibIM/f+Q==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r6BkuvYX; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:3b::f; helo=mail-pz2-x0f.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	t=1789338951; c=relaxed/relaxed;
+	bh=6tmc56vt785H8n8sw3psZCoq4rEVXID3penocU2E4Lk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4BRsYMdEIklorxPuA+jQfbRy2mydRp0EtkniDYyGuFrxEK9E0jgmlDVm8LDnQe88ZhZ2bRQeRX59VL+PBF03g3kg2FZ6KTyqzFRUSYiixZNIO0r0QPdx6Jjdgre9eN7UQoPtjbV2MeU/0en1mUg7FadUJ9UTNTq3jjIMufM5T9KgIriX9UoryE6jFpzkWwH1d0pT7jLuy1MAC24tnw6N4xn2FLIrt+I7WdtX1Nd6+utVZSqcghoC5xui56MT3LcelxVNxll3TAieA4nWsv74HkUIXvxKirJjncGTOEg1PUMLfozvqEVRc5dwvwhkVbPtAtHzX8ZijKoNkM8lW5gRw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nBj7C3UX; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:34::10; helo=mail-qk2-x10.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r6BkuvYX;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nBj7C3UX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:3b::f; helo=mail-pz2-x0f.google.com; envelope-from=groeck7@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pz2-x0f.google.com (mail-pz2-x0f.google.com [IPv6:2607:f8b0:4864:3b::f])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:34::10; helo=mail-qk2-x10.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-qk2-x10.google.com (mail-qk2-x10.google.com [IPv6:2607:f8b0:4864:34::10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hjFMh6L80z2xSg
-	for <openbmc@lists.ozlabs.org>; Sun, 13 Sep 2026 14:16:16 +1000 (AEST)
-Received: by mail-pz2-x0f.google.com with SMTP id d2e1a72fcca58-85469d249c4so1226246b3a.2
-        for <openbmc@lists.ozlabs.org>; Sat, 12 Sep 2026 21:16:16 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hjjmQ5rprz2xSV
+	for <openbmc@lists.ozlabs.org>; Mon, 14 Sep 2026 08:35:49 +1000 (AEST)
+Received: by mail-qk2-x10.google.com with SMTP id d75a77b69052e-52fb769ca2eso18722731cf.3
+        for <openbmc@lists.ozlabs.org>; Sun, 13 Sep 2026 15:35:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789272973; x=1789877773; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iyVHM8u7HMPgnwIbEYmNF2RMu8EpZx7YE/N3umyngf0=;
-        b=r6BkuvYX1qGc9HvbdN8kzM0XIdCQZdl/bMBP5tSrHINar50EQQOlg9MsKcmTyQsHrr
-         30+ivLMVOSwLhPEZmw6Pyids/OhSMAO68aXmZZDNLkPcohY3ZUUF/6YaKmyOCUyrNPIh
-         jh7ZBcALHmNo6TdVJo4drRzo55YtTLH8cKgnffsacjOAvWnQR1kjfjJw/1JUKLiQ4hd5
-         EcRiC3iNxJz17IonwqFNLdH9wkypGTibCw0GW8zre/9xYrgW02qI5gzVYWVPqK6I/j4W
-         piLC9zdNUfkcmCaXn6zEP0tLVMVJO0nQaswlacQUtcJ246NQtdN6wGez+9I2MDSc08ln
-         kk9A==
+        d=gmail.com; s=20251104; t=1789338947; x=1789943747; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6tmc56vt785H8n8sw3psZCoq4rEVXID3penocU2E4Lk=;
+        b=nBj7C3UXWcJ6bwOY/GmgHGUGj25s5Bha7K3Tw0yf9KN8YgzUYTM+N/TvLBttSH+/Uk
+         BnErS3/PUzUaJdtzKE1e10sjS2Q4sUteEca2yjVr6MM2nQL25yW2A/hL05FOQBtQRt7y
+         j3pz2OGGwzRkr+JZtjciHEDqoIqcxi2h4r8W3go/vfgKWoe+aCY0mQt0TA3Ek2VcXpP4
+         mMfnniYQtwck5+KBCT41kSJ+AvgAEp5PmznR+ODtCy3BQBkJm0XSTPMt5n1a/1tVfGQh
+         RTCQOZza77itBixw4Aa+QHhu2GNN1kDPjU3wNlTbTkBNvzLmguMIf3fHB1QGhlrOHKB7
+         ZI4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789272973; x=1789877773;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iyVHM8u7HMPgnwIbEYmNF2RMu8EpZx7YE/N3umyngf0=;
-        b=cvGKZGmRDd7naNnq4FTCZqFi9z60C7H/Ar0qekFyQP4nBIVYgT/Y59ozrpZWBFJ7ir
-         gTSrn7yUN2F9kOU32gLIKMraQ8YnHthTOIytBD9tcWuCnJaGqdrfkBcNOpbf6arhWjSJ
-         7xoJ1EAc5BrLD/EE+7nM+3JxQXLLAjrtZCNuCfCM8vc227Vt45oS6yP6rzDloeWt5xX0
-         A7WiIWx6u1p2zCFG3ZVJNIKZ7eWZVb8x2sMMqK3A0BEIXlr/EEQzlAB5+cF2irmjlyny
-         cPZa8/AcTelUVeOXeLdZ4Iy15b32V3fS/5LQrK/dLXglHjNvQF8TlbI4Yof24CqtTUCz
-         qgUA==
-X-Gm-Message-State: AFuF++nFIhowVSyQUWDkvLNCZdYHgxXimJtgNz27ag74OWELx8HwPCuY
-	xRk1gZBd2DLiQUWNglUC0Cgi/Ge938z4MsEzsNPpqT3wHY5l/0SjL6yy
-X-Gm-Gg: AYBFou06KeoJEL27JLy2EiJMZKHbO1ep9f+PgjodfghtNymRy5wOMJhLaAj07mMUTOR
-	k4QcLxlKrxzJopnZsz+BOa8uXykV89JMea132Wu4QZzgKGPpx3Gq+AjnFMl+1xs+PnHSPzB34SN
-	pG5fBux3bbDJDptPxQOvkWYP+RY1wsV7nt9z9SZWUCm5aKm9UipmtC7ACFXvlsE1dvf+lQO/FH2
-	K8ZUFw1Y6WuV2lAhXFm8Yknrj678c083VSDLk6FNYaWyzKffeG56osIp602zU3qDhl7hE35DKdS
-	37Yp4EBgHdG7Ju41o1MPQ3+WogR1Z9BtP7N1IQDo2T9fO6odx1m6hdEGavFcLhCasKyVYbhemG3
-	lZIf7RU2FXzgkPg2j9mRzdB4Om49NxGmd9ZcwBzzkPYurpfkl4KRgELSl3xPoa7BDgp0Z0/b4JF
-	u8mEr3br/7V615RTWGD/bgHHqHE40iBDVAPOU30M7HiuZ/VHUp92wtC/N5jVuQKbAnlVXMi6SNU
-	BlyXKQpsS1Y/aInKDXFs07l+fwdfId2NDMLLSa7RD1RVbnzSbGtsF0ntVyo
-X-Received: by 2002:a05:6a20:3ca7:b0:3c3:791e:5e18 with SMTP id adf61e73a8af0-3daed16281bmr23388505637.7.1789272973145;
-        Sat, 12 Sep 2026 21:16:13 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fb3ddasm15274832eec.30.2026.09.12.21.16.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 21:16:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <eefdb261-49d7-42dd-9ec8-850789852bec@roeck-us.net>
-Date: Sat, 12 Sep 2026 21:16:11 -0700
+        d=1e100.net; s=20251104; t=1789338947; x=1789943747;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6tmc56vt785H8n8sw3psZCoq4rEVXID3penocU2E4Lk=;
+        b=ew33b8tDH14tOQ9oi4GiQ8p1iP466BuyAAVsMI7zbu7y8NxXklq9v/qeqnTPeEayz0
+         ZZ2yBpE4WCl60WqSXzdXrjtBFp7LJy+tzUSqMnMzwsGdxhHDjdbc0QwaF2WL8mkzDVxk
+         SZnlVXKymBfmFmNLa6yAvLYpvAzfdwfhXCh1RkKDoQsHST9XTO+Rl223wISTTBPUfzs6
+         1oXRUuBTbmScaw+jZQopA5Lu5Nrvw/eZ5X9b0jqXG8jcCAM1eZ+EoFxjLPlQLci44z/F
+         BEUcmLQZ4Qhcufmo3N5vcIi29vvMesUUDTR4ndsMrLAebqO3FzIOXG1XwKHYPDcbnuVq
+         a8ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrDrJA+vrWZ1sl6dfrVQiio/JFAjnnWZH2CVC1t3mAIvhUhFkNJT7UA0sVu4ov0QrUc0xigL0d@lists.ozlabs.org
+X-Gm-Message-State: AFuF++lfXi3oRV9Rp7QRb8X5FXZyagAsdWDE4X92fF1cla8BFAoA9hcS
+	axR8BCwMFhmLFq7RH2/ajLRzMySSAtLjGzK0IcmYwCBmZfQow7/CcnQ=
+X-Gm-Gg: AYBFou1BxzumvvaTgl1oZC2x/+RQ2vir7FVnspXbUIDtlVCobc2ndk0KgvaDhsdaxm/
+	9xprVbbtBrNeRFzrerQI/tlVrNnP9lZY50zqbf/h7kRd7rjmmNUcDjHGX4n6PwMy6xCCViY5eAD
+	qfRrsuKWGdY76/QU1XbJaDktXbDqi3JUPlo/M69ppEG1zVhxJnK5qW5zZRRdUdr5lKcKFh6lFbl
+	7iWmAqbyBNv3BOjUPZGe+/9v0ZeAsggvzP5m6+2ovxEHiIaxeQnw/+lwL7JehlYYrjSM4fR+oeV
+	+7JfWlc1NYRBfQM9UVDCbpsnjK1SmWrPULlQ8RJhv9zv61rCmu8hJzwQX47gr2xtBZg9K/PtElQ
+	LnOPl1STRbhaJsXodghHEd9mCRRPhhJpexAQTYU4pqaDQdXg5gI9Zf1r4PGbKWmUhNbveqIxMFb
+	OypLPZ2TiDVWvMuOsRmaTRLlyKBPjGp7Gd9PtlY3SejRtfTQBMToAcGYjwp/kjoGjVtMS/aY4Ha
+	FTUXOGv1O9cp6yVuLSvRmB7R3HfSOF/fh+uWdR69wPoQDlkEMSSVgn7TTfHFzEhV9CfL4Y3a7tp
+	IG5cpTBmzywtZ3gkJbf7TLh/1svGUJ7+tQ==
+X-Received: by 2002:a05:622a:11c3:b0:530:eb9e:63d6 with SMTP id d75a77b69052e-5310d09817amr342871cf.49.1789338947507;
+        Sun, 13 Sep 2026 15:35:47 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530d5e946a0sm71513481cf.25.2026.09.13.15.35.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 15:35:46 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org,
+	linux-mmc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] mmc: sdhci-of-aspeed: Remove children before releasing SDC resources
+Date: Sun, 13 Sep 2026 18:35:38 -0400
+Message-ID: <20260913223538.91579-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -87,125 +99,58 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Iwona Winiarska <iwona.winiarska@intel.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
- <20260903133408.110847-7-changhuang.liang@starfivetech.com>
- <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
- <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/12/26 21:07, Changhuang Liang wrote:
-> Hi, Guenter
-> 
-> Thanks for the review.
-> 
->> On 9/3/26 06:34, Changhuang Liang wrote:
->>> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
->>> monitoring driver.
->>>
->>> The GNR platform has different DIMM topology from previous
->>> generations, with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2
->> DIMM
->>> indexes per channel. Define these new constants and update
->>> CHAN_RANK_MAX to use the GNR value since it represents the maximum
->>> across all supported platforms.
->>>
->>> I am not sure whether it differs from previous models, but on GNR,
->>> requests to read DIMM temperature thresholds (DIMM_TEMP_MAX/
->>> DIMM_TEMP_CRIT) via PECI are rejected with completion code 0x90
->>> (invalid request). To handle this, the read_thresholds callback is not
->>> defined for GNR, and the visibility logic is updated to skip exposing
->>> the max and crit temperature attributes when thresholds are not
->>> supported.
->>>
->>
->> Are you sure this doesn't just require different parameter conversion when
->> calling peci_pci_local_read() ? The translation from dimm_order and
->> chan_rank to the register number seems to be different for each architecture.
->>
-> 
-> Yes, different models have different configuration parameters. The following commit has a reference for this part.
-> 
-> https://github.com/ocp-hm-openbmc-opf-ami/linux/commit/f851a79143556f0c138617d68e924071434d8bb7
-> 
-> However, after my actual testing, I found that this logic would always get an invalid request, causing it to fall
-> through to the statement below:
-> /* Use default or previous value */,
-> 
-> and in the end, it actually never obtained valid data from the peci client.
-> 
-> So in my current test environment, I'll temporarily regard this part as dead code and not include it in this series.
-> It would be great if Iwona could help confirm this. This also needs to be improved later by someone who
-> understands this CPU model better.
-> 
+Probe failure and removal leave SDHCI child devices registered after the
+parent clock and managed resources are released.
 
-I think it would be useful to clarify in the commit message
-that this is not a platform limitation but a driver limitation.
-As curently written, the commit messages for this and the previous
-patch suggest that the platform does not support it, which
-based on the available information is incorrect: The problem is
-(or appears to be) that it is unknown how to extract the information,
-not that it isn't supported by the platform.
+Unregister the OF children in reverse order before disabling the parent
+clock on both paths. Use of_platform_device_destroy() because manual
+child creation does not set the flag required by of_platform_depopulate().
 
-Thanks,
-Guenter
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
+Fixes: bb7b8ec62dfb ("mmc: sdhci-of-aspeed: Add support for the ASPEED SD controller")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Assisted-by: OpenAI:GPT-5.6
+---
+Validated with an ARM64 W=1 object build and strict checkpatch.
+No hardware runtime, probe-failure injection or unbind testing was done.
+
+ drivers/mmc/host/sdhci-of-aspeed.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
+index f5d973783c..d317626feb 100644
+--- a/drivers/mmc/host/sdhci-of-aspeed.c
++++ b/drivers/mmc/host/sdhci-of-aspeed.c
+@@ -560,12 +560,14 @@ static int aspeed_sdc_probe(struct platform_device *pdev)
+ 		cpdev = of_platform_device_create(child, NULL, &pdev->dev);
+ 		if (!cpdev) {
+ 			ret = -ENODEV;
+-			goto err_clk;
++			goto err_children;
+ 		}
+ 	}
+ 
+ 	return 0;
+ 
++err_children:
++	device_for_each_child_reverse(&pdev->dev, NULL, of_platform_device_destroy);
+ err_clk:
+ 	clk_disable_unprepare(sdc->clk);
+ 	return ret;
+@@ -575,6 +577,7 @@ static void aspeed_sdc_remove(struct platform_device *pdev)
+ {
+ 	struct aspeed_sdc *sdc = dev_get_drvdata(&pdev->dev);
+ 
++	device_for_each_child_reverse(&pdev->dev, NULL, of_platform_device_destroy);
+ 	clk_disable_unprepare(sdc->clk);
+ }
+ 
+-- 
+2.50.1
 
