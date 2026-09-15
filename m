@@ -1,90 +1,55 @@
-Return-Path: <openbmc+bounces-2592-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2593-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 339EBC88E73
-	for <openbmc@archiver.kernel.org>; Tue, 15 Sep 2026 09:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908E4C88E75
+	for <openbmc@archiver.kernel.org>; Tue, 15 Sep 2026 23:38:15 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hkbms32p3z2yhD;
-	Tue, 15 Sep 2026 19:09:17 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:39::10" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789463357;
-	cv=pass; b=QMdTUceTcM0oOMGjL5wJSITYniK3ZzWsHt+bcT15MbSsBMLj5LjEGduae9FAxEsPUiwh7FkrJPShB+gYgXS2EOtKThHEGVbD8E3BZJracH12HVc1fMn/hHgYaulVkg3iEIUWhirmYJLtzRFVlWL61sFRnDpIO81TivWWMvU8wV1CX72fz5VbtSWE+0QJgtBje5UJy/RnSrz9Kgbhqim6OOJtG8xsjUGhJx/eox60H4+nLhPAQQ2xMYRikxPUxE5vKnnleKXfV8xkj6rcy6RiYWipHTzOagQ7KAYOrPIyuwVC5o24/LoHVTiB+Um0kj+ioLPvmBk/3rQFXGqS7sjl4A==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789463357; c=relaxed/relaxed;
-	bh=rpZ8QiAa2KUUpQUQesRNlTgxrq69OR/2dudrLw3gNp8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=mkiq0zFCdcxj+tuOdxPnZl96SjWiXUluu8AcBx9JpdZ2hAyuxkHfuSY+Qdy1Ya1GtqZQJEvcyzhOHUTmAPYjckLNMOFT4vV6DcQOKVrououSNl3+L7YkAMZhjiu+jPTa0xGB7GU+BiCecWf4D1x6WPF8xLLn85O6EOwHV+mjsCSaRLofyqujUOyYHQ9RvfW7g7qsDY5S0pEMWKR/gjxwCi/f+iD2wHveK9bzfrN/+9w36yJIxzEEiuVNMuN5TtPlmIMY/pA/YCEVSWGPASb81l3M0mSKxVK12xyaXCJpqDf8OEZ5mYVwGCnwLrWvN6xhq+yvr5Zmbj8UGEd0lNMHwA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech; dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=4I5fG5kB; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:39::10; helo=mail-pj2-x10.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org) smtp.mailfrom=openinsight.tech
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=4I5fG5kB;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=openinsight.tech (client-ip=2607:f8b0:4864:39::10; helo=mail-pj2-x10.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org)
-Received: from mail-pj2-x10.google.com (mail-pj2-x10.google.com [IPv6:2607:f8b0:4864:39::10])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hkz3N01B5z2yd7;
+	Wed, 16 Sep 2026 09:38:08 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=159.226.251.21
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789450019;
+	cv=none; b=aszX3OhcsZvILt/BKVMmi+DOVpCRCie8AIVQxPl2bJPoKooieDtHnLanWAopajIE3ml/rJiarjxRfHXEZagDvJdXCpq+MQhvCNNgrEzrTe/5sRGdELSdNTk+XUtmFHF74giRoNnMNdZzV7M+eO7BKXwQhlW/uaklglinrlxyCr/QCclsNZSMn0zHvAVC026X1btAyDqkAXrT2XGj62nFcXf8yztoZ5ykSxpVpRuiQ2L+4Oz9Om9Zv9z9/FfsaTl2/SXLm1PTq+j1PZ4+4HQoBnkHoF2G5d3ZyilormwjFVviAGjBAcYyUNhfeUnAb+YuZr8aEL0ApcfWgEKedtWFzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1789450019; c=relaxed/relaxed;
+	bh=nzXcc/bISPIYQYl6/fsM+rj6Xe++F8LifpHHvz9Y4Og=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A1m1BlShZIp+0cyDEjQ7kIBm6yDRshgG1x0oKD+gDx1gIwxHUqPvNEacMozPIr8s0HOypjeScQYGx0i7fsjJUh7HCghHGZZVDAMQevYgivTITg0FmbUpp/iQjUDKT7Rj7jDrk2xEZUdn/2OdBdWnO8Y/dgDVxAU8QzbrPOCODAHWJtmxGPP7kptV7V1MzrtFtk/CQR1J2dtP10JlTt6WpA4RM/rsKBBYyVARnailfVYdRQ0roheMX+T0Ibf/Bv9+rSX5+RoXKsgd970v4IfmlGKbYJ5N3IG3BY77Xvt1QfRiaeYZUe1YZLU0HAG53bBSLvO/d0lIsrmfQ8yAD9BLSQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass (client-ip=159.226.251.21; helo=cstnet.cn; envelope-from=vulab@iscas.ac.cn; receiver=lists.ozlabs.org) smtp.mailfrom=iscas.ac.cn
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=iscas.ac.cn (client-ip=159.226.251.21; helo=cstnet.cn; envelope-from=vulab@iscas.ac.cn; receiver=lists.ozlabs.org)
+X-Greylist: delayed 477 seconds by postgrey-1.37 at boromir; Tue, 15 Sep 2026 15:26:58 AEST
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hkbmr0hmfz2yFW
-	for <openbmc@lists.ozlabs.org>; Tue, 15 Sep 2026 19:09:15 +1000 (AEST)
-Received: by mail-pj2-x10.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2403192a91.3
-        for <openbmc@lists.ozlabs.org>; Tue, 15 Sep 2026 02:09:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789463353; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SI26ZQ0o9/fgcFJx7Dpz9WYSSDs6zjHqySXV0PQEbWXT+oLwAfodT0hDabz6Vj8KZ8
-         CUBjFxjwud4r4aOUQdqjsfRH93sg2VkbY3AarAko2GGIlm7ZhZf3DhkrZhovzPibHOpI
-         9+TiQFBbGB+Q6GwLy51ZUncypNQDW6BQXgie46+EjSvzZFPOy2Qc9epEeoxX2FksZVtq
-         bKdKaXU8D996MHKhnQ97naf893wBnXrGJbF+GTzB5bG3nuW6b9o21/rFpiA3cde7p7Db
-         gvgc2c1I40oKiQ5eqOwofftjjYf1Gi0V2+kASPcRRHh0WR7LtTciWv6wgVrp8KC3Rtxk
-         /iJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :dkim-signature;
-        bh=rpZ8QiAa2KUUpQUQesRNlTgxrq69OR/2dudrLw3gNp8=;
-        fh=rLb3uvO1QFpP6DLO/WN78kv3JKmiS9J3UGhSz5V3Sdo=;
-        b=KpFQWmnqXUGDWFNIKMUFXR6nZFc+vBK5XI9UD3aVtDM5MYecQbdAH1pqoJizaNCwek
-         LhUYcZ4f+4clAKckHtSlNppzar7Q6wW3nsnnMh8UjHflQpfp8C2pAGGlznsVVArmcCVb
-         OU6rflAnIh4HQ9wt2zy/z56/RdhW8Bg0c7igmOFWI6Xf8Hu1Q94+HgWlYiUsh50Z0dg4
-         KWiHKGxRod3jJ/QT4aBsI6dSI2KN7Sq43B2obLAB+JFr53oJ8F3KUi9S5C4VHNh9qHfo
-         N/6hxzMuUBJfQvwv00KMryqD+vttVS+/pxLMCpubgerBHeZTyIi5XTqQVK2DSJIWG9vi
-         0qsQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=design.tech; s=google; t=1789463353; x=1790068153; darn=lists.ozlabs.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rpZ8QiAa2KUUpQUQesRNlTgxrq69OR/2dudrLw3gNp8=;
-        b=4I5fG5kB/lkvlkGi4J9dk54vT7Y/eKAXgWtnTa/LQ9nKYuAIoViaWPQbdITD08hiyT
-         jicGUKljMaodD+DXrws0MpG23hS+zG8CsxyZlBdyWQg7JRhYrkYtUUy3D7EZXkYEa0jK
-         1QTxhsNcb5zrbkjZ/fyeTiqhCt7XOHXGAH2Xk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789463353; x=1790068153;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rpZ8QiAa2KUUpQUQesRNlTgxrq69OR/2dudrLw3gNp8=;
-        b=kJKxvcR7FtP2hZznEkabj/GjJtIQ+FUoLz72LyOf6J0/pPhTbecDSk3e5X7nLqzTt+
-         IQ7ddb0KprHIB914ltdmK7/fWXXuoybOGnhbPkn3virquulghzewFz8FEeBlnjpknF9+
-         8XsA2FdHI1u0dGaE3Ei0gyeD5/qAsDw1WV5CvXE4JPUo2biOzNtvJYFlL6iZg7hnxECB
-         AevvPwIko92retOgby+g/ZJvptrCbEmDxOOX7Jp74FxSfqZU7UKTgQOGIha1wT4yVsKs
-         QDrsebo1AGmqrX2oHVbCfXPJk+Str/zIxHA2CD+bccmMqrXKc/94fs24/QJa+uzdJ+it
-         BB1w==
-X-Gm-Message-State: AFuF++meXOF3x9dsENyrymej7WOoaUDO2fKYITOzYuO1zckkcfXDAW8L
-	jmF3Ru9S/giR9vuC8syzShOnZjqsIsClh5KyCVFjbWJ/14HUI4xIfa895okeVA2EXQ2JgQoJ2FU
-	HqqDmd12kJ828sggz0dJyNMFhWIPePwlvS2+xgLdqHXZBjFPJnVVY
-X-Gm-Gg: AYBFou0kVzsoaAHmTClnHg8rSP5KIpPnpX+/ARTUwRcrkAHDB0xOHKqpjL3cav1wXgz
-	OPR+ZIGEz9ckDq2JOOoHtTxQIv+uaAqRpRQ4hue+prO2D5RezdU8W5gEQGeSXzPLNnppu39aYlM
-	Hm4PfXWdHIZ1VNXABReIr3EWHnoH2bECBQqsdk505YUrbXj//+jOEKaZzr7vwAGpjJDdtFSDdpm
-	Agy+zgPv5pUi33SYzUosQFlM1fBKVQ61X8UjK5veVnfUuGKSx/1n/O+S/z12aCX9ELnnnvnC96H
-	qFgyDPpbHCNxztNBcfiSYfwhk4Z33Qvs2vwpLFdIRUIFLyAEJgT0I0uC+doXEYSWzrkd/HKBZmQ
-	F80z0Z/5WoKY=
-X-Received: by 2002:a17:90b:4d0d:b0:39d:efa9:cd25 with SMTP id
- 98e67ed59e1d1-39defa9dd52mr10834987a91.2.1789463353282; Tue, 15 Sep 2026
- 02:09:13 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hkVrL4GwVz2y7p
+	for <openbmc@lists.ozlabs.org>; Tue, 15 Sep 2026 15:26:58 +1000 (AEST)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADHn_M61ahqqZgJCA--.50750S2;
+	Tue, 15 Sep 2026 13:18:50 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew@codeconstruct.com.au
+Cc: avifishman70@gmail.com,
+	benjaminfair@google.com,
+	daniel.lezcano@kernel.org,
+	j.neuschaefer@gmx.net,
+	joel@jms.id.au,
+	linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	tali.perry1@gmail.com,
+	tglx@kernel.org,
+	tmaimon77@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 3/6] clocksource/drivers/timer-npcm7xx: Fix clock reference leak in npcm7xx_timer_init
+Date: Tue, 15 Sep 2026 05:18:21 +0000
+Message-Id: <20260915051821.1727787-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,75 +61,65 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAPzB2v5-R-+xQQYwJwjj-g8heEmxU_RLzjKsc6eGqFVNf+cB-w@mail.gmail.com>
-In-Reply-To: <CAPzB2v5-R-+xQQYwJwjj-g8heEmxU_RLzjKsc6eGqFVNf+cB-w@mail.gmail.com>
-From: Paul Fedsen <paul-fedsen@design.tech>
-Date: Tue, 15 Sep 2026 12:09:02 +0300
-X-Gm-Features: AcwNN1Um8TWc3pH5wZHCfX5DX3zKmCbXt0thb65RdXtC9rmnrFWIO45smo18Ynw
-Message-ID: <CAPzB2v7FUUoAcksgwvRhQSOwZqUJYdpgP8rr--8HmJWroJvzjg@mail.gmail.com>
-Subject: Fwd: phosphor-bmc-code-mgmt development
-To: openbmc@lists.ozlabs.org, Kyle Hsieh <Kyle.Hsieh@quantatw.com>
-Content-Type: multipart/alternative; boundary="00000000000082e0cf065b81e76c"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADHn_M61ahqqZgJCA--.50750S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFyDtw48uFykGF1kKr1xKrg_yoW8Gw17p3
+	93C3yayrn8Z3yIgwsxKa1qyFnYvayxKFy5Gwn5Cas0vwsxGr95JF9xWF9FqF47uF1kC3ZF
+	qan5tF43AFyUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUr6wZDUUUU
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQLA2qowpBDBQAAsd
 
---00000000000082e0cf065b81e76c
-Content-Type: text/plain; charset="UTF-8"
+npcm7xx_timer_init() looks up the optional timer 1 clock with
+of_clk_get(), which takes a reference on the clock, and prepares and
+enables it. The clock is meant to stay enabled, but the local clk
+pointer is lost when the function returns and clk_put() is never
+called, leaking the consumer reference on every boot when the timer 1
+clock is present in the device tree.
 
- Hello!
+Drop the reference with clk_put() right after the clock has been
+prepared and enabled; this keeps the clock running while releasing the
+reference.
 
- We are trying to upstream a patchset
-https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843 , and
-you recently merged commit 484f77929f9de9bb0eec98288cac784929900168 "
-https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843". It
-looks like we're trying to do the same thing, but chose architecturally
-different implementations. I'd like to discuss this so that we remake our
-patchset consistently.
-So, our vision was that SPI EEPROMs are conceptually the same as I2C
-EEPROMs; they even have matching addressing schemes: bus # and address
-(which translates to CS index for SPI). EEPROMDevice services already had
-all the core logic, so we separated generic SPIDevice code from SPIBios
-service, put it in common/ and reused it.
-In the meantime seems that you decided the opposite: SPIBios service gets
-renamed to SPIFlash and handles all sorts of SPI EEPROMs, while
-EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in
-handling I2C EEPROMs.
-How (and whether) are you planning to address the fact that I2C and SPI are
-still very much the same things, even on the kernel API level ? Does it
-even make sense to keep two separate services ?
-We'd like to discuss these things with you in order to get moving in a
-proper direction. Do you maybe have more pending patches for us to consider
-?
+Fixes: db78539fc95c ("clocksource/drivers/timer-npcm7xx: Enable timer 1 clock before use")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/clocksource/timer-npcm7xx.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
---00000000000082e0cf065b81e76c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
+index 9af30af5f989..1ac6424fe879 100644
+--- a/drivers/clocksource/timer-npcm7xx.c
++++ b/drivers/clocksource/timer-npcm7xx.c
+@@ -203,10 +203,12 @@ static int __init npcm7xx_timer_init(struct device_node *np)
+ 	/* Enable the clock for timer1, if it exists */
+ 	clk = of_clk_get(np, 1);
+ 	if (clk) {
+-		if (!IS_ERR(clk))
++		if (!IS_ERR(clk)) {
+ 			clk_prepare_enable(clk);
+-		else
++			clk_put(clk);
++		} else {
+ 			pr_warn("%pOF: Failed to get clock for timer1: %pe", np, clk);
++		}
+ 	}
+ 
+ 	npcm7xx_clocksource_init();
+-- 
+2.34.1
 
-<div dir=3D"ltr"><div class=3D"gmail_quote gmail_quote_container"><div clas=
-s=3D"gmail_attr">=C2=A0Hello!</div><div dir=3D"ltr" class=3D"gmail_attr"><b=
-r></div><div dir=3D"ltr" class=3D"gmail_attr">=C2=A0We are trying to upstre=
-am a patchset=C2=A0<a href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor=
--bmc-code-mgmt/+/93843" target=3D"_blank">https://gerrit.openbmc.org/c/open=
-bmc/phosphor-bmc-code-mgmt/+/93843</a> , and you recently merged commit=C2=
-=A0<span style=3D"font-family:monospace"><span style=3D"color:rgb(178,104,2=
-4);background-color:rgb(255,255,255)">484f77929f9de9bb0eec98288cac784929900=
-168 &quot;</span></span><a href=3D"https://gerrit.openbmc.org/c/openbmc/pho=
-sphor-bmc-code-mgmt/+/93843" target=3D"_blank">https://gerrit.openbmc.org/c=
-/openbmc/phosphor-bmc-code-mgmt/+/93843</a>&quot;. It looks like we&#39;re =
-trying to do the same thing, but chose architecturally different implementa=
-tions. I&#39;d like=C2=A0to discuss this so that we remake our patchset con=
-sistently.<div>So, our vision was that SPI EEPROMs are conceptually=C2=A0th=
-e same as I2C EEPROMs; they even have matching addressing schemes: bus # an=
-d address (which translates to CS index for SPI). EEPROMDevice services alr=
-eady had all the core logic, so we separated generic SPIDevice code from SP=
-IBios service, put it in common/ and reused=C2=A0it.</div><div>In the meant=
-ime seems that you decided the opposite: SPIBios service gets renamed to SP=
-IFlash and handles all sorts of SPI EEPROMs, while EEPROMDevice effectively=
- becomes EEPROMI2CDevice and specializes in handling I2C EEPROMs.</div><div=
->How (and whether) are you planning to address the fact that I2C and SPI ar=
-e still very much the same things, even on the kernel API level ? Does it e=
-ven make sense to keep two separate services ?</div><div>We&#39;d like to d=
-iscuss these things with you in order to get moving in a proper direction. =
-Do you maybe have more pending patches for us to consider ?</div></div>
-</div></div>
-
---00000000000082e0cf065b81e76c--
 
