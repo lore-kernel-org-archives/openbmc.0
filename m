@@ -1,132 +1,90 @@
-Return-Path: <openbmc+bounces-2594-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2595-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C195C88E7F
-	for <openbmc@archiver.kernel.org>; Wed, 16 Sep 2026 00:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB715C982C7
+	for <openbmc@archiver.kernel.org>; Wed, 16 Sep 2026 07:59:33 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hl0qx4TzWz2yd7;
-	Wed, 16 Sep 2026 10:58:21 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2406:e500:4420:2::714" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789520301;
-	cv=pass; b=SV/8XZjWiWZwSVJpV0SDGcZGIEqiLtmXjDV8DthBg69V1SygCXDiDpK1ArGJQD4SisQ3SIYiMrrtqkuKqLoEBaDXbvstdfdir1maJIjPLtjspF5UrR1PVzM0sRPfuf3ov25HR66QF+o0W3WP7MXlLhlkpF3t9/AgeNjirhrbm75ole6QdgnHg8FjcVRTPPb523z0WMjPxJSsQKF9Lrtk/luN/zjGvPorJMkNL8pCgiyBjJBsAGg7LXogEnDZg9ZrMW+RZsJWyoqPa7+6mbt7H5h/dsGOEsFML0ukRw7IaOokrHnHxuk9M64frnsVpK2mVPUfODfwmEFQXamISaL4lQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hlB9p3xDxz2ySf;
+	Wed, 16 Sep 2026 17:59:26 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:3b::17" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789545566;
+	cv=pass; b=lZULC3HnzsKLs5tJp8LADMqPpsrl0z0TzHA84zljKi/p5VqymXPQvYHDLq++MIBdJn6aXYQGfgMqFLQNoAVeKjpcpSyymkKjt4V67KqgROuLVVoLQEXUPChCKEZKSafoG0mFSIdZLkLNL5FB8TOO016NXIcghiRuYzIWxiEuWnQjfUfwyNkxw9fB6yrqYNJYui4IStphqe80cy8uRgeNXNTo0c4sE8rklrzFe4I+L0pobmlb/DhTxwJLlTDcExXqHT16unU4MKnAW3tis5u5+dNE6D6Qc0kuM+ix6EYwhTdWHf5mW2kIF1akBxlUYICNXxBijjtFgF4hDKA48jCoFg==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789520301; c=relaxed/relaxed;
-	bh=Nppx/t30depvwuQflkF1afQCm+eVFjnDcpRJBQrDr7Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KN5nrfrpPIszv8mckrihPo3AgaaQiXp1RWpfx3o/8c6eTCirB5onieNW64mmG/sIH6Cxa+RZqVHectEDENQ4JwWTpodOwJpfv0HNMhE+5y40ZxAsnxAY4vW/A/Qa9OqSCTSkGhrj+k0Dv9cKuVNSMLILuCEjdhfcZRaC9OCzAIDrJ7YjFrHuQSA0fzONVbyjRCwsGEsiZ+MNsFt8Jdy7sJ00mRtjwOMvNFc9pSN/TAyJPT1JFgIiMXf6n254hQ3ZfuyegZ4HfpVPz4qwgsG46aULhmwKzy+QiKtVTeoRZCW0+BfHgQRyVnjxKSnC9TXcmeOTG+8xuS0n5xl+pG3IFQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass (client-ip=2406:e500:4420:2::714; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org) smtp.mailfrom=starfivetech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=starfivetech.com (client-ip=2406:e500:4420:2::714; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org)
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on20714.outbound.protection.partner.outlook.cn [IPv6:2406:e500:4420:2::714])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	t=1789545566; c=relaxed/relaxed;
+	bh=eM2eJgV5Hwmog/3RU1NSWqoxtZC0kal/pIoUWPJsLpY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=knqmaneIoSOwzmI2TRakXS5xa+uT9jmmD8XGigz0/ZQ4uWTkiDlzCHpTCPYew76UKp98YF9GCz0EFvyjqe49nz1gBt6IMIv4a231SElnwLYE8q4Q5wY+NszAWZq5He5nEwHtXOrpBHCxqrIuCF9wM0XZ0rzAjK45hCklf4a6TePOcSesJL5AW3Is7KnmoIpU7CMG0I048mSxv1Yq+o/bSPEykqPp5UgPvC7Nk7eQkFpwAGYsPy8vZBYZLf7JNE0rXG1lvplmtiAMwY2iRpMIbkct9tcz3wja/uPOqL72gama6xYyeJN1jO5w1X2rwqFeH4cGIsgO+Y7+S3/NjAs3SA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech; dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=ICb/gN2B; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:3b::17; helo=mail-pz2-x17.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org) smtp.mailfrom=openinsight.tech
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=design.tech
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=design.tech header.i=@design.tech header.a=rsa-sha256 header.s=google header.b=ICb/gN2B;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=openinsight.tech (client-ip=2607:f8b0:4864:3b::17; helo=mail-pz2-x17.google.com; envelope-from=pavel-fedin@openinsight.tech; receiver=lists.ozlabs.org)
+Received: from mail-pz2-x17.google.com (mail-pz2-x17.google.com [IPv6:2607:f8b0:4864:3b::17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hl0qv4Znsz2xkr
-	for <openbmc@lists.ozlabs.org>; Wed, 16 Sep 2026 10:58:17 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IiWquKUJD7e+aSfGMKf0oH/wGtFFZhcYyTreOQzCU71p4+ITosLn3XenqPr+sPIcb0X6Wt+jU6miHV/q0sJNCS7fJvKeCvX27X07fEC2+Jb2gihezJEzHV5sjaPi4eGMCNhDHayHAVzuwrcP2yfiJe+bbO5+07P4khVrEpXreoxbjka+U4a6252/HOGQ//KW3h8j98D2hjpXF5D/KWtE3+4DKlnUtQUDD74qxS6pxnEwcOwh03QbL8nJ0BFF9hcX4sV4f8/8I1lxQEkUfkzAulj16TxkOLEMMHIZ+hpTePb4YfTYiYGLOT2hAwRXl7RptmwSPPWlR8CGsprBX8sFrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nppx/t30depvwuQflkF1afQCm+eVFjnDcpRJBQrDr7Q=;
- b=R64DivDVJWZQxo1rmOVoYV7IcnHlNwgYPOidZAtY2bBuBIrSht2aIM7q+Ju3f6qpEoLS7/xpBgQ7h6b1C4PfaRIzUtDnIHCOWqOFAu+ncafxqsDLGG0d4tyEUByvb48fX1Up9KsY7mxKLh7PSeYm+AChuRlJZwwJSOD/hsP5JlqmsrKXcseI4A/j8Ryk3cHRz2w+KbKiPw6Gptu0RiDNfG1KpHIQh9mnj7ow2vJB9nEeG0DqRqtPou2j8hSaVvcF/pxeT9GwRYEvhUZ5PBm+A4onfzf3TcQ3QLPMYUL9rvLgk+4iL0QAQPAgCxevaZlvNxHuxlzqqMIL23UhwrS8EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1249.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 00:57:54 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0428.008; Wed, 16 Sep 2026 00:57:54 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Iwona Winiarska <iwona.winiarska@intel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, Philipp Zabel
-	<p.zabel@pengutronix.de>
-Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-Thread-Topic: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-Thread-Index: AQHdO6kXA4sHfaC14U25FDUP6J6nyLbLGoOAgADY2xCAAAKHgIAEf5aA
-Date: Wed, 16 Sep 2026 00:57:53 +0000
-Message-ID:
- <ZQ4PR01MB1202537F45A6D33446A3E080F2B92@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
- <20260903133408.110847-7-changhuang.liang@starfivetech.com>
- <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
- <ZQ4PR01MB1202109A402BBFDAD908C08EF2BC2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <eefdb261-49d7-42dd-9ec8-850789852bec@roeck-us.net>
-In-Reply-To: <eefdb261-49d7-42dd-9ec8-850789852bec@roeck-us.net>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1249:EE_
-x-ms-office365-filtering-correlation-id: 65389338-5270-417c-07dc-08df138d8a47
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|38070700021|6133799003|3023799007|10067099003|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- 5saHXZfNL2IMj4PCf9is1mi8uPXF/Ai7xkdlsYodd8LWvskHAiOmznQPXDK+5H5yTIWlq1CJLLdEdY0jNCdU3oQVziXQlJ3n0V16n821LKohdM5D/2uylG73KVsPBxkBkysUZu4sqE4+BEAgxrUAq22vKe/rMgZV0Pp8y91Z0sJIl+Ftj4K7F3Dbtc6OaWx7DzYPITfNBTpAKy4OQRcL9aPhzuiDGKcfCMAJRHVI1QmhT4pBSkQ0zKAuVN3DmxIrtk5JxJhVOM0+Dn9cJNpPf/QCu8iaSJ4xRXZHiW+oBX8tVGS/9QfYFFbGsYatbTf6WF13cPB3LXhakzUr10Bl1EP6MqO8G1twwxFop3tYwNbJ7RhQcNIk9Qxjq450WkL6qVbAqunnNXojzxXFOtGRihhThxL6/3f1xv+ZCi36+dlMM8Xhur1AcNOlADnhWRfQsJ6IHpemHDJTyinz8Ymb8nL/Gls+SqymW6RB8iCoGrZ8mJFukJyR8TGsLHzO8FrWP0X6pd0P3kNU4WltxWQl+ZqWo+CCpKFMsCifT8iMAX0AuRBgtomime3ZMLyXUMwb
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(38070700021)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Q1NDUDV2OW1pL2g2U1JHcCt2ZFFWcjYweUVWdHBMaExmdmRlQ0lVK2hZMVVB?=
- =?utf-8?B?WTk0c0pLNXlOQkcyVDVoYnE2bTltWFY1QkZDY1p4U3dnWWpTNmh1SGhlZXpU?=
- =?utf-8?B?TUQ3ZDIzL1ZpM1hVM3gwc0FESlBEUWNobHBLSzZrWk1tU0dqcUUya3oyeDRa?=
- =?utf-8?B?QVFMajgzRFpjTzVVNHZsVXdINTgrM2J5enErQUZOY3ZWempEd29MejRMN0ZZ?=
- =?utf-8?B?a3k2QUpETHI5cWM4dTdscGFtT0VYTmNueTZDT2ZyQVh4c25oZjJ1SGtNaHR1?=
- =?utf-8?B?UlFaNjRHL0oxSlhtWGQwWXJXM3hSbVpQeTBqbVluU21xekpybXpMRzI0bnlG?=
- =?utf-8?B?aTd3dDNCWEttUFcwNXRYclZvNElqNnhnaEo3WnJTTHBSd0dRLzhRaHJLMTZB?=
- =?utf-8?B?dkpFZU5XZ3ErT2pBRWE3d1I1ckNRZmdSMFNXUm9oVlQ3em8rMjMyRWg5eGFC?=
- =?utf-8?B?bE15Vjd5WXFmMzFBei9SN3lESkN0S3ZRU1ZHMGRvZXNWV1dETHljamJzMkdv?=
- =?utf-8?B?Y3JsYXBPcEhHa2x3UWYzK3BIell1QWlSdDN4cTUvaXRLalJKb2hScGQyRE4v?=
- =?utf-8?B?TzBuanVCRGJUdzV1eTFmci9XZGIwT3FOcC9iNFliRHphUW9MdHNMRXdWaUdr?=
- =?utf-8?B?RzhTSUQvU2grZkYwSHVUeHQ1WW1oWDJVZHIwaW1SSG56bXJxaWVsbWUvR2hC?=
- =?utf-8?B?YzFRdEtqQURjQXRyY0RUZ0F6UVp0d2NML0JHQTM3dUM0bGFqbTlRbUVacEov?=
- =?utf-8?B?c3gwUmY2NXFqcDVjMUdhYTlRMUpyUWhJdThXYnRwVm56T3UzRDFYTVdHeUxx?=
- =?utf-8?B?VFJoMXVuU1hudGlFdEt1LzEvMWVyL09PYTBmc0pWWnphT1crVmlqU1ZUazFm?=
- =?utf-8?B?MkpPSUIwajh1RnM3MFFPZlZncFNHRUJjbFFNRkVhbEx1eVNsNlZENVBicy9Y?=
- =?utf-8?B?N3VLTU5ZZmF3RXlGN3p5bXJIZWZXT0R0bS9ZNmdTSkRnTFJadmF2NUMrd2ZT?=
- =?utf-8?B?TEJYTDd2YmpSVlNzblU4cnByN0x4cFdackVFWjN4aHlFa1VFWXdLS0ljVnBm?=
- =?utf-8?B?OFBEdGFrNEpjekhVOEQyZXFMeWcvNGUyWmVYSGFlRXlyYjluSnpIdk5Iak9B?=
- =?utf-8?B?a0FQbnZEc0ZNcmhYeUF0U3B0UEo1d1Ntb1lRVGFSL2QrNW9KWEdOSGNjZzFZ?=
- =?utf-8?B?SlQ5T0dyOXFyNkswdjZKRzNIa0pUV1hKakY0Wlk3ZTFmaDhmMmhKWHp2Zml2?=
- =?utf-8?B?ZmVKdFZPYkhlbk9pbWZuRDZZeEZ0bzlaZUdjQ05KVERoa1hEV1h6Z3hET3JG?=
- =?utf-8?B?MTl5Kzl0MjdYSVp2MmxjUldhRWZEaFJqUnkxbWFZV0ZHeENWRElTNHFxei94?=
- =?utf-8?B?cFg3MG9sUkdZRElmdmNWKzYydUp3N0E4NUg1Q0FmUWxYQW1SQlk4ZmhUYWph?=
- =?utf-8?B?MWd0S2g1TEp5M29VZVVHdFh3ZU0zaXBZaFMxemNRMUtMSnM3TStOQ0FSL24y?=
- =?utf-8?B?MFFHTHMyQ3ZoWlNHOFo4RkY1aEhpazE5U0FmTWJGSHJ6V3AvN2JKOXd3WWU4?=
- =?utf-8?B?WVd6OW1oZEhCTkV4MTZuL0xadUIvQ1R1S3Nyb3RUTXFkSEpUM3duQy80ZlhW?=
- =?utf-8?B?aS8yeU9wbDFCaGdybHRQZlg3VWJ4endpWWNGSmp4MVN4TVB3SXFHL1BhS0JF?=
- =?utf-8?B?SEc1aWNZMGdoV0xxSzNaQnM3R1o2VEVvSHR6VEtheHB0M0xPZjZpakozbFlv?=
- =?utf-8?B?aHY1Z3duYXdXbE5DV3EvOVEwUmREK0xhc2F1UG9hNTNsajAwRE5MQlhUQ0w1?=
- =?utf-8?B?TXhpaXMxMzhIMjZzWnliYWdJWDhrcWlWK3hpTFp3V2JLeVZNV2VhSjZ0c0xJ?=
- =?utf-8?B?OVVBejg5RXM5UzZkODZMU1BLQ3JYZ3pKUEdQUGRrMDUwR1I3UEtoc0YzOVEz?=
- =?utf-8?B?VDF4eFNWVEtjQ1JHWEIxOTMzL2dJUytIRWpSd2xxMDZ3TXBuYkVmTUk5OXh5?=
- =?utf-8?B?RW1WY1kwR2VCN0pUNGd1RjVrdmdhVUxWSUEzUndqUUdsckVzRWg3TS9EQkFv?=
- =?utf-8?B?NS81N2s5MkV5OU8xczhvSFR3VStkMFRtZWNtU2lUZ0FITWdyajkzSUt3T0tj?=
- =?utf-8?B?VCtjVU5qWlIyTWQrVGJCVWNNRDRmdlBzTm1KZEQrdVBGMVVnTnJKR05JT2NV?=
- =?utf-8?B?cHk5eEdDbGwwMDVESmhnSTBBdEFHQkIzZFdReEhDbERCUGlkZnhzam1rQUp6?=
- =?utf-8?B?a1NDNTAxMTJScU5ISEw3QWdsKy9lbm9Zd3ZMdjd3aHY2T0pmc1ZLTlc4NjRn?=
- =?utf-8?B?Q3BjdXlDMlpkdlJtZlpxR3VIUDdxRGgyN3AwQTB3VkE5VUxDOTErWngraWdW?=
- =?utf-8?Q?xBCLX4nRkWmQecJ4=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hlB9n067dz2xlY
+	for <openbmc@lists.ozlabs.org>; Wed, 16 Sep 2026 17:59:23 +1000 (AEST)
+Received: by mail-pz2-x17.google.com with SMTP id 41be03b00d2f7-cc1cea48edcso477747a12.2
+        for <openbmc@lists.ozlabs.org>; Wed, 16 Sep 2026 00:59:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789545561; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eRZ0eJIc+VBGrsi4fUU7IqfbhJV/4o/VSKgQRi22rbVInS0wagSllOZtpIgMhg+JGi
+         muFXfToQxSZTth0Z6TAEYOc/cn07fQpWVqvHfoUuk3LZZy/m+BNjbYvNqan08+BbLeqJ
+         D1+ywo74t4OAsKWoZDDvibixHciBs1iwKAIkJ2KI9y5YQdaheviQlDqAUGiSzP0VpTI+
+         NJTC/CIAGb7kiZfZrTtjM8j0oIknHqwGwW3POzB+J5kS6mQTawVCT8CKZRmiwDCpvHlp
+         L8NX9rIP4im8LTXefd1NPr/5sg1KYOQLkToGcQsdGk5JO3v04AHTIeXaH/r2BZC5WaIM
+         L9WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=eM2eJgV5Hwmog/3RU1NSWqoxtZC0kal/pIoUWPJsLpY=;
+        fh=wAgTw8WHGel48BiZW20q3nwP0VyYg5E+nS6lV4nOOq8=;
+        b=J7t93PfOKJ7Mz2ettkP2e97F4cuKaXlMcgEP3nzmgU/G3gRBSewnGI6Jia4PFouahv
+         HGAnqtkNWQBMFppvFrodfSayBEw1a6AeLuY5c7sSHosCoOk8SqiV2dyvvPgdL0BIchlf
+         Wz8OoEy+sq5gqImVTLu0LUdM0/wcJvhXYkDaWl2XMr0vRRMgZGRjhUBdZJydYKeNqkhB
+         DygGxa+Ov/EXK6+WAhgo5bU5PDjBP8Oab1Nn+7hSTpuzvo/KD+onTZiqMa9v+FPPG1D4
+         s74Wscmy9xKwcqtEzOMg2EjZnddTkYb7jCkUHof3kSZn0egK02mDTYwCvVy7f5zBFGTH
+         sI5Q==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=design.tech; s=google; t=1789545561; x=1790150361; darn=lists.ozlabs.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eM2eJgV5Hwmog/3RU1NSWqoxtZC0kal/pIoUWPJsLpY=;
+        b=ICb/gN2BTWnj5y6YRnM44J9vEbCjzEF+H0/Rs88xCcuxpN8N/jm8oIGP/NMuVWl4Kw
+         iwS+IkKVgvTptXdelSy9mRWcFB9vTa5/tZHqc4PUk7rVMDJ66B8vect2ZnSD/KkHEllf
+         7GmsKd0AbPn51tPTMSUaCuwxPtphBlElXK3yM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789545561; x=1790150361;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eM2eJgV5Hwmog/3RU1NSWqoxtZC0kal/pIoUWPJsLpY=;
+        b=meqoVpEn+B77PwzBBUK82LMeiNB81cJknjvlWJL5bmg9GfcFlOUXsOfnnx5jFjp1PM
+         2pmh9x+WO9speyslXCrDZ4fl927Rc398It6FKI5of5zezFV/GboUdOU8RSL4zSC64YIt
+         cQ9PpGwclDMFMYolnLrs9pTodpLdwlkKiAO+s0JRFbdrNPSMyH1SbnUIOj9LMCsX4rN1
+         /vaFRxAR/a/usLo9zICW3mhs7YTsQRFRhialYwmLe+yG1IO1ZzwiZbBPbzN5GEQAKLRR
+         qGMx5wM+m13VCdJU2f4/J79H0GQx1RVdUsTugQ7VeGtO2EdUf0CWTmfVMNKPCXgEGIW4
+         3K1Q==
+X-Gm-Message-State: AFuF++m/0aTflBbj5Gkf8zspy0zaFkq9qd74nK01Ut9hLni4GZXJns19
+	6vLsOJKY2eTb2KBfSa6eG42P5nSZF4M+14ZnFnbGnMzRPkz+4Y/K0aHnF5kgaoUQutXOnZTzbq/
+	cesE7hBi6uzijje0aVxCg/Qur7h4IY4eexj4fsXYeGg==
+X-Gm-Gg: AYBFou22GaeelyDWxh3//Wr0DsOuBjN4FuSIGbYkgOVCx2Df7Qqd6NCFoZv3ZOp51XR
+	XZqPXoh2s/qnMfPAQ3te8vWTvXnOqUOB0E6booMOJ/PmVA6SHPuU4uQ39FqLjFTc/z4LJo1Yh9Y
+	xVGcBGFHG0e3dn3mgyUCaFaM2HKHGgoMictYGWxD1fQZ46Y7xNDbv2dZU1S2jIIqyjMo3JRRRjW
+	Jv7QTSBswBy4CYyirHwu2YGwoPXX2UxowacEeCevq6B2tWEyrrQ9DJdHbRLEI03nT5ynTW2t+Dd
+	nctROPPXwMA9kvzPHxiodM+6yoiZn1V9PJoGu08Qweio6KQGyje66mpY4b/3GuaMSJWhqKwa9kI
+	9Avalzbw24g==
+X-Received: by 2002:a05:6a20:7d9f:b0:3c3:a3f4:5485 with SMTP id
+ adf61e73a8af0-3dd5f3c1af6mr4662831637.6.1789545561088; Wed, 16 Sep 2026
+ 00:59:21 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -138,63 +96,291 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65389338-5270-417c-07dc-08df138d8a47
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 00:57:54.0029
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: upVovY4EL7ZCdKCSiIYr0hfD94UaqzZycQRfIyXoEK/Yb2+sqQYcg5VLgBQzWB6YfbhXyhpgD+r/QapEi5HPolv+q1rfYvOqVWOp7UyUsSPGkufBbNoWKjsJGqn4SUnf
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1249
+References: <CAPzB2v5-R-+xQQYwJwjj-g8heEmxU_RLzjKsc6eGqFVNf+cB-w@mail.gmail.com>
+ <CAPzB2v7FUUoAcksgwvRhQSOwZqUJYdpgP8rr--8HmJWroJvzjg@mail.gmail.com> <SEZPR04MB7902BF81ACEBD11B6B8449ECE2B92@SEZPR04MB7902.apcprd04.prod.outlook.com>
+In-Reply-To: <SEZPR04MB7902BF81ACEBD11B6B8449ECE2B92@SEZPR04MB7902.apcprd04.prod.outlook.com>
+From: Paul Fedsen <paul-fedsen@design.tech>
+Date: Wed, 16 Sep 2026 10:59:09 +0300
+X-Gm-Features: AcwNN1U8k2ClXXYJ5KvouwduYLHRigwhHZVJD9bhGfRmuP8jwtt12h1PdEEfkLc
+Message-ID: <CAPzB2v7tHU0np65zdn84LjDzPQBHgkkXRwWi8b18_Y+Th82MsQ@mail.gmail.com>
+Subject: Re: [External] Fwd: phosphor-bmc-code-mgmt development
+To: =?UTF-8?B?S3lsZSBIc2llaCAo6Kyd5pS/5ZCJKQ==?= <Kyle.Hsieh@quantatw.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000007a7b8c065b950bb5"
 
-SGksIEd1ZW50ZXINCg0KPiBPbiA5LzEyLzI2IDIxOjA3LCBDaGFuZ2h1YW5nIExpYW5nIHdyb3Rl
-Og0KPiA+IEhpLCBHdWVudGVyDQo+ID4NCj4gPiBUaGFua3MgZm9yIHRoZSByZXZpZXcuDQo+ID4N
-Cj4gPj4gT24gOS8zLzI2IDA2OjM0LCBDaGFuZ2h1YW5nIExpYW5nIHdyb3RlOg0KPiA+Pj4gQWRk
-IHN1cHBvcnQgZm9yIEdyYW5pdGUgUmFwaWRzIChHTlIpIHBsYXRmb3JtIGluIFBFQ0kgRElNTQ0K
-PiA+Pj4gdGVtcGVyYXR1cmUgbW9uaXRvcmluZyBkcml2ZXIuDQo+ID4+Pg0KPiA+Pj4gVGhlIEdO
-UiBwbGF0Zm9ybSBoYXMgZGlmZmVyZW50IERJTU0gdG9wb2xvZ3kgZnJvbSBwcmV2aW91cw0KPiA+
-Pj4gZ2VuZXJhdGlvbnMsIHdpdGggMTIgY2hhbm5lbCByYW5rcyAoQ0hBTl9SQU5LX01BWF9PTl9H
-TlIpIGFuZCAyDQo+ID4+IERJTU0NCj4gPj4+IGluZGV4ZXMgcGVyIGNoYW5uZWwuIERlZmluZSB0
-aGVzZSBuZXcgY29uc3RhbnRzIGFuZCB1cGRhdGUNCj4gPj4+IENIQU5fUkFOS19NQVggdG8gdXNl
-IHRoZSBHTlIgdmFsdWUgc2luY2UgaXQgcmVwcmVzZW50cyB0aGUNCj4gbWF4aW11bQ0KPiA+Pj4g
-YWNyb3NzIGFsbCBzdXBwb3J0ZWQgcGxhdGZvcm1zLg0KPiA+Pj4NCj4gPj4+IEkgYW0gbm90IHN1
-cmUgd2hldGhlciBpdCBkaWZmZXJzIGZyb20gcHJldmlvdXMgbW9kZWxzLCBidXQgb24gR05SLA0K
-PiA+Pj4gcmVxdWVzdHMgdG8gcmVhZCBESU1NIHRlbXBlcmF0dXJlIHRocmVzaG9sZHMgKERJTU1f
-VEVNUF9NQVgvDQo+ID4+PiBESU1NX1RFTVBfQ1JJVCkgdmlhIFBFQ0kgYXJlIHJlamVjdGVkIHdp
-dGggY29tcGxldGlvbiBjb2RlIDB4OTANCj4gPj4+IChpbnZhbGlkIHJlcXVlc3QpLiBUbyBoYW5k
-bGUgdGhpcywgdGhlIHJlYWRfdGhyZXNob2xkcyBjYWxsYmFjayBpcw0KPiA+Pj4gbm90IGRlZmlu
-ZWQgZm9yIEdOUiwgYW5kIHRoZSB2aXNpYmlsaXR5IGxvZ2ljIGlzIHVwZGF0ZWQgdG8gc2tpcA0K
-PiA+Pj4gZXhwb3NpbmcgdGhlIG1heCBhbmQgY3JpdCB0ZW1wZXJhdHVyZSBhdHRyaWJ1dGVzIHdo
-ZW4gdGhyZXNob2xkcyBhcmUNCj4gPj4+IG5vdCBzdXBwb3J0ZWQuDQo+ID4+Pg0KPiA+Pg0KPiA+
-PiBBcmUgeW91IHN1cmUgdGhpcyBkb2Vzbid0IGp1c3QgcmVxdWlyZSBkaWZmZXJlbnQgcGFyYW1l
-dGVyIGNvbnZlcnNpb24NCj4gPj4gd2hlbiBjYWxsaW5nIHBlY2lfcGNpX2xvY2FsX3JlYWQoKSA/
-IFRoZSB0cmFuc2xhdGlvbiBmcm9tIGRpbW1fb3JkZXINCj4gPj4gYW5kIGNoYW5fcmFuayB0byB0
-aGUgcmVnaXN0ZXIgbnVtYmVyIHNlZW1zIHRvIGJlIGRpZmZlcmVudCBmb3IgZWFjaA0KPiBhcmNo
-aXRlY3R1cmUuDQo+ID4+DQo+ID4NCj4gPiBZZXMsIGRpZmZlcmVudCBtb2RlbHMgaGF2ZSBkaWZm
-ZXJlbnQgY29uZmlndXJhdGlvbiBwYXJhbWV0ZXJzLiBUaGUgZm9sbG93aW5nDQo+IGNvbW1pdCBo
-YXMgYSByZWZlcmVuY2UgZm9yIHRoaXMgcGFydC4NCj4gPg0KPiA+DQo+IGh0dHBzOi8vZ2l0aHVi
-LmNvbS9vY3AtaG0tb3BlbmJtYy1vcGYtYW1pL2xpbnV4L2NvbW1pdC9mODUxYTc5MTQzNTU2Zg0K
-PiAwDQo+ID4gYzEzODYxN2Q2OGU5MjQwNzE0MzRkOGJiNw0KPiA+DQo+ID4gSG93ZXZlciwgYWZ0
-ZXIgbXkgYWN0dWFsIHRlc3RpbmcsIEkgZm91bmQgdGhhdCB0aGlzIGxvZ2ljIHdvdWxkIGFsd2F5
-cw0KPiA+IGdldCBhbiBpbnZhbGlkIHJlcXVlc3QsIGNhdXNpbmcgaXQgdG8gZmFsbCB0aHJvdWdo
-IHRvIHRoZSBzdGF0ZW1lbnQgYmVsb3c6DQo+ID4gLyogVXNlIGRlZmF1bHQgb3IgcHJldmlvdXMg
-dmFsdWUgKi8sDQo+ID4NCj4gPiBhbmQgaW4gdGhlIGVuZCwgaXQgYWN0dWFsbHkgbmV2ZXIgb2J0
-YWluZWQgdmFsaWQgZGF0YSBmcm9tIHRoZSBwZWNpIGNsaWVudC4NCj4gPg0KPiA+IFNvIGluIG15
-IGN1cnJlbnQgdGVzdCBlbnZpcm9ubWVudCwgSSdsbCB0ZW1wb3JhcmlseSByZWdhcmQgdGhpcyBw
-YXJ0IGFzIGRlYWQNCj4gY29kZSBhbmQgbm90IGluY2x1ZGUgaXQgaW4gdGhpcyBzZXJpZXMuDQo+
-ID4gSXQgd291bGQgYmUgZ3JlYXQgaWYgSXdvbmEgY291bGQgaGVscCBjb25maXJtIHRoaXMuIFRo
-aXMgYWxzbyBuZWVkcyB0bw0KPiA+IGJlIGltcHJvdmVkIGxhdGVyIGJ5IHNvbWVvbmUgd2hvIHVu
-ZGVyc3RhbmRzIHRoaXMgQ1BVIG1vZGVsIGJldHRlci4NCj4gPg0KPiANCj4gSSB0aGluayBpdCB3
-b3VsZCBiZSB1c2VmdWwgdG8gY2xhcmlmeSBpbiB0aGUgY29tbWl0IG1lc3NhZ2UgdGhhdCB0aGlz
-IGlzIG5vdCBhDQo+IHBsYXRmb3JtIGxpbWl0YXRpb24gYnV0IGEgZHJpdmVyIGxpbWl0YXRpb24u
-DQo+IEFzIGN1cmVudGx5IHdyaXR0ZW4sIHRoZSBjb21taXQgbWVzc2FnZXMgZm9yIHRoaXMgYW5k
-IHRoZSBwcmV2aW91cyBwYXRjaA0KPiBzdWdnZXN0IHRoYXQgdGhlIHBsYXRmb3JtIGRvZXMgbm90
-IHN1cHBvcnQgaXQsIHdoaWNoIGJhc2VkIG9uIHRoZSBhdmFpbGFibGUNCj4gaW5mb3JtYXRpb24g
-aXMgaW5jb3JyZWN0OiBUaGUgcHJvYmxlbSBpcyAob3IgYXBwZWFycyB0byBiZSkgdGhhdCBpdCBp
-cyB1bmtub3duDQo+IGhvdyB0byBleHRyYWN0IHRoZSBpbmZvcm1hdGlvbiwgbm90IHRoYXQgaXQg
-aXNuJ3Qgc3VwcG9ydGVkIGJ5IHRoZSBwbGF0Zm9ybS4NCg0KT2theSwgSSdsbCB1cGRhdGUgdGhp
-cyBjb21taXQgbWVzc2FnZS4NCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0KDQoNCg==
+--0000000000007a7b8c065b950bb5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello Kyle!
+
+> My change had a fairly narrow motivation: we need to update SPI devices
+other than the host BIOS on our platform
+
+The same here.
+
+> It does not touch eeprom-device, and I have no plans to change it.
+
+ Okay, let's put that aside then...
+ You're welcome to review 93843 concept. I'll try to restructure it to
+match the newly refactored code, let's see if i have time. Tomorrow evening
+i am leaving for vacation, so things will mostly wait.
+
+=D1=81=D1=80, 16 =D1=81=D0=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 03:4=
+3, Kyle Hsieh (=E8=AC=9D=E6=94=BF=E5=90=89) <Kyle.Hsieh@quantatw.com>:
+
+> Hi,
+>
+> Thanks for reaching out. My change had a fairly narrow motivation: we nee=
+d
+> to update SPI devices other than the host BIOS on our platform, and the
+> existing daemon had that logic hard-coded for BIOS. So 484f7792 just spli=
+t
+> the BIOS specifics out of the generic SPI part and made the daemon pick t=
+he
+> device type from the EM configuration. It does not touch eeprom-device, a=
+nd
+> I have no plans to change it.
+>
+> I don't have a strong opinion on whether SPI and I2C EEPROM handling
+> should eventually converge =E2=80=94 my platform has no I2C EEPROM, so I =
+can't test
+> that path and would rather not refactor code I can't validate.
+>
+> Best regards,
+> Kyle Hsieh
+> ------------------------------
+> *=E5=AF=84=E4=BB=B6=E8=80=85:* Paul Fedsen <paul-fedsen@design.tech>
+> *=E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F:* 2026=E5=B9=B49=E6=9C=8815=E6=97=
+=A5 =E4=B8=8B=E5=8D=88 05:09
+> *=E6=94=B6=E4=BB=B6=E8=80=85:* openbmc@lists.ozlabs.org <openbmc@lists.oz=
+labs.org>; Kyle Hsieh
+> (=E8=AC=9D=E6=94=BF=E5=90=89) <Kyle.Hsieh@quantatw.com>
+> *=E4=B8=BB=E6=97=A8:* [External] Fwd: phosphor-bmc-code-mgmt development
+>
+> You don't often get email from paul-fedsen@design.tech. Learn why this is
+> important <https://aka.ms/LearnAboutSenderIdentification>
+>  Hello!
+>
+>  We are trying to upstream a patchset
+> https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843 , and
+> you recently merged commit 484f77929f9de9bb0eec98288cac784929900168 "
+> https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843". It
+> looks like we're trying to do the same thing, but chose architecturally
+> different implementations. I'd like to discuss this so that we remake our
+> patchset consistently.
+> So, our vision was that SPI EEPROMs are conceptually the same as I2C
+> EEPROMs; they even have matching addressing schemes: bus # and address
+> (which translates to CS index for SPI). EEPROMDevice services already had
+> all the core logic, so we separated generic SPIDevice code from SPIBios
+> service, put it in common/ and reused it.
+> In the meantime seems that you decided the opposite: SPIBios service gets
+> renamed to SPIFlash and handles all sorts of SPI EEPROMs, while
+> EEPROMDevice effectively becomes EEPROMI2CDevice and specializes in
+> handling I2C EEPROMs.
+> How (and whether) are you planning to address the fact that I2C and SPI
+> are still very much the same things, even on the kernel API level ? Does =
+it
+> even make sense to keep two separate services ?
+> We'd like to discuss these things with you in order to get moving in a
+> proper direction. Do you maybe have more pending patches for us to consid=
+er
+> ?
+>
+
+--0000000000007a7b8c065b950bb5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello Kyle!</div><div><br></div><div>&gt;=C2=A0My cha=
+nge had a fairly narrow motivation: we need to update SPI devices other tha=
+n the host BIOS on our platform</div><div><br></div><div>The same here.</di=
+v><div><br></div><div>&gt;=C2=A0It does not touch eeprom-device, and I have=
+ no plans to change it.</div><div><br></div><div>=C2=A0Okay, let&#39;s put =
+that aside then...</div><div>=C2=A0You&#39;re welcome to review 93843 conce=
+pt. I&#39;ll try to restructure it to match the newly refactored code, let&=
+#39;s see if i have time. Tomorrow evening i am leaving for vacation, so th=
+ings will mostly wait.</div></div><br><div class=3D"gmail_quote gmail_quote=
+_container"><div dir=3D"ltr" class=3D"gmail_attr">=D1=81=D1=80, 16 =D1=81=
+=D0=B5=D0=BD=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 03:43, Kyle Hsieh (=E8=AC=
+=9D=E6=94=BF=E5=90=89) &lt;<a href=3D"mailto:Kyle.Hsieh@quantatw.com">Kyle.=
+Hsieh@quantatw.com</a>&gt;:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex"><div class=3D"msg-259974020311946652">
+
+
+
+
+<div dir=3D"ltr">
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+Hi,</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+Thanks for reaching out. My change had a fairly narrow motivation: we need =
+to update SPI devices other than the host BIOS on our platform, and the exi=
+sting daemon had that logic hard-coded for BIOS. So 484f7792 just split the=
+ BIOS specifics out of the generic
+ SPI part and made the daemon pick the device type from the EM configuratio=
+n. It does not touch eeprom-device, and I have no plans to change it.</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+I don&#39;t have a strong opinion on whether SPI and I2C EEPROM handling sh=
+ould eventually converge =E2=80=94 my platform has no I2C EEPROM, so I can&=
+#39;t test that path and would rather not refactor code I can&#39;t validat=
+e.=C2=A0</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+Best regards,</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">
+Kyle Hsieh</div>
+<div id=3D"m_676958585792109433appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_676958585792109433divRplyFwdMsg" dir=3D"ltr"><font face=3D"Cal=
+ibri, sans-serif" style=3D"font-size:11pt" color=3D"#000000"><b>=E5=AF=84=
+=E4=BB=B6=E8=80=85:</b> Paul Fedsen &lt;paul-fedsen@design.tech&gt;<br>
+<b>=E5=AF=84=E4=BB=B6=E6=97=A5=E6=9C=9F:</b> 2026=E5=B9=B49=E6=9C=8815=E6=
+=97=A5 =E4=B8=8B=E5=8D=88 05:09<br>
+<b>=E6=94=B6=E4=BB=B6=E8=80=85:</b> <a href=3D"mailto:openbmc@lists.ozlabs.=
+org" target=3D"_blank">openbmc@lists.ozlabs.org</a> &lt;<a href=3D"mailto:o=
+penbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a>&gt;=
+; Kyle Hsieh (=E8=AC=9D=E6=94=BF=E5=90=89) &lt;<a href=3D"mailto:Kyle.Hsieh=
+@quantatw.com" target=3D"_blank">Kyle.Hsieh@quantatw.com</a>&gt;<br>
+<b>=E4=B8=BB=E6=97=A8:</b> [External] Fwd: phosphor-bmc-code-mgmt developme=
+nt</font>
+<div>=C2=A0</div>
+</div>
+<div>
+<table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" alig=
+n=3D"left" style=3D"background:revert;color:revert;direction:revert;font-si=
+ze:revert;height:revert;letter-spacing:revert;line-height:revert;margin:rev=
+ert;opacity:revert;outline:revert;overflow:revert;padding:revert;text-align=
+:revert;text-indent:revert;text-orientation:revert;text-overflow:revert;tex=
+t-transform:revert;vertical-align:revert;white-space:revert;word-break:reve=
+rt;word-spacing:revert;writing-mode:revert;zoom:revert;border:0px;display:t=
+able;width:100%;table-layout:fixed;float:none;border-spacing:0px">
+<tbody style=3D"background:revert;border:revert;color:revert;direction:reve=
+rt;font-size:revert;height:revert;letter-spacing:revert;line-height:revert;=
+margin:revert;opacity:revert;outline:revert;overflow:revert;padding:revert;=
+table-layout:revert;text-align:revert;text-indent:revert;text-orientation:r=
+evert;text-overflow:revert;text-transform:revert;vertical-align:revert;whit=
+e-space:revert;width:revert;word-break:revert;word-spacing:revert;writing-m=
+ode:revert;zoom:revert;display:block">
+<tr style=3D"background:revert;border:revert;color:revert;direction:revert;=
+display:revert;font-size:revert;height:revert;letter-spacing:revert;line-he=
+ight:revert;margin:revert;opacity:revert;outline:revert;overflow:revert;pad=
+ding:revert;table-layout:revert;text-align:revert;text-indent:revert;text-o=
+rientation:revert;text-overflow:revert;text-transform:revert;vertical-align=
+:revert;white-space:revert;width:revert;word-break:revert;word-spacing:reve=
+rt;writing-mode:revert;zoom:revert">
+<td valign=3D"middle" width=3D"1px" bgcolor=3D"#A6A6A6" cellpadding=3D"7px =
+2px 7px 2px" style=3D"background-position:revert;background-repeat:revert;b=
+ackground-image:revert;background-size:revert;background-origin:revert;back=
+ground-clip:revert;border:revert;color:revert;direction:revert;display:reve=
+rt;font-size:revert;height:revert;letter-spacing:revert;line-height:revert;=
+margin:revert;opacity:revert;outline:revert;overflow:revert;table-layout:re=
+vert;text-align:revert;text-indent:revert;text-orientation:revert;text-over=
+flow:revert;text-transform:revert;vertical-align:revert;white-space:revert;=
+word-break:revert;word-spacing:revert;writing-mode:revert;zoom:revert;paddi=
+ng:7px 2px;background-color:rgb(166,166,166);width:0px">
+</td>
+<td valign=3D"middle" width=3D"100%" bgcolor=3D"#EAEAEA" cellpadding=3D"7px=
+ 5px 7px 15px" color=3D"#212121" style=3D"background-position:revert;backgr=
+ound-repeat:revert;background-image:revert;background-size:revert;backgroun=
+d-origin:revert;background-clip:revert;border:revert;direction:revert;displ=
+ay:revert;height:revert;letter-spacing:revert;line-height:revert;margin:rev=
+ert;opacity:revert;outline:revert;overflow:revert;table-layout:revert;text-=
+indent:revert;text-orientation:revert;text-overflow:revert;text-transform:r=
+evert;vertical-align:revert;white-space:revert;word-break:revert;word-spaci=
+ng:revert;writing-mode:revert;zoom:revert;width:100%;background-color:rgb(2=
+34,234,234);padding:7px 5px 7px 15px;font-family:wf_segoe-ui_normal,Segoe U=
+I,Segoe WP,Tahoma,Arial,sans-serif;font-size:12px;font-weight:normal;color:=
+rgb(33,33,33);text-align:left">
+<div style=3D"background:revert;border:revert;color:revert;direction:revert=
+;display:revert;font-size:revert;height:revert;letter-spacing:revert;line-h=
+eight:revert;margin:revert;opacity:revert;outline:revert;overflow:revert;pa=
+dding:revert;table-layout:revert;text-align:revert;text-indent:revert;text-=
+orientation:revert;text-overflow:revert;text-transform:revert;vertical-alig=
+n:revert;white-space:revert;width:revert;word-break:revert;word-spacing:rev=
+ert;writing-mode:revert;zoom:revert">
+You don&#39;t often get email from paul-fedsen@design.tech. <a href=3D"http=
+s://aka.ms/LearnAboutSenderIdentification" style=3D"background:revert;color=
+:revert;direction:revert;display:revert;font-size:revert;opacity:revert" ta=
+rget=3D"_blank">
+Learn why this is important</a> </div>
+</td>
+<td valign=3D"middle" align=3D"left" width=3D"75px" bgcolor=3D"#EAEAEA" cel=
+lpadding=3D"7px 5px 7px 5px" color=3D"#212121" style=3D"background-position=
+:revert;background-repeat:revert;background-image:revert;background-size:re=
+vert;background-origin:revert;background-clip:revert;border:revert;directio=
+n:revert;display:revert;height:revert;letter-spacing:revert;line-height:rev=
+ert;margin:revert;opacity:revert;outline:revert;overflow:revert;table-layou=
+t:revert;text-indent:revert;text-orientation:revert;text-overflow:revert;te=
+xt-transform:revert;vertical-align:revert;white-space:revert;word-break:rev=
+ert;word-spacing:revert;writing-mode:revert;zoom:revert;width:75px;backgrou=
+nd-color:rgb(234,234,234);padding:7px 5px;font-family:wf_segoe-ui_normal,Se=
+goe UI,Segoe WP,Tahoma,Arial,sans-serif;font-size:12px;font-weight:normal;c=
+olor:rgb(33,33,33);text-align:left">
+</td>
+</tr>
+</tbody>
+</table>
+<div>
+<div dir=3D"ltr">
+<div>
+<div>=C2=A0Hello!</div>
+<div dir=3D"ltr"><br>
+</div>
+<div dir=3D"ltr">=C2=A0We are trying to upstream a patchset=C2=A0<a href=3D=
+"https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843" targe=
+t=3D"_blank">https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/=
+93843</a>
+ , and you recently merged commit=C2=A0<span style=3D"font-family:monospace=
+"><span style=3D"color:rgb(178,104,24);background-color:rgb(255,255,255)">4=
+84f77929f9de9bb0eec98288cac784929900168 &quot;</span></span><a href=3D"http=
+s://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843" target=3D"=
+_blank">https://gerrit.openbmc.org/c/openbmc/phosphor-bmc-code-mgmt/+/93843=
+</a>&quot;.
+ It looks like we&#39;re trying to do the same thing, but chose architectur=
+ally different implementations. I&#39;d like=C2=A0to discuss this so that w=
+e remake our patchset consistently.
+<div>So, our vision was that SPI EEPROMs are conceptually=C2=A0the same as =
+I2C EEPROMs; they even have matching addressing schemes: bus # and address =
+(which translates to CS index for SPI). EEPROMDevice services already had a=
+ll the core logic, so we separated generic
+ SPIDevice code from SPIBios service, put it in common/ and reused=C2=A0it.=
+</div>
+<div>In the meantime seems that you decided the opposite: SPIBios service g=
+ets renamed to SPIFlash and handles all sorts of SPI EEPROMs, while EEPROMD=
+evice effectively becomes EEPROMI2CDevice and specializes in handling I2C E=
+EPROMs.</div>
+<div>How (and whether) are you planning to address the fact that I2C and SP=
+I are still very much the same things, even on the kernel API level ? Does =
+it even make sense to keep two separate services ?</div>
+<div>We&#39;d like to discuss these things with you in order to get moving =
+in a proper direction. Do you maybe have more pending patches for us to con=
+sider ?</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div></blockquote></div>
+
+--0000000000007a7b8c065b950bb5--
 
