@@ -1,55 +1,56 @@
-Return-Path: <openbmc+bounces-2610-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2611-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE0FC982D0
-	for <openbmc@archiver.kernel.org>; Thu, 17 Sep 2026 23:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2DCAC88E72
+	for <openbmc@archiver.kernel.org>; Thu, 17 Sep 2026 23:58:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hmCP94qBkz2yb9;
-	Fri, 18 Sep 2026 09:57:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hmCPF2zvSz2yhD;
+	Fri, 18 Sep 2026 09:57:53 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789638575;
-	cv=none; b=XgSbdu4ZguOoNjq7cef/aHefmDepe9rVU/IR0WPNADwDPg/t9iz8ArsEBQIyyW63OEwSwpJ7Iv6j+9a0EzLMi08LzoWQI/Nsro54H1o/FXbCLNt29ZYwOEB4KYPVOQtODOHfZdJHGa52M5czh/SqVUtDd3jLHQLQvdbpKQCG5kV6uBDw11GlQgRYJ4rue+eTU3EI0jFaugxR6VtOUydLn/RuLWeAYRjHzQ3yMFQtAcE1cJOdW92WzV2zh6nEXkRVwG+Qs8A1tNji6FUkNN/gHTNVzDYP6cUvIR3psOwLjktOSXYYc7bB16aTT+KyMosylrRuRDghVxR+Ti0R62UIqA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789638577;
+	cv=none; b=LmT1rg//ku4nHwlrDIQjWMxoH782JzmjoCNv1dKLuBeCgc6xJ7ZgzMPGzWBNn2ta1RwZFHmbDfMW+DYzOg/7QKmHwoQeMtTvic0pJbZZAVQcR8nzC5fP3PnnGfYplS9CCS8PR/RF8HYCbzm02SUJIx98oXreOwyItZgPqVrvbSAycB3qbKJ+Izyq9pzTz+zHt59h8WRFbpC13sOSEX1mr5Gzwbc74Yk0GPbGDgZc5YGIwDnFsMzrYP0YGPsL+3dYNjd8iThQeTCkKV0C6T2nfgvlEX7grYlibywuSx/ueTCtixOPu89zL3kJADY4doy4ENPl2pvBv5XUMBiBnjNTQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789638575; c=relaxed/relaxed;
-	bh=ZgwTGXShCe3AIyOuhsURGoGZR7g8bnSgl0XH92lkwt0=;
+	t=1789638577; c=relaxed/relaxed;
+	bh=NwtMhNECfG0R9Q55+nQqVBanZ6QmlniM0B0/PB8Ygk8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mU7ynr74x/wt+9CliBhW2slwtcQN5mR3j6kSKkBT3GNnbv/mdqIGNAXRmU1sEdWnYVCoqRw8lT4DxclwZPIMAO4Z0kShjmfuMrIH0Y6qDbrYjvZ3MP6D+B3zucCB9soZ1ErIzMpU0oKAmhd0gzPQ28bwExH4loDIhoEo6Bbk9fnQRS33oCupaaMx2pi3Thkjye480F/8/b3b6sspn4+1ZuGNyW3o30qVHudsXr0W0fhAnSJvMxY7WZMbNzXxECDiEmHe2OrW4/WfdQnpqAxVQ4ddyzesi2bvYgy91bbMGDt6ULp7EjbbjXAzAfOtFXFALmcXesfb6DcfctdGVwOzyQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=J+X0eHBO; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 In-Reply-To:To:Cc; b=WcBMNAkryGJK1FtZNPvKJhZL+zNS4zuvJXlMESSVuk1JUB7Xxljq11Bos9tvLNiPMknxOWFazuWWyHY0M2KnajK203zAVzRNyTk2/rcsTltPa88qLkbQMHHxuruUmZ+mpSg8mgM+pGpi5LwpTEVqSpg0eh+keBzL+g3y/u7aOtNV2qvWYz4mxpnCAouLbBIqL2qIUUx6K0TMDOqyc5XZ+E70dUqUAmfe6xdj3C1k9evP473/fSM9YZnq7yf7SQxPZy6eOSAIq8y/C1vMBPlJIuTsa6EG09ISAY07W5/5bxOR/NIXqGEc1bhZ57hNVPpfeUXPMfiSIXEVNV1lYYxKmQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=ZDCkl5lv; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=J+X0eHBO;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=ZDCkl5lv;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hlrZQ4fsLz2y2Q
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hlrZQ4Srwz2xns
 	for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2026 19:49:34 +1000 (AEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
-	by sea.source.kernel.org (Postfix) with ESMTP id E771543D8A;
+	by sea.source.kernel.org (Postfix) with ESMTP id CC85B43ABA;
 	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C4C57C2BCF7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AE0C9C2BCB3;
 	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789638572;
-	bh=QSNrmiz2UgFEYsCQo+2LuYkQCoNw21PfuYvKPSWTpJo=;
+	bh=8KEHViuh2AZstyFvq3H3N7v99cC4qXgsUtTOgpJ0EQw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=J+X0eHBOLsTKEbAyJaok0xGOTXBaT1wCMwCVYYTbwRw1/xj5ejgkZE/LGNhWzDBwn
-	 So8gQ8b9OoHRdiPysqz7sWTd8fXYcbajCoXGm0nyK4O9Z9mqrKSOO5xdTB3YgQo1h4
-	 e+xvX8eAEWgGBG+9QpwZB6s1dWm4H8/jx1OW8VqPjHuAT3vw3Nf5ZWomQQ662fiMFc
-	 ZZumkAK43uDgkgh2FZk6WWymURS/EbfIHhGD7DWKHwZp7VN+UwZWr2UySIpGCEEmQ4
-	 nzFjr5MCikfngJlDUHDXKKSO1ltfJiUO1V2O/siGngIoIL/KX6P0q0MzWIr9Qoht0x
-	 ANDQK0SgP91pQ==
+	b=ZDCkl5lvZ+I0I6xky1s20EFZ3EKxw/ns9bX0+mD0oyNOrup6Mu9ejkhu+lL/8gXtF
+	 SkxGS+R5waLppJc7sUlGId0ZykfbFAKbvHnPT//m6Zp29dynSu1hKBKDJPG3AZRotN
+	 Y3Fg8364ejYfToF3KDU0zXmRqQcNKHSm9gWlrItVmgDJJw6iaqfIXADrO7ynOQ8kjQ
+	 ibdqWZYuJsLzF9gQc7nqaPw70ui/WFfOlipnu5rmXiU+UVMIrzRQrskWG7WclDoJdM
+	 VOk6jTsjHmptC5X08kgWnJ2KTu7CIZtqbkLwDLTuyPkKCDxsOWKypqucOko7eC6Y9F
+	 Ef/iDsl/y0Ylg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1BC3C982D0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99508C982D3;
 	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
 From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
-Date: Thu, 17 Sep 2026 17:49:24 +0800
-Subject: [PATCH linux dev-6.18 v2 4/4] hwmon: (kb9002) Add documentation
+Date: Thu, 17 Sep 2026 17:49:23 +0800
+Subject: [PATCH linux dev-6.18 v2 3/4] hwmon: (kb9002) Add driver for
+ Kandou KB9002 retimer
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,18 +64,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-kb9002-backport-v2-4-71d46021f051@amd.com>
+Message-Id: <20260917-kb9002-backport-v2-3-71d46021f051@amd.com>
 References: <20260917-kb9002-backport-v2-0-71d46021f051@amd.com>
 In-Reply-To: <20260917-kb9002-backport-v2-0-71d46021f051@amd.com>
 To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, 
  tan.siewert@9elements.com
 Cc: joel@jms.id.au
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789638570; l=3356;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789638570; l=15834;
  i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
- bh=Cn+LXNU1gWYNEQxLBurVLc7ZPOgyecSyGUTpRrOhpaw=;
- b=+Vh5aeGk2uuUGRV1PHb8wi0FWBXy50EaN1pBWAMlKrpQu1E8+OZcJo7AbjToGriPqy7tWOmGo
- pLHmkkDDnM6BPX6NtldU++UrVOXGpinW8A1Vf4Klguit+rRC5B+h5Xb
+ bh=Sn+x2whc26fC0BlQD0fjzYHXFPe5aX0DdXWFLeuySzY=;
+ b=+N5TXYxkoMuk4tXOYsGltjz6pa48BYnwiasePbQ+aW6rcu/T5lqp/Jc0B1TZtKx+ZA3I92Wtk
+ T/arBDxwerqB7KjQsYMbK0QjMa7BRD4vWRjaCBPgCdFmZfl2UdUhgXW
 X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
  pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
 X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
@@ -84,101 +85,542 @@ Reply-To: Andy.Chung@amd.com
 
 From: Andy Chung <Andy.Chung@amd.com>
 
-Document the sysfs and debugfs interfaces of the Kandou KB9002 hwmon
-driver.
+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer that exposes an SMBus
+target with mandatory PEC. Add a hwmon driver reporting the firmware
+aggregated maximum die temperature as temp1_input, with the firmware
+version and boot status under debugfs.
 
 Signed-off-by: Andy Chung <Andy.Chung@amd.com>
-Link: https://lore.kernel.org/r/20260724-kb9002-upstream-v5-4-9523c3ffe83a@amd.com
+Link: https://lore.kernel.org/r/20260724-kb9002-upstream-v5-3-9523c3ffe83a@amd.com
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit 20e95671a612b18382d930ddbe1ee45a5eb855ba)
+(cherry picked from commit 694329073a3a964278a80a3ce1202b770f311b4d)
+[andy: use hwmon_lock()/hwmon_unlock() instead of guard(hwmon_lock),
+       which dev-6.18 does not have]
 Signed-off-by: Andy Chung <Andy.Chung@amd.com>
 ---
- Documentation/hwmon/index.rst  |  1 +
- Documentation/hwmon/kb9002.rst | 64 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 65 insertions(+)
+ MAINTAINERS            |   7 +
+ drivers/hwmon/Kconfig  |  11 ++
+ drivers/hwmon/Makefile |   1 +
+ drivers/hwmon/kb9002.c | 459 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 478 insertions(+)
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index c5ab1aa5d416..f115f9f4c181 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -108,6 +108,7 @@ Hardware Monitoring Kernel Drivers
-    jc42
-    k10temp
-    k8temp
-+   kb9002
-    kbatt
-    kfan
-    lan966x
-diff --git a/Documentation/hwmon/kb9002.rst b/Documentation/hwmon/kb9002.rst
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 684c9b9be869..06356bd0904c 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13430,6 +13430,13 @@ S:	Maintained
+ F:	Documentation/hwmon/k8temp.rst
+ F:	drivers/hwmon/k8temp.c
+ 
++KANDOU KB9002 PCIE RETIMER HWMON DRIVER
++M:	Andy Chung <andy.chung@amd.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Maintained
++F:	Documentation/hwmon/kb9002.rst
++F:	drivers/hwmon/kb9002.c
++
+ KASAN
+ M:	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+ R:	Alexander Potapenko <glider@google.com>
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index c8a7e45e8006..b2dd700b12f0 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -335,6 +335,17 @@ config SENSORS_K10TEMP
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called k10temp.
+ 
++config SENSORS_KB9002
++	tristate "Kandou KB9002 PCIe retimer"
++	depends on I2C
++	help
++	  If you say yes here you get support for the integrated
++	  temperature sensor and firmware version readout on Kandou
++	  KB9002 PCIe 5.0 retimers, accessed over SMBus.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called kb9002.
++
+ config SENSORS_KBATT
+ 	tristate "KEBA battery controller support"
+ 	depends on KEBA_CP500
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index 73b2abdcc6dd..634586d60118 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -111,6 +111,7 @@ obj-$(CONFIG_SENSORS_IT87)	+= it87.o
+ obj-$(CONFIG_SENSORS_JC42)	+= jc42.o
+ obj-$(CONFIG_SENSORS_K8TEMP)	+= k8temp.o
+ obj-$(CONFIG_SENSORS_K10TEMP)	+= k10temp.o
++obj-$(CONFIG_SENSORS_KB9002)	+= kb9002.o
+ obj-$(CONFIG_SENSORS_KBATT)	+= kbatt.o
+ obj-$(CONFIG_SENSORS_KFAN)	+= kfan.o
+ obj-$(CONFIG_SENSORS_LAN966X)	+= lan966x-hwmon.o
+diff --git a/drivers/hwmon/kb9002.c b/drivers/hwmon/kb9002.c
 new file mode 100644
-index 000000000000..6f8116dde918
+index 000000000000..a63a66a28bf7
 --- /dev/null
-+++ b/Documentation/hwmon/kb9002.rst
-@@ -0,0 +1,64 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
++++ b/drivers/hwmon/kb9002.c
+@@ -0,0 +1,459 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Kandou KB9002 PCIe 5.0 retimer hwmon driver.
++ *
++ * The retimer exposes a system management bus (SMBus 3.0 with PEC)
++ * target for firmware-managed status registers. This driver assumes
++ * the chip is strapped to SMBus mode and exports the aggregated
++ * maximum die temperature as hwmon temp1_input (millidegrees Celsius)
++ * plus the firmware version and boot status under debugfs.
++ *
++ * The raw-I2C path (kb9002_i2c_read/write, used only at probe to switch
++ * the host interface) carries the 32-bit register address and data
++ * big-endian. The SMBus path (kb9002_fw_read/kb9002_smbus_hw_read)
++ * carries the register address and returned data little-endian.
++ *
++ * Datasheet: Kandou KB9002 PCIe retimer (KA-015171-PD).
++ */
 +
-+Kernel driver kb9002
-+====================
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
++#include <linux/debugfs.h>
++#include <linux/err.h>
++#include <linux/hwmon.h>
++#include <linux/i2c.h>
++#include <linux/iopoll.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/seq_file.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
 +
-+Supported chips:
++#define KB9002_DEV_NAME			"kb9002"
 +
-+  * Kandou KB9002
++/*
++ * SMBus read command codes. Each read is a two-phase PEC-protected
++ * transaction: prime writes the target address, data reads it back with
++ * the register contents. FW reads use a 16-bit address, HW reads 32-bit.
++ */
++#define KB9002_CC_FW_READ_PRIME		0x82
++#define KB9002_CC_FW_READ_DATA		0x81
++#define KB9002_CC_HW_READ_PRIME		0x8a
++#define KB9002_CC_HW_READ_DATA		0x89
 +
-+    Prefix: 'kb9002'
++/* Firmware register offsets (16-bit). */
++#define KB9002_FW_REG_VID		0x0004
++#define KB9002_FW_REG_FW_VERSION	0x0500
++#define KB9002_FW_REG_TEMP_MAXIMUM	0x0550
 +
-+    Addresses scanned: -
++#define KB9002_VID_MASK			GENMASK(31, 16)
++#define KB9002_VID_KANDOU		0x1e6f
 +
-+    Datasheet: KA-015171-PD (available from Kandou under NDA)
++/* Firmware boot status: 0xe8 in the top byte means init completed OK. */
++#define KB9002_HW_REG_FW_BOOT_STATUS	0xe0090008
++#define KB9002_FW_BOOT_STATUS_OK_MSB	0xe8
 +
-+Author: Andy Chung <andy.chung@amd.com>
++/*
++ * Hardware registers reached over raw I2C (32-bit addressing). The
++ * host-interface bit selects SMBus (set) vs raw-I2C target; parts
++ * strapped to raw I2C need it set before SMBus access works.
++ */
++#define KB9002_HW_REG_REVID		0x00480004
++#define KB9002_HW_REG_HOST_IF		0x00480008
++#define KB9002_HOST_IF_SMBUS		BIT(1)
 +
-+Description
-+-----------
++#define KB9002_REVID_MASK		GENMASK(7, 0)
++#define KB9002_REVID_B0			0x10
++#define KB9002_REVID_B1			0x11
 +
-+The Kandou KB9002 is an 8-lane PCIe 5.0 retimer with an integrated
-+microcontroller. It exposes an SMBus 3.0 target (with mandatory PEC)
-+on its sideband interface. The internal firmware aggregates per-lane
-+die temperatures and publishes the maximum value through a 16-bit
-+addressed register window.
++/* Retries to drain a stray leading 0xff from the raw-I2C FIFO. */
++#define KB9002_REVID_READ_RETRIES	16
 +
-+This driver reports that aggregated maximum as the only hwmon
-+temperature channel. The running firmware version and the firmware
-+boot status are exposed under debugfs.
++/* Temperature: 32-bit Q16.16 absolute Kelvin. */
++#define KB9002_TEMP_FRAC_BITS		16
++#define KB9002_ABS_ZERO_MILLI_C		(-273150)
 +
-+sysfs interface
-+---------------
++/* Firmware takes up to ~2s to respond after a host-interface change. */
++#define KB9002_FW_READY_POLL_US		(25 * USEC_PER_MSEC)
++#define KB9002_FW_READY_TIMEOUT_US	(2 * USEC_PER_SEC)
 +
-+==================  ===============================================
-+temp1_input         Aggregated maximum die temperature across all
-+                    active lanes (millidegrees Celsius).
-+==================  ===============================================
++struct kb9002_data {
++	struct i2c_client *client;
++	struct device *hwmon_dev;
++};
 +
-+debugfs interface
-+-----------------
++/* Raw-I2C read: write the 32-bit BE address, then read 4 BE data bytes. */
++static int kb9002_i2c_read(struct i2c_client *client, u32 reg, u32 *val)
++{
++	u8 addr[4];
++	u8 rbuf[4];
++	struct i2c_msg msgs[2] = {
++		{
++			.addr = client->addr,
++			.flags = 0,
++			.len = sizeof(addr),
++			.buf = addr,
++		},
++		{
++			.addr = client->addr,
++			.flags = I2C_M_RD,
++			.len = sizeof(rbuf),
++			.buf = rbuf,
++		},
++	};
++	int ret;
 +
-+Files live in the per-client debugfs directory created by the I2C
-+core: ``/sys/kernel/debug/i2c/i2c-<bus>/<bus>-<addr>/``.
++	put_unaligned_be32(reg, addr);
 +
-+==================  ===============================================
-+fw_ver              Running firmware version in
-+                    "major.minor.patch.suffix" format. Read-only.
-+fw_load_status      Firmware boot status: "normal" once firmware has
-+                    finished initialising, "abnormal" otherwise.
-+                    Read-only.
-+==================  ===============================================
++	ret = i2c_transfer(client->adapter, msgs, ARRAY_SIZE(msgs));
++	if (ret < 0)
++		return ret;
++	if (ret != ARRAY_SIZE(msgs))
++		return -EIO;
 +
-+Notes
-+-----
++	*val = get_unaligned_be32(rbuf);
++	return 0;
++}
 +
-+The driver requires ``I2C_FUNC_SMBUS_BLOCK_DATA``,
-+``I2C_FUNC_SMBUS_PEC`` and ``I2C_FUNC_I2C`` from the host adapter. The
-+last is needed only during probe for the host-interface mode switch;
-+runtime accesses use SMBus block transactions exclusively.
++/* Raw-I2C write: 4 BE address bytes followed by 4 BE data bytes. */
++static int kb9002_i2c_write(struct i2c_client *client, u32 reg, u32 val)
++{
++	u8 buf[8];
++	struct i2c_msg msg = {
++		.addr = client->addr,
++		.flags = 0,
++		.len = sizeof(buf),
++		.buf = buf,
++	};
++	int ret;
 +
-+The retimer's SMBus address is configurable on three strap pins and
-+ranges from 0x20 to 0x27. The address is selected through device tree
-+(or i2c board info) the same way as any other I2C device; the driver
-+does not auto-detect.
++	put_unaligned_be32(reg, &buf[0]);
++	put_unaligned_be32(val, &buf[4]);
++
++	ret = i2c_transfer(client->adapter, &msg, 1);
++	if (ret < 0)
++		return ret;
++	if (ret != 1)
++		return -EIO;
++
++	return 0;
++}
++
++/*
++ * Read the silicon revision ID. A fresh FIFO may start with a stray
++ * 0xff that shifts the result, so drain one byte between retries until
++ * the top byte is no longer 0xff.
++ */
++static int kb9002_read_revid(struct i2c_client *client, u32 *revid)
++{
++	u8 dummy;
++	int ret;
++	int i;
++
++	for (i = 0; i < KB9002_REVID_READ_RETRIES; i++) {
++		ret = kb9002_i2c_read(client, KB9002_HW_REG_REVID, revid);
++		if (ret)
++			return ret;
++		if ((*revid >> 24) != 0xff)
++			return 0;
++		/* Drain one byte from the chip to re-align the I2C FIFO. */
++		i2c_master_recv(client, &dummy, 1);
++	}
++
++	return -EIO;
++}
++
++/*
++ * Read a 32-bit firmware register over SMBus: block-write the 16-bit LE
++ * address, then block-read the echoed address plus 4 LE data bytes.
++ */
++static int kb9002_fw_read(struct kb9002_data *data, u16 reg, u32 *val)
++{
++	struct i2c_client *client = data->client;
++	u8 addr[2];
++	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
++	int ret;
++
++	put_unaligned_le16(reg, addr);
++
++	ret = i2c_smbus_write_block_data(client, KB9002_CC_FW_READ_PRIME,
++					 sizeof(addr), addr);
++	if (ret < 0)
++		return ret;
++
++	ret = i2c_smbus_read_block_data(client, KB9002_CC_FW_READ_DATA, rbuf);
++	if (ret < 0)
++		return ret;
++	if (ret < (int)(sizeof(addr) + sizeof(*val)))
++		return -EIO;
++
++	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
++	return 0;
++}
++
++/* Like kb9002_fw_read but for a hardware register (32-bit LE address). */
++static int kb9002_smbus_hw_read(struct kb9002_data *data, u32 reg, u32 *val)
++{
++	struct i2c_client *client = data->client;
++	u8 addr[4];
++	u8 rbuf[I2C_SMBUS_BLOCK_MAX];
++	int ret;
++
++	put_unaligned_le32(reg, addr);
++
++	ret = i2c_smbus_write_block_data(client, KB9002_CC_HW_READ_PRIME,
++					 sizeof(addr), addr);
++	if (ret < 0)
++		return ret;
++
++	ret = i2c_smbus_read_block_data(client, KB9002_CC_HW_READ_DATA, rbuf);
++	if (ret < 0)
++		return ret;
++	if (ret < (int)(sizeof(addr) + sizeof(*val)))
++		return -EIO;
++
++	*val = get_unaligned_le32(&rbuf[sizeof(addr)]);
++	return 0;
++}
++
++/*
++ * Switch the host interface from raw-I2C to SMBus and wait for firmware
++ * to come back up. Called only when SMBus access failed in probe, i.e.
++ * the chip is strapped to raw-I2C mode. Confirms the revision, sets the
++ * SMBus-mode bit, then polls until firmware responds again.
++ */
++static int kb9002_enable_smbus_target(struct kb9002_data *data)
++{
++	struct i2c_client *client = data->client;
++	u32 revid;
++	u32 val;
++	int op_ret;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++		return dev_err_probe(&client->dev, -ENODEV,
++				     "raw I2C required to switch to SMBus mode\n");
++
++	ret = kb9002_read_revid(client, &revid);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "revision ID read failed\n");
++
++	switch (FIELD_GET(KB9002_REVID_MASK, revid)) {
++	case KB9002_REVID_B0:
++	case KB9002_REVID_B1:
++		break;
++	default:
++		return dev_err_probe(&client->dev, -ENODEV,
++				     "unsupported revision ID 0x%08x\n", revid);
++	}
++
++	ret = kb9002_i2c_read(client, KB9002_HW_REG_HOST_IF, &val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "host interface read failed\n");
++
++	val |= KB9002_HOST_IF_SMBUS;
++
++	ret = kb9002_i2c_write(client, KB9002_HW_REG_HOST_IF, val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "host interface write failed\n");
++
++	/* Wait until firmware re-initialisation completes. */
++	ret = read_poll_timeout(kb9002_fw_read, op_ret, op_ret == 0,
++				KB9002_FW_READY_POLL_US,
++				KB9002_FW_READY_TIMEOUT_US, true,
++				data, KB9002_FW_REG_VID, &val);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "firmware not responding over SMBus\n");
++
++	return 0;
++}
++
++/* Convert Q16.16 absolute Kelvin to millidegrees Celsius. */
++static long kb9002_temp_to_milli_c(u32 raw)
++{
++	s64 milli_k = ((s64)raw * 1000) >> KB9002_TEMP_FRAC_BITS;
++
++	return (long)milli_k + KB9002_ABS_ZERO_MILLI_C;
++}
++
++static int kb9002_read_temp(struct kb9002_data *data, long *val)
++{
++	u32 raw;
++	int ret;
++
++	ret = kb9002_fw_read(data, KB9002_FW_REG_TEMP_MAXIMUM, &raw);
++	if (ret)
++		return ret;
++
++	*val = kb9002_temp_to_milli_c(raw);
++	return 0;
++}
++
++static umode_t kb9002_is_visible(const void *drvdata,
++				 enum hwmon_sensor_types type,
++				 u32 attr, int channel)
++{
++	return 0444;
++}
++
++static int kb9002_read(struct device *dev, enum hwmon_sensor_types type,
++		       u32 attr, int channel, long *val)
++{
++	struct kb9002_data *data = dev_get_drvdata(dev);
++
++	if (type == hwmon_temp && attr == hwmon_temp_input)
++		return kb9002_read_temp(data, val);
++
++	return -EOPNOTSUPP;
++}
++
++static const struct hwmon_ops kb9002_hwmon_ops = {
++	.is_visible = kb9002_is_visible,
++	.read = kb9002_read,
++};
++
++static const struct hwmon_channel_info * const kb9002_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
++	NULL,
++};
++
++static const struct hwmon_chip_info kb9002_chip_info = {
++	.ops = &kb9002_hwmon_ops,
++	.info = kb9002_hwmon_info,
++};
++
++static int kb9002_fw_version_show(struct seq_file *s, void *unused)
++{
++	struct kb9002_data *data = s->private;
++	u32 ver;
++	int ret;
++
++	hwmon_lock(data->hwmon_dev);
++	ret = kb9002_fw_read(data, KB9002_FW_REG_FW_VERSION, &ver);
++	hwmon_unlock(data->hwmon_dev);
++	if (ret)
++		return ret;
++
++	seq_printf(s, "%u.%02u.%02u.%u\n",
++		   (ver >> 24) & 0xff, (ver >> 16) & 0xff,
++		   (ver >>  8) & 0xff, (ver >>  0) & 0xff);
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(kb9002_fw_version);
++
++static int kb9002_fw_load_status_show(struct seq_file *s, void *unused)
++{
++	struct kb9002_data *data = s->private;
++	u32 status;
++	int ret;
++
++	hwmon_lock(data->hwmon_dev);
++	ret = kb9002_smbus_hw_read(data, KB9002_HW_REG_FW_BOOT_STATUS, &status);
++	hwmon_unlock(data->hwmon_dev);
++	if (ret)
++		return ret;
++
++	seq_printf(s, "%s\n",
++		   (status >> 24) == KB9002_FW_BOOT_STATUS_OK_MSB ?
++		   "normal" : "abnormal");
++	return 0;
++}
++DEFINE_SHOW_ATTRIBUTE(kb9002_fw_load_status);
++
++static void kb9002_debugfs_init(struct kb9002_data *data)
++{
++	struct dentry *dir = data->client->debugfs;
++
++	debugfs_create_file("fw_ver", 0444, dir, data,
++			    &kb9002_fw_version_fops);
++	debugfs_create_file("fw_load_status", 0444, dir, data,
++			    &kb9002_fw_load_status_fops);
++}
++
++static int kb9002_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct kb9002_data *data;
++	struct device *hwmon_dev;
++	u32 vid;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter,
++				     I2C_FUNC_SMBUS_BLOCK_DATA |
++				     I2C_FUNC_SMBUS_PEC))
++		return -ENODEV;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->client = client;
++
++	/* All firmware register accesses are PEC-protected. */
++	client->flags |= I2C_CLIENT_PEC;
++
++	i2c_set_clientdata(client, data);
++
++	/*
++	 * Try SMBus first. If the chip is strapped to raw-I2C mode it
++	 * will not respond to SMBus framing, so fall back to switching
++	 * the host interface over raw I2C and retry.
++	 */
++	ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
++	if (ret) {
++		dev_dbg(dev, "SMBus probe failed (%d), trying raw-I2C host-interface switch\n",
++			ret);
++		ret = kb9002_enable_smbus_target(data);
++		if (ret)
++			return ret;
++		ret = kb9002_fw_read(data, KB9002_FW_REG_VID, &vid);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "VID read failed after host-interface switch\n");
++	}
++	if (FIELD_GET(KB9002_VID_MASK, vid) != KB9002_VID_KANDOU)
++		return dev_err_probe(dev, -ENODEV,
++				     "unexpected VID 0x%08x\n", vid);
++
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, KB9002_DEV_NAME,
++							 data,
++							 &kb9002_chip_info,
++							 NULL);
++	if (IS_ERR(hwmon_dev))
++		return PTR_ERR(hwmon_dev);
++
++	data->hwmon_dev = hwmon_dev;
++	kb9002_debugfs_init(data);
++	return 0;
++}
++
++static const struct i2c_device_id kb9002_id[] = {
++	{ .name = KB9002_DEV_NAME },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, kb9002_id);
++
++static const struct of_device_id kb9002_of_match[] = {
++	{ .compatible = "kandou,kb9002" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, kb9002_of_match);
++
++static struct i2c_driver kb9002_driver = {
++	.driver = {
++		.name = KB9002_DEV_NAME,
++		.of_match_table = kb9002_of_match,
++	},
++	.probe = kb9002_probe,
++	.id_table = kb9002_id,
++};
++module_i2c_driver(kb9002_driver);
++
++MODULE_AUTHOR("Andy Chung <andy.chung@amd.com>");
++MODULE_DESCRIPTION("Kandou KB9002 PCIe retimer hwmon driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
