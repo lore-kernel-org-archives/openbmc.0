@@ -1,85 +1,55 @@
-Return-Path: <openbmc+bounces-2609-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2610-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7BA2C982D0
-	for <openbmc@archiver.kernel.org>; Thu, 17 Sep 2026 22:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE0FC982D0
+	for <openbmc@archiver.kernel.org>; Thu, 17 Sep 2026 23:57:56 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hm9Nm1bnqz2xlZ;
-	Fri, 18 Sep 2026 08:27:20 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789684039;
-	cv=none; b=nccmnFVbqk/JC3mE3CkvB/p4JLPSfSctPJSMivQCvo+sevF8L/LDTViBpfDDkpeWhK4mxhRWJZ2VARrmiyk+Py6O/vQiv33QIg5IeVIXAFQXPtmqTEk3qAjBGt69QaJ5kw6mW6rNbBpHaqzItVR28MPw7Gk06sZojk2zt43HRlK+Y93XEHy8RfpLcc46q8W2hn49qafoWVHJhcWDtBfNkqgelzthUulyNlRgWFJdmnzozZpvcJraZYK8sovA0E5unpFoStB5Pmw9IvcypyjLa6UgSZEGfjqCKtOBThUaZ/lrQS+AZ1RW8O4hUioM4JjlJWzwa6iFrD+9Y6xs2UxXCg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hmCP94qBkz2yb9;
+	Fri, 18 Sep 2026 09:57:49 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789638575;
+	cv=none; b=XgSbdu4ZguOoNjq7cef/aHefmDepe9rVU/IR0WPNADwDPg/t9iz8ArsEBQIyyW63OEwSwpJ7Iv6j+9a0EzLMi08LzoWQI/Nsro54H1o/FXbCLNt29ZYwOEB4KYPVOQtODOHfZdJHGa52M5czh/SqVUtDd3jLHQLQvdbpKQCG5kV6uBDw11GlQgRYJ4rue+eTU3EI0jFaugxR6VtOUydLn/RuLWeAYRjHzQ3yMFQtAcE1cJOdW92WzV2zh6nEXkRVwG+Qs8A1tNji6FUkNN/gHTNVzDYP6cUvIR3psOwLjktOSXYYc7bB16aTT+KyMosylrRuRDghVxR+Ti0R62UIqA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789684039; c=relaxed/relaxed;
-	bh=yqZXwnT4sTbfdvOMcGPrEviywWtc9S3DZ3O1HarHNx0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FiCJGQSN8ET5YwfwUud8fgdX4STceZO6DmzAOmj2lKKColP7l37cE9561Wnr/uOgkFXfNNcTCFEirV/TbGoeiTMLpJBO0JBimn8hb8QJiGiWhflctUSfqQGjSIXgxRq2WIZ9HIuDnWhrZL+0wtUBFGkK2hVWouUJYoN8WNt0THUQJei22pbwxUR2svIIK0ZeizLzApVv5e26pJLR50PRRLg3+ki7iLp7qvWIPQUCR5Nh1ZXq+KdUIgSzbVjKu0gyw4YHid0003wex+z6aUKIx7xVGhQcLlsjLFetu31c49CwTfg1iD9LIwj3EB610nKmHjrr8bURue960FJWi8gx8A==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1Ch8FmE; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1789638575; c=relaxed/relaxed;
+	bh=ZgwTGXShCe3AIyOuhsURGoGZR7g8bnSgl0XH92lkwt0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mU7ynr74x/wt+9CliBhW2slwtcQN5mR3j6kSKkBT3GNnbv/mdqIGNAXRmU1sEdWnYVCoqRw8lT4DxclwZPIMAO4Z0kShjmfuMrIH0Y6qDbrYjvZ3MP6D+B3zucCB9soZ1ErIzMpU0oKAmhd0gzPQ28bwExH4loDIhoEo6Bbk9fnQRS33oCupaaMx2pi3Thkjye480F/8/b3b6sspn4+1ZuGNyW3o30qVHudsXr0W0fhAnSJvMxY7WZMbNzXxECDiEmHe2OrW4/WfdQnpqAxVQ4ddyzesi2bvYgy91bbMGDt6ULp7EjbbjXAzAfOtFXFALmcXesfb6DcfctdGVwOzyQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=J+X0eHBO; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1Ch8FmE;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=J+X0eHBO;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=robh@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=devnull+andy.chung.amd.com@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hm9Nl1vxVz2xYh;
-	Fri, 18 Sep 2026 08:27:19 +1000 (AEST)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 5D54141B0A;
-	Thu, 17 Sep 2026 22:27:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36F21F000FF;
-	Thu, 17 Sep 2026 22:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684036;
-	bh=yqZXwnT4sTbfdvOMcGPrEviywWtc9S3DZ3O1HarHNx0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T1Ch8FmEiDOu1G4fnoJuLj1rEhyz4E/ziyDrsJZ9x4LQWGIVRxnAKXftZ6pOkq0cV
-	 k/B8IdIfBNledOY1f9g38IVV8BrpBoSMSIu+lh+YHvym5y1Z1NQRJNtF6S3Q7bMBRF
-	 dMsU5FV1q4t4A4hIwC7E5PLIF2cNGkC3wolLzWWODHyQxwtkpaLmKs7/zJJlIncvx8
-	 NZBsWZICRa0Iq9VByDkAUgeriSBjwz6lhGxW4iCWDZik9l+a1vkX5lWbfhMvYRL82i
-	 nbN0PhtXBdsgAigUJoqR4xGqxnL7FxhSzWTFywmuGVz5Pll1HxEfm1SYpAtypTB4wm
-	 Nes7zqLQvzOLg==
-Date: Thu, 17 Sep 2026 17:27:14 -0500
-From: Rob Herring <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH v2 3/4] dt-bindings: uart-routing: Add binding for
- StarFive JHB100 UART routing
-Message-ID: <20260917222714.GB4081995-robh@kernel.org>
-References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
- <20260905102901.126035-4-changhuang.liang@starfivetech.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hlrZQ4fsLz2y2Q
+	for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2026 19:49:34 +1000 (AEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+	by sea.source.kernel.org (Postfix) with ESMTP id E771543D8A;
+	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4C57C2BCF7;
+	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789638572;
+	bh=QSNrmiz2UgFEYsCQo+2LuYkQCoNw21PfuYvKPSWTpJo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=J+X0eHBOLsTKEbAyJaok0xGOTXBaT1wCMwCVYYTbwRw1/xj5ejgkZE/LGNhWzDBwn
+	 So8gQ8b9OoHRdiPysqz7sWTd8fXYcbajCoXGm0nyK4O9Z9mqrKSOO5xdTB3YgQo1h4
+	 e+xvX8eAEWgGBG+9QpwZB6s1dWm4H8/jx1OW8VqPjHuAT3vw3Nf5ZWomQQ662fiMFc
+	 ZZumkAK43uDgkgh2FZk6WWymURS/EbfIHhGD7DWKHwZp7VN+UwZWr2UySIpGCEEmQ4
+	 nzFjr5MCikfngJlDUHDXKKSO1ltfJiUO1V2O/siGngIoIL/KX6P0q0MzWIr9Qoht0x
+	 ANDQK0SgP91pQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1BC3C982D0;
+	Thu, 17 Sep 2026 09:49:32 +0000 (UTC)
+From: Andy Chung via B4 Relay <devnull+Andy.Chung.amd.com@kernel.org>
+Date: Thu, 17 Sep 2026 17:49:24 +0800
+Subject: [PATCH linux dev-6.18 v2 4/4] hwmon: (kb9002) Add documentation
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -91,18 +61,127 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905102901.126035-4-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-kb9002-backport-v2-4-71d46021f051@amd.com>
+References: <20260917-kb9002-backport-v2-0-71d46021f051@amd.com>
+In-Reply-To: <20260917-kb9002-backport-v2-0-71d46021f051@amd.com>
+To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, 
+ tan.siewert@9elements.com
+Cc: joel@jms.id.au
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789638570; l=3356;
+ i=Andy.Chung@amd.com; s=20260327; h=from:subject:message-id;
+ bh=Cn+LXNU1gWYNEQxLBurVLc7ZPOgyecSyGUTpRrOhpaw=;
+ b=+Vh5aeGk2uuUGRV1PHb8wi0FWBXy50EaN1pBWAMlKrpQu1E8+OZcJo7AbjToGriPqy7tWOmGo
+ pLHmkkDDnM6BPX6NtldU++UrVOXGpinW8A1Vf4Klguit+rRC5B+h5Xb
+X-Developer-Key: i=Andy.Chung@amd.com; a=ed25519;
+ pk=X2gaHRnhU2q5hvMjkC6xmIcC03vKNvHY9CQRdsj9ecM=
+X-Endpoint-Received: by B4 Relay for Andy.Chung@amd.com/20260327 with
+ auth_id=696
+X-Original-From: Andy Chung <Andy.Chung@amd.com>
+Reply-To: Andy.Chung@amd.com
 
-On Sat, Sep 05, 2026 at 03:29:00AM -0700, Changhuang Liang wrote:
-> Add device tree binding for the StarFive JHB100 UART routing controller.
-> This controller allows dynamic routing of inputs between built-in UARTs
-> and physical serial I/O ports, enabling use cases such as Host <-> BMC
-> communication via UARTs.
+From: Andy Chung <Andy.Chung@amd.com>
 
-Also, drop 'binding for ' in the subject. The subject already said 
-binding once.
+Document the sysfs and debugfs interfaces of the Kandou KB9002 hwmon
+driver.
 
-Rob
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+Link: https://lore.kernel.org/r/20260724-kb9002-upstream-v5-4-9523c3ffe83a@amd.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+(cherry picked from commit 20e95671a612b18382d930ddbe1ee45a5eb855ba)
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
+---
+ Documentation/hwmon/index.rst  |  1 +
+ Documentation/hwmon/kb9002.rst | 64 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 65 insertions(+)
+
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index c5ab1aa5d416..f115f9f4c181 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -108,6 +108,7 @@ Hardware Monitoring Kernel Drivers
+    jc42
+    k10temp
+    k8temp
++   kb9002
+    kbatt
+    kfan
+    lan966x
+diff --git a/Documentation/hwmon/kb9002.rst b/Documentation/hwmon/kb9002.rst
+new file mode 100644
+index 000000000000..6f8116dde918
+--- /dev/null
++++ b/Documentation/hwmon/kb9002.rst
+@@ -0,0 +1,64 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
++
++Kernel driver kb9002
++====================
++
++Supported chips:
++
++  * Kandou KB9002
++
++    Prefix: 'kb9002'
++
++    Addresses scanned: -
++
++    Datasheet: KA-015171-PD (available from Kandou under NDA)
++
++Author: Andy Chung <andy.chung@amd.com>
++
++Description
++-----------
++
++The Kandou KB9002 is an 8-lane PCIe 5.0 retimer with an integrated
++microcontroller. It exposes an SMBus 3.0 target (with mandatory PEC)
++on its sideband interface. The internal firmware aggregates per-lane
++die temperatures and publishes the maximum value through a 16-bit
++addressed register window.
++
++This driver reports that aggregated maximum as the only hwmon
++temperature channel. The running firmware version and the firmware
++boot status are exposed under debugfs.
++
++sysfs interface
++---------------
++
++==================  ===============================================
++temp1_input         Aggregated maximum die temperature across all
++                    active lanes (millidegrees Celsius).
++==================  ===============================================
++
++debugfs interface
++-----------------
++
++Files live in the per-client debugfs directory created by the I2C
++core: ``/sys/kernel/debug/i2c/i2c-<bus>/<bus>-<addr>/``.
++
++==================  ===============================================
++fw_ver              Running firmware version in
++                    "major.minor.patch.suffix" format. Read-only.
++fw_load_status      Firmware boot status: "normal" once firmware has
++                    finished initialising, "abnormal" otherwise.
++                    Read-only.
++==================  ===============================================
++
++Notes
++-----
++
++The driver requires ``I2C_FUNC_SMBUS_BLOCK_DATA``,
++``I2C_FUNC_SMBUS_PEC`` and ``I2C_FUNC_I2C`` from the host adapter. The
++last is needed only during probe for the host-interface mode switch;
++runtime accesses use SMBus block transactions exclusively.
++
++The retimer's SMBus address is configurable on three strap pins and
++ranges from 0x20 to 0x27. The address is selected through device tree
++(or i2c board info) the same way as any other I2C device; the driver
++does not auto-detect.
+
+-- 
+2.34.1
+
+
 
