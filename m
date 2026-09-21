@@ -1,84 +1,61 @@
-Return-Path: <openbmc+bounces-2633-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2634-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CCD4C982E6
-	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2026 23:36:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6D24C982ED
+	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2026 23:36:56 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hpfkZ2GjSz30MZ;
-	Tue, 22 Sep 2026 09:36:22 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c005::5" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1789971534;
-	cv=pass; b=TWm5jsaAUbMWHG2aUEtPeZRgIzfd+KAKgrnydz7BXKyoHsTYj4nskVVbge6cbdz/gfSX9DBDYGphoG8LDlkFvvH+jgldG++j9ju+KMpheDFkUvV8IVvTpOk1oz7v/XIglt9k7rH19jEi4rIuNmAq8n0X6xIA8s9ZYxRJ9D1c0thGVY9zmuiRhzuWvfbfpM6lI3bgHjG8gqOmQiCXAbUapzrDy0MLym934z7f2YAL6WGUy7vzDY2Is0C8VRlPq2G+LGfL3Ymtaj12HxopfnhCrnK8eS62whq1Ms4j5YU7CyIgoN4f4JrA5PBnjiwurLntZ7K4UySd7DV3v4r5xgMO7g==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1789971534; c=relaxed/relaxed;
-	bh=iwpOb9ZBrX4CjBAR0f4yeAUiSej0yAO9h07mN0K4f0o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=DKP/jGSyfAcd0W9h5ovVv2SGI99zHIWWToMTuiBF75dY4Fc559NhRZqWo0c7QmObxpyrTlDBBQXPb14YfsvsPAUC/kAjgZxDfVP7F/lKxfT7479ykXG12k6mwjM4FCd2zRrQ/3IZ6wR6AcXm/EF1yafr8+9gj28xk7GEGtVTqaeNHIdt5dMxeQjO5op1nmSQFcpiaJYGfy9P7vy8h5ciqF/4iZb9o40+yitHzsusnIKmDt1sDRYqQ7EEzc38QudwA8wuR16M6ywrz0A8rDtX900/uykE1yo+ShXnIFkNZ01CBhwhBt2MhLoHfzRmDAM8M8TT/IwfD5EGzUePxPioyw==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-amdcloud-onmicrosoft-com header.b=BTmSIPvY; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c005::5; helo=co1pr03cu002.outbound.protection.outlook.com; envelope-from=bounces+srs=mbqrd=hn@amdcloud.onmicrosoft.com; receiver=lists.ozlabs.org) smtp.mailfrom=amdcloud.onmicrosoft.com
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hpfkc53jZz30PJ;
+	Tue, 22 Sep 2026 09:36:24 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790002129;
+	cv=none; b=W8l9QF3F7BgBOe53ghbe1SbTlzvPAu8mCXCImarQUsU3EVrW8JKBFWuFvVOMUaA1qp46B/XfQ0q1HKTK6U0FrDmruZBZ572ctJQojYKUOA8/G9k1l89fcNav2VfG3X4WhtkIxhK17TW1Z+KkUmKF3d+AXdSDG6y/XMb+W4bjunjLIF8GBJIqPTVnqVa5yiDYPwoYvEXrNMpP8SmrK5eH61JV6FIcB8vAQjAxjrDuG5QVj9POpv32K5fKg1zA7fPRjEt9FMRl8UOetiYJPhBBflbzAmeVsTh0DBQ/tQ2ofDc6CrqcJaUM10+Y9h7NXvqWe1UqM7SvcCGabrza12P3qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1790002129; c=relaxed/relaxed;
+	bh=95BoNoyBnS7EiZNoov/GT1S0dobxbX/rx/A/TW4Y+lU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PLm/gwwQzUMs678tL5Rd8fh88vyOyhJuDXuFlImz3hm23yt9JTnsOswEowArfgUBhEyBEBxn9YdyxYFTQgjTub7K1v47WfbD+km0HKI2aNyGoPsNMhsGlyljlsG8/pj6n06e3XWOUi2Ts4ryRbo9WW3CMo9k0up9uMZcGB/cXE6HSlHo//sitC8A4MiHParkSqEapgko2MmQO6XRbSKQNoQ4krwM94MAeSYN7OQJRpJH/jYvckwBJ37IURykwVpc/wzCEQoMBv2+DPuGKsuID74HVOrB+Vw85vmaykSOJh8aNvwdwl93YFJS868p6zrCQ7sbVC2hiJlHerT9mnxk+g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QENe3acR; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-amdcloud-onmicrosoft-com header.b=BTmSIPvY;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QENe3acR;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amdcloud.onmicrosoft.com (client-ip=2a01:111:f403:c005::5; helo=co1pr03cu002.outbound.protection.outlook.com; envelope-from=bounces+srs=mbqrd=hn@amdcloud.onmicrosoft.com; receiver=lists.ozlabs.org)
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azlp170100005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c005::5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=ukleinek@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hpCjT2Ppqz2yPR
-	for <openbmc@lists.ozlabs.org>; Mon, 21 Sep 2026 16:18:53 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TxdCSlJAwhtQMiWyAAgfDU1eRHt0UhnPPcfqrqVSSfM4GB0vIJiPAhzhPvfD0IBbPUIJ38pE6xCBoxE27hUWLEfBtYzQC7fOMOOTGyOzjWMn6810e2QiS49lezspvKB61vRtQtnviIMVaHFKypfEJxfSpRNrn9TGLv0sc66KXkueIFKJrDQURx3ytKu9KIwqSxbxm6pk0vnzPfzagGKWn5RPWtQDjOzhOax6VzwebeiALXny7RbFuPFqveUOnGlCVmDWoaEhwh/yN8ZPGXwlMpbDJ5jRbNfCjUD2CqhiZJr4f5WqcWbe7obSWJUAK2GY3JwGyhO9DNBQ/5TMNui5AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iwpOb9ZBrX4CjBAR0f4yeAUiSej0yAO9h07mN0K4f0o=;
- b=LrT7d78N/4EIBXnyygUYQMffDm/SeT7/6IxnF82jFAwixeEFXGX4eL9bZ705uJ9CPpl0lm5DXbKXWvfrP1Strqzpv2+48j/4QHIG0B4wGRPuoyLJEtVXrdqa58fEBYTwZ7EHlbfNWbzNFzrKtUTNHq2BHbsSqe2SKiw7b59UNW13OVVB+hFKLj43+00kADdP9/2aL7pwHt9h98YM0tdwck2CRNmxEp6rZK6fTKvxeu+aM2pLVdLVfY7PWaghXNbNSTuhTk7FLVn39ZLKzhnNzCL73MfU0U09vjO99ETYV9kTci9usI7bdEZwBPSM89gyPaCzSi/56Y9CGj/iSSiFZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=lists.ozlabs.org smtp.mailfrom=gmail.com;
- dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iwpOb9ZBrX4CjBAR0f4yeAUiSej0yAO9h07mN0K4f0o=;
- b=BTmSIPvY1XLXmjcb7uqXG53rZNjUnRaLN71KJ3Y4BKjubd/qlBEovwj8wLmC1je6rTr1RvrHZaLHQcYX16o18mAk0lF2JHaDrspB1s+5+BtOILKkEe18no+O9bKbxfWZMdA3SxkPqg4B6pafkrszOKQzqFwMiLgQwxtGpHzM816EgXybXIXKCD0iID99wZnoSQ6jxc0ORHLwq7uJrgk03yzvKuHVvTiRLVSmMhH3C5Co3Yl/TyWkJTwIrObGAtOjaXSb5VUuvi+SOxoKZoO/VjMTmlgrDkb0om8IHO8tzf4XpGAndFxU1cIk+JQsFBZi2YwQiqvdv5aP2QBZ8bpBhQ==
-Received: from ROAP284CA0308.BRAP284.PROD.OUTLOOK.COM (2603:10d6:10:f4::13) by
- CH3PR12MB9078.namprd12.prod.outlook.com (2603:10b6:610:196::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 06:18:28 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10d6:10:f4:cafe::46) by ROAP284CA0308.outlook.office365.com
- (2603:10d6:10:f4::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
- 21 Sep 2026 06:18:27 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=gmail.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- gmail.com discourages use of 165.204.84.17 as permitted sender)
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 06:18:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 01:18:22 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 01:18:21 -0500
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 21 Sep 2026 01:18:20 -0500
-From: Colin Huang <u8813345@gmail.com>
-Date: Mon, 21 Sep 2026 14:18:03 +0800
-Subject: [PATCH linux dev-6.18 2/2] hwmon: (pmbus/tda38740) Add driver for
- Infineon TDA38740/TDA38725
+	by lists.ozlabs.org (Postfix) with UTF8SMTPS id 4hpR1r1YCkz2yVd
+	for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2026 00:48:48 +1000 (AEST)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by tor.source.kernel.org (Postfix) with UTF8SMTP id 39968600C8;
+	Mon, 21 Sep 2026 14:48:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5912C1F000FF;
+	Mon, 21 Sep 2026 14:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790002124;
+	bh=95BoNoyBnS7EiZNoov/GT1S0dobxbX/rx/A/TW4Y+lU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QENe3acRXOT+cK9tRA47gQ2P4AbRZaFyBPQIszaBcTHT2aySooj4SuAzq4sp2JXQj
+	 iJnL/x1Vo47KM02dKgb/ba0g0UP+K9GWryG6n9kPqHmPY44xZ8SxW5YwTQ0V6ieeeJ
+	 ScwfJ7aGfWPsGC09fmAvqr1zAVjVMH4nGZeoM+9bfqWNqnEJZrli2YJnLn0PEcUs/O
+	 cdWR5LE+wI7VwwnaAF5xHPrwz3XJ8I0S17k851+AigMqIMXCIlrfX+Ni3Z4qNJ4NY4
+	 rRiG2FvHQTwwr4Agw+ZKc9wfdMt/y9m+HpCMjrfKvTcX2nHibPT/h6CGLckhesaqlZ
+	 vQTb0rFEq5dTQ==
+Date: Mon, 21 Sep 2026 16:48:42 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+Message-ID: <arFAy5wMZ2Rl7ubj@monoceros>
+References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
+ <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -90,253 +67,197 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260921-dev-6-18-tda38740-driver-v1-2-f9fd35faf911@gmail.com>
-References: <20260921-dev-6-18-tda38740-driver-v1-0-f9fd35faf911@gmail.com>
-In-Reply-To: <20260921-dev-6-18-tda38740-driver-v1-0-f9fd35faf911@gmail.com>
-To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
-	<tan.siewert@9elements.com>
-CC: <joel@jms.id.au>, Colin Huang <colin.huang2@amd.com>, Colin Huang
-	<u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789971497; l=6444;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=sWe7QHhgsSazNxCP+3eJlHiIwvwri06zb/uPkWg57nk=;
- b=CdUqE0KTGwFV3HHqsbHpOXJv+PTxdSW4xwecQyk0sW9AcFHPZ9/C9Fezm5c9timZXKFF+0DUV
- 9Xe+QUBWGV3BRqMI5V08OX83qXw4HykETkkmG63U+Qps20qgcykO0u9
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|CH3PR12MB9078:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbe542c8-067a-46d0-54b5-08df17a825ea
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|48200799018|7093399015|35950700016|61400799027|6133799003|13003099007|16102099003|22082099003|18002099003|56012099006|11063799006|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	wxuxX7rwjmd2l0lSp4WS31+bDYHkOARDsTwECAPwapWzuyVilFTm9dj6T2Qp8cUl4YRrBNRipgodjEl1eDs4NlOerHW6uJqHJwv5gacHO1u0MlSwFjtNE87Qd65/Ss+3CFbvpDFdRyAcxlCLGoe5nk3Ut7TVl2QTMSTanhHuLY3UPI9fCfxjreiBLEya0slf70FOMEygnuJoAFS2ZOzOrKnfX/QJvK7gGW+uldCBOpC6Ni5OoeDfJ12OzLX/KyfM4Qhdt0cTQlsc25i7vWRPCkpwVkdghSdbda+V4y6hXLME1+waQBCOAD+nMUS1TMtihyL9nxXsVOPUcxUIMDtiMeSBhEVLtpjuzJgPwQSfbcOzhONaTpZTFIrzmpBKbuLDC4TToXa6nNM17D+1A7Ek9ue+vKDSWFwcr/qkoGKIGtJbLQdgMG+gO9Zq0mj7EyHL6uDgMFAgswefZDNsDENIVtAlT9ncdlOSEQo2WYvxeSDE6eN+gsHidaNtV7OzevqrgC8LEZK9/ta3jqSqFlRf+684Dv540bs62rmgu3YVj1bANxQlEfHcCToBaYiWvO6cxsVFDGXbYMKjV/dNcOxboT7Ycd93MaplP0dzUg0q1NEtSbddU03bKRPp71Esax4KkZTgMWtADCUnd3IQghqR1w==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(48200799018)(7093399015)(35950700016)(61400799027)(6133799003)(13003099007)(16102099003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	oqRkCCJ0FRXSg+hVCbgTCQvOeRJ0wT87Rrynyi4RioVghp9Jnl/Zb95GE4Ip9HWs0om7U4SCkPS5/zAbBFfNoeEFEh8z0s7lNjOKPZ6r+w3LlLv0wHKL5rBWqle69Zk9Q1L0q00UUnF8wRWZalCQjUMTjTzrItf6thSQ57lUKjb8wh8nY/ahFODgXtxueQBfxCWmclaup9Dkd4hPym2I6azlsDB5ezZ4d79Fqap84Bzk1uO8HfW6oaen0+v42qYFQTZKuFOxyk/cYJzT9mi/ZTBwbMAo0wiYZ6aKdoreQqQ3gtb9La/WfHi0+XrewQnM3t9RLLyY/6EPw9OtmyVexKxireWzhHeb458NE2qz4R1T8g99hOBhXWQJqnTy/QL9YH1k5zf5TerWzJzn46QUM1VG3bRB+b8SsBJXV+8pKKgL8QCqG4xrkYfveCHYLWKi
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 06:18:26.6619
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbe542c8-067a-46d0-54b5-08df17a825ea
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9078
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tnydnd7lsyvlx4t2"
+Content-Disposition: inline
+In-Reply-To: <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
 
-Add a PMBus driver for Infineon TDA38740 and TDA38725
-single-voltage synchronous buck regulators.
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://patch.msgid.link/20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-(cherry picked from commit f4c3b88983f342d6614cb11b53a0640ec8bc8fd2)
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- Documentation/hwmon/index.rst    |  1 +
- Documentation/hwmon/tda38740.rst | 65 ++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/pmbus/Kconfig      |  9 ++++++
- drivers/hwmon/pmbus/Makefile     |  1 +
- drivers/hwmon/pmbus/tda38740.c   | 64 +++++++++++++++++++++++++++++++++++++++
- 5 files changed, 140 insertions(+)
+--tnydnd7lsyvlx4t2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+MIME-Version: 1.0
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index c5ab1aa5d416..66d7fbbc2462 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -244,6 +244,7 @@ Hardware Monitoring Kernel Drivers
-    sy7636a-hwmon
-    tc654
-    tc74
-+   tda38740
-    thmc50
-    tmp102
-    tmp103
-diff --git a/Documentation/hwmon/tda38740.rst b/Documentation/hwmon/tda38740.rst
-new file mode 100644
-index 000000000000..55ce12f14914
---- /dev/null
-+++ b/Documentation/hwmon/tda38740.rst
-@@ -0,0 +1,65 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+====================================
-+Kernel driver tda38740
-+====================================
-+
-+Supported chips:
-+  * Infineon TDA38740
-+  * Infineon TDA38725
-+
-+    Prefix: 'tda38740'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+      https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
-+
-+Author: Colin Huang <u8813345@gmail.com>
-+
-+Description
-+-----------
-+
-+The TDA38740 and TDA38725 are single-output synchronous buck regulators with a
-+PMBus interface. They expose basic voltage, current, power and temperature
-+telemetry through the standard PMBus hwmon interfaces.
-+
-+Sysfs entries
-+-------------
-+
-+======================= =======================================================
-+curr1_alarm		Input current alarm
-+curr1_input		Measured input current
-+curr1_label		"iin"
-+
-+curr2_crit		Critical maximum output current
-+curr2_crit_alarm	Output current critical high alarm
-+curr2_input		Measured output current
-+curr2_label		"iout"
-+
-+in1_crit		Critical maximum input voltage
-+in1_crit_alarm		Input voltage critical high alarm
-+in1_input		Measured input voltage
-+in1_label		"vin"
-+
-+in2_crit		Critical maximum output voltage
-+in2_crit_alarm		Output voltage critical high alarm
-+in2_input		Measured output voltage
-+in2_label		"vout"
-+in2_lcrit		Critical minimum output voltage
-+in2_lcrit_alarm		Output voltage critical low alarm
-+
-+power1_alarm		Input power alarm
-+power1_input		Measured input power
-+power1_label		"pin"
-+
-+power2_input		Measured output power
-+power2_label		"pout"
-+
-+temp1_crit		Critical high temperature
-+temp1_crit_alarm	Chip temperature critical high alarm
-+temp1_input		Measured temperature
-+temp1_max		Maximum temperature
-+temp1_max_alarm		Chip temperature high alarm
-+======================= =======================================================
-+
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 3043d1899a7e..b78fa2e6ce23 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -610,6 +610,15 @@ config SENSORS_TDA38640_REGULATOR
- 	  If you say yes here you get regulator support for Infineon
- 	  TDA38640 as regulator.
- 
-+config SENSORS_TDA38740
-+	tristate "Infineon TDA38725/TDA38740"
-+	help
-+	  If you say yes here you get hardware monitoring support for Infineon
-+	  TDA38725 and TDA38740.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called tda38740.
-+
- config SENSORS_TPS25990
- 	tristate "TI TPS25990"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index bd2dd3bb2e48..f40827c815e2 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -59,6 +59,7 @@ obj-$(CONFIG_SENSORS_PXE1610)	+= pxe1610.o
- obj-$(CONFIG_SENSORS_Q54SJ108A2)	+= q54sj108a2.o
- obj-$(CONFIG_SENSORS_STPDDC60)	+= stpddc60.o
- obj-$(CONFIG_SENSORS_TDA38640)	+= tda38640.o
-+obj-$(CONFIG_SENSORS_TDA38740)	+= tda38740.o
- obj-$(CONFIG_SENSORS_TPS25990)	+= tps25990.o
- obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
- obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
-diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38740.c
-new file mode 100644
-index 000000000000..067de07ba9fb
---- /dev/null
-+++ b/drivers/hwmon/pmbus/tda38740.c
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon TDA38725/TDA38740
-+ *
-+ * Copyright (c) 2023 9elements GmbH
-+ *
-+ */
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+static struct pmbus_driver_info tda38740_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_CURRENT_IN] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-+	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-+	    | PMBUS_HAVE_IIN
-+	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-+	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
-+};
-+
-+static int tda38740_probe(struct i2c_client *client)
-+{
-+	return pmbus_do_probe(client, &tda38740_info);
-+}
-+
-+static const struct i2c_device_id tda38740_id[] = {
-+	{ .name = "tda38725"},
-+	{ .name = "tda38740"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, tda38740_id);
-+
-+static const struct of_device_id tda38740_of_match[] = {
-+	{ .compatible = "infineon,tda38725"},
-+	{ .compatible = "infineon,tda38740"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, tda38740_of_match);
-+
-+static struct i2c_driver tda38740_driver = {
-+	.driver = {
-+		.name = "tda38740",
-+		.of_match_table = tda38740_of_match,
-+	},
-+	.probe = tda38740_probe,
-+	.id_table = tda38740_id,
-+};
-+
-+module_i2c_driver(tda38740_driver);
-+
-+MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+On Mon, Sep 21, 2026 at 12:21:31AM -0700, Petar Stepanovic wrote:
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 0dc0d2b69025..4466a29e780a 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
+>  obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
+>  obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+= pwm-atmel-hlcdc.o
+>  obj-$(CONFIG_PWM_ATMEL_TCB)	+= pwm-atmel-tcb.o
+> +obj-$(CONFIG_PWM_AXIADO)	+= pwm-axiado.o
+>  obj-$(CONFIG_PWM_AXI_PWMGEN)	+= pwm-axi-pwmgen.o
+>  obj-$(CONFIG_PWM_BCM2835)	+= pwm-bcm2835.o
+>  obj-$(CONFIG_PWM_BCM_IPROC)	+= pwm-bcm-iproc.o
+> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+> new file mode 100644
+> index 000000000000..781053e255f0
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-axiado.c
+> @@ -0,0 +1,277 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
+> + */
+> +
 
--- 
-2.34.1
+Is there a public reference manual for that hardware? If so, adding a
+link here would be awesome.
 
+> +/*
+> + * Limitations:
+> + * - Only normal polarity is supported.
+> + * - The hardware has no shadow registers, so configuration changes take
+> + *   effect immediately without waiting for the current period to complete.
+> + * - The output is driven high while the hardware is disabled.
+> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
+> + *   0xffffffff is reserved by the hardware for a constant low output.
+> + *   Longer periods are clamped to the maximum.
+> + * - A 0% duty cycle is emitted using the constant low encoding because the
+> + *   hardware interprets a zero high time as a constant high output. The
+> + *   requested period is lost in that case and is reported as a single clock
+> + *   cycle.
+> + * - A 100% duty cycle is supported and emits a constant high output.
+> + */
+> [...]
+> +static int
+> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
+> +			       struct pwm_device *pwm,
+> +			       const struct pwm_waveform *wf,
+> +			       void *_wfhw)
+> +{
+> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+> +	struct axiado_pwm_waveform *wfhw = _wfhw;
+> +	u64 period;
+> +	u64 duty;
+> +	int ret = 0;
+> +
+> +	/* Encode a disabled request as a zeroed hardware waveform. */
+> +	if (!wf->period_length_ns) {
+> +		*wfhw = (struct axiado_pwm_waveform) { };
+> +
+> +		return 0;
+> +	}
+> +
+> +	period = mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
+> +				     NSEC_PER_SEC);
+> +	duty = mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
+> +				   NSEC_PER_SEC);
+> +
+> +	if (!duty) {
+> +		/*
+> +		 * A zero high time makes the hardware emit a constant high
+> +		 * output, so use the constant low period encoding for a 0%
+> +		 * duty cycle. The high time must stay non-zero because it
+> +		 * takes precedence over that encoding. The requested period
+> +		 * is lost, .round_waveform_fromhw() reports a single clock
+> +		 * cycle instead.
+> +		 */
+> +		*wfhw = (struct axiado_pwm_waveform) {
+> +			.period = AXIADO_PWM_PERIOD_CONST_LOW,
+> +			.duty = AXIADO_PWM_DUTY_MIN,
+> +			.enabled = true,
+> +		};
+> +
+> +		/* That single cycle is longer than a sub-cycle request. */
+> +		return period ? 0 : 1;
+> +	}
+> +
+> +	if (period < AXIADO_PWM_PERIOD_MIN) {
+> +		period = AXIADO_PWM_PERIOD_MIN;
+> +		ret = 1;
+> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
+> +		period = AXIADO_PWM_PERIOD_MAX;
+> +	}
+> +
+> +	/*
+> +	 * Period clamping can leave the converted duty greater than the
+> +	 * final hardware period. In that case, clamp it to 100% duty.
+> +	 */
+> +	if (duty > period)
+> +		duty = period;
+
+So with period in [AXIADO_PWM_PERIOD_MIN, AXIADO_PWM_PERIOD_MAX], duty =
+period yields a constant high output? If so, why is there a special
+encoding for const high?
+
+> +	*wfhw = (struct axiado_pwm_waveform) {
+> +		.period = period,
+> +		.duty = duty,
+> +		.enabled = true,
+> +	};
+> +
+> +	return ret;
+> +}
+> +
+> +static int
+> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+> +				 struct pwm_device *pwm,
+> +				 const void *_wfhw,
+> +				 struct pwm_waveform *wf)
+> +{
+> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+> +	const struct axiado_pwm_waveform *wfhw = _wfhw;
+> +	u32 period = wfhw->period;
+> +	u32 duty = wfhw->duty;
+> +
+> +	if (!wfhw->enabled) {
+> +		*wf = (struct pwm_waveform) {
+> +			.period_length_ns = 0,
+> +		};
+> +
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * The constant low encoding doesn't hold a period. Report the
+> +	 * shortest one, the output is low for all of it either way.
+> +	 */
+> +	if (period == AXIADO_PWM_PERIOD_CONST_LOW) {
+> +		period = 1;
+> +		duty = 0;
+> +	} else if (duty > period) {
+> +		duty = period;
+> +	}
+
+You don't handle wfhw->duty == 0 here. I think this is what Sashiko
+pointed out. While .round_waveform_tohw() doens't produce this setting,
+it would still be good to handle that in case the driver is loaded with
+this setting applied in hardware.
+
+> +	*wf = (struct pwm_waveform) {
+> +		.period_length_ns =
+> +			mul_u64_u64_div_u64_roundup(period, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_length_ns =
+> +			mul_u64_u64_div_u64_roundup(duty, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_offset_ns = 0,
+> +	};
+> +
+> +	return 0;
+> +}
+
+Best regards
+Uwe
+
+--tnydnd7lsyvlx4t2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxQ8cACgkQj4D7WH0S
+/k7Uigf/XkGXqZJB9VBHl6LGR9+YtK2QKCI4RtGM5Ejt+6pf4XPIlnKLVZflNdDe
+kLLMOwwQ1cQUv53G6g/oDfrnJGEYsjklgxOXYxKNJLnoElDreJVtnq0G/kf8f0qG
+sGhWC43SeibhUgxvZlN7M4AvqqFJkp/y+Ra/P8msoGm6mVsm+c0lqQnomHb0cpps
+MP7NPeAVc9JJznYm3LtFOJt0lNXWQf3WQDipRIgkI5Af+KyszHg+YCvME9I4yoXF
+mKARwyvvlryrYraVwyQPbeoWMePZqWD8gYFUC4EVVQ3Lv3V2+4uNoxpyUkbM6HWI
+s/JhDbyOClE/G4bnhHGOt/wiy6HgGg==
+=4Tg2
+-----END PGP SIGNATURE-----
+
+--tnydnd7lsyvlx4t2--
 
