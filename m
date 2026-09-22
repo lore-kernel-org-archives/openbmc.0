@@ -1,88 +1,94 @@
-Return-Path: <openbmc+bounces-2638-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2639-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78462C982F1
-	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2026 07:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F2BEC982FA
+	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2026 18:29:18 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hps4r0VNlz2yjw;
-	Tue, 22 Sep 2026 17:22:52 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c001::2" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790061771;
-	cv=pass; b=W+8Z5dT8SiRFWeNtnAHvZQq5CRtdzm6kzwNCHa9Gzn+WzT8ZqLcNUfwNDFE0AvDr+hJW0UXXjvB8AphXmEUY+SIX7+iVgBeldcJbUSWkkkACtzVKCtrg5Ib7YCaZOGD7Fl8InIVH6mvmG2eO2kbtWBI4/HNCgYeATxFHFEv+rnjpNjue9ECcYQ5uNKA5PCW0qUkiT5gc98PaW99K3lrObuBrxQrMh15/zAkn/PCRz0GObZ/Wya22Vcpzp7zMgu4NpEk7ghG67AGuZqybNYQRSJZ5GWRB3vXfF8FO+mbIAdjnpsbsZHnyJZx/fuGZuLK5JVU4htLGN50Nf6bxkZSeeg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hq7sd2Yt6z2yqL;
+	Wed, 23 Sep 2026 04:29:09 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a00:1450:4864:3a::10" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790101748;
+	cv=pass; b=DR4wq0GAzsRvZptTSRyqmru2Qa4eVqmPc9hPC74siUGbrnSGnZLXzBcmFo+N7WGQINSgJD+lOaZG3YubE5v249MI6Cw/6BLgoO93Nb//YDDJHik4YabSqPIZR90rpoWy42miY//JTF8VTlMeBQLeQ/t84to98S+KLn5+hgnJQP64CPX/mPegTK3Je9PqPKlZDTBLue+BYIIQpWGQ5YdUvKwiczsmOfBbRtosXykywR9P2wb2qvgKWXSVHHP8pfr8ZMPqpb1DLTdMA4HnlID0vpzDh2+1mjBptmgGTJguzMVc436FIJoZEs0+zeSd4fneUXZj391QsS2Vuz5Z7rMC0Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1790061771; c=relaxed/relaxed;
-	bh=jIHUwN389n5dAvl/owQjx7+AEOM+sOb1OX03gsfjgoM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jSck5jqSgw4/4JTAB906kmzJYbP1lAPkXMrp3fXhdL09lTQqziUM3wDsL0L2NQGXQXEJ5yzj/RDfySvKDQ3X7LXf3yP5I7e0yOaaA5NbeG5B5e7qUWSyzZC1nxYB9aP8mJu/B2nszr5vaFglkJqnDSQEZXlLvhmhdeDwEheM+o9EBOQt6psvzz0vnDqUEUXCxLH2EWbWmgFAuWOZyVdVlWBiyyVQQoV2D47etFL7EmzoeJfysfYtnSvHqFChDTpMlVOiSnnGL9CwEhWQa3N2nZ1Be8nbnCaOEiKdpCDtJnKDZdMJino90hTYvb9/lJa71z3HzN2wzi/QKYow9A9ODg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UQA76RpM; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	t=1790101748; c=relaxed/relaxed;
+	bh=9s7R5tFIrbNB/h//GfaZmeWi21KjRriR0WfoE8tg++Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=odxGo74tNEkMnChrsXXLD/io0q7OTzsTmAdodr/zyAIkHYqleFUCZWAfn4bnRzNH/8oT51eQVYYs6i3dToyR663fDjJejUrX/otjxhWOyoqoFWq7Cx215Ulf3VBOyOHpyd7qCIyMvIADWc5MB9ZE+cbWtHvI3sMPmTI2qE0k0EPtG8mcO/yhgfgvM6qilOR+kdiMgR4ZhwjJBlUaGPmHKzFgie+Dyb4nbutsF3aN9qgao+9CZ5P+xF2L1HO83f196yqy+R0hQNrMWYEDyKDhItDX/D++ITBXkvf/QQQBB0lP24gC8ht5nuKlF0/iLpf6fGDRTvJ3Ou76atG7CIZ4lg==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NEAJ42+U; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:3a::10; helo=mail-vs2-x10.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UQA76RpM;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NEAJ42+U;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org)
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazlp170120002.outbound.protection.outlook.com [IPv6:2a01:111:f403:c001::2])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:3a::10; helo=mail-vs2-x10.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-vs2-x10.google.com (mail-vs2-x10.google.com [IPv6:2a00:1450:4864:3a::10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hps4p4tWDz2yfy
-	for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2026 17:22:49 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XYlIpuVVbBg+zllQtbYQ6B0crhykTnsZLonavOBvZSxw4jHBmg1zhUXa4t+KLvynzXwNZf/nnzM1rsIKHmbzxAQxNu7lYL+k9MGeMO0o8sm2QFQa8lB903oU+Np76cvUNl8F0UShg1dcArC2Wmiug815zaOJ0592aNM9vPjjTff2jMBYMOysZk3sqDXV0brPUQIrq2HmuGWihA11+kKM08R2mjF/78iC89ZJHxH/rbs49CqR7+28BH+5ImYjDHd/u9lDf1QbEYmZuE7ppgGsKScWOYObRufEkllnz/lPhrKg/KAjO75jGBfgVvLSCa0cvyTLue0fmtlbNPCvKqaF5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jIHUwN389n5dAvl/owQjx7+AEOM+sOb1OX03gsfjgoM=;
- b=HlIhj7iCmM6SXNrsVLjZjgNqaqQWnIaeNpdmvuqsxEhkykAcuIvJ8N5S9pWUE4YZ5Hh9OW8aCYxz4OA6jRgbsZSEXwkhfZYwe4TPLbsvSntFbJBxO5ZwpSyjJx4YUPEKAKuKXQQEd0GFLsKh1z0OGhtwgTZ4fNjNVwZTf4gFEN+TzxE9Qn+Wm7PQHUbGVVd8bVKG7OQWzrl31VBZ6T34OIdR/IteTnrlytr5yRt9+6PQZgBgyZYJitzoi7QLdFJD0qxiuWCfDx6jr2NmipiJ1cgWjc1xjD7K7ubYKADoMyJkzC7ZVkBHg+UzsTzog+9ZxNudB3/+7KHIZENLw4atZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=9elements.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jIHUwN389n5dAvl/owQjx7+AEOM+sOb1OX03gsfjgoM=;
- b=UQA76RpM2PCzYNHhy5nCtdbXgBhhjFSmV+PN/zIWJXDKIIGQIF7yBfiJv++ERaHwRZHA/Ox1vZdhjvi8oLqO7p5778AzY4gFUZHDtHBKeNYs2rVlow4FM7pNB+IkVSzrHqL00GN+aI99sFabWNWU6ia98N7pxSLO3TGquBWzZw4KzUa8HeN44kZ+CbkByLS5j4mMtBsGWdfLLbSQEwZCd0TAvoBP4sjIEmyshFDBBRGJDlsm+UHwG0zmhlKD30UNHzqzNXcSx4EhCfXgqkiB2N7OCIr681fD3YVL569tS0f7CoB5pwZcCerxb424BiWZErrA7MWAngocjvY9FFWmkQ==
-Received: from PH8P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::25)
- by IA0PPF4D923B935.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bcd) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 07:22:26 +0000
-Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
- (2603:10b6:510:2d7:cafe::44) by PH8P222CA0012.outlook.office365.com
- (2603:10b6:510:2d7::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
- 22 Sep 2026 07:22:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 07:22:26 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 00:22:06 -0700
-Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
- 2026 00:22:04 -0700
-From: Jacky Huang <jackyhuang@nvidia.com>
-To: <tan.siewert@9elements.com>
-CC: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
-	<joel@jms.id.au>
-Subject: Re: [PATCH u-boot] ARM: dts: aspeed: Add Nvidia MGX Vera C2 BMC
-Date: Tue, 22 Sep 2026 16:21:41 +0900
-Message-ID: <20260922072141.4008110-1-jackyhuang@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <7c2d3926-3d72-41cf-a47f-40225356c2d2@9elements.com>
-References: <20260921085602.752144-1-jackyhuang@nvidia.com> <7c2d3926-3d72-41cf-a47f-40225356c2d2@9elements.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hq7sZ55M8z2yFQ
+	for <openbmc@lists.ozlabs.org>; Wed, 23 Sep 2026 04:29:05 +1000 (AEST)
+Received: by mail-vs2-x10.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so112428e0c.1
+        for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2026 11:29:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790101741; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HtTqyEo1CPe2ErZ/E6hWyj4VCpogoWO5q1RLZ6PO2pM3PZ5OpSDzdAZBN97Iiy8CQ3
+         0ASsKjBdg9Bp9pzNlL4hY3G4SdHmsUMCgTtWl5c4wNmogDuTxsV90wrWWhj8E3TxEkyc
+         neN55bIWbhOIUjvmCYsGM+SrUjGcB8vpB/ptHbhZXXhax9kXxjPJ1OpRvVF8TmixoHyL
+         4DCFcorf2QlKy+AYLYoIKALW8UBrXBsfWUI67IR8MRYfcVfM2wke+wsRAWLn0ru13IZc
+         pwENImqYDrHiY1IZMXxheF16YJNu4DxNFEMylfbWQ2h/I4sHlJsi7DsHqNtI3tdoMWLx
+         Y4oQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9s7R5tFIrbNB/h//GfaZmeWi21KjRriR0WfoE8tg++Q=;
+        fh=phzoPfGbkA9gUrQfBEfpZVqbcjGMkzsmNZBDr21gv8c=;
+        b=TGexbwfgPhKR7vxsOHLxAxtGqSkARyXx+luafhqFTAJjT0IcwSPMXwBjZbMuJ7QBJD
+         QE2cEKG/kz3IPb4Ubhdbz8RznFCPA+R1lJulSeyFdPPG/w0ds3/wZqyK7Aos2M9pTtpc
+         EVlMwH8MQobNmg62KP2UqzBaW8QzzHNjp64AMnxAM/3ZpmxpxNCfMBGgDj0IMVRIp/KJ
+         3GVtQyuH8wp2F2GvOBnkY+YX/GqZm3jgbpmFeoUS7Kaw9EQsOaobF4lppYtr7yrvFrSN
+         VrfaO5h8ItJrlnD1/WxwsBQgYTjIiGj6oCe2xTG06bF8FYl4usBPkFaADtWerxafIJdz
+         Jypg==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790101741; x=1790706541; darn=lists.ozlabs.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9s7R5tFIrbNB/h//GfaZmeWi21KjRriR0WfoE8tg++Q=;
+        b=NEAJ42+UqEC32dYiwnKdbmVqkaLzEPmhsV87Oz7r9noTWbgmjBjJ78rc84eebnsjvg
+         S1KDspCyybxCVs5QAzpODLv+A4MmdmkhhqBPkwDCOp0T0Tjyk+SoiD7w+U5a9catPknW
+         EOo0qZSQk8QUBQUZALYko8jNRfJGHOF2wCAxRVu9z1h5ZofCNodR25SN1P2IyVqNs9G6
+         esj2t5TlPUtQv+7uog0Q5KfpRGJIK4HTBJZcKtjgQ7IRLHFkOryDTATVB62+32BS85tC
+         RQYuWiAhc5nwapk0NwG+ukKhodq80IFki1Ju2SwwriVCv/FVv0ytdsvNV6edJijGa1RE
+         wJZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790101741; x=1790706541;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9s7R5tFIrbNB/h//GfaZmeWi21KjRriR0WfoE8tg++Q=;
+        b=FUYiIKIA32dAFnwSI/YDKn8M2iGoBQQLhNPuaxdkLaSLH6I9/PFoOqJwgHkcqw8aT+
+         hllR2c0T4VEGwCpba3uR+NoI6I8BfiTxMe1Swv46tm/FyONXS58FBVZyUyw1Dx0eXdYG
+         Q2JOwxtq1ACroBoK9UGf9MXhnCa/dE3ZyhLdTvPJNe5/XWcHo0qN9YXIv6kYlWh+V584
+         3X/SjXWQEfc5FjUX3kWfUd2hXdbGgtSZ1PIFyOtz4UhTp0c/Wn8kIveDW7vaoXZICn+O
+         eojz1n16tmGuTPmiSOBogYA39Va7cWAvdGEgxqh2iZP6s3nkrj+wR6544Vl6iohG2gqj
+         dYBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytJGhT/b+aoPAvAzKEAfhGSSX11lSxz5uZ95GZuwjYmxIKuLAmOOVXP1cz1pAYYECHnz9Bat92@lists.ozlabs.org
+X-Gm-Message-State: AFuF++n5ByKYnJAxHGEqA8v4n3c6tb0MWVcMUDV8N2f+lOqOe45kdmcL
+	AcDNziAoDjKwkICguvFWHXwUe7Jesr7y5mOuEFqeP1wHa91Tg3YdukBv+sM80JVaWlSg3TW2pra
+	0UjLL7CUmJJNJXmUjAZqXkL0I5yWLYdM=
+X-Gm-Gg: AYBFou1dOAALjsbQkM05YuFzV6azqmlgZyVo34mU2IuC+IafLZheY46KOTALf3QowBd
+	Aeyx7jYvtthzOT4DSKkY3+z3uX/4i23l/z0Z81H20iNb61OwDTjpLrQsYPeJHILbTVgxPTfWh8y
+	9k5eOYUJeAry9ToIy/oEWXMh740r5QSOz4zUdTair9vMGK/Hdt3vUU5Rz6ZWVJ9jN2eXgowhCXl
+	mwtiHGT67GK7pDFALbVxY11ez9+96B8Z/1YvAvAFeeW2xjysFolMA1xBtWIm80m3MhKxS7jsw0q
+	l+5U2Bq6WbMxHrRpu5nf8Rc0cu5itVstAI0a7FId6h4x48bg4hLdu61K9BwfQdsOlIRpqfO4v9G
+	W+4v7Jj9UXDABDAd63JMlyhbxVx/Q0fh5cwfmBhnZa62f94LczRBuYTEQtaSf
+X-Received: by 2002:a05:6122:488a:b0:5c9:72ea:141b with SMTP id
+ 71dfb90a1353d-5c9f15ce401mr767937e0c.6.1790101740751; Tue, 22 Sep 2026
+ 11:29:00 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -94,48 +100,104 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|IA0PPF4D923B935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5831c4b0-edc2-4474-3086-08df187a40fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/XLHecbN+BDng8AHwYs6hyltw8uurNBVRSgqJ7+BNdhaP6kAOoCUKG6JUw49CKqptiSI5R+cl1qT2dMtyha3qMeXC25pDuCi/zVSjBRZZZSoW9BidAWpgWY8oQfk3xE9P3Ol2W8/gyWOC9/hprOQ5+PJ+pY3DkV4ACvPssYrhhCpgSy1DAtPq902tHUf7AASZkHDGnkCWXzicnZ2B7XJcof7itPYGdP1u0wFoPks3QM4+zrTdofAr8f/3/d91NwpePIQVWw7HwXn9lPGozoQzdq30/9ThSJPiCFhZK0gGIPXWydvXdnTz+Ne0hGfQH3gCYXqQjkwb+i63HLvLISLKZTJlO+yjG9nYZ/a6Fx1jtyUMxOUjMzH8Kq3H62vckyF60wH2+rfWGS2Etk8bDhzDkxsnRzKVjeQXAbfy3TblTYiOU0VWAf7cWHrx8FJlf6l/l38K8ktfXx0EdUJZgMaDY5Wsd0MFM/0RlS+0l9yxTDaJzJRsHiy7UA6zbAxeZFEK5051blpyQAXpU+vj9dDCd9ypw2muWbjfLZ91IJScUjqAn0eeJNqqUzGCEp1FJSojVVtSAC6xAbqQGClsne+NgBLTIsahTAfdrUU7NkOYc6AJUqMdzqaKoW+oZ+cjiWf5YVy3DixldwdQ3FZFpl2ZBj9jWfigG6cWhh4Ifl2m0XiW3Vi31xsbIQGFY2+gSv4amBAe5ANaGHKqcx/JO/HGw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	e6EK5IkVRUxfijZTXWzKXy8rxoBY32fN5IZOhXqgpMYZsw/+ztt186W/+uPFoWP50eRZwRocdFXLeMH9SOAWQQm95adEKVFrZQBVpHn6szoo+cyAP3D0SQP5xQH31+PmQd2g+w9yviPVF5za+2YKmiS6FGaB3aqVDfU4lfmXD4nEY1RnralmFEmnO+Is4c2EANBlYr93L8GCvfofYg40IpPAvqvALH6+USdUAfvjFxN4qnSXtPeJzOD2+o+GxAimDp2oo7G8ZrmJX+xCz1qyYUkaLcYkmKlQK2HDgrxSXq4c4aWhgg//N2Vep9gCnf0i5/9qX3sxXmT0piNjwDFcnWznTY1eoYx5Nsn2CGXlI5of0AOGbK1ZWpkrVXWRsGHOHvkrdcpHFZbV2nhejICAbApcTWtEsVo+cPPHsaE2LthozkjuPjXL7jGDDVEpbOA7
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 07:22:26.3979
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5831c4b0-edc2-4474-3086-08df187a40fd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001C9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF4D923B935
+References: <PH0PR04MB8323768CF3D318ACE6AB3C60EABA2@PH0PR04MB8323.namprd04.prod.outlook.com>
+ <PH0PR04MB832316CFAC50580AA11369F9EAB82@PH0PR04MB8323.namprd04.prod.outlook.com>
+ <PH0PR04MB8323902F7602FC21B9B92B9FEA842@PH0PR04MB8323.namprd04.prod.outlook.com>
+In-Reply-To: <PH0PR04MB8323902F7602FC21B9B92B9FEA842@PH0PR04MB8323.namprd04.prod.outlook.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 22 Sep 2026 13:28:44 -0500
+X-Gm-Features: AclHuK_BOE0-vmt4yw8wTe986SJ3IwG4J-W9RPbf8uIVgOoybHCnsuhvDcwrYc0
+Message-ID: <CALLMt=rfoGBatm8ixETYeqFo2nDwQ_PdWNk8EhkjTw_W7AK7FA@mail.gmail.com>
+Subject: Re: Submission of Signed CCLA for OpenBMC Contribution - Einfochips
+ Pvt. Ltd.
+To: Krunalkumar Darji <KRUNAL.DARJI@einfochips.com>
+Cc: Mike Dolan <manager@lfprojects.org>, 
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Bhavin Patel <bhavin.patel@einfochips.com>
+Content-Type: multipart/alternative; boundary="0000000000005e9202065c168a8c"
 
-Hi Tan,
+--0000000000005e9202065c168a8c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yes, this platform shares the same BMC module as VR-NVL, so we can
-reuse the existing U-Boot device tree.
+On Mon, Sep 21, 2026 at 6:37=E2=80=AFPM Krunalkumar Darji <
+KRUNAL.DARJI@einfochips.com> wrote:
 
-I'll send a v2 patch to add the C2 compatible to the existing
-VR-NVL DTS.
+> Looping openbmc@lists.ozlabs.org
+>
+> Hi @openbmc@lists.ozlabs.org <openbmc@lists.ozlabs.org>,
+>
+> We have signed CCLA and shared it on 15th Sep 2026 with
+> manager@lfprojects.org. However, I have not found the same CCLA has been
+> uploaded to
+> https://drive.google.com/drive/folders/1Ooi0RdTcaOWF1DWFJUAJDdN7tRKde7Nl
+>  yet.
+>
+> Can you please share the next steps to get it uploaded in CLA Repository =
+?
+>
 
-Thank you for pointing this out!
+CLA accepted and
+https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/94791 created
+to get your company into the approved CI group.
 
-Thanks,
-Jacky
+--0000000000005e9202065c168a8c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 21,=
+ 2026 at 6:37=E2=80=AFPM Krunalkumar Darji &lt;<a href=3D"mailto:KRUNAL.DAR=
+JI@einfochips.com">KRUNAL.DARJI@einfochips.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex"><div class=3D"msg-18412436117=
+42043914">
+
+
+
+
+<div dir=3D"ltr">
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+Looping=C2=A0<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">=
+openbmc@lists.ozlabs.org</a></div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+Hi <a href=3D"mailto:openbmc@lists.ozlabs.org" id=3D"m_-1841243611742043914=
+OWAAM797088" target=3D"_blank">
+@openbmc@lists.ozlabs.org</a>,=C2=A0</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+We have signed CCLA and shared it on 15<sup>th</sup>=C2=A0Sep 2026 with <a =
+href=3D"mailto:manager@lfprojects.org" target=3D"_blank">manager@lfprojects=
+.org</a>. However, I have not found the same CCLA has been uploaded to
+<a href=3D"https://drive.google.com/drive/folders/1Ooi0RdTcaOWF1DWFJUAJDdN7=
+tRKde7Nl" id=3D"m_-1841243611742043914OWAda6277f4-b2db-c269-52e3-9c68b01551=
+40" target=3D"_blank">
+https://drive.google.com/drive/folders/1Ooi0RdTcaOWF1DWFJUAJDdN7tRKde7Nl</a=
+>=C2=A0yet.=C2=A0</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+Can you please share the next steps to get it uploaded in CLA Repository ?=
+=C2=A0</div>
+<div style=3D"font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Cali=
+bri,Helvetica,sans-serif;font-size:11pt;color:rgb(0,0,0)">
+</div></div></div></blockquote><div><br></div><div>CLA accepted and=C2=A0<a=
+ href=3D"https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/94791=
+">https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/94791</a> cr=
+eated to get your company into the approved CI group.</div><div>=C2=A0</div=
+></div></div>
+
+--0000000000005e9202065c168a8c--
 
