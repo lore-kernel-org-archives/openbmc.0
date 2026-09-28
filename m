@@ -1,118 +1,94 @@
-Return-Path: <openbmc+bounces-2663-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2664-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A86BC9832F
-	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2026 09:01:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2379CA5FA1
+	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2026 16:44:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4htb096Bjlz30WX;
-	Mon, 28 Sep 2026 19:01:45 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790583981;
-	cv=none; b=aLp7gqnX62s35Gs4PEFvQNBAXFGqJqW9/Uj/I/5ytmc73uSQB9tICcw/KYCOyujc90n6cRY5Kfp/eRv+YVohOtM+lzczLV72/krOG3Ia08Kx6ikOtCOqsOjqIydRhqKjMpjWy7T8e/Y9xBUEagyO5005u/ne5eBKyBwbHZvKT/4iuLwj+sU7RFxJq1wlCxzOSmWnYPTIpLUfdu7APooGri90gaBEjXC8GmhKw820R8nN9rYNuppc8ggMhCt7CSBPKFegA+bRhVA2uVFIr5SEgFuNK8eINv4sB/Lieyr4LCsGOce36jnUvX3yCsXmSD94izDHaj+JyVLIQ6Yw8o0hsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1790583981; c=relaxed/relaxed;
-	bh=jaRIHfyS839pnGmtubgjSGEcFcrMTPnSFxHKmD/d3ug=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EQVqR8fLckrsuSJqdsUCKyFEWYUtlFScGDYxUJP1v3aHueKeFfvLF3tI1j8x3r8wK72Yjfd4AspPOEjqgguGCYln7XGvRszGiO19XCSQExofFr2JPXxaaOF0DU3CLg4lTl/f6gsZHtdohLnCUIS6RovpElAIaamwfOTHJUTgJaDdENL396BE0WrBjJmUVhiov03jsZKbb3f8BodSpohl/56N/VLVC87HEbJQ10vg1/VymGL8m6bWyNup4A5d3VDe//E1PVfw8TveWq+YRxbpAYrDQ1NEynJpdwQlalJoLapBK6nqbmWv76cmaQF6pzb8ekUYFsIC5QtrBcr42jMb6w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oYfpOOlH; dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQIjxGCZ; dkim-atps=neutral; spf=pass (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=bartosz.golaszewski@oss.qualcomm.com; receiver=lists.ozlabs.org) smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4htnG74tm7z2yqq;
+	Tue, 29 Sep 2026 02:44:31 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a00:1450:4864:3a::d" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790613871;
+	cv=pass; b=CSCXUpbK/x2WoHwTvv/wQUSR1IvVpCnQM+KMyNIGwivbCsZG+A5lEAEqAqXTBQrGAOra/iBZV/B1SosP0ovoSyVz08xFzfAKqOP3cXoiLuZg/9qDo71uqOOltwJJ8c8bhsB85Bl2nrXENuobaa/BPbIbbzxnyB6Krccgdv8TZ0RE9HU11QVXA8kwjVM30JOp0zGyF+kSTGTKwIswt24UQ8d+6hlBDUEH9yKivmA6qrkhhHO6yrBG9+7d36o6SvuffPEoJfg/3TqOM3iHTPQe/k2LhZVeM7XbMxNF1Bfe9e8Ms7p43O9GKV3tETA7orEKWJty+Vb3LRqd2NM10xY7kw==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1790613871; c=relaxed/relaxed;
+	bh=XfANe1Pt7PSanl6zHX0zpl+5k3fxV6XZYz7UDcvUG6g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TIgkp/v4Mpqy34kQ45QLUUXm0eYHDCPsjRMYYJXbKGPuDikE0qix5JiIBv6gfPCMQKfewCwdPY3hm7/G0DLTyhQl474n2qJ85ocZ7RTqIpHx1xc4plTO0nlrwp9PfxdQMg4F6XgpyjL1aITpZN09ta2AZLbfjIpfBg2EakKkvKIq71f3jcbdfixJJLIxa2GLy0i2q5mj1UuwQjqowTKtWxljcte2eAxfv/LtWbf1+WCPJagsOFRBFotKVKCNEL2C8qeY0+8m1nu3rBkSJOBW0NOHtN/7tp6DcO3cDasoe9ZizMg4XJs3Sg9z9NlJLzWEoIbw+8A8f2VLelxDUDsIzw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMXUWWTq; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:3a::d; helo=mail-vs2-x0d.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oYfpOOlH;
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQIjxGCZ;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VMXUWWTq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=oss.qualcomm.com (client-ip=205.220.168.131; helo=mx0a-0031df01.pphosted.com; envelope-from=bartosz.golaszewski@oss.qualcomm.com; receiver=lists.ozlabs.org)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:3a::d; helo=mail-vs2-x0d.google.com; envelope-from=geissonator@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-vs2-x0d.google.com (mail-vs2-x0d.google.com [IPv6:2a00:1450:4864:3a::d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4htZCJ34lqz2xST
-	for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2026 18:26:19 +1000 (AEST)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S7xMpO136923
-	for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2026 08:26:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jaRIHfyS839pnGmtubgjSGEcFcrMTPnSFxHKmD/d3ug=; b=oYfpOOlHfrhYgjZf
-	yfWUVqMSpV9zere3l6ZpI7kjRkFXd/83ZnSK0ahwfd3zPEMJkYGe0i/JXF133Lfa
-	K6MUpoUVudt2lcS4g66fQ727J4W7F8//AgYst2sOn4/POa8NrAUGS6f3EaHujq/W
-	9D/svih1YQd8nqsdXi/NWL0qL9qzJ++R6CWmswX0P6g+EuLA4pnonDCwbcNRw0Wi
-	qqeIjvTY1wyC2pVOaX7X469MWo5PcfuPUTvfhnhS0hRDBD5o+HYCxs24XlZLqqJa
-	QoIErxUERH5WDlUcDag18u6E7QyU2QALE/RHCml2nChTfmZW+OyfrkVPj2UV1C7/
-	e0BiQQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyebq17he-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2026 08:26:16 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93c599e3d3bso386088185a.2
-        for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2026 01:26:16 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4htnG53Ttqz2y2B
+	for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2026 02:44:28 +1000 (AEST)
+Received: by mail-vs2-x0d.google.com with SMTP id 71dfb90a1353d-5c9031e714dso1156820e0c.3
+        for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2026 09:44:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790613864; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h0auOfeWG5D4Ev0JU1VYuLzrdedMQGMBUPlJPOtbOqVh2QZ6Ys18vVKd0d8lkjhmZU
+         Ds8MIy3aXa7M66EB4IeY6W85V/A35AFTFlSLA5PPh7KKjsuIPEauJa3isDlRhv4DCrMX
+         jdmL2bb53oR4ZhAE9xqEMsAqf+6T9yriv5clHjJT4nxo/C4YOiVokkz3W1Lu+f5W3yDS
+         Jwn3bzE7CSdpmAfg38EN/IqFWkYMP88s0ydcEpZw9/3iwDQjuOUFOgUMGw/aptdpfrKZ
+         q8pIRfh64xQIyp31Oe7in0uLBA7za/EvIAfoesRJ8y1zpd0tA+r2zNGhKm1GHyn0soHj
+         KN4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XfANe1Pt7PSanl6zHX0zpl+5k3fxV6XZYz7UDcvUG6g=;
+        fh=RhWjHLiv/CYDydld7XnoDVEqtbUbQlTCntKSorS7m8Q=;
+        b=iIICAZlrj9MgHGb6uXTby1WCKOlLY4Fb6PLCOzBJFjdG+QsWJ8bZACfp2gqQHNR5Eo
+         oqpVtMZ+rXaG2k2APHUqK7UjTwyNijoAawDciesz/5R8th/ENPhBx7zm6IDEr4RXuz8j
+         Sb8xVVi17CNwZOzQiScBsN4EiIKQN7GlPZRKEQ9aa+IIQMGv1Cq6U8dhMWsJgH2Uxyoa
+         suOMGV+YgthEzyj6dLK7AFqtVmX6w46HuAqcvZ5XQ6yqZOfuh2tGjeI1IXRpfHaPLx63
+         uyswager1sLJIkrUODJl1sr2ArPo5azAUFLKU0+YyTYhXilIQljwL3L29Gp8QTRLYyGM
+         c2iA==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790583976; x=1791188776; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jaRIHfyS839pnGmtubgjSGEcFcrMTPnSFxHKmD/d3ug=;
-        b=CQIjxGCZ8YMLe66flj/7h3UH2PGdMt1MeZw11EupJHhzw9gl6oqpe/tKHW0GP5flkT
-         bEiBEUlT16WPJoPSURUPg+ngiatcOfuKiQ9r1oUFdjyHVzOAh57Z/tBRLsX5uU/lgq26
-         82/jCoa9SVQiEpVshYpDSblNUO74dpITgRRdktBmQNkscfV1R6Bh/ZEim8Fwes7+wqLK
-         Q7UFHXmUqXwEUn/h+qeENmUqocr/Q8tGJO6ltdmmORpbsB77YqZd08K5XjaG8ERBaQ0G
-         lFNsjZJ1R5jKB6a/Nkv9BsGJAIgyRhp1CJbEYUhnAQYuXOX4uWQiEY8aeoRPbRMps+no
-         1qMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790583976; x=1791188776;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790613864; x=1791218664; darn=lists.ozlabs.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jaRIHfyS839pnGmtubgjSGEcFcrMTPnSFxHKmD/d3ug=;
-        b=KnZgHV/j6Q2J+gsyIYyA0gS+881G9CGuqhWkGdQRkRgErUcRLIRcfFWE6kPg+IVGsG
-         t4Ok2IGbTW/R1+7YI34DEkm/Dk95eMMa7s0iko5No53t3U9tTwYqeJXe7XA477da2Uly
-         +dSddOXQUnxtPULt9N5RFc3spU0rnw21+fdMkW4+9n/AJLqC+dhFgPBqm48tKO12wOBM
-         3uf4jamlfsxE7gtCHeqgr2YZrknUFjf/z4DR5/bom1WazC3iWiv/2p/X2vRRLDM/gF+o
-         rjQRoUeS0iN1EPHWQZSF5HwBjKixW+1u+VAkPwgg20LOjS9HmWj4TozSFSv95MW3sOOl
-         Z/Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBw6IZuaczkOBC6deaUMRY+rj1Glqfz149RRmqHISqiLoOrUQGPEasG+t5E/pRmHzyUgkI02EhAg@lists.ozlabs.org
-X-Gm-Message-State: AFuF++kdwkWBTZ+VqzaA9+TR5LT737KOfZAAgIn08KxJn3dEVTsDyNpZ
-	2MiRjvYznJwzi71xuY+zPBMnj/O6JiFPXXY5qvx0PBr/UCr642PlE7smBKOtKX5Ng6zVY5bCmDd
-	hgfkqWw4S8uYS/ezbNksSXSyjtJZsTlzLtNaM5mn5IGbLnOlR0kvkmNseu1Nxiw==
-X-Gm-Gg: AYBFou1uwnNrgRYtljb8xl18asmkMrAQQpWYXNItEo/Z6jyDUDZPglAR0+XH+KIjALD
-	0ckDaIitrp/4K8RRxu7zVl4z26Y6q35X66hEM2dn2dSAQPo5DMdNwqu1fjriUgAiyRJHMskNCqA
-	Ry7KDhHEB4skuV3EqgMAIL7LUuPSNCtp162busyUPtuNh/OcSfUDE15WDyrv72NPMFu7OxJ6DD8
-	f8f+m0dTNpLlK8rSv0XMooSNoB/Fzr4q8lWMyL0t20Ki632Rh+A/BaeslVeAevSH+uoyAoIJgiB
-	xnR8TNLdNQbBK3b64ytcyWVNUtHl+h5ayfBUm+EV/fAeGz7wraWSKQLBefBdOXVERMliopRUbwR
-	uOzEYGsyy63NVsT7YkKsMAk53sY8=
-X-Received: by 2002:a05:620a:4381:b0:93c:7955:afd9 with SMTP id af79cd13be357-93c7955d94emr530358185a.52.1790583975982;
-        Mon, 28 Sep 2026 01:26:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:4381:b0:93c:7955:afd9 with SMTP id af79cd13be357-93c7955d94emr530355385a.52.1790583975552;
-        Mon, 28 Sep 2026 01:26:15 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:d5f4:8a0a:ffd4:396a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm24546686f8f.35.2026.09.28.01.26.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 01:26:14 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>,
-        Prasad Bolisetty <pbolisetty@axiado.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-        SriNavmani A <srinavmani@axiado.com>,
-        Karthikeyan Mitran <kmitran@axiado.com>,
-        Michael Walle <mwalle@kernel.org>,
-        Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 0/2] gpio: Add support for Axiado AX3005 SGPIO controller
-Date: Mon, 28 Sep 2026 10:26:11 +0200
-Message-ID: <179058396966.15719.5627642110789688777.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
-References: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
+        bh=XfANe1Pt7PSanl6zHX0zpl+5k3fxV6XZYz7UDcvUG6g=;
+        b=VMXUWWTqb6j04I25pgxsaYG1CL0PGARvpWbZvdjxk4plgmjtjKWLbsZWt0Uq3WX5Vt
+         fKG+1sRPgALGLgp0dhmsItdP57XVqSO4Oh2hAyCoem4iI4Dh/cF4NkPs+xOXkN1wpOXJ
+         nx9B1wiI5RNxGcABvNN9afMVNfDGNhGQoIn+SNiXKwIouqAGycD3ZI0uI7QD3EylwUMP
+         QgaEAnXAKF3nCt8iFBYdTqjh0gcv2oplp7xGbGTcLM882WdztR7PnkSEmFip9Iqsbz6J
+         Fki6901BhsSC39tfKNn28OKMyFoTFY9gb3tNewVqqRw1UcyGXuPiMA5uYDqKgavSXhYC
+         IEag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790613864; x=1791218664;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XfANe1Pt7PSanl6zHX0zpl+5k3fxV6XZYz7UDcvUG6g=;
+        b=QA1w140VNDeZuSb5BUKOL3bLqrgArtfVIvueJxw+bnIpaXFxwbBtkePYMOkQDzoB1Q
+         sBcGwzNTFxiVrfx1U2rWUzQ9DcX7BROrWK5aB3UMqSkKSXXa57YTNwD2diZXo2G7DQFi
+         RlhBgckTU2rXmCBb4s2hBP4JvFAhDRPeYujhGnKvx/GoUsdjjMjFotifQSR8NPbwZfZc
+         CGzxQ4fmjtrwiAv5xx2z/03Fuo3z273QnDTJfA46Vov+JJgQANQP/axhQ6h3oLA6C1jR
+         5NM0LP7mWkt3zN1LWsZQRDh4WKkzleEsU7tgZydu/dcJXHWCw5TeuKxlNRHVUsVFEkxE
+         oZVA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/2Uf10VXcmAwppOLXsns6sufVMHQYYdn2w7WgftuhnXvusw/22auvy818MHCOPZtCUMg2cix9@lists.ozlabs.org
+X-Gm-Message-State: AFq9FYI8Xm+L0HnSWpn4GaMyWYGxbGh5OFafmdRHyMHhFR0kcNsIaixi
+	XDN8GpBE+vDwgdOLzBArQxI+WuDjY6eHm6vNIS1G2B9Cuya2HtrzVLMWOGtWWXyMKMXoATNipz6
+	6jPs5mqTe5szmOF/z1oI1XnZYXJFIISU=
+X-Gm-Gg: AYBFou0Et+F3BQPcASj+XH9+Y+YjKwBoYnG0XJcdYgzP3xfF1M93aia/HgSHump7tI0
+	bAHm6Iq3OhbzjL/xuWsBKrkcHAeCz9msR1XsZ43xzpw94j2/aQbgpNiKBOCl8u1jU3MsDE6rpW4
+	E6/PouJwLLg0O5V/CFaOfQh6a3e8p+hQtME5Kpku1ll/BGXkzkl5dhNLCP8ZDAqGcmHDuMw/vcN
+	qKJMAIWp21rqrbpf0/CBNp6fSejZDgrplO8/eeTjoAuu/FfNV1LbjWiRCSDqoDXQmIUrpoSxi56
+	R3USa7iQffPvhmIsqv5iOytQo+orivJKtF5Vl6WDd2eyf4C5P5kx2zYkP3pStlqwNYqKhzpTXbD
+	MUTZBXQRptXOYtSe2Npzv/Yrew3Dd1gPfZuj9sTI=
+X-Received: by 2002:a05:6102:2910:b0:7b7:7d0a:4421 with SMTP id
+ ada2fe7eead31-7b77d19a878mr697371137.28.1790613864420; Mon, 28 Sep 2026
+ 09:44:24 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -124,59 +100,189 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: PHOfzHLPomSmawHP0RejL21uFZaIVjqv
-X-Proofpoint-GUID: PHOfzHLPomSmawHP0RejL21uFZaIVjqv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX4V54BtIzt3uI
- qhwO/10pMJb3waLGE8nnUTB3hB6P5xS8sTDPo8Je6h8l6vwvJujfkrsB+NB0v8FIiNQfhXSBqf7
- loMT2kPPRSLM7ddkwCZaL0vm+FJ4i84=
-X-Authority-Analysis: v=2.4 cv=EqRHPicA c=1 sm=1 tr=0 ts=6aba24a8 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=Wkxt52mgQ5FUUMUmAjQA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMyBTYWx0ZWRfX3Jy6kM/xMydo
- 6dEoTqEsWQcvZx9RkDpNY6HCNtvoYxNE2M6p9bgUwK2pG1SwGimgZChRJcOKQOfN85pnxRLsh7Z
- TJBZrBUzQdsuuIRy0pAoZDF7hDBMh36zaBaTDYnp0MwWzSFBYHGpmHPYCcnP7rrTZZDcKfeO8K4
- 8c7T27KQK+hd6vziDc1aHRvUFV21ZrwRBHhUEYz/OiSJ7ekCaD0y8sQwIBa8b0eenPS7ZsLJfVg
- Vd2PylEnDhSZ5SF7YdipdkamdVxxN9XoGiGtSfM7RQK9S7/ZqihiynLhKAkGRUyxOaQcZrqx0SL
- 9miko1tCYFoaS1i9DZPRJIL3VnmXXLH9SqUNkOCt4LsW5MTpI62JTWmRPf60QvHIR6lJqH4L7H3
- e3nAVhb5u+GXmZPwXCmGJU+1mtOuO25rJKxDHC3NkiFg0gRtTq/+nn5eM+f5kBwj+zWFxpWQKY2
- Unzi1oqgfwJkueycZVQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 phishscore=0 clxscore=1011 spamscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280033
+References: <CACwt7EbP_LJ1070N9xyPK2YHe8uwEZ2Wn_Jpqf26JMqbN+wOhA@mail.gmail.com>
+ <CACwt7EYM8zS2xZJyCNSDek2EMsWwY9LJ9qn7Zde-EJ=czAwkCA@mail.gmail.com> <CACwt7Ebr8Vng6WHK9Pd+R=M-hfMtwNSfU1gQwCRPAV3AuFfSdQ@mail.gmail.com>
+In-Reply-To: <CACwt7Ebr8Vng6WHK9Pd+R=M-hfMtwNSfU1gQwCRPAV3AuFfSdQ@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 28 Sep 2026 11:44:04 -0500
+X-Gm-Features: AclHuK_KBPidgIYQCtLFUtrzcoudktGaHq4guEIqW2EECa7sN4d4adByouctoLo
+Message-ID: <CALLMt=o4dtC34DHbRjCML0z-1wXkkWpMdMsbXmB3oR5SEXUxqA@mail.gmail.com>
+Subject: Re: Signed Individual CLA - OpenBMC Project - Hung-Chun Tseng
+To: alan <alan.tseng.cs@gmail.com>
+Cc: "manager@lfprojects.org" <manager@lfprojects.org>, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000005198a3065c8dc736"
+
+--0000000000005198a3065c8dc736
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Sep 25, 2026 at 11:25=E2=80=AFAM alan <alan.tseng.cs@gmail.com> wro=
+te:
+
+> Hi Mike,
+>
+> Looping in the OpenBMC list and Andrew Geissler, since I haven't had a
+> response to the two messages below.
+>
+> I sent my signed Individual CLA on 2026-08-20 and followed up on
+> 2026-08-25. It does not appear in the Individuals folder of the
+> OpenBMC Executed CLAs yet, and my libpldm changes (93691-93694) are
+> still held with "User not approved, see admin, no CI".
+>
+> On employment: I work at MediaTek, which is not involved in OpenBMC.
+> These changes were written on my own time and equipment and are
+> unrelated to my job. If you need a statement from my employer
+> confirming that, please let me know and I will arrange it.
+>
+>
+Hi Hung-Chun, I've been struggling with processing individual CLA's because
+there are a lot of gray areas in accepting them. I also need to do
+due diligence to verify an individual contributor is actually who they say
+they are which is another whole pain point. I tried to make some more
+consistent rules up in https://gerrit.openbmc.org/c/openbmc/docs/+/93905.
+Your place of employment, Mediatek, falls under these rules so I will not
+be able to accept your individual CLA. Please work with your company to get
+a corporate CLA in place for the OpenBMC project.
+
+Andrew
 
 
-On Mon, 21 Sep 2026 00:20:21 -0700, Petar Stepanovic wrote:
-> Each SGPIO position provides one input GPIO and one output GPIO with
-> fixed directions, along with interrupt support for input GPIOs.
-> 
-> This series adds support for the SGPIO controller found on the Axiado
-> AX3005 SoC.
-> 
-> The series includes:
-> - Devicetree binding documentation
-> - GPIO driver implementation
-> 
-> [...]
+> Name: Hung-Chun Tseng
+> E-mail: alan.tseng.cs@gmail.com
+> GitHub / Gerrit username: alanhc
+>
+> Thanks,
+> Hung-Chun Tseng
+>
+> alan <alan.tseng.cs@gmail.com> =E6=96=BC 2026=E5=B9=B48=E6=9C=8825=E6=97=
+=A5=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=882:48=E5=AF=AB=E9=81=93=EF=BC=9A
+> >
+> > Hello,
+> >
+> > Following up on the signed Individual CLA I sent on 2026-08-20 for the
+> OpenBMC Project.
+> >
+> > Could you confirm receipt and let me know the expected processing time?
+> OpenBMC CI is currently blocked for my account pending the CLA, so my
+> patches cannot be verified or merged.
+> >
+> > To answer the question I understand usually follows: I am employed by
+> Mediatek, which is not a member of, nor otherwise involved in, the OpenBM=
+C
+> project. This contribution was made entirely on my own time and with my o=
+wn
+> equipment, and is unrelated to my employment. That is why I am submitting
+> an Individual rather than a Corporate CLA.
+> >
+> > Name: Hung-Chun Tseng
+> > E-mail: alan.tseng.cs@gmail.com
+> > GitHub / Gerrit username: alanhc
+> > Changes: 93691-93694 on openbmc/libpldm
+> >
+> > Thank you,
+> > Hung-Chun Tseng
+> >
+> > alan <alan.tseng.cs@gmail.com> =E6=96=BC 2026=E5=B9=B48=E6=9C=8820=E6=
+=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8812:15=E5=AF=AB=E9=81=93=EF=BC=9A
+> >>
+> >> Hello,
+> >> Please find attached my signed Individual Contributor License Agreemen=
+t
+> (v1.0) for the OpenBMC Project.
+> >> Name: Hung-Chun Tseng
+> >> E-mail: alan.tseng.cs@gmail.com
+> >> GitHub / Gerrit username: alanhc
+> >> Thank you,
+> >> Hung-Chun Tseng
+>
 
-Applied, thanks!
+--0000000000005198a3065c8dc736
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[1/2] dt-bindings: gpio: add Axiado AX3005 SGPIO controller
-      https://git.kernel.org/brgl/c/a7787b818204d6de78e2e83ded0155d8195119e6
-[2/2] gpio: axiado: add AX3005 SGPIO controller support
-      https://git.kernel.org/brgl/c/dd36a4b7f391eec4daa336c837a197dab0cf6401
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Sep 25,=
+ 2026 at 11:25=E2=80=AFAM alan &lt;<a href=3D"mailto:alan.tseng.cs@gmail.co=
+m">alan.tseng.cs@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex">Hi Mike,<br>
+<br>
+Looping in the OpenBMC list and Andrew Geissler, since I haven&#39;t had a<=
+br>
+response to the two messages below.<br>
+<br>
+I sent my signed Individual CLA on 2026-08-20 and followed up on<br>
+2026-08-25. It does not appear in the Individuals folder of the<br>
+OpenBMC Executed CLAs yet, and my libpldm changes (93691-93694) are<br>
+still held with &quot;User not approved, see admin, no CI&quot;.<br>
+<br>
+On employment: I work at MediaTek, which is not involved in OpenBMC.<br>
+These changes were written on my own time and equipment and are<br>
+unrelated to my job. If you need a statement from my employer<br>
+confirming that, please let me know and I will arrange it.<br>
+<br></blockquote><div><br></div><div>Hi Hung-Chun, I&#39;ve been struggling=
+ with processing individual CLA&#39;s because there are a lot of gray areas=
+ in accepting them. I also need to do due=C2=A0diligence to verify an indiv=
+idual contributor is actually who they say they are which is another whole =
+pain point. I tried to make some more consistent rules up in=C2=A0<a href=
+=3D"https://gerrit.openbmc.org/c/openbmc/docs/+/93905">https://gerrit.openb=
+mc.org/c/openbmc/docs/+/93905</a>. Your place of employment, Mediatek, fall=
+s under these rules so I will not be able to accept your individual CLA. Pl=
+ease work with your company to get a corporate CLA in place for the OpenBMC=
+ project.</div><div><br></div><div>Andrew</div><div>=C2=A0</div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">
+Name: Hung-Chun Tseng<br>
+E-mail: <a href=3D"mailto:alan.tseng.cs@gmail.com" target=3D"_blank">alan.t=
+seng.cs@gmail.com</a><br>
+GitHub / Gerrit username: alanhc<br>
+<br>
+Thanks,<br>
+Hung-Chun Tseng<br>
+<br>
+alan &lt;<a href=3D"mailto:alan.tseng.cs@gmail.com" target=3D"_blank">alan.=
+tseng.cs@gmail.com</a>&gt; =E6=96=BC 2026=E5=B9=B48=E6=9C=8825=E6=97=A5=E9=
+=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=882:48=E5=AF=AB=E9=81=93=EF=BC=9A<br>
+&gt;<br>
+&gt; Hello,<br>
+&gt;<br>
+&gt; Following up on the signed Individual CLA I sent on 2026-08-20 for the=
+ OpenBMC Project.<br>
+&gt;<br>
+&gt; Could you confirm receipt and let me know the expected processing time=
+? OpenBMC CI is currently blocked for my account pending the CLA, so my pat=
+ches cannot be verified or merged.<br>
+&gt;<br>
+&gt; To answer the question I understand usually follows: I am employed by =
+Mediatek, which is not a member of, nor otherwise involved in, the OpenBMC =
+project. This contribution was made entirely on my own time and with my own=
+ equipment, and is unrelated to my employment. That is why I am submitting =
+an Individual rather than a Corporate CLA.<br>
+&gt;<br>
+&gt; Name: Hung-Chun Tseng<br>
+&gt; E-mail: <a href=3D"mailto:alan.tseng.cs@gmail.com" target=3D"_blank">a=
+lan.tseng.cs@gmail.com</a><br>
+&gt; GitHub / Gerrit username: alanhc<br>
+&gt; Changes: 93691-93694 on openbmc/libpldm<br>
+&gt;<br>
+&gt; Thank you,<br>
+&gt; Hung-Chun Tseng<br>
+&gt;<br>
+&gt; alan &lt;<a href=3D"mailto:alan.tseng.cs@gmail.com" target=3D"_blank">=
+alan.tseng.cs@gmail.com</a>&gt; =E6=96=BC 2026=E5=B9=B48=E6=9C=8820=E6=97=
+=A5=E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8812:15=E5=AF=AB=E9=81=93=EF=BC=9A<br=
+>
+&gt;&gt;<br>
+&gt;&gt; Hello,<br>
+&gt;&gt; Please find attached my signed Individual Contributor License Agre=
+ement (v1.0) for the OpenBMC Project.<br>
+&gt;&gt; Name: Hung-Chun Tseng<br>
+&gt;&gt; E-mail: <a href=3D"mailto:alan.tseng.cs@gmail.com" target=3D"_blan=
+k">alan.tseng.cs@gmail.com</a><br>
+&gt;&gt; GitHub / Gerrit username: alanhc<br>
+&gt;&gt; Thank you,<br>
+&gt;&gt; Hung-Chun Tseng<br>
+</blockquote></div></div>
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--0000000000005198a3065c8dc736--
 
