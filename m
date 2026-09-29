@@ -1,85 +1,85 @@
-Return-Path: <openbmc+bounces-2669-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2670-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B828CA5FA5
-	for <openbmc@archiver.kernel.org>; Tue, 29 Sep 2026 09:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0653ACA5FA1
+	for <openbmc@archiver.kernel.org>; Tue, 29 Sep 2026 13:11:45 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hvByG0LrQz30Pp;
-	Tue, 29 Sep 2026 19:02:14 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c110::3" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790672533;
-	cv=pass; b=KMBDmNL1TdZQUnHRak4FNoNyMXJBHA3Dgtsk4JKJkOZeXgtXBSnCSNFAuap8pH9grB+GqhW763q5lhB5PeV1/CbH4klswgxCGf3Y5NTUkswDOh/fILCuW14XXllvgcpR5/TLK/bUJxOoGXpNgMsuMY4tEOjfqsStCgK9Dv2qkpe/IafHu09+K4t/BKabD+oIogHSmy0BGgkvBWLH5zSFYkIYTucJbblkj/kL+ySU+QjoSRTtwwVS/1G7TRhiGOSt//SMsmsfk5qm4M5TNl4/std68T5nDorgLM+fAFuZboDQLUvfjhVqC2yvTvWWKCIsIP7N0skajF3XkPcszk+WhQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1790672533; c=relaxed/relaxed;
-	bh=lNTmHmcyW5zNeMm/yvAjxfrjD8KKD2JbfbHKImnZfuA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ri7BBBlqbNBLZXnlm4SmGdqp0k8uQ9RaICmIChoctvKz9NsaPzKkakRWQYsmwK522lLbzGWyD4zYEOQZ/7No47vZ8wOwXGxEqaEzMU+TrnkESrtnnHnR5n2wqrbHA18awf8v5Pl+CkFPJcIueq9FT/63g2qfswOso/Aov77hCfgfaC/alwLbmR/XnWAn5RYgzCqaYp5k21C07E1MUdSXC4PlHRxKCKhZlXqX0Ku81HXyOeYPUlPv4mnYNtrB45Z9USpa3FRCovXuQsUM95wkIBkVYbCQPfvB/pDoKwpv3v4PW1fwYS6Ow5J5A/EBuFs635a7i9ZylD0cNSVtUISRxA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VAnlnVwa; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c110::3; helo=bn8pr05cu002.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hvJV31rLCz30Vs;
+	Tue, 29 Sep 2026 23:11:39 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:30::e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790687498;
+	cv=none; b=OA03pyxavtyYRMz4RMDl18avcH+NsOIdxbjzGwcobINWLDBxDy8mJsbS+cWTvVQQWASJ+lmFU2oNCUMmt4QFPGjYDI3bES/8Xmow3HUk0dvHEo8h8tk32aiacSzVG8vlCWxxZ6cnny5ZV15Txi/RVw3EY+gDoxQTVYOSkTJxL1GNXzpMf+5wYOgMyJ78k5uhmxzVpBtUCa2vA5UvoIw8vn/g8coSX0pIdubB5bh584o4z0DnzqgzIkcSRMNmzsKDLzxItutXY5gEP5RJ/EdaYG7QV+E2UWRO+N2QvJuofwVfdddt0fSmqMFzRdwiUD1ZSW/XQrnZYocPMonnRcgMyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1790687498; c=relaxed/relaxed;
+	bh=Mpz0CW/tyDYK45uReOK1gyPtRn/MIJGKSBus5Bay4oU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gf9CbJgWrlhSEuB143JWMaKE2JX8qPGEHSVfmUjK0+AdovgrkuM2Jburw6ORZqd03jm3mI7P4eUzyb+CpQDkL46+/gvqj+6DQWdU+LZ4cHd1ZtxcAX/Ad+zNGtUBnlUhdJFKgX1mvlvzQ9DuP8MXnOL4cvLRsmfBHcngUZxc4YBT6lJfr7jZYQjAB5hE8r8zH19+rkLuBFULzIGg3gorTyBZAfl+GWFP7hDipdIuC1zqOBnU0RmTPhIIeSWyeA+um7HIrebydq3QAk2g2+a1zEVU3HRe5wP91vanBo5cp8ui8dcrgChgZcDm1p/cBqv25a65st17llRBQ9GQYSuUsw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=JY+SISm+; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:30::e; helo=mail-wr2-x0e.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VAnlnVwa;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=JY+SISm+;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c110::3; helo=bn8pr05cu002.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org)
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c110::3])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:30::e; helo=mail-wr2-x0e.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
+Received: from mail-wr2-x0e.google.com (mail-wr2-x0e.google.com [IPv6:2a00:1450:4864:30::e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hvByB5t12z2yft
-	for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2026 19:02:09 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+4Bgny/PZ6PTZHQvIPRgd8oN8W6RrE57TNeHxv21wrefg01gYiYa1vp6HIizkdjq7O0Nw2xb1rt1YhXqSaEKZsAKccNVbnJ9+5SEY1F9quA+F7YfByvMAPLMbxdZkvbG+eaD9nbDVlxfoAuWOf0XNqoxn6NdO+woTuNN1yjRnlWNRftUfkxqHASKC3BaXDfAdnkSirumy/EmAt6LTxDoThM1lf47kh4xzzqh+j5AXsxufRrAlEmy7jVuZUeC7R/aiN+2Nv6gUbY2P9jU9WCHPTJlzvDE0jEc4dBnUnvBN7RRt6N/l0kgti8kiBzZZZfa2BD6JW30fzt+oE8J1mrJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lNTmHmcyW5zNeMm/yvAjxfrjD8KKD2JbfbHKImnZfuA=;
- b=OPp4cr0Qm/DvE1IJo8oGCIieNzGDKArLyvhWcvnpdnX6CQy9QM2ScGydRxN3wj35y4E5Wyu7c7jqkD2n8ysrNmLcBPBxm5wgmBoigTFgF5aPmGAxO7q4hutQ1L3nC3VrmLDwzibT5EPY+RmqWD8WiBleDUAaMGAYYJjZYwrOO90Sca4iaKvNGb2utm9J0ZWk4XIcRWqPivswca+UNZb8hauTxyD5Txtkpu2gqCaMwuFoU0kFnfXVQ58djcEzsEWL5/BbWxZhSGHJQuYLe31Zp/nSqgei0EkXwlmVmLFdgEhpfF0vRHzx9MDjqhO1zdCTK3PS8KgALf9BG3s8FpTAyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=lists.ozlabs.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lNTmHmcyW5zNeMm/yvAjxfrjD8KKD2JbfbHKImnZfuA=;
- b=VAnlnVwajGxYg3jRY0xq5TW3Vi/7RivqxxU7WJVB78VhC/QxScKV1VELMm0rkmpccc25hk0h0pMWQQLeafBrMGZatoguitOjf/9ZQGm0Fro43/C9mRT6V6lRxR9wKROwGgmKSL9+EAUePhcVwcJWPd4UEV9iSyqWTETy4UY4teQ94OHLryQStqwBP/Wd4Ggih6VwdAuf5SBPazDN/Q8QQsvHOxjOjXKi0PaNEqh6kF4w1nYeNBnofgRe9bXyDn789vdbbbxg+cKnt21oZCnk5sxMRlM2rvSHiZ6DmUhtSpA7Vh/+tFdyjlitLrWSl3glTaJk7g/8X18n2lfR+A8RvQ==
-Received: from BN1PR13CA0010.namprd13.prod.outlook.com (2603:10b6:408:e2::15)
- by SJ0PR12MB6942.namprd12.prod.outlook.com (2603:10b6:a03:449::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
- 2026 09:01:43 +0000
-Received: from BN3PEPF00022BC3.namprd05.prod.outlook.com
- (2603:10b6:408:e2:cafe::99) by BN1PR13CA0010.outlook.office365.com
- (2603:10b6:408:e2::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14 via Frontend Transport; Tue,
- 29 Sep 2026 09:01:43 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN3PEPF00022BC3.mail.protection.outlook.com (10.167.248.215) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Tue, 29 Sep 2026 09:01:42 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 02:01:26 -0700
-Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 29 Sep
- 2026 02:01:24 -0700
-From: Jacky Huang <jackyhuang@nvidia.com>
-To: <openbmc@lists.ozlabs.org>
-CC: <andrew@codeconstruct.com.au>, <joel@jms.id.au>,
-	<tan.siewert@9elements.com>
-Subject: [PATCH u-boot v2] ARM: dts: aspeed: Support MGX Vera C2 BMC
-Date: Tue, 29 Sep 2026 18:00:29 +0900
-Message-ID: <20260929090029.4166891-1-jackyhuang@nvidia.com>
-X-Mailer: git-send-email 2.43.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hvJV132skz30PJ
+	for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2026 23:11:36 +1000 (AEST)
+Received: by mail-wr2-x0e.google.com with SMTP id ffacd0b85a97d-48af5ae31d8so456394f8f.2
+        for <openbmc@lists.ozlabs.org>; Tue, 29 Sep 2026 06:11:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1790687493; x=1791292293; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mpz0CW/tyDYK45uReOK1gyPtRn/MIJGKSBus5Bay4oU=;
+        b=JY+SISm+fGnwrB73flCtT0ogsZsFDrEvu/5zHMFXfCkpSbCCxeQN40MeutghnhY+0P
+         QVPaYJtvPjYc7jmBz4Adgx+LNFb4dgyWPtxp7rtb9d2Kgpeiwp88CkqldxATKuHpTAPx
+         QnpKOAIYmrVgUK++Mvr7UF2dX9GhN1NZdvV9XLRfzR4spfhVfc1di2WcPptHeRwfYdWR
+         nlx5rjlQ2trRGpVdm2R1bYprcWiuWZk9L5A23qp7UvUirRIuAcTJ1a7d5ViYlQTF/rbc
+         gY2QfoukyJYn0chwBWbWDOu2qf6659VEOuG6BnsEE+22VfYEEr0VDavSbzPb9PAtC8VV
+         E4ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790687493; x=1791292293;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mpz0CW/tyDYK45uReOK1gyPtRn/MIJGKSBus5Bay4oU=;
+        b=Wlgv2O0vm0ctywnnUYiCVpBUSEqU/tQA5pTpAV8RzO4NXFNZzqS8j38UTyNJfpVbkx
+         pwpz5js4e9/U996OI3iOw4GxBPw4sHvtxCUFXpNUMuTjnwnxyK+y0o2SvK5LF8UKXJx0
+         zUOY9CfQZ4zx0kftMTuSnAhUkBlvNe1Brll7+DsTHq2IbyfF8t1ytBOBsASZYrWOHKqO
+         Ds7cW6svMR0A2sB065ONsEVjlM+kKsfgLAcJxQVejAH/F8YlP/PAsCwxhyaUlt928e0E
+         ByA6kRaCOfDD+sD9+Jy+7KJeK/Ir503O1iv82RjSUmFXSePo/i53lMpRrn+gAx2cIofA
+         /Gew==
+X-Gm-Message-State: AFq9FYLy1nq2ZZqJBLxUu1+29HAjJyvedpevwtB0Sbzi8hMLN9Yo50Fe
+	gkKkTIfLvTIosnGNW7X2dF0yStC8Txw0a0LkgZaCuKOZp1vSEPbTCYlKcu5tgsZdB6E=
+X-Gm-Gg: AYBFou1iQeLe9PTZXhhXhpUlqwvAJs87vFNoryQH8Ik/kOoChM5BaZVbAnXjfzBzMun
+	cFQWwAb9x9yHvdfhAKtmAhqeHMcPGXI34kasQBFcZXdpd8x1iKO1DiR07UDEYR2k9MjMFF+xtgQ
+	j7f1fk+VOamquGF4QNxVXGSEK4QdYWdFkLXHGgzCQU8HrEFF2xvsC86c5H9LNcqVzd10+uDTbJ1
+	m4mjGiKZvlo5tK1ErG+Zu4Ka2htdfS5dAKvdIBIw0LYyQkgcK24vIWLh+/0jDJcGwue7WLuILBm
+	4M3zNNlObdQnUFWfwEzHLUYCBsr8zm7keazzNUrwSLKFZ0sFXqDecwvVNjX0/WoUroL5XizC55y
+	h5/IBEo1FqgXOyvyWRsc8t91OeR7Mb1rpk17SdVkXf1/ecIfFyjGeSSRUqycZhdnSsY1BzCMHUk
+	GcDC8gb5VF/GjcqNv3uUm0M8W/YCvMaD7XlkiF+PwBpPu8Zwol/VkEZzQA0W3P8ExPKX2TUJI05
+	doeFq7P
+X-Received: by 2002:a05:6000:430d:b0:488:8436:b343 with SMTP id ffacd0b85a97d-4888a66a274mr16509614f8f.37.1790687492879;
+        Tue, 29 Sep 2026 06:11:32 -0700 (PDT)
+Received: from [10.0.5.39] ([2a01:599:840:1703:7492:67c6:8e93:cdb0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af4f8edebsm4237420f8f.2.2026.09.29.06.11.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 06:11:32 -0700 (PDT)
+From: Tan Siewert <tan.siewert@9elements.com>
+To: openbmc@lists.ozlabs.org, Jacky Huang <jackyhuang@nvidia.com>
+Cc: andrew@codeconstruct.com.au, joel@jms.id.au, tan.siewert@9elements.com
+In-Reply-To: <20260929090029.4166891-1-jackyhuang@nvidia.com>
+References: <20260929090029.4166891-1-jackyhuang@nvidia.com>
+Subject: Re: [PATCH u-boot v2] ARM: dts: aspeed: Support MGX Vera C2 BMC
+Message-Id: <179068749081.280166.6681624378515565131.b4-ty@b4>
+Date: Tue, 29 Sep 2026 15:11:30 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -91,67 +91,24 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.126.231.37]
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC3:EE_|SJ0PR12MB6942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16ce31f5-1ad7-4fc9-b133-08df1e084828
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|13003099007|11063799006|6133799003|10067099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	nhfRG5LLrnizCnrUxd93zSqdW0Todg/PF/kNX6ib31BtjY/nnyTFMNn8Hkn29mg7Wk5ekKUCInz55mE8UnABm9tT7ONVrXY50XKCvHN7f43df1dSY6UTV47tzlReoBRTGAdB3ryk35RfdRRpgNiuMbFrOeCznUwOYB+fXxbLo/CuUubBB9EU3ot+TADtSAyJ61ly8/oQ9YOY4JpomuyNh/dx1whY6RueC5Zn4FKcLg7lq8QqEkxFCQOKG2k+8rwkh5SgwVYzsj0b+ssokS8yhhm60seLzKnlOiQPDsttcX7hud0djgQ+nWXBbRvkx2/cQZys2xbetcfpXuYC103ntYrQ1LQfUgp/1OJamAP97OuCL1v9PMceUKHGH+sfl0+7pIPLx0SZ3EWm6YOCLbGbC3bFe9EL27tGuLbZRvE1za5PTvoy0s5fCt6OUVu3EDTDkfQtiBw2t7zSe+v0f8u7VPaeEQfzV7zScVKchHeHNmQtFpbGMr7TVuhqCU1fVJXsMD6btJmB8svQR4cUv/xk2VeCbNNIw0R0cCOKasX1BKnG88tBAb8ZB/WAYlJwDPtaHguIcdl89k6285e1uhnUpKvHdQEvbD7nuoQljc5Zm7fYOMo6sF4yl60UlilVXynF7zz3EndmvSJK4uTiA5zAvC2w3psowXzfq6cYuwetX3ey5c0kIsaxavjphAO7+vcbHy2BhGAPnhrS3frTd+MTgQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(13003099007)(11063799006)(6133799003)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ntPQvoIfOL9RtZOlY0GI6Az6WLCTQRjPrrYbBx2zWv6GNyVQGt3B6JltSwxqnwJUw1KluP9UsbdngQDUYYK1L254HW7kGqzpfVS0cBPUg6Xoh8RHb8NfjDfoHPxFK65Ijt2rB1DpfXkdDeBPlB2IZQc3TDSwix/gg+4McKm9Avc/5PLF5uaMROst/WR5atljb+gWi6pxqQVkCWfJSZ0G8n2I4llddAfkONEXu4lCbu5C+C47Wkvuo5b1NbCzYFv8Kw0AP0qHw+w4oUlMS0HkthCwgE3gUSWQwMsrjBq0iJ6SDXIZiiNNF5YnXQWgLTwS2t0HZprYnsax+BblplOg5uV9k8fflnqTml4TUL7ItgVpsw59U/JBeUZVEHlpuhUjs0eEPPjKXXcsOT5gN/D+bsXq2nS1oW0HfIkEfqyl2bKIisU57jw0FzbHgWdNBvBW
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 09:01:42.7232
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16ce31f5-1ad7-4fc9-b133-08df1e084828
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6942
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
 
-MGX Vera C2 and VR-NVL share the same BMC module and U-Boot hardware
-configuration. Reuse the existing device tree for MGX Vera C2 and add
-its compatible.
+On Tue, 29 Sep 2026 18:00:29 +0900, Jacky Huang wrote:
+> MGX Vera C2 and VR-NVL share the same BMC module and U-Boot hardware
+> configuration. Reuse the existing device tree for MGX Vera C2 and add
+> its compatible.
 
-Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
----
-Changes in v2:
-- Reuse the existing VR-NVL device tree instead of adding a separate
-  C2 device tree.
+Applied to openbmc/u-boot.git (v2019.04-aspeed-openbmc), thanks!
 
-v1: https://lore.kernel.org/openbmc/20260921085602.752144-1-jackyhuang@nvidia.com/
+Please note: Your change will not be available in OpenBMC until the commit
+reference of u-boot got bumped. This will likely happen within the next hours.
 
- arch/arm/dts/ast2600-vr-bmc-nvidia.dts | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+[1/1] ARM: dts: aspeed: Support MGX Vera C2 BMC
+      https://github.com/openbmc/u-boot/commit/e48056695c57
 
-diff --git a/arch/arm/dts/ast2600-vr-bmc-nvidia.dts b/arch/arm/dts/ast2600-vr-bmc-nvidia.dts
-index b4818ead81a55cae3659d4abb3ce02919221822e..10ef6e0da2ef04d2c219fcdcc1c0f77da1741e62 100644
---- a/arch/arm/dts/ast2600-vr-bmc-nvidia.dts
-+++ b/arch/arm/dts/ast2600-vr-bmc-nvidia.dts
-@@ -5,7 +5,8 @@
- 
- / {
- 	model = "AST2600 VR-NVL BMC";
--	compatible = "nvidia,vr-nvl-bmc", "aspeed,ast2600";
-+	compatible = "nvidia,vr-nvl-bmc", "nvidia,vr-c2-bmc",
-+		     "aspeed,ast2600";
- 
- 	memory {
- 		device_type = "memory";
--- 
-2.43.0
+Cheers,
+Tan
+
 
