@@ -1,54 +1,55 @@
-Return-Path: <openbmc+bounces-2679-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2680-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD183CA5FA7
-	for <openbmc@archiver.kernel.org>; Tue, 29 Sep 2026 22:28:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D604CA5FA7
+	for <openbmc@archiver.kernel.org>; Tue, 29 Sep 2026 22:28:39 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hvXqP1885z3bTf;
-	Wed, 30 Sep 2026 08:27:29 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790693144;
-	cv=none; b=g4N8gjy92dI0FJ80yEdEP4/jxf6vyH7x9F5LqWKXw1dw1EuCbRJXVImbAkDfXX9HuCbs0hCIl/dIDHPO9vyC4eQoPHAdZZ1wlOqvELDyWFnYv4Bz74WZLIccmoLni0TQ3Dp9sqFhBPaLphrwNvHcJFUch05p2l01wW8d8iBI9lZ41fey7l15caSVB2IzbDO8gQPOcDV6E/ALUJNJPc5P6ylGp/QjkJHWUjkgYoqWdj5PyJAeYabYaCfmh0jZpRPAmUUgcELqy6VG93Ag8FigAHc8F4IVILhWOk3b0DOhcv/RDeYekBtDNavLdWOGNpTPz9jpiZpWeccNOuXuGdT+3Q==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hvXqW419Cz3bVW;
+	Wed, 30 Sep 2026 08:27:35 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1790693139;
+	cv=none; b=BooqF9rxnFwNNYx28ZOVcWJXM+CnY+OJZfWbMgWkWIvpqnuYSUP1rSylV6a9d4WQcuumcggoKlsRtu0boSeLyPwSn2RXV/1M80Xy9yUceq5P2SRNtg4K2Kl7YR7lPv4+TjdtA9EWkAel3nJ2omONUcKSLI4m/hP5Q3BGfEUDJ+4+G1S50GI9dzPFmVzjnYyResfBru/Hz6EvgDXSAKOJCMXv+Wch/R6NL4dXG8xCUy8zMDSY28OdoWn+5u4sDY+3harOtUbWaM2PcSKopk5eJcDkoZgn1yb9N3DUBtrjGhUa2ubcg1++2+CBhQkliWdLNofNoGD/DQp/Ie7F5ecq6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1790693144; c=relaxed/relaxed;
-	bh=QUVwPAQqcPJEXSHcvyrm5SHBCzZnkZ7JUl+/bI5Vt0A=;
+	t=1790693139; c=relaxed/relaxed;
+	bh=FI8MM4zLwxVlmw7VDmYSwTBJd8VFU5MfFASzd6xayQ4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gV81pxLzEKNqbjkxBi1O9MmG2u0/MDthNO9AfjLynDpEFyAfKykBngNZzZbZ0eXp4lB18CvG2ifUaty4JTItLd6DN4pi2/Yi1FMAicLHDYG3cyf1LU99E9YFF5Gf4dFhooPncaDNXFYcb9kDbEhRCvNjz1MsnNGvKZo4obWqve/2nvLp24hbnqd149tXmuXomYQYagHcS0Cvpysr91+py+Wak5Jgg3qPsPIovVh8lu0qDDPTcgMkFXNv2IWpZZneaT6Iio4SyE+ph8AY6rNFwWSpz/ymbghfEBN3jRYXFynpYNTH5ChyguP2r4e7EBu3Sy+PwwHhbsQSOjnZ/cOKdA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aFkrNNlZ; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=guPhfxisjEOXk1w+xNPPWmPqpC0Vi+c0i+LHQlxqpb/DEQM2/3lwjclVzvLkZQDPKB815pEKbhiAMBiILKqLL7laolXZT77+QbV3cNk8RXWo6MbeNnDyzVV7B+jFUG7P8yl4k3JqAdNWbyPpkPDosggk0V4Ufjxrjgne4fW4LSwAACBIoVUJ2IH/h9YYuqDWWEB+8Kn64soIz6p9HkA5Gi/td13PNqxmsdN2QI50jXEIAz3QV47h5TqZ1cr5Pa9QeUbfcN6ZlZS2VhkHEeTvqRnlDwBpk7GH3R8Flrwb65tKps4FS2c9z5lkVb89JNfhc+ZHWrnTb7j0yyPj+L3J4g==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bWoogI3C; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=aFkrNNlZ;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bWoogI3C;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hvLZb5vFRz30Vy
-	for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2026 00:45:43 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hvLZV5L7vz30Vy
+	for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2026 00:45:38 +1000 (AEST)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 00DEB4E410C0;
-	Tue, 29 Sep 2026 14:45:40 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A5C271A1066;
+	Tue, 29 Sep 2026 14:45:35 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BBC34601BD;
-	Tue, 29 Sep 2026 14:45:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 93CB3103282F2;
-	Tue, 29 Sep 2026 16:45:34 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 799E5601BD;
+	Tue, 29 Sep 2026 14:45:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A585910329812;
+	Tue, 29 Sep 2026 16:45:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790693138; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1790693134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=QUVwPAQqcPJEXSHcvyrm5SHBCzZnkZ7JUl+/bI5Vt0A=;
-	b=aFkrNNlZnN7cPRkxEp+kaEKDWaLGwjdgCWVAI+r4bHBORC1yvYUJTBpRgqe2f6H6ADUHCU
-	EnqmdI+qgM92OaGxLY0Hq/mlQLQQMqR7NehAufaHgZVghNSu7gmhO+dBJoAVf7rG5n9+k1
-	bHa1eF7t13AvTCymK2x/hEWabP2s7/sDKav05yMOsG0e3BCIKVD19nBbQBETmtR0Q/pLzH
-	O+Nzy7Hkp7Ptvymr49u2xccuFx7hoFH0MgbanX7stcJKq0axreIJt9KgQpXSH37vjpgkYi
-	3KVSwTwJxhe+YMDJ6DvR7x/qISAhmdIEeNaaVWSe/yz5WdiOi4DY051uYQ091Q==
+	bh=FI8MM4zLwxVlmw7VDmYSwTBJd8VFU5MfFASzd6xayQ4=;
+	b=bWoogI3CaFjR6U8nd0ppQkYmcXE6298N8V+dpnuvYsLhEfl0sx960SD3XS6nMkIZcZFn28
+	vuwJzEs89FUiquQ3hu3YWwYn98B7ujYHmNdBraNx1iKDNiymU/xValPG04KoA1/+EIKtyA
+	Y8Yy6AaBitGmdlxb0l9zgyh47nPW2TohAzTHgySCXrfo4FPeQTexxwg791ys2e7TAhErI/
+	Se7fy67e64db8S0Kkg3u13CUYXga0WJwsURcurFC9QbUXaTYrjdJgyWDL5BEWkrW7ueBwT
+	aQykMjvH1LHRqm10fUhjkgfH/fV03+bf7S4TfA74YYrnXRPT6OYe/1PXtdzC4A==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Tue, 29 Sep 2026 16:44:46 +0200
-Subject: [PATCH v5 3/9] dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
+Date: Tue, 29 Sep 2026 16:44:45 +0200
+Subject: [PATCH v5 2/9] dt-bindings: clock: ma35d1: Document the missing
+ crystal inputs
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-perso-ma35d1-upstream-clk-v5-3-68533e935ee4@bootlin.com>
+Message-Id: <20260929-perso-ma35d1-upstream-clk-v5-2-68533e935ee4@bootlin.com>
 References: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
 In-Reply-To: <20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -79,30 +80,64 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
  openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Drop CLK_MAX_IDX define of MA35D1 include. This is not a binding and
-should not be placed here. Value is defined in the user driver.
+The MA35D1 clock controller takes two crystal oscillator inputs from
+the board:
+- HXT, a high-speed 24 MHz crystal for most of the system
+- LXT, a low-speed 32.768 kHz crytal for the RTC and low power modes
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+So far the binding was expecting a single crystal. The example named it
+HXT, but no real definition for it was given. LXT was not even
+described. In order to remain backward compatible, we will continue to
+allow either one (HXT) or two (HXT then LXT) input clocks. I propose to
+give those phandles a name to clarify what these entries expect, but I'm
+not listing the clock-names property in the required block, for backward
+compatibility. The rates are fixed by the TRM, so even if the second
+oscillator is not described, the OS can make an educated guess.
+
+Fixes: 2f8b5eb589cb ("dt-bindings: clock: nuvoton: add binding for ma35d1 clock controller")
+Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- include/dt-bindings/clock/nuvoton,ma35d1-clk.h | 1 -
- 1 file changed, 1 deletion(-)
+ .../devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml    | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-index ba2d70f776a6..2d6a44a7e55c 100644
---- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-+++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-@@ -248,6 +248,5 @@
- #define ADC_GATE	233
- #define EADC_DIV	234
- #define EADC_GATE	235
--#define	CLK_MAX_IDX	236
+diff --git a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
+index 8f0c43683729..9649feda8d7a 100644
+--- a/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
++++ b/Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
+@@ -29,7 +29,18 @@ properties:
+     const: 1
  
- #endif /* __DT_BINDINGS_CLOCK_NUVOTON_MA35D1_CLK_H */
+   clocks:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
++    description:
++      The controller takes 2 crystal oscillator inputs from the board.
++      HXT is a 24 MHz crystal feeding the internal PLLs. LXT is a 32.768
++      kHz crystal, for RTC and low power operations.
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: hxt
++      - const: lxt
+ 
+   nuvoton,pll-mode:
+     description:
+@@ -58,6 +69,7 @@ examples:
+         compatible = "nuvoton,ma35d1-clk";
+         reg = <0x40460200 0x100>;
+         #clock-cells = <1>;
+-        clocks = <&clk_hxt>;
++        clocks = <&clk_hxt>, <&clk_lxt>;
++        clock-names = "hxt", "lxt";
+     };
+ ...
 
 -- 
 2.55.0
