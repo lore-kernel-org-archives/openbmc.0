@@ -1,90 +1,93 @@
-Return-Path: <openbmc+bounces-2706-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2707-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A752ECA5FEC
-	for <openbmc@archiver.kernel.org>; Sun,  4 Oct 2026 11:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 007BFCA5FEF
+	for <openbmc@archiver.kernel.org>; Sun,  4 Oct 2026 16:12:11 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hyLPl2Vqgz30TL;
-	Sun, 04 Oct 2026 22:48:27 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:41::d" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791114506;
-	cv=pass; b=FUszNtj/ZPQeIcPErGp25xA5o7Lcok5O1GF7p7rnbai5TWOLbyt0U1Kemk8X4mQnSnqPnOHZtwcGGDRJ7WcNt9mTEqLCPYVYWYzpXSeVAroMawCmEhcqo59b+gTRkcwzoR/94x+Sp1g13W4BImcE5lHjOCDTCd8o8plEG3GL3Nj1H2WCMP37/bbhN8mD4RXmwGjPN5Nh5B7I6Z/1WWIR+J7CXonOxuniPNb2RLfyQroO06fgTsY8oUj4i9a73L9KYhoK4iOdw9OEZ/PDWtG8OWqXqFWLoYaz6uAD2Q6Xy3pNAataBubMsiL0z02u1fip5o6zrnZfwsYn7ppLu2zBDg==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1791114506; c=relaxed/relaxed;
-	bh=xEcFNNOjf+xrJu4jjq23drU/TN14HXtXueDl9+2Vlg0=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=kuP0XygNoHdP3POLKawkzQAmXTBW0W5cpMX3wKlmieLxKIxH+L06FqxU1xsmSaJlQK/SDg7nTb9Sj+R9t625a+pvd++i6xZcBLW3VBvGwc61zYW0Ty/E3KABX4fIIig7DW6PbsIhd7SM0gynmyJJYbYcd+GhfiBCTOndqi4NNHSe87J15TqEmWAYGyKqhRQtxHpoLssSds8K32dmvxFuisot5SSJngZ1/C10WGBic7B8XCWZir2uHbIyl5rNFEYFGSb+yg+Re7MJ8WSmFl2cdYWidkqo8zRW/RrTW3n917w5ghozinu5QXO3jW9x0I/kae1EghwP6XfzYsG7vY1YvQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EevZ/ypF; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:41::d; helo=mail-yx2-x0d.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hySFw6dPyz30Sx;
+	Mon, 05 Oct 2026 03:12:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:31::10"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791130324;
+	cv=none; b=ikUecasXe6Rb/qfevdW2WPzi2rJwe6alP2hd8TB0S7tbEw7sELDAgxgqNGu1H7LJtx2/xfKMjyrYg/fuSjCGbo/eglTzI6NgJO9WzKb6R83EP3o+BUC8X/ZEm+KGUlqE4XG4qmhrMtSprQnmWzjW5m+YBGAjNUKViA3pY1+otyy6Uc3n3lUrZhuKPmHcR7QYS1QSAaf0pEWd000+LXVd2fy+gNeZ1q6TRCaVsMD4NEkVXJCKksduIKMscFmyrG+sQwsD7qJ9xosIqEkvFT0rUkXLsOMTPkJ+XfyZ5lqHsrpAIxrbdW17RKXzbkJBHHU81nyaGLc45AVkqk3dM5JDPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1791130324; c=relaxed/relaxed;
+	bh=SFJPZ85mXAU4ZGN5RqoO6kBnTnwcMDemIX6Rzrz1AgI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jUsbs/aodTUGVWBbt890tB1y0GPI62CwDlXzQAs/GsPA1i/MEUkPkbtBvQkCZCOKtM4DELGnCORgVlHPi9SyW50IL9HqUNlDC4muo7P+GBMpgE5JZpMn07keEEYFPwWZzQq5mExh02X0zDB866SY2loqRL2CNjs1UbxNNGPxAvauKKi2zyhfzLSGckWbCif0ZETtRNA/B2DiIYPQprrLtAOQxpOO8DtAY4oxWVII0C86hEhdvYs10V4qRqMYywrAcHK8ehpOBz+g8wBnGyGP5ZIuSyQ7I/El3CZ6z/g/vWx/aJ5JQDtpkoDFL07lZqjm3w/Sugsluj+6M5E4rBmJyg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y6nap5l+; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:31::10; helo=mail-wm2-x10.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EevZ/ypF;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y6nap5l+;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:41::d; helo=mail-yx2-x0d.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yx2-x0d.google.com (mail-yx2-x0d.google.com [IPv6:2607:f8b0:4864:41::d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:31::10; helo=mail-wm2-x10.google.com; envelope-from=tmaimon77@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-wm2-x10.google.com (mail-wm2-x10.google.com [IPv6:2a00:1450:4864:31::10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hyLPh5GZ0z30St
-	for <openbmc@lists.ozlabs.org>; Sun, 04 Oct 2026 22:48:23 +1100 (AEDT)
-Received: by mail-yx2-x0d.google.com with SMTP id 00721157ae682-8aecf8568b6so4514707b3.2
-        for <openbmc@lists.ozlabs.org>; Sun, 04 Oct 2026 04:48:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791114501; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YDCAiGgQqK3KeP8ry86dg2CqHNO1Wjf05hhidW5fMK9mjPelgEBQM0mqywt/jXIp6A
-         K0p35IonmU/B4sK84ii9vbwqaBGh9P0DoFmt5t3xcsVM5fv40EHXgigjTcA5gLYvI3zk
-         OadlDrZeGvRrF4b+xztxKaG7Ia6mUw+wBNSQ6ZjFiq6VK7+pHaUTOD3yY1c7R6dnrw5J
-         KIb2yLv6EqdxygIBhC0Tjt635kp+LW3dL8PKlbyxA5IuPQr7f3n99HXHRHlHNMI0XH4z
-         LEzbjHSzmj6jaAcPN8CfrtYlp8HUriglwlaxmgiUHnLx4OhebMTo0u3FBhPva5OyKpFe
-         VEyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=xEcFNNOjf+xrJu4jjq23drU/TN14HXtXueDl9+2Vlg0=;
-        fh=JfDTVNIRNLlIKKMLDgp05SE/CuqBu4jmZ4fCG7wAAYo=;
-        b=RsQxMZewVMeNP46stiSAToCFP3KjUIomTHDUSoFPKwyvSzzKfIPRHkyWp7rZ9y+T3I
-         ffRVmbcvndfsAHcDAiBcOZX5m1UFuVpIyg1ulI+uRVz5y7YvTruDll/UsQstZD++s9h2
-         pAZw6hkTTjUYzy64lbMXimQP1a9nmvpUAAAGzjxnz77HHEKE5pmSmKhMsxo6qkOh3qk0
-         yd94iZAjXDYuXZuZBolGC1RadHT1IqSxutECU+Geb1s7FmuK+VclRAAl8CPeF92WoKNu
-         h5HW3RzbPym976STQIN6sSR7yuG33xXkwjvmdexySj/E+Rkj3xu+y0zLA0SuNHSDnE2q
-         EURQ==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hySFs3cvMz30TP
+	for <openbmc@lists.ozlabs.org>; Mon, 05 Oct 2026 03:12:00 +1100 (AEDT)
+Received: by mail-wm2-x10.google.com with SMTP id 5b1f17b1804b1-49fff72474fso7205435e9.3
+        for <openbmc@lists.ozlabs.org>; Sun, 04 Oct 2026 09:12:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791114501; x=1791719301; darn=lists.ozlabs.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xEcFNNOjf+xrJu4jjq23drU/TN14HXtXueDl9+2Vlg0=;
-        b=EevZ/ypF1zplq93sMvXm/NmdQ4GDE6ViEDL3nHuzFuPjhd9jVeXuxX6sQhhFpKYlYT
-         vKFVH4XAF+xc4G/B4MsmU0rZ8RMwcf8StwOTfWbc/VTypKYM7LLcRvEvRJbdQ/oEyNOO
-         J7/ycmCeA047xaVipDxp5kHMYAhnYsdrwEMHi/O55F7ueH13z0lfvWvxdS/3RrnhsSY+
-         BcSCuR+B4uX4y8NT8sN88jYno0GfAEncOY4/3B9eHg2tS7dWOpiHV7lNf89HYBN2q9ER
-         atXBPdLjfOjZT7cpCl0A8GKWEWFWsN3kqcjRNKtkgOALw16YrfWo9I6iPhpb5ep5rGY0
-         RYFg==
+        d=gmail.com; s=20251104; t=1791130317; x=1791735117; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SFJPZ85mXAU4ZGN5RqoO6kBnTnwcMDemIX6Rzrz1AgI=;
+        b=Y6nap5l+G4vFm7M2TKGlhRqOQQtjoDaDtZgGyPsJ8Z59iy5Ax1q0iochnV85Vu909q
+         Z0cvlsLPMxk1PwNvBHptVkswgNwLMBlkIOKiFi/Jjx0071X59VrYo541MiEyqRubLCZ1
+         bEhGaymCE+kfDyuJKeq0qDXmR56RvRrGffD69Pgilsq64XWt3XMa8uZcek4yIA0V718S
+         1ut2N/2U33x8BOpAzrWDgzqml9HqK0/KkEdTUs+hizp5bMg6yiGqByCakVMRRJnTTHtu
+         OT+h0NGVqCajgKSVszgl9xuCbFDacN6jcqUbuTeo62Lc4B+0UMrtJgx5seMPfetcQ/31
+         lyRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791114501; x=1791719301;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xEcFNNOjf+xrJu4jjq23drU/TN14HXtXueDl9+2Vlg0=;
-        b=FNdeH2JSXZjYJmwMdSy8m3WmfnStCWcpo85+aMAACiMJuotDLCtUGqd5oE5Ib183ix
-         w40TRVva6vkVfOUfEwbdHpfz2V7nc7pvnP99XtB1+dby8JgUk48VD3VB5MS2Zk3s9z0F
-         YBftT8xKnqp1M0rpU0VkcAuzNE4VbSkcUHvUHOj4hEjYjtsGBTZ0Iv9IEr6F8QS/tzO9
-         65t3C/RST6iAdVsjUaFm6Ies+PwSxaWL8PhB2RHZW0TjH8HxRJwfHvuUNW1AzWsYywHj
-         hcP7zt2rsiYqcYQLwff7X41x0KFpFNSa5n3lutq+Y1I+ufM2f7jKoBxBsJ60ORFF5O6P
-         pryQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvMBJ4h21KFz6/KXyyP5MWHG5SEqZTOBkioUYeLoSv7oLBLE8PzwPTdH2bAMmcDgI1pJf5q1IM@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYJKieZg+kIYt/lxQTsMCORy2V74YaSNU/EDjyrYrJ0D6zUjJ0SB
-	XMZDzrGjSJuIpZi0AGMqWynCfGRZNtZ9p5tewvZPMXUdu+JTTXBYGX6CyDBqidFuv1iJ2BX77yL
-	aRhz+3l2TeM95i3UN7K4Xlux2zKFgxv8=
-X-Gm-Gg: AYBFou0EsmqOy5ejf+ejZ28oa9G16eeINab/zQaXrkELPbJap/bAM6g/ShQX8U0QCZ/
-	IVlerTUx2adpjAKCKt0BP4ema1c1LK+Tn3pSI+vR59z9dVWe5C7dBtyPcfcWjHbWj1bsSTxoxw0
-	2O/NvVDt2V/zfh3+NTmhY49AFP5HyOJOgYzaaHO46I/kGSKlhoOaxkpmrfs9Qr1rbGGorhXQW3b
-	FsknsE3klIFyEk5zsU3xi7SvlkWadVVageZTFjT0tqrLi29s2LN/02Uy1sKjdqXdVku9N56EHaq
-	ZvfRbqoeVbwlXNfzKf2PMaPBpZShWZ0Xz6H1KShOA7PNL3bVrYSj6fiEgeQwOM3QuwGu
-X-Received: by 2002:a05:690c:9990:b0:8ae:17ba:df03 with SMTP id
- 00721157ae682-8ae3add6500mr24577497b3.64.1791114500851; Sun, 04 Oct 2026
- 04:48:20 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791130317; x=1791735117;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SFJPZ85mXAU4ZGN5RqoO6kBnTnwcMDemIX6Rzrz1AgI=;
+        b=azvT4KP5q1w3t+0WanP94grO1o+LOzQ5R6maNsnXz1MURiRpee4xSKjG3g6+a+rO+/
+         b3kHvt4BYHEvdTPsYD3Gc2y7k04o5Jspt6KUWZ2NXdbf+YyaIwdI73UmXezBrn05EDbs
+         rPoh53tU7USRI1TzDWRQgSdJAhAbjM4GM+SShwSCIsf9w+LcnC8pdsA+SDAMeh2UYY8L
+         D8vmAGRlP1GFsiz5mqU1mf3/QRsPhpoalZXXonsBCDhUPmsaoVmagreasWMRsqF373OU
+         Wm6hm4WFTitbtxUwdkrXds7Zy5grVtzc+6nBHjVI3GAlQt+QszYxLytmENDM/1j4PMIO
+         Q+tg==
+X-Gm-Message-State: AFuF++kB2j96GetA2IC+btiWOnK0YWvlOQqJQsG4k1JIOtyuEOj5rBzy
+	vPq1h/VmuNOVP+FF/+WMGpMxrH4TFL24lD3WIk7WYSrfQnrsZB6Nwhm+
+X-Gm-Gg: AYBFou1YMG/YgRy+WXkM4pS7OUmet5jC4OLRI3w7mEAbvmw8cl+6Vy/0VrngRDvR0QM
+	WbbwuUsYLomzzLZmbT6mZzoAZcbBC8ItcjEhfpZjYFCt9HYzasV6lgr/SC9QdqCCEkbuxJLAd7X
+	jarHHgNLaj6yhZFwcEFwJ4xMXuzlrdCQ/BOLq0KTZTBc6/QF+twMFBGYSMvyywW6g3/2abYDsdv
+	/Rax/DIa5t99Ie/kh0TsqIttXUBkNZ7Dkv4nSHff3hfQim3etVceNU3AFDjhX+R0yFUYXM237AQ
+	d4+Y+R66RIvOlBeiMZHtTsDfCCV+t4W7ZVJz/+mX0TXPTExZegwni+dD9CR5mLcWStayvU3JMtf
+	8guVfZgpmNaYz+3HGgrox6vhZ+oCguEH/1/ku4z2u1qoU0w8HluiSZyv2olHyWDixCcLM+VimY/
+	IJWh5oo0Ns53ouk8QnUkn+xy7Xd0CR9mMlE80dRx/mNoFQGGUM6ES8rHksXCADJQN7XGTDxBDs/
+	iVPkPPHsm8l2dDHWHIiOg6Zhw==
+X-Received: by 2002:a05:600c:6098:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a0274e9d3dmr140205015e9.1.1791130316569;
+        Sun, 04 Oct 2026 09:11:56 -0700 (PDT)
+Received: from taln60.nuvoton.co.il ([212.199.177.18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027725c6asm308438195e9.8.2026.10.04.09.11.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 09:11:56 -0700 (PDT)
+From: IS20 Tomer Maimon <tmaimon77@gmail.com>
+X-Google-Original-From: IS20 Tomer Maimon <tomer.maimon+nuvoton@nuvoton.com>
+To: andrew@codeconstruct.com.au,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	avifishman70@gmail.com,
+	tmaimon77@gmail.com,
+	tali.perry1@gmail.com,
+	venture@google.com,
+	yuenn@google.com,
+	benjaminfair@google.com
+Subject: [PATCH v10 0/6] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
+Date: Sun,  4 Oct 2026 19:11:45 +0300
+Message-Id: <20261004161151.803563-1-tomer.maimon+nuvoton@nuvoton.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,48 +99,99 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Sun, 4 Oct 2026 17:18:09 +0530
-X-Gm-Features: AclHuK--qH85BIZtoMJyg3lILYRB1sLcVJWp98pczpJ8Wky3hLgnsWW47W5LklQ
-Message-ID: <CAMFFDGja4JnRHAUQTLHAStZbYM0GyKWVDAOFENCyrVc3AmV3Hg@mail.gmail.com>
-Subject: [RFC QUESTION] AST2600 GPIOP2/GPIOP3 pass-through and gpiolib ownership
-To: Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: linux-aspeed@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Joel Stanley <joel@jms.id.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
--> I am investigating host power control on the ASRock Rack B650D4U,
-which uses AST2600 GPIOP3 (GPIO123) as the host power output.
--> Vendor firmware enables SCU4BC bits 27:26 (the existing THRU1
-function) around the host power pulse:
-  SCU4BC: 0x02000000 -> 0x0e000000
-  changed bits: 27:26
-  GPIO123: high -> short low pulse -> high
--> The upstream THRU1 pinctrl group claims GPIOP2/P3, so selecting it
-statically prevents x86-power-control from requesting GPIO122/123.
-Without THRU1, x86-power-control can pulse GPIO123, but the host power
-circuit does not respond.
--> What is the preferred upstream representation for an AST2600 GPIO
-pass-through pair that must remain controllable through gpiolib? Would
-a generic Aspeed pinctrl/GPIO extension be appropriate, with a
-documented DT property identifying the pass-through pair?
--> I am not proposing a board-specific sysfs interface or direct
-userspace SCU register access. I would appreciate guidance on the
-correct kernel ownership and pinctrl model before preparing an
-implementation.
--> The AST2600 datasheet defines GPIOP2 -> GPIOP3 as a hardware
-pass-through pair. In pass-through mode the BMC cannot control the
-output value. The B650D4U vendor firmware changes SCU4BC[27:26]
-dynamically around host power control.
--> Static THRU1 pinctrl claims GPIO122/123 and breaks gpiolib.
-Ordinary GPIO mode allows the pulse but does not route it to the host
-circuit.
--> What is the preferred upstream representation for dynamically
-switching this AST2600 pass-through pair while retaining GPIO
-ownership?
+From: Tomer Maimon <tmaimon77@gmail.com>
 
-Regards,
-Prasanth Kumar Padarthi
+This series fixes the remaining timer binding issue and adds device tree
+support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
+Board (EVB).
+
+The first patch drops the undocumented timer0 clock-names property.
+The second patch splits the two APB address windows into separate bus
+nodes before any peripheral nodes are added.
+The third patch reorders timer0 and PECI so the APB child nodes stay in
+ascending unit-address order.
+The fourth patch introduces peripheral nodes for Ethernet, MMC, SPI,
+USB, RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC
+device tree.
+The fifth patch cleans up the pre-existing NPCM845 EVB DTS property
+ordering to match strict dt-check-style expectations.
+The sixth patch enables the NPCM845-EVB peripherals, adding MDIO nodes,
+reserved memory, aliases, and board-specific configurations such as PHY
+modes and SPI flash partitions.
+
+The NPCM8XX device tree was tested on the NPCM845 evaluation board.
+
+Changes since version 9:
+        - Split the F0000000 and FFF00000 APB address windows in a
+          separate patch before adding any peripheral nodes.
+        - Add peripheral nodes directly under their final APB bus.
+        - Renumber the timer/PECI ordering and peripheral patches.
+        - Renumber the EVB coding-style and peripheral patches.
+
+Changes since version 8:
+        - Split the EVB changes into a DTS coding-style cleanup patch
+          for the pre-existing board file and a separate peripheral
+          enablement patch.
+        - Fix strict dt-check-style issues in the EVB DTS by reordering
+          properties and nodes, normalizing blank lines and continuation
+          alignment, and lowercasing hex literals.
+        - Drop the unused tip_reserved label.
+        - Keep patches 1-3 unchanged.
+        - The remaining refclk unused-label report is a false positive
+          because the label is referenced from the included common DTSI.
+
+Changes since version 7:
+        - Move timer0 to keep APB child nodes in unit-address order.
+        - Add PSPI to the commit message.
+
+Changes since version 6:
+        - Remove IPMI I2C device.
+        - Add FIX enable property.
+        - Keep patches 1-3 unchanged.
+
+Changes since version 5:
+        - Add no-map to the tip_reserved firmware memory region.
+        - Drop the unsupported snps,eee-force-disable property from
+          gmac1.
+        - Rework the FIU0 boot flash layout into nested fixed-partitions
+          under the bmc container.
+        - Keep patches 1-3 unchanged.
+
+Changes since version 4:
+        - Split the timer0 clock-names cleanup into a separate first
+          patch.
+        - Remove nuvoton,sysgcr from udc8 and udc9.
+        - Rename apb: bus@f0000000 back to apb.
+        - Rename spix-mode to nuvoton,spix-mode.
+        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch
+          as /bits/ 8.
+
+Changes since version 3:
+        - Remove tmp100.
+
+Changes since version 2:
+        - Fix DTS warning.
+        - Arrange node order by ascending unit address.
+
+Changes since version 1:
+        - Fix commit message.
+        - Fix dtbs_check warnings.
+
+Tomer Maimon (6):
+  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+  arm64: dts: nuvoton: npcm845: Split APB address ranges
+  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
+  arm64: dts: nuvoton: npcm845: Add peripheral nodes
+  arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
+  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
+
+ .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 731 +++++++++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 441 ++++++++++-
+ .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |   6 +
+ 3 files changed, 1155 insertions(+), 23 deletions(-)
+
+-- 
+2.34.1
 
