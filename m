@@ -1,54 +1,137 @@
-Return-Path: <openbmc+bounces-2721-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2722-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B530BCA5FF0
-	for <openbmc@archiver.kernel.org>; Sun,  4 Oct 2026 22:50:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1900CA5FCE
+	for <openbmc@archiver.kernel.org>; Mon,  5 Oct 2026 02:35:14 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hyd4h5B0Dz3bSn;
-	Mon, 05 Oct 2026 09:49:40 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791146763;
-	cv=none; b=UgifEWGStWeO9KA90CHV2htdeD5SAbqvVVAprBBPIz3LXBhPVue7i7cxHaL6wfc9Xv6cx7NSbaqoD+LoZiooXYfkR7OKcgOlFiZLdTpLTtekgSCghLgQ2PllsU5a1Lej8F6VonuEapr0wrGJ9hwYwrr66F1W2Y64mFRzgbE/cd6R/5YOjKUizxqf5mSmkluYh5uMeShBrzmHxCevjg++fZA0TBEMBjyP7ITQkyMz1C5yFxC2yrsPNtNqi8rNioKnOCms283SuRG+e8BtAJLFGQJtREsGgdrlfrIRu0bz3HYeiMxGn15HEIW0Uwrr7gBErmjW/FG6GV4H7y/BhzBjvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1791146763; c=relaxed/relaxed;
-	bh=gC3OleyJKgnJ5LUZdRxV0dp/lgoJ6NvFVgDD5ChAQv8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y4DlY/lbEi0kEZNqNn5I89cnz1hLHwPKtIM3HTV9pij+waMLmkqvbPTplTcyXQgJ+D3LZUVje2diUaH7O+LSAapjR1hKPLVTumWYtNQ+zIYNttEZURoxdX9grvGSEjBua9Y8Nv0wmzKxjQyee8RFchIYwz2TN4SwQMQYcIqL5pobRnEFaO42M7qrHxM2qqZhJnKDdREPiIhpjRF3mm1MZDa1M5bdg2mRNLj3QzQf2a0hMU86FKJ7qlS94zGa4mDJB03tK2FESH86FwBtrLMHqBZqcr00884orbZwjOK/68pv5VXjOub3SO9u4nhioO0X+4eVxYGX40+p3qDYbnwDYQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zy7Xk1uj; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hyk4m0xNCz2ypW;
+	Mon, 05 Oct 2026 13:35:04 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c40f::6" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791167703;
+	cv=pass; b=ZqhW8sOZ5Ik1F6p3Z0d9dG8LYeouJyYjemf/oxrHoiryDOUTTETq88zfzBfSFx0yrQm1MrHXZczDbKvkXryeWqbQ7DlkWS434/xnvaP56WbgR6PmoWTsrtDMeAM5srlJW1sBdDK5/P4+9EokM3znx/K67Y8HOuXVX0/314ZKen4yUz3KAyC2zOrr+Q6jUxa2PIBNcvSxoyWh70p5vjVzPXfM/ie5ivvQVxxU8GiH8ZfMeRfjO02X84OK6I6C48vgjczHbbXH+EmtWy3NIFu+i5/NnqTwKIOM0+zGvIAYJClp3Nnx6HAUx3jKCJLBt9WPt59GbR4VCHYcctQHsuDddg==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1791167703; c=relaxed/relaxed;
+	bh=Wtzoq8ZtbflMhWPA6j63PkUOy7zNHVIVFq6DZJDDZP8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ikkRPhLts9v3C4bqJju5AXM8a6dQgqgjJkTted5tlf7yeqz919hIMnnshkAxUcHlczS8S9xfTHfhstofMX/h8n/bg42LzRsnUa4Vk29iZ5s/B78WYZwtVrLmq4a7R5G5RxfQwUAznKj8j4MKR2bMvSmR+SYCHN/NIfcYHRV7wCmpU1JRi845ciKTID0dTeULYxR+mRw6qLv/BRFuWKlmvB/FT8VQHe7Wvq/f4uBACmlhc6ZL3s8JWKnJ2PI6g0hLIsIYSdYfAwyHgyd+nWkrWLaW505I3E1xh/L0/9QLwjlylc6YbRFcbNfHzWyUtdBIol/l92MUPZ06R0biwZ19UQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=M73FtUAe; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zy7Xk1uj;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=M73FtUAe;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c40f::6; helo=seypr02cu001.outbound.protection.outlook.com; envelope-from=billy_tsai@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazlp170130006.outbound.protection.outlook.com [IPv6:2a01:111:f403:c40f::6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hyZL13Ts8z2xlw
-	for <openbmc@lists.ozlabs.org>; Mon, 05 Oct 2026 07:45:59 +1100 (AEDT)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9F8BB4E41168;
-	Sun,  4 Oct 2026 20:45:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 608DC604FE;
-	Sun,  4 Oct 2026 20:45:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 95C391032820F;
-	Sun,  4 Oct 2026 22:45:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791146752; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=gC3OleyJKgnJ5LUZdRxV0dp/lgoJ6NvFVgDD5ChAQv8=;
-	b=zy7Xk1ujx8kwT9FNMekMWn/MuPuEbYGm5AVoGO/UAhzf1fpRzszd59RYR2nsd1Mz0OqN5A
-	diiB4FDwOBnTaL3oAW6El1dke5EWLeANKf38rtwgjx1ARJm9M1AMY0nlACjp/02KxAvoeb
-	9gJ17oX30zMUJG/OnuUAco9t8fTCjV4+e1ifcu5LJD+l7lP/zy9sMrfYXtiVW0YYG7ePoC
-	i5JUbCaitKBaM8cmLWdlUqeJg9IEPedvDPsklp6CvjhCGOyZD86b4z5OQI2EgmKdkERuh6
-	XDROOdBTY28gav156u4EQBbJ3yMUdnAfUS6tvsX40D7rPfzTu3C0d+S3xhSZWw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH v8 0/7] clk: nuvoton: ma35d1: Fix mux parenting and
- peripheral clock rates
-Date: Sun, 04 Oct 2026 22:45:24 +0200
-Message-Id: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hyk4j0cBsz2y7p;
+	Mon, 05 Oct 2026 13:35:00 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MO+/22AuoSylUVzDavyNUK1rYytn+z6x7pKEv2RW3yIvFA9UGl/MkJPW+puG89awo+gFzVaolJSnOfNeh9JvxQqkVwtSIEJdLI7XE6J1q8HsKafClppcGMA5+gvSI2e91hB+QMyviamZa4njToMrA/VZ4B8wC1rrFx1Dy/L7VUCRm1tDFhDh1LAp2IF+Htn2mn+B8CrI7Z5k2cTfCADbxG/XETnZCLIetCWSLHzE+uLG65iVVmwWeHjV0d+jhXN0nIwfEwB83ttCkDIKYQ0KNW4vV4oTa5ZUELdYAS1gXKkbf0eI7iIIfR3MhnUfp6zWyEOvN8D1E2wd+aSUs7HWnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Wtzoq8ZtbflMhWPA6j63PkUOy7zNHVIVFq6DZJDDZP8=;
+ b=dQUTfjT2l7w8YbIPcfqaLbPdlB2pnlju//rcu5ou6HGAxxNBPABbHxOsYIK3JH1S33CDRMjvWk+wKkZV892lIU7fkeTUtQim68RNWgRH6U+rsfKm/EHEgzir+dsH+YO65wFSpnLZNoxwfkdNd5Y/es0IHFvz4ehHq1nY1AkwdsGMVGp7muzkI2hcQnvnKT+GWssJkAnu2dq60Sgr8r59Vov6hm/GxjDQgdohIAMrAljwAG+9Hj9AAQzRwudpRov4v7uLpuaPJFxMeJsutPN4umMM67U6Lc4DoQ+xRYlvS/Hftl7tv4gToj4npPYx01mKXC4BpmGMh66rQaoqK3mbHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wtzoq8ZtbflMhWPA6j63PkUOy7zNHVIVFq6DZJDDZP8=;
+ b=M73FtUAe2dalAg0v5bnsAaRfhyayLqnrdYFOQfmrTKqL03oe44bJLtx9KLu6yQaVYyAlpqIGc3OCAaC/vwnl9/sVEi2m7rfvZURZgJxV94UabUgF2hIwCWP8VLdPzytqqFTd+/hpUEtLL2KKbjm98s7qJdNePbcXq2wbIAumMz/colWxisnQxApFhZ4oP/Q6CgZ32G9u4H3GexIHHha0mgNaBu3wSIf7sQXc8jsAOytzUVxdv+O7D6Jq0rBoyzTPzaKpbrpI6a+i8F8QFTzO/mVYz2Wq5MXr6CItp1PHuArVxYDUU3m042tQdmt5ceUiNzNqt4zfMI0bNON/9KLINQ==
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
+ by TYZPR06MB5274.apcprd06.prod.outlook.com (2603:1096:400:1ff::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
+ 2026 02:34:31 +0000
+Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
+ ([fe80::92af:c9d9:8779:d19%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 02:34:31 +0000
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+To: Prasanth <prasanth.padarthi10@gmail.com>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>
+CC: "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Joel Stanley
+	<joel@jms.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>
+Subject:
+ =?big5?B?pl7C0DogW1JGQyBRVUVTVElPTl0gQVNUMjYwMCBHUElPUDIvR1BJT1AzIHBhc3Mt?=
+ =?big5?Q?through_with_gpiolib_ownership?=
+Thread-Topic: [RFC QUESTION] AST2600 GPIOP2/GPIOP3 pass-through with gpiolib
+ ownership
+Thread-Index: AQHdU+nGn6GaDDQtw0OQdpC+XgojQ7buO5Qa
+Date: Mon, 5 Oct 2026 02:34:30 +0000
+Message-ID:
+ <OSQPR06MB7252CC7FC2131D45457A1FA98B962@OSQPR06MB7252.apcprd06.prod.outlook.com>
+References:
+ <CAMFFDGh6XwYD-axu3brX0Tdt3PteJHHGo6oJaghzpvnEyzT58g@mail.gmail.com>
+In-Reply-To:
+ <CAMFFDGh6XwYD-axu3brX0Tdt3PteJHHGo6oJaghzpvnEyzT58g@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|TYZPR06MB5274:EE_
+x-ms-office365-filtering-correlation-id: 221ff3f4-8bc6-48ad-0156-08df22892f56
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|38070700021|56012099006|10067099003|18002099003|22082099003|3023799007;
+x-microsoft-antispam-message-info:
+ sWfBjZ7sa52VC02BaL0DvwvK2OxGJe4vdRI2FYgUJJ1SjY1LIOJvavKQBdGCRgR6c5sVYVTqejczi62zF24Hse942Gd5/1ZRoDvIMEUyXjm78bi3LIwLuwiRe8Xt4PQfmxGo/ndX94hpbtMgmKrY8EUwVHKIIMZgBEgjwUU8oxDVYrFMrpamDEQ/+/bRIqgmjxpsKXCowcO4K1ZI0uysRW9qTgMfyiaGxlswW7Wn6HKAR/XGnCCPFikDNDjFwbvbtn/4f+6pPlH/6uy3jHW0kvXcStKAnucR2jz3YhkYgeGYLhW5UWp59vO9Hh670dSQV/zl/yeu+8GC54jn9pO35N6G2sStl/ijv/uj7XNWYcnQnvFmO+3QAAZqJEmBiGEFga2akja835eJ2Hy6ja6l7GI3YnI5C/CIwFX5lhfJTfBnQRaGqdSS9RHatbyfHjG7LQ5T7IsyJzcIqv19QjgcKcU8bYa6ypJNOmBKpIwaPcVjj4urhYvAWKjBb+FeRyaGsAcHvlbr+5Vu2xbK2KsLBg+UeB6BGEAkxUNtGucg3z58mlkhQBwmjvztf8gXcPjO9osFbw7s3c8Hok2AFJBAgYMDHF4erIkN90MkyOSvqHzKr1EtIm/qUCY460T6AMPZinEzCHNwiCPkhz/mA5VHUKY+S/uk1wkg3JnI2LKxajfvHxqYaTzKkRNH9UjwWhSTkFNVTy/fVFggaSVnSLFMb7QGMRARJx0VNRM5m8ieKmk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?big5?B?SC9BSnFmR1lHVmJEdTVlaGpIT1JxNWdvNlhnRUpCTmhFd0NsOXVSMGhycXdad2pP?=
+ =?big5?B?U3gyak9kRlVBRkZJcDRydlZwN2xqRFA0L3ZnZE5RdWIvRWRleXlhc2tMa1cyd2RN?=
+ =?big5?B?VklGQUhSa3QyL1NZcUQwZ1RobVdqdDZFcnh1cDBISzhUZkoxWDNyODhvRzRkUWdt?=
+ =?big5?B?UVlZcG55cTJrQ0xTeXRDVjFvazRTN0JMVlZjOUZIV0ZTL00wSzd2US9OZUZxcDFB?=
+ =?big5?B?Z25xYkQ4OHVmeFRzcHJnbHdmQ1ZBUW5oNjM2RXM0RENUWW5relhHRGpSWDdtaUNl?=
+ =?big5?B?cE15ZXIxOW51a1pUZUZTRjdpVUIvSjV4OGlTMmxyalBEMWJFd0MvM0FodU9sYnIr?=
+ =?big5?B?ZzFxV0xsck9KSFpmczBuZnY1ZnBrdkNrRW5mMVhhQ1VQNGMzTnpkcWxKQlpvdVEv?=
+ =?big5?B?ekJJTjRsZ1NCRk5ZTXp0UDcrTWFidXVXZHdHYlJDQXFUUkFHK0piL0JYWWVxUFZZ?=
+ =?big5?B?cmc1NWlYOXdTV2xzUXNLM2YzVTlRRFk4c3pOQ0taV0dXaWppZUJ1b01JT3V3V25y?=
+ =?big5?B?MVM4SkJMd0J2WkhFME9uM3Zjc2RwNnZnSGhHOVpGOG93N0xXQmJVZ1gvMFNwT1NG?=
+ =?big5?B?emRXU1NGbGYwdnpIemVlaUJKd0xldUE0aE56ejYwWjM1RnBjaEVrUlhPZHVOdXBZ?=
+ =?big5?B?VlJYK1lNcnN5ZVJVQUk5MTZJaFdlaDM5SHhBZlBYTW56bXlCcENVd0VnVkVoZldv?=
+ =?big5?B?b05vdk5DUnU0bVFNeVRsRFNMUlp1YVVEMTA5clFic1Y4dm8yZVJSSG4yZFkyTjBn?=
+ =?big5?B?REtRbE9xNDlUd1hGRzlhSGF2UGpUYWdWTmlkNXBSWVdFVjdyY2F6bE1SemU0V0hX?=
+ =?big5?B?Tjl4b1RDYXMzSEE2MUFVVC9sWkJRQUtNMDNNb0hKS3lXMmJFRzRkSTNzTUEwWVdV?=
+ =?big5?B?YjgvdkFMakJ6Y05OUVZhTXZFTlZyeW02aXJxQ0NVRDNsQ3F6SWFKMS9zbS9sL3Vy?=
+ =?big5?B?RktxVFdzaXFhOGl1cXlLQXQrd1VsTEtlQkhxYVlpbGZNQitpZlJlTkdkN0kvTVI0?=
+ =?big5?B?V2lxN3NlamZKZVJQV25tVDVRb2FkN2RiMmxtdHdremNDZlBWMHQ4bGMwS2toT3dy?=
+ =?big5?B?dk5wRlN3eDM3N0FzN1FFOHJUTUdKK3FlcU9GQ0pQbnZHOHBZUEJHbGFwN1FUamg5?=
+ =?big5?B?TE1QOUpIV2xCYVV6OHd5Wld3L1U1N3dXaTB2czZoSGI4WGtnVjRXU3RqYUVrTmpo?=
+ =?big5?B?SlJ2cDdPNHM3d2VVY2xMOEtzUzVtazQxdjM0cmN0cGNweWgyazVJZ29xZGdxWDM3?=
+ =?big5?B?UGkxeVJ6cnB3ZEo0VUxCakszQTc1czUxbkg4b1UwQlhCSldXM0ZwOEZqM2djREpS?=
+ =?big5?B?dXpCMFBhTFZVMVRxNm9sVkc1elZpVTEzK2IrZzlNS2xuQnVBWjBHTzZZWnlNbGxu?=
+ =?big5?B?UHF1YzZ2dTRnaGlWRC8zVTlFdG5tQjdVYTRXWGw0R2FMcmNvZTRPOFJkd0V0czdQ?=
+ =?big5?B?ak8wZm5uNmlCeXMvRURQcnZPaGszYlhZeXJsaDczWWFGTHlZVDNzTXh5VW5hTXRw?=
+ =?big5?B?czBTU2krNGVtTFhMV09IT083QXgxWXRxcjNPcjhSU0dEVFZKM1Q4b2Jua1hhZjY0?=
+ =?big5?B?TGxheHRFbnBlRWdHaWNFazUxZ1diUUJSd0oyRzBOZmZHUE5hQktNNzduMW9TYnc3?=
+ =?big5?B?Y0I2eEQrN1Y4aDQ4bVk5bUN3enhaRGtmaDdWUDlPOGhuZU9CRHhKSG1ZNFEyZlVV?=
+ =?big5?B?Sm9yc09QK2h3RVg4dmRvbkd4Vm0yL0tyVzBVbVFiclZSUzB3MnU0cTZNNHB0T2FO?=
+ =?big5?B?Wk9iWTYraXRpYVFtQU5zN1A5ekhjOWM4ZmFkbk1EMDFQZkdKS1NwTWc2eEFObktz?=
+ =?big5?B?UkZyQVRHbTB0b25oWFl4Z1A1SFprZ1pnTlFxRHUvZlFtd3RwN0YrKzFIWDkvVDY5?=
+ =?big5?B?ZEpIaXhJNWNSampZVk1MZFJpQWJtRHk3Z2FxYlRUSktkM0pDdFVEVjRUamZNdXFU?=
+ =?big5?B?QTJ3ZTRiaVpacnhiZjA4WjJ1bDkzK0dQZnhWSVAvNUpjZzNYV1ZPZi9ncTAvRDMw?=
+ =?big5?B?RzJCZGhqS05jcXJNTVBLKzB2ZEZwaTlJMkhtVkpaWTFtNmJ6QXBuVzZxZGNmUHlk?=
+ =?big5?B?RjBVNXIvOHRvR1RGK1hYajJ5WmhxbE1vRi9ETjg4SFRyNjY3YXkrRXlvOGhpaFE0?=
+ =?big5?B?TS9qVlBWOE0yNWN5SVArRkY3UWNMSFE3aWRlZnR1UGVkcENQVFBaTmhxNWdJR3hq?=
+ =?big5?B?Y0dyZW9iVmMzeEl1Q2xkNUZ0YlRVQT09?=
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -60,131 +143,27 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Q20rEMBAG4FdZcm0kh+a0V76HeJGkEze4bUpSi
- 7L03U1X0GIhePkPzDc/c0MFcoSCzqcbyrDEEtNYg344IX+x4yvg2NeMGGGSaMrxBLkkPFgueor
- fpzJnsAP21zcshbc+eGq1dKjuTxlC/Ljbzy81X2KZU/68n1rENv1WDTMNdRGYYKkF52C4AOieX
- ErzNY6PPg1ocxf6a7UbLhRTDEqDAEkVA3u02L4XbVms9mLEhJ4zqx0hR4vvLdGyeLVCcBYUEEa
- sPlrdv61us7g0StSfGRqOltxZnLQsWa1OG64ApDfOHS31Y1FCWMtS1fKuN7WSlUz9+de6rl9bb
- iRJjAIAAA==
-X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+X-Exchange-RoutingPolicyChecked:
+	5Ow+YlhCtObr45CEZyZ5761lPicIe7JXCbN7C/oW9xfpDkXqpLFPVgfywehRDDcZQRyPFRmx4U7Y8LL2pmZE2bJu2OEJ/UuaQSXgw8QjGZY2wGCZNeMeNT5uXOFZtmDfWDFacA6feUnv/ej1ordNsWZOzhAYLBcaDJXF36vWpNbuvWT6KFD8l4VSNBeZgg88IaQRnT+HDpNL6WRpMD+lky4C/lQ7+Lpq2r5mPld2a1BRxCfUnvRC48Mgh/oK2LAJxyyA1hYOK5SpbUqHZJiP9P3jlZysLGoZiNBn/Tefc5NZQ9o1OG4jaLP5cQMKoJm6gqb7kA4C0rXgDpa4mfHhrQ==
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 221ff3f4-8bc6-48ad-0156-08df22892f56
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 02:34:30.9512
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: td3WSbuyP1LxB+rUI5dLuMa4zJQZSiQHaPx58v4TROpPsrW7hKfL/sQUBDa9s0IJ77v3Ilw3JsXtxmT5AGnahIZ9bPQ9sIhpf56Nl3HPPpA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB5274
 
-I am in possession of an MA35D1 NuMaker board. The SPI controller has
-been contributed, but at this stage it does not work with the current
-clock driver.
-
-The clock controller registers its muxes with .fw_name parent data,
-which requires every internal clock name to be declared in the DT. As
-the DT does not declare them, all parent lookups fail: muxes end up
-registered as root clocks and most peripherals read a zero rate.
-
-This conversion exposed a first issue with the WDT/WWDT parents which
-were actually missing in the clock driver. I am not using these clocks
-myself but it is worth fixing.
-
-The second round of reviews raised another problem with the
-crystals. HXT and LXT are external crystal oscillators wired on the
-board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
-whereas LXT was not. The series now also takes the two crystal inputs
-from the DT: they get documented in the bindings, described in the
-boards and looked up by the driver (with a fallback for backward
-compatibility).
-
-Finally, I was still unsatisfied by the clock tree because there were
-too many root clocks. Many "gates" were wrongly set aside from the
-downstream clocks they would gate, and SYSPLL was simply not parented at
-all (?).
-
-The clock tree now looks much more accurate.
-
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
-Changes in v8:
-- Fix an out-of-bound bug (syspll parenting structure was wrongly
-  defined).
-- Make sure HXT_GATE is validated before being reused (and possibly
-  dereferencced blindly by the core.
-- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
-
-Changes in v7:
-- Avoid opencoding core helpers, replace them with existing helpers
-  (mentioned by Jerome)
-- Rebased on top of clk-next since the first patches have been applied
-- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
-
-Changes in v6:
-- Drop the clock output names entirely, they are not relevant.
-- Error out when the crystal providers defer probing.
-- Make sure gates are correctly parented.
-- Make sure SYSPLL is parented.
-- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
-
-Changes in v5:
-- Fix the bindings wrt HXT and LXT.
-- Fix the DT descriptions of HXT and LXT.
-- Collect tags.
-- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
-
-Changes in v4:
-- I forgot to bump the clock counter in the driver after adding the two
-  new clocks in the bindings. Sashiko will keep complaining about the
-  incoherency though. Since binding and driver changes should be kept
-  separated, I cannot do both at the same time.
-- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
-
-Changes in v3:
-- Drop the number of clocks from the binding, set it in the driver only
-- Split the binding/driver patches completely
-- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
-
-Changes in v2:
-- New patch 1/3: register the missing WDT/WWDT parent clocks
-- New patch 3/3: harden the code
-- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
-
----
-Miquel Raynal (7):
-      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
-      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
-      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
-      clk: nuvoton: ma35d1: Reparent the gates correctly
-      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-      arm64: dts: nuvoton: ma35d1: Drop HXT clock output name
-      arm64: dts: nuvoton: ma35d1: Add LXT crystal and clock-names
-
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         |   3 +-
- drivers/clk/nuvoton/clk-ma35d1-divider.c        |   3 +
- drivers/clk/nuvoton/clk-ma35d1-pll.c            |   3 +
- drivers/clk/nuvoton/clk-ma35d1.c                | 710 +++++++++---------------
- 6 files changed, 267 insertions(+), 466 deletions(-)
----
-base-commit: 6b78cda327cc2dbcd0e60f411ae014997a684b55
-change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
-
-Best regards,
--- 
-Miquel Raynal <miquel.raynal@bootlin.com>
-
+SGkgUHJhc2FudGgsCgpPbiB0aGUgQVNUMjYwMCwgdGhlIFRIUlUxIHBhc3MtdGhyb3VnaCBhbmQg
+dGhlIEdQSU8xMjMgb3V0cHV0IHNoYXJlCnRoZSBzYW1lIHBhdGggYW5kIGFyZSBtdXR1YWxseSBl
+eGNsdXNpdmUsIHRoZXkgY2Fubm90IGJlIGFjdGl2ZSBhdAp0aGUgc2FtZSB0aW1lLCBzbyBoYXZp
+bmcgdGhlIHBhc3MtdGhyb3VnaCBwYWlyIGFsc28gY29udHJvbGxhYmxlCnRocm91Z2ggZ3Bpb2xp
+YiBpc24ndCBhY2hpZXZhYmxlIGluIGhhcmR3YXJlLiBUaGlzIG1hdGNoZXMgYm90aCB5b3VyCm9i
+c2VydmF0aW9ucy4KCkNvdWxkIHlvdSBoZWxwIHVzIHVuZGVyc3RhbmQgdGhlIHVzZSBjYXNlPyBJ
+ZiB0aGUgcGFzcy10aHJvdWdoCmFscmVhZHkgaGFuZGxlcyB0aGUgaG9zdCBwb3dlciBwYXRoLCB3
+aHkgaXMgc3dpdGNoaW5nIHRvIEdQSU8gY29udHJvbApuZWVkZWQgYXQgYWxsIKFYIHJhdGhlciB0
+aGFuIHNpbXBseSBrZWVwaW5nIFRIUlUxIGVuYWJsZWQgdGhyb3VnaG91dD8KClRoYW5rcwo=
 
