@@ -1,77 +1,134 @@
-Return-Path: <openbmc+bounces-2731-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2732-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1105CA5FED
-	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2026 22:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 220E8CA5FED
+	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2026 01:18:12 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4hzrPN2BSqz30St;
-	Wed, 07 Oct 2026 09:23:20 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::630"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791286251;
-	cv=none; b=KlAJuJFUbqlHZNh+cIi4TdwOVt33hlcmDu9tCX19n8C1TPTc52AQb19kyY3V/w9IHvx0Ggh+mOxSOmQhq0hqf188cU1Rutq12y7z281qKjl3I4sxpVsCp1CiGiP83wqpI+qwYg/kuriZeIP6FtUQORwBM4Fa6AYQLpVfxgUxQhZupfa7STF+phqOk75g+zFf//B4d+1EfbvQLBetsPcGXsPVUY9HRrHNduJCTxhYNVrwqBXVOMhVmBoKeK1X+LsGf09+2hd01+A15X9GDx/zLOuRIleAAXLSunLmXKKrQ5v51ZtwtVQe1/Zh0DfeypPYI0a38HXdZBzMfTrqbBN2Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1791286251; c=relaxed/relaxed;
-	bh=vg1j7SopETdWwc1YtCRYqvPEQKWX9jYE07ROn15rM34=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=jCbzj7YKbLJU6A8nPzkB/mIQDUtUncCxZqjedx2p++ieYFT/cOWbtoIfehFilzcym95to88nWMxE9FPw/XoeuiZQHPXFo/KrNhoqpeb303vUwfawvVe4LEfp3KmBZ55HSuQMq4tlBlhI2gKCaHXzeNr+eMfM+cimZy8EyUeV4aYvXrov4eqvNvbp68gvpgE5E2kTRb5wnWUkZOE1S45lL6ogbrU7j9hFDg5n47BM45eCc0yHjsLc7FwYrh5maQD29nOWyhPbOKurBqlSudSsf5BozX8WhIAdtQMSAa0aT58io0jyL1pd5QZEUdi7Fhuh2Vlspprb7LNW8TCTmSQ6iA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mRg0Mwjo; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=aryakpadman@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4hzwH11yg1z2yVM;
+	Wed, 07 Oct 2026 12:18:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1791333621;
+	cv=pass; b=lD6sVpeXQwze/iwYeutzPV1tKcmzgu634mYjdABRtSke8n9nzKHSkWG5o7H41oJdEq231/CKsbDfmfNrVv3joJ4kyCwUjPvo4DRMyGcb6+FTTisM32Y/rQPBKTFDmXAP4kkI0Uzu+lkXkvMvrZjjfnrc1kzdWjHiAJySjLATCwApRjJk3vY0jRgm+8lZ4cKdn/Dr1bEOCs1Qfcy6lLrmQ79vd/biGSQln6gHX2tJMwhHiiCZJLEVR2xqZYcD7kNpFEsELFZ22KXNtLgibqfzA6K+DVefOFNOfzaqbMy1U4ma3fiELs/15wEqYAfbPsiyHXKMF95g7fivjm2Fyn1/9Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1791333621; c=relaxed/relaxed;
+	bh=J+WFeBlowx6e0PRfRyLipjKtL65jMMcHg6qiGGXU0f8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=B2+P55dTr0vUikgKRn4xF5gu0apjsmPIwTFbNwyUXH27Y1Cqyv95WnQkQeVVqBCIoIY5syT6PZWVgpEWmnNe1G/8stTvIuT1jxj6yITO45lrQzt8tyMU54AIEltGNLNiPKS9xGpItoNMufHJ7kQqF1osaBiVdbqdEhaU3d4JnKOL9D4QMhVVwgB5HTlJnGLX3FPzRiOICdCKZ8nenUuetQO+HQtuj1Hw7ycRawPzm0kXHYvkARxW11PLWnksaR2sIhut7rCB8u8nFcLb09mwHvHaLNL6quyLk3Wpf6eOU2me1kl+ZCzOQLL7KgUREk5rFy52vYOigtlXeXEleZ/yJQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2ci7ZKJI; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=mahesh.kurapati@amd.com; receiver=lists.ozlabs.org) smtp.mailfrom=amd.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mRg0Mwjo;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2ci7ZKJI;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=aryakpadman@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=amd.com (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=mahesh.kurapati@amd.com; receiver=lists.ozlabs.org)
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazlp170100001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4hzYwT6Zv5z2yjw
-	for <openbmc@lists.ozlabs.org>; Tue, 06 Oct 2026 22:30:48 +1100 (AEDT)
-Received: by mail-pl1-x630.google.com with SMTP id d9443c01a7336-2dd76b1361dso18161495ad.1
-        for <openbmc@lists.ozlabs.org>; Tue, 06 Oct 2026 04:30:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791286246; x=1791891046; darn=lists.ozlabs.org;
-        h=to:cc:date:message-id:subject:mime-version:content-type:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vg1j7SopETdWwc1YtCRYqvPEQKWX9jYE07ROn15rM34=;
-        b=mRg0Mwjo0ekkHGE2MLvX1EO/tJaSGwx1+lHNWRCn429gmZalRcY+glFY04UbUIORIe
-         0+xmOHVIWdZ3VtsHeOr4N0acVDCP3ViUnJHl/asV9O3liq37e6qZX8FGBthuZb1ju9oj
-         ZbA2WAriRl+4CkP54aImeFcyrB2oMxY4RYfs9RxXvw+0AeNPHKjClrVX6iF5TF5lAjrS
-         7D/MYrFozHGtb6Ky4xaoD3UnkdbcUbEVcjKpzZJWrCMLsVcrjxe1VtV2WvmGUdcyeFo6
-         gKkaltv+OWW+6C3TP91auH0eu3h+dMAnHN497vouLE4M1WsxdQATQkFi7/xoIv1+SN57
-         pfFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791286246; x=1791891046;
-        h=to:cc:date:message-id:subject:mime-version:content-type:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vg1j7SopETdWwc1YtCRYqvPEQKWX9jYE07ROn15rM34=;
-        b=MB65gy4rrdTtM/x8juB9UuG3jtiG2eEUKecPBi89F1rRrfXyRu9b/OS8dpSBMSUUYo
-         fP73UAi+vp2vY6KdMnydbRbjVv7M9V6tuFVGLAXQQm+kL+3gaLd0hyAmEGV8vtcSEcz7
-         Z13g3pZqFatsUOIRQRBX5iUGm07LWKO2b8eZoFv97b0ViMbTmieWUCI7B8bk+/Wjokm3
-         QPc+bXubXjsT0NzcH/URZ8/p3WlDP5qhuI68nBVM55I1OnKVwctTD5Qc4PQR2z3nURak
-         Kd9zl4MBpZ0m22raFrb/YVz/KJUDEaCWULatvaS0pOBTJI/SYFEmMRbU4hmCtuA0X1xW
-         pX1Q==
-X-Gm-Message-State: AFq9FYK3fy5MmK90xXNXmOk8LuMiQ8Wh2OUVpXorJ6HtvDlHJf901Qg0
-	sxW0PbD4fpVyUxmeD/whpIFWqEGL+R8N0VIpzRdt6HVT7OVezZ8u13sk29dPp+co
-X-Gm-Gg: AYBFou1jnYJQTv+ILV+cIOPkGc8+MlloDl85YiirDZ5E8TBzlpQ9oc5RBDxqOwDHtGD
-	rx4nMKuK+ZurLtlxFRrpRJ8z+jAFeYobcME5d7tRbMCkDENlVxabJ7fhundC4W7YJINr/5vUKLr
-	Of8u7L8vztLkDLKnK0MClHKGuZLFq0T3OwkweQMAlr1Ihe83ga3vzisMTVKPvYs5v+4wH0M+ohY
-	7gPYv5v3II6eHSDjEa2MYyIrRMK/aYYD+r/khthOFnB0LQo+rHnCaWFHyvs096cjWE+fWUP7olM
-	zdXrF+ocR23896/t7+380hpwT8yoa38nTYIHcbxITuyRhCdQGq3DrS2jpbnu8aET7ViO7yFLhMY
-	VhBv9k61T7v2zTQKD6/To2niUD6dHB+OqamCTqn7pIKMgMIXsBFacINLPs16SInGp+ITbJrvyCx
-	ctCTcnmVUv2ZRxAvNpLfuw36U1nUA9P7rIBH8avTrCO+bge76e0LFe12tosy+WVqu1sESz1aIcM
-	Obdrtand0xfhHzv/cU=
-X-Received: by 2002:a17:902:d4c2:b0:2dd:c100:4249 with SMTP id d9443c01a7336-2e51051de7emr103802785ad.45.1791286245443;
-        Tue, 06 Oct 2026 04:30:45 -0700 (PDT)
-Received: from smtpclient.apple ([129.41.8.13])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5eb9254sm20050835ad.36.2026.10.06.04.30.42
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 06 Oct 2026 04:30:45 -0700 (PDT)
-From: Arya Padman <aryakpadman@gmail.com>
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_F9033F9F-D544-4A0C-A743-DA53D6C3E58C"
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4hzvRQ4MYyz2ygK
+	for <openbmc@lists.ozlabs.org>; Wed, 07 Oct 2026 11:40:17 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ux2zMihpUMHSAnna8yxV5yl2d6HVBTUlO2SSfS1BV3EpzFXK9Pz++Y7DfWJfAzVORcB0OG3+M5ZHR3K+RrPF4vC2FvK+wOYhIC5xMSrE+BZREeXfQY3gTqiWQOJh5kXdURqjPG3INpWTBJnxYUjiulI9nOe6XkMuQ0PASdGt2b7nPma6FknIV8NJJjj+QpSjQ2sxahixaUIHKy/A/2bszxQaSsZgAjaW/YXrU+DJoWfxcHFaur0LzDyKYvMGKPD/rOxjg0qJu0aSTIwv4S91xh3TBsROX8blMh++uK9pSw2M3o4093zYknINLsAss985YDDLSkU7Ot+zANIGmYX4rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J+WFeBlowx6e0PRfRyLipjKtL65jMMcHg6qiGGXU0f8=;
+ b=CAR1mJlJckNZ/AXvQ/W1kJlWICz+9I5iN2fFzchehCKpuLhrNp07uptT68jo2R3KVMeY8QHeTfOQRvQu5Doub5LpcLT+lK7P7hJX4ZPIgNQpsmrkaXTcMHZACynLKN/clLdyniRGnGJllYZaI/TWgOpRsKvBfoLLaAf45AdHMSHLugbqlUka4sErvcyXF8oEocAhJOaK2LWrTOkHLD5+OgJem3C4x1oMmYsFzCYw1LeyIPpSQoWB9Re5lYFWrco2tOvzq0qDRSlcpzl6YvFbIKILe6hKOA57l+7+6Qmy1gMT1x1CSk6M3/KyXLnvdOSuyFLcrqqLQUdEa9HcGgqGtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J+WFeBlowx6e0PRfRyLipjKtL65jMMcHg6qiGGXU0f8=;
+ b=2ci7ZKJIWrnOfAJBIwJg+mt1KtnGxXZifrS1d1fHxND00492Unk35RNUBh3xdzhwf7pJmM8gmt4SLxquNV59If3NbA4sQwRfu4oaBavCfZycl22+1Wrlql1W5LY0oYYrtKbMKUS/1Z+w8k1mcQYDcRdXIqV4c/NLZOnJOhm4gs8=
+Received: from CH4PR12MB626935.namprd12.prod.outlook.com
+ (2603:10b6:610:507::19) by CH8PR12MB410303.namprd12.prod.outlook.com
+ (2603:10b6:610:32e::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 00:39:53 +0000
+Received: from CH4PR12MB626935.namprd12.prod.outlook.com
+ ([fe80::224f:d4fe:921d:1d32]) by CH4PR12MB626935.namprd12.prod.outlook.com
+ ([fe80::224f:d4fe:921d:1d32%4]) with mapi id 15.21.0496.010; Wed, 7 Oct 2026
+ 00:39:53 +0000
+From: "Kurapati, Mahesh" <Mahesh.Kurapati@amd.com>
+To: Arun <arunpapannagari23@gmail.com>, Tom Joseph <rushtotom@gmail.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Firmware Recovery Protocols
+Thread-Topic: Firmware Recovery Protocols
+Thread-Index: AQHcDcrC+DyHpM0NRU6AWSuylZz23rajPPYAgFCOOfA=
+Date: Wed, 7 Oct 2026 00:39:53 +0000
+Message-ID:
+ <CH4PR12MB6269350737F4DED205E0AF27D4E8942@CH4PR12MB626935.namprd12.prod.outlook.com>
+References:
+ <CADCscQkZ9ubmHsY8kDOr=S+u4NGoxT8NAkhDGOFhLQXZPLfLfA@mail.gmail.com>
+ <E1543DDD-B05F-43A8-9998-34E533B0C3A1@gmail.com>
+In-Reply-To: <E1543DDD-B05F-43A8-9998-34E533B0C3A1@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-07T00:32:51.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General
+ v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH4PR12MB626935:EE_|CH8PR12MB410303:EE_
+x-ms-office365-filtering-correlation-id: 2ed7ebd0-456e-4e04-15ec-08df240b80b1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003|6133799003|38070700021;
+x-microsoft-antispam-message-info:
+ 4UKcQMRCMp7zttQkP1HJMPLTgXBAGMJcWsmidPWKbzbGvr60yuD3th8kT8+I4rzKLr+tM7KpSYtK1R2AdLUO9jN2kUKyP9aplCZeA8k1wLyE0LMjeRAWNmrsRPH0Dhlwi6Bn7SLBxpOxzQ2dTRhTT5Xeq/UhV1xcySKIlvwbRlFO+kBDCAG1Wy+OS+IuVa2O50Ye5uplqaLKNwxpeFHRJOJR0kNDLLJUVyw9Y+Yg8zsXWLgALiJCLyG4BbmUWNYV+GtJUatf4J+FLJDStVbtmrDIvWvwX1E2/y6KW+cvIKSDsEauERUZgb1tjk7ioM0zfFyYbwWtvBf6Zyd62Bt4k12zoxse42oI3nX3Ug8SGnrDVutzl3ywpd8n8n8nQjOwJKCCugdSD1xrPE/5dmpY+k+oDlHkUVJutCy1NYmBtutgNVC6oDBmgGFla7y+kUy5f0RKTQhbQegQtStwuhJMHLHBkoMXuleiAVZv1cQ34MsdRQgOK9nWruoHAXlOij9AN1dqxPamstEN/L1s85RFMiflP69h/tmObzgNq7OoXIM428UA4oNa7rLEwQWVircY9fuvihYJroXqhYVDvaDIfKTkYt4pWokwuDzUrE74ufzdPjbAcrORmMeT/Ht/egEgMPZTPZwYBq/7mlJozlkKorh8YI0CB1oGQq8XyySKCEg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH4PR12MB626935.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003)(6133799003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?bDhTNW02VlZGNnJEVkxUUzFKWWRieTFPRGpLT041cVhTSHhiNWo2VmRiRXZJ?=
+ =?utf-8?B?YzE3T2hCMVJ0dC9lTzVZRmVlZmhBWjdtU3hMVW5Zc3RPaDQySkVWU0hYd05h?=
+ =?utf-8?B?MVljSVV4VEYrYWxid2YrajdlMTcxUkVmZnNTWEpReTdNT3FJWE56TVVGci94?=
+ =?utf-8?B?L2E5STVxdU5RcGhaMVRLc1hBMU5hQkhvRm5XdkZpWmd5NXdXTEQ3NXovZmxa?=
+ =?utf-8?B?anJBOHFhNThCRk8wUWx6QUFVMzNLb2VoWlBzZloxTWlvN3VaQTAzMEJKTmxh?=
+ =?utf-8?B?SGN4VXVTeVZTOWlVeWpwMXRVb3kwdGp0c0dtYndkWGVGY0FkWkRNbzUrTmdy?=
+ =?utf-8?B?TGswNEREZFpUK1ZBNkNnRlFpeGRGb1czQ2pCUnNGdjlZWFAxelpPVitTL3k4?=
+ =?utf-8?B?TWE3MTByUURGMnl0NGt6eWRZWWY1UEYzVHhiTkdWREJwalp0eUVXVTdWSlp1?=
+ =?utf-8?B?eDFjTXZva3ZpNS9EeVhyeVhtVFlNNHp3RVZjRFVUNXo1WnU0RjQrUXBPSUNR?=
+ =?utf-8?B?Z1hSWDcxWitzdm5JeU55Ymk1WUR4UEtLb3UxUWxEN1JGdFZESG0rMWhTRHk2?=
+ =?utf-8?B?b1ZkTEVONHh5QnA1bWx1dERRTFZRNGlZN0Noa2loTjQ2T0lKY2Ira2hzaGFB?=
+ =?utf-8?B?YUI1WnFTaTVuc0lESVRsZXVtOFl3RmR5ekFlT0dmWXNnTi9ENlh3aU1PQUZ4?=
+ =?utf-8?B?citEV0lETVpwWkk3VkxkdVN0WVo1U3I4NXhMN0NsVU5tN2ZrbTEycG5ib2Iz?=
+ =?utf-8?B?bHhOZU91a0taNW9ZWHRsRzVVczN6bERiMk1jOSswSWFycDkvVk54S1dYNmJU?=
+ =?utf-8?B?dFdPbHpkeHNuZ1QxeTh1MnA2NE9wbkQvSUJlV0tqc1gwTUdoYnVITXlMNjdv?=
+ =?utf-8?B?SU81OURMaGNsUzR6M0R5T0xqeHUwQ09vUXJxTktCTnhZbXNGcTlUaUl5d1p5?=
+ =?utf-8?B?Y20vd3lUeWNWQ2prSGdnbmpUZXZNbjBPNnNyYlZSZ0k3anp3ZjNPN0V5V0ZC?=
+ =?utf-8?B?RHdqTTkyVUNkNnBHK2ZqT2ViOHAwREtUdFJPdWhTQ3dFWUVUckl4QUFCV0Qy?=
+ =?utf-8?B?bzhEVUlNaFJRenBZeU4yRkdLVk1XQUZ6NEdrZStLbFlTTldjcTdIbnoyRE02?=
+ =?utf-8?B?ZzVHNUxrQ29FYUdGeUp4STFGWlFaRnBYOEhXMk5iOEJ5WnRXVmk1cDlNVjZJ?=
+ =?utf-8?B?K0ZKWFRWTmJvRms5WDVudzNKcjJiSnE0eWIxbXNDQ0F0cXZXY085dXVJbHR5?=
+ =?utf-8?B?cEI3MzYyWW1JYnpwY2pBb0RsWUU5TEFCRDlCQk93Z1dYOW1YQzI1S1hNMjJL?=
+ =?utf-8?B?aG04di9RR0FrZFYzaGdOUVBYT3NjS3VNc1ZxRnRNaVJXVmxXTDlJRkt0ZGxU?=
+ =?utf-8?B?V1huY3lhS3MwT09hamQ3NE9Ec1NZUkFEbVRmSTI5cGxCcm1oK1U4OVltRWxC?=
+ =?utf-8?B?UThia3NzSFF4MXJRN2I5ZURMNTk0Qm5hZVNrNW5PVHlrcWdHY3FYalBBeE84?=
+ =?utf-8?B?bmhnN21USFloYUw2UmY2U0M4bjJLb2dFMGdKYStlT3o3QWpra3dPa0NvK1dk?=
+ =?utf-8?B?YncxVk9zK0dSTm5ncUo0RFhweHJhRlhPUkoxV1M4NU1tRzJqbXN4cTNjNFZP?=
+ =?utf-8?B?M01LSy9aYVlBYWU4MTdYU2JzRHBSNEdhWlFlM3VWclh0dDhTMWZVeWNVOGtZ?=
+ =?utf-8?B?VGoyaUVmMkkyTmM5c3RKZHZYa3R5TGhraWM4dWIwOVlvRFBEOTAwNGVjODRI?=
+ =?utf-8?B?NlpJOWpyODliVForSSttWitRNEsvcmNKeVAzZDRpQXBpcEhLK1VaKzFpSkVD?=
+ =?utf-8?B?elRaQXo5OVZIMHBjUm4zNm5WQTBsZFRKNHRnUWEybXdWbHFnNzB2cjBNTmVq?=
+ =?utf-8?B?T2IzanpabHBOQ1o1M25ZQ1hyN3VGc3orTDZBMlpIaFkrcmZ0S0ppYzhKYWpZ?=
+ =?utf-8?B?UzhVb2t3K0kva0JwL0ZZaVl6d1g0NXRVV0Qza3Y1dEwxRkt2NklOeENwK29U?=
+ =?utf-8?B?VTNNaGxCakFlblNCY0VuNnBncG8wd2hnenI3RHQyaEo4YW02L1BzYWgxbDRI?=
+ =?utf-8?B?RVlmWFRjcUZwWTFiZTVYZHpqQWdkUHcvYUptbmxnQWdPbi9lNmZkU2ZQdUpX?=
+ =?utf-8?B?N0lKQWhDbkovdisxSUhMVVpQUG9teWJEMmwzd1ZWTXFubE1vRVB4bkFBTlh0?=
+ =?utf-8?B?MHlNdG8rVkgvT2ZaTzRTSjhCWitiM3V6TFVoKzN0SFp1Smgva0dmNTNncG0w?=
+ =?utf-8?B?VGdRYzdKdWtOZGJwWlJDOFBDZksrc2Z5azJqMDRkSXF2czVqYU1lWi9ZVTdK?=
+ =?utf-8?Q?qdsKIxKhK4KW81MA7K?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -82,118 +139,130 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: phosphor-settingsd : Upcoming change won't no longer emit IA signals
- during startup
-Message-Id: <B995B82B-2B9F-4935-89D5-AD5B0B6C6BCB@gmail.com>
-Date: Tue, 6 Oct 2026 17:00:29 +0530
-Cc: rameshi1@in.ibm.com,
- spinler@us.ibm.com,
- patrick@stwcx.xyz,
- rajivs12@in.ibm.com
-To: openbmc@lists.ozlabs.org
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH4PR12MB626935.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ed7ebd0-456e-4e04-15ec-08df240b80b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2026 00:39:53.2103
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pnqyvrF1PjjKPp/Z1SDD/YMkUdd5LfbYik8CkzH1ql9Sh93fbKOqMO4O4/k4C6KCqRO5Z5ieXYMqkIU2D7jSgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB410303
 
-
---Apple-Mail=_F9033F9F-D544-4A0C-A743-DA53D6C3E58C
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-Hi Team,
-
-As per the OpenBMC guidelines, applications are expected to request =
-their D-Bus well-known name only after restoring any persisted D-Bus =
-objects. The current phosphor-settingsd implementation does not follow =
-this sequence.
-
-I'm proposing the following change to request the D-Bus name after the =
-manager object initialization: =
-https://gerrit.openbmc.org/c/openbmc/phosphor-settingsd/+/88601
-
-With this change, settingsd will no longer emit InterfacesAdded (IA) or =
-PropertiesChanged (PC) signals during startup. Runtime behaviour remains =
-unchanged, and these signals will continue to be emitted normally for =
-runtime changes.
-
-=46rom my review of the OpenBMC repositories, phosphor-logging was the =
-only component I found relying on IA signals from settingsd. That =
-dependency has been addressed by changing it to monitor NameOwnerChanged =
-instead:
-https://gerrit.openbmc.org/c/openbmc/phosphor-logging/+/95058
-
-Please write back if any of your components depend on IA signals from =
-settingsd during startup.
-
-For consumers that need to detect when settingsd becomes available, the =
-recommended approach is to subscribe to NameOwnerChanged, filtered for =
-the settingsd well-known name at the D-Bus daemon level (arg0=3D). This =
-is also the approach used in the phosphor-logging change above.
-
-If there are no additional dependencies or concerns, I'd like to proceed =
-with merging the phosphor-settingsd change in about two weeks.
-
-Please reach out if you have any questions or concerns.
-
-Thanks,
-
-Arya K Padman
-OpenBMC Developer
-Discord: aryakp
-
---Apple-Mail=_F9033F9F-D544-4A0C-A743-DA53D6C3E58C
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html aria-label=3D"message body"><head><meta http-equiv=3D"content-type" =
-content=3D"text/html; charset=3Dus-ascii"></head><body =
-style=3D"overflow-wrap: break-word; -webkit-nbsp-mode: space; =
-line-break: after-white-space;"><font face=3D"Arial" style=3D"font-size: =
-13px;"></font><font face=3D"Arial" style=3D"font-size: 13px;"><span =
-id=3D"x-apple-selection:start"></span>Hi Team,<br></font><div><div =
-style=3D"font-size: 13px;"><font face=3D"Arial"><br>As per the OpenBMC =
-guidelines, applications are expected to request their D-Bus well-known =
-name only after restoring any persisted D-Bus objects. The current =
-phosphor-settingsd implementation does not follow this =
-sequence.</font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial"><br>I'm proposing the following change to request the =
-D-Bus name after the manager object initialization:&nbsp;</font><a =
-href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-settingsd/+/88601">h=
-ttps://gerrit.openbmc.org/c/openbmc/phosphor-settingsd/+/88601</a></div><d=
-iv style=3D"font-size: 13px;"><br><font face=3D"Arial">With this change, =
-settingsd will no longer emit InterfacesAdded (IA) or PropertiesChanged =
-(PC) signals during startup. Runtime behaviour remains unchanged, and =
-these signals will continue to be emitted normally for runtime =
-changes.</font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial"><br>=46rom my review of the OpenBMC repositories, =
-phosphor-logging was the only component I found relying on IA signals =
-from settingsd. That dependency has been addressed by changing it to =
-monitor NameOwnerChanged instead:</font><br><font face=3D"Arial"><a =
-href=3D"https://gerrit.openbmc.org/c/openbmc/phosphor-logging/+/95058">htt=
-ps://gerrit.openbmc.org/c/openbmc/phosphor-logging/+/95058</a></font></div=
-><div style=3D"font-size: 13px;"><font =
-face=3D"Arial"><br></font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial">Please write back if any of your components depend on IA =
-signals from settingsd during startup.</font></div><div =
-style=3D"font-size: 13px;"><font face=3D"Arial"><br></font></div><div =
-style=3D"font-size: 13px;"><font face=3D"Arial">For consumers that need =
-to detect when settingsd becomes available, the recommended approach is =
-to subscribe to NameOwnerChanged, filtered for the settingsd well-known =
-name at the D-Bus daemon level (arg0=3D). This is also the approach used =
-in the phosphor-logging change above.</font></div><div style=3D"font-size:=
- 13px;"><font face=3D"Arial"><br>If there are no additional dependencies =
-or concerns, I'd like to proceed with merging the phosphor-settingsd =
-change in about two weeks.</font></div><div style=3D"font-size: =
-13px;"><font face=3D"Arial"><br>Please reach out if you have any =
-questions or concerns.</font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial"><br></font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial">Thanks,</font></div><div style=3D"font-size: 13px;"><font =
-face=3D"Arial"><br>Arya K Padman</font></div><div style=3D"font-size: =
-13px;"><font face=3D"Arial">OpenBMC Developer</font><br><font =
-face=3D"Arial">Discord: aryakp<span =
-id=3D"x-apple-selection:end"></span></font></div></div><div></div></body><=
-/html>=
-
---Apple-Mail=_F9033F9F-D544-4A0C-A743-DA53D6C3E58C--
+QU1EIEdlbmVyYWwNCg0KSGVsbG8gQXJ1biwNCg0KR3JlYXQgd29yayBvbiBnZXR0aW5nIHRoZSBP
+Q1AgcmVjb3ZlcnkgaW1wbGVtZW50YXRpb24gaW4gcGxhY2UuDQoNCkkgaGF2ZSBhIGZldyBzdWdn
+ZXN0aW9ucyBmb3IgdGhlIG9jcC1yZWNvdmVyeS10b29sOg0KDQoxLiBWZXJib3NlIExvZ2dpbmcg
+U3VwcG9ydA0KQWRkaW5nIGEgLS12ZXJib3NlIG9wdGlvbiB0byBkaXNwbGF5IHRoZSB0cmFuc21p
+dHRlZCAoVHgpIGFuZCByZWNlaXZlZCAoUngpIG1lc3NhZ2VzLCBzaW1pbGFyIHRvIHBsZG10b29s
+LCB3b3VsZCBzaWduaWZpY2FudGx5IGltcHJvdmUgZGVidWdhYmlsaXR5IGFuZCBoZWxwIGFjY2Vs
+ZXJhdGUgaXNzdWUgYW5hbHlzaXMgYW5kIHJvb3QtY2F1c2UgaW52ZXN0aWdhdGlvbi4NCg0KMi4g
+U2VwYXJhdGUgUmVjb3ZlcnkgQWN0aXZhdGlvbiBTdGVwDQpUaGUgY3VycmVudCBQZXJmb3JtUmVj
+b3ZlcnkgZmxvdyBhc3N1bWVzIGEgc2luZ2xlLWNvbXBvbmVudCB1cGRhdGUgd29ya2Zsb3cuIEhv
+d2V2ZXIsIHNvbWUgZGV2aWNlcyBtYXkgcmVxdWlyZSBtdWx0aXBsZSBjb21wb25lbnRzIHRvIGJl
+IHVwZGF0ZWQgYmVmb3JlIHRoZSByZWNvdmVyeSBpbWFnZSBjYW4gYmUgYWN0aXZhdGVkLiBQcm92
+aWRpbmcgYSBkZWRpY2F0ZWQgY29tbWFuZCBmb3IgdGhlIHJlY292ZXJ5IGFjdGl2YXRpb24gc3Rl
+cCB3b3VsZCBtYWtlIHRoZSB0b29sIG1vcmUgZmxleGlibGUgYW5kIGJldHRlciBzdWl0ZWQgZm9y
+IHN1Y2ggdXNlIGNhc2VzLCB3aGlsZSBhbHNvIGltcHJvdmluZyBvdmVyYWxsIHVzYWJpbGl0eS4N
+Cg0KQWxzbywgaWYgaXQgd291bGQgYmUgaGVscGZ1bCwgSSBoYXZlIGFscmVhZHkgaW1wbGVtZW50
+ZWQgc29tZSBvZiB0aGVzZSBjaGFuZ2VzIGFuZCB0ZXN0aW5nIGlzIGN1cnJlbnRseSBpbiBwcm9n
+cmVzcy4gTGV0IG1lIGtub3cgaWYgeW91IHdvdWxkIGxpa2UgdG8gdGFrZSBhIGxvb2sgb3IgZGlz
+Y3VzcyBhbnkgb2YgdGhlIGltcGxlbWVudGF0aW9uIGRldGFpbHMuDQoNClJlZ2FyZHMNCk1haGVz
+aA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogQXJ1biA8YXJ1bnBhcGFubmFn
+YXJpMjNAZ21haWwuY29tPg0KU2VudDogU3VuZGF5LCBBdWd1c3QgMTYsIDIwMjYgMToyMyBQTQ0K
+VG86IFRvbSBKb3NlcGggPHJ1c2h0b3RvbUBnbWFpbC5jb20+DQpDYzogb3BlbmJtY0BsaXN0cy5v
+emxhYnMub3JnDQpTdWJqZWN0OiBSZTogRmlybXdhcmUgUmVjb3ZlcnkgUHJvdG9jb2xzDQoNCltZ
+b3UgZG9uJ3Qgb2Z0ZW4gZ2V0IGVtYWlsIGZyb20gYXJ1bnBhcGFubmFnYXJpMjNAZ21haWwuY29t
+LiBMZWFybiB3aHkgdGhpcyBpcyBpbXBvcnRhbnQgYXQgaHR0cHM6Ly9ha2EubXMvTGVhcm5BYm91
+dFNlbmRlcklkZW50aWZpY2F0aW9uIF0NCg0KQ2F1dGlvbjogVGhpcyBtZXNzYWdlIG9yaWdpbmF0
+ZWQgZnJvbSBhbiBFeHRlcm5hbCBTb3VyY2UuIFVzZSBwcm9wZXIgY2F1dGlvbiB3aGVuIG9wZW5p
+bmcgYXR0YWNobWVudHMsIGNsaWNraW5nIGxpbmtzLCBvciByZXNwb25kaW5nLg0KDQoNCiAgSGkg
+YWxsLA0KDQogIEZvbGxvd2luZyB1cCBvbiB0aGUgcHJvcG9zYWwgYmVsb3csIHdlIG5vdyBoYXZl
+IGEgd29ya2luZyBpbXBsZW1lbnRhdGlvbiBvZiB0aGUgT0NQIFNlY3VyZSBGaXJtd2FyZSBSZWNv
+dmVyeSBwYXRoIHRoYXQgcmVhbGl6ZXMgdGhpcyBhcHByb2FjaCwgYW5kIEknZCBsaWtlIHRvIHB1
+dCBpdCB1cCBmb3IgcmV2aWV3Lg0KDQogIFRoaXMgY292ZXJzIFN0YWdlIDEgb2YgdGhlIHR3by1z
+dGFnZSBmbG93IGRlc2NyaWJlZCBiZWxvdzogT0NQIHJlY292ZXJ5IGRlbGl2ZXJzIHRoZSBpbml0
+aWFsIGZpcm13YXJlIG92ZXIgU01CdXMgdG8gYSBkZXZpY2UgcGFya2VkIGluIGl0cyByZWNvdmVy
+eSBST007IFN0YWdlIDIgdGhlbiBwcm9jZWVkcyBvdmVyIHRoZQ0KICBleGlzdGluZyBNQ1RQL1BM
+RE0gVDUgdXBkYXRlIHN0YWNrLg0KDQogIERlc2lnbiBzdW1tYXJ5Og0KDQogIC0gT0NQIHJlY292
+ZXJ5IGNvZGUgdXBkYXRlcjogYSBOb24tUExETSBjb2RlIHVwZGF0ZXIgYnVpbHQgb24gdGhlIGV4
+aXN0aW5nIGNvbW1vbi8gU29mdHdhcmVNYW5hZ2VyL0RldmljZSBmcmFtZXdvcmsgaW4gcGhvc3Bo
+b3ItYm1jLWNvZGUtbWdtdC4gVGhlIG9wZXJhdG9yLWZhY2luZyBpbnRlcmZhY2UgaXMNCiAgIGlk
+ZW50aWNhbCB0byBhIG5vcm1hbCBmaXJtd2FyZSB1cGRhdGU6IGEgdGFyZ2V0ZWQgUmVkZmlzaCBt
+dWx0aXBhcnQgdXBkYXRlIGFnYWluc3QgdGhlIGRldmljZSdzIEZpcm13YXJlSW52ZW50b3J5IGVu
+dHJ5LCB3aXRoIHRoZQ0KICAgcmVjb3ZlcnkgaW1hZ2UocykgY2FycmllZCBpbiBhIFBMRE0gKERT
+UDAyNjcpIHBhY2thZ2UuDQogIC0gUHJvdG9jb2wgbGlicmFyeTogYSBzbWFsbCB0cmFuc3BvcnQt
+YWJzdHJhY3QgQysrIGxpYnJhcnkgaW1wbGVtZW50aW5nIHRoZSBPQ1AgU2VjdXJlIEZpcm13YXJl
+IFJlY292ZXJ5IDEuMCBpbmRpcmVjdCBmbG93IG92ZXIgSTJDL1NNQnVzLCB1bml0LXRlc3RlZCBh
+Z2FpbnN0IGEgbW9jayB0cmFuc3BvcnQuIEENCiAgICBzdGFuZGFsb25lIENMSSAob2NwLXJlY292
+ZXJ5LXRvb2wpIGRyaXZlcyB0aGUgc2FtZSBsaWJyYXJ5IGZvciBicmluZy11cCBhbmQgZGVidWcu
+DQogIC0gRGlzY292ZXJ5OiBkZXZpY2VzIGFyZSBkZXNjcmliZWQgYnkgYSBuZXcgZW50aXR5LW1h
+bmFnZXIgZXhwb3NlcyB0eXBlLCBPQ1BSZWNvdmVyeUZpcm13YXJlLCBzbyByZWNvdmVyeSBwbHVn
+cyBkaXJlY3RseSBpbnRvIHRoZSBzdGFuZGFyZCBSZWRmaXNoIHRhcmdldGVkLXVwZGF0ZSBmbG93
+Lg0KDQogIFRlc3Rpbmc6IHJlY292ZXJlZCBlaWdodCBOVklESUEgUlRYIDYwMDAgUHJvIChHQjIw
+MikgR1BVcyBlbmQtdG8tZW5kIG92ZXIgdGhlIFJlZGZpc2ggdXBkYXRlIHBhdGgsIGluY2x1ZGlu
+ZyBmb3JjaW5nIGRldmljZXMgaW50byByZWNvdmVyeSBtb2RlLCBza2lwcGluZyBhbHJlYWR5LWhl
+YWx0aHkgZGV2aWNlcywgYW5kDQogIHJlamVjdGluZyBub24tYXBwbGljYWJsZSBwYWNrYWdlcyAo
+VXBkYXRlTm90QXBwbGljYWJsZSkuIFRoZSBlbnRpdHktbWFuYWdlciBjb25maWd1cmF0aW9uIHVz
+ZWQgZm9yIHRoaXMgaXMgcGFydCBvZiB0aGUgc2VyaWVzLg0KDQogIENoYW5nZXMgZm9yIHJldmll
+dyAoZ2Vycml0IHRvcGljIG9jcC1mdy1yZWNvdmVyeTogaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy5v
+cmcvcS90b3BpYzpvY3AtZnctcmVjb3ZlcnkpOg0KDQogIC0gcGhvc3Bob3ItYm1jLWNvZGUtbWdt
+dCwgc3BsaXQgYnkgYXJlYToNCiAgICAtIGxpYm9jcC8g4oCUIHByb3RvY29sIGxpYnJhcnk6IGh0
+dHBzOi8vZ2Vycml0Lm9wZW5ibWMub3JnL2Mvb3BlbmJtYy9waG9zcGhvci1ibWMtY29kZS1tZ210
+LysvOTI0NTANCiAgICAtIGxpYm9jcC90b29scy8g4oCUIGJyaW5nLXVwIENMSTogaHR0cHM6Ly9n
+ZXJyaXQub3BlbmJtYy5vcmcvYy9vcGVuYm1jL3Bob3NwaG9yLWJtYy1jb2RlLW1nbXQvKy85MjQ1
+MQ0KICAgIC0gY29tbW9uLyDigJQgbXVsdGktY29tcG9uZW50IHBhY2thZ2Ugc3VwcG9ydDogaHR0
+cHM6Ly9nZXJyaXQub3BlbmJtYy5vcmcvYy9vcGVuYm1jL3Bob3NwaG9yLWJtYy1jb2RlLW1nbXQv
+Ky85MjQ1MiBhbmQgYSBzbWFsbCBELUJ1cyBoZWxwZXI6DQogIGh0dHBzOi8vZ2Vycml0Lm9wZW5i
+bWMub3JnL2Mvb3BlbmJtYy9waG9zcGhvci1ibWMtY29kZS1tZ210LysvOTMzMjkNCiAgICAtIG9j
+cC1yZWNvdmVyeS8g4oCUIHRoZSB1cGRhdGVyIGRhZW1vbiAoaW5jbC4gUkVBRE1FKTogaHR0cHM6
+Ly9nZXJyaXQub3BlbmJtYy5vcmcvYy9vcGVuYm1jL3Bob3NwaG9yLWJtYy1jb2RlLW1nbXQvKy85
+MjQ1Mw0KICAtIGVudGl0eS1tYW5hZ2VyOiBPQ1BSZWNvdmVyeUZpcm13YXJlIHNjaGVtYSAoaHR0
+cHM6Ly9nZXJyaXQub3BlbmJtYy5vcmcvYy9vcGVuYm1jL2VudGl0eS1tYW5hZ2VyLysvOTMzMzAp
+IGFuZCB0aGUgUlRYIDYwMDAgUHJvIGNvbmZpZ3VyYXRpb24gdXNlZCBmb3IgdmFsaWRhdGlvbg0K
+ICAoaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy5vcmcvYy9vcGVuYm1jL2VudGl0eS1tYW5hZ2VyLysv
+OTMzMzEpDQogIC0gT0NQIFNlY3VyZSBGaXJtd2FyZSBSZWNvdmVyeSAxLjAgc3BlYzogaHR0cHM6
+Ly93d3cub3BlbmNvbXB1dGUub3JnL2RvY3VtZW50cy9vY3AtcmVjb3ZlcnktZG9jdW1lbnQtMXAw
+LWZpbmFsLTEtcGRmDQoNCiAgRmVlZGJhY2sgb24gdGhlIGRlc2lnbiBpcyB3ZWxjb21lLCBpbiBw
+YXJ0aWN1bGFyIHRoZSBOb24tUExETS11cGRhdGVyIGZyYW1pbmcgYW5kIHRoZSBlbnRpdHktbWFu
+YWdlciBjb25maWd1cmF0aW9uLg0KDQogIFRoYW5rcywNCiAgQXJ1bg0KDQo+IE9uIDE1IEF1ZyAy
+MDI1LCBhdCAxNToyNSwgVG9tIEpvc2VwaCA8cnVzaHRvdG9tQGdtYWlsLmNvbT4gd3JvdGU6DQo+
+DQo+IEhlbGxvIGFsbCwNCj4NCj4gRGV2aWNlcyBzdWNoIGFzIEdQVXMsIENQVXMsIGFuZCAgTklD
+cyBzdXBwb3J0IGZpcm13YXJlIHVwZGF0ZSB1c2luZw0KPiBzdGFuZGFyZCBwcm90b2NvbHMgbGlr
+ZSBNQ1RQIGFuZCBQTERNIFQ1LiBUaGV5IGFsc28gc3VwcG9ydCByZWNvdmVyeQ0KPiBwcm90b2Nv
+bHMsIHByb3ZpZGluZyBvdXQtb2YtYmFuZCBtZWNoYW5pc21zIHRvIGRldGVjdCB3aGVuIGEgZGV2
+aWNlDQo+IGVudGVycyBhIGZhdWx0IHN0YXRlIHdoZXJlIGZpcm13YXJlIHVwZGF0ZSBpcyBub3Qg
+cG9zc2libGUgYW5kIHRvDQo+IHNlY3VyZWx5IHJlc3RvcmUgaXQgdG8gYSBrbm93biBnb29kIGNv
+bmRpdGlvbi4NCj4NCj4gVGhlIE9wZW4gQ29tcHV0ZSBQcm9qZWN0IChPQ1ApIG9mZmVycyBhIHNl
+Y3VyZSBmaXJtd2FyZSBwcm90b2NvbCBbMV0NCj4gdG8gZGV0ZXJtaW5lIGlmIGEgZGV2aWNlIGlz
+IGluIHJlY292ZXJ5IG1vZGUgYW5kIHRvIGZhY2lsaXRhdGUNCj4gcmVjb3ZlcnkgdGhyb3VnaCB0
+aGUgdHJhbnNmZXIgb2YgcmVjb3ZlcnkgaW1hZ2VzLCB0eXBpY2FsbHkgb3Zlcg0KPiBTTUJ1cy4g
+RmlybXdhcmUgcmVjb3ZlcnkgZ2VuZXJhbGx5IGZvbGxvd3MgYSB0d28tc3RhZ2UgcHJvY2Vzczog
+T0NQDQo+IHJlY292ZXJ5IGlzIGZpcnN0IHVzZWQgdG8gZGVsaXZlciB0aGUgU3RhZ2UgMSAoaW5p
+dGlhbCkgZmlybXdhcmUgdG8NCj4gdGhlIGRldmljZSwgd2hpY2ggdGhlbiBlbmFibGVzIGZ1cnRo
+ZXIgdXBkYXRlcyB0aHJvdWdoIE1DVFAvUExETSBUNS4NCj4gU3RhZ2UgMiBpbnZvbHZlcyB0cmFu
+c2ZlcnJpbmcgY29tcGxldGUgZGV2aWNlIGZpcm13YXJlIHVzaW5nIE1DVFAvUExETQ0KPiBUNSwg
+d2hpY2ggaXMgYWxyZWFkeSBzdXBwb3J0ZWQgYnkgdGhlIE9wZW5CTUMgc3RhY2suIFRoZXJlIGFy
+ZSBhbHNvDQo+IHNpbWlsYXIgY3VzdG9tIHByb3RvY29scyBmb3IgZGV2aWNlIHJlY292ZXJ5LCBz
+b21lIG9mIHdoaWNoIHN1cHBvcnQNCj4gdHdvIHN0YWdlIHVwZGF0ZXMgd2hpbGUgb3RoZXJzIHJl
+Y292ZXIgd2l0aCBhIHNpbmdsZS1zdGFnZSB1cGRhdGUuDQo+DQo+IFRvIGJyaW5nIHRoZXNlIGNh
+cGFiaWxpdGllcyBpbnRvIHRoZSBPcGVuQk1DIGVjb3N5c3RlbSwgdGhlIHByb3Bvc2FsDQo+IGlz
+IHRvIGxldmVyYWdlIHRoZSBzdGFuZGFyZCBSZWRmaXNoIEFQSSBmb3IgY29kZSB1cGRhdGVzIGFu
+ZCB1dGlsaXplDQo+IFBMRE0gcGFja2FnaW5nIGZvciByZWNvdmVyeSBpbWFnZXMuIFJlY292ZXJ5
+IHByb3RvY29scyBsaWtlIE9DUCB3b3VsZA0KPiBiZSBpbXBsZW1lbnRlZCBhcyBOb24tUExETSBj
+b2RlIHVwZGF0ZXJzLCB3aGljaCBoYW5kbGUgdGhlIHNwZWNpZmljDQo+IHJlY292ZXJ5IHByb3Rv
+Y29sIGFuZCBwYXJzZSBQTERNIHBhY2thZ2VzIHRvIGV4dHJhY3QgdGhlIGFwcHJvcHJpYXRlDQo+
+IHJlY292ZXJ5IGltYWdlcyBmb3IgZWFjaCBkZXZpY2UuIFRoaXMgYXBwcm9hY2ggYnVpbGRzIG9u
+IHRoZSBjdXJyZW50DQo+IGVmZm9ydHMgdG8gdXBkYXRlIG5vbi1QTERNIGRldmljZXMsIHN1Y2gg
+YXMgVlJzIGFuZCBDUExEcywgd2l0aCBQTERNIGltYWdlIHBhY2thZ2luZy4NCj4NCj4gSSB3ZWxj
+b21lIGZlZWRiYWNrIGZyb20gdGhlIGNvbW11bml0eSBvbiB0aGUgYXBwcm9hY2ggYW5kIGludml0
+ZSBhbnkNCj4gYWx0ZXJuYXRpdmUgc3VnZ2VzdGlvbnMuDQo+DQo+IFsxXQ0KPiBodHRwczovL3d3
+dy5vcGVuY29tcHV0ZS5vcmcvZG9jdW1lbnRzL29jcC1yZWNvdmVyeS1kb2N1bWVudC0xcDAtZmlu
+YWwtDQo+IDEtcGRmIFsyXSBodHRwczovL2dlcnJpdC5vcGVuYm1jLm9yZy9jL29wZW5ibWMvZG9j
+cy8rLzc2NjQ1DQo+IFJlZ2FyZHMsDQo+IFRvbQ0KPiAtLS0tLS0tLS0tLS0tLSBuZXh0IHBhcnQg
+LS0tLS0tLS0tLS0tLS0gQW4gSFRNTCBhdHRhY2htZW50IHdhcw0KPiBzY3J1YmJlZC4uLg0KPiBV
+Ukw6DQo+IDxodHRwOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy9hdHRhY2ht
+ZW50cy8yMDI1MDgxNS9lZTc0N2ENCj4gMTcvYXR0YWNobWVudC5odG0+DQoNCg0K
 
