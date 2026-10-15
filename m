@@ -1,90 +1,87 @@
-Return-Path: <openbmc+bounces-2753-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2754-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B7FCC6B2F
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 03:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D33ECC6B34
+	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 08:33:21 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j4vJM5zfpz30WS;
-	Thu, 15 Oct 2026 14:51:31 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1332"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792036291;
-	cv=none; b=NiDJSLCNz77JVFeZXCVXvW2553ObTKLDVTCOjxdn0VnW2KO1/9tEz9SQYt9XACWPJe95yldXtvkpO8xmCBomWec93vstJFq6yhBaCBvp/0xS4TYzrZ75/2K/+de9K5sujko/pYXfxoul0AKk35i0fG8acTjwoGr+OmQpBJ5uyIelMnmWcwWxFWbnHfmEKfZI4+q/IsAvLmEwnlcAw2KIdIGTvUq4HHWqnp1QXRHHV/FTgdq3wWbZRnDZj66BkqN0shNoLE1YcT+KU0lZBqGMM5Az5vAvKU4ylpEPJyzLV41yYLsiGCgzHDbtKpnUDG3XyUHTyv1/iiwSk4zJiLtWtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792036291; c=relaxed/relaxed;
-	bh=5Brhdwqnp+zrXya+pAYQZ+kocBKTR7q3OUom2Y3/V6I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lk+4g+dIW58U0uPoU1aJFDzlfT7ZpirZ2lMSnMngdVPG+SCJZVh51LqxP4Q2Fsa1b8fCKrLvh9S7zfciKPNZNDMnRpQ7jXV38kubEnSiwvak8XhqurR+XEXCDhVa8t0JgtTEHAbtei4Ny73z94k1NPg0KyTVoVYIwzsXb6wo345Qi41ukwkq2ZprI/3I0GP224aWtmseWy3Qdq92Ut/RSJDFStKMBpIS6qLPiQIzYGlTVrVqkVnyKiE6SpCqEaKxJ8fEwkPH7tQQUqPR9oi6yn1J3lMOpSh67/UBuob31CJbJRNuQuYgxwgXsPBOnhzArIW8SSCzyBc85YJxmnxnnA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C/45TtUE; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1332; helo=mail-dy1-x1332.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j51YP4brXz2xK7;
+	Thu, 15 Oct 2026 19:33:13 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::3" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792053193;
+	cv=pass; b=iPp7vgU5h1Cdm0KI738oI/9dVd8pMX7k1PfDTQLlzpgUXDTwFuLx9Xne4TiBQSmzpTzwOaur/P6Rgc3dztz3gR3lexITiIymigTVfxZERumtjzmbLQoLIG/OGc1SDx4nhgMK/u1+MqabEtZhM68Y1Q4NGnxVAfmRXwhIwNyQ4ZU9IfHy0ZgzU0z9KfkjwNci9TC6ef7zUwXRRZdMJjzM6AvzJUMD5fyEeMmbRVU5huUptebdo1GUuvSbKp7fZ6vb9aikcaqIHvf8Cg7j7/xjIb3yZWf1DgqNrQoZuUUCL2eX4RvRy8FsZdQE0ujefNseNGfRiLi/06NBVCrc3LFv4A==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1792053193; c=relaxed/relaxed;
+	bh=cxyNiaHBBUBxVwNsBM2U0LdF1gPH0NPALF7sZxV7Z8c=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nfkD3BM2E6g9zMAAB4u0LHpgyoRp99WpE0erAVHH7cXsiOgzJUfy4sOcGkCaF7wjuR1ywlhFVtR/XYeec5j38eNYZHWBsSVKHuzr7Y+/kflamTqwj19NmJ447pxuZajJU9rvbCgWqHM4T/yQzc3bxbeCoy6hrCkzmHX1ncrDomXhqZzjgnHBFKpGxi8R/MLRp6uC2ATCN42FuvPYjjpCJqr4Uo6hrMzTz9IQiRkdkWJhhQxBOeYUHVDdabVpwISXEB7AAGbqTeBCdJVWfRO4gUsJ9hI41YI5N/mHB0KwoN7YI9bZUL38xA3UR20ZB1CVye+FdgARcQMsdDA3kg/3Gg==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=fZguNMGg; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C/45TtUE;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=fZguNMGg;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1332; helo=mail-dy1-x1332.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dy1-x1332.google.com (mail-dy1-x1332.google.com [IPv6:2607:f8b0:4864:20::1332])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::3; helo=ph0pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j4vJL4TvYz2yqT
-	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 14:51:29 +1100 (AEDT)
-Received: by mail-dy1-x1332.google.com with SMTP id 5a478bee46e88-35b2c599f43so45676eec.0
-        for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2026 20:51:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792036287; x=1792641087; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5Brhdwqnp+zrXya+pAYQZ+kocBKTR7q3OUom2Y3/V6I=;
-        b=C/45TtUEsnhiWEZUzVIPU/Xr7/O3mKTq07IFnvQuaXpnNThaydjrpLJXR2O1gvcWKr
-         vWWDFQmvRFWMT93TO9FRURzcXVGtawANNxOcuz8casIngGEjuAPj6P8DZntlS1TjYQJ4
-         fF7JHr3N0u0cjdpVJFvnUO3Y6PZegAFgzO5sc6VsgASof3Eo/jDnMN7ep65A7bFksNCp
-         OgGDG2LIzhb3oNAQ31dVZcsm2Aeme87YlS+A2ptH3pLE/Di1MWJtbAiOKZRMvQOvNc/D
-         kg8mNlVa1twyavOIrj/0B7UKOh/kKZi3O+caDeIwR1LlL2peWFx6N+PN3gIiEvUP7NOV
-         z4xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792036287; x=1792641087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5Brhdwqnp+zrXya+pAYQZ+kocBKTR7q3OUom2Y3/V6I=;
-        b=WMxrfvE1fL1Kbg+zYEGnGOuA2gODmasq8o+rhsHQHLse+Pqc5NebFy2mxB+s3wa52d
-         z2OUXrymj6dcNaGm0Iroqk+6/GPWovY2B2fqmlhNn7Pucyp1jH7YB9UyDHkQ2rd6FxE+
-         DCkcRZ6AZGCb2igZewTwGSvSSIaG95oYU6JBbshphHkg6l79BPvutrMemRm4Fs9Q08nV
-         SlsbDEQK7ag4U76e3HqZkI7G4ToRUXUhIX0nzRZtCHZakzBWjovi5dzv+LSK1vsrj2ND
-         bDI7J6xcR7jRFzyV8uuPoT2yd+QLlrLeOlfa2DiTd/Nle2Xejw86igvLb0w1YnOzYQCg
-         d/oA==
-X-Forwarded-Encrypted: i=1; AKwUvByTjuReI4VWn/nZD3YWWAF810ReRl7ArlRw8rqq4auPPVo0lO3caQHsRkt18ke4KZkE3LOSBkx+@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYLTJioyXkuWX9oQ57BHtPGJMExvjcqxL4xmZk9WVgYK0knrJQlh
-	y8rqxiqrorfprgtBC1S8HmAb/NXMVSLTpkTwkdtdxPwdVNPlcB/N65NZ
-X-Gm-Gg: AYBFou2kXAozOGMzThe0hWfsw6CTegHCVWEdQbjG33Eur8wWhqT6Pio9s1DexLbc6Do
-	C52fRmUs09hESUYEaeOVM2kMZHvCubEJOzcaDVLptgAMoQmjiTwCN45pWfpSqbOhQQUIwU79TA4
-	NGYeE3OnHbn4M8IpYr1T6qNkRXPmFO1UycFBCzQ8Cc2RSoLERaOFdFqwl/WD1LmTUzaA0EqpM8u
-	EkOfx+4MpKJvZNarIruR9RUUTSc4GgN1bai/p9yHvFzvdPZYhaecfRnrVtS9x8aYW1oieZKOUyw
-	CwUEpSCLR/GePTptEYXkFaUPcsNcHOlwLR5U/UpxJwPVLWVOpTP/AnPxsbqPj6YUBPNQR3q9Irn
-	bM375ZDnYcc+iPfcH+flu2UynQhkHhnlQKknWbA3vjVPcoqXj0wAphjaQl8uIsEDOzDe1lqfbVR
-	V2kfjtjDQJK9a/yepl9G1JN2dYpCMWRPVMyKkwk7T8faWbeYo9Y3ZvaCg+PnJ6TiBombbhdf5+C
-	OjKdBEaRlqPKPz+
-X-Received: by 2002:a05:7300:8b14:b0:35f:f0:8edf with SMTP id 5a478bee46e88-35f00f09f07mr2511567eec.13.1792036287168;
-        Wed, 14 Oct 2026 20:51:27 -0700 (PDT)
-Received: from debian.prasanth ([103.183.205.240])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm56719830eec.30.2026.10.14.20.51.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Oct 2026 20:51:26 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: andrew@codeconstruct.com.au
-Cc: linus.walleij@linaro.org,
-	joel@jms.id.au,
-	brgl@kernel.org,
-	linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [RFC PATCH] pinctrl: aspeed: Handle GPIOZ6 pass-through strap on GPIO requests
-Date: Thu, 15 Oct 2026 09:21:18 +0530
-Message-ID: <20261015035118.9495-1-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j51YM2W2Vz2xDD
+	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 19:33:10 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V6WMe8JOXOjPmRhy75yh8dV3uZPhZtgkBhVqEC4BVvQF04Q8p8F53zIVxVfYomOOKdRguG2PtuMJkpR7ycugzIhsYxoU5JpUu2e/OLpp1+XpEnTlRq748LP6NKJ/ACxg3Frt54LQjvS/POblflwHnfdHccW10Rmbt5qQcjDbofNZyY1DmTiXcynSMTTIw6BUh4cD78kTKRCm6cfXV9V2ppYc9KvpLtUReCJ9g6ffGOJZE/aLkY4nGyo2Wyp57XkDtrdB/gcRUVozrX86+gFFmOzZHAuOZUfT+eQMifsL7u5gEOQCzTBoq917I6Dzw2k+o5Kg6PMMgGApTh1Pr7ycqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cxyNiaHBBUBxVwNsBM2U0LdF1gPH0NPALF7sZxV7Z8c=;
+ b=iKwMQ0V+cMcpeKDqilERDmGN7Up90mMk0Gx/ZlURkLPTeejOTvuN0DhcW2pXFXpEtdecX7XfaRjp4GV3szxHNsWze0HpIHHLcwX7iqbxcFbNwzdzlixWPJLtIFYyNErQ5aUTK/6DyxZRr2LiGAqSyIFfp3ZrUUBkwznfDRg2vi62V3JcEBAq5VlQZneqb875N2xP2DU/MRUz3qnwDP1TgmHzjzLb5OQXQsHsSVR8kNgZBD0759Sl6tVYXPCzRvFOxcXJdmRDJlEu7STVj71Ym7Hgy1wwG+POTapMf6+XM8YpN/VVdnv0ufG4MVntWolADlC7ISWROEzm3Dr1h46jLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cxyNiaHBBUBxVwNsBM2U0LdF1gPH0NPALF7sZxV7Z8c=;
+ b=fZguNMGgQHKeRJ1yI9Jo1wnIfdxWriOSTXzW5biu/ZDtOTAPmfVw9ERPL83lH0sgt7UxFYbE4O1ZxNBFB37twoP4WfpcbANb1MnpXawb+ugG/pyo3IqufRyxT18VB6sCvqTKDMxkAPasiZ0jAbvhuoxggfyAW0ucWC8VWcnnmwGl6ubbzg0wEABq1546hjQbsDKtf8x0IGUkDvtvTMB3CrOYfk/cuUaLscV/zQxkbDqgylMnX9em09Wlxt1rhbzPoZA/SeVgtyRblMgJ5u6yie/3dCidNRvVZUa6HG4ZcDPl2JYZAG8hG5w4BbktkNVNiqdkIxQZsCn63XQkYaylNA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ SJ0PR18MB4090.namprd18.prod.outlook.com (2603:10b6:a03:2e8::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Thu, 15 Oct
+ 2026 08:32:47 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0522.013; Thu, 15 Oct 2026
+ 08:32:47 +0000
+Message-ID: <203a57f9-4036-43dc-826a-b51c737cfa10@axiado.com>
+Date: Thu, 15 Oct 2026 10:32:41 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: gadget: udc: add Axiado AX3000
+ and AX3005 UDC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Krutik Shah <krutikshah@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Karthikeyan Mitran <kmitran@axiado.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+References: <20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com>
+ <20260817-axiado-ax3000-usb-device-controller-v2-1-0ef033dd0a68@axiado.com>
+ <20260821-woodoo-enlightened-bobcat-9315cb@quoll>
+Content-Language: en-GB
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <20260821-woodoo-enlightened-bobcat-9315cb@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0185.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ca::18) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -96,142 +93,178 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-On the ASRock Rack B650D4U, requesting GPIOP3 through gpiolib does
-not provide working host power control when the GPIOZ6 pass-through
-strap in SCU51C[9] is set.
-
-With the existing GPIO request path, SCU4BC reads zero, but a host
-power-on request through x86-power-control times out waiting for
-power-good:
-
-  SCU4BC = 0x00000000
-  SCU510 = 0x00000000
-  SCU51C = 0x00001e80
-
-The AST2600 A3 datasheet describes SCU51C[9] as an additional
-pass-through enable for GPIOP0/P1, GPIOP2/P3 and GPIOP4/P5 when
-SCU510[30] is clear.
-
-A diagnostic experiment that cleared only SCU51C[9], preserving all
-other bits, allowed the same GPIO-only power-control implementation
-to power on the host:
-
-  SCU51C: 0x00001e80 -> 0x00001c80
-
-SCU4BC and SCU510 remained zero. No per-operation THRU1 switching
-or additional userspace delay was required.
-
-Add an AST2600-specific GPIO request callback that performs the
-existing GPIO mux configuration and clears SCU51C[9] for GPIOP0-P5
-when SCU510[30] is clear. Check register access errors and verify
-that the strap bit cleared. Other GPIOs retain the existing path.
-
-This RFC handles only the GPIOZ6 strap source. It leaves SCU51C
-unchanged when SCU510[30] is set and returns -EOPNOTSUPP for
-GPIOP0-P5 requests when SCU510[28] is set.
-
-Hardware testing on B650D4U with this pinctrl candidate confirmed:
-
-  - Remote power-on: power-good asserted.
-  - Remote graceful power-off: power-good deasserted.
-  - Physical power-button power-on.
-  - Physical power-button shutdown.
-
-These tests used x86-power-control with software button forwarding.
-The earlier board-specific SoC driver, its DT node, custom sysfs
-interface and diagnostic boot parameter were not used.
-
-This replaces the approach explored in the withdrawn B650D4U
-power-passthrough RFC. The new proposal changes the existing pinctrl
-driver and introduces no DT binding or userspace interface.
-
-Feedback is requested on two unresolved issues:
-
-  1. SCU51C[9] is shared by all three GPIOP pass-through pairs.
-     Clearing it for one GPIO request may affect forwarding on
-     another pair. How should that shared control be represented
-     and coordinated with existing mux ownership?
-
-  2. The SCU510[28] enable path has not been validated. Returning
-     -EOPNOTSUPP is a limitation of this candidate, not a proposed
-     complete solution for every AST2600 configuration.
-
-Is the GPIO request callback the appropriate place to handle this
-strap interaction, or should it be modeled through the existing
-signal-expression mechanism?
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|SJ0PR18MB4090:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b95c16c-8262-4f52-7c82-08df2a96e407
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|6133799003|22082099003|10067099003|18002099003|3023799007|261009223027099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	LoQ9V1e1h9rYNkzYQSvFOqhOdOz0PX4fNCzcsQJF7iMvV/c1OKVRvQPP9oeHnTOJcjE1wMqld3FHOfnGh2pmN3alMTA5JoUmCgc5rdvwGhnPnAahXzuXeKXStipJaMy92gckq6RmLIQcZVLuoLHHwDagNd/pTFY8ov/vFFsOVrMuo6c5ewreNNVN2mVWP34qXoUbinROgPRNFWZoxuiYpjRfylgWoq0A3u2ryTYjLOQOkxDgxrvH0sqR8dgj/XAHqGH1nazPjwk0/C2csw5WlYFwKBUppvnD+j/nAfWJPP59N3OC9JeU38zUrfvJH4boKG9EooKifch2OAOOraBpGB0r56aJVpxPOmCo9841x5kLymtYtPeP4g9wvnotDQi5l64kbNOQCTxq+vRGCGZSS94Dt+2RMF6faprLWMPpEBUGID7VNwJsTl+n+p05225aP3DCu1zaiPMjYaiCTqn/7PzoNQIK0LF4Xp/MQy9ZKghSsVEyp6FLjhdmqlFMEuk5yUDT+LIKUiqMSyTp0S3f7vXQwf2PG+V4HVyTRq/EFCL5y0jAygXjdATN1LhP/JvpfskxMZaS0+Ks9B3VSOny008JVJcmpBts8gjQ25AtMdzkMTbjCiq3nWH8aTBGLaLCPvks7EOo9NVbXZtuuK2+sovkLKfvYQi7FDQG7tgbLdI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(261009223027099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SkZPNVlPcW1TY2M4QitBY3VYT25FcldXU21MOHJNcWFMSk1KVzkxazVlSGdP?=
+ =?utf-8?B?YmJJY1FOSFh0NTEvSC95M09wb0d4Q0lNWmNkVFdsNEh6Q2JCcUFtWXVvNlhE?=
+ =?utf-8?B?eklRb0hqeVZ2L2g4dnZWYnRUaG93WE1IbUIrTk5iNW9ZQTBWUzJZNUp3aWtv?=
+ =?utf-8?B?MFRZMlpBd1UzV1owRllxSmV5M1pQSlAvRytScXUxYjA2d0xKdjVoSERJNE9V?=
+ =?utf-8?B?MjFxSEtzbUc1a201TFUrbGM5UnZRemVTaWFIcjZGanF6WlJzaWMvRWRUZndz?=
+ =?utf-8?B?Mlk3Z3VrM3IycVQya2NLazRQYnFNSS9Kcy9zaEtIL0pGeG5UWVc0MmIvejNk?=
+ =?utf-8?B?SXdxbnI3dW4xOUk0Q1dCL2U3Uy9FaTVvQ2luNHRPYVltS0g4TUVjbUo0ckFD?=
+ =?utf-8?B?STEzcGFSeUFqamVOK2pZSjF1eHhGNG9jcEp5WXlSZWM4WnZIQVRRWE1wOTN0?=
+ =?utf-8?B?MC81dk5hbDF2MlVxb2o0Z1RTMzVOVS8zZnJvY0tLM1ROSXNUZWh0VXFpY3ZM?=
+ =?utf-8?B?U21HbmkveVE3YlhDZE93RC91RlR6S202TjBWamJOMHg4V3Y1WDZXV0doRE5s?=
+ =?utf-8?B?cWlBRjArVTRQbDdYeHRNMlFCNWx4OUgyWVhNME40REp5bDdnUjF0TjNhbW4x?=
+ =?utf-8?B?OCtEcEJ2NTY4ZVJ5MkFtZ2s3RzlpbExlZjFFL0MxWXBUanpoR2laNi9YQnVs?=
+ =?utf-8?B?QUN2enFsd1dsc0RaQUpIVDZMbDFHRncxOEZxWUpuSHRRWG1tNnJtM3FvZnUr?=
+ =?utf-8?B?Q2R3d2dqVFRmRlNxMjB2dWhwUjZDUzdJRXJ6dGsvcWlPdFFFZTlUNUxUNzB0?=
+ =?utf-8?B?L1dOYVhpa0ZiQVRTbUZPckFZWnVDUml1bmh5NUg3UTFuU3hhemJ6WFE2cWZj?=
+ =?utf-8?B?TGNTeGF6WHp4WURhOGtsejZmRDFNOUR0T1RSdmFZbENyOTBEQnFCbDBuLzlx?=
+ =?utf-8?B?RDlsTzJ6cWtZQ3dhUW9iUkVDRzdLMnZOb2ZnNzhaemhmYTQwWEZjUStycjFX?=
+ =?utf-8?B?S1pKZU1TeEJacThPUVRlWVR2ekVsa1dBRXMzNE9BSjZoZ2ZTZXlJcXhvSG5w?=
+ =?utf-8?B?SXdGUk9CT0hVNkVRWHExNzE4cFNqRjN3dkF1TnRsRmgzdFVsVW5rQkVKVnhp?=
+ =?utf-8?B?bTI4aCt0bEp5dzVXajJPaVlnMzZaTzVmbVQ1aExjQXJVaDM4N0xvNnkvSnBx?=
+ =?utf-8?B?SytvaDhYRGVqU0JpYk5OVUlSeDh6T0xxcmNBbVg0YzFWdHBzRks2c3dsQno5?=
+ =?utf-8?B?ZTcrcC9PZDBwRHMrcGgxMXFHZS9UdGZRb2l1SVIvUjl4MklIYlNEY3FHUTdE?=
+ =?utf-8?B?ODV5R0FPVEx4dVBuemkrcm5OWHoxdU1VQmZnMldsNkpTTmhvUmIwNUdWMmhL?=
+ =?utf-8?B?SkpqdVFkU3NMVTFuSERpSW8xYlFpampFUS91TW5wV0JrYnJMVWE4aWNWNzlr?=
+ =?utf-8?B?NGFoNlpEdTdTWFFSWVovZ1VjbGMvSllKekQrVGREb3JadERGN0k5TTdCRGRw?=
+ =?utf-8?B?Z1dMaWlFUFVqVkRUR0QrbEdlQTRLOVVkQ0dGVTd2YVo4YUFST2syaUsza1Q3?=
+ =?utf-8?B?bzg4T2lwS2kzM2dQREtpZ3FEYkpVWUlSY2d4SitRUWFQTXYyZldsOTRlakd4?=
+ =?utf-8?B?RDNDOUtqQkpqZUREZSsva28wa0NkWWVUaU9oZDFMNnZzekVQQWtjUHNQSnRh?=
+ =?utf-8?B?Z1R2cnZmZ1FtbGp2OWFMTWVNb211azlCRDRNTG52d3pqTkpFdlYrRDNYK0VP?=
+ =?utf-8?B?aDJva3c4RXJwdHFDN0xjTkJtcHVrNTJqRXN2cEdYQS8rSGhHM2t2MFBlK09z?=
+ =?utf-8?B?VUtPWnNpVGRaenhRNERsOG5hMXNoRC81dlN6eDRZbmoyUTVsWFAyVTBNVFhH?=
+ =?utf-8?B?TkN3UldWNXBFNFA1L1ZDWkU0ZTVDNU5YYSsxeU40U0kweUVGV3k5UVpoWExk?=
+ =?utf-8?B?UW5rVGs1V3Z1Y0h2U0pjY1NJWS9NOVdwRlVwWnhyS29qNU4yZzlUVkxCN2VT?=
+ =?utf-8?B?Q08xY3BYV1hBR3BpcFVQNEF0aDY3czFHL3RvVS9SSGgyYTBtOGNISGdOWTRM?=
+ =?utf-8?B?bHY3T3k3OFowZWJCZXc1MjNGeWxNejRyVGx4a3ArbTJCdkRDK2dSN0xLWkhJ?=
+ =?utf-8?B?Y1RKT2JmQWhkeGoydjFIWERqVGhJM0tkT2tKQWJIeElyb0Z4anY1eng0bXBK?=
+ =?utf-8?B?M1h2VUpYZ0xVdzhSVURqTVJHUHkzTm1kUHRPVXJkVEJIa3ZTMDFyaWZlT05V?=
+ =?utf-8?B?QXRjV0tLLzUyNXgxbjhORXdpZnlYMStXYjlqZzJTQ1c0cWU3dGhmNTN4ZmJl?=
+ =?utf-8?B?eHBRNEhzUmxKdFFwQ3dqNnkrTTJkdzdJSDl6ZGJFNWtZbldmK2JYQT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b95c16c-8262-4f52-7c82-08df2a96e407
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2026 08:32:47.1657
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sXu4dZsFg4JDlyvSYPfWgnJ5NQXG8rhPB1vHScYG/34e8/tz8nLTXqDZoBmZydwzJ3LUccet8pE+65xkvpVITQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR18MB4090
 
 
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-@@ -40,6 +40,7 @@
- #define SCU4D8		0x4D8 /* Multi-function Pin Control #23 */
- #define SCU500		0x500 /* Hardware Strap 1 */
- #define SCU510		0x510 /* Hardware Strap 2 */
-+#define SCU51C		0x51c /* Hardware Strap 3 */
- #define SCU610		0x610 /* Disable GPIO Internal Pull-Down #0 */
- #define SCU614		0x614 /* Disable GPIO Internal Pull-Down #1 */
- #define SCU618		0x618 /* Disable GPIO Internal Pull-Down #2 */
-@@ -2747,12 +2748,56 @@
- 	.nconfmaps = ARRAY_SIZE(aspeed_g6_pin_config_map),
- };
- 
-+/*
-+ * GPIOP0-P5 have a global strap-controlled pass-through enable in addition
-+ * to their individual SCU4BC mux bits. SCU51C is ordinary RW, unlike the
-+ * write-one-set SCU510 register. This candidate handles the GPIOZ6 strap
-+ * source only; the SCU510[28] enable path needs separate validation.
-+ */
-+static int aspeed_g6_gpio_request_enable(struct pinctrl_dev *pctldev,
-+					 struct pinctrl_gpio_range *range,
-+					 unsigned int offset)
-+{
-+	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
-+	struct regmap *scu = pdata->pinmux.maps[ASPEED_IP_SCU];
-+	unsigned int strap2, strap3;
-+	int ret;
-+
-+	if (offset < AB22 || offset > AB23)
-+		return aspeed_gpio_request_enable(pctldev, range, offset);
-+
-+	ret = regmap_read(scu, SCU510, &strap2);
-+	if (ret)
-+		return ret;
-+	if (strap2 & BIT(28))
-+		return -EOPNOTSUPP;
-+
-+	ret = aspeed_gpio_request_enable(pctldev, range, offset);
-+	if (ret)
-+		return ret;
-+
-+	/* In dedicated-strap mode, SCU51C[9] does not enable pass-through. */
-+	if (strap2 & BIT(30))
-+		return 0;
-+
-+	ret = regmap_update_bits(scu, SCU51C, BIT(9), 0);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read(scu, SCU51C, &strap3);
-+	if (ret)
-+		return ret;
-+	if (strap3 & BIT(9))
-+		return -EPERM;
-+
-+	return 0;
-+}
-+
- static const struct pinmux_ops aspeed_g6_pinmux_ops = {
- 	.get_functions_count = aspeed_pinmux_get_fn_count,
- 	.get_function_name = aspeed_pinmux_get_fn_name,
- 	.get_function_groups = aspeed_pinmux_get_fn_groups,
- 	.set_mux = aspeed_pinmux_set_mux,
--	.gpio_request_enable = aspeed_gpio_request_enable,
-+	.gpio_request_enable = aspeed_g6_gpio_request_enable,
- 	.strict = true,
- };
- 
+On 8/21/2026 9:41 AM, Krzysztof Kozlowski wrote:
+> On Mon, Aug 17, 2026 at 10:57:13PM -0700, Naveen Kumar Rajgiri Bassappa wrote:
+>> +title: Axiado AX3000/AX3005 USB Device Controller
+>> +
+>> +maintainers:
+>> +  - Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+>> +  - Krutik Shah <krutikshah@axiado.com>
+>> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+>> +
+>> +description:
+>> +  Axiado USB Device Controller (UDC) is used on the AX3000 and AX3005
+>> +  SoCs. This controller is based on a Corigine USB IP core and provides
+>> +  SuperSpeed (5 Gb/s) or High-Speed (480 Mb/s) operation, selected by the
+>> +  maximum-speed property. It supports control, bulk, interrupt, and
+>> +  isochronous transfer types across multiple configurable endpoints. The
+>> +  node describes the memory-mapped register region, interrupt line, and
+>> +  other required properties for the UDC hardware.
+> Did you implement my comment?
+Sorry, we overlooked this comment in the current revision. We'll address it in the next version.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    oneOf:
+>> +      - const: axiado,ax3000-udc
+>> +      - items:
+>> +          - const: axiado,ax3005-udc
+>> +          - const: axiado,ax3000-udc
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  phys:
+>> +    maxItems: 1
+>> +
+>> +  maximum-speed:
+>> +    enum: [super-speed, high-speed]
+> You miss referencing proper schema to get such property or you should
+> not come with own generic properties. IOW, look at other bindings how
+> they define a proper UDC device schema.
+>
+>
+> I also do not see a need for this, compatible defines max speed.
+
+Agreed. We'll remove this property in the next revision.
+
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +
+>> +    soc {
+>> +        #address-cells = <2>;
+>> +        #size-cells = <2>;
+>> +
+>> +        usb@81200000 {
+>> +            compatible = "axiado,ax3000-udc";
+>> +            reg = <0x0 0x81200000 0x0 0x00100000>;
+>> +            interrupt-parent = <&gic500>;
+>> +            interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+> resets, phys. Make example complete.
+
+We'll update the example to include the missing resets and phys properties in the next revision.
+
+>> +            maximum-speed = "high-speed";
+>> +        };
+>> +    };
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index a674e36529f7..36af69fb965b 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -4468,6 +4468,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
+>>  F:	drivers/spi/spi-axiado.c
+>>  F:	drivers/spi/spi-axiado.h
+>>  
+>> +AXIADO USB UDC DRIVER
+>> +M:	Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+>> +M:	Krutik Shah <krutikshah@axiado.com>
+>> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+>> +L:	linux-usb@vger.kernel.org
+>> +S:	Supported
+>> +F:	Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
+>> +
+>>  AYANEO PLATFORM EC DRIVER
+>>  M:	Antheas Kapenekakis <lkml@antheas.dev>
+>>  L:	platform-driver-x86@vger.kernel.org
+>>
+>> -- 
+>> 2.34.1
+>>
+Best regards,
+Petar Stepanovic
+
 
