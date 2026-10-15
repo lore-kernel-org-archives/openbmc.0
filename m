@@ -1,56 +1,55 @@
-Return-Path: <openbmc+bounces-2774-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2776-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCC1CC6B2D
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:31:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFF20CC6B2D
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:31:42 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X666qgPz30DK;
-	Fri, 16 Oct 2026 15:29:50 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792067288;
-	cv=none; b=G/dsx8zy1SpQvT7O0j13VpUjFInbl/2FYEmoWvHQP0ZPd2p5TUvnF5N3E/Kt8UbmMAW0TyauSx0PyNaLu804nhjDkLvBC7OrAPnxm025+3iwmUZWkPMJx1mmMz8sHFuBnvOFfRUMVeLdRMFfDmFIlWvVoT3ZDvX3C6OXs4bfVF4r0mKSJ6WDO7GUdhEGF+GcyowLRoE0dwH70x+lxDEMZsVP6B2MYElJB7guz5hFzWDqJ6cF45r2tNRYJaCm30Kor0RFG2okV97+e6SFedcUyWVCQjbncuuz+inqbBcBZDzeBhOL+1QY4/7HGczzZZdg/h3hpQb7ASHw+WJA1rWZeA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X6H35ZHz30Pr;
+	Fri, 16 Oct 2026 15:29:59 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792066804;
+	cv=none; b=DnSI6EUFsU7y+/dpWYWH2FZ1BKyQAGHHBooOxpA0CyNRRoqfOCWwuBjDDBGWtaADm2nJgLlHIDFZVi9XrZ9PFENsRmfR0ZNnJX1i8osf3pxmrOMJ3NVWRZo7EnWQ3LlYc3sKQbHUMK5N+qiES5eW0pJKN0S/5XEQVF9rbTzHUPz3I3qnw9tTJr0j5TUrXnY/2r6xvWi8I6mqbBOC2XsVvs8EHNxSs41BNRKsjtHE8pnXwHCSdjqlLmKulRjcvcstmgAgJQPIlv2o8RsD5HxbCG728J/1+9NreRcHIeKW6XpU1qFGIucuH5y2uMonTSBHj8l684ULc8kDp2c/r6iIfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792067288; c=relaxed/relaxed;
-	bh=n6ekqOVV7I9devUo5Bv560LPKvFmV+TAP9LOxVhk0Q4=;
+	t=1792066804; c=relaxed/relaxed;
+	bh=dkEV3NU/xjxq6SJuLLAVWiQsTCv0N4E8zuSVpty49hU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=om5zSOtTOvC5//wZ2pxX1MODgnwY2wPEnDPShlloSRW4eToRqNvFOZumE2Hcz01h9fBGbrC7vvcdlSqnaeDalgrKfPBIGbKXwMJp/Lb9hbRRWgjK6fQFWGR4kxzUPvSkp+A0rKuy+uwbf87ZpSehNeQk4+h3S1ELdtAbkcK+3vsBRQHK1GTtkTE1kPHHyTvZgFnF1SM3IyzCij5zUEJJIWTZEvqcVcEkf9Dhnn81SPUhJ1mR9lfaWIwjHVzfhks8s9fDXjOVv3WVsNwCQAt6kfx335cDgOyUPqR+hJv81r/IPoJhphQgXImxCIj83yAKPbOat0QED9ZN2qEUssH0yw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DTlDKsoa; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=KuOp+FVA+YIhMCSgSM79bKnO2NjUFH8PfiFEFG/9MUjTJZsMtZ+LCCOLex7dvqn7zIuHJAgyR7K1sV6BF0qY8zcGME2yevZRBjmybqPOcntZ2q5lYMDE9G+boYFAju+fmCRMxtYBkejoAoMdvwCL+Y8N8GUPDyxAbSkoURmULUVNFFEESedynhd5tHmw0rM1orGPtaUxLPTf5SKxRrJ7Pjc+Rfy2gYWIzMqB+K/nBVK16xDb3yGZbWo/uiC7aAg+6wbfVgDIMcaJD7TjRAtsb4rIDzTkyz0RJfSmXgpsZsuP59qTM2AZWaRHMfjQPcXLo7G9tsP1YrIljF65XRujdw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pvox6FFl; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DTlDKsoa;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=pvox6FFl;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 501 seconds by postgrey-1.37 at boromir; Thu, 15 Oct 2026 23:28:07 AEDT
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56mR2s8Qz2xLm
-	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:28:05 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56b759s0z2xLg
+	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:20:03 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id EFC80C63455;
-	Thu, 15 Oct 2026 12:20:37 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BD47D4E41246;
+	Thu, 15 Oct 2026 12:20:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 95D4860360;
-	Thu, 15 Oct 2026 12:19:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B367C10328B20;
-	Thu, 15 Oct 2026 14:19:36 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8622F60360;
+	Thu, 15 Oct 2026 12:20:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 897B310328B6D;
+	Thu, 15 Oct 2026 14:19:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792066779; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792066798; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=n6ekqOVV7I9devUo5Bv560LPKvFmV+TAP9LOxVhk0Q4=;
-	b=DTlDKsoa14Hw67x/y+VCyf3bM8eP478g5QEyScOgBOe2g/42qEt7KlqsA9GYCoXwLZY8hM
-	jjQHo+P2t4OEKYvxTMyK1MxggsO/XuwA9SLWOJ3tbHEP3XjIn+JbZJocU+pwaxa4zI9ULt
-	9wia+K+yhjTuXFBfWBuDpxG79RffhrEAMk1GU59yho3O1lAaLJ2CmdE5T7nywT29U9/cEP
-	4Dt0oQShRskwCQtE+Fl1Ra05uz5li7IwpSq/V2d4YySwNpj3/m31/igfGbtyVCiMRshfZU
-	a1mb6TNIlDEp+zkjiopHvubK0HM7/UvYZd+GcGX4HMJ/gx2x3EwQWc87veXYQQ==
+	bh=dkEV3NU/xjxq6SJuLLAVWiQsTCv0N4E8zuSVpty49hU=;
+	b=pvox6FFlT/HyVzfGEgFIicR/y1jOTT9Dzzut1cyjMQxCsekAiOsTdghHIWvQW74j2W07M+
+	Hy5tUYuxsTSfbuHLnTfoLruEnI+rJv4b0NezoYksTTZ/pp7frGsquL/u1u8SbfHanFLxGB
+	IbUitC2TwcENgfUMUIvaXPp3LISILkAwdc3bu24q7plg/tffUWvEr1FigSXkivydSVc7Vr
+	HvPoS4//23x8oFAHJ32uvw0ukU5j3AY8C52HSWTl0dbblGdNWhFtM3O48s96YZXuRaXaf6
+	5dXgE/HPRE6gsQuneLrdjAkMAO9iFL77mOezv1bBYDE0J/xVA2SsLpyuNjNKTQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 14:19:00 +0200
-Subject: [PATCH v9 04/10] clk: nuvoton: ma35d1: Reparent the gates
- correctly
+Date: Thu, 15 Oct 2026 14:19:05 +0200
+Subject: [PATCH v9 09/10] arm64: dts: nuvoton: ma35d1: Drop HXT clock
+ output name
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-4-1f548fa2002e@bootlin.com>
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-9-1f548fa2002e@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -82,164 +81,53 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-The clock tree is still incorrect. There are four main clocks in this
-system:
-- HXT: external high-speed crystal oscillator
-- LXT: external low-speed crystal oscillator
-- HIRC: internal high-speed RC oscillator
-- LIRC: internal low-speed RC oscillator
-Each clock has a 'gate' control to disable it. While in the TRM the
-'gate' appears aside, in the CCF topology, the gates should be
-below. This is because if we gate one of those clocks, none of the
-children clocks continue ticking.
+The clock-output-names property is not useful since there is only one
+output clock, and the naming of that clock would already be clock-hxt
+after the node name if we were not providing that property (so very
+similar). Just drop it.
 
-Reparent hxt_gate under hxt, and all hxt children under hxt_gate.
-Do the same for the three other clock sources listed above.
+I want to clean this name before introducing another very similar fixed
+clock in the DT: LXT
 
-After this change, the frequencies are identical, but the clock tree
-looks much closer to the reality.
+Another solution could have been to rename it "hxt", which would have
+been more aligned with the other clock names. Sashiko complained that
+this could break DT compatibility with an -EEXIST error because of
+the colliding names.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 78 +++++++++++++++++++++++-----------------
- 1 file changed, 45 insertions(+), 33 deletions(-)
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 1 -
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index f9413a647df1..75b7e2a84bfd 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -74,34 +74,46 @@ static const struct clk_parent_data lxtg_parent_data[] = {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index 78534d613486..d7670afb0a63 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -35,7 +35,6 @@ clk_hxt: clock-hxt {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+-		clock-output-names = "clk_hxt";
+ 	};
  };
  
- /* Mux parent selection, by index into the controller's clock table */
--static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
-+static const int ca35clk_parent_idx[] = { HXT_GATE, CAPLL, DDRPLL };
- static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
--static const int sysclk1_parent_idx[] = { HXT, SYSPLL };
-+static const int sysclk1_parent_idx[] = { HXT_GATE, SYSPLL };
- static const int axiclk_parent_idx[] = { AXICLK_DIV2, AXICLK_DIV4 };
--static const int ccap_parent_idx[] = { HXT, VPLL, APLL, SYSPLL };
-+static const int ccap_parent_idx[] = { HXT_GATE, VPLL, APLL, SYSPLL };
- static const int sdh_parent_idx[] = { SYSPLL, APLL };
- static const int dcu_parent_idx[] = { EPLL_DIV2, SYSPLL };
- static const int gfx_parent_idx[] = { EPLL, SYSPLL };
--static const int dbg_parent_idx[] = { HIRC, SYSPLL };
--static const int timer0_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer1_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer2_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer3_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer4_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer5_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer6_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer7_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer8_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer9_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer10_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer11_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int uart_parent_idx[] = { HXT, SYSCLK1_DIV2 };
--static const int wdt0_parent_idx[] = { -1, LXT, PCLK3_DIV4096, LIRC };
--static const int wdt1_parent_idx[] = { -1, LXT, PCLK3_DIV4096, LIRC };
--static const int wdt2_parent_idx[] = { -1, LXT, PCLK4_DIV4096, LIRC };
--static const int wwdt0_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC };
--static const int wwdt1_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC };
--static const int wwdt2_parent_idx[] = { -1, -1, PCLK4_DIV4096, LIRC };
-+static const int dbg_parent_idx[] = { HIRC_GATE, SYSPLL };
-+static const int timer0_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer1_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer2_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer3_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer4_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer5_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer6_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer7_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer8_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer9_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer10_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					  LIRC_GATE, -1, HIRC_GATE };
-+static const int timer11_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					  LIRC_GATE, -1, HIRC_GATE };
-+static const int uart_parent_idx[] = { HXT_GATE, SYSCLK1_DIV2 };
-+static const int wdt0_parent_idx[] = { -1, LXT_GATE, PCLK3_DIV4096, LIRC_GATE };
-+static const int wdt1_parent_idx[] = { -1, LXT_GATE, PCLK3_DIV4096, LIRC_GATE };
-+static const int wdt2_parent_idx[] = { -1, LXT_GATE, PCLK4_DIV4096, LIRC_GATE };
-+static const int wwdt0_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC_GATE };
-+static const int wwdt1_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC_GATE };
-+static const int wwdt2_parent_idx[] = { -1, -1, PCLK4_DIV4096, LIRC_GATE };
- static const int spi0_parent_idx[] = { PCLK1, APLL };
- static const int spi1_parent_idx[] = { PCLK2, APLL };
- static const int spi2_parent_idx[] = { PCLK1, APLL };
-@@ -109,11 +121,11 @@ static const int spi3_parent_idx[] = { PCLK2, APLL };
- static const int qspi_parent_idx[] = { PCLK0, APLL };
- static const int i2s_parent_idx[] = { APLL, SYSCLK1_DIV2 };
- static const int can_parent_idx[] = { APLL, VPLL };
--static const int cko_parent_idx[] = { HXT, LXT, HIRC, LIRC,
-+static const int cko_parent_idx[] = { HXT_GATE, LXT_GATE, HIRC_GATE, LIRC_GATE,
- 				      AXICLK_DIV4, SYSPLL, DDRPLL,
- 				      EPLL_DIV2, APLL, VPLL };
--static const int smc_parent_idx[] = { HXT, PCLK4 };
--static const int kpi_parent_idx[] = { HXT, LXT };
-+static const int smc_parent_idx[] = { HXT_GATE, PCLK4 };
-+static const int kpi_parent_idx[] = { HXT_GATE, LXT_GATE };
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index a029b660e8dc..8f3cb18d39b6 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -35,7 +35,6 @@ clk_hxt: clock-hxt {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+-		clock-output-names = "clk_hxt";
+ 	};
+ };
  
- static const struct clk_div_table ip_div_table[] = {
- 	{0, 2}, {1, 4}, {2, 6}, {3, 8}, {4, 10},
-@@ -284,16 +296,16 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 					 clk_base + REG_CLK_PWRCTL, 3);
- 
- 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
--					hws[HXT], clk_base + REG_CLK_PLL0CTL0);
-+					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
- 	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
- 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
--					hws[HXT], clk_base + REG_CLK_PLL2CTL0);
-+					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
- 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
--				       hws[HXT], clk_base + REG_CLK_PLL3CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL3CTL0);
- 	hws[EPLL] = ma35d1_reg_clk_pll(dev, EPLL, pllmode[3], "epll",
--				       hws[HXT], clk_base + REG_CLK_PLL4CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL4CTL0);
- 	hws[VPLL] = ma35d1_reg_clk_pll(dev, VPLL, pllmode[4], "vpll",
--				       hws[HXT], clk_base + REG_CLK_PLL5CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL5CTL0);
- 
- 	hws[EPLL_DIV2] = ma35d1_clk_fixed_factor(dev, "epll_div2", "epll", 1, 2);
- 	hws[EPLL_DIV4] = ma35d1_clk_fixed_factor(dev, "epll_div4", "epll", 1, 4);
-@@ -461,7 +473,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[CKO_GATE] = ma35d1_clk_gate(dev, "cko_gate", "cko_div",
- 					clk_base + REG_CLK_SYSCLK1, 13);
- 
--	hws[GTMR_GATE] = ma35d1_clk_gate(dev, "gtmr_gate", "hirc",
-+	hws[GTMR_GATE] = ma35d1_clk_gate(dev, "gtmr_gate", "hirc_gate",
- 					 clk_base + REG_CLK_SYSCLK1, 14);
- 
- 	hws[GPA_GATE] = ma35d1_clk_gate(dev, "gpa_gate", "hclk0",
-@@ -662,7 +674,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
- 					   clk_base + REG_CLK_APBCLK0, 28);
- 
--	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
-+	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt_gate",
- 					clk_base + REG_CLK_APBCLK0, 29);
- 	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
- 					clk_base + REG_CLK_APBCLK0, 30);
 
 -- 
 2.55.0
