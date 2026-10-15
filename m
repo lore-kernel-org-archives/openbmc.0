@@ -1,55 +1,55 @@
-Return-Path: <openbmc+bounces-2779-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2780-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11D28CC6B2D
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:32:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E7A2CC6B38
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:32:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X6T4NJ2z30Vb;
-	Fri, 16 Oct 2026 15:30:09 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792066794;
-	cv=none; b=j7qoFB+uKlLX78sC2tpb8uAR7CG9katoKATD7gkNExoFU4g5pnO1GvkmyJzjG8t9aC0GSMib0QHLObGV8AHeIzimbD1xZlHAmW07zEHqGs7lIZXU3mk3O6mG2xm2SgV9no96OSxn5Pno9IltPkACMp5qeWKA/3iA5EVYLmR3BDCN/nijU3Dm47pnsvmtJZ9Zp8uFYVnbkkZTryMRXB2EFWeJc1uNoWQV4pqexoBHz5Fyf6Ynsc0FEUWRtdrLpLkE5GQ+zTuX/TDvR+s34VYNv+B23bbZKfoxwamOkSp/4WPrdDkt3yVDGeO9VHFOgNrHYQHcDuWQoDLr1Mis6eTNJw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X6Z4wlGz30Wg;
+	Fri, 16 Oct 2026 15:30:14 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792066791;
+	cv=none; b=Q5vWxglWA2nmB6jxkrdMwhrRHP8+L2E1/8GCf8pkaxlbgiERnCVFwVCWk7ppoGaPpNpo2vP9YeqdUbxHp9KD/wREvZ+BTKsFmymanDfFQXazRpsQiTPkiOtIhT1o9KkmuBzJfTucO/TDMrrlkMhsYlNTU2N1qu6Vj3bB3AnBQw2BQaWD7lGch2l9eNZyO3nAbJ0SKz7OJn1NO5iWY4Y4ZrhVRsPgbPhzyDpgIUMoX9DEOiHjJTnsVnjRHw9KeOOl4Ka1kqB0g+Ed/ixaVuRlHUOBwknGqK41fO7vQPYTLcIu33YtsKvnmtSsqbiXM4V8HKoWyvlIsuoGjv60Pi664g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792066794; c=relaxed/relaxed;
-	bh=CMFy2QOZK7zANSOk5PDCpb3dFWclqXWbQfTgV5KP3e4=;
+	t=1792066791; c=relaxed/relaxed;
+	bh=cAsfqIY4xysP+5WQyv/gdBmoGAYKfxxvAXv3mSfmZtg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ji+8GpFwCNnVyFDUf/uOwu1ARqjxrTvQ9Cq5HgG8ZNmemxp4GJO+BVUKOlaRhPzkUkEt4IwcvVqxEW2GCzEWfeIk7SEyy2eREq3hsCZ4CVdYltrTTTWbXnt4lKcXnsYiwSXEYiob+KGiliU4pLewoHwRXwv6zTFrWLDu9LDFLjaJ9JsS3/QLEv4ftTFdsfRgi9CZtlA04iqYqd90ZWyCWgIp8JvKuRDs6cSSkQvuuwmSI+wIn3pLLcDFeO6lRmnPS+3bcG/liCHMDuAnqERE+0S1Eu5dt25Bh+nR6lhhbw0+2LFKpMa+lxW/WYQYpB+GN0q0lnwAZTvrm8Vw2ok1/A==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=blUPwAob; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=jEy77Qbj6Ezv7oCzbu7zQXoUI8bWzRolvw2jQG1vao8YYSSL2Hv2cq/A1qOK8pNElqz32pSKKOOnPHO//P0uffvfiC7M0Af1LWjDGQi2AEjzVg5T6ZiXPezaSK2jbdImXnEJjxthpNU5nkp3zRbMZ41Db98LwVbcpASnhchWrk3efSUJ1p8o+DQMnFIxVb+ivjKJ65SlPeoRrusQ8BGxi5CLD7CrQ6LHw1ZDayUpiSzKkE5W/SKP2JgHjuW5WYdEuTrHxhN3eIz38rOY+1s/DK+Y8RT1V/TY0buG/Hn6oV86qi0/JmUvPpsoU3tzJ1oVj6m4rwq2ARk/jTPyQIs3Fg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dzzF0JFt; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=blUPwAob;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dzzF0JFt;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56Zx59HLz2xLg
-	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:19:53 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56Zt3nRjz2xLg
+	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:19:50 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C1BAE1A1238;
-	Thu, 15 Oct 2026 12:19:50 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8C1884E41246;
+	Thu, 15 Oct 2026 12:19:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8E25D60360;
-	Thu, 15 Oct 2026 12:19:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D4B510328189;
-	Thu, 15 Oct 2026 14:19:45 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 600C860360;
+	Thu, 15 Oct 2026 12:19:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 295FB10328BAF;
+	Thu, 15 Oct 2026 14:19:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792066788; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792066783; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=CMFy2QOZK7zANSOk5PDCpb3dFWclqXWbQfTgV5KP3e4=;
-	b=blUPwAobQRK/Drqoo1A1JwsPNS1zBMWRc0CklqwauB4Fd2TjEpPhCsCy2fgUQOPpY0iqv6
-	qjqqU92IevRVMJGKvP+B5TZx16FeAc5Mg7PS44YlwrT776Gf82DEAU6sfmQEWc5aGsbVC2
-	YFAakl7lMxi4f1DHXZx05p8VfhutIIVTg3wpE2BE6I3VlL0HMExjZyob2ZvmZUy0tcwxGt
-	gl6ycfsPxh4YEasXhgVK+NpBgR7blCVKigFFamNIm/fIySFbtZwBulTTbQH6DNAmKVJt3y
-	SV1NV6ZR/bTwblwM27IhVOpIrSvpp6NRErb20dy2jECP+ZibuXGTCogjYg2Z1g==
+	bh=cAsfqIY4xysP+5WQyv/gdBmoGAYKfxxvAXv3mSfmZtg=;
+	b=dzzF0JFt/2sok+tbijanyssaOqEfpyuXYXFHltESIN42r4MCBoxFsSIEWFsdnJ+qUMeK0d
+	nKkKnPR29iFbphSNbmpe6sXtztzU6MuHlxSKgp1T/lLhFOQB2WyR7Ksk7mB0nxPQ1GoeS+
+	Pqw7QvZ2wABRcRih2szizFekNx8KjjzK5RnK4TF9q3jrKst7wZf6R8PoooSv64pkHdtvbR
+	XZNNu3z/lHoCF55X48byGow4ZAkg8lKwSsp9rQawfByojVkSOU29fHFSOtpwZi4KDNWB45
+	S7EcIsk9U3IgIWdkcBLGxCS23SY2RgA0RHuAKHwaeddE86DvjSYiWjLPLDnuHQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 14:19:02 +0200
-Subject: [PATCH v9 06/10] clk: Create
- devm_clk_hw_register_fixed_rate_parent_hw()
+Date: Thu, 15 Oct 2026 14:19:01 +0200
+Subject: [PATCH v9 05/10] clk: nuvoton: ma35d1: Use device managed helpers
+ for fixed rate clocks
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-6-1f548fa2002e@bootlin.com>
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-5-1f548fa2002e@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -85,43 +85,72 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-clk-provider.h exposes many different helpers to help registering
-clocks. Most of them expose both a 'basic' variant and their 'devm_'
-extension (with just the last parameter of the inner function call
-becoming true instead of false). Do the same with:
-
-     clk_hw_register_fixed_rate_parent_hw() by creating
-devm_clk_hw_register_fixed_rate_parent_hw().
+Most of the clocks are already registered with device managed helpers,
+except the fixed clocks. Harmonize the driver by using the already
+available managed helper for that.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- include/linux/clk-provider.h | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/clk/nuvoton/clk-ma35d1.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index a355d1ee5189..c2b80cb3ab0b 100644
---- a/include/linux/clk-provider.h
-+++ b/include/linux/clk-provider.h
-@@ -458,6 +458,19 @@ struct clk *clk_register_fixed_rate(struct device *dev, const char *name,
- 					     fixed_rate)		      \
- 	__clk_hw_register_fixed_rate((dev), NULL, (name), NULL, (parent_hw),  \
- 				     NULL, (flags), (fixed_rate), 0, 0, false)
-+/**
-+ * devm_clk_hw_register_fixed_rate_parent_hw - register fixed-rate clock with
-+ * the clock framework
-+ * @dev: device that is registering this clock
-+ * @name: name of this clock
-+ * @parent_hw: pointer to parent clk
-+ * @flags: framework-specific flags
-+ * @fixed_rate: non-adjustable clock rate
-+ */
-+#define devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, flags, \
-+						  fixed_rate)		       \
-+	__clk_hw_register_fixed_rate((dev), NULL, (name), NULL, (parent_hw),   \
-+				     NULL, (flags), (fixed_rate), 0, 0, true)
- /**
-  * clk_hw_register_fixed_rate_parent_data - register fixed-rate clock with
-  * the clock framework
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 75b7e2a84bfd..4a745b169778 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -139,9 +139,9 @@ static const struct clk_div_table eadc_div_table[] = {
+ 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
+ };
+ 
+-static struct clk_hw *ma35d1_clk_fixed(const char *name, int rate)
++static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
+ {
+-	return clk_hw_register_fixed_rate(NULL, name, NULL, 0, rate);
++	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+ }
+ 
+ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
+@@ -280,24 +280,24 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	 * purposes.
+ 	 */
+ 	if (num_clks == 1) {
+-		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
+-		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
++		hws[HXT] = ma35d1_clk_fixed(dev, "hxt", 24000000);
++		hws[LXT] = ma35d1_clk_fixed(dev, "lxt", 32768);
+ 	}
+ 
+ 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 0);
+ 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 1);
+-	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
++	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
+ 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
+ 					 clk_base + REG_CLK_PWRCTL, 2);
+-	hws[LIRC] = ma35d1_clk_fixed("lirc", 32000);
++	hws[LIRC] = ma35d1_clk_fixed(dev, "lirc", 32000);
+ 	hws[LIRC_GATE] = ma35d1_clk_gate(dev, "lirc_gate", "lirc",
+ 					 clk_base + REG_CLK_PWRCTL, 3);
+ 
+ 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
+-	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
++	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
+ 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
+ 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
+@@ -338,8 +338,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
+ 	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+ 
+-	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+-	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
++	hws[USBPHY0] = ma35d1_clk_fixed(dev, "usbphy0", 480000000);
++	hws[USBPHY1] = ma35d1_clk_fixed(dev, "usbphy1", 480000000);
+ 
+ 	/* DDR */
+ 	hws[DDR0_GATE] = ma35d1_clk_gate(dev, "ddr0_gate", "ddrpll",
 
 -- 
 2.55.0
