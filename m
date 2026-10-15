@@ -1,77 +1,80 @@
-Return-Path: <openbmc+bounces-2759-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2760-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 446DACC6B38
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 17:27:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5110ACCA467
+	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 18:56:47 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5FPY452Tz2xcB;
-	Fri, 16 Oct 2026 04:27:13 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792085233;
-	cv=none; b=N+cd80UYzBRePGnS1Cs6PbAaGxT50Vqz1+rfJqpRxe1UWCK7Oa8rCmTNhY3dbPaSElOmcKz4CYNEKDspRHNrI7CEqTblQ3mf7oD1Bu8Q1WEiG1RksbZAmuR6x5wAcO3zzRK0j4WJEhGoye8fi0zQAg1skxmVdNqhGQpUsRpJt0Ial/xxpOfHP6Irq2f3+j4AGmSoCdOpEtwkbb9VqTJXZ/1iDSre9eI16DWFXV318pDm0oZbmVoluR0OCMrXvqO6Z2LbBRyGUd+eaQd+FF8kt8SITtdf/xI81ho/3oxGOv7sn5cOgJ/0iD76DF6wf1kXE3hyNtX0WlbsnGohIVf3OQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5HNl2mXJz2xdR;
+	Fri, 16 Oct 2026 05:56:39 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42d"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792090599;
+	cv=none; b=CX+bEj/ZYqQyvXlQyeRWegYj4QcdAb6el/V2CwPLvrAM69c3MJndTh87J/IKYeWP8k+bqoI7U9is+sOizAMuX6TaiAsFIjxSv7W8n9CnzoBfxjsP5Jem4ibsA3Ev1E414NitE91fu6QWPZuAKOloULUnUaGzcbTdItwFbY7EH39zoB9gU804nidxbMxbeAMBU7rML/JioeGgbZlx8M3yQmqhEDZo8dUjXHkTwaHT/Q9enRCBLX/HNCNidBmsSEioViHs4BUzKfad8v/0K6LDJdlBbE5R6yCjiTyjnBSjL9//CbKT7cPM1s6f3goe3fSO4VFNfmTn0exMA4iXhAC02A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792085233; c=relaxed/relaxed;
-	bh=EaOh9FY4FewwBYcZkV/3wLo9RqpMxip/oydn3YTdgeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bevxHZ2TXnPv6Ray3j6iLq+WovBXZJ0Ce4TLosPdNpTigFraEBc999vcN7l/4Hs2HZuumZLCI342UbXvKNorPbpsomkjur+FVr8CKKuJcLDsI0u/FRazugKL1XPNP04rUG/Up7uRxOpHFUYPXalKoxn34mZJSRBwkFZD7OfLXD7+vymgJP/of4hfl6HZh5Si7pPXGbE+P4h3OKy+oNaAdhR2oEPqPzWPXVvi+m/dhuOkScQHlgtzyGVgNjGvbf6MwzsUwhvLGdwPAcagfrg0m+tlBLTEexRRjVQZLyGW9Ie/Iuj3R7QL1ivkqC0qBlsshpSSTI8OsHoiUTYK4Nxe6w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=G+TfFTIK; dkim-atps=neutral; spf=pass (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+	t=1792090599; c=relaxed/relaxed;
+	bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=eGBt6S8X+adEoA60wCnDrDFyK+bU7YcKjxLCHu8GNFhl6zHOd0ITDLnh1RQmLon0dHRYTSc7qQ2wSz2los8S9QKklBSIUFZSqO7iilYQ/hnrfrPnuorRcBKsgZYUWr8sOQwQON1jCl+TcR5eYd17SrmjULvGNMyQaAzWQoDT+SKCfR5qCoJVfnkAi3XIFOoNb5mbVNzTspJKyVvdQ/UdDvv9iIXDAfIerg4TR4lmdllD9xGH7CUnE8TxsmHgHOhysm++sUSiEjEVUpPbpGUIvGwOndr+iv0mkZYZM5KYfV/nbTDSImJSev1VfW0FVCbpwJegyUM8Z81uYhacLvpNtA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=M8jgrTyb; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=G+TfFTIK;
+	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=M8jgrTyb;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5FPX3RPVz2xSZ
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 04:27:12 +1100 (AEDT)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kRDI575429;
-	Thu, 15 Oct 2026 17:27:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=EaOh9FY4FewwBYcZkV/3wLo9RqpMxip/oydn3YTdg
-	eE=; b=G+TfFTIKOs06MCbfsMYzyPmquyRNaYrurpLHktDdiXDKkw6ASoeop6n4o
-	Gcv9uELxgUju5HDmdNPCrj9GOe2o707BjHa1OzhpaBcVT/X3ZmaLvs5XNg1BEVo+
-	cpBMv/pCfQcv6UpEdfMTfspAc4PSMLetBXIG2c0q6wkxPVHc8isFhrKemwmllk49
-	FB8YFBDu+RSGpIde/158A6MWs2uZEeWeNOw13K2qQ6DVkd71/Nv0gSkAVwH+G5Cs
-	9OPhy8B4BYWgfa4+6h9Yq6ab6d6LA0zleYryiqshPkTqrhyFUZ2mKU5Edt/5QSFv
-	f9EFCchMIiEhHmo6xCxH1550pixXw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7e1wjkus-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 15 Oct 2026 17:27:00 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FE4Ztl1927475;
-	Thu, 15 Oct 2026 17:27:00 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h9ypq7xd7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 15 Oct 2026 17:27:00 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FHQwBv34472452
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 15 Oct 2026 17:26:58 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5AA8A5805A;
-	Thu, 15 Oct 2026 17:26:58 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E8CF758061;
-	Thu, 15 Oct 2026 17:26:57 +0000 (GMT)
-Received: from pfw153.pfw.tadn.ibm.com (unknown [9.5.7.52])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 15 Oct 2026 17:26:57 +0000 (GMT)
-From: Ninad Palsule <ninad@linux.ibm.com>
-To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, joel@jms.id.au,
-        eajames@linux.ibm.com
-Cc: Ninad Palsule <ninad@linux.ibm.com>
-Subject: [PATCH linux dev-6.18 v1] eeprom: at25: fix read_poll_timeout() arg order
-Date: Thu, 15 Oct 2026 12:26:55 -0500
-Message-ID: <20261015172656.2586295-1-ninad@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5HNj0NF3z2xb9
+	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 05:56:35 +1100 (AEDT)
+Received: by mail-wr1-x42d.google.com with SMTP id ffacd0b85a97d-48c6955a7c3so1671565f8f.1
+        for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 11:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1792090591; x=1792695391; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
+        b=M8jgrTybn3phuza+2CBoD/zLDEE6YpMQYolXgIaYj1jU4RsqKL63/Khz1Kq9iC98fr
+         BzqhVkYQsRqs5rUsvWPxvbLDNoiDZ0Lk6WFM6nHbHHuj6YZrHibOxtgTXkXF0NFBGpm5
+         AePjcG5I/gFQM10X3htr7DW2qM5J5u7NSR/l8jmMTE8bxPvO/Boz16vuqMNW1Kyz16CY
+         ULJ+UoNLm+ydy+SFSQi5fMiuxzGjOilmQ0KwVt0U4iVn7aaCzJGSu0/zVJVsHU5fG5Ee
+         nrbgpUhVm6x27hkynUMhhYIidzx6u/wiSRfefCNvejpvMzMpmrkYduyDsJEPvRg+WaNP
+         4P6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792090591; x=1792695391;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
+        b=SAtytR7Kks9Nfklb2gK6SXfB45fTiMkO+mUFXCdxlpUfcu3qW8/yMPV4bLef60yARW
+         YBp3+kEarJxzZlcezXqj5DpQLRPpEYlj8PZns3vxINFeVFi/cZst5qmsqYzVEwZDG444
+         6pq1t+sBamkum1x/AeNQvPVHPyLyX0BmgkDH0IgpclEjyEoi0yDQjXb2ZLaiQ7/LckXd
+         t+/exj1UiXVBVr+5U5YvpP1NCGofff4DgJE6APqVDdsG3Gb9u8neVO+voThWZWrxLv3f
+         VE6m5eSuqxfpv676t+BBFh6+F/QpK4MxRwuYsBUlDNRu8FJGq86eV7yYCYEreZhDehaq
+         5Kgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkl/uw4UUqF0Dz4/cI7EuawHZyU37oLVlsa3yDCjbuVMnyCHFBv8u4pkkkfvJJQ9Jn0eVQXyej@lists.ozlabs.org
+X-Gm-Message-State: AFq9FYJxFRuQH8WwaOzZOIzPHwK3Fx9iItPa4akXnxAd3CdyxlDuh+ZQ
+	G1F4RF4yhmDPxfNOdmbeT2V+iFeA6pddj+ex+bf2SFFaCxhGBkGbP0x4MIK3m2wRSnQ=
+X-Gm-Gg: AYBFou0puezqNlNNucUmFZAEQTVSFogw/nKG45Qbqi0wBsTAz7ybFVNfwewHc60G/xO
+	boAnNKe8k/GcJp0X2w563A5dSFqlRR+trokbzxRIqtcku1Q/j2qavu90kF8wwRwghU9UTCtU+O0
+	cmm53DqU+O9CeeKxAYnQ91Dgx8JUjoB10FPUzilUaX7mhaqtCleWIBoE9MP8qFA8vClnOY1xASK
+	7E2nMFcYv7xvNtYeo+xp+4Ttmm/ic05FoUBdd+XbJCQhAPXabUecQG+zzNzsQR4rhjHyBNC+lmY
+	RyI4QGfAWlrqjJBv0EDRaZx90JlxXSKqWSgkl2x0OiczIhaLxW7U15WtTvpyj4EAh73rnERbEHW
+	55Zel/7Y2kM1rcWRN7LCuq3kxF21EQZfRqHpSSsgh2FYQ4uKJjYVqMbzr3U17ZVzQP9Fpnw+wDf
+	xCZWhC+lkVz7n3EW8cFdf3Ar2jKnxn4fWvb2COdp1zlgZzGd/35LLefbofJV2V2+yxVzoM8gmlX
+	BuqjHEilX9vKuzJPLf1za5lF4o2Kdxlp6Uv0AQ0NgOshcYXjmg=
+X-Received: by 2002:a05:6000:40e0:b0:48c:6a4d:3b67 with SMTP id ffacd0b85a97d-48dbaceb433mr39249716f8f.19.1792090591349;
+        Thu, 15 Oct 2026 11:56:31 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:2f4:b401:e5a6:e075:4922:88e8? ([2001:9e8:2f4:b401:e5a6:e075:4922:88e8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df0f8f624sm9253962f8f.5.2026.10.15.11.56.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 11:56:31 -0700 (PDT)
+Message-ID: <b583a436-a759-4bc0-9023-a64c6f2d41e4@9elements.com>
+Date: Thu, 15 Oct 2026 20:56:30 +0200
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -83,67 +86,34 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2OCBTYWx0ZWRfX90Z8EUtDszia
- kAbTYWXZ95paMrsyKtzq+WmnezZydmI/tVb45RUcEpbioIxmdg2q8SoQVOXdGas51XnoizjSzmv
- lEWIW8r5t5eRnCeNckJCLVIS7PtVPEI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2OCBTYWx0ZWRfXyKssZfprtZ6H
- HUXloszyZ6G+SAojVW/ydMRF/GWuNFuOQd9M97eQS/wydSdqg1a53DyaYI7j2DmSZeueO7eEm11
- hxF/IL+Sk+rvcdlniJ30RY3bgc47SlIxPINYhSTFkyvG176Rr6kW7Sdjr6QA9YNrMp5pg1CmpQC
- w6XJiBSIgtIJtSVC6W21YmNWNRWsJQ7TucuHzhFOYU4VfivADhvGHoKxfosn4ayRyKDiIuy7TbS
- 7xmgZnc93gTvE+bTFVIa9wniIMWcp3VXjJJFMpmh6mJLepOrcf3jWMlqXdv9ZtlAPatSzQIWsrl
- xgRWD6KaG8PG2E9oqOmBCWTxhZFSbDH35dx+U2zDkMdnKy7qJQ6qq3pag6sZrDLWPwtrySFQ1aw
- zxhlpdDXLK5lX88JDzFcgqyyhQ+d1a4v2zuYKVZenRG6/CZ4tD4o8HNiCxzf6x3+++XEXrJc4b6
- toyUe78zVAs17DYvEag==
-X-Authority-Analysis: v=2.4 cv=E6pYNqdl c=1 sm=1 tr=0 ts=6ad10ce4 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=iTqx8yHObMYv1iS9beYA:9
-X-Proofpoint-ORIG-GUID: 0_GZofMrlMBf20Tp3WjIUbL_2qxGod5I
-X-Proofpoint-GUID: 0_GZofMrlMBf20Tp3WjIUbL_2qxGod5I
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- spamscore=0 adultscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150068
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH linux dev-6.12 v1] eeprom: at25: fix read_poll_timeout()
+ arg order
+To: Ninad Palsule <ninad@linux.ibm.com>, openbmc@lists.ozlabs.org,
+ andrew@codeconstruct.com.au, joel@jms.id.au, eajames@linux.ibm.com
+References: <20261015172509.2577073-1-ninad@linux.ibm.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <20261015172509.2577073-1-ninad@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The arguments to read_poll_timeout() in at25_wait_ready() are in the
-wrong order. "false" is passed as sleep_us, while the macro expects
-sleep_us, timeout_us and sleep_before_read in that order.
+On 10/15/26 7:24 PM, Ninad Palsule wrote:
+> The arguments to read_poll_timeout() in at25_wait_ready() are in the
+> wrong order. "false" is passed as sleep_us, while the macro expects
+> sleep_us, timeout_us and sleep_before_read in that order.
+> 
+> This makes the loop busy-poll instead of sleeping 1 ms between reads,
+> and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
+> fail early.
+> 
+> Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
+> timeout_us, and false as sleep_before_read.
+> 
+> Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+> ---
 
-This makes the loop busy-poll instead of sleeping 1 ms between reads,
-and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
-fail early.
+dev-6.12 is unmaintained, thus won't merge it...
 
-Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
-timeout_us, and false as sleep_before_read.
-
-Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
----
- drivers/misc/eeprom/at25.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/eeprom/at25.c b/drivers/misc/eeprom/at25.c
-index e2868f7bdb03..df8daa40b0e1 100644
---- a/drivers/misc/eeprom/at25.c
-+++ b/drivers/misc/eeprom/at25.c
-@@ -209,9 +209,9 @@ static int at25_wait_ready(struct at25_data *at25)
- 					   SPI_MEM_OP_DATA_IN(1, bounce, 1));
- 
- 	read_poll_timeout(spi_mem_exec_op, status,
--			  status || !(bounce[0] & AT25_SR_nRDY), false,
-+			  status || !(bounce[0] & AT25_SR_nRDY),
- 			  USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT,
--			  at25->spimem, &op);
-+			  false, at25->spimem, &op);
- 	if (status < 0)
- 		return status;
- 	if (!(bounce[0] & AT25_SR_nRDY))
--- 
-2.53.0
-
+Tan
 
