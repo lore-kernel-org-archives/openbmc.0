@@ -1,54 +1,55 @@
-Return-Path: <openbmc+bounces-2772-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2773-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55211CC6B38
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87434CC6B38
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:31:05 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X5p0ZV1z304x;
-	Fri, 16 Oct 2026 15:29:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792080106;
-	cv=none; b=RG9t2TJ0Jmizt2pVIWR9C3kR0EtiNPVNsAbqnZSLe81HYHdZ7gksLUoPMbnEKCySzIH9we3bSwX5G9F+KUSAowUdCuZBBUImOCO0jLD6O8EJmwWqY4dR5FLp80h/5fFXIu7YgoJquQ1DhD2g9stTL9SWHOKHZ1ld2KO8UFToQkgWlm4agF1LalY5LO3ejo4/z4DbQZx0B6xKVhbmZEq8990Xqjkn891VCQXyOO4/+SSXfBDUYgUH52EJaY6YMISyUDSG4bQIIeFgD6K5cjTVbebdqzq6g9KLii+5rSrOkSxvYtiaCx2mqemD+iQKFPc0vPGkj0rLNW5EvpRzj5bDjw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X5t4vWHz309N;
+	Fri, 16 Oct 2026 15:29:38 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792067288;
+	cv=none; b=NQH1xa5Ez/ovhbu1MFZsiuAS/+irBfYquDp1LErvr0jAs4jc5A3CXsRrjHZKc5LrNg6rK9mE3YTW47bYQ6srGxGOC+9D4OZmMoX35IIHv2coOE2oGZWu2xSuApHtG3aP+kYRYsupx3QRdyDUxYUBXLiusq8PDji5Bomrft6aW6xw1FQFUDfM84XvWoNsdVTzahkEiOfxgemJeEF55jeuiGUSrYKQYL3bl7J7uX759XnjPbQvEUO1VIgWgYARyuUv7HlAlT4IzyMomQ57CclscUQ1aWln0CiMq2SB422x9n5p6a4gWT7gJr3T3f53zhh7gnLTgc0quMve0auP/lbKEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792080106; c=relaxed/relaxed;
-	bh=ssU7XTi+BfG5/GcUZNrJrhUAVwvFZ6ghzUoVfKgt+Ds=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WNLkCBC5S2v5crwquJ7E+trry+iGDcod81/pNgiAG2rY84nc8KsHUhI2nJhTq1ielc4aauGsg0zCRCdQHM+vHTDE0mc2xkH2BLNBEPjdMvANSSYlx/NdWNI4xfVbjhpOsFrhpoAlFD6zqIrkVE4JUwmb4dnJv9cPysBVBqtvPWTkMvxVK2ypfcloYQAjuNIab5LEkH1pJlkL6KPYBcXdRFBuQ4QqSFvLUqCURsn8VfZc9FmYMxmNO7AdaMJNEwzoEnd88JLYGFGj+EthDWab5d1vHJtsJH7k6Y91U5PzmXDlf8YCHffUzQKyfEfnynfzGK3b6a6E6XmIKZ+NzYOvLA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VDXpmMwJ; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	t=1792067288; c=relaxed/relaxed;
+	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DZL9YTpd2bXbi3tdIZ3McSClXIR5rXX8Y/62wiOQG+YWohxWe0GZ1ETOh+qau/rqTQcP6c6x+f+XFrzvqrof8MAAgap9NYmtd+uMI8IEUYTx/aPAR68dtZXKJ984g2FUj/+/uxfU7g9VaqvkAZdbi75LK4Ca6QY/TtthuVIS8mYDaY8ud4jXYt4ypDlwUj5VX+DnpVPj2Qr87RTagjDQC5/F4phA0gNClR6+cwidzeYT2TwA6cbXxYZtvmWYE1BONp6hbyObI8vdhFzl/muKUq2lIys89kSqTWTX4onKGv9OOFYWD/Z6ThLJ5WuG7Xq1F45KKr8tQY/TKm2rk3sQhg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sB6BF9zG; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VDXpmMwJ;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=sB6BF9zG;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5CVx0FQSz2xMQ
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 03:01:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56mR2wGDz2xMQ
+	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:28:05 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 17BD31A1244;
-	Thu, 15 Oct 2026 16:01:39 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6F9F1C62201;
+	Thu, 15 Oct 2026 12:21:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DAF226075C;
-	Thu, 15 Oct 2026 16:01:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 831EF10328B42;
-	Thu, 15 Oct 2026 18:01:22 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 14F6060360;
+	Thu, 15 Oct 2026 12:20:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7B50D10328B70;
+	Thu, 15 Oct 2026 14:19:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792080092; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=ssU7XTi+BfG5/GcUZNrJrhUAVwvFZ6ghzUoVfKgt+Ds=;
-	b=VDXpmMwJ2uUzBGGyt+JPr2H8EGwyJQl8VHqcIBWwaYNkBkAF70quyTWCiMbaGR1jBn+zC6
-	tfVCHU6xFpYB1nXBwfUO/d/S09Uijdm9+OkboCZv4b3lovuxYMZOQShMF1H/207Y6OQeN+
-	IOHa3FE5DWdCRSF9nQ92KkNi+C0tZwtNZ/CriwM/SGNiBCpUv81dYra/3AnnWDSrP6T+g3
-	Bzw+BWo6Y7gXkniexo8sO8IYpHw+T46CeXRg5G81eFnqf3rk4MSI/goaz4CuAPO7H8ER1Z
-	EIRwXNTLC3tgsNQBTrGYJ0w8JRjWZ52NjSsijhqCadRcU+/XblXNpmOTHfASbw==
+	t=1792066801; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
+	b=sB6BF9zGL2ZU/strrmUISETR4noJNIwvoSFUY+Lkyrh1MZcvR+cauOSAMwp3/NI9yZoj7H
+	E0sJ50qpAcRiQqcEpg1xDoOWtR37GqwPgZHhZvAdtumwRkITXfYV0+eSnjjrG8kmLr2u1t
+	XHEEa7I6OlQUrsS6ZGKQXpP0JWRfQTjqlU020859k2g9kISZgBd9z+5imFaM7gLX+mPEUK
+	JZGgohccHhT5uSzQde3m4PdwZfYChsGqPC0W1CiCiXP/dUw0AzN3EJU+3dUkg/Wm3MNddR
+	Wist4WxZhCvxkGViRb1li15Zy//6HOHfAeWBjgHQhJJkZdABoLbMP++bzIta8w==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: [PATCH v10 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
- peripheral clock rates
-Date: Thu, 15 Oct 2026 18:01:13 +0200
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+Date: Thu, 15 Oct 2026 14:19:06 +0200
+Subject: [PATCH v9 10/10] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
+ clock-names
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,13 +63,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QTU7DMBAF4KtUXmM0Y8d/rLgHYmE7Y2pBmyopE
- ajq3ZkWCYJSWSxnJH/z/E5iorHSJB42JzHSXKc67HlAuNuIvI37F5K154VQoCx41PJA4zTIXdS
- mR/l+mI4jxZ3Mb6/SmhxzyRi9TYLfH0Yq9eOKPz3zvK3TcRg/r7dmc9l+q0GFhjobCdJ6ozUFb
- Yi6xzQMx7e6v8/DTlzcGX+tdsIZJUpyngxZdIri2lLLXNiyFOdSEEqvVfQJYG3ppWValmarlBT
- JESiIfm11/7a6i6VtcIY7C1jWll1YGlqWZavzQTsim0NKa8v9WAigWpZjK6c+cKRolbvRl19aX
- cvybBFGBBtR+XzDCgsLm30FtrCYzpeo+Av01zqfz18obTfJJQMAAA==
-X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-10-1f548fa2002e@bootlin.com>
+References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
+In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
  Michael Turquette <mturquette@baylibre.com>, 
  Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
@@ -89,118 +86,72 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-I am in possession of an MA35D1 NuMaker board. The SPI controller has
-been contributed, but at this stage it does not work with the current
-clock driver.
+The clock controller takes its two crystal oscillator inputs from the
+board: HXT and LXT. The LXT crystal is not described at all: add the
+fixed clock node for it and reference both inputs from the clock
+controller node, with their respective clock-names.
 
-The clock controller registers its muxes with .fw_name parent data,
-which requires every internal clock name to be declared in the DT. As
-the DT does not declare them, all parent lookups fail: muxes end up
-registered as root clocks and most peripherals read a zero rate.
-
-This conversion exposed a first issue with the WDT/WWDT parents which
-were actually missing in the clock driver. I am not using these clocks
-myself but it is worth fixing.
-
-The second round of reviews raised another problem with the
-crystals. HXT and LXT are external crystal oscillators wired on the
-board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
-whereas LXT was not. The series now also takes the two crystal inputs
-from the DT: they get documented in the bindings, described in the
-boards and looked up by the driver (with a fallback for backward
-compatibility).
-
-Finally, I was still unsatisfied by the clock tree because there were
-too many root clocks. Many "gates" were wrongly set aside from the
-downstream clocks they would gate, and SYSPLL was simply not parented at
-all (?).
-
-The clock tree now looks much more accurate.
-
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
+Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-Changes in v10:
-- Make sure muxes registration is device managed like all the other clocks.
-- Link to v9: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com
-
-Changes in v9:
-- Create devm_clk_hw_register_fixed_rate_parent_hw().
-- Use the above helper to register SYSPLL.
-- Keep hws[HXT] available in the legacy case.
-- Propose myself for maintaining this driver.
-- Link to v8: https://lore.kernel.org/r/20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com
-
-Changes in v8:
-- Fix an out-of-bound bug (syspll parenting structure was wrongly
-  defined).
-- Make sure HXT_GATE is validated before being reused (and possibly
-  dereferencced blindly by the core.
-- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
-
-Changes in v7:
-- Avoid opencoding core helpers, replace them with existing helpers
-  (mentioned by Jerome)
-- Rebased on top of clk-next since the first patches have been applied
-- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
-
-Changes in v6:
-- Drop the clock output names entirely, they are not relevant.
-- Error out when the crystal providers defer probing.
-- Make sure gates are correctly parented.
-- Make sure SYSPLL is parented.
-- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
-
-Changes in v5:
-- Fix the bindings wrt HXT and LXT.
-- Fix the DT descriptions of HXT and LXT.
-- Collect tags.
-- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
-
-Changes in v4:
-- I forgot to bump the clock counter in the driver after adding the two
-  new clocks in the bindings. Sashiko will keep complaining about the
-  incoherency though. Since binding and driver changes should be kept
-  separated, I cannot do both at the same time.
-- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
-
-Changes in v3:
-- Drop the number of clocks from the binding, set it in the driver only
-- Split the binding/driver patches completely
-- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
-
-Changes in v2:
-- New patch 1/3: register the missing WDT/WWDT parent clocks
-- New patch 3/3: harden the code
-- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
-
 ---
-Miquel Raynal (10):
-      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
-      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
-      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
-      clk: nuvoton: ma35d1: Reparent the gates correctly
-      clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
-      clk: Create devm_clk_hw_register_fixed_rate_parent_hw()
-      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-      MAINTAINERS: Add myself as Nuvoton MA35D1 clock controller
-      arm64: dts: nuvoton: ma35d1: Drop HXT clock output name
-      arm64: dts: nuvoton: ma35d1: Add LXT crystal and clock-names
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
+ 3 files changed, 14 insertions(+), 1 deletion(-)
 
- MAINTAINERS                                     |   8 +
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts |   7 +-
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         |   3 +-
- drivers/clk/nuvoton/clk-ma35d1-divider.c        |   3 +
- drivers/clk/nuvoton/clk-ma35d1-pll.c            |   3 +
- drivers/clk/nuvoton/clk-ma35d1.c                | 716 +++++++++---------------
- include/linux/clk-provider.h                    |  13 +
- 8 files changed, 293 insertions(+), 467 deletions(-)
----
-base-commit: 6b78cda327cc2dbcd0e60f411ae014997a684b55
-change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+index d7670afb0a63..7752e85734ac 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
++
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
+ };
+ 
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index 8f3cb18d39b6..5c65f1fe5da9 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
+ 		#clock-cells = <0>;
+ 		clock-frequency = <24000000>;
+ 	};
++
++	clk_lxt: clock-lxt {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <32768>;
++	};
+ };
+ 
+ &clk {
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..9a341c2b1397 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
+ 			compatible = "nuvoton,ma35d1-clk";
+ 			reg = <0x00000000 0x40460200 0x0 0x100>;
+ 			#clock-cells = <1>;
+-			clocks = <&clk_hxt>;
++			clocks = <&clk_hxt>, <&clk_lxt>;
++			clock-names = "hxt", "lxt";
+ 		};
+ 
+ 		pinctrl: pinctrl@40040000 {
 
-Best regards,
 -- 
-Miquel Raynal <miquel.raynal@bootlin.com>
+2.55.0
 
 
