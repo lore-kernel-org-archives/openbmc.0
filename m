@@ -1,55 +1,55 @@
-Return-Path: <openbmc+bounces-2781-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2782-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605D6CC6B38
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:32:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11148CC6B2D
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:32:51 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X6f6GV2z3bpG;
-	Fri, 16 Oct 2026 15:30:18 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792066782;
-	cv=none; b=GaUhDr/Ybb67yQFfQ5u/wK7yUQdLTnIJeptMrA49K7r0AjreFikr9Q8K4X/jf2aLeHdCSX9jfEoy6cDEt7HLCo/IBJa7yHmcftuVBeN+79pN23eBqkRBK6T3djK5peT6NZctnhk1btLhT/wmPq/WEu+30dZNSsuTwgTgWvaJMqzNn72CfgsnKBOY4MlEqr5BiIiyjPCvHsDrtYSFByaAoHvlyNTI2o+eBV37UO81iaSjtu2hwbpWp9MbBPpr5qrOsAoHseccXEnZDeIKIA4kEcnxoI13xT9AUZtDoZB4n0GsYePCImcslxGH4s3RJloviczCcUBygpHOl2+NKUOXsQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X6l1zTDz3brM;
+	Fri, 16 Oct 2026 15:30:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792066779;
+	cv=none; b=WFwin8YETB+hdLdrLEi6x7c12NrmRPz4etGk4WNt2jM0YVWe5fmN6MzgbZGaY5WhNaVUX9cPl+zs45ulV8mJDsNqUMvAece4h/a/X/DhgyUmVDE30JIwcTERNclp+NHXUusVZY5neYNXsCXJ41uKJVLkChMwNNx8eEXXvTfey7qXne0Lod6b/ovp5FovVizXh4ggBeVb3mi+/tWDtJUgZo95j/Ddb//BZKkl7/dX/7Lcd/6xfkeOdecxQ368RztOmoA3A1W9wZNHG57OQ5z6zVbhNQQ7iK8fPepvBSh84ryJorklPmT0lKhrzmkxif+h+TnGr6wDElxoYE23BOoBGA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792066782; c=relaxed/relaxed;
-	bh=NyX7Oya43Sb+sO+WepH5Wx/LkY9rC+4vaW2pUwRelPI=;
+	t=1792066779; c=relaxed/relaxed;
+	bh=lBIhAf1zrMsSuoUnlVj3Mn8SpEqQ7vAdxnvxFNwqdm8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jP+VaGFihqNkIqeO0inTKj4TRAo1z61XK2+cmoVdfv6YlKI+2CPQrBRjzfHIratBiHXgFY+/1cUA5Jcv96A5ASools/4/ei6G/rVtnV+FBv2G6ug7HRpPtwfJkHkoTFZEIm7ebTXy72/ZfHPEMGFinc0rSi50qejQmZJPXGcZRpYiqt4LLGjV8l+u3dCXSYZICNo9+PJHnZqEY41PaUIDhDlv6dvhbgamLBQekTsrtOIUyVaqLdbFcWdrqkUzRTTW6+O9X7EYdfeE7nAuonmni52FelpoBMQEJ8VeaeLy6SqmStucrJ2mUZB2ZUYZlQZun/hX7EIcotnvQqqiYSSlg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bPezcupY; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=QcSgoCQkh5nsHsekegpXKXLzF0Lic/b6EkZI5eSiCoA7dwf9VNxYbOpnJ/uU5vzWmD74uLiius148735f9VFE0sYljIaHDXc6W420OZBUr9R2VPkwZU50Cyoc9ACPAWNwrleSOTdau6HLbzeIegWlG4/g/EOYv5GtiKIkGl64mDbNHYWxZlPFvj2sEKr4THlVxtutFYl3bP8eLxizvtgzVDDE8/4k1/hz8fNvZbdO5aI5O15fHOmxsvWXjxnNGShvrTv+z+Nh0yM2Tpc25NSo7aXZOQGV5+tmA43xbGqqBU/wfwcfngmtMNkkrf7/tANUjzbYYfOO4jU9C0+wBNIOQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mPTryBPK; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bPezcupY;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mPTryBPK;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56Zk00Rqz2xLg
-	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:19:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j56Zf5cthz2xLg
+	for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 23:19:38 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0E8824E41246;
-	Thu, 15 Oct 2026 12:19:39 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D138E1A1235;
+	Thu, 15 Oct 2026 12:19:35 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D456C60360;
-	Thu, 15 Oct 2026 12:19:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 99F2110328189;
-	Thu, 15 Oct 2026 14:19:33 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9DAD260360;
+	Thu, 15 Oct 2026 12:19:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A2D7110328B70;
+	Thu, 15 Oct 2026 14:19:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792066776; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792066769; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=NyX7Oya43Sb+sO+WepH5Wx/LkY9rC+4vaW2pUwRelPI=;
-	b=bPezcupYwfFB8LxqovkoxA13H5Hm7fBAfWXtSU3/CYn0SYNza4o9C/49kb/i3562Oxr0LL
-	EuGSPB+e4Btes74oeXNXnYe88Pw8kjkAc2zUpc0qOEBo9NR5buYo9HvrrwoL7m0JMfitY4
-	ojQOqUazCS2VPE/erZHgS52w6QKKPOq5Z/T8WPduAkPQunkm094bTzgSN8T9A38bZHCF9/
-	g+54RKynRfxF/GkZIW4N0nTmsovUCsO5uJ+r81ydh4VAMiEes8xfaR7hAy1Dnu40wHbPdF
-	IQwMyMP+cg10Wbun1U0623HJnxOPgas0+YmcbGckrC28GcorXN+87UJLsrd1dA==
+	bh=lBIhAf1zrMsSuoUnlVj3Mn8SpEqQ7vAdxnvxFNwqdm8=;
+	b=mPTryBPK7rJtFS4flhLqq6CZzkLcIzOSsnnUwyI3MPKnb4vKpaVHa+9/Z2rgmPtEzygoGt
+	U3OasOXimbmzt4MsfDevjEmHbliU77yNoub8tKJOp4vdopOmb5HUWNB3z8GSVSn1mXw0gu
+	cTQkXaNkJGexas4yLNiZNOZEy6ttHeFtqa+N/CfxGo7CZCMuGghKYfyKTyjBsdlY/wMdTe
+	IJMriz8q+idJvFONUR58kRmaep4xHJNtDvU0QQYmTmX1u0StfFHm8NN0XBN6Ui6eTXOKOP
+	v9dJwaqHb8o1HGbnfg+U/vBC8HwgO5+vEpwdNUFiyhE6A5oHDKsFO6y8N/2hEQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Thu, 15 Oct 2026 14:18:59 +0200
-Subject: [PATCH v9 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
- when possible
+Date: Thu, 15 Oct 2026 14:18:58 +0200
+Subject: [PATCH v9 02/10] clk: nuvoton: ma35d1: Avoid possible error
+ pointer dereferencing
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +63,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-3-1f548fa2002e@bootlin.com>
+Message-Id: <20261015-perso-ma35d1-upstream-clk-v9-2-1f548fa2002e@bootlin.com>
 References: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 In-Reply-To: <20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -81,111 +81,83 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-HXT and LXT are crystal oscillator inputs of the clock controller. As
-such, they are external clock sources which should not be registered by
-this driver.
+MA35D1 registration helpers store their parent_hw argument straight into
+the parent data, without checking it first. In case of registration
+failure an error pointer will be stored in the table, which is then
+forwarded to the clk core, which treats any non-NULL parent as valid
+handles.
 
-HXT is already described in the DT, but is not named. In order to point
-to this parent from its direct child which is HXT_GATE, we must provide
-a fw_name (when it is named, new DTs) and a .name (for when it's not
-named, but the fixed clock node name is used).
+Bail out early when the parent is an error pointer, instead of building
+the parent data.
 
-LXT is missing in old DTs, so we must create that clock and register it
-for backward compatibility reasons. It should however be described and
-pointed at in updated DTs.
+This issue is mostly theoretical in practice, since reaching such an
+error would involve a very early -ENOMEM.
 
-Both HXT and LXT are exposed by this driver only in the backward
-compatibility case. Otherwise, both clocks are expected to be retrieved
-from the DT.
-
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 44 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 37 insertions(+), 7 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1-divider.c |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1-pll.c     |  3 +++
+ drivers/clk/nuvoton/clk-ma35d1.c         | 13 +++++++++++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+index e992e7c30341..57a7b4ed3b5e 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+@@ -90,6 +90,9 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
+ 	int ret;
+ 	int i;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
+ 	if (!div)
+ 		return ERR_PTR(-ENOMEM);
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-pll.c b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+index c7c0dc91a012..92424e9c669d 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-pll.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-pll.c
+@@ -336,6 +336,9 @@ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const c
+ 	struct clk_hw *hw;
+ 	int ret;
+ 
++	if (IS_ERR(parent_hw))
++		return parent_hw;
++
+ 	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
+ 	if (!pll)
+ 		return ERR_PTR(-ENOMEM);
 diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index ceebcbd8c18b..f9413a647df1 100644
+index 1a857f28310f..ceebcbd8c18b 100644
 --- a/drivers/clk/nuvoton/clk-ma35d1.c
 +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -65,6 +65,14 @@ static DEFINE_SPINLOCK(ma35d1_lock);
- 
- #define MA35D1_MUX_MAX_PARENTS	10
- 
-+static const struct clk_parent_data hxtg_parent_data[] = {
-+	{ .fw_name = "hxt", .name = "clk_hxt" },
-+};
-+
-+static const struct clk_parent_data lxtg_parent_data[] = {
-+	{ .fw_name = "lxt", .name = "lxt" },
-+};
-+
- /* Mux parent selection, by index into the controller's clock table */
- static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
- static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
-@@ -191,6 +199,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device *dev, const char *name, cons
- 				    reg, shift, 0, &ma35d1_lock);
- }
- 
-+static struct clk_hw *ma35d1_clk_gate_parent_data(struct device *dev, const char *name,
-+						  const struct clk_parent_data *parent_data,
-+						  void __iomem *reg, u8 shift)
-+{
-+	return devm_clk_hw_register_gate_parent_data(dev, name, parent_data,
-+						     CLK_SET_RATE_PARENT,
-+						     reg, shift, 0, &ma35d1_lock);
-+}
-+
- static int ma35d1_get_pll_setting(struct device_node *clk_node, u32 *pllmode)
+@@ -130,10 +130,19 @@ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
+ 				     const int *parent_idx, int num_parents)
  {
- 	const char *of_str;
-@@ -219,7 +236,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	static struct clk_hw **hws;
- 	static struct clk_hw_onecell_data *ma35d1_hw_data;
- 	u32 pllmode[PLL_MAX_NUM];
--	int ret;
-+	int ret, num_clks;
+ 	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] = {};
++	struct clk_hw *parent;
+ 	int i;
  
- 	ma35d1_hw_data = devm_kzalloc(dev,
- 				      struct_size(ma35d1_hw_data, hws, MA35D1_CLK_COUNT),
-@@ -240,12 +257,25 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
--	hws[HXT_GATE] = ma35d1_clk_gate(dev, "hxt_gate", "hxt",
--					clk_base + REG_CLK_PWRCTL, 0);
--	hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
--	hws[LXT_GATE] = ma35d1_clk_gate(dev, "lxt_gate", "lxt",
--					clk_base + REG_CLK_PWRCTL, 1);
-+	num_clks = of_clk_get_parent_count(clk_node);
-+	if (num_clks < 1 || num_clks > 2)
-+		return -EINVAL;
+-	for (i = 0; i < num_parents; i++)
+-		parent_hws[i] = (parent_idx[i] >= 0) ? hws[parent_idx[i]] : NULL;
++	for (i = 0; i < num_parents; i++) {
++		if (parent_idx[i] < 0)
++			continue;
 +
-+	/*
-+	 * Old DTs do not describe the low-speed crystal. They may also expect
-+	 * an HXT output from this driver. In practice, nobody should use these
-+	 * clocks directly, but they must be kept for backward compatility
-+	 * purposes.
-+	 */
-+	if (num_clks == 1) {
-+		hws[HXT] = ma35d1_clk_fixed("hxt", 24000000);
-+		hws[LXT] = ma35d1_clk_fixed("lxt", 32768);
++		parent = hws[parent_idx[i]];
++		if (IS_ERR(parent))
++			return parent;
++
++		parent_hws[i] = parent;
 +	}
-+
-+	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
-+						    clk_base + REG_CLK_PWRCTL, 0);
-+	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
-+						    clk_base + REG_CLK_PWRCTL, 1);
- 	hws[HIRC] = ma35d1_clk_fixed("hirc", 12000000);
- 	hws[HIRC_GATE] = ma35d1_clk_gate(dev, "hirc_gate", "hirc",
- 					 clk_base + REG_CLK_PWRCTL, 2);
+ 
+ 	return clk_hw_register_mux_hws(dev, name, parent_hws, num_parents,
+ 				       CLK_SET_RATE_NO_REPARENT, reg, shift,
 
 -- 
 2.55.0
