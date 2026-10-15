@@ -1,94 +1,77 @@
-Return-Path: <openbmc+bounces-2757-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2758-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B899CC6B33
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 16:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AABC2CCA464
+	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 17:25:37 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5CTL31ZNz2xMY;
-	Fri, 16 Oct 2026 03:00:22 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::112e" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792080022;
-	cv=pass; b=nT988ivFDB8Mf077VhxsAFP1ImplkWnBCo3VSaZfraN/9kfNzFVSgnIR7VJtjSJXV9yDkgaD/rpWvmeitNfpPuP5rjRocc4vBA+oiIYZFc/24VrdRGXQZUeloUxirJRM0FECZdhyTuPMlmgsgZLLyVJOZoBDSVygGT7bvOLAExCNCeAHD39kxhEiy1un028QNmCBu+FYm83T5rC8tkTgQB9T1GPzp+ezqENxkv8j+k21guhqHM5yxdpE+d/XOb7HzR6PMV5jQawZtbcuQB92cIjDCpbci1XAw1yG5H3tTLAANV7BucOsS6tdtB2XBcoosCMKpZUvXkCWb1HtepzIqQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792080022; c=relaxed/relaxed;
-	bh=EpiamPpg7tsWlSrLw5y7LmqhMB0UGS6DfO66CA4pLkg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q8aodpXPn/GL+Yr6aDhhFg3sEyNDimmUxyXUSeOLy4+D5886Rl9fE3LQP8+eNv1cL68xqwQOEyK8KuzO1C8sar/RYAGS0B0t77lIG6+hCkYX0nyX/ShfeSOoLzrQKMS7cImQw14hVmNdBVPNyGkOw67tuh85iSNLZwQLkw5PMqvynnTJLvtZ38n04lzH7Xv/YoPX4V7/9apuuFS4ReU4X/hy1eqPAsvz57diyjmXOeG22KdFnq+fyAIFh1Eo2URbWm4yE1Nn5DPV6qtssv6XywiYRaGV5+i9ZgiaGxDswLsPtC7y+EdxlTHJmg0ewz1MbMuVyQcuVtaMOJT5/8ucrA==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fB/jsV6a; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::112e; helo=mail-yw1-x112e.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5FMZ0NJ9z2xb9;
+	Fri, 16 Oct 2026 04:25:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792085129;
+	cv=none; b=hwcfpmG122BRb+1f1qiCU9ruL//NeswVaTLzJoNA79z8Pviz7UP9XHrSSckt3KMlXqv3zLKlJNcjT37QOfXyVbFXPvDdz/mqIpFZnWNI3wNNK6ib68a1O/fJxJiIJq7JKsu96Wr4jPtoruUogynuKZTCWBd6PTJFFiX9498oVNyteMl/PkZoIhbC0/suUftptUKrg1xYe4SrowwJqsCSEoVieeoVqXZVNYAPP0Z2O83HtSSSbll45fo19FZxVCzaLyyp1TTRMCLc2AWZQMCKyF1q1PpkX3+IhWS2pnasLUkcSipnhPO6jbKbWwRhiWFpdtyu2bGV4XFwWdWbwkTadQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1792085129; c=relaxed/relaxed;
+	bh=EaOh9FY4FewwBYcZkV/3wLo9RqpMxip/oydn3YTdgeE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UcMUPfOSvV9aXoa4t9zBo6w4g36P1ZrA/KWdg5MUylzxoiC+V9LduJqVRWvK0ETipjHE2eaBikZm8mMR//P2N7Ro2EcStEpvzVeOlmFqrXm70zEifv1CftH3LG5uCMgQLzzqURkwwEvHkT2CUz205VTEqOVp0RxT7zmFoEMGe8RoZFfK/MMOnippxKdIoziGCG4NcNeabOauFPokaUyt0gad+iY1Wzl09zsiyaH+z5NhAUm583CTyhJtwN8wpKU7vb/WCA0Wzb6AXcjja75Ym2lCtiA3hg6y1nLll0g1CQNpPv4C0SowoNwCxPwXcoI4ykLgK/dB5DmhLe+LBh62Wg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qC8qxQqK; dkim-atps=neutral; spf=pass (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org) smtp.mailfrom=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fB/jsV6a;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qC8qxQqK;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::112e; helo=mail-yw1-x112e.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com [IPv6:2607:f8b0:4864:20::112e])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com; envelope-from=ninad@linux.ibm.com; receiver=lists.ozlabs.org)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5CTH716tz2xM7
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 03:00:19 +1100 (AEDT)
-Received: by mail-yw1-x112e.google.com with SMTP id 00721157ae682-8b0a921ee46so23108237b3.2
-        for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 09:00:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792080015; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jkSOQCrnw0b/t8HiVPJewneSEOZj4AfI+BsLsFG2gq2QIZAMfW/vpgra87PRfDenMP
-         IZ5n39fOgyFpBqCRpqDl4yjnVuS08UrV/+KFO10F4G6KpbkFseXLPTr66J5uDQDqJWtm
-         oejRS3fcPZKl3zx49sdKotXIqv1TZn3mcKSz7Hldsi1YdqoxVcsZ6+zm7LfzlipI2g0R
-         CKQ26z16tdoGrIP6qTdu+k4vm/fSLvbyuJC/Lf3QqdtXoTSoCJ07GLuQw9c5OBBv7S/W
-         k20kIH86tOEEF9ZpRO5unuLGgxpAawHxA71Nomh3gSSsrWg6wcUcpEnXox6MQi2qPsH5
-         kPVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EpiamPpg7tsWlSrLw5y7LmqhMB0UGS6DfO66CA4pLkg=;
-        fh=Nf7t8ho2WKkIfHIExK1WfYDSa+nE9noQgz2d7xDKtMg=;
-        b=PCMmfLkkVAT0n3p0sl92IrqygZHi5KShn//RzDhMxsVsSo6oH2LnDveVB7sIjt+c21
-         lic325SZ9TjJqH6LNzObePy1panWhe8erVG3BUMvkbcE/rXnSC42z6435SlXfM6h80uy
-         SZzNbPc1eYQhdMqnqhr741jiKhwTxaZLyUFCLrCvkilNyQziwx0Iq+I/XkjmNGmyx1k8
-         CLKXpzNeb/mcxeUtRchu20DkKqTCSLLwtG91ELv2vcaXzJFqBd5wGiRA4musAzFWVG0X
-         GrTF8tcDeBDamoVgxgAmasSR/S1o31B6TXRHBTmYuiCE+Bejt1EttBQo/IYEnd+JT2d/
-         9Qbw==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792080015; x=1792684815; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EpiamPpg7tsWlSrLw5y7LmqhMB0UGS6DfO66CA4pLkg=;
-        b=fB/jsV6a6afiS5qS0MtOUS8YYna2SzSOtSqhJc1CYci12/JVAyWTma9hIuDh6wDh0B
-         kr+r6SLDB2rAB2vlq7hpGxYueaadu7PeSexbCKwtgiY4HURC8axtwPlX8TOZuskOCw3/
-         HKZawnwKCMmhOaOcewYzqdINIa8nk64Os6T5o3l8irJe767LHuPqJIOB7A7QVtnHIQYr
-         9/rf8VHDziDgSr07Vv3ygYAr+V1m7+cGuEjsK0ggKStY+kLJSoNvKedFqf7aTwu6NRKP
-         jvIZBwqMRkQkl5R0c2iQaNLjS7lirs5dBfHXRymYWQTYow4XGS1qZRPWUiEZgGfa2/UV
-         s57g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792080015; x=1792684815;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EpiamPpg7tsWlSrLw5y7LmqhMB0UGS6DfO66CA4pLkg=;
-        b=MPb9bi+fjj6ZXepE52Xt3CuFuNODN+K5UanWz106SGMBbUq4yVDXg1fKsUgrohW41U
-         DsJd0+r90BtkvX3JTAHE2x9DC/AxVyPTHh7bXiaVl9WMJuwt+6uysNHdFghSBXCmIai9
-         8robnq6oVrfGe5huerUqhYCB8YUr1XyOyQpanxfjHty83Zccsw/3WNxae8Oj4g4S5OfZ
-         iU6CQHaZSXeIn2N2LFdtlmPwTp2C2MApvCyX5LHOscpZfmMOm3Qi2Ry28gumC6CXlhIA
-         Bi9aNvvzAG3FcRK6SHJ8Qa74Je2eGRDBPSyNvC72Ym7tVgQ3+qod/6nBpqwwkEEZIxmH
-         fB5A==
-X-Forwarded-Encrypted: i=1; AKwUvByLkP6KvcJeCwLtXd9bJl3IX8RtV9zEKb5e8MaFQvGcSYLQ/LFpibjGPMSKpefTKCaZXD28ENT8@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYIz9bUwwTpo1iyH9blu8lXDL2J7e9rSEQ/OvLz+l0flgTJQR6Gz
-	tuUOtpezepkdpZQeF48SYNLImcpKF2VAJ1Yrqxau4Ns1EwGIn180Lcwz/tqhQ80UR8ENyTbJbHu
-	8YdkRZ+9S/fzJtuXUqMIl/kA+NksDiAQ=
-X-Gm-Gg: AYBFou0FUrlG/pP5NiRcSD0fULjK/G1sKZnu2Dc641jLSgyDSxSiXpt2ygtyvl4OTOq
-	hY7kSXFc/SnukAK2ZcCPsY6zx0R7Q+2gYaqHh/FJchWDCNFat48cZ7poiZIneBOdtsXoYvufn8J
-	QeWas7l5LGav5wErGW86Drb8BeBRaDPJLrUdbpYV0VYKAIDPx2RGOHb4M823Ggd24CCPJycNqHH
-	PF8tbuIzC5h2/gLApb/eXs3uSthYE/hrc8kJb5+fLr52BFLyAgAe0jnRysL0yedlpbh273nZa1z
-	mYoTOHFxFwoq69/H7usYyuKHANbGZqM30+LnaT52EQ+4OfdIpoDa2IwhFA==
-X-Received: by 2002:a05:690c:f91:b0:8b0:db26:88ae with SMTP id
- 00721157ae682-8b0db268c9bmr5613747b3.43.1792080014084; Thu, 15 Oct 2026
- 09:00:14 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5FMX6y6Cz2xRv
+	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 04:25:28 +1100 (AEDT)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9kDG03000591;
+	Thu, 15 Oct 2026 17:25:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=EaOh9FY4FewwBYcZkV/3wLo9RqpMxip/oydn3YTdg
+	eE=; b=qC8qxQqKFZAh7KqlsY2BraQF8EsgdUR6AEVrbBrGlf7wOKRmZbHVICkfS
+	0OQ6L4Z0gmH2AwKvSu1XyZAzrDjYZQ2mTSEfsxedoi5b4lm1Bmn4dNR7thcwEiZf
+	+wSZgiggHb4tN4UTU1QQxrXhH4Jb8114S+gN0igFttsS1d74pFLDM7pviG7YAL/u
+	FV50dSsw+QKXi1zejan57DPc/bMoMjVEpgy+MfpQ085AI73NhnW9pOG60TRogUPo
+	waeLlCTcqP3Fa8GQg0V9eNwEpicVChsuTHf0qyAFCWVCHhlBrrvsmBK+/gOSg0rE
+	4p95qEi5quTt2SoU8uuLiLJ6IUbGw==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h7dwhu9dk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 17:25:17 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69FF89P02057775;
+	Thu, 15 Oct 2026 17:25:16 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hawqwsbh8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 15 Oct 2026 17:25:16 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69FHPEEZ48759266
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 15 Oct 2026 17:25:14 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C5E25805A;
+	Thu, 15 Oct 2026 17:25:14 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C5D05803F;
+	Thu, 15 Oct 2026 17:25:14 +0000 (GMT)
+Received: from pfw153.pfw.tadn.ibm.com (unknown [9.5.7.52])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 15 Oct 2026 17:25:14 +0000 (GMT)
+From: Ninad Palsule <ninad@linux.ibm.com>
+To: openbmc@lists.ozlabs.org, andrew@codeconstruct.com.au, joel@jms.id.au,
+        eajames@linux.ibm.com
+Cc: Ninad Palsule <ninad@linux.ibm.com>
+Subject: [PATCH linux dev-6.12 v1] eeprom: at25: fix read_poll_timeout() arg order
+Date: Thu, 15 Oct 2026 12:24:59 -0500
+Message-ID: <20261015172509.2577073-1-ninad@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -100,79 +83,68 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAMFFDGh6XwYD-axu3brX0Tdt3PteJHHGo6oJaghzpvnEyzT58g@mail.gmail.com>
- <OSQPR06MB7252CC7FC2131D45457A1FA98B962@OSQPR06MB7252.apcprd06.prod.outlook.com>
- <CAMFFDGi-Zzwk33Rb2LPVOSz+XJa51iBQ3ZWEP6mLg4C362F=VQ@mail.gmail.com> <CAMFFDGgv0+sUL4V4itKw3pezB4MccYr1rGwrS6F0qwD=0HLB0A@mail.gmail.com>
-In-Reply-To: <CAMFFDGgv0+sUL4V4itKw3pezB4MccYr1rGwrS6F0qwD=0HLB0A@mail.gmail.com>
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Thu, 15 Oct 2026 21:30:03 +0530
-X-Gm-Features: AclHuK_aaHC138fG0PxG0zW83HUUPVrTWcZnddhJ4Q2cRZHfJqvDEmtIQg3W568
-Message-ID: <CAMFFDGjXyHVthH33ctkCYLu1LUFB3-b3HG2hQbtOyT3tSvy+bw@mail.gmail.com>
-Subject: Re: [RFC QUESTION] AST2600 GPIOP2/GPIOP3 pass-through with gpiolib ownership
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA2OCBTYWx0ZWRfX/u29WarVHblJ
+ UTpSO7GnwhKBoio30IkmwQsPEI+CQ3Ej9LVTQ3zxMaWkvo5VSOBMdyrYHuKHd2Zw+cyueBPwjEk
+ gwE5/fK0Y1Vyv9lmZ2eEtcYzAtXq738=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA2OCBTYWx0ZWRfX9KfDO1OcGA+b
+ te0DgUBny79eJF6a/EM1Hu4eyEPc3fREPGYld1CYP656T5qDZVO2Gft+Inc8YsO97gp7Fr4ktvL
+ 0j34H+nWr/k1uAPGS2wjRC83GzIM4/DDtoVTdT1R5YdbNvRt4dEt/3DmNgNnoIXLaKkHgpLxUe7
+ vjqTw++D/bUCXj+XJ4Y/GDytmV0fC7g0+K+xbR0d8efr7uGwoOa20YFD9MvQAkcUeICaV49kDVS
+ A2i1wMkFCGmsZ+BLUhAKaipUuMwqYIv4IUnUaaXqreGtr6mVPUgMw/C/flz6UikOK60+CZy2ArM
+ 6r86nQr/vdjyfYLppwvZGRAcIzUaFOBMuQVCwbbSKzkUp9H5WyX0bzgZez0DC704mg0LBrR9rBN
+ y3XL14RboXeIJkMVOXs7fFKsGqOZrigF7MFnxPDnUPxtBDZq8tvup/E30zqsg/roJd9BNmjIq/5
+ Oiisd8bWY3UlkVKmxJQ==
+X-Proofpoint-GUID: nwo7d_RxIvFwDHM9EP71d6p7oyYzaN55
+X-Authority-Analysis: v=2.4 cv=RoFQvymK c=1 sm=1 tr=0 ts=6ad10c7d cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=iTqx8yHObMYv1iS9beYA:9
+X-Proofpoint-ORIG-GUID: nwo7d_RxIvFwDHM9EP71d6p7oyYzaN55
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 phishscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1011
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150068
 
-Further testing shows that per-operation THRU1 switching is
-unnecessary. With SCU510=3D0 and SCU4BC=3D0, ordinary GPIO power-on fails
-while SCU51C[9] is set. Clearing only that bit allows remote and
-physical-button power-on/off using x86-power-control software
-forwarding.
+The arguments to read_poll_timeout() in at25_wait_ready() are in the
+wrong order. "false" is passed as sleep_us, while the macro expects
+sleep_us, timeout_us and sleep_before_read in that order.
 
-Should this strap-to-GPIO handover be handled by AST2600 pinctrl,
-preserving other pairs=E2=80=99 routing, or by board firmware initializatio=
-n?
+This makes the loop busy-poll instead of sleeping 1 ms between reads,
+and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
+fail early.
 
-On Tue, Oct 6, 2026 at 7:24=E2=80=AFAM Prasanth <prasanth.padarthi10@gmail.=
-com> wrote:
->
-> Thanks for the guidance. I continued with a private B650D4U experiment.
-> The experiment now reproduces the exact vendor sequence:
-> SCU4BC idle:                        0x0e000000
-> SCU4BC transition:               0x02000000
-> GPIO123 pulse SCU action: cleared
-> SCU4BC restored:                0x0e000000
-> On real hardware, OpenBMC now successfully performs:
-> - Host power-on through DBus.
-> - Power-good assertion.
-> - Graceful host power-off through DBus.
-> - Power-good deassertion.
-> The private implementation is intentionally B650D4U-specific and is
-> not proposed for upstream as-is.
-> Given that THRU1 and GPIO123 are mutually exclusive, what upstream
-> subsystem should own this temporary transition? Should the
-> power-control consumer coordinate GPIO and pinctrl states, or is an
-> Aspeed pinctrl extension preferred?
-> I would appreciate guidance before preparing a generic implementation.
->
-> On Mon, Oct 5, 2026 at 8:33=E2=80=AFPM Prasanth <prasanth.padarthi10@gmai=
-l.com> wrote:
-> >
-> > Since THRU1 claims both pins and is mutually exclusive with GPIO
-> > control, should the power-control consumer acquire GPIO122/123
-> > normally and select a temporary pinctrl state that disables THRU1
-> > before driving GPIO123, then restore THRU1 afterward?
-> >
-> > On Mon, Oct 5, 2026 at 8:04=E2=80=AFAM Billy Tsai <billy_tsai@aspeedtec=
-h.com> wrote:
-> > >
-> > > Hi Prasanth,
-> > >
-> > > On the AST2600, the THRU1 pass-through and the GPIO123 output share
-> > > the same path and are mutually exclusive, they cannot be active at
-> > > the same time, so having the pass-through pair also controllable
-> > > through gpiolib isn't achievable in hardware. This matches both your
-> > > observations.
-> > >
-> > > Could you help us understand the use case? If the pass-through
-> > > already handles the host power path, why is switching to GPIO control
-> > > needed at all =E2=80=94 rather than simply keeping THRU1 enabled thro=
-ughout?
-> > >
-> > > Thanks
+Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
+timeout_us, and false as sleep_before_read.
+
+Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+---
+ drivers/misc/eeprom/at25.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/misc/eeprom/at25.c b/drivers/misc/eeprom/at25.c
+index e2868f7bdb03..df8daa40b0e1 100644
+--- a/drivers/misc/eeprom/at25.c
++++ b/drivers/misc/eeprom/at25.c
+@@ -209,9 +209,9 @@ static int at25_wait_ready(struct at25_data *at25)
+ 					   SPI_MEM_OP_DATA_IN(1, bounce, 1));
+ 
+ 	read_poll_timeout(spi_mem_exec_op, status,
+-			  status || !(bounce[0] & AT25_SR_nRDY), false,
++			  status || !(bounce[0] & AT25_SR_nRDY),
+ 			  USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT,
+-			  at25->spimem, &op);
++			  false, at25->spimem, &op);
+ 	if (status < 0)
+ 		return status;
+ 	if (!(bounce[0] & AT25_SR_nRDY))
+-- 
+2.53.0
+
 
