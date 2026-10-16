@@ -1,80 +1,93 @@
-Return-Path: <openbmc+bounces-2760-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2761-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5110ACCA467
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2026 18:56:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D23FCC6B38
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2026 04:28:31 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j5HNl2mXJz2xdR;
-	Fri, 16 Oct 2026 05:56:39 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::42d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792090599;
-	cv=none; b=CX+bEj/ZYqQyvXlQyeRWegYj4QcdAb6el/V2CwPLvrAM69c3MJndTh87J/IKYeWP8k+bqoI7U9is+sOizAMuX6TaiAsFIjxSv7W8n9CnzoBfxjsP5Jem4ibsA3Ev1E414NitE91fu6QWPZuAKOloULUnUaGzcbTdItwFbY7EH39zoB9gU804nidxbMxbeAMBU7rML/JioeGgbZlx8M3yQmqhEDZo8dUjXHkTwaHT/Q9enRCBLX/HNCNidBmsSEioViHs4BUzKfad8v/0K6LDJdlBbE5R6yCjiTyjnBSjL9//CbKT7cPM1s6f3goe3fSO4VFNfmTn0exMA4iXhAC02A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j5X4Q5V02z2xQs;
+	Fri, 16 Oct 2026 15:28:22 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::733"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792113621;
+	cv=none; b=OwFh/dbMhhm1wcFvhF4/PziZyJrq+mmf3lcPk5TZwnh16S6zSJrark52Jksqq3tu8zp0FzyzvcvQDnU0+p4LJxlsty0pW6FmROfO57fXIb4MYVAaFAU4+QqB8Yd163I84UabsF3oI2gXMUebjNmlHCCTJetNwWl4qWUFlFWp+9UsCX1qUj3kaK55iZB0D5PJR0HHR+H7zhYVbxa9xDmVQp7P+EHhspn+UltA3Xfaag+sOWCpF/7Q/uKOslKAg3/6wv6XKnERWXKlMeauO6HSxxMQHEDEqatZaVXYNSIGY4YtKWIuW8xXfZHE9uMVV5YXddI6ZfoNFmmV6Ys2CoPjsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792090599; c=relaxed/relaxed;
-	bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=eGBt6S8X+adEoA60wCnDrDFyK+bU7YcKjxLCHu8GNFhl6zHOd0ITDLnh1RQmLon0dHRYTSc7qQ2wSz2los8S9QKklBSIUFZSqO7iilYQ/hnrfrPnuorRcBKsgZYUWr8sOQwQON1jCl+TcR5eYd17SrmjULvGNMyQaAzWQoDT+SKCfR5qCoJVfnkAi3XIFOoNb5mbVNzTspJKyVvdQ/UdDvv9iIXDAfIerg4TR4lmdllD9xGH7CUnE8TxsmHgHOhysm++sUSiEjEVUpPbpGUIvGwOndr+iv0mkZYZM5KYfV/nbTDSImJSev1VfW0FVCbpwJegyUM8Z81uYhacLvpNtA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=M8jgrTyb; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org) smtp.mailfrom=9elements.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+	t=1792113621; c=relaxed/relaxed;
+	bh=PtpsWlwRVaneZFjF+7ofxpGp4s57Txr3eN6Q7YNC+/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=i40cK2xI8JxaaBRVlJ1KhhuX3LWHPd7mX7WoBbrPAAOKALPA8Q+XKxHRyHr2zw39XQxX/nUKWaheAEja5TmqjX/5Bel4/dW6FdRCvqs0PlkY1WdpgGH5buL1ho+cyZ9pBQcT2AtqZYRufa75YwU3D2CUEVsAVYjmkUQny3vnqUDJGlqmTXYoiKMyHiUbjYO4bKjHb/u8EOp8BwSArd8IPgmhgLMPJYeBfYBMlfRHIocKs83Hj1enzkqmaJg4KaCPKPy1bFJXajCOsS/3nDqeeJrg9uNQyBrLY2RUpFRX9d3wP+p3tbgITSvmxd9bIFbUzH6VxZSQm5rQ2XN9UHruKA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N7m2e/vi; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::733; helo=mail-qk1-x733.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=9elements.com header.i=@9elements.com header.a=rsa-sha256 header.s=google header.b=M8jgrTyb;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N7m2e/vi;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::42d; helo=mail-wr1-x42d.google.com; envelope-from=tan.siewert@9elements.com; receiver=lists.ozlabs.org)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::733; helo=mail-qk1-x733.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com [IPv6:2607:f8b0:4864:20::733])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5HNj0NF3z2xb9
-	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 05:56:35 +1100 (AEDT)
-Received: by mail-wr1-x42d.google.com with SMTP id ffacd0b85a97d-48c6955a7c3so1671565f8f.1
-        for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 11:56:35 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j5RvR3dMhz2xLv
+	for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2026 12:20:18 +1100 (AEDT)
+Received: by mail-qk1-x733.google.com with SMTP id af79cd13be357-93e7457349eso192621785a.1
+        for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2026 18:20:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1792090591; x=1792695391; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
-        b=M8jgrTybn3phuza+2CBoD/zLDEE6YpMQYolXgIaYj1jU4RsqKL63/Khz1Kq9iC98fr
-         BzqhVkYQsRqs5rUsvWPxvbLDNoiDZ0Lk6WFM6nHbHHuj6YZrHibOxtgTXkXF0NFBGpm5
-         AePjcG5I/gFQM10X3htr7DW2qM5J5u7NSR/l8jmMTE8bxPvO/Boz16vuqMNW1Kyz16CY
-         ULJ+UoNLm+ydy+SFSQi5fMiuxzGjOilmQ0KwVt0U4iVn7aaCzJGSu0/zVJVsHU5fG5Ee
-         nrbgpUhVm6x27hkynUMhhYIidzx6u/wiSRfefCNvejpvMzMpmrkYduyDsJEPvRg+WaNP
-         4P6w==
+        d=gmail.com; s=20251104; t=1792113615; x=1792718415; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PtpsWlwRVaneZFjF+7ofxpGp4s57Txr3eN6Q7YNC+/E=;
+        b=N7m2e/viTOK/wDi83lWdghoGSKdNPk7fK5xNNeZjVWkPX0YL/lpbESLR6Os/62eSud
+         SDcNdOunX3akCZZdnAzXjkJq6zwkUYDt2lhbpCnJm9z/DkfYCTvYd7AsHUcHAlCCayok
+         374DNT+UVI6JqTVkfHYFHlg4dIxkLL7u78Lu/iJ8dkUfhKhH1gx2jR6FYvpNwUghgZoz
+         MjZ4p8GvsqwA3DkQbHRaxG4OqEDG6pfi5TE27U5EeNSUomrcRvEkyELKFsxBcezGUPzW
+         m5UGLFI4CY0RRkC9fm1lbagMvUPldFrkurVictK1QgNYnSVKNqxXJCqZxAYTzag5kzTY
+         26SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792090591; x=1792695391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w9OS6nwZ/sre2zgwjQKWy+8rIDmWVPr1X4NAgKLgvpE=;
-        b=SAtytR7Kks9Nfklb2gK6SXfB45fTiMkO+mUFXCdxlpUfcu3qW8/yMPV4bLef60yARW
-         YBp3+kEarJxzZlcezXqj5DpQLRPpEYlj8PZns3vxINFeVFi/cZst5qmsqYzVEwZDG444
-         6pq1t+sBamkum1x/AeNQvPVHPyLyX0BmgkDH0IgpclEjyEoi0yDQjXb2ZLaiQ7/LckXd
-         t+/exj1UiXVBVr+5U5YvpP1NCGofff4DgJE6APqVDdsG3Gb9u8neVO+voThWZWrxLv3f
-         VE6m5eSuqxfpv676t+BBFh6+F/QpK4MxRwuYsBUlDNRu8FJGq86eV7yYCYEreZhDehaq
-         5Kgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkl/uw4UUqF0Dz4/cI7EuawHZyU37oLVlsa3yDCjbuVMnyCHFBv8u4pkkkfvJJQ9Jn0eVQXyej@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYJxFRuQH8WwaOzZOIzPHwK3Fx9iItPa4akXnxAd3CdyxlDuh+ZQ
-	G1F4RF4yhmDPxfNOdmbeT2V+iFeA6pddj+ex+bf2SFFaCxhGBkGbP0x4MIK3m2wRSnQ=
-X-Gm-Gg: AYBFou0puezqNlNNucUmFZAEQTVSFogw/nKG45Qbqi0wBsTAz7ybFVNfwewHc60G/xO
-	boAnNKe8k/GcJp0X2w563A5dSFqlRR+trokbzxRIqtcku1Q/j2qavu90kF8wwRwghU9UTCtU+O0
-	cmm53DqU+O9CeeKxAYnQ91Dgx8JUjoB10FPUzilUaX7mhaqtCleWIBoE9MP8qFA8vClnOY1xASK
-	7E2nMFcYv7xvNtYeo+xp+4Ttmm/ic05FoUBdd+XbJCQhAPXabUecQG+zzNzsQR4rhjHyBNC+lmY
-	RyI4QGfAWlrqjJBv0EDRaZx90JlxXSKqWSgkl2x0OiczIhaLxW7U15WtTvpyj4EAh73rnERbEHW
-	55Zel/7Y2kM1rcWRN7LCuq3kxF21EQZfRqHpSSsgh2FYQ4uKJjYVqMbzr3U17ZVzQP9Fpnw+wDf
-	xCZWhC+lkVz7n3EW8cFdf3Ar2jKnxn4fWvb2COdp1zlgZzGd/35LLefbofJV2V2+yxVzoM8gmlX
-	BuqjHEilX9vKuzJPLf1za5lF4o2Kdxlp6Uv0AQ0NgOshcYXjmg=
-X-Received: by 2002:a05:6000:40e0:b0:48c:6a4d:3b67 with SMTP id ffacd0b85a97d-48dbaceb433mr39249716f8f.19.1792090591349;
-        Thu, 15 Oct 2026 11:56:31 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:2f4:b401:e5a6:e075:4922:88e8? ([2001:9e8:2f4:b401:e5a6:e075:4922:88e8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48df0f8f624sm9253962f8f.5.2026.10.15.11.56.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 15 Oct 2026 11:56:31 -0700 (PDT)
-Message-ID: <b583a436-a759-4bc0-9023-a64c6f2d41e4@9elements.com>
-Date: Thu, 15 Oct 2026 20:56:30 +0200
+        d=1e100.net; s=20260707; t=1792113615; x=1792718415;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PtpsWlwRVaneZFjF+7ofxpGp4s57Txr3eN6Q7YNC+/E=;
+        b=ScBnbhvGkQlB2uRn/edVK/2Rz5jsA2QBou5IcB0JbszFPjDdrsMnq3s0rd6JulHaM+
+         H61JDQiseKMjd1nQpDO/M0EOofUQTRZEFrzINjL296VaAOCWDWAuJO4Bk9e9O1rNu4K4
+         a7c8R1Bjia41rphlhci4EyXl+UAONRGM3RJykx4ZCPKU9IcUPvIXwPvKNeKk8SzoVfHg
+         wE4mAu+3Phy4OPdhfB4e9rmT8tqEQ1ytA9eYv2UJZULNJNf93mr9H6ChG8ETAHI0BcyG
+         dvFQQcaQvstDxiSuSqSI7bp1pB8endZPBUU/itgizTaUQZMeC+6HQVMRhJGl37wVpcvW
+         kCWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzsT5pGqMS+QIOfNVJ7EhxBh9AKMfGhhUjB1vUy6GnnLMmQ3x30WAWzxi1AEIDwqa9Ue52G/En@lists.ozlabs.org
+X-Gm-Message-State: AFq9FYL61gQcKp0qUAJGWhT7hs1x0zfaDb0BVn+OVIL0JxqzIw6z+wCx
+	YzcfUhvj4mzd+2v41jtHXUhihOWl+6jIleT9+laFTTlW4Q1qeSaNuEc=
+X-Gm-Gg: AYBFou0qlR/wmyBoYIx2TJjZomw78qG7F9x6owewc3Y6w11b/HhciVUO3psQhpPe8KZ
+	yIkWXCxghL//Bgh5nuRkcc3SUp9wp71vxVqppjGe0wxaHIWtKVfpULyzuJbjVscFVQJnQ7h5qeL
+	lqbvn6D6ZeV8XG+/h6Xjflz5m3EBL39WC5oTamlf8sb4WsWC8rS/PJGcdr6ia4/aDwhHDiSwgeT
+	GA5Rs3ZA67gFZWOMQGwY7E3LmYfksGXIgkw0unq2yBhM/rTQL0RwzixlHal4L2uAh0WmoKstWjy
+	T22rEveX68q7jRtcIrhP3bOEFAF0KWDXoTsa4mX16Lah8lfFQvCPw9n4DlAkg6ghVKbW768ub+D
+	r/hqPduA4jtawsgnLSnximI+KFWUgKZ/oEOrUUfLHVhWcVP3kVz1EeMw6lHw7D3CjalYvgeqKjq
+	CvirW4pVpcnteclc6UMqL+uHuhZzRn4wt+P5QDo99JXCD4iYNLLjs3OMQ1te55W3NSl7GiGNZmO
+	cWU9Jeuk90mW5IiwD6OJSGFWdLKzC+8wRCYIuoeIEs3VlUdLA4g8Pif3xD6yZxfvz26ny/EDk2w
+	pRpcbOT8+yuTQlDWhUTCHIbGbBbS
+X-Received: by 2002:a05:620a:6c01:b0:93c:23e4:359e with SMTP id af79cd13be357-93f1891428amr288853885a.50.1792113614608;
+        Thu, 15 Oct 2026 18:20:14 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f1a1a990fsm76619985a.35.2026.10.15.18.20.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 18:20:12 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: eajames@linux.ibm.com,
+	mchehab@kernel.org,
+	joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: ryan_chen@aspeedtech.com,
+	billy_tsai@aspeedtech.com,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: aspeed: acquire IRQ after reset and clock resources
+Date: Thu, 15 Oct 2026 21:20:08 -0400
+Message-ID: <gm-top10-20261015191529-g65-295aa0ac5211@mhun512.gmail.com>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,34 +99,78 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH linux dev-6.12 v1] eeprom: at25: fix read_poll_timeout()
- arg order
-To: Ninad Palsule <ninad@linux.ibm.com>, openbmc@lists.ozlabs.org,
- andrew@codeconstruct.com.au, joel@jms.id.au, eajames@linux.ibm.com
-References: <20261015172509.2577073-1-ninad@linux.ibm.com>
-Content-Language: en-US
-From: Tan Siewert <tan.siewert@9elements.com>
-In-Reply-To: <20261015172509.2577073-1-ninad@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 7:24 PM, Ninad Palsule wrote:
-> The arguments to read_poll_timeout() in at25_wait_ready() are in the
-> wrong order. "false" is passed as sleep_us, while the macro expects
-> sleep_us, timeout_us and sleep_before_read in that order.
-> 
-> This makes the loop busy-poll instead of sleeping 1 ms between reads,
-> and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
-> fail early.
-> 
-> Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
-> timeout_us, and false as sleep_before_read.
-> 
-> Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
-> ---
+The threaded IRQ uses the reset and clock resources, but it is
+registered before those managed handles are acquired. Reverse devres
+cleanup can release the handles before the IRQ action has been removed
+and joined.
 
-dev-6.12 is unmaintained, thus won't merge it...
+On a resolution-change interrupt, aspeed_video_irq() calls
+aspeed_video_irq_res_change(), which invokes aspeed_video_reset() and
+accesses video->reset through reset_control_assert() and
+reset_control_deassert().
 
-Tan
+Request the IRQ after reset, clock and JPEG-table initialization so
+managed IRQ release precedes release of those handles. Add rollback for
+the JPEG allocation, reserved-memory association and prepared clocks if
+the later IRQ request fails.
+
+This issue was identified as part of our ongoing research while
+reviewing kernel code.
+
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+This fixes managed handle lifetime only.
+
+Compile-tested with Clang 22.1.2, W=1. No runtime or hardware testing.
+
+Base: 0fcb05b72344f40806cbe810de8872f1698bf053
+
+ drivers/media/platform/aspeed/aspeed-video.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+index a292275f6b7b..234001a93ad4 100644
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -2232,14 +2232,6 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 		return -ENODEV;
+ 	}
+ 
+-	rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
+-				       IRQF_ONESHOT, DEVICE_NAME, video);
+-	if (rc < 0) {
+-		dev_err(dev, "Unable to request IRQ %d\n", irq);
+-		return rc;
+-	}
+-	dev_info(video->dev, "irq %d\n", irq);
+-
+ 	video->reset = devm_reset_control_get(dev, NULL);
+ 	if (IS_ERR(video->reset)) {
+ 		dev_err(dev, "Unable to get reset\n");
+@@ -2286,8 +2278,19 @@ static int aspeed_video_init(struct aspeed_video *video)
+ 
+ 	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
+ 
++	/* Release the IRQ before the reset and clock handles on devres unwind. */
++	rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
++				       IRQF_ONESHOT, DEVICE_NAME, video);
++	if (rc < 0) {
++		dev_err(dev, "Unable to request IRQ %d\n", irq);
++		goto err_free_jpeg;
++	}
++	dev_info(video->dev, "irq %d\n", irq);
++
+ 	return 0;
+ 
++err_free_jpeg:
++	aspeed_video_free_buf(video, &video->jpeg);
+ err_release_reserved_mem:
+ 	of_reserved_mem_device_release(dev);
+ 	clk_unprepare(video->vclk);
 
