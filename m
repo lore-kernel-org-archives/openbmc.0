@@ -1,67 +1,79 @@
-Return-Path: <openbmc+bounces-2812-openbmc=archiver.kernel.org@lists.ozlabs.org>
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
-	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05696CCF2DE
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:49 +0000 (UTC)
-Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j7clD1JWHz2ynW;
-	Tue, 20 Oct 2026 01:05:44 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792418743;
-	cv=none; b=I3S8hF+FnkXmhSpErXAaPMXvGECJgTU1oVSXGdjpC1IYLrSHvZg2UCveDDpNFaXzPl4G6LU3rherGXISERr65elGi+PDIr9cUj2N1sAOz/bd0YzTrwflnHr2YNC5+sKdoF7Ixul0hwt+GTH/Y+7ApdCgcS0WuvVadYthHh5TIMWqP/HSB/7vSxi47Dr4CXHtDgFzOhDEAYaK03YGxUQuviPr8HhuBnN3pO5Rb8s7hWbCkP5K82KKSudAlK30a4rvzUWQZLc0uXMXPUoICPb264m1R+Dt/X3tNHKP020NVi7iWRiIk+DA0fao+GTeoyGzIGa2iGATsDPXVcc6Q7bCLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792418743; c=relaxed/relaxed;
-	bh=7cDxpU4h7PLon0nH984O6cOV2WKPkPMLrPLXQMxU55g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cL5nBnrwc+GsW2zS1vtb00LdSjPhcDR8wM9n3sOtJV7OHXa4g+cJ2WM3ADyG4/6UNbOkfh79VrKSkcvG1Pc0wuQ1uJkBbZnmO8LC7n4hUzGhMr9yX/vyvfncf9Cpb4X/w2hPF9SwJGMuHc3VOX6cZBay1xIuqynyy2Vosbg7rVyrtcssC8kwEjo1ZCyM9wWk5YkqkzrYdWj51aww1kyv4wORhR4vBjgUR6W7KjIxzBv2s0XmUbydo6+/5GydIl/du1jcuQxysCnhTq7j8YTioTwV7np/eZghwGjq0/La5byaQKgRAVk+MwbpLPcKgKsQLxNVPLgGAo4HjJSV2XdiHQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCiU/Fab; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCiU/Fab;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j7clB5r6bz2yfs
-	for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2026 01:05:42 +1100 (AEDT)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id B551460213;
-	Mon, 19 Oct 2026 14:05:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A431F000C6;
-	Mon, 19 Oct 2026 14:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418740;
-	bh=7cDxpU4h7PLon0nH984O6cOV2WKPkPMLrPLXQMxU55g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iCiU/FabYqYihhFEr91ABX8s79SlkjGeTjLiekhJEQP5NGPGBQa8+l5D5AWorrbDL
-	 vOtF4ZidpquaQQ9gd7odJvT7472vQZMrYlr/lLnP8WtjDi+IZz/GuHxd5RpDTwYc9o
-	 Np7p5OGJP9U6Iu+eOD8YkYLHE4pZjhbxkvOEwncDCRIKM6haFp21GxX5EazA8+jnH2
-	 Na451Yg0wwxZQlC4gwnH16vQWxReJXz6e3kUIxAHRKgsjnV4aRZLaEPgas6iHM9XZb
-	 6pIUmu3AzV33mDU4ziFCOZrpOPFO+KsaJZ+A3eJMofkcZDufLD95aYYk4555T/FzlX
-	 8YebOD8PQN//Q==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	andrew@codeconstruct.com.au,
-	avifishman70@gmail.com,
-	tali.perry1@gmail.com,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] pinctrl: npcm8xx: clear pending GPIO events during init
-Date: Mon, 19 Oct 2026 09:52:33 -0400
-Message-ID: <20261019135441.1420968-462-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
-References: <20261019135441.1420968-1-sashal@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1F1606A319
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2026 23:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FvItgfkB
+Received: from boromir.ozlabs.org (localhost [127.0.0.1])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j7sRq72rPz2yD3;
+	Tue, 20 Oct 2026 10:38:15 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792397613;
+	cv=none; b=CQD9PSWUTqqSFUY1Z0fDrjDm8gcfoT5xh+7LHrmkVZPGwQhaQPyQ41Vd8TqQ5gky8lCZcuy95GMUowq9rRnBNheMwJhcnlDr97WiEvDFWiViQoRXgz8SFavgAGbFPp+da1onhi0iqNXfchllGYkIOpt3JPS5BCRfcAH7qyzWhifas1uuHgo3tCopMbpaeWAsAP3O1D61wRHwh6CU9ezhsP3uuisLyEVLgXxisb8mqbH5s0owjpIY/W4H7k3/C1IjDHMXPKdGHK5Yt9ZgaZ8ySe4NZrWq2IqsKfyDyuPrk7D7q6tiaPAuVH9F9am5PJfRmXDsYwnMP/4WtyY01yoIEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1792397613; c=relaxed/relaxed;
+	bh=trNQO0U9XQLBOWcQGLIc+ci4GywnkatJEUe8E9u6r4I=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=RSjy63ThG6YLGRJzGUcph+wfASreBYRF7+SjufXKU3771YFGnO1KYnERCjsFIPalIrYvsQQLVZ43doECZ+h4wDy/eoC0AvCz/JwLXJhByqaaADTABX0AO/QN/fgS+kXX9r5M2YV1sZv64dOl4F8XLB790KAKOh4QIDDc1dNMfQA03NIdMX3ANesklIxzDPBdsKzxFjIIQ8n6bLKkFJcYxCygLcmxS44NruepRjwLoWEncO2OYHjNPUZwqwdztG100mHvSFP0OADzT6A/DSTT2ky4j4UNu9xQ6fTPwiQjw3n9rTrtV95Xm+jnjC/THDE7ZGQ87EIp+fN8lSE1H/TOyA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FvItgfkB; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FvItgfkB;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j7Swq42gVz2xPW
+	for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2026 19:13:28 +1100 (AEDT)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C341E1A1208;
+	Mon, 19 Oct 2026 08:13:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9304F60582;
+	Mon, 19 Oct 2026 08:13:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C06F010328429;
+	Mon, 19 Oct 2026 10:13:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792397601; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=trNQO0U9XQLBOWcQGLIc+ci4GywnkatJEUe8E9u6r4I=;
+	b=FvItgfkBI0uIwemxLOQyXNqDxWTC/p0cGmtkocphPeGleMMne9ZPgFH0wpCiMNJtFVpPKV
+	+g1u7KYl2AJaktUp0fVPQLS+bEuvTbJB9e7RfonI4dpFbM29cq7QBf6xt9KPPehchHuHXd
+	yL9QIyg4JYh8gCnBNPJ6z9OjGOcL6rHMvJ4pldB6QC7y0LtoBGTPEfyj1ez4iVYMO+ng/q
+	JMi6xmyW+h7DjjhbvAai1Swrfgsi80X7i9etz4cbWXjgsNa1VDPhuykMnp5o6ABI+955Z9
+	ZvqH8FrEy2lodwuX4g7n4uCq6sSiR9PjTSTaoKfSY+jmZdAOcgF6y18MWSRAig==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v10 03/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from
+ DT when possible
+In-Reply-To: <179224882241.859276.15035084302735586039.b4-review@b4> (Jerome
+	Brunet's message of "Sat, 17 Oct 2026 16:53:42 +0200")
+References: <20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com>
+	<20261015-perso-ma35d1-upstream-clk-v10-3-47c97b54a809@bootlin.com>
+	<179224882241.859276.15035084302735586039.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 19 Oct 2026 10:13:08 +0200
+Message-ID: <87zewayup7.fsf@bootlin.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -70,407 +82,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-digest@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
-List-Unsubscribe: <mailto:openbmc+unsubscribe@lists.ozlabs.org>
 Precedence: list
+X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.57
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Tomer Maimon <tmaimon77@gmail.com>
-
-[ Upstream commit cd39cce4cfd499f555eb8b8252636609c3468f57 ]
-
-A bank may retain pending event status across resets of the GPIO block.
-If probe leaves the old state in place, the chained IRQ handler can see
-spurious events as soon as the irqchip is registered.
-
-Disable event generation and clear EVST before wiring each GPIO bank
-into gpiolib so the driver starts from a known state.
-
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-The local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-NPCM8XX pinctrl/GPIO driver is present, the leftover EVEN/EVST init gap
-is real on this path, and the change is a 3-line hardware init fix that
-belongs here.
-
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
-
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[pinctrl/npcm8xx] [clear] [clear leftover GPIO event
-enable/status before irqchip registration]**
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-Record:
-- Signed-off-by: Tomer Maimon \<tmaimon77@gmail.com\> (author; original
-  NPCM8XX driver author)
-- Signed-off-by: Linus Walleij \<linusw@kernel.org\> (pinctrl
-  maintainer)
-- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
-  or Cc: stable (absence is expected)
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Record:
-- **Bug:** GPIO bank EVEN/EVST can survive GPIO-block reset
-  (bootloader/firmware leftover).
-- **Symptom:** chained IRQ handler sees spurious events as soon as the
-  irqchip is registered at probe.
-- **Root cause:** probe never disables event generation or W1C-clears
-  EVST before `gpiochip_add_data()`.
-- **Fix:** write EVEN=0, then EVST=0xffffffff, per bank, before gpiolib
-  wiring.
-- **Versions:** none stated. Bug is an omission since the driver was
-  added.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not disguised. Subject/body describe a real init-time IRQ bug.
-Cover letter of the v1 8-patch series called the series a vendor-tree
-cleanup, but this patch is a concrete spurious-IRQ fix, not style-only.
-
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-**Step 2.1: INVENTORY THE CHANGES**
-Record:
-- File: `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` (+3 / −0)
-- Function: `npcm8xx_gpio_fw()`
-- Scope: single-file surgical init fix
-
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Record:
-- **Before:** after `fwnode_irq_get()`, the bank’s EVEN/EVST were left
-  as hardware left them; later `npcm8xx_gpio_register()` set
-  `girq->parent_handler = npcmgpio_irq_handler` and called
-  `devm_gpiochip_add_data()`.
-- **After:** EVEN is forced to 0 (no event generation), then EVST is
-  W1C-cleared with `0xffffffff`, still before irqchip registration.
-- Path: probe/init only (`npcm8xx_pinctrl_probe` → `npcm8xx_gpio_fw`).
-
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record:
-- **Category:** hardware leftover interrupt state / spurious IRQ (init
-  hygiene, same class as a quirk).
-- **Mechanism:** `npcmgpio_irq_handler()` does `sts = EVST; en = EVEN;
-  sts &= en;` then `generic_handle_domain_irq()` for set bits. If
-  firmware left EVEN and EVST non-zero, the first chained invocation
-  dispatches IRQs for lines that were never requested. Parent bank IRQs
-  in DT are **GIC_SPI, IRQ_TYPE_LEVEL_HIGH**; leftover asserted status
-  can keep the parent line high (storm / “nobody cared”).
-  `npcmgpio_irq_ack()` writes `BIT(gpio)` to EVST, confirming EVST is
-  write-1-to-clear; writing `0xffffffff` is the correct all-clear.
-  Disabling EVEN first avoids a new event sneaking in between the two
-  writes.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record:
-- Obviously correct: disable, then W1C-clear, before the handler is
-  installed.
-- Minimal: two MMIO writes, no API/struct/locking changes.
-- Regression risk: very low. Linux GPIO IRQs must be requested through
-  gpiolib; inheriting bootloader unmasks is not a supported ABI.
-  Starting masked+cleared is the normal irqchip model.
-
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
-
-**Step 3.1: BLAME THE CHANGED LINES**
-Record: The surrounding `npcm8xx_gpio_fw()` bank setup comes from
-**acf4884a57170** (“pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO
-driver”, 2023-08-28), first in **v6.7-rc1**. The bug is missing init,
-present for the lifetime of the driver.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. N/A. Introduced-by is the original driver commit
-above. `git merge-base --is-ancestor acf4884a57170 HEAD` is implicit:
-the file exists on this 7.3 tree.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Same-day series (2026-07-15) in this file:
-1. drop RTS/CTS from bmcuart1
-2. enable RMII outputs
-3. RG2 drive strength
-4. **this commit**
-5. rename GPIO7 IOX2
-6. move IRQ setup into `request_resources`
-7. JM1/SMB7 pin flags
-8. debounce register selection
-
-This patch does not use symbols or structure from 1–3 or 5–8.
-Standalone.
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Tomer Maimon is the Nuvoton driver author
-(`MODULE_AUTHOR("tomer.maimon@nuvoton.com")`) and added both NPCM7XX and
-NPCM8XX pinctrl drivers. Weight: high.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: None. Uses existing `NPCM8XX_GP_N_EVEN` / `NPCM8XX_GP_N_EVST`
-and `iowrite32()`. Applies standalone.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-Record:
-- `b4 dig -c cd39cce4cfd499f555eb8b8252636609c3468f57` →
-  https://patch.msgid.link/20260715122923.1938327-5-tmaimon77@gmail.com
-- v1 only (`b4 dig -a`): **[PATCH v1 4/8]** in “pinctrl: npcm8xx: fix
-  pinmuxing and configuration handling”
-- Cover letter: issues found by comparing upstream with the Nuvoton
-  tree; this patch is called out as clearing stale GPIO events at probe.
-- Linus Walleij (2026-07-24): “No comments so patches applied.” No NAK,
-  no requested respin.
-- Applied version is v1 (only revision).
-
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): To/Cc included linusw@kernel.org (pinctrl
-maintainer), brgl@kernel.org (GPIO), andrew@codeconstruct.com.au,
-openbmc@lists.ozlabs.org, linux-gpio, Nuvoton/Google OpenBMC people.
-Maintainer applied the series. No Reviewed-by tags on the commit.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No Reported-by, bugzilla, or syzbot. Trigger is SoC/firmware
-leftover state, not a fuzzer path. Author is the vendor driver owner;
-that is how this class of BMC GPIO bugs usually surfaces.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 8-patch v1 series. Other patches are pinmux/drive-
-strength/rename/lockdep-IRQ-startup/debounce — not prerequisites. This
-3-line hunk is self-contained.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search returned HTTP 403. **UNVERIFIED:**
-no confirmation of prior stable-list discussion. gpio list mbox had no
-“Cc: stable” and no objection.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `npcm8xx_gpio_fw()` (modified). Related, not edited:
-`npcmgpio_irq_handler()`, `npcm8xx_gpio_register()`,
-`npcm8xx_pinctrl_probe()`.
-
-**Step 5.2: TRACE CALLERS**
-Record:
-- `npcm8xx_gpio_fw()` ← `npcm8xx_pinctrl_probe()` only (platform probe,
-  `arch_initcall`).
-- `npcmgpio_irq_handler()` ← chained parent handler for each of 8 GPIO
-  banks.
-- Context: boot/probe, then hardirq for bank SPI 116–123.
-
-**Step 5.3: TRACE CALLEES**
-Record: `iowrite32()` to EVEN and EVST. No alloc, no locks. Later
-`npcm8xx_gpio_register()` → `devm_gpiochip_add_data()`.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: DT `compatible = "nuvoton,npcm845-pinctrl"` with 8
-`gpio@f001x000` nodes, each `interrupts = <GIC_SPI 11x
-IRQ_TYPE_LEVEL_HIGH>`. Reachable on every NPCM845/NPCM8XX boot
-(OpenBMC). Not a syscall fuzzer path; userspace GPIO IRQ consumers can
-be hit by the spurious events if leftover enables match those lines.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: NPCM7XX has the same EVEN/EVST handler and **does not** clear
-them at init (same latent class, out of scope). `pinctrl-owl.c` also
-clears pending GPIO IRQs in its handler path. Pattern is established.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` is in this
-7.3-rc4 tree. Driver since v6.7. Without the two writes,
-`npcm8xx_gpio_fw()` still maps banks and `npcm8xx_gpio_register()` still
-installs `npcmgpio_irq_handler`. Bug introduced with the driver, long
-before 7.3.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply. Hunk sits immediately after `fwnode_irq_get()` in
-`npcm8xx_gpio_fw()`, which exists here. No structural mismatch.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No earlier equivalent EVEN/EVST init. This is the first such
-clear on this file (`git log --grep='pending GPIO'` / `'spurious'` on
-that path only hits this commit).
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **pinctrl/GPIO, Nuvoton NPCM8XX (BMC SoC).** Criticality:
-**PERIPHERAL** for the kernel as a whole, **IMPORTANT** for NPCM845
-OpenBMC/server BMC users. `CONFIG_PINCTRL_NPCM8XX` depends on `ARCH_NPCM
-|| COMPILE_TEST`.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature driver (v6.7), with a burst of vendor fixes in the 7.3
-window. Not staging.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Driver-specific / platform-specific: Nuvoton NPCM8XX (e.g.
-NPCM845) systems using this pinctrl driver. Typical population: OpenBMC
-on that SoC.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Boot/probe, when firmware or a partial GPIO-block reset left
-EVEN/EVST non-zero. Common on BMCs (bootloader uses GPIOs). Not
-unprivileged-syscall; it is default hardware bring-up.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record:
-- Spurious chained IRQs at probe.
-- Parent IRQs are **level-high**; leftover enable+status can hold the
-  line → IRQ storm, “nobody cared”, hung boot.
-- `generic_handle_domain_irq()` on never-requested lines (this driver
-  defaults `girq->handler = handle_level_irq`, not `handle_bad_irq`).
-- **Severity: HIGH** (boot IRQ storm / spurious IRQs on BMC GPIO). Not a
-  universal panic, but a real stability failure on affected boards.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** high for NPCM8XX (known-state IRQ init; prevents probe-
-  time storms).
-- **Risk:** very low (2 MMIO writes, probe only).
-- **Ratio:** strongly in favor of applying.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR:
-- Real leftover-hardware IRQ bug, not a refactor.
-- Level-triggered parent IRQs make leftover EVST/EVEN a boot storm risk.
-- 3 lines, obviously correct (mask then W1C-clear before handler
-  install).
-- Author is the vendor driver owner; pinctrl maintainer applied it.
-- Driver and insertion point exist in this 7.3 tree; no prerequisites.
-- Same class as accepted GPIO “clear pending at init” fixes.
-
-AGAINST:
-- No user/syzbot report; found via vendor-tree comparison.
-- Affects one BMC SoC family, not core kernel.
-- No Cc: stable (not a negative by itself).
-- Series mixed in feature/rename patches (this hunk does not depend on
-  them).
-
-UNRESOLVED:
-- Could not search lore.kernel.org/stable (HTTP 403).
-- No independent Tested-by.
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — two register writes,
-   maintainer applied; no test robot/NAK. Formal Tested-by absent, but
-   the change is reviewable from the handler and DT IRQ type.
-2. Fixes a real bug that affects users? **PASS** — leftover EVEN/EVST →
-   spurious chained IRQs on NPCM8XX probe.
-3. Important issue? **PASS** — boot-time spurious/level IRQ storm on BMC
-   GPIO, not cosmetic.
-4. Small and contained? **PASS** — +3 lines, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — file, registers, and
-   `npcm8xx_gpio_fw()` insertion point are here.
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Hardware init/workaround (clear stale IRQ state). Not a new ID,
-but the same “make existing hardware boot cleanly” exception.
-
-**Step 9.4: MAKE YOUR DECISION**
-This is a small, correct, self-contained fix for leftover GPIO event
-state that can fire the chained handler as soon as the irqchip is
-registered. The buggy path exists in this 7.3 tree. It should be applied
-here.
-
-What the commit solves: NPCM8XX GPIO banks can keep EVEN/EVST across
-GPIO-block reset. Probe used to register the chained handler on that
-dirty state, so leftover enables × pending status become spurious (and,
-with level-high parents, potentially stuck) interrupts at boot.
-
-Stable rules: obviously correct, real bug, important for that platform,
-tiny, no new API, applies cleanly.
-
-Risk vs benefit: two MMIO writes at probe vs boot IRQ storms on OpenBMC
-NPCM845. Benefit dominates.
-
-Concerns: no public reproducer; NPCM7XX still has the same gap (does not
-block this fix). No extra backports required.
-
-Verification:
-- [Phase 1] Parsed tags: only Tomer Maimon + Linus Walleij SOBs; no
-  Fixes/Reported-by/stable
-- [Phase 2] Diff: +3 lines in `npcm8xx_gpio_fw()`; EVEN=0 then
-  EVST=0xffffffff
-- [Phase 2] Handler at lines 210–227 ANDs EVST with EVEN then
-  `generic_handle_domain_irq()`
-- [Phase 2] `npcmgpio_irq_ack()` writes `BIT(gpio)` to EVST → W1C
-  confirmed
-- [Phase 3] Driver added in acf4884a57170 (v6.7-rc1); blame of
-  surrounding init is that commit
-- [Phase 3] `git merge-base --is-ancestor` of the fix vs HEAD: commit is
-  in this 7.3 history; code path exists either way
-- [Phase 3] Standalone vs 8-patch series: no shared symbols with
-  neighboring patches
-- [Phase 4] `b4 dig -c cd39cce4cfd49`: lore msgid
-  20260715122923.1938327-5; v1 4/8
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: linusw, brgl, openbmc, linux-gpio
-- [Phase 4] mbox: Linus Walleij “No comments so patches applied.”; no
-  NAK; no Cc: stable
-- [Phase 4] Cover letter (LKML archive): vendor-tree comparison; this
-  patch listed as stale-event clear
-- [Phase 4] lore.kernel.org/stable: 403, UNVERIFIED
-- [Phase 5] Callers: `npcm8xx_pinctrl_probe` only; 8 DT GPIO banks,
-  GIC_SPI 116–123 level-high
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion`: 7.3.0-rc4
-- [Phase 6] File and `fwnode_irq_get` insertion point present; apply
-  would be clean
-- [Phase 8] Failure mode: spurious chained GPIO IRQs / possible level-
-  triggered storm at probe; HIGH on NPCM8XX, not core-wide
-- UNVERIFIED: stable@ list discussion; independent user reports
-
-**YES**
-
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index c94441b2acdae..22cc87d43ea69 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2412,6 +2412,9 @@ static int npcm8xx_gpio_fw(struct npcm8xx_pinctrl *pctrl)
- 		if (ret < 0)
- 			return dev_err_probe(dev, ret, "Failed to retrieve IRQ for bank %u\n", id);
- 
-+		iowrite32(0, pctrl->gpio_bank[id].base + NPCM8XX_GP_N_EVEN);
-+		iowrite32(0xffffffff, pctrl->gpio_bank[id].base + NPCM8XX_GP_N_EVST);
-+
- 		pctrl->gpio_bank[id].irq = ret;
- 		pctrl->gpio_bank[id].irq_chip = npcmgpio_irqchip;
- 		pctrl->gpio_bank[id].irqbase = id * NPCM8XX_GPIO_PER_BANK;
--- 
-2.53.0
-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
+	aws-us-west-2-korg-listserv-alma10-1
+
+
+>> +	/*
+>> +	 * Old DTs do not describe the low-speed crystal. They may also expect
+>> +	 * an HXT output from this driver. In practice, nobody should use these
+>> +	 * clocks directly, but they must be kept for backward compatility
+>> +	 * purposes.
+>> +	 */
+>> +	if (num_clks =3D=3D 1) {
+>> +		hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
+>> +	}
+>
+> The above is fine but the problem is those IDs still exist and something =
+like
+> <&clk HXT> is still valid in DT but now does not provide a clock
+> anymore.
+
+Yeah, it's hard to prevent, but people would immediately face errors
+when developing anyway.
+
+> This is why I asked if you about removing the ID. At the very least a com=
+ment is
+> needed next to the IDs saying those are obsolete and should not be used.
+
+Ok, 'next to the IDs' may be relevant indeed, I'll add that.
+
+Thanks,
+Miqu=C3=A8l
 
