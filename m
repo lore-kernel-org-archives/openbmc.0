@@ -1,49 +1,49 @@
-Return-Path: <openbmc+bounces-2810-openbmc=archiver.kernel.org@lists.ozlabs.org>
+Return-Path: <openbmc+bounces-2811-openbmc=archiver.kernel.org@lists.ozlabs.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C04CCF2E7
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2026 13:57:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85351CCF2E3
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2026 14:05:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j7cY568Ftz2ygg;
-	Tue, 20 Oct 2026 00:56:57 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792418217;
-	cv=none; b=lCTGnXcfNszRAsnfx28OohNfrLMB/nl7URWyB1RloGmUz3M07TqUeUG3jMJb9i6q7STuh2iv17hj2sUXcfRPwb8qPkboQL3/AXHL3T/c3iNwK9iJOkhRPr9yojyybiezsIWdZQUT5A/3L5IaTzchj8k6NK298exmbK97thEtWxSJ31oHp7RO/cXc8PVCm98ZhyVb5caylfck5f+0O69gwO2pZIft09HoHE488t+QZg3nhSUcN3H0IyNfDlLl5unvlfhsNVv/rSnqHVK2V2GOXRTdjlaj/RofuWVomm3YqjWDQGgbrt7eyRgkhecFG9o0TmtWYIWYApXZQ8UgWYXOPA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j7ckn5lqCz2ygg;
+	Tue, 20 Oct 2026 01:05:21 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792418721;
+	cv=none; b=DsdJZl+L04TLM7AdU5UyWzCMIMHIfZig79e+JW1jmM59ONy/6W25N0pW9bR43seUiBER79fChLwkZrMNuBo/O7KeO7hF5O2P6m2uApp8XEqyJY20pKRDObtQV7YQqMIjBKt6J1+jd/77iHek0Rw8W58fUXcg2UMO2re+onJ2q2GGycsQbQOoE+c6yWPRuHF4CiSO4Oh/pn4iFcSDdkdQ2WuoQtsVzbOyfMnc4HkFCZfcG7Pyv7xpk1KjQXwBqneCeu6A7fvX1vZ+QqHJswxrsSha2kdobuB0VxW7L+ZZ6eSnTb9UgtZezcD49h7SxvXK/qZtaC4M7NeMxsorbPC2Og==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792418217; c=relaxed/relaxed;
-	bh=RBg2HH6BixzdAEJ3GT79k0MdNl551Cl17A6oZmv23J4=;
+	t=1792418721; c=relaxed/relaxed;
+	bh=3HkTGF9xh3harCN/8UsuYuja0pY//1FUxUgh35dHIcM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eRhjhtVbesGfvWdOT/dzvVZqFfZaS4G3kQwLQZJVO3afNVzkj9yS5XR2dTR0SyWv1JNyrI5Tzg36ES+o3nrMCv7sE0gBICJSt7C82Y2UoPDIGDGL0dBJlN7B+n9gHq1c2GIc/uxSGfb/CUi4uXb7fZc++MguwHvQpqcuvkJPjVw30jfr4P3wSioLAV2sV4ZSLcV/QjjjYBrwZa83xBdm39Eyvxcwj9SxA4RCzkxyiVaKraqh0xFmd4yL87Nme00GIZYTo16KLVfqQBxuY+u5ikzd8Pl+cpgUEJDPwCbKnQZ6XR7ocgTiYUo9BiY1sJPowRqGj6fWv6mmT9FEjfApVg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5lc6piF; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 MIME-Version:Content-Type; b=VByAr4T8grs0wq3lCHC1NJGl76MNG0niX0OaaK2qhzIzsWoC0REg0F/CS3vUEIlp6urTBlpBuQzITq80opNZY0u8OIKfXxSxx/IAU1LgNtSQ6obW6IPfN8m9twNl88f9Eb/ICyct1qGZKtMvedfwbEX++Sgbe75n2D5NdIdYebbqTNWE+xnCYHVMrbIOj/JLnokFabAZxLLLelpXNmHwtgYFz3Zw7ZRgTAK94PBe8EW7qjkrphj6QCuDiH0nBgiJuiAqemxCaFtsAiuSXDoxLY/wsban0j+POghjeXPbfcZh3OIXNxOxmJqFF+0BhhKQjgnbO0DVnxcJedybJHCnHg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ac3mMtoG; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5lc6piF;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ac3mMtoG;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=sashal@kernel.org; receiver=lists.ozlabs.org)
+Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j7cY44LX4z2yfD
-	for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2026 00:56:56 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j7ckm3Fz6z2yfs
+	for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2026 01:05:20 +1100 (AEDT)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 8A69240DB8;
-	Mon, 19 Oct 2026 13:56:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A041F000C5;
-	Mon, 19 Oct 2026 13:56:53 +0000 (UTC)
+	by sea.source.kernel.org (Postfix) with ESMTP id 16B7440E3D;
+	Mon, 19 Oct 2026 14:05:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D948D1F000C9;
+	Mon, 19 Oct 2026 14:05:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418214;
-	bh=RBg2HH6BixzdAEJ3GT79k0MdNl551Cl17A6oZmv23J4=;
+	s=k20260515; t=1792418718;
+	bh=3HkTGF9xh3harCN/8UsuYuja0pY//1FUxUgh35dHIcM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H5lc6piFfh6Jhb6ab3keGaF//wyPCye/BGckoOF8Mmqg9fHlqLYGGdsKLGf1/GADz
-	 4MzJFEjqCJWMrqypC1/9bI5vfmU+l97BNAEMQ4fPmm4ZCwYqpYJa/EPw4k7kBBhyAU
-	 dIgEHq1fq10XsNlSsleOwKJoubb23LlZjrpmAGL1NvmoxVO0l6cJ9Aj21ErUThib8G
-	 3NaClWq4GKu70ERdNMNhpl6rCLkwDODGLdA0WwuCSr15vZLyvkmHArWH+xQWMD95sl
-	 a+JK7Q4ZGRUTABRTfxPdY87puQx5oSsx8UQMsLw0ElLW2I4p/OZFqCLxCFoKCALgIf
-	 pIrdmSwNlj5XQ==
+	b=Ac3mMtoGk9aVZCAD6QvBDoj2v5FAIfGicvGOQCKgvgHfX5Gt7B5b5mEPyg3TS+FH8
+	 /LFmqbkav4mddqxqFcCeIVHT+hJct4ebPFaRHyNRgUqN5/gm3025TxgikGOl3n6bob
+	 DW/UBIlSFXNNkADMcGt0u+u1QyOZfjnqX2qU983/d8mog1RqmKEOsQs+1j62biVME5
+	 fOzTokXlW98pt3iHplc94RbFNAdNuzI5pCvD567a9LcyCaQg44fYkc68hzklp/Ezqv
+	 KfqrFmIvr3XPGFaZ7RMWU21Zo8FQMSktmT5UJupDMr3usXop8pXfmR+BccAUHCzZ4J
+	 HJQ5g2HvviIHA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -56,9 +56,9 @@ Cc: Tomer Maimon <tmaimon77@gmail.com>,
 	openbmc@lists.ozlabs.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] pinctrl: npcm8xx: fix debounce register selection
-Date: Mon, 19 Oct 2026 09:46:24 -0400
-Message-ID: <20261019135441.1420968-93-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] pinctrl: npcm8xx: enable RMII outputs from RMII groups
+Date: Mon, 19 Oct 2026 09:52:17 -0400
+Message-ID: <20261019135441.1420968-446-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -81,15 +81,18 @@ Content-Transfer-Encoding: 8bit
 
 From: Tomer Maimon <tmaimon77@gmail.com>
 
-[ Upstream commit 602ee6c9447e4382c7e145b26a1c940813f2a144 ]
+[ Upstream commit c6ccdc305589dd7c7976116e0870a23f291c5fa9 ]
 
-Each DBNCS register programs debounce source selection for 16 GPIOs.
-The current offset calculation advances the register address every four
-GPIOs, so offsets 4-15 and 20-31 end up touching the wrong selector
-register.
+NPCM8xx uses GCR_INTCR4 bits to release the R1, R2 and RMII3
+transmit outputs from Hi-Z.
 
-Advance the DBNCS offset per 16 GPIOs so each line uses the debounce
-selector bank that matches the hardware layout.
+Those bits need to follow the mandatory r1, r2 and rmii3 pin
+groups. The R1_OEn, R2_OEn and R3_OEn side groups are optional and
+should not be required just to enable RMII transmit outputs.
+
+Program the INTCR4 bits when the corresponding RMII groups are
+selected and clear them again when those pins switch back to GPIO or
+another shared function.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 Signed-off-by: Linus Walleij <linusw@kernel.org>
@@ -98,367 +101,408 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 LLM Generated explanations, may be completely bogus:
 
-The local checkout is **v7.3-rc4** (mainline 7.3.0-rc4). The candidate
-is a one-line DBNCS offset fix in the Nuvoton NPCM8XX pinctrl driver;
-the buggy formula has been in this file since the driver landed in v6.7.
+This is a real NPCM8xx hardware-programming bug (RMII TX left in Hi-Z),
+and the local 7.3 tree already has the driver and the affected mux path.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-Record: **[pinctrl/npcm8xx] [fix] [debounce DBNCS register offset is
-wrong for most GPIOs in a bank]**
+Record: `[pinctrl/npcm8xx] [enable] [program INTCR4 so RMII TX leaves
+Hi-Z when r1/r2/rmii3 groups are selected]`
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
 Record:
-- Signed-off-by: Tomer Maimon \<tmaimon77@gmail.com\> (author; original
-  NPCM8XX pinctrl driver author)
-- Signed-off-by: Linus Walleij \<linusw@kernel.org\> (pinctrl
-  maintainer; applied the patch)
-- No Fixes:, Reported-by, Tested-by, Reviewed-by, Acked-by, Link:, or
-  Cc: stable (absence of Fixes/Cc:stable is expected for this review)
+- Signed-off-by: Tomer Maimon `<tmaimon77@gmail.com>` (author; Nuvoton)
+- Signed-off-by: Linus Walleij `<linusw@kernel.org>` (pinctrl
+  maintainer)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
+  or Cc: stable
+- Absence of Fixes/Cc-stable is expected for this review and is not a
+  negative signal
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
 Record:
-- **Bug:** Each DBNCS register selects debounce source for 16 GPIOs. The
-  driver advanced the register pointer every four GPIOs (`gpio / 4`
-  bytes).
-- **Symptom:** GPIOs 4–15 and 20–31 program the wrong selector register
-  (and, for most of those, an unaligned address).
-- **Root cause:** Integer-division “simplification”: `(gpio / 16) * 4`
-  is not `gpio / 4`.
-- **Version info:** None in the message. Driver introduced in v6.7-rc1.
-- **Failure mode:** Hardware debounce source is programmed into the
-  wrong MMIO location.
+- Bug: NPCM8xx GCR_INTCR4 bits 12–14 release R1/R2/RMII3 transmit pads
+  from Hi-Z. The driver muxed the mandatory `r1`/`r2`/`rmii3` groups but
+  never programmed those bits.
+- Symptom: RMII TX stays tri-stated, so those Ethernet ports cannot
+  transmit.
+- Root cause: INTCR4 was (incorrectly) treated as belonging to optional
+  `R1_OEn`/`R2_OEn`/`R3_OEn` side groups; those groups are separate pins
+  and do not program INTCR4.
+- Version info: none in the message. Driver itself arrived in v6.7-rc1.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not a disguised cleanup. Subject and body describe a register-
-selection bug. The 2022 pre-merge driver used `gpio / 16` with a `* 4`
-stride; mainline shipped the broken `gpio / 4` form.
+Record: Not a disguised cleanup. The cover letter of the series calls
+the set a “cleanup,” but this patch is explicit hardware-correctness: TX
+is stuck in Hi-Z until INTCR4 is programmed. That is a functional bug,
+not a style change.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
 Record:
-- File: `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` (+2/−1)
-- Function: `debounce_timing_setting()`
-- Scope: single-file surgical fix (one expression)
+- File: `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` (+61 / −0)
+- New helpers: `npcm8xx_rmii_output_enable_mask()`,
+  `npcm8xx_set_rmii_output_enable()`
+- Modified: `npcm8xx_setfunc()` (one call at the end)
+- New defines: `NPCM8XX_GCR_INTCR4`,
+  `NPCM8XX_INTCR4_R1_RMII_EN/R2_RMII_EN/RMII3_EN`
+- Scope: single-file surgical change
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
 Record:
-- Hardware: `NPCM8XX_GP_N_DBNCS0` at 0x80, `DBNCS1` at 0x84; 2 bits per
-  GPIO; 16 GPIOs per 32-bit register. Bit index `(gpio % 16) * 2` was
-  already correct.
-- Before: `base + 0x80 + (gpio / 4)`
-  - gpio 0–3: 0x80 (DBNCS0, aligned)
-  - gpio 4–7: 0x81, 8–11: 0x82, 12–15: 0x83 (unaligned, inside DBNCS0)
-  - gpio 16–19: 0x84 (DBNCS1, accidentally correct)
-  - gpio 20–31: 0x85–0x87 (unaligned; 32-bit RMW can overlap DBNCP0 at
-    0x88)
-- After: `base + 0x80 + (gpio / 16) * 4` → 0x80 for 0–15, 0x84 for
-  16–31.
-- Path: pinconf set of `PIN_CONFIG_INPUT_DEBOUNCE` only (not a
-  probe/error-path change).
+- Before: `npcm8xx_setfunc()` only updated MFSEL/I2CSEGSEL bits from
+  `pincfg[]`. INTCR4 was never written.
+- After: after that mux, INTCR4 bits 12–14 are set iff the selected mode
+  is `fn_r1`/`fn_r2`/`fn_rmii3` for pins in those groups; they are
+  cleared when those pins go back to GPIO or another function.
+- Paths: pinmux set (`npcm8xx_pinmux_set_mux`) and GPIO request
+  (`npcm8xx_gpio_request_enable`). Normal mux/GPIO path, not an error
+  path.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: **[Logic / hardware programming]** Wrong MMIO offset. Matches
-the bit-field layout already in the same function. `npcm_gpio_set()`
-does `iowrite32(ioread32(reg) | pinmask, reg)` on that pointer.
+Record: `[Hardware programming / logic correctness]` Incomplete mux:
+existing RMII groups did not drive the SoC output-enable bits, so TX
+pads stayed Hi-Z. Fix programs those bits from the same `setfunc()` path
+that already muxes the groups. Pin lists match `r1_pins[]`, `r2_pins[]`,
+and `rmii3_pins[]` exactly.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct against DBNCS0/DBNCS1 at 0x80/0x84 and `(gpio
-% 16) * 2`. Minimal. Regression risk is very low: only the register
-address changes; GPIOs 0–3 and 16–19 keep the same address.
+Record:
+- Quality: obviously correct against the driver’s own group tables; no
+  API/data-structure change.
+- Regression risk: low–medium. Linux now writes INTCR4 bits that used to
+  be left at firmware values. Clearing the whole R1/R2/RMII3 enable when
+  a single pin in that group is requested as GPIO is the stated intent,
+  but it can drop TX for the rest of that RMII if one pad is taken as
+  GPIO. No deadlock/locking change.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Record: Buggy line introduced in **acf4884a57170** (“pinctrl: nuvoton:
-add NPCM8XX pinctrl and GPIO driver”, Tomer Maimon, 2023-09-11),
-contained in **v6.7-rc1**. Present until 602ee6c9447e4.
-
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No Fixes: tag. Bug is in the original driver merge, not a later
+Record: `npcm8xx_setfunc()` comes from `acf4884a57170` (“pinctrl:
+nuvoton: add NPCM8XX pinctrl and GPIO driver”, 2023-08-28; first in
+**v6.7-rc1**). INTCR4 handling is new in this commit. The bug is
+“missing programming since the driver was added,” not a recent
 regression.
 
+**Step 3.2: FOLLOW THE FIXES: TAG**
+Record: No Fixes: tag. Not applicable. The incomplete mux has been there
+since the original driver.
+
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Record: Same-author series merged via `pinctrl-v7.3-1` (drop RTS/CTS,
-RMII, RG2 drive strength, pending GPIO events, IRQ setup, pin flags,
-this debounce fix). This hunk does not depend on those other patches.
-Only other debounce commit on this path is the original driver add.
+Record: Same-day 8-patch series from Tomer, merged via `pinctrl-v7.3-1`:
+1. drop RTS/CTS from bmcuart1
+2. **this commit**
+3. RG2 drive strength
+4. clear pending GPIO events
+5. rename GPIO7 IOX2
+6. move GPIO IRQ setup
+7. JM1/SMB7 flags
+8. debounce register selection
+This patch does not depend on the others. No later follow-up on INTCR4.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Tomer Maimon is the Nuvoton/NPCM pinctrl author. Linus Walleij
-applied the series. Recent npcm8xx work is a mix of pin-map corrections
-and one feature (RG2 drive strength). This commit is the debounce
-correctness fix.
+Record: Tomer Maimon is the original npcm8xx/npcm7xx pinctrl author
+(Nuvoton). That is a strong subsystem-author signal, not a drive-by
+change.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Standalone. Uses `NPCM8XX_GP_N_DBNCS0` and
-`debounce_timing_setting()` as they existed at driver introduction. No
-new helpers or struct fields.
+Record: Standalone. Uses existing `npcm8xx_setfunc()`,
+`fn_r1`/`fn_r2`/`fn_rmii3`, and `regmap_update_bits()` on the GCR
+syscon. No new helpers from other patches.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
 Record:
-- `b4 dig -c 602ee6c9447e4` →
-  https://patch.msgid.link/20260715122923.1938327-9-tmaimon77@gmail.com
-- Subject: `[PATCH v1 8/8] pinctrl: npcm8xx: fix debounce register
-  selection` (2026-07-15)
-- `b4 dig -a`: only **v1**; applied version matches v1
-- lore.kernel.org fetches returned **403**; patch text confirmed via
-  LKML/openwall mirrors. No replies were visible on those mirror pages.
+- `b4 dig -c c6ccdc305589d` →
+  https://patch.msgid.link/20260715122923.1938327-3-tmaimon77@gmail.com
+- Series: `[PATCH v1 0/8] pinctrl: npcm8xx: fix pinmuxing and
+  configuration handling` (2026-07-15)
+- Only v1; no v2/v3
+- Cover letter: issues found by comparing upstream with the newer
+  Nuvoton tree
+- Linus Walleij: “No comments so patches applied.”
+- No Cc: stable, no NAKs
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record (`b4 dig -w`): linusw@kernel.org, brgl@kernel.org,
-andrew@codeconstruct.com.au, linux-gpio, openbmc, Nuvoton/Google BMC
-CCs. No Reviewed-by on the commit; maintainer SOB is Linus Walleij.
+Record (`b4 dig -w`): To/Cc included Linus Walleij, Bartosz Golaszewski,
+Andrew Jeffery, linux-gpio, openbmc, and Google/Nuvoton BMC people. Only
+the maintainer reply is in the thread; no Reviewed-by/Tested-by.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No Reported-by, bugzilla, or syzbot link. Author-found hardware
-mapping error.
+Record: No Reported-by, bugzilla, or syzbot. Evidence is the author’s
+hardware description (Hi-Z TX), not a user crash report.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: Patch 8/8 of an npcm8xx pin/group cleanup series. Other patches
-change groups, IRQ setup, or add RG2 drive strength. This offset change
-does not require them. Pre-merge 2022 v2 driver used `int DBNCS_offset =
-gpio / 16` and `DBNCS0 + (DBNCS_offset * 4)` — the correct formula this
-commit restores.
+Record: Patch 2/8. Independent of 1/8 (UART pins) and 3/8 (RG2 drive
+strength). Safe to take alone.
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: lore.kernel.org/stable search was not usable (403). No evidence
-this was discussed on stable@ from the mirrors that did load.
+Record: lore.kernel.org/stable returned 403. UNVERIFIED whether stable@
+discussed this commit. The mbox has no stable nomination.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-Record: `debounce_timing_setting()` only.
+**Step 5.1: KEY FUNCTIONS**
+Record: `npcm8xx_rmii_output_enable_mask`,
+`npcm8xx_set_rmii_output_enable`, `npcm8xx_setfunc`
 
 **Step 5.2: TRACE CALLERS**
 Record:
-- `debounce_timing_setting()` ← `npcm_set_debounce()` ←
-  `npcm8xx_config_set_one()` on `PIN_CONFIG_INPUT_DEBOUNCE` ←
-  `npcm8xx_config_set()` (`pinconf_ops.pin_config_set`)
-- DT generic pinconf maps `input-debounce` to that param (`pinconf-
-  generic.c`).
-- **GPIO cdev debounce does not hit this path here:**
-  `gpio_generic_chip_init()` does not set `gc->set_config`, and this
-  driver never assigns `gpiochip_generic_config`. `gpio_do_set_config()`
-  returns `-ENOTSUPP`; gpiolib-cdev then uses software debounce.
+- `npcm8xx_setfunc` ← `npcm8xx_pinmux_set_mux` (DT/pinctrl mux) and
+  `npcm8xx_gpio_request_enable` (GPIO request)
+- Reachable when a consumer selects `r1`/`r2`/`rmii3` or when those pads
+  are claimed as GPIO
+- Not IRQ/hot-path
 
 **Step 5.3: TRACE CALLEES**
-Record: `npcm_gpio_set()` (32-bit RMW), `iowrite32` of DBNCPx period
-registers, `DIV_ROUND_CLOSEST` for custom periods.
+Record: `regmap_update_bits()` on GCR INTCR4. Side effect is only those
+three bits.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Reachable when a pinctrl state applies `input-debounce` (boot DT
-or pin_config_set). No in-tree dts/dtsi uses `input-debounce`
-(verified). OpenBMC board DTs are often out of tree. Not a syscall hot
-path on this driver as wired today.
+Record: Device-tree pinctrl for NPCM8xx RMII groups → pinmux → `setfunc`
+→ INTCR4. Userspace cannot trigger it without those pins being muxed.
+In-tree `nuvoton-npcm845-evb.dts` only enables UART/watchdog, but
+`nuvoton-common-npcm8xx.dtsi` already defines `r1`/`r2`/`rmii3` mux
+nodes for board DTs (typical OpenBMC).
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: npcm7xx has PIN_CONFIG_INPUT_DEBOUNCE cases but no DBNCS
-registers (NPCM8XX-specific adjustable debounce). No sibling copy of
-this bug.
+Record: npcm7xx pinctrl has no INTCR4 RMII enable. This is npcm8xx-
+specific. No sibling copy-paste bug.
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record: Yes. `drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c` is present.
-Pre-image at 602ee6c9447e4^ is `+ (gpio / 4)`. Bug since v6.7. This
-checkout already contains the fix (expected for a mainline candidate
-tree). `PINCTRL_NPCM8XX` depends on `ARCH_NPCM || COMPILE_TEST`.
+Record: Yes. Local tree is **v7.3-rc4** (`7.3.0-rc4`). `PINCTRL_NPCM8XX`
+and `npcm8xx_setfunc()` are present. `git merge-base --is-ancestor
+c6ccdc305589d HEAD` is true (the fix is already in this checkout). The
+pre-fix mux without INTCR4 existed from v6.7 through this series.
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply on the debounce formula. Surrounding gpio-generic
-API churn does not affect this one line. Expected backport difficulty:
-**clean apply** on any tree that still has `(gpio / 4)` in
-`debounce_timing_setting`.
+Record: Clean apply on this file’s `setfunc()`/GCR-define region. Those
+sites were stable from the original driver until this commit. Later 7.3
+include churn (`mod_devicetable.h`) is unrelated.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No earlier debounce-offset fix. `git log --grep=debounce --
-drivers/pinctrl/nuvoton/` only shows the original add and this commit.
+Record: This is the only INTCR4/RMII-output change. No alternate fix.
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: **[pinctrl / Nuvoton NPCM8XX GPIO] [PERIPHERAL]** — Arbel BMC
-(ARM64 Cortex-A35), used on OpenBMC server BMCs. Not core mm/fs/net.
+**Step 7.1: SUBSYSTEM AND CRITICALITY**
+Record: `[drivers/pinctrl/nuvoton] [PERIPHERAL]` — Nuvoton NPCM8xx BMC
+pinmux. Important for that BMC’s RMII, not a core mm/fs/net path.
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Mature driver (v6.7), recent concentrated npcm8xx pin-map/IRQ
-fixes in the 7.3 pinctrl pull. Debounce math had been unchanged since
-introduction.
+**Step 7.2: SUBSYSTEM ACTIVITY**
+Record: Mature driver (v6.7) with a 2026 vendor-sync series. Not a
+brand-new subsystem.
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: **Platform-specific:** NPCM8XX BMC boards that set pinctrl
-`input-debounce`. Not universal. No in-tree DT consumers found.
+**Step 8.1: WHO IS AFFECTED**
+Record: NPCM8xx (Arbel) BMC boards that mux `r1`/`r2`/`rmii3`. Config:
+`PINCTRL_NPCM8XX` / `ARCH_NPCM`. Not universal.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Applying hardware debounce via pinconf. Not every boot unless DT
-requests it. Unprivileged GPIO debounce ioctl does **not** reach this
-function on this driver (no `set_config`). Privilege/DT-dependent.
+**Step 8.2: TRIGGER CONDITIONS**
+Record: Selecting those RMII pin groups (boot pinctrl). Common on boards
+that use RMII Ethernet; unused if those groups are never muxed. Not a
+userspace-triggered security path.
 
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+**Step 8.3: FAILURE MODE SEVERITY**
+Record: `[RMII TX held in Hi-Z → no Ethernet transmit] [MEDIUM, HIGH for
+BMC management if that port is the OOB NIC]`. Not a panic, UAF, or
+filesystem corruption.
+
+**Step 8.4: RISK-BENEFIT RATIO**
 Record:
-- Primary (author): wrong DBNCS register → debounce source not applied
-  to the intended line; possible corruption of neighboring DBNCS/DBNCP
-  fields via unaligned 32-bit RMW.
-- Unaligned `ioread32`/`iowrite32` on ARM64 Device mappings *can*
-  alignment-fault; **no crash was reported**. Treat crash as possible,
-  not verified.
-- Severity: **MEDIUM** for functional debounce / adjacent-register
-  corruption on this SoC; not a demonstrated panic/UAF/security hole.
+- Benefit: BMC RMII actually transmits when the existing groups are
+  selected; firmware no longer has to paper over Linux.
+- Risk: ~61 lines, three GCR bits, no locking. Behavior change vs “leave
+  INTCR4 to firmware.”
+- Ratio: favorable for trees that already ship this driver.
 
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record:
-- **Benefit:** Makes hardware debounce match the documented 16-GPIO
-  DBNCS banks for NPCM8XX users who enable it.
-- **Risk:** Very low (one address expression; GPIOs that already hit
-  0x80/0x84 unchanged).
-- **Ratio:** Favorable. Small correctness fix, not a feature.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-FOR backporting:
-- Real hardware programming bug, present since the driver was added
-  (v6.7).
-- Restores the mapping the author’s 2022 submission already used (`gpio
-  / 16` × 4-byte stride).
-- Matches DBNCS0/DBNCS1 at 0x80/0x84 and the existing `(gpio % 16) * 2`
-  bit layout.
-- 3-line, single-function, no API/feature change.
-- Author is the driver writer; pinctrl maintainer applied it.
-- Standalone; other 8/8 series patches not required.
-- Applies on this tree’s pre-image without surrounding refactor.
+FOR:
+- Concrete hardware bug: TX pads stay Hi-Z without INTCR4
+- Existing pin groups; this completes mux, it does not add a new
+  function/API
+- 61 lines, one file, pin lists match group arrays
+- No series dependencies
+- Driver author + pinctrl maintainer
+- Driver and bug exist in this tree (since v6.7)
+- Hardware-workaround exception (broken/incomplete SoC programming)
 
 AGAINST:
-- Peripheral BMC pinctrl, not a core crash/security/corruption class as
-  described.
-- No Fixes/Cc:stable, no Reported-by/Tested-by (tags not required, but
-  no field report).
-- No in-tree `input-debounce` DT users; GPIO cdev debounce does not call
-  this code.
-- Series also contains non-stable material (e.g. RG2 drive strength);
-  this patch itself is independent.
+- Not crash/security/corruption/deadlock
+- Cover letter is a Nuvoton-tree sync, no user report or Tested-by
+- In-tree EVB DTS does not enable Ethernet
+- Writes INTCR4 that firmware may already own
+- Part of an 8-patch “cleanup” series (this patch is still self-
+  contained)
 
 UNRESOLVED:
-- Full lore thread (reviews/NAKs) unverified due to lore 403.
-- Whether any OpenBMC DT actually sets `input-debounce` (not in this
-  tree).
-- Whether unaligned MMIO actually oopses on NPCM8XX (not reported).
+- Could not query lore.kernel.org/stable (HTTP 403)
+- Could not confirm how many shipping boards rely on firmware vs Linux
+  for INTCR4
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — formula matches register
-   layout; maintainer applied. No extra Tested-by.
-2. Fixes a real bug that affects users? **PASS** — wrong DBNCS bank for
-   24/32 lines per bank when hardware debounce is configured.
-3. Important issue (crash, security, corruption, deadlock)? **PASS**
-   (borderline) — wrong MMIO and possible adjacent-register RMW; not a
-   documented oops. Still a hardware-feature break on a production BMC
-   SoC, which stable routinely takes in pinctrl/gpio.
-4. Small and contained? **PASS** — +2/−1, one function.
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — same file/function; pre-image
-   is the buggy line.
+**Step 9.2: STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — matches group tables;
+   maintainer applied v1. Tested-by is missing, but the change is
+   inspectable.
+2. Fixes a real bug that affects users? **PASS** — RMII TX does not
+   leave Hi-Z.
+3. Important issue? **PASS** (MEDIUM, hardware-workaround exception) —
+   dead BMC Ethernet TX, not a kernel oops.
+4. Small and contained? **PASS** — 61 lines, one driver.
+5. No new features or APIs? **PASS** — no new userspace API; programs a
+   register the existing groups already required.
+6. Can apply to the local tree? **PASS** — `pinctrl-npcm8xx.c` and
+   `npcm8xx_setfunc()` are here; the patch is already an ancestor of
+   HEAD.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: Not a device-ID/quirk/DT/build/docs exception. Ordinary small
-driver correctness fix.
+**Step 9.3: EXCEPTION CATEGORIES**
+Record: Hardware workaround / incomplete mux for existing NPCM8xx RMII
+groups. Not a new driver.
 
-**Step 9.4: MAKE YOUR DECISION**
-This tree has the NPCM8XX driver and the long-standing `gpio / 4` bug.
-The patch is a minimal, obviously correct register-index fix with no
-dependencies. Benefit is limited to NPCM8XX debounce configuration, but
-the risk of taking it is negligible and the bug is real. That meets
-stable criteria for this checkout.
-
-------------------------------------------------
-What the commit solves, for stable users
-------------------------------------------------
-Hardware debounce on NPCM8XX is supposed to use DBNCS0 for GPIOs 0–15
-and DBNCS1 for 16–31. Integer division turned `(gpio / 16) * 4` into
-`gpio / 4`, so most lines wrote the wrong (often unaligned) address.
-Boards that set pinctrl `input-debounce` would not get the intended
-debounce source and could disturb neighboring debounce-period registers.
-The fix is one address expression.
-
-Risk vs benefit: very low risk, modest but real benefit for NPCM8XX BMC
-GPIO debounce. No series dependencies.
+**Step 9.4: DECISION**
+This tree is 7.3 and already contains NPCM8xx pinctrl. The bug is real:
+selecting the documented RMII groups never released TX from Hi-Z. The
+fix is small, local, and does not need the rest of the series. That is
+the same class of change as a hardware quirk: the existing function does
+not work until the SoC bit is programmed. Benefit outweighs the INTCR4
+behavior change.
 
 Verification:
-- [Phase 1] Parsed commit 602ee6c9447e4: SOB Tomer Maimon + Linus
-  Walleij; no Fixes/Reported-by/Cc:stable
-- [Phase 2] Diff: one expression in `debounce_timing_setting()`;
-  DBNCS0=0x80, DBNCS1=0x84 confirmed in this file
-- [Phase 2] `npcm_gpio_set()` is 32-bit RMW at the computed pointer
-  (lines 124–129)
-- [Phase 3] `git blame` on parent: acf4884a57170 (v6.7-rc1) introduced
-  `(gpio / 4)`
-- [Phase 3] `git merge-base --is-ancestor acf4884a57170 HEAD` → yes; fix
-  is ancestor of HEAD
-- [Phase 3] `git log --grep=debounce -- drivers/pinctrl/nuvoton/` → only
-  driver add + this fix
-- [Phase 4] `b4 dig -c 602ee6c9447e4` → msgid 20260715122923.1938327-9;
-  v1 8/8; recipients linusw, brgl, openbmc
-- [Phase 4] Pre-merge 2022 v2 used `gpio / 16` and `* 4`
-  (lists.ozlabs.org OpenBMC archive)
-- [Phase 4] lore.kernel.org 403 — full review thread UNVERIFIED;
-  LKML/openwall showed the patch text only
-- [Phase 5] Callers: `npcm_set_debounce` ← `npcm8xx_config_set_one`
-  PIN_CONFIG_INPUT_DEBOUNCE
-- [Phase 5] This driver has no `gc->set_config`; GPIO cdev debounce does
-  not reach this function
-- [Phase 5] `rg input-debounce` on dts/dtsi: no matches
-- [Phase 6] `git describe HEAD` → v7.3-rc4-27-gf0100363d8c37; `make
-  kernelversion` → 7.3.0-rc4
-- [Phase 6] Parent of fix still has `(gpio / 4)`; apply is clean
-- [Phase 8] Failure mode: wrong debounce MMIO; crash via unaligned
-  access UNVERIFIED
-- UNVERIFIED: OpenBMC out-of-tree DT debounce use; stable@ discussion;
-  review NAKs
+- [Phase 1] Parsed tags: only author + Linus Walleij SOBs; no
+  Fixes/Reported-by/stable
+- [Phase 2] Diff: +61 lines in pinctrl-npcm8xx.c; INTCR4 helpers + call
+  from setfunc
+- [Phase 2] Pin lists verified equal to r1_pins/r2_pins/rmii3_pins
+- [Phase 3] git describe HEAD: v7.3-rc4-27-gf0100363d8c37; make
+  kernelversion 7.3.0-rc4
+- [Phase 3] git merge-base --is-ancestor c6ccdc305589d HEAD: yes
+- [Phase 3] Driver added acf4884a57170, first contained in v6.7-rc1
+- [Phase 3] git blame setfunc: original driver except the new INTCR4
+  call
+- [Phase 3] No Fixes: tag; no INTCR4 history before this commit
+- [Phase 4] b4 dig -c: lore/msgid 20260715122923.1938327-3; series v1
+  2/8
+- [Phase 4] b4 dig -a: only v1
+- [Phase 4] b4 dig -w: linusw, brgl, andrew, openbmc, linux-gpio, Google
+  BMC CCs
+- [Phase 4] mbox: Linus “No comments so patches applied”; no NAK; no Cc:
+  stable
+- [Phase 4] lore.kernel.org HTTP 403 for WebFetch; stable-list search
+  UNVERIFIED
+- [Phase 5] Callers: pinmux_set_mux and gpio_request_enable only
+- [Phase 6] Buggy mux without INTCR4 present from v6.7 until this commit
+- [Phase 6] In-tree EVB DTS has no ethernet node; common dtsi still
+  defines r1/r2/rmii3 muxes
+- [Phase 8] Failure mode: RMII TX Hi-Z, severity MEDIUM (BMC NIC)
 
 **YES**
 
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 61 +++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 22cc87d43ea69..28464463ff833 100644
+index 0aae1a2534594..c94441b2acdae 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2135,7 +2135,8 @@ static const struct pinmux_ops npcm8xx_pinmux_ops = {
- static int debounce_timing_setting(struct npcm8xx_gpio *bank, u32 gpio,
- 				   u32 nanosecs)
- {
--	void __iomem *DBNCS_offset = bank->base + NPCM8XX_GP_N_DBNCS0 + (gpio / 4);
-+	void __iomem *DBNCS_offset = bank->base + NPCM8XX_GP_N_DBNCS0 +
-+				     (gpio / 16) * 4;
- 	int gpio_debounce = (gpio % 16) * 2, debounce_select, i;
- 	u32 dbncp_val, dbncp_val_mod;
+@@ -26,6 +26,7 @@
+ #define NPCM8XX_GCR_SRCNT	0x068
+ #define NPCM8XX_GCR_FLOCKR1	0x074
+ #define NPCM8XX_GCR_DSCNT	0x078
++#define NPCM8XX_GCR_INTCR4	0x0c0
+ #define NPCM8XX_GCR_I2CSEGSEL	0x0e0
+ #define NPCM8XX_GCR_MFSEL1	0x260
+ #define NPCM8XX_GCR_MFSEL2	0x264
+@@ -78,6 +79,9 @@
+ #define NPCM8XX_GPIO_PER_BANK	32
+ #define NPCM8XX_GPIO_BANK_NUM	8
+ #define NPCM8XX_GCR_NONE	0
++#define NPCM8XX_INTCR4_R1_RMII_EN	BIT(12)
++#define NPCM8XX_INTCR4_R2_RMII_EN	BIT(13)
++#define NPCM8XX_INTCR4_RMII3_EN	BIT(14)
  
+ #define NPCM8XX_DEBOUNCE_MAX		4
+ #define NPCM8XX_DEBOUNCE_NSEC		40
+@@ -1796,6 +1800,61 @@ static const struct pinctrl_pin_desc npcm8xx_pins[] = {
+ 	PINCTRL_PIN(251, "JM2/CP1_GPIO"),
+ 	};
+ 
++static u32 npcm8xx_rmii_output_enable_mask(unsigned int pin)
++{
++	switch (pin) {
++	case 178:
++	case 179:
++	case 180:
++	case 181:
++	case 182:
++	case 193:
++	case 201:
++		return NPCM8XX_INTCR4_R1_RMII_EN;
++	case 84:
++	case 85:
++	case 86:
++	case 87:
++	case 88:
++	case 89:
++	case 200:
++		return NPCM8XX_INTCR4_R2_RMII_EN;
++	case 110:
++	case 111:
++	case 209:
++	case 210:
++	case 211:
++	case 214:
++	case 215:
++		return NPCM8XX_INTCR4_RMII3_EN;
++	default:
++		return 0;
++	}
++}
++
++static void npcm8xx_set_rmii_output_enable(struct regmap *gcr_regmap,
++					   const unsigned int *pin,
++					   int pin_number, int mode)
++{
++	u32 mask = 0;
++	u32 val = 0;
++	u32 bit;
++	int i;
++
++	for (i = 0; i < pin_number; i++) {
++		bit = npcm8xx_rmii_output_enable_mask(pin[i]);
++		mask |= bit;
++
++		if ((mode == fn_r1 && bit == NPCM8XX_INTCR4_R1_RMII_EN) ||
++		    (mode == fn_r2 && bit == NPCM8XX_INTCR4_R2_RMII_EN) ||
++		    (mode == fn_rmii3 && bit == NPCM8XX_INTCR4_RMII3_EN))
++			val |= bit;
++	}
++
++	if (mask)
++		regmap_update_bits(gcr_regmap, NPCM8XX_GCR_INTCR4, mask, val);
++}
++
+ /* Enable mode in pin group */
+ static void npcm8xx_setfunc(struct regmap *gcr_regmap, const unsigned int *pin,
+ 			    int pin_number, int mode)
+@@ -1834,6 +1893,8 @@ static void npcm8xx_setfunc(struct regmap *gcr_regmap, const unsigned int *pin,
+ 						   BIT(cfg->bit4) : 0);
+ 		}
+ 	}
++
++	npcm8xx_set_rmii_output_enable(gcr_regmap, pin, pin_number, mode);
+ }
+ 
+ static int npcm8xx_get_slew_rate(struct npcm8xx_gpio *bank,
 -- 
 2.53.0
 
