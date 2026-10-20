@@ -2,40 +2,39 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5A6606A325
-	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2026 07:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D613360A2608
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2026 07:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=E+joAH90
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=n62A+TzE
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4j83h40tqFz304Q;
-	Tue, 20 Oct 2026 18:19:32 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c112::7" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792480771;
-	cv=pass; b=OS7t8FVKkcT+Zyu0Z+MtcuFhsSzG+S2ZMHLjfx8IOcrxio4zTSenpdzjrWyjqliyPisBrR16tUqdDeBdeO+LhzrVWmEXW4g7cPydFiCiYJT5Y2S65N7ccuhNFyDTcP77/oL4rZMgu8C+LEx5Vg5+Kh6ihgTBwPBrMpRjPR1b4DlQaNKo63uVIbZqwZUaaKYZQmRk/PR91xCo1ZYSioy4LsRrsay7xQyT3wPXBO67/xVhAxaCTXkz6/yr6mL/dLxQETwK4y989aQugphwLlfSPg7k8WFlrIFlBuhW0I/SZKUzX1wltnHjXb9LVBP+vu8kDBMZX0dvXxtN7gl8hB5Tcw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4j83h91Y2Pz3090;
+	Tue, 20 Oct 2026 18:19:37 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c001::2" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1792480776;
+	cv=pass; b=JYQIfnqMVyU/F35Hn69/a/1rBWYVRhL+zsSscNRidZm+FCNE8+6943C6euN0qSeFB6gOIr9+pAUQlpQLirXKliaIV3hPX9mEPcnNKcyGQ1qhycXuUkuYQaE/HEmQ0dBgP6/V0rU1I6mFbbLKXfYtA1/Pf65MzbkAU3RnQhFjct6c0FjOOCXpESOhyJUrwfsfm/fB7d00LlkiXLZRg8KfVBhSaj7uxmlFDCDhQVPDycNPhh1T7Du7s1U85yQXOchjYYpiUzm8tsSgUQq42xvq/rhaDt9DBBQ+CkGOQiUJLiZAJcSflEjtCMJnRtG2kWdq07HCjvTu6GqdCnC/k9TEpw==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1792480771; c=relaxed/relaxed;
-	bh=BpZL/A2+qsi8uhO6SICkf1CtFQ2dmgcD/wuRkz2Mz9k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cYLMLJ5O+TM8RZC8QdKH807lyWzFfeuEpCr9NnBspv8+lO5tH20TkhOy+SWuEvjDFJQbSK7eJTt2BZRmPhIIoaroWvyh4du4hVzE+T3x19SFl64cUrDVGlSJe1xDV2hDLE/05WDx9Ddj07YmL4KybgeB0SVTGUBcm6h7itPV05L13IcfMhyoryFK4IQcZnEqasYCQisnbBmFePpx6qOuRtTKJGyYuNWTsU5KdvcWV97HTP6fbzM1zo74TK0FhbKr2osC5ecHIUn7QAm31by56SPFusIrYUUCjbSCJmtt8RNCAavFJgei5N/TvKVZ7ZupzuZov/FVxM8qMgruBuzP7w==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=E+joAH90; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c112::7; helo=cy3pr05cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+	t=1792480776; c=relaxed/relaxed;
+	bh=CRWNYhy4sBin3TMDb66I++HQYMx/Ja5ogTDlYSfeic8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RfDSY6l1HP7aqZLUbGWcLpPFl/vPCunWHNKE42X/rTFv4QzngvEE7iCbbQgklS71fEtlaMZNyHSenPIdVX33T9bvFRhqtTw0AYUcgn9pmEllJDN+NnAyAOpeXvAfxffQp3LhCt+EPZdmc3SJUiWGr4yc5//COefXuF8oaT5P3l9sCyKr4EklFBB1BuntKmECdySVvKkPkPV+xMSMh6b8mzfr5WEMAusMj9f0cOnf4bX/ntEx798KJ+eTEFUc7PWRYNqSygHIgDd6hUvZKh6unVee90krv+32l1NgCZoLnE67JMEou6qcdNhMZXhxYQzwCZDiEq5HJYDlPMXM3H4uZQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=n62A+TzE; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=E+joAH90;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=n62A+TzE;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c112::7; helo=cy3pr05cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c112::7])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c001::2; helo=sj2pr03cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazlp170120002.outbound.protection.outlook.com [IPv6:2a01:111:f403:c001::2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4j83h117hwz2yqx
-	for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2026 18:19:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4j83h05xmFz2y2T
+	for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2026 18:19:27 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vps14CL2MPj1BXeUfROeGE0TjMG51bOaVkLL7nbkHUojHuFqM9LeO5O08EWblFknzReeBHOufDybo0SIo474yuzdMPm8gtn/75vvj7aps532Q6I5j8bFOS4/LDKht+WLymHZQNLIap7c7Z9lqTeliYkXZKK3os+PaTQJLwzNoD2KbtIEPuLCE96xYmRQujjfOexG7OGLF/cNAUkQ2JuzEeaE1FZom1l+UC6iHSM4hwtln5L+uNO4QwU7nnNclXwn9BPfjYHpNbnRSUfjHWSpytmOepeg3eBDbPVJOsLdX9ZpI0Dj9symv7ELevunZiruorfviywup+5VtDjpBX+EQA==
+ b=c3QC6nePTyHY6id/Li3i065i20rK5Gv5LvVmj+tO9UWTmZuVd6S7dB5ohhO0suoDlQJFyrzgb5GM5scjXuA5nch8FbtjGZccw8Neva4lFTn/9ZCVjuu5PAWykTZcjQEnFblKT1FEWSWKk2vrljLYDGDMIDt2J8txTMtywI9rouhjiban8Z3o1ej/AHVC+yBrZTEzOBDEC377+XihsuNg0MXnSlZ4D9Y70GkScT00cu5oiP51RW2bcNAZyW8MDVCA4rW3QFdYb22STN9WeI5CtUFz6g5cyN3chW6rm5/MRheokidOgodfoUlgDXWQBFwPr3/HA+emwYIODsM8EBmFnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BpZL/A2+qsi8uhO6SICkf1CtFQ2dmgcD/wuRkz2Mz9k=;
- b=c9bnDVsEQTvqBnnZMtKJv/3jkTOIzPsiGfgW7N6/IGptUu7noAzOmIjpc+inA7+YS5yYgzMActHw+DFsJcHzbHd9lp4YwcPJnHrlZPTOtmfunaNkehxOc82gCaTMjn1vt+3niyhgPT5g5mfugpxuCws5z81fO+LoTT2Z27ZIYuv5tk//bGF/5+uER7muihH3Sulm2bsHXTRuvq4Ra2QTtIpqFcghNbJyCPcMzoxmeqLi3boRCDj/jUDILi8babwnr6Aw+fj0va6k6TsW7erHV/bctb/b8mAGc7+qfakgry3p7uGTlYIA2CMCJA8FvAo3GkJ18EpCfLPdzURPMd4gvA==
+ bh=CRWNYhy4sBin3TMDb66I++HQYMx/Ja5ogTDlYSfeic8=;
+ b=H5RPMcp8fy/4cmdif17P71SGwKf3YeYvGHNQzpOlZrMo5UEEs2PCd2K0MSySiB8eG/JGVba6zRBV53xs0hkVuvQAnfqZbVt49foPq7YEpOb0xy50b1WVozxq5ajbNQ7b0oQFT1U4PBkE7sk2k0ATUr/69OP4oUurQIqzSk6JjA2rMeNEN9q3DroN11ouLljvV/hOHkpJwuPNu64scrN8zCBD2HmNm+QRw2tciwLp4IzEzhMegEimp+w6EQOAZuN73w9Ng0JOHvRLboeaX1vYNmbDE3Xb+lOJ1bonSnnxir+3Q9/JW2QWimvWuYlcVPnYG5H6/hctRPGMi/Z2UCw8Iw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
  dmarc=none action=none header.from=axiado.com; dkim=none (message not
@@ -43,16 +42,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BpZL/A2+qsi8uhO6SICkf1CtFQ2dmgcD/wuRkz2Mz9k=;
- b=E+joAH90/d3QMuHBnQtjhCJ0ASEvdpcQGRzOUGwlZZffKsrY0bu59pjLoiOEvCVwPHJ+sRmx6+iF5jQwqAu2eQ1o4fBtHhGap+m7frQMB/zGFXCcYAwMM3V8x08AOo769jPvQnYo/6koetEWME3RzxGTl4sWd9LKVUtFT6apUz7VF8BIhXnw5oelumCOkLi0dtJznx2+ti25ui5DqmLKlPioko2WyEdix8DDjvcwR4BCU3Kcq4tr78VOkIQv73uJExaUFQqzOY0qSFo1o9AvRsKzC70oGq7Od49wEymQEfesXWq96Z9aXew11Q+6B4/fDSGukiMQuDkSxbTm9IFTgg==
-Received: from DM6PR07CA0115.namprd07.prod.outlook.com (2603:10b6:5:330::6) by
- PH7PR18MB5379.namprd18.prod.outlook.com (2603:10b6:510:236::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.19; Tue, 20 Oct 2026 07:19:01 +0000
-Received: from CH7PEPF0000001B.namprd21.prod.outlook.com
- (2603:10b6:5:330:cafe::a5) by DM6PR07CA0115.outlook.office365.com
- (2603:10b6:5:330::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Tue,
+ bh=CRWNYhy4sBin3TMDb66I++HQYMx/Ja5ogTDlYSfeic8=;
+ b=n62A+TzETsTI5F4T4R3gd8JEVNEoi1+oTuRrkaKruOP0cVEmcEXVMaUidrZWnJ+SZ1X+YITYCgrF5/oQW+O3lou/b59F2p2zfVJ/WArUVhZ+Yd+6Io6ft84ePp7Vk6Y4cGvcfyZBiW7E6RsTYgj4ibgiH/0XI6FxOBRrMj3om78lZmK9pAJJWryh1v5StiBijfRAWBQB8X7gCOyZAyozkCKr9zd75jkchkHvZyQWESIRV7xzXQtmZkaDRscTVoZZnsMbCpddQundUYgkvAzF+nLUe/uxQr/m7l3rbKwp4hikgoTppHOa5XBl40GXzNheNo6AtYb9sYJzVlyof413tw==
+Received: from CH0PR03CA0094.namprd03.prod.outlook.com (2603:10b6:610:cd::9)
+ by PH3PPFF5A0A3DFC.namprd18.prod.outlook.com (2603:10b6:518:1::cd1) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
+ 2026 07:19:01 +0000
+Received: from CH7PEPF00000016.namprd21.prod.outlook.com
+ (2603:10b6:610:cd:cafe::59) by CH0PR03CA0094.outlook.office365.com
+ (2603:10b6:610:cd::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.19 via Frontend Transport; Tue,
  20 Oct 2026 07:19:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
  is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
@@ -61,16 +61,17 @@ Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
  designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
  client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
 Received: from smtp.corp.axiado.com (64.62.143.114) by
- CH7PEPF0000001B.mail.protection.outlook.com (10.167.244.170) with Microsoft
+ CH7PEPF00000016.mail.protection.outlook.com (10.167.244.165) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.0
  via Frontend Transport; Tue, 20 Oct 2026 07:19:00 +0000
 Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 2BC7E4186B58;
-	Tue, 20 Oct 2026 00:19:00 -0700 (PDT)
+	by smtp.corp.axiado.com (Postfix) with ESMTP id EDC2C4186B52;
+	Tue, 20 Oct 2026 00:18:59 -0700 (PDT)
 From: Petar Stepanovic <pstepanovic@axiado.com>
-Date: Tue, 20 Oct 2026 00:18:55 -0700
-Subject: [PATCH v3 1/6] dt-bindings: usb: gadget: udc: add Axiado AX3000
- and AX3005 UDC
+Subject: [PATCH v3 0/6] Axiado AX3000 and AX3005 USB Device Controller
+ (UDC)
+Date: Tue, 20 Oct 2026 00:18:54 -0700
+Message-Id: <20261020-axiado-ax3000-usb-device-controller-v3-0-3012ecfc0a93@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -84,9 +85,11 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-axiado-ax3000-usb-device-controller-v3-1-3012ecfc0a93@axiado.com>
-References: <20261020-axiado-ax3000-usb-device-controller-v3-0-3012ecfc0a93@axiado.com>
-In-Reply-To: <20261020-axiado-ax3000-usb-device-controller-v3-0-3012ecfc0a93@axiado.com>
+X-B4-Tracking: v=1; b=H4sIAN4V12oC/43NQQ6CMBAF0KuQrq2ZtoDVlfcwLko7lSZITYsNh
+ nB3CyyMOzYz+ZPM+xOJGBxGcikmEjC56HyfgzgURLeqfyB1JmfCgdfAuKRqdMr4vAQA0HdsqMl
+ vGqn2/RB812GgrKqNsEyWoM8kS6+A1o1ry+2ec+vi4MNnLU1suW5+Hrv8xCjQstIISjbASnvdv
+ o7aP8lSkPgPley0D+UZBbQghDGgavmHzvP8BTz2YdMsAQAA
+X-Change-ID: 20260128-axiado-ax3000-usb-device-controller-156d3f1840c9
 To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>, 
  Prasad Bolisetty <pbolisetty@axiado.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -99,39 +102,39 @@ Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
  openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>, 
  Krutik Shah <krutikshah@axiado.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792480739; l=3567;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792480739; l=10812;
  i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=bEliB/uHqZMvmN73vNuz0Gy/A4MeC70lyvrvuvaleto=;
- b=NeziPrHzzys7h0zKAqAcnVbKSwgi2vFEoTWeQJlCQ1w+p25p6g6RCIjqHppvtTDtenInUG0AG
- 2psM5TWZNIUAmfcp4cmq5S+f7Euif9pgllXSXlqF2SaRP9xXNNj2lTA
+ bh=pat6YYyYEaJGrbRDffVConvoER8b2xtyqeBt4O0PAec=;
+ b=Fd27CWIua2hEYsKuE4InkyHcqikNpk21W/+uie7cFkHsyqE/C47ficW92vXRDaKJqZvM/u5o2
+ 28xUT00h9EkB9WF4wfTqkqiIZb0EW188/n3nuSugrTuujf4ExNLcomG
 X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
  pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PEPF0000001B:EE_|PH7PR18MB5379:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a81ab46-a644-462a-f382-08df2e7a6a18
+X-MS-TrafficTypeDiagnostic: CH7PEPF00000016:EE_|PH3PPFF5A0A3DFC:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bebe8e6-1c91-4ce9-ddc7-08df2e7a6a1c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|7416014|1800799024|261009223027099003|10067099003|56012099006|3023799007|6133799003|22082099003|18002099003|13003099007|5023799004;
+	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|13003099007|5023799004|56012099006|261009223327099003|261009221727099003|261009220027099003|261009221227099003|261009223027099003|10067099003|18002099003|3023799007|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	YbTTi83CvS8Ynywc/loP3dEyrRBeR3uSvz3ICihjZ74uoA93oUvkRH99ZZlM6VsvmRALUwxbOAmKaXQISMne/IcCs8fG1VFDrGSJexWhlQRh/lHqJMKEvIxR0c1h4GtUs69adLitJmG+txv990TC0Q+wpmx2PE6VsHQkhu80y1xCMPdZnpn+JbNg4U9n4nhXdBqrHvahvBSxFQ+XoBxy2qcJ5gNqhvXhQMap2N4oiH6Fm6UnDEKtKlcdbdbWPvcFN1kMBBGXQOdKFcFI2uq/O8jlEhkgLy6g89TKEnwgDsh1WR+I/QXYnRV5Y7NM9dI8girkzWN2880+EUqDJYW2dKLdyjsJfI+u/Po/IsgQEotujntx9dAfkHmjEf9nnSUBU0u7hSkW8WC88QMcCVWHyHFQb/XDkfjODb2MWeUJBpBG2j/FSLrBkje+EsPEJQyNesBox5CNg2wgvaDLN8CCEDnBA7FwRJm1scwALoubd2/GPPin8qSqoOk1XkCa3wiBfIdwoVz3F0D139IPvbWOu1mhdXHAyuOkyul/fUECQTWOwPNBcUVCtwoq1eBzDxeUiHM1eKCeauX1zei3gR7gf7+3bBHhIKIdDhpEReVaTmmk7ZcRZyI1vEIA/dVJ8cj2ww+LE8EiWWxF1NNbbOKW1w==
+	j0plJBiwgPy1yYjZQW3wCReQFz1ENAXPmP6E4veviHVV+ETc5IRHREy/B+huEUdHrMdDZHEQsrR5MYYsOQuuSWq+GAc49RQLlH2+vMdggHjzRalzLFyk6+IaXEPManKnSOHox+xUrDt+2qWmJDP1qzRvr9NWSt3zkYVNFlu3oNYPicHl7w7tA13JphfruOufC3Q/J2PLwjiNrqyfsNjkxUxzOAfffuQBoVTG8Q2KvMdlQH2v6E/yEzaQ6Xkk5uf1asgZ6yn7hliWXqWqxx2J4FTAxOpYrGeMNnyu64vL79ZD7HUJdg1ssIyytvX5DGNV36eleiWT1VIj7qKlcGkui9HB0PhdXFC8DmLjO9tPk+Xw44UmNIpdmYO6EdcqT3oBywPx00OCITd9a9f6zW0MVlML+vPubXcWtzYw1JwD+JtlR2ESPrmuaXtap2p9mG23fddkxqFYLWenGeE7y7qhR/pvku8uMn0Ihug48fHaKp/KhCa54LoBlRi2sbKc/sCIA1GYoZZ0lrFi2GoVTmLMl0GorUcwMfpSx6cedFAh+2Nc7Whrs+eopycA50JPIzZBZIjLGM6E6y827cLsODGEgRJiiEbHfIxVBCpKa84OhzuJQRjknf0jSIGBVpr6AI1ZVnzoojuLdTA5oiV4lFviOQ==
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(7416014)(1800799024)(261009223027099003)(10067099003)(56012099006)(3023799007)(6133799003)(22082099003)(18002099003)(13003099007)(5023799004);DIR:OUT;SFP:1102;
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(13003099007)(5023799004)(56012099006)(261009223327099003)(261009221727099003)(261009220027099003)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(3023799007)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	6HYaMY9ZUkc2MAoAxi8xKLbT1DOb3sQJXUZHZit8DjfB6kHa/n2Xiv6aBa6PgoivIvV5R0H8s1p1FG2XkraksfrmFEaBFDzToTskJeTWzgdtzuIFJn6zn6V+dQMsVgOh5/dW+eercZoacMlbBJvEy5vFbnIx/vZO9T07xTR5JUonXedn0tZaiA057pJxhk4tXxYdGnnfO49jVqHOBKhXVTjUWRQwvmteZHfTO5srpsY7mCd3FsVsJXIx7YN2NNETmVi4YXZQeHDLOnnayfFcvr2O/pUKPNIdbikOA4XopSFjqYXGILI8CPx+VBaVafcRENd/jsA9GWfW7EVvQ9v9mt5YD5HAOc5ia3iu8/jPjA4EmUzPo96lrGrrk6NQrTczbdCRU5bo56+T3BJC4JiKIyxOJ6NOsXuBTYvqYW8DzX+IzTN3Rz9CyrDhumEWrcKS
+	m3HqFS0Owqb2IJfcuAAJqUUP0CQuxwT6TSviyzIwUEdfA/PxFNr5OvR70oGO+hTUW3TN4VMF7WsBNk8E+JNvCgfSz4BpXCFLktpjiriAPJu9pylfC/otKpYFGogxp+ajz0FeWT5QYvf0AlUzNWHTat6tNkUIXL4Qo4k4eB1621quHnL1kT9pJESUz8AiGAcuHPAc2XynZkr3FlLeRzlrP260Kbl1lLTvbgsaGoztzf6Edt+uMCkUUcafpSSZFGqip+5UBkkjxcKKLoF0wkyX/xqWyXxzhJtBhdWhXvvR6/sbS+zHuRLmBw5R3zqHdyFHiNB7abkaq4cPAdZsf91ZTCe3fOBxmQUO5wDqZpMW7Kolng5gCFTc6+HNAzhm2yo1JcJb88O0n8LJcuYejpIzRUSTi3gm3SmCk/GCMY0FQi09FyEHiNFVW1lV3cvcvYgL
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 07:19:00.7635
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 07:19:00.6864
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a81ab46-a644-462a-f382-08df2e7a6a18
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bebe8e6-1c91-4ce9-ddc7-08df2e7a6a1c
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH7PEPF0000001B.namprd21.prod.outlook.com
+	CH7PEPF00000016.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR18MB5379
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFF5A0A3DFC
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
@@ -140,121 +143,206 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a Devicetree binding for the USB device controller integrated into
-the Axiado AX3000 and AX3005 SoCs.
+Dear maintainers,
 
-The controller is based on a Corigine USB 3.1 IP core that is
-dual-role capable (device and host), used here in device role. It
-provides SuperSpeed (5 Gb/s) or High-Speed (480 Mb/s) operation, and
-supports control, bulk, interrupt, and isochronous transfer types
-across multiple configurable endpoints.
+This series continues the work of adding support for the USB device
+controller (UDC) integrated into the Axiado AX3000 and AX3005 SoCs.
 
-Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-Co-developed-by: Krutik Shah <krutikshah@axiado.com>
-Signed-off-by: Krutik Shah <krutikshah@axiado.com>
+The controller is based on the Corigine USB 3.1 IP core, which is
+dual-role capable (device and host) at the hardware level. Which role
+is active depends on which driver is bound to it: this series binds
+it in device role, while host role would instead use a standard xHCI
+host driver - the hardware itself does not fix the role. Endpoint 0
+shares the same command-ring / event-ring / per-endpoint transfer-ring
+TRB hardware as every other endpoint, so the driver tracks control
+transfer stages (SETUP/DATA/STATUS) explicitly instead of relying on a
+dedicated hardware FIFO. Other upstream TRB/ring based UDC drivers,
+such as cdns2 (whose file layout this series' structure is now modeled
+on), share this same shape for the same reason.
+
+Since v2, the driver has been restructured to follow the file layout
+and conventions of drivers/usb/gadget/udc/cdns2, split into
+core/gadget/ep0/ring source files with ftrace tracepoint support, and
+brought in line with cdns2's static/global function ratio. See the
+detailed changelog below.
+
+The devicetree binding also picks up one item left over from the v2
+review: the description now notes the underlying core is dual-role
+capable (device and host), used here in device role.
+
+Tested on an Axiado AX3005 EVK with a mass-storage + composite HID
+(keyboard/mouse) gadget, including repeated bind/unbind/rebind cycles
+and host-driven bus resets.
+
 Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 ---
- .../devicetree/bindings/usb/axiado,ax3000-udc.yaml | 69 ++++++++++++++++++++++
- MAINTAINERS                                        |  8 +++
- 2 files changed, 77 insertions(+)
+Changes in v3:
 
-diff --git a/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml b/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
-new file mode 100644
-index 000000000000..b9f7f4879ee0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
-@@ -0,0 +1,69 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/axiado,ax3000-udc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Axiado AX3000/AX3005 USB Device Controller
-+
-+maintainers:
-+  - Petar Stepanovic <pstepanovic@axiado.com>
-+  - Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-+  - Prasad Bolisetty <pbolisetty@axiado.com>
-+
-+description:
-+  Axiado USB dual-role controller based on the Corigine USB 3.1 IP core.
-+  Supports USB 3.1 SuperSpeed and USB 2.0 High-Speed device operation
-+  with control, bulk, interrupt, and isochronous transfers.
-+
-+allOf:
-+  - $ref: usb.yaml#
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: axiado,ax3000-udc
-+      - items:
-+          - const: axiado,ax3005-udc
-+          - const: axiado,ax3000-udc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  phys:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        usb@81200000 {
-+            compatible = "axiado,ax3000-udc";
-+            reg = <0x0 0x81200000 0x0 0x100000>;
-+            interrupt-parent = <&gic500>;
-+            interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
-+            resets = <&reset 0>;
-+            phys = <&usb_phy>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 65e8a4b5c90b..58c5c8e00870 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4508,6 +4508,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
- F:	drivers/spi/spi-axiado.c
- F:	drivers/spi/spi-axiado.h
- 
-+AXIADO USB UDC DRIVER
-+M:	Petar Stepanovic <pstepanovic@axiado.com>
-+M:	Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-+M:	Prasad Bolisetty <pbolisetty@axiado.com>
-+L:	linux-usb@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
-+
- AYANEO PLATFORM EC DRIVER
- M:	Antheas Kapenekakis <lkml@antheas.dev>
- L:	platform-driver-x86@vger.kernel.org
+Devicetree binding:
+- Note that the underlying Corigine core is dual-role capable (device
+  and host), used here in device role.
+- Drop the explicit maximum-speed property declaration. Krzysztof noted
+  in the v2 review that compatible already implies SuperSpeed
+capability,
+  and testing confirms the property is not required.
+- Reference the generic usb.yaml schema and replace additionalProperties
+  with unevaluatedProperties to permit standard USB properties while
+  rejecting unsupported properties.
+- Validated the updated binding with dt_binding_check.
 
--- 
-2.34.1
+Driver structure (matching drivers/usb/gadget/udc/cdns2):
+- Split crg_udc.c/crg_udc.h into crg-udc-core.c, crg-udc-gadget.c,
+  crg-udc-ep0.c, crg-udc-ring.c and crg-udc.h, one concern per file.
+- Add ftrace tracepoint support (crg-udc-trace.h/.c) covering pullup,
+  doorbell, TRB queueing, event processing, control requests, and
+  request alloc/free/giveback, plus a decode-helper header
+  (crg-udc-debug.h) for the PORTSC/completion-code/TRB-type strings
+  used by the trace TP_printk()s.
+- Make internal-only functions static and normalize the remaining
+  exported ones to a consistent crg_udc_ prefix.
+- Reorganize #include lists so each file pulls in only the headers it
+  actually uses, instead of funneling every kernel header the driver
+  needs through the shared crg-udc.h.
+- Match the SPDX/license comment style used elsewhere in the tree:
+  a line comment for the SPDX tag, block comment for the description
+  and copyright.
+
+Bug fixes:
+- Restore the VBUS-detect vendor-register write on udc_start(),
+  udc_stop(), remove() and shutdown(). Without it the controller never
+  considers itself powered and enumeration is unreliable.
+- Restore the DATA_STAGE_XFER/DATA_STAGE_RECV cases dropped from the
+  EP0 status-stage completion handler. Without them, any control read
+  (e.g. GET_DESCRIPTOR) never arms its STATUS stage and the host times
+  out waiting for it.
+- Fix the transfer-ring TRB-deferral check to defer building a TRB
+  only when the ring is actually full, not merely because another
+  request is already queued on the same endpoint. The stricter check
+  silently broke back-to-back completions on one endpoint, such as
+  mass storage's CSW immediately following its data stage.
+- Restore the RUN-gated completion check in the hardware command
+  helper, so a command issued after the controller has already been
+  stopped (e.g. during udc_stop()) does not spin waiting on a
+  completion the hardware will never post.
+- Call usb_gadget_udc_reset() on a bus reset so the composite/function
+  drivers correctly re-run set_alt() and re-enable their endpoints
+  after a reset, instead of composite silently treating a repeated
+  SET_CONFIGURATION as a no-op. This is deferred to a workqueue rather
+  than called directly from the port-status interrupt path, since the
+  synchronous call re-enters the function drivers and would otherwise
+  require dropping the driver lock in the middle of event processing.
+- Clear the generic usb_ep.enabled flag and endpoint descriptors during
+  internal endpoint teardown and controller reset, preventing stale
+  endpoint state across sessions and allowing endpoints to be correctly
+  re-enabled after a new bind or reset.
+
+Additional fixes from Sashiko review:
+- Use dma_addr_t for DMA offset calculations and validate DMA address
+  translation failures before programming hardware registers.
+- Reserve transfer-ring capacity and publish multi-TRB descriptors
+  only after all TRBs have been initialized.
+- Track remaining TRBs and buffer length for requests spanning
+  multiple transfer descriptors.
+- Advance the hardware dequeue pointer before completing canceled
+  requests, and restore the producer cycle state when rewinding rings.
+- Detach pending requests before completing them during endpoint
+  teardown, and complete requests that fail during deferred queueing.
+- Reduce the hardware reset timeout from 500 ms to 10 ms and release
+  the spinlock while polling for completion.
+- Protect pullup register updates with the controller spinlock.
+- Update the event-ring dequeue pointer before yielding the CPU.
+- Unregister the interrupt handler before freeing DMA resources.
+
+- Link to v2: https://patch.msgid.link/20260817-axiado-ax3000-usb-device-controller-v2-0-0ef033dd0a68@axiado.com
+
+Changes in v2:
+- Drop the dual (GPL-2.0+ OR MIT) license; the driver and header are now
+  GPL-2.0+ only.
+- Register via module_platform_driver() and add MODULE_AUTHOR/MODULE_ALIAS
+  instead of the hand-written module_init/module_exit pair.
+- Acquire clock, reset and PHY through the driver model
+  (devm_clk_get_optional, devm_reset_control_get_optional_exclusive,
+  devm_phy_optional_get), with teardown wired up via
+  devm_add_action_or_reset.
+- Switch to devm_request_irq() and drop the manual free_irq() paths.
+- Support multiple instances using an IDA (DEFINE_IDA/ida_alloc/ida_free)
+  instead of a file-static device counter.
+- Read match data with device_get_match_data() and move the former
+  compile-time feature switches to DT properties (dis-u1u2-entry-quirk,
+  dis-u1u2-initiation-quirk, reinit-ep0-on-bus-reset).
+- Set the DMA mask via dma_set_mask_and_coherent() with a 32-bit fallback,
+  and convert PM to SIMPLE_DEV_PM_OPS.
+- Fix endianness handling for TRBs, events and endpoint contexts using
+  cpu_to_le32()/le32_to_cpu(), and decode setup packets without casting.
+- Locking: pass the caller's IRQ flags through the completion paths so the
+  interrupt state is correctly restored across the unlock/lock window around
+  gadget callbacks.
+- Properly free all coherent DMA allocations and add
+  dma_mapping_error() checks after dma_map_single()
+- Fix DMA directions on the GET_STATUS/SET_SEL control transfers.
+- Replace open-coded register busy-wait loops with
+  readl_poll_timeout_atomic() so they time out instead of spinning forever,
+  and return proper errnos (-EBUSY/-ETIMEDOUT/-EIO) instead of -1.
+- Replace the custom SETF_VAR/GETF/MAKEF_VAR shift-and-mask macros with
+  FIELD_PREP/FIELD_GET (include linux/bitfield.h), and use BIT()/GENMASK()
+  and dma_wmb()/dma_rmb().
+- Use DMA_MAPPING_ERROR instead of a private DMA_ADDR_INVALID.
+- Remove the U-Boot-derived VBUS cable-detect routine, the VBUS-detect
+  kthread and its wait queue, dead defines and struct fields, the unused
+  interrupt-register-array macros, the mdelay()-based reset delays and the
+  bulk of the dev_dbg() tracing.
+- Implement the pullup(is_on == 0) path and route suspend/shutdown through
+  pullup(0); mark crg_udc_ep_ops const and return IRQ_NONE from the shared
+  IRQ handler when the interrupt is not ours.
+- Use dev_err_probe() with structured goto-based unwinding in probe.
+- Reword the Kconfig help text for USB_CRG_UDC to name the crg_udc module.
+- Link to v1: https://lore.kernel.org/r/20260202-axiado-ax3000-usb-device-controller-v1-0-45ce0a8b014f@axiado.com
+
+To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+To: Prasad Bolisetty <pbolisetty@axiado.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Tzu-Hao Wei <twei@axiado.com>
+To: Karthikeyan Mitran <kmitran@axiado.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: linux-usb@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Petar Stepanovic (6):
+      dt-bindings: usb: gadget: udc: add Axiado AX3000 and AX3005 UDC
+      usb: gadget: udc: crg: Add hardware definitions and structs
+      usb: gadget: udc: crg: Add ring and transfer management
+      usb: gadget: udc: crg: Add endpoint 0 handling
+      usb: gadget: udc: crg: Add gadget and endpoint operations
+      usb: gadget: udc: crg: Add core driver and build integration
+
+ .../devicetree/bindings/usb/axiado,ax3000-udc.yaml |   69 +
+ MAINTAINERS                                        |    9 +
+ drivers/usb/gadget/udc/Kconfig                     |    2 +
+ drivers/usb/gadget/udc/Makefile                    |    1 +
+ drivers/usb/gadget/udc/crg/Kconfig                 |   16 +
+ drivers/usb/gadget/udc/crg/Makefile                |    9 +
+ drivers/usb/gadget/udc/crg/crg-udc-core.c          |  706 ++++++
+ drivers/usb/gadget/udc/crg/crg-udc-debug.h         |  143 ++
+ drivers/usb/gadget/udc/crg/crg-udc-ep0.c           | 1106 ++++++++++
+ drivers/usb/gadget/udc/crg/crg-udc-gadget.c        | 2299 ++++++++++++++++++++
+ drivers/usb/gadget/udc/crg/crg-udc-ring.c          |  664 ++++++
+ drivers/usb/gadget/udc/crg/crg-udc-trace.c         |    9 +
+ drivers/usb/gadget/udc/crg/crg-udc-trace.h         |  164 ++
+ drivers/usb/gadget/udc/crg/crg-udc.h               |  722 ++++++
+ 14 files changed, 5919 insertions(+)
+---
+base-commit: c68641afacd9ea5707a489b30f204d5e89b324e0
+change-id: 20260128-axiado-ax3000-usb-device-controller-156d3f1840c9
+
+Best regards,
+--  
+Petar Stepanovic <pstepanovic@axiado.com>
 
 
