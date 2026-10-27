@@ -2,75 +2,76 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E85606A31E
-	for <openbmc@archiver.kernel.org>; Tue, 27 Oct 2026 03:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD86606A31A
+	for <openbmc@archiver.kernel.org>; Tue, 27 Oct 2026 03:49:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BpSEP+oI
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nqQNAX7J
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jDGhR119tz2yR1;
-	Tue, 27 Oct 2026 14:49:27 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1236"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793072966;
-	cv=none; b=k7bvHdRtxRVN0dw8AOjB4NPmreeYe0pO5Qpf1Kb/IoL2vGKuQzFVzId5cskGokifIZQcPV89xmu9zY3ki4wL0IpmGRdg8EpHNkuZuzAO5FDMODTjOmRfcUviqoqtc5aiBBpQdo7TJMENIGQnoVqRN6p2iy83yg1ZQQNPdytED7aeFeWAWog0kQfl+/9VKrUYZMmeINGU+8C8Ls0TGfY+V8zKIya8ZB462CHY7V5+tQ4yZtuOWf4nuzZ+0vvScjF+rtsqaN7Bvai0JU7fXrJKozkcz/k64Sjv2alays8pmy7uqtIs3tezxmSqoF4tr5GWtvcXo0FxLQ9Wan4XQFfujw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jDGhY1R4Sz2yVL;
+	Tue, 27 Oct 2026 14:49:33 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1330"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793072972;
+	cv=none; b=h7SDTuaZjSHwowwaHJXfayR8whJP2A1EjQZAg5mnKQkmtJRK0LouvTiOsVZJJ8dT8gwFAcDqNdk/SC+1QyYB/OTZJlB++qCv6dE+7oklfmcfiwIOWzwL5mlcPczgkTObuwtaR3h6069HWSH9gLXxGTsS2kN7W2Xo5woDN4t+a8M0nHrRsELwcq40ucZ5Z7n8tGkO+AVbvXX5iC6jSS3BnjXXMq2cm6ZliREz6XD262RgxpjCmAMRvxKnYjtRiq080w5bqTKCqe0dzU9e/Jgyuqkmi4vLj45cYwC+JzqChR5C+kzot4iGIjLdxNtemP1Zlu1DH2z9pI359I1h2UjXUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793072966; c=relaxed/relaxed;
-	bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gnDb+rHR88XzZfyhMjwMj9euw8wxF9nWzZilv9fnUXjhYYubgXSHjJU46BJBEDbBMROdNgizN0zXWAWGAWhKVelCo79je1aVYyeJ1TOjCMDqUJQF1k5iprSQCHx6yJa46jWqGL/gfeE+gozUxmSPo2Rqr+W3LZk0IFTlz63CA5LDv71ZNIs9lAxVnUviz6nM34iiU3k9QNgA47IsAXrQRKDbjnNzejJ4pgP2t104Z5pzrdcwmlNAMS0Uk5h/eVM6kmQ27cF2U5vvyxRraQQwIVqQSlMV+XTIgI2ZXuKApSSNt6I3CLybejm3hGviRVodsSsEHV8j39gDfKyUHCeZZA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BpSEP+oI; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1236; helo=mail-dl1-x1236.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	t=1793072972; c=relaxed/relaxed;
+	bh=bVKdd+rg0dOMU+J41LGwwuebdjS7SkBQhNfNvVlqcdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WMH2iqC8JvfsFH+wm21mXN60e7YngDAsgHJitTgwdmqrE4R0DkdaVgZwKm9lucSVOGvKbm4fcnwVOetbo4PO0Qz1JxGmPHvJfyJQ1+afo8rOBFiqZ5d6Cbyv/DJ0sSmUQ1F4nlDhoPdynl9tqkZxlp8UDNQPkLlK1B/VUmFGxn6PdGqeE++PL0TKGAWaIMz85v1TNFTXiw7HHzoMA1jel2oKLK8VkDjJ3Qjv4VATfGRz2L4/1HtJfXCLs3xdK2SQu3usQ9adTnU5m4TZQ0LM5Afz3eK1A89joyhU6+CFMnIM/owgm5LsDDOVnwHjkOzgTSwhsAtH4vtlnyADEx6z8w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nqQNAX7J; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1330; helo=mail-dy1-x1330.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BpSEP+oI;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nqQNAX7J;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1236; helo=mail-dl1-x1236.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dl1-x1236.google.com (mail-dl1-x1236.google.com [IPv6:2607:f8b0:4864:20::1236])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1330; helo=mail-dy1-x1330.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dy1-x1330.google.com (mail-dy1-x1330.google.com [IPv6:2607:f8b0:4864:20::1330])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jDGhP5Hm8z2xjQ
-	for <openbmc@lists.ozlabs.org>; Tue, 27 Oct 2026 14:49:25 +1100 (AEDT)
-Received: by mail-dl1-x1236.google.com with SMTP id a92af1059eb24-185fd3a4ca3so3165882c88.0
-        for <openbmc@lists.ozlabs.org>; Mon, 26 Oct 2026 20:49:25 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jDGhX0tg5z2xjQ
+	for <openbmc@lists.ozlabs.org>; Tue, 27 Oct 2026 14:49:32 +1100 (AEDT)
+Received: by mail-dy1-x1330.google.com with SMTP id 5a478bee46e88-35d0be18c71so700796eec.1
+        for <openbmc@lists.ozlabs.org>; Mon, 26 Oct 2026 20:49:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793072963; x=1793677763; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
-        b=BpSEP+oI7B371EnzTSOe2zvnNzknDf2fzORTdt+KyonTAxDWIX9nRBe9YHufE5XmWv
-         QdOeGsbqWSqPhfkajgU87lTt0nlYRS15RUOnc2QKzFY/cUk8zSwruezFhk0gfEhW1JqM
-         /UyWBHHnRGjMbB1oom/6qK14OtE34uSOAhHLo+y2nAVu/urFR8Ls4cfFCDugh1heNfhC
-         dUQJyOslePpao2ogWD8ME2lU4dV6Z7dw1bVPHXd/lrHnbb/Yp1QrYrqbh1WSXH8ybA9A
-         /Ico3GWvp4W94jOWhbC3QcDMB/Qsq7jLmNFjUxHAN2OAOuX8y0i8lhuO0BTEFVp339oE
-         6Zaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072963; x=1793677763;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793072970; x=1793677770; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
-        b=jT0ovzhJoQ2fmyhyqXq4Oju/q2eRkgdtR3XsLyvFXM2qkYqM/iBndtR4SHg63dLoyc
-         MnOqPWQGlSEdf01UruMUG0TOZvGgafYiq8235pKg2jLYxm6hwGStWw3h9WmDCekxajqD
-         CqmlYyknDahRM3Y9RO7pyPonnZTtmI6PEZuGjOWfeNcnDh9YsaZgWN6ipKfWbUT5D7HM
-         gnceE20NYPc8CoU0GyPlkSL9FbQWcX4xI5njGYuF0tADwHZ4pARD0bs2037WrA2VQtV5
-         FciDCrbGpNAqLqKsYXEQJgGzBkw70E0bKbPf+qwy9GuWOj2gXE1gAhlGxbVDBqRSjPMU
-         YmhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzwQQBAnPPLkOsZihTSLTgcVeriFyQ65ONouusSf6/kYU3cfqPe9nfuPBq9n2e5WjM9nCwpVy7J@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYLXEB4pAnZlDmFkMvniy4RCNjwuuV5vIJt7xlaTDr1+A5SgTngY
-	Ex0m0/Xv/YZobK0xTahE8WBdsTviYjtxYMzXRTDSnb7DwqNpRzAutw73
-X-Gm-Gg: AYBFou3VY/ClXUGGfVvDSME9DdO8MM/5v+97arst3l2za1cOk9SLOwsFbU5g6v/TmPL
-	oVWkUtEeUYgg/6R6/r113jHVJHfw1f6gVQoExrT5huHq6iE2ZoJtpgVnvH9iqW+9U+YX/Ms5hUK
-	R9rl8QAxJL7Csd7pbwmoaVMn79/YYJB71XoZs6zUJ6cnkr/+4MMKclm79JKfzxNuO1Zu88InJ85
-	hoxWrgtc5xfzDrf8RDck3CdTVkIbeL6Rdck5z6wIPHBcrmrY1Z7JOW6KymgyvY8IW1bqCgrbpnt
-	y+yg8wTyQb9HWRjd+DLR8Yfw3BfvNf6BevXu7qGm3IfFRu2r4JZqN2ENigU2ON7ddZUZnIwDxUY
-	M8bOYaXnnl3Skpvgxwpn8gGUoTbyRV7asM3VoNQxd1z99V/X7Wwmaq75thtvAneOyebDI8D0+Nk
-	J3+AT433szc36xXee3kpVd5KJucxlGptk66rDwd0g2g231E/zCCbse0J6DaMI4eCuVGWj6ODIBH
-	bY4HKnNvbD0/XfGXCAndc+FjJlLnEa90pBWgwjDiaI4AU2kL6hNpJ9ncIP6IedF/2Yyr2NYS9bn
-	ng2JOg+gZ3roT7lEqEPesndkIcqDE4WgSNyb/4CBgZid
-X-Received: by 2002:a05:7022:f511:b0:1a0:5c85:d1b3 with SMTP id a92af1059eb24-1a05c85e6damr7103884c88.43.1793072962440;
-        Mon, 26 Oct 2026 20:49:22 -0700 (PDT)
+        bh=bVKdd+rg0dOMU+J41LGwwuebdjS7SkBQhNfNvVlqcdA=;
+        b=nqQNAX7Jotwnb7EWnDgeXu2Vxn4JQ8BoQ6C3EKYC1VKFzb6oZCvxZEMFVk3eql7XBM
+         nm8uYD0AFRmy0D+FstW219esd1sHACgs4CDgHuL2H3XkZbD1FnfcRXhWh04h+1Ug/wm5
+         k0qM4Q0vBC5YC+qbg32hQGy3sObB8vSqByLj4Zo6aWzs3Y9ib6CjOnDuIq52u5CHY2PH
+         d6IswfBxUlOv6B9jkfwmzppAUsRW10WGP+8ECBXJrE7RX9I8TVhYH2ypTTm2uzPdlu7k
+         rKAcvfYfH1WkCYMp25orMVADaIYJGEI4TTQ3qdRsB2pU9A8sTpfOHoHihIoI5lvLRGlM
+         kVQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793072970; x=1793677770;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bVKdd+rg0dOMU+J41LGwwuebdjS7SkBQhNfNvVlqcdA=;
+        b=xoJIYX8qkrURohgoxO9DFu4xUuQaw5UhGj4aJ7WfG1uYnPXpaFXreBtrr59nCXI1uC
+         lExrWTMy0oEkRExP4yNJ4xkfwCCGL4MUvSEWHeYQUE1K0pc9M99tPv9k/Rjg+Z/vOk1y
+         lrYCvHo/d2WP87ZubDL/AJHYk6RUV2Wgm9Sb6ACkSuURUQIQDbLEnnRMEuT6W35Of2eY
+         HZ5hU40WADHmBsUVI43QF1mvf6iipuOgSnsx5wnHofFeWEtVbtWImAFtCCnYPgUaRc/T
+         cS+CK0KYUSDYRDXpLNdsC5xLAwlG0jvUHUPMvHhlA+0fxlZgQiEie2w/G4/RgPPKknsr
+         Q7tA==
+X-Forwarded-Encrypted: i=1; AKwUvByZgWDS3iSM3f2D8NT1IefWSy7ipYstCT2TK660EJgMTbamrNvbeqlu7l05uiFmnV7SSivmC88c@lists.ozlabs.org
+X-Gm-Message-State: AFq9FYL3dSaNjWTOqa/FKm+C+VhczOzsbahzJjd2co/oc76Kijytp6DQ
+	hZnRHE0tGUtGXfXoyV51S+S1fIoDIbOwQcpG3B4w+L95xvlKD//zGOk4
+X-Gm-Gg: AYBFou0WuMVi4dMdbpYoVA4islUp8EKvzGOCyRbeH1yL9fd+hdh82VQUe3KGEPxq1Cw
+	EfsXiP5EPYRxb+jrPcckJZfV2XwynjjJCBJmrEEgX67pQ+xRAjCCW8GT61keYrUWui3q5fAViW5
+	wRPhu7y+Aee49cXpZ249IuJ5ujpU9yx/iCPazWL5bnS5yhX/YKUp3D8xB69Yd8gMkHb4j36/PHH
+	53tjrR5iuIJBM7SZODJppsNsGBKuB3LRSQ9WSqxryYAfmN87TelVdy1bjQuijQcJDIGb4YEFuxE
+	sHPRTo0kRxcYl1sZbk0/qcJ1ctarxRlrgrBCa9nhhR5xbQJJyOnD0Ty9B7tjYmUAnRHGGglRoGo
+	fHfsaTwEQgAwdVuzsSar4hPoKGVmiLv1jDm6HDkjYkfHHcGEMbkJsGXjWIythULTBDYAvAt/jp4
+	XAHFzI4iA3HDYEUBCLxSuKhf0VfQAfcqkVRlQqoXcsVXXhUUpgMp3hpYtraon9qglWxxmmoQfd/
+	249R5EhLZ4egECLQ6bHzYY7LBnie0cm3MgfuPKIduc4F+PGk4Qf5mDw4Hjh2KV5sNG49IE=
+X-Received: by 2002:a05:7022:47:b0:14e:5e6b:e6e2 with SMTP id a92af1059eb24-1a3c904cc2fmr2284657c88.18.1793072970015;
+        Mon, 26 Oct 2026 20:49:30 -0700 (PDT)
 Received: from debian.prasanth ([103.177.82.12])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm26430012c88.19.2026.10.26.20.49.17
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm26430012c88.19.2026.10.26.20.49.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:49:22 -0700 (PDT)
+        Mon, 26 Oct 2026 20:49:29 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: joel@jms.id.au,
 	andrew@codeconstruct.com.au
@@ -86,10 +87,12 @@ Cc: robh@kernel.org,
 	openbmc@lists.ozlabs.org,
 	andrew@lunn.ch,
 	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v9 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Date: Tue, 27 Oct 2026 09:19:09 +0530
-Message-ID: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
+Subject: [PATCH v9 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+Date: Tue, 27 Oct 2026 09:19:10 +0530
+Message-ID: <20261027034911.99482-2-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
+References: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -104,71 +107,31 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add support for the ASRock Rack B650D4U BMC, based on the ASPEED
-AST2600. The series adds the board compatible and describes memory,
-SPI NOR partitions, UART5, GPIO line names, GFX memory, the I2C7
-EEPROM, and MAC0 with its RTL8211F PHY.
+Document the ASRock Rack B650D4U BMC, which uses an ASPEED AST2600.
 
-Enable both ADC engines with 2.5 V internal references and expose
-all sixteen channels through an IIO-to-hwmon bridge. The channel
-order is ADC0 channels 0-7 followed by ADC1 channels 0-7.
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes since v8:
-- Enable ADC0 and ADC1 with their reference settings and pin groups.
-- Add the sixteen-channel IIO-to-hwmon bridge.
-
-The other board descriptions from v8 are retained. Andrew Lunn's
-Reviewed-by tag remains scoped to the MAC0 and MDIO nodes only.
-Fan/PWM support and BMC-ready GPIO policy are outside this series.
-
-Base: aspeed/arm/dt in the BMC maintainer tree
-https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git
-Base commit: 8db593481c8669eddb8b4e21ea44f3fa11d9f030
-
-Validation:
-- Compiled the board DTB with aspeed_g5_defconfig using
-  arm-linux-gnueabi-gcc.
-- Ran dt_binding_check for arm/aspeed/aspeed.yaml using dtschema
-  2026.9, with no diagnostics reported.
-- Ran CHECK_DTBS=y for the board DTB. No board-specific errors were
-  reported. Two unmatched-schema diagnostics remain for inherited
-  aspeed,ast2600-lhc and aspeed,ast2600-i3c-global nodes.
-
-Hardware testing used the same ADC node configuration in a locally
-patched OpenBMC image based on Linux 6.18.24. Both engines and the
-IIO bridge were available; twelve configured voltage rails returned
-readings, including standby rails with the host off. Voltage readings
-also recovered after a BMC restart with the host reported on.
-
-The complete DTS on this upstream base has not been boot-tested.
-The tested OpenBMC image uses a different flash layout and separate
-local power-control and sensor-discovery changes. Consequently, that
-image is not a directly reproducible build of this upstream series.
-Voltage scaling and sensor publication are userspace configuration
-and are not included in these kernel patches.
-
-The patches can be applied with git am on the base above. Anyone
-boot-testing them should first adapt their image and bootloader to
-the described flash layout; the DTB alone is not a flashable image.
-
-Prasanth Kumar Padarthi (2):
-  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
-  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-
- .../bindings/arm/aspeed/aspeed.yaml           |   1 +
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 173 ++++++++++++++++++
- 3 files changed, 175 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-
-
-base-commit: 8db593481c8669eddb8b4e21ea44f3fa11d9f030
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index b7e70868e..3e6133e2b 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -79,6 +79,7 @@ properties:
+           - enum:
+               - ampere,mtjefferson-bmc
+               - ampere,mtmitchell-bmc
++              - asrock,b650d4u-bmc
+               - aspeed,ast2600-evb
+               - aspeed,ast2600-evb-a1
+               - asus,ast2600-kommando-ipmi-card
 -- 
 2.47.3
 
