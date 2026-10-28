@@ -2,42 +2,94 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D504B606A31D
-	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2026 02:19:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88625606A31D
+	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2026 03:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBh1kbGj
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jDrfL5jMmz2xwL;
-	Wed, 28 Oct 2026 13:19:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793153978;
-	cv=none; b=PlXHbWJRwm21TqYq8OwgN+IAjHF5usJYNm74dgd6/LewVi36dxjFCYqn3fvYYjsNtuNgwYjBtxebkIXURgFQ6gC+GpLuRXIC13/siYAO0s0fkbw8eQ1w0R/P3srJKU2FZHZ8zbUoLcWVtc6GCCm+yEal+jf+plgnyj+Ck7KftpjEgyyATbyDpOr48K4wfviQtNb74vwjsbqybJBbj+dmr8yhm4m59PANWrN6QdEpCtg6L0CNBsyXuG4fMEEXWDic6hSUg5tuAspsqpBSZEfJMjXzCVHK8PfJeH4lwVF0uYG9YB6xFJmjnabyQyeM3i3r4MqNChJtVa5uN030uVRA4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793153978; c=relaxed/relaxed;
-	bh=exXJPjqiLGeVde2VvNDqNKko+FDtdJg3AM2vlv+sotI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VOkC8y84XqNqH4zfK15NaQSiPON5Sz522JBwYF1EqK/KBZ8oeUw1sg7+VNTzRrfJEIydDcZKa9k1Fo1Hq/zyP7X85ISvK5SUqV5lHPRnMbPEf8HLsWWIZPUl9uzBMLWZHzlZ4gu5XI49RFCK5xtuX/9ZxcwKM91XP+bzdtLR8ssYu2gx8zD8RhETLS0cBpyxALz7wcFBR/lU/6kYe/PUgZZARs0kiL70gk8U/L9+rtjl0Gx7D7TcuXrathlampBtVgMZ+DlNs46f6kk6AXLkoqJtOlGBO12NrZzqqAgNyYXgcItZbXNBF4jbOVYilAnmNzIedv3DMe+u18SL/wSGuA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=cooper_huang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=cooper_huang@aspeedtech.com; receiver=lists.ozlabs.org)
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jDsc65yv0z2y7p;
+	Wed, 28 Oct 2026 14:02:46 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1136" arc.chain=google.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793156566;
+	cv=pass; b=iAtKUD1xwTZp27Vwssaunwp0vAmLh39hbfA1uxgBGznGlnmx6bycd1R3Qu0BcIk3ycpm3fJz0/6MH6uSUbBwGyJzAZEDBf/HRXLum0qC/FoLex4rSgFdzYsonIjl4jDQgB8Nn06q49lb7A1DXCyLKFLcJbehkhPpMJW782WtTt0/wf6ozw1O4cDYt15E58RFf0xTV1S3XOT4BBLYzBUMjBHBwAjeZGR9EWLgQwpt+ISRZeJIuKYpIDd/xzl7JSZ0+UCWfZIPCsrxEKWqIQl4s0Q91T1Cckxn3CRHlmO23fYFCjaHYC7+M6cQKXkDtdZ1UwPB7Xf9BSZSAfhtMBTh0w==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1793156566; c=relaxed/relaxed;
+	bh=6gwoAmnbvIGLb369aZhQcsWZKGDZfmCyKvu6i1SBTsw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D+gs/go9vjjvzdOpRw3+HAicFpbMJKJX8OJCGX43vF9zeRpwFiu0FPA7icCuIwFxJIKnaF+aJUgwxI4uSai3Vf2Lrr9SLzJAI367PqCu3vV7uX3cnpCQnTvaSTBBJbbSJM7gCbJeJpi958lQKqe/NBd+kj/Az3ZzuV0iDWcL9LDLr0Xp/WKgh1ioulm/XBqiPrfO2ReTIwv3J+zwTAHzVPsrJdD8gigMetWFii0OJ2GLEUFAalK0EnTNllecoJdS63SFrqsj2yHocIbJbe956e9DQd9dESb15wRUXTq6M9voNIjB3mfBfU6sfb+wDk1APdk6OIH+cHQaqkNOYZBc6Q==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBh1kbGj; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1136; helo=mail-yw1-x1136.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qBh1kbGj;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1136; helo=mail-yw1-x1136.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com [IPv6:2607:f8b0:4864:20::1136])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jDrfJ63y1z2xYw
-	for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2026 13:19:36 +1100 (AEDT)
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 28 Oct
- 2026 10:19:15 +0800
-Received: from aspeed-fw03.aspeed.com (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 28 Oct 2026 10:19:14 +0800
-From: Cooper Huang <cooper_huang@aspeedtech.com>
-To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
-	<tan.siewert@9elements.com>
-CC: <joel@jms.id.au>, <vince_chang@aspeedtech.com>, <troy_lee@aspeedtech.com>,
-	<ryan_chen@aspeedtech.com>, <chin-ting_kuo@aspeedtech.com>
-Subject: [PATCH u-boot v2026.10-openbmc] spi: aspeed: Add read timing calibration
-Date: Wed, 28 Oct 2026 10:19:14 +0800
-Message-ID: <20261028021914.1828256-1-cooper_huang@aspeedtech.com>
-X-Mailer: git-send-email 2.34.1
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jDsc53T2zz2xHP
+	for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2026 14:02:45 +1100 (AEDT)
+Received: by mail-yw1-x1136.google.com with SMTP id 00721157ae682-8b10d24345dso4472967b3.3
+        for <openbmc@lists.ozlabs.org>; Tue, 27 Oct 2026 20:02:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793156563; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mhGlw4tFH03CgJ359MFLZQNSGDnIlibsz/NiZVvOnPrRMIGZ1i8pRhvKZPihMNlzNy
+         0bbFzwA4+EJWYmdSHxRdE7f2BQQLdIBu47AQ/jhASp3bP38+Ssteh2VB1H6MtScg6TKs
+         SQ+xhGHmu82d8+QiypKdiJW1iu8Xe1AAJtrkZjsgrkDEqke8syHBa/W9zGWI2XxNsERN
+         6a6y1RRpRG1FlcT8AfwLi06eq7oavu/gzQDnxipkDV9c18YOPxRBSkaoNgtLmMnII5ZG
+         bY21zZ+jaUqMme25jAyKSOs8s/j+y1lolkQfuJCsymzCVHY3fve9uMiOYXyS/zReef+U
+         YqfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6gwoAmnbvIGLb369aZhQcsWZKGDZfmCyKvu6i1SBTsw=;
+        fh=5ElRSQZQNckVQSgzgcveOnh9qm9Vl7rhUkc2FbaQZn8=;
+        b=fILGfftTrfBD29f9TYaxJfs79hqJkc0plcX+VmjMey92Vj1MTwKdOMBHLz/Uou3RRU
+         dkGUHYj0EYZAg0W7MXW5E1fGjpv0XXadqGDluWki0gDNGY+M391zH794MRSaZZ20svOu
+         +rqNfCBqk00wy1lx0nsirc7vcwdBtvAQ0OiLA92o/fDlaarZYP+3U205/Wkouzx+6EXk
+         Hq4GiwY1ASS8MQ2xJg8Efcn1ZolXZNxyK5Q13p8sPU7etuo2pf8CMJraYkGs41HP9NjR
+         ilWSWhdDnbpof5CaNq8Ws/8ePvqhnC2fwXtrt/ykx+rJ48y3wcCDZPQhEnboIcApZ22J
+         EAog==;
+        darn=lists.ozlabs.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793156563; x=1793761363; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6gwoAmnbvIGLb369aZhQcsWZKGDZfmCyKvu6i1SBTsw=;
+        b=qBh1kbGjiAR82Wyxv6bsf93nB02NO6LOSdSEbmqu9rlI1Oq+1l+Jf61rYC/1GZRsCa
+         Q6O9t80GD3OsK6PDoSgpWHaudMBzUhJ1xHal63wLDcvL66gBsIAt4vE5ar9fpeFWJn+G
+         9y38U47Lb9sjTH61EOTyhqAl8kUOEzLdfpfCnQvwLXFN9O9VD7lMEzkB3LQ7e/14HV5O
+         NBcS6T//g3ZlbSh2s5hiV0ODs3nKwMiN+NTo5dEkEHrY6cful2OIPVd8n1TfpXdbQyOX
+         9VB7+NT/bTQSdYgcindqRElj2Qw+BLjkG5tF7mratpRsSDz+r+z0b6bhqkgdW0sVYCdx
+         2/pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793156563; x=1793761363;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6gwoAmnbvIGLb369aZhQcsWZKGDZfmCyKvu6i1SBTsw=;
+        b=fHxeGH8paJvWjTr89GV6QzaNHkdti3S5YVGaiGdBK9Jx7fRaj2wBmViXZ8V0VLeata
+         /PgawSuyCl5Ph9lLg6zqmkc27JVMbB2cF7+33KPGo2QIm8WVn4xHmvVl6FvPPoDaGMvR
+         HgAN5zj5NWPfMTkfvmCtwE+uebWqGVojJ6sPaxtJd69GYFlmPrRnti6CKNB4Hl6i0gaD
+         bpzg89Gst8OOuDsdMSJ88t8HSXaLRI7Nb61f1IuVqANNhCchl19DNh/OqCRzuuprNPVd
+         Bxe6Y5lch8zXn+o8h1OQyj1Pq25Sseae0V6VLNa3WlXFxzMY1nWzLfbip0fxWtZ48pEP
+         r/Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzpqS+QUEYVljHKfR1qkaFiNNafIUWeOIioeafUhIFYSFGsryh6xEXJ2qI1D1oviHX+oWAnFryW@lists.ozlabs.org
+X-Gm-Message-State: AFq9FYKpCIOGnQ3rPn661aL0P8yoOF7NjXEt5STpzjtyHKDSkrEhTrul
+	05WXIpxLuUspRWYiXKZzIC8KWQ/wmEB/erSJimmZqa/qa4z5gOani8yffkkNbzktjQVCamRvu9Q
+	vUeB9TBUd7NtDAsX7CyHycgZU5MzGiyQ=
+X-Gm-Gg: AYBFou0ofnOhDSlnMklD9aHkXxpYxinbJF8FMwns0+a4j3mtJFz6Amk4OW0ziqVPok5
+	4x0+/X62g1xocWC1TichxikIjCzKqOi40M036AS6QKgAJyIPAIkO33Hkc0jPVXV5T0omWtLE7Zl
+	acUdOielp2yFTGc/hejeO1OnGJmauhRbKYPGjzzUKbIi/PPCrgCfx9Vmz7Yi6tLuanbbR40uy2g
+	E7+j3HhKP0wly5Lg0D+OMHI5ra1AdwVfXAYElXQS+Vj6VAKcV+B4MC1qm9pEAhIa0ARBmCieufs
+	UhuI+V+0AM7/4KcmH0LA9+nLmovmkN5EfBqbmZGYW+fgdMxaNYCy0jJ7boVAP74Mifl1F/xFuhW
+	QWtZyrX6f71I9winCjmtWxVbOdzoUaA2k7rRM
+X-Received: by 2002:a05:690c:930c:20b0:8b0:893d:ccbd with SMTP id
+ 00721157ae682-8b1b5c7066bmr6133407b3.12.1793156562747; Tue, 27 Oct 2026
+ 20:02:42 -0700 (PDT)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -49,498 +101,77 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Spam-Status: No, score=-21.8 required=3.0 tests=BAYES_00,
+References: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
+ <20261027034911.99482-2-prasanth.padarthi10@gmail.com> <20261027-savvy-powerful-seahorse-cc1079@quoll>
+In-Reply-To: <20261027-savvy-powerful-seahorse-cc1079@quoll>
+From: Prasanth <prasanth.padarthi10@gmail.com>
+Date: Wed, 28 Oct 2026 08:32:31 +0530
+X-Gm-Features: AclHuK9lp_o8SK5eEXhK6dRTkFSMinl_ZrlydL6PeVvJqMGdIxhaqqqLV4JoCCc
+Message-ID: <CAMFFDGhdzegMGoajgjfX8FRTBNF1p5VJ9CCcm9pPEVCA0xibQQ@mail.gmail.com>
+Subject: Re: [PATCH v9 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, andrew@lunn.ch
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_PASS,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-At high SPI clock frequencies, the controller must delay the sampling
-of the read data, and the right delay depends on the board. Port the
-read timing calibration from the Linux driver: golden data is read at
-HCLK/16, then the timing settings of each HCLK divider, from the
-fastest one allowed down to HCLK/5, are scanned until the reads match.
+Hi Krzysztof,
 
-Until the calibration is done, the flash is accessed at HCLK/16, as in
-Linux, since faster settings may not work without the timing
-compensation. If no setting passes, or the calibration cannot be done,
-the flash stays at HCLK/16 with a warning.
+Thank you for reviewing. I omitted the earlier revision history and
+discussion links, and placed the compatible incorrectly.
 
-Compared to Linux:
-- each setting is checked by reading 1KB twice, instead of 16KB ten
-  times, to keep the boot time short. The minimum number of words that
-  are neither all 0's nor all 1's is scaled to the buffer size, keeping
-  the Linux ratio of 1/64.
-- the AST2600 setting picked in the passing window is mapped back to
-  the input delay that was tested. Linux writes the column index as
-  the delay, which is one step off.
+I will reconstruct the changelog, include links to the previous
+versions and reviews, and correct the alphabetical ordering in the
+next revision.
 
-Based on the following Linux commits:
-- eeaec1ea05c0 ("spi: aspeed: Calibrate read timings")
-- 31dcc7e1f8a9 ("spi: aspeed: Update clock selection strategy")
-- efb79de36e94 ("spi: aspeed: Improve timing calibration algorithm
-  for AST2600 platform")
+The intended changes since v8 were enabling both ADC engines and
+adding the IIO-to-hwmon bridge. I retained Andrew Lunn's Reviewed-by
+tag with its original scope limited to the MAC0 and MDIO nodes.
 
-Link: https://git.kernel.org/torvalds/c/eeaec1ea05c0
-Link: https://git.kernel.org/torvalds/c/31dcc7e1f8a9
-Link: https://git.kernel.org/torvalds/c/efb79de36e94
-Signed-off-by: Cooper Huang <cooper_huang@aspeedtech.com>
-Reviewed-by: Tan Siewert <tan.siewert@9elements.com>
-Link: https://patch.msgid.link/20261027-spi-aspeed-calibration-v2-1-26359ab2d86d@aspeedtech.com
----
- drivers/spi/spi-aspeed-smc.c | 284 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 282 insertions(+), 2 deletions(-)
+Regards,
+Prasanth
 
-diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c
-index 0186b01ad9a..051569c453d 100644
---- a/drivers/spi/spi-aspeed-smc.c
-+++ b/drivers/spi/spi-aspeed-smc.c
-@@ -36,6 +36,15 @@
- #define CTRL_IO_MODE_CMD_WRITE  BIT(1)
- #define CTRL_STOP_ACTIVE        BIT(2)
- 
-+#define CALIBRATE_BUF_SIZE      SZ_1K
-+#define CALIBRATE_REPEAT_COUNT  2
-+#define CALIBRATE_MAX_HDIV      5
-+
-+#define TIMING_DELAY_DI         BIT(3)
-+#define TIMING_DELAY_HCYCLE_MAX 5
-+#define TIMING_DELAY_INPUT_MAX  16
-+#define TIMING_MIN_PASS_WINDOW  5
-+
- struct aspeed_spi_regs {
- 	u32 conf;                       /* 0x00 CE Type Setting */
- 	u32 ctrl;                       /* 0x04 CE Control */
-@@ -85,12 +94,15 @@ struct aspeed_spi_info {
- 	u32 max_bus_width;
- 	u32 min_decoded_sz;
- 	u32 clk_ctrl_mask;
-+	u32 min_hdiv;
- 	void (*set_4byte)(struct udevice *bus, u32 cs);
- 	uintptr_t (*segment_start)(struct udevice *bus, u32 reg);
- 	uintptr_t (*segment_end)(struct udevice *bus, u32 reg);
- 	u32 (*segment_reg)(uintptr_t start, uintptr_t end);
- 	int (*adjust_decoded_sz)(struct udevice *bus);
- 	u32 (*get_clk_setting)(struct udevice *dev, uint hz);
-+	int (*calibrate)(struct udevice *dev, u32 hdiv,
-+			 const u8 *golden_buf, u8 *test_buf);
- };
- 
- struct aspeed_spi_decoded_range {
-@@ -724,11 +736,249 @@ static int aspeed_spi_exec_op_user_mode(struct spi_slave *slave,
- 	return 0;
- }
- 
-+/* Read timing calibration, ported from the Linux driver */
-+static bool aspeed_spi_check_reads(struct aspeed_spi_flash *flash,
-+				   const u8 *golden_buf, u8 *test_buf)
-+{
-+	int i;
-+
-+	for (i = 0; i < CALIBRATE_REPEAT_COUNT; i++) {
-+		memcpy_fromio(test_buf, (void __iomem *)flash->ahb_base,
-+			      CALIBRATE_BUF_SIZE);
-+		if (memcmp(test_buf, golden_buf, CALIBRATE_BUF_SIZE))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+/* Check that at least 1/64 of the words are neither all 0's nor all 1's */
-+static bool aspeed_spi_check_calib_data(const u8 *buf, size_t len)
-+{
-+	const u32 *buf32 = (const u32 *)buf;
-+	u32 cnt = 0;
-+	size_t i;
-+
-+	for (i = 0; i < len / sizeof(u32); i++) {
-+		if (buf32[i] != 0 && buf32[i] != 0xffffffff)
-+			cnt++;
-+	}
-+
-+	return cnt >= len / 256;
-+}
-+
-+static u32 ast2400_fread_tpass(int i)
-+{
-+	return (i / 2) | ((i & 1) ? 0 : TIMING_DELAY_DI);
-+}
-+
-+/* The timing register is shared by all CS, only CE0 is calibrated. */
-+static int ast2400_spi_calibrate(struct udevice *dev, u32 hdiv,
-+				 const u8 *golden_buf, u8 *test_buf)
-+{
-+	struct aspeed_spi_priv *priv = dev_get_priv(dev->parent);
-+	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
-+	u32 cs = slave_plat->cs[0];
-+	struct aspeed_spi_flash *flash = &priv->flashes[cs];
-+	uintptr_t timing_reg = (uintptr_t)&priv->regs->timings[0];
-+	u32 shift = (hdiv - 1) * 4;
-+	u32 timing_base;
-+	u32 timing_val;
-+	int pass_cnt = 0;
-+	int i;
-+
-+	/*
-+	 * Other CS only check that the timing set by CE0 reads correctly
-+	 * three times.
-+	 */
-+	if (cs != 0) {
-+		for (i = 0; i < 3; i++) {
-+			if (!aspeed_spi_check_reads(flash, golden_buf,
-+						    test_buf))
-+				return -EIO;
-+		}
-+
-+		return 0;
-+	}
-+
-+	/* The AST2400 SPI controller has its timing register at 0x14. */
-+	if (priv->info == &ast2400_spi_info)
-+		timing_reg = (uintptr_t)priv->regs + 0x14;
-+
-+	timing_base = readl(timing_reg) & ~(0xfu << shift);
-+
-+	for (i = 0; i < (TIMING_DELAY_HCYCLE_MAX + 1) * 2; i++) {
-+		timing_val = ast2400_fread_tpass(i);
-+		writel(timing_base | (timing_val << shift), timing_reg);
-+
-+		if (!aspeed_spi_check_reads(flash, golden_buf, test_buf)) {
-+			pass_cnt = 0;
-+			continue;
-+		}
-+
-+		/* Use the middle one of three consecutive passing settings. */
-+		if (++pass_cnt == 3) {
-+			timing_val = ast2400_fread_tpass(i - 1);
-+			writel(timing_base | (timing_val << shift), timing_reg);
-+			return 0;
-+		}
-+	}
-+
-+	return -EIO;
-+}
-+
-+/* Column 0 is without input delay, columns 1 to 16 are input delays 0 to 15 */
-+static u32 ast2600_timing_val(int hcycle, int col)
-+{
-+	if (!col)
-+		return hcycle;
-+
-+	return TIMING_DELAY_DI | hcycle | ((col - 1) << 4);
-+}
-+
-+/*
-+ * Each CS has its own timing register. Use the center of the longest
-+ * passing window of input delays within a single HCLK cycle delay.
-+ */
-+static int ast2600_spi_calibrate(struct udevice *dev, u32 hdiv,
-+				 const u8 *golden_buf, u8 *test_buf)
-+{
-+	struct aspeed_spi_priv *priv = dev_get_priv(dev->parent);
-+	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
-+	u32 cs = slave_plat->cs[0];
-+	struct aspeed_spi_flash *flash = &priv->flashes[cs];
-+	u32 *timing_reg = &priv->regs->timings[cs];
-+	u32 shift = (hdiv - 2) * 8;
-+	u32 timing_base;
-+	u32 timing_val;
-+	int best_hcycle = 0;
-+	int best_col = 0;
-+	int best_len = 0;
-+	int hcycle;
-+	int start;
-+	int col;
-+
-+	timing_base = readl(timing_reg) & ~(0xffu << shift);
-+
-+	for (hcycle = 0; hcycle <= TIMING_DELAY_HCYCLE_MAX; hcycle++) {
-+		start = 0;
-+
-+		for (col = 0; col <= TIMING_DELAY_INPUT_MAX; col++) {
-+			timing_val = ast2600_timing_val(hcycle, col);
-+			writel(timing_base | (timing_val << shift), timing_reg);
-+
-+			if (!aspeed_spi_check_reads(flash, golden_buf,
-+						    test_buf)) {
-+				start = col + 1;
-+				continue;
-+			}
-+
-+			if (col - start + 1 > best_len) {
-+				best_len = col - start + 1;
-+				best_hcycle = hcycle;
-+				best_col = start + best_len / 2;
-+			}
-+		}
-+	}
-+
-+	if (best_len < TIMING_MIN_PASS_WINDOW)
-+		return -EIO;
-+
-+	timing_val = ast2600_timing_val(best_hcycle, best_col);
-+	writel(timing_base | (timing_val << shift), timing_reg);
-+
-+	return 0;
-+}
-+
-+static bool aspeed_spi_need_calibration(struct udevice *dev)
-+{
-+	struct aspeed_spi_plat *plat = dev_get_plat(dev->parent);
-+	struct aspeed_spi_priv *priv = dev_get_priv(dev->parent);
-+	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
-+
-+	/* The calibration is done when the read direct mapping is created. */
-+	return CONFIG_IS_ENABLED(SPI_DIRMAP) && priv->info->calibrate &&
-+	       slave_plat->max_hz >= plat->hclk_rate / CALIBRATE_MAX_HDIV;
-+}
-+
-+static int aspeed_spi_do_calibration(struct udevice *dev)
-+{
-+	struct udevice *bus = dev->parent;
-+	struct aspeed_spi_plat *plat = dev_get_plat(bus);
-+	struct aspeed_spi_priv *priv = dev_get_priv(bus);
-+	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
-+	const struct aspeed_spi_info *info = priv->info;
-+	u32 cs = slave_plat->cs[0];
-+	struct aspeed_spi_flash *flash = &priv->flashes[cs];
-+	uintptr_t ce_ctrl_reg = (uintptr_t)&priv->regs->ce_ctrl[cs];
-+	u8 *golden_buf;
-+	u8 *test_buf;
-+	u32 clk_setting = 0;
-+	u32 ctrl_val;
-+	u32 hdiv;
-+	int ret;
-+
-+	if (!aspeed_spi_need_calibration(dev))
-+		return 0;
-+
-+	if (info == &ast2400_spi_info)
-+		ce_ctrl_reg = (uintptr_t)&priv->regs->ctrl;
-+
-+	test_buf = malloc(CALIBRATE_BUF_SIZE * 2);
-+	if (!test_buf)
-+		return -ENOMEM;
-+
-+	golden_buf = test_buf + CALIBRATE_BUF_SIZE;
-+
-+	/* Read the golden data at HCLK/16. */
-+	ctrl_val = flash->ce_ctrl_read & ~info->clk_ctrl_mask;
-+	writel(ctrl_val, ce_ctrl_reg);
-+	memcpy_fromio(golden_buf, (void __iomem *)flash->ahb_base,
-+		      CALIBRATE_BUF_SIZE);
-+
-+	if (!aspeed_spi_check_calib_data(golden_buf, CALIBRATE_BUF_SIZE)) {
-+		dev_info(dev, "calibration area too uniform, skipped\n");
-+		clk_setting = info->get_clk_setting(dev, slave_plat->max_hz);
-+		goto out;
-+	}
-+
-+	for (hdiv = info->min_hdiv; hdiv <= CALIBRATE_MAX_HDIV; hdiv++) {
-+		u32 hdiv_freq = plat->hclk_rate / hdiv;
-+
-+		if (hdiv_freq > slave_plat->max_hz)
-+			continue;
-+
-+		clk_setting = info->get_clk_setting(dev, hdiv_freq);
-+		writel(ctrl_val | clk_setting, ce_ctrl_reg);
-+
-+		ret = info->calibrate(dev, hdiv, golden_buf, test_buf);
-+		dev_dbg(dev, "HCLK/%u: %s\n", hdiv, ret ? "FAIL" : "PASS");
-+		if (!ret)
-+			break;
-+	}
-+
-+	if (hdiv > CALIBRATE_MAX_HDIV) {
-+		dev_warn(dev, "no good read timing found, using HCLK/16\n");
-+		clk_setting = 0;
-+		flash->max_freq = plat->hclk_rate / 16;
-+	}
-+
-+out:
-+	flash->ce_ctrl_user &= ~info->clk_ctrl_mask;
-+	flash->ce_ctrl_user |= clk_setting;
-+	flash->ce_ctrl_read = ctrl_val | clk_setting;
-+	writel(flash->ce_ctrl_read, ce_ctrl_reg);
-+	free(test_buf);
-+
-+	return 0;
-+}
-+
- static int aspeed_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
- {
- 	int ret = 0;
- 	struct udevice *dev = desc->slave->dev;
- 	struct udevice *bus = dev->parent;
-+	struct aspeed_spi_plat *plat = dev_get_plat(bus);
- 	struct aspeed_spi_priv *priv = dev_get_priv(bus);
- 	struct dm_spi_slave_plat *slave_plat = dev_get_parent_plat(dev);
- 	const struct aspeed_spi_info *info = priv->info;
-@@ -765,7 +1015,7 @@ static int aspeed_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
- 
- 		ret = aspeed_spi_decoded_range_config(bus);
- 		if (ret)
--			return ret;
-+			goto err;
- 	}
- 
- 	cmd_io_conf = aspeed_spi_get_io_mode(op_tmpl.data.buswidth) |
-@@ -779,9 +1029,22 @@ static int aspeed_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
- 
- 	writel(priv->flashes[cs].ce_ctrl_read, ce_ctrl_reg);
- 
-+	ret = aspeed_spi_do_calibration(dev);
-+	if (ret)
-+		goto err;
-+
- 	dev_dbg(dev, "read bus width: %d ce_ctrl_val: 0x%08x\n",
- 		op_tmpl.data.buswidth, priv->flashes[cs].ce_ctrl_read);
- 
-+	return 0;
-+
-+err:
-+	/* If no clock was set before, it is still HCLK/16, leave it there. */
-+	if (!priv->flashes[cs].max_freq && aspeed_spi_need_calibration(dev)) {
-+		dev_warn(dev, "read timing not calibrated, using HCLK/16\n");
-+		priv->flashes[cs].max_freq = plat->hclk_rate / 16;
-+	}
-+
- 	return ret;
- }
- 
-@@ -1056,11 +1319,13 @@ static const struct aspeed_spi_info ast2400_fmc_info = {
- 	.max_bus_width = 2,
- 	.min_decoded_sz = 0x800000,
- 	.clk_ctrl_mask = 0x00002f00,
-+	.min_hdiv = 1,
- 	.set_4byte = ast2400_fmc_chip_set_4byte,
- 	.segment_start = ast2400_spi_segment_start,
- 	.segment_end = ast2400_spi_segment_end,
- 	.segment_reg = ast2400_spi_segment_reg,
- 	.get_clk_setting = ast2400_get_clk_setting,
-+	.calibrate = ast2400_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2400_spi_info = {
-@@ -1068,11 +1333,13 @@ static const struct aspeed_spi_info ast2400_spi_info = {
- 	.max_bus_width = 2,
- 	.min_decoded_sz = 0x800000,
- 	.clk_ctrl_mask = 0x00000f00,
-+	.min_hdiv = 1,
- 	.set_4byte = ast2400_spi_chip_set_4byte,
- 	.segment_start = ast2400_spi_segment_start,
- 	.segment_end = ast2400_spi_segment_end,
- 	.segment_reg = ast2400_spi_segment_reg,
- 	.get_clk_setting = ast2400_get_clk_setting,
-+	.calibrate = ast2400_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2500_fmc_info = {
-@@ -1080,12 +1347,14 @@ static const struct aspeed_spi_info ast2500_fmc_info = {
- 	.max_bus_width = 2,
- 	.min_decoded_sz = 0x800000,
- 	.clk_ctrl_mask = 0x00002f00,
-+	.min_hdiv = 1,
- 	.set_4byte = ast2500_spi_chip_set_4byte,
- 	.segment_start = ast2500_spi_segment_start,
- 	.segment_end = ast2500_spi_segment_end,
- 	.segment_reg = ast2500_spi_segment_reg,
- 	.adjust_decoded_sz = ast2500_adjust_decoded_size,
- 	.get_clk_setting = ast2500_get_clk_setting,
-+	.calibrate = ast2400_spi_calibrate,
- };
- 
- /*
-@@ -1097,12 +1366,14 @@ static const struct aspeed_spi_info ast2500_spi_info = {
- 	.max_bus_width = 2,
- 	.min_decoded_sz = 0x800000,
- 	.clk_ctrl_mask = 0x00002f00,
-+	.min_hdiv = 1,
- 	.set_4byte = ast2500_spi_chip_set_4byte,
- 	.segment_start = ast2500_spi_segment_start,
- 	.segment_end = ast2500_spi_segment_end,
- 	.segment_reg = ast2500_spi_segment_reg,
- 	.adjust_decoded_sz = ast2500_adjust_decoded_size,
- 	.get_clk_setting = ast2500_get_clk_setting,
-+	.calibrate = ast2400_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2600_fmc_info = {
-@@ -1110,12 +1381,14 @@ static const struct aspeed_spi_info ast2600_fmc_info = {
- 	.max_bus_width = 4,
- 	.min_decoded_sz = 0x200000,
- 	.clk_ctrl_mask = 0x0f000f00,
-+	.min_hdiv = 2,
- 	.set_4byte = ast2600_spi_chip_set_4byte,
- 	.segment_start = ast2600_spi_segment_start,
- 	.segment_end = ast2600_spi_segment_end,
- 	.segment_reg = ast2600_spi_segment_reg,
- 	.adjust_decoded_sz = ast2600_adjust_decoded_size,
- 	.get_clk_setting = ast2600_get_clk_setting,
-+	.calibrate = ast2600_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2600_spi_info = {
-@@ -1123,12 +1396,14 @@ static const struct aspeed_spi_info ast2600_spi_info = {
- 	.max_bus_width = 4,
- 	.min_decoded_sz = 0x200000,
- 	.clk_ctrl_mask = 0x0f000f00,
-+	.min_hdiv = 2,
- 	.set_4byte = ast2600_spi_chip_set_4byte,
- 	.segment_start = ast2600_spi_segment_start,
- 	.segment_end = ast2600_spi_segment_end,
- 	.segment_reg = ast2600_spi_segment_reg,
- 	.adjust_decoded_sz = ast2600_adjust_decoded_size,
- 	.get_clk_setting = ast2600_get_clk_setting,
-+	.calibrate = ast2600_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2700_fmc_info = {
-@@ -1136,12 +1411,14 @@ static const struct aspeed_spi_info ast2700_fmc_info = {
- 	.max_bus_width = 4,
- 	.min_decoded_sz = 0x10000,
- 	.clk_ctrl_mask = 0x0f000f00,
-+	.min_hdiv = 2,
- 	.set_4byte = ast2700_spi_chip_set_4byte,
- 	.segment_start = ast2700_spi_segment_start,
- 	.segment_end = ast2700_spi_segment_end,
- 	.segment_reg = ast2700_spi_segment_reg,
- 	.adjust_decoded_sz = ast2700_adjust_decoded_size,
- 	.get_clk_setting = ast2600_get_clk_setting,
-+	.calibrate = ast2600_spi_calibrate,
- };
- 
- static const struct aspeed_spi_info ast2700_spi_info = {
-@@ -1149,12 +1426,14 @@ static const struct aspeed_spi_info ast2700_spi_info = {
- 	.max_bus_width = 4,
- 	.min_decoded_sz = 0x10000,
- 	.clk_ctrl_mask = 0x0f000f00,
-+	.min_hdiv = 2,
- 	.set_4byte = ast2700_spi_chip_set_4byte,
- 	.segment_start = ast2700_spi_segment_start,
- 	.segment_end = ast2700_spi_segment_end,
- 	.segment_reg = ast2700_spi_segment_reg,
- 	.adjust_decoded_sz = ast2700_adjust_decoded_size,
- 	.get_clk_setting = ast2600_get_clk_setting,
-+	.calibrate = ast2600_spi_calibrate,
- };
- 
- static int aspeed_spi_claim_bus(struct udevice *dev)
-@@ -1167,7 +1446,8 @@ static int aspeed_spi_claim_bus(struct udevice *dev)
- 
- 	dev_dbg(bus, "%s: claim bus CS%u\n", bus->name, slave_plat->cs[0]);
- 
--	if (flash->max_freq == 0) {
-+	/* Stay at HCLK/16 until the read timing is calibrated. */
-+	if (flash->max_freq == 0 && !aspeed_spi_need_calibration(dev)) {
- 		clk_setting = priv->info->get_clk_setting(dev, slave_plat->max_hz);
- 		flash->ce_ctrl_user &= ~(priv->info->clk_ctrl_mask);
- 		flash->ce_ctrl_user |= clk_setting;
--- 
-2.34.1
-
+On Tue, Oct 27, 2026 at 3:06=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On Tue, Oct 27, 2026 at 09:19:10AM +0530, Prasanth Kumar Padarthi wrote:
+> > Document the ASRock Rack B650D4U BMC, which uses an ASPEED AST2600.
+> >
+> > Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+> > ---
+> >  Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b=
+/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> > index b7e70868e..3e6133e2b 100644
+> > --- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> > +++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> > @@ -79,6 +79,7 @@ properties:
+> >            - enum:
+> >                - ampere,mtjefferson-bmc
+> >                - ampere,mtmitchell-bmc
+> > +              - asrock,b650d4u-bmc
+>
+> That's v9, so where is the changelog? I see in cover letter only v8, no
+> links to lore disucssions, either.
+>
+> What happened here with previous versions and reviews? And why is this
+> placed in non-alphabetical order?
+>
+> >                - aspeed,ast2600-evb
+>
+> Best regards,
+> Krzysztof
+>
 
