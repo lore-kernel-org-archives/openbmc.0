@@ -2,99 +2,59 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFD0606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 23:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC87606A31A
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 23:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bxkqMRVf
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=C9mBf7xb
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jG0RV0dbKz30Vb;
-	Fri, 30 Oct 2026 10:14:14 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::132d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793315653;
-	cv=none; b=HTDtOL/nj2CGIR6x3Pgp5rUbavAjS9WXDAZSlbW99eUgjcjOmpZGQVdIXxtoDmnYGPeD76o6tQkkE9D4DBXeB4hWDcYl2cR1ZxgMlM67aWzy3E+2FskCsZ39QCsTozn9WdA3cuxxUvD+YvybgBovWMVXh3LSjjTmzkWQvv560gnMbaGhZ/ugH/RHulpveITtG5ZHG/jV6T0rDxsZUIv1U79X/jgG4P4h24wJEnFJw6RXuIYleq9jdi5UmMtuhqY85fpl8CXfO1sNZSDA+D4q8o7PxGbixImiJ9PFR9ga4/ML2xSR/Zb2eQnPSQGKM199LT1YLmV8OsC4EfJ+Beeo4w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jG0RX60KDz30Vv;
+	Fri, 30 Oct 2026 10:14:16 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793315656;
+	cv=none; b=Ll1lSbKlBIptjG0xBGUs8N8HxETlYNWUo/UA/JV9dXZhJhvMu56QDlT6WO6Op5NFJb8FfNOdb+AneUyaw/Wzg8xzF/7FB5p9VSI9nBkgMAlLnosA1eWg1VZ3ndA7AosTEnxhkKmVBcVNwv+hjlvOy9e4Ga9Y7Zhzf31Z5orwsN0JrACaR1I6zNB4KnqAR+bGBlJKNEHbS833Y4kgCcpqpo/EVp6hr+6vf7d828OoeEROMv2iN3jEEWbf8MzJvvLUOfIMjatLEd0m5/aj2iU+snMXkUD7K8oeSgtbr2yUmmT+WwBlV92kznu4oA8Qzulls60EhkTv44Ac1TmZ9m471A==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793315653; c=relaxed/relaxed;
-	bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CVGWaYqS8BMLQfMsbsB2mSVoWn7a1C1rQf5p6zRC0oNGIMCbV7aUSY+LwmYkuuw24euXYtHPFvsZSZd5/qSzHoId/+HXiyOQfE1Rhgd2wfMcvj2OIKmqXYnloU2jVe+cQlwCCsk87W0AoxtRUC8LFCdyFi/+do6vT/EUXwJ3UNlLIDsBXs4jYWJOiESPTwszQM8nY62PlTb0upELs8BlYCxjuX1YVnrVqzAI7Djpw96ooVD+1XYSeHRpiK7OtQjGU8a5GYH3EH+MIYBYrJnAkIfeGw1cItwrdixUMRKcTDGrf2T3qjxZPoOi2quHi5JVjCmsLEAj6Xp7hkiHUpDOww==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bxkqMRVf; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::132d; helo=mail-dy1-x132d.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1793315656; c=relaxed/relaxed;
+	bh=ZmKcr1TVaOH4zYuCQJNp3qk+4++E+hkc4PsTNG2OJ0M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=np/+1bw3Rd1a/jFSNWateSqTI7UYdn1M+7olESLs2mSbrz+wtDfnFCrIi9tuZruMkVnAtv2lW/V/wBAisJw5v6Q0h3tqul2zwOUZzZSwVYmswb8PPuLymj57/zzA025YpI+Hjh6XiyzixXErjN2p8V2oYltZ6Xj+2eKnBwL35zmmmj/jXTmkuPAmQZL9sDgAucuTx1wy5vRuBtkFrf4gIfdkYjHn+9f1zW4DcMoWP91HK3kTX+YOxvKSi+EESV0oq2T0oc9X8e+lTjCxgy+LAbS17usTCYlR0nESkF+TzhNOR48KA6BGHPetAPJC3jKzWiBMlBqC1zyIfHDyBW73UA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=C9mBf7xb; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bxkqMRVf;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=C9mBf7xb;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::132d; helo=mail-dy1-x132d.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dy1-x132d.google.com (mail-dy1-x132d.google.com [IPv6:2607:f8b0:4864:20::132d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jG0RS54nhz30VV
-	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 10:14:12 +1100 (AEDT)
-Received: by mail-dy1-x132d.google.com with SMTP id 5a478bee46e88-36661f953e4so268701eec.1
-        for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 16:14:12 -0700 (PDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jG0RW4HKWz30VV
+	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 10:14:15 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793315651; x=1793920451; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-        b=bxkqMRVf0PXA+CBGTOKmiQCpXKOgatNMesHAo7LPxXGBA7S3Pg4YChbFLNjouJbbf4
-         QDRkrIwz/96hR5s7SIPfwJWPYvdQ4r24og+r75SvaohsjM/lcIibF4Llpvf710occmxR
-         h8ED/251HwVdO8ieHEthTJNWGp/jQSSCFIHkx1rwOWXDoqPsbFHOuU1aA77HFkgt+puk
-         9mIp0/W1ZJqiAsiTZBS/RQyG2cfxlFpE+pkFi9xZ7F81QYDHHlvhyNMzCyqrm0OJ2cyH
-         zHZ9d5aiECqEf1mOP/yBbSJIl0LOg2b5ByUavLus1wEThwhaTUI4gn/gi+Br1By/8wiU
-         f2+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793315651; x=1793920451;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LYtNSjgV58xGbyTo5mnS9fU4iYF6Ei0AnGKD6L+FOdI=;
-        b=Dd6Q74FJjyFG+lYzFx5KS+vL9qOEu6WyzXAR0R4aiuD/OXUw5cqfVnuL8GJHBU3bCu
-         xCRECzSj3fTjQVKnKQeLp4P6r91JbjQTgyDf/7TJxy8iQPl9wRCAElLeY8y1t5xdy93e
-         KbxkyAgWaUPcexB6aiwhVcAF5/oYQhOI2eaT1U1ZfEg2GdYU1SzMuAGd8dLkLBpEy8FE
-         dmtJ9gKMZU9LaG02H/6VUJOGewqB3fCKrtB7NALs6jP/vQMT4HHO8Hx9I4+vle20xxlL
-         WnPq1A0Iz6u+BcJ/HD4zhVv+vYG5F19BCFY8BP0ujjSNIPfaCmjXxrwKv7pNYOaDrtx4
-         NYkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqLgy/aUOz4YXk4iqcNzfMSVztV6RX/BB2gbL2WhPZk/LsW5dYNyNdp5ukedxgJcxcShMB+yqN@lists.ozlabs.org
-X-Gm-Message-State: AFq9FYLecqSjeCl+N3ob+eBHKo4oHZsmZuEKmJLRenj0kn/MQd+fo5Hi
-	Na6szUHBEEFPQta72K40qzo96ON7AN297ifMWXZtp5nT1IbkLIOXL4cP
-X-Gm-Gg: AYBFou3V0XqpzguWN7T2D3QAyPXgVwOpq9C99flcieiClLmrXUa01JQ5KJ04SRkSF9O
-	bymNqJ1L0UQwtDIUSGcFCuvotkdITNcDTfoj+Rf9EhIvnXbK+8OCmoaXIzuCgWiII26rb2Fn7sH
-	JFJAelbK0TymcFbJ10q2RkN/mRH0WOCPgHnz9Y0PkcM+DHQo/6he1Vm9Ne9/zgYgDaFXnw2F217
-	La9tooR4SPmOBp2n7e2e+oSqw0eNdbMVvW4PFjfWrjnBjxB2GxuENisVON6bbcGYs5t6tgq3kEi
-	gS5oDF0sg3JUOwYgW+OfbBchj6crJu1FeRrY5UkkBsfolCbpcPoIJINclIhEZN6JF7QjOwaERpG
-	vicEjvC2Ckm0iXdahkqFTlYdpbwz976nS2Z7o+gK+nuUxebNKiXN5be7VBY0EKPww0JPhW8YObp
-	++M4ubcgnIi4H7ti7agkyOlTitEZwdALwxSw5o5yEqDuq4lKK0wckmwm6NLkLGTWQ2pd0b7EICd
-	ryz6RhNXfislzilLg7fcS4FFQX8AUHJcrBZb5gQdnY76/V+VeliRrj5CL7adPAN7P/a9iMxiLz4
-	fmL2rEhRADQv52t7rU9Xjr1AmT76KkLEOH+qfbdu829+og==
-X-Received: by 2002:a05:693c:41c8:10b0:367:185e:867a with SMTP id 5a478bee46e88-36a4242366fmr1174193eec.38.1793315650617;
-        Thu, 29 Oct 2026 16:14:10 -0700 (PDT)
-Received: from debian.prasanth ([103.177.82.12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm1662742eec.7.2026.10.29.16.14.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 16:14:10 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ryan_chen@aspeedtech.com,
-	billy_tsai@aspeedtech.com,
-	tan.siewert@9elements.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	andrew@lunn.ch,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v10 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Date: Fri, 30 Oct 2026 04:43:39 +0530
-Message-ID: <20261029231339.9497-3-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029231339.9497-1-prasanth.padarthi10@gmail.com>
-References: <20261029231339.9497-1-prasanth.padarthi10@gmail.com>
+	d=codeconstruct.com.au; s=2022a; t=1793315655;
+	bh=ZmKcr1TVaOH4zYuCQJNp3qk+4++E+hkc4PsTNG2OJ0M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=C9mBf7xbK64vTefjEYx9Zyb5lMR7+v8YMt4M1tHSrslBOO2K+AwzQHKDlqdsJGNpW
+	 a8j/2Z2qVXwJiXl0pC8tWrSeoLUeDche6f9AWEgXTZiYJ6y2st7pYayNGgRudIk4Hd
+	 xDA9T8A7qRh3HgPPvoSs2DViWv62IC0YxSL0xZzH2uzI1aHJt5IJY/qwv+6oJIWEuB
+	 Tw91PHdsRUG61II74fxMGEihcAqv6PaZf+3yNbarTlsyK0oI6yqHdeRly6IoQa6Gqp
+	 bBsSpdnu1csqLd6cNG12EvFamOVGAxxWdPcxsyxx8mLa0Mtr3Dc8ese+XM5ec8i1f1
+	 6+NvMSpXEkowg==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E154770E57;
+	Fri, 30 Oct 2026 07:14:14 +0800 (AWST)
+Message-ID: <a75165ee45be05512580b95603b7bf7af5fb3de3.camel@codeconstruct.com.au>
+Subject: Re: [PATCH linux dev-6.18 0/3] pinctrl: aspeed: backport AST2700
+ SoC1 support
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Vince Chang <vince_chang@aspeedtech.com>, openbmc@lists.ozlabs.org, 
+	tan.siewert@9elements.com
+Cc: joel@jms.id.au
+Date: Fri, 30 Oct 2026 09:44:14 +1030
+In-Reply-To: <20261029032407.540714-1-vince_chang@aspeedtech.com>
+References: <20261029032407.540714-1-vince_chang@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -106,235 +66,18 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the device tree for the ASRock Rack B650D4U BMC, based on the
-ASPEED AST2600 SoC.
+On Thu, 2026-10-29 at 11:24 +0800, Vince Chang wrote:
+> This series backports three upstream Linux commits adding ASPEED
+> AST2700 SoC1 pin controller support to OpenBMC dev-6.18.
 
-Describe the BMC memory, SPI NOR flash layout, UART5 console, GPIO
-line names, graphics memory, and the EEPROM on I2C7. Use the EEPROM
-as the NVMEM provider for the MAC0 address and configure MAC0 with
-an RTL8211F PHY in RGMII-ID mode.
+Applied, thanks.
 
-Enable both ADC engines with 2.5 V internal references and expose
-the sixteen channels through an IIO-to-hwmon bridge for board
-voltage monitoring.
-
-Retain the SoC's serial4 alias for UART5 and select it as stdout,
-without adding a second serial alias for the same UART.
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch> # MAC0 and MDIO nodes only
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
-Changes in v10:
-- Use the inherited serial4/UART5 alias instead of duplicating it as serial0.
-- Consolidate root nodes and fix peripheral/ADC property ordering.
-- Keep ADC settings and MAC0/MDIO semantics unchanged.
-Changes in v9: enable ADC0/ADC1 and add the ordered IIO-to-hwmon bridge.
-Earlier history and testing limitations: see the cover letter.
-Previous series:
-https://lore.kernel.org/all/20261027034911.99482-1-prasanth.padarthi10@gmail.com/
-
- arch/arm/boot/dts/aspeed/Makefile             |   1 +
- .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 169 ++++++++++++++++++
- 2 files changed, 170 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-
-diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
-index 6874b621d..fcb94e62c 100644
---- a/arch/arm/boot/dts/aspeed/Makefile
-+++ b/arch/arm/boot/dts/aspeed/Makefile
-@@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-ampere-mtmitchell.dtb \
- 	aspeed-bmc-arm-stardragon4800-rep2.dtb \
- 	aspeed-bmc-asrock-altrad8.dtb \
-+	aspeed-bmc-asrock-b650d4u.dtb \
- 	aspeed-bmc-asrock-e3c246d4i.dtb \
- 	aspeed-bmc-asrock-e3c256d4i.dtb \
- 	aspeed-bmc-asrock-paul-ipmi-card.dtb \
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-new file mode 100644
-index 000000000..522c4d53e
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
-@@ -0,0 +1,169 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+
-+/ {
-+	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
-+	model = "ASRock Rack B650D4U BMC";
-+
-+	chosen {
-+		stdout-path = "serial4:115200n8";
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc0 0>, <&adc0 1>, <&adc0 2>, <&adc0 3>,
-+			      <&adc0 4>, <&adc0 5>, <&adc0 6>, <&adc0 7>,
-+			      <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
-+			      <&adc1 4>, <&adc1 5>, <&adc1 6>, <&adc1 7>;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		ranges;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		gfx_memory: framebuffer {
-+			compatible = "shared-dma-pool";
-+			alignment = <0x01000000>;
-+			reusable;
-+			size = <0x01000000>;
-+		};
-+	};
-+};
-+
-+&adc0 {
-+	pinctrl-0 = <&pinctrl_adc0_default>,
-+		    <&pinctrl_adc1_default>,
-+		    <&pinctrl_adc2_default>,
-+		    <&pinctrl_adc3_default>,
-+		    <&pinctrl_adc4_default>,
-+		    <&pinctrl_adc5_default>,
-+		    <&pinctrl_adc6_default>,
-+		    <&pinctrl_adc7_default>;
-+	pinctrl-names = "default";
-+	aspeed,int-vref-microvolt = <2500000>;
-+
-+	status = "okay";
-+};
-+
-+&adc1 {
-+	pinctrl-0 = <&pinctrl_adc8_default>,
-+		    <&pinctrl_adc9_default>,
-+		    <&pinctrl_adc10_default>,
-+		    <&pinctrl_adc11_default>,
-+		    <&pinctrl_adc12_default>,
-+		    <&pinctrl_adc13_default>,
-+		    <&pinctrl_adc14_default>,
-+		    <&pinctrl_adc15_default>;
-+	pinctrl-names = "default";
-+	aspeed,int-vref-microvolt = <2500000>;
-+
-+	status = "okay";
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+		spi-rx-bus-width = <4>;
-+		m25p,fast-read;
-+
-+		status = "okay";
-+
-+#include "openbmc-flash-layout-64.dtsi"
-+	};
-+};
-+
-+&gfx {
-+	memory-region = <&gfx_memory>;
-+
-+	status = "okay";
-+};
-+
-+&gpio0 {
-+	gpio-line-names =
-+		/* A0-A7 */     "", "", "", "", "", "", "", "",
-+		/* B0-B7 */     "", "", "", "", "", "", "", "",
-+		/* C0-C7 */     "", "", "", "", "", "", "", "",
-+		/* D0-D7 */     "", "", "", "", "", "", "", "",
-+		/* E0-E7 */     "", "", "", "", "", "", "", "",
-+		/* F0-F7 */     "", "", "", "", "", "", "", "",
-+		/* G0-G7 */     "", "", "", "", "", "", "", "",
-+		/* H0-H7 */     "", "", "", "", "", "", "", "",
-+		/* I0-I7 */     "", "", "", "", "", "", "", "",
-+		/* J0-J7 */     "", "", "", "", "", "", "", "",
-+		/* K0-K7 */     "", "", "", "", "", "", "", "",
-+		/* L0-L7 */     "", "", "", "", "", "", "", "",
-+		/* M0-M7 */     "", "", "", "", "", "", "", "",
-+		/* N0-N7 */     "", "", "", "", "", "", "", "",
-+		/* O0-O7 */     "", "", "", "", "", "", "", "",
-+		/* P0-P7 */     "button-reset-n", "control-reset-n",
-+				"button-power-n", "control-power-n",
-+				"button-nmi-n", "control-nmi-n",
-+				"", "",
-+		/* Q0-Q7 */     "", "", "", "", "", "", "", "",
-+		/* R0-R7 */     "", "", "", "", "", "", "", "",
-+		/* S0-S7 */     "", "", "", "", "", "", "", "",
-+		/* T0-T7 */     "", "", "", "", "", "", "", "",
-+		/* U0-U7 */     "", "", "", "", "", "", "", "",
-+		/* V0-V7 */     "", "", "", "", "", "", "", "",
-+		/* W0-W7 */     "", "", "", "", "", "", "", "",
-+		/* X0-X7 */     "", "", "", "", "", "", "", "",
-+		/* Y0-Y7 */     "", "", "", "", "", "", "", "",
-+		/* Z0-Z7 */     "", "", "", "", "", "", "", "";
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+
-+	eeprom@57 {
-+		compatible = "atmel,24c128";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			eth0_macaddress: macaddress@3f80 {
-+				reg = <0x3f80 6>;
-+			};
-+		};
-+	};
-+};
-+
-+&mac0 {
-+	nvmem-cells = <&eth0_macaddress>;
-+	nvmem-cell-names = "mac-address";
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-0 = <&pinctrl_rgmii1_default>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&mdio0 {
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0>;
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
--- 
-2.47.3
-
+Andrew
 
