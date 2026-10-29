@@ -1,27 +1,28 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093CD606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 01:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFF5606A31A
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 01:35:10 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jFRc71pP8z2yfs;
-	Thu, 29 Oct 2026 12:34:47 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jFRc90W0wz2yhP;
+	Thu, 29 Oct 2026 12:34:49 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793237686;
-	cv=none; b=EWb+pFy06qfftlMEO6+pBWo+SBNsA3EZQ/qDhovxm78eUZU3mYfyXv9jAxSFdpSXvMW325ts/pFAhPWd2rQtA7PCQHC/fQ2hHnGx0xa7Kv59n6r++KpDKLe9Ypv3HOdgY7JqnSi8AR+o0XVHuUKJtOMUAWEwNjJJDeTFm3/zB216Po3FQLQ7A146ZZdyUe05O6o1Aa8Dkk4nmuVejf931fwCWscZRBGXq2RRRN7Wk4Vx08EEJLsA0jEDYn0XOZcgj+jbk1fUmlpVoc73wmLmzUoHVWoeut3JFcVlYar0hRxohsIQamzwEqZ3ePk3/6QZPpnVS3GEHeF3B3oVix3+zQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793237688;
+	cv=none; b=CihEM45Sxa0v0vID2UIXfOy+/NJBRztctJxfU0zfmIT2Hq1SyBxCoaFgX3W1cR+BlGf3YtE0R7l4AG/onSw9dKLr5gtgCSTOu7CrCLQFmA1jOcc9dBX5+4knKEbb01fKS7yDv+mAz/nGk/pJ8HzAlun4VKpvtb2z2Ig9sGvlqzZ8YydYeoKWLjvxdwdaNwn+p2Ql09OTnnjiAgUTCatOxRf9BgLLAHM5FZLYgaZsEoycNOA0N3Hjn4OPokLnRjjPs++HdO9h+GhUTYYmQPEiMFGzcY5O+u6H1XShXlX2Oji1bXkbMrGmWOB4f6o+coSIXL0PGotsZtfpmYRs8zF9RQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793237686; c=relaxed/relaxed;
-	bh=EvJTcsH1taYhQJdgfQ6MfmGk8EPaIswn9WGvtBGoVc8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OokuGX4dub9mMHD6TAQ9QHYkRFYEjTGjvXQ3YviDUS8dnO506Cn+e/CmgFFinNpf21rjsgtPejNiZgKNOp48PbpCdfMO1JcqlbYzn58BK39HQg1KPetpErTnt+rYXuRQ025cR9P7xfPWun41vidF3Tv4wMBbh3tWvwMs4krCyDqfz0A8X26jpWAnQcF2olPIFEs+i8n9gzvYGCZ8hAgXSs3DoZh+LyIrN76Thmg0R+gV6+e2R9NtFx49Qip1leC85Jdio1fLqyP35fUBptSIZjSH0tpNCKf+B1yMjVMQlaUtAfT1ahW0ShNSVA/ZWGnmgP5B/BTJvJmhf0FiFZUrPA==
+	t=1793237688; c=relaxed/relaxed;
+	bh=1eCJEDT3/2s6EdQIUwqNcoJmvtzcg+PaXtMTOdahyi4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SxWSsCOdw99IWsyx3Aow5NlsVR+6CjbHpcfTJwV4zvQDHBuG73zeW09iE9D7LQBTzL9MQZfvMOWn0O0r89VDqiNb9ZBIzDu8QZx2LPoXSkD5v6GM7IhVdFtJR0ppYNSthWcuWOpAAT2fRUDcI1vg0qJtfOIdfHUQbmvAprRuQfqYwsj6OuqHe3GbG1JEvLE/d4zpQ4AIh2DL9DKsQlvXGxXb5GdBoTkOfq8pyGhSzgNsCr6PcS3Kt4J0BWncAprl6I5iKfG+Y8kqv9usOyrRo7pntfULXQFCDJUztP2cjHfzXo47HRVwOrbcygUQlKwcgY0UEcqcZSzSFFuyT1U56g==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFRc551xJz2xm5
-	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 12:34:44 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFRc71fmqz2yfl
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 12:34:47 +1100 (AEDT)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
@@ -32,11 +33,14 @@ Received: from aspeed-fw02.aspeed.com (192.168.10.10) by TWMBX01.aspeed.com
 From: Vince Chang <vince_chang@aspeedtech.com>
 To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
 	<tan.siewert@9elements.com>
-CC: <joel@jms.id.au>
-Subject: [PATCH linux dev-6.18 0/6] spi: aspeed: backport timing calibration improvements
-Date: Thu, 29 Oct 2026 09:34:16 +0800
-Message-ID: <20261029013428.277816-1-vince_chang@aspeedtech.com>
+CC: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, <joel@jms.id.au>, Mark Brown
+	<broonie@kernel.org>
+Subject: [PATCH linux dev-6.18 1/6] spi: aspeed: Update clock selection strategy
+Date: Thu, 29 Oct 2026 09:34:17 +0800
+Message-ID: <20261029013428.277816-2-vince_chang@aspeedtech.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029013428.277816-1-vince_chang@aspeedtech.com>
+References: <20261029013428.277816-1-vince_chang@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -50,30 +54,328 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Backport six upstream Linux ASPEED SPI commits to OpenBMC dev-6.18
-to improve clock selection, timing calibration and address-window
-management.
+From: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
 
-Chin-Ting Kuo (6):
-  spi: aspeed: Update clock selection strategy
-  spi: aspeed: Improve timing calibration algorithm for AST2600 platform
-  spi: aspeed: Force default address decoding range assignment for each
-    CS
-  spi: aspeed: Centralize address decoding region management
-  spi: aspeed: Add per-platform adjust_window callback for decoding
-    range
-  spi: aspeed: Only map necessary address window region
+This patch updates the SPI clock selection logic for cases where
+timing calibration is not performed or the results are failed.
 
- drivers/spi/spi-aspeed-smc.c | 644 ++++++++++++++++++++++++++---------
- 1 file changed, 489 insertions(+), 155 deletions(-)
+Timing calibration process is skipped in the two scenarios below.
+- Low-entropy data in the calibration region:
+  The driver skips timing calibration if the data read from the
+  SPI flash contains mostly 0x00 or 0xFF. Originally, the driver
+  used a low-frequency clock to read this region as golden data.
+  However, due to variations in host characteristics and image
+  layout, we cannot assume sufficient entropy in this region to
+  ensure reliable calibration.
 
+- Low-speed configurations (< 40MHz):
+  The ASPEED SPI controller does not support timing calibration when
+  the max_speed_hz of the SPI device is below 40MHz.
+
+In both cases, the SPI clock frequency specified in the device tree
+should be used directly. When timing calibration is skipped, it is
+the board vendor's responsibility to ensure that the SPI flash
+SI (Signal Integrity) is sufficient for reliable operation at the
+configured frequency.
+
+When timing calibration processes is execued and all potential clock
+frequencies are performed, but are all failed, the lower clock frequency
+should be adopted to ensure the overall system can boot up successfully.
+
+Signed-off-by: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
+Link: https://patch.msgid.link/20251001112605.1130723-2-chin-ting_kuo@aspeedtech.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+(cherry picked from commit 31dcc7e1f8a9377d8fd9f967f84c121c5ba8f89c)
+Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
+---
+ drivers/spi/spi-aspeed-smc.c | 177 +++++++++++++++++++++++++++++++----
+ 1 file changed, 159 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/spi/spi-aspeed-smc.c b/drivers/spi/spi-aspeed-smc.c
+index 04eebb65cfa6..18335ba970cb 100644
+--- a/drivers/spi/spi-aspeed-smc.c
++++ b/drivers/spi/spi-aspeed-smc.c
+@@ -82,6 +82,7 @@ struct aspeed_spi_data {
+ 	u32 (*segment_start)(struct aspeed_spi *aspi, u32 reg);
+ 	u32 (*segment_end)(struct aspeed_spi *aspi, u32 reg);
+ 	u32 (*segment_reg)(struct aspeed_spi *aspi, u32 start, u32 end);
++	u32 (*get_clk_div)(struct aspeed_spi_chip *chip, u32 hz);
+ 	int (*calibrate)(struct aspeed_spi_chip *chip, u32 hdiv,
+ 			 const u8 *golden_buf, u8 *test_buf);
+ };
+@@ -945,26 +946,149 @@ static bool aspeed_spi_check_calib_data(const u8 *test_buf, u32 size)
+ }
+ 
+ static const u32 aspeed_spi_hclk_divs[] = {
+-	0xf, /* HCLK */
+-	0x7, /* HCLK/2 */
+-	0xe, /* HCLK/3 */
+-	0x6, /* HCLK/4 */
+-	0xd, /* HCLK/5 */
++	/* HCLK, HCLK/2, HCLK/3, HCLK/4, HCLK/5, ..., HCLK/16 */
++	0xf, 0x7, 0xe, 0x6, 0xd,
++	0x5, 0xc, 0x4, 0xb, 0x3,
++	0xa, 0x2, 0x9, 0x1, 0x8,
++	0x0
+ };
+ 
+ #define ASPEED_SPI_HCLK_DIV(i) \
+ 	(aspeed_spi_hclk_divs[(i) - 1] << CTRL_FREQ_SEL_SHIFT)
+ 
++/* Transfer maximum clock frequency to register setting */
++static u32 aspeed_get_clk_div_ast2400(struct aspeed_spi_chip *chip,
++				      u32 max_hz)
++{
++	struct device *dev = chip->aspi->dev;
++	u32 hclk_clk = chip->aspi->clk_freq;
++	u32 div_ctl = 0;
++	u32 i;
++	bool found = false;
++
++	/* FMC/SPIR10[11:8] */
++	for (i = 1; i <= ARRAY_SIZE(aspeed_spi_hclk_divs); i++) {
++		if (hclk_clk / i <= max_hz) {
++			found = true;
++			break;
++		}
++	}
++
++	if (found) {
++		div_ctl = ASPEED_SPI_HCLK_DIV(i);
++		chip->clk_freq = hclk_clk / i;
++	}
++
++	dev_dbg(dev, "found: %s, hclk: %d, max_clk: %d\n",
++		found ? "yes" : "no", hclk_clk, max_hz);
++
++	if (found) {
++		dev_dbg(dev, "h_div: 0x%08x, speed: %d\n",
++			div_ctl, chip->clk_freq);
++	}
++
++	return div_ctl;
++}
++
++static u32 aspeed_get_clk_div_ast2500(struct aspeed_spi_chip *chip,
++				      u32 max_hz)
++{
++	struct device *dev = chip->aspi->dev;
++	u32 hclk_clk = chip->aspi->clk_freq;
++	u32 div_ctl = 0;
++	u32 i;
++	bool found = false;
++
++	/* FMC/SPIR10[11:8] */
++	for (i = 1; i <= ARRAY_SIZE(aspeed_spi_hclk_divs); i++) {
++		if (hclk_clk / i <= max_hz) {
++			found = true;
++			chip->clk_freq = hclk_clk / i;
++			break;
++		}
++	}
++
++	if (found) {
++		div_ctl = ASPEED_SPI_HCLK_DIV(i);
++		goto end;
++	}
++
++	for (i = 1; i <= ARRAY_SIZE(aspeed_spi_hclk_divs); i++) {
++		if (hclk_clk / (i * 4) <= max_hz) {
++			found = true;
++			chip->clk_freq = hclk_clk / (i * 4);
++			break;
++		}
++	}
++
++	if (found)
++		div_ctl = BIT(13) | ASPEED_SPI_HCLK_DIV(i);
++
++end:
++	dev_dbg(dev, "found: %s, hclk: %d, max_clk: %d\n",
++		found ? "yes" : "no", hclk_clk, max_hz);
++
++	if (found) {
++		dev_dbg(dev, "h_div: 0x%08x, speed: %d\n",
++			div_ctl, chip->clk_freq);
++	}
++
++	return div_ctl;
++}
++
++static u32 aspeed_get_clk_div_ast2600(struct aspeed_spi_chip *chip,
++				      u32 max_hz)
++{
++	struct device *dev = chip->aspi->dev;
++	u32 hclk_clk = chip->aspi->clk_freq;
++	u32 div_ctl = 0;
++	u32 i, j;
++	bool found = false;
++
++	/* FMC/SPIR10[27:24] */
++	for (j = 0; j < 16; j++) {
++		/* FMC/SPIR10[11:8] */
++		for (i = 1; i <= ARRAY_SIZE(aspeed_spi_hclk_divs); i++) {
++			if (j == 0 && i == 1)
++				continue;
++
++			if (hclk_clk / (j * 16 + i) <= max_hz) {
++				found = true;
++				break;
++			}
++		}
++
++		if (found) {
++			div_ctl = ((j << 24) | ASPEED_SPI_HCLK_DIV(i));
++			chip->clk_freq = hclk_clk / (j * 16 + i);
++			break;
++		}
++	}
++
++	dev_dbg(dev, "found: %s, hclk: %d, max_clk: %d\n",
++		found ? "yes" : "no", hclk_clk, max_hz);
++
++	if (found) {
++		dev_dbg(dev, "h_div: 0x%08x, speed: %d\n",
++			div_ctl, chip->clk_freq);
++	}
++
++	return div_ctl;
++}
++
+ static int aspeed_spi_do_calibration(struct aspeed_spi_chip *chip)
+ {
+ 	struct aspeed_spi *aspi = chip->aspi;
+ 	const struct aspeed_spi_data *data = aspi->data;
+ 	u32 ahb_freq = aspi->clk_freq;
+ 	u32 max_freq = chip->clk_freq;
++	bool exec_calib = false;
++	u32 best_freq = 0;
+ 	u32 ctl_val;
+ 	u8 *golden_buf = NULL;
+ 	u8 *test_buf = NULL;
+-	int i, rc, best_div = -1;
++	int i, rc;
++	u32 div_ctl;
+ 
+ 	dev_dbg(aspi->dev, "calculate timing compensation - AHB freq: %d MHz",
+ 		ahb_freq / 1000000);
+@@ -985,7 +1109,7 @@ static int aspeed_spi_do_calibration(struct aspeed_spi_chip *chip)
+ 	memcpy_fromio(golden_buf, chip->ahb_base, CALIBRATE_BUF_SIZE);
+ 	if (!aspeed_spi_check_calib_data(golden_buf, CALIBRATE_BUF_SIZE)) {
+ 		dev_info(aspi->dev, "Calibration area too uniform, using low speed");
+-		goto no_calib;
++		goto end_calib;
+ 	}
+ 
+ #if defined(VERBOSE_DEBUG)
+@@ -994,7 +1118,7 @@ static int aspeed_spi_do_calibration(struct aspeed_spi_chip *chip)
+ #endif
+ 
+ 	/* Now we iterate the HCLK dividers until we find our breaking point */
+-	for (i = ARRAY_SIZE(aspeed_spi_hclk_divs); i > data->hdiv_max - 1; i--) {
++	for (i = 5; i > data->hdiv_max - 1; i--) {
+ 		u32 tv, freq;
+ 
+ 		freq = ahb_freq / i;
+@@ -1007,22 +1131,33 @@ static int aspeed_spi_do_calibration(struct aspeed_spi_chip *chip)
+ 		dev_dbg(aspi->dev, "Trying HCLK/%d [%08x] ...", i, tv);
+ 		rc = data->calibrate(chip, i, golden_buf, test_buf);
+ 		if (rc == 0)
+-			best_div = i;
++			best_freq = freq;
++
++		exec_calib = true;
+ 	}
+ 
+-	/* Nothing found ? */
+-	if (best_div < 0) {
+-		dev_warn(aspi->dev, "No good frequency, using dumb slow");
++end_calib:
++	if (!exec_calib) {
++		/* calibration process is not executed */
++		dev_warn(aspi->dev, "Force to dts configuration %dkHz.\n",
++			 max_freq / 1000);
++		div_ctl = data->get_clk_div(chip, max_freq);
++	} else if (best_freq == 0) {
++		/* calibration process is executed, but no good frequency */
++		dev_warn(aspi->dev, "No good frequency, using dumb slow\n");
++		div_ctl = 0;
+ 	} else {
+-		dev_dbg(aspi->dev, "Found good read timings at HCLK/%d", best_div);
++		dev_dbg(aspi->dev, "Found good read timings at %dMHz.\n",
++			best_freq / 1000000);
++		div_ctl = data->get_clk_div(chip, best_freq);
++	}
+ 
+-		/* Record the freq */
+-		for (i = 0; i < ASPEED_SPI_MAX; i++)
+-			chip->ctl_val[i] = (chip->ctl_val[i] & data->hclk_mask) |
+-				ASPEED_SPI_HCLK_DIV(best_div);
++	/* Record the freq */
++	for (i = 0; i < ASPEED_SPI_MAX; i++) {
++		chip->ctl_val[i] = (chip->ctl_val[i] & data->hclk_mask) |
++				   div_ctl;
+ 	}
+ 
+-no_calib:
+ 	writel(chip->ctl_val[ASPEED_SPI_READ], chip->ctl);
+ 	kfree(test_buf);
+ 	return 0;
+@@ -1099,6 +1234,7 @@ static const struct aspeed_spi_data ast2400_fmc_data = {
+ 	.hclk_mask     = 0xfffff0ff,
+ 	.hdiv_max      = 1,
+ 	.calibrate     = aspeed_spi_calibrate,
++	.get_clk_div   = aspeed_get_clk_div_ast2400,
+ 	.segment_start = aspeed_spi_segment_start,
+ 	.segment_end   = aspeed_spi_segment_end,
+ 	.segment_reg   = aspeed_spi_segment_reg,
+@@ -1112,6 +1248,7 @@ static const struct aspeed_spi_data ast2400_spi_data = {
+ 	.timing	       = 0x14,
+ 	.hclk_mask     = 0xfffff0ff,
+ 	.hdiv_max      = 1,
++	.get_clk_div   = aspeed_get_clk_div_ast2400,
+ 	.calibrate     = aspeed_spi_calibrate,
+ 	/* No segment registers */
+ };
+@@ -1124,6 +1261,7 @@ static const struct aspeed_spi_data ast2500_fmc_data = {
+ 	.timing	       = CE0_TIMING_COMPENSATION_REG,
+ 	.hclk_mask     = 0xffffd0ff,
+ 	.hdiv_max      = 1,
++	.get_clk_div   = aspeed_get_clk_div_ast2500,
+ 	.calibrate     = aspeed_spi_calibrate,
+ 	.segment_start = aspeed_spi_segment_start,
+ 	.segment_end   = aspeed_spi_segment_end,
+@@ -1138,6 +1276,7 @@ static const struct aspeed_spi_data ast2500_spi_data = {
+ 	.timing	       = CE0_TIMING_COMPENSATION_REG,
+ 	.hclk_mask     = 0xffffd0ff,
+ 	.hdiv_max      = 1,
++	.get_clk_div   = aspeed_get_clk_div_ast2500,
+ 	.calibrate     = aspeed_spi_calibrate,
+ 	.segment_start = aspeed_spi_segment_start,
+ 	.segment_end   = aspeed_spi_segment_end,
+@@ -1153,6 +1292,7 @@ static const struct aspeed_spi_data ast2600_fmc_data = {
+ 	.timing	       = CE0_TIMING_COMPENSATION_REG,
+ 	.hclk_mask     = 0xf0fff0ff,
+ 	.hdiv_max      = 2,
++	.get_clk_div   = aspeed_get_clk_div_ast2600,
+ 	.calibrate     = aspeed_spi_ast2600_calibrate,
+ 	.segment_start = aspeed_spi_segment_ast2600_start,
+ 	.segment_end   = aspeed_spi_segment_ast2600_end,
+@@ -1168,6 +1308,7 @@ static const struct aspeed_spi_data ast2600_spi_data = {
+ 	.timing	       = CE0_TIMING_COMPENSATION_REG,
+ 	.hclk_mask     = 0xf0fff0ff,
+ 	.hdiv_max      = 2,
++	.get_clk_div   = aspeed_get_clk_div_ast2600,
+ 	.calibrate     = aspeed_spi_ast2600_calibrate,
+ 	.segment_start = aspeed_spi_segment_ast2600_start,
+ 	.segment_end   = aspeed_spi_segment_ast2600_end,
 -- 
 2.43.0
 
