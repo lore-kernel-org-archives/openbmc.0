@@ -2,26 +2,27 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FFC606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 05:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72596606A31D
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 05:09:25 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jFXMQ1SK3z30NF;
-	Thu, 29 Oct 2026 16:09:06 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jFXMR4xL4z30St;
+	Thu, 29 Oct 2026 16:09:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793250545;
-	cv=none; b=cycncCGsCqb1AHl1REMLGwR9oNLGwV6ojgqNydGqZyHS3hAqlArf1ULGqngGCnqzG4Nk/pEzHs4/TGMOYToL3gBd6uApc2CJw40DkvNMYy3rwtNA3HmmYkBP2ZyY3aiMQT1fmtuVqvFArhHc9Wr98kj6yDml4oUm3SWYe6lU9e4tc/n6ms3PVJoaTUPpSD2ZAdwF90MT94QZZUhgIC4GH0DuUfNaIBqpAt8ND02TCK07DGnTqXajFUrOTk0XgvNwBFVWCOgRQX0G9bxYWxeydnglm1Tye/UmPT0NOEzPmIc96ppEKVf4gaTsmhhu51x4OaCqGxG2rqLSDGl4fxcDiw==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793250547;
+	cv=none; b=QJ7G6IzeqL0JRQfIdCi9QPgAh2HSmpKQ0GkX+Ix9zFIK3MR3LYsPgHJSM4VuqAjA8jFfP0lDcZF/OS8TPhPJaYm32Nt52jLM72EO0N/J4NvVGN1DsJ9hH8uWeIKnbogOron1jQFXK/+11/6be8EJn6LG1RbekFOh8oZRYAaMDEAmDRIQj6xJmD+z4F+wuMDVMdLAuyhWPqcs/ejjXoZtD7+LnJ/4upU+n+1m/AKsx50lwoqPVum2f5Hli5Qy380v7sq4x8KDg86pNliWJacX0pjDcLNFt+KMuaHfviIuSvSbH8+GGIhFoKzhE6v9XmzCxiZSRQYfbQFpp/jryeDIsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793250545; c=relaxed/relaxed;
-	bh=UhiEJLNQqil8mFjDxBq48vB5MKFbwjQSfLcpdJlPPNI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j+lABBhibAVAv/11uKJndVRzQm9roeAvDTqmQcrMbrq7NGfKHv+90ZW677JHnUw2CM2HjVWV7Sasfe4yQ/xyr5l/ztVyQFHNchKnGEoVlO5RGJ3Cy6r8jJa8BM9GAn1wShYFHOA7TFx0bJczdbqIgg5Zdfelm1Xo3FWToP40ZASHlKjFLCB0lqRTf5cqWIwqaaC1GwpJczggJIeYUwKf0vtIG88DOfZmm4gKV1cu/LEYTnG/xNomhecFF+Gy8Z6wvPRXM8qKRX+4N2iPXU1CMBDuk0WdgPHQ0e2MHqhUsi90jQrqlQUWNizoCG3Bozsyh80zE1kv3meRcK8UUo08/g==
+	t=1793250547; c=relaxed/relaxed;
+	bh=2TYU4vdjGQNz2AjtSlMkrJtYh1d1IYW1LargGy5rRTo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E9bPGXy5rHmOGYy3ty7K8fk2RCNlkmfeQoc7z9HaRPf8Cy9XihBK1HrKkkUH4+aecEhrMRDQXU5brTM03GjTg5Y18HSpHL6xss998X3BehWcGzd/YAkacLXDpbsJHA+bFK0wpqwCS/GEOBHrKO999fPXyTzjtkEbz+TULaE9Qc5gZSUW81cKwj4sATw7veoZruokzUp8nY9DKfvOEeLx9i3fDgbpASXtM5OMMKDOSi1jB/n1lgR8JzG8bvvy5JXkaRiwm+VQGnJoS4lSWlh1qZZRGzacoztKYNoeKlI3p5XOEx2g1FM16loM9cPqCAgW1OK31tNTtlkqsjN6LznCtg==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFXMM5Kkdz30C6
-	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 16:09:03 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFXMQ1Jylz30MZ
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 16:09:06 +1100 (AEDT)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
@@ -32,11 +33,15 @@ Received: from aspeed-fw02.aspeed.com (192.168.10.10) by TWMBX01.aspeed.com
 From: Vince Chang <vince_chang@aspeedtech.com>
 To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
 	<tan.siewert@9elements.com>
-CC: <joel@jms.id.au>
-Subject: [PATCH linux dev-6.18 0/4] Backport ASPEED AST2700 watchdog support
-Date: Thu, 29 Oct 2026 13:08:41 +0800
-Message-ID: <20261029050847.810331-1-vince_chang@aspeedtech.com>
+CC: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>, <joel@jms.id.au>, "Rob
+ Herring" <robh@kernel.org>, Guenter Roeck <linux@roeck-us.net>, "Wim Van
+ Sebroeck" <wim@linux-watchdog.org>
+Subject: [PATCH linux dev-6.18 1/4] dt-bindings: watchdog: aspeed,ast2400-wdt: Add support for AST2700
+Date: Thu, 29 Oct 2026 13:08:42 +0800
+Message-ID: <20261029050847.810331-2-vince_chang@aspeedtech.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029050847.810331-1-vince_chang@aspeedtech.com>
+References: <20261029050847.810331-1-vince_chang@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -50,30 +55,219 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Backport four upstream Linux ASPEED watchdog commits to OpenBMC
-dev-6.18 to provide AST2700 watchdog support, device-tree bindings
-and reset-mask definitions, followed by the optional-IRQ error handling fix.
+From: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
 
-Chin-Ting Kuo (3):
-  dt-bindings: watchdog: aspeed,ast2400-wdt: Add support for AST2700
-  watchdog: aspeed: Support variable number of reset mask registers
-  watchdog: aspeed: Add support for AST2700 platform
+Add support for the AST2700 SoC in the ASPEED watchdog device tree
+bindings. This includes:
 
-bui duc phuc (1):
-  watchdog: aspeed: Propagate errors from optional IRQ lookup
+- Adding "aspeed,ast2700-wdt" to the compatible string list.
+- Extending the "aspeed,reset-mask" property description for AST2700.
+- Defining AST2700-specific reset mask bits in aspeed-wdt.h,
+  covering RESET1 to RESET5.
 
+Signed-off-by: Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wim Van Sebroeck <wim@linux-watchdog.org>
+(cherry picked from commit b3bc229b54e780fe02a41ec65a0cb06acf7ac1d9)
+Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
+---
  .../bindings/watchdog/aspeed,ast2400-wdt.yaml |   8 +-
- drivers/watchdog/aspeed_wdt.c                 |  32 +++-
  include/dt-bindings/watchdog/aspeed-wdt.h     | 138 ++++++++++++++++++
- 3 files changed, 169 insertions(+), 9 deletions(-)
+ 2 files changed, 144 insertions(+), 2 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/watchdog/aspeed,ast2400-wdt.yaml b/Documentation/devicetree/bindings/watchdog/aspeed,ast2400-wdt.yaml
+index be78a9865584..9322cb5b462a 100644
+--- a/Documentation/devicetree/bindings/watchdog/aspeed,ast2400-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/aspeed,ast2400-wdt.yaml
+@@ -15,6 +15,7 @@ properties:
+       - aspeed,ast2400-wdt
+       - aspeed,ast2500-wdt
+       - aspeed,ast2600-wdt
++      - aspeed,ast2700-wdt
+ 
+   reg:
+     maxItems: 1
+@@ -87,13 +88,15 @@ properties:
+   aspeed,reset-mask:
+     $ref: /schemas/types.yaml#/definitions/uint32-array
+     minItems: 1
+-    maxItems: 2
++    maxItems: 5
+     description: >
+       A bitmask indicating which peripherals will be reset if the watchdog
+       timer expires. On AST2500 SoCs this should be a single word defined using
+       the AST2500_WDT_RESET_* macros; on AST2600 SoCs this should be a two-word
+       array with the first word defined using the AST2600_WDT_RESET1_* macros,
+-      and the second word defined using the AST2600_WDT_RESET2_* macros.
++      and the second word defined using the AST2600_WDT_RESET2_* macros; on
++      AST2700 SoCs, this should be five-word array from AST2700_WDT_RESET1_*
++      macros to AST2700_WDT_RESET5_* macros.
+ 
+ required:
+   - compatible
+@@ -114,6 +117,7 @@ allOf:
+           enum:
+             - aspeed,ast2500-wdt
+             - aspeed,ast2600-wdt
++            - aspeed,ast2700-wdt
+   - if:
+       required:
+         - aspeed,ext-active-high
+diff --git a/include/dt-bindings/watchdog/aspeed-wdt.h b/include/dt-bindings/watchdog/aspeed-wdt.h
+index 7ae6d84b2bd9..89fa31ffce2d 100644
+--- a/include/dt-bindings/watchdog/aspeed-wdt.h
++++ b/include/dt-bindings/watchdog/aspeed-wdt.h
+@@ -89,4 +89,142 @@
+ 
+ #define AST2600_WDT_RESET2_DEFAULT 0x03fffff1
+ 
++#define AST2700_WDT_RESET1_CPU		(1 << 0)
++#define AST2700_WDT_RESET1_DRAM		(1 << 1)
++#define AST2700_WDT_RESET1_SLI0		(1 << 2)
++#define AST2700_WDT_RESET1_EHCI		(1 << 3)
++#define AST2700_WDT_RESET1_HACE		(1 << 4)
++#define AST2700_WDT_RESET1_SOC_MISC0	(1 << 5)
++#define AST2700_WDT_RESET1_VIDEO	(1 << 6)
++#define AST2700_WDT_RESET1_2D_GRAPHIC	(1 << 7)
++#define AST2700_WDT_RESET1_RAVS0	(1 << 8)
++#define AST2700_WDT_RESET1_RAVS1	(1 << 9)
++#define AST2700_WDT_RESET1_GPIO0	(1 << 10)
++#define AST2700_WDT_RESET1_SSP		(1 << 11)
++#define AST2700_WDT_RESET1_TSP		(1 << 12)
++#define AST2700_WDT_RESET1_CRT		(1 << 13)
++#define AST2700_WDT_RESET1_USB20_HOST	(1 << 14)
++#define AST2700_WDT_RESET1_USB11_HOST	(1 << 15)
++#define AST2700_WDT_RESET1_UFS		(1 << 16)
++#define AST2700_WDT_RESET1_EMMC		(1 << 17)
++#define AST2700_WDT_RESET1_AHB_TO_PCIE1	(1 << 18)
++#define AST2700_WDT_RESET1_XDMA0	(1 << 22)
++#define AST2700_WDT_RESET1_MCTP1	(1 << 23)
++#define AST2700_WDT_RESET1_MCTP0	(1 << 24)
++#define AST2700_WDT_RESET1_JTAG0	(1 << 25)
++#define AST2700_WDT_RESET1_ECC		(1 << 26)
++#define AST2700_WDT_RESET1_XDMA1	(1 << 27)
++#define AST2700_WDT_RESET1_DP		(1 << 28)
++#define AST2700_WDT_RESET1_DP_MCU	(1 << 29)
++#define AST2700_WDT_RESET1_AHB_TO_PCIE0	(1 << 31)
++
++#define AST2700_WDT_RESET1_DEFAULT 0x8207ff71
++
++#define AST2700_WDT_RESET2_USB3_A_HOST	(1 << 0)
++#define AST2700_WDT_RESET2_USB3_A_VHUB3	(1 << 1)
++#define AST2700_WDT_RESET2_USB3_A_VHUB2	(1 << 2)
++#define AST2700_WDT_RESET2_USB3_B_HOST	(1 << 3)
++#define AST2700_WDT_RESET2_USB3_B_VHUB3	(1 << 4)
++#define AST2700_WDT_RESET2_USB3_B_VHUB2	(1 << 5)
++#define AST2700_WDT_RESET2_SM3		(1 << 6)
++#define AST2700_WDT_RESET2_SM4		(1 << 7)
++#define AST2700_WDT_RESET2_SHA3		(1 << 8)
++#define AST2700_WDT_RESET2_RSA		(1 << 9)
++
++#define AST2700_WDT_RESET2_DEFAULT 0x000003f6
++
++#define AST2700_WDT_RESET3_LPC0		(1 << 0)
++#define AST2700_WDT_RESET3_LPC1		(1 << 1)
++#define AST2700_WDT_RESET3_MDIO		(1 << 2)
++#define AST2700_WDT_RESET3_PECI		(1 << 3)
++#define AST2700_WDT_RESET3_PWM		(1 << 4)
++#define AST2700_WDT_RESET3_MAC0		(1 << 5)
++#define AST2700_WDT_RESET3_MAC1		(1 << 6)
++#define AST2700_WDT_RESET3_MAC2		(1 << 7)
++#define AST2700_WDT_RESET3_ADC		(1 << 8)
++#define AST2700_WDT_RESET3_SDC		(1 << 9)
++#define AST2700_WDT_RESET3_ESPI0	(1 << 10)
++#define AST2700_WDT_RESET3_ESPI1	(1 << 11)
++#define AST2700_WDT_RESET3_JTAG1	(1 << 12)
++#define AST2700_WDT_RESET3_SPI0		(1 << 13)
++#define AST2700_WDT_RESET3_SPI1		(1 << 14)
++#define AST2700_WDT_RESET3_SPI2		(1 << 15)
++#define AST2700_WDT_RESET3_I3C0		(1 << 16)
++#define AST2700_WDT_RESET3_I3C1		(1 << 17)
++#define AST2700_WDT_RESET3_I3C2		(1 << 18)
++#define AST2700_WDT_RESET3_I3C3		(1 << 19)
++#define AST2700_WDT_RESET3_I3C4		(1 << 20)
++#define AST2700_WDT_RESET3_I3C5		(1 << 21)
++#define AST2700_WDT_RESET3_I3C6		(1 << 22)
++#define AST2700_WDT_RESET3_I3C7		(1 << 23)
++#define AST2700_WDT_RESET3_I3C8		(1 << 24)
++#define AST2700_WDT_RESET3_I3C9		(1 << 25)
++#define AST2700_WDT_RESET3_I3C10	(1 << 26)
++#define AST2700_WDT_RESET3_I3C11	(1 << 27)
++#define AST2700_WDT_RESET3_I3C12	(1 << 28)
++#define AST2700_WDT_RESET3_I3C13	(1 << 29)
++#define AST2700_WDT_RESET3_I3C14	(1 << 30)
++#define AST2700_WDT_RESET3_I3C15	(1 << 31)
++
++#define AST2700_WDT_RESET3_DEFAULT 0x000093ec
++
++#define AST2700_WDT_RESET4_FMC		(1 << 0)
++#define AST2700_WDT_RESET4_SOC_MISC1	(1 << 1)
++#define AST2700_WDT_RESET4_AHB		(1 << 2)
++#define AST2700_WDT_RESET4_SLI1		(1 << 3)
++#define AST2700_WDT_RESET4_UART0	(1 << 4)
++#define AST2700_WDT_RESET4_UART1	(1 << 5)
++#define AST2700_WDT_RESET4_UART2	(1 << 6)
++#define AST2700_WDT_RESET4_UART3	(1 << 7)
++#define AST2700_WDT_RESET4_I2C_MONITOR	(1 << 8)
++#define AST2700_WDT_RESET4_HOST_TO_SPI1	(1 << 9)
++#define AST2700_WDT_RESET4_HOST_TO_SPI2	(1 << 10)
++#define AST2700_WDT_RESET4_GPIO1	(1 << 11)
++#define AST2700_WDT_RESET4_FSI		(1 << 12)
++#define AST2700_WDT_RESET4_CANBUS	(1 << 13)
++#define AST2700_WDT_RESET4_MCTP		(1 << 14)
++#define AST2700_WDT_RESET4_XDMA		(1 << 15)
++#define AST2700_WDT_RESET4_UART5	(1 << 16)
++#define AST2700_WDT_RESET4_UART6	(1 << 17)
++#define AST2700_WDT_RESET4_UART7	(1 << 18)
++#define AST2700_WDT_RESET4_UART8	(1 << 19)
++#define AST2700_WDT_RESET4_BOOT_MCU	(1 << 20)
++#define AST2700_WDT_RESET4_IO_MCU	(1 << 21)
++#define AST2700_WDT_RESET4_LTPI0	(1 << 22)
++#define AST2700_WDT_RESET4_VGA_LINK	(1 << 23)
++#define AST2700_WDT_RESET4_LTPI1	(1 << 24)
++#define AST2700_WDT_RESET4_LTPI_PHY	(1 << 25)
++#define AST2700_WDT_RESET4_ACE		(1 << 26)
++#define AST2700_WDT_RESET4_LTPI_GPIO0	(1 << 28)
++#define AST2700_WDT_RESET4_LTPI_GPIO1	(1 << 29)
++#define AST2700_WDT_RESET4_AHB_TO_PCIE1	(1 << 30)
++#define AST2700_WDT_RESET4_I3C_DMA	(1 << 31)
++
++#define AST2700_WDT_RESET4_DEFAULT 0x40303803
++
++#define AST2700_WDT_RESET5_I2C_GLOBAL	(1 << 0)
++#define AST2700_WDT_RESET5_I2C0		(1 << 1)
++#define AST2700_WDT_RESET5_I2C1		(1 << 2)
++#define AST2700_WDT_RESET5_I2C2		(1 << 3)
++#define AST2700_WDT_RESET5_I2C3		(1 << 4)
++#define AST2700_WDT_RESET5_I2C4		(1 << 5)
++#define AST2700_WDT_RESET5_I2C5		(1 << 6)
++#define AST2700_WDT_RESET5_I2C6		(1 << 7)
++#define AST2700_WDT_RESET5_I2C7		(1 << 8)
++#define AST2700_WDT_RESET5_I2C8		(1 << 9)
++#define AST2700_WDT_RESET5_I2C9		(1 << 10)
++#define AST2700_WDT_RESET5_I2C10	(1 << 11)
++#define AST2700_WDT_RESET5_I2C11	(1 << 12)
++#define AST2700_WDT_RESET5_I2C12	(1 << 13)
++#define AST2700_WDT_RESET5_I2C13	(1 << 14)
++#define AST2700_WDT_RESET5_I2C14	(1 << 15)
++#define AST2700_WDT_RESET5_I2C15	(1 << 16)
++#define AST2700_WDT_RESET5_UHCI		(1 << 17)
++#define AST2700_WDT_RESET5_USB2_C_UART	(1 << 18)
++#define AST2700_WDT_RESET5_USB2_C	(1 << 19)
++#define AST2700_WDT_RESET5_USB2_D_UART	(1 << 20)
++#define AST2700_WDT_RESET5_USB2_D	(1 << 21)
++
++#define AST2700_WDT_RESET5_DEFAULT 0x00320000
++
+ #endif
 -- 
 2.43.0
 
