@@ -2,27 +2,27 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4A2606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:04:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA2F606A31A
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:04:16 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jFTYq0b9sz30MZ;
-	Thu, 29 Oct 2026 14:02:55 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jFTYr19Lpz30Pp;
+	Thu, 29 Oct 2026 14:02:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793242974;
-	cv=none; b=mXJtzlB9PeZwFcEfvcaKMVn6ri+6vU762Qxed6W75W3F8HrTvdVKELKG+2a6hdTuxOlOFH601Ty5uV/lp03LmQNvJdDNOzxjgRzoDFntLyGoXSTDOxeneDUCPTrCxcHZIaCi8WELvvLB0MZBNZtUBxSCPEfNaRm+1O58iZdd/IB0vSGcFy5k4/MpiSEm1xDvNrOqN9U77UxJQ8L8BsoYoE0q7KfdQDmAz3PvpUTEHgg1xNkHS2Xeyh6r3rZTpFmqUM8Sn8UYSqtROhw0i1+XQ0pGUpKaJ8ZopmX98l5jJm1W7UJg4jqepF9YnxysG5KTZkfSZMTmHxuJ4/UhKQcHVQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793242975;
+	cv=none; b=VpKw00DFLoDM3TF2IalCJlXcyvtVHVIJgllG5uGHb8EeBeXZ+9og/AAv1hfq4BEbAvqoi/3dEiUbxZ8KGTqxQfXJKBVfJZix1lr/9x2ju2q0Q933/GGfAcHJP8QBRcgHZboYZK44VpvfZmJp/6mwSFpEP8stY9Gmcgm37ZGfxJxLB+T7QtmvvV6TUxvYUZWU5PZvGN8XL/6Y16UTTZhlFu0mu89OOULJUSwaUUNRxHGkTQTfd1c2vN01djsCYA4oov5+kf+JjEvEWV1rA+oqn8bynMz+h1SVh0ohAV2HsTLX7djjgk2E3iWbIDLVFl4ewOlBHzT1XlYPUDIVtbo0qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793242974; c=relaxed/relaxed;
-	bh=waYHc7UmbPxNgRdQoSvA2HnAEtVyadn4TZ6aKU/M52c=;
+	t=1793242975; c=relaxed/relaxed;
+	bh=ObNICfGPcH6BGX8QdlUt2GqrCzWDcpQoe8uJURqriJA=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XKVcyMWN/RVIs2i0GS8fB7sMIcXJztAiUASFULvrT2nFhoZQ5qNeWPvh7VBUdckExhvM8SR4iBpoSYRiF8+Yufm2PbjWTPgyWNb1XHo8SpX/ijVLSbYmYIjLlq9q81D1m6rhvhFQsRJFQDhBwgxLajpZwFZwo9I3EzXSop/J+jPg6gfG8uORownVfKAlh0pzLt1bZA6Y+LQU+TbWeB6NPoLTbjZd4GQRYY9O6dujCoEs6Z6AQt0DYE1L5U2vohiEUZPBPBtBHabKlhl1NrAGx2ynhZQ0s9Lnl4FSvaNssQDsfd/CExy/dCdUh7jWQDqZbc0R8L3MEK/K/6JWwbngGQ==
+	 MIME-Version:Content-Type; b=J9pbzjzebBVRFcuZHbdaSUeyomTfS8xM74IyTxHkfAR2EpytXt75urkkistrrpp9lr3wz0bSmv9GuJDKREM7FDQ3ilyz9T5wJs8715p5UOB+45J2WuHvs/VNGhQl8FulEKuRL5tX6oTv5CatcRqt5JjNvwocxOuVy5zYx3U21kZZzRePHzrnnR9gFt6wuJAhZD6xx3Ypfh9Uct44OZ+zRThA0cZl5dOvUPHtmRJLHbtpvHWi4rGFV1pYigU3yu65BAXy/1F/UGrR1L1dkB0G4utydAMAQdzUFduWfN7z0aeuwA5cdiJzLZu7bfk1GK6vfydw7rYkDp3CPtviCT4twA==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFTYp0MDKz30FB
-	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:02:54 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFTYq0tvvz30NF
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:02:55 +1100 (AEDT)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
@@ -33,11 +33,11 @@ Received: from aspeed-fw02.aspeed.com (192.168.10.10) by TWMBX01.aspeed.com
 From: Vince Chang <vince_chang@aspeedtech.com>
 To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
 	<tan.siewert@9elements.com>
-CC: Ryan Chen <ryan_chen@aspeedtech.com>, <joel@jms.id.au>, Thomas Gleixner
+CC: Michael Pesa <michael.pesa@icloud.com>, <joel@jms.id.au>, Thomas Gleixner
 	<tglx@kernel.org>
-Subject: [PATCH linux dev-6.18 5/6] irqchip/ast2700-intc: Avoid allocating in the irq_domain activate() callback
-Date: Thu, 29 Oct 2026 11:02:20 +0800
-Message-ID: <20261029030224.470029-6-vince_chang@aspeedtech.com>
+Subject: [PATCH linux dev-6.18 6/6] irqchip/ast2700-intc: Disable all interrupt merge banks on probe
+Date: Thu, 29 Oct 2026 11:02:21 +0800
+Message-ID: <20261029030224.470029-7-vince_chang@aspeedtech.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029030224.470029-1-vince_chang@aspeedtech.com>
 References: <20261029030224.470029-1-vince_chang@aspeedtech.com>
@@ -61,61 +61,47 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ryan Chen <ryan_chen@aspeedtech.com>
+From: Michael Pesa <michael.pesa@icloud.com>
 
-The interrupt core calls the irq_domain_activate() callback from
-__setup_irq() with desc->lock held and interrupts disabled. Both
-aspeed_intc1_irq_domain_activate() and aspeed_intc0_resolve_route() test a
-compatible string with fwnode_device_is_compatible().
+The INTC0 interrupt-merge (INTM) space has 50 sources at 10 per bank, i.e.
+INTC0_INTM_NUM / INTM_IRQS_PER_BANK = 5 banks. This is reflected everywhere
+the banks are indexed: the aspeed_intc0_intm_routes[] table has 5 valid
+entries, and the mask/unmask/eoi paths compute the bank as (hwirq -
+INTM_BASE) / INTM_IRQS_PER_BANK, spanning banks 0-4.
 
-fwnode_device_is_compatible() invokes fwnode_property_match_string(), which
-allocates with GFP_KERNEL. That's obviously not possible with interrupts
-disabled and a raw spinlock held.
+However, INTC0_INTM_BANK_NUM is hardcoded to 3, so
+aspeed_intc0_disable_intm() only clears IER for banks 0-2 at probe. Banks 3
+and 4 are left in whatever state the firmware configured them , which can
+leave interrupts enabled before a handler is installed.
 
-Both call sites are only ever handed OF nodes, so use
-of_device_is_compatible() instead: it walks the property in place and does
-not allocate.
+Derive the bank count from the source count so the probe-time disable
+covers every bank.
 
 Fixes: 07825e41519a ("irqchip/ast2700-intc: Add AST2700-A2 support")
-Reported-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Signed-off-by: Michael Pesa <michael.pesa@icloud.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-Link: https://patch.msgid.link/20260819-fix-ast2700-intc-atomic-alloc-v1-1-d92a02e2a239@aspeedtech.com
-(cherry picked from commit b76eee9c2157223aa4aac42ceebb563288e078aa)
+Link: https://patch.msgid.link/20260722050243.298355-1-michael.pesa@icloud.com
+(cherry picked from commit 34b7e953d19a39515f8fc6c0820ebf243ea6b026)
 Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
 ---
  drivers/irqchip/irq-ast2700-intc0.c | 2 +-
- drivers/irqchip/irq-ast2700-intc1.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/irqchip/irq-ast2700-intc0.c b/drivers/irqchip/irq-ast2700-intc0.c
-index 14b8b88f1179..c85b98a19bd4 100644
+index c85b98a19bd4..1e375e9dffae 100644
 --- a/drivers/irqchip/irq-ast2700-intc0.c
 +++ b/drivers/irqchip/irq-ast2700-intc0.c
-@@ -312,7 +312,7 @@ int aspeed_intc0_resolve_route(const struct irq_domain *c0domain, size_t nc1outs
- 		return -ENOENT;
- 
- 	if (!IS_ENABLED(CONFIG_ASPEED_AST2700_INTC_TEST) &&
--	    !fwnode_device_is_compatible(c0domain->fwnode, "aspeed,ast2700-intc0"))
-+	    !of_device_is_compatible(to_of_node(c0domain->fwnode), "aspeed,ast2700-intc0"))
- 		return -ENODEV;
- 
- 	intc0 = c0domain->host_data;
-diff --git a/drivers/irqchip/irq-ast2700-intc1.c b/drivers/irqchip/irq-ast2700-intc1.c
-index 59e8f0d5ddcd..df6acbafce2d 100644
---- a/drivers/irqchip/irq-ast2700-intc1.c
-+++ b/drivers/irqchip/irq-ast2700-intc1.c
-@@ -157,7 +157,8 @@ static int aspeed_intc1_irq_domain_activate(struct irq_domain *domain,
- 					intc1->ranges.nranges,
- 					intc1->ranges.ranges, &resolved);
- 	if (rc < 0) {
--		if (!fwnode_device_is_compatible(intc1->upstream->fwnode, "riscv,aplic")) {
-+		if (!of_device_is_compatible(to_of_node(intc1->upstream->fwnode),
-+					     "riscv,aplic")) {
- 			dev_warn(intc1->dev,
- 				 "Failed to resolve interrupt route for hwirq %lu in domain %s\n",
- 				 data->hwirq, domain->name);
+@@ -48,9 +48,9 @@
+ #define INTC0_INTMX_IER		0x1b00
+ #define INTC0_INTMX_ISR		0x1b04
+ #define INTC0_INTMX_BANK_SIZE	0x10
+-#define INTC0_INTM_BANK_NUM	3
+ #define INTC0_IRQS_PER_BANK	32
+ #define INTM_IRQS_PER_BANK	10
++#define INTC0_INTM_BANK_NUM	(INTC0_INTM_NUM / INTM_IRQS_PER_BANK)
+ #define INTC0_SEL_BASE			0x200
+ #define INTC0_SEL_BANK_SIZE		0x4
+ #define INTC0_SEL_ROUTE_SIZE	0x100
 -- 
 2.43.0
 
