@@ -1,27 +1,28 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E50606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC59606A31C
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:53:19 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jFVgZ5zMLz2yps;
-	Thu, 29 Oct 2026 14:52:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jFVgb6zq3z30C6;
+	Thu, 29 Oct 2026 14:52:59 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793245978;
-	cv=none; b=XboGvvEKSBVwho3geAI24HQEtcSw3hXfHGh2lW11COEHj2VPFOfznNMbvDrLboC483vMma208SUXhVj1wfVZYveXN/YOVbK3JLQl8bxFdqD1QbW9DwoWpUG3suyqDop+3LzxiPlkqH346tVFTLLECikiqclTErfdy8Vj9S2Fwpt8lbOL65Qu81tv5QSifiyqcpw+2pZlApEQuikssdV2Z1ljggosBajr0DA6pEEQfaqS3PHnU9FiXFgGuIrX+FCY/8zQTnmok+tg0w58gZshug4IRJwX0sPs0/MAJJ/2RBS1xJ4RVethHgO6WfDvt2zA0dIOecb+a2582YduyX4cUQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793245979;
+	cv=none; b=a/DKVrLISDjB48yvFGlDUD7c9/WarybvWI0L6v1uc19GcmUO9uxetdEmOZn1j+3YUfJO/tfP0UQMywsRWmrQUTC5MLOiNnLN+4PZNkqTz+nKbLax0h7F0YZ0nJtas6aCgTbeLa3Z0w4TMFHvYJ+l8cN6otKqwH9EwtVeyfKfi7KfzUAzm9hM6AjOEFtJ2LZ8iTQwocq3dZoNsUBCG66s86EaoOMWgLbyerGK5ca+RTf3Txgs5E9hxcUBFAqjuuAjS//Wtbu18tlkWysYLZDMa99cAJJAixPSZiGevnvg+h3W/DHp1KvnWVzYtNy+qI7w3U8XHg49pkxylYIJVUKqhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793245978; c=relaxed/relaxed;
-	bh=s0aQ36du/FWj9wONPAAC648/a0gYzMyxu0MijdRVE3M=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SZ4fRjJZ4DJV7LUvBfGcaFTGOyiaR38h+iyW3GuRphvMKEzk++9SBvq0iIQ9RUNkZs5uvdhyJvcF7jw4/cmfLNO1HH8LFfG463vRVBFax5XLveNqBPZb5Geh2bcPwwkuCooteXi8ATEc9SbOiX6eVvw80UP0dlUVUxIbDFJu06JtoAqveD08Al3mh1yeO9RAODKCc9EdOPVTmWWI6hvDzA1Wf02zsVBwlL0IKQDDAyQ24M0IaJYY48h/6vRaVslJ/eHMidvB3u6XjwxSicDBJG7kmrH0wLOQ1Xt9lwFOF1LdyuvrN7wlXneaCwRa9P6SsDTCykWMTx/lQp40iY7TgA==
+	t=1793245979; c=relaxed/relaxed;
+	bh=ZelBi4AubZInti3vC36HEh7qkILloGZPDa34BKZ1yjo=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VtzgazK90qdw27YbOhVsjvfc/p8FS+TvTZ5fs0wzSKOorssklZgCVJ0SNbVcyCp3gemx8uH0mMHL7IsBX7MNo7VOeALfuF9NUB9XfvXJctQ0h5K8MgvzMGiS2sSzFXtA2RxCzarZiX/063dT8kHHqHjvFZ4XQkrR2nl4R+EtDSQ3KOphLnaubBhDJ/JOEuynUweuLg1ZDWjwy5zJ8uaFPhovsF2NhCYvO67I6QxrQsOFE0R34Q3+/12410YH1ckC8MVfjW7xTSdPdScCfsauUvK9ZXP21X7PrK15Y4zmQypmTyHPlwZUpiNmx122sBV7zlBVfXPNyftz2QvyS2u8+g==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFVgY4xsSz2yjN
-	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:52:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFVgZ6JWzz2yql
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:52:58 +1100 (AEDT)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
@@ -32,11 +33,14 @@ Received: from aspeed-fw02.aspeed.com (192.168.10.10) by TWMBX01.aspeed.com
 From: Vince Chang <vince_chang@aspeedtech.com>
 To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
 	<tan.siewert@9elements.com>
-CC: <joel@jms.id.au>
-Subject: [PATCH linux dev-6.18 0/5] arm64: aspeed: backport AST2700 platform support
-Date: Thu, 29 Oct 2026 11:52:35 +0800
-Message-ID: <20261029035242.651988-1-vince_chang@aspeedtech.com>
+CC: Ryan Chen <ryan_chen@aspeedtech.com>, <joel@jms.id.au>, Conor Dooley
+	<conor.dooley@microchip.com>, Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH linux dev-6.18 1/5] dt-bindings: arm: aspeed: Add AST2700 board compatible
+Date: Thu, 29 Oct 2026 11:52:36 +0800
+Message-ID: <20261029035242.651988-2-vince_chang@aspeedtech.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029035242.651988-1-vince_chang@aspeedtech.com>
+References: <20261029035242.651988-1-vince_chang@aspeedtech.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -50,48 +54,45 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Backport five upstream Linux ASPEED platform commits to OpenBMC
-dev-6.18 to add AST2700 board bindings, Kconfig, initial device trees
-and defconfig support, including the follow-up DTS correction for
-duplicate pinctrl labels and the address scheme.
+From: Ryan Chen <ryan_chen@aspeedtech.com>
 
-Ryan Chen (5):
-  dt-bindings: arm: aspeed: Add AST2700 board compatible
-  arm64: Kconfig: Add ASPEED SoC family Kconfig support
-  arm64: dts: aspeed: Add initial AST27xx SoC device tree
-  arm64: configs: Update defconfig for AST2700 platform support
-  arm64: dts: aspeed: Fix duplicate pinctrl labels and address scheme
+Add device tree compatible string for AST2700 based boards
+("aspeed,ast2700-evb" and "aspeed,ast2700") to the Aspeed SoC
+board bindings. This allows proper schema validation and
+enables support for AST2700 platforms.
 
- .../bindings/arm/aspeed/aspeed.yaml           |    6 +
- MAINTAINERS                                   |    1 +
- arch/arm64/Kconfig.platforms                  |    6 +
- arch/arm64/boot/dts/Makefile                  |    1 +
- arch/arm64/boot/dts/aspeed/Makefile           |    4 +
- .../aspeed/aspeed-evb-flash-layout-128.dtsi   |   32 +
- arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi |  194 ++++
- .../dts/aspeed/aspeed-g7-soc0-pinctrl.dtsi    |  225 ++++
- .../arm64/boot/dts/aspeed/aspeed-g7-soc0.dtsi |  230 ++++
- .../dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi    | 1011 +++++++++++++++++
- .../arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi |  557 +++++++++
- arch/arm64/boot/dts/aspeed/ast2700-evb.dts    |   65 ++
- arch/arm64/configs/defconfig                  |    1 +
- 13 files changed, 2333 insertions(+)
- create mode 100644 arch/arm64/boot/dts/aspeed/Makefile
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-evb-flash-layout-128.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-g7-a35.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-g7-soc0-pinctrl.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-g7-soc0.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-g7-soc1-pinctrl.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi
- create mode 100644 arch/arm64/boot/dts/aspeed/ast2700-evb.dts
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Link: https://lore.kernel.org/r/20260609-upstream_ast2700-v9-1-f631752f0cb1@aspeedtech.com
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+(cherry picked from commit 34efd73379ff9f36ed598ade7406a1aaddd03d7b)
+Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
+---
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index 970c53190f27..b7e70868ebd8 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -120,4 +120,10 @@ properties:
+               - ufispace,ncplite-bmc
+           - const: aspeed,ast2600
+ 
++      - description: AST2700 based boards
++        items:
++          - enum:
++              - aspeed,ast2700-evb
++          - const: aspeed,ast2700
++
+ additionalProperties: true
 -- 
 2.43.0
 
