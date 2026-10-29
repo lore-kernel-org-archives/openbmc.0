@@ -2,27 +2,27 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B74606A31A
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:03:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4A2606A31A
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2026 03:04:04 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jFTYp07YTz30DZ;
-	Thu, 29 Oct 2026 14:02:54 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jFTYq0b9sz30MZ;
+	Thu, 29 Oct 2026 14:02:55 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793242973;
-	cv=none; b=FQNrR7G+eExUVFvN/tL1T9AS7D0RAJvToZxPBkgd/3WKzGRRN814AIEHTYuz3YNqbydIgiNH5Hj2yuWBB3GOtH49s1h1CqINAPCz/yldQZ3xJ1zkwy1/b46xwg44cWou0VNcySgnIKog6sUHRNsA4QNSe3n8u++mkdBIyC3sF2SS5kWsdbzxFlDL1kQlwlFLUjOvK3qZJLKaOTzPxN+vOz2Vq0fvRSW1kBTtVvx6LPzIosk5Y9mnAYKQlApBQqjOf0IsJ6LGFqeK+NqHtfROw/d4I0pGZBtfBEg9Y8yY6HIyrB4SbzfLjib6UrGhbEmm7wwA8Nj5xuPhMiNaNSm9wA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793242974;
+	cv=none; b=mXJtzlB9PeZwFcEfvcaKMVn6ri+6vU762Qxed6W75W3F8HrTvdVKELKG+2a6hdTuxOlOFH601Ty5uV/lp03LmQNvJdDNOzxjgRzoDFntLyGoXSTDOxeneDUCPTrCxcHZIaCi8WELvvLB0MZBNZtUBxSCPEfNaRm+1O58iZdd/IB0vSGcFy5k4/MpiSEm1xDvNrOqN9U77UxJQ8L8BsoYoE0q7KfdQDmAz3PvpUTEHgg1xNkHS2Xeyh6r3rZTpFmqUM8Sn8UYSqtROhw0i1+XQ0pGUpKaJ8ZopmX98l5jJm1W7UJg4jqepF9YnxysG5KTZkfSZMTmHxuJ4/UhKQcHVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793242973; c=relaxed/relaxed;
-	bh=ofDLOSKsFjZJ8EuK2yQC1r0nfSEyUOEX8f+Iq6T49TY=;
+	t=1793242974; c=relaxed/relaxed;
+	bh=waYHc7UmbPxNgRdQoSvA2HnAEtVyadn4TZ6aKU/M52c=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D4rneAMIrcZN+Oeh+8kLCXokmP4xnb4tEXrn5HtyEYqLx/hH0G7pZLJ1q7kdFCRWMfIMf2L9ThCBaFrVAXkWTBuk3OxBq35iP39vqE5n2FGHWncGz3wgSbedunSry5PJjr8RRXpyTYShno7yCRJA/VHRo/4xXAQsujtVicHzAkBlPkpuxBbW19H6nmPDU8rhDnEHpt4dK47o8YAdS7NwO+ArhglQ+jb2Hlp40McKP60OWPPVUniGaP8nzDU3BytLVC5I6DGkNDIFxor8zsvJ/0t2Z3149ND3BHzQyCsWXb4taIJ7bqD0vh6d8n9adnj5UN3pnRk3Aax5BVT8+wD6GA==
+	 MIME-Version:Content-Type; b=XKVcyMWN/RVIs2i0GS8fB7sMIcXJztAiUASFULvrT2nFhoZQ5qNeWPvh7VBUdckExhvM8SR4iBpoSYRiF8+Yufm2PbjWTPgyWNb1XHo8SpX/ijVLSbYmYIjLlq9q81D1m6rhvhFQsRJFQDhBwgxLajpZwFZwo9I3EzXSop/J+jPg6gfG8uORownVfKAlh0pzLt1bZA6Y+LQU+TbWeB6NPoLTbjZd4GQRYY9O6dujCoEs6Z6AQt0DYE1L5U2vohiEUZPBPBtBHabKlhl1NrAGx2ynhZQ0s9Lnl4FSvaNssQDsfd/CExy/dCdUh7jWQDqZbc0R8L3MEK/K/6JWwbngGQ==
 ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.72; helo=twmbx01.aspeedtech.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
 Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFTYm6VrLz30C9
-	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:02:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jFTYp0MDKz30FB
+	for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2026 14:02:54 +1100 (AEDT)
 Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
  (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
@@ -35,9 +35,9 @@ To: <openbmc@lists.ozlabs.org>, <andrew@codeconstruct.com.au>,
 	<tan.siewert@9elements.com>
 CC: Ryan Chen <ryan_chen@aspeedtech.com>, <joel@jms.id.au>, Thomas Gleixner
 	<tglx@kernel.org>
-Subject: [PATCH linux dev-6.18 4/6] irqchip/aspeed-intc: Remove AST2700-A0 support
-Date: Thu, 29 Oct 2026 11:02:19 +0800
-Message-ID: <20261029030224.470029-5-vince_chang@aspeedtech.com>
+Subject: [PATCH linux dev-6.18 5/6] irqchip/ast2700-intc: Avoid allocating in the irq_domain activate() callback
+Date: Thu, 29 Oct 2026 11:02:20 +0800
+Message-ID: <20261029030224.470029-6-vince_chang@aspeedtech.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029030224.470029-1-vince_chang@aspeedtech.com>
 References: <20261029030224.470029-1-vince_chang@aspeedtech.com>
@@ -63,188 +63,59 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Ryan Chen <ryan_chen@aspeedtech.com>
 
-The existing AST2700 interrupt controller driver ("aspeed,ast2700-intc-ic")
-was written against the A0 pre-production design.
+The interrupt core calls the irq_domain_activate() callback from
+__setup_irq() with desc->lock held and interrupts disabled. Both
+aspeed_intc1_irq_domain_activate() and aspeed_intc0_resolve_route() test a
+compatible string with fwnode_device_is_compatible().
 
-From A1 onwards (retained in the A2 production silicon), the interrupt
-fabric was re-architected: interrupt routing is programmable and interrupt
-outputs can be directed to multiple upstream controllers (PSP GIC,
-Secondary Service Processor (SSP) NVIC, Tertiary Service Processor (TSP)
-NVIC, and Boot MCU interrupt controller). This design requires route
-resolution and a controller hierarchy model which the A0 driver cannot
-represent.
+fwnode_device_is_compatible() invokes fwnode_property_match_string(), which
+allocates with GFP_KERNEL. That's obviously not possible with interrupts
+disabled and a raw spinlock held.
 
-Remove driver support for A0 in favour of the driver for the A2 production
-design.
+Both call sites are only ever handed OF nodes, so use
+of_device_is_compatible() instead: it walks the property in place and does
+not allocate.
 
+Fixes: 07825e41519a ("irqchip/ast2700-intc: Add AST2700-A2 support")
+Reported-by: Andrew Jeffery <andrew@codeconstruct.com.au>
 Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20260407-irqchip-v5-4-c0b0a300a057@aspeedtech.com
-(cherry picked from commit d3587cc4a5e691539c46f327f8d510c1bc482b7e)
+Tested-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+Link: https://patch.msgid.link/20260819-fix-ast2700-intc-atomic-alloc-v1-1-d92a02e2a239@aspeedtech.com
+(cherry picked from commit b76eee9c2157223aa4aac42ceebb563288e078aa)
 Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
 ---
- drivers/irqchip/Makefile          |   1 -
- drivers/irqchip/irq-aspeed-intc.c | 139 ------------------------------
- 2 files changed, 140 deletions(-)
- delete mode 100644 drivers/irqchip/irq-aspeed-intc.c
+ drivers/irqchip/irq-ast2700-intc0.c | 2 +-
+ drivers/irqchip/irq-ast2700-intc1.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index d3aba1bce44e..b92a3665eaad 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -92,7 +92,6 @@ obj-$(CONFIG_LS_SCFG_MSI)		+= irq-ls-scfg-msi.o
- obj-$(CONFIG_ASPEED_AST2700_INTC)	+= irq-ast2700.o irq-ast2700-intc0.o irq-ast2700-intc1.o
- obj-$(CONFIG_ASPEED_AST2700_INTC_TEST)	+= irq-ast2700-intc0-test.o
- obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq-aspeed-scu-ic.o
--obj-$(CONFIG_ARCH_ASPEED)		+= irq-aspeed-intc.o
- obj-$(CONFIG_STM32MP_EXTI)		+= irq-stm32mp-exti.o
- obj-$(CONFIG_STM32_EXTI) 		+= irq-stm32-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+= qcom-irq-combiner.o
-diff --git a/drivers/irqchip/irq-aspeed-intc.c b/drivers/irqchip/irq-aspeed-intc.c
-deleted file mode 100644
-index 8330221799a0..000000000000
---- a/drivers/irqchip/irq-aspeed-intc.c
-+++ /dev/null
-@@ -1,139 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  Aspeed Interrupt Controller.
-- *
-- *  Copyright (C) 2023 ASPEED Technology Inc.
-- */
--
--#include <linux/bitops.h>
--#include <linux/irq.h>
--#include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
--#include <linux/irqdomain.h>
--#include <linux/of_address.h>
--#include <linux/of_irq.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--
--#define INTC_INT_ENABLE_REG	0x00
--#define INTC_INT_STATUS_REG	0x04
--#define INTC_IRQS_PER_WORD	32
--
--struct aspeed_intc_ic {
--	void __iomem		*base;
--	raw_spinlock_t		gic_lock;
--	raw_spinlock_t		intc_lock;
--	struct irq_domain	*irq_domain;
--};
--
--static void aspeed_intc_ic_irq_handler(struct irq_desc *desc)
--{
--	struct aspeed_intc_ic *intc_ic = irq_desc_get_handler_data(desc);
--	struct irq_chip *chip = irq_desc_get_chip(desc);
--
--	chained_irq_enter(chip, desc);
--
--	scoped_guard(raw_spinlock, &intc_ic->gic_lock) {
--		unsigned long bit, status;
--
--		status = readl(intc_ic->base + INTC_INT_STATUS_REG);
--		for_each_set_bit(bit, &status, INTC_IRQS_PER_WORD) {
--			generic_handle_domain_irq(intc_ic->irq_domain, bit);
--			writel(BIT(bit), intc_ic->base + INTC_INT_STATUS_REG);
--		}
--	}
--
--	chained_irq_exit(chip, desc);
--}
--
--static void aspeed_intc_irq_mask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int mask = readl(intc_ic->base + INTC_INT_ENABLE_REG) & ~BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(mask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static void aspeed_intc_irq_unmask(struct irq_data *data)
--{
--	struct aspeed_intc_ic *intc_ic = irq_data_get_irq_chip_data(data);
--	unsigned int unmask = readl(intc_ic->base + INTC_INT_ENABLE_REG) | BIT(data->hwirq);
--
--	guard(raw_spinlock)(&intc_ic->intc_lock);
--	writel(unmask, intc_ic->base + INTC_INT_ENABLE_REG);
--}
--
--static struct irq_chip aspeed_intc_chip = {
--	.name			= "ASPEED INTC",
--	.irq_mask		= aspeed_intc_irq_mask,
--	.irq_unmask		= aspeed_intc_irq_unmask,
--};
--
--static int aspeed_intc_ic_map_irq_domain(struct irq_domain *domain, unsigned int irq,
--					 irq_hw_number_t hwirq)
--{
--	irq_set_chip_and_handler(irq, &aspeed_intc_chip, handle_level_irq);
--	irq_set_chip_data(irq, domain->host_data);
--
--	return 0;
--}
--
--static const struct irq_domain_ops aspeed_intc_ic_irq_domain_ops = {
--	.map = aspeed_intc_ic_map_irq_domain,
--};
--
--static int __init aspeed_intc_ic_of_init(struct device_node *node,
--					 struct device_node *parent)
--{
--	struct aspeed_intc_ic *intc_ic;
--	int irq, i, ret = 0;
--
--	intc_ic = kzalloc(sizeof(*intc_ic), GFP_KERNEL);
--	if (!intc_ic)
--		return -ENOMEM;
--
--	intc_ic->base = of_iomap(node, 0);
--	if (!intc_ic->base) {
--		pr_err("Failed to iomap intc_ic base\n");
--		ret = -ENOMEM;
--		goto err_free_ic;
--	}
--	writel(0xffffffff, intc_ic->base + INTC_INT_STATUS_REG);
--	writel(0x0, intc_ic->base + INTC_INT_ENABLE_REG);
--
--	intc_ic->irq_domain = irq_domain_create_linear(of_fwnode_handle(node), INTC_IRQS_PER_WORD,
--						    &aspeed_intc_ic_irq_domain_ops, intc_ic);
--	if (!intc_ic->irq_domain) {
--		ret = -ENOMEM;
--		goto err_iounmap;
--	}
--
--	raw_spin_lock_init(&intc_ic->gic_lock);
--	raw_spin_lock_init(&intc_ic->intc_lock);
--
--	/* Check all the irq numbers valid. If not, unmaps all the base and frees the data. */
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		if (!irq) {
--			pr_err("Failed to get irq number\n");
--			ret = -EINVAL;
--			goto err_iounmap;
--		}
--	}
--
--	for (i = 0; i < of_irq_count(node); i++) {
--		irq = irq_of_parse_and_map(node, i);
--		irq_set_chained_handler_and_data(irq, aspeed_intc_ic_irq_handler, intc_ic);
--	}
--
--	return 0;
--
--err_iounmap:
--	iounmap(intc_ic->base);
--err_free_ic:
--	kfree(intc_ic);
--	return ret;
--}
--
--IRQCHIP_DECLARE(ast2700_intc_ic, "aspeed,ast2700-intc-ic", aspeed_intc_ic_of_init);
+diff --git a/drivers/irqchip/irq-ast2700-intc0.c b/drivers/irqchip/irq-ast2700-intc0.c
+index 14b8b88f1179..c85b98a19bd4 100644
+--- a/drivers/irqchip/irq-ast2700-intc0.c
++++ b/drivers/irqchip/irq-ast2700-intc0.c
+@@ -312,7 +312,7 @@ int aspeed_intc0_resolve_route(const struct irq_domain *c0domain, size_t nc1outs
+ 		return -ENOENT;
+ 
+ 	if (!IS_ENABLED(CONFIG_ASPEED_AST2700_INTC_TEST) &&
+-	    !fwnode_device_is_compatible(c0domain->fwnode, "aspeed,ast2700-intc0"))
++	    !of_device_is_compatible(to_of_node(c0domain->fwnode), "aspeed,ast2700-intc0"))
+ 		return -ENODEV;
+ 
+ 	intc0 = c0domain->host_data;
+diff --git a/drivers/irqchip/irq-ast2700-intc1.c b/drivers/irqchip/irq-ast2700-intc1.c
+index 59e8f0d5ddcd..df6acbafce2d 100644
+--- a/drivers/irqchip/irq-ast2700-intc1.c
++++ b/drivers/irqchip/irq-ast2700-intc1.c
+@@ -157,7 +157,8 @@ static int aspeed_intc1_irq_domain_activate(struct irq_domain *domain,
+ 					intc1->ranges.nranges,
+ 					intc1->ranges.ranges, &resolved);
+ 	if (rc < 0) {
+-		if (!fwnode_device_is_compatible(intc1->upstream->fwnode, "riscv,aplic")) {
++		if (!of_device_is_compatible(to_of_node(intc1->upstream->fwnode),
++					     "riscv,aplic")) {
+ 			dev_warn(intc1->dev,
+ 				 "Failed to resolve interrupt route for hwirq %lu in domain %s\n",
+ 				 data->hwirq, domain->name);
 -- 
 2.43.0
 
