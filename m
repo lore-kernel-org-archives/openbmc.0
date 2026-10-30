@@ -2,75 +2,79 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9D5606A31C
-	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2026 08:12:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B814A606A31C
+	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2026 08:22:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gAV2ym35
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jGDLh30pxz3bNr;
-	Fri, 30 Oct 2026 19:10:52 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c105::1" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793347851;
-	cv=pass; b=Q8UC9G3ZvbkYOGmOojIkeFw9m5elSqZCAT2BVfYtN+SqBbwuqdXZe7ZLKaof8Jza4SWmpsSfkKWnjcDVCI75d4BjIfjeEqg94CwUVGj5I7gC0jqGm2tROTexPDbK2Wa+bxS5tvUbTfVPw59c2y7+RVYDhCn1vOO4IIK38R5534wcwm9L+Y55KCNZYMgSqdWt6TGzhiznqChfJwyL9z2CBrkPL7NkDQJOkaLdmNavnej2X13Fo9naUjIboEumpPsnInsquTWyO7ctOsOv6oFdz4oiIUNwSGPsqNPVPGlXcjEeyuxfFhZiwaChjJZgPwfsYO1Ecm3UuHfsMwShlXdYzQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jGDbf6Sb7z30VT;
+	Fri, 30 Oct 2026 19:22:06 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c001::5" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793348526;
+	cv=pass; b=P16fpYIKRSHagWFn06y553tI6xothxRGeBVn2H3iJWLaup0Ml6chbYhJ7R3lrARoXz+iTrDbxdHdX7nsUx3EZCqp4c16XbEZNwJagHgjgpRj9J/bGVwVzlrPuXDqRaOvIbJLtTyUjI6r/ags45jLvzS1aZfGOgxOoz1KaQUEHcZ0rNCJkBZuUtPVb7IwG7BWYPsubB8R7xcWMJmmwCS1XuZHa0LnC2ZOlUeon8Sd1IZzE44vpvsug2/qH/OF6+nWxI+3Bty+GATLl2aq6K7c6MVFcJk6OnS1HgGFO5xvZ4suSRLR0TmtPTuAlnp1NcwwvxsBlbHIEaOHT2U38OhCgQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793347851; c=relaxed/relaxed;
-	bh=zFojA1yxOh+eT4rgVd9cJg78DeYBaqe3eu7mNcV2byg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=L22g/avOnjWsVyWqvkC9wvMODI1ixNnpgHneaYb1lh7z0JKCqTPgwNo3xOsCqaAzhvpE785ajv31TXSN2lafk9E8rQFDPaSocnQ6v9bGWXrxWiCKSTcTiP2N+3E4ufQSKzGUw/dyRjz0hdfJWS2AptOhW4F2cXBAMpc0cFgK03y3dxkoLkfSvMCpvLGEwmp0XTpiRJHBs9t/ioOh3crH+p37jdxI4ZoTMBfGqrtiZHzLmknwFQV1ozsAGno9ghKRffE2+m6W3ojWM4a6z7LtqrVNR4t47pxz8iEWR8V4Vma1BZ7FtVWcsWLK68C9AM7nrM5k/w9+XBFjdP+R5iiZ6A==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gAV2ym35; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+	t=1793348526; c=relaxed/relaxed;
+	bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WgMK4tzSiiy+rjueG/Wyd7e4dDdUmobOtayHPL55Eoyi7WctRVKA5AUATuy7nUOL4cMcFQMZHdprDu1FyonN7/wx2yiy1MhE2ui4gh32RNDlrQdWxnDkcvv+y0THPzGjxA8ruCqQYVOiOVwdmvf1zigE/5g/lW6QIVpLSq2tDjuKnfkXS0U/3XZ335YhfqBvN3KV2XdBvx1jdZkjYDtmnGQaEc7V3NCKmNHCwf/1EFvC7phTOz+Nkw52khMHw97K0URrJpiQ4vQ+lipEJuYTqkq50hV2PHz9xLNm2Ccwmlr2j0dXy900/vHZ9bA7oWbxyFz8cr5ix9BdiwEsPbdhMQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c001::5; helo=byapr05cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gAV2ym35;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c105::1; helo=ch1pr05cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazlp170100001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c105::1])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c001::5; helo=byapr05cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazlp170100005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c001::5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jGDLW3zPmz30Vy
-	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 19:10:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jGDbd5VsFz30RN
+	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 19:22:05 +1100 (AEDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mgCyk58y15uP71OQHgdAbnKBqjCWKVWDCPPmk+pErp4zhCgYNZRdL0boi+7nTBYZ1zQzSuwagzRr6tZgM+ivW5swCv8HPDSRohodY/MYOygGfLvVo+0WPsyRT+nRaUoFihXBToGg0nEI/zCQ4Bxg/vywNOoG+trrlAtD1ypwvfYd9wklOmSJCDRxIAlmD+w7EVGE28vczkgUjZqDe8PUI08NZqT75GTW554pNUJ2vy0Slep3OLVJCG7CadSD8XPHjp0A4KpNilRfCshIh35ze5D3XyY2op+gaXGNdDGRv5gqXM6H6MFji/jdLVEwoEKfCN8t7gLcsQZQCYTUxnUCoQ==
+ b=RNEDKJfZVZ1nwiS+VmI4cPplPwaEnjQFCuLyaXa/nwP7ebDuqNRWjzi4rPZzDQdSvD1srzR93WEnI+apy7DTiRm7eX+Oh4eYxekCkZKh4V2AX41H4WSVgHNZGmPhUaA7/GunsNDOmM3MVUTICNFJRFfhPuPv9Oh1Ci5cm8xaU9dxTUx7I3jugMY6n7t7i0CKr2Ev8wifc26ab59DFM36aSkvwNvVZTOD2thoC3T3RnFKU6UQlkcZl/kvwL8nHJjsWf+8n6ad7BQW8NctE1ppq/0LR4s8nWkApoNT7uYgcBh5v5OuUrps0LtyLd6x1yUvvK4jFfHFvh5qmkjw67MfbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zFojA1yxOh+eT4rgVd9cJg78DeYBaqe3eu7mNcV2byg=;
- b=H89RD4XOMgG0tOSkbAMc3KXGxTkKqzTmfS/U0Vgl5QogaI/D1sGuzfkDlxX/pDjZjFJDxh7P193XdkB0IUSyUa/bD99xVgSG2J6i5fvjlg3G0nKhlWycHN0HsCkox+0JPx3hNBv2o1EEXNnrNbgH0z9HzjEWtNkSUjsG7oIGFhAmSH2/q2jDMFEdgfajmTqrTosBA+PIPHmXuWSWOIPsPuwn+UiXDjLXMLSvCfDp+3Q1TXmIYBCK6w0W4m3SN5tlKy5WInTTlcCS+3qd5Tg2MesUaenn3tTYO++uCbfhszf5WKSfio5bMiOY17FJUMpBSNYLAglLPIfKAxlhMYuLTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
+ bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
+ b=XCpgYR/wWtNeDm2DLOVBqgMo3Sm0ik4L5IeEA0mbvo49pb9BfUuj51NKjSFlnGJmOeAOttf1/T3E0yvjjkFc05UD12Z42wQOdwv+LgraJBAfSV02n0CPnS/bwYkRkAUU8L9dssqgHfgCQBnfN8wGAoJr4P6vCrCA1k9jZ3bC4655JrwbW3Ai7sOpvkwSlxGkTQZYLyVRRpXfie9K8Yv6mwRtxD/GdQHhUMDsgQHFXFejVpFFdemuKAX4/dhWCjuJ1oT4U2XomwLzM9D+DUYsuHtxR2AdgqkJQ5IaAM8d/i5OmIqCGCDpwFQFSx9p1956EBXKTlEWjocYfvS9Z4JsjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zFojA1yxOh+eT4rgVd9cJg78DeYBaqe3eu7mNcV2byg=;
- b=gAV2ym35j4C9XbUBqOqPq/tpH0JVJOBLq/IURrXarrXKbrbH0s+T8VMlh3oCl/UkgkmecxzfWhnQ9C/OSvaRwBgHd7aKzWhwjbVHn6/1iTB4a54Fz8gFbdDjdJwRbkm7OUeMyJz16UQwH3HIRlTH+7/bK3bX9ihvLy/5sXmNdtmg0qpHtZaWZnOj4ouibdaDd+GON1URHsaYyv2BKpVDd1CClJ2urUfftJCmDMQh0SFNRnlT8nqgQ7+Wrv6TvF+4BV/i3NbhBYdNJtSxdC/jfmilvqkgu3XI7mpzoWUMpp/x9OEqfAn5JOoqLQsxZaFO9909Ud7Xt8xBPvqIGP0cYA==
-Received: from SJ0PR13CA0115.namprd13.prod.outlook.com (2603:10b6:a03:2c5::30)
- by SA3PR18MB353950.namprd18.prod.outlook.com (2603:10b6:806:53b::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 08:10:16 +0000
-Received: from BY1PEPF000264B6.namprd02.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::9a) by SJ0PR13CA0115.outlook.office365.com
- (2603:10b6:a03:2c5::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.3 via Frontend Transport; Fri, 30
- Oct 2026 08:10:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
+ b=h9hEDDAX1Mx7QcrV76jwUxKplVBRi+WSZHzcp5i6/ZnJ7xNMyhTHAvzlR4VO5QJiiyghwF40MCFWSa4qLWRysZ6ywFSQquPMRSsr1kZoR6ah5EM4b5oWrvePaxF/8MMsqkDRCno49eAsfMWipzXa2RUl/ZPzmOVI7uz1rko1/GCy4WZS2VsQfAh9wOhFFsbMNqQH7zTNFKzA66Z46KQmghp+k+wpEWZEkSk2kT1Ll5BHEjDYU6dG8lnuVguAdDCkRsJc9oLEhofCzcU99MDFJk78BlleQHjt9jY9YtvV1VjxXy8gZilu+W7JGW8nnUJpykxzM6tHzhxRTGMbi2cKSQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- BY1PEPF000264B6.mail.protection.outlook.com (10.167.242.123) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.4
- via Frontend Transport; Fri, 30 Oct 2026 08:10:15 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTP id 8416A40BFE0E;
-	Fri, 30 Oct 2026 01:10:15 -0700 (PDT)
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ IA0PPFF4890666F.namprd18.prod.outlook.com (2603:10b6:20f:fc04::c50) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 08:21:42 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 08:21:42 +0000
+Message-ID: <0979887c-0924-4bc7-a9d0-cbd2b95bf459@axiado.com>
+Date: Fri, 30 Oct 2026 09:21:34 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/2] pwm: add Axiado AX3000 PWM support
+To: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261005-axiado-ax3000-pwm-v6-0-7feecd0087e4@axiado.com>
+Content-Language: en-GB
 From: Petar Stepanovic <pstepanovic@axiado.com>
-Date: Fri, 30 Oct 2026 01:10:12 -0700
-Subject: [PATCH v4 4/6] usb: gadget: udc: crg: Add endpoint 0 handling
+In-Reply-To: <20261005-axiado-ax3000-pwm-v6-0-7feecd0087e4@axiado.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR04CA0044.eurprd04.prod.outlook.com
+ (2603:10a6:20b:46a::22) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -82,1216 +86,205 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-axiado-ax3000-usb-device-controller-v4-4-c5267b36a777@axiado.com>
-References: <20261030-axiado-ax3000-usb-device-controller-v4-0-c5267b36a777@axiado.com>
-In-Reply-To: <20261030-axiado-ax3000-usb-device-controller-v4-0-c5267b36a777@axiado.com>
-To: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
- Karthikeyan Mitran <kmitran@axiado.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>, 
- Krutik Shah <krutikshah@axiado.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793347814; l=36250;
- i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
- bh=B5iOjms3PMH3WFzwklRk027zDtZs5mCpRHUzxPaGRwE=;
- b=nS9EiT7xIhKmZnGZI6Poq84nntTsZT86A270/oew49dzwvSxF9eYNtYX/seY3fCqYu6rPcdjl
- fKDxq4DtGTgBgAcHzPHCjkgair2fj/Gh+BKf5ef34IcQVpGnUwz5Zh+
-X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
- pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B6:EE_|SA3PR18MB353950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6467ae41-0e12-4cd4-fd8b-08df365d3aea
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|IA0PPFF4890666F:EE_
+X-MS-Office365-Filtering-Correlation-Id: 37c40f8d-9a0a-457e-474d-08df365ed3fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|34020700016|82310400026|5023799004|56012099006|261009221727099003|261009221227099003|261009223327099003|261009223027099003|261009220027099003|261026121527099003|261026140227099003|261022105027099003|10067099003|261028144727099003|261022075727099003|261021121427099003|261022113327099003|261021123027099003|22082099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|260925022911599003|260925021911599003|260925021311599003|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	kH+rWwZjuJ6ORpijW/3HJZvH1mynKUrcEwqn5VqohAYnw3wZ5enqXFv6dTZTeFzJwj6nyKAWjVRyPbAA4QqXOKvQQYwBqjeT+6OgDwk+cGdMrgHLK6WPNLmOqTC7s2i7dt8rCR0GWSX39Vq/qLXRPmwImHnAxerm1Ku3U1T8eVkZNdjWtaSGnKtqanjGLsQt8DyxqEiwXsJNiQYiDx/KQVG/7GqN+PoT5uTYAitQaSCcfdSblBzPhIiaRDA0vE0b5EHIkZLSmcSnm3Dj6HcPgFmEUwUfK9tOih61lyGd4BbUcAEceC9O/tT80HeN9X24KZBSnTXKqSZXzyswKLRDeFvPa9xDmVe7OHXOG8Axmajf0RKNb8RtgN1SY1sw5hYX7ds9Otv6HKqQHtAD0ponFtniSSK67/kd2tK8RBx6tbgG9JpWFxDPPybej01SDH+5APdZrCDeJeo7Z2G9MbSAsnqsmYi1ef+loxQEqPRIixJS0ac++1dJ2w8747QHEeTbMeo7jI6QjJXgBBkrvpXaV523ahX+rIor5XJoLf7r+TvzAaq6dZ5hu3AKocHyzcB93ODhh5vGFbmQ0ejSzz9o15x7r/l+IjBB0UsFWX+o0RI3pYgVsq+4Pgd6l9rGxiU9RLDIwo4yaGqLrh5ZBKUbqBAY91HuwGB/w1socNtaX67lhgJL2a/ETuGdnl3+D5kvdfKxozY8DAj+5yv+PpiqKw==
+	V3cOMRgUA0J/jjAcwDgC7Y6zQljnl98lmj0aJEe4YijrBecS1qXXmcxE3WTY3Nawnvn6J1dZMAROiuPwTi1ASzVluXNnIF0OSlEDDu+krYTpUo7BFKW4/3Q14ygIEZuaNEpwCcEIbyoFx/j/33dmHUXO0qPk39nvF7FDRucB8vWK0o8VInkAiIFWHio2Kr5/F8Jv0rrlyi3ulGTmUnXYv5TiPz7QAM4ThTe6UHPlPzy70UVOeIiPU8Nx7oMF82unPEOoT2KqVXR/xsTCfWClqMUVrPhMhMAeOOYP/zF15IYPsbwdbj1IuR4JhNbmNf59hFzpw8vwYLWR9fvtaGScLuPOHeTySZSjGBjnkp6c2qkVLRUhxdza2etouXqucBJtjRKEWEu4oD5N//Bg+m2+ij0duYa2aSjo+Vt2eyJ4mIFRwcRLEEBaRfFJyxFpV2t2xlW8fk/wN5+gBVrmijZV6biDsGTqvgST+V6AP8SQUziQobXqDwsXa4OtP5cIo57tLnfoB583PBZSVq/ZkrSAuTANxFBLEnnt19jJU751wEakj0+Xv6FhmfKk42GzJHxxFkI8Ekj8ea1+iWlwXZGXMXuHTzzK66BxELWU8tYtAAc=
 X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(34020700016)(82310400026)(5023799004)(56012099006)(261009221727099003)(261009221227099003)(261009223327099003)(261009223027099003)(261009220027099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(261028144727099003)(261022075727099003)(261021121427099003)(261022113327099003)(261021123027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(260925022911599003)(260925021911599003)(260925021311599003)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	XNdiOd9O35R9lJpRSp4soO+aLJ/0FgbtCugxCMqimtDTrHXMZkZDv8dN0YmSYh1WnZca2cuQFGJWV/aOzNKSTSouBxMF3JvNNesoYO7747K+pKv5UqMdcVHavxIiXkqL1jdDKoIK20Oz0JXuf/q8yQsjgtZikXG/AwcvzQyEzcxuOeHI+87ij/JuqsWzoYxNojqh4L4do8lHlK7IqXI1VJ1JarYwS2eb1GDeq5OFL/X8XPOUThWjHzREB/THMYJFxLyRsuTTAjNanE/0qiqPpexDh8zJsTUCE2j1lvhB2E5dHq+RXVVKeI6eh7bSWp3tDfLD6MTEDVvaKw3uA/QglLuXnLOAaqYni8OX4uTt2TLJvnGAsigMf1uRBTDkgSctIPWbQwiVYjtRKjCm1UNze2frDYiuy/9vVqx2FfCZSZUo2q832npmGb2uv8O1wCIM
+	=?utf-8?B?M2QyMFlEY2FrVUtlODcrcFFQMisvcmk0MzkzWFhqbHBnalE5eE9xbGFJVXYy?=
+ =?utf-8?B?UEErQTk0UzV0Z2hvMHROSDdjTlArSFFrSFZ6YitnaFRQdUpTakFFbzZvbGNV?=
+ =?utf-8?B?RjNkbi8zMDc1SkVoSEMyS2l1UThqMHJTbWtGVXgvYWRVNFpId281MzMzNEx3?=
+ =?utf-8?B?ZDF5ZGtQZFhVZkpBalRrdEZVVTZxQlNmanZrMEtHM3A1UGw3ZHNrbzk0UzNq?=
+ =?utf-8?B?QklXckdEcDZWYVR1cGdSQm8rbllralFzRUxoZzM0YktPaUpRSkh4VkU2SXJH?=
+ =?utf-8?B?eCtWeVN4L2UvTiswZVZTRC9jV3Z6a0FjbHlQTDhOYVlPYWtSalJVdGNQaHhV?=
+ =?utf-8?B?TmEwZWpFcFkwSVYxMnBDbUdGdndxb2ZiYyt0SGExb05vdmxYUnFGb1NOVlRx?=
+ =?utf-8?B?NkhBSXh5QVQyK0xSbEJVUVFFYWxUbWRQdHY0MGRZMlNqdVFCcjI5SHVuRjl2?=
+ =?utf-8?B?SXdGRkJMSnVaVUkrVCs1UlprRGt6c2gxM25XOUphQXlMUHg5Y2RKa3ZZbUpk?=
+ =?utf-8?B?Rzc5a1BJa3d0WUpWT2owRWN1K292NzBiQVdkV2pNOHVlakx3QW1pOGszeDYv?=
+ =?utf-8?B?V3A5V2FUUDNGei85aStBS2QyMnFNYzhROHpFREJ3elFYZ3RPUytZYzhVQVJ0?=
+ =?utf-8?B?SDNwdHZNSU5HcWZidW1PWm0vZCtSU1VvKzFmZjc0R1lkUkgwc0ZLd20zUjBl?=
+ =?utf-8?B?blJYTG0zMHNkY05GNWRYTC9IN0tFQmtibElSc2VpNVc4RWxRZW1IR1o4aDR4?=
+ =?utf-8?B?T2wzNys2M0RtNFp5aEVlcmhPRWNZbXdVZHRWZXN2dW40Q0wvNkhhSU9kS3Jh?=
+ =?utf-8?B?NlpydXNYQmlOQWIzVVFnREw1K0k0VC9vN1ZCMWZIVGV5ZURhRlUxRHlYM2Z5?=
+ =?utf-8?B?cno4Mmo2bTZPdmt5Y0pPclk0ZHFBSVV0TytucGJxR3YxYjhDQmg1K0E1SXVt?=
+ =?utf-8?B?NmVaZlVtelc1MGd0UkdibzA0Mk5NK0VwRFEvMEZNWFRmaWxwait0SHYwVXZu?=
+ =?utf-8?B?UkZGK2J0dVdCOG5pSDc5L3YyaGkvOGk5cmI0eUxleHJpQkdlMmZQdWRJTWRn?=
+ =?utf-8?B?WWIrc0x2d2FHdVlmWlB3S0dvQ0hxWFpkREovODJ2anlMWDQ1TE1qQXBUNW9m?=
+ =?utf-8?B?OTA4dWFvZVlIVzdKTXFOVTBVd0U3WDZPazJoNWs3RDFhblJsenN2VjFpTUZ0?=
+ =?utf-8?B?cWFSdmprK1YvSkFDa0ZiSjFtemE4K0EvM1FQYnFaVCtOenVGTGw0Y2hYY25r?=
+ =?utf-8?B?MFZwVytFc2txM1BsNjNLU1hORVByRklxQ3V1Qi8wZjRFK2plUzcrOUZKQVJM?=
+ =?utf-8?B?ZGlUcGYxckRVckoyZlNwVWQ2WUMyTytZbUphYkVHV2NlY2RTV3NKRHdHTVMw?=
+ =?utf-8?B?cEFJVjJVeGdqNjlkTXFpelBVdm9ZZ0VtczJuN0x0WUFFNkZ2ZUN3WEpneXdD?=
+ =?utf-8?B?dFFSb2RjQStPak5GYXNSZ0NNM3FocUxEbjVtYWNwMks0OWh0Sk55ckJkS3Iv?=
+ =?utf-8?B?alIybm4vTys0QUJ1bWJ4UnFNTUsrUmJJaERULzRhcG15YkxwaTRoTytHN0tK?=
+ =?utf-8?B?eVh0Yzl1Yi9XWVpoTUFiQkdwRTBVQXRVOTB0N0c4VFJvYmpaQ0h2OUJDaDRx?=
+ =?utf-8?B?RFZPK05pd2N6bXpnL3dLdlJrYzBSRWFOVEFocnFwcnNUUzBoTURzc1hVZUtv?=
+ =?utf-8?B?RGZTOXg3NTJ6bWtQaHhJYkhBSjM1TnhqMG9Da0NFL3Y5bEMrWG1aaFpiWk1t?=
+ =?utf-8?B?V1QvWjYwdDZZZElXeHcwVmRuUW5qRkRyd3NjSVhsbG8xQ1JiWGFpM3RjZHFk?=
+ =?utf-8?B?bS9RTjh0WWd6b29FWTErWnh2djczL0tRU3kyL1F0MXRPblhmMUwxaUE3ZWxE?=
+ =?utf-8?B?WHJPb0tLd1ZWNmg1K1FkNTdoYTZUanRMTjJoL2wvVjJ5aWYyWWo2Mjg3TWF3?=
+ =?utf-8?B?U1NoUE5oTDdySlVuVEF1MUZlWlJVTHBLNEVZRytJbnByRTdGTXpWZDJWSE9G?=
+ =?utf-8?B?eFlVVmJ4YUREUmI3ZllYelgydHVtTFB6aHBXcC9xcVdoTmozN29KL2pock9y?=
+ =?utf-8?B?dHR0elNWRVpKQW9HekluUSs5akVLTytHL0xGRmxNQ0FXMENLWGhydjZwZDky?=
+ =?utf-8?B?TFo0Qlg2ay9oSk9HVjJoemdjTnVkTlZrOVZtNHo0bDdraHNkTjhZVmU5RkNn?=
+ =?utf-8?B?eXowcEZGOUs5RE8zUUMzK2xZdlAxalFxbHkrU201TWFEaDlqNlhwdnl1QjFj?=
+ =?utf-8?B?K2gwYmV0VDdlc2xTNWFCZmFPbGRxcU1UVXVYY25vMUJHNitLcTBPTG4wR1Nl?=
+ =?utf-8?B?V0hEV1FoQmw2UHdaY1k1QUVDcExLeGV6N01TQ3JacGZJSUcySHFxdz09?=
 X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:10:15.7499
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37c40f8d-9a0a-457e-474d-08df365ed3fc
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:21:42.3679
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6467ae41-0e12-4cd4-fd8b-08df365d3aea
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR18MB353950
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yX8zRBgr3FRUC+OkFaXKewEOtptZbuH2S46QsCZ/7GC7F7Tbsy99bT3KALyY2wDdbY6pah+o91e/lKug1vID0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFF4890666F
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This patch adds the endpoint 0 setup packet, status, and control
-transfer handling for the Axiado AX3000/AX3005 UDC.
 
-Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-Co-developed-by: Krutik Shah <krutikshah@axiado.com>
-Signed-off-by: Krutik Shah <krutikshah@axiado.com>
-Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
----
- drivers/usb/gadget/udc/crg/crg-udc-ep0.c | 1133 ++++++++++++++++++++++++++++++
- 1 file changed, 1133 insertions(+)
+On 10/5/2026 9:46 AM, Petar Stepanovic wrote:
+> This series adds support for the PWM controller found on Axiado
+> AX3000 and AX3005 SoCs.
+>
+> A new driver is needed because this PWM controller is a SoC-specific
+> hardware block used on Axiado SoCs. It has its own register layout,
+> enable control, period configuration, duty-cycle configuration, and
+> does not match any existing upstream PWM driver.
+>
+> The controller provides configurable PWM output signals. The driver
+> exposes the controller through the Linux PWM framework and supports
+> period and duty-cycle configuration.
+>
+> The driver converts the requested period and duty cycle from nanoseconds
+> to hardware clock cycles based on the input clock rate.
+>
+> The datasheet is not publicly available. Public high-level product
+> information is available at:
+>
+> https://axiado.com/products/#AX3080
+>
+> The register definitions and programming sequence used by this driver
+> are based on Axiado internal SoC documentation.
+>
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+> ---
+> Changes in v6:
+> - Use 3 PWM cells and add the flags cell to PWM consumers.
+> - Fix readback of the constant-high hardware state when the high-time
+>   register is zero.
+> - Link to v5: https://patch.msgid.link/20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com
+>
+> Changes in v5:
+> - Use the hardware disable state directly instead of emulating a
+>   disabled
+>   PWM with the constant-low representation.
+> - Remove driver-side cached period and logically-disabled state.
+> - Handle 0% duty cycle using the hardware constant-low representation
+>   during waveform rounding.
+> - Decode the constant-low representation as 0% duty with a
+>   one-clock-cycle
+>   period on readback.
+> - Simplify waveform read/write handling and remove redundant validation.
+> - Update the driver limitations documentation.
+> - Link to v4: https://patch.msgid.link/20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com
+>
+> Changes in v4:
+> - Corrected the AX3005 compatible ordering to list
+>   axiado,ax3005-pwm before its axiado,ax3000-pwm fallback.
+> - Changed the disabled-state handling to program a constant-low
+>   waveform,
+>   because disabling the hardware controller drives the output high.
+> - Added software state tracking so readback reports this constant-low
+>   hardware representation as a logically disabled PWM.
+> - Link to v3: https://patch.msgid.link/20260811-axiado-ax3000-pwm-v3-0-6ceaccd812cf@axiado.com
+>
+> Changes in v3:
+> - Express AX3005 compatibility with AX3000 using a fallback compatible.
+> - Update the Devicetree binding example accordingly.
+> - Add 0% duty-cycle support using the hardware constant-low encoding.
+> - Cache the rounded period for 0% duty-cycle waveform readback.
+> - Allow sub-cycle duty requests to round down to 0% instead of rounding
+>   up to one clock cycle.
+> - Normalize high-time values greater than the period to 100% duty.
+> - Drop the redundant AX3005 OF match entry and use the AX3000 fallback.
+> - Clarify comments and PWM hardware limitations.
+> - Link to v2: https://lore.kernel.org/r/20260723-axiado-ax3000-pwm-v2-0-22002f0b281d@axiado.com
+>
+> Changes in v2:
+> - Migrated the driver from the legacy apply/get_state API to the new
+>   waveform ops API (round_waveform_tohw/fromhw, read/write_waveform).
+> - Cache the clock rate at probe and lock it with
+>   devm_clk_rate_exclusive_get() instead of reading it on every op.
+> - Improved rounding: clamp period/duty to hardware limits, reject
+>   non-zero duty offset, preserve exact 100% duty, round sub-cycle duty
+>   up to the minimum.
+> - Added a "Limitations" comment block documenting hardware constraints.
+> - Renamed macros from AX_PWM_* to AXIADO_PWM_* and dropped unused ones.
+> - DT binding: dropped clock-names, made #pwm-cells required, and
+>   updated the description and compatible list to cover both the AX3000
+>   and AX3005 SoCs.
+> - Added axiado,ax3005-pwm to the driver's OF device match table.
+> - Link to v1: https://lore.kernel.org/r/20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com
+>
+> To: Petar Stepanovic <pstepanovic@axiado.com>
+> To: Akhila Kavi <akavi@axiado.com>
+> To: Prasad Bolisetty <pbolisetty@axiado.com>
+> To: Uwe Kleine-König <ukleinek@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Harshit Shah <hshah@axiado.com>
+> Cc: linux-pwm@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+>
+> ---
+> Petar Stepanovic (2):
+>       dt-bindings: pwm: add Axiado AX3000 PWM
+>       pwm: add Axiado AX3000 PWM driver
+>
+>  .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml |  53 ++++
+>  MAINTAINERS                                        |   9 +
+>  drivers/pwm/Kconfig                                |  11 +
+>  drivers/pwm/Makefile                               |   1 +
+>  drivers/pwm/pwm-axiado.c                           | 282 +++++++++++++++++++++
+>  5 files changed, 356 insertions(+)
+> ---
+> base-commit: 368d34807e6d04bb2089918383b58abf40e720a0
+> change-id: 20260518-axiado-ax3000-pwm-cd7c346849f1
+>
+> Best regards,
+> --  
+> Petar Stepanovic <pstepanovic@axiado.com>
 
-diff --git a/drivers/usb/gadget/udc/crg/crg-udc-ep0.c b/drivers/usb/gadget/udc/crg/crg-udc-ep0.c
-new file mode 100644
-index 000000000000..073d9090dd07
---- /dev/null
-+++ b/drivers/usb/gadget/udc/crg/crg-udc-ep0.c
-@@ -0,0 +1,1133 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Axiado AX3000/AX3005 USB Device Controller driver.
-+ *
-+ * Copyright (c) 2019 Corigine Inc.
-+ * Copyright (c) 2021-2026 Axiado Corporation.
-+ */
-+#include <linux/iopoll.h>
-+
-+#include "crg-udc.h"
-+#include "crg-udc-trace.h"
-+
-+static void enable_setup_event(struct crg_gadget_dev *crg_udc);
-+
-+void crg_udc_build_ep0_status(struct crg_udc_ep *udc_ep_ptr, bool default_value,
-+			      u32 status, struct crg_udc_request *udc_req_ptr,
-+			      u8 set_addr, u8 stall)
-+{
-+	struct crg_gadget_dev *crg_udc = udc_ep_ptr->crg_udc;
-+	struct crg_transfer_trb *enq_pt = udc_ep_ptr->enq_pt;
-+
-+	if (default_value) {
-+		udc_req_ptr = crg_udc->status_req;
-+		/* The shared request may still be in its data-stage callback. */
-+		if (!udc_req_ptr || crg_udc->status_req_callback_pending ||
-+		    !list_empty(&udc_req_ptr->queue)) {
-+			dev_err(crg_udc->dev, "EP0 status request unavailable\n");
-+			crg_udc->ep0_state = EP0_STATE_ERROR;
-+			return;
-+		}
-+		udc_req_ptr->usb_req.length = 0;
-+		udc_req_ptr->usb_req.status = status;
-+		udc_req_ptr->usb_req.actual = 0;
-+		udc_req_ptr->usb_req.complete = NULL;
-+	} else {
-+		udc_req_ptr->usb_req.status = status;
-+		udc_req_ptr->usb_req.actual = 0;
-+	}
-+
-+	crg_udc_setup_status_trb(crg_udc, enq_pt, &udc_req_ptr->usb_req,
-+				 udc_ep_ptr->pcs, set_addr, stall);
-+
-+	enq_pt++;
-+
-+	/* check if we are at end of trb segment.  If so, update
-+	 * pcs and enq for next segment
-+	 */
-+	if (FIELD_GET(TRB_TYPE_MASK, le32_to_cpu(enq_pt->dw3)) ==
-+	    TRB_TYPE_LINK) {
-+		if (FIELD_GET(TRB_LINK_TOGGLE_CYCLE_MASK,
-+			      le32_to_cpu(enq_pt->dw3))) {
-+			dma_wmb();
-+			le32p_replace_bits(&enq_pt->dw3, udc_ep_ptr->pcs,
-+					   TRB_CYCLE_BIT_MASK);
-+			udc_ep_ptr->pcs ^= 0x1;
-+		}
-+		enq_pt = udc_ep_ptr->first_trb;
-+	}
-+	udc_ep_ptr->enq_pt = enq_pt;
-+
-+	crg_udc_knock_doorbell(crg_udc, 0);
-+
-+	list_add_tail(&udc_req_ptr->queue, &udc_ep_ptr->queue);
-+}
-+
-+/*
-+ * Abort the current EP0 control transfer when a new SETUP packet arrives.
-+ *
-+ * A SETUP packet is allowed to abort any in-progress control transfer. Do
-+ * not defer the new SETUP until the old transfer completes: doing so leaves
-+ * the old request on the EP0 software queue and subsequent gadget requests
-+ * are rejected as "queue not empty".
-+ *
-+ * The controller's EP0 ring is reinitialized at the ring start, making all
-+ * TRBs belonging to the aborted control transfer stale. The new SETUP is
-+ * then handled immediately with a fresh setup tag.
-+ */
-+int crg_udc_abort_ep0_for_setup(struct crg_gadget_dev *crg_udc)
-+{
-+	struct crg_udc_ep *udc_ep0 = &crg_udc->udc_ep[0];
-+	struct crg_uccr __iomem *uccr = crg_udc->uccr;
-+	dma_addr_t dqptaddr;
-+	u32 cmd_param0;
-+	u32 cmd_param1;
-+	u32 tmp;
-+	int ret;
-+
-+	/*
-+	 * A new SETUP is allowed to abort the current control transfer.
-+	 * Keep EP0 in ABORTING for the complete stop/nuke/reinitialize
-+	 * sequence. crg_udc_req_done() drops udc_lock while invoking the gadget
-+	 * callback, so the callback may re-enter the UDC during the nuke.
-+	 */
-+	crg_udc->setup_status = WAIT_FOR_SETUP;
-+	crg_udc->ep0_state = EP0_STATE_ABORTING;
-+
-+	/*
-+	 * Stop EP0 before touching the transfer ring. The controller may still
-+	 * own the old TRBs even when no EP0 request is running from the gadget's
-+	 * point of view. Do not clear the DMA-visible ring until the hardware
-+	 * reports that EP0 is no longer running.
-+	 */
-+	ret = crg_udc_issue_command(crg_udc, CRG_CMD_STOP_EP, BIT(0), 0);
-+	if (ret) {
-+		dev_err(crg_udc->dev,
-+			"failed to stop EP0 for SETUP abort: %d\n", ret);
-+		crg_udc->ep0_state = EP0_STATE_ERROR;
-+		return ret;
-+	}
-+
-+	ret = readl_poll_timeout_atomic(&uccr->ep_running, tmp, !(tmp & BIT(0)),
-+					10, 10000);
-+	if (ret) {
-+		dev_err(crg_udc->dev, "timeout stopping EP0 for SETUP abort\n");
-+		crg_udc->ep0_state = EP0_STATE_ERROR;
-+		return ret;
-+	}
-+
-+	udc_ep0->ep_state = EP_STATE_STOPPED;
-+	/* Complete requests belonging to the aborted control transfer. */
-+	crg_udc_ep_nuke(udc_ep0, -ECONNRESET);
-+
-+	if (!udc_ep0->first_trb || !udc_ep0->tran_ring_info.cpu_addr) {
-+		crg_udc->ep0_state = EP0_STATE_ERROR;
-+		return -ENODEV;
-+	}
-+
-+	/*
-+	 * The controller has stopped consuming EP0 TRBs. It is now safe to
-+	 * discard the old transfer descriptors and restart the ring from its
-+	 * beginning. No ring memory is freed here.
-+	 */
-+	memset(udc_ep0->first_trb, 0, udc_ep0->tran_ring_info.len);
-+	udc_ep0->enq_pt = udc_ep0->first_trb;
-+	udc_ep0->deq_pt = udc_ep0->first_trb;
-+	udc_ep0->pcs = 1;
-+	udc_ep0->tran_ring_full = false;
-+	crg_udc_setup_link_trb(udc_ep0->last_trb, true,
-+			       udc_ep0->tran_ring_info.dma_addr);
-+
-+	/* Make the new ring contents visible before handing the ring to HW. */
-+	dma_wmb();
-+
-+	dqptaddr = crg_udc_tran_trb_virt_to_dma(udc_ep0, udc_ep0->first_trb);
-+	if (dma_mapping_error(crg_udc->dev, dqptaddr)) {
-+		crg_udc->ep0_state = EP0_STATE_ERROR;
-+		return -EIO;
-+	}
-+
-+	cmd_param0 = (lower_32_bits(dqptaddr) & CRG_CMD0_0_DQPTRLO_MASK) |
-+		     FIELD_PREP(CRG_CMD0_0_DCS_MASK, udc_ep0->pcs);
-+	cmd_param1 = upper_32_bits(dqptaddr);
-+
-+	ret = crg_udc_issue_command(crg_udc, CRG_CMD_INIT_EP0, cmd_param0,
-+				    cmd_param1);
-+	if (ret) {
-+		dev_err(crg_udc->dev,
-+			"failed to reinitialize EP0 for SETUP: %d\n", ret);
-+		crg_udc->ep0_state = EP0_STATE_ERROR;
-+		return ret;
-+	}
-+
-+	udc_ep0->ep_state = EP_STATE_RUNNING;
-+	crg_udc->ep0_state = EP0_STATE_IDLE;
-+	return 0;
-+}
-+
-+int crg_udc_enable_setup(struct crg_gadget_dev *crg_udc)
-+{
-+	enable_setup_event(crg_udc);
-+	crg_udc->device_state = USB_STATE_DEFAULT;
-+	usb_gadget_set_state(&crg_udc->gadget, USB_STATE_DEFAULT);
-+	crg_udc->setup_status = WAIT_FOR_SETUP;
-+
-+	return 0;
-+}
-+
-+static void enable_setup_event(struct crg_gadget_dev *crg_udc)
-+{
-+	struct crg_uccr __iomem *uccr = crg_udc->uccr;
-+	u32 val;
-+
-+	val = readl(&uccr->config1);
-+	val |= CRG_U3DC_CFG1_SETUP_EVENT_EN;
-+	writel(val, &uccr->config1);
-+}
-+
-+void crg_udc_ep0_req_complete(struct crg_udc_ep *udc_ep_ptr,
-+			      unsigned long *flags)
-+{
-+	struct crg_gadget_dev *crg_udc = udc_ep_ptr->crg_udc;
-+
-+	switch (crg_udc->setup_status) {
-+	case DATA_STAGE_XFER:
-+		crg_udc->setup_status = STATUS_STAGE_RECV;
-+		crg_udc_build_ep0_status(udc_ep_ptr, true, -EINPROGRESS, NULL,
-+					 0, 0);
-+		break;
-+	case DATA_STAGE_RECV:
-+		crg_udc->setup_status = STATUS_STAGE_XFER;
-+		crg_udc_build_ep0_status(udc_ep_ptr, true, -EINPROGRESS, NULL,
-+					 0, 0);
-+		break;
-+	default:
-+		if (crg_udc->setup_fn_call_back) {
-+			crg_udc->setup_fn_call_back(crg_udc);
-+			crg_udc->setup_fn_call_back = NULL;
-+		}
-+		crg_udc->setup_status = WAIT_FOR_SETUP;
-+		break;
-+	}
-+}
-+
-+static void get_status_cmpl(struct usb_ep *ep, struct usb_request *req)
-+{
-+	struct crg_udc_ep *udc_ep = container_of(ep, struct crg_udc_ep, usb_ep);
-+	struct crg_gadget_dev *crg_udc = udc_ep->crg_udc;
-+	unsigned long flags;
-+	void *buf;
-+
-+	/* The data-stage completion handler queues the status stage. */
-+	spin_lock_irqsave(&crg_udc->udc_lock, flags);
-+	buf = req->buf;
-+	req->buf = NULL;
-+	crg_udc->status_req_callback_pending = false;
-+	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
-+
-+	kfree(buf);
-+}
-+
-+static void getstatusrequest(struct crg_gadget_dev *crg_udc, u8 request_type,
-+			     u16 value, u16 index, u16 length)
-+{
-+	struct crg_udc_ep *udc_ep_ptr = &crg_udc->udc_ep[0];
-+	struct crg_udc_request *udc_req_ptr = crg_udc->status_req;
-+	u16 status_val = 0;
-+	u32 dci;
-+	int ret;
-+
-+	if (!udc_req_ptr || crg_udc->status_req_callback_pending ||
-+	    !list_empty(&udc_req_ptr->queue) || value ||
-+	    length != sizeof(u16)) {
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+
-+	switch (request_type & USB_RECIP_MASK) {
-+	case USB_RECIP_DEVICE:
-+		if (index)
-+			goto invalid;
-+		if (crg_udc->gadget.speed == USB_SPEED_HIGH ||
-+		    crg_udc->gadget.speed == USB_SPEED_FULL) {
-+			if (crg_udc->u2_rwe)
-+				status_val |= BIT(USB_DEVICE_REMOTE_WAKEUP);
-+		} else if (crg_udc->gadget.speed >= USB_SPEED_SUPER) {
-+			if (crg_udc->feature_u1_enable)
-+				status_val |= BIT(USB_DEV_STAT_U1_ENABLED);
-+			if (crg_udc->feature_u2_enable)
-+				status_val |= BIT(USB_DEV_STAT_U2_ENABLED);
-+		}
-+		if (crg_udc->gadget.is_selfpowered)
-+			status_val |= BIT(USB_DEVICE_SELF_POWERED);
-+		break;
-+
-+	case USB_RECIP_INTERFACE:
-+		if (crg_udc->device_state != USB_STATE_CONFIGURED ||
-+		    (index & 0xff00))
-+			goto invalid;
-+		break;
-+
-+	case USB_RECIP_ENDPOINT:
-+		if (index & ~(USB_ENDPOINT_NUMBER_MASK | USB_DIR_IN))
-+			goto invalid;
-+		dci = crg_udc_index2dci(index);
-+		if (dci == 1 || dci >= CRG_NUM_EP_CX)
-+			goto invalid;
-+		if (crg_udc->device_state < USB_STATE_ADDRESS && dci != 0)
-+			goto invalid;
-+		if (crg_udc->device_state == USB_STATE_ADDRESS && dci != 0)
-+			goto invalid;
-+		if (crg_udc->device_state == USB_STATE_CONFIGURED &&
-+		    crg_udc_get_ep_state(crg_udc, dci) == EP_STATE_DISABLED)
-+			goto invalid;
-+		if (crg_udc_get_ep_state(crg_udc, dci) == EP_STATE_HALTED)
-+			status_val = BIT(USB_ENDPOINT_HALT);
-+		break;
-+
-+	default:
-+		goto invalid;
-+	}
-+
-+	kfree(udc_req_ptr->usb_req.buf);
-+
-+	udc_req_ptr->usb_req.buf = kzalloc_obj(status_val, GFP_ATOMIC);
-+	if (!udc_req_ptr->usb_req.buf)
-+		goto invalid;
-+
-+	*(__le16 *)udc_req_ptr->usb_req.buf = cpu_to_le16(status_val);
-+	udc_req_ptr->usb_req.length = sizeof(status_val);
-+	udc_req_ptr->usb_req.status = -EINPROGRESS;
-+	udc_req_ptr->usb_req.actual = 0;
-+	udc_req_ptr->usb_req.complete = get_status_cmpl;
-+	crg_udc->status_req_callback_pending = true;
-+
-+	udc_req_ptr->map_dir = DMA_TO_DEVICE;
-+	ret = usb_gadget_map_request_by_dev(crg_udc->dev, &udc_req_ptr->usb_req,
-+					    true);
-+	if (ret) {
-+		kfree(udc_req_ptr->usb_req.buf);
-+		udc_req_ptr->usb_req.buf = NULL;
-+		crg_udc->status_req_callback_pending = false;
-+		goto invalid;
-+	}
-+
-+	crg_udc->setup_status = DATA_STAGE_XFER;
-+
-+	ret = crg_udc_build_td(udc_ep_ptr, udc_req_ptr);
-+	if (ret) {
-+		crg_udc_unmap_request(udc_ep_ptr, udc_req_ptr);
-+		kfree(udc_req_ptr->usb_req.buf);
-+		udc_req_ptr->usb_req.buf = NULL;
-+		crg_udc->status_req_callback_pending = false;
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+	list_add_tail(&udc_req_ptr->queue, &udc_ep_ptr->queue);
-+	return;
-+
-+invalid:
-+	crg_udc_set_ep0_halt(crg_udc);
-+}
-+
-+int crg_udc_prepare_for_setup(struct crg_gadget_dev *crg_udc)
-+{
-+	struct crg_udc_ep *udc_ep0_ptr;
-+	dma_addr_t dqptaddr;
-+	u32 cmd_param0;
-+	u32 cmd_param1;
-+	int ret;
-+
-+	if (!crg_udc_is_event_rings_empty(crg_udc) ||
-+	    crg_udc->portsc_on_reconnecting == 1)
-+		return -EBUSY;
-+
-+	udc_ep0_ptr = &crg_udc->udc_ep[0];
-+	/* If we reinit ep0 on bus reset, we just make ep0 dequeue pointer
-+	 * align with enqueue pointer, all remaining xfer trbs became dumb once
-+	 * which will not produce xfer event anymore.
-+	 *
-+	 * If we considering the opposite solution, we should wait all ep0 xfer
-+	 * trbs be completed(with some err complete code)
-+	 */
-+	if (crg_udc->reinit_ep0_on_bus_reset) {
-+		struct crg_uccr __iomem *uccr = crg_udc->uccr;
-+		u32 running;
-+
-+		/* Block requeue from giveback callbacks, then quiesce DMA. */
-+		crg_udc->ep0_state = EP0_STATE_ABORTING;
-+		if (crg_udc_get_ep_state(crg_udc, 0) == EP_STATE_RUNNING) {
-+			ret = crg_udc_issue_command(crg_udc, CRG_CMD_STOP_EP,
-+						    BIT(0), 0);
-+			if (ret)
-+				goto reset_error;
-+
-+			ret = readl_poll_timeout_atomic(&uccr->ep_running, running,
-+							!(running & BIT(0)), 10, 10000);
-+			if (ret)
-+				goto reset_error;
-+		}
-+		udc_ep0_ptr->ep_state = EP_STATE_STOPPED;
-+		crg_udc_ep_nuke(udc_ep0_ptr, -ESHUTDOWN);
-+
-+		/* context related ops */
-+		dqptaddr = crg_udc_tran_trb_virt_to_dma(udc_ep0_ptr,
-+							udc_ep0_ptr->enq_pt);
-+		if (dma_mapping_error(crg_udc->dev, dqptaddr)) {
-+			ret = -EIO;
-+			goto reset_error;
-+		}
-+		cmd_param0 =
-+			(lower_32_bits(dqptaddr) & CRG_CMD0_0_DQPTRLO_MASK) |
-+			FIELD_PREP(CRG_CMD0_0_DCS_MASK, udc_ep0_ptr->pcs);
-+		cmd_param1 = upper_32_bits(dqptaddr);
-+		ret = crg_udc_issue_command(crg_udc, CRG_CMD_INIT_EP0,
-+						cmd_param0, cmd_param1);
-+		if (ret)
-+			goto reset_error;
-+
-+		udc_ep0_ptr->deq_pt = udc_ep0_ptr->enq_pt;
-+		udc_ep0_ptr->tran_ring_full = false;
-+		udc_ep0_ptr->ep_state = EP_STATE_RUNNING;
-+		crg_udc->ep0_state = EP0_STATE_IDLE;
-+	} else {
-+		if (!list_empty(&udc_ep0_ptr->queue)) {
-+			dev_err(crg_udc->dev,
-+				"remaining ep0 xfer trbs on reset\n");
-+			return -EBUSY;
-+		}
-+	}
-+
-+	crg_udc_enable_setup(crg_udc);
-+
-+	return 0;
-+
-+reset_error:
-+	crg_udc->ep0_state = EP0_STATE_ERROR;
-+	return ret;
-+}
-+
-+static void set_address_cmpl(struct crg_gadget_dev *crg_udc)
-+{
-+	if (crg_udc->device_state == USB_STATE_DEFAULT &&
-+	    crg_udc->dev_addr != 0) {
-+		crg_udc->device_state = USB_STATE_ADDRESS;
-+		usb_gadget_set_state(&crg_udc->gadget, USB_STATE_ADDRESS);
-+	} else if (crg_udc->device_state == USB_STATE_ADDRESS) {
-+		if (crg_udc->dev_addr == 0) {
-+			crg_udc->device_state = USB_STATE_DEFAULT;
-+			usb_gadget_set_state(&crg_udc->gadget,
-+					     USB_STATE_DEFAULT);
-+		}
-+
-+	}
-+}
-+
-+int crg_udc_set_ep0_halt(struct crg_gadget_dev *crg_udc)
-+{
-+	struct crg_udc_ep *udc_ep_ptr = &crg_udc->udc_ep[0];
-+	enum crg_ep_state ep_state;
-+
-+	ep_state = crg_udc_get_ep_state(crg_udc, udc_ep_ptr->dci);
-+	if (ep_state == EP_STATE_HALTED || ep_state == EP_STATE_DISABLED)
-+		return 0;
-+
-+	crg_udc_build_ep0_status(udc_ep_ptr, true, -EINVAL, NULL, 0, 1);
-+
-+	udc_ep_ptr->ep_state = EP_STATE_HALTED;
-+
-+	return 0;
-+}
-+
-+static void set_sel_cmpl(struct usb_ep *ep, struct usb_request *req)
-+{
-+	struct crg_udc_ep *udc_ep = container_of(ep, struct crg_udc_ep, usb_ep);
-+	struct crg_gadget_dev *crg_udc = udc_ep->crg_udc;
-+	const struct usb_set_sel_req *sel;
-+	unsigned long flags;
-+	void *buf;
-+
-+	spin_lock_irqsave(&crg_udc->udc_lock, flags);
-+	buf = req->buf;
-+	if (buf && !req->status && req->actual >= sizeof(*sel)) {
-+		sel = buf;
-+		crg_udc->sel_value.u1_sel_value = sel->u1_sel;
-+		crg_udc->sel_value.u1_pel_value = sel->u1_pel;
-+		crg_udc->sel_value.u2_sel_value = le16_to_cpu(sel->u2_sel);
-+		crg_udc->sel_value.u2_pel_value = le16_to_cpu(sel->u2_pel);
-+	}
-+	req->buf = NULL;
-+	crg_udc->status_req_callback_pending = false;
-+	spin_unlock_irqrestore(&crg_udc->udc_lock, flags);
-+
-+	kfree(buf);
-+}
-+
-+static void set_test_mode_cmpl(struct crg_gadget_dev *crg_udc)
-+{
-+	if (crg_udc->set_tm != 0) {
-+		u32 tmp;
-+		struct crg_uccr __iomem *uccr = crg_udc->uccr;
-+
-+		tmp = readl(&uccr->u2portpmsc);
-+		FIELD_MODIFY(CRG_U3DC_U2PORTPM_TM_MASK, &tmp, crg_udc->set_tm);
-+		writel(tmp, &uccr->u2portpmsc);
-+
-+		crg_udc->set_tm = 0;
-+	}
-+}
-+
-+static void setaddressrequest(struct crg_gadget_dev *crg_udc, u16 value,
-+			      u16 index, u16 length)
-+{
-+	u32 param0;
-+
-+	if (value > 127 || index || length ||
-+	    (crg_udc->device_state != USB_STATE_DEFAULT &&
-+	     crg_udc->device_state != USB_STATE_ADDRESS))
-+		goto invalid;
-+
-+	/* SET_ADDRESS(0) is legal in the Default state. */
-+	param0 = FIELD_PREP(CRG_CMD2_0_DEV_ADDR_MASK, value);
-+	if (crg_udc_issue_command(crg_udc, CRG_CMD_SET_ADDR, param0, 0))
-+		goto invalid;
-+
-+	crg_udc->dev_addr = value;
-+	crg_udc->setup_status = STATUS_STAGE_XFER;
-+	crg_udc->setup_fn_call_back = set_address_cmpl;
-+	crg_udc_build_ep0_status(&crg_udc->udc_ep[0], true,
-+				 -EINPROGRESS, NULL, 1, 0);
-+	return;
-+
-+invalid:
-+	crg_udc->setup_fn_call_back = NULL;
-+	crg_udc_set_ep0_halt(crg_udc);
-+}
-+
-+static bool setfeaturesrequest(struct crg_gadget_dev *crg_udc, u8 request_type,
-+			       u8 b_request, u16 value, u16 index, u16 length,
-+			       unsigned long *flags)
-+{
-+	int status = -EINPROGRESS;
-+	u8 dci;
-+	struct crg_udc_ep *udc_ep_ptr;
-+	u32 tmp;
-+	u32 set_feat = 0;
-+	struct crg_uccr __iomem *uccr = crg_udc->uccr;
-+
-+	if (length || (request_type & USB_DIR_IN))
-+		goto set_feature_error;
-+
-+	/* TEST_MODE is permitted in the Default state; other features aren't. */
-+	if (crg_udc->device_state == USB_STATE_DEFAULT &&
-+	    !((request_type & USB_RECIP_MASK) == USB_RECIP_DEVICE &&
-+	      value == USB_DEVICE_TEST_MODE &&
-+	      b_request == USB_REQ_SET_FEATURE))
-+		goto set_feature_error;
-+
-+	set_feat = (b_request == USB_REQ_SET_FEATURE) ? 1 : 0;
-+	if ((request_type & (USB_RECIP_MASK | USB_TYPE_MASK)) ==
-+	    (USB_RECIP_ENDPOINT | USB_TYPE_STANDARD)) {
-+		dev_dbg(crg_udc->dev, "Halt/Unhalt EP\n");
-+		if (crg_udc->device_state == USB_STATE_ADDRESS) {
-+			if (index != 0) {
-+				status = -EINVAL;
-+				goto set_feature_error;
-+			}
-+		}
-+
-+		if (value != USB_ENDPOINT_HALT)
-+			goto set_feature_error;
-+
-+		if (index & ~(USB_ENDPOINT_NUMBER_MASK | USB_DIR_IN))
-+			goto set_feature_error;
-+
-+		dci = crg_udc_index2dci(index);
-+		if (dci == 1 || dci >= CRG_NUM_EP_CX)
-+			goto set_feature_error;
-+		if (dci != 0 && crg_udc->device_state == USB_STATE_CONFIGURED &&
-+		    crg_udc_get_ep_state(crg_udc, dci) == EP_STATE_DISABLED)
-+			goto set_feature_error;
-+
-+		udc_ep_ptr = &crg_udc->udc_ep[dci];
-+		status = crg_udc_ep_halt(
-+			udc_ep_ptr, (b_request == USB_REQ_SET_FEATURE) ? 1 : 0,
-+			0, flags);
-+
-+		if (status < 0)
-+			goto set_feature_error;
-+	} else if ((request_type & (USB_RECIP_MASK | USB_TYPE_MASK)) ==
-+		   (USB_RECIP_DEVICE | USB_TYPE_STANDARD)) {
-+		switch (value) {
-+		case USB_DEVICE_REMOTE_WAKEUP:
-+			/* REMOTE_WAKEUP selector is not used by USB3.0 */
-+			if (index ||
-+			    crg_udc->device_state < USB_STATE_DEFAULT ||
-+			    crg_udc->gadget.speed >= USB_SPEED_SUPER) {
-+				status = -EINVAL;
-+				goto set_feature_error;
-+			}
-+
-+			crg_udc->u2_rwe = set_feat;
-+			crg_udc->gadget.wakeup_armed = set_feat;
-+
-+			break;
-+		case USB_DEVICE_U1_ENABLE:
-+		case USB_DEVICE_U2_ENABLE: {
-+			u32 timeout_val;
-+
-+			if (crg_udc->device_state != USB_STATE_CONFIGURED) {
-+				dev_err(crg_udc->dev,
-+					"u12 enable fail, usb state=%d\n",
-+					crg_udc->device_state);
-+				status = -EINVAL;
-+				goto set_feature_error;
-+			}
-+
-+			if (index != 0 ||
-+			    crg_udc->gadget.speed < USB_SPEED_SUPER) {
-+				status = -EINVAL;
-+				goto set_feature_error;
-+			}
-+
-+			if (set_feat == 1 && crg_udc->u12_forbidden) {
-+				status = -EINVAL;
-+				goto set_feature_error;
-+			}
-+
-+			tmp = readl(&uccr->u3portpmsc);
-+			if (value == USB_DEVICE_U1_ENABLE) {
-+				if (!crg_udc->u12_initiate_forbidden) {
-+					tmp &= (~CRG_U3DC_U3PORTPM_U1IEN);
-+					tmp |= FIELD_PREP(
-+						CRG_U3DC_U3PORTPM_U1IEN,
-+						set_feat);
-+				}
-+				if (!crg_udc->u12_forbidden)
-+					timeout_val =
-+						set_feat ? CRG_UDC_U1_TIMEOUT_VAL : 0;
-+				else
-+					timeout_val = 0;
-+
-+				FIELD_MODIFY(CRG_U3DC_U3PORTPM_U1TMOUT_MASK,
-+					     &tmp, timeout_val);
-+
-+				crg_udc->feature_u1_enable = set_feat;
-+			}
-+
-+			if (value == USB_DEVICE_U2_ENABLE) {
-+				if (!crg_udc->u12_initiate_forbidden) {
-+					tmp &= (~CRG_U3DC_U3PORTPM_U2IEN);
-+					tmp |= FIELD_PREP(
-+						CRG_U3DC_U3PORTPM_U2IEN,
-+						set_feat);
-+				}
-+				if (!crg_udc->u12_forbidden)
-+					timeout_val =
-+						set_feat ? CRG_UDC_U2_TIMEOUT_VAL : 0;
-+				else
-+					timeout_val = 0;
-+
-+				FIELD_MODIFY(CRG_U3DC_U3PORTPM_U2TMOUT_MASK,
-+					     &tmp, timeout_val);
-+
-+				crg_udc->feature_u2_enable = set_feat;
-+			}
-+			writel(tmp, &uccr->u3portpmsc);
-+
-+			break;
-+		}
-+		case USB_DEVICE_TEST_MODE: {
-+			u32 u_pattern;
-+
-+			if (b_request != USB_REQ_SET_FEATURE ||
-+			    crg_udc->gadget.speed != USB_SPEED_HIGH ||
-+			    crg_udc->device_state < USB_STATE_DEFAULT ||
-+			    (index & 0xff) || (index >> 8) == 0 ||
-+			    (index >> 8) > 6)
-+				goto set_feature_error;
-+			u_pattern = index >> 8;
-+			crg_udc->set_tm = u_pattern;
-+			crg_udc->setup_fn_call_back = &set_test_mode_cmpl;
-+
-+			break;
-+		}
-+
-+		default:
-+			goto set_feature_error;
-+		}
-+
-+	} else if ((request_type & (USB_RECIP_MASK | USB_TYPE_MASK)) ==
-+		   (USB_RECIP_INTERFACE | USB_TYPE_STANDARD)) {
-+		if (crg_udc->device_state != USB_STATE_CONFIGURED) {
-+			dev_err(crg_udc->dev,
-+				"interface u12 enable fail, usb state=%d\n",
-+				crg_udc->device_state);
-+			status = -EINVAL;
-+			goto set_feature_error;
-+		}
-+
-+		/* Suspend Option */
-+		if (value != USB_INTRF_FUNC_SUSPEND) {
-+			status = -EINVAL;
-+			goto set_feature_error;
-+		}
-+
-+		/* Both cleared LP/RW bits and either suspend option are valid. */
-+		if (index & ~(0xff | USB_INTRF_FUNC_SUSPEND_LP |
-+			      USB_INTRF_FUNC_SUSPEND_RW))
-+			goto set_feature_error;
-+
-+		if (index & USB_INTRF_FUNC_SUSPEND_RW)
-+			dev_dbg(crg_udc->dev, "Interface En Remote Wakeup\n");
-+		else
-+			dev_dbg(crg_udc->dev, "Interface Dis RemoteWakeup\n");
-+
-+		/* Do not need to return status stage here
-+		 * Pass to composite gadget driver to process
-+		 * the request
-+		 */
-+		return false;
-+	} else {
-+		/* Unknown recipient must not receive a successful status stage. */
-+		goto set_feature_error;
-+	}
-+
-+	crg_udc->setup_status = STATUS_STAGE_XFER;
-+	crg_udc_build_ep0_status(&crg_udc->udc_ep[0], true, status, NULL, 0, 0);
-+	return true;
-+
-+set_feature_error:
-+	crg_udc_set_ep0_halt(crg_udc);
-+	return true;
-+}
-+
-+static void setselrequest(struct crg_gadget_dev *crg_udc, u16 value, u16 index,
-+			  u16 length)
-+{
-+	struct crg_udc_request *udc_req_ptr = crg_udc->status_req;
-+	struct crg_udc_ep *udc_ep_ptr = &crg_udc->udc_ep[0];
-+	struct usb_set_sel_req *sel;
-+	int ret;
-+
-+	if (!udc_req_ptr || crg_udc->status_req_callback_pending ||
-+	    !list_empty(&udc_req_ptr->queue) ||
-+	    crg_udc->device_state == USB_STATE_DEFAULT || value || index ||
-+	    length != sizeof(struct usb_set_sel_req)) {
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+
-+	kfree(udc_req_ptr->usb_req.buf);
-+
-+	udc_req_ptr->usb_req.buf = kzalloc_obj(*sel, GFP_ATOMIC);
-+	if (!udc_req_ptr->usb_req.buf) {
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+
-+	sel = udc_req_ptr->usb_req.buf;
-+	udc_req_ptr->usb_req.length = sizeof(*sel);
-+	udc_req_ptr->usb_req.status = -EINPROGRESS;
-+	udc_req_ptr->usb_req.actual = 0;
-+	udc_req_ptr->usb_req.complete = set_sel_cmpl;
-+	crg_udc->status_req_callback_pending = true;
-+	udc_req_ptr->map_dir = DMA_FROM_DEVICE;
-+	ret = usb_gadget_map_request_by_dev(crg_udc->dev, &udc_req_ptr->usb_req,
-+					    false);
-+	if (ret) {
-+		kfree(udc_req_ptr->usb_req.buf);
-+		udc_req_ptr->usb_req.buf = NULL;
-+		crg_udc->status_req_callback_pending = false;
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+
-+	crg_udc->setup_status = DATA_STAGE_RECV;
-+
-+	ret = crg_udc_build_td(udc_ep_ptr, udc_req_ptr);
-+	if (ret) {
-+		crg_udc_unmap_request(udc_ep_ptr, udc_req_ptr);
-+		kfree(udc_req_ptr->usb_req.buf);
-+		udc_req_ptr->usb_req.buf = NULL;
-+		crg_udc->status_req_callback_pending = false;
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+	list_add_tail(&udc_req_ptr->queue, &udc_ep_ptr->queue);
-+}
-+
-+int crg_udc_update_ep0_maxpacketsize(struct crg_gadget_dev *crg_udc)
-+{
-+	u16 maxpacketsize = 0;
-+	struct crg_udc_ep *udc_ep0 = &crg_udc->udc_ep[0];
-+	u32 param0;
-+
-+	if (crg_udc->gadget.speed >= USB_SPEED_SUPER)
-+		maxpacketsize = 512;
-+	else
-+		maxpacketsize = 64;
-+
-+	param0 = FIELD_PREP(CRG_CMD1_0_MPS_MASK, maxpacketsize);
-+	if (crg_udc_issue_command(crg_udc, CRG_CMD_UPDATE_EP0_CFG, param0, 0))
-+		return -EIO;
-+
-+	crg_udc->ep0_desc.wMaxPacketSize = cpu_to_le16(maxpacketsize);
-+	udc_ep0->usb_ep.maxpacket = maxpacketsize;
-+
-+	return 0;
-+}
-+
-+void crg_udc_handle_setup_pkt(struct crg_gadget_dev *crg_udc,
-+			      struct usb_ctrlrequest *setup_pkt, u8 setup_tag,
-+			      unsigned long *flags)
-+{
-+	u16 w_value = le16_to_cpu(setup_pkt->wValue);
-+	u16 w_index = le16_to_cpu(setup_pkt->wIndex);
-+	u16 w_length = le16_to_cpu(setup_pkt->wLength);
-+	struct usb_gadget_driver *driver;
-+	u32 tmp;
-+
-+	/* No SETUP (including SET_ADDRESS) may overtake a pending reset. */
-+	spin_unlock_irqrestore(&crg_udc->udc_lock, *flags);
-+	flush_work(&crg_udc->udc_reset_work);
-+	spin_lock_irqsave(&crg_udc->udc_lock, *flags);
-+	if (crg_udc->resetting || !crg_udc->gadget_driver ||
-+	    crg_udc->ep0_state == EP0_STATE_ABORTING)
-+		return;
-+
-+	trace_crg_udc_ctrl_req(setup_pkt);
-+
-+	/* EP0 come backs to running when new setup packet comes */
-+	crg_udc->udc_ep[0].ep_state = EP_STATE_RUNNING;
-+
-+	crg_udc->setup_tag = setup_tag;
-+	crg_udc->setup_status = SETUP_PKT_PROCESS_IN_PROGRESS;
-+	crg_udc->setup_fn_call_back = NULL;
-+
-+	if ((setup_pkt->bRequestType & USB_TYPE_MASK) == USB_TYPE_STANDARD) {
-+		switch (setup_pkt->bRequest) {
-+		case USB_REQ_GET_STATUS:
-+			if (setup_pkt->bRequestType !=
-+				    (USB_DIR_IN | USB_RECIP_DEVICE |
-+				     USB_TYPE_STANDARD) &&
-+			    setup_pkt->bRequestType !=
-+				    (USB_DIR_IN | USB_RECIP_INTERFACE |
-+				     USB_TYPE_STANDARD) &&
-+			    setup_pkt->bRequestType !=
-+				    (USB_DIR_IN | USB_RECIP_ENDPOINT |
-+				     USB_TYPE_STANDARD)) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+
-+			getstatusrequest(crg_udc, setup_pkt->bRequestType,
-+					 w_value, w_index, w_length);
-+			return;
-+		case USB_REQ_SET_ADDRESS:
-+			if (setup_pkt->bRequestType !=
-+			    (USB_DIR_OUT | USB_RECIP_DEVICE |
-+			     USB_TYPE_STANDARD)) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+
-+			setaddressrequest(crg_udc, w_value, w_index, w_length);
-+			return;
-+		case USB_REQ_SET_SEL:
-+			if (setup_pkt->bRequestType !=
-+			    (USB_DIR_OUT | USB_RECIP_DEVICE |
-+			     USB_TYPE_STANDARD)) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+			crg_udc->setup_status = DATA_STAGE_RECV;
-+			setselrequest(crg_udc, w_value, w_index, w_length);
-+			return;
-+		case USB_REQ_SET_ISOCH_DELAY:
-+			if (setup_pkt->bRequestType !=
-+				    (USB_DIR_OUT | USB_RECIP_DEVICE |
-+				     USB_TYPE_STANDARD) ||
-+			    w_index || w_length ||
-+			    w_value >
-+				    FIELD_MAX(
-+					    CRG_U3DC_PTMCTRL_ISOCH_DELAY_MASK)) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+
-+			tmp = readl(&crg_udc->uccr->ptmctrl);
-+			FIELD_MODIFY(CRG_U3DC_PTMCTRL_ISOCH_DELAY_MASK, &tmp,
-+				     w_value);
-+			writel(tmp, &crg_udc->uccr->ptmctrl);
-+			crg_udc->setup_status = STATUS_STAGE_XFER;
-+			crg_udc_build_ep0_status(&crg_udc->udc_ep[0], true,
-+						 -EINPROGRESS, NULL, 0, 0);
-+			return;
-+
-+		case USB_REQ_CLEAR_FEATURE:
-+		case USB_REQ_SET_FEATURE:
-+			/* Need composite gadget driver
-+			 * to process the function remote wakeup request
-+			 */
-+			if (setfeaturesrequest(crg_udc, setup_pkt->bRequestType,
-+					       setup_pkt->bRequest, w_value,
-+					       w_index, w_length, flags)) {
-+				/* Get here if request has been processed.*/
-+				return;
-+			}
-+			break;
-+		case USB_REQ_SET_CONFIGURATION:
-+			if (setup_pkt->bRequestType !=
-+				    (USB_DIR_OUT | USB_RECIP_DEVICE |
-+				     USB_TYPE_STANDARD) ||
-+			    w_length || w_value > 0xff) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+			/* In theory we need to clear RUN bit before
-+			 * status stage of deconfig request sent.
-+			 * But seeing problem if we do it before all the
-+			 * endpoints belonging to the configuration
-+			 * disabled.
-+			 */
-+			if (crg_udc->device_state <= USB_STATE_DEFAULT) {
-+				crg_udc_set_ep0_halt(crg_udc);
-+				return;
-+			}
-+
-+			break;
-+		default:
-+			dev_dbg(crg_udc->dev,
-+				"USB_REQ default bRequest=%d, bRequestType=%d\n",
-+				setup_pkt->bRequest, setup_pkt->bRequestType);
-+		}
-+	}
-+
-+	if (w_length) {
-+		/* data phase from gadget like GET_CONFIGURATION
-+		 * call the setup routine of gadget driver.
-+		 * remember the request direction.
-+		 */
-+		crg_udc->setup_status = (setup_pkt->bRequestType & USB_DIR_IN) ?
-+						DATA_STAGE_XFER :
-+						DATA_STAGE_RECV;
-+	}
-+	driver = crg_udc->async_callbacks ? crg_udc->gadget_driver : NULL;
-+	spin_unlock_irqrestore(&crg_udc->udc_lock, *flags);
-+
-+	/* Recheck callback enablement after the locked snapshot. */
-+	if (!driver || !READ_ONCE(crg_udc->async_callbacks) ||
-+	    READ_ONCE(crg_udc->gadget_driver) != driver ||
-+	    driver->setup(&crg_udc->gadget, setup_pkt) < 0) {
-+		spin_lock_irqsave(&crg_udc->udc_lock, *flags);
-+		crg_udc_set_ep0_halt(crg_udc);
-+		return;
-+	}
-+	spin_lock_irqsave(&crg_udc->udc_lock, *flags);
-+	if (setup_pkt->bRequest == USB_REQ_SET_CONFIGURATION &&
-+	    (setup_pkt->bRequestType & (USB_TYPE_MASK | USB_RECIP_MASK)) ==
-+		    (USB_TYPE_STANDARD | USB_RECIP_DEVICE)) {
-+		if (w_value) {
-+			crg_udc->device_state = USB_STATE_CONFIGURED;
-+			usb_gadget_set_state(&crg_udc->gadget,
-+					     USB_STATE_CONFIGURED);
-+		} else {
-+			/* Endpoint disable may already have updated device_state. */
-+			crg_udc->device_state = USB_STATE_ADDRESS;
-+			usb_gadget_set_state(&crg_udc->gadget,
-+					     USB_STATE_ADDRESS);
-+		}
-+	}
-+}
-+
-+int crg_udc_init_ep0(struct crg_gadget_dev *crg_udc)
-+{
-+	struct crg_udc_ep *udc_ep_ptr = &crg_udc->udc_ep[0];
-+	u32 cmd_param0;
-+	u32 cmd_param1;
-+
-+	/* setup transfer ring */
-+	if (!udc_ep_ptr->tran_ring_info.cpu_addr) {
-+		dma_addr_t dma;
-+		u32 ring_size = CRG_UDC_CONTROL_EP_TD_RING_SIZE;
-+		void *vaddr;
-+		size_t len;
-+
-+		len = ring_size * sizeof(struct crg_transfer_trb);
-+		vaddr = dma_alloc_coherent(crg_udc->dev, len, &dma, GFP_KERNEL);
-+		if (!vaddr)
-+			return -ENOMEM;
-+
-+		udc_ep_ptr->tran_ring_info.cpu_addr = vaddr;
-+		udc_ep_ptr->tran_ring_info.dma_addr = dma;
-+		udc_ep_ptr->tran_ring_info.len = len;
-+		udc_ep_ptr->first_trb = vaddr;
-+		udc_ep_ptr->last_trb = udc_ep_ptr->first_trb + ring_size - 1;
-+	}
-+
-+	memset(udc_ep_ptr->first_trb, 0, udc_ep_ptr->tran_ring_info.len);
-+	/* Ensure that transfer ring is updated */
-+	dma_wmb();
-+	udc_ep_ptr->enq_pt = udc_ep_ptr->first_trb;
-+	udc_ep_ptr->deq_pt = udc_ep_ptr->first_trb;
-+	udc_ep_ptr->pcs = 1;
-+	udc_ep_ptr->tran_ring_full = false;
-+
-+	crg_udc_setup_link_trb(udc_ep_ptr->last_trb, true,
-+			       udc_ep_ptr->tran_ring_info.dma_addr);
-+
-+	/* context related ops */
-+	cmd_param0 = (lower_32_bits(udc_ep_ptr->tran_ring_info.dma_addr) &
-+		      CRG_CMD0_0_DQPTRLO_MASK) |
-+		     FIELD_PREP(CRG_CMD0_0_DCS_MASK, udc_ep_ptr->pcs);
-+	cmd_param1 = upper_32_bits(udc_ep_ptr->tran_ring_info.dma_addr);
-+
-+	if (crg_udc_issue_command(crg_udc, CRG_CMD_INIT_EP0, cmd_param0,
-+				  cmd_param1))
-+		return -EIO;
-+
-+	udc_ep_ptr->desc = &crg_udc->ep0_desc;
-+	udc_ep_ptr->ep_state = EP_STATE_RUNNING;
-+	udc_ep_ptr->pcs = 1;
-+
-+	return 0;
-+}
-+
-+int crg_udc_queue_ctrl(struct crg_udc_ep *udc_ep_ptr,
-+		       struct crg_udc_request *udc_req_ptr,
-+		       u32 num_of_trbs_needed)
-+{
-+	struct crg_gadget_dev *crg_udc = udc_ep_ptr->crg_udc;
-+	enum crg_ep_state ep_state;
-+	struct crg_transfer_trb *enq_pt = udc_ep_ptr->enq_pt;
-+	struct crg_transfer_trb *dq_pt = udc_ep_ptr->deq_pt;
-+	struct usb_request *usb_req = &udc_req_ptr->usb_req;
-+	struct crg_transfer_trb *p_trb;
-+	u32 transfer_length;
-+	bool ioc;
-+	bool azp;
-+	u8 dir = 0;
-+	u8 setup_tag = crg_udc->setup_tag;
-+
-+	/* A new SETUP aborts the previous EP0 transaction. The completion
-+	 * callback of the aborted request is allowed to run, but it must not
-+	 * requeue the old request before the new SETUP has been handed to the
-+	 * gadget driver.
-+	 */
-+	if (crg_udc->ep0_state == EP0_STATE_ABORTING)
-+		return -ECONNRESET;
-+
-+	ep_state = crg_udc_get_ep_state(crg_udc, 0);
-+	/* Need to queue the request even ep is paused or halted */
-+	if (ep_state != EP_STATE_RUNNING) {
-+		dev_dbg(crg_udc->dev, "EP State = 0x%x\n", ep_state);
-+		return -EINVAL;
-+	}
-+	if (list_empty(&udc_ep_ptr->queue)) {
-+		/* For control endpoint, we can handle one setup request at a
-+		 * time. so if there are TD pending in the transfer ring.
-+		 * wait for the sequence number error event. Then put the new
-+		 * request to transfer ring
-+		 */
-+		if (enq_pt == dq_pt) {
-+			u32 i;
-+			bool need_zlp = false;
-+			dma_addr_t trb_dma = usb_req->dma;
-+			u64 remaining = usb_req->length;
-+			/* Transfer ring is empty
-+			 * setup data stage TRBs
-+			 */
-+			udc_req_ptr->first_trb = udc_ep_ptr->enq_pt;
-+			if (crg_udc->setup_status == DATA_STAGE_XFER)
-+				dir = 0;
-+			else if (crg_udc->setup_status == DATA_STAGE_RECV)
-+				dir = 1;
-+			else
-+				dev_dbg(crg_udc->dev,
-+					"unexpected setup_status!%d\n",
-+					crg_udc->setup_status);
-+			if (udc_req_ptr->usb_req.zero == 1 &&
-+			    udc_req_ptr->usb_req.length != 0 &&
-+			    ((udc_req_ptr->usb_req.length %
-+			      udc_ep_ptr->usb_ep.maxpacket) == 0))
-+				need_zlp = true; /* zero length packet */
-+			if (num_of_trbs_needed > 32)
-+				return -EMSGSIZE;
-+
-+			if (num_of_trbs_needed >
-+			    crg_udc_room_on_ring(
-+				    crg_udc, CRG_UDC_CONTROL_EP_TD_RING_SIZE,
-+				    udc_ep_ptr->first_trb, enq_pt, dq_pt))
-+				return -ENOSPC;
-+
-+			u8 original_pcs = udc_ep_ptr->pcs;
-+
-+			for (i = 0; i < num_of_trbs_needed; i++) {
-+				p_trb = enq_pt;
-+				transfer_length = crg_udc_trb_chunk_len(
-+					trb_dma, remaining);
-+				ioc = (i == num_of_trbs_needed - 1);
-+				azp = ioc && need_zlp;
-+				crg_udc_setup_datastage_trb(
-+					p_trb, trb_dma,
-+					i == 0 ? (original_pcs ^ 1) :
-+						 udc_ep_ptr->pcs,
-+					transfer_length,
-+					num_of_trbs_needed - i - 1, ioc,
-+					!ioc, azp, dir, setup_tag);
-+				udc_req_ptr->all_trbs_queued = 1;
-+				trb_dma += transfer_length;
-+				remaining -= transfer_length;
-+				enq_pt++;
-+				if (FIELD_GET(TRB_TYPE_MASK,
-+					      le32_to_cpu(enq_pt->dw3)) ==
-+				    TRB_TYPE_LINK) {
-+					if (FIELD_GET(
-+						    TRB_LINK_TOGGLE_CYCLE_MASK,
-+						    le32_to_cpu(enq_pt->dw3))) {
-+						dma_wmb();
-+						le32p_replace_bits(
-+							&enq_pt->dw3,
-+							udc_ep_ptr->pcs,
-+							TRB_CYCLE_BIT_MASK);
-+						udc_ep_ptr->pcs ^= 0x1;
-+					}
-+					enq_pt = udc_ep_ptr->first_trb;
-+				}
-+			}
-+			dma_wmb();
-+			le32p_replace_bits(&udc_req_ptr->first_trb->dw3,
-+					   original_pcs, TRB_CYCLE_BIT_MASK);
-+			udc_ep_ptr->enq_pt = enq_pt;
-+			crg_udc_knock_doorbell(crg_udc, 0);
-+			if (udc_ep_ptr->enq_pt == udc_ep_ptr->first_trb)
-+				udc_req_ptr->last_trb =
-+					udc_ep_ptr->last_trb - 1;
-+			else
-+				udc_req_ptr->last_trb = udc_ep_ptr->enq_pt - 1;
-+		} else {
-+			/*
-+			 * The software queue is empty but the transfer ring
-+			 * still holds pending TDs from a previous control
-+			 * transfer (the host issued a new setup before the
-+			 * old one drained). We process one setup at a time,
-+			 * so we intentionally do not queue TRBs here.
-+			 * Returning success leaves this request on the
-+			 * endpoint queue; the stale TDs and this request are
-+			 * flushed and completed (with -EINVAL) by the
-+			 * sequence-number-error / setup-tag-mismatch event in
-+			 * crg_udc_handle_xfer_event().
-+			 */
-+			dev_err(crg_udc->dev,
-+				"ep0 ring not idle on new setup\n");
-+		}
-+	} else {
-+		dev_err(crg_udc->dev, "udc_ep_ptr->queue not empty\n");
-+		/* New setup packet came
-+		 * Drop this request.
-+		 */
-+		return -EINVAL;
-+	}
-+	return 0;
-+}
+Hi,
 
--- 
-2.34.1
+Just following up on this patch series, as it has been over three weeks since v6 was submitted.
+
+The latest revision addresses the feedback received on previous versions, and the DT binding already has an Acked-by.
+
+Are there any remaining concerns or changes needed, or is the series ready to be picked up?
+
+Thanks for your time.
+
+Best regards,
+Petar
 
 
