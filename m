@@ -2,79 +2,92 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B814A606A31C
-	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2026 08:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AD0606A31D
+	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2026 09:34:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PwjGgKbN
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jGDbf6Sb7z30VT;
-	Fri, 30 Oct 2026 19:22:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c001::5" arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793348526;
-	cv=pass; b=P16fpYIKRSHagWFn06y553tI6xothxRGeBVn2H3iJWLaup0Ml6chbYhJ7R3lrARoXz+iTrDbxdHdX7nsUx3EZCqp4c16XbEZNwJagHgjgpRj9J/bGVwVzlrPuXDqRaOvIbJLtTyUjI6r/ags45jLvzS1aZfGOgxOoz1KaQUEHcZ0rNCJkBZuUtPVb7IwG7BWYPsubB8R7xcWMJmmwCS1XuZHa0LnC2ZOlUeon8Sd1IZzE44vpvsug2/qH/OF6+nWxI+3Bty+GATLl2aq6K7c6MVFcJk6OnS1HgGFO5xvZ4suSRLR0TmtPTuAlnp1NcwwvxsBlbHIEaOHT2U38OhCgQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jGGC365B1z30Vd;
+	Fri, 30 Oct 2026 20:34:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=185.203.200.13 arc.chain=pengutronix.de
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793352863;
+	cv=pass; b=TWYEPt0gT8dkgcJIHbM31DCNKjLp+ZzblLPKSPHhL5I61564SV3/WMYdGSFQFiN+uwcW8yFPkXTlqmJ1Qgq3WL5hyup+zgZXAyakMZegERn6v8rTv3zwlQ/VytxfaGicTAbPrQYoKDF65YdDkkYTrdYtxP1UaPc5J4MM8ebcTGS006kETqzWARD5+9Lk0HeQloOkmzT1491WGPrSrSc+gEUKlOUjfmBfZ4bJccFaBv5VfMh0i+pcXBvCrS1KLY7CiXppNAp7Dm2vGqqe2xRGtQOAoq+vfpQg+urzgzOtSP/KVlqqB1EFQCqobwUl9WC3WyYjQ0fHOQ7wgC+xiC+GVA==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793348526; c=relaxed/relaxed;
-	bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=WgMK4tzSiiy+rjueG/Wyd7e4dDdUmobOtayHPL55Eoyi7WctRVKA5AUATuy7nUOL4cMcFQMZHdprDu1FyonN7/wx2yiy1MhE2ui4gh32RNDlrQdWxnDkcvv+y0THPzGjxA8ruCqQYVOiOVwdmvf1zigE/5g/lW6QIVpLSq2tDjuKnfkXS0U/3XZ335YhfqBvN3KV2XdBvx1jdZkjYDtmnGQaEc7V3NCKmNHCwf/1EFvC7phTOz+Nkw52khMHw97K0URrJpiQ4vQ+lipEJuYTqkq50hV2PHz9xLNm2Ccwmlr2j0dXy900/vHZ9bA7oWbxyFz8cr5ix9BdiwEsPbdhMQ==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c001::5; helo=byapr05cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
+	t=1793352863; c=relaxed/relaxed;
+	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bs/XQTqxuwF4QpMqUbGpsgUTECFzBM33bMih+8fMZdWSDkNDBrc6HLRjDfPdqrPgyfECbOp5ZhZ1/jTMYgf5SP6ibdXEESkIyxeG6MOlSvj2YSnOxrKbotVbiFBLNwkxESCpXJR4JSPSC/Fixe05doQyenbwfKQY2c3QcOLN+TC4Q22AgA4yhoR27Hnp2yByaBhYUTy3xlLPUzRJzFkrJjO9cUTd+LTayho1HRLmfJ4NnFLYxsKfwoFVCcbAaI3IvjLKNujEm3j8Nv6Pbcyr0ShuMIZXeqeAM18V1xvE+zGLlMq+9oioqMdJPCtuXswi9Dv1yjhGL7pq8UDleam6DQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; dkim=pass (2048-bit key; unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PwjGgKbN; dkim-atps=neutral; spf=pass (client-ip=185.203.200.13; helo=mx1.white.stw.pengutronix.de; envelope-from=p.zabel@pengutronix.de; receiver=lists.ozlabs.org) smtp.mailfrom=pengutronix.de
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=h9hEDDAX;
+	dkim=pass (2048-bit key; unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PwjGgKbN;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c001::5; helo=byapr05cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazlp170100005.outbound.protection.outlook.com [IPv6:2a01:111:f403:c001::5])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=pengutronix.de (client-ip=185.203.200.13; helo=mx1.white.stw.pengutronix.de; envelope-from=p.zabel@pengutronix.de; receiver=lists.ozlabs.org)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jGDbd5VsFz30RN
-	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 19:22:05 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNEDKJfZVZ1nwiS+VmI4cPplPwaEnjQFCuLyaXa/nwP7ebDuqNRWjzi4rPZzDQdSvD1srzR93WEnI+apy7DTiRm7eX+Oh4eYxekCkZKh4V2AX41H4WSVgHNZGmPhUaA7/GunsNDOmM3MVUTICNFJRFfhPuPv9Oh1Ci5cm8xaU9dxTUx7I3jugMY6n7t7i0CKr2Ev8wifc26ab59DFM36aSkvwNvVZTOD2thoC3T3RnFKU6UQlkcZl/kvwL8nHJjsWf+8n6ad7BQW8NctE1ppq/0LR4s8nWkApoNT7uYgcBh5v5OuUrps0LtyLd6x1yUvvK4jFfHFvh5qmkjw67MfbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
- b=XCpgYR/wWtNeDm2DLOVBqgMo3Sm0ik4L5IeEA0mbvo49pb9BfUuj51NKjSFlnGJmOeAOttf1/T3E0yvjjkFc05UD12Z42wQOdwv+LgraJBAfSV02n0CPnS/bwYkRkAUU8L9dssqgHfgCQBnfN8wGAoJr4P6vCrCA1k9jZ3bC4655JrwbW3Ai7sOpvkwSlxGkTQZYLyVRRpXfie9K8Yv6mwRtxD/GdQHhUMDsgQHFXFejVpFFdemuKAX4/dhWCjuJ1oT4U2XomwLzM9D+DUYsuHtxR2AdgqkJQ5IaAM8d/i5OmIqCGCDpwFQFSx9p1956EBXKTlEWjocYfvS9Z4JsjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fjp1wlnWwOw8wGx8lThl4QeJ7Y8SWXt6f5lFwTqOHrI=;
- b=h9hEDDAX1Mx7QcrV76jwUxKplVBRi+WSZHzcp5i6/ZnJ7xNMyhTHAvzlR4VO5QJiiyghwF40MCFWSa4qLWRysZ6ywFSQquPMRSsr1kZoR6ah5EM4b5oWrvePaxF/8MMsqkDRCno49eAsfMWipzXa2RUl/ZPzmOVI7uz1rko1/GCy4WZS2VsQfAh9wOhFFsbMNqQH7zTNFKzA66Z46KQmghp+k+wpEWZEkSk2kT1Ll5BHEjDYU6dG8lnuVguAdDCkRsJc9oLEhofCzcU99MDFJk78BlleQHjt9jY9YtvV1VjxXy8gZilu+W7JGW8nnUJpykxzM6tHzhxRTGMbi2cKSQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
- IA0PPFF4890666F.namprd18.prod.outlook.com (2603:10b6:20f:fc04::c50) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 08:21:42 +0000
-Received: from DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
- ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 08:21:42 +0000
-Message-ID: <0979887c-0924-4bc7-a9d0-cbd2b95bf459@axiado.com>
-Date: Fri, 30 Oct 2026 09:21:34 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/2] pwm: add Axiado AX3000 PWM support
-To: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>
-References: <20261005-axiado-ax3000-pwm-v6-0-7feecd0087e4@axiado.com>
-Content-Language: en-GB
-From: Petar Stepanovic <pstepanovic@axiado.com>
-In-Reply-To: <20261005-axiado-ax3000-pwm-v6-0-7feecd0087e4@axiado.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR04CA0044.eurprd04.prod.outlook.com
- (2603:10a6:20b:46a::22) To DM4PR18MB4144.namprd18.prod.outlook.com
- (2603:10b6:5:38b::8)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jGGC02jGwz30C6
+	for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2026 20:34:18 +1100 (AEDT)
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 587F5202043;
+	Fri, 30 Oct 2026 10:34:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793352855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
+	b=PwjGgKbNJllpARDZ2IJbT3+vuUrcwZbUPPf4QEn6LLmbuLz+vj/6RaOT8REhBFwt08RuN+
+	H5JLDjlEQ/GedyaMgiAKheVPgkCrgpD233H1PY5yj975YXBwY83uEYjC78mzP8y95sO/RT
+	3a/hA6TzCTjXjlwTAnhiNUogV4I3HfQDXCSut4oL0fT/xrsG41evNzwK/yZR/96eOkWTPH
+	w9QIHxy6OTDFRVIqX8VnnCjK3sSe7x8I+F4JEYO5Qr2nIm/fvt6BlaevNgyaD+a1NivaXa
+	E9GCPnE/DNsU6jEahLrKtjoCtmz5Ic1Q7Zp5OpXrXrSmBvCqBHAcZV9iikGugw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793352855;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zR4cq1CC/Zi/N7qHUu5+m00lSe1k8x2uAxJhMEWb2Ms=;
+	b=KoV7Vy9Aj7idkM6KLiaBaEJ9qzSzpgUR0Tk7u0Bmam5ubd9Vdm5kWjBaM8P88ZeQX9MCsd
+	+azqZ3o2/cI7ElOHqo8xw2XvAUfax3tBo8qrzxnPsm1sTQhYQIPa6siAoXckyLhIr6P0kV
+	1UXggfDQmZ9b0ERetYYtbdukfojr/wlp1/S5r96p2YaWrPyVo68UEiPOAjvZH/RKfBU3Yi
+	LqRmjIyuXbDJITKTD3+REcK0JEPhO9BSW6Zy2dqfB+QCl1XpS6PSUInQAZt6HBDB1Rv722
+	upeYHlBhricZUpWZmp5YZVKf21wAx9HTgYr7alA/nh1zDbYsj4jb5fB9aXO9OA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793352855; a=rsa-sha256;
+	cv=none;
+	b=IbwBeD24Ii1O3aW0mCnsGP4cs2D/bG+F3J1+8KFAxd2/rrdd84DvBGn3HZsqT5j1/IMF+D
+	XSvnOPBcZQyDLEJq/tbVtgIhKfSkX7ahAcv4+XdFhNilhcbuLoJDmbKEBIjhwFoSd1+FoV
+	B11zcgUWTP0LmoflLQ0xJnOl/i1wQ6GMVW5dR/FV56oNW1LSNuUl5aWQHgspGxqy8S0UNC
+	cI9vO7R6jutcC5wJgH1sLjJWECR5kmZrrPMYHJYydp927AtMejHjdK1AbAEtglXcegw4SI
+	PuVAgOvxPuo1Bqkt2vCKpgF5IiiWB1TrG7bJudbZajDol8Ltmwbwuje0vnSZDg==
+Message-ID: <0d097a5f7cf0e71245f8e87d5a0ea377af048d0f.camel@pengutronix.de>
+Subject: Re: [PATCH v4 6/6] usb: gadget: udc: crg: Add core driver and build
+ integration
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Petar Stepanovic <pstepanovic@axiado.com>, Naveen Kumar Rajgiri Bassappa
+	 <rbnaveenkumar@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tzu-Hao Wei	 <twei@axiado.com>, Karthikeyan Mitran
+ <kmitran@axiado.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org, Krutik Shah <krutikshah@axiado.com>
+Date: Fri, 30 Oct 2026 10:34:15 +0100
+In-Reply-To: <20261030-axiado-ax3000-usb-device-controller-v4-6-c5267b36a777@axiado.com>
+References: 
+	<20261030-axiado-ax3000-usb-device-controller-v4-0-c5267b36a777@axiado.com>
+	 <20261030-axiado-ax3000-usb-device-controller-v4-6-c5267b36a777@axiado.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -86,205 +99,66 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|IA0PPFF4890666F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 37c40f8d-9a0a-457e-474d-08df365ed3fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|260925022911599003|260925021911599003|260925021311599003|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	V3cOMRgUA0J/jjAcwDgC7Y6zQljnl98lmj0aJEe4YijrBecS1qXXmcxE3WTY3Nawnvn6J1dZMAROiuPwTi1ASzVluXNnIF0OSlEDDu+krYTpUo7BFKW4/3Q14ygIEZuaNEpwCcEIbyoFx/j/33dmHUXO0qPk39nvF7FDRucB8vWK0o8VInkAiIFWHio2Kr5/F8Jv0rrlyi3ulGTmUnXYv5TiPz7QAM4ThTe6UHPlPzy70UVOeIiPU8Nx7oMF82unPEOoT2KqVXR/xsTCfWClqMUVrPhMhMAeOOYP/zF15IYPsbwdbj1IuR4JhNbmNf59hFzpw8vwYLWR9fvtaGScLuPOHeTySZSjGBjnkp6c2qkVLRUhxdza2etouXqucBJtjRKEWEu4oD5N//Bg+m2+ij0duYa2aSjo+Vt2eyJ4mIFRwcRLEEBaRfFJyxFpV2t2xlW8fk/wN5+gBVrmijZV6biDsGTqvgST+V6AP8SQUziQobXqDwsXa4OtP5cIo57tLnfoB583PBZSVq/ZkrSAuTANxFBLEnnt19jJU751wEakj0+Xv6FhmfKk42GzJHxxFkI8Ekj8ea1+iWlwXZGXMXuHTzzK66BxELWU8tYtAAc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(260925022911599003)(260925021911599003)(260925021311599003)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2QyMFlEY2FrVUtlODcrcFFQMisvcmk0MzkzWFhqbHBnalE5eE9xbGFJVXYy?=
- =?utf-8?B?UEErQTk0UzV0Z2hvMHROSDdjTlArSFFrSFZ6YitnaFRQdUpTakFFbzZvbGNV?=
- =?utf-8?B?RjNkbi8zMDc1SkVoSEMyS2l1UThqMHJTbWtGVXgvYWRVNFpId281MzMzNEx3?=
- =?utf-8?B?ZDF5ZGtQZFhVZkpBalRrdEZVVTZxQlNmanZrMEtHM3A1UGw3ZHNrbzk0UzNq?=
- =?utf-8?B?QklXckdEcDZWYVR1cGdSQm8rbllralFzRUxoZzM0YktPaUpRSkh4VkU2SXJH?=
- =?utf-8?B?eCtWeVN4L2UvTiswZVZTRC9jV3Z6a0FjbHlQTDhOYVlPYWtSalJVdGNQaHhV?=
- =?utf-8?B?TmEwZWpFcFkwSVYxMnBDbUdGdndxb2ZiYyt0SGExb05vdmxYUnFGb1NOVlRx?=
- =?utf-8?B?NkhBSXh5QVQyK0xSbEJVUVFFYWxUbWRQdHY0MGRZMlNqdVFCcjI5SHVuRjl2?=
- =?utf-8?B?SXdGRkJMSnVaVUkrVCs1UlprRGt6c2gxM25XOUphQXlMUHg5Y2RKa3ZZbUpk?=
- =?utf-8?B?Rzc5a1BJa3d0WUpWT2owRWN1K292NzBiQVdkV2pNOHVlakx3QW1pOGszeDYv?=
- =?utf-8?B?V3A5V2FUUDNGei85aStBS2QyMnFNYzhROHpFREJ3elFYZ3RPUytZYzhVQVJ0?=
- =?utf-8?B?SDNwdHZNSU5HcWZidW1PWm0vZCtSU1VvKzFmZjc0R1lkUkgwc0ZLd20zUjBl?=
- =?utf-8?B?blJYTG0zMHNkY05GNWRYTC9IN0tFQmtibElSc2VpNVc4RWxRZW1IR1o4aDR4?=
- =?utf-8?B?T2wzNys2M0RtNFp5aEVlcmhPRWNZbXdVZHRWZXN2dW40Q0wvNkhhSU9kS3Jh?=
- =?utf-8?B?NlpydXNYQmlOQWIzVVFnREw1K0k0VC9vN1ZCMWZIVGV5ZURhRlUxRHlYM2Z5?=
- =?utf-8?B?cno4Mmo2bTZPdmt5Y0pPclk0ZHFBSVV0TytucGJxR3YxYjhDQmg1K0E1SXVt?=
- =?utf-8?B?NmVaZlVtelc1MGd0UkdibzA0Mk5NK0VwRFEvMEZNWFRmaWxwait0SHYwVXZu?=
- =?utf-8?B?UkZGK2J0dVdCOG5pSDc5L3YyaGkvOGk5cmI0eUxleHJpQkdlMmZQdWRJTWRn?=
- =?utf-8?B?WWIrc0x2d2FHdVlmWlB3S0dvQ0hxWFpkREovODJ2anlMWDQ1TE1qQXBUNW9m?=
- =?utf-8?B?OTA4dWFvZVlIVzdKTXFOVTBVd0U3WDZPazJoNWs3RDFhblJsenN2VjFpTUZ0?=
- =?utf-8?B?cWFSdmprK1YvSkFDa0ZiSjFtemE4K0EvM1FQYnFaVCtOenVGTGw0Y2hYY25r?=
- =?utf-8?B?MFZwVytFc2txM1BsNjNLU1hORVByRklxQ3V1Qi8wZjRFK2plUzcrOUZKQVJM?=
- =?utf-8?B?ZGlUcGYxckRVckoyZlNwVWQ2WUMyTytZbUphYkVHV2NlY2RTV3NKRHdHTVMw?=
- =?utf-8?B?cEFJVjJVeGdqNjlkTXFpelBVdm9ZZ0VtczJuN0x0WUFFNkZ2ZUN3WEpneXdD?=
- =?utf-8?B?dFFSb2RjQStPak5GYXNSZ0NNM3FocUxEbjVtYWNwMks0OWh0Sk55ckJkS3Iv?=
- =?utf-8?B?alIybm4vTys0QUJ1bWJ4UnFNTUsrUmJJaERULzRhcG15YkxwaTRoTytHN0tK?=
- =?utf-8?B?eVh0Yzl1Yi9XWVpoTUFiQkdwRTBVQXRVOTB0N0c4VFJvYmpaQ0h2OUJDaDRx?=
- =?utf-8?B?RFZPK05pd2N6bXpnL3dLdlJrYzBSRWFOVEFocnFwcnNUUzBoTURzc1hVZUtv?=
- =?utf-8?B?RGZTOXg3NTJ6bWtQaHhJYkhBSjM1TnhqMG9Da0NFL3Y5bEMrWG1aaFpiWk1t?=
- =?utf-8?B?V1QvWjYwdDZZZElXeHcwVmRuUW5qRkRyd3NjSVhsbG8xQ1JiWGFpM3RjZHFk?=
- =?utf-8?B?bS9RTjh0WWd6b29FWTErWnh2djczL0tRU3kyL1F0MXRPblhmMUwxaUE3ZWxE?=
- =?utf-8?B?WHJPb0tLd1ZWNmg1K1FkNTdoYTZUanRMTjJoL2wvVjJ5aWYyWWo2Mjg3TWF3?=
- =?utf-8?B?U1NoUE5oTDdySlVuVEF1MUZlWlJVTHBLNEVZRytJbnByRTdGTXpWZDJWSE9G?=
- =?utf-8?B?eFlVVmJ4YUREUmI3ZllYelgydHVtTFB6aHBXcC9xcVdoTmozN29KL2pock9y?=
- =?utf-8?B?dHR0elNWRVpKQW9HekluUSs5akVLTytHL0xGRmxNQ0FXMENLWGhydjZwZDky?=
- =?utf-8?B?TFo0Qlg2ay9oSk9HVjJoemdjTnVkTlZrOVZtNHo0bDdraHNkTjhZVmU5RkNn?=
- =?utf-8?B?eXowcEZGOUs5RE8zUUMzK2xZdlAxalFxbHkrU201TWFEaDlqNlhwdnl1QjFj?=
- =?utf-8?B?K2gwYmV0VDdlc2xTNWFCZmFPbGRxcU1UVXVYY25vMUJHNitLcTBPTG4wR1Nl?=
- =?utf-8?B?V0hEV1FoQmw2UHdaY1k1QUVDcExLeGV6N01TQ3JacGZJSUcySHFxdz09?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 37c40f8d-9a0a-457e-474d-08df365ed3fc
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:21:42.3679
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yX8zRBgr3FRUC+OkFaXKewEOtptZbuH2S46QsCZ/7GC7F7Tbsy99bT3KALyY2wDdbY6pah+o91e/lKug1vID0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFF4890666F
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On 10/5/2026 9:46 AM, Petar Stepanovic wrote:
-> This series adds support for the PWM controller found on Axiado
-> AX3000 and AX3005 SoCs.
->
-> A new driver is needed because this PWM controller is a SoC-specific
-> hardware block used on Axiado SoCs. It has its own register layout,
-> enable control, period configuration, duty-cycle configuration, and
-> does not match any existing upstream PWM driver.
->
-> The controller provides configurable PWM output signals. The driver
-> exposes the controller through the Linux PWM framework and supports
-> period and duty-cycle configuration.
->
-> The driver converts the requested period and duty cycle from nanoseconds
-> to hardware clock cycles based on the input clock rate.
->
-> The datasheet is not publicly available. Public high-level product
-> information is available at:
->
-> https://axiado.com/products/#AX3080
->
-> The register definitions and programming sequence used by this driver
-> are based on Axiado internal SoC documentation.
->
+On Fr, 2026-10-30 at 01:10 -0700, Petar Stepanovic wrote:
+> This patch introduces the core probe/remove functions for the Axiado
+> AX3000/AX3005 UDC driver, and wires up the directory into the build
+> system via Kconfig and Makefile.
+>=20
+> Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+> Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+> Co-developed-by: Krutik Shah <krutikshah@axiado.com>
+> Signed-off-by: Krutik Shah <krutikshah@axiado.com>
 > Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 > ---
-> Changes in v6:
-> - Use 3 PWM cells and add the flags cell to PWM consumers.
-> - Fix readback of the constant-high hardware state when the high-time
->   register is zero.
-> - Link to v5: https://patch.msgid.link/20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com
->
-> Changes in v5:
-> - Use the hardware disable state directly instead of emulating a
->   disabled
->   PWM with the constant-low representation.
-> - Remove driver-side cached period and logically-disabled state.
-> - Handle 0% duty cycle using the hardware constant-low representation
->   during waveform rounding.
-> - Decode the constant-low representation as 0% duty with a
->   one-clock-cycle
->   period on readback.
-> - Simplify waveform read/write handling and remove redundant validation.
-> - Update the driver limitations documentation.
-> - Link to v4: https://patch.msgid.link/20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com
->
-> Changes in v4:
-> - Corrected the AX3005 compatible ordering to list
->   axiado,ax3005-pwm before its axiado,ax3000-pwm fallback.
-> - Changed the disabled-state handling to program a constant-low
->   waveform,
->   because disabling the hardware controller drives the output high.
-> - Added software state tracking so readback reports this constant-low
->   hardware representation as a logically disabled PWM.
-> - Link to v3: https://patch.msgid.link/20260811-axiado-ax3000-pwm-v3-0-6ceaccd812cf@axiado.com
->
-> Changes in v3:
-> - Express AX3005 compatibility with AX3000 using a fallback compatible.
-> - Update the Devicetree binding example accordingly.
-> - Add 0% duty-cycle support using the hardware constant-low encoding.
-> - Cache the rounded period for 0% duty-cycle waveform readback.
-> - Allow sub-cycle duty requests to round down to 0% instead of rounding
->   up to one clock cycle.
-> - Normalize high-time values greater than the period to 100% duty.
-> - Drop the redundant AX3005 OF match entry and use the AX3000 fallback.
-> - Clarify comments and PWM hardware limitations.
-> - Link to v2: https://lore.kernel.org/r/20260723-axiado-ax3000-pwm-v2-0-22002f0b281d@axiado.com
->
-> Changes in v2:
-> - Migrated the driver from the legacy apply/get_state API to the new
->   waveform ops API (round_waveform_tohw/fromhw, read/write_waveform).
-> - Cache the clock rate at probe and lock it with
->   devm_clk_rate_exclusive_get() instead of reading it on every op.
-> - Improved rounding: clamp period/duty to hardware limits, reject
->   non-zero duty offset, preserve exact 100% duty, round sub-cycle duty
->   up to the minimum.
-> - Added a "Limitations" comment block documenting hardware constraints.
-> - Renamed macros from AX_PWM_* to AXIADO_PWM_* and dropped unused ones.
-> - DT binding: dropped clock-names, made #pwm-cells required, and
->   updated the description and compatible list to cover both the AX3000
->   and AX3005 SoCs.
-> - Added axiado,ax3005-pwm to the driver's OF device match table.
-> - Link to v1: https://lore.kernel.org/r/20260618-axiado-ax3000-pwm-v1-0-c9797a909414@axiado.com
->
-> To: Petar Stepanovic <pstepanovic@axiado.com>
-> To: Akhila Kavi <akavi@axiado.com>
-> To: Prasad Bolisetty <pbolisetty@axiado.com>
-> To: Uwe Kleine-König <ukleinek@kernel.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Harshit Shah <hshah@axiado.com>
-> Cc: linux-pwm@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
->
-> ---
-> Petar Stepanovic (2):
->       dt-bindings: pwm: add Axiado AX3000 PWM
->       pwm: add Axiado AX3000 PWM driver
->
->  .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml |  53 ++++
->  MAINTAINERS                                        |   9 +
->  drivers/pwm/Kconfig                                |  11 +
->  drivers/pwm/Makefile                               |   1 +
->  drivers/pwm/pwm-axiado.c                           | 282 +++++++++++++++++++++
->  5 files changed, 356 insertions(+)
-> ---
-> base-commit: 368d34807e6d04bb2089918383b58abf40e720a0
-> change-id: 20260518-axiado-ax3000-pwm-cd7c346849f1
->
-> Best regards,
-> --  
-> Petar Stepanovic <pstepanovic@axiado.com>
+>  drivers/usb/gadget/udc/Kconfig            |   2 +
+>  drivers/usb/gadget/udc/Makefile           |   1 +
+>  drivers/usb/gadget/udc/crg/Kconfig        |  16 +
+>  drivers/usb/gadget/udc/crg/Makefile       |   9 +
+>  drivers/usb/gadget/udc/crg/crg-udc-core.c | 723 ++++++++++++++++++++++++=
+++++++
+>  5 files changed, 751 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-core.c b/drivers/usb/gadg=
+et/udc/crg/crg-udc-core.c
+> new file mode 100644
+> index 000000000000..33be5c920ebe
+> --- /dev/null
+> +++ b/drivers/usb/gadget/udc/crg/crg-udc-core.c
+> @@ -0,0 +1,723 @@
+[...]
+> +static int crg_udc_init_hw(struct crg_gadget_dev *crg_udc)
+> +{
+> +	struct device *dev =3D crg_udc->dev;
+> +	struct reset_control *rst;
+> +	int ret;
+> +
+> +	crg_udc->clk =3D devm_clk_get_optional(dev, NULL);
+> +	if (IS_ERR(crg_udc->clk))
+> +		return dev_err_probe(dev, PTR_ERR(crg_udc->clk),
+> +				     "failed to get clock\n");
+> +
+> +	ret =3D clk_prepare_enable(crg_udc->clk);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable clock\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, crg_udc_clk_disable, crg_udc->clk=
+);
+> +	if (ret)
+> +		return ret;
+> +
+> +	rst =3D
+> +		devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
 
-Hi,
+This can be put on one line.
 
-Just following up on this patch series, as it has been over three weeks since v6 was submitted.
-
-The latest revision addresses the feedback received on previous versions, and the DT binding already has an Acked-by.
-
-Are there any remaining concerns or changes needed, or is the series ready to be picked up?
-
-Thanks for your time.
-
-Best regards,
-Petar
-
+regards
+Philipp
 
