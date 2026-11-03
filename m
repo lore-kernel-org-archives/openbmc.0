@@ -2,64 +2,92 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383C0606A58E
-	for <openbmc@archiver.kernel.org>; Mon,  2 Nov 2026 15:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2413F606A339
+	for <openbmc@archiver.kernel.org>; Tue,  3 Nov 2026 11:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=16asrMir
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YRtHXdjp
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jJFdX6VMTz3cHH;
-	Tue, 03 Nov 2026 02:15:44 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=44.202.169.39
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793632544;
-	cv=none; b=mlHc+zuFdsjFefDOyWnh6CXkSMekGIHIjqGCcNtLNdmERJAJIXihGsHiYAIxIiycICxJstpDHPCikbL3uwzPbAUvhl312OUQ8DvLM0W6BqTctDHV2+wE6QOStHhy1hYO6forQkiqXxf6vgMmaaOZJLS6YPrPLrHHp8sKLAON+GoFFvI4+WQGDnvxOO2jnJIEsPRAtLesUChHLFXnU4VTx3JTUtJiXbPNQnedpLdJRUw0Lp/rzLrhXEkiUfspNkzy9oE4QxqUiXCZDeFwdzfVQhiOcXuToGtYFzmwygwb+xHdOCEmXTyMVVoTf3Shr+52C6PkYKqzJPRbbwAoP3RXcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793632544; c=relaxed/relaxed;
-	bh=al7C8b/8iiTYMDhhhBNV0a2bV3CHGlnm5HJ6xGUdZaI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Id82qPoB3FW3nN5NgxU4AboO2lOqPfsxlS5Z3eVvZ7tD02F8qhpJpzqUOo0JqsyRmJxsY3wixRIYj1G/e+7jD4vEXfArsGPObAGSAZ/axgYUVyT5MEkEnwTarymWfbxt6LaaQ1nU3j/Q0ITydZHQH6FrmsiMzg1LfXDFyDXvSbw08mHkqzTYGNNFh1WowJJJ67H7ljzBHMpDMLjuXIQafNWS1RuN9o5WmNvUs1YejEl+ILQ4y7rPLFyDa9yTF6mE4L3p3m3v87NbzBVvZLhigp7YiPMJcC8YHv1gkbec7mzBba0bI6RuGURbtn5U41VD95I+VhvOLo9stSopzLemEQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; dkim=pass (2048-bit key; unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=16asrMir; dkim-atps=neutral; spf=softfail (client-ip=44.202.169.39; helo=omta040.useast.a.cloudfilter.net; envelope-from=linux@roeck-us.net; receiver=lists.ozlabs.org) smtp.mailfrom=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jJn0z1mPhz2xSS;
+	Tue, 03 Nov 2026 22:49:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793706562;
+	cv=pass; b=OVUVkorqtdvUDyrs0SXBLyUUk8Xb2A25WjG9C39ml42tTTP5ZahQ0d62S7VJGSP+UUu+hseBCo7Sk2VvvfJWMQPBLGslaeiwJAUZHsMiT0sqTFNktZV3v7e31rajAPueH4DvfzMnP1q2tr233SPEMzsVxF1vIJM/dkstUNOZ9Yp0L79qTo5bmht5zpPyP5b39Mtn5qho744SXkRLmOuXGhtHocPdQaYdtDwJxdlL0bzAW1PDZqlIU3kDbIn2xVVL0J+ncQK0hCTtutOuWzaMHD9QpBsFlo5qVuUKhC4mlBpRqURQANyoBcicnhWL2DDQH0nTF+s48S3Xpdn6sbdQ4w==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1793706562; c=relaxed/relaxed;
+	bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aP8gSr5izD/WpMaLUClhGJ+qymMMODUG2jPmGunBeI1Yv+Cq0kfE+YFjIdlwLnFfgapH+VNMOEmjwLK3Ns4cyNPK5svcpVBH3j+xKB+zkFpf1nILCMIl6fJHeZ54RI6cKHVDCfx8IzJI70VY0J37j3ZjLMaQX9OpAfzibTuGczQGdFop7rhqa5OzSHbjIuPUoofQRs2igP95Re8VmLIRmFbEvGrSbBgmkTP2UtZOMYT0OsnsQ4mqLDTvYNkJh6f2BUyD8xTlXyaECtlVEIOJOg/kkrR3Prryv6iIai9ImCFqhwIiqATLuPFPxd9Sh7Y4Yt/wAIj1aSUttSmDxkbwdg==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YRtHXdjp; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org) smtp.mailfrom=nvidia.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=16asrMir;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YRtHXdjp;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=softfail (domain owner discourages use of this host) smtp.mailfrom=roeck-us.net (client-ip=44.202.169.39; helo=omta040.useast.a.cloudfilter.net; envelope-from=linux@roeck-us.net; receiver=lists.ozlabs.org)
-X-Greylist: delayed 340 seconds by postgrey-1.37 at boromir; Tue, 03 Nov 2026 02:15:43 AEDT
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=nvidia.com (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=jackyhuang@nvidia.com; receiver=lists.ozlabs.org)
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170120001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jJFdW3GSfz3cGg
-	for <openbmc@lists.ozlabs.org>; Tue, 03 Nov 2026 02:15:43 +1100 (AEDT)
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id NpAlxQJ0rMylkNte9xyDtp; Mon, 02 Nov 2026 15:08:29 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Nte9xHyG30ULmNte9x9pn0; Mon, 02 Nov 2026 15:08:29 +0000
-X-Authority-Analysis: v=2.4 cv=JJw7s9Kb c=1 sm=1 tr=0 ts=6ae8a76d
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=Bq6zwJu1AAAA:8
- a=QyXUC8HyAAAA:8 a=_jlGtV7tAAAA:8 a=nGbfsWwlM6PO30TiPYEA:9 a=QEXdDO2ut3YA:10
- a=KQ6X2bKhxX7Fj2iT9C4S:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=al7C8b/8iiTYMDhhhBNV0a2bV3CHGlnm5HJ6xGUdZaI=; b=16asrMirg3Bh
-	F25tpdQhGDemIrrL96ASMluF6qDiuiC3SgvWTROYRJEE+tMYXC9FDJ0waBJ+27sGlKtRQl7ET4MKS
-	9zVOYoZWQMsBI/XNX1dLEMSYJSKezddf/JyEtEayfgNKw0OscRGHml66NlIr+8z4i1yCzm1vtHCcT
-	ySYE5TAzxksDhqAwlunA/J4SNPJc4Eb2wPp+yFm7IQsAnN9Z+1wm4RR3KhrGMNelPViKG7Y0NhJHs
-	7rlhxbLPKjYqFz+/iApeWPN3wOMJrbdyGeif0BUsy51gj/w9KnUlbQkGAu5xV3X4FcHqascOR8kMj
-	o4tgTglYVpB094I1cpf3lg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52064)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xNte8-00000003tmt-2aOq;
-	Mon, 02 Nov 2026 20:38:28 +0530
-Message-ID: <73c1a319-477a-4695-8aba-7b1e401aa10d@roeck-us.net>
-Date: Mon, 2 Nov 2026 07:08:27 -0800
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jJn0x41Jfz2xH9;
+	Tue, 03 Nov 2026 22:49:20 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qJBAhPEdsrxUgEvb1bXobVJgc5DNiL+uaqSlw7xwXvfBjlgMTjPRf8YIRcB27uIHRLnJcVVtiE3sWJoA7xOP7ovi240km4fbEVZL3O9AFlrIow7rFpVD5EvmCTz/6rn0LuBBXnzxv0Xvs709PKw4AjIqj6MJ6oVaCWlXyDxnH6tcy5i+9haYaUYb3HyqM/wKo/3FWeaFCP2X9H7I4XxIefOLZk5hIbHlsGH8TrXEbsdbbzAn75IElNWk8LFcSoSAQXDYc37ic5Hl60uU3LKGDETWjw54s1da9pYEDzSN2vdD7ZQ0Bx8rHwouXgiuIQwQrjQCt9ECz0J3CChNxuIOCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
+ b=iiz52hHVHVZ8sO8Tps7ZeaQVDfDw4sBdYOZ3ekakKHJe8HwWz1njQolL0CrNu2Cc1wg0CEt6ZQYQ79HP7nZXJC+rdE1sZ+1oS1DkMKTlhb7HjIAL3R5zLsVExXI9enpDhcprqMb2XyECqs35dfkM0nxaJAyfU1gUJozVHj0QtrCPjHtCwkzI2iS2iVsUbqXVk4wIPhhYbi2mgEKjigw3OZsb7QombZL2hCqukn+sn7S8C6ls4kh4iIN+0pqd67dTrPf3njJOqRfBjAhQGg0vbmG+fJP2Ot3k1tQsWHp76FV1KEXq4FXebBph6cElfbo5UbdyrWzL/r+Pxubj9EX8tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=codeconstruct.com.au
+ smtp.mailfrom=nvidia.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=nvidia.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q3MLGlASNURJinrGMbeueE2BwD1HdPJmSDG1uQeT7x8=;
+ b=YRtHXdjp7BwBil7Q50ZAqiO6kVpgp1OgQ56+1m5bmTfgpkrE7s0aNZSd2UI62rW/ifJ7DMAFsF0Iec2+SsgeSfkopYUb77BT6rupkbB3hGapo8WkJ1ZwVXNhO9XTtSHZmGFl0Us0Y8x07sxHorImGxyWp6p5s07v5qpW6+MXwh2FEK3S7JbnYPySH2U+Ph/nphU0bqBPsLoFCfFNnOiMfRNy64qBKg1v0Jlzv2ptmJymb98i2V6VtvgEXbDcp/Zf+i4iHybbDb5E5TE4z6BOE6ZQZw8yHwLY2H3/3N8FeNwWfd2cb4bqVjVxQa4ouHls417b7pmw20+NdjxexsV18Q==
+Received: from PH0PR07CA0022.namprd07.prod.outlook.com (2603:10b6:510:5::27)
+ by MN0PR12MB5715.namprd12.prod.outlook.com (2603:10b6:208:372::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 11:48:53 +0000
+Received: from SJ1PEPF000023D2.namprd02.prod.outlook.com
+ (2603:10b6:510:5:cafe::8a) by PH0PR07CA0022.outlook.office365.com
+ (2603:10b6:510:5::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Tue, 3
+ Nov 2026 11:48:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ SJ1PEPF000023D2.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Tue, 3 Nov 2026 11:48:52 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 03:48:37 -0800
+Received: from nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 3 Nov
+ 2026 03:48:35 -0800
+From: Jacky Huang <jackyhuang@nvidia.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley
+	<joel@jms.id.au>
+CC: Jacky Huang <jackyhuang@nvidia.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>,
+	<devicetree@vger.kernel.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<openbmc@lists.ozlabs.org>
+Subject: [PATCH v2 1/2] dt-bindings: arm: aspeed: Add NVIDIA MGX Vera C2 BMC
+Date: Tue, 3 Nov 2026 20:47:52 +0900
+Message-ID: <7a3f142b8142b7c067182799d30b33b026e74221.1793705210.git.jackyhuang@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1793705210.git.jackyhuang@nvidia.com>
+References: <cover.1793705210.git.jackyhuang@nvidia.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -71,132 +99,69 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/6] hwmon: (peci/dimmtemp) Add support for Granite
- Rapids (GNR)
-To: "Winiarska, Iwona" <iwona.winiarska@intel.com>,
- "changhuang.liang@starfivetech.com" <changhuang.liang@starfivetech.com>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "robh@kernel.org" <robh@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <20261019114502.55307-1-changhuang.liang@starfivetech.com>
- <20261019114502.55307-7-changhuang.liang@starfivetech.com>
- <215a0b5a-9fda-4bce-bff5-b9e4bb5c3928@roeck-us.net>
- <2dca8ff44c92473a5cf461df6bd838ee5d87d066.camel@intel.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <2dca8ff44c92473a5cf461df6bd838ee5d87d066.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xNte8-00000003tmt-2aOq
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:52064
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 21
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCOSSVehOjklxcwSMySW7PFE7ti+koyKBCQ9E8oIlX9ysPSIvNtHVGSh5xyop5oObns6WlK/Yg/JtcvfZ80v9/lcSRoH8/kjOx7aijmkOPiRnu+rtxBT
- gWuU8v7adlcfPMduu5WwySp8c8hDevJ294cyghR+nu9p5eAH5ZL55r7IKgr1qptH5E6xitXDEJfmPeV1zgxfHLJ1jdyX9PzRFNzBvf47r5v+enGWsqI+OZ+Y
-X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D2:EE_|MN0PR12MB5715:EE_
+X-MS-Office365-Filtering-Correlation-Id: bbefca3c-d0cc-41db-72a5-08df39a06ea4
+X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|82310400026|1800799024|376014|36860700016|23010399003|18002099003|22082099003|56012099006|261102123227099003|10067099003|261009223027099003|261021121427099003|11063799006|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+ mu7YEoK49OHKrnLTJ/yW7u7+nrC4RCuQSZBjnkfXX/KeFrOJFMBoHvttAQDoFkiGaHMzaFB6o0tftJPVy+mJ9K5TF/nGXwlq/2TZO3L3Cn3mAkUk7uYB8NFyExJ4ZKKhPNu0oby4eNNv8Jpc4/jM318ekHl/TxAc76kfAmt5cqhK/59gn037mDpwUXeYNGdcS7+hmKWThu35HdlKmnBzpy9skINT3L0TAQMhVvL/fW4PpI7GWATE7O/R6TP8/E8TFiYE/eNQpxaIzBOe3uAPcCnhQSyOEyyjy9gdQo1Y7sAqVREpU14cteSvsM8dG4tpa9dCK0ph7ybfj9kkd/PydO3KsPK2aT5/3dV+Is6OeTQtnaW0roDSwvgF3d1/kD7H2ILfqPFyoh98Ej88VeTST4Y2o7exagygmq1s85uHTjPRIqsMu3jzq6gcvxPPqOd+9rBwvlIosY/3Vv9UtyNXgDyraZEI2cwIYr3j9/xd/sRKD6pv7jW+iH2ITw64C8nYBqL9OefV6krNbJgglSjaQTZb6vVdgkXVC89JpFcgU+tRVI+jpSh4rm+528n6Y7ccxsh1EwC23oyxnVQTXVuG9Pg5Pao8x0SQ95ME/PJmbfYUgpmOgf4NTpOsHVVRRmLOvgE+JYy9Owi8ikIEgrtjoJcRKhD99aoQGyY6IX8Cf6F4RK+f558LySJPtpmo6DVvs57aAi1z63JohbvsXEzqCg==
+X-Forefront-Antispam-Report:
+ CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(18002099003)(22082099003)(56012099006)(261102123227099003)(10067099003)(261009223027099003)(261021121427099003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ 3b+bbEAfZZYkeppPBWVUMmDJuAb8U1meHPJoJ8rqaim0eXA/xFh69hoN32soVskgP3Ho0u4D2WiiZcfwTOcpXJGBlIw0zW5unvwEq9Usu9lKYtauyrbSyxCDOZ7icMT+foKTmRg/1/xN4D7q4urLpWZdzYA9TXLuk8WR3ohbn8nm94wW04YeNhwEVDPg7yaXtWbTzpD17SnPmSRETOKsHLcMGKSX+6BuHZHOKuRGvSDRxVE5kK9qPpsqvCaOehjr5JxB+/Q3N0VDMNJgO8W5r3KUDagqNKdd+ehk0D85iTz0efRCEDKVdQQl6PTmD/V8fhNFY/Uu/vd1w1J+iXluk1q9JlLdY9oO3/DvsOqZ/xD8k/rZSJRQSpXoYUReYEpNJa9/6n+yh4Nw6GmW8rgV9acjSZgI3vBnUFevAOtyhP4/etTOedAvBZOnNiWDBa8d
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 11:48:52.2453
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bbefca3c-d0cc-41db-72a5-08df39a06ea4
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D2.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5715
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/2/26 01:57, Winiarska, Iwona wrote:
-> On Fri, 2026-10-30 at 12:56 -0700, Guenter Roeck wrote:
->> On Mon, Oct 19, 2026 at 04:45:02AM -0700, Changhuang Liang wrote:
->>> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
->>> monitoring driver.
->>>
->>> The GNR platform has different DIMM topology from previous generations,
->>> with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
->>> channel. Define these new constants and update CHAN_RANK_MAX to use
->>> the GNR value since it represents the maximum across all supported
->>> platforms.
->>>
->>> Since the current peci core does not support domains, accessing GNR's
->>> DIMM_TEMP_MAX and DIMM_TEMP_CRIT via PECI commands will be rejected
->>> and return completion code 0x90 (invalid request). To handle this, the
->>> read_thresholds callback is not defined for GNR, and the visibility
->>> logic is updated to skip exposing the max and crit temperature
->>> attributes.
->>>
->>> The minimum PECI revision required for GNR is 0x42.
->>>
->>> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
->>> Reviewed-by: Iwona Winiarska <iwona.winiarska@intel.com>
->>
->> Acked-by: Guenter Roeck <linux@roeck-us.net>
-> 
-> Hi Guenter!
-> 
-> Could you please take the hwmon changes through your tree?
-> 
+Add the board compatible for the NVIDIA MGX Vera C2 BMC, which is
+based on the ASPEED AST2600 SoC.
 
-Done.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
+---
+Changes in v2:
+- Add Krzysztof Kozlowski's Acked-by.
 
-Thanks,
-Guenter
+ Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+index b7e70868e..92127d7c4 100644
+--- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
++++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+@@ -115,6 +115,7 @@ properties:
+               - jabil,rbp-bmc
+               - nvidia,gb200nvl-bmc
+               - nvidia,msx4-bmc
++              - nvidia,vr-c2-bmc
+               - qcom,dc-scm-v1-bmc
+               - quanta,s6q-bmc
+               - ufispace,ncplite-bmc
+-- 
+2.43.0
 
 
