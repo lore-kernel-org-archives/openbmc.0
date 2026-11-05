@@ -2,49 +2,49 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56293606A31B
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:42:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46715606A31B
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:42:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSW+bpRC
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Brt8unw4
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHNn3CH5z2x9c;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHNn3Wlsz2xPb;
 	Fri, 06 Nov 2026 09:41:45 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793881541;
-	cv=none; b=ZlwoKwZzbWaopir4FOyy8/w7J4Q6/W6w8xSk71YrVzZjChpvte6wDVmzDiLDWANzpWkTfW+vFe4Fp5fhV1IJaYOybucqyeF3EHE5RlwH4bQezUskVCl4GLtEa+Ajj4QRfNamnUTj2bVsbuoRlefbm+oX32Buga2l1ol21q0dJ5tnCLwSYSnNGjW3w4H9dB038L70sxa9YcPmP7PO1090o2S56icqjkJr3G0XKiIa/SyzbeH7ccjEeD0PMQN/4olRGATmRybhopvLxF10XK6sOgTZ2s4rXoYIuiy5MqaoHXT061qvmqYakCELkrf0SBv5JIOZ9oeTmy8JHVNAIN/gWg==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793868466;
+	cv=none; b=PNxdOwIr257dFyp6tzPwaFqWhnsY8KxvJ2yXhBKCBl252aYF87JCkHeEDCm4dBEtwXXAcrA9izcKQJGra6Xqek7bdasbFF2DKv17UAAiszLGyZglSDp4ZWiXskvxZGp5ahyN2yPf9o6Z5s6jnBI7NL6zHbbaf268ee8YVWLoixlZk8fvO4st276xK5ZVSDy1sKamq8BharorsNtwpuKiNCU5GIpAhqY4DhX5zpoFoZxttsaJ9BxShbd1KX5hgTNmL9cXntFqyXwaSUC9L8LHJfDRjhh58NQj2l4dhLnAVpbHH+QV6lxfZxiKUaGUw1OQEKlHpyp/hKqR9q/Cu7pPoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793881541; c=relaxed/relaxed;
-	bh=5triMnaj+pld1/ZkHnww/ZTGYlR4kdR37WbQmvo0E+I=;
+	t=1793868466; c=relaxed/relaxed;
+	bh=7Cao3FJR5MdJH+ZnumyAVfl5Aw5BXwagSddECWxWGQ8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NEddVHckMxXKN+cZfUqGpVv+JTrgNIy1gj6PC8VriHB3JNdrp7s60NGKqVoKy9+dMODcNcVC86NuVsCyH3Z/rjkw4MWlHgtI9P6sI67cuyzxH0zHUTcsjdpB0Xc2unMud3TYJbe5dLY6s3x1f9UIQ+2PX4Ui1e18OE0MZA6JapP8bRJTuPofsMRNi3GmJ8ct75Y9HAACIZWhqaipHqBhfrvQs6liS4mfQFyilajVkQaAR/D7e3tkgj6kcpKNBgRXvYfn2VdrABe2o4nGitKbOgA5tDpDd5cSLeDxwVwUpHkk4+XkiwA1ntpxOf94tQ7oe2VEqm9ryD8C3QrLvEZyBw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSW+bpRC; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=mAw8O/HrYR3w5jy52tuJnUbwZD0Nt3TmPTKzOerQrWCDOrPhHQUFQRTeeCjH3CR4bQAwpLF2/l2KGOVCPpXmS7+Xqk0TCaq9GrYGwVfMvKpquuB0JkqoYqtuydtfN/J0aWL8EnOcXMkDEqQyuDydBaKKilJpPWFnvLBSIMfvhu+U9LHmieDki9PJiQxC6WovTpUZTD3jyqmQ3fd+aIT8ncigLa7Aeo8v4umcRbi1FoTPWY/euadrlu15mbBR6CUvc4XBAVTiCsTez9Za9XylOxCFfkoQwXg0BQ6g93ze8nEq9pVdsQ9uVvvAXdmqL5bfFWnUjp2Ne9ATWedye4fyWA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Brt8unw4; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSW+bpRC;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Brt8unw4;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=brgl@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with UTF8SMTPS id 4jL1jw1RwZz2xSV;
-	Thu, 05 Nov 2026 23:25:40 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with UTF8SMTPS id 4jKwtT52Cdz2xLt;
+	Thu, 05 Nov 2026 19:47:45 +1100 (AEDT)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with UTF8SMTP id 1EA6160F20;
-	Thu,  5 Nov 2026 12:25:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E9BD81F00A1C;
-	Thu,  5 Nov 2026 12:25:36 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with UTF8SMTP id C8BB3601DE;
+	Thu,  5 Nov 2026 08:47:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 55AA61F000C1;
+	Thu,  5 Nov 2026 08:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881537;
-	bh=5triMnaj+pld1/ZkHnww/ZTGYlR4kdR37WbQmvo0E+I=;
+	s=k20260515; t=1793868463;
+	bh=7Cao3FJR5MdJH+ZnumyAVfl5Aw5BXwagSddECWxWGQ8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RSW+bpRC5/OtERfddmxxD47rtdgY7drS4x1h9FWwypwvgjQQLJG4iTAm6/TUtQUbq
-	 IiZuATXLd3LAxCpuw8R+bMUOvh3lciPaGvevBovd3QKWsW5Y4FEE65Abpe70tcefDW
-	 LNpOF1hD396m8K4hS/U5rd0wiR8PAmrXyC2g6JAfgX8u1ym3pLHliSZ1gqRgSLW+Bc
-	 HX49I5XIf2eGuAaWlxtXXmvjW7Xb6hnAMLMzc+IGOOZWZbsMS43S+7Bz5Kl63ztaNT
-	 pksjjqJMzfTRz7MCNKhc/3WIhoncfEvk6Lo0/zVDsCqyHXoooOlGiXvSfl7gdoDOj4
-	 ig/01HIsQNlIg==
-Date: Thu, 5 Nov 2026 13:25:34 +0100
+	b=Brt8unw4v4IBCfyHYflx+ovCkQpkF9kkBD7yN+mFMxqgVSqmmhdZimNjzgT7NPi+C
+	 6NNsZPKGCHXdcQBhPCvJx353LOvvo6XmlR8HWZXl25vlftL8nkaXSy4KfV5eFM1jU7
+	 4i7HkeRO5gXorGVfhbzQf8zGQNQeRkemG2dnSKynmoJhgkxwdW7EiopLWKaptRntXT
+	 db40KHNFd2TH12noKLi71Q2L/eJUaUmHUohTYTgf0hg2ZiZLF3t9tOVTsopBowQKDv
+	 gnWZPINPDIGqs9hd1bi1EzxYGRl1mp/tX5fL2mYXbQT+XTW0yGu6+Dcz43I5W1uquX
+	 a/c9gAKcLS92A==
+Date: Thu, 5 Nov 2026 09:47:39 +0100
 From: Bartosz Golaszewski <brgl@kernel.org>
 To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
 Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
@@ -74,10 +74,8 @@ Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>,
 	Robert Richter <rric@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
 	linux-acpi@vger.kernel.org
 Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Message-ID: <le5gbua6s2mhhv32di4j77qr2we5z5ngzyzmiemhodmblvjiji@q4wf5tdgrbtv>
+Message-ID: <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
 References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
- <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
- <auxh9PxpJScFO3i2@monoceros>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -92,7 +90,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auxh9PxpJScFO3i2@monoceros>
+In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
@@ -100,17 +98,20 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 05, 2026 at 12:06:33PM +0100, Uwe Kleine-König (The Capable Hub) wrote:
+On Tue, Oct 27, 2026 at 11:48:37AM +0100, Uwe Kleine-König (The Capable Hub) wrote:
+> Hello,
 > 
-> Maybe you just need to add `-3` to your workflow? ISTR this should be
-> the default for b4, but it seems if failed to mention the -3 in the git
-> am cmdline.
+> the original motivation for this series are the patches that convert the
+> arrays to use named initializers, see
+> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+> for the idea behind it. Looking left and right a bit while implementing
+> that, the series grew a bit.
 > 
-> Should I still resend?
->
 
-No, it's alright. I would have preferred a clean b4 shazam but that
-works too, thanks.
+Hi Uwe!
+
+This no longer applies, can you rebase it on top of gpio/for-next and
+resend? I'll apply it right away before any additional conflicts.
 
 Bart
 
