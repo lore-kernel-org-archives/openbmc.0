@@ -2,133 +2,95 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD675606A31B
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:32:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D6E606A31B
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:33:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=supermicro.com header.i=@supermicro.com header.a=rsa-sha256 header.s=pps1 header.b=sY9ZTna8;
-	dkim=pass (2048-bit key, unprotected) header.d=mysupermicro.onmicrosoft.com header.i=@mysupermicro.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-mysupermicro-onmicrosoft-com header.b=Q9yEc+c6
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHBG2THsz2xPb;
-	Fri, 06 Nov 2026 09:32:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip=66.159.250.47 arc.chain=microsoft.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793911850;
-	cv=pass; b=Wx59jtjh58f+7nD0L3P2drYuxt6n+8wAJXH9TjZh0u2Y4AkmOdBohi/5Q5Vyz5sCVrPkM+1dW3oxB1JQEVAdZaTFISRLBKs19GVmG+T1Jf0b1FbgtR2h18yTwAzUixTsANffWIIPpVnFGtaLECCCh7IK/xn9u5B074h+15CNVh3UEtaXXJ3ef5F0Qjw3KrVlgcz3vG/UXpUA1W+Cvm/nGqFfN77rj+QsgdQ9WFTYuKKXHqb2LWh8PsevjxOCgk5/v7AsPeKH+KuWihrqOR24IPRE5mVAy7WnEcaHMM/krWcblTJcozRZ6jo4nA4RzgBp2bvYQsi/NgId7Jaz2pAVUw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793911850; c=relaxed/relaxed;
-	bh=CgdgvNsWDcbe4eHyCdgUkzlzjx4Kjor2cs8nSv7BWVY=;
-	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Zvmj1P+B1mrENb8rVpvVrYek8QNfDcuz+oDKOJMy9pF1IDOCxR/Slfprzyrxl7KInN/mInu6Ozdzg+RZEREAffo+9zJO6wozErYF2tEoCAEXAqGMLh5Oyopyiyv/6NXhz1idQMoRcniN3CTJNqlEGx1SIgkQnq1g+KIxW9lLBk9zwuhr+lSDsD6sqL3fP868/M7rji+EabVRBlRN/yga8ozuL0Sl7z0i1FDBW3TkLNFcoD+WucO1EkCqM/X0vb2ysCTMI66pwE++qA7OWYc6EvZdxdfhGlUjsuSpFaq/z6i7u2z9RLgl3Mz57bfwnwq5/pVkvTMpRHNNYTZhALGk5g==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=supermicro.com; dkim=pass (1024-bit key; unprotected) header.d=supermicro.com header.i=@supermicro.com header.a=rsa-sha256 header.s=pps1 header.b=sY9ZTna8; dkim=pass (2048-bit key; unprotected) header.d=mysupermicro.onmicrosoft.com header.i=@mysupermicro.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-mysupermicro-onmicrosoft-com header.b=Q9yEc+c6; dkim-atps=neutral; spf=pass (client-ip=66.159.250.47; helo=mx0b-00293e01.pphosted.com; envelope-from=alex_chen@supermicro.com; receiver=lists.ozlabs.org) smtp.mailfrom=supermicro.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=supermicro.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHCg0Gngz2xRm;
+	Fri, 06 Nov 2026 09:33:51 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32d"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793887011;
+	cv=none; b=elJLp7wM7YCCPAphR5YLC5iwGKKm+Gq4Zf6KMYMw8nkLbwOiCNdQ5DTYVopC5n+1uectnJuH+ZivLV7mjZgQa+lX8i9/oleMkMceg3G3cNC05vuUp5M117STqjnh/2s5rHiFmyQ0feP8eEqpoZt46V7jG8fWLjEmrBNX935MDKW1wNGeZYlk+16NmZ9gifbiCmj1Wpom0tr+VdPKslZsg5DTzE7iGxE3UnF3eaJV5WS5BJx8E1eY95889CqHTF5rPmOeC+xt6PlXX6MY7B0K/CK/fPeg89hXXKB/rJoA0Y+RgqrLa7IIW3nS+f+GouoowC/9VWTkeK9O0MMpoX6afg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1793887011; c=relaxed/relaxed;
+	bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i6Ol2I0IbHr6fM+yi8LAp8yaunJsVR1uhAN1ZCVh3SkiYiJ/acE53EwgZYVCzBLYsfw0CW5lQhORhLKBgVi0Y6FR25sIKxLBM4yA3Jubyh1UTwCrPYaaKbJh/k2Uql3Eq0bZlZQuAXDfjRMFPY5P+pkwvmAjrO851AX2IwPJCgMCDSkQE1n+BliRnBT/OTcKTM3wnAm2uwOec4wUl3V6DiOATZ6sDJuRzmwm8obHNnf/C8qMqo4cgr0o3ajMQE6kZa6c+vKlFvdjAqoizmZ/ZJ1TSB8nnU9mA9k3kVN7Ifrlh08N9RWdAUfdO8mMh1NUjeIsRV6MrFE/ZDAc8qKnqw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=supermicro.com header.i=@supermicro.com header.a=rsa-sha256 header.s=pps1 header.b=sY9ZTna8;
-	dkim=pass (2048-bit key; unprotected) header.d=mysupermicro.onmicrosoft.com header.i=@mysupermicro.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-mysupermicro-onmicrosoft-com header.b=Q9yEc+c6;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=supermicro.com (client-ip=66.159.250.47; helo=mx0b-00293e01.pphosted.com; envelope-from=alex_chen@supermicro.com; receiver=lists.ozlabs.org)
-X-Greylist: delayed 1080 seconds by postgrey-1.37 at boromir; Fri, 06 Nov 2026 07:50:48 AEDT
-Received: from mx0b-00293e01.pphosted.com (mx0b-00293e01.pphosted.com [66.159.250.47])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jLDwm0Ck6z2xJR
-	for <openbmc@lists.ozlabs.org>; Fri, 06 Nov 2026 07:50:46 +1100 (AEDT)
-Received: from pps.filterd (m0443899.ppops.net [127.0.0.1])
-	by mx0b-00293e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5JnPLR3542255
-	for <openbmc@lists.ozlabs.org>; Thu, 5 Nov 2026 12:32:42 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=supermicro.com;
-	 h=content-type:date:from:message-id:mime-version:subject:to; s=
-	pps1; bh=CgdgvNsWDcbe4eHyCdgUkzlzjx4Kjor2cs8nSv7BWVY=; b=sY9ZTna
-	8Gr8j2riXr1vIshXnDi1shqj6AFvwVTzYAXz/9EeAu6cPXt3GyrmRHkdYKh7yq4e
-	AxkFNurGIh0P+d+F4TszXbmFHLkKyWddrg+CBS7eC9dt8YYk/fgkB0fozUTKkGa8
-	Ab5vrCygJJiQHFYGQBcqwwRmkEPbt+llIeiI=
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11023076.outbound.protection.outlook.com [40.93.201.76])
-	by mx0b-00293e01.pphosted.com (PPS) with ESMTPS id 4hp0pw20t6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
-	for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 12:32:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J60ICc4SvZ2tw3jzL5xh3CxFBkOrrHY5IpVobebD2x9fJ3tKsqOyusfnYAIdjiQg67+UeMXxkZYP2prmt56QJp7+ay1FF8EJ6jVx6I7uRLJ2RHIYScHFMH1DudQbIg/D1ALN5XLamJLTj8ryVmEJBC/qJXRU9w6AzQo5oGNe0vsqfi0leKkzkDAhjH4AL1xcKpyTrnEheYo2/S24obXlsel1Hkg+4xofFoMnuoQ85fCHJu6iyjslFpxLsXDz1bZj8F7jIUHHy+CfVdBin+1DObsoupoTZeJmW4EYxJT7qhuKOH32yHbZB8CwfZ7b/xnbAm28z7s197KHhQ4UFzYnEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CgdgvNsWDcbe4eHyCdgUkzlzjx4Kjor2cs8nSv7BWVY=;
- b=BB7n+oN6DFTU8qkC/J0glij5RAZYTUE8B4ave6v5ltBvUHV2CNlK+XwEWN3M8p5ljNTUq2tPV/7OFHUHouiMLyP8wsRuBn7r47k3wLkPeCa6dfW3IXLbGKotexxNIfFQwVkIM1ypCj6hqWlFJu752t66ujBY5SUwr9VUEBfpWtA/quhvbfYWwGaAV9PgAtTh2LbGySaLAm+jkPjC9Dmy48pdkBzhSnpET8yHbsD37dwEl5u5tyC6NTDQul330EjQyoSWgV5e1amdH9i6dgMKf2tcUisfPJvyhFnvJkOS7j/vZ12x0TXalO6aV3hvRd3/QzKDvEMr8ijcF0wJuyKNXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=supermicro.com; dmarc=pass action=none
- header.from=supermicro.com; dkim=pass header.d=supermicro.com; arc=none
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jL3l56kJXz2xLt
+	for <openbmc@lists.ozlabs.org>; Fri, 06 Nov 2026 00:56:48 +1100 (AEDT)
+Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so22586745e9.3
+        for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 05:56:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mysupermicro.onmicrosoft.com; s=selector1-mysupermicro-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CgdgvNsWDcbe4eHyCdgUkzlzjx4Kjor2cs8nSv7BWVY=;
- b=Q9yEc+c6a5oq69AMxAPG0+hQLoaEdKNYUyXmzKteTlvUHYDCitLAub4oAgOVv0Eu5j/59cpqb1tKH6GcWNWZyDjxO1KtxkprCwC7l+Qzgzjrr0fSCeqw3W9SrWSd8GeyeJ/0SEqtzy7dzqb7ajuTpB6sP057jUBGpA02xiMI4snZaeBFeJ3YddiDvsxx7kg3gSssk7ceN/KIvdy05OUO/BNdBtZGn4u1Q6S8Cl6aZdD8RtLHhdtUfkbS5MPLWNbpx8BFPIfxbov+cQhr2nhP4b17YhRIuieeCz6CoNgikurmQTEaTaVJDmTfH/5zuKQXmgKXS0xrNkSl63ep2LTDnA==
-Received: from LV8PR04MB8960.namprd04.prod.outlook.com (2603:10b6:408:18e::18)
- by DS2PR04MB9702.namprd04.prod.outlook.com (2603:10b6:8:279::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Thu, 5 Nov 2026
- 20:32:33 +0000
-Received: from LV8PR04MB8960.namprd04.prod.outlook.com
- ([fe80::f402:8e6c:ff4b:1b5d]) by LV8PR04MB8960.namprd04.prod.outlook.com
- ([fe80::f402:8e6c:ff4b:1b5d%6]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 20:32:32 +0000
-From: "Alex Chen (HW)" <Alex_Chen@supermicro.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Review request: two meta-phosphor security default changes
-Thread-Topic: Review request: two meta-phosphor security default changes
-Thread-Index: AQHdbWSj39DdgE1g8k2YRKFQWIRZqg==
-Date: Thu, 5 Nov 2026 20:32:32 +0000
-Message-ID:
- <LV8PR04MB8960E578AD0994914BB9BC74E1772@LV8PR04MB8960.namprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=supermicro.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV8PR04MB8960:EE_|DS2PR04MB9702:EE_
-x-ms-office365-filtering-correlation-id: 1e22e794-1c80-4578-56ec-08df3b7beb99
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|38070700021|11063799006|261022075727099003|56012099006|261026140227099003|261026121527099003|8096899003|261009223027099003|261022115727099003|261021121427099003|261022105027099003|261028144727099003|261102123227099003|10067099003;
-x-microsoft-antispam-message-info:
- rrgbIGEGjyrjji3b66IZ9c6WfciuLTxw2fkEJUV0QyMDK6cF47a0npRZ2B14XlXygx0dH5I0AcnoERUswPBPAqsFfc4FpRxIl5576ilKwTmQ28TSnS7l4YO++toEkhrermbiaLdfaFBM3Tx/yUsIugJddKE0z/3e43XUV79QWO72+axVpwtHf/JlTpAuNPjeU4Q1drRU8acO0EBbDHnMueNdVUYZ5BqzOm+6QAZhyGjiLXoeDQRwYPmtrNI582fbFtYPGIO5YGSAsjhYRhO5qV3VoSjPs88iu6aKZXm/CLl1dKmCSWp6ozkFLdfpH4R9S+iqsd85YEtHg3tTTq3rd610SmsJZ+WluaGvVgiFDVGYcSyuFUbusxikmQYpGGa+4keJvtySIGeKEqTrodMhozg1Q4KNhGEN+m5npXybk9gCflevUXiteGCNOkhkz6Kw6Ttl2aoXlLeMi71Jo+rLSLsyh8yJC6+NT6nwN2UedHIfuhAkXIeOOQxqi+kcewXwfH7cTkEl5W+hD5kqEh/phH1zXZJNHnzMf/A6sLO9JdR9cEVFjDMaJItsTSIZmWdrpPCHKL1ZeDbTYmcxxIok+uYnuWequdwdmocyzydZnzVOPyYOCYCIM/ii7+TOdtAjLw9Vf4b794FushyGrLIia9NCd3/EAvS5ZCEomNoFffg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR04MB8960.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(38070700021)(11063799006)(261022075727099003)(56012099006)(261026140227099003)(261026121527099003)(8096899003)(261009223027099003)(261022115727099003)(261021121427099003)(261022105027099003)(261028144727099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?O9tOa8HXYXx4ZgRVMxHaVfIgyM1Up3Q9OdqMIKLL+Dwzfi8/ai7VqaW6gX?=
- =?iso-8859-1?Q?VcfqJd3p4S2Ake8zlAZD3K0XFkZHHfLV8mJ5gqCul9HGHOMoWfKVPqREf0?=
- =?iso-8859-1?Q?xF0REImD8Hds9eLh2bH/rv9io1ceCLvfzOyyhepfjZvy7xJ7QvBG5FJTXn?=
- =?iso-8859-1?Q?Ss4MYjPlYPoLUDHdGtl2h6VQMaWkRqe+T5vhVK1hfic5MIDNrJWx7ckorx?=
- =?iso-8859-1?Q?l2i7eUJ42FKon54jvVqB2LZxleqZQUL5C1v7KWnCev1ldxMy1Tc8UKu96g?=
- =?iso-8859-1?Q?VKoJUCV/lsnWomNm4zU+AQeTu0WEnBRStjamLZ0Tt4Qp/NSsT5espMk1kJ?=
- =?iso-8859-1?Q?ZpcX3GIghAej8MoZcaCepslRbX0D0N6LXgtVhoAyGVuOP6d+s34xkdJslR?=
- =?iso-8859-1?Q?GyoLn/YZSiynG4zW6eLofbvbWy2TSkr3CvkCAEGwjIk2PZypaBGes4C/lb?=
- =?iso-8859-1?Q?0vQuS4CwCEPapnfjTr6x6jttbmdadsscckN2k8q1mxpSZ6ZmzWbdjNRc8U?=
- =?iso-8859-1?Q?cJ1UTyMUJf+Vqco34ouXrSOekfSU65pSzVN31llAkdmbyEtGAqRi7if+3a?=
- =?iso-8859-1?Q?De5fSPsqrlOqPCsD58h32dfi0S1Ldns6SlDz/CvEv7l5qerJ4+zaYiCV9f?=
- =?iso-8859-1?Q?mixHnrhKvS5kdRzUyv83lKOumPqG33ZTu85PPnrjx+5urFkghb1egjqGum?=
- =?iso-8859-1?Q?qwVSYEqG0FJoQybWfLYtAQieCxlAGnfpcezM+PI6Mpnenq10ig6QqTQ1Yv?=
- =?iso-8859-1?Q?9ln92S4r7Ohkq2H4odVCfD22ojX+mqOdwssGVJkWrnhrbjiQD5+/HRcE7z?=
- =?iso-8859-1?Q?ZXVRATjhFpUIqVaLvpW5BQG7DRJFXP0FBZJhnUlBBqmAzqC79L+nSbOffM?=
- =?iso-8859-1?Q?rZa0JfUlcHEb17OZfLCTrXNnKVQNqPQRHpU5xaSWyrXInxuoly7SSzKoRh?=
- =?iso-8859-1?Q?Neahb6BAa9I5oB/I0WOPPsIZu1W94KtQY9AFAMmzFrk5jRJ5zz0EAf2oNm?=
- =?iso-8859-1?Q?ojC5i5yGkfEX7x2qhTPHRczsmpWCl1ucB6WlyJAcwiY7JlKYS4fEYZ6ss6?=
- =?iso-8859-1?Q?PpqLzqA3v3t5mNuvnANfonbA3nfmlKM9ufCV8M1CMRIVilCfunYu77yL2F?=
- =?iso-8859-1?Q?sKV1lSEV1j8v07ncmgZ0WyXgrz8f3wj45nofNOgCNVxR2DVi1hIvZOQMS1?=
- =?iso-8859-1?Q?AJ3RnyWozY/jA1VN89DiLUkGWKkKm5gGM9oaoMb1LRTaLcWqKX9B1xXx90?=
- =?iso-8859-1?Q?j7ylhNYYrTKui6msy+I7BSeoAni4a63jZQMUN9dAzTEgbIIDGC7TIuwAcd?=
- =?iso-8859-1?Q?ePeeRI1BrTZcCMjYNslhNdpMhq/sAQhA2Ngk/qOAjCZSQl1JLiPsSXiy1t?=
- =?iso-8859-1?Q?H7zBV8G+0K+G7CUYCVHmF3oWlrwKkYx8+LIRyiBgO7NEcqya7rlvmFI+gk?=
- =?iso-8859-1?Q?3gE45aOUJKN7X6Gfclr95eHT/KD48nUCH7Px6WPRUQvcf+uge9wci/mvby?=
- =?iso-8859-1?Q?3vLfWMUSmwLJ4vL0tydEgEXpDE5fcfY9QWISPMR06slZFgyncPtfqY3TnJ?=
- =?iso-8859-1?Q?yfRjLLACMKjgGFApSMHoc7dV/3Ew5QcAGJpzpTiUT/5NQKfE29beS5AxOQ?=
- =?iso-8859-1?Q?rz63E9hk8ICOpuAW1vSSUAc0fgS3sAFxrAHnB+LNWKVySOx0kpQAWYp5IC?=
- =?iso-8859-1?Q?zH3vaVUeigaWP+Q9OLpqpQoK6k5RMHzjdqNjaCarM01ccqdbV1+cfeGxLW?=
- =?iso-8859-1?Q?Km3w3X767XDws5BcI9x9anqOukOLQFePgEFPFznHdhWRyiUAUoMq8swUgx?=
- =?iso-8859-1?Q?7DIUtBUpUQ=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_LV8PR04MB8960E578AD0994914BB9BC74E1772LV8PR04MB8960namp_"
+        d=baylibre.com; s=google; t=1793887004; x=1794491804; darn=lists.ozlabs.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
+        b=W4+qP5kHh4hQPqOsl5t7q6mkO4KbmWFVkJsyek3rkoKOVEge35dck3kZifRCmrydWm
+         v2So9Q0bySYZLIo6RxQcr0sg4cRlQ5yPWBf+7jp4JjKg2mK/MdgM5p5r9d/2yoHIF5sR
+         rbDdowwTd0zsDP38//uGYo9hxdqNjRhE1nZreJZmo8PyYGzZg4+h9HWtModGYvzrXiUl
+         blqlD9k1Z75cCeV5N5j1wdt7tu9gHVg1zbFbY893mO43qeV1KgMFhj0mxLOxqLlRbbNZ
+         79WRBmzMCLb0CTiLRetQzohLy2iu0uyfDTe1mruj/AiAiAUyx013XQEhf9Azfl7/UHNM
+         +8sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793887004; x=1794491804;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
+        b=yxqe7tmMU2Ddl/ArfI/EVemZTVjLDAOTcX08F9Uwh3n8/92mHZRPgitiLe8I6HR5iG
+         gvJkLafT+4rwAGYkQLYTSNznwu2aaNxNeilhFRIxynIgMn/+Jbl+p57Z+kTt9lW4Z0Hz
+         efv3TM4uXeIKngEbxES/l1WM0qHxMGLOjnAgrAt8eyEHKJkZZUyQo2fUhWAx3xpb8uNk
+         6/OEy//CyaDviUw5h8yvePaCkK5a1l1xni29Z0ix9ZotXZOO09um0tpRCXmfMD7LMKM9
+         rGC5wDOAc6RHtghU6nH1qer5aFakuQAL0m63fcBoHL8Sfbb14URiwrkcQeLdOmbKLBq2
+         7Nbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzB1J4EJhN6kMik77CsTJe+ozUjB4zftNfGhmG2j5ON+N5mcSLJK0g7H/J/m69XcJ295khV6tC2@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z8RorZllJpT/YBVofKnS84riz80LZtxQnhBETUGdEly1vLQ/t7t
+	NKR3Dpx+562NNk4JPKvLhlf476nJWNimcxowE9GUxNxL7jNTUmasCnO7aNhf7P2jsgY=
+X-Gm-Gg: AYBFou01hvL/v1FmM/vg6geNTLnPBD/wIUFXcgnYthV0LFI+7UREqzXvC4qcHJ1MpFz
+	45Ir45u1DGu6hi6mtFPqEehoJGEmaJW1TJdWBRNHWXdwyzPy6VsKs68LoyT6NYlFOdJZFa757Vi
+	52yZUEubFj/fB3S0jH8N+4Z4ce7XJHi9YhM2OL0d1iDUT8uLX8xPtrAmcpaKR/asYGYAuqiWTg8
+	tcojPqydx3Eq/JDmS1NzBsZoVqTcoQ/2RoeZZyWIiV2ZuibbSvzJrZX6g5V7oQyfuDkb6PBy02t
+	K/AngiGr3G8peDZG2mF+FYVzzoIgaQF7JH9Qctpt3/aDo+kJJ3XzBe9WNon8KQs8+EvEzt39JYr
+	0oG6nppQiemNadzv3ZufzsCWR7b9Q5gIpzXrHASxkY8KiS0rZ2XRhXXx7++GBYAKXd8inx7JT+3
+	sdyIc9aU59VA60lLYemYE+BBdxutNoAayge6Ht9N+5vHIwVKZsmAzrUwbQ+Up5mc92+goHX33dE
+	9GC2qAq/9vvFLM6WKZuXMn4VkWiKhLDgR3ej5zaaNf2+ZXXl2qHhWLQ0BEL000MoIoxnN2BsuNr
+	sYLH9woqA79vO5KdpmhUd10midE2
+X-Received: by 2002:a05:6000:25f0:b0:48e:4f1e:5e24 with SMTP id ffacd0b85a97d-48e6e2e75b0mr38836163f8f.14.1793887003590;
+        Thu, 05 Nov 2026 05:56:43 -0800 (PST)
+Received: from localhost ([194.213.108.7])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48feda20567sm10969363f8f.51.2026.11.05.05.56.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 05:56:42 -0800 (PST)
+Date: Thu, 5 Nov 2026 14:56:39 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Akhila Kavi <akavi@axiado.com>
+Cc: Sammai Chakravarthy <schakravarthy@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, 
+	Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH net-next 2/2] net: mctp: Add Axiado AX3005 IRoT MCTP
+ transport driver
+Message-ID: <auyKnmpiL7ZSJkgs@monoceros>
+References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
+ <20261101-mctp-transport-irot-ax3005-v1-2-36ceb822f01e@axiado.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -140,197 +102,53 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	x6Ld9irj89GBIOqhaieDA3lfuX3/Y/0fL9TN04SRi8OqEdK3GYm8Pcc2uB13Jf3ExpSIds/2UWYOdbIMyCrvYVbrZGvO7+locTF0+8UCK9IT73V4su6oTBU+FtxDKdMoldJSEA6Q7lDcX9lmA69WC8O7zG1DXvNULNc9NlYec+k9pQr2VKlfeQtRM0zSNG/SunOmZ/rnKmDRplB/VtetBlgTcWyo5sbEplzuIGXtrqRRefjYJ4ophWLnY4KSHxB5sR53ie59WI3hqEov9O5hm8JmGlKxNi6SrXyoX7hOJ95wXTVX+ny8HIu2cIRhFyolchcLv3C7YSMvXWeLIv7eCA==
-X-OriginatorOrg: supermicro.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR04MB8960.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e22e794-1c80-4578-56ec-08df3b7beb99
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 20:32:32.9289
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e2fe0042-8583-4635-b9ee-d6e047d4b347
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /7J5beetcDb8IW3NgPv6SW34lnYIg6QaEOjjLtV3TsWASBimasN/bArAktvvt6hiaBMQHqAvG4uqI1/xxqBRnRW3BEhx34N2o4OUvNFiaYM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR04MB9702
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2v5unmaqs7i3rrwd"
+Content-Disposition: inline
+In-Reply-To: <20261101-mctp-transport-irot-ax3005-v1-2-36ceb822f01e@axiado.com>
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---_000_LV8PR04MB8960E578AD0994914BB9BC74E1772LV8PR04MB8960namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-   Hi all,
+--2v5unmaqs7i3rrwd
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH net-next 2/2] net: mctp: Add Axiado AX3005 IRoT MCTP
+ transport driver
+MIME-Version: 1.0
 
-   Two changes in review alter security defaults for every machine, and
-   Andrew suggested asking for more reviewers.
+On Sun, Nov 01, 2026 at 06:00:58AM -0800, Akhila Kavi wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
 
-   95463 restricts the default D-Bus policy (org.openbmc.conf) to root.
-   Today that policy lets every local process, whatever its UID, own any
-   unowned bus name and send to any service. After the change, non-root
-   processes get only what per-service policy files grant them. A QEMU
-   boot of romulus logged no D-Bus send denials; other machines may have
-   non-root clients of root-only services.
-   https://gerrit.openbmc.org/c/openbmc/openbmc/+/95463
+Please don't include <linux/mod_devicetable.h> as it pulls in a lot of
+unneeded dependencies.
+<linux/platform_device.h> already provides of_device_id so you can just
+drop it. Alternatively if you want to go full iwyu, include
+<linux/device-id/of.h> instead.
 
-   95486 makes the build fail instead of signing images with the in-repo
-   OpenBMC.priv, whose private half is public. To build, a machine sets
-   its own SIGNING_KEY, sets SIGNING_PUBLIC_KEY if it signs outside the
-   build, or opts out with ALLOW_INSECURE_SIGNING =3D "1". Failing the buil=
-d
-   was suggested in 2020 and not adopted then; Andrew asked for it in this
-   review. Five commits under it opt out the CI machines that use the
-   default key, one per layer for its owners to review: meta-ibm,
-   meta-asrock, meta-nvidia, meta-quanta and meta-nuvoton.
-   https://gerrit.openbmc.org/c/openbmc/openbmc/+/95486
+Best regards
+Uwe
 
-   Thanks,
-Alex Chen
+--2v5unmaqs7i3rrwd
+Content-Type: application/pgp-signature; name="signature.asc"
 
---_000_LV8PR04MB8960E578AD0994914BB9BC74E1772LV8PR04MB8960namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+-----BEGIN PGP SIGNATURE-----
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;Hi all,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;Two changes in review alter security defaults for every machin=
-e, and</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;Andrew suggested asking for more reviewers.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;95463 restricts the default D-Bus policy (org.openbmc.conf) to=
- root.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;Today that policy lets every local process, whatever its UID, =
-own any</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;unowned bus name and send to any service. After the change, no=
-n-root</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;processes get only what per-service policy files grant them. A=
- QEMU</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;boot of romulus logged no D-Bus send denials; other machines m=
-ay have</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;non-root clients of root-only services.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;https://gerrit.openbmc.org/c/openbmc/openbmc/+/95463</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;95486 makes the build fail instead of signing images with the =
-in-repo</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;OpenBMC.priv, whose private half is public. To build, a machin=
-e sets</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;its own SIGNING_KEY, sets SIGNING_PUBLIC_KEY if it signs outsi=
-de the</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;build, or opts out with ALLOW_INSECURE_SIGNING =3D &quot;1&quo=
-t;. Failing the build</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;was suggested in 2020 and not adopted then; Andrew asked for i=
-t in this</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;review. Five commits under it opt out the CI machines that use=
- the</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;default key, one per layer for its owners to review: meta-ibm,=
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;meta-asrock, meta-nvidia, meta-quanta and meta-nuvoton.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-&nbsp; &nbsp;https://gerrit.openbmc.org/c/openbmc/openbmc/+/95486</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-&nbsp; &nbsp;Thanks,</div>
-<div id=3D"Signature" class=3D"elementToProof" data-signature-name=3D"Defau=
-lt">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Alex Chen</div>
-</div>
-</body>
-</html>
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrsixQACgkQj4D7WH0S
+/k68lAf/S7Au5tx54BaHhFIyr9rnWPJhc+OMWG/KaFglaxrdG2WQeAImkDXsQr88
+Akm6VVPKYQBh50KUi2muuoNafteiCwHcq9JtSo2+R9q/d75TDEKggJICOxF7DYzs
+wTbn+hGwOmxGwHjpR0nNW8uQWUyIhk0irXV3NsQkMhikal9x5T8XOesQJnoZA3bT
+UEzoa1NXgZD0o4T+sQSLjMueCbC8OkC7GrhuMqiNG6OzWo42mecP4cY4li4MxjqP
+rFj3ymSSJzaGlEtZoe9+m0986qi8/JUOkyh26I1QR8xsjKpq194Y55T4uLnlklID
+EsuWtThrtvbozh5Kxnz8O9aFUEb1xw==
+=onVy
+-----END PGP SIGNATURE-----
 
---_000_LV8PR04MB8960E578AD0994914BB9BC74E1772LV8PR04MB8960namp_--
+--2v5unmaqs7i3rrwd--
 
