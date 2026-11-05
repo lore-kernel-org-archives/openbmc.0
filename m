@@ -1,95 +1,128 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE5D606A331
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 03:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F914606A31B
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 07:50:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk87PFjo
+	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=gNKOcaSx
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jKnzF2dP7z2xlk;
-	Thu, 05 Nov 2026 14:36:25 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::112c" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793849785;
-	cv=pass; b=CAetiVgm9DHrMCnGBCNxnSASSVO8PSG+BUWMpgvniaKsqDwvDFiAD88Wp9jcuorZ/oWiC1VMeZ6GeC3RjC6LBUlGgGdPQgiJ5nVYAnPDhpCeJTYZjbJY9+oaDBP8BkTfS6clgcYNccDDQiItV7WmecUDUqANJuV8z8uwe+RfOhe8R6BFXOqCcZy15odqDucl48EJnIqrH+han0pjcce/l3brnxXpDBb1RI1TmnuE/JvMrFeUJ2oHPFZNfCI7ww0klhUDA0c51M4jxhB3zsGEb3Gcj+PXoQCelshoZzMpGXllSFrg43tOt5X9gpSWoRBKtr5WWAhPdvYR8Y/LANOAJQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jKvcH4MTcz2xyh;
+	Thu, 05 Nov 2026 18:50:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c405::7" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793865023;
+	cv=pass; b=AQg1spFh0D5XB6CeTt3vCRN3AR8WMLtD90/4XIWES8tXREwHjXT8eI8jeOKYoEKKTuJsZuhd4NdqsiJaBG8uedA4QtvwqKgQVQ5+7cNEp+dOaa0vXTOxdLdhGbu9xCmYDBzLIT9X7X82EVbiF6dxHdJbfuLT+U1lLJclBc84b7nJiW5Vw3zMGqe8QseqL6F+JAo4u7uxpTK98I9TOJ03XkNSrFh5aa7iIjII9EpJYjZEJUMkIdhooxlI6632oyPQkJfTLTm156OSP2TUbpe7X4dS1UV9ftmrjLTgXXB5HN2VspRAhUYa7Fsxe4LZ9knLX5Hv686UHqJ5i739JvK47g==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793849785; c=relaxed/relaxed;
-	bh=5B9lX6DZI5S1tAfFM57GnAbiozq6dSyTVBcFVL3BszE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OQuS6H/ujDJkOTwCEdrWgRzw2C+dbuH0IGEYx2WxE8V3fcCQvp/uxRLmfn8b1p/JtDQLIWS4szGXu2sSJU0HgsGYnX7GmxNAblUo7TrqzajqlMUqrFCGykNUTjVRzhLnDcikmdc9hMcoAsMmkcmWQxnq3CG9USBt2r47VfUhXzgcPBMpfcSPULNC0dbagj93sPElWOoYaf/jxpUnzmEvo1ukzGqEvRLXkDTa36p7K3AvA3TUpME7ZwPueYPeVzHxcZuOu0PhCZgKEpPNip+UWO8L3o/KwJ92HNanT0SZgG1HC4ijcAg9PHJjxOmvnBep3bfmTJyLQPHbvDwTatUs+g==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk87PFjo; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::112c; helo=mail-yw1-x112c.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1793865023; c=relaxed/relaxed;
+	bh=A5Z4ECIvLDAxlMg+2WVWJhL5vW+CYbt4RsEzpm0n5Wc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=M9Wt2oBID0pg67CkwmJRO/M1mRLA4sSRxig5bS3DdySLLt0eFWPhje9CW8HXobWZ1KwlZCUiEbKVT0OV2rrvKwyjpp6LFuK5BQCJk0MKF8cYiKjPEPAIJx9eyMVn8Luzv5NllGFD/X4kD5JMUEesXkFNnjVRxE8knVyGvXi9rYWf+4u7BV+qwX1eg+cn7CRhH7lWPhdDBxdD7gK53zLtLj84HjLIid3KFppYKMMWa+avM5cMIzi7VMywuBGsBPyuXrituNleNzTRhdb1Q1SIFTa9wfaajHtv08CSq2w5Xd7eQmhugnMsJZB31O3vjeyMohCJLQNyuTJ707UJmkTvdw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=gNKOcaSx; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org) smtp.mailfrom=aspeedtech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk87PFjo;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=gNKOcaSx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::112c; helo=mail-yw1-x112c.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com [IPv6:2607:f8b0:4864:20::112c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=aspeedtech.com (client-ip=2a01:111:f403:c405::7; helo=tydpr03cu002.outbound.protection.outlook.com; envelope-from=vince_chang@aspeedtech.com; receiver=lists.ozlabs.org)
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazlp170130007.outbound.protection.outlook.com [IPv6:2a01:111:f403:c405::7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jKnzC615pz2xLd
-	for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 14:36:23 +1100 (AEDT)
-Received: by mail-yw1-x112c.google.com with SMTP id 00721157ae682-8b31448caccso11973107b3.1
-        for <openbmc@lists.ozlabs.org>; Wed, 04 Nov 2026 19:36:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793849780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=piw2hKjx6IYjnKA+LIdZCFyHVeqFZ+wnOve3xol2NuKuUjk6ex/TChLS0vd7o9s83s
-         Z4YDqaL9DNIlOjFeq4bGWeaIK2Gnc5K6TN/AoS/Af0MPfoceUqohCdlLYQe4q9qKEE9W
-         UUYn81JwKjOOJq8yRLew6w35Mk3lkkK1+GT+m8lQF05k3DTKStxiYvSSM+XLtN8n5dxE
-         71xGJSo/PJb0qdFNP3tUbFvrhJ9C2irJw6uHIegsny+NLDG6g6DhHiDQ1DgU83ZYdUep
-         BsXK1n74+zDejI30dNltIBxNq4jGsU+RS8W9IsVmoyk8p6nx8DNZ22HvIl/hGbJAe8NP
-         uBEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5B9lX6DZI5S1tAfFM57GnAbiozq6dSyTVBcFVL3BszE=;
-        fh=uZWv787j/BHW3b+vdt9nl09uBD9F7xr7b773IaqPfpA=;
-        b=DrUCT16xf5YNbAf2TBa9BW0hRGACYMBPgoPOTm1oDcRev+QZ8S1jrMctveh2vie/KX
-         B1QuWZIF/C4zVRy58c5I6M6Mg3QARAiD8wgiJWGCKtzj6M1PJJnlbNf6F7jPVU3imEfu
-         EZL3Y2wOem+K246xdOEwHlRs+5NVpnyKVERwBvoQBUEDN8+mrH5VHH7Ejk/hPirT0o0U
-         xVB+ul3MXl7UQ5CsyojwaZcass4Q8uLwMJpd89+1610aYFlYAzk8RhoLmmKmwiiEh4Ta
-         4zdg9TSbGSdztfnqjHgO/m5RgRzYLP+kxCYAu9PcPaLtKl+gFUlY6G7HzNxIjoZnrd1m
-         9GIg==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793849780; x=1794454580; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5B9lX6DZI5S1tAfFM57GnAbiozq6dSyTVBcFVL3BszE=;
-        b=fk87PFjoc0hYsGNiAKbr6MaBK4qdErtbMH3PxXexgdlzXXKcozzL04OlVFg2Ab0Q58
-         CqIU48JCWRg/s5NOZTIwtUFu6YQjircETqbSrGDUhkqLoaMeKKyn6gFLL50ZWjBf2ofn
-         bLsXmMDJWKy2LUY1I7n5k/uO4jeuugcBFf8Gq634dZSyl/xYcNodcXzBIAae/ECUMhoJ
-         tjKM298brpFVl5++D8WBLMlCCro7Q2i5ybK+4REp/BCnILJ2uBqNdEXSHul8oAWlCkSX
-         qXvyOyYdlr2E7iEQ6GvbC2PH3A10QFCGvrORA3cBjtg7vLeSUZwaaOE4N9WIaQVFuHwn
-         ZOZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793849780; x=1794454580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5B9lX6DZI5S1tAfFM57GnAbiozq6dSyTVBcFVL3BszE=;
-        b=Y+iGNSuoV/imTOMIG21vDSh5uqGiKksbt9YZsCxNccmy9cDYej3el7gcwwSe0eYciv
-         x8oaGW+VvfZ3MDe4tzo7NTVK2IzY+Wpm3dKFZf2CCocecimX1vBfDH+2GTgl6BxrCn3t
-         yT3PcpdWMB02yIInw6SKnmHKDgEU06RMO2e+Pbp0mGFpXtBNHOlJw6eznJEPa2TQT6+n
-         xFa9p5KiYg/0m29dkzyCZOPWw6oNoYBT6/YcbRElb+pYY97padHRWZvZjrkdUZy9duZS
-         jfCDaVkMeth+8sfiPXj/mKREzwwMb4AEDRFEp6aA1w9D4soI8JnEQX10OwCqqPYWs1Wv
-         59Uw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1hFQ/dICXO7WUN9Wzym82z3kvl3//YZcZ0YONp31Gzz1LYVvDPwSVNZXP0GCYoQkShZIrpzNE@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z8Lnj0n7kRt2HuBTz+t+ZSOEM4ova3yyRNkPuriinJfRT07TibA
-	MNcrySm+dVAW6GS29dbqDPYOOLrInzwDya4MFtYmjO1CNWKlK61guD+SaHMs4B3479c4tmmj066
-	J+ZoqHiiotodHcYlDMrH42ieuVmUJLj9w8ULE
-X-Gm-Gg: AYBFou2Hh1ucxedHqlqiUeUUoIqeruc3p53MmGlBiaH51I+zQnU9W5z6qXz3btOCjae
-	PZADhLdLt0lvuUtdvkFUu0KJMkZcXa93qOdAWaXgXt9KhRBl0mU25sX87xFzKGuSH4SEcAXsaYL
-	R+MjZkm4lyIrZzhBzM6PptaHStg2mO9840SLNQ/VA5QiJlMpHhFwyN9fZNJBzOugN32Cwfe4KlD
-	1shdjiRESnyhKj9BYd/F/DdEbutvTc6JxStb3PzRJ0cWJlrEUyuIJYizrFyuITZeqmb5kGtzTs4
-	QYij1OP288osaVPHIRtBpeMPK8p2x7xXdHvD2mLzS3AD/CTL3MBNvAL1gxYLb95RG1QFXDkq3jG
-	JXj+Kl6qAMNRcX8/PmyyN4nX1TrDilEyLw0leDQ==
-X-Received: by 2002:a05:690c:e3cb:b0:8b0:e385:edc3 with SMTP id
- 00721157ae682-8b2b6719311mr132765087b3.33.1793849779988; Wed, 04 Nov 2026
- 19:36:19 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jKvcD5n6Kz2xGr
+	for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 18:50:20 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kK7VLB0Yqwi1gNmkKVJT9AcbBZjLYCJBRSfv85PxoumsYDBEMPqEFp4YBlvqG/uhkuB1MAxPhf1LCDWtjiQ9/Z/MZKoxG75OjWvGxtGmPO8HnLwFeruYM60a4BOgUTv6WJLfriH6jgghyWNSFMTYYTH4e3tSXCfRRVVT7UYmIyoUG9lGGl032gBHgp3Dk7yAONG/V03AzEz3VCyOgj1aKvC8DhL1Kl23uq0w7m+CGPG9HwW/hkeH9eoTPMbQyfMGGDFjuEFZ6mHFyuMNOmGB4vCeJjF0q1FoWylhzedbYsaSfe2X8GYRI3WIQE6aWoQ6vpEeBFaHhGMJ3zG6j8QLVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A5Z4ECIvLDAxlMg+2WVWJhL5vW+CYbt4RsEzpm0n5Wc=;
+ b=Qow/pQt4GA3XHh2HT6YPwa4xtZgromIaKBb5xZuCn+QlJ/ACwRV6ju0BzDC9c1F8yAgQ84fS+jqcO4N0VpzWhitYuAGe6ooTYVfz4sYQgowRpRP2JVlYur3LAhTa9h44ElJJwlKKJXFYnqn5yY4ZYP0X+6Ak8eDtgpUy/c75UjVHOq6NcZF/4Zb5qDv3F7xXTuDbKJUt1jS+uI2QHyK+lHDlUgEvGM5xvbGYWswkHVpOwxz3CEmMHD0X/VRFTHPfWHdUzOKlRZcF9cGs5h9ILW5Xb8o8efvurb7bylHDLYOHyh32JHQQpf2JkLlqQzme8oAaECC4QkAgUm2oCRdreA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A5Z4ECIvLDAxlMg+2WVWJhL5vW+CYbt4RsEzpm0n5Wc=;
+ b=gNKOcaSxQKgHNnpT9YZRyUvdqe/g1QjAr20IuGikYQF4x/UlORlGBqunx1VgX57KB9lS+kpws91/8lVhwEF7TUZhGGpa9JPMl8oj97DKR5DjCmJDVANKcnC2wJYbdu5l/eI3TIJCk0ZegqkHS8XdxoigUc0ln8at5pJ3rq6bp0FWy7up57rcROVW05F/bt1TFGZjzdYDfQdg0AJIbKa21DkFJZIL5NgJ2c/kxz8Gtunq+lxXN97VdfYqWTalN4kGN1TsgLwXiomXNsYRtEBSS2ZU0X9tZwTlQvr4ommYi3tyD4XGUG9kp5IfpDOa2R+YxphGzt+khBD7p1YInjeuhA==
+Received: from SEZPR06MB5716.apcprd06.prod.outlook.com (2603:1096:101:ae::6)
+ by SEZPR06MB6841.apcprd06.prod.outlook.com (2603:1096:101:191::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 07:49:54 +0000
+Received: from SEZPR06MB5716.apcprd06.prod.outlook.com
+ ([fe80::4ce8:9725:a5a3:74dd]) by SEZPR06MB5716.apcprd06.prod.outlook.com
+ ([fe80::4ce8:9725:a5a3:74dd%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 07:49:54 +0000
+From: Vince Chang <vince_chang@aspeedtech.com>
+To: Lee Jones <lee@kernel.org>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>,
+	"tan.siewert@9elements.com" <tan.siewert@9elements.com>, Billy Tsai
+	<billy_tsai@aspeedtech.com>, "joel@jms.id.au" <joel@jms.id.au>, Rob Herring
+	<robh@kernel.org>, Linus Walleij <linusw@kernel.org>
+Subject: RE: [PATCH linux dev-6.18 2/3] dt-bindings: mfd: aspeed,ast2x00-scu:
+ Describe AST2700 SCU0
+Thread-Topic: [PATCH linux dev-6.18 2/3] dt-bindings: mfd: aspeed,ast2x00-scu:
+ Describe AST2700 SCU0
+Thread-Index: AQHdbImkyyQJLPaB2EaCOVGHV4CqsbcfGONQ
+Date: Thu, 5 Nov 2026 07:49:54 +0000
+Message-ID:
+ <SEZPR06MB5716D22F69741B77829B2C4EE2772@SEZPR06MB5716.apcprd06.prod.outlook.com>
+References: <20261029031552.515601-1-vince_chang@aspeedtech.com>
+ <20261029031552.515601-3-vince_chang@aspeedtech.com>
+ <20261104182342.GF1650678@google.com>
+In-Reply-To: <20261104182342.GF1650678@google.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEZPR06MB5716:EE_|SEZPR06MB6841:EE_
+x-ms-office365-filtering-correlation-id: 45ef6fb5-c074-4a04-cee9-08df3b116184
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|18002099003|22082099003|38070700021|56012099006|261021123027099003|4143699003|261022105027099003|261102123227099003|261026121527099003|261028144727099003|261026140227099003|261009223027099003|261021121427099003;
+x-microsoft-antispam-message-info:
+ 3xTsIFkHAdE3K+gEp9q2CZP4S4gPDGuPiysIrKvEOWNBfI47o5QMMV2FG0E4/cepWjslHxTxlLE1sKdTmaIFwAfQrufS57O1lIKxzJ7VdAaPI9UPCcRH6LPUB1hZuX2zpe8mzfDbbMgdNqTZMhOi3nVB8e7V6YYdXBrYiqvzD/yaaWVXhD04ggkBRw8wa7xpcAgwDMFeocaFmzXv0LcuGBLOcHnWHuU8VeLvJVIRT9NlRfKksiENM5lDUQyPhm8lazhXtwraS37LrETtEl99pKXnFOe6V7waYspw+DZkRFQGKc34+PoDvp4dSeZ8tUy75J8MNnYPpx9AyzWG28S7ppDlHqdhDMcH7V0fSCYfU6ZtTjuq2Mv5e3WM0NYONImbeQKt7kFZ9hpNqxGsPVc6zxnfGvE+Wv+OuYQOIrZbYJa96MA40UdURTPEFDQsfmy2eN7Nn0vYYd7zIY0523G9S39lXpqyHa2xlWRjU7EVTRv37CNo5AcGHm1nMorQ/oB1f9rQ4cc0+xhCh9/2rP+xbgsH5Kwjrf9qRWG8QUEF4crnV6pcKrogkaPS3BB1q4/WqRExv5RDu8BwTu17YEhGPSQFIHfyRKS5pWW5BjXWsQOGLVEt2UZdj1kWtnClxJM8TKEPITEDTTJZk1MbC3syRcX4ZahS+JkuAZPS90FL6OI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEZPR06MB5716.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(38070700021)(56012099006)(261021123027099003)(4143699003)(261022105027099003)(261102123227099003)(261026121527099003)(261028144727099003)(261026140227099003)(261009223027099003)(261021121427099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?jGDRHad3b7l3U2QOw9ZQTTceTwpXZpfjMKZWO4FnB/Z21D0EblQYtf7mLitX?=
+ =?us-ascii?Q?7ibdTzbQ0XPESdPjQs3KRrpjkRpjB2Ymwa4piB257JAnPG+QBg2Q1eVuc5MF?=
+ =?us-ascii?Q?pVwtsyYDU4mO3lJn6B3qyPXTDzMZ/yIP/I5h05Bqtpl0+pNiPABv0pjXSwG8?=
+ =?us-ascii?Q?GvO4ngISUAx242sz0zQ7ymIsgRhIhMefiTfg/WJ9qxF4U6YJbkiI2JOhjB1l?=
+ =?us-ascii?Q?HJFhwrE6/DiwB+ZVa1jLQ33cXuQfvqSEt0FXc7FKO0TCtxIhgjR4kKi55KfV?=
+ =?us-ascii?Q?5yImwyrZ6ofOr70vfzYqBiPgzj3g5q+93PzddToDnxbAHPIQlxngx16wvkTf?=
+ =?us-ascii?Q?WjN2Uf6ht0nI95XW/V9jyA8kz8qScFwicV1bGsfIrbGI8AJFlBamLrljrvhJ?=
+ =?us-ascii?Q?QB1zT0UyAwNH9mFfoisdGLDcCL8WEPuucof8KSJTGEAp/A6qejXZew5rA5m/?=
+ =?us-ascii?Q?ZmimVG4CGCCZj3ZdPW3t4RBZjkYk2EMAIxoKMf4/MABV+umSdA0QE2TjMebu?=
+ =?us-ascii?Q?z+XBsrIho+vDHOXYJaHgjq70XUmpQji4JtzOeYkU6fWMEljA/AshU7cLns6q?=
+ =?us-ascii?Q?JteTf7cpaci+lXbB4oAkpEWls8KMOjpEvyYR3fSo/zmc9fX9Hq3zqwoi5aSX?=
+ =?us-ascii?Q?oSPw8dH7J1NAbN+rs4aXYJpDherqsEJjPhAOdo1r4cf2LFyVpj/zRPlEYbeR?=
+ =?us-ascii?Q?BL3tzom1JTQSQkMf5JPJJHzMbhTZr+IDJjCud+ldsrlbFrCxNUDjXyEi5DQr?=
+ =?us-ascii?Q?fxlPH+WJjomvJo+0LNUX8sLovphfEXBw2nK8G/T7BoYnVX3FfzORTYwiZzvt?=
+ =?us-ascii?Q?drsbu+PIN9dFmLxsEbqAlDUBuc7R2ksIljfeXNi7V9PpxJsdEPxn7SKNnJP4?=
+ =?us-ascii?Q?GSI7yNoJzDxNRoMV/faG4qWo2ROa5kY5mcnPCispkBObCZ03JNVJ3BKhWLRl?=
+ =?us-ascii?Q?wHVxHHvbyfx2KNEaF5Ns+wG0vD9N4FDI4FJ5iAih64B0TPZnTJ09itgO4qp2?=
+ =?us-ascii?Q?40Dhy/JtAKD1eIUsudYMqr3nBfWmjAdILesxLgF4mgK5c9NSEhRLwOMS8kOQ?=
+ =?us-ascii?Q?/A/X4HuuI7KbC1DAiKRC7welB6fOH5MD9HIhygn9AKH+loJbEYnWS01XFmYA?=
+ =?us-ascii?Q?MXNQhKRFZdr5ea9J9cwHVeBy55xFU+ZpCmTskAsHZ0tV7FuKa1Fmd0OcCgI3?=
+ =?us-ascii?Q?GMEqKUmz/JrNdgl+cr+qW4vIrb1LwN6U9K8HrDLCaWJwczZSR67Cm8sc4xaZ?=
+ =?us-ascii?Q?lbCPMqAtqjphP16+zObIJ1bfS+2d8HAZxxxuI0K/T+cRul4/D6YLq88Kgg95?=
+ =?us-ascii?Q?xHNQHqKFPD3z1gR+RJ0iWEKuVQWcvsldWJGGEUbl9jukl/nEshKXYsIiGqjE?=
+ =?us-ascii?Q?/0pNQh8f/c86dJIlkVk4nnbbepjVENlixeAxwySgnz8iwBzOw/o9D6cwbM9w?=
+ =?us-ascii?Q?vJSERWd8JEdTZGM9Y7l0Ma6ob0wn5O2glyChizGyunsW80eQPjW1ucw1fYvX?=
+ =?us-ascii?Q?KvzMNDeay5rvcteSqqqQ0fP3hOhnrXvbJObDD+kaZ97KcIu3G4+N42yyR2sR?=
+ =?us-ascii?Q?hjJGKrtZ2vWubJt84hj6yOOUslQB0IseQGZrAJ3KGZ4zyA76dcAolTQmo1aN?=
+ =?us-ascii?Q?ErEK+oE0JVE6zncvecEbvMdeDsruJmN4gTClptziLMZtsY6gJwB2t+PS07dN?=
+ =?us-ascii?Q?lU2mReED123L1sdDsRoQKG4GfjNu+JYSK4+7bvCnfdsjNHR8m7dozqM/RNUr?=
+ =?us-ascii?Q?qAD+woQBEg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -101,139 +134,102 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261015035118.9495-1-prasanth.padarthi10@gmail.com> <CAD++jLkx4oQ2ZuUSUQE1Qtrk-1XSMdnDjfLG0rrOm=gt9VD3VA@mail.gmail.com>
-In-Reply-To: <CAD++jLkx4oQ2ZuUSUQE1Qtrk-1XSMdnDjfLG0rrOm=gt9VD3VA@mail.gmail.com>
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Thu, 5 Nov 2026 09:06:09 +0530
-X-Gm-Features: AclHuK9YMOK-xz_gxOFW3IfSoWRvHeDrckSu5fgcWiOJM4mFO9QGiU-P0B7A4RY
-Message-ID: <CAMFFDGhD4K6PN8G+c-hQAL6RG9sVkjo6SXHB5===bYswHh0aTQ@mail.gmail.com>
-Subject: Re: [RFC PATCH] pinctrl: aspeed: Handle GPIOZ6 pass-through strap on
- GPIO requests
-To: Linus Walleij <linusw@kernel.org>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au, brgl@kernel.org, 
-	linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_PASS,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5716.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45ef6fb5-c074-4a04-cee9-08df3b116184
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 07:49:54.5966
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +SUwInYRISBT/ZcsNsAJdrK1Cq+tiWGO36+I/MmoOz+LJxpUrHQbum0mKjZH460ZgLPFRXsQoLR5YEZ7cW/IdgZ6NLcH+7F1EuvJHpqgIRE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6841
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Linus,
+Hi Lee,
 
-Thanks for following up. This work is still active.
-
-The October 15 GPIO-request callback was superseded by RFC v2,
-submitted on October 22:
-
-[RFC PATCH v2 0/1] AST2600 global GPIOP passthrough handover experiment
-
-October 22 RFC v2 cover letter:
-https://lore.kernel.org/r/20261022024314.48623-1-prasanth.padarthi10@gmail.=
-com
-
-V2 transfers the global pass-through selection to per-pin SCU4BC
-controls before pinctrl registration. It also handles SCU510[28]
-through SCU514 and restricts affected requests if handover fails.
-
-I have retested this implementation on B650D4U with a newly built
-image and GPIO-only x86-power-control. Remote power-on, remote
-graceful power-off and physical-button power-on passed, with
-power-good transitions recorded in the journal.
-
-SCU4BC remained 0x30000000 and SCU51C remained 0x1c80 across the
-remote power-on/off tests. Electrical continuity, mixed-pair
-forwarding and fault-path behavior remain unvalidated.
-
-I will verify the requested base, rebase the October 22 version
-and resend it as RFC v3 for renewed review.
-
-Regards,
-Prasanth
-
-On Wed, Nov 4, 2026 at 5:49=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
-ote:
+> Why are you sending downstream patches to upstream contributors?
 >
-> Hi Prasanth,
->
-> On Thu, Oct 15, 2026 at 5:51=E2=80=AFAM Prasanth Kumar Padarthi
-> <prasanth.padarthi10@gmail.com> wrote:
->
-> > On the ASRock Rack B650D4U, requesting GPIOP3 through gpiolib does
-> > not provide working host power control when the GPIOZ6 pass-through
-> > strap in SCU51C[9] is set.
+> Please check your `git send-email` settings.
+
+Sorry for the noise. This patch is a backport of an upstream commit to
+OpenBMC's dev-6.18 branch. It appears git send-email automatically added
+you to Cc based on the original commit's trailers.
+
+I'll fix my git send-email settings to avoid this in future backport
+submissions.
+
+Thanks,
+Vince
+
+
+************* Email Confidentiality Notice ********************
+
+DISCLAIMER:
+This message (and any attachments) may contain legally privileged and/or ot=
+her confidential information. If you have received it in error, please noti=
+fy the sender by reply e-mail and immediately delete the e-mail and any att=
+achments without copying or disclosing the contents. Thank you.
+
+> -----Original Message-----
+> From: Lee Jones <lee@kernel.org>
+> Sent: Thursday, November 5, 2026 2:24 AM
+> To: Vince Chang <vince_chang@aspeedtech.com>
+> Cc: openbmc@lists.ozlabs.org; andrew@codeconstruct.com.au;
+> tan.siewert@9elements.com; Billy Tsai <billy_tsai@aspeedtech.com>;
+> joel@jms.id.au; Rob Herring <robh@kernel.org>; Linus Walleij
+> <linusw@kernel.org>
+> Subject: Re: [PATCH linux dev-6.18 2/3] dt-bindings: mfd: aspeed,ast2x00-=
+scu:
+> Describe AST2700 SCU0
+>=20
+> On Thu, 29 Oct 2026, Vince Chang wrote:
+>=20
+> > From: Billy Tsai <billy_tsai@aspeedtech.com>
 > >
-> > With the existing GPIO request path, SCU4BC reads zero, but a host
-> > power-on request through x86-power-control times out waiting for
-> > power-good:
+> > AST2700 consists of two interconnected SoC instances, each with its own
+> > System Control Unit (SCU). The SCU0 provides pin control, interrupt
+> > controllers, clocks, resets, and address-space mappings for the
+> > Secondary and Tertiary Service Processors (SSP and TSP).
 > >
-> >   SCU4BC =3D 0x00000000
-> >   SCU510 =3D 0x00000000
-> >   SCU51C =3D 0x00001e80
+> > Describe the SSP/TSP address mappings using the standard
+> > memory-region and memory-region-names properties.
 > >
-> > The AST2600 A3 datasheet describes SCU51C[9] as an additional
-> > pass-through enable for GPIOP0/P1, GPIOP2/P3 and GPIOP4/P5 when
-> > SCU510[30] is clear.
+> > Disallow legacy child nodes that are not present on AST2700, including
+> > p2a-control and smp-memram. The latter is unnecessary as software can
+> > access the scratch registers via the SCU syscon.
 > >
-> > A diagnostic experiment that cleared only SCU51C[9], preserving all
-> > other bits, allowed the same GPIO-only power-control implementation
-> > to power on the host:
+> > Also allow the AST2700 SoC0 pin controller to be described as a child
+> > node of the SCU0, and add an example illustrating the SCU0 layout,
+> > including reserved-memory, interrupt controllers, and pinctrl.
 > >
-> >   SCU51C: 0x00001e80 -> 0x00001c80
-> >
-> > SCU4BC and SCU510 remained zero. No per-operation THRU1 switching
-> > or additional userspace delay was required.
-> >
-> > Add an AST2600-specific GPIO request callback that performs the
-> > existing GPIO mux configuration and clears SCU51C[9] for GPIOP0-P5
-> > when SCU510[30] is clear. Check register access errors and verify
-> > that the strap bit cleared. Other GPIOs retain the existing path.
-> >
-> > This RFC handles only the GPIOZ6 strap source. It leaves SCU51C
-> > unchanged when SCU510[30] is set and returns -EOPNOTSUPP for
-> > GPIOP0-P5 requests when SCU510[28] is set.
-> >
-> > Hardware testing on B650D4U with this pinctrl candidate confirmed:
-> >
-> >   - Remote power-on: power-good asserted.
-> >   - Remote graceful power-off: power-good deasserted.
-> >   - Physical power-button power-on.
-> >   - Physical power-button shutdown.
-> >
-> > These tests used x86-power-control with software button forwarding.
-> > The earlier board-specific SoC driver, its DT node, custom sysfs
-> > interface and diagnostic boot parameter were not used.
-> >
-> > This replaces the approach explored in the withdrawn B650D4U
-> > power-passthrough RFC. The new proposal changes the existing pinctrl
-> > driver and introduces no DT binding or userspace interface.
-> >
-> > Feedback is requested on two unresolved issues:
-> >
-> >   1. SCU51C[9] is shared by all three GPIOP pass-through pairs.
-> >      Clearing it for one GPIO request may affect forwarding on
-> >      another pair. How should that shared control be represented
-> >      and coordinated with existing mux ownership?
-> >
-> >   2. The SCU510[28] enable path has not been validated. Returning
-> >      -EOPNOTSUPP is a limitation of this candidate, not a proposed
-> >      complete solution for every AST2600 configuration.
-> >
-> > Is the GPIO request callback the appropriate place to handle this
-> > strap interaction, or should it be modeled through the existing
-> > signal-expression mechanism?
-> >
-> >
-> > Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
->
-> I don't quite understand the status of this patch, if it is still up for
-> grabs, please rebase it on v7.4-rc1 and resend so we can restart
-> the review.
->
-> Yours,
-> Linus Walleij
+> > Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> > Acked-by: Linus Walleij <linusw@kernel.org>
+> > Link:
+> https://patch.msgid.link/20260428-upstream_pinctrl-v8-2-eb8ef9ab0498@as
+> peedtech.com
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > (cherry picked from commit
+> 2611c4d623ba867e196a4146f1927c3c468ac2bc)
+> > Signed-off-by: Vince Chang <vince_chang@aspeedtech.com>
+> > ---
+> >  .../bindings/mfd/aspeed,ast2x00-scu.yaml      | 114
+> ++++++++++++++++++
+> >  1 file changed, 114 insertions(+)
+>=20
+> What is this?
+>=20
+> Why are you sending downstream patches to upstream contributors?
+>=20
+> Please check your `git send-email` settings.
+>=20
+> --
+> Lee Jones
 
