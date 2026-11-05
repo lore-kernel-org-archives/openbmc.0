@@ -2,95 +2,112 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D6E606A31B
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:33:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C054606A326
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2026 22:41:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nTz0ICGh
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHCg0Gngz2xRm;
-	Fri, 06 Nov 2026 09:33:51 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::32d"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793887011;
-	cv=none; b=elJLp7wM7YCCPAphR5YLC5iwGKKm+Gq4Zf6KMYMw8nkLbwOiCNdQ5DTYVopC5n+1uectnJuH+ZivLV7mjZgQa+lX8i9/oleMkMceg3G3cNC05vuUp5M117STqjnh/2s5rHiFmyQ0feP8eEqpoZt46V7jG8fWLjEmrBNX935MDKW1wNGeZYlk+16NmZ9gifbiCmj1Wpom0tr+VdPKslZsg5DTzE7iGxE3UnF3eaJV5WS5BJx8E1eY95889CqHTF5rPmOeC+xt6PlXX6MY7B0K/CK/fPeg89hXXKB/rJoA0Y+RgqrLa7IIW3nS+f+GouoowC/9VWTkeK9O0MMpoX6afg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jLHNm0jtpz2xm5;
+	Fri, 06 Nov 2026 09:41:44 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::436"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793876805;
+	cv=none; b=KefhGL8ukckPgcTqsQapIqtq783ZtyKCfDClXdOJsCwYQck+WRxU578rfuSEmYr7Q1OPiWI8u8Bif11GNUdzfwW7yoH/64aXy9isTJLHtVuq9pvATv8XNlFYpIcC0pULNsDVBh1MA1lmdUCF3RIAFx8rkHoZVylxaQVfX88KA0t5JpKPfpJ8TWGiNU78Cd2ZkL+7L+Jic1VW4uHYl5TaWtRHTKHtyhmoMh0idZT10SboNo6XyIYwBi2pNCbN8QaoI1XO/8vWtqqSD7na2HYS/vsIl+zmzS1zvL37/vHnPfP4//HAWiQKMpfU40WmwmeKHJxS9d6fJpVyP4+OlI9rKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793887011; c=relaxed/relaxed;
-	bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
+	t=1793876805; c=relaxed/relaxed;
+	bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i6Ol2I0IbHr6fM+yi8LAp8yaunJsVR1uhAN1ZCVh3SkiYiJ/acE53EwgZYVCzBLYsfw0CW5lQhORhLKBgVi0Y6FR25sIKxLBM4yA3Jubyh1UTwCrPYaaKbJh/k2Uql3Eq0bZlZQuAXDfjRMFPY5P+pkwvmAjrO851AX2IwPJCgMCDSkQE1n+BliRnBT/OTcKTM3wnAm2uwOec4wUl3V6DiOATZ6sDJuRzmwm8obHNnf/C8qMqo4cgr0o3ajMQE6kZa6c+vKlFvdjAqoizmZ/ZJ1TSB8nnU9mA9k3kVN7Ifrlh08N9RWdAUfdO8mMh1NUjeIsRV6MrFE/ZDAc8qKnqw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Poqx8ySwiswgFNkcoP1pzMdvOSvHaGjZdEemFeKvZFCgGfv1EOjjCt+aP31+d+HYbM2NCmd8EeMwSsDJyx81z+Fl0FrrPnLZFyyikI0+3ao0DQ2wVPWEuOilg09re2Zy+3eaiV9V8a651awX2fG+FXXrEG5PkXQPiECgQy0aFUfyu8mSdi6/LD1PRCVp+Y8tqCrf/h+tnEVzx7T6D4Sa6QagYGVH/2YZtm6a4ATvEUdmEbL+bstD0q4A9rx93HHzpHO+NjpQkS2gNF3YaJI3C3+3Frdt+BLBi7bBMuX5ojonaUN+HiTdLh+VrAMLEr6p/io6BjKi7FnEDbD21twEyw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nTz0ICGh; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::436; helo=mail-wr1-x436.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=W4+qP5kH;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=nTz0ICGh;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::436; helo=mail-wr1-x436.google.com; envelope-from=ukleinek@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com [IPv6:2a00:1450:4864:20::436])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jL3l56kJXz2xLt
-	for <openbmc@lists.ozlabs.org>; Fri, 06 Nov 2026 00:56:48 +1100 (AEDT)
-Received: by mail-wm1-x32d.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so22586745e9.3
-        for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 05:56:47 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jKzyr2PG1z2xSV
+	for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 22:06:44 +1100 (AEDT)
+Received: by mail-wr1-x436.google.com with SMTP id ffacd0b85a97d-48e4831c028so1568054f8f.0
+        for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 03:06:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793887004; x=1794491804; darn=lists.ozlabs.org;
+        d=baylibre.com; s=google; t=1793876796; x=1794481596; darn=lists.ozlabs.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
-        b=W4+qP5kHh4hQPqOsl5t7q6mkO4KbmWFVkJsyek3rkoKOVEge35dck3kZifRCmrydWm
-         v2So9Q0bySYZLIo6RxQcr0sg4cRlQ5yPWBf+7jp4JjKg2mK/MdgM5p5r9d/2yoHIF5sR
-         rbDdowwTd0zsDP38//uGYo9hxdqNjRhE1nZreJZmo8PyYGzZg4+h9HWtModGYvzrXiUl
-         blqlD9k1Z75cCeV5N5j1wdt7tu9gHVg1zbFbY893mO43qeV1KgMFhj0mxLOxqLlRbbNZ
-         79WRBmzMCLb0CTiLRetQzohLy2iu0uyfDTe1mruj/AiAiAUyx013XQEhf9Azfl7/UHNM
-         +8sw==
+        bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
+        b=nTz0ICGhW9Pi7ZO0Q0OMgaLTaws4jCnuaSE5b9ZgOh2g5zuEDRZwzRp/I/0DcI+bzf
+         5kilUIDOdCEeZWThqbzqARU4QKYqJOVmUKKGOM9fQhzHq2W7CgrSYoHGTHXq9N/h/rof
+         3BfKuTHcyL3jN7uNrYZubIWBpgaQjwLKg5cwRgNYQJaHZXB4vXSGbMNPa1kCIHQMJkjG
+         JAt5kLvHNMVy77P9PGE0SVqvD0Tv9ECfyYGUuHj0lNVWajARWtiMogavKaw9kYhAGRLy
+         ifEihgwuPI7aWJfzgtrajoKmoyW+CcufndjuYWY+5jKrbUbFdlwzTJaYpz4UUqiVtw9a
+         7mEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793887004; x=1794491804;
+        d=1e100.net; s=20260707; t=1793876796; x=1794481596;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8TiKAvJXB1NGH1N8fdTjOIOAtKyqlHUX1XLSobFGMdc=;
-        b=yxqe7tmMU2Ddl/ArfI/EVemZTVjLDAOTcX08F9Uwh3n8/92mHZRPgitiLe8I6HR5iG
-         gvJkLafT+4rwAGYkQLYTSNznwu2aaNxNeilhFRIxynIgMn/+Jbl+p57Z+kTt9lW4Z0Hz
-         efv3TM4uXeIKngEbxES/l1WM0qHxMGLOjnAgrAt8eyEHKJkZZUyQo2fUhWAx3xpb8uNk
-         6/OEy//CyaDviUw5h8yvePaCkK5a1l1xni29Z0ix9ZotXZOO09um0tpRCXmfMD7LMKM9
-         rGC5wDOAc6RHtghU6nH1qer5aFakuQAL0m63fcBoHL8Sfbb14URiwrkcQeLdOmbKLBq2
-         7Nbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzB1J4EJhN6kMik77CsTJe+ozUjB4zftNfGhmG2j5ON+N5mcSLJK0g7H/J/m69XcJ295khV6tC2@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z8RorZllJpT/YBVofKnS84riz80LZtxQnhBETUGdEly1vLQ/t7t
-	NKR3Dpx+562NNk4JPKvLhlf476nJWNimcxowE9GUxNxL7jNTUmasCnO7aNhf7P2jsgY=
-X-Gm-Gg: AYBFou01hvL/v1FmM/vg6geNTLnPBD/wIUFXcgnYthV0LFI+7UREqzXvC4qcHJ1MpFz
-	45Ir45u1DGu6hi6mtFPqEehoJGEmaJW1TJdWBRNHWXdwyzPy6VsKs68LoyT6NYlFOdJZFa757Vi
-	52yZUEubFj/fB3S0jH8N+4Z4ce7XJHi9YhM2OL0d1iDUT8uLX8xPtrAmcpaKR/asYGYAuqiWTg8
-	tcojPqydx3Eq/JDmS1NzBsZoVqTcoQ/2RoeZZyWIiV2ZuibbSvzJrZX6g5V7oQyfuDkb6PBy02t
-	K/AngiGr3G8peDZG2mF+FYVzzoIgaQF7JH9Qctpt3/aDo+kJJ3XzBe9WNon8KQs8+EvEzt39JYr
-	0oG6nppQiemNadzv3ZufzsCWR7b9Q5gIpzXrHASxkY8KiS0rZ2XRhXXx7++GBYAKXd8inx7JT+3
-	sdyIc9aU59VA60lLYemYE+BBdxutNoAayge6Ht9N+5vHIwVKZsmAzrUwbQ+Up5mc92+goHX33dE
-	9GC2qAq/9vvFLM6WKZuXMn4VkWiKhLDgR3ej5zaaNf2+ZXXl2qHhWLQ0BEL000MoIoxnN2BsuNr
-	sYLH9woqA79vO5KdpmhUd10midE2
-X-Received: by 2002:a05:6000:25f0:b0:48e:4f1e:5e24 with SMTP id ffacd0b85a97d-48e6e2e75b0mr38836163f8f.14.1793887003590;
-        Thu, 05 Nov 2026 05:56:43 -0800 (PST)
-Received: from localhost ([194.213.108.7])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48feda20567sm10969363f8f.51.2026.11.05.05.56.42
+        bh=LOaUcszBeFc4BBZTn5mnxjNejVuuHalw0DHWazewRfk=;
+        b=XgmaU6jdorjwjx4gJtlSfwR7TCqafJCD6RiR7how2QirbiAPF/IE1bJqR7i8d4QeND
+         ykpn8E7VNFUKDMy7n1QPBJnpvWv8jEBeWjkyJz6RtN8qRZqxGAR0T4c8Zf2LKxPYlJpB
+         zEXUjtURVyPhZvZQt+xrcLBeeseFWl92KSQJIf7drAEjgVpfSM64N6hEQpS+t9QKPswX
+         mY8DudP9XDqdMiPmYRepJCIgU5jeADDChNje8MDcWtgaSHK2RcgsRBaxsnjGDs89N3k0
+         6gu2s/uVTTKxvDE4srN9vcvYHpDL5GImWdho3DJVQzljr54IAfQ4c+7o7erAxX0mtOoW
+         C3oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2yqzLG5ogcHXZ7ybAf2vCQh6HINgQ8hDUEAkj8uC5bXjhLKA3O0KghvW+/eKtHAv0mg/ROy+1@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z8Cp3MJjQ68RO9JqEI5SnrYTKkVEWNXn7s1nM0donu1o8B1C5pF
+	2WHaOLdGf77m0Q3jXggv54zVeN58mxXSvZy/6vanAKiGvNYBDZxUOk0e3znNPM+6oC0=
+X-Gm-Gg: AYBFou00WKoOPGk1X3cakQ/OLwa2T7V3O4k5jeCrRIhnOriQpkhoWfJORF0sB15xE3z
+	x7ic1Ck/8PtDGvASzSI4Ou03SoiZ7IWthSpOeb7PV9JkrgzD6JbAaMYOl8ImFrrWBkPm4COf5DJ
+	0/x1QWVFALnGUJOJRCBN1esDq0Th3EK4jVWtKLZdWxPABNyegReA4N0n3mPSTfNM5Yc715yaJK1
+	GqjKdCiEmUyvn4mFH1Jvm9QaSmKlQoZ2CN2zPmqvy0MGaBn07bGZ9z5SrWKy6RZYdnnpLNKp+pc
+	4JCLM9lQ6qjFCiFzpsYvIRUSHYToLwkTxauH7RL22xD6wuqHhqfenRq5z7fahdsZb1+BpbwbAm4
+	oIYevR7Ov1k3ffpEMYwIFKsbfQMKYknqFu0rdZQoJ+Qm1bCr+vEFecE4z1+0M3t12NOZy0V5JnO
+	IUtcOgs9B/ftv7o8LlNxpYj4n8XqPejclfX40xO9BlYHN9C7tluw6dUB6j0eTJ1xwd9nsG5MVR7
+	RiWkp6r9Q6vkX3PdUXhRMoR7gacd4lrKOeXbZq3ZpFCACYtGB/REANv0Scf9Z0ipj4j0q6nYm6n
+	BBs4L3gXlZfFqOD8lrXMS3cAaryOC48/RMRv9+DwZfRj9SqXPwjgwT9q20eqrEUCQlI5OmE3Wed
+	9iLCGBNdKhXEXFLj1
+X-Received: by 2002:a05:6000:40e0:b0:48f:bb86:cc03 with SMTP id ffacd0b85a97d-48fbb86d828mr15698548f8f.11.1793876795617;
+        Thu, 05 Nov 2026 03:06:35 -0800 (PST)
+Received: from localhost (p200300f65f19a904ae40ca5165ccacb8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ae40:ca51:65cc:acb8])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48fece998absm10176189f8f.22.2026.11.05.03.06.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:56:42 -0800 (PST)
-Date: Thu, 5 Nov 2026 14:56:39 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Akhila Kavi <akavi@axiado.com>
-Cc: Sammai Chakravarthy <schakravarthy@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>, 
-	Jeremy Kerr <jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH net-next 2/2] net: mctp: Add Axiado AX3005 IRoT MCTP
- transport driver
-Message-ID: <auyKnmpiL7ZSJkgs@monoceros>
-References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
- <20261101-mctp-transport-irot-ax3005-v1-2-36ceb822f01e@axiado.com>
+        Thu, 05 Nov 2026 03:06:34 -0800 (PST)
+Date: Thu, 5 Nov 2026 12:06:33 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, Lixu Zhang <lixu.zhang@intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Imre Kaloz <kaloz@kernel.org>, 
+	Conor Dooley <conor.dooley@microchip.com>, Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
+	Daire McNamara <daire.mcnamara@microchip.com>, Daniel Palmer <daniel@thingy.jp>, 
+	Romain Perier <romain.perier@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	Hoan Tran <hoan@os.amperecomputing.com>, Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>, 
+	Mika Westerberg <westeri@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, linux-hwmon@vger.kernel.org, 
+	Matti Vaittinen <mazziesaccount@gmail.com>, "Enrico Weigelt, metux IT consult" <info@metux.net>, 
+	Viresh Kumar <vireshk@kernel.org>, virtualization@lists.linux.dev, Yinbo Zhu <zhuyinbo@loongson.cn>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-tegra@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Srinivas Neeli <srinivas.neeli@amd.com>, 
+	Michal Simek <michal.simek@amd.com>, linux-aspeed@lists.ozlabs.org, asahi@lists.linux.dev, 
+	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org, linux-omap@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-unisoc@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	Michael Buesch <m@bues.ch>, William Breathitt Gray <wbg@kernel.org>, 
+	Robert Richter <rric@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
+Message-ID: <auxh9PxpJScFO3i2@monoceros>
+References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+ <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -103,52 +120,114 @@ Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2v5unmaqs7i3rrwd"
+	protocol="application/pgp-signature"; boundary="qsdpu7ny4ekdton4"
 Content-Disposition: inline
-In-Reply-To: <20261101-mctp-transport-irot-ax3005-v1-2-36ceb822f01e@axiado.com>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+In-Reply-To: <2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe>
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_PASS,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
---2v5unmaqs7i3rrwd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--qsdpu7ny4ekdton4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
-Subject: Re: [PATCH net-next 2/2] net: mctp: Add Axiado AX3005 IRoT MCTP
- transport driver
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 00/23] gpio: Improvements around device-id arrays
 MIME-Version: 1.0
 
-On Sun, Nov 01, 2026 at 06:00:58AM -0800, Akhila Kavi wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+On Thu, Nov 05, 2026 at 09:47:39AM +0100, Bartosz Golaszewski wrote:
+> On Tue, Oct 27, 2026 at 11:48:37AM +0100, Uwe Kleine-K=C3=B6nig (The Capa=
+ble Hub) wrote:
+> > Hello,
+> >=20
+> > the original motivation for this series are the patches that convert the
+> > arrays to use named initializers, see
+> > https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylib=
+re.com/
+> > for the idea behind it. Looking left and right a bit while implementing
+> > that, the series grew a bit.
+> >=20
+>=20
+> Hi Uwe!
+>=20
+> This no longer applies, can you rebase it on top of gpio/for-next and
+> resend? I'll apply it right away before any additional conflicts.
 
-Please don't include <linux/mod_devicetable.h> as it pulls in a lot of
-unneeded dependencies.
-<linux/platform_device.h> already provides of_device_id so you can just
-drop it. Alternatively if you want to go full iwyu, include
-<linux/device-id/of.h> instead.
+Hmm:
+
+	$ git fetch https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git=
+ gpio/for-next
+	From https://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux
+	 * branch                      gpio/for-next -> FETCH_HEAD
+
+	$ git checkout FETCH_HEAD
+	HEAD is now at d66b6b86d5a6 gpio: 74x164: add support for 74lv164 shift re=
+gister variant
+
+	$ b4 am -3 2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe
+	Looking up 2hfpcbk6r56vvhkqyiex2apl3pinieybad5sd3vkvvabqs3uto@lydt3gin5kxe
+	Analyzing 33 messages in the thread
+	Looking for additional code-review trailers on lore.kernel.org
+	Analyzing 99 code-review messages
+	Checking attestation on all messages, may take a moment...
+	---
+	  =E2=9C=93 [PATCH v4 1/23] gpio: Remove __maybe_unused annotations from a=
+cpi_device_id arrays
+	    + Acked-by: Frank Li <Frank.Li@nxp.com> (=E2=9C=97 DKIM/nxp1.onmicroso=
+ft.com)
+	    + Acked-by: Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com> (=
+=E2=9C=93 DKIM/intel.com)
+	  =E2=9C=93 [PATCH v4 2/23] gpio: fxl6408: Remove __maybe_unused annotatio=
+ns from of_device_id array
+	[...]
+	 Link: https://patch.msgid.link/cover.1793097104.git.u.kleine-koenig@bayli=
+bre.com
+	       git checkout -b v4_20261027_u_kleine_koenig_baylibre_com 20a33c6b6c=
+be7e4805dfb6cd68816937443aa148
+	       git am -3 ./v4_20261027_u_kleine_koenig_gpio_improvements_around_de=
+vice_id_arrays.mbx
+
+	$ git am -3 ./v4_20261027_u_kleine_koenig_gpio_improvements_around_device_=
+id_arrays.mbx
+	Applying: gpio: Remove __maybe_unused annotations from acpi_device_id arra=
+ys
+	Applying: gpio: fxl6408: Remove __maybe_unused annotations from of_device_=
+id array
+	Applying: gpio: Drop unused assignment of acpi_device_id driver data
+	...
+	Applying: gpio: Unify style of pci_device_id arrays
+	Applying: gpio: Unify style of various *_device_id arrays
+
+	$ echo $?
+	0
+
+Maybe you just need to add `-3` to your workflow? ISTR this should be
+the default for b4, but it seems if failed to mention the -3 in the git
+am cmdline.
+
+Should I still resend?
 
 Best regards
 Uwe
 
---2v5unmaqs7i3rrwd
+--qsdpu7ny4ekdton4
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrsixQACgkQj4D7WH0S
-/k68lAf/S7Au5tx54BaHhFIyr9rnWPJhc+OMWG/KaFglaxrdG2WQeAImkDXsQr88
-Akm6VVPKYQBh50KUi2muuoNafteiCwHcq9JtSo2+R9q/d75TDEKggJICOxF7DYzs
-wTbn+hGwOmxGwHjpR0nNW8uQWUyIhk0irXV3NsQkMhikal9x5T8XOesQJnoZA3bT
-UEzoa1NXgZD0o4T+sQSLjMueCbC8OkC7GrhuMqiNG6OzWo42mecP4cY4li4MxjqP
-rFj3ymSSJzaGlEtZoe9+m0986qi8/JUOkyh26I1QR8xsjKpq194Y55T4uLnlklID
-EsuWtThrtvbozh5Kxnz8O9aFUEb1xw==
-=onVy
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrsYzcACgkQj4D7WH0S
+/k6COAf+I352qHa+kMUOH9ETW9KNHC8dWhUfB6E/IB+8yoRbH4tQy5C0mLg76J11
+sJdUuJGD2XjvAv2tgSWACC8Cq1A+CnMvgQXXDsLtC7JuQ0aQYwSFMTIEphdECYue
+42itRdsMlxubgjyK4Ku9YeDItioMv2A2EX+InXlNcO6MoK9ty5ZgCfsCY3OyHGVT
+OwfU948a3DowaasJORDv1w6dhDNg/sCysegJvjnBoz2vhmoeYeyxxNHTGIzcjxt/
+CWYJqu4/QDxJQ9FDuS6d2VhmXYOGL2Dl/wntyyQZjatVXHe6I2wwFBNQoOWJvPaA
+BRQb0uNoTqeBvO/Bc5+AYD34/xDKkg==
+=tsLa
 -----END PGP SIGNATURE-----
 
---2v5unmaqs7i3rrwd--
+--qsdpu7ny4ekdton4--
 
