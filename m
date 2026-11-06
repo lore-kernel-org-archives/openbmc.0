@@ -2,77 +2,77 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B916D606A331
-	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2026 02:29:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD564606A31B
+	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2026 02:29:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTAeiYud
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kkNW57Qd
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jLNRM3TDsz2xSS;
-	Fri, 06 Nov 2026 13:29:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::132c"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793932159;
-	cv=none; b=aR5R7k3ECP6v2QSvJq2aWEx/Pk0uQWbcRWWdyzZwBzjII8oxvhivxetjZGRsUOecalxHgMI/n5QcCmEF4vMisUoYynVX6PcJrVQ3xkn70RAbXKwjeU2A2BjtR5iyaw0huLqOOg8DWlaEFpTL5UO6dM4zfQxGQhM+acTV4aLvClWEp6nvI2mbX/4x2Trvag2SB/mMEoEqOSE43yqL97hTKbljenCb+MchGIv9MOLIqDtzaaPKPE5rbjTttUXfDxlcY/GfKNopDogLfxIc0UyIz69i7NSiLhC27z5PSa6g9v+uXFaT8Isfjjbq2Sa/JuP8a7Ku+LRxQ9SS6lGlSR8RcQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jLNRT4VyNz2xlj;
+	Fri, 06 Nov 2026 13:29:25 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::132e"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1793932165;
+	cv=none; b=Of3UZhPAGpx4KEHxtbstl63ge06xXEtCuXNNamZzbG+KBLnGeGWB0f16OuDiUxL4DZKq9F3w8gRpCDl2SaHyY8nWIkSsYiCICbV/8LYwMOL6p2b5Qttyt5UKm1zzFkRxlt5Jkq7ibfsbez+omlgFLAnA0OacNpV2YkZb0RisNf7FsVvcr5D/ogMAwMB1NPsjzEzbqhhFHBS031WCSew7WyNN16IxIFjdA8bIgzlyiHYyyueFExC3ECxpAe2U+k+M9Xnu2R/1xoFcpKWUZqum8XHpLnCrZZo66riDmE8H9owmH7uabFLAFjvLrJek2bX88cMIyfjjZnG4HsxEwEZW4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1793932159; c=relaxed/relaxed;
-	bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
+	t=1793932165; c=relaxed/relaxed;
+	bh=O7t6qfqKXOFT9HGLkohs0lc0zBkf/KGLioAvYKS1zgk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQ352BVDbKh8FcxahOyKIBj94ODut40t9XQUDESiXH9FsCyWAhqmNb7wM5SpE8qfr6grKnPLgh3fxeTNcKmtzBm88Zj0Kspbi3dKqlDlpdMIBak4OmKXvPIrB3sZ6wpDVzZ9O3i6YRwbpOeHknqQPtdGI/GGnePL8lP5IoBCKpHtwm174Yzx9OLl4IvT3dCCxuouo8zKf3kT8jSOqBfMUCQqUzmCL+c2KLbRKM/17+Q/u9Xqs3Yti2GHYA5rllTCdm7dlYtjo0JBiYhffru6RJdGnna4tTsscu9GfKeGxCDrihuwU3UL1UrdeWf06qIKcZw001rPge1W9T/RJeoCCg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTAeiYud; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::132c; helo=mail-dy1-x132c.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+	 MIME-Version; b=AOiuSF32P7XT2u66fNVa13qdiUULju/Z+k52fWbWgMbCikEU82PbjbiTm5sg3s6Yjog/PdNdwVccgNKIcurQzjwIHftpOT5lvJmAatijN4kCsZ8FBK3CAz4r1psHZPxCCK0V0f4MYbRp1Tu0DLU/VDp//aWc8auTEfcePiyDAOijjwtFwEyr+8GayXPfQBYVUkBpPoYaNNd6k8roI/XgBvFiOJ6wXOpM+qC8jgVKhgmgRAxRlPoDsuOYDInywnqDPpDVeIOojEeVWnGyccFQKWGBrSF0OlTQJjjCtdBziVhlJkdiOEXVDmJT1uJMwb/8rmcRPIk4k0gdrplY73TjmA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kkNW57Qd; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::132e; helo=mail-dy1-x132e.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iTAeiYud;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kkNW57Qd;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::132c; helo=mail-dy1-x132c.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-dy1-x132c.google.com (mail-dy1-x132c.google.com [IPv6:2607:f8b0:4864:20::132c])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::132e; helo=mail-dy1-x132e.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-dy1-x132e.google.com (mail-dy1-x132e.google.com [IPv6:2607:f8b0:4864:20::132e])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jLNRL2SsBz2xGr
-	for <openbmc@lists.ozlabs.org>; Fri, 06 Nov 2026 13:29:18 +1100 (AEDT)
-Received: by mail-dy1-x132c.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so179537eec.0
-        for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 18:29:18 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jLNRS4sVlz2xGr
+	for <openbmc@lists.ozlabs.org>; Fri, 06 Nov 2026 13:29:24 +1100 (AEDT)
+Received: by mail-dy1-x132e.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so284835eec.1
+        for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2026 18:29:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793932156; x=1794536956; darn=lists.ozlabs.org;
+        d=gmail.com; s=20260707; t=1793932162; x=1794536962; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
-        b=iTAeiYudwA3PTDM7w6bLOG3NM6cyqWwgHD0NHvBTdJbOh8yJfzfQPkBGZhUHuW0r9X
-         1b3pxvzthNRJTUA9OiEm/IeRcS74IjCgzJg1kAqJoBwGCfke+cINqrZ5oiCTV6kQqoGH
-         vO8+ykzWhlNXPVgrrod75Sfp0Y/i934YZA7pNN7bBjAjK0LRRF9QF9X+XUqz2TqhhT9M
-         bQfRzNwkFoCz8qfiW9xCKBZ3vAyv5RxmqeeVlfpeh4BedVHkHrKZNRmmOYdmHwHeZg/U
-         5yNNJnW3DUjiHdaGcgQp0+xynj5PMgsvM/HoOF7sVLcIe1+mXY6RD48lWwcV2IfxZQ61
-         gPlg==
+        bh=O7t6qfqKXOFT9HGLkohs0lc0zBkf/KGLioAvYKS1zgk=;
+        b=kkNW57Qdb/V5P0NbTKIl0aFBC4WnSVJadsGMxhagNWomGqzuarm9gNuSrmrZhsIQ4K
+         JIvvSxzilzqe65rQMFhS6Gc4+/vaIv2OfvyCHuTr8bRVAKtkMG9h/VDPRT9i8nIg8d71
+         sT3uvTLD7a0DKuhTEIaKG5qeW/vPPPECSzybODgwDXD0a9ypRTmOuIAAHVhdIGtACTMg
+         +3OYf47A9Tl90bmPZgw1a9jD1nEPUP6PH2WvexJZoocsgJmStvSChmcclXKxYIr1bDZR
+         Du5RaDRQWMVxbwgFujssmUa8ulxHB3IFgKDb4pWLbijYzAjT/Gpldj3Hwht/utrcJXRs
+         VByw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793932156; x=1794536956;
+        d=1e100.net; s=20260707; t=1793932162; x=1794536962;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mVFhMdPaOpZaZhoFk4x/27qwSHFs/IDKrnB1S7WQ5Wo=;
-        b=aP/CymSO3KDMlC83wNMtoSSmsoGXah16m0BvF8y9Ebz3XHcmIyL9ailuMBM+GX5Se/
-         gWX/RRuyX/UGoZs+ltfVJattfrpztU7nmiM9CKgLR46LUWUqJt3Gb1NclonNWt0LxzFr
-         KEeyfmxzAYqdo54iAWhEmbg1Jt+DAJkTH8aCLxIY/FD1h2B3lPbWLLTRjiXBipFT7n0v
-         5xXRk1Zl+HrIvN7ICUBD2ZRvOn9KoZA6UjHaKnvqh4UeE3m9YEcTivdScvXOC5zceGHH
-         0hRjU/KIW9snHwoAhuPJlUPHI5p7ZMBMFhplfmw7EJQvINO2OWnOin4VgDylR36p3XiW
-         SVEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxT5Pe2pG57wzkP8jZLRCPa09KJggnnYLQcS2a5lJfC8lLsAts9bHRTqGV6TOY4Jy4k3QUXMK6u@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z/4xTZNCRGuiT9yh6QOUkfPoIsqMScsMhlvRA4jQ3QAwKoQNgO8
-	1gp1mCf/H4qJKNFsB/+xoF93EW/mfNboC+F7SDTsmEVIOYnD71fbGs8e
-X-Gm-Gg: AYBFou1+imRjPr46qICsuzq/RGVpY9SkZE6sL9rEOWJ7uF4w8/WU/FGAtpJjlkHsQZX
-	bQxP39Xv2q46gEDFj8f6UE0HtuQktE9LieA4fs+GOJjhm6UGuvNwWqGuk9a0AGKJBbygwy3VEDJ
-	FGFo7NhGnfW8w2icLRKnuLTyZ53PeZHsCy/+jtA6pSADG183QYVn8OBxy0RuGTZWRT/ghVxvomE
-	vObkkt5vk6AcncFuS2+8JA1TxZ3wizW2bOWaV84YUeGWJxctkssejZJsKlMk78QxbZxhQEQhnVu
-	8zk4IQM2Fu2mjTtZVxjvx2fJDqd3jrDWulSJprtLPfF158ay8TGUNoPLPjhed3vWcGLFvSTw0Tq
-	U2XBeJrhTPDvS+MkQ2/sodX7VqMKYW0fXvMPrK9H1zzhVsSpfvgwpWpr23/WuxCX2jw4RjwJJUr
-	VEl0V9yQnVFBeVPfgahTfbQg4gI28z3Fjbi56yEL60RmSFcGQAnR3AJhbZSksixjuaiubXFx3sQ
-	H9TMN1jLPlYc4/5DB+hUibHm6pYfIrmwId1S2UbTDSbP1fQx5cHwbVpoM0EOVXdvA+J8jnW0ObO
-	DjOdz8peerUNhYSeu5VnG6PkVHrMUZEcF+jnFTV05kCmRQ==
-X-Received: by 2002:a05:7300:f58b:b0:368:7c9d:1577 with SMTP id 5a478bee46e88-36f75e295e2mr1519316eec.20.1793932155955;
-        Thu, 05 Nov 2026 18:29:15 -0800 (PST)
+        bh=O7t6qfqKXOFT9HGLkohs0lc0zBkf/KGLioAvYKS1zgk=;
+        b=WmOdE9ZiDjxvXseZQphZyk4v2U/JqIlYracAXLdUpCwAGZcIDfJzzMVZBBWFRq2y1E
+         slJhaSkM4LU1guqdyFxJjl1xTyjHEpYqwkh7+aSmOtCxbibBAfQBtLz8N7wED4RhKrJO
+         gZ6ifp/dThUzyCE1HulpS/Hh37WXSMng4jI2TrYj85SLV2YqqHWIjl6iKICVIOwEOZjE
+         uIWK271z9exrOoWulEmaCFcNe9r+5zqFw7pmPQ1HW3mdjgjEzpc20K0lLwgU+gJmmQMf
+         t8adPqURey5Zh2cbWvyDyVEPOmAlhkXR/iaErh5Xn8JyL4ZccVQOpl0ERrNDh0XEqNJO
+         BMNA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/sppS2I0m3uDKQtvDBOXDVKlqpHy/iujgxUAL5mLMifIT70fSkFgKVsWgidIgJgEPy30hLwmM@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z977Sq4mjP/Jtxr8wIK/UedIpIpJnDcMG/Z73MzBe9/AnCr/MvP
+	QzSEICyD4fehssnHrpMqz6n/yVIWaQnqddKy0jznhbKa1mpVyg1Ps+Zj
+X-Gm-Gg: AYBFou3nfSfB32uKpLE5cHjVJ0WFvr4hlvzSABI/w/9Al/GXzoAlsN08XPXmceoNQtx
+	sTxWsxHBL/CFUDenwzu450eBA/OG2L3rtJ0+qMzRCJjXtRc4BgsYT/tkSwNC6LP/1cUYAD2q4Yf
+	QFoCWw93xJSo4XzpwOJSgGXkwTUdAllZOm1XpYJHUcyvK5wScrZTasW8qJKGAte+/zTbwoZrquf
+	0DXu5ayDl4vVvUekX8W6ueoFBSn3Zcbs19Tw3FIh1YGTxN7j8HuVb+7xDSm7Zm434a+YP1mB7bk
+	nNaS+Vw4C0F83Lh628/ZktbD+BMhviugDOr1c/uZdEe7MisL34Mv8CMgyPlSTxSidvC6FS6rE/l
+	r0mdTrwQydgtA5bazIezYavOGK9V0kuZtdoTkAIppI+O1eqHQsX3RmGSJcgCe+s/a1HUxZ4Jqtz
+	XqC0f633iHnzgBRGwDo1R64vbMLDmDJ3ApCSHlySGay9OPG4ltiIFkJ62sT5PQFgUN5LF5Q722A
+	f7ofVi5LAwV1RfR8l7d9nxrg1wZ9ZWB2Gzcvf7/ZB5HnchIoBc13TXkJFV4bBZfgm6Q29rfjdTn
+	iKrnE0+b327tp9Pc+qAZ8c5rz2Rp+7zVOR5jXZdWbwKnt/0=
+X-Received: by 2002:a05:7301:fc02:b0:36a:1788:3d1c with SMTP id 5a478bee46e88-36f761249e4mr1506830eec.34.1793932162278;
+        Thu, 05 Nov 2026 18:29:22 -0800 (PST)
 Received: from debian.prasanth ([103.183.205.43])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a47esm1700358eec.6.2026.11.05.18.29.11
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a47esm1700358eec.6.2026.11.05.18.29.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 18:29:15 -0800 (PST)
+        Thu, 05 Nov 2026 18:29:22 -0800 (PST)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: linusw@kernel.org
 Cc: andrew@codeconstruct.com.au,
@@ -87,12 +87,13 @@ Cc: andrew@codeconstruct.com.au,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [PATCH v4 0/2] Aspeed GPIOP handover with managed controller lifetime
-Date: Fri,  6 Nov 2026 07:59:05 +0530
-Message-ID: <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
+Subject: [PATCH v4 1/2] pinctrl: aspeed: Use managed pinctrl registration
+Date: Fri,  6 Nov 2026 07:59:06 +0530
+Message-ID: <20261106022907.10735-2-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+In-Reply-To: <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
 References: <20261105152348.8567-1-prasanth.padarthi10@gmail.com>
+ <20261106022907.10735-1-prasanth.padarthi10@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -107,68 +108,48 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This series continues the AST2600 global-to-local GPIOP passthrough
-handover work, rebased on v7.4-rc1. It adds a shared pinctrl lifetime
-fix before the G6 handover change.
+The shared Aspeed probe helper registers its controller with
+pinctrl_register(), but does not unregister it when the device is
+unbound. Registration can therefore outlive device-managed callback
+data, leaving a registered controller with pointers to freed memory.
+The G6 handover change in this series embeds that data in a
+device-managed allocation.
 
-The registration lifetime issue was identified by automated review:
-the G6 callback data is devm-allocated, while the shared helper used
-unmanaged pinctrl registration. Patch 1 switches registration to
-devm_pinctrl_register(), ensuring unregister runs before earlier
-devres allocations are freed. Patch 2 retains the v3 handover logic.
+Use devm_pinctrl_register() so controller teardown runs before earlier
+devres allocations are released. This also cleans up the registration
+if later probe processing fails.
 
-Changes since v3:
-- Add managed registration as a separate prerequisite patch.
-- Keep the handover implementation unchanged.
-- Add KASAN lifecycle testing in QEMU and on B650D4U hardware.
-- Update validation statements to distinguish lifecycle and power tests.
+With this change and the G6 handover patch, one unbind/rebind cycle
+passed under generic KASAN in AST2600 QEMU and on B650D4U hardware.
+Controller debugfs entries disappeared on unbind and returned on
+rebind; a subsequent pins read succeeded without observed KASAN
+reports. The unfixed control case has not been runtime-tested.
 
-Validation:
-- Shared helper and G4/G5/G6 objects compile-tested with W=1 on ARM.
-- G7 SOC0 object compile-tested using ARM COMPILE_TEST; this was not
-  an ARM64 build or G7 runtime test.
-- Generic KASAN boot and one unbind/rebind cycle passed in AST2600
-  QEMU and on physical B650D4U hardware. Controller entries disappeared
-  on unbind and returned on rebind; a subsequent debugfs pins read
-  succeeded. No KASAN reports were observed in the captured tests.
-- The final v4 source tree matches the tested v3 tree plus the
-  managed-registration change; only commit order and messages differ.
-- Earlier remote power-on/off and physical-button power-on testing
-  used an OpenBMC 6.18.24-based kernel, not this v7.4-rc1 test kernel.
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-The unfixed runtime comparison has not been performed. Concurrent
-readers, probe-failure injection, mixed-pair forwarding, protected
-writes and SCU510[28] hardware handling remain unvalidated. Existing
-questions about probe-time normalization policy and concurrent SCU
-writers also remain open. Electrical measurements are outside the
-scope of this lifecycle test.
-
-Supplementary procedure, exact source/config and logs:
-https://github.com/prasanthp20/asrock-b650d4u-bmc-support/tree/64eaccfde9ac4ec35646c0b7a8663486775b5d3b/docs/experiments/03-pinctrl-lifecycle-kasan
-
-Previous version:
-https://lore.kernel.org/r/20261105152348.8567-1-prasanth.padarthi10@gmail.com
-
-Please review the shared lifetime fix and the GPIOP handover policy.
-
-
-Prasanth Kumar Padarthi (2):
-  pinctrl: aspeed: Use managed pinctrl registration
-  pinctrl: aspeed: Hand over global GPIOP passthrough to local mux
-    controls
-
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 145 ++++++++++++++++++++-
- drivers/pinctrl/aspeed/pinctrl-aspeed.c    |   3 +-
- 2 files changed, 143 insertions(+), 5 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+index 7e0ebf11a..d19b4d23c 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
+@@ -461,7 +461,8 @@ int aspeed_pinctrl_probe(struct platform_device *pdev,
+ 
+ 	pdata->pinmux.maps[ASPEED_IP_SCU] = pdata->scu;
+ 
+-	pctl = pinctrl_register(pdesc, &pdev->dev, pdata);
++	/* Unregister before earlier devres allocations such as pdata are freed. */
++	pctl = devm_pinctrl_register(&pdev->dev, pdesc, pdata);
+ 
+ 	if (IS_ERR(pctl)) {
+ 		dev_err(&pdev->dev, "Failed to register pinctrl\n");
 -- 
 2.47.3
 
