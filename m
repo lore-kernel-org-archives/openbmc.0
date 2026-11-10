@@ -2,47 +2,99 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30B8606A321
-	for <openbmc@archiver.kernel.org>; Tue, 10 Nov 2026 23:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656A1606A321
+	for <openbmc@archiver.kernel.org>; Tue, 10 Nov 2026 23:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FShKVU64
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jPMZZ5rqyz2yr0;
-	Wed, 11 Nov 2026 10:00:54 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=46.101.248.176
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794329800;
-	cv=none; b=SEwHNz5XRnIpK36esUGhFtLxpunR/BQXUR8TuwpMZtNU7nnTSL8rvWkGxQussxai4WJdDnEOnkeOtSH3xQ9LAsMBx9Ntt895Gmj5z+OdlE+K8QiyWen1K3RvG2nEF+Ef7fUyxSyAqMveCiA6PMnhpW0iHYit0ML3+j31eKCR7T8fZ5WlKlhzxT8bELTh7gmvtccFxOWMJbBA6tpL7lXTSk0BY7xHNUb7V/+NtkUgB/qF6T5aPTT8kTuH+8w2VKWNktxPJVTAYuY2pWQEQH9tBKEo8YyTE3P038UYbxtDPvZt+OuTU/o8Du3aIPiMgTyP8vWXfiUDB+z/TLCmiv9eFA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jPMbF4kMLz30VV;
+	Wed, 11 Nov 2026 10:01:29 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::732"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794286698;
+	cv=none; b=UU0sm5vWEIS88DKmszNQEmc15SZ1Ny61PBev2bS0xeArGbYkk2BB1j4MWIyuMlGX9zU5pLaKefo5An9dz0OO7qSCj5EXXeFyKID6vA+o6F+dZjTV4hpyzg0uYJaw6mhQ9ZNpTc7oNoLgdlwYShWffJhpUHcNf21YOh6HA1GaF2CYFHwbUfXBfIHHKHGhSOsBZ4jIUnj9VTM8gEhggqWfDpGrvp5E46OgmBtB24mWN6sg/C0CUjKkZ/N7K/umW88bOmRBUjYnFM0lPIKT8+fNxxfr64kKsohyXODlP0riihDmSzynB+un4Vkk4QFqpx9kiYaK5kXChdNDfhkAX1XrfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794329800; c=relaxed/relaxed;
-	bh=OMUVvNok96eLG6z3uWZdjjBaPhh9NjlLMIaPd6V/DRc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WlTpnMuWuD6cNnu9VddFBskQMX13Zjw693H8oCksIdHvOQCUVeWnKnTTdMjQNOjA3kZSuyEyowjUvbh2LP2xEt51/Xzu9CCB+pv4xmpKbwQvbcDBt0QpaAscLGovv4UXFGr42LoIESnvVFQ2eeC8cAcq3e3gKMQn3YLmXKeS02hGk7AlcScdv0rX6PXCTo32GAY6IJXi2sGUG95YURWq+3IXGUgwmfd0JpvdnjtEr8y2+e/xg7ib9cPTRXHNHR05Hlmcthh0d0iH4Y21AYC+984OysTXKh567t13faY+fHEjPoUl5Jw90Of1u9qaIbtNq3153oZmc4AGcyvJVI2nyA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass (client-ip=46.101.248.176; helo=zg8tndyumtaxlji0oc4xnzya.icoremail.net; envelope-from=stevewong@hust.edu.cn; receiver=lists.ozlabs.org) smtp.mailfrom=hust.edu.cn
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=hust.edu.cn (client-ip=46.101.248.176; helo=zg8tndyumtaxlji0oc4xnzya.icoremail.net; envelope-from=stevewong@hust.edu.cn; receiver=lists.ozlabs.org)
-X-Greylist: delayed 88 seconds by postgrey-1.37 at boromir; Wed, 11 Nov 2026 03:56:38 AEDT
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jPCVG5sM8z2xfK
-	for <openbmc@lists.ozlabs.org>; Wed, 11 Nov 2026 03:56:38 +1100 (AEDT)
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMC2fmpnTPNqWa8vAA--.40713S2;
-	Wed, 11 Nov 2026 00:55:03 +0800 (CST)
-Received: from 51f0e866aafc.ntu.edu.sg (unknown [155.69.197.24])
-	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S4;
-	Wed, 11 Nov 2026 00:55:02 +0800 (CST)
-From: Suyuan Wang <stevewong@hust.edu.cn>
-To: iwona.winiarska@intel.com
-Cc: openbmc@lists.ozlabs.org,
+	t=1794286698; c=relaxed/relaxed;
+	bh=33/y7FEbAJRMpWgPc6HOmiquLc0W6X+Eem8um5Z3JJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lHxm3tzBe48GuZ20O069vYN8qqTfDselV569bL21vXG3st0GvlknSdcxCbFaO4+PI8IqjSPgI4cnDpvA8C6YWIw5OHw1anRKUJPi1ybT6zZiKFHkbeYEos0eNHa/bUXnH4wbwgjcDi1nR/xTb9+toaRAjmpLhIOjTfTGowvtJwApihbSnqBZafUZioxeBsIrvUADPqNiXgV8T5O8gL728V3MG2eR1YFiGrdVqF2So6DOI8k735SalojvEkcgk6THLmDgGOoKjT7XgDYgZYGiaYZr0mQSKprybzUktHft6smaxgXPC5yzR09dPiaXJIWYsW5u1zuSLOHCimYd+x8zKw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FShKVU64; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::732; helo=mail-qk1-x732.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FShKVU64;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::732; helo=mail-qk1-x732.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org)
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com [IPv6:2607:f8b0:4864:20::732])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jNvYP2tfLz2yCr
+	for <openbmc@lists.ozlabs.org>; Tue, 10 Nov 2026 15:58:17 +1100 (AEDT)
+Received: by mail-qk1-x732.google.com with SMTP id af79cd13be357-93e635220b4so148332185a.1
+        for <openbmc@lists.ozlabs.org>; Mon, 09 Nov 2026 20:58:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794286695; x=1794891495; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=33/y7FEbAJRMpWgPc6HOmiquLc0W6X+Eem8um5Z3JJ4=;
+        b=FShKVU64FW4AEdR4AOMqKLfYRr9dmV+OS84VyKRZ9nI005DL4AXuWkI3YzAzbqNpmN
+         iuvrDZaH6t5mDG7cLz7ag8z98wuNkmh8Ei+H0oy2RA1jdN9480fk8NHX2Zb9gDa14Arq
+         9QpzRBaptj+QnR1U3WpvKDm9PVzn3nyG+yIXce7DfghlRhBA1rU0q5lOyKK8PT4Tozwq
+         CZXfHmntmzLmsvyz5V3FhuvoFtSyvik9Kl1cFC8pxA5N7mWb+zzSDOu+klYm7Us90HpS
+         +JEcOFwX8SdLIqrxZz7UsBGRAUjRSkcbm9qda2bZR58Wcsd2e73FjegqBzundVlF5M0+
+         5X9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794286695; x=1794891495;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=33/y7FEbAJRMpWgPc6HOmiquLc0W6X+Eem8um5Z3JJ4=;
+        b=VysoryAtCtBQFzYnniVHu+Z1fxkASWsDr7Wlwq4YFhxIfzJnjSNNxUzGWoGeRbQ+bA
+         TMYe8SsqFCSVE5SMUP344OevVl+upcGCBJ7983PiW8YuzcUdEtPaiRBsus2XK/hI/zT2
+         eY0cDKJIr8J/tv4hdJiK604+2tOQ0eULpXh53luuE8ldX0CwkNszQQXlkfF0dRFkCKi+
+         cc180KUj8uu1fK3Zp6yHrkPIf+cJeXk8MgH39YUd57+OSxH078ciI3lnQbY5unIu7O29
+         q6vjpjNShGAbMQEgVS+phMHKZZaxznia+K2+L3Dp3TBgjOuVDrlLkN38vKC2RFMEM684
+         zunw==
+X-Forwarded-Encrypted: i=1; AL+hErHFDQjc4zxUWFTpsLHj1eaM0tZUIv3KPf/GarijvQDwTGCNj9clNwDDBEOZFxm3biDeGuUdjVHv@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z/EiP4jv97timuV3U1fRbp8rsArCG5PNFmnMm0Nijllm9jq9GWJ
+	Vn6X/yV9UDBaplZeZAxPwgb5MKoMY7qQqFzRBRsz255wRPZQVzLWJZI=
+X-Gm-Gg: AYBFou3H/F/alcdIWtBOuoOuo1nrloXIgp05fTeP7THbzquuCK40Wib/wnpL5gIOp8U
+	ok1cSvnQJcmA/WJM3DUrNnc2D1p29opuayZs/ftXZgDqv/jO1sJoii17oKwn11AGt4YuhAMDoGM
+	CEawVxC2DsEQAUZEv3GmmnLbOmC1V9BxYP2iHW8x1K3fPqOKaJ/aAchORfPmKnhz/wL7uAadCAt
+	2kcWVK4TAn3DKW6GV1PY1L/PmLBiTnvPzSDCFT+V3xz8L1Jccn5tB0QrToBf2NTdeYtC6WHpfT3
+	lKQdM90xCn/MU+JNjdTgtpXcfDg4mwmrfw/3o3q6/Xkl7TWvEglHUBzwDecMNjz5PAiXay4N27q
+	IOMCyjjqbUnNFlzPkaNlR6iTJ1jl6IA2Gcker8mPusoRjTA84PX0AVEfA8F2vX+SKrCHWuH5pwc
+	tvacCHMLJJomNDv+tptoknbrr9R0OeIXsi/2SGUIodJWiu1vJ4dI6epkmt9rgyOFetFYjiquuVY
+	V1XjgJpV7hy5k262FuwLwspEhHVH122zZEcRy5vIK1uW89/QlNqf1xFpPIHbPHMf1J7hpHQ36k+
+	lyF/eyG5W/IqKeZDi7mrNr9mAzAAHkX5MZg4AzQUNtbjwN7TIq3eX/7Q82SI3dgCxICjxMqY1qZ
+	muQ/GNOCIFPHes1uQN/c0ZYhkVrJpSLHYX9SFUSbYjsXuz9AxSEv7ECLMRiItfi28/UADVeCCI1
+	3L6yWnZuI2SQ==
+X-Received: by 2002:a05:620a:2614:b0:947:8018:978e with SMTP id af79cd13be357-9479f22d879mr260742685a.6.1794286694660;
+        Mon, 09 Nov 2026 20:58:14 -0800 (PST)
+Received: from localhost.localdomain ([104.39.152.7])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04f89c1sm12462836d6.23.2026.11.09.20.58.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 20:58:13 -0800 (PST)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Jammy Huang <jammy_huang@aspeedtech.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	joel@jms.id.au,
-	gregkh@linuxfoundation.org,
-	Suyuan Wang <stevewong@hust.edu.cn>,
-	stable@vger.kernel.org,
-	Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Subject: [PATCH 2/2] peci: Fix use-after-free in remove_store()
-Date: Tue, 10 Nov 2026 16:54:49 +0000
-Message-Id: <20261110165449.1996921-3-stevewong@hust.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110165449.1996921-1-stevewong@hust.edu.cn>
-References: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v2 2/2] media: aspeed: drain IRQ work before stopping the engine
+Date: Mon,  9 Nov 2026 23:58:09 -0500
+Message-ID: <20261109235731-aspeed-v2-2-mhun512@gmail.com>
+In-Reply-To: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
+References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -54,96 +106,91 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IAEQrMC2fmpnTPNqWa8vAA--.40713S2
-Authentication-Results: app1; spf=neutral smtp.mail=stevewong@hust.edu
-	.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoWxJry3CFy5GF17Gw1xZFW3trb_yoW8trWrpr
-	ZxXa45Kr1DWr17GrsxZF4UWFy5ua1fA34rurW7Wr1Ig3W3Ar909a40vFWa9a4rArZ5KF4U
-	Jry5JryrWayUCF7anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
-	x4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1ln4kS14
-	v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l
-	5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxVW8Jr0_Cr1UMcIj6x8Erc
-	xFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWU
-	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE-syl42xK82
-	IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0CD73UUUUU==
-X-CM-SenderInfo: jxsqimirwzmmo6kx23oohg3hdfq/
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-remove_store() doesn't hold a reference to the device across
+Last close cancels resolution work while its IRQ producer is still live.
+A handler can queue work after cancellation and buffer cleanup. The worker
+can then turn clocks back on after stop has cleared VIDEO_STOPPED.
 
-    if (res && device_remove_file_self(dev, attr))
-            peci_device_destroy(device);
+Release the VB2 queue before shutting down the engine, since streamoff
+can need capture and mode-detect interrupts. Disable and join the IRQ,
+drain work, stop the engine and free its buffers before re-enabling the
+IRQ. Check VIDEO_STOPPED before enabling clocks in the worker.
 
-Once device_remove_file_self() has dropped the sysfs active protection,
-nothing keeps the device alive. peci_device_destroy() then does
-
-    device_unregister(&device->dev);
-    device->deleted = true;
-
-and if device_unregister() dropped the last reference, the second line
-writes to freed memory. So writing 1 to the "remove" attribute usually
-ends in a use-after-free. A controller removal running at the same time
-can also destroy and free the device first, and then
-peci_device_destroy() reads device->deleted from freed memory.
-
-Take a reference before device_remove_file_self() and drop it at the
-end, the same way sdev_store_delete() does in SCSI. The deleted flag
-still makes sure that only one of the two paths unregisters the device.
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: 42bed52b2e9c ("peci: Add sysfs interface for PECI bus")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Compile tested only. The race with controller removal comes from
-reading the code, I haven't reproduced it.
+No hardware testing.
 
- drivers/peci/sysfs.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Changes in v2:
+- Split normal last-close ordering into a separate patch.
+- Balance IRQ disable/enable within stop; add no reopen state.
 
-diff --git a/drivers/peci/sysfs.c b/drivers/peci/sysfs.c
-index c04244075794..4b1c8b91a3cc 100644
---- a/drivers/peci/sysfs.c
-+++ b/drivers/peci/sysfs.c
-@@ -60,8 +60,19 @@ static ssize_t remove_store(struct device *dev, struct device_attribute *attr,
- 	if (ret)
- 		return ret;
+ drivers/media/platform/aspeed/aspeed-video.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -1423,6 +1423,7 @@
+ static void aspeed_video_stop(struct aspeed_video *video)
+ {
+ 	set_bit(VIDEO_STOPPED, &video->flags);
++	disable_irq(video->irq);
+ 	cancel_delayed_work_sync(&video->res_work);
  
--	if (res && device_remove_file_self(dev, attr))
-+	if (!res)
-+		return count;
-+
-+	/*
-+	 * device_remove_file_self() drops the sysfs active protection, after
-+	 * which the device can be unregistered and freed, either by
-+	 * peci_device_destroy() below or by a concurrent controller removal.
-+	 * Hold a reference until we are done with it.
-+	 */
-+	get_device(dev);
-+	if (device_remove_file_self(dev, attr))
- 		peci_device_destroy(device);
-+	put_device(dev);
+ 	aspeed_video_off(video);
+@@ -1438,6 +1439,7 @@
  
- 	return count;
+ 	video->v4l2_input_status = V4L2_IN_ST_NO_SIGNAL;
+ 	video->flags = 0;
++	enable_irq(video->irq);
  }
--- 
-2.34.1
-
+ 
+ static int aspeed_video_querycap(struct file *file, void *fh,
+@@ -1847,11 +1849,11 @@
+ 	struct aspeed_video *video = container_of(dwork, struct aspeed_video,
+ 						  res_work);
+ 
+-	aspeed_video_on(video);
+-
+ 	/* Exit early in case no clients remain */
+ 	if (test_bit(VIDEO_STOPPED, &video->flags))
+ 		goto done;
++
++	aspeed_video_on(video);
+ 
+ 	aspeed_video_init_regs(video);
+ 
+@@ -1901,15 +1903,17 @@
+ 
+ static int aspeed_video_release(struct file *file)
+ {
++	bool last;
+ 	int rc;
+ 	struct aspeed_video *video = video_drvdata(file);
+ 
+ 	mutex_lock(&video->video_lock);
+ 
+-	if (v4l2_fh_is_singular_file(file))
++	last = v4l2_fh_is_singular_file(file);
++	rc = _vb2_fop_release(file, NULL);
++
++	if (last)
+ 		aspeed_video_stop(video);
+-
+-	rc = _vb2_fop_release(file, NULL);
+ 
+ 	mutex_unlock(&video->video_lock);
+ 
 
