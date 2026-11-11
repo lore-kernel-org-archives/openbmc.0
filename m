@@ -2,50 +2,72 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDF7606E2AE
-	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2026 22:47:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8348F606E29C
+	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2026 22:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Gl/93D
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jPzCd0jzcz3bcr;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jPzCd2Cr6z3bcy;
 	Thu, 12 Nov 2026 09:46:37 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794404956;
-	cv=none; b=fXePj1ugKrw3FYV+P8GrHipWPAb81ja0I3qhIJtGeaG1S6rJ3+PylQS3DjLtbPFbXgHodjIN+lzWirjP4ugS43LCYVqweENKtiuUiMzrIK7sRMNbQZ2tRgeQPFyeUGnN3As2IwgkWd1lBX1LtKIR+SvaGgf9s0LY2+RiylmbYUn9z16Gu4MGYzQopOwiwGtYr6VIhiLqzr3cy/hSAwhgyMBH6WnSWiPWJuBsGhRTEGdDpzaqCLnl/ohKZSQzjAbTgJ/qNdTXg/sz0JG0Mb4Oh1Ezh3WWg/Zk0tZisOM5S0FCFxBDs0Av3GuKp68lzeSyg6SXALtAnSENlqQglh4BxQ==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794434033;
+	cv=none; b=NPslj3sabIsGskwqAcPkTHRNQpkTHW5DyNiN+PbmU0+fol8cS75nQmzTBwvjqtqF1HHBV0Yw26yA5DVM2jqT+YHS/B1mNTdeR/qKkWGRWmetq6shHhOkVXruRQECE3ybbBnNIQOxAmg3b8opASnAXvIMX1EsIJbhV9eTS/YEveJU+uJogcl9+Ffpia7ee5gXKQIyzb3HPM303Tktfdg6oBRVyiQroZdlD4y4a5Ey20ruURAS/KhGVHu09IBCzgxX7BqOlLmPWb749snZXMTEV2RD217Qv08mCGzCQAsX2hTG1UCnHDSPOUK2+o1QB36BMLdOOUTwp+ULf+VkXG9qBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794404956; c=relaxed/relaxed;
-	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ef2px4eaOQAJyRCpFqIxFru2PMuWNZ/vAEwHsKmUsK8TzIwRVDPj5ozVtMY/IUGK6z90fa94rhPdhCQ9yAxd4Hjzc0XZ4GyEnzBJ1pMCczW15Jh3CWP/eh7cybTbVz4hX2upXqM1JwpidsKMEao48LBnL6v1u1lGxNwy0q9YUSGgAhPVDXcQeRGBLb73z9ks/Luz6xsslDMzPbF1w6AkL7ndKlKOoPWv5xoQisYZeW7oGfIBPXfpTPqNfpTuRP7kWIQfyWlK3xqQKQdrd53OBjOJba32Hx9rnuovkTjQXNoOlDFqIF/dzemCxN+SR4W0Mve1+6Mw9ASxyvSbxxdHnw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=hverkuil+cisco@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+	t=1794434033; c=relaxed/relaxed;
+	bh=gbExqfingQo1Ed8SYTNsBzSSp4PBA3Al9x/EZXvEVK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N4XiVegXt5is2rk9/T6NYPDHFlENFrAWjKUZrkfE82+2QvrOl5CXoHXj40OHatqdCce2cQt+y1NRQNu8S5/zYKiF3T0BxSp1LhgzyBJ0hrPF3Q3ptBY7GuGhnOPzBPsfGCfT1BHDcGtm4aIzWJjpIaZqWN7eAguNqm4BXQsGkS3xaUa7veIosw8EkiIC7TuMURn1RrU15d9yycSpZToP849R47G3q3QBEQKDMM33Ka9KyAoZlt0gSJtK81F9+HPcVfqQtFo2uCMsppwZBoY0AiIl7uhoaKD9zdKe497q6VWFVEQY7rIRWTffuieBk7xNheNrJtJD++Qs/ilp7VY0Sw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Gl/93D; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7Gl/93D;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=hverkuil+cisco@kernel.org; receiver=lists.ozlabs.org)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jPlHb64mGz2xWt;
-	Thu, 12 Nov 2026 00:49:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jPy2m5MSlz2xmh
+	for <openbmc@lists.ozlabs.org>; Thu, 12 Nov 2026 08:53:52 +1100 (AEDT)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id 112CE60DEC;
-	Wed, 11 Nov 2026 13:49:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C871F00A05;
-	Wed, 11 Nov 2026 13:49:10 +0000 (UTC)
+	by tor.source.kernel.org (Postfix) with ESMTP id 8473A634A1;
+	Wed, 11 Nov 2026 21:53:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2111F00A05;
+	Wed, 11 Nov 2026 21:53:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404952;
-	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=kHGSC6rHES3fHGZkuagSOTPK0LWKUZKCjuI+lKf1BasID5OyztlT+Ko/nNpHMz4Sv
-	 vPAcVMYZPLUMmmqJCkf1oJjzzW6wkhqQ8ypErW107oHctP34/qcyCdss4xUTb6qQja
-	 nOqGHv5GsAovhkdPZxCk1ybqg3zw7k8AXnC2viWd6wc+BVvA6sXa4KHjdNry0+KKQ3
-	 M9neRAmq4YT8GzC/oY/GKN2OGEC1piS7TW9gn7ccAXrbMDsGLeqgqOQ4Ui0G7OvsxZ
-	 aUxrSMvyzFwDzfCJUFgYI6yA9/fWRUlZxJVj5/nuV3CRsGjZXBe78pwJwitdKROhku
-	 Fu43Uec9NT9ZA==
-Message-ID: <5b068d22-4f46-4f82-8914-ffed5a0f6f0f@kernel.org>
-Date: Wed, 11 Nov 2026 14:49:08 +0100
+	s=k20260515; t=1794434029;
+	bh=gbExqfingQo1Ed8SYTNsBzSSp4PBA3Al9x/EZXvEVK8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=R7Gl/93DTvmW4Vr/YYv/SyBz3EDvlwIQTwzaAZpE+dRhu+A7AQqSJSc2tn106VLB0
+	 vPcrhouNDXj8yW9embSr1SKu+p9ANmKUAZTVrsc/yth6YgKKA59TUDZHIjWGIfX+7X
+	 vFkjUWsDsM/IBOO3IOgX8hCHx5u2TFB1UB0i5UaMGhaiAr9JIpr2Opu9v0IhvR+dlx
+	 eQEW+VkHGYasXkub/rckft0+WwaDeh3X5opsNNkqWHAsywPxte8W+0GT9QG0KGXo90
+	 ZcJFUVAtg2IZOBOXT+mU0hoJQYqPJAssu1GS54y2oC4+f8GVjVyVukaOcanf/47HF1
+	 8rEZi5HSNyk1w==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Maulik Shah <maulik.shah@oss.qualcomm.com>,
+	jordan_hargrave@dell.com,
+	tomer.maimon@nuvoton.com,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	openbmc@lists.ozlabs.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 06/10] pinctrl: nuvoton: npcm7xx: Fix fwnode_irq_get() error check in npcm7xx_gpio_of()
+Date: Wed, 11 Nov 2026 21:51:51 +0000
+Message-ID: <20261111215256.1982044-7-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
+References: <20261111215256.1982044-1-lee@kernel.org>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -57,64 +79,51 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2 0/2] media: aspeed: order probe cleanup and last close
-To: Myeonghun Pak <mhun512@gmail.com>, Eddie James <eajames@linux.ibm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Jammy Huang <jammy_huang@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>, linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Eddie or Jammy,
+Commit 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+replaced irq_of_parse_and_map(), which returns 0 on failure, with
+fwnode_irq_get(), which returns a negative errno on failure (including
+-EPROBE_DEFER), while leaving the !ret check unchanged.  As a result,
+negative error codes are stored in pctrl->gpio_bank[id].irq as large
+unsigned values instead of aborting or deferring probe.
 
-On 10/11/2026 05:58, Myeonghun Pak wrote:
-> This revision requests the IRQ after its dependencies and synchronizes
-> IRQ/work before manual probe cleanup. The second patch fixes last-close
-> ordering and keeps the engine available until VB2 release completes.
-> 
-> Compile-tested on ARM64 with LLVM, W=1.
-> No hardware testing.
+Check for ret < 0 and propagate the error code, matching the NPCM8XX
+driver.
 
-Can you review/test this series?
+Fixes: 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+Closes: https://sashiko.dev/#/bug/linux-95c9d7d3-32bb-4f4e-ab7f-84872957de4f
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-I don't feel comfortable merging this without your OK.
-
-Regards,
-
-	Hans
-
-> 
-> Changes in v2:
-> - Rebase onto managed reserved-memory initialization.
-> - Remove the research sentence and Assisted-by tag.
-> - Join the IRQ and delayed work before manual probe-failure cleanup.
-> - Keep VB2 release before normal last-close hardware shutdown.
-> - Drain the IRQ producer before cancelling resolution work.
-> - Balance IRQ disable/enable within stop and check STOPPED before power-on.
-> 
-> Myeonghun Pak (2):
->   media: aspeed: join IRQ and work before probe cleanup
->   media: aspeed: drain IRQ work before stopping the engine
-> 
->  drivers/media/platform/aspeed/aspeed-video.c | 38 +++++++++++++++++++++++++-------------
->  1 file changed, 25 insertions(+), 13 deletions(-)
-> 
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index e051ff141d6c..47cc3ef8ddfd 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -1856,9 +1856,10 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
+ 		}
+ 
+ 		ret = fwnode_irq_get(child, 0);
+-		if (!ret) {
+-			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
+-			return -EINVAL;
++		if (ret < 0) {
++			fwnode_handle_put(child);
++			return dev_err_probe(dev, ret,
++					     "No IRQ for GPIO bank %u\n", id);
+ 		}
+ 		pctrl->gpio_bank[id].irq = ret;
+ 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
+-- 
+2.56.0.567.gdb80ae8cd5-goog
 
 
