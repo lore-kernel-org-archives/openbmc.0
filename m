@@ -2,94 +2,59 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81724606A320
-	for <openbmc@archiver.kernel.org>; Tue, 10 Nov 2026 23:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111E1606A320
+	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2026 01:51:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qVXWsx2f
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mySf9XVQ
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jPMhy117mz2yR1;
-	Wed, 11 Nov 2026 10:06:26 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a00:1450:4864:20::62f" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794286172;
-	cv=pass; b=boV82FhEsLFdEEAHvhbdqgjP5PlRM8BCaONpamFgIuaG2KD9f0k1t7wygb8R6LQmqnfArq2Vb5O5kVkuPFFfe/q9+1I4sDhquX9t5FBKlJtpUic9nrBem0RqimHzOUtb0MnocPGE4atQ720Rfn02Ap/3vA62nAGmDV5tbN/vnr//9GGOK2bMJcHH3heRQ6Y2jb5K9ZQKEDdntfnQu2geSzd6sld0xyXsx//CNh6x83TBjZ+8LswXYOOdaQuxAqVl0/ztrsFPBMccGfFjfJxZEGEW7jOtWJtljD8EYHSHcK4BqtLiGEIcDDh+Khtc80BGQbIsL0o3Tw/2YJBTTh8dHw==
-ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794286172; c=relaxed/relaxed;
-	bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NIYqB/Zjq6AN89psvsGW5gU0vVBq+pmwMgS14w7xjhRWVbXyDbF4pcd2dnKhKofAvPyiaSdmIlae/OI/CfpWfBKsei+QASOeTYICVwde72YA3zJXgjicmFvgDXziKvGB/WVgoK15wQmWGSKQw3Dj1JaydMwEoh8Egse1scrUH/zAHGx508DpxF3O+BSO1vicBur9/+Wg7uf6pCzvjthc8bdrEoOoH/j2IX3JtPokKTmMHsMlfJCWxDTTfZpidPYge3ErBJ8HO6FiwT6oO1UWMFl5bBulOWRqeZju6V1TtvdnqXiQp+omkBfKj6PjHpL/K/Oiu/zA1COoyxVDx7V2Tg==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qVXWsx2f; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::62f; helo=mail-ej1-x62f.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jPRMl2c54z2y2h;
+	Wed, 11 Nov 2026 12:51:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=156.67.10.101
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794361907;
+	cv=none; b=Ag8anBFElRbVGcS1Hzv1/LK+SFg5/lo/MUqmTFEKfFL3LTfPrWlKnwibyKZuWtc3EywW7IYlN5I+kVMgHz+ifm2KQjfiYCHhOUUHsRKc0q/ajXK8ffJSf6Yj8rxd8iFktgbNpAz1+FdHnW89xsnelx0WbOxIJLQcIYNJkJduwHrSEe3oFgmluL+yngTP0d403eyZJ47Kqe41iAsap6xqLOFUU9zXGCTJGLFfC6E3bmtauqoVaXM7xiO1NDgeAvoPYMUtAtc8T2/rtXFhJaRYYXzEjtD0IK2guPoGxY8cluswSIQRIeyfGYCABzd7h4KiLS0ovR1wFouVf04l7uaZtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1794361907; c=relaxed/relaxed;
+	bh=OJWRJnqwXadUVsht/Q2DFEwLV7TOry8KzPZeVNhA4yo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kSzBF8s8tDyRFmTmZy3zzdStkcxHn1cRoOOM8OasOQNBskyN8BzweDoiKmXR8ihaJKuwpCR0DXf3iZCH9DBly+aJ6LHfAfrwMZ7tTc+FJasi5jLJ7Eop1TpBRshAp3PjV7tgTXDQ712hOCkMA85B+oT+NEVylUFykzvbuNX5r929rw+beWf15agUn2oO/EGQuNvi2WpTY4LK/Jqf/3q2ZpNudbbPQoj09yWWscjXjP5vSuPRzd+94n9MLaZEzrc7LclmoRr23aLzeiB583f6HKrSfG8ZFn+D6SE8c3p49Mk3qDR+jLLvoZgo7B1Mc6g8rEJ/P0I7vESEG1Z20SxuJQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mySf9XVQ; dkim-atps=neutral; spf=pass (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org) smtp.mailfrom=lunn.ch
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qVXWsx2f;
+	dkim=pass (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=mySf9XVQ;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62f; helo=mail-ej1-x62f.google.com; envelope-from=mhun512@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com [IPv6:2a00:1450:4864:20::62f])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch (client-ip=156.67.10.101; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch; receiver=lists.ozlabs.org)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jNvMG4K2Pz2xjN
-	for <openbmc@lists.ozlabs.org>; Tue, 10 Nov 2026 15:49:29 +1100 (AEDT)
-Received: by mail-ej1-x62f.google.com with SMTP id a640c23a62f3a-c434376dbebso302190366b.1
-        for <openbmc@lists.ozlabs.org>; Mon, 09 Nov 2026 20:49:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794286165; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M3tx9xNW6qxcFRT8tAmiJsk2xLXiDDO0nW2r5sHZ9fgD1YWuWBPFi0LFzakwBJvz+M
-         FQvO7iq0+MT83AesC4kyGV6RBXmVXVt8QxrzLJaQ9WlZMJEk64kWldtRXwfgkeCO5BqR
-         ssFYAg8XDbSmWSBnijLjZrDfd0EdsVsvyP+9/cv9x3S+Kv2XIOwdV4Aen16a9oWP0U+m
-         UFUFm8c6MmBRCZxk34TuqNf5o5Mssr2fYEWNaSDGi4iQ68uQ6p1BlaxCCNKZ4rImbqc0
-         hLjXxj4Ma6i5WmfpXo29dGpZY0Fp4X1vIU+ErTtJcqJdbnB0K2O35K8xPZiiHlP492XR
-         JFrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        fh=sxHcrmWZqU5Tflxl1nDgq71GacEkjdPXfufA7MxwEzs=;
-        b=dvdyRNaMWIrgIoodUnzmVJ1D7oVQCdGUDLZLoP9gonIoGxUipykYj7GjHcM7SIY9DH
-         ++LkFPb/2qb7ouu9TRDmCBVp4guEbi+anczC11qHL5bVwcuISRiVi403RZlQmzfKSDrm
-         JcxV4TmsvZeclElfnyVsMdTORlcLbLIA9pHtSZEOf44ei8QgykVHTlX1dPlZ8zMI+/rU
-         6+D8kyHzDghdtXYUsZRzOvvb+fB95Xi1v2IR/0QPiIjDHihK8KEVqbRXHIwr8wRt33vK
-         IFgUygzEzrGxt65+QwPkO8rVMzT4DU8CqlwwEKcuelkHIkI+8rLx+YuQVwLUoXTt2USD
-         T94w==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794286165; x=1794890965; darn=lists.ozlabs.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        b=qVXWsx2f9Zkj9TQevZdznxoTAiT+qZQjccpZhnHs/YNFOiwtg7APiFxq/XVoFiKcRL
-         syL6Yx1BKzMDR7k6AUbkI8gH6jHhpbU7ljUxgjJsUTljizjOOIGmw2Xz/1M/AnRVAiKS
-         SWrtn/2XRWspKEegfebUcoUqvML6u+OgP8W3WOoeFlI+Dksz37P3EzfRm91RTnsD+riC
-         gvb09qE8GZxhZ6XfMmtHlZkDVTRAlU1PqJKEgaZIGb2oep7KAO76/sQF5Z1wNHB+z7lx
-         bKafu9JXvyAl6SRM9Kle9uAT9/9hkn0B42DxcP2wOEXkMtuSN70670E/IWMcQTQwfQWx
-         CSQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286165; x=1794890965;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        b=wERcLPtbw50HrsV+L4w2aKjfOBqZnU5SkMvjP2l2vxLaRalvHlMfo7lEGapARhWkcK
-         6gCnGGjT7JyseKZJpcXjicp/i0zTtZ5h0t1TjpwiaXDyb9OnAcg2fLDZYzD3oxvEMo1H
-         R7YxDgFJWUtjPsSryKsxv7yEhYUPzYnf8IyYpcZjpisI+pOfPNPwzCo9xwiEbFcDGx9s
-         pumKoA6JRnxpKn5ZYscwDOLLEMtzUoDQKtyWRp8ot4rHfli6J7mQgLmUuAO1y+y6jf7y
-         /1K+jTerZXprPVGeeWcEazrBnkrqLd26dbQk6X4Qojkk756xr/HyWKQYqd7igbTxXJYW
-         nKBQ==
-X-Forwarded-Encrypted: i=1; AL+hErFBWd8vxU1sxdzaCzeLOmK83holrcrLbPK+nMayed3KYFKaf2HQVAxqRiDPVSdsB/hlcuoGn5WR@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z+BbotjOwiJ6ONdDiK5PuydDLGCqaWRG54nP62QHv9saPyArSjJ
-	+sWHL+vLSziJ4mdey60PW6EqPavEWBix0kXhdJAtBezOQnQUQTsc+uIhZ9KvfDQmXByuRKy2jFp
-	CWiNbswiGD1M2aUrhuczsFqJbcx9l1Q==
-X-Gm-Gg: AYBFou0+wh6g7AFlgxPsr+a3kNQhFaLOmSDPwgDflohJwvjYcJDqn7yJvD/Lj2d78cY
-	FD7WCTBgz+48p4kv/i3zLZkfq27PD/KxSWCU50ilVycL3q3Mhr9JqbeGqjDsFSF3DtLf787uaJ+
-	bTsg0ryV5WSd3HU4NHRPzE5FMQG6zMUr3JE80XLmSD2APCJaJ6QbODgz8LX84UwtWSlq+gfUREn
-	70e9oov+NLwz71x+digxvWuYE6n+dW2NNezVuvQfmaxg4qva/sFBMlcL9hbZnG7tLCeJUX6ZvxZ
-	wSHa7JRMLQOLmHqKGREBXk6FKYtI3LYono0dhJkcMfjdZd/DgVLMPVHAqTmDCf60RQrD92AM6j4
-	qplx6sweZfVP/qKyFElBfFykagnHcM/DOhcH8VjaKxzd3ajvciEazvk4HCvAdSZKTbkEY3PkBeK
-	yVgtfe1yau4QYGM3ySmaMic85prV0IbRIrggLXWK51RSVCqus=
-X-Received: by 2002:a17:906:240f:b0:c41:4512:560d with SMTP id
- a640c23a62f3a-c5049699729mr80819466b.16.1794286164826; Mon, 09 Nov 2026
- 20:49:24 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jPRMj0MSlz2xBK;
+	Wed, 11 Nov 2026 12:51:44 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=OJWRJnqwXadUVsht/Q2DFEwLV7TOry8KzPZeVNhA4yo=; b=mySf9XVQwFmioK8Lp43oGmhZHA
+	PkxEtdO4+vINJ69AxBvKVEduIJnYfS1bUcQ8f2rFTNMH45FEyMBww/bgNLceL29jAyC1jKiQimM/O
+	eXC49pMGyYtrGwsqi3aoC4HaDpEMGPgjYEffWO9GNmftYwnsrsC5gxN+iurYCpieVpiU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQxUe-00FcwI-AE; Wed, 11 Nov 2026 02:51:20 +0100
+Date: Wed, 11 Nov 2026 02:51:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jacky Huang <jackyhuang@nvidia.com>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Joel Stanley <joel@jms.id.au>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>, devicetree@vger.kernel.org,
+	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+Message-ID: <9e83c1b9-0bfa-4a37-8253-3740dd7d0b62@lunn.ch>
+References: <cover.1793705210.git.jackyhuang@nvidia.com>
+ <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -101,35 +66,55 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <gm-top10-20261015191529-g65-295aa0ac5211@mhun512.gmail.com> <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
-In-Reply-To: <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 9 Nov 2026 23:49:13 -0500
-X-Gm-Features: AclHuK9dEbOFpKZBzF18DRp2ysCfTdn-dJEdIFaJ5Bm7I0rvJVmVsW64xtISAdQ
-Message-ID: <CAGEsz8F3XkYkLOzrncnLVNHSgfC3tZ_zYdVrTR4xavq+h9anhw@mail.gmail.com>
-Subject: Re: [PATCH] media: aspeed: acquire IRQ after reset and clock resources
-To: Jammy Huang <jammy_huang@aspeedtech.com>
-Cc: "eajames@linux.ibm.com" <eajames@linux.ibm.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
-	"joel@jms.id.au" <joel@jms.id.au>, 
-	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, 
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Jammy,
+> +/*
+> + * On-board PHY uses RX and TX RGMII internal delays
+> + * so phy-mode is rgmii-id
+> + */
 
-Thanks for the review. I will address your comments and send v2.
+This comment is not really correct.
 
-Thanks,
-Myeonghun
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+
+
+> +&mac0 {
+> +	phy-handle = <&ethphy0>;
+> +	phy-mode = "rgmii-id";
+> +	pinctrl-0 = <&pinctrl_rgmii1_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +/* NCSI MAC */
+> +&mac2 {
+> +	phy-mode = "rmii";
+> +	pinctrl-0 = <&pinctrl_rmii3_default>;
+> +	pinctrl-names = "default";
+> +	use-ncsi;
+> +
+> +	status = "okay";
+> +};
+> +
+> +/* MDIO for schematic MAC1 PHY */
+> +&mdio0 {
+> +	status = "okay";
+> +
+> +	ethphy0: ethernet-phy@0 {
+> +		compatible = "ethernet-phy-ieee802.3-c22";
+> +		reg = <0>;
+> +	};
+
+But these nodes themselves are O.K.
+
+    Andrew
 
