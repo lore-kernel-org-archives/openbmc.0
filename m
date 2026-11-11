@@ -2,69 +2,63 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E3E606A337
-	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2026 22:47:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B766606A32A
+	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2026 23:30:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/97iSa
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jPzCf2YqXz3bYx;
-	Thu, 12 Nov 2026 09:46:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794434023;
-	cv=none; b=iUK2oCVUfVwKO+7IBA4PlOXG+EHpQ9urXH7vcVOtb6MHwNEh4u8pU0LlD5mPyNIcxK9/OmNakzCkxDvz1x9d6By+ORMzE+EqWem+p0ax9GB0Vft7s3EH6cWg8v7c3lnIZYDg7DsGLxQFSeCjNsU5/GKCto6qe9tfACylGhWwx0kCvHwf8pNzWmhfcu8929oy6So2AHrGKDJhU1RX0uqDQH+2v/INTzckR6+oa0zOuafnozvkPPzMuTXDwkVZxLL+OuehedIwDZpYPFNCBIK68Kak5M+WM8VV1OIdQZ+uHN6cLIkRg+86zYSGza9olUR3k8koKXj9icGscVHqlg673A==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jQ09l1GzWz30W5;
+	Thu, 12 Nov 2026 10:30:03 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794439802;
+	cv=none; b=TYR9Z9wSkfBs0FqcDMqEhKOemEPwA5LBHHYih5cS6jJTp/2Imix1+CYkLVfvTSGZYJnyPJ53cDVcVt58pjXyb6k4t37Z3FkeW40o4e3j84/MI07loiRUR4QucZtJTIEZQWaN1oCz0xbEEuf7zD4LB6fKxBxth7k/UIHLT/InYEtw5BVajE7O42RvdxHkTL5A0eV8fWd3Op+ZIIHkKy1OlnifjL06UgX1k3q89cs0GG6ld55mkGbGR/bjvEMcsX+NQ6Y0MTn2I4eDyT+9ccNM8Q5zbttejHIUDs0KTMyw2r1O2XH5gs/9StEjxqqUza/RFXgTtA1TUnJLy9yDuDgMFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794434023; c=relaxed/relaxed;
-	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eoCuVxoXna/QCIpQ08+l4oy7kK3RMswjFkE3z9775axDETE6381SfBqHGkjbL46He9rG7mT8PYphlOuXIjZuyDHYtlrso9dd9MCf3eLWWOJ+mypWYrDJu7jcPLGWo0UAI+4/lK0Oq9kPkjjg0cXuH9YB5RPkFsd/YK6s+leZ+ah0yRnWOrld7wTtJ3+UcZieW8RfrcXQQu58kh0fhDbMGKcymeEyxurnn0JByQudxnG7u3xoKGV9eq0QHy0D5rv/ZJ+fMqMWxK3P/0tkzYvcug10F3zPbcS71KCpIqhdjAetms2FqvTkZ6l4CJnCC4FZbRGbyP+l2swhIIWUTPJg+g==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/97iSa; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1794439802; c=relaxed/relaxed;
+	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=P0xBH/GEwFUSOmBSV7WGFC+OeL8xbp4ZYffQAaGFb33PmESFEjJS3s5O5vIz98Q7NpXi/n4kW3R9I629Aks541WLcdYR0+ht2lt/qxONEBRVe15VFMTq+cFEJrQNNzPkeBlKu0PwKkWe3Rk5OtAYdQEKceBtb9wlPiFc2iNPWqiH8faYm2Eg4Lj67mQhcjpluhxAkM6zM444ZLoM7FwNFkwr8cEZY5yiMHgbf4KurGfVYPop9TjsUpt71nUwjepv4k+WIGtyuBVxg4FNR43y/cdMmeE6d1BjxDpKEXh8a0NR1MlCb9wzFmCHEso+U9XSRw18L+8WFgSap3L5hkIePg==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cc/97iSa;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=KD+N4m3F;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jPy2Z5LHrz2xmh
-	for <openbmc@lists.ozlabs.org>; Thu, 12 Nov 2026 08:53:42 +1100 (AEDT)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id D50AD63548;
-	Wed, 11 Nov 2026 21:53:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524451F00A05;
-	Wed, 11 Nov 2026 21:53:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434020;
-	bh=apIjcWhf6ft4S9T/nv2WWzs4no0FMzMPTMX+Kk+3eYs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cc/97iSavrA4IxIRd9mCOgRBAgykrO3P1diDKl3/aXyIRxwlJUUqpSPMSCXNw1mtn
-	 iIVVYAuIXAY6urRd2MMraBg+A6Mf72dwzWVIWhyKArx0SHdRNjgUtELQxQMbFQhX/t
-	 O7ofOti9Apk1c3OdSIIsAyasg63o96z4exmcJgmTd9TCASpwDYIdeFc6RM3sy8QdQN
-	 hQqL2KrN5zXN7L77iZhjirgCf+Wb7iKRaWTC+6CShMrtyJH68UzPbm05mvCDr00xU5
-	 T3Emo8nbPf5wMCebGmxAgfciuCVQsIPx2sM+7wcFyYZJskgZRtXczzsu4/KcaMbruI
-	 FnQbO5/eWaYgw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Linus Walleij <linusw@kernel.org>,
-	tomer.maimon@nuvoton.com,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] pinctrl: nuvoton: npcm8xx: Propagate npcm8xx_gpio_register() error in probe
-Date: Wed, 11 Nov 2026 21:51:50 +0000
-Message-ID: <20261111215256.1982044-6-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
-References: <20261111215256.1982044-1-lee@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jQ09j2xnkz2yqs;
+	Thu, 12 Nov 2026 10:30:01 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1794439799;
+	bh=4jTQv18d6f1WQDZPy8KbBDvAw2VyV9v3NRrsYhICvJ8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KD+N4m3FafpulELFLuXVw9qA2sr62kqjZns89QS9ygPOv1uZ3Vt23iID59FR9yobW
+	 mXLcnCqeJXqjnuwkx3u5k5yfMVCSahFMzu7cjYe1WBBMdryWAlcIhe6EmViHIozTov
+	 jFZ1X7gUWke2ocIFRWQtMBBZChLgvJhg8cqNOLz26uy3ticSXZk2LNWiyavGR2YNg0
+	 jXKd4bklxKqKdmWlik5SxLDO5xidJ4pupeTmBrqs+fKBCJkPAo5Kjzb0XNbmkHKr6k
+	 Vdb476ZIPgAULgRS/7Jwt1Bzj/sTUfZc3fJUV+LeO2fTr06UqmsMUh1FKQ8nS899if
+	 H5eUI0c0Xz1jA==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 9EE65704C1;
+	Thu, 12 Nov 2026 07:29:57 +0800 (AWST)
+Message-ID: <42bb0b817905637239c16b94a562254cd0e6a644.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Jacky Huang <jackyhuang@nvidia.com>
+Cc: joel@jms.id.au, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, 	ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com,
+ devicetree@vger.kernel.org, 	linux-aspeed@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+Date: Thu, 12 Nov 2026 09:59:56 +1030
+In-Reply-To: <179438627442.2016371.12057101111349178921@nvidia.com>
+References: 
+	<91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
+	 <179438627442.2016371.12057101111349178921@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -76,40 +70,36 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-npcm8xx_pinctrl_probe() logs an error with dev_err_probe() when
-npcm8xx_gpio_register() fails, but omits the return statement and
-returns 0 instead.  Propagate the error returned by dev_err_probe().
+On Wed, 2026-11-11 at 17:32 +0800, Jacky Huang wrote:
+> Hi Andrew,
+>=20
+> Thanks for taking the time to review this.
+>=20
+> > Can you please expand the description of the platform? Why was it
+> > designed and built? What's its purpose?
+>=20
+> The NVIDIA MGX Vera C2 is a Vera CPU-based server platform. I will
+> expand the description in v3 to clarify its purpose.
 
-Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-cff468bb-80b4-4cb3-a5ff-2b3a8fdb151f
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks. Just to make sure we're on the same page, I feel stating that
+'NVIDIA MGX Vera C2' is 'Vera-based' doesn't add any new information as
+it's already in the name. Describing the purpose would give better
+insight.
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index 6150cde7e824..8a7cc46b5001 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2583,7 +2583,7 @@ static int npcm8xx_pinctrl_probe(struct platform_device *pdev)
- 
- 	ret = npcm8xx_gpio_register(pctrl);
- 	if (ret < 0)
--		dev_err_probe(dev, ret, "Failed to register gpio\n");
-+		return dev_err_probe(dev, ret, "Failed to register gpio\n");
- 
- 	return 0;
- }
--- 
-2.56.0.567.gdb80ae8cd5-goog
+I'm after a helpful description in the commit message for the purpose
+of summarising the content of the branch when I do a pull-request. 'Add
+support for more platforms' doesn't really cut it there.
 
+If the platform is described on the web by e.g. marketing material,
+please include the link.
+
+
+Andrew
 
