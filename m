@@ -2,58 +2,87 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F024606A338
-	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2026 02:24:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9F0606A323
+	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2026 06:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gDfCVlne
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jSWrZ5ZDfz2y32;
-	Mon, 16 Nov 2026 13:23:58 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794795838;
-	cv=none; b=YInIR9lUAuEVuB5n/9NL66I3fJjD2LMVfX5s2ZMsnTLiQa09RWRq5GNNDzZrrZfKgg4k11q1DEKvpsWJpVcszMRlLoCFu1EJzx5U8KwuZJA3f3ym7f3fUhUhDKC4alwqczMey7Ys8iU/y0HvHN3NWQpmmccaGs2cRp6AabbkvTpjtbWypdXOM8LAFA8tSd3qHUcId9IIeuNfSNfdjaadT3y+Z7PHNx9eq+dVbUICK10kd2WlL76trpjhI/MljaoliyreexlRSsMTbG4j9B1H8g0sQjzoWsNNZATVheS6Oos3K6ihZfeIiPaPgwJXhC60TSZVvRjOhOf/Uqek2Ln2Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794795838; c=relaxed/relaxed;
-	bh=EDZwOZg3Q588TfuL6t6I4Cnp8t5eHtm06GoFr0ORVGw=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VWE67NXb8qiUBOxrh7eWwymSnSO8oxtZVwqRc9VkdLPWpcaTidKIXfW9D3Gb2xNwrubEX2382RQSVnC3b/ve/4tPZ56Qu/fAPleYa9o10lSDextcNLJ0uVGaFHNUlKjMclIbEn+OoZ4mWBGSrdD2ivcIRhg7SjI2aysvHIJrS0IJpg62/lUgiecPQORrbrWUi5XDuqHEwRl9osVfffkGCfSYUIOGIxq755vGSZOfP8OoklGZkmYbrTd+3A98VOds5mkvM89Emfyw1WaPCH+FAABGwyQfITeStsqgGGaP4WMUQL2a+6823aVERYKy04pfNu7t7sxih+kkHFqABDuJ4w==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jSdCr0HLBz2y32;
+	Mon, 16 Nov 2026 17:26:00 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::1" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794810155;
+	cv=pass; b=E7fQ53br8jsHDAVFHPNqN9xG2FSuyiKTLFXiRhwz6LU16eiaJFg6wXwQJ/2Vn8JgvNKq4x11pgUVSc/GtvCKaYC6aiUWIkGjGGw+0O9ZjAPwRyAM+GoZ7dCO6cSEmj9HK36GVSvGyS0R7hhoioNtyN6c9wpMsPk0qsii3Q1dbWbNy0J+MlEsuhyQ/0WkJw7wA/f/XpBQTI//buQs4f76lvRe3FsmGD5NEM08U78a1KAvTcXQbjY/E8sW/O9qouLr5Jy6ZDdrJngfK9VNsY5pxJE8EkwwCxS6sJuvsa4rFFRIlstJXW4rMz2+/ShTCwrXbbPHRTqQNiKmkrJkiKZ7zQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1794810155; c=relaxed/relaxed;
+	bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=UgLa80Ey+qZiBmOJqkGffYRGaa0Ja4SM3aulhQ2lvgQwDwgDrN7R6QvsqC58rcfQSNNDOXX117VL9SdMLpL21lwzRYlKSLCBqE9a37lxMqfCGdtVniJuDLmRlyiFBXM4qUIQUyPL2LeWph9a4uDydWZkqv49ecMnDv/lNl6vy1W8oH1JMaPz32blF/tlOSFUcBJStFpRZXtHzRUMqtg9thqULATXTgJsPDbGLhEkOTHu4R1ytTZ8f5Exr8xXsfCFqqOIm3PvdZUAFclqz9PLmyczrYEac6NpmpgZCs06EYRlY9fwl62qf3Yg5Y0BmRRMpJB3oOE63BUN2J7XSiDDEA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gDfCVlne; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=akavi@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=gDfCVlne;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::1; helo=ph8pr06cu001.outbound.protection.outlook.com; envelope-from=akavi@axiado.com; receiver=lists.ozlabs.org)
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170120001.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jSWrY5D47z2xnS
-	for <openbmc@lists.ozlabs.org>; Mon, 16 Nov 2026 13:23:57 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794795836;
-	bh=EDZwOZg3Q588TfuL6t6I4Cnp8t5eHtm06GoFr0ORVGw=;
-	h=Subject:From:To:Date:In-Reply-To:References;
-	b=J0yzZH2tpszw9jZfgMqWkW7cdyUQyx/N3Hj6z5k9lO9xoPxhRjFZsZsdkVoXU3QSU
-	 KtV0WDezw2K8WwEawaNgJv055iJP533IryI8Y2A/yU0nTrkRr1bXP3N4kqpWWd9vze
-	 G43DfaNmRVCeOdh6QGcQOqcOQf6hPG8fI5/tmcgilTgQlwPotEAj51dBgpRkxKtnbf
-	 3RrlHabfCFbolRCZ6/kfovjiPDqvyxCuSFETrrVpPSv5yeP5H/S6JVr+3btlJSObf5
-	 KpUEmJlVlSmSTNniZxwgzR1bumZ743UqZ3jsmM+AasvHKZMC84h0UF0btB7tAPMDse
-	 m5rfUyZAFD9fw==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id F007160070;
-	Mon, 16 Nov 2026 10:23:54 +0800 (AWST)
-Message-ID: <c258e51ae4639bf269aa9d2cedd50a625ddf0968.camel@codeconstruct.com.au>
-Subject: Re: [PATCH linux dev-6.18 v1] eeprom: at25: fix read_poll_timeout()
- arg order
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Ninad Palsule <ninad@linux.ibm.com>, openbmc@lists.ozlabs.org, 
-	joel@jms.id.au, eajames@linux.ibm.com
-Date: Mon, 16 Nov 2026 12:53:53 +1030
-In-Reply-To: <20261015172656.2586295-1-ninad@linux.ibm.com>
-References: <20261015172656.2586295-1-ninad@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jSd7s6JLsz2xly
+	for <openbmc@lists.ozlabs.org>; Mon, 16 Nov 2026 17:22:33 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ciw3xGxwS9VWwBwyjQEYyHEEY1qvYOXlHfstUk1hy5m8ks96oyk0JTwqg/7aiTcCWPdYTV77HucmMicM328ofs87TPqkMfsyXb1R3obcEsFf5Dj5cIqBMrn4xq486sAsT1EnfNmByApC0ksrlQt0iAFt3xF/aLiNcH9gzjpAIMLM4ST1NM63dCWeZDgfx57ZkhI1vQWSRW8h3EqfziuPpSW83PsvCMSmo74eqtvQhYXm+21o4Bvt0DBuSxbHlsfGEIxRiPupujbLXMNFY/k3BOwDczhpDsWmvgX8Pcp0aYaH1egB1eww63Hk4QRZE/t4nvay9KtvkRZl6G6hky6dOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+ b=w/V4hRQdsQ1i4Zsd5zbJWMtawoME2wMS98btopkF5haaomsTIxegRDOxcfx9nb0shlUtLFXdY4PPm4tOKa1GL3tpamqc8mgQo6ElFeGmYrdqyCotP4Dpe0kl7xkeQSd4+KI46b+yWN/fm9/xnqjF51vUClDM5+kwFBomzaC4SUNmfR7XRGvbosL/oIBbj64TSLkLA6qXG1IWM8pfvBrVSFTQ0seBioOmoqL3ugrSbnLVM2hGbp4eHKVEghlPGOTDYEGW39y9NrXkNOjTPJopddxeOxDyMUWqY82WJdde1gYWsM/Ej8yiAb4/KhEpatBveyjYQ2WKgH/VQe2qgSvQJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I66VCwB8U6KqMZqm/jOYZ89MwWUFsrGxIloB6REqzFg=;
+ b=gDfCVlneglpkenvumjIUvBtLqH/sXS/r1iVipglRNqmmMCQQFz/c+NHpFDRTpMuJ11Pq+3XZnI8x0ngDT/nU259hxhfSqZDFy4nSUt6bEonsO7ndwpIuWe2e1eJaEkPDx3UzjP8AWupSWjQAfC4k+C9nVH9fZU0vHQMxz1nd/WRfudPZmdvVVtMYUljbRQu6pUVuST1OXkhzlgSBK4DGOP3vRSjHbiYewzm4Nh58GJ/zxpEYMj7SEqvPDDkwyjLqPg8GjBlFqlfMBxbnVmDjnHzIx2Xsy9KyZSeg15Jp2gGAeVDlbNJj0XXmYdvC0kn4gA09VHyX0W0S0rBxLRcJGw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from CH3PR18MB5671.namprd18.prod.outlook.com (2603:10b6:610:1a3::11)
+ by LV3PR18MB6132.namprd18.prod.outlook.com (2603:10b6:408:275::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 06:22:09 +0000
+Received: from CH3PR18MB5671.namprd18.prod.outlook.com
+ ([fe80::d361:9d9c:4a15:4b84]) by CH3PR18MB5671.namprd18.prod.outlook.com
+ ([fe80::d361:9d9c:4a15:4b84%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 06:22:08 +0000
+Message-ID: <f752d203-8239-4203-aa04-884b4d7e5d80@axiado.com>
+Date: Mon, 16 Nov 2026 11:52:12 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 0/2] net: mctp: Add MCTP transport for the Axiado
+ AX3005 IRoT
+To: Jeremy Kerr <jk@codeconstruct.com.au>,
+ Sammai Chakravarthy <schakravarthy@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Karthikeyan Mitran <kmitran@axiado.com>,
+ Matt Johnston <matt@codeconstruct.com.au>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Adam Young <admiyo@amperemail.onmicrosoft.com>
+References: <20261101-mctp-transport-irot-ax3005-v1-0-36ceb822f01e@axiado.com>
+ <4102c20ece135c4d94e94af4441a01425ad159fc.camel@codeconstruct.com.au>
+Content-Language: en-US
+From: Akhila Kavi <akavi@axiado.com>
+In-Reply-To: <4102c20ece135c4d94e94af4441a01425ad159fc.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0359.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:219::10) To CH3PR18MB5671.namprd18.prod.outlook.com
+ (2603:10b6:610:1a3::11)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -65,64 +94,153 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR18MB5671:EE_|LV3PR18MB6132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75e66229-d74d-4727-60e5-08df43a9f124
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|921020|10067099003|5023799004|4143699003|56012099006|261021135927099003|261022105027099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	VVXsywo5e2hbNcWp8+5eUXjDTVAkWvDOr1CB3uJ2ogoMmmrVWMSYAIYES0IAzTaVxJ5Fd5ngapOcnwVwDMv3IvkNToWDcmJkNZwJl2oM7czVoNt5F+bxuLuwZbAVLhf/Uw+ICFUQ2EUF5sRH4DRtFrkpAkgKLZ1zDvFTIndQO/9/u29JHPbxpza+WYxfSV4+hM53xNjErLGBde1y0ZcxkrwZYrsojoIOpjvLqbMpB+NzrjB4bNC3M9KOvBwHvVTnn9aZ6juDPOSDJevnSP+QbRCPH6RY6QpcHy4rWSefJWWK4FWDDYw7dUy7f2+v07fBz117ykuwbalsPDtRNVViquQ/CuFalncyEI70fJ5rRUYslI8x4Pc3Pm9A4w0dDlUmFj73M1H9G23+Ha1EWJ8FXMiHr7sX32rgdDuruHIzJidHiB90pAN3R5FoyYDv8UrYDGvZE/CNDBW/vGlC1K8UU23dLMhi92jwRtY+081qraYZXiK2Qjqt1NVOIs2TazzdJwEqlmT7qGBDlO0uFkKluKh965iG50hbyCSxz8hycac5u/0OmwxdO7Gv0auuZ4xvXZoG7L0iHVLLFPB29FaeKdAi7aQP7iKBLIDIO9f88NHBNJYjJAHzFmcHY4y5AVNhjvsF90vS1zeWJK3dvgyZYhS2SVtcwGBMDPXur4WvHozZPdfN6a0QdYYbvqyxwDlXKvgKr73pxS3MtVMl89ah3Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR18MB5671.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(921020)(10067099003)(5023799004)(4143699003)(56012099006)(261021135927099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L1k1Tkc4TzQ3K0hvRjJ5M3d2a3dQM0VRSkFwWXVuc204NFN6VUViaEMwWXRQ?=
+ =?utf-8?B?RURVaXdMRVo3ZlBGTDlDRGlHOHh2N0tFQXdxeWNUTlo5a3JOUjR6dC9pUDhP?=
+ =?utf-8?B?VVdzNEdQWDZ0V3VobWNLS1cvSDBEbXBwT1h4aXVRYlA1aFdNSzJqSVR1NnVX?=
+ =?utf-8?B?cDFqb1ZrMjFLNy9FdlUvVkwyMjJIWWFaY2tmM2tTSFlnQll0TWd1WHp3d1Vw?=
+ =?utf-8?B?dzlsRlBpSWt0V0FZY0h5Z0RnQ1R1WWRYUXdKZ2QrZWkrdFdMaFgzTVp0TzFL?=
+ =?utf-8?B?Nml1L3V0Qnh0ZURNamF6OGtucUlFbllIbXBZRkZkWUdjOVhiOXpFNjZNZmJI?=
+ =?utf-8?B?UmFqT2RvM3VzOHhFTVNidVYyeEhBVXJGVXJQaHBibXQ0ZW92eGphRjlDY1Rx?=
+ =?utf-8?B?UitNZ3Q0Nks5ZFZLdzZ4WEsvdUkwTDRwWW1Kei9oNlJRWDQzUHptM1BINUpD?=
+ =?utf-8?B?M1ZRSXFoWk5XaVozM0JMODJwNXM0ZStOVTJCZ3V1dlhScHBBSHhYUytLY1VT?=
+ =?utf-8?B?SGYrM0cyVExGRUF4OFpKWFJnR3RkSFluTXhic3NjemJtNlhTLzdPaHltSUp1?=
+ =?utf-8?B?QllJOUVUS0tZRld2Um9WN0YzMitBb2NTQTlMY01QMVFnVkhjN2k4S0V0dW8w?=
+ =?utf-8?B?dVFQLzlCMjQwMmlsNGNHUVZhWWZYZjBpYzZzY090Z0hvMDBSL2xiZ2EyaEl4?=
+ =?utf-8?B?Z2o5NEtMMlZleVFkdHVOdjUvSlhKcitCZlZTcTFUSjh2bFFHQVRQUHUxMmUr?=
+ =?utf-8?B?eG1sbG9oMEV0dWZNVlJxcmpjcXU3NVo3Q2FNZHJBV2t6MDJnMUFXa1VCT3FB?=
+ =?utf-8?B?NFA0ZHZkajcwVVFJM2hITXJVbW5RZ1J0NklLWXFIWjJ3MjFVMHlqN2VjNlRw?=
+ =?utf-8?B?Qk13UDB3TEE0S1cvVHVYVDdaMGEwMFhMb2tJNURJS0hidURpSXpCaWJJVGZI?=
+ =?utf-8?B?NkVtYlVhOStuY1E0aEZmekpCZkdDd0hITHRUcXB3YjJMV0NhU1djTWtmN2Fw?=
+ =?utf-8?B?NzRDYURsM1JCV2ZHYTc2ZmxFUUEwMmhPeTRyWXJnMjg0THFzWVFyR3VZZ2w1?=
+ =?utf-8?B?MldscW9pNVZDWHRuSU1HRzBPcjZCbVptdHdEUlg5eFVYTzVjdjQ1d1hJK05h?=
+ =?utf-8?B?UGpFT1cveFFMV0k1Z1EyZElUb3RZVzJpbkNJWWc1ZkU4VkxQUWN3R1pCVXFC?=
+ =?utf-8?B?aFdPc2ZLclY2Q2VmNHhIY3VFbVJ1TmwvVlI4amlhamNVVzA0em4yclc3MFUy?=
+ =?utf-8?B?SzBKbS9IVnZkdVNhV05VbHRxVC8zUWIwbWZ1TjgvYUd2cmo3aDJncU5tSFJo?=
+ =?utf-8?B?UWN6a1lESnJVbFQ5UDN0UkFyZlJLZThkMDJ2emF1eWIrR1pXN3hNNGVkNjh0?=
+ =?utf-8?B?L1d0b0gxNVJkUjgvZnN4TFBkWWtvSklEOE4rQnNQRkZnNUh4N280Tlhsano2?=
+ =?utf-8?B?UjBhSllWME8zcTVuV1dWb0J6cUo5dWZpZ2xFZytud1Z3N3NKbkZicGg5SW8z?=
+ =?utf-8?B?NDk0b2I1aXcyMVBUVjJ2SGhSVTV6Qmc5VHROVGpPMVgzajA1Q1p3N0pwaXJX?=
+ =?utf-8?B?RHlSblRCVFNkZm1KRVZHb1VrNDNGeEp4RkhaeVRWdXlhSlNuSFNlWHd5TVFi?=
+ =?utf-8?B?U0hIOHpUb2FPVzJDRGsyZmNwQmtUR0t1VVV1eUJObVErZ3IwTWZ6Wk1pTHpH?=
+ =?utf-8?B?M3lwLzhpMnAxYk54bm1qWE11U2FFemZCVnlXbjRla3ZFMnlnS29BcUFDTWV2?=
+ =?utf-8?B?Vk5UTGZUemV4YjlyK1M5QmwzTDh4OTJjb0E1WlR6VXNJQWQ4elNrSHR2RkhM?=
+ =?utf-8?B?SkJrZkIzVnZXQ2w5a3dVYis3UFB3dGI3NklJbEQza0Y0VHJFMEhpOVBuVVhT?=
+ =?utf-8?B?elovTFNCOVdSem1pVEFkY1NMOXJaMlpPNWxrUFdzd1orc1Q5R2MrYmFOMHJl?=
+ =?utf-8?B?alpaZmJzWjhsN0svQzZFSjBKRTBYL1NVQjJ6aEJDbVVFWlM5blRtM0xROHhI?=
+ =?utf-8?B?bHIya3JONGNUeXhoOWMzTE9obVhlRzl6U3pNRk9tT25sRnN3WVFOb1lQNGhP?=
+ =?utf-8?B?Q3F2a3VoOTFtWWc2eTdJZ0RuTlVLNzY4ZGFHM3lSZWhZd3dpVjBqTzllWU9B?=
+ =?utf-8?B?TnpOWldlc0FwS09SL1Q3bVlLS1VITEN1QzJnV3BzM0VycXlKWDlHdFZ1aXpO?=
+ =?utf-8?B?aEUvclUyZ0YzOFpYMWYyYmk3elFMaVB0aFA0b2hYYUhNb1R0U3cyWFF0VlBP?=
+ =?utf-8?B?RnY0aEdEcFVVbzBidERoK3FWOURKd1NjeTJtNG5SWWczM25hRE5lRG1wT2R2?=
+ =?utf-8?B?Vmd1dWRibktyNTVscC95b0tZd3RTSDJTanVHVTRxWDcvd3ZmdmhUQT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75e66229-d74d-4727-60e5-08df43a9f124
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR18MB5671.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:22:08.6940
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iVJ0tSVh+satdHZwB/NrShB+LJ7edRfE2Df8GBZWDcpzDbDog2cjecX6qUNLMVPreSqW+spoB5N8jcQ2p8ZA3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR18MB6132
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ninad,
 
-On Thu, 2026-10-15 at 12:26 -0500, Ninad Palsule wrote:
-> The arguments to read_poll_timeout() in at25_wait_ready() are in the
-> wrong order. "false" is passed as sleep_us, while the macro expects
-> sleep_us, timeout_us and sleep_before_read in that order.
->=20
-> This makes the loop busy-poll instead of sleeping 1 ms between reads,
-> and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
-> fail early.
+On 02-11-2026 08:25, Jeremy Kerr wrote:
+> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+>
+>
+> Hi Akhila,
+>
+>> The Axiado AX3005 SoC has an integrated root-of-trust (IRoT)
+>> co-processor next to the application processor. Security protocols such
+>> as SPDM and PLDM run between the two over MCTP. This series adds a
+>> transport for that link, so the host side uses ordinary AF_MCTP
+>> sockets.
+> One overall thing: why not use the MCTP MMBI (DSP0284) transport spec
+> for this? Sounds like this would be an exact match for the MMBI
+> use-case.
 
-The fail-early behaviour was what you observed? What were the broader
-impacts? Put another way, what circumstances lead you to discovering
-the bug? I feel the commit message could benefit from more context
-there.
+Thanks for the review. To give some context first:
+this link is entirely internal to the AX3005, and not for host communication.
+The IRoT's MCTP endpoint is only reachable from the application subsystem on
+the same die, through the mailbox and the shared-memory carve-out.
+There is no hardware path to it from outside the chip:
+no PCIe, SMBus/I2C, I3C or USB connection reaches the IRoT.
+So this is strictly one point-to-point link between two fixed endpoints
+on the same SoC.
 
->=20
-> Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
-> timeout_us, and false as sleep_before_read.
->=20
-> Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+You're right that the mechanism is close to MMBI: shared memory plus a doorbell.
+We looked at DSP0282/DSP0284 and decided to keep the existing protocol,
+for the reason: Interoperability, which is the main benefit of a standard binding,
+doesn't apply here. Both ends are fixed on the same die, and no third-party MCTP
+device can ever be on the other end of this link, so carrying it as MMBI would
+add nothing.For that reason the driver stays a narrow vendor binding:
+It uses MCTP_PHYS_BINDING_VENDOR and matches only the axiado,ax3005-mctp-irot compatible.
+It isn't meant as a general shared-memory transport, and it doesn't claim to be one.
 
-I recommend adding a Fixes: tag too.
+>
+> [Also: CCing Adam who is working on PCC, which may have some overlap
+> with the mailbox protocol used here]
 
-> ---
-> =C2=A0drivers/misc/eeprom/at25.c | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/misc/eeprom/at25.c b/drivers/misc/eeprom/at25.c
-> index e2868f7bdb03..df8daa40b0e1 100644
-> --- a/drivers/misc/eeprom/at25.c
-> +++ b/drivers/misc/eeprom/at25.c
-> @@ -209,9 +209,9 @@ static int at25_wait_ready(struct at25_data *at25)
-> =C2=A0					=C2=A0=C2=A0 SPI_MEM_OP_DATA_IN(1, bounce, 1));
-> =C2=A0
-> =C2=A0	read_poll_timeout(spi_mem_exec_op, status,
-> -			=C2=A0 status || !(bounce[0] & AT25_SR_nRDY), false,
-> +			=C2=A0 status || !(bounce[0] & AT25_SR_nRDY),
-> =C2=A0			=C2=A0 USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT,
-> -			=C2=A0 at25->spimem, &op);
-> +			=C2=A0 false, at25->spimem, &op);
-> =C2=A0	if (status < 0)
-> =C2=A0		return status;
-> =C2=A0	if (!(bounce[0] & AT25_SR_nRDY))
+Thanks. The two look alike: one shared-memory window per direction, a doorbell,
+and a completion before the window is reused. The differences:
 
-I can't find that your fix exists upstream.
+AX3005 is a DT platform with no ACPI, so PCC itself isn't an option here.
+Discovery is in-band. At probe the IRoT replies to a mailbox message with its window
+addresses and MTU limit.
+Each packet carries a counter, so a resent doorbell is ACKed again without the packet
+being delivered twice.
 
-Can you please send it there first? Then we can backport it once it's accep=
-ted.
+Adam, if you see something both drivers could share, I'm happy to look at it.
 
-That said, it looks correct to me.
+>
+> And finally: how confident are you that the peer will never be able to
+> reassemble? Even if the peer's own MCTP stack may not reassemble,
+> there's no chance of it bridging to other endpoints in future?
+>
+> I have a few (minor) comments on the implementation, but would like to
+> sort out the overall protocol usage first.
 
-Andrew
+The IRoT can't bridge anything to this link. As above, nothing outside the chip has a
+hardware path to the IRoT's MCTP endpoint, so the application processor is its only MCTP peer.
+
+Defaulting the netdev MTU to the negotiated limit only makes sure that today's peer gets
+each message in a single packet. It isn't meant to stop anyone from using a smaller MTU.
+min_mtu stays at 68, so if the peer later reassembles or bridges,userspace can lower the link
+MTU, or set a per-route MTU for any EID behind it, without changing the driver.
+
+If you would prefer, v2 can default mtu to the 68-byte baseline and leave max_mtu at the
+negotiated limit, so the platform config raises it explicitly. I'm fine with either option.
+
+Please send the implementation comments when you're ready; I'll fold them into v2.
+
+>
+> Cheers,
+>
+>
+> Jeremy
+
+Regards,
+Akhila Kavi
+
 
