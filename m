@@ -1,63 +1,56 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AC8606A89F
-	for <openbmc@archiver.kernel.org>; Sun, 15 Nov 2026 23:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F024606A338
+	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2026 02:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=mJ5C3PhF
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jSRh50l5wz2xqD;
-	Mon, 16 Nov 2026 10:16:21 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jSWrZ5ZDfz2y32;
+	Mon, 16 Nov 2026 13:23:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=203.29.241.158
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794784580;
-	cv=none; b=mP6INKfhIXJX6Lrpg8D3VATsXk7D2MxHruOtCXY2E8Caiswycefoa0aivJBSeXEuMtENbIb46EzPU7gvJt824l/HQsdA+L/FTVQgAB31VQdHdO66KQv68fzCW3YFnKDS9vV/v4Znr5JLNkv1RlRfUefecnxUBiU1QLuD0uxIa5xJcycSzqrTvlUoKkm04gCJ/t0XcyYOJHMXK7rkNz0ISz6i85J+U74HqrywLMDNheUU3EVJwubKN3zTQwNUHgQX8hMw51+eHnQJ2c0FC+nkwjoCB/3oAdHGMrl9MnbayFUnVSatj28uGMklJjECjJ5uVGwJKHCvNqFtjHu2ZoHnxA==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794795838;
+	cv=none; b=YInIR9lUAuEVuB5n/9NL66I3fJjD2LMVfX5s2ZMsnTLiQa09RWRq5GNNDzZrrZfKgg4k11q1DEKvpsWJpVcszMRlLoCFu1EJzx5U8KwuZJA3f3ym7f3fUhUhDKC4alwqczMey7Ys8iU/y0HvHN3NWQpmmccaGs2cRp6AabbkvTpjtbWypdXOM8LAFA8tSd3qHUcId9IIeuNfSNfdjaadT3y+Z7PHNx9eq+dVbUICK10kd2WlL76trpjhI/MljaoliyreexlRSsMTbG4j9B1H8g0sQjzoWsNNZATVheS6Oos3K6ihZfeIiPaPgwJXhC60TSZVvRjOhOf/Uqek2Ln2Xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794784580; c=relaxed/relaxed;
-	bh=6fWr66mLdGMUcPCfj2lY5yCay2OcZCA9qUhBwidyWNs=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=K/3qz8hG7mjeot3+bw/kG2wpArhLBHd+XOh8awRd3UKfiKMcpcyFkAPWL45FOUsj4WC1f+Lq0Mzd0u9SYSwr5lC0OB6aTJFzAK3x3T4veXIJ1yg45Ah1xcKM/mMNvTw7bd8zT32KrWojUMssgU0KYsRiqnDqDlWVV8HPjg7sY2QMaUmFWy6bDeP9Ti/iOdq8TNdWeSsiVIcoam/XditVXfaWhd0EhgHTaS4ERLC959bmjP++8dEDnz8ShQh9n6y8aJDdYkiPKdGJatLghO1d6kZUHqktrKtABobw4x/hOnZ/SVymGmgMosr9TRMJ9tQ9NoesTSWXXFgFEbVWF/mtDQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=mJ5C3PhF; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
+	t=1794795838; c=relaxed/relaxed;
+	bh=EDZwOZg3Q588TfuL6t6I4Cnp8t5eHtm06GoFr0ORVGw=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VWE67NXb8qiUBOxrh7eWwymSnSO8oxtZVwqRc9VkdLPWpcaTidKIXfW9D3Gb2xNwrubEX2382RQSVnC3b/ve/4tPZ56Qu/fAPleYa9o10lSDextcNLJ0uVGaFHNUlKjMclIbEn+OoZ4mWBGSrdD2ivcIRhg7SjI2aysvHIJrS0IJpg62/lUgiecPQORrbrWUi5XDuqHEwRl9osVfffkGCfSYUIOGIxq755vGSZOfP8OoklGZkmYbrTd+3A98VOds5mkvM89Emfyw1WaPCH+FAABGwyQfITeStsqgGGaP4WMUQL2a+6823aVERYKy04pfNu7t7sxih+kkHFqABDuJ4w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t; dkim-atps=neutral; spf=pass (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org) smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=mJ5C3PhF;
+	dkim=pass (2048-bit key; unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=J0yzZH2t;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158; helo=codeconstruct.com.au; envelope-from=andrew@codeconstruct.com.au; receiver=lists.ozlabs.org)
 Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jSRh31gf9z2xnW;
-	Mon, 16 Nov 2026 10:16:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jSWrY5D47z2xnS
+	for <openbmc@lists.ozlabs.org>; Mon, 16 Nov 2026 13:23:57 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794784577;
-	bh=6fWr66mLdGMUcPCfj2lY5yCay2OcZCA9qUhBwidyWNs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mJ5C3PhF3Ubvh+ERFg1RVv+/p8e/beY7R3lbHUreYXp2Ks5lkZG5P2Yqau+Znd1Tc
-	 GSloz2NUdiHQmdyFMwVG/C5auPC38/cujdEB+dH9CPMATkceOmGPrMUx8mTxAepKCr
-	 aQaHSdgkr+CnoX+jJ6+0JQZbSqGQxjndWCTlZbNT75/H8e93b3xeyk3jrgxBzJaJrJ
-	 yRrqRfoMNBh8aljOnF2WLCSZnbap3NrGAzMYCEAM1rwvl+wblKQLPZxAmRhbzgVx1Z
-	 YkyvYTb7T4UnCA2yAb3J307fhqKhhAo4KFQtQSQuwljM0rnIRRKIzOumV24fEmxHX5
-	 uDu+AuK1fCjiA==
+	d=codeconstruct.com.au; s=2022a; t=1794795836;
+	bh=EDZwOZg3Q588TfuL6t6I4Cnp8t5eHtm06GoFr0ORVGw=;
+	h=Subject:From:To:Date:In-Reply-To:References;
+	b=J0yzZH2tpszw9jZfgMqWkW7cdyUQyx/N3Hj6z5k9lO9xoPxhRjFZsZsdkVoXU3QSU
+	 KtV0WDezw2K8WwEawaNgJv055iJP533IryI8Y2A/yU0nTrkRr1bXP3N4kqpWWd9vze
+	 G43DfaNmRVCeOdh6QGcQOqcOQf6hPG8fI5/tmcgilTgQlwPotEAj51dBgpRkxKtnbf
+	 3RrlHabfCFbolRCZ6/kfovjiPDqvyxCuSFETrrVpPSv5yeP5H/S6JVr+3btlJSObf5
+	 KpUEmJlVlSmSTNniZxwgzR1bumZ743UqZ3jsmM+AasvHKZMC84h0UF0btB7tAPMDse
+	 m5rfUyZAFD9fw==
 Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 713FC6005F;
-	Mon, 16 Nov 2026 07:16:15 +0800 (AWST)
-Message-ID: <91dd4caa78cff5961b5617958f4f7985ff55724c.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id F007160070;
+	Mon, 16 Nov 2026 10:23:54 +0800 (AWST)
+Message-ID: <c258e51ae4639bf269aa9d2cedd50a625ddf0968.camel@codeconstruct.com.au>
+Subject: Re: [PATCH linux dev-6.18 v1] eeprom: at25: fix read_poll_timeout()
+ arg order
 From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Jacky Huang <jackyhuang@nvidia.com>
-Cc: joel@jms.id.au, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, 	ryan_chen@aspeedtech.com, billy_tsai@aspeedtech.com,
- devicetree@vger.kernel.org, 	linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-Date: Mon, 16 Nov 2026 09:46:14 +1030
-In-Reply-To: <179455982636.2173009.10261089569510079520@nvidia.com>
-References: 
-	<91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
-	  <179438627442.2016371.12057101111349178921@nvidia.com>
-	  <42bb0b817905637239c16b94a562254cd0e6a644.camel@codeconstruct.com.au>
-	 <179455982636.2173009.10261089569510079520@nvidia.com>
+To: Ninad Palsule <ninad@linux.ibm.com>, openbmc@lists.ozlabs.org, 
+	joel@jms.id.au, eajames@linux.ibm.com
+Date: Mon, 16 Nov 2026 12:53:53 +1030
+In-Reply-To: <20261015172656.2586295-1-ninad@linux.ibm.com>
+References: <20261015172656.2586295-1-ninad@linux.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -72,35 +65,64 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 2026-11-13 at 16:57 +0800, Jacky Huang wrote:
-> Hi Andrew,
->=20
-> Thanks for clarifying. My previous description did not explain the
-> purpose of the platform. I would like to include the following
-> description in the v3 commit message:
->=20
-> NVIDIA MGX Vera C2 is a dual-socket, air-cooled 2U server reference
-> platform based on NVIDIA Vera CPUs. It provides a reference design
-> for partners to build and customize Vera-based servers using the
-> MGX modular architecture.
->=20
-> I will also include the following public links covering the MGX
-> architecture and Vera CPU:
->=20
-> https://www.nvidia.com/en-us/data-center/products/mgx/
-> https://www.nvidia.com/en-us/data-center/vera-cpu/
->=20
-> Hope this can help others better understand the role NVIDIA envisions
-> for this platform.
+Hi Ninad,
 
-Yes, thanks for the extra details.
+On Thu, 2026-10-15 at 12:26 -0500, Ninad Palsule wrote:
+> The arguments to read_poll_timeout() in at25_wait_ready() are in the
+> wrong order. "false" is passed as sleep_us, while the macro expects
+> sleep_us, timeout_us and sleep_before_read in that order.
+>=20
+> This makes the loop busy-poll instead of sleeping 1 ms between reads,
+> and shortens the timeout from EE_TIMEOUT ms to 1 ms, so the wait can
+> fail early.
+
+The fail-early behaviour was what you observed? What were the broader
+impacts? Put another way, what circumstances lead you to discovering
+the bug? I feel the commit message could benefit from more context
+there.
+
+>=20
+> Pass USEC_PER_MSEC as sleep_us, USEC_PER_MSEC * EE_TIMEOUT as
+> timeout_us, and false as sleep_before_read.
+>=20
+> Signed-off-by: Ninad Palsule <ninad@linux.ibm.com>
+
+I recommend adding a Fixes: tag too.
+
+> ---
+> =C2=A0drivers/misc/eeprom/at25.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/misc/eeprom/at25.c b/drivers/misc/eeprom/at25.c
+> index e2868f7bdb03..df8daa40b0e1 100644
+> --- a/drivers/misc/eeprom/at25.c
+> +++ b/drivers/misc/eeprom/at25.c
+> @@ -209,9 +209,9 @@ static int at25_wait_ready(struct at25_data *at25)
+> =C2=A0					=C2=A0=C2=A0 SPI_MEM_OP_DATA_IN(1, bounce, 1));
+> =C2=A0
+> =C2=A0	read_poll_timeout(spi_mem_exec_op, status,
+> -			=C2=A0 status || !(bounce[0] & AT25_SR_nRDY), false,
+> +			=C2=A0 status || !(bounce[0] & AT25_SR_nRDY),
+> =C2=A0			=C2=A0 USEC_PER_MSEC, USEC_PER_MSEC * EE_TIMEOUT,
+> -			=C2=A0 at25->spimem, &op);
+> +			=C2=A0 false, at25->spimem, &op);
+> =C2=A0	if (status < 0)
+> =C2=A0		return status;
+> =C2=A0	if (!(bounce[0] & AT25_SR_nRDY))
+
+I can't find that your fix exists upstream.
+
+Can you please send it there first? Then we can backport it once it's accep=
+ted.
+
+That said, it looks correct to me.
 
 Andrew
 
