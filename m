@@ -1,55 +1,54 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E3F606A32C
-	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 22:35:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BE8606A32F
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 22:35:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dvHmoOE1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jVGdk1d9Tz2yPR;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jVGdk3SzMz2yR1;
 	Thu, 19 Nov 2026 09:35:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795021613;
-	cv=none; b=GD1hwepx9MhXqbesoyuzicqh3imSNL4YMRoKrVVAej0rwCPbqMkJIfbh6rxxUCr5pmSbKrmcdBzDSTuJVgkm0ORDkzcOemuN8W3v0WXmCoCmBHFddGarlTRjG/BXmcLYIixuFE51j4vPWTVqsXG+8IblKPd0sWH1nYO7iuYoaY+9e1xKBXxpyu+e/wfpAIu2yUybKuC9COgahyljc7Vwe/LmTscOJIdgucefAcgq7BR3q9I1KFSBqTzbKhsullH9ySwTSoOWdLQ3Kvegvupb+FAH5MfQ5ktSCTFm5XjxdpRKLoT/5P3E06qC5Q2uVpDHJm53kdnSBLAiF0xHbUpLGw==
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795021608;
+	cv=none; b=ogtgL+N77XJroY+ZlQk4qgHaPgmBGkDQ96ZJKi5wPsEArgl3uYJrSILJ9NM43DbyTRP9Tz/ZbMFAGNuIQ5HAPecqtk9f8juh3YuKymJ3uxLBBvtx4YDEzXSQAoaAEV6jn+sw0nu70NP98ETBQ3PbO5SZXj1uHC9TYBuTcoFnDGH8IBN/LxfqKSBwXoWeg55pO5b7CQzABz3TpOoTgJYD6CKk7yZ6hm8ZzrTWloxA9ssNPj4OKwvtduvxZwDTsdNpulCicv3gsKA30NGdRgT/c6LFr2WX+IHmV5yWYanpWq1KOikNQhFERl2KijWelLjBps+BcOcxFgBB5cOE3JhfUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795021613; c=relaxed/relaxed;
-	bh=wWl7nv1+iCYYni971N0J3aMrvV4R7qgN1XFvCJhdF8c=;
+	t=1795021608; c=relaxed/relaxed;
+	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dmyjcNUKBtT6AaDWQ9p8hRCNIhlOi0eecPNcZAlJJTbLPn+w9m6+4ZZkliVwJzqBNmEIwO8EhmtyxbyV9R+Yo6/z+f5hXzkbpjyvB+gXfrKQEmXtJEI9nFxR1dEut1ZtRrWYdXlyY81TECwCXyTwpDYOpdBu8F1VCG5BgyUiMIWlYwsp29yNbU6aJ9XCoPY2NE5jAEbP/9KJWQPH0u9Su/BCdd63sCZip3LwsxKybh9wbTnjXHDC58sIW3CSYG9QMBPN72qCollJ6wOMTGkJvFNiOfQ1gLoH3r0tJEkXMvBJVFAEkANb8h1vtRRf3lCeRSI+tIqyP2THJ6SrJMLKBA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dvHmoOE1; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=E1FwrU//c9m3maNsJLCcvR/c3wRYrM5CgggvFPiJ0rHzYIDaTeJoYZmaLTknBkjyd9Urfejn6WjMHqBc3CdwMay/vLMu7PVdx6si1cSK+nDWomuKTjqqbZoqMNLBSXtIQPWCdcHLtwhza09LpPNZfVbpEViSoW4h349RTjoOucj95fBPi84u+xbEdz10bgtmhPHS55UIJUIqKh6kb5wm2N2T+FkzGm5oAYkDVVye3DBpzHT9mGvqPHlQWI7CT8usXxv/tpdlbc0PSWLInJaFujkddUQHui9jm0cPZlXi7CiVkHlyyrgp9AXAs1E9QDNYD8h/0SwQRlQlHO9yhwTX0A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dvHmoOE1;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jV7LN4QVTz2xMt
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2026 04:06:52 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jV7LH4ncDz2xMt
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2026 04:06:47 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id C7820C4F77B;
-	Wed, 18 Nov 2026 17:06:54 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4B1891A16CB;
+	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D83F65FFAF;
-	Wed, 18 Nov 2026 17:06:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E55DB11BC29F6;
-	Wed, 18 Nov 2026 18:06:43 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 18D525FE9B;
+	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30A7811BC29F5;
+	Wed, 18 Nov 2026 18:06:38 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795021607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795021603; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=wWl7nv1+iCYYni971N0J3aMrvV4R7qgN1XFvCJhdF8c=;
-	b=dvHmoOE1JEeyXXz0NtPhMKYVm4kCGm/o6gKTrdjLyE/qzzpG+peQJo2YBwmtwA22rrIabw
-	rqPK3n5Y6uIEAlVpl4P9dwYEXHBqJfmCbOaT2sXPkqqvVu+eW/dWt4AqgejRRIIgxnqc2l
-	hgzlLik794leDoRMDoID2TliUaC/+TQCcBFdeO8t2+OY6tNhlHoEjndF6/1MvJTVVJ6T7+
-	hAbI4p59xPz2uivozbJkillEcef6MI0LxiO6hDIUWqMlLVW1Qb1aT5ZQDAnWLGFAISWTpA
-	pFBQ8TXnRTKD5dJvc8BK6EoNijGrgEOW75TO9eiafWgK9KYisord6IcGeyfeNQ==
+	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
+	b=N7tWJTXq91CmHZAVeUCRic974Wak36ycLZYVPBV19l92gS7EePUMS1QnL3VxQ1UwyxXGj/
+	a637ctUnvyPT3jQEj2+XKFQp72QJXDfmxVBX5B8E+eebxCN+gfh7ZAGztl1uzH5/RkHkV+
+	bUzI0fP5YKlTBwOHwa6cJblkbW4dcoerCq2Ifu8kqroQ5P2D9/wUe6x1QJSga9PAOBmlvs
+	UdYaczEBb91ov+wceS8QCAlrTfce89d26ARjirGNOgoWAKL32rQvZjIHGQ4O3qDvAKWlMU
+	ZuxPzQfkEHw4+5r3VE10OydcUKq6QhFafH3AbGFKMm1oSgB2xlhj1Q0GnG/hQQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 18 Nov 2026 17:59:19 +0100
-Subject: [PATCH v12 10/10] MAINTAINERS: Add myself as Nuvoton MA35D1 clock
- controller
+Date: Wed, 18 Nov 2026 17:59:18 +0100
+Subject: [PATCH v12 09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +62,7 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-10-bee2c8dad4e1@bootlin.com>
+Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-9-bee2c8dad4e1@bootlin.com>
 References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
 In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -81,7 +80,8 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
@@ -92,36 +92,37 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I have the platform, I currently use it for my developpements and
-therefore I care about the clock controller driver and the SPI
-controller driver not being constantly broken. I would like to step up
-to help the Nuvoton team (not visible in the diff since they created
-an MA35D1 catch-all entry) in the maintaince of this driver.
+Both CCAP muxes are registered with a single bit bus width which is
+obviously wrong since there are 4 possible parents. Fix the mux field
+width.
 
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..44361a557aee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20072,6 +20072,14 @@ F:	drivers/nubus/
- F:	include/linux/nubus.h
- F:	include/uapi/linux/nubus.h
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index a5a36f88d973..97a90cdb48c7 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -424,13 +424,13 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[EMAC1_GATE] = ma35d1_clk_gate(dev, "emac1_gate", "epll_div2",
+ 					  clk_base + REG_CLK_SYSCLK0, 28);
  
-+NUVOTON MA35D1 CLOCK CONTROLLER DRIVER
-+M:	Miquel Raynal <miquel.raynal@bootlin.com>
-+L:	linux-clk@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/clock/nuvoton,ma35d1-clk.yaml
-+F:	drivers/clk/nuvoton/clk-ma35d1*
-+F:	include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-+
- NUVOTON NCT6694 MFD DRIVER
- M:	Ming Yu <tmyu0@nuvoton.com>
- S:	Supported
+-	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 1, hws,
++	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 2, hws,
+ 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
+ 	hws[CCAP0_DIV] = ma35d1_clk_divider(dev, "ccap0_div", "ccap0_mux",
+ 					    clk_base + REG_CLK_CLKDIV1, 8, 4);
+ 	hws[CCAP0_GATE] = ma35d1_clk_gate(dev, "ccap0_gate", "ccap0_div",
+ 					  clk_base + REG_CLK_SYSCLK0, 29);
+-	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 1, hws,
++	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 2, hws,
+ 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
+ 	hws[CCAP1_DIV] = ma35d1_clk_divider(dev, "ccap1_div", "ccap1_mux",
+ 					    clk_base + REG_CLK_CLKDIV1,
 
 -- 
 2.56.0
