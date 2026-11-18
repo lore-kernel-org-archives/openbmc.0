@@ -2,53 +2,53 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BE8606A32F
-	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 22:35:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014EE606A331
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 22:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I4raib82
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jVGdk3SzMz2yR1;
-	Thu, 19 Nov 2026 09:35:38 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795021608;
-	cv=none; b=ogtgL+N77XJroY+ZlQk4qgHaPgmBGkDQ96ZJKi5wPsEArgl3uYJrSILJ9NM43DbyTRP9Tz/ZbMFAGNuIQ5HAPecqtk9f8juh3YuKymJ3uxLBBvtx4YDEzXSQAoaAEV6jn+sw0nu70NP98ETBQ3PbO5SZXj1uHC9TYBuTcoFnDGH8IBN/LxfqKSBwXoWeg55pO5b7CQzABz3TpOoTgJYD6CKk7yZ6hm8ZzrTWloxA9ssNPj4OKwvtduvxZwDTsdNpulCicv3gsKA30NGdRgT/c6LFr2WX+IHmV5yWYanpWq1KOikNQhFERl2KijWelLjBps+BcOcxFgBB5cOE3JhfUg==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jVGdm2LBQz2yTQ;
+	Thu, 19 Nov 2026 09:35:40 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795021603;
+	cv=none; b=SKeSmneezMe9jwtw67RtpSsSRybUthcW4WbiMwejgg1joCEmSQmsMLAbmVmPcAyQZGroErwWEwCUUTi+SRQC6P4I2iZWbfrKq23cW0OM3CuAVQI8R2Camgy8tRwOD5uS3b6dKOYHIPtq8z1juVZY4LyYXBHDop1/s2i2WKE1WJ/5OHBbdOKNnh69OQSh+h9mHWyWh/Rv9vTfyvBKL54tStvpzWWCe0TTdB0GL0TgbRFxL0b5bB1A+zCYUYthJGEHOA6oP0pwOUXQ6t9vfQARB/2I+UFYCOWezX4t51lwPra94i50Ms/a2Wtn8sK1A8d8rzcckJstHa4ItDJf+dY/NA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795021608; c=relaxed/relaxed;
-	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
+	t=1795021603; c=relaxed/relaxed;
+	bh=wGwaYPRu1rAFbngpc6skzEuknfDV2uliRZuE0fH/0L0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E1FwrU//c9m3maNsJLCcvR/c3wRYrM5CgggvFPiJ0rHzYIDaTeJoYZmaLTknBkjyd9Urfejn6WjMHqBc3CdwMay/vLMu7PVdx6si1cSK+nDWomuKTjqqbZoqMNLBSXtIQPWCdcHLtwhza09LpPNZfVbpEViSoW4h349RTjoOucj95fBPi84u+xbEdz10bgtmhPHS55UIJUIqKh6kb5wm2N2T+FkzGm5oAYkDVVye3DBpzHT9mGvqPHlQWI7CT8usXxv/tpdlbc0PSWLInJaFujkddUQHui9jm0cPZlXi7CiVkHlyyrgp9AXAs1E9QDNYD8h/0SwQRlQlHO9yhwTX0A==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=LixMgUVs6PzZKrsG+9NmyK1LN5ZcpC8VXm85+czldwJXwa7yBgA3agZOY3o+WYAUeCK0UWJ1+xlulvuVkTY3AF/8SGc7X2vyLMfR+y9haJca5sEDlKtumh9iUS1QvBnLeA6Mk+y9wx3O1zRvLwGLb3tEl/ahXPYE7tIvk/rhSDs/eaw28oer18fhGosAEtDFjev8OOnIjSmDB0NSVJBGvWrHB46Gv9ByHXON7LuIN4ddc1JBhP16YlWz+C390uhiOiYzK0NrKYiFeRbnT8NAJi1gURegHfY0rG9evPu1B9uG+EH/MHKdQYOUu4EzwR2qxSnxMYZ5B7QUZ3bbpcVf5A==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I4raib82; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=I4raib82;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jV7LH4ncDz2xMt
-	for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2026 04:06:47 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jV7LB3Ggpz2xMt
+	for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2026 04:06:42 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4B1891A16CB;
-	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B4795C4F77B;
+	Wed, 18 Nov 2026 17:06:44 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 18D525FE9B;
-	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30A7811BC29F5;
-	Wed, 18 Nov 2026 18:06:38 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CA8245FE9B;
+	Wed, 18 Nov 2026 17:06:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 515E111BC2986;
+	Wed, 18 Nov 2026 18:06:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795021603; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795021597; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
-	b=N7tWJTXq91CmHZAVeUCRic974Wak36ycLZYVPBV19l92gS7EePUMS1QnL3VxQ1UwyxXGj/
-	a637ctUnvyPT3jQEj2+XKFQp72QJXDfmxVBX5B8E+eebxCN+gfh7ZAGztl1uzH5/RkHkV+
-	bUzI0fP5YKlTBwOHwa6cJblkbW4dcoerCq2Ifu8kqroQ5P2D9/wUe6x1QJSga9PAOBmlvs
-	UdYaczEBb91ov+wceS8QCAlrTfce89d26ARjirGNOgoWAKL32rQvZjIHGQ4O3qDvAKWlMU
-	ZuxPzQfkEHw4+5r3VE10OydcUKq6QhFafH3AbGFKMm1oSgB2xlhj1Q0GnG/hQQ==
+	bh=wGwaYPRu1rAFbngpc6skzEuknfDV2uliRZuE0fH/0L0=;
+	b=I4raib8296m7gjrxF1NWz9BTGmsYa1VuWskfJxDZX5mtNyvfkYPBIaWG7/wVJUkRSMen48
+	RXAPGTRT7xOcTJt1nAlAQ34wpBw4fHexJqgnYLU82X4A3O5Wfyubt/Qnxrl2VSQD3sopvA
+	wI8QsWEoYVuODx24WnrNpNFRr6aJ5hKb6BAVx+mzIRtMH2Q1XWjYutau5/bPRnxBxluba1
+	SJ7F6JEK1ZG6TlIs05T/Z1qo7WG58093e7K+KCel5LQRCmVZpb/O0yVR5E1XssoxMrgIJI
+	xeDmLAhCbgr0KtdaoSFBDQg2kbXCJIfRwSCWn0JY2/nBPI097CARnvJaKymqUA==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 18 Nov 2026 17:59:18 +0100
-Subject: [PATCH v12 09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+Date: Wed, 18 Nov 2026 17:59:17 +0100
+Subject: [PATCH v12 08/10] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,7 +62,7 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-9-bee2c8dad4e1@bootlin.com>
+Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-8-bee2c8dad4e1@bootlin.com>
 References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
 In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
 To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
@@ -92,37 +92,61 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Both CCAP muxes are registered with a single bit bus width which is
-obviously wrong since there are 4 possible parents. Fix the mux field
-width.
+The clock tree is still incorrect. SYSPLL is derived from HXT_GATE, very
+much like CAPLL, DDRPLL, VPLL, APLL and EPLL. SYSPLL has a fixed
+frequency, but if HXT gets gated, SYSPLL stops running.
+
+Reparent SYSPLL under HXT_GATE to properly define the clock tree
+topology. After this change, the frequencies are identical, but the
+clock tree looks (again) much closer to the reality.
+
+Since the TRM does not explicitly shows that HIRC and LIRC are
+internally sourced from HXT and LXT, respectively, I haven't reparented
+them (even though that was tempting). This can be done later anyway.
 
 Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 Cc: stable@vger.kernel.org
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index a5a36f88d973..97a90cdb48c7 100644
+index c11afc2f8f6d..a5a36f88d973 100644
 --- a/drivers/clk/nuvoton/clk-ma35d1.c
 +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -424,13 +424,13 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[EMAC1_GATE] = ma35d1_clk_gate(dev, "emac1_gate", "epll_div2",
- 					  clk_base + REG_CLK_SYSCLK0, 28);
+@@ -139,6 +139,12 @@ static const struct clk_div_table eadc_div_table[] = {
+ 	{13, 28}, {14, 30}, {15, 32}, {0, 0},
+ };
  
--	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 1, hws,
-+	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP0_DIV] = ma35d1_clk_divider(dev, "ccap0_div", "ccap0_mux",
- 					    clk_base + REG_CLK_CLKDIV1, 8, 4);
- 	hws[CCAP0_GATE] = ma35d1_clk_gate(dev, "ccap0_gate", "ccap0_div",
- 					  clk_base + REG_CLK_SYSCLK0, 29);
--	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 1, hws,
-+	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP1_DIV] = ma35d1_clk_divider(dev, "ccap1_div", "ccap1_mux",
- 					    clk_base + REG_CLK_CLKDIV1,
++static struct clk_hw *ma35d1_clk_fixed_parent_hw(struct device *dev, const char *name, int rate,
++						 const struct clk_hw *parent_hw)
++{
++	return devm_clk_hw_register_fixed_rate_parent_hw(dev, name, parent_hw, 0, rate);
++}
++
+ static struct clk_hw *ma35d1_clk_fixed(struct device *dev, const char *name, int rate)
+ {
+ 	return devm_clk_hw_register_fixed_rate(dev, name, NULL, 0, rate);
+@@ -285,6 +291,9 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 
+ 	hws[HXT_GATE] = ma35d1_clk_gate_parent_data(dev, "hxt_gate", hxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 0);
++	if (IS_ERR(hws[HXT_GATE]))
++		return PTR_ERR(hws[HXT_GATE]);
++
+ 	hws[LXT_GATE] = ma35d1_clk_gate_parent_data(dev, "lxt_gate", lxtg_parent_data,
+ 						    clk_base + REG_CLK_PWRCTL, 1);
+ 	hws[HIRC] = ma35d1_clk_fixed(dev, "hirc", 12000000);
+@@ -296,7 +305,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 
+ 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
+-	hws[SYSPLL] = ma35d1_clk_fixed(dev, "syspll", 180000000);
++	hws[SYSPLL] = ma35d1_clk_fixed_parent_hw(dev, "syspll", 180000000, hws[HXT_GATE]);
+ 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
+ 					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
+ 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
 
 -- 
 2.56.0
