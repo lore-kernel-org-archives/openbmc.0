@@ -2,57 +2,159 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3601D606A31C
-	for <openbmc@archiver.kernel.org>; Tue, 17 Nov 2026 22:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69394606A31C
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 01:19:16 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jTfhW4VrSz2y2B;
-	Wed, 18 Nov 2026 09:35:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.234.252.31
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794924059;
-	cv=none; b=SQOodEBUsWW06rXLV9tr7h23u45GSNpxp2BoFMq1XjU97tkBqjt1F/dJt+OLKplMBd7NB+YAYHyxBLzESjCIRPiW8t+V/OL9x+3K++OQtvDldoxa7mQXix0i0D+pxLZgLQCQ+RrPRyzT4tQg6/yp+rAXcYlm22cHRmGWUoKbrVJr6+GsdOtrPmDnfik9Z1RwJugk/hHf6M2/OYtT8IZlyOxW2OjBiPeXIpChmbSG4F4JEq9KMayslwUJUpsPaCys8UYdV3eAaubNpoqlHklpOdcT5OFvg0brYEH1YqNG9i74PyVWZ/R9+JcRwjn+dgTPUwsEzYh2G3Yg2wq5iCnd0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794924059; c=relaxed/relaxed;
-	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qe3fb4KSK4GqPwsdvHspVE/Cqf4+7larmz4H6248qFBYZFG0PnbgC2Cwhvzs0eIhzcmRkhO5c3XNzxKmViXSL59y7zZF7MNIdjBT1mN/HrsU877wKAjt5jqiJO5CzXBPnS3blGRfNfpO20mmqZcc2gfNR8lDqDLxoPd0BYD9mSZO2syyz0KypjoZjTc2LGzOabvsJN9E4BEcXyPgw3IlfN7jq2aUvwFwJbY2np8klEjR+76OmS+vTRpBdU0g/gjen1TxTPbH36S4q7tB6GGjYICY4VkQrI3e/ftPOywIba+R3Y1uly2etrdOvd5rFtaQKCV9xvX/dVChYQ9V17jilA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk; dkim-atps=neutral; spf=pass (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0OEanuk;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.234.252.31; helo=sea.source.kernel.org; envelope-from=linusw@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jTkJq0BXLz2y32;
+	Wed, 18 Nov 2026 12:19:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2406:e500:4420:2::70c" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794964746;
+	cv=pass; b=VDWduJRULb3+v0ONt+HazeTwKY/zKL4H0ZpIQGCY93+vcrxpi28NNNcXfI1wtAOZr8/GSRRRqtRa6Wdi8DNTaa28BpR2HeS7wTxT5pldZnkAcVBOllV77Z837YWolYeEstQhfmLgdeWDUF2pbJx/RHcFbSFIRxW6Ntr21tmAzWGmFR9/6W05nBzgeeACYLRLsrrce4acs0Bemz3jQbNaJ6hpm2IFT1LhSvgbaSGJxkftK1pozrNZ6fD2rGtq1Ibp3MO4MaiKljYC91Jrs4MI2PME2lcJ9Ai3h+yzSrNLz5KkGWxdcDXCQsz1n0uw1VUHbwhNrN6W5lqheGGKVsIFrw==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1794964746; c=relaxed/relaxed;
+	bh=TMv0YW0NIMm5mMHuOn0rWVFkG+82wqoBV7h5yD2M7+M=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hw/rvy/Hmyr3x68P7sfh13EOR8quO/+XxzDQ/wbcllwhxM6Z9WF+9geSsW2grqhJ1Nr79MjuNVyK32afS0mCEUbnjNKqrbAQtu5oD1ukhot9hUAIyEojZNG2G4LRyLjiHjDBTW+5y2+shV1t9unakCndEKnQNEgMVnsJi5kbkKZuw3QKrsWMJWZLKZV7vQL800ekmfYhtTNiOdBrzBG8JCvGJLCzal5NDdplopViYwE6AZ7bhGHDqoQplXf9RfSomb7X7ISbtl5zWWULLKFPLINDnRDulqWEEwDWNQtCuNVwgrKH3xiPh9Y+2lnSOatJUy+lmBSO7ZfCiS8nzfKsCA==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass (client-ip=2406:e500:4420:2::70c; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org) smtp.mailfrom=starfivetech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=starfivetech.com (client-ip=2406:e500:4420:2::70c; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org)
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2070c.outbound.protection.partner.outlook.cn [IPv6:2406:e500:4420:2::70c])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jTRGL5BMXz2xl0
-	for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2026 01:00:58 +1100 (AEDT)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 177BE430C7
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Nov 2026 14:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38381F000CC
-	for <openbmc@lists.ozlabs.org>; Tue, 17 Nov 2026 14:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924057;
-	bh=1n4akinMU4Hf+AOUS7LX8ylkG85tkNf4WcZP+gMfH/E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=N0OEanukXS6Mm9KTxE7SL8DxyX/MI0H/vbjirpu+EOJm3uRyP10i10RM03japU4sd
-	 S8em5UDMgAqF3ZDHfpH1WJ+unNr8U4+QaoqU631+jFWK54v1LM1ZMXeiV+3S0oqAYd
-	 LCaR3EuXIefsHGzJVwgsxWlbY+u1B7zw4tZqe1Jyy984WmpJFaHWCIuqiA7guWxW+d
-	 U3r6OkBn2mbKRSCZZP28Fv37+ALd7EE9Pb39iIg1ccXfX13iaNM4AXULnC2Dfg9p4y
-	 E0Cfbhsu4NWDndPrdhr8EVT4aGUZaYTddUw3lAhPYPz0hBANOFSMBh2906frfV5dpm
-	 AYnohD2AseUuA==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c14f7768acso3800433e87.3
-        for <openbmc@lists.ozlabs.org>; Tue, 17 Nov 2026 06:00:56 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErElrro09Qx7F5NiCo7jLRDG0DyMyKS7xbFSWisZxTi855IPJxRl/+bMfwyF69/YcsqSiFO3lv3X@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z+fBQ5+sXy7FbgHJSoHQDB+bmsdxuiNyC0oDo+E31ufReejCukb
-	4q+phLomJCy68VefgfMLKxXw6+ePg0/Kokvblw9cxbDYarx6gGvZCbkVPjzwP0BzZSew/tszKgB
-	/ey2gu+l0HZd+0Q9aBZ/3w5sNcNzlVDA=
-X-Received: by 2002:a05:6512:3a96:b0:5c1:4e4c:359c with SMTP id
- 2adb3069b0e04-5c1709c44cemr4959950e87.36.1794924055639; Tue, 17 Nov 2026
- 06:00:55 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jTkJn2Bvnz2xNC;
+	Wed, 18 Nov 2026 12:19:03 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d/6BKRuM37bvU0EGjkBJzleJvNst63+lYAZrw5b/IXYBjSqaGZVPIBN42pnp44v6+SemRqW895+Q06afGafllSlW9X+hrC3B9MhfCfShx3DCfau7I8oqvxaSzY8dha+8v+EZTqH0+QySqN1IrXd9NE1wrNgiVtiXtTSNBNxxk1dN335qqJpjMaaTlCupPFjanN7OWuA0tnihlxPdYltEQ2Ix619dlmdnWD07VnifzBftl56TA+BGBetEkKnOuR+Qja7y20/PWsIMKy8vBD7GGAJHjyS9YVAl8YwXWB4xAy+T3dl3d1HjP5+l+1QWUrqZDeJiRNyzQMmJqPxwxgro/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TMv0YW0NIMm5mMHuOn0rWVFkG+82wqoBV7h5yD2M7+M=;
+ b=ikNQg1puCd5BD71WnUIiUFJD925FWJp0Oe4+2DlxXVqSQsaJqfpGKTwDbG1qnCqTHMoGd8PRWPWbYunk95hGwETbAbzuVd/5HxkfDL/nwmFbZY5gY5A2KEju3l5S2cwjfujbgoHgT5HxqduYHfvvWZyvH3zntWigurmwip/83NjGc40oQHpjcWkEJpeM3e5YKUyNJjmcmzCU/cOMVmqH/D3MtbebAOIXAkNL3IC8bEb6wKKGmyvLObru3JNABwOUNbMZpegH1jBbI1wvE+q+ZbRDvDqbXZqEsblnpU+gCch2AmdMSmx3n3lQ14m9Zl0Q9KgtQXqCHAddVyhApvYw9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1219.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:15::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
+ 2026 01:18:34 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0615.009; Wed, 18 Nov 2026 01:18:34 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Peng Fan <peng.fan@linux.dev>, Thomas Gleixner <tglx@kernel.org>, Radu
+ Rendec <radu@rendec.net>, Krzysztof Kozlowski <krzk@kernel.org>, Peter
+ Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Ryan Chen
+	<ryan_chen@aspeedtech.com>, Benjamin Herrenschmidt
+	<benh@kernel.crashing.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Billy Tsai <billy_tsai@aspeedtech.com>, Tan
+ Siewert <tan.siewert@9elements.com>, Eddie James <eajames@linux.ibm.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
+	<rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, Broadcom internal
+ kernel review list <bcm-kernel-feedback-list@broadcom.com>, Caleb James
+ DeLisle <cjd@cjdns.fr>, Marc Zyngier <maz@kernel.org>, Miodrag Dinic
+	<miodrag.dinic@mips.com>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
+	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Herve Codina <herve.codina@bootlin.com>,
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Jiaxun
+ Yang <jiaxun.yang@flygoat.com>, Vladimir Zapolskiy <vz@mleia.com>, Piotr
+ Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, Anup Patel
+	<anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Samuel Holland <samuel.holland@sifive.com>, Qin Jian
+	<qinjian@cqplus1.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Nishanth Menon <nm@ti.com>, Tero Kristo
+	<kristo@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>, Linus Walleij
+	<linusw@kernel.org>, Michal Simek <michal.simek@amd.com>, Anirudha Sarangi
+	<anirudha.sarangi@amd.com>, Tushar Nimkar <tushar.nimkar@amd.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
+	<linux-samsung-soc@vger.kernel.org>, "linux-i2c@vger.kernel.org"
+	<linux-i2c@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-rpi-kernel@lists.infradead.org"
+	<linux-rpi-kernel@lists.infradead.org>, "linux-mips@vger.kernel.org"
+	<linux-mips@vger.kernel.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"loongarch@lists.linux.dev" <loongarch@lists.linux.dev>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-stm32@st-md-mailman.stormreply.com"
+	<linux-stm32@st-md-mailman.stormreply.com>, "linux-sunxi@lists.linux.dev"
+	<linux-sunxi@lists.linux.dev>, "git@amd.com" <git@amd.com>,
+	"linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, Peng Fan
+	<peng.fan@nxp.com>
+Subject: Re: [PATCH] irqchip: Convert chained handlers to guard_chained_irq()
+Thread-Topic: [PATCH] irqchip: Convert chained handlers to guard_chained_irq()
+Thread-Index: AQHddEnOdOKyDAC7E0m8b1kTp8D2PLczDOBw
+Date: Wed, 18 Nov 2026 01:18:34 +0000
+Message-ID:
+ <ZQ4PR01MB1202F7E2F371812215F5E06CF27A2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20261114-irqchip-cleanup-api-v1-1-4a9d598b0bdb@nxp.com>
+In-Reply-To: <20261114-irqchip-cleanup-api-v1-1-4a9d598b0bdb@nxp.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1219:EE_
+x-ms-office365-filtering-correlation-id: b7b23c1c-34ca-4327-0ca9-08df4511dd67
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|18002099003|22082099003|6133799003|261009223027099003|921020|5023799004|261102123227099003|261022075727099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261028144727099003|38070700021|56012099006|10067099003;
+x-microsoft-antispam-message-info:
+ yKwXvzZ4qGJtqeK1TjdDMA4e0+8iYSmziMmJseD+oUwkLdPp2v4vvMGiElNVq+b/Yq/6N3KR0wkO4BG64FUDtPVKHeRU11ScRqAHTEojGMLh95ICgUarUvObcTQISW4sns66/frZ35LX7EZw9nye298fhx3K9FP3KRTtOCxBX3tqFdAMtQzBjy0CjKKV+FFrnqQ9Jy8s7ieHIE1TKBUr8Ckrz+D7nMwCRg3AM9T/mD9wkKPmJVXMq/OAEBS3rfPEmpuzfIgc4xneqLhBFjRUHu6luMCQwLhUU+h1E8ZkC/VBmf4yarKIo6t6oX8X2+EV7JiYrZ8eegx+9Wb9xmXNzuF5NV7e9uztMmSN9dy6N2rxpGG7l79GCMA7LiYUU4Bd957kHIKobNZpXWwiFh/gn+WUIHTlEgjgUCYT/kdvX7stZklWa3nNrM2KyR4/MGZa5yFQ8n7BrqjAVMX6/CK+G0aPxX4hJCj4LgmKH3gHllhZnJHVQJ5j8e0Q8uKAk8Pu11NdDnQ6uUvPOIkS5IQjdfAXEAMuFKQVwIwwg2xQDRMX5Fz5wRSzXHiykNwdXX/9A5rXZ9QyaWAN2yVYPph+dg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(921020)(5023799004)(261102123227099003)(261022075727099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261028144727099003)(38070700021)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Qnp5aFRXODZFNlJldk9YVXhVTnBJR1BpcnZQNG16cWFMYTFxSVNXN2ZWR096?=
+ =?utf-8?B?SHZ4ZXJrM25EY3NqK0IyS2hQbUZoZkdKRURhQmNuWkt4SVFrekVZWjdlRThD?=
+ =?utf-8?B?aEQxVEQ2SERYeXBVUUhZNDhjZ0JPWEhWeWNBRWNoUXZ6VUloUUd5YUxyUFFD?=
+ =?utf-8?B?K3BpbWs3cXduU0VVcWFud3JXVHh6dUIvdFlGZUdObllmVXB4aTNZdzVKcHdt?=
+ =?utf-8?B?d1RhMDZETzZDK1lNc0N3bDlOdEVhbW5jWTNLMGYrcmJjQ1FvalcvZ1ZqTjcx?=
+ =?utf-8?B?SFdva0N5a2FGZll2S25CMHlzZDcyNDJhdWd4Y01iMnVzdVBmS1lmTGxVUWxC?=
+ =?utf-8?B?T1dYRFFheDUvZE41c0ovcks1R0ptV3habVU2d3pJUVI0TVljWUthWDUzblgz?=
+ =?utf-8?B?c2VJSStaOERDalcveTF2WEFFdVFmQ25BNy9ST0U3aUVnKzQ1a0lIaEFJbkRQ?=
+ =?utf-8?B?N0wzNFZxTEk0d0dYVVBZbzJaQzhDMVE0RFRLWm1kMDlKbG1rVmNEQThzZzBy?=
+ =?utf-8?B?ZU9zQ3A4V2ZRMVB5TDhFU3BJZ3R2TVhTSFFyOGVSalRGWURlbG5wRHo2VmRR?=
+ =?utf-8?B?Rm9tUjRtaTM2N1k5MXJ5c2dhMWRpVlFBUmh6bERZODhzZzMvbTQzWWVQMWYw?=
+ =?utf-8?B?Z2JYK0liNGh2K1FadXZ0dTdrMTNPSUlRMFBnd004bFhQWmlMTEpKSnJPcnBs?=
+ =?utf-8?B?MFlXSG5aTkpiYkFQL2NiRWowYktVOThMUktDSzQ5REpldVllb1NDVDVkM0Fj?=
+ =?utf-8?B?WVY1c1ljV1BqQ0hmaVpwZ0ZtWDhtMmlaRGxRUVZGcUdGRkFrTit4UFVyTWdt?=
+ =?utf-8?B?cmtsNnRlVmMraDMrTGhSZ014ZjQyeVllYjljWW81TnFXbTN1NVY2M04vRStB?=
+ =?utf-8?B?NGNyMUlBSlhPZWtHVmtZT0F4eUNHMnlVSktBV01MMmlyTmZlUG14dEZJWU1B?=
+ =?utf-8?B?MkU3Tk0reE8yUkRaODFKOGpQQ1VRbEFGVFhHb0kxWkd3M3ZzVUJEeitSVWxy?=
+ =?utf-8?B?ZGlQNHVSbll2Rk1GNFhjdDd4NHZWbGgrRkNFa0NpWnBrL09uVkxOTEdwN3Bn?=
+ =?utf-8?B?OXJoUUJCNG1EYTJCVGpUcGNJdFV2dVE3OXdFemJBYk80bW9JUnJuWi9ZdDNC?=
+ =?utf-8?B?QjFVYktnT2JuNEFXZjQ4Zk0yekh5dGR4MGJhSDhZbjdCd2YzRmxiVzZualdO?=
+ =?utf-8?B?L1I4YnUwbTBselNuWTBNQW1xSCtlRk14MjFCMUFtdjZwQmV2M0E0KzlvSitT?=
+ =?utf-8?B?MjQ4NjRhTTdIODM1UngxS1BrMm9pZ0N2eitxUlN0aGdjNHlGaHhNeXpiTFds?=
+ =?utf-8?B?VWdTcWoydEN4aDVidFVMcWo5aW1MdU1Vd05BMHZZelg4WXE4dEl0ZGNHaW9u?=
+ =?utf-8?B?TDM2Yk4yOW81YjRPenRCaFkyc2NEOFNKYmg1bmROcXoyc0pMa3Zuems0ait5?=
+ =?utf-8?B?R0poT2RENlBPb0hNV0t1dzJWc2Q4alUwU1hFbkxNQS8yRE9aNmU3VXFQQ3dN?=
+ =?utf-8?B?N2NQRDR0b2xJa3hnYllLZFR1TG5oQ3E5Q0tJWTErS3lnZG9RWUJmN2R4NmJs?=
+ =?utf-8?B?K1RpckJBMkhLQnE0QmtrNnhuOGdSNEVzN1VsemErbGxmQXFNeTM0b3FucVpq?=
+ =?utf-8?B?OHRDN3B6VFBRN1pzdWxpYTBhOE8wMDBoVHVhRnloekhvL2J0VjZZUVpHYndW?=
+ =?utf-8?B?VkEwTGhYbDRBMG9ybGVCejJlT2M1ME5PNzJVMHRxQnhxR2lYYWxBWE9mRVRt?=
+ =?utf-8?B?WXpYb21UQmxsRndHdHpXMGZrZEZCV25pWFNxckExSW50N2NsVTlOeHEzL3hL?=
+ =?utf-8?B?RytsSUd2SmpRckJBVEowUklpdlRpRzl5eFdNR3F3L2lHTDJnQ0NGd25JdFln?=
+ =?utf-8?B?dW1GS2hvK2VtWkk0RFlJd1VHM0N5QTJuM21nUmRremY1K2k1RThKcmdZTVMw?=
+ =?utf-8?B?WUFHOUtHN0FJLzRXbHhzZXIyUHZ2SmFNbk5vUVhQa2JNdVFtMTRVcTRhdTlD?=
+ =?utf-8?B?dVB3cGZMc0x0T29rbHZMTFZad1RONlJkUGhaN1N2bFpzb2VJTkNQUjIzcVJ5?=
+ =?utf-8?B?bk9yekJRUnMxVkRLeFpjWCtlUHdnSkw0U2NUdkxZZHNIL3hxdmVxRWFGdmgv?=
+ =?utf-8?B?OEphQjBuRzV5eSs4OGxuVzdHL1RZZzNScnErN2xWdTFjMnpHcFMrQTVCNFJ4?=
+ =?utf-8?B?a2FEVkR4aDdtZ0djdDROREVYYmdiSUZveEFvSFE4MG5FUDgzU3BuS1dSanlm?=
+ =?utf-8?B?OEVFNWlyYWpDMUZSemthRnQrVXljeUJZamtXZ0pRRUdVSzJoazRBOVZsN2Jm?=
+ =?utf-8?B?V2NYQ0JGTnNsb2x6ZEZXSit0MnJaaXQ2STRJSEhWQVhuSSt1SXNaMDgvc2hU?=
+ =?utf-8?Q?3lhPMfT7Aqy9070g=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -64,48 +166,41 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261107012236.28069-1-prasanth.padarthi10@gmail.com> <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
-In-Reply-To: <20261109035633.93522-1-prasanth.padarthi10@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 17 Nov 2026 15:00:43 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
-X-Gm-Features: Aa3M54pM4N8FrMarps7ie1VxRtJp-XfzSOJDJp1i6ICkP2NWqZ4utwFMO5THjsE
-Message-ID: <CAD++jLmNSdgJPG_8dVKBLxN2ewvYJm99S+32SyKj_psa0DX53Q@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: aspeed: Use managed pinctrl registration
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: andrew@codeconstruct.com.au, joel@jms.id.au, ryan_chen@aspeedtech.com, 
-	billy_tsai@aspeedtech.com, linux-aspeed@lists.ozlabs.org, 
-	openbmc@lists.ozlabs.org, linux-gpio@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7b23c1c-34ca-4327-0ca9-08df4511dd67
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Nov 2026 01:18:34.0978
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2qtCpoGJ+bCG24FDWg596I9jABKa+NT4vihTFEY8ZKI5fs1ukA6wgnRJ5Imrx3U4Pg6YJ9N/EEhfKfedPRHwWR/+DAE6Gws+LyAIMliUMBLQMrusG0WIx5Or+L/J5vJu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1219
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_PASS,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Mon, Nov 9, 2026 at 4:57=E2=80=AFAM Prasanth Kumar Padarthi
-<prasanth.padarthi10@gmail.com> wrote:
-
-> The shared Aspeed probe helper registers its controller with
-> pinctrl_register(), but does not unregister it on device unbind.
-> The registration can therefore outlive device-managed data.
->
-> Use devm_pinctrl_register() to ensure the controller is unregistered
-> during device teardown.
->
-> Fixes: 4d3d0e4272d8 ("pinctrl: Add core support for Aspeed SoCs")
-> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-> Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
-> ---
-> Changes in v2:
-> - Add Fixes trailer.
-> - Add Reviewed-by trailer from Andrew Jeffery.
-
-Patch applied as nonurgent fix.
-
-Yours,
-Linus Walleij
+aGkNCg0KPiBGcm9tOiBQZW5nIEZhbiA8cGVuZy5mYW5AbnhwLmNvbT4NCj4gDQo+IFVzZSB0aGUg
+c2NvcGUtYmFzZWQgZ3VhcmRfY2hhaW5lZF9pcnEoKSBoZWxwZXIgaW4gYWxsIGNoYWluZWQgaGFu
+ZGxlcnMgdW5kZXINCj4gZHJpdmVycy9pcnFjaGlwLyBzbyB0aGF0IGNoYWluZWRfaXJxX2V4aXQo
+KSBpcyBhbHdheXMgaW52b2tlZCB3aGVuIHRoZSBoYW5kbGVyDQo+IHJldHVybnMuIEhhbmRsZXJz
+IHRoYXQgZHVwbGljYXRlZCB0aGUgZXhpdCBjYWxsIG9uIGFuIGVycm9yIHBhdGggb3IganVtcGVk
+IHRvIGENCj4gY29tbW9uIGV4aXQgbGFiZWwgc2ltcGx5IHJldHVybiBub3cgYW5kIHJlbHkgb24g
+dGhlIGd1YXJkLg0KPiANCj4gTm8gZnVuY3Rpb25hbCBjaGFuZ2VzLg0KPiANCj4gU2lnbmVkLW9m
+Zi1ieTogUGVuZyBGYW4gPHBlbmcuZmFuQG54cC5jb20+DQo+IC0tLQ0KPiBXaXRoIFsxXSBub3cg
+bWVyZ2VkIGluIGlycS9kcml2ZXJzLCBjb252ZXJ0IHRoZSBjaGFpbmVkIElSUSBoYW5kbGVycyBp
+bg0KPiBkcml2ZXJzL2lycWNoaXAvIHRvIHVzZSBndWFyZF9jaGFpbmVkX2lycSgpLiBUaGlzIHJl
+bW92ZXMgdGhlIGV4cGxpY2l0DQo+IGNoYWluZWRfaXJxX2V4aXQoKSBjYWxscyBhbmQgdGhlIGdv
+dG9zIHRoYXQgb25seSBleGlzdGVkIHRvIHJlYWNoIHRoZW0sDQo+IHJlZHVjaW5nIGJvaWxlcnBs
+YXRlLg0KPiANCj4gSSB1c2UgYSBzY3JpcHQgdG8gZG8gdGhlIGpvYiwgYW5kIGFmdGVyIHRoYXQs
+IGRvIG1hbm51YWwgY2hlY2tpbmcuDQo+IA0KPiBObyBmdW5jdGlvbmFsIGNoYW5nZXMuDQo+IA0K
+PiBbMV0NCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzE3OTQxNzQ1ODMyMy4yMDkzOTQy
+LjE0MzMwMTk3NjA5ODQxODk2NTk4Lg0KPiB0aXAtYm90MkB0aXAtYm90Mi8jdA0KPiAtLS0NCg0K
+Rm9yIGRyaXZlcnMvaXJxY2hpcC9pcnEtc3RhcmZpdmUtamhiMTAwLWludGMuYw0KDQpSZXZpZXdl
+ZC1ieTogQ2hhbmdodWFuZyBMaWFuZyA8Y2hhbmdodWFuZy5saWFuZ0BzdGFyZml2ZXRlY2guY29t
+Pg0KDQpCZXN0IFJlZ2FyZHMsDQpDaGFuZ2h1YW5nDQoNCg==
 
