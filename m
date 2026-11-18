@@ -1,131 +1,76 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDDB606A31C
-	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 10:42:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA8C606A335
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2026 12:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxYrnDyp
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=hyBSGB+V
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jTypH4Wczz2yDr;
-	Wed, 18 Nov 2026 21:41:59 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c04:e001:324:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1794998519;
-	cv=none; b=RSSpuOA5EmASNHz67Z2Yp7etXxZ06H1aX1TvD1S064a5x1eu+iHlSeZ5119Ule5Jjlj7oNtDX0jdy4nFGxrFjZ27LFR/1+V/PwsvBTYay4peOP0zp3DyGoSKpNTUcsz6k6nzQsYWmRvI90eRtmtDJieKWwWoHMXBYphc/t6pEZgoAvI0k273GGGnNZR69ghT7jFSzoPOzfcCb8Cl7U95mhY/zvVf53MREaX9L03MzQb8lu3fk5nFK/H6Iza55g7ydCqqCr7JYeGraNYpo0MkgtORNRTzofqK0iq2OD7bBMqLeaDR1vIWdbNvzns7Ix3MtmlThH4CzVui+l7M6v4whA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1794998519; c=relaxed/relaxed;
-	bh=sY+sAZbrr9MFv4Pz0Kc/4nMk77/MPigr7GAG+Y6LLrw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KtCtbCMeFHhVcIXYwGcAdl6XxoEyh5yTed8FcKkP5A4jwInDKUj5Y2FoJyNGVKt13MmiIKYLNKtwLsPP146qU9hqeCHbOOAR7MghJ5LAGVxqXcFwxTp5OoqAL/LHNsbBWOyVvktQVCGlBwMlBjm5bRFJ4H9KhIZyTEHhGyd7mtytcgClDCsPuzrBV4t8FrQ6IbCEkA5ZOUT/ghg4H52nLk6hVRfdjEnDDNQqfoHVP50pc8/ZSAa+GAOqVHWbHm/AGZmCpPD+jnePUwFO2cEhMcgQa4OREgU/sRtlnbGORq8hGD4UavU/HORp8/jyO3lrAVxN2VfonK1uwievY7WDwg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxYrnDyp; dkim-atps=neutral; spf=pass (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=maz@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jV1Tb5scmz2y32;
+	Wed, 18 Nov 2026 23:42:43 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c10d::3" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795005763;
+	cv=pass; b=QtHXSjOSLCzqUQ/3rhsa5R9PwledmEzPQmMOgPvlVJwLt9c7xIMlHcnq8dRHgSgO81QS93xO6geaM7Y0yTs9lwMSH9ZgCRJHalKpJeDKeMjv+cm3LyczjQDeRX0nv6Y/nrChWCvNmN7OfoR36vjy0+a562DGUjvt6VaxMcGFE36euAtMNv1t+kcMBFkLzL9aeWyZoei2tSgH2VespYaIEIfl65nQgmKfzmY24NbVxrfEuJKHLUhMjJnsdqvb5dWzL6PByp45NR+GJ7GKpjDEezmF0jaUP4r6Vnldtm/NptmqydN1lxRDIm07BU0ADL5ipiWvB5aILmYZG/M7DIPy7g==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1795005763; c=relaxed/relaxed;
+	bh=pbHIj214Hk02i60FxDGc0rIbuGw9Ckkid9eISLKfVhI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LPr7uL16VBeyHhVjBzgy1hgJ66fGHiFZX+Bcw2W8uos/V/y/Sr/EcFgAeh5CB4zsY7rvanI+Ud0g8Oode6FM85+93zUqPVU3h9RhnuRCYgUB94XVt1sPXrxxCeukOUZ+Co5z7+Zk45OCmej81nz0oOV/TJsOfQ2aHKdumRG6dNRR7RaHD0IP1i2/TQN/sI7gVREjR/Mbdv/HK8aJC1w6Y5sU82p7nTBCT57ZlpkIiDPWKyhFJs1GL6BQm6K2ik++aes9WNTVzXwQIj9If+n3ioeWdeDKik1oFiEx+a2cpNzuMATu5ZDu77g2ZtQEW/4eFRxW0TmmqcsnBognksNvXQ==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=hyBSGB+V; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c10d::3; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxYrnDyp;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=hyBSGB+V;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c04:e001:324:0:1991:8:25; helo=tor.source.kernel.org; envelope-from=maz@kernel.org; receiver=lists.ozlabs.org)
-Received: from tor.source.kernel.org (tor.source.kernel.org [IPv6:2600:3c04:e001:324:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c10d::3; helo=sn4pr0501cu005.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazlp170110003.outbound.protection.outlook.com [IPv6:2a01:111:f403:c10d::3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jTypG2ns7z2y2B;
-	Wed, 18 Nov 2026 21:41:58 +1100 (AEDT)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by tor.source.kernel.org (Postfix) with ESMTP id 4D60A620E9;
-	Wed, 18 Nov 2026 10:41:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC87E1F000C4;
-	Wed, 18 Nov 2026 10:41:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794998515;
-	bh=sY+sAZbrr9MFv4Pz0Kc/4nMk77/MPigr7GAG+Y6LLrw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=TxYrnDypzM3e7JBSIBnX6AyKkQsKfwPrA2ry8lUYErmw0JQx/G6r0ttoymBx7BOsI
-	 +4Rzx3e4tzmRz0NgS9WalY9CgjAQ1+jgJ9RXg6eDZbqtcqbarNOBAMQmMDCOJgBtGG
-	 J1AFOpijvxM2Htv+gQshgrr9dWtcl1BcIF89mLPZAn0XRrZdYy0lqitEKV1B8pUXfz
-	 C6le5T+lKrAuCnLO24LwFAcFoOvI2RRnFuhSBkFdNsGlgG3rFuWCLhm9EMgP+pR04I
-	 kG0IKZhfATgM5jbDRYxYQ+rZTkFTH2LRoBdT5SBaNoFf9oVaaQf+JhXlGMnPeu/0b3
-	 jWTdpSnCWZgVw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xTd6u-0000000HTLD-08Oa;
-	Wed, 18 Nov 2026 10:41:52 +0000
-Date: Wed, 18 Nov 2026 10:41:50 +0000
-Message-ID: <868q2q1kwh.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Peng Fan <peng.fan@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	Tan Siewert <tan.siewert@9elements.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Miodrag Dinic <miodrag.dinic@mips.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Anup Patel <anup@brainfault.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Qin Jian <qinjian@cqplus1.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Nishanth Menon <nm@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Anirudha Sarangi <anirudha.sarangi@amd.com>,
-	Tushar Nimkar <tushar.nimkar@amd.com>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	imx@lists.linux.dev,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-sunxi@lists.linux.dev,
-	git@amd.com,
-	linux-arm-msm@vger.kernel.org,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH] irqchip: Convert chained handlers to guard_chained_irq()
-In-Reply-To: <20261114-irqchip-cleanup-api-v1-1-4a9d598b0bdb@nxp.com>
-References: <20261114-irqchip-cleanup-api-v1-1-4a9d598b0bdb@nxp.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jV1TY5vX6z2xSl
+	for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2026 23:42:41 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qMZcx6Bn14Q2RxnUUvpylh6XJtF7rPTBRmwRTJb5xmdM8MNGLKhM5y0UCkvNnaMNcl9xeb7crCfqeF0cRIYa9nLFXXu9lIKgq9PNfMDU8ioDO2cGvrsGFDtrxIXZfWPw6NEw6psXKoAH0Jhw8hNVPx+seGOllkuLajXT63hQGoPvbXTGLHDYY7QV41hl9BKed8yH+pEykDGTpFB1cP6In0JlXzj0HRxzodI+ElSfWUfASr+Bp30VzuyptucoLLrOPemwvZEp+/AdMtGDPE7FD5vYN5GlGY2acTHgbSZ2NMaM7+LzjJsqDDkprQJxPuxrRE+6izcNxOyeE9njQnGUQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pbHIj214Hk02i60FxDGc0rIbuGw9Ckkid9eISLKfVhI=;
+ b=r4yYRgAY1NNES0Q1dlk+BuyCm5/x1j4tX3tbxsZZQJsHrhfUURQMC2ACKnuhjGU6M8LXIrjyqGHII/fVvDW+iLEcCKNbP10wXRZce+Kdy13J/gIUK7eyLjY8UX080saKpc7qfoxCFKa8M6eaTxjChy/29Qbn7fzj66xUeS3hVMMu+E8Rxy92Isc8JTpZqqp4M6sLVwMRAjuumm5J1/uayNVm5o5ps28PiXfJsyWRYRDOvjff5P3k44AHlfqys5ObcDZAhXiEQcKGQorST6iOPSn/Dw3ocOEpWvhKrPLJEDxAhx0oKTh25aL/M1tA6g+9XtKU2hO4HiaWVpdNbHfsZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pbHIj214Hk02i60FxDGc0rIbuGw9Ckkid9eISLKfVhI=;
+ b=hyBSGB+Vf0ReXo9O7BodjF/W3Ps3AmB7VcNGwUbttxeq6EgG0IvBp2KDjuMydALW5aUETt9zrK+MV+M036dwj5Lj4FxSaLvlzj+THNY/rZNOwf5uPMOOnWQGRIyJ7mOQZHSERGjLpEtwkH/vxjLW+sYG/I9tgYNs1g9moVqqynm0AC3J35V0Kdva8lk03iPvvxSEY0SJ9h8d58wmAvMO1Fmhm33iMP+S/IPr2YB6ofYvNho/MUdD2GtriGieCNDd9UUKwxMwU/RBM4v7EvvtHw8JBTGqS7A/RiPmWtJfxcHEyDCD19nsPw/Y5m8ew5VuyudDmkzC11Y7GZs65caZZw==
+Received: from SJ0PR13CA0161.namprd13.prod.outlook.com (2603:10b6:a03:2c7::16)
+ by PH0PR18MB4591.namprd18.prod.outlook.com (2603:10b6:510:c2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 12:42:16 +0000
+Received: from BY1PEPF0002696A.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::90) by SJ0PR13CA0161.outlook.office365.com
+ (2603:10b6:a03:2c7::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.8 via Frontend Transport; Wed, 18
+ Nov 2026 12:42:16 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ BY1PEPF0002696A.mail.protection.outlook.com (10.167.244.154) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Wed, 18 Nov 2026 12:42:15 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id A38974186B58;
+	Wed, 18 Nov 2026 04:42:15 -0800 (PST)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Date: Wed, 18 Nov 2026 04:42:14 -0800
+Subject: [PATCH v7 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -136,39 +81,153 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
   <mailto:openbmc+subscribe-nomail@lists.ozlabs.org>
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: peng.fan@linux.dev, tglx@kernel.org, radu@rendec.net, krzk@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com, andrew@lunn.ch, gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com, ryan_chen@aspeedtech.com, benh@kernel.crashing.org, joel@jms.id.au, andrew@codeconstruct.com.au, billy_tsai@aspeedtech.com, tan.siewert@9elements.com, eajames@linux.ibm.com, florian.fainelli@broadcom.com, rjui@broadcom.com, sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com, cjd@cjdns.fr, miodrag.dinic@mips.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, herve.codina@bootlin.com, chenhuacai@kernel.org, kernel@xen0n.name, jiaxun.yang@flygoat.com, vz@mleia.com, piotr.wojtaszczyk@timesys.com, anup@brainfault.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, samuel.holland@sifive.com, qinjian@cqplus1.com, changhuang.liang@starfivetech.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.co
- m, wens@kernel.org, jernej.skrabec@gmail.com, nm@ti.com, kristo@kernel.org, ssantosh@kernel.org, linusw@kernel.org, michal.simek@amd.com, anirudha.sarangi@amd.com, tushar.nimkar@amd.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org, linux-rpi-kernel@lists.infradead.org, linux-mips@vger.kernel.org, imx@lists.linux.dev, loongarch@lists.linux.dev, linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, git@amd.com, linux-arm-msm@vger.kernel.org, peng.fan@nxp.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-axiado-ax3000-pwm-v7-1-bbd21a8cf861@axiado.com>
+References: <20261118-axiado-ax3000-pwm-v7-0-bbd21a8cf861@axiado.com>
+In-Reply-To: <20261118-axiado-ax3000-pwm-v7-0-bbd21a8cf861@axiado.com>
+To: Akhila Kavi <akavi@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, 
+ Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795005735; l=2434;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=Ovyp0lmVWDOK8u38msydnUtLEbKhOScK8qjkDwjN1xI=;
+ b=SsHinR3KE2b59M8qelHKG9FT65I+TNI11AplZC/eku5cyf7R0Lezesm9aKeXqpHC8//I2RlZY
+ IwuO8nIZPIaDHLwAf+XHjXXjhOkQ3DspoGeksDTMaMGXbEUbX3/JhrK
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0002696A:EE_|PH0PR18MB4591:EE_
+X-MS-Office365-Filtering-Correlation-Id: b105cdba-1045-413d-d5ed-08df45716049
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|82310400026|1800799024|36860700016|376014|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|261022105027099003|56012099006|10067099003|22082099003|18002099003|261009223027099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	jBtb6P/P3N/8iTq7VojaEakV3RAPGYTbnLaW4Q58DftPMFdEk1nsVDyZ9Dr6RiahUBwqnSTcVWAlGIQdad68tJFhoguQgzyynZZ5H4iVObPk8LDzZaAp6b6sDHYQ8CpfCZAKWAJE4/drSOK2opGdX3CRd+1mMiZY9zMIw15sEa2nsMdwPHnGMbqd28XUie9wR81Qbg6Cg/oKNiZMZxXXj8rzqizXK8vex61F5WxnU94pl/gy9QMYvRwIeDIUBuWcQvpSiST0DgBgS4A67bzu1sn2gkiIubzUvbT0dE21+rJa5KoAo2qcs3R1Eh2cE6otAIMnGdBV1p8hw/NbegnY3Wxy2nsrVw++WRHQZ8pDWKORDf5GXBT3cS+J54Jio19NScdfgyGMmZHNyHcmcBiyCqm4j10t6bn1tiOci61isk8TUZVBlRyCqf8zwjlAFU8BN4+RcYLXmtRJ46OzTUjtpFAU8DNVeOB67lUEulqWsQ/LOLy7NYg+wHwyKhx43aj5UnlkJb30n4/mSlzr5pJNAyoirLVMogWd0Kkw3kYnK3B+aqxOPKThJs8RMZ1uOqDbyKE+JVchR6tZsQUMOReiFCdLDqwTQI6k2yn6zKHaUfbrvxmVymJ4XJL8jMBm0j9zDvODd4RkZ5Hj5wPsorWFmg==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(36860700016)(376014)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(261022105027099003)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d7s00itYJ9OR87pcvgumWIPx9xMwrUfUktk+zSZwccvjPLosdQVOYq3negvnVv/z0Ksf9msFOROIN6BJ5mFEu+t4L1lABdbzQHA89xjZH9+FsGMJ8FvUM1vNjvwVQi3rWqemrJ/4/PTf3+q1IcTRm3KAQ4XlTE3AqKbdl9BjRrTSzWhMaFZJJ2pESMqWidFdUjAduW5Dpb6kOS20f7NbvpOwHY/6swFHeLaNfXNT38p7nusKqp34wuaT7B41gqIrUI7WV3uhMI0vetvbmiUcDSABXK79Bqu6DHE/pg8WvGM4jcBLfl2zSjkwt+fgstVA/Jun1W3dXVJhFLD/l1Cnjwt96gN1LlCKZejfcdQEFOS4wFQK1ysOML/FgRP83I9s753rCFG+Aa4i4NX16wM/2wSbM8ffeJlBvmlik0R4ErpakBBThHx+1g5WnmVlQxrl
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 12:42:15.8261
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b105cdba-1045-413d-d5ed-08df45716049
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0002696A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR18MB4591
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sat, 14 Nov 2026 15:06:15 +0000,
-Peng Fan <peng.fan@linux.dev> wrote:
-> 
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Use the scope-based guard_chained_irq() helper in all chained handlers
-> under drivers/irqchip/ so that chained_irq_exit() is always invoked when
-> the handler returns. Handlers that duplicated the exit call on an error
-> path or jumped to a common exit label simply return now and rely on the
-> guard.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+The Axiado AX3000 and AX3005 SoCs include PWM controllers that can be
+used to generate configurable PWM output signals.
 
-Acked-by: Marc Zyngier <maz@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+---
+ .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml | 53 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 ++++
+ 2 files changed, 61 insertions(+)
 
-	M.
+diff --git a/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+new file mode 100644
+index 000000000000..f0d5a3dd70e1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/axiado,ax3000-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axiado AX3000 PWM controller
++
++maintainers:
++  - Petar Stepanovic <pstepanovic@axiado.com>
++  - Akhila Kavi <akavi@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
++
++description:
++  The Axiado PWM controller found on the AX3000 and AX3005 SoCs.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: axiado,ax3000-pwm
++      - items:
++          - const: axiado,ax3005-pwm
++          - const: axiado,ax3000-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#pwm-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    pwm@80801c00 {
++      compatible = "axiado,ax3000-pwm";
++      reg = <0x80801c00 0x1000>;
++      #pwm-cells = <3>;
++      clocks = <&clk>;
++    };
++
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..fe85aaa5a7eb 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4555,6 +4555,14 @@ S:	Orphan
+ F:	Documentation/devicetree/bindings/sound/axentia,*
+ F:	sound/soc/atmel/tse850-pcm5142.c
+ 
++AXIADO AX3000 PWM DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	Akhila Kavi <akavi@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-pwm@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
++
+ AXIADO SARADC DRIVER
+ M:	Petar Stepanovic <pstepanovic@axiado.com>
+ M:	Akhila Kavi <akavi@axiado.com>
 
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+
 
