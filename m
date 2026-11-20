@@ -2,123 +2,78 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53269606A325
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2026 23:01:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5007E606A325
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2026 16:22:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=drvIPldN
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=O908feni
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jVv9C2XY8z2y0B;
-	Fri, 20 Nov 2026 10:01:35 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::92e"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795114930;
-	cv=none; b=NyMJx+lxMWFK/9jxxw9Ey1gnXnZ/WzOScvZCj+tHwrpEoIwWJs6LOt3g/WC8/qVEeFwM4MLO16qrymPbx6UUhBOLsBroH+dXpmJoQ9vefYEqD8fQXqUr8wa8kRBdFWv2OsrXW/SmUvbwqvbFj9W5FmmVk4JiOqmOJ+lD5hcp+Wr8x5fqhj1LYl5KFRg1Qoeb4YWYysdUJ0sZJQvoT7Shy95WwtcbhQA+tUI2bQ5Kj8EFeCGchsw7UkYmbysMqMYNBPfuk/gwG2Pj7kF+OLRuzTU1/KA6varpk1ID0x27ViAnZk63cX9ghbpe3iRMM4/CzkDJ+WgLXpU3hvV6W0R0eQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jWLFv10xTz2ySC;
+	Sat, 21 Nov 2026 03:22:11 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::330"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795191730;
+	cv=none; b=B9ZLYejt3anwcd3O18s8+qi4RYFclY3d8W8U18/IicP2Rd1QqtSfz8HC0ziS5K0HwrKGYiVBhBQ/tIj+MLCMq6AW2IVqLRPu5MANJeMSnNLEH2CPbqpRX5UYvF+Mvbx4nHJ5ubbc/kpUA2MPwrplOF46CNXlfdzdpVBbd2wIEjLc+lgeOqAnKqxutZoXvEpNLJ6ssoGlCh6lp5r5t+BR/7BqemsCWVGxWyMaOYjJReobOo72eAM17eJ/5lJ+pc/AtjGjfEMVPmE0gxbxWoyPPnL2+ZBHa+9FwBNjZoxgaMcaCx3aWpAdqO8icuFDGaZ6AiCyihNxYpY27uSwyowX+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795114930; c=relaxed/relaxed;
-	bh=hKkPpNGKPc9dB0PHZyw3/Ep3fUq1c/BlK7UqcWPEb1A=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KS5PP1Gd6hEkY0sW5i2LTC3vzWzWHtowByO70g0bIOd0kQPt7JrfO32Pp+poq+DjpWI5PvdoykqJgVJNUUDljZZ0Qbh8ijE6UZPMxLkocsyI382aqJUshguwbLc2oMfEEGkRLMvAx0tDQSz9WTt3+7RFBalkagmuT+/maOvltishWkzsim+8RmY3ha/FJPhfDnZ4FisDYN7d72/ExLK0A9ATT2/1cD+PmMRSbh0tXfn8nn9QkO14N0DKMq0ozuoIGEs5CZ7IVxEYMd0+pGsoofNLqIYyzi6CMEeRop5/i/GoiDkqp40KtDZy0TvUMts7A7PSNk1iUbU6qiahZV/yQA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=drvIPldN; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::92e; helo=mail-ua1-x92e.google.com; envelope-from=nicolas@ndufresne.ca; receiver=lists.ozlabs.org) smtp.mailfrom=ndufresne.ca
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+	t=1795191730; c=relaxed/relaxed;
+	bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=GSoav3LoJiS+0DGlH7ECeRNFDAZZM82c+xfFSvTDWcb7+UW4J4yXbCNRjIGownQWJKimvvz/upKRknHbMURFHz+XGSKltxtFSknDN8VDAdcnyTDmbAJ4Mcv7VD4fcw2okgDUn5+ndYS+NJeYp926Ij19R4Qu70WJLyyaPTS+K5KNK4YgwUbxdt4D2H/Y/stU/haIOzzwK8OX1FBzAROWymA7YhgYIlCUFYo5rjtfqpAG+01puodsSgNGSXJw8lV1au4JwZTjMgIuaJVO3sBwA2T68fPH0EOxADAPavYF3nRgEHNula+OASK1PcL1pYk++mP6NkYDehDBhjh94Xym3w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=O908feni; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=jbrunet@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=drvIPldN;
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=O908feni;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=ndufresne.ca (client-ip=2607:f8b0:4864:20::92e; helo=mail-ua1-x92e.google.com; envelope-from=nicolas@ndufresne.ca; receiver=lists.ozlabs.org)
-Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com [IPv6:2607:f8b0:4864:20::92e])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::330; helo=mail-wm1-x330.google.com; envelope-from=jbrunet@baylibre.com; receiver=lists.ozlabs.org)
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jVnrw5k18z2xH7
-	for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2026 06:02:08 +1100 (AEDT)
-Received: by mail-ua1-x92e.google.com with SMTP id a1e0cc1a2514c-990703f817fso61423241.1
-        for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2026 11:02:08 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jWLFp6lgsz2xly
+	for <openbmc@lists.ozlabs.org>; Sat, 21 Nov 2026 03:22:04 +1100 (AEDT)
+Received: by mail-wm1-x330.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so8592175e9.2
+        for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2026 08:22:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795114926; x=1795719726; darn=lists.ozlabs.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hKkPpNGKPc9dB0PHZyw3/Ep3fUq1c/BlK7UqcWPEb1A=;
-        b=drvIPldNm79FmljTZzyVOvkREU9u0btA6vmAY9JGeXCLXUpK6JhPqYmQsDu2XXcHDg
-         qNLjSKI2pclGEy3qXEja0C9cCDues7MLgw5fli2x/Tv9cMgrzZT0yR4Zqt5hl9quVosi
-         4lRPjNXngOkWZMHMyjdLKY1VfQAXKI2CU8wZGxle3Bmr2HLprU8W60NLGY7LElMOoDJ5
-         SyRM9gXnDxy0mhBcDq/lWXAR4pGWbblcnnzRRFtRHY4LX60aF4UGdBqBiFEvfb56L6zP
-         DEF7AIbXO3fwx2B/1Ubdfgr6TlKuZDPTs4IPK0tzB4s22N3UrWLR1zoo6Y53t5mGXaAa
-         xF0A==
+        d=baylibre.com; s=google; t=1795191721; x=1795796521; darn=lists.ozlabs.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+        b=O908fenixGfAkXg4WCatKnzlrlkd7XrFxSt4+LJbnFGhBOCXWNnvcYRCYl36Qyp15e
+         R74e5oa3N56SePeyOzYVDdKxnYHq/85oYa5D/yLq5Z+QS3uEBzXB0Z/+VqqF8xzUAsru
+         g+pGcmlq1/W/Tud1mnzmDa/LUjiJbSyRlTmx/PdbvJWRAhIL2bwgarBJT/jVkWK34Qsp
+         86XW/3yo/INU0AcngvJf8HB1gs9T8GV/5VLiKiLbPxbFw9nFugkFizNu+Jg05hGSxaWI
+         E54NmEQgPQx75MHTiiN6+JVBDVftBCE2Jca2Nxh9eQ/OCZkGRfcoz+liCBTfv0P6e4lL
+         or9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795114926; x=1795719726;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1795191721; x=1795796521;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hKkPpNGKPc9dB0PHZyw3/Ep3fUq1c/BlK7UqcWPEb1A=;
-        b=WQEyOVFP3892AdAKjn2Xru1pLhUQdsTwv95TxM12rXAn/xv02MiwSP9CCQR5UisSDa
-         1U2yXEkq+YUAGkKDlWUlcCWs2s2AZgQM69O82zMa0EM9n5NTOKyAHHcuWg+4PsVfVKmt
-         nQpF7iudct348fynwqcn9WbgVMNdY62bKe6lcPrCBsj2wd1rbWdc2hGaE9T6oI3nhv9h
-         Ax8PzwGDFkuL+dwVlH3ik7CdSTg72mSnGW6gzUpF6puIZCa3HbL1xzTaKjhwNmCRMC9b
-         ldOJlIO1pSSRO+5A/8cTPKIMQQXqZxre/QGNl/H3ulE/nzt1JyTzkA7+yiBkQ2wJo+WK
-         Vgjg==
-X-Forwarded-Encrypted: i=1; AL+hErFZs8PL/pLxuOJ2FOLrmRP6/TrCztzPA0G5y6aJqSp9aBGpe81wPp20HcskevwKJcyffOkGpC4w@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z+XGOHrygxqbSJmxfXFAoasMmlyJ0dRH7k423zrnShlvRSUHHnk
-	E2S+NHTK8p9KBziGQgO7N0BOqHKTwoRBkdlK1onNb1UUHHOQlDS5+fXw1bqGgfQy+14=
-X-Gm-Gg: AZFdTZdqwmBu0mVxi4Jsvcfj/2d3Mx8P44uaDnGpYcdYtLVOuotwkej+alaQiyW6TrY
-	VRn+YDwGiU+C9Coxtv5oN+g32vt0Ci5gbs8Q/f5v0vtDf360vtFDwRDjp3NlfvkNTATEUT51Tpl
-	hX1gcjvszzKDv0BmgrUICVPTBdn526ERXWJk+8WG8X5Sf9eTGv2s4RtZkVKVWvvZl05ng6nqRuu
-	EiASr4ytrZeofV782AlWdy5lBcfYkNobH/ab79R3+9jjOMYu48XLs0V/YV1ZNolJ2h7lcJMj4ax
-	UQVkWfsWvhek+nKoxpHOWAK/Jq2r0SxDwH3akeh0upSb+144x3YV3b978oTObkhkgl78bAurGZS
-	JAT9Nmq8svG7UqOa+xk1FiscV2GFydefgAELjyl/BWWLcbAVMSJyQYvwmnYGwRBCvdBO8QLynlY
-	OGV3vabn6rQrC40uNnppZL57NtFGhK9BVxMToHGYIoixXhbNfIXGI+T0KUEdxQcs/+qOfrFyMuJ
-	mzj3ho/1b4YWG1wc2Zgjw+q3ddHETX5fEEI4kBuY1JEqjx/jw4vBpyfAGWog0iEdEMwPBLhRK9Q
-	kAY1yWgLh10AyC4/shKxmDpPJw8C6rpKm2m2Gp6naS1lVP977Tl76iA=
-X-Received: by 2002:a05:6122:c88:b0:5ca:f811:25ac with SMTP id 71dfb90a1353d-5ee8aefbb61mr486259e0c.14.1795114925522;
-        Thu, 19 Nov 2026 11:02:05 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6df8a28dsm809462241.4.2026.11.19.11.02.02
+        bh=McN17chfwr/LQozF6dFVi78SiwnCLQfwPyBkDcQsbSc=;
+        b=JPIdnIPGMAZjKKDDEbXj+Z4eXzTo1aXHRmybuTSECaUE0BFrd1Z/sgQgyD6Aupxgeg
+         LNTGuciKPNWd80Xdgu+UTE9yJRtgsFz7/xCexJO8q/sZYUw28SRjsTYGeVqoD7UYhoez
+         cNSwN9sGK+6GZ0jtvjL2IRk6zkGQQPOh4AsY8qHPbW459qj/eNm3HLt1Lybag/lDt3O2
+         herZZRyUKuk1qCEzKobuBSh4eMUXkFHlE9FmvXMdmHBM4hHPMj/n36Fhio110cKEmzjZ
+         0zJ687XytVppsjfFZktiPHHorD3UfNwbrT9+I7Um6OT1AmQAyAUDtKJ7xIUSYq7M45sB
+         tHHg==
+X-Forwarded-Encrypted: i=1; AL+hErGgDbA8f68O1+7E9CrWai/bE7a5QPyhF5IqIPLR3B2THZlkIFuSkupwU14r7fpS6M9hdbRiBPHL@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z8/4LJpqRFSyCwrwSglnlWLPTI9EvU7gRBSdnqRni+4GI6Q2C5A
+	60RzpEVHVUsc7fvDXRzlQdmKQcHIha5xi8BCs21pCH8nOmQNVRf5MLaziuaYYMt+tok=
+X-Gm-Gg: AYBFou2yiZNag88OUIrufpFQrYsDfGFvCOGOK0meR9f38vOl8jVehGiLeoz9k8r17H3
+	NHZx9g/dPAp++OUVUUTkyOWqN3m4TVWMPpzAZ3DkYmSHck7QnSZJ3XXYQcdLK2DNFlp0pxey8rG
+	wSWVk0tMRTI7Fy4OBP3/vuN0Av8+Fp7zVcXDBl563Ntt6aZvPtkYbvMqLT61RDHZfZLSi5RUQbD
+	tJSAHtwfP0Se+hHLsx0jVO3lNOfJBFCxsS0PPqGbxhi48fept5z6kAV4EfrW5zpCiUQvf7mlF2x
+	apTS6Loxsu0g3QYY4oBnQp0VgBDJsEQ46BN8XoP3Vk8VIu0qEW8pCaoWVKLWIpDVb6HOo4VTC+V
+	lNkGQuxktQRHVD2cywNdaBnDD+nFSmnMcIMeivwFbuiwL0NXtoklfewyIvbZMMOow1WXlBX3ATw
+	yzghHqA9CrUWi0hIaq4tP537NgjexAbzks2iXhAXGY9NGkIhIe0PrnUkUJl0nMAUHynz8QfwDhW
+	McqLvhR220n03uM7Hl827bRbmawRu4cpnmOIjjosjz6Y60gmphVLo78VEkvNxTcVv2kZyVjwmsB
+	S4HqrDhcICanGAwk+do7yGsaFKasorNEzIFq/imsJRFF+def
+X-Received: by 2002:a05:600c:3e1a:b0:4bb:6814:7391 with SMTP id 5b1f17b1804b1-4bb8881921cmr77585875e9.25.1795191721065;
+        Fri, 20 Nov 2026 08:22:01 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853ca452sm129338075e9.15.2026.11.20.08.22.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 11:02:04 -0800 (PST)
-Message-ID: <84fd9703862c225d63d973cf170b06ab7a962312.camel@ndufresne.ca>
-Subject: Re: [PATCH v2 6/6] staging: media: cedrus: Use
- devm_of_reserved_mem_device_init()
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Daniel Scally	
- <dan.scally@ideasonboard.com>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>,  Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Eddie James <eajames@linux.ibm.com>, Joel Stanley	
- <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Minghsiu
- Tsai	 <minghsiu.tsai@mediatek.com>, Houlong Wei <houlong.wei@mediatek.com>,
-  Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Tiffany Lin
- <tiffany.lin@mediatek.com>, Yunfei Dong	 <yunfei.dong@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Joseph Liu <kwliu@nuvoton.com>,
- Marvin Lin <kflin@nuvoton.com>,  Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, Maxime Ripard <mripard@kernel.org>, Paul
- Kocialkowski	 <paulk@sys-base.io>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  Chen-Yu Tsai <wens@kernel.org>, Jernej
- Skrabec <jernej.skrabec@gmail.com>, Samuel Holland	 <samuel@sholland.org>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>, 	linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, 	linux-aspeed@lists.ozlabs.org,
- linux-mediatek@lists.infradead.org, 	kernel@collabora.com,
- linux-staging@lists.linux.dev, linux-sunxi@lists.linux.dev
-Date: Thu, 19 Nov 2026 14:02:01 -0500
-In-Reply-To: <20260902200703.2016410-7-mukesh.ojha@oss.qualcomm.com>
-References: <20260902200703.2016410-1-mukesh.ojha@oss.qualcomm.com>
-	 <20260902200703.2016410-7-mukesh.ojha@oss.qualcomm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Zy5+UcnjO9CPStg5/eKL"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+        Fri, 20 Nov 2026 08:22:00 -0800 (PST)
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -130,38 +85,82 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v12 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, stable@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+Date: Fri, 20 Nov 2026 17:21:57 +0100
+Message-Id: <179519171774.3795820.6006858658982158181.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1505; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=da1CAgmUNSJ5Vw/XW6Lz4OSgqJ+yn+Z+QoMk5bui0gM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNkMxctdWw95f775+kf6Kd3uhXaOSe5//1wwaWVeY9QYX
+ yM9mbu/o5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABOxMGf4nyRy6+VEnRlFq7fI
+ GagKJv1//7Hkw7/YmsPPe/Y99eOVz2NkuJ8445EhV1vDy2cFLl7ntuvVZT55xxi3U6SLM/uNTEA
+ fBwA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---=-Zy5+UcnjO9CPStg5/eKL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> I am in possession of an MA35D1 NuMaker board. The SPI controller has
+> been contributed, but at this stage it does not work with the current
+> clock driver.
+> 
+> The clock controller registers its muxes with .fw_name parent data,
+> which requires every internal clock name to be declared in the DT. As
+> the DT does not declare them, all parent lookups fail: muxes end up
+> registered as root clocks and most peripherals read a zero rate.
+> 
+> This conversion exposed a first issue with the WDT/WWDT parents which
+> were actually missing in the clock driver. I am not using these clocks
+> myself but it is worth fixing.
+> 
+> The second round of reviews raised another problem with the
+> crystals. HXT and LXT are external crystal oscillators wired on the
+> board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+> whereas LXT was not. The series now also takes the two crystal inputs
+> from the DT: they get documented in the bindings, described in the
+> boards and looked up by the driver (with a fallback for backward
+> compatibility).
+> 
+> Finally, I was still unsatisfied by the clock tree because there were
+> too many root clocks. Many "gates" were wrongly set aside from the
+> downstream clocks they would gate, and SYSPLL was simply not parented at
+> all (?).
+> 
+> The clock tree now looks much more accurate.
+> 
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Le jeudi 03 septembre 2026 =C3=A0 01:37 +0530, Mukesh Ojha a =C3=A9crit=C2=
-=A0:
-> Use the devres-managed devm_of_reserved_mem_device_init() instead of
-> the manual of_reserved_mem_device_init()/of_reserved_mem_device_release()
-> pair, letting the device resource manager handle cleanup automatically.
->=20
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Looks good overall. just 2 tiny nitpick and we are good.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+-- 
+Jerome
 
---=-Zy5+UcnjO9CPStg5/eKL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9HqQAKCRDZQZRRKWBy
-9KPMAP43HkphsVrqQTwGITR+0glsiS4Fp5Wyse7t/ZPwvyRH2gEA4/6BFP8fPbe6
-9p9JGy6Ck2BZu8qjXZw4UU8oUtkiJgI=
-=GZdK
------END PGP SIGNATURE-----
-
---=-Zy5+UcnjO9CPStg5/eKL--
 
