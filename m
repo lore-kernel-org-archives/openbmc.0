@@ -1,69 +1,130 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D437B606A320
-	for <openbmc@archiver.kernel.org>; Sat, 21 Nov 2026 16:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=VLbnCl77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A308D606A31E
+	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2026 09:11:27 +0000 (UTC)
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jWyTR2tRKz2yCP;
-	Sun, 22 Nov 2026 03:34:19 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=212.227.15.3
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795278859;
-	cv=none; b=dm1rNwbtC+NJfGjnYqz9vQGlM6qBf3A5AWyqTIfRsO9JReIh9qHR71xDeRAVXMeRa1wOHQ2Yg9EPaTWE6gZ9Wfdm8yiGQiMzpnahUjvujKKOy5IxfbUI8yNmyu+AtjVteA1bDbOC5R4l/D5sVeyii6O8CXBgICAIVwa59AmRIPaST2USrlN/da0yp5z0hGzktNjKhGiyzpdxKh9EoryTxjEu6OayFngIeHSU8uYm0TdeG1cQY3Ldj/HM70GFq89p6h1DRjWJllIrGYUm7rsZWLI0AmMSaRATm+rNJ419/5E3cBWivCwL18YWtWP0lS+z6ojep5IptFV7ZevS6JA+8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795278859; c=relaxed/relaxed;
-	bh=auWbpWfPPFdjYS0sjeGkL+z83l0fOIuRwcMvAjF4Jc0=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Cc:Content-Type; b=E3EPrcsv2vkHdixDUyCNPr5PBZXwrxgj7zDq4YqNzy8kD+QjcGpo8mRh+PDjoxgbNXs59OAtJnC6SD1aIVMyOLJnwbLDQ4r//KwREDdvQLKs6ujIZ6Ji9uaarjJQb1iP7sbA7l9J701elzKJk8JgqrZjMcEdG1xLkYXQHGQtRkQ350mrhJ4XlPGDYRqgHZrdw+9+V0FCiKnHiCrpL8u1sEeCPWHO6YA5Rc8eVCPBZWhflp/1zO2n4KRGFdU/zjB7MsCiJt7Yw0gRIQziMgWIRH3u1ch1E2QiHNUUBZdmon8cPOviOVp+NkKGwhqUs8dkqiNp5UsXSRDtscXjDDTpiQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=VLbnCl77; dkim-atps=neutral; spf=pass (client-ip=212.227.15.3; helo=mout.web.de; envelope-from=markus.elfring@web.de; receiver=lists.ozlabs.org) smtp.mailfrom=web.de
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=VLbnCl77;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=web.de (client-ip=212.227.15.3; helo=mout.web.de; envelope-from=markus.elfring@web.de; receiver=lists.ozlabs.org)
-Received: from mout.web.de (mout.web.de [212.227.15.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jY0YL1QT3z2y89;
+	Mon, 23 Nov 2026 20:11:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2406:e500:4420:2::708" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795425077;
+	cv=pass; b=iYixXDhtmSj8F7kpuUsQJcs1SWmWBjdagpgA3mewJtPmcDDsjd1SD9mUf0KW1KEDHWXVjEMZL47wig6KIIpDBsWWDNWRE1xt9VISOjVChYIEcYgi7LbwC5yvwRvfDOWOA4sYvqSvp4vRduiOypS0wBIKzv4oP+aoemgLa95szuJ+Jeep2iUvs+VAjPnB14gNhZYvAFMGMHrBNyVE3rJAvRNwtqWS6SGBx+q/NrlYZuHE8WTGGZTFiyvrS7zbuRuY24FHy91xkKIExt1Z/Ntq/fiR3/LqSaeHAAy1mST3jF9Le78ZWMoirv0IL8MbIzIPPqhvqgheweWaL9k3B4waFA==
+ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
+	t=1795425077; c=relaxed/relaxed;
+	bh=2vR1bhDDylDCqnVideQPa1qxPGWB/4JKDRQDTkTHEq8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=AKgC5djepJswGwViR3MWq8A9WojGNDKYcDzz8xTWft1MH7YSDFd5hB9IrYH4sX6+MNFojj0pTKUzD1yCekPf/lZBEKRN7Pqnx5D/QNkbCocnp+KfWGKO5hdNSYHSIEKlN4hK1017H/IRDp+h29igeIP2QA43iK7YQUwGSOiMA2dvWhrTy+AlX0uHPZZ65edlLqt+I3mqnOdc6omc0HFywS3FkoV7VsuBpXbLZ7Ic9IzbQklO5iAbG0r53dxA5Y8JtDVPut6ISxxP4GTBmHxrJJnYK0x+WCwcEnS4ZQnm37g1ilRCq7p6ZAoJijOKMk6viROGWf4LHmcplseyqt0t3Q==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass (client-ip=2406:e500:4420:2::708; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org) smtp.mailfrom=starfivetech.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=starfivetech.com (client-ip=2406:e500:4420:2::708; helo=chn02-sh0-obe.outbound.protection.partner.outlook.cn; envelope-from=changhuang.liang@starfivetech.com; receiver=lists.ozlabs.org)
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on20708.outbound.protection.partner.outlook.cn [IPv6:2406:e500:4420:2::708])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jWyTM5bPFz2y96
-	for <openbmc@lists.ozlabs.org>; Sun, 22 Nov 2026 03:34:13 +1100 (AEDT)
-DKIM2-Signature:  i=1; m=1; t=1795278848;
- mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
- rt=PG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4=;
- d=web.de;
- s=s29768273:rsa-sha256:UTPDPiIjiZMPaN9jrTGcV4uyzqYW
-   uCqa6iv/gLlIweMKBlCG7qp2ozI9pNBD4SEKJi1IqdFAzTKA1hRl8RjkJsfDI7I4xNFcfbLRBb1
-   2/MC3GnLJ9TKSTZZC001VQ6hEsWYoExM7Z9UUxdDdaoJBdd0w5XDpK6qE/QGc/typwr7mAqyxtc
-   /Ccc1JM6qhKMwqvYQmOl0wJkRKQoM3A6wSjpg80GK3PEIj/Wzq/hJo3Et+zsc6s8QeH5lR8RNJP
-   AcLCrXNFibrE+IlSx1j8GZ+QtXkBdj3caHCEXho2oLvvWQrlpKNOGrtXzyFWAqsfjR/VTF6OxqK
-   bojUyN8+c0r+pg==;
-Message-Instance:  m=1;
- h=sha256:
-   +htYexGBTL2kBAPo9jTQRKIbUfRm1urwn+kdAc+VkEE=:
-   N7e3qNVbjjZchMqSISQgG5F1KkwW9NMwj1Xj5wWQ2As=,
-  sha512:
-   Sox2zYRxP8bZVGPkg7K8XJrMUgN7Mlt2fjgjmVv/5SVj7jSOITQEvnjJ0ytuImv3RGxZ1KMKpL1I2GTr10tj2A==:
-   GRrB3Lg4xoy7w2Xzuvvjt0Ly/F4OOdziDEX5aOcZPFhvNqvoqG9KR9RMFN7QoBnKc2RCBchiW+vH4YBC8th82w==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1795278790; x=1795883590; i=markus.elfring@web.de;
-	bh=auWbpWfPPFdjYS0sjeGkL+z83l0fOIuRwcMvAjF4Jc0=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
-	 Cc:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=VLbnCl77bnDCskStlab/2GGRU3BGp4yGfEqo5XUOs+j+DdrT1tErU1JDwy/jSPGt
-	 ucnSVlsmt6W8BY7wfPztJ0dPkDMmcTxdJ6yR0dLL9EGfOwELoOtwI2ZQFDB7hJrFZ
-	 24VnlpbPJILNUm02e58OjBTDtR61fTuAcWkmuJ1Lsv2RTubCwh36zu8wsegNZxkdn
-	 QPhn6j1zKTq4oHUyedcQvTlU59xZfFvv6SLv/G178GJrlmAFE+uCulyUuW6ZDdE2G
-	 l2zvWjzc9qqWC//V12NvGm+cpdIYWe9XttntcGvJXBNaA2MwI+Mnr62vdNjOJZ9u7
-	 wpCE7zkRxNQm3kI/Eg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MA4bO-1xgOcO21gA-006a4Z; Sat, 21
- Nov 2026 17:33:10 +0100
-Message-ID: <ab46a205-d1c4-48f2-8891-4de667f8ebf1@web.de>
-Date: Sat, 21 Nov 2026 17:33:06 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jY0YH6Ywrz2xGg;
+	Mon, 23 Nov 2026 20:11:13 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=B9HEwoLNLPHUESOYhImWzFg3snalHnpvZQQSUClCA4PEYrc5Nrcl8mps3kVf8j2/xnCEROJxzifN3XgbEEGHxmdXyrwUnIJbAcF5fLBHjKVzMY+LRQ6axns+bv9v/3z4avo3rnGH9bIRl8Dwy6MgPXCA8FJens4q1ZeRkj2j8ycEdVgjLQ9RWRjZz+9tEeWf+YFVw5BlhRmdd0Pcf6Mj0NvT0sA7j3Rd8aSooVy3/miXMuW4/tXfWjA5XwbHr44vAX09CLZhK4ftTsVl9S1ooWZVmkjH0f/In+n7MIRmAANqRJm32FLvXEq3eA1trWpL/NpQV4ORuUULyKKnSLBxdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2vR1bhDDylDCqnVideQPa1qxPGWB/4JKDRQDTkTHEq8=;
+ b=SjJxUcqFz2WZdXa/lL3Jf7KRTmA0cmO94m314brDYqTijxTJV7SNcpyI8bH0ByW0ajItd1en/ZYZTWdR6eUG5KLeKn36GdE2xKtsILoRxlDbQ1aHlNwFkI3wou+jvzgK+A4QVczLRhI4gLfJBx9U1DGG3WECuy2rS+WNP9gpVXxDZlvZ4EPIODf1D7sXXpvWl7Qh3/vUAcDdamVwsUWxVKjFMJEz1S/xafEgxyUe/Mbk65jUxuw+7woB8J6EhMgO8MP/eSXT/fT7q1KwnH68zFEHQOJ9EDb5JHq5ZpiSfQC/OCA41QKQvyIV/CSsjErIiN2yT4P9qbfsXNMzMBLFTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1234.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.19; Mon, 23 Nov
+ 2026 09:10:44 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%6])
+ with mapi id 15.21.0615.017; Mon, 23 Nov 2026 09:10:44 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Joel
+ Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+CC: Shuah Khan <skhan@linuxfoundation.org>, Jani Nikula
+	<jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>, Hanjun Guo
+	<guohanjun@huawei.com>, Andrew Morton <akpm@linux-foundation.org>, Alexander
+ Usyskin <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Breno
+ Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>, James
+ Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>, Stephen
+ Hemminger <stephen@networkplumber.org>, Dave Penkler <dpenkler@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Dan
+ Williams <djbw@kernel.org>, Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>, Alexandra Winter
+	<wintera@linux.ibm.com>, Julian Braha <julianbraha@gmail.com>, Karthikeyan KS
+	<karthiproffesional@gmail.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>
+Subject: Re: [PATCH v4 0/4] Add support for StarFive JHB100 UART Routing
+Thread-Topic: [PATCH v4 0/4] Add support for StarFive JHB100 UART Routing
+Thread-Index: AQHdX7GSpJ2Zeip1d026/L066K6O9bc7laXQ
+Date: Mon, 23 Nov 2026 09:10:44 +0000
+Message-ID:
+ <ZQ4PR01MB120270E5CFF0F70B1E71014DF2452@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
+In-Reply-To: <20261019100643.49099-1-changhuang.liang@starfivetech.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1234:EE_
+x-ms-office365-filtering-correlation-id: 37262dd5-9c1e-4b92-443d-08df4941a79a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|38070700021|10067099003|56012099006|261028144727099003|261102123227099003|261021135927099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026140227099003|261026121527099003|261009223327099003|261009223027099003|261009221727099003|261009221227099003|261009220027099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ lclvUU/q65351EqKN60B05CJ+WwcViVlYafDD4eM9hdg9dmusLXr/4P3JsP61YRJHq5c5C09OYp8lhCscO9EoJ3VNkE6gnnVP0lzJHxlFFoPAip5H28nUO3Ig0qXEv/Zax5KJ7lKbXzJAnMlwXODziiwAIpcsxDNLvrdH25QnPWhtYwm5TcxyGgGGpxj8rtMoz+RbjR7W7tB7+Bl17ycj5NORRZTFAgIdiFJJIhaspG/AohwVSRmuSrD8QBfmiIMh6Ngeq8td43nYwr3I+g05L6P7kEzaUYfzHty1ikNn4h4wEYSND1TBxtkyFFXo9JrtjY0FxprYGYNJFeN99Z3OvMCBUptatEJdoF8SYDAMHq+9thyAC0C2xp/zOHQMuy0l87guqwlzsMWS/Tv1ylJ65qai7EWSlafaZ5x1fOlsAmcvnWGCb5E8z6OYaPZuwZMkYEkzp3Sisi9DWDlsz1PzRdIWEyNQJ1PI2CNA6A9BAmCzUB5pQyszLZBzBEl+TI9sFOfS9dzOaTMNHai0wBgjqrzg8wWWuLdcCoBWxffASdIKQ7bGn78nxL2kLh5UBxE
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(38070700021)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021135927099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223327099003)(261009223027099003)(261009221727099003)(261009221227099003)(261009220027099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?BfEovWpO6b9zcOiOjoQDrrruCMwn/G+grBsU+5dzt2Fa6eGLcf9q9c4OoF92?=
+ =?us-ascii?Q?gcbCqXkoRyoXj71JX+8z0YP15MpFojggcaLwQFwptZgsw0WReI6Dn8CV7QvK?=
+ =?us-ascii?Q?+KyBiDo8RujYRVprkXHgp3GIn+TMWU+GhTJ7jHdv5m9dPC8D2O0K7zL7QDBh?=
+ =?us-ascii?Q?CWd2nRscB1WfVlDAmOMl8IM0+nmAqm/TfZ49tJaL0VcDNPJXsKGsUOPzUNxF?=
+ =?us-ascii?Q?JQUpzGCVj6TZTyWCEphf2Usz8tB7bblCM//02ye6ES2lX5bpIJq+Ow4TNqF+?=
+ =?us-ascii?Q?4JlteOQS3D07vXfnz5ZJ74Evw12A0SVIzOvwyvN71Tv3uTWSisS5hDD4a0pF?=
+ =?us-ascii?Q?pp3N+hCELwIYk+FsHFH/2q7ABzmW4NskjW3Mp3wJs3myjk5OP4lCp632uzpH?=
+ =?us-ascii?Q?/Du/6NHd9MIZMa8syX7xTqD7RRWzhqZwJNrNfVUXChwawva+YhpvspCskZRv?=
+ =?us-ascii?Q?GhKfnylBGQ7/K31CzJ/b4qa9xg+SCCBHDz9NqERrn35uukX9p/kT8OTyas4G?=
+ =?us-ascii?Q?pxtnmYTLG4dLsJNoxy4mcO+rghGitNLDuP8kinx35/C7tgqv8+rRTqyI+mmo?=
+ =?us-ascii?Q?GFiJiiiwuG/jEHSFE9vey5K0htMR6c3+KsMBRvZQ2/LpYZUFYM0nkgY0V5jQ?=
+ =?us-ascii?Q?vPQWEeUfIWKTzAb0oKu30/9GPsYdA7dXN7Ye6mK9tfjPHVGWafIGtTZ/gU/f?=
+ =?us-ascii?Q?EcnD13s1R+kn5nPBmpBbEwgW7xuAZD1RQcjcUZ/wQgMHf44AGl1OiAAOWq69?=
+ =?us-ascii?Q?Asl1vRhLX2FY7fcEWHa51ejrkEAIESJpvGXKtUbtQZFkLywv8p4tIF6vmfQ8?=
+ =?us-ascii?Q?ivtRoWWEuwDA/hrFAFJQpHJXXqk0n3OtQYB9WaYb9pOS8bq7mj04iuJWg6VO?=
+ =?us-ascii?Q?rQzHI8q5NE4zTxkWMjGHZDGbpsDserKliGASVDXXPApksZBsLuYMMJOtCSDC?=
+ =?us-ascii?Q?sVYNEQmat1MrnZzCqHUp9htpyRIIvEO/7uF133D1X+x+b5dgVbiXOAhFTmOY?=
+ =?us-ascii?Q?gTZIyHzBdFxaIn899z3w9A2yVPoeq8h9wGyC8AQ9qJC+EU8TATAEOfjHiUuK?=
+ =?us-ascii?Q?/ZqJyN3Q8zn0zyYFXIkn7/qzEmS618JwIOhlxoTKsF1++9DsVMZIRWxkmOPj?=
+ =?us-ascii?Q?B95imfqCTMTPJz5rGEJal0ialCmbM15lnyiKsj5eopE9frl8jikim712ipKy?=
+ =?us-ascii?Q?11yMR0t3Pe8HTOn+qnkITrp7U/SZgjYfOTl4JBMcfXtujMgJJgc9IKOLpWeB?=
+ =?us-ascii?Q?xP5hbKLmRosR7nbYGcxwBIMyjjR+DFu4kLwG0gcVJzK7px2p122tg7tr0vZG?=
+ =?us-ascii?Q?agk7ytHeRBpADGdDDZ5WOuFomPrB+wxMRplf1MudgsO+n8J9ZRbigdsmEX3s?=
+ =?us-ascii?Q?5M7p9Rf3dSKBwEBUJhykuY0qecP+AcNhRKsMvgKARfEgqI0phXtoxTwJh2QR?=
+ =?us-ascii?Q?0Yls1Yy1SRM+UEpYsxm9bkxrh+VBJ2RHUyM3QhimWQqyZiYZgIOXuAswg6aS?=
+ =?us-ascii?Q?8ShILoPB9lfP3CyUH9kCwPI1UMdJ5OP/abLF139ePdn5mz0nqkd2XG9PJ2/Z?=
+ =?us-ascii?Q?+3f8n98wl3JFlD/dZTSFIbyxeBfImRlx8JxAv5CkkG9zApUOOLbYMe1qryYJ?=
+ =?us-ascii?Q?V41PKM8tfGTU/NmsALKrHsZZFs5Mdfl6BIP1P8U/hZyIZ1tjhkV9A5SOLaCv?=
+ =?us-ascii?Q?H6Gj/0Hp7yzKhI/cOdgChkEZNv8g0VSlmKwKS5HWABS4BgRJy5Ybb3LDyrBU?=
+ =?us-ascii?Q?tp7OBHAXsZelNwCMmCuztVIVznF1WV8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -75,270 +136,106 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB, de-DE
-To: linux-usb@vger.kernel.org, openbmc@lists.ozlabs.org,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Avi Fishman <avifishman70@gmail.com>, Benjamin Fair
- <benjaminfair@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>,
- Peter Chen <peter.chen@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH v2] usb: chipidea: Use devm_clk_get_optional_enabled() in two
- probe functions
-Cc: sashiko-reviews@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>,
- kernel-janitors@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christophe Jaillet <christophe.jaillet@wanadoo.fr>,
- Florian Fainelli <f.fainelli@gmail.com>, Frank Li <Frank.Li@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:qa0Zm20PhwI+l7EB09aMt9rkzuTOEgQgcW0Iftqs/AYHOgeiq04
- MffT33zE9VaZ7tMqgUW2F57LzyviXpi99fw+yiVdZKjUA3Ag6w237ngLe6UZ6tG0hOFI9jW
- L0Hk+MJwQeBOlm+l5nlZ834Mu9VRrneSXxE2NLcnwkPbJ09FKwEmX3GWwS/iRz9JyuMkry2
- PVg3BTL+wOcqkfeTMoLiw==
-UI-OutboundReport: notjunk:1;M01:P0:mWywF0oAKec=;C/OPxiawL6H4zEC53h0jGwKUNeg
- 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
- oY9dLsljIkh2YH3MX4pCC+h8XeeCsoAWeF57+ug=
-X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=4.0.1
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37262dd5-9c1e-4b92-443d-08df4941a79a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2026 09:10:44.3391
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: F3ZeLeAESbsog/go4/c9y9xB+YCaHaeH3Fe0V72DziaGUqgki2GMZ+cyQBwZFw0n0MeqSEhoL2UQkIqrb0x4U3xZ+20SzSC5C+K6kpLiqrKjVALW+vSONKmJHHqqMRhk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1234
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_PASS,SPF_PASS autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Sat, 21 Nov 2026 17:06:32 +0100
+Hello, Aspeed colleagues,
 
-* Reuse existing functionality from devm_clk_get_optional_enabled()
-  instead of keeping duplicate source code.
+> Currently, since Aspeed also has a similar driver, there is some code wit=
+h
+> identical structures on both sides, but a common framework is lacking.
+> Therefore, this series introduces a generic UART routing framework. It al=
+so
+> moves aspeed-uart-routing.c under this generic framework and makes it use
+> the interfaces provided by the generic framework. At the same time, StarF=
+ive
+> also registers its own driver based on this generic framework.
+>=20
+> StarFive JHB100 UART Routing allows dynamic routing of inputs between
+> built-in UARTs and physical serial I/O ports, enabling use cases such as =
+Host <->
+> BMC communication via UARTs.
+>=20
+> This series has been tested on the EVB1 board.
+>=20
+> changes since v3:
+>=20
+> PATCH 1:
+> - Use dev_get/set_drvdata() to obtain struct uart_routing * to avoid
+>   null-ptr-deref issues.
+> - Update uart-routing.rst: since dev_set_drvdata() is now used by the
+>   framework, remind the SoC driver side not to use dev_set_drvdata().
+>=20
+> PATCH 3:
+> - Add Rob's "Reviewed-by" tag.
+>=20
+> v3:
+> https://lore.kernel.org/all/20260925050947.9900-1-changhuang.liang@star
+> fivetech.com/
+> v2:
+> https://lore.kernel.org/all/20260905102901.126035-1-changhuang.liang@st
+> arfivetech.com/
+> v1:
+> https://lore.kernel.org/all/20260830065118.51551-1-changhuang.liang@star
+> fivetech.com/
+>=20
+> Changhuang Liang (4):
+>   uart-routing: Add common UART routing framework
+>   soc: aspeed: Move UART routing driver to drivers/uart-routing
+>   dt-bindings: soc: starfive: Add StarFive JHB100 UART routing
+>   uart-routing: Add UART Routing driver for StarFive JHB100 SoC
 
-* Omit a clk_disable_unprepare() call on error handling paths
-  and in the implementation of two remove functions.
+Could someone help to test this series? Thank you very much.
 
-* Delete the label =E2=80=9Cclk_err=E2=80=9D.
+>  .../sysfs-driver-starfive-uart-routing        |  49 ++
+>  .../soc/starfive/starfive,uart-routing.yaml   |  46 ++
+>  Documentation/driver-api/index.rst            |   1 +
+>  Documentation/driver-api/uart-routing.rst     | 144 +++++
+>  MAINTAINERS                                   |  25 +
+>  drivers/Kconfig                               |   2 +
+>  drivers/Makefile                              |   1 +
+>  drivers/soc/aspeed/Kconfig                    |  10 -
+>  drivers/soc/aspeed/Makefile                   |   1 -
+>  drivers/soc/aspeed/aspeed-uart-routing.c      | 601 ------------------
+>  drivers/uart-routing/Kconfig                  |  45 ++
+>  drivers/uart-routing/Makefile                 |   5 +
+>  drivers/uart-routing/aspeed-uart-routing.c    | 415 ++++++++++++
+>  drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++
+>  drivers/uart-routing/uart-routing.c           | 183 ++++++
+>  drivers/uart-routing/uart-routing.h           |  84 +++
+>  16 files changed, 1192 insertions(+), 612 deletions(-)  create mode 1006=
+44
+> Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
+>  create mode 100644
+> Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
+>  create mode 100644 Documentation/driver-api/uart-routing.rst
+>  delete mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+>  create mode 100644 drivers/uart-routing/Kconfig  create mode 100644
+> drivers/uart-routing/Makefile  create mode 100644
+> drivers/uart-routing/aspeed-uart-routing.c
+>  create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+>  create mode 100644 drivers/uart-routing/uart-routing.c
+>  create mode 100644 drivers/uart-routing/uart-routing.h
+>=20
+> --
+> 2.25.1
 
-This issue was detected by using the Coccinelle software.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
-
-V2:
-Sashiko provided hints for further development considerations.
-https://sashiko.dev/#/patchset/6d2450cf-9bbc-47b6-9ea3-f91bc1b91371%40web.=
-de
-
-
- drivers/usb/chipidea/ci_hdrc_npcm.c | 13 ++-----------
- drivers/usb/chipidea/ci_hdrc_usb2.c | 15 ++-------------
- 2 files changed, 4 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/usb/chipidea/ci_hdrc_npcm.c b/drivers/usb/chipidea/ci=
-_hdrc_npcm.c
-index 75a0223b578a..4b608f2bb383 100644
-=2D-- a/drivers/usb/chipidea/ci_hdrc_npcm.c
-+++ b/drivers/usb/chipidea/ci_hdrc_npcm.c
-@@ -47,14 +47,10 @@ static int npcm_udc_probe(struct platform_device *pdev=
-)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, ci);
-=20
--	ci->core_clk =3D devm_clk_get_optional(dev, NULL);
-+	ci->core_clk =3D devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(ci->core_clk))
- 		return PTR_ERR(ci->core_clk);
-=20
--	ret =3D clk_prepare_enable(ci->core_clk);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to enable the clock: %d\n", ret)=
-;
--
- 	ci->pdata.name =3D dev_name(dev);
- 	ci->pdata.capoffset =3D DEF_CAPOFFSET;
- 	ci->pdata.flags	=3D CI_HDRC_REQUIRES_ALIGNED_DMA |
-@@ -67,17 +63,13 @@ static int npcm_udc_probe(struct platform_device *pdev=
-)
- 	if (IS_ERR(plat_ci)) {
- 		ret =3D PTR_ERR(plat_ci);
- 		dev_err(dev, "failed to register HDRC NPCM device: %d\n", ret);
--		goto clk_err;
-+		return ret;
- 	}
-=20
- 	pm_runtime_no_callbacks(dev);
- 	pm_runtime_enable(dev);
-=20
- 	return 0;
--
--clk_err:
--	clk_disable_unprepare(ci->core_clk);
--	return ret;
- }
-=20
- static void npcm_udc_remove(struct platform_device *pdev)
-@@ -86,7 +78,6 @@ static void npcm_udc_remove(struct platform_device *pdev=
-)
-=20
- 	pm_runtime_disable(&pdev->dev);
- 	ci_hdrc_remove_device(ci->ci);
--	clk_disable_unprepare(ci->core_clk);
- }
-=20
- static const struct of_device_id npcm_udc_dt_match[] =3D {
-diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci=
-_hdrc_usb2.c
-index b0200c5937cd..0cff5486e9c0 100644
-=2D-- a/drivers/usb/chipidea/ci_hdrc_usb2.c
-+++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-@@ -70,16 +70,10 @@ static int ci_hdrc_usb2_probe(struct platform_device *=
-pdev)
- 	if (!priv)
- 		return -ENOMEM;
-=20
--	priv->clk =3D devm_clk_get_optional(dev, NULL);
-+	priv->clk =3D devm_clk_get_optional_enabled(dev, NULL);
- 	if (IS_ERR(priv->clk))
- 		return PTR_ERR(priv->clk);
-=20
--	ret =3D clk_prepare_enable(priv->clk);
--	if (ret) {
--		dev_err(dev, "failed to enable the clock: %d\n", ret);
--		return ret;
--	}
--
- 	ci_pdata->name =3D dev_name(dev);
-=20
- 	priv->ci_pdev =3D ci_hdrc_add_device(dev, pdev->resource,
-@@ -90,7 +84,7 @@ static int ci_hdrc_usb2_probe(struct platform_device *pd=
-ev)
- 			dev_err(dev,
- 				"failed to register ci_hdrc platform device: %d\n",
- 				ret);
--		goto clk_err;
-+		return ret;
- 	}
-=20
- 	platform_set_drvdata(pdev, priv);
-@@ -99,10 +93,6 @@ static int ci_hdrc_usb2_probe(struct platform_device *p=
-dev)
- 	pm_runtime_enable(dev);
-=20
- 	return 0;
--
--clk_err:
--	clk_disable_unprepare(priv->clk);
--	return ret;
- }
-=20
- static void ci_hdrc_usb2_remove(struct platform_device *pdev)
-@@ -111,7 +101,6 @@ static void ci_hdrc_usb2_remove(struct platform_device=
- *pdev)
-=20
- 	pm_runtime_disable(&pdev->dev);
- 	ci_hdrc_remove_device(priv->ci_pdev);
--	clk_disable_unprepare(priv->clk);
- }
-=20
- static struct platform_driver ci_hdrc_usb2_driver =3D {
-=2D-=20
-2.56.1
+Best Regards,
+Changhuang
 
 
