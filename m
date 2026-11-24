@@ -2,91 +2,76 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829DC606A32A
-	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2026 23:15:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9152606A32C
+	for <openbmc@archiver.kernel.org>; Tue, 24 Nov 2026 13:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HVYjCvOl
+	dkim=pass (2048-bit key, unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=TIbt4aaU
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jYMGy4FWlz2y96;
-	Tue, 24 Nov 2026 10:15:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2607:f8b0:4864:20::1135" arc.chain=google.com
-ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795475706;
-	cv=pass; b=eG3x4uV8k8uq6a+KG3H0BtWGe5pxEbYXL1Zi8Z+7hA73yA2yM0dnUkg2rXndz9Otoersop2BChkI7pn5DWTlWT9zYHpVhr2mXQyryRqiCow92imYXnTcyBgPt0SkX/jABQy9p1YhJZO8uYcTxKDRlVWhtE4MvRVoDSdb0PVUwWoyt/++v82JR57OATEmB8MrCCvkG6xJNrFklb0WoJVPDq3TpdotRisWtYW6lk28Xm7V5d9aa+PvyuuzAR3wcG6DXO7lTjLBwyo5qQYY0eV5ksgY+aTTFsFvmPhZMhUC0kIpmOQVu75Z28dpBWqHh6Q5ki9aDODA5YsuM2xsPiqbJQ==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jYjwC0GTsz2yDc;
+	Wed, 25 Nov 2026 00:15:07 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=pass smtp.remote-ip="2a01:111:f403:c107::9" arc.chain=microsoft.com
+ARC-Seal: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795526106;
+	cv=pass; b=iMzq8vgIue0bWCI1wHb9oVioV88jiEBoQ6x2pqXmLj0IT2gLvNjna+D/6iJeOqXlqd/MVYYGxp+fkQfEmHXaIq2GmwylJgi7FaP4I/44SlyUHXb9PJIcGQi0GlLADIlcNi+DznK53ZW/wBDRQOuYVloPCuJQSFkW3ALPh/Htrip4d5+tTe/makEecRLvAm1JkjQA/La971YcpPLmdOmEuhothBtv6CA69+FsCSxTw06M3yWYmlBppVLH8LFRDaeo6aMj8M5SCdbrImHrVVtQLn7BRLXeFaN1HYrlt429Qk/YcPCwayBTlJMW0hF6OadgB+nDRiWk6AXI6TSZYhSF6Q==
 ARC-Message-Signature: i=2; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795475706; c=relaxed/relaxed;
-	bh=e2eePGim2m4vUtlkJCjT+l0OEOUKNlfimP+dcQEuEYM=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Content-Type; b=OAw869xrc0Ar5Xorisou1UJgTi+kv/lRqV6x/2nsu+Kt5nlePHb9QvzOswVKOKT+TBfDySYmpHEyFBQVpimyEXQI6AQ7E+7h39SAHXCjxEiaEiau+KHM/Ak5VpzTiThGCE0yBCzTbwg/bn3AtJVSuxlBGujvfUbwW/4lWdTKlnOKcTFIT98TsRYh1CeST9VphHqEnerVumed2FasuAh5mIX3M7JouxvsrwQkoffV/ESV++9T/OLS6ALmHDhoZh8vjcgLTn+wIJ4ul0lq6ZuFkbKXqm5dO5LS8stoQlHOhI+D8xcZAgTCKI2b1HRyuxfoHDf9PkIeEhqExLk4uE9Vow==
-ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com; dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HVYjCvOl; dkim-atps=neutral; spf=pass (client-ip=2607:f8b0:4864:20::1135; helo=mail-yw1-x1135.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org) smtp.mailfrom=gmail.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	t=1795526106; c=relaxed/relaxed;
+	bh=pYwXxD5MgatSE+puLnhIi9nFAFrR9w/nmUJTmwQBOy8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hv9btr9Eqvd0Xp2UIQVBI80aX0i8xfO3X7S6T5bE7lRlfO/2SM9Bn9RNx50yFQhEoFuR0/z/r4UCPUTu89XSKf8+vo2cCNV9Xo4ThEzRXkkJECBxW8hlJ9ijvtP1IT/ixStjbYGXfi3yp5B2VlElSCJLz3BUm4B9xgHGyQ35nOTK0S6zD0opFGDREjbM/QxpnrmxIxoOnGeRBMaqBuFF3vuMCqn/TV1Zfr/QgmEQMQ4E0LcN1YyJqOktgxcGAhNbXkhWLkwOjMl7apW00JKuWm+fiaGSMF/yRs9L2d40wBeKcKczzYfMR6fA5W7EjlR15HmcaOPsutuvEWk/aAKBMw==
+ARC-Authentication-Results: i=2; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com; dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=TIbt4aaU; dkim-atps=neutral; spf=pass (client-ip=2a01:111:f403:c107::9; helo=ph7pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org) smtp.mailfrom=axiado.com
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=axiado.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HVYjCvOl;
+	dkim=pass (2048-bit key; unprotected) header.d=axiado.com header.i=@axiado.com header.a=rsa-sha256 header.s=selector1 header.b=TIbt4aaU;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1135; helo=mail-yw1-x1135.google.com; envelope-from=prasanth.padarthi10@gmail.com; receiver=lists.ozlabs.org)
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com [IPv6:2607:f8b0:4864:20::1135])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=axiado.com (client-ip=2a01:111:f403:c107::9; helo=ph7pr06cu001.outbound.protection.outlook.com; envelope-from=pstepanovic@axiado.com; receiver=lists.ozlabs.org)
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azlp170100009.outbound.protection.outlook.com [IPv6:2a01:111:f403:c107::9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jYMGv0M6lz2xfX
-	for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2026 10:15:02 +1100 (AEDT)
-Received: by mail-yw1-x1135.google.com with SMTP id 00721157ae682-8b4d5e645d1so24460217b3.1
-        for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2026 15:15:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795475699; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YcpedhplveKb6H3qTtax5ljvR8u2U1tJWrh5l2hd1wObcC7E87Gbo86QuVCxEGF0yS
-         xFCt38EfvVHgN6M7smJtFUrVkOsd7Y3W4rTKAuS6tVcaUvBDXA+5SjZZOO2e0dO24bW1
-         BuYDEXLNnfgTw6+sFN9bZC+A1Np9jYK5gVFyh+S4Gld5IT4tCA6raErBfeNEyb1bMd+t
-         cL/LNA/H21HIBpOe9sfuMsPO/teC1rJ6SgcwAxvdOYeW7PoEDubvGe8rcm1xZPobjyuU
-         1tdwHvtPzbV2PuOYnxBkaqc5wCt9cxzMTfL94/2/vPZCqzto701ZwRjcL49NjcIClUpo
-         vzYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=e2eePGim2m4vUtlkJCjT+l0OEOUKNlfimP+dcQEuEYM=;
-        fh=gFKNMqGUlAytHKLCQaxrCzbSkChyDJlccgGF8K0xBwE=;
-        b=dFOws1waRhHyoVTDz0dih5obno8Al50SMjqLK+aqdXvp0lrXfQT1R7l3VranMlk16t
-         LjpGPxXU9d97RDQ6kSmNx7arzG5f9sDsC/XjXPlku25AfiTGldxhBQj/CJDID49Lf/BH
-         5skz3UpmD4vN3gQ34Ks2lQ7oSG843DqChB+ohNiF2Qeh4uJk7yIII2s97HD8jBL3Pgvu
-         fgb63KWDjnyBrnQsQcJWMsBpgGMvM7YOhDpzud1+rcju/f7bCxInVJCjbcUZErgcaeTu
-         VqFtqIZhoODfiOc1h4Cc/z3AgBBck7fJe+BjUFbH5YmfENRMrHVaRqj9dniglv3JC3xz
-         yBdA==;
-        darn=lists.ozlabs.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795475699; x=1796080499; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e2eePGim2m4vUtlkJCjT+l0OEOUKNlfimP+dcQEuEYM=;
-        b=HVYjCvOlvkVqZEN9697yGmVjfsibJd8QoBTggb345FDmadf8e+X3VFwY6pRMVvmt8o
-         6sRp+hOJFcb3kh9xKisY4IW8hMqybIp13/4+YisUgm844yKI5T3S1DSdBpA49BlN8rqQ
-         fmCkyIud2VDnBjZV+qwH+e6I2+6qIMO7tdBj2h18zvvDsExLnXUeqvoOt/cQ7QzJorrC
-         dJeUCFR6sGFMCSt0QzSdUck8/Ob8orXyEnOT5wxZp9perTbo7uR3Ue6/RnbB5E3QaduG
-         bWkIl+n7HzEjJ4mFXbDU9gQogN+EVfgLGRdoCqc8TsMdL1ipbIkzQzC7/uwY4rXfc8bR
-         qCUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795475699; x=1796080499;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e2eePGim2m4vUtlkJCjT+l0OEOUKNlfimP+dcQEuEYM=;
-        b=nYHniygglC1laF0aK7NTnSjgDQgN+gkN+o67O7XqpVEGt+yZvC9aDw2OCmi/f+O45z
-         Xh+L1hVnGMTlCh/7+GIfyTae8FJ6CV5sXM7jcT2bsFer+a4oKlX5gSLXlN1l0/m0+q/6
-         d3N5kEG0I5Zbtquh9vxTRaUhTj2tL8mc/BP/tTlVbivwRAL3N+r2+S1nq8Gs1zFyeB+C
-         KnlhSNaZotISeKilhje7vnlPu79UgivwqbfCq/kJSwEVqVWt6usCQQ1z6IB/DXZrn5ep
-         LHOw0MNTRsMU1sddaXOoBCzXalF6muX7+vBFyRm8AbTAwGjWUhq1nMTc7zn5B5toMcTl
-         /82g==
-X-Gm-Message-State: APuU4Z8bIGtdcurFQYOjn0Chm9D1hBHmN3ppd9kVYFAY6Fz7LzsTKjgz
-	AWchWjvonItmWooVnj7ZKXgiQZYYptKedAQwrGIQDiWOD2jCyq2o2ym+d6QICjwPabgcy7yRC7R
-	K0zHrMG3MpF7dA35mUthQ35pNKyXQVqLsSfNz
-X-Gm-Gg: AZFdTZfzPxSl34C2u+kxm0GNURM/geGfnryteC6lXNK0fno+ivNhRjRtUNxHmJgAAOj
-	q2+VfN2BUE8E/8KMeR/L6LV9eMEK45qTCMqFD0grr8rQxHmok0KXLO4pPiX60a+GjSShhG8ArqV
-	WmHZJ8G489BMSgOBqLUlDFl652bwgIgnImE9Tpj9YO9WFPgnb3nY1zyHF5am59YIAP43xnkFW7d
-	9bDkV9ltwd7QA/Avp6f7B/XRevP2FHOw1t4acfGbeKpPwsMzdbqsOR2Sxp7y8jimSoURQlVU/ET
-	1onuRjHlyft3muBwmyQMrbrWidx8yKgtmOCA2Hkuf+pONUxc9vN8Ecgpf3q55E4rOihXypWTkgq
-	4ZYrslyhhyAvFViDsQlFjY/D9y8eZKH/HlNxVGw==
-X-Received: by 2002:a05:690e:4503:10b0:67d:a0e0:1c8 with SMTP id
- 956f58d0204a3-67df4425b61mr2897575d50.40.1795475698887; Mon, 23 Nov 2026
- 15:14:58 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jYjw74z0Tz2xlw
+	for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2026 00:15:03 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DQYAbI+OkP27WQNA/eqHbi3cud4pSY7S8bPu34rBwktRKRXWlc0qCSfPkqCJUmGadmH3I2vnJOiTPO1Cu3AP4u5IKnAgDPu0WyPsAt+iVlxjVFjs8msEXUgfB5lLW+gG4M/hdUTx2I+6ujqxu+dv6D+f+WXD6bAIJbG+gqGnRjG1Bie8TTGntc3lR8D2N139fnGMD11Btd/kRk2dnz/IPddMyiw+xmyAKmf8BSkoJAddtEzrAk0PQzTHLZe7iA8UQOuxnMWbty2kqEWyvmWe4PZXl7NgefKIxc1m6TTt2w4N7lLx7M1k6cIm5WhQYrU5QgZua8OHWc1ezsVoJ4IGkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pYwXxD5MgatSE+puLnhIi9nFAFrR9w/nmUJTmwQBOy8=;
+ b=wPvDNJQ+wVYL30xOY89gC77mXIp2oyfq1sMcu8N61+gRPMA7ZCBR2w8IhOQOcJd9wEflGnZM/+ViNFcrLADGEes2DLI1zn4FaztH2fo27ObaCwOZ5bzW0u9RiWVXziQHdU0+O1eEZGCwMK2SCgVWAtOIitt7dbSTqE7vlp4MOusK4Owvlo9ajOZYv33AoQHp7hGP9jp4gX5RGtvw12sZnWByD6uIDznMJBmikhnKsDS6uChlQziuDTTAP1IS+b+B9NtGkn8g2r/4ISWVTCSOGEizF1peRiCoeIooxQCHN1RQFUqFaD4S6iPNFIMSTQoA3nv+07bHP1qrdobSlKpG4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pYwXxD5MgatSE+puLnhIi9nFAFrR9w/nmUJTmwQBOy8=;
+ b=TIbt4aaUUGkKyxNv2rBeIPXCCvUZ6jGMI6BNElzG75LAgvz39B5fUHL2jUJ7b6HEiMhoBeJijmJWeT4Kp7eVcvneGclXiDL5R3qMGWGwmniBUr2jkwC5OwHFXNieC/w6AoB76dA1flnSogtPJel1C5G9B6cMtfMY4hcjNHj7lTW1cCcEZyEkGGTEyy4FSMPwUCHlFq6tJp6TJz1SSzQ8TupMmGvMthdSDF2hn/uxbQTT1luSLp8ZwyB/2o6junMmy6PQz2Ojo5hIguPJYc58YroBrh2rqRlpVikmuhjLw5OvqzOOE7naSgwrpsrTUXkKwSzeiRqDToCoHlGwOoAWLQ==
+Received: from DS3P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:45f::6) by
+ BY1PR18MB5328.namprd18.prod.outlook.com (2603:10b6:a03:526::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
+ 2026 13:14:45 +0000
+Received: from CH7PEPF00000017.namprd21.prod.outlook.com
+ (2603:10b6:8:45f:cafe::29) by DS3P220CA0007.outlook.office365.com
+ (2603:10b6:8:45f::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.6 via Frontend Transport; Tue, 24
+ Nov 2026 13:14:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 64.62.143.114) smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ CH7PEPF00000017.mail.protection.outlook.com (10.167.244.166) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.2
+ via Frontend Transport; Tue, 24 Nov 2026 13:14:44 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id AED5C4186B53;
+	Tue, 24 Nov 2026 05:14:43 -0800 (PST)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Date: Tue, 24 Nov 2026 05:14:34 -0800
+Subject: [PATCH v6 1/6] dt-bindings: usb: gadget: udc: add Axiado AX3000
+ and AX3005 UDC
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -98,33 +83,182 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Tue, 24 Nov 2026 04:44:48 +0530
-X-Gm-Features: Aa3M54qHaRbfebcaFFYOR4pMaiwgOBMZO6tDA8ZLaHpNa-zyONF7hjl316sWIK4
-Message-ID: <CAMFFDGhNUzbaK=Jcai7Fq5zj6PdNtG5ZkeBb4M8SoUVbhNV3YQ@mail.gmail.com>
-Subject: OpenBMC ICLA status and Gerrit CI access
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261124-axiado-ax3000-usb-device-controller-v6-1-b991f9b27111@axiado.com>
+References: <20261124-axiado-ax3000-usb-device-controller-v6-0-b991f9b27111@axiado.com>
+In-Reply-To: <20261124-axiado-ax3000-usb-device-controller-v6-0-b991f9b27111@axiado.com>
+To: Prasad Bolisetty <pbolisetty@axiado.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
+ Karthikeyan Mitran <kmitran@axiado.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Neill Kapron <nkapron@google.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>, 
+ Krutik Shah <krutikshah@axiado.com>, 
+ Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795526083; l=3700;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=2xo20+OJyKYJmmo/bodACZzslBB1bDqdJY8tRkXvdGg=;
+ b=ZNfFmECuMW77n/PdAZqe58odGfcTHm1M28eIQQUhQ1+NkEgf5Nr84mdJbShKyhxXkWv12aEO0
+ t53J96ZjHiHAC6VtHDap4oKbMurGPwA+JD6qK/KjBEcaba5zIat47bF
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PEPF00000017:EE_|BY1PR18MB5328:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe15373b-0770-4f37-bf33-08df4a2ce89f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|7416014|1800799024|82310400026|10067099003|5023799004|56012099006|261021121427099003|261009223027099003|261102123227099003|261026121527099003|261022075727099003|261028144727099003|261022105027099003|261026140227099003|18002099003|22082099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	jK+Kf9SHNJRRzM8d9ROsQQlMf9odfFu33z2OazWS8JfflV6McZuTwtsW/PKNlPyymuonMKYgkCJ13my9bJwLG5cWbAS3MQODO4706G6fumysiTxwWMe39Q4emunKfXbN21dL4EUxRK1bBPMhkqfoms3VDa9WLN8A0cAoorOThQFFdvltriuqiRtecP1Q8MuZjvObv94ivT+0+gyXQYU4MAJpj/IY4UffoMWMaeKE56cT1YfG0dHuDQHJsTiJZShuzfqLOLX08e0EdfEHlSBEZYuTFW3ECJBZ3IXeN+e/1USrkoXhxE58jkyGLw89ydQ3b5TLoNpI7TJ26/Jv5pueNZ/p/CjEiZ+ZVW6piQQqso13tGJ8F/RDJU9ufGU68l719jjsipfuUsOVkBeLoqusHovLp9vXys0wW6JhpUrPL+e9g/ehDoss9k4YOnSGThjLVaNvfpfCaLoyHaeP652H6XkNOIhsath/XGQiDXzxliYiU3dzzQd0MoWBsiL2lgtHzYUYY+ky6DTrKzEBB5DuGaxZ0w6u17fUh5AnsclgQVvVXFUmrWPVQiYk5mdEd5CtHOWLj8+sLqTwinWSwQUFBLOiemu7ifMeLAuA4WQVJproEq2XUFY8ZIZZ/KiYcqNlQTFBbeCVfnQd4cXcyPgNzg==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(1800799024)(82310400026)(10067099003)(5023799004)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261026121527099003)(261022075727099003)(261028144727099003)(261022105027099003)(261026140227099003)(18002099003)(22082099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vAQgwqhio6WPzmZVd30tdsaZYCmlbpXthZvABk0fuFNH8lw3eMr9dUlxRZnf6JdygGJqcUlDZkoX4ur38vEpM+JzcDUoZCbRijPUCJrsO/sQ5CtCmSJJA7EpTbrsy3hpX+yqZ5CUnIzZ4KW7D56LfMVKIq7U9ocr9L5F0e3uQD7YYzz0LXPmwfZyEFO98g5ZQNl9UAcOsutPEnWMYiYkD+nBXO4r4H7BPwtC/cyThCgt5g0dt3kMczN2nqI9JQ0+UEjyuP0uUQOfA0c1t7A5QA0mkuskkXwq9YOfRmbOVc7cp8NB669qdFDvC02UxphROEETce0rPwPbeItJoVbsP0N/thdwOuHMJaDskyRTLX7s9ZHTwV6l/l7SV+3u+7bUCFRWEaWrO4z9/g/GYvI4R5jN/RCK9s9frJqmybfrvzj+Xi7nOq05hc82MgCNsgVP
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 13:14:44.9056
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe15373b-0770-4f37-bf33-08df4a2ce89f
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH7PEPF00000017.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR18MB5328
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi everyone,
+Add a Devicetree binding for the USB device controller integrated into
+the Axiado AX3000 and AX3005 SoCs.
 
-I emailed my signed OpenBMC ICLA to manager@lfprojects.org on October
-26 and followed up on November 2 and 10. I=E2=80=99m still waiting for
-confirmation that it was processed.
+The controller is based on a Corigine USB 3.1 IP core that is
+dual-role capable (device and host), used here in device role. It
+provides SuperSpeed (5 Gb/s) or High-Speed (480 Mb/s) operation, and
+supports control, bulk, interrupt, and isochronous transfer types
+across multiple configurable endpoints.
 
-My Gerrit username is prasanthp20. OpenBMC CI skipped changes 96256
-and 96257 with =E2=80=9CUser not approved, see admin, no CI.=E2=80=9D
+Co-developed-by: Krutik Shah <krutikshah@axiado.com>
+Signed-off-by: Krutik Shah <krutikshah@axiado.com>
+Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
+Co-developed-by: Tzu-Hao Wei <twei@axiado.com>
+Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+---
+ .../devicetree/bindings/usb/axiado,ax3000-udc.yaml | 69 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 +++
+ 2 files changed, 77 insertions(+)
 
-Could someone point me to the right contact to verify my ICLA status
-and Gerrit CI access?
+diff --git a/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml b/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
+new file mode 100644
+index 000000000000..8b9acdb81907
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/axiado,ax3000-udc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axiado AX3000/AX3005 USB Device Controller
++
++maintainers:
++  - Petar Stepanovic <pstepanovic@axiado.com>
++  - Tzu-Hao Wei <twei@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
++
++description:
++  Axiado USB dual-role controller based on the Corigine USB 3.1 IP core.
++  Supports USB 3.1 SuperSpeed and USB 2.0 High-Speed device operation
++  with control, bulk, interrupt, and isochronous transfers.
++
++allOf:
++  - $ref: usb.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: axiado,ax3000-udc
++      - items:
++          - const: axiado,ax3005-udc
++          - const: axiado,ax3000-udc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  phys:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        usb@81200000 {
++            compatible = "axiado,ax3000-udc";
++            reg = <0x0 0x81200000 0x0 0x100000>;
++            interrupt-parent = <&gic500>;
++            interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
++            resets = <&reset 0>;
++            phys = <&usb_phy>;
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..1bf0408e00f3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4662,6 +4662,14 @@ F:	Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
+ F:	Documentation/hwmon/axiado-tsadc.rst
+ F:	drivers/hwmon/axiado-tsadc.c
+ 
++AXIADO USB UDC DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	Tzu-Hao Wei <twei@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-usb@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/usb/axiado,ax3000-udc.yaml
++
+ AYANEO PLATFORM EC DRIVER
+ M:	Antheas Kapenekakis <lkml@antheas.dev>
+ L:	platform-driver-x86@vger.kernel.org
 
-Thanks,
-Prasanth Kumar Padarthi
+-- 
+2.34.1
+
 
