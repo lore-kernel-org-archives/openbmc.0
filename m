@@ -1,105 +1,93 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E147606B419
-	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:33:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626A5606A321
+	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 15:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=P4cLnxvE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfXQ5I/n
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbWL21sLz30VV;
-	Sat, 28 Nov 2026 01:33:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2a00:1450:4864:20::529"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795790013;
-	cv=none; b=QfnArMPWbjV1+dmQ+WQaC0dc3c20YJR5dkAyIOnp1KYxJLguZEry+EIQmZdLdTLQLKdN4vDMiaX70wq2sq3T/a/5KHfQRbvd9nS3eZbJN55b8vV0XJMXWbVRf0CE5Izpb/vazztgToeN/opKLO65kdkP1LJPvfvQYANLP/YMXlhu5e8cb7JBzTGZcYpFachNK2jGuVFn4stngahxyKN8RzotHJsoAxp67jMviYO91POVC5f1EisnCy4yc4wricsmci0Rtioip5WCoyHCoyBtnYo7PX4vT2UklfMJe7saoUXFLsmAA8tarBW7F+Ueajsbaml75LsQ4UF4CxUH2sf46w==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbcBN0lVdz2yR1;
+	Sat, 28 Nov 2026 02:03:56 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=172.105.4.254
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795791835;
+	cv=none; b=YBtGU4JPOzZWY1NgM67XjzJDGAh0Re7UtWAWaSa+V72NqSGB1vef0P27+E1nzlrVmEg0gHuIhg3+/FRQ0WhMc35K6EXkZCsjHmTOIeHpEC4Get5kMCfMRrReXIEIM4vxG7FDOhpFg5McYmm5P9kb3cnm5gPZOF1T6ZUw3tNLSO3npTNyaP91gwJYLknU9xhvlAtuGISV+NV9xqxy6praQRz3WgfnV9W+k9GvYYDYX3l5Xy8j9OBUMT0FPi9CIb0MSBRsQgCSKpzEc13EVMfDTqdvue33kzFNpTR1JJMmPWcjJt6nl8P2fEzjACWGeFf3ClUmXtAjKL6saFshohQltQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795790013; c=relaxed/relaxed;
-	bh=4jk+eMtoNzyBPcbPSMP2jejnX5Q5wRK8gv8j2BTbshs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FBGoawkykhwVILCBI/PvrBO3zXQB3BZAUDmpou4Ufj9efNqP3+v5ZfI/lanQitmEgr51/09kRYJ2vhj0xMVtI9ppKZ0UNLdSPm0QUi10Mgp7PDlbCmQTOUVQSC80pD1EWzMvWwQlN9agQtauSYBOOT+qhQMHGnbGQ2K8awWYFEb85V0/ZFTmP9rgcyWD+ZmkkuuUbazQhTZsM8Piq0IXqAYvhZwcFyGAUCoU6Qi28e37wyhtfnd66dUVQrkvl1ZhidT3RFURud1cIycj63fI+ilr6AK/xt9pYl9WQEIAqQAlL6f8geJTiRVi5mZR0B4xT8HphhQQH7GbbIdqL6/8CQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=baylibre.com; dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=P4cLnxvE; dkim-atps=neutral; spf=pass (client-ip=2a00:1450:4864:20::529; helo=mail-ed1-x529.google.com; envelope-from=jbrunet@baylibre.com; receiver=lists.ozlabs.org) smtp.mailfrom=baylibre.com
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+	t=1795791835; c=relaxed/relaxed;
+	bh=HTsNEFdag3FLow13gNwrWPqr9RuSS6VGPBj7nBJXbBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YZeH7EImvf8V7YtdhOOSu7k/KLp6DmK4B+QlXIurWCqq133rr84PhGrcg2ft/+kD8WfOIVespjV8+OEncRRnpNnUCTqlUYeFNurtoQIksb/vg4k/oB+JpsN2NOf75oFharzxOII8tB9wkEg/4rbpL3FXxpRItt8LyALHfGS5qSm3icbF4BUXe99eZASfeXX+xlbq5bKrRsJysef5zjPQtaMyH2GxM5PtZpA+jwjTcz/hLjzEUnMMlygahjaHXn2TbGzGIo6yFtclvFk2x6kZ16QPdtm8YU40g8mXHJdpgsa+2i6mMuUbdIoRFI0jFPdrKP06osih1SXVIDHJt76RiA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfXQ5I/n; dkim-atps=neutral; spf=pass (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=P4cLnxvE;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfXQ5I/n;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=baylibre.com (client-ip=2a00:1450:4864:20::529; helo=mail-ed1-x529.google.com; envelope-from=jbrunet@baylibre.com; receiver=lists.ozlabs.org)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=172.105.4.254; helo=tor.source.kernel.org; envelope-from=broonie@kernel.org; receiver=lists.ozlabs.org)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbWG34Nlz2yS4
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:33:28 +1100 (AEDT)
-Received: by mail-ed1-x529.google.com with SMTP id 4fb4d7f45d1cf-6b887ca9f5cso11721041a12.0
-        for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2026 06:33:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795790004; x=1796394804; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4jk+eMtoNzyBPcbPSMP2jejnX5Q5wRK8gv8j2BTbshs=;
-        b=P4cLnxvEqa3KE+1akJ+BxOKitAX3rswxzEgrSGGipBSg5ATm6miNCzGoje6njJOEHA
-         QESMckGgAJs3S4EFElt0oGklrbpFNA23Y+Ju+cXHceaUSOOgVTqtniI1fOXpZcoyQNcn
-         4pO215ofQY5H7b/mvCeNR19hHvp7T9vnew+IEguMlY0a7toWqAd/eaSADlglegdT6AWF
-         7ZRm5MO6ufdg19zsQbUht5FK4uM3zCTazsVeLcAh4R/SoOWYoA8SqRsOT18qlIdQVSI1
-         pjWuW7mjlRN6LpPh4czE/2tbYbtptN+LzPw0V5rjRBBZo3r0I0zFZDyZUIoUqBCf/1DH
-         MtRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795790004; x=1796394804;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4jk+eMtoNzyBPcbPSMP2jejnX5Q5wRK8gv8j2BTbshs=;
-        b=kqvCu2PmaMdO72wDlZqDdpr9+CLZY9bg+6bNrHZgfsDDE3As0P7wMGzBy6Do3nwWGJ
-         W+gDn6dm5IfDeRW0RUwCwQmVyb1oot6Zx617gzonqqmz6vaaqJdmqhCQTzLdfM5Gu2yE
-         /AnrzR1qhWZo/Aw8tfpfwcobIOx6381d+2p8qpbyJKVdRIzDLG9YzuqAkQYCo6tiLrck
-         ruPvgS4rj1ArlxYpZRXpMBLaqkWcbSlCXltROicNW3k6oM98HOJcwG5yxtcyAi0/kZvh
-         VcnNj9u1jPCqnqOF9aeA0JbTuzMglcX8xQTv8fBHYDHL1p2ahXOUjylBCS5yed4rPPiD
-         D7MA==
-X-Forwarded-Encrypted: i=1; AL+hErEplCpTnngbJoNYUDxK4+Ecb2yClPxZ8QC0UaE4pSVJEUrjzwBsZENipcZL2fS19gyF17w4XAWr@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z92eX5z0n8+3eG2H/IYEm0hOsUcrmOHiHvtMBwNpAkibQvfIk58
-	TVZc5qBEDNRccgxghK3XGygxGOopp7jqKI+88V97gbKNDTQfo7rIlQ7OW5ickCL2MY8=
-X-Gm-Gg: AZFdTZcvYxbed6VBCZAfyaBpto+bFK4GMirPj6iNOVng+z48ByS3ieoLPW1RSV3SLwE
-	9rcL56ROn4wjQ4ci+qhQmvwT10R/lPEx3ABDoZU6APFjlyy6k+X59lENZYTAGetDIIthb3oQpjg
-	+YD8zPt1PuMD2Pqa5/7WmfC+LH1K8pZVCgHwDBAmKGU6aogDjk0wTPYPRsWH2HQ/1PXauyTxLga
-	xaNUQTCRPZNxBuIFUhDOkSs9E5DyABLNDau0ZL10lKkctfTgGVN/2j+wZpk9RKollP9lQ9Le6Bg
-	mF48dBlfR14857+vhcRdLk9LqrzUjOXJ60AwzQpFFoqb7XTh/88Z1C5UwxtQ4ydGJ5KBdsbOG6H
-	RVYnaH2lwEx8/dLjVuzbttTFZ2n6YY11b36ZXpVrjhDrV2Czb/zQskwPS9v6sWvQDk6/6Mt5xtB
-	DaDThnvyoKPaDKEqXdonxma3D2bc/nUHGR8ozuVtaGwZsEbx3ow/RTkLeNiLw7WkB6kqA95EGqE
-	Vg8zxG5v5QmFLODuaXbVW5Psd2exubhPkEBGpetydVyDYhJKHeISAEvZzU5qTwZlgyhFy0GVkOS
-	615OTPn276W4p3u0ql1ZmhGRTULLA1MvGWSxwc8RNRYQMKKX
-X-Received: by 2002:aa7:c4d9:0:b0:6b5:9731:90fa with SMTP id 4fb4d7f45d1cf-6ba37cc0ad9mr13284812a12.6.1795790004077;
-        Fri, 27 Nov 2026 06:33:24 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb9f8160ecsm72961a12.15.2026.11.27.06.33.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 06:33:23 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-References: <20261124-perso-ma35d1-upstream-clk-v13-0-c920f4a9f0ce@bootlin.com>
-Subject: Re: [PATCH v13 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
- peripheral clock rates
-Message-Id: <179578999837.3130490.1321256774164046797.b4-ty@b4>
-Date: Fri, 27 Nov 2026 15:33:18 +0100
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbcBL5JKsz2xB1
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 02:03:54 +1100 (AEDT)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	by tor.source.kernel.org (Postfix) with ESMTP id 8071E60234;
+	Fri, 27 Nov 2026 15:03:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283F41F000C1;
+	Fri, 27 Nov 2026 15:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795791830;
+	bh=HTsNEFdag3FLow13gNwrWPqr9RuSS6VGPBj7nBJXbBs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AfXQ5I/ncWiUS+XG5a6ulZQQLbXKF9UOyn/8RazJyU2fzEiQ4HydxY3JSQhY4TJff
+	 FbN11xcrwu7edOw7Htf9HdJTaQgpNqszcygI0dh65AT485sjpGcQy+e85Ms3ps+/3b
+	 DqyrkFPIbE3pB6hVtk4kue5cNJTfWm8tIYqxhe6hXMJ/xVRnegq/bkpUqM9Tn6AMjG
+	 UFtgoAopN9wh6AfTxC4paoeTrxA2T9sLBPXQTpRAd9LBKcFvH6Sn3Vf3Qz6KxusdpA
+	 ehn8sp2OjFMK0kNQaL/Xfiw7reDTExIgn7VzpizK5aD3olmzW4CrQNWgyjU9bgO+e+
+	 SO+pQ4xd/deyA==
+Date: Fri, 27 Nov 2026 15:03:39 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Liang Yang <liang.yang@amlogic.com>, Feng Chen <feng.chen@amlogic.com>,
+	Xianwei Zhao <xianwei.zhao@amlogic.com>, Han Xu <han.xu@nxp.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Haibo Chen <haibo.chen@nxp.com>, Jyan Chou <jyanchou@realtek.com>,
+	Yu-Chun Lin <eleanor.lin@realtek.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	Michal Simek <michal.simek@amd.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Alvin Zhou <alvinzhou@mxic.com.tw>,
+	Cheng Ming Lin <chengminglin@mxic.com.tw>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-mtd@lists.infradead.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH RFC v2 00/35] spi: spi-mem: Express the dummy phase using
+ cycles when relevant
+Message-ID: <d95e931f-0521-42db-85ac-a4d1fc4018fd@sirena.org.uk>
+References: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -111,49 +99,60 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1318; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=/kkh+STkW16bo61fnrALXUXLopXwJUn8icTeFUDyuzM=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNmcUzaJnLvllxStGv1dWD2t2zaPaXOLj2dHvMC8gu0yX
- moGSbc7SlkYxLgYZMUUWWq4q8XfSWp9mTVd5zbMHFYmkCEMXJwCMBGnfkaG06uzPxgxWazev9T8
- nBznBSb/J5mvX23n5H1avOdw6kn1AEaG219YnyTk+92QXLDoc8rr7wv2Lb6115HvlPH6mBXGqbP
- SmQE=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_PASS,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EKfE0NJTn63pxWNZ"
+Content-Disposition: inline
+In-Reply-To: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
+X-Cookie: Sank heaven for leetle curls.
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Applied to clk/linux.git (clk-nuvoton), thanks!
 
-[01/10] dt-bindings: clock: ma35d1: Mark HXT and LXT legacy
-        https://git.kernel.org/clk/linux/c/5cb3fcb3a35e
-[02/10] clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
-        https://git.kernel.org/clk/linux/c/4df94650b44a
-[03/10] clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
-        https://git.kernel.org/clk/linux/c/88997515be60
-[04/10] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
-        https://git.kernel.org/clk/linux/c/4154c8b3d3bc
-[05/10] clk: nuvoton: ma35d1: Reparent the gates correctly
-        https://git.kernel.org/clk/linux/c/1c2214475dce
-[06/10] clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
-        https://git.kernel.org/clk/linux/c/c31aa10b3ca6
-[07/10] clk: Create devm_clk_hw_register_fixed_rate_parent_hw()
-        https://git.kernel.org/clk/linux/c/5093f6f2543f
-[08/10] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-        https://git.kernel.org/clk/linux/c/107caca779a5
-[09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
-        https://git.kernel.org/clk/linux/c/6f6ef44a950a
-[10/10] MAINTAINERS: Add myself as Nuvoton MA35D1 clock controller maintainer
-        https://git.kernel.org/clk/linux/c/350f54ff5b92
+--EKfE0NJTn63pxWNZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Best regards,
---
-Jerome
+On Fri, Nov 27, 2026 at 03:22:22PM +0100, Miquel Raynal wrote:
 
+> ---
+> base-commit: 19d1b4de6d37bccecc3ad9144d279f1baa405eb1
+> change-id: 20261125-macronix-upstreaming-spi-mem-cycles-103274708fec
+> prerequisite-message-id: <20261126-macronix-upstreaming-spi-driver-fixes-v1-0-ca8e924cca1b@bootlin.com>
+> prerequisite-patch-id: 2f68de4139876dfa8e57afb65b429a69628214ab
+> prerequisite-patch-id: 7182a6b4808193323664f79c226ae2a57104b473
+> prerequisite-patch-id: 34a99e8e6644d1db0978b5aa6ca90342a42561f8
+> prerequisite-patch-id: cc060f58179f09af4593df6909b958a29bf11cb2
+> prerequisite-patch-id: c5a7a78ef01696c25c10b6d2968c0b65ab0f4ec6
+> prerequisite-patch-id: 340ee3d69095259d6141c017ea59c0c137d353b5
+> prerequisite-patch-id: 1629dd27a1f0b1d6622199cc7603dad4b17d29b6
+> prerequisite-patch-id: 29bc9e59b1d732a00cd65ba1d73270e051898fd7
+> prerequisite-patch-id: 7a028831f1df214099241bfac0dc290e2f799276
+> prerequisite-patch-id: c28c78ff316ce2ac8c1b6151367662ca8039acd3
+> prerequisite-patch-id: eea3b5adeb19b753a14bf03c5114eb407566c248
+> prerequisite-patch-id: 87bd95813776fe216ac157f9fad23586c71db87b
+
+Please do not stack serieses on top of of each other like this,
+especially not enormous ones like this.  It makes it far too difficult
+to track what is going on.
+
+--EKfE0NJTn63pxWNZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmsJm8oACgkQJNaLcl1U
+h9Dqkgf9E0bJ2UXkjbckVvjHc+7mjSLOnT6yLtoLsCIaplWfF3H7hanJ7Crja+w9
+0NL1DSaqeHjHuahV3QcpGdIcxsNNFpHiqU/S/hCxVjPLmFGFaoBD79xppeSPeP0J
+laUs2W3a2Z/DHt4/whYH6QyMKF3UbJe9uH1VjXixiGQ4ZEuXX1mzwUnQq9Oa650k
+wu6xRgXl0C/Ts8LRbg4vwtf/AelEaDGshnkWfcszi/b0hgwIgcvYWo7XNdNcknb/
+EU4JBHGO5mbrmR4P6t5ABa+wD4LeaUCFP2Trov9vSRC14lL0hh9X8TpKLt4/B6wF
+OdsSR/Ry9PuwuhvrMT5bEtcLFpv27A==
+=8Hf0
+-----END PGP SIGNATURE-----
+
+--EKfE0NJTn63pxWNZ--
 
