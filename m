@@ -2,53 +2,53 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FF0606E13E
-	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9673A606A6BC
+	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Fpmteki0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ubx3tDOw
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbMV6G92z3bpH;
-	Sat, 28 Nov 2026 01:26:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789606;
-	cv=none; b=VLDQA7Bj6sBtNpC88XzuBUfxcS77v27BeTSlBvbn+w5UD2WeA6ziqEo/Kp9ZWd9TPYbqpWUn0CASphtAYPaV7h0anof0ufB3nxVubKwksmLDqkjSqSCUVV/gsQo+Ubs/SuqX6b1BwklTrA8G4oJ5PCbSOGDd7h2DYUxk0GMtbg4/bWDYlotqQc9gwj7Soy2QkG0nPdYlhNPtEQJ1lMEXOb5Dtx9F9kguWtoQ8Odjk2LNCt2pUhsUkr6grLHsFgmtz4eHDJSlf94kYbyXct+fimOjLTindkrVM3EqrTVLqvqsLLNJQPdcYdndUSdCfNtCpHe5qtPURoak2GStvZXkYw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbMg450wz3bpn;
+	Sat, 28 Nov 2026 01:26:55 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789615;
+	cv=none; b=Ikjfr6/OxBblI6lhw3OAKwQs4LL5Q/S7Wqm7tyDU1Yd9Y33EyTqtCEBEMKqpSbGjs+zUKpasc1LXIJLGqlCEyPpDZjWKL1JFFGG1R6NM7IOCLW3d9vaq4snd0XyshHyj870HbvA/q9gNUzDa1EQIOC9Y+G5ftlk33sg0CP6hNPp2F8kzaEYeHWikoB2/wd6EoIPzhYrQrrtXN/lo2F8DBkmyZNXrrutX5451bERLN2+tyDNkVyoU5fFOIKGOnS22sEQW41SVdYbc6qDUwQrb06MC2N0LngK8vi/w1Ypdqk93m16ubENdE0VCOgL9RrPUH9aE6pKeL6KHXNVv5i8Cag==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795789606; c=relaxed/relaxed;
-	bh=YzT25YrXhPdhGBX2h17WLtbdgvi9pFvDHL3L6j1EVv0=;
+	t=1795789615; c=relaxed/relaxed;
+	bh=A/IqQZ9VTKgRjMcNT4EZBKACErnAYfbhJSeeu/M9Auw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dE2zqRaWijtMvjZ/RPaXi9IAl+eceG6njrK0M2Z91NL+QjxXKT965cCef0GXhPUHDPbWd9/Ef5+iTWQ/vzGmbhco+l1f/hSX6XvyK7xT+j5feqGd+pAaNkExZiuIx8BBa46VooFMFCqqflTNWo1u+fwvJBco0HTVE9i7dyr+JTM98yywgmH2cUm4JUW3gc0ZngIeByjEdL69pfDIdm7PkvbdXTdxPDQ4Cf1BtaiIwBO4WQkvVRZdfL88we4i6HCWPTSlbhrfCz9rvNiodVk6+0+ZWHzTcpxR4nsmw+gmm9Fi2UfZBupfR9OCTYRCNmk5ZAjwyXbZwHSHt0l+rEVFUw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Fpmteki0; dkim-atps=neutral; spf=pass (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=AgksVuFClFSIn7fYxaZQi6ujDnHbyBywskjZjX6y7x0UMZEqj163mQqVU0egHlmO+mkMl01VlJ/44sKyvq6W7sxrN/vPFwiLyIMBUR6fQbcByyFSnJ3NHUCOu7e/xQ5hSEUwfTm9FPAQliG04TtgKyzXaYVlAkzGlLpCrlE7h8fm+mMYoBrURtycpFO1/trITn4NzjHaLpmbfKoVVRSSGumFVfNGcEZvOQ9CYdG8O7MFCxZdaFYcaFDw/bVOmfVJ+CpaVnJFdPM2Ij9yKw9kLLEJKByNzJ48lXwEelSkQPiUqWlb3gF291g1oMux9Qyzg9IxFVeFit1vLIDcV9J7/w==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ubx3tDOw; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Fpmteki0;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ubx3tDOw;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.84.56; helo=smtpout-02.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbMV0GrVz2yhV
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:26:46 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbMf4SqBz2yhV
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:26:54 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A088D1A0440;
-	Fri, 27 Nov 2026 14:26:43 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 22DBBC2AC4C;
+	Fri, 27 Nov 2026 14:27:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CC336049C;
-	Fri, 27 Nov 2026 14:26:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6DEE11E68FF9;
-	Fri, 27 Nov 2026 15:26:34 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 576E36049C;
+	Fri, 27 Nov 2026 14:26:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D39111E68FD9;
+	Fri, 27 Nov 2026 15:26:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795789600; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795789608; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=YzT25YrXhPdhGBX2h17WLtbdgvi9pFvDHL3L6j1EVv0=;
-	b=Fpmteki0Aybr9vK6i02FZbrrKdnKXnJriXCr7U+IqKfAZ+ZjARQAf3xSYHOufNwk9Rtc9G
-	0U9FU7sdV2u3iUKwF9SkItBvexDSdndISg8xQAuGppSnxwgLIf7RjhPFxB8d6RXjWBEXWd
-	BRqr3WMPnugTa/fqFQqaFZuoEhWNtUzBGo/muuF1v2VfinijqfNEKS6kqJthwVs6wSmJuL
-	lh+xQECYOHTiNJR+Exz8PAa+QNd+hO4XarM4R5aVNW7PKWoNVgUtTX++m7GU7/Zy9/isK2
-	5KXRHbiNhYEvdhJBmynuf2j/6oZiL4WhEcBkz6epU+W7pFASnm61iljlbdDSvQ==
+	bh=A/IqQZ9VTKgRjMcNT4EZBKACErnAYfbhJSeeu/M9Auw=;
+	b=Ubx3tDOwV6i0QBpzsCyzanuCPyUDDo4aCHNmLwm25tRKbXNc5vmxkKN60QMwfrkdqmQ9Jz
+	W7kyWWjP0od8K6vkQMKREz7zWXffZrPdkN3AGLKYj8mc7jB0gytVh0iUV3Ttyeo6V7yKa1
+	BFGhzVf18NQ+UmWjkL9mSegQkcGKm3KqhdCOHRba0n9GmycoED4NUg5sV0iyRGDmN9zo1y
+	fCSiIkJRCkS07GowircgCo22KGRVUoC3iWW/zY4D5iVslHneSG7qsvus9ZlJXofcDyQo54
+	314IuM911yasw0KDvRGF8Ki+ghgxrkdleT4jgJEapDWZ+cZPyaCRcc82YJkD+g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 27 Nov 2026 15:22:47 +0100
-Subject: [PATCH RFC v2 25/35] spi: rtk-nor: Consume dummy cycles directly
+Date: Fri, 27 Nov 2026 15:22:48 +0100
+Subject: [PATCH RFC v2 26/35] spi: rtk-nor: Drop redundant checks
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,7 +62,7 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-25-5c93f5e5d630@bootlin.com>
+Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-26-5c93f5e5d630@bootlin.com>
 References: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 In-Reply-To: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Liang Yang <liang.yang@amlogic.com>, 
@@ -104,105 +104,32 @@ X-Last-TLS-Session-Version: TLSv1.3
 X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The controller programs the dummy phase in clock cycles, but the driver
-converts the legacy dummy byte count into cycles. Advertise the
-dummy_cycles capability and use op->dummy.ncycles directly.
+The core already sanitizes the spi-mem operations, these checks are
+redundant so let's drop them.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-rtk-nor.c | 28 +++++++++++-----------------
- 1 file changed, 11 insertions(+), 17 deletions(-)
+ drivers/spi/spi-rtk-nor.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
-index 55ea7c371854..28fafa69cfbd 100644
+index 28fafa69cfbd..2fcd2172a0b4 100644
 --- a/drivers/spi/spi-rtk-nor.c
 +++ b/drivers/spi/spi-rtk-nor.c
-@@ -92,18 +92,10 @@ struct rtk_spi_host {
- 	size_t			dirmap_size;
- };
- 
--static u32 rtk_spi_calc_dummy_cycles(const struct spi_mem_op *op)
--{
--	if (!op->dummy.nbytes)
--		return 0;
--
--	return (op->dummy.nbytes * 8) / op->dummy.buswidth;
--}
--
- static void rtk_spi_read_mode(struct rtk_spi_host *host, const struct spi_mem_op *op)
- {
- 	u32 opcode = op->cmd.opcode;
--	u32 dummy_cycles, val;
-+	u32 val;
- 
- 	if (op->data.buswidth == 2)
- 		opcode |= DUAL_MODE_EN;
-@@ -113,10 +105,8 @@ static void rtk_spi_read_mode(struct rtk_spi_host *host, const struct spi_mem_op
- 	val = readl(host->regbase + SFC_CTL);
- 	val |= RW_DATAEN | ADDR_EN;
- 
--	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
--
- 	val &= ~SFC_CTL_DMYCNT_MASK;
--	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
-+	val |= (op->dummy.ncycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
- 	writel(val, host->regbase + SFC_CTL);
- 
- 	readl(host->iobase);
-@@ -192,7 +182,7 @@ static int rtk_spi_command_read(struct rtk_spi_host *host, const struct spi_mem_
- 	size_t len = op->data.nbytes;
- 	loff_t offset = op->addr.val;
- 	u8 opcode = op->cmd.opcode;
--	u32 dummy_cycles, val;
-+	u32 val;
- 
- 	writel(opcode, host->regbase + SFC_OPCODE);
- 
-@@ -203,8 +193,7 @@ static int rtk_spi_command_read(struct rtk_spi_host *host, const struct spi_mem_
- 	if (op->addr.nbytes > 0)
- 		val |= ADDR_EN;
- 
--	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
--	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
-+	val |= (op->dummy.ncycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
- 	writel(val, host->regbase + SFC_CTL);
- 
- 	return rtk_spi_byte_transfer(host, offset, len, op->data.buf.in, true);
-@@ -346,8 +335,8 @@ static bool rtk_spi_supports_op(struct spi_mem *mem,
- 	if (!op->addr.nbytes && op->data.nbytes > 1)
+@@ -316,9 +316,6 @@ static bool rtk_spi_supports_op(struct spi_mem *mem,
+ 	if (op->cmd.buswidth != 1)
  		return false;
  
--	if (op->dummy.nbytes != 0) {
--		if (op->dummy.buswidth > 1 || op->dummy.nbytes > 7)
-+	if (op->dummy.ncycles) {
-+		if (op->dummy.buswidth > 1 || op->dummy.ncycles > 7 * BITS_PER_BYTE)
+-	if (op->cmd.dtr || op->addr.dtr || op->data.dtr)
+-		return false;
+-
+ 	if (op->addr.nbytes != 0) {
+ 		if (op->addr.buswidth > 1)
  			return false;
- 	}
- 
-@@ -464,6 +453,10 @@ static const struct spi_controller_mem_ops rtk_spi_mem_ops = {
- 	.adjust_op_size = rtk_spi_adjust_op_size,
- };
- 
-+static const struct spi_controller_mem_caps rtk_spi_mem_caps = {
-+	.dummy_cycles = true,
-+};
-+
- static int rtk_spi_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -535,6 +528,7 @@ static int rtk_spi_probe(struct platform_device *pdev)
- 	ctrl->mode_bits = SPI_RX_DUAL | SPI_TX_DUAL;
- 	ctrl->bus_num = -1;
- 	ctrl->mem_ops = &rtk_spi_mem_ops;
-+	ctrl->mem_caps = &rtk_spi_mem_caps;
- 	ctrl->num_chipselect = 1;
- 	ctrl->auto_runtime_pm = true;
- 
 
 -- 
 2.56.0
