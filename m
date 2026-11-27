@@ -2,72 +2,53 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8C0606A31C
-	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4069B606A31E
+	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:23:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WluSVrhM
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eYvkNVD9
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbZwv0JRQz30C6;
-	Sat, 28 Nov 2026 01:07:11 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2600:3c0a:e001:78e:0:1991:8:25"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795788430;
-	cv=none; b=bju5xxOnOeS0d3nqMyBcU6+9qRLKZc827eH7T4f14JZhuQ0TnN2jgk5yR5e3Mt3NkArFLmOJJPf7QDgC055vCFnb1j5hHPwQ87SqbVUhk18UtRKPtT47N4I+FkmLNbLq3GNE6tlUn1NrBwoWgdITezNPcmDB0Y7Xt4HYaTuYkZOp5Y7Zcj4zHLpvv/MJgThbK1XV0ZnuuyF7bfHvDMwDbNSczTMhUK8KyiIR9nnv8kdwtPqm2lt6olu9/A0ixUiUwjQdenvk8BS6bE3+ucAfkMePII44PJBaNHtdJMCmbuX4qcWhRx4CKJz+u5hVmVKKINnzBg1xjVbI9cHZdQeHmA==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbHb18Nqz2yQl;
+	Sat, 28 Nov 2026 01:23:23 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789402;
+	cv=none; b=eulU6fJVAFP1xY3fAotHegALqSoRjwMzr9+jGepf+7fTdnOMjJpT0QtOyT/3xzSNygG6N91DbpMJ/ic5GHlF2lF/lF6bURqF5FwiMNhk2ELne7eKFz+G13cwBXpLGXC35byK90UQ4PFBwEWuF0ZM3VHPKAhi+01vc9OrqZsTemGNRbbvfq/p8NERSUZgxUfGJ5euhZdKt2JRKYUE6gqD4bd0CjjfBURg+5vcH11SDlR9s9MVGfv7KUPlhUfMD/1NmCj9UYLguzpPRcxm5VNHh305NpragLaUKpcnWCzXwB5cgT2qZNzKiWVqtNDbKvYljywpHzgM1MjIUVIowmOCTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795788430; c=relaxed/relaxed;
-	bh=prqg+9+C9OZ8PzG7e/SKDZecuZaCZLp73YjumQbdiU0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=THq72xRChVJcBpTMVYgKzSaJcGsNCzndf1updBMCiIXReSWjX2jQkkBCfA+/YJhZqUQmx9is8OpiX+QHlnIjWJf71sKbpbU7V46G7Q0Dr/nf6fWraMDWfj+kq7Xfzb6bkBvYR/eRsTqU+juLo2ey7MNSJS95n+fFHYPaib+vr/Nu9XP0DTx+uVLYha/H6BM2ZdYkIm6KRZp5QayoPnT7oZw8QAQnIisoyIoiKVnD6/Uwa4iyW9ItrrHWPbDS/cSPrdF81vSOcpGihmpvBRuRdqs4T01cDwi9V9EgY9kFYpLSEmaWomuqV6g3Z7P+xDs59/v6uIhVpe/ViFLcFmglyA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org; dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WluSVrhM; dkim-atps=neutral; spf=pass (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org) smtp.mailfrom=kernel.org
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none) header.from=kernel.org
+	t=1795789402; c=relaxed/relaxed;
+	bh=nWNmoo5X8Cbiui7JsHWvBd0DmI9ElE6Coz8fMgnKz3Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nJTF/FRz6bkPvgwAddWH4FFTanzjEzF//i/vmvBl78IWCG0YaRVcWND+58BpPi/C+8UH8iRZMkcAlguBekAegD8/uBuXHTHYY5FZFqudGEs1Npzb7EJCnUDzLqhbaVy+67p2SH0n+mzwJQ6u1MVms5AqMWAQoazXTNPWJI3W9eiTI1Q2xQNS8dTAhlaQ1MctPRGJEYQ+hP7/yaEb5sI4YPeXWhvd99IFtRFfiv2ptGdK0VfZvyPZTinEGNifI0mc4lFZbqRCYThUbLKka0GeXHPHsISNRT2DHR6euJvbaKguj5c1OClhBubUbqVNCIiKpDey7/Gkq6Vwt4bbz3viFA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eYvkNVD9; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WluSVrhM;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eYvkNVD9;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=kernel.org (client-ip=2600:3c0a:e001:78e:0:1991:8:25; helo=sea.source.kernel.org; envelope-from=lee@kernel.org; receiver=lists.ozlabs.org)
-Received: from sea.source.kernel.org (sea.source.kernel.org [IPv6:2600:3c0a:e001:78e:0:1991:8:25])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbZws6Vx6z2yLH
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:07:09 +1100 (AEDT)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	by sea.source.kernel.org (Postfix) with ESMTP id 472774244A;
-	Fri, 27 Nov 2026 14:07:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D261F00898;
-	Fri, 27 Nov 2026 14:07:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795788428;
-	bh=prqg+9+C9OZ8PzG7e/SKDZecuZaCZLp73YjumQbdiU0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WluSVrhM26loZJ82d5WTlntzlSI7z764lstfJsoSo+F67X0TWsat7WFCo2lHSal6q
-	 CXZX1TEeoiyJhhS/meskFdEfs72gcw5+UgBEbSaH9phrDN6lcwz7GI4M83T0DtGPyy
-	 nMW4BqBFn03tFHvAv74vJN9fiefL+VxiX2+nPlyrazIgTfM/0FnCXghN1mV+agl7Hc
-	 9adM7/o3QM+HEtZQtsYKIpJfhrWJk+ygkBD3rVfkDVVO0IqTMcARJ949HDQHGl7rTh
-	 L4YL1rZF7kkZCRMq6b3SJ2IElhPX4r0xrinpLo4IiSqe/ZDSePsve0YTcVffpPOfa8
-	 pLqApiCKhk3lA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Maulik Shah <maulik.shah@oss.qualcomm.com>,
-	jordan_hargrave@dell.com,
-	tomer.maimon@nuvoton.com,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	openbmc@lists.ozlabs.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v3 08/12] pinctrl: nuvoton: npcm7xx: Fix fwnode_irq_get() error check in npcm7xx_gpio_of()
-Date: Fri, 27 Nov 2026 14:04:56 +0000
-Message-ID: <20261127140602.2790001-9-lee@kernel.org>
-X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-In-Reply-To: <20261127140602.2790001-1-lee@kernel.org>
-References: <20261127140602.2790001-1-lee@kernel.org>
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbHY1d6hz2yMk
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:23:19 +1100 (AEDT)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2589CC2AC4C;
+	Fri, 27 Nov 2026 14:23:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4A1126049C;
+	Fri, 27 Nov 2026 14:23:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B385411E68FDF;
+	Fri, 27 Nov 2026 15:22:47 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795789386; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=nWNmoo5X8Cbiui7JsHWvBd0DmI9ElE6Coz8fMgnKz3Y=;
+	b=eYvkNVD9ibOwzR3jSz45y1QP0jTLhR/g35hR35UKGohQvsmRXUquMb8JxFNh2gUAOzSyG7
+	fA6ZjGOlmj0vG0gFf1t/WLCCKnqz61bAAKNgrGmbTJCuyCJ2f6Xd4+GsQFhDkcSEVnMkY2
+	z1Oih0WZUxa29fMByWmvF6WIT/IIiDpXsfJM3y6TwbFcoUZUnX7PqXJjRUowhOGE3rGmRh
+	QGf8WLOlK+B41nAQB8rmHgIAfxTaJvtqqEHpLwonKQy02n2+VGSWIxvLEWxAdvtMaBL6Dg
+	8pBNU4784T9zEUg3OzZCiPL+WggC3DR8jJuPu6VNOBdQnx2WUdJrSSyXI74l/Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH RFC v2 00/35] spi: spi-mem: Express the dummy phase using
+ cycles when relevant
+Date: Fri, 27 Nov 2026 15:22:22 +0100
+Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -79,55 +60,190 @@ List-Subscribe: <mailto:openbmc+subscribe@lists.ozlabs.org>,
 Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WQwWrDMAyGXyX4PBXbyZIulDEY7AF2HT04jtIKa
+ juT3dBS8u7zvB522WHHT4L/+6WbiMiEUfTVTTAuFCn4DPqhEvZo/AGBxsxCS90qpR/BGcvB0wX
+ Oc0yMxpE/QJwJHDqwV3vCCErWums6uZ3Qipw0M050KZYP8f72KvY/Q8bPczam+8ZhjKYY+2p3F
+ 7Z/C0emBRlKMiwKJFizxSfdWGvU8DKEkE7kNza45+8Sg4kIGRylvlq6TQNs69LkSDEFvpYfLKp
+ U+de5xT2Nsm4bqaex7n67xX5d1y8Uyea3ZwEAAA==
+X-Change-ID: 20261125-macronix-upstreaming-spi-mem-cycles-103274708fec
+To: Mark Brown <broonie@kernel.org>, Liang Yang <liang.yang@amlogic.com>, 
+ Feng Chen <feng.chen@amlogic.com>, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Han Xu <han.xu@nxp.com>, Conor Dooley <conor.dooley@microchip.com>, 
+ Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
+ Daire McNamara <daire.mcnamara@microchip.com>, 
+ Haibo Chen <haibo.chen@nxp.com>, Jyan Chou <jyanchou@realtek.com>, 
+ Yu-Chun Lin <eleanor.lin@realtek.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Yogesh Gaur <yogeshgaur.83@gmail.com>, 
+ Chris Packham <chris.packham@alliedtelesis.co.nz>, 
+ =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Alvin Zhou <alvinzhou@mxic.com.tw>, 
+ Cheng Ming Lin <chengminglin@mxic.com.tw>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ imx@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-mtd@lists.infradead.org, 
+ linux-trace-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Commit 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
-replaced irq_of_parse_and_map(), which returns 0 on failure, with
-fwnode_irq_get(), which returns a negative errno on failure (including
--EPROBE_DEFER), while leaving the !ret check unchanged.  As a result,
-negative error codes are stored in pctrl->gpio_bank[id].irq and passed
-as large unsigned IRQ numbers when registering the GPIO chip instead of
-aborting or deferring probe.
+SPI NOR SFDP data gives dummy cycles. SPI NAND devices express the dummy
+phase using cycles as well. Those numbers are converted to bytes, then
+passed to the spi and spi-mem controller drivers. A non-negligible
+amount of those controller drivers convert bytes into cycles before
+programming the registers.
 
-Check for ret < 0 and propagate the error code, matching the NPCM8XX
-driver.
+When the conversions are lossless, it is not a big deal, just time
+spent. However these silent conversions sometimes hide bugs and
+sometimes also prevent using certain chips/configurations, as recently
+reported on Macronix 1-1-8 chips requiring 20 cycles. Not all
+controllers can do that, but the ones that can, would anyway reject
+those chips.
 
-Fixes: 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
-Closes: https://sashiko.dev/#/bug/linux-95c9d7d3-32bb-4f4e-ab7f-84872957de4f
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Convert spi-mem, the trivial spi-mem controller drivers and then SPI NOR
+to use dummy cycles instead of dummy bytes. SPI NAND may come later. As
+part of those conversions, I also instated new de-facto sanity
+checks. Those core checks allow us to drop many redundant checks from
+the drivers after the conversion into using the cycles.
+
+This second RFC adds the remaining controller conversions (nxp-fspi,
+zynqmp-gqspi, atmel-quadspi and rpc-if), the range checks for the
+controllers with limited dummy cycle fields, and the controller-specific
+dummy buswidth fixes that depend on the cycles conversion. The dummy
+buswidth fixes that do not depend on it have been (mostly) sent as a
+separate series.
+
+The series is build tested, but not run on hardware yet. I plan do
+perform testing on the various controllers I have access to. This
+version is not meant to be applied in the spi tree yet. Applying it for
+your own review or testing requires the previous patch series cleaning
+up the drivers (I split the two because of the size of the number of
+patches...).
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-v2 => v3:
- - Rebase onto pinctrl/for-next; no functional changes.
+Changes in v2:
+- Better sanitize the operations in the core.
+- Drop more redundant checks from the controller drivers.
+- Add a Fixes tag and fix the DTR sanitizing corner case.
+- Fix the dummy conversion ordering, the spi_sync() fallback, the
+  poll_status() path and the dirmap fallback.
+- Fix the trace event to report the dummy phase for both representations.
+- Fix the listed controller driver bugs (unused code, missing capability,
+  pointer typos, range checks) and the s25fs256t dummy count.
+- Convert nxp-fspi, zynqmp-gqspi, atmel-quadspi and rpc-if to dummy
+  cycles.
+- Add range checks for the controllers with limited dummy cycle fields.
+- Link to v1: https://lore.kernel.org/r/20261125-macronix-upstreaming-spi-mem-cycles-v1-0-fd036402fd37@bootlin.com
 
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+---
+Miquel Raynal (35):
+      spi: spi-mem: Stop checking the dummy buswidth against board wiring
+      spi: spi-mem: Fix the odd byte count error message
+      spi: spi-mem: Handle a corner case while sanitizing ops
+      spi: spi-mem: Sanitize mixed DTR modes
+      spi: spi-mem: Sanitize mixed buswidth
+      spi: spi-mem: Add support for dummy cycles
+      spi: amlogic-spifc-a1: Consume dummy cycles directly
+      spi: amlogic-spifc-a1: Reject excessive dummy cycle counts
+      spi: amlogic-spifc-a4: Consume dummy cycles directly
+      spi: atmel-quadspi: Consume dummy cycles directly
+      spi: atmel-quadspi: Reject excessive dummy cycle counts
+      spi: cadence-qspi: Consume dummy cycles directly
+      spi: cadence-qspi: Drop redundant checks
+      spi: cadence-qspi: Drop now useless checks
+      spi: fsl-qspi: Consume dummy cycles directly
+      spi: microchip-core-qspi: Consume dummy cycles directly
+      spi: mtk-snfi: Drop redundant check
+      spi: nxp-fspi: Consume dummy cycles directly
+      spi: nxp-fspi: Reject mixed DTR modes
+      spi: nxp-xspi: Consume dummy cycles directly
+      spi: nxp-xspi: Fix a comment
+      spi: nxp-xspi: Reject mixed DTR modes
+      spi: realtek-rtl-snand: Drop redundant check
+      spi: rpc-if: Consume dummy cycles directly
+      spi: rtk-nor: Consume dummy cycles directly
+      spi: rtk-nor: Drop redundant checks
+      spi: sn-f-ospi: Consume dummy cycles directly
+      spi: spi-qpic-snand: Drop redundant check
+      spi: stm32-ospi: Consume dummy cycles directly
+      spi: stm32-ospi: Reject excessive dummy cycle counts
+      spi: stm32-qspi: Consume dummy cycles directly
+      spi: stm32-qspi: Reject excessive dummy cycle counts
+      spi: wpcm-fiu: Drop redundant checks
+      spi: zynqmp-gqspi: Consume dummy cycles directly
+      mtd: spi-nor: Express the dummy phase in cycles
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index 08eb9aca36b8..ffa2fba023af 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -1871,10 +1871,9 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
- 		fwnode_handle_put(args.fwnode);
- 
- 		ret = fwnode_irq_get(child, 0);
--		if (!ret) {
--			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
--			return -EINVAL;
--		}
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "No IRQ for GPIO bank %u\n", id);
- 		pctrl->gpio_bank[id].irq = ret;
- 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
- 		pctrl->gpio_bank[id].pinctrl_id = args.args[0];
+ drivers/mtd/spi-nor/core.c            |  36 ++---
+ drivers/mtd/spi-nor/core.h            |   8 +-
+ drivers/mtd/spi-nor/micron-st.c       |   2 +-
+ drivers/mtd/spi-nor/spansion.c        |   8 +-
+ drivers/spi/atmel-quadspi.c           |  27 ++--
+ drivers/spi/spi-amlogic-spifc-a1.c    |  15 +-
+ drivers/spi/spi-amlogic-spifc-a4.c    |  29 +---
+ drivers/spi/spi-cadence-quadspi.c     |  50 ++----
+ drivers/spi/spi-fsl-qspi.c            |  13 +-
+ drivers/spi/spi-mem.c                 | 287 ++++++++++++++++++++++++++++++----
+ drivers/spi/spi-microchip-core-qspi.c |  12 +-
+ drivers/spi/spi-mtk-snfi.c            |   2 +-
+ drivers/spi/spi-nxp-fspi.c            |  24 ++-
+ drivers/spi/spi-nxp-xspi.c            |  24 ++-
+ drivers/spi/spi-qpic-snand.c          |   2 +-
+ drivers/spi/spi-realtek-rtl-snand.c   |   2 +-
+ drivers/spi/spi-rpc-if.c              |  10 +-
+ drivers/spi/spi-rtk-nor.c             |  31 ++--
+ drivers/spi/spi-sn-f-ospi.c           |  15 +-
+ drivers/spi/spi-stm32-ospi.c          |  28 ++--
+ drivers/spi/spi-stm32-qspi.c          |  26 ++-
+ drivers/spi/spi-wpcm-fiu.c            |   3 -
+ drivers/spi/spi-zynqmp-gqspi.c        |  29 +++-
+ include/linux/spi/spi-mem.h           |  39 ++++-
+ include/trace/events/spi-mem.h        |   5 +-
+ 25 files changed, 482 insertions(+), 245 deletions(-)
+---
+base-commit: 19d1b4de6d37bccecc3ad9144d279f1baa405eb1
+change-id: 20261125-macronix-upstreaming-spi-mem-cycles-103274708fec
+prerequisite-message-id: <20261126-macronix-upstreaming-spi-driver-fixes-v1-0-ca8e924cca1b@bootlin.com>
+prerequisite-patch-id: 2f68de4139876dfa8e57afb65b429a69628214ab
+prerequisite-patch-id: 7182a6b4808193323664f79c226ae2a57104b473
+prerequisite-patch-id: 34a99e8e6644d1db0978b5aa6ca90342a42561f8
+prerequisite-patch-id: cc060f58179f09af4593df6909b958a29bf11cb2
+prerequisite-patch-id: c5a7a78ef01696c25c10b6d2968c0b65ab0f4ec6
+prerequisite-patch-id: 340ee3d69095259d6141c017ea59c0c137d353b5
+prerequisite-patch-id: 1629dd27a1f0b1d6622199cc7603dad4b17d29b6
+prerequisite-patch-id: 29bc9e59b1d732a00cd65ba1d73270e051898fd7
+prerequisite-patch-id: 7a028831f1df214099241bfac0dc290e2f799276
+prerequisite-patch-id: c28c78ff316ce2ac8c1b6151367662ca8039acd3
+prerequisite-patch-id: eea3b5adeb19b753a14bf03c5114eb407566c248
+prerequisite-patch-id: 87bd95813776fe216ac157f9fad23586c71db87b
+
+Best regards,
 -- 
-2.56.1.839.g22a8290db9-goog
+Miquel Raynal <miquel.raynal@bootlin.com>
 
 
