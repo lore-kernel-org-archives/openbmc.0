@@ -2,53 +2,53 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E023C606B18E
-	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:27:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AC3606A6A9
+	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zAkwwjJh
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qbitKIHM
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbLx45hBz3bmQ;
-	Sat, 28 Nov 2026 01:26:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbM93hsSz3bmk;
+	Sat, 28 Nov 2026 01:26:29 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789577;
-	cv=none; b=TdJ+EISrfaHsOkDU/3DZP6XtxaYI9pgtGRujSG+TquJBL9BI0nQCi+53e3t3wAJn9GGrY360Gogb8vGmaYQZkgpvmEgz8vSRMPPvrwXqf0VN/lFy9BHQzUrw32qXM9DpUbKHFHWiK7Pv2ndRgV6Ia6kjO/CB2fJe4jRxPeYqiAIgsGMTXE52Fflsnlm39GNVH020xQbz+EZwzguEKgqZEJpkcE1fLf57DXe5Oi8cV5snLTcixKBbfoifVHngeOjqngBoZqiXa/yFjKfgXkv4/VOo4RYEF6rVGIxU67YjgFQEGXoc3TlwyMA77oH3D+j2LCuXtrz+0ZGOWpTVS75jfg==
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789589;
+	cv=none; b=VvpiR8cvDesTQ0cy3gY/qEfwAashEskBhww65kCmIhXq3LUl9IVHDZ+eq4+OpHoY8BI09e3VrMJ8YHUzPZ+q9urXvHWQG+l5Er/CbR1DppI8hlZRbW2lrhazSxeCN2SkhDEt+gjC6fYPZuo26xGfRPoVXt0+vD6saWWZBa8hRw/j5qZkqegq5TZ8O8GUT9WFcTjp+w1EEvYcB/qpvpu2O6xfUtB9mr7vWcGf90BSZplhvbKS+aFpBcFwGUOuQDYyLgpZt2ZffUyUkSHWdt61Cqhz/9TF9C8hZw/w3sG2uCResFZ6v3jTmaHIxIcQyX/dC838f2kh/QJXKuM6kokjrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795789577; c=relaxed/relaxed;
-	bh=AoxU+JhvKBTXrYbtTbJzsGk9QEyditaab6z3oGK2TJY=;
+	t=1795789589; c=relaxed/relaxed;
+	bh=+5J6Vj21k2iCMRlv7+I2xt+eX5HWFZ+N3D4FDSD3N6s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IqqI0ZiGB2UPdWg7uiRPcCHEr+yQImuJu9qzVyYCrbLL7CU6Yn5JQxLULukGz+Vu1vlfipcRQDxenahUHLJWgSxQBzUSg4U8Tjk5Z0Y5PnlCYJhHEodkbFVRZVgQHS+JB/MlnN9s6kUldP6/rqeCCt+RjVxNujDf62VNCp5Jz2obrmwSdX7lTcMHeWhp40usF8u/fDgSaIvHaOK2A0if5OW8pzk/prTOcrYAx+RyJk+3LHO8aZ78uL33S+HZ+/by1H38jXYo0hiRmjEwHKK6rAlNeZJ2YHbvEx9vb4bdtg9iNNKUyfUV8JRG3DZXkQqmJrTMiXxHCgWG3RcTuTeERw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zAkwwjJh; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=An4yVl2US0dygcphxcfkCkYeNM8Hxnz0jSYG/zCnXgJwu1s+KYsQoUtnQjRyu3A9ufp6Q8RfwGZrIeP4KAmNt9cBNJ7lo7kX/jgyz3mHaiykoBKw1vScVQZmMQ597i2VlUZ00YaP3URHvvXquGCDHkZ9hoCfsYmmrBt5a9a5kasRlPQQ2ZTRql+CIKgF9wcroxVLyhuIHx67vzINDff7cfLmcoh7y/GCecAFmt7AZqJ+W9rbDV84wjyxO+SFXdRq6HSYAoL6MP/R/aIaeLD8DOm2Zn4E0yiBs4QnTqWFAJi+g2gIGEdjYps3aC4pC0oNkftKdXlJn+wzu45rYd8JZw==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qbitKIHM; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=zAkwwjJh;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qbitKIHM;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbLw4YhNz3bQl
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:26:16 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbM84MHPz2yhV
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:26:28 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 7EE7DC2AC4C;
-	Fri, 27 Nov 2026 14:26:22 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 79477C6223B;
+	Fri, 27 Nov 2026 14:26:34 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B32536049C;
-	Fri, 27 Nov 2026 14:26:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DC5DB11E68FF4;
-	Fri, 27 Nov 2026 15:25:59 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AF40A6049C;
+	Fri, 27 Nov 2026 14:26:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A1BA211E6900C;
+	Fri, 27 Nov 2026 15:26:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795789567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795789578; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=AoxU+JhvKBTXrYbtTbJzsGk9QEyditaab6z3oGK2TJY=;
-	b=zAkwwjJhwVG0zSV6YA46JQojW1bolXRH0EAHLZlwyqXLXtk9FaxqcsUZKb+OQ07CO9PpA4
-	KfDre7rmcmytfCYVyYQ/OPPYrgRL6OYfPg+JczDL2rRTLqgsiKqd8JeYHfs7JrB8GOsNf8
-	kl17IMq1kAfobSqitEG6cidb+v+vQDJ85/q88WXuQEB+rNQg8RJyVPQA6f+UfBnf4WRIBc
-	IGFxwV1X5/oObK49PmVtOCrbpeahRDC87AewuGKejSG2iCgDQZoLexg4JQdwtq76TRMFbI
-	pA+e5j/GlD477cxLSbyqWFl/HVZGTzoDgvxYow1S58Kv/pjmgX0fa86bkaMgpw==
+	bh=+5J6Vj21k2iCMRlv7+I2xt+eX5HWFZ+N3D4FDSD3N6s=;
+	b=qbitKIHMBo7JeSA9tv7PrthCAxceGYnOkYVFxh3VzX9NhCk+/mp8UTJjR5xfvMinznzFHM
+	GVLflZTyfHkJ1emb3sTNL4lpUVe5cIxRD/jlFecbpswD/HdHbL1wlTYiwjRCj3pLd7jVOc
+	PG67VSW7pRkdoxAHRm6YAFT2iqctzn5AgLhouaUrCJxCYu1iYmALl4mrk5emTwREmwSTn6
+	vnd5sAgUeANKiJJsWPUGLS10MBgwQJ7sGJiF1k6VoNZdfaOB8VP3sT4IUfjG11v55PIODr
+	7eGteqQuvq2buyDMr/96s/fNWfLq3XgsGhzsZAtWj9oKcwNpcRpARJCn9OTWkg==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 27 Nov 2026 15:22:43 +0100
-Subject: [PATCH RFC v2 21/35] spi: nxp-xspi: Fix a comment
+Date: Fri, 27 Nov 2026 15:22:44 +0100
+Subject: [PATCH RFC v2 22/35] spi: nxp-xspi: Reject mixed DTR modes
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -62,7 +62,7 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-21-5c93f5e5d630@bootlin.com>
+Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-22-5c93f5e5d630@bootlin.com>
 References: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 In-Reply-To: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Liang Yang <liang.yang@amlogic.com>, 
@@ -109,30 +109,41 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Looking at the i.MX952 TRM which is I believe one of the SoCs with this
-controller inside, the maximum number of supported dummy clock cycles is
-64 and not 32, so the code seems more accurate than the comment, which
-needs fixing.
+The controller only supports operations where all phases use the same
+DTR mode. The mode selection in nxp_xspi_select_mem() assumes either an
+all-DTR or an all-SDR operation; mixed DTR operations would be
+misconfigured.
 
-Reviewed-by: Haibo Chen <haibo.chen@nxp.com>
+Reject mixed DTR operations from ->supports_op().
+
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/spi/spi-nxp-xspi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/spi/spi-nxp-xspi.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/spi/spi-nxp-xspi.c b/drivers/spi/spi-nxp-xspi.c
-index 8b836662a5da..ccd00c744d18 100644
+index ccd00c744d18..f2a847b5fd27 100644
 --- a/drivers/spi/spi-nxp-xspi.c
 +++ b/drivers/spi/spi-nxp-xspi.c
-@@ -407,7 +407,7 @@ static bool nxp_xspi_supports_op(struct spi_mem *mem,
- 	if (op->addr.nbytes > 4)
- 		return false;
+@@ -385,8 +385,18 @@ static bool nxp_xspi_supports_op(struct spi_mem *mem,
+ 				 const struct spi_mem_op *op)
+ {
+ 	struct nxp_xspi *xspi = spi_controller_get_devdata(mem->spi->controller);
++	bool all_true, all_false;
+ 	int ret;
  
--	/* Max 32 dummy clock cycles supported */
-+	/* Max 64 dummy clock cycles supported */
- 	if (op->dummy.ncycles > 64)
- 		return false;
++	all_true = op->cmd.dtr &&
++		   (!op->addr.nbytes || op->addr.dtr) &&
++		   (!op->data.nbytes || op->data.dtr);
++
++	all_false = !op->cmd.dtr && !op->addr.dtr && !op->data.dtr;
++
++	if (!all_true && !all_false)
++		return false;
++
+ 	ret = nxp_xspi_check_buswidth(xspi, op->cmd.buswidth);
  
+ 	if (op->addr.nbytes)
 
 -- 
 2.56.0
