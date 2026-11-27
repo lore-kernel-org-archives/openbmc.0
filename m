@@ -2,54 +2,54 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAE3606A32A
-	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:23:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C7F606A323
+	for <openbmc@archiver.kernel.org>; Fri, 27 Nov 2026 14:23:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mRvGwGBs
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qQwaRkz1
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbHj07dtz2yhV;
-	Sat, 28 Nov 2026 01:23:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789408;
-	cv=none; b=XfSIJvj7nXsaphYCSpAZM+hbrohaquGD5kNOuIVIAGeE85tgL4qK+Ycr/1U3TJUlBUhcsRJWDWtzoqfthAs/LDBxIUwwR8OCorX2mGio+zQGglQeFLd2GimrAa6D0Y2LEE2AgSxidpqgdahSQh+5YC7nc9BzoPAATPWmavKYQfK/9K4I+SM4vDN4YaUjhyYa2V16g9fPLNujip+/h+TFNYTjjQ8qWdxRUuB23L6R6+7q3nI7+AaJXD1rTIoYIHXOhN9vmk0+ZYyTZk+uggfFiQ1v1Ix8obYN4Bd9kUXq7+8nnRj1OTxSisvcic2Vfl6CzlfV6Eyqkjx41ausub14Iw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbbHw1kC0z30C6;
+	Sat, 28 Nov 2026 01:23:40 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795789419;
+	cv=none; b=TpifcnSUvTCda/rjctGcMf3kL/M1wCHZMxFwivbggJRTQRJebWZfrI1lqEND97w+5WbIuuEtMe8QOnihBKsBLIMioSVL2bKJVNruxXH15FMWqR24fDA/k6y5BVPqwH7sfXlkYtjNQJCWOgUsh73X0CG1YLg0izZ0PuuLH4eb5s+NMkXJ77K3I9m4DOCAiTwo1AN4eOM6o4bsBJtuqeys+sVs8HcDr5eqb0iEhmxGyfMxxRKqcYFFmDMpmKyhpUCRUCeo1V48fd56fVZtu7zFWM+Yk5RC9ByhTMMIIGgAfRDSNfgWKvPtWqwHYyVwgF0DXrHmuqJVzDGfHfnEFtjsCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795789408; c=relaxed/relaxed;
-	bh=rylelK5stBYHCgsJxDyVT3xR4v0rhOf4pwwUfxXYdUI=;
+	t=1795789419; c=relaxed/relaxed;
+	bh=YL0LWj0GcbHfK49EIrBlf9jCG/E4YqaKYD91ZbSxEeE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cLn1TXnISN18T4CLXGre93VD5UhUmLwTdfTPQqss5q1jdlfAtd4fpkva8fakYvrQCodXKM6SXwAfsf47NvpAPp5QPpFAZLKaDIrlHI/CQY5wjmIthpl2H7MqxQSGAlVCTfFfnCzcsbIeUMFfM4ZorzdN3hHBohZgrhnV23tzPiKeHTTuL1qWEgsWS3TpcZoEqY5XhKE4AFh+NYi5Ch0jZEUXBH1ueuIT/F08rG1rdAnPxunWVIIl35H6/tDIAMGGVGdojIEn+S6+6nxX1iRZLShE3MSIZKbg+nu9MwyhmMX1MTjx1xyXnY73hE5ZlY+ks6MIyoLm4Dbs+UbrBCS0uw==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mRvGwGBs; dkim-atps=neutral; spf=pass (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
+	 In-Reply-To:To:Cc; b=GwYT/arlqZnlYZdZkT1CloaZup8TklTWDrv3ioMGi+LnZ+wW2dw054kSJoJj2gP0cQViIAPX1ztFdZoMOfplUwPFvGG0nuC3qy6mcN7AwiyQqASYdzKXFCPAohYTQoxIx5mQKBCaIdSRSjMzqjBY1Qrs2SnY9Vpi572r4p9zy1ryJMZassowpnlLMioaO/HTzc05e0zKE4v3Rc8/a74bpRYEJicpmecW3e9QEf0pPI7nsaAdCCMMW7c/cMLgLRvJMGE7axVFMNhqPrM+LghwXgIeINdxt7TRF6HY9RFRlirpLxALkrmWj+v8OnbIItcCk3clYj2cJrR1WnvDmqLeeQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qQwaRkz1; dkim-atps=neutral; spf=pass (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org) smtp.mailfrom=bootlin.com
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mRvGwGBs;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qQwaRkz1;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.246.85.4; helo=smtpout-03.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized) smtp.mailfrom=bootlin.com (client-ip=185.171.202.116; helo=smtpout-04.galae.net; envelope-from=miquel.raynal@bootlin.com; receiver=lists.ozlabs.org)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbHh0pWNz2yMk
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:23:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbbHv2CGKz2yMk
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:23:39 +1100 (AEDT)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E2B5C4E417C9;
-	Fri, 27 Nov 2026 14:23:23 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 312B0C2AC4D;
+	Fri, 27 Nov 2026 14:23:45 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AC8866049C;
-	Fri, 27 Nov 2026 14:23:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 924F911E68FD9;
-	Fri, 27 Nov 2026 15:23:10 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 663A36049C;
+	Fri, 27 Nov 2026 14:23:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4BC0E11E69006;
+	Fri, 27 Nov 2026 15:23:21 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795789396; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1795789408; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=rylelK5stBYHCgsJxDyVT3xR4v0rhOf4pwwUfxXYdUI=;
-	b=mRvGwGBsB7Q0f+u2y2l45pm0Ao7UyLtKjC1sSTO9m0GWZe6IX+kAoss9i+vTUkyJNYFkuD
-	O3jUoVn6Uwniji42sexNruGK7GjUgzX64AswTbQdWBOunm5UO0L7BOFg0p5HEAxn7Y2AFW
-	A33zX2vghB2+O1XYKzBKh0y2QmJ3Ywod3DVkqSv+J+kHo04xAmQqQ9P/setsueLWoH3xfw
-	pJ2fHhV4yAqJb5C0J1kpTJBKxhanF0rGneoeMUVd0pPmL6gyQ/lCTERIjcLw9Xw6CfUx63
-	yQdvi7ZGWgj/Zjo1D94ZqBSZHqoP/4FCbXdXTrHcPHa2EPG+Esgy4wBqsG7jcQ==
+	bh=YL0LWj0GcbHfK49EIrBlf9jCG/E4YqaKYD91ZbSxEeE=;
+	b=qQwaRkz1NcTtKMJ3rcaD9AaD0G88VYsq9rRXNdRhGxFwrpHJQNa4Qan2umCsy+PgAzkjJi
+	YbIeVsEiyfbdLNBIWdd319ntMr1ek7feEq/y0wE2JDkJRgY51bvte2zxJidEhNgWWLyVtt
+	5fT4uEQYUESgkzfJYZG1S1+J6VsQWhjPWLBP8TGnXE4GP52SSYhPaagtRkLcR046vEep9V
+	/7NBqPAyP0q9YFqATDPFlJR4ttvE+XUEYcuGcu+Tfz1BEYBsfm+/R6dvMss+C4T3MmNQMB
+	LK48fjtnD5qHJws2gtwCMBizByQA/gXTJ0ray9Gwg35xbRdb/lRy8A95FuL9CQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 27 Nov 2026 15:22:23 +0100
-Subject: [PATCH RFC v2 01/35] spi: spi-mem: Stop checking the dummy
- buswidth against board wiring
+Date: Fri, 27 Nov 2026 15:22:24 +0100
+Subject: [PATCH RFC v2 02/35] spi: spi-mem: Fix the odd byte count error
+ message
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -63,7 +63,7 @@ X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-1-5c93f5e5d630@bootlin.com>
+Message-Id: <20261127-macronix-upstreaming-spi-mem-cycles-v2-2-5c93f5e5d630@bootlin.com>
 References: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 In-Reply-To: <20261127-macronix-upstreaming-spi-mem-cycles-v2-0-5c93f5e5d630@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Liang Yang <liang.yang@amlogic.com>, 
@@ -110,39 +110,28 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The dummy phase does not transfer any data. Its buswidth only describes
-the pin state during the dummy cycles, so it must not be validated
-against the board's Tx/Rx wiring.
+The check rejects odd byte counts but the error message claims that
+even byte numbers are not allowed. Fix the wording.
 
-Drop that check (the sanity check in spi_mem_check_op() stays).
-
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Link: https://lore.kernel.org/linux-mtd/20241112075242.174010-1-linchengming884@gmail.com/T/#m7cc1a5055702f5a42a8f3949c968842d845914d7
+Fixes: 8618271887ca ("spi: spi-mem: Limit octal DTR constraints to octal DTR situations")
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
-This is not really a fix, so no fixes/cc:stable is on purpose.
----
- drivers/spi/spi-mem.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/spi/spi-mem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-index 8047b7508c8d..648982350863 100644
+index 648982350863..f4d71f740163 100644
 --- a/drivers/spi/spi-mem.c
 +++ b/drivers/spi/spi-mem.c
-@@ -152,9 +152,10 @@ static bool spi_mem_check_buswidth(struct spi_mem *mem,
- 	    spi_check_buswidth_req(mem, op->addr.buswidth, true))
- 		return false;
- 
--	if (op->dummy.nbytes &&
--	    spi_check_buswidth_req(mem, op->dummy.buswidth, true))
--		return false;
-+	/*
-+	 * The dummy phase implies no actual transmission nor reception.
-+	 * Its buswidth therefore does not matter much.
-+	 */
- 
- 	if (op->data.dir != SPI_MEM_NO_DATA &&
- 	    spi_check_buswidth_req(mem, op->data.buswidth,
+@@ -188,7 +188,7 @@ bool spi_mem_default_supports_op(struct spi_mem *mem,
+ 			    (op->dummy.nbytes % 2) ||
+ 			    (op->data.nbytes % 2)) {
+ 				dev_err(&ctlr->dev,
+-					"Even byte numbers not allowed in octal DTR operations\n");
++					"Odd byte numbers not allowed in octal DTR operations\n");
+ 				return false;
+ 			}
+ 		}
 
 -- 
 2.56.0
