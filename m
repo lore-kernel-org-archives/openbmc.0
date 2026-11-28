@@ -1,100 +1,97 @@
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34293606A31C
-	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 02:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A3B606A31C
+	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 02:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IfdeGbmD
+	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LSIB5TmU
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbvvz3N17z30V6;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbvvz3CSXz30V2;
 	Sat, 28 Nov 2026 13:52:31 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::533"
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::532"
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795834350;
-	cv=none; b=CaUBP+eCTdXi45K3yIVGdjWMKuKT9SILC4kFJVYiZnpI1V1TT2weHrxkQ9rrfJ4h0T2dDJyhDvAjRUIBbnh3f27eWeYew05MjdfJ837dFDsTonQnvFR0RpItNc029jPKwJDXSzBGEGubjEl8SjA20oFgQrd4mr8HI8tvM2oUup7H5ldG/8QAnI2ZmLN9chkUwWl+8yOc7FX8Hl+oUcCxbTlYR+tfyE0UiZL7dNlO/1V3jQySlgeNxp+lUvfZl5ACJCo0f591oRh80ex0Rj1jimW8UnpHfUkhP8uvo7JKqeoviiEFMQF8iCcZ0ZoWo1V0puzbpLb3zQQGE/uJ97nxFg==
+	cv=none; b=nCk8wb0m9xffYPNF5v/KYYUT2at2u0uG0INWBnOl95YVhhJrHJu5IIQVD639A/qCfTKRoiSw3pM3L1r4n3n+tmUE4JGduc5s6TTAuLlMNqnRbVcfjYWyhB4Tbfg+DdZKJaIwmNfdqmhlAVwacnF3J9EKzu0HkxNTQG0tdAU9T65m8oznW14hfdnKsDmvsGbDeJAeISFzj6uuIb67XdP2A3FVHpR3AD9NNVR9Nn/jeeVb93MDCDHiuvDdqCfFrrszFRGxft4BTr54oNP3NkKFQu+m6uULmzvptDSLjX66xw4HzFUgVJ3tgSYRbqEEt5Ysl056KPMl0BbP54WeWVODXA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1795834350; c=relaxed/relaxed;
-	bh=kD3PzR5f3F9SwQ1UrQGTXoeuck2gocAg+UO4pHEVgvo=;
+	bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hD0UQ5Wf0MVhiudsbXHY+CmDfdemdR7NGDcmuIrDC8toysXoGEV6u2sl9d9jZ++J97g5Vhyrmt3DO62t1OesJCOBZj5f0QZlSvYQ5vZTo3caK5IhxqvgM2oY/Op5BqkXGTtqq+4T0MFF73EM0z5ob8jDOxZYLXLNXdZSt2UY1zsXbJaJHEwKD4pksRK/zpKK0q5Qf+3XGMZJdyTzfLJ5FWqs4JCle206EwxlwlYG7je7pW7GE3iGX/e9J3UVrGSYYpd0PXtxJV/kuvcyz4SIQ8WdbcF2gVULnmnvZcogRuDLXgWGBHfMdRYxw6zjiCLagOd4fOeIdF+kiRfsbGLNuA==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IfdeGbmD; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
+	 MIME-Version; b=XP1Mfdk7XWhcnQUVnUz2n11FftNMDMTijkgU0/zq1BGqhVGON5/FSh0Nm1wuSu4shMtum1qUmz71pY+Ab0BHSWfNYbW2xC5ts4lctRa4mQjxclq0L6HJm4vfAE5jmqapUg5nb32tmkH5NArSoZjwzpmG/Jx0ndhW6uUHooGGNawcLAN0ALJD5NVyceLr0HUWitJAHNCEvsNKlMTnRqcd5dLg2+nfuisdkpnsM6ffXVxqF9Uea/qtbYCraZpnx1XGNMYI519YGvEUs/Jzf/aRgD08P+8PdOMIhr2TLPRb4iJzlsUlBM7ePybOd0XMP88DZxWB+23y83TVY+fs8W5alA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LSIB5TmU; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=IfdeGbmD;
+	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LSIB5TmU;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com [IPv6:2607:f8b0:4864:20::533])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::532; helo=mail-pg1-x532.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com [IPv6:2607:f8b0:4864:20::532])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbvvx2lRVz2yCP
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 13:52:29 +1100 (AEDT)
-Received: by mail-pg1-x533.google.com with SMTP id 41be03b00d2f7-cde827b7b95so2908769a12.0
-        for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2026 18:52:29 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbvvw5GgMz2y97
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 13:52:26 +1100 (AEDT)
+Received: by mail-pg1-x532.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so5556937a12.0
+        for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2026 18:52:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834347; x=1796439147; darn=lists.ozlabs.org;
+        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834343; x=1796439143; darn=lists.ozlabs.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kD3PzR5f3F9SwQ1UrQGTXoeuck2gocAg+UO4pHEVgvo=;
-        b=IfdeGbmDZEoaTArjZznskgQkqpw/lPK3kk4Q1lKfUVcK/I2aMvGcRGt15tff6109yv
-         tty828qSMiAbX7e8hieMKjQQdUw1sw5m70MeXWhRczeryLufUGpNSsiKiosFWnhJMDnE
-         bn/X9lFbDiFNiW9/PmdqmoNUCrEp2GrMd1IlMSXD2kniIw2bRWx8LMKJa98dy0G4U8NI
-         CYul6WqIis9Ef/HVjNnfHcr8KTb1GMDsKJMIIblLV/T/YVa8vg/DvRMqCbUsn1mGXbPO
-         qkCgkHhEX8i7SoHD011gvd51k1dCde3r7zZxYAt6pjyrjZUQSNATjilISzloK+OLu2ws
-         2Z4A==
+        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
+        b=LSIB5TmUkK10enN0+qe4oki2PinqyBRXN6TIQrECHI3JGMaumJEDUA0rQOtYB0XySr
+         u7vCuxPhHwY8CTl7xUuEZ7KPLv+ai5MfAJ35sF+WBnqTNjBYTZc2xXbB+CbQjcT8NLB2
+         vcAoltrjAgysf10DW2chzHR379icoWLLKC3wezwX6Wt9E987i94lHoU3Q2FOFrFzyoGk
+         wbBKHAth0rqCOEwqOh+iBFQcC/M/3aHSO6rBGhhaD1SAYKoULhn47bjQg3vEYFE4KX99
+         bqa9GPgN9VaWnmOY+cKrMQN6zUPS7jwnccJH6ccTY13cxbPoiLOL2jQgg3peITa8ODMy
+         Hung==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795834347; x=1796439147;
+        d=1e100.net; s=20260707; t=1795834343; x=1796439143;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kD3PzR5f3F9SwQ1UrQGTXoeuck2gocAg+UO4pHEVgvo=;
-        b=ZVvycA0WcRAmse9tyrx/dJ+PRLLvkI9u2p9fo34ba3PSd1/HwpDNc5k8NV1jOTF9qH
-         QKfC0/D+z7uKwTKm5sOgh6qAOJ+IUmScJX5BOF4ZL459mBglGV6sJPfE5ZHsNsljqmro
-         8VnTibNul71TYDJOtsjNRaoi+aFR5BFeo/PuNRH6DpPm4U2UQPC5NbYMs9AiZrn5eRx2
-         RlFWT9wcb6QqbNhFvo8jH45WHpqInyIlRqCaNPaSMHHdCr9GJ4pA3xSIZJ2HWUmuZBt1
-         suA5CPWctuLStCDUPcs0tCQMzEX6jhZHMkb+wkqSwCOwtnJXRAHik1oGoGkkOK9CP5KO
-         vLQA==
-X-Forwarded-Encrypted: i=1; AL+hErFnh6PRNacJgbuqKhayxFV3awExmPNkyJxVQ7bWW7zFAEeeX3JiMu+xBT83KPKENlnHkuIw/rgn@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z+jtZDOweLz1ZvIE7pGaF9FcWg7x2c+IlSMc4cP2Il8BkC+Ts8E
-	93g4AL5iuVo3MNGzV/Ge/KWQlT83G5DBo9obwNhYqQOsdWhxa04U+u1VVRO7Svt9/98=
-X-Gm-Gg: AZFdTZfcKz3ReKr0KYg0la0c0LOEI4adx/OT+m7CTrQyM07lU4TiMuR+JR4hQ0m1pqN
-	Nc5TPZvk3F4p8Y22EdnepaJmzH91aKbWVTLRtlvmK4Ob9kWstTyM3/q5MsARLCrB3xWxTCUqxWk
-	Ls4D0gYSp3k83If62eyd8joMSiyRH4oDlTQ8OWT16HqYaXxftnECumJvS/HYiIhirmgLTyN8FpX
-	zQdlqWKOM0tXhUVONNVXJMrQ691oyxcd1qUk8El8OZeytR1Lkzxna0yzs/99CPnK6uVKbuyL9Xx
-	paFuVPNy33OSxih3lNUOi5HK5e2zzmUKQxfJS8GOE4LBihcgwewsguVFQUR9pZwbP04ZpuFplRF
-	DfODrNNemtIF83l/6kb8VZKk6CzHHw1Wwr9Oszt5/UvPTjICfD+tHbv9nlXR1gPSuHTe8FEkAcr
-	z45CnCw/9r2b2GIo0y+X1TCiyO9J+loH0Upu3/dsRDxOCravVG0ZYlBQBU5tEwHCahEOcVgYuPg
-	L3/cScLhyR/1CDh1td0aiZM2EHBqa6j96c8I+3OJUwmOhmScZcVLsYAH0E7eadnczr9LfH7tDKh
-	1cNRyCoLTOepsOppd3nYXByLoAhL3JWomo/cnppZi86FpmWLZ5JVy2i45WHgXG59ClaYRDIkCjR
-	BGCb843W9H4nNpQ==
-X-Received: by 2002:a17:90b:4b05:b0:3a0:516d:9f88 with SMTP id 98e67ed59e1d1-3b41c911c9emr24356298a91.26.1795834346952;
-        Fri, 27 Nov 2026 18:52:26 -0800 (PST)
+        bh=t00wUIQOglo4PlqX8mnXlhh7m8/kx6uygSjOG16Nct4=;
+        b=alW2N6jJElQeI4EF9m76xJ8jDMx+ho253nz2kcSWz295vNngcDPHWzty2fPHoDTDvU
+         LBRQaL6mBZ85ToFgDRrdwaDQWEi9mIi1smxW1oB+2ElFaVX5ALEC+0NdbtDwei67VTjl
+         sHwwsOiV0i7iIExw8QU46evDjyQgyxj/m2NXM5aF+Q82UyfQzcL4PMFX4HY2vWjrKole
+         7u7zPOtIT+Q1eA0kQHL7Xo0LLMUD00xmLpJzcXNZLt30ef/oU7gCJCgT9RfblxZwoI4e
+         DQcujKtyLmPkNHheJaHYodn62J5/pEuGcgiZrFM/TBOR6IrgU+VYUd99/ltLVjuua9p8
+         Co2w==
+X-Forwarded-Encrypted: i=1; AL+hErHq9npLAbQZLlgmEUE/lnwa9neDLeR+q3VKJXn+T+cX1Av5YgQULJhG3x0n0eL9lMNLedgKNJu5@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z/qsvhVUeqq12B/BQjNp0s64agfpwtRQQleTNFqUfvfoMgaL0ug
+	YV98JLy4IWTZomint3XXAUUYpjevi1ci33QZWQpAgF9NmBHHj2FCWlwzQe/BExQRBuA=
+X-Gm-Gg: AZFdTZcWPUC5Q5f4m5q6YXdSfxfK257T68HteP2SQDVFhax1HV1lFqDRtMwCahy8dMC
+	bd8b/erotOfhAD707IFlkVckqXBIbnsUqUfXH5TrrLj04BQRm5nFlwILRio7lijstq2gTB00NUD
+	xXRjgD/ksvR2c9d2borhRT7XNzNejd4MFyo2Bb4KFCETrXH50p7Ax0zk0hrJS/u1SkI90ZEuGPn
+	BG0PBxpmTffZEBzKlRlNOBeo3/ya1gLVLqlDnqRMyMscEqJD/maVS1hum6v2hkalQ+LYaMLgt/1
+	H0TVUSOxA5jnarxjXYDluu9bpUa6DxdsK4hWcunnW58vsUmjVooTehcyZo+flZy8s9tuqdgdtJF
+	4h2uY8IcmQf6A5yqBA3hnMZseOKEexjk+F4Cxx5m+s+ciS/AoiNUQjUU1zwCksFwvINTwSk1Zx3
+	TK+em2q2B2WCugw1RdR+YWjQhzzDTD4g0V6NdamFxWxJSETy2j94CZPF1SAyrjB82/Bh1aV9C5t
+	7piv2k6M+ML2qBlH33qFc/J5Dec/5O21esjoNFcAuF1oOiySMSsXhvr9aMzcw9tXm2ECpgH4I6T
+	gmvgWLGAC+ZfRmPFopBO8yrwWLgHwjoxSCY+bfxlXLsnmvNS2DenVBOJNGrRAzOa5DMsAX4XHFv
+	zxpLSiLZ70ObYRCz1xs0+tS/Yai2iq13Xpqg=
+X-Received: by 2002:a17:90b:2f8c:b0:3b3:af8e:ea8d with SMTP id 98e67ed59e1d1-3b41c92a403mr26168454a91.39.1795834343106;
+        Fri, 27 Nov 2026 18:52:23 -0800 (PST)
 Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492413a91.17.2026.11.27.18.52.26
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492174a91.17.2026.11.27.18.52.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 18:52:26 -0800 (PST)
+        Fri, 27 Nov 2026 18:52:22 -0800 (PST)
 From: "William A. Kennington III" <william@wkennington.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Avi Fishman <avifishman70@gmail.com>,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
-	Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Joel Stanley <joel@jms.id.au>,
-	=?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	devicetree@vger.kernel.org,
 	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	"William A. Kennington III" <william@wkennington.com>
-Subject: [PATCH 1/2] clocksource/drivers/timer-npcm7xx: Fix spurious timer1 clock warning
-Date: Sat, 28 Nov 2026 02:52:23 +0000
-Message-ID: <20261128025224.2680046-2-william@wkennington.com>
+Subject: [PATCH 2/2] ARM: dts: nuvoton: npcm7xx: Add nuvoton,sysgcr to watchdog nodes
+Date: Sat, 28 Nov 2026 02:52:19 +0000
+Message-ID: <20261128025219.2679805-3-william@wkennington.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261128025224.2680046-1-william@wkennington.com>
-References: <20261128025224.2680046-1-william@wkennington.com>
+In-Reply-To: <20261128025219.2679805-1-william@wkennington.com>
+References: <20261128025219.2679805-1-william@wkennington.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -110,49 +107,51 @@ Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-of_clk_get(np, 1) returns ERR_PTR(-ENOENT), not NULL, when only one
-clock is listed in the device tree. No in-tree device tree lists a
-second timer clock, so the existing if (clk) check always logs a
-warning on boot:
+Since commit 7762911c0d8c ("watchdog: npcm: add bootstatus support"),
+npcm_wdt looks up the GCR syscon via the optional nuvoton,sysgcr
+phandle (defined in nuvoton,npcm750-wdt.yaml) to read reset status and
+logs a warning when it is absent:
 
-  /ahb/apb/timer@8000: Failed to get clock for timer1: -ENOENT
+  Failed to find nuvoton,sysgcr, WD reset status not supported
 
-Ignore -ENOENT since the second clock is optional, add the missing
-trailing newline, and check clk_prepare_enable() for errors.
+Wire <&gcr> to watchdog0..2 in nuvoton-common-npcm7xx.dtsi. Tested on
+an NPCM730 BMC, clearing the warning and enabling bootstatus.
 
-Fixes: db78539fc95c ("clocksource/drivers/timer-npcm7xx: Enable timer 1 clock before use")
 Signed-off-by: William A. Kennington III <william@wkennington.com>
 ---
- drivers/clocksource/timer-npcm7xx.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
-index 9af30af5f989..c7377f30e95a 100644
---- a/drivers/clocksource/timer-npcm7xx.c
-+++ b/drivers/clocksource/timer-npcm7xx.c
-@@ -202,11 +202,15 @@ static int __init npcm7xx_timer_init(struct device_node *np)
+diff --git a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+index 3862adf85b68..e9765fd6ef8e 100644
+--- a/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi
+@@ -375,6 +375,7 @@ watchdog0: watchdog@801C {
+ 				reg = <0x801C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
+ 			};
  
- 	/* Enable the clock for timer1, if it exists */
- 	clk = of_clk_get(np, 1);
--	if (clk) {
--		if (!IS_ERR(clk))
--			clk_prepare_enable(clk);
--		else
--			pr_warn("%pOF: Failed to get clock for timer1: %pe", np, clk);
-+	if (!IS_ERR(clk)) {
-+		ret = clk_prepare_enable(clk);
-+		if (ret) {
-+			pr_warn("%pOF: Failed to enable clock for timer1: %d\n",
-+				np, ret);
-+			clk_put(clk);
-+		}
-+	} else if (PTR_ERR(clk) != -ENOENT) {
-+		pr_warn("%pOF: Failed to get clock for timer1: %pe\n", np, clk);
- 	}
+ 			watchdog1: watchdog@901C {
+@@ -383,6 +384,7 @@ watchdog1: watchdog@901C {
+ 				reg = <0x901C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
+ 			};
  
- 	npcm7xx_clocksource_init();
+ 			watchdog2: watchdog@a01C {
+@@ -391,6 +393,7 @@ watchdog2: watchdog@a01C {
+ 				reg = <0xa01C 0x4>;
+ 				status = "disabled";
+ 				clocks = <&clk NPCM7XX_CLK_TIMER>;
++				nuvoton,sysgcr = <&gcr>;
+ 			};
+ 
+ 			serial0: serial@1000 {
 
