@@ -2,92 +2,99 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420B7606A33D
-	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 02:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EF4606A32E
+	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 02:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Wm4PsyHt
+	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbvw16pNRz3bWn;
-	Sat, 28 Nov 2026 13:52:33 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::102f"
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jbvw21t8Cz3bYx;
+	Sat, 28 Nov 2026 13:52:34 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::52b"
 ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795834353;
-	cv=none; b=LylWwV3BCnfcuER5OMioq8GioFMCP3mDoWEl9BPn5Y2NlWcgDTVf5y5s/11J8iIx5pT4e/huYr+c22cHbqrtZ4jbSYJk2UCnGhurEzznyFtXnt/yFy3Mw4JXFBfKRjKP6569fcyik3IsdOZN/x/m2CigxU243my+feKRcC0qTffXGhRFUrx3o8Q0IJwKccetYLMnrd+dGxToGhe33LT66+JxOe7vptBbIbcyE27YyowK1OilFRXnlSufhumuKaUcB7aQwgTabKEPByF0Yf0EzSk8VbKo6Ej763MysvN/gKjur1IEE5ySc/y4vMrXxgL/nfMb/Q5w5VmRqiQ++D2LrQ==
+	cv=none; b=UlFjMgs2H3UZ3S+YeREVECqZaBK7UhX22DECy2zgTogG9xyjUxNJjYb7IvRueaMOS0Zh9q/yXzY/t0sYvuSroYY15s1uvb7oQzSSejqjEolfij7bzQ8C3s6pBApsG5es5ZOOvqOmWnOCyEuop1bn0XSQYWiV891yxpGGvi9esNAViMx6sYk0gv3nQtGroVK0Z5rVOAxa0/OIIJly3gQ7ImOju2xbJdjdMgdikI7kWRuLeGudtoZMyWM6P/C9z8lb6/KMcDezhfNwlfpyZDPydVObqlVi+DW+vDeDsPEj8rkSpTi6IQljO62msdw9tGERaSchekJhPwFdQCpCvQbVQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
 	t=1795834353; c=relaxed/relaxed;
-	bh=Q/OKruXLAn2hfDxhFwrAwBRikQ31x+YeeUeY/2L4yVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WpfNNPOZdrQXqbfV7nLJBquuzWE+a5zpjNQkr5abAnPNc95efViIpxdtGZcklBFWtW7uWosQV2Ay7sS6OAXYvsqv6J9M408SuJ7E2+EkeVyNH+6sE2MkEfq977UbAle/n2r95hP8hd7/TT/+rKaTAzqQc6kIl94M6wSXhR0L04tV7/9zt+dJv2s07UtWo7dpUGlQ2OgCWBq3nHycl6RTtzu1D9DMfOjT4uNywovuF16I17RbEb5GQ7JkYRuKb3AWmMf13euWzxj3odabt3vtCkSxjWobiij0Os8c9yhc2CnlLap01fKHxD0+9eIIKA8QjT1D8btP9Quo26cPiBrGdg==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Wm4PsyHt; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::102f; helo=mail-pj1-x102f.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
+	bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PF2KWIgh02b32fo6KquUzcwqHXVLr4UJ1P/Zw47B6j0/ykSm6cE8ZjN9zjDVnlnC2hG+4hbNCWxuHPtBCpXoa5b1/e+sANiLYTJakPHOHW1RHdG7rRluA4E6A8lx7VlzmmjC/IzgiKFXdlR7GWgNWvMmLPRyT8a809Cl60AB7ZFe4wom95hLrmQOAWFUYmgxXh3RDeJfCJtS/A0TwUIIkCgoXt2xoSd9XbBfN7VA+RWhc0iDcgH03vwsB1WnRonO+BPv3ALsnejk0cbFCnIDLh3kY+qnpUrqolKb13zRZiaKonefo3JkEpOnKBdOAgZj3qO4v0h+F5CNN7qBCn2feQ==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Wm4PsyHt;
+	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::102f; helo=mail-pj1-x102f.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com [IPv6:2607:f8b0:4864:20::102f])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com [IPv6:2607:f8b0:4864:20::52b])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbvvx5BCLz2yGT
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbvvy1F9kz2ySc
 	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 13:52:29 +1100 (AEDT)
-Received: by mail-pj1-x102f.google.com with SMTP id 98e67ed59e1d1-3b421e8d111so5711012a91.3
+Received: by mail-pg1-x52b.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso3345746a12.1
         for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2026 18:52:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834342; x=1796439142; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q/OKruXLAn2hfDxhFwrAwBRikQ31x+YeeUeY/2L4yVU=;
-        b=Wm4PsyHtTHOLJ0QixcugsW0ShKYUJkaraQ12z4JkIhpGPgGDMxJZKBI7fCP1kxXajp
-         +qSb/LaeB37bUrQYhTN/DohHZb9kHpg/Wa20//g9WLJ/oybaOVYp4llL4WZjoUw+VfuO
-         Zeg/Q+igOQ8fuWM9DsnMrdNgRfD8zElOB5z7ix810VHzj0wHzPod6XwL+YOSTZusQR11
-         NZ2uUloP/0cxBKxY6a25vYRJvCmfKBrpvK6v+BioKaQ1+w2YFY/FbrD+Yr8k0+KnOYmn
-         GzH+dBywf0LJzdzAXTnUqFw3CR210h03TZh/Pte7/mEUd1rzvoGRy/zuQzcfTd8lGNYR
-         CP8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795834342; x=1796439142;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834348; x=1796439148; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Q/OKruXLAn2hfDxhFwrAwBRikQ31x+YeeUeY/2L4yVU=;
-        b=BWBrNA+pWq6HbIzK5bduQ8/LNHaVe6wgKxbyxx/epzJ51JPJ9uwsJjBgOZc4TYeiMv
-         1mcKZXdLgAp4FDbIyupH/8rMekJGeOPTCPDmM28evRDX8Oy2iLGiDSe0r98WFfJdSXoB
-         f0ixCrResN8v+DsVYI2y/4WXI1QdeD9wO84WVZ859voNTu06RNFNYcI39nC0hg+OT6bY
-         bOhZs60e8dMedCmlrJj3wSjXJ/1fOATqiA0oajtib3etPoMAILpZk0g73INnXbWy7Al6
-         dcpmycwSWGqDosg2npN6ovEcvQDPZJ6eiEJWRVO33jNtJ51bgbISE3OkaBb9G+D7+j+C
-         wG8Q==
-X-Forwarded-Encrypted: i=1; AL+hErFjyRW7galI+cEYjn5y/AuU7eEdJpLduy3SdqjupMXgoCB9s7B2zEuFLlUGonkgAWLfw/LPuzMW@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z/JilzRlZdOTr4cK+W9rVEfKrLp27rc2/Quy1+vzk+vgqkacMPX
-	tE0PpQsgIlnaDC60AQM14rRGX+1f/n+NejQQJfoFbY/5AAuHMnfBqSYBK5QYribaqrc=
-X-Gm-Gg: AZFdTZepdNcNX/3Wht0yBbeIAKkcR8O5pKoZAvK6asp8MbxiqK0JVeeZ3BDISN7w2XX
-	Vkgoj+w/y6Yyahfu6Osw9XhFb7dXOKfFp0xZFkzZ0yyZBT7e8Y3mF1ofE3ki/GoOhd67b2dnaBf
-	rBaH6z/0+dMlOPrkUlgyNbdEsFw07jSpvqAqISWmhCreRhk6UbLtA7anhJDQ5YB0CVvRL6ILjD7
-	cfsEJic4geubXbgeQpYSL9SoiWn8SYFunOYJlksqdIgGmL01QrHN5zqW5L4Zw81T4JHTtEKbOye
-	pYTnxOY2cQ9EJCt5vuVRGKD9yWkyum+yJ9FGPnPcmqNJdDssdCRrC35fPE8Hs8JM+Y06mvSpz/A
-	RJwHP817J+jyeKC4TQPU4yNNJSna8Da4pqHZNeSOQbsVwpSXLkOYkFiJQFUW8SE5IPQjGcBPqOk
-	QxXKiUxILqLwJ963euuRsr7xezxxzfQBi6upLMEhwnRxT/VxRVbpslO3rzO76nhfVazm9mc0rvm
-	WVW8T1bhrP6QwRhUtiPR5DCZaOt9rhwvla/mLsg1ysPsO3NEhAEA/SCOEZpLsY4NcK+mCKOCzLW
-	AL6lae12uvJdnM459fx4B0wV57HCDeyM405okcHJ0Sq6NWz5Rb4sFYIbnkcm8S8IxTY5/q3jJHz
-	Lh/Vvuuvfj97YBQ==
-X-Received: by 2002:a17:90b:3c11:b0:3b4:f92:adec with SMTP id 98e67ed59e1d1-3b41cb20ec3mr25787093a91.56.1795834342067;
-        Fri, 27 Nov 2026 18:52:22 -0800 (PST)
+        bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
+        b=DR/3n50Cwq86v/5fb8J/4GakP1vgfBZWMi1VTsm1EA2cYFMe0/UdhyXFaZh/sV/L8b
+         /2iwpToXt3SGRXGWuKeoQ2k/I9pbSQys+nVlIsznz2tW/2zPotGq2DbkDsvYHdQH4kvl
+         tPORJy2WlrQQXrHYHQkW3OAljMCb54qeTD4Q0f4q7T92hlY2dkZn54BhpW3R53Dq9/LL
+         v18TS7x9Wtrr0EZp+v7ScAj9jDaEWQ8VAhuPhg4aJORR/GrUUIP7XakDqTUaIgR5eMHA
+         IJCoG4Qcg07RDwjN1arzz1UeoH/D6+59M0PxM1XjpmGAuZ9ZvqjKPy1ooXWzkvgFmv/j
+         iUTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795834348; x=1796439148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
+        b=vet8vOmIEr0EvVPI1DXxgfyGufR9oOBMhwd8CxOGjYYDhlxeZQR5sgkjkk3J42kqZf
+         yp0z0DX4K72v4SG8KRdvXwd9qAoC8tMmRDYp2tN38xqpHAmCcfuKXAJ86MMjf76eo20c
+         JzNCLOR8hOAGNyJ+ztcnZzuz6r5jiRfnLkXuafGusgUzfvZeTOmzwr1J0SOj/x4WFpgg
+         JFI29W85P1qX4nn0NBRa73z3AzMglT/Xvhzz7lL7TJ72bvbNnQtZoOqzYVKjFx9P3epx
+         SxcEKXpDOa7Bfx5pz581kYutHpv9/u5E8KNQtzZJW09e8MeAMdjDjTDXEVctV3IfczY1
+         fS2Q==
+X-Forwarded-Encrypted: i=1; AL+hErFr+2ax3R4rt4BBEprLtl5DsPTCdOo1OZWFNSp8zydtQy4BcZzGTWOrM36e1Tx5r/C2rGOODO23@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z9hKx4j26V3EpPQYjn3DiFLXE/uVuH3BQj8Ci+DzjzucWKQlP0U
+	I4BnK4/NjWciBf/LGJFNY92gdXwsm1YBO2xLxR+noEp1IgqPUyOLPkzFBYg5RFNlv2E=
+X-Gm-Gg: AZFdTZex2W5oT/jaKrfj3QeYpOUEMcHJzcXuAudkoeZUlpQcqC1OK/d9DtEL2nMgkM7
+	5FRi55mCoC/cxW+qwE8ni3buZev5dy6CF/KoaBO1zEz8pnpgVdHiNLle9Np1uNs+oo1Z7O49B3q
+	du8/uRl79+QKVj3Yor2R8+IhrVKerbbenfrE3w6U/+C8FlTZGnGXHcp1xvhLOjp1lvUtlSatWQm
+	MkmA460S7SB1l4c6dnKoh51vfW3Y8cfUnXaqqULXJYrE06DXTcmG7yIOklfi8S2TVTSPGS0cawq
+	t5Ln2CZF70+5WR9kU+SPiRyKRczj5RvyjosfGL9Kmi1Jg7XwPOjLueZeDu+bjO61QCCg2Zu2bMJ
+	WTwkJFyuz+Jq4Fa9HdLOKOHtlKVl89Kk8ub9zPyVznoIawPK1c3vT7wUUPUCBmJJErcay0s9ktp
+	4BVa+GcvKTL6vEd/nzSqyMjSc8ldMWlTdF0Qc93kI2Cdek1sTegEoVfz90SUm3gSA3KZ6F2012q
+	kwagPgP/WmAIv2eSv/3e/tv7gNbOa9ZPA9BbVniKhKES6hWN8MdnKW00FjaxVyrfBpxNsU7qllK
+	kzler9FLTdiFmXi/RrrR/gCL1gWssYlcohFg1KVakJe6PYM4hTMeRpwOYSCNrgRgsS8HY/HPOu3
+	hxBKM8JdGi8krLA==
+X-Received: by 2002:a17:90b:2f8f:b0:3b0:ad59:7199 with SMTP id 98e67ed59e1d1-3b41c942629mr23863138a91.32.1795834347869;
+        Fri, 27 Nov 2026 18:52:27 -0800 (PST)
 Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492174a91.17.2026.11.27.18.52.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492413a91.17.2026.11.27.18.52.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 18:52:21 -0800 (PST)
+        Fri, 27 Nov 2026 18:52:27 -0800 (PST)
 From: "William A. Kennington III" <william@wkennington.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
 Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	devicetree@vger.kernel.org,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Joel Stanley <joel@jms.id.au>,
+	=?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
 	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	"William A. Kennington III" <william@wkennington.com>
-Subject: [PATCH 0/2] ARM: dts: nuvoton: npcm7xx: Fix PECI reg offset and wire watchdog sysgcr
-Date: Sat, 28 Nov 2026 02:52:17 +0000
-Message-ID: <20261128025219.2679805-1-william@wkennington.com>
+Subject: [PATCH 2/2] clocksource/drivers/timer-npcm7xx: Register timer1 as sched_clock
+Date: Sat, 28 Nov 2026 02:52:24 +0000
+Message-ID: <20261128025224.2680046-3-william@wkennington.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+In-Reply-To: <20261128025224.2680046-1-william@wkennington.com>
+References: <20261128025224.2680046-1-william@wkennington.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -100,30 +107,64 @@ Precedence: list
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_PASS,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Two fixes for nuvoton-common-npcm7xx.dtsi found while bringing up Linux
-7.3 on an NPCM730 BMC:
+timer-npcm7xx starts timer1 as a 24-bit free-running down-counter and
+registers it as a clocksource, but never calls sched_clock_register().
+sched_clock() then falls back to jiffies, which leaves
+CONFIG_IRQ_TIME_ACCOUNTING disabled at runtime and gives coarse
+scheduler and printk timestamps.
 
-1. The peci node under /ahb/apb uses an absolute address (0xf0100000)
-   instead of an APB-relative offset (0x100000), failing address
-   translation and causing peci-npcm to fail probe with -EINVAL.
-2. watchdog0..2 omit nuvoton,sysgcr = <&gcr>, causing npcm_wdt to warn
-   that reset status is not supported since commit 7762911c0d8c.
+Register timer1 with sched_clock_register() using an inverted
+readl_relaxed() callback matching clocksource_mmio_readl_down(). The
+counter is the one the clocksource already reads, so its 24-bit wrap
+(about 1.3 s at 12.5 MHz) is not a new constraint.
 
-Both patches were tested on NPCM730 hardware and verified with dtc on
-nuvoton-npcm750-evb.dts and nuvoton-npcm730-gsj.dts.
+Tested on an NPCM730 BMC, where sched_clock now has 80 ns resolution.
+The driver also binds nuvoton,wpcm450-timer, which was not tested.
 
-William A. Kennington III (2):
-  ARM: dts: nuvoton: npcm7xx: Fix PECI controller reg offset in APB
-  ARM: dts: nuvoton: npcm7xx: Add nuvoton,sysgcr to watchdog nodes
+Signed-off-by: William A. Kennington III <william@wkennington.com>
+---
+ drivers/clocksource/timer-npcm7xx.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- arch/arm/boot/dts/nuvoton/nuvoton-common-npcm7xx.dtsi | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
+index c7377f30e95a..f4b828d7c183 100644
+--- a/drivers/clocksource/timer-npcm7xx.c
++++ b/drivers/clocksource/timer-npcm7xx.c
+@@ -14,6 +14,7 @@
+ #include <linux/clk.h>
+ #include <linux/io.h>
+ #include <linux/clockchips.h>
++#include <linux/sched_clock.h>
+ #include <linux/of_irq.h>
+ #include <linux/of_address.h>
+ #include "timer-of.h"
+@@ -166,6 +167,11 @@ static void __init npcm7xx_clockevents_init(void)
+ 					0x1, NPCM7XX_Tx_MAX_CNT);
+ }
+ 
++static u64 notrace npcm7xx_read_sched_clock(void)
++{
++	return ~(u64)readl_relaxed(npcm7xx_to.of_base.base + NPCM7XX_REG_TDR1);
++}
++
+ static void __init npcm7xx_clocksource_init(void)
+ {
+ 	u32 val;
+@@ -184,6 +190,9 @@ static void __init npcm7xx_clocksource_init(void)
+ 				"npcm7xx-timer1", timer_of_rate(&npcm7xx_to),
+ 				200, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
+ 				clocksource_mmio_readl_down);
++	sched_clock_register(npcm7xx_read_sched_clock,
++			     NPCM7XX_Tx_TDR_MASK_BITS,
++			     timer_of_rate(&npcm7xx_to));
+ }
+ 
+ static int __init npcm7xx_timer_init(struct device_node *np)
 
