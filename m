@@ -2,99 +2,93 @@ Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EF4606A32E
-	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 02:53:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118B0606A6B5
+	for <openbmc@archiver.kernel.org>; Sat, 28 Nov 2026 09:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C
+	dkim=pass (2048-bit key) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DgGAIUsb
 Received: from boromir.ozlabs.org (localhost [127.0.0.1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4jbvw21t8Cz3bYx;
-	Sat, 28 Nov 2026 13:52:34 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::52b"
-ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795834353;
-	cv=none; b=UlFjMgs2H3UZ3S+YeREVECqZaBK7UhX22DECy2zgTogG9xyjUxNJjYb7IvRueaMOS0Zh9q/yXzY/t0sYvuSroYY15s1uvb7oQzSSejqjEolfij7bzQ8C3s6pBApsG5es5ZOOvqOmWnOCyEuop1bn0XSQYWiV891yxpGGvi9esNAViMx6sYk0gv3nQtGroVK0Z5rVOAxa0/OIIJly3gQ7ImOju2xbJdjdMgdikI7kWRuLeGudtoZMyWM6P/C9z8lb6/KMcDezhfNwlfpyZDPydVObqlVi+DW+vDeDsPEj8rkSpTi6IQljO62msdw9tGERaSchekJhPwFdQCpCvQbVQw==
+	by lists.ozlabs.org (Postfix) with ESMTP id 4jc5FB12bJz30g6;
+	Sat, 28 Nov 2026 20:53:02 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; arc=none smtp.remote-ip="2607:f8b0:4864:20::1033"
+ARC-Seal: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707; t=1795859581;
+	cv=none; b=Mnn/q1U4kIIduQJ9ETroNyobjylrGtTY99dY5+6iQPnwL+s4+S7kP+zcVAPxYNeEjJpelATGFE0OZs0b43d7GzR4k9ttbmcVzDtnkBYHwNTXVAmMa7rubM5FJuAC29Cf5/O80RwYZH7gwivG5l/AMIYdXT4XqKMIxEcpkZAzQyDQ7fPuI0+o+YnxNFkgA5vsGHSdrVxJXLf4iw4acgF5zBo/HNR2b9dsp1Ohd9DxBNsX/gWiLj7o+BlmNyolZzNMfDxzLR8ZPhMXRMRxXj+wwUrKDWZPHycm54vNVAebhnqOsZYriAzHm5wNHlSH4RbOddzDFDpvkALAFdmp8pT4kQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.ozlabs.org; s=201707;
-	t=1795834353; c=relaxed/relaxed;
-	bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PF2KWIgh02b32fo6KquUzcwqHXVLr4UJ1P/Zw47B6j0/ykSm6cE8ZjN9zjDVnlnC2hG+4hbNCWxuHPtBCpXoa5b1/e+sANiLYTJakPHOHW1RHdG7rRluA4E6A8lx7VlzmmjC/IzgiKFXdlR7GWgNWvMmLPRyT8a809Cl60AB7ZFe4wom95hLrmQOAWFUYmgxXh3RDeJfCJtS/A0TwUIIkCgoXt2xoSd9XbBfN7VA+RWhc0iDcgH03vwsB1WnRonO+BPv3ALsnejk0cbFCnIDLh3kY+qnpUrqolKb13zRZiaKonefo3JkEpOnKBdOAgZj3qO4v0h+F5CNN7qBCn2feQ==
-ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
+	t=1795859581; c=relaxed/relaxed;
+	bh=ZrDq8tmdXzrkRgk1EoLyp7UlG92pPquVxMGIdXH3Fx0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EGLariPT4+gQzb9DSxLqcSjYcO4Corn+4/E/AWKWMkIgTlMxAIuBiyhNxfH1s/bbC9gCS/Or30x9sFShJCBq0JZxooicL/W0nPU7gv9rHAqARL9yXGa3+Hes8/zPSGOpRC2fcu4afsclFN2Rh2UA3CKkikwykk0Ifd/uc2lvHDRXOxzEpQn6UyC8H5LNN7z5JWho2UsASLR9e6g6Fsv44gkKDDTN8NsV8ECBet2n+02KxaYfGBtmxeH2FEdtIgwxwNIRw47LEybAYTk/cw0PV8pZXWBNk8rI2d8Ls1df99tL/s87xjJSsBaDgXv60kpIdWAkDe8xvv1g9VywWoYeMA==
+ARC-Authentication-Results: i=1; lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com; dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DgGAIUsb; dkim-atps=neutral; spf=none (client-ip=2607:f8b0:4864:20::1033; helo=mail-pj1-x1033.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org) smtp.mailfrom=wkennington.com
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none) header.from=wkennington.com
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DR/3n50C;
+	dkim=pass (2048-bit key; unprotected) header.d=wkennington-com.20260707.gappssmtp.com header.i=@wkennington-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DgGAIUsb;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::52b; helo=mail-pg1-x52b.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
-Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com [IPv6:2607:f8b0:4864:20::52b])
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record) smtp.mailfrom=wkennington.com (client-ip=2607:f8b0:4864:20::1033; helo=mail-pj1-x1033.google.com; envelope-from=william@wkennington.com; receiver=lists.ozlabs.org)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com [IPv6:2607:f8b0:4864:20::1033])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lists.ozlabs.org (Postfix) with ESMTPS id 4jbvvy1F9kz2ySc
-	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 13:52:29 +1100 (AEDT)
-Received: by mail-pg1-x52b.google.com with SMTP id 41be03b00d2f7-cdb2e0062bbso3345746a12.1
-        for <openbmc@lists.ozlabs.org>; Fri, 27 Nov 2026 18:52:29 -0800 (PST)
+	by lists.ozlabs.org (Postfix) with ESMTPS id 4jc5F75wfWz2xlh
+	for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 20:52:59 +1100 (AEDT)
+Received: by mail-pj1-x1033.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso4004418a91.3
+        for <openbmc@lists.ozlabs.org>; Sat, 28 Nov 2026 01:52:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795834348; x=1796439148; darn=lists.ozlabs.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
-        b=DR/3n50Cwq86v/5fb8J/4GakP1vgfBZWMi1VTsm1EA2cYFMe0/UdhyXFaZh/sV/L8b
-         /2iwpToXt3SGRXGWuKeoQ2k/I9pbSQys+nVlIsznz2tW/2zPotGq2DbkDsvYHdQH4kvl
-         tPORJy2WlrQQXrHYHQkW3OAljMCb54qeTD4Q0f4q7T92hlY2dkZn54BhpW3R53Dq9/LL
-         v18TS7x9Wtrr0EZp+v7ScAj9jDaEWQ8VAhuPhg4aJORR/GrUUIP7XakDqTUaIgR5eMHA
-         IJCoG4Qcg07RDwjN1arzz1UeoH/D6+59M0PxM1XjpmGAuZ9ZvqjKPy1ooXWzkvgFmv/j
-         iUTA==
+        d=wkennington-com.20260707.gappssmtp.com; s=20260707; t=1795859576; x=1796464376; darn=lists.ozlabs.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZrDq8tmdXzrkRgk1EoLyp7UlG92pPquVxMGIdXH3Fx0=;
+        b=DgGAIUsbyNRk1oCDU4egf4g5LMyV6K1RU6ZxG+adRG3/dl9AkS1eoSeqVsULGJ5P8v
+         +nFtm8VAQgIUkbV14nGi0Uu2+wz2HQ8QtvdMnQHD01xf1cu9oq913EP80dQkVVdMchcd
+         olm5ocVeLRSc4cJfd+q7J0e/p6N4AHggKjBEcB7VA0Wxb53PY75PQLd3nDkbK1TiF1M+
+         SOsEXW62X1v3KLbZgP8kLWBTIGCVD5jYy+AoOecIFLyq5arz+E2G+SvWsNEi8B3gt5np
+         yC2i7Zc5gfcAIrWVtC+PN+O+sgyj0CkPU5/afIq8XJEVl6unEHtnLDAKSPdczy3d4X1U
+         JbuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795834348; x=1796439148;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tZEOAosPCU3HmTotZCFirLF+uBDQMvQZe2sF1tiSxjc=;
-        b=vet8vOmIEr0EvVPI1DXxgfyGufR9oOBMhwd8CxOGjYYDhlxeZQR5sgkjkk3J42kqZf
-         yp0z0DX4K72v4SG8KRdvXwd9qAoC8tMmRDYp2tN38xqpHAmCcfuKXAJ86MMjf76eo20c
-         JzNCLOR8hOAGNyJ+ztcnZzuz6r5jiRfnLkXuafGusgUzfvZeTOmzwr1J0SOj/x4WFpgg
-         JFI29W85P1qX4nn0NBRa73z3AzMglT/Xvhzz7lL7TJ72bvbNnQtZoOqzYVKjFx9P3epx
-         SxcEKXpDOa7Bfx5pz581kYutHpv9/u5E8KNQtzZJW09e8MeAMdjDjTDXEVctV3IfczY1
-         fS2Q==
-X-Forwarded-Encrypted: i=1; AL+hErFr+2ax3R4rt4BBEprLtl5DsPTCdOo1OZWFNSp8zydtQy4BcZzGTWOrM36e1Tx5r/C2rGOODO23@lists.ozlabs.org
-X-Gm-Message-State: APuU4Z9hKx4j26V3EpPQYjn3DiFLXE/uVuH3BQj8Ci+DzjzucWKQlP0U
-	I4BnK4/NjWciBf/LGJFNY92gdXwsm1YBO2xLxR+noEp1IgqPUyOLPkzFBYg5RFNlv2E=
-X-Gm-Gg: AZFdTZex2W5oT/jaKrfj3QeYpOUEMcHJzcXuAudkoeZUlpQcqC1OK/d9DtEL2nMgkM7
-	5FRi55mCoC/cxW+qwE8ni3buZev5dy6CF/KoaBO1zEz8pnpgVdHiNLle9Np1uNs+oo1Z7O49B3q
-	du8/uRl79+QKVj3Yor2R8+IhrVKerbbenfrE3w6U/+C8FlTZGnGXHcp1xvhLOjp1lvUtlSatWQm
-	MkmA460S7SB1l4c6dnKoh51vfW3Y8cfUnXaqqULXJYrE06DXTcmG7yIOklfi8S2TVTSPGS0cawq
-	t5Ln2CZF70+5WR9kU+SPiRyKRczj5RvyjosfGL9Kmi1Jg7XwPOjLueZeDu+bjO61QCCg2Zu2bMJ
-	WTwkJFyuz+Jq4Fa9HdLOKOHtlKVl89Kk8ub9zPyVznoIawPK1c3vT7wUUPUCBmJJErcay0s9ktp
-	4BVa+GcvKTL6vEd/nzSqyMjSc8ldMWlTdF0Qc93kI2Cdek1sTegEoVfz90SUm3gSA3KZ6F2012q
-	kwagPgP/WmAIv2eSv/3e/tv7gNbOa9ZPA9BbVniKhKES6hWN8MdnKW00FjaxVyrfBpxNsU7qllK
-	kzler9FLTdiFmXi/RrrR/gCL1gWssYlcohFg1KVakJe6PYM4hTMeRpwOYSCNrgRgsS8HY/HPOu3
-	hxBKM8JdGi8krLA==
-X-Received: by 2002:a17:90b:2f8f:b0:3b0:ad59:7199 with SMTP id 98e67ed59e1d1-3b41c942629mr23863138a91.32.1795834347869;
-        Fri, 27 Nov 2026 18:52:27 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795859576; x=1796464376;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZrDq8tmdXzrkRgk1EoLyp7UlG92pPquVxMGIdXH3Fx0=;
+        b=wNTwIUZavfXea1LxCd7qyM6tyviwctoeEm4mdXcNbyNDeUVRhrRR9yGX2re8D89hKW
+         R1jz5SA+TYWnjaETi8R12S029BCctOhhHZnp+4xTZuXN84qfQCL3xzr/aKumxD+4rfQk
+         auLNCzAVLnWIB8X096hK++m0Ovtk6Rz6CeW0df+JkJ/aybrTaK7gt4tetDNYQLldezD8
+         DSP2F9FkDpggy1jCjBumoTC+Fk2iabCJb9T+BpKvITNydhGEdhgPBA4td5rdAfFEY8Er
+         uonutsOc8XX0I0KrY/PW37TZSpSp84vvg598tEBEY8zMmllvFIL5E9vvAtpR9O63Tufl
+         p9BQ==
+X-Forwarded-Encrypted: i=1; AL+hErHHBQtS1YUubwj5EtXoyCTqi+nYB4+Ox5q04+2dx/Z2OflFz4Fm3dRGvOEomue75jErjIgAl43+@lists.ozlabs.org
+X-Gm-Message-State: APuU4Z9dbalCQwaaGNSfTkCjneKBAROMN9yLrSBoeT/qBiMJdu3SIuCy
+	H3cVTrKvG+IgaPWIV06g1XBaHmODNTOtL5rqM7ehDWwVBs64yQgfcfPLsPTQdNMj2io=
+X-Gm-Gg: AZFdTZd8+jtUcn0q+JmPMnFwcY4WChpv4udZcWVv3YeMe4kzOaLvOlIo0LfgM3dNDPm
+	+R5pdv4aQFoqaRDMPjsZ+whi+wMu0NKolHPYs+AtkMVgHPVUmHcDZbC/vVNUR+bQFmdJyKvTuQt
+	MWVh0FR9inRSpTBLJOqc2YCu6zus9/XxcfUcakFuZGcMQPP9jk9PMqZWdBJGP/MPNuDE2aXantw
+	mQEdKL9ywhEelxMIljbDPVsGgxRv68hFqsnqLtPuzZO08I6c55AePSxjZO7pKVoNyOTFzGeBMET
+	mC7Yz0xu5p41EkzMRDQCh1522pkWbzO/V2r8cM9+O630gTIfbN7YfPoLp4ChoY9lo5y6cPODznP
+	xbAIerQw85ayYa36270bOrsp4W5OyXNmUw0+LX0hCoxrNcqdAf4xdvlgSaewPrrvvbKLVUBdh6y
+	RqMinyBetw09PJ2bpl5vKWnye5zZXJLhJmEXbeYeKMJSqzQfYAwmztxTMZ7oa+T1CcYUKV+38eq
+	OLA+ZV7uXf37EdM1GmC61TYZTYimujHo/57BuVREul14ULtDB/cJzEvK8BRxHH+oSwOXrRVVYli
+	NigK4YJ1AEFb8+aRFr2hr3rXFscfWOoVmsWSn0C2mULVl4JrRFVAe+ILlqM1/uDjxxowk3V4rL7
+	oF69GKltU2YfUUdSjcWolQPPpbxLmenfcVTQ=
+X-Received: by 2002:a17:90b:2f8f:b0:3b3:b0f4:1bf7 with SMTP id 98e67ed59e1d1-3b41c8d460emr27534660a91.23.1795859576339;
+        Sat, 28 Nov 2026 01:52:56 -0800 (PST)
 Received: from wak.c.googlers.com.com (246.21.127.34.bc.googleusercontent.com. [34.127.21.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ffa98esm43492413a91.17.2026.11.27.18.52.27
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b495035339sm29481748a91.0.2026.11.28.01.52.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2026 18:52:27 -0800 (PST)
+        Sat, 28 Nov 2026 01:52:56 -0800 (PST)
 From: "William A. Kennington III" <william@wkennington.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+To: Andrew Jeffery <andrew@codeconstruct.com.au>,
 	Avi Fishman <avifishman70@gmail.com>,
 	Tomer Maimon <tmaimon77@gmail.com>,
 	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: Patrick Venture <venture@google.com>,
 	Nancy Yuen <yuenn@google.com>,
 	Benjamin Fair <benjaminfair@google.com>,
-	Joel Stanley <joel@jms.id.au>,
-	=?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
 	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	"William A. Kennington III" <william@wkennington.com>
-Subject: [PATCH 2/2] clocksource/drivers/timer-npcm7xx: Register timer1 as sched_clock
-Date: Sat, 28 Nov 2026 02:52:24 +0000
-Message-ID: <20261128025224.2680046-3-william@wkennington.com>
+Subject: [PATCH v3] ARM: npcm: Add CPU hotplug callbacks for kexec support
+Date: Sat, 28 Nov 2026 09:52:54 +0000
+Message-ID: <20261128095254.358131-1-william@wkennington.com>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261128025224.2680046-1-william@wkennington.com>
-References: <20261128025224.2680046-1-william@wkennington.com>
 X-Mailing-List: openbmc@lists.ozlabs.org
 List-Id: <openbmc.lists.ozlabs.org>
 List-Help: <mailto:openbmc+help@lists.ozlabs.org>
@@ -114,57 +108,252 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-timer-npcm7xx starts timer1 as a 24-bit free-running down-counter and
-registers it as a clocksource, but never calls sched_clock_register().
-sched_clock() then falls back to jiffies, which leaves
-CONFIG_IRQ_TIME_ACCOUNTING disabled at runtime and gives coarse
-scheduler and printk timestamps.
+kexec_load() fails with -EINVAL on NPCM7xx because the platform does not
+provide the CPU hotplug callbacks that machine_kexec_prepare() requires
+on SMP systems. Add them.
 
-Register timer1 with sched_clock_register() using an inverted
-readl_relaxed() callback matching clocksource_mmio_readl_down(). The
-counter is the one the clocksource already reads, so its 24-bit wrap
-(about 1.3 s at 12.5 MHz) is not a new constraint.
+The NPCM7xx cannot reset or power down a single core, so hand an offlined
+core back to the boot ROM instead of leaving it in a WFI loop in kernel
+text. The dying core switches to a static stack, takes the identity
+mapping, disables caches and branch prediction, flushes L1, leaves
+coherency, turns the MMU off and jumps to the reset vector in the ROM.
+The ROM then parks it as it does after a real reset, overwriting SCRPAD
+and waiting in WFE for npcm7xx_smp_boot_secondary(). The core can
+therefore be brought back online, and it no longer executes from RAM that
+a kexec'd kernel is free to overwrite.
 
-Tested on an NPCM730 BMC, where sched_clock now has 80 ns resolution.
-The driver also binds nuvoton,wpcm450-timer, which was not tested.
+cpu_kill() waits for the ROM to overwrite the kernel entry point left in
+SCRPAD before reporting the core dead.
+
+Map the GCR once in smp_prepare_cpus() since it is now also needed after
+init.
 
 Signed-off-by: William A. Kennington III <william@wkennington.com>
 ---
- drivers/clocksource/timer-npcm7xx.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Changes in v3:
+- Park offlined secondary cores back in the boot ROM reset vector instead of a
+  WFI loop in kernel text so cores can be re-onlined and do not execute from
+  RAM across kexec.
+- Poll GCR SCRPAD in cpu_kill() until the ROM overwrites the kernel entry
+  point, and map GCR once in smp_prepare_cpus().
+- Drop Tomer's Reviewed-by due to the implementation rewrite.
+- Link to v2: https://lore.kernel.org/r/20231102101009.15104-1-william@wkennington.com
 
-diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
-index c7377f30e95a..f4b828d7c183 100644
---- a/drivers/clocksource/timer-npcm7xx.c
-+++ b/drivers/clocksource/timer-npcm7xx.c
-@@ -14,6 +14,7 @@
- #include <linux/clk.h>
+Changes in v2:
+- Fix NPCM7xx/NPCN8xx typo in the commit message.
+
+ arch/arm/mach-npcm/headsmp.S |  38 ++++++++++++
+ arch/arm/mach-npcm/platsmp.c | 109 ++++++++++++++++++++++++++++-------
+ 2 files changed, 127 insertions(+), 20 deletions(-)
+
+diff --git a/arch/arm/mach-npcm/headsmp.S b/arch/arm/mach-npcm/headsmp.S
+index 84d2b6daaf0b..1718b70b7e1d 100644
+--- a/arch/arm/mach-npcm/headsmp.S
++++ b/arch/arm/mach-npcm/headsmp.S
+@@ -5,6 +5,7 @@
+ #include <linux/linkage.h>
+ #include <linux/init.h>
+ #include <asm/assembler.h>
++#include <asm/cp15.h>
+ 
+ .arch armv7-a
+ 
+@@ -17,3 +18,40 @@ ENTRY(npcm7xx_secondary_startup)
+ 
+ 	b	secondary_startup
+ ENDPROC(npcm7xx_secondary_startup)
++
++#ifdef CONFIG_HOTPLUG_CPU
++/*
++ * void npcm7xx_cpu_park(unsigned long phys_reset, unsigned long rom_addr)
++ *
++ * Exit cache coherency and jump back to the boot ROM reset vector via
++ * cpu_reset() in the identity mapping.  Must be called after
++ * setup_mm_for_reboot() with IRQs and FIQs disabled, and must not access
++ * memory or the stack once SCTLR.C is cleared.
++ */
++ENTRY(npcm7xx_cpu_park)
++	mov	r7, r0
++	mov	r8, r1
++
++	mrc	p15, 0, r0, c1, c0, 0
++	bic	r0, r0, #(CR_I | CR_Z)
++	bic	r0, r0, #(CR_C | CR_A)
++	mcr	p15, 0, r0, c1, c0, 0
++	isb
++
++	bl	v7_flush_dcache_louis
++
++	mrc	p15, 0, r0, c1, c0, 1
++	bic	r0, r0, #(1 << 6)		@ clear ACTLR.SMP
++	mcr	p15, 0, r0, c1, c0, 1
++
++	mov	r0, #0
++	mcr	p15, 0, r0, c7, c5, 0		@ ICIALLU
++	mcr	p15, 0, r0, c7, c5, 6		@ BPIALL
++	dsb
++	isb
++
++	mov	r0, r8
++	mov	r1, #0
++	bx	r7
++ENDPROC(npcm7xx_cpu_park)
++#endif
+diff --git a/arch/arm/mach-npcm/platsmp.c b/arch/arm/mach-npcm/platsmp.c
+index 4c1fc9983746..6055d44075ac 100644
+--- a/arch/arm/mach-npcm/platsmp.c
++++ b/arch/arm/mach-npcm/platsmp.c
+@@ -7,37 +7,35 @@
+ #include <linux/delay.h>
+ #include <linux/smp.h>
  #include <linux/io.h>
- #include <linux/clockchips.h>
-+#include <linux/sched_clock.h>
- #include <linux/of_irq.h>
++#include <linux/iopoll.h>
+ #include <linux/of.h>
  #include <linux/of_address.h>
- #include "timer-of.h"
-@@ -166,6 +167,11 @@ static void __init npcm7xx_clockevents_init(void)
- 					0x1, NPCM7XX_Tx_MAX_CNT);
+ #include <asm/cacheflush.h>
++#include <asm/idmap.h>
++#include <asm/irqflags.h>
++#include <asm/proc-fns.h>
+ #include <asm/smp.h>
+ #include <asm/smp_plat.h>
+ #include <asm/smp_scu.h>
+ 
+ #define NPCM7XX_SCRPAD_REG 0x13c
+ 
++/* The boot ROM is mapped at the high vectors and holds the reset vector. */
++#define NPCM7XX_ROM_RESET_VECTOR 0xffff0000
++
+ extern void npcm7xx_secondary_startup(void);
++#ifdef CONFIG_HOTPLUG_CPU
++extern void __noreturn npcm7xx_cpu_park(unsigned long phys_reset,
++					unsigned long rom_addr);
++#endif
++
++static void __iomem *gcr_base;
+ 
+ static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+ 				      struct task_struct *idle)
+ {
+-	struct device_node *gcr_np;
+-	void __iomem *gcr_base;
+-	int ret = 0;
+-
+-	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
+-	if (!gcr_np) {
+-		pr_err("no gcr device node\n");
+-		ret = -ENODEV;
+-		goto out;
+-	}
+-	gcr_base = of_iomap(gcr_np, 0);
+-	of_node_put(gcr_np);
+-	if (!gcr_base) {
+-		pr_err("could not iomap gcr");
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (!gcr_base)
++		return -ENODEV;
+ 
+ 	/* give boot ROM kernel start address. */
+ 	iowrite32(__pa_symbol(npcm7xx_secondary_startup), gcr_base +
+@@ -45,13 +43,12 @@ static int npcm7xx_smp_boot_secondary(unsigned int cpu,
+ 	/* make sure the previous write is seen by all observers. */
+ 	dsb_sev();
+ 
+-	iounmap(gcr_base);
+-out:
+-	return ret;
++	return 0;
  }
  
-+static u64 notrace npcm7xx_read_sched_clock(void)
-+{
-+	return ~(u64)readl_relaxed(npcm7xx_to.of_base.base + NPCM7XX_REG_TDR1);
+ static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+ {
++	struct device_node *gcr_np;
+ 	struct device_node *scu_np;
+ 	void __iomem *scu_base;
+ 
+@@ -70,11 +67,83 @@ static void __init npcm7xx_smp_prepare_cpus(unsigned int max_cpus)
+ 	scu_enable(scu_base);
+ 
+ 	iounmap(scu_base);
++
++	gcr_np = of_find_compatible_node(NULL, NULL, "nuvoton,npcm750-gcr");
++	if (!gcr_np) {
++		pr_err("no gcr device node\n");
++		return;
++	}
++	gcr_base = of_iomap(gcr_np, 0);
++	of_node_put(gcr_np);
++	if (!gcr_base)
++		pr_err("could not iomap gcr\n");
 +}
 +
- static void __init npcm7xx_clocksource_init(void)
- {
- 	u32 val;
-@@ -184,6 +190,9 @@ static void __init npcm7xx_clocksource_init(void)
- 				"npcm7xx-timer1", timer_of_rate(&npcm7xx_to),
- 				200, (unsigned int)NPCM7XX_Tx_TDR_MASK_BITS,
- 				clocksource_mmio_readl_down);
-+	sched_clock_register(npcm7xx_read_sched_clock,
-+			     NPCM7XX_Tx_TDR_MASK_BITS,
-+			     timer_of_rate(&npcm7xx_to));
++#ifdef CONFIG_HOTPLUG_CPU
++/*
++ * The dying CPU moves to this stack before it takes the identity mapping,
++ * because its vmapped idle stack is not guaranteed to be mapped there. One
++ * stack is enough: CPU hotplug is serialised and npcm7xx_cpu_kill() waits
++ * for the CPU to leave the kernel.
++ */
++static u64 npcm7xx_cpu_die_stack[64];
++
++/*
++ * The SoC cannot reset or power down a single core, so hand the core back
++ * to the boot ROM instead. Entered through the reset vector with the MMU
++ * and caches off, the ROM parks a secondary core the same way it does
++ * after a real reset: it overwrites SCRPAD and waits in WFE for
++ * npcm7xx_smp_boot_secondary(). The core no longer executes from RAM.
++ */
++static void __noreturn npcm7xx_cpu_reset(void)
++{
++	unsigned long phys_reset = virt_to_idmap(cpu_reset);
++
++	setup_mm_for_reboot();
++	npcm7xx_cpu_park(phys_reset, NPCM7XX_ROM_RESET_VECTOR);
++}
++
++static void npcm7xx_cpu_die(unsigned int cpu)
++{
++	u64 *stack = npcm7xx_cpu_die_stack +
++		     ARRAY_SIZE(npcm7xx_cpu_die_stack);
++
++	local_fiq_disable();
++
++	asm volatile("mov\tsp, %0\n\t"
++		     "mov\tfp, #0\n\t"
++		     "bx\t%1"
++		     :
++		     : "r" (stack), "r" (npcm7xx_cpu_reset)
++		     : "memory");
++
++	unreachable();
++}
++
++static int npcm7xx_cpu_kill(unsigned int cpu)
++{
++	u32 val;
++
++	if (!gcr_base)
++		return 0;
++
++	/*
++	 * The boot ROM overwrites the kernel entry point left in SCRPAD once
++	 * the core is parked, so wait for that before declaring it dead.
++	 */
++	return !readl_poll_timeout(gcr_base + NPCM7XX_SCRPAD_REG, val,
++				   val != __pa_symbol(npcm7xx_secondary_startup),
++				   100, 100 * USEC_PER_MSEC);
  }
++#endif
  
- static int __init npcm7xx_timer_init(struct device_node *np)
+ static struct smp_operations npcm7xx_smp_ops __initdata = {
+ 	.smp_prepare_cpus = npcm7xx_smp_prepare_cpus,
+ 	.smp_boot_secondary = npcm7xx_smp_boot_secondary,
++#ifdef CONFIG_HOTPLUG_CPU
++	.cpu_die = npcm7xx_cpu_die,
++	.cpu_kill = npcm7xx_cpu_kill,
++#endif
+ };
+ 
+ CPU_METHOD_OF_DECLARE(npcm7xx_smp, "nuvoton,npcm750-smp", &npcm7xx_smp_ops);
 
